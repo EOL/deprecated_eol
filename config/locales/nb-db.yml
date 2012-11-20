@@ -5,7 +5,7 @@
 # Author: Wouterkoch
 nb: 
   translated_activities-name-activity_id-19: profil
-  translated_activities-name-activity_id-50: upålitelig
+  translated_activities-name-activity_id-50: uklarert
   translated_activities-name-activity_id-51: vis
   translated_activities-name-activity_id-52: opprett
   translated_activities-name-activity_id-53: skjul
@@ -13,7 +13,7 @@ nb:
   translated_activities-name-activity_id-55: upassende
   translated_activities-name-activity_id-56: slett
   translated_activities-name-activity_id-57: vurder
-  translated_activities-name-activity_id-58: pålitelig
+  translated_activities-name-activity_id-58: klarert
   translated_activities-name-activity_id-59: uvurdert
   translated_activities-name-activity_id-63: samle inn
   translated_activities-name-activity_id-64: fjern
@@ -70,6 +70,7 @@ nb:
   translated_contact_subjects-title-contact_subject_id-27: Bli en innholdspartner
   translated_contact_subjects-title-contact_subject_id-28: Innholdspartnerstøtte
   translated_contact_subjects-title-contact_subject_id-29: Kuratorstøtte
+  translated_contact_subjects-title-contact_subject_id-31: Bidra med bilder, videoer eller lyder
   translated_contact_subjects-title-contact_subject_id-33: Gi et finansielt bidrag
   translated_contact_subjects-title-contact_subject_id-34: Tekniske spørsmål (problemer med søk, nettstedsfunksjonalitet)
   translated_contact_subjects-title-contact_subject_id-35: Generell tilbakemelding
@@ -325,8 +326,8 @@ nb:
   translated_user_identities-label-user_identity_id-4: en borgerforsker
   translated_user_identities-label-user_identity_id-5: en profesjonell vitenskapsmann
   translated_vetted-label-vetted_id-0: Ukjent
-  translated_vetted-label-vetted_id-4: Upålitelig
-  translated_vetted-label-vetted_id-5: Pålitelig
+  translated_vetted-label-vetted_id-4: Uklarert
+  translated_vetted-label-vetted_id-5: Klarert
   translated_vetted-label-vetted_id-6: Upassende
   translated_view_styles-name-view_style_id-1: Liste
   translated_view_styles-name-view_style_id-2: Galleri

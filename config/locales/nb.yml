@@ -1,130 +1,1467 @@
-# Messages for Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+# Messages for Norwegian Bokmål (norsk (bokmål)‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Nghtwlkr
+# Author: Wouterkoch
 nb: 
+  0_1_or_2: 0, 1 eller 2
+  0_or_1: 0 eller 1
+  a_taxon: et takson
   about_eol: Om EOL
   account_information: Kontoinformasjon
+  account_information_menu: Kontoinformasjon
   account_registered_but_not_ready_try_later: Kontoen din er registrert men er ikke klar for å bli brukt. Prøv igjen om fem minutter.
+  action: Handling
+  action_not_available_error: Beklager, den handlingen er ikke tilgjengelig.
+  actions: Handlinger
+  active: Aktiv
+  active_colon: "Aktiv:"
+  activerecord: 
+    attributes: 
+      collection: 
+        additional_annotation_fields: Ytterlige annoteringsfelt
+        description: Samlingsbeskrivelse
+        logo: Primært samlingsbilde
+        name: Samlingsnavn
+        show_references: Referanser (tekst eller URL)
+        sort_style_id: Standard sorteringsretning
+      collection_item: 
+        annotation: Annotering
+        refs: Referanser
+        sort_field: Sorter etter
+      comment: 
+        body: Kommentar
+      community: 
+        description: Brukersamfunnsbeskrivelse
+        logo: Last opp en logo
+        name: Brukersamfunnsnavn
+      contact: 
+        comments: Melding
+        contact_subject_id: Kontaktemne
+        email: E-post
+        name: Navn
+      content_page: 
+        active: Publisert
+        page_name: Unikt navn
+        sort_order: Sorteringsrekkefølge
+      content_partner: 
+        acronym: Prosjektforkortelse
+        admin_notes: Administrasjonsmerknader
+        auto_publish: Autopubliser
+        content_partner_status: Prosjektstatus
+        created_at: Opprettet
+        description: Prosjektbeskrivelse
+        display_name: Visningsnavn
+        full_name: Prosjektnavn
+        homepage: Prosjektadresse
+        id: ID
+        notes: Prosjektnotater
+        public: Offentlig
+        resources: Ressurser
+        user_id: Administrert av
+        vetted: Gransket
+      content_partner_agreement: 
+        created_at: Opprettet
+        signed_by: Signert av
+        signed_on_date: Signert
+      content_partner_contact: 
+        email_reports_frequency_hours: Frekvens på e-postrapporter
+      data_object: 
+        bibliographic_citation: Bibliografisk sitering
+        description: Beskrivelse
+        object_title: Tittel
+        rights_holder: Rettighetsinnehaver
+        rights_statement: Rettighetsuttalelse
+        source_url: Kildeadresse
+      eol_statistic: 
+        active_curators: Aktive kuratorer
+        base_pages: Basissider
+        collections_count: Samlinger
+        communities_count: Brukersamfunn
+        content_partners: Innholdspartnere
+        content_partners_with_published_resources: Med publiserte ressurser
+        content_partners_with_published_trusted_resources: Med publiserte klarerte ressurser
+        created_at: Opprettet
+        curator_actions_in_the_last_30_days: Kuratorhandlinger de siste 30 dagene
+        curators: Kuratorer
+        curators_assistant: Assistentkuratorer
+        curators_full: Fullstendige kuratorer
+        curators_master: Mestarkuratorer
+        data_objects: Dataobjekter
+        data_objects_images: Bildeobjekter
+        data_objects_maps: Kartobjekter
+        data_objects_sounds: Lydobjekter
+        data_objects_texts: Tekstobjekter
+        data_objects_trusted: Klarerte dataobjekter
+        data_objects_trusted_or_unreviewed_but_hidden: Klarert eller uvurdert, men skjult
+        data_objects_unreviewed: Uvurderte dataobjekter
+        data_objects_untrusted: Uklarerte dataobjekter
+        data_objects_videos: Videoobjekter
+        hotlist_pages: Sider om prioriterte organismer
+        lifedesk_data_objects: LifeDesks-dataobjekter
+        lifedesk_taxa: LifeDesks-taksa
+        marine_pages: Marine sider
+        marine_pages_in_col: Marine sider funnet i CoL
+        marine_pages_with_objects: Marine sider med dataobjekt
+        marine_pages_with_objects_vetted: Marine sider med klarerte dataobjekt
+        members_count: Medlemmer
+        newly_published_resources_in_the_last_30_days: Nylig publisert den siste måneden
+        objects_curated_in_the_last_30_days: Objekter kuratert de siste 30 dagene
+        pages_count: Totalt antall sider
+        pages_curated_by_active_curators: Sider kuratert av aktive kuratorer
+        pages_with_BHL_links: Sider med BHL-koblinger
+        pages_with_BHL_links_no_text: Sider med BHL-koblinger men ingen tekst
+        pages_with_BHL_links_only: Sider med bare BHL-koblinger
+        pages_with_at_least_a_curatorial_action: Sider med kuratoriske handlinger
+        pages_with_at_least_a_trusted_object: Sider med klarerte objekter
+        pages_with_content: Sider med innhold
+        pages_with_image: Sider med bilde
+        pages_with_image_no_text: Sider med bilde men ingen tekst
+        pages_with_map: Sider med kart
+        pages_with_score_10_to_39: Sider med 10-40 poeng
+        pages_with_score_less_than_10: Sider med mindre enn 10 poeng
+        pages_with_sound: Sider med lyd
+        pages_with_text: Sider med tekst
+        pages_with_text_no_image: Sider med tekst men ingen bilde
+        pages_with_video: Sider med videoklipp
+        pages_without_image: Sider uten bilde
+        pages_without_text: Sider uten tekst
+        published_resources: Publiserte ressurser
+        published_trusted_resources: Publiserte klarerte ressurser
+        published_unreviewed_resources: Publiserte uvurderte ressurser
+        redhotlist_pages: Sider om topprioriterte organismer
+        rich_hotlist_pages: Innholdsrike sider om prioriterte organismer
+        rich_pages: Innholdsrike sider
+        rich_redhotlist_pages: Innholdsrike sider om topprioriterte organismer
+        udo_published: Bruker-sendt tekst
+        udo_published_by_curators: Kurator-sendt tekst
+        udo_published_by_non_curators: Ikke-kurator-sendt tekst
+      harvest_event: 
+        resource: Ressurs
+      hierarchy: 
+        browsable: Kan blas gjennom
+        complete: Ferdig
+        description: Beskrivelse
+        descriptive_label: Beskrivende etikett
+        label: Etikett
+        request_publish: Be om publisering
+      name: 
+        string: Navn
+      news_item: 
+        active: Publisert
+        page_name: Unikt navn
+        sort_order: Sorteringsrekkefølge
+      notification: 
+        changes_to_my_watched_collection: Endringer i samlinger på din overvåkningsliste
+        changes_to_my_watched_community: Endringer i brukersamfunn på din overvåkningsliste
+        comment_on_my_collection: En kommentar på en samling du administrerer
+        comment_on_my_community: En kommentar i et av brukersamfunnene du er medlem i
+        comment_on_my_contribution: En kommentar og/eller kuratoriell handling på et bidrag du har gjort
+        comment_on_my_profile: En kommentar på din profil
+        comment_on_my_watched_item: Kommentarer på objekt, taksa, samlinger eller brukersamfunn i din overvåkningsliste
+        curation_on_my_watched_item: Kuratorhandlinger på objekter, taksa, samlinger eller brukersamfunn på din overvåkningsliste
+        eol_newsletter: Send meg det kvartalvise EOL-nyhetsbrevet
+        i_am_being_watched: Du ble lagt til et annet medlems overvåkningsliste
+        invitation_to_community: Invitasjon til å bli med i et brukersamfunn
+        made_me_a_manager: Du har blitt administrator for en samling eller brukersamfunn
+        member_joined_my_community: Et brukersamfunn du administrerer har fått et nytt medlem
+        member_joined_my_watched_community: Nye medlemmer har blitt med i et brukersamfunn du er medlem av
+        member_left_my_community: Medlemmer har meldt seg ut av et brukersammfunn du administrerer
+        new_data_on_my_watched_item: Nye bidrag til taksa på din overvåkningsliste
+        new_manager_in_my_community: Et annet medlem har blitt administrator i et brukersamfunn du administrerer
+        reply_to_comment: Et svar på en kommentar du har skrevet
+      open_authentication: 
+        created_at: Opprettet
+        guid: GUID
+        provider: Tredjepartsleverandør
+        updated_at: Sist oppdatert
+        user_id: Bruker-ID
+        verified_at: Siste verifisert
+      resource: 
+        accesspoint_url: Datasettadresse
+        auto_publish: Autopubliser
+        bibliographic_citation: Bibliografisk sitering
+        dataset: Datasettfil
+        description: Ressursbeskrivelse
+        dwc_archive_url: Darwin Core Archive-adresse
+        harvest_events: Innhøstinger
+        hierarchy: Hierarki
+        language_id: Standardspråk
+        license_id: Standardlisens
+        notes: Prosesseringsmerknader
+        resource_status_id: Ressursstatus
+        rights_holder: Standard rettighetsinnehaver
+        rights_statement: Standard rettighetsuttalelse
+        title: Ressursnavn
+        vetted: Gransket
+      translated_content_page: 
+        active_translation: Publisert
+        left_content: Navigasjon
+        main_content: Innhold
+        meta_description: Metadatabeskrivelse
+        meta_keywords: Metadatanøkkelord
+        title: Tittel
+      translated_news_item: 
+        active_translation: Publisert
+        body: Innhold
+        meta_description: Metadatabeskrivelse
+        meta_keywords: Metadatanøkkelord
+        title: Tittel
+      user: 
+        agreed_with_terms: Bruksbetingelser
+        api_key: API-nøkkel
+        bio: Bio
+        credentials: Akkreditiver
+        curator_level: Kuratornivå
+        curator_scope: Kurateringsområde
+        disable_email_notifications: Ikke send meg NOE oppdateringer per e-post
+        email: E-postadresse
+        email_confirmation: Passord på nytt <small>(bekreftelse)</small>
+        entered_password: Passord
+        entered_password_confirmation: Passord på nytt <small>(bekreftelse)</small>
+        family_name: Etternavn
+        full_name: Fullt navn
+        given_name: Fornavn
+        language_abbr: Foretrukket språk
+        requested_curator_level_id: Ønsket kuratornivå
+        tag_line: Motto
+        username: Brukernavn
+    errors: 
+      format: "%{attribute} %{message}"
+      full_messages: 
+        format: "%{attribute} %{message}"
+      messages: 
+        accepted: må aksepteres
+        blank: kan ikke være tom
+        confirmation: passer ikke med bekreftelsen
+        empty: kan ikke være tom
+        equal_to: må være lik %{count}
+        even: må være partall
+        exclusion: er reservert
+        greater_than: 
+          one: må være større enn %{count}
+          other: må være større enn %{count}
+        greater_than_or_equal_to: må være større enn eller lik %{count}
+        inaccessible: er utilgjengelig
+        inclusion: er ikke med i listen
+        invalid: er ugyldig
+        less_than: 
+          one: må være mindre enn %{count}
+          other: må være mindre enn %{count}
+        less_than_or_equal_to: må være mindre enn eller lik %{count}
+        not_a_number: er ikke et tall
+        not_an_integer: må være et heltall
+        odd: må være oddetall
+        record_invalid: "Validering mislyktes: %{errors}"
+        taken: er allerede tatt
+        too_long: 
+          one: er for lang (maksimum er %{count} tegn)
+          other: er for lang (maksimum er %{count} tegn)
+        too_short: 
+          one: er for kort (minimum er %{count} tegn)
+          other: er for kort (minimum er %{count} tegn)
+        wrong_length: har feil lengde (må være %{count} tegn)
+        wrong_type: er gal type
+      models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: kan ikke være tom for en CC-BY-lisens
+              inclusion: må være tom for en offentlig eiendoms-lisens
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: kun tillatt for den siste innhøstingen og kun hvis den ikke er publisert allerede
+        open_authentications: 
+          guid_provider_must_be_unique: tredjepartskontoen er allerede koblet til en EOL-konto
+          provider_user_id_must_be_unique: bare en konto fra hver tredjepartsleverandør kan være koblet til en EOL-konto
+        resource: 
+          attributes: 
+            accesspoint_url: 
+              blank: kan ikke være blank, med mindre du laster opp en ressursfil i stedet
+              inaccessible: er utilgjengelig; adressen må være offentlig tilgjengelig
+              invalid: er ugyldig; den burde peke til en XML-, XML.GZIP-, XML.GZ- eller ZIP-fil
+            dataset: 
+              blank: kan ikke være tom med mindre du oppgir en datasettadresse i stedet
+              wrong_type: er gal type; den må være en GZIP-, TAR-, ZIP- eller XML-fil
+            dwc_archive_url: 
+              inaccessible: er utilgjengelig; adressen må være offentlig tilgjengelig
+              invalid: er ugyldig; den burde peke til en TAR.GZIP-, TAR.GZ-, TGZ- eller ZIP-fil
+      template: 
+        body: "Følgende felt ble ikke validert:"
+        header: 
+          one: "%{count} valideringsfeil funnet"
+          other: "%{count} valideringsfeil funnet"
+    models: 
+      user: konto
+  activity: Aktivitet
+  activity_logs: 
+    collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: En ukjent bruker ble lagt til som administrator av en ukjent samling.
+        an_unknown_user_of_collection: En ukjent bruker ble lagt til som administrator av samlingen "%{collection}".
+        an_unknown_user_of_it: En ukjent bruker ble lagt til som administrator.
+        user_of_an_unknown_collection: <strong>%{user}</strong> ble lagt til som administrator av en ukjent samling.
+        user_of_collection: <strong>%{user}</strong> ble lagt til som administrator av samlingen "%{collection}".
+        user_of_it: <strong>%{user}</strong> ble lagt til som administrator.
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En ukjent bruker har lagt et ukjent objekt til en ukjent samling.
+        an_unknown_user_added_an_unknown_item_to_collection: En ukjent bruker har lagt et ukjent objekt til samlingen "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: En ukjent bruker har lagt til et ukjent objekt.
+        an_unknown_user_added_item_to_an_unknown_collection: En ukjent bruker har lagt "%{item}" til en ukjent samling.
+        an_unknown_user_added_item_to_collection: En ukjent bruker har lagt "%{item}" til samlingen "%{collection}".
+        an_unknown_user_added_item_to_it: En ukjent bruker har lagt til "%{item}".
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> har lagt til et ukjent objekt til en ukjent samling.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> har lagt til et ukjent objekt til samlingen "%{collection}".
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> har lagt til et ukjent objekt.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> har lagt til "%{item}" til en ukjent samling.
+        user_added_item_to_collection: <strong>%{user}</strong> har lagt til "%{item}" til samlingen "%{collection}".
+        user_added_item_to_it: <strong>%{user}</strong> har lagt til "%{item}".
+      create: 
+        an_unknown_user_created_an_unknown_collection: En ukjent bruker har opprettet en ukjent samling.
+        an_unknown_user_created_collection: En ukjent bruker har opprettet samlingen "%{collection}".
+        an_unknown_user_created_it: En ukjent bruker har opprettet den.
+        user_created_an_unknown_collection: <strong>%{user}</strong> har opprettet en ukjent samling.
+        user_created_collection: <strong>%{user}</strong> har opprettet samlingen "%{collection}".
+        user_created_it: <strong>%{user}</strong> har opprettet den.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: En ukjent bruker har endret en ukjent samling.
+        an_unknown_user_modified_collection: En ukjent bruker har endret samlingen "%{collection}".
+        an_unknown_user_modified_it: En ukjent bruker endret den, og den nøyaktige endringen har gått tapt.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> har endret en ukjent samling.
+        user_modified_collection: <strong>%{user}</strong> har endret samlingen "%{collection}".
+        user_modified_it: <strong>%{user}</strong> endret den, men den nøyaktige endringen har gått tapt.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: En ukjent bruker har fjernet et ukjent objekt fra en ukjent samling.
+        an_unknown_user_removed_an_unknown_item_from_collection: En ukjent bruker har fjernet et ukjent objekt fra samlingen "%{collection}".
+        an_unknown_user_removed_an_unknown_item_from_it: En ukjent bruker har har fjernet et ukjent objekt.
+        an_unknown_user_removed_item_from_an_unknown_collection: En ukjent bruker har fjernet "%{item}" fra en ukjent samling.
+        an_unknown_user_removed_item_from_collection: En ukjent bruker har fjernet "%{item}" fra samlingen "%{collection}".
+        an_unknown_user_removed_item_from_it: En ukjent bruker har fjernet "%{item}".
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> har fjernet et ukjent objekt fra en ukjent samling.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> har fjernet et ukjent objekt fra samlingen "%{collection}".
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> har fjernet et ukjent objekt.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> har fjernet "%{item}" fra en ukjent samling.
+        user_removed_item_from_collection: <strong>%{user}</strong> har fjernet "%{item}" fra samlingen "%{collection}".
+        user_removed_item_from_it: <strong>%{user}</strong> har fjernet "%{item}".
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: En ukjent bruker har fjernet alle objekter fa en ukjent samling.
+        an_unknown_user_cleared_collection: En ukjent bruker har fjernet alle objekter fra samlingen "%{collection}".
+        an_unknown_user_cleared_it: En ukjent bruker har fjernet alle objekter.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> har fjernet alle objekter fra en ukjent samling.
+        user_cleared_collection: <strong>%{user}</strong> har fjernet alle objekter fra samlingen "%{collection}".
+        user_cleared_it: <strong>%{user}</strong> har fjernet alle objekter.
+    community_activity_log: 
+      add_manager: 
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> har lagt til "%{manager}" til et ukjent brukersamfunn.
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: En ukjent bruker har endret beskrivelsen av et ukjent brukersamfunn.
+        an_unknown_user_changed_the_description_of_community: En ukjent bruker har endret beskrivelsen av brukersamfunnet "%{community}".
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> har endret beskrivelsen av et ukjent brukersamfunn.
+        user_changed_the_description_of_community: <strong>%{user}</strong> har endret beskrivelsen av brukersamfunnet "%{community}".
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: En ukjent bruker har endret navnet til et ukjent brukersamfunn.
+        an_unknown_user_changed_the_name_of_community: En ukjent bruker har endret navnet til brukersamfunnet "%{community}".
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> har endret navnet til et ukjent brukersamfunn.
+        user_changed_the_name_of_community: <strong>%{user}</strong> har endret navnet til brukersamfunnet "%{community}".
+      create: 
+        an_unknown_user_created_an_unknown_community: En ukjent bruker har opprettet et ukjent brukersamfunn.
+        an_unknown_user_created_community: En ukjent bruker har opprettet brukersamfunnet "%{community}".
+        user_created_an_unknown_community: <strong>%{user}</strong> har opprettet et ukjent brukersamfunn.
+        user_created_community: <strong>%{user}</strong> har opprettet brukersamfunnet "%{community}".
+      join: 
+        an_unknown_user_joined_an_unknown_community: En ukjent bruker har blitt medlem i et ukjent brukersamfunn.
+        an_unknown_user_joined_community: En ukjent bruker har blit medlem i brukersamfunnet "%{community}".
+        user_joined_an_unknown_community: <strong>%{user}</strong> har blitt medlem i et ukjent brukersamfunn.
+        user_joined_community: <strong>%{user}</strong> har blitt medlem i brukersamfunnet "%{community}".
+      leave: 
+        an_unknown_user_left_an_unknown_community: En ukjent bruker har meldt seg ut av et ukjent brukersamfunn.
+        an_unknown_user_left_community: En ukjent bruker har meldt seg ut av brukersamfunnet "%{community}".
+        user_left_an_unknown_community: <strong>%{user}</strong> har meldt seg ut av et ukjent brukersamfunn.
+        user_left_community: <strong>%{user}</strong> har meldt seg ut av brukersamfunnet "%{community}".
+      other_actions: 
+        an_unknown_user_modified_community: En ukjent bruker har redigert brukersamfunnet "%{community}".
+        user_modified_an_unknown_community: <strong>%{user}</strong> har redigert et ukjent brukersamfunn.
+    curator_activity_log: 
+      reasons_to_hide: "Grunnlag for skjuling: %{reasons}"
+      reasons_to_untrust: "Grunnlag for uklarering: %{reasons}"
   add_to_my_collection_button: Legg til i min samling
-  admin: admin
+  admin_content_page_child_new_link: Opprett underordnet side
+  admin_content_partners_statistics_first_published_download_csv_submit: Last ned som CSV
+  admin_content_partners_statistics_link: Statistikker
+  admin_news_item_active: Publisert
+  admin_news_item_new_header: Opprett en ny nyhetssak
+  admin_news_item_new_link: Lag nyhetssak
+  admin_news_item_not_active: Upublisert
+  admin_news_items_empty: Ingen nyhetssaker funnet.
+  admin_news_link: Nyheter
+  admin_statistics_link: Statistikker
+  admin_translated_content_page_new_link: Legg til oversettelse
+  admin_translated_content_page_new_subheader: Legg til oversettelse for <em>%{page_name}</em>
+  admin_translated_news_item_active: Publisert
+  admin_translated_news_item_edit_tip: Tittel og innhold er %{required_icon} påkrevd.
+  admin_translated_news_item_new_header: Velg språk og legg til innhold
+  admin_translated_news_item_new_link: Legg til oversettelse
+  admin_translated_news_item_new_subheader: Legg til oversettelse for <em>%{page_name}</em>
+  admin_translated_news_item_not_active: Upublisert
+  admin_user_delete_successful_notice: Brukeren har blitt slettet
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Innholdspartnere
+        page_header: Innholdspartnerstatistikker
+        page_title: "Administrering: Innholdspartnerstatistikker"
+      curators: 
+        menu_link: Kuratorstatistikker
+        page_header: Kuratorstatistikker
+        page_title: "Administrering: Kuratorstatistikker"
+      data_objects: 
+        menu_link: Dataobjekter
+        page_header: Dataobjektstatistikker
+        page_title: "Administrering: Dataobjektstatistikker"
+      index: 
+        menu_link: Globale statistikker
+        page_header: Globale statistikker
+        page_title: "Administrering: Globale statistikker"
+        table_caption: Globale sidestatistikker generert %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: LifeDesks-statistikker
+        page_title: "Administrering: LifeDesks statistikker"
+      marine: 
+        menu_link: Marine statistikker
+        page_header: Marin dekning i EOL
+        page_title: "Administrering: Marine statistikker"
+      page_richness: 
+        menu_link: Innholdsrike sider
+      users_data_objects: 
+        menu_link: Bruker-sendt tekst
+  all: alle
+  all_articles: Alle artikler
+  all_changes: Alle endringer
+  all_collections: Alle samlinger
+  all_communities: Alle brukersamfunn
+  all_count: Alle (%{count})
+  all_errors: ALLE feilmeldinger
+  all_filter: alle
+  all_images: Alle bilder
   all_information: All informasjon
-  all_pages: Alle sider
+  all_items: Alle objekter
+  all_news: alle nyheter
+  all_people: Alle personer
+  all_sounds: Alle lyder
+  all_sources: Alle kilder
+  all_taxa: Alle taksa
+  all_title: Alle
+  all_videos: Alle videoer
+  allow_user_logins: Tillat brukerpålogginger
   already_a_member_question: Allerede et medlem?
-  already_member_of_community: Du er allerede et medlem av dette fellesskapet.
+  already_member_of_community: Du er allerede et medlem av dette brukersamfunnet.
   alternate_classification: Alternativ klassifisering
+  amount: Beløp
+  an_unknown_user: En ukjent bruker
+  and: og
+  and_between_form_items: og
+  annotation_cabs_colon: "Annotering:"
+  anonymous_user_full_name: Anonym bruker
+  anonymous_user_given_name: Anonym
+  anonymous_user_tag_line: Ikke logget inn
+  any_integer: et hvilket som helst heltall
   application_version_advisory_information: Programversjon
   are_you_sure: Er du sikker?
+  article_from: artikkel fra
+  article_from_supplier: Artikkel fra %{whom}
+  article_not_associated_with_any_published_entries: Denne artikkelen er ikke knyttet til noen publiserte taksa.
+  article_of_taxon: Artikkel av %{taxon_name}
+  article_rating: Artikkelvurdering
   assistive_details_header: Detaljer
+  assistive_literature_header: Litteratur
+  assistive_maps_header: Kart
   assistive_media_header: Media
+  assistive_names_classifictions_header: Klassifiseringer
+  assistive_names_common_header: Populærnavn
+  assistive_names_synonyms_header: Synonymer
   assistive_overview_header: Oversikt
+  assistive_taxon_community_header: Brukersamfunn
+  assistive_updates_header: Oppdateringer
+  assistive_updates_statistics_header: Sidestatistikk
+  associated_with_image_map_header: På det siste kartet
+  associated_with_map_header: På det siste kartet
+  audio_mute: demp
+  audio_pause: pause
+  audio_play: spill av
+  audio_stop: stopp
   authoritative_information: autoritativ informasjon
+  available: tilgjengelig
   average_rating_value_of_total: "Gjennomsnittsvurdering: %{rating} av %{total}"
+  back: Tilbake
+  back_to_profile: Tilbake til profil
+  began: Begynte
+  browsable: Kan blas gjennom
+  by_caps: Av
+  by_scientific_name_table_header: etter vitenskapelig navn
   cancel: Avbryt
-  cannot_be_associated_with_both_a_user_and_a_community: Kan ikke assosieres med både en bruker og et fellesskap
+  cancel_split: Avbryt
+  cannot_be_associated_with_both_a_user_and_a_community: Kan ikke assosieres med både en bruker og et brukersamfunn
   cannot_be_empty: kan ikke være tom.
+  cannot_create_collection_item_from_class_error: Vi kan ikke lage et samlingsobjekt fra en %{klass}
+  cannot_expand_children: kan ikke utvide underordnede objekter
+  cannot_index_collection_item_type_error: Vi kan ikke indeksere et samlingsobjekt fra en %{type}
+  change: Endre
   change_rating_to_1_of_5: Endre vurdering til 1 av 5
   change_rating_to_2_of_5: Endre vurdering til 2 av 5
   change_rating_to_3_of_5: Endre vurdering til 3 av 5
   change_rating_to_4_of_5: Endre vurdering til 4 av 5
   change_rating_to_5_of_5: Endre vurdering til 5 av 5
+  choose_collection_header: Velg samling
   citation: Sitering
+  citing_link: Siterer
+  classification_from_agent: Klassifisering fra %{agent}.
+  classification_preferred_for_taxon: Foretrukket
+  classification_summary_section_header: Klassifisering
+  classification_tree_header: Klassifisering
+  classifications_edit_cancelled_merge_to_self: Din kilde og målet er samme siden; ingenting å flytte.
+  classifications_exemplar_column_header: Eksemplar
+  classifications_hierarchy_column_header: Klassifisering
+  classifications_merge_additional_confirm_required: For å sammenslå disse klassifiseringer, ytterlige bekreftelse er påkrevd.
+  classifications_merge_providers_match_confirm: Jeg bekrefter at jeg vil overstyre denne innholdspartnerens påstand at disse dataene skal være separate.
+  classifications_merge_providers_match_warning: Du holder på å sammenslå to sider som %{provider} påstår skal være separate. Vennligst bekreft at du ønsker å <i>overstyre</i> deres påstand og plassere disse dataene på samme siden.
+  classifications_preferred_column_header: Foretrukket
+  classifications_recognized_by_column_header: Gjenkjent av
   classifications_summary_header_with_count: 
-    one: Del av %{count} godkjent klassifisering
-    other: Del av %{count} godkjente klassifiseringer
-  collections: Samlinger
+    one: Funnet i %{count} klassifisering
+    other: Funnet i %{count} klassifiseringer
+    zero: Klassifisering vanligvis ikke synlig på EOL
+  click: Klikk
+  cms_available_in_languages: "Denne siden er tilgjengelig på:"
+  cms_missing_content_message: Beklager, denne siden er ikke tilgjengelig på det valgte språket %{selected_language}.
+  cms_missing_content_title: Mangler oversettelse
+  collection_delete_link: Slett denne samlingen permanent
+  collection_destroyed: Samlingen ble slettet.
+  collection_image: Samlingsbilde
+  collection_is_empty: Denne samlingen er tom for øyeblikket.
+  collection_item_not_found_error: Det samlingsobjektet ble ikke funnet.
+  collection_name_cannot_be_blank: Samlingsnavn kan ikke være tom
+  collection_name_label: Samlingsnavn
+  collection_not_created_error: Beklager, det oppstod en feil, samlingen <em>%{collection_name}</em> kunne ikke opprettes.
+  collection_not_destroyed_error: Beklager, samlingen ble ikke slettet.
+  collection_not_found_error: Beklager, den samlingen ble ikke funnet.
+  collection_rating: Samlingsvurdering
+  collections: 
+    editors: 
+      show: 
+        meta_description: Administorer i Enyclopedia of Life-samlingen %{collection_name}.
+        meta_keywords: "%{collection_name}-administratorer"
+        meta_title: "%{collection_name}-administratorer"
+        tweet_text: "%{collection_name}-administratorer"
+    inaturalists: 
+      show: 
+        add_observations: Legg til observasjoner
+        meta_description: iNaturalist-observasjoner for Enyclopedia of Life-samlingen %{collection_name}.
+        meta_keywords: "%{collection_name} iNaturalist-observasjoner"
+        meta_title: "%{collection_name} iNaturalist-observasjoner"
+        no_observations_added_to_this_project_yet: Ingen observasjoner har blitt knyttet til dette prosjektet ennå.
+        observation_date: "Dato: %{observed_on}"
+        observation_place: "Sted: %{place}"
+        observer_with_link: "Observatør: %{observer_link}"
+        recent_observations: Nylige observasjoner
+        some_taxon: Noe
+        taxa_observed: 
+          one: "%{count} takson observert"
+          other: "%{count} taksa observert"
+        tweet_text: "%{collection_name} iNaturalist-observasjoner"
+        view_all_observations_on_inaturalist: Se alle observasjoner fra  %{project_title} på iNaturalist
+        view_more_observations_on_inaturalist: Se flere observasjoner fra  %{project_title} på iNaturalist
+        view_project_on_inaturalist: Vis %{project_title} på iNaturalist
+    newsfeeds: 
+      show: 
+        meta_description: Nyheter, kommentarer og medlemsaktivitet for Enyclopedia of Life-samlingen %{collection_name}.
+        meta_keywords: "%{collection_name}-nyheter"
+        meta_title: "%{collection_name}-nyheter"
+        tweet_text: "%{collection_name}-nyheter"
+    show: 
+      meta_description_default: En Encyclopedia of Life-samling med navnet %{collection_name}.
+      meta_description_default_watch_collection: "En Encyclopedia of Life-overvåkningsliste: %{collection_name}."
+      meta_keywords: "%{collection_name}, Encyclopedia of Life-samling"
+  collections_filter: Samlinger
+  collections_link: Samlinger
+  collections_page_title: Samlinger
   collections_summary_header_with_count: 
     one: Tilstede i %{count} samlingen
     other: Tilstede i %{count} samlingene
   collections_with_count: 
     one: "%{count} Samling"
     other: "%{count} Samlinger"
+  comment: Kommentar
+  comment_body_label: Din kommentar
+  comment_created_at: Opprettet
+  comment_delete_confirm: Er du sikker på at du vil slette denne kommentaren?
+  comment_new_title: Legg til en ny kommentar
+  comments: Kommentarer
+  comments_filter: Kommentarer
+  comments_moderated: Modererte kommentarer
+  comments_on: Kommentarer på
+  common_name: Populærnavn
   common_names_with_count: 
     one: "%{count} vanlig navn"
     other: "%{count} vanlige navn"
-  communities: Fellesskap
+  communities: 
+    collections: 
+      index: 
+        meta_description: Brukersamfunnssamlinger sammensatt av %{community_name}, et Encyclopedia of Life-brukersamfunn.
+        meta_keywords: "%{community_name}-samlinger"
+        meta_title: "%{community_name}-samlinger"
+        tweet_text: "%{community_name}-samlinger"
+    show: 
+      meta_description: Encyclopedia of Life-brukersamfunnet %{community_name} har blitt slettet av eieren
+      meta_title: "%{community_name} Slettet av eier"
+  communities_filter: Brukersamfunn
+  communities_index_empty: Der er ingen aktive brukersamfunn.
+  communities_index_header: Aktive brukersamfunn
+  communities_link: Brukersamfunn
+  communities_page_title: Brukersamfunn
   communities_summary_header_with_count: 
-    one: Tilhører %{count} fellesskap
-    other: Tilhører %{count} fellesskap
+    one: Tilhører %{count} brukersamfunn
+    other: Tilhører %{count} brukersamfunn
+  communities_that_can_edit_this_collection: Brukersamfunn som kan administrere denne samlingen
   communities_with_count: 
-    one: "%{count} Fellesskap"
-    other: "%{count} Fellesskap"
-  community: Fellesskap
-  community_activity: Fellesskapsaktivitet
-  community_focus: Fellesskapsfokus
-  community_members: Fellesskapsmedlemmer
+    one: "%{count} brukersamfunn"
+    other: "%{count} brukersamfunn"
+  community: Brukersamfunn
+  community_activity: Brukersamfunnsaktivitet
+  community_description_default: Et Encyclopedia of Life-brukersamfunn.
+  community_destroyed: Du har slettet dette brukersamfunnet. Det vil ikke vises på taksonsider eller søk.
+  community_empty_notice: Dette brukersamfunnet har ingen medlemmer.
+  community_focus: Administrerte samlinger
+  community_focus_items_with_count: 
+    one: "%{count} objekt"
+    other: "%{count} objekt"
+  community_invitation_comment: Jeg vil gjerne invitere deg til å bli medlem i "%{community}".
+  community_logo_alt_text: Logo for brukersamfunnet %{community_name}
+  community_managers_with_count: 
+    one: "%{count} brukersamfunnsadministrator"
+    other: "%{count} brukersamfunnsadministratorer"
+  community_members: Brukersamfunnsmedlemmer
+  community_members_with_count: 
+    one: "%{count} brukersamfunnsmedlem"
+    other: "%{count} brukersamfunnsmedlemmer"
+  community_name_label: Brukersamfunnsnavn
+  community_rating: Brukersamfunnsvurdering
+  community_tab_collections_header: Samlinger
+  completed: Fullført
+  confirm_password_colon: "Bekreft passord:"
+  contact: Kontakt
+  contact_information: Kontaktinformasjon
+  contact_updated: Kontaktperson oppdatert
+  contact_us: kontakt oss
   contact_us_link: Kontakt oss
-  content_partners: Innholdspartnere
+  contact_us_topics: Kontakt oss emner
+  contacts: 
+    new: 
+      page_title: Vennligst skriv inn din tilbakemelding.
+  containing_value: inneholder %{value}.
+  content: 
+    index: 
+      header_news: EOL-nyheter
+      meta_keywords: Dyr, Dyrebilder, Dyreinformasjon, Planter, Plantelivet, Plantebilder, Planteinformasjon, Flora, Fauna
+      meta_title: Dyr - Planter - Bilder & Informasjon
+      see_all_eol_news: se mer <span class="assistive">EOL-nyheter</span>
+      see_all_recent_activites: se mer <span class="assistive">aktivitet fra den siste uken</span>
+      see_all_statistics: se mer <span class="assistive">EOL-statistikker</span>
+  content_has_been_updated: Innhold har blitt oppdatert
+  content_notes_not_shown_to_us: "Innholdsnotater (vises ikke til brukeren):"
+  content_partner: Innholdspartner
+  content_partner_about_header: Om %{partner_name}
+  content_partner_agreement_cancel_edit_agreement_link: Avbryt
+  content_partner_agreement_cancel_new_agreement_link: Avbryt
+  content_partner_agreement_cancel_sign_agreement_link: Avbryt
+  content_partner_agreement_subheader: Innholdspartneravtale
+  content_partner_column_header_partner: Partner
+  content_partner_contact_create_successful_notice: Kontaktperson har blitt lagt til.
+  content_partner_contact_delete_successful_notice: Kontaktperson har blitt slettet.
+  content_partner_contacts_header: Kontakter
+  content_partner_current_agreement_create_link: Opprett ny
+  content_partner_current_agreement_edit_link: Rediger
+  content_partner_current_agreement_empty: Ingen avtale
+  content_partner_current_agreement_not_accepted: Ikke akseptert ennå
+  content_partner_current_agreement_view_link: Vis
+  content_partner_data_description_header: Beskrivelse av data
+  content_partner_edit_link: Rediger innholdspartner
+  content_partner_filter_option_published_latest_harvest_not_published: Siste upublisert
+  content_partner_filter_option_published_latest_harvest_published: Sist publisert
+  content_partner_filter_option_published_never_published: Aldri publisert
+  content_partner_filter_option_published_no_resources: Ingen ressurser
+  content_partner_filter_option_vetted_no: Nei
+  content_partner_filter_option_vetted_yes: Ja
+  content_partner_filter_published: Publisert
+  content_partner_has_unpublished_content_false: Ingen upublisert innhold
+  content_partner_has_unpublished_content_true: Upublisert innhold
+  content_partner_homepage_link: Besøk nettside til partner
+  content_partner_managed_by_header: Administrert av
+  content_partner_new_link: Legg til ny innholdspartner
+  content_partner_new_page_subheader: Legg til en ny innholdspartner
+  content_partner_notes_header: Prosjektnotater
+  content_partner_overview_agreement_header: Partneravtale
+  content_partner_overview_agreement_link: Vis gjeldende avtale
+  content_partner_overview_link: Partneroversikt
+  content_partner_overview_link_back_to: tilbake til partneroversikt
+  content_partner_profile_menu: Innholdspartnerprofil
+  content_partner_reports: Innholdspartnerrapporter
+  content_partner_resource_about_header: Om ressurs
+  content_partner_resource_auto_publish_false: Nei
+  content_partner_resource_auto_publish_true: Ja
+  content_partner_resource_collection_header: Publisert samling
+  content_partner_resource_collections_header: Samlinger
+  content_partner_resource_dataset_details_header: Datasett
+  content_partner_resource_edit_link: Rediger
+  content_partner_resource_edit_subheader: Rediger ressurs
+  content_partner_resource_edit_with_type_link: Rediger ressurs
+  content_partner_resource_harvest_event_not_published: Ikke publisert
+  content_partner_resource_harvest_event_previously_published: Tidligere publisert
+  content_partner_resource_hierarchy_browsable: Kan blas gjennom
+  content_partner_resource_hierarchy_edit_link: Rediger
+  content_partner_resource_hierarchy_not_browsable: Kan ikke blas gjennom
+  content_partner_resource_hierarchy_unknown: Ukjent
+  content_partner_resource_new_link: Legg til en ny ressurs
+  content_partner_resource_new_subheader: Legg til en ny ressurs
+  content_partner_resource_preview_collection_header: Forhåndsvis samling
+  content_partner_resource_preview_collection_show_link: Vis forhåndsvisning av samling
+  content_partner_resource_resource_status_new: Opprettet
+  content_partner_resource_show_link_back_to: tilbake til ressurs
+  content_partner_resource_vetted_false: Nei
+  content_partner_resource_vetted_true: Ja
+  content_partner_resource_view_link: Vis
+  content_partner_resources_header: Ressurser
+  content_partner_statistics_column_header_taxa_page_page_views: Sidevisninger
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Tid på siden (sekunder)
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Unike sidevisninger
+  content_partner_statistics_column_header_total_count: Alle sider
+  content_partner_statistics_empty: Ingen statistikker funnet for %{month_name} %{year}.
+  content_partner_statistics_link: Bruksstatistikk
+  content_partner_statistics_month_label: Måned
+  content_partner_statistics_year_label: År
+  content_partner_status_empty: Ukjent status
+  content_partner_vetted_false: Uvurdert
+  content_partner_vetted_true: Gransket
+  content_partners: 
+    edit: 
+      meta_title: Rediger %{partner_name}
+    index: 
+      meta_description: Liste over Encyclopedia of Life-dataleverandører og innholdspartnere.
+      meta_keywords: Encyclopedia of Life-innholdspartnere, Encyclopedia of Life-dataleverandører
+      meta_title: Innholdspartnere
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: "%{partner_name}, Encyclopedia of Life-innholdspartner"
+    statistics: 
+      show: 
+        meta_description: Bruksstatistikker for %{partner_name}data.
+        meta_keywords: "%{partner_name} statistikker, %{partner_name} nettbruk"
+        meta_title: "%{partner_name}-statistikker"
+        tweet_text: "%{partner_name}-bruksstatistikker"
+  content_partners_empty: Ingen innholdspartnere funnet.
+  content_partners_link: Innholdspartnere
+  content_partners_page_title: Innholdspartnere
+  content_server_full_url: Innholdsserver fullstendig URL
+  content_servers: Innholdsservere
+  content_setting_colon: "Innholdsinstilling:"
   content_summary_introduction_html: De følgende verdiene representerer summen av forskjellige typer innhold for denne taksonen og alle dens taksonomiske etterfølgere. %{glossary_term_trusted} innhold har enten blitt godkjent av en EOL-kurator eller kommer fra en pålitelig leverandør. %{glossary_term_unreviewed} innhold har ikke blitt vurdert av en EOL-kurator. Hvert taksonomiske hierarki er unikt slik at hvert hierarki du kan bla igjennom er listet opp for sammenligning.
-  content_summary_table_caption: Et sammendrag av innhold tilknyttet %{taxon_name} og dets etterkommere i %{hierarchy_label}
+  content_summary_table_caption: Et sammendrag av innhold knyttet til %{taxon_name} og dets etterkommere i %{hierarchy_label}
   content_summary_table_count_column_header: Antall
   content_summary_table_summary: Denne tabellen innholder antall av ulike typer innhold atskilt av innholdstilstand.
   content_summary_table_type_descendants_row: Antall etterkommere
   content_summary_table_type_status_column_header: Innholdstype og -status
-  content_summary_table_type_trusted_images_row: Antall troverdige bilder
+  content_summary_table_type_trusted_images_row: Antall klarerte bilder
   content_summary_table_type_trusted_text_row: Antall klarerte tekstelementer
   content_summary_table_type_unreviewed_images_row: Antall uvurderte bilder
   content_summary_table_type_unreviewed_text_row: Antall uvurderte tekstelementer
-  could_not_find_user: Kunne ikke finne et medlem for denne brukeren
+  content_type: Innholdstype
+  contribute: Bidra
+  copy: Kopier
+  could_not_find_user: Du er ikke et medlem av dette brukersamfunnet.
+  count: Antall
   create_a_collection: Opprett en samling
-  create_a_community: Opprett et fellesskap
+  create_a_community: Opprett et brukersamfunn
   create_account: opprett en konto
-  created_community: Fellesskapet ble opprettet.
+  create_child_page: Opprett underordnet side
+  create_collection_button: Opprett samling
+  create_community: Opprett brukersamfunn
+  create_community_about_heading: Om oppretting av brukersamfunn
+  create_community_around_this_collection_header: Opprett et brukersamfunn rundt denne samlingen
+  create_community_button: Opprett brukersamfunn
+  created: Opprettet
+  created_at: Opprettet
+  created_by: Opprettet av
+  created_colon: "Opprettet:"
+  created_community: Brukersamfunnet ble opprettet.
+  creative_commons: Creative Commons
+  curated: Kuratert
+  curated_association_update_button: Lagre endringer
+  curation_comment: Kurateringskommentar
+  curation_privileges_page_title: Bli en kurator
+  curation_reason_placeholder: ytterlige detaljer (valgfritt)
+  curation_scope: Kurateringsområde
+  curator: kurator
+  curator_colon: "Kurator:"
+  curator_level: Kuratornivå
+  curator_level_assistant_approved_notice: Gratulerer! Du er nå en <em>assistentkurator</em>. <a href="%{more_url}">Lær mer om rollen som assistenkurator</a>.
+  curator_level_assistant_curator: Assistentkurator
+  curator_profile: kuratorprofil
+  curator_profile_menu: Kuratorprofil
+  curator_profile_of: kuratorprofil av %{name}
+  curator_question: Kurator?
+  curator_scope_colon: "Kurateringsområde:"
+  curators: Kuratorer
   curators_summary_header_with_count: 
-    one: "%{count} Kurator"
-    other: "%{count} Kuratorer"
+    one: Vurdert av %{count} kurator
+    other: Vurdert av %{count} kuratorer
+  curators_summary_learn_more_link: Lær hvordan å kuratere
+  current_language: "Språk: %{iso_code}"
   currently_in_eol: For øyeblikket i Encyclopedia of Life
+  daily: Daglig
+  darwin_core: Darwin Core
   dashboard: Panelbord
-  delete_community: Slett dette fellesskapet
+  data_database_colon: "Data:"
+  data_object: Dataobjekt
+  data_object_ignore: ignorer dette objektet
+  data_objects: 
+    show: 
+      meta_description_article: Artikkel - %{dato_description}
+      meta_description_default: "%{dato_title} fra %{supplier}."
+      meta_description_default_article: Artikkel - %{dato_title} fra %{supplier}.
+      meta_description_default_image: Bilde - %{dato_title} fra %{supplier}.
+      meta_description_default_image_map: Kart - %{dato_title} fra %{supplier}.
+      meta_description_default_map: Kart - %{dato_title} fra %{supplier}.
+      meta_description_default_sound: Lyd - %{dato_title} fra %{supplier}.
+      meta_description_default_video: Video - %{dato_title} fra %{supplier}.
+      meta_description_image: Bilde - %{dato_description}
+      meta_description_image_map: Kart - %{dato_description}
+      meta_description_map: Kart - %{dato_description}
+      meta_description_sound: Lyd - %{dato_description}
+      meta_description_video: Video - %{dato_description}
+      meta_supplier_default: en bidragsyter
+      meta_title: "%{dato_title} fra %{supplier}"
+      tweet_text: "%{dato_title} fra %{supplier}"
+  date_caps: Dato
+  datepicker: 
+    close: Lukk
+    current: I dag
+    day_names: 
+      - Søndag
+      - Mandag
+      - Tirsdag
+      - Onsdag
+      - Torsdag
+      - Fredag
+      - Lørdag
+    day_names_min: 
+      - Sø
+      - Ma
+      - Ti
+      - 'On'
+      - To
+      - Fr
+      - Lø
+    day_names_short: 
+      - Søn
+      - Man
+      - Tir
+      - Ons
+      - Tor
+      - Fre
+      - Lør
+    month_names: 
+      - Januar
+      - Februar
+      - Mars
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Desember
+    month_names_short: 
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - Mai
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Okt
+      - Nov
+      - Des
+    next: Neste
+    previous: Forrige
+  dato_create_cancel: Avbryt
+  dato_edit_cancel: Avbryt
+  dato_edit_link_button: Rediger denne lenken
+  dato_edit_link_title: Rediger lenke
+  dato_edit_text_button: Rediger denne artikkelen
+  dato_edit_text_title: Rediger artikkel
+  dato_new_edit_user_text_fieldset_content_header: Artikkelinnhold
+  dato_new_edit_user_text_fieldset_information_header: Artikkelinformasjon
+  dato_new_edit_user_text_link_fieldset_content_header: Lenk til data
+  default: Standard
+  default_focus_collection_name_from_community: "%{name}s fokus"
+  default_watch_collection_name: "%{username}s overvåkningsliste"
+  definition: Definisjon
+  delete: slett
+  delete_community: Slett dette brukersamfunnet
+  delete_firstcap: Slett
+  deleted_colon: "slettet:"
+  description: Beskrivelse
+  description_of: Beskrivelse av
+  descriptive_label: Beskrivende etikett
+  destination_inappropriate_for_logged_in_users: Du er logget på.
+  destroy: Ødelegg
   detail: Detalj
-  development_version_name: V2 UTVIKLINGSVERSJON - ikke for offentlig bruk
-  displaying_numerical_range: Viser %{start_number} &mdash; %{end_number}
+  details: Detaljer
+  details_title: Detaljer
+  development_version_name: EOL V2 Beta
+  did_you_mean: "Mente du: %{suggestions} ?"
+  discover_link: Oppdag
+  displaying_numerical_range: Viser %{start_number} &mdash; %{end_number} av %{total}
+  do_you_want_to_be_a_curator: Vil du bli en kurator
   donate: Doner
+  donation_amount_legend: Velg beløpet du vil donere
+  donation_amount_other_label: Annet
+  donation_confirmation: Doneringsbekreftelse
   donation_error_no_amount: Velg et donasjonsbeløp.
-  donation_error_only_numbers: Skriv inn et antall med kun tall.
-  edit_community: Rediger fellesskap
+  donation_error_only_numbers: Skriv inn et beløp med kun tall.
+  donation_introduction_paragraph_one: EOL vokser hver dag. Vi oppmuntrer deg til å utforske EOL og dra nytte av alt det har å tilby. Vi ber om din hjelp til å holde initiativet veksende med dine bidrag av innhold, ekspertise og økonomisk støtte.
+  donation_sponsorship_fellowships_title: Fellesskap
+  donation_sponsorship_infrastructure_title: Kjerne-infrastruktur
+  done_already: Allerede gjort
+  download_wav_file: Last ned WAV-fil
+  dublin_core: Dublin Core
+  edit: Rediger
+  edit_collection_details: Rediger samlingsdetaljer
+  edit_collection_details_header: Rediger samlingsdetaljer
+  edit_comment: Rediger kommentar
+  edit_comment_lowercase: rediger kommentar
+  edit_community: Rediger brukersamfunn
+  edit_eol_glossary: rediger EOL ordliste
+  edit_hierarchy: rediger hierarki
   edit_my_profile: Rediger min profil
+  edit_news_items: rediger nyhetssaker
+  edit_page_contents: rediger sideinnhold
+  edit_table_of_contents: rediger innholdstabell
+  edit_username: Rediger %{username}
+  edit_web_users: rediger nettbrukere
+  edited_colon: "redigert:"
+  email: E-post
+  email_colon: "E-post:"
+  email_recipients: E-postmottakere
   encyclopedia_of_life: Encyclopedia of Life
   endorsed_collections_with_count: 
-    other: one%{count} Godkjent samling
+    other: one%{count} Utvalgt samling
+  eol_api: EOL API
+  eol_api_collections: "EOL API: Samlinger"
+  eol_api_colon: "EOL API:"
+  eol_api_data_objects: "EOL API: Dataobjekt"
+  eol_api_hierarchies: "EOL API: Hierarkier"
+  eol_api_pages: "EOL API: Sider"
+  eol_api_ping: "EOL API: Ping"
+  eol_api_search: "EOL API: Søk"
+  eol_api_search_by_provider: "EOL API: Søk etter leverandør"
   eol_colon: "EOL:"
+  eol_flickr_group: EOL Flickr-gruppe
   eol_glossary: EOL-ordliste
   eol_news: EOL-nyheter
-  esc_key_hides_this_message: (Esc-tasten skjuler denne meldingen)
+  eol_pages: Sider
+  eol_statistics: 
+    content_partners: 
+      menu_link: Innholdspartnere
+      page_header: Innholdspartnerestatistikker
+      page_title: Statistikker
+    curators: 
+      menu_link: Kuratorstatistikker
+      page_header: Kuratorstatistikker
+      page_title: Statistikker
+    data_objects: 
+      menu_link: Dataobjekter
+      page_header: Dataobjektstatistikker
+      page_title: Statistikker
+    index: 
+      menu_link: Globale statistikker
+      page_header: Globale statistikker
+      page_title: Statistikker
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: LifeDesks-statistikker
+      page_title: Statistikker
+    marine: 
+      menu_link: Marine statistikker
+      page_header: Marin dekning i EOL
+      page_title: Statistikker
+    page_richness: 
+      menu_link: Innholdsrike sider
+      page_header: Statistikker for innholdsrike sider
+      page_title: Statistikker
+    users_data_objects: 
+      menu_link: Bruker-sendt tekst
+      page_header: Statistikker for bruker-sendt tekst
+      page_title: Statistikker
+    warnings: 
+      stats_unavailable_for_date: Beklager, statistikker for %{date} er ikke tilgjengelige. Vennligst velg en annen dato.
+  error_403_page_title: Forbudt
+  error_404_page_title: Ikke funnet
+  error_500_page_title: Oida.
+  error_default_page_title: Oida.
+  example_colon: "Eksempel:"
+  exceptions: 
+    security_violations: 
+      default: Tilgang nektet.
+  expand_all_children: utvid alle underordnede objekter
   explore: Utforsk
+  export_this_list_as_csv: Eksporter denne listen som CSV
+  external_link_header: Ekstern lenke
+  external_link_icon_alt_text: Ekstern lenke.
+  external_report_click_url_to_proceed: Eksternt rapport. Klikk URLen for å fortsette.
+  facebook: Facebook
+  family_name_colon: "Familienavn:"
   feedback: Tilbakemelding
+  file: Fil
+  file_id: Fil-ID
+  file_size: Filstørrelse
+  filter_button: Filtrér
+  filter_by_day: Filtrér etter dag
   filter_by_status: Filtrer etter status
-  filter_by_status_all_option: alle statuser
-  filter_by_status_inappropriate_option: upassende
-  filter_by_status_trusted_option: klarert
-  filter_by_status_unreviewed_option: uvurdert
-  filter_by_status_untrusted_option: uklarert
+  filter_by_status_all_option: Alle statuser
+  filter_by_status_inappropriate_option: Upassende
+  filter_by_status_trusted_option: Klarert
+  filter_by_status_unreviewed_option: Uvurdert
+  filter_by_status_untrusted_option: Uklarert
   filter_by_type: Filtrer etter type
-  filter_by_type_all_option: alle typer
+  filter_by_type_all_option: Alle typer
+  filter_by_type_collection_option: Samlinger
+  filter_by_type_comment_option: Kommentarer
+  filter_by_type_community_option: Brukersamfunn
+  filter_by_type_content_page_option: Om EOL
+  filter_by_type_image_option: Bilder
+  filter_by_type_link_option: Lenker
+  filter_by_type_name_option: Navn
+  filter_by_type_object_curated_option: Objekt kuratert
+  filter_by_type_sound_option: Lyder
+  filter_by_type_taxa_comment_option: Taksakommentarer
+  filter_by_type_taxon_concept_option: Taksa
+  filter_by_type_text_option: Artikler
+  filter_by_type_video_option: Videoer
   filter_media: filtrer media
+  filter_newsfeed_option_all: Alle
+  filter_newsfeed_option_collections: Samlinger
+  filter_newsfeed_option_community: Brukersamfunn
+  filter_newsfeed_option_curation: Kuratering
+  filter_newsfeed_option_messages: Kommentarer
+  filter_newsfeed_option_watchlist: Overvåkningsliste
   filtered_information: Filtrert informasjon
+  find_taxa_submit_button: finn taksa
+  flash_video: Flash-video
+  flickr: Flickr
+  forgot_password: Glemt passord
+  forgot_password_form_cancel: Avbryt
+  forgot_password_form_choose_username_legend: Velg en konto
+  frequency: Frekvens
+  frequency_daily: Daglig
+  frequency_monthly: Månedlig
+  frequency_never: Aldri
+  frequency_weekly: Ukentlig
+  friendly_url: Brukervennlig URL
+  gbif_map: GBIF-kart
   global_access_tagline: Global tilgang til kunnskap om livet på jorden.
   global_navigation: Global navigasjon
   go: Gå
+  go_back: gå tilbake
+  google: Google
+  google_analytic_results: Google Analytics-resultater
+  google_images: Google Bilder
+  google_scholar: Google Scholar
   has_already_been_taken: har allerede blitt tatt.
+  has_colon: "Har:"
   hello_user: Hei %{user}
   help: Hjelp
+  helpers: 
+    label: 
+      collection: 
+        view_style_id: Standardvisning
+      collection_item: 
+        annotation: Annotering
+        refs: Referanser <small>(legg inn hver referanse på en ny linje)</small>
+        sort_field: Sorter etter <small>(dato ÅÅÅÅ.MM.DD, tall, eller tekst)</small>
+        sort_field_show: "Sorteringsverdi:"
+      comment: 
+        body_edit: Rediger kommentar
+      contact: 
+        comments: Din melding
+        contact_subject_id: Emne
+        email: Din e-postadresse
+        name: Ditt navn
+      content_page: 
+        active: Publisert
+        active_more: Publiserte sider er offentlig synlige. Fjern markeringen <em>publisert</em> om du vil forhindre vanlige brukere fra å se versjoner av denne siden på noe språk.
+        page_name: Unikt navn <small>(kun ISO-baserte latinske bokstaver og tall og understreker)</small>
+        page_name_more: Gi en unik, selvforklarende, meningsfull og varende identifikasjon for denne siden. Det navnet du oppgir her vil bli brukt for å generere en URL til denne siden, f.eks. det unike navnet <em>bruksbetingelser</em> blir omdannet til URLen <em>http://eol.org/info/bruksbetingelser</em>.
+        parent_content_page_id: Overordnet
+        parent_content_page_id_more: Velg eventuelt en overordnet side, som denne siden skal grupperes under
+      content_partner: 
+        created_at: Registrert
+        current_agreement: Nåværende avtale
+        description_of_data: Beskrivelse av data <small>(privat)</small>
+        description_of_data_more: Vennligst gi oss en beskrivelse av den typen informasjon du har, hvor mange objekter er tilgjengelige, hvilke organismer de omfatter og om de har blitt sammensatt eller kontrollert av kvalifiserte eksperter eller et kyndig brukersamfunn.
+        display_name: Visningsnavn <small>(valgfritt)</small>
+        display_name_more: Angi et alternativt offentlig synlig navn, som skal anvendes i stedet for ditt <em>Prosjektnavn</em>.
+        last_action: Siste handling
+        latest_published_harvest_event: Sist publisert
+        logo_current: "Nåværende logo:"
+        logo_new: "Last opp en ny logo:"
+        notes: Projektnotater <small>(privat)</small>
+        oldest_published_harvest_event: Først publisert
+        public_more: Offentlige profiler til innholdspartnere er synlige til alle, og partneropplysninger er inkludert i lister over innholdspartnere. Fjern markeringen for å utelate innholdspartnerdetaljer fra lister og begrense profiltilgang til brukeren som har opprettet innholdspartneren samt EOL-administrorer.
+        user_id: Innholdspartnerdetaljer administrert av
+      content_partner_agreement: 
+        mou_url: Adresse til avtalefilen <small>(valgfri mulighet)</small>
+        mou_url_more: Oppgi valgfritt en URL til filen som inneholder denne partnerens avtale. Denne filen vil overstyre andre avtaletekster. Hvis du vil lagre filen (f.eks. en PDF-fil) på EOL-innholsservere, <a href="%{upload_content_url}">last opp filen</a> først for å få URLen.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: E-postrapporter blir sendt kun hvis det er kommentarer eller kuratorhandlinger angående dine data eller taksonsider relevante for ditt datasett.
+      data_object: 
+        bibliographic_citation: Bibliografisk sitat
+        bibliographic_citation_more: En anbefalt sitering for denne informasjonen i form av en bibliografisk referanse, få med tilstrekkelig detaljnivå for å identifisere informasjonen så utvetydig som mulig.
+        description: Tekst <small>(noen HTML-koder er tillatt)</small>
+        license_id: Lisens
+        license_id_more: Les <a href="%{policy_url}">EOLs lisensieringspolitikk</a>
+        object_title: Tittel
+        refs: Referanser <small>(legg inn hver referanse på en ny linje)</small>
+        rights_holder: Rettighetsinnehaver
+        rights_holder_more: Spesifiser en person eller organisasjon som eier eller administrerer rettighetene til denne informasjonen. Hvis du lar dette stå tomt vil vi anta at du er rettighetsinnehaver for alle lisenser unntat Offentlig Eiendom. Offentlig eiendoms-lisenser trenger ikke rettighetsinnehaver.
+        rights_statement: Rettighetserklæring
+        rights_statement_more: Brukserklæring som påkrevd av Creative Commons Navngivelse (CC-BY) lisensieringer, vennligst oppgi navngivelse <q cite="http://creativecommons.org/licenses/by/3.0">på den måten opphavspersonen eller lisenshaver har spesifisert</q>.
+        source_url: URL-adresse til det opprinnelige dataobjektet
+        toc_item: Underkapittel
+      data_object_link: 
+        description: Beskrivelse <small>(noen HTML-koder er tillatt)</small>
+        link_type: Kategori
+        source_url: Lenke-URL
+        toc_item: Emne
+      eol_statistic: 
+        date_one: Dato
+        date_two: Dato
+        download_all: Alt <small>(inkluder poster fra alle sider)</small>
+      google_analytics_partner_summaries: 
+        page_views: Sidevisninger <small>(antall sidebesøk)</small>
+        taxa_pages: Sider <small>(antall sider)</small>
+        taxa_pages_viewed: Sidevisninger <small>(antall sider sett av besøkere)</small>
+        time_on_page: Sammensatt tid tilbrakt på sider <small>(timer)</small>
+        unique_page_views: Unike sidevisninger <small>(antall besøkende som ser på sider)</small>
+      harvest_event: 
+        began_at: Påbegynt
+        completed_at: Fullført
+        first_published_at: Først publisert
+        publish_more: Markerer innhøstinger for publisering, innhold vil ikke bli gjort offentlig umiddelbart.
+        published_at: Publisert
+        published_status: Status
+      hierarchy: 
+        browsable_more: Merk "kan blas gjennom" for å forfremme dette hierarkiet til et av de primære hierarkiene på EOL som kan blas gjennom.
+        browsable_status_with_colon: "Kan blas gjennom eller ikke:"
+        complete: Kuratert
+        complete_more: "Et kuratert hierarki går ut fra at alle bidrag er ment til å være unik, dvs. at overenstemmende navnestrenger vil bli behandlet som homonymer. <strong>Advarsel: Ikke rediger denne egenskapen med mindre du er sikker på statussen på homonymer i hierarkiet, ellers vil dataintegriteten bli satt i fare.</strong>"
+        request_publish: Publisering forespurt
+        request_publish_more: Angir om det finnes et ubehandlet forespørsel til promotering av dette hierarkiet til et av de primære hierarkiene på EOL som kan blas gjennom.
+      news_item: 
+        active: Publisert
+        active_more: Publiserte nyhetssaker vil være offentlig synlig på den valgte datoen og tidspunkt. Fjern markeringen <em>publisert</em> hvis du vil unngå at generelle brukere skal kunne se versjoner av denne nyhetssaken på et hvilket som helst språk.
+        page_name: Unikt navn <small>(kun ISO-baserte latinske bokstaver og tall og understreker)</small>
+        page_name_more: Gi en unik, selvforklarende, meningsfull og varende identifikasjon for denne nyhetssaken. Det navnet du oppgir her vil bli brukt for å generere en URL til denne nyhetssaken, f.eks. det unike navnet <em>ny_versjon_av_eol</em> blir omdannet til URLen <em>http://eol.org/news/ny_versjon_av_eol</em>.
+      open_authentication: 
+        connect: Legg til
+        connected: Tilkoblet
+      resource: 
+        accesspoint_url: Datasettadresse
+        accesspoint_url_existing_remove: Denne ressursen blir nå lastet inn fra URLen som ender på <em>%{accesspoint_url}</em>. Last opp en fil hvis du vil fjerne den eksisterende URLen og last inn ressursen fra en fil i stedet (anbefales ikke).
+        administration_settings: Administrasjonsinstillinger <small>(kun synlig for EOL-administratorer)</small>
+        dataset: Datasett
+        dataset_existing_remove: Filen <em>%{file_name}</em> er for øyeblikket knyttet til denne ressursen. Oppgi en URL hvis du vil erstatte den eksisterende <em>%{file_name}</em>-filen og last inn ressursen fra en URL i stedet (anbefales).
+        dataset_existing_replace: Filen <em>%{file_name}</em> er for øyeblikket knyttet til denne ressursen. Last opp en ny fil for å erstatte den eksisterende <em>%{file_name}</em>-filen.
+        dwc_archive_url: "Hvis der er en Darwin Core Archive knyttet til denne ressursen, sett inn adressen her <small>(kun TAR.GZIP, TAR.GZ eller TGZ)</small>:"
+        hierarchy: Hierarki
+        latest_harvest_event: Siste innhøsting
+        latest_published_harvest_event: Sist publisert
+        oldest_published_harvest_event: Først publisert
+        refresh_period_hours: Frekvens
+        resource_status: Status
+        resource_status_id: Status
+        resource_url_or_file: Ressursdata <small>(velg å oppgi URL eller last opp en fil)</small>
+        resource_url_or_file_upload: Last opp ressursfil
+        resource_url_or_file_url: Les inn ressurs fra URL
+        title: Ressursnavn
+      session: 
+        password: Passord
+        remember_me: La meg være pålogget i 2 uker
+        username_or_email: Brukernavn eller e-postadresse
+      translated_content_page: 
+        active_translation: Publisert
+        active_translation_more: Publiserte oversettelser vil være offentlig synlige, med mindre selve siden er upublisert. Fjern markeringen <em>publisert</em> hvis du vil unngå at generelle brukere skal kunne se denne versjonen av siden.
+        language_id: Språk
+        meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av sidens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner for å sjekke både relevans og for å danne lister over søkereslutater.
+        title_more: Tittelen av dette innholdet vil vises i toppteksten til siden. Tittelen skal inneholde de mest relevante nøkkelord for innholdet.
+      translated_news_item: 
+        active_translation: Publisert
+        active_translation_more: Publiserte oversettelser vil være offentlig synlige, med mindre selve nyhetssaken er upublisert. Fjern markeringen <em>publisert</em> hvis du vil unngå at generelle brukere skal kunne se denne versjonen av nyhetssaken.
+        language_id: Språk
+      user: 
+        agreed_with_terms: Jeg aksepterer <a href="%{terms_url}">bruksvilkårene</a>
+        bio: Om meg
+        curation_application: Bli en kurator
+        curator_scope: Kurateringsområde
+        email: E-postadresse
+        email_reports_frequency_hours: Hvor ofte ønsker du å motta e-postvarslinger om aktivitet på til dine bidrag?
+        email_settings_submit: e-postinnstillinger
+        entered_password: Passord <small>(4 - 16 tegn)</small>
+        generate_api_key: Søk om en API-nøkkel
+        generate_api_key_more: Hvis du er interessert i å bruke EOL APIen kan du generere en API-nøkkel for å identifisere din applikasjon. Les mer om <a href="%{api_docs_url}">å legge til en nøkkel til dine API-anrop</a>.
+        logo: Last opp et nytt bilde
+        new_password: Nytt passord <small>(4 - 16 tegn)</small>
+        new_password_confirmation: Nytt passord <small>(bekreftelse)</small>
+        news_in_preferred_language: vis nyheter på foretrukket språk
+        notification_settings: Meldingsinstillinger
+        notification_settings_more: Konfigurer dine meldingsinstillinger.
+        open_authentications: Tilkoblede kontoer
+        open_authentications_connected_accounts: Dine tilkoblede kontoer
+        open_authentications_more: Administrer koblinger mot tredjepartskontoer du kan bruke for å logge inn på EOL. <a href="%{open_authentications_url}">Rediger koblede kontoer</a>.
+        requested_curator_level: Din forespørsel om å bli %{curator_level_with_indefinite_article} avventer behandling.
+        tag_line: "Slagord eller tittel <small>eksempel: \"Fugleentusiast\"</small>"
+        user_identities: Jeg er
+        username: Brukernavn <small>(4 - 32 tegn)</small>
+        username_or_email: Brukernavn eller e-postadresse
+      wikipedia_queue: 
+        revision_url: Versions-URL <small>(f.eks. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+    select: 
+      prompt: Velg
+    submit: 
+      cancel: Avbryt
+      collection_item: 
+        update: Lagre
+      contact: 
+        new: Send tilbakemelding
+      content_page: 
+        create: Opprett side
+        edit: Rediger
+        preview: Forhåndsvisning
+        update: Oppdater side
+      content_partner: 
+        create: Opprett innholdspartner
+        update: Lagre innholdspartnerinformasjon
+      content_partner_agreement: 
+        agree: Godta innholdspartnerbetingelsene
+        create: Opprett ny avtale
+        update: Oppdater avtale
+      content_partner_contact: 
+        create: Legg til kontakt
+        destroy: Slett kontakt
+        update: Oppdater kontakt
+      create: Opprett %{model}
+      data_object: 
+        create: Legg til artikkel
+        create_text: Legg til artikkel
+        update: Lagre artikkel
+      data_object_link: 
+        create: Legg til lenke
+        update: Lagre lenke
+      eol_statistic: 
+        change_date: Hent statistikker for datoer
+        download_csv: Last ned som CSV
+      filter_sort: Filtrer og sorter
+      harvest_event: 
+        publish: Publiser
+      hierarchy: 
+        request_publish: Be om forfremmelse av hierarkiet
+        update: Oppdater hierarki
+      name: 
+        create: Legg til navn
+        update: Oppdater navn
+      news_item: 
+        create: Lag nyhetssak
+        edit: Rediger
+        preview: Forhåndsvis
+        update: Oppdater nyhetssak
+      open_authentication: 
+        create: Koble til
+        destroy: Koble fra
+        update: Kontroller tilkobling
+      resource: 
+        create: Legg til ressurs
+        update: Oppdater ressurs
+        update_settings: Oppdater innstillinger
+      session: 
+        create: Logg inn
+        sign_in_with_facebook: Logg inn med Facebook
+        sign_in_with_google: Logg inn med Google
+        sign_in_with_twitter: Logg inn med Twitter
+        sign_in_with_yahoo: Logg inn med Yahoo
+      submit: Lagre %{model}
+      translated_content_page: 
+        create: Legg til oversettelse
+        update: Lagre endringer i oversettelsen
+      translated_news_item: 
+        create: Legg til oversettelse
+        update: Lagre endringer i oversettelsen
+      update: Oppdater %{model}
+      user: 
+        create: Opprett konto
+        curation_application: Søk nå
+        curation_privileges: Send søknad
+        generate_api_key: Generer en nøkkel
+        notification_settings: Meldingsinstillinger
+        recover_account: Send e-post
+        sign_up_with_facebook: Registrer deg med Facebook
+        sign_up_with_google: Registrer deg med Google
+        sign_up_with_twitter: Registrer deg med Twitter
+        sign_up_with_yahoo: Registrer deg med Yahoo
+        update: Lagre profilinformasjon
+      wikipedia_queue: 
+        create: Send søknad
+  here: her
+  hidden: Skjult
+  hidden_comment: skjult kommentar
+  hide: skjul
+  hierarchies_title: Hierarkier
+  hierarchy: Hierarki
+  hierarchy_updated: Hierarki oppdatert
   home: Hjem
   home_page_link_advisory_information: Denne lenken tar deg til startsiden for nettstedet Encyclopedia Of Life
+  html_format: (HTML-format)
+  id: ID
+  image: Bilde
+  image_alt_text: Dette %{vetted_status} bildet er av %{taxon_name}
+  image_from_supplier: Bilde fra %{whom}
+  image_is_no_longer_available: Bildet er ikke lenger tilgjengelig
+  image_map_alt_text: Dette %{vetted_status} kartet er av %{taxon_name}
+  image_map_from: kart fra
+  image_map_from_supplier: Kart fra %{whom}
+  image_map_not_associated_with_any_published_entries: Dette kartet er ikke knyttet til noen publiserte taksa.
+  image_map_of_taxon: Kart over %{taxon_name}
+  image_map_rating: Kartvurdering
+  image_not_associated_with_any_published_entries: Dette bildet er ikke knyttet til noen publiserte taksa.
+  image_not_found: Bilde ikke funnet
+  image_object: Bildeobjekt
+  image_of_taxon: Bilde av %{taxon_name}
+  image_rating: Bildevurdering
   images: Bilder
   images_with_count: 
     one: "%{count} bilde"
     other: "%{count} bilder"
+  in_collection: i samling
+  inaturalist_tab_label: iNaturalist-observasjoner
   indexed: Indeksert
+  internal_ip_address: intern IP-adresse
+  ip: IP
+  ip_address: IP-adresse
+  item_not_added_already_in_collection: Dette objektet er allerede lagt inn i samlingen.
+  item_not_added_to_itself_notice: Beklager, du kan ikke legge samlingen <em>%{collection_name}</em> til seg selv.
+  item_type_article: Artikkel
+  item_type_article_assistive: Dette objektet er en artikkel
+  item_type_collection: Samling
+  item_type_collection_assistive: Dette objektet er en samling
+  item_type_community: Brukersamfunn
+  item_type_community_assistive: Dette objektet er et brukersamfunn
+  item_type_image: Bilde
+  item_type_image_assistive: Dette objektet er et bilde
+  item_type_image_map: Kart
+  item_type_image_map_assistive: Dette objektet er et bilde av et kart
+  item_type_link: Lenke
+  item_type_link_assistive: Dette objektet er en lenke
+  item_type_map: Kart
+  item_type_map_assistive: Dette objektet er et kart
+  item_type_person: Person
+  item_type_person_assistive: Dette objektet er en person
+  item_type_sound: Lyd
+  item_type_sound_assistive: Dette objektet er en lyd
+  item_type_taxon: Takson
+  item_type_taxon_assistive: Dette objektet er et takson
+  item_type_video: Video
+  item_type_video_assistive: Dette objektet er en video
+  items_with_count_semi_colon: 
+    one: "%{count} objekt"
+    other: "%{count} objekt"
   iucn_red_list_status_advisory_information: Denne lenken fører deg til nettstedet til International Union for Consercation of Nature (IUCN) hvor du kan finne mer informasjon om IUCNs rødliste over truede arter.
-  join_community_button: Bli med i dette fellesskapet
+  join_community_button: Bli med i dette brukersamfunnet
   join_eol_button_html: Bli med <abbr title="Encyclopedia of Life">EOL</abbr> nå
-  join_eol_community_html: Bli en del av <abbr title="Encyclopedia of Life">EOL</abbr>-fellesskapet!
+  join_eol_community_html: Bli en del av <abbr title="Encyclopedia of Life">EOL</abbr>-brukersamfunnet!
+  json_response: JSON-svar
   just_pages_with_pictures_and_text: Bare de sidene med bilder og tekst
+  label: Etikett
   language: "Språk:"
+  languages: Språk
+  last_updated: Sist oppdatert
   last_updated_time_ago: Sist oppdatert %{time_passed} siden
-  learn_about_content_partners: Lær om våre innholdspartnere
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Sitere EOL
+        about_link_contact_us: Kontakt oss
+        about_link_discover: Oppdag
+        about_link_donate: Doner til EOL
+        about_link_eol_blog: EOL-bloggen
+        about_link_glossary: Ordliste
+        about_link_help: Hjelp
+        about_link_podcasts: Podcaster
+        about_link_statistics: Statistikker
+        about_link_terms_of_use: Bruksvilkår
+        about_link_what_is_eol: Hva er EOL?
+        header_about: Om EOL
+        header_learn_more: Lær mer om
+        header_questions: Jeg vil vite mer
+        learn_more_link_amphibians: Amfibier
+        learn_more_link_animals: Dyr
+        learn_more_link_archaea: Arkéer
+        learn_more_link_bacteria: Bakterier
+        learn_more_link_birds: Fugler
+        learn_more_link_crustaceans: Krepsdyr
+        learn_more_link_fish: Fisk
+        learn_more_link_flowering_plants: Dekkfrøede planter
+        learn_more_link_fungi: Sopper
+        learn_more_link_insects: Insekter
+        learn_more_link_invertebrates: Virvelløse dyr
+        learn_more_link_mammals: Pattedyr
+        learn_more_link_molds: Muggsopper
+        learn_more_link_mollusks: Bløtdyr
+        learn_more_link_mushrooms: Sopper
+        learn_more_link_plants: Planter
+        learn_more_link_protists: Protister
+        learn_more_link_reptiles: Reptiler
+        learn_more_link_spiders: Edderkopper
+        learn_more_link_trees: Trær
+        learn_more_link_viruses: Virus
+        learn_more_link_worms: Ormer
+        questions_link_binomial_nomenclature: Hva er binomial nomenklatur?
+        questions_link_biodiversity: Hva er biodiversitet?
+        questions_link_biological_classification: Hva er en biologisk klassifikasjon?
+        questions_link_contributing_to_research: Hvordan kan jeg bidra til forskning?
+        questions_link_discovering_species: Hvordan blir arter oppdaget?
+        questions_link_indicator_species: Hva er en indikatorart?
+        questions_link_invasive_species: Hva er en invasiv art?
+        questions_link_model_organism: Hva er en modellorganisme?
+        questions_link_naming_species: Hvordan navngis arter?
+        questions_link_species: Hva er en art?
+  learn_about_collections: Hvordan kan jeg opprette en?
+  learn_about_communities: Hvordan kan jeg delta?
+  learn_about_content_partners: Hvordan kan jeg bli en?
+  learn_about_contributing: Hvordan kan jeg bidra?
+  learn_about_eol: Hvordan kan jeg bruke EOL?
+  learn_about_joining: Hvordan kan jeg bli med?
+  learn_more_about_communities_link: Lær mer om brukersamfunn
+  learn_more_about_names_for_this_taxon: lær mer om navn for dette takson
+  learn_more_link: (%{learn_more})
+  learn_more_lowercase: lær mer
   leave_a_comment: Legg igjen en kommentar
+  leave_community_button: Meld deg ut av dette brukersamfunnet
+  leave_reply: Legg inn et svar
+  left_content_area: Innholdsområdet til venstre
   license: Lisens
   license_all_rights_reserved: Alle rettigheter reservert
   license_cc_by: Creative Commons Navngivelse (CC BY)
@@ -149,11 +1486,36 @@ nb:
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_not_applicable: Lisens ikke anvendelig
   license_public_domain: Offentlig rom
+  licensing: Lisensiering
+  link_more_about: Lær mer om denne lenken
+  link_name: Lenkenavn
+  link_not_associated_with_any_published_entries: Denne lenken er ikke knyttet til noen publiserte taksa.
+  link_rating: Lenkevurdering
+  links_with_count: 
+    one: "%{count} lenke"
+    other: "%{count} lenker"
   literature: Litteratur
+  literature_empty: Ingen referanser funnet.
+  literature_header: Referanser
+  literature_links: Litteraturlenker
+  literature_links_link: Litteraturlenker
+  literature_references: Litteraturreferanser
   location: Plassering
+  location_colon: "Sted:"
   login: brukernavn
+  login_hidden_user_message: Kontoen %{given_name} er ikke lenger aktiv
   login_or_create_account: Logg inn eller opprett en konto
+  login_required_button: Innlogging kreves
+  login_to_the_website_as: Logg inn på nettsiden som %{username}
+  logo_header: Logo
   logout: Logg ut
+  main_species_page_link_with_spaces: " &nbsp;&nbsp; artsside>>"
+  map_alt_text: Dette %{vetted_status} kartet er av %{taxon_name}
+  map_from: kart fra
+  map_from_supplier: Kart fra %{whom}
+  map_not_associated_with_any_published_entries: Dette kartet er ikke knyttet til noen publiserte taksa.
+  map_of_taxon: Kart over %{taxon_name}
+  map_rating: Kartvurdering
   maps_with_count: 
     one: "%{count} Kart"
     other: "%{count} Kart"
@@ -161,49 +1523,271 @@ nb:
   media_with_count: 
     one: "%{count} Media"
     other: "%{count} Media"
+  member_of: medlem av
+  members: 
+    index: 
+      meta_description: Medlemmer av %{community_name}, et Encyclopedia of Life-brukersamfunn.
+      meta_keywords: "%{community_name}-medlemmer"
+      meta_title: "%{community_name}-medlemmer"
+      tweet_text: "%{community_name}-medlemmer"
+    show: 
+      meta_description: "%{member_name} er et medlem av %{community_name}, et Encyclopedia of Life-brukersamfunn."
+      meta_keywords: "%{member_name} brukersamfunnsmedlem"
+      meta_title: "%{member_name} Medlem av %{community_name}"
+      tweet_text: "%{member_name} medlem av %{community_name}"
+  members_like_you: Medlemmer som deg
   members_with_count: 
     one: "%{count} medlem"
     other: "%{count} medlemmer"
-  minimal_page: Minimal side
+  message_colon: "Beskjed:"
+  meta_description_colon: "Metabeskrivelse:"
+  meta_keywords_colon: "Meta-nøkkelord:"
+  meta_title_site_name: Encyclopedia of Life
+  method: Metode
+  methods: Metoder
+  mobile: 
+    contents: 
+      explore_eol: Utforsk EOL
+      full_site: Fullstendige siden
+      home: Hjem
+      species: Arter
+      taxa: Taksa
+    search: 
+      no_results_found: Ingen resultater funnet
+      results: Resultater
+      suggestions: Forslag
+    taxa: 
+      community: Brukersamfunn
+      details: Detaljer
+      images: Bilder
+      literature: Litteratur
+      maps: Kart
+      media: Media
+      nomenclature: Nomenklatur
+      overview: Oversikt
+      resources: Ressurser
+      sounds: Lyder
+      taxon_details: Takson-detaljer
+      taxon_media: Takson-media
+      taxon_overview: Taksonoversikt
+      videos: Videoer
+  moderator_colon: "Moderator:"
+  monthly: Månedlig
+  more_children_with_count: 
+    one: "%{count} til..."
+    other: "%{count} til..."
   most_active_members: Mest aktive medlemmer
-  must_be_associated_with_either_a_user_or_a_community: Må være assosiert med enten en bruker eller et fellesskap
+  move: Flytt
+  move_down: Flytt ned
+  move_to_bottom: Flytt til bunnen
+  move_to_top: Flytt til toppen
+  move_up: Flytt opp
+  multimedia_links: Multimedialenker
+  must_be_associated_with_either_a_user_or_a_community: Må være assosiert med enten en bruker eller et brukersamfunn
   must_be_less_than_128_characters_long: må være kortere enn 128 tegn.
   must_be_logged_in: Du må være logget inn for å utføre denne handligen.
+  must_provide_search_term_error: Du må oppgi et søkeord.
   my_activity: Min aktivitet
   my_info: Min info
+  name: Navn
+  name_colon: "Navn:"
+  name_preferred_for_language_yes: Foretrukket
+  name_preferred_taxonomically_for_source_yes: Foretrukket
+  names: Navn
+  names_children_column_header: Underordnede objekter
+  names_et_al: "%{names}, et al."
+  names_filter: Navn
+  names_name_column_header: Navn
+  names_preferred_column_header: Foretrukket
+  names_relationship_column_header: Relasjon
+  names_sources_column_header: Kilder
+  names_status_column_header: Status
+  never: Aldri
+  new_collection: Ny samling
+  new_user: Ny bruker
+  news_item: nyhetssak
+  news_item_title: Nyhetssak
+  news_items: 
+    index: 
+      meta_keywords: eol-nyheter, nyheter fra encyclopedia of life
+      meta_title: EOL-nyheter
+      page_title: EOL-nyheter
+  news_missing_content_title: Mangler oversettelse
   newsfeed: Nyhetsmating
+  next: Neste
+  no_answer: Nei
+  no_results_for: ingen resultater for
+  no_uploaded_content_is_available: Ingen opplastet innhold er tilgjengelig.
+  none: ingen
   not_evaluated: Ikke vurdert
+  not_published_yet: ikke publisert ennå
+  notes: Notater
+  notification_frequency_never: Aldri
+  notification_frequency_send_immediately: Send umiddelbart
+  notification_frequency_weekly: Ukentlig
+  notifications_tab_name: Varslinger
+  notifier: 
+    activity_log_empty: Ingen nylige handlinger av kuratorer.
+    contact_us_message: 
+      subject: "En melding til EOL: %{title}"
+    content_partner_created: 
+      subject: EOL-bruker %{user_full_name} har lagt til innholdspartner %{partner_full_name}
+    greeting_dear_name_with_comma: Kjære %{name},
+    user_message: 
+      subject: Et beskjed fra Encyclopedia of Life
+    user_verification: 
+      subject: Vennligst bekreft din forespørsel om en Encyclopedia of Life-konto
+  nucleotide_sequences: Nukleotidsekvenser
+  nucleotide_sequences_proteins_link: Vis protein- og nukleotidsekvenser i NCBI
+  num_content_partners: Antall innholdspartnere
+  num_data_objects: Antall dataobjekt
+  object: Objekt
+  object_curated: Objekt kuratert.
+  object_curation: Objektkuratering
+  object_status: Objektstatus
+  object_status_all_option: Alle
+  object_status_trusted_option: Klarert
+  object_status_unreviewed_option: Uvurdert
+  object_status_untrusted_option: Uklarert
+  object_type: Objekttype
+  object_type_all_option: Alle
+  object_type_collection_option: Samling
+  object_type_community_option: Brukersamfunn
+  object_type_image_option: Bilde
+  object_type_link_option: Lenke
+  object_type_sound_option: Lyd
+  object_type_text_option: Tekst
+  object_type_user_option: Bruker
+  object_type_video_option: Video
+  object_visibility: Synlighet objekt
+  object_visibility_all_option: Alle
+  object_visibility_invisible_option: Skjult
+  object_visibility_visible_option: Synlig
+  objects_curated: Kuraterte objekter
+  older_version_of_latest_published_data_object_title_link: Eldre versjon av %{link}
+  on_time_col_header: på
+  option_please_select: Vennligst velg
+  or_move_them_to_existing_collection: eller flytt dem til en eksisterende samling
   other_collection_items_with_count: 
     one: "%{count} annet element"
     other: "%{count} andre elementer"
   other_community_items_with_count: 
     one: "%{count} annet element"
     other: "%{count} andre elementer"
+  other_us_dollars_amount: "Annet: US$"
   overview: Oversikt
+  page: Side
+  page_linked_to: Side koblet til
+  page_name: Sidenavn
+  page_navigation: Sidenavigering
+  page_not_found: Finner ikke siden
+  page_statistics: Sidestatistikker
+  page_statistics_and_tools: Sidestatistikker og -verktøy
+  page_urls: "Side-URL(er):"
+  page_views_th: Sidevisninger
+  pages_admin_section_link: Administratorer
+  pages_curator_section_link: Kuratorer
+  pages_title: Referanser
   pages_with_pictures_and_text: Sider med bilder og tekst
   pages_with_pictures_or_text: Sider med bilder eller tekst
+  pagination_next: Neste
+  pagination_page_number: Side %{number}
+  pagination_previous: Forrige
+  partner: Partner
+  partner_information: Partnerinformasjon
+  partner_page: partnerside
+  password_colon: "Passord:"
+  password_must_be_4to16_characters: Passordets lengde må være mellom 4 og 16 tegn.
+  pause: pause
   people_with_count: 
     one: "%{count} person"
     other: "%{count} personer"
+  percentage_of_children_with_images: "% underordnede objekter med bilder"
+  percentage_of_children_with_text: "% underordnede objekter med tekst"
+  percentage_of_descendants_with_images: prosentandel av underordnede objekter med bilder
+  percentage_of_descendants_with_text: prosentandel av underordnede objekter med tekst
+  permalink: Permanent lenke
+  person_rating: Personsvurdering
+  personal_profile_menu: Personlig profil
   personal_space: Personlig område
+  please: Vennligst
+  please_return_to_eol_homepage: Vennligst gå tilbake til EOL-hjemmesiden
+  please_wait: Vennligst vent...
   post_comment: Post kommentar
-  preferred_common_name_advisory_information: Dette er det foretrukne vanlige navnet for denne taksonen.
+  preferred_common_name_advisory_information: Foretrukket populærnavnnavn for dette taksonet.
   press_room: Presserom
+  preview_changes: Forhåndsvis endringer
+  process_name: Prosessnavn
   profile: Profil
+  profile_colon: "Profil:"
   profile_image_alt_text_curator: Profilbilde for kurator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Profilbilde for medlem %{user_given_name} %{user_family_name}
+  project: Prosjekt
+  provider: Leverandør
+  providers: Leverandører
+  public_domain: offentlig eiendom
+  publish: publiser
+  publish_after_utc: Publiser etter (UTC)
+  publish_changes: Publiser endringer
+  published: Publisert
+  published_parens: (Publisert)
   punctuation_comma: ","
+  punctuation_semi_colon: ;
   rated_by_count_people: 
     one: fra %{count} person
     other: fra %{count} personer
+  recent_activities: 
+    index: 
+      list_header: Siste 7 dager
+      meta_title: EOL brukersamfunnsaktivitet
+      page_title: EOL brukersamfunnsaktivitet
+  recent_activity: 
+    collection_activity_log_title: "%{who} har endret en samling"
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> følger deg.
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: Vis kommentar på EOL
+    comment_title: "%{who} har kommentert på %{what}"
+    community_activity_log_title: "%{who} har endret et brukersamfunn"
+    community_activity_user_joined: Brukeren <b>%{user_name}</b> har blitt medlem i brukersamfunnet <b>%{community_name}</b>.
+    community_activity_user_left: Brukeren <b>%{user_name}</b> har meldt seg ut av brukersamfunnet <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: Brukeren <b>%{user_name}</b> la til <b>%{member_name}</b> som administrator av brukersamfunnet <b>%{community_name}</b>.
+    curator_activity_log_title: "%{who} har kuratert noe"
+    data_object_title: "%{who} har lagt inn nytt innhold på EOL"
+    intro_immediately: Hei %{name} —
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
+    someone_commented_on_something: <b>%{who}</b> har kommentert på <b>%{what}</b>.
   recent_updates: Siste oppdateringer
+  recipients: Mottakere
+  recognized_by_as_a_rank: "%{recognized_by} som en %{taxon_rank}"
+  recognized_by_from_source: "%{recognized_by} i %{source}"
+  recognized_by_from_source_as_a_rank: "%{recognized_by} i %{source} som en %{taxon_rank}"
+  references_cabs_colon: "Referanser:"
+  remove: Fjern
   remove_membership: Fjern medlemsskap
+  reply: Svar
+  required_form_element: Påkrevd
+  resource: Ressurs
   resources: Ressurser
+  response: Respons
+  results: Resultater
   rights: Rettigheter
-  rights_holder: Rettighetsinnehaveren
+  rights_holder: Rettighetsinnehaver
+  rights_statement: Rettighetserklæring
+  save: Lagre
+  scientific_name: Vitenskapelig navn
+  search: Søk
+  search_by_term_page_title: "Søk: %{term}"
+  search_field_common_name: Populærnavn
   search_field_label: Søk EOL
-  search_input_advisory_information: Skirv inn vanlige eller vitenskapelige navn på levende organismer som du vil vite mer om, for eksempel kan du prøve å skrive inn tomat.
+  search_field_preferred_common_name: Foretrukket populærnavn
+  search_field_preferred_scientific: Foretrukket vitenskapelig navn
+  search_field_synonym: Synonym
+  search_input_advisory_information: Skriv inn et populærnavn eller vitenskapelig navn på et levende organisme du vil vite mer om. Du kan også søke etter EOL-medlemmer, samlinger og brukersamfunn.
+  search_next_label: Neste
   search_placeholder: Søk EOL ...
+  search_previous_label: Forrige
+  search_results: Søkeresultater
+  search_term: Søkeord
   search_the_site: Søk nettstedet
   see_all_classifications_with_count_html: 
     one: Se den <span class="assistive">%{count} godkjente klassifiseringen som denne taksonen opptrer i.</span>
@@ -212,12 +1796,19 @@ nb:
     one: Se den <span class="assistive">%{count} samlingen som denne taksonen opptrer i.</span>
     other: Se alle de <span class="assistive">%{count} samlingene som denne taksonen opptrer i.</span>
   see_all_communities_with_count_html: 
-    one: Se det <span class="assisitive">%{count} fellesskapet som fokuserer på denne taksonen.</span>
-    other: Se alle de <span class="assisitive">%{count} fellesskapene som fokuserer på denne taksonen.</span>
+    one: Se det <span class="assisitive">%{count} brukersamfunnet som fokuserer på dette taksonet.</span>
+    other: Se alle de <span class="assisitive">%{count} brukersamfunnene som fokuserer på dette taksonet.</span>
   see_all_media_link: Se all media
+  see_all_of_your_collections: Se alle dine samlinger
+  see_all_of_your_communities: Se alle dine brukersamfunn
   select_topic: Velg et emneområde
   selected_language_advisory_information: Dette er det valgte språket.
+  sessions: 
+    new: 
+      meta_title: Logg inn
+      problems_signing_in_with_eol_authentication: Glemt passordet?
   set_as_exemplar: Angi som forbilde
+  show_in_overview: vis i oversikt
   show_status_message: Vis statusmelding
   show_warning_message: Vis advarselsmelding
   sign_in: Logg inn
@@ -232,6 +1823,11 @@ nb:
   sort_by_newest_option: Nyest
   sort_by_oldest_option: Eldst
   sort_by_rating_option: Vurdering
+  sound_alt_text: Dette %{vetted_status} lydopptaket er av %{taxon_name}
+  sound_from_supplier: Lyd fra %{whom}
+  sound_not_associated_with_any_published_entries: Denne lyden er ikke knyttet til noen publiserte taksa.
+  sound_of_taxon: Audio av %{taxon_name}
+  sound_rating: Lydvurdering
   sounds_with_count: 
     one: "%{count} Lyd"
     other: "%{count} Lyder"
@@ -239,42 +1835,289 @@ nb:
   supplier: Leverandør
   switch_language_advisory_information: Bytt nettstedsspråket til %{language_label}
   table_of_contents: Innholdsfortegnelse
-  taxa: Taksoner
+  taxa: 
+    communities: 
+      collections: 
+        meta_description: Samlinger som inneholder %{scientific_name}.
+        meta_description_with_common_name: Samlinger som inneholder %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: "%{scientific_name}-samlinger, %{scientific_name}-observasjoner"
+        meta_title: Samlinger av %{scientific_name}
+        meta_title_with_common_name: Samlinger av %{preferred_common_name} (%{scientific_name})
+        tweet_text: Samlinger av %{scientific_name}
+      curators: 
+        meta_keywords: "%{scientific_name}-eksperter, %{scientific_name}-kuratorer"
+        meta_keywords_with_common_name: "%{preferred_common_name}-eksperter, %{preferred_common_name}-kuratorer, %{scientific_name}-eksperter, %{scientific_name}-kuratorer"
+        meta_title: Kuratorer av %{scientific_name}
+        meta_title_with_common_name: Eksperter på %{preferred_common_name} (%{scientific_name})
+        tweet_text: Kuratorer av %{scientific_name}
+      index: 
+        meta_keywords: "%{scientific_name}-brukersamfunn"
+        meta_keywords_with_common_name: "%{preferred_common_name}-brukersamfunn, %{scientific_name}-brukersamfunn"
+        meta_title: Personer interessert i %{scientific_name}
+        meta_title_with_common_name: Personer interessert i %{preferred_common_name} (%{scientific_name})
+        tweet_text: Personer interessert i %{scientific_name}
+    details: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Fakter om %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life
+          meta_title: Fakter om %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Fakter om %{scientific_name} i Encyclopedia of Life
+        meta_description_no_data: Ingen fakter er tilgjengelige for %{scientific_name} i Encyclopedia of Life. EOL inviterer deg til å bidra med fakter om %{scientific_name} som bevaring, spredning, økologi, habitat, morfologi osv.
+        meta_description_with_chapter_list: Fakter om %{scientific_name} i Encyclopedia of Life. Inneholder fakter om %{chapter_list}.
+        meta_title: Fakter om %{scientific_name}
+        meta_title_with_common_name: Fakter om %{preferred_common_name} (%{scientific_name})
+        tweet_text: Fakter om %{scientific_name}
+    literature: 
+      show: 
+        meta_title: Artikler & bøker om %{scientific_name}
+        meta_title_with_common_name: Artikler & bøker om %{preferred_common_name} (%{scientific_name})
+        tweet_text: Artikler & bøker om %{scientific_name}
+    maps: 
+      show: 
+        meta_title: Kart for %{scientific_name}
+        meta_title_with_common_name: Kart for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Kart for %{scientific_name}
+    media: 
+      index: 
+        meta_description: Bilder, video og lyder av %{scientific_name}. Finn bilder, fotografier, filmer og lyder av %{scientific_name} på Encyclopedia of Life.
+    names: 
+      common_names: 
+        meta_description: Populærnavn for %{scientific_name}.
+        meta_description_with_common_name: Det vitenskapelige navnet for %{preferred_common_name} er %{scientific_name}. Finn ut hva de andre populærnavnene for %{scientific_name} er.
+        meta_keywords: Populærnavn for %{scientific_name}
+        meta_keywords_with_common_name: Populærnavn for %{scientific_name}, vitenskapelig navn for %{preferred_common_name}
+        meta_title: Populærnavn for %{scientific_name}
+        meta_title_with_common_name: Populærnavn for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Populærnavn for %{scientific_name}
+      synonyms: 
+        hierarchy_entry: 
+          meta_description: Synonymer knyttet til %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          meta_keywords: "%{scientific_name}-synonymer"
+          meta_keywords_with_common_name: "%{preferred_common_name}-synonymer, %{scientific_name}-synonymer"
+          meta_title: "%{scientific_name}-synonymer som klassifisert av %{hierarchy_provider}"
+        meta_description: Synonymer for %{scientific_name}.
+        meta_description_with_common_name: Synonymer av %{preferred_common_name}, vitenskapelig kjent som %{scientific_name}.
+        meta_keywords: Synonymer for %{scientific_name}.
+        meta_keywords_with_common_name: Synonymer for %{preferred_common_name}, Synonymer for %{scientific_name}
+        meta_title: Synonymer for %{scientific_name}.
+        meta_title_with_common_name: Synonymer for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Synonymer for %{scientific_name}.
+    overviews: 
+      show: 
+        meta_keywords: info om %{scientific_name},%{scientific_name}-information
+        tweet_text: Informasjon om %{scientific_name}
+    resources: 
+      identification_resources: 
+        meta_title: Identifikasjonsressurser for %{scientific_name}
+        meta_title_with_common_name: Identifikasjonsressurser for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Identifikasjonsressurser for %{scientific_name}
+      nucleotide_sequences: 
+        hierarchy_entry: 
+          tweet_text: Nukleotidsekvenser for %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_title: Nukleotidsekvenser for %{scientific_name}
+        meta_title_with_common_name: Nukleotidsekvenser for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Nukleotidsekvenser for %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_keywords: "%{scientific_name}-dataleverandører, %{scientific_name}-kildedata"
+          meta_keywords_with_common_name: "%{preferred_common_name}-dataleverandører, %{preferred_common_name}-kildedata, %{scientific_name}-dataleverandører, %{scientific_name}-kildedata"
+        meta_keywords: "%{scientific_name}-ressurser, %{scientific_name}-innholdsleverandører"
+        meta_title: Innholdsressurser for %{scientific_name}
+        meta_title_with_common_name: Innholdsressurser for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Innholdsressurser for %{scientific_name}
+    updates: 
+      show: 
+        hierarchy_entry: 
+          meta_title: Oppdateringer for %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_keywords: "%{scientific_name}-nyheter, %{scientific_name}-oppdateringer"
+        meta_title: Kommentarer på %{scientific_name}
+        meta_title_with_common_name: Kommentarer på %{preferred_common_name} (%{scientific_name})
+        tweet_text: Kommentarer på %{scientific_name}
+      statistics: 
+        hierarchy_entry: 
+          meta_title: Statistikker for %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Statistikker for %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
   taxa_with_count: 
     one: "%{count} takson"
     other: "%{count} taksoner"
   taxon: takson
+  taxon_rating: Taksonvurdering
   text_summary_more_link: Les hele oppføringen
   text_with_count: "{PLURAL|one=%{count} Artikkel|%{count} Artikler}}"
-  there_are_currently_no_members_in_this_community: Det er for øyeblikket ingen medlemmer i dette fellesskapet.
-  threat_status_header_colon: "IUCN-trusselstatus:"
+  there_are_currently_no_members_in_this_community: Det er for øyeblikket ingen medlemmer i dette brukersamfunnet.
+  this_article_cannot_be_curated_because_unpublished: Denne artikkelen kan ikke kurateres fordi den er upublisert.
+  this_article_is_unpublished: Denne artikkelen er upublisert.
+  this_image_cannot_be_curated_because_unpublished: Dette bildet kan ikke kurateres fordi det er upublisert.
+  this_image_is_unpublished: Dette bildet er upublisert.
+  this_image_map_cannot_be_curated_because_unpublished: Dette kartet kan ikke kurateres fordi det er upublisert.
+  this_image_map_is_unpublished: Dette kartet er upublisert.
+  this_link_cannot_be_curated_because_unpublished: Denne lenken kan ikke kurateres fordi den er upublisert.
+  this_link_is_unpublished: Denne lenken er upublisert.
+  this_map_cannot_be_curated_because_unpublished: Dette kartet kan ikke kurateres fordi det er upublisert.
+  this_map_is_unpublished: Dette kartet er upublisert.
+  this_sound_cannot_be_curated_because_unpublished: Denne lyden kan ikke kurateres fordi den er upublisert.
+  this_sound_is_unpublished: Denne lyden er upublisert.
+  this_video_cannot_be_curated_because_unpublished: Denne videoen kan ikke kurateres fordi den er upublisert.
+  this_video_is_unpublished: Denne videoen er upublisert.
+  threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>-rødlistestatus:"
   time_ago: "%{time_passed} siden"
+  title: Tittel
   total_items_with_count: 
     one: "%{count} element"
     other: totalt %{count} elementer
+  translation_deleted: Oversettelsen ble slettet
+  translation_saved: Oversettelsen ble lagret
   trusted: Klarert
   twitter: Twitter
   unknown: Ukjent
+  unknown_type_not_associated_with_any_published_entries: Denne informasjonen er ikke knyttet til noen publiserte taksa.
   unreviewed: Uvurdert
-  updated_community: Fellesskapet ble oppdatert.
+  update_language: Oppdater språk
+  update_page: Oppdater side
+  updated: Oppdatert
+  updated_colon: "Oppdatert:"
+  updated_community: Brukersamfunnet ble oppdatert.
+  upload: Last opp
+  url: URL
+  user: Bruker
+  user_already_active_notice: Din konto er allerede aktiv, vennligst logg inn.
   user_comment: Brukerkommentar
+  user_comments: Brukerkommentarer
+  user_no_longer_active_message: Denne brukeren er ikke lenger aktiv
+  user_pending_notifications_comments_assistive: <span class="assistive">kommentarer</span>
   user_system_down: Vi beklager, men brukerregistreringssystemet er ikke tilgjengelig for øyeblikket.  Prøv igjen senere.
+  username: Brukernavn
+  username_colon: "Brukernavn:"
+  username_taken: "%{name} er opptatt"
+  users: 
+    activities: 
+      show: 
+        meta_description: Kurateringshandlinger og kommentarer av %{user_full_name}
+    collections: 
+      index: 
+        meta_description: Samlinger administrert av %{user_full_name}.
+        meta_title: "%{user_full_name} Samlinger"
+        tweet_text: "%{user_full_name} samlinger"
+    communities: 
+      index: 
+        meta_title: "%{user_full_name} Brukersamfunn"
+        tweet_text: "%{user_full_name} brukersamfunn"
+    content_partners: 
+      index: 
+        meta_title: "%{user_full_name} Innholdspartnere"
+        tweet_text: "%{user_full_name} innholdspartnere"
+    edit: 
+      form_tip_account_oauth: E-postadresse og foretrukket språk er påbudt %{required_icon} for alle brukere.
+      form_tip_profile: Objekter markert som påbudt %{required_icon} er valgfrie for vanlige brukere, men påbudt for kuratorer.
+    new: 
+      complete_registration_header: Fullfør din EOL registrering
+      create_user_header: Lag en ny <abbr title="Encyclopedia of Life">EOL</abbr>-konto
+      create_user_with_eol_authentication_header: "Eller oppgi ny påloggingsinformasjon:"
+      meta_title: Bli med i EOL
+      sign_up_with_facebook_assistive: Meld deg på i EOL ved bruk av din Facebook-påloggingsinformasjon.
+      sign_up_with_google_assistive: Meld deg på i EOL ved bruk av din Google-påloggingsinformasjon.
+      sign_up_with_twitter_assistive: Meld deg på i EOL ved bruk av din Twitter-påloggingsinformasjon.
+      sign_up_with_yahoo_assistive: Meld deg på i EOL ved bruk av din Yahoo-påloggingsinformasjon.
+    newsfeeds: 
+      activity_link: aktivitet
+      comments_link: kommentarer
+      show: 
+        meta_description: Nyheter, aktivitetsoppdateringer og kommentarer for %{user_full_name}.
+    notifications: 
+      edit: 
+        page_title: Meldingsinstillinger
+      update: 
+        sorry_notification_settings_could_not_be_updated: Beklager, meldingsinstillinger kunne ikke oppdateres.
+    open_authentications: 
+      facebook: Facebook
+      google: Google
+      index: 
+        page_description: Administrer koblinger mot tredjeparts-kontoer som du kan bruke for å logge inn på EOL.
+        page_title: Tilkoblede kontoer
+      twitter: Twitter
+      yahoo: Yahoo!
+    pending: 
+      header: Takk for din registrering!
+    recover_account: 
+      form_header: Gjenopprett konto
+      meta_title: Gjenopprett konto
+    recover_account_choose_account: 
+      form_header: Gjenopprett konto
+      legend_choose_account: Velg en konto
+    show: 
+      meta_description: Medlemsprofil for %{user_full_name} på Encyclopedia of Life.
+      meta_description_curator: Medlemsprofil for %{curator_level} %{user_full_name} på Encyclopedia of Life.
+  users_about_me_header: Om meg
+  users_content_partners_header: Innholdspartnere
+  users_form_account_header: Din konto
+  users_my_info_header: Min info
   using_the_site: Bruk av dette nettstedet
+  validation_error: Valideringsfeil
+  value: Verdi
+  value_default: (standard)
+  value_empty: (tom)
+  values: Verdier
+  vetted: Gransket
+  video_alt_text: Denne %{vetted_status} videoen er av %{taxon_name}
+  video_from: video fra
+  video_from_supplier: Video fra %{whom}
+  video_not_associated_with_any_published_entries: Denne videoen er ikke knyttet til noen publiserte taksa.
+  video_object: Videoobjekt
+  video_of_taxon: Video av %{taxon_name}
+  video_rating: Videovurdering
   videos_with_count: 
     one: "%{count} video"
     other: "%{count} videoer"
+  view_article_source: Vis artikkelkilde
+  view_as_button: Endre visning
+  view_as_label: Vis som
+  view_curators: vis kuratorer
+  view_current_version_link: Vis nåværende versjon
+  view_image_map_source: Vis kartkilde
+  view_image_source: Vi bildekilde
+  view_map_source: Vis kartkilde
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Vis kun sider med minst et bilde eller et stykke tekst
+  view_sound_source: Vis audiokilde
+  view_source: Vis kilde
+  view_translation_source_link: Vis oversetningskilde
+  view_user_activity: vis brukeraktivitet
+  view_user_comments: vis brukerkommentarer
+  view_verb: Vis
+  view_video_source: Vis videokilde
+  view_your_curator_profile: Vis din kuratorprofil
+  visible_title: Synlig
+  visitors: Besøkende
+  wants_colon: "Ønsker:"
+  weekly: Ukentlig
+  welcome: Velkommen
+  what_do_these_numbers_mean: Wha betyr disse tallene?
   what_is_eol: Hva er EOL?
   what_is_this_question: Hva er dette?
+  who_registered_before: til
+  will_paginate: 
+    next_label: Neste &#8594;
+    page_gap: "&hellip;"
+    previous_label: "&#8592; Forrige"
+  worklist: Arbeidsliste
+  would_you_like_to_become_a_curator_notice: Ønsker du å bli en kurator? Du kan be om tilgang på <a href='%{url}'>din profilside</a>.
+  yahoo: Yahoo
+  yahoo_images: Yahoo Bilder
+  year: År
+  yes_answer: Ja
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Du er en admin.  Så jeg vil vise deg at feilen var:"
   you_are_not_authorized_to_perform_this_action: Du har ikke tillatelse til å utføre denne handligen.
-  you_joined_community: Du har blitt med i dette fellesskapet.
-  you_left_community: Du har forlatt dette fellesskapet.
+  you_joined_community: Du har blitt med i dette brukersamfunnet.
+  you_left_community: Du har meldt deg ut av dette brukersamfunnet.
   your_current_rating_0_of_5: "Din nåværende vurdering: 0 av 5"
   your_current_rating_1_of_5: "Din nåværende vurdering: 1 av 5"
   your_current_rating_2_of_5: "Din nåværende vurdering: 2 av 5"
   your_current_rating_3_of_5: "Din nåværende vurdering: 3 av 5"
   your_current_rating_4_of_5: "Din nåværende vurdering: 4 av 5"
   your_current_rating_5_of_5: "Din nåværende vurdering: 5 av 5"
+  your_email_address: Din e-postadresse
+  your_ip_address: Din IP-adresse
   your_preferences: Dine innstillinger
   your_rating: Din vurdering
+  your_watch_collection: din overvåkningsliste
+  youtube: YouTube
+  youtube_video: YouTube-video

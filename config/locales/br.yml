@@ -435,6 +435,8 @@ br:
   admin_translated_news_item_update_successful_notice: Hizivaet eo bet an droidigezh e %{language} eus <a href="#%{anchor}"><em>%{page_name}</em></a>.
   admin_translated_news_item_update_unsuccessful_error: Ho tigarez, c'hoarvezet ez eus ur fazi ha n'eus ket bet gallet hizivaat an droidigezh.
   admin_user_delete_successful_notice: Dilamet eo bet an implijer
+  admin_user_hide_successful_notice: Kuzhet eo bet an implijer
+  admin_user_unhide_successful_notice: Diguzhet eo bet an implijer
   admins: 
     eol_statistics: 
       content_partners: 
@@ -489,6 +491,7 @@ br:
   all_user_submitted_texts_on_the_website: Holl an testennoù embannet el lec'hienn gant an implijerien zo diswkelet amañ dindan, ha rummet int en urzh an amzer eilpennet
   all_videos: An holl videoioù
   allow_user_logins: Aotren ar c'hevreaduioù implijerien
+  allowed_html_tags: "HTML aotreet : %{comma_separated_tags}"
   already_a_member_question: Ezel oc'h dija ?
   already_member_of_community: Un ezel eus ar gumuniezh-mañ oc'h dija.
   alternate_classification: Rummatadur all
@@ -816,6 +819,7 @@ br:
   create_a_community: Krouiñ ur gumuniezh
   create_a_community_login_advisory: Goulenn a raimp diganeoc'h bezañ anavezet a-raok krouiñ ho kumuniezh
   create_account: krouiñ ur gont
+  create_child_page: Krouiñ un ispajenn
   create_collection_button: Krouiñ un dastumad
   create_community: Krouiñ ur gumuniezh
   create_community_about_heading: Diwar-benn krouiñ ur gumuniezh
@@ -1400,6 +1404,7 @@ br:
   location: Lec'hiadur
   location_colon: "Lec'hiadur :"
   login: kevreañ
+  login_hidden_user_message: Ar gont %{given_name} n'eo ket oberiant ken
   login_or_create_account: Krouiñ ur gont pe kevreañ
   login_required_button: Ret eo kevreañ
   logo_header: Logo
@@ -1442,9 +1447,11 @@ br:
   methods: Hentennoù
   mobile: 
     contents: 
+      explore_eol: Ergerzhit KaV
       full_site: lec'hienn glok
       home: Degemer
       species: Spesadoù
+      taxa: Taksonoù
     search: 
       no_results_found: N'eus bet kavet disoc'h ebet
       results: Disoc'hoù
@@ -1459,6 +1466,7 @@ br:
       nomenclature: Nomenkladur
       overview: Brassell
       sounds: Sonioù
+      taxon_details: Munudoù an takson
       videos: Videoioù
   monthly: Bep miz
   multimedia_links: Liammoù liesvedia
@@ -1551,9 +1559,11 @@ br:
   password_colon: "Ger-tremen :"
   person_rating: Priziadenn an den
   please: Mar plij
+  please_return_to_eol_homepage: Distroit da bajenn degemer KaV, mar plij
   please_wait: Gortozit mar plij...
   preview: rakwelet
   profile: Profil
+  profile_colon: "Profil :"
   project: Raktres
   provider: Pourvezer
   providers: Pourvezerien
@@ -1577,15 +1587,18 @@ br:
   references_cabs_colon: "Daveennoù :"
   remove: Dilemel
   reply: Respont
+  required_form_element: Rekis
   resources: Mammenn
   response: Respont
   results: Disoc'hoù
   results_per_page: "Disoc'hoù dre bajenn :"
   rights: Gwirioù
   save: Enrollañ
+  save_email_settings: enrollañ an arventennoù postelerezh
   scientific_name: Anv skiantel
   search: Klask
   search_by_term_page_title: "Klask: %{term}"
+  search_field_label: Furchal KaV
   search_field_synonym: Heñvelster
   search_next_label: War-lerc'h
   search_placeholder: Klask e-barzh EOL ...
@@ -1599,6 +1612,7 @@ br:
   selected_language_advisory_information: Homañ eo ar yezh bet dibabet evit ar mare.
   send: Kas
   send_email_colon: "Kas ar postel :"
+  server_ip_address: Chomlec'h IP ar servijer
   sessions: 
     new: 
       meta_title: Anv implijer
@@ -1608,10 +1622,12 @@ br:
   share_a_collection: Rannañ un dastumad
   show: Diskouez
   show_full_tree: diskouez ar wezenn glok...
+  showing: O tiskouez
   sign_in: Kevreañ
   sign_out: Digevreañ
   site_language: Yezh al lec'hienn
   skip_to_content: Mont d'an danvez
+  social_sharing_twitter_follow_eol_button: Heuliañ @eol
   sort_by: Urzhiañ dre
   sort_by_button: Urzhiañ
   sort_by_label: Urzhiañ dre
@@ -1626,6 +1642,7 @@ br:
   sound_rating: Priziadenn ar son
   source_colon: "Mammenn :"
   source_url: Mammenn URL
+  special_collection: Dastumad arbennik
   species: Spesadoù
   stats: Stadegoù
   subject: danvez
@@ -1633,6 +1650,7 @@ br:
   supplier: Pourchaser
   supplier_colon: "Pourchaser :"
   switch_language_advisory_information: Lakaat yezh al lec'hienn da vezañ %{language_label}
+  synonym: Heñvelster
   table_column_header_actions: Oberoù
   taxa: 
     communities: 
@@ -1699,22 +1717,28 @@ br:
           meta_title_with_common_name: Hizivadurioù %{preferred_common_name} (%{scientific_name} rummet gant r %{hierarchy_provider})
           tweet_text: Hizivadurioù  %{scientific_name} rummet gant %{hierarchy_provider}
   taxon: takson
+  taxon_recognized_by: Takson anavezet gant %{whom}
+  taxon_suggested: Takson aliet
   terms_agreement_form_header: Termenoù implijout
   terms_agreement_form_submit: A-du emaon.
   text: testenn
   text_capital: Testenn
+  text_summary_empty_header: Berr-ha-berr
   text_with_count: 
     one: "%{count} Pennad"
     other: "%{count} Pennad"
   thank_you: Trugarez deoc'h
   thanks_for_your_time: Trugarez deoc'h evit hoc'h amzer,
+  the_content_was_updated: Hizivaet eo bet an endalc'had.
   the_glossary_term_was_successf: Hizivaet eo bet termen ar c'heriaoueg.
   the_message_was_sent: Kaset eo bet ar gemennadenn.
   the_new_user_was_created: Krouet eo bet an implijer nevez.
   the_user_was_updated: Hizivaet eo bet an implijer.
   this_article_is_unpublished: N"eo ket embannet ar pennad-mañ
+  this_cannot_be_undone_are_you_sure: Ne c'haller ket dizober an dra-mañ ; daoust ha sur oc'h ?
   this_collection_has_no_managers: N'eus merour ebet evit an dastumad-mañ.
   this_comment_was_deleted: Dilamet e oa bet an addispleg-mañ.
+  this_community_was_deleted: Lamet eo bet ar gumuniezh-mañ gant e berc'henn.
   this_image_cannot_be_curated_because_unpublished: Ne c'haller ket goursellet ar skeudenn-mañ rak n'eo ket embannet.
   this_image_is_unpublished: N'eo ket embannet ar skeudenn-mañ.
   this_image_map_cannot_be_curated_because_unpublished: Ne c'hall ket ar gartenn-mañ bezañ goursellet rak n'eo ket embannet.
@@ -1727,21 +1751,35 @@ br:
   this_video_cannot_be_curated_because_unpublished: Ne c'haller ket goursellet ar video-mañ rak n'eo ket embannet.
   this_video_is_unpublished: N'eo ket embannet ar video-mañ.
   title: Titl
+  toc: TAOLENN
   total: Hollad
+  translation_deleted: Diverket eo bet an droidigezh
+  translation_saved: Enrollet eo bet an droidigezh
   translations_submit: Gwelet an droidigezh
   true_label: Gwir
+  tumblr: Tumblr
   twitter: Twitter
+  type: Seurt
   unknown: Dianav
   unknown_hierarchy: Urzhaz dianav
   unpublished: Diembann
   update: Hizivaat
+  update_language: Hizivaat ar yezh
+  update_page: Hizivaat ar bajenn
+  updated: Hizivaet
+  updated_colon: "Hizivaet :"
   updated_community: Hizivaet eo bet ar gumuniezh.
+  updates: Hizivadennoù
+  upload: Kas
   url: URL
+  url_not_accessible: Ne c'haller ket mont d'an URL-mañ
   use_as_examplar_button: Implijout da batrom
   user: Implijer
   user_activity_stats_articles_added_dropdown: Pennadoù ouzhpennet
   user_activity_stats_header: Obererezh
+  user_no_longer_active_message: An implijer-mañ n'eo ket oberiant ken
   user_response: Respont an implijer
+  user_says_colon: "%{users_name} a lavar :"
   username: Anv implijer
   username_colon: "Anv implijer :"
   username_taken: "%{name} a zo da unan bennak all dija"
@@ -1788,34 +1826,55 @@ br:
       legend_choose_account: "\nDibab ur gont"
   users_about_me_header: Diwar ma fenn
   users_form_account_header: Ho kont
+  users_my_info_header: Ma zitouroù
+  using_the_site: Oc'h implijout al lec'hienn
+  value: Talvoud
   value_default: (dre ziouer)
   value_empty: (goullo)
+  values: Talvoudoù
   video_from_supplier: Video digant %{whom}
   video_of_taxon: Video %{taxon_name}
   video_rating: Priziadenn ar video
   videos_with_count: 
     one: "%{count} video"
     other: "%{count} video"
+  view_added_text: gwelet an destenn ouzhpennet
+  view_as_label: Gwelet evel
+  view_in_classification: gwelet er rummatadur
+  view_this_hierarchy: gwelet an urzhaz-mañ
+  view_user_activity: gwelet obererezh an implijer
   view_verb: Gwelet
+  visible_title: Gwelus
   visitors: Gweladennerien
+  web_users: Implijerien eus ar Web
   weekly: Bep sizhun
   welcome: Deuet-mat oc'h !
+  what_do_these_numbers_mean: Petra e talvez an niveroù-mañ ?
   what_is_eol: Petra eo EOL?
   what_is_this_question: Petra eo se ?
   who_registered_before: da
+  wikipedia_queue_new_page_title: Goulenn enporzhiadur ur pennad eus Wikipedia
   will_paginate: 
     next_label: War-lerc'h &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Kent"
+  worklist: Roll-labour
+  xml_response: Respont XML
   yahoo: Yahoo
   yahoo_images: Skeudennoù Yahoo
   year: Bloaz
   yes_answer: Ya
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "N'oc'h ket ur merour. N'oc'h ket aotreet da welet ar gemennadenn fazi :"
+  you_are_not_authorized_to_perform_this_action: N'oc'h ket aotreet da seveniñ an ober-mañ.
+  you_are_viewing_this_rank_as_classified_by: "Emaoc'h o welet an %{rank} evel m'eo bet rummataet gant :"
+  you_can_edit_those_later_if_ne: Gallout a rit aozañ ar re-se diwezhatoc'h ma vez ezhomm.
   you_have_been_logged_out: Digevreet oc'h bet.
   you_left_community: Kuitaet ho peus ar gumuniezh-mañ.
+  your_browser_does_not_support: Ho merdeer ne c'hall ket ober gant video HTML5.
   your_email_address: Ho chomlec'h postel
   your_ip_address: Ho chomlec'h IP
   your_preferences: Ho penndibaboù
+  your_rating: Ho priziadenn
   your_watch_collection: Ho roll evezhiañ
   youtube: YouTube
   youtube_video: Video YouTube

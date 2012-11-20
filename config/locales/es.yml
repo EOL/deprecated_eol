@@ -5,6 +5,7 @@
 # Author: Armando-Martin
 # Author: Bernardom
 # Author: Crazymadlover
+# Author: Dalton2
 # Author: Eduardoescdel
 # Author: Erick mata
 # Author: Fitoschido
@@ -817,7 +818,7 @@ es:
   add_association_submit_button: añadir asociación
   add_brief_summary_to_page_link_button: Añadir un breve resumen a esta página
   add_citizen_science_resources_to_page_link_button: Agregar un vínculo de ciencia ciudadana a esta página
-  add_classifications: Añadir clasificaciones seleccionadas para mover
+  add_classifications: Añadir para su traslado las clasificaciones seleccionadas
   add_collection_to_a_new_community: Añadir "%{collection}" a una nueva comunidad
   add_collection_to_community: Añadir colección a la comunidad
   add_education_resources_to_page_link_button: Agregar recursos educativos a esta página
@@ -1118,7 +1119,7 @@ es:
   classification_from_agent: Clasificación de %{agent}.
   classification_from_agent_chosen_by_curator: Clasificación de %{agent} seleccionado por %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Clasificación de %{agent} seleccionada por %{curator} - <a href="%{more_link}">Ver más</a>.
-  classification_merge_help: <b>Estás a punto de mover las clasificaciones de esta página.</b> Para continuar, debes indicarnos cuál de las clasificaciones existentes crees que representa <i>mejor</i> la página del taxón desde el que estás moviendo las clasificaciones. Esto nos ayudará a mantener las clasificaciones que has seleccionado separadas de esta página en el futuro.
+  classification_merge_help: <b>Estás a punto de trasladar las clasificaciones de esta página.</b> Para continuar, debes indicarnos cuál de las clasificaciones existentes crees que representa <i>mejor</i> a la página de taxón desde la que estás moviendo las clasificaciones. Esto nos ayudará a mantener las clasificaciones que has seleccionado separadas de esta página en el futuro.
   classification_preferred_for_taxon: Preferido
   classification_preferred_for_taxon_help_tip: "%{icon} marca la clasificación preferida para este taxón."
   classification_split_help: <b>Estás a punto de dividir las clasificaciones de esta página.</b> Para continuar, debes indicarnos cuál de las clasificaciones existentes crees que representa <i>mejor</i> la página existente. Esto nos ayudará a mantener las clasificaciones que has seleccionado separadas de esta página en el futuro.
@@ -1126,7 +1127,7 @@ es:
   classification_summary_section_header: Clasificación
   classification_tree_header: Clasificación
   classifications_edit_cancelled_busy: Lo sentimos, no se puede procesar tu solicitud para editar las clasificaciones en este momento; una o más páginas del taxón están bloqueadas. Se está tramitando una solicitud existente para editar estas clasificaciones.
-  classifications_edit_cancelled_merge_to_self: Tu origen y destino son la misma página; no hay nada que mover.
+  classifications_edit_cancelled_merge_to_self: Tu origen y destino son la misma página; no hay nada que trasladar.
   classifications_empty: Esta página no está incluida en ninguna de las clasificaciones que se pueden examinar en EOL.
   classifications_exemplar_column_header: Ejemplar
   classifications_hierarchy_column_header: Clasificación
@@ -1137,7 +1138,7 @@ es:
   classifications_preferred_column_header: Preferido
   classifications_rank_column_header: Posición
   classifications_recognized_by_column_header: Reconocido por
-  classifications_split_column_header: Separar / Mover
+  classifications_split_column_header: Separar / Trasladar
   classifications_summary_header_with_count: 
     one: "Encontrado en %{count} clasificación "
     other: Encontrado en %{count} clasificaciones
@@ -2659,10 +2660,10 @@ es:
   move: Trasladar
   move_down: Mover hacia abajo
   move_items_to_a_new_collection_with_count: 
-    one: Mover %{count} elemento a una nueva colección
-    other: Mover %{count} elementos a una nueva colección
-  move_to_bottom: Mover al final
-  move_to_top: Mover al principio
+    one: Trasladar %{count} elemento a una nueva colección
+    other: Trasladar %{count} elementos a una nueva colección
+  move_to_bottom: Trasladar al final
+  move_to_top: Trasladar al principio
   move_up: Mover hacia arriba
   moved_all_items_from_collection_with_count: 
     one: Mueve %{count} elemento de %{from} a esta colección.
@@ -2736,7 +2737,7 @@ es:
   next: Siguiente
   no_active_members: No ha habido suficiente actividad todavía.
   no_answer: 'No'
-  no_classificaitons_selected: No hay clasificaciones seleccionadas. No hay nada que mover.
+  no_classificaitons_selected: No hay clasificaciones seleccionadas. No hay nada que trasladar.
   no_collections_apply: Ninguna de las colecciones a las que tienes acceso puede añadir administradores.
   no_comments_are_available_for_subject: No hay comentarios disponibles para %{subject}
   no_comments_have_been_left_yet: Aun no se ha dejado ningún comentario.

@@ -960,7 +960,8 @@ nb:
   email_recipients: E-postmottakere
   encyclopedia_of_life: Encyclopedia of Life
   endorsed_collections_with_count: 
-    other: one%{count} Utvalgt samling
+    one: "%{count} Utvalgt samling"
+    other: "%{count} Utvalgte samlinger"
   eol_api: EOL API
   eol_api_collections: "EOL API: Samlinger"
   eol_api_colon: "EOL API:"

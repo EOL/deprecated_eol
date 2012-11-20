@@ -3714,9 +3714,11 @@ ar:
   user_activity_stats_objects_curated: خضع %{count} كائن للإشراف
   user_activity_stats_objects_curated_dropdown: الكائنات التي خضعت للإشراف
   user_activity_stats_preferred_classifications_selected: 
-    other: "واحد= تم اختيار %{count} تصنيف مُفضل "
+    one: "تم اختيار %{count} تصنيف مُفضل "
+    other: " تم اختيار %{count} تصنيف مُفضل"
   user_activity_stats_selected_articles_for_overview: 
-    other: "واحد= %{count} مقال أخُتير ليتم إضافته إلى النظرة العامة "
+    one: "%{count} مقال أخُتير ليتم إضافته إلى النظرة العامة "
+    other: "%{count} ليتم إضافته إلى النظرة العامة"
   user_activity_stats_set_exemplar: تم وضع %{count} صورة كنموذج
   user_activity_stats_taxa_commented: تم التعليق على %{count} أصنوفة.
   user_activity_stats_taxa_comments: تعليقات خاصة بـ %{count} أصنوفة.

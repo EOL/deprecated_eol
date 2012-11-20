@@ -1,13 +1,23 @@
 # Load the rails application
 require File.expand_path('../application', __FILE__)
 
-EolUpgrade::Application.initialize!
+module InitializerAdditions
+  def self.add(name)
+    file = File.join(File.dirname(__FILE__), "#{name}.rb")
+    if File.exists?(file)
+      begin
+        require file
+        puts "** LOADED: #{file} **"
+      rescue LoadError
+        puts "** WARNING: COULD NOT LOAD #{file} **"
+      end
+    else
+      puts "++ No config for #{name} found, skipping."
+    end
+  end
+end
 
-# The order of environment loading is:
-# 1) config/environment.rb (THIS FILE)
-# 2) config/environments/#{Rails.env}.rb
-# 3) config/environments/#{Rails.env}_eol_org.rb
-override_environment_with_values_from(File.join(File.dirname(__FILE__), 'environments', "#{Rails.env}_eol_org"))
-# 4) config/environment_eol_org.rb
-override_environment_with_values_from(File.join(File.dirname(__FILE__), 'environment_eol_org'))
-override_environment_with_values_from(File.join(File.dirname(__FILE__), 'environments', 'local'))
+InitializerAdditions.add("environments/#{Rails.env}_eol_org")
+InitializerAdditions.add("environment_eol_org")
+InitializerAdditions.add("environments/local")
+EolUpgrade::Application.initialize!

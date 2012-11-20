@@ -5,6 +5,7 @@
 # Author: Darth Kule
 # Author: EdoDodo
 # Author: F. Cosoleto
+# Author: Gianfranco
 # Author: Inskatolata
 # Author: Raoli
 # Author: Ribez
@@ -155,6 +156,9 @@ it:
         request_publish: Richiesta di pubblicazione
       name: 
         string: Nome
+      news_item: 
+        active: Pubblicato
+        sort_order: Ordinamento
       notification: 
         changes_to_my_watched_collection: Modifiche alle collezioni nei tuoi osservati speciali
         changes_to_my_watched_community: Modifiche alle comunità nei tuoi osservati speciali
@@ -1358,6 +1362,8 @@ it:
         browsable_status_with_colon: "Stato esplorabile:"
         complete: A cura
         request_publish: Pubblicazione richiesta
+      news_item: 
+        active: Pubblicato
       open_authentication: 
         connect: Aggiungi
         connected: Connesso
@@ -1437,6 +1443,9 @@ it:
         create: Aggiungi articolo
         create_text: Aggiungi articolo
         update: Salva l'articolo
+      data_object_link: 
+        create: Aggiungi link
+        update: Salva link
       eol_statistic: 
         change_date: Ordina le statistiche per data
         download_csv: Scarica in formato CSV

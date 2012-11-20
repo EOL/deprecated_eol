@@ -440,7 +440,7 @@ fr:
       data_objects: 
         menu_link: Objets de données
         page_header: Statistiques des objets de données
-        page_title: "Administration: Statistiques de l'objet de données"
+        page_title: "Administration : Statistiques de l'objet de données"
       index: 
         menu_link: Statistiques globales
         page_header: Statistiques globales
@@ -793,7 +793,7 @@ fr:
   containing_value: contenant %{value}.
   content: 
     index: 
-      header_news: Actualités de EOL
+      header_news: Actualités de EdlV
       meta_description: L’Encyclopédie de la Vie est un effort sans précédent pour rassembler les connaissances scientifiques au sujet de toute vie animale et végétale, où les images, informations, faits et autres sont disponibles pour toutes les choses vivantes dans nos règnes animal et végétal.
       meta_keywords: Animaux, Images d’animaux, Information sur les animaux, Plantes, Vie des plantes, Images de plantes, Information sur les plantes, Flore, Faune
       meta_title: Animaux - Plantes - Images & Informations
@@ -1524,7 +1524,9 @@ fr:
         request_publish_more: Indique si une hiérarchie est en demande de promotion pour qu’elle devienne l’une des principales hiérarchies navigables sur l’EdlV.
       news_item: 
         active: Publié
-        active_more: Les éléments d'actualité publiés seront visibles publiquement à la date et l'heure souhaités. Décochez <em>publié</em> si vous voulez éviter que les utilisateurs courants de voir les versions de cet élément d'actualité dans toutes les langues.
+        active_more: Les éléments d'actualité publiés seront visibles publiquement à la date et l'heure souhaitées. Décochez <em>publié</em> pour empêcher les utilisateurs courants de voir les versions de cet élément d'actualité dans toutes les langues.
+        page_name: Nom unique <small>(caractères alphanumériques minuscules latins ISO basique et souligné uniquement)</small>
+        page_name_more: Saisissez un identifiant unique, auto-descriptif, significatif et persistant pour cet élément d'information. Le nom que vous saisissez là sera utilisé pour générer l'URL pour cet élément d'information, c.à.d. que le nom unique <em>nouvelle_version_de_eol</em> sera converti dans l'URL <em>http://eol.org/news/nouvelle_version_de_eol</em>.
       open_authentication: 
         connect: Ajouter
         connected: Connecté.
@@ -1561,7 +1563,13 @@ fr:
         meta_keywords_more: Entrez une liste de mots et de courtes expressions séparés par des virgules qui reflètent le mieux le contenu de la page. Ces expressions et mots-clés sont parfois utilisés par les moteurs de recherche de la toile Internet afin d’améliorer la pertinence de la page au regard des critères de recherche.
         title_more: Le titre de ce contenu apparaîtra dans la zone d’entête de la page. Le titre devrait inclure les mots-clés les plus appropriés au contenu.
       translated_news_item: 
+        active_translation: Publié
+        active_translation_more: Les traductions publiées seront visibles publiquement, sauf si l'élément d'information lui-même n'est pas publié. Décochez <em>publié</em> si vous voulez empêcher tous les utilisateurs de voir cette version de l'élément d'information.
+        body_more: "Saisissez le contenu de l'élément d'information dans la zone principale. Utilisez le boîte déroulante <em>Format</em> pour choisir les éléments de texte sémantiques appropriés, par exemple choisissez <em>Titre 2</em> pour un titre de second niveau. Remarque: <em>Titre 1</em> est réservé pour le titre de l'élément d'information, donc les titres dans la zone principale commencement avec <em>Titre 2</em>. Choisissez <em>Source</em> pour basculer dans la vue du code source HTML, qui vous permet d'insérer et modifier manuellement le HTML."
         language_id: Langue
+        meta_description_more: Fournissez une courte description, résumant les concepts clés du contenu de l'élément d'information. Cette description est quelquefois utilisée par les moteurs de recherche du web pour à la fois contrôler sa pertinence et le lister dans les résultats des moteurs de recherche.
+        meta_keywords_more: Saisissez une liste de mots et de courtes phrases séparés par des virgules qui reflètent le mieux le contenu de l'élément d'information. Ces mots-clés et phrases-clés sont parfois utilisée par les moteurs de recherche du web pour évaluer la pertinence de l'élément d'information vis-à-vis des critères de recherche.
+        title_more: Le titre de cet élément d'information apparaîtra dans la zone d'entête de la page. Le titre devrait comprendre les mots-clés les plus pertinents vis-à-vis du contenu.
       user: 
         agreed_with_terms: J’accepte les <a href="%{terms_url}">conditions d’utilisation</a>
         api_key_more: Lisez en plus au sujet de <a href="%{api_docs_url}">l’ajout d’une clé pour vos appels à l’IPA</a>.
@@ -1848,10 +1856,14 @@ fr:
         learn_more_link_trees: Arbres
         learn_more_link_viruses: Virus
         learn_more_link_worms: Vers
+        questions_link_binomial_nomenclature: Qu'est-ce que la nomenclature binomiale?
         questions_link_biodiversity: Qu'est ce que la biodiversité ?
+        questions_link_biological_classification: Qu'est-ce qu'une classification biologique?
         questions_link_contributing_to_research: Comment puis-je contribuer à la recherche ?
         questions_link_discovering_species: Comment les espèces sont découvertes ?
+        questions_link_indicator_species: Qu'est-ce qu'une espèce indicatrice?
         questions_link_invasive_species: Qu'est ce qu'une espèce invasive ?
+        questions_link_model_organism: Qu'est-ce qu'un organisme modèle?
         questions_link_naming_species: Comment les espèces sont nommées ?
         questions_link_species: Qu'est ce qu'une espèce ?
   learn_about_collections: Comment puis-je en créer une ?
@@ -2079,6 +2091,11 @@ fr:
   news_item: élément nouvelles
   news_item_date_as_shown_to_user: "Date d’élément de nouvelle telle que montrée à l’utilisateur (heure affichée uniquement dans le fil RSS) :"
   news_item_title: Élément Nouvelles
+  news_items: 
+    index: 
+      meta_keywords: actualités de EOL, actualités de l'encyclopédie de la vie
+      meta_title: Actualités de EdlV
+      page_title: Actualités de EdlV
   news_missing_content_message: Désolé, cette page n’est pas disponible pour la langue sélectionnée %{selected_language}.
   news_missing_content_title: Traduction manquante
   newsfeed: Fil de nouvelles

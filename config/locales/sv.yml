@@ -182,6 +182,8 @@ sv:
         title: Titel
       translated_news_item: 
         active_translation: Publicerad
+        meta_description: Metadata-beskrivning
+        meta_keywords: Metadata-nyckelord
         title: Titel
       user: 
         api_key: API-nyckel
@@ -1229,6 +1231,7 @@ sv:
         create: Skapa innehållspartner
         update: Spara information om innehållspartners
       content_partner_agreement: 
+        agree: Acceptera villkoren för innehållspartnerna
         create: Skapa nytt avtal
         update: Uppdatera avtal
       content_partner_contact: 
@@ -1278,6 +1281,7 @@ sv:
         update: Spara ändringar i översättning
       translated_news_item: 
         create: Lägg till översättning
+        update: Spara ändringar i översättning
       update: Uppdatera %{model}
       user: 
         create: Skapa konto

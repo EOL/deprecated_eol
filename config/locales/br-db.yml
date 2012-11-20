@@ -1,6 +1,7 @@
 # Messages for Breton (brezhoneg)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Fohanno
 # Author: Fulup
 # Author: Gwenn-Ael
 # Author: Y-M D
@@ -277,6 +278,7 @@ br:
   translated_table_of_contents-label-table_of_contents_id-308: Deskrivadur klok
   translated_table_of_contents-label-table_of_contents_id-309: Dasparzh
   translated_table_of_contents-label-table_of_contents_id-310: Diorroadur
+  translated_table_of_contents-label-table_of_contents_id-312: Divroadur
   translated_table_of_contents-label-table_of_contents_id-313: Kleñvedoù hag arvevaded
   translated_table_of_contents-label-table_of_contents_id-314: Bevoniezh ar poblañsoù
   translated_table_of_contents-label-table_of_contents_id-315: Kelc'hiad buhezel hag emzalc'h

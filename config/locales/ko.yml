@@ -1015,6 +1015,7 @@ ko:
   bi_monthly: 매월 2주
   biodiversity_heritage_library: 생물 다양성 유산 도서관
   biomedical_terms: 생명 공학 용어
+  biomedical_terms_clouds_provided_by: MBL <a rel="nofollow" href="%{supplier_url}">노화 프로젝트의 생물학</a>에 의해 제공한 구름입니다.
   biomedical_terms_provided_by: <a rel="nofollow" href="%{supplier_url}">PubMed</a>가 제공한 용어입니다.
   body: "본문:"
   browsable: 찾아보기
@@ -1045,6 +1046,10 @@ ko:
   citation: 인용
   citing_link: 인용하기
   classification_already_preferred: "오류: 이 분류는 이미 선호함으로 표시했습니다."
+  classification_curation_pending: 큐레이션이 대기 중입니다. 이 분류는 가까운 미래에 다른 문서로 이동할 수 있습니다.
+  classification_curation_split_comment_with_count: 
+    one: 이 문서에서 분류 %{count}개가 <a href='%{url}'>자신의 문서에 분할</a>했습니다.
+    other: 이 문서에서 분류 %{count}개가 <a href='%{url}'>자신의 문서에 분할</a>했습니다.
   classification_from_agent: "%{agent}에서의 분류입니다."
   classification_from_agent_chosen_by_curator: "%{curator}에 의해 선택한 %{agent}에서의 분류입니다."
   classification_from_agent_chosen_by_curator_see_more: "%{curator}에 의해 선택한 %{agent}에서의 분류입니다. - <a href=\"%{more_link}\">더 보기</a>"
@@ -1086,6 +1091,7 @@ ko:
   collection_error_no_items_selected: "오류: 항목을 선택하지 않아 어떠한 행동도 하지 않았습니다."
   collection_image: 모음집 그림
   collection_is_empty: 이 모음집은 현재 비어있습니다.
+  collection_item_edit_by_javascript_not_authorized_error: 죄송합니다, 이 모음집 항목을 편집할 수 있는 권한이 없습니다. 이 모음집의 소유자나 편집자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
   collection_item_edit_page_title: <em>%{collection_name}</em> 모음집에 항목 편집
   collection_item_not_found_error: 해당 모음집 항목을 찾을 수 없습니다.
   collection_name_cannot_be_blank: 모음집 이름은 비워둘 수 없습니다
@@ -1119,8 +1125,8 @@ ko:
         recent_observations: 최근 관찰
         some_taxon: 무언가
         taxa_observed: 
-          one: 분류 %{count} 개 관찰함
-          other: 분류 %{count} 개 관찰함
+          one: 분류 %{count}개 관찰함
+          other: 분류 %{count}개 관찰함
         top_contributors: 상위 iNaturalist 기여자
         tweet_text: "%{collection_name} iNaturalist 관찰"
         view_all_observations_on_inaturalist: iNaturalist에 %{project_title}에서 모든 관찰 보기
@@ -1152,19 +1158,25 @@ ko:
   comment_body_label: 내 덧글
   comment_created_at: 만든 때
   comment_delete_confirm: 덧글을 정말 삭제하겠습니까?
+  comment_edit_by_javascript_not_authorized_error: 죄송합니다, 이 덧글을 편집할 수 있는 권한이 없습니다. 이 덧글 작성자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
+  comment_new_posters_image_advisory_info: 프로필 사진과 이름이 목록에 덧글 옆에 나타납니다.
+  comment_new_posters_image_alt: 사진을 제공할 때의 프로필 사진입니다.
   comment_new_title: 새 덧글 추가
   comment_not_added_error: 죄송합니다, 오류가 발생해 덧글을 추가할 수 없습니다.
   comment_not_deleted_error: 죄송합니다, 오류가 발생해 덧글을 삭제할 수 없습니다.
   comment_not_updated_error: 죄송합니다, 오류가 발생해 덧글을 업데이트할 수 없습니다.
   comment_or_rate_on_this_article: 이 문서에 덧글을 남기거나 평가하기
   comment_or_rate_on_this_link: 이 링크에 덧글을 남기거나 평가하기
+  comment_show_posters_image_alt: 이 행동을 한 %{posters_name}의 프로필 사진입니다.
   comments: 덧글
   comments_and_tags: 덧글과 태그
   comments_filter: 덧글
+  comments_moderated: 덧글 검토함
   comments_on: 덧글 남긴 곳
   comments_with_count: 
     one: 덧글 %{count}개
     other: 덧글 %{count}개
+  common_activities_by_logged_in: 로그인한 사용자의 공통 활동입니다.
   common_name: 공통 이름
   common_name_avg: 공통 이름 평균
   common_name_exists: <em>%{name_string}</em> 공통 이름이 이미 존재합니다
@@ -1200,10 +1212,12 @@ ko:
     other: 공동체 %{count}개
   community: 공동체
   community_activity: 공동체 활동
+  community_can_now_manage_this_collection: "\"%{community}\" 모음집은 지금 이 모음집을 관리할 수 있는 권한이 있습니다."
   community_contributions_with_count: 
     one: 기여 %{count}회
     other: 기여 %{count}회
-  community_description_default: 생명의 백과사전 공동체.
+  community_description_default: 생명의 백과사전 공동체입니다.
+  community_destroyed: 이 공동체를 삭제했습니다. 더 이상 분류 문서 또는 찾기 결과에서 보여지지 않습니다.
   community_empty_notice: 이 공동체에 구성원이 없습니다.
   community_focus: 관리한 모음집
   community_focus_items_with_count: 
@@ -1221,6 +1235,7 @@ ko:
   community_name_label: 공동체 이름
   community_newsfeed: 공동체 뉴스 피드
   community_no_longer_has_manager_access_to_collection: "\"%{community}\" 공동체는 더 이상 \"%{collection}\" 모음집으로 관리자 접근할 수 없습니다."
+  community_not_destroyed_error: 죄송합니다, 문제가 발생해 공동체가 삭제되지 않았습니다.
   community_rating: 공동체 평가
   community_removed_by_owner: 이 공동체는 소유자에 의해 제거됐습니다.
   community_tab_collections_header: 모음집
@@ -1371,6 +1386,7 @@ ko:
   content_partner_resources_link: 자료 및 연락
   content_partner_resources_link_back_to: 자료 및 연락으로 돌아가기
   content_partner_statistics_column_header_provider_count: 제공자 콘텐츠를 포함한 문서
+  content_partner_statistics_column_header_statistic: "%{year}년 %{month_name} 달에 측정한 통계"
   content_partner_statistics_column_header_taxa_page_page_views: 문서 보기
   content_partner_statistics_column_header_taxa_page_time_on_page_seconds: 문서당 시간 (초)
   content_partner_statistics_column_header_taxa_page_unique_page_views: 고유 문서 보기
@@ -1450,7 +1466,7 @@ ko:
   created: Created
   created_at: 만든 곳
   created_by: 작성자
-  created_colon: "만들어짐:"
+  created_colon: "만든 날짜:"
   created_community: 공동체를 성공적으로 만들었습니다.
   creative_commons: 크리에이티브 커먼즈
   curated: 큐레이트됨
@@ -1560,18 +1576,18 @@ ko:
       - 11월
       - 12월
     month_names_short: 
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
+      - 1월
+      - 2월
+      - 3월
+      - 4월
+      - 5월
+      - 6월
+      - 7월
+      - 8월
+      - 9월
+      - 10월
+      - 11월
+      - 12월
     next: 다음
     previous: 이전
   dato_create_cancel: 취소
@@ -1612,6 +1628,9 @@ ko:
   donation_confirmation: 기부 확인
   donation_error_no_amount: 기부 금액을 선택하세요.
   donation_error_only_numbers: 숫자만 사용하여 금액을 입력하세요.
+  donation_sponsorship_content_title: 콘텐츠 후원
+  donation_sponsorship_fellowships_title: 동호회
+  donation_sponsorship_infrastructure_title: 핵심 인프라
   done_already: 이미 완료
   download_wav_file: WAV 파일 다운로드
   dublin_core: 더블린 코어
@@ -1641,6 +1660,7 @@ ko:
   editors_tab_label: 운영자
   email: 이메일
   email_colon: "이메일:"
+  email_recipients: 이메일 받는 사람
   encyclopedia_of_life: 생명의 백과사전
   endorsed_by: 알찬 문서 지정자
   endorsed_collections: 알찬 모음집
@@ -1701,16 +1721,21 @@ ko:
       page_title: 통계
     warnings: 
       stats_unavailable_for_date: 죄송합니다, 통계는 %{date}에 사용할 수 없습니다. 다른 날짜를 선택하세요.
+  error_401_description: 죄송합니다, 해당 URL에 접근할 수 있는 권한이 없습니다.
   error_401_page_title: 권한 없음
+  error_403_description: 죄송합니다, 해당 URL에 접근할 수 있는 권한이 없습니다.
   error_403_page_title: 접근 거부
+  error_404_description: 죄송합니다, 해당 URL에서 문서를 찾을 수 없습니다.
   error_404_page_title: 찾을 수 없음
   error_500_page_title: 이런.
   error_default_page_title: 이런.
-  error_homepage_or_search_option: "<a href=\"/\">대문문서</a>로 돌아가거나 찾기 도구를 사용할 수 있습니다:"
+  error_homepage_or_search_option: "<a href=\"/\">대문 문서</a>로 돌아가거나 찾기 도구를 사용할 수 있습니다:"
   error_log: 오류 기록
   error_log_detail: 오류 기록 자세한 사항
   error_logging_active: 오류 기록 활동
+  error_watch_collections_cannot_be_shared: 주시문서 모음집을 공유할 수 없습니다
   example_colon: "예시:"
+  exception: 예외
   exceptions: 
     security_violations: 
       administrators_only: 죄송합니다, 접근은 EOL 관리자로 제한됩니다.
@@ -1719,14 +1744,15 @@ ko:
       hidden_user_recover_account: 죄송합니다, 계정 복구는 해당 계정에서 비활성화되어 있습니다.
       hidden_user_temporary_login: 죄송합니다, 계정 복구와 로그인은 해당 계정에 대해 비활성화되어 있습니다.
   expand_all_children: 모든 하위 확장
-  explore: 탐색
+  explore: 탐구
+  explore_what_we_know_about_taxon: "%{taxon}에 대한 EOL이 알고 있는 탐구입니다."
   export_all_of_the_entries_as_a: 항목 모두를 CSV 파일로 내보내기
   export_curator_csv_link: "[모든 큐레이터를 CSV로 내보내기]"
   export_this_list_as_csv: 이 목록을 CSV로 내보내기
   external_link_header: 바깥 링크
   external_link_icon_alt_text: 바깥 링크입니다.
   external_report_click_url_to_proceed: 바깥 보고입니다. 진행하려면 URL를 클릭하세요.
-  external_report_click_year_to_proceed: 바깥 보고입니다. 진행하려면 연도를 클릭하세요.
+  external_report_click_year_to_proceed: 바깥 보고입니다. 진행하려면 년도를 클릭하세요.
   facebook: 페이스북
   failed_login_attempts_with_count: 
     one: (로그인 시도를 %{count}회 실패했습니다)- 사용자가 로그인하려면 확인해야 합니다
@@ -1818,6 +1844,8 @@ ko:
   google_analytics_google_account_and_access_required: Google 웹로그 분석 (Google 계정 및 접속 필요)
   google_images: Google 이미지
   google_scholar: Google 학술 검색
+  grant_full_curator_link: 부여
+  grant_manager_link: 관리자 역할 부여
   harvest_id: 수확 ID
   harvesting_processes_log: 수확 과정 기록
   harvests_for: "%{resource}에 대한 수확"
@@ -1880,6 +1908,7 @@ ko:
         object_title: 제목
         refs: 참고 <small>(새 행에 각 참조를 넣으세요)</small>
         rights_holder: 권한 소유자
+        rights_holder_more: 이 데이터에 대한 권리를 소유 또는 관리하는 사람이나 조직을 지정합니다. 이 입력란을 공백으로 남겨두면 퍼블릭 도메인을 제외한 모든 라이선스 권리 보유자로 가정할 것입니다. 퍼블릭 도메인 라이선스는 저작권 보유자가 필요하지 않습니다.
         rights_statement: 권한 정책
         rights_statement_more: 크리에이티브 커먼즈 저작자표시 (CC-BY) 라이선스에 따라 필요한 경우 사용 권리 정책은 <q cite="http://creativecommons.org/licenses/by/3.0">저자 또는 라이선스 제공자에 의해 지정된 방식에 따라</q> 저자 표기에 주의하시기 바랍니다.
         source_url: 원래 데이터 개체에 대한 URL
@@ -1907,19 +1936,27 @@ ko:
         published_at: 게시함
         published_status: 상태
       hierarchy: 
+        browsable_more: EOL의 기본 찾아보는 계층 구조 중 하나가 이 계층 구조를 홍보하기 위해 찾아보도록 확인합니다.
         browsable_status_with_colon: "본문 상태:"
         complete: 큐레이트됨
+        complete_more: "큐레이트한 계층 구조의 모든 항목이 고유하도록 간주합니다. 즉 일치하는 이름 문자열이 동음이의어로 간주합니다. <strong>경고: 데이터의 무결성을 위협할 수 있으므로 계층 구조의 동음이의어의 상태의 일부가 없는 한 이 속성을 바꾸지 마십시오.</strong>"
         request_publish: 요청한 게시
+        request_publish_more: EOL의 기본 찾아보는 계층 구조 중 하나가 이 계층 구조를 홍보하기 위해 대기 중인 요청이 있는지 여부를 나타냅니다.
       news_item: 
         active: 게시함
+        active_more: 게시한 뉴스 항목은 선택한 날짜와 시간에 공개적으로 보여집니다. 어떤 언어로 이 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
         page_name: 고유 이름 <small>(ISO 기본 라틴 알파벳 문자를 소문자만을 밑줄)</small>
+        page_name_more: 이 뉴스 항목에 대한 고유하고 자기를 설명하며 의미있고 지속적인 식별자를 입력하세요. 여기에 입력한 이름은 이 뉴스 항목에 대한 URL을 만드는 데 사용합니다. 예를 들어 <em>new_version_of_eol</em> 고유한 이름은 <em>http://eol.org/news/new_version_of_eol</em> URL로 변환됩니다.
       open_authentication: 
         connect: 추가
         connected: 연결함
       resource: 
         accesspoint_url: 데이터 집합 URL
+        accesspoint_url_existing_remove: 이 자료는 현재 끝난 URL인 <em>%{accesspoint_url}</em>(을)를 불러오고 있습니다. 기존 URL을 제거하려면 파일을 올리고 대신 파일에서 자료를 불러오세요.
         administration_settings: 관리자 설정 <small>(EOL 관리자한테만 보여짐)</small>
         dataset: 데이터 집합
+        dataset_existing_remove: <em>%{file_name}</em> 파일은 현재 이 자료와 연결되어 있습니다. 기존 <em>%{file_name}</em> 파일을 바꾸려면 URL을 입력하고 대신 URL 자료를 불러오세요. (권장)
+        dataset_existing_replace: <em>%{file_name}</em> 파일은 현재 이 자료와 연결되어 있습니다. 기존 <em>%{file_name}</em> 파일을 바꾸려면 새 파일을 올리세요.
         dwc_archive_url: "이 자료와 관련된 다윈 코어 아카이브가 있다면, 여기에 URL을 입력하세요 <small>(TAR.GZIP, TAR.GZ 또는 TGZ만)</small>:"
         hierarchy: 체계
         latest_harvest_event: 최근 수확
@@ -1938,15 +1975,23 @@ ko:
         username_or_email: 사용자 이름이나 이메일 주소
       translated_content_page: 
         active_translation: 게시함
+        active_translation_more: 게시한 번역은 문서 자체를 게시하지 않은 경우를 제외하고 공개적으로 보여집니다. 문서의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
         language_id: 언어
+        meta_description_more: 문서 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인와 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
+        title_more: 이 내용의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
       translated_news_item: 
         active_translation: 게시함
+        active_translation_more: 게시한 번역은 뉴스 항목 자체가 게시하지 않은 경우를 제외하고 공개적으로 보여집니다. 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
         language_id: 언어
+        meta_description_more: 뉴스 항목 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인와 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
+        title_more: 이 뉴스 항목의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
       user: 
         agreed_with_terms: <a href="%{terms_url}">이용 약관</a>에 동의합니다
         api_key_more: <a href="%{api_docs_url}">API 호출에 키 더하기</a>에 대해 더 참고하세요.
         bio: 내 소개
         credentials: 자격 증명
+        credentials_more: "이 목록에서 하나 이상의 특정 자격 증명을 정하세요:"
+        credentials_more_academic: 관련 대학 학과의 교직원, 직원 또는 ​​대학생을 정합니다.
         credentials_more_professional: 전문적인 사회성의 구성원입니다.
         credentials_more_referral: 현재 큐레이터의 추천입니다.
         credentials_more_successful_assistant_curator: 조수 큐레이터로서 성공의 역사입니다.
@@ -2113,8 +2158,13 @@ ko:
   invite_members_label: 구성원 초대
   ip: IP
   ip_address: IP 주소
+  item_added_to_collection_notice: 항목을 <em>%{collection_name}</em> 모음집에 추가했습니다
   item_added_to_watch_collection_notice: "\"%{item_name}\"(을)를 %{collection_name} 모음집에 추가했습니다."
+  item_details_missing: 죄송합니다, 오류가 발생해 항목 정보를 찾을 수 없습니다.
   item_not_added_already_in_collection: 이 항목은 이미 모음집에 추가했습니다.
+  item_not_added_to_collection_error: 죄송합니다, 오류가 발생해 선택한 항목을 모음집에 추가할 수 없습니다.
+  item_not_added_to_itself_notice: 죄송합니다, 자신을 <em>%{collection_name}</em> 모음집에 추가할 수 없습니다.
+  item_not_updated_in_collection_error: 죄송합니다, 오류가 발생해 모음집 항목을 업데이트할 수 없습니다.
   item_type_article: 문서
   item_type_article_assistive: 이 항목은 문서입니다
   item_type_collection: 모음집
@@ -2137,6 +2187,7 @@ ko:
   item_type_taxon_assistive: 이 항목은 분류입니다
   item_type_video: 동영상
   item_type_video_assistive: 이 항목은 동영상입니다
+  item_updated_in_collection_notice: 항목이 성공적으로 <em>%{collection_name}</em> 모음집에 업데이트했습니다.
   items_with_count_semi_colon: 
     one: 항목 %{count}개;
     other: 항목 %{count}개;
@@ -2148,7 +2199,7 @@ ko:
   jsonp_by_adding_a_callback_parameter: ... 그리고 콜백 변수를 추가하여 JSONP
   label: 레이블
   language: "언어:"
-  language_selector_advisory_information: 다음은 사이트의 내용으로 사용할 수 언어의 목록이며, 현재 언어를 바꾸려면 이 목록에서 다른 언어를 선택하세요.
+  language_selector_advisory_information: 다음은 사이트의 내용으로 사용할 수 있는 언어의 목록이며, 현재 언어를 바꾸려면 이 목록에서 다른 언어를 선택하세요.
   language_with_count: "%{language} (%{count})"
   languages: 언어
   last_updated: 최근 업데이트
@@ -2241,6 +2292,12 @@ ko:
   license_not_applicable: 라이선스가 적용되지 않음
   license_public_domain: 퍼블릭 도메인
   licensing: 라이선스
+  limits_the_number_of_returned_image_objects: 반환한 그림 개체의 수 제한
+  limits_the_number_of_returned_iucn_objects: IUCN 레드 리스트 상태 개체 포함
+  limits_the_number_of_returned_map_objects: 반환한 지도 개체의 수 제한
+  limits_the_number_of_returned_sound_objects: 반환한 소리 개체의 수 제한
+  limits_the_number_of_returned_text_objects: 반환한 텍스트 개체의 수 제한
+  limits_the_number_of_returned_video_objects: 반환한 동영상 개체의 수 제한
   link_more_about: 이 링크에 대해 더 알아보기
   link_name: 링크 이름
   link_not_associated_with_any_published_entries: 이 링크는 모든 게시한 분류와 관련되지 않습니다.
@@ -2249,8 +2306,10 @@ ko:
     one: 링크 %{count}개
     other: 링크 %{count}개
   list_newsletter_emails: 목록 뉴스 레터 이메일
+  list_of_activity_combinations: 5분 동안 활동 조합의 목록입니다.
   listing_collections: 목록 모음집
   literature: 문헌
+  literature_bhl_link: BHL에서 발견한 참고 문헌 보기
   literature_empty: 참고을 찾을 수 없습니다.
   literature_header: 참고
   literature_links: 문헌 링크
@@ -2258,6 +2317,7 @@ ko:
   literature_references: 문헌 참고
   location: 위치
   location_colon: "위치:"
+  logging_database_colon: "기록 중:"
   login: 로그인
   login_header: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr> 계정에 로그인
   login_hidden_user_message: "%{given_name} 계정은 더 이상 활동하지 않습니다"
@@ -2266,6 +2326,7 @@ ko:
   login_to_the_website_as: "%{username} 사용자로서 웹사이트 로그인"
   logo_header: 로고
   logout: 로그아웃
+  looking_up_url: URL 찾는 중...
   main_content_area: "주요 콘텐츠 영역:"
   main_database_colon: "주요:"
   main_master_database_colon: "주요 마스터:"
@@ -2282,13 +2343,22 @@ ko:
   map_not_associated_with_any_published_entries: 이 지도는 모든 게시한 분류와 관련되지 않습니다.
   map_of_taxon: "%{taxon_name}의 지도"
   map_rating: 지도 평가
+  maps_empty: 아직 이 문서에 어떠한 지도를 기여하지 않았습니다.
+  maps_empty_contribute_instructions: EOL에 지도를 기여하는 방법을 알아보세요.
+  maps_image_maps_header: "'지도'로 태그한 미디어"
   maps_with_count: 
     one: 지도 %{count}개
     other: 지도 %{count}개
   matching_users_found_with_count: 
     one: 기준과 일치하는 사용자 총 %{count}명을 찾았습니다.
     other: 기준과 일치하는 사용자 총 %{count}명을 찾았습니다.
+  max_collection_items_error: 죄송합니다, 요청은 모음집 항목 %{max}개의 제한을 초과합니다.
   media: 미디어
+  media_list_empty: 아직 이 문서에 어떠한 미디어를 기여하지 않았습니다.
+  media_list_empty_contribute_instructions: EOL에 미디어를 기여하는 방법을 알아보세요.
+  media_list_empty_search: 찾기 조건과 일치하는 미디어를 사용할 수 없습니다.
+  media_summary_empty: 아직 이 문서에 어떠한 그림을 기여하지 않았습니다.
+  media_summary_empty_contribute_instructions: EOL에 그림을 기여하는 방법을 알아보세요.
   media_with_count: 
     one: 미디어 %{count}개
     other: 미디어 %{count}개
@@ -2316,6 +2386,7 @@ ko:
   meta_keywords_colon: "메타 키워드:"
   meta_title_site_name: 생명의 백과사전
   method: 방식
+  methods: 방식
   mobile: 
     contents: 
       explore_eol: EOL 탐색
@@ -2342,6 +2413,8 @@ ko:
       taxon_media: 분류 미디어
       taxon_overview: 분류 둘러보기
       videos: 동영상
+  moderator_colon: "중재자:"
+  monthly: 매월
   more_children_with_count: 
     one: 더 많은 %{count}개...
     other: 더 많은 %{count}개...
@@ -2380,6 +2453,7 @@ ko:
   name_preferred_taxonomically_for_source_yes: 선호
   names: 이름
   names_children_column_header: 어린이
+  names_common_empty: 아직 이 분류로 연관된 공통 이름이 없습니다
   names_common_list_by_language_assistive_header: 언어별 공통 이름
   names_curation_column_header: 큐레이션
   names_filter: 이름
@@ -2418,6 +2492,7 @@ ko:
   no_errors_are_available: 존재하는 오류가 없습니다.
   no_results_for: 결과가 없습니다
   no_tasks_found: 작업을 찾을 수 없음
+  no_uploaded_content_is_available: 올린 콘텐츠는 사용할 수 없습니다.
   none: 없음
   not_applicable: 적용할 수 없습니다
   not_published_yet: 아직 게시하지 않았습니다.
@@ -2428,6 +2503,7 @@ ko:
   notification_frequency_daily_digest: 날마다 알림
   notification_frequency_never: 없음
   notification_frequency_newsfeed_only: 뉴스 피드만
+  notification_frequency_send_immediately: 바로 보내기
   notification_frequency_weekly: 매주
   notifications_tab_name: 알림
   notifier: 
@@ -2498,6 +2574,11 @@ ko:
       subject: 생명의 백과사전 계정에 대한 요청 확인
   nucleotide_sequences: 염기 서열
   nucleotide_sequences_proteins_link: NCBI에서 단백질과 염기 서열 보기
+  number_of_taxa_at_this_entry: "이 항목에서 분류의 #"
+  number_of_trusted_images_at_this_entry: "이 항목에 신뢰하는 그림의 #"
+  number_of_trusted_text_objects_at_this_entry: "이 항목에 신뢰하는 텍스트 개체의 #"
+  number_of_unreviewed_images_at_this_entry: "이 항목에 검토하지 않은 그림의 #"
+  number_of_unreviewed_text_objects_at_this_entry: "이 항목에 검토하지 않은 텍스트 개체의 #"
   object: 개체
   object_curated: 개체를 큐레이트했습니다.
   object_curation: 개체 큐레이트
@@ -2523,6 +2604,8 @@ ko:
   object_visibility_visible_option: 보임
   objects_curated: 개체 큐레이트함
   older_version_of_latest_published_data_object_title_link: "%{link}의 이전 버전"
+  only_show_authoritative_conten: "신뢰하는 콘텐츠만 보기:"
+  only_show_unapproved_curators: 승인하지 않은 큐레이터만 보기
   option_please_select: 선택하거나
   or_add_it_to_an_existing_collection: 기존 모음집에 추가하세요
   or_add_it_to_an_existing_community: 기존 공동체에 추가하세요
@@ -2556,7 +2639,7 @@ ko:
   page_views_th: 문서 보기
   pages_admin_section_link: 관리자
   pages_curator_section_link: 큐레이터
-  pages_title: ckarh
+  pages_title: 참고
   pages_with_count: 
     one: "%{count}개"
     other: "%{count}개"
@@ -2576,12 +2659,17 @@ ko:
   partner_information: 파트너 정보
   partner_page: 파트너 문서
   partner_web_site_colon: "파트너 웹 사이트:"
+  partnering_steps: 제휴 단계
   password_colon: "비밀번호:"
   password_must_be_4to16_characters: 비밀번호는 글자 4개에서 16개 사이여야 합니다.
   pause: 일시 정지
   people_with_count: 
     one: 사람 %{count}명
     other: 사람 %{count}명
+  percentage_of_children_with_images: 그림으로 된 어린이의 %
+  percentage_of_children_with_text: 텍스트로 된 어린이의 %
+  percentage_of_descendants_with_images: 그림으로 된 자손의 백분율
+  percentage_of_descendants_with_text: 텍스트로 된 자손의 백분율
   permalink: 고유링크
   person_rating: 사람 평가
   personal_profile_menu: 개인 프로필
@@ -2591,16 +2679,19 @@ ko:
   please_publish_this_resource_notice: "*** <strong>알림:</strong> 여기 이 리소스에 <strong>%{publish_link}</strong>하세요 ***"
   please_return_to_eol_homepage: EOL 대문 문서로 돌아가세요
   please_wait: 기다려 주세요...
-  post_comment: 덧글 게시
+  post_comment: 덧글 남기기
   preferred_common_name_advisory_information: 이 분류에 대한 선호하는 공통 이름입니다.
   press_room: 프레스 룸
   preview: 미리 보기
   preview_changes: 바뀜 미리 보기
   preview_version_of_latest_published_data_object_title_link: "%{link} 버전 미리 보기"
   previously_published: 이전에 게시함
+  proceed_to_checkout_page: 체크 아웃 문서로 이동
+  process_name: 프로세스 이름
   profile: 프로필
   profile_colon: "프로필:"
   profile_image_alt_text_curator: "%{user_full_name} 큐레이터의 프로필 사진"
+  profile_image_alt_text_member: "%{user_full_name} 구성원에 대한 프로필 사진"
   profile_newsfeed: 내 뉴스 피드
   profile_picture: 프로필 사진
   project: 프로젝트
@@ -2616,6 +2707,9 @@ ko:
   published_parens: (게시함)
   punctuation_comma: ","
   punctuation_semi_colon: ;
+  quarterly: 분기별
+  rails_databases: Rails 데이터베이스
+  rails_environment: Rails 환경
   rank_recognized_by_agent: "%{agent}에 의해 인정한 %{rank}"
   rank_recognized_by_agent_colon: "%{agent}에 의해 인정한 <b>%{rank}</b>:"
   rank_recognized_by_from_source: "%{source}에 %{agent}에 의해 인정한 %{rank}"
@@ -2680,6 +2774,7 @@ ko:
     unsubscribe: 로그인하고 <a href='%{email_prefs_url}' style='color:#195184'>내 알림 환경 설정 문서</a>에서 당신의 이메일 설정을 바꾸거나 <a href='%{unsubscribe_url}' style='color:#195184'>로그인하지 않고 EOL 알림을 자동으로 모두 구독 취소하세요</a>.
   recent_updates: 최근 업데이트
   recently_visited: 최근 방문
+  recipients: 받는 사람
   recognized_by_as_a_rank: "%{taxon_rank}로 %{recognized_by}"
   recognized_by_from_source: "%{source}에서 %{recognized_by}"
   recognized_by_from_source_as_a_rank: "%{taxon_rank}로 %{source}에서 %{recognized_by}"
@@ -2689,6 +2784,8 @@ ko:
     one: 관련된 이름 %{count}개
     other: 관련된 이름 %{count}개
   remove: 제거
+  remove_curatorship_colon: "큐레이터쉽 제거:"
+  remove_data_object_association: 연관 제거
   remove_membership: 구성원 제거
   removed_count_items_from_collection_notice: 
     one: 항목 %{count}개를 이 모음집에서 제거했습니다.
@@ -2705,6 +2802,9 @@ ko:
   results_offset: <em>%{for}</em>에 대한 결과 %{total}개 중 %{from} - %{to}
   results_per_page: "문서당 결과:"
   return: 돌아가기
+  return_all_common_names_for_this_taxon: 이 분류에 대한 모든 공통 이름으로 돌아가기
+  return_all_synonyms_for_this_taxon: 이 분류에 대한 모든 동의어로 돌아가기
+  return_common_names_for_the_page_taxon: 문서의 분류에 대한 모든 공통 이름으로 돌아가기
   revisions: 판
   revoke_full_curator_link: 철회
   revoke_manager_link: 관리자 역활 철회
@@ -2714,6 +2814,7 @@ ko:
   rights_statement: 권한 정책
   save: 저장
   save_comment_lowercase: 덧글 저장
+  save_curated_association_submit_button: 연관 저장
   save_email_settings: 이메일 설정 저장
   sci_name_avg_table_head: 과학적인 이름 평균
   scientific_name: 과확적인 이름
@@ -2724,6 +2825,11 @@ ko:
   search_field_preferred_common_name: 선호하는 공통 이름
   search_field_preferred_scientific: 선호하는 과학적 이름
   search_field_synonym: 동의어
+  search_for_comments_containing_the_text: "텍스트를 포함하는 덧글 찾기:"
+  search_for_curators_containing: "포함하는 큐레이터 찾기:"
+  search_for_messages_containing: "포함하는 메시지 찾기:"
+  search_for_terms_containing: "포함하는 용어 찾기:"
+  search_for_users_containing_this_in_their_username_name_or_email_address: 사용자 이름, 이름 또는 이메일 주소에 포함하는 사용자를 찾습니다.
   search_next_label: 다음
   search_placeholder: EOL 찾기 ...
   search_previous_label: 이전
@@ -2814,6 +2920,9 @@ ko:
   site_information: 사이트 정보
   site_language: 사이트 언어
   site_settings_menu: 사이트 설정
+  skip_to_content: 내용으로 건너뛰기
+  skip_to_navigation: 둘러보기로 건너뛰기
+  skip_to_table_of_contents: 목차로 건너뛰기
   social_sharing_twitter_follow_eol_button: "@eol 팔로우"
   social_sharing_twitter_tweet_button: 트윗
   sort_by: 정렬 기준
@@ -2829,8 +2938,8 @@ ko:
   sort_by_status_option: 상태
   sort_by_title_ascending: 제목 오름차순
   sort_by_title_descending: 제목 내림차순
-  sort_by_year_ascending: 년 오름차순
-  sort_by_year_descending: 년 내림차순
+  sort_by_year_ascending: 년도 오름차순
+  sort_by_year_descending: 년도 내림차순
   sort_collection_by_label: 모음집 정렬 기준
   sort_field: "정렬 필드:"
   sort_order: 정렬 순서
@@ -2840,6 +2949,7 @@ ko:
   sound_from_supplier: "%{whom}에서 소리"
   sound_not_associated_with_any_published_entries: 이 소리는 모든 게시한 분류와 관련되지 않습니다.
   sound_object: 소리 개체
+  sound_of: 소리
   sound_of_taxon: "%{taxon_name}의 소리"
   sound_rating: 소리 평가
   sounds_with_count: 
@@ -3168,6 +3278,7 @@ ko:
   taxon_partner_links_link: 파트너 링크
   taxon_rating: 분류 평가
   taxon_recognized_by: "%{whom}에 의해 인정한 분류"
+  taxon_related_organizations_link: 관련 기관
   taxon_selected_from_search_res: 찾기 결과에서 선택한 분류
   taxon_suggested: 제안한 분류
   technical_functions: 기술적인 기능
@@ -3226,6 +3337,7 @@ ko:
   this_sound_is_unpublished: 이 소리는 게시하지 않았습니다.
   this_video_cannot_be_curated_because_unpublished: 이 동영상은 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_video_is_unpublished: 이 동영상은 게시하지 않았습니다.
+  threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr> 위기 등급:"
   thumbnail_page_colon: "섬네일 문서:"
   time_ago: "%{time_passed} 전"
   title: 제목
@@ -3239,6 +3351,7 @@ ko:
   total_comments_have_been_submitted: 
     one: 덧글 %{count}개를 %{string}에 제출했습니다
     other: 총 덧글 %{count}개를 %{string}에 제출했습니다
+  total_distinct_searches: "총 고유 찾기:"
   total_items_with_count: 
     one: 항목 %{count}개
     other: 총 항목 %{count}개
@@ -3429,11 +3542,13 @@ ko:
         facebook: 
           missing_attributes: 죄송합니다, 페이스북 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 페이스북 계정에 연결할 수 없습니다.
+          not_authorized_to_add_authentication: 죄송합니다, 페이스북 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 페이스북 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 페이스북 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
         google: 
           missing_attributes: 죄송합니다, 구글 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 구글 계정에 연결할 수 없습니다.
+          not_authorized_to_add_authentication: 죄송합니다, 구글 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 구글 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 구글 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
         missing_attributes: 죄송합니다, 서드 파티 계정 자세한 정보에 접근하는 데 문제가 있습니다.
@@ -3443,11 +3558,13 @@ ko:
         twitter: 
           missing_attributes: 죄송합니다, 트위터 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 트위터 계정에 연결할 수 없습니다.
+          not_authorized_to_add_authentication: 죄송합니다, 트위터 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 트위터 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 트위터 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
         yahoo: 
           missing_attributes: 죄송합니다, 야후! 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 야후! 계정에 연결할 수 없습니다.
+          not_authorized_to_add_authentication: 죄송합니다, 야후! 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 야후! 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 야후! 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
       facebook: 페이스북
@@ -3497,7 +3614,9 @@ ko:
   users_content_partners_with_count: 
     one: 현재 콘텐츠 파트너 %{count}개
     other: 현재 콘텐츠 파트너 %{count}개
+  users_curation_header: 큐레이터 자격
   users_form_account_header: 내 계정
+  users_form_curation_header: 큐레이터 자격
   users_form_profile_info_header: 공개 프로필 정보
   users_member_of_count_communities: 
     one: 공동체 %{count}개의 구성원
@@ -3512,9 +3631,10 @@ ko:
   values: 값
   vetted: 심사함
   video_alt_text: "%{taxon_name}의 이 %{vetted_status} 동영상입니다."
+  video_from: 동영상
   video_from_supplier: "%{whom}에서 동영상"
   video_not_associated_with_any_published_entries: 이 동영상은 모든 게시한 분류와 관련되지 않습니다.
-  video_object: 동영상 개제
+  video_object: 동영상 개체
   video_of_taxon: "%{taxon_name}의 동영상"
   video_rating: 동영상 평가
   video_title_not_available_in_language: "%{language}에서 사용할 수 없는 제목"

@@ -502,6 +502,9 @@ nl:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> heeft "%{data_object}" als exemplarisch gemarkeerd voor "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> heeft het als exemplarisch gemarkeerd op een onbekende pagina.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> heeft het als exemplarisch gemarkeerd voor "%{taxon}".
+      classification_curation: 
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd in een onbekende context.
         an_unknown_user_hid_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
@@ -756,6 +759,8 @@ nl:
   add_a_new_topic_area: Nieuw onderwerpengebied toevoegen
   add_a_new_user: Nieuwe gebruiker toevoegen
   add_a_taxon_association_label: Taxonassociatie toevoegen
+  add_article_instead: voeg in plaats daarvan een artikel toe
+  add_article_to_page_button: Artikel toevoegen
   add_association_submit_button: koppeling toevoegen
   add_brief_summary_to_page_link_button: Korte samenvatting aan deze pagina toevoegen
   add_citizen_science_resources_to_page_link_button: Verwijzing naar burgerwetenschap aan deze pagina toevoegen
@@ -766,6 +771,8 @@ nl:
   add_identification_resources_to_page_link_button: Identificatiebronnen toevoegen aan deze pagina
   add_item_to_new_collection: "\"%{item}\" toevoegen aan een nieuwe verzameling"
   add_language: Taal toevoegen
+  add_link_instead: voeg in plaats daarvan een verwijzing toe
+  add_link_to_page_button: Verwijzing toevoegen
   add_new_association_link: Nieuwe associatie toevoegen
   add_new_tag_suggestion: Nieuwe labelsuggestie toevoegen
   add_page: Pagina toevoegen
@@ -977,9 +984,19 @@ nl:
   associated_with_header: Gekoppeld met
   associated_with_image_header: In de laatste afbeelding
   associated_with_image_map_header: Op de laatste kaart
+  associated_with_link_header: Op de laatste verwijzing
   associated_with_map_header: Op de laatste kaart
   associated_with_sound_header: In het laatste geluidsbestand
   associated_with_video_header: In de laatste video
+  association_trusted_for_taxa: 
+    one: "Vertrouwd voor:"
+    other: "Vertrouwd voor:"
+  association_unreviewed_for_taxa: 
+    one: "Ongecontroleerd voor:"
+    other: "Ongecontroleerd voor:"
+  association_untrusted_for_taxa: 
+    one: "Niet vertrouwd voor:"
+    other: "Niet vertrouwd voor:"
   associations_more_link: meer <span class="assistive">taxonassociaties</span>
   attribute: Eigenschap
   audio_current_time_assistive: Met Javascript ingeschakeld wordt de huidige weergavepositie van het audio-bestand in minuten en seconden aangeven.
@@ -1041,6 +1058,10 @@ nl:
   citing_link: Citeren
   classification_already_preferred: "Fout: deze classificatie als is al gemarkeerd als voorkeursclassificatie."
   classification_button_help: Selecteer de classificatie die het best op de onderstaande pagina van toepassing is en klik op de bijbehorende knop "als exemplarisch gebruiken". Om de handeling helemaal te annuleren, klikt u op de knop "Annuleren".
+  classification_curation_pending: In afwachting van conservering. Deze classificatie kan in de nabije toekomst nog veranderen naar een andere pagina.
+  classification_curation_split_comment_with_count: 
+    one: Eén classificatie van deze pagina is <a href='%{url}'>afgesplitst in een eigen pagina</a>.
+    other: "%{count} classificaties van deze pagina zijn <a href='%{url}'>afgesplitst in een eigen pagina</a>."
   classification_from_agent: Classificatie van %{agent}.
   classification_from_agent_chosen_by_curator: Classificatie van %{agent} geselecteerd door %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Classificatie van %{agent} geselecteerd door %{curator} - <a href="%{more_link}">meer gegevens</a>.
@@ -1271,6 +1292,7 @@ nl:
       meta_title: Dieren - Planten - Afbeeldingen en gegevens
       see_all_eol_news: meer <span class="assistive">EOL-nieuws</span> bekijken
       see_all_recent_activites: meer <span class="assistive">activiteiten in de afgelopen week</span> bekijken
+      see_all_statistics: meer <span class="assistive">EOL-statistieken</span> bekijken
   content_has_been_updated: De inhoud is bijgewerkt
   content_notes_not_shown_to_us: "Opmerkingen over inhoud (niet zichtbaar voor gebruiker):"
   content_partner: Contentpartner
@@ -1423,6 +1445,7 @@ nl:
   content_partner_statistics_summary_caption: Samenvatting van gebruiksstatistieken voor taxonpagina's met inhoud die is geleverd door %{partner_name} relatief ten opzichte van het totale gebruik van de EOL-website.
   content_partner_statistics_taxa_page_caption: Gedetailleerde gebruiksstatistieken voor taxonpagina's met inhoud die is geleverd door %{partner_name}.
   content_partner_statistics_year_label: Jaar
+  content_partner_stats_message: Vanwege wijzigingen in de dienst die we gebruiken om statistieken te berekenen, zijn de gegevens voor deze maand niet beschikbaar. Ons ontwikkelteam werkt aan een oplossing. We sturen een e-mail aan onze partners als het probleem is opgelost.
   content_partner_status_empty: Onbekende status
   content_partner_update_successful_notice: De partnergegevens zijn bijgewerkt.
   content_partner_update_unsuccessful_error: Er is een fout opgetreden. De partnergegevens zijn niet bijgewerkt.
@@ -1646,13 +1669,18 @@ nl:
   dato_create_user_text_missing_user_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
   dato_create_user_text_validation_error: Zorg dat u het formulier correct hebt ingevuld.
   dato_edit_cancel: Annuleren
+  dato_edit_link_button: Verwijzing bewerken
+  dato_edit_link_title: Verwijzing bewerken
+  dato_edit_text_button: Artikel bewerken
   dato_edit_text_page_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste pagina wordt toegevoegd aan uw volglijst zodat u overleg over deze pagina kunt volgen en de conserveringsstatus kunt bijhouden.
   dato_edit_text_title: Artikel bewerken
-  dato_location_created: "Locatie gemaakt: #{loc}"
+  dato_location_created: "Locatie gemaakt: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Artikelinhoud
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
   dato_new_edit_user_text_form_tip: Uw afgeronde artikel wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt het gemarkeerd als "niet-beoordeeld" totdat het wordt beoordeeld door een conservator. Hoofdstuk, tekst, taal en licentie zijn vereist (%{required_icon}), alle andere velden zijn optioneel. Als u een CC BY-licentie (Naamsvermelding) selecteert, neem dan een rechthebbende op of laat het veld leeft om uw eigen volledige naam te gebruiken. Voor Publiek domeinlicenties is geen rechthebbende nodig. Lees voor meer informatie de <a href="%{add_article_help_url}">hulppagina voor artikel toevoegen</a>.
+  dato_new_edit_user_text_link_fieldset_content_header: Gegevens voor verwijzing
   dato_new_text_for_taxon_page_title: Een pagina toevoegen aan <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Verwijzing toevoegen aan <i>%{taxon}</i>
   dato_new_text_page_description: Dank u wel voor uw bijdragen aan EOL. Uw artikel wordt toegevoegd aan uw volglijst zodat u reacties en de conserveringsstatus kunt volgen.
   dato_update_user_text_error: Er is een fout opgetreden. Het artikel kon niet worden bijgewerkt.
   dato_update_users_text_not_owner_exception: Alleen de oorspronkelijke auteur van dit tekstobject mag het bewerken.
@@ -1698,6 +1726,7 @@ nl:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Onbekende registratiedatums niet weergeven (V1-gebruikers, allemaal voor 5 januari 2009)
   download_wav_file: WAV-bestand downloaden
   dublin_core: Dublin Core
+  duplicate_comment_warning: "De reactie is niet opgeslagen: het lijkt erop dat u al hebt gereageerd op dit bericht. Hebt u wellicht per ongeluk uw reactie twee keer opgeslagen?"
   duplicate_items_were_ignored: Dubbele items zijn genegeerd.
   each_method_documentation_page_has_formatted_responses: De documentatiepagina van iedere methode heeft een voorbeeld van antwoorden in de vorm van XML en JSON.
   edit: Bewerken
@@ -1802,10 +1831,12 @@ nl:
   error_couldnt_find_community_by_id: Er is geen door u beheerde gemeenschap met het ID %{id}.
   error_default_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan alstublieft een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Oeps.
+  error_exemplar_chosen_with_invalid_action: De door u gekozen classificatie is helaas niet gewijzigd. Een deel van het verzoek is zoekgeraakt. Probeer het opnieuw.
   error_homepage_or_search_option: "U kunt teruggaan naar de <a href=\"/\">startpagina</a> of onze zoekmachine gebruiken:"
   error_log: Foutenlogboek
   error_log_detail: Detailgegevens foutenlogboek
   error_logging_active: Er worden foutgegevens verzameld
+  error_updating_user: Er is een fout opgetreden tijdens het bijwerken van de gegevens van deze gebruiker
   error_watch_collections_cannot_be_shared: Volgverzamelingen kunnen niet gedeeld worden
   every_method_can_also_return_json_response: Iedere methode kan ook een JSON-antwoord geven door de extensie ".json" toe te voegen
   example_colon: "Voorbeeld:"
@@ -1839,6 +1870,7 @@ nl:
   file: Bestand
   file_id: Bestandsnummer
   file_size: Bestandsgrootte
+  filed_under_label: Opgeslagen onder %{label} op
   fill_in_a_message_below_to_send_email_to_user: "Geef hieronder een bericht in dat aan deze gebruiker van de site gemaild kan worden. Het bericht wordt verzonden als u op de knop klikt:"
   filter_button: Filteren
   filter_by_day: Filteren op dag
@@ -1861,6 +1893,7 @@ nl:
   filter_by_type_image_option_with_count: 
     one: Afbeelding (%{count})
     other: Afbeeldingen (%{count})
+  filter_by_type_link_option: Verwijzingen
   filter_by_type_name_option: Namen
   filter_by_type_object_curated_option: Geconserveerde objecten
   filter_by_type_photosynth_option: Photosynths
@@ -1920,6 +1953,7 @@ nl:
   gbif_occurrence_learn_more_link: Deze gegevens via het GBIF-portaal raadplegen
   general_site_admin: algemene sitebeheerder
   get_help_choosing_a_subchapter: Hulp bij het kiezen van een subhoofdstuk
+  get_help_choosing_a_subject: Hulp bij het kiezen van een onderwerp
   get_more_tasks: meer taken vinden
   given_name_colon: "Voornaam:"
   given_the_vast_number: Gezien het grote aantal wetenschappelijke en gemeenschappelijke namen (in totaal bijna 20 miljoen) is het een moeilijke taak om een gebruiker te voorzien van precies de soorten die ze zoeken. Er zijn bijvoorbeeld verschillende vogelsoorten met de naam Robin in het Engels ("lijster" in het Nederland) (roodborstlijster, zanglijster, beflijster, ...), en de vissoort "ponen" (ook Robin in het Engels), en een taxonoom met de naam Robin die tientallen soorten benoemd heeft. We hebben een "exacte" parameter nodig om alleen zoekresultaten te geven die geheel overeenkomen met de zoekterm, maar we kunnen niet garanderen dat de gevonden taxa de taxa zijn die u hoopt te vinden. Wij proberen de relevantie van onze zoekresultaten voortdurend te verbeteren, dus in de nabije toekomst kunt betere zoekresultaten verwachten.
@@ -2008,7 +2042,9 @@ nl:
         source_url: URL naar het oorspronkelijke gegevensobject
         toc_item: Subhoofdstuk
       data_object_link: 
+        description: Beschrijving <small>(sommige HTML-opmaak is toegestaan)</small>
         link_type: Categorie
+        source_url: Verwijzings-URL
         toc_item: Onderwerp
       eol_statistic: 
         date_one: Datum
@@ -2289,6 +2325,8 @@ nl:
   item_type_image_assistive: Dit item is een afbeelding
   item_type_image_map: Kaart
   item_type_image_map_assistive: Dit item is een afbeelding van een kaart
+  item_type_link: Verwijzing
+  item_type_link_assistive: Dit item is een verwijzing
   item_type_map: Kaart
   item_type_map_assistive: Dit item is een kaart
   item_type_person: Persoon
@@ -2331,6 +2369,7 @@ nl:
         about_link_discover: Ontdekken
         about_link_donate: Doneren aan EOL
         about_link_eol_blog: De EOL-blog
+        about_link_glossary: Woordenlijst
         about_link_help: Hulp
         about_link_podcasts: Podcasts
         about_link_statistics: Statistieken
@@ -2360,6 +2399,7 @@ nl:
         learn_more_link_spiders: Spinnen
         learn_more_link_trees: Bomen
         learn_more_link_viruses: Virussen
+        learn_more_link_worms: Wormen
         questions_link_binomial_nomenclature: Wat is de binomiale nomenclatuur?
         questions_link_biodiversity: Wat is biodiversiteit?
         questions_link_biological_classification: Wat is een biologische classificatie?
@@ -2415,7 +2455,13 @@ nl:
   limits_the_number_of_returned_sound_objects: beperkt het aantal teruggegeven geluidsobjecten
   limits_the_number_of_returned_text_objects: beperkt het aantal tekstobjecten
   limits_the_number_of_returned_video_objects: beperkt het aantal videoobjecten
+  link_more_about: Meer informatie over deze verwijzing
   link_name: Beschrijving voor verwijzing
+  link_not_associated_with_any_published_entries: Deze verwijzing is niet gekoppeld aan gepubliceerde taxa.
+  link_rating: Rang van de verwijzing
+  links_with_count: 
+    one: één verwijzing
+    other: "%{count} verwijzingen"
   list_newsletter_emails: e-mailadressen voor nieuwbrief weergeven
   list_of_activity_combinations: Lijst van handelingencombinaties gedurende 5 minuten
   listing_collections: Verzamelingen weergeven
@@ -2425,6 +2471,8 @@ nl:
   literature_bhl_link: Bibliografie in BHL bekijken
   literature_empty: Geen referenties gevonden.
   literature_header: Referenties
+  literature_links: Verwijzingen naar literatuur
+  literature_links_link: Verwijzingen naar literatuur
   literature_references: Literatuurreferenties
   location: Locatie
   location_colon: "Locatie:"
@@ -2437,6 +2485,7 @@ nl:
   login_to_the_website_as: Aanmelden bij de website als %{username}
   logo_header: Logo
   logout: Afmelden
+  looking_up_url: Bezig met het opvragen van de URL...
   main_content_area: "Gebied voor hoofdinhoud:"
   main_database_colon: "Hoofdinhoud:"
   main_master_database_colon: "Primaire master:"
@@ -2502,6 +2551,7 @@ nl:
   merge_data_ready: U kunt de gegevens nu samenvoegen vanuit de volgende classificaties naar deze taxonpagina, of deze afsplitsen naar een eigen pagina. Zorg ervoor dat u <i>absoluut</i> zeker weer dat u alle classificaties hebt geselecteerd die uw doeltaxon representeren. Als u bijvoorbeeld een mot verwijderd van de pagina over paddenstoelen, controleer dan <i>alle</i> bovenstaande classificaties om er zeker van te zijn dat u ze allemaal hebt geselecteerd (voor dezelfde mot).
   merge_pending: Het samenvoegen kost enige tijd. De betrokken taxa kunnen niet bewerkt worden totdat het samenvoegen is voltooid. U krijgt een e-mail als het proces is afgerond en de handeling wordt opgenomen in het nieuwsoverzicht van de pagina.
   message_colon: "Bericht:"
+  message_will_disappear: (dit bericht verdwijnt snel weer...)
   meta_description_colon: "Metabeschrijving:"
   meta_keywords_colon: "Metatrefwoorden:"
   meta_title_site_name: Encyclopedia of Life
@@ -2560,6 +2610,7 @@ nl:
   moved_items_from_collection_with_count_notice: 
     one: Eén item vanuit %{name} verplaatst.
     other: "%{count} items vanuit %{name} verplaatst."
+  multimedia_links: Multimediaverwijzingen
   must_be_associated_with_either_a_user_or_a_community: Moet gekoppeld zijn met een gebruiker of een gemeenschap
   must_be_checked_in_to_show: "- moet aangevinkt zijn om aan een gebruiker weer te geven"
   must_be_checked_in_to_view: "- moet aangevinkt zijn om te kunnen bekijken"
@@ -2597,6 +2648,7 @@ nl:
   new_search_suggestion: Nieuwe zoeksuggestie
   new_upload: Nieuwe upload
   new_user: Nieuwe gebruiker
+  news_and_event_links: Verwijzingen naar nieuws en evenementen
   news_archive_page: nieuwsarchiefpagina
   news_available_in_languages: "Deze pagina is beschikbaar in:"
   news_date: Nieuwsdatum
@@ -2723,6 +2775,7 @@ nl:
   object_type_collection_option: Verzameling
   object_type_community_option: Gemeenschap
   object_type_image_option: Afbeelding
+  object_type_link_option: Verwijzing
   object_type_sound_option: Geluid
   object_type_taxon_concept_option: Taxonconcept
   object_type_text_option: Tekst
@@ -3085,11 +3138,15 @@ nl:
   spm_category_objects_count: SPM-categorie - aantal objecten
   spm_category_partner_count: SPM-categorie - aantal partners
   started: Gestart
+  stat: Stat.
+  stats: Statistieken
+  stored_classifications: "Let op: u hebt <a href='%{anchor}'>hieronder opgeslagen classificaties</a>."
   sub_heading: Onderkop
   subject: onderwerp
   submit: Opslaan
   submit_term: Term opslaan
   suggested_result_page_id: "Pagina-ID voor suggestie in resultaat:"
+  suggested_results_avg: Aangeraden resultaten gem.
   supplier: Leverancier
   supplier_allcaps: "Leverancier:"
   supplier_colon: "Leverancier:"
@@ -3368,6 +3425,9 @@ nl:
     other: "%{count} taxa"
   taxon: taxon
   taxon_biomedical_terms_link: Biomedische termen
+  taxon_citizen_science_header: Verwijzigingen voor burgerwetenschap
+  taxon_citizen_science_link: Verwijzigingen voor burgerwetenschap
+  taxon_citizen_science_resources_empty: Niemand heeft nog burgerwetenschap bijgedragen voor deze pagina.
   taxon_concept_stats: Taxonconceptstatistieken
   taxon_details_empty: Er heeft nog niemand bijgedragen aan deze pagina.
   taxon_education_empty: Er heeft nog niemand onderwijsbronnen bijgedragen aan deze pagina.
@@ -3378,6 +3438,8 @@ nl:
   taxon_identification_resources_empty: Er heeft nog niemand identificatiebronnen bijgedragen aan deze pagina.
   taxon_identification_resources_header: Identificatiebronnen
   taxon_identification_resources_link: Identificatiebronnen
+  taxon_multimedia_links_link: Multimediaverwijzingen
+  taxon_news_and_event_links_link: Verwijzingen naar nieuws en evenementen
   taxon_newsfeed: Taxonnewsfeed
   taxon_not_found_error: "\"%{taxon}\" niet gevonden"
   taxon_nucleotide_sequences_link: Nucleotidesequenties
@@ -3387,7 +3449,9 @@ nl:
   taxon_partner_links_header: Partnerverwijzingen
   taxon_partner_links_link: Partnerverwijzingen
   taxon_rating: Taxonwaardering
+  taxon_related_organizations_link: Gerelateerde organisaties
   taxon_suggested: Taxonsuggestie
+  taxonomic_summary_of_content: taxonomische samenvatting van inhoud
   technical_functions: Technische functies
   term_for_search_admin_ui: Term
   term_is_already_def_error: "\"%{term}\" is al gedefinieerd"
@@ -3428,13 +3492,15 @@ nl:
   this_community_was_deleted: Deze gemeenschap is verwijderd door de eigenaar.
   this_image_cannot_be_curated_because_unpublished: Deze afbeelding kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_image_is_unpublished: Deze afbeelding is niet gepubliceerd.
-  this_image_map_cannot_be_curated_because_unpublished: Deze kaart kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  this_image_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_image_map_is_unpublished: Deze kaart is niet gepubliceerd.
-  this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  this_link_cannot_be_curated_because_unpublished: Deze verwijzing kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
+  this_link_is_unpublished: Deze verwijzing is niet gepubliceerd.
+  this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_map_is_unpublished: Deze kaart is niet gepubliceerd.
   this_sound_cannot_be_curated_because_unpublished: Dit geluidsbestand kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_sound_is_unpublished: Dit geluid is niet gepubliceerd.
-  this_video_cannot_be_curated_because_unpublished: Deze video kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  this_video_cannot_be_curated_because_unpublished: Deze video kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_video_is_unpublished: Deze video is niet gepubliceerd.
   threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">UCN</abbr> bedreigingsstatus:"
   time_ago: "%{time_passed} geleden"

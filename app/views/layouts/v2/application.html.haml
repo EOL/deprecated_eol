@@ -59,7 +59,9 @@
 
     #header
       .section
-        %h1= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }
+        %h1
+          %p{style: 'color:white'}= "#{Time.now} (#{'%04d' % rand(10000)})"
+        -#= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }
         = render :partial => '/layouts/v2/global_navigation'
         .actions
           .language

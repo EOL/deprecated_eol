@@ -17,7 +17,12 @@
 //= require jquery.modal
 //= require comments
 //= require navigation
-//= require pjax
+//= require jquery.pjax
+
+$(function() {
+  $('a.pjax').pjax('[data-pjax-container]');
+});
+
 
 $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");

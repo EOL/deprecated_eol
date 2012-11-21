@@ -1,3 +1,4 @@
+# encoding: utf-8
 class LazyLoggingModel < LoggingModel
 
   self.abstract_class = true

@@ -1,4 +1,4 @@
-# Messages for Simplified Chinese (中文（简体）‎)
+# encoding: utf-8
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Chenxiaoqino
@@ -698,7 +698,7 @@ zh-CN:
   associated_with_map_header: 在此地图上
   associated_with_sound_header: 在这个音频中
   associated_with_video_header: 在这个视频中
-  associations_more_link: 更多<span class=ssistive>类群关联</span>
+  associations_more_link: 更多<span class=assistive>类群关联</span>
   attribute: 属性
   audio_current_time_assistive: 当JavaScript启用时，将以分秒的形式显示音频文件的当前播放位置。
   audio_duration_assistive: 当JavaScript启用时，将以分秒的形式显示音频文件的长度。JavaScript可能需要一段时间来计算文件的长度（取决于文件的大小），并显示一个值。
@@ -943,7 +943,7 @@ zh-CN:
       meta_description: 网络生命大百科是一个致力于收集所有动物和植物生命科学知识的史无前例的努力。动物界和植物界的所有生物的图片，信息，事实及更多资料在这里可以得到。
       meta_keywords: 动物，动物图片，动物信息，植物，植物物种，植物图片，植物信息，植物志，动物志
       meta_title: 动物-植物-图片和信息
-      see_all_recent_activites: 查看更多 <span class=ssistive>上周的活动</span>
+      see_all_recent_activites: 查看更多 <span class=assistive>上周的活动</span>
   content_has_been_updated: 内容已经更新。
   content_notes_not_shown_to_us: 内容说明(对用户不可见)：
   content_partner: 内容合作伙伴
@@ -1043,7 +1043,7 @@ zh-CN:
   content_partner_resource_harvest_event_update_unsuccessful_error: 抱歉，出现了一个错误，资源%{resource_title}的收获事件未能更新。
   content_partner_resource_harvest_events_empty: 没有采集事件被发现。
   content_partner_resource_harvest_events_for_resource_subheader: 资源%{resource_title}的采集事件
-  content_partner_resource_harvest_events_see_all_link: 查看全部 <span class=ssistive>采集事件</span>
+  content_partner_resource_harvest_events_see_all_link: 查看全部 <span class=assistive>采集事件</span>
   content_partner_resource_hierarchy_browsable: 可浏览的
   content_partner_resource_hierarchy_complete_false: 这个分类系统未经审核。相匹配的条目被视为同一概念。
   content_partner_resource_hierarchy_complete_true: "\"这个分类系统设定为<strong>已审核</strong>。已审核的分类系统认为每个条目都是唯一的，例如,名称相同的字符串被视为同名异物。\""
@@ -2428,13 +2428,13 @@ zh-CN:
   search_term_reports_title: 搜索项报告
   search_the_site: 搜索网站
   see_all_classifications_with_count_html: 
-    other: 查看<span class=ssistive>%{count}个出现该分类单元的已被认可的分类系统</span>
+    other: 查看<span class=assistive>%{count}个出现该分类单元的已被认可的分类系统</span>
   see_all_collections_with_count_html: 
-    other: 查看<span class=ssistive>%{count}个出现该页面的收藏</span>
+    other: 查看<span class=assistive>%{count}个出现该页面的收藏</span>
   see_all_comments_with_count_for_text_or_rate: 
     other: 查看本文章的%{count}条评论或给本文章评分
   see_all_communities_with_count_html: 
-    other: 查看<span class=ssistive>以这个页面为特色的%{count}社群</span>
+    other: 查看<span class=assistive>以这个页面为特色的%{count}社群</span>
   see_all_editors_with_count: 
     other: 查看%{count}个管理员
   see_all_featured_collections_with_count: 
@@ -2443,7 +2443,7 @@ zh-CN:
   see_all_of_your_collections: 查看您的所有收藏
   see_all_of_your_communities: 查看您的所有社区
   see_all_updates_with_count_html: 
-    other: 查看<span class=ssistive>该页面的所有%{count}个更新</span>
+    other: 查看<span class=assistive>该页面的所有%{count}个更新</span>
   see_notes: 查看注释
   select_a_hierarchy_around_whic: 选择一个分类树用以组织内容概要：
   select_an_item_from_the_menu: 从菜单选择一项
@@ -3051,8 +3051,8 @@ zh-CN:
   user_left_comment_on_date: "%{username}在%{date}做了评论。"
   user_no_longer_active_message: 用户已失活
   user_no_longer_has_manager_access_to_collection: "%{user} 不再拥有对 “%{collection}”的管理权限。"
-  user_pending_notifications_assitive: <span class=ssistive>提示</span>
-  user_pending_notifications_comments_assistive: <span class=ssistive>评论</span>
+  user_pending_notifications_assitive: <span class=assistive>提示</span>
+  user_pending_notifications_comments_assistive: <span class=assistive>评论</span>
   user_pending_notifications_comments_with_count_assistive: 
     other: "%{count}<span class=\assistive>条评论</span>"
   user_pending_notifications_with_count_assitive: 

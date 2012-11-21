@@ -45,6 +45,7 @@ class Taxa::DetailsController < TaxaController
     end
 
     store_location(params[:return_to] || request.referer)
+    TaxonConceptCacheClearing.clear(@taxon_concept)
     redirect_back_or_default taxon_details_path @taxon_concept.id
   end
 

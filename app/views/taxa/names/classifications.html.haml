@@ -30,15 +30,15 @@
           = raw I18n.t(:classification_preferred_for_taxon_help_tip, :icon => image_tag("v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
       - if stored_classifications && ! @confirm_split_or_merge
         %div.help_text.warning
-          %p= I18n.t(:stored_classifications, :anchor => '#classification_actions')
+          %p= raw I18n.t(:stored_classifications, :anchor => '#classification_actions')
       - if master_curator && @taxon_concept.classifications_locked? && @pending_moves.empty?
         %div.help_text.warning
           %p= I18n.t(:classifications_locked)
       - if @confirm_split_or_merge
         %div.help_text.warning
-          %p= I18n.t("classification_#{@confirm_split_or_merge}_help")
-          %p= I18n.t(:classification_split_warning)
-          %p= I18n.t(:classification_button_help)
+          %p= raw I18n.t("classification_#{@confirm_split_or_merge}_help")
+          %p= raw I18n.t(:classification_split_warning)
+          %p= raw I18n.t(:classification_button_help)
       = form_tag classifications_path do
         = hidden_field_tag 'taxon_concept_id', @move_to || @taxon_concept.id
         - if @confirm_split_or_merge

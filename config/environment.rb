@@ -7,7 +7,7 @@ module InitializerAdditions
     if File.exists?(file)
       begin
         require file
-        puts "** LOADED: #{file} **"
+        puts "** LOADED: #{name} **"
       rescue LoadError
         puts "** WARNING: COULD NOT LOAD #{file} **"
       end

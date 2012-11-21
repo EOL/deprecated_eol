@@ -129,8 +129,10 @@ class ContentController < ApplicationController
             Language.from_iso(current_language.iso_639_1)
           @translated_pages = translations_available_to_user
           @translated_content = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
-          @translated_content.left_content.gsub!(/href=\"info/, "href=\"/info")
-          @translated_content.main_content.gsub!(/href=\"info/, "href=\"/info")
+          unless @translated_content.nil?
+            @translated_content.left_content.gsub!(/href=\"info/, "href=\"/info")
+            @translated_content.main_content.gsub!(/href=\"info/, "href=\"/info")
+          end
           @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title
           @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
           current_user.log_activity(:viewed_content_page_id, :value => @page_id)

@@ -160,6 +160,8 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.4.0)
       mime-types
+    pjax_rails (0.3.4)
+      jquery-rails
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -307,6 +309,7 @@ DEPENDENCIES
   oauth2
   optiflag
   paperclip
+  pjax_rails
   rails (= 3.2.7)
   rails_autolink
   rdoc

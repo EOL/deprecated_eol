@@ -149,10 +149,6 @@ describe 'EOL APIs' do
     xml_response.xpath('//response/message').inner_text.should == 'Success'
   end
   
-  it 'should take api key and save it to the log' do
-    check_api_key("/api/ping?key=#{@user.api_key}", @user)
-  end
-  
   it 'pages should return only published concepts' do
     @taxon_concept.update_column(:published, 0)
     visit("/api/pages/0.4/#{@taxon_concept.id}")
@@ -245,7 +241,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
   
-    images = @taxon_concept.images_from_solr(100)
+    images = @taxon_concept.images_from_solr(100, :skip_preload => false)
     # and they should still contain vetted and rating info
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
       inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept, :find_best => true).label
@@ -311,7 +307,7 @@ describe 'EOL APIs' do
   
   it 'pages should show data object vetted status and rating by default' do
     xml_response = Nokogiri.XML(@default_pages_body)
-    images = @taxon_concept.images_from_solr(100)
+    images = @taxon_concept.images_from_solr(100, :skip_preload => false)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
       inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept, :find_best => true).label
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').

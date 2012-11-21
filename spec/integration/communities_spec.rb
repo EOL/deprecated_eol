@@ -20,7 +20,7 @@ describe "Communities" do
       subject { body }
 
       it 'should have rel canonical link tag' do
-        should have_tag("link[rel=canonical][href='#{community_newsfeed_url(@test_data[:community])}']")
+        should have_tag("link[rel=canonical][href$='#{community_newsfeed_path(@test_data[:community])}']")
       end
       it 'should have rel prev and next link tags when appropriate'
 
@@ -43,7 +43,7 @@ describe "Communities" do
       subject { body }
 
       it 'should have rel canonical link tag' do
-        should have_tag("link[rel=canonical][href='#{community_members_url(@test_data[:community])}']")
+        should have_tag("link[rel=canonical][href$='#{community_members_path(@test_data[:community])}']")
       end
       it 'should link to all of the community members'
     end
@@ -201,7 +201,7 @@ describe "Communities" do
     user = User.gen(:curator_level_id => nil)
     login_as user
     visit(join_community_url(CuratorCommunity.get))
-    body.should have_tag("a[href='#{curation_privileges_user_url(user)}']")
+    body.should have_tag("a[href$='#{curation_privileges_user_path(user)}']")
   end
 
   it 'should not allow editing the name of the curator community' do

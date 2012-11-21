@@ -60,7 +60,7 @@ describe 'Home page' do
       if language.iso_639_1 == I18n.locale.to_s
         body.should have_tag('.language p a span', :text => language.source_form)
       else
-        body.should have_tag(".language a[href='#{set_language_url(:language => language.iso_639_1,
+        body.should have_tag(".language a[href$='#{set_language_path(:language => language.iso_639_1,
                                                                    :return_to => current_url)}']")
       end
     end

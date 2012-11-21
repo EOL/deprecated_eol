@@ -1112,18 +1112,22 @@ class TaxonConcept < ActiveRecord::Base
     @best_image = nil
   end
 
-  def images_from_solr(limit = 4, selected_hierarchy_entry = nil, ignore_translations = false)
+  def images_from_solr(limit = 4, options = {})
+    unless options[:skip_preload] == false
+      options[:skip_preload] == true
+      options[:preload_select] == { :data_objects => [ :id, :guid, :language_id ] }
+    end
     @images_from_solr ||= data_objects_from_solr({
       :per_page => limit,
       :sort_by => 'status',
       :data_type_ids => DataType.image_type_ids,
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
-      :filter_hierarchy_entry => selected_hierarchy_entry,
-      :ignore_translations => ignore_translations,
+      :filter_hierarchy_entry => options[:filter_hierarchy_entry],
+      :ignore_translations => options[:ignore_translations] || false,
       :return_hierarchically_aggregated_objects => true,
-      :skip_preload => true,
-      :preload_select => [ :id, :guid, :language_id ]
+      :skip_preload => options[:skip_preload],
+      :preload_select => options[:preload_select]
     })
   end
   

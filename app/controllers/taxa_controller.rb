@@ -36,7 +36,7 @@ class TaxaController < ApplicationController
     })
     @map = map_results.blank? ? nil : map_results.first
     limit = @map.blank? ? 4 : 3
-    media = promote_exemplar_image(@taxon_concept.images_from_solr(limit, @selected_hierarchy_entry, true))
+    media = promote_exemplar_image(@taxon_concept.images_from_solr(limit, { :filter_hierarchy_entry => @selected_hierarchy_entry, :ignore_translations => true }))
     @media = @map.blank? ? media : media[0..2] + [ @map ]
     
     @media << @summary_text if @summary_text

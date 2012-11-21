@@ -16,21 +16,21 @@ describe 'CMS' do
   describe 'page' do
 
     it 'should provide a consistent canonical URL' do
-      canonical_href = cms_page_url(@content_page_about)
+      canonical_href = cms_page_path(@content_page_about)
       visit "/about"
-      page.should have_xpath("//link[@rel='canonical'][@href='#{canonical_href}']")
+      page.should have_tag("link[rel='canonical'][href$='#{canonical_href}']")
       visit "/info/#{@content_page_about.id}"
-      page.should have_xpath("//link[@rel='canonical'][@href='#{canonical_href}']")
+      page.should have_tag("link[rel='canonical'][href$='#{canonical_href}']")
       visit "/info/#{@content_page_about.page_name}"
-      page.should have_xpath("//link[@rel='canonical'][@href='#{canonical_href}']")
+      page.should have_tag("link[rel='canonical'][href$='#{canonical_href}']")
       visit cms_page_path(@content_page_about, :page => 3, :q => "blah")
-      page.should have_xpath("//link[@rel='canonical'][@href='#{canonical_href}']")
+      page.should have_tag("link[rel='canonical'][href$='#{canonical_href}']")
     end
 
     it 'should not have rel prev or next link tags' do
       visit cms_page_url(@content_page_about, :page => 3)
-      page.should_not have_xpath("//link[@rel='prev']")
-      page.should_not have_xpath("//link[@rel='next']")
+      page.should_not have_tag("link[rel='prev']")
+      page.should_not have_tag("link[rel='next']")
     end
 
   end

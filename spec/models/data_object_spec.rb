@@ -111,8 +111,7 @@ describe DataObject do
 
  it 'ratings should show rating for old and new version of re-harvested dato' do
    text_dato  = @taxon_concept.data_objects.select{ |d| d.is_text? }.last
-   image_dato = @taxon_concept.images_from_solr(100).last
-
+   image_dato = @taxon_concept.images_from_solr(100, :skip_preload => false).last
    text_dato.rate(@another_curator, 4)
    image_dato.rate(@another_curator, 4)
 
@@ -156,7 +155,7 @@ describe DataObject do
 
   it 'should know if it is an image map and not a map map' do
     map_dato = DataObject.gen(:data_type => DataType.map)
-    image_dato = @taxon_concept.images_from_solr(100).last
+    image_dato = @taxon_concept.images_from_solr(100, :skip_preload => false).last
     image_map_dato = DataObject.gen(:data_type => DataType.image, :data_subtype => DataType.map)
     map_dato.map?.should be_true
     map_dato.image_map?.should be_false

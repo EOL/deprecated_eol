@@ -518,7 +518,9 @@ describe 'Taxa page' do
       body.should have_selector("#main .comment .actions input[value='Post Comment']")
       click_button "Post Comment"
       current_url.should match /#{taxon_updates_path(@taxon_concept)}/
-      body.should have_selector("li#Comment-16")
+      last_comment = Comment.last
+      last_comment.body.should == comment
+      body.should have_selector("li#Comment-#{last_comment.id}")
     end
   end
 

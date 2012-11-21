@@ -427,18 +427,18 @@ describe "Collections" do
       body.should_not match(/href="\/collections\/#{collection.id}\?page=5/)
 
       # on page 1 rel canonical should not include page number;  rel prev should not exist; rel next is page 2; title should not include page
-      body.should have_tag("link[rel=canonical][href='#{collection_url(collection)}']")
+      body.should have_tag("link[rel=canonical][href$='#{collection_path(collection)}']")
       body.should_not have_tag('link[rel=prev]')
-      body.should have_tag("link[rel=next][href='#{collection_url(collection, :page => 2)}']")
+      body.should have_tag("link[rel=next][href$='#{collection_path(collection, :page => 2)}']")
       # on page 2 rel canonical should include page 2; rel prev should be page 1; rel next should be page 3; title should include page
       visit collection_path(collection, :page => 2)
-      body.should have_tag("link[rel=canonical][href='#{collection_url(collection_owner.watch_collection, :page => 2)}']")
-      body.should have_tag("link[rel=prev][href='#{collection_url(collection, :page => 1)}']")
-      body.should have_tag("link[rel=next][href='#{collection_url(collection, :page => 3)}']")
+      body.should have_tag("link[rel=canonical][href$='#{collection_path(collection_owner.watch_collection, :page => 2)}']")
+      body.should have_tag("link[rel=prev][href$='#{collection_path(collection, :page => 1)}']")
+      body.should have_tag("link[rel=next][href$='#{collection_path(collection, :page => 3)}']")
       # on last page there should be no rel next
       visit collection_path(collection, :page => 4)
-      body.should have_tag("link[rel=canonical][href='#{collection_url(collection_owner.watch_collection, :page => 4)}']")
-      body.should have_tag("link[rel=prev][href='#{collection_url(collection, :page => 3)}']")
+      body.should have_tag("link[rel=canonical][href$='#{collection_path(collection_owner.watch_collection, :page => 4)}']")
+      body.should have_tag("link[rel=prev][href$='#{collection_path(collection, :page => 3)}']")
       body.should_not have_tag('link[rel=next]')
 
       v = ViewStyle.first

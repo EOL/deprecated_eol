@@ -214,10 +214,7 @@ FactoryGirl.define do
 
   # Unique:
   sequence :guid do |n|
-    @guids = ['3a117abf96e7fe8793ef87b14d166d5f', 'a509ebdb2fc8083f3a33ea17985bad42']
-    pick = @guids[n % @guids.length]
-    (n / @guids.length).times { pick.succ! }
-    pick
+    SecureRandom.uuid.gsub(/-/, '')
   end
 
   # Unique:

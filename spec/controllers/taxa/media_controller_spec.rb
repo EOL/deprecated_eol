@@ -197,6 +197,7 @@ describe Taxa::MediaController do
       sorted_by_newest.should_not == sorted_by_status
       previous_date = 100.days.ago
       sorted_by_newest.reverse.each do |d|
+        d.reload
         d.created_at.should >= previous_date
         previous_date = d.created_at
       end

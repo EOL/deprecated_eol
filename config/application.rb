@@ -14,7 +14,7 @@ if defined?(Bundler)
   Bundler.require(*Rails.groups(:assets => assets))
 end
 
-module EolUpgrade
+module Eol
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

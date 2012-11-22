@@ -1,5 +1,5 @@
 # first created -> highest priority.
-EolUpgrade::Application.routes.draw do
+Eol::Application.routes.draw do
 
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'

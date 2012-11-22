@@ -20,4 +20,4 @@ end
 InitializerAdditions.add("environments/#{Rails.env}_eol_org")
 InitializerAdditions.add("environment_eol_org")
 InitializerAdditions.add("environments/local")
-EolUpgrade::Application.initialize!
+Eol::Application.initialize!

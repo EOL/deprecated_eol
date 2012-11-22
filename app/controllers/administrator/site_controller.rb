@@ -11,7 +11,7 @@ class Administrator::SiteController  < AdminController
   def index
     @page_title = 'General Site Administration'
     @allowed_ip = allowed_request
-    @config = EolUpgrade::Application.config
+    @config = Eol::Application.config
   end
 
   def surveys

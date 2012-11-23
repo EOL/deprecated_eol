@@ -596,33 +596,41 @@ protected
 
   # NOTE - these two are TOTALLY DUPLICATED from application_helper, because I CAN'T GET COLLECTIONS TO WORK.  WTF?!?
   def link_to_item(item, options = {})
-    case item.class.name
-    when 'Collection'
+    case item
+    when Collection
       collection_url(item, options)
-    when 'Community'
+    when Community
       community_url(item, options)
-    when 'DataObject'
-      data_object_url(item, options)
-    when 'User'
+    when DataObject
+      data_object_url(item.latest_published_revision || item, options)
+    when Curator # TODO - Curator should inherit from User, making this superfluous.  (also in next method, helper)
       user_url(item, options)
-    when 'TaxonConcept'
+    when User
+      user_url(item, options)
+    when TaxonConcept
       taxon_url(item, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end
   end
   def link_to_newsfeed(item, options = {})
-    case item.class.name
-    when 'Collection'
+    case item
+    when Collection
       collection_newsfeed_url(item, options)
-    when 'Community'
+    when Community
       community_newsfeed_url(item, options)
-    when 'DataObject'
-      data_object_url(item, options)
-    when 'User'
+    when DataObject
+      data_object_url(item.latest_published_revision || item, options)
+    when Curator
       user_newsfeed_url(item, options)
-    when 'TaxonConcept'
-      taxon_url(item, options)
+    when User
+      user_newsfeed_url(item, options)
+    when TaxonConcept
+      if options[:taxon_updates] # Sometimes you want to go to the long activity view for taxa...
+        taxon_updates_url(item, options.delete(:taxon_updates))
+      else
+        taxon_url(item, options)
+      end
     else
       raise EOL::Exceptions::ObjectNotFound
     end

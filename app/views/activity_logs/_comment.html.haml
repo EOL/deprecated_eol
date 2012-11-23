@@ -6,19 +6,7 @@
 - cols ||= 60
 - actual_date ||= false
 - display_curator ||= false
-- parent_newsfeed = case item.parent_type
-  - when 'TaxonConcept'
-    - parent_newsfeed = taxon_updates_url(item.parent_id)
-  - when 'DataObject'
-    - parent_newsfeed = data_object_url(item.parent_id)
-  - when 'Community'
-    - parent_newsfeed = community_newsfeed_url(item.parent_id)
-  - when 'Collection'
-    - parent_newsfeed = collection_newsfeed_url(item.parent_id)
-  - when 'User'
-    - parent_newsfeed = user_newsfeed_url(item.parent_id)
-  - else
-    - nil
+- parent_newsfeed = link_to_newsfeed(item.parent)
 - if item.user.nil?
   = raw I18n.t(:the_user_who_performed_this_action_was_removed)
 - else
@@ -29,21 +17,8 @@
     - if !item.user.curator_level.nil? && display_curator
       - curator_level = " (" + item.user.curator_level.translated_label + ")"
     - name_with_link = link_to(h(item.user.full_name), user_url(item.user)) + curator_level
-    - parent_link = nil
-    - case item.parent_type
-    - when 'TaxonConcept'
-      - parent_link = overview_taxon_url(item.parent_id)
-    - when 'DataObject'
-      - data_object_id = item.parent.latest_published_revision ? item.parent.latest_published_revision.id : item.parent_id
-      - parent_link = data_object_url(data_object_id)
-    - when 'Community'
-      - parent_link = community_url(item.parent_id)
-    - when 'Collection'
-      - parent_link = collection_url(item.parent_id)
-    - when 'User'
-      -# We placed a filter here to trap the error if user is deleted.
-      - unless item.parent.nil?
-        - parent_link = user_newsfeed_url(item.parent_id)
+    -# We placed a filter here to trap the error if user is deleted.
+    - parent_link = item.parent ? link_to_item(item.parent) : ''
     %p
       - if parent_link
         - if item.parent == item.user
@@ -73,19 +48,7 @@
       %blockquote{:cite => h(item.user.full_name)}
         - show_body = ''
         - if truncate_comments && item.body.length > 140
-          - parent_newsfeed = nil
-          - case item.parent_type
-          - when 'TaxonConcept'
-            - parent_newsfeed = taxon_updates_url(item.parent_id)
-          - when 'DataObject'
-            - data_object_id = item.parent.latest_published_revision ? item.parent.latest_published_revision.id : item.parent_id
-            - parent_newsfeed = data_object_url(data_object_id)
-          - when 'Community'
-            - parent_newsfeed = community_newsfeed_url(item.parent_id)
-          - when 'Collection'
-            - parent_newsfeed = filtered_collection_url(item.parent, 'newsfeed')
-          - when 'User'
-            - parent_newsfeed = user_newsfeed_url(item.parent_id)
+          - parent_newsfeed = item.parent ? link_to_newsfeed(item.parent, :taxon_updates => true) : ''
           - if parent_newsfeed
             - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => parent_newsfeed))
           - else

@@ -106,23 +106,20 @@ class Collection < ActiveRecord::Base
   def add(what, opts = {})
     return if what.nil?
     name = "something"
-    case what.class.name
-    when "TaxonConcept"
+    case what
+    when TaxonConcept
       collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object_id => what.id, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
       name = what.scientific_name
-    when "Curator"
+    when User
       collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
       name = what.username
-    when "User"
-      collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
-      name = what.username
-    when "DataObject"
+    when DataObject
       collection_items << CollectionItem.create(:object_type => "DataObject", :object_id => what.id, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
       name = what.data_type.simple_type('en')
-    when "Community"
+    when Community
       collection_items << CollectionItem.create(:object_type => "Community", :object_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
-    when "Collection"
+    when Collection
       collection_items << CollectionItem.create(:object_type => "Collection", :object_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     else

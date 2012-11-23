@@ -94,23 +94,21 @@ class CollectionItem < ActiveRecord::Base
     end
     params['link_type_id'] = link_type_id if link_type_id
 
-    case self.object.class.name
-    when "TaxonConcept"
+    case self.object
+    when TaxonConcept
       unless self.object.entry && self.object.entry.name && self.object.entry.name.canonical_form
         raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
                                                                     :type => 'Missing Hierarchy Entry'))
       end
       params['title'] = self.object.entry.name.canonical_form.string
-    when "Curator"
+    when User
       params['title'] = self.object.username
-    when "User"
-      params['title'] = self.object.username
-    when "DataObject"
+    when DataObject
       params['title'] = self.object.best_title
       params['data_rating'] = self.object.safe_rating
-    when "Community"
+    when Community
       params['title'] = self.object.name
-    when "Collection"
+    when Collection
       params['title'] = self.object.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,

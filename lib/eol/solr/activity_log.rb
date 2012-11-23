@@ -220,6 +220,7 @@ module EOL
         end
       end
 
+      # TODO - Couldn't we simplify a whole lot of this with #to_params?
       def self.solr_search(query, options = {})
         options[:sort_by] ||= 'date_created+desc'
         options[:group_field] ||= 'activity_log_unique_key'

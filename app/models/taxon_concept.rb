@@ -1117,6 +1117,8 @@ class TaxonConcept < ActiveRecord::Base
       options[:skip_preload] == true
       options[:preload_select] == { :data_objects => [ :id, :guid, :language_id ] }
     end
+    # TODO - this is a bug. If you call #images_from_solr with two different sets of options, you will get the same
+    # results on the second as with the first:
     @images_from_solr ||= data_objects_from_solr({
       :per_page => limit,
       :sort_by => 'status',
@@ -1213,7 +1215,7 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def data_objects_from_solr(solr_query_parameters = {})
-    EOL::Solr::DataObjects.search_with_pagination(self.id, self.class.default_solr_query_parameters(solr_query_parameters))
+    EOL::Solr::DataObjects.search_with_pagination(id, TaxonConcept.default_solr_query_parameters(solr_query_parameters))
   end
   
   def self.default_solr_query_parameters(solr_query_parameters)
@@ -1259,7 +1261,7 @@ class TaxonConcept < ActiveRecord::Base
     options[:vetted_types] = vetted_types
     options[:visibility_types] = visibility_types
     options[:filter_by_subtype] = false
-    @get_unique_link_type_ids_for_user = EOL::Solr::DataObjects.unique_link_type_ids(self.id, self.class.default_solr_query_parameters(options))
+    @get_unique_link_type_ids_for_user = EOL::Solr::DataObjects.unique_link_type_ids(self.id, TaxonConcept.default_solr_query_parameters(options))
   end
   
   def get_unique_toc_ids_for_user(the_user, options)
@@ -1269,7 +1271,7 @@ class TaxonConcept < ActiveRecord::Base
     options[:vetted_types] = vetted_types
     options[:visibility_types] = visibility_types
     options[:filter_by_subtype] = true
-    @get_unique_toc_ids_for_user = EOL::Solr::DataObjects.unique_toc_ids(self.id, self.class.default_solr_query_parameters(options))
+    @get_unique_toc_ids_for_user = EOL::Solr::DataObjects.unique_toc_ids(self.id, TaxonConcept.default_solr_query_parameters(options))
   end
   
   def self.vetted_and_visibility_types_for_user(the_user)

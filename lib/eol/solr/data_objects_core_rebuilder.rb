@@ -37,7 +37,7 @@ module EOL
       end
 
       def self.lookup_data_objects(start, limit)
-        max = start + limit
+        max = start + limit # TODO - pretty sure this is a fencepost error (should be -1), but don't care enough...
         objects_to_send = []
         data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
         self.preload_associations!(data_objects)

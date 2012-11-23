@@ -1,7 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require File.dirname(__FILE__) + '/../../lib/eol_data'
-class EOL::NestedSet; end
-EOL::NestedSet.send :extend, EOL::Data
+
+class EOL::NestedSet
+ extend EOL::Data
+end
 
 require 'solr_api'
 

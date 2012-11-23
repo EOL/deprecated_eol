@@ -1,6 +1,5 @@
-require Rails.root.join('lib', 'eol_data')
+require 'eol_data'
 require 'nokogiri'
-#TODO - replace - require 'spec/runner/formatter/base_text_formatter'
 
 # TODO: Problem running eol:db:populate RAILS_ENV=development HTTP requests for SOLR were being prevented by WebMock,
 # but WebMock is not loaded for development environment!? Presumably scenarios use this file which is why

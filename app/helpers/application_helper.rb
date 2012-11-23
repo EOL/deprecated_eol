@@ -121,8 +121,6 @@ module ApplicationHelper
       'collection'
     elsif object.class == TaxonConcept
       'taxon'
-    elsif object.class == Curator
-      'person'
     elsif object.class == User
       'person'
     elsif object.class == ContentPage
@@ -428,8 +426,6 @@ module ApplicationHelper
       community_url(item, options)
     when DataObject
       data_object_url(item.latest_published_revision || item, options)
-    when Curator
-      user_url(item, options)
     when User
       user_url(item, options)
     when TaxonConcept
@@ -446,8 +442,6 @@ module ApplicationHelper
       community_newsfeed_url(item, options)
     when DataObject
       data_object_url(item.latest_published_revision || item, options)
-    when Curator
-      user_newsfeed_url(item, options)
     when User
       user_newsfeed_url(item, options)
     when TaxonConcept

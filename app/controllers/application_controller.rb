@@ -603,8 +603,6 @@ protected
       community_url(item, options)
     when DataObject
       data_object_url(item.latest_published_revision || item, options)
-    when Curator # TODO - Curator should inherit from User, making this superfluous.  (also in next method, helper)
-      user_url(item, options)
     when User
       user_url(item, options)
     when TaxonConcept
@@ -621,8 +619,6 @@ protected
       community_newsfeed_url(item, options)
     when DataObject
       data_object_url(item.latest_published_revision || item, options)
-    when Curator
-      user_newsfeed_url(item, options)
     when User
       user_newsfeed_url(item, options)
     when TaxonConcept

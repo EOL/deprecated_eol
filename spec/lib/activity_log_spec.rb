@@ -1,95 +1,117 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+class NewKindOfThing ; end
+
+# TODO - There's a lot I'm not testing, here, because I don't believe the Solr syntax *belongs* in this class. We
+# could, of course, actually check the string being passed to #search_with_pagination ... but that just strikes me as
+# *incredibly* brittle... and exposes a bit of a bad smell about the class being tested.
+#
+# As is, we test the other responsibilities of the class *reasonably* well, besides, so I'm not entirely upset.
+# Exceptions are noted below as TODOs. ...Also, this spec file runs ridiculously fast. ...There's one slow spec and
+# I'm not sure which it is, though I hear it thrashing disk. ...I wonder if it's just loading FactoryGirl. (?)
 describe EOL::ActivityLog do
 
   before(:all) do
-    truncate_all_tables
-    load_scenario_with_caching(:testy)
-    # This sucks, but my "testy" scenario, for some reason, wasn't adding these:
-    Activity.create_defaults
-    @testy = EOL::TestInfo.load('testy')
-    # A curator is the only thing who's activity log would actually involve ALL the types:
-    @curator = @testy[:curator]
-    @solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
-    @solr_connection.delete_all_documents
-    Comment.gen(:user_id => @curator.id, :created_at => 6.seconds.ago) # implies comment activity
-    dato = DataObject.gen(:created_at => 5.seconds.ago)
-    UsersDataObject.gen(:user_id => @curator.id, :data_object => dato, :vetted => Vetted.trusted) # implies created text object activity
-    CuratorActivityLog.gen(:user_id => @curator.id, :activity => Activity.trusted, :created_at => 4.seconds.ago)
-    CollectionActivityLog.gen(:user_id => @curator.id, :activity => Activity.create, :created_at => 3.seconds.ago)
-    CommunityActivityLog.gen(:user_id => @curator.id, :activity => Activity.create, :created_at => 2.seconds.ago)
-    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
+    @default_options = {:per_page=>20, :page=>1}
   end
 
-  it 'should be empty by default' do
-    user = User.gen
-    user.activity_log.empty?.should be_true
+  it '#global should delegate to #find with nil source' do
+    EOL::ActivityLog.should_receive(:find).with(nil, {:per_page => 3}).and_return(nil)
+    EOL::ActivityLog.global(3)
   end
 
-  it 'should list all activity_log items for a user, sorted by time' do
-    # TODO - some logs are triggered through the controller, not on the creation of particular objects
-    @curator.activity_log[1]['instance'].class.should == Comment
-    # @curator.activity_log[3]['instance'].class.should == UsersDataObject
-    # @curator.activity_log[2]['instance'].class.should == CuratorActivityLog
-    # @curator.activity_log[1]['instance'].class.should == CollectionActivityLog
-    @curator.activity_log[0]['instance'].class.should == CommunityActivityLog
+  it '#global should deafult to $ACTIVITIES_ON_HOME_PAGE per_page' do
+    EOL::ActivityLog.should_receive(:find).with(nil, {:per_page => $ACTIVITIES_ON_HOME_PAGE}).and_return(nil)
+    EOL::ActivityLog.global
   end
 
-  it 'should work with Community comments, focus list activity, and community activity' do
-    community = Community.gen
-    Comment.gen(:parent => community, :created_at => 4.seconds.ago, :parent_type => 'Community')
-    # This proves that any activity logged on the focus list of the community is something that shows up in the
-    # community feed itself (rather than having to look at the focus list directly).  For example, if someone adds
-    # something to the community's focus list, we expect to see that in the activity log of the community itself.
-    CollectionActivityLog.gen(:collection => community.collections.first, :created_at => 3.seconds.ago)
-    CommunityActivityLog.gen(:community => community, :created_at => 2.seconds.ago)
-    community.activity_log.length.should == 2
-    community.activity_log[1]['instance'].class.should == Comment
-    community.activity_log[0]['instance'].class.should == CommunityActivityLog
+  it '#find should delegate to EOL::Solr::ActivityLog.global_activities(options) with nil source' do
+    EOL::Solr::ActivityLog.should_receive(:global_activities).and_return(nil)
+    EOL::ActivityLog.find(nil)
   end
 
-  it 'should work with DataObject' do
-    dato = DataObject.gen(:created_at => 5.seconds.ago)
-    UsersDataObject.gen(:data_object => dato, :vetted => Vetted.trusted)
-    Comment.gen(:parent => dato, :created_at => 4.seconds.ago)
-    CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_object.id,
-                           :object_id => dato, :created_at => 3.seconds.ago)
+  it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for RecentActivitiesController' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    EOL::ActivityLog.find(RecentActivitiesController.new)
   end
 
-  # Okay, based on the above examples, I'm going to henceforth assume that sorting by date works.  ...because
-  # handling taxon concepts is tricky, I would rather break up the tests without worrying about it:
-  it 'should work with TaxonConcept' do
-    # 'Taxon Concept Comments show up'
-    Comment.gen(:parent => @testy[:taxon_concept], :parent_type => 'TaxonConcept')
-    @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment
-    @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:id]
-    # 'Image comments show up'
-    Comment.gen(:parent => @testy[:taxon_concept].images_from_solr.first)
-    @testy[:taxon_concept].reload
-    # TODO ... this isn't working, yet:
-    if false
-      @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment
-      @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:taxon_concept].images_from_solr.first.id
-      # 'Comments on the children of this TC show up'
-      Comment.gen(:parent => @testy[:child1])
-      @testy[:taxon_concept].reload
-      @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment
-      @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:child1].id
-      expect 'Comments on user-submitted text show up'
-      dato = DataObject.gen(:created_at => 2.seconds.ago)
-      UsersDataObject.gen(:taxon_concept_id => @testy[:id], :data_object => dato, :vetted => Vetted.trusted)
-      @testy[:taxon_concept].reload
-      @testy[:taxon_concept].activity_log.first['instance'].class.should == UsersDataObject
-      expect 'Curation of data objects on the page show up'
-      dohe = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(
-        @testy[:taxon_concept].images_from_solr.first.id,
-        @testy[:taxon_concept].entry.id
-      )
-      CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id,
-                             :object_id => dohe.id)
-      @testy[:taxon_concept].reload
-      @testy[:taxon_concept].activity_log.first['instance'].class.should == CuratorActivityLog
-    end
+  it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for User' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    EOL::ActivityLog.find(User.new)
   end
+
+  it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for Community' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    EOL::ActivityLog.find(Community.new)
+  end
+
+  it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for Collection' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    EOL::ActivityLog.find(Collection.new)
+  end
+
+  it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for DataObject' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    EOL::ActivityLog.find(DataObject.new)
+  end
+
+  it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for TaxonConcept' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    EOL::ActivityLog.find(TaxonConcept.new)
+  end
+
+  it '#find should delegate to ...#search_with_pagination with reasonable defaults for other classes' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).with("feed_type_affected:NOTHING",
+                                                                        @default_options)
+    EOL::ActivityLog.find(NewKindOfThing.new)
+  end
+
+  it '#find should follow supercedure for TaxonConcepts' do
+    # TODO - stub this method. I tried, it didn't work, didn't care enough to dig right now:
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    tc = TaxonConcept.new
+    tc.stub(:id).and_return(1234)
+    tc.stub(:to_s).and_return('1234') # Weird.  Really weird.  But necessary; that 1234 seemed to cause this?
+    TaxonConcept.should_receive(:find_all_by_supercedure_id).with(1234).and_return([])
+    EOL::ActivityLog.find(tc)
+  end
+
+  # Yeah, right... like we're going to test this easily:
+  it 'should only follow 500 supercedure ids'
+
+  # Brittle test... but this is a bad smell; the code is sloppy.
+  it '#find should limit data object ids to 500' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    ids_array = []
+    ids_array.stub(:blank?).and_return(false)
+    ids_array.should_receive(:[]).with(0...500).and_return([])
+    EOL::ActivityLog.find(DataObject.new, :ids => ids_array)
+  end
+
+  it '#find should at least look at the focuses for communities (we trust it is searching on them as well)' do
+    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
+    community = Community.new
+    community.should_receive(:focuses).and_return([])
+    EOL::ActivityLog.find(community)
+  end
+
+  # I don't want to test this here; too tightly coupled with the actual Solr query.
+  it '#find should handle several filters (all, messages, community, collections, watchlist, curation) for user news'
+
+  # I don't want to test this here; too tightly coupled with the actual Solr query.
+  it '#find should allow a date to search after for user news'
+
+  # I don't want to test this here; too tightly coupled with the actual Solr query.
+  it '#find should handle several filters (comments, taxa_comments, data_object_curation, names, added_data_objects,
+  collections, communities) for user activities'
+
+  # We *could* check these, but it would be super-brittle (and I don't know why we use #include? here anyway, this
+  # would be clearer with a #case):
+  it 'should handle a comments filter for recent activities'
+  it 'should handle a data_object_curation filter for recent activities'
+  it 'should handle a names filter for recent activities'
+  it 'should handle a added_data_objects filter for recent activities'
+  it 'should handle a collections filter for recent activities'
+  it 'should handle a communities for recent activities'
 
 end

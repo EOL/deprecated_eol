@@ -56,7 +56,7 @@
         = raw I18n.t(:to_process_your_donation_please_proceed)
         = ":"
         %form{ :action => "https://orderpage.ic3.com/hop/orderform.jsp", :method => "post" }
-          = @form_elements
+          = raw @form_elements
           = submit_tag I18n.t(:proceed_to_checkout_page)
         %br
         %br

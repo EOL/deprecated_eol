@@ -53,14 +53,12 @@
         = I18n.t(:the_amount_entered_was, :number => number_to_currency(@donation_amount))
         %br
         %br
-        = I18n.t(:to_process_your_donation_please_proceed)
+        = raw I18n.t(:to_process_your_donation_please_proceed)
         = ":"
         %form{ :action => "https://orderpage.ic3.com/hop/orderform.jsp", :method => "post" }
           = @form_elements
           = submit_tag I18n.t(:proceed_to_checkout_page)
         %br
         %br
-        = I18n.t(:correct_donation_message, :go_back_link=>link_to( I18n.t(:go_back) ,:action => 'donate'))
-        = "."
-        = I18n.t(:thank_you_for_your_generous_support)
-        = "!"
+        = raw I18n.t(:correct_donation_message, :go_back_link=>link_to( I18n.t(:go_back) ,:action => 'donate'))
+        = raw I18n.t(:thank_you_for_your_generous_support)

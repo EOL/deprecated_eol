@@ -1072,8 +1072,17 @@ class DataObject < ActiveRecord::Base
     end
   end
 
+  # TODO - I changed all instances of #update_solr_index to use this instead, but then specs were failing. ...That's
+  # sad.  Please fix.  :)
+  # Note this is somewhat expensive (it takes miliseconds for each association), so don't call this recursively:
   def reload
-    @all_assoc = nil
+    (instance_variables - [:@attributes, :@relation, :@changed_attributes, :@previously_changed, :@attributes_cache,
+      :@association_cache, :@aggregation_cache, :@marked_for_destruction, :@destroyed, :@readonly, :@new_record,
+      :@current_shard]).each do |ivar|
+      instance_variable_set(ivar, nil)
+    end
+    update_solr_index
+    all_published_associations.map(&:taxon_concept).each { |tc| tc.reload }
     super
   end
 

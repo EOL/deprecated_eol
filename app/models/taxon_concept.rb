@@ -1115,7 +1115,7 @@ class TaxonConcept < ActiveRecord::Base
   def images_from_solr(limit = 4, options = {})
     unless options[:skip_preload] == false
       options[:skip_preload] == true
-      options[:preload_select] == { :data_objects => [ :id, :guid, :language_id ] }
+      options[:preload_select] == { :data_objects => [ :id, :guid, :language_id, :data_type_id ] }
     end
     # TODO - this is a bug. If you call #images_from_solr with two different sets of options, you will get the same
     # results on the second as with the first:

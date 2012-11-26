@@ -1,3 +1,4 @@
+
 require 'set'
 require 'uuid'
 require 'erb'
@@ -53,7 +54,7 @@ class DataObject < ActiveRecord::Base
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded
-  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id'
+  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id'
   has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc",
     :conditions => 'published = 1'
 
@@ -617,6 +618,8 @@ class DataObject < ActiveRecord::Base
     
     return nil if versions_to_look_at.blank?
     versions_to_look_at_in_language = versions_to_look_at.dup
+    # only looking at revisions with the same data type (due to a bug it is possible for different revisions to have different types)
+    versions_to_look_at_in_language.delete_if{ |d| self.data_type_id && d.data_type_id != self.data_type_id }
     # if this object has a language, and its different from the revision language,
     # except when this is English and the other has no language
     versions_to_look_at_in_language.delete_if{ |d| self.language && (d.language_id != self.language.id && !(d.language_id == 0 && self.language == Language.english)) }

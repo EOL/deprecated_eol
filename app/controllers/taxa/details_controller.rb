@@ -13,7 +13,7 @@ class Taxa::DetailsController < TaxaController
     @data_objects_in_other_languages = @taxon_concept.text_for_user(current_user, {
       :language_ids_to_ignore => [ current_language.id, 0 ],
       :allow_nil_languages => false,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id ] },
+      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id ] },
       :skip_preload => true,
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id } })
     DataObject.preload_associations(@data_objects_in_other_languages, :language)

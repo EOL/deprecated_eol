@@ -543,5 +543,25 @@ describe DataObject do
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
   end
+
+  it '#create_user_text should call reload on TaxonConcept, even when fails' do
+    new_text_params = {
+      :data_type_id => DataType.text.id.to_s,
+      :license_id => nil,
+      :license_id => License.cc.id.to_s,
+      :object_title => "",
+      :bibliographic_citation => "",
+      :source_url => "http://eol.org",
+      :rights_statement => "",
+      :description => "This is link description",
+      :language_id => Language.english.id.to_s,
+      :rights_holder => ""
+    }
+    lambda {
+      @taxon_concept.should_receive(:reload).and_return(true)
+      DataObject.create_user_text(new_text_params, :user => @user, :taxon_concept => @taxon_concept)
+    }.should raise_error
+  end
+
 end
 

@@ -184,6 +184,7 @@ class DataObject < ActiveRecord::Base
     end
   end
 
+  # TODO - params and options?  Really?  Really?!
   def self.create_user_text(params, options)
     unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
       if options[:link_object]
@@ -204,6 +205,7 @@ class DataObject < ActiveRecord::Base
         dato.update_column(:published, false)
         raise e
       ensure
+        options[:taxon_concept].reload if options[:taxon_concept]
         dato.update_solr_index
       end
     end

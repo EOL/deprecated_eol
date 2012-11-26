@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 group :development, :test do
   gem 'capistrano'
-  gem 'capistrano-unicorn-pleary'
+  gem 'capistrano-unicorn-pleary', '=0.1.6.1'
   gem 'rvm-capistrano'
   gem 'capybara'
   gem 'daemons'

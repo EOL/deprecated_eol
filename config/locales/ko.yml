@@ -1992,6 +1992,7 @@ ko:
         credentials: 자격 증명
         credentials_more: "이 목록에서 하나 이상의 특정 자격 증명을 정하세요:"
         credentials_more_academic: 관련 대학 학과의 교직원, 직원 또는 ​​대학생을 정합니다.
+        credentials_more_author: 같이 검토한 게시(참조 제공)의 저자입니다.
         credentials_more_professional: 전문적인 사회성의 구성원입니다.
         credentials_more_referral: 현재 큐레이터의 추천입니다.
         credentials_more_successful_assistant_curator: 조수 큐레이터로서 성공의 역사입니다.
@@ -3681,7 +3682,6 @@ ko:
   wikipedia_queue_new_page_title: 위키백과 문서 가져오기 요청
   will_paginate: 
     next_label: 다음 &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; 이전"
   worklist: 작업 목록
   xml_response: XML 응답

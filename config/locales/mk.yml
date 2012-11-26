@@ -4076,7 +4076,6 @@ mk:
   will_find_taxon_pages_matching_the_search_term: ќе најде страници од таксонот ако пребараното точно се совпаѓа со претпочитаното име, некој од синонимите или тривијалното име
   will_paginate: 
     next_label: Следна &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Претходна"
   worklist: Работен список
   would_you_like_to_become_a_curator_notice: Дали би сакале да станете кустос? Кустоски пристап може да побарате на <a href='%{url}'>вашата профилна страница</a>.

@@ -3959,7 +3959,6 @@ tl:
   will_find_taxon_pages_matching_the_search_term: ay maghahanap ng mga pahina ng takson kung ang nais na pangalan o anumang kasingkahulugan o karaniwang pangalan ay ganap ang pagkakatugma sa katagang hinahanap
   will_paginate: 
     next_label: Kasunod &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Dati"
   worklist: Tala ng<br/>gawain
   would_you_like_to_become_a_curator_notice: Nais mo bang maging isang kurador? Makakahiling ka ng pagkanakakapunta roon sa <a href='%{url}'>pahina mo ng balangkas ng katangian</a>.

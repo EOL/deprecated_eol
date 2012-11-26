@@ -522,7 +522,6 @@ fr:
   assistive_literature_header: Littérature
   assistive_maps_header: Cartes
   assistive_media_header: Média
-  assistive_names_classifictions_header: Classifications
   assistive_names_common_header: Noms usuels
   assistive_names_related_header: Noms apparentés
   assistive_names_synonyms_header: Synonymes
@@ -2714,13 +2713,16 @@ fr:
           meta_description_no_data: Aucun fait n'est disponible pour %{scientific_name} classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. EdlV vous invite à contribuer à propos de %{scientific_name} comme la Conservation, la Répartition, l'Ecologie, l'Habitat, la Morphologie et davantage.
           meta_description_with_chapter_list: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Inclut les informations %{chapter_list} pour %{scientific_name}.
           meta_description_with_common_name: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
+          meta_description_with_common_name_no_data: Aucun fait n'est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} selon la classification par %{hierarchy_provider} dans l'Encyclopédie de la Vie. EdlV vous invite à fournir des faits à propos de %{preferred_common_name} (%{scientific_name}), comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
           meta_description_with_common_name_with_chapter_list: Information sur le(la) %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
           meta_title: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Information sur le %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
         meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie
+        meta_description_no_data: Aucun fait n'est disponible pour %{scientific_name} dans l'Encyclopédie de la Vie. EdlV vous invite à fournir des faits à propos de %{scientific_name}, comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
         meta_description_with_chapter_list: Information sur %{scientific_name} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
         meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_description_with_common_name_no_data: Aucun fait n'est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} dans l'Encyclopédie de la Vie. EdlV vous invite à fournir des faits à propos de %{preferred_common_name} (%{scientific_name}), comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
         meta_description_with_common_name_with_chapter_list: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
         meta_title: Faits concernant %{scientific_name}
         meta_title_with_common_name: Faits concernant %{preferred_common_name} (%{scientific_name})
@@ -2757,7 +2759,9 @@ fr:
           meta_title_with_common_name: Cartes de %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Cartes pour %{scientific_name} tel que classé par %{hierarchy_provider}
         meta_description: Informations géographiques sur %{scientific_name}. Endroits où ils vivent dans le monde.
+        meta_description_no_data: Aucune information géographique n'est disponible pour %{scientific_name} dans l'Encyclopédie de la Vie. EdlV vous invite à fournir des cartes pour %{scientific_name}.
         meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et d’où proviennent-ils ? Informations géographiques sur %{scientific_name}. Endroits où ils vivent dans le monde.
+        meta_description_with_common_name_no_data: Aucune information géographique n'est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} dans l'Encyclopédie de la Vie. EdlV vous invite à fournir des cartes pour %{preferred_common_name} (%{scientific_name}).
         meta_keywords: habitat de %{scientific_name}, où vit %{scientific_name}
         meta_keywords_with_common_name: habitat de %{preferred_common_name}, où vit %{preferred_common_name}
         meta_title: Cartes de %{scientific_name}
@@ -2774,7 +2778,9 @@ fr:
           meta_title_with_common_name: Enregistrements sonores, films et images de %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Médias de %{scientific_name} tels que classés par %{hierarchy_provider}
         meta_description: Photos, vidéo et audio de %{scientific_name}. Trouver des images, des photos, des films et des sons de %{scientific_name} dans l'Encyclopédie de la vie.
+        meta_description_no_data: Aucun élément multimédia n'est disponible pour %{scientific_name} dans l'Encyclopédie de la Vie. EdlV vous invite à fournir des images, des vidéos ou des sons pour %{scientific_name}.
         meta_description_with_common_name: Photos, vidéo et audio de %{preferred_common_name}, également connu sous le nom %{scientific_name}. Trouver des images, des photos, des films et des sons de %{preferred_common_name} (%{scientific_name}) dans l'Encyclopédie de la Vie.
+        meta_description_with_common_name_no_data: Aucun élément multimédia n'est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} dans l'Encyclopédie de la Vie. EdlV vous invite à fournir des images, des vidéos ou des sons pour %{preferred_common_name} (%{scientific_name}).
         meta_keywords: images de %{scientific_name}, vidéos de %{scientific_name}, images de %{scientific_name}, vids de %{scientific_name}, pics de %{scientific_name}, médias
         meta_keywords_with_common_name: images de %{preferred_common_name}, vidéos sur %{preferred_common_name}, images de %{preferred_common_name}, vids de %{preferred_common_name}, pics de %{preferred_common_name}, médias
         meta_title: Photos, Vidéo & Audio de %{scientific_name} - Images, Photos, Films & sons de %{scientific_name}
@@ -2802,11 +2808,11 @@ fr:
           meta_description: Taxinomies et noms scientifiques de %{scientific_name} classés par %{hierarchy_provider}.
           meta_description_with_common_name: Taxinomies et noms scientifiques pour les %{preferred_common_name}, appelé aussi %{scientific_name} tel que classé par %{hierarchy_provider}.
           tweet_text: Noms liés à %{scientific_name} tels que classés par %{hierarchy_provider}
-        meta_description: Classification taxinomique et noms scientifiques de %{scientific_name}.
-        meta_description_with_common_name: Classification taxinomique et noms scientifiques pour le %{preferred_common_name}, également appelé %{scientific_name}.
-        meta_title: Noms reliés à %{scientific_name}
-        meta_title_with_common_name: Noms connexes à %{preferred_common_name} (%{scientific_name})
-        tweet_text: Noms connexes à %{scientific_name}
+        meta_description: Taxonomies et noms scientifiques de %{scientific_name}. Classifications biologiques et noms associés à %{scientific_name}.
+        meta_description_with_common_name: Taxonomies, classifications biologiques et noms scientifiques pour le %{preferred_common_name}, également appelé %{scientific_name}. Classifications biologiques et noms associés à %{preferred_common_name}.
+        meta_title: Information taxonomique pour %{scientific_name} - Classifications biologiques & Noms
+        meta_title_with_common_name: Information taxonomique pour %{preferred_common_name} (%{scientific_name}) - Classifications biologiques & Noms
+        tweet_text: Information taxonomique pour %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: Synonymes associés à %{scientific_name} classé par %{hierarchy_provider}.
@@ -2835,18 +2841,25 @@ fr:
           tweet_text: Vue d’ensemble de %{scientific_name}, tel que classé par %{hierarchy_provider}
         meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie.
         meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_keywords: info sur %{scientific_name},information de %{scientific_name}
+        meta_keywords_with_common_name: info sur %{scientific_name}, info sur %{preferred_common_name}, information et faits sur %{scientific_name}, information sur %{preferred_common_name}
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information sur %{preferred_common_name}"
         tweet_text: Information sur %{scientific_name}
     resources: 
       biomedical_terms: 
+        hierarchy_entry: 
+          tweet_text: Termes biomédicaux pour %{scientific_name} tels que classés selon %{hierarchy_provider}
         meta_title: Termes biomédicaux pour %{scientific_name}
+        meta_title_with_common_name: Termes biomédicaux pour %{preferred_common_name} (%{scientific_name})
         tweet_text: Termes biomédicaux pour %{scientific_name}
       education: 
         hierarchy_entry: 
           meta_title: Outils d'apprentissage pour %{scientific_name} classé par %{hierarchy_provider}
           meta_title_with_common_name: Outils d’apprentissage pour %{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})
           tweet_text: Outils d’apprentissage pour %{scientific_name} classé par %{hierarchy_provider}
+        meta_title: Ressources éducatives pour %{scientific_name}
         meta_title_with_common_name: Ressources d’éducation pour %{preferred_common_name} (%{scientific_name})
+        tweet_text: Ressources éducatives pour %{scientific_name}
       nucleotide_sequences: 
         hierarchy_entry: 
           tweet_text: Séquences de nucléotides pour %{scientific_name} classés par %{hierarchy_provider}
@@ -2855,7 +2868,18 @@ fr:
         hierarchy_entry: 
           meta_description: Liste des fournisseurs et des données source pour %{scientific_name} comme classés par %{hierarchy_provider}.
           meta_description_with_common_name: Liste des fournisseurs et des données source pour %{preferred_common_name} (%{scientific_name} comme classés par %{hierarchy_provider}).
+          meta_keywords: fournisseurs de données de %{scientific_name}, source de données de %{scientific_name}
+          meta_keywords_with_common_name: fournisseurs de données de %{preferred_common_name}, source de données de %{preferred_common_name}, fournisseurs de données de %{scientific_name}, source de données de %{scientific_name}
+          meta_title: Fournisseurs de données pour %{scientific_name} tel que classé selon %{hierarchy_provider}
+          meta_title_with_common_name: Fournisseurs de données pour %{preferred_common_name} tel que classé selon %{hierarchy_provider}
+          tweet_text: Fournisseurs de données pour %{scientific_name} tel que classé selon %{hierarchy_provider}
+        meta_description: ressources et citations de partenaires de %{scientific_name}
+        meta_description_with_common_name: ressources de %{preferred_common_name} et citations de partenaires pour %{scientific_name}.
+        meta_keywords: ressources de %{scientific_name}, fournisseurs de données sur %{scientific_name}
+        meta_keywords_with_common_name: ressources de %{preferred_common_name}, fournisseurs de contenu sur %{preferred_common_name}, ressources de %{scientific_name}, fournisseurs de contenu sur %{scientific_name}
+        meta_title: Ressources de contenu pour %{scientific_name}
         meta_title_with_common_name: Ressources de contenu pour %{preferred_common_name} (%{scientific_name})
+        tweet_text: Ressources de contenu pour %{scientific_name}
     updates: 
       show: 
         hierarchy_entry: 
@@ -3278,7 +3302,6 @@ fr:
   will_find_taxon_pages_matching_the_search_term: trouvera les pages de taxon si le nom préféré ou un synonyme ou son nom vulgaire correspond exactement au critère de recherche
   will_paginate: 
     next_label: Suivant →
-    page_gap: ...
     previous_label: ← Précédent
   worklist: Liste des tâches
   would_you_like_to_become_a_curator_notice: Vous souhaitez devenir un conservateur ? Vous pouvez demander l'accès depuis <a href='%{url}'>votre page de profil</a>.

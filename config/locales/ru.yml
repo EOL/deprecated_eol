@@ -1431,7 +1431,6 @@ ru:
   who_registered_from: которые зарегистрированы от
   will_paginate: 
     next_label: Вперед &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Назад"
   worklist: Рабочий список
   xml_response: XML-ответ

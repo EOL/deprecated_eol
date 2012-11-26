@@ -1,4 +1,4 @@
-# encoding: utf-8
+# Messages for Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Chenxiaoqino
@@ -682,7 +682,6 @@ zh-CN:
   assistive_literature_header: 文献
   assistive_maps_header: 地图
   assistive_media_header: 媒体
-  assistive_names_classifictions_header: 分类系统
   assistive_names_common_header: 俗名
   assistive_names_related_header: 相关名称
   assistive_names_synonyms_header: 异名
@@ -2443,7 +2442,7 @@ zh-CN:
   see_all_of_your_collections: 查看您的所有收藏
   see_all_of_your_communities: 查看您的所有社区
   see_all_updates_with_count_html: 
-    other: 查看<span class=assistive>该页面的所有%{count}个更新</span>
+    other: 查看<span class=�assistive>该页面的所有%{count}个更新</span>
   see_notes: 查看注释
   select_a_hierarchy_around_whic: 选择一个分类树用以组织内容概要：
   select_an_item_from_the_menu: 从菜单选择一项
@@ -3289,7 +3288,6 @@ zh-CN:
   will_find_taxon_pages_matching_the_search_term: 如果搜索关键词与推荐名、异名或俗名完全匹配，就能找到相关的物种页
   will_paginate: 
     next_label: 下一条&#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; 前一条"
   worklist: 工作列表
   xml_response: XML 响应

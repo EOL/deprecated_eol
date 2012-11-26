@@ -1470,7 +1470,6 @@ pt:
       create_user_header: Criar uma nova conta <abbr title="Encyclopedia of Life">EOL</abbr>
   will_paginate: 
     next_label: Próximo &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"
   year: Ano
   yes_answer: Sim

@@ -385,19 +385,24 @@ nb:
     curator_activity_log: 
       reasons_to_hide: "Grunnlag for skjuling: %{reasons}"
       reasons_to_untrust: "Grunnlag for uklarering: %{reasons}"
-  add_to_my_collection_button: Legg til i min samling
+  add_to_my_collection_button: Legg til i en samling
   admin_content_page_child_new_link: Opprett underordnet side
   admin_content_partners_statistics_first_published_download_csv_submit: Last ned som CSV
   admin_content_partners_statistics_link: Statistikker
+  admin_link: Oversikt
   admin_news_item_active: Publisert
   admin_news_item_new_header: Opprett en ny nyhetssak
   admin_news_item_new_link: Lag nyhetssak
   admin_news_item_not_active: Upublisert
   admin_news_items_empty: Ingen nyhetssaker funnet.
+  admin_news_items_page_title: "Administrering: Nyheter"
   admin_news_link: Nyheter
+  admin_notes_not_visible_to_user: "Administrator-notater (ikke synlig for bruker):"
+  admin_page_title: "Administrering: Oversikt"
   admin_statistics_link: Statistikker
   admin_translated_content_page_new_link: Legg til oversettelse
   admin_translated_content_page_new_subheader: Legg til oversettelse for <em>%{page_name}</em>
+  admin_translated_content_page_new_tip: Språk, tittel og innhold er %{required_icon} påkrevd.
   admin_translated_news_item_active: Publisert
   admin_translated_news_item_edit_tip: Tittel og innhold er %{required_icon} påkrevd.
   admin_translated_news_item_new_header: Velg språk og legg til innhold
@@ -444,6 +449,7 @@ nb:
   all_count: Alle (%{count})
   all_errors: ALLE feilmeldinger
   all_filter: alle
+  all_harvesting_logs: ALLE innhøstingslogger
   all_images: Alle bilder
   all_information: All informasjon
   all_items: Alle objekter
@@ -455,6 +461,7 @@ nb:
   all_title: Alle
   all_videos: Alle videoer
   allow_user_logins: Tillat brukerpålogginger
+  allowed_html_tags: "Tillatt HTML: %{comma_separated_tags}"
   already_a_member_question: Allerede et medlem?
   already_member_of_community: Du er allerede et medlem av dette brukersamfunnet.
   alternate_classification: Alternativ klassifisering
@@ -471,6 +478,7 @@ nb:
   are_you_sure: Er du sikker?
   article_from: artikkel fra
   article_from_supplier: Artikkel fra %{whom}
+  article_more_about: Lær mer om denne artikkelen
   article_not_associated_with_any_published_entries: Denne artikkelen er ikke knyttet til noen publiserte taksa.
   article_of_taxon: Artikkel av %{taxon_name}
   article_rating: Artikkelvurdering
@@ -478,7 +486,6 @@ nb:
   assistive_literature_header: Litteratur
   assistive_maps_header: Kart
   assistive_media_header: Media
-  assistive_names_classifictions_header: Klassifiseringer
   assistive_names_common_header: Populærnavn
   assistive_names_synonyms_header: Synonymer
   assistive_overview_header: Oversikt
@@ -486,17 +493,23 @@ nb:
   assistive_updates_header: Oppdateringer
   assistive_updates_statistics_header: Sidestatistikk
   associated_with_image_map_header: På det siste kartet
+  associated_with_link_header: På den siste lenken
   associated_with_map_header: På det siste kartet
+  associated_with_sound_header: I den siste lyden
+  associated_with_video_header: I den siste videoen
   audio_mute: demp
   audio_pause: pause
   audio_play: spill av
   audio_stop: stopp
+  audio_unmute: lyd på
   authoritative_information: autoritativ informasjon
   available: tilgjengelig
   average_rating_value_of_total: "Gjennomsnittsvurdering: %{rating} av %{total}"
   back: Tilbake
   back_to_profile: Tilbake til profil
   began: Begynte
+  bhl_publication: BHL-publikasjon
+  body: "Innhold:"
   browsable: Kan blas gjennom
   by_caps: Av
   by_scientific_name_table_header: etter vitenskapelig navn
@@ -506,6 +519,7 @@ nb:
   cannot_be_empty: kan ikke være tom.
   cannot_create_collection_item_from_class_error: Vi kan ikke lage et samlingsobjekt fra en %{klass}
   cannot_expand_children: kan ikke utvide underordnede objekter
+  cannot_find_member: Kan ikke finne et medlem med denne id'en.
   cannot_index_collection_item_type_error: Vi kan ikke indeksere et samlingsobjekt fra en %{type}
   change: Endre
   change_rating_to_1_of_5: Endre vurdering til 1 av 5
@@ -516,6 +530,7 @@ nb:
   choose_collection_header: Velg samling
   citation: Sitering
   citing_link: Siterer
+  classification_already_preferred: "Feil: denne klassifiseringen har allerede blitt markert som foretrukket."
   classification_from_agent: Klassifisering fra %{agent}.
   classification_preferred_for_taxon: Foretrukket
   classification_summary_section_header: Klassifisering
@@ -677,15 +692,28 @@ nb:
   content_partner_agreement_cancel_sign_agreement_link: Avbryt
   content_partner_agreement_subheader: Innholdspartneravtale
   content_partner_column_header_partner: Partner
-  content_partner_contact_create_successful_notice: Kontaktperson har blitt lagt til.
-  content_partner_contact_delete_successful_notice: Kontaktperson har blitt slettet.
+  content_partner_contact_create_successful_notice: Kontakten ble lagt til.
+  content_partner_contact_create_unsuccessful_error: Beklager, det oppstod en feil, kontakten ble ikke lagt til.
+  content_partner_contact_delete_successful_notice: Kontakten ble slettet.
+  content_partner_contact_delete_unsuccessful_error: Beklager, det oppstod en feil, kontakten ble ikke slettet.
+  content_partner_contact_edit_link: Rediger kontakt
+  content_partner_contact_edit_page_subheader: Rediger kontakt
+  content_partner_contact_new_edit_form_header: Kontaktinformasjon for innholdspartner
+  content_partner_contact_new_edit_form_tip: Fornavn, etternavn og e-post er %{required_icon} påbudt.
+  content_partner_contact_new_link: Legg til ny kontakt
+  content_partner_contact_new_page_subheader: Legg til kontakt
+  content_partner_contact_update_successful_notice: Kontakten ble oppdatert.
+  content_partner_contact_update_unsuccessful_error: Beklager, det oppstod en feil, kontakten ble ikke oppdatert.
   content_partner_contacts_header: Kontakter
   content_partner_current_agreement_create_link: Opprett ny
   content_partner_current_agreement_edit_link: Rediger
   content_partner_current_agreement_empty: Ingen avtale
   content_partner_current_agreement_not_accepted: Ikke akseptert ennå
+  content_partner_current_agreement_signed_on_with_date: Signert %{date}
   content_partner_current_agreement_view_link: Vis
+  content_partner_data_description_empty: Ingen har lagt til en beskrivelse av den leverte informasjonen.
   content_partner_data_description_header: Beskrivelse av data
+  content_partner_default_description: En Encyclopedia of Life-innholdspartner.
   content_partner_edit_link: Rediger innholdspartner
   content_partner_filter_option_published_latest_harvest_not_published: Siste upublisert
   content_partner_filter_option_published_latest_harvest_published: Sist publisert
@@ -1208,7 +1236,10 @@ nb:
         active_translation: Publisert
         active_translation_more: Publiserte oversettelser vil være offentlig synlige, med mindre selve siden er upublisert. Fjern markeringen <em>publisert</em> hvis du vil unngå at generelle brukere skal kunne se denne versjonen av siden.
         language_id: Språk
+        left_content_more: "(Valgfritt) Legg til en usortert list av navigasjonslenker. Bruk class-navnet <code>active</code> for å markere lenken til den nåværende siden, f.eks. <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> hvor <code>:id</code> er ID'en eller det unike navnet til den nåværende siden og <code>:title</code> er den beskrivende tittelen til siden (<strong>NB: alle lenker til EOL CMS må begynne med en skråstrek: <code>/info/:id</code></strong>). For å gjøre disse endringer må du endre HTML-kildekoden direkte, velg <em>Kilde</em> i redigeringsmenyen for å gjøre dette."
+        main_content_more: "Oppgi hovedsidens innhold i innholdsområdet. Bruk <em>Format</em> rullegardinlisten for å velge de riktige semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for sidens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
         meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av sidens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner for å sjekke både relevans og for å danne lister over søkereslutater.
+        meta_keywords_more: Sett inn en kommaseparert liste med ord og korte fraser som best gjenspeiler sidens innhold. Disse nøkkelordene og -fraser blir av og til brukt av søkemotorer for å bedømme sidens relevans i forhold til søkeord.
         title_more: Tittelen av dette innholdet vil vises i toppteksten til siden. Tittelen skal inneholde de mest relevante nøkkelord for innholdet.
       translated_news_item: 
         active_translation: Publisert
@@ -1217,6 +1248,7 @@ nb:
       user: 
         agreed_with_terms: Jeg aksepterer <a href="%{terms_url}">bruksvilkårene</a>
         bio: Om meg
+        credentials: Akkrediteringer
         curation_application: Bli en kurator
         curator_scope: Kurateringsområde
         email: E-postadresse
@@ -1391,9 +1423,10 @@ nb:
     other: "%{count} objekt"
   iucn_red_list_status_advisory_information: Denne lenken fører deg til nettstedet til International Union for Consercation of Nature (IUCN) hvor du kan finne mer informasjon om IUCNs rødliste over truede arter.
   join_community_button: Bli med i dette brukersamfunnet
-  join_eol_button_html: Bli med <abbr title="Encyclopedia of Life">EOL</abbr> nå
+  join_eol_button_html: Bli med i <abbr title="Encyclopedia of Life">EOL</abbr> nå
   join_eol_community_html: Bli en del av <abbr title="Encyclopedia of Life">EOL</abbr>-brukersamfunnet!
   json_response: JSON-svar
+  jsonp_by_adding_a_callback_parameter: ... og JSONP ved å legge til en callback parameter
   just_pages_with_pictures_and_text: Bare de sidene med bilder og tekst
   label: Etikett
   language: "Språk:"
@@ -1721,7 +1754,7 @@ nb:
   process_name: Prosessnavn
   profile: Profil
   profile_colon: "Profil:"
-  profile_image_alt_text_curator: Profilbilde for kurator %{user_given_name} %{user_family_name}
+  profile_image_alt_text_curator: Profilbilde for kurator %{user_full_name}
   profile_image_alt_text_member: Profilbilde for medlem %{user_given_name} %{user_family_name}
   project: Prosjekt
   provider: Leverandør
@@ -1967,6 +2000,7 @@ nb:
     one: "%{count} element"
     other: totalt %{count} elementer
   translation_deleted: Oversettelsen ble slettet
+  translation_log: Frekvenshistogram for i18n-nøkler
   translation_saved: Oversettelsen ble lagret
   trusted: Klarert
   twitter: Twitter
@@ -1986,7 +2020,7 @@ nb:
   user_comments: Brukerkommentarer
   user_no_longer_active_message: Denne brukeren er ikke lenger aktiv
   user_pending_notifications_comments_assistive: <span class="assistive">kommentarer</span>
-  user_system_down: Vi beklager, men brukerregistreringssystemet er ikke tilgjengelig for øyeblikket.  Prøv igjen senere.
+  user_system_down: Vi beklager, men brukerregistreringssystemet er ikke tilgjengelig for øyeblikket. Prøv igjen senere.
   username: Brukernavn
   username_colon: "Brukernavn:"
   username_taken: "%{name} er opptatt"
@@ -2097,7 +2131,6 @@ nb:
   who_registered_before: til
   will_paginate: 
     next_label: Neste &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Forrige"
   worklist: Arbeidsliste
   would_you_like_to_become_a_curator_notice: Ønsker du å bli en kurator? Du kan be om tilgang på <a href='%{url}'>din profilside</a>.

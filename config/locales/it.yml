@@ -2465,7 +2465,6 @@ it:
   what_is_this_question: Che cos'è questo?
   will_paginate: 
     next_label: Successivo &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Precedente"
   yahoo: Yahoo
   year: Anno

@@ -1707,7 +1707,6 @@ ia:
   what_is_this_question: Que es isto?
   will_paginate: 
     next_label: Sequente &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Precedente"
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Post que tu es administrator, le message de error es revelate a te:"
   you_are_not_authorized_to_perform_this_action: Tu non es autorisate a exequer iste action.

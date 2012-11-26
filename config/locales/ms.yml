@@ -2274,7 +2274,6 @@ ms:
   will_find_taxon_pages_matching_the_search_term: akan mencari halaman takson jika nama yang diutamakan atau sebarang sinonim atau nama am tepat-tepat sepadan dengan istilah carian
   will_paginate: 
     next_label: Seterusnya &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Sebelumnya"
   worklist: Senarai Kerja
   xml_response: Balasan XML

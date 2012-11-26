@@ -28,7 +28,10 @@ nb:
   translated_agent_roles-label-agent_role_id-2: Forfatter
   translated_agent_roles-label-agent_role_id-21: leverandør
   translated_agent_roles-label-agent_role_id-22: Oversetter
+  translated_agent_roles-label-agent_role_id-23: Vitenskapelig korrekturleser
+  translated_agent_roles-label-agent_role_id-24: Språklig korrekturleser
   translated_agent_roles-label-agent_role_id-3: Kompilator
+  translated_agent_roles-label-agent_role_id-4: Kompilator
   translated_agent_roles-label-agent_role_id-5: Skaper
   translated_agent_roles-label-agent_role_id-6: Direktør
   translated_agent_roles-label-agent_role_id-7: Redaktør
@@ -70,7 +73,9 @@ nb:
   translated_contact_subjects-title-contact_subject_id-27: Bli en innholdspartner
   translated_contact_subjects-title-contact_subject_id-28: Innholdspartnerstøtte
   translated_contact_subjects-title-contact_subject_id-29: Kuratorstøtte
+  translated_contact_subjects-title-contact_subject_id-30: Gjør en korrigering (staving og grammtikk, bilder, informasjon)
   translated_contact_subjects-title-contact_subject_id-31: Bidra med bilder, videoer eller lyder
+  translated_contact_subjects-title-contact_subject_id-32: Mediaforespørsler (intervju, spørsmål fra pressen, forespørsler om logoer)
   translated_contact_subjects-title-contact_subject_id-33: Gi et finansielt bidrag
   translated_contact_subjects-title-contact_subject_id-34: Tekniske spørsmål (problemer med søk, nettstedsfunksjonalitet)
   translated_contact_subjects-title-contact_subject_id-35: Generell tilbakemelding
@@ -111,6 +116,7 @@ nb:
   translated_licenses-description-license_id-8: Noen rettigheter reservert
   translated_licenses-description-license_id-9: Noen rettigheter reservert
   translated_ranks-label-rank_id-106: form
+  translated_ranks-label-rank_id-107: former
   translated_ranks-label-rank_id-112: gen
   translated_ranks-label-rank_id-113: gen.
   translated_ranks-label-rank_id-118: genus
@@ -151,6 +157,10 @@ nb:
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietet
   translated_ranks-label-rank_id-518: varietet
+  translated_ranks-label-rank_id-562: hybridslekt
+  translated_ranks-label-rank_id-563: hybridart
+  translated_ranks-label-rank_id-564: hybridunderart
+  translated_ranks-label-rank_id-565: hybridvarietet
   translated_ranks-label-rank_id-74: divisjon
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
@@ -160,6 +170,8 @@ nb:
   translated_resource_statuses-label-resource_status_id-1: Opplasting
   translated_resource_statuses-label-resource_status_id-10: Publisert
   translated_resource_statuses-label-resource_status_id-11: Publisering venter
+  translated_resource_statuses-label-resource_status_id-12: Avventer upublisering
+  translated_resource_statuses-label-resource_status_id-13: Avtving innhøsting
   translated_resource_statuses-label-resource_status_id-2: Opplastet
   translated_resource_statuses-label-resource_status_id-3: Opplasting mislyktes
   translated_resource_statuses-label-resource_status_id-4: Flyttet til innholdstjener
@@ -188,48 +200,62 @@ nb:
   translated_synonym_relations-label-synonym_relation_id-14: feilstaving
   translated_synonym_relations-label-synonym_relation_id-15: teleomorf
   translated_synonym_relations-label-synonym_relation_id-16: flertydig synonym
+  translated_synonym_relations-label-synonym_relation_id-17: feiltilpasset navn
   translated_synonym_relations-label-synonym_relation_id-18: provisjonelt akseptert navn
   translated_synonym_relations-label-synonym_relation_id-19: akseptert navn
   translated_synonym_relations-label-synonym_relation_id-2: alminnelig navn
   translated_synonym_relations-label-synonym_relation_id-20: databaseartefakt
   translated_synonym_relations-label-synonym_relation_id-21: annet, se kommentarer
   translated_synonym_relations-label-synonym_relation_id-22: ortografisk variant (feilstaving)
+  translated_synonym_relations-label-synonym_relation_id-23: feiltilpasset
   translated_synonym_relations-label-synonym_relation_id-24: avvist navn
   translated_synonym_relations-label-synonym_relation_id-25: homonym (illegitimt)
   translated_synonym_relations-label-synonym_relation_id-26: pro parte
+  translated_synonym_relations-label-synonym_relation_id-27: overflødig navneendring (illegitim)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: juniorsynonym
   translated_synonym_relations-label-synonym_relation_id-3: akronym
   translated_synonym_relations-label-synonym_relation_id-30: utilgjengelig, databaseartefakt
   translated_synonym_relations-label-synonym_relation_id-31: unødvendig erstatning
+  translated_synonym_relations-label-synonym_relation_id-32: påfølgende navn/kombinasjon
+  translated_synonym_relations-label-synonym_relation_id-33: utilgjengelig, feilstavet litteratur
   translated_synonym_relations-label-synonym_relation_id-34: opprinnelig navn/kombinasjon
   translated_synonym_relations-label-synonym_relation_id-35: utilgjengelig, feilaktig opprinnelig stavemåte
   translated_synonym_relations-label-synonym_relation_id-36: juniorhomonym
+  translated_synonym_relations-label-synonym_relation_id-37: homonym & junior-synonym
+  translated_synonym_relations-label-synonym_relation_id-38: utilgjengelig, avvist
+  translated_synonym_relations-label-synonym_relation_id-39: uberettiget emendasjon
   translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-40: utilgjengelig, annet
   translated_synonym_relations-label-synonym_relation_id-41: utilgjengelig, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-43: feilaktig publisert, annet
+  translated_synonym_relations-label-synonym_relation_id-44: feilaktig publisert, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-45: basionym
   translated_synonym_relations-label-synonym_relation_id-46: heterotypisk synonym
   translated_synonym_relations-label-synonym_relation_id-47: homotypisk synonym
   translated_synonym_relations-label-synonym_relation_id-48: utilgjengelig navn
   translated_synonym_relations-label-synonym_relation_id-49: gyldig navn
+  translated_synonym_relations-label-synonym_relation_id-5: Populærnavn på artsgruppen
   translated_synonym_relations-label-synonym_relation_id-50: gyldig
   translated_synonym_relations-label-synonym_relation_id-51: akseptert
   translated_synonym_relations-label-synonym_relation_id-52: autoritet
-  translated_synonym_relations-label-synonym_relation_id-53: uutgitt navn
+  translated_synonym_relations-label-synonym_relation_id-53: upublisert navn
   translated_synonym_relations-label-synonym_relation_id-54: subjektivt synonym
   translated_synonym_relations-label-synonym_relation_id-55: feilaktig autoritetsinformasjon
   translated_synonym_relations-label-synonym_relation_id-56: feilaktig stavemåte
   translated_synonym_relations-label-synonym_relation_id-57: stavingsalternativ
   translated_synonym_relations-label-synonym_relation_id-58: leksikal variant
+  translated_synonym_relations-label-synonym_relation_id-59: synonym (objektiv = homotypisk)
   translated_synonym_relations-label-synonym_relation_id-6: likeverdig navn
+  translated_synonym_relations-label-synonym_relation_id-60: synonym (subjektiv = heterotypisk)
   translated_synonym_relations-label-synonym_relation_id-61: objektivt synonym
   translated_synonym_relations-label-synonym_relation_id-62: seniorsynonym
   translated_synonym_relations-label-synonym_relation_id-63: ikke akseptert
   translated_synonym_relations-label-synonym_relation_id-64: ugyldig
   translated_synonym_relations-label-synonym_relation_id-65: genus-synonym
   translated_synonym_relations-label-synonym_relation_id-66: alternativ visning
+  translated_synonym_relations-label-synonym_relation_id-67: tvilsom art
   translated_synonym_relations-label-synonym_relation_id-68: hortikulturell
   translated_synonym_relations-label-synonym_relation_id-7: genbank akronym
   translated_synonym_relations-label-synonym_relation_id-8: genbank anamorf

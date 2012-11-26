@@ -2362,7 +2362,6 @@ sv:
   wikipedia_queue_new_page_title: Begär ett importtillstånd för en Wikipedia-artikel
   will_paginate: 
     next_label: Nästa &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Föregående"
   worklist: Arbetslista
   yahoo: Yahoo

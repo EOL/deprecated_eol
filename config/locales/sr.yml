@@ -2641,7 +2641,6 @@ sr:
   will_find_taxon_pages_matching_the_search_term: ће пронаћи таксонске странице ако се жељени назив, синоним или тривијалан назив поклапа с траженим појмом
   will_paginate: 
     next_label: Следеће &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Претходно"
   worklist: Радни списак
   xml_response: XML одговор

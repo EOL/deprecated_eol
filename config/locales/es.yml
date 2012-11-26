@@ -1119,7 +1119,7 @@ es:
   classification_from_agent: Clasificación de %{agent}.
   classification_from_agent_chosen_by_curator: Clasificación de %{agent} seleccionado por %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Clasificación de %{agent} seleccionada por %{curator} - <a href="%{more_link}">Ver más</a>.
-  classification_merge_help: <b>Estás a punto de trasladar las clasificaciones de esta página.</b> Para continuar, debes indicarnos cuál de las clasificaciones existentes crees que representa <i>mejor</i> a la página de taxón desde la que estás moviendo las clasificaciones. Esto nos ayudará a mantener las clasificaciones que has seleccionado separadas de esta página en el futuro.
+  classification_merge_help: <b>Estás a punto de trasladar las clasificaciones de esta página.</b> Para continuar, debes indicarnos cuál de las clasificaciones existentes crees que representa <i>mejor</i> a la página de taxón desde la que estás trasladando las clasificaciones. Esto nos ayudará a mantener las clasificaciones que has seleccionado separadas de esta página en el futuro.
   classification_preferred_for_taxon: Preferido
   classification_preferred_for_taxon_help_tip: "%{icon} marca la clasificación preferida para este taxón."
   classification_split_help: <b>Estás a punto de dividir las clasificaciones de esta página.</b> Para continuar, debes indicarnos cuál de las clasificaciones existentes crees que representa <i>mejor</i> la página existente. Esto nos ayudará a mantener las clasificaciones que has seleccionado separadas de esta página en el futuro.
@@ -4093,7 +4093,6 @@ es:
   will_find_taxon_pages_matching_the_search_term: encontrará páginas de taxón si el nombre preferido o cualquier sinónimo o nombre común coincide exactamente con el término buscado
   will_paginate: 
     next_label: Próxima &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"
   worklist: Lista de trabajo
   would_you_like_to_become_a_curator_notice: ¿Te gustaría convertirte en un conservador/a? Puedes solicitar acceso a <a href='%{url}'>tu página de perfil</a>.

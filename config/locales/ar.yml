@@ -18,7 +18,7 @@ ar:
   0_1_or_2: 0، 1 أو 2
   0_or_1: 0، أو 1
   a_pipe_delimited_list_of_licenses: أنبوب | القائمة المجزءة للتراخيص أو 'all' لجلب العناصر تحت أية رخصة. الرخص المختصرة بـ cc- كلها %{creative_commons_link} رخص. قم بزيارة موقعهم لمزيد من المعلومات عن مختلف التراخيص التي يقدمونها.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: أنبوب تجزئة تنفيذ المعلومات | قائمة محددة من اسماء موضوعات عناصر البيانات أو "الكل" لإيجاد نص في أي موضوع.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "'overview' لعرض نص النظرة العامة (إن وجد)، شريط عمودي | قائمة محدودة من أسماء الموضوعات المتعلقة بعناصر بيانات نموذج معلومات الأنواع لعرض النص المتضمن في عناصر بيانات نموذج معلومات الأنواع، و'all' لعرض النص المتضمن في أي موضوع. دائمًا ما يتم عرض نص النظرة العامة كنتيجة أولى (إذا وجد في السياق المحدد)."
   a_taxon: أصنوفة
   a_total_of_comment_were_found_matching_your_criteria: 
     one: تم إيجاد %{count} تعليقًا يوافق المعيار الذي تم إدخاله
@@ -523,6 +523,12 @@ ar:
           user_moved_classifications_from_it_to_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} إلى %{target}.
           user_moved_classifications_from_taxon_to_an_unknown_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} من %{taxon} إلى صفحة غير معروفة.
           user_moved_classifications_from_taxon_to_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} من %{taxon} إلى %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: قام مستخدم غير معروف بفصل التصنيفات الخاصة بـ%{classifications} عن صفحة غير معروفة وإضافتها إلى <a href='%{to}'>their own page</a> الصفحة الخاصة به.
+          an_unknown_user_split_classifications_from_it: قام مستخدم غير معروف بفصل التصنيفات الخاصة بـ%{classifications} وإضافتها إلى a href='%{to}'>their own page</a> الصفحة الخاصة به.
+          an_unknown_user_split_classifications_from_taxon: قام مستخدم غير معروف بفصل التصنيفات الخاصة بـ%{classifications} عن %{taxon} وإضافتها إلى <a href='%{to}'>their own page</a> الصفحة الخاصة به.
+          user_split_classifications_from_an_unknown_taxon: قام <strong>%{user}</strong> بفصل التصنيفات الخاصة بـ%{classifications} من صفحة غير معروفة إلى <a href='%{to}'>their own page</a> الصفحة الخاصة به.
+          user_split_classifications_from_taxon: قام <strong>%{user}</strong> بفصل التصنيفات الخاصة بـ%{classifications} وإضافتها إلى a href='%{to}'>their own page</a> الصفحة الخاصة به.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مخفي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_hid_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مخفي" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
@@ -625,10 +631,15 @@ ar:
         user_showed_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في سياق غير معروف.
         user_showed_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في صفحة "%{association}".
       split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: قام مستخدم غير معروف بفصل التصنيف المقدم من "%{provider}" عن إصنوفة غير معروفة.
         an_unknown_user_split_entry_from_it: قام مستخدم غير معروف بفصل التصنيف المقدم من "%{provider}".
+        an_unknown_user_split_entry_from_taxon: قام مستخدم غير معروف بفصل التصنيف المقدم من "%{provider}" عن "%{taxon}".
         an_unknown_user_split_unknown_entry_from_an_unknown_taxon: قام مستخدم مجهول بتقسيم تصنيف غير معلوم لصنف غير معروف.
         an_unknown_user_split_unknown_entry_from_it: قام مستخدم غير معروف بفصل تنصيف غير معروف.
         an_unknown_user_split_unknown_entry_from_taxon: قام مستخدم مجهول بتقسيم تصنيف غير معلوم من "%{taxon}".
+        user_split_entry_from_an_unknown_taxon: قام <strong>%{user}</strong> بفصل التصنيفالمقدم من "%{provider}" عن إصنوفة غير معروفة.
+        user_split_entry_from_it: قام <strong>%{user}</strong> بفصل التصنيف المقدم من "%{provider}".
+        user_split_entry_from_taxon: قام <strong>%{user}</strong> بفصل التصنيف المقدم من "%{provider}" عن "%{taxon}".
         user_split_unknown_entry_from_an_unknown_taxon: قام <strong>%{user}</strong> بتقسيم تنصيف غير معلوم من صنف مجهول.
         user_split_unknown_entry_from_it: قام <strong>%{user}</strong> بفصل تصنيف غير معروف.
         user_split_unknown_entry_from_taxon: قام <strong>%{user}</strong> بتقسيم تصنيف غير معلوم من "%{taxon}".
@@ -681,6 +692,9 @@ ar:
         move_of_an_unknown_taxon_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بنجاح، ولكن تعذر إيجاد الصفحة.
         move_of_it_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بتلك الصفحة بنجاح.
         move_of_taxon_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بصفحة "%{taxon}" بنجاح.
+        split_of_an_unknown_taxon_unlocked: لقد تمت عملية فصل التصنيف المطلوبة حديثًا، ولكن تعذر إيجاد الصفحة.
+        split_of_it_unlocked: تم تنفيذ عملية فصل التصنيف المطلوبة حديثًا بتلك الصفحة وتم نقل التصنيفات إلى <a href='%{to}'>their own page</a> صفحتها الخاصة.
+        split_of_taxon_unlocked: تم تنفيذ عملية فصل التصنيف المطلوبة حديثًا  والخاصة بـ"%{taxon}"  وتم نقل التصنيفات إلى <a href='%{to}'>their own page</a> صفحتها الخاصة.
       unlock_with_error: 
         merge_of_an_unknown_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية دمج الصفحة المطلوبة مؤخرًا: %{error}. كما تعذر إيجاد الصفحة المعنية."
         merge_of_it_unlocked_with_error: "تعذر <strong>failed</strong> تنفيذ عملية الدمج المطلوبة مؤخرًا بتلك الصفحة: %{error}."
@@ -688,6 +702,9 @@ ar:
         move_of_an_unknown_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية دمج الصفحة المطلوبة مؤخرًا: %{error}. كما تعذر إيجاد الصفحة المعنية."
         move_of_it_unlocked_with_error: "تعذر <strong>failed</strong> تنفيذ عملية نقل التصنيف المطلوب مؤخرًا بتلك الصفحة: %{error}."
         move_of_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية نقل التصنيف المطلوبة مؤخرًا بصفحة \"%{taxon}\" : %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية فصل التصنيف المطلوبة حديثًا: %{error}. كما تعذر إيجاد الصفحة المعنية."
+        split_of_it_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية فصل التصنيف المطلوبة حديثًا بتلك الصفحة: %{error}."
+        split_of_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية فصل التصنيف المطلوبة حديثًا والخاصة بـ\"%{taxon}\": %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة من صفحة غير معروفة.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف من لغة غير معروفة.
@@ -808,6 +825,7 @@ ar:
   add_sub_chapter: أضف فصل فرعي
   add_to_a_community: أضف إلى مجتمع.
   add_to_my_collection_button: أضف إلى مجموعة
+  added_classifications_ready: البيانات المتضمنة في التصنيفات المختارة جاهزة للنقل إلى صفحة أخرى. لإتمام العملية، أختر "فصل البيانات ونقلها إلى صفحة جديدة" أو الانتقال إلى زر الأسماء بالصفحة التى ترغب في نقل البيانات إليها، ثم اختيار "دمج التصنيفات".
   admin_content_page_active: نشر
   admin_content_page_child_new_link: إنشاء صفحة فرعية
   admin_content_page_create_successful_notice: تم إنشاء صفحة <a href="#%{anchor}"><em>%{page_name}</em></a> بنجاح
@@ -1085,6 +1103,8 @@ ar:
   classification_merge_help: <b> أنت بصدد نقل تصنيفات من تلك الصفحة. </b> للاستمرار، يجب أن تحدد أي التصنيفات القائمة تمثل صفحة الإصنوفة التي تنتوي نقل التصنيفات منها بصورة <i>أفضل</i> من وجهة نظرك، من شأن ذلك مساعدتنا على فصل التصنيفات التي قمت باختيارها عن تلك الصفحة في المستقبل.
   classification_preferred_for_taxon: المفضَّل
   classification_preferred_for_taxon_help_tip: "%{icon} يقوم بتعليم التّصنيف المفضّل لهذا التصنيف."
+  classification_split_help: <b>أنت بصدد فصل تصنيفات عن تلك الصفحة</b>. للاستمرار، حدد التصنيفات القائمة التي تمثل تلك الصفحة بالصورة <i>الأفضل</i> من وجهة نظرك، ومن شأن ذلك مساعدتنا على إبعاد التصنيفات المختارة عن تلك الصفحة في المستقبل.
+  classification_split_warning: <b>تأكد من اختيار <i>جميع</i> التصنيفات المطابقة للصفحة الهدف. على سبيل المثال، إذا كنت بصدد فصل أو نقل تصنيف خاص بفطر الأمانيت من صفحة خاصة بحيوان الراكون، فيجب أن تختار جميع تصنيفات فطر الأمانيت ليتم تنفيذ العملية. إذا فوت إحداها، سوف يكون من الصعب تعديلها لاحقًا.
   classification_summary_section_header: التّصنيف
   classification_tree_header: تصنيف
   classifications_edit_cancelled_busy: عفوًا، تعذر تنفيذ طلب تعديل التصنيفات في الوقت الحالي؛ تم غلق واحدة أو أكثر من صفحات الأصناف، حيث يتم تنفيذ طلب خارجي لتعديل تلك التصنيفات.
@@ -1099,6 +1119,7 @@ ar:
   classifications_preferred_column_header: المفضَّل
   classifications_rank_column_header: التّرتيب
   classifications_recognized_by_column_header: مُعترف بها من قبل
+  classifications_split_column_header: فصل / نقل
   classifications_summary_header_with_count: 
     one: وجدت في %{count} تصنيف
     other: وجدت في %{count} تصنيف
@@ -2502,7 +2523,7 @@ ar:
   login_to_the_website_as: ادخل على الموقع باسم %{username}
   logo_header: شعار
   logout: تسجيل الخروج
-  looking_up_url: جاري البحث عن الغنوان الإلكتروني...
+  looking_up_url: جاري البحث عن العنوان الإلكتروني...
   main_content_area: "مساحة المحتوى الرئيسية:"
   main_database_colon: "قواعد البيانات الرئيسية:"
   main_master_database_colon: "الأساسية والرئيسية:"
@@ -2563,6 +2584,7 @@ ar:
     other: "%{count} عضو؛"
   merge_concepts: ادمج المفاهيم
   merge_data: دمج التصنيفات
+  merge_data_ready: أنت بصدد دمج البيانات المتضمنة في التصنيفات التالية بصفحة الإصنوفة تلك، أو فصلها ونقلها إلى صفحة خاصة بها. يرجى التأكد <i>بصورة قاطعة</i> من اختيار جميع التصنيفات التي تمثل الإصنوفة المعنية. على سبيل المثال، إذا كنت بصدد حذف عثة من صفحة خاصة بالفطر، يرجى مراجعة <i>جميع<i> التصنيفات المعروضة أعلاه للتأكد من اختيار جميع العث (المتماثل).
   merge_pending: سوف تستغرق عملية الدمج تلك بعض الوقت. تم تعليق تعديلات التصنيف الأخرى على الأصناف المعنية حتى اكتمال عملية الدمج. سوف تتلقى رسالة عبر البريد الإلكتروني حالما تنتهي العملية، كما سيظهر ذلك في تحديثات الصفحة.
   message_colon: "رسالة:"
   message_will_disappear: (سوف تختفي تلك الرسالة خلال فترة وجيزة)
@@ -3212,8 +3234,11 @@ ar:
   species_profile_model: نموذج صفحة معلومات الأنواع
   species_profile_model_cp_count_title: Species Profile Model - Content Partners Count
   species_profile_model_dato_count_title: Species Profile Model - Data Objects Count
+  split_cancelled: تم إلغاء عملية الفصل
   split_classification_instructions: لحذف ذلك التلسل الهرمي من تلك الصفحة بموسوعة الحياة، يجب أن تختار التسلسل الهرمي الذي يمثل ما "يجب" أن يكون بتلك الصفحة بالطريقة المثلى، حتى تُبقي عمليات الجمع المستقبلية عليهما منفصلين دائمًا.
   split_into_new_concept: قَسم إلى صفحة جديدة
+  split_only_possible_with_all_classifications: على الرغم من تمتعك بحق فصل التصنيفات، يجب أن تقوم <a href='%{link}'>display all classifications</a> بعرض جميع التصنيفات قبيل السماح بتلك الخطوة.
+  split_pending: سوف تستغرق عملية الفصل بعض الوقت. سوف يتم تعليق التعديلات الأخرى المتعلقة بالتصنيف بتلك الصفحة حتى اكتمال عملية الفصل. وسوف تتلقى رسالة عبر البريد الإلكتروني حالما تنتهي العملية، كما سيظهر ذلك في تحديثات الصفحة.
   spm_category: تصنيف الخرائط الإحصائية البارامترية SPM
   spm_category_objects_count: فئة التخطيط الإحصائي المتكرر - عدد الموضوعات
   spm_category_partner_count: فئة التخطيط الإحصائي المتكرر - عدد المشاركين
@@ -3429,7 +3454,7 @@ ar:
         meta_description_with_common_name: معلومات عن%{preferred_common_name}، المعروف علمياً باسم %{scientific_name} في موسوعة الحياة.
         meta_keywords: "%{scientific_name} كما أقره %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} كما أقره %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - معلومات عن %{preferred_common_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})  - معلومات عن %{preferred_common_name}"
         tweet_text: معلومات عن %{scientific_name}
     resources: 
       biomedical_terms: 
@@ -4006,7 +4031,6 @@ ar:
   will_find_taxon_pages_matching_the_search_term: سوف يتم إيجاد صفحات الأصنوفة إذا ما كان الاسم  المفضل أو أي مرادف أو اسم شائع يطابق مصطلح البحث
   will_paginate: 
     next_label: التالى
-    page_gap: "&hellip;"
     previous_label: السابق
   worklist: قائمة العمل
   would_you_like_to_become_a_curator_notice: هل تود أن تصبح مشرفاََ؟ يمكنك طلب الحصول على إذن على <a href='%{url}'>صفحة ملفك الشخصي</a>.

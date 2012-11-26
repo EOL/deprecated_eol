@@ -971,7 +971,6 @@ nl:
   assistive_literature_header: Literatuur
   assistive_maps_header: Kaarten
   assistive_media_header: Media
-  assistive_names_classifictions_header: Classificaties
   assistive_names_common_header: Algemene namen
   assistive_names_related_header: Gerelateerde namen
   assistive_names_synonyms_header: Synoniemen
@@ -3825,7 +3824,6 @@ nl:
   wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
   will_paginate: 
     next_label: Volgende &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Vorige"
   worklist: Werklijst
   xml_response: XML-antwoord

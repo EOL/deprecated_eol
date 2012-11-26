@@ -4087,7 +4087,6 @@ de:
   will_find_taxon_pages_matching_the_search_term: wird die Seiten von Taxa ermitteln, sofern der bevorzugte Name oder jedes Synonym oder jeder gebräuchliche Name genau dem Suchbegriff entspricht
   will_paginate: 
     next_label: Weiter &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Zurück"
   worklist: Arbeitsliste
   would_you_like_to_become_a_curator_notice: Möchten Sie gerne ein Kurator werden? Sie können diese Berechtigung über <a href='%{url}'>Ihre Profilseite</a> beantragen.

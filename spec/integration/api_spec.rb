@@ -354,7 +354,7 @@ describe 'EOL APIs' do
     first_image.guid.should_not == next_exemplar.guid
     TaxonConceptExemplarImage.set_exemplar(@taxon_concept, next_exemplar.id)
     
-    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+    @taxon_concept.reload
     @taxon_concept.taxon_concept_exemplar_image.data_object.guid.should == next_exemplar.guid
     visit("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&text=0&images=2&videos=0")
     response_object = JSON.parse(source)
@@ -374,7 +374,7 @@ describe 'EOL APIs' do
     first_text.guid.should_not == next_exemplar.guid
     TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, next_exemplar.id)
     
-    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+    @taxon_concept.reload
     @taxon_concept.taxon_concept_exemplar_article.data_object.guid.should == next_exemplar.guid
     visit("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
     response_object = JSON.parse(source)

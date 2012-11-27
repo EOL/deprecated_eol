@@ -294,9 +294,7 @@ describe 'Taxa page' do
       visit overview_taxon_entry_path(@taxon_concept, @hierarchy_entry)
       @section = 'overview'
       @body = body
-    end
-    after(:all) do
-      click 'Remove classification filter'
+      # NOTE - these specs *could* leave a classification filter applied when they should not... but seems okay.
     end
     subject { @body }
     it_should_behave_like 'taxon common name - hierarchy_entry page'

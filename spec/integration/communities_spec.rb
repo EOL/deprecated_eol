@@ -201,7 +201,9 @@ describe "Communities" do
     user = User.gen(:curator_level_id => nil)
     login_as user
     visit(join_community_url(CuratorCommunity.get))
-    body.should have_tag("a[href$='#{curation_privileges_user_path(user)}']")
+    # NOTE - this failed when run in the whole suite (seed 31481 and 13258), passed individually. The login is
+    # failing.
+    page.body.should have_tag("a[href$='#{curation_privileges_user_path(user)}']")
   end
 
   it 'should not allow editing the name of the curator community' do
@@ -209,6 +211,8 @@ describe "Communities" do
     manager = Member.create(:user_id => katja.id, :community_id => CuratorCommunity.get, :manager => true)
     login_as katja
     visit(edit_community_url(CuratorCommunity.get))
+    # NOTE - this failed when run in the whole suite (seed 31481 and 13258), passed individually. The login is
+    # failing.
     page.body.should have_tag("input#community_name[disabled=disabled]")
   end
 

@@ -506,6 +506,15 @@ describe TaxonConcept do
     tc.activity_log.should be_a WillPaginate::Collection
   end
 
+  # TODO - this isn't the best place for this test; It would be preferable to test this behavior on activity_log.
+  # (Or, better still, a new TaxonConceptActivityLogReader class, but perhaps I'm getting greedy, there.)
+  # ...Also, the expression of this spec is ... awful.  But I'm in a rush.
+  it 'should show comments from superceded taxa' do
+    @testy[:superceded_comment].log_activity_in_solr # It doesn't seem to be, by default.
+    @taxon_concept.activity_log.select { |a| a["activity_log_type"] == "Comment"}.map { |c|
+      c["instance"].body }.should include(@testy[:superceded_comment].body)
+  end
+
   it 'should rely on collection for sorting #top_collections' do
     tc = TaxonConcept.gen
     col1 = Collection.gen

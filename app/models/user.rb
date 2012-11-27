@@ -87,7 +87,6 @@ class User < ActiveRecord::Base
              Proc.new { "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}" }
   has_many :classification_curations
 
-  before_save :instantly_approve_curator_level_if_possible
   after_create :join_curator_community_if_curator
 
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
@@ -716,27 +715,7 @@ private
   end
 
   def first_last_names_required?
-    return false unless self.class.column_names.include?('requested_curator_level_id')
-    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
-    (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
-  end
-
-  # before_save TODO - could replace this with actual method that does all approvals however that is going to work
-  def instantly_approve_curator_level
-    unless self.requested_curator_level_id.nil? || self.requested_curator_level_id.zero?
-      unless self.curator_level_id == self.requested_curator_level_id
-        self.curator_level_id = self.requested_curator_level_id
-        self.curator_verdict_at = Time.now
-      end
-      self.requested_curator_level_id = nil
-    end
-  end
-
-  # conditional for before_save
-  def curator_level_can_be_instantly_approved?
-    return false unless self.class.column_names.include?('requested_curator_level_id')
-    self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
-    self.requested_curator_level_id == self.curator_level_id
+    wants_to_be_a_curator? || (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
   end
 
   # Callback before_save MySQL has unique constraint on username but allows nil because username
@@ -822,18 +801,27 @@ public
   end
   alias revoke_curatorship revoke_curator
 
-  # this is run before_save. It doesn't have a level symbol, it doesn't send notification, and it doesn't set
-  # curator_verdict_by or curator_approved, so it's quite different from #grant_curator
-  def instantly_approve_curator_level_if_possible
-    if self.requested_curator_level_id == CuratorLevel.assistant_curator.id
-      unless self.curator_level_id == self.requested_curator_level_id
+  # before_save TODO - could replace this with actual method that does all approvals however that is going to work
+  # TODO - not DRY with #grant_curator
+  def instantly_approve_curator_level
+    puts "#instantly_approve_curator_level" if $FOO
+    if wants_to_be_a_curator?
+      puts "wants to be a curator" if $FOO
+      unless already_has_requested_curator_level?
+        puts "doesn't already have curation level" if $FOO
         was_curator = self.is_curator?
         self.curator_level_id = self.requested_curator_level_id
-        join_curator_community_if_curator unless was_curator
         self.curator_verdict_at = Time.now
+        join_curator_community_if_curator unless was_curator
       end
       self.requested_curator_level_id = nil
     end
+  end
+
+  # conditional for before_save
+  def curator_level_can_be_instantly_approved?
+    puts "#curator_level_can_be_instantly_approved? #{self.wants_to_be_assistant_curator?} or #{already_has_requested_curator_level?}" if $FOO
+    self.wants_to_be_assistant_curator? || already_has_requested_curator_level?
   end
 
   # NOTE - default level implies that user.grant_curator means that they're supposed to be a full curator.  Makes
@@ -902,18 +890,22 @@ public
 
   # validation condition for required curator attributes
   def curator_attributes_required?
-    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero? &&
-      self.requested_curator_level_id != CuratorLevel.assistant_curator.id) ||
-    (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
-      self.curator_level_id != CuratorLevel.assistant_curator.id)
+    (wants_to_be_a_curator? && !wants_to_be_assistant_curator?) || (is_curator? && !assistant_curator?)
   end
 
-  def first_last_names_required?
-    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
-    (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
+  def wants_to_be_a_curator?
+    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?)
   end
 
+  def wants_to_be_assistant_curator?
+    self.requested_curator_level_id == CuratorLevel.assistant_curator.id
+  end
+
+  def already_has_requested_curator_level?
+    self.requested_curator_level_id == self.curator_level_id
+  end
   def join_curator_community_if_curator
+    puts "#join_curator_community_if_curator #{self.is_curator?}" if $FOO
     self.join_community(CuratorCommunity.get) if self.is_curator?
   end
 

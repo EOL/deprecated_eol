@@ -1076,9 +1076,8 @@ class DataObject < ActiveRecord::Base
   # sad.  Please fix.  :)
   # Note this is somewhat expensive (it takes miliseconds for each association), so don't call this recursively:
   def reload
-    (instance_variables - [:@attributes, :@relation, :@changed_attributes, :@previously_changed, :@attributes_cache,
-      :@association_cache, :@aggregation_cache, :@marked_for_destruction, :@destroyed, :@readonly, :@new_record,
-      :@current_shard]).each do |ivar|
+    @@ar_instance_vars ||= DataObject.new.instance_variables
+    (instance_variables - @@ar_instance_vars).each do |ivar|
       instance_variable_set(ivar, nil)
     end
     update_solr_index

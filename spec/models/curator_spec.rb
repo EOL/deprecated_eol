@@ -20,8 +20,11 @@ describe 'Curator' do
         user.errors[:curator_scope].to_s.should =~ /can't be blank/
       end
     end
+  end
+
+  it 'should NOT check credentials if assistant curator' do
     user = User.new(:curator_level_id => CuratorLevel.assistant.id)
-    user.valid?
+    user.valid? # We don't actually care if this passes or fails; we only want to check two errors:
     user.errors[:credentials].should be_blank
     user.errors[:curator_scope].should be_blank
   end

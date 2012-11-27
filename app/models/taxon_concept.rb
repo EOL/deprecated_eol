@@ -304,10 +304,10 @@ class TaxonConcept < ActiveRecord::Base
 
   # Cleans up instance variables in addition to the usual lot.
   def reload
-    @cached_entry = nil
-    @best_image = nil
-    @best_article = nil
-    @gbif_map_id = nil
+    @@ar_instance_vars ||= TaxonConcept.new.instance_variables
+    (instance_variables - @@ar_instance_vars).each do |ivar|
+      instance_variable_set(ivar, nil)
+    end
     TaxonConceptCacheClearing.clear(self)
     super
   end

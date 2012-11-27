@@ -341,7 +341,6 @@ describe 'Data Object Page' do
     body.should_not have_tag(".article.list ul li a[href='/data_objects/#{user_submitted_text.id}']")
     click_link "Edit this article"
     fill_in 'data_object_rights_holder', :with => ""
-    $FOO = true
     click_button "Save article"
     body.should have_tag(".article.list ul li a[href='/data_objects/#{user_submitted_text.id}']")
   end

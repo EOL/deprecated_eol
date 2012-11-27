@@ -211,3 +211,4 @@ qqq:
   too_many_descendants_to_curate_with_count: "This is an error message that a curator will receive if they attempt a curation that would affect too many descendants. For example, if they attempt to move a classification from the vertebrates page, that would take too long to process (several days), so they receive this message."
   this_page_will_be_reindexed: "Notification message that a curator would see in a flash message after clicking a button requesting a reindexing of a page"
   error_classifications_locked_cannot_reindex: "This is a flash message that a curator would receive if they attempted to request reindexing of a page where the classifications are locked; locked classifications imply that the conent of the page are about to change, so reindexing would be premature... or that someone else has already requested a reindexing."
+  filed_under_label_with_date: "Note that the date is in the :long format."

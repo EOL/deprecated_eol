@@ -750,7 +750,7 @@ private
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
     rescue Errno::ECONNREFUSED => e
-      puts "** WARNING: Solr connection failed."
+      logger.warn "** WARNING: Solr connection failed."
       return nil
     end
     solr_connection.delete_by_query("user_id:#{self.id}")
@@ -804,11 +804,8 @@ public
   # before_save TODO - could replace this with actual method that does all approvals however that is going to work
   # TODO - not DRY with #grant_curator
   def instantly_approve_curator_level
-    puts "#instantly_approve_curator_level" if $FOO
     if wants_to_be_a_curator?
-      puts "wants to be a curator" if $FOO
       unless already_has_requested_curator_level?
-        puts "doesn't already have curation level" if $FOO
         was_curator = self.is_curator?
         self.curator_level_id = self.requested_curator_level_id
         self.curator_verdict_at = Time.now
@@ -820,7 +817,6 @@ public
 
   # conditional for before_save
   def curator_level_can_be_instantly_approved?
-    puts "#curator_level_can_be_instantly_approved? #{self.wants_to_be_assistant_curator?} or #{already_has_requested_curator_level?}" if $FOO
     self.wants_to_be_assistant_curator? || already_has_requested_curator_level?
   end
 
@@ -905,7 +901,6 @@ public
     self.requested_curator_level_id == self.curator_level_id
   end
   def join_curator_community_if_curator
-    puts "#join_curator_community_if_curator #{self.is_curator?}" if $FOO
     self.join_community(CuratorCommunity.get) if self.is_curator?
   end
 

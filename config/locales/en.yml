@@ -3057,7 +3057,7 @@ en:
   file: "File"
   file_id: "File ID"
   file_size: "File Size"
-  filed_under_label: "Filed under %{label} on "
+  filed_under_label_with_date: "Filed under %{label} on %{date}"
   fill_in_a_message_below_to_send_email_to_user: "Fill in a message below to send an email to this user from the site. The message will be sent when you submit the form:"
   filter_button: "Filter"
   filter_by_day: "Filter by day"

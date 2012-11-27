@@ -11,8 +11,10 @@
     %br/
     %p.flag{:class => item_status_class }= item_status_label
     .learn_more
+      - date = I18n.l(dato.created_at.to_date, :format => :long)
       - if dato.toc_items && label = dato.toc_items.first.label
-        = I18n.t(:filed_under_label, :label => label)
-      = dato.created_at.strftime('%b %d, %Y')
+        = I18n.t(:filed_under_label_with_date, :label => label, :date => date)
+      - else
+        = date
       &bull;
       = link_to I18n.t("link_more_about"), data_object_path(dato)

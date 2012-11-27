@@ -1,57 +1,57 @@
-zh-Hans:
+en:
   date:
     formats:
       default: "%Y-%m-%d"
       short: "%b %d"
       long: "%B %d, %Y"
     day_names:
-      - 星期日
-      - 星期一
-      - 星期二
-      - 星期三
-      - 星期四
-      - 星期五
-      - 星期六
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
     abbr_day_names:
-      - 星期日
-      - 星期一
-      - 星期二
-      - 星期三
-      - 星期四
-      - 星期五
-      - 星期六
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
     month_names:
       - ~
-      - 1月
-      - 2月
-      - 3月
-      - 4月
-      - 5月
-      - 6月
-      - 7月
-      - 8月
-      - 9月
-      - 10月
-      - 11月
-      - 12月
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
     abbr_month_names:
       - ~
-      - 1月
-      - 2月
-      - 3月
-      - 4月
-      - 5月
-      - 6月
-      - 7月
-      - 8月
-      - 9月
-      - 10月
-      - 11月
-      - 12月
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
     order:
-      - ：年
-      - ：月
-      - ：日
+      - :year
+      - :month
+      - :day
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"
@@ -70,18 +70,18 @@ zh-Hans:
     format:
       separator: "."
       delimiter: ","
-      precision: "3"
-      significant: ""
-      strip_insignificant_zeros: ""
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
     currency:
       format:
         format: "%u%n"
         unit: "$"
         separator: "."
         delimiter: ","
-        precision: "2"
-        significant: ""
-        strip_insignificant_zeros: ""
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
     percentage:
       format:
         delimiter: ""
@@ -91,9 +91,9 @@ zh-Hans:
     human:
       format:
         delimiter: ""
-        precision: "3"
-        significant: "1"
-        strip_insignificant_zeros: "1"
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
       storage_units:
         format: "%n %u"
         units:
@@ -108,11 +108,11 @@ zh-Hans:
         format: "%n %u"
         units:
           unit: ""
-          thousand: "千"
-          million: "百万"
-          billion: "十亿"
-          trillion: "万亿"
-          quadrillion: "千万亿"
+          thousand: Thousand
+          million: Million
+          billion: Billion
+          trillion: Trillion
+          quadrillion: Quadrillion
   datetime:
     distance_in_words:
       half_a_minute: "半分钟"
@@ -161,12 +161,12 @@ zh-Hans:
       user: "帐户"
     attributes:
       collection:
-        name: "收藏名称"
-        description: "收藏描述"
-        sort_style_id: "默认排序方向"
-        logo: "首选的收藏logo图像"
-        additional_annotation_fields: "附加标注字段"
-        show_references: "参考文献 (文字或链接地址)"
+        name: Collection name
+        description: Collection description
+        sort_style_id: Default sorting direction
+        logo: Primary collection image
+        additional_annotation_fields: Additional annotation fields
+        show_references: References (Text or URL)
       collection_item:
         annotation: "注释"
         sort_field: "排序方式"
@@ -174,11 +174,11 @@ zh-Hans:
       comment:
         body: "评论"
       community:
-        name: "社区名称"
-        description: "社区描述"
-        logo: "上传一个logo"
+        name: Community name
+        description: Community description
+        logo: Upload a logo
       contact:
-        comments: "消息"
+        comments: "Message"
         contact_subject_id: "Contact subject"
         email: "邮箱"
         name: "名称"
@@ -280,7 +280,7 @@ zh-Hans:
         rich_hotlist_pages: "信息丰富的热门页面"
         redhotlist_pages: "热点物种"
         rich_redhotlist_pages: "资料丰富的热点物种"
-        pages_with_score_10_to_39: "评分在10-40的页面"
+        pages_with_score_10_to_39: "Pages with score 10-40"
         pages_with_score_less_than_10: "评分低于10的页面"
         # lifedesk stats
         lifedesk_taxa: "LifeDesk的类群"
@@ -310,24 +310,24 @@ zh-Hans:
         sort_order: "排序"
         active: "已发布"
       notification:
-        reply_to_comment: "一条对您评论的回复"
-        comment_on_my_profile: "对您个人信息的评论"
-        comment_on_my_contribution: "对您所做贡献的评论和/或管理活动"
-        comment_on_my_collection: "对您所管理收藏的一条评论"
-        comment_on_my_community: "对您参与社区的一条评论"
-        invitation_to_community: "邀请加入社区"
-        made_me_a_manager: "您已成为收藏或社区管理员"
-        member_joined_my_community: "有一位新会员加入了您所管理的社区"
+        reply_to_comment: A reply to a comment you made
+        comment_on_my_profile: A comment on your profile
+        comment_on_my_contribution: A comment and/or curatorial action on a contribution you made
+        comment_on_my_collection: A comment on a collection you manage
+        comment_on_my_community: A comment in one of the communities you are a member of
+        invitation_to_community: Invitation to join a community
+        made_me_a_manager: You have been made a collection or community manager
+        member_joined_my_community: A new member has joined a community that you manage
         comment_on_my_watched_item: "关注列表中数据、类群、收藏或社区的评论"
         curation_on_my_watched_item: "管理员针对您关注列表中的数据、类群、收藏或社区所进行的操作"
-        new_data_on_my_watched_item: "您关注列表中的类群的新内容"
-        changes_to_my_watched_collection: "您关注列表中的收藏更新"
-        changes_to_my_watched_community: "您关注列表中的社区更新"
-        member_joined_my_watched_community: "有新会员加入您所在的社区"
-        member_left_my_community: "会员已经离开您管理的社区"
-        new_manager_in_my_community: "您管理的社区有新的管理员"
+        new_data_on_my_watched_item: New contributions to taxa in your watch list
+        changes_to_my_watched_collection: Changes to collections in your watch list
+        changes_to_my_watched_community: Changes to communities in your watch list
+        member_joined_my_watched_community: New members have joined a community where you are a member
+        member_left_my_community: Members have left a community you manage
+        new_manager_in_my_community: Another member has become a manager of a community you manage
         i_am_being_watched: "您已经被添加到另一个会员的关注列表"
-        eol_newsletter: "获取EOL季度新闻通讯"
+        eol_newsletter: Send me the quarterly EOL newsletter
       resource:
         accesspoint_url: "数据集URL"
         auto_publish: "自动发布"
@@ -436,13 +436,13 @@ zh-Hans:
             accesspoint_url:
               blank: "不能为空，除非您上传一个资源文件"
               inaccessible: "无法访问，该 URL 必须可公开访问"
-              invalid: "是无效的，它应指向 XML、XML.GZIP 或 XML.GZ 文件"
+              invalid: "is invalid, it should point to a XML, XML.GZIP, XML.GZ or ZIP file"
             dataset:
               blank: "不能为空，除非您提供一个数据集URL"
-              wrong_type: "是错误的类型，它应该是一个 GZIP、TAR或 XML 文件"
+              wrong_type: "is the wrong type, it should be a GZIP, TAR, ZIP or XML file"
             dwc_archive_url:
               inaccessible: "无法访问，该 URL 必须可公开访问"
-              invalid: "是无效的，它应指向一个TAR.GZIP、TAR.GZ 或 TGZ 文件"
+              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ, TGZ or ZIP file"
   helpers:
     label:
       collection:
@@ -455,10 +455,10 @@ zh-Hans:
       comment:
         body_edit: "编辑评论"
       contact:
-        comments: "您的消息"
+        comments: "Your message"
         contact_subject_id: "主题"
         email: "您的电子邮件地址"
-        name: "您的名字"
+        name: "Your name"
       content_page:
         active: "已发布"
         active_more: "已发布的网页将公开可见。如果要防止一般用户查看此页的任何一种语言版本，取消选中<em>已发布</em>。"
@@ -491,7 +491,7 @@ zh-Hans:
         bibliographic_citation_more: "关于该数据的推荐参考信息应以参考书目的形式给出，并应尽可能清晰以识别该数据。"
         description: "文本 <small>(允许一些HTML标记)</small>"
         license_id: "授权协议"
-        license_id_more: "查看 <a href=\"%{policy_url}\">EOL许可政策</a>"
+        license_id_more: 'Read the <a href="%{policy_url}">EOL Licensing Policy</a>'
         object_title: "标题"
         toc_item: "子章节"
         refs: "参考文献 <small>(每个参考文献另起一行开始)</small>"
@@ -535,8 +535,8 @@ zh-Hans:
         page_name: "唯一的名字 <small>(仅小写的ISO基本拉丁字母和下划线)</small>"
         page_name_more: "Enter a unique, self descriptive, meaningful and persistent identifier for this news item. The name you enter here will be used to generate the URL for this news item, e.g. the unique name <em>new_version_of_eol</em> is converted to the URL <em>http://eol.org/news/new_version_of_eol</em>."
       open_authentication:
-        connected: "已连接"
-        connect: "添加"
+        connected: Connected
+        connect: Add
       resource:
         administration_settings: "管理配置 <small>(只对EOL管理员可见)</small>"
         accesspoint_url: "数据集URL"
@@ -564,8 +564,8 @@ zh-Hans:
         active_translation: "已发布"
         active_translation_more: "已发布的网页将公开可见。如果要防止一般用户查看此页的本版本，取消选中<em>已发布</em>。"
         language_id: "语言"
-        left_content_more: "可选择添加一个无序的链接列表让本页拥有导航列。可以通过选择<em>资源</em>和编辑链接的HTML<em>href</em>属性来添加锚链接。例如，要为<em>正文</em>内容区域的<em>licensing_policy</em>添加锚连接，您的链接列表中的<em>href</em>属性值应该为\"#licensing_policy\""
-        main_content_more: "在正文区输入主要内容。使用<em>格式</em>下拉列表选择相应的语义文本元素，例如：选择<em>Heading 2</em>作为二级标题。注意：页面题目为一级标题，因此在正文区以<em>Heading 2</em>开始您的标题。"
+        left_content_more: '(Optional) Add an unordered list of navigation links. Use the class name <code>active</code> to highlight the current page link, i.e. <code>&lt;li class="active"&gt;&lt;a href="/info/:id"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> where <code>:id</code> is the current page ID or unique name and <code>:title</code> is the descriptive title of the page (<strong>Note: all links to EOL CMS pages should start with a forward slash: <code>/info/:id</code></strong>). To make these changes you will need to edit the HTML source code directly, do this by selecting <em>Source</em> in the editor toolbar.'
+        main_content_more: "Enter the main page content in the body area. Use the <em>Format</em> dropdown to select the appropriate semantic text elements, for example choose <em>Heading 2</em> for a second level heading. Note: <em>Heading 1</em> is reserved for the page title, so headings in the body area start with <em>Heading 2</em>. Select <em>Source</em> to switch to the HTML source code view which allows you to manually insert and edit HTML."
         meta_description_more: "提供一个简短的描述，用以概括本页内容的关键概念。该描述有时会被搜索引擎用于检查相关性和直接列于搜索结果中。"
         meta_keywords_more: "输入能最好反应该页内容的关键词或者短语，以逗号间隔。搜索引擎有时候使用这些关键词和短语来评估页面与搜素条目的相关性。"
         title_more: "内容的标题会显示在页面的标题区域。标题应该包括一些与内容最相关的关键词。"
@@ -593,7 +593,7 @@ zh-Hans:
         curation_application_more: "如果您希望更改您的管理权限，请提交一个申请，然后等待我们的审核。"
         curator_level: "您目前是%{curator_level_with_indefinite_article}。"
         curator_scope: "管理范围"
-        curator_scope_more: "请说明您的专长范围。例如：\"婆罗洲的啮齿动物\"，\"三级营养关系\"，\"鱼类的保护问题\"。这么做是为了告知EOL社区，而不会限制您的管理权限。"
+        curator_scope_more: 'Please indicate the scope of your expertise. For example: "Rodents of Borneo", "Tri-trophic interactions", or "Conservation issues in fish". This will not limit your ability to curate, but will inform the EOL community.'
         email_reports_frequency_hours: "您希望多长时间接收一次与您的贡献有关的活动信息？"
         email_settings_submit: "邮件设置"
         email: "邮件地址"
@@ -611,7 +611,7 @@ zh-Hans:
         open_authentications_connected_accounts: "您的已关联账号"
         requested_curator_level: "您提出的成为%{curator_level_with_indefinite_article} 的请求正处于等待状态。"
         requested_curator_level_id_more: "选择 <em>助理管理员</em> 如果您还没有相关资历。选择 <em>专业管理员</em> 如果您是专家或者是有资历的研究生。选择 <em>高级管理员</em> 如果您是有EOL经验的管理员，并希望在EOL中承担更多责任。"
-        tag_line: "标签或标题 <small>如:\"鸟类爱好者\"</small>"
+        tag_line: 'Tagline or title <small>example: "Bird enthusiast"</small>'
         user_identities: "我是"
         username: "用户名<small>（4-32 个字符）</small>"
         username_or_email: "用户名或电子邮件地址"
@@ -625,7 +625,7 @@ zh-Hans:
       create: "创建 %{model}"
       filter_sort: "筛选和排序"
       update: "更新 %{model}"
-      submit: "保存 %{model}"
+      submit: 'Save %{model}'
       collection_item:
         update: "保存"
       contact:
@@ -651,7 +651,7 @@ zh-Hans:
         create_text: "添加文章"
         update: "保存文章"
       data_object_link:
-        create: "添加链接"
+        create: "Add link"
         update: "Save link"
       eol_statistic:
         change_date: "Get statistics for dates"
@@ -713,21 +713,21 @@ zh-Hans:
       words: [alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]
   datepicker:
     day_names:
-      - 星期日
-      - 星期一
-      - 星期二
-      - 星期三
-      - 星期四
-      - 星期五
-      - 星期六
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
     day_names_short:
-      - 星期日
-      - 星期一
-      - 星期二
-      - 星期三
-      - 星期四
-      - 星期五
-      - 星期六
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
     day_names_min:
       - Su
       - Mo
@@ -739,31 +739,31 @@ zh-Hans:
     close: Close
     current: Today
     month_names:
-      - 1月
-      - 2月
-      - 3月
-      - 4月
-      - 5月
-      - 6月
-      - 7月
-      - 8月
-      - 9月
-      - 10月
-      - 11月
-      - 12月
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
     month_names_short:
-      - 1月
-      - 2月
-      - 3月
-      - 4月
-      - 5月
-      - 6月
-      - 7月
-      - 8月
-      - 9月
-      - 10月
-      - 11月
-      - 12月
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
     next: Next
     previous: Previous
   # start of views scope
@@ -846,7 +846,7 @@ zh-Hans:
           one: "观测到%{observed_taxa_count} 个类群"
           other: "观测到%{observed_taxa_count} 个类群"
         top_contributors: "热门iNaturalist贡献者"
-        tweet_text: "%{collection_name} iNaturalist观测"
+        tweet_text: "%{collection_name}iNaturalist观测"
         view_all_observations_on_inaturalist: "查看来自iNaturalist的%{project_title}的所有观测记录"
         view_more_observations_on_inaturalist: "查看更多来自iNaturalist的%{project_title}的观测记录"
         view_project_on_inaturalist: "查看来自iNaturalist的%{project_title}"
@@ -1014,26 +1014,26 @@ zh-Hans:
       meta_keywords: "eol news, encyclopedia of life news"
   notifier:
     activity_log_empty: "最近没有管理员的活动。"
-    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) 添加了未知的关联 %{object_name} (%{object_url})\n%{action_date}。"
-    activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) 删除了不确定的关系 %{object_name} (%{object_url})\n%{action_date}。"
-    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) 添加了关联:\n%{taxon_name} (%{taxon_url}) 与 %{object_name} (%{object_url})\n%{action_date}。"
-    activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) 删除了关联 :\n%{taxon_name} (%{taxon_url}) 和 %{object_name} (%{object_url})\n%{action_date}。"
-    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) 标记为可信的:\n%{object_name} (%{object_url}) 与 %{taxon_name} (%{taxon_url})\n%{action_date}。"
-    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url}) 标记为不可信的:\n%{object_name} (%{object_url})\n%{action_date}。"
-    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) 标记为不可信的:\n%{object_name} (%{object_url}) 与 %{taxon_name} (%{taxon_url})\n%{action_date}。"
-    activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) 标记为不合适的:\n%{object_name} (%{object_url})\n%{action_date}。"
+    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) added unknown association for %{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) removed unknown association from %{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) added association:\n%{taxon_name} (%{taxon_url}) for %{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) removed association:\n%{taxon_name} (%{taxon_url}) from %{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) marked as trusted:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url}) marked as untrusted:\n%{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) marked as untrusted:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) marked as inappropriate:\n%{object_name} (%{object_url})\n%{action_date}.\n"
     comments_empty: "没有近期评论。"
     greeting_dear_name_with_comma: "尊敬的 %{name}"
     signature_basic: "网络生命大百科团队"
     signature_with_contact_us_link: "If you experience any problems, please contact us at %{url}.\n\nThe Encyclopedia of Life Team"
     signature_with_species_pages_group_contact: "如果您有任何问题，请联系 %{species_pages_group_email}。\n\n网络生命大百科团队"
-    user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) 评论:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
+    user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) commented on:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}\n"
     activity_on_content_partner_content:
       subject: "由内容合作伙伴 %{partner_full_name}提交到EOL的内容的最近活动概要"
-      message: "这是EOL自动产生的电子邮件，该邮件总结了由%{partner_full_name} (%{partner_profile_url})向EOL提供内容的最近评论和管理活动。因为您是%{partner_full_name}的联系人，所以您接收到了该总结。\n\n如果您访问成员帐户有任何问题或需要帮助，请联系%{species_pages_group_email}。\n\n\n管理活动:\n%{curator_activity_log}\n\n对数据项的评论:\n%{data_object_comments}\n\n与您的数据相关的物种的评论:\n%{page_comments}"
+      message: "This is an automated e-mail from the Encyclopedia of Life (EOL) summarising recent comments and curatorial actions on content provided to EOL by content partner %{partner_full_name} (%{partner_profile_url}). You are receiving this summary because you are listed as a contact for %{partner_full_name}.\n\nIf you have any questions or need help accessing your EOL member account, please contact %{species_pages_group_email}.\n\n\nCuratorial actions:\n%{curator_activity_log}\n\nComments on data objects:\n%{data_object_comments}\n\nComments on pages with which your data is associated:\n%{page_comments}\n\n"
     activity_on_user_content:
       subject: "您提交到EOL的内容的最近活动的概要"
-      message: "这是EOL自动产生的电子邮件，该邮件总结了您使用%{members_username}帐户为EOL增加内容的最近评论和管理活动。\n\n如果您访问成员帐户有任何问题或需要帮助，请联系%{species_pages_group_email}。\n\n\n管理活动:\n%{curator_activity_log}\n\n对数据项的评论:\n%{data_object_comments}\n\n与您的数据相关的物种的评论:\n%{page_comments}"
+      message: "This is an automated e-mail from the Encyclopedia of Life (EOL) summarising recent comments and curatorial actions on content you have added to EOL through your member account with username %{members_username}.\n\nIf you have any questions or need help accessing your EOL member account, please contact %{species_pages_group_email}.\n\n\nCuratorial actions:\n%{curator_activity_log}\n\nComments on data objects:\n%{data_object_comments}\n\nComments on pages with which your data is associated:\n%{page_comments}\n\n"
     contact_us_message:
       subject: "发送给EOL一条消息: %{title}"
       message: "下面的信息是通过联系我们表单提交到EOL的信息\n发件人: %{from_name}\n电子邮件: %{from_email}\n主题: %{subject}\n\n%{message}"
@@ -1051,7 +1051,7 @@ zh-Hans:
       message: "这是EOL系统为物种页面组自动发送的通告。用户 %{user_full_name} 请求强制采集属于内容合作伙伴 %{partner_full_name}的资源%{resource_title},细节如下:\n\n用户: %{user_full_name}\n电子邮件: %{user_email}\n介绍URL: %{user_profile_url}\n\n合作伙伴: %{partner_full_name}\n合作伙伴资源URL: %{partner_resources_url}\n\n资源: %{resource_title}\n资源URL: %{resource_url}\n更新时间: %{resource_updated_at_date}\n状态: %{resource_status}"
     content_partner_resource_hierarchy_publish_request:
       subject: "EOL用户 %{user_full_name} 要求升级内容合作伙伴 %{partner_full_name}的数据资源 %{resource_title}的分类系统"
-      message: "这是EOL系统为物种页面组自动发送的通告。用户 %{user_full_name} 请求属于内容合作伙伴 %{partner_full_name}的资源%{resource_title}的分类系统, 提升（发布）为EOL可浏览的分类系统，细节如下：\n\n用户: %{user_full_name}\n电子邮件: %{user_email}\n介绍URL: %{user_profile_url}\n\n合作伙伴: %{partner_full_name}\n合作伙伴资源URL: %{partner_resources_url}\n\n资源: %{resource_title}\n资源URL: %{resource_url}\n编辑分类系统URL: %{hierarchy_edit_url}"
+      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested that a hierarchy associated with resource %{resource_title}, belonging to content partner %{partner_full_name}, be promoted (published) to a browsable hierarchy on EOL, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nEdit hierarchy URL: %{hierarchy_edit_url}\n"
     content_partner_statistics_reminder:
       subject: "%{year}年%{month}月，%{partner_full_name}的网络生命大百科使用统计提醒"
       message: "这是EOL自动生成的电子邮件提醒。对于%{partner_full_name}向EOL提供的数据，其%{year}年 %{month}月的网络使用统计见%{partner_statistics_url}。"
@@ -1082,7 +1082,7 @@ zh-Hans:
     intro: "这是您于%{time}在EOL的活动信息摘要"
     intro_immediately: "您好，%{name} —"
     intro_weekly: "这是您于%{ending}之前一周在EOL的活动信息摘要"
-    unsubscribe: "在<a href='%{email_prefs_url}' style='color:#195184'>您的提醒参数页面</a>更改email设置或者退订。"
+    unsubscribe: "Log in and change your email settings on <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a> or <a href='%{unsubscribe_url}' style='color:#195184'>unsubscribe from ALL automated EOL notifications without logging in</a>."
     contact_us_link: "If you experience any problems, please <a href='http://eol.org/contact_us' style='color:#195184'>contact us</a>."
     see_all_activity: "在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。"
     bulk_comments_with_count:
@@ -1165,7 +1165,7 @@ zh-Hans:
           meta_keywords: "%{scientific_name} 收藏, %{scientific_name} 观测, %{hierarchy_provider} 收藏, %{hierarchy_provider} 观测, %{hierarchy_provider} 标本"
           meta_title: "%{scientific_name}的收藏，分类由%{hierarchy_provider}提供"
           meta_title_with_common_name: " %{preferred_common_name}的收藏 (%{scientific_name}的分类由 %{hierarchy_provider})提供）"
-          tweet_text: "%{scientific_name}的收藏，分类由 %{hierarchy_provider}提供"
+          tweet_text: "%{scientific_name}的收藏，分类由%{hierarchy_provider}提供"
         meta_description: "收藏包含 %{scientific_name}。"
         meta_description_with_common_name: "收藏包含 %{preferred_common_name} (%{scientific_name})。"
         meta_keywords: "%{scientific_name} 收藏, %{scientific_name} 观测"
@@ -1177,7 +1177,7 @@ zh-Hans:
         hierarchy_entry:
           meta_title: "%{scientific_name}的管理员，分类由 %{hierarchy_provider}提供"
           meta_title_with_common_name: "%{preferred_common_name}的专家 (%{scientific_name} 的分类由%{hierarchy_provider})提供）"
-          tweet_text: " %{scientific_name} 的管理员，分类由 %{hierarchy_provider}提供"
+          tweet_text: "%{scientific_name}的管理员，分类由 %{hierarchy_provider}提供"
         meta_description: "%{scientific_name} 的专家管理它在网络生命大百科中的信息。"
         meta_description_with_common_name: "%{preferred_common_name} 专家 (同时也是 %{scientific_name} 的专家) 管理它在网络生命大百科中的信息。"
         meta_keywords: "%{scientific_name} 专家, %{scientific_name} 管理员"
@@ -1188,40 +1188,40 @@ zh-Hans:
     details:
       index:
         hierarchy_entry:
-          meta_description: "关于%{scientific_name}的信息，分类系统由网络生命大百科的 %{hierarchy_provider}提供"
+          meta_description: "Facts about %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life"
           meta_description_no_data: "No facts are available for %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. EOL invites you to contribute facts about %{scientific_name} such as Conservation, Distribution, Ecology, Habitat, Morphology and more."
-          meta_description_with_chapter_list: "关于%{scientific_name}的信息，分类系统由网络生命大百科的 %{hierarchy_provider}提供。包括%{scientific_name}的%{chapter_list}信息。"
-          meta_description_with_common_name: "关于%{preferred_common_name}的信息,学名是 %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。"
+          meta_description_with_chapter_list: "Facts about %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Includes %{chapter_list} information for %{scientific_name}."
+          meta_description_with_common_name: "Facts about the %{preferred_common_name}, scientifically known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life."
           meta_description_with_common_name_no_data: "No facts are available for %{preferred_common_name} also known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. EOL invites you to contribute facts about %{preferred_common_name} (%{scientific_name}) such as Conservation, Distribution, Ecology, Habitat, Morphology and more."
-          meta_description_with_common_name_with_chapter_list: "关于%{preferred_common_name}的信息,学名是 %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。包括%{chapter_list}的信息。"
+          meta_description_with_common_name_with_chapter_list: "Facts about the %{preferred_common_name}, scientifically known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Includes facts on %{chapter_list}."
           meta_keywords: ""
-          meta_title: "关于%{scientific_name}的信息，分类系统由 %{hierarchy_provider}提供"
-          meta_title_with_common_name: "关于%{preferred_common_name}的信息 (%{scientific_name}，分类系统由 %{hierarchy_provider}提供)"
-          tweet_text: "关于%{scientific_name}的信息，分类系统由 %{hierarchy_provider}提供"
-        meta_description: "网络生命大百科中关于%{scientific_name}的信息"
+          meta_title: "Facts about %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Facts about the %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
+          tweet_text: "Facts about %{scientific_name} as classified by %{hierarchy_provider}"
+        meta_description: "Facts about %{scientific_name} in the Encyclopedia of Life"
         meta_description_no_data: "No facts are available for %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute facts about %{scientific_name} such as Conservation, Distribution, Ecology, Habitat, Morphology and more."
-        meta_description_with_chapter_list: "网络生命大百科中关于%{scientific_name}的信息。包括%{chapter_list}。"
-        meta_description_with_common_name: "关于%{preferred_common_name}的信息，在网络生命大百科中为%{scientific_name}。"
+        meta_description_with_chapter_list: "Facts about %{scientific_name} in the Encyclopedia of Life. Includes facts on %{chapter_list}."
+        meta_description_with_common_name: "Facts about %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life."
         meta_description_with_common_name_no_data: "No facts are available for %{preferred_common_name} also known as %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute facts about %{preferred_common_name} (%{scientific_name}) such as Conservation, Distribution, Ecology, Habitat, Morphology and more."
-        meta_description_with_common_name_with_chapter_list: "关于%{preferred_common_name}的信息，在网络生命大百科中为%{scientific_name}。包括%{chapter_list}的信息"
-        meta_keywords: ""
-        meta_keywords_with_common_name: ""
-        meta_title: "关于%{scientific_name}的信息"
+        meta_description_with_common_name_with_chapter_list: "Facts about %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life. Includes facts on %{chapter_list}."
+        meta_keywords: "%{scientific_name} facts"
+        meta_keywords_with_common_name: "%{preferred_common_name} facts,%{scientific_name} facts"
+        meta_title: "Facts about %{scientific_name}"
         meta_title_with_common_name: "关于%{preferred_common_name}(%{scientific_name})的事实"
-        tweet_text: "关于%{scientific_name}的信息"
+        tweet_text: "Facts about %{scientific_name}"
     literature:
       bhl:
         hierarchy_entry:
-          meta_description: "网络生命大百科中关于%{scientific_name}的文献和信息，分类系统由%{hierarchy_provider}提供。阅读在网络生命大百科中关于%{scientific_name} 的文章。"
-          meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和信息，分类系统由网络生命大百科的%{hierarchy_provider}提供。阅读在网络生命大百科中关于%{preferred_common_name}的文章。"
+          meta_description: "BHL literature and information on %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Read articles from the Biodiversity Heritage Library (BHL) about %{scientific_name} in the Encyclopedia of Life."
+          meta_description_with_common_name: "BHL literature and information on %{preferred_common_name} also known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Read articles from the Biodiversity Heritage Library (BHL) about %{preferred_common_name} in the Encyclopedia of Life."
           meta_keywords: ""
           meta_title: "生物多样性遗传图书馆中%{scientific_name}的引用的文献（学名由%{scientific_nam}提供）"
           meta_title_with_common_name: "生物多样性遗传图书馆中%{preferred_common_name}（%{scientific_name}）的引用的文献（学名由%{scientific_nam}提供）"
           tweet_text: "来自于#BHL 的关于%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供"
-        meta_description: ""
-        meta_description_with_common_name: ""
-        meta_keywords: ""
-        meta_keywords_with_common_name: ""
+        meta_description: "BHL Literature and information on %{scientific_name} in the Encyclopedia of Life. Read articles from the Biodiversity Heritage Library (BHL) about %{scientific_name} at the Encyclopedia of Life."
+        meta_description_with_common_name: "BHL Literature and information on %{preferred_common_name} also known as %{scientific_name} in the Encyclopedia of Life. Read articles from the Biodiversity Heritage Library (BHL) about %{preferred_common_name} at the Encyclopedia of Life."
+        meta_keywords: "生物多样性遗产图书馆"
+        meta_keywords_with_common_name: "生物多样性遗产图书馆"
         meta_title: "生物多样性遗传图书馆中%{scientific_name}的引用"
         meta_title_with_common_name: "BHL中关于%{preferred_common_name}的参考文献（%{scientific_nam}）"
         tweet_text: "来自于#BHL 的关于%{scientific_name}的文献"
@@ -1233,13 +1233,13 @@ zh-Hans:
           meta_title: "%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供"
           meta_title_with_common_name: "关于%{preferred_common_name}的书籍 (%{scientific_name}的分类 由%{hierarchy_provider}提供)"
           tweet_text: "%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供"
-        meta_description: "网络生命大百科中关于%{scientific_name}的文献和信息。阅读在网络生命大百科中关于%{scientific_name} 的文章。"
-        meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和信息。阅读在网络生命大百科中关于%{preferred_common_name}的文章。"
-        meta_keywords: "%{scientific_name}的信息，%{scientific_name}的文献，%{scientific_name}的文章"
-        meta_keywords_with_common_name: "关于%{preferred_common_name}的信息，%{preferred_common_name}的文献，%{preferred_common_name}的文章"
-        meta_title: "%{scientific_name}的文献"
-        meta_title_with_common_name: "关于%{preferred_common_name}(%{scientific_name})的书籍"
-        tweet_text: "%{scientific_name}的文献"
+        meta_description: "Books, articles and bibliographies on %{scientific_name} in the Encyclopedia of Life. Read literature about %{scientific_name} at the Encyclopedia of Life."
+        meta_description_with_common_name: "Books, articles and bibliographies on %{preferred_common_name} also known as %{scientific_name} in the Encyclopedia of Life. Read literature about %{preferred_common_name} at the Encyclopedia of Life."
+        meta_keywords: "%{scientific_name} articles,%{scientific_name} books,%{scientific_name} bibliographies,%{scientific_name} literature"
+        meta_keywords_with_common_name: "%{preferred_common_name} articles,%{preferred_common_name} books,%{preferred_common_name} literature,%{scientific_name} articles,%{scientific_name} books,%{scientific_name} bibliographies,%{scientific_name} literature"
+        meta_title: "Articles & Books about %{scientific_name}"
+        meta_title_with_common_name: "Articles & Books about %{preferred_common_name} (%{scientific_name})"
+        tweet_text: "Articles & Books on %{scientific_name}"
     maps:
       show:
         hierarchy_entry:
@@ -1248,16 +1248,16 @@ zh-Hans:
           meta_keywords: ""
           meta_title: "%{scientific_name}的地图，分类系统由%{hierarchy_provider}提供"
           meta_title_with_common_name: "%{preferred_common_name}的地图（%{scientific_name}，分类系统由%{hierarchy_provider}提供）"
-          tweet_text: "%{scientific_name}的地图，分类系统由%{hierarchy_provider}提供"
-        meta_description: "%{scientific_name}在全球的分布地和原产地的地理信息。"
+          tweet_text: "Maps for %{scientific_name} as classified by %{hierarchy_provider}"
+        meta_description: "Geographic information about %{scientific_name}. Places where they live in the world."
         meta_description_no_data: "No geographic information is available for %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute maps for %{scientific_name}."
-        meta_description_with_common_name: "%{preferred_common_name}是在哪里发现的？它们生活在哪里？关于%{scientific_name}在地球上哪里生活以及原产地在哪里的地理信息。"
+        meta_description_with_common_name: "Where are %{preferred_common_name} found and where do they live? Geographic information about %{scientific_name}. Places where they live in the world."
         meta_description_with_common_name_no_data: "No geographic information is available for %{preferred_common_name} also known as %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute maps for %{preferred_common_name} (%{scientific_name})."
-        meta_keywords: "%{scientific_name} 原始生存地的生境"
-        meta_keywords_with_common_name: "%{preferred_common_name} 原始生存地的生境 "
-        meta_title: " %{scientific_name}的生境"
-        meta_title_with_common_name: "%{preferred_common_name}(%{scientific_name})的生境 "
-        tweet_text: "%{scientific_name}的地图，"
+        meta_keywords: "%{scientific_name} habitat, where do %{scientific_name} live"
+        meta_keywords_with_common_name: "%{preferred_common_name} habitat, where do %{preferred_common_name} live"
+        meta_title: "Maps for %{scientific_name}"
+        meta_title_with_common_name: "Maps for %{preferred_common_name} (%{scientific_name})"
+        tweet_text: "Maps for %{scientific_name}"
     media:
       index:
         hierarchy_entry:
@@ -1268,30 +1268,30 @@ zh-Hans:
           meta_title: "%{scientific_name}的音频,影片及照片(分类信息由%{hierarchy_provider}提供）"
           meta_title_with_common_name: " %{preferred_common_name}的音频,影片及图像(%{scientific_name}的分类信息由%{hierarchy_provider}提供）"
           tweet_text: "%{scientific_name}的媒体，分类系统由%{hierarchy_provider}提供"
-        meta_description: "%{scientific_name}的图片和视频"
+        meta_description: "Pictures, video and audio of %{scientific_name}. Find images, photos, movies and sounds of %{scientific_name} at the Encyclopedia of Life."
         meta_description_no_data: "No multimedia is available for %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute images, videos, or sounds for %{scientific_name}."
-        meta_description_with_common_name: "%{preferred_common_name}的图片和视频 也就是%{scientific_name}"
+        meta_description_with_common_name: "Pictures, video and audio of %{preferred_common_name} also known as %{scientific_name}. Find images, photos, movies and sounds of %{preferred_common_name} (%{scientific_name}) at the Encyclopedia of Life."
         meta_description_with_common_name_no_data: "No multimedia is available for %{preferred_common_name} also known as %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute images, videos, or sounds for %{preferred_common_name} (%{scientific_name})."
         meta_keywords: "%{scientific_name}的图片，%{scientific_name}的视频，%{scientific_name}的图像，%{scientific_name}的视频，%{scientific_name}的照片，媒体"
         meta_keywords_with_common_name: "%{preferred_common_name}的图片，%{preferred_common_name}的视频，%{preferred_common_name}的图像，%{preferred_common_name}的视频，%{preferred_common_name}的照片，媒体"
-        meta_title: "%{preferred_common_name}的图片或视频(%{scientific_name})"
-        meta_title_with_common_name: "%{preferred_common_name}的图片或视频(%{scientific_name})"
-        tweet_text: "%{scientific_name}的媒体"
+        meta_title: "Pictures, Video & Audio of %{scientific_name} - Images, Photos, Movies & Sounds of %{scientific_name}"
+        meta_title_with_common_name: "Pictures, Video & Audio of %{preferred_common_name} (%{scientific_name}) - Images, Photos, Movies & Sounds of %{preferred_common_name} (%{scientific_name})"
+        tweet_text: "Pictures, video and audio of %{scientific_name}"
     names:
       index:
         hierarchy_entry:
-          meta_description: "由%{hierarchy_provider}提供分类的%{scientific_name}的分类，分类系统和相关的学名。"
-          meta_description_with_common_name: "由%{hierarchy_provider}提供分类的%{preferred_common_name}（又称为%{scientific_name}）的分类，分类系统和学名。"
-          meta_title: ""
-          meta_title_with_common_name: ""
+          meta_description: "Taxonomies and scientific names for %{scientific_name} as classified by %{hierarchy_provider}."
+          meta_description_with_common_name: "Taxonomies and and scientific names for the %{preferred_common_name}, also called %{scientific_name} as classified by %{hierarchy_provider}."
+          meta_title: "Taxonomic Information for %{scientific_name} as classified by %{hierarchy_provider} - Biological Classifications & Names"
+          meta_title_with_common_name: "Taxonomic Information for %{preferred_common_name} (%{scientific_name}) as classified by %{hierarchy_provider} - Biological Classifications & Names"
           tweet_text: "与%{scientific_name}相关的名称，分类系统由%{hierarchy_provider}提供"
-        meta_description: "%{scientific_name}的分类等级和学名。"
-        meta_description_with_common_name: "%{preferred_common_name}的分类等级和学名，又称为%{scientific_name}。"
-        meta_keywords: ""
-        meta_keywords_with_common_name: ""
-        meta_title: "与%{scientific_name}相关的名称"
-        meta_title_with_common_name: "与%{preferred_common_name} 相关的名称(%{scientific_name})"
-        tweet_text: "与%{scientific_name}相关的名称"
+        meta_description: "Taxonomies and scientific names for %{scientific_name}. Biological classifications and names related to %{scientific_name}."
+        meta_description_with_common_name: "Taxonomies, biological classifications and scientific names for the %{preferred_common_name}, also called %{scientific_name}. Biological classifications and names related to %{preferred_common_name}."
+        meta_keywords: "other scientific names for %{scientific_name},other latin names for %{scientific_name},%{scientific_name} biological classification,%{scientific_name} taxonomies"
+        meta_keywords_with_common_name: "scientific names for %{preferred_common_name},latin names for %{preferred_common_name},${scientific_name} biological classification,${scientific_name} taxonomies"
+        meta_title: "Taxonomic Information for %{scientific_name} - Biological Classifications & Names"
+        meta_title_with_common_name: "Taxonomic Information for %{preferred_common_name} (%{scientific_name}) - Biological Classifications & Names"
+        tweet_text: "Taxonomic Information for %{scientific_name}"
       common_names:
         hierarchy_entry:
           meta_description: "与%{scientific_name}（分类由 %{hierarchy_provider}提供）相关的地方名。"
@@ -1330,17 +1330,17 @@ zh-Hans:
           meta_description: "%{scientific_name}的概要信息，它在网络生命大百科中被 %{hierarchy_provider}确认。"
           meta_description_with_common_name: "%{preferred_common_name}的概要信息,它同时也在网络生命大百科中被%{hierarchy_provider}确认为%{scientific_name}。"
           meta_keywords: "%{scientific_name} 由 %{hierarchy_provider}确定, %{scientific_name} 分类由 %{hierarchy_provider}确定"
-          meta_keywords_with_common_name: "%{scientific_name} 由 %{hierarchy_provider}确定, %{scientific_name} 分类由 %{hierarchy_provider}提供"
+          meta_keywords_with_common_name: "%{scientific_name} 由 %{hierarchy_provider}确定, %{scientific_name} 分类由 %{hierarchy_provider}确定"
           meta_title: "%{scientific_name} 分类由 %{hierarchy_provider}提供"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} 由 %{hierarchy_provider}分类)"
           tweet_text: "%{scientific_name}的概述，分类由%{hierarchy_provider}提供"
-        meta_description: "网络生命大百科里学名%{scientific_name}概要。"
-        meta_description_with_common_name: "%{preferred_common_name}概要，学名在网络生命大百科里是 %{scientific_name}。"
-        meta_keywords: "%{scientific_name} 由 %{hierarchy_provider}确定"
-        meta_keywords_with_common_name: "%{scientific_name} 由 %{hierarchy_provider}确定"
-        meta_title: "%{scientific_name}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: "%{scientific_name}的概述"
+        meta_description: "Information on %{scientific_name} in the Encyclopedia of Life."
+        meta_description_with_common_name: "Information on %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life."
+        meta_keywords: "info on %{scientific_name},%{scientific_name} information"
+        meta_keywords_with_common_name: "info on %{scientific_name},info on %{preferred_common_name},%{scientific_name} information and facts,%{preferred_common_name} information"
+        meta_title: "%{scientific_name} - Information on %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information on %{preferred_common_name}"
+        tweet_text: "Information on %{scientific_name}"
     resources:
       show:
         hierarchy_entry:
@@ -1508,7 +1508,7 @@ zh-Hans:
     notifications:
       edit:
         page_description: "以下显示的所有更新（除了网络生命大百科通讯），在您的<a href=\"%{user_newsfeed_link}\">EOL个人消息页面</a>中都是可见的，但是许多用户喜欢通过邮件通知他们那些特别关注的某类动态。您可以通过下面的按钮选择EOL发送邮件的频率，以满足您的需求"
-        page_title: "通知设置"
+        page_title: Notification settings
       update:
         notification_settings_successfully_updated: "Notification settings successfully updated."
         sorry_notification_settings_could_not_be_updated: "Sorry, notification settings could not be updated."
@@ -1554,8 +1554,8 @@ zh-Hans:
           not_authorized_to_login: "Sorry, we are not authorized to log you in to EOL using your Yahoo! account."
           not_authorized_to_signup: "抱歉，我们没有被授权使用您的 Yahoo! 账户登陆到EOL。"
           signup_failed_account_already_connected: "抱歉，我们不能为您建立一个新的EOL帐户与您的Yahoo!帐户关联，它已经关联到一个<a href=\"%{existing_eol_account_url}\">EOL帐户</a>。您想<a href=\"%{login_url}\">登陆</a> 吗？"
-      facebook: "Facebook"
-      google: "Google"
+      facebook: Facebook
+      google: Google
       index:
         connected_last_verified: "已连接；最后核实于%{time_passed}前；"
         connected_unverified: "已连接；未核实；"
@@ -1576,10 +1576,10 @@ zh-Hans:
         yahoo:
           new_authentication_added: "Yahoo!认证已经被添加到您的账户中。"
           removed_connection: "我们已经成功删除了EOL与您的Yahoo!帐户的关联。要完全解除您的Yahoo!帐户与EOL之间未来的互动认证，您必须去Yahoo!修改您的帐户设置。"
-      twitter: "Twitter"
+      twitter: Twitter
       warnings:
         no_way_to_login: "您不再有任何关联的账号，您将不能登录EOL。如果您想登录EOL，您需要添加一个关联的账户，或增加一个EOL的帐户名和密码。"
-      yahoo: "Yahoo!"
+      yahoo: Yahoo!
     pending:
       header: "Thanks for registering!"
       verify_email_instructions: "<strong>Please verify your email address</strong>. A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
@@ -1593,7 +1593,7 @@ zh-Hans:
       form_header: "恢复帐户"
       form_tip: "要找回您的EOL帐户，需要输入与该帐户关联的电子邮件地址。如果您在一个小时内没有收到找回帐户的电子邮件，请检查您的垃圾邮件文件夹。"
       notices:
-        recovery_email_sent: "账户恢复详细说明的邮件已经发送。若您一个小时内没有收到该邮件，请检查您的垃圾邮件过滤器。"
+        recovery_email_sent: "Account recovery email has been sent with further instructions. Please add %{from_address} to your safe senders list and check your spam filter if you do not receive the email within an hour."
         temporarily_logged_in_update_authentication_details: "您被允许临时登录以恢复帐号，请修改您的密码并更新您的关联账户以确保您可以成功登录。"
       meta_title: "恢复帐户"
     recover_account_choose_account:
@@ -1674,7 +1674,7 @@ zh-Hans:
   actions: "活动"
   active_colon: "活跃："
   active: "可用的"
-  activity: "活动"
+  activity: "我的活动"
   activity_logs:
     collection_activity_log:
       add_editor:
@@ -1874,7 +1874,7 @@ zh-Hans:
       add_association:
         an_unknown_user_associated_an_older_data_object_to_an_unknown_association: "一个未知用户在旧版本的\"%{data_object}\"和未知的页面之间添加了一个关联。"
         an_unknown_user_associated_an_older_data_object_to_association: "一个未知用户在旧版本的\"%{data_object}\"和\"%{association}\"之间添加了一个关联。"
-        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: "一个未知用户添加了一个未知的关联。"
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: "An unknown user added an unknown association."
         an_unknown_user_associated_an_unknown_data_object_to_association: "一个未知用户在未知的数据项和\"%{association}\"之间添加了一个关联。"
         an_unknown_user_associated_data_object_to_an_unknown_association: "一个未知用户在\"%{data_object}\"和未知的页面之间添加了一个关联。"
         an_unknown_user_associated_data_object_to_association: "一个未知用户在\"%{data_object}\"和\"%{association}\"之间添加了一个关联。"
@@ -2191,7 +2191,7 @@ zh-Hans:
   admin_content_page_child_new_link: "创建子页面"
   admin_content_page_create_successful_notice: "页面<a href=\"#%{anchor}\"><em>%{page_name}</em></a>创建成功。"
   admin_content_page_create_unsuccessful_error: "抱歉，出现了一个错误，页面未能创建。"
-  admin_content_page_delete_confirmation: "您确定要删除\"%{page_name}\"和所有的翻译吗？删除操作将无法撤消。"
+  admin_content_page_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations. Delete actions cannot be undone.'
   admin_content_page_delete_successful_notice: "%{page_name}页及其相关联的翻译均已被删除。"
   admin_content_page_edit_header: "更新<em>%{page_name}</em>的基本页面信息"
   admin_content_page_edit_tip: "建议您不要编辑此页的唯一名称，除非您完全清楚后果，包括对指向此页或具名路径的那些链接的影响。唯一的名称是 %{required_icon} 所必需的。"
@@ -2224,9 +2224,9 @@ zh-Hans:
   admin_content_partners_statistics_first_published_empty: "首次发布于%{date_from}和%{date_to}之间的合作伙伴资源未找到。"
   admin_content_partners_statistics_first_published_download_csv_submit: "以CSV格式下载"
   admin_content_partners_statistics_link: "统计"
-  admin_content_partners_statistics_page_title: "管理：内容合作伙伴的统计"
+  admin_content_partners_statistics_page_title: "管理：内容合作伙伴统计"
   admin_home: "管理员首页"
-  admin_news_item_active: "Published"
+  admin_news_item_active: "已发布"
   admin_news_item_create_successful_notice: "News item <a href=\"#%{anchor}\"><em>%{page_name}</em></a> created successfully."
   admin_news_item_create_unsuccessful_error: "Sorry, an error occurred, the news item was not created."
   admin_news_item_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations. Delete actions cannot be undone.'
@@ -2235,8 +2235,8 @@ zh-Hans:
   admin_news_item_edit_tip: "It is recommended that you do not edit the unique name of this news item unless you are fully aware of the consequences, including the impact on links to this page, or to named routes. Unique name is %{required_icon} required."
   admin_news_item_new_link: "Create news item"
   admin_news_item_new_header: "Create a new news item"
-  admin_news_item_new_tip: "Enter basic information about this page. Unique name is %{required_icon} required."
-  admin_news_item_not_active: "Unpublished"
+  admin_news_item_new_tip: "输入有关此页的基本信息。唯一的名称是必需的%{required_icon}。"
+  admin_news_item_not_active: "未发布"
   admin_news_item_update_successful_notice: "News item <a href=\"#%{anchor}\"><em>%{page_name}</em></a> updated successfully."
   admin_news_item_update_unsuccessful_error: "Sorry, an error occurred, the news item could not be updated."
   admin_news_items_empty: "No news items found."
@@ -2250,7 +2250,7 @@ zh-Hans:
   admin_statistics_link: "统计"
   admin_translated_content_page_create_successful_notice: "翻译已添加到 <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_content_page_create_unsuccessful_error: "抱歉，出现了一个错误，翻译无法添加。"
-  admin_translated_content_page_delete_confirmation: "您确定要删除 \"%{page_name}\" 的 %{language}版本？删除后无法恢复。"
+  admin_translated_content_page_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}". Delete action cannot be undone.'
   admin_translated_content_page_delete_successful_notice: "页面<em>%{page_name}</em> 的%{language} 翻译已经删除。"
   admin_translated_content_page_edit_subheader: "编辑<em>%{page_name}</em>的%{language} 翻译"
   admin_translated_content_page_edit_tip: "标题和正文是 %{required_icon} 需要的。"
@@ -2260,9 +2260,9 @@ zh-Hans:
   admin_translated_content_page_new_subheader: "为<em>%{page_name}</em>添加翻译"
   admin_translated_content_page_update_successful_notice: "<a href=\"#%{anchor}\"><em>%{page_name}</em></a> 的%{language} 翻译已经更新。"
   admin_translated_content_page_update_unsuccessful_error: "抱歉，出现了一个错误，翻译无法更新。"
-  admin_translated_news_item_active: "Published"
-  admin_translated_news_item_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
-  admin_translated_news_item_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
+  admin_translated_news_item_active: "已发布"
+  admin_translated_news_item_create_successful_notice: "翻译已添加到 <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
+  admin_translated_news_item_create_unsuccessful_error: "抱歉，出现了一个错误，翻译无法添加。"
   admin_translated_news_item_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}". Delete action cannot be undone.'
   admin_translated_news_item_delete_successful_notice: "%{language} translation of news item <em>%{page_name}</em> has been deleted."
   admin_translated_news_item_edit_subheader: "编辑<em>%{page_name}</em>的%{language} 翻译"
@@ -2277,42 +2277,42 @@ zh-Hans:
   agent: "代理"
   all: "所有"
   all_apis_return_by_default_an_xml_response: "所有API默认返回XML的响应。调用API方法时，有无扩展名都可获得一致的响应："
-  all_articles: "所有文章"
+  all_articles: All articles
   all_changes: "所有变化"
-  all_collections: "所有收藏"
+  all_collections: All collections
   all_comments_entered_by_users: "用户输入的所有评论都按创建时间反序排列在下面。"
-  all_communities: "所有社区"
+  all_communities: All communities
   all_count: "所有(%{count})"
   all_errors: "所有错误"
   all_filter: "所有"
   all_harvesting_logs: "所有采集日志"
-  all_images: "所有图像"
+  all_images: All images
   all_information: "所有信息"
-  all_items: "所有条目"
+  all_items: All items
   all_news: "所有新闻"
-  all_people: "所有人"
-  all_sounds: "所有声音"
+  all_people: All people
+  all_sounds: All sounds
   all_sources: "所有数据源"
-  all_taxa: "所有类群"
+  all_taxa: All taxa
   all_title: "所有"
   all_user_submitted_texts_on_the_website: "所有用户提交的信息按创建时间反序排列显示在下面。"
-  all_videos: "所有视频"
+  all_videos: All videos
   allow_user_logins: "允许用户登录"
   already_a_member_question: "已经是会员？"
   already_member_of_community: "您已经是这个社区的一名会员。"
   alternate_classification: "另一种分类系统"
   amount: "数量"
   an_unknown_user: "一个未知用户"
-  anonymous_user_full_name: "匿名用户"
-  anonymous_user_given_name: "匿名"
-  anonymous_user_tag_line: "未登录"
-  and: "和"
-  and_between_form_items: "和"
+  anonymous_user_full_name: 'Anonymous User'
+  anonymous_user_given_name: 'Anonymous'
+  anonymous_user_tag_line: 'Not Logged In'
+  and: " 和"
+  and_between_form_items: " 和"
   jsonp_by_adding_a_callback_parameter: "…以及通过添加回调参数而成的JSONP"
   any_integer: "任何整数"
   api_docs_collections_description: "给收藏一个标识符，此API将返回所有关于收藏和它包含的条目的元数据。条目列表可按条目类型筛选，并按上面列出的属性排序。"
-  a_pipe_delimited_list_of_licenses: "一个用 | 符号分隔的协议列表，或是用'all'表示任意协议。任意协议是指所有缩写为"cc-"的协议"
-  a_pipe_delimited_list_of_spm_info_item_subject_names: "一个用 | 符号分隔的SPM信息项主题列表，或是用'all'表示任意主题。"
+  a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all %{creative_commons_link} licenses. Visit their site for more information on the various licenses they offer."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "'overview' to return the overview text (if exists), a pipe | delimited list of SPM Info Item subject names to get text in respective SPM Info Item subject names, 'all' to get text in any subject. Always returns an overview text as a first result (if exists in the given context)."
   application_version_advisory_information: "应用程序版本"
   are_you_sure: "您确定吗？"
   are_you_sure_this_action_cannot_be_undone: "您确定吗？本次操作不能恢复。"
@@ -2354,13 +2354,13 @@ zh-Hans:
   assistive_updates_statistics_header: "页面统计"
   associated_submit_button: "关联"
   associated_with_header: "关联到"
-  associated_with_article_header: "在这篇文章中"
-  associated_with_image_header: "在这个图像中"
-  associated_with_image_map_header: "在此地图上"
+  associated_with_article_header: "In the latest article"
+  associated_with_image_header: "In the latest image"
+  associated_with_image_map_header: "On the latest map"
   associated_with_link_header: "On the latest link"
-  associated_with_map_header: "在此地图上"
-  associated_with_sound_header: "在这个音频中"
-  associated_with_video_header: "在这个视频中"
+  associated_with_map_header: "On the latest map"
+  associated_with_sound_header: "In the latest audio"
+  associated_with_video_header: "In the latest video"
   association_trusted_for_taxa:
     one: "Trusted for:"
     other: "Trusted for:"
@@ -2405,7 +2405,7 @@ zh-Hans:
   browse_hierarchy: "浏览分类系统"
   browsing_branch_colon: "浏览分支："
   build_communities: "构建社区"
-  by_caps: "被"
+  by_caps: ""
   by_scientific_name_table_header: "通过学名"
   cache_store: "缓存"
   calculate_averages_slow: "计算平均值（慢）"
@@ -2495,7 +2495,7 @@ zh-Hans:
   collection_newsfeed: "收藏动态"
   collection_not_created_error: "很抱歉，发生了一个错误，<em>%{collection_name}</em> 收藏无法创建。"
   collection_not_destroyed_error: "抱歉，集合未被删除。"
-  collection_not_found_error: "抱歉，找不到该集合。"
+  collection_not_found_error: Sorry, that collection could not be found.
   collection_created_notice: "<em>%{collection_name}</em>收藏成功创建。"
   collection_updated_notice: "<em>%{collection_name}</em>收藏成功更新。"
   collection_was_removed_by_owner: "本项目被所有者删除。"
@@ -2576,7 +2576,7 @@ zh-Hans:
   community_no_longer_has_manager_access_to_collection: "\"%{community}\" 不再拥有\"%{collection}\"的管理权限。"
   community_not_destroyed_error: "抱歉，存在一个问题，社区未删除。"
   community_tab_collections_header: "收藏"
-  community_tab_collections_description: "EOL用户创建的收藏把物种、多媒体、文章、甚至是会员本身的信息组织在一起。这些收藏代表着具有某些共同属性的EOL网络资源，例如地理学、生态学或者是个人意义。社区可以\"关注\"这些具有特殊意义和价值的收藏。"
+  community_tab_collections_description: 'Collections are created by EOL users to bring together species, multimedia, articles, or even members that have something in common, such as geography, ecology, or a personal meaning. Communities can "feature" collections that are of particular interest and value to them.'
   community_tab_communities_description: "社区是由一群EOL会员组成的团体，会员之间分享自己的兴趣和专长。EOL社区围绕一个或多个收藏组织起来，并向会员提供一种方式以关注一些他们共同关心的主题。有关EOL社区的更多信息，包括如何创建自己的社区，请查看<a href='/info/communities'>帮助页面</a>。"
   community_tab_curators_description: "管理员是EOL中具有生物学专业知识的一类用户，他们投入时间对EOL的内容进行审核，保证您所看到的信息是准确的，高质量的。"
   community_removed_by_owner: "这个社区被所有者移除。"
@@ -2725,9 +2725,9 @@ zh-Hans:
   content_partner_resource_status_update_unsuccessful_error: "抱歉，发生了一个错误，资源%{resource_title}的状态未能更新为%{resource_status}。"
   content_partner_resource_update_successful_notice: "已成功更新内容合作伙伴资源详细信息。资源的当前状态是：%{resource_status}。"
   content_partner_resource_update_unsuccessful_error: "抱歉，出现了一个错误，资源详细信息未能更新。"
-  content_partner_resource_upload_unsuccessful_error: "抱歉，出现了一个错误，资源详细信息已更新，但是该资源本身未上传：%{resource_status}。"
+  content_partner_resource_upload_unsuccessful_error: "Sorry, an error occurred, the resource details were updated, but the resource itself was not uploaded: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: "数据集的URL或上传资源文件，只限其一。请确定您是要为此描述资源提供数据集的URL或上传一个文件。更多资源可在以后添加。"
-  content_partner_resource_validation_unsuccessful_error: "抱歉，资源的详细信息已更新，但资源验证失败。请看下面的处理说明。"
+  content_partner_resource_validation_unsuccessful_error: "Sorry, the resource details were updated, but the resource failed to validate. See the processing notes below."
   content_partner_resource_vetted_true: "是"
   content_partner_resource_vetted_false: "否"
   content_partner_resource_view_link: "查看"
@@ -2738,7 +2738,7 @@ zh-Hans:
   content_partner_resources_policy_information: "在添加您的资源之前，请先查看并同意以下内容合作伙伴使用协议条款。"
   content_partner_statistics_column_header_statistic: "为%{year}年的%{month_name}月统计测量。"
   content_partner_statistics_column_header_provider_count: "包含提供者信息的页面"
-  content_partner_statistics_column_header_total_count: "所有页面"
+  content_partner_statistics_column_header_total_count: ""
   content_partner_statistics_column_header_provider_proportion: "提供者百分比"
   content_partner_statistics_empty: "没找到%{month_name} %{year}的统计数据。"
   content_partner_statistics_month_label: "月"
@@ -2793,7 +2793,7 @@ zh-Hans:
     other: " 拷贝%{count}项到一个新的收藏中"
   copyright: "版权所有："
   correct_donation_message: "如果此信息不正确，请点击%{go_back_link}修改"
-  could_not_find_collection_error: "抱歉，找不到该收藏。"
+  could_not_find_collection_error: "抱歉，找不到该集合。"
   could_not_find_user: "您不是这个社区的会员。"
   count: "数目"
   count_results_for_search_term:
@@ -2823,24 +2823,24 @@ zh-Hans:
   curated_objects_of: "已管理的%{name}的数据项"
   curated_species_of: "已管理的%{name}物种"
   curation_comment: "管理评论"
-  curation_privileges_page_description: "选择您想申请的管理等级：助理管理员，专业管理员，高级管理员。若想申请后两者，您必须提供您的专业领域和资历信息，一旦您的信息被审核通过，我们将通过email通知您。助理管理员的申请可以立即通过。了解更多<a href=\"%{curators_url}\">成为一名管理员</a>。"
+  curation_privileges_page_description: 'Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href="%{curators_url}">becoming a curator</a>.'
   curation_privileges_page_title: "成为管理员"
-  curation_scope: "审核范围"
+  curation_scope: "管理范围"
   curation_reason_placeholder: "更多的信息（可选）"
   curator: "管理员"
   curator_question: "管理员？"
-  curator_level_application_pending_notice: "我们对您申请成为一名管理员表示感谢。一旦您的申请被审核通过，我们将通过email告知您。"
-  curator_level_assistant_approved_notice: "恭喜您！您已成为一名<em>助理管理员</em>。 <a href=\"%{more_url}\">了解更多助理管理员职责</a>。"
+  curator_level_application_pending_notice: 'Thanks for applying to become a curator. We will notify you by email when we have reviewed your application.'
+  curator_level_assistant_approved_notice: 'Congratulations! You are now an <em>assistant curator</em>. <a href="%{more_url}">Learn more about the assistant curator role</a>.'
   curator_level_assistant_curator: "助理管理员"
   curator_level_full_curator: "专业管理员"
-  curator_level_full_pending_notice: "我们对您申请成为一名<em>专业管理员</em>表示感谢。一旦您的申请被审核通过，我们将通过email告知您。"
+  curator_level_full_pending_notice: 'Thanks for applying to become a <em>full curator</em>. We will notify you by email when we have reviewed your application.'
   curator_level_master_curator: "高级管理员"
-  curator_level_master_pending_notice: "我们对您申请成为一名<em>高级管理员</em>表示感谢。一旦您的申请被审核通过，我们将通过email告知您。"
+  curator_level_master_pending_notice: 'Thanks for applying to become a <em>master curator</em>. We will notify you by email when we have reviewed your application.'
   curator_profile: "管理员个人信息"
   curator_profile_menu: "管理员个人信息"
   curator_profile_of: "管理员%{name}的个人信息"
   curator_scope_colon: "管理范围："
-  curator_signup_message: "要申请管理权限，您必须在下方表明您的证书的范围。如果您申请的管理权限通过，我们将通过email通知您。"
+  curator_signup_message: "To request curator privileges you must indicate the scope of your credentials below. You will be notified via email if your application for curator privileges is accepted."
   curator_status_changed_by: "%{user}在%{date}更改的管理员状态"
   curators: "管理员"
   curators_empty: "我们的管理员暂未对该页进行管理。"
@@ -2883,7 +2883,7 @@ zh-Hans:
   dato_new_edit_user_text_link_fieldset_content_header: "Link data"
   dato_new_edit_user_text_fieldset_information_header: "文章信息"
   dato_new_edit_user_text_link_form_tip: 'Your link will be posted to the taxon page. If you are not a curator, it will be marked as "unreviewed" until a curator reviews it. Category, description, and URL are required (%{required_icon}), all other fields are optional. For further assistance read <a href="%{add_article_help_url}">add article/link help</a>.'
-  dato_new_edit_user_text_form_tip: "您的整篇文章将被添加到物种页。如果您不是一个管理员，这篇文章在被管理员审核之前将被标记为\"未审核\"。章节、文字、语言和版权许可是必填项(%{required_icon})，其他都是选填项。如果您选择了CC-BY（属性）许可，请附上版权持有人或者留空以使用您的全名。公共领域的许可证不需要版权持有人。想进一步了解请阅读<a href=\"%{add_article_help_url}\">添加文章帮助</a>。"
+  dato_new_edit_user_text_form_tip: 'Your completed article will be posted to the taxon page. If you are not a curator, it will be marked as "unreviewed" until a curator reviews it. Subchapter, text, language and license are required (%{required_icon}), all other fields are optional. If you select a CC-BY (Attribution) license please include a rights holder or leave blank to use your full name. Public Domain licenses do not require a rights holder. For further assistance read <a href="%{add_article_help_url}">add article help</a>.'
   dato_create_user_text_missing_taxon_id_exception: "如果物种ID为空，则不能创建文字数据项或用户数据项。"
   dato_create_user_text_missing_user_exception: "如果物种ID为空，则不能创建文字数据项或用户数据项。"
   dato_create_user_text_validation_error: "请确认您是否正确填完了表格。"
@@ -2892,7 +2892,7 @@ zh-Hans:
   dato_edit_link_description: "Thank you for contributing your expertise to EOL. The revised link will be added to your watch list so you can follow any conversations related to it and check on its curation status."
   dato_edit_text_button: "编辑这篇文章"
   dato_edit_text_page_description: "感谢您向EOL贡献专业知识。经修订的文章将添加到您的观察列表中，这样您就可以跟踪任何与之相关的话题以及它的审核状态。 "
-  dato_edit_link_title: "编辑链接"
+  dato_edit_link_title: "Edit link"
   dato_edit_text_title: "编辑文章"
   dato_new_text_for_taxon_page_title: "向<i>%{taxon}</i>添加一篇文章"
   dato_new_text_link_for_taxon_page_title: "Add a link to <i>%{taxon}</i>"
@@ -2909,7 +2909,7 @@ zh-Hans:
   delete_firstcap: "删除"
   description: "描述"
   description_of: "描述"
-  descriptive_label: "描述的标签"
+  descriptive_label: "描述性标签"
   destination_inappropriate_for_logged_in_users: "您已登录。"
   destroy: "破坏"
   detail: "详细信息"
@@ -2918,7 +2918,7 @@ zh-Hans:
   did_you_mean: "您的意思是：%{suggestions} ？"
   disabled_for_now: "现在禁用"
   discover_link: "探索"
-  displaying_numerical_range: "显示%{total}中的%{start_number} &mdash; %{end_number}"
+  displaying_numerical_range: "Displaying %{start_number} &ndash; %{end_number} of %{total}"
   donate: "捐赠"
   donation_amount_legend: "请选择您的捐赠金额"
   donation_amount_other_label: "其他"
@@ -3016,7 +3016,7 @@ zh-Hans:
   error_homepage_or_search_option: "您可以返回<a href=\"/\">首页</a> 或使用我们的搜索工具："
   error_watch_collections_cannot_be_shared: "关注的收藏不能被分享"
   error_updating_user: "There was an error updating this user's record"
-  every_method_can_also_return_json_response: "每个方法也可以通过添加.json 扩展名调用来返回 JSON 响应 "
+  every_method_can_also_return_json_response: "Every method can also return a JSON response by adding a .json extension."
   example_colon: "例子："
   exception: "例外"
   exceptions:
@@ -3037,7 +3037,7 @@ zh-Hans:
   external_link_icon_alt_text: "外部链接"
   external_report_click_url_to_proceed: "外部报告。点击URL来处理。"
   external_report_click_year_to_proceed: "外部报告。点击年份处理。"
-  facebook: "Facebook"
+  facebook: Facebook
   faculty_staff_or_grad_student_credential_option: "在相关学院或大学教研室的教师、 工作人员或研究生身份"
   failed_login_attempts_with_count:
     one: "(%{count} 次登录失败)- 请检查用户登录信息"
@@ -3132,7 +3132,7 @@ zh-Hans:
   get_more_tasks: "获取更多任务"
   method_to_get_metadata_about_the_hierarchy: "如果给出分类系统的标识符，本方法可以获取所有关于本分类系统和所列根阶元的元数据"
   given_name_colon: "名："
-  data_object_api_description: "如果给定数据项的标识符,本API会返回所有关于内容合作伙伴提交给EOL的关于此数据项的所有元数据。内容合作伙伴会作为第一个机构元素被引用,并且拥有'合作伙伴'的角色。"
+  data_object_api_description: "如果给定数据项的标识符,本API会返回所有关于内容合作伙伴提交给EOL的关于此数据项的所有元数据。内容合作伙伴会作为第一个机构元素被引用,并且拥有"合作伙伴"的角色。"
   given_the_vast_number: "从数量巨大的学名和俗名(约2000万个名字)中，用户很难准确找到其期望的物种, 比如,Robin这个名字既是几种鸟的名字(American Robin, Alpine Robin, Smoky Robin), 也是几种鱼的名字,还可能是曾经给一些物种命名、名叫Robin的分类学家。我们的检索结果会包含确切的检索条件，但是不能保证返回的结果一定是您的理想结果。我们将不断尝试改进这些相关的检索结果。"
   gives_access_to_a_single_hierarchy_indexed_by_eol: "开放对EOL索引的单一分类系统及其内部关系的访问"
   global_access_tagline: "为全世界提供地球上生命的知识"
@@ -3180,13 +3180,13 @@ zh-Hans:
   content_upload_restrictions_note: "(须小于10MB,上传文件将原样保存，比如，图像尺寸不能更改)"
   id: "ID"
   if_checked_and_user_is_saved: "如果用户选择此项并保存，则相关的资历认证、专业范围、审批和已选项都将被移除，并且用户不显示为管理员。您应给出与此有关的说明。没有信息反馈给此用户。"
-  check_this_to_browse_eol_by_the_hierarchy: "如果此勾选框已选,用户则可以使用分类系统浏览EOL"
-  return_content_by_vettedness: "如果vetted = 1则仅返回可信内容.如果vetted = 2则返回仅可信和未审核的内容(不返回不可信的内容)。默认返回所有内容。"
+  check_this_to_browse_eol_by_the_hierarchy: "(If this box is checked the classification will be shown on the names tab without having to \"Show All Classifications\".)"
+  return_content_by_vettedness: "If 'vetted' is given a value of '1', then only trusted content will be returned. If 'vetted' is '2', then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content."
   image: "图像"
   image_is_no_longer_available: "图像不再可用"
   image_not_found: "找不到图像"
   image_object: "图像"
-  image_objects_will_contain_two_mediaurl_elements: "图片对象将含有两个mediaURL元素 - 一个是原始数据提供者的网站的URL，另一个是保存EOL缓存版本媒体的服务器的URL。这些图像的EOL缓存版本经过调整以适于网站展示，尺寸被限制在460像素宽度和345像素高度以内。"
+  image_objects_will_contain_two_mediaurl_elements: "Image objects will contain two 'mediaURL' elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (preserving the aspect ratio) if the original image is larger than 460 pixels wide or 345 pixels in height."
   images: "图像"
   images_in_red_are_not_trusted: "红色标记图像是不可信的。"
   images_in_yellow_are_not_reviewed: "黄色标记图像是未经审核的。"
@@ -3216,7 +3216,7 @@ zh-Hans:
   invite_members_help_text: "在此添加EOL用户,他们将收到您的社区邀请!"
   ip_address: "IP地址"
   ip: "IP"
-  term_is_already_def_error: "%{term}' 已经定义"
+  term_is_already_def_error: "'%{term}' is already defined"
   item_added_to_watch_collection_notice: "\"%{item_name}\" 已经被添加至 %{collection_name}。"
   item_added_to_collection_notice: "本项已经被添加到<em>%{collection_name}</em>收藏"
   item_details_missing: "抱歉,发生了一个错误，数据项细节不能获取。"
@@ -3225,7 +3225,7 @@ zh-Hans:
   item_type_community: "社区"
   item_type_image: "图像"
   item_type_image_map: "地图"
-  item_type_link: "链接"
+  item_type_link: "Link"
   item_type_map: "地图"
   item_type_person: "用户"
   item_type_sound: "音频"
@@ -3445,7 +3445,7 @@ zh-Hans:
   names_common_list_by_language_assistive_header: "按语言排列的俗名"
   names_curation_column_header: "管理"
   names_et_al: "%{names},等"
-  names_explanation: "科学家们试图描绘出一棵能够反映生命之间进化关系的'生命之树'。但人们对进化关系的认知在不断发展,对物种的命名和分类也有不同的见解。EOL提供了不同的科学分类体系用以反映这些变化和分歧。有些物种曾不止一次被命名，这些曾用名都被归为该物种的异名。EOL也提供了不同地区以及不同语言中关于该物种的俗名。"
+  names_explanation: "科学家们试图描绘出一棵能够反映生命之间进化关系的"生命之树"。但人们对进化关系的认知在不断发展,对物种的命名和分类也有不同的见解。EOL提供了不同的科学分类体系用以反映这些变化和分歧。有些物种曾不止一次被命名，这些曾用名都被归为该物种的异名。EOL也提供了不同地区以及不同语言中关于该物种的俗名。"
   names_name_column_header: "名称"
   names_parents_column_header: "父节点"
   names_preferred_column_header: "首选"
@@ -3471,7 +3471,7 @@ zh-Hans:
   news_item_title: "新闻项"
   news_missing_content_title: "无翻译"
   news_missing_content_message: "抱歉，已选择的语言%{selected_language}对该页面无效。"
-  newsfeed: "动态"
+  newsfeed: "个人消息"
   newsfeed_help_for_collection: "这个EOL收藏的动态收集了与属于它的与它有关的条目的更新,包括它的所有者的活动和来自EOL用户的评论。"
   newsfeed_help_for_community: "这个EOL社区的动态收集了与属于它管理的收藏的条目有关的更新,包括它的成员活动和来自EOL用户的评论。"
   newsfeed_help_for_focus_list: "关注列表的动态收集与属于EOL社区主要关注列表条目有关的更新，包括它的管理员的活动及来自EOL用户的评论。"
@@ -3490,7 +3490,7 @@ zh-Hans:
   no_harvesting_logs_for_this_da: "这个日期没有采集日志"
   no_items_were_copied_to_collections_error: "没有项被复制到此收藏: %{names}。"
   none: "无"
-  no: "No"
+  no: "否"
   num_content_partners: "内容合作伙伴编号"
   num_data_objects: "数据项编号"
   no_record_found_matching_your_criteria: "没有搜到符合您检索条件的记录"
@@ -3514,7 +3514,7 @@ zh-Hans:
   notification_frequency_never: "从不"
   notification_frequency_weekly: "每周"
   notification_frequency_newsfeed_only: "仅新闻订阅"
-  notifications_and_messages_review_notice: "请检查将要发送到您邮箱的通告。"
+  notifications_and_messages_review_notice: Please review notifications that will be sent to you by email.
   email_updates_for_eol_addicts: "对EOL粉丝的补充更新。"
   email_updates_for_eol_members: "对大多数EOL会员想获取的补充更新。"
   notifications_tab_name: "通知"
@@ -3541,7 +3541,7 @@ zh-Hans:
   object_type_collection_option: "收藏"
   object_type_community_option: "社区"
   object_type_image_option: "图像"
-  object_type_link_option: "链接"
+  object_type_link_option: "Link"
   object_type_sound_option: "音频"
   object_type_taxon_concept_option: "分类概念"
   object_type_text_option: "文本"
@@ -3666,13 +3666,13 @@ zh-Hans:
   published_parens: "（已发布）"
   publish: "发布"
   publish_requested: "已请求发布"
-  punctuation_comma: "，"
+  punctuation_comma: ","
   punctuation_semi_colon: ";"
   quarterly: "按季度"
   rails_databases: "Rails数据库"
   rails_environment: "Rails环境"
   rank_recognized_by_agent: "%{rank} 被 %{agent} 确定"
-  rank_recognized_by_from_source: "在 %{source}中，%{rank}被 %{agent}确定"
+  rank_recognized_by_from_source: '%{rank} recognized by %{agent} in %{source}'
   rank_recognized_by_agent_colon: "<b>%{rank}</b> 被 %{agent}确认:"
   rated_by_count_people:
     one: "来自%{count}个人"
@@ -3680,13 +3680,13 @@ zh-Hans:
   rating_added_notice: "已成功添加评级。"
   rating_not_added_error: "抱歉, 出现了一个错误, 评级无法添加。"
   recaptcha: "输入下面您看到的两个单词"
-  recaptcha_incorrect_error_with_anchor: " <a href=\"#%{recaptcha_anchor}\">验证码</a> 不匹配, 请重试。"
+  recaptcha_incorrect_error_with_anchor: 'The <a href="#%{recaptcha_anchor}">reCaptcha characters</a> did not match, please try again.'
   recent_updates: "最近更新"
   recently_visited: "最近访问"
   recipients: "收件人"
-  recognized_by_from_source: "%{recognized_by}在 %{source}"
-  recognized_by_as_a_rank: "%{recognized_by}认为是一个 %{taxon_rank}"
-  recognized_by_from_source_as_a_rank: "%{recognized_by} 在 %{source} 作为 %{taxon_rank}"
+  recognized_by_from_source: '%{recognized_by} in %{source}'
+  recognized_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
+  recognized_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
   record_not_found: "[未找到记录]"
   related_names_with_count:
     one: "%{count}个相关名称"
@@ -3702,7 +3702,7 @@ zh-Hans:
   removed_count_items_from_collection_notice:
     one: "%{count}项已从收藏中移除。"
     other: "%{count}项已从收藏中移除。"
-  request_mailing_list_colon: "请求邮件列表；"
+  request_mailing_list_colon: "User does not want to receive email:"
   request: "请求"
   required_form_element: "必需的"
   reset_password_enter_new_password_notice: "这是一次性的登录，请输入一个新密码继续。"
@@ -3795,7 +3795,7 @@ zh-Hans:
   select_colon: "选择："
   select_topic: "请选择一个主题范围"
   selected_language_advisory_information: "这是当前选择的语言。"
-  selected_items: "已选项"
+  selected_items: Selected items
   send_contact_email: "发送联系邮件"
   send_email_colon: "发送邮件："
   send: "发送"
@@ -3812,7 +3812,7 @@ zh-Hans:
   show_email_message_area: "[显示邮件消息区域]"
   show_data_from_all_content_partners: "删除分类系统过滤器"
   show_full_tree: "显示完整的树"
-  showing_errors_the_error_log_f: "显示如下日期的错误日志："
+  showing_errors_the_error_log_f: "Showing errors logged on:"
   showing_procs_from: "显示进程自："
   showing: "显示"
   shown_to_the_user_parens: "（显示给用户）"
@@ -3867,13 +3867,13 @@ zh-Hans:
   source_and_additional_information: "来源和附属信息"
   source_colon: "来源："
   special_collection: "专题收藏"
-  special_collections_cannot_be_destroyed: "该收藏是特殊的，不能被删除。"
+  special_collections_cannot_be_destroyed: This collection is special and cannot be destroyed.
   species_curated: "物种管理"
   species_profile_model_cp_count_title: "物种简介模块-内容合作伙伴的数量"
   species_profile_model_dato_count_title: "物种简介模块-数据项的数量"
   species_profile_model: "物种简介模块"
   species: "物种"
-  split_into_new_concept: "拆分为新概念"
+  split_into_new_concept: "split into new page"
   split_cancelled: "Split operation cancelled."
   split_classification_instructions: "To remove this hierarchy entry from this EOL page, you must next select the hierarchy entry that best represents what SHOULD be on this page, so that future harvests will always keep these two hiearchy entries separate."
   split_pending: "This split operation will require some time. This page is now locked from further classification edits until the split is complete. You will receive an email when the process has finished, and it will appear in the newsfeed for the page."
@@ -3881,7 +3881,7 @@ zh-Hans:
   spm_category_objects_count: "物种介绍模块目录 - 对象的数量"
   spm_category_partner_count: "物种介绍模块目录 - 合作伙伴的数量"
   spm_category: "物种介绍模块目录"
-  started: "开始"
+  started: "已开始"
   stats: "统计"
   stat: "状态"
   stored_classifications: "Please note that you have <a href='%{anchor}'>stored classifications, below</a>."
@@ -3906,7 +3906,7 @@ zh-Hans:
   table_of_contents: "目录"
   target_blank_advisory_information: "如果点击这个链接，目标页面将在一个新的浏览器窗口打开。"
   task_status: "任务状态"
-  task_status_active_option: "正在管理"
+  task_status_active_option: "可用的"
   task_status_curated_option: "已管理"
   task_status_ignored_option: "忽略"
   tasks_with_count:
@@ -3950,11 +3950,11 @@ zh-Hans:
   taxon_suggested: "建议的类群"
   technical_functions: "技术功能"
   term_cannot_be_left_blank: "该项左侧不能留空"
-  terms_agreement_form_fallback: "请在进入您的帐户前请检查并同意<a href=\"%{terms_url}\">使用条款</a>。"
+  terms_agreement_form_fallback: 'Please review and agree to the <a href="%{terms_url}">terms of use</a> before accessing your account.'
   terms_agreement_form_header: "使用项"
   terms_agreement_form_submit: "我同意"
   terms_of_use_link: "使用权和隐私权条款"
-  term_for_search_admin_ui: "项"
+  term_for_search_admin_ui: "术语"
   test: "测试。"
   text_object: "文本对象"
   text_object: "文本对象"
@@ -4045,16 +4045,16 @@ zh-Hans:
   translation_information_header: "翻译信息"
   translations_submit: "查看翻译"
   trigger_search_term_entered_by: "触发由用户输入的搜索词汇"
-  true: "True"
+  true: "真"
   true_label: "真"
   truncated_comment_omission: "... <a href='%{link}'>更多</a>"
   truncated_comment_omission_linkless: "..."
-  truncated_news_item_omission: "... <a href='%{link}'>more</a>"
+  truncated_news_item_omission: "... <a href='%{link}'>更多</a>"
   trusted: "可信的"
   trusted_images: "可信的图像"
   trusted_maps: "可信的地图"
   trusted_text_objects: "可信的文章"
-  tumblr: "Tumblr"
+  tumblr: Tumblr
   twitter: "Twitter"
   type: "类型"
   unable_to_copy_items_to_collection_error: "抱歉，我们无法拷贝集合条目到%{name}。"
@@ -4116,7 +4116,7 @@ zh-Hans:
   user_activity_stats_common_names_removed:
     one: "已删除%{count}个俗名"
     other: "已删除%{count}个俗名"
-  user_activity_stats_header: "活动统计"
+  user_activity_stats_header: "我的活动"
   user_activity_stats_objects_curated:
     one: "已管理%{count}个对象"
     other: "已管理%{count}个对象"
@@ -4148,7 +4148,7 @@ zh-Hans:
   user_comments: "用户评论"
   user_comment: "用户评论"
   user_commented_on_something_colon: "<strong>%{user}</strong> 对 %{what}做了评论:"
-  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> 对 %{what}做了评论:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> commented on an older version of %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> 对<a href='%{link}'>%{username}的动态</a>的评论:"
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> 对已移除用户的页面的评论:"
   user_commented_on_your_image: "<strong>%{user}</strong> commented on your image on the <a href='%{data_object_link}'>Encyclopedia of Life site</a>:\n%{comment_body}"
@@ -4159,11 +4159,11 @@ zh-Hans:
   user_joined_when: "\"%{user}\" 在%{when}加入"
   user_left_comment_on_date: "%{username}在%{date}做了评论。"
   user_no_longer_has_manager_access_to_collection: "%{user} 不再拥有对 \"%{collection}\"的管理权限。"
-  user_pending_notifications_assitive: "<span class=\"assistive\">提示</span>"
+  user_pending_notifications_assitive: '<span class="assistive">notifications</span>'
   user_pending_notifications_with_count_assitive:
     one: '%{count}<span class="assistive"> notification</span>'
     other: '%{count}<span class="assistive"> notifications</span>'
-  user_pending_notifications_comments_assistive: "<span class=\"assistive\">评论</span>"
+  user_pending_notifications_comments_assistive: '<span class="assistive">comments</span>'
   user_pending_notifications_comments_with_count_assistive:
     one: '%{count}<span class="assistive"> comment</span>'
     other: '%{count}<span class="assistive"> comments</span>'
@@ -4216,7 +4216,7 @@ zh-Hans:
   view_contact_us_submissions: "查看从联系页面提交的内容"
   view_curators: "查看管理员"
   view_current_version_link: "查看当前版本"
-  view_in_classification: "在分类系统树中查看"
+  view_in_classification: view in classification
   view_translation_source_link: "查看翻译来源"
   view_error_log: "查看错误日志"
   view_full_size_image: "查看全尺寸图"
@@ -4250,7 +4250,7 @@ zh-Hans:
   what_do_these_numbers_mean: "这些数字是什么含义？"
   what_is_eol: "什么是网络生命大百科？"
   what_is_this_question: "这是什么？"
-  who_registered_before: "截止"
+  who_registered_before: "到"
   who_registered_from: "注册于"
   wikipedia_queue_create_successful_notice: "维基百科文章%{article}的修订版%{rev}已经被列入导入队列。"
   wikipedia_queue_create_unsuccessful_error: "抱歉，发生了一个错误，维基百科文章未加入导入队列。<br/>修订内容的URL必须匹配http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
@@ -4344,7 +4344,7 @@ zh-Hans:
   cms_missing_content_title: "无翻译"
   cms_missing_content_message: "抱歉，已选择的语言%{selected_language}对该页面无效。"
   cms_available_in_languages: "该页可用的语言版本为："
-  nucleotide_sequences: "核苷酸序列"
+  nucleotide_sequences: Nucleotide Sequences
   logo_header: "Logo"
   external_link_header: "外部链接"
   comment_or_rate_on_this_article: "请评论或者为该文章评级"

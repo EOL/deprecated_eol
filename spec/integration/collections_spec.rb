@@ -16,6 +16,7 @@ def it_should_collect_item(collectable_item_path, collectable_item)
   end
 end
 
+# TODO - errr... you have heard of yeild and block-passing, right?
 def continue_collect(user, url)
   current_url.should match /#{choose_collect_target_collections_path}/
   check 'collection_id_'
@@ -71,6 +72,7 @@ describe "Collections" do
     @under_privileged_user = User.gen
     @anon_user = User.gen(:password => 'password')
     @taxon = @test_data[:taxon_concept_1]
+    @taxon_to_collect = @test_data[:taxon_concept_2]
     @collection.add(@taxon)
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
   end
@@ -81,6 +83,7 @@ describe "Collections" do
   before(:each) do
     @collection.update_column(:published, true)
     @collection.update_column(:name, @collection_name)
+    @collection.update_column(:view_style_id, ViewStyle.annotated.id)
   end
 
   describe '(Preview)' do
@@ -98,15 +101,10 @@ describe "Collections" do
 
     it 'should not show preview collections on the user profile page to normal users' do
       visit user_collections_path(@collection.users.first)
-      body.should have_tag('li.active') do
-        with_tag('a', :text => "3 collections")
-      end
-      body.should have_tag('h3', :text => "2 collections")
+      body.should match(@collection.name)
       @collection.update_column(:published, false)
       visit user_collections_path(@collection.users.first)
-      body.should have_tag('li.active') do
-        with_tag('a', :text => "2 collections")
-      end
+      body.should_not match(@collection.name)
     end
 
     it 'should show resource preview collections on the user profile page to the owner' do
@@ -117,13 +115,7 @@ describe "Collections" do
       @resource.save
       login_as @collection.users.first
       visit user_collections_path(@collection.users.first)
-      body.should have_tag('li.active') do
-        with_tag('a', :text => "3 collections")
-      end
-      body.should have_tag('div.heading') do
-        with_tag('h3', :text => "2 collections")
-      end
-      visit('/logout')
+      body.should match(@collection.name)
     end
 
     it 'should allow EOL administrators and owners to view unpublished collections' do
@@ -207,10 +199,10 @@ describe "Collections" do
     shared_examples_for 'creating collection and collecting all users' do
       describe "should be able to create collection and collect" do
         it 'taxa' do
-          it_should_create_and_collect_item(overview_taxon_path(@taxon), @taxon)
+          it_should_create_and_collect_item(overview_taxon_path(@taxon_to_collect), @taxon_to_collect)
         end
         it 'data objects' do
-          latest_revision_of_dato = @taxon.data_objects.first.latest_published_revision
+          latest_revision_of_dato = @taxon_to_collect.data_objects.first.latest_published_revision
           it_should_create_and_collect_item(data_object_path(latest_revision_of_dato), latest_revision_of_dato)
         end
         it 'communities' do

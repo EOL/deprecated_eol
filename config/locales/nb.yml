@@ -295,6 +295,7 @@ nb:
     models: 
       user: konto
   activity: Aktivitet
+  activity_log_empty_learn_more_link: Lær hvordan du kan bidra
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -353,12 +354,21 @@ nb:
         user_cleared_it: <strong>%{user}</strong> har fjernet alle objekter.
     community_activity_log: 
       add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: En ukjent bruker har lagt til en ukjent administrator til et ukjent brukersamfunn.
+        an_unknown_user_added_an_unknown_manager_to_community: En ukjent bruker har lagt til en ukjent administrator til brukersamfunnet "%{community}".
+        an_unknown_user_added_manager_to_an_unknown_community: En ukjent bruker har lagt til "%{manager}" som administrator av et ukjent brukersamfunn.
+        an_unknown_user_added_manager_to_community: En ukjent bruker har lagt til "%{manager} som administrator av brukersamfunnet "%{community}".
         user_added_manager_to_an_unknown_community: <strong>%{user}</strong> har lagt til "%{manager}" til et ukjent brukersamfunn.
       change_description: 
         an_unknown_user_changed_the_description_of_an_unknown_community: En ukjent bruker har endret beskrivelsen av et ukjent brukersamfunn.
         an_unknown_user_changed_the_description_of_community: En ukjent bruker har endret beskrivelsen av brukersamfunnet "%{community}".
         user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> har endret beskrivelsen av et ukjent brukersamfunn.
         user_changed_the_description_of_community: <strong>%{user}</strong> har endret beskrivelsen av brukersamfunnet "%{community}".
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: En ukjent bruker har endret logoen til et ukjent brukersamfunn.
+        an_unknown_user_changed_the_icon_of_community: En ukjent bruker har endret logoen til brukersamfunnet "%{community}".
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> har endret logoen til et ukjent brukersamfunn.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> har endret logoen til brukersamfunnet "%{community}".
       change_name: 
         an_unknown_user_changed_the_name_of_an_unknown_community: En ukjent bruker har endret navnet til et ukjent brukersamfunn.
         an_unknown_user_changed_the_name_of_community: En ukjent bruker har endret navnet til brukersamfunnet "%{community}".
@@ -382,9 +392,17 @@ nb:
       other_actions: 
         an_unknown_user_modified_community: En ukjent bruker har redigert brukersamfunnet "%{community}".
         user_modified_an_unknown_community: <strong>%{user}</strong> har redigert et ukjent brukersamfunn.
+        user_modified_community: <strong>%{user}</strong> har redigert brukersamfunnet "%{community}".
     curator_activity_log: 
       reasons_to_hide: "Grunnlag for skjuling: %{reasons}"
       reasons_to_untrust: "Grunnlag for uklarering: %{reasons}"
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som klarert i en ukjent kontekst.
+        an_unknown_user_trusted_it_on_an_unknown_association: En ukjent bruker har markert den som klarert i en ukjent kontekst.
+        an_unknown_user_trusted_it_on_association: En ukjent bruker har markert den som klarert på "%{association}"-siden.
+        user_trusted_it_on_association: <strong>%{user}</strong> har markert den som klarert på "%{association}"-siden.
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uklarert i en ukjent kontekst.
   add_to_my_collection_button: Legg til i en samling
   admin_content_page_child_new_link: Opprett underordnet side
   admin_content_partners_statistics_first_published_download_csv_submit: Last ned som CSV
@@ -823,8 +841,12 @@ nb:
   created_colon: "Opprettet:"
   created_community: Brukersamfunnet ble opprettet.
   creative_commons: Creative Commons
+  credentials: Akkrediteringer
+  credentials_colon: "Akkrediteringer:"
   curated: Kuratert
   curated_association_update_button: Lagre endringer
+  curated_objects_of: kuraterte objekter av %{name}
+  curated_species_of: kuraterte arter av %{name}
   curation_comment: Kurateringskommentar
   curation_privileges_page_title: Bli en kurator
   curation_reason_placeholder: ytterlige detaljer (valgfritt)
@@ -832,20 +854,31 @@ nb:
   curator: kurator
   curator_colon: "Kurator:"
   curator_level: Kuratornivå
+  curator_level_application_pending_notice: Takk for at du søker å bli en kurator. Vi vil melde fra per e-post når vi har vurdert din søknad.
   curator_level_assistant_approved_notice: Gratulerer! Du er nå en <em>assistentkurator</em>. <a href="%{more_url}">Lær mer om rollen som assistenkurator</a>.
   curator_level_assistant_curator: Assistentkurator
+  curator_level_full_curator: Fullstendig kurator
+  curator_level_full_pending_notice: Takk for at du søker å bli en <em>fullstendig kurator</em>. Vi vil melde fra per e-post når vi har vurdert din søknad.
+  curator_level_master_curator: Mestarkurator
+  curator_level_master_pending_notice: Takk for at du søker å bli en <em>mesterkurator</em>. Vi vil melde fra per e-post når vi har vurdert din søknad.
   curator_profile: kuratorprofil
   curator_profile_menu: Kuratorprofil
   curator_profile_of: kuratorprofil av %{name}
   curator_question: Kurator?
   curator_scope_colon: "Kurateringsområde:"
+  curator_status_changed_by: Kuratorstatus endret av %{user} %{date}
   curators: Kuratorer
+  curators_empty: Våre kuratorer har ikke gjort noe på denne siden ennå.
   curators_summary_header_with_count: 
     one: Vurdert av %{count} kurator
     other: Vurdert av %{count} kuratorer
   curators_summary_learn_more_link: Lær hvordan å kuratere
+  curators_with_count: 
+    one: "%{count} kurator"
+    other: "%{count} kuratorer"
   current_language: "Språk: %{iso_code}"
   currently_in_eol: For øyeblikket i Encyclopedia of Life
+  currently_published: publisert for øyeblikket
   daily: Daglig
   darwin_core: Darwin Core
   dashboard: Panelbord
@@ -871,6 +904,7 @@ nb:
       meta_title: "%{dato_title} fra %{supplier}"
       tweet_text: "%{dato_title} fra %{supplier}"
   date_caps: Dato
+  date_uploaded: Opplastingsdato
   datepicker: 
     close: Lukk
     current: I dag
@@ -927,11 +961,13 @@ nb:
     next: Neste
     previous: Forrige
   dato_create_cancel: Avbryt
+  dato_create_user_text_error: Beklager, det oppstod en feil, artikkelen kunne ikke bli lagt til.
   dato_edit_cancel: Avbryt
   dato_edit_link_button: Rediger denne lenken
   dato_edit_link_title: Rediger lenke
   dato_edit_text_button: Rediger denne artikkelen
   dato_edit_text_title: Rediger artikkel
+  dato_location_created: "Sted opprettet: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Artikkelinnhold
   dato_new_edit_user_text_fieldset_information_header: Artikkelinformasjon
   dato_new_edit_user_text_link_fieldset_content_header: Lenk til data
@@ -1005,6 +1041,7 @@ nb:
   eol_news: EOL-nyheter
   eol_pages: Sider
   eol_statistics: 
+    comparing_dates: <span class="assistive">Sammenligner</span> <span class="date_one">%{date_one}</span> <span class="assistive">og</span> <span class="date_two">%{date_two}</span>
     content_partners: 
       menu_link: Innholdspartnere
       page_header: Innholdspartnerestatistikker
@@ -1247,10 +1284,20 @@ nb:
         language_id: Språk
       user: 
         agreed_with_terms: Jeg aksepterer <a href="%{terms_url}">bruksvilkårene</a>
+        api_key_more: Les mer om <a href="%{api_docs_url}">tilføring av en nøkkel til dine API-anrop</a>.
         bio: Om meg
         credentials: Akkrediteringer
+        credentials_more: "Vennligst oppgi minst en spesifik akkreditering fra denne listen:"
+        credentials_more_author: Forfatterskap av en fagfellevurdert publikasjon (oppgi referanse).
+        credentials_more_professional: Medlem i et professionelt fellesskap.
+        credentials_more_referral: Henvisning fra nåværende kurator.
+        credentials_more_successful_assistant_curator: Suksessfull historikk som assistentkurator.
         curation_application: Bli en kurator
+        curation_application_more: Hvis du ønsker å endre dine kurateringsprivilegier, bare send en søknad så vil vi vurdere om du er kvalifisert.
+        curation_priveleges_credentials: Akkrediteringer <small>(kun fullstendige- & mesterkuratorer)</small>
+        curator_level: Du er for øyeblikket %{curator_level_with_indefinite_article}.
         curator_scope: Kurateringsområde
+        curator_scope_more: "Vennligst oppgi ditt ekspertiseområde- For eksempel: \"Smågnagere på Borneo\", \"Tri-trofiske interaksjoner\", eller \"Konservaringsproblematikk i fisk\". Dette vil ikke begrense din kurateringsmuligheter, men være til opplysning for EOL-brukersamfunnet."
         email: E-postadresse
         email_reports_frequency_hours: Hvor ofte ønsker du å motta e-postvarslinger om aktivitet på til dine bidrag?
         email_settings_submit: e-postinnstillinger
@@ -1267,12 +1314,14 @@ nb:
         open_authentications_connected_accounts: Dine tilkoblede kontoer
         open_authentications_more: Administrer koblinger mot tredjepartskontoer du kan bruke for å logge inn på EOL. <a href="%{open_authentications_url}">Rediger koblede kontoer</a>.
         requested_curator_level: Din forespørsel om å bli %{curator_level_with_indefinite_article} avventer behandling.
+        requested_curator_level_id_more: Velg <em>Assistentkurator</em> hvis du ikke har noen akkrediteringer ennå. Velg <em>Fullstendig kurator</em> hvis du er professionel vitenskaper eller master- eller PhD-student med akkrediteringer. Velg <em>Mesterkurator</em> hvis du er en erfaren EOL-kurator og vil påta deg større ansvar.
         tag_line: "Slagord eller tittel <small>eksempel: \"Fugleentusiast\"</small>"
         user_identities: Jeg er
         username: Brukernavn <small>(4 - 32 tegn)</small>
         username_or_email: Brukernavn eller e-postadresse
       wikipedia_queue: 
         revision_url: Versions-URL <small>(f.eks. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url_more: Ved å oppgi en URL til en Wikipedia-revisjon forespør du at EOL tar inn den bestemte revisjonen som gransket. Den vil erstatte den nåværende versjonen av artikkelen i EOL hvis vi allerede har den.
     select: 
       prompt: Velg
     submit: 
@@ -1639,6 +1688,7 @@ nb:
   never: Aldri
   new_collection: Ny samling
   new_user: Ny bruker
+  news_available_in_languages: "Denne siden er tilgjengelig på:"
   news_item: nyhetssak
   news_item_title: Nyhetssak
   news_items: 
@@ -1662,13 +1712,32 @@ nb:
   notifications_tab_name: Varslinger
   notifier: 
     activity_log_empty: Ingen nylige handlinger av kuratorer.
+    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) la til tilknytningen:\n%{taxon_name} (%{taxon_url}) for %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) la til en ukjent tilknytning for %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som upassende:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som klarert:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som uklarert:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som uklarert:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) fjernet tilknytningen:\n%{taxon_name} (%{taxon_url}) fra %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) slettet en ukjent tilknytning fra %{object_name} (%{object_url})\n%{action_date}."
+    comments_empty: Ingen nylige kommentarer
+    contact_us_auto_response: 
+      message: "Takk for at du kontaktet Encyclopedia of Life-prosjektet. Dine kommentarer har blitt sendt til den aktuelle gruppen.\n\nVi setter pris på din tilbakemelding."
+      subject: Takk for at du kontaktet Encyclopedia of Life
     contact_us_message: 
       subject: "En melding til EOL: %{title}"
     content_partner_created: 
       subject: EOL-bruker %{user_full_name} har lagt til innholdspartner %{partner_full_name}
     greeting_dear_name_with_comma: Kjære %{name},
+    signature_basic: Encyclopedia of Life-teamet
+    unsubscribed_to_notifications: 
+      subject: Synd å se deg dra...
     user_message: 
       subject: Et beskjed fra Encyclopedia of Life
+    user_recover_account: 
+      subject: Gjenopprett din Encyclopedia of Life-konto
+    user_updated_email_preferences: 
+      subject: EOL-bruker %{user_full_name} endret sin e-postadresse eller changed their email address or mailingliste-instillinger
     user_verification: 
       subject: Vennligst bekreft din forespørsel om en Encyclopedia of Life-konto
   nucleotide_sequences: Nukleotidsekvenser
@@ -1690,6 +1759,7 @@ nb:
   object_type_image_option: Bilde
   object_type_link_option: Lenke
   object_type_sound_option: Lyd
+  object_type_taxon_concept_option: Taksonkonsept
   object_type_text_option: Tekst
   object_type_user_option: Bruker
   object_type_video_option: Video
@@ -1781,12 +1851,15 @@ nb:
     comment_body_brief: "%{body} - %{author}"
     comment_link: Vis kommentar på EOL
     comment_title: "%{who} har kommentert på %{what}"
+    comment_title_your_newsfeed: "%{who} har kommentert på din nyhetsfeed"
     community_activity_log_title: "%{who} har endret et brukersamfunn"
     community_activity_user_joined: Brukeren <b>%{user_name}</b> har blitt medlem i brukersamfunnet <b>%{community_name}</b>.
     community_activity_user_left: Brukeren <b>%{user_name}</b> har meldt seg ut av brukersamfunnet <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Brukeren <b>%{user_name}</b> la til <b>%{member_name}</b> som administrator av brukersamfunnet <b>%{community_name}</b>.
     curator_activity_log_title: "%{who} har kuratert noe"
     data_object_title: "%{who} har lagt inn nytt innhold på EOL"
+    default_subject: Nylig aktivitet på EOL
+    intro: Her er ditt sammendrag av EOL-aktiviteten for %{time}
     intro_immediately: Hei %{name} —
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     someone_commented_on_something: <b>%{who}</b> har kommentert på <b>%{what}</b>.
@@ -1916,6 +1989,12 @@ nb:
         meta_description: Bilder, video og lyder av %{scientific_name}. Finn bilder, fotografier, filmer og lyder av %{scientific_name} på Encyclopedia of Life.
     names: 
       common_names: 
+        hierarchy_entry: 
+          meta_keywords: Populærnavn for %{scientific_name}
+          meta_keywords_with_common_name: Vitenskapelig navn for %{preferred_common_name}, Populærnavn for %{scientific_name}
+          meta_title: Populærnavn for %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Populærnavn for %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Populærnavn for %{scientific_name} som klassifisert av %{hierarchy_provider}
         meta_description: Populærnavn for %{scientific_name}.
         meta_description_with_common_name: Det vitenskapelige navnet for %{preferred_common_name} er %{scientific_name}. Finn ut hva de andre populærnavnene for %{scientific_name} er.
         meta_keywords: Populærnavn for %{scientific_name}
@@ -1926,9 +2005,12 @@ nb:
       synonyms: 
         hierarchy_entry: 
           meta_description: Synonymer knyttet til %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          meta_description_with_common_name: Synonymer knyttet til  %{scientific_name} som klassifisert av %{hierarchy_provider}, kjent under populærnavnet %{preferred_common_name}.
           meta_keywords: "%{scientific_name}-synonymer"
           meta_keywords_with_common_name: "%{preferred_common_name}-synonymer, %{scientific_name}-synonymer"
           meta_title: "%{scientific_name}-synonymer som klassifisert av %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name}-synonymer (%{scientific_name} som klassifisert av %{hierarchy_provider})"
+          tweet_text: Synonymer for %{scientific_name} som klassifisert av %{hierarchy_provider}
         meta_description: Synonymer for %{scientific_name}.
         meta_description_with_common_name: Synonymer av %{preferred_common_name}, vitenskapelig kjent som %{scientific_name}.
         meta_keywords: Synonymer for %{scientific_name}.
@@ -1938,7 +2020,19 @@ nb:
         tweet_text: Synonymer for %{scientific_name}.
     overviews: 
       show: 
+        hierarchy_entry: 
+          meta_description: Et sammendrag av informasjon om %{scientific_name} som gjenkjent av %{hierarchy_provider} i Encyclopedia of Life.
+          meta_description_with_common_name: Et sammendrag av informasjon om %{preferred_common_name}, også kjent som %{scientific_name} som gjenkjent av %{hierarchy_provider} i Encyclopedia of Life.
+          meta_keywords: "%{scientific_name} gjenkjent av %{hierarchy_provider}, %{scientific_name} klassifisert av %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} identifisert av %{hierarchy_provider}, %{scientific_name} klassifisert av %{hierarchy_provider}"
+          meta_title: "%{scientific_name} klassifisert av %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} klassifisert av %{hierarchy_provider})"
+          tweet_text: Oversikt over %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Informasjon om %{scientific_name} i Encyclopedia of Life.
+        meta_description_with_common_name: Informasjon om %{preferred_common_name}, vitenskapelig kjent som %{scientific_name} i Encyclopedia of Life.
         meta_keywords: info om %{scientific_name},%{scientific_name}-information
+        meta_keywords_with_common_name: info om %{scientific_name},info om %{preferred_common_name},%{scientific_name}-informasjon og -fakta,%{preferred_common_name}-information
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informasjon om %{preferred_common_name}"
         tweet_text: Informasjon om %{scientific_name}
     resources: 
       identification_resources: 

@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Fader
 # Author: Liftarn
 # Author: Lokal Profil
 # Author: Per
@@ -27,6 +28,7 @@ sv:
         show_references: Referenser (text eller URL)
         sort_style_id: Standard sorteringsriktning
       collection_item: 
+        annotation: Anteckning
         refs: Referenser
         sort_field: Sortera efter
       comment: 
@@ -37,6 +39,7 @@ sv:
         name: Gemenskapsnamn
       contact: 
         comments: Meddelande
+        contact_subject_id: Kontaktämne
         email: E-post
         name: Namn
       content_page: 
@@ -134,6 +137,7 @@ sv:
         browsable: Bläddringsbar
         complete: Färdig
         description: Beskrivning
+        descriptive_label: Beskrivande etikett
         label: Etikett
         request_publish: Begär publicering
       name: 
@@ -186,6 +190,7 @@ sv:
         meta_keywords: Metadata-nyckelord
         title: Titel
       user: 
+        agreed_with_terms: Användarvilkor
         api_key: API-nyckel
         bio: Bio
         credentials: Autentiseringsuppgifter
@@ -274,7 +279,11 @@ sv:
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En okänd användare lade till ett okänt objekt till en okänd samling.
         an_unknown_user_added_an_unknown_item_to_collection: En okänd användare lade till ett okänt objekt till samlingen "%{collection}".
         an_unknown_user_added_an_unknown_item_to_it: En okänd användare lade till ett okänt objekt.
+        an_unknown_user_added_item_to_an_unknown_collection: En okänd användare lade till "%{item}" till en okänd samling.
+        an_unknown_user_added_item_to_collection: En okänd användare lade till "%{item}" till samlingen "%{collection}".
         an_unknown_user_added_item_to_it: En okänd användare lade till "%{item}".
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> lade till ett okänt objekt till en okänd samling.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> lade till ett okänt objekt till samlingen "%{collection}".
         user_added_an_unknown_item_to_it: <strong>%{user}</strong> lade till ett okänt objekt.
         user_added_item_to_an_unknown_collection: <strong>%{user}</strong> lade till "%{item}" till en okänd samling.
         user_added_item_to_collection: <strong>%{user}</strong> lade till "%{item}" till samlingen "%{collection}".
@@ -286,6 +295,13 @@ sv:
         user_created_an_unknown_collection: <strong>%{user}</strong> skapade en okänd samling.
         user_created_collection: <strong>%{user}</strong> skapade samlingen "%{collection}".
         user_created_it: <strong>%{user}</strong> skapade den.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: En okänd användare ändrade en okänd samling.
+        an_unknown_user_modified_collection: En okänd användare ändrade samlingen "%{collection}".
+        an_unknown_user_modified_it: En okänd användare ändrade det och den exakta förändringen förlorades.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> ändrade en okänd samling.
+        user_modified_collection: <strong>%{user}</strong> ändrade samlingen "%{collection}".
+        user_modified_it: <strong>%{user}</strong> ändrade det, men den exakta förändringen förlorades.
       remove: 
         an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: En okänd användare tog bort ett okänt objekt från en okänd samling.
         an_unknown_user_removed_an_unknown_item_from_collection: En okänd användare tog bort ett okänt objekt från samlingen "%{collection}".
@@ -295,6 +311,8 @@ sv:
         an_unknown_user_removed_item_from_it: En okänd användare tog bort "%{item}".
         user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> tog bort ett okänt objekt från en okänd samling.
         user_removed_an_unknown_item_from_it: <strong>%{user}</strong> tog bort ett okänt objekt.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> tog bort "%{item}" en okänd samling.
+        user_removed_item_from_collection: <strong>%{user}</strong> tog bort "%{item}" från samlingen "%{collection}".
         user_removed_item_from_it: <strong>%{user}</strong> tog bort "%{item}".
       remove_all: 
         an_unknown_user_cleared_an_unknown_collection: En okänd användare tog bort alla objekt från en okänd samling.
@@ -304,11 +322,29 @@ sv:
         user_cleared_collection: <strong>%{user}</strong> tog bort alla objekt från samlingen "%{collection}".
         user_cleared_it: <strong>%{user}</strong> tog bort alla objekt.
     community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: En okänd användare lade till en okänd hanterare till en okänd gemenskap.
+        an_unknown_user_added_an_unknown_manager_to_community: En okänd användare lade till en okänd hanterare till gemenskapen "%{community}".
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: En okänd användare ändrade beskrivningen av en okänd gemenskap.
+        an_unknown_user_changed_the_description_of_community: En okänd användare ändrade beskrivningen av gemenskapen "%{community}".
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> ändrade beskrivningen av en okänd gemenskap.
+        user_changed_the_description_of_community: <strong>%{user}</strong> ändrade beskrivningen av gemenskapen "%{community}".
       change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: En okänd användare ändrade logotypen till en okänd gemenskap.
+        an_unknown_user_changed_the_icon_of_community: En okänd användare ändrade logotypen till gemenskapen "%{community}".
         user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> ändrade logotypen för en okänd gemenskap.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> ändrade logotypen för gemenskapen "%{community}".
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: En okänd användare ändrade namnet på en okänd gemenskap.
+        an_unknown_user_changed_the_name_of_community: En okänd användare ändrade namnet på gemenskapen "%{community}".
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> ändrade namnet av en okänd gemenskap.
+        user_changed_the_name_of_community: <strong>%{user}</strong> ändrade namnet på gemenskapen "%{community}".
       create: 
         an_unknown_user_created_an_unknown_community: En okänd användare skapade en okänd gemenskap.
         an_unknown_user_created_community: En okänd användare skapade gemenskapen "%{community}".
+        user_created_an_unknown_community: <strong>%{user}</strong> skapade en okänd gemenskap.
+        user_created_community: <strong>%{user}</strong> skapade gemenskapen "%{community}".
       join: 
         an_unknown_user_joined_an_unknown_community: En okänd användare blev medlem i en okänd gemenskap.
         an_unknown_user_joined_community: En okänd användare gick med i gemenskapen "%{community}".
@@ -316,6 +352,7 @@ sv:
         user_joined_community: <strong>%{user}</strong> blev medlem i gemenskapen "%{community}".
       leave: 
         an_unknown_user_left_an_unknown_community: En okänd användare lämnade en okänd gemenskap.
+        an_unknown_user_left_community: En okänd användare lämnade gemenskapen "%{community}".
         user_left_an_unknown_community: <strong>%{user}</strong> lämnade en okänd gemenskap.
         user_left_community: <strong>%{user}</strong> lämnade gemenskapen "%{community}".
       other_actions: 
@@ -323,6 +360,7 @@ sv:
         user_modified_community: <strong>%{user}</strong> ändrade gemenskapen "%{community}".
     curator_activity_log: 
       reasons_to_hide: "Anledningar att dölja: %{reasons}"
+      reasons_to_untrust: "Anledningar att inte vara pålitlig: %{reasons}"
       trust_common_name: 
         an_unknown_user_trusted_name_in_an_unknown_language_on_it: En okänd användare markerade det vanliga namnet "%{name}" på ett okänt språk som pålitlig.
         an_unknown_user_trusted_name_in_language_on_it: En okänd användare markerade det vanliga namnet "%{name}" på %{language} som pålitlig.
@@ -347,6 +385,7 @@ sv:
   add_a_new_search_suggestion: Lägg till ett nytt sökförslag
   add_a_new_term: Lägg till en ny term
   add_a_new_user: Lägg till ett nytt användare
+  add_article_to_page_button: Lägg till en artikel
   add_brief_summary_to_page_link_button: Lägg till en kort sammanfattning till denna sida
   add_item_to_new_collection: Lägg till "%{item}" till en ny samling
   add_language: Lägg till språk
@@ -402,6 +441,16 @@ sv:
     eol_statistics: 
       content_partners: 
         menu_link: Innehållspartners
+        page_header: Statistik för innehållspartners
+      data_objects: 
+        menu_link: Dataobjekt
+      index: 
+        menu_link: Övergripande statistik
+        page_header: Övergripande statistik
+        page_title: "Administration: Övergripande statistik"
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: LifeDesksstatistik
       page_richness: 
         menu_link: Innehållsrika sidor
         page_header: Statistik för innehållsrika sidor
@@ -1102,6 +1151,7 @@ sv:
       collection: 
         view_style_id: Standardvisning
       collection_item: 
+        annotation: Anteckning
         refs: Referenser <small>(lägg in varje referens på en ny rad)</small>
         sort_field: Sortera efter <small>(datum ÅÅÅÅ.MM.DD, nummer eller text)</small>
         sort_field_show: "Sorteringsvärde:"
@@ -1117,6 +1167,7 @@ sv:
         parent_content_page_id: Överordnad
       content_partner: 
         created_at: Registrerad
+        current_agreement: Nuvarande avtal
         description_of_data: Beskrivning av data <small>(privat)</small>
         display_name: Visningsnamn <small>(valfritt)</small>
         last_action: Senaste åtgärd
@@ -1190,6 +1241,8 @@ sv:
         agreed_with_terms: Jag godkänner <a href="%{terms_url}">användarvillkoren</a>
         bio: Om mig
         credentials: Autentiseringsuppgifter
+        credentials_more: "Var god ange minst en specifik referens från denna lita:"
+        credentials_more_author: Upphovsman i en publikation med peer-review (lämna referens).
         credentials_more_professional: Medlem av ett professionellt sällskap.
         credentials_more_referral: Återknytning från aktuell kurator.
         curation_application: Bli en kurator
@@ -1247,6 +1300,7 @@ sv:
         create: Lägg till länk
         update: Spara länk
       eol_statistic: 
+        change_date: Hämta statistik för datum
         download_csv: Ladda ned som CSV.
       filter_sort: Filtrera och sortera
       harvest_event: 

@@ -1036,6 +1036,8 @@ de:
   associated_with_map_header: Auf der aktuellsten Karte
   associated_with_sound_header: In der aktuellsten Audiodatei
   associated_with_video_header: Im aktuellsten Video
+  association_hidden_for_taxa: 
+    other: "Versteckt für:"
   association_trusted_for_taxa: 
     one: "Vertrauenswürdig für:"
     other: "Vertrauenswürdig für:"
@@ -1582,6 +1584,7 @@ de:
   created_community: Die Gemeinschaft wurde erfolgreich erstellt.
   creative_commons: Creative Commons
   credentials: Anmeldeinformationen
+  credentials_colon: "Anmeldedaten:"
   curated: Kuratiert
   curated_association_update_button: Änderungen speichern
   curated_objects_of: von %{name} kuratierte Objekte
@@ -1880,6 +1883,7 @@ de:
   error_404_page_title: Nicht gefunden
   error_500_description: Wir haben leider ein Problem. Sofern es weiterhin bestehen bleibt, bitten wir Sie eine E-Mail an <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a> zu senden.
   error_500_page_title: Interner Serverfehler
+  error_classifications_locked_cannot_reindex: Diese Seite kann momentan nicht reindiziert werden. Die Klassifikationen sind gesperrt.
   error_couldnt_find_collection_by_id: Es konnte leider keine Sammlung mit der Kennung %{id} ermittelt werden, die sie verwalten können.
   error_couldnt_find_community_by_id: Es konnte leider keine Gemeinschaft mit der Kennung %{id} ermittelt werden, die sie verwalten können.
   error_default_description: Wir haben leider ein Problem. Sofern es weiterhin bestehen bleibt, bitten wir Sie eine E-Mail an <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a> zu senden.
@@ -1923,7 +1927,6 @@ de:
   file: Datei
   file_id: Dateikennung
   file_size: Dateigröße
-  filed_under_label: Gespeichert als %{label} auf
   fill_in_a_message_below_to_send_email_to_user: "Verfassen Sie hier eine Nachricht, die an diesen Nutzer der Website geschickt werden soll. Die Nachricht wird nach dem Speichern dieses Formulars versandt:"
   filter_button: Filtern
   filter_by_day: Nach Tag filtern
@@ -2347,6 +2350,7 @@ de:
     other: "%{count} Bilder"
   import_once: Einmal importieren
   in_collection: in der Sammlung
+  in_community: in Gemeinschaft
   in_providing_its_content_to_eo: Mit dem Zurverfügungstellen der Inhalte bei EOL,
   in_this_data_type: "in diese %{data_type}:"
   inappropriate: Ungeeignet
@@ -2412,6 +2416,7 @@ de:
   jsonp_by_adding_a_callback_parameter: … und JSNOP, indem Sie einen Parameter zum Rückruf hinzufügen
   just_pages_with_pictures_and_text: Nur Seiten mit Bildern und Texten
   keep_split_entry_from_this_entry: Von diesem Eintrag getrennt vorhalten
+  key: Schlüssel
   label: Bezeichnung
   language: "Sprache:"
   language_selector_advisory_information: Nachstehend folgt eine Liste der Sprachen, in denen die Inhalte der Website verfügbar sind. Um die aktuell genutzte Sprache zu ändern, wählen Sie bitte eine andere Sprache aus dieser Liste.
@@ -2738,6 +2743,7 @@ de:
   no_errors_are_available: Es treten keine Fehler auf.
   no_harvesting_logs_for_this_da: Zu diesem Datum gibt es keine protokollierten Datenabrufe
   no_items_were_copied_to_collections_error: "Es wurden keine Objekte in die folgenden Sammlungen kopiert: %{names}."
+  no_news_items_for_month_and_year: Keine Nachrichten für %{month_and_year}
   no_record_found_matching_your_criteria: Es wurde kein Datensatz gefunden, der Ihren Suchkriterien entspricht.
   no_related_names: Diesem Taxon wurden bislang noch keine Namen zugeordnet.
   no_results_for: Keine Ergebnisse zu
@@ -2871,6 +2877,7 @@ de:
   objects_curated: Kuratierte Objekte
   older_version_of_latest_published_data_object_title_link: Ältere Version von %{link}
   on_time_col_header: am
+  only_alphanum_with_no_spaces: kann nur alphanumerisch ohne Leerzeichen sein
   only_multi_search_suggestions: (nur sofern mehrere Suchvorschläge zum gleichen Suchbegriff vorhanden sind, Sortierung erfolgt von niedrig zu hoch)
   only_show_authoritative_conten: "Nur maßgebliche Inhalte anzeigen:"
   only_show_unapproved_curators: Nur, nicht akzeptierte Kuratoren anzeigen
@@ -2958,6 +2965,7 @@ de:
   please_state_one_credential: "Bitte geben Sie mindestens eine der Anmeldeinformationen aus dieser Liste an:"
   please_wait: Bitte warten …
   post_comment: Kommentieren
+  posts_from_year: Beiträge aus dem Jahr %{year}
   preferred_common_name_advisory_information: Dies ist die bevorzugte gebräuchliche Bezeichnung für dieses Taxon.
   press_room: Pressebereich
   preview: Vorschau
@@ -3059,6 +3067,7 @@ de:
   recognized_by_from_source_as_a_rank: von %{recognized_by} auf %{source} als %{taxon_rank} anerkannt
   record_not_found: "[Datensatz wurde nicht gefunden]"
   references_cabs_colon: "Quellennachweise:"
+  reindex_page_button: Seite reindizieren
   related_names_with_count: 
     one: "%{count} ähnlicher Name"
     other: "%{count} ähnliche Namen"
@@ -3668,6 +3677,7 @@ de:
   this_map_is_unpublished: Diese Karte ist unveröffentlicht.
   this_method_takes_an_integer_or_string: Diese Methode gibt zu einer Ganzzahl oder einer Zeichenkette, die der eindeutigen Bezeichner eines Taxons in der Datenbank eines Anbieters ist, in Verbindung mit der Hierarchiekennung des Datenanbieters, die Seitenkennung von EOL zum entsprechenden Taxons aus. Sofern man bspw. die %{link_provider}-API nutzt, kann man die Hierarchiekennung bei EOL zur Kennung %{itis_id} des „Integrated Taxonomic Information System“ (ITIS) ermitteln. Danach kann man in der EOL nach der „ITIS Taxonomic Serial Number“ (TSN) 180542,<i>Ursus maritimus</i> suchen, indem man %{link_url} aufruft.
   this_page_shows_information_ab: Diese Seite zeigt Informationen über die Anzahl der zur Suche jeweils angezeigten Ergebnisse an, sowie welche Ergebnisse die Nutzer nach Abschluss der Suche anklickten.
+  this_page_will_be_reindexed: Diese Seite wird im Hintergrund reindiziert. Die Fertigstellung kann bis zu 24 Stunden in Anspruch nehmen.
   this_resource_unpublished_notice: Diese Quelle wurde bis zum jetzigen Zeitpunkt noch nicht als veröffentlicht festgelegt.
   this_section_is_used_to_create: Dieser Abschnitt wird dazu verwendet Nachrichten zu erstellen. Nachrichten werden auf der rechten Seite der Startseite sowie in einem %{rss_link} und auf der Archivseite %{news_archive} angezeigt.
   this_sound_cannot_be_curated_because_unpublished: Diese Geräusche können nicht kuratiert werden, da er unveröffentlicht ist.
@@ -3687,6 +3697,9 @@ de:
   toc: Inhaltsverzeichnis
   toc_entry_col_header: Inhaltsverzeichniseintrag
   toc_no_longer_available: Die Informationen zum Inhaltsverzeichnis sind nicht mehr verfügbar.
+  too_many_descendants_to_curate_with_count: 
+    one: "FEHLER: Ihre Kuratierung konnte aufgrund des automatisierten Systems nicht verarbeitet werden. Es gibt ein untergeordnetes Objekt, das das erlaubte Maximum überschritten hat."
+    other: "FEHLER: Ihre Kuratierung konnte aufgrund des automatisierten Systems nicht verarbeitet werden. Es gibt %{count} untergeordnete Objekte, die das erlaubte Maximum überschritten haben."
   topic: Thema
   topic_area: Themenbereich
   topics_avilable_to_contact_us_info: Die folgenden Themengebiete sind über die Kontaktseite verfügbar. Sie können Themengebiete, sowie die entsprechenden E-Mail-Adressen, hinzufügen oder bearbeiten. Alle Änderungen werden sofort wirksam.
@@ -3721,6 +3734,7 @@ de:
   unable_to_invite_users_to_community_error: Die Einladungen konnten nicht zu %{users} gesendet werden.
   unique_page_views_th: Eindeutige Seitenzugriffe
   unknown: Unbekannt
+  unknown_data_object_title: Unbekanntes Datenobjekt
   unknown_hierarchy: Unbekannte Hierarchie
   unknown_type_not_associated_with_any_published_entries: Diese Daten sind keinen veröffentlichten Taxa zugeordnet.
   unpublished: Unveröffentlicht

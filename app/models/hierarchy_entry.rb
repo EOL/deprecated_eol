@@ -2,15 +2,15 @@
 # data links to these instances.
 class HierarchyEntry < ActiveRecord::Base
 
-  acts_as_tree :order => 'lft'
-
   belongs_to :hierarchy
   belongs_to :name
   belongs_to :rank
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
+  belongs_to :parent, :class_name => HierarchyEntry.to_s, :foreign_key => :parent_id
 
+  has_many :agents, :through => :agents_hierarchy_entries
   has_many :agents_hierarchy_entries
   has_many :top_images
   has_many :top_unpublished_images
@@ -27,6 +27,18 @@ class HierarchyEntry < ActiveRecord::Base
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'hierarchy_entries_refs',
     :association_foreign_key => 'ref_id', :conditions => Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
+  has_and_belongs_to_many :ancestors, :class_name => HierarchyEntry.to_s, :join_table => 'hierarchy_entries_flattened',
+    :association_foreign_key => 'ancestor_id', :order => 'lft'
+  # Here is a way to find children and sort by name at the same time (this works for siblings too):
+  # HierarchyEntry.find(38802334).children.includes(:name).order('names.string').limit(2)
+  has_many :children, :class_name => HierarchyEntry.to_s, :foreign_key => [:parent_id, :hierarchy_id], :primary_key => [:id, :hierarchy_id],
+    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
+  # IMPORTANT: siblings will also return the entry itself. This is because it is not possible to use conditions which refer
+  # to a single node when using this association in preloading. For example you cannot have a condition: where id != #{id}, because
+  # ActiveRecord may not have a single 'id', it may have many if preloading for multiple entries at once. This will also not return siblings of
+  # top level taxa. This is because many hierarchies have hundreds or thousands of roots and we don't want to risk showing all of them
+  has_many :siblings, :class_name => HierarchyEntry.to_s, :foreign_key => [:parent_id, :hierarchy_id], :primary_key => [:parent_id, :hierarchy_id],
+    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
 
   has_one :hierarchy_entry_stat
 
@@ -152,37 +164,8 @@ class HierarchyEntry < ActiveRecord::Base
     return Rank.italicized_ids.include?(rank_id)
   end
 
-  def ancestors(opts = {}, cross_reference_hierarchy = nil)
-    return @ancestors unless @ancestors.nil?
-    # TODO: reimplement completing a partial hierarchy with another curated hierarchy
-    ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
-    ancestor_ids << self.id
-    a = HierarchyEntry.find_all_by_id(ancestor_ids)
-    HierarchyEntry.preload_associations(a, :name)
-    HierarchyEntry.preload_associations(a, :hierarchy_entry_stat) if opts[:include_stats]
-    @ancestors = HierarchyEntry.sort_by_lft(a)
-  end
-
-  def ancestors_as_string(delimiter = "|")
-    ancestors.collect{ |he| he.name.string }.join(delimiter)
-  end
-
-  def children(opts = {})
-    vis = [Visibility.visible.id, Visibility.preview.id]
-    c = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(hierarchy_id, id, vis)
-    HierarchyEntry.preload_associations(c, :name)
-    HierarchyEntry.preload_associations(c, :hierarchy_entry_stat) if opts[:include_stats]
-    return HierarchyEntry.sort_by_name(c)
-  end
-
-  def kingdom(hierarchy = nil)
-    return ancestors(hierarchy).first rescue nil
-  end
-
-  def kingdom_entry
-    entry_ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
-    entry_ancestor_ids << self.id
-    HierarchyEntry.find_by_id_and_parent_id(entry_ancestor_ids, 0)
+  def kingdom
+    return ancestors.first rescue nil
   end
 
   # Some HEs have a "source database" agent, which needs to be considered in addition to normal sources.
@@ -200,10 +183,6 @@ class HierarchyEntry < ActiveRecord::Base
   # These are all of the agents, NOT including the hierarchy agent:
   def source_agents
     agents_hierarchy_entries.select {|ar| ar.agent_role_id == AgentRole.source.id }.map(&:agent)
-  end
-  
-  def agents
-    agents_hierarchy_entries.map(&:agent)
   end
 
   # This gives you the correct array of source agents that recognize the taxon.  Keep in mind that if there is a

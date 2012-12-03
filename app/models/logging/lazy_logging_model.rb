@@ -21,7 +21,7 @@ class LazyLoggingModel < LoggingModel
     statement = if instance.attributes.empty?
       self.connection.empty_insert_statement(self.table_name)
     else
-      "INSERT DELAYED INTO #{self.quoted_table_name} " +
+      "INSERT INTO #{self.quoted_table_name} " +
       "(#{instance.attributes.keys.map { |k| "`#{k}`"}.join(',')}) " +
       "VALUES(#{instance.attributes.values.map { |v| sanitize(v) }.join(',')})"
     end

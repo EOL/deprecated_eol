@@ -58,7 +58,7 @@ function update_browser_stats(hierarchy_entry_id, expand) {
 // Expand the mini-tree on the taxon overview:
 $(document).ready(function() {
   $('.browsable.classifications a.show_tree').unbind('click').click(function() {
-    var $update = $(this).closest('.browsable.classifications > ul > li');
+    var $update = $(this).closest('.browsable.classifications');
     EOL.ajax_submit($(this), {update: $update, type: 'GET', data: ''}); // 'data' required to avoid reading nearst form
     return(false);
   });

@@ -423,10 +423,10 @@ class TaxonConcept < ActiveRecord::Base
 
   # These are methods that are specific to a hierarchy, so we have to handle them through entry:
   # This was handled using delegate, before, but seemed to be causing problems, so I'm making it explicit:
-  def kingdom(hierarchy = nil)
+  def kingdom(hierarchy)
     h_entry = entry(hierarchy)
     return nil if h_entry.nil?
-    return h_entry.kingdom(hierarchy)
+    return h_entry.kingdom
   end
 
   def all_ancestor_taxon_concept_ids
@@ -1316,7 +1316,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # Avoid re-loading the deep_published_hierarchy_entries from the DB:
   def cached_deep_published_hierarchy_entries
-    @cached_deep_published_hierarchy_entries ||= hierarchy_entries.where('published=1').sort_by{ |he| he.hierarchy.label }
+    @cached_deep_published_hierarchy_entries ||= hierarchy_entries.where('published=1').includes(:hierarchy).sort_by{ |he| he.hierarchy.label }
   end
 
   # Since the normal deep_published_hierarchy_entries association won't be sorted or pre-loaded:

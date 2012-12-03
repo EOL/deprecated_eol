@@ -455,33 +455,91 @@ module ApplicationHelper
     end
   end
 
-  def navigation_node(hierarchy_entry, opts = {})
-    link = opts[:link_to_taxa] ?
+  def navigation_node(hierarchy_entry, options = {})
+    return hierarchy_entry.italicized_name.firstcap if options[:current]
+    options = options.select{ |k, v| [ :link_to_taxa,  :show_siblings, :show_hierarchy_label ].include?(k) }
+    link = options[:link_to_taxa] ?
       overview_taxon_path(hierarchy_entry.taxon_concept_id) :
       overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
     node = link_to(raw(hierarchy_entry.italicized_name.firstcap), link)
     node << ' '
-    node << navigation_show_descendants_link(hierarchy_entry, opts.reverse_merge(:link => link))
+    node << navigation_show_descendants_link(hierarchy_entry, options.reverse_merge(:link => link))
   end
 
-  def navigation_show_descendants_link(hierarchy_entry, opts = {})
-    link = if opts[:link]
-             opts.delete(:link)
-           else
-             opts[:link_to_taxa] ?
-             overview_taxon_path(hierarchy_entry.taxon_concept_id) :
-             overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
-           end
+  def navigation_show_descendants_link(hierarchy_entry, options={})
+    link = if options[:link]
+      options.delete(:link)
+    else
+      options[:link_to_taxa] ?
+        overview_taxon_path(hierarchy_entry.taxon_concept_id) :
+        overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+    end
     if hierarchy_entry.number_of_descendants == 0
       ''
     else
-      open_tree_path = taxon_entry_tree_path(hierarchy_entry.taxon_concept_id, hierarchy_entry, opts)
+      open_tree_path = taxon_entry_tree_path(hierarchy_entry.taxon_concept_id, hierarchy_entry, options)
       link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)
     end
   end
 
   def image_url(source)
     URI.join(root_url, image_path(source))
+  end
+
+  def show_full_tree(hierarchy_entry, options={})
+    capture_haml do
+      ancestors = hierarchy_entry.ancestors
+      if ancestor = ancestors.shift
+        haml_tag :ul, :class => 'branch' do
+          haml_tag :li do
+            haml_concat navigation_node(ancestor, options)
+            haml_concat show_full_tree(hierarchy_entry, options)
+          end
+        end
+      else
+        haml_concat show_nodes([ hierarchy_entry ], options.merge(:current => true))
+        if options[:show_siblings]
+          haml_concat show_nodes(hierarchy_entry.siblings.reject{ |s| s == hierarchy_entry }, options.merge(:parent => hierarchy_entry))
+        end
+      end
+    end
+  end
+
+  def show_nodes(hierarchy_entries, options={})
+    options[:max_children] ||= 500
+    capture_haml do
+      unless hierarchy_entries.blank?
+        haml_tag :ul, :class => 'branch' do
+          # sort the array by name string
+          # TODO: we should really not get back ALL records from the DB then sort, see if sorting in the DB is faster
+          hierarchy_entries = HierarchyEntry.sort_by_name(hierarchy_entries)
+          # limit the array to $max_children and iterate
+          hierarchy_entries[0...options[:max_children]].each do |hierarchy_entry|
+            haml_tag :li do
+              haml_tag :span, :class => (options[:current] ? 'current' : nil) do
+                haml_concat navigation_node(hierarchy_entry, options)
+              end
+              unless (options[:parent] && !options[:expand]) || hierarchy_entry.is_leaf?
+                haml_concat show_nodes(hierarchy_entry.children, options.reject{ |k,v| k == :current }.merge(:parent => hierarchy_entry))
+              end
+            end
+          end
+
+          # Show a 'see more' type message
+          parent = options[:parent]
+          if parent && hierarchy_entries.length > options[:max_children]
+            haml_tag :li, :class => 'show_tree_count' do
+              haml_concat I18n.t(:more_children_with_count, :count => hierarchy_entries.length - options[:max_children])
+              full_link = options[:link_to_taxa] ?
+                overview_taxon_path(parent.taxon_concept_id, :full => true) :
+                overview_taxon_entry_path(parent.taxon_concept_id, parent, :full => true)
+              full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa], :show_siblings => options[:show_siblings])
+              haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
+            end
+          end
+        end
+      end
+    end
   end
 
 end

@@ -4,7 +4,7 @@
   - node_class = ancestors.nil? ? nil : 'current'
   %li.node
     = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => hierarchy_entry, :node_class => node_class})
-    - children = hierarchy_entry.children(:include_stats => true)
+    - children = HierarchyEntry.sort_by_name(hierarchy_entry.children)
     - unless children.blank?
       %ul.branch
         - for child in children

@@ -352,6 +352,7 @@ class ApplicationController < ActionController::Base
 
   def set_language
     language = Language.from_iso(params[:language]) rescue Language.default
+    language ||= Language.default
     update_current_language(language)
     if logged_in?
       # Don't want to worry about validations on the user; language is simple.  Just update it:

@@ -68,7 +68,9 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.eol_contributors
-    cached_find(:label, "Encyclopedia of Life Contributors")
+    cached('eol_contributors') do
+      Hierarchy.find_by_label("Encyclopedia of Life Contributors", :include => :agent)
+    end
   end
 
   def self.ubio

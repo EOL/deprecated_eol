@@ -13,7 +13,7 @@ class TaxonConceptPreferredEntry < ActiveRecord::Base
     end
     field_names = opts.keys.collect{ |k| k.to_s }.join(', ')
     field_values = opts.values.collect{ |k| connection.quote(k) }.join(', ')
-    connection.execute "INSERT DELAYED INTO taxon_concept_preferred_entries (#{ field_names }) VALUES (#{ field_values })"
+    connection.execute "INSERT INTO taxon_concept_preferred_entries (#{ field_names }) VALUES (#{ field_values })"
   end
   
   def self.expire_time

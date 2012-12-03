@@ -16,8 +16,7 @@
         - else
           = raw(I18n.t(:classification_from_agent_chosen_by_curator, :agent => hierarchy_display_title(hierarchy_entry.hierarchy), :curator => link_to(preferred_classification.user.full_name, user_path(preferred_classification.user_id))))
       #classification_browser.browsable.classifications
-        %ul
-          = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
+        = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
   - else
     #classifications_tree.article
       .header
@@ -31,17 +30,12 @@
           - else
             = link_to(raw(I18n.t(:see_all_classifications_with_count_html, :count => classifications_count)), taxon_names_path(@taxon_concept))
       - if classifications_count > 0 || @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.count > 0 || @taxon_concept.entry
-        #classification_browser
-          %ul
-            - hierarchy_entry = @browsable_hierarchy_entries.shuffle.first
-            -# Please note that #deep_published_nonbrowsable_hierarchy_entries IS cached, so not really called twice.
-            - hierarchy_entry ||= @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first
-            - hierarchy_entry ||= @taxon_concept.entry
-            %li.browsable.classifications
-              - hierarchy_label = hierarchy_display_title(hierarchy_entry.hierarchy)
-              %h4= raw(I18n.t(:rank_recognized_by_agent_colon, :rank => hierarchy_entry.rank_label, :agent => hierarchy_label))
-              %ul
-                = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
+        #classification_browser.browsable.classifications
+          - hierarchy_entry = @browsable_hierarchy_entries.shuffle.first
+          -# Please note that #deep_published_nonbrowsable_hierarchy_entries IS cached, so not really called twice.
+          - hierarchy_entry ||= @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first
+          - hierarchy_entry ||= @taxon_concept.entry
+          = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true, :show_hierarchy_label => true })
       - else
         .empty
           %p= I18n.t(:classifications_empty)

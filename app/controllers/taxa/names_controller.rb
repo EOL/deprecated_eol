@@ -19,8 +19,13 @@ class Taxa::NamesController < TaxaController
       @hierarchy_entries = @taxon_concept.deep_published_browsable_hierarchy_entries
       @other_hierarchy_entries = @taxon_concept.deep_published_nonbrowsable_hierarchy_entries
     end
-    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :hierarchy => [ { :resource => :content_partner }, :dwc_resource ] }, :flattened_ancestors, :rank ])
-    
+    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :hierarchy => [ { :resource => :content_partner }, :dwc_resource ] },
+      :rank, :ancestors ])
+    # preloading the names for the current nodes and their ancestors. Children and sublings will be loaded later in the views
+    # which is more efficient as we can preload only the first $max_children of each, sorted by name. It is not possible to get
+    # for example "the first 10 children, alphabetically, for these 15 entries". That must be done for each entry individually
+    HierarchyEntry.preload_associations((@hierarchy_entries + @hierarchy_entries.collect(&:ancestors)).flatten, :name)
+
     @pending_moves = HierarchyEntryMove.pending.find_all_by_hierarchy_entry_id(@hierarchy_entries)
 
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
@@ -204,7 +209,7 @@ private
 
   # NOTE - #||= because instantiate_taxon_concept could have set it.  Confusing but true.  We should refactor this.
   def count_browsable_hierarchies
-    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.includes(:hierarchy).select{ |he| he.hierarchy.browsable? }
     @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
   end
 

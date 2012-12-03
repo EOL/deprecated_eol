@@ -7,13 +7,13 @@
           - unless @hierarchy_entry.nil?
             %b
               =I18n.t("browsing_branch_colon")
-            - ancestors = @hierarchy_entry.ancestors(:include_stats => true)
+            - ancestors = @hierarchy_entry.ancestors + [ @hierarchy_entry ]
             - hierarchy_entry = ancestors.pop
             = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
           %br
           %b
             =I18n.t("hierarchy_roots_colon")
-          - for kingdom in @hierarchy.kingdoms(:include_stats => true)
+          - for kingdom in @hierarchy.kingdoms
             %li.node.bold
               = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => kingdom })
           - unless @hierarchy_entry.nil?

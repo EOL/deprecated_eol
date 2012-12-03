@@ -134,8 +134,8 @@ describe TaxonConcept do
     @bad_iucn_tc.iucn_conservation_status.should match(/not evaluated/i)
   end
 
-  it 'should be able to list its ancestors (by convention, ending with itself)' do
-    @testy[:species].ancestors.map(&:id).should == [@testy[:kingdom].taxon_concept_id, @testy[:phylum].taxon_concept_id, @testy[:order].taxon_concept_id, @testy[:species].id]
+  it 'should be able to list its ancestors' do
+    @testy[:species].ancestors.map(&:id).should == [@testy[:kingdom].taxon_concept_id, @testy[:phylum].taxon_concept_id, @testy[:order].taxon_concept_id]
   end
 
   it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do

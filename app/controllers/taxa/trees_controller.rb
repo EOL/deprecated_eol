@@ -1,13 +1,15 @@
 class Taxa::TreesController < TaxaController
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded
+  skip_before_filter :original_request_params, :global_warning, :clear_any_logged_in_sessions, :set_locale, :check_user_agreed_with_terms,:redirect_if_superceded
 
   def show
-    @hierarchy_entry = @selected_hierarchy_entry ? 
-      @taxon_concept.find_ancestor_in_hierarchy(@selected_hierarchy_entry.hierarchy) :
-      @taxon_concept.entry 
+    @hierarchy_entry = HierarchyEntry.find(params[:entry_id])
+    params.each do |k,v|
+      params[k] = false if v == 'false'
+    end
     @max_children = params[:full] ? 20000 : nil
-    @link_to_taxa = params[:link_to_taxa] || @selected_hierarchy_entry.nil?
+    @link_to_taxa = params[:link_to_taxa]
     @show_siblings = params[:show_siblings]
+    @show_hierarchy_label = params[:show_hierarchy_label]
     render :layout => false
   end
 

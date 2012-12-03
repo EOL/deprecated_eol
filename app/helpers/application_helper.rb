@@ -536,7 +536,8 @@ module ApplicationHelper
                 full_link = options[:link_to_taxa] ?
                   overview_taxon_path(parent.taxon_concept_id, :full => true) :
                   overview_taxon_entry_path(parent.taxon_concept_id, parent, :full => true)
-                full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa], :show_siblings => options[:show_siblings])
+                full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa], :show_siblings => options[:show_siblings],
+                  :show_hierarchy_label => options[:show_hierarchy_label])
                 haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
               end
             end

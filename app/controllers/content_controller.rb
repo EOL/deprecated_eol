@@ -216,6 +216,8 @@ class ContentController < ApplicationController
     end
   end
 
+  # TODO - this is entirely non-portable and should be enabled or disabled based on local configuration. In fact, it
+  # would be even better if it were its own application. Yes, really.
   def donate
     @page_title = I18n.t(:donate)
     if request.post?
@@ -244,6 +246,10 @@ class ContentController < ApplicationController
     @donation_amount = @preset_amount.to_f > 0 ? @preset_amount.to_f : @other_amount
 
     @page_title = I18n.t(:donation_confirmation) if @donation_amount > 0
+
+    # This is actually calling the PHP service, because Cybersource gave us a PHP library (
+    # CyberSource::InsertSignature3 ) to handle the creation of the input elements.  Yeesh.
+    # http://www.cybersource.com/developers/develop/integration_methods/simple_order_and_soap_toolkit_api/
     parameters = 'function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=sale&currency=usd'
     @form_elements = EOLWebService.call(:parameters => parameters)
 

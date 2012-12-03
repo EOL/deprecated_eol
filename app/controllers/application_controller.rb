@@ -3,8 +3,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   include ImageManipulation
-
-  rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, :with => :rescue_from_exception
+  unless Rails.env.test?
+    rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, :with => :rescue_from_exception
+  end
 
   before_filter :original_request_params # store unmodified copy of request params
   before_filter :global_warning

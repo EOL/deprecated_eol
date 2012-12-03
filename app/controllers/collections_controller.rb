@@ -34,6 +34,7 @@ class CollectionsController < ApplicationController
   end
 
   def create
+    return must_be_logged_in unless logged_in?
     @collection = Collection.new(params[:collection])
     if @collection.save
       @collection.users = [current_user]
@@ -363,7 +364,7 @@ private
     ids = CollectionItem.connection.execute(
       "SELECT id FROM collection_items
        WHERE id > #{last_collection_item.id} AND collection_id IN (#{destinations.map {|d| d.id}.join(',')})"
-    ).all_hashes.map {|h| h["id"] }
+    ).map {|a| a.first }
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(ids)
     # NOTE - this is pretty brutal. The older method preserves objects that didn't actually move (ie: if they were
     # duplicates), but I figure that's not entirely desirable, anyway...

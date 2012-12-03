@@ -318,8 +318,9 @@ class ApiController < ApplicationController
         @sort_by = ss
       end
       @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
-      @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => params[:page], :per_page => @per_page, :sort_by => @sort_by, :view_style => ViewStyle.list)
+      @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => params[:page], :per_page => @per_page, :sort_by => @sort_by, :view_style => ViewStyle.list, :sort_field => params[:sort_field])
       @collection_items = @collection_results.map { |i| i['instance'] }
+      CollectionItem.preload_associations(@collection_items, :refs)
       raise if @collection.blank?
     rescue
       render_error("Unknown identifier #{id}")

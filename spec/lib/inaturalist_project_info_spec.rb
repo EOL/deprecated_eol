@@ -9,8 +9,13 @@ describe InaturalistProjectInfo do
   end
 
   before(:each) do
+    $TESTING_INATURALIST_PROJECTS = true
     InaturalistProjectInfo.unlock_caching
     InaturalistProjectInfo.clear_cache
+  end
+
+  after(:each) do
+    $TESTING_INATURALIST_PROJECTS = false
   end
 
   it 'should get info on a project from the cache' do

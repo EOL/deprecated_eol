@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   include ImageManipulation
+  unless Rails.env.test?
+    rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, :with => :rescue_from_exception
+  end
 
   before_filter :original_request_params # store unmodified copy of request params
   before_filter :global_warning
@@ -421,8 +424,8 @@ class ApplicationController < ActionController::Base
     Rails.cache.delete('homepage/activity_logs_expiration') if Rails.cache
   end
 
-  def rescue_from_exception
-    rescue_action_in_public(env['action_dispatch.exception'])
+  def rescue_from_exception(exception = env['action_dispatch.exception'])
+    rescue_action_in_public(exception)
   end
 
 protected
@@ -443,7 +446,7 @@ protected
     response_code   = ActionDispatch::ExceptionWrapper.rescue_responses[exception.class.name]
     render_exception_response(exception, response_code, status_code)
     # Log to database
-    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class)
+    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
       ErrorLog.create(
         :url => env['REQUEST_URI'],
         :ip_address => request.remote_ip,
@@ -476,7 +479,11 @@ protected
         format.js do
           render :layout => false, :template => 'content/error', :status => status_code
         end
-        format.all { render :text => status, :status => status_code }
+        format.all do
+          @error_page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])
+          @status_code = status_code
+          render :layout => 'v2/errors', :template => 'content/error', :status => status_code, :formats => 'html', :content_type => Mime::HTML.to_s
+        end
       end
     end
   end

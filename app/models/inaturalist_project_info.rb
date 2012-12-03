@@ -12,7 +12,13 @@ module InaturalistProjectInfo
     # read directly from the cache
 
     def get(id)
-      InaturalistProjectInfo.get_from_cache(id) || InaturalistProjectInfo.get_directly(id)
+      # no need to call the iNat API when testing. This potentially saves several minutes during specs
+      return nil if Rails.env.test? && !$TESTING_INATURALIST_PROJECTS
+      if InaturalistProjectInfo.cached? && !InaturalistProjectInfo.caching_in_progress?
+        InaturalistProjectInfo.get_from_cache(id)
+      else
+        InaturalistProjectInfo.get_directly(id)
+      end
     end
 
     def needs_caching?

@@ -174,6 +174,11 @@ module EOL
           url << CGI.escape(" AND (link_type_id:#{options[:link_type_id]})")
         end
 
+        # add links filtering
+        unless options[:sort_field].blank?
+          url << CGI.escape(" AND sort_field:\"#{options[:sort_field]}\"")
+        end
+
         # add facet filtering
         if options[:facet_type]
           object_type = nil

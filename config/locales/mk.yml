@@ -1027,6 +1027,9 @@ mk:
   associated_with_map_header: На најновата карта
   associated_with_sound_header: На најновата аудиоснимка
   associated_with_video_header: На најновата видеоснимка
+  association_hidden_for_taxa: 
+    one: "Скриен за:"
+    other: "Скриени за:"
   association_trusted_for_taxa: 
     one: "Доверлива за:"
     other: "Доверливи за:"
@@ -1571,6 +1574,7 @@ mk:
   created_community: Заедницата е успешно создадена.
   creative_commons: Криејтив комонс
   credentials: Полномоштва
+  credentials_colon: "Полномоштва:"
   curated: Згрижени
   curated_association_update_button: Зачувај промени
   curated_objects_of: згрижени објекти на %{name}
@@ -1869,6 +1873,7 @@ mk:
   error_404_page_title: Не е најдено
   error_500_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму продолжи, обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Внатрешна грешка во опслужувачот
+  error_classifications_locked_cannot_reindex: Нажалост, страницава засега не може да се преиндексира. Класификациите се заклучени.
   error_couldnt_find_collection_by_id: Не можев да пронајдам збирка што можете да ја раководите со назнаката %{id}.
   error_couldnt_find_community_by_id: Не можев да пронајдам заедница што можете да ја раководите со назнаката %{id}.
   error_default_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму продолжи, обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
@@ -1912,7 +1917,6 @@ mk:
   file: Податотека
   file_id: Назнака на податотеката
   file_size: Големина на податотеката
-  filed_under_label: Заведени под %{label} на
   fill_in_a_message_below_to_send_email_to_user: "Пополнете ја долунаведената порака и оттука испратете е-пошта на овој корисник. Пораката се испраќа со поднесување на образецот:"
   filter_button: Филтрирај
   filter_by_day: Филтрирање по ден
@@ -2336,6 +2340,7 @@ mk:
     other: "%{count} слики"
   import_once: Увези еднаш
   in_collection: во збирката
+  in_community: во заедницата
   in_providing_its_content_to_eo: Доставувајќи ја оваа содржина на EOL,
   in_this_data_type: "во оваа %{data_type}:"
   inappropriate: Несоодветни
@@ -2401,6 +2406,7 @@ mk:
   jsonp_by_adding_a_callback_parameter: ... и JSONP додавајќи параметар за повикување
   just_pages_with_pictures_and_text: Само страниците со слики и текст
   keep_split_entry_from_this_entry: Одвој ја од овој запис
+  key: Клуч
   label: Натпис
   language: "Јазик:"
   language_selector_advisory_information: Ова е список на расположивите јазици на мрежното место. Одберете јазик ако сакате да го смените тековниот.
@@ -2727,6 +2733,7 @@ mk:
   no_errors_are_available: Нема грешки.
   no_harvesting_logs_for_this_da: Нема записи за преземање на овој датум
   no_items_were_copied_to_collections_error: "Не ископирав ниеден експонат во збирките: %{names}."
+  no_news_items_for_month_and_year: Нема новости за %{month_and_year}
   no_record_found_matching_your_criteria: Не пронајдов ништо што се совпаѓа со критериумите.
   no_related_names: Досега нема имиња поврзани со овој таксон.
   no_results_for: нема пронајдено резултати за
@@ -2860,6 +2867,7 @@ mk:
   objects_curated: Згрижени објекти
   older_version_of_latest_published_data_object_title_link: Постара верзија на %{link}
   on_time_col_header: на
+  only_alphanum_with_no_spaces: може да содржи само букви и бројки, без празни места
   only_multi_search_suggestions: (само ако има повеќе предлози за еден ист пребаран поим; се подредува малку-->многу)
   only_show_authoritative_conten: "Прикажувај само стручно--проверени содржини:"
   only_show_unapproved_curators: Прикажи само неодобрени кустоси
@@ -2947,6 +2955,7 @@ mk:
   please_state_one_credential: "Наведете барем едно конкретно полномоштво од списокот:"
   please_wait: Почекајте...
   post_comment: Објави коментар
+  posts_from_year: Објави од %{year} г.
   preferred_common_name_advisory_information: Претпочитаното тривијално име на овој таксон.
   press_room: За јавноста
   preview: преглед
@@ -3048,6 +3057,7 @@ mk:
   recognized_by_from_source_as_a_rank: "%{recognized_by} во %{source} како %{taxon_rank}"
   record_not_found: "[записот не е пронајден]"
   references_cabs_colon: "Наводи:"
+  reindex_page_button: Преиндексирај страница
   related_names_with_count: 
     one: "%{count} поврзано име"
     other: "%{count} поврзани имиња"
@@ -3657,6 +3667,7 @@ mk:
   this_map_is_unpublished: Оваа карта е необјавена.
   this_method_takes_an_integer_or_string: Овој метод зема цел број или низа што е единствена назнака на таксон од базата на еден добавувач, како и hierarchy_id што го претставува добавувачот и ја дава назнаката на страницата од EOL за тој таксон. На пример, користјеќи го API-прилогот на %{link_provider} можам да дознаам дека hierarchy_id од EOL за Интегрираниот таксономски информативен систем (ITIS) е %{itis_id}. Потоа можам да го пребарам по EOL таксономскиот сериски број на ITIS (TSN) 180542,<i>Ursus maritimus</i>, повикувајќи ја %{link_url}
   this_page_shows_information_ab: На оваа страница се прикажани информации за даден поим за пребарување и ги наведува резултатите од пребарувањето што ги стиснале корисниците.
+  this_page_will_be_reindexed: Оваа страница ќе се преиндексира во позадина, а ова може да потрае до 24 часа.
   this_resource_unpublished_notice: Овој ресурс во моментов не е означен како објавен од страна на администратор.
   this_section_is_used_to_create: Овој дел служи за создавање на нови експонати. Новостите се истакнуваат во десниот дел на домашната страница, како и во %{rss_link} и страницата %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Оваа звучна снимка не може да се згрижи бидејќи не е објавена.
@@ -3676,6 +3687,9 @@ mk:
   toc: Содржина
   toc_entry_col_header: Ставка во содржината
   toc_no_longer_available: Содржината повеќе не е достапна
+  too_many_descendants_to_curate_with_count: 
+    one: "ГРЕШКА: Вашето згрижување не може да се обработи преку автоматскиот систем. Има %{count} потомок, што ја надминува границата на дозволеното."
+    other: "ГРЕШКА: Вашето згрижување не може да се обработи преку автоматскиот систем. Има %{count} потомци, што ја надминува границата на дозволеното."
   topic: Тема
   topic_area: Тематска област
   topics_avilable_to_contact_us_info: Следниве тематски области достапни од страницата „Котактирајте нè“. Можете да додавате нови или да ги уредувате постоечките тематски области и нивните е-поштенски адреси. Сите измени се вршат веднаш.
@@ -3710,6 +3724,7 @@ mk:
   unable_to_invite_users_to_community_error: Не можев да испратам покани до %{users}.
   unique_page_views_th: Засебни посети
   unknown: Непознат
+  unknown_data_object_title: Непознат податочен објект
   unknown_hierarchy: Непозната хиерархија
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
   unpublished: Необјавено
@@ -4051,7 +4066,7 @@ mk:
   vivisimo: Vivisimo
   wants_colon: "Бара:"
   warning_you_are_editing_as_admin: "ПРЕДУПРЕДУВАЊЕ: дозволено ви е да ја уредувате оваа страница единствено бидејќи сте администратор."
-  watch_list: Список на набљудувања
+  watch_list: Набљудувања
   watch_list_newsfeed: Канал на списокот на набљудувања
   web_service_base_url: Основна URL-адреса на мреж. служб.
   web_users: Интернет-корисници

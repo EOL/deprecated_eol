@@ -1,6 +1,7 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Bonifácio
 # Author: Giro720
 # Author: GoEThe
 # Author: Hamilton Abreu
@@ -86,8 +87,14 @@ pt:
         collections_count: Colecções
         communities_count: Comunidades
         created_at: Criado em
+        data_objects: Objectos de Dados
+        data_objects_images: Objectos de Imagem
+        data_objects_texts: Objectos de texto
         members_count: Membros
         pages_count: Número total de páginas
+        pages_with_BHL_links: Páginas com ligações à BHL
+        pages_with_BHL_links_no_text: Páginas sem texto com ligações à BHL
+        pages_with_at_least_a_trusted_object: Páginas com objecto de confiança
         pages_with_content: Páginas com conteúdo
         pages_with_image: Páginas com imagens
         pages_with_image_no_text: Páginas com imagens, mas sem texto

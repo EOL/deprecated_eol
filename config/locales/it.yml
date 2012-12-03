@@ -663,6 +663,8 @@ it:
         menu_link: Statistiche globali
         page_header: Statistiche globali
         page_title: "Amministrazione: statistiche globali"
+      users_data_objects: 
+        page_header: Statistiche di testo inviate da utenti
   agent: Agente
   all: tutto
   all_apis_return_by_default_an_xml_response: "Tutte le API restituiscono per default una risposta XML. I metodi delle API possono essere chiamati senza un'estensione di formato per ottenere la risposta XML e aggiungendo un'estensione XML darà una risposta identica:"
@@ -1342,6 +1344,8 @@ it:
         rights_statement: Dichiarazione dei diritti
         source_url: URL all'oggetto dati originale
         toc_item: Sottocapitolo
+      data_object_link: 
+        link_type: Categoria
       eol_statistic: 
         date_one: Data
         date_two: Data
@@ -1387,7 +1391,9 @@ it:
         active_translation: Pubblicato
         language_id: Lingua
       translated_news_item: 
+        active_translation: Pubblicato
         language_id: Lingua
+        meta_description_more: Fornisci una breve descrizione, riassumendo i concetti chiave del contenuto di ciascuna notizia. Questa descrizione è talvolta utilizzata dai motori di ricerca Web sia per controllare la rilevanza, che per l'inclusione nei risultati della ricerca.
       user: 
         agreed_with_terms: Accetto le <a href="%{terms_url}">condizioni d'uso</a>
         bio: Informazioni su di me
@@ -1407,6 +1413,7 @@ it:
         logo: Carica una nuova foto
         new_password: Nuova password <small>(4-16 caratteri)</small>
         new_password_confirmation: Nuova password <small>(per conferma)</small>
+        news_in_preferred_language: visualizza le notizie nella lingua preferita
         notification_settings: Impostazioni notifiche
         notification_settings_more: Configurare le impostazioni di notifica.
         open_authentications: Account collegati

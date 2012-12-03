@@ -1027,6 +1027,9 @@ gl:
   associated_with_map_header: No último mapa
   associated_with_sound_header: No último son
   associated_with_video_header: No último vídeo
+  association_hidden_for_taxa: 
+    one: "Agochado para:"
+    other: "Agochados para:"
   association_trusted_for_taxa: 
     one: "De confianza para:"
     other: "De confianza para:"
@@ -1573,6 +1576,7 @@ gl:
   created_community: A comunidade creouse correctamente.
   creative_commons: Creative Commons
   credentials: Credenciais
+  credentials_colon: "Credenciais:"
   curated: Conservada
   curated_association_update_button: Gardar os cambios
   curated_objects_of: conservou os obxectos de "%{name}"
@@ -1871,6 +1875,7 @@ gl:
   error_404_page_title: Non se atopou
   error_500_description: Sentímolo, atopamos un problema. Se o problema persiste, envía un correo electrónico a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Erro interno do servidor
+  error_classifications_locked_cannot_reindex: Sentímolo, esta páxina non se pode reindexar nestes intres. As clasificacións están bloqueadas.
   error_couldnt_find_collection_by_id: Non se puido atopar colección ningunha que poidas xestionar co identificador %{id}.
   error_couldnt_find_community_by_id: Non se puido atopar comunidade ningunha que poidas xestionar co identificador %{id}.
   error_default_description: Sentímolo, atopamos un problema. Se o problema persiste, envía un correo electrónico a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
@@ -1914,7 +1919,6 @@ gl:
   file: Ficheiro
   file_id: ID do ficheiro
   file_size: Tamaño do ficheiro
-  filed_under_label: Arquivado baixo %{label} o
   fill_in_a_message_below_to_send_email_to_user: "Escribe unha mensaxe a continuación para enviar un correo electrónico a este usuario desde o sitio. A mensaxe enviarase cando envíe o formulario:"
   filter_button: Filtrar
   filter_by_day: Filtrar por día
@@ -2338,6 +2342,7 @@ gl:
     other: "%{count} imaxes"
   import_once: Importar unha vez
   in_collection: na colección
+  in_community: na comunidade
   in_providing_its_content_to_eo: Proporciona os seus contidos á EOL,
   in_this_data_type: "neste %{data_type}:"
   inappropriate: Inadecuado
@@ -2403,6 +2408,7 @@ gl:
   jsonp_by_adding_a_callback_parameter: ... e JSONP, engadindo un parámetro de retorno
   just_pages_with_pictures_and_text: Unicamente aquelas páxinas con imaxes e texto
   keep_split_entry_from_this_entry: Manter separado desta entrada
+  key: Clave
   label: Etiqueta
   language: "Lingua:"
   language_selector_advisory_information: A continuación está a lista coas linguas nas que hai dispoñibles contidos do sitio. Para cambiar a lingua actual selecciona unha das que está na lista.
@@ -2729,6 +2735,7 @@ gl:
   no_errors_are_available: Non hai ningún erro dispoñible.
   no_harvesting_logs_for_this_da: Non hai ningún rexistro de colleita para esa data
   no_items_were_copied_to_collections_error: "Non se copiou ningún elemento ás coleccións: %{names}."
+  no_news_items_for_month_and_year: Non houbo ningunha nova en %{month_and_year}
   no_record_found_matching_your_criteria: Non se atopou ningún rexistro que coincidise cos teus criterios de procura.
   no_related_names: Este taxon aínda non ten relacionado ningún nome.
   no_results_for: non se atopou ningún resultado para
@@ -2862,6 +2869,7 @@ gl:
   objects_curated: Obxectos conservados
   older_version_of_latest_published_data_object_title_link: Versión vella de %{link}
   on_time_col_header: o
+  only_alphanum_with_no_spaces: só pode conter caracteres alfanuméricos sen espazos
   only_multi_search_suggestions: (unicamente se hai múltiples suxestións para o mesmo termo de procura; a ordenación é crecente)
   only_show_authoritative_conten: "Mostrar unicamente os contidos autorizados:"
   only_show_unapproved_curators: Mostrar unicamente os conservadores non aprobados
@@ -2949,6 +2957,7 @@ gl:
   please_state_one_credential: "Indica, polo menos, unha credencial específica da lista:"
   please_wait: Por favor, agarda...
   post_comment: Publicar o comentario
+  posts_from_year: Mensaxes do ano %{year}
   preferred_common_name_advisory_information: Nome común preferido deste taxon.
   press_room: Sala de prensa
   preview: vista previa
@@ -3050,6 +3059,7 @@ gl:
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
   record_not_found: "[non se atopou o rexistro]"
   references_cabs_colon: "Referencias:"
+  reindex_page_button: Reindexar a páxina
   related_names_with_count: 
     one: "%{count} nome relacionado"
     other: "%{count} nomes relacionados"
@@ -3659,6 +3669,7 @@ gl:
   this_map_is_unpublished: Este mapa non está publicado.
   this_method_takes_an_integer_or_string: Este método recolle un número enteiro ou unha cadea que é o identificador único dun taxon na base de datos dun provedor, ademais dun hierarchy_id que representa o provedor, e devolve o ID da páxina da EOL dese taxon. Por exemplo, mediante a API %{link_provider}, pódese descubrir que o hierarchy_id do sistema integrado de información taxonómica (ITIS) da EOL é %{itis_id}. Logo, pódese procurar na EOL o número de serie taxonómico (TSN) ITIS de 180542, <i>Ursus maritimus</i>, chamando a %{link_url}
   this_page_shows_information_ab: Esta páxina mostra información sobre un termo de procura específico e aqueles resultados aos que accederon os usuarios despois de facer a devandita procura.
+  this_page_will_be_reindexed: Esta páxina ha renderizarse en segundo plano. Pode levar ata 24 horas completar o proceso.
   this_resource_unpublished_notice: Polo de agora, ningún administrador definiu este recurso como publicado.
   this_section_is_used_to_create: Esta sección utilízase para crear elementos de novas. As novas móstranse na parte dereita da páxina inicial, así como nunha %{rss_link} e a páxina de %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Este son non se pode conservar porque non está publicado.
@@ -3678,6 +3689,9 @@ gl:
   toc: ÍNDICE
   toc_entry_col_header: Entrada do ÍNDICE
   toc_no_longer_available: A información do ÍNDICE xa non está dispoñible
+  too_many_descendants_to_curate_with_count: 
+    one: "ERRO: O sistema automático non pode procesar a túa conservación. Hai %{count} dependencia que supera o máximo permitido."
+    other: "ERRO: O sistema automático non pode procesar a túa conservación. Hai %{count} dependencias que superan o máximo permitido."
   topic: Tema
   topic_area: Área do tema
   topics_avilable_to_contact_us_info: A páxina de contacto inclúe os seguintes temas. Podes engadir ou editar estes temas e os seus correspondentes enderezos de correo electrónico. Todos os cambios feitos son inmediatos.
@@ -3712,6 +3726,7 @@ gl:
   unable_to_invite_users_to_community_error: Non se puideron enviar os convites a %{users}.
   unique_page_views_th: Visitas por páxina únicas
   unknown: Descoñecido
+  unknown_data_object_title: Obxecto de datos descoñecido
   unknown_hierarchy: Xerarquía descoñecida
   unknown_type_not_associated_with_any_published_entries: Estes datos non están asociados a ningún taxon publicado.
   unpublished: Sen publicar

@@ -1977,13 +1977,18 @@ ko:
         active_translation: 게시함
         active_translation_more: 게시한 번역은 문서 자체를 게시하지 않은 경우를 제외하고 공개적으로 보여집니다. 문서의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
         language_id: 언어
+        left_content_more: "(선택 사항) 둘러보기 링크의 정렬하지 않은 목록을 추가합니다. 현재 문서 링크를 강조하려면 <code>active</code> 클래스 이름을 사용하세요, 예를 들어 <code>:id</code>인 곳에 <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>는 현재 문서 ID나 고유 이름이고 <code>:title</code>은 문서의 설명 제목입니다. (<strong>참고: EOL CMS 문서의 모든 링크는 슬래시로 시작해야 합니다: <code>/info/:id</code></strong>) 이러한 바뀜을 수행하려면 편집기 도구 모음에서 <em>원본</em>을 선택하여 직접 HTML 원본 코드를 편집해야 합니다."
+        main_content_more: "본문 영역에 주요 문서 내용을 입력하세요. 적절한 의미적 텍스트 요소를 선택하려면 <em>형식</em> 드롭다운을 사용하세요, 예를 들어 <em>2단계 문단 제목</em>을 사용하려면 <em>2단계 문단 제목</em>을 선택하세요. 참고: <em>1단계 문단 제목</em>은 문서 제목을 위해 예약되어 있습니다. 본문 영역의 문단 제목은 <em>2단계 문단 제목</em>으로 시작합니다. 수동으로 HTML을 삽입하고 편집하도록 허용하려면 HTML 원본 코드 보기로 전환하기 위해 <em>원본</em>을 선택하세요."
         meta_description_more: 문서 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인와 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
+        meta_keywords_more: 문서의 내용을 최상으로 반영하기 위해 단어와 짧은 문장의 쉼표로 구분한 목록을 입력하세요. 키워드와 주요 단어가 가끔 검색어에 대한 문서의 관련성을 평가하기 위해 웹 검색 엔진에 의해 사용됩니다.
         title_more: 이 내용의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
       translated_news_item: 
         active_translation: 게시함
         active_translation_more: 게시한 번역은 뉴스 항목 자체가 게시하지 않은 경우를 제외하고 공개적으로 보여집니다. 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
+        body_more: "본문 영역에 뉴스 항목 내용을 입력하세요. 적절한 의미적 텍스트 요소를 선택하려면 <em>형식</em> 드롭다운을 사용하세요, 예를 들어 <em>2단계 문단 제목</em>을 사용하려면 <em>2단계 문단 제목</em>을 선택하세요. 참고: <em>1단계 문단 제목</em>은 뉴스 항목 제목을 위해 예약되어 있습니다. 본문 영역의 문단 제목은 <em>2단계 문단 제목</em>으로 시작합니다. 수동으로 HTML을 삽입하고 편집하도록 허용하려면 HTML 원본 코드 보기로 전환하기 위해 <em>원본</em>을 선택하세요."
         language_id: 언어
         meta_description_more: 뉴스 항목 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인와 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
+        meta_keywords_more: 뉴스 항목의 내용을 최상으로 반영하기 위해 단어와 짧은 문장의 쉼표로 구분한 목록을 입력하세요. 키워드와 주요 단어가 가끔 검색어에 대한 뉴스 항목의 관련성을 평가하기 위해 웹 검색 엔진에 의해 사용됩니다.
         title_more: 이 뉴스 항목의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
       user: 
         agreed_with_terms: <a href="%{terms_url}">이용 약관</a>에 동의합니다
@@ -1997,6 +2002,7 @@ ko:
         credentials_more_referral: 현재 큐레이터의 추천입니다.
         credentials_more_successful_assistant_curator: 조수 큐레이터로서 성공의 역사입니다.
         curation_application: 큐레이터 되기
+        curation_application_more: 큐레이션 권한을 수정하려면 그냥 신청서를 제출하면 당신의 자격을 검토하겠습니다.
         curation_priveleges_credentials: 자격 증명 <small>(전체 및 마스터 큐레이터만)</small>
         curator_level: 현재 %{curator_level_with_indefinite_article}입니다.
         curator_scope: 큐레이션 범위
@@ -2869,7 +2875,7 @@ ko:
   see_all_of_your_collections: 내 모음집 모두 보기
   see_all_of_your_communities: 내 공동체 모두 보기
   see_all_updates_with_count_html: 
-    one: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 모두 보기
+    one: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 보기
     other: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 모두 보기
   see_notes: 참고 보기
   select_an_item_from_the_menu: 메뉴에서 항목을 선택하세요
@@ -3506,8 +3512,11 @@ ko:
         meta_title: "%{user_full_name} 콘텐츠 파트너"
         tweet_text: "%{user_full_name} 콘텐츠 파트너"
     edit: 
-      form_tip_account_oauth: 이메일 주소와 선호 언어는 모든 사용자에 대해 %{required_icon}(이)가 필요합니다.
-      form_tip_profile: "%{required_icon}(이)가 필요한 것으로 표시한 항목은 일반 사용자한테는 선택 사항이지만 큐레이터한테는 필요합니다."
+      form_tip_account: EOL에 로그인하려면 EOL 사용자 이름과 비밀번호가 필요하거나 타사 계정을 연결할 수 있습니다. 연결한 계정을 가지고 있지 않으면 사용자 이름과 비밀번호가 필수입니다. 하지만 기존 계정을 바꾸고 싶다면 여기에 새 비밀번호만 입력해야 합니다. 이메일 주소와 선호하는 언어는 모든 사용자한테는 필수(%{required_icon})입니다.
+      form_tip_account_oauth: 이메일 주소와 선호 언어는 모든 사용자에 대해 필수%{required_icon}입니다.
+      form_tip_curation: 자격 증명과 큐레이션 범위는 조수 큐레이터한테는 선택 사항이지만 전체 큐레이터와 마스터 큐레이터한테는 필수%{required_icon}입니다.
+      form_tip_profile: 필수%{required_icon}로 표시한 항목은 일반 사용자한테는 선택 사항이지만 큐레이터한테는 필수입니다.
+      form_tip_profile_oauth: 이름은 필수입니다. 필수%{required_icon}로 표시한 다른 항목은 일반 사용자한테는 선택 사항이지만 큐레이터한테는 필수입니다.
     new: 
       complete_registration_header: EOL 등록을 완료했습니다
       create_user_header: 새 <abbr title="Encyclopedia of Life">EOL</abbr> 계정 만들기

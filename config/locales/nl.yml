@@ -503,8 +503,21 @@ nl:
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> heeft het als exemplarisch gemarkeerd op een onbekende pagina.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> heeft het als exemplarisch gemarkeerd voor "%{taxon}".
       classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: Een onbekende gebruiker heeft twee onbekende pagina's samengevoegd.
+          an_unknown_user_merged_to_it: Een onbekende gebruiker heeft een andere pagina samengevoegd met deze.
+          an_unknown_user_merged_to_taxon: Een onbekende gebruiker heeft een andere pagina samengevoegd met %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> heeft twee onbekende pagina's samengevoegd.
+          user_merged_to_it: <strong>%{user}</strong> heeft een andere pagina samengevoegd met deze.
+          user_merged_to_taxon: <strong>%{user}</strong> heeft een andere pagina samengevoegd met %{target}.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} verplaatst van een onbekende pagina naar een andere onbekende pagina.
         split: 
           an_unknown_user_split_classifications_from_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
+          an_unknown_user_split_classifications_from_it: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
+          an_unknown_user_split_classifications_from_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van %{taxon} naar <a href='%{to}'>de eigen pagina</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd in een onbekende context.
         an_unknown_user_hid_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
@@ -971,6 +984,7 @@ nl:
   assistive_literature_header: Literatuur
   assistive_maps_header: Kaarten
   assistive_media_header: Media
+  assistive_names_classifications_header: Classificaties
   assistive_names_common_header: Algemene namen
   assistive_names_related_header: Gerelateerde namen
   assistive_names_synonyms_header: Synoniemen
@@ -987,6 +1001,9 @@ nl:
   associated_with_map_header: Op de laatste kaart
   associated_with_sound_header: In het laatste geluidsbestand
   associated_with_video_header: In de laatste video
+  association_hidden_for_taxa: 
+    one: "Verborgen voor:"
+    other: "Verborgen voor:"
   association_trusted_for_taxa: 
     one: "Vertrouwd voor:"
     other: "Vertrouwd voor:"
@@ -1532,6 +1549,7 @@ nl:
   created_community: De gemeenschap is aangemaakt.
   creative_commons: Creative Commons
   credentials: Gebruikersgegevens
+  credentials_colon: "Gebruikersgegevens:"
   curated: Gecureerd
   curated_association_update_button: Wijzigingen opslaan
   curated_objects_of: heeft objecten van %{name} geconserveerd
@@ -1669,6 +1687,7 @@ nl:
   dato_create_user_text_validation_error: Zorg dat u het formulier correct hebt ingevuld.
   dato_edit_cancel: Annuleren
   dato_edit_link_button: Verwijzing bewerken
+  dato_edit_link_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste verwijzing wordt toegevoegd aan uw volglijst zodat u overleg over deze verwijzing kunt volgen en de conserveringsstatus kunt bijhouden.
   dato_edit_link_title: Verwijzing bewerken
   dato_edit_text_button: Artikel bewerken
   dato_edit_text_page_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste pagina wordt toegevoegd aan uw volglijst zodat u overleg over deze pagina kunt volgen en de conserveringsstatus kunt bijhouden.
@@ -1678,6 +1697,7 @@ nl:
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
   dato_new_edit_user_text_form_tip: Uw afgeronde artikel wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt het gemarkeerd als "niet-beoordeeld" totdat het wordt beoordeeld door een conservator. Hoofdstuk, tekst, taal en licentie zijn vereist (%{required_icon}), alle andere velden zijn optioneel. Als u een CC BY-licentie (Naamsvermelding) selecteert, neem dan een rechthebbende op of laat het veld leeft om uw eigen volledige naam te gebruiken. Voor Publiek domeinlicenties is geen rechthebbende nodig. Lees voor meer informatie de <a href="%{add_article_help_url}">hulppagina voor artikel toevoegen</a>.
   dato_new_edit_user_text_link_fieldset_content_header: Gegevens voor verwijzing
+  dato_new_edit_user_text_link_form_tip: Uw verwijzing wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt deze gemarkeerd als "niet gecontroleerd" totdat een conservator deze controleerd. Categorie, beschrijving en URL zijn verplicht (%{required_icon}). Alle overige velden zijn optioneel. Lees <a href="%{add_article_help_url}">artikel toevoegen/hulp voor verwijzingen</a> voor meer informatie.
   dato_new_text_for_taxon_page_title: Een pagina toevoegen aan <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Verwijzing toevoegen aan <i>%{taxon}</i>
   dato_new_text_page_description: Dank u wel voor uw bijdragen aan EOL. Uw artikel wordt toegevoegd aan uw volglijst zodat u reacties en de conserveringsstatus kunt volgen.
@@ -1826,6 +1846,7 @@ nl:
   error_404_page_title: Niet gevonden
   error_500_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan alstublieft een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Interne serverfout
+  error_classifications_locked_cannot_reindex: Deze pagina kan op het moment helaas niet opnieuw geïndexeerd worden. De classificaties zijn vergrendeld.
   error_couldnt_find_collection_by_id: Er is geen door u beheerde verzameling met het ID %{id}.
   error_couldnt_find_community_by_id: Er is geen door u beheerde gemeenschap met het ID %{id}.
   error_default_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan alstublieft een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
@@ -1869,7 +1890,6 @@ nl:
   file: Bestand
   file_id: Bestandsnummer
   file_size: Bestandsgrootte
-  filed_under_label: Opgeslagen onder %{label} op
   fill_in_a_message_below_to_send_email_to_user: "Geef hieronder een bericht in dat aan deze gebruiker van de site gemaild kan worden. Het bericht wordt verzonden als u op de knop klikt:"
   filter_button: Filteren
   filter_by_day: Filteren op dag
@@ -2288,6 +2308,7 @@ nl:
     other: "%{count} afbeeldingen"
   import_once: Eenmalig importeren
   in_collection: in verzameling
+  in_community: in gemeenschap
   in_providing_its_content_to_eo: Door inhoud bij te dragen aan EOL,
   in_this_data_type: "in deze %{data_type}:"
   inappropriate: Ongepast
@@ -2353,6 +2374,7 @@ nl:
   jsonp_by_adding_a_callback_parameter: ... en JSONP door het toevoegen van een callbackparameter
   just_pages_with_pictures_and_text: Alleen de pagina's met afbeeldingen en tekst
   keep_split_entry_from_this_entry: Gescheiden houden van deze term
+  key: Sleutel
   label: Label
   language: "Taal:"
   language_selector_advisory_information: Hieronder staat een lijst met talen waarvan de inhoud van de website beschikbaar is. Selecteer een taal uit de lijst om de inhoud in die taal te bekijken.
@@ -2959,6 +2981,7 @@ nl:
   recognized_by_from_source_as_a_rank: "%{recognized_by} in %{source} als een %{taxon_rank}"
   record_not_found: "[record niet gevonden]"
   references_cabs_colon: "Referenties:"
+  reindex_page_button: Pagina opnieuw indexeren
   related_names_with_count: 
     one: één gerelateerde naam
     other: "%{count} gerelateerde namen"

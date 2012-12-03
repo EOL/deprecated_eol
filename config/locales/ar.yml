@@ -1908,7 +1908,6 @@ ar:
   file: ملف
   file_id: تعريف الملف
   file_size: حجم الملف
-  filed_under_label: محفوظ تحت عنوان %{label} في
   fill_in_a_message_below_to_send_email_to_user: "قم بإدخال رسالة فيما يلي لإرسال بريد إلكتروني من الموقع إلى ذلك المستخدم . سوف يتم إرسال الرسالة عند إضافة النموذج:"
   filter_button: تصفية نتائج البحث
   filter_by_day: فلترة حسب اليوم

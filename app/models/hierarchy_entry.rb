@@ -42,16 +42,8 @@ class HierarchyEntry < ActiveRecord::Base
 
   has_one :hierarchy_entry_stat
 
-  def self.sort_by_lft(hierarchy_entries)
-    hierarchy_entries.sort_by{ |he| he.lft }
-  end
-
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }
-  end
-
-  def self.sort_by_common_name(hierarchy_entries, language)
-    hierarchy_entries.sort_by{ |he| he.common_name_in_language(language).downcase }
   end
 
   def self.sort_by_vetted(hierarchy_entries)
@@ -212,17 +204,6 @@ class HierarchyEntry < ActiveRecord::Base
     end
   end
 
-  # Walk up the list of ancestors until you find a node that we can map to the specified hierarchy.
-  def find_ancestor_in_hierarchy(hierarchy)
-    he = self
-    until he.nil? || he.taxon_concept.nil? || he.taxon_concept.in_hierarchy?(hierarchy)
-      return nil if he.parent_id == 0
-      he = he.parent
-    end
-    return nil if he.nil? || he.taxon_concept.nil?
-    he.taxon_concept.entry(hierarchy)
-  end
-
   def vet_synonyms(options = {})
     raise "Missing :name_id"     unless options[:name_id]
     raise "Missing :language_id" unless options[:language_id]
@@ -250,28 +231,6 @@ class HierarchyEntry < ActiveRecord::Base
         return {:hierarchy_entry => self, :hierarchy => this_hierarchy, :outlink_url => this_hierarchy.outlink_uri }
       end
     end
-  end
-
-  def split_from_concept
-    result = connection.execute("SELECT he2.id, he2.taxon_concept_id FROM hierarchy_entries he JOIN hierarchy_entries he2 USING (taxon_concept_id) WHERE he.id=#{self.id}").all_hashes
-    unless result.empty?
-      entries_in_concept = result.length
-      # if there is only one member in the entry's concept there is no need to split it
-      if entries_in_concept > 1
-        # create a new empty concept
-        new_taxon_concept = TaxonConcept.create(:published => self.published, :vetted_id => self.vetted_id, :supercedure_id => 0, :split_from => 0)
-
-        # set the concept of this entry to the new concept
-        self.taxon_concept_id = new_taxon_concept.id
-        self.save!
-
-        # update references to this entry to use new concept id
-        connection.execute("UPDATE IGNORE taxon_concept_names SET taxon_concept_id=#{new_taxon_concept.id} WHERE source_hierarchy_entry_id=#{self.id}");
-        connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{self.id}")
-        return new_taxon_concept
-      end
-    end
-    return false
   end
 
   def number_of_descendants

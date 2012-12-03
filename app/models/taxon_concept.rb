@@ -84,17 +84,6 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConcept.find(load_these, :include => [:hierarchy_entries])
   end
 
-  def all_superceded_taxon_concept_ids
-    # arbitrarily 
-    superceded_taxon_concept_ids = []
-    TaxonConcept.preload_associations(self, { :superceded_taxon_concepts => { :superceded_taxon_concepts => { :superceded_taxon_concepts => :superceded_taxon_concepts } } }, :select => { :taxon_concepts => [ :id, :supercedure_id ] } )
-    superceded_taxon_concepts.each do |superceded_concept|
-      superceded_taxon_concept_ids << superceded_concept.id
-      superceded_taxon_concept_ids += superceded_concept.all_superceded_taxon_concept_ids
-    end
-    superceded_taxon_concept_ids.uniq
-  end
-
   # The common name will defaut to the current user's language.
   def common_name(hierarchy = nil)
     quick_common_name(hierarchy)
@@ -217,10 +206,6 @@ class TaxonConcept < ActiveRecord::Base
     @current_user ||= User.new
   end
 
-  def self.current_user_static
-    @current_user ||= User.new
-  end
-
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
     @images = nil
@@ -328,123 +313,11 @@ class TaxonConcept < ActiveRecord::Base
     @cached_entry[hierarchy] = best_entry
   end
 
-  def entry_for_agent(agent_id)
-    return nil if agent_id.blank? || agent_id == 0
-    matches = hierarchy_entries.select{ |he| he.hierarchy && he.hierarchy.agent_id == agent_id }
-    return nil if matches.empty?
-    matches[0]
-  end
-
-  def self.entries_for_concepts(taxon_concept_ids, hierarchy = nil, strict_lookup = false)
-    hierarchy ||= Hierarchy.default
-    raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
-    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.class.to_s == 'Hierarchy'
-    raise "Must get an array of taxon_concept_ids" unless taxon_concept_ids.is_a? Array
-
-    # get all hierarchy entries
-    select = {:hierarchy_entries => '*', :vetted => :view_order}
-    all_entries = HierarchyEntry.find_all_by_taxon_concept_id(taxon_concept_ids, :include => :vetted)
-    # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
-    all_entries = HierarchyEntry.sort_by_vetted(all_entries)
-
-    concept_entries = {}
-    all_entries.each do |he|
-      concept_entries[he.taxon_concept_id] ||= []
-      concept_entries[he.taxon_concept_id] << he
-    end
-
-    final_concept_entries = {}
-    # we want ONLY the entry in this hierarchy
-    if strict_lookup
-      concept_entries.each do |taxon_concept_id, entries|
-        final_concept_entries[taxon_concept_id] = entries.detect{ |he| he.hierarchy_id == hierarchy.id } || nil
-      end
-      return final_concept_entries
-    end
-
-    concept_entries.each do |taxon_concept_id, entries|
-      final_concept_entries[taxon_concept_id] = entries.detect{ |he| he.hierarchy_id == hierarchy.id } || entries[0] || nil
-    end
-    return final_concept_entries
-  end
-
-  def self.ancestries_for_concepts(taxon_concept_ids, hierarchy = nil)
-    return false if taxon_concept_ids.blank?
-    concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
-    hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
-    return false if hierarchy_entry_ids.blank?
-
-    results = TaxonConcept.connection.execute("
-        SELECT he.id, he.taxon_concept_id, n.string name_string, n_parent1.string parent_name_string, n_parent2.string grandparent_name_string
-        FROM hierarchy_entries he
-        JOIN names n ON (he.name_id=n.id)
-        LEFT JOIN (
-          hierarchy_entries he_parent1 JOIN names n_parent1 ON (he_parent1.name_id=n_parent1.id)
-          LEFT JOIN (
-            hierarchy_entries he_parent2 JOIN names n_parent2 ON (he_parent2.name_id=n_parent2.id)
-          ) ON (he_parent1.parent_id=he_parent2.id)
-        ) ON (he.parent_id=he_parent1.id)
-        WHERE he.id IN (#{hierarchy_entry_ids.join(',')})").all_hashes
-
-    ancestries = {}
-    results.each do |r|
-      r['name_string'] = r['name_string'].firstcap if r['name_string']
-      r['parent_name_string'] = r['parent_name_string'].firstcap if r['parent_name_string']
-      r['grandparent_name_string'] = r['grandparent_name_string'].firstcap if r['grandparent_name_string']
-      ancestries[r['taxon_concept_id'].to_i] = r
-    end
-    return ancestries
-  end
-
-  def self.hierarchies_for_concepts(taxon_concept_ids, hierarchy = nil)
-    return false if taxon_concept_ids.blank?
-    concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
-    hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
-
-    results = Hierarchy.find_by_sql("
-        SELECT he.taxon_concept_id, h.*
-        FROM hierarchy_entries he
-        JOIN hierarchies h ON (he.hierarchy_id=h.id)
-        WHERE he.id IN (#{hierarchy_entry_ids.join(',')})")
-
-    hierarchies = {}
-    results.each do |r|
-      hierarchies[r['taxon_concept_id'].to_i] = r
-    end
-    return hierarchies
-  end
-
   def entry_in_hierarchy(hierarchy)
     raise "Hierarchy does not exist" if hierarchy.nil?
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
     return hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
       nil
-  end
-
-  # These are methods that are specific to a hierarchy, so we have to handle them through entry:
-  # This was handled using delegate, before, but seemed to be causing problems, so I'm making it explicit:
-  def kingdom(hierarchy)
-    h_entry = entry(hierarchy)
-    return nil if h_entry.nil?
-    return h_entry.kingdom
-  end
-
-  def all_ancestor_taxon_concept_ids
-    return @complete_ancestor_concept_ids if @complete_ancestor_concept_ids
-    ancestor_concept_ids = TaxonConceptsFlattened.find_all_by_taxon_concept_id(id).collect{ |tcf| tcf.ancestor_id } + [id]
-    @complete_ancestor_concept_ids = TaxonConceptsFlattened.find_all_by_taxon_concept_id(ancestor_concept_ids).collect{ |tcf| tcf.ancestor_id } + [id]
-  end
-
-  # general versions of the above methods for any hierarchy
-  def find_ancestor_in_hierarchy(hierarchy)
-    if he = published_hierarchy_entries.detect {|he| he.hierarchy_id == hierarchy.id }
-      return he
-    end
-    published_hierarchy_entries.each do |entry|
-      this_entry_in = entry.find_ancestor_in_hierarchy(hierarchy)
-      return this_entry_in if this_entry_in
-    end
-    return nil
   end
 
   def in_hierarchy?(search_hierarchy = nil)
@@ -866,40 +739,6 @@ class TaxonConcept < ActiveRecord::Base
   def vet_common_name(options = {})
     vet_taxon_concept_names(options)
     vet_synonyms(options)
-  end
-
-  def self.supercede_by_ids(id1, id2)
-    return false if id1 == id2
-    return false if id1.class != Fixnum || id1.blank? || id1 == 0
-    return false if id2.class != Fixnum || id2.blank? || id2 == 0
-
-
-    # always ensure ID1 is the smaller of the two
-    id1, id2 = id2, id1 if id2 < id1
-
-    begin
-      tc1 = TaxonConcept.find(id1)
-      tc2 = TaxonConcept.find(id2)
-    rescue
-      return false
-    end
-
-    # at this point ID2 is the one going away
-    # ID2 is being superceded by ID1
-    TaxonConcept.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET he.taxon_concept_id=#{id1}, tc.supercedure_id=#{id1} WHERE taxon_concept_id=#{id2}");
-
-    # all references to ID2 are getting changed to ID1
-    TaxonConcept.connection.execute("UPDATE IGNORE taxon_concept_names SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
-    TaxonConcept.connection.execute("UPDATE IGNORE top_concept_images he SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
-    TaxonConcept.connection.execute("UPDATE IGNORE data_objects_taxon_concepts dotc SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
-    TaxonConcept.connection.execute("UPDATE IGNORE top_unpublished_concept_images he SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
-    TaxonConcept.connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{id2}");
-    return true
-  end
-
-  def map_images(options ={})
-    sounds = data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.image_type_ids.join(',')}) AND
-      data_subtype_id IN (#{DataType.map_type_ids.join(',')})")
   end
 
   def curated_hierarchy_entries

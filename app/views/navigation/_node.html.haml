@@ -13,11 +13,13 @@
   - if show_hierarchy_label
     - hierarchy_label = hierarchy_display_title(hierarchy_entry.hierarchy)
     %h4= raw(I18n.t(:rank_recognized_by_agent_colon, :rank => hierarchy_entry.rank_label, :agent => hierarchy_label))
-  - entries_to_preload = hierarchy_entry.ancestors + hierarchy_entry.children + [hierarchy_entry]
+  -# preloading the name information for ancestors and current node at the same time
+  - HierarchyEntry.preload_associations(hierarchy_entry.ancestors + [hierarchy_entry], :name)
+  - siblings = nil
   - if show_siblings
-    - entries_to_preload += hierarchy_entry.siblings
-  - HierarchyEntry.preload_associations(entries_to_preload, :name)
-  = show_full_tree(hierarchy_entry, :show_siblings => show_siblings, :expand => expand, :link_to_taxa => link_to_taxa, :max_children => max_children, :show_hierarchy_label => show_hierarchy_label)
+    -# querying for the first $max_children siblings, ordered by name, and preloading the name strings all at once
+    - siblings = hierarchy_entry.siblings.includes(:name).order('names.string').limit(max_children).reject{ |s| s == hierarchy_entry }[0...max_children-1]
+  = show_full_tree(hierarchy_entry, :show_siblings => show_siblings, :siblings => siblings, :expand => expand, :link_to_taxa => link_to_taxa, :max_children => max_children, :show_hierarchy_label => show_hierarchy_label)
 - else
   %li
     = I18n.t(:hierarchy_node_missing)

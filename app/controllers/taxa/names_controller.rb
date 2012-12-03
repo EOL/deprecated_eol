@@ -20,11 +20,11 @@ class Taxa::NamesController < TaxaController
       @other_hierarchy_entries = @taxon_concept.deep_published_nonbrowsable_hierarchy_entries
     end
     HierarchyEntry.preload_associations(@hierarchy_entries, [ { :hierarchy => [ { :resource => :content_partner }, :dwc_resource ] },
-      :rank, :ancestors, :children, :siblings ])
-    HierarchyEntry.preload_associations((@hierarchy_entries +
-      @hierarchy_entries.collect(&:ancestors) +
-      @hierarchy_entries.collect(&:children) +
-      @hierarchy_entries.collect(&:siblings)).flatten, :name)
+      :rank, :ancestors ])
+    # preloading the names for the current nodes and their ancestors. Children and sublings will be loaded later in the views
+    # which is more efficient as we can preload only the first $max_children of each, sorted by name. It is not possible to get
+    # for example "the first 10 children, alphabetically, for these 15 entries". That must be done for each entry individually
+    HierarchyEntry.preload_associations((@hierarchy_entries + @hierarchy_entries.collect(&:ancestors)).flatten, :name)
 
     @pending_moves = HierarchyEntryMove.pending.find_all_by_hierarchy_entry_id(@hierarchy_entries)
 

@@ -499,7 +499,7 @@ module ApplicationHelper
       else
         haml_concat show_nodes([ hierarchy_entry ], options.merge(:current => true))
         if options[:show_siblings]
-          haml_concat show_nodes(hierarchy_entry.siblings.reject{ |s| s == hierarchy_entry }, options.merge(:parent => hierarchy_entry))
+          haml_concat show_nodes(options[:siblings], options.merge(:parent => hierarchy_entry.parent))
         end
       end
     end
@@ -520,21 +520,25 @@ module ApplicationHelper
                 haml_concat navigation_node(hierarchy_entry, options)
               end
               unless (options[:parent] && !options[:expand]) || hierarchy_entry.is_leaf?
-                haml_concat show_nodes(hierarchy_entry.children, options.reject{ |k,v| k == :current }.merge(:parent => hierarchy_entry))
+                # querying for the first $max_children children, ordered by name, and preloading the name strings all at once
+                children = hierarchy_entry.children.includes(:name).order('names.string').limit(options[:max_children])
+                haml_concat show_nodes(children, options.reject{ |k,v| k == :current }.merge(:parent => hierarchy_entry))
               end
             end
           end
 
           # Show a 'see more' type message
-          parent = options[:parent]
-          if parent && hierarchy_entries.length > options[:max_children]
-            haml_tag :li, :class => 'show_tree_count' do
-              haml_concat I18n.t(:more_children_with_count, :count => hierarchy_entries.length - options[:max_children])
-              full_link = options[:link_to_taxa] ?
-                overview_taxon_path(parent.taxon_concept_id, :full => true) :
-                overview_taxon_entry_path(parent.taxon_concept_id, parent, :full => true)
-              full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa], :show_siblings => options[:show_siblings])
-              haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
+          if parent = options[:parent]
+            potential_entries_to_show = parent.children.count
+            if options[:max_children] < potential_entries_to_show
+              haml_tag :li, :class => 'show_tree_count' do
+                haml_concat I18n.t(:more_children_with_count, :count => potential_entries_to_show - options[:max_children])
+                full_link = options[:link_to_taxa] ?
+                  overview_taxon_path(parent.taxon_concept_id, :full => true) :
+                  overview_taxon_entry_path(parent.taxon_concept_id, parent, :full => true)
+                full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa], :show_siblings => options[:show_siblings])
+                haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
+              end
             end
           end
         end

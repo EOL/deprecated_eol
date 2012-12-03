@@ -219,6 +219,7 @@ Eol::Application.routes.draw do
     collection do
       get 'usernames'
       get 'recover_account'
+      post 'recover_account'
       get 'verify_open_authentication'
       get 'fetch_external_page_title'
     end

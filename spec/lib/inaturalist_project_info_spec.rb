@@ -28,6 +28,12 @@ describe InaturalistProjectInfo do
     InaturalistProjectInfo.get(1234)['foo'].should == 'bar'
   end
 
+  it 'should NOT get info on a project if we have already created the cache' do
+    Rails.cache.write(InaturalistProjectInfo.cache_key, {})
+    Net::HTTP.should_not_receive(:get)
+    InaturalistProjectInfo.get(1234)['foo']
+  end
+
   it 'should log a warning and return nil if something goes wrong getting iNat info' do
     Rails.logger.should_receive(:warn)
     Net::HTTP.should_receive(:get).and_return(@bad_response)

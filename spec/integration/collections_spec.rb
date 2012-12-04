@@ -458,41 +458,10 @@ describe "Collections" do
     it 'collection editors should have rel canonical link tag'
     it 'collection editors should not have prev and next link tags'
 
-    it 'should not index activity log in SOLR if the collection is watch collection' do
-      user = User.gen
-      data_object = DataObject.gen.latest_published_version_in_same_language
-      new_collection = Collection.gen
-      new_collection.users = [user]
-      login_as user
-      
-      visit data_object_path(data_object)
-      click_link 'Add to a collection'
-      find(:css, "#collection_id_[value='#{user.watch_collection.id}']").set(true)
-      click_button 'Collect item'
-      body.should include('added to collection')
-      user.watch_collection.items.map {|li| li.object }.include?(data_object).should be_true
-      visit user_activity_path(user)
-      # TODO - this failed once, but didn't seem normal. If you're reading this, check to see if the action this
-      # "test" is picking up is NOT the collection activity. If that's the case, re-write the test to check for
-      # something more specific to adding that item to the collection. (Which makes more sense anyway; this is too
-      # broad.)
-      body.should_not include("Profile picture of #{user.full_name} who took this action.")
-      visit collection_newsfeed_path(new_collection)
-      body.should_not include("Profile picture of #{user.full_name} who took this action.")
-      
-      visit data_object_path(data_object)
-      click_link 'Add to a collection'
-      find(:css, "#collection_id_[value='#{new_collection.id}']").set(true)
-      click_button 'Collect item'
-      body.should include('added to collection')
-      user.watch_collection.items.map {|li| li.object }.include?(data_object).should be_true
-      visit user_activity_path(user)
-      body.should have_tag('ul.feed li')
-      body.should include("Profile picture of #{user.full_name} who took this action.")
-      visit collection_newsfeed_path(new_collection)
-      body.should have_tag('ul.feed li')
-      body.should include("Profile picture of #{user.full_name} who took this action.")
-    end
+    # TODO - write this spec somewhere useful.
+    # We don't gain much from testing this here. It's a rather specific test (user activity should not include watch
+    # collection activities), it's very hard to test, it's very expensive to set up, and it's a waste of time.
+    it 'should not index activity log in SOLR if the collection is watch collection'
 
   end
 

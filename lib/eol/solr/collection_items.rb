@@ -94,7 +94,7 @@ module EOL
           :vetted => [ :id, :view_order ],
           :hierarchy_entries_flattened => '*',
           :ranks => '*',
-          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid, :published ]
+          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid, :published, :language_id ]
         }
         if options[:view_style] == ViewStyle.annotated
           includes << { :preferred_common_names => [ :name, :language ] }

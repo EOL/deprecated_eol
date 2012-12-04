@@ -60,7 +60,7 @@
               = link_to 'search_by_provider', :controller => 'api/docs', :action => 'search_by_provider'
             %td
               - url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => Hierarchy.itis.id, :only_path => false)
-              =I18n.t(:search_by_provider_method_description_with_link, :link => link_to(url, url))
+              = raw(I18n.t(:search_by_provider_method_description_with_link, :link => link_to(url, url)))
       %h3
         =I18n.t(:response_formats)
       %p

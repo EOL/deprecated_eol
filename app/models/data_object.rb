@@ -54,7 +54,7 @@ class DataObject < ActiveRecord::Base
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded
-  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id'
+  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id, created_at'
   has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc",
     :conditions => 'published = 1'
 
@@ -611,23 +611,29 @@ class DataObject < ActiveRecord::Base
   # a language == English, but other revisions have a language_id of 0. That explains some
   # of the complicated logic in this method
   def latest_published_version_in_same_language
-    latest_version_in_same_language(:check_only_published => true)
+    @latest_published_version_in_same_language ||= latest_version_in_same_language(:check_only_published => true)
   end
   
   def latest_version_in_same_language(params = {})
     params[:check_only_published] = true unless params.has_key?(:check_only_published)
-    versions_to_look_at = params[:check_only_published] ? all_published_versions : all_versions
-    
-    return nil if versions_to_look_at.blank?
-    versions_to_look_at_in_language = versions_to_look_at.dup
+    if params[:check_only_published]
+      # sometimes all_published_versions, but if not I anted to set a default set of select fields. Rails AREL
+      # will attempt to load the versions again if the select fields are not the same as already
+      # loaded in all_published_versions. This is verbose, but its potentially saving loading all descriptions from all
+      # versions so I think it is worth it. But there may be an easier way
+      versions_to_look_at_in_language = (all_published_versions.loaded?) ? all_published_versions : all_published_versions.select('id, guid, language_id, data_type_id, created_at')
+    else
+      versions_to_look_at_in_language = all_versions
+    end
     # only looking at revisions with the same data type (due to a bug it is possible for different revisions to have different types)
-    versions_to_look_at_in_language.delete_if{ |d| self.data_type_id && d.data_type_id != self.data_type_id }
+    versions_to_look_at_in_language.delete_if{ |d| data_type_id && d.data_type_id != data_type_id }
     # if this object has a language, and its different from the revision language,
     # except when this is English and the other has no language
-    versions_to_look_at_in_language.delete_if{ |d| self.language && (d.language_id != self.language.id && !(d.language_id == 0 && self.language == Language.english)) }
+    versions_to_look_at_in_language.delete_if{ |d| (language_id && language_id != 0) && (d.language_id != language_id && !(d.language_id == 0 && language_id == Language.english.id)) }
     # if this object has no language, and the revision does have a language other than English
-    versions_to_look_at_in_language.delete_if{ |d| !self.language && d.language && d.language != Language.english }
-    versions_to_look_at_in_language.sort_by{ |d| d.id }.reverse.first
+    versions_to_look_at_in_language.delete_if{ |d| (language_id.nil? || language_id == 0) && (d.language_id && d.language_id != 0) && d.language_id != Language.english.id }
+    return nil if versions_to_look_at_in_language.empty?
+    DataObject.find(DataObject.sort_by_created_date(versions_to_look_at_in_language).reverse.first.id)
   end
   
   def is_latest_published_version_in_same_language?
@@ -770,7 +776,7 @@ class DataObject < ActiveRecord::Base
     if is_the_latest_published_revision
       latest_revision = self
     else
-      latest_revision = latest_published_revision.nil? ? revisions_by_date.first : latest_published_revision
+      latest_revision = latest_published_version_in_same_language.nil? ? revisions_by_date.first : latest_published_version_in_same_language
     end
     if latest_revision
       dohes = latest_revision.data_objects_hierarchy_entries.compact.map { |dohe|
@@ -825,7 +831,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def latest_published_users_data_object
-    latest_published_revision.users_data_object if users_data_object && latest_published_revision
+    latest_published_version_in_same_language.users_data_object if users_data_object && latest_published_version_in_same_language
   end
 
   def first_concept_name
@@ -1041,14 +1047,10 @@ class DataObject < ActiveRecord::Base
     @revisions_by_date ||= DataObject.sort_by_created_date(self.revisions).reverse
   end
 
-  def latest_published_revision
-    revisions_by_date.select {|r| r.published? }.first
-  end
-  
   def self.replace_with_latest_versions!(data_objects, options={})
     options[:select] = [] if options[:select].blank? || options[:select].class != Array
     default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url, :data_rating, :object_title,
-      :rights_holder, :source_url, :license_id, :mime_type_id, :object_url, :thumbnail_cache_url ]
+      :rights_holder, :source_url, :license_id, :mime_type_id, :object_url, :thumbnail_cache_url, :created_at ]
     DataObject.preload_associations(data_objects, [ :language, :all_published_versions ],
       :select => {
         :languages => '*',

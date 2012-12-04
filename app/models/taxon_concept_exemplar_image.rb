@@ -9,7 +9,7 @@ class TaxonConceptExemplarImage < ActiveRecord::Base
     exemplar.update_attributes(:data_object_id => data_object_id)
     TopConceptImage.delete_all("taxon_concept_id = #{taxon_concept.id} AND data_object_id = #{data_object_id}")
     connection.execute("UPDATE top_concept_images SET view_order=view_order+1 WHERE taxon_concept_id=#{taxon_concept.id}");
-    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_#{taxon_concept.id}"))
+    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
     TopConceptImage.create(:taxon_concept_id => taxon_concept.id, :data_object_id => data_object_id, :view_order => 1)
   end
 end

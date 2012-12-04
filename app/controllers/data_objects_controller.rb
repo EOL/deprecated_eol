@@ -223,7 +223,7 @@ class DataObjectsController < ApplicationController
         { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
         { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
     @revisions = @data_object.revisions_by_date
-    @latest_published_revision = @data_object.latest_published_revision
+    @latest_published_revision = @data_object.latest_published_version_in_same_language
     @translations = @data_object.available_translations_data_objects(current_user, nil)
     @translations.delete_if{ |t| t.language.nil? } unless @translations.nil?
     @image_source = get_image_source if @data_object.is_image?
@@ -337,7 +337,7 @@ class DataObjectsController < ApplicationController
     else
       access_denied
     end
-    redirect_back_or_default data_object_path(@data_object.latest_published_revision)
+    redirect_back_or_default data_object_path(@data_object.latest_published_version_in_same_language)
   end
 
   def ignore
@@ -513,11 +513,11 @@ private
 
   def get_curated_object(hierarchy_entry)
     if hierarchy_entry.class == UsersDataObject
-      curated_object = UsersDataObject.find_by_data_object_id(@data_object.latest_published_revision.id)
+      curated_object = UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
     elsif hierarchy_entry.associated_by_curator
       curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, hierarchy_entry.id)
     else
-      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_revision.id, hierarchy_entry.id)
+      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_version_in_same_language.id, hierarchy_entry.id)
     end
   end
 
@@ -652,17 +652,17 @@ private
         txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(tc.id, @data_object.id)
         txei_exists.destroy unless txei_exists.nil?
 
-        cached_taxon_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
+        cached_taxon_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_id_#{tc.id}"))
         unless cached_taxon_exemplar.nil? || cached_taxon_exemplar == "none"
-          Rails.cache.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
+          Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
         end
         Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_curator"))
         Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}"))
 
         tc.published_browsable_hierarchy_entries.each do |pbhe|
-          cached_taxon_he_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}"))
+          cached_taxon_he_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_id_#{tc.id}_#{pbhe.id}"))
           unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"
-            Rails.cache.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
+            Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{tc.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
           end
           Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}_curator"))
           Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}"))

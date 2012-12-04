@@ -425,7 +425,7 @@ module ApplicationHelper
     when Community
       community_url(item, options)
     when DataObject
-      data_object_url(item.latest_published_revision || item, options)
+      data_object_url(item.latest_published_version_in_same_language || item, options)
     when User
       user_url(item, options)
     when TaxonConcept
@@ -441,7 +441,7 @@ module ApplicationHelper
     when Community
       community_newsfeed_url(item, options)
     when DataObject
-      data_object_url(item.latest_published_revision || item, options)
+      data_object_url(item.latest_published_version_in_same_language || item, options)
     when User
       user_newsfeed_url(item, options)
     when TaxonConcept

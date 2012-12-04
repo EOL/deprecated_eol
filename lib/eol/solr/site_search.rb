@@ -103,7 +103,6 @@ module EOL
         return if ids.blank?
         instances = TaxonConcept.find_all_by_id(ids)
         TaxonConcept.preload_associations(instances, includes)
-        EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end

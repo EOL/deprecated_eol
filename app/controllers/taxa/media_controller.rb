@@ -52,7 +52,7 @@ class Taxa::MediaController < TaxaController
       :filter_hierarchy_entry => @selected_hierarchy_entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id ] }
+      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
     })
 
     # There should not be an older revision of exemplar image on the media tab. But recently there were few cases found.

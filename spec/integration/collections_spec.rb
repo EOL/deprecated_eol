@@ -175,7 +175,7 @@ describe "Collections" do
           it_should_collect_item(overview_taxon_path(@taxon), @taxon)
         end
         it 'data objects' do
-          latest_revision_of_dato = @taxon.data_objects.first.latest_published_revision
+          latest_revision_of_dato = @taxon.data_objects.first.latest_published_version_in_same_language
           it_should_collect_item(data_object_path(latest_revision_of_dato), latest_revision_of_dato)
         end
         it 'communities' do
@@ -202,7 +202,7 @@ describe "Collections" do
           it_should_create_and_collect_item(overview_taxon_path(@taxon_to_collect), @taxon_to_collect)
         end
         it 'data objects' do
-          latest_revision_of_dato = @taxon_to_collect.data_objects.first.latest_published_revision
+          latest_revision_of_dato = @taxon_to_collect.data_objects.first.latest_published_version_in_same_language
           it_should_create_and_collect_item(data_object_path(latest_revision_of_dato), latest_revision_of_dato)
         end
         it 'communities' do
@@ -341,7 +341,7 @@ describe "Collections" do
       current_url.should match /#{choose_collect_target_collections_path}/
       check 'collection_id_'
       click_button 'Collect item'
-      collectable_data_object = new_dato.latest_published_revision
+      collectable_data_object = new_dato.latest_published_version_in_same_language
       collectable_data_object.object_title = "Current data object"
       collectable_data_object.save
 
@@ -460,7 +460,7 @@ describe "Collections" do
 
     it 'should not index activity log in SOLR if the collection is watch collection' do
       user = User.gen
-      data_object = DataObject.gen.latest_published_revision
+      data_object = DataObject.gen.latest_published_version_in_same_language
       new_collection = Collection.gen
       new_collection.users = [user]
       login_as user

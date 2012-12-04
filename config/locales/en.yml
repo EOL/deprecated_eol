@@ -2325,7 +2325,6 @@ en:
   admin_login_confirmation: "Are you sure you want to log into the content partner registry as %{name}? If you do this, you will be logged out of the website as an administrator."
   article_from: "article from"
   article_more_about: "Learn more about this article"
-  articles_collections: "articles, collections, communities, images, sounds, taxa, users, video"
   articles_with_count:
     one: "%{count} article"
     other: "%{count} articles"

@@ -90,9 +90,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def preferred_common_name_in_language(language)
-    best_name_in_language = preferred_common_names.detect do |preferred_common_name|
-      preferred_common_name.language_id == language.id
-    end
+    best_name_in_language = preferred_common_names.detect{ |c| c.language_id = language.id }
     if best_name_in_language
       return best_name_in_language.name.string.capitalize_all_words_if_using_english
     end
@@ -920,14 +918,14 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
-    cache_key = "best_image_#{self.id}"
-    cache_key += "_#{selected_hierarchy_entry.id}" if
-      selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    cache_key = "best_image_id_#{self.id}"
+    if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+      cache_key += "_#{selected_hierarchy_entry.id}"
+    end
     TaxonConcept.prepare_cache_classes
-    # # TODO: RAILS3 -> singleton can't be dumped. This caching is very useful and we should figure out this Singleton problem
-    # @best_image ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+    best_image_id ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if published_exemplar = self.published_exemplar_image
-        @best_image = published_exemplar
+        published_exemplar.id
       else
         best_images = self.data_objects_from_solr({
           :per_page => 1,
@@ -940,15 +938,13 @@ class TaxonConcept < ActiveRecord::Base
           :return_hierarchically_aggregated_objects => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
-        @best_image = (best_images.empty?) ? 'none' : best_images.first
+        (best_images.empty?) ? 'none' : best_images.first.id
       end
-    # end
-    @best_image = nil if @best_image && (@best_image == 'none' || ! @best_image.published)
-    @best_image
-  end
-
-  def reset_instance_best_image_cache
-    @best_image = nil
+    end
+    return nil if best_image_id == 'none'
+    best_image = DataObject.find(best_image_id)
+    return nil unless best_image.published?
+    best_image
   end
 
   def images_from_solr(limit = 4, options = {})

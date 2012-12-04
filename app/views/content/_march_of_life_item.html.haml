@@ -5,7 +5,6 @@
     - random_images.each_with_index do |random_image, i|
       - next if i % total != index
       - next if random_image.nil? || random_image.taxon_concept.nil?
-      - random_image.taxon_concept.reset_instance_best_image_cache
       - next if random_image.taxon_concept.exemplar_or_best_image_from_solr.nil?
       - img_url = random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130')
       - next if img_url.nil?

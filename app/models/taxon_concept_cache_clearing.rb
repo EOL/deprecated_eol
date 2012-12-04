@@ -29,7 +29,7 @@ private
     Language.find_active.each do |lang|
       Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{taxon_concept.id}_#{lang.id}"))
     end
-    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_#{taxon_concept.id}"))
+    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
   end
 
   def clear_media_counts

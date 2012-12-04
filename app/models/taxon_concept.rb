@@ -90,7 +90,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def preferred_common_name_in_language(language)
-    best_name_in_language = preferred_common_names.detect{ |c| c.language_id = language.id }
+    best_name_in_language = preferred_common_names.detect{ |c| c.language_id == language.id }
     if best_name_in_language
       return best_name_in_language.name.string.capitalize_all_words_if_using_english
     end

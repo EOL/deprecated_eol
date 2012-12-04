@@ -171,11 +171,9 @@ describe 'Users' do
       visit user_newsfeed_path(@user)
       page.fill_in 'comment_body', :with => "#{@anon_user.username} woz 'ere #{generate(:string)}"
       click_button 'Post Comment'
-      if current_url.match /#{login_url}/
-        page.fill_in 'session_username_or_email', :with => @anon_user.username
-        page.fill_in 'session_password', :with => 'password'
-        click_button 'Sign in'
-      end
+      page.fill_in 'session_username_or_email', :with => @anon_user.username
+      page.fill_in 'session_password', :with => 'password'
+      click_button 'Sign in'
       current_url.should match /#{user_path(@user)}/
       body.should include('Comment successfully added')
       Comment.last.body.should match /#{@anon_user.username}/

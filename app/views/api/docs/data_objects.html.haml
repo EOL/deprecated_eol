@@ -1,4 +1,6 @@
-- url = url_for(:controller => '/api', :action => 'data_objects', :version => '1.0', :id => 'd72801627bf4adf1a38d9c5f10cc767f', :only_path => false)
+- demo_object = DataObject.latest_published_version_of_guid('d72801627bf4adf1a38d9c5f10cc767f')
+- url_with_guid = url_for(:controller => '/api', :action => 'data_objects', :version => '1.0', :id => demo_object.guid, :only_path => false)
+- url_with_id = url_for(:controller => '/api', :action => 'data_objects', :version => '1.0', :id => demo_object.id, :only_path => false)
 #content.cms_page
   #api_doc.site_column
     .nav
@@ -7,8 +9,11 @@
       %h3
         =I18n.t("request")
       %p
-        %a{ :href => url }
-          = url
+        %a{ :href => url_with_guid }
+          = url_with_guid
+        %br
+        %a{ :href => url_with_id }
+          = url_with_id
       %h3
         =I18n.t("parameters")
       %p

@@ -14,6 +14,7 @@ module InaturalistProjectInfo
     def get(id)
       # no need to call the iNat API when testing. This potentially saves several minutes during specs
       return nil if Rails.env.test? && !$TESTING_INATURALIST_PROJECTS
+      # read from the cache only if we have one. If its not in the cache, no need to call the API again
       if InaturalistProjectInfo.cached? && !InaturalistProjectInfo.caching_in_progress?
         InaturalistProjectInfo.get_from_cache(id)
       else
@@ -29,7 +30,8 @@ module InaturalistProjectInfo
 
     def cache_all
       begin
-        Rails.cache.fetch(InaturalistProjectInfo.cache_key) do
+        # by default expire iNat cache every day. We should work with them to come up with a more precise mechanism
+        Rails.cache.fetch(InaturalistProjectInfo.cache_key, :expires_in => 1.day) do
           InaturalistProjectInfo.lock_caching
           InaturalistProjectInfo.get_all
         end

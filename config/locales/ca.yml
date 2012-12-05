@@ -69,26 +69,26 @@ ca:
   item_type_sound_assistive: Aquest element és un so
   item_type_taxon_assistive: Aquest element és un tàxon
   item_type_video_assistive: Aquest element és un vídeo
-  item_updated_in_collection_notice: Article actualitzat correctament en la col. lecció <em>% {collection_name}</em> .
+  item_updated_in_collection_notice: Article actualitzat correctament en la col. lecció <em>%{collection_name}</em> .
   items_no_copy_none_selected_warning: No hi ha elements s'han copiat com cap van ser seleccionats. Per copiar els elements d'una altra col lecció, en primer lloc la casella adjacent als elements en la llista que li agradaria copiar.
   items_no_move_none_selected_warning: No hi ha elements s'han desplaçat com cap van ser seleccionats. Per desplaçar els elements d'una altra col lecció, en primer lloc la casella al costat dels elements de la llista que li agradaria moure's.
   items_no_remove_none_selected_warning: No hi ha elements es treien com cap van ser seleccionats. Per suprimir elements de la col. lecció, en primer lloc la casella adjacent als elements en la llista que voleu eliminar.
   items_with_count_semi_colon: 
-    one: "% {count} element; "
-    other: " % {count} articles;"
+    one: "%{count} element; "
+    other: " %{count} articles;"
   iucn_red_list_status_advisory_information: Aquest enllaç us portarà a la Unió Internacional per a la conservació de la natura (IUCN) Web lloc on vostè pot trobar més informació sobre la IUCN llista vermella d'espècies amenaçades.
   join_community_button: Unir-se a aquesta comunitat
   join_eol_button_html: Uneix-te a <abbr title="Encyclopedia of Life">EOL</abbr> ara
   join_eol_community_html: Convertir-se en part de la comunitat <abbr title="Encyclopedia of Life">EOL</abbr> !
-  joined_time_ago: Es va unir a % {time_passed} fa
+  joined_time_ago: Es va unir a %{time_passed} fa
   json_response: Resposta de JSON
   jsonp_by_adding_a_callback_parameter: ... i JSONP, afegint un paràmetre de trucada de retorn
   just_pages_with_pictures_and_text: Només les pàgines amb imatges i text
   language: "Idioma:"
   language_selector_advisory_information: La següent és una llista d'idiomes que el contingut del lloc està disponible en, canviar l'actual seleccioneu idioma a idioma alternatiu d'aquesta llista.
-  language_with_count: "% {llengua} (% {count})"
+  language_with_count: "%{llengua} (%{count})"
   languages: Idiomes
-  last_updated_time_ago: Última actualització % {time_passed} fa
+  last_updated_time_ago: Última actualització %{time_passed} fa
   learn_about_collections: Com puc crear un?
   learn_about_communities: Com puc participar?
   learn_about_content_partners: Com puc ser un?
@@ -112,21 +112,21 @@ ca:
   option_please_select: Si us plau Seleccioni
   or_add_it_to_an_existing_collection: o afegir-lo a una col. lecció existent
   or_copy_them_to_existing_collection: o afegir-lo a una col. lecció existent
-  or_email_education: O, envieu el vostre suggeriment a % {enllaç}.
+  or_email_education: O, envieu el vostre suggeriment a %{link}.
   or_move_them_to_existing_collection: o afegir-lo a una col. lecció existent
   other_collection_items_with_count: 
-    one: "% {count} altres item"
-    other: " % {count} altres elements"
+    one: "%{count} altres item"
+    other: " %{count} altres elements"
   other_community_items_with_count: 
-    one: "% {count} altres item"
-    other: " % {count} altres elements"
+    one: "%{count} altres item"
+    other: " %{count} altres elements"
   other_taxa_with_count: 
-    one: "% {count} altres taxon"
-    other: " % {count} altres tàxons"
+    one: "%{count} altres taxon"
+    other: " %{count} altres tàxons"
   other_us_dollars_amount: "Altre: Dòlars dels EUA"
   overview: Vista general
   page_method_description: Aquest mètode pren un identificador de pàgina EOL i retorna el nom científic d'aquesta pàgina i opcionalment retorna informació sobre noms comuns, els mitjans de comunicació (text, imatges i vídeos) i les referències a les jerarquies que reconèixer el tàxon descrit a la pàgina.
-  page_reference: "\"% {title}\". Encyclopedia of Life, disponible des de \"<a href=\"http://<span class=\" notranslate\"=\"\">% % {domain_or_ip} {this_url}\" target = \"_ blank\" > http:// %{domain_or_ip}% {this_url}</a>\". Què s'accedeix % {data}"
+  page_reference: "\"%{title}\". Encyclopedia of Life, disponible des de \"<a href=\"http://<span class=\" notranslate\"=\"\">% %{domain_or_ip} {this_url}\" target = \"_ blank\" > http:// %{domain_or_ip}%{this_url}</a>\". Què s'accedeix %{data}"
   page_statistics: Estadístiques de pàgina
   page_statistics_and_tools: Estadístiques de pàgina i eines
   page_statistics_explanation: <p>EOL calcula automàticament algunes estadístiques sobre les seves pàgines. Aquestes estadístiques recalcular cada dia o dos.</p><h5>Puntuació de la riquesa</h5><p>Puntuació de la riquesa és una combinació de molts factors diferents:<ul><li>Quant text una pàgina té</li><li>com molts multimèdia o arxius de mapa estan disponibles</li><li>com molts temes diferents s'han cobert</li><li>com moltes fonts diferents aportar informació</li><li>Si informació ha estat revisat o no</li></ul></p><p>Si una pàgina ja té un munt de text o multimèdia, no pot augmentar la riquesa Puntuació per afegir-ne més.</p><p>Riquesa resultats varien de 0 a 100. No et preocupis, les diferències d'alguns punts no són molt importants. Amb el temps podem canviar la forma de calcular les aquesta Puntuació per reflectir millor la seva experiència amb el lloc. Deixi ' ns saber el que pensa per deixar un comentari a les pàgines que vostè pensa que ha jutjat malament.</p><h5>Imatges de confiança</h5><p>Inclou totes les imatges en què es confia per a aquesta pàgina i les pàgines que apareixen en una classificació per sota d'aquesta pàgina. Inclou tant les imatges que van venir de partners de confiança, així com imatges procedents de socis com Flickr o Wikimedia Commons que s'han confiat per una comissària EOL.</p><h5>Pendents d'imatges</h5><p>Inclou totes les imatges de pendents per a aquesta pàgina i les pàgines que apareixen en una classificació per sota d'aquesta pàgina. Alguns socis EOL proporcionen moltes imatges d'alta qualitat que no han estat revisats encara. No inclou les imatges que han estat untrusted per una comissària EOL.</p><h5>Articles en què es confia</h5><p>Inclou tots els articles de text en què es confia a la fitxa detalls i diversos articles sobre els recursos pestanya inclou text articles de partners de confiança. També inclou articles directament contribuït a EOL pels seus membres o de la Viquipèdia que s'han confiat per una comissària EOL. No inclou articles sobre les pàgines que apareixen en una classificació per sota d'aquesta pàgina.</p><h5>Articles pendents</h5><p>Inclou tots els articles de text pendents al tabulador de detalls d'aquesta pàgina i diversos articles sobre els articles de recursos pestanya inclou text directament contribuït a EOL pels seus membres o de la Viquipèdia que estan esperant per a Ressenya per un comissari EOL. No inclou articles sobre les pàgines que apareixen en una classificació per sota d'aquesta pàgina.</p>
@@ -137,24 +137,24 @@ ca:
   pages_title: Referències
   pages_with_count: 
     one: "%{count}"
-    other: "% {count}"
+    other: "%{count}"
   pages_with_pictures_and_text: Pàgines amb imatges i text
   pages_with_pictures_or_text: Pàgines amb imatges i text
   pagination_next: Següent
   pagination_next_with_count: 
     one: "veure següent {count} "
-    other: see següent % {count}
+    other: see següent %{count}
   pagination_previous: Anterior
   pagination_previous_with_count: 
     one: "veure anterior {count} "
-    other: see anterior % {count}
+    other: see anterior %{count}
   parameters: Paràmetres
   partner_page: pàgina parella
   password_colon: "Contrasenya:"
   password_must_be_4to16_characters: Llargada de contrasenya ha de tenir entre 4 i 16 caràcters.
   people_with_count: 
-    one: "% {count} person"
-    other: " persones de % {count}"
+    one: "%{count} person"
+    other: " persones de %{count}"
   percentage_of_children_with_images: "% dels nens amb imatges"
   percentage_of_children_with_text: "% dels nens amb el text"
   percentage_of_descendants_with_images: percentatge de descendents amb imatges
@@ -174,8 +174,8 @@ ca:
   proceed_to_checkout_page: Procedir a la pàgina de pagament
   profile: Perfil
   profile_colon: "Perfil:"
-  profile_image_alt_text_curator: Fotografia de perfil conservador % {user_full_name}
-  profile_image_alt_text_member: Fotografia de perfil de membre % {user_full_name}
+  profile_image_alt_text_curator: Fotografia de perfil conservador %{user_full_name}
+  profile_image_alt_text_member: Fotografia de perfil de membre %{user_full_name}
   profile_newsfeed: El meu Newsfeed
   provider_hierarchies: provider_hierarchies
   provider_hierarchies_method_description: Aquest mètode tornarà referències a totes les jerarquies subministrats per EOL socis de contingut. La resposta s'inclouen l'etiqueta de la jerarquia i l'IDENTIFICADOR únic EOL en representació de la jerarquia
@@ -185,12 +185,12 @@ ca:
   punctuation_comma: ","
   punctuation_semi_colon: ;
   quarterly: Trimestral
-  rank_recognized_by_agent: "% {rang} reconegut % {agent}"
-  rank_recognized_by_agent_colon: "<b>% {rang}</b> reconegut % {agent}:"
-  rank_recognized_by_from_source: "% {rang} reconegut % {agent} en % {font}"
+  rank_recognized_by_agent: "%{rank} reconegut %{agent}"
+  rank_recognized_by_agent_colon: "<b>%{rank}</b> reconegut %{agent}:"
+  rank_recognized_by_from_source: "%{rank} reconegut %{agent} en %{font}"
   rated_by_count_people: 
-    one: de % {count} person
-    other: from persones de % {count}
+    one: de %{count} person
+    other: from persones de %{count}
   rating_added_notice: L'índex s'ha afegit correctament.
   rating_not_added_error: Ho sento, s'ha produït un error, l'índex no han pogut afegir.
   recaptcha: Escriviu les dues paraules que vostè veu per sota de
@@ -198,5 +198,5 @@ ca:
   recent_updates: Últimes actualitzacions
   recently_visited: Visitat recentment
   recognized_by: Reconegut per
-  recognized_by_as_a_rank: "% {recognized_by} com un % {taxon_rank}"
+  recognized_by_as_a_rank: "%{recognized_by} com un %{taxon_rank}"
   twitter: Twitter

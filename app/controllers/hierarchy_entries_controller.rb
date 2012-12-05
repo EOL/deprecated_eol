@@ -3,7 +3,7 @@ class HierarchyEntriesController < ApplicationController
   # GET /pages/:taxon_id/entries/:id/
   def show
     hierarchy_entry_id = params[:id]
-    redirect_to taxon_hierarchy_entry_overview_path(params[:taxon_id], hierarchy_entry_id)
+    redirect_to overview_taxon_entry_path(params[:taxon_id], hierarchy_entry_id)
   end
 
   # POST /pages/:taxon_id/entries/:id/switch
@@ -14,11 +14,11 @@ class HierarchyEntriesController < ApplicationController
       hierarchy_entry_id ||= params[:id]
     end
     if params[:return_to]
-      return_to_params = ActionController::Routing::Routes.recognize_path(params[:return_to], :method => :get)
+      return_to_params = Eol::Application.routes.recognize_path(params[:return_to], :method => :get)
       return_to_params[:hierarchy_entry_id] = hierarchy_entry_id
       store_location url_for(return_to_params)
     end
-    redirect_back_or_default taxon_hierarchy_entry_overview_path(params[:taxon_id], hierarchy_entry_id)
+    redirect_back_or_default overview_taxon_entry_path(params[:taxon_id], hierarchy_entry_id)
   end
 
 end

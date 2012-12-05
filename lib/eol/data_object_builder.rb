@@ -3,7 +3,7 @@ module EOL
 
     attr_reader :dato
 
-    include EOL::Spec::Helpers
+    include EOL::RSpec::Helpers
 
     # Builds a DataObject and creates all of the ancillary relationships.  Returns the DataObject.
     #
@@ -126,7 +126,7 @@ module EOL
                                   :mime_type   => MimeType.find_by_translated(:label, mime_types[@type] || mime_types[:default])
                                  })
       if @type == 'Image'
-         options[:object_cache_url] ||= Factory.next(:image)
+         options[:object_cache_url] ||= FactoryGirl.generate(:image)
       end
       return options
     end
@@ -143,7 +143,7 @@ module EOL
       @user            = options.delete(:user)            || User.last
       @vetted          = options.delete(:vetted)          || Vetted.trusted
       @visibility      = options.delete(:visibility)      || Visibility.visible
-      scientific_name  = options.delete(:scientific_name) || @he.name(:expert) || Factory.next(:scientific_name)
+      scientific_name  = options.delete(:scientific_name) || @he.name(:expert) || FactoryGirl.generate(:scientific_name)
       if @type == 'Text'
         @toc_item      = options.delete(:toc_item)
         @toc_item      ||= TocItem.find(rand(3)+1)   # If foundation was loaded: Overview, Description, or Ecology.

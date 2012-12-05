@@ -74,9 +74,9 @@ class Admins::ContentPagesController < AdminsController
     new_sort_order = sort_order - 1
     # TODO: This assumes distance between sort order is 1, change it to be less than greater than next one
     if swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(content_page.parent_content_page_id, new_sort_order)
-      swap_page.update_attribute(:sort_order, sort_order)
+      swap_page.update_column(:sort_order, sort_order)
     end
-    content_page.update_attribute(:sort_order, new_sort_order)
+    content_page.update_column(:sort_order, new_sort_order)
     flash[:notice] = I18n.t(:admin_content_page_sort_order_updated)
     redirect_to :action => :index, :status => :moved_permanently
   end
@@ -88,9 +88,9 @@ class Admins::ContentPagesController < AdminsController
     new_sort_order = sort_order + 1
     # TODO: This assumes distance between sort order is 1, change it to be less than greater than next one
     if swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(content_page.parent_content_page_id, new_sort_order)
-     swap_page.update_attribute(:sort_order, sort_order)
+     swap_page.update_column(:sort_order, sort_order)
     end
-    content_page.update_attribute(:sort_order, new_sort_order)
+    content_page.update_column(:sort_order, new_sort_order)
     flash[:notice] = I18n.t(:admin_content_page_sort_order_updated)
     redirect_to :action => :index, :status => :moved_permanently
   end
@@ -105,7 +105,7 @@ private
     set_content_pages_options
     set_translated_content_page_new_options
     @page_subheader = I18n.t(:admin_content_page_new_header)
-    @parent_content_pages = ContentPage.all.delete_if{|p| p == @content_page}.compact
+    @parent_content_pages = ContentPage.unscoped.all( :select => 'id, page_name' ).delete_if{|p| p == @content_page}.compact
   end
 
   def set_translated_content_page_new_options
@@ -115,7 +115,7 @@ private
   def set_content_page_edit_options
     set_content_pages_options
     @page_subheader = I18n.t(:admin_content_page_edit_header, :page_name => @content_page.page_name)
-    @parent_content_pages = ContentPage.all.delete_if{|p| p == @content_page}.compact
+    @parent_content_pages = ContentPage.unscoped.all( :select => 'id, page_name' ).delete_if{|p| p == @content_page}.compact
     @navigation_tree = ContentPage.get_navigation_tree(@content_page.parent_content_page_id)
   end
 end

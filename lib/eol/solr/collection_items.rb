@@ -35,9 +35,9 @@ module EOL
 
         add_community!(docs.select{ |d| d['object_type'] == 'Community' }, options)
         add_collection!(docs.select{ |d| d['object_type'] == 'Collection' }, options)
-        add_user!(docs.select{ |d| d['object_type'] == 'User' }, options)
+        add_user!(docs.select{ |d| d['object_type'] == 'User' || d['object_type'] == 'Curator' }, options)
         add_taxon_concept!(docs.select{ |d| d['object_type'] == 'TaxonConcept' }, options)
-        add_data_object!(docs.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include? d['object_type'] }, options)
+        add_data_object!(docs.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject', 'Link', 'Map'].include? d['object_type'] }, options)
       end
 
       def self.add_community!(docs, options = {})
@@ -80,31 +80,32 @@ module EOL
       def self.add_taxon_concept!(docs, options = {})
         return if docs.empty?
         includes = [ { :preferred_entry => 
-          { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
-            { :name => :canonical_form } , :hierarchy, :vetted ] } },
-          { :taxon_concept_exemplar_image => :data_object }, :taxon_concept_metric ]
+          { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } },
+          :taxon_concept_metric ]
         selects = {
           :taxon_concepts => '*',
           :taxon_concept_preferred_entries => '*',
           :taxon_concept_exemplar_images => '*',
           :taxon_concept_metrics => [ :taxon_concept_id, :richness_score ],
-          :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-          :names => [ :string, :italicized, :canonical_form_id ],
-          :canonical_forms => [ :string ],
-          :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-          :vetted => :view_order,
+          :hierarchy_entries => [ :id, :rank_id, :name_id, :identifier, :hierarchy_id, :parent_id, :published, :vetted_id, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+          :names => [ :id, :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
+          :canonical_forms => [ :id, :string ],
+          :hierarchies => [ :id, :agent_id, :browsable, :outlink_uri, :label ],
+          :vetted => [ :id, :view_order ],
           :hierarchy_entries_flattened => '*',
           :ranks => '*',
-          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid, :published ]
+          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid, :published, :language_id ]
         }
         if options[:view_style] == ViewStyle.annotated
           includes << { :preferred_common_names => [ :name, :language ] }
+          includes << { :preferred_entry => 
+            { :hierarchy_entry => [
+              { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } }
+          includes << { :taxon_concept_exemplar_image => :data_object }
         end
         ids = docs.map{ |d| d['object_id'] }
-        instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
-        unless options[:view_style] == ViewStyle.list
-          EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
-        end
+        instances = TaxonConcept.find_all_by_id(ids)
+        TaxonConcept.preload_associations(instances, includes, :select => selects)
         docs.each do |d|
           if d['instance']
             d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
@@ -115,7 +116,8 @@ module EOL
       def self.add_data_object!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
-        instances = DataObject.core_relationships(:include => [ :language, :all_published_versions ]).find_all_by_id(ids)
+        instances = DataObject.find_all_by_id(ids)
+        DataObject.preload_associations(instances, [ :language, :all_published_versions ] )
         instances_that_are_used = []
         docs.each do |d|
           if i = instances.detect{ |i| i.id == d['object_id'].to_i }
@@ -125,12 +127,13 @@ module EOL
               else
                 d['instance'].object = i
               end
+              d['instance'].object.is_the_latest_published_revision = true
               instances_that_are_used << d['instance'].object
             end
           end
         end
         
-        includes = [ { :toc_items => :translations } ]
+        includes = [ { :toc_items => :translations }, :data_type ]
         selects = {
           :data_objects => '*',
           :data_objects_hierarchy_entries => '*',
@@ -141,23 +144,37 @@ module EOL
           :users => '*',
           :vetted => '*',
           :visibilties => '*',
-          :hierarchy_entries => [ :id, :published, :visibility_id, :taxon_concept_id, :name_id, :hierarchy_id ],
-          :names => [ :id, :string, :canonical_form_id ],
+          :hierarchy_entries => [ :id, :published, :vetted_id, :visibility_id, :taxon_concept_id, :name_id, :hierarchy_id ],
+          :names => [ :id, :string, :canonical_form_id, :ranked_canonical_form_id ],
           :canonical_forms => [ :id, :string ],
           :languages => '*'
         }
         
         if options[:view_style] == ViewStyle.annotated
-          includes << { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] },
+          includes << { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] },
             :vetted, :visibility ] }
-          includes << { :curated_data_objects_hierarchy_entries => [ :user, { :hierarchy_entry => [ { :name => :canonical_form } ] } ] }
+          includes << { :curated_data_objects_hierarchy_entries => [ :user, { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] } ] }
+          includes << { :all_curated_data_objects_hierarchy_entries => [ :user, { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] } ] }
         end
         DataObject.preload_associations(instances_that_are_used, includes, :select => selects)
+        if options[:view_style] == ViewStyle.annotated
+          HierarchyEntry.preload_associations(instances_that_are_used.collect{ |d| d.first_hierarchy_entry }, [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] )
+        end
       end
 
       def self.solr_search(collection_id, options = {})
         url =  $SOLR_SERVER + $SOLR_COLLECTION_ITEMS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         url << CGI.escape(%Q[(collection_id:#{collection_id})])
+
+        # add links filtering
+        if options[:link_type_id] && options[:link_type_id] != 0
+          url << CGI.escape(" AND (link_type_id:#{options[:link_type_id]})")
+        end
+
+        # add links filtering
+        unless options[:sort_field].blank?
+          url << CGI.escape(" AND sort_field:\"#{options[:sort_field]}\"")
+        end
 
         # add facet filtering
         if options[:facet_type]
@@ -173,6 +190,8 @@ module EOL
             object_type = 'Image'
           when 'sounds', 'sound'
             object_type = 'Sound'
+          when 'links', 'link'
+            object_type = 'Link'
           when 'communities', 'community'
             object_type = 'Community'
           when 'people', 'user'
@@ -185,21 +204,21 @@ module EOL
 
         # add sorting
         if options[:sort_by] == SortStyle.newest
-          url << '&sort=date_modified+desc'
+          url << '&sort=date_modified+desc,collection_item_id+desc'
         elsif options[:sort_by] == SortStyle.oldest
-          url << '&sort=date_modified+asc'
+          url << '&sort=date_modified+asc,collection_item_id+asc'
         elsif options[:sort_by] == SortStyle.alphabetical
-          url << '&sort=title_exact+asc'
+          url << '&sort=title_exact+asc,collection_item_id+asc'
         elsif options[:sort_by] == SortStyle.reverse_alphabetical
-          url << '&sort=title_exact+desc'
+          url << '&sort=title_exact+desc,collection_item_id+desc'
         elsif options[:sort_by] == SortStyle.richness
-          url << '&sort=richness_score+desc'
+          url << '&sort=richness_score+desc,collection_item_id+desc'
         elsif options[:sort_by] == SortStyle.rating
-          url << '&sort=data_rating+desc'
+          url << '&sort=data_rating+desc,collection_item_id+desc'
         elsif options[:sort_by] == SortStyle.sort_field
-          url << '&sort=sort_field+asc'
+          url << '&sort=sort_field+asc,collection_item_id+asc'
         elsif options[:sort_by] == SortStyle.reverse_sort_field
-          url << '&sort=sort_field+desc'
+          url << '&sort=sort_field+desc,collection_item_id+desc'
         end
 
         # add paging

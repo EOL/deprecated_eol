@@ -1,7 +1,7 @@
 =I18n.t("all_user_submitted_texts_on_the_website")
 =I18n.t("click_on_a_user_to_view_the_users_detailed_profile")
 #comments
-  - form_tag({:action=>'index'},:method=>'get') do
+  = form_tag({:action=>'index'},:method=>'get') do
     =I18n.t("select_colon")
     %select{ :name => "user_id" }
       %option
@@ -50,11 +50,11 @@
             %td{ :class => row_class }
               = link_to udo.user.full_name, :controller => '/administrator/user', :action => 'edit' , :id => udo.user_id
             %td{ :class => row_class }
-              = link_to name, :controller => '/taxa', :action => :show, :id => udo.taxon_concept_id
+              = link_to raw(name), :controller => '/taxa', :action => :show, :id => udo.taxon_concept_id
             %td{ :class => row_class }
               = link_to I18n.t("permalink"), :controller => '/data_objects', :action => :show, :id => udo.data_object_id
               %br
-              = h truncate(udo.data_object.description, :length => 500)
+              = raw(truncate(udo.data_object.description, :length => 500))
             %td{ :class => row_class }
               = udo.data_object.toc_items[0].label
             %td{ :class => row_class }

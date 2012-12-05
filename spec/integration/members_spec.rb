@@ -15,10 +15,10 @@ describe "Members controller (within a community)" do
     visit logout_path
     visit community_members_path(@community)
     @community_nonmembers_page = page.body
-    login_as @member
+    login_as @user
     visit community_member_path(@community, @member)
     @community_member_page = page.body
-    login_as @manager
+    login_as @manager.user
     visit community_member_path(@community, @member)
     @community_manager_page = page.body
   end
@@ -34,7 +34,7 @@ describe "Members controller (within a community)" do
   it 'should be able to revoke manager'
 
   it 'members should have a link to the user\'s page' do
-    @community_member_page.should have_tag("a[href=#{user_path(@user)}]")
+    @community_member_page.should have_tag("a[href='#{user_path(@user)}']")
   end
 
 end

@@ -11,7 +11,7 @@ require 'spec/scenario_helpers'
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
 
 
 def next_user_logo_cache_url
@@ -251,7 +251,7 @@ end
 
 # Special: we want to ensure that TC 1 is really called "Animalia".  A little harsh, but:
 animalia = TaxonConcept.find(1)
-obj = animalia.canonical_form_object
+obj = animalia.entry.canonical_form
 obj.string = "Animalia"
 obj.save!
 obj = Name.find(animalia.entry.name_id)

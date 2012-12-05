@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../spec_helper'
 
 def build_secondary_iucn_hierarchy_and_resource
@@ -25,9 +26,9 @@ describe TaxonConcept do
     truncate_all_tables
     load_scenario_with_caching(:testy)
     @testy = EOL::TestInfo.load('testy')
+    @taxon_concept       = @testy[:taxon_concept]
     @overview            = @testy[:overview]
     @overview_text       = @testy[:overview_text]
-    @brief_summary_text  = @testy[:brief_summary_text]
     @toc_item_2          = @testy[:toc_item_2]
     @toc_item_3          = @testy[:toc_item_3]
     @canonical_form      = @testy[:canonical_form]
@@ -46,7 +47,6 @@ describe TaxonConcept do
     @comment_bad         = @testy[:comment_bad]
     @comment_2           = @testy[:comment_2]
     @id                  = @testy[:id]
-    @taxon_concept       = @testy[:taxon_concept]
     @curator             = @testy[:curator]
     @user                = @testy[:user]
     @tcn_count           = @testy[:tcn_count]
@@ -54,7 +54,6 @@ describe TaxonConcept do
     @name_count          = @testy[:name_count]
     @name_string         = @testy[:name_string]
     @agent               = @testy[:agent]
-    @synonym             = @testy[:synonym]
     @name                = @testy[:name]
     @tcn                 = @testy[:tcn]
     @syn1                = @testy[:syn1]
@@ -65,12 +64,14 @@ describe TaxonConcept do
     @good_title          = @testy[:good_title]
     @tc_bad_title        = @testy[:taxon_concept_with_bad_title]
     @tc_with_no_common_names = @testy[:taxon_concept_with_no_common_names]
+    @tc_with_no_starting_common_names = @testy[:taxon_concept_with_no_starting_common_names]
     @empty_taxon_concept = @testy[:empty_taxon_concept]
     @bad_iucn_tc         = @testy[:taxon_concept_with_unpublished_iucn]
     @child1              = @testy[:child1]
     @child2              = @testy[:child2]
     @sub_child           = @testy[:sub_child]
     
+    @taxon_concept_common_name_at_start = @taxon_concept.common_name # allows changes later if needed
     @taxon_media_parameters = {}
     @taxon_media_parameters[:per_page] = 100
     @taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
@@ -92,7 +93,7 @@ describe TaxonConcept do
   end
 
   it 'should have a common name' do
-    @taxon_concept.common_name.should == @common_name
+    @taxon_concept_common_name_at_start.should == @common_name
   end
 
   it 'should show the common name from the current users language' do
@@ -121,8 +122,8 @@ describe TaxonConcept do
 
   it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
     @taxon_concept = TaxonConcept.find(@taxon_concept.id)
-    he1 = build_iucn_entry(@taxon_concept, Factory.next(:iucn))
-    he2 = build_iucn_entry(@taxon_concept, Factory.next(:iucn))
+    he1 = build_iucn_entry(@taxon_concept, FactoryGirl.generate(:iucn))
+    he2 = build_iucn_entry(@taxon_concept, FactoryGirl.generate(:iucn))
     result = @taxon_concept.iucn
     result.should be_an_instance_of DataObject # (not an Array, mind you.)
     he1.delete
@@ -133,21 +134,12 @@ describe TaxonConcept do
     @bad_iucn_tc.iucn_conservation_status.should match(/not evaluated/i)
   end
 
-  it 'should be able to list its ancestors (by convention, ending with itself)' do
-    he = @taxon_concept.entry
-    kingdom = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => 0)
-    phylum = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => kingdom.id)
-    order = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => phylum.id)
-    he.parent_id = order.id
-    he.save
-    make_all_nested_sets
-    flatten_hierarchies
-    @taxon_concept.reload
-    @taxon_concept.ancestors.map(&:id).should == [kingdom.taxon_concept_id, phylum.taxon_concept_id, order.taxon_concept_id, @taxon_concept.id]
+  it 'should be able to list its ancestors' do
+    @testy[:species].ancestors.map(&:id).should == [@testy[:kingdom].taxon_concept_id, @testy[:phylum].taxon_concept_id, @testy[:order].taxon_concept_id]
   end
 
   it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
-    @taxon_concept.children.map(&:id).should only_include @child1.id, @child2.id
+    @taxon_concept.children.map(&:id).should only_include [@child1.id, @child2.id]
     @taxon_concept.children.map(&:id).should_not include(@sub_child.id)
   end
 
@@ -157,7 +149,7 @@ describe TaxonConcept do
 
   it 'should be able to show videos' do
     @taxon_concept.data_objects.select{ |d| d.is_video? }.should_not be_nil
-    @taxon_concept.data_objects.select{ |d| d.is_video? }.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
+    @taxon_concept.data_objects.select{ |d| d.is_video? }.map(&:description).should only_include [@video_1_text, @video_2_text, @video_3_text]
   end
 
   it 'should have visible comments that don\'t show invisible comments' do
@@ -183,76 +175,37 @@ describe TaxonConcept do
 
   it 'should show its untrusted images, by default' do
     @taxon_concept.current_user = nil
-    @taxon_concept.images_from_solr(100).map(&:object_cache_url).should include(@image_unknown_trust)
+    @taxon_concept.images_from_solr(100).map {|d| DataObject.find(d).object_cache_url }.should include(@image_unknown_trust)
   end
 
   describe '#overview_text_for_user' do
-    before :all do
-      if @user_for_overview_text = User.find_by_username('overview_text_for_user')
-        @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      else
-        flatten_hierarchies
-        @user_for_overview_text = User.gen(:username => 'overview_text_for_user')
-        @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-        parent_he = @taxon_concept.published_hierarchy_entries.first.parent
-        CuratedDataObjectsHierarchyEntry.new(:data_object_id => @overview_text_for_user.id,
-                                             :data_object_guid => @overview_text_for_user.guid,
-                                             :hierarchy_entry => parent_he,
-                                             :visibility => Visibility.invisible,
-                                             :vetted => Vetted.untrusted,
-                                             :user_id => 1).save
-        @overview_text_for_user.update_solr_index
-      end
-    end
     it 'should return single text object' do
-      @overview_text_for_user.should be_a(DataObject)
-      @overview_text_for_user.is_text?.should be_true
+      overview_text_for_user = @testy[:only_brief_summary].overview_text_for_user(@testy[:user])
+      overview_text_for_user.should be_a(DataObject)
+      overview_text_for_user.is_text?.should be_true
     end
     it 'should only return data object with TocItem.brief_summary, TocItem.comprehensive_description, or TocItem.distribution' do
-      @overview_text_for_user.toc_items.first.should == TocItem.brief_summary
-      @overview_text_for_user.description.should == @brief_summary_text
+      overview_text_for_user = @testy[:only_brief_summary].overview_text_for_user(@testy[:user])
+      overview_text_for_user.toc_items.first.should == TocItem.brief_summary
+      overview_text_for_user.description.should == @testy[:brief_summary_text]
 
-      dato_id = @overview_text_for_user.id
-      @overview_text_for_user.toc_items = [TocItem.comprehensive_description]
-      @overview_text_for_user.save
-      @overview_text_for_user.update_solr_index
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      @overview_text_for_user.id.should == dato_id
-      @overview_text_for_user.toc_items.first.should == TocItem.comprehensive_description
+      overview_text_for_user = @testy[:only_comprehensive_description].overview_text_for_user(@testy[:user])
+      overview_text_for_user.toc_items.first.should == TocItem.comprehensive_description
+      overview_text_for_user.description.should == @testy[:comprehensive_description_text]
 
-      @overview_text_for_user.toc_items = [TocItem.distribution]
-      @overview_text_for_user.save
-      @overview_text_for_user.update_solr_index
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      @overview_text_for_user.id.should == dato_id
-      @overview_text_for_user.toc_items.first.should == TocItem.distribution
+      overview_text_for_user = @testy[:only_distribution].overview_text_for_user(@testy[:user])
+      overview_text_for_user.toc_items.first.should == TocItem.distribution
+      overview_text_for_user.description.should == @testy[:distribution_text]
 
-      @overview_text_for_user.toc_items = [TocItem.overview]
-      @overview_text_for_user.save
-      @overview_text_for_user.update_solr_index
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      @overview_text_for_user.should be_nil
-
-      @overview_text_for_user = DataObject.find(dato_id, :include => :toc_items)
-      @overview_text_for_user.toc_items = [TocItem.brief_summary]
-      @overview_text_for_user.save
-      @overview_text_for_user.update_solr_index
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      @overview_text_for_user.id.should == dato_id
-      @overview_text_for_user.toc_items.first.should == TocItem.brief_summary
+      overview_text_for_user = @testy[:only_overview].overview_text_for_user(@testy[:user])
+      overview_text_for_user.should be_nil
     end
     it 'should not return data objects of descendants' do
       parent_tc = @taxon_concept.published_hierarchy_entries.first.parent.taxon_concept
-      overview = parent_tc.overview_text_for_user(@user_for_overview_text)
+      overview = parent_tc.overview_text_for_user(@testy[:user])
       overview.should be_nil
     end
-    it 'should not return data objects with hidden associations to taxon concept unless user is a curator' do
-      tc = @taxon_concept.published_hierarchy_entries.first.parent.taxon_concept
-      overview = tc.overview_text_for_user(@user_for_overview_text)
-      overview.should be_nil
-      overview = tc.overview_text_for_user(@curator)
-      overview.should == @overview_text_for_user
-    end
+    it 'should not return data objects with hidden associations to taxon concept unless user is a curator'
   end
 
   it 'should return available text objects for given toc items in order of preference and rating' do
@@ -345,12 +298,12 @@ describe TaxonConcept do
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id == Vetted.trusted.id
-    }.map(&:data_rating)
+    }.map! {|d| DataObject.find(d).data_rating }
     ratings.should == ratings.sort.reverse
   end
 
   it 'should create a common name as a preferred common name, if there are no other common names for the taxon' do
-    tc = @tc_with_no_common_names # TODO - this depends on the order of tests.
+    tc = @tc_with_no_starting_common_names
     agent = Agent.last
     tc.add_common_name_synonym('A name', :agent => agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
@@ -411,8 +364,8 @@ describe TaxonConcept do
     concept.entry.name.string.should == vetted_name.string
 
     # now remove the vetted hierarchy entry and make sure the first entry is the chosen one
-    he_vetted.destroy
-    concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
+    HierarchyEntry.delete(he_vetted) rescue nil # #destroy does not work with acts_as_tree, it seems.
+    concept.reload
     concept.entry.id.should == he_unvetted.id
     concept.entry.name.string.should == unvetted_name.string
   end
@@ -455,9 +408,8 @@ describe TaxonConcept do
   end
 
   it "add common name should create synonym" do
-    @synonym.class.should == Synonym
-    @synonym.name.should == @name
-    @synonym.agents.uniq.should == [@curator.agent]
+    @testy[:synonym].class.should == Synonym
+    @testy[:synonym].name.should == @name
   end
 
   it "add common name should create taxon_concept_name" do
@@ -554,6 +506,15 @@ describe TaxonConcept do
     tc.activity_log.should be_a WillPaginate::Collection
   end
 
+  # TODO - this isn't the best place for this test; It would be preferable to test this behavior on activity_log.
+  # (Or, better still, a new TaxonConceptActivityLogReader class, but perhaps I'm getting greedy, there.)
+  # ...Also, the expression of this spec is ... awful.  But I'm in a rush.
+  it 'should show comments from superceded taxa' do
+    @testy[:superceded_comment].log_activity_in_solr # It doesn't seem to be, by default.
+    @taxon_concept.activity_log.select { |a| a["activity_log_type"] == "Comment"}.map { |c|
+      c["instance"].body }.should include(@testy[:superceded_comment].body)
+  end
+
   it 'should rely on collection for sorting #top_collections' do
     tc = TaxonConcept.gen
     col1 = Collection.gen
@@ -575,7 +536,7 @@ describe TaxonConcept do
     member3 = Member.gen(:community => community1, :user => user3)
     collection1 = community1.collections.first
     collection2 = community2.collections.first
-    tc = TaxonConcept.gen
+    tc = build_taxon_concept
     coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection1)
     coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection2)
     tc.collection_items[1].collection.communities.include?(community2).should be_true
@@ -584,80 +545,37 @@ describe TaxonConcept do
   end
 
   it 'should return an exemplar' do
-    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
-      exemplar_exists.destroy
-    end
-    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 1)
-    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first)
-    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
-    @taxon_concept.reload
-    @taxon_concept.exemplar_or_best_image_from_solr.id.should == image.id
+    @testy[:has_one_image].exemplar_or_best_image_from_solr.id.should == @testy[:the_one_image].id
   end
   
   it 'should not return unpublished exemplar image' do
-    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
-      exemplar_exists.destroy
-    end
-    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 0)
-    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first)
-    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
-    @taxon_concept.reload
-    @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
+    @testy[:has_one_unpublished_image].exemplar_or_best_image_from_solr.should be_nil
   end
 
   it 'should not return hidden exemplar image' do
-    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
-      exemplar_exists.destroy
-    end
-    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 0)
-    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first, :visibility => Visibility.invisible)
-    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
-    @taxon_concept.reload
-    @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
+    @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
   end
 
   it 'should show details text with no language only to users in the default language' do
     user = User.gen(:language => Language.default)
-    best_text = @taxon_concept.details_text_for_user(user).first
-    best_text.language_id.should == Language.default.id
-    best_text.language_id = 0
-    best_text.data_rating = 5
-    best_text.save
-    best_text.update_solr_index
-    new_best_text = @taxon_concept.details_text_for_user(user).first
-    new_best_text.language_id.should == 0
-    new_best_text.id.should == best_text.id
-    
+    @taxon_concept.details_text_for_user(user).first.language_id.should == Language.default.id
+    best_text = @testy[:no_language_in_toc].details_text_for_user(user).first
+    best_text.language_id.should == 0
+
     user = User.gen(:language => Language.find_by_iso_639_1('fr'))
-    new_best_text = @taxon_concept.overview_text_for_user(user)
-    new_best_text.should == nil
-    
-    # cleaning up
-    best_text.language_id = Language.default.id
-    best_text.save
-    best_text.update_solr_index
+    new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
+    new_best_text.should be_nil
   end
 
   it 'should show overview text with no language only to users in the default language' do
     user = User.gen(:language => Language.default)
-    best_text = @taxon_concept.overview_text_for_user(user)
-    best_text.language_id.should == Language.default.id
-    best_text.language_id = 0
-    best_text.data_rating = 5
-    best_text.save
-    best_text.update_solr_index
-    new_best_text = @taxon_concept.overview_text_for_user(user)
+    @taxon_concept.overview_text_for_user(user).language_id.should == Language.default.id
+    new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
     new_best_text.language_id.should == 0
-    new_best_text.id.should == best_text.id
-    
+
     user = User.gen(:language => Language.find_by_iso_639_1('fr'))
-    new_best_text = @taxon_concept.overview_text_for_user(user)
-    new_best_text.should == nil
-    
-    # cleaning up
-    best_text.language_id = Language.default.id
-    best_text.save
-    best_text.update_solr_index
+    new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
+    new_best_text.should be_nil
   end
 
   it 'should use the name from the specified hierarchy' do
@@ -666,19 +584,19 @@ describe TaxonConcept do
     he1 = HierarchyEntry.gen(:taxon_concept => tc, :name => name1, :hierarchy => Hierarchy.gen)
     name2 = Name.gen(:string => "Name2")
     he2 = HierarchyEntry.gen(:taxon_concept => tc, :name => name2, :hierarchy => Hierarchy.gen)
-    
+
     tc.entry.should == he1
     tc.title.should == he1.name.string
     tc = TaxonConcept.find(tc.id)
-    
+
     tc.entry(he1.hierarchy).should == he1
     tc.title(he1.hierarchy).should == he1.name.string
     tc = TaxonConcept.find(tc.id)
-    
+
     tc.entry(he2.hierarchy).should == he2
     tc.title(he2.hierarchy).should == he2.name.string
     tc = TaxonConcept.find(tc.id)
-    
+
     # now checking the default again to make sure we get the original value
     tc.entry.should == he1
     tc.title.should == he1.name.string
@@ -687,22 +605,22 @@ describe TaxonConcept do
   it 'should have a smart #entry' do
     tc = TaxonConcept.gen
     he = HierarchyEntry.last
-    xpect 'which does NOT accept arguments other than a Hierarchy'
+    # 'which does NOT accept arguments other than a Hierarchy'
     lambda { tc.entry(he) }.should raise_error
-    xpect 'which uses preferred entry if available'
+    # 'which uses preferred entry if available'
     TaxonConceptPreferredEntry.create(:taxon_concept_id => tc.id, :hierarchy_entry_id => he.id)
     tcpe = TaxonConceptPreferredEntry.last
     tc.entry.should == he
-    xpect 'which is a singleton'
+    # 'which is a singleton'
     TaxonConceptPreferredEntry.delete(tcpe)
     tc.entry.should == he
     # TODO - there's much more going on here, but I don't have the energy:
-    # xpect 'which uses published hierarchy entries first'
-    # xpect 'which uses unpublished hierarchy entries if no published entries exist'
-    # xpect 'which uses an HE in the specified hierarchy if available'
-    # xpect 'which uses the first availble HE if the specified hierarchy has no entry availble.'
-    # xpect 'which does NOT use an expired preferred_entry'
-    # xpect 'which creates a preferred entry if one did not exist'
+    # # 'which uses published hierarchy entries first'
+    # # 'which uses unpublished hierarchy entries if no published entries exist'
+    # # 'which uses an HE in the specified hierarchy if available'
+    # # 'which uses the first availble HE if the specified hierarchy has no entry availble.'
+    # # 'which does NOT use an expired preferred_entry'
+    # # 'which creates a preferred entry if one did not exist'
   end
 
   it 'should not give an error when there is no preferred_entry' do
@@ -727,22 +645,129 @@ describe TaxonConcept do
     published_visible_exemplar_article.id.should == data_object.id
   end
 
-  #
-  # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
-  #
+  it 'should count descendants using TaxonConceptsFlattened' do
+    TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return((0..13).to_a)
+    @taxon_concept.number_of_descendants.should == 14
+  end
 
-  # Medium Priority:
-  #
-  # it 'should be able to list whom the species is recognized by' do
-  # it 'should be able to add a comment' do
-  # it 'should be able to list exemplars' do
-  #
-  # Lower priority (at least for me!)
-  #
-  # it 'should know which hosts to ping' do
-  # it 'should be able to set a current agent' # This is only worthwhile if we know what it should change... do
-  # it 'should follow supercedure' do
-  # it 'should be able to show a thumbnail' do
-  # it 'should be able to show a single image' do
+  describe '#split_classifications' do
+
+    before(:all) do
+      @exemplar = @taxon_concept.hierarchy_entries.first.id
+      @entries = [@taxon_concept.hierarchy_entries.second.id]
+      @max_descendants = 10
+      @too_many_descendants = (0..@max_descendants).to_a
+      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+    end
+
+    before(:each) do
+      TaxonClassificationsLock.delete_all
+    end
+
+    it 'should not run if locked' do
+      @taxon_concept.lock_classifications
+      lambda { @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::ClassificationsLocked)
+    end
+
+    it 'should not run if too large' do
+      lambda {
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(@too_many_descendants)
+        @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar)
+      }.should
+        raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
+    end
+
+    it 'should lock classifications and create a ClassificationCuration' do
+      @taxon_concept.classifications_locked?.should_not be_true
+      ClassificationCuration.should_receive(:create).and_return(nil)
+      @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar) 
+      @taxon_concept.reload
+      @taxon_concept.classifications_locked?.should be_true
+    end
+
+  end
+
+
+  describe '#merge_classifications' do
+
+    before(:all) do
+      @with = @tc_bad_title
+      @exemplar = @taxon_concept.hierarchy_entries.first.id
+      @entries = [@taxon_concept.hierarchy_entries.second.id]
+      @max_descendants = 10
+      @too_many_descendants = (0..@max_descendants).to_a
+      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+    end
+
+    before(:each) do
+      TaxonClassificationsLock.delete_all
+      @taxon_concept.reload
+      @with.reload
+    end
+
+    it 'should not run if locked' do
+      @taxon_concept.lock_classifications
+      lambda { @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
+                                                    :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::ClassificationsLocked)
+    end
+
+    it 'should not run if the other concept is locked' do
+      @with.lock_classifications
+      lambda { @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
+                                                    :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::ClassificationsLocked)
+    end
+
+    it 'should not run if providers_match_on_merge' do
+      lambda {
+        @taxon_concept.should_receive(:providers_match_on_merge).and_return(1)
+        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
+                                             :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::ProvidersMatchOnMerge)
+    end
+
+    it 'SHOULD run if providers_match_on_merge but forced' do
+      ClassificationCuration.should_receive(:create).and_return(nil)
+      @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
+                                           :exemplar_id => @exemplar)
+    end
+
+    it 'should not run if merged to self' do
+      lambda { @taxon_concept.merge_classifications(@entries, :with => @taxon_concept, :user => @user, :forced => true,
+                                                    :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::CannotMergeClassificationsToSelf)
+    end
+
+    it 'should not run if too large' do
+      lambda {
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(@too_many_descendants)
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return(1)
+        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
+                                             :exemplar_id => @exemplar)
+      }.should
+        raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
+    end
+
+    it 'should not run if target descendants too large' do
+      lambda {
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return(@too_many_descendants)
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(1)
+        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
+                                             :exemplar_id => @exemplar)
+      }.should
+        raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
+    end
+
+    it 'should lock classifications on both concepts and create a ClassificationCuration' do
+      TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return([1])
+      TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return([1])
+      ClassificationCuration.should_receive(:create).and_return(nil)
+      @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
+                                           :exemplar_id => @exemplar)
+    end
+
+  end
 
 end

@@ -4,8 +4,6 @@ class ContentTable < ActiveRecord::Base
   has_and_belongs_to_many :toc_items, :join_table => 'content_table_items', :association_foreign_key => 'toc_id'
 
   def self.create_details
-    TranslatedContentTable.reset_cached_instances
-    ContentTable.reset_cached_instances
     categories = [ 'Associations', 'Barcode', 'Behavior', 'Benefits', 'Brief Summary', 'Cell Biology', 'Citizen Science',
       'Citizen Science links', 'Commentary', 'Comments', 'Comprehensive Description', 'Conservation', 'Conservation Status',
       'Content Partners', 'Content Summary', 'Cyclicity', 'Data', 'Data Sources', 'Development', 'Diagnostic Description',

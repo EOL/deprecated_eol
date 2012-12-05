@@ -50,7 +50,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
   end
 
   # DELETE /content_partners/:content_partner_id/contacts/:id
-  def destroy
+  def delete
     @partner = ContentPartner.find(params[:content_partner_id])
     @contact = @partner.content_partner_contacts.find(params[:id])
     access_denied unless current_user.can_delete?(@contact)
@@ -59,7 +59,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
       redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else
       flash[:notice] = I18n.t(:content_partner_contact_delete_unsuccessful_error)
-      redirect_to edit_content_partner_content_partner_contact_path(@partner, @contact), :status => :moved_permanently
+      redirect_to edit_content_partner_contact_path(@partner, @contact), :status => :moved_permanently
     end
   end
 

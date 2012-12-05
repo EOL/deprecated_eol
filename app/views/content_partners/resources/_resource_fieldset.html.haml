@@ -1,6 +1,6 @@
 %fieldset
-  %p.tip= I18n.t(:content_partner_resource_new_edit_form_tip,
-    :more_url => cms_page_path('cp_plan_export'))
+  %p.tip= raw(I18n.t(:content_partner_resource_new_edit_form_tip,
+    :more_url => cms_page_path('cp_plan_export')))
   %dl
     %dt.required
       = resource_form.label :title
@@ -8,7 +8,7 @@
       = resource_form.text_field :title, :maxlength => 255
 
   %fieldset.dataset
-    %legend.required= I18n.t('helpers.label.resource.resource_url_or_file')
+    %legend.required= raw(I18n.t('helpers.label.resource.resource_url_or_file'))
     %dl.resources
       %dt
         = radio_button_tag :resource_url_or_file, :url, !@resource.accesspoint_url.blank?, :class => 'required'
@@ -37,9 +37,9 @@
             - # we only want to show one message here lest we confuse the user - URL takes precedence.
             - if @resource.accesspoint_url.blank?
               - unless @resource.dataset_file_name.blank?
-                %p= I18n.t('helpers.label.resource.dataset_existing_replace', :file_name => @resource.dataset_file_name)
+                %p= raw(I18n.t('helpers.label.resource.dataset_existing_replace', :file_name => @resource.dataset_file_name))
             - else
-              %p= I18n.t('helpers.label.resource.accesspoint_url_existing_remove', :accesspoint_url => @resource.accesspoint_url.sub(/^.*\//, ''))
+              %p= raw(I18n.t('helpers.label.resource.accesspoint_url_existing_remove', :accesspoint_url => @resource.accesspoint_url.sub(/^.*\//, '')))
             = resource_form.file_field :dataset
   %dl
     %dt.required
@@ -71,11 +71,11 @@
     - if current_user.is_admin?
       %dt
         %strong
-          = I18n.t('helpers.label.resource.administration_settings')
+          = raw(I18n.t('helpers.label.resource.administration_settings'))
       %dd
-        - resource_form.label :auto_publish do
+        = resource_form.label :auto_publish do
           = resource_form.check_box :auto_publish
           = I18n.t('activerecord.attributes.resource.auto_publish')
-        - resource_form.label :vetted do
+        = resource_form.label :vetted do
           = resource_form.check_box :vetted, { :disabled => @resource.vetted? }
           = I18n.t('activerecord.attributes.resource.vetted')

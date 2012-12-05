@@ -16,7 +16,7 @@ class ContentServer
   # to improve caching
   def self.host_for(cache_url)
     # get ascii value of last character
-    last_ascii_value = cache_url.to_s[-1]
+    last_ascii_value = cache_url.to_s.getbyte(-1)
     # get the remainder of ASCII %(mod) LENGTH and use it as the array index
     $CONTENT_SERVERS[ (last_ascii_value % $CONTENT_SERVERS.length)]
   end
@@ -46,7 +46,7 @@ class ContentServer
   end
 
   def self.blank
-    "/images/blank.gif"
+    "/assets/blank.gif"
   end
 
   def self.uploaded_content_url(url, ext)
@@ -96,24 +96,20 @@ class ContentServer
       # set status to response - we've validated the resource
       if response["response"].key? "status"
         status = response["response"]["status"]
+        error = response["response"]["error"] rescue nil
         resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
-        # validation failed
-        if response["response"].key? "error"
-          error = response["response"]["error"]
+        if resource_status != ResourceStatus.validated
           ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
-          return [resource_status, error]
-        # validation succeeded
-        else
-          return ['success', resource_status]
         end
+        return [resource_status, error]
       # response is an error
       elsif response["response"].key? "error"
         error = response["response"]["error"]
         ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
-        return ['error', nil]
+        return [ResourceStatus.validation_failed, nil]
       end
     end
-    ['error', nil]
+    [ResourceStatus.validation_failed, nil]
   end
 
 

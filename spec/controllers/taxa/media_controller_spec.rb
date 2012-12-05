@@ -197,6 +197,7 @@ describe Taxa::MediaController do
       sorted_by_newest.should_not == sorted_by_status
       previous_date = 100.days.ago
       sorted_by_newest.reverse.each do |d|
+        d.reload
         d.created_at.should >= previous_date
         previous_date = d.created_at
       end
@@ -233,9 +234,9 @@ describe Taxa::MediaController do
 
   describe 'PUT set_as_exemplar' do
     it 'should not allow non-curators to set exemplar images' do
-      @taxon_concept.taxon_concept_exemplar_image.should be_nil
+      TopConceptImage.delete_all(:taxon_concept_id => @taxon_concept.id)
       exemplar_image = @taxon_concept.images_from_solr.first
-      expect{ put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect{ put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     
     it 'should set an image as exemplar' do
@@ -245,7 +246,7 @@ describe Taxa::MediaController do
       put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }
       @taxon_concept.reload
       @taxon_concept.taxon_concept_exemplar_image.data_object_id.should == exemplar_image.id
-      response.redirected_to.should == taxon_media_url(@taxon_concept)
+      expect(response).to redirect_to(taxon_media_url(@taxon_concept))
     end
   end
 end

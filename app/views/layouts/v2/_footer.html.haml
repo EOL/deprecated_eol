@@ -1,0 +1,79 @@
+- # FIXME: Check this caching works, also we're caching the application version number, will cache expire on deploy?
+- cache(:controller => "/content", :part => "footer_#{current_language.iso_639_1}") do
+  - t_scope ||= [:layouts, :v2, :application]
+  .section
+    %h2.assistive= I18n.t(:site_information)
+    .wrapper
+      .about
+        %h6= t('header_about', :scope => t_scope)
+        %ul
+          %li= link_to t('about_link_what_is_eol', :scope => t_scope), about_path
+          %li= link_to t('about_link_eol_blog', :scope => t_scope), 'http://blog.eol.org'
+          %li= link_to t('about_link_discover', :scope => t_scope), discover_path
+          %li= link_to t('about_link_statistics', :scope => t_scope), statistics_path
+          %li= link_to t('about_link_glossary', :scope => t_scope), cms_page_path('glossary')
+          %li= link_to t('about_link_podcasts', :scope => t_scope), 'http://education.eol.org/podcast'
+          %li= link_to t('about_link_donate', :scope => t_scope), donate_path
+          %li= link_to t('about_link_citing', :scope => t_scope), cms_page_path('citing')
+          %li= link_to t('about_link_help', :scope => t_scope), help_path
+          %li= link_to t('about_link_terms_of_use', :scope => t_scope), terms_of_use_path
+          %li= link_to t('about_link_contact_us', :scope => t_scope), contact_us_path
+      .learn_more
+        %h6= t('header_learn_more', :scope => t_scope)
+        %ul
+          %li
+            %ul
+              %li= link_to t('learn_more_link_animals', :scope => t_scope), cms_page_path('animals', :language => 'en')
+              %li= link_to t('learn_more_link_mammals', :scope => t_scope), cms_page_path('mammals', :language => 'en')
+              %li= link_to t('learn_more_link_birds', :scope => t_scope), cms_page_path('birds', :language => 'en')
+              %li= link_to t('learn_more_link_amphibians', :scope => t_scope), cms_page_path('amphibians', :language => 'en')
+              %li= link_to t('learn_more_link_reptiles', :scope => t_scope), cms_page_path('reptiles', :language => 'en')
+              %li= link_to t('learn_more_link_fish', :scope => t_scope), cms_page_path('fish', :language => 'en')
+          %li
+            %ul
+              %li= link_to t('learn_more_link_invertebrates', :scope => t_scope), cms_page_path('invertebrates', :language => 'en')
+              %li= link_to t('learn_more_link_crustaceans', :scope => t_scope), cms_page_path('crustaceans', :language => 'en')
+              %li= link_to t('learn_more_link_mollusks', :scope => t_scope), cms_page_path('mollusks', :language => 'en')
+              %li= link_to t('learn_more_link_insects', :scope => t_scope), cms_page_path('insects', :language => 'en')
+              %li= link_to t('learn_more_link_spiders', :scope => t_scope), cms_page_path('spiders', :language => 'en')
+              %li= link_to t('learn_more_link_worms', :scope => t_scope), cms_page_path('worms', :language => 'en')
+          %li
+            %ul
+              %li= link_to t('learn_more_link_plants', :scope => t_scope), cms_page_path('plants', :language => 'en')
+              %li= link_to t('learn_more_link_flowering_plants', :scope => t_scope), cms_page_path('flowering_plants', :language => 'en')
+              %li= link_to t('learn_more_link_trees', :scope => t_scope), cms_page_path('trees', :language => 'en')
+            %ul
+              %li= link_to t('learn_more_link_fungi', :scope => t_scope), cms_page_path('fungi', :language => 'en')
+              %li= link_to t('learn_more_link_mushrooms', :scope => t_scope), cms_page_path('mushrooms', :language => 'en')
+              %li= link_to t('learn_more_link_molds', :scope => t_scope), cms_page_path('molds', :language => 'en')
+          %li
+            %ul
+              %li= link_to t('learn_more_link_bacteria', :scope => t_scope), cms_page_path('bacteria', :language => 'en')
+            %ul
+              %li= link_to t('learn_more_link_protists', :scope => t_scope), cms_page_path('protists', :language => 'en')
+            %ul
+              %li= link_to t('learn_more_link_archaea', :scope => t_scope), cms_page_path('archaea', :language => 'en')
+            %ul
+              %li= link_to t('learn_more_link_viruses', :scope => t_scope), cms_page_path('viruses', :language => 'en')
+        .version
+          %h6= link_to I18n.t(:encyclopedia_of_life), root_url
+          %p{ :title => I18n.t(:application_version_advisory_information) }
+            = "v. #{EOL_CODEBASE_MASTER_VERSION}"
+      .questions
+        %h6= t('header_questions', :scope => t_scope)
+        %ul.social_media
+          %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter", :rel => :nofollow
+          %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook", :rel => :nofollow
+          %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr", :rel => :nofollow
+          %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr", :rel => :nofollow
+          %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
+        %ul
+          %li= link_to t('questions_link_biodiversity', :scope => t_scope), cms_page_path('about_biodiversity', :language => 'en')
+          %li= link_to t('questions_link_species', :scope => t_scope),  cms_page_path('species_concepts', :language => 'en')
+          %li= link_to t('questions_link_discovering_species', :scope => t_scope), cms_page_path('discovering_diversity', :language => 'en')
+          %li= link_to t('questions_link_naming_species', :scope => t_scope), cms_page_path('naming_species', :language => 'en')
+          %li= link_to t('questions_link_biological_classification', :scope => t_scope), cms_page_path('taxonomy_phylogenetics', :language => 'en')
+          %li= link_to t('questions_link_invasive_species', :scope => t_scope), cms_page_path('invasive_species', :language => 'en')
+          %li= link_to t('questions_link_indicator_species', :scope => t_scope), cms_page_path('indicator_species', :language => 'en')
+          %li= link_to t('questions_link_model_organism', :scope => t_scope), cms_page_path('model_organism', :language => 'en')
+          %li= link_to t('questions_link_contributing_to_research', :scope => t_scope), cms_page_path('contribute_research', :language => 'en')

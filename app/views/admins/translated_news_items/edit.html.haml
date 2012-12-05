@@ -1,0 +1,18 @@
+= content_for :head do
+  = javascript_include_tag "ckeditor/init"
+
+#content_page_edit
+  .article.copy
+    = form_for @news_item, :url => admin_news_item_translation_path(@news_item, @translated_news_item),
+      :builder => ApplicationHelper::EolFormBuilder do |news_item_form|
+      = validation_errors_for(@translated_news_item)
+      = news_item_form.hidden_field :last_update_user_id, :value => current_user.id
+      %fieldset
+        %p.tip= raw(I18n.t(:admin_translated_news_item_edit_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
+        = render :partial => 'translated_news_item_fieldset', :locals => {:news_item_form => news_item_form}
+
+      %fieldset.actions
+        = news_item_form.submit I18n.t('helpers.submit.translated_news_item.update')
+        = link_to I18n.t(:cancel), admin_news_items_path
+    = button_to I18n.t(:delete), { :action => 'destroy', :news_item_id => @news_item.id, :id => @translated_news_item.id },
+      { :data => { :confirm => I18n.t(:admin_translated_news_item_delete_confirmation, :page_name => @news_item.page_name, :language => @translated_news_item.language.label.downcase) }, :method => 'delete', :class => 'delete' }

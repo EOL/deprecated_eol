@@ -2,7 +2,7 @@ module ApiHelper
   
   def search_result_hash(options)
     results = []
-    for result in options[:results]
+    options[:results].each do |result|
       result_hash = {}
       result_hash['id']           = result['resource_id']
       result_hash['title']        = result['instance'].title.strip_italics
@@ -34,7 +34,7 @@ module ApiHelper
     
     return_hash['vernacularNames'] = []
     if params[:common_names]
-      for tcn in taxon_concept.common_names
+      taxon_concept.common_names.each do |tcn|
         lang = tcn.language ? tcn.language.iso_639_1 : ''
         common_name_hash = {
           'vernacularName' => tcn.name.string,
@@ -47,7 +47,7 @@ module ApiHelper
     end
     
     return_hash['taxonConcepts'] = []
-    for entry in taxon_concept.curated_hierarchy_entries
+    taxon_concept.curated_hierarchy_entries.each do |entry|
       entry_hash = {
         'identifier'      => entry.id,
         'scientificName'  => entry.name.string,
@@ -59,7 +59,7 @@ module ApiHelper
     end
     
     return_hash['dataObjects'] = []
-    for data_object in data_objects
+    data_objects.each do |data_object|
       return_hash['dataObjects'] << data_objects_json(data_object, all_details)
     end
     return return_hash
@@ -68,6 +68,7 @@ module ApiHelper
   def data_objects_json(data_object, all_details = true)
     return_hash = {}
     return_hash['identifier']             = data_object.guid
+    return_hash['dataObjectVersionID']    = data_object.id
     return_hash['dataType']               = data_object.data_type.schema_value
     return return_hash unless all_details == true
     
@@ -124,7 +125,7 @@ module ApiHelper
         'role'      => (AgentRole.provider.label.downcase rescue nil)
       }
     else
-      for ado in data_object.agents_data_objects
+      data_object.agents_data_objects.each do |ado|
         if ado.agent
           return_hash['agents'] << {
             'full_name' => ado.agent.full_name,
@@ -175,13 +176,13 @@ module ApiHelper
     end
     
     return_hash['nameAccordingTo'] = []
-    for agent_role in @hierarchy_entry.agents_roles
+    @hierarchy_entry.agents_roles.each do |agent_role|
       return_hash['nameAccordingTo'] << agent_role.agent.full_name
     end
     
     return_hash['vernacularNames'] = []
     if @include_common_names
-      for common_name in @hierarchy_entry.common_names
+      @hierarchy_entry.common_names.each do |common_name|
         return_hash['vernacularNames'] << {
           'vernacularName' => common_name.name.string.firstcap,
           'language'       => common_name.language ? common_name.language.iso_639_1 : ''
@@ -191,7 +192,7 @@ module ApiHelper
     
     return_hash['synonyms'] = []
     if @include_synonyms
-      for synonym in @hierarchy_entry.scientific_synonyms
+      @hierarchy_entry.scientific_synonyms.each do |synonym|
         synonym_hash = {}
         synonym_hash['parentNameUsageID'] = @hierarchy_entry.id
         synonym_hash['scientificName'] = synonym.name.string.firstcap
@@ -201,7 +202,7 @@ module ApiHelper
     end
     
     return_hash['ancestors'] = []
-    for ancestor in @ancestors
+    @ancestors.each do |ancestor|
       ancestor_hash = {}
       ancestor_hash['sourceIdentifier'] = ancestor.identifier unless ancestor.identifier.blank?
       ancestor_hash['taxonID'] = ancestor.id
@@ -213,7 +214,7 @@ module ApiHelper
     end
     
     return_hash['children'] = []
-    for child in @children
+    @children.each do |child|
       child_hash = {}
       child_hash['sourceIdentifier'] = child.identifier unless child.identifier.blank?
       child_hash['taxonID'] = child.id
@@ -228,7 +229,7 @@ module ApiHelper
   
   def eol_providers_json
     return_hash = []
-    for h in @hierarchies
+    @hierarchies.each do |h|
       return_hash << {'id' => h.id, 'label' => h.label}
     end
     return return_hash
@@ -236,7 +237,7 @@ module ApiHelper
   
   def search_by_providers_json
     return_hash = []
-    for r in @results
+    @results.each do |r|
       return_hash << {'eol_page_id' => r.taxon_concept_id}
     end
     return return_hash
@@ -250,7 +251,7 @@ module ApiHelper
     return_hash['source'] = @hierarchy.url
     
     return_hash['roots'] = []
-    for root in @hierarchy_roots
+    @hierarchy_roots.each do |root|
       root_hash = {}
       root_hash['sourceIdentifier'] = root.identifier unless root.identifier.blank?
       root_hash['taxonID'] = root.id

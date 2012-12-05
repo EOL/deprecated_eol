@@ -1,4 +1,4 @@
-# Messages for Simplified Chinese (‪中文（简体）‬)
+# Messages for Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Chenxiaoqino
@@ -540,14 +540,12 @@ zh-CN:
   add_a_comment_colon: 添加一条评论：
   add_a_new_common_name: 添加一个新的俗名
   add_a_new_file_brackets: "[添加一个新的文件]"
-  add_a_new_news_item: 添加一个新的新闻条目
   add_a_new_role: 添加一个新的角色
   add_a_new_search_suggestion: 添加一个新的搜索建议
   add_a_new_term: 添加一条新的术语
   add_a_new_topic_area: 添加一个新的主题领域
   add_a_new_user: 添加一个新用户
   add_a_taxon_association_label: 添加一条分类关联
-  add_article_to_page_link_button: 向此页添加一篇文章
   add_association_submit_button: 添加关联
   add_brief_summary_to_page_link_button: 为此页添加简要说明
   add_citizen_science_resources_to_page_link_button: 将一条公民科学链接添加到此页
@@ -684,7 +682,6 @@ zh-CN:
   assistive_literature_header: 文献
   assistive_maps_header: 地图
   assistive_media_header: 媒体
-  assistive_names_classifictions_header: 分类系统
   assistive_names_common_header: 俗名
   assistive_names_related_header: 相关名称
   assistive_names_synonyms_header: 异名
@@ -700,7 +697,7 @@ zh-CN:
   associated_with_map_header: 在此地图上
   associated_with_sound_header: 在这个音频中
   associated_with_video_header: 在这个视频中
-  associations_more_link: 更多<span class=ssistive>类群关联</span>
+  associations_more_link: 更多<span class=assistive>类群关联</span>
   attribute: 属性
   audio_current_time_assistive: 当JavaScript启用时，将以分秒的形式显示音频文件的当前播放位置。
   audio_duration_assistive: 当JavaScript启用时，将以分秒的形式显示音频文件的长度。JavaScript可能需要一段时间来计算文件的长度（取决于文件的大小），并显示一个值。
@@ -838,10 +835,7 @@ zh-CN:
         meta_title: "%{collection_name} 新闻"
         tweet_text: "%{collection_name} 新闻"
     show: 
-      meta_description: "%{collection_description}"
       meta_keywords: 生命百科收藏%{collection_name}
-      meta_title: "%{collection_name}"
-      tweet_text: "%{collection_name}"
   collections_filter: 收藏
   collections_link: 收藏
   collections_page_title: 收藏
@@ -887,10 +881,7 @@ zh-CN:
         tweet_text: "%{community_name} 收藏"
     newsfeeds: 
       show: 
-        meta_description: "%{community_description} \\"
         meta_keywords: "\"%{community_name}，生命百科社区，%{community_name}动态，%{community_name}评论，%{community_name}活动"
-        meta_title: "%{community_name}"
-        tweet_text: "%{community_name}"
     show: 
       meta_description: 生命百科小组 %{community_name}被它的建立者删除
       meta_title: "%{community_name}被管理者删除"
@@ -951,7 +942,7 @@ zh-CN:
       meta_description: 网络生命大百科是一个致力于收集所有动物和植物生命科学知识的史无前例的努力。动物界和植物界的所有生物的图片，信息，事实及更多资料在这里可以得到。
       meta_keywords: 动物，动物图片，动物信息，植物，植物物种，植物图片，植物信息，植物志，动物志
       meta_title: 动物-植物-图片和信息
-      see_all_recent_activites: 查看更多 <span class=ssistive>上周的活动</span>
+      see_all_recent_activites: 查看更多 <span class=assistive>上周的活动</span>
   content_has_been_updated: 内容已经更新。
   content_notes_not_shown_to_us: 内容说明(对用户不可见)：
   content_partner: 内容合作伙伴
@@ -1051,7 +1042,7 @@ zh-CN:
   content_partner_resource_harvest_event_update_unsuccessful_error: 抱歉，出现了一个错误，资源%{resource_title}的收获事件未能更新。
   content_partner_resource_harvest_events_empty: 没有采集事件被发现。
   content_partner_resource_harvest_events_for_resource_subheader: 资源%{resource_title}的采集事件
-  content_partner_resource_harvest_events_see_all_link: 查看全部 <span class=ssistive>采集事件</span>
+  content_partner_resource_harvest_events_see_all_link: 查看全部 <span class=assistive>采集事件</span>
   content_partner_resource_hierarchy_browsable: 可浏览的
   content_partner_resource_hierarchy_complete_false: 这个分类系统未经审核。相匹配的条目被视为同一概念。
   content_partner_resource_hierarchy_complete_true: "\"这个分类系统设定为<strong>已审核</strong>。已审核的分类系统认为每个条目都是唯一的，例如,名称相同的字符串被视为同名异物。\""
@@ -1117,8 +1108,6 @@ zh-CN:
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "\"%{partner_name}, 网络生命大百科内容合作伙伴\""
-      meta_title: "%{partner_name}"
-      tweet_text: "%{partner_name}"
     statistics: 
       show: 
         meta_description: 对%{partner_name}数据的使用统计 。
@@ -1238,99 +1227,14 @@ zh-CN:
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
   data_usage_reports: 数据使用报告
-  date: 
-    abbr_day_names: 
-      - 日
-      - 一
-      - 二
-      - 三
-      - 四
-      - 五
-      - 六
-    abbr_month_names: 
-      1: 1月
-      10: 10月
-      11: 11月
-      12: 12月
-      2: 2月
-      3: 3月
-      4: 4月
-      5: 5月
-      6: 6月
-      7: 7月
-      8: 8月
-      9: 9月
-    day_names: 
-      - 星期日
-      - 星期一
-      - 星期二
-      - 星期三
-      - 星期四
-      - 星期五
-      - 星期六
-    formats: 
-      default: "%Y-%m-%d"
-      long: "\"%B %d, %Y\""
-      short: "%b %d"
-    month_names: 
-      1: 一月
-      10: 十月
-      11: 十一月
-      12: 十二月
-      2: 二月
-      3: 三月
-      4: 四月
-      5: 五月
-      6: 六月
-      7: 七月
-      8: 八月
-      9: 九月
-    order: 
-      - ：年
-      - ：月
-      - ：日
   date_caps: 日期
   date_uploaded: 上传日期
-  datetime: 
-    distance_in_words: 
-      about_x_hours: 
-        other: 大约%{count} 小时
-      about_x_months: 
-        other: 大约%{count} 个月
-      about_x_years: 
-        other: 大约%{count} 年
-      almost_x_years: 
-        other: 将近%{count}年
-      half_a_minute: 半分钟
-      less_than_x_minutes: 
-        one: 少于1分
-        other: 少于%{count}分
-      less_than_x_seconds: 
-        other: 不到 %{count}秒
-      over_x_years: 
-        other: 超过%{count} 年
-      x_days: 
-        other: "%{count} 天"
-      x_minutes: 
-        other: "%{count} 分"
-      x_months: 
-        other: "%{count} 月"
-      x_seconds: 
-        other: "%{count} 秒"
-    prompts: 
-      day: 天
-      hour: 小时
-      minute: 分
-      month: 月
-      second: 秒
-      year: 年
   dato_create_cancel: 取消
   dato_create_user_text_error: 抱歉，发生了一个错误，此文章不能被添加。
   dato_create_user_text_missing_taxon_id_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
   dato_create_user_text_missing_user_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
   dato_create_user_text_validation_error: 请确认您是否正确填完了表格。
   dato_edit_cancel: 取消
-  dato_edit_text_link_button: 编辑这篇文章
   dato_edit_text_title: 编辑文章
   dato_new_edit_user_text_fieldset_content_header: 文章内容
   dato_new_edit_user_text_fieldset_information_header: 文章信息
@@ -1379,7 +1283,6 @@ zh-CN:
   download_wav_file: 下载WAV文件
   dublin_core: 都柏林核心
   duplicate_items_were_ignored: 重复的条目被忽略。
-  e_g_search_for_the_eol_page: （例如：从EOL物种页编号中查找ITIS TSN 180542：
   each_method_documentation_page_has_formatted_responses: 每个方法的文档页都有XML格式和JSON格式的响应例子。
   edit: 编辑
   edit_collection_details: 编辑收藏信息
@@ -1393,8 +1296,6 @@ zh-CN:
   edit_glossary_term: 编辑术语表项目
   edit_hierarchy: 编辑分类系统
   edit_my_profile: 编辑个人信息
-  edit_news_item: 编辑新闻项
-  edit_news_item_instructions_with_link: 编辑下面的新闻项。标题和正文都是必填项，都可以使用HTML。为了得到最好的结果，请输入标题和一个简短的新闻项。在建立到其他站点的超链接时，您可以使用%{link}为保留字符建立短的URL。
   edit_news_items: 编辑新闻项
   edit_page_contents: 编辑页面内容
   edit_search_suggestion: 编辑搜索建议
@@ -1411,7 +1312,6 @@ zh-CN:
   editors_tab_label: 管理员
   email: 邮箱
   email_colon: 邮件：
-  email_error_notification_activ: 邮件错误提醒激活
   email_recipients: 邮件收件人
   email_updates_for_eol_addicts: 对EOL粉丝的补充更新。
   email_updates_for_eol_members: 对大多数EOL会员想获取的补充更新。
@@ -1456,7 +1356,6 @@ zh-CN:
   error_log_detail: 错误日志详细信息
   error_logging_active: 错误日志激活
   error_watch_collections_cannot_be_shared: 关注的收藏不能被分享
-  esc_key_hides_this_message: (按下esc键隐藏这条消息)
   example_colon: 例子：
   exception: 例外
   exceptions: 
@@ -1482,258 +1381,6 @@ zh-CN:
   faculty_staff_or_grad_student_credential_option: 在相关学院或大学教研室的教师、 工作人员或研究生身份
   failed_login_attempts_with_count: 
     other: (%{count} 次登录失败)- 请检查用户登录信息
-  faker: 
-    lorem: 
-      words: 
-        - alias
-        - consequatur
-        - aut
-        - perferendis
-        - sit
-        - voluptatem
-        - accusantium
-        - doloremque
-        - aperiam
-        - eaque
-        - ipsa
-        - quae
-        - ab
-        - illo
-        - inventore
-        - veritatis
-        - et
-        - quasi
-        - architecto
-        - beatae
-        - vitae
-        - dicta
-        - sunt
-        - explicabo
-        - aspernatur
-        - aut
-        - odit
-        - aut
-        - fugit
-        - sed
-        - quia
-        - consequuntur
-        - magni
-        - dolores
-        - eos
-        - qui
-        - ratione
-        - voluptatem
-        - sequi
-        - nesciunt
-        - neque
-        - dolorem
-        - ipsum
-        - quia
-        - dolor
-        - sit
-        - amet
-        - consectetur
-        - adipisci
-        - velit
-        - sed
-        - quia
-        - non
-        - numquam
-        - eius
-        - modi
-        - tempora
-        - incidunt
-        - ut
-        - labore
-        - et
-        - dolore
-        - magnam
-        - aliquam
-        - quaerat
-        - voluptatem
-        - ut
-        - enim
-        - ad
-        - minima
-        - veniam
-        - quis
-        - nostrum
-        - exercitationem
-        - ullam
-        - corporis
-        - nemo
-        - enim
-        - ipsam
-        - voluptatem
-        - quia
-        - voluptas
-        - sit
-        - suscipit
-        - laboriosam
-        - nisi
-        - ut
-        - aliquid
-        - ex
-        - ea
-        - commodi
-        - consequatur
-        - quis
-        - autem
-        - vel
-        - eum
-        - iure
-        - reprehenderit
-        - qui
-        - in
-        - ea
-        - voluptate
-        - velit
-        - esse
-        - quam
-        - nihil
-        - molestiae
-        - et
-        - iusto
-        - odio
-        - dignissimos
-        - ducimus
-        - qui
-        - blanditiis
-        - praesentium
-        - laudantium
-        - totam
-        - rem
-        - voluptatum
-        - deleniti
-        - atque
-        - corrupti
-        - quos
-        - dolores
-        - et
-        - quas
-        - molestias
-        - excepturi
-        - sint
-        - occaecati
-        - cupiditate
-        - non
-        - provident
-        - sed
-        - ut
-        - perspiciatis
-        - unde
-        - omnis
-        - iste
-        - natus
-        - error
-        - similique
-        - sunt
-        - in
-        - culpa
-        - qui
-        - officia
-        - deserunt
-        - mollitia
-        - animi
-        - id
-        - est
-        - laborum
-        - et
-        - dolorum
-        - fuga
-        - et
-        - harum
-        - quidem
-        - rerum
-        - facilis
-        - est
-        - et
-        - expedita
-        - distinctio
-        - nam
-        - libero
-        - tempore
-        - cum
-        - soluta
-        - nobis
-        - est
-        - eligendi
-        - optio
-        - cumque
-        - nihil
-        - impedit
-        - quo
-        - porro
-        - quisquam
-        - est
-        - qui
-        - minus
-        - id
-        - quod
-        - maxime
-        - placeat
-        - facere
-        - possimus
-        - omnis
-        - voluptas
-        - assumenda
-        - est
-        - omnis
-        - dolor
-        - repellendus
-        - temporibus
-        - autem
-        - quibusdam
-        - et
-        - aut
-        - consequatur
-        - vel
-        - illum
-        - qui
-        - dolorem
-        - eum
-        - fugiat
-        - quo
-        - voluptas
-        - nulla
-        - pariatur
-        - at
-        - vero
-        - eos
-        - et
-        - accusamus
-        - officiis
-        - debitis
-        - aut
-        - rerum
-        - necessitatibus
-        - saepe
-        - eveniet
-        - ut
-        - et
-        - voluptates
-        - repudiandae
-        - sint
-        - et
-        - molestiae
-        - non
-        - recusandae
-        - itaque
-        - earum
-        - rerum
-        - hic
-        - tenetur
-        - a
-        - sapiente
-        - delectus
-        - ut
-        - aut
-        - reiciendis
-        - voluptatibus
-        - maiores
-        - doloribus
-        - asperiores
-        - repellat
   family_name_colon: 科名：
   feedback: 反馈
   file: 文件
@@ -2218,7 +1865,7 @@ zh-CN:
   license_gnu_gpl: GNU通用公共许可证(GNU GPL)
   license_not_applicable: 不适用的授权协议
   license_public_domain: 公共领域
-  licensing: 授权中
+  licensing: 授权协议
   limits_the_number_of_returned_image_objects: 限定返回的图像数量
   limits_the_number_of_returned_iucn_objects: 含IUCN红色物种名录状态
   limits_the_number_of_returned_map_objects: 限定返回的地图数量
@@ -2309,7 +1956,6 @@ zh-CN:
   method: 方法
   method_to_get_metadata_about_the_hierarchy: 如果给出分类系统的标识符，本方法可以获取所有关于本分类系统和所列根阶元的元数据
   methods: 方法
-  minimal_page: 最小的页面
   mobile: 
     contents: 
       explore_eol: 搜索EOL
@@ -2392,10 +2038,8 @@ zh-CN:
   news_archive_page: 新闻存档页面
   news_date: 新闻时间
   news_item: 新闻项
-  news_item_date_as_shown_to_use: 对用户显示的新闻项时间(仅在Rss订阅中显示时间)：
-  news_item_is_visible_on_websit: 在这个时间之后，新闻项将在网站可见：
+  news_item_date_as_shown_to_user: 对用户显示的新闻项时间(仅在Rss订阅中显示时间)：
   news_item_title: 新闻项
-  news_items: 新闻项
   newsfeed: 新闻订阅
   newsfeed_help_for_collection: "\"这个EOL收藏的动态收集了与属于它的与它有关的条目的更新,包括它的所有者的活动和来自EOL用户的评论。\""
   newsfeed_help_for_community: "\"这个EOL社区的动态收集了与属于它管理的收藏的条目有关的更新,包括它的成员活动和来自EOL用户的评论。\""
@@ -2412,7 +2056,6 @@ zh-CN:
   no_errors_are_available: 未找到错误。
   no_harvesting_logs_for_this_da: 这个日期没有采集日志
   no_items_were_copied_to_collections_error: "没有项被复制到此收藏: %{names}。"
-  no_news_items_are_available_ma: 没有检索到符合您检索条件的新闻项。
   no_record_found_matching_your_criteria: 没有搜到符合您检索条件的记录
   no_related_names: 没有与此分类阶元相关的名字。
   no_results_for: 无结果有关
@@ -2511,40 +2154,6 @@ zh-CN:
   nucleotide_sequences_proteins_link: 查看NCBI中的蛋白质和核酸序列
   num_content_partners: 内容合作伙伴编号
   num_data_objects: 数据项编号
-  number: 
-    currency: 
-      format: 
-        delimiter: "\",\""
-        format: "%u%n"
-        precision: 2
-        separator: .
-        unit: $
-    format: 
-      delimiter: "\",\""
-      precision: 3
-      separator: .
-    human: 
-      decimal_units: 
-        format: "%n %u"
-        units: 
-          billion: 十亿
-          million: 百万
-          quadrillion: 千万亿
-          thousand: 千
-          trillion: 万亿
-      format: 
-        precision: 3
-        significant: 1
-        strip_insignificant_zeros: 1
-      storage_units: 
-        format: "%n %u"
-        units: 
-          byte: 
-            other: 字节
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
   number_of_taxa_at_this_entry: 该条目类群的数量
   number_of_trusted_images_at_this_entry: 该条目可信的图像数量
   number_of_trusted_text_objects_at_this_entry: 该条目可信的文本对象数量
@@ -2572,7 +2181,6 @@ zh-CN:
   object_visibility_invisible_option: 隐藏的
   object_visibility_visible_option: 可见的
   objects_curated: 已管理的数据项
-  older_version_of_latest_published_data_object_link: 一个旧版本的“%{link}”
   older_version_of_latest_published_data_object_title_link: 旧版本的%{link}
   on_time_col_header: 在
   only_multi_search_suggestions: "\"(仅当同一搜索项有多个建议时, 从低到高排序)\""
@@ -2677,7 +2285,6 @@ zh-CN:
   publish: 发布
   publish_after_utc: 发布时间不早于（UTC）
   publish_changes: 发布改动
-  publish_item_based_on_time_set: 基于上面时间设置的发行项（不选则总是隐藏）
   publish_requested: 已请求发布
   published: 已发布
   published_parens: （已发布）
@@ -2784,7 +2391,6 @@ zh-CN:
   rights: 权利
   rights_holder: 权利持有人
   rights_statement: 版权声明
-  rss_feed: RSS订阅
   save: 保存
   save_comment_lowercase: 保存评论
   save_curated_association_submit_button: 保存关联
@@ -2792,7 +2398,6 @@ zh-CN:
   sci_name_avg_table_head: 学名平均
   scientific_name: 学名
   search: 搜索
-  search_by_provider_method_description: 根据给定的提供者的hierarchy_id和提供者自己的唯一标识获取EOL页面的IDs
   search_by_term_page_title: 搜索： %{term}
   search_field_common_name: 俗名
   search_field_label: 搜索 EOL
@@ -2802,7 +2407,6 @@ zh-CN:
   search_field_synonym: 异名
   search_for_comments_containing_the_text: 搜索包含这些文本的评论：
   search_for_curators_containing: 搜索包含这些内容的管理员：
-  search_for_items_containing: 搜索包含这些内容的数据项：
   search_for_messages_containing: 搜索包含这些内容的消息：
   search_for_terms_containing: 搜索包含这些内容的术语：
   search_for_users_containing_this_in_their_username_name_or_email_address: "\"搜索在用户名,名字或邮件地址中包含该内容的用户。\""
@@ -2823,13 +2427,13 @@ zh-CN:
   search_term_reports_title: 搜索项报告
   search_the_site: 搜索网站
   see_all_classifications_with_count_html: 
-    other: 查看<span class=ssistive>%{count}个出现该分类单元的已被认可的分类系统</span>
+    other: 查看<span class=assistive>%{count}个出现该分类单元的已被认可的分类系统</span>
   see_all_collections_with_count_html: 
-    other: 查看<span class=ssistive>%{count}个出现该页面的收藏</span>
+    other: 查看<span class=assistive>%{count}个出现该页面的收藏</span>
   see_all_comments_with_count_for_text_or_rate: 
     other: 查看本文章的%{count}条评论或给本文章评分
   see_all_communities_with_count_html: 
-    other: 查看<span class=ssistive>以这个页面为特色的%{count}社群</span>
+    other: 查看<span class=assistive>以这个页面为特色的%{count}社群</span>
   see_all_editors_with_count: 
     other: 查看%{count}个管理员
   see_all_featured_collections_with_count: 
@@ -2838,7 +2442,7 @@ zh-CN:
   see_all_of_your_collections: 查看您的所有收藏
   see_all_of_your_communities: 查看您的所有社区
   see_all_updates_with_count_html: 
-    other: 查看<span class=ssistive>该页面的所有%{count}个更新</span>
+    other: 查看<span class=�assistive>该页面的所有%{count}个更新</span>
   see_notes: 查看注释
   select_a_hierarchy_around_whic: 选择一个分类树用以组织内容概要：
   select_an_item_from_the_menu: 从菜单选择一项
@@ -2952,13 +2556,6 @@ zh-CN:
   supplier: 提供者
   supplier_allcaps: 提供者：
   supplier_colon: 提供者：
-  support: 
-    array: 
-      last_word_connector: ，和
-      two_words_connector: 和
-      words_connector: "\",\""
-    select: 
-      prompt: 请选择
   survey_link: 参与我们的调查
   switch_language_advisory_information: 切换网站语言到 %{language_label}
   synonym: 异名
@@ -2998,7 +2595,6 @@ zh-CN:
           meta_title: "%{scientific_name}的管理员，分类由 %{hierarchy_provider}提供"
           meta_title_with_common_name: "%{preferred_common_name}的专家 (%{scientific_name} 的分类由%{hierarchy_provider})提供）"
           tweet_text: " %{scientific_name} 的管理员，分类由 %{hierarchy_provider}提供"
-        meta_description: "%{scientific_name} 的专家管理它在网络生命大百科中的信息。"
         meta_description_with_common_name: "%{preferred_common_name} 专家 (同时也是 %{scientific_name} 的专家) 管理它在网络生命大百科中的信息。"
         meta_keywords: "\"%{scientific_name} 专家, %{scientific_name} 管理员\""
         meta_keywords_with_common_name: "\"%{preferred_common_name} 专家, %{preferred_common_name} 管理员, %{scientific_name} 专家, %{scientific_name} 管理员\""
@@ -3149,7 +2745,6 @@ zh-CN:
         meta_description_with_common_name: "%{preferred_common_name}概要，学名在网络生命大百科里是 %{scientific_name}。"
         meta_keywords: "%{scientific_name} 由 %{hierarchy_provider}确定"
         meta_keywords_with_common_name: "%{scientific_name} 由 %{hierarchy_provider}确定"
-        meta_title: "%{scientific_name}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
         tweet_text: "%{scientific_name}的概述"
     resources: 
@@ -3296,8 +2891,6 @@ zh-CN:
   the_message_was_sent: 消息已发出。
   the_new_topic_was_created: 新主题已创建。
   the_new_user_was_created: 新用户已创建。
-  the_news_item_created: 新条目建立成功。
-  the_news_item_updated: 新条目更新成功。
   the_suggested_page_to_direct_users_to_link: 引导用户到链接的推荐页面
   the_topic_was_updated: 主题已更新。
   the_user_was_updated: 用户已更新。
@@ -3335,15 +2928,7 @@ zh-CN:
   this_video_is_unpublished: 该视频尚未发表。
   threat_status_header_colon: <abbr title=International Union for Conservation of Nature>IUCN</abbr>濒危状态：
   thumbnail_page_colon: 缩略图页：
-  time: 
-    am: 上午
-    formats: 
-      default: "\"%a, %d %b %Y %H:%M:%S %z\""
-      long: "\"%B %d, %Y %H:%M\""
-      short: "%d %b %H:%M"
-    pm: 下午
   time_ago: "%{time_passed}之前"
-  tinyurl: TinyURL
   title: 标题
   to_process_your_donation_please_proceed: 要处理您的捐赠，请继续
   to_remedy_this: 为了补救，我们将关闭这些不活动的账户并邀请您访问eol.org来创建一个新的帐户。当您收到确认邮件时请点击以激活您的帐户。
@@ -3465,8 +3050,8 @@ zh-CN:
   user_left_comment_on_date: "%{username}在%{date}做了评论。"
   user_no_longer_active_message: 用户已失活
   user_no_longer_has_manager_access_to_collection: "%{user} 不再拥有对 “%{collection}”的管理权限。"
-  user_pending_notifications_assitive: <span class=ssistive>提示</span>
-  user_pending_notifications_comments_assistive: <span class=ssistive>评论</span>
+  user_pending_notifications_assitive: <span class=assistive>提示</span>
+  user_pending_notifications_comments_assistive: <span class=assistive>评论</span>
   user_pending_notifications_comments_with_count_assistive: 
     other: "%{count}<span class=\assistive>条评论</span>"
   user_pending_notifications_with_count_assitive: 
@@ -3615,8 +3200,6 @@ zh-CN:
     show: 
       meta_description: 网络生命大百科中%{user_full_name}的会员信息。
       meta_description_curator: 网络生命大百科中%{curator_level} %{user_full_name}的会员信息
-      meta_title: "%{user_full_name}"
-      tweet_text: "%{user_full_name}"
   users_about_me_header: 关于我
   users_content_partners_header: 内容合作伙伴
   users_content_partners_information: "\"EOL内容合作伙伴为个人或者组织，它们通过EOL与全世界分享它们的生物多样性数据。了解更多关于<a href=\"\"%{more_url}\"\">EOL内容合作伙伴</a>。\""
@@ -3705,7 +3288,6 @@ zh-CN:
   will_find_taxon_pages_matching_the_search_term: 如果搜索关键词与推荐名、异名或俗名完全匹配，就能找到相关的物种页
   will_paginate: 
     next_label: 下一条&#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; 前一条"
   worklist: 工作列表
   xml_response: XML 响应

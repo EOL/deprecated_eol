@@ -18,14 +18,14 @@
                 %br/
                 = contact.address
               %p= link_to I18n.t(:content_partner_contact_edit_link),
-                edit_content_partner_content_partner_contact_path(@partner, contact) if current_user.can_update?(contact)
+                edit_content_partner_contact_path(@partner, contact) if current_user.can_update?(contact)
       - if current_user.can_create?(@new_partner_contact)
-        = link_to I18n.t(:content_partner_contact_new_link), new_content_partner_content_partner_contact_path(@partner),
+        = link_to I18n.t(:content_partner_contact_new_link), new_content_partner_contact_path(@partner),
           :class => "button"
   .main_container
     .copy
       %h3= I18n.t(:content_partner_resources_header)
-      %p= I18n.t(:content_partner_resources_information, :eol_transfer_schema_url => cms_page_path('cp_plan_export'))
+      %p= raw(I18n.t(:content_partner_resources_information, :eol_transfer_schema_url => cms_page_path('cp_plan_export')))
       %p= link_to I18n.t(:content_partner_resource_new_link), new_content_partner_resource_path(@partner), :class => 'button'
     - unless @resources.blank?
       %table.standard

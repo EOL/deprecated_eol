@@ -12,10 +12,10 @@
     %dd
       - option_root = "<option value=\"\">#{I18n.t(:admin_content_page_parent_option_root)}</option>"
       = content_page_form.select :parent_content_page_id,
-        option_root + options_from_collection_for_select(@parent_content_pages, :id, :page_name, @content_page.parent_content_page_id)
+        options_from_collection_for_select(@parent_content_pages, :id, :page_name, @content_page.parent_content_page_id), :include_blank => I18n.t(:admin_content_page_parent_option_root)
     %dt.required
-      = content_page_form.label :page_name
-      %p= I18n.t('helpers.label.content_page.page_name_more')
+      = content_page_form.label :page_name, raw(I18n.t('helpers.label.content_page.page_name'))
+      %p= raw(I18n.t('helpers.label.content_page.page_name_more'))
     %dd
       = content_page_form.text_field :page_name, { :maxlength => 255 }
       %p
@@ -24,7 +24,7 @@
           %br/
           = external_link_to(cms_page_url(alternate), cms_page_url(alternate), :show_link_icon => false)
   %fieldset
-    - content_page_form.label :active, :class => 'checkbox' do
+    = content_page_form.label :active, :class => 'checkbox' do
       = content_page_form.check_box :active
       = I18n.t('activerecord.attributes.content_page.active')
-      %p= I18n.t('helpers.label.content_page.active_more')
+      %p= raw(I18n.t('helpers.label.content_page.active_more'))

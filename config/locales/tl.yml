@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: AnakngAraw
+# Author: TheSleepyhollow02
 tl: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
@@ -157,6 +158,10 @@ tl:
         request_publish: Hilingin ang paglathala
       name: 
         string: Pangalan
+      news_item: 
+        active: Nailathala na
+        page_name: Pangalang natatangi
+        sort_order: Pagkakasunud-sunod ng pagkakaayos
       notification: 
         changes_to_my_watched_collection: Mga pagbago sa mga kalipunang nasa bantayan mo
         changes_to_my_watched_community: Mga pagbago sa mga pamayanang nasa bantayan mo
@@ -206,6 +211,12 @@ tl:
         active_translation: Nalathala na
         left_content: Paglilibot
         main_content: Katawan
+        meta_description: Paglalarawan ng metadato
+        meta_keywords: Mga susing salita ng metadato
+        title: Pamagat
+      translated_news_item: 
+        active_translation: Nailathala na
+        body: Katawan
         meta_description: Paglalarawan ng metadato
         meta_keywords: Mga susing salita ng metadato
         title: Pamagat
@@ -640,14 +651,6 @@ tl:
         user_trusted_data_object_on_association: Minarkahan ni <strong>%{user}</strong> ang "%{data_object}" bilang pinagkakatiwalaan sa ibabaw ng pahina ng "%{association}".
         user_trusted_it_on_an_unknown_association: Minarkahan ito ni <strong>%{user}</strong> bilang pinagkakatiwalaan sa loob ng isang diwang hindi nakikilala.
         user_trusted_it_on_association: Minarkahan ito ni <strong>%{user}</strong> bilang pinagkakatiwalaan sa ibabaw ng pahina ng "%{association}".
-      unlock: 
-        an_unknown_taxon_unlocked: Isang hindi nakikilalang pahina ang nakatapos na ng pagsasagawa ng pangangasiwang panlikuran.
-        it_unlocked: Natapos na ang pagsasagawa ng pangangasiwang panlikuran.
-        taxon_unlocked: Natapos na ang "%{taxon}" sa pagsasagawa ng panlikurang pangangasiwa.
-      unlock_with_error: 
-        an_unknown_taxon_unlocked: "Isang hindi nakikilalang pahina ang <strong>nabigo</strong> sa pagsasagawa ng panlikurang pangangasiwa: %{error}."
-        it_unlocked: "<strong>Nabigo</strong> ang pagsasagawa ng panlikurang pangangasiwa : %{error}."
-        taxon_unlocked: "<strong>Nabigo</strong> ang \"%{taxon}\" sa pagsasagawa ng panlikurang pangangasiwa: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang hindi pa nasusuring muli ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika bilang hindi pa nasusuring muli.
@@ -740,14 +743,12 @@ tl:
   add_a_comment_colon: "Magdagdag ng isang Puna:"
   add_a_new_common_name: Magdagdag ng isang bagong karaniwang pangalan
   add_a_new_file_brackets: "[magdagdag ng isang bagong talaksan]"
-  add_a_new_news_item: Magdagdag ng isang bagong bagay na pambalita
   add_a_new_role: Magdagdag ng isang bagong gampanin
   add_a_new_search_suggestion: Magdagdag ng isang bagong mungkahi sa paghanap
   add_a_new_term: Magdagdag ng isang bagong kataga
   add_a_new_topic_area: Magdagdag ng isang bagong pook ng paksa
   add_a_new_user: Magdagdag ng isang bagong tagagamit
   add_a_taxon_association_label: Magdagdag ng isang kaugnayan ng takson
-  add_article_to_page_link_button: Magdagdag ng isang artikulo sa pahinang ito
   add_association_submit_button: idagdag ang kaugnayan
   add_brief_summary_to_page_link_button: Magdagdag ng isang maiksing buod sa pahinang ito
   add_citizen_science_resources_to_page_link_button: Magdagdag ng isang kawing sa agham ng mamamayan sa pahinang ito
@@ -783,7 +784,7 @@ tl:
   admin_content_page_update_successful_notice: Matagumpay na naisapanahon ang pahinang <a href="#%{anchor}"><em>%{page_name}</em></a>.
   admin_content_page_update_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi maisapanahon ang pahina.
   admin_content_pages_empty: Walang natagpuang mga pahina ng nilalaman.
-  admin_content_pages_index_information: Ang sumusunod na listahan ay nagsasama ng lahat ng mga pahinang hindi gumagalaw na kasalukuyang makikiha sa Pook na Pangkasaputan ng EOL. Bawat isang pahina ay mayroong isa o mas marami pang mga salinwika. Kapag lumikha ka ng isang bagong pahina hihilingan kang magdagdag ng isang salinwika. Ang nakalathalang mga salinwika ay mapupuntahan ng madla.
+  admin_content_pages_index_information: Ang sumusunod na lista ay nagsasama ng lahat ng mga pahinang hindi gumagalaw na kasalukuyang makukuha sa Pook na Pangkasaputan ng EOL. Bawat isang pahina ay mayroong isa o mas marami pang mga salinwika. Kapag lumikha ka ng isang bagong pahina hihilingan kang magdagdag ng isang salinwika. Ang nakalathalang mga salinwika ay mapupuntahan ng madla.
   admin_content_pages_link: Pamamahala ng Nilalaman
   admin_content_pages_page_title: "Pangangasiwa: Pamamahala ng Nilalaman"
   admin_content_partners_index_header: Mga kawaksi sa nilalaman
@@ -808,6 +809,23 @@ tl:
   admin_information: Ito ang bagong kaha ng pangangasiwa para sa EOL V2. Nasa proseso kami ng paglilipat ng katungkulan ng pangasiwaan magmula sa V1. Kung ang hinahanap mong bahagi ng pangangasiwa ay hindi nakalista mangyaring dalawin ang <a href="/administrator">Kaha ng Pangasiwaan ng V1</a>.
   admin_link: Mapaglarawang pagtalakay
   admin_login_confirmation: Nakatitiyak ka bang nais mong lumagdang papasok sa patalaan ng kawaksi ng nilalaman bilang si %{name}? Kapag ginawa mo ito, ilalabas ka mula sa pagkakalagda mula sa pook na pangkasaputan bilang isang tagapangasiwa.
+  admin_news_item_active: Nailathala na
+  admin_news_item_create_successful_notice: Matagumpay na nalikha ang bagay na pambalitang <a href="#%{anchor}"><em>%{page_name}</em></a>.
+  admin_news_item_create_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi nalikha ang bagay na pambalita.
+  admin_news_item_delete_confirmation: Nakatitiyak ka bang nais mong burahin ang "%{page_name}" at lahat ng mga salinwika. Hindi na mababawi pang muli ang mga galaw na pagbura.
+  admin_news_item_delete_successful_notice: Nabura na ang bagay na pambalitang %{page_name} at ang kaugnay na mga salinwika.
+  admin_news_item_edit_header: Isapanahon ang saligan ng kabatiran ng bagay na pambalitang para sa <em>%{page_name}</em>
+  admin_news_item_edit_tip: Iminumungkahi na huwag mong baguhin ang bukod-tanging pangalan ng bagay na pambalitang ito maliban na lamang kung buo ang pagkabatid mo ng mga kahihinatnan, kabilang na ang epekto sa mga kawing na papunta sa pahinang ito, o sa napangalanang mga ruta. %{required_icon} Kailangan ang namumukod-tanging pangalan.
+  admin_news_item_new_header: Lumikha ng isang bagong bagay na pambalita
+  admin_news_item_new_link: Lumikha ng bagay na pambalita
+  admin_news_item_new_tip: Ipasok ang saligang kabatiran patungkol sa pahinang ito. %{required_icon} Kailangan ang natatanging pangalan.
+  admin_news_item_not_active: Hindi pa nailalathala
+  admin_news_item_update_successful_notice: Matagumpay na nalikha ang bagay na pambalitang <a href="#%{anchor}"><em>%{page_name}</em></a>.
+  admin_news_item_update_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi maisapanahon ang bagay na pambalita.
+  admin_news_items_empty: Walang natagpuang mga bagay na pambalita.
+  admin_news_items_index_information: Ang sumusunod na lista ay nagsasama ng lahat ng mga bagay na pambalita na kasalukuyang makukuha sa Pook na Pangkasaputan ng EOL. Ang bawat isang pahina ay mayroong isa o mas marami pang mga salinwika. Kapag lumikha ka ng isang bagay na pambalita, hihilingan kang magdagdag ng isang salinwika. Ang nakalathalang mga salinwika ay mapupuntahan ng madla.
+  admin_news_items_page_title: "Pangangasiwa: Balita"
+  admin_news_link: Balita
   admin_notes_not_visible_to_user: "Mga tala ng tagapangasiwa (hindi nakikita ng tagagamit):"
   admin_page_title: "Pangangasiwa: Malawakang Pagtanaw"
   admin_spam_delete: Burahin ang Basura
@@ -824,6 +842,20 @@ tl:
   admin_translated_content_page_new_tip: "%{required_icon} Kailangan ang wika, pamagat at katawan."
   admin_translated_content_page_update_successful_notice: Naisapanahon na ang salinwikang nasa %{language} para sa <a href="#%{anchor}"><em>%{page_name}</em></a>.
   admin_translated_content_page_update_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi maisapanahon ang salinwika.
+  admin_translated_news_item_active: Nailathala na
+  admin_translated_news_item_create_successful_notice: Idinagdag ang salinwika sa <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi maidagdag ang salinwika.
+  admin_translated_news_item_delete_confirmation: Nakatitiyak ka bang nais mong burahin ang bersiyon nasa %{language} ng "%{page_name}". Hindi na mababawi pa ang kilos na pagbura.
+  admin_translated_news_item_delete_successful_notice: Nabura na ang salinwikang nasa %{language} ng bagay na pambalitang <em>%{page_name}</em>.
+  admin_translated_news_item_edit_subheader: Baguhin ang salinwikang nasa %{language} para sa <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: "%{required_icon} Kailangan ang pamagat at katawan."
+  admin_translated_news_item_new_header: Piliin ang wika at magdagdag ng nilalaman
+  admin_translated_news_item_new_link: Magdagdag ng salinwika
+  admin_translated_news_item_new_subheader: Magdagdag ng salinwika para sa <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: "%{required_icon} Kailangan ang wika, pamagat at katawan."
+  admin_translated_news_item_not_active: Hindi pa nailalathala
+  admin_translated_news_item_update_successful_notice: Naisapanahon na ang salinwikang nasa %{language} para sa <a href="#%{anchor}"><em>%{page_name}</em></a>.
+  admin_translated_news_item_update_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi maisapanahon ang salinwika.
   admin_user_delete_successful_notice: Nabura na ang tagagamit
   admin_user_hide_successful_notice: Naitago na ang tagagamit
   admin_user_unhide_successful_notice: Hindi na ikinubli ang tagagamit
@@ -925,7 +957,7 @@ tl:
   assistive_literature_header: Panitikan
   assistive_maps_header: Mga mapa
   assistive_media_header: Midya
-  assistive_names_classifictions_header: Mga klasipikasyon
+  assistive_names_classifications_header: Mga klasipikasyon
   assistive_names_common_header: Karaniwang mga pangalan
   assistive_names_related_header: Kaugnay na mga pangalan
   assistive_names_synonyms_header: Mga singkahulugan
@@ -995,7 +1027,7 @@ tl:
   change_rating_to_3_of_5: Baguhin ang kaantasan upang maging 3 ng 5
   change_rating_to_4_of_5: Baguhin ang kaantasan upang maging 4 ng 5
   change_rating_to_5_of_5: Baguhin ang kaantasan upang maging 5 ng 5
-  check_this_to_browse_eol_by_the_hierarchy: kapag may tsek ang kahong ito, ang hirarkiya ay magiging isang pagpipilian ng mga tagagamit upang tumingin-tingin sa EOL
+  check_this_to_browse_eol_by_the_hierarchy: (Kapag may tsek ang kahong ito, ang klasipikasyon ay ipapakita sa laylay ng mga pangalan na hindi kinakailangang "Ipakita ang Lahat ng mga Klasipikasyon".)
   choose_collection_header: Piliin ang kalipunan
   citation: Pagbanggit
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Ensiklopedya ng Buhay, makukuha mula sa <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Napuntahan noong 15 Enero 2009.
@@ -1174,7 +1206,7 @@ tl:
     one: "%{count} Community"
     other: "%{count} Mga pamayanan"
   community: Pamayanan
-  community_activity: Galaw ng Pamayanan
+  community_activity: Galaw ng<br />Pamayanan
   community_can_now_manage_this_collection: Ang "%{community}" ay mayroon na ngayong kapahintulutan upang mamahala ng kalipunang ito.
   community_contributions_with_count: 
     one: "%{count} Ambag"
@@ -1227,10 +1259,12 @@ tl:
   containing_value: naglalaman ng %{value}.
   content: 
     index: 
+      header_news: Balitang EOL
       meta_description: Ang Ensiklopedya ng Buhay ay isang ulirang pagpupunyagi upang makatipon ng makaagham na kaalaman tungkulo sa lahat ng mga buhay na hayop at halaman kung saan makakakuha ng mga larawan, kabatiran, mga katunayan, at marami pa para sa lahat ng mga bagay na nabubuhay sa ating mga kaharian ng halaman at hayop.
       meta_keywords: Mga Hayop, Mga Larawan ng Hayop, Kabatiran sa Hayop, Mga Halaman, Buhay ng Halaman, Mga Larawan ng Halaman, Kabatiran sa Halaman, Sangkahalamanan, Sangkahayupan
       meta_title: Mga Hayop - Mga Halamanan - Mga Larawan at Kabatiran
-      see_all_recent_activites: tumingin ng masa marami pang <span class="assistive">mga gawain sa loob ng huling linggo</span>
+      see_all_eol_news: tumingin ng mas marami pang <span class="assistive">balitang eol</span>
+      see_all_recent_activites: tumingin ng mas marami pang <span class="assistive">mga gawain sa loob ng huling linggo</span>
   content_has_been_updated: Naisapanahon na ang nilalaman.
   content_notes_not_shown_to_us: "Mga Tala sa Nilalaman (hindi ipinapakita sa tagagamit):"
   content_partner: Kawaksi sa Nilalaman
@@ -1606,9 +1640,9 @@ tl:
   dato_create_user_text_missing_user_exception: Hindi magagawang makayari ng isang tekstong DataObject o UsersDataObject kung ang ID ng takson ay wala.
   dato_create_user_text_validation_error: Pakitiyak na nabuo mo nang tama ang pormularyo.
   dato_edit_cancel: Huwag ituloy
-  dato_edit_text_link_button: Baguhin ang artikulong ito
   dato_edit_text_page_description: Salamat sa pag-aambag mo ng iyong kadalubhasaan sa EOL. Ang binagong artikulo ay idaragdag sa Bantayan mo upang masundan mo ang anumang mga usapan na may kaugnayan diyan at suriin ang katayuan ng pangangasiwa niyan.
   dato_edit_text_title: Baguhin ang artikulo
+  dato_location_created: "Nalikha ang Lokasyon: #{loc}"
   dato_new_edit_user_text_fieldset_content_header: Nilalaman ng artikulo
   dato_new_edit_user_text_fieldset_information_header: Kabatiran sa artikulo
   dato_new_edit_user_text_form_tip: Ang nabuo mo nang artikulo ay ipapaskil sa pahina ng takson. Kung hindi ka isang katiwala, mamarkahan ito bilang "hindi pa nasusuring muli" hanggang sa masuri nang muli ito nang isang kurador. Kailangan (%{required_icon}) ang kabahaging pahina, wika at lisensiya, maaaring mayroon o maaaring wala ang iba pang mga kahanayan. Kapag pinili mo ang isang lisensiyang CC-BY (Attribution), paki isama ang isang tagapaghawak ng mga karapatan o iwanang walang laman upang gamitin ang iyong buong pangalan. Ang mga lisensiyang Sakop ng Madla ay hindi nangangailangan ng isang tagapaghawak ng mga karapatan. Para sa karagdagang pagtulong basahin ang <a href="%{add_article_help_url}">tulong sa pagdaragdag ng artikulo</a>.
@@ -1659,7 +1693,6 @@ tl:
   download_wav_file: Ikargang paibaba ang talaksang WAV
   dublin_core: Kaibuturan ng Dublin
   duplicate_items_were_ignored: Binalewala ang mga bagay na kapareho.
-  e_g_search_for_the_eol_page: "(halimbawa, hanapin ang ID ng pahina ng EOL para sa ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Ang pahina ng kasulatan ng bawat isang pamamaraan ay mayroong isang halimbawa ng kapwa mga isinaanyong mga tugon ng XML at JSON.
   edit: Baguhin
   edit_collection_details: Baguhin ang mga detalye ng kalipunan
@@ -1673,8 +1706,6 @@ tl:
   edit_glossary_term: Baguhin ang Kataga sa Talahuluganan
   edit_hierarchy: baguhin ang hirarkiya
   edit_my_profile: Baguhin ang balangkas ko
-  edit_news_item: Baguhin ang Bagay na Pambalita
-  edit_news_item_instructions_with_link: Baguhin ang bagay na pangbalita na nasa ibaba. Pinapahintulutan ang HTML sa kapwa mga hanay, at kailangan ang *maski alin' sa pamagat o katawan. Para sa pinaka mahuhusay na mga resulta, gamitin lamang ang pamagat at magpasok ng isang maiksing bagay na pangbalita. Kapag lumilikha ng mga hyperlink o hiperkawing na papunta sa ibang mga pook, maaari kang gumamit ng %{link} upang makalikha ng mas maiikling mga URL upang makapagtipid ng mga panitik.
   edit_news_items: baguhin ang mga bagay na pambalita
   edit_page_contents: baguhin ang mga nilalaman ng pahina
   edit_search_suggestion: Baguhin ang Mungkahi sa Paghahanap
@@ -1691,7 +1722,6 @@ tl:
   editors_tab_label: Mga tagapamahala
   email: E-liham
   email_colon: "E-liham:"
-  email_error_notification_activ: Masigla ang Pagpapabatid ng Kamalian ng E-liham
   email_recipients: Mga tumatanggap ng e-liham
   email_updates_for_eol_addicts: Mga pagsasapanahon para sa mga nahuhumaling sa EOL.
   email_updates_for_eol_members: Mga pagsasapanahon na nanaising makuha ng karamihan sa mga kasapi sa EOL.
@@ -1773,7 +1803,6 @@ tl:
   error_log_detail: Detalye ng Talaan ng Kamalian
   error_logging_active: Masigla ang Pagtatala ng Kamalian
   error_watch_collections_cannot_be_shared: Hindi maibabahagi ang mga kalipunang binabantayan
-  esc_key_hides_this_message: (ikinukubli ng susing esc ang mensaheng ito)
   every_method_can_also_return_json_response: Bawat kaparaanan ay makapagpapabalik din ng isang katugunan ng JSON sa pamamagitan ng pagdaragdag ng isang dugtong na .json
   example_colon: "Halimbawa:"
   exception: Hindi kasali
@@ -1998,6 +2027,11 @@ tl:
         complete_more: "Ang napangasiwaang hirarkiya ay nagpapalagay na ang bawat pagpapasok ay nilalayong maging natatangi, iyong ang tumutugmang mga bagting ng pangalan ay ituturing bilang mga kasingtunog na salita. <strong>BABALA: Huwag baguhin ang katangiang ito maliban na lamang kung natitiyak mo ang katayuan ng mga salitang kasingtunog na nasa loob ng hirarkiya, ang pagsasagawa nito ay maaaring maglagay sa panganib ng kabuuan ng dato.</strong>"
         request_publish: Hiniling ang paglalathala
         request_publish_more: Nagpapahimatong kung mayroong isang nakabinbing kahilingan na itaguyod ang hirarkiyang ito upang maging isa sa pangunahing matitingnan-tingnan na mga hirarkiya sa EOL.
+      news_item: 
+        active: Nailathala na
+        active_more: Ang mga bagay na pambalitang nailathala na ay makikita ng madla sa napiling petsa at oras. Huwag tsekan ang <em>nailathala na</em> kung nais mong maiwasan na makita ng pangkalahatang mga tagagamit ang mga bersiyon ng bagay na pambalitang ito sa anumang wika.
+        page_name: Natatanging pangalan <small>(may maliliit na titik na mga panitik at mga salungguhit na alpanumerikong payak na Latin ng ISO lamang)</small>
+        page_name_more: Magpasok ng isang natatangi, mapaglarawan ng sarili, makahulugan at walang kapuknatang pampakilala para sa bagay na pambalitang ito. Ang pangalang ipapasok mo rito ay gagamitin upang likhain ang URL para sa bagay na pambalitang ito, halimbawa na ang natatanging pangalan na <em>bagong_bersiyon_ng_eol</em> ay gagawing URL na <em>http://eol.org/news/new_version_of_eol</em>.
       open_authentication: 
         connect: Idagdag
         connected: Nakakabit
@@ -2030,9 +2064,17 @@ tl:
         language_id: Wika
         left_content_more: "(Maaaring huwag) magdagdag ng isang hindi nakaayos na listahan ng mga kawing. Gamitin ang pangalan ng klase na <code>masigla</code> upang pagliwanagin ang pangkasalukuyang kawing sa pahina, iyong kung <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> saan ang <code>:id</code> ay ang pangkasalukuyang ID ng pahina o natatanging pangalan at ang <code>:pamagat</code> ay ang mapaglarawang pamagat ng pahina (<strong>Paunawa: ang lahat ng mga kawing sa mga pahina ng CMS ng EOL ay dapat na nagsisimula sa isang pasulong na bantas na laslas:<code>/info/:id</code></strong>). Upang magawa ang mga pagbabagong ito kakailanganin mong tuwirang baguhin ang kodigo ng pinagmulan ng HTML; gawin ito sa pamamagitan ng pagpili sa <em>Pinagmulan</em> sa loob ng bareta ng kasangkapan ng patnugot."
         main_content_more: "Ipasok ang nilalaman ng pangunahing pahina sa loob ng pook ng katawan. Gamitin ang panghulog na paibaba na <em>Kaayusan</em> upang piliin ang naaangkop na mga elemento ng tekstong semantiko, bilang halimbawa piliin ang <em>Pamuhatan 2</em> para sa isang pangalawang antas na pamuhatan. Paunawa: ang <em>Pamuhatan 1</em> ay nakalaan para sa pamagat ng pahina, kaya't ang mga pamuhatan na nasa loob ng pook ng katawan ay nagsisimula sa <em>Pamuhatan 2</em>. Piliin ang <em>Pinagmulan</em> upang makapagpalit upang maging nasa tanawin ng kodigong pinagmulan ng HTML na nagpapahintulot sa iyo na kinakamay na maisingit at mabago ang HTML."
-        meta_description_more: Magbigay ng isang maiksing paglalarawan, na binubuod ang susing mga diwa ng nilalaman ng pahina. Ang paglalarawang ito paminsan-minsang ginagamit ng mga akinang panghanap ng Web kapwa para sa pagsusuri ng kahalagan at para sa paglilista sa mga resulta ng mga makinang panghanap.
+        meta_description_more: Magbigay ng isang maiksing paglalarawan, na ibinubuod ang susing mga diwa ng nilalaman ng pahina. Ang paglalarawang ito ay paminsan-minsang ginagamit ng mga makinang panghanap ng Kasaputan na kapwa para sa pagsusuri ng kahalagan at para sa paglilista sa mga resulta ng mga makinang panghanap.
         meta_keywords_more: Magpasok ng isang listahan ng mga salita at maiikling mga parirala na pinaghihiwalay-hiwalay ng kuwit na pinaka mahusay na nagsasalamin ng mga nilalaman ng pahina. Ang mga susing salita at mga susing pariralang ito ay paminsan-minsang ginagamit ng mga makinang panghanap ng Sangkasaputan upang masuri ang kaugnayan ng pahina laban sa mga katagang panghanap.
         title_more: Ang pamagat ng nilalamang ito ay lilitaw sa pook ng paulo ng pahina. Ang pamagat ay dapat na magsama ng mga susing salita na pinaka may kaugnayan sa nilalaman.
+      translated_news_item: 
+        active_translation: Nailathala na
+        active_translation_more: Ang nailathalang mga salinwika ay magiging nakikita ng madla, maliban na lamang kung ang bagay na pambalita mismo ay hindi pa nailalathala. Huwag tsekan ang <em>nailathala na</em> kung nais mong iwasan na makita ng pangkalahatan ng mga tagagamit ang bersiyong ito ng bagay na pambalita.
+        body_more: "Ipasok ang nilalaman ng bagay na pambalita sa loob ng pook ng katawan. Gamitin ang panghulog na paibaba na <em>Kaayusan</em> upang piliin ang naaangkop na mga elemento ng tekstong semantiko, bilang halimbawa piliin ang <em>Pamuhatan 2</em> para sa isang pangalawang antas na pamuhatan. Paunawa: ang <em>Pamuhatan 1</em> ay nakalaan para sa pamagat ng bagay na pambalita, kaya't ang mga pamuhatan na nasa loob ng pook ng katawan ay nagsisimula sa <em>Pamuhatan 2</em>. Piliin ang <em>Pinagmulan</em> upang makapagpalit upang maging nasa tanawin ng kodigong pinagmulan ng HTML na nagpapahintulot sa iyo na kinakamay na maisingit at mabago ang HTML."
+        language_id: Wika
+        meta_description_more: Magbigay ng isang maiksing paglalarawan, na ibinubuod ang susing mga diwa ng nilalaman ng bagay na pambalita. Ang paglalarawang ito ay paminsan-minsang ginagamit ng mga makinang panghanap ng Kasaputan na kapwa para sa pagsusuri ng kahalagan at para sa paglilista sa mga resulta ng mga makinang panghanap.
+        meta_keywords_more: Magpasok ng isang listahan ng mga salita at maiikling mga parirala na pinaghihiwalay-hiwalay ng kuwit na pinaka mahusay na nagsasalamin ng mga nilalaman ng bagay na pambalita. Ang mga susing salita at mga susing pariralang ito ay paminsan-minsang ginagamit ng mga makinang panghanap ng Sangkasaputan upang masuri ang kaugnayan ng bagay na pambalita laban sa mga katagang panghanap.
+        title_more: Ang pamagat ng bagay na pambalitang ito ay lilitaw sa pook ng paulo ng pahina. Ang pamagat ay dapat na magsama ng mga susing salita na pinaka may kaugnayan sa nilalaman.
       user: 
         agreed_with_terms: Sumasang-ayon ako sa <a href="%{terms_url}">mga kasunduan sa paggamit</a>
         api_key_more: Magbasa pa ng marami patungkol sa <a href="%{api_docs_url}">pagdaragdag ng isang susi sa mga pagtawag ng API mo</a>.
@@ -2059,6 +2101,7 @@ tl:
         logo: Magkarga ng isang bagong larawan
         new_password: Bagong hudyat <small>(4 - 16 mga panitik)</small>
         new_password_confirmation: Bagong hudyat <small>(titiyakin)</small>
+        news_in_preferred_language: ipakita ang balita na nasa ninanais na wika
         notification_settings: Mga Katakdaan sa Pagpapabatid
         notification_settings_more: Isaayos ang katakdaan mo ng pagpapabatid.
         open_authentications: Nakakabit na mga akawnt
@@ -2114,6 +2157,11 @@ tl:
       name: 
         create: Magdagdag ng pangalan
         update: Isapanahon ang pangalan
+      news_item: 
+        create: Lumikha ng bagay na pambalita
+        edit: Baguhin
+        preview: Paunang patingin
+        update: Isapanahon ang bagay na pambalita
       open_authentication: 
         create: Umugnay
         destroy: Kumalas
@@ -2133,6 +2181,9 @@ tl:
       translated_content_page: 
         create: Idagdag ang salinwika
         update: Sagipin ang mga binago sa salinwika
+      translated_news_item: 
+        create: Magdagdag ng salinwika
+        update: Sagipin ang mga binago sa salinwika
       update: Isapanahon ang %{model}
       user: 
         create: Lumikha ng akawnt
@@ -2151,7 +2202,6 @@ tl:
   here: dito
   hidden: Nakatago
   hidden_comment: nakatagong puna
-  hidden_for_colon: "Itinago para sa:"
   hide: itago
   hierarchies_description: Ang Ensiklopedya ng Buhay ay walang isang nag-iisang hirarkiyang pangtaksonomiya na pinaglilikhaan nito ng mga pahina nito. Sa halip, tinataluntunan ng EOL ang maraming mga hirarkiya at inihahambing sila laban sa bawat isa. Ang API na ito ay naglilista ng metadato tungkol sa isang hirarkiyang katulad ng pangalan ng tagapagbigay at URL ng pinagmulan, pati na mga listahan ng lahat ng taksa na pinag-ugatang taksa ng punong pangtaksonomiya
   hierarchies_entries_description: Ang Ensiklopedya ng Buhay ay walang isang nag-iisang hirarkiya na pangtaksonomiya na pinaglilikhaan nito ng mga pahina nito. Sa halip, tinatalunton ng EOL ang maraming mga hirarkiya at pinaghahambing ang mga ito laban sa isa't isa. Bilang isang resulta, ang alin mang pahina ng EOL ay maaaring maugnay sa ilang mga buko magmula sa sari-saring mga hirarkiya. Ang API na ito ay nagbibigay ng pagkanakakapunta sa isang nag-iisang hirarkiya at mga panloob na mga ugnayan nito. Sumangguni sa dokumentasyon ng mga pahina ng API para sa kabatiran sa pagpunta sa iba pang mga hirarkiya na nakaugma sa isang partikular na pahina ng EOL. Ang kahanayan ng ID ng Diwa ng takson ay naglalaman ng pangkilala ng pahina ng EOL na maaaring gamitin sa loob ng mga pahina ng API.
@@ -2184,7 +2234,7 @@ tl:
   image_not_associated_with_any_published_entries: Ang larawang ito ay walang kaugnayan sa anumang nakalathalang taksa.
   image_not_found: Hindi natagpuan ang larawan
   image_object: Bagay na pang-imahe
-  image_objects_will_contain_two_mediaurl_elements: Ang mga bagay ng imahe ay maglalaman ng dalawang mga elemento ng URL ng midya - na ang una ay ang URL ng imahe sa pook na pangsangkasaputan ng tagapagbigay, at ang ikalawa ay ang URL ng itinagong bersiyon ng midya na pinasisinayahan sa isang tagapaghain ng EOL. Ang bersiyon ng EOL ng imahe ay magiging muling binago ang sukat (na pinananatili ang tumbasan ng anyo) kung ang orihinal na imahe ay mas malaki kaysa sa 460 mga piksel ang lapat o 345 mga piksel ang taas.
+  image_objects_will_contain_two_mediaurl_elements: Ang mga bagay na imahe ay maglalaman ng dalawang mga elemento ng 'URL ng midya' - na ang una ay ang URL ng imahe sa pook na pangsangkasaputan ng tagapagbigay, at ang ikalawa ay ang URL ng itinagong bersiyon ng midya na pinasisinayahan sa isang tagapaghain ng EOL. Ang bersiyon ng EOL ng imahe ay magiging muling binago ang sukat (na pinananatili ang tumbasan ng anyo) kung ang orihinal na imahe ay mas malaki kaysa sa 460 mga piksel ang lapat o 345 mga piksel ang taas.
   image_of_taxon: Larawan ng %{taxon_name}
   image_rating: Kaantasan ng larawan
   images: Mga larawan
@@ -2268,6 +2318,52 @@ tl:
   languages: Mga wika
   last_updated: Huling Naisapanahon
   last_updated_time_ago: Huling naisapanahon noong %{time_passed} na ang nakalipas
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Pagbanggit sa EOL
+        about_link_contact_us: Makipag-ugnayan sa amin
+        about_link_discover: Tuklasin
+        about_link_donate: Mag-abuloy sa EOL
+        about_link_eol_blog: Ang Blog ng EOL
+        about_link_help: Tulong
+        about_link_statistics: Estadistika
+        about_link_terms_of_use: Mga Hinihingi sa Paggamit
+        about_link_what_is_eol: Ano ba ang EOL?
+        header_about: Patungkol sa EOL
+        header_learn_more: Umalam ng mas marami pang patungkol sa
+        header_questions: Sabihan ako ng mas marami pa
+        learn_more_link_amphibians: Mga Ampibyano
+        learn_more_link_animals: Mga Hayop
+        learn_more_link_archaea: Archaea
+        learn_more_link_bacteria: Mga Bakterya
+        learn_more_link_birds: Mga Ibon
+        learn_more_link_crustaceans: Mga Krustasyano
+        learn_more_link_fish: Mga Isda
+        learn_more_link_flowering_plants: Mga Halamang Namumulaklak
+        learn_more_link_fungi: Mga Halamang-Singaw
+        learn_more_link_insects: Mga Kulisap
+        learn_more_link_invertebrates: Mga Walang Gulugod
+        learn_more_link_mammals: Mga Mamalya
+        learn_more_link_molds: Mga Amag
+        learn_more_link_mollusks: Mga Moluska
+        learn_more_link_mushrooms: Mga Kabute
+        learn_more_link_plants: Mga Halaman
+        learn_more_link_protists: Mga Protista
+        learn_more_link_reptiles: Mga Reptilya
+        learn_more_link_spiders: Mga Gagamba
+        learn_more_link_trees: Mga Puno
+        learn_more_link_viruses: Mga Birus
+        questions_link_binomial_nomenclature: Ano ba ang kapangalanang dalawahan ang pangalan?
+        questions_link_biodiversity: Ano ba ang biyodibersidad?
+        questions_link_biological_classification: Ano ba ang isang kauriang pambiyolohiya?
+        questions_link_contributing_to_research: Paano ba ako makakapag-ambag sa pananaliksik?
+        questions_link_discovering_species: Paano ba natutuklasan ang mga espesye?
+        questions_link_indicator_species: Ano ba ang isang espesyeng pampahiwatig?
+        questions_link_invasive_species: Ano ba ang isang espesyeng mapanlusob?
+        questions_link_model_organism: Ano ba ang isang organismong huwaran?
+        questions_link_naming_species: Paano ba pinapangalanan ang mga espesye?
+        questions_link_species: Ano ba ang isang espesye?
   learn_about_collections: Paano ako makakalikha ng isa?
   learn_about_communities: Paano ako makakalahok?
   learn_about_content_partners: Paano ako magiging ganiyan?
@@ -2326,7 +2422,6 @@ tl:
   literature_references: Mga sanggunian ng panitikan
   location: Kinalalagyan
   location_colon: "Kinalalagyan:"
-  location_created_colon: "Nilikha na ang Lokasyon:"
   logging_database_colon: "Pagtatala:"
   login: lumagda
   login_header: Lumagda sa akawnt mo ng <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -2362,7 +2457,7 @@ tl:
   maps_image_maps_header: Midyang tinatakan bilang 'mapa'
   maps_with_count: 
     one: "%{count} Mapa"
-    other: "%{count} Mga mapa"
+    other: "%{count} Mga<br/>mapa"
   matching_users_found_with_count: 
     one: Isang kabuoang %{count} ng tagagamit ang natagpuang tumutugma sa mga saligan mo.
     other: Isang kabuoang %{count} ng mga tagagamit ang natagpuang tumutugma sa mga saligan mo.
@@ -2375,7 +2470,7 @@ tl:
   media_summary_empty_contribute_instructions: Matuto kung paano makapag-aambag ng mga imahe sa EOL.
   media_with_count: 
     one: "%{count} Midya"
-    other: "%{count} Mga midya"
+    other: "%{count} Mga<br/>midya"
   member_of: kasapi sa
   member_of_professional_society_credential_option: kasapi sa isang samahang pamprupesyon
   members: 
@@ -2407,7 +2502,6 @@ tl:
   method: Pamamaraan
   method_to_get_metadata_about_the_hierarchy: kapag nabigyan ng isang pangkilala ng hirarkiya, ang pamamaraang ito ay nagbabalik ng metado tungkol sa hirarkiya at naglilista ng pinag-ugatang taksa
   methods: Mga pamamaraan
-  minimal_page: Pahinang Pangpinakamaliit
   mobile: 
     contents: 
       explore_eol: Galugarin ang EOL
@@ -2475,7 +2569,7 @@ tl:
   name_preferred_for_language_yes: Mas nais
   name_preferred_taxonomically_for_source_help_tip: Minamarkahan ng %{icon} ang mas ninanais na pangalan na mula sa bawat isang pinagmulan.
   name_preferred_taxonomically_for_source_yes: Mas nais
-  names: Mga pangalan
+  names: Mga<br/>pangalan
   names_children_column_header: Mga supling
   names_common_empty: Wala pang mga pangalang karaniwan na naiuugnay sa takson na ito
   names_common_list_by_language_assistive_header: Mga pangalang karaniwan na nakalista ayon sa wika
@@ -2498,12 +2592,19 @@ tl:
   new_upload: Bagong Pagkakargang Paitaas
   new_user: Bagong Tagagamit
   news_archive_page: pahinang sinupan ng balita
+  news_available_in_languages: "Makukuha ang pahinang ito roon sa:"
   news_date: Petsa ng Balita
   news_item: bagay na pambalita
-  news_item_date_as_shown_to_use: "Ang Petsa ng Bagay na Pambalita na ipinapakita sa tagagamit (ang oras ay ipinapakitang nasa pakain ng RSS lamang):"
-  news_item_is_visible_on_websit: "Ang Bagay na Pambalita ay makikita sa pook ng sangkasaputan pagkalipas ng oras na ito:"
+  news_item_date_as_shown_to_user: "Ang Petsa ng Bagay na Pambalita na ipinapakita sa tagagamit (ang oras ay ipinapakitang nasa pakain ng RSS lamang):"
+  news_item_is_visible_on_website_after_this_time: "Ang Bagay na Pambalita ay makikita sa pook ng sangkasaputan pagkalipas ng oras na ito:"
   news_item_title: Bagay na Pambalita
-  news_items: Mga Bagay na Pambalita
+  news_items: 
+    index: 
+      meta_keywords: balitang eol, balita ng ensiklopedya ng buhay
+      meta_title: Balitang EOL
+      page_title: Balitang EOL
+  news_missing_content_message: Paumahin, hindi makuha ang pahinang ito para sa napiling wika %{selected_language}.
+  news_missing_content_title: Nawawalang salinwika
   newsfeed: Balitang pakain
   newsfeed_help_for_collection: Ang Pakaing Balita para sa kalipunang ito ng EOL ay naghahakot ng mga pagsasapanahon na may kaugnayan sa mga bagay na kaanib nito, kabilang na ang mga gawain ng may-ari nito at mga puna magmula sa iba pang mga tagagamit ng EOL.
   newsfeed_help_for_community: Ang Pakaing Balita para sa Pamayanang ito ng EOL ay nagtitipon ng mga pagsasapanahon na may kaugnayan sa mga bagay na kaanib sa Pinamamahalaang mga Kalipunan nito, kabilang na ang mga gawain ng mga kasapi nito at mga puna magmula sa iba pang mga tagagamit ng EOL.
@@ -2521,7 +2622,6 @@ tl:
   no_errors_are_available: Walang makuhang mga kamalian.
   no_harvesting_logs_for_this_da: Walang mga pagtatala ng pag-ani para sa petsang ito
   no_items_were_copied_to_collections_error: "Walang mga bagay na nakopya papunta sa mga kalipunang: %{names}."
-  no_news_items_are_available_ma: Walang nakuhang mga bagay na pangbalita na tumutugma sa iyong saligan ng paghahanap.
   no_record_found_matching_your_criteria: Walang natagpuang pagtatala na tumutugma sa saligan mo.
   no_related_names: Walang pang mga pangalang naiugnay sa takson na ito.
   no_results_for: walang mga resulta para sa
@@ -2652,7 +2752,6 @@ tl:
   object_visibility_invisible_option: Nakakubli
   object_visibility_visible_option: Nakikita
   objects_curated: Napangasiwaang mga Bagay
-  older_version_of_latest_published_data_object_link: isang lumang bersiyon ng "%{link}"
   older_version_of_latest_published_data_object_title_link: Lumang bersiyon ng %{link}
   on_time_col_header: noong
   only_multi_search_suggestions: (tanging kapag ang maramihang mga mungkahi para sa kaparehong katagang panghanap, ang pagsasama-sama ay mababa-->mataas)
@@ -2677,7 +2776,7 @@ tl:
     other: "%{count} iba pang mga takson"
   other_us_dollars_amount: "Iba pa: US$"
   outlink: Panlabas na kawing
-  overview: Malawakang pananaw
+  overview: Malawakang<br/>pananaw
   page: Pahina
   page_linked_to: Pahinang nakakawing sa
   page_method_description: Kumukuha ang pamamaraang ito ng isang pangkilala ng pahina ng EOL at nagbabalik ng pangalang pang-agham para sa pahinang iyan, at maaaring magbalik o hindi magbalik ng kabatiran tungkol sa mga karaniwang pangalan, midya (teksto, mga imahe at mga bidyo), at mga sanggunian sa mga hirarkiyang nakakakilala sa takson na inilarawan sa ibabaw ng pahina.
@@ -2765,7 +2864,6 @@ tl:
   publish: ilathala
   publish_after_utc: Ilathala Pagkalipas ng (UTC)
   publish_changes: Ilathala ang mga Pagbabago
-  publish_item_based_on_time_set: Ilathala ang bagay ayon sa itinakdang oras sa itaas (huwag tsekan upang palaging maikubli)
   publish_requested: Ilathala ang Hiniling
   published: Nailathala na
   published_parens: (Nailathala na)
@@ -2856,13 +2954,13 @@ tl:
     other: "%{count} na mga bagay ang tinanggal mula sa kalipunang ito."
   reply: Tumugon
   request: Hilingin
-  request_mailing_list_colon: "Hilingin ang Listahan ng Nililihaman:"
+  request_mailing_list_colon: "Ayaw tumanggap ng elektronikong liham ng tagagamit:"
   required_form_element: Kailangan
   reset_password_enter_new_password_notice: Ito ay isang ulit na paglagdang papasok, paki ipasok ang isang bagong hudyat upang makapagpatuloy.
   reset_password_instructions_sent_to_user_notice: Naipadala na sa tirahan mo ng e-liham ang mga tagubilin para sa muling pagtatakda ng hudyat sa iyong akawnt na <em>%{username}</em>.
   reset_password_token_expired_error: Paumanhin, hindi muling naitakda ang hudyat mo. Napaso na ang kawing na ibinigay, paki punuin at ipasang muli ang pormularyo ng nakalimutang hudyat upang makatanggap ng isang bagong kawing.
   resource: Pinagkunan
-  resources: Mga mapagkukunan
+  resources: Mga<br/>mapagkukunan
   response: Tugon
   response_formats: Mga Anyo ng Tugon
   results: Mga resulta
@@ -2872,7 +2970,7 @@ tl:
   return_all_common_names_for_this_taxon: ibalik ang lahat ng karaniwang mga pangalan para sa taksong ito
   return_all_synonyms_for_this_taxon: ibalik ang lahat ng mga singkahulugan para sa takson ito
   return_common_names_for_the_page_taxon: ibalik ang lahat ng karaniwang mga pangalan para sa takson ng pahina
-  return_content_by_vettedness: kapag nabistay na = kung gayon ang 1 ay ang pagpapabalik lang ng pinagkakatiwalaang nilalaman. kapag nabistay = kung gayon ang 2 ay ang pagpapabalik lang ng nilalamang pinagkakatiwalaan at hindi pa nasusuring muli (hindi ibabalik ang hindi pinagkakatiwalaang nilalaman). Ang likas na katakdaan ay ang pagpapabalik ng lahat ng nilalaman
+  return_content_by_vettedness: Kapag ang 'nabistay na' ay nabigyan ng isang halaga ng '1', kung gayon tanging ang pinagkakatiwalaang nilalaman lamang ang ibabalik. Kapag ang 'nabistay na' ay '2', kung gayon ang pinagkakatiwalaan at hindi pa nasusuring muli na nilalaman ang ibabalik (ang hindi pinagkakatiwalaang nilalaman ay hindi ibabalik). Ang likas na katakdaan ay ang pagbabalik ng lahat ng nilalaman.
   returns_all_metadata_about_a_particular_collection: nagbabalik ng lahat ng metadato na patungkol sa isang partikular na kalipunan at ang mga bagay na laman nito na tinaluntunan ng EOL
   returns_all_metadata_about_a_particular_data_object: nagbabalik ng lahat ng metadato patungkol sa isang partikular na bagay na pangdato (teksto, imahe o bidyo) na tinaluntunan ng EOL
   returns_either_a_positive_or_negative_response: nagbabalik ng isang positibong tugon (na nagpapahiwatig na gumagana ang mga API), o nagbabalik ng isang negatibong tugon o talagang wala (nagpapahiwatig na ang mga API ay hindi gumagana noong oras na iyon).
@@ -2883,7 +2981,6 @@ tl:
   rights: Mga karapatan
   rights_holder: Tagapaghawak ng mga karapatan
   rights_statement: Pahayag ng mga karapatan
-  rss_feed: Pakain na RSS
   save: Sagipin
   save_comment_lowercase: sagipin ang puna
   save_curated_association_submit_button: Sagipin ang kaugnayan
@@ -2891,7 +2988,7 @@ tl:
   sci_name_avg_table_head: Pamantungan ng Pangalang Pang-agham
   scientific_name: Pangalang Pang-agham
   search: Maghanap
-  search_by_provider_method_description: kuhanin ang mga ID ng pahina ng EOL na binigyan ng isang ID_ng_hirarkiya ng tagapagbigay at ng pansariling natatanging pampakilala ng tagapagbigay
+  search_by_provider_method_description_with_link: "kuhanin ang mga ID ng pahina ng EOL na nabigyan ng isang ID_ng_hirarkiya ng tagapagbigay at ang pansariling natatangigng pangkilala ng tagapagbigay<br />(halimbawa, hanapin ang ID ng pahina ng EOL na para sa sa ITIS TSN 180542: %{link})"
   search_by_term_page_title: "Paghahanap: %{term}"
   search_field_common_name: Karaniwang Pangalan
   search_field_label: Hanapin sa EOL
@@ -2901,7 +2998,6 @@ tl:
   search_field_synonym: Singkahulugan
   search_for_comments_containing_the_text: "Maghanap ng mga puna na naglalaman ng teksto:"
   search_for_curators_containing: "Maghanap ng mga kurador na naglalaman ng:"
-  search_for_items_containing: "Maghanap ng mga bagay na naglalaman ng:"
   search_for_messages_containing: "Maghanap ng mga mensahe na naglalaman ng:"
   search_for_terms_containing: "Maghanap ng mga kataga na naglalaman ng:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Maghanap ng mga tagagamit na naglalaman ng ganito sa loob ng kanilang pangalan ng tagagamit, pangalan o tirahan ng e-liham.
@@ -3417,8 +3513,6 @@ tl:
   the_message_was_sent: Naipadala na ang mensahe.
   the_new_topic_was_created: Nalikha ang isang bagong paksa.
   the_new_user_was_created: Nalikha ang bagong tagagamit.
-  the_news_item_created: Matagumpay na nalikha ang bagay na pambalita.
-  the_news_item_updated: Matagumpay na naisapanahon ang bagay na pambalita.
   the_suggested_page_to_direct_users_to_link: ang iminungkahing pahina na papupuntahan sa mga tagagamit
   the_topic_was_updated: Naisapanahon na ang paksa.
   the_user_was_updated: Naisapanahon na ang tagagamit.
@@ -3457,7 +3551,6 @@ tl:
   threat_status_header_colon: "Katayuan ng nagbabadyang panganib mula sa <abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>:"
   thumbnail_page_colon: "pahina ng kagyat:"
   time_ago: "%{time_passed} na ang nakalipas"
-  tinyurl: TinyURL
   title: Pamagat
   to_process_your_donation_please_proceed: Upang maproseso ang donasyon mo mangyaring magpatuloy
   to_remedy_this: Upang maremedyuhan ito, isasara namin ang hindi masisiglang mga akawnt na ito at hinihiling namin na dalawin mo ang eol.org upang lumikha ng isang bagong akawnt. Kapag natanggap mo na ang e-liham ng paniniyak, paki pindutin ang kawing upang mapatunayan ang akawnt mo.
@@ -3489,8 +3582,8 @@ tl:
   true_label: Totoo
   truncated_comment_omission: ... <a href='%{link}'>marami pa</a>
   truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: ... <a href='%{link}'>mas marami pa</a>
   trusted: Pinagkakatiwalaan
-  trusted_for_colon: "Pinagkatiwalaan para sa:"
   trusted_images: Pinagkakatiwalaang mga larawan
   trusted_maps: Pinagkakatiwalaang mga mapa
   trusted_text_objects: Pinagkakatiwalaang mga artikulo
@@ -3505,12 +3598,10 @@ tl:
   unknown_type_not_associated_with_any_published_entries: Ang datong ito ay walang kaugnayan sa anumang nakalathalang taksa.
   unpublished: Hindi pa nailalathala
   unreviewed: Hindi pa nasusuri
-  unreviewed_for_colon: "Hindi na sinuring muli para sa:"
   unreviewed_images: Hindi pa nasusuring mga larawan
   unreviewed_maps: Hindi pa nasusuring mga mapa
   unreviewed_text_objects: Hindi pa nasusuring mga artikulo
   untrusted: Hindi pinagkakatiwalaan
-  untrusted_for_colon: "Hindi na pinagkatiwalaan para sa:"
   update: Isapanahon
   update_collection_submit_button: Isapanahon ang mga detalye ng kalipunan
   update_language: Isapanahon ang wika
@@ -3521,7 +3612,7 @@ tl:
   updated_colon: "Naisapanahon na:"
   updated_community: Matagumpay ang pagsasapanahon ng pamayanan.
   updated_member: Matagumpay na naisapanahon ang kasapi.
-  updates: Mga pagsasapanahon
+  updates: Mga<br />pagsasapanahon
   upload: Ikargang paitaas
   upload_content: nilalaman ng pagkakargang paitaas
   upload_logo_help_text: Ito ang magiging pangunahing larawan na kumakatawan sa pamayanan mo - maaari itong maging kung anuman ang gustuhin mo.
@@ -3591,7 +3682,7 @@ tl:
   user_already_active_notice: Masigla na ang akawnt mo, mangyaring lumagdang papasok.
   user_comment: Puna ng Tagagamit
   user_commented_on_deleted_user: "Pumuna si <strong>%{user_with_link}</strong> sa isang pahina ng isang tagagamit na natanggal:"
-  user_commented_on_older_data_object_colon: "Si <strong>%{user}</strong> ay nagbigay ng puna hinggil sa %{what}:"
+  user_commented_on_older_data_object_colon: "Si <strong>%{user}</strong> ay nagbigay ng puna hinggil sa isang lumang bersiyon ng %{what}:"
   user_commented_on_something_colon: "Si <strong>%{user}</strong> ay nagbigay ng puna hinggil sa \"%{what}\":"
   user_commented_on_themself: "Pinuna ni <strong>%{user_with_link}</strong> ang <a href='%{link}'>pakaing balita ni %{username}</a>:"
   user_commented_on_your_image: "Nagbigay ng puna si <strong>%{user}</strong> sa iyong imahe na nasa <a href='%{data_object_link}'>pook ng Ensiklopedya ng Buhay</a>:\n%{comment_body}"
@@ -3868,9 +3959,8 @@ tl:
   will_find_taxon_pages_matching_the_search_term: ay maghahanap ng mga pahina ng takson kung ang nais na pangalan o anumang kasingkahulugan o karaniwang pangalan ay ganap ang pagkakatugma sa katagang hinahanap
   will_paginate: 
     next_label: Kasunod &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Dati"
-  worklist: Tala ng gawain
+  worklist: Tala ng<br/>gawain
   would_you_like_to_become_a_curator_notice: Nais mo bang maging isang kurador? Makakahiling ka ng pagkanakakapunta roon sa <a href='%{url}'>pahina mo ng balangkas ng katangian</a>.
   xml_response: Tugon ng XML
   yahoo: Yahoo
@@ -3889,6 +3979,7 @@ tl:
   you_may_upload_static_files_fo: Maaari kang magkargang papaitaas ng mga talaksang hindi gumagalaw na gagamitin sa loob ng CMS dito (halimbawa na, mga PDF, mga kasulatang Word, mga imahe, atbp.) Hindi mo ito dapat gamitin upang magkargang papaitaas ng nilalaman para sa mga pahina ng espesye - ginagamit lamang ito para sa mga pahinang hindi para sa mga espesye (katulad ng mga anunsiyo na panghanapbuhay, mga balitang paliham, mga (Panandaan ng Unawaan o Memorandum of Understanding, MOU). Para sa mga PDF na katulad ng mga talaksan ng balitang paliham, maaari kang kumawing sa "palakaibigang URL" kung nais mo (na kusang maglipat ng kapupuntahan patungo sa "URL ng buong nilalaman"). Para sa mga imahe na nakabaon sa loob ng isang pahina at sinasangguni sa pamamagitan ng tatak na &lt;img&gt;, dapat mong gamitin ang "URL ng buong nilalaman". Ang "URL ng buong nilalaman" ay maaaring magpakita ng isang naiibang bilang na pangtagapaghain ng nilalaman sa bawat pagkakataon na sasariwain mo ang pahina (halimbawa na iyong "content2.eol.org", "content3.eol.org", atbp) - normal ito at ang alin man ay maaaring gamitin kapag lumilikha ka ng mga kawing mo dahil sa ang lahat ng mga ito ay magkakatimbang.
   you_must_be_comfortable: Dapat na nagiginhawahan ka sa HTML kung nais mong lumikha ng mga hyperlink o gumamit ng pagpopormat.
   you_removed_the_member_from_the_community: Matagumpay mong natanggal ang kasaping ito mula sa pamayanan.
+  your_browser_does_not_support: Ang pantingin-tingin mo ay hindi tumatangkilik ng bidyong HTML5.
   your_current_rating_0_of_5: "Ang pangkasalukuyan mong kaantasan: 0 ng 5"
   your_current_rating_1_of_5: "Ang pangkasalukuyan mong kaantasan: 1 ng 5"
   your_current_rating_2_of_5: "Ang pangkasalukuyan mong kaantasan: 2 ng 5"

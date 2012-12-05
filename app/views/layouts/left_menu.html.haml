@@ -1,6 +1,7 @@
 - content_for :head do
-  = stylesheet_include_i18n_merged(@additional_stylesheet) if @additional_stylesheet
-  = javascript_include_tag @additional_javascript if @additional_javascript
+  - if @additional_javascript
+    - @additional_javascript.each do |js|
+      = javascript_include_tag js
 - content_for :content do
   #content
     #page-separator-general

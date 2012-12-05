@@ -8,13 +8,13 @@
 %td{:class => 'preferred_name_selector'}
   = radio_button_tag 'preferred_name_id', name.name.id, name.preferred ? TRUE : FALSE
 %td
-  = (defined?(language) && language == 'English') ? name.name_string.capitalize_all_words : name.name_string
+  = (defined?(language) && language == 'English') ? raw(name.name_string.capitalize_all_words) : raw(name.name_string)
 %td
-  = common_name_display_attribution(name)
+  = raw(common_name_display_attribution(name))
 %td{:class => 'vet_common_name'}
   - if synonym_id = name.synonym_id_for_user(current_user)
     = link_to( I18n.t(:delete), delete_taxon_names_path(:taxon_id => @taxon_concept.id, :synonym_id => synonym_id, :hierarchy_entry_id => @selected_hierarchy_entry_id),
-      :confirm => I18n.t(:are_you_sure))
+      :data => { :confirm => I18n.t(:are_you_sure) })
   - else
     - name.vetted = Vetted.untrusted if name.vetted == Vetted.inappropriate
     = select_tag("#{name.unique_id}", options_for_select(@common_name_vet_options, name.vetted.id.to_s),

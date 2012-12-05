@@ -3,12 +3,12 @@
     .site_column
       .hgroup
         %h1= I18n.t(:search_results)
-        %h2= I18n.t(:count_results_for_search_term, :count => @all_results.total_entries, :search_term => h(@querystring))
+        %h2= raw(I18n.t(:count_results_for_search_term, :count => @all_results.total_entries, :search_term => h(@querystring)))
   #content
     .site_column
       #search_results
         #sidebar.filters
-          - form_tag({:action => 'show'}, :method => 'get', :id => 'main_search_type_filter') do
+          = form_tag('/search', :method => 'get', :id => 'main_search_type_filter') do
             = hidden_field_tag :q, @querystring
             %fieldset
               %dl
@@ -16,17 +16,17 @@
                   %label= I18n.t(:filter_by_type)
                 %dd
                   %ul
-                    - [:all, :taxon_concept, :image, :video, :sound, :text, :user, :community, :collection, :content_page].each do |opt|
+                    - [:all, :taxon_concept, :image, :video, :sound, :text, :link, :user, :community, :collection, :content_page].each do |opt|
                       - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
                       - count ||= 0
-                      - item_class = ((opt == :all && !@wildcard_search) || count > 0) ? nil : 'no_results'
+                      - item_class = (@wildcard_search || count == 0) ? 'no_results' : nil
                       %li{ :class => item_class }
                         %label
                           = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),
                             { :name => "type[]", :id => "type_#{opt.to_s}"}
                           = I18n.t("filter_by_type_#{opt}_option")
             %fieldset.actions
-              = submit_tag I18n.t(:filter_button)
+              = submit_tag I18n.t(:filter_button) unless @wildcard_search
         #main
           = yield
 

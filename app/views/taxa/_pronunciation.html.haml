@@ -1,18 +1,13 @@
 - chinese_name ||= nil
-- content_for :head do
-  = javascript_include_merged 'data-object-show'
-  = javascript_include_merged 'taxa-media'
-  -# NOTE - this is non-optimal.  We'd like to load this included in our cached/compressed CSS.  :\  I'm leaving it
-  -# because I *assume* that loading a stylesheet from any directory other than stylesheets doesn't work.
-  %link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
 = content_for :footer do
-  = javascript_include_merged 'taxa-media-footer'
-#media_list
-  #main
-    %ul
-      %li
-        .figure
-          .player{:id => "player_1", :style => 'height:0px;' }
-          .player_interface{:id => "player_interface_1"}
-            %a{:class => 'play', :title => I18n.t(:audio_play_assistive), :href => "#{CHINESE_PRONUNCIATION_API_PREFIX}#{URI::encode(chinese_name)}", :data => { :mime_type => "audio/mpeg" } }
-              = I18n.t(:pronounce_this_name)
+  = javascript_include_tag 'media_list'
+- unless chinese_name.blank?
+  #media_list
+    #main
+      %ul
+        %li
+          .figure
+            .player{ :style => 'height:0px;' }
+            .player_interface{ :id => "pronunciation_player" }
+              %a{:class => 'play', :title => I18n.t(:audio_play_assistive), :href => "#{CHINESE_PRONUNCIATION_API_PREFIX}#{URI::encode(chinese_name)}", :data => { :mime_type => "audio/mpeg" } }
+                = I18n.t(:pronounce_this_name)

@@ -5,7 +5,7 @@
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else
-    - form_tag({:controller => '/data_objects', :action => 'curate_associations'}, {:class => 'review_status'}) do
+    = form_tag(curate_associations_data_object_path(data_object), :method => :put, :class => 'review_status') do
       = hidden_field_tag 'id', data_object.id
       - if params[:worklist_return_to]
         = hidden_field_tag :worklist_return_to, params[:force_return_to] || current_url
@@ -15,16 +15,16 @@
       - entries.each do |entry|
         %fieldset
           - if entry.visibility_id == Visibility.preview.id
-            %legend= I18n.t(:cannot_curate_association_in_preview_mode,
-              :name => link_to(entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)))
+            %legend= raw(I18n.t(:cannot_curate_association_in_preview_mode,
+              :name => link_to(raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id))))
           - else
             - show_curation_submit = true
-            %legend= link_to entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)
+            %legend= link_to raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id)
             - if entry.can_be_deleted_by?(current_user)
               .remove_association
                 = link_to I18n.t(:remove_data_object_association),
                   remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id),
-                  :id => "remove_association_#{entry.id}", :confirm => I18n.t(:are_you_sure)
+                  :id => "remove_association_#{entry.id}", :data => { :confirm => I18n.t(:are_you_sure) }
             - vetted_selected = entry.vetted_id.to_i
             = select_tag "vetted_id_#{entry.id}", options_for_select(Vetted.for_curating_selects, vetted_selected)
             = I18n.t(:and_between_form_items)

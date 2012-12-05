@@ -7,7 +7,7 @@ class Administrator::TranslationLogController < AdminController
   def index
     @page = params[:page] || '1'
     
-    @translation_logs = Logging::TranslationLog.all(:order => "count desc").paginate(:page => @page)    
+    @translation_logs = TranslationLog.all(:order => "count desc").paginate(:page => @page)
   end
   
 end

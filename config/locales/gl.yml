@@ -6,7 +6,7 @@
 gl: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
-  a_pipe_delimited_list_of_licenses: unha lista de licenzas separadas por unha barra vertical "|" ou ben "all" para obter os obxectos baixo calquera licenza. As licenzas abreviadas con "cc-" son todas
+  a_pipe_delimited_list_of_licenses: unha lista de licenzas separadas por unha barra vertical "|" ou ben "all" para obter os obxectos baixo calquera licenza. As licenzas abreviadas con "cc-" son todas as licenzas %{creative_commons_link}. Visita o seu sitio para atopar máis información sobre as diversas licenzas que ofrecen.
   a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" para devolver o texto da vista xeral (se existe); unha lista de nomes de elementos informativos SPM separados por unha barra vertical \"|\" para obter o texto nos respectivos nomes de elementos informativos SPM; \"all\" para obter o texto en calquera asunto. Sempre se devolve un texto da vista xeral como o primeiro resultado (se existe no contexto especificado)."
   a_taxon: un taxon
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -158,6 +158,10 @@ gl:
         request_publish: Solicitar a publicación
       name: 
         string: Nome
+      news_item: 
+        active: Publicado
+        page_name: Nome único
+        sort_order: Orde de clasificación
       notification: 
         changes_to_my_watched_collection: Cambios en coleccións da túa lista de vixilancia
         changes_to_my_watched_community: Cambios en comunidades da túa lista de vixilancia
@@ -207,6 +211,12 @@ gl:
         active_translation: Publicado
         left_content: Navegación
         main_content: Corpo
+        meta_description: Descrición dos metadatos
+        meta_keywords: Palabras clave dos metadatos
+        title: Título
+      translated_news_item: 
+        active_translation: Publicado
+        body: Corpo
         meta_description: Descrición dos metadatos
         meta_keywords: Palabras clave dos metadatos
         title: Título
@@ -426,6 +436,31 @@ gl:
         user_associated_data_object_to_association: <strong>%{user}</strong> engadiu unha asociación entre "%{data_object}" e "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> engadiu unha asociación a unha páxina descoñecida.
         user_associated_it_to_association: <strong>%{user}</strong> engadiu unha asociación a "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Un usuario descoñecido engadiu un nome común descoñecido nunha lingua descoñecida a unha páxina descoñecida.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Un usuario descoñecido engadiu un nome común descoñecido nunha lingua descoñecida.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Un usuario descoñecido engadiu un nome común descoñecido nunha lingua descoñecida a "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Un usuario descoñecido engadiu un nome común descoñecido en %{language} a unha páxina descoñecida.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Un usuario descoñecido engadiu un nome común descoñecido en %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Un usuario descoñecido engadiu un nome común descoñecido en %{language} a "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Un usuario descoñecido engadiu o nome común "%{name}" nunha lingua descoñecida a unha páxina descoñecida.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Un usuario descoñecido engadiu o nome común "%{name}" nunha lingua descoñecida.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Un usuario descoñecido engadiu o nome común "%{name}" nunha lingua descoñecida a "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Un usuario descoñecido engadiu o nome común "%{name}" en %{language} a unha páxina descoñecida.
+        an_unknown_user_added_name_in_language_to_it: Un usuario descoñecido engadiu o nome común "%{name}" en %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: Un usuario descoñecido engadiu o nome común "%{name}" en %{language} a "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> engadiu un nome común descoñecido nunha lingua descoñecida a unha páxina descoñecida.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> engadiu un nome común descoñecido nunha lingua descoñecida.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> engadiu un nome común descoñecido nunha lingua descoñecida a "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> engadiu un nome común descoñecido en %{language} a unha páxina descoñecida.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> engadiu un nome común descoñecido en %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> engadiu un nome común descoñecido en %{language} a "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> engadiu o nome común "%{name}" nunha lingua descoñecida a unha páxina descoñecida.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> engadiu o nome común "%{name}" nunha lingua descoñecida.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> engadiu o nome común "%{name}" nunha lingua descoñecida a "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> engadiu o nome común "%{name}" en %{language} a unha páxina descoñecida.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> engadiu o nome común "%{name}" en %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> engadiu o nome común "%{name}" en %{language} a "%{taxon}".
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un usuario descoñecido seleccionou unha versión vella de "%{data_object}" para mostrala na vista xeral dunha páxina descoñecida.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un usuario descoñecido seleccionou "%{data_object}" para mostralo na vista xeral de "%{taxon}".
@@ -460,6 +495,33 @@ gl:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> estableceu "%{data_object}" como un exemplar en "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> estableceuno como un exemplar nunha páxina descoñecida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> estableceuno como un exemplar en "%{taxon}".
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: Un usuario descoñecido fusionou dúas páxinas descoñecidas.
+          an_unknown_user_merged_to_it: Un usuario descoñecido fusionou outra páxina con esta.
+          an_unknown_user_merged_to_taxon: Un usuario descoñecido fusionou outra páxina con "%{target}".
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> fusionou dúas páxinas descoñecidas.
+          user_merged_to_it: <strong>%{user}</strong> fusionou outra páxina con esta.
+          user_merged_to_taxon: <strong>%{user}</strong> fusionou outra páxina con "%{target}".
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Un usuario descoñecido moveu as clasificacións por %{classifications} desde unha páxina descoñecida a outra páxina descoñecida.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Un usuario descoñecido moveu as clasificacións por %{classifications} desde unha páxina descoñecida a "%{target}".
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: Un usuario descoñecido moveu as clasificacións por %{classifications} a unha páxina descoñecida.
+          an_unknown_user_moved_classifications_from_it_to_taxon: Un usuario descoñecido moveu as clasificacións por %{classifications} a "%{target}".
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: Un usuario descoñecido moveu as clasificacións por %{classifications} desde "%{taxon}" a unha páxina descoñecida.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: Un usuario descoñecido moveu as clasificacións por %{classifications} desde "%{taxon}" a "%{target}".
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> moveu as clasificacións por %{classifications} desde unha páxina descoñecida a unha páxina descoñecida.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> moveu as clasificacións por %{classifications} desde unha páxina descoñecida a "%{target}".
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> moveu as clasificacións por %{classifications} a unha páxina descoñecida.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> moveu as clasificacións por %{classifications} a "%{target}".
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> moveu as clasificacións por %{classifications} desde "%{taxon}" a unha páxina descoñecida.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> moveu as clasificacións por %{classifications} desde "%{taxon}" a "%{target}".
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Un usuario descoñecido separou as clasificacións por %{classifications} desde unha páxina descoñecida á súa <a href='%{to}'>propia páxina</a>.
+          an_unknown_user_split_classifications_from_it: Un usuario descoñecido separou as clasificacións por %{classifications} á súa <a href='%{to}'>propia páxina</a>.
+          an_unknown_user_split_classifications_from_taxon: Un usuario descoñecido separou as clasificacións por %{classifications} desde "%{taxon}" á súa <a href='%{to}'>propia páxina</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> separou as clasificacións por %{classifications} desde unha páxina descoñecida á súa <a href='%{to}'>propia páxina</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> separou as clasificacións por %{classifications} á súa <a href='%{to}'>propia páxina</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada nun contexto descoñecido.
         an_unknown_user_hid_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada na páxina "%{association}".
@@ -531,6 +593,19 @@ gl:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> eliminou unha asociación entre "%{data_object}" e "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> eliminou unha asociación a unha páxina descoñecida.
         user_disassociated_it_from_association: <strong>%{user}</strong> eliminou unha asociación a "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Un usuario descoñecido eliminou un nome común nunha lingua descoñecida dunha páxina descoñecida.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Un usuario descoñecido eliminou un nome común nunha lingua descoñecida.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Un usuario descoñecido eliminou un nome común nunha lingua descoñecida de "%{taxon}".
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Un usuario descoñecido eliminou un nome común en %{language} dunha páxina descoñecida.
+        an_unknown_user_removed_name_in_language_from_it: Un usuario descoñecido eliminou un nome común en %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Un usuario descoñecido eliminou un nome común en %{language} de "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> eliminou un nome común nunha lingua descoñecida dunha páxina descoñecida.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> eliminou un nome común nunha lingua descoñecida.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> eliminou un nome común nunha lingua descoñecida de "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> eliminou un nome común en %{language} dunha páxina descoñecida.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> eliminou un nome común en %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> eliminou un nome común en %{language} de "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como visible nun contexto descoñecido.
         an_unknown_user_showed_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como visible na páxina "%{association}".
@@ -561,6 +636,31 @@ gl:
         user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> separou unha clasificación descoñecida dun taxon descoñecido.
         user_split_unknown_entry_from_it: <strong>%{user}</strong> separou unha clasificación descoñecida.
         user_split_unknown_entry_from_taxon: <strong>%{user}</strong> separou unha clasificación descoñecida de "%{taxon}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} dunha páxina descoñecida como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Un usuario descoñecido marcou un nome común descoñecido en %{language} como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} de "%{taxon}" como de confianza.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como de confianza.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida como de confianza.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como de confianza.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como de confianza.
+        an_unknown_user_trusted_name_in_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" en %{language} como de confianza.
+        an_unknown_user_trusted_name_in_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} de "%{taxon}" como de confianza.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como de confianza.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida como de confianza.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como de confianza.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} dunha páxina descoñecida como de confianza.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} como de confianza.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} de "%{taxon}" como de confianza.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como de confianza.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida como de confianza.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como de confianza.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como de confianza.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} como de confianza.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} de "%{taxon}" como de confianza.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de confianza nun contexto descoñecido.
         an_unknown_user_trusted_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de confianza na páxina "%{association}".
@@ -578,6 +678,51 @@ gl:
         user_trusted_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como de confianza na páxina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como de confianza nun contexto descoñecido.
         user_trusted_it_on_association: <strong>%{user}</strong> marcouno como de confianza na páxina "%{association}".
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: A fusión que solicitou recentemente foi completada, pero non se pode atopar a páxina.
+        merge_of_it_unlocked: A fusión que solicitou recentemente desta páxina foi completada.
+        merge_of_taxon_unlocked: A fusión que solicitou recentemente de "%{taxon}" foi completada.
+        move_of_an_unknown_taxon_unlocked: O traslado de clasificación que solicitou recentemente foi completado, pero non se pode atopar a páxina.
+        move_of_it_unlocked: O traslado de clasificación que solicitou recentemente desta páxina foi completado.
+        move_of_taxon_unlocked: O traslado de clasificación que solicitou recentemente de "%{taxon}" foi completado.
+        split_of_an_unknown_taxon_unlocked: A división de clasificación que solicitou recentemente foi completada, pero non se pode atopar a páxina.
+        split_of_it_unlocked: A división de clasificación que solicitou recentemente desta páxina foi completada e as clasificacións movéronse á súa <a href='%{to}'>propia páxina</a>.
+        split_of_taxon_unlocked: A división de clasificación que solicitou recentemente de "%{taxon}" foi completada e as clasificacións movéronse á súa <a href='%{to}'>propia páxina</a>.
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "A fusión que solicitou recentemente <strong>fallou</strong>: %{error}. Ademais, non se pode atopar a páxina afectada."
+        merge_of_it_unlocked_with_error: "A fusión que solicitou recentemente desta páxina <strong>fallou</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "A fusión que solicitou recentemente de \"%{taxon}\" <strong>fallou</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "O traslado de clasificación que solicitou recentemente <strong>fallou</strong>: %{error}. Ademais, non se pode atopar a páxina afectada."
+        move_of_it_unlocked_with_error: "O traslado de clasificación que solicitou recentemente desta páxina <strong>fallou</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "O traslado de clasificación que solicitou recentemente de \"%{taxon}\" <strong>fallou</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "A división de clasificación que solicitou recentemente <strong>fallou</strong>: %{error}. Ademais, non se pode atopar a páxina afectada."
+        split_of_it_unlocked_with_error: "A división de clasificación que solicitou recentemente desta páxina <strong>fallou</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "A división de clasificación que solicitou recentemente de \"%{taxon}\" <strong>fallou</strong>: %{error}."
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} dunha páxina descoñecida como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Un usuario descoñecido marcou un nome común descoñecido en %{language} como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} de "%{taxon}" como non revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como non revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida como non revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como non revisado.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como non revisado.
+        an_unknown_user_unreviewed_name_in_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" en %{language} como non revisado.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} de "%{taxon}" como non revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como non revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida como non revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como non revisado.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} dunha páxina descoñecida como non revisado.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} como non revisado.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} de "%{taxon}" como non revisado.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como non revisado.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida como non revisado.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como non revisado.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como non revisado.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} como non revisado.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} de "%{taxon}" como non revisado.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como non revisada nun contexto descoñecido.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como non revisada na páxina "%{association}".
@@ -595,6 +740,31 @@ gl:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como non revisado na páxina "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como non revisado nun contexto descoñecido.
         user_unreviewed_it_on_association: <strong>%{user}</strong> marcouno como non revisado na páxina "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido de "%{taxon}" nunha lingua descoñecida como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} dunha páxina descoñecida como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Un usuario descoñecido marcou un nome común descoñecido en %{language} como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} de "%{taxon}" como de non confianza.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como de non confianza.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida como de non confianza.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como de non confianza.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como de non confianza.
+        an_unknown_user_untrusted_name_in_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" en %{language} como de non confianza.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} de "%{taxon}" como de non confianza.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como de non confianza.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida como de non confianza.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como de non confianza.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} dunha páxina descoñecida como de non confianza.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} como de non confianza.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} de "%{taxon}" como de non confianza.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como de non confianza.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida como de non confianza.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como de non confianza.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como de non confianza.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} como de non confianza.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} de "%{taxon}" como de non confianza.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de non confianza nun contexto descoñecido.
         an_unknown_user_untrusted_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de non confianza na páxina "%{association}".
@@ -612,7 +782,9 @@ gl:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como de non confianza na páxina "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como de non confianza nun contexto descoñecido.
         user_untrusted_it_on_association: <strong>%{user}</strong> marcouno como de non confianza na páxina "%{association}".
+  activity_user_created_link: <strong>%{user}</strong> engadiu unha ligazón a "%{object_name}" en "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> engadiu texto a "%{object_name}" en "%{taxon_concept}".
+  activity_user_updated_link: <strong>%{user}</strong> actualizou a ligazón cara a "%{object_name}" en "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> actualizou texto de "%{object_name}" en "%{taxon_concept}".
   add: Engadir
   add_a_collection_to_a_community: Engadir "%{collection}" a unha comunidade
@@ -620,14 +792,14 @@ gl:
   add_a_comment_colon: "Engadir un comentario:"
   add_a_new_common_name: Engadir un novo nome común
   add_a_new_file_brackets: "[engadir un novo ficheiro]"
-  add_a_new_news_item: Engadir unha nova
   add_a_new_role: Engadir un novo rol
   add_a_new_search_suggestion: Engadir unha nova suxestión de procura
   add_a_new_term: Engadir un novo termo
   add_a_new_topic_area: Engadir un novo tema
   add_a_new_user: Engadir un novo usuario
   add_a_taxon_association_label: Engadir unha asociación de taxon
-  add_article_to_page_link_button: Engadir un artigo a esta páxina
+  add_article_instead: engadir un artigo no seu lugar
+  add_article_to_page_button: Engadir un artigo
   add_association_submit_button: engadir a asociación
   add_brief_summary_to_page_link_button: Engadir un breve resumo a esta páxina
   add_citizen_science_resources_to_page_link_button: Engadir unha ligazón de ciencia cidadá a esta páxina
@@ -638,6 +810,8 @@ gl:
   add_identification_resources_to_page_link_button: Engadir recursos de identificación a esta páxina
   add_item_to_new_collection: Engadir "%{item}" a unha nova colección
   add_language: Engadir unha lingua
+  add_link_instead: engadir unha ligazón no seu lugar
+  add_link_to_page_button: Engadir unha ligazón
   add_new_association_link: Engadir unha nova asociación
   add_new_tag_suggestion: Engadir unha nova suxestión de etiqueta
   add_page: Engadir unha páxina
@@ -651,7 +825,7 @@ gl:
   admin_content_page_create_unsuccessful_error: Sentímolo, houbo un erro. Non se creou a páxina.
   admin_content_page_delete_confirmation: Estás seguro de querer borrar "%{page_name}" e todas as traducións. As eliminacións non se poden desfacer.
   admin_content_page_delete_successful_notice: Borrouse a páxina "%{page_name}" xunto coas traducións asociadas.
-  admin_content_page_edit_header: Actualizar a páxina de información básica de <em>%{page_name}</em>
+  admin_content_page_edit_header: Actualizar a información básica da páxina <em>%{page_name}</em>
   admin_content_page_edit_tip: Recoméndase non editar o nome único da páxina a menos que sexas completamente consciente das consecuencias, incluído o impacto nas ligazóns cara a esta páxina ou cara ás raíces chamadas. %{required_icon} Cómpre un nome único.
   admin_content_page_new_header: Crear unha nova páxina de contido
   admin_content_page_new_link: Crear unha nova páxina
@@ -688,6 +862,23 @@ gl:
   admin_information: Esta é a nova consola de administración da EOL. Estamos traballando no proceso de transferir as funcións administrativas desde a versión 1. Se a sección de administración que buscas non aparece aquí, vai á <a href="/administrator">versión 1 da consola de administración</a>.
   admin_link: Vista xeral
   admin_login_confirmation: Estás seguro de querer identificarte no rexistro do socio de contidos como %{name}? Se o fas, sairás do sistema do sitio web no que es administrador.
+  admin_news_item_active: Publicado
+  admin_news_item_create_successful_notice: A nova <a href="#%{anchor}"><em>%{page_name}</em></a> creouse correctamente.
+  admin_news_item_create_unsuccessful_error: Sentímolo, houbo un erro. Non se creou a nova.
+  admin_news_item_delete_confirmation: Estás seguro de querer borrar "%{page_name}" e todas as traducións. As eliminacións non se poden desfacer.
+  admin_news_item_delete_successful_notice: Borrouse a nova "%{page_name}" xunto coas traducións asociadas.
+  admin_news_item_edit_header: Actualizar a información básica da nova <em>%{page_name}</em>
+  admin_news_item_edit_tip: Recoméndase non editar o nome único da nova a menos que sexas completamente consciente das consecuencias, incluído o impacto nas ligazóns cara a esta páxina ou cara ás raíces chamadas. %{required_icon} Cómpre un nome único.
+  admin_news_item_new_header: Crear unha nova
+  admin_news_item_new_link: Crear a nova
+  admin_news_item_new_tip: Escriba a información básica sobre a páxina. %{required_icon} Cómpre dar un nome único.
+  admin_news_item_not_active: Sen publicar
+  admin_news_item_update_successful_notice: A nova <a href="#%{anchor}"><em>%{page_name}</em></a> actualizouse correctamente.
+  admin_news_item_update_unsuccessful_error: Sentímolo, houbo un erro. Non se actualizou a nova.
+  admin_news_items_empty: Non se atopou nova ningunha.
+  admin_news_items_index_information: A seguinte lista inclúe todas as novas dispoñibles actualmente na páxina web da EOL, así como as novas futuras. Cada páxina ten unha ou máis traducións. Cando crees unha nova recibirás unha petición de engadir unha tradución. As traducións publicadas son accesibles publicamente.
+  admin_news_items_page_title: "Administración: Novas"
+  admin_news_link: Novas
   admin_notes_not_visible_to_user: "Notas administrativas (non visibles para o usuario):"
   admin_page_title: "Administración: Vista xeral"
   admin_spam_delete: Borrar o spam
@@ -704,6 +895,20 @@ gl:
   admin_translated_content_page_new_tip: "%{required_icon} Cómpre especificar a lingua, o título e o corpo."
   admin_translated_content_page_update_successful_notice: Actualizouse a tradución en %{language} da páxina <a href="#%{anchor}"><em>%{page_name}</em></a>.
   admin_translated_content_page_update_unsuccessful_error: Sentímolo, houbo un erro. Non se actualizou a tradución.
+  admin_translated_news_item_active: Publicado
+  admin_translated_news_item_create_successful_notice: A tradución engadiuse a <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: Sentímolo, houbo un erro. Non se engadiu a tradución.
+  admin_translated_news_item_delete_confirmation: Está seguro de querer borrar a versión en %{language} de "%{page_name}". A eliminación non se pode desfacer.
+  admin_translated_news_item_delete_successful_notice: Borrouse a tradución en %{language} da nova <em>%{page_name}</em>.
+  admin_translated_news_item_edit_subheader: Editar a tradución en %{language} da páxina <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: "%{required_icon} Cómpre especificar o título e o corpo."
+  admin_translated_news_item_new_header: Escolle unha lingua e engade contidos
+  admin_translated_news_item_new_link: Engadir unha tradución
+  admin_translated_news_item_new_subheader: Engadir unha tradución de <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: "%{required_icon} Cómpre especificar a lingua, o título e o corpo."
+  admin_translated_news_item_not_active: Sen publicar
+  admin_translated_news_item_update_successful_notice: Actualizouse a tradución en %{language} da páxina <a href="#%{anchor}"><em>%{page_name}</em></a>.
+  admin_translated_news_item_update_unsuccessful_error: Sentímolo, houbo un erro. Non se actualizou a tradución.
   admin_user_delete_successful_notice: Borrouse o usuario
   admin_user_hide_successful_notice: Agochouse o usuario
   admin_user_unhide_successful_notice: Descubriuse o usuario
@@ -739,9 +944,9 @@ gl:
         page_header: Estatísticas das páxinas ricas
         page_title: "Administración: Estatísticas das páxinas ricas"
       users_data_objects: 
-        menu_link: Texto enviado polo usuario
-        page_header: Estatísticas do texto enviado polo usuario
-        page_title: "Administración: Estatísticas do texto enviado polo usuario"
+        menu_link: Texto enviado polos usuarios
+        page_header: Estatísticas do texto enviado polos usuarios
+        page_title: "Administración: Estatísticas do texto enviado polos usuarios"
   agent: Axente
   all: todos
   all_apis_return_by_default_an_xml_response: "Todas as API devoven por defecto unha resposta XML. Os métodos da API poden chamarse sen necesidade dunha extensión de formato para conseguir a resposta XML. A adición dunha extensión XML producirá unha respota idéntica:"
@@ -805,7 +1010,7 @@ gl:
   assistive_literature_header: Literatura
   assistive_maps_header: Mapas
   assistive_media_header: Ficheiros multimedia
-  assistive_names_classifictions_header: Clasificacións
+  assistive_names_classifications_header: Clasificacións
   assistive_names_common_header: Nomes comúns
   assistive_names_related_header: Nomes relacionados
   assistive_names_synonyms_header: Sinónimos
@@ -818,9 +1023,22 @@ gl:
   associated_with_header: Asociado con
   associated_with_image_header: Na última imaxe
   associated_with_image_map_header: No último mapa
+  associated_with_link_header: Na última ligazón
   associated_with_map_header: No último mapa
   associated_with_sound_header: No último son
   associated_with_video_header: No último vídeo
+  association_hidden_for_taxa: 
+    one: "Agochado para:"
+    other: "Agochados para:"
+  association_trusted_for_taxa: 
+    one: "De confianza para:"
+    other: "De confianza para:"
+  association_unreviewed_for_taxa: 
+    one: "Non revisado para:"
+    other: "Non revisados para:"
+  association_untrusted_for_taxa: 
+    one: "De non confianza para:"
+    other: "De non confianza para:"
   associations_more_link: máis <span class="assistive">asociacións de taxon</span>
   attribute: Atributo
   audio_current_time_assistive: Co JavaScript activado, isto indicará a posición actual de reprodución do ficheiro de son en minutos e segundos.
@@ -875,13 +1093,17 @@ gl:
   change_rating_to_3_of_5: Cambiar a valoración de 3 a 5
   change_rating_to_4_of_5: Cambiar a valoración de 4 a 5
   change_rating_to_5_of_5: Cambiar a valoración de 5 a 5
-  check_this_to_browse_eol_by_the_hierarchy: se esta caixa está seleccionada, a xerarquía será unha das opcións para os usuarios que exploren a EOL
+  check_this_to_browse_eol_by_the_hierarchy: (Se esta caixa está marcada, a clasificación ha mostrarse nas lapelas de nomes sen ter que "Mostrar todas as clasificacións".)
   choose_collection_header: Escolle unha colección
   citation: Cita
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Enciclopedia da vida, dispoñible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado o 15 de xaneiro de 2009.
   citing_link: Citando
   classification_already_preferred: "ERRO: Esta clasificación xa está marcada como preferida."
   classification_button_help: Selecciona a clasificación que mellor representa a páxina existente que hai a continuación e preme no "usar como exemplar" correspondente. Para cancelar a operación, preme en "cancelar".
+  classification_curation_pending: Pendente de conservación. Esta clasificación pode ser trasladada a outra páxina nun futuro próximo.
+  classification_curation_split_comment_with_count: 
+    one: "%{count} clasificación desta páxina foi <a href='%{url}'>dividida na súa propia páxina</a>."
+    other: "%{count} clasificacións desta páxina foron <a href='%{url}'>divididas nas súas propias páxinas</a>."
   classification_from_agent: Clasificación de %{agent}.
   classification_from_agent_chosen_by_curator: Clasificación de %{agent} seleccionada por %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Clasificación de %{agent} seleccionada por %{curator} - <a href="%{more_link}">ollar máis</a>.
@@ -1008,7 +1230,8 @@ gl:
   comment_not_added_error: Sentímolo, houbo un erro. Non se engadiu o comentario.
   comment_not_deleted_error: Sentímolo, houbo un erro. Non se borrou o comentario.
   comment_not_updated_error: Sentímolo, houbo un erro. Non se actualizou o comentario.
-  comment_or_rate_on_this_article: Comenta ou valora este artigo
+  comment_or_rate_on_this_article: comenta ou valora este artigo
+  comment_or_rate_on_this_link: comenta ou valora esta ligazón
   comment_show_posters_image_alt: Imaxe do perfil de %{posters_name}, que engadiu este comentario.
   comments: Comentarios
   comments_and_tags: Comentarios e etiquetas
@@ -1106,10 +1329,13 @@ gl:
   containing_value: que conteña %{value}.
   content: 
     index: 
+      header_news: Novas da EOL
       meta_description: A Enciclopedia da vida é un esforzo sen precedentes por colleitar coñecementos científicos sobre toda a vida animal e vexetal, en forma de imaxes, información, feitos e máis cousas acerca de todo organismo nos reinos animal e vexetal.
       meta_keywords: Animais, imaxes de animais, información sobre animais, plantas, vida vexetal, imaxes de plantas, información sobre plantas, flora, fauna
       meta_title: Animais, plantas, imaxes e información
+      see_all_eol_news: ollar máis <span class="assistive">novas da EOL</span>
       see_all_recent_activites: ollar máis <span class="assistive">actividades da última semana</span>
+      see_all_statistics: ollar máis <span class="assistive">estatísticas da EOL</span>
   content_has_been_updated: Actualizáronse os contidos.
   content_notes_not_shown_to_us: "Notas dos contidos (non se mostran ao usuario):"
   content_partner: Socio de contidos
@@ -1262,6 +1488,7 @@ gl:
   content_partner_statistics_summary_caption: Resumo das estatísticas de uso para as páxinas do taxon que conteñan contidos proporcionados por %{partner_name}, relativo ao total de uso do sitio web da EOL.
   content_partner_statistics_taxa_page_caption: Estatísticas de uso detalladas para as páxinas do taxon que conteñan contidos proporcionados por %{partner_name}.
   content_partner_statistics_year_label: Ano
+  content_partner_stats_message: Debido aos cambios feitos no servizo que usamos para xerar as estatísticas de uso, os datos deste mes non están dispoñibles nestes intres. O noso equipo de desenvolvemento está traballando nunha solución. Enviaremos unha mensaxe de correo electrónico aos nosos socios de contidos unha vez que o problema estea resolto.
   content_partner_status_empty: Estado descoñecido
   content_partner_update_successful_notice: Os detalles do socio actualizáronse correctamente.
   content_partner_update_unsuccessful_error: Sentímolo, houbo un erro. Non se actualizaron os detalles do socio.
@@ -1349,6 +1576,7 @@ gl:
   created_community: A comunidade creouse correctamente.
   creative_commons: Creative Commons
   credentials: Credenciais
+  credentials_colon: "Credenciais:"
   curated: Conservada
   curated_association_update_button: Gardar os cambios
   curated_objects_of: conservou os obxectos de "%{name}"
@@ -1423,7 +1651,7 @@ gl:
       tweet_text: "%{dato_title} de %{supplier}"
   data_usage_reports: Informes de uso dos datos
   date_caps: Data
-  date_uploaded: Data da carga
+  date_uploaded: Data de carga
   datepicker: 
     close: Pechar
     current: Hoxe
@@ -1485,13 +1713,20 @@ gl:
   dato_create_user_text_missing_user_exception: Non se pode construír un obxecto de datos textual ou de usuario se o identificador do taxon é nulo.
   dato_create_user_text_validation_error: Asegúrate de que completaches o formulario correctamente.
   dato_edit_cancel: Cancelar
-  dato_edit_text_link_button: Editar este artigo
+  dato_edit_link_button: Editar esta ligazón
+  dato_edit_link_description: Grazas por contribuíres coa túa experiencia na EOL. A ligazón revisada engadirase á túa lista de vixilancia para que poidas seguir calquera conversa relacionada con ela e comprobar o seu estado de conservación.
+  dato_edit_link_title: Editar unha ligazón
+  dato_edit_text_button: Editar este artigo
   dato_edit_text_page_description: Grazas por contribuíres coa túa experiencia na EOL. O artigo revisado engadirase á túa lista de vixilancia para que poidas seguir calquera conversa relacionada con el e comprobar o seu estado de conservación.
   dato_edit_text_title: Editar un artigo
+  dato_location_created: "Lugar de creación: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Contidos do artigo
   dato_new_edit_user_text_fieldset_information_header: Información do artigo
   dato_new_edit_user_text_form_tip: O teu artigo terminado hase publicar na páxina do taxon. Se non es un conservador, será marcado como "sen revisar" ata que un conservador lle bote unha ollada. O subcapítulo, o texto, a lingua e a licenza son obrigatorios (%{required_icon}), o resto de campos son opcionais. Se seleccionas unha licenza CC-BY (recoñecemento), inclúe o titular dos dereitos ou déixao en branco para usar o teu nome completo. As licenzas de dominio público non necesitan un titular dos dereitos. Se necesitas máis axuda podes consultar o <a href="%{add_article_help_url}">artigo de axuda</a>.
+  dato_new_edit_user_text_link_fieldset_content_header: Datos da ligazón
+  dato_new_edit_user_text_link_form_tip: A túa ligazón hase publicar na páxina do taxon. Se non es un conservador, será marcada como "sen revisar" ata que un conservador lle bote unha ollada. A categoría, a descrición e o enderezo URL son obrigatorios (%{required_icon}), o resto de campos son opcionais. Se necesitas máis axuda podes consultar o <a href="%{add_article_help_url}">artigo de axuda</a>.
   dato_new_text_for_taxon_page_title: Engadir un artigo a <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Engadir unha ligazón a <i>%{taxon}</i>
   dato_new_text_page_description: Grazas por contribuíres na EOL. O artigo engadirase á túa lista de vixilancia para que poidas seguir calquera conversa relacionada con el e comprobar o seu estado de conservación.
   dato_update_user_text_error: Sentímolo, houbo un erro. Non se actualizou o artigo.
   dato_update_users_text_not_owner_exception: Unicamente o autor orixinal deste obxecto de texto pode editalo.
@@ -1537,8 +1772,8 @@ gl:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Non mostrar as datas descoñecidas rexistradas (usuarios da versión 1, todos os anteriores ao 5 de xaneiro de 2009)
   download_wav_file: Descargar o ficheiro WAV
   dublin_core: Dublin Core
+  duplicate_comment_warning: Non se gardou o comentario. Semella que xa publicaches este comentario. Premiches no botón "Publicar o comentario" dúas veces?
   duplicate_items_were_ignored: Ignoráronse os elementos duplicados.
-  e_g_search_for_the_eol_page: "(por exemplo, procura o identificador da páxina da EOL de ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: A páxina de documentación de cada método contén un exemplo de resposta tanto en formato XML coma JSON.
   edit: Editar
   edit_collection_details: Editar os detalles da colección
@@ -1552,8 +1787,6 @@ gl:
   edit_glossary_term: Editar o termo do glosario
   edit_hierarchy: editar a xerarquía
   edit_my_profile: Editar o meu perfil
-  edit_news_item: Editar a nova
-  edit_news_item_instructions_with_link: Edita a nova a continuación. Permítese HTML en ambos os campos e cómpre ou ben o título ou ben o corpo. Para obter os mellores resultados, utiliza o título e escribe unha pequena nova. Ao crear hiperligazóns cara a outros sitios, podes empregar %{link} para crear enderezos URL máis curtos para economizar os caracteres.
   edit_news_items: editar as novas
   edit_page_contents: editar o contido da páxina
   edit_search_suggestion: Editar as suxestións de procura
@@ -1570,7 +1803,6 @@ gl:
   editors_tab_label: Administradores
   email: Correo electrónico
   email_colon: "Correo electrónico:"
-  email_error_notification_activ: Notificación por correo activa de erros
   email_recipients: Destinatarios do correo electrónico
   email_updates_for_eol_addicts: Actualizacións para os adictos á EOL.
   email_updates_for_eol_members: Actualizacións que a maioría dos membros da EOL quererían obter.
@@ -1600,6 +1832,7 @@ gl:
   eol_news: Novas da EOL
   eol_pages: Páxinas
   eol_statistics: 
+    comparing_dates: <span class="assistive">Comparando</span> <span class="date_one">%{date_one}</span> <span class="assistive">e</span> <span class="date_two">%{date_two}</span>
     content_partners: 
       menu_link: Socios de contidos
       page_header: Estatísticas dos socios de contidos
@@ -1629,9 +1862,11 @@ gl:
       page_header: Estatísticas das páxinas ricas
       page_title: Estatísticas
     users_data_objects: 
-      menu_link: Texto enviado polo usuario
-      page_header: Estatísticas do texto enviado polo usuario
+      menu_link: Texto enviado polos usuarios
+      page_header: Estatísticas do texto enviado polos usuarios
       page_title: Estatísticas
+    warnings: 
+      stats_unavailable_for_date: Sentímolo, non hai estatísticas dispoñibles para o %{date}. Selecciona outra data.
   error_401_description: Sentímolo, non ten autorización para acceder a este enderezo URL.
   error_401_page_title: Non autorizado
   error_403_description: Sentímolo, non ten autorización para acceder a este enderezo URL.
@@ -1640,16 +1875,18 @@ gl:
   error_404_page_title: Non se atopou
   error_500_description: Sentímolo, atopamos un problema. Se o problema persiste, envía un correo electrónico a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Erro interno do servidor
+  error_classifications_locked_cannot_reindex: Sentímolo, esta páxina non se pode reindexar nestes intres. As clasificacións están bloqueadas.
   error_couldnt_find_collection_by_id: Non se puido atopar colección ningunha que poidas xestionar co identificador %{id}.
   error_couldnt_find_community_by_id: Non se puido atopar comunidade ningunha que poidas xestionar co identificador %{id}.
   error_default_description: Sentímolo, atopamos un problema. Se o problema persiste, envía un correo electrónico a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Vaites!
+  error_exemplar_chosen_with_invalid_action: "Sentímolo, pero a clasificación elixida non sufriu modificación ningunha: perdeuse parte da solicitude. Tes que intentalo de novo."
   error_homepage_or_search_option: "Podes volver á <a href=\"/\">páxina de inicio</a> ou utilizar a nosa ferramenta de procuras:"
   error_log: Rexistro de erros
   error_log_detail: Detalles no rexistro de erros
   error_logging_active: Rexistro activo dos erros
+  error_updating_user: Houbo un erro ao actualizar o rexistro deste usuario
   error_watch_collections_cannot_be_shared: As coleccións de seguimento non se poden compartir
-  esc_key_hides_this_message: (a tecla ESC agocha esta mensaxe)
   every_method_can_also_return_json_response: Cada método pode devolver tamén unha resposta JSON engadindo a extensión .json
   example_colon: "Exemplo:"
   exception: Excepción
@@ -1704,6 +1941,7 @@ gl:
   filter_by_type_image_option_with_count: 
     one: Imaxes (%{count})
     other: Imaxes (%{count})
+  filter_by_type_link_option: Ligazóns
   filter_by_type_name_option: Nomes
   filter_by_type_object_curated_option: Obxectos conservados
   filter_by_type_photosynth_option: Fotosíntese
@@ -1763,6 +2001,7 @@ gl:
   gbif_occurrence_learn_more_link: Accede aos datos a través do portal do GBIF.
   general_site_admin: administración xeral do sitio
   get_help_choosing_a_subchapter: Obtén axuda elixindo un subcapítulo
+  get_help_choosing_a_subject: Obtén axuda elixindo un asunto
   get_more_tasks: obter máis tarefas
   given_name_colon: "Nome propio:"
   given_the_vast_number: Debido ao enorme número de nomes comúns e científicos (preto dun total de 20 millóns) é unha tarefa moi difícil dar ao usuario exactamente a especie que quere atopar. Por exemplo, hai varias especies de aves chamadas Robin en inglés (American Robin, Alpine Robin, Smoky Robin), varias especies de peixes denominadas Robin e un taxonomista chamado Robin que deu nome a ducias de especies. Pola nosa banda, incluímos un parámetro "exacto" para devolver unicamente os resultados cuxos nomes coincidan co termo de procura na súa totalidade, pero non podemos garantir que os resultados obtidos sexan os desexados. Continuamente tratamos de mellorar a relevancia dos nosos resultados nas procuras, así que agardamos ir mellorando co tempo.
@@ -1850,6 +2089,11 @@ gl:
         rights_statement_more: Declaración dos dereitos de uso segundo o requiren as licenzas Creative Commons recoñecemento (CC-BY). Por favor, declara o recoñecemento <q cite="http://creativecommons.org/licenses/by/3.0">do xeito especificado polo autor ou posuidor dos dereitos</q>.
         source_url: URL do obxecto de datos orixinal
         toc_item: Subcapítulo
+      data_object_link: 
+        description: Descrición <small>(está permitido algo de formato HTML)</small>
+        link_type: Categoría
+        source_url: URL da ligazón
+        toc_item: Asunto
       eol_statistic: 
         date_one: Data
         date_two: Data
@@ -1874,6 +2118,11 @@ gl:
         complete_more: "Unha xerarquía conservada asume que cada entrada pretende ser única, é dicir, as cadeas de nomes que coincidan trataranse como homónimos. <strong>ATENCIÓN: Non cambies este atributo a menos que esteas seguro do estado de homónimos na xerarquía, dado que facelo pode comprometer a integridade dos datos.</strong>"
         request_publish: Publicación solicitada
         request_publish_more: Indica se hai algunha solicitude pendente para promover esta xerarquía para converterse nunha das primarias da EOL.
+      news_item: 
+        active: Publicado
+        active_more: As novas publicadas serán visibles publicamente na data e hora seleccionadas. Desmarca <em>publicado</em> se queres impedir aos usuarios xerais que lean estas versións da nova en calquera lingua.
+        page_name: Nome único <small>(só caracteres alfanuméricos latinos en base ISO en minúsculas e suliñados)</small>
+        page_name_more: Escribe un identificador único, descritivo, significativo e firme para a nova. O nome que especifiques aquí usarase para xerar o enderezo URL da nova. Por exemplo, o nome único <em>nova_versión_da_eol</em> convértese no URL <em>http://eol.org/news/nova_versión_da_eol</em>.
       open_authentication: 
         connect: Engadir
         connected: Conectado
@@ -1906,9 +2155,17 @@ gl:
         language_id: Lingua
         left_content_more: "(Opcional) Engade unha lista desordenada de ligazóns de navegación. Utiliza a clase <code>active</code> para marcar a ligazón da páxina actual, é dicir, <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>, onde <code>:id</code> é o identificador da páxina actual ou o nome único e <code>:title</code> é o título descritivo da páxina (<strong>Nota: Todas as ligazóns cara a páxinas CMS da EOL deben comezar cunha barra inclinada: <code>/info/:id</code></strong>). Para facer estes cambios terás que editar o código fonte HTML directamente seleccionando <em>Fonte</em> na barra de ferramentas do editor."
         main_content_more: "Escriba o contido da páxina principal na zona do corpo. Usa o menú despregable <em>Formato</em> para seleccionar os elementos de texto semántico axeitados. Por exemplo, utiliza <em>Cabeceira 2</em> para unha cabeceira de segundo nivel. Nota: A <em>Cabeceira 1</em> está reservada para o título da páxina, de modo que as cabeceiras no corpo comezan coa <em>Cabeceira 2</em>. Selecciona <em>Fonte</em> para cambiar á vista de código fonte HTML, que permite inserir e editar manualmente o HTML."
-        meta_description_more: Dá unha breve descrición, resumindo os conceptos clave da páxina de contido. A miúdo, as descricións empréganas os motores de procura tanto para comprobar a relevancia como para poñer a páxina na lista de resultados.
+        meta_description_more: Dá unha breve descrición, resumindo os conceptos clave do contido da páxina. A miúdo, as descricións empréganas os motores de procura tanto para comprobar a relevancia como para poñer a páxina na lista de resultados.
         meta_keywords_more: Escribe unha lista de palabras e frases breves que reflicta os contidos da páxina, separados por comas. A miúdo, estas palabras e frases clave empréganas os motores de procura para avaliar a relevancia dunha páxina con respecto aos termos da procura.
         title_more: O título deste contido aparecerá na cabeceira da páxina. O título debe incluír palabras clave relevantes para o contido.
+      translated_news_item: 
+        active_translation: Publicado
+        active_translation_more: As traducións publicadas serán visibles publicamente, a menos que a nova non estea publicada. Desmarca <em>publicado</em> se queres impedir aos usuarios xerais que lean esta versión da nova.
+        body_more: "Escriba o contido da nova na zona do corpo. Usa o menú despregable <em>Formato</em> para seleccionar os elementos de texto semántico axeitados. Por exemplo, utiliza <em>Cabeceira 2</em> para unha cabeceira de segundo nivel. Nota: A <em>Cabeceira 1</em> está reservada para o título da nova, de modo que as cabeceiras no corpo comezan coa <em>Cabeceira 2</em>. Selecciona <em>Fonte</em> para cambiar á vista de código fonte HTML, que permite inserir e editar manualmente o HTML."
+        language_id: Lingua
+        meta_description_more: Dá unha breve descrición, resumindo os conceptos clave do contido da nova. A miúdo, as descricións empréganas os motores de procura tanto para comprobar a relevancia como para poñer a páxina na lista de resultados.
+        meta_keywords_more: Escribe unha lista de palabras e frases breves que reflicta os contidos da nova, separados por comas. A miúdo, estas palabras e frases clave empréganas os motores de procura para avaliar a relevancia dunha nova con respecto aos termos da procura.
+        title_more: O título desta nova aparecerá na cabeceira da páxina. O título debe incluír palabras clave relevantes para o contido.
       user: 
         agreed_with_terms: Acepto os <a href="%{terms_url}">termos de uso</a>
         api_key_more: Máis información sobre <a href="%{api_docs_url}">engadir unha clave ás túas chamadas á API</a>.
@@ -1935,6 +2192,7 @@ gl:
         logo: Cargar unha nova foto
         new_password: Novo contrasinal <small>(entre 4 e 16 caracteres)</small>
         new_password_confirmation: Novo contrasinal <small>(para confirmar)</small>
+        news_in_preferred_language: mostrar as novas na lingua preferida
         notification_settings: Configuración das notificacións
         notification_settings_more: Configurar as opcións de notificación.
         open_authentications: Contas conectadas
@@ -1978,7 +2236,11 @@ gl:
         create: Engadir o artigo
         create_text: Engadir o artigo
         update: Gardar o artigo
+      data_object_link: 
+        create: Engadir a ligazón
+        update: Gardar a ligazón
       eol_statistic: 
+        change_date: Obter as estatísticas para as datas
         download_csv: Descargar como CSV
       filter_sort: Filtrar e ordenar
       harvest_event: 
@@ -1989,6 +2251,11 @@ gl:
       name: 
         create: Engadir o nome
         update: Actualizar o nome
+      news_item: 
+        create: Crear a nova
+        edit: Editar
+        preview: Vista previa
+        update: Actualizar a nova
       open_authentication: 
         create: Conectar
         destroy: Desconectarse
@@ -2006,6 +2273,9 @@ gl:
         sign_in_with_yahoo: Accede co Yahoo
       submit: Gardar %{model}
       translated_content_page: 
+        create: Engadir a tradución
+        update: Gardar os cambios na tradución
+      translated_news_item: 
         create: Engadir a tradución
         update: Gardar os cambios na tradución
       update: Actualizar %{model}
@@ -2058,7 +2328,7 @@ gl:
   image_not_associated_with_any_published_entries: Esta imaxe non está asociada a ningún taxon publicado.
   image_not_found: Non se atopou a imaxe
   image_object: Obxecto de imaxe
-  image_objects_will_contain_two_mediaurl_elements: Os obxectos de imaxe conterán dous elementos do tipo mediaURL. O primeiro é o enderezo URL da imaxe no sitio web do provedor e o segundo é o enderezo URL da versión gardada na memoria caché do ficheiro multimedia aloxado nun dos servidores da EOL. A versión da imaxe presente na EOL será redimensionada (conservando as dimensións proporcionalmente) se a orixinal é maior que 460 píxeles de largo ou 345 píxeles de alto.
+  image_objects_will_contain_two_mediaurl_elements: Os obxectos de imaxe conterán dous elementos do tipo "mediaURL". O primeiro é o enderezo URL da imaxe no sitio web do provedor e o segundo é o enderezo URL da versión gardada na memoria caché do ficheiro multimedia aloxado nun dos servidores da EOL. A versión da imaxe presente na EOL será redimensionada (conservando as dimensións proporcionalmente) se a orixinal é maior que 460 píxeles de largo ou 345 píxeles de alto.
   image_of_taxon: Imaxe de %{taxon_name}
   image_rating: Avaliación da imaxe
   images: Imaxes
@@ -2072,6 +2342,7 @@ gl:
     other: "%{count} imaxes"
   import_once: Importar unha vez
   in_collection: na colección
+  in_community: na comunidade
   in_providing_its_content_to_eo: Proporciona os seus contidos á EOL,
   in_this_data_type: "neste %{data_type}:"
   inappropriate: Inadecuado
@@ -2108,6 +2379,8 @@ gl:
   item_type_image_assistive: Este elemento é unha imaxe
   item_type_image_map: Mapa
   item_type_image_map_assistive: Este elemento é a imaxe dun mapa
+  item_type_link: Ligazón
+  item_type_link_assistive: Este elemento é unha ligazón
   item_type_map: Mapa
   item_type_map_assistive: Este elemento é un mapa
   item_type_person: Persoa
@@ -2135,6 +2408,7 @@ gl:
   jsonp_by_adding_a_callback_parameter: ... e JSONP, engadindo un parámetro de retorno
   just_pages_with_pictures_and_text: Unicamente aquelas páxinas con imaxes e texto
   keep_split_entry_from_this_entry: Manter separado desta entrada
+  key: Clave
   label: Etiqueta
   language: "Lingua:"
   language_selector_advisory_information: A continuación está a lista coas linguas nas que hai dispoñibles contidos do sitio. Para cambiar a lingua actual selecciona unha das que está na lista.
@@ -2142,6 +2416,55 @@ gl:
   languages: Linguas
   last_updated: Última actualización
   last_updated_time_ago: Última actualización hai %{time_passed}
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Citar a EOL
+        about_link_contact_us: Contacta con nós
+        about_link_discover: Descubrir
+        about_link_donate: Doar á EOL
+        about_link_eol_blog: O blogue da EOL
+        about_link_glossary: Glosario
+        about_link_help: Axuda
+        about_link_podcasts: Podcasts
+        about_link_statistics: Estatísticas
+        about_link_terms_of_use: Termos de uso
+        about_link_what_is_eol: Que é a EOL?
+        header_about: Acerca da EOL
+        header_learn_more: Máis información
+        header_questions: Máis información
+        learn_more_link_amphibians: Anfibios
+        learn_more_link_animals: Animais
+        learn_more_link_archaea: Arqueas
+        learn_more_link_bacteria: Bacterias
+        learn_more_link_birds: Aves
+        learn_more_link_crustaceans: Crustáceos
+        learn_more_link_fish: Peixes
+        learn_more_link_flowering_plants: Anxiospermas
+        learn_more_link_fungi: Fungos
+        learn_more_link_insects: Insectos
+        learn_more_link_invertebrates: Invertebrados
+        learn_more_link_mammals: Mamíferos
+        learn_more_link_molds: Mofos
+        learn_more_link_mollusks: Moluscos
+        learn_more_link_mushrooms: Cogomelos
+        learn_more_link_plants: Plantas
+        learn_more_link_protists: Protistas
+        learn_more_link_reptiles: Réptiles
+        learn_more_link_spiders: Arañas
+        learn_more_link_trees: Árbores
+        learn_more_link_viruses: Virus
+        learn_more_link_worms: Vermes
+        questions_link_binomial_nomenclature: Que é a nomenclatura binomial?
+        questions_link_biodiversity: Que é a biodiversidade?
+        questions_link_biological_classification: Que é unha clasificación biolóxica?
+        questions_link_contributing_to_research: Como podo contribuír á investigación?
+        questions_link_discovering_species: Como se descobren as especies?
+        questions_link_indicator_species: Que é unha especie indicadora?
+        questions_link_invasive_species: Que é unha especie invasora?
+        questions_link_model_organism: Que é un organismo modelo?
+        questions_link_naming_species: Como se lles dá nome ás especies?
+        questions_link_species: Que é unha especie?
   learn_about_collections: Como podo crear unha?
   learn_about_communities: Como podo participar?
   learn_about_content_partners: Como podo converterme nun?
@@ -2187,7 +2510,13 @@ gl:
   limits_the_number_of_returned_sound_objects: limita o número de obxectos de son devoltos
   limits_the_number_of_returned_text_objects: limita o número de obxectos de texto devoltos
   limits_the_number_of_returned_video_objects: limita o número de obxectos de vídeo devoltos
+  link_more_about: Máis información sobre esta ligazón
   link_name: Nome da ligazón
+  link_not_associated_with_any_published_entries: Esta ligazón non está asociada a ningún taxon publicado.
+  link_rating: Avaliación da ligazón
+  links_with_count: 
+    one: "%{count} ligazón"
+    other: "%{count} ligazóns"
   list_newsletter_emails: listar os correos electrónicos con boletíns
   list_of_activity_combinations: Lista de combinacións de actividade nunha duración de 5 minutos
   listing_collections: Lista de coleccións
@@ -2197,6 +2526,8 @@ gl:
   literature_bhl_link: Consultar a bibliografía descuberta en BHL
   literature_empty: Non se atopou referencia ningunha.
   literature_header: Referencias
+  literature_links: Ligazóns literarias
+  literature_links_link: Ligazóns literarias
   literature_references: Referencias literarias
   location: Localización
   location_colon: "Localización:"
@@ -2209,6 +2540,7 @@ gl:
   login_to_the_website_as: Iniciar sesión como %{username}
   logo_header: Logotipo
   logout: Saír
+  looking_up_url: Buscando o enderezo URL...
   main_content_area: "Zona de contidos principal:"
   main_database_colon: "Principal:"
   main_master_database_colon: "Mestre principal:"
@@ -2274,13 +2606,13 @@ gl:
   merge_data_ready: Está todo listo para fusionar os datos das seguintes clasificacións nesta páxina de taxon ou para separalos nas súas páxinas propias. Cómpre ter unha certeza <i>absoluta</i> de que se seleccionaron todas as clasificacións que representan o teu taxon de destino. Por exemplo, se estás eliminando unha avelaíña da páxina dun cogomelo, revisa <i>todas</i> as clasificacións que se mostran enriba para asegurarte de que tes todas as avelaíñas.
   merge_pending: A operación de fusión necesita algún tempo. Os taxons involucrados están agora bloqueados fronte a máis edicións das súas clasificacións ata que remate a fusión. Recibirás unha mensaxe de correo electrónico cando finalice o proceso. Ademais, esta acción aparecerá reflectida na fonte de novas da páxina.
   message_colon: "Mensaxe:"
+  message_will_disappear: (esta mensaxe ha desaparecer axiña)
   meta_description_colon: "Descrición meta:"
   meta_keywords_colon: "Palabras clave meta:"
   meta_title_site_name: Enciclopedia da vida
   method: Método
   method_to_get_metadata_about_the_hierarchy: a partir do identificador dunha xerarquía, este método devolve os metadatos acerca da xerarquía e lista os taxons raíz
   methods: Métodos
-  minimal_page: Páxina mínima
   mobile: 
     contents: 
       explore_eol: Explorar a EOL
@@ -2333,6 +2665,7 @@ gl:
   moved_items_from_collection_with_count_notice: 
     one: Moveu %{count} elemento de "%{name}".
     other: Moveu %{count} elementos de "%{name}".
+  multimedia_links: Ligazóns multimedia
   must_be_associated_with_either_a_user_or_a_community: Debe estar asociado a un usuario ou a unha comunidade
   must_be_checked_in_to_show: "- debe estar comprobado para mostrarllo ao usuario"
   must_be_checked_in_to_view: "- debe estar comprobado co fin de velo"
@@ -2370,13 +2703,21 @@ gl:
   new_search_suggestion: Nova suxestión de procura
   new_upload: Nova carga
   new_user: Novo usuario
+  news_and_event_links: Ligazóns a novas e acontecementos
   news_archive_page: páxina de arquivo de novas
+  news_available_in_languages: "Esta páxina está dispoñible en:"
   news_date: Data da nova
   news_item: nova
-  news_item_date_as_shown_to_use: "Data da nova tal como se mostra ao usuario (a hora móstrase só na fonte de novas RSS):"
-  news_item_is_visible_on_websit: "A nova é visible no sitio web despois desta hora:"
+  news_item_date_as_shown_to_user: "Data da nova tal como se mostra ao usuario (a hora móstrase só na fonte de novas RSS):"
+  news_item_is_visible_on_website_after_this_time: "A nova é visible no sitio web despois desta hora:"
   news_item_title: Nova
-  news_items: Novas
+  news_items: 
+    index: 
+      meta_keywords: novas da eol, novas da enciclopedia da vida
+      meta_title: Novas da EOL
+      page_title: Novas da EOL
+  news_missing_content_message: Sentímolo, esta páxina non está dispoñible en %{selected_language}.
+  news_missing_content_title: Falta a tradución
   newsfeed: Fonte de novas
   newsfeed_help_for_collection: A fonte de novas desta colección da EOL recolle as actualizacións asociadas aos elementos que pertencen a ela, incluídas as actividades do seu propietario e os comentarios dos outros usuarios da EOL.
   newsfeed_help_for_community: A fonte de novas desta comunidade da EOL recolle as actualizacións asociadas aos elementos que pertencen ás coleccións que xestiona, incluídas as actividades dos seus membros e os comentarios dos outros usuarios da EOL.
@@ -2394,7 +2735,7 @@ gl:
   no_errors_are_available: Non hai ningún erro dispoñible.
   no_harvesting_logs_for_this_da: Non hai ningún rexistro de colleita para esa data
   no_items_were_copied_to_collections_error: "Non se copiou ningún elemento ás coleccións: %{names}."
-  no_news_items_are_available_ma: Non hai ningunha nova dispoñible que coincida cos teus criterios de procura.
+  no_news_items_for_month_and_year: Non houbo ningunha nova en %{month_and_year}
   no_record_found_matching_your_criteria: Non se atopou ningún rexistro que coincidise cos teus criterios de procura.
   no_related_names: Este taxon aínda non ten relacionado ningún nome.
   no_results_for: non se atopou ningún resultado para
@@ -2470,6 +2811,9 @@ gl:
     signature_basic: O equipo da Enciclopedia da vida
     signature_with_contact_us_link: "Se tes algún problema, ponte en contacto con nós no enderezo %{url}.\n\nO equipo da Enciclopedia da vida"
     signature_with_species_pages_group_contact: "Se tes algunha pregunta, ponte en contacto con nós no enderezo %{species_pages_group_email}.\n\nO equipo da Enciclopedia da vida"
+    unsubscribed_to_notifications: 
+      message: "Cancelaches correctamente a túa subscrición ás notificacións da Enciclopedia da vida. Pode cambiar a configuración do teu correo electrónico ou subscribirte ás notificacións na <a href='%{email_prefs_url}'>páxina das túas preferencias de notificación</a>.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://eol.org/help."
+      subject: Sentimos verte marchar...
     user_activated: 
       message: "Benvido á Enciclopedia da vida (EOL) e grazas por te rexistrares! Ten en conta que o teu nome de usuario é %{username} e o enderezo URL do teu perfil é %{profile_url}. Podes acceder á túa conta en http://eol.org/login.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://eol.org/help."
       subject: Activouse a túa conta na Enciclopedia da vida
@@ -2512,6 +2856,7 @@ gl:
   object_type_collection_option: Colección
   object_type_community_option: Comunidade
   object_type_image_option: Imaxe
+  object_type_link_option: Ligazón
   object_type_sound_option: Son
   object_type_taxon_concept_option: Concepto de taxon
   object_type_text_option: Texto
@@ -2522,9 +2867,9 @@ gl:
   object_visibility_invisible_option: Agochado
   object_visibility_visible_option: Visible
   objects_curated: Obxectos conservados
-  older_version_of_latest_published_data_object_link: unha versión vella de "%{link}"
   older_version_of_latest_published_data_object_title_link: Versión vella de %{link}
   on_time_col_header: o
+  only_alphanum_with_no_spaces: só pode conter caracteres alfanuméricos sen espazos
   only_multi_search_suggestions: (unicamente se hai múltiples suxestións para o mesmo termo de procura; a ordenación é crecente)
   only_show_authoritative_conten: "Mostrar unicamente os contidos autorizados:"
   only_show_unapproved_curators: Mostrar unicamente os conservadores non aprobados
@@ -2612,6 +2957,7 @@ gl:
   please_state_one_credential: "Indica, polo menos, unha credencial específica da lista:"
   please_wait: Por favor, agarda...
   post_comment: Publicar o comentario
+  posts_from_year: Mensaxes do ano %{year}
   preferred_common_name_advisory_information: Nome común preferido deste taxon.
   press_room: Sala de prensa
   preview: vista previa
@@ -2635,7 +2981,6 @@ gl:
   publish: publicar
   publish_after_utc: Publicar despois de (UTC)
   publish_changes: Publicar os cambios
-  publish_item_based_on_time_set: Publicar o elemento segundo a hora fixada anteriormente (desmárcao para agochalo sempre)
   publish_requested: Publicación solicitada
   published: Publicado
   published_parens: (Publicado)
@@ -2692,6 +3037,7 @@ gl:
     community_activity_user_joined: O usuario <b>%{user_name}</b> uniuse á comunidade <b>%{community_name}</b>.
     community_activity_user_left: O usuario <b>%{user_name}</b> deixou a comunidade <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: O usuario <b>%{user_name}</b> converteu a <b>%{member_name}</b> en administrador da comunidade <b>%{community_name}</b>.
+    contact_us_link: Se experimentas algún problema, <a href='http://eol.org/contact_us' style='color:#195184'>ponte en contacto con nós</a>.
     curator_activity_log_title: "%{who} conservou algo"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> realizou unha acción de %{activity_name} en <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> realizou unha acción de %{activity_name} en <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2704,7 +3050,7 @@ gl:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Bota un ollo a toda a actividade previa na túa <a href='%{activity_url}' style='color:#195184'>páxina de fonte de novas de usuario</a>.
     someone_commented_on_something: <b>%{who}</b> deixou un comentario en "<b>%{what}</b>".
-    unsubscribe: Cambia a túa configuración do correo electrónico ou cancela a subscrición na <a href='%{email_prefs_url}' style='color:#195184'>páxina das túas preferencias de notificación</a>.
+    unsubscribe: Accede e cambia a túa configuración do correo electrónico na <a href='%{email_prefs_url}' style='color:#195184'>páxina das túas preferencias de notificación</a> ou <a href='%{unsubscribe_url}' style='color:#195184'>cancela a subscrición a TODAS as notificacións automáticas da EOL sen acceder ao sistema</a>.
   recent_updates: Actualizacións recentes
   recently_visited: Visitados recentemente
   recipients: Destinatarios
@@ -2713,9 +3059,11 @@ gl:
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
   record_not_found: "[non se atopou o rexistro]"
   references_cabs_colon: "Referencias:"
+  reindex_page_button: Reindexar a páxina
   related_names_with_count: 
     one: "%{count} nome relacionado"
     other: "%{count} nomes relacionados"
+  related_organizations: Organizacións relacionadas
   remove: Eliminar
   remove_curatorship_colon: "Eliminar a conservación:"
   remove_data_object_association: Eliminar a asociación
@@ -2725,7 +3073,7 @@ gl:
     other: Elimináronse %{count} elementos desta colección.
   reply: Responder
   request: Solicitar
-  request_mailing_list_colon: "Lista de correo das solicitudes:"
+  request_mailing_list_colon: "O usuario non quere recibir correos electrónicos:"
   required_form_element: Obrigatorio
   reset_password_enter_new_password_notice: Este contrasinal serve para acceder unha única vez, escribe o novo contrasinal para continuar.
   reset_password_instructions_sent_to_user_notice: Enviáronse as instrucións para restablecer o contrasinal da túa conta <em>%{username}</em> ao teu enderezo de correo electrónico.
@@ -2741,7 +3089,7 @@ gl:
   return_all_common_names_for_this_taxon: devolver todos os nomes comúns deste taxon
   return_all_synonyms_for_this_taxon: devolver todos os sinónimos deste taxon
   return_common_names_for_the_page_taxon: devolver todos os nomes comúns do taxon da páxina
-  return_content_by_vettedness: se vetted = 1, entón unicamente se devolverá contido de confianza. Se vetted = 2, entón unicamente se devolverá contido de confianza e non revisado (deixando sen mostrar aqueles contidos que non sexan fiables). A opción predeterminada é devolver todo o contido
+  return_content_by_vettedness: Se "vetted" ten o valor "1", entón unicamente se devolverá contido de confianza. Se "vetted" é "2", entón unicamente se devolverá contido de confianza e non revisado (deixando sen mostrar aqueles contidos que non sexan de confianza). A opción predeterminada é devolver todo o contido.
   returns_all_metadata_about_a_particular_collection: devolve todos os metadatos acerca dunha colección particular e os elementos que contén indexados pola EOL
   returns_all_metadata_about_a_particular_data_object: devolve todos os metadatos acerca dun obxecto de datos particular (texto, imaxe ou vídeo) indexado pola EOL
   returns_either_a_positive_or_negative_response: devolve ou ben unha resposta positiva (indicando que as API están funcionais) ou ben unha resposta negativa ou ben nada (indicando que as API non están funcionais).
@@ -2752,7 +3100,6 @@ gl:
   rights: Dereitos
   rights_holder: Titular dos dereitos
   rights_statement: Declaración dos dereitos
-  rss_feed: Fonte de novas RSS
   save: Gardar
   save_comment_lowercase: gardar o comentario
   save_curated_association_submit_button: Gardar a asociación
@@ -2760,7 +3107,7 @@ gl:
   sci_name_avg_table_head: Media do nome científico
   scientific_name: Nome científico
   search: Procurar
-  search_by_provider_method_description: obter os identificadores das páxinas da EOL a partir dun hierarchy_id e o identificador único do provedor
+  search_by_provider_method_description_with_link: "obter os identificadores de páxinas da EOL a partir do identificador hierarchy_id dun provedor e o identificador único do provedor<br />(por exemplo, procura o identificador da páxina da EOL de ITIS TSN 180542: %{link})"
   search_by_term_page_title: "Procurar: %{term}"
   search_field_common_name: Nome común
   search_field_label: Procurar na EOL
@@ -2770,7 +3117,6 @@ gl:
   search_field_synonym: Sinónimo
   search_for_comments_containing_the_text: "Procurar comentarios que conteñan o texto:"
   search_for_curators_containing: "Procurar conservadores que conteñan:"
-  search_for_items_containing: "Procurar elementos que conteñan:"
   search_for_messages_containing: "Procurar mensaxes que conteñan:"
   search_for_terms_containing: "Procurar termos que conteñan:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Procurar usuarios que conteñan isto no seu nome de usuario, nome ou enderezo de correo electrónico.
@@ -2796,6 +3142,9 @@ gl:
   see_all_collections_with_count_html: 
     one: Ollar <span class="assistive">%{count} colección na que aparece esta páxina.</span>
     other: Ollar as <span class="assistive">%{count} coleccións nas que aparece esta páxina.</span>
+  see_all_comments_with_count_for_link_or_rate: 
+    one: ollar %{count} comentario sobre esta ligazón ou valóraa
+    other: ollar os %{count} comentarios sobre esta ligazón ou valóraa
   see_all_comments_with_count_for_text_or_rate: 
     one: ollar %{count} comentario sobre este artigo ou valórao
     other: ollar os %{count} comentarios sobre este artigo ou valórao
@@ -3227,6 +3576,8 @@ gl:
   taxon_identification_resources_empty: Polo de agora, ninguén achegou recursos de identificación a esta páxina.
   taxon_identification_resources_header: Recursos de identificación
   taxon_identification_resources_link: Recursos de identificación
+  taxon_multimedia_links_link: Ligazóns multimedia
+  taxon_news_and_event_links_link: Ligazóns a novas e acontecementos
   taxon_newsfeed: Fonte de novas do taxon
   taxon_not_found_error: "\"%{taxon}\" non atopado"
   taxon_nucleotide_sequences_link: Secuencias de nucleótidos
@@ -3240,6 +3591,7 @@ gl:
   taxon_partner_links_link: Ligazóns asociadas
   taxon_rating: Avaliación do taxon
   taxon_recognized_by: Taxon recoñecido por %{whom}
+  taxon_related_organizations_link: Organizacións relacionadas
   taxon_selected_from_search_res: Taxon seleccionado dos resultados da procura
   taxon_suggested: Taxon suxerido
   taxonomic_summary_of_content: resumo taxonómico dos contidos
@@ -3286,8 +3638,6 @@ gl:
   the_message_was_sent: Enviouse a mensaxe.
   the_new_topic_was_created: Creouse o novo tema.
   the_new_user_was_created: Creouse o novo usuario.
-  the_news_item_created: A nova creouse correctamente.
-  the_news_item_updated: A nova actualizouse correctamente.
   the_suggested_page_to_direct_users_to_link: a páxina suxerida á que dirixir aos usuarios
   the_topic_was_updated: Actualizouse o tema.
   the_user_was_updated: Actualizouse o usuario.
@@ -3313,10 +3663,13 @@ gl:
   this_is_a_focus_collection_for_community: Este é o centro de atención de %{community}.
   this_is_the_breakdown_of_chapt: Este é o desglose dos capítulos, subcapítulos e a categoría Modelo de perfil de especies correspondente.
   this_is_the_label_that_will_be_used_for_attribution: Esta é a etiqueta que se empregará para o recoñecemento
+  this_link_cannot_be_curated_because_unpublished: Esta ligazón non se pode conservar porque non está publicada.
+  this_link_is_unpublished: Esta ligazón non está publicada.
   this_map_cannot_be_curated_because_unpublished: Este mapa non se pode conservar porque non está publicado.
   this_map_is_unpublished: Este mapa non está publicado.
   this_method_takes_an_integer_or_string: Este método recolle un número enteiro ou unha cadea que é o identificador único dun taxon na base de datos dun provedor, ademais dun hierarchy_id que representa o provedor, e devolve o ID da páxina da EOL dese taxon. Por exemplo, mediante a API %{link_provider}, pódese descubrir que o hierarchy_id do sistema integrado de información taxonómica (ITIS) da EOL é %{itis_id}. Logo, pódese procurar na EOL o número de serie taxonómico (TSN) ITIS de 180542, <i>Ursus maritimus</i>, chamando a %{link_url}
   this_page_shows_information_ab: Esta páxina mostra información sobre un termo de procura específico e aqueles resultados aos que accederon os usuarios despois de facer a devandita procura.
+  this_page_will_be_reindexed: Esta páxina ha renderizarse en segundo plano. Pode levar ata 24 horas completar o proceso.
   this_resource_unpublished_notice: Polo de agora, ningún administrador definiu este recurso como publicado.
   this_section_is_used_to_create: Esta sección utilízase para crear elementos de novas. As novas móstranse na parte dereita da páxina inicial, así como nunha %{rss_link} e a páxina de %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Este son non se pode conservar porque non está publicado.
@@ -3326,7 +3679,6 @@ gl:
   threat_status_header_colon: "Estado de ameaza da <abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>:"
   thumbnail_page_colon: "páxina da miniatura:"
   time_ago: hai %{time_passed}
-  tinyurl: TinyURL
   title: Título
   to_process_your_donation_please_proceed: Para procesar a túa doazón, continúa
   to_remedy_this: Co fin de solucionar isto, pecharemos estas contas inactivas e pedirémoste que visites eol.org para crear unha nova conta. En canto recibas o correo electrónico de confirmación, preme na ligazón para validar a conta.
@@ -3337,6 +3689,9 @@ gl:
   toc: ÍNDICE
   toc_entry_col_header: Entrada do ÍNDICE
   toc_no_longer_available: A información do ÍNDICE xa non está dispoñible
+  too_many_descendants_to_curate_with_count: 
+    one: "ERRO: O sistema automático non pode procesar a túa conservación. Hai %{count} dependencia que supera o máximo permitido."
+    other: "ERRO: O sistema automático non pode procesar a túa conservación. Hai %{count} dependencias que superan o máximo permitido."
   topic: Tema
   topic_area: Área do tema
   topics_avilable_to_contact_us_info: A páxina de contacto inclúe os seguintes temas. Podes engadir ou editar estes temas e os seus correspondentes enderezos de correo electrónico. Todos os cambios feitos son inmediatos.
@@ -3358,6 +3713,7 @@ gl:
   true_label: Verdadeiro
   truncated_comment_omission: ...<a href='%{link}'>máis</a>
   truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: ...<a href='%{link}'>máis</a>
   trusted: De confianza
   trusted_images: Imaxes de confianza
   trusted_maps: Mapas de confianza
@@ -3366,9 +3722,11 @@ gl:
   twitter: Twitter
   type: Tipo
   unable_to_copy_items_to_collection_error: Sentímolo, non se puideron copiar os elementos da colección a %{name}.
+  unable_to_determine_title: Non se puido determinar o título desta páxina web
   unable_to_invite_users_to_community_error: Non se puideron enviar os convites a %{users}.
   unique_page_views_th: Visitas por páxina únicas
   unknown: Descoñecido
+  unknown_data_object_title: Obxecto de datos descoñecido
   unknown_hierarchy: Xerarquía descoñecida
   unknown_type_not_associated_with_any_published_entries: Estes datos non están asociados a ningún taxon publicado.
   unpublished: Sen publicar
@@ -3395,6 +3753,7 @@ gl:
   uploaded_content: Contidos cargados
   uploaded_on: Cargado o
   url: URL
+  url_not_accessible: Non se pode acceder ao enderezo URL
   us_dolars_75: 75 dólares estadounidenses
   us_dollars_100: 100 dólares estadounidenses
   us_dollars_35: 35 dólares estadounidenses
@@ -3457,9 +3816,10 @@ gl:
   user_already_active_notice: A túa conta xa está activa. Inicia sesión.
   user_comment: Comentario de usuario
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> comentou na páxina dun usuario que foi eliminado:"
-  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> comentou en \"%{what}\":"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> comentou nunha versión vella de \"%{what}\":"
   user_commented_on_something_colon: "<strong>%{user}</strong> comentou en \"%{what}\":"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> comentou na <a href='%{link}'>fonte de novas de %{username}</a>:"
+  user_commented_on_your_image: "<strong>%{user}</strong> comentou na túa imaxe no <a href='%{data_object_link}'>sitio da Enciclopedia da vida</a>:\n%{comment_body}"
   user_comments: Comentarios do usuario
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: ID do usuario
@@ -3541,6 +3901,9 @@ gl:
       edit: 
         page_description: Todas as actualizacións enumeradas a continuación (agás o boletín de novas da EOL) están dispoñibles na túa <a href="%{user_newsfeed_link}">fonte de novas da EOL</a>, pero moita xente querería recibir alertas por correo electrónico con respecto a certas actividades que atopan interesantes. Podes utilizar os botóns inferiores para definir aquela frecuencia dos correos da EOL que se adecúe ás túas preferencias
         page_title: Configuración das notificacións
+      update: 
+        notification_settings_successfully_updated: A configuración das notificacións actualizouse correctamente.
+        sorry_notification_settings_could_not_be_updated: Sentímolo, non se puido actualizar a configuración das notificacións.
     open_authentications: 
       errors: 
         facebook: 
@@ -3623,7 +3986,7 @@ gl:
       form_tip: Para recuperar a túa conta da EOL, escribe o enderezo de correo electrónico asociado a ela. Comproba o cartafol de correo lixo se non recibes unha mensaxe de recuperación na vindeira hora.
       meta_title: Recuperar unha conta
       notices: 
-        recovery_email_sent: Enviouse a mensaxe de recuperación da conta coas instrucións. Comproba o cartafol de correo lixo se non recibes a mensaxe na vindeira hora.
+        recovery_email_sent: Enviouse a mensaxe de recuperación da conta coas instrucións. Engade %{from_address} aos teus remitentes de confianza e comproba o cartafol de correo lixo se non recibes a mensaxe na vindeira hora.
         temporarily_logged_in_update_authentication_details: Accediches temporalmente para recuperar a conta. Cambia o teu contrasinal ou actualiza as túas contas conectadas para aseguráreste de poder acceder correctamente.
     recover_account_choose_account: 
       errors: 
@@ -3634,6 +3997,10 @@ gl:
     show: 
       meta_description: Perfil de %{user_full_name} na Enciclopedia da vida.
       meta_description_curator: Perfil do %{curator_level} %{user_full_name} na Enciclopedia da vida.
+    unsubscribe_notifications: 
+      already_unsubscribed: Xa cancelaches a subscrición ás notificación.
+      unsubscribe_notifications_failed: Sentímolo, houbo un erro. Non se puido cancelar a subscrición ás notificacións do usuario.
+      unsubscribed_notifications_successfully: Cancelaches correctamente a subscrición ás notificacións.
   users_about_me_header: Acerca de min
   users_content_partners_header: Socios de contidos
   users_content_partners_information: Os socios de contidos da EOL son individuos ou organizacións que comparten os seus datos sobre a biodiversidade co mundo a través da EOL. Máis información sobre os <a href="%{more_url}">socios de contidos da EOL</a>.
@@ -3726,7 +4093,6 @@ gl:
   will_find_taxon_pages_matching_the_search_term: atopará as páxinas de taxon se o nome preferido ou calquera sinónimo ou nome común coincide exactamente co termo de procura
   will_paginate: 
     next_label: Seguinte &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"
   worklist: Lista de traballo
   would_you_like_to_become_a_curator_notice: Queres converterte nun conservador? Podes solicitar acceso na <a href='%{url}'>páxina do teu perfil</a>.
@@ -3747,6 +4113,7 @@ gl:
   you_may_upload_static_files_fo: Podes cargar ficheiros estáticos para usalos no CMS (por exemplo, ficheiros en PDF, documentos de Word, imaxes etc.). Non debes empregar isto para cargar contidos para as páxinas de especies; isto é unicamente para usalo nas outras páxinas (como nos anuncios de emprego, nos boletíns de novas, nos acordos MOU etc.). Para os ficheiros en PDF como os acordos MOU e os boletíns de novas, podes ligar co "URL amigable" se queres (que redirixirá automaticamente cara ao "URL completo"). Para as imaxes incorporadas nunha páxina e referenciadas cunha etiqueta &lt;img&gt;, debes usar o "URL completo". O "URL completo" pode presentar un número de servidor de contido diferente cada vez que refresques a páxina (por exemplo, "content2.eol.org", "content3.eol.org" etc.). Isto é algo normal e pódese utilizar calquera cando crees as túas ligazóns, dado que son todos equivalentes.
   you_must_be_comfortable: Debes ter coñecementos de HTML se queres crear hiperligazóns ou dar formato aos textos.
   you_removed_the_member_from_the_community: Eliminaches correctamente o membro da comunidade.
+  your_browser_does_not_support: O teu navegador non soporta o vídeo HTML5.
   your_current_rating_0_of_5: "A túa valoración actual: 0 de 5"
   your_current_rating_1_of_5: "A túa valoración actual: 1 de 5"
   your_current_rating_2_of_5: "A túa valoración actual: 2 de 5"

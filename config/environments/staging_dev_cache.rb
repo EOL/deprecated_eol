@@ -1,40 +1,38 @@
-# Settings specified here will take precedence over those in config/environment.rb
-# 1) config/environment.rb
-# 2) config/environments/[RAILS_ENV].rb
-# 3) config/environments/[RAILS_ENV]_eol_org.rb
-# 4) config/environment_eol_org.rb
+Eol::Application.configure do
+  # Settings specified here will take precedence over those in config/application.rb
 
-# Allow breakpoints in mongrel:
-require "ruby-debug"
+  # In the development environment your application's code is reloaded on
+  # every request. This slows down response time but is perfect for development
+  # since you don't have to restart the web server when you make code changes.
+  config.cache_store = :dalli_store
+  config.cache_classes = true
 
-config.whiny_nils = true
-config.action_controller.consider_all_requests_local = false
-config.action_controller.perform_caching = true
-config.action_view.debug_rjs = false
-config.cache_classes = true
-config.cache_store = :mem_cache_store
-config.action_mailer.raise_delivery_errors = false
+  # Log error messages when you accidentally call methods on nil.
+  config.whiny_nils = true
 
-config.log_level = :debug # :error
-if ENV['RAILS_ENV'] == 'staging_dev_cache'
-  ActiveRecord::Base.logger = Logger.new(STDOUT)
-  ActionController::Base.logger = Logger.new(STDOUT)
-  ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
-end
+  # Show full error reports and disable caching
+  config.consider_all_requests_local       = false
+  config.action_controller.perform_caching = true
 
-$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
-$LOG_USER_ACTIVITY = true
-$EXCEPTION_NOTIFY = true
-$ERROR_LOGGING = true
-$ENABLE_ANALYTICS = false
-$ENABLE_RECAPTCHA = false
-$LOG_WEB_SERVICE_EXECUTION_TIME = true
-$USE_SSL_FOR_LOGIN=false
-$SKIP_URL_VALIDATIONS = true
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
 
-# Override some values and add new ones with private information included
-begin
-  require File.join(File.dirname(__FILE__), 'staging_dev_private')
-rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD staging_dev_private FILE***********************'
+  # Print deprecation notices to the Rails logger
+  config.active_support.deprecation = :log
+
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
+
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
+
+  # Do not compress assets
+  config.assets.compress = false
+
+  # Expands the lines which load the assets
+  config.assets.debug = true
+
+  config.action_mailer.asset_host = "http://staging.eol.org"
+
+  require "ruby-debug"
 end

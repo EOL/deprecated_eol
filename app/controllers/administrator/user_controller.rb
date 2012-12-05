@@ -45,19 +45,20 @@ class Administrator::UserController  < AdminController
          search_string_parameter,
          search_string_parameter],
         :order => 'created_at desc')
-      report = StringIO.new
-      CSV::Writer.generate(report, ',') do |title|
-          title << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Disable Email?', 'Receive Newsletter?']
-          @users.each do |u|
-            created_at = ''
-            created_at = u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
-            title << [u.id, u.username, u.full_name, u.email, created_at, u.disable_email_notifications,
-              u.notification.eol_newsletter]
-          end
+      csv = CSV.generate do |line|
+        line << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Disable Email?', 'Receive Newsletter?']
+        @users.each do |u|
+          created_at = ''
+          created_at = u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
+          line << [u.id, u.username, u.full_name, u.email, created_at, u.disable_email_notifications, u.notification.eol_newsletter]
+        end
        end
-       report.rewind
-       send_data(report.read, :type => 'text/csv; charset=iso-8859-1; header=present', :filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition => 'attachment', :encoding => 'utf8')
-       return false
+       
+       send_data csv,
+         :type => 'text/csv; charset=iso-8859-1; header=present',
+         :filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv',
+         :encoding => 'utf8',
+         :disposition => "attachment"
     end
 
     @users = User.paginate(
@@ -85,7 +86,8 @@ class Administrator::UserController  < AdminController
       search_string_parameter,
       search_string_parameter,
       search_string_parameter])
-
+    
+    User.preload_associations(@users, :content_partners)
   end
 
   def edit
@@ -105,7 +107,7 @@ class Administrator::UserController  < AdminController
     @user = User.new(params[:user])
     @message = params[:message]
 
-    Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
+    Notifier.user_message(@user.full_name, @user.email, @message).deliver unless @message.blank?
 
     @user.password = @user.entered_password
 
@@ -124,17 +126,21 @@ class Administrator::UserController  < AdminController
   def update
 
     @user = User.find(params[:id])
-    past_curator_level_id = @user.curator_level_id
-    
     @message = params[:message]
+    if @user.blank?
+      flash[:error] = I18n.t(:error_updating_user)
+      render :action => 'edit'
+      return
+    end
 
-    Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
+    past_curator_level_id = @user.curator_level_id
+    Notifier.deliver_user_message(@user.full_name, @user.email, @message).deliver unless @message.blank?
 
     user_params = params[:user]
 
     unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
       if user_params[:entered_password].length < 4 || user_params[:entered_password].length > 16
-        @user.errors.add_to_base( I18n.t(:password_must_be_4to16_characters) )
+        @user.errors[:base] << I18n.t(:password_must_be_4to16_characters)
         render :action => 'edit'
         return
       end

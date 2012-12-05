@@ -1,0 +1,10 @@
+%li
+  %strong= "#{translated_news_item.language.label}:"
+  = I18n.t(:last_updated_time_ago,
+    :time_passed => translated_news_item.updated_at.blank? ? I18n.t(:never) : time_ago_in_words(translated_news_item.updated_at))
+  &bull;
+  = translated_news_item.active_translation? ? I18n.t(:admin_translated_news_item_active) : I18n.t(:admin_translated_news_item_not_active)
+  &bull;
+  = link_to I18n.t(:view_verb), news_item_path(news_item, :language => translated_news_item.language.iso_639_1)
+  &bull;
+  = link_to I18n.t(:edit), edit_admin_news_item_translation_path(news_item, translated_news_item)

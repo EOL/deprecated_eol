@@ -11,7 +11,7 @@ code has been under development since approximately September 2007, but has unde
 updates from June 2008-December 2008.  There is much work to be done, both in adding new features, and in the
 ongoing process of code refactoring and performance improvements.  If you see something you like, share it with
 your colleagues and friends and reuse it in your own projects.  If you see something you don't like, help us
-fix it or join the discussion on GitHub or Google Code.
+fix it or join the discussion on GitHub.
 
 == LICENSE
 
@@ -20,19 +20,18 @@ the root of the code folder.
 
 == GETTING STARTED
 
-This is a big Rails project.  Clearly, some of the installation steps below are big and require multiple steps,
-but if you are currently a Rails developer, some are already done (like installing Ruby).  If you are not a
-Rails developer, we suggest you first visit www.rubyonrails.org for more information on getting started with
-Rails and then return to us when you have your feet wet.  The www.eol.org codebase probably shouldn't be the
-first Rails project you've ever seen.
+This is a big Rails project.  Some aspects of the installation below are extensive and require multiple steps.  If
+you are not a Rails developer, we suggest you first visit www.rubyonrails.org for more information on getting started
+with Rails and then return to EOL when you are more familiar with the framework.  The www.eol.org codebase probably
+shouldn't be the first Rails project you've ever seen.
 
-For seasoned Rails developers, you'll also notice the codebase does some mix and matching--both restful
-controllers and regular controllers, for example.  We like the restful way of doing things and plan to
-move in that direction. Some methods are monolithic, others are quite small.  ...and so on.  This codebase has been
-developed by quite a mix of developers and skill levels and we apologize for the lack of homogeneity. Please bear
-with us as we improve the code, slowly, over time.
+For seasoned Rails developers, you'll also notice the codebase does some mix and matching--both restful controllers
+and regular controllers, for example.  We like the restful way of doing things and plan to move in that direction.
+Some methods are monolithic, others are quite small.  ...and so on.  This codebase has been developed by quite a mix
+of developers at various skill levels and we apologize for the lack of homogeneity. Please bear with us as we improve
+the code, slowly, over time.
 
-Hint: start with the TaxonConcept model.  Everything stems from there.
+Hint: start with the TaxonConcept model.  Most of the site's functionality stems from there.
 
 === INSTALLATION
 
@@ -43,53 +42,62 @@ Note that many of these steps require root access on your machine.  You have bee
 them as "sudo" on a Mac/Linux or as an administrator on Windows (there, I acknowledged the existence of
 Windows).
 
-=== CHEATING ON UBUNTU
+=== CHEATING ON OS X
 
-The following set of commands is *pretty* much all I needed to do to get up and running on Ubuntu 10.10.
-Your mileage may, of course, vary:
+The following set of commands is *pretty* much all I needed to do to get up and running on OS X (10.7.5).  Your
+mileage may, of course, vary:
 
-  1. sudo apt-get install ruby1.8-dev ruby1.8 ri1.8 rdoc1.8 irb1.8 rubygems
-  2. sudo apt-get install libreadline-ruby1.8 libruby1.8 libopenssl-ruby
-  3. sudo apt-get install libxml2 libxslt-dev libxml2-dev
-  4. sudo apt-get install git
-  5. ssh-keygen -t rsa -c "jrice@eol.org"
-  6. cat .ssh/id_rsa.pub                   # ...and put that in your github account.
-  7. git clone git@github.com:EncyclopediaOfLife/eol.git eol
-  8. sudo gem install rails -v 2.3.8
-  9. sudo gem install rspec rspec-rails ruby-debug
-  10. sudo apt-get install rake
-  11. sudo apt-get install mysql-server libmysqlclient-dev   # It asked for the pw three times, here...
-  12. sudo gem install will_paginate sanitize mysql daemons optiflag  # Last two are required by Solr
-  13. sudo gem install capybara -v=0.3.9
-  14. rake gems:refresh_specs
-  15. rake db:migrate ; rake db:migrate RAILS_ENV=test ; rake db:migrate RAILS_ENV=test_master
-  16. sudo apt-get install memcached
-  17. sudo vim /etc/apt/sources.list   # ... and uncomment the lines for the canonical source.
-  18. sudo apt-get update
-  19. sudo apt-get install sun-java6-jre sun-java6-plugin
-  20. ...set up your configuration.  This is, of course, a long story.  Read on.
+  1. Most of the following was taken from:
+     http://www.frederico-araujo.com/2011/07/30/installing-rails-on-os-x-lion-with-homebrew-rvm-and-mysql/
+  2. /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+  3. Install XCode. ...this is never a simple (or fast) process. Sorry.
+  4. Add /Applications/Xcode.app/Contents/Developer/usr/bin to your path.
+  5. mkdir -p /usr/local/Cellar
+  6. bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+  7. Add this to your bash profile:
+  
+     echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
-TODO - Could we specific all of those gems (at least) in the test.rb environment and use gems:install RAILS_ENV=test ?
+  8. brew install git wget curl redis memcached libmemcached libxml2 libxslt readline
+  9. cp /usr/local/Cellar/memcached/1.4.13/homebrew.mxcl.memcached.plist ~/Library/LaunchAgents/
+  10. launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.memcached.plist
+  11. brew install mysql
+  12. unset TMPDIR
+  13. mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql
+      --tmpdir=/tmp
+  14. cp /usr/local/Cellar/mysql/5.5.19/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
+  15. launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+  16. rvm install ruby-1.9.3-p194
+  17. gem install bundler
+  18. git clone git://github.com/EOL/eol.git ; Restart your console, bundler may not work properly until you do.
+  19. cd to your new copy of the eol git repository, then: bundle install
+  20. vim config/database.yml ; You will need to edit this yourself, with appropriate settings. You may choose to use
+      config/database.sample.yml as a starting point.
+  21. rake solr:start ; This should work, now.  :)
+  22. rake eol:db:rebuild ; rake eol:db:recreate RAILS_ENV=test ; rake eol:db:recreate RAILS_ENV=test_master
+  23. rake truncate; rake scenarios:load NAME=bootstrap
+  24. sudo apt-get install redis-server
+  25. in its own console: rake resque:work QUEUE='*'
+  26. to debug: resque-web -F
+  27. launchctl stop homebrew.mxcl.redis
+  28. launchctl start homebrew.mxcl.redis
 
 === FIRST THINGS FIRST
 
 Things you need:
 
-  1. Ruby 1.8     ...EOL won't work with 1.9 and we have no immediate plans to port.
-  2. Rails 2.3.8  ...No other version will do (again, no plans to port)!
-  2. MySQL (server)
-  3. libxml
-  4. rake
-  5. The following gems: rspec rspec-rails ruby-debug will_paginate sanitize mysql daemons optiflag capybara 0.3.9
-  6. memcached
-  7. Java         ...to run Solr.
+  1. Ruby 1.9     ...EOL won't work with 1.8.
+  2. Rails 3.2.7  ...No other version will do.
+  3. MySQL Server
+  4. Memcached
+  5. Java         ...to run Solr.
 
 === SOLR
 
-EOL requires Solr (a fast indexing engine) to run properly.  Solr is run using Java, and the required JAR
-file is included with the EOL project's source code.  There is a rake task for starting (solr:start) and
-stopping (solr:stop) the Solr server.  Searches will not function without Solr, and at some point, the
-entire codebase (rendering a taxa page) may require Solr as well.
+EOL requires Solr (a fast indexing engine) to run properly.  Solr is run using Java, and the required JAR file is
+included with the EOL project's source code.  There is a rake task for starting (solr:start) and stopping (solr:stop)
+the Solr server.  Solr is used extensively throughout the code for relating objects, so the entire codebase requires
+Solr to run.
 
 To remove your Solr data (if it's become corrupt or the like):
 
@@ -109,6 +117,25 @@ integration, or...) environments, specify the RAILS_ENV:
 
   rake solr:build RAILS_ENV=test
 
+=== Installing and running memcached
+
+This project doesn't run without memcached.  The reason for this is that no other caching mechanism seems to properly
+persist Ruby objects.  If you *really* need to run some other caching system, modify your
+config/environments/development.rb to use what you prefer, but your mileage may vary.
+
+For testing purposes, to install memcached on a Mac see
+http://readystate4.com/2008/08/19/installing-memcached-on-os-x-1054-leopard/ If you have a local memcached
+server installed (Mac/Linux), start it with: "memcached -d -m 24 -p 11211" and stop it with "killall memcached"
+
+Once memcached is installed, we recommend you set it up to run on boot, probably with 
+
+  sudo launchctl load -w /Library/LaunchDaemons/org.macports.memcached.plist
+
+That's it!  Memcached is now running and will work for development.  Be mindful of this--it may require periodic
+restarting or flushing (from a Rails console, you can just type "Rails.cache.clear").
+
+Note that you do NOT need to (and should not) install the "memcache" Ruby gem.
+
 === SETTING UP THE DATABASES
 
 1. Setup the config/database.yml
@@ -120,26 +147,7 @@ integration, or...) environments, specify the RAILS_ENV:
       the "master_data_database" to the master database for the data database (see more info below in the
       "READ/WRITE SPLITTING" topic)
 
-2. Installing and running memcached
-
-This project doesn't run without memcached.  The reason for this is that no other caching mechanism seems to properly
-persist Ruby objects.  If you *really* need to run some other caching system, modify your
-config/environments/development.rb to use what you prefer, but you're on your own.
-
-To install memcached on OSX with MacPorts already on the system is quite easy:
-
-  a. Run "sudo port install memcached".  This will install the packages required.
-  b. At the end of the output from this, it should recommend you run another command, probably "sudo launchctl load \
-     -w /Library/LaunchDaemons/org.macports.memcached.plist", but you should just copy/paste and run whatever it
-     suggests, as the path may be different.
-
-That's it!  Memcached is now running and will work for development.  Be mindful of this--it may require periodic
-restarting or flushing (from a Rails console, you can just type "$CACHE.clear").
-
-Note that you do NOT need to install the "memcache" Ruby gem.
-
-
-3. Create the tables.
+2. Create the tables.
 
   rake eol:db:rebuild
   rake eol:db:recreate RAILS_ENV=test
@@ -162,9 +170,9 @@ Run the following commands:
 
   rake eol:db:populate
   rake solr:start
-  script/server
+  rails s
 
-Go to http://localhost:3000 and (hopefully) see stuff.
+Go to http://localhost:3000 and (hopefully) see a relatively empty homepage.
 
 === TROUBLESHOOTING THE SEARCH FEATURE
 
@@ -184,8 +192,8 @@ Run the following commands:
 
 == TESTING
 
-We're using RSpec for our testing (see the spec/ directory).  Run 'rake' or 'rake spec' (or 'rake specdoc' for
-specdoc output)
+We're using RSpec for our testing (see the spec/ directory).  Run 'rake' to run the specs. More information is
+available at https://www.relishapp.com/rspec/rspec-rails/v/2-11/docs
 
 === TROUBLESHOOTING
 
@@ -201,59 +209,25 @@ Create config/environments/local.rb (this will be ignored by revision control), 
 
 === LOGINS
 
-The following accounts are set up by the "bootstrap" scenario, so you can usually get into them:
+The basic user types for testing are not readily available, but you can find their usernames from the console (the
+passwords are always "test password"):
 
-  Admin user
-    username: admin
-    password: admin
+  User.admins.first.username    # Admin
+  User.curators.first.username  # Curator
+  Agent.first.user.username     # Content partner
 
-  Content partner
-    username: test_cp
-    password: test password
-
-  User
-    username: test_user2
-    password: password
-
-  Full Curator
-    username: test_curator
-    password: password
-
-=== Additional tests
-
-You can log in as any of the users or content partners with the password "test password". There are no other
-consistent users, so either create your own, log in with OpenID, or use the console to find a username.
-
-Once logged in, every taxon concept should have various images that will only show up based on
-Vetted/Visibility values: each combination is represented.
-
-=== Measuring Code Quality
-
-The EOL code base uses metric_fu to evaluate the overall code quality.
-
-To use Metric Fu, you must install the gem YOURSELF.  It is the team's opinion that metric-fu, and it's various
-dependencies, are system level tools (like ruby-debug) and should not be checked into the code base.
-
-NOTE: When I tried this recently, there was a problem in metric_fu-2.1.1/lib/metric_fu.rb ...On line 4, I needed to
-change the "rescue LoadError" to simply "rescue", because the error being thrown was actually "undefined method
-`map' for nil:NilClass".  This change fixes the problem.
-
-You can run the metrics on EOL with this command:
-
-  rake metrics:all RAILS_ENV=test
-
-The results end up in HTML. Start with tmp/metric_fu/output/index.html
+If you need a basic user, it's recommended that you create one through the UI (or console).
 
 == MULTI-DATABASE AND MASTER/SLAVE DATABASES SETUP
 
 The site is built to allow for master/slave database read/write splitting for the core rails database and the
-core "data" database.  There are two plugins involved in the use of multiple databases and read/write
-splitting (and please note that EOL has made changes to both plugins to accomodate our own systems):
+core "data" database.  The plugin involved in the use of multiple databases and read/write
+splitting is:
 
-  *use_db*:: used to direct some models to a different database
-             (http://rails.elctech.com/blog/using-and-testing-rails-with-multiple-databases)
   *masochism*:: used to split read/writes when using ActiveRecord
                 (http://www.planetrubyonrails.org/tags/view/masochism)
+
+Please note that EOL has made changes to both plugins to accomodate our own systems.
 
 === MULTIPLE DATABASES
 
@@ -396,7 +370,7 @@ mechanism (i.e. memcached) must be set as well.
 
 For memcached:
 
-  config.cache_store = :mem_cache_store, '10.0.0.1:11211', '10.0.0.2:11211'
+  config.cache_store = :dalli_store, '10.0.0.1:11211', '10.0.0.2:11211'
 
 To enable caching:
 
@@ -427,21 +401,19 @@ The following URLs can be used to trigger page expiration either manually in the
 call.  They only work if called from "allowed" IPs (i.e. as specified in configuration) as defined in the
 application level method "allowed_request" (which returns TRUE or FALSE).
 
-  localhost:3000/expire_all    # expire all non-species pages
-  localhost:3000/expire_taxon/TAXON_ID  # expire specified taxon ID (and it's ancestors)
-  localhost:3000/expire_taxa/?taxa_ids=ID1,ID2,ID3 # will expire a list of taxon IDs (and their unique ancestors) specified in the querystring (or post) parameter "taxa_ids" (separate by commas)
-  localhost:3000/clear_caches # expire all fragment caches (if supported by data store mechanism)
+  /expire_all    # expire all non-species pages
+  /expire_taxon/TAXON_ID  # expire specified taxon ID (and it's ancestors)
+  /expire_taxa/?taxa_ids=ID1,ID2,ID3 # will expire a list of taxon IDs (and their unique ancestors) specified in
+      the querystring (or post) parameter "taxa_ids" (separate by commas)
+  /clear_caches # expire all fragment caches (if supported by data store mechanism)
 
 From within the Rails applications, use the following application level methods:
 
   expire_all   # expire all non-species pages
   expire_taxon(taxon_ID)  # expire specified taxon id and ancestors (unless :expire_ancestors=>false is set)
-  expire_taxa(taxon_ID_array)# expire specified array of taxon ID and unique ancestors (unless :expire_ancestors=>false is set)
+  expire_taxa(taxon_ID_array)# expire specified array of taxon ID and unique ancestors (unless :expire_ancestors=>false
+      is set)
   clear_all_caches # expire all fragment caches (everything!)
-
-For testing purposes, to install memcached on a Mac see
-http://readystate4.com/2008/08/19/installing-memcached-on-os-x-1054-leopard/ If you have a local memcached
-server installed (Mac/Linux), start it with: "memcached -d -m 24 -p 11211" and stop it with "killall memcached"
 
 == ASSET PACKAGER (CSS and JS)
 
@@ -477,20 +449,20 @@ To get attribution for a given taxon concept ID:
 
 1. Get TaxonConcept
    e.g.
-     t=TaxonConcept.find(101)
+     t = TaxonConcept.find(101)
 2. Look at hierarchy_entry for that taxon (could be many)
    e.g.
-     he_all=t.hierarchy_entries  OR  he=t.entry (for the default)
+     he_all = t.hierarchy_entries  OR  he = t.entry (for the default)
 3. Look at the associated hierarchy (could be one of many if you get them all)
    e.g.
-      h=he_all[0].hierarchy #   OR  h=he.hierarcy
+      h = he_all[0].hierarchy #   OR  h = he.hierarcy
       h.label
       h.agent.full_name
       h.agent.hompage
       h.agent.logo_cache_url
 4. Look at the associated agents for the hierarchy_entry e.g.
 
-     agents=he[0].agents  # OR  agents=he.agents
+     agents = he[0].agents  # OR  agents = he.agents
      agents.each {|agent| puts agent.full_name + " " + agent.homepage + " " + agent.logo_cache_url}
 
 == CREATING A GOOGLE SITEMAP

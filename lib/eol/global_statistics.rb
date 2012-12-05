@@ -3,7 +3,7 @@ module EOL
 
     # Total counts for stats on the home page
     def self.find(type)
-      $CACHE.fetch(EOL::GlobalStatistics.key_for_type(type), :expires_in => $CACHE_STATS_COUNT_IN_MINUTES.minutes) do
+      Rails.cache.fetch(EOL::GlobalStatistics.key_for_type(type), :expires_in => $CACHE_STATS_COUNT_IN_MINUTES.minutes) do
         count = 0
         case type
           when "taxon_concepts"
@@ -47,17 +47,17 @@ module EOL
     end
 
     def self.clear(type)
-      $CACHE.delete(EOL::GlobalStatistics.key_for_type(type))
+      Rails.cache.delete(EOL::GlobalStatistics.key_for_type(type))
     end
 
     def self.add_to_type(type, amount)
-      old_val = $CACHE.read(EOL::GlobalStatistics.key_for_type(type))
+      old_val = Rails.cache.read(EOL::GlobalStatistics.key_for_type(type))
       return if old_val.nil?  # No need to increment if it's expired or missing.
       if old_val.to_i != old_val # The value is not a number.  Delete it (and it will get re-set later).
         EOL::GlobalStatistics.clear(type)
         return
       end
-      $CACHE.write(EOL::GlobalStatistics.key_for_type(type), old_val += amount,
+      Rails.cache.write(EOL::GlobalStatistics.key_for_type(type), old_val += amount,
                    :expires_in => $CACHE_STATS_COUNT_IN_MINUTES.minutes)
     end
 

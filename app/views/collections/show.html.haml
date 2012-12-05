@@ -12,10 +12,9 @@
     .empty
       %p= I18n.t(:collection_is_empty)
       - if editable && ! @collection.special?
-        = button_to I18n.t(:collection_delete_link), { :action => "delete", :collection_id => @collection.id }, :confirm => I18n.t(:collection_delete_link), :method => :delete
+        = button_to I18n.t(:collection_delete_link), collection_url(@collection), :data => { :confirm => I18n.t(:collection_delete_link) }, :method => :delete
 - else
-  - form_options = { :html => {:method => :put} }
-  - form_for @collection, form_options, :builder => ApplicationHelper::EolFormBuilder do |f|
+  = form_for @collection, :method => :put, :builder => ApplicationHelper::EolFormBuilder do |f|
     = hidden_field_tag(:filter, @filter) if @filter
     #tabs_sidebar
       = render :partial => 'collections/filter_by_item_type'
@@ -56,3 +55,10 @@
       - else
         = render :partial => 'collections/show_annotated_style', :locals => { :editable => editable, :parent_form => f }
       = will_paginate @collection_results, :previous_label => previous_label, :next_label => next_label, :inner_window => 2, :outer_window => 2
+
+- if InaturalistProjectInfo.needs_caching?
+  :javascript
+    $(window).load(function() {
+      $.ajax({ url: "/collections/cache_inaturalist_projects" });
+    });
+    

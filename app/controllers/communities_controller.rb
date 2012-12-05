@@ -144,7 +144,7 @@ class CommunitiesController < ApplicationController
     @communities = current_user.members.managers.map {|m| m.community }.compact
     @page_title = I18n.t(:add_a_collection_to_a_community, :collection => @collection.name)
     respond_to do |format|
-      format.html { render :partial => 'choose', :layout => 'v2/collections' }
+      format.html { render '_choose', :layout => 'v2/collections' }
       format.js   { render :partial => 'choose' }
     end
   end
@@ -237,7 +237,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @community ?
-      view_helper_methods.image_url(@community.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+      view_context.image_tag(@community.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private
@@ -267,9 +267,9 @@ private
   end
 
   def log_action(act, opts = {})
-    community = @community || opts.delete(community)
+    community = @community || opts.delete(:community)
     CommunityActivityLog.create(
-      {:community => community, :user => current_user, :activity => Activity.send(act)}.merge(opts)
+      {:community_id => community.id, :user_id => current_user.id, :activity_id => Activity.send(act).id}.merge(opts)
     )
   end
 

@@ -8,6 +8,8 @@
 # Concepts, Data Objects, Communities, Collections, and Users... but could be extended in the future.
 #
 # Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
+require 'eol/activity_log_item'
+
 class Comment < ActiveRecord::Base
 
   include EOL::ActivityLogItem
@@ -19,7 +21,7 @@ class Comment < ActiveRecord::Base
   # relationship in the DB, so we can report on it to content partners.
 
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
-  named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
+  scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
 
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr
@@ -38,72 +40,6 @@ class Comment < ActiveRecord::Base
     user_wanting_access.id == user_id || user_wanting_access.is_admin?
   end
 
-  def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 50)
-    return [] if taxon_concept_id.nil?
-    min_date = 30.days.ago.strftime('%Y-%m-%d')
-    comments_hash = Comment.connection.execute(ActiveRecord::Base.sanitize_sql_array(["
-      ( SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, n.string scientific_name
-        FROM hierarchy_entries he_parent
-          JOIN hierarchy_entries he_children
-            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
-                AND he_parent.rgt!=0
-                AND he_parent.hierarchy_id=he_children.hierarchy_id)
-          JOIN names n ON (he_children.name_id=n.id)
-          JOIN data_objects_hierarchy_entries dohe ON (he_children.id=dohe.hierarchy_entry_id)
-          JOIN curated_data_objects_hierarchy_entries cdohe ON
-            (dohe.data_object_id = cdohe.data_object_id
-              AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id)
-          JOIN data_objects do ON (dohe.data_object_id=do.id)
-          JOIN data_objects do1 ON (do.guid=do1.guid)
-          JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id)
-        WHERE he_parent.taxon_concept_id = ?
-        AND do1.published=1
-        AND c.parent_type='DataObject'
-        AND c.created_at > ?
-      ) UNION (
-        SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, n.string scientific_name
-        FROM hierarchy_entries he_parent
-          JOIN hierarchy_entries he_children
-            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
-                AND he_parent.rgt!=0
-                AND he_parent.hierarchy_id=he_children.hierarchy_id)
-          JOIN names n ON (he_children.name_id=n.id)
-          JOIN #{Comment.full_table_name} c
-            ON(c.parent_id=he_children.taxon_concept_id AND c.parent_type='TaxonConcept')
-        WHERE he_parent.taxon_concept_id = ?
-        AND c.created_at > ?
-      )", taxon_concept_id, min_date, taxon_concept_id, min_date])).all_hashes.uniq
-
-    comments_hash.sort! do |a, b|
-      b['created_at'] <=> a['created_at']
-    end
-
-    return [] if comments_hash.blank?
-    return comments_hash[0..max_results]
-  end
-
-  def self.all_by_taxon_concept_recursively(tc)
-    dato_ids = tc.all_data_objects.map {|dato| dato.id}
-    children_comments = []
-    unless dato_ids.empty?
-      children_comments = Comment.find_by_sql("
-        SELECT comments.*
-          FROM hierarchy_entries he_parent
-          JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
-          JOIN comments ON (comments.parent_id = he_child.taxon_concept_id AND comments.parent_type = 'TaxonConcept')
-          JOIN hierarchies h ON (he_parent.hierarchy_id=h.id)
-          WHERE he_parent.taxon_concept_id = #{tc.id}
-          AND browsable=1
-      ")
-    end
-    sql = "SELECT * FROM comments WHERE (parent_id = #{tc.id} AND parent_type = 'TaxonConcept')"
-    unless dato_ids.empty?
-      sql += " OR (parent_id IN (#{dato_ids.join(',')}) AND parent_type = 'DataObject')"
-    end
-    Comment.find_by_sql(sql) + children_comments
-  end
-
-
   # Comments can be hidden.  This method checks to see if a non-curator can see it:
   def visible?
     return false if visible_at.nil?
@@ -112,13 +48,11 @@ class Comment < ActiveRecord::Base
 
   # the description or name of the parent item (i.e. the name of the species or description of the object)
   def parent_name
-    return case self.parent_type
-      when 'TaxonConcept' then parent.nil? ? self.parent_type : parent.entry.name.string
-      when 'DataObject'   then parent.nil? ? self.parent_type : parent.description
-      when 'Community'    then parent.nil? ? self.parent_type : parent.name
-      when 'Collection'   then parent.nil? ? self.parent_type : parent.name
-      else self.parent_type
-      end
+    return self.parent_type if self.parent.nil?
+    return parent.entry.name.string if parent.respond_to?(:entry)
+    return parent.description if parent.respond_to?(:description)
+    return parent.name if parent.respond_to?(:name)
+    return self.parent_type
   end
 
   def taxa_comment?
@@ -172,7 +106,7 @@ class Comment < ActiveRecord::Base
 
   def show(by)
     self.vetted_by = by if by
-    self.update_attributes(:visible_at => Time.now) unless visible_at
+    self.update_attributes(:visible_at => Time.now)
 
     # re-index comment in solr
     log_activity_in_solr
@@ -204,8 +138,8 @@ class Comment < ActiveRecord::Base
 
   def taxon_concept_id
     return_t_c = case self.parent_type
-     when 'TaxonConcept' then parent.id
-     when 'DataObject'   then parent.get_taxon_concepts(:published => :preferred)[0].id
+     when 'TaxonConcept' then parent_id
+     when 'DataObject'   then parent.get_taxon_concepts(:published => :preferred).first.id
      else nil
     end
     raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?
@@ -224,6 +158,7 @@ class Comment < ActiveRecord::Base
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
+    LoggingModel.clear_taxon_activity_log_fragment_caches(notification_recipient_objects)
   end
 
   def queue_notifications
@@ -253,6 +188,15 @@ class Comment < ActiveRecord::Base
     reply_to_id
   end
 
+  def same_as_last?
+    last_comment = Comment.last
+    return false unless last_comment
+    return body == last_comment.body &&
+      user_id == last_comment.user_id &&
+      parent_id == last_comment.parent_id &&
+      parent_type == last_comment.parent_type
+  end
+
 private
 
   def add_recipient_user_making_comment(recipients)
@@ -273,10 +217,10 @@ private
       recipients << self.parent
     end
     
-    if self.parent_type == 'TaxonConcept'
+    if self.parent.respond_to?(:flattened_ancestor_ids)
       # page's ancestors
       recipients << { :ancestor_ids => self.parent.flattened_ancestor_ids }
-    elsif self.parent_type == 'DataObject'
+    elsif self.parent.respond_to?(:curated_hierarchy_entries)
       # object's pages and pages' ancestors
       self.parent.curated_hierarchy_entries.each do |he|
         recipients << he.taxon_concept
@@ -327,7 +271,7 @@ private
   end
 
   def add_recipient_author_of_commented_on_text(recipients)
-    if self.parent_type == 'DataObject'
+    if self.parent.respond_to?(:contributing_user)
       if user = self.parent.contributing_user
         user.add_as_recipient_if_listening_to(:comment_on_my_contribution, recipients)
       end

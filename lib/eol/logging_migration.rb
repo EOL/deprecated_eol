@@ -3,6 +3,7 @@ module EOL
     def self.connection
       LoggingModel.connection
     end
+    @connection = self.connection
   end
 end
 

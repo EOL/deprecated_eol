@@ -19,7 +19,7 @@
 
     %tbody
       - count = @cur_page.to_i
-      - @arr_SPM.each do |rec|
+      - InfoItem.all.each do |ii|
         - column_class=cycle('odd','even')
         - count += 1
         %tr
@@ -27,9 +27,9 @@
             = count
             = "."
           %td{ :class => column_class }
-            = rec["schema_value"]
+            = ii.schema_value
           %td{ :class => column_class, :align => "right" }
-            = number_with_delimiter(@arr_count[rec["id"]], :delimiter => ",")
+            = number_with_delimiter(@arr_count[ii.id], :delimiter => ",")
 
 
     %tr

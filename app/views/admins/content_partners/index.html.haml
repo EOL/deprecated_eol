@@ -2,7 +2,7 @@
 
 #sidebar
   .filters.small
-    - form_tag({}, :method => :get) do
+    = form_tag({}, :method => :get) do
       %fieldset
         - option_please_select = "<option value=\"\">#{I18n.t(:option_please_select)}</option>"
         %dl
@@ -22,12 +22,12 @@
             = label_tag :resource_status_id, I18n.t('activerecord.attributes.resource.resource_status_id')
           %dd
             = select_tag :resource_status_id,
-              option_please_select + options_from_collection_for_select(@resource_statuses, :id, :label, @resource_status_id.to_i)
+              options_from_collection_for_select(@resource_statuses, :id, :label, @resource_status_id.to_i), :prompt => I18n.t(:option_please_select)
           %dt
             = label_tag :content_partner_status_id, I18n.t('activerecord.attributes.content_partner.content_partner_status')
           %dd
             = select_tag :content_partner_status_id,
-              option_please_select + options_from_collection_for_select(@partner_statuses, :id, :label, @partner_status_id.to_i)
+              options_from_collection_for_select(@partner_statuses, :id, :label, @partner_status_id.to_i), :prompt => I18n.t(:option_please_select)
           %dt
             = label_tag :vetted, I18n.t('activerecord.attributes.resource.vetted')
           %dd
@@ -79,13 +79,13 @@
                     = I18n.t(:content_partner_current_agreement_signed_on_with_date, :date => partner.agreement.signed_on_date.strftime("%Y-%m-%d"))
                     &bull;
                     = link_to I18n.t(:content_partner_current_agreement_view_link),
-                      content_partner_content_partner_agreement_path(partner, partner.agreement)
+                      content_partner_agreement_path(partner, partner.agreement)
                   - else
                     = I18n.t(:content_partner_current_agreement_not_accepted)
                     &bull;
-                    = link_to I18n.t(:content_partner_current_agreement_edit_link), edit_content_partner_content_partner_agreement_path(partner, partner.agreement)
+                    = link_to I18n.t(:content_partner_current_agreement_edit_link), edit_content_partner_agreement_path(partner, partner.agreement)
                 &bull;
-                = link_to I18n.t(:content_partner_current_agreement_create_link), new_content_partner_content_partner_agreement_path(partner)
+                = link_to I18n.t(:content_partner_current_agreement_create_link), new_content_partner_agreement_path(partner)
               %dt
                 = I18n.t('activerecord.attributes.content_partner.admin_notes')
               %dd
@@ -100,11 +100,11 @@
                   %h5
                     = resource.title
                     %small
-                      [
+                      = "["
                       = link_to I18n.t(:content_partner_resource_view_link), content_partner_resource_path(partner, resource)
                       &bull;
                       = link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(partner, resource)
-                      ]
+                      = "]"
                   .resource_status
                     %dl
                       %dt
@@ -114,10 +114,10 @@
                           = I18n.t(:value_empty)
                         - else
                           = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
-                          [
+                          = "["
                           = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
                             edit_content_partner_resource_hierarchy_path(partner, resource, hierarchy, :return_to => current_url)
-                          ]
+                          = "]"
                       %dt
                         = I18n.t('helpers.label.resource.latest_harvest_event')
                       %dd
@@ -137,12 +137,12 @@
                             = resource.latest_harvest_event.published_at.strftime('%Y-%m-%d')
                           %br/
                           - if !resource.latest_harvest_event.publish? && resource.latest_harvest_event.publish_is_allowed?
-                            - form_for [partner, resource, resource.latest_harvest_event] do |f|
+                            = form_for [partner, resource, resource.latest_harvest_event] do |f|
                               = hidden_field_tag 'return_to', current_url
                               = f.hidden_field :publish, :value => :true
                               %fieldset.actions
                                 = f.submit I18n.t('helpers.submit.harvest_event.publish'), :name => :commit_publish_harvest_event,
-                                  :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(resource.latest_harvest_event.completed_at), :resource_title => h(resource.title))
+                                  :data => { :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(resource.latest_harvest_event.completed_at), :resource_title => h(resource.title)) }
                       %dt
                         = I18n.t('helpers.label.content_partner.latest_published_harvest_event')
                       %dd
@@ -163,17 +163,17 @@
                         = resource.status_label
                         - if resource.status_can_be_changed_to?(ResourceStatus.force_harvest)
                           = button_to I18n.t('helpers.submit.resource.force_harvest'), force_harvest_content_partner_resource_path(partner, resource),
-                            :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(resource.title))
+                            :data => { :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(resource.title)) }
                   .settings
-                    - form_for [partner, resource], :builder => ApplicationHelper::EolFormBuilder do |f|
+                    = form_for [partner, resource], :builder => ApplicationHelper::EolFormBuilder do |f|
                       = hidden_field_tag :return_to, current_url
-                      - f.label :refresh_period_hours, :class => 'select' do
+                      = f.label :refresh_period_hours, :class => 'select' do
                         = I18n.t('helpers.label.resource.refresh_period_hours')
                         = f.select :refresh_period_hours, options_for_select(@import_frequencies, resource.refresh_period_hours)
-                      - f.label :vetted, :class => 'checkbox' do
+                      = f.label :vetted, :class => 'checkbox' do
                         = f.check_box :vetted, { :disabled => resource.vetted? }
                         = I18n.t('activerecord.attributes.resource.vetted')
-                      - f.label :auto_publish, :class => 'checkbox' do
+                      = f.label :auto_publish, :class => 'checkbox' do
                         = f.check_box :auto_publish
                         = I18n.t('activerecord.attributes.resource.auto_publish')
                       %fieldset.actions
@@ -185,7 +185,7 @@
                       - if resource.notes.blank?
                         = I18n.t(:value_empty)
                       - else
-                        = resource.notes.truncate(200)
+                        = truncate(resource.notes, :length => 200)
     .footer
       = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
         :inner_window => 2, :outer_window => 2

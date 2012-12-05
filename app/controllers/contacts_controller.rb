@@ -10,12 +10,15 @@ class ContactsController < ApplicationController
   def new
     @contact = Contact.new
     @contact.ip_address = request.remote_ip
-    @contact.referred_page = params[:referred_page]
+    @contact.referred_page = params[:referred_page] || request.referer
     if logged_in?
       @contact.user_id = current_user.id
       @contact.name = current_user.full_name
       @contact.email = current_user.email
     end
+    @subject = params[:subject] ? ContactSubject.find(:first,
+      :joins => "JOIN translated_contact_subjects tcs ON (contact_subjects.id=tcs.contact_subject_id)",
+      :conditions => "tcs.title like '#{params[:subject]}%'") : nil
   end
 
   # POST /contacts
@@ -27,7 +30,7 @@ class ContactsController < ApplicationController
     @contact.comments << "\n\n#{user_url(current_user)}" if logged_in?
     if @contact.save
       # Note: Contact message is emailed to recipients on after_create, see Contact model
-      Notifier.deliver_contact_us_auto_response(@contact)
+      Notifier.contact_us_auto_response(@contact).deliver
       flash[:notice] = I18n.t('contacts.notices.message_sent')
       redirect_to contact_us_path
     else

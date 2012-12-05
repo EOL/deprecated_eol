@@ -1,11 +1,13 @@
 - en_type ||= en_type(@data_object)
 - for_worklist ||= false
 #main
-  %div{:class => @data_object.is_text? ? 'article copy' : 'media'}
+  %div{:class => (en_type == 'article' || en_type == 'link') ? 'article copy' : 'media'}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
-      %h2= @data_object.object_title
+      %h2= raw @data_object.object_title
     - if en_type == 'image_map' # dato is an image map and so uses image partial
       = render :partial => "/data_objects/data_object_image", :locals => { :size => '580_360' }
+    - elsif en_type == 'link' # dato is a link and so uses article partial
+      = render :partial => "/data_objects/data_object_article", :locals => { :link_object => true }
     - else
       = render :partial => "/data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
   - unless @data_object.is_text? # NOTE - text description was already shown in partial above so we don't want to show it again.
@@ -49,8 +51,8 @@
       .header
         %h3= I18n.t(:recent_updates)
       - @revisions ||= @data_object.revisions_by_date
-      - @latest_published_revision ||= @data_object.latest_published_revision
-      - if @latest_published_revision.id == @data_object.id
+      - @latest_published_revision ||= @data_object.latest_published_version_in_same_language
+      - if @latest_published_revision && @latest_published_revision.id == @data_object.id
         = render :partial => '/activity_logs/index', :locals => { :log => @activity_log }
         = render :partial => '/comments/new', :locals => { :parent => @data_object }
   - unless @revisions.blank?

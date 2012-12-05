@@ -1,4 +1,4 @@
-# Messages for Serbian (Cyrillic script) (‪српски (ћирилица)‬)
+# Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Arabesque46
@@ -265,14 +265,12 @@ sr:
   add_a_comment_colon: "Додај коментар:"
   add_a_new_common_name: Додај нови тривијалан назив
   add_a_new_file_brackets: "[додај нову датотеку]"
-  add_a_new_news_item: Додај нову вест
   add_a_new_role: Додај нову улогу
   add_a_new_search_suggestion: Додај нови предлог за претрагу
   add_a_new_term: Додај нови појам
   add_a_new_topic_area: Додај нову тематску област
   add_a_new_user: Додај новог корисника
   add_a_taxon_association_label: Додај везу на таксону
-  add_article_to_page_link_button: Додај чланак на страницу
   add_association_submit_button: додај везу
   add_brief_summary_to_page_link_button: Додај кратак преглед на страницу
   add_collection_to_a_new_community: Додај збирку „%{collection}“ у нову заједницу
@@ -955,7 +953,6 @@ sr:
   dato_create_user_text_missing_user_exception: Не могу да срочим DataObject или UsersDataObject за текст ако недостаје назнака за таксон.
   dato_create_user_text_validation_error: Проверите да ли сте исправно попунили образац.
   dato_edit_cancel: Откажи
-  dato_edit_text_link_button: Уреди овај чланак
   dato_edit_text_page_description: Хвала вам што доприносите EOL-у. Чланак ће бити додат на ваш списак надгледања тако да можете пратити сваки разговор који је у вези с њим, као и да проверите његов статус.
   dato_edit_text_title: Уређивање чланка
   dato_new_edit_user_text_fieldset_content_header: Садржај чланка
@@ -1008,7 +1005,6 @@ sr:
   download_wav_file: Преузми WAV датотеку
   dublin_core: Даблинско језгро
   duplicate_items_were_ignored: Дуплиране ставке су занемарене.
-  e_g_search_for_the_eol_page: "(нпр. претражите страницу EOL-а с назнаком ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Страница документације за сваки метод садржи два примера за одговоре у формату XML и JSON.
   edit: Уреди
   edit_collection_details: Уреди детаље о збирци
@@ -1022,8 +1018,6 @@ sr:
   edit_glossary_term: Уреди појам у појмовнику
   edit_hierarchy: уреди хијерархију
   edit_my_profile: Уреди мој профил
-  edit_news_item: Уреди новост
-  edit_news_item_instructions_with_link: Уредите новост испод. У оба поља је дозвољено да се користи HTML, а обавезан је или наслов или садржај. За најбоље резултате, користите наслов и унесите кратку вест. Када правите хипервезе до других мрежних места, можете да употребите %{link} да направите краће адресе, како бисте уштедели знакове.
   edit_news_items: уреди новости
   edit_page_contents: уреди садржај страница
   edit_search_suggestion: Уреди предлог за претрагу
@@ -1040,7 +1034,6 @@ sr:
   editors_tab_label: Управници
   email: Е-адреса
   email_colon: "Е-адреса:"
-  email_error_notification_activ: Обавештавање о грешкама при слању порука је активно
   email_recipients: Примаоци е-порука
   encyclopedia_of_life: Енциклопедија живота
   endorsed_by: Истакнуто од
@@ -1084,7 +1077,6 @@ sr:
   error_log_detail: Детаљи о дневнику грешке
   error_logging_active: Записивање грешака је активно
   error_watch_collections_cannot_be_shared: Збирке за надгледање не могу да се деле
-  esc_key_hides_this_message: (порука се сакрива кликом на тастер ''искејп'')
   every_method_can_also_return_json_response: Свака метода може да врати и JSON одговор ако се дода наставак .json
   example_colon: "Пример:"
   exception: Изузетак
@@ -1644,7 +1636,6 @@ sr:
   method: Начин
   method_to_get_metadata_about_the_hierarchy: када наведете назнаку хијерархије, ова метода ће пријавити метаподатке о хијерархији и приказати основне таксоне
   methods: Начини
-  minimal_page: Најмања страница
   mobile: 
     contents: 
       explore_eol: Истражите EOL
@@ -1728,10 +1719,8 @@ sr:
   news_archive_page: архив новости
   news_date: Датум новости
   news_item: новост
-  news_item_date_as_shown_to_use: "Датум новости као што је приказано кориснику (у доводу RSS се приказује само време):"
-  news_item_is_visible_on_websit: "Новост је видљива на мрежном месту након:"
+  news_item_date_as_shown_to_user: "Датум новости као што је приказано кориснику (у доводу RSS се приказује само време):"
   news_item_title: Новост
-  news_items: Новости
   newsfeed: Довод новости
   newsfeed_help_for_collection: Довод ове збирке скупља актуелности повезане са ставкама, укључујући и с активностима његовог власника и коментара од осталих корисника EOL-а.
   newsfeed_help_for_community: Довод ове заједнице скупља актуелности повезане са ставкама које припадају тематској збирци, укључујући и с активностима њених чланова и коментара од осталих корисника EOL-а.
@@ -1748,7 +1737,6 @@ sr:
   no_errors_are_available: Нема грешака.
   no_harvesting_logs_for_this_da: Нема записа за преузимање за овај датум
   no_items_were_copied_to_collections_error: "Ниједна ставка није умножена у збирке: %{names}."
-  no_news_items_are_available_ma: Нема новости које одговарају вашем захтеву.
   no_record_found_matching_your_criteria: Не могу да пронађем ништа што се поклапа с критеријумом.
   no_related_names: Ниједан назив није повезан с овим таксоном.
   no_results_for: нема резултата за
@@ -1861,7 +1849,6 @@ sr:
   object_visibility_invisible_option: Сакривено
   object_visibility_visible_option: Видљиво
   objects_curated: Кустосирани објекат
-  older_version_of_latest_published_data_object_link: старија верзија „%{link}“
   older_version_of_latest_published_data_object_title_link: Старија верзија %{link}
   on_time_col_header: на
   only_multi_search_suggestions: (само ако има више предлога за један исти појам; подразумева се мало → много)
@@ -1973,7 +1960,6 @@ sr:
   publish: објави
   publish_after_utc: Објави после (UTC)
   publish_changes: Објави измене
-  publish_item_based_on_time_set: Објави ставку у горенаведено време (дештриклирајте да увек буде скривено)
   publish_requested: Објави захтевано
   published: Објављено
   published_parens: (објављено)
@@ -2038,19 +2024,16 @@ sr:
   rights: Права
   rights_holder: Носилац права
   rights_statement: Изјава о правима
-  rss_feed: Довод
   save: Сачувај
   save_comment_lowercase: сачувај коментар
   save_curated_association_submit_button: Сачувај везу
   sci_name_avg_table_head: Научни назив (просечно)
   scientific_name: Научни назив
   search: Претражи
-  search_by_provider_method_description: добијање назнаке за страницу на EOL-у ако је наведен hierarchy_id и јединствена назнака добављача
   search_by_term_page_title: "Претрага: %{term}"
   search_field_label: Тражење на EOL-у
   search_for_comments_containing_the_text: "Тражи коментаре који садрже текст:"
   search_for_curators_containing: "Претражи кустосе који садрже:"
-  search_for_items_containing: "Претражи ставке које садрже:"
   search_for_messages_containing: "Претражи поруке које садрже:"
   search_for_terms_containing: "Претражи појмове које садрже:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Тражи кориснике који садрже ово у свом корисничком имену, имену или е-адреси.
@@ -2391,8 +2374,6 @@ sr:
   the_message_was_sent: Порука је послата.
   the_new_topic_was_created: Нова тема је направљена.
   the_new_user_was_created: Направљен је нови корисник.
-  the_news_item_created: Новост је направљена.
-  the_news_item_updated: Новост је ажурирана.
   the_suggested_page_to_direct_users_to_link: предложена страница на коју ће се преносити корисници
   the_topic_was_updated: Тема је ажурирана.
   the_user_was_updated: Корисник је ажуриран.
@@ -2431,7 +2412,6 @@ sr:
   threat_status_header_colon: "Статус угрожености <abbr title=\"Међународна унија за заштиту природе\">МУЗП</abbr>:"
   thumbnail_page_colon: "страница минијатуре:"
   time_ago: пре %{time_passed}
-  tinyurl: TinyURL
   title: Наслов
   to_process_your_donation_please_proceed: Ако желите да дате новчани прилог, наставите
   to_remedy_this: С циљем да исправимо проблем, затворићемо ове неактивне налоге. Посетите www.eol.org да отворите нови налог. Када примите потврдну поруку, кликните на наведену везу да оверите налог.
@@ -2661,7 +2641,6 @@ sr:
   will_find_taxon_pages_matching_the_search_term: ће пронаћи таксонске странице ако се жељени назив, синоним или тривијалан назив поклапа с траженим појмом
   will_paginate: 
     next_label: Следеће &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Претходно"
   worklist: Радни списак
   xml_response: XML одговор

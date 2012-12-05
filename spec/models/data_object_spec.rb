@@ -40,12 +40,14 @@ describe DataObject do
     published_do.toc_items << TocItem.wikipedia
     published_do_association = published_do.association_with_exact_or_best_vetted_status(@taxon_concept)
 
-    preview_do = build_data_object('Text', 'This is a test wikipedia article content', :guid => published_do.guid, :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
+    preview_do = build_data_object('Text', 'This is a test wikipedia article content', :guid => published_do.guid,
+                                   :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => preview_do.id)
     preview_do.toc_items << TocItem.wikipedia
     preview_do_association = preview_do.association_with_exact_or_best_vetted_status(@taxon_concept)
 
-    published_do.published.should == true
+    published_do.published.should be_true
+    # ...This one is failing, but it's quite complicated, so I'm coming back to it:
     preview_do_association.visibility.should == Visibility.preview
     preview_do_association.vetted.should == Vetted.unknown
 
@@ -53,8 +55,8 @@ describe DataObject do
     published_do.reload
     preview_do.reload
 
-    published_do.published.should == false
-    preview_do.published.should == true
+    published_do.published.should_not be_true
+    preview_do.published.should be_true
 
     published_do_association.vetted.should == Vetted.trusted
     published_do_association.visibility.should == Visibility.visible
@@ -66,7 +68,8 @@ describe DataObject do
  end
 
  it 'ratings should create new rating' do
-   UsersDataObjectsRating.count.should eql(0)
+   UsersDataObjectsRating.delete_all
+   UsersDataObjectsRating.count.should == 0
 
    d = DataObject.gen
    d.rate(@user,5)
@@ -107,9 +110,8 @@ describe DataObject do
  end
 
  it 'ratings should show rating for old and new version of re-harvested dato' do
-   text_dato  = @taxon_concept.data_objects.select{ |d| d.is_text? }.last
-   image_dato = @taxon_concept.images_from_solr(100).last
-
+   text_dato  = build_data_object('Text', 'some description', :toc_item => TocItem.wikipedia)
+   image_dato = build_data_object('Image', 'whatever the description may be')
    text_dato.rate(@another_curator, 4)
    image_dato.rate(@another_curator, 4)
 
@@ -153,7 +155,7 @@ describe DataObject do
 
   it 'should know if it is an image map and not a map map' do
     map_dato = DataObject.gen(:data_type => DataType.map)
-    image_dato = @taxon_concept.images_from_solr(100).last
+    image_dato = DataObject.gen(:data_type => DataType.image)
     image_map_dato = DataObject.gen(:data_type => DataType.image, :data_subtype => DataType.map)
     map_dato.map?.should be_true
     map_dato.image_map?.should be_false
@@ -172,6 +174,16 @@ describe DataObject do
   it 'should return false if this is NOT an image' do
     dato = DataObject.gen(:data_type_id => DataType.image_type_ids.sort.last + 1) # Clever girl...
     dato.image?.should_not be_true
+  end
+
+  it 'should return true if this is a link' do
+    dato = DataObject.gen(:data_type_id => DataType.text_type_ids.first, :data_subtype_id => DataType.link_type_ids.first, :source_url => "http://eol.org")
+    dato.link?.should be_true
+  end
+
+  it 'should return false if this is NOT a link' do
+    dato = DataObject.gen(:data_type_id => DataType.text_type_ids.first, :data_subtype_id => DataType.link_type_ids.sort.last + 1, :source_url => "http://eol.org")
+    dato.link?.should_not be_true
   end
 
   describe '#has_thumbnail?' do
@@ -235,47 +247,6 @@ describe DataObject do
     @flash_dato.video_url.should match(@content_server_match)
   end
 
-  it 'should use store citable entities in an array' do
-    @dato.citable_entities.class.should == Array
-  end
-
-  it 'should add an attribution based on data_supplier_agent' do
-    supplier = Agent.gen
-    @dato.should_receive(:data_supplier_agent).at_least(1).times.and_return(supplier)
-    @dato.citable_entities.map {|c| c.display_string }.should include(supplier.full_name)
-  end
-
-  it 'should add an attribution based on license' do
-    license = License.gen()
-    @dato.should_receive(:license).at_least(1).times.and_return(license)
-    # Not so please with the hard-coded relationship between project_name and description, but can't think of a better way:
-    @dato.citable_entities.map {|c| c.display_string }.should include(license.description)
-  end
-
-  it 'should add an attribution based on rights statement (and license description)' do
-    rights = 'life, liberty, and the persuit of happiness'
-    @dato.should_receive(:rights_statement).at_least(1).times.and_return(rights)
-    @dato.citable_entities.map {|c| c.display_string }.should include(rights)
-  end
-
-  it 'should add an attribution based on location' do
-    location = 'life, liberty, and the persuit of happiness'
-    @dato.should_receive(:location).at_least(1).times.and_return(location)
-    @dato.citable_entities.map {|c| c.display_string }.should include(location)
-  end
-
-  it 'should add an attribution based on Source URL' do
-    source = 'http://some.biological.edu/with/good/data'
-    @dato.should_receive(:source_url).at_least(1).times.and_return(source)
-    @dato.citable_entities.map {|c| c.link_to_url }.should include(source) # Note HOMEPAGE, not project_name
-  end
-
-  it 'should add an attribution based on Citation' do
-    citation = 'http://some.biological.edu/with/good/data'
-    @dato.should_receive(:bibliographic_citation).at_least(1).times.and_return(citation)
-    @dato.citable_entities.map {|c| c.display_string }.should include(citation)
-  end
-
   # 'Gofas, S.; Le Renard, J.; Bouchet, P. (2001). Mollusca, <B><I>in</I></B>: Costello, M.J. <i>et al.</i> (Ed.) (2001). <i>European register of marine species: a check-list of the marine species in Europe and a bibliography of guides to their identification.'
 
   it 'should close tags in data_objects (incl. users)' do
@@ -311,7 +282,8 @@ describe DataObject do
 
   it 'should resort to the first 32 characters (plus three dots) if the decsription is too long and one-line' do
     dato = DataObject.gen(:object_title => '', :description => "The quick brown fox jumps over the lazy dog, and now is the time for all good men to come to the aid of their country")
-    dato.short_title.should == "The quick brown fox jumps over t..."
+    dato.short_title.length.should <= 34
+    dato.short_title.should =~ /\.\.\.$/
   end
 
   # TODO - ideally, this should be something like "Image of Procyon lotor", but that would be a LOT of work to extract
@@ -363,8 +335,8 @@ describe DataObject do
   it '#remove_curated_association should raise an exception if a user try to remove an association added by another user' do
     CuratedDataObjectsHierarchyEntry.delete_all
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
-    expect { @image_dato.remove_curated_association(@another_curator, @hierarchy_entry) }.to
-      raise_exception(EOL::Exceptions::WrongCurator)
+    lambda { @image_dato.remove_curated_association(@another_curator, @hierarchy_entry) }.should
+      raise_error(EOL::Exceptions::WrongCurator)
   end
 
   it '#remove_curated_association should remove the entry in curated_data_objects_hierarchy_entries when a user/curator removes their association' do
@@ -381,12 +353,13 @@ describe DataObject do
 
   it '#untrust_reasons should return the same untrust reasons for all versions of the data object' do
     CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato = DataObject.find(@image_dato)
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)
     cdohe.vetted_id = Vetted.untrusted.id
     cdohe.visibility_id = Visibility.invisible.id
-    cal = CuratorActivityLog.create(:object_id => @image_dato.id,
+    cal = CuratorActivityLog.gen(:object_id => @image_dato.id,
                               :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
                               :activity_id => Activity.untrusted.id,
                               :hierarchy_entry_id => @hierarchy_entry.id,
@@ -394,7 +367,7 @@ describe DataObject do
                               :user_id => @curator.id,
                               :created_at => 0.seconds.from_now)
     CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.misidentified.id)
-    @image_dato.reload
+    @image_dato = DataObject.find(@image_dato)
     @image_dato.untrust_reasons(@image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
     new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
     new_image_dato.untrust_reasons(new_image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
@@ -402,12 +375,13 @@ describe DataObject do
   
   it '#hide_reasons should return the same hide reasons for all versions of the data object' do
     CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato = DataObject.find(@image_dato)
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)
     cdohe.vetted_id = Vetted.unknown.id
     cdohe.visibility_id = Visibility.invisible.id
-    cal = CuratorActivityLog.create(:object_id => @image_dato.id,
+    cal = CuratorActivityLog.gen(:object_id => @image_dato.id,
                               :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
                               :activity_id => Activity.hide.id,
                               :hierarchy_entry_id => @hierarchy_entry.id,
@@ -415,28 +389,22 @@ describe DataObject do
                               :user_id => @curator.id,
                               :created_at => 0.seconds.from_now)
     CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.poor.id)
-    @image_dato.reload
+    @image_dato = DataObject.find(@image_dato)
     @image_dato.hide_reasons(@image_dato.all_associations.last).should == [UntrustReason.poor.id]
     new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
     new_image_dato.hide_reasons(new_image_dato.all_associations.last).should == [UntrustReason.poor.id]
   end
 
-  it '#published_entries should read data_objects_hierarchy_entries' do
-    @user_submitted_text.hierarchy_entries == []
-    @user_submitted_text.published_entries.should == []
-  end
+  it '#published_entries should read data_objects_hierarchy_entries'
 
-  it '#published_entries should have a user_id on hierarchy entries that were added by curators' do
-    @user_submitted_text.hierarchy_entries == []
-    @user_submitted_text.published_entries.should == []
-  end
+  it '#published_entries should have a user_id on hierarchy entries that were added by curators'
 
   it '#all_associations should return all associations for the data object' do
     all_associations_count_for_udo = @user_submitted_text.all_associations.count
     CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
-        @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted, :visibility => Visibility.visible, :user => @curator)
-    @user_submitted_text.reload
-    @user_submitted_text.all_associations.count.should == all_associations_count_for_udo + 1
+        @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted,
+        :visibility => Visibility.visible, :user => @curator)
+    DataObject.find(@user_submitted_text).all_associations.count.should == all_associations_count_for_udo + 1
   end
 
   it '#safe_rating should NOT re-calculate ratings that are in the normal range.' do
@@ -483,7 +451,7 @@ describe DataObject do
     dato.access_image_from_remote_server?(:orig).should == true
   end
 
-  it '#create_user_text should add rights holder only if rights holder not provided and license is not public domain' do
+  it '#create_user_text should add rights holder only if rights holder not provided, license is not public domain and if it is not a link object' do
     params = { :data_type_id => DataType.text.id.to_s,
                :license_id => License.public_domain.id.to_s,
                :object_title => "",
@@ -495,7 +463,8 @@ describe DataObject do
                :rights_holder => ""}
     options = { :taxon_concept => TaxonConcept.first,
                 :user => User.first,
-                :toc_id => [TocItem.first.id.to_s] }
+                :toc_id => [TocItem.first.id.to_s],
+                :link_object => false }
     dato = DataObject.create_user_text(params, options)
     dato.rights_holder.should be_blank
     dato.errors.count.should == 1
@@ -523,6 +492,75 @@ describe DataObject do
     dato.should have(1).error_on(:description)
     dato.should have(1).error_on(:rights_holder)
 
+    options[:link_object] = true
+    params[:license_id] = nil
+    params[:rights_holder] = ''
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.rights_holder.should == ''
+  end
+
+  it '#create_user_text should add proper vetted and visibility statuses to the created link object' do
+    assistant_curator = build_curator(@taxon_concept, :level=>:assistant)
+    full_curator = build_curator(@taxon_concept, :level=>:full)
+    master_curator = build_curator(@taxon_concept, :level=>:master)
+    admin = User.gen(:admin=>1)
+    params = { :data_type_id => DataType.text.id.to_s,
+               :license_id => nil,
+               :object_title => "",
+               :bibliographic_citation => "",
+               :source_url => "http://eol.org",
+               :rights_statement => "",
+               :description => "This is link description",
+               :language_id => Language.english.id.to_s,
+               :rights_holder => ""}
+    options = { :taxon_concept => TaxonConcept.first,
+                :toc_id => [TocItem.first.id.to_s],
+                :link_object => true }
+    options[:user] = @user
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.untrusted.id
+    dato.users_data_object.visibility_id.should == Visibility.invisible.id
+    options[:user] = assistant_curator
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.unknown.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
+    options[:user] = full_curator
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.trusted.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
+    options[:user] = master_curator
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.trusted.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
+    options[:user] = admin
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.trusted.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
+  end
+
+  it '#create_user_text should call reload on TaxonConcept, even when fails' do
+    new_text_params = {
+      :data_type_id => DataType.text.id.to_s,
+      :license_id => nil,
+      :license_id => License.cc.id.to_s,
+      :object_title => "",
+      :bibliographic_citation => "",
+      :source_url => "http://eol.org",
+      :rights_statement => "",
+      :description => "This is link description",
+      :language_id => Language.english.id.to_s,
+      :rights_holder => ""
+    }
+    lambda {
+      @taxon_concept.should_receive(:reload).and_return(true)
+      DataObject.create_user_text(new_text_params, :user => @user, :taxon_concept => @taxon_concept)
+    }.should raise_error
   end
 
 end

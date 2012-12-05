@@ -1,53 +1,52 @@
-#======================================================================
-#                     staging.rb
-# Environment specific settings for the Staging environment
-#
-# Settings specified here will override those in config/environment.rb.
-# Configuration files are loaded in the following order with the settings
-# in each file overriding the settings in prior files
-#
-# 1) config/environment.rb
-# 2) config/environments/[RAILS_ENV].rb
-# 3) config/environments/[RAILS_ENV]_eol_org.rb
-# 4) config/environment_eol_org.rb
-#======================================================================
+Eol::Application.configure do
+  # Settings specified here will take precedence over those in config/application.rb
 
-# Use a different logger for distributed setups
-# config.logger = SyslogLogger.new
+  # In the development environment your application's code is reloaded on
+  # every request. This slows down response time but is perfect for development
+  # since you don't have to restart the web server when you make code changes.
+  config.cache_classes = true
 
+  # Log error messages when you accidentally call methods on nil.
+  config.whiny_nils = true
 
-# Full error reports are disabled and caching is turned on
-config.action_controller.consider_all_requests_local = false
-config.action_controller.perform_caching             = true
-config.action_view.debug_rjs                         = false
+  config.log_level = :debug
 
-# Disable delivery errors, bad email addresses will be ignored
-config.action_mailer.raise_delivery_errors = false
+  # Show full error reports and disable caching
+  config.consider_all_requests_local       = false
+  config.action_controller.perform_caching = true
 
-# Code is not reloaded between requests
-# NOTE: is using Master DB connection, you *must* use config.cache_classes = true
-config.cache_classes = true
+  # Disable Rails's static asset server (Apache or nginx will already do this)
+  config.serve_static_assets = true
 
-# Set up the master database connection for writes using masochism plugin
-# NOTE: for this to work, you *must* also use config.cache_classes = true
-# (default for production)
-config.after_initialize do 
-  ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-  ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
-  $PARENT_CLASS_MUST_USE_MASTER = ActiveReload::MasterDatabase
+  # Compress JavaScripts and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
+
+  # Print deprecation notices to the Rails logger
+  config.active_support.deprecation = :log
+
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
+
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
+
+  # Log the query plan for queries taking more than this (works
+  # with SQLite, MySQL, and PostgreSQL)
+  # config.active_record.auto_explain_threshold_in_seconds = 1
+
+  # TODO - consider this. If we want it, put it in. If we don't, remove this paragraph:
+  # config.i18n.fallbacks = true
+
+  config.action_mailer.asset_host = "http://staging.eol.org"
+
+  require "ruby-debug"
 end
-$LOGGING_READ_FROM_MASTER = true
-
-config.log_level = :debug # :error
-
-# set to true to force users to use SSL for the login and signup pages 
-$USE_SSL_FOR_LOGIN = false
-
-#This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
-begin
-  require File.join(File.dirname(__FILE__), 'staging_eol_org')
-rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD STAGING_EOL_ORG FILE***********************'
-end
-
-

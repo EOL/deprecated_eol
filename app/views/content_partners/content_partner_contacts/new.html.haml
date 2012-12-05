@@ -1,6 +1,6 @@
 #content_partner.contact.site_column
   .article.copy
-    - form_for [@partner, @contact], :builder => ApplicationHelper::EolFormBuilder do |contact_form|
+    = form_for [@partner, @contact], :url => content_partner_contacts_path, :builder => ApplicationHelper::EolFormBuilder do |contact_form|
       = validation_errors_for(@contact)
       = render :partial => 'contact_fieldset', :locals => { :contact_form => contact_form }
       %fieldset.actions

@@ -1,5 +1,5 @@
 class TocItem < ActiveRecord::Base
-  set_table_name 'table_of_contents'
+  self.table_name = 'table_of_contents'
   
   uses_translations(:foreign_key => 'table_of_contents_id')
   acts_as_tree :order => 'view_order'
@@ -77,6 +77,9 @@ class TocItem < ActiveRecord::Base
   def self.overview
     InfoItem
     cached_find_translated(:label, 'Overview', :include => [ :info_items, { :parent => :info_items } ])
+  end
+  def self.possible_overview_ids
+    [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].map(&:id)
   end
   def self.education
     InfoItem

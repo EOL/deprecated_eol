@@ -27,9 +27,9 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t(:user_no_longer_active_message)
     end
     @user_submitted_text_count = User.count_submitted_datos(@user.id)
-    @common_names_added = EOL::Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
-    @common_names_removed = EOL::Curator.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
-    @common_names_curated = EOL::Curator.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
+    @common_names_added = Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    @common_names_removed = Curator.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    @common_names_curated = Curator.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
     @rel_canonical_href = user_url(@user)
   end
 
@@ -173,7 +173,7 @@ class UsersController < ApplicationController
       redirect_to login_path, :status => :moved_permanently
     elsif @user && @user.validation_code == params[:validation_code] && !params[:validation_code].blank?
       @user.activate
-      Notifier.deliver_user_activated(@user)
+      Notifier.user_activated(@user).deliver
       flash[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
       session[:conversion_code] = User.generate_key
       redirect_to activated_user_path(@user, :success => session[:conversion_code]), :status => :moved_permanently
@@ -209,8 +209,7 @@ class UsersController < ApplicationController
       "User with ID=#{current_user.id} does not have permission to access terms agreement"\
       " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
     if request.post? && params[:commit_agreed]
-      @user.agreed_with_terms = true
-      @user.save(false) # saving without validation to avoid issues with invalid legacy users
+      @user.update_column(:agreed_with_terms, true) # saving without validation to avoid issues with invalid legacy users
       # validation will more appropriately happen when user attempts to edit profile
       redirect_back_or_default(user_path(current_user))
     else
@@ -224,10 +223,46 @@ class UsersController < ApplicationController
 
   # NOTE - this is slightly silly, but the JS plugin we're using really does want all usernames in one call.
   def usernames
-    usernames = $CACHE.fetch('users/usernames', :expires_in => 55.minutes) do
+    usernames = Rails.cache.fetch('users/usernames', :expires_in => 55.minutes) do
       User.all(:select => 'username', :conditions => 'active = 1').map {|u| u.username }
     end
     render :text => usernames.to_json
+  end
+
+  def fetch_external_page_title
+    data = {}
+    success = nil
+    response_title = nil
+    begin
+      response = Net::HTTP.get_response(URI.parse(params[:url]))
+      if (response.code == "301" || response.code == "302") && response.kind_of?(Net::HTTPRedirection)
+        response = Net::HTTP.get_response(URI.parse(response['location']))
+      end
+      if response.code == "200"
+        response_body = response.body
+        if response['Content-Encoding'] == "gzip"
+          response_body = ActiveSupport::Gzip.decompress(response.body)
+        end
+        success = true
+        if matches = response_body.match(/<title>(.*?)<\/title>/ims)
+          response_title = matches[1].strip
+        end
+      end
+    rescue Exception => e
+    end
+    if success
+      if response_title
+        data['exception'] = false
+        data['message'] = response_title
+      else
+        data['exception'] = true
+        data['message'] = I18n.t(:unable_to_determine_title)
+      end
+    else
+      data['exception'] = true
+      data['message'] = I18n.t(:url_not_accessible)
+    end
+    render :text => data.to_json
   end
 
   def pending_notifications
@@ -304,12 +339,11 @@ class UsersController < ApplicationController
       end
 
       # Bypass validation errors on user model
-      user.recover_account_token = User.generate_key
-      user.recover_account_token_expires_at = 24.hours.from_now
-      user.save(false)
+      user.update_column(:recover_account_token, User.generate_key)
+      user.update_column(:recover_account_token_expires_at, 24.hours.from_now)
       user.reload # Just to ensure everything is dandy in the database (TODO: will slave cause problems?)
       if user.recover_account_token =~ /^[a-f0-9]{40}$/ && !user.recover_account_token_expired?
-        Notifier.deliver_user_recover_account(user, temporary_login_user_url(user, user.recover_account_token))
+        Notifier.user_recover_account(user, temporary_login_user_url(user, user.recover_account_token)).deliver
         flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent', :from_address => $NO_REPLY_EMAIL_ADDRESS)
         redirect_to login_path and return
       else
@@ -330,22 +364,20 @@ class UsersController < ApplicationController
           :hidden_user_temporary_login)
       end
       if user.recover_account_token_matches?(params[:recover_account_token]) && !user.recover_account_token_expired?
-        user.recover_account_token = nil
-        user.recover_account_token_expires_at = nil
-        user.save(false)
+        user.update_column(:recover_account_token, nil)
+        user.update_column(:recover_account_token_expires_at, nil)
         unless user.active?
           # Treat this as email verification for inactive users
           user.activate
-          Notifier.deliver_user_activated(user)
+          Notifier.user_activated(user).deliver
         end
         log_in(user)
         flash[:notice] = I18n.t('users.recover_account.notices.temporarily_logged_in_update_authentication_details')
         redirect_to edit_user_path(user), :status => :moved_permanently and return
       else
         if user.recover_account_token_expired?
-          user.recover_account_token = nil
-          user.recover_account_token_expires_at = nil
-          user.save(false)
+          user.update_column(:recover_account_token, nil)
+          user.update_column(:recover_account_token_expires_at, nil)
         end
         flash[:error] =  I18n.t('users.recover_account.errors.token_expired_or_invalid')
       end
@@ -372,7 +404,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @user ?
-      view_helper_methods.image_url(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+      view_context.image_tag(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 # NOTE - there are a few "protected" methods above, be careful.
@@ -434,7 +466,11 @@ private
   end
 
   def send_verification_email
-    Notifier.deliver_user_verification(@user, verify_user_url(@user.id, @user.validation_code))
+    Notifier.user_verification(@user, verify_user_url(@user.id, @user.validation_code)).deliver
+  end
+  
+  def send_unsubscribed_to_notifications_email
+    Notifier.deliver_unsubscribed_to_notifications(@user)
   end
   
   def send_unsubscribed_to_notifications_email
@@ -493,7 +529,7 @@ private
     else
       recipient = media_inquiry_subject.recipients
     end
-    Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
+    Notifier.user_updated_email_preferences(user_before_update, user_after_update, recipient).deliver
   end
 
   def preload_user_associations

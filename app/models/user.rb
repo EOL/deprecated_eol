@@ -2,12 +2,15 @@
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
 
-class User < $PARENT_CLASS_MUST_USE_MASTER
+require 'eol/activity_loggable'
+
+# NOTE - Curator loads a bunch of other relationships and validations.
+# Also worth noting that #full_name (and the methods that count on it) need to know about
+# curators, so you will see references to curator methods, there. They didn't seem worth moving.
+class User < ActiveRecord::Base
+  octopus_establish_connection(Rails.env)
 
   include EOL::ActivityLoggable
-  include EOL::Curator # NOTE -this loads a bunch of other relationships and validations.
-                       # Also worth noting that #full_name (and the methods that count on it) need to know about
-                       # curators, so you will see references to curator methods, there. They didn't seem worth moving.
 
   belongs_to :language
   belongs_to :agent
@@ -33,6 +36,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :content_partners
   has_one :user_info
   has_one :notification
+
+  scope :admins, :conditions => ['admin IS NOT NULL']
+  scope :curators, :conditions => ['curator_level_id IS NOT NULL']
 
   before_save :check_credentials
   before_save :encrypt_password
@@ -68,19 +74,45 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   validates_acceptance_of :agreed_with_terms, :accept => true
 
+# CURATOR CLASS DECLARATIONS - TODO - extract:
+
+  belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
+  belongs_to :curator_level
+  belongs_to :requested_curator_level, :class_name => CuratorLevel.to_s, :foreign_key => :requested_curator_level_id
+
+  has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
+  has_many :curator_activity_logs
+  has_many :curator_activity_logs_on_data_objects, :class_name => CuratorActivityLog.to_s,
+           :conditions =>
+             Proc.new { "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}" }
+  has_many :classification_curations
+
+  after_create :join_curator_community_if_curator
+
+  validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
+  validates_presence_of :credentials, :if => :curator_attributes_required?
+  validates_presence_of :curator_scope, :if => :curator_attributes_required?
+
+  attr_accessor :curator_request
+
+  scope :curators, :conditions => 'curator_level_id is not null'
+
+# END CURATOR CLASS DECLARATIONS
+
+
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif",
-    :if => self.column_names.include?('logo_file_name')
-
+    :default_url => "/assets/blank.gif",
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+  
   validates_attachment_content_type :logo,
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
     :message => "image is not a valid image type",
-    :if => self.column_names.include?('logo_file_name')
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
   validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => self.column_names.include?('logo_file_name')
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
 
   index_with_solr :keywords => [:username, :full_name]
 
@@ -155,6 +187,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
   
   def unsubscribe_key
+    reload_all_values_if_missing([:created_at, :email])
     Digest::MD5.hexdigest(email + created_at.to_s + $UNSUBSCRIBE_NOTIFICATIONS_KEY)
   end
 
@@ -170,12 +203,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def self.cached(id)
-    Agent
-    begin
-      ($CACHE.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
-    rescue
-      nil
-    end
+    # TODO: removing the cache for Rails 3 because it was causing problems
+    User.find(id, :include => :agent)
   end
 
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
@@ -228,9 +257,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def activate
-    # Using update_attribute instead of updates_attributes to by pass validation errors.
-    self.update_attribute(:active, true)
-    self.update_attribute(:validation_code, nil)
+    # Using update_column instead of updates_attributes to by pass validation errors.
+    self.update_column(:active, true)
+    self.update_column(:validation_code, nil)
     build_watch_collection
   end
 
@@ -249,25 +278,29 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def taxa_commented
+    return @taxa_commented unless @taxa_commented.nil?
     # list of taxa where user entered a comment
-    taxa = []
-    Comment.preload_associations(comments, :parent)
+    @taxa_commented = []
     Comment.preload_associations(comments.select{ |c| c.parent_type == 'DataObject' },
-      { :parent => [ { :data_objects_hierarchy_entries => :hierarchy_entry }, :curated_data_objects_hierarchy_entries, :users_data_object ] })
+      { :parent => [ { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { :users_data_object => :vetted } ] },
+      :select => [ { :data_objects => :id } ])
     comments.each do |comment|
-      taxa << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
+      @taxa_commented << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
       if comment.parent_type == 'DataObject'
         object = comment.parent
         if !object.blank?
-          if object.association_with_best_vetted_status.class.name == 'DataObjectsHierarchyEntry' || object.association_with_best_vetted_status.class.name == 'CuratedDataObjectsHierarchyEntry'
-            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept_id rescue nil
-          elsif object.association_with_best_vetted_status.class.name == 'UsersDataObject'
-            taxa << object.association_with_best_vetted_status.taxon_concept_id
+          best_association = object.association_with_best_vetted_status
+          if best_association.class.name == 'DataObjectsHierarchyEntry' || best_association.class.name == 'CuratedDataObjectsHierarchyEntry'
+            @taxa_commented << best_association.hierarchy_entry.taxon_concept_id rescue nil
+          elsif best_association.class.name == 'UsersDataObject'
+            @taxa_commented << best_association.taxon_concept_id
           end
         end
       end
     end
-    taxa.compact.uniq
+    @taxa_commented.compact!
+    @taxa_commented.uniq!
+    @taxa_commented
   end
 
   def total_comment_submitted
@@ -310,7 +343,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def invalid_login_attempt
     self.failed_login_attempts += 1
-    logger.error "Possible dictionary attack on user #{self.id} - #{self.failed_login_attempts} failed login attempts" if
+    Rails.logger.error "Possible dictionary attack on user #{self.id} - #{self.failed_login_attempts} failed login attempts" if
       self.failed_login_attempts > 10 # Smells like a dictionary attack!
   end
 
@@ -376,7 +409,23 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
                              %Q{SELECT user_id, COUNT(DISTINCT data_objects.guid) AS count
                                 FROM users_data_objects
                                 JOIN data_objects ON (users_data_objects.data_object_id = data_objects.id)
-                                WHERE user_id #{user_id.is_a?(Array) ? "IN (#{user_id.join(',')})" : "= #{user_id}"}
+                                #{user_id ? "WHERE user_id = #{user_id}" : ""}
+                                GROUP BY user_id}, user_id)
+  end
+
+  def self.count_objects_rated(user_id = nil)
+    self.count_complex_query(UsersDataObject,
+                             %Q{SELECT user_id, COUNT(DISTINCT data_object_guid) AS count
+                                FROM users_data_objects_ratings
+                                #{user_id ? "WHERE user_id = #{user_id}" : ""}
+                                GROUP BY user_id}, user_id)
+  end
+
+  def self.count_comments_added(user_id = nil)
+    self.count_complex_query(Comment,
+                             %Q{SELECT user_id, COUNT(*) AS count
+                                FROM comments
+                                #{user_id ? "WHERE user_id = #{user_id}" : ""}
                                 GROUP BY user_id}, user_id)
   end
 
@@ -393,10 +442,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
 
   def self.count_complex_query(klass, query, user_id = nil)
-    results = klass.send(:connection).execute(query).all_hashes rescue {}
+    results = klass.send(:connection).execute(query) rescue {}
     return_hash = {}
     results.each do |r|
-      return_hash[r['user_id'].to_i] = r['count'].to_i
+      return_hash[r[0].to_i] = r[1].to_i
     end
     if user_id.class == Fixnum
       return return_hash[user_id] || 0
@@ -433,15 +482,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def remember_me_until(time)
-    self.remember_token_expires_at = time
-    self.remember_token = User.hash_password("#{email}--#{remember_token_expires_at}")
-    self.save(false)
+    self.update_column(:remember_token_expires_at, time)
+    self.update_column(:remember_token, User.hash_password("#{email}--#{remember_token_expires_at}"))
   end
 
   def forget_me
-    self.remember_token_expires_at = nil
-    self.remember_token            = nil
-    self.save(false)
+    self.update_column(:remember_token_expires_at, nil)
+    self.update_column(:remember_token, nil)
   end
 
   def content_page_cache_str
@@ -503,11 +550,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large', specified_content_host = nil, options = {})
     if logo_cache_url.blank?
-      if options[:mail]
-        return "http://#{Rails.configuration.action_mailer.default_url_options[:host]}/images/v2/logos/user_default.png"
-      else
-        return "v2/logos/user_default.png"
-      end
+      return "v2/logos/user_default.png"
     elsif size.to_s == 'small'
       DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
     else
@@ -519,17 +562,19 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # user has access to through communities
   #
   # NOTE - this will ALWAYS put the watch collection first.
-  def all_collections(logged_in_as_user = false)
+  # NOTE - this will include unpublished (ie: deleted) collections... is that intended?
+  def all_collections(logged_in_as_user = nil)
     editable_collections = collections_including_unpublished.reject {|c| c.watch_collection? }
-    if logged_in_as_user
-      editable_collections.delete_if{ |c| !c.published? && !c.is_resource_collection? }
+    # I changed this to m.manager? instead of using the named scope as I couldn't see
+    # how to preload named scopes, but members could be preloaded
+    # TODO - use scopes.  :|
+    editable_collections += members.select{ |m| m.manager? }.map {|m| m.community && m.community.collections }.flatten.compact
+    editable_collections = [watch_collection] + editable_collections.sort_by{ |c| c.name.downcase }.uniq
+    if logged_in_as_user && logged_in_as_user.class == User
+      editable_collections.delete_if{ |c| !logged_in_as_user.can_read?(c) }
     else
       editable_collections.delete_if{ |c| !c.published? }
     end
-    # I changed this to m.manager? instead of using the named scope as I couldn't see
-    # how to preload named scopes, but members could be preloaded
-    editable_collections += members.select{ |m| m.manager? }.map {|m| m.community && m.community.collections }.flatten.compact
-    editable_collections = [watch_collection] + editable_collections.sort_by{ |c| c.name.downcase }.uniq
     editable_collections.compact
   end
 
@@ -560,7 +605,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def hide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
-      data_object.update_attribute(:published, 0)
+      data_object.update_column(:published, 0)
       data_object.update_solr_index
     end
   end
@@ -568,7 +613,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def unhide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
-      data_object.update_attribute(:published, 1)
+      data_object.update_column(:published, 1)
       data_object.update_solr_index
     end
   end
@@ -616,13 +661,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # the results to count each type, rcognize (!) that they each use their own :after clause.  So be careful.
   def notification_count
     self.activity_log(:news => true, :filter => 'all',
-      :after => User.find(self, :select => 'last_notification_at').last_notification_at,
+      :after => self.last_notification_at,
       :skip_loading_instances => true).count
   end
 
   def message_count
     self.activity_log(:news => true, :filter => 'messages',
-      :after => User.find(self, :select => 'last_message_at').last_message_at,
+      :after => self.last_message_at,
       :skip_loading_instances => true).count
   end
 
@@ -637,7 +682,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def clear_cache
-    $CACHE.delete("users/#{self.id}") if $CACHE
+    Rails.cache.delete("users/#{self.id}") if $CACHE
   end
 
 private
@@ -672,27 +717,7 @@ private
   end
 
   def first_last_names_required?
-    return false unless self.class.column_names.include?('requested_curator_level_id')
-    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
-    (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
-  end
-
-  # before_save TODO - could replace this with actual method that does all approvals however that is going to work
-  def instantly_approve_curator_level
-    unless self.requested_curator_level_id.nil? || self.requested_curator_level_id.zero?
-      unless self.curator_level_id == self.requested_curator_level_id
-        self.curator_level_id = self.requested_curator_level_id
-        self.curator_verdict_at = Time.now
-      end
-      self.requested_curator_level_id = nil
-    end
-  end
-
-  # conditional for before_save
-  def curator_level_can_be_instantly_approved?
-    return false unless self.class.column_names.include?('requested_curator_level_id')
-    self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
-    self.requested_curator_level_id == self.curator_level_id
+    wants_to_be_a_curator? || (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
   end
 
   # Callback before_save MySQL has unique constraint on username but allows nil because username
@@ -716,7 +741,7 @@ private
     return unless agent_id.blank?
     begin
       # TODO: User may not have a full_name on creation so passing it here is possibly redundant.
-      self.update_attribute(:agent_id, Agent.create_agent_from_user(full_name).id)
+      self.update_column(:agent_id, Agent.create_agent_from_user(full_name).id)
     rescue ActiveRecord::StatementInvalid
       # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
     end
@@ -727,7 +752,7 @@ private
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
     rescue Errno::ECONNREFUSED => e
-      puts "** WARNING: Solr connection failed."
+      logger.warn "** WARNING: Solr connection failed."
       return nil
     end
     solr_connection.delete_by_query("user_id:#{self.id}")
@@ -743,4 +768,143 @@ private
     Notification.create(:user_id => self.id)
   end
 
+# CURATOR METHODS - TODO - extract
+public
+
+  def curator_request
+    return true unless is_curator? || (curator_scope.blank? && credentials.blank?)
+  end
+
+  def total_species_curated
+    Curator.taxon_concept_ids_curated(self.id).length
+  end
+
+  def vet object
+    object.vet(self) if object and object.respond_to? :vet and can_curate? object
+  end
+
+  def unvet object
+    object.unvet(self) if object and object.respond_to? :unvet and can_curate? object
+  end
+
+  def revoke_curator
+    # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and
+    # add if-else loop to check if it successfully updated the attributes.
+    unless curator_level_id == nil
+      self.update_attributes(:curator_level_id => nil)
+    end
+    self.leave_community(CuratorCommunity.get) if self.is_member_of?(CuratorCommunity.get)
+    self.update_attributes(:curator_verdict_by => nil,
+                           :curator_verdict_at => nil,
+                           :requested_curator_level_id => nil,
+                           :credentials => nil,
+                           :curator_scope => nil,
+                           :curator_approved => nil)
+  end
+  alias revoke_curatorship revoke_curator
+
+  # before_save TODO - could replace this with actual method that does all approvals however that is going to work
+  # TODO - not DRY with #grant_curator
+  def instantly_approve_curator_level
+    if wants_to_be_a_curator?
+      unless already_has_requested_curator_level?
+        was_curator = self.is_curator?
+        self.curator_level_id = self.requested_curator_level_id
+        self.curator_verdict_at = Time.now
+        join_curator_community_if_curator unless was_curator
+      end
+      self.requested_curator_level_id = nil
+    end
+  end
+
+  # conditional for before_save
+  def curator_level_can_be_instantly_approved?
+    self.wants_to_be_assistant_curator? || already_has_requested_curator_level?
+  end
+
+  # NOTE - default level implies that user.grant_curator means that they're supposed to be a full curator.  Makes
+  # sense to me.  :P
+  def grant_curator(level = :full, options = {})
+    level = CuratorLevel.send(level)
+    unless curator_level_id == level.id
+      was_curator = self.is_curator?
+      self.curator_level_id = level.id
+      if options[:by]
+        self.curator_verdict_by = options[:by]
+        self.curator_verdict_at = Time.now
+        self.curator_approved   = 1
+      end
+      self.save
+      Notifier.curator_approved(self).deliver unless $LOADING_BOOTSTRAP
+      join_curator_community_if_curator unless was_curator
+    end
+    self.update_attributes(:requested_curator_level_id => nil) # Not using validations; don't care if user is valid
+    self
+  end
+
+  # NOTE: Careful!  This one means "any kind of curator"... which may not be what you want.  For example, an
+  # assistant curator can't see vetting controls, so don't use this; use #min_curator_level?(:full) or the like.
+  def is_curator?
+    self.curator_level_id
+  end
+
+  # NOTE: Careful!  The next three methods are for checking the EXACT curator level.  See also #min_curator_level?.
+  def master_curator?
+    self.curator_level_id == CuratorLevel.master.id
+  end
+
+  def full_curator?
+    self.curator_level_id == CuratorLevel.full.id
+  end
+
+  def assistant_curator?
+    self.curator_level_id == CuratorLevel.assistant.id
+  end
+
+  def is_pending_curator?
+    !requested_curator_level.nil? && !requested_curator_level.id.zero?
+  end
+
+  def min_curator_level?(level)
+    case level
+    when :assistant
+      return is_curator?
+    when :full
+      return master_curator? || full_curator?
+    when :master
+      return master_curator?
+    end
+  end
+
+  def last_curator_activity
+    last = CuratorActivityLog.find_by_user_id(id, :order => 'created_at DESC', :limit => 1)
+    return nil if last.nil?
+    return last.created_at
+  end
+
+  def check_credentials
+    credentials = '' if credentials.nil?
+  end
+
+  # validation condition for required curator attributes
+  def curator_attributes_required?
+    (wants_to_be_a_curator? && !wants_to_be_assistant_curator?) || (is_curator? && !assistant_curator?)
+  end
+
+  def wants_to_be_a_curator?
+    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?)
+  end
+
+  def wants_to_be_assistant_curator?
+    self.requested_curator_level_id == CuratorLevel.assistant_curator.id
+  end
+
+  def already_has_requested_curator_level?
+    self.requested_curator_level_id == self.curator_level_id
+  end
+  def join_curator_community_if_curator
+    self.join_community(CuratorCommunity.get) if self.is_curator?
+  end
+
+# END CURATOR METHODS
 end

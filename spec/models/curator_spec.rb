@@ -16,14 +16,17 @@ describe 'Curator' do
       user2 = User.new(:curator_level_id => curator_level_id)
       [user1, user2].each do |user|
         user.valid?.should be_false
-        user.errors.on(:credentials).should =~ /can't be blank/
-        user.errors.on(:curator_scope).should =~ /can't be blank/
+        user.errors[:credentials].to_s.should =~ /can't be blank/
+        user.errors[:curator_scope].to_s.should =~ /can't be blank/
       end
     end
+  end
+
+  it 'should NOT check credentials if assistant curator' do
     user = User.new(:curator_level_id => CuratorLevel.assistant.id)
-    user.valid?
-    user.errors.on(:credentials).should be_nil
-    user.errors.on(:curator_scope).should be_nil
+    user.valid? # We don't actually care if this passes or fails; we only want to check two errors:
+    user.errors[:credentials].should be_blank
+    user.errors[:curator_scope].should be_blank
   end
 
   it 'should save some variables temporarily (by responding to some methods)' do
@@ -34,7 +37,7 @@ describe 'Curator' do
   it 'should not allow you to add a user that already exists' do
     user = User.new(:username => @user.username)
     user.save.should be_false
-    user.errors.on(:username).should =~ /taken/
+    user.errors[:username].to_s.should =~ /taken/
   end
 
   it '(curator user) should allow curator rights to be revoked' do
@@ -48,26 +51,26 @@ describe 'Curator' do
   end
 
   it 'should increase no. of curated data objects for a curator' do
-      temp_count = EOL::Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
+      temp_count = Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
 
       data_object = DataObject.gen()
       activity = CuratorActivityLog.gen(:user => @curator, :object_id => data_object.id, :changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id, :activity_id => TranslatedActivity.find_by_name("trusted").id )
-      temp_count2 = EOL::Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
+      temp_count2 = Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
       temp_count2.should > temp_count
 
       data_object = DataObject.gen()
       activity = CuratorActivityLog.gen(:user => @curator, :object_id => data_object.id, :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id, :activity_id => TranslatedActivity.find_by_name("trusted").id )
-      temp_count = EOL::Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
+      temp_count = Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
       temp_count.should > temp_count2
 
       data_object = DataObject.gen()
       activity = CuratorActivityLog.gen(:user => @curator, :object_id => data_object.id, :changeable_object_type_id => ChangeableObjectType.users_data_object.id, :activity_id => TranslatedActivity.find_by_name("trusted").id )
-      temp_count2 = EOL::Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
+      temp_count2 = Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
       temp_count2.should > temp_count
 
       data_object = DataObject.gen()
       activity = CuratorActivityLog.gen(:user => @curator, :object_id => data_object.id, :changeable_object_type_id => ChangeableObjectType.data_object.id, :activity_id => TranslatedActivity.find_by_name("trusted").id )
-      temp_count = EOL::Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
+      temp_count = Curator.total_objects_curated_by_action_and_user(nil, @curator.id)
       temp_count.should > temp_count2
   end
 
@@ -110,7 +113,7 @@ describe 'Curator' do
     user.is_member_of?(CuratorCommunity.get).should_not be_true
     user.grant_curator(:assistant)
     user.is_member_of?(CuratorCommunity.get).should be_true
-    xpect 'It should also work when instantly self-approved'
+    # 'It should also work when instantly self-approved'
     user = User.gen(:curator_level_id => nil)
     user.is_member_of?(CuratorCommunity.get).should_not be_true
     user.update_attributes(:requested_curator_level_id => CuratorLevel.assistant.id)

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Borichèt
+# Author: Dragonòt
 pms: 
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: nen fidà
@@ -350,7 +351,7 @@ pms:
   translated_user_identities-label-user_identity_id-3: n'educator
   translated_user_identities-label-user_identity_id-4: un siensià privà
   translated_user_identities-label-user_identity_id-5: un siensià professionista
-  translated_vetted-label-vetted_id-0: Dësconossù
+  translated_vetted-label-vetted_id-0: Pa conossù
   translated_vetted-label-vetted_id-4: Nen fidà
   translated_vetted-label-vetted_id-5: Fidà
   translated_vetted-label-vetted_id-6: Inapropià

@@ -23,12 +23,12 @@ describe DataObjectsController do
   describe 'GET new' do
     it 'should render new if logged in' do
       get :new, { :taxon_id => @taxon_concept.id } # not logged in
-      response.rendered[:template].should be_nil
-      response.redirected_to.should =~ /login/
+      response.should render_template(nil)
+      expect(response).to redirect_to('/login')
       get :new, { :taxon_id => @taxon_concept.id }, { :user => @user, :user_id => @user.id }
       data_object_create_edit_variables_should_be_assigned
       assigns[:data_object].new_record?.should be_true
-      response.rendered[:template].should == 'data_objects/new.html.haml'
+      response.should render_template('data_objects/new')
     end
   end
 
@@ -49,7 +49,7 @@ describe DataObjectsController do
                                         :description => '' } },
                     { :user => @user, :user_id => @user.id }
       data_object_create_edit_variables_should_be_assigned
-      response.rendered[:template].should == 'data_objects/new.html.haml'
+      response.should render_template('data_objects/new')
     end
     it 'should only create users data object of data type text' do
       post :create, { :taxon_id => @taxon_concept.id,
@@ -57,7 +57,7 @@ describe DataObjectsController do
                                         :object_title => "Test Article", :description => "Test text" } },
                     { :user => @user, :user_id => @user.id }
       data_object_create_edit_variables_should_be_assigned
-      response.rendered[:template].should == 'data_objects/new.html.haml'
+      response.should render_template('data_objects/new')
     end
   end
 
@@ -70,7 +70,7 @@ describe DataObjectsController do
     it 'should only render edit users data object of data type text and owned by current user' do
       get :edit, { :id => @udo.id }, { :user => @user, :user_id => @user.id }
       data_object_create_edit_variables_should_be_assigned
-      response.rendered[:template].should == 'data_objects/edit.html.haml'
+      response.should render_template('data_objects/edit')
     end
   end
 
@@ -85,7 +85,7 @@ describe DataObjectsController do
                                        :language_id => Language.english.id.to_s },
                    { :user => @user, :user_id => @user.id }
       data_object_create_edit_variables_should_be_assigned
-      response.rendered[:template].should == 'data_objects/edit.html.haml'
+      response.should render_template('data_objects/edit')
     end
     it 'should create a new data object revision'
   end

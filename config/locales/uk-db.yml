@@ -1,6 +1,7 @@
 # Messages for Ukrainian (українська)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Base
 # Author: Dim Grits
 # Author: Pig1995z
 # Author: Дар'я Козлова
@@ -63,6 +64,7 @@ uk:
   translated_collection_types-label-collection_type_id-5: Поширення
   translated_collection_types-label-collection_type_id-6: Природоохоронний статус
   translated_collection_types-label-collection_type_id-7: Відомості про ім'я
+  translated_collection_types-label-collection_type_id-8: Молекулярні дані
   translated_collection_types-label-collection_type_id-9: Номенклатура
   translated_contact_roles-label-contact_role_id-1: Основна контактна особа
   translated_contact_roles-label-contact_role_id-2: Зв'язок із адміністрацією
@@ -77,6 +79,7 @@ uk:
   translated_contact_subjects-title-contact_subject_id-31: Зображення, відео або звуки
   translated_contact_subjects-title-contact_subject_id-32: Запит медіа-ресурсів (інтерв'ю, прес-релізи, логотип)
   translated_contact_subjects-title-contact_subject_id-33: Зробити грошову пожертву
+  translated_content_partner_statuses-label-content_partner_status_id-2: Активний
   translated_content_tables-label-content_table_id-1: Деталі
   translated_data_types-label-data_type_id-1: Зображення
   translated_data_types-label-data_type_id-10: Карта

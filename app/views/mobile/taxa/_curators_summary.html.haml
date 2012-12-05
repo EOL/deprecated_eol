@@ -1,9 +1,0 @@
-%ul{"data-role" => "listview", "data-inset"=>"true"}
-  %li{"data-role"=>"list-divider"}
-    =I18n.t(:curators_summary_header_with_count, :count => curators.count)
-  -curators.each do |curator|
-    %li
-      =image_tag(curator.logo_url, :alt => I18n.t(:profile_image_alt_text_curator, :user_full_name => h(curator.full_name)), :class => "listview_thumb")
-      %h3=h(curator.given_name)
-      %p=h(curator.credentials) 
-      

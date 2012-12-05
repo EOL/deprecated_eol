@@ -60,8 +60,8 @@ describe ContentServer do
 
   end
 
-  it 'should know a good default blank image ("/images/blank.gif")' do
-    ContentServer.blank.should == "/images/blank.gif"
+  it 'should know a good default blank image ("/assets/blank.gif")' do
+    ContentServer.blank.should == "/assets/blank.gif"
   end
 
   describe '#uploaded_content_url' do

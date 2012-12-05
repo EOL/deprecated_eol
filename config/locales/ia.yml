@@ -369,14 +369,12 @@ ia:
   add_a_comment_colon: "Adder un commento:"
   add_a_new_common_name: Adder un nove nomine commun
   add_a_new_file_brackets: "[adder un nove file]"
-  add_a_new_news_item: Adder un actualitate
   add_a_new_role: Adder un nove rolo
   add_a_new_search_suggestion: Adder un nove suggestion de recerca
   add_a_new_term: Adder un nove termino
   add_a_new_topic_area: Adder un nove area thematic
   add_a_new_user: Adder un nove usator
   add_a_taxon_association_label: Adder un association de taxon
-  add_article_to_page_link_button: Adder un articulo a iste pagina
   add_association_submit_button: adder association
   add_brief_summary_to_page_link_button: Adder un curte summario a iste pagina
   add_collection_to_a_new_community: Adder "%{collection}" a un nove communitate
@@ -880,7 +878,6 @@ ia:
   eol_colon: "EOL:"
   eol_glossary: Glossario de EOL
   eol_news: Novas de EOL
-  esc_key_hides_this_message: (preme le clave Esc pro celar iste message)
   explore: Explorar
   feedback: Commentos
   filter_by_status: Filtrar per stato
@@ -1188,7 +1185,6 @@ ia:
   members_with_count: 
     one: "%{count} membro"
     other: "%{count} membros"
-  minimal_page: Pagina minimal
   most_active_members: Le membros le plus active
   must_be_associated_with_either_a_user_or_a_community: Debe esser associate con un usator o communitate
   must_be_less_than_128_characters_long: debe haber minus de 128 characteres.
@@ -1711,7 +1707,6 @@ ia:
   what_is_this_question: Que es isto?
   will_paginate: 
     next_label: Sequente &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Precedente"
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Post que tu es administrator, le message de error es revelate a te:"
   you_are_not_authorized_to_perform_this_action: Tu non es autorisate a exequer iste action.

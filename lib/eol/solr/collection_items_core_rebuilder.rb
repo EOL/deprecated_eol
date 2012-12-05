@@ -66,7 +66,7 @@ module EOL
             hash = i.solr_index_hash
             objects_to_send << hash
           rescue EOL::Exceptions::InvalidCollectionItemType => e
-            logger.error "** EOL::Solr::CollectionItemsCoreRebuilder: #{e.message}"
+            Rails.logger.error "** EOL::Solr::CollectionItemsCoreRebuilder: #{e.message}"
             puts "** #{e.message}"
           end
         end
@@ -78,7 +78,7 @@ module EOL
         self.preload_object!(collection_items.select{ |d| d.object_type == 'Collection' })
         self.preload_object!(collection_items.select{ |d| d.object_type == 'User' })
         self.preload_taxon_concepts!(collection_items.select{ |d| d.object_type == 'TaxonConcept' })
-        self.preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include?(d.object_type) })
+        self.preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'Link', 'DataObject'].include?(d.object_type) })
       end
 
       def self.preload_object!(collection_items)
@@ -105,11 +105,13 @@ module EOL
 
       def self.preload_data_objects!(collection_items)
         return if collection_items.blank?
-        includes = { :object => [ :data_type, { :toc_items => :translations } ] }
+        includes = { :object => [ :data_type, { :toc_items => :translations }, { :data_objects_link_type => :link_type } ] }
         selects = {
-          :data_objects => [ :id, :object_title, :data_rating, :data_type_id ],
+          :data_objects => [ :id, :object_title, :data_rating, :data_type_id, :data_subtype_id ],
           :table_of_contents => 'id',
-          :translated_table_of_contents => '*'
+          :translated_table_of_contents => '*',
+          :data_objects_link_types => '*',
+          :link_types => '*'
         }
         CollectionItem.preload_associations(collection_items, includes, :select => selects)
       end

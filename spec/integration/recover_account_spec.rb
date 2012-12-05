@@ -32,11 +32,9 @@ describe 'user recover account' do
     it 'should log user in and redirect to user edit for valid recover account token' do
       visit temporary_login_user_path(@user.id, @user.recover_account_token)
       #TODO: update for open authentication logins
-      body.should have_tag('form') do |f|
-        f.should have_tag('input#user_entered_password')
-        f.should have_tag('input#user_entered_password_confirmation')
-        f.should have_tag('input[type=submit]')
-      end
+      body.should have_selector('input#user_entered_password')
+      body.should have_selector('input#user_entered_password_confirmation')
+      body.should have_selector('input[type=submit]')
       User.find(@user).recover_account_token.should be_nil
       User.find(@user).recover_account_token_expires_at.should be_nil
     end

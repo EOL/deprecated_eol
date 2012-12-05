@@ -10,7 +10,7 @@ require 'spec/eol_spec_helpers'
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
 
 def animal_kingdom
   @animal_kingdom ||= build_taxon_concept(:canonical_form => 'Animals',

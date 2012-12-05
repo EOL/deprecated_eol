@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CreateSerbianLanguages < ActiveRecord::Migration
   def self.up
     Language.reset_column_information

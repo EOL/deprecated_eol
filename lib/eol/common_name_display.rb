@@ -17,7 +17,7 @@ module EOL
 
     # NOTE - this uses TaxonConceptNames, and Synonyms.  TCN is a denormlized version of Synonyms.
     def self.find_by_taxon_concept_id(tc_id, hierarchy_entry_id = nil, options = {})
-      inc = [ :name, :language, :vetted, { :synonym => [ :agents, { :hierarchy => :agent } ] } ]
+      inc = [ :name, :language, :vetted, { :synonym => [ :agents, { :hierarchy => :agent } ] }, { :source_hierarchy_entry => :agents } ]
       sel = { :taxon_concept_names => [ :preferred, :vetted_id, :name_id, :language_id, :vetted_id, :synonym_id ],
               :synonyms => [ :id, :hierarchy_id ],
               :hierarchies => [ :id, :agent_id ],

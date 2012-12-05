@@ -5,21 +5,23 @@
     - newsfeed_label = I18n.t(:collection_newsfeed)
   %li{:class => 'newsfeed' + (@filter == 'newsfeed' ? ' active' : '')}= link_to(newsfeed_label, "/collections/#{@collection.id}/newsfeed")
   - unless @collection.watch_collection?
-    %li{:class => 'editors' + (@filter == 'editors' ? ' active' : '')}= link_to(I18n.t(:editors_tab_label), "/collections/#{@collection.id}/editors")
+    %li{:class => 'editors' + (@filter == 'editors' ? ' active' : '')}= link_to(I18n.t(:editors_tab_label), collection_editors_path(@collection))
   - unless @collection.inaturalist_project_info.blank?
     %li{:class => 'inaturalist' + (@filter == 'inaturalist' ? ' active' : '')}= link_to(I18n.t(:inaturalist_tab_label), "/collections/#{@collection.id}/inaturalist")
-  %li{:class => 'total' + (@filter.nil? ? ' active' : '')}
-    = link_to I18n.t(:total_items_with_count, :count => @facet_counts['All'] || 0), collection_path(@collection, :params => {:sort_by => @sort_by, :view_as => @view_as})
-  - types = CollectionItem.types
-  - # Defining the tab_order here is required as ruby 1.8 doesn't preserve the insert order of hashes
-  - # and we need our tabs on the collection show in the following order.
-  - tab_order = [:taxa, :text, :images, :sounds, :videos, :communities, :people, :collections]
-  - tab_order.each do |type|
-    - if types.keys.include?(type)
-      - count = @facet_counts[types[type][:facet]] || 0
-      - if count > 0
-        -# NOTE - a string is used for the path instead of collection_path(@collection, :filter => 'newsfeed') because
-        -# that version produces an awkward-looking URL.
-        - li_class = (type == :text) ? 'articles' : type
-        %li{:class => "#{li_class}#{@filter == type.to_s ? ' active' : ''}" }
-          = link_to I18n.t("#{types[type][:i18n_key]}_with_count", :count => count), "/collections/#{@collection.id}/#{type}?sort_by=#{@sort_by.id}&view_as=#{@view_as.id}"
+  - count = @facet_counts && @facet_counts.has_key?('All') ? @facet_counts['All'].to_i : @collection.collection_items.count 
+  - if count > 0
+    %li{:class => 'total' + (@filter.nil? ? ' active' : '')}
+      = link_to I18n.t(:total_items_with_count, :count => count), collection_path(@collection, :params => {:sort_by => @sort_by, :view_as => @view_as})
+    - types = CollectionItem.types
+    - # Defining the tab_order here is required as ruby 1.8 doesn't preserve the insert order of hashes
+    - # and we need our tabs on the collection show in the following order.
+    - tab_order = [:taxa, :text, :images, :sounds, :videos, :communities, :people, :collections, :links]
+    - tab_order.each do |type|
+      - if types.has_key?(type)
+        - count = @facet_counts[types[type][:facet]].to_i || 0
+        - if count > 0
+          -# NOTE - a string is used for the path instead of collection_path(@collection, :filter => 'newsfeed') because
+          -# that version produces an awkward-looking URL.
+          - li_class = (type == :text) ? 'articles' : type
+          %li{:class => "#{li_class}#{@filter == type.to_s ? ' active' : ''}" }
+            = link_to I18n.t("#{types[type][:i18n_key]}_with_count", :count => count), "/collections/#{@collection.id}/#{type}?sort_by=#{@sort_by.id}&view_as=#{@view_as.id}"

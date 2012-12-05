@@ -57,6 +57,7 @@ module ActiveRecord
 
           if self.class == DataObject && !self.data_type_id.blank?
             data_type_label = self.is_video? ? 'Video' : self.data_type.label('en')
+            data_type_label = (data_type_label == 'Text' && self.is_link?) ? 'Link' : data_type_label
             params[:resource_type] = [self.class.to_s, data_type_label]
           end
 
@@ -118,11 +119,11 @@ module ActiveRecord
       end
 
       def remove_index_with_solr
-        # these methods may not exist yet and that's OK
+        # these methods may not exist yet and that's OK; thus the rescue nil stuff.
         remove_method :add_to_index rescue nil
         remove_method :remove_from_index rescue nil
-        self.after_save.delete_if{ |callback| callback.method == :add_to_index}
-        self.before_destroy.delete_if{ |callback| callback.method == :remove_from_index}
+        skip_callback :save, :after, :add_to_index rescue nil
+        skip_callback :destroy, :before, :remove_from_index rescue nil
       end
       
       def assign_weight!(keyword)
@@ -161,7 +162,7 @@ module ActiveRecord
           resource_weight = 10
         elsif keyword[:resource_type].include? 'Collection'
           resource_weight = 20
-		elsif keyword[:resource_type].include? 'ContentPage'
+        elsif keyword[:resource_type].include? 'ContentPage'
           resource_weight = 25
         elsif keyword[:resource_type].include? 'User'
           resource_weight = 30

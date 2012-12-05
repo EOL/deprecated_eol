@@ -1,6 +1,6 @@
 class GoogleAnalyticsPageStat < ActiveRecord::Base
   belongs_to :taxon_concept
-  set_primary_keys :taxon_concept_id, :year, :month, :page_views
+  self.primary_keys = :taxon_concept_id, :year, :month, :page_views
 
   def self.page_summary(user_id, year, month, page)
     query =  "SELECT gapt.taxon_concept_id,

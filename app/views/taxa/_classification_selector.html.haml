@@ -1,4 +1,4 @@
-- form_for @browsable_hierarchy_entries, :url => switch_taxon_hierarchy_entry_path(@taxon_concept, @selected_hierarchy_entry),
+= form_for @browsable_hierarchy_entries, :url => switch_taxon_entry_path(@taxon_concept, @selected_hierarchy_entry),
   :html => {:class => 'select_content_partner select_submit', :id => 'switch_hierarchy_entry'} do |f|
   %fieldset
     %p= I18n.t(:you_are_viewing_this_rank_as_classified_by, :rank => @selected_hierarchy_entry.rank_label)

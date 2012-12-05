@@ -25,16 +25,16 @@ describe CollectionsController do
     describe '#login_with_open_authentication' do
       it 'should do nothing unless oauth_provider param is present' do
         get :show, :id => @collection.id
-        response.redirected_to.should be_nil
-        response.rendered[:template].should == 'collections/show.html.haml'
+        response.status.should == 200
+        response.should render_template('collections/show')
       end
       it 'should redirect to login unless user already logged in' do
         provider = 'aprovider'
         get :show, { :id => @collection.id, :oauth_provider => provider }
         session[:return_to].should == collection_url(@collection)
-        response.redirected_to.should == login_url(:oauth_provider => provider)
+        expect(response).to redirect_to(login_url(:oauth_provider => provider))
         get :show, { :id => @collection.id, :oauth_provider => provider }, { :user_id => @user.id }
-        response.redirected_to.should_not == login_url(:oauth_provider => provider)
+        response.should_not redirect_to(login_url(:oauth_provider => provider))
       end
       it 'should redirect to current url if it matches the session return to url and clear obsolete session data' do
         obsolete_oauth_session_data = {:provider_request_token_token => 'token',
@@ -44,13 +44,14 @@ describe CollectionsController do
         get :show, { :id => @collection.id, :oauth_provider => 'provider' },
                    obsolete_oauth_session_data.merge({ :return_to => return_to_url })
         obsolete_oauth_session_data.each{|k,v| session.has_key?(k.to_s).should be_false}
-        response.redirected_to.should == return_to_url
+        expect(response).to redirect_to(return_to_url)
       end
     end
   end
 
   describe 'GET edit' do
     it 'should set view as options' do
+      session[:user_id] = nil
       get :edit, { :id => @collection.id }, { :user_id => @collection.users.first.id, :user => @collection.users.first }
       assigns[:view_as_options].should == [ViewStyle.list, ViewStyle.gallery, ViewStyle.annotated]
     end
@@ -74,6 +75,7 @@ describe CollectionsController do
 
     end
     it "Updates the description" do
+      session[:user_id] = nil
       getter = lambda{
         session[:user_id] = @test_data[:user].id
         post :update, :id => @collection.id, :commit_edit_collection => 'Submit',  :collection => {:description => "New Description"}

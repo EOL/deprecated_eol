@@ -3,19 +3,19 @@
 - unless view_style == 'list'
   - if image = item.exemplar_or_best_image_from_solr
     - if thumb = image.thumb_or_object('88_88')
-      = link_to image_tag(thumb), taxon_overview_path(item)
-  = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), taxon_overview_path(item)
+      = link_to image_tag(thumb), overview_taxon_path(item)
+  = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), overview_taxon_path(item)
 - unless ['gallery','list'].include?(view_style)
   - if item.entry and item.entry.respond_to?(:preferred_classification_summary)
-    %small= link_to item.entry.preferred_classification_summary, taxon_overview_path(item)
+    %small= link_to item.entry.preferred_classification_summary, overview_taxon_path(item)
 %h4
-  = link_to h(truncate(item.title_canonical, :length => 64)), taxon_overview_path(item)
+  = link_to h(truncate(item.title_canonical, :length => 64)), overview_taxon_path(item)
   - if view_style == 'list' && @filter.nil?
     %small= I18n.t(:item_type_taxon)
 - unless ['gallery','list'].include?(view_style)
   - subtitle = item.preferred_common_name_in_language(current_language)
   - unless subtitle.blank?
-    = link_to subtitle.firstcap, taxon_overview_path(item)
+    = link_to subtitle.firstcap, overview_taxon_path(item)
   - # we need the search result object, and the best match can't be in the title or subtitle
   - if search_result || @querystring # This was a search result... perhaps we should be more intelligent about this.
     - querystring = @querystring.blank? ? "" : @querystring.downcase

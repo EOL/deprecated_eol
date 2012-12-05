@@ -3,65 +3,23 @@
 -# simple node, you're _probably_ much better off just rendering an %li yourself, like so:
 -#   %li= navigation_node(hierarchy_entry, :link_to_taxa => false)
 -# Think about doing so before you use this (somewhat expensive) partial.
-- ancestors ||= []
-- ancestors = ancestors.compact
-- is_current_node ||= ancestors.blank?
-- show_children ||= is_current_node
 - show_siblings ||= false
 - expand ||= false
 - link_to_taxa ||= false # Only when a preferred classification is being rendered.
 - max_children ||= 10    # NOTE - this ALSO applies to siblings, not just children.
-%li{:class => is_current_node ? 'current' : nil}
-  - if hierarchy_entry
-    - if is_current_node
-      %span.current
-        = hierarchy_entry.italicized_name.firstcap
-      - if show_children
-        - children = hierarchy_entry.children
-        - unless children.blank?
-          %ul.branch
-            - children[0..max_children-2].each do |child|
-              - if expand && !child.is_leaf?
-                = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :is_current_node => false, :hierarchy_entry => child, :expand => expand, :max_children => max_children, :show_siblings => show_siblings })
-              - else
-                %li= navigation_node(child, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
-            - if children.length == max_children
-              - child = children[max_children-1]
-              - if expand && !child.is_leaf?
-                = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :is_current_node => false, :hierarchy_entry => child, :expand => expand, :max_children => max_children, :show_siblings => show_siblings })
-              - else
-                %li= navigation_node(child, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
-            - elsif children.length > max_children
-              %li.show_tree_count
-                = I18n.t(:more_children_with_count, :count => children.length - max_children)
-                - full_link = link_to_taxa ? taxon_overview_path(hierarchy_entry.taxon_concept_id, :full => true) : taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry, :full => true)
-                - full_data_link = taxon_hierarchy_entry_tree_path(hierarchy_entry.taxon_concept_id, hierarchy_entry, :full => true, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
-                = link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
-      - elsif hierarchy_entry.number_of_descendants > 0
-        = navigation_show_descendants_link(hierarchy_entry, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
-    - else
-      - ancestor = ancestors.shift
-      = navigation_node(ancestor, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
-      - if show_siblings && ancestors.empty?
-        - siblings = ancestor.children
-        %ul.branch
-          = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :max_children => max_children, :show_siblings => false, :show_children => true })
-          - siblings[0..max_children-2].each do |sister|
-            - unless sister == hierarchy_entry
-              %li= navigation_node(sister, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
-          - if siblings.length == max_children
-            - sister = siblings[max_children-1]
-            - sister = siblings[max_children] if sister == hierarchy_entry
-            - unless sister.nil?
-              %li= navigation_node(sister, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
-          - if siblings.length > max_children
-            %li.show_tree_count
-              = I18n.t(:more_siblings_with_count, :count => siblings.length - max_children)
-              - full_link = link_to_taxa ? taxon_overview_path(ancestor.taxon_concept_id, :full => true) : taxon_hierarchy_entry_overview_path(ancestor.taxon_concept_id, ancestor, :full => true)
-              - full_data_link = taxon_hierarchy_entry_tree_path(ancestor.taxon_concept_id, ancestor, :full => true, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
-              = link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
-      - else
-        %ul.branch
-          = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :max_children => max_children, :show_siblings => show_siblings })
-  - else
+- show_hierarchy_label ||= false
+
+- if hierarchy_entry
+  - if show_hierarchy_label
+    - hierarchy_label = hierarchy_display_title(hierarchy_entry.hierarchy)
+    %h4= raw(I18n.t(:rank_recognized_by_agent_colon, :rank => hierarchy_entry.rank_label, :agent => hierarchy_label))
+  -# preloading the name information for ancestors and current node at the same time
+  - HierarchyEntry.preload_associations(hierarchy_entry.ancestors + [hierarchy_entry], :name)
+  - siblings = nil
+  - if show_siblings
+    -# querying for the first $max_children siblings, ordered by name, and preloading the name strings all at once
+    - siblings = hierarchy_entry.siblings.includes(:name).order('names.string').limit(max_children).reject{ |s| s == hierarchy_entry }[0...max_children-1]
+  = show_full_tree(hierarchy_entry, :show_siblings => show_siblings, :siblings => siblings, :expand => expand, :link_to_taxa => link_to_taxa, :max_children => max_children, :show_hierarchy_label => show_hierarchy_label)
+- else
+  %li
     = I18n.t(:hierarchy_node_missing)

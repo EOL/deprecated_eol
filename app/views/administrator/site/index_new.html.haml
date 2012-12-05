@@ -25,22 +25,22 @@
     %td.odd
       =I18n.t("rails_environment")
     %td.odd
-      = ENV["RAILS_ENV"]
+      = Rails.env
   %tr
     %td.even
       =I18n.t("rails_databases")
     %td.even
       =I18n.t(:main_colon)
-      = @config.database_configuration[ENV["RAILS_ENV"]]["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]]["host"]
+      = @config.database_configuration[Rails.env.to_s]["database"] + ' @ ' + @config.database_configuration[Rails.env.to_s]["host"]
       %br
       =I18n.t(:data)
-      = @config.database_configuration[ENV["RAILS_ENV"]+'_data']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_data']["host"]
+      = @config.database_configuration["#{Rails.env}_data"]["database"] + ' @ ' + @config.database_configuration["#{Rails.env}_data"]["host"]
       %br
       =I18n.t(:logging)
-      = @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]
+      = @config.database_configuration["#{Rails.env}_logging"]["database"] + ' @ ' + @config.database_configuration["#{Rails.env}_logging"]["host"]
       %br
       - unless @config.database_configuration['master_database'].nil?
-        =I18n.t("this_does_not_necessarily_mean", :env => ENV["RAILS_ENV"])
+        =I18n.t("this_does_not_necessarily_mean", :env => Rails.env)
         %br
         =I18n.t(:main_master_colon)
         = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]
@@ -65,11 +65,6 @@
     %td.odd
       = $ENABLE_DATA_LOGGING.to_s
   %tr
-    %td.even
-      =I18n.t("email_error_notification_activ")
-    %td.even
-      = $EXCEPTION_NOTIFY.to_s
-  %tr
     %td.odd
       =I18n.t("content_servers")
     %td.odd
@@ -87,14 +82,14 @@
         %span#cache_clear_time
           =I18n.t("home_page_cache_last_cleared_on", :date => format_date_time($CACHE_CLEARED_LAST))
         %br
-        = link_to_remote I18n.t(:clear_entire_cache_store), :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :confirm=>I18n.t(:are_you_sure), :update=>'cache_clear_time'
+        = link_to I18n.t(:clear_entire_cache_store), :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :data => { :confirm=>I18n.t(:are_you_sure) }, :update=>'cache_clear_time', :remote => true
         %br
-        = link_to_remote I18n.t(:clear_all_non_species_pages), :url=>{:controller=>'/administrator/site', :action=>'expire_all'}, :update=>'cache_clear_time'
+        = link_to I18n.t(:clear_all_non_species_pages), :url=>{:controller=>'/administrator/site', :action=>'expire_all'}, :update=>'cache_clear_time', :remote => true
         %br
         %span#taxon_id_clear_time
         =I18n.t(:taxon_id)
         = text_field_tag :taxon_id, '', {:size=>8}
-        = link_to_remote I18n.t(:clear_species_page), :url=>{:controller=>'/administrator/site', :action=>'expire'}, :update=>'taxon_id_clear_time', :with => "'taxon_id=' + $('taxon_id').value"
+        = link_to I18n.t(:clear_species_page), :url=>{:controller=>'/administrator/site', :action=>'expire'}, :update=>'taxon_id_clear_time', :with => "'taxon_id=' + $('taxon_id').value", :remote => true
         %br
     %tr
       %td.even
@@ -117,7 +112,7 @@
       EOL is scheduled for maintenance on Thursday, December 22 between 8:00 and 10:00 AM EST.  During this time you may find changes in EOL's performance and availability.
       %br
       Enter New Maintenance message:
-      - form_tag({ :action=>'index' }, :method=>'get') do
+      = form_tag({ :action=>'index' }, :method=>'get') do
         - global_site_warning = SiteConfigurationOption.find_by_parameter('global_site_warning')
         - global_site_warning_message = (global_site_warning && global_site_warning.value) ? global_site_warning.value : ""
         = text_area_tag :taxon_id, global_site_warning_message, { :rows => 80, :cols => 3 }

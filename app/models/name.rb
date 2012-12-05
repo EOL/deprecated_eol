@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Name is used for storing different variations of names of species (TaxonConcept)
 #
 # These names are not "official."  If they have a CanonicalForm, the CanonicalForm is the "accepted" scientific name for the
@@ -23,19 +24,13 @@ class Name < ActiveRecord::Base
   validates_presence_of   :canonical_form
 
   validate :clean_name_must_be_unique
-  before_validation_on_create :set_default_values
-  before_validation_on_create :create_clean_name
-  before_validation_on_create :create_canonical_form
-  before_validation_on_create :create_italicized
+  before_validation :set_default_values, :on => :create
+  before_validation :create_clean_name, :on => :create
+  before_validation :create_canonical_form, :on => :create
+  before_validation :create_italicized, :on => :create
 
   def taxon_concepts
     return taxon_concept_names.collect {|tc_name| tc_name.taxon_concept}.flatten
-  end
-
-  # TODO - deprecated.
-  def canonical
-    logger.warn "** DEPRECATED: Name#canonical.  Use HierarchyEntry#title_canonical where possible."
-    return canonical_form.nil? ? string : canonical_form.string
   end
 
   def italicized_canonical
@@ -59,11 +54,11 @@ class Name < ActiveRecord::Base
     name = name.gsub("À","à").gsub("Â","â").gsub("Å","å").gsub("Ã","ã").gsub("Ä","ä")
     name = name.gsub("Á","á").gsub("Æ","æ").gsub("C","c").gsub("Ç","ç").gsub("Č","č")
     name = name.gsub("É","é").gsub("È","è").gsub("Ë","ë").gsub("Í","í").gsub("Ì","ì")
-    name = name.gsub("Ï","ï").gsub("Ň","ň").gsub("Ñ","ñ").gsub("Ñ","ñ").gsub("Ó","ó")
+    name = name.gsub("Ï","ï").gsub("Ň","ň").gsub("Ñ","ñ").gsub("Ó","ó")
     name = name.gsub("Ò","ò").gsub("Ô","ô").gsub("Ø","ø").gsub("Õ","õ").gsub("Ö","ö")
-    name = name.gsub("Ú","ú").gsub("Ù","ù").gsub("Ü","ü").gsub("R","r").gsub("Ŕ","ŕ")
-    name = name.gsub("Ř","ř").gsub("Ŗ","ŗ").gsub("Š","š").gsub("Š","š").gsub("Ş","ş")
-    name.gsub("Ž","ž").gsub("Œ","œ").strip
+    name = name.gsub("Ú","ú").gsub("Ù","ù").gsub("Ü","ü").gsub("Ŕ","ŕ")
+    name = name.gsub("Ř","ř").gsub("Ŗ","ŗ").gsub("Š","š").gsub("Ş","ş").gsub("Ž","ž").gsub("Œ","œ")
+    name.strip
   end
 
 
@@ -134,12 +129,17 @@ class Name < ActiveRecord::Base
     return true if string.match(/virus([^\w]|$)/i)
     return false
   end
+  
+  def is_subgenus?
+    return true if string.match(/^[A-Z][^ ]+ \([A-Z][^ ]+\)($| [A-Z])/)
+    return false
+  end
 
 private
 
   def clean_name_must_be_unique
     found_name = Name.find_by_string(self.string)
-    errors.add_to_base("Name string must be unique") unless found_name.nil?
+    errors[:base] << "Name string must be unique" unless found_name.nil?
   end
 
   def set_default_values

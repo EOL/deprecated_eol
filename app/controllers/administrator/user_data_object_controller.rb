@@ -14,10 +14,6 @@ class Administrator::UserDataObjectController < AdminController
     conditions = (@user_id == 'All') ? nil : ['user_id = ?',@user_id]
     @users_data_objects = UsersDataObject.paginate(:conditions => conditions,
       :order => 'id desc',
-      :select => {
-        :users_data_objects => :taxon_concept_id,
-        :users => [ :given_name, :family_name, :curator_level_id, :username ],
-        :data_objects => [ :description, :created_at, :updated_at, :published ] },
       :include => [ :user, { :data_object => [:toc_items] }, :vetted, :visibility],
       :page => params[:page])
   end

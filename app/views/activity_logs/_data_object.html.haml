@@ -1,17 +1,18 @@
--# NOTE: If you alter this, copy the change to app/views/activity_logs/_users_data_object.html.haml  ...the reasons
+-# NOTE: If you alter this, copy the change to app/views/activity_logs/_users_data_object ...the reasons
   for the duplication are explained in that file.
 - link_style ||= nil
+- link_object = true if item.data_subtype_id == DataType.link.id
 - display_curator ||= false
 - user = link_to(h(item.user.full_name), user_url(item.user), :style => link_style)
-- if latest_data_object = item.latest_published_revision
+- if latest_data_object = item.latest_published_version_in_same_language
   - latest_data_object_url = data_object_url(latest_data_object)
 - else
   - latest_data_object_url = data_object_url(item.revisions_by_date.first)
 - if display_curator && item.user.is_curator?
   - user = I18n.t(:user_full_name_with_curator, :user => user, :curator_level => item.user.curator_level.translated_label)
-%p= I18n.t(:activity_user_created_text, :user => user,
-  :object_name => link_to(item.summary_name, data_object_url(latest_data_object_url), :style => link_style),
-  :taxon_concept => link_to(item.taxon_concepts.first.summary_name, taxon_overview_url(item.taxon_concepts.first),
+%p= raw I18n.t("activity_user_created_#{link_object ? 'link' : 'text'}", :user => user,
+  :object_name => link_to(item.summary_name, latest_data_object_url, :style => link_style),
+  :taxon_concept => link_to(raw(item.taxon_concepts.first.summary_name), overview_taxon_url(item.taxon_concepts.first),
   :style => link_style))
 %blockquote{:cite => h(item.user.full_name)}
-  %p= item.description_teaser
+  %p= raw(item.description_teaser)

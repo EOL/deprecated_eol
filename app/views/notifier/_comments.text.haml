@@ -1,0 +1,18 @@
+- if comments.blank?
+  = I18n.t(:comments_empty, :scope => :notifier)
+- else
+  - comments.each do |comment|
+    - next if comment.parent.nil?
+    - commented_on_name = comment.parent.summary_name
+    - commented_on_url = nil
+    - case comment.parent_type
+    - when 'TaxonConcept'
+      - commented_on_url = overview_taxon_url(comment.parent, :host => $SITE_DOMAIN_OR_IP)
+    - when 'DataObject'
+      - commented_on_url = data_object_url(comment.parent, :host => $SITE_DOMAIN_OR_IP)
+    = I18n.t(:user_commented_on_something_date_body, :users_name => h(comment.user.full_name),
+      :users_url => user_url(comment.user, :host => $SITE_DOMAIN_OR_IP),
+      :curator_level => (comment.user.curator_level.translated_label rescue 'User'),
+      :commented_on_name => commented_on_name, :commented_on_url => commented_on_url,
+      :comment_body => strip_tags(comment.body), :comment_date => format_date_time(comment.created_at),
+      :scope => :notifier)

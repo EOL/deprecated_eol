@@ -1,7 +1,7 @@
 - taxon_concept = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept : @taxon_concept
 .article
   - if taxon_concept.has_map
-    = javascript_include_merged :maps
+    = javascript_include_tag 'swfobject.js'
     #map_image
     :javascript
       var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9");
@@ -23,5 +23,5 @@
       so.addVariable("tile_servers", tileServers);
       so.write("map_image");
     %p
-      = I18n.t(:gbif_occurrence_disclaimer)
+      = raw(I18n.t(:gbif_occurrence_disclaimer))
       = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://data.gbif.org/species/#{taxon_concept.gbif_map_id}/", :rel => :nofollow

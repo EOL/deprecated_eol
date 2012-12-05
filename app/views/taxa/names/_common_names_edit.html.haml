@@ -1,4 +1,4 @@
-= javascript_include_merged 'common-names'
+= javascript_include_tag 'common-names'
 = render :partial => 'data_objects/curation_js'
 = render :partial => 'common_names_new'
 - names_by_language = common_names_by_language(@common_names, current_language.id)
@@ -6,7 +6,7 @@
   - language = language_names_pair[0]
   - names = language_names_pair[1]
   - next if names.blank?
-  - form_tag "/pages/#{@taxon_concept.id}/names/update", :method => :put, :class => 'update_common_names' do
+  = form_tag "/pages/#{@taxon_concept.id}/names/update", :method => :put, :class => 'update_common_names' do
     = hidden_field_tag 'language_id', names[0].language.id
     - if @selected_hierarchy_entry_id
       = hidden_field_tag "hierarchy_entry_id", @selected_hierarchy_entry_id

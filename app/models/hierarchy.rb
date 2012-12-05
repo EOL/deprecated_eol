@@ -10,7 +10,7 @@
 #        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
 #      ]
 #
-require 'invert' # TEMP - Ant and JRice are attempting a fix
+require 'invert'
 
 class Hierarchy < ActiveRecord::Base
   belongs_to :agent           # This is the attribution.
@@ -24,8 +24,7 @@ class Hierarchy < ActiveRecord::Base
 
   before_save :reset_request_publish, :if => Proc.new { |hierarchy| hierarchy.browsable == 1 }
 
-  named_scope :browsable, :conditions => {:browsable => 1}
-
+  scope :browsable, :conditions => {:browsable => 1}
 
   alias entries hierarchy_entries
 
@@ -69,7 +68,9 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.eol_contributors
-    cached_find(:label, "Encyclopedia of Life Contributors")
+    cached('eol_contributors') do
+      Hierarchy.find_by_label("Encyclopedia of Life Contributors", :include => :agent)
+    end
   end
 
   def self.ubio
@@ -89,9 +90,8 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.browsable_for_concept(taxon_concept)
-    Hierarchy.find_all_by_browsable(1, :select => { :hierarchies => [ :id, :label, :descriptive_label ] },
-      :joins => "JOIN hierarchy_entries ON hierarchies.id=hierarchy_entries.hierarchy_id",
-      :conditions => "hierarchy_entries.taxon_concept_id=#{taxon_concept.id}")
+    Hierarchy.joins(:hierarchy_entries).select('hierarchies.id, hierarchies.label, hierarchies.descriptive_label').
+      where(['hierarchies.browsable = 1 AND hierarchy_entries.taxon_concept_id = ?', taxon_concept.id])
   end
 
   def form_label
@@ -99,32 +99,12 @@ class Hierarchy < ActiveRecord::Base
     return label
   end
 
-  def attribution
-    citable_agent = agent.citable
-    citable_agent.display_string = label # To change the name from just "Catalogue of Life"
-    return citable_agent
-  end
-
   def kingdoms(opts = {})
-    # this is very hacky - another case where reading from the cache in development mode throws an error
-    # becuase several classes have not been loaded yet. The only fix is to somehow load them before reading
-    # from the cache
-    HierarchyEntry
-    Rank
-    Name
-    CanonicalForm
-    Hierarchy.cached("kingdoms_for_#{id}") do
-      add_include = [ :taxon_concept ]
-      add_select = { :taxon_concepts => '*' }
-      unless opts[:include_stats].blank?
-        add_include << :hierarchy_entry_stat
-        add_select[:hierarchy_entry_stats] = '*'
-      end
-
-      vis = [Visibility.visible.id, Visibility.preview.id]
-      k = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
-      HierarchyEntry.sort_by_name(k)
-    end
+    vis = [Visibility.visible.id, Visibility.preview.id]
+    k = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
+    HierarchyEntry.preload_associations(k, :name)
+    HierarchyEntry.preload_associations(k, :hierarchy_entry_stat) if opts[:include_stats]
+    k
   end
   
   def content_partner

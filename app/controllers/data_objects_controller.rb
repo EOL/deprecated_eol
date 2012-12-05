@@ -1,5 +1,7 @@
 class DataObjectsController < ApplicationController
 
+  # TODO - remove hard-coded strings!
+
   layout :data_objects_layout
   @@results_per_page = 20
   before_filter :check_authentication, :only => [:new, :create, :edit, :update, :ignore] # checks login only
@@ -21,7 +23,13 @@ class DataObjectsController < ApplicationController
                         @toc_items.select{|ti| ti == TocItem.brief_summary}.first ||
                         @toc_items[0]
     @selected_toc_item_id = selected_toc_item.id
-    @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+    if params[:link]
+      @add_link = true
+      @page_title = I18n.t(:dato_new_text_link_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+    else
+      @add_article = true
+      @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+    end
     @page_description = I18n.t(:dato_new_text_page_description)
     current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
   end
@@ -39,7 +47,8 @@ class DataObjectsController < ApplicationController
     raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
     @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
-                                               :taxon_concept => @taxon_concept, :toc_id => toc_id)
+                                               :taxon_concept => @taxon_concept, :toc_id => toc_id,
+                                               :link_type_id => link_type_id, :link_object => params[:commit_link])
 
     if @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_id
@@ -53,9 +62,28 @@ class DataObjectsController < ApplicationController
         :object => @data_object,
         :collection => current_user.watch_collection
       )
-      CollectionActivityLog.create(:collection => current_user.watch_collection, :user => current_user,
+      CollectionActivityLog.create(:collection => current_user.watch_collection, :user_id => current_user.id,
                                    :activity => Activity.collect, :collection_item => collection_item)
       @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)
+
+      # redirect to appropriate tab/sub-tab after creating the users_data_object/link_object
+      if @data_object.is_link?
+        case @data_object.link_type.id
+        when LinkType.blog.id
+          redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        when LinkType.news.id
+          redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        when LinkType.organization.id
+          redirect_path = related_organizations_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        when LinkType.paper.id
+          redirect_path = literature_links_taxon_literature_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        when LinkType.multimedia.id
+          redirect_path = multimedia_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        else
+          redirect_path = taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        end
+        return redirect_to redirect_path, :status => :moved_permanently
+      end
 
       # Will try to redirect to the appropriate tab/section after adding text
       subchapter = @data_object.toc_items.first.label.downcase
@@ -84,8 +112,7 @@ class DataObjectsController < ApplicationController
                              :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
           subchapter == 'literature'
       end
-
-      redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently
+      return redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently
     end
   end
 
@@ -94,9 +121,17 @@ class DataObjectsController < ApplicationController
     # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
     @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
-    @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
-    @page_title = I18n.t(:dato_edit_text_title)
-    @page_description = I18n.t(:dato_edit_text_page_description)
+    @selected_link_type_id = @data_object.link_type.id rescue nil
+    if params[:link]
+      @edit_link = true
+      @page_title = I18n.t(:dato_edit_link_title)
+      @page_description = I18n.t(:dato_edit_link_description)
+    else
+      @edit_article = true
+      @page_title = I18n.t(:dato_edit_text_title)
+      @page_description = I18n.t(:dato_edit_text_page_description)
+      @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
+    end
   end
 
   # PUT /data_objects/:id
@@ -109,7 +144,8 @@ class DataObjectsController < ApplicationController
     end
     old_cdohe_associations = @data_object.all_curated_data_objects_hierarchy_entries.dup
     # Note: replicate doesn't actually update, it creates a new data_object
-    new_data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_id)
+    new_data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_id,
+                                             :link_type_id => link_type_id, :link_object => params[:commit_link])
     new_cdohe_associations = new_data_object.all_curated_data_objects_hierarchy_entries
     
     if new_data_object.nil?
@@ -187,7 +223,7 @@ class DataObjectsController < ApplicationController
         { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
         { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
     @revisions = @data_object.revisions_by_date
-    @latest_published_revision = @data_object.latest_published_revision
+    @latest_published_revision = @data_object.latest_published_version_in_same_language
     @translations = @data_object.available_translations_data_objects(current_user, nil)
     @translations.delete_if{ |t| t.language.nil? } unless @translations.nil?
     @image_source = get_image_source if @data_object.is_image?
@@ -208,7 +244,7 @@ class DataObjectsController < ApplicationController
   # GET /data_objects/1/curation
   # GET /data_objects/1/curation.js
   #
-  # UI for curating a data object
+  # UI for curating a data object (ie: via the worklist)
   #
   # This is a GET, so there's no real reason to check to see whether or not the current_user can curate the object -
   # we leave that to the #curate method
@@ -250,7 +286,7 @@ class DataObjectsController < ApplicationController
           hierarchy_entries.each do |hierarchy_entry|
             hierarchy_entry.hierarchy.browsable? ? browsable_entries << hierarchy_entry : unbrowsable_entries << hierarchy_entry
           end
-          result_instance['entries'] = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
+          result_instance.entries = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
         end
       end
       params.delete(:commit) unless params[:commit].blank?
@@ -301,7 +337,7 @@ class DataObjectsController < ApplicationController
     else
       access_denied
     end
-    redirect_back_or_default data_object_path(@data_object.latest_published_revision)
+    redirect_back_or_default data_object_path(@data_object.latest_published_version_in_same_language)
   end
 
   def ignore
@@ -360,7 +396,7 @@ private
     # No layout for Ajax calls.
     return false if request.xhr?
     case action_name
-    when 'new', 'create', 'update', 'edit'
+    when 'edit'
       'v2/basic'
     when 'add_association'
       'v2/association'
@@ -371,7 +407,7 @@ private
 
   def curators_and_owners_only
     unless current_user.min_curator_level?(:assistant) || current_user == @data_object.user
-      access_denied
+      access_denied unless current_user.min_curator_level?(:master)
     end
   end
 
@@ -403,7 +439,8 @@ private
 
   def set_text_data_object_options
     @toc_items = TocItem.selectable_toc
-    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
+    @link_types = LinkType.all
+    @languages = Language.all(:conditions => "iso_639_1 != '' && source_form != ''", :order => "source_form asc")
     @licenses = License.find_all_by_show_to_content_partners(1)
   end
 
@@ -476,11 +513,11 @@ private
 
   def get_curated_object(hierarchy_entry)
     if hierarchy_entry.class == UsersDataObject
-      curated_object = UsersDataObject.find_by_data_object_id(@data_object.latest_published_revision.id)
+      curated_object = UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
     elsif hierarchy_entry.associated_by_curator
       curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, hierarchy_entry.id)
     else
-      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_revision.id, hierarchy_entry.id)
+      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_version_in_same_language.id, hierarchy_entry.id)
     end
   end
 
@@ -543,6 +580,7 @@ private
 
   def log_action(object, method, opts = {})
     object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
+    return if object.blank?
     object_id = object.id if object_id.blank?
 
     if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry"
@@ -561,13 +599,13 @@ private
     flash[:notice]  += ' ' + I18n.t(:object_curated)
     auto_collect(@data_object) # SPG asks for all curation to add the item to their watchlist.
     create_options = {
-      :user => current_user,
+      :user_id => current_user.id,
       :changeable_object_type => changeable_object_type,
       :object_id => object_id,
       :activity => Activity.send(method),
       :data_object => @data_object,
       :data_object_guid => @data_object.guid,
-      :hierarchy_entry => he,
+      :hierarchy_entry_id => he.id,
       :created_at => 0.seconds.from_now
     }
     if object.class.name == "UsersDataObject"
@@ -614,20 +652,20 @@ private
         txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(tc.id, @data_object.id)
         txei_exists.destroy unless txei_exists.nil?
 
-        cached_taxon_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
+        cached_taxon_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_id_#{tc.id}"))
         unless cached_taxon_exemplar.nil? || cached_taxon_exemplar == "none"
-          $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
+          Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
         end
-        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_curator"))
-        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}"))
+        Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_curator"))
+        Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}"))
 
         tc.published_browsable_hierarchy_entries.each do |pbhe|
-          cached_taxon_he_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}"))
+          cached_taxon_he_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_id_#{tc.id}_#{pbhe.id}"))
           unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"
-            $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
+            Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{tc.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
           end
-          $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}_curator"))
-          $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}"))
+          Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}_curator"))
+          Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}"))
         end
       end
     end
@@ -647,8 +685,20 @@ private
   end
 
   def toc_id
-    @ti ||= params[:data_object].delete(:toc_items)[:id].to_a
-    @ti.empty? ? nil : @ti.first.to_i
+    id_in_params = nil
+    if arr = params[:data_object].delete(:toc_items)
+      id_in_params = arr[:id].to_i
+    end
+    @ti ||= id_in_params ? id_in_params : nil
   end
+  
+  def link_type_id
+    id_in_params = nil
+    if arr = params[:data_object].delete(:link_types)
+      id_in_params = arr[:id].to_i
+    end
+    @li ||= id_in_params ? id_in_params : nil
+  end
+  
 
 end

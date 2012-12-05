@@ -1,6 +1,6 @@
 #profile_content_partner.site_column
   .article.copy
-    - form_for @partner, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |partner_form|
+    = form_for @partner, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |partner_form|
       = validation_errors_for(@partner)
       = render :partial => 'partner_fieldset', :locals => { :partner_form => partner_form }
       %fieldset.actions

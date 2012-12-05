@@ -1,11 +1,8 @@
+# encoding: utf-8
 # sets up a basic foundation - enough data to run the application, but no content
 truncate_all_tables(:skip_empty_tables => false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
 
-old_cache_value = nil
-if $CACHE
-  $CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set.
-  old_cache_value = $CACHE.clone
-end
+Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.
 
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
@@ -107,7 +104,14 @@ DataType.gen_if_not_exists(:label => 'GBIF Image')
 DataType.gen_if_not_exists(:label => 'IUCN',      :schema_value => 'IUCN')
 DataType.gen_if_not_exists(:label => 'Flash',     :schema_value => 'Flash')
 DataType.gen_if_not_exists(:label => 'YouTube',   :schema_value => 'YouTube')
-DataType.gen_if_not_exists(:label => 'Map',   :schema_value => 'Map')
+DataType.gen_if_not_exists(:label => 'Map',       :schema_value => 'Map')
+DataType.gen_if_not_exists(:label => 'Link',      :schema_value => 'Link')
+
+LinkType.gen_if_not_exists(:label => 'Blog')
+LinkType.gen_if_not_exists(:label => 'News')
+LinkType.gen_if_not_exists(:label => 'Organization')
+LinkType.gen_if_not_exists(:label => 'Paper')
+LinkType.gen_if_not_exists(:label => 'Multimedia')
 
 default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
 Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label =>  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :browsable => 0)
@@ -142,19 +146,19 @@ License.gen_if_not_exists(:title => 'all rights reserved',
 License.gen_if_not_exists(:title => 'cc-by-nc 3.0',
                           :description => 'Some rights reserved',
                           :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',
-                          :logo_url => '/images/licenses/cc_by_nc_small.png')
+                          :logo_url => 'cc_by_nc_small.png')
 License.gen_if_not_exists(:title => 'cc-by 3.0',
                           :description => 'Some rights reserved',
                           :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                          :logo_url => '/images/licenses/cc_by_small.png')
+                          :logo_url => 'cc_by_small.png')
 License.gen_if_not_exists(:title => 'cc-by-sa 3.0',
                           :description => 'Some rights reserved',
                           :source_url => 'http://creativecommons.org/licenses/by-sa/3.0/',
-                          :logo_url => '/images/licenses/cc_by_sa_small.png')
+                          :logo_url => 'cc_by_sa_small.png')
 License.gen_if_not_exists(:title => 'cc-by-nc-sa 3.0',
                           :description => 'Some rights reserved',
                           :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/',
-                          :logo_url => '/images/licenses/cc_by_nc_sa_small.png')
+                          :logo_url => 'cc_by_nc_sa_small.png')
 
 MimeType.gen_if_not_exists(:label => 'image/jpeg')
 MimeType.gen_if_not_exists(:label => 'audio/mpeg')
@@ -185,11 +189,12 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_objects_hierarch
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_taxon_concept_preferred_entry')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'classification_curation')
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 
 iucn_hierarchy = Hierarchy.gen_if_not_exists(:label => 'IUCN')
-iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter)
+iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter, :acesspoint_url => "http://eol.org/api/ping.xml")
 iucn_agent = Agent.iucn
 raise "IUCN is nil" if iucn_agent.nil?
 raise "IUCN Resource is nil" if iucn_resource.nil?
@@ -287,7 +292,6 @@ he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
 DataObjectsHierarchyEntry.gen(:data_object => d, :hierarchy_entry => he, :vetted => Vetted.trusted, :visibility => Visibility.visible)
 5.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy, :hierarchy_entry => he, :data_object => d) }
 
-$CACHE = old_cache_value.clone if old_cache_value
-$CACHE.clear
+Rails.cache.clear # TODO - attempt removal; if tests still pass, leave it out. I think this is redundant.
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value

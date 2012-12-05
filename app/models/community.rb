@@ -1,3 +1,5 @@
+require 'eol/activity_loggable'
+
 class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable
@@ -7,13 +9,18 @@ class Community < ActiveRecord::Base
   has_many :members
   has_many :users, :through => :members
   has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
-  has_many :collected_items, :class_name => 'CollectionItem',
-           :finder_sql => 'SELECT ci.* FROM collection_items ci JOIN collections c ON (ci.collection_id = c.id) ' +
-             'JOIN collections_communities cc ON (cc.collection_id = c.id) WHERE cc.community_id = #{self.id}'
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 
-  named_scope :published, :conditions => 'published = 1'
+  scope :published, :conditions => 'published = 1'
+  
+  scope :in_group, lambda{ |group| {
+      :select=>"`photos`.*",
+      :joins=>"INNER JOIN `users` on `users`.id = `photos`.user_id INNER
+  JOIN `groups_users` ON `users`.id = `groups_users`.user_id",
+      :conditions=>["`groups_users`.group_id = ?", group.id]
+    }}
+  
 
   # These are for will_paginate:
   cattr_reader :per_page
@@ -27,14 +34,14 @@ class Community < ActiveRecord::Base
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif",
-    :if => self.column_names.include?('logo_file_name')
-
+    :default_url => "/assets/blank.gif",
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+  
   validates_attachment_content_type :logo,
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :if => self.column_names.include?('logo_file_name')
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
   validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => self.column_names.include?('logo_file_name')
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
 
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
@@ -49,7 +56,9 @@ class Community < ActiveRecord::Base
   # annotation along with it.
   def featured_collections
     return [] unless self.collections && !self.collections.blank?
-    collected_items.select{ |ci| ci.object_type == 'Collection' }
+    collections.collect do |c|
+      c.collection_items.where("object_type = 'Collection'")
+    end.flatten.compact.uniq
   end
 
   # TODO - test
@@ -105,7 +114,7 @@ class Community < ActiveRecord::Base
   end
   
   def cached_count_members
-    $CACHE.fetch("communities/cached_count_members/#{self.id}", :expires_in => 10.minutes) do
+    Rails.cache.fetch("communities/cached_count_members/#{self.id}", :expires_in => 10.minutes) do
       members.count
     end
   end

@@ -4,7 +4,7 @@ class AgentsDataObject < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :agent
   belongs_to :agent_role
-  set_primary_keys :data_object_id, :agent_id, :agent_role_id
+  self.primary_keys = :data_object_id, :agent_id, :agent_role_id
 
   def self.sort_by_role_for_owner(users_data_objects)
     @@owner_roles_preferred_order ||= [ AgentRole.author, AgentRole.photographer, AgentRole.source,

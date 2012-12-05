@@ -8,7 +8,7 @@ class CollectionBuilder
     col = Collection.gen
     if opts[:taxa] && ( ! defined?(@@taxa_for_collections) || @@taxa_for_collections.size <= opts[:taxa])
       while @@taxa_for_collections.size < opts[:taxa] do
-        @@taxa_for_collections << TaxonConcept.gen # Does not need to be a "real" TC...
+        @@taxa_for_collections << build_taxon_concept
       end
     end
     if opts[:taxa]
@@ -158,29 +158,15 @@ describe Collection do
     Collection.which_contain(user).should == [collection]
   end
 
-  it 'should get counts for multiple collections' do
-    collection_1 = Collection.gen
-    collection_1.add(User.gen)
-    collection_2 = Collection.gen
-    2.times { collection_2.add(User.gen) }
-    collection_3 = Collection.gen
-    3.times { collection_3.add(User.gen) }
-    collections = [collection_1, collection_2, collection_3]
-    Collection.add_counts(collections)
-    collections[0]['collection_items_count'].should == 1
-    collections[1]['collection_items_count'].should == 2
-    collections[2]['collection_items_count'].should == 3
-  end
-
   it 'should get taxon counts for multiple collections' do
     collection_1 = CollectionBuilder.gen(:taxa => 1, :users => 1)
     collection_2 = CollectionBuilder.gen(:taxa => 2, :users => 1)
     collection_3 = CollectionBuilder.gen(:taxa => 3, :users => 1)
     collections = [collection_1, collection_2, collection_3]
-    Collection.add_taxa_counts(collections)
-    collections[0]['taxa_count'].should == 1
-    collections[1]['taxa_count'].should == 2
-    collections[2]['taxa_count'].should == 3
+    taxa_counts = Collection.get_taxa_counts(collections)
+    taxa_counts[collections[0].id].should == 1
+    taxa_counts[collections[1].id].should == 2
+    taxa_counts[collections[2].id].should == 3
   end
 
   it 'should be able to set relevance by calculation' do
@@ -196,6 +182,12 @@ describe Collection do
     collection.update_attributes(:view_style => ViewStyle.gallery)
     collection.reload
     collection.default_view_style.should == ViewStyle.gallery
+  end
+
+  it '#inaturalist_project_info should call InaturalistProjectInfo' do
+    collection = Collection.gen
+    InaturalistProjectInfo.should_receive(:get).with(collection.id)
+    collection.inaturalist_project_info
   end
 
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'

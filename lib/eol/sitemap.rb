@@ -1,23 +1,27 @@
 module EOL
   class Sitemap
     require 'builder' # for creating XML
-    include ActionController::UrlWriter # for using user_url(id) type methods
+    include Rails.application.routes.url_helpers # for using user_url(id) type methods
+    Rails.application.routes.default_url_options[:host] = 'eol.org'
     @@default_url_options = { :host => 'eol.org' } # need to explicitly set the host for the above
-    @@working_directory = File.join(RAILS_ROOT, 'public', 'sitemap')
     @@lines_per_sitemap_file = 50000.0
     @@default_compression = true
     
     def initialize
-      Dir.glob(File.join(@@working_directory, 'tmp_*')).each { |f| File.delete(f) }
-      @all_links_tmp_path = File.join(@@working_directory, 'tmp_all_links.txt')
-      @index_path = File.join(@@working_directory, "index.xml")
-      @batch_file_prefix = File.join(@@working_directory, "tmp_sitemap_")
+      Dir.glob(File.join(self.class.working_directory, 'tmp_*')).each { |f| File.delete(f) }
+      @all_links_tmp_path = File.join(self.class.working_directory, 'tmp_all_links.txt')
+      @index_path = File.join(self.class.working_directory, "index.xml")
+      @batch_file_prefix = File.join(self.class.working_directory, "tmp_sitemap_")
       @final_file_prefix = 'http://' + @@default_url_options[:host] + '/sitemap/sitemap_'
+    end
+    
+    def self.working_directory
+      Rails.root.join(Rails.public_path, 'sitemap')
     end
     
     def self.destroy_all_sitemap_files
       # we only care about files with extensions - so ignore all directories
-      Dir.glob(File.join(@@working_directory, '*.*')).each { |f| File.delete(f) }
+      Dir.glob(File.join(working_directory, '*.*')).each { |f| File.delete(f) }
     end
     
     def build(options={})
@@ -55,11 +59,11 @@ module EOL
       # # delete the tmp file with all links
       File.delete(@all_links_tmp_path)
       # delete all published sitemaps
-      Dir.glob(File.join(@@working_directory, 'sitemap_*')).each { |f| File.delete(f) }
+      Dir.glob(File.join(self.class.working_directory, 'sitemap_*')).each { |f| File.delete(f) }
       # rename tmp sitemaps to make them published
-      Dir.glob(File.join(@@working_directory, 'tmp_sitemap_*')).each do |f|
+      Dir.glob(File.join(self.class.working_directory, 'tmp_sitemap_*')).each do |f|
         if m = f.match(/tmp_(sitemap.*$)/)
-          File.rename(f, File.join(@@working_directory, m[1]))
+          File.rename(f, File.join(self.class.working_directory, m[1]))
         end
       end
       
@@ -229,7 +233,7 @@ module EOL
     
     def write_taxon_page_urls
       base_conditions = "published = 1 AND supercedure_id = 0 AND vetted_id = #{Vetted.trusted.id}"
-      min_id, max_id = TaxonConcept.connection.execute("SELECT MIN(id), MAX(id) FROM taxon_concepts WHERE #{base_conditions}").fetch_row
+      min_id, max_id = TaxonConcept.connection.execute("SELECT MIN(id), MAX(id) FROM taxon_concepts WHERE #{base_conditions}").first
       min_id = min_id.to_i
       max_id = max_id.to_i
       
@@ -245,7 +249,7 @@ module EOL
           # metadata = { :loc => taxon_overview_url(tc_id), :changefreq => 'weekly' }
           # @all_link_tmp_file.puts metadata.to_json
           
-          url_prefix = '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] + '/pages/' + tc_id + '/'
+          url_prefix = '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] + "/pages/#{tc_id}/"
           @all_link_tmp_file.puts url_prefix + 'overview","priority":1}'
           # { 'overview' => 1,
           #   'details' => 0.5,

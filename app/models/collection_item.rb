@@ -7,12 +7,12 @@ class CollectionItem < ActiveRecord::Base
   belongs_to :added_by_user, :class_name => User.to_s, :foreign_key => :added_by_user_id
   has_and_belongs_to_many :refs
 
-  named_scope :collections, :conditions => {:object_type => 'Collection'}
-  named_scope :communities, :conditions => {:object_type => 'Community'}
-  named_scope :data_objects, :conditions => {:object_type => 'DataObject'}
-  named_scope :taxa, :conditions => {:object_type => 'TaxonConcept'}
-  named_scope :users, :conditions => {:object_type => 'User'}
-  named_scope :annotated, :conditions => 'annotation IS NOT NULL AND annotation != ""'
+  scope :collections, :conditions => {:object_type => 'Collection'}
+  scope :communities, :conditions => {:object_type => 'Community'}
+  scope :data_objects, :conditions => {:object_type => 'DataObject'}
+  scope :taxa, :conditions => {:object_type => 'TaxonConcept'}
+  scope :users, :conditions => {:object_type => 'User'}
+  scope :annotated, :conditions => 'annotation IS NOT NULL AND annotation != ""'
 
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch
@@ -36,7 +36,8 @@ class CollectionItem < ActiveRecord::Base
                 :videos =>      {:facet => 'Video',        :i18n_key => "videos"},
                 :communities => {:facet => 'Community',    :i18n_key => "communities"},
                 :people =>      {:facet => 'User',         :i18n_key => "people"},
-                :collections => {:facet => 'Collection',   :i18n_key => "collections"}}
+                :collections => {:facet => 'Collection',   :i18n_key => "collections"},
+                :links =>       {:facet => 'Link',         :i18n_key => "links"}}
   end
 
   def can_be_updated_by?(user_wanting_access)
@@ -66,9 +67,21 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def solr_index_hash
+    item_object_type = nil
+    if self.object_type == 'DataObject'
+      if self.object.is_link?
+        item_object_type = 'Link'
+        link_type_id = self.object.link_type.id
+      else
+        item_object_type = self.object.data_type.simple_type('en')
+      end
+    else
+      item_object_type = self.object_type
+    end
+
     params = {}
     params['collection_item_id'] = self.id
-    params['object_type'] = (self.object_type == 'DataObject') ? self.object.data_type.simple_type('en') : self.object_type
+    params['object_type'] = item_object_type
     params['object_id'] = self.object_id
     params['collection_id'] = self.collection_id || 0
     params['annotation'] = self.annotation || ''
@@ -76,22 +89,26 @@ class CollectionItem < ActiveRecord::Base
     params['date_created'] = self.created_at.solr_timestamp rescue nil
     params['date_modified'] = self.updated_at.solr_timestamp rescue nil
     params['sort_field'] = self.sort_field
+    if params['sort_field'].blank?
+      params.delete('sort_field')
+    end
+    params['link_type_id'] = link_type_id if link_type_id
 
-    case self.object.class.name
-    when "TaxonConcept"
+    case self.object
+    when TaxonConcept
       unless self.object.entry && self.object.entry.name && self.object.entry.name.canonical_form
         raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
                                                                     :type => 'Missing Hierarchy Entry'))
       end
       params['title'] = self.object.entry.name.canonical_form.string
-    when "User"
+    when User
       params['title'] = self.object.username
-    when "DataObject"
+    when DataObject
       params['title'] = self.object.best_title
       params['data_rating'] = self.object.safe_rating
-    when "Community"
+    when Community
       params['title'] = self.object.name
-    when "Collection"
+    when Collection
       params['title'] = self.object.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,

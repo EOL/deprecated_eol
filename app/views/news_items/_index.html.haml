@@ -1,0 +1,10 @@
+- if translated_news_items.nil? == false && translated_news_items.size > 0  
+  - for translated_news_item in translated_news_items
+    .article.copy
+      %h2= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)
+      %p= raw translated_news_item.body
+      %p.meta= I18n.l(translated_news_item.news_item.display_date, :format => :long)
+- else
+  .empty
+    %p
+      = I18n.t(:no_news_items_for_month_and_year, :month_and_year => I18n.localize(Time.new(@year, @month), :format => :month_and_year))

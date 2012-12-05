@@ -7,40 +7,18 @@ class CodeBridge
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
     puts "++ CodeBridge"
-    if args['cmd'] == 'unlock_notify'
-      puts "   unlock notification"
-
+    if args['cmd'] == 'check_status_and_notify'
+      puts "   check status and notify (if complete)"
       begin
-        cal = if args['error'].blank?
-          CuratorActivityLog.create!(:user_id => args['user_id'],
-                                     :changeable_object_type_id => ChangeableObjectType.taxon_concept.id, 
-                                     :object_id => args['taxon_concept_id'],
-                                     :activity_id => Activity.unlock.id,
-                                     :created_at => 0.seconds.from_now,
-                                     :taxon_concept_id => args['taxon_concept_id'])
-              else
-          t = 0.seconds.from_now
-          comment = Comment.create!(:user_id => $BACKGROUND_TASK_USER_ID, :body => args['error'],
-                                    :parent_id => args['taxon_concept_id'], :parent_type => 'TaxonConcept')
-          CuratorActivityLog.create!(:user_id => args['user_id'],
-                                     :changeable_object_type_id => ChangeableObjectType.comment.id,
-                                     :object_id => comment.id,
-                                     :activity_id => Activity.unlock_with_error.id,
-                                     :created_at => t,
-                                     :taxon_concept_id => args['taxon_concept_id'])
-              end
-        puts "++ Created: CuratorActivityLog.find(#{cal.id})"
-        # FORCE immediate notification.  Right now:
-        PendingNotification.create!(:user_id => args['user_id'],
-                                    :notification_frequency_id => NotificationFrequency.immediately.id,
-                                    :target_id => cal.id,
-                                    :target_type => 'CuratorActivityLog',
-                                    :reason => 'auto_email_after_curation')
-        Resque.enqueue(PrepareAndSendNotifications)
+        ClassificationCuration.find(args['classification_curation_id']).check_status_and_notify
       rescue => e
         puts "** ERROR: #{e.message}"
+        puts "   -- KEYS:"
+        args.keys.each do |key|
+          puts "   #{key}: #{args[key]}"
+        end
+        puts "   --"
       end
-
     else
       puts "** ERROR: NO command responds to #{args['cmd']}"
     end
@@ -54,26 +32,32 @@ class CodeBridge
                                 'hierarchy_entry_id'           => options[:hierarchy_entry_id],
                                 'taxon_concept_id_to'          => options[:to_taxon_concept_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
-                                'confirmed'                    => 'confirmed',
-                                'notify'                       => options[:notify],
-                                'reindex'                      => options[:reindex] ? 'reindex' : '' })
+                                'confirmed'                    => 'force', # UI enforces restrictions.
+                                'classification_curation_id'   => options[:classification_curation_id]})
   end
 
   def self.split_entry(options = {})
     Resque.enqueue(CodeBridge, {'cmd'                          => 'split',
                                 'hierarchy_entry_id'           => options[:hierarchy_entry_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
-                                'confirmed'                    => 'confirmed',
-                                'notify'                       => options[:notify],
-                                'reindex'                      => options[:reindex] ? 'reindex' : '' })
+                                'confirmed'                    => 'confirmed', # note, no need for 'force' on split
+                                'classification_curation_id'   => options[:classification_curation_id]})
   end
 
   def self.merge_taxa(id1, id2, options = {})
     Resque.enqueue(CodeBridge, {'cmd'       => 'merge',
                                 'id1'       => id1,
                                 'id2'       => id2,
-                                'notify'    => options[:notify],
-                                'confirmed' => 'confirmed'})
+                                'classification_curation_id'   => options[:classification_curation_id],
+                                'confirmed' => 'confirmed'}) # No need for "force" on merge.
+  end
+
+  def self.reindex_taxon_concept(taxon_concept_id, options = {})
+    args = {'cmd' => 'reindex_taxon_concept', 'taxon_concept_id' => taxon_concept_id}
+    if options[:flatten]
+      args['flatten'] = true
+    end
+    Resque.enqueue(CodeBridge, args)
   end
 
 end

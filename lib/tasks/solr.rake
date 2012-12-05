@@ -9,14 +9,14 @@ namespace :solr do
     end
     port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, '\\1')
     FileUtils.cd(File.join($SOLR_DIR)) do
-      command = ["#{RAILS_ROOT}/bin/solr", 'start', '--', '-p', port.to_s]
+      command = [Rails.root.join('bin', 'solr'), 'start', '--', '-p', port]
       if $SOLR_SERVER_RAM
         command << '-r'
       end
       if $SOLR_DIR
         command << '-s' << $SOLR_DIR
       end
-      system(Escape.shell_command(command))
+      system(Escape.shell_command(command.map {|p| p.to_s}))
     end
   end
 
@@ -30,21 +30,21 @@ namespace :solr do
     # FileUtils.mkdir_p(data_path)
     port = $SOLR_SERVER
     port.gsub!(/^.*:(\d+).*$/, '\\1')
-    command = ["#{RAILS_ROOT}/bin/solr", 'run', '--', '-p', port.to_s]
+    command = [Rails.root.join('bin', 'solr'), 'run', '--', '-p', port.to_s]
     if $SOLR_SERVER_RAM
       command << '-r'
     end
     if $SOLR_DIR
       command << '-s' << $SOLR_DIR
     end
-    exec(Escape.shell_command(command))
+    exec(command.join(" "))
   end
 
   desc 'Stop the Solr instance'
   task :stop => :environment do
     puts "** Stopping Background Solr instance for EOL..."
     FileUtils.cd($SOLR_DIR) do
-      system(Escape.shell_command(["#{RAILS_ROOT}/bin/solr", 'stop']))
+      exec([Rails.root.join('bin', 'solr'), 'stop'].join(" "))
     end
   end
 
@@ -99,4 +99,19 @@ namespace :solr do
     EOL::Solr::ActivityLog.remove_watch_collection_logs
   end
 
+  desc 'Destroy all indices'
+  task :destroy => :environment do
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_BHL_CORE)
+    solr.obliterate
+  end
 end

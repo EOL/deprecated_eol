@@ -1,3 +1,5 @@
+require 'eol/activity_loggable'
+
 class Collection < ActiveRecord::Base
 
   include EOL::ActivityLoggable
@@ -12,13 +14,6 @@ class Collection < ActiveRecord::Base
   has_many :containing_collections, :through => :others_collection_items, :source => :collection
 
   has_many :comments, :as => :parent
-  # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
-  has_many :featuring_communities, :class_name => Community.to_s,
-    :finder_sql => 'SELECT cm.* FROM communities cm ' +
-      'JOIN collections_communities cc ON (cm.id = cc.community_id) ' +
-      'JOIN collections c ON (cc.collection_id = c.id) ' +
-      'JOIN collection_items ci ON (ci.collection_id = c.id) ' +
-      'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} AND cm.published = 1'
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
@@ -26,9 +21,9 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :communities, :uniq => true
   has_and_belongs_to_many :users
 
-  named_scope :published, :conditions => {:published => 1}
+  scope :published, :conditions => {:published => 1}
   # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...
-  named_scope :watch, lambda { { :conditions => {:special_collection_id => SpecialCollection.watch.id} } }
+  scope :watch, lambda { { :conditions => {:special_collection_id => SpecialCollection.watch.id} } }
 
   validates_presence_of :name
   # JRice removed the requirement for the uniqueness of the name. Why? Imagine user#1 creates a collection named "foo".
@@ -41,43 +36,31 @@ class Collection < ActiveRecord::Base
 
   before_update :set_relevance_if_collection_items_changed
 
+  # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif"
-
+    :default_url => "/assets/blank.gif",
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+  
   validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+
 
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
-
-  define_core_relationships :select => '*'
 
   alias :items :collection_items
   alias_attribute :summary_name, :name
 
   def self.which_contain(what)
-    Collection.find(:all, :joins => :collection_items, :conditions => "collection_items.object_type='#{what.class.name}' and collection_items.object_id=#{what.id}").uniq
+    Collection.joins(:collection_items).where(:collection_items => { :object_type => what.class.name, :object_id =>
+                                              what.id}).uniq
   end
 
-  # this method will quickly get the counts for multiple collections at the same time
-  def self.add_counts(collections)
-    collection_ids = collections.map(&:id).join(',')
-    return if collection_ids.empty?
-    collections_with_counts = Collection.find_by_sql("
-      SELECT c.id, count(*) as count
-      FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id)
-      WHERE c.id IN (#{collection_ids})
-      GROUP BY c.id")
-    collections_with_counts.each do |cwc|
-      if c = collections.detect{ |c| c.id == cwc.id }
-        c['collection_items_count'] = cwc['count'].to_i
-      end
-    end
-  end
-
-  def self.add_taxa_counts(collections)
+  def self.get_taxa_counts(collections)
     collection_ids = collections.map(&:id).join(',')
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
@@ -85,11 +68,13 @@ class Collection < ActiveRecord::Base
       FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id AND ci.object_type = 'TaxonConcept')
       WHERE c.id IN (#{collection_ids})
       GROUP BY c.id")
+    taxa_counts = {}
     collections_with_counts.each do |cwc|
       if c = collections.detect{ |c| c.id == cwc.id }
-        c['taxa_count'] = cwc['count'].to_i
+        taxa_counts[c.id] = cwc['count'].to_i
       end
     end
+    return taxa_counts
   end
 
   def special?
@@ -115,24 +100,27 @@ class Collection < ActiveRecord::Base
 
   # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
   # add more than two things... because this runs an expensive calculation at the end.
+  # 
+  # Also NOTE that we don't just use { :object => what }, because Users are sometimes Curators... there may be other
+  # reasons, but that was at least true, so I kept the other creates consistent.
   def add(what, opts = {})
     return if what.nil?
     name = "something"
-    case what.class.name
-    when "TaxonConcept"
-      collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object => what, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
+    case what
+    when TaxonConcept
+      collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object_id => what.id, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
       name = what.scientific_name
-    when "User"
-      collection_items << CollectionItem.create(:object_type => "User", :object => what, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
+    when User
+      collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
       name = what.username
-    when "DataObject"
-      collection_items << CollectionItem.create(:object_type => "DataObject", :object => what, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
+    when DataObject
+      collection_items << CollectionItem.create(:object_type => "DataObject", :object_id => what.id, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
       name = what.data_type.simple_type('en')
-    when "Community"
-      collection_items << CollectionItem.create(:object_type => "Community", :object => what, :name => what.name, :collection => self, :added_by_user => opts[:user])
+    when Community
+      collection_items << CollectionItem.create(:object_type => "Community", :object_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
-    when "Collection"
-      collection_items << CollectionItem.create(:object_type => "Collection", :object => what, :name => what.name, :collection => self, :added_by_user => opts[:user])
+    when Collection
+      collection_items << CollectionItem.create(:object_type => "Collection", :object_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
@@ -201,7 +189,7 @@ class Collection < ActiveRecord::Base
   end
 
   def cached_count
-    $CACHE.fetch("collections/cached_count/#{self.id}", :expires_in => 10.minutes) do
+    Rails.cache.fetch("collections/cached_count/#{self.id}", :expires_in => 10.minutes) do
       collection_items.count
     end
   end
@@ -231,7 +219,7 @@ class Collection < ActiveRecord::Base
         JOIN communities com ON ( cc.community_id = com.id )
       ) ON ( c.id = cc.collection_id )
       WHERE ( ci.object_id = #{self.id} AND ci.object_type = 'Collection') #{extra_condition}")
-    count_result.fetch_row.first
+    count_result.first.first
   end
 
   def can_be_read_by?(user)
@@ -243,17 +231,14 @@ class Collection < ActiveRecord::Base
     "Collection ##{id}: #{name}"
   end
 
-  # TODO - we should only call this when the collection is "known" to be iNat-enabled, even if this is denormalized
-  # information.  As-is, we're pinging iNat every time we load a collection page, which is too often.
   def inaturalist_project_info
-    # TODO - move this to an environment variable:
-    url = "http://www.inaturalist.org/projects.json?source=http://eol.org/collections/#{id}"
-    begin
-      response = Net::HTTP.get(URI.parse(url)) # TODO - add a VERY SHORT timeout, here.
-      JSON.parse(response)[0]
-    rescue => e
-      nil
-    end
+    InaturalistProjectInfo.get(id)
+  end
+  
+  def featuring_communities
+    others_collection_items.includes({ :collection => :communities }).collect do |ci|
+      ci.collection ? ci.collection.communities.select{ |com| com.published? } : nil
+    end.flatten.compact.uniq
   end
 
 private

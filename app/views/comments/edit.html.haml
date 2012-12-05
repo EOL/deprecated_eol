@@ -2,7 +2,7 @@
   #comment_edit.site_column
     .article.copy
       - unless @comment.blank?
-        - form_for @comment do |f|
+        = form_for @comment do |f|
           = hidden_field_tag :return_to, params[:return_to]
           %fieldset
             %dl

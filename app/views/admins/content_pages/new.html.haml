@@ -1,14 +1,13 @@
 = content_for :head do
-  = javascript_include_tag "fckeditor/fckeditor"
-  = javascript_include_tag "fckcustom"
+  = javascript_include_tag "ckeditor/init"
 
 #content_page_new
   .article.copy
-    - form_for @content_page, :url => admin_content_pages_path, :builder => ApplicationHelper::EolFormBuilder do |content_page_form|
+    = form_for @content_page, :url => admin_content_pages_path, :builder => ApplicationHelper::EolFormBuilder do |content_page_form|
       = validation_errors_for(@content_page)
 
       %p.tip
-        = I18n.t(:admin_content_page_new_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
+        = raw(I18n.t(:admin_content_page_new_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
       = render :partial => 'content_page_fieldset', :locals => {:content_page_form => content_page_form}
 
       %fieldset

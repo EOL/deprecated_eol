@@ -1,7 +1,7 @@
 =I18n.t("all_comments_entered_by_users")
 =I18n.t("click_on_a_username_to_view_the_users_detailed_profile")
 #comments
-  - form_tag({:action=>'index'},:method=>'get') do
+  = form_tag({:action=>'index'},:method=>'get') do
     =I18n.t("search_for_comments_containing_the_text")
     = text_field_tag(:term_search_string,@term_search_string)
     = submit_tag I18n.t("search")
@@ -29,30 +29,29 @@
           %tr
             %td{ :class => column_class }
               - if comment.user
-                = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
+                = link_to comment.user.full_name, :controller => '/administrator/user', :action => 'edit', :id => comment.user_id
             %td{ :class => column_class }
-              = h truncate(comment.body, :length => 100)
+              = raw(truncate(comment.body, :length => 100))
               - if !comment.visible_at
                 %br
                 %i
                   = "--" + I18n.t("hidden_comment")  + "--"
             %td{ :class => column_class }
-              = truncate(comment.parent_name.gsub!(/(<[^>]*>)|\n|\t/s) {" "}, :length => 50)
               %br
-              (
-              = link_to (comment.parent_type_name,comment.parent_url)
-              )
+              = "("
+              = link_to comment.parent_type_name, comment.parent_url
+              = ")"
               %br
               = image_tag(comment.parent_image_url) if comment.image_comment?
             %td{ :class => column_class }
               = h format_date_time(comment.created_at,:format=>'short_no_tz')
             %td{ :class => column_class }
-              = link_to I18n.t("edit").safe_downcase,:action=>'edit',:id=>comment.id
+              = link_to I18n.t("edit").i18n_downcase,:action=>'edit',:id=>comment.id
               %br
               - if comment.visible_at
-                = link_to I18n.t("hide").safe_downcase, {:action=>'hide',:id=>comment.id}
+                = link_to I18n.t("hide").i18n_downcase, {:action=>'hide',:id=>comment.id}
               - else
-                = link_to I18n.t("show").safe_downcase, {:action=>'show',:id=>comment.id}
+                = link_to I18n.t("show").i18n_downcase, {:action=>'show',:id=>comment.id}
               
       %br
       = will_paginate @comments

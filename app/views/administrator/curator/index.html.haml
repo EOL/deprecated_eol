@@ -1,7 +1,7 @@
 = I18n.t(:curator_admin_index_help)
 = link_to I18n.t(:export_curator_csv_link), :action=>'export'
 #users
-  - form_tag({:action=>'index'}, :id=>'search', :method=>'get') do
+  = form_tag({:action=>'index'}, :id=>'search', :method=>'get') do
     = I18n.t(:search_for_curators_containing)
     = text_field_tag(:user_search_string, @user_search_string)
     %br

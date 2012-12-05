@@ -1,3 +1,5 @@
+require 'eol/activity_log_item'
+
 class CollectionActivityLog < LoggingModel
 
   include EOL::ActivityLogItem
@@ -9,6 +11,7 @@ class CollectionActivityLog < LoggingModel
 
   after_create :log_activity_in_solr
   after_create :queue_notifications
+  
 
   alias :link_to :collection # Needed for rendering links; we need to know which association to make the link to
 

@@ -18,6 +18,34 @@ module EOL
         results
       end
 
+      def self.unique_link_type_ids(taxon_concept_id, options = {})
+        options[:get_unique_link_type_ids] = 1
+        facets = get_special_facet_counts(taxon_concept_id, options, 'link_type_id')
+        return facets.keys
+      end
+
+      def self.unique_toc_ids(taxon_concept_id, options = {})
+        options[:get_unique_toc_ids] = 1
+        facets = get_special_facet_counts(taxon_concept_id, options, 'toc_id')
+        return facets.keys
+      end
+      
+      def self.get_special_facet_counts(taxon_concept_id, options, facet_field)
+        options[:page] = 1
+        options[:per_page] = 0
+        url = prepare_search_url(taxon_concept_id, options)
+        url << '&rows=0'
+        res = open(url).read
+        response = JSON.load res
+        facets = {}
+        f = response['facet_counts']['facet_fields'][facet_field]
+        f.each_with_index do |rt, index|
+          next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
+          facets[rt.to_i] = f[index+1]
+        end
+        return facets
+      end
+
       def self.add_resource_instances!(docs, options)
         includes = []
         selects = options[:preload_select] || { :data_objects => '*' }
@@ -29,73 +57,6 @@ module EOL
         EOL::Solr.add_standard_instance_to_docs!(DataObject, docs, 'data_object_id',
           :includes => includes,
           :selects => selects)
-      end
-      
-      def self.lookup_best_images_for_concepts(taxon_concepts)
-        taxon_concept_ids_to_lookup = []
-        all_best_images_for_concepts = {}
-        # check the exemplar images to avoid unnecessary Solr lookups
-        TaxonConcept.preload_associations(taxon_concepts, { :taxon_concept_exemplar_image => :data_object })
-        taxon_concepts.each do |tc|
-          TaxonConcept.prepare_cache_classes
-          next if $CACHE.read(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
-          if best_image = tc.published_exemplar_image
-            all_best_images_for_concepts[tc.id] = best_image
-          else
-            taxon_concept_ids_to_lookup << tc.id
-          end
-        end
-        return if taxon_concept_ids_to_lookup.blank?
-        
-        # Lookup images for 20 taxa at a time
-        number_of_taxa_in_batch = 20
-        number_of_images_to_return = number_of_taxa_in_batch * 10
-        taxon_concept_ids_to_lookup.each_slice(number_of_taxa_in_batch) do |subset_of_taxon_concept_ids_to_lookup|
-          response = solr_search(subset_of_taxon_concept_ids_to_lookup, {
-            :pages => 1,
-            :per_page => number_of_images_to_return,
-            :sort_by => 'status',
-            :data_type_ids => DataType.image_type_ids,
-            :filter_by_subtype => true,
-            :data_subtype_ids => nil,
-            :vetted_types => ['trusted', 'unreviewed'],
-            :visibility_types => ['visible'],
-            :published => true,
-            :skip_preload => true,
-            :return_hierarchically_aggregated_objects => true,
-            :fl => 'data_object_id,guid,trusted_ancestor_id,unreviewed_ancestor_id'
-          })
-          best_solr_docs = {}
-          response['response']['docs'].each do |doc|
-            subset_of_taxon_concept_ids_to_lookup.each do |tc_id|
-              if (doc['trusted_ancestor_id'] && doc['trusted_ancestor_id'].include?(tc_id)) ||
-                 (doc['unreviewed_ancestor_id'] && doc['unreviewed_ancestor_id'].include?(tc_id))
-                best_solr_docs[tc_id] = doc
-                subset_of_taxon_concept_ids_to_lookup.delete(tc_id)
-              end
-            end
-            # all concepts have their best image
-            break if subset_of_taxon_concept_ids_to_lookup.empty?
-          end
-          add_resource_instances!(best_solr_docs, :skip_preload => true)
-          best_solr_docs.each{ |tc_id,d| all_best_images_for_concepts[tc_id] = d['instance'] }
-          
-          # set the cache value for all the best images that were just found
-          all_best_images_for_concepts.each do |tc_id, d|
-            $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do
-              d || 'none'
-            end
-          end
-          # if we got back fewer images than we asked for - meaning if we didn't find an image
-          # for a concept we searched for, then that concept has no best images, so record that fact
-          if response['response']['docs'].length < number_of_images_to_return
-            subset_of_taxon_concept_ids_to_lookup.each do |tc_id|
-              $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do 
-                'none'
-              end
-            end
-          end
-        end
       end
       
       def self.prepare_search_url(taxon_concept_id, options = {})
@@ -116,6 +77,10 @@ module EOL
           url << CGI.escape(" NOT (toc_id:#{options[:toc_ids_to_ignore].join(' OR toc_id:')})")
         end
         
+        if options[:link_type_ids]
+          url << CGI.escape(" AND (link_type_id:#{options[:link_type_ids].join(' OR link_type_id:')})")
+        end
+        
         if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
           field_suffix = "ancestor_he_id"
           search_id = options[:filter_hierarchy_entry].id
@@ -134,12 +99,12 @@ module EOL
 
         if options[:vetted_types] && !options[:vetted_types].include?('all')
           url << CGI.escape(" AND (")
-          url << CGI.escape(options[:vetted_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
+          url << CGI.escape(Array(options[:vetted_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
           url << CGI.escape(")")
         end
         if options[:visibility_types] && !options[:visibility_types].include?('all')
           url << CGI.escape(" AND (")
-          url << CGI.escape(options[:visibility_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
+          url << CGI.escape(Array(options[:visibility_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
           url << CGI.escape(")")
         end
 
@@ -218,6 +183,13 @@ module EOL
         if options[:facet_by_resource]
           url << '&facet.field=resource_id&facet.mincount=1&facet.limit=300&facet=on'
         end
+        if options[:get_unique_link_type_ids]
+          url << '&facet.field=link_type_id&facet.mincount=1&facet.limit=300&facet=on'
+        end
+        if options[:get_unique_toc_ids]
+          url << '&facet.field=toc_id&facet.mincount=1&facet.limit=300&facet=on'
+        end
+        
         url
       end
       
@@ -250,7 +222,7 @@ module EOL
         options[:vetted_types] = ['trusted', 'unreviewed']
         options[:vetted_types] << 'untrusted' if options[:user] && options[:user].is_curator?
         url << CGI.escape(" AND (")
-        url << CGI.escape(options[:vetted_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
+        url << CGI.escape(Array(options[:vetted_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
         url << CGI.escape(")")
         
         options[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids

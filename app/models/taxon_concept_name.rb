@@ -1,20 +1,20 @@
 class TaxonConceptName < ActiveRecord::Base
 
-  set_primary_keys :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id, :synonym_id
+  self.primary_keys = :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id, :synonym_id
 
   belongs_to :language
   belongs_to :name
   belongs_to :synonym
-  belongs_to :source_hierarcy_entry, :class_name => HierarchyEntry.to_s
+  belongs_to :source_hierarchy_entry, :class_name => HierarchyEntry.to_s
   belongs_to :taxon_concept
   belongs_to :vetted
 
   def self.sort_by_language_and_name(taxon_concept_names)
-    taxon_concept_names.sort_by do |tcn|
+    taxon_concept_names.compact.sort_by do |tcn|
       language_iso = tcn.language.blank? ? '' : tcn.language.iso_639_1
       [language_iso,
        tcn.preferred * -1,
-       tcn.name.string]
+       tcn.name.try(:string)]
     end
   end
 
@@ -39,8 +39,8 @@ class TaxonConceptName < ActiveRecord::Base
     all_agents = []
     if synonym
       all_agents += synonym.agents
-    elsif source_hierarcy_entry
-      all_agents += source_hierarcy_entry.agents
+    elsif source_hierarchy_entry
+      all_agents += source_hierarchy_entry.agents
     end
     all_agents.delete(Hierarchy.eol_contributors.agent)
     all_agents.uniq.compact
@@ -50,8 +50,8 @@ class TaxonConceptName < ActiveRecord::Base
     all_hierarchies = []
     if synonym
       all_hierarchies << synonym.hierarchy unless synonym.hierarchy == Hierarchy.eol_contributors
-    elsif source_hierarcy_entry
-      all_hierarchies << source_hierarcy_entry.hierarchy unless synonym.hierarchy == Hierarchy.eol_contributors
+    elsif source_hierarchy_entry
+      all_hierarchies << source_hierarchy_entry.hierarchy unless source_hierarchy_entry.hierarchy == Hierarchy.eol_contributors
     end
     all_hierarchies.uniq.compact
   end

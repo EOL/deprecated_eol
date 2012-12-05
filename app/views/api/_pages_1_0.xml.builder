@@ -14,7 +14,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
       xml.dwc :ScientificName, taxon_concept.entry.name.string
       
       if params[:synonyms]
-        for syn in taxon_concept.synonyms
+        for syn in taxon_concept.scientific_synonyms
           relation = syn.synonym_relation ? syn.synonym_relation.label : ''
           xml.synonym syn.name.string, 'relationship'.to_sym => relation
         end
@@ -48,9 +48,9 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
     
     for data_object in data_objects
       if params[:details]
-        xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => false } )
+        xml << render(:partial => 'data_object_1_0', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => false } )
       else
-        xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => true } )
+        xml << render(:partial => 'data_object_1_0', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => true } )
       end
     end
   end

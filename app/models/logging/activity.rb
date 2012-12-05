@@ -15,8 +15,6 @@ class Activity < LazyLoggingModel
   # each of these and include those activities that don't show up on the site's activity logs.
   # TODO - many of these are not used yet.  Add them to the code in the appropriate place
   def self.create_defaults
-    TranslatedActivity.reset_cached_instances
-    Activity.reset_cached_instances
     # User Data Objects (user-submitted text):
     Activity.find_or_create('create')
     Activity.find_or_create('update')
@@ -36,8 +34,9 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('add_common_name')
     Activity.find_or_create('remove_common_name')
     Activity.find_or_create('preferred_classification')
-    Activity.find_or_create('split_classifications')
-    Activity.find_or_create('merge_classifications')
+    Activity.find_or_create('curate_classifications')
+    Activity.find_or_create('split_classifications') # Legacy, but in the DB...
+    Activity.find_or_create('merge_classifications') # Legacy, but in the DB...
     Activity.find_or_create('trust_common_name')
     Activity.find_or_create('untrust_common_name')
     Activity.find_or_create('inappropriate_common_name')

@@ -1,4 +1,4 @@
-- form_tag({:controller => 'data_objects', :action => 'curate_associations'}) do
+= form_tag(curate_associations_data_object_path(data_object), :method => :put) do
   = hidden_field_tag 'id', data_object.id
   %ul#associations
     - data_object.published_entries.each do |phe|

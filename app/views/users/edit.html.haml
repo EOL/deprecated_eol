@@ -1,13 +1,13 @@
-- translation_vars = {:required_icon => image_tag('/images/v2/icon_required.png', :alt => '')}
+- translation_vars = {:required_icon => image_tag('v2/icon_required.png', :alt => '')}
 #profile_edit.article
-  - form_for @user, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |user_form|
+  = form_for @user, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |user_form|
     = validation_errors_for(@user)
     .fieldsets
       %fieldset.profile
         .header
           %h3= I18n.t(:users_form_profile_info_header)
         %p.tip
-          = @user.eol_authentication? ? t(".form_tip_profile", translation_vars.dup) : t(".form_tip_profile_oauth", translation_vars.dup)
+          = @user.eol_authentication? ? raw(t(".form_tip_profile", translation_vars.dup)) : raw(t(".form_tip_profile_oauth", translation_vars.dup))
         %dl
           %dt
             = user_form.label :bio
@@ -25,7 +25,7 @@
           %dd
             = user_form.text_field :family_name
           %dt
-            = user_form.label :tag_line
+            = user_form.label :tag_line, raw(t('helpers.label.user.tag_line'))
           %dd
             = user_form.text_field :tag_line
           %dt
@@ -47,7 +47,7 @@
         %fieldset.curation
           .header
             %h3= I18n.t(:users_form_curation_header)
-          %p.tip= t(".form_tip_curation", translation_vars.dup)
+          %p.tip= raw(t(".form_tip_curation", translation_vars.dup))
           %dl
             %dt
               = user_form.label :credentials
@@ -64,12 +64,12 @@
         .header
           %h3= I18n.t(:users_form_account_header)
         %p.tip
-          = @user.eol_authentication? ? t(".form_tip_account", translation_vars.dup) : t(".form_tip_account_oauth", translation_vars.dup)
+          = @user.eol_authentication? ? raw(t(".form_tip_account", translation_vars.dup)) : raw(t(".form_tip_account_oauth", translation_vars.dup))
         %dl
           %dt
             = I18n.t('helpers.label.user.open_authentications')
           %dd.copy
-            %p= I18n.t('helpers.label.user.open_authentications_more', :open_authentications_url => user_open_authentications_url(@user))
+            %p= raw(I18n.t('helpers.label.user.open_authentications_more', :open_authentications_url => user_open_authentications_url(@user)))
             %ul
               - @user.open_authentications.each do |open_authentication|
                 %li{:class => open_authentication.provider}
@@ -78,16 +78,16 @@
                     = I18n.t('helpers.label.open_authentication.connected')
           - if @user.eol_authentication? || !@user.username.blank?
             %dt
-              = user_form.label :username
+              = user_form.label :username, raw(I18n.t('helpers.label.user.username'))
               %small.assistive= I18n.t(:required_form_element)
             %dd
               = user_form.text_field :username
             %dt
-              = user_form.label :entered_password, I18n.t('helpers.label.user.new_password')
+              = user_form.label :entered_password, raw(I18n.t('helpers.label.user.new_password'))
             %dd
               = user_form.password_field :entered_password, { :maxlength => 16 }
             %dt
-              = user_form.label :entered_password_confirmation, I18n.t('helpers.label.user.new_password_confirmation')
+              = user_form.label :entered_password_confirmation, raw(I18n.t('helpers.label.user.new_password_confirmation'))
             %dd
               = user_form.password_field :entered_password_confirmation, { :maxlength => 16 }
           %dt.required
@@ -95,6 +95,9 @@
             %small.assistive= I18n.t(:required_form_element)
           %dd
             = user_form.select :language_abbr, Language.approved_languages.collect {|l| [l.source_form, l.iso_639_1]}
+            - user_form.label :news_in_preferred_language, :class => 'checkbox' do
+              = user_form.check_box :news_in_preferred_language
+              = I18n.t('helpers.label.user.news_in_preferred_language')
           %dt.required
             = user_form.label :email
             %small.assistive= I18n.t(:required_form_element)
@@ -109,19 +112,19 @@
               %p
                 = I18n.t('helpers.label.user.notification_settings_more')
             %dd
-              - content_tag :button, :name => :commit_notification_settings_get, :type => :submit do
+              = content_tag :button, :name => :commit_notification_settings_get, :type => :submit do
                 = I18n.t('helpers.submit.user.notification_settings')
         %dl
           %dt
             = I18n.t('helpers.label.user.curation_application')
             %p
               - unless @user.curator_level.blank?
-                = I18n.t('helpers.label.user.curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.curator_level.translated_label.gsub(' ', '_').downcase}"))
+                = raw(I18n.t('helpers.label.user.curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.curator_level.translated_label.gsub(' ', '_').downcase}")))
               - unless @user.requested_curator_level.blank?
-                = I18n.t('helpers.label.user.requested_curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.requested_curator_level.translated_label.gsub(' ', '_').downcase}"))
+                = raw(I18n.t('helpers.label.user.requested_curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.requested_curator_level.translated_label.gsub(' ', '_').downcase}")))
               = I18n.t('helpers.label.user.curation_application_more')
           %dd
-            - content_tag :button , :name => :commit_curation_privileges_get, :type => :submit do
+            = content_tag :button , :name => :commit_curation_privileges_get, :type => :submit do
               = I18n.t('helpers.submit.user.curation_application')
         %dl
           - if @user.api_key
@@ -129,13 +132,13 @@
               = I18n.t('activerecord.attributes.user.api_key')
             %dd
               %textarea= @user.api_key
-              %p= I18n.t('helpers.label.user.api_key_more')
+              %p= raw(I18n.t('helpers.label.user.api_key_more'))
           - else
             %dt
               = I18n.t('helpers.label.user.generate_api_key')
-              %p= I18n.t('helpers.label.user.generate_api_key_more', :api_docs_url => '/api/docs#api_key_section')
+              %p= raw(I18n.t('helpers.label.user.generate_api_key_more', :api_docs_url => '/api/docs#api_key_section'))
             %dd
-              - content_tag :button , :name => :commit_generate_api_key, :type => :submit do
+              = content_tag :button , :name => :commit_generate_api_key, :type => :submit do
                 = I18n.t('helpers.submit.user.generate_api_key')
 
     %fieldset.actions

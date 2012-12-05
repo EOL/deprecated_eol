@@ -1,14 +1,4 @@
-# Methods added to this helper will be available to all templates in the application.
-require 'uri'
-
-# TODO - look these over.  I'm not sure all of them are used, and those that are... perhaps not efficiently.
-
 module ApplicationHelper
-
-  include ActionView::Helpers::AssetTagHelper
-  include ActionView::Helpers::TagHelper
-  include ActionView::Helpers::UrlHelper
-  include ActionView::Helpers::SanitizeHelper
 
   # Used in V2 to allow block elements in forms
   # adds error class and title attributes to form elements
@@ -40,11 +30,11 @@ module ApplicationHelper
         (options[:title] = "#{options[:title].to_s} #{I18n.t(:form_validation_errors_for_attribute_assistive)}").strip!
         errors = errors_for_method(@object, method)
       end
-
+    
       if block_given?
-        @template.concat(@template.content_tag(:label, "#{@template.capture(&block)} #{errors.to_s}", options))
+        @template.content_tag(:label, "#{@template.capture(&block)} #{errors.to_s}".html_safe, options)
       else
-        "#{super(method, content_or_options_with_block, options)} #{errors}"
+        super(method, content_or_options_with_block, options) + (errors ? @template.content_tag(:span, errors.to_s) : nil)
       end
     end
 
@@ -59,15 +49,15 @@ module ApplicationHelper
     private
 
     def errors_on?(method)
-      @object.respond_to?(:errors) && @object.errors.respond_to?(:on) && @object.errors.on(method.to_sym)
+      @object.respond_to?(:errors) && @object.errors.respond_to?(:messages) && ! @object.errors.messages[method.to_sym].blank?
     end
 
     def errors_for_method(object, method)
       return unless errors_on?(method)
-      errors = object.errors.on(method)
+      errors = object.errors.messages[method.to_sym]
       if errors.any?
         errors = [errors] if errors.is_a? String
-        @template.content_tag(:span, { :class => 'errors' }){ errors.join(", ") }
+        @template.content_tag(:span, { :class => 'errors' }){ " " + errors.join(", ") }
       end
     end
   end
@@ -93,14 +83,14 @@ module ApplicationHelper
     end
   end
 
-  # Used in V2 to return class for active navigation tabs.
-  def resource_is_active(resource, action = nil)
-    if action
-      return 'active' if controller.controller_path == resource.to_s && controller.action_name == action.to_s
-    else
-      return 'active' if controller.controller_path == resource.to_s
-    end
-    nil
+  # Used in V2 to return class for active navigation tabs. 
+  def resource_is_active(action)
+    return "active" if
+        action == "#{controller.controller_name}/#{controller.action_name}" ||
+        action == controller.controller_name ||
+        action == controller.action_name ||
+        action.downcase == controller.class.to_s.downcase
+    return nil
   end
 
   # Recommended by https://github.com/rails/jquery-ujs
@@ -123,6 +113,7 @@ module ApplicationHelper
       return 'image' if object.is_image?
       return 'video' if object.is_video?
       return 'sound' if object.is_sound?
+      return 'link' if object.is_link?
       return 'article' if object.is_text?
     elsif object.class == Community
       'community'
@@ -138,16 +129,6 @@ module ApplicationHelper
   end
   def en_type(object)
     return ApplicationHelper.en_type(object)
-  end
-
-  # Prefixes image paths with http://www.eol.org/images, so use image_url instead of image_path.
-  # It is intended for images stored in the code base i.e. default icons.
-  # You can pass data object images or user uploaded logos/profile images but these should already be
-  # absolute URLs from the content server, so will just get returned without any additional prefix.
-  def image_url(image)
-    image = image_path(image)
-    return image if image =~ /^https?:\/\//
-    "http://#{$SITE_DOMAIN_OR_IP}#{image}"
   end
 
   # Used in V2 to provide semi-useful alternative text for data object image representations
@@ -227,31 +208,23 @@ module ApplicationHelper
   # NOTE - Styles will only be cached for English. Sorry; impractical to maintain copies of all cached files for
   # every language.
   def stylesheet_include_i18n_merged(stylesheet, options = {})
-    if I18n.locale.to_s != 'ar' # Annoying that I have to check this, but c'est la vie. (See what I did there?)
-      return stylesheet_link_merged(*[stylesheet, options])
+    code = ''
+    # get the replacements
+    language_css_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}.css")
+    language_sass_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}.sass")
+    if File.exists?(language_css_path) || File.exists?(language_sass_path)
+      code += stylesheet_link_tag("languages/#{I18n.locale}/#{stylesheet}", options)
     else
-      read_stylesheet_packages unless @stylesheet_packages
-      raise "** UNKNOWN STYLESHEET LOADED: #{stylesheet}" unless @stylesheet_packages.has_key?(stylesheet.to_s)
-      code = ''
-      @stylesheet_packages[stylesheet.to_s].each do |file|
-        language_stylesheet = "/languages/#{I18n.locale}/#{file}.css"
-        if File.exists?(File.join(RAILS_ROOT, "public", language_stylesheet))
-          code += stylesheet_link_tag(language_stylesheet, options)
-        end
-      end
-      return code
+      code += stylesheet_link_tag(stylesheet, options)
     end
-  end
-
-  def read_stylesheet_packages
-    array_of_hashes = YAML::load(File.open(File.join(RAILS_ROOT, 'config', 'asset_packages.yml')))['stylesheets']
-    # Oddly, this gem requires the packages to be in array of hashes with a single key.  [shrug]  Clean up:
-    @stylesheet_packages = {}
-    array_of_hashes.each do |hsh|
-      hsh.keys.each do |k|
-        @stylesheet_packages[k] = hsh[k]
-      end
+    
+    # get the additions
+    language_css_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}_include.css")
+    language_sass_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}_include.sass")
+    if File.exists?(language_css_path) || File.exists?(language_sass_path)
+      code += stylesheet_link_tag("languages/#{I18n.locale}/#{stylesheet}_include", options)
     end
+    return raw(code)
   end
 
   # Version of error_messages_for that displays translated error messages
@@ -326,6 +299,7 @@ module ApplicationHelper
     if back_url.blank?
       root_url
     else
+      require 'uri'
       URI.decode(back_url)
     end
   end
@@ -361,7 +335,7 @@ module ApplicationHelper
     if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true
       args[0] += " #{external_link_icon}"
     end
-    link_to(args[0],args[1],html_options, &block)
+    link_to(raw(args[0]),args[1],html_options, &block)
   end
 
   def allow_some_html(text)
@@ -416,13 +390,13 @@ module ApplicationHelper
 
   def unpublished_icon(options={})
     style = options[:style] ? "style=\"#{options[:style]}\"" : ''
-    "<img src=\"/images/icons/unpublished.png\" alt=\"Unpublished\" title=\"Unpublished\" #{style} />"
+    "<img src=\"/assets/icons/unpublished.png\" alt=\"Unpublished\" title=\"Unpublished\" #{style} />"
   end
 
   def published_icon(options={})
     style = options[:style] ? "style=\"#{options[:style]}\"" : ''
     description = options[:agent_name] ? "From #{options[:agent_name]}" : ''
-    "<img src=\"/images/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
+    "<img src=\"/assets/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
   end
 
   @@TOOLTIP_GLOBAL_COUNT = 0
@@ -440,65 +414,138 @@ module ApplicationHelper
     url = back_or_home(url)
     capture_haml do
       haml_tag :input, {:id => "cancel", :type => 'button', :name => c, :value => c,
-                        :onclick => "javascript:window.location='#{url}';"}
+                        :onclick => "javascript:window.location='#{url.force_encoding('UTF-8')}';"}
     end
   end
 
   def link_to_item(item, options = {})
-    case item.class.name
-    when 'Collection'
+    case item
+    when Collection
       collection_url(item, options)
-    when 'Community'
+    when Community
       community_url(item, options)
-    when 'DataObject'
-      data_object_url(item, options)
-    when 'User'
+    when DataObject
+      data_object_url(item.latest_published_version_in_same_language || item, options)
+    when User
       user_url(item, options)
-    when 'TaxonConcept'
+    when TaxonConcept
       taxon_url(item, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end
   end
   def link_to_newsfeed(item, options = {})
-    case item.class.name
-    when 'Collection'
+    case item
+    when Collection
       collection_newsfeed_url(item, options)
-    when 'Community'
+    when Community
       community_newsfeed_url(item, options)
-    when 'DataObject'
-      data_object_url(item, options)
-    when 'User'
+    when DataObject
+      data_object_url(item.latest_published_version_in_same_language || item, options)
+    when User
       user_newsfeed_url(item, options)
-    when 'TaxonConcept'
-      taxon_url(item, options)
+    when TaxonConcept
+      if options[:taxon_updates] # Sometimes you want to go to the long activity view for taxa...
+        taxon_updates_url(item, options.delete(:taxon_updates))
+      else
+        taxon_url(item, options)
+      end
     else
       raise EOL::Exceptions::ObjectNotFound
     end
   end
 
-  def navigation_node(hierarchy_entry, opts = {})
-    link = opts[:link_to_taxa] ?
-      taxon_overview_path(hierarchy_entry.taxon_concept_id) :
-      taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
-    node = link_to(hierarchy_entry.italicized_name.firstcap, link)
+  def navigation_node(hierarchy_entry, options = {})
+    return hierarchy_entry.italicized_name.firstcap if options[:current]
+    options = options.select{ |k, v| [ :link_to_taxa,  :show_siblings, :show_hierarchy_label ].include?(k) }
+    link = options[:link_to_taxa] ?
+      overview_taxon_path(hierarchy_entry.taxon_concept_id) :
+      overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+    node = link_to(raw(hierarchy_entry.italicized_name.firstcap), link)
     node << ' '
-    node << navigation_show_descendants_link(hierarchy_entry, opts.reverse_merge(:link => link))
+    node << navigation_show_descendants_link(hierarchy_entry, options.reverse_merge(:link => link))
   end
 
-  def navigation_show_descendants_link(hierarchy_entry, opts = {})
-    link = if opts[:link]
-             opts.delete(:link)
-           else
-             opts[:link_to_taxa] ?
-             taxon_overview_path(hierarchy_entry.taxon_concept_id) :
-             taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
-           end
+  def navigation_show_descendants_link(hierarchy_entry, options={})
+    link = if options[:link]
+      options.delete(:link)
+    else
+      options[:link_to_taxa] ?
+        overview_taxon_path(hierarchy_entry.taxon_concept_id) :
+        overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+    end
     if hierarchy_entry.number_of_descendants == 0
       ''
     else
-      open_tree_path = taxon_hierarchy_entry_tree_path(hierarchy_entry.taxon_concept_id, hierarchy_entry, opts)
+      open_tree_path = taxon_entry_tree_path(hierarchy_entry.taxon_concept_id, hierarchy_entry, options)
       link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)
+    end
+  end
+
+  def image_url(source)
+    URI.join(root_url, image_path(source))
+  end
+
+  def show_full_tree(hierarchy_entry, options={})
+    capture_haml do
+      ancestors = hierarchy_entry.ancestors
+      if ancestor = ancestors.shift
+        haml_tag :ul, :class => 'branch' do
+          haml_tag :li do
+            haml_concat navigation_node(ancestor, options)
+            haml_concat show_full_tree(hierarchy_entry, options)
+          end
+        end
+      else
+        haml_concat show_nodes([ hierarchy_entry ], options.merge(:current => true))
+        if options[:show_siblings]
+          haml_concat show_nodes(options[:siblings], options.merge(:parent => hierarchy_entry.parent))
+        end
+      end
+    end
+  end
+
+  def show_nodes(hierarchy_entries, options={})
+    options[:max_children] ||= 500
+    capture_haml do
+      # using .nil? || == 0 here instead of .blank? because that would create a COUNT query,
+      # but we need to load the data anyway, so a COUNT would be unnecessary and inefficient
+      unless hierarchy_entries.nil? || hierarchy_entries.length == 0
+        haml_tag :ul, :class => 'branch' do
+          # sort the array by name string
+          # TODO: we should really not get back ALL records from the DB then sort, see if sorting in the DB is faster
+          hierarchy_entries = HierarchyEntry.sort_by_name(hierarchy_entries)
+          # limit the array to $max_children and iterate
+          hierarchy_entries[0...options[:max_children]].each do |hierarchy_entry|
+            haml_tag :li do
+              haml_tag :span, :class => (options[:current] ? 'current' : nil) do
+                haml_concat navigation_node(hierarchy_entry, options)
+              end
+              unless (options[:parent] && !options[:expand]) || hierarchy_entry.is_leaf?
+                # querying for the first $max_children children, ordered by name, and preloading the name strings all at once
+                children = hierarchy_entry.children.includes(:name).order('names.string').limit(options[:max_children])
+                haml_concat show_nodes(children, options.reject{ |k,v| k == :current }.merge(:parent => hierarchy_entry))
+              end
+            end
+          end
+
+          # Show a 'see more' type message
+          if parent = options[:parent]
+            potential_entries_to_show = parent.children.count
+            if options[:max_children] < potential_entries_to_show
+              haml_tag :li, :class => 'show_tree_count' do
+                haml_concat I18n.t(:more_children_with_count, :count => potential_entries_to_show - options[:max_children])
+                full_link = options[:link_to_taxa] ?
+                  overview_taxon_path(parent.taxon_concept_id, :full => true) :
+                  overview_taxon_entry_path(parent.taxon_concept_id, parent, :full => true)
+                full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa],
+                  :show_siblings => options[:show_siblings], :show_hierarchy_label => options[:show_hierarchy_label])
+                haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
+              end
+            end
+          end
+        end
+      end
     end
   end
 

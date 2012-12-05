@@ -37,7 +37,7 @@ module EOL
       end
 
       def self.lookup_data_objects(start, limit)
-        max = start + limit
+        max = start + limit # TODO - pretty sure this is a fencepost error (should be -1), but don't care enough...
         objects_to_send = []
         data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
         self.preload_associations!(data_objects)
@@ -91,6 +91,10 @@ module EOL
         data_object.data_objects_table_of_contents.each do |dotoc|
           hash['toc_id'] ||= []
           hash['toc_id'] << dotoc.toc_id
+        end
+        # add link type IDs
+        if data_object.is_link? && link_type_id = data_object.link_type.id
+          hash['link_type_id'] = link_type_id
         end
         # add translation_flag
         if data_object.translated_from
@@ -146,6 +150,7 @@ module EOL
             ancestor_he_ids = []
             ancestor_tc_ids += he.taxon_concept.flattened_ancestors.collect(&:ancestor_id)
             ancestor_he_ids += he.taxon_concept.published_hierarchy_entries.collect(&:id)
+            HierarchyEntry.preload_associations(he.taxon_concept.published_hierarchy_entries, :flattened_ancestors)
             ancestor_he_ids += he.taxon_concept.published_hierarchy_entries.collect{ |he| he.flattened_ancestors.collect(&:ancestor_id) }.flatten
             
             ancestor_tc_ids.uniq.each do |tc_id|

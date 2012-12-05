@@ -1,11 +1,10 @@
-require 'ruby-debug'
 require 'haml'
 
 
 desc 'Tasks useful for i18n updates'
 namespace :i18n_update do
-  lang_dir = File.join([RAILS_ROOT, "config", "locales"])
-  gibberish_lang_dir = File.join([RAILS_ROOT, "lang"])
+  lang_dir = Rails.root.join("config", "locales")
+  gibberish_lang_dir = Rails.root.join("lang")
   en_file = "translation_template.yml"
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
@@ -30,7 +29,7 @@ namespace :i18n_update do
     end   
 
     def get_all_files_in_app
-      Dir.chdir(File.join([RAILS_ROOT, "app"]))
+      Dir.chdir(Rails.root.join("app"))
       return Dir.glob(File.join("**", "*.{rb,haml,erb}"))
     end
 

@@ -1,2 +1,0 @@
-module Mobile::ContentsHelper
-end

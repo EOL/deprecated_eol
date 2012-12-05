@@ -21,7 +21,7 @@ describe ContactsController do
       assigns[:contact].should be_a(Contact)
       assigns[:contact].ip_address.should == request.remote_ip
       assigns[:contact_subjects].first.should be_a(ContactSubject)
-      response.rendered[:template].should == 'contacts/new.html.haml'
+      response.should render_template('contacts/new')
     end
     it 'should preload current user details if logged in' do
       get :new
@@ -51,11 +51,11 @@ describe ContactsController do
 
     it 'should not create or deliver email if record is invalid' do
       controller.instance_eval { flash.stub!(:sweep) }
-      Notifier.should_not_receive(:deliver_contact_us_auto_response)
-      Notifier.should_not_receive(:deliver_contact_us_message)
+      Notifier.should_not_receive(:contact_us_auto_response)
+      Notifier.should_not_receive(:contact_us_message)
       post :create
       flash.now[:error].should_not be_blank
-      response.rendered[:template].should == 'contacts/new.html.haml'
+      response.should render_template('contacts/new')
     end
 
     it 'should create contact' do
@@ -63,7 +63,7 @@ describe ContactsController do
       new_contact_params[:contact][:name] = 'Mr. Pink'
       post :create, new_contact_params, { :user_id => 1 }
       Contact.last.name.should == new_contact_params[:contact][:name]
-      response.redirected_to.should == contact_us_path
+      expect(response).to redirect_to(contact_us_path)
     end
 
     it 'should append current user URL to message if logged in' do
@@ -72,12 +72,16 @@ describe ContactsController do
     end
 
     it 'should send auto response email' do
-      Notifier.should_receive(:deliver_contact_us_auto_response)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      Notifier.should_receive(:contact_us_auto_response).and_return(mailer)
       post :create, @new_contact_params, { :user_id => 1 }
     end
 
     it 'should send feedback email' do
-      Notifier.should_receive(:deliver_contact_us_message)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      Notifier.should_receive(:contact_us_message).and_return(mailer)
       post :create, @new_contact_params, { :user_id => 1 }
     end
 
@@ -92,10 +96,10 @@ describe ContactsController do
 
     it 'should not return inactive contact subjects' do
       contact_subject = ContactSubject.find_by_active(true)
-      contact_subject.update_attribute(:active, false)
+      contact_subject.update_column(:active, false)
       controller.instance_eval{ contact_subjects }
       controller.instance_eval{ @contact_subjects }.select{ |cs| !cs.active? }.should be_blank
-      contact_subject.update_attribute(:active, true)
+      contact_subject.update_column(:active, true)
     end
 
   end

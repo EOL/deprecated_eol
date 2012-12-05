@@ -37,11 +37,18 @@ module EOL
     end
 
     def self.load(name)
+      require_all_models
       hash = YAML::load_file(file_for(name))
     end
 
     def self.file_for(name)
-      File.join(RAILS_ROOT, 'tmp', "#{name}_test_info.yml")
+      Rails.root.join('tmp', "#{name}_test_info.yml")
+    end
+
+    def self.require_all_models
+      Dir.glob("#{Rails.root}/app/models/**/*.rb") do |model_name|
+        require_dependency model_name
+      end 
     end
 
   end

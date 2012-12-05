@@ -1,18 +1,21 @@
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../spec_helper'
+require 'csv'
 
 describe Name do
 
-  before(:all) do
+  before(:each) do
     @canonical_form = CanonicalForm.gen(:string => "Some name")
     @name = Name.gen(:string => "Some name Auth, 1923", :canonical_form => @canonical_form)
   end
 
-  after(:all) do
+  after(:each) do
     Name.delete_all
     CanonicalForm.delete_all
   end
 
-  it { should belong_to(:canonical_form) }
+  #TODO - removed this plugin, find replacement:
+  # it { should belong_to(:canonical_form) }
 
   it "should require a valid #string" do
     Name.create( :string => 'Tiger' ).class.should == Name
@@ -85,7 +88,25 @@ describe Name do
       name.string = str
       name.is_surrogate_or_hybrid?.should == false
     end
+  end
+
+  it 'should identify subgenus' do
+    name = Name.create( :string => 'something', :ranked_canonical_form_id => 1)
+    [ 'Papilio (Heraclides) Hübner, 1819',
+      'Papilio (Papilio) Linnaeus 1758',
+      'Papilio (Papilio)'].each do |str|
+      name.string = str
+      name.is_subgenus?.should == true
+    end
     
+    [ 'Papilio',
+      'Papilio Heraclides Hübner, 1819',
+      'Papilio Hübner, 1819',
+      'Papilio papilio',
+      'Papilio (Papilio) papilio'].each do |str|
+      name.string = str
+      name.is_subgenus?.should == false
+    end
   end
 
   describe "::prepare_clean_name" do
@@ -106,15 +127,13 @@ describe Name do
 
     it "should take a common_name_string, and return new name instance)" do
       count = Name.count
-      name = Name.create_common_name("Blue \t  jay") # Note the addition of whitespace, which should be stripped
-      Name.count.should == count + 1
-      name.string.should == 'Blue jay'
-      name.canonical_form.string.should == 'Blue jay'
-      name.italicized.should == '<i>Blue jay</i>'
+      name = Name.create_common_name("Grey \t  jay") # Note the addition of whitespace, which should be stripped
+      name.string.should == 'Grey jay'
+      name.canonical_form.string.should == 'Grey jay'
+      name.italicized.should == '<i>Grey jay</i>'
     end
 
     it "should be able to modify existing common name if clean name matches" do
-      count = Name.delete_all
       name1 = Name.create_common_name("Blue \t  jay.") # Note the addition of whitespace, which should be stripped
       clean_string1 = Name.prepare_clean_name("Blue \t  jay.")
       name1.string.should == 'Blue jay.'
@@ -122,21 +141,19 @@ describe Name do
       clean_string2 = Name.prepare_clean_name("Blue \t  jay")
       name2.string.should == 'Blue jay'
       clean_string1.should == clean_string2
-      Name.count.should == 1  # Note we added 2 names(i.e. name1 & name2) but still count should increase by 1
+      name1.id.should == name2.id
     end
 
     it 'should create a canonical form when one does not already exist' do
-      Name.delete_all(:clean_name => 'smurf')
-      CanonicalForm.delete_all(:string => 'smurf')
       count = CanonicalForm.count
       name = Name.create_common_name('smurf') # Note the addition of whitespace, which should be stripped
       CanonicalForm.count.should == count + 1
     end
 
-    #it 'should run prepare_clean_name on its input' do
-    #  Name.should_receive(:prepare_clean_name).with('Care bear').exactly(1).times.and_return('care bear')
-    #  Name.create_common_name('Care bear')
-    #end
+    it 'should run prepare_clean_name on its input' do
+      Name.should_receive(:prepare_clean_name).with('Care bear').at_least(1).times.and_return('care bear')
+      Name.create_common_name('Care bear')
+    end
 
     it 'should not create a CanonicalForm, and should return an existing clean name, if passed a string that, when cleaned, already exists.' do
       CanonicalForm.should_not_receive(:create)
@@ -169,15 +186,16 @@ describe Name do
       name_count = Name.count
       name = Name.find_or_create_by_string("New name string")
       name.string == "New name string"
-      (Name.count - name_count).should == 1
+      Name.count.should == name_count + 1
     end
 
     # we don't want to be creating duplicates
     it "should not create name if it does exist" do
+      name = Name.find_or_create_by_string(@name.string)
       name_count = Name.count
       name = Name.find_or_create_by_string(@name.string)
       name.string == @name
-      (Name.count - name_count).should == 0
+      Name.count.should == name_count
     end
 
   end
@@ -185,7 +203,7 @@ describe Name do
   describe  "::find_by_string" do
     it "should return a name" do
       name = Name.find_by_string(" Some           Name Auth,     1923  ")
-      name.should == @name
+      name.string.should == @name.string
     end
   end
 

@@ -31,8 +31,11 @@ class CollectionItemsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_object = @collection_item.object
-        if @collection_item.object.is_a?(TaxonConcept)
-          redirect_object = taxon_overview_url(@collection_item.object)
+        if redirect_object.is_a?(TaxonConcept)
+          redirect_object = overview_taxon_url(redirect_object)
+        end
+        if redirect_object.is_a?(Curator)
+          redirect_object = user_url(redirect_object)
         end
         redirect_to redirect_object
       end
@@ -132,6 +135,8 @@ private
   end
 
   def create_collection_item(data)
+    # Lame exception:
+    data["object_type"] = "User" if data["object_type"] == "Curator" # TODO - fix this later.  Grrr.
     @collection_item = CollectionItem.new(data)
     @collection_item.collection ||= current_user.watch_collection unless current_user.blank?
     if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.id

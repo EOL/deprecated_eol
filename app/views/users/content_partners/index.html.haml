@@ -5,18 +5,17 @@
     .header
       %h3= I18n.t(:users_content_partners_header)
     .copy
-      %p= I18n.t(:users_content_partners_information, :more_url => cms_page_path('partners'))
+      %p= raw(I18n.t(:users_content_partners_information, :more_url => cms_page_path('partners')))
       - unless @partners.blank?
         %h3= I18n.t(:users_content_partners_with_count, :count => @partners.size)
-    - if !@new_partner.nil?
-      - form_for [@user, @new_partner], :url => new_content_partner_path do |form|
-        = form.hidden_field :user_id
-        %fieldset.actions
-          = form.submit I18n.t(:content_partner_new_link)
-    - elsif !@partners.nil? && @partners.size > 0
+    - if !@partners.nil? && @partners.size > 0
       %ul
         - @partners.each do |partner|
           %li
             = link_to image_tag(partner.logo_url(:small), :alt => ''), content_partner_path(partner)
             .details
               %h4= link_to partner.name, content_partner_path(partner)
+    = form_for [@user, @new_partner], :url => new_content_partner_path do |form|
+      = form.hidden_field :user_id
+      %fieldset.actions
+        = form.submit I18n.t(:content_partner_new_link)

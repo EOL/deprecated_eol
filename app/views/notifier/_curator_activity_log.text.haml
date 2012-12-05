@@ -1,0 +1,56 @@
+- if actions.blank?
+  = I18n.t(:activity_log_empty, :scope => :notifier)
+- else
+  - actions.each do |action|
+    - users_name = h strip_tags(action.user.full_name)
+    - users_url = user_url(action.user, :host => $SITE_DOMAIN_OR_IP)
+    - users_curator_level = action.user.curator_level.translated_label rescue 'User'
+    - action_date = format_date_time(action.created_at)
+    - # We check to make sure the action.data_object association is 'real' i.e. curator_activity_logs.object_id == data_objects.id
+    - # Consequently this partial does not handle activity on e.g. ChangeableObjectType.taxon_concept_name (please remove these comments if that changes)
+    - if ChangeableObjectType.data_object_scope.include?(action.changeable_object_type_id) && !action.data_object.blank?
+      - en_activity_name = nil
+      - # Only dealing with a few activities here, if you add more you'll need to change this
+      - case action.activity_id
+      - when Activity.trusted.id
+        - en_activity_name = 'trusted'
+      - when Activity.untrusted.id
+        - en_activity_name = 'untrusted'
+      - when Activity.inappropriate.id
+        - en_activity_name = 'inappropriate'
+      - when Activity.add_association.id
+        - en_activity_name = 'added_association'
+      - when Activity.remove_association.id
+        - en_activity_name = 'removed_association'
+      - unless en_activity_name.nil?
+        - object_name = h strip_tags(action.data_object.summary_name)
+        - object_url = data_object_url(action.data_object, :host => $SITE_DOMAIN_OR_IP)
+        - taxon_name = nil
+        - if en_activity_name == 'trusted' || en_activity_name == 'untrusted'
+          - # TODO: This switch is a bandaid and should probably be moved to the CAL model and the methods there for getting taxon/hierarchy entry fixed.
+          - # TODO: Not sure if we need extra checks for unpublished/superceded taxon concepts?
+          - case action.changeable_object_type_id
+          - when ChangeableObjectType.users_data_object.id
+            - taxon_concept = action.data_object.users_data_object.taxon_concept rescue nil
+            - taxon_name = taxon_concept.title_canonical rescue nil
+            - taxon_url = taxon_url(taxon_concept, :host => $SITE_DOMAIN_OR_IP) rescue ''
+          - when ChangeableObjectType.data_object.id
+            - # For legacy trust/untrust actions on data_object I don't think we have an associated hierarchy entry, for new actions the COT should be data_objects_hierarchy_entry
+            - taxon_name = nil
+          - when ChangeableObjectType.data_objects_hierarchy_entry.id
+            - taxon_name = action.hierarchy_entry.name.string rescue nil
+            - taxon_url = taxon_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
+          - when ChangeableObjectType.curated_data_objects_hierarchy_entry.id
+            - taxon_name = action.hierarchy_entry.name.string rescue nil
+            - taxon_url = taxon_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
+        - if taxon_name.nil?
+          - if en_activity_name == 'added_association' || en_activity_name == 'removed_association'
+            = I18n.t("activity_user_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
+          - else
+            = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
+        - else
+          - if en_activity_name == 'added_association' || en_activity_name == 'removed_association'
+            = I18n.t("activity_user_#{en_activity_name}_for_taxon_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :taxon_name => strip_tags(taxon_name), :taxon_url => taxon_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
+          - else
+            = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_for_taxon_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :taxon_name => strip_tags(taxon_name), :taxon_url => taxon_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
+

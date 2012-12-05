@@ -1,50 +1,99 @@
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../spec_helper'
+
+# TODO - these specs only pass when they're all passing. If one fails, the data isn't reset.
+
+def review_status_should_be(id, vetted, visible, options = {})
+  page.body.should have_tag("form.review_status") do
+    with_tag("select option[selected=selected]", :text => vetted)
+    with_tag("select option[selected=selected]", :text => visible)
+    if options.has_key? :duplicate
+      if options[:duplicate]
+        with_tag("input[id='#{id}_untrust_reason_duplicate'][checked]")
+      else
+        without_tag("input[id='#{id}_untrust_reason_duplicate'][checked]")
+      end
+    end
+    if options.has_key? :poor
+      if options[:poor]
+        with_tag("input[id='#{id}_untrust_reason_poor'][checked]")
+      else
+        without_tag("input[id='#{id}_untrust_reason_poor'][checked]")
+      end
+    end
+    if options.has_key? :incorrect
+      if options[:incorrect]
+        with_tag("input[id='#{id}_untrust_reason_incorrect'][checked]")
+      else
+        without_tag("input[id='#{id}_untrust_reason_incorrect'][checked]")
+      end
+    end
+    if options.has_key? :misidentified
+      if options[:misidentified]
+        with_tag("input[id='#{id}_untrust_reason_misidentified'][checked]")
+      else
+        without_tag("input[id='#{id}_untrust_reason_misidentified'][checked]")
+      end
+    end
+  end
+end
 
 describe 'Data Object Page' do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
-    Capybara.reset_sessions!
     # Somewhat empty, to speed things up:
-    @tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => [])
-    @another_name = 'Whatever'
-    @another_tc = build_taxon_concept(:images => [], :toc => [], :scientific_name => @another_name)
-    @single_name = 'Singularus namicus'
+    @tc = build_taxon_concept(:images => [:object_cache_url => FactoryGirl.generate(:image)], :toc => [])
+    @extra_name = 'Annuvvahnaemforyoo'
+    @extra_tc = build_taxon_concept(:images => [], :toc => [], :scientific_name => @extra_name)
+    @single_name = 'Singularusnamicus'
     @singular_tc = build_taxon_concept(:images => [], :toc => [], :scientific_name => @single_name)
     @singular_he = @singular_tc.entry
+    @name_to_add = 'Addthisnametomeplease'
+    @to_add_tc = build_taxon_concept(:images => [], :toc => [], :scientific_name => @name_to_add)
     @assistant_curator = build_curator(@tc, :level=>:assistant)
     @full_curator = build_curator(@tc, :level=>:full)
     @master_curator = build_curator(@tc, :level=>:master)
     @admin = User.gen(:admin=>1)
     @image = @tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
-    @extra_he = @another_tc.entry
-    @image.add_curated_association(@full_curator, @extra_he)
+    @extra_he = @extra_tc.entry
+    @assistants_entry = build_taxon_concept(:images => [], :toc => []).entry
 
-    # Build data_object without comments
     @dato_no_comments = build_data_object('Image', 'No comments',
     :num_comments => 0,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.trusted,
     :visibility => Visibility.visible)
     @dato_comments_no_pagination = build_data_object('Image', 'Some comments',
     :num_comments => 4,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.trusted,
     :visibility => Visibility.visible)
     @dato_comments_with_pagination = build_data_object('Image', 'Lots of comments',
     :num_comments => 15,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.trusted,
     :visibility => Visibility.visible)
     @dato_untrusted = build_data_object('Image', 'removed',
     :num_comments => 0,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.untrusted,
     :visibility => Visibility.invisible)
     @user_submitted_text = @tc.add_user_submitted_text(:user => @full_curator)
     @user = User.gen
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+  end
+
+  before(:each) do
+    @image.add_curated_association(@full_curator, @extra_he)
+    @image.data_objects_hierarchy_entries.first.trust(@full_curator)
+    @image.data_objects_hierarchy_entries.first.show(@full_curator)
+    @image.curated_data_objects_hierarchy_entries.each do |assoc|
+      next if assoc.hierarchy_entry_id == @extra_he.id # Keep this one.
+      @image.remove_curated_association(assoc.user, assoc.hierarchy_entry) if # ...only if it's real:
+        CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(assoc.data_object_guid,
+                                                                                         assoc.hierarchy_entry_id)
+    end
   end
 
   it "should render" do
@@ -54,12 +103,14 @@ describe 'Data Object Page' do
 
   it "should show data object attribution" do
     visit("/data_objects/#{@image.id}")
-    body.should have_tag('.source', /Author:/)
+    # Note that the spacing here (ATM, space followed by a newline) is pretty fragile... but I don't know how to make
+    # it more robust without a regex.
+    body.should have_tag('.source p', :text => "Author: \n#{@image.authors.first.full_name}")
   end
 
   it "should show image description for image objects" do
     visit("/data_objects/#{@image.id}")
-    body.should have_tag('.article', /Description(\n|.)*?#{@image.description}/)
+    body.should have_tag('.article .copy', :text => @image.description)
   end
 
   it "should not show comments section if there are no comments (obsolete?)" do
@@ -72,25 +123,17 @@ describe 'Data Object Page' do
 
   it "should show pagination if there are more than 10 comments (waiting on feed items adjustments)"
 
-  # TODO - change this to open the data object page, NOT the overview page!
-  it "should have a taxon_concept link for untrusted image, but following the link should show a warning" # do
-    # visit("/data_objects/#{@dato_untrusted.id}")
-    # page.status_code.should == 200
-    # page_link = "/pages/#{@tc.id}?image_id=#{@dato_untrusted.id}"
-    # page.body.should include(page_link)
-    # visit(page_link)
-    # page.status_code.should == 200
-    # page.body.should include('Image is no longer available')
-  # end
+  # TODO - this should open the data object page, NOT the overview page!
+  it "should have a taxon_concept link for untrusted image, but following the link should show a warning"
 
   it "should not show a link for data_object if its taxon page is not in database anymore" do
-    tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => [], :published => false)
+    tc = build_taxon_concept(:images => [:object_cache_url => FactoryGirl.generate(:image)], :toc => [], :published => false)
     image = tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
     tc.published = false
     tc.save!
     dato_no_tc = build_data_object('Image', 'unlinked',
     :num_comments => 0,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.trusted,
     :visibility => Visibility.visible)
     dato_no_tc.get_taxon_concepts[0].published?.should be_false
@@ -105,10 +148,10 @@ describe 'Data Object Page' do
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     click_link("Add new association")
-    fill_in 'name', :with => @another_name
+    fill_in 'name', :with => @name_to_add
     click_button "find taxa"
-    click_button "add association"
-    page.body.should have_tag('form.review_status a', :text => 'Remove association')
+    click_button "add association" # If this fails, make sure you have Solr running!
+    page.body.should have_tag("a[href='#{remove_association_path(@dato_no_comments.id, @to_add_tc.entry.id)}']")
     visit('/logout')
   end
 
@@ -122,185 +165,104 @@ describe 'Data Object Page' do
     page.body.should include("not associated with any published taxa")
   end
 
+  # TODO - Hi there. You'll notice the next few specs are quite redundant. Do you see a way to generalize them?
+  # Thanks for your consideration,
+  # The management.
+
   it 'should be able curate a DOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
     taid = @image.all_associations.first.id
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{taid} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{taid} option[selected=selected]", :text => "Visible")
-    end
+    review_status_should_be(taid, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{taid}"
     select "Hidden", :from => "visibility_id_#{taid}"
     click_button "Save changes"
-    page.body.should include("Curator should supply at least reason(s) to hide and/or curation comment")
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{taid} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{taid} option[selected=selected]", :text => "Visible")
-      without_tag("input[id=?][checked]", "#{taid}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{taid}_untrust_reason_poor")
-    end
+    page.should have_selector('p.status.error')
+    review_status_should_be(taid, 'Trusted', 'Visible')
+    review_status_should_be(taid, 'Trusted', 'Visible', :duplicate => false, :poor => false)
     select "Unreviewed", :from => "vetted_id_#{taid}"
     select "Hidden", :from => "visibility_id_#{taid}"
     check "#{taid}_untrust_reason_duplicate"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{taid} option[selected=selected]", :text => "Unreviewed")
-      with_tag("select#visibility_id_#{taid} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{taid}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{taid}_untrust_reason_poor")
-    end
+    review_status_should_be(taid, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
     select "Untrusted", :from => "vetted_id_#{taid}"
     click_button "Save changes"
-    page.body.should include("Curator should supply at least untrust reason(s) and/or curation comment")
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{taid} option[selected=selected]", :text => "Unreviewed")
-      with_tag("select#visibility_id_#{taid} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{taid}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{taid}_untrust_reason_poor")
-    end
+    page.should have_selector('p.status.error')
+    review_status_should_be(taid, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
     select "Untrusted", :from => "vetted_id_#{taid}"
     check "#{taid}_untrust_reason_misidentified"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{taid} option[selected=selected]", :text => "Untrusted")
-      with_tag("select#visibility_id_#{taid} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{taid}_untrust_reason_misidentified")
-      without_tag("input[id=?][checked]", "#{taid}_untrust_reason_incorrect")
-    end
+    review_status_should_be(taid, 'Untrusted', 'Hidden', :misidentified => true, :incorrect => false)
     select "Trusted", :from => "vetted_id_#{taid}"
     select "Visible", :from => "visibility_id_#{taid}"
     check "#{taid}_untrust_reason_misidentified"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{taid} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{taid} option[selected=selected]", :text => "Visible")
-      without_tag("input[id=?][checked]", "#{taid}_untrust_reason_misidentified")
-      without_tag("input[id=?][checked]", "#{taid}_untrust_reason_incorrect")
-    end
+    review_status_should_be(taid, 'Trusted', 'Visible', :misidentified => false, :incorrect => false)
     visit('/logout')
   end
 
   it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
-    trusted_association = @image.all_associations.last
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
-    end
-    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
-    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
+    assoc_id = @image.all_associations.first.id
+    review_status_should_be(assoc_id, 'Trusted', 'Visible')
+    select "Unreviewed", :from => "vetted_id_#{assoc_id}"
+    select "Hidden", :from => "visibility_id_#{assoc_id}"
     click_button "Save changes"
-    page.body.should include("Curator should supply at least reason(s) to hide and/or curation comment")
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
-    end
-    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
-    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
-    check "#{trusted_association.id}_untrust_reason_duplicate"
+    page.should have_selector('p.status.error')
+    review_status_should_be(assoc_id, 'Trusted', 'Visible', :duplicate => false, :poor => false)
+    select "Unreviewed", :from => "vetted_id_#{assoc_id}"
+    select "Hidden", :from => "visibility_id_#{assoc_id}"
+    check "#{assoc_id}_untrust_reason_duplicate"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
-    end
-    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
+    review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
+    select "Untrusted", :from => "vetted_id_#{assoc_id}"
     click_button "Save changes"
-    page.body.should include("Curator should supply at least untrust reason(s) and/or curation comment")
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
-    end
-    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
-    check "#{trusted_association.id}_untrust_reason_misidentified"
+    page.should have_selector('p.status.error')
+    review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
+    select "Untrusted", :from => "vetted_id_#{assoc_id}"
+    check "#{assoc_id}_untrust_reason_misidentified"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Untrusted")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
-    end
-    select "Trusted", :from => "vetted_id_#{trusted_association.id}"
-    select "Visible", :from => "visibility_id_#{trusted_association.id}"
-    check "#{trusted_association.id}_untrust_reason_misidentified"
+    review_status_should_be(assoc_id, 'Untrusted', 'Hidden', :misidentified => true, :incorrect => false)
+    select "Trusted", :from => "vetted_id_#{assoc_id}"
+    select "Visible", :from => "visibility_id_#{assoc_id}"
+    check "#{assoc_id}_untrust_reason_misidentified"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
-    end
+    review_status_should_be(assoc_id, 'Trusted', 'Visible', :misidentified => false, :incorrect => false)
     visit('/logout')
   end
 
   it 'should be able curate a UDO association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@user_submitted_text.id}")
-    trusted_association = @user_submitted_text.all_associations.first
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
-    end
-    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
-    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
+    assoc_id = @user_submitted_text.all_associations.first.id
+    review_status_should_be(assoc_id, 'Trusted', 'Visible')
+    select "Unreviewed", :from => "vetted_id_#{assoc_id}"
+    select "Hidden", :from => "visibility_id_#{assoc_id}"
     click_button "Save changes"
-    page.body.should include("Curator should supply at least reason(s) to hide and/or curation comment")
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
-    end
-    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
-    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
-    check "#{trusted_association.id}_untrust_reason_duplicate"
+    page.should have_selector('p.status.error')
+    review_status_should_be(assoc_id, 'Trusted', 'Visible')
+    select "Unreviewed", :from => "vetted_id_#{assoc_id}"
+    select "Hidden", :from => "visibility_id_#{assoc_id}"
+    check "#{assoc_id}_untrust_reason_duplicate"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
-    end
-    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
+    review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
+    select "Untrusted", :from => "vetted_id_#{assoc_id}"
     click_button "Save changes"
-    page.body.should include("Curator should supply at least untrust reason(s) and/or curation comment")
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
-    end
-    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
-    check "#{trusted_association.id}_untrust_reason_misidentified"
+    review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
+    select "Untrusted", :from => "vetted_id_#{assoc_id}"
+    check "#{assoc_id}_untrust_reason_misidentified"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Untrusted")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
-      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
-    end
-    select "Trusted", :from => "vetted_id_#{trusted_association.id}"
-    select "Visible", :from => "visibility_id_#{trusted_association.id}"
-    check "#{trusted_association.id}_untrust_reason_misidentified"
+    review_status_should_be(assoc_id, 'Untrusted', 'Hidden', :misidentified => true, :incorrect => false)
+    select "Trusted", :from => "vetted_id_#{assoc_id}"
+    select "Visible", :from => "visibility_id_#{assoc_id}"
+    check "#{assoc_id}_untrust_reason_misidentified"
     click_button "Save changes"
-    page.body.should have_tag("form.review_status") do
-      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
-      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
-      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
-    end
+    review_status_should_be(assoc_id, 'Trusted', 'Visible', :misidentified => false, :incorrect => false)
     visit('/logout')
   end
 
   it 'should not allow assistant curators to remove curated associations' do
-    # Note there is a curated association added by @full_curator for @image. See before(:all) section.
     login_as @assistant_curator
     visit("/data_objects/#{@image.id}")
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
@@ -308,28 +270,22 @@ describe 'Data Object Page' do
   end
 
   it 'should allow a full curators to remove self added associations' do
-    # Note there is a curated association added by @full_curator for @image. See before(:all) section.
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
     page.body.should have_tag('form.review_status a', :text => 'Remove association')
-    page.body.should have_tag('form.review_status a', :text => @another_name)
+    page.body.should have_tag("a[href='#{remove_association_path(@image.id, @extra_he.id)}']")
     click_link "remove_association_#{@extra_he.id}"
-    page.body.should_not have_tag('form.review_status a', :text => @another_name)
+    page.body.should_not have_tag("a[href='#{remove_association_path(@image.id, @extra_he.id)}']")
     visit('/logout')
   end
 
-  it 'should allow a master curators to remove curated associations' do
-    login_as @master_curator
-    visit("/data_objects/#{@image.id}")
-    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
-    visit('/logout')
-    @image.add_curated_association(@full_curator, @extra_he)
+  it 'should allow a master curator to remove curated associations' do
     login_as @master_curator
     visit("/data_objects/#{@image.id}")
     page.body.should have_tag('form.review_status a', :text => 'Remove association')
-    page.body.should have_tag('form.review_status a', :text => @another_name)
+    page.body.should have_tag('form.review_status a', :text => @extra_name)
     click_link "remove_association_#{@extra_he.id}"
-    page.body.should_not have_tag('form.review_status a', :text => @another_name)
+    page.body.should_not have_tag("a[href='#{remove_association_path(@image.id, @extra_he.id)}']")
     visit('/logout')
   end
 
@@ -375,39 +331,40 @@ describe 'Data Object Page' do
     @image.rights_holder = "Someone"
     @image.save
     visit("/data_objects/#{@image.id}")
-    body.should match('&copy;')
+    body.should match('©')
   end
 
   it 'should save owner as rights holder(if not specified) while editing an article' do
     user_submitted_text = @tc.add_user_submitted_text(:user => @user)
     login_as @user
     visit("/data_objects/#{user_submitted_text.id}")
-    body.should_not have_tag(".article.list ul li a[href=/data_objects/#{user_submitted_text.id}]")
+    body.should_not have_tag(".article.list ul li a[href='/data_objects/#{user_submitted_text.id}']")
     click_link "Edit this article"
     fill_in 'data_object_rights_holder', :with => ""
     click_button "Save article"
-    body.should have_tag(".article.list ul li a[href=/data_objects/#{user_submitted_text.id}]")
+    body.should have_tag(".article.list ul li a[href='/data_objects/#{user_submitted_text.id}']")
   end
 
   it "should link agents to their homepage, and add http if the link does not include it" do
-    agent = Agent.new(:full_name => 'doesnt matter', :homepage => 'www.somesite.com')
-    agent.send(:create_without_callbacks)
+    agent = Agent.gen(:full_name => 'doesnt matter', :homepage => 'www.somesite.com')
+    # TODO - this used to use create_without_callbacks, which is gone in Rails 3, and the reason for needing it was
+    # not explained. Look into it.
     @image.agents_data_objects << AgentsDataObject.gen(:agent => agent, :agent_role => AgentRole.author, :data_object => @image)
     @image.save
     visit("/data_objects/#{@image.id}")
-    body.should have_tag("a[href=http://#{agent.homepage}]", :text => agent.full_name)
+    body.should have_tag("a[href='http://www.somesite.com']", :text => agent.full_name)
   end
 
   it "should allow assistant curators to add and/or remove associations, but not to curate them" do
-    @image.add_curated_association(@assistant_curator, @extra_he)
+    @image.add_curated_association(@assistant_curator, @assistants_entry)
     login_as @assistant_curator
     visit("/data_objects/#{@image.id}")
     page.body.should_not have_tag('ul.review_status select')
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
-    page.body.should have_tag('.review_status li a', :text => 'Remove association')
-    page.body.should have_tag('.review_status li a', :text => @another_name)
-    click_link "remove_association_#{@extra_he.id}"
-    page.body.should_not have_tag('.review_status li a', :text => @another_name)
+    page.body.should have_tag("a[href='#{remove_association_path(@image.id, @assistants_entry.id)}']")
+    page.body.should have_tag('.review_status li a', :text => @extra_name)
+    click_link "remove_association_#{@assistants_entry.id}"
+    page.body.should_not have_tag("a[href='#{remove_association_path(@image.id, @assistants_entry.id)}']")
     visit('/logout')
   end
 
@@ -419,9 +376,9 @@ describe 'Data Object Page' do
     page.body.should_not have_tag('ul.review_status select')
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
     page.body.should have_tag('.review_status li a', :text => 'Remove association')
-    page.body.should have_tag('.review_status li a', :text => @another_name)
+    page.body.should have_tag('.review_status li a', :text => @extra_name)
     click_link "remove_association_#{@extra_he.id}"
-    page.body.should_not have_tag('.review_status li a', :text => @another_name)
+    page.body.should_not have_tag('.review_status li a', :text => @extra_name)
     visit('/logout')
   end
 
@@ -441,7 +398,7 @@ describe 'Data Object Page' do
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     click_link("Add new association")
-    fill_in 'name', :with => @another_name
+    fill_in 'name', :with => @extra_name
     click_button "find taxa"
     page.body.should include('add association')
     page.body.should_not include('associated')
@@ -449,7 +406,7 @@ describe 'Data Object Page' do
     page.body.should have_tag('form.review_status a', :text => 'Remove association')
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
     click_link("Add new association")
-    fill_in 'name', :with => @another_name
+    fill_in 'name', :with => @extra_name
     click_button "find taxa"
     page.body.should_not include('add association')
     page.body.should include('associated')
@@ -458,7 +415,7 @@ describe 'Data Object Page' do
 
   it 'should link image on the image data object page to it\'s original version' do
     visit("/data_objects/#{@image.id}")
-    page.body.should have_tag(".media a[href=#{@image.thumb_or_object(:orig)}]")
+    page.body.should have_tag(".media a[href='#{@image.thumb_or_object(:orig)}']")
   end
 
   it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'

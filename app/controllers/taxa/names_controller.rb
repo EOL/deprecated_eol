@@ -4,18 +4,11 @@ class Taxa::NamesController < TaxaController
   before_filter :add_page_view_log_entry
   before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
-  before_filter :preload_core_relationships_for_names, :only => [ :related_names, :common_names, :synonyms ]
+  before_filter :preload_associations_for_names, :only => [ :related_names, :common_names, :synonyms ]
   before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
+  before_filter :parse_classification_controller_params, :only => :index
 
   def index
-
-    # NOTE - the following are all params passed from the ClassificationsController. Yeesh.
-    @confirm_split_or_merge = params[:confirm]
-    @pending = true if params[:pending]
-    @providers_match = params[:providers_match]
-    @exemplar = params[:exemplar]
-    @additional_confirm = params[:additional_confirm]
-    @move_to = params[:move_to]
 
     session[:split_hierarchy_entry_id] = params[:split_hierarchy_entry_id] if params[:split_hierarchy_entry_id]
     params[:all] = 1 if session[:split_hierarchy_entry_id] && !session[:split_hierarchy_entry_id].blank?
@@ -26,8 +19,15 @@ class Taxa::NamesController < TaxaController
       @hierarchy_entries = @taxon_concept.deep_published_browsable_hierarchy_entries
       @other_hierarchy_entries = @taxon_concept.deep_published_nonbrowsable_hierarchy_entries
     end
-    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :hierarchy => [ { :resource => :content_partner }, :dwc_resource ] }, :flattened_ancestors, :rank ])
-    
+    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :hierarchy => [ { :resource => :content_partner }, :dwc_resource ] },
+      :rank, :ancestors ])
+    # preloading the names for the current nodes and their ancestors. Children and sublings will be loaded later in the views
+    # which is more efficient as we can preload only the first $max_children of each, sorted by name. It is not possible to get
+    # for example "the first 10 children, alphabetically, for these 15 entries". That must be done for each entry individually
+    HierarchyEntry.preload_associations((@hierarchy_entries + @hierarchy_entries.collect(&:ancestors)).flatten, :name)
+
+    @pending_moves = HierarchyEntryMove.pending.find_all_by_hierarchy_entry_id(@hierarchy_entries)
+
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count
     render :action => 'classifications'
@@ -39,7 +39,7 @@ class Taxa::NamesController < TaxaController
   def related_names
     if @selected_hierarchy_entry
       @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @selected_hierarchy_entry_id)
-      @rel_canonical_href = taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry)
+      @rel_canonical_href = taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry)
     else
       @related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
       @rel_canonical_href = taxon_names_url(@taxon_concept)
@@ -80,7 +80,7 @@ class Taxa::NamesController < TaxaController
       current_user.log_activity(:updated_common_names, :taxon_concept_id => @taxon_concept.id)
     end
     if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
+      redirect_to common_names_taxon_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
     else
       redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
     end
@@ -98,7 +98,7 @@ class Taxa::NamesController < TaxaController
     end
 
     if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
+      redirect_to common_names_taxon_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
     else
       redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
     end
@@ -113,7 +113,7 @@ class Taxa::NamesController < TaxaController
     TaxonConcept.preload_associations(@taxon_concept, associations, options )
     @assistive_section_header = I18n.t(:assistive_names_synonyms_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      synonyms_taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
+      synonyms_taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
       synonyms_taxon_names_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
     common_names_count
@@ -122,12 +122,12 @@ class Taxa::NamesController < TaxaController
   # GET for collection common_names /pages/:taxon_id/names/common_names
   def common_names
     @languages = Language.with_iso_639_1.sort_by{ |l| l.label }
-    @languages.collect! {|lang|  [lang.label.to_s.truncate(20), lang.id] }
+    @languages.collect! { |lang| [view_context.truncate(lang.label.to_s, :length => 20), lang.id] }
     @common_names = get_common_names
     @common_names_count = @common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      common_names_taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
+      common_names_taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
       common_names_taxon_names_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
@@ -158,7 +158,7 @@ class Taxa::NamesController < TaxaController
     respond_to do |format|
       format.html do
         if !params[:hierarchy_entry_id].blank?
-          redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
+          redirect_to common_names_taxon_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
         else
           redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
         end
@@ -192,7 +192,7 @@ private
     @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s}
   end
 
-  def preload_core_relationships_for_names
+  def preload_associations_for_names
     @hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
     @hierarchy_entries = @hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id} if
       @selected_hierarchy_entry
@@ -209,7 +209,16 @@ private
 
   # NOTE - #||= because instantiate_taxon_concept could have set it.  Confusing but true.  We should refactor this.
   def count_browsable_hierarchies
-    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.includes(:hierarchy).select{ |he| he.hierarchy.browsable? }
     @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
   end
+
+  def parse_classification_controller_params
+    @confirm_split_or_merge = params[:confirm]
+    @providers_match = params[:providers_match]
+    @exemplar = params[:exemplar]
+    @additional_confirm = params[:additional_confirm]
+    @move_to = params[:move_to]
+  end
+
 end

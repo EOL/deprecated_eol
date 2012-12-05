@@ -1,6 +1,6 @@
 - node_class ||= ''
 %a.name{:href => '', :class => node_class, :onclick => "javascript:update_browser_stats(#{hierarchy_entry.id}, 0); return false;"}
-  = hierarchy_entry.italicized_name.firstcap
+  = raw(hierarchy_entry.italicized_name.firstcap)
 = link_to(external_link_icon, { :controller => '/taxa', :action => 'show', :id => hierarchy_entry.taxon_concept_id}, :target => '_blank' )
 - if hierarchy_entry.number_of_descendants > 0 && hierarchy_entry.number_of_descendants > 1000
   = image_tag('arrow_down_gray.gif', :alt => I18n.t("cannot_expand_children"), :title => I18n.t("cannot_expand_children"))
@@ -10,9 +10,9 @@
 - unless hierarchy_entry.hierarchy_entry_stat.blank?
   %small
     = hierarchy_entry.hierarchy_entry_stat.pecent_with_images
-    \%
+    = "%"
     = image_tag('image.png', :alt => I18n.t("percentage_of_descendants_with_images"), :title => I18n.t("percentage_of_descendants_with_images"))
     &nbsp;&nbsp;
     = hierarchy_entry.hierarchy_entry_stat.pecent_with_text
-    \%
+    = "%"
     = image_tag('text.png', :alt => I18n.t("percentage_of_descendants_with_text"), :title => I18n.t("percentage_of_descendants_with_text"))

@@ -14,6 +14,6 @@
     - else
       - unless @translated_content.left_content.blank?
         .nav
-          = @translated_content.left_content
+          = raw(@translated_content.left_content)
       .article.copy
-        = @translated_content.main_content
+        = raw(@translated_content.main_content)

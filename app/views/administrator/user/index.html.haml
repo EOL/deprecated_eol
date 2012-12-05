@@ -1,7 +1,7 @@
-= stylesheet_include_i18n_merged 'calendar'
+= stylesheet_link_tag 'calendar'
 =  I18n.t(:user_index_intro)
 #users
-  - form_tag({:action=>'index'},:method=>'get') do
+  = form_tag({:action=>'index'}, :method=>'get') do
     %table{:width => "100%"}
       %tr{:valign => 'top'}
         %td{:width => "30%"}
@@ -44,14 +44,14 @@
     %br
     %br
     %p
-      = link_to I18n.t("add_a_new_user"),:action=>'new'
-      |
-      = link_to I18n.t("export_this_list_as_csv"),{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
+      = link_to I18n.t("add_a_new_user"), new_administrator_user_path
+      &#124;
+      = link_to I18n.t("export_this_list_as_csv"), administrator_user_index_path(:export=>'true', :start_date=>@start_date, :blank_dates=>@blank_dates, :end_date=>@end_date, :user_search_string=>@user_search_string)
     %br
     - if @users.nil? == false && @users.size > 0
       =I18n.t("a_total_of_items_were_found_matching_your_criteria", :count => @user_count)
       %br
-      = will_paginate @users
+      = will_paginate @users, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
@@ -77,9 +77,9 @@
               = h user.id
             %td{ :class => column_class }
               - if user.username.nil?
-                = link_to "N/A", :action => 'edit', :id => user.id
+                = link_to "N/A", edit_administrator_user_path(user)
               - else
-                = link_to user.username, :action => 'edit', :id => user.id
+                = link_to user.username, edit_administrator_user_path(user)
             %td{ :class => column_class }
               = h user.email
             %td{ :class => column_class }
@@ -93,11 +93,10 @@
             %td{ :class => column_class }
               = user.is_hidden? ? I18n.t("yes_answer") : I18n.t("no_answer")
             %td{ :class => column_class }
-              = #link_to(I18n.t("delete_firstcap"), {:action=>'destroy', :id=>user.id}, :confirm => I18n.t("are_you_sure_this_action_cannot_be_undone"), :method => :delete) unless user.is_curator?
               - if !user.is_curator? and !user.is_content_partner?
-                = link_to(I18n.t("hide"), {:action=>'hide', :id=>user.id}, :method => :hide) unless user.is_hidden?
-                = link_to(I18n.t("show"), {:action=>'unhide', :id=>user.id}, :method => :unhide) if user.is_hidden?
+                = link_to(I18n.t("hide"), hide_administrator_user_path(user)) unless user.is_hidden?
+                = link_to(I18n.t("show"), unhide_administrator_user_path(user)) if user.is_hidden?
       %br
-      = will_paginate @users
+      = will_paginate @users, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
     - else
       =I18n.t("no_users_matched_search")

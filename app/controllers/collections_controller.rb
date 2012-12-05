@@ -3,13 +3,13 @@ class CollectionsController < ApplicationController
 
   before_filter :login_with_open_authentication, :only => :show
   before_filter :modal, :only => [:choose_editor_target, :choose_collect_target]
-  before_filter :find_collection, :except => [:new, :create, :choose_editor_target, :choose_collect_target]
+  before_filter :find_collection, :except => [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]
   before_filter :prepare_show, :only => [:show]
   before_filter :user_able_to_edit_collection, :only => [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, :only => [:show]
   before_filter :find_parent, :only => [:show]
   before_filter :find_parent_for_current_user_only,
-    :except => [:show, :collect, :watch, :choose_editor_target, :choose_collect_target]
+    :except => [:show, :collect, :watch, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]
   before_filter :configure_sorting_and_filtering_and_facet_counts, :only => [:show, :update]
   before_filter :build_collection_items, :only => [:show]
   before_filter :load_item, :only => [:choose_editor_target, :choose_collect_target, :create]
@@ -34,6 +34,7 @@ class CollectionsController < ApplicationController
   end
 
   def create
+    return must_be_logged_in unless logged_in?
     @collection = Collection.new(params[:collection])
     if @collection.save
       @collection.users = [current_user]
@@ -84,8 +85,8 @@ class CollectionsController < ApplicationController
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
         params[:collection] # NOTE - when we sort, we don't *actually* update params...
       redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect), :status => :moved_permanently
-      CollectionActivityLog.create({ :collection => @collection, :user => current_user, :activity => Activity.change_name }) if name_change
-      CollectionActivityLog.create({ :collection => @collection, :user => current_user, :activity => Activity.change_description }) if description_change
+      CollectionActivityLog.create({ :collection => @collection, :user_id => current_user.id, :activity => Activity.change_name }) if name_change
+      CollectionActivityLog.create({ :collection => @collection, :user_id => current_user.id, :activity => Activity.change_description }) if description_change
     else
       set_edit_vars
       render :action => :edit
@@ -159,10 +160,16 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
       format.html do
-        render :partial => 'choose_collect_target', :layout => 'v2/choose_collect_target'
+        render 'choose_collect_target', :layout => 'v2/choose_collect_target'
       end
       format.js { render :partial => 'choose_collect_target' }
     end
+  end
+
+  # TODO - this should really be its own resource in its own controller.
+  def cache_inaturalist_projects
+    InaturalistProjectInfo.cache_all if InaturalistProjectInfo.needs_caching?
+    render :nothing => true
   end
 
 protected
@@ -195,7 +202,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @collection ?
-      view_helper_methods.image_url(@collection.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+      view_context.image_tag(@collection.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private
@@ -357,7 +364,7 @@ private
     ids = CollectionItem.connection.execute(
       "SELECT id FROM collection_items
        WHERE id > #{last_collection_item.id} AND collection_id IN (#{destinations.map {|d| d.id}.join(',')})"
-    ).all_hashes.map {|h| h["id"] }
+    ).map {|a| a.first }
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(ids)
     # NOTE - this is pretty brutal. The older method preserves objects that didn't actually move (ie: if they were
     # duplicates), but I figure that's not entirely desirable, anyway...
@@ -383,14 +390,15 @@ private
 
   def copy_items(options)
     collection_items = collection_items_with_scope(options)
-    already_have = options[:to].collection_items.map {|i| [i.object_id, i.object_type]}
+    copy_to_collection = options[:to]
     new_collection_items = []
     old_collection_items = []
     count = 0
     @duplicates = false
+    collection_items = CollectionItem.find_all_by_id(collection_items)
+    CollectionItem.preload_associations(collection_items, [ :object, :collection ])
     collection_items.each do |collection_item|
-      collection_item = CollectionItem.find(collection_item) # sometimes this is just an id.
-      if already_have.include?([collection_item.object.id, collection_item.object_type])
+      if copy_to_collection.has_item?(collection_item.object)
         @duplicates = true
       else
         old_collection_items << collection_item
@@ -653,7 +661,9 @@ private
   def reindex_items_if_necessary(collection_results)
     collection_item_ids_to_reindex = []
     collection_results.each do |r|
-      if r['sort_field'] != r['instance'].sort_field
+      # the instance should never be nil, but sometimes it is when the DB and Solr are out of sync
+      next if r['instance'].nil?
+      if !(r['sort_field'].blank? && r['instance'].sort_field.blank?) && r['sort_field'] != r['instance'].sort_field
         collection_item_ids_to_reindex << r['instance'].id
       elsif r['object_type'] == 'TaxonConcept'
         title = r['instance'].object.entry.name.canonical_form.string rescue nil
@@ -662,7 +672,7 @@ private
         elsif r['instance'].object.taxon_concept_metric && r['richness_score'] != r['instance'].object.taxon_concept_metric.richness_score
           collection_item_ids_to_reindex << r['instance'].id
         end
-      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound'].include?(r['object_type'])
+      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link', 'Map'].include?(r['object_type'])
         if r['data_rating'] != r['instance'].object.data_rating
           collection_item_ids_to_reindex << r['instance'].id
         end

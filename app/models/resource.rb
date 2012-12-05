@@ -85,12 +85,12 @@ class Resource < ActiveRecord::Base
 
   def self.ligercat
     cached('ligercat') do
-      unless Agent.boa.user.blank?
-        Agent.boa.user.content_partners.first.resources[0]
+      if Agent.boa.user
+        Agent.boa.user.content_partners.first.resources.first rescue nil
       else
         content_partner = ContentPartner.boa
         return nil unless content_partner && content_partner.resources && content_partner.resources.first
-        content_partner.resources.first
+        content_partner.resources.first rescue nil
       end
     end
   end
@@ -103,7 +103,7 @@ class Resource < ActiveRecord::Base
     return @oldest_published_harvest if defined? @oldest_published_harvest
     HarvestEvent
     cache_key = "oldest_published_harvest_event_for_resource_#{id}"
-    @oldest_published_harvest = $CACHE.read(Resource.cached_name_for(cache_key))
+    @oldest_published_harvest = Rails.cache.read(Resource.cached_name_for(cache_key))
     # not using fetch as only want to set expiry when there is no harvest event
     if @oldest_published_harvest.nil? #cache miss
       @oldest_published_harvest = HarvestEvent.find(:first,
@@ -111,9 +111,9 @@ class Resource < ActiveRecord::Base
         :limit => 1, :order => 'published_at')
       if @oldest_published_harvest.nil?
         # resource not yet published store 0 in cache with expiry so we don't try to find it again for a while
-        $CACHE.write(Resource.cached_name_for(cache_key), 0, :expires_in => 6.hours)
+        Rails.cache.write(Resource.cached_name_for(cache_key), 0, :expires_in => 6.hours)
       else
-        $CACHE.write(Resource.cached_name_for(cache_key), @oldest_published_harvest)
+        Rails.cache.write(Resource.cached_name_for(cache_key), @oldest_published_harvest)
       end
     elsif @oldest_published_harvest == 0 # cache hit, resource not yet published so set harvest event to nil
       @oldest_published_harvest = nil
@@ -125,7 +125,7 @@ class Resource < ActiveRecord::Base
     return @latest_published_harvest if defined? @latest_published_harvest
     HarvestEvent
     cache_key = "latest_published_harvest_event_for_resource_#{id}"
-    @latest_published_harvest = $CACHE.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
+    @latest_published_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
       he = HarvestEvent.find(:first,
        :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
        :limit => 1, :order => 'published_at desc')
@@ -139,30 +139,13 @@ class Resource < ActiveRecord::Base
     return @latest_harvest if defined? @latest_harvest
     HarvestEvent
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
-    @latest_harvest = $CACHE.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
-      he = HarvestEvent.find(:first, :limit => 1, :order => 'id DESC', :conditions => ["resource_id = ?", id])
+    @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
+      he = HarvestEvent.where(resource_id: id).order('id DESC').limit(1).first
       he.nil? ? 0 : he # use 0 instead of nil when setting for cache because cache treats nil as a miss
     end
     @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_harvest
   end
-
-#  # vet or unvet entire resource (0 = unknown, 1 = vet)
-#  def set_vetted_status(vetted)
-#    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-#
-#    # update the vetted_id of all data_objects associated with the latest
-#    connection.execute("update harvest_events he straight_join data_objects_harvest_events dohe on (he.id=dohe.harvest_event_id) straight_join data_objects do on (dohe.data_object_id=do.id) set do.vetted_id = #{set_to_state} where do.vetted_id = 0 and he.resource_id = #{self.id}")
-#
-#    if set_to_state == Vetted.trusted.id && !hierarchy.nil?
-#      # update the vetted_id of all concepts associated with this resource - only vet them never unvet them
-#      connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{hierarchy.id}")
-#    end
-#
-#    self.vetted=vetted
-#
-#    true
-#  end
 
   def upload_resource_to_content_master!(port = nil)
     if self.accesspoint_url.blank?
@@ -174,9 +157,9 @@ class Resource < ActiveRecord::Base
       file_url = accesspoint_url
     end
     status, response_message = ContentServer.upload_resource(file_url, self.id)
-    if status == 'success'
-      self.notes = nil  # reset the notes which may contain previous validation failures
-      self.resource_status = response_message
+    if status == ResourceStatus.validated
+      self.notes = response_message  # reset the notes which may contain previous validation failures
+      self.resource_status = ResourceStatus.validated
     else
       if response_message
         self.notes = response_message
@@ -187,7 +170,7 @@ class Resource < ActiveRecord::Base
       end
     end
     self.save!
-    return resource_status
+    return self.resource_status
   end
 
   def from_DiscoverLife?
@@ -199,7 +182,7 @@ private
 
   def url_or_dataset_not_both
     if dataset_file_provided? && accesspoint_url_provided?
-      errors.add_to_base I18n.t('content_partner_resource_url_or_dataset_not_both_error')
+      errors[:base] << I18n.t('content_partner_resource_url_or_dataset_not_both_error')
     end
   end
   
@@ -210,7 +193,7 @@ private
     if first_type = mime_types.first
       return true if VALID_RESOURCE_CONTENT_TYPES.include? first_type.to_s
     end
-    errors.add_to_base I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
+    errors[:base] << I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
   end
   
   def accesspoint_url_provided?

@@ -1,4 +1,4 @@
-# Messages for Serbian (Latin script) (‪srpski (latinica)‬)
+# Messages for Serbian (Latin script) (srpski (latinica)‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Rancher
@@ -201,14 +201,12 @@ sr-Latn:
   add_a_comment_colon: "Dodaj komentar:"
   add_a_new_common_name: Dodaj novi trivijalan naziv
   add_a_new_file_brackets: "[dodaj novu datoteku]"
-  add_a_new_news_item: Dodaj novu vest
   add_a_new_role: Dodaj novu ulogu
   add_a_new_search_suggestion: Dodaj novi predlog za pretragu
   add_a_new_term: Dodaj novi pojam
   add_a_new_topic_area: Dodaj novu tematsku oblast
   add_a_new_user: Dodaj novog korisnika
   add_a_taxon_association_label: Dodaj vezu na taksonu
-  add_article_to_page_link_button: Dodaj članak na stranicu
   add_association_submit_button: dodaj vezu
   add_brief_summary_to_page_link_button: Dodaj kratak pregled na stranicu
   add_collection_to_a_new_community: Dodaj zbirku „%{collection}“ u novu zajednicu
@@ -827,7 +825,6 @@ sr-Latn:
   dato_create_user_text_missing_user_exception: Ne mogu da sročim DataObject ili UsersDataObject za tekst ako nedostaje naznaka za takson.
   dato_create_user_text_validation_error: Proverite da li ste ispravno popunili obrazac.
   dato_edit_cancel: Otkaži
-  dato_edit_text_link_button: Uredi ovaj članak
   dato_edit_text_page_description: Hvala vam što doprinosite EOL-u. Članak će biti dodat na vaš spisak nadgledanja tako da možete pratiti svaki razgovor koji je u vezi s njim, kao i da proverite njegov status.
   dato_edit_text_title: Uređivanje članka
   dato_new_edit_user_text_fieldset_content_header: Sadržaj članka
@@ -879,7 +876,6 @@ sr-Latn:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Ne prikazuj nepoznate upisane korisnike (korisnike prvog izdanja, pre 5. januara 2009.)
   dublin_core: Dablinsko jezgro
   duplicate_items_were_ignored: Duplirane stavke su zanemarene.
-  e_g_search_for_the_eol_page: "(npr. pretražite stranicu EOL-a s naznakom ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Stranica dokumentacije za svaki metod sadrži dva primera za odgovore u formatu XML i JSON.
   edit: Uredi
   edit_collection_details: Uredi detalje o zbirci
@@ -893,8 +889,6 @@ sr-Latn:
   edit_glossary_term: Uredi pojam u pojmovniku
   edit_hierarchy: uredi hijerarhiju
   edit_my_profile: Uredi moj profil
-  edit_news_item: Uredi novost
-  edit_news_item_instructions_with_link: Uredite novost ispod. U oba polja je dozvoljeno da se koristi HTML, a obavezan je ili naslov ili sadržaj. Za najbolje rezultate, koristite naslov i unesite kratku vest. Kada pravite hiperveze do drugih mrežnih mesta, možete da upotrebite %{link} da napravite kraće adrese, kako biste uštedeli znakove.
   edit_news_items: uredi novosti
   edit_page_contents: uredi sadržaj stranica
   edit_search_suggestion: Uredi predlog za pretragu
@@ -911,7 +905,6 @@ sr-Latn:
   editors_tab_label: Rukovodioci
   email: E-adresa
   email_colon: "E-adresa:"
-  email_error_notification_activ: Obaveštavanje o greškama pri slanju poruka je aktivno
   email_recipients: Primaoci e-poruka
   encyclopedia_of_life: Enciklopedija života
   endorsed_by: Istaknuto od
@@ -955,7 +948,6 @@ sr-Latn:
   error_log_detail: Detalji o dnevniku greške
   error_logging_active: Zapisivanje grešaka je aktivno
   error_watch_collections_cannot_be_shared: Zbirke za nadgledanje ne mogu da se dele
-  esc_key_hides_this_message: (poruka se sakriva klikom na taster ''iskejp'')
   every_method_can_also_return_json_response: Svaka metoda može da vrati i JSON odgovor ako se doda nastavak .json
   example_colon: "Primer:"
   exception: Izuzetak
@@ -1487,7 +1479,6 @@ sr-Latn:
   method: Način
   method_to_get_metadata_about_the_hierarchy: kada navedete naznaku hijerarhije, ova metoda će prijaviti metapodatke o hijerarhiji i prikazati osnovne taksone
   methods: Načini
-  minimal_page: Najmanja stranica
   mobile: 
     contents: 
       explore_eol: Istražite EOL
@@ -1571,10 +1562,8 @@ sr-Latn:
   news_archive_page: arhiv novosti
   news_date: Datum novosti
   news_item: novost
-  news_item_date_as_shown_to_use: "Datum novosti kao što je prikazano korisniku (u dovodu RSS se prikazuje samo vreme):"
-  news_item_is_visible_on_websit: "Novost je vidljiva na mrežnom mestu nakon:"
+  news_item_date_as_shown_to_user: "Datum novosti kao što je prikazano korisniku (u dovodu RSS se prikazuje samo vreme):"
   news_item_title: Novost
-  news_items: Novosti
   newsfeed: Dovod novosti
   newsfeed_help_for_collection: Dovod ove zbirke skuplja aktuelnosti povezane sa stavkama, uključujući i s aktivnostima njegovog vlasnika i komentara od ostalih korisnika EOL-a.
   newsfeed_help_for_community: Dovod ove zajednice skuplja aktuelnosti povezane sa stavkama koje pripadaju tematskoj zbirci, uključujući i s aktivnostima njenih članova i komentara od ostalih korisnika EOL-a.
@@ -1591,7 +1580,6 @@ sr-Latn:
   no_errors_are_available: Nema grešaka.
   no_harvesting_logs_for_this_da: Nema zapisa za preuzimanje za ovaj datum
   no_items_were_copied_to_collections_error: "Nijedna stavka nije umnožena u zbirke: %{names}."
-  no_news_items_are_available_ma: Nema novosti koje odgovaraju vašem zahtevu.
   no_record_found_matching_your_criteria: Ne mogu da pronađem ništa što se poklapa s kriterijumom.
   no_related_names: Nijedan naziv nije povezan s ovim taksonom.
   no_results_for: nema rezultata za
@@ -1810,7 +1798,6 @@ sr-Latn:
   publish: objavi
   publish_after_utc: Objavi posle (UTC)
   publish_changes: Objavi izmene
-  publish_item_based_on_time_set: Objavi stavku u gorenavedeno vreme (deštriklirajte da uvek bude skriveno)
   publish_requested: Objavi zahtevano
   published: Objavljeno
   published_parens: (objavljeno)
@@ -1874,19 +1861,16 @@ sr-Latn:
   rights: Prava
   rights_holder: Nosilac prava
   rights_statement: Izjava o pravima
-  rss_feed: Dovod
   save: Sačuvaj
   save_comment_lowercase: sačuvaj komentar
   save_curated_association_submit_button: Sačuvaj vezu
   sci_name_avg_table_head: Naučni naziv (prosečno)
   scientific_name: Naučni naziv
   search: Pretraži
-  search_by_provider_method_description: dobijanje naznake za stranicu na EOL-u ako je naveden hierarchy_id i jedinstvena naznaka dobavljača
   search_by_term_page_title: "Pretraga: %{term}"
   search_field_label: Traženje na EOL-u
   search_for_comments_containing_the_text: "Traži komentare koji sadrže tekst:"
   search_for_curators_containing: "Pretraži kustose koji sadrže:"
-  search_for_items_containing: "Pretraži stavke koje sadrže:"
   search_for_messages_containing: "Pretraži poruke koje sadrže:"
   search_for_terms_containing: "Pretraži pojmove koje sadrže:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Traži korisnike koji sadrže ovo u svom korisničkom imenu, imenu ili e-adresi.
@@ -2122,8 +2106,6 @@ sr-Latn:
   the_message_was_sent: Poruka je poslata.
   the_new_topic_was_created: Nova tema je napravljena.
   the_new_user_was_created: Napravljen je novi korisnik.
-  the_news_item_created: Novost je napravljena.
-  the_news_item_updated: Novost je ažurirana.
   the_suggested_page_to_direct_users_to_link: predložena stranica na koju će se prenositi korisnici
   the_topic_was_updated: Tema je ažurirana.
   the_user_was_updated: Korisnik je ažuriran.
@@ -2161,7 +2143,6 @@ sr-Latn:
   threat_status_header_colon: "Status ugroženosti <abbr title=\"Međunarodna unija za zaštitu prirode\">MUZP</abbr>:"
   thumbnail_page_colon: "stranica minijature:"
   time_ago: pre %{time_passed}
-  tinyurl: TinyURL
   title: Naslov
   to_process_your_donation_please_proceed: Ako želite da date novčani prilog, nastavite
   to_remedy_this: S ciljem da ispravimo problem, zatvorićemo ove neaktivne naloge. Posetite www.eol.org da otvorite novi nalog. Kada primite potvrdnu poruku, kliknite na navedenu vezu da overite nalog.
@@ -2383,7 +2364,6 @@ sr-Latn:
   will_find_taxon_pages_matching_the_search_term: će pronaći taksonske stranice ako se željeni naziv, sinonim ili trivijalan naziv poklapa s traženim pojmom
   will_paginate: 
     next_label: Sledeće &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Prethodno"
   worklist: Radni spisak
   xml_response: XML odgovor

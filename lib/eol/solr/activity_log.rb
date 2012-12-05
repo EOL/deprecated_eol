@@ -2,56 +2,7 @@ module EOL
   module Solr
     class ActivityLog
 
-      def self.index_notifications(base_index_hash, notification_recipient_objects)
-        # TODO: is it appropriate to re-use this variable here which generally stops writing to the Logging MySQL DB
-        return unless $ENABLE_DATA_LOGGING
-        begin
-          type_and_ids_to_send = {}
-          [ Collection, Community, DataObject, TaxonConcept ].each do |klass|
-            if klass_objects = notification_recipient_objects.select{ |o| o.class == klass }
-              type_and_ids_to_send[klass.to_s] = klass_objects.collect{ |o| o.id }
-            end
-          end
-          # AncestorTaxonConcept
-          if ancestor_taxon_concept_ids = notification_recipient_objects.select{ |o| o.class == Hash && o[:ancestor_ids] }
-            type_and_ids_to_send['AncestorTaxonConcept'] = ancestor_taxon_concept_ids.collect{ |h| h[:ancestor_ids] }.flatten
-          end
-          # User ACTIVITY feeds
-          activity_users = notification_recipient_objects.collect do |o|
-            (o.class == Hash && o[:user] && Notification.types_to_show_in_activity_feeds.include?(o[:notification_type])) ? o[:user] : nil
-          end.compact
-          if activity_users
-            type_and_ids_to_send['User'] = activity_users.collect{ |c| c.id }
-          end
-          # User Newsfeeds
-          users = notification_recipient_objects.collect do |o|
-            if o.class == User
-              o
-            elsif o.class == Hash && o[:user] && !Notification.types_to_show_in_activity_feeds.include?(o[:notification_type])
-              o[:user]
-            else
-              nil
-            end
-          end.compact
-          if users 
-            type_and_ids_to_send['UserNews'] = users.collect{ |c| c.id }
-          end
-          
-          solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
-          type_and_ids_to_send.each do |feed_type, ids|
-            ids = ids.uniq.delete_if{ |id| id.blank? || id == 0 }
-            unless ids.blank?
-              solr_connection.create(base_index_hash.dup.merge({
-                'feed_type_affected' => feed_type,
-                'feed_type_primary_key' => ids }))
-            end
-          end
-        rescue Errno::ECONNREFUSED => e
-          puts "** WARNING: Solr connection failed."
-          return nil
-        end
-      end
-      
+      # TODO - option defaults are specified all over the place (sometimes twice). Centralize and clean up.
 
       def self.search_with_pagination(query, options = {})
         options[:page]        ||= 1
@@ -70,6 +21,7 @@ module EOL
         results = WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
            pager.replace(results)
         end
+        # TODO - ummmn... shouldn't we have noticed this earlier and just returned with a null collection?
         if results.length == 0
           results.total_entries = 0
         end
@@ -121,63 +73,56 @@ module EOL
         docs_to_return
       end
 
-      def self.add_resource_instances!(docs)
-        EOL::Solr.add_standard_instance_to_docs!(Comment,
-          docs.select{ |d| d['activity_log_type'] == 'Comment' }, 'activity_log_id',
-          :includes => [ :user ],
-          :selects => { :comments => '*', :users => '*' })
-        EOL::Solr.add_standard_instance_to_docs!(CollectionActivityLog,
-          docs.select{ |d| d['activity_log_type'] == 'CollectionActivityLog' }, 'activity_log_id',
-          :includes => [ :user, :collection, :collection_item ],
-          :selects => { :collection_activity_logs => '*', :users => '*', :collections => '*', :collection_items => '*' })
-        EOL::Solr.add_standard_instance_to_docs!(CuratorActivityLog,
-          docs.select{ |d| d['activity_log_type'] == 'CuratorActivityLog' }, 'activity_log_id',
-          :includes => [ { :hierarchy_entry => [ :name, :taxon_concept, { :hierarchy => [ :agent ] } ] },
-                         :user, :untrust_reasons ],
-          :selects => {
-            :curator_activity_logs => '*', :hiearchy => [ :agent_id ], :names => [ :string ],
-            :agents => [ :full_name ], :users => '*', :untrust_reasons => '*'
-          })
-        EOL::Solr.add_standard_instance_to_docs!(CommunityActivityLog,
-          docs.select{ |d| d['activity_log_type'] == 'CommunityActivityLog' }, 'activity_log_id')
-        EOL::Solr.add_standard_instance_to_docs!(UsersDataObject,
-          docs.select{ |d| d['activity_log_type'] == 'UsersDataObject' }, 'activity_log_id',
-          :includes => [
-            { :data_object => :toc_items },
-            { :taxon_concept => :published_hierarchy_entries },
-            :user ],
-          :selects => { :data_objects => '*', :taxon_concepts => [ :id ],
-            :hierarchy_entries => '*', :users => '*' })
-
-        # remove the activity log (and possibly mess with results per page and pagination)
-        # if the referenced object doesn't exist
-        docs.delete_if do |d|
-          d['instance'].blank? ||
-          (d['activity_log_type'] == 'UsersDataObject' && d['instance'].data_object.blank?)
+      def self.index_notifications(base_index_hash, notification_recipient_objects)
+        # TODO: is it appropriate to re-use this variable here which generally stops writing to the Logging MySQL DB
+        return unless $ENABLE_DATA_LOGGING
+        begin
+          type_and_ids_to_send = {}
+          [ Collection, Community, DataObject, TaxonConcept ].each do |klass|
+            if klass_objects = notification_recipient_objects.select{ |o| o.class == klass }
+              type_and_ids_to_send[klass.to_s] = klass_objects.collect{ |o| o.id }
+            end
+          end
+          # AncestorTaxonConcept
+          if ancestor_taxon_concept_ids = notification_recipient_objects.select{ |o| o.class == Hash && o[:ancestor_ids] }
+            type_and_ids_to_send['AncestorTaxonConcept'] = ancestor_taxon_concept_ids.collect{ |h| h[:ancestor_ids] }.flatten
+          end
+          # User ACTIVITY feeds
+          activity_users = notification_recipient_objects.collect do |o|
+            (o.class == Hash && o[:user] && Notification.types_to_show_in_activity_feeds.include?(o[:notification_type])) ? o[:user] : nil
+          end.compact
+          if activity_users
+            type_and_ids_to_send['User'] = activity_users.collect{ |c| c.id }
+          end
+          # User Newsfeeds
+          users = notification_recipient_objects.collect do |o|
+            if o.class == User
+              o
+            elsif o.class == Hash && o[:user] && !Notification.types_to_show_in_activity_feeds.include?(o[:notification_type])
+              o[:user]
+            else
+              nil
+            end
+          end.compact
+          if users 
+            type_and_ids_to_send['UserNews'] = users.collect{ |c| c.id }
+          end
+          
+          solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+          type_and_ids_to_send.each do |feed_type, ids|
+            ids = ids.uniq.delete_if{ |id| id.blank? || id == 0 }
+            unless ids.blank?
+              solr_connection.create(base_index_hash.dup.merge({
+                'feed_type_affected' => feed_type,
+                'feed_type_primary_key' => ids }))
+            end
+          end
+        rescue Errno::ECONNREFUSED => e
+          puts "** WARNING: Solr connection failed."
+          return nil
         end
       end
-
-      def self.solr_search(query, options = {})
-        options[:sort_by] ||= 'date_created+desc'
-        options[:group_field] ||= 'activity_log_unique_key'
-        # add date-after:
-        url =  $SOLR_SERVER + $SOLR_ACTIVITY_LOGS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
-        url << CGI.escape(query)
-        unless options[:specific_time].blank?
-          url << "&fq=date_created:[NOW/DAY-7DAY+TO+NOW/DAY%2B1DAY]"
-        end
-        url << "&sort=#{options[:sort_by]}&fl=activity_log_type,activity_log_id,user_id,date_created"
-        url << "&group=true&group.field=#{options[:group_field]}&group.ngroups=true"
-        # add paging
-        limit  = options[:per_page] ? options[:per_page].to_i : 10
-        page = options[:page] ? options[:page].to_i : 1
-        offset = (page - 1) * limit
-        url << '&start=' << URI.encode(offset.to_s)
-        url << '&rows='  << URI.encode(limit.to_s)
-        res = open(url).read
-        JSON.load res
-      end
-
+      
       def self.rebuild_comments_logs
         start = Comment.minimum('id')
         max_id = Comment.maximum('id') + 20 # just in case some get added while this is running
@@ -235,7 +180,66 @@ module EOL
           puts "** WARNING: Solr connection failed."
           return nil
         end
+      end
 
+    private
+
+      def self.add_resource_instances!(docs)
+        EOL::Solr.add_standard_instance_to_docs!(Comment,
+          docs.select{ |d| d['activity_log_type'] == 'Comment' }, 'activity_log_id',
+          :includes => [ :user ],
+          :selects => { :comments => '*', :users => '*' })
+        EOL::Solr.add_standard_instance_to_docs!(CollectionActivityLog,
+          docs.select{ |d| d['activity_log_type'] == 'CollectionActivityLog' }, 'activity_log_id',
+          :includes => [ :user, :collection, :collection_item ],
+          :selects => { :collection_activity_logs => '*', :users => '*', :collections => '*', :collection_items => '*' })
+        EOL::Solr.add_standard_instance_to_docs!(CuratorActivityLog,
+          docs.select{ |d| d['activity_log_type'] == 'CuratorActivityLog' }, 'activity_log_id',
+          :includes => [ { :hierarchy_entry => [ :name, :taxon_concept, { :hierarchy => [ :agent ] } ] },
+                         :user, :untrust_reasons ],
+          :selects => {
+            :curator_activity_logs => '*', :hiearchy => [ :agent_id ], :names => [ :string ],
+            :agents => [ :full_name ], :users => '*', :untrust_reasons => '*'
+          })
+        EOL::Solr.add_standard_instance_to_docs!(CommunityActivityLog,
+          docs.select{ |d| d['activity_log_type'] == 'CommunityActivityLog' }, 'activity_log_id')
+        EOL::Solr.add_standard_instance_to_docs!(UsersDataObject,
+          docs.select{ |d| d['activity_log_type'] == 'UsersDataObject' }, 'activity_log_id',
+          :includes => [
+            { :data_object => :toc_items },
+            { :taxon_concept => :published_hierarchy_entries },
+            :user ],
+          :selects => { :data_objects => '*', :taxon_concepts => [ :id ],
+            :hierarchy_entries => '*', :users => '*' })
+
+        # remove the activity log (and possibly mess with results per page and pagination)
+        # if the referenced object doesn't exist
+        docs.delete_if do |d|
+          d['instance'].blank? ||
+          (d['activity_log_type'] == 'UsersDataObject' && d['instance'].data_object.blank?)
+        end
+      end
+
+      # TODO - Couldn't we simplify a whole lot of this with #to_params?
+      def self.solr_search(query, options = {})
+        options[:sort_by] ||= 'date_created+desc'
+        options[:group_field] ||= 'activity_log_unique_key'
+        # add date-after:
+        url =  $SOLR_SERVER + $SOLR_ACTIVITY_LOGS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
+        url << CGI.escape(query)
+        unless options[:specific_time].blank?
+          url << "&fq=date_created:[NOW/DAY-7DAY+TO+NOW/DAY%2B1DAY]"
+        end
+        url << "&sort=#{options[:sort_by]}&fl=activity_log_type,activity_log_id,user_id,date_created"
+        url << "&group=true&group.field=#{options[:group_field]}&group.ngroups=true"
+        # add paging
+        limit  = options[:per_page] ? options[:per_page].to_i : 10
+        page = options[:page] ? options[:page].to_i : 1
+        offset = (page - 1) * limit
+        url << '&start=' << URI.encode(offset.to_s)
+        url << '&rows='  << URI.encode(limit.to_s)
+        res = open(url).read
+        JSON.load res
       end
 
     end

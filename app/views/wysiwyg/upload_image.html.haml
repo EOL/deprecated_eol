@@ -1,0 +1,8 @@
+= image_tag @final_file_path
+:javascript
+  CKEditorFuncNum = #{@func_num};
+  function SetUrl( fileUrl )
+  {
+    window.parent.CKEDITOR.tools.callFunction(CKEditorFuncNum, fileUrl);
+  }
+  SetUrl("#{ @final_file_path }");

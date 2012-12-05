@@ -11,4 +11,4 @@
 - unless ['gallery','list'].include?(view_style)
   = I18n.t(:items_with_count_semi_colon, :count => item.cached_count)
   = I18n.t(:maintained_by)
-  = item.maintained_by.map {|by| link_to truncate(by.summary_name, :length => 64), link_to_item(by) }.to_sentence
+  = raw(item.maintained_by.map {|by| link_to truncate(by.summary_name, :length => 64), link_to_item(by) }.to_sentence)

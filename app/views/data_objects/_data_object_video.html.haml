@@ -10,14 +10,15 @@
   - else
     %p
       %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object) }
-        = data_object.language == current_language ? strip_tags(data_object.best_title.truncate(70)) : I18n.t(:video_title_not_available_in_language, :language => current_language.source_form)
+        = data_object.language == current_language ? strip_tags(truncate(data_object.best_title, :length => 70)) : I18n.t(:video_title_not_available_in_language, :language => current_language.source_form)
 - else
   -# playing cached videos
 
   -# for video/mp4
   - if data_object.mime_type == MimeType.mp4
-    %embed{:src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :type => "application/x-shockwave-flash",
-           :height => "355", :flashvars => "file=#{data_object.video_url}&displayheight=355&usefullscreen=false&autostart=true&usecaptions=false", :width => "450"}
+    %video{ :src => data_object.video_url, :controls => true, :autoplay => true, :width => "540" }
+      %embed{:src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :type => "application/x-shockwave-flash",
+        :height => "355", :flashvars => "file=#{data_object.video_url}&displayheight=355&usefullscreen=false&autostart=true&usecaptions=false", :width => "450"}
 
   -# for video/x-ms-wmv and video/mpeg
   - if data_object.mime_type == MimeType.wmv || data_object.mime_type == MimeType.mpeg
@@ -38,7 +39,7 @@
       %PARAM{:name => "autoplay", :value => "true"}
       %PARAM{:name => "type", :value => "video/quicktime", :height => "400", :width => "500"}
       %PARAM{:name => "controller", :VALUE => "true"}
-      %EMBED{:src => "#{data_object.video_url}", :controller => "true", :height => "400", :width => "500",
+      %EMBED{:src => "#{data_object.video_url}", :controller => "true", :height => "400", :width => "500", :scale => 'aspect',
               :autoplay => "true", :type => "video/quicktime", :pluginspage => "http://www.apple.com/quicktime/download/"}
 
   -# video/x-flv

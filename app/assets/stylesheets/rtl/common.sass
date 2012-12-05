@@ -1,0 +1,378 @@
+@import "whitespace-reset"
+@import "mixins"
+
+body
+  font-family: Helvetica, Arial, sans-serif
+  font-size: 75%
+  color: #394651
+  border-top: $global_nav_height solid #28323a
+  min-width: 940px
+  direction: rtl
+body, html
+  background: #394651
+
+html
+  overflow-x: hidden
+
+a
+  color: #195184
+
+.site_column
+  width: 940px
+  margin: 0 auto
+
+body
+  > #header
+    a
+      color: #ffffff
+    p.status
+      clear: both
+      padding: 7px 10px
+      margin: 10px 0
+      font-weight: bold
+      text-align: center
+      color: #394651
+      border: 1px solid #c7d471
+      background: #edf6b2
+      &.error
+        border-color: #f2d2cc
+        background: #ffeae6
+    h1
+      position: absolute
+      right: 0
+      top: 0.9em
+      z-index: 2
+      a
+        display: block
+        width: 125px
+        height: 92px
+        text-indent: -8685px
+        text-decoration: none
+        overflow: hidden
+        background: transparent url(image-path("v2/languages/ar/logo.png")) 0 0 no-repeat
+    .section
+      position: relative
+      @extend .site_column
+      .global_navigation
+        position: absolute
+        left: 0
+        top: -2.1em
+        z-index: 1
+        margin-right: 9.6em
+        text-align: left
+        ul.nav
+          li
+            display: inline
+            padding: 0 7px 0 0
+            text-transform: uppercase
+            &:before
+              padding: 0 0 0 7px
+              font-size: 1.33em
+              vertical-align: -2px
+              content: "\2022\0000a0"
+              list-style: disc
+              color: #4c5155
+            &:first-of-type
+              &:before
+                display: none
+            a
+              text-decoration: none
+      .actions
+        position: absolute
+        right: 0
+        top: -2.4em
+        z-index: 3
+        font-size: .92em
+        text-transform: uppercase
+        a
+          display: block
+          text-decoration: none
+        p
+          padding: 1px
+          border: 1px solid #444749
+          a
+            padding: 1px 18px 1px 5px
+            span
+              display: block
+              padding: 0 5px 0 0
+              border-right: 1px solid #444749
+          &.print
+            float: right
+            a
+              background: transparent url(image-path("v2/icon_paper.png")) 111px 2px no-repeat
+        .language
+          float: right
+          position: relative
+          margin: 0 0 0 10px
+          width: 100px
+          a
+            background: transparent url(image-path("v2/icon_dropdown.png")) 84px 6px no-repeat
+          ul
+            display: none
+            position: absolute
+            right: 0
+            top: 100%
+            z-index: 5
+            width: 100%
+            background: #0a0f13
+            border-top: 1px solid #444749
+            li
+              padding: 2px 5px
+              border: 1px solid #444749
+              border-top: none
+            a
+              background: transparent
+              direction: ltr
+              text-align: right
+    form
+      position: relative
+      z-index: 2
+      width: 280px
+      margin: 0 auto
+      padding: 43px 0 0 0
+      label
+        position: absolute
+        right: -9999px
+      .text
+        float: right
+        margin: 0 0 0 10px
+        +border-radius(180px)
+        +gradient-bg(#ccd2d7, #fefeff)
+      input[type="text"]
+        width: 175px
+        height: 1.5em
+        padding: 6px 38px 6px 5px
+        font-size: 1.16em
+        line-height: 140%
+        color: #394651
+        outline: none
+        border: none
+        background: transparent url(image-path("v2/icon_search.png")) 190px 50% no-repeat
+      input[type="submit"]
+        float: right
+        min-width: 30px
+        min-height: 30px
+        padding: 0 4px
+        overflow: visible
+        font-size: .83em
+        line-height: 28px
+        font-weight: bold
+        text-transform: uppercase
+        border: none
+        +border-radius(180px)
+        +gradient-bg(#fefeff, #ccd2d7)
+        &:hover
+          +gradient_bg(saturate(#fefeff + #111111, 10%), saturate(#ccd2d7 + #111111, 10%))
+        &:active
+          +gradient-bg(#fefeff, #ccd2d7)
+  > #footer
+    overflow: hidden
+    padding: 30px 0
+    background: #28333c
+    .section
+      background: #394651
+      border-top: 1px solid #3e4b56
+      border-bottom: 1px solid #3e4b56
+      width: 100%
+      float: right
+      .wrapper
+        @extend .site_column
+        padding: 0
+        margin-top: -30px
+        > div
+          float: right
+          margin: 0 0 20px 0
+          > h6
+            color: #fff
+            text-transform: uppercase
+            margin: 0 20px 0 0
+            line-height: 30px
+          > ul
+            border: 1px solid #414c55
+            background: #323f49
+            padding: 10px 20px
+            border-top: none
+            margin-left: 10px
+            > li
+              a
+                font-weight: bold
+                text-decoration: none
+                color: #b2c1cf
+                display: block
+                line-height: 20px
+                &:hover
+                  color: #fff
+                  text-decoration: underline
+          &.learn_more
+            margin-left: 10px
+            > ul
+              overflow: hidden
+              margin: 0 0 10px 0
+              > li
+                float: right
+                a
+                  color: #e79689
+                + li
+                  margin-right: 30px
+                  a
+                    color: #e79689
+                  + li
+                    ul
+                      a
+                        color: #b1e19c
+                      + ul
+                        a
+                          color: #e9e86f
+                    + li
+                      ul
+                        a
+                          color: #7bb6e9
+                        + ul
+                          a
+                            color: #e2c7e7
+                          + ul
+                            a
+                              color: #e9cbac
+                            + ul
+                              a
+                                color: #b2c1cf
+            .version
+              clear: both
+              border: 1px solid #414c55
+              background: #323f49
+              padding: 10px 20px
+              font-weight: bold
+              font-size: 10px
+              color: #6f7e8b
+              line-height: 18px
+              a
+                display: block
+                float: right
+                width: 41px
+                height: 18px
+                text-indent: 8685px
+                overflow: hidden
+                background: transparent url(image-path("v2/logo_footer.png")) 0 0 no-repeat
+                margin: 0 0 0 30px
+          &.questions
+            float: none
+            overflow: hidden
+            ul
+              overflow: hidden
+            ul.social_media
+              float: left
+              margin: 0
+              padding: 10px 10px 0 0
+              background: none
+              border: none
+              li
+                a
+                  display: block
+                  width: 25px
+                  height: 25px
+                  margin: 0 0 10px 0
+                  text-indent: -8685px
+                  overflow: hidden
+                  background: transparent url(image-path("v2/icon_social-media.png")) 0 0 no-repeat
+                  border: 1px solid #28323a
+                  &.rss
+                    background-position: right -25px
+                  &.facebook
+                    background-position: right -50px
+                  &.tumblr
+                    background-position: right -75px
+                  &.flickr
+                    background-position: right -100px
+                  &.youtube
+                    background-position: right -125px
+
+
+.thumbnails
+  padding: 10px 0 0 0
+  background: transparent url(image-path("v2/bg_thumbnails.png")) 0 0 repeat-x
+  ul
+    position: relative
+    top: 1px
+    z-index: 2
+    @extend .site_column
+    li
+      position: relative
+      float: right
+      padding: 0 0 10px 0
+      margin: 0 0 0 20px
+      img
+        display: block
+        padding: 5px
+        background: transparent url(image-path("v2/bg_home_thumbnails.png")) repeat
+        background: rgba(255, 255, 255, .4)
+        width: 130px
+        height: 130px
+      &.last
+        margin: 0
+      &.hover
+        background: transparent url(image-path("v2/icon_home-thumb_active.png")) 50% 100% no-repeat
+        img
+          background: rgba(255, 255, 255, .6)
+  .term
+    clear: both
+    position: relative
+    z-index: 1
+    padding: 2px 0
+    border-top: 1px solid #ffffff
+    border-bottom: 1px solid #93a4b0
+    background: #e5e8eb
+    .site_column
+      width: 960px
+      padding: 0
+    p
+      font-weight: bold
+      color: #28323a
+
+.pagination
+  clear: both
+  text-align: left
+  font-weight: bold
+  margin: 0 0 10px 0
+  span, a, em
+    margin: 0 0 0 4px
+    line-height: 180%
+    padding: 2px 5px
+    border: 1px solid #cad3db
+    color: #394651
+    &.gap
+      border: none
+    &.previous_page
+      float: right
+    &.previous_page,
+    &.next_page
+      border: none
+      background: none
+      margin: 0
+    &.current
+      background: #62707d
+      border-color: #394651
+      color: #fff
+  a
+    text-decoration: none
+    background: #f3f7fa
+    &:hover
+      border-color: #394651
+    &.previous_page,
+    &.next_page
+      &:hover
+        text-decoration: underline
+  span
+    &.previous_page,
+    &.next_page
+      color: #616e7a
+    &.disabled
+      font-weight: normal
+      color: #CAD3DB
+  + ul
+    border-top: 1px solid #d4dce2
+    margin-top: 12px
+ul
+  + .pagination
+    border-top: 1px solid #d4dce2
+    padding: 12px 0 0 0
+    margin: 0

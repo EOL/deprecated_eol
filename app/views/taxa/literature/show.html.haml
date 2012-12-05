@@ -13,4 +13,4 @@
       - else
         %ul.ref_list
           - @references.each do |r|
-            %li= r.full_reference
+            %li= raw(r.full_reference)

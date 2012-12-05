@@ -14,7 +14,6 @@ describe Resource do
     @oldest_published_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => 3.hours.ago)
     @latest_unpublished_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => nil)
     @latest_published_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => 2.hours.ago)
-    @latest_harvest_event = @latest_published_harvest_event
     @resource = Resource.find(resource.id)
   end
 
@@ -25,13 +24,11 @@ describe Resource do
     @resource.latest_published_harvest_event.should == @latest_published_harvest_event
   end
   it "should return the resource's latest harvest event" do
-    @resource.latest_harvest_event.should == @latest_harvest_event
+    @resource.latest_harvest_event.should == @latest_published_harvest_event
   end
 
-  describe "iucn" do
-    it 'returns the last IUCN resource' do
-      Resource.iucn.should == @iucn_resource2
-    end
+  it '#iucn returns the last IUCN resource' do
+    Resource.iucn.should == @iucn_resource2
   end
 
 end

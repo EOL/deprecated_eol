@@ -1,7 +1,7 @@
 - data_object ||= @data_object
 - unless data_object.blank? || data_object.license.blank?
   - if data_object.license.logo_url.blank?
-    %span.license= I18n.t("license_#{data_object.license.title.gsub(/[- .]/, '_').strip}")
+    %span.license= raw(I18n.t("license_#{data_object.license.title.gsub(/[- .]/, '_').strip}"))
   - else
-    = link_to image_tag(data_object.license.logo_url, :alt => I18n.t("license_#{data_object.license.title.gsub(/[- .]/, '_').strip}")),
+    = link_to image_tag('licenses/' + data_object.license.logo_url, :alt => I18n.t("license_#{data_object.license.title.gsub(/[- .]/, '_').strip}")),
       data_object.license.source_url, :rel => :nofollow

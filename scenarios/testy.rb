@@ -7,15 +7,68 @@
 #     $ rake scenarios:show NAME=bootstrap
 #
 #---
-#dependencies: [ :foundation ]
 
-require 'spec/eol_spec_helpers'
-require 'spec/scenario_helpers'
+require Rails.root.join('spec', 'eol_spec_helpers')
+require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
 
-# NOTE - Because this can be pre-loaded, Factory strings will NOT be unique by themselves, so we add a little to them
-# (if they need to be unique)
+def build_big_tc(testy)
+  build_taxon_concept(
+    :parent_hierarchy_entry_id => testy[:empty_taxon_concept].hierarchy_entries.first.id,
+    :rank            => 'species',
+    :canonical_form  => testy[:canonical_form],
+    :ranked_canonical_form => testy[:ranked_canonical_form],
+    :attribution     => testy[:attribution],
+    :scientific_name => testy[:scientific_name],
+    :italicized      => testy[:italicized],
+    :iucn_status     => testy[:iucn_status],
+    :gbif_map_id     => testy[:gbif_map_id],
+    :map             => {:description => testy[:map_text]},
+    :flash           => [{:description => testy[:video_1_text]}, {:description => testy[:video_2_text]}],
+    :youtube         => [{:description => testy[:video_3_text]}],
+    :comments        => [{:user => testy[:user], :body => testy[:comment_1]},
+                         {:user => testy[:user], :body => testy[:comment_bad]},
+                         {:user => testy[:user], :body => testy[:comment_2]}],
+    :images          => [{:object_cache_url => testy[:image_1], :data_rating => 2},
+                         {:object_cache_url => testy[:image_2], :data_rating => 3},
+                         {:object_cache_url => testy[:image_untrusted], :vetted => Vetted.untrusted},
+                         {:object_cache_url => testy[:image_3], :data_rating => 4},
+                         {:object_cache_url => testy[:image_unknown_trust], :vetted => Vetted.unknown},
+                         {}, {}, {}, {}, {}, {}], # We want more than 10 images, to test pagination, but the details don't mattr
+    :toc             => [{:toc_item => testy[:overview], :description => testy[:overview_text]},
+                         {:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text]},
+                         {:toc_item => testy[:education], :description => testy[:education_text]},
+                         {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}, {:toc_item => testy[:toc_item_3]}]
+  )
+end
+
+def build_tc_with_only_one_toc_item(type, testy)
+  testy["only_#{type}".to_sym] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:exemplar].id,
+    :toc => [{:toc_item => testy[type.to_sym], :description => testy["#{type}_text".to_sym], :data_rating => 5}])
+  last_toc_dato = DataObjectsTableOfContent.last.data_object
+  CuratedDataObjectsHierarchyEntry.new(:data_object_id => last_toc_dato.id,
+                                       :data_object_guid => last_toc_dato.guid,
+                                       :hierarchy_entry_id => testy[:exemplar].entry.id,
+                                       :visibility => Visibility.invisible,
+                                       :vetted => Vetted.untrusted,
+                                       :user_id => 1).save
+end
+
+def build_tc_with_one_image(testy, tc_name, img_name, options = {})
+  options[:published] ||= 1
+  options[:visibility] ||= Visibility.visible
+  testy[tc_name] = build_taxon_concept(:images => {})
+  testy[img_name] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1,
+                                   :published => options[:published])
+  dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[img_name], :visibility => options[:visibility],
+                                       :hierarchy_entry_id => testy[tc_name].entry.id)
+  TaxonConceptExemplarImage.gen(:taxon_concept => testy[tc_name], :data_object => testy[img_name])
+  testy[tc_name].reindex_in_solr
+end
+
+load_foundation_cache
+raise "** ERROR: testy scenario didn't load the foundation cache" unless Vetted.trusted && Agent.iucn && Rank.order
 
 testy = {}
 
@@ -28,27 +81,31 @@ testy[:overview]        = TocItem.overview
 testy[:overview_text]   = 'This is a test Overview, in all its glory'
 testy[:brief_summary]   = TocItem.brief_summary
 testy[:brief_summary_text] = 'This is a test brief summary.'
+testy[:comprehensive_description] = TocItem.comprehensive_description
+testy[:comprehensive_description_text] = 'This is a test comprehensive description.'
+testy[:distribution]    = TocItem.distribution
+testy[:distribution_text] = 'This is a test distribution text.'
 testy[:education]       = TocItem.education
 testy[:education_text]  = 'This is a test education.'
 testy[:toc_item_2]      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
 testy[:toc_item_3]      = TocItem.gen_if_not_exists(:view_order => 3, :label => "test toc item 3")
 testy[:toc_item_4]      = TocItem.gen_if_not_exists(:view_order => 4, :label => "test toc item 4")
-testy[:canonical_form]  = Factory.next(:species) + 'tsty'
-testy[:ranked_canonical_form] = Factory.next(:species) + ' var. tsty'
+testy[:canonical_form]  = FactoryGirl.generate(:species) + 'tsty'
+testy[:ranked_canonical_form] = FactoryGirl.generate(:species) + ' var. tsty'
 testy[:attribution]     = Faker::Eol.attribution
 testy[:common_name]     = Faker::Eol.common_name.firstcap + 'tsty'
 testy[:unreviewed_name] = Faker::Eol.common_name.firstcap + 'tsty'
 testy[:untrusted_name]  = Faker::Eol.common_name.firstcap + 'tsty'
 testy[:scientific_name] = "#{testy[:canonical_form]} #{testy[:attribution]}"
 testy[:italicized]      = "<i>#{testy[:canonical_form]}</i> #{testy[:attribution]}"
-testy[:iucn_status]     = Factory.next(:iucn)
+testy[:iucn_status]     = FactoryGirl.generate(:iucn)
 testy[:gbif_map_id]     = '424242'
 testy[:map_text]        = 'Test Map'
-testy[:image_1]         = Factory.next(:image)
-testy[:image_2]         = Factory.next(:image)
-testy[:image_3]         = Factory.next(:image)
-testy[:image_unknown_trust] = Factory.next(:image)
-testy[:image_untrusted] = Factory.next(:image)
+testy[:image_1]         = FactoryGirl.generate(:image)
+testy[:image_2]         = FactoryGirl.generate(:image)
+testy[:image_3]         = FactoryGirl.generate(:image)
+testy[:image_unknown_trust] = FactoryGirl.generate(:image)
+testy[:image_untrusted] = FactoryGirl.generate(:image)
 testy[:video_1_text]    = 'First Test Video'
 testy[:video_2_text]    = 'Second Test Video'
 testy[:video_3_text]    = 'YouTube Test Video'
@@ -56,33 +113,8 @@ testy[:comment_1]       = 'This is totally awesome'
 testy[:comment_bad]     = 'This is totally inappropriate'
 testy[:comment_2]       = 'And I can comment multiple times'
 
-tc = build_taxon_concept(
-  :parent_hierarchy_entry_id => testy[:empty_taxon_concept].hierarchy_entries.first.id,
-  :rank            => 'species',
-  :canonical_form  => testy[:canonical_form],
-  :ranked_canonical_form => testy[:ranked_canonical_form],
-  :attribution     => testy[:attribution],
-  :scientific_name => testy[:scientific_name],
-  :italicized      => testy[:italicized],
-  :iucn_status     => testy[:iucn_status],
-  :gbif_map_id     => testy[:gbif_map_id],
-  :map             => {:description => testy[:map_text]},
-  :flash           => [{:description => testy[:video_1_text]}, {:description => testy[:video_2_text]}],
-  :youtube         => [{:description => testy[:video_3_text]}],
-  :comments        => [{:user => testy[:user], :body => testy[:comment_1]},
-                       {:user => testy[:user], :body => testy[:comment_bad]},
-                       {:user => testy[:user], :body => testy[:comment_2]}],
-  :images          => [{:object_cache_url => testy[:image_1], :data_rating => 2},
-                       {:object_cache_url => testy[:image_2], :data_rating => 3},
-                       {:object_cache_url => testy[:image_untrusted], :vetted => Vetted.untrusted},
-                       {:object_cache_url => testy[:image_3], :data_rating => 4},
-                       {:object_cache_url => testy[:image_unknown_trust], :vetted => Vetted.unknown},
-                       {}, {}, {}, {}, {}, {}], # We want more than 10 images, to test pagination, but the details don't mattr
-  :toc             => [{:toc_item => testy[:overview], :description => testy[:overview_text]},
-                       {:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text]},
-                       {:toc_item => testy[:education], :description => testy[:education_text]},
-                       {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}, {:toc_item => testy[:toc_item_3]}]
-)
+tc = build_big_tc(testy)
+
 testy[:id]            = tc.id
 # The curator factory cleverly hides a lot of stuff that User.gen can't handle:
 testy[:curator]       = build_curator(tc)
@@ -125,11 +157,22 @@ testy[:taxon_concept_with_bad_title] = build_taxon_concept(:canonical_form => te
 testy[:taxon_concept_with_unpublished_iucn] = build_taxon_concept()
 testy[:bad_iucn_value] = 'bad value'
 iucn_entry = build_iucn_entry(testy[:taxon_concept_with_unpublished_iucn], testy[:bad_iucn_value])
-iucn_entry.update_attribute(:published, 0)
+iucn_entry.update_column(:published, 0)
 
 testy[:taxon_concept_with_no_common_names] = build_taxon_concept(
   :common_names => [],
   :toc => [ {:toc_item => TocItem.common_names} ])
+
+# Common names to be added to this one, but starts with none:
+testy[:taxon_concept_with_no_starting_common_names] = build_taxon_concept(
+  :common_names => [],
+  :toc => [ {:toc_item => TocItem.common_names} ])
+
+hierarchy = Hierarchy.default
+testy[:kingdom] = HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => 0)
+testy[:phylum ]= HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => testy[:kingdom].id)
+testy[:order] = HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => testy[:phylum].id)
+testy[:species] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:order].id, :rank => 'species')
 
 testy[:tcn_count] = TaxonConceptName.count
 testy[:syn_count] = Synonym.count
@@ -150,10 +193,29 @@ testy[:syn2] = Synonym.generate_from_name(testy[:name_obj], :entry => he2, :lang
 testy[:tcn2] = TaxonConceptName.find_by_synonym_id(testy[:syn2].id)
 
 testy[:superceded_taxon_concept] = TaxonConcept.gen(:supercedure_id => testy[:id])
+testy[:superceded_comment] = Comment.gen(:parent_type => "TaxonConcept",
+                                         :parent_id => testy[:superceded_taxon_concept].id,
+                                         :body => "Comment on superceded taxon.",
+                                         :user => User.first)
 testy[:unpublished_taxon_concept] = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
 
 testy[:before_all_check] = User.gen(:username => 'testy_scenario')
 
 testy[:taxon_concept] = TaxonConcept.find(testy[:id]) # This just makes *sure* everything is loaded...
+
+testy[:no_language_in_toc] = build_taxon_concept(
+  :toc => [{:toc_item => testy[:overview], :description => 'no language', :language_id => 0, :data_rating => 5},
+           {:toc_item => testy[:brief_summary], :description => 'no language', :language_id => 0, :data_rating => 5}])
+
+build_tc_with_only_one_toc_item('overview', testy)
+build_tc_with_only_one_toc_item('brief_summary', testy)
+build_tc_with_only_one_toc_item('comprehensive_description', testy)
+build_tc_with_only_one_toc_item('distribution', testy)
+
+build_tc_with_one_image(testy, :has_one_image, :the_one_image)
+build_tc_with_one_image(testy, :has_one_unpublished_image, :the_one_unpublished_image, :published => 0)
+build_tc_with_one_image(testy, :has_one_hidden_image, :the_one_hidden_image, :visibility => Visibility.invisible)
+
+flatten_hierarchies
 
 EOL::TestInfo.save('testy', testy)

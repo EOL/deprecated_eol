@@ -1,19 +1,18 @@
 = content_for :head do
-  = javascript_include_tag "fckeditor/fckeditor"
-  = javascript_include_tag "fckcustom"
+  = javascript_include_tag "ckeditor/init"
 
 #content_page_edit
   .article.copy
-    - form_for @content_page, :url => admin_content_page_translated_content_page_path(@content_page, @translated_content_page),
+    = form_for @content_page, :url => admin_content_page_translation_path(@content_page, @translated_content_page),
       :builder => ApplicationHelper::EolFormBuilder do |content_page_form|
       = validation_errors_for(@translated_content_page)
       = content_page_form.hidden_field :last_update_user_id, :value => current_user.id
       %fieldset
-        %p.tip= I18n.t(:admin_translated_content_page_edit_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
+        %p.tip= raw I18n.t(:admin_translated_content_page_edit_tip, :required_icon => image_tag('v2/icon_required.png', :alt => ''))
         = render :partial => 'translated_content_page_fieldset', :locals => {:content_page_form => content_page_form}
 
       %fieldset.actions
         = content_page_form.submit I18n.t('helpers.submit.translated_content_page.update')
         = link_to I18n.t(:cancel), admin_content_pages_path
     = button_to I18n.t(:delete), { :action => 'destroy', :content_page_id => @content_page.id, :id => @translated_content_page.id },
-      { :confirm => I18n.t(:admin_translated_content_page_delete_confirmation, :page_name => @content_page.page_name, :language => @translated_content_page.language.label.safe_downcase), :method => 'delete', :class => 'delete' }
+      { :data =>{ :confirm => I18n.t(:admin_translated_content_page_delete_confirmation, :page_name => @content_page.page_name, :language => @translated_content_page.language.label.downcase) }, :method => 'delete', :class => 'delete' }

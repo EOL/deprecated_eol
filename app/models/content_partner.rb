@@ -1,5 +1,5 @@
 class ContentPartner < ActiveRecord::Base
-
+ 
   belongs_to :user
   belongs_to :content_partner_status
 
@@ -12,7 +12,7 @@ class ContentPartner < ActiveRecord::Base
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
 
-  before_validation_on_create :set_default_content_partner_status
+  before_validation :set_default_content_partner_status, :on => :create
 
   validates_presence_of :full_name
   validates_presence_of :description
@@ -32,14 +32,14 @@ class ContentPartner < ActiveRecord::Base
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif",
-    :if => self.column_names.include?('logo_file_name')
+    :default_url => "/assets/blank.gif",
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
 
   validates_attachment_content_type :logo,
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :if => self.column_names.include?('logo_file_name')
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
   validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => self.column_names.include?('logo_file_name')
+    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
 
 
   def can_be_read_by?(user_wanting_access)
@@ -50,7 +50,7 @@ class ContentPartner < ActiveRecord::Base
   end
   def can_be_created_by?(user_wanting_access)
     # NOTE: association with user object must exist for permissions to be checked as user can only have one content partner at the moment
-    user && user.content_partners.blank? && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
+    user && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
   end
 
   # has this partner submitted data_objects which are currently published
@@ -73,6 +73,10 @@ class ContentPartner < ActiveRecord::Base
 
   def self.boa
     cached_find(:full_name, 'Biology of Aging')
+  end
+
+  def self.wikipedia
+    cached_find(:full_name, 'Wikipedia')
   end
 
   def all_harvest_events

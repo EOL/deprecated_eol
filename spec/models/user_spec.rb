@@ -106,9 +106,10 @@ describe User do
   end
 
   it 'should alias password to entered_password' do
+    user = User.new
     pass = 'something new'
-    @user.entered_password = pass
-    @user.password.should == pass
+    user.entered_password = pass
+    user.password.should == pass
   end
 
   it 'should require password for a user with eol authentication'
@@ -124,16 +125,16 @@ describe User do
   it 'should require given name for open authenticated user' do
     user = User.new(:open_authentications_attributes => [ { :guid => 1234, :provider => 'facebook' }])
     user.valid?.should be_false
-    user.errors.on(:given_name).should =~ /can't be blank/
+    user.errors[:given_name].to_s.should =~ /can't be blank/
     user.given_name = "Oauth"
     user.valid? # run validations again - will still fail due to other errors but we're just checking given name
-    user.errors.on(:given_name).should be_nil
+    user.errors.include?(:given_name).should_not be_true
   end
 
   it 'should fail validation if the email is in the wrong format' do
     user = User.new(:email => 'wrong(at)format(dot)com')
     user.valid?.should be_false
-    user.errors.on(:email).should =~ /is invalid/
+    user.errors[:email].to_s.should =~ /is invalid/
   end
 
   it '#full_name should resort to username if a given name is all they provided' do
@@ -160,7 +161,7 @@ describe User do
   it 'should not allow you to add a user that already exists' do
     user = User.new(:username => @user.username)
     user.save.should be_false
-    user.errors.on(:username).should =~ /taken/
+    user.errors[:username].to_s.should =~ /taken/
   end
 
   it 'convenience methods should return all of the data objects for the user' do
@@ -202,11 +203,10 @@ describe User do
   it 'should update the "watch" collection if member updates the full name' do
     full_name = @user.full_name
     @user.watch_collection.name.should == "#{@user.full_name.titleize}'s Watch List"
-    @user.given_name = 'lazy'
-    @user.family_name = 'smurf'
+    @user.given_name += 'lazy'
+    @user.family_name += 'smurf'
     @user.save
     @user.reload
-    @user.run_callbacks(:after_save)
     @user.full_name.should_not == full_name
     @user.watch_collection.name.should == "#{@user.full_name.titleize}'s Watch List"
   end

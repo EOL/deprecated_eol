@@ -6,11 +6,11 @@
       .copy
         %h3= I18n.t(:admin_content_partners_notifications_statistics_reminder_header)
         %p= I18n.t(:admin_content_partners_notifications_statistics_reminder_description)
-      - form_tag({}) do
+      = form_tag({}) do
         = hidden_field_tag :notification, 'content_partner_statistics_reminder'
         %fieldset.actions
           = submit_tag I18n.t(:admin_content_partners_notifications_statistics_reminder_send_submit),
-            :confirm => I18n.t(:admin_content_partners_notifications_statistics_reminder_send_confirmation)
+            :data => { :confirm => I18n.t(:admin_content_partners_notifications_statistics_reminder_send_confirmation) }
       - unless @content_partners.blank?
         .response
           %h4= I18n.t(:admin_content_partners_notifications_sent_to_recipients_header)

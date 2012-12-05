@@ -13,8 +13,10 @@
     %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
+    - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
+    %meta{ :name => "app_version", :content => full_version }
     - unless @meta_data[:description].blank?
-      %meta{ :name => "description", :content => h(strip_tags(@meta_data[:description]).truncate(160)) }
+      %meta{ :name => "description", :content => h(truncate(strip_tags(@meta_data[:description]), :length => 160)) }
     - unless @meta_data[:keywords].blank?
       %meta{ :name => "keywords", :content => h(strip_tags(@meta_data[:keywords])) }
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
@@ -36,16 +38,14 @@
 
 
     - if @home_page
-      = stylesheet_include_i18n_merged 'home', :media => "all"
+      = stylesheet_include_i18n_merged 'home_pack', :media => "all"
     - else
-      = stylesheet_include_i18n_merged 'application', :media => "all"
-    - if I18n.locale.to_s == "zh-Hans"
-      = stylesheet_include_i18n_merged 'fonts', :media => "all"
+      = stylesheet_include_i18n_merged 'application_pack', :media => "all"
     /[if IE 7]
       = stylesheet_include_i18n_merged 'ie7', :media => "all"
-    = javascript_include_merged :application
+    = javascript_include_tag :application
 
-    = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs
+    = csrf_meta_tags
 
     = yield :head
   %body{:class => @home_page ? 'home' : nil}
@@ -53,7 +53,9 @@
       - # For accessibility and SEO on pages other than home page we want content to appear first in the markup.
       #central
         .section{ :role => "main" }
+          /========================
           = yield :main
+          /========================
 
     #header
       .section
@@ -62,7 +64,7 @@
         .actions
           .language
             %p{ :class => I18n.locale.to_s, :title => I18n.t(:selected_language_advisory_information) }
-              - link_to language_path do
+              = link_to language_path do
                 %span
                   = current_language.source_form
             %ul
@@ -104,24 +106,9 @@
           = yield :main
 
     #footer{ :role => "contentinfo" }
-      .section
-        %h2.assistive= I18n.t(:site_information)
-        .copyright
-          %h6= link_to I18n.t(:encyclopedia_of_life), root_url
-          - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
-          %p{ :title => I18n.t(:application_version_advisory_information), :data_data => full_version }
-            v. 2.0
-        = render :partial => '/layouts/v2/global_navigation', :locals => { :position => :footer }
-        %ul.social_media
-          - # TODO: add rss ?
-          %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter", :rel => :nofollow
-          %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook", :rel => :nofollow
-          %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr", :rel => :nofollow
-          %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr", :rel => :nofollow
-          %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
-
+      = render :partial => '/layouts/v2/footer'
       = yield :footer
-    = javascript_include_merged 'head.load.min'
+    = javascript_include_tag 'head.load.min'
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS
       :javascript
         var _gaq = _gaq || [];
@@ -131,12 +118,27 @@
       - if $ENABLED_SOCIAL_PLUGINS
         :javascript
           head.ready("ga.js", function() {
-            head.js('/javascripts/ga_social_tracking.js');
-            head.ready("ga_social_tracking.js", EOL.load_social_plugins());
+            head.js('/assets/ga_social_tracking.js');
+            head.ready("ga_social_tracking.js", function() {
+              var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
+              var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
+              if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}",""); }
+              if (twitter) { EOL.loadTwitter(); }
+            });
           });
     - elsif $ENABLED_SOCIAL_PLUGINS
+      -# NOTE: channel_facebook_url may want to be added to EOL.loadFacebook (second argument), but it's not defined
+      -# anywhere that I can find, so I'm removing it for now.
       :javascript
-        EOL.load_social_plugins();
+        head.ready("ga.js", function() {
+          head.js('/assets/ga_social_tracking.js');
+          head.ready("ga_social_tracking.js", function() {
+            var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
+            var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
+            if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}",""); }
+            if (twitter) { EOL.loadTwitter(); }
+          });
+        });
     - if $QUANTCAST_ID && $ENABLE_QUANTCAST
       :javascript
         var _qevents = _qevents || [];
@@ -146,7 +148,7 @@
         %div{ :style => "display: none;" }
           %img{ :src => "http://pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "" }
     - if $ENABLE_WEBTRENDS
-      = javascript_include_merged :webtrends
+      = javascript_include_tag :webtrends
       :javascript
         (function() {
           var _tag=new WebTrends();

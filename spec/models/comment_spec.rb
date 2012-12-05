@@ -5,23 +5,20 @@ describe Comment do
   before(:all) do
     truncate_all_tables
     load_foundation_cache
-    @tc = build_taxon_concept()
+    @tc = build_taxon_concept
     @tc_comment = @tc.comments[0]
     @text_comment = @tc.data_objects.select { |d| d.is_text? && !d.comments.blank? }.first.comments.first
     # If this next line fails, something went wrong with Solr building data... Perhaps we should reindex, here?
     @image_comment = @tc.data_objects.select { |d| d.is_image? && !d.comments.blank? }.first.comments.first
+    @invisible_comment = Comment.gen(:parent => DataObject.last, :visible_at => 4.days.from_now)
     @curator = User.find(@tc.curators[0])
     @non_curator = User.gen
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
-  # for_feeds
-  it 'should find text data objects for feeds' do
-    res = Comment.for_feeds(:comments, @tc.id)
-    res.class.should == Array
-    res_type = res.map {|i| i.class}.uniq
-    res_type.size.should == 1
-    res_type[0].should == Hash
+  before(:each) do
+    @tc_comment.visible_at = 1.second.ago
+    @tc_comment.save
   end
 
   # visible?
@@ -54,16 +51,15 @@ describe Comment do
   end
 
   it "should return dato description for DataObject comment" do
-    @tc.images_from_solr[0].comments[0].parent_name.should == @tc.images_from_solr[0].description
+    image = @tc.images_from_solr(1, :skip_preload => false)[0]
+    image.comments[0].parent_name.should == image.description
   end
 
   it "should return parent type if comment is for object that is not TaxonConcept or DataObject" do
-    comment = @tc.images_from_solr[0].comments[0]
-    comment.parent_type = 'UnkownType'
+    comment = Comment.gen(:parent => @tc.images_from_solr.first)
+    comment.parent_type = 'Language'
     comment.save
-    comment.reload.parent_name.should == 'UnkownType'
-    comment.parent_type = "DataObject"
-    comment.save
+    comment.reload.parent_name.should == 'Language'
   end
 
   # taxa_comment
@@ -128,26 +124,21 @@ describe Comment do
 
   # show
   it "should add curator who vetted object and make comment visible" do
-    @tc_comment.visible_at = nil
-    @tc_comment.vetted_by.should_not == @curator
-    @tc_comment.save
-    @tc_comment.visible?.should be_false
-    @tc_comment.show(@curator)
-    @tc_comment.visible?.should be_true
-    @tc_comment.vetted_by.should == @curator
+    @invisible_comment.show(@curator)
+    @invisible_comment.visible?.should be_true
+    @invisible_comment.vetted_by.should == @curator
   end
 
   # hide
   it "should add curator who vetted object and make comment visible" do
-    @tc.comments.delete_all
-    @tc_comment = Comment.gen(:parent_id => @tc.id, :parent_type => 'TaxonConcept')
-    @tc_comment.visible_at = 1.day.ago
-    @tc_comment.vetted_by.should_not == @curator
-    @tc_comment.save
-    @tc_comment.visible?.should be_true
-    @tc_comment.hide(@curator)
-    @tc_comment.visible?.should be_false
-    @tc_comment.vetted_by.should == @curator
+    tc_comment = Comment.gen(:parent => DataObject.last)
+    tc_comment.visible_at = 1.day.ago
+    tc_comment.vetted_by.should_not == @curator
+    tc_comment.save
+    tc_comment.visible?.should be_true
+    tc_comment.hide(@curator)
+    tc_comment.visible?.should be_false
+    tc_comment.vetted_by.should == @curator
   end
 
   # taxon_concept_id

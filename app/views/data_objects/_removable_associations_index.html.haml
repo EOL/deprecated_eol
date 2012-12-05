@@ -11,9 +11,9 @@
         - status = entry.vetted.curation_label
         %li
           %p{:class => en_status}= status
-          %legend= link_to entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)
+          %legend= link_to raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id)
           .remove_association
             - if entry.can_be_deleted_by?(current_user)
               = link_to I18n.t(:remove_data_object_association),
                 remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id),
-                :id => "remove_association_#{entry.id}", :confirm => I18n.t(:are_you_sure)
+                :id => "remove_association_#{entry.id}", :data => { :confirm => I18n.t(:are_you_sure) }

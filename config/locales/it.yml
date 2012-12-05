@@ -5,6 +5,7 @@
 # Author: Darth Kule
 # Author: EdoDodo
 # Author: F. Cosoleto
+# Author: Gianfranco
 # Author: Inskatolata
 # Author: Raoli
 # Author: Ribez
@@ -13,7 +14,7 @@
 it: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
-  a_pipe_delimited_list_of_licenses: una barra verticale | è usata come separatore nell'elenco delle licenze, o 'all' per ottenere gli oggetti con qualsiasi licenza. Licenze abbreviate in cc- sono tutte
+  a_pipe_delimited_list_of_licenses: una barra verticale | è usata come separatore nell'elenco delle licenze, o 'all' per ottenere gli oggetti con qualsiasi licenza. Licenze abbreviate in cc- sono tutte licenze %{creative_commons_link}. Visita il loro sito per ulteriori informazioni sulle varie licenze che offrono.
   a_pipe_delimited_list_of_spm_info_item_subject_names: una barra verticale | è usata come separatore nell'elenco degli argomenti per elementi di informazione SPM, o 'all' per ottenere il testo su qualsiasi argomento
   a_taxon: un taxon
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -155,6 +156,9 @@ it:
         request_publish: Richiesta di pubblicazione
       name: 
         string: Nome
+      news_item: 
+        active: Pubblicato
+        sort_order: Ordinamento
       notification: 
         changes_to_my_watched_collection: Modifiche alle collezioni nei tuoi osservati speciali
         changes_to_my_watched_community: Modifiche alle comunità nei tuoi osservati speciali
@@ -199,6 +203,9 @@ it:
         left_content: Navigazione
         main_content: Corpo
         meta_description: Descrizione del metadato
+        title: Titolo
+      translated_news_item: 
+        active_translation: Pubblicato
         title: Titolo
       user: 
         agreed_with_terms: Termini del contratto di utilizzo
@@ -561,14 +568,12 @@ it:
   add_a_comment_colon: "Aggiungi un commento:"
   add_a_new_common_name: Aggiungi un nuovo nome comune
   add_a_new_file_brackets: "[aggiungi un nuovo file]"
-  add_a_new_news_item: Aggiungi una nuova notizia
   add_a_new_role: Aggiungi un nuovo ruolo
   add_a_new_search_suggestion: Aggiungi un nuovo suggerimento di ricerca
   add_a_new_term: Aggiungi un nuovo termine
   add_a_new_topic_area: Aggiungi una nuova area di argomento
   add_a_new_user: Aggiungi un nuovo utente
   add_a_taxon_association_label: Aggiungi un'associazione al taxon
-  add_article_to_page_link_button: Aggiungi un articolo in questa pagina
   add_association_submit_button: aggiungi associazione
   add_brief_summary_to_page_link_button: Aggiungi un breve riassunto in questa pagina
   add_collection_to_a_new_community: Aggiungi "%{collection}" ad una nuova comunità
@@ -642,8 +647,24 @@ it:
   admin_translated_content_page_new_tip: Lingua, titolo e corpo sono %{required_icon} obbligatori.
   admin_translated_content_page_update_successful_notice: La traduzione %{language} per <a href="#%{anchor}"><em>%{page_name}</em></a> è stata aggiornata.
   admin_translated_content_page_update_unsuccessful_error: Spiacenti, si è verificato un errore, la traduzione non è stata aggiornata.
+  admin_translated_news_item_new_link: Aggiungi traduzione
   admin_user_delete_successful_notice: L'utente è stato cancellato
   admin_user_hide_successful_notice: L'utente è stato nascosto
+  admins: 
+    eol_statistics: 
+      curators: 
+        menu_link: Statistiche curatore
+        page_header: Statistiche curatore
+      data_objects: 
+        menu_link: Oggetti dati
+        page_header: Statistiche oggetti dati
+        page_title: "Amministrazione: statistiche oggetti dati"
+      index: 
+        menu_link: Statistiche globali
+        page_header: Statistiche globali
+        page_title: "Amministrazione: statistiche globali"
+      users_data_objects: 
+        page_header: Statistiche di testo inviate da utenti
   agent: Agente
   all: tutto
   all_apis_return_by_default_an_xml_response: "Tutte le API restituiscono per default una risposta XML. I metodi delle API possono essere chiamati senza un'estensione di formato per ottenere la risposta XML e aggiungendo un'estensione XML darà una risposta identica:"
@@ -705,7 +726,7 @@ it:
   assistive_literature_header: Letteratura
   assistive_maps_header: Mappe
   assistive_media_header: Media
-  assistive_names_classifictions_header: Classificazioni
+  assistive_names_classifications_header: Classificazioni
   assistive_names_common_header: Nomi comuni
   assistive_names_related_header: Nomi correlati
   assistive_names_synonyms_header: Sinonimi
@@ -831,7 +852,7 @@ it:
     one: "%{count} commento"
     other: "%{count} commenti"
   common_name: Nome comune
-  common_name_exists: Esiste già il nome comune <em>% {name_string}</em>
+  common_name_exists: Esiste già il nome comune <em>%{name_string}</em>
   common_names_with_count: 
     one: "%{count} nome comune"
     other: "%{count} nomi comuni"
@@ -882,6 +903,7 @@ it:
     other: "%{count} membri della comunità"
   community_name_label: Nome della comunità
   community_rating: Valutazione comunità
+  community_tab_collections_header: Collezioni
   completed: Completato
   confirm_leave: Sei sicuro di voler lasciare questa comunità?
   confirm_password_colon: "Conferma Password:"
@@ -928,6 +950,7 @@ it:
   content_partner_filter_option_vetted_no: 'No'
   content_partner_filter_option_vetted_yes: Sì
   content_partner_filter_published: Pubblicato
+  content_partner_managed_by_header: Gestito da
   content_partner_public_false: Privato
   content_partner_public_true: Pubblico
   content_partner_resource_auto_publish_false: 'No'
@@ -1018,6 +1041,7 @@ it:
   curation_reason_placeholder: dettagli aggiuntivi (opzionale)
   curation_scope: Ambito curatore
   curator: curatore
+  curator_colon: "Curatore:"
   curator_level: Livello curatore
   curator_level_assistant_approved_notice: Complimenti! Ora sei un <em>assistente curatore</em>. <a href="%{more_url}">Ulteriori informazioni sul ruolo di assistente curatore</a>.
   curator_level_assistant_curator: Assistente curatore
@@ -1120,7 +1144,6 @@ it:
   dato_create_cancel: Annulla
   dato_create_user_text_error: Spiacenti, si è verificato un errore, l'articolo non è stato aggiunto.
   dato_edit_cancel: Annulla
-  dato_edit_text_link_button: Modifica questo articolo
   dato_edit_text_title: Modifica articolo
   dato_new_edit_user_text_fieldset_content_header: Contenuto articolo
   dato_new_edit_user_text_fieldset_information_header: Informazioni articolo
@@ -1175,6 +1198,12 @@ it:
     content_partners: 
       page_title: Statistiche
     curators: 
+      menu_link: Statistiche curatore
+      page_header: Statistiche curatore
+      page_title: Statistiche
+    data_objects: 
+      menu_link: Oggetti dati
+      page_header: Statistiche oggetti dati
       page_title: Statistiche
     index: 
       menu_link: Statistiche complessive
@@ -1187,6 +1216,8 @@ it:
     page_richness: 
       page_title: Statistiche
     users_data_objects: 
+      menu_link: Testo inviato da utenti
+      page_header: Statistiche testi inviati da utenti
       page_title: Statistiche
   error_401_page_title: Non autorizzato
   error_403_page_title: Proibito
@@ -1196,7 +1227,6 @@ it:
   error_log: Registro degli errori
   error_log_detail: Dettagli registro degli errori
   error_logging_active: Attiva registrazione degli errori
-  esc_key_hides_this_message: (il tasto ESC nasconde questo messaggio)
   example_colon: "Esempio:"
   exception: Eccezione
   exceptions: 
@@ -1209,6 +1239,7 @@ it:
   file: File
   file_id: File ID
   file_size: Dimensione del file
+  filter_button: Filtra
   filter_by_day: Filtra per giorno
   filter_by_status: Filtra per stato
   filter_by_status_all_option: tutti gli status
@@ -1313,6 +1344,8 @@ it:
         rights_statement: Dichiarazione dei diritti
         source_url: URL all'oggetto dati originale
         toc_item: Sottocapitolo
+      data_object_link: 
+        link_type: Categoria
       eol_statistic: 
         date_one: Data
         date_two: Data
@@ -1333,6 +1366,8 @@ it:
         browsable_status_with_colon: "Stato esplorabile:"
         complete: A cura
         request_publish: Pubblicazione richiesta
+      news_item: 
+        active: Pubblicato
       open_authentication: 
         connect: Aggiungi
         connected: Connesso
@@ -1355,6 +1390,10 @@ it:
       translated_content_page: 
         active_translation: Pubblicato
         language_id: Lingua
+      translated_news_item: 
+        active_translation: Pubblicato
+        language_id: Lingua
+        meta_description_more: Fornisci una breve descrizione, riassumendo i concetti chiave del contenuto di ciascuna notizia. Questa descrizione è talvolta utilizzata dai motori di ricerca Web sia per controllare la rilevanza, che per l'inclusione nei risultati della ricerca.
       user: 
         agreed_with_terms: Accetto le <a href="%{terms_url}">condizioni d'uso</a>
         bio: Informazioni su di me
@@ -1374,6 +1413,7 @@ it:
         logo: Carica una nuova foto
         new_password: Nuova password <small>(4-16 caratteri)</small>
         new_password_confirmation: Nuova password <small>(per conferma)</small>
+        news_in_preferred_language: visualizza le notizie nella lingua preferita
         notification_settings: Impostazioni notifiche
         notification_settings_more: Configurare le impostazioni di notifica.
         open_authentications: Account collegati
@@ -1410,6 +1450,9 @@ it:
         create: Aggiungi articolo
         create_text: Aggiungi articolo
         update: Salva l'articolo
+      data_object_link: 
+        create: Aggiungi link
+        update: Salva link
       eol_statistic: 
         change_date: Ordina le statistiche per data
         download_csv: Scarica in formato CSV
@@ -1422,6 +1465,9 @@ it:
       name: 
         create: Aggiungi nome
         update: Aggiorna nome
+      news_item: 
+        edit: Modifica
+        preview: Anteprima
       open_authentication: 
         create: Connetti
         destroy: Disconnetti
@@ -1438,6 +1484,9 @@ it:
         sign_in_with_yahoo: Accedi con Yahoo
       submit: Salva %{model}
       translated_content_page: 
+        create: Aggiungi traduzione
+        update: Salvare le modifiche alla traduzione
+      translated_news_item: 
         create: Aggiungi traduzione
         update: Salvare le modifiche alla traduzione
       update: Aggiorna %{model}
@@ -1458,11 +1507,11 @@ it:
   here: qui
   hidden: Nascosto
   hidden_comment: commento nascosto
-  hidden_for_colon: "Nascosto per:"
   hide: nascondi
   hierarchy: Gerarchia
   home: Pagina principale
   home_page_link_advisory_information: Questo link vi porterà alla pagina principale del sito Web della Encyclopedia Of Life
+  html_format: (Formato HTML)
   image: Immagine
   image_alt_text: Questa %{vetted_status} immagine è di %{taxon_name}
   image_from_supplier: Immagine da %{whom}
@@ -1480,6 +1529,7 @@ it:
   images_with_count: 
     one: "%{count} immagine"
     other: "%{count} immagini"
+  inappropriate: Inappropriato
   indexed: Catalogato
   ip: IP
   ip_address: Indirizzo IP
@@ -1523,6 +1573,41 @@ it:
   languages: Lingue
   last_updated: Ultimo aggiornamento
   last_updated_time_ago: Ultimo aggiornamento %{time_passed} fa
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Cita EOL
+        about_link_contact_us: Contattaci
+        about_link_discover: Scopri
+        about_link_donate: Dona ad EOL
+        about_link_help: Aiuto
+        about_link_statistics: Statistiche
+        about_link_terms_of_use: Condizioni d'uso
+        about_link_what_is_eol: Che cosa è EOL?
+        header_about: Informazioni su EOL
+        learn_more_link_amphibians: Anfibi
+        learn_more_link_animals: Animali
+        learn_more_link_archaea: Archaea
+        learn_more_link_bacteria: Batteri
+        learn_more_link_birds: Uccelli
+        learn_more_link_crustaceans: Crostacei
+        learn_more_link_fish: Pesce
+        learn_more_link_flowering_plants: Piante da fiore
+        learn_more_link_fungi: Funghi
+        learn_more_link_insects: Insetti
+        learn_more_link_invertebrates: Invertebrati
+        learn_more_link_mammals: Mammiferi
+        learn_more_link_mollusks: Molluschi
+        learn_more_link_mushrooms: Funghi
+        learn_more_link_plants: Piante
+        learn_more_link_protists: Protisti
+        learn_more_link_reptiles: Rettili
+        learn_more_link_spiders: Ragni
+        learn_more_link_trees: Alberi
+        learn_more_link_viruses: Virus
+        questions_link_biodiversity: Che cos'è la biodiversità?
+        questions_link_discovering_species: Quante sono le specie scoperte?
+        questions_link_species: Che cos'è una specie?
   learn_about_collections: Come posso crearne uno?
   learn_about_communities: Come posso partecipare?
   learn_about_content_partners: Come si fa a diventarlo?
@@ -1533,6 +1618,7 @@ it:
   learn_more_lowercase: per saperne di più
   leave_a_comment: Lascia un commento
   leave_community_button: Lascia questa comunità
+  leave_reply: Lascia una risposta
   license: Licenza
   license_all_rights_reserved: Tutti i diritti riservati.
   license_cc_by: Creative Commons Attribuzione (CC BY)
@@ -1586,10 +1672,10 @@ it:
   members_with_count: 
     one: "%{count} membro"
     other: "%{count} membri"
+  message_colon: "Messaggio:"
   meta_title_site_name: Encyclopedia of Life
   method: Metodo
   methods: Metodi
-  minimal_page: Visualizzazione minima
   mobile: 
     contents: 
       explore_eol: Esplora EOL
@@ -1611,7 +1697,14 @@ it:
       resources: Risorse
       sounds: Suoni
       videos: Video
+  moderator_colon: "Moderatore:"
+  monthly: Mensile
   most_active_members: Utenti più attivi
+  move: Sposta
+  move_down: Sposta giù
+  move_to_bottom: Sposta in fondo
+  move_to_top: Sposta all'inizio
+  move_up: Sposta su
   must_be_associated_with_either_a_user_or_a_community: Deve essere associato a un utente o a una comunità
   must_be_less_than_128_characters_long: deve essere inferiore a 128 caratteri.
   must_be_logged_in: Devi autenticarti per eseguire questa azione.
@@ -1619,7 +1712,14 @@ it:
   my_info: I miei dati
   name: Nome
   name_colon: "Nome:"
+  name_preferred_for_language_yes: Preferiti
+  names: Nomi
+  names_filter: Nomi
   names_name_column_header: Nome
+  names_preferred_column_header: Preferiti
+  names_sources_column_header: Fonti
+  names_status_column_header: Stato
+  never: Mai
   no_answer: 'No'
   no_uploaded_content_is_available: Nessun contenuto caricato è disponibile.
   no_user_submitted_data_objects: Nessun oggetto dati inviato dagli utenti corrisponde ai criteri della tua ricerca.
@@ -1627,6 +1727,10 @@ it:
   not_evaluated: Non valutato
   not_published_yet: non ancora pubblicato
   not_shown_on_the_website_note: (non visualizzato sul sito web o con un collegamento URL, solo per scopi informativi)
+  notes: Note
+  notification_frequency_never: Mai
+  notification_frequency_send_immediately: Invia subito
+  notification_frequency_weekly: Settimanale
   notifications_tab_name: Notifiche
   notifier: 
     activity_log_empty: Nessuna azione recente dei curatori.
@@ -1711,7 +1815,6 @@ it:
   object_visibility_invisible_option: Nascosto
   object_visibility_visible_option: Visibile
   objects_curated: Oggetti curati
-  older_version_of_latest_published_data_object_link: una vecchia versione di "%{link}"
   older_version_of_latest_published_data_object_title_link: Vecchia versione di %{link}
   other_collection_items_with_count: 
     one: "%{count} altro elemento"
@@ -1722,6 +1825,8 @@ it:
   overview: Panoramica
   pages_with_pictures_and_text: Pagine con immagini e testo
   pages_with_pictures_or_text: Pagine con immagini o testo
+  password_colon: "Password:"
+  pause: pausa
   people_with_count: 
     one: "%{count} persona"
     other: "%{count} persone"
@@ -1729,6 +1834,8 @@ it:
   person_rating: Valutazione persona
   personal_profile_menu: Profilo personale
   personal_space: Pagina personale
+  please: Per favore
+  please_wait: Attendi per favore...
   post_comment: Lascia un commento
   preferred_common_name_advisory_information: Nome comune preferito per questo taxon.
   press_room: Sala stampa
@@ -1736,6 +1843,8 @@ it:
   profile_image_alt_text_curator: Foto del curatore %{user_given_name} %{user_family_name}
   profile_picture: Foto del profilo
   project: Progetto
+  public: Pubblico
+  public_domain: Pubblico dominio
   punctuation_comma: ","
   punctuation_semi_colon: ;
   rated_by_count_people: 
@@ -1779,6 +1888,7 @@ it:
     community_activity_user_joined: L'utente <b>%{user_name}</b> è entrato a far parte della comuntià <b>%{community_name}</b>.
     community_activity_user_left: L'utente <b>%{user_name}</b> ha lasciato la comunità <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: L'utente <b>%{user_name}</b> ha reso <b>%{member_name}</b> gestore della comunità <b>%{community_name}</b>.
+    contact_us_link: Se incontri dei problemi, <a href='http://eol.org/contact_us' style='color:#195184'>contattaci</a>.
     curator_activity_log_title: "%{who} ha curato qualcosa"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> ha eseguito l'azione %{activity_name} su <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> ha eseguito l'azione %{activity_name} su <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -1791,17 +1901,19 @@ it:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Vedi tutte le attività precedenti nel <a href='%{activity_url}' style='color:#195184'>tuo feed delle notizie</a>.
     someone_commented_on_something: <b>%{who}</b> ha commentato su <b>%{what}</b>.
-    unsubscribe: Cambia le impostazioni per la posta elettronica o cancella la tua iscrizione nelle <a href='%{email_prefs_url}' style='color:#195184'>tue preferenze per le notifiche</a>.
+    unsubscribe: Accedi e cambia le impostazioni per la posta elettronica nelle <a href='%{email_prefs_url}' style='color:#195184'>tue preferenze per le notifiche</a> o <a href='%{unsubscribe_url}' style='color:#195184'>cancella la tua iscrizione per TUTTE le notifiche automatiche di EOL senza effettuare l'accesso</a>.
   recent_updates: Aggiornamenti recenti
   references_cabs_colon: "Riferimenti:"
   remove: Rimuovi
   remove_membership: Rimuovi l'iscrizione
   reply: Rispondi
+  required_form_element: Richiesto
   resources: Risorse
   revoke_full_curator_link: Revoca
   rights: Diritti
   rights_holder: Detentore dei diritti
   rights_statement: Dichiarazione dei diritti
+  save: Salva
   save_comment_lowercase: salva commento
   save_email_settings: salva le impostazioni e-mail
   scientific_name: Nome scientifico
@@ -1813,7 +1925,9 @@ it:
   search_field_preferred_scientific: Nome scientifico preferito
   search_field_synonym: Sinonimo
   search_input_advisory_information: Inserisci un nome comune o uno scientifico di un organismo vivente di cui vorresti sapere di più su. Puoi anche cercare membri di EOL, collezioni e comunità.
+  search_next_label: Successivo
   search_placeholder: Ricerca EOL...
+  search_previous_label: Precedente
   search_the_site: Cerca nel sito
   see_all_maps_link: Vedi tutte le mappe
   see_all_media_link: Vedi tutti i tipi di media
@@ -1822,6 +1936,7 @@ it:
   selected_language_advisory_information: Questa è la lingua attualmente selezionata.
   send: Invia
   send_email_colon: "Invia email:"
+  server_ip_address: Indirizzo IP server
   sessions: 
     new: 
       login_with_eol_authentication_header: "Oppure accedi con le tue credenziali EOL:"
@@ -1834,6 +1949,7 @@ it:
       problems_signing_in_with_eol_authentication: Password dimenticata?
       tip: Utente esistente? Collega il tuo account EOL con Facebook, Google ed altri nelle impostazioni del tuo profilo. Dopo aver collegato il tuo account è possibile utilizzarlo per accedere ad EOL.
   set_as_exemplar: Imposta come esemplare
+  share_a_collection: Condividi una collezione
   show_status_message: Mostra lo stato dei messaggi
   show_warning_message: Mostra messaggio di avviso
   sign_in: Entra
@@ -1842,6 +1958,7 @@ it:
   skip_to_content: Vai al contenuto
   skip_to_table_of_contents: Vai alla tabella dei contenuti
   sort_by: Ordina per
+  sort_by_alphabetical_option: Alfabetico
   sort_by_button: Ordina
   sort_by_label: Ordina per
   sort_by_newest_option: Più recenti
@@ -1849,6 +1966,7 @@ it:
   sort_by_rating_option: Valutazione
   sort_by_status_option: Stato
   sound_alt_text: Questa %{vetted_status} registrazione audio è di %{taxon_name}
+  sound_file: Documento audio
   sound_from_supplier: Audio da %{whom}
   sound_not_associated_with_any_published_entries: Questo suono non è associato ad alcun dei taxa pubblicati.
   sound_of: Audio di
@@ -1859,6 +1977,7 @@ it:
     other: "%{count} suoni"
   source_url: URL di origine
   species: Specie
+  stats: Statistiche
   subject: oggetto
   submit: Invia
   supplier: Fornitore
@@ -1869,6 +1988,7 @@ it:
     other: "%{count} sinonimi"
   table_column_header_actions: Azioni
   table_of_contents: Sommario
+  task_status_active_option: Attivo
   taxa: 
     communities: 
       collections: 
@@ -2116,6 +2236,7 @@ it:
   taxon: taxon
   taxon_not_found_error: "\"%{taxon}\" non trovato"
   taxon_rating: Valutazione taxon
+  technical_functions: Funzioni tecniche
   term_is_already_def_error: "'%{term}' è già definito"
   terms_agreement_form_header: Condizioni d'uso
   terms_agreement_form_submit: Accetto
@@ -2131,6 +2252,7 @@ it:
   thank_you: Grazie
   thank_you_for_your_generous_support: Grazie per il generoso sostegno
   thanks_for_your_time: Grazie per il vostro tempo,
+  the_comment_was_successfully_deleted: Il commento è stato cancellato
   the_message_was_sent: Il messaggio è stato inviato.
   there_are_currently_no_members_in_this_community: Attualmente non sono presenti membri in questa comunità.
   this_article_cannot_be_curated_because_unpublished: Questo articolo non può essere curato perché non è stato pubblicato.
@@ -2350,7 +2472,6 @@ it:
   what_is_this_question: Che cos'è questo?
   will_paginate: 
     next_label: Successivo &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Precedente"
   yahoo: Yahoo
   year: Anno

@@ -4,12 +4,58 @@ class TaxaController < ApplicationController
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
 
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names, :only => 'overview'
+  before_filter :add_page_view_log_entry, :only => 'overview'
+
   def show
     if this_request_is_really_a_search
       do_the_search
       return
     end
-    return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
+    return redirect_to overview_taxon_path(params[:id]), :status => :moved_permanently
+  end
+
+  def overview
+    TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
+    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank?
+    @browsable_hierarchy_entries.compact!
+    @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
+    
+    @summary_text = @taxon_concept.overview_text_for_user(current_user)
+    
+    map_results = @taxon_concept.data_objects_from_solr({
+      :page => 1,
+      :per_page => 1,
+      :data_type_ids => DataType.image_type_ids,
+      :data_subtype_ids => DataType.map_type_ids,
+      :vetted_types => ['trusted', 'unreviewed'],
+      :visibility_types => ['visible'],
+      :ignore_translations => true,
+      :skip_preload => true
+    })
+    @map = map_results.blank? ? nil : map_results.first
+    limit = @map.blank? ? 4 : 3
+    media = promote_exemplar_image(@taxon_concept.images_from_solr(limit, { :filter_hierarchy_entry => @selected_hierarchy_entry, :ignore_translations => true }))
+    @media = @map.blank? ? media : media[0..2] + [ @map ]
+    
+    @media << @summary_text if @summary_text
+    DataObject.replace_with_latest_versions!(@media, :select => [ :description ])
+    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ] }, :vetted, :visibility ] } ]
+    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
+    includes << :users_data_object
+    includes << :license
+    includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
+    DataObject.preload_associations(@media, includes)
+    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
+    @summary_text = @media.pop if @summary_text
+    
+    @watch_collection = logged_in? ? current_user.watch_collection : nil
+    @assistive_section_header = I18n.t(:assistive_overview_header)
+    @rel_canonical_href = @selected_hierarchy_entry ?
+      overview_taxon_entry_url(@taxon_concept, @selected_hierarchy_entry) :
+      overview_taxon_url(@taxon_concept)
+    current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 
   ################
@@ -125,10 +171,14 @@ private
     end
 
     @taxon_concept.current_user = current_user
-    @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
-    if @selected_hierarchy_entry_id
+    @selected_hierarchy_entry_id = params[:hierarchy_entry_id] || params[:entry_id]
+    # making sure we know the HE_ID when browsing in entry mode
+    if @selected_hierarchy_entry_id.nil? && params[:taxon_id] && params[:id] && request.env['PATH_INFO'] =~ /^\/pages\/[0-9]+\/hierarchy_entries\/[0-9]+\//
+      @selected_hierarchy_entry_id = params[:id]
+    end
+    unless @selected_hierarchy_entry_id.blank?
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
-      if @selected_hierarchy_entry.hierarchy.browsable?
+      if @selected_hierarchy_entry && @selected_hierarchy_entry.hierarchy.browsable?
         # TODO: Eager load hierarchy entry agents?
         TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
         @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
@@ -183,7 +233,7 @@ private
   end
 
   def do_the_search
-    redirect_to search_path(:id => params[:id])
+    redirect_to search_path(:q => params[:id])
   end
 
   def is_common_names?(category_id)
@@ -204,11 +254,11 @@ private
     auto_collect(tc) # SPG asks for all curation (including names) to add the item to their watchlist.
     # NOTE - Don't pass :data_object into this; it will overwrite the value of :object_id.
     CuratorActivityLog.create(
-      :user => current_user,
+      :user_id => current_user.id,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
       :object_id => object.id,
       :activity => Activity.send(method),
-      :taxon_concept => tc,
+      :taxon_concept_id => tc.id,
       :created_at => 0.seconds.from_now
     )
   end

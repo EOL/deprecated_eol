@@ -37,7 +37,7 @@
 
           - if !toc.label.blank?
             %span{:id => "toc_label_#{toc.id}"}><
-              = "&nbsp;" + toc.label + "&nbsp;"
+              = raw("&nbsp;" + toc.label + "&nbsp;")
               %a{:href => '', :onclick => %Q[javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;]}
                 = image_tag('pencil.png', :alt => I18n.t(:edit), :title => I18n.t(:edit), :style => 'float: right; margin: 0px;')
 

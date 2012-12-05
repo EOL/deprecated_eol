@@ -6,21 +6,9 @@
 - cols ||= 60
 - actual_date ||= false
 - display_curator ||= false
-- parent_newsfeed = case item.parent_type
-  - when 'TaxonConcept'
-    - parent_newsfeed = taxon_updates_url(item.parent_id)
-  - when 'DataObject'
-    - parent_newsfeed = data_object_url(item.parent_id)
-  - when 'Community'
-    - parent_newsfeed = community_newsfeed_url(item.parent_id)
-  - when 'Collection'
-    - parent_newsfeed = collection_newsfeed_url(item.parent_id)
-  - when 'User'
-    - parent_newsfeed = user_newsfeed_url(item.parent_id)
-  - else
-    - nil
+- parent_newsfeed = link_to_newsfeed(item.parent)
 - if item.user.nil?
-  = I18n.t(:the_user_who_performed_this_action_was_removed)
+  = raw I18n.t(:the_user_who_performed_this_action_was_removed)
 - else
   = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
     :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'
@@ -29,61 +17,38 @@
     - if !item.user.curator_level.nil? && display_curator
       - curator_level = " (" + item.user.curator_level.translated_label + ")"
     - name_with_link = link_to(h(item.user.full_name), user_url(item.user)) + curator_level
-    - parent_link = nil
-    - case item.parent_type
-    - when 'TaxonConcept'
-      - parent_link = taxon_overview_url(item.parent_id)
-    - when 'DataObject'
-      - parent_link = data_object_url(item.parent_id)
-    - when 'Community'
-      - parent_link = community_url(item.parent_id)
-    - when 'Collection'
-      - parent_link = collection_url(item.parent_id)
-    - when 'User'
-      -# We placed a filter here to trap the error if user is deleted.
-      - unless item.parent.nil?
-        - parent_link = user_newsfeed_url(item.parent_id)
+    -# We placed a filter here to trap the error if user is deleted.
+    - parent_link = item.parent ? link_to_item(item.parent) : ''
     %p
       - if parent_link
         - if item.parent == item.user
-          = I18n.t(:user_commented_on_themself, :user_with_link => name_with_link, :username => item.parent.summary_name, :link => parent_link)
+          = raw I18n.t(:user_commented_on_themself, :user_with_link => name_with_link, :username => item.parent.summary_name, :link => parent_link)
         - elsif item.parent.nil?
-          = I18n.t(:user_commented_on_deleted_user, :user_with_link => name_with_link)
+          = raw I18n.t(:user_commented_on_deleted_user, :user_with_link => name_with_link)
         - else
           - if item.parent_type == "DataObject"
             - if item.parent.is_latest_published_version_in_same_language?
-              = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
+              = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(raw(item.parent.summary_name), parent_link))
             - else
-              = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => I18n.t(:older_version_of_latest_published_data_object_link, :link => link_to(item.parent.summary_name, parent_link)))
+              = raw I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => link_to(raw(item.parent.summary_name), parent_link))
           - else
-            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
+            = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(raw(item.parent.summary_name), parent_link))
       - else
         - unless item.parent.nil?
           - if item.parent_type == "DataObject"
             - if item.parent.is_latest_published_version_in_same_language?
-              = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => item.parent.summary_name)
+              = raw I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => item.parent.summary_name)
             - else
-              = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
+              = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
           - else
-            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
+            = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
     - if item.deleted?
-      %p.deleted_comment= I18n.t(:this_comment_was_deleted)
+      %p.deleted_comment= raw I18n.t(:this_comment_was_deleted)
     - else
       %blockquote{:cite => h(item.user.full_name)}
         - show_body = ''
         - if truncate_comments && item.body.length > 140
-          - parent_newsfeed = nil
-          - case item.parent_type
-          - when 'TaxonConcept'
-            - parent_newsfeed = taxon_updates_url(item.parent_id)
-          - when 'DataObject'
-            - parent_newsfeed = data_object_url(item.parent_id)
-          - when 'Community'
-            - parent_newsfeed = community_newsfeed_url(item.parent_id)
-          - when 'Collection'
-            - parent_newsfeed = filtered_collection_url(item.parent, 'newsfeed')
-          - when 'User'
-            - parent_newsfeed = user_newsfeed_url(item.parent_id)
+          - parent_newsfeed = item.parent ? link_to_newsfeed(item.parent, :taxon_updates => true) : ''
           - if parent_newsfeed
             - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => parent_newsfeed))
           - else
@@ -95,19 +60,19 @@
         = sanitize show_body.balance_tags.add_missing_hyperlinks
     %p.meta
       - if actual_date
-        = I18n.l(item.created_at, :format => :long)
+        = raw I18n.l(item.created_at, :format => :long)
       - else
-        = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+        = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
       - unless item.created_at == item.updated_at
         &bull;
         - if item.deleted?
-          = I18n.t(:deleted_colon)
+          = raw I18n.t(:deleted_colon)
         - else
-          = I18n.t(:edited_colon)
+          = raw I18n.t(:edited_colon)
         - if actual_date
-          = I18n.l(item.updated_at, :format => :long)
+          = raw I18n.l(item.updated_at, :format => :long)
         - else
-          = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+          = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
     - unless item.deleted?
       %ul.actions
         - if ! defined?(@latest_published_revision) || @latest_published_revision
@@ -117,7 +82,7 @@
               = link_to I18n.t(:edit), edit_comment_url(item.id, :return_to => "#{current_url}##{item.class.name}-#{item.id}", :actual_date => actual_date), :class => 'edit_comment'
         - if editable && current_user.can_delete?(item)
           %li
-            - form_for item, :html => { :method => :delete, :class => 'delete_comment' } do |f|
+            = form_for item, :html => { :method => :delete, :class => 'delete_comment' } do |f|
               = hidden_field_tag :return_to, "#{current_url}##{item.class.name}-#{item.id}"
               = hidden_field_tag :actual_date, actual_date
               = f.submit I18n.t(:delete), { 'data-confirmation' => I18n.t(:comment_delete_confirm) }

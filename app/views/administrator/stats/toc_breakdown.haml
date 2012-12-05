@@ -22,7 +22,7 @@
           %td{ :class => row_class }
             = (toc.parent.blank?) ? " --- " : toc.label
           %td{ :class => row_class }
-            = toc.info_items.collect{ |ii| ii.label }.join('<br/>')
+            = raw toc.info_items.collect{ |ii| ii.label }.join('<br/>')
 
     %tr
       %td{ :colspan => "5" }

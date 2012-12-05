@@ -50,7 +50,9 @@ class Taxa::MediaController < TaxaController
       :visibility_types => visibility_statuses,
       :ignore_translations => true,
       :filter_hierarchy_entry => @selected_hierarchy_entry,
-      :return_hierarchically_aggregated_objects => true
+      :return_hierarchically_aggregated_objects => true,
+      :skip_preload => true,
+      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
     })
 
     # There should not be an older revision of exemplar image on the media tab. But recently there were few cases found.
@@ -58,10 +60,14 @@ class Taxa::MediaController < TaxaController
     unless @media.blank?
       @media.map!{ |m| (m.guid == @exemplar_image.guid && m.id != @exemplar_image.id) ? @exemplar_image : m } unless @exemplar_image.nil?
     end
-
-    DataObject.preload_associations(@media, [:users_data_object, :data_type, { :data_objects_hierarchy_entries => [ :vetted, :hierarchy_entry ] },
-      :curated_data_objects_hierarchy_entries, :language])
-
+    
+    DataObject.replace_with_latest_versions!(@media)
+    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility ] } ]
+    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility, :user ] }
+    DataObject.preload_associations(@media, includes)
+    DataObject.preload_associations(@media, :users_data_object)
+    DataObject.preload_associations(@media, :language)
+    DataObject.preload_associations(@media, :mime_type)
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
     @facets = EOL::Solr::DataObjects.get_aggregated_media_facet_counts(@taxon_concept.id,
       :filter_hierarchy_entry => @selected_hierarchy_entry, :user => current_user)
@@ -69,9 +75,9 @@ class Taxa::MediaController < TaxaController
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_media_header)
     if @selected_hierarchy_entry
-      @rel_canonical_href = taxon_hierarchy_entry_media_url(@taxon_concept, @selected_hierarchy_entry, :page => rel_canonical_href_page_number(@media))
-      @rel_prev_href = rel_prev_href_params(@media) ? taxon_hierarchy_entry_media_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@media) ? taxon_hierarchy_entry_media_url(@rel_next_href_params) : nil
+      @rel_canonical_href = taxon_entry_media_url(@taxon_concept, @selected_hierarchy_entry, :page => rel_canonical_href_page_number(@media))
+      @rel_prev_href = rel_prev_href_params(@media) ? taxon_entry_media_url(@rel_prev_href_params) : nil
+      @rel_next_href = rel_next_href_params(@media) ? taxon_entry_media_url(@rel_next_href_params) : nil
     else
       @rel_canonical_href = taxon_media_url(@taxon_concept, :page => rel_canonical_href_page_number(@media))
       @rel_prev_href = rel_prev_href_params(@media) ? taxon_media_url(@rel_prev_href_params) : nil
@@ -100,7 +106,7 @@ class Taxa::MediaController < TaxaController
     log_action(@taxon_concept, @data_object, :choose_exemplar_image)
 
     store_location(params[:return_to] || request.referer)
-    redirect_back_or_default taxon_media_path params[:taxon_concept_id]
+    redirect_back_or_default taxon_media_path(taxon_concept_id)
   end
 
 protected

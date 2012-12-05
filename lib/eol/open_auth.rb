@@ -3,7 +3,7 @@ module EOL
   module OpenAuth
 
     def self.config_file
-      @config_file ||= YAML.load_file("#{RAILS_ROOT}/config/oauth.yml")
+      @config_file ||= YAML.load_file(Rails.root.join('config', 'oauth.yml'))
     end
 
     def self.init(provider, callback, options = { :code => nil,

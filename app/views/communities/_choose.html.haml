@@ -1,6 +1,6 @@
 #choose_communities
-  %h2= I18n.t(:add_collection_to_a_new_community, :collection => h(@collection.summary_name))
-  - form_for(Community.new) do |community_form|
+  %h2= raw(I18n.t(:add_collection_to_a_new_community, :collection => h(@collection.summary_name)))
+  = form_for(Community.new) do |community_form|
     = hidden_field_tag :collection_id, @collection.id
     %fieldset.new_community
       = community_form.label :name, I18n.t(:community_name_label), {:class => 'assistive'}
@@ -8,7 +8,7 @@
       = submit_tag I18n.t(:create_community_button), :class => 'button'
   - @communities ||= []
   - unless @communities.empty?
-    - form_tag(make_editors_communities_path, :method => :put) do |f|
+    = form_tag(make_editors_communities_path, :method => :put) do |f|
       - one_available = false
       = hidden_field_tag :collection_id, @collection.id
       %h2= I18n.t(:or_add_it_to_an_existing_community)
@@ -21,7 +21,7 @@
               = label_tag('community_name', h(truncate(community.name, :length => 64)))
               - if has_rights
                 %span
-                  •
+                  \&bull;
                   = link_to(I18n.t(:in_community), community_url(community), :class => 'close_and_go')
               - else
                 - one_available = true

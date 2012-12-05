@@ -1,5 +1,7 @@
 class NotificationEmailerSettings < ActiveRecord::Base
-  set_table_name 'notification_emailer_settings'
+  self.table_name = 'notification_emailer_settings'
+  
+  attr_accessible :last_daily_emails_sent, :last_weekly_emails_sent
   
   def self.last_daily_emails_sent
     settings.last_daily_emails_sent

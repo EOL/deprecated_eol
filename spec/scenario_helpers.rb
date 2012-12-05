@@ -1,8 +1,8 @@
-require 'spec/eol_spec_helpers'
+require Rails.root.join('spec', 'eol_spec_helpers')
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
 
 # Add some comments for testing re-harvesting preserves such things:
 def add_comments_to_reharvested_data_objects(tc)

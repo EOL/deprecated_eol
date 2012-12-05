@@ -6,10 +6,12 @@
 #---
 #dependencies: [ :foundation ]
 
-require 'spec/eol_spec_helpers'
-require 'spec/scenario_helpers'
+require Rails.root.join('spec', 'eol_spec_helpers')
+require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
+
+load_foundation_cache
 
 data = {}
 
@@ -23,10 +25,10 @@ youtube = []
 
 toc_items = [ TocItem.overview, TocItem.brief_summary]
 description = 'This is the text '
-2.times { text << { :toc_item => toc_items.random_element, :description => description + rand(100).to_s } }
-2.times { text << { :toc_item => toc_items.random_element, :vetted => Vetted.unknown, :description => description + rand(100).to_s } }
-2.times { text << { :toc_item => toc_items.random_element, :vetted => Vetted.untrusted, :description => description + rand(100).to_s } }
-2.times { text << { :toc_item => toc_items.random_element, :vetted => Vetted.inappropriate, :description => description + rand(100).to_s } }
+2.times { text << { :toc_item => toc_items.sample, :description => description + rand(100).to_s } }
+2.times { text << { :toc_item => toc_items.sample, :vetted => Vetted.unknown, :description => description + rand(100).to_s } }
+2.times { text << { :toc_item => toc_items.sample, :vetted => Vetted.untrusted, :description => description + rand(100).to_s } }
+2.times { text << { :toc_item => toc_items.sample, :vetted => Vetted.inappropriate, :description => description + rand(100).to_s } }
 10.times { images << { :data_rating => 1 + rand(5), :source_url => 'http://photosynth.net/identifying/by/string/is/bad/change/me' } }
 10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
 10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }

@@ -4,6 +4,7 @@ describe ContentUpload do
 
   before(:all) do
     ContentUpload.delete_all
+    CuratorLevel.create_defaults
     @upload = ContentUpload.gen
   end
 

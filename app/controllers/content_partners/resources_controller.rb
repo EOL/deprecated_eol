@@ -31,7 +31,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @resource = @partner.resources.build(params[:resource])
     access_denied unless current_user.can_create?(@resource)
     if @resource.save
-      @resource.resource_status = @resource.upload_resource_to_content_master!(request.port.to_s)
+      @resource.upload_resource_to_content_master!(request.port.to_s)
       unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
         if @resource.resource_status_id = ResourceStatus.validation_failed.id
           flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
@@ -39,7 +39,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
           flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
         end
       end
-      Notifier.deliver_content_partner_resource_created(@partner, @resource, current_user)
+      Notifier.content_partner_resource_created(@partner, @resource, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
                               :resource_status => @resource.status_label) unless flash[:error]
       redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
@@ -137,9 +137,9 @@ private
   def redirect_if_terms_not_accepted
     @current_agreement = @partner.agreement
     if @current_agreement.blank?
-      redirect_to new_content_partner_content_partner_agreement_path(@partner), :status => :moved_permanently
+      redirect_to new_content_partner_agreement_path(@partner), :status => :moved_permanently
     elsif !@current_agreement.is_accepted?
-      redirect_to edit_content_partner_content_partner_agreement_path(@partner, @current_agreement), :status => :moved_permanently
+      redirect_to edit_content_partner_agreement_path(@partner, @current_agreement), :status => :moved_permanently
     end
   end
 

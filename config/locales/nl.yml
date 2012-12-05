@@ -9,6 +9,7 @@
 # Author: SPQRobin
 # Author: Saruman
 # Author: Siebrand
+# Author: Wouterkoch
 nl: 
   0_1_or_2: 0, 1 of 2
   0_or_1: 0 of 1
@@ -164,6 +165,10 @@ nl:
         request_publish: Verzoek publicatie
       name: 
         string: Naam
+      news_item: 
+        active: Gepubliceerd
+        page_name: Unieke naam
+        sort_order: Sorteervolgorde
       notification: 
         changes_to_my_watched_collection: Wijzigingen in verzamelingen op uw volglijst
         changes_to_my_watched_community: Wijzigingen in gemeenschappen op uw volglijst
@@ -216,6 +221,12 @@ nl:
         meta_description: Metadatabeschrijving
         meta_keywords: Metagegevenstrefwoorden
         title: Naam
+      translated_news_item: 
+        active_translation: Gepubliceerd
+        body: Bericht
+        meta_description: Metadatabeschrijving
+        meta_keywords: Metagegevenstrefwoorden
+        title: Titel
       user: 
         agreed_with_terms: Gebruiksovereenkomst
         api_key: API-sleutel
@@ -433,19 +444,25 @@ nl:
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan een onbekend object.
         user_associated_it_to_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan "%{association}".
       add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal toegevoegd aan een onbekende pagina.
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd in een onbekende taal.
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd aan "%{taxon}" in een onbekende taal.
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} toegevoegd aan een onbekende pagina.
         an_unknown_user_added_an_unknown_name_in_language_to_it: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd in de taal %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} toegevoegd aan "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd aan een onbekende pagina in een onbekende taal.
         an_unknown_user_added_name_in_an_unknown_language_to_it: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd in een onbekende taal.
         an_unknown_user_added_name_in_an_unknown_language_to_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}" in een onbekende taal.
         an_unknown_user_added_name_in_language_to_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} toegevoegd aan een onbekende pagina.
+        an_unknown_user_added_name_in_language_to_it: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd in de taal %{language}.
         an_unknown_user_added_name_in_language_to_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} toegevoegd aan "%{taxon}".
-        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam  toegevoegd in een onbekende taal aan een onbekende pagina.
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd in een onbekende taal aan een onbekende pagina.
         user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd  in een onbekende taal.
         user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal toegevoegd aan "%{taxon}".
         user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} toegevoegd aan een onbekende pagina.
         user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd in de taal %{language}
         user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} toegevoegd aan "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd in een onbekende taal aan een onbekende pagina.
         user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd  in een onbekende taal.
         user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}" in een onbekende taal.
         user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan een onbekende pagina in de taal %{language}.
@@ -453,8 +470,21 @@ nl:
         user_added_name_in_language_to_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}" in de taal %{language}.
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als weer te geven in overzicht geselecteerd in een onbekende context.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Een onbekende gebruiker heeft "%{data_object}" geselecteerd voor weergave in het overzicht op "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekend artikel geselecteerd voor weergave in het overzicht op een onbekende pagina.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Een onbekende gebruiker heeft een onbekend artikel geselecteerd voor weergave op "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft "%{data_object}" geselecteerd voor weergave in het overzicht op een onbekende pagina.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Een onbekende gebruiker heeft "%{data_object}" geselecteerd voor weergave in het overzicht op "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Een onbekende gebruiker heeft het geselecteerd voor weergave in het overzicht op een onbekende pagina.
+        an_unknown_user_chose_exemplar_it_on_taxon: Een onbekende gebruiker heeft het geselecteerd voor weergave in het overzicht op "%{taxon}".
         user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als weer te geven in overzicht geselecteerd op een onbekende pagina.
         user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als weer te geven in overzicht geselecteerd voor "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekend artikel geselecteerd voor weergave in het overzicht op een onbekende pagina.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> heeft een onbekend gegevensobject geselecteerd voor weergave op "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> heeft "%{data_object}" geselecteerd voor weergave in het overzicht op een onbekende pagina.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> heeft "%{data_object}" geselecteerd voor weergave in het overzicht op "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> heeft het geselecteerd voor weergave in het overzicht op een onbekende pagina.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> heeft het geselecteerd voor weergave in het overzicht op "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als exemplarisch gemarkeerd in een onbekende context.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Een onbekende gebruiker heeft "%{data_object}" als exemplarisch gemarkeerd voor "%{taxon}".
@@ -472,6 +502,22 @@ nl:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> heeft "%{data_object}" als exemplarisch gemarkeerd voor "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> heeft het als exemplarisch gemarkeerd op een onbekende pagina.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> heeft het als exemplarisch gemarkeerd voor "%{taxon}".
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: Een onbekende gebruiker heeft twee onbekende pagina's samengevoegd.
+          an_unknown_user_merged_to_it: Een onbekende gebruiker heeft een andere pagina samengevoegd met deze.
+          an_unknown_user_merged_to_taxon: Een onbekende gebruiker heeft een andere pagina samengevoegd met %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> heeft twee onbekende pagina's samengevoegd.
+          user_merged_to_it: <strong>%{user}</strong> heeft een andere pagina samengevoegd met deze.
+          user_merged_to_taxon: <strong>%{user}</strong> heeft een andere pagina samengevoegd met %{target}.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} verplaatst van een onbekende pagina naar een andere onbekende pagina.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
+          an_unknown_user_split_classifications_from_it: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
+          an_unknown_user_split_classifications_from_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van %{taxon} naar <a href='%{to}'>de eigen pagina</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd in een onbekende context.
         an_unknown_user_hid_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
@@ -490,7 +536,16 @@ nl:
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd in een onbekende context.
         user_hid_it_on_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd op de pagina "%{association}".
       merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Een onbekende gebruiker heeft de classificatie van "%{provider}" verplaatst naar een onbekend taxon.
+        an_unknown_user_merged_entry_to_it: Een onbekende gebruiker heeft de classificatie van "%{provider}" toegevoegd.
+        an_unknown_user_merged_entry_to_taxon: Een onbekende gebruiker heeft de classificatie van "%{provider}" van "%{taxon}" toegevoegd.
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende classificatie verplaatst naar een onbekend taxon.
         an_unknown_user_merged_unknown_entry_to_it: Een onbekende gebruiker heeft een onbekende classificatie toegevoegd.
+        an_unknown_user_merged_unknown_entry_to_taxon: Een onbekende gebruiker heeft een onbekende classificatie verplaatst naar "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> heeft de classificatie van "%{provider}" verplaatst naar een onbekend taxon.
+        user_merged_entry_to_it: <strong>%{user}</strong> heeft de classificatie van "%{provider}" toegevoegd.
+        user_merged_entry_to_taxon: <strong>%{user}</strong> heeft de classificatie van "%{provider}" verplaatst naar "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende classificatie verplaatst naar een onbekend taxon.
         user_merged_unknown_entry_to_it: <strong>%{user}</strong> heeft een onbekende classificatie toegevoegd.
         user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> heeft een onbekende classificatie toegevoegd aan "%{taxon}".
       other_actions: 
@@ -535,9 +590,18 @@ nl:
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> heeft een koppeling verwijderd met een onbekend object.
         user_disassociated_it_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd met "%{association}".
       remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Een onbekende gebruiker heeft een gewone naam toegevoegd in een onbekende taal vanaf een onbekende pagina.
         an_unknown_user_removed_name_in_an_unknown_language_from_it: Een onbekende gebruiker heeft een gewone naam verwijderd in een onbekende taal.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Een onbekende gebruiker heeft een gewone naam toegevoegd aan "%{taxon}" in een onbekende taal.
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd in de taal %{language} vanaf een onbekende pagina.
+        an_unknown_user_removed_name_in_language_from_it: Een onbekende gebruiker heeft een gewone naam verwijderd in de taal %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Een onbekende gebruiker heeft een gewone naam verwijderd van "%{taxon}" in de taal %{language}.
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> heeft een gewone naam verwijderd van een onbekende pagina in een onbekende taal.
         user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> heeft een gewone naam verwijderd in een onbekende taal.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> heeft een gewone naam verwijderd van "%{taxon}" in een onbekende taal.
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> heeft een gewone naam in de taal %{language} verwijderd van een onbekende pagina.
         user_removed_name_in_language_from_it: <strong>%{user}</strong> heeft een gewone naam verwijderd in de taal %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> heeft een gewone naam in de taal %{language} verwijderd van "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
         an_unknown_user_showed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
@@ -555,6 +619,44 @@ nl:
         user_showed_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als zichtbaar gemarkeerd in een onbekende context.
         user_showed_it_on_association: <strong>%{user}</strong> heeft het als zichtbaar gemarkeerd op de pagina "%{association}".
+      split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: Een onbekende gebruiker heeft de classificatie van "%{provider}" voor een onbekend taxon gescheiden.
+        an_unknown_user_split_entry_from_it: Een onbekende gebruiker heeft de classificatie van "%{provider}" gescheiden.
+        an_unknown_user_split_entry_from_taxon: Een onbekende gebruiker heeft de classificatie van "%{provider}" van "%{taxon}" gescheiden.
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende classificatie afgesplitst van een onbekend taxon.
+        an_unknown_user_split_unknown_entry_from_it: Een onbekende gebruiker heeft een onbekende classificatie gescheiden.
+        an_unknown_user_split_unknown_entry_from_taxon: Een onbekende gebruiker heeft een onbekende classificatie afgesplitst van "%{taxon}".
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> heeft de classificatie van "%{provider}" voor een onbekend taxon gescheiden.
+        user_split_entry_from_it: <strong>%{user}</strong> heeft de classificatie van "%{provider}" gescheiden.
+        user_split_entry_from_taxon: <strong>%{user}</strong> heeft de classificatie van "%{provider}" van "%{taxon}" gescheiden.
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende classificatie afgesplitst van een onbekend taxon.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> heeft een onbekende classificatie gescheiden.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> heeft een onbekende classificatie afgesplitst van "%{taxon}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal op een onbekende pagina als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal op "%{taxon}" als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} op een onbekende pagina als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} op "%{taxon}" als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in een onbekende taal op een onbekende pagina als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" op een onbekende pagina als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in een onbekende taal op "%{taxon}" als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} op een onbekende pagina als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_in_language_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_in_language_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} op "%{taxon}" als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal op een onbekende pagina als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal voor "%{taxon}" als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} op een onbekende pagina als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} voor "%{taxon}" als vertrouwd gemarkeerd.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal op een onbekende pagina als vertrouwd gemarkeerd.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal als vertrouwd gemarkeerd.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal voor "%{taxon}" als vertrouwd gemarkeerd.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} op een onbekende pagina als vertrouwd gemarkeerd.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} als vertrouwd gemarkeerd.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} voor "%{taxon}" als vertrouwd gemarkeerd.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als vertrouwd gemarkeerd in een onbekende context.
         an_unknown_user_trusted_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
@@ -572,6 +674,31 @@ nl:
         user_trusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd in een onbekende context.
         user_trusted_it_on_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd op de pagina "%{association}".
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal op een onbekende pagina als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal op "%{taxon}" als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} op een onbekende pagina als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} op "%{taxon}" als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in een onbekende taal op een onbekende pagina als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" op een onbekende pagina als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in een onbekende taal op "%{taxon}" als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} op een onbekende pagina als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_in_language_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} op "%{taxon}" als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal op een onbekende pagina als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal voor "%{taxon}" als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} op een onbekende pagina als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} voor "%{taxon}" als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal op een onbekende pagina als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal voor "%{taxon}" als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} op een onbekende pagina als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} voor "%{taxon}" als ongecontroleerd gemarkeerd.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als ongecontroleerd gemarkeerd in een onbekende context.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als ongecontroleerd gemarkeerd op de pagina "%{association}".
@@ -589,6 +716,31 @@ nl:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als ongecontroleerd gemarkeerd op de pagina "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als ongecontroleerd gemarkeerd in een onbekende context.
         user_unreviewed_it_on_association: <strong>%{user}</strong> heeft het als ongecontroleerd gemarkeerd op de pagina "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal voor "%{taxon}" als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in de taal %{language} op "%{taxon}" als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in een onbekende taal op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in een onbekende taal op "%{taxon}" als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_in_language_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} op "%{taxon}" als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal voor "%{taxon}" als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} voor "%{taxon}" als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in een onbekende taal voor "%{taxon}" als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} op een onbekende pagina als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" in de taal %{language} voor "%{taxon}" als niet-vertrouwd gemarkeerd.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als niet-vertrouwd gemarkeerd in een onbekende context.
         an_unknown_user_untrusted_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
@@ -614,29 +766,33 @@ nl:
   add_a_comment_colon: "Opmerking toevoegen:"
   add_a_new_common_name: Nieuwe gemeenschappelijke naam toevoegen
   add_a_new_file_brackets: "[nieuw bestand toevoegen]"
-  add_a_new_news_item: Nieuw nieuwsbericht toevoegen
   add_a_new_role: Nieuwe rol toevoegen
   add_a_new_search_suggestion: Nieuwe zoeksuggestie toevoegen
   add_a_new_term: Nieuwe term toevoegen
   add_a_new_topic_area: Nieuw onderwerpengebied toevoegen
   add_a_new_user: Nieuwe gebruiker toevoegen
   add_a_taxon_association_label: Taxonassociatie toevoegen
-  add_article_to_page_link_button: Artikel aan deze pagina toevoegen
+  add_article_instead: voeg in plaats daarvan een artikel toe
+  add_article_to_page_button: Artikel toevoegen
   add_association_submit_button: koppeling toevoegen
   add_brief_summary_to_page_link_button: Korte samenvatting aan deze pagina toevoegen
   add_citizen_science_resources_to_page_link_button: Verwijzing naar burgerwetenschap aan deze pagina toevoegen
+  add_classifications: Geselecteerde classificaties toevoegen bij verplaatsen
   add_collection_to_a_new_community: "\"%{collection}\" toevoegen aan een nieuwe gemeenschap"
   add_collection_to_community: Verzameling aan gemeenschap toevoegen
   add_education_resources_to_page_link_button: Educatieve bronnen toevoegen aan deze pagina
   add_identification_resources_to_page_link_button: Identificatiebronnen toevoegen aan deze pagina
   add_item_to_new_collection: "\"%{item}\" toevoegen aan een nieuwe verzameling"
   add_language: Taal toevoegen
+  add_link_instead: voeg in plaats daarvan een verwijzing toe
+  add_link_to_page_button: Verwijzing toevoegen
   add_new_association_link: Nieuwe associatie toevoegen
   add_new_tag_suggestion: Nieuwe labelsuggestie toevoegen
   add_page: Pagina toevoegen
   add_sub_chapter: Onderdeel toevoegen
   add_to_a_community: Aan gemeenschap toevoegen
   add_to_my_collection_button: Aan een verzameling toevoegen
+  added_classifications_ready: Gegevens van de geselecteerde classificaties kunnen naar een andere pagina worden verplaatst. Om het proces af te ronden, moet u "afsplitsen naar een andere pagina" selecteren of navigeren naar het tabblad "namen" van de pagina waar u de gegevens heeft wilt verplaatsen en daar "classificaties samenvoegen" selecteren.
   admin_content_page_active: Gepubliceerd
   admin_content_page_child_new_link: Onderliggende pagina aanmaken
   admin_content_page_create_successful_notice: De pagina <a href="#%{anchor}"><em>%{page_name}</em></a> is aangemaakt.
@@ -680,6 +836,23 @@ nl:
   admin_information: Dit is het beheermenu voor EOL V2. Op dit moment zijn we bezig met het omzetten van de functionaliteit uit V1. Als de beheerfunctie die u zoekt niet in dit menu staat, ga dan naar het <a href="/administrator">beheermenu van V1</a>.
   admin_link: Beheerconsole
   admin_login_confirmation: Weet u zeker dat u wilt aanmelden in het contentpartnerregister als %{name}? Als u dit doet, wordt u afgemeld als beheerder.
+  admin_news_item_active: Gepubliceerd
+  admin_news_item_create_successful_notice: Het nieuwsitem <a href="#%{anchor}"><em>%{page_name}</em></a> is aangemaakt.
+  admin_news_item_create_unsuccessful_error: Er is een fout opgetreden. Het nieuwsitem is niet aangemaakt.
+  admin_news_item_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen. Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
+  admin_news_item_delete_successful_notice: Het nieuwsitem %{page_name} en bijbehorende vertalingen zijn verwijderd.
+  admin_news_item_edit_header: Basispaginagegevens voor het nieuwsitem <em>%{page_name}</em> bijwerken
+  admin_news_item_edit_tip: We raden u aan de unieke naam van dit nieuwsitem niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op verwijzingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
+  admin_news_item_new_header: Nieuw nieuwsitem maken
+  admin_news_item_new_link: Nieuwsitem aanmaken
+  admin_news_item_new_tip: Voer basisgegevens in over deze pagina. De unieke naam is %{required_icon} verplicht.
+  admin_news_item_not_active: Ongepubliceerd
+  admin_news_item_update_successful_notice: Het nieuwsitem <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
+  admin_news_item_update_unsuccessful_error: Er is een fout opgetreden. Het nieuwsitem kon niet worden bijgewerkt.
+  admin_news_items_empty: Geen nieuwsitems gevonden.
+  admin_news_items_index_information: De volgende lijst bevat alle nieuwitems in de EOL-website,inclusief uitgelichte nieuwsitems. Iedere pagina heeft één of meer vertalingen. Als u een nieuw nieuwsitem maakt, vraagt de website u een vertaling toe te voegen. Gepubliceerde vertalingen zijn voor iedereen toegankelijk.
+  admin_news_items_page_title: "Beheer: Nieuws"
+  admin_news_link: Nieuws
   admin_notes_not_visible_to_user: "Opmerkingen voor beheerders (niet zichtbaar voor gebruikers):"
   admin_page_title: "Beheer: Overzicht"
   admin_spam_delete: Spam verwijderen
@@ -696,6 +869,20 @@ nl:
   admin_translated_content_page_new_tip: Taal, paginanaam en inhoud zijn %{required_icon} verplicht.
   admin_translated_content_page_update_successful_notice: De vertaling in %{language} voor <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
   admin_translated_content_page_update_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden bijgewerkt.
+  admin_translated_news_item_active: Gepubliceerd
+  admin_translated_news_item_create_successful_notice: De vertaling is toegevoegd aan <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden toegevoegd.
+  admin_translated_news_item_delete_confirmation: Weet u zeker dat u de versie in %{language} van "%{page_name}" wilt verwijderen? Deze handeling kan niet ongedaan gemaakt worden.
+  admin_translated_news_item_delete_successful_notice: De vertaling in %{language} van het nieuwsitem <em>%{page_name}</em> is verwijderd.
+  admin_translated_news_item_edit_subheader: Vertaling in %{language} voor <em>%{page_name}</em> bewerken
+  admin_translated_news_item_edit_tip: Paginanam en inhoud zijn %{required_icon} verplicht.
+  admin_translated_news_item_new_header: Kies een taal en voeg inhoud toe
+  admin_translated_news_item_new_link: Vertaling toevoegen
+  admin_translated_news_item_new_subheader: Vertaling toevoegen voor <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: Taal, paginanaam en inhoud zijn %{required_icon} verplicht.
+  admin_translated_news_item_not_active: Ongepubliceerd
+  admin_translated_news_item_update_successful_notice: De vertaling in %{language} voor <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
+  admin_translated_news_item_update_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden bijgewerkt.
   admin_user_delete_successful_notice: De gebruiker is verwijderd.
   admin_user_hide_successful_notice: Gebruiker is verborgen
   admin_user_unhide_successful_notice: Gebruiker is weer zichtbaar gemaakt
@@ -797,8 +984,8 @@ nl:
   assistive_literature_header: Literatuur
   assistive_maps_header: Kaarten
   assistive_media_header: Media
-  assistive_names_classifictions_header: Classificaties
-  assistive_names_common_header: Gewone namen
+  assistive_names_classifications_header: Classificaties
+  assistive_names_common_header: Algemene namen
   assistive_names_related_header: Gerelateerde namen
   assistive_names_synonyms_header: Synoniemen
   assistive_overview_header: Overzicht
@@ -810,9 +997,22 @@ nl:
   associated_with_header: Gekoppeld met
   associated_with_image_header: In de laatste afbeelding
   associated_with_image_map_header: Op de laatste kaart
+  associated_with_link_header: Op de laatste verwijzing
   associated_with_map_header: Op de laatste kaart
   associated_with_sound_header: In het laatste geluidsbestand
   associated_with_video_header: In de laatste video
+  association_hidden_for_taxa: 
+    one: "Verborgen voor:"
+    other: "Verborgen voor:"
+  association_trusted_for_taxa: 
+    one: "Vertrouwd voor:"
+    other: "Vertrouwd voor:"
+  association_unreviewed_for_taxa: 
+    one: "Ongecontroleerd voor:"
+    other: "Ongecontroleerd voor:"
+  association_untrusted_for_taxa: 
+    one: "Niet vertrouwd voor:"
+    other: "Niet vertrouwd voor:"
   associations_more_link: meer <span class="assistive">taxonassociaties</span>
   attribute: Eigenschap
   audio_current_time_assistive: Met Javascript ingeschakeld wordt de huidige weergavepositie van het audio-bestand in minuten en seconden aangeven.
@@ -867,23 +1067,40 @@ nl:
   change_rating_to_3_of_5: Waardering naar 3 van 5 wijzigen
   change_rating_to_4_of_5: Waardering naar 4 van 5 wijzigen
   change_rating_to_5_of_5: Waardering naar 5 van 5 wijzigen
+  check_this_to_browse_eol_by_the_hierarchy: Als dit vakje is aangevinkt, dan wordt de classificatie weergegeven in het tabblad "namen" zonder dat "Alle classificaties weergeven" hoeft te worden gekozen.
   choose_collection_header: Kies een verzameling
   citation: Referentie
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, available from <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009.
   citing_link: Citeren
   classification_already_preferred: "Fout: deze classificatie als is al gemarkeerd als voorkeursclassificatie."
+  classification_button_help: Selecteer de classificatie die het best op de onderstaande pagina van toepassing is en klik op de bijbehorende knop "als exemplarisch gebruiken". Om de handeling helemaal te annuleren, klikt u op de knop "Annuleren".
+  classification_curation_pending: In afwachting van conservering. Deze classificatie kan in de nabije toekomst nog veranderen naar een andere pagina.
+  classification_curation_split_comment_with_count: 
+    one: Eén classificatie van deze pagina is <a href='%{url}'>afgesplitst in een eigen pagina</a>.
+    other: "%{count} classificaties van deze pagina zijn <a href='%{url}'>afgesplitst in een eigen pagina</a>."
   classification_from_agent: Classificatie van %{agent}.
   classification_from_agent_chosen_by_curator: Classificatie van %{agent} geselecteerd door %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Classificatie van %{agent} geselecteerd door %{curator} - <a href="%{more_link}">meer gegevens</a>.
+  classification_merge_help: <b>U staat op het punt om classificaties naar deze pagina te verplaatsen.</b> Om door te kunnen gaan, moet u ons laten weten welke bestaande classificaties de bestaande pagina <i>het beste</i> beschrijven. Hierdoor is het voor ons in de toekomst mogelijk de door u geselecteerde classificaties voor deze pagina apart te onderscheiden.
   classification_preferred_for_taxon: Voorkeur
   classification_preferred_for_taxon_help_tip: "%{icon} geeft de voorkeursclassificatie aan voor dit taxon."
+  classification_split_help: <b>U staat op het punt om classificaties van deze pagina af te splitsen.</b> Om door te kunnen gaan, moet u ons laten weten welke bestaande classificaties de bestaande pagina <i>het beste</i> beschrijven. Hierdoor is het voor ons in de toekomst mogelijk de door u geselecteerde classificaties voor deze pagina apart te onderscheiden.
+  classification_split_warning: <b>Neem een moment om vast te stellen dat u <i>alle</i> classificaties hebt geselecteerd die van toepassing zijn op de doelpagina.</b Als u bijvoorbeeld een amamitaclassifiecatie afsplits van of verplaatst naar een wasbeerpagina, dan moet u alle amanitaclassificaties selecteren voor deze handeling. Als u classificaties vergeet, kan het later lastig zijn dat te corrigeren.
   classification_summary_section_header: Classificatie
   classification_tree_header: Classificatie
+  classifications_edit_cancelled_busy: Uw verzoek om de classificaties te bewerken kan op dit moment helaas niet uitgevoerd worden. Eén of meer van de taxonpagina's zijn beveiligd. Er staat op dit moment al een verzoek om de classificaties te wijzigen open.
+  classifications_edit_cancelled_merge_to_self: Uw bronpagina en doelpagina zijn hetzelfde. Er is niets te verplaatsen.
   classifications_empty: Deze pagina is niet opgenomen in een classificatie die doorbladerbaar is in EOL.
+  classifications_exemplar_column_header: Exemplarisch
   classifications_hierarchy_column_header: Classificatie
+  classifications_locked: Op dit moment kunnen de classificaties van deze pagina niet bewerkt worden. Er staat op dit moment al een verzoek om deze classificaties te wijzigen open.
+  classifications_merge_additional_confirm_required: Er is extra bevestiging nodig om deze classificaties samen te voegen.
+  classifications_merge_providers_match_confirm: Ik bevestig dat ik de stellingname van de contentpartner dat deze gegevens gescheiden moeten blijven terzijde wil schuiven.
+  classifications_merge_providers_match_warning: U staat op het punt twee pagina's samen te voegen waarvan %{provider} heeft aangegeven dat deze gegevens gescheiden moeten blijven. Bevestig alstublieft dat u deze stellingname <i>terzijde wilt schuiven</i> en deze gegevens op dezelfde pagina thuishoren.
   classifications_preferred_column_header: Voorkeur
   classifications_rank_column_header: Positie
   classifications_recognized_by_column_header: Erkend door
+  classifications_split_column_header: Scheiden/verplaatsen
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
@@ -1085,10 +1302,13 @@ nl:
   containing_value: met %{value}.
   content: 
     index: 
+      header_news: EOL-nieuws
       meta_description: De Encyclopedia of Life is een ongeëvenaarde inspaning om wetenschappelijke kennis te vergaren over al het dieren- en plantenleven, in beeld, gegevens, feiten en meer.
       meta_keywords: Dieren, direnafbeeldingen, dierengegevens, planten, plantenleven, plantenafbeeldingen, plantengegevens, flora, fauna
       meta_title: Dieren - Planten - Afbeeldingen en gegevens
+      see_all_eol_news: meer <span class="assistive">EOL-nieuws</span> bekijken
       see_all_recent_activites: meer <span class="assistive">activiteiten in de afgelopen week</span> bekijken
+      see_all_statistics: meer <span class="assistive">EOL-statistieken</span> bekijken
   content_has_been_updated: De inhoud is bijgewerkt
   content_notes_not_shown_to_us: "Opmerkingen over inhoud (niet zichtbaar voor gebruiker):"
   content_partner: Contentpartner
@@ -1241,6 +1461,7 @@ nl:
   content_partner_statistics_summary_caption: Samenvatting van gebruiksstatistieken voor taxonpagina's met inhoud die is geleverd door %{partner_name} relatief ten opzichte van het totale gebruik van de EOL-website.
   content_partner_statistics_taxa_page_caption: Gedetailleerde gebruiksstatistieken voor taxonpagina's met inhoud die is geleverd door %{partner_name}.
   content_partner_statistics_year_label: Jaar
+  content_partner_stats_message: Vanwege wijzigingen in de dienst die we gebruiken om statistieken te berekenen, zijn de gegevens voor deze maand niet beschikbaar. Ons ontwikkelteam werkt aan een oplossing. We sturen een e-mail aan onze partners als het probleem is opgelost.
   content_partner_status_empty: Onbekende status
   content_partner_update_successful_notice: De partnergegevens zijn bijgewerkt.
   content_partner_update_unsuccessful_error: Er is een fout opgetreden. De partnergegevens zijn niet bijgewerkt.
@@ -1287,8 +1508,8 @@ nl:
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Bijdragen
   copied_all_items_from_collection_with_count: 
-    one: Er is één item gekopieerd naar deze verzameling.
-    other: Er zijn %{count} items gekopieerd naar deze verzameling.
+    one: Er is één item gekopieerd van %{from} naar deze verzameling.
+    other: Er zijn %{count} items gekopieerd van %{from} naar deze verzameling.
   copied_all_items_to_collections: 
     one: Alle items van %{name} zijn gekopieerd naar één verzameling.
     other: Alle items van %{name} zijn gekopieerd naar %{count} verzamelingen.
@@ -1328,6 +1549,7 @@ nl:
   created_community: De gemeenschap is aangemaakt.
   creative_commons: Creative Commons
   credentials: Gebruikersgegevens
+  credentials_colon: "Gebruikersgegevens:"
   curated: Gecureerd
   curated_association_update_button: Wijzigingen opslaan
   curated_objects_of: heeft objecten van %{name} geconserveerd
@@ -1464,13 +1686,20 @@ nl:
   dato_create_user_text_missing_user_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
   dato_create_user_text_validation_error: Zorg dat u het formulier correct hebt ingevuld.
   dato_edit_cancel: Annuleren
-  dato_edit_text_link_button: Pagina bewerken
+  dato_edit_link_button: Verwijzing bewerken
+  dato_edit_link_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste verwijzing wordt toegevoegd aan uw volglijst zodat u overleg over deze verwijzing kunt volgen en de conserveringsstatus kunt bijhouden.
+  dato_edit_link_title: Verwijzing bewerken
+  dato_edit_text_button: Artikel bewerken
   dato_edit_text_page_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste pagina wordt toegevoegd aan uw volglijst zodat u overleg over deze pagina kunt volgen en de conserveringsstatus kunt bijhouden.
   dato_edit_text_title: Artikel bewerken
+  dato_location_created: "Locatie gemaakt: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Artikelinhoud
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
   dato_new_edit_user_text_form_tip: Uw afgeronde artikel wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt het gemarkeerd als "niet-beoordeeld" totdat het wordt beoordeeld door een conservator. Hoofdstuk, tekst, taal en licentie zijn vereist (%{required_icon}), alle andere velden zijn optioneel. Als u een CC BY-licentie (Naamsvermelding) selecteert, neem dan een rechthebbende op of laat het veld leeft om uw eigen volledige naam te gebruiken. Voor Publiek domeinlicenties is geen rechthebbende nodig. Lees voor meer informatie de <a href="%{add_article_help_url}">hulppagina voor artikel toevoegen</a>.
+  dato_new_edit_user_text_link_fieldset_content_header: Gegevens voor verwijzing
+  dato_new_edit_user_text_link_form_tip: Uw verwijzing wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt deze gemarkeerd als "niet gecontroleerd" totdat een conservator deze controleerd. Categorie, beschrijving en URL zijn verplicht (%{required_icon}). Alle overige velden zijn optioneel. Lees <a href="%{add_article_help_url}">artikel toevoegen/hulp voor verwijzingen</a> voor meer informatie.
   dato_new_text_for_taxon_page_title: Een pagina toevoegen aan <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Verwijzing toevoegen aan <i>%{taxon}</i>
   dato_new_text_page_description: Dank u wel voor uw bijdragen aan EOL. Uw artikel wordt toegevoegd aan uw volglijst zodat u reacties en de conserveringsstatus kunt volgen.
   dato_update_user_text_error: Er is een fout opgetreden. Het artikel kon niet worden bijgewerkt.
   dato_update_users_text_not_owner_exception: Alleen de oorspronkelijke auteur van dit tekstobject mag het bewerken.
@@ -1507,14 +1736,18 @@ nl:
   donation_privacy_notice: <em>Bericht over privacy en veiligheid:</em> Via deze pagina en de volgende bevestigingspagina worden geen persoonlijke gegevens of creditcardgegevens verzameld; daarom is deze pagina niet beveiligd. Nadat u het te doneren bedrag hebt bevestigd, wordt u doorgeleid naar een beveiligde pagina waar u de overschrijvingsgegevens kunt invoeren. Uw creditcard wordt niet belast totdat u bevestigt op de pagina die uw persoonlijke gegevens bevat.
   donation_sponsorship_content_description: Donateurs die interesse hebben in bepaalde takken van de stamboom van het leven kunnen inspanningen sponsoren om nieuwe inhoud voor EOL te zoeken. Giften kunnen besteed worden aan het aanmaken van verzamelingen van soortenpagina's zo breed als "alle zoogdieren in Noord-Amerika" of "volgens in Brazilië" of zo specifiek als "zeeleeuwen in de baai van San Francisco" of "Voedsel uit de nieuwe wereld".
   donation_sponsorship_content_title: Inhoudssponsoring
+  donation_sponsorship_fellowships_description: Kennis wereldwijd delen met mensen die willen leren is de essentie van EOL. De Encyclopedia of Life zoekt geïnteresseerde donateurs die doctoraalstudenten willen ondersteunen die de middelen kunnen leveren voor belangrijk en actueel wetenschappelijk onderzoek dat opgenomen kan worden in EOL.
   donation_sponsorship_fellowships_title: Beurzen
+  donation_sponsorship_infrastructure_description: Om EOL in de handen van mensen in de hele wereld te leggen, zijn alle giften welkom die bijdragen aan de kerninfrastructuur en de dagelijkse behoeften van dit initiatief.
   donation_sponsorship_infrastructure_title: Kerninfrastructuur
   donation_sponsorship_preamble: "Als u meer wilt weten over specifieke programma's voor sponsoring, of als u een terugkerende gift wilt maken, neem dan alstublieft per <a href=\"mailto:%{email_address}\">e-mail</a> contact op het met secretariaat van Encyclopedia of Life. U kunt ook bellen: +1 (202) 633-8730 (in de Verenigde Staten)."
   done_already: Al gedaan
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Onbekende registratiedatums niet weergeven (V1-gebruikers, allemaal voor 5 januari 2009)
   download_wav_file: WAV-bestand downloaden
   dublin_core: Dublin Core
+  duplicate_comment_warning: "De reactie is niet opgeslagen: het lijkt erop dat u al hebt gereageerd op dit bericht. Hebt u wellicht per ongeluk uw reactie twee keer opgeslagen?"
   duplicate_items_were_ignored: Dubbele items zijn genegeerd.
+  each_method_documentation_page_has_formatted_responses: De documentatiepagina van iedere methode heeft een voorbeeld van antwoorden in de vorm van XML en JSON.
   edit: Bewerken
   edit_collection_details: Collectiegegevens bewerken
   edit_collection_details_header: Collectiegegevens bewerken
@@ -1527,15 +1760,16 @@ nl:
   edit_glossary_term: Woordenlijstterm bewerken
   edit_hierarchy: hiërarchie bewerken
   edit_my_profile: Mijn profiel bewerken
-  edit_news_item: Nieuwsbericht bewerken
   edit_news_items: nieuwsberichten bewerken
   edit_page_contents: pagina-inhoud bewerken
   edit_search_suggestion: Zoeksuggestie bewerken
   edit_search_suggestions: zoeksuggesties bewerken
   edit_table_of_contents: inhoudsopgave bewerken
   edit_tag_suggestions: labelsuggesties bewerken
+  edit_the_topic_area_intro: Bewerk het veld voor onderwerp en e-mailadressen hieronder en vink het vinkvakje "Actief" aan om gebruikers op de pagina "Neem contact met ons op" van de website weer te geven.
   edit_the_user_s_comment_below: Bewerk de reactie van de gebruiker hieronder.
   edit_upload: Upload bewerken
+  edit_user_details_instructions: Bewerk de gebruikersgegevens hieronder. U kunt deze gebruiker een e-mail sturen vanuit het systeem door hieronder op "E-mailberichtgebied weergeven" te klikken en dan de tekst voor de e-mail in te voeren. Voer alleen een nieuw wachtwoord in als u het wilt wijzigen; laat het anders leeg.
   edit_username: "%{username} bewerken"
   edit_web_users: webgebruikers bewerken
   edited_colon: "bewerkt:"
@@ -1549,6 +1783,7 @@ nl:
   endorsed_collections_with_count: 
     one: één uitgelichte verzameling
     other: "%{count} uitgelichte verzamelingen"
+  enter_in_a_search_term_users_a: Voer een zoekterm in waar gebruikers op zoeken en daarna het resulterende taxon- of pagina-ID waar deze naar moet doorverwijzen als suggestie voor die zoekopdracht. Het taxon- of pagina-ID is te vinden in de URL van de pagina waar u naar wilt doorverwijzen (bijvoorbeeld www.eol.org/pages/5 heeft een taxon- of pagina-ID van 5). De paginanaam en de eerste afbeelding, als beschikbaar, worden opgeslagen met het resultaat.
   eol_administration_console: EOL-beheerconsole
   eol_api: EOL API
   eol_api_collections: "EOL API: verzamelingen"
@@ -1562,11 +1797,13 @@ nl:
   eol_api_search: "EOL API: zoeken"
   eol_api_search_by_provider: "EOL API: zoeken op provider"
   eol_colon: "EOL:"
+  eol_curator_activity_email_message: Encyclopedia of Lifeconservator <a href='%{profile_url}'>%{curator_full_name}</a> %{action} over de <a href='%{data_object_url}'>EOL-site</a>%{comment}
   eol_flickr_group: EOL Flickrgroep
   eol_glossary: EOL-woordenlijst
   eol_news: EOL-nieuws
   eol_pages: Pagina's
   eol_statistics: 
+    comparing_dates: <span class="assistive">Bezig met vergelijken van</span> <span class="date_one">%{date_one}</span> <span class="assistive">en</span> <span class="date_two">%{date_two}</span>
     content_partners: 
       menu_link: Contentpartners
       page_header: Contentpartnerstatistieken
@@ -1599,22 +1836,34 @@ nl:
       menu_link: Door gebruikers toegevoegde tekst
       page_header: Statistieken voor door gebruikers toegevoegde tekst
       page_title: Statistieken
+    warnings: 
+      stats_unavailable_for_date: Statistieken voor %{date} zijn helaas niet beschikbaar. Kies een andere datum.
   error_401_description: U heeft geen toegang tot deze URL.
   error_401_page_title: Niet bevoegd
   error_403_description: U heeft geen toegang tot deze URL.
   error_403_page_title: Niet toegestaan
   error_404_description: Er is geen pagina gevonden op de URL.
   error_404_page_title: Niet gevonden
+  error_500_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan alstublieft een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Interne serverfout
+  error_classifications_locked_cannot_reindex: Deze pagina kan op het moment helaas niet opnieuw geïndexeerd worden. De classificaties zijn vergrendeld.
+  error_couldnt_find_collection_by_id: Er is geen door u beheerde verzameling met het ID %{id}.
+  error_couldnt_find_community_by_id: Er is geen door u beheerde gemeenschap met het ID %{id}.
+  error_default_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan alstublieft een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Oeps.
+  error_exemplar_chosen_with_invalid_action: De door u gekozen classificatie is helaas niet gewijzigd. Een deel van het verzoek is zoekgeraakt. Probeer het opnieuw.
+  error_homepage_or_search_option: "U kunt teruggaan naar de <a href=\"/\">startpagina</a> of onze zoekmachine gebruiken:"
   error_log: Foutenlogboek
   error_log_detail: Detailgegevens foutenlogboek
   error_logging_active: Er worden foutgegevens verzameld
-  esc_key_hides_this_message: (typ ESC om dit bericht te verbergen)
+  error_updating_user: Er is een fout opgetreden tijdens het bijwerken van de gegevens van deze gebruiker
+  error_watch_collections_cannot_be_shared: Volgverzamelingen kunnen niet gedeeld worden
+  every_method_can_also_return_json_response: Iedere methode kan ook een JSON-antwoord geven door de extensie ".json" toe te voegen
   example_colon: "Voorbeeld:"
   exception: Uitzondering
   exceptions: 
     security_violations: 
+      administrators_only: Toegang is alleen mogelijk voor EOL-beheerders.
       default: Geen toegang.
       hidden_user_login: Aanmelden is uitgeschakeld voor deze gebruiker.
       hidden_user_recover_account: Gebruikersherstel is uitgeschakeld voor deze gebruiker.
@@ -1663,6 +1912,7 @@ nl:
   filter_by_type_image_option_with_count: 
     one: Afbeelding (%{count})
     other: Afbeeldingen (%{count})
+  filter_by_type_link_option: Verwijzingen
   filter_by_type_name_option: Namen
   filter_by_type_object_curated_option: Geconserveerde objecten
   filter_by_type_photosynth_option: Photosynths
@@ -1707,6 +1957,7 @@ nl:
   forgot_password_form_helper: Denk eraan dat e-mails voor het opnieuw instellen van een wachtwoord <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer alstublieft uw spammap als u binnen een uur geen e-mail ontvangt.
   forgot_password_form_username_or_email_blank_error: Voer uw gebruikersnaam of e-mailadres in om uw wachtwoord opnieuw in te stellen.
   form_validation_errors_for_attribute_assistive: Er is een onjuiste waarde ingevoerd in dit element
+  fragment_caching_enabled: Cachen van fragmenten is ingeschakeld
   frequency: Frequentie
   frequency_daily: Dagelijks
   frequency_monthly: Maandelijks
@@ -1721,6 +1972,7 @@ nl:
   gbif_occurrence_learn_more_link: Deze gegevens via het GBIF-portaal raadplegen
   general_site_admin: algemene sitebeheerder
   get_help_choosing_a_subchapter: Hulp bij het kiezen van een subhoofdstuk
+  get_help_choosing_a_subject: Hulp bij het kiezen van een onderwerp
   get_more_tasks: meer taken vinden
   given_name_colon: "Voornaam:"
   given_the_vast_number: Gezien het grote aantal wetenschappelijke en gemeenschappelijke namen (in totaal bijna 20 miljoen) is het een moeilijke taak om een gebruiker te voorzien van precies de soorten die ze zoeken. Er zijn bijvoorbeeld verschillende vogelsoorten met de naam Robin in het Engels ("lijster" in het Nederland) (roodborstlijster, zanglijster, beflijster, ...), en de vissoort "ponen" (ook Robin in het Engels), en een taxonoom met de naam Robin die tientallen soorten benoemd heeft. We hebben een "exacte" parameter nodig om alleen zoekresultaten te geven die geheel overeenkomen met de zoekterm, maar we kunnen niet garanderen dat de gevonden taxa de taxa zijn die u hoopt te vinden. Wij proberen de relevantie van onze zoekresultaten voortdurend te verbeteren, dus in de nabije toekomst kunt betere zoekresultaten verwachten.
@@ -1808,6 +2060,11 @@ nl:
         rights_statement_more: Verklaring van gebruiksrechten zoals vereist door de licentie Creative Commons Naamsvermelding (CC-BY). Pas naamsvermelding alstublieft toe <q cite="http://creativecommons.org/licenses/by/3.0">op de wijze die is aangegeven door de auteur of de licentiegever</q>.
         source_url: URL naar het oorspronkelijke gegevensobject
         toc_item: Subhoofdstuk
+      data_object_link: 
+        description: Beschrijving <small>(sommige HTML-opmaak is toegestaan)</small>
+        link_type: Categorie
+        source_url: Verwijzings-URL
+        toc_item: Onderwerp
       eol_statistic: 
         date_one: Datum
         date_two: Datum
@@ -1832,6 +2089,11 @@ nl:
         complete_more: "Een geconserveerde hiërarchie neemt aan dat elke invoer uniek is, ofwel overeenkomende namen worden beschouwd als homoniem. <strong>Waarschuwing: wijzig deze eigenschap niet, tenzij u zekerheid hebt over de status van homoniemen in de hiërarchie; een verandering kan de integriteit van de gegevens in gevaar brengen.</strong>"
         request_publish: Publicatie aangevraagd.
         request_publish_more: Geeft aan of er een aanvraag opstaat om deze hiërarchie te bevorderen tot één van de primaire bladerbare hiërarchieën op EOL.
+      news_item: 
+        active: Gepubliceerd
+        active_more: Gepubliceerde nieuwsberichten zijn openbaar vanaf de geselecteerde datum en tijd. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat alle gebruikers de versies van dit nieuwsbericht in elke taal kunnen bekijken.
+        page_name: Unieke naam <small>(alleen kleine letters ISO fundamentele Latijnse alfanumerieke tekens en onderstrepingstekens)</small>
+        page_name_more: Voer een unieke, zelfbeschrijvende, zinvolle en blijvende identificatie voor dit nieuwsitem toe. De naam die u hier invult wordt gebruikt om de URL voor dit nieuwsitem te maken. De unieke naam <em>gebruikersvoorwaarden_eol</em> wordt omgezet in de URL <em>http://eol.org/news/new_version_of_eol</em>.
       open_authentication: 
         connect: Toevoegen
         connected: Gekoppeld
@@ -1860,13 +2122,21 @@ nl:
         username_or_email: Gebruikersnaam of e-mailadres
       translated_content_page: 
         active_translation: Gepubliceerd
-        active_translation_more: Gepubliceerde vertalingen zijn openbaar te zien tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
+        active_translation_more: Gepubliceerde vertalingen zijn openbaar, tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
         language_id: Taal
         left_content_more: "(optioneel) Voeg een ongesorteerde lijst toe met navigatieerwijzingen. Gebruik de klassenaam <code>active</code> om de verwijzing voor de huidige pagina uit te lichten, bijvoorbeeld <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> waar <code>:id</code> is het ID of de unieke naam van de huidige pagina en <code>:title</code> is de beschrijvende titel van de pagina. Let op: alle verwijzingen naar pagina's uit het EOL CMS moeten beginnen met een slash (/): <code>/info/:id</code>.</strong> U moet de HTML-broncode direct bewerken om deze wijzigingen te maken. Doe dit door <em>Broncode</em> te selecteren in de werkbalk van de tekstverwerker."
-        main_content_more: "Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de paginanaam, dus kopteksten in de body beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
-        meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van depagina verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
-        meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van de pagina weergeven. Deze trefwoorden en -lzinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
+        main_content_more: "Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de paginanaam, dus kopteksten in de inhoud beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
+        meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van de pagina verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
+        meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van de pagina weergeven. Deze trefwoorden en zinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
         title_more: De paginanaam wordt opgenomen in de kopregel van de pagina. De paginanaam hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
+      translated_news_item: 
+        active_translation: Gepubliceerd
+        active_translation_more: Gepubliceerde vertalingen zijn openbaar, tenzij het nieuwsitem zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van het nieuwsitem te zien krijgt.
+        body_more: "Voer de hoofdinhoud voor het nieuwsitem in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de kop van het nieuwsitem, dus kopteksten in de inhoud beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
+        language_id: Taal
+        meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van het nieuwsitem verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
+        meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van het nieuwsitem weergeven. Deze trefwoorden en zinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
+        title_more: De naam wordt opgenomen in de kopregel van de pagina. De paginanaam hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
       user: 
         agreed_with_terms: Ik ga akkoord met de <a href="%{terms_url}">gebruiksvoorwaarden</a>
         api_key_more: Lees meer over <a href="%{api_docs_url}">een sleutel toevoegen aan uw API-verzoeken</a>.
@@ -1893,6 +2163,7 @@ nl:
         logo: Nieuwe afbeelding uploaden
         new_password: Nieuw wachtwoord <small>(4 - 16 tekens)</small>
         new_password_confirmation: Nieuw wachtwoord <small>(te bevestigen)</small>
+        news_in_preferred_language: nieuws in voorkeurstaal weergeven
         notification_settings: Instellingen voor berichten
         notification_settings_more: Uw instellingen voor berichten maken.
         open_authentications: Gekoppelde gebruikers
@@ -1936,6 +2207,9 @@ nl:
         create: Artikel toevoegen
         create_text: Artikel toevoegen
         update: Artikel opslaan
+      data_object_link: 
+        create: Verwijzing toevoegen
+        update: Verwijzing opslaan
       eol_statistic: 
         change_date: Statistieken voor datums weergeven
         download_csv: Downloaden als CSV
@@ -1948,6 +2222,11 @@ nl:
       name: 
         create: Naam toevoegen
         update: Naam bijwerken
+      news_item: 
+        create: Nieuwsitem aanmaken
+        edit: Bewerken
+        preview: Voorvertoning
+        update: Nieuwsitem bijwerken
       open_authentication: 
         create: Koppelen
         destroy: Loskoppelen
@@ -1965,6 +2244,9 @@ nl:
         sign_in_with_yahoo: Aanmelden met Yahoo!
       submit: "%{model} opslaan"
       translated_content_page: 
+        create: Vertaling toevoegen
+        update: Vertaling bijwerken
+      translated_news_item: 
         create: Vertaling toevoegen
         update: Vertaling bijwerken
       update: "%{model} bijwerken"
@@ -1998,6 +2280,7 @@ nl:
   html_format: (HTML-indeling)
   html_format_with_left_col: "{HTML-opmaak; alleen invoeren als u een linkerkolom op de pagina wilt hebben; anders leeg laten)"
   id: ID
+  if_checked_and_user_is_saved: Als aangevinkt en de gebruiker is opgeslagen, dan worden referenties, scope, goedkeuring en geselecteerde claden allemaal verwijderd en wordt de gebruiker niet langer weergegeven als conservator. U hoort een opmerkingen toe te voegen met de reden. De gebruiker ontvangt hierover geen melding.
   image: Afbeelding
   image_alt_text: "Deze afbeelding hoort bij %{taxon_name} (status: %{vetted_status})"
   image_from_supplier: Afbeelding van %{whom}
@@ -2011,16 +2294,21 @@ nl:
   image_not_associated_with_any_published_entries: Deze afbeelding is niet gekoppeld met gepubliceerde taxa.
   image_not_found: Afbeelding niet gevonden
   image_object: Afbeeldingsobject
+  image_objects_will_contain_two_mediaurl_elements: Afbeeldingsobjecten bevatten twee "mediaURL"-elementen. Het eerste is de URL van de afbeelding op de website van de provider, en de tweede is de URL van de versie in de cache op een EOL-server. De EOL-versie van de afbeelding heeft andere afmetingen (maar wel dezelfde verhoudingen), als de afbeelding groter is dan 460 pixels breed of 345 pixels hoog.
   image_of_taxon: Afbeelding van %{taxon_name}
   image_rating: Afbeeldingswaardering
   images: Afbeeldingen
   images_in_red_are_not_trusted: Afbeeldingen in het rood worden niet vertrouwd.
   images_in_yellow_are_not_reviewed: Afbeeldingen in het geel zijn niet gecontroleerd.
+  images_sort_worklist_note: 
+    one: Afbeeldingen zijn gesorteerd op importdatum in EOL. De meest recente afbeelding wordt als eerste weergegeven. Er staat één afbeelding in deze werklijst.
+    other: Afbeeldingen zijn gesorteerd op importdatum in EOL. De meest recente afbeelding wordt als eerste weergegeven. Er staan %{count} afbeeldingen in deze werklijst.
   images_with_count: 
     one: "%{count} afbeelding"
     other: "%{count} afbeeldingen"
   import_once: Eenmalig importeren
   in_collection: in verzameling
+  in_community: in gemeenschap
   in_providing_its_content_to_eo: Door inhoud bij te dragen aan EOL,
   in_this_data_type: "in deze %{data_type}:"
   inappropriate: Ongepast
@@ -2057,6 +2345,8 @@ nl:
   item_type_image_assistive: Dit item is een afbeelding
   item_type_image_map: Kaart
   item_type_image_map_assistive: Dit item is een afbeelding van een kaart
+  item_type_link: Verwijzing
+  item_type_link_assistive: Dit item is een verwijzing
   item_type_map: Kaart
   item_type_map_assistive: Dit item is een kaart
   item_type_person: Persoon
@@ -2083,6 +2373,8 @@ nl:
   json_response: JSON-antwoord
   jsonp_by_adding_a_callback_parameter: ... en JSONP door het toevoegen van een callbackparameter
   just_pages_with_pictures_and_text: Alleen de pagina's met afbeeldingen en tekst
+  keep_split_entry_from_this_entry: Gescheiden houden van deze term
+  key: Sleutel
   label: Label
   language: "Taal:"
   language_selector_advisory_information: Hieronder staat een lijst met talen waarvan de inhoud van de website beschikbaar is. Selecteer een taal uit de lijst om de inhoud in die taal te bekijken.
@@ -2090,6 +2382,55 @@ nl:
   languages: Talen
   last_updated: Laatst bijgewerkt
   last_updated_time_ago: "%{time_passed} geleden voor het laatst bijgewerkt"
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: EOL citeren
+        about_link_contact_us: Contact opnemen
+        about_link_discover: Ontdekken
+        about_link_donate: Doneren aan EOL
+        about_link_eol_blog: De EOL-blog
+        about_link_glossary: Woordenlijst
+        about_link_help: Hulp
+        about_link_podcasts: Podcasts
+        about_link_statistics: Statistieken
+        about_link_terms_of_use: Gebruiksvoorwaarden
+        about_link_what_is_eol: Wat is EOL?
+        header_about: Over EOL
+        header_learn_more: Meer te weten komen
+        header_questions: Vertel me meer
+        learn_more_link_amphibians: Amfibieën
+        learn_more_link_animals: Dieren
+        learn_more_link_archaea: Archaea
+        learn_more_link_bacteria: Bacteriën
+        learn_more_link_birds: Vogels
+        learn_more_link_crustaceans: Schaaldieren
+        learn_more_link_fish: Vissen
+        learn_more_link_flowering_plants: Bedektzadigen
+        learn_more_link_fungi: Schimmels
+        learn_more_link_insects: Insecten
+        learn_more_link_invertebrates: Ongewervelden
+        learn_more_link_mammals: Zoogdieren
+        learn_more_link_molds: Schimmels
+        learn_more_link_mollusks: Weekdieren
+        learn_more_link_mushrooms: Paddestoelen
+        learn_more_link_plants: Planten
+        learn_more_link_protists: Protisten
+        learn_more_link_reptiles: Reptielen
+        learn_more_link_spiders: Spinnen
+        learn_more_link_trees: Bomen
+        learn_more_link_viruses: Virussen
+        learn_more_link_worms: Wormen
+        questions_link_binomial_nomenclature: Wat is de binomiale nomenclatuur?
+        questions_link_biodiversity: Wat is biodiversiteit?
+        questions_link_biological_classification: Wat is een biologische classificatie?
+        questions_link_contributing_to_research: Hoe kan ik bijdragen aan onderzoek?
+        questions_link_discovering_species: Hoe zijn soorten ontdekt?
+        questions_link_indicator_species: Wat is een indicatorsoort?
+        questions_link_invasive_species: Wat is een invasieve soort?
+        questions_link_model_organism: Wat is een modelorganisme?
+        questions_link_naming_species: Hoe heten soorten?
+        questions_link_species: Wat is een soort?
   learn_about_collections: Hoe kan ik er een aanmaken?
   learn_about_communities: Hoe kan ik deelnemen?
   learn_about_content_partners: Hoe kan ik er een worden?
@@ -2135,7 +2476,13 @@ nl:
   limits_the_number_of_returned_sound_objects: beperkt het aantal teruggegeven geluidsobjecten
   limits_the_number_of_returned_text_objects: beperkt het aantal tekstobjecten
   limits_the_number_of_returned_video_objects: beperkt het aantal videoobjecten
+  link_more_about: Meer informatie over deze verwijzing
   link_name: Beschrijving voor verwijzing
+  link_not_associated_with_any_published_entries: Deze verwijzing is niet gekoppeld aan gepubliceerde taxa.
+  link_rating: Rang van de verwijzing
+  links_with_count: 
+    one: één verwijzing
+    other: "%{count} verwijzingen"
   list_newsletter_emails: e-mailadressen voor nieuwbrief weergeven
   list_of_activity_combinations: Lijst van handelingencombinaties gedurende 5 minuten
   listing_collections: Verzamelingen weergeven
@@ -2145,6 +2492,8 @@ nl:
   literature_bhl_link: Bibliografie in BHL bekijken
   literature_empty: Geen referenties gevonden.
   literature_header: Referenties
+  literature_links: Verwijzingen naar literatuur
+  literature_links_link: Verwijzingen naar literatuur
   literature_references: Literatuurreferenties
   location: Locatie
   location_colon: "Locatie:"
@@ -2157,6 +2506,7 @@ nl:
   login_to_the_website_as: Aanmelden bij de website als %{username}
   logo_header: Logo
   logout: Afmelden
+  looking_up_url: Bezig met het opvragen van de URL...
   main_content_area: "Gebied voor hoofdinhoud:"
   main_database_colon: "Hoofdinhoud:"
   main_master_database_colon: "Primaire master:"
@@ -2218,14 +2568,17 @@ nl:
     one: "%{count} lid;"
     other: "%{count} leden;"
   merge_concepts: concepten samenvoegen
+  merge_data: classificaties samenvoegen
+  merge_data_ready: U kunt de gegevens nu samenvoegen vanuit de volgende classificaties naar deze taxonpagina, of deze afsplitsen naar een eigen pagina. Zorg ervoor dat u <i>absoluut</i> zeker weer dat u alle classificaties hebt geselecteerd die uw doeltaxon representeren. Als u bijvoorbeeld een mot verwijderd van de pagina over paddenstoelen, controleer dan <i>alle</i> bovenstaande classificaties om er zeker van te zijn dat u ze allemaal hebt geselecteerd (voor dezelfde mot).
+  merge_pending: Het samenvoegen kost enige tijd. De betrokken taxa kunnen niet bewerkt worden totdat het samenvoegen is voltooid. U krijgt een e-mail als het proces is afgerond en de handeling wordt opgenomen in het nieuwsoverzicht van de pagina.
   message_colon: "Bericht:"
+  message_will_disappear: (dit bericht verdwijnt snel weer...)
   meta_description_colon: "Metabeschrijving:"
   meta_keywords_colon: "Metatrefwoorden:"
   meta_title_site_name: Encyclopedia of Life
   method: Methode
   method_to_get_metadata_about_the_hierarchy: als er een hiërarchieaanduiding wordt opgegeven, heeft deze methode metadata terug over de hiërarchie en de roottaxa
   methods: Methoden
-  minimal_page: Minimale pagina
   mobile: 
     contents: 
       explore_eol: EOL verkennen
@@ -2254,12 +2607,31 @@ nl:
       videos: Video's
   moderator_colon: "Moderator:"
   monthly: Maandelijks
+  more_children_with_count: 
+    one: nog één...
+    other: "%{count} meer..."
+  more_siblings_with_count: 
+    one: één andere sibling...
+    other: "%{count} andere siblings..."
   most_active_members: Meest actieve leden
   move: Verplaatsen
   move_down: Naar onderen verplaatsen
+  move_items_to_a_new_collection_with_count: 
+    one: Eén item verplaatsen naar een nieuwe verzameling
+    other: "%{count} items verplaatsen naar een nieuwe verzameling"
   move_to_bottom: naar beneden
   move_to_top: naar boven
   move_up: Naar boven verplaatsen
+  moved_all_items_from_collection_with_count: 
+    one: Er is één item verplaatst van %{from} naar deze verzameling.
+    other: Er zijn %{count} items verplaatst van %{from} naar deze verzameling.
+  moved_all_items_to_collections: 
+    one: Alle items van %{name} zijn verplaatst naar één verzameling.
+    other: Alle items van %{name} zijn verplaatst naar %{count} verzamelingen.
+  moved_items_from_collection_with_count_notice: 
+    one: Eén item vanuit %{name} verplaatst.
+    other: "%{count} items vanuit %{name} verplaatst."
+  multimedia_links: Multimediaverwijzingen
   must_be_associated_with_either_a_user_or_a_community: Moet gekoppeld zijn met een gebruiker of een gemeenschap
   must_be_checked_in_to_show: "- moet aangevinkt zijn om aan een gebruiker weer te geven"
   must_be_checked_in_to_view: "- moet aangevinkt zijn om te kunnen bekijken"
@@ -2270,13 +2642,18 @@ nl:
   my_info: Mijn gegevens
   name: Naam
   name_colon: "Naam:"
+  name_not_in_select_an_alternate: Naam is niet opgenomen in %{hierarchy}. Selecteer een alternatieve hiërarchie uit de lijst hierboven.
+  name_preferred_for_language_help_tip: "%{icon} geeft de voorkeursnaam aan voor elke taal."
   name_preferred_for_language_yes: Voorkeur
+  name_preferred_taxonomically_for_source_help_tip: "%{icon} geeft de voorkeursnaam aan voor iedere bron."
   name_preferred_taxonomically_for_source_yes: Voorkeur
   names: Namen
   names_children_column_header: Kinderen
+  names_common_empty: Er zijn nog geen gewone namen gekoppeld aan dit taxon
   names_common_list_by_language_assistive_header: Gemeenschappelijke namen per taal
   names_curation_column_header: Conservering
   names_et_al: "%{names}, et al."
+  names_explanation: Wetenschappers proberen één enkele "levensboom" te beschrijven die de evolutionaire relatie van levende dingen reflecteert. Desalniettemin blijven evolutionaire relaties ontdekt worden en er zijn verschillende meningen over hoe levende dingen gegroepeerd en benoemd moeten worden. EOL biedt ruimte voor deze verschillen door verschillende wetenschappelijke classificaties te ondersteunen. Sommige soorten hebben meerdere namen. Dergelijke duplicaten worden weergegeven als synoniemen. EOL biedt ook de mogelijkheid om gewone namen toe te voegen die aanzienlijk kunnen verschillen tussen regio's en talen.
   names_filter: Namen
   names_name_column_header: Naam
   names_parents_column_header: Bovenliggende
@@ -2284,6 +2661,7 @@ nl:
   names_relationship_column_header: Relatie
   names_sources_column_header: Bronnen
   names_status_column_header: Status
+  names_synonyms_empty: Er zijn nog geen gewone synoniemen gekoppeld aan dit taxon
   never: Nooit
   new_collection: Nieuwe verzameling
   new_contact_us_topic: Nieuw onderwerp voor "Neem contact met ons op"
@@ -2291,12 +2669,21 @@ nl:
   new_search_suggestion: Nieuwe zoeksuggestie
   new_upload: Nieuwe upload
   new_user: Nieuwe gebruiker
+  news_and_event_links: Verwijzingen naar nieuws en evenementen
   news_archive_page: nieuwsarchiefpagina
+  news_available_in_languages: "Deze pagina is beschikbaar in:"
   news_date: Nieuwsdatum
   news_item: nieuwsbericht
-  news_item_is_visible_on_websit: "Het nieuwsbericht is zichtbaar op de website na deze tijd:"
+  news_item_date_as_shown_to_user: "Datum voor nieuwsbericht zoals weergegeven aan gebruikers (tijd wordt alleen weergegeven in RSS-feed):"
+  news_item_is_visible_on_website_after_this_time: "Het nieuwsbericht is zichtbaar op de website na deze tijd:"
   news_item_title: Nieuwsbericht
-  news_items: Nieuwsberichten
+  news_items: 
+    index: 
+      meta_keywords: eol-nieuws, encyclopedie van nieuws over leven
+      meta_title: EOL-nieuws
+      page_title: EOL-nieuws
+  news_missing_content_message: Deze pagina is niet beschikbaar in de geselecteerde taal %{selected_language}.
+  news_missing_content_title: Ontbrekende vertaling
   newsfeed: Nieuwsoverzicht
   next: Volgende
   no_active_members: Er is nog niet genoeg activiteit geweest.
@@ -2308,6 +2695,7 @@ nl:
   no_results_for: geen resultaten voor
   no_tasks_found: Geen taken gevonden
   no_uploaded_content_is_available: Er is geen geüploade inhoud beschikbaar.
+  no_users_matched_search: Er zijn geen gebruikers die voldoen aan uw zoekopdracht.
   none: geen
   not_applicable: niet van toepassing
   not_evaluated: Niet beoordeeld
@@ -2320,6 +2708,7 @@ nl:
   notification_frequency_newsfeed_only: Alleen nieuwsoverzicht
   notification_frequency_send_immediately: Onmiddellijk verzenden
   notification_frequency_weekly: Wekelijks
+  notifications_tab_name: Meldingen
   notifier: 
     activity_log_empty: Geen recente handelingen door conservatoren.
     activity_on_content_partner_content: 
@@ -2365,6 +2754,9 @@ nl:
     signature_basic: Het team van Encyclopedia of Life
     signature_with_contact_us_link: "Als u een probleem tegenkoment, neem dan contact met ons op via %{url}.\n\nHet team van Encyclopedia of Life"
     signature_with_species_pages_group_contact: "Als u vragen hebt, neem dan contact met ons op via %{species_pages_group_email}.\n\nHet team van Encyclopedia of Life"
+    unsubscribed_to_notifications: 
+      message: "U bent uitgeschreven van meldingen van Encyclopedia of Life. U kunt uw e-mailinstellingen of abonnementen op meldingen wijzigen op <a href='%{email_prefs_url}'>uw pagina met voorkeuren voor meldingen</a>.\n\nGa naar http://eol.org/help om meer te weten te komen over hoe u EOL kunt gebruiken, inclusief hoe u verzamelingen kunt aanmaken, deel kunt nemen in gemeenschappen van EOL en inhoud kunt bijdragen."
+      subject: Jammer dat u opzegt...
     user_activated: 
       message: "Welkom bij Encyclopedia of Life (EOL) en dank u wel voor het registreren! Uw gebruikersnaam is %{username} en de URL voor uw profiel is %{profile_url}. U kunt hier aanmelden: http://www.eol.org/login.\n\nVia onze hulppagina's op http://www.eol.org/help kunt u leren hoe u EOL kunt gebruiken, zoals het aanmaken van EOL-verzamelingen, deelnemen in EOL-gemeenschappen en inhoud bijdragen."
       subject: Uw gebruiker bij Encyclopedia of Life is geactiveerd
@@ -2386,7 +2778,14 @@ nl:
   nucleotide_sequences: Nucleotidesequenties
   num_content_partners: Aantal contentpartners
   num_data_objects: Aantal gegevensobjecten
+  number_of_taxa_at_this_entry: "# taxa voor dit item"
+  number_of_trusted_images_at_this_entry: "# vertrouwde afbeeldingen voor dit item"
+  number_of_trusted_text_objects_at_this_entry: "# vertrouwde tekstobjecten voor dit item"
+  number_of_unreviewed_images_at_this_entry: "# ongecontroleerde afbeeldingen voor dit item"
+  number_of_unreviewed_text_objects_at_this_entry: "# ongecontroleerde tekstobjecten voor dit item"
   object: Object
+  object_curated: Object geconserveerd.
+  object_curation: Objectconservering
   object_status: Objectstatus
   object_status_all_option: Alle
   object_status_trusted_option: Vertrouwd
@@ -2397,7 +2796,9 @@ nl:
   object_type_collection_option: Verzameling
   object_type_community_option: Gemeenschap
   object_type_image_option: Afbeelding
+  object_type_link_option: Verwijzing
   object_type_sound_option: Geluid
+  object_type_taxon_concept_option: Taxonconcept
   object_type_text_option: Tekst
   object_type_user_option: Gebruiker
   object_type_video_option: Video
@@ -2405,9 +2806,13 @@ nl:
   object_visibility_all_option: Alle
   object_visibility_invisible_option: Verborgen
   object_visibility_visible_option: Zichtbaar
+  objects_curated: Geconserveerde objecten
+  older_version_of_latest_published_data_object_title_link: Oudere versie van %{link}
   on_time_col_header: op
   only_show_authoritative_conten: "Alleen geautoriseerde inhoud weergeven:"
+  only_show_unapproved_curators: Alleen nog niet goedgekeurde conservatoren weergeven
   option_please_select: Maak een keuze
+  or_add_it_to_an_existing_collection: of voeg deze toe aan een bestaande verzameling
   or_copy_them_to_existing_collection: of kopieer ze naar een bestaande verzameling
   or_move_them_to_existing_collection: of verplaats ze naar een bestaande verzameling
   original: "Origineel:"
@@ -2418,6 +2823,11 @@ nl:
   other_community_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
+  other_taxa_with_count: 
+    one: "%{count} ander taxon"
+    other: "%{count} andere taxa"
+  other_us_dollars_amount: "Anders: US$"
+  outlink: Uitgaande verwijzing
   overview: Overzicht
   page: Pagina
   page_linked_to: Pagina gekoppeld aan
@@ -2425,25 +2835,42 @@ nl:
   page_navigation: Paginanavigatie
   page_not_found: Pagina niet gevonden
   page_statistics: Paginastatistieken
+  page_statistics_and_tools: paginastatistieken en hulpmiddelen
   page_urls: "Pagina-URL's:"
+  page_views_th: Bekeken pagina's
   pages_admin_section_link: Beheerders
   pages_curator_section_link: Conservatoren
   pages_title: Referenties
+  pages_with_count: 
+    one: "%{count}"
+    other: "%{count}"
   pages_with_pictures_and_text: Pagina's met afbeeldingen en tekst
   pages_with_pictures_or_text: Pagina's met afbeeldingen of tekst
   pagination_next: Volgende
+  pagination_next_with_count: 
+    one: zie volgende
+    other: zie volgende %{count}
+  pagination_page_number: Pagina %{number}
   pagination_previous: Vorige
+  pagination_previous_with_count: 
+    one: zie vorige
+    other: zie vorige %{count}
   parameters: Parameters
   partner: Partner
   partner_information: Partnergegevens
   partner_page: partnerpagina
+  partner_web_site_colon: "Partnerwebsite:"
   password_colon: "Wachtwoord:"
   password_must_be_4to16_characters: Het wachtwoord tussen 4 en 16 tekens lang zijn.
   pause: pauze
   people_with_count: 
     one: "%{count} persoon"
     other: "%{count} personen"
-  permalink: Permalink
+  percentage_of_children_with_images: "% kinderen met afbeeldingen"
+  percentage_of_children_with_text: "% kinderen met tekst"
+  percentage_of_descendants_with_images: percentage nakomelingen met afbeeldingen
+  percentage_of_descendants_with_text: percentage nakomelingen met tekst
+  permalink: Permanente verwijzing
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
@@ -2460,6 +2887,7 @@ nl:
   press_room: Pers
   preview: voorvertoning
   preview_changes: Voorvertoning van de wijzigingen
+  preview_version_of_latest_published_data_object_title_link: Voorvertoning van %{link}
   previously_published: eerder gepubliceerd
   process_name: Procesnaam
   profile: Profiel
@@ -2474,8 +2902,8 @@ nl:
   public: Openbaar
   public_domain: publiek domein
   publish: publiceren
+  publish_after_utc: Publiceren na (UTC)
   publish_changes: Wijzigingen publiceren
-  publish_item_based_on_time_set: Item publiceren op basis van de hierboven ingestelde tijd (uitvinken om altijd te verbergen)
   publish_requested: Gevraagde publiceren
   published: Gepubliceerd
   published_parens: (Gepubliceerd)
@@ -2531,6 +2959,7 @@ nl:
     community_activity_user_joined: De gebruiker <b>%{user_name}</b> is lid geworden van de gemeenschap <b>%{community_name}</b>.
     community_activity_user_left: De gebruiker <b>%{user_name}</b> heeft de gemeenschap <b>%{community_name}</b> verlaten.
     community_activity_user_made_member_a_manager: De gebruiker <b>%{user_name}</b> heeft <b>%{member_name}</b> beheerder van de gemeenschap <b>%{community_name}</b> gemaakt.
+    contact_us_link: Als u problemen tegenkomt, <a href='http://eol.org/contact_us' style='color:#195184'>neem dan alstublieft contact met ons op</a>.
     curator_activity_log_title: "%{who} heeft iets geconserveerd"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> heeft de handeling %{activity_name} uitgevoerd op <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> heeft de handeling %{activity_name} uitgevoerd op <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2547,37 +2976,60 @@ nl:
   recent_updates: Recente updates
   recently_visited: Onlangs bezocht
   recipients: Ontvangers
+  recognized_by_as_a_rank: "%{recognized_by} als een %{taxon_rank}"
+  recognized_by_from_source: "%{recognized_by} in %{source}"
+  recognized_by_from_source_as_a_rank: "%{recognized_by} in %{source} als een %{taxon_rank}"
   record_not_found: "[record niet gevonden]"
   references_cabs_colon: "Referenties:"
+  reindex_page_button: Pagina opnieuw indexeren
+  related_names_with_count: 
+    one: één gerelateerde naam
+    other: "%{count} gerelateerde namen"
   remove: Verwijderen
   remove_curatorship_colon: "Conservatorschap verwijderen:"
   remove_data_object_association: Koppeling verwijderen
   remove_membership: Lidmaatschap verwijderen
+  removed_count_items_from_collection_notice: 
+    one: één item is verwijderd uit deze verzameling.
+    other: "%{count} items zijn verwijderd uit deze verzameling."
   reply: Antwoorden
   request: Verzoek
   required_form_element: Verplicht
+  reset_password_enter_new_password_notice: Dit zijn éénmalige aanmeldgegevens. Voer een nieuw wachtwoord in om verder te gaan.
+  reset_password_instructions_sent_to_user_notice: Instructies voor het opnieuw instellen van het wachtwoord voor uw gebruiker  <em>%{username}</em> zijn verzonden naar uw e-mailadres.
+  reset_password_token_expired_error: Uw wachtwoord is helaas niet opnieuw ingesteld. De opgegeven verwijzing is verlopen. Vul het formulier voor vergeten wachtwoord opnieuw in om een nieuwe verwijzing te ontvangen.
   resource: Bron
   resources: Middelen
   response: Antwoord
   results: Resultaten
+  results_offset: Resultaten %{from} - %{to} van %{total} voor <em>%{for}</em>
   results_per_page: "Resultaten per pagina:"
   return: terug
+  return_all_common_names_for_this_taxon: alle gewone namen voor dit taxon weergeven
+  return_all_synonyms_for_this_taxon: alle synoniemen voor dit taxon weergeven
+  return_common_names_for_the_page_taxon: alle gewone namen voor het taxon van de pagina weergeven
+  return_content_by_vettedness: Als "gecontroleerd" de waarde "1" heeft, dan wordt alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft, dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
   revisions: Versies
   revoke_full_curator_link: Intrekken
   revoke_manager_link: Managersrol intrekken
+  richness_score: Rijkheidsscores
   rights: Rechten
   rights_holder: Rechthebbende
   rights_statement: Rechtenverklaring
-  rss_feed: RSS-feed
   save: Opslaan
   save_comment_lowercase: opmerking opslaan
   save_curated_association_submit_button: Koppeling opslaan
+  save_email_settings: e-mailinstellingen opslaan
   scientific_name: Wetenschappelijke naam
   search: Zoeken
   search_by_term_page_title: "Zoeken: %{term}"
+  search_field_common_name: Algemene naam
   search_field_label: EOL doorzoeken
+  search_field_preferred_common_name: Voorkeur gewone naam
+  search_field_preferred_scientific: Voorkeur wetenschappelijke naam
   search_field_surrogate: Surrogaat
   search_field_synonym: Synoniem
+  search_for_curators_containing: "Zoeken naar conservatoren die bevatten:"
   search_for_messages_containing: "Zoeken naar berichten die de volgende tekst bevatten:"
   search_for_terms_containing: "Zoeken naar termen die bevatten:"
   search_input_advisory_information: Voer de triviale of of wetenschappelijke namen van levende organismen in waar u meer over wilt weten. U kunt ook zoeken naar EOL-leden, verzamelingen en gemeenschappen.
@@ -2585,10 +3037,13 @@ nl:
   search_placeholder: EOL doorzoeken ...
   search_previous_label: Vorige
   search_results: Zoekresultaten
+  search_suggestion_created: De zoeksuggestie is aangemaakt.
   search_suggestion_updated: De zoeksuggestie is bijgewerkt.
   search_suggestions: Zoeksuggesties
   search_term: Trefwoord
+  search_term_detail_report: Detailrapport zoektermen
   search_term_reports: zoektermrapporten
+  search_term_reports_title: Rapport zoektermen
   search_the_site: Site doorzoeken
   see_all_classifications_with_count_html: 
     one: De <span class="assistive">goedgekeurde classificatie waarin dit taxon voorkomt</span> bekijken.
@@ -2599,9 +3054,16 @@ nl:
   see_all_communities_with_count_html: 
     one: De <span class="assistive">gemeenschap met focus op dit taxon</span> bekijken.
     other: Alle <span class="assistive">%{count} gemeenschappen met focus op dit taxon</span> bekijken.
+  see_all_featured_collections_with_count: 
+    one: De uitgelichte verzameling bekijken.
+    other: De %{count} uitgelichte verzamelingen bekijken.
+  see_all_maps_link: Alle kaarten bekijken
   see_all_media_link: Alle media bekijken
   see_all_of_your_collections: Al uw verzamelingen bekijken
   see_all_of_your_communities: Al uw gemeenschappen bekijken
+  see_all_updates_with_count_html: 
+    one: De <span class="assistive">update voor deze pagina</span> bekijken.
+    other: Alle <span class="assistive">%{count} updates voor deze pagina</span> bekijken.
   see_notes: zie notities
   select_colon: "Selecteer:"
   select_tool_and_go: "Selecteer een gereedschap en klik op \"Verder\":"
@@ -2650,6 +3112,8 @@ nl:
   skip_to_table_of_contents: Naar inhoudsopgave gaan
   social_sharing_twitter_follow_eol_button: "@eol volgen"
   social_sharing_twitter_tweet_button: Tweet
+  sorry_no_collections_are_available_to_share: Er zijn helaas geen collecties beschikbaar om te delen met deze gemeenschap.
+  sorry_no_communities_are_available_to_share: Er zijn helaas geen gemeenschappen beschikbaar om deze collectie mee te delen.
   sort_by: Sorteren op
   sort_by_alphabetical_option: Alfabetisch
   sort_by_button: Sorteren
@@ -2696,11 +3160,15 @@ nl:
   spm_category_objects_count: SPM-categorie - aantal objecten
   spm_category_partner_count: SPM-categorie - aantal partners
   started: Gestart
+  stat: Stat.
+  stats: Statistieken
+  stored_classifications: "Let op: u hebt <a href='%{anchor}'>hieronder opgeslagen classificaties</a>."
   sub_heading: Onderkop
   subject: onderwerp
   submit: Opslaan
   submit_term: Term opslaan
   suggested_result_page_id: "Pagina-ID voor suggestie in resultaat:"
+  suggested_results_avg: Aangeraden resultaten gem.
   supplier: Leverancier
   supplier_allcaps: "Leverancier:"
   supplier_colon: "Leverancier:"
@@ -2973,11 +3441,15 @@ nl:
         meta_title: Rijkdom van %{scientific_name}
         meta_title_with_common_name: Rijkdom van %{preferred_common_name} (%{scientific_name})
         tweet_text: Rijkdomscore voor %{scientific_name}
+  taxa_column_header: Taxa
   taxa_with_count: 
     one: Eén taxon
     other: "%{count} taxa"
   taxon: taxon
   taxon_biomedical_terms_link: Biomedische termen
+  taxon_citizen_science_header: Verwijzigingen voor burgerwetenschap
+  taxon_citizen_science_link: Verwijzigingen voor burgerwetenschap
+  taxon_citizen_science_resources_empty: Niemand heeft nog burgerwetenschap bijgedragen voor deze pagina.
   taxon_concept_stats: Taxonconceptstatistieken
   taxon_details_empty: Er heeft nog niemand bijgedragen aan deze pagina.
   taxon_education_empty: Er heeft nog niemand onderwijsbronnen bijgedragen aan deze pagina.
@@ -2988,6 +3460,8 @@ nl:
   taxon_identification_resources_empty: Er heeft nog niemand identificatiebronnen bijgedragen aan deze pagina.
   taxon_identification_resources_header: Identificatiebronnen
   taxon_identification_resources_link: Identificatiebronnen
+  taxon_multimedia_links_link: Multimediaverwijzingen
+  taxon_news_and_event_links_link: Verwijzingen naar nieuws en evenementen
   taxon_newsfeed: Taxonnewsfeed
   taxon_not_found_error: "\"%{taxon}\" niet gevonden"
   taxon_nucleotide_sequences_link: Nucleotidesequenties
@@ -2997,8 +3471,11 @@ nl:
   taxon_partner_links_header: Partnerverwijzingen
   taxon_partner_links_link: Partnerverwijzingen
   taxon_rating: Taxonwaardering
+  taxon_related_organizations_link: Gerelateerde organisaties
   taxon_suggested: Taxonsuggestie
+  taxonomic_summary_of_content: taxonomische samenvatting van inhoud
   technical_functions: Technische functies
+  term_for_search_admin_ui: Term
   term_is_already_def_error: "\"%{term}\" is al gedefinieerd"
   terms_agreement_form_header: Gebruiksvoorwaarden
   terms_agreement_form_submit: Ik ga akkoord
@@ -3025,8 +3502,6 @@ nl:
   the_message_was_sent: Het bericht is verzonden.
   the_new_topic_was_created: Het onderwerp is aangemaakt.
   the_new_user_was_created: De gebruiker is aangemaakt.
-  the_news_item_created: Het nieuwsbericht is aangemaakt.
-  the_news_item_updated: Het nieuwsbericht is bijgewerkt.
   the_topic_was_updated: Het onderwerp is bijgewerkt.
   the_user_was_updated: De gebruiker is bijgewerkt.
   there_are_currently_no_members_in_this_community: Er zijn momenteel geen leden in deze gemeenschap.
@@ -3039,17 +3514,18 @@ nl:
   this_community_was_deleted: Deze gemeenschap is verwijderd door de eigenaar.
   this_image_cannot_be_curated_because_unpublished: Deze afbeelding kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_image_is_unpublished: Deze afbeelding is niet gepubliceerd.
-  this_image_map_cannot_be_curated_because_unpublished: Deze kaart kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  this_image_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_image_map_is_unpublished: Deze kaart is niet gepubliceerd.
-  this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  this_link_cannot_be_curated_because_unpublished: Deze verwijzing kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
+  this_link_is_unpublished: Deze verwijzing is niet gepubliceerd.
+  this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_map_is_unpublished: Deze kaart is niet gepubliceerd.
   this_sound_cannot_be_curated_because_unpublished: Dit geluidsbestand kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_sound_is_unpublished: Dit geluid is niet gepubliceerd.
-  this_video_cannot_be_curated_because_unpublished: Deze video kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  this_video_cannot_be_curated_because_unpublished: Deze video kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_video_is_unpublished: Deze video is niet gepubliceerd.
   threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">UCN</abbr> bedreigingsstatus:"
   time_ago: "%{time_passed} geleden"
-  tinyurl: TinyURL
   title: Titel
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
   toc: Inhoudsopgave
@@ -3109,6 +3585,7 @@ nl:
   us_dollars_100: USD 100
   us_dollars_35: USD 35
   us_dollars_50: USD 50
+  use_as_examplar_button: als voorbeeld instellen
   user: Gebruiker
   user_activity_page_title: Gebruikersactiviteit
   user_activity_stats_articles_added: 
@@ -3123,7 +3600,11 @@ nl:
   user_comment: Opmerking van gebruiker
   user_comments: Opmerkingen van gebruikers
   user_id: Gebruikers-ID
+  user_joined_when: "\"%{user}\" is lid geworden op %{when}"
+  user_left_comment_on_date: "%{username} heeft gereageerd op %{date}."
   user_no_longer_active_message: Deze gebruiker is niet langer actief
+  user_no_longer_has_manager_access_to_collection: "\"%{user}\" heeft niet langer beheertoegang tot \"%{collection}\"."
+  user_pending_notifications_assitive: <span class="assistive">meldingen</span>
   user_response: Antwoord van de gebruiker
   user_says_colon: "%{users_name} schrijft:"
   user_submitted_text: Door gebruikers toegevoegde tekst
@@ -3187,6 +3668,9 @@ nl:
       edit: 
         page_description: Alle onderstaande updates (behalve die voor de nieuwsbrief van EOL) zijn voor u beschikbaar in uw <a href="%{user_newsfeed_link}">EOL-nieuwsoverzicht</a>, maar veel mensen willen ook per e-mail op de hoogte gehouden worden over bepaalde activiteiten die ze in het bijzonder interessant vinden. U kunt de onderstaande knoppen gebruiken om de frequentie van e-mails die EOL u stuurt aan te passen aan uw behoeften.
         page_title: Instellingen voor berichten
+      update: 
+        notification_settings_successfully_updated: De voorkeuren voor meldingen bij bijgewerkt.
+        sorry_notification_settings_could_not_be_updated: De voorkeuren voor meldingen konden helaas niet worden bijgewerkt.
     open_authentications: 
       errors: 
         facebook: 
@@ -3280,6 +3764,10 @@ nl:
     show: 
       meta_description: Gebruikersprofiel voor %{user_full_name} bij Encyclopedia of Life.
       meta_description_curator: Gebruikersprofiel voor %{curator_level} %{user_full_name} bij Encyclopedia of Life.
+    unsubscribe_notifications: 
+      already_unsubscribed: U bent niet geabonneerd op meldingen.
+      unsubscribe_notifications_failed: Er is helaas een fout opgetreden. De abonnementen op meldingen konden niet worden opgezegd.
+      unsubscribed_notifications_successfully: Uw abonnementen op meldingen zijn opgezegd.
   users_about_me_header: Over mij
   users_content_partners_header: Contentpartners
   users_curation_header: Conservatorkwalificaties
@@ -3359,7 +3847,6 @@ nl:
   wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
   will_paginate: 
     next_label: Volgende &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Vorige"
   worklist: Werklijst
   xml_response: XML-antwoord

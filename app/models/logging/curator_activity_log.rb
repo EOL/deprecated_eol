@@ -1,3 +1,5 @@
+require 'eol/activity_log_item'
+
 class CuratorActivityLog < LoggingModel
 
   include EOL::ActivityLogItem
@@ -16,12 +18,18 @@ class CuratorActivityLog < LoggingModel
   # when you should have grabbed an object and it won't fail.
   belongs_to :data_object, :foreign_key => :object_id
   belongs_to :synonym, :foreign_key => :object_id
+  belongs_to :classification_curation, :foreign_key => :object_id
   belongs_to :affected_comment, :foreign_key => :object_id, :class_name => Comment.to_s
 
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
 
   after_create :log_activity_in_solr
   after_create :queue_notifications
+
+  # I don't know why attribute-whitelisting still applies during tests, but they do.  Grr:
+  attr_accessible :user, :user_id, :changeable_object_type, :changeable_object_type_id, :object_id,
+    :hierarchy_entry_id, :taxon_concept_id, :activity, :created_at, :data_object, :data_object_guid,
+    :created_at
 
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}
@@ -36,18 +44,36 @@ class CuratorActivityLog < LoggingModel
     ")
   end
 
+  def self.log_preferred_classification(classification, options = {})
+    CuratorActivityLog.create(
+      :user => options[:user],
+      :changeable_object_type => ChangeableObjectType.curated_taxon_concept_preferred_entry,
+      :object_id => classification.id,
+      :hierarchy_entry_id => classification.hierarchy_entry_id,
+      :taxon_concept_id => classification.taxon_concept_id,
+      :activity => Activity.preferred_classification,
+      :created_at => 0.seconds.from_now
+    )
+  end
+
+  def is_for_synonym?
+    changeable_object_type_id == ChangeableObjectType.synonym.id
+  end
+
   # Needed for rendering links; we need to know which association to make the link to
   def link_to
     case changeable_object_type_id
-      when ChangeableObjectType.comment.id:
+      when ChangeableObjectType.comment.id
         comment_object.parent
-      when ChangeableObjectType.synonym.id:
+      when ChangeableObjectType.synonym.id
         if synonym && synonym.hierarchy_entry
           synonym.hierarchy_entry.taxon_concept
         else
           taxon_concept # could be nil, be careful!
         end
-      when ChangeableObjectType.taxon_concept.id:
+      when ChangeableObjectType.taxon_concept.id
+        taxon_concept
+      when ChangeableObjectType.classification_curation.id
         taxon_concept
       else
         data_object
@@ -56,9 +82,9 @@ class CuratorActivityLog < LoggingModel
 
   def taxon_concept_name
     case changeable_object_type_id
-      when ChangeableObjectType.data_object.id:
+      when ChangeableObjectType.data_object.id
         data_object.get_taxon_concepts.first.entry.name.string
-      when ChangeableObjectType.comment.id:
+      when ChangeableObjectType.comment.id
         if comment_object.parent_type == 'TaxonConcept'
           comment_parent.scientific_name
         elsif comment_object.parent_type == 'DataObject'
@@ -68,9 +94,11 @@ class CuratorActivityLog < LoggingModel
             comment_parent.taxon_concept_for_users_text.name
           end
         end
-      when ChangeableObjectType.users_data_object.id:
+      when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.entry.italicized_name
-      when ChangeableObjectType.synonym.id:
+      when ChangeableObjectType.classification_curation.id
+        taxon_concept.entry.italicized_name
+      when ChangeableObjectType.synonym.id
         synonym.hierarchy_entry.taxon_concept.entry.italicized_name
       else
         raise "Don't know how to get taxon name from a changeable object type of id #{changeable_object_type_id}"
@@ -79,9 +107,9 @@ class CuratorActivityLog < LoggingModel
 
   def taxon_concept_id
     case changeable_object_type_id
-      when ChangeableObjectType.data_object.id:
+      when ChangeableObjectType.data_object.id
         data_object.get_taxon_concepts.first.id
-      when ChangeableObjectType.comment.id:
+      when ChangeableObjectType.comment.id
         if comment_object.parent_type == 'TaxonConcept'
           comment_parent.id
         else
@@ -91,14 +119,20 @@ class CuratorActivityLog < LoggingModel
             comment_parent.taxon_concept_for_users_text.id
           end
         end
-      when ChangeableObjectType.synonym.id:
+      when ChangeableObjectType.synonym.id
         begin
           synonym.hierarchy_entry.taxon_concept_id
         rescue
           puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{object_id} does not have a HierarchyEntry"
         end
-      when ChangeableObjectType.users_data_object.id:
+      when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.id
+      when ChangeableObjectType.taxon_concept.id
+        taxon_concept.id
+      when ChangeableObjectType.curated_taxon_concept_preferred_entry.id
+        taxon_concept.id
+      when ChangeableObjectType.classification_curation.id
+        taxon_concept.id
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"
     end
@@ -151,6 +185,9 @@ class CuratorActivityLog < LoggingModel
         [ Activity.add_association.id, Activity.remove_association.id ],
       ChangeableObjectType.users_data_object.id => curation_activities,
       ChangeableObjectType.curated_taxon_concept_preferred_entry.id => [Activity.preferred_classification.id],
+      ChangeableObjectType.classification_curation.id => [Activity.unlock.id,
+                                                          Activity.unlock_with_error.id,
+                                                          Activity.curate_classifications.id],
       ChangeableObjectType.taxon_concept.id => [Activity.split_classifications.id, Activity.merge_classifications.id]
     }
     return unless self.activity
@@ -167,6 +204,7 @@ class CuratorActivityLog < LoggingModel
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
+    LoggingModel.clear_taxon_activity_log_fragment_caches(notification_recipient_objects)
   end
 
   def queue_notifications
@@ -205,6 +243,12 @@ private
       add_taxon_concept_recipients(TaxonConcept.find(self.object_id), recipients) if
         self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
     end
+    if self.changeable_object_type_id == ChangeableObjectType.classification_curation.id &&
+       self.activity_id == Activity.curate_classifications.id &&
+       cc = self.classification_curation
+      add_taxon_concept_recipients(cc.moved_from, recipients) if cc.moved_from
+      add_taxon_concept_recipients(cc.moved_to, recipients) if cc.moved_to
+    end
   end
 
   def add_taxon_concept_recipients(taxon_concept, recipients)
@@ -240,6 +284,12 @@ private
     end
   end
   
+  def add_recipient_curator_of_classification(recipients)
+    if unlock?
+      user.add_as_recipient_if_listening_to(:curation_on_my_watched_item, recipients)
+    end
+  end
+
   def add_recipient_author_of_curated_text(recipients)
     if object_is_data_object?
       if u = self.data_object.contributing_user
@@ -256,4 +306,8 @@ private
     ].include?(self.changeable_object_type_id)
   end
 
+  def unlock?
+    self.changeable_object_type_id == ChangeableObjectType.classification_curation.id &&
+      [Activity.unlock.id, Activity.unlock_with_error.id].include?(self.activity_id)
+  end
 end

@@ -36,7 +36,7 @@ class ContentPartnersController < ApplicationController
                   :order => order)
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
-    @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners'))
+    @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners')).html_safe
     @rel_canonical_href = content_partners_url(:page => rel_canonical_href_page_number(@partners))
     @rel_prev_href = rel_prev_href_params(@partners) ? content_partners_url(@rel_prev_href_params) : nil
     @rel_next_href = rel_next_href_params(@partners) ? content_partners_url(@rel_next_href_params) : nil
@@ -57,7 +57,7 @@ class ContentPartnersController < ApplicationController
     access_denied unless current_user.can_create?(@partner)
     if @partner.save
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
-      Notifier.deliver_content_partner_created(@partner, current_user)
+      Notifier.content_partner_created(@partner, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
       redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else
@@ -107,7 +107,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||=  @partner ?
-      view_helper_methods.image_url(@partner.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+      view_context.image_tag(@partner.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private

@@ -1,7 +1,7 @@
 = I18n.t(:user_activity_report_intro)
 = link_to I18n.t(:view_common_activities_link), {:controller => 'administrator/user', :action => 'view_common_activities'}, {:class=>'toc_item active'}
 #comments
-  - form_tag({:action=>'view_user_activity'},:method=>'get') do
+  = form_tag({:action=>'view_user_activity'},:method=>'get') do
     %table
       %tr
         %td
@@ -56,7 +56,7 @@
               - if(user)
                 = user.given_name + " " + user.family_name
             %td{ :class => column_class }
-              = link_to name,{:controller=>'/taxa', :action=>:show, :id => activity.taxon_concept_id}
+              = link_to raw(name),{:controller=>'/taxa', :action=>:show, :id => activity.taxon_concept_id}
             %td{ :class => column_class }
               = h obj.name
             %td{ :class => column_class }

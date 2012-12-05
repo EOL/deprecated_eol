@@ -26,7 +26,7 @@ module EOL
       end
 
       def self.reindex_model(klass, solr_api)
-        solr_api.delete_by_query('resource_type:' + klass.class_name)
+        solr_api.delete_by_query('resource_type:' + klass.name)
         start = klass.minimum('id') || 0
         max_id = klass.maximum('id') || 0
         return if max_id == 0
@@ -35,7 +35,7 @@ module EOL
         objects_to_send = []
         while i <= max_id
           objects_to_send = []
-          case klass.class_name
+          case klass.name
           when 'Community'
             objects_to_send += self.lookup_communities(i, limit);
           when 'Collection'
@@ -88,7 +88,7 @@ module EOL
         max = start + limit
         objects_to_send = []
         # TODO - Modify this to return only visible data objects
-        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1", :select => 'id, object_title, description, data_type_id, created_at, updated_at')
+        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1", :select => 'id, object_title, description, data_type_id, data_subtype_id, created_at, updated_at')
         data_objects.each do |d|
           objects_to_send += d.keywords_to_send_to_solr_index
         end

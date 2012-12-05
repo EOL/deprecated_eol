@@ -1,11 +1,10 @@
-require 'ruby-debug'
 require 'haml'
 
 
 desc 'Tasks for ar.yml file updates'
 namespace :ar do
-  lang_dir = File.join([RAILS_ROOT, "config", "locales"])
-  gibberish_lang_dir = File.join([RAILS_ROOT, "lang"])
+  lang_dir = Rails.root.join("config", "locales")
+  gibberish_lang_dir = Rails.root.join("lang")
   en_file = "translation_template.yml"
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
@@ -20,10 +19,10 @@ namespace :ar do
       return temp_yml[lang_abbr]
     end
     
-    init_ar_yml = load_yml_file(File.join([RAILS_ROOT, "config", "locales", "ar.yml"]), "ar")
-    twiki_ar_yml = load_yml_file(File.join([RAILS_ROOT, "config", "locales", "initial", "ar.yml"]), "ar")
-    init_en_yml = load_yml_file(File.join([RAILS_ROOT, "config", "locales", "en.yml"]), "en")
-    translated_ar_yml = load_yml_file(File.join([RAILS_ROOT, "config", "locales", "translated_ar.yml"]), "ar")
+    init_ar_yml = load_yml_file(Rails.root.join("config", "locales", "ar.yml"), "ar")
+    twiki_ar_yml = load_yml_file(Rails.root.join("config", "locales", "initial", "ar.yml"), "ar")
+    init_en_yml = load_yml_file(Rails.root.join("config", "locales", "en.yml"), "en")
+    translated_ar_yml = load_yml_file(Rails.root.join("config", "locales", "translated_ar.yml"), "ar")
     
     
     init_en_yml.each do |key, value|

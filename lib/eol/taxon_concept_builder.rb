@@ -4,7 +4,7 @@ module EOL
 
     attr_reader :tc
 
-    include EOL::Spec::Helpers
+    include EOL::RSpec::Helpers
 
     # == Options:
     #
@@ -176,8 +176,8 @@ module EOL
       comments.each do |comment|
         comment[:body]  ||= "This is a witty comment on the #{@canon} taxon concept. Any resemblance to comments real " +
                             'or imagined is coincidental.'
-        comment[:user] ||= User.count == 0 ? User.gen : User.all.random_element
-        Comment.gen(:parent => @tc, :parent_type => 'taxon_concept', :body => comment[:body], :user => comment[:user])
+        comment[:user] ||= User.count == 0 ? User.gen : User.all.sample
+        Comment.gen(:parent => @tc, :parent_type => 'TaxonConcept', :body => comment[:body], :user => comment[:user])
       end
     end
 
@@ -195,7 +195,7 @@ module EOL
       flash_options = @flash || [{}] # Array with one empty hash, which we will populate with defaults:
       flash_options.each do |flash_opt|
         desc = flash_opt.delete(:description) || Faker::Lorem.sentence
-        flash_opt[:object_cache_url] ||= Factory.next(:flash)
+        flash_opt[:object_cache_url] ||= FactoryGirl.generate(:flash)
         flash_opt[:hierarchy_entry] ||= @he
         build_object_in_event('Flash', desc, flash_opt)
       end
@@ -203,7 +203,7 @@ module EOL
       youtube_options = @youtube || [{}] # Array with one empty hash, which we will populate with defaults:
       youtube_options.each do |youtube_opt|
         desc = youtube_opt.delete(:description) || Faker::Lorem.sentence
-        youtube_opt[:object_cache_url] ||= Factory.next(:youtube)
+        youtube_opt[:object_cache_url] ||= FactoryGirl.generate(:youtube)
         youtube_opt[:hierarchy_entry] ||= @he
         build_object_in_event('YouTube', desc, youtube_opt)
       end
@@ -214,7 +214,7 @@ module EOL
       sound_options = @sounds || [{}]
       sound_options.each do |sound_opt|
         desc   = sound_opt.delete(:description) || Faker::Lorem.sentence
-        sound_opt[:object_cache_url] ||= Factory.next(:sound)
+        sound_opt[:object_cache_url] ||= FactoryGirl.generate(:sound)
         sound_opt[:hierarchy_entry] ||= @he
         build_object_in_event('Sound', desc, sound_opt)
       end
@@ -223,7 +223,7 @@ module EOL
     def add_iucn
       puts "** Enter: add_iucn" if @debugging
       if @iucn_status
-        iucn_status = @iucn_status == true ? Factory.next(:iucn) : @iucn_status
+        iucn_status = @iucn_status == true ? FactoryGirl.generate(:iucn) : @iucn_status
         build_iucn_entry(@tc, iucn_status, :depth => @depth)
       end
     end
@@ -238,23 +238,26 @@ module EOL
         gbif_he = build_entry_in_hierarchy(:hierarchy => Hierarchy.gbif, :map => true,
                                            :identifier => @gbif_map_id)
         HarvestEventsHierarchyEntry.gen(:hierarchy_entry => gbif_he, :harvest_event => gbif_harvest_event)
+        GbifIdentifiersWithMap.create(:gbif_taxon_id => @gbif_map_id)
       end
     end
 
     def add_toc
       puts "** Enter: add_toc" if @debugging
       @toc.each do |toc_item|
-        toc_item[:toc_item]    ||= TocItem.all.random_element
+        toc_item[:toc_item]    ||= TocItem.all.sample
         toc_item[:description] ||= Faker::Lorem.paragraph
         toc_item[:vetted] ||= Vetted.trusted
         toc_item[:license] ||= License.cc
         toc_item[:rights_holder] ||= 'Someone'
         toc_item[:data_rating] ||= 2.5
         toc_item[:language] ||= Language.english
+        toc_item[:language] = nil if toc_item.has_key?(:language_id)
+        toc_item[:language_id] ||= toc_item[:language].id
         build_object_in_event('Text', toc_item[:description], :hierarchy_entry => @he,
                               :toc_item => toc_item[:toc_item], :vetted => toc_item[:vetted],
                               :license => toc_item[:license], :rights_holder => toc_item[:rights_holder],
-                              :data_rating => toc_item[:data_rating], :language => toc_item[:language])
+                              :data_rating => toc_item[:data_rating], :language_id => toc_item[:language_id])
       end
       # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.
@@ -332,13 +335,13 @@ module EOL
 
     def set_default_options(options)
       puts "** Enter: set_default_options" if @debugging
-      @attri        = options[:attribution]     || Factory.next(:attribution)
+      @attri        = options[:attribution]     || FactoryGirl.generate(:attribution)
       @bhl          = options[:bhl]             || [{:publication => 'Great Big Journal of Fun', :page => 42},
                                                     {:publication => 'Great Big Journal of Fun', :page => 44},
                                                     {:publication => 'The Journal You Cannot Afford', :page => 1}]
       @common_names = options[:common_names]    || [] # MOST entries should NOT have a common name.
       @comments     = options[:comments]
-      @canon        = options[:canonical_form]  || Factory.next(:scientific_name)
+      @canon        = options[:canonical_form]  || FactoryGirl.generate(:scientific_name)
       @ranked_canonical_form = options[:ranked_canonical_form] || @canon
       @complete     = options[:scientific_name] || "#{@canon} #{@attri}".strip
       @depth        = options[:depth]
@@ -375,24 +378,24 @@ module EOL
       images = [{:num_comments => 12}] # One "normal" image, lots of comments, everything else default.
       # So, every TC (which doesn't have a predefined list of images) will have each of the following, making
       # testing easier:
-      images << {:description => 'inappropriate', :object_cache_url => Factory.next(:image),
+      images << {:description => 'inappropriate', :object_cache_url => FactoryGirl.generate(:image),
                  :vetted => Vetted.inappropriate}
-      images << {:description => 'untrusted', :object_cache_url => Factory.next(:image),
+      images << {:description => 'untrusted', :object_cache_url => FactoryGirl.generate(:image),
                  :vetted => Vetted.untrusted}
-      images << {:description => 'unknown',   :object_cache_url => Factory.next(:image),
+      images << {:description => 'unknown',   :object_cache_url => FactoryGirl.generate(:image),
                  :vetted => Vetted.unknown}
-      images << {:description => 'invisible', :object_cache_url => Factory.next(:image),
+      images << {:description => 'invisible', :object_cache_url => FactoryGirl.generate(:image),
                  :visibility => Visibility.invisible}
-      images << {:description => 'preview', :object_cache_url => Factory.next(:image),
+      images << {:description => 'preview', :object_cache_url => FactoryGirl.generate(:image),
                  :visibility => Visibility.preview}
       images << {:description => 'invisible, unknown',
-                 :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
+                 :object_cache_url => FactoryGirl.generate(:image), :visibility => Visibility.invisible,
                  :vetted => Vetted.unknown}
       images << {:description => 'invisible, untrusted',
-                 :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
+                 :object_cache_url => FactoryGirl.generate(:image), :visibility => Visibility.invisible,
                  :vetted => Vetted.untrusted}
       images << {:description => 'preview, unknown',
-                 :object_cache_url => Factory.next(:image), :visibility => Visibility.preview,
+                 :object_cache_url => FactoryGirl.generate(:image), :visibility => Visibility.preview,
                  :vetted => Vetted.unknown}
       return images
     end

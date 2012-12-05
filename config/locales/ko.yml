@@ -6,15 +6,25 @@
 ko: 
   0_1_or_2: 0, 1 또는 2
   0_or_1: 0 또는 1
-  a_taxon: 분류군
-  about_eol: EOL 정보
+  a_taxon: 분류
+  a_total_of_comment_were_found_matching_your_criteria: 
+    one: 기준과 일치하는 덧글 총 %{count}개를 찾았습니다.
+    other: 기준과 일치하는 덧글 총 %{count}개를 찾았습니다.
+  a_total_of_items_were_found_matching_your_criteria: 
+    one: 기준과 일치하는 항목 총 %{count}개를 찾았습니다.
+    other: 기준과 일치하는 덧글 총 %{count}개를 찾았습니다.
+  a_total_of_terms_were_found_matching_your: 
+    one: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
+    other: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
+  about_eol: EOL 소개
   account_information: 계정 정보
   account_information_menu: 계정 정보
+  account_registered_but_not_ready_try_later: 계정은 등록했지만 접근할 준비가 되지 않았습니다. 5분 후에 다시 시도하세요.
   action: 행위
   action_not_available_error: 죄송합니다, 해당 행위은 사용할 수 없습니다.
   actions: 행위
-  active: 활성
-  active_colon: "활성:"
+  active: 활발
+  active_colon: "활발:"
   activerecord: 
     attributes: 
       collection: 
@@ -58,10 +68,10 @@ ko:
         public: 공개
         resources: 자료
         user_id: 관리자
-        vetted: 홀더
+        vetted: 심사함
       content_partner_agreement: 
         created_at: 만든 곳
-        signed_by: 다음 사용자가 로그인
+        signed_by: 다음 사용자로 로그인
         signed_on_date: 날짜에 로그인
       content_partner_contact: 
         email_reports_frequency_hours: 이메일 보고서의 빈도
@@ -69,8 +79,8 @@ ko:
         bibliographic_citation: 참고 문헌 인용
         description: 설명
         object_title: 제목
-        rights_holder: 권리 소유자
-        rights_statement: 권리 정책
+        rights_holder: 권한 소유자
+        rights_statement: 권한 정책
         source_url: 출처 URL
       eol_statistic: 
         active_curators: 활발한 큐레이터
@@ -146,6 +156,10 @@ ko:
         request_publish: 게시 요청
       name: 
         string: 이름
+      news_item: 
+        active: 게시함
+        page_name: 고유 이름
+        sort_order: 정렬 순서
       notification: 
         changes_to_my_watched_collection: 주시문서 목록에 있는 모음집에 대한 바뀜
         changes_to_my_watched_community: 주시문서 목록에 있는 공동체에 대한 바뀜
@@ -198,6 +212,12 @@ ko:
         meta_description: 메타데이터 설명
         meta_keywords: 메타데이터 키워드
         title: 제목
+      translated_news_item: 
+        active_translation: 게시함
+        body: 본문
+        meta_description: 메타데이터 설명
+        meta_keywords: 메타데이터 키워드
+        title: 제목
       user: 
         agreed_with_terms: 이용 계약 약관
         api_key: API 키
@@ -213,12 +233,12 @@ ko:
         family_name: 성씨
         full_name: 실명
         given_name: 이름
-        language_abbr: 주로 사용하는 언어
+        language_abbr: 선호하는 언어
         requested_curator_level_id: 원하는 큐레이션 수준
         tag_line: 태그 라인
         username: 사용자 이름
     errors: 
-      format: "%{attribute}(이)가 %{message}"
+      format: "%{attribute}(은)는 %{message}"
       full_messages: 
         format: "%{attribute}(은)는 %{message}"
       messages: 
@@ -243,7 +263,7 @@ ko:
         not_a_number: 숫자가 아닙니다
         not_an_integer: 정수여야 합니다
         odd: 홀수여야 합니다
-        record_invalid: "인증 실패: %{errors}"
+        record_invalid: "인증에 실패했습니다: %{errors}"
         taken: 이미 토큰을 가지고 있습니다
         too_long: 
           one: 너무 깁니다 (최대 문자 %{count}개)
@@ -286,69 +306,522 @@ ko:
     models: 
       user: 계정
   activity: 활동
+  activity_log_empty: 아직 제공한 업데이트가 없습니다.
   activity_log_empty_learn_more_link: 기여하는 방법 알아보기
   activity_logs: 
     collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집의 관리자로 추가했습니다.
+        an_unknown_user_of_collection: 알 수 없는 사용자가 "%{collection}" 모음집의 관리자로 추가했습니다.
+        an_unknown_user_of_it: 알 수 없는 사용자를 운영자로서 추가했습니다.
+        user_of_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에 관리자로 추가했습니다.
+        user_of_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집의 관리자로 추가했습니다.
+        user_of_it: <strong>%{user}</strong> 사용자가 관리자로 추가했습니다.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집에 대량으로 항목을 추가했습니다.
+        an_unknown_user_added_bulk_items_to_collection: 알 수 없는 사용자가 "%{collection}" 모음집에 대량으로 항목을 추가했습니다.
+        an_unknown_user_added_bulk_items_to_it: 알 수 없는 사용자가 대량으로 항목을 추가했습니다.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에 대량으로 항목을 추가했습니다.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집에 대량으로 항목을 추가했습니다.
+        user_of_it: <strong>%{user}</strong> 사용자가 대량으로 항목을 추가했습니다.
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집에 알 수 없는 항목을 추가했습니다.
+        an_unknown_user_added_an_unknown_item_to_collection: 알 수 없는 사용자가 "%{collection}" 모음집에 알 수 없는 항목을 추가했습니다.
+        an_unknown_user_added_an_unknown_item_to_it: 알 수 없는 사용자가 알 수 없는 항목을 추가했습니다.
+        an_unknown_user_added_item_to_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집에 "%{item}" 항목을 추가했습니다.
+        an_unknown_user_added_item_to_collection: 알 수 없는 사용자가 "%{collection}" 모음집에 "%{item}" 항목을 추가했습니다.
+        an_unknown_user_added_item_to_it: 알 수 없는 사용자가 "%{item}" 항목을 추가했습니다.
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에 알 수 없는 항목을 추가했습니다.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집에 알 수 없는 항목을 추가했습니다.
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> 사용자가 알 수 없는 항목을 추가했습니다.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에 "%{item}" 항목을 추가했습니다.
+        user_added_item_to_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집에 "%{item}" 항목을 추가했습니다.
+        user_added_item_to_it: <strong>%{user}</strong> 사용자가 "%{item}" 항목을 추가했습니다.
       create: 
+        an_unknown_user_created_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집을 만들었습니다.
+        an_unknown_user_created_collection: 알 수 없는 사용자가 "%{collection}" 모음집을 만들었습니다.
         an_unknown_user_created_it: 알 수 없는 사용자가 만들었습니다.
+        user_created_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집을 만들었습니다.
+        user_created_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집을 만들었습니다.
+        user_created_it: <strong>%{user}</strong> 사용자가 만들었습니다.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집을 수정했습니다.
+        an_unknown_user_modified_collection: 알 수 없는 사용자가 "%{collection}" 모음집을 수정했습니다.
+        an_unknown_user_modified_it: 알 수 없는 사용자가 수정했고 정확한 바뀜이 사라졌습니다.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집을 수정했습니다.
+        user_modified_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집을 수정했습니다.
+        user_modified_it: <strong>%{user}</strong> 사용자가 수정했으나 정확한 바뀜이 사라졌습니다.
       remove: 
         an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집에서 알 수 없는 항목을 제거했습니다.
+        an_unknown_user_removed_an_unknown_item_from_collection: 알 수 없는 사용자가 "%{collection}" 모음집에서 알 수 없는 항목을 제거했습니다.
+        an_unknown_user_removed_an_unknown_item_from_it: 알 수 없는 사용자가 알 수 없는 항목을 제거했습니다.
+        an_unknown_user_removed_item_from_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집에서 "%{item}" 항목을 제거했습니다.
+        an_unknown_user_removed_item_from_collection: 알 수 없는 사용자가 "%{collection}" 모음집에서 "%{item}" 항목을 제거했습니다.
+        an_unknown_user_removed_item_from_it: 알 수 없는 사용자가 "%{item}" 항목을 제거했습니다.
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에서 알 수 없는 항목을 제거했습니다.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집에서 알 수 없는 항목을 제거했습니다.
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> 사용자가 알 수 없는 항목을 제거했습니다.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에서 "%{item}" 항목을 제거했습니다.
+        user_removed_item_from_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집에서 "%{item}" 항목을 제거했습니다.
+        user_removed_item_from_it: <strong>%{user}</strong> 사용자가 "%{item}" 항목을 제거했습니다.
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집에서 모든 항목을 제거했습니다.
+        an_unknown_user_cleared_collection: 알 수 없는 사용자가 "%{collection}" 모음집에서 모든 항목을 제거했습니다.
+        an_unknown_user_cleared_it: 알 수 없는 사용자가 모든 항목을 제거했습니다.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에서 모든 항목을 제거했습니다.
+        user_cleared_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집에서 모든 항목을 제거했습니다.
+        user_cleared_it: <strong>%{user}</strong> 사용자가 모든 항목을 제거했습니다.
+    community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체에 알 수 없는 관리자를 추가했습니다.
+        an_unknown_user_added_an_unknown_manager_to_community: 알 수 없는 사용자가 "%{community}" 공동체에 알 수 없는 관리자를 추가했습니다.
+        an_unknown_user_added_manager_to_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체에 "%{manager}" 관리자를 추가했습니다.
+        an_unknown_user_added_manager_to_community: 알 수 없는 사용자가 "%{community}" 공동체에 "%{manager}" 관리자를 추가했습니다.
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에 알 수 없는 관리자를 추가했습니다.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체에 알 수 없는 관리자를 추가했습니다.
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체에 "%{manager}" 관리자를 추가했습니다.
+        user_added_manager_to_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체에 "%{manager}" 관리자를 추가했습니다.
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체의 설명을 바꿨습니다.
+        an_unknown_user_changed_the_description_of_community: 알 수 없는 사용자가 "%{community}" 공동체의 설명을 바꿨습니다.
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체의 설명을 바꿨습니다.
+        user_changed_the_description_of_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체의 설명을 바꿨습니다.
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체의 로고를 바꿨습니다.
+        an_unknown_user_changed_the_icon_of_community: 알 수 없는 사용자가 "%{community}" 공동체의 로고를 바꿨습니다.
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체의 로고를 바꿨습니다.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체의 로고를 바꿨습니다.
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체의 이름을 바꿨습니다.
+        an_unknown_user_changed_the_name_of_community: 알 수 없는 사용자가 "%{community}" 공동체의 이름을 바꿨습니다.
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체의 이름을 바꿨습니다.
+        user_changed_the_name_of_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체의 이름을 바꿨습니다.
+      create: 
+        an_unknown_user_created_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체를 만들었습니다.
+        an_unknown_user_created_community: 알 수 없는 사용자가 "%{community}" 공동체를 만들었습니다.
+        user_created_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체를 만들었습니다.
+        user_created_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체를 만들었습니다.
+      join: 
+        an_unknown_user_joined_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체에 가입했습니다.
+        an_unknown_user_joined_community: 알 수 없는 사용자가 "%{community}" 공동체에 가입했습니다.
+        user_joined_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체에 가입했습니다.
+        user_joined_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체에 가입했습니다.
+      leave: 
+        an_unknown_user_left_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체를 떠났습니다.
+        an_unknown_user_left_community: 알 수 없는 사용자가 "%{community}" 공동체를 떠났습니다.
+        user_left_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체를 떠났습니다.
+        user_left_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체를 떠났습니다.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체를 수정했습니다.
+        an_unknown_user_modified_community: 알 수 없는 사용자가 "%{community}" 공동체를 수정했습니다.
+        user_modified_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체를 수정했습니다.
+        user_modified_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체를 수정했습니다.
     curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: 알 수 없는 사용자가 "%{data_object}" 개체의 이전 버전과 알 수 없는 문서 사이에 연관을 추가했습니다.
+        an_unknown_user_associated_an_older_data_object_to_association: 알 수 없는 사용자가 "%{data_object}" 개체의 이전 버전과 "%{association}" 문서 사이에 연관을 추가했습니다.
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: 알 수 없는 사용자가 알 수 없는 연관을 추가했습니다.
+        an_unknown_user_associated_an_unknown_data_object_to_association: 알 수 없는 사용자가 알 수 없는 데이터 개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
+        an_unknown_user_associated_data_object_to_an_unknown_association: 알 수 없는 사용자가 "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 추가했습니다.
+        an_unknown_user_associated_data_object_to_association: 알 수 없는 사용자가 "%{data_object}" 개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
+        an_unknown_user_associated_it_to_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 연관을 추가했습니다.
+        an_unknown_user_associated_it_to_association: 알 수 없는 사용자가 "%{association}" 문서에 연관을 추가했습니다.
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체의 이전 버전과 알 수 없는 문서 사이에 연관을 추가했습니다.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> 사용자가 "%{data_object}"의 이전 버전과 "%{association}" 문서 사이에 연관을 추가했습니다.
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 연관을 추가했습니다.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> 사용자가 알 수 없는 데이터 개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 추가했습니다.
+        user_associated_data_object_to_association: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 연관을 추가했습니다.
+        user_associated_it_to_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 연관을 추가했습니다.
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: 알 수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 추가했습니다.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: 알 수 없는 사용자가 %{language}로 알 수 없는 공통 이름을 추가했습니다.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 추가했습니다.
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: 알 수 없는 사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 추가했습니다.
+        an_unknown_user_added_name_in_language_to_it: 알 수 없는 사용자가 "%{name}" %{language} 공통 이름을 추가했습니다.
+        an_unknown_user_added_name_in_language_to_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 "%{name}" %{language} 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> 사용자가 %{language}로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 추가했습니다.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> 사용자가 "%{name}" %{language} 공통 이름을 추가했습니다.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 "%{name}" %{language} 공통 이름을 추가했습니다.
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}"의 이전 버전을 둘러보기에 보이도록 선택했습니다.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 문서를 둘러보기에 보이도록 선택했습니다.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 문서를 둘러보기에 보이도록 선택했습니다.
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 둘러보기에 보이도록 선택했습니다.
+        an_unknown_user_chose_exemplar_it_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}"의 이전 버전을 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 "%{data_object}"의 이전 버전을 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 문서를 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 데이터 개체를 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 둘러보기에 보이도록 선택했습니다.
+      choose_exemplar_image: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 표본으로 설정했습니다.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 표본 그림을 설정했습니다.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 데이터 개체를 표본으로 설정했습니다.
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 표본으로 설정했습니다.
+        an_unknown_user_chose_exemplar_it_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 표본으로 설정했습니다.
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 표본으로 설정했습니다.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 "%{data_object}" 개체의 이전 버전을 표본으로 설정했습니다.
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 표본 그림을 설정했습니다.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 데이터 개체를 표본으로 설정했습니다.
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 표본으로 설정했습니다.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 표본으로 설정했습니다.
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서 둘을 병합했습니다.
+          an_unknown_user_merged_to_it: 알 수 없는 사용자가 이 문서에 다른 문서를 병합했습니다.
+          an_unknown_user_merged_to_taxon: 알 수 없는 사용자가 %{target} 문서에 다른 문서를 병합했습니다.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서 둘을 병합했습니다.
+          user_merged_to_it: <strong>%{user}</strong> 사용자가 이 문서에 다른 문서를 병합했습니다.
+          user_merged_to_taxon: <strong>%{user}</strong> 사용자가 %{target} 문서에 다른 문서를 병합했습니다.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: 알 수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
+          an_unknown_user_moved_classifications_from_it_to_taxon: 알 수 없는 사용자가 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: 알 수 없는 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: 알 수 없는 사용자가 %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> 사용자가 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> 사용자가 %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: 알 수 없는 사용자가 <a href='%{to}'>자신의 문서</a>에 알 수 없는 문서에서 %{classifications} 분류를 나누었습니다.
+          an_unknown_user_split_classifications_from_it: 알 수 없는 사용자가 <a href='%{to}'>자신의 문서</a>에 %{classifications} 분류를 나누었습니다.
+          an_unknown_user_split_classifications_from_taxon: 알 수 없는 사용자가 <a href='%{to}'>자신의 문서</a>에 %{taxon} 문서에서 %{classifications} 분류를 나누었습니다.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 <a href='%{to}'>자신의 문서</a>에 알 수 없는 문서에서 %{classifications} 분류를 나누었습니다.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> 사용자가 <a href='%{to}'>자신의 문서</a>에 %{classifications} 분류를 나누었습니다.
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
+        an_unknown_user_hid_an_older_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 숨김으로 표시했습니다.
+        an_unknown_user_hid_an_unknown_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 숨김으로 표시했습니다.
+        an_unknown_user_hid_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 숨김으로 표시했습니다.
+        an_unknown_user_hid_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 숨김으로 표시했습니다.
+        an_unknown_user_hid_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 숨김으로 표시했습니다.
+        an_unknown_user_hid_it_on_association: 알 수 없는 사용자가 "%{association}" 문서에 숨김으로 표시했습니다.
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 숨김으로 표시했습니다.
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 숨김으로 표시했습니다.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 숨김으로 표시했습니다.
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 숨김으로 표시했습니다.
+        user_hid_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 숨김으로 표시했습니다.
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 숨김으로 표시했습니다.
+        user_hid_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 숨김으로 표시했습니다.
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 "%{provider}"의 분류를 옮겼습니다.
+        an_unknown_user_merged_entry_to_it: 알 수 없는 사용자가 "%{provider}"의 분류를 추가했습니다.
+        an_unknown_user_merged_entry_to_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 "%{provider}"의 분류를 옮겼습니다.
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 알 수 없는 분류를 옮겼습니다.
+        an_unknown_user_merged_unknown_entry_to_it: 알 수 없는 사용자가 알 수 없는 분류를 추가했습니다.
+        an_unknown_user_merged_unknown_entry_to_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 알 수 없는 분류를 옮겼습니다.
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 분류에 "%{provider}"의 분류를 옮겼습니다.
+        user_merged_entry_to_it: <strong>%{user}</strong> 사용자가 "%{provider}"의 분류를 추가했습니다.
+        user_merged_entry_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 분류에 "%{provider}"의 분류를 옮겼습니다.
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 분류에 알 수 없는 분류를 옮겼습니다.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> 사용자가 알 수 없는 분류를 추가했습니다.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 분류에 알 수 없는 분류를 옮겼습니다.
       other_actions: 
         an_unknown_user_curated_an_older_data_object: 알 수 없는 사용자가 "%{data_object}"의 이전 버전을 큐레이트했습니다.
         an_unknown_user_curated_an_unknown_data_object: 알 수 없는 사용자가 알 수 없는 데이터 개체를 큐레이트했습니다.
         an_unknown_user_curated_data_object: 알 수 없는 사용자가 "%{data_object}"(을)를 큐레이트했습니다.
+        an_unknown_user_curated_it: 알 수 없는 사용자가 큐레이트를 했지만 수행하는 정확한 행동이 끊겼습니다.
         user_curated_an_older_data_object: <strong>%{user}</strong> 사용자가 "%{data_object}"의 이전 버전을 큐레이트했습니다.
         user_curated_an_unknown_data_object: <strong>%{user}</strong> 사용자가 알 수 없는 데이터 개체를 큐레이트했습니다.
         user_curated_data_object: <strong>%{user}</strong> 사용자가 "%{data_object}"(을)를 큐레이트했습니다.
+        user_curated_it: <strong>%{user}</strong> 사용자가 큐레이트를 했지만 수행하는 정확한 행동이 끊겼습니다.
+      preferred_classification: 
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
+        an_unknown_user_preferred_classification_on_it: 알 수 없는 사용자가 "%{provider}"에서 분류를 선호함으로 표시했습니다.
+        an_unknown_user_preferred_classification_on_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 알 수 없는 분류를 선호함으로 표시했습니다.
+        an_unknown_user_preferred_unknown_classification_on_it: 알 수 없는 사용자가 알 수 없는 분류를 선호함으로 표시했습니다.
+        an_unknown_user_preferred_unknown_classification_on_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 알 수 없는 분류를 선호함으로 표시했습니다.
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
+        user_preferred_classification_on_it: <strong>%{user}</strong> 사용자가 "%{provider}"에서 분류를 선호함으로 표시했습니다.
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 분류에 알 수 없는 분류를 선호함으로 표시했습니다.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> 사용자가 알 수 없는 분류를 선호함으로 표시했습니다.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 분류에 알 수 없는 분류를 선호함으로 표시했습니다.
       reasons_to_hide: "숨기는 이유: %{reasons}"
       reasons_to_untrust: "신뢰하지 않은 이유: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: 알 수 없는 사용자가 "%{data_object}"의 이전 버전에서 연관을 제거했습니다.
+        an_unknown_user_disassociated_an_older_data_object_from_association: 알 수 없는 사용자가 "%{data_object}" 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: 알 수 없는 사용자가 알 수 없는 연관을 제거했습니다.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: 알 수 없는 사용자가 알 수 없는 데이터 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: 알 수 없는 사용자가 "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 제거했습니다.
+        an_unknown_user_disassociated_data_object_from_association: 알 수 없는 사용자가 "%{data_object}" 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
+        an_unknown_user_disassociated_it_from_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 연관을 제거했습니다.
+        an_unknown_user_disassociated_it_from_association: 알 수 없는 사용자가 "%{association}" 문서에 연관을 제거했습니다.
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체의 이전 버전과 알 수 없는 문서 사이에 연관을 제거했습니다.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> 사용자가 "%{data_object}"의 이전 버전과 "%{association}" 문서 사이에 연관을 제거했습니다.
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 연관을 제거했습니다.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> 사용자가 알 수 없는 데이터 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 제거했습니다.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 연관을 제거했습니다.
+        user_disassociated_it_from_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 연관을 제거했습니다.
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: 알 수 없는 사용자가 알 수 없는 언어로 공통 이름을 제거했습니다.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 %{language}로 공통 이름을 제거했습니다.
+        an_unknown_user_removed_name_in_language_from_it: 알 수 없는 사용자가 %{language}로 공통 이름을 제거했습니다.
+        an_unknown_user_removed_name_in_language_from_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 %{language}로 공통 이름을 제거했습니다.
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 공통 이름을 제거했습니다.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 %{language}로 공통 이름을 제거했습니다.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> 사용자가 %{language}로 공통 이름을 제거했습니다.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 %{language}로 공통 이름을 제거했습니다.
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}"의 이전 버전을 보임으로 표시했습니다.
+        an_unknown_user_showed_an_older_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체의 이전 버전을 보임으로 표시했습니다.
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 보임으로 표시했습니다.
+        an_unknown_user_showed_an_unknown_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 보임으로 표시했습니다.
+        an_unknown_user_showed_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
+        an_unknown_user_showed_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
+        an_unknown_user_showed_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 보임으로 표시했습니다.
+        an_unknown_user_showed_it_on_association: 알 수 없는 사용자가 "%{association}" 문서에 보임으로 표시했습니다.
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 보임으로 표시했습니다.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 보임으로 표시했습니다.
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 보임으로 표시했습니다.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 보임으로 표시했습니다.
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
+        user_showed_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 보임으로 표시했습니다.
+        user_showed_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 보임으로 표시했습니다.
+      split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 "%{provider}"의 분류를 나눴습니다.
+        an_unknown_user_split_entry_from_it: 알 수 없는 사용자가 "%{provider}"의 분류를 구분했습니다.
+        an_unknown_user_split_entry_from_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 "%{provider}"의 분류를 나눴습니다.
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 알 수 없는 분류를 나눴습니다.
+        an_unknown_user_split_unknown_entry_from_it: 알 수 없는 사용자가 알 수 없는 분류를 구분했습니다.
+        an_unknown_user_split_unknown_entry_from_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 알 수 없는 분류를 나눴습니다.
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 분류에 "%{provider}"의 분류를 나눴습니다.
+        user_split_entry_from_it: <strong>%{user}</strong> 사용자가 "%{provider}"의 분류를 구분했습니다.
+        user_split_entry_from_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 분류에 "%{provider}"의 분류를 나눴습니다.
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 분류에 알 수 없는 분류를 나눴습니다.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> 사용자가 알 수 없는 분류를 구분했습니다.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 분류에 알 수 없는 분류를 나눴습니다.
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: 알 수 없는 사용자가 %{language}로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_name_in_language_on_it: 알 수 없는 사용자가 "%{name}" %{language} 공통 이름을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 "%{name}" %{language} 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> 사용자가 %{language}로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> 사용자가 "%{name}" %{language} 공통 이름을 신뢰함으로 표시했습니다.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 "%{name}" %{language} 공통 이름을 신뢰함으로 표시했습니다.
       trusted: 
-        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 대해 신롸한 "%{data_object}"의 이전 버전을 표시했습니다.
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_an_older_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체의 이전 버전을 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 신뢰함으로 표시했습니다.
+        an_unknown_user_trusted_it_on_association: 알 수 없는 사용자가 "%{association}" 문서에 신뢰함으로 표시했습니다.
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 신뢰함으로 표시했습니다.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 신뢰함으로 표시했습니다.
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 신뢰함으로 표시했습니다.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 신뢰함으로 표시했습니다.
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 신뢰함으로 표시했습니다.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 신뢰한 것으로 표시했습니다.
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 신뢰함으로 표시했습니다.
+        user_trusted_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 신뢰함으로 표시했습니다.
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: 알 수 없는 사용자가 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_name_in_language_on_it: 알 수 없는 사용자가 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> 사용자가 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> 사용자가 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체의 이전 버전을 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 검토하지 않음으로 표시했습니다.
+        an_unknown_user_unreviewed_it_on_association: 알 수 없는 사용자가 "%{association}" 문서에 검토하지 않음으로 표시했습니다
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 검토하지 않음으로 표시했습니다.
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 검토하지 않음으로 표시했습니다.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 검토하지 않음으로 표시했습니다.
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: 알 수 없는 사용자가 %{language}로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_name_in_language_on_it: 알 수 없는 사용자가 "%{name}" %{language} 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 "%{name}" %{language} 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> 사용자가 %{language}로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> 사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> 사용자가 "%{name}" %{language} 공통 이름을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 "%{name}" %{language} 공통 이름을 신뢰하지 않음으로 표시했습니다.
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_an_older_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체의 이전 버전을 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 신뢰하지 않음으로 표시했습니다.
+        an_unknown_user_untrusted_it_on_association: 알 수 없는 사용자가 "%{association}" 문서에 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 "%{data_object}" 개체를 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 신뢰하지 않음으로 표시했습니다.
+        user_untrusted_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 신뢰하지 않음으로 표시했습니다.
+  activity_user_created_link: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}" 이름으로 링크를 추가했습니다.
+  activity_user_created_text: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}" 이름으로 텍스트를 추가했습니다.
+  activity_user_updated_link: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}" 링크를 업데이트했습니다.
+  activity_user_updated_text: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}" 텍스트를 업데이트했습니다.
   add: 추가
   add_a_collection_to_a_community: 공동체에 "%{collection}" 추가
   add_a_comment: 덧글을 추가합니다.
   add_a_comment_colon: "덧글 추가:"
   add_a_new_common_name: 새 공통 이름 추가
   add_a_new_file_brackets: "[새 파일 추가]"
-  add_a_new_news_item: 새 뉴스 항목 추가
   add_a_new_role: 새 규칙 추가
   add_a_new_search_suggestion: 새 검색 제안 추가
   add_a_new_term: 새 항목 추가
   add_a_new_topic_area: 새 주제 영역 추가
   add_a_new_user: 새 사용자 추가
-  add_a_taxon_association_label: 분류군 연관 추가
-  add_article_to_page_link_button: 이 문서에 대한 문서 추가
+  add_a_taxon_association_label: 분류 연관 추가
+  add_article_instead: 대신 문서 추가
+  add_article_to_page_button: 문서 추가
+  add_association_submit_button: 연관 추가
   add_brief_summary_to_page_link_button: 이 문서에 대한 간단한 요약 추가
+  add_citizen_science_resources_to_page_link_button: 이 문서에 시민 과학 링크 추가
+  add_classifications: 이동하기 위해 선택한 분류 추가
   add_collection_to_a_new_community: 새 공동체에 "%{collection}" 추가
   add_collection_to_community: 공동체에 모음집 추가
   add_education_resources_to_page_link_button: 이 문서에 교육 자료 추가
+  add_identification_resources_to_page_link_button: 이 문서에 식별 자료 추가
   add_item_to_new_collection: 새 모음집에 "%{item}" 추가
   add_language: 언어 추가
+  add_link_instead: 대신 링크 추가
+  add_link_to_page_button: 링크 추가
   add_new_association_link: 새 연관 추가
   add_new_tag_suggestion: 새 태그 제안 추가
   add_page: 문서 추가
+  add_sub_chapter: 절 추가
   add_to_a_community: 공동체에 추가
   add_to_my_collection_button: 모음집에 추가
   admin_content_page_active: 게시함
   admin_content_page_child_new_link: 자매 문서 만들기
   admin_content_page_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서를 성공적으로 만들었습니다.
   admin_content_page_create_unsuccessful_error: 죄송합니다, 오류가 발생해 문서를 만들지 못했습니다.
+  admin_content_page_delete_successful_notice: "%{page_name} 문서와 관련된 번역을 삭제했습니다."
+  admin_content_page_edit_header: <em>%{page_name}</em> 문서에 대한 기본 문서 정보 업데이트
   admin_content_page_new_header: 새 콘텐츠 문서 만들기
   admin_content_page_new_link: 새 문서 만들기
+  admin_content_page_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
   admin_content_page_not_active: 게시하지 않음
   admin_content_page_parent_option_root: 상위 없음
   admin_content_page_root: 루트
   admin_content_page_sort_order_updated: 문서 순가가 바뀌었습니다.
   admin_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서를 성공적으로 업데이트했습니다.
   admin_content_page_update_unsuccessful_error: 죄송합니다, 오류가 발생해 문서를 업데이트하지 못했습니다.
-  admin_content_pages_empty: 찾으려는 콘텐츠 문서가 없습니다.
+  admin_content_pages_empty: 콘텐츠 문서를 찾을 수 없습니다.
   admin_content_pages_link: 콘텐츠 관리
   admin_content_pages_page_title: "관리: 콘텐츠 관리"
+  admin_content_partners_index_header: 콘텐츠 파트너
+  admin_content_partners_link: 콘텐츠 파트너
   admin_content_partners_notifications_link: 알림
+  admin_content_partners_notifications_page_title: "관리: 콘텐츠 파트너 알림"
   admin_content_partners_notifications_sent_to_recipients_header: "알림을 다음으로 보냄:"
   admin_content_partners_notifications_statistics_reminder_header: 웹 사용 통계 알림
   admin_content_partners_notifications_statistics_reminder_send_submit: 알림 보내기
+  admin_content_partners_page_title: "관리: 콘텐츠 파트너 관리"
   admin_content_partners_statistics_date_from_label: 보낸 사람
   admin_content_partners_statistics_date_to_label: 받는 사람
   admin_content_partners_statistics_first_published_download_csv_submit: CSV로 다운로드
@@ -357,17 +830,48 @@ ko:
   admin_content_partners_statistics_page_title: "관리: 콘텐츠 파트너 통계"
   admin_home: 관리 홈
   admin_link: 둘러보기
+  admin_news_item_active: 게시함
+  admin_news_item_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 뉴스 항목을 성공적으로 만들었습니다.
+  admin_news_item_create_unsuccessful_error: 죄송합니다, 오류가 발생해 뉴스 항목을 만들지 못했습니다.
+  admin_news_item_delete_successful_notice: "%{page_name} 뉴스 항목과 관련된 번역을 삭제했습니다."
+  admin_news_item_edit_header: <em>%{page_name}</em> 문서에 대한 기본 뉴스 항목 정보 업데이트
+  admin_news_item_new_header: 새 뉴스 항목 만들기
+  admin_news_item_new_link: 뉴스 항목 만들기
+  admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
+  admin_news_item_not_active: 게시하지 않음
+  admin_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 뉴스 항목을 성공적으로 업데이트했습니다.
+  admin_news_item_update_unsuccessful_error: 죄송합니다, 오류가 발생해 뉴스 항목을 업데이트하지 못했습니다.
+  admin_news_items_empty: 뉴스 항목을 찾을 수 없습니다.
+  admin_news_items_page_title: "관리: 뉴스"
+  admin_news_link: 뉴스
   admin_notes_not_visible_to_user: "관리자 참고 (사용자한테 보여지지 않음):"
   admin_page_title: "관리: 둘러보기"
   admin_spam_delete: 스팸 삭제
   admin_statistics_link: 통계
+  admin_translated_content_page_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서에 번역을 추가했습니다.
+  admin_translated_content_page_create_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 추가하지 못했습니다.
+  admin_translated_content_page_delete_successful_notice: <em>%{page_name}</em> 문서에 대한 %{language} 번역을 삭제했습니다.
   admin_translated_content_page_edit_subheader: <em>%{page_name}</em>에 대한 %{language} 번역 편집
   admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
-  admin_translated_content_page_new_header: 언어 선택과 콘텐츠 추가
+  admin_translated_content_page_new_header: 언어 선택하고 내용 추가
   admin_translated_content_page_new_link: 번역 추가
   admin_translated_content_page_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
   admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에 대한 %{language} 번역을 업데이트했습니다.
   admin_translated_content_page_update_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 업데이트하지 못했습니다.
+  admin_translated_news_item_active: 게시함
+  admin_translated_news_item_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서에 번역을 추가했습니다.
+  admin_translated_news_item_create_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 추가하지 못했습니다.
+  admin_translated_news_item_delete_successful_notice: <em>%{page_name}</em> 뉴스 항목에 대한 %{language} 번역을 삭제했습니다.
+  admin_translated_news_item_edit_subheader: <em>%{page_name}</em>에 대한 %{language} 번역 편집
+  admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_news_item_new_header: 언어 선택하고 내용 추가
+  admin_translated_news_item_new_link: 번역 추가
+  admin_translated_news_item_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
+  admin_translated_news_item_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_news_item_not_active: 게시하지 않음
+  admin_translated_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에 대한 %{language} 번역을 업데이트했습니다.
+  admin_translated_news_item_update_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 업데이트하지 못했습니다.
   admin_user_delete_successful_notice: 사용자가 삭제됨
   admin_user_hide_successful_notice: 사용자가 숨겨짐
   admin_user_unhide_successful_notice: 사용자가 숨겨지지 않음
@@ -404,8 +908,9 @@ ko:
         page_title: "관리: 풍부한 문서 통계"
       users_data_objects: 
         menu_link: 사용자가 제출한 텍스트
-        page_header: 사용자가 제출한 문서 통계
+        page_header: 사용자가 제출한 텍스트 통계
         page_title: "관리: 사용자가 제출한 텍스트 통계"
+  agent: 에이전트
   all: 모두
   all_articles: 모든 문서
   all_changes: 모든 바뀜
@@ -434,6 +939,7 @@ ko:
   an_unknown_user: 알 수 없는 사용자
   and: 그리고
   and_between_form_items: 그리고
+  annotation_cabs_colon: "주석:"
   anonymous_user_full_name: 익명 사용자
   anonymous_user_given_name: 익명
   anonymous_user_tag_line: 로그인하지 않음
@@ -441,16 +947,29 @@ ko:
   application_version_advisory_information: 어플리케이션 버전
   are_you_sure: 확실합니까?
   are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 행동은 되돌릴 수 없습니다.
+  article_from: 문서
   article_from_supplier: "%{whom}에서 문서"
   article_more_about: 이 문서에 대해 더 알아보기
   article_not_associated_with_any_published_entries: 이 문서는 모든 게시한 분류와 관련되지 않습니다.
   article_of_taxon: "%{taxon_name}의 문서"
   article_rating: 문서 평가
+  articles_in_languages_with_count: 
+    one: "이 문서에 대한 문서를 언어 %{count}개로 사용할 수 있습니다:"
+    other: "이 문서에 대한 문서를 언어 %{count}개로 사용할 수 있습니다:"
+  articles_in_other_languages_with_count: 
+    one: "이 문서에 대한 문서를 다른 언어 %{count}개로 사용할 수 있습니다:"
+    other: "이 문서에 대한 문서를 다른 언어 %{count}개로 사용할 수 있습니다:"
+  articles_with_count: 
+    one: 문서 %{count}개
+    other: 문서 %{count}개
+  as_of_time_there_were_unique_visitors: 
+    one: "%{time}동안 고유 방문자 %{count}명이 방문했습니다"
+    other: "%{time}동안 고유 방문자 %{count}명이 방문했습니다"
   assistive_details_header: 자세한 사항
   assistive_literature_header: 문헌
   assistive_maps_header: 지도
   assistive_media_header: 미디어
-  assistive_names_classifictions_header: 분류
+  assistive_names_classifications_header: 분류
   assistive_names_common_header: 공통 이름
   assistive_names_related_header: 관련 이름
   assistive_names_synonyms_header: 동의어
@@ -463,22 +982,60 @@ ko:
   associated_with_header: 다음과 연관
   associated_with_image_header: 최근 그림에서
   associated_with_image_map_header: 최근 지도에서
+  associated_with_link_header: 최근 링크에서
   associated_with_map_header: 최근 지도에서
   associated_with_sound_header: 최근 소리에서
   associated_with_video_header: 최근 동영상에서
-  associations_more_link: 더 많은 <span class="assistive">분류군 연관</span>
-  attribute: 속성
+  association_trusted_for_taxa: 
+    one: "신뢰하는 대상:"
+    other: "신뢰하는 대상:"
+  association_unreviewed_for_taxa: 
+    one: "검토하지 않은 대상:"
+    other: "검토하지 않은 대상:"
+  association_untrusted_for_taxa: 
+    one: "신뢰하지 않는 대상:"
+    other: "신뢰하지 않는 대상:"
+  associations_more_link: <span class="assistive">분류 협회</span> 더 보기
+  attribute: 특성
   audio_mute: 음소거
-  audio_pause: 일시정지
+  audio_pause: 일시 정지
   audio_play: 재생
   audio_stop: 정지
   audio_unmute: 음소거 해제
+  authoritative_information: 신뢰할 수 없는 정보
+  available: 사용 가능
+  average_rating_value_of_total: "평균 평점: %{total} 중 %{rating}"
   back: 뒤로
   back_to_profile: 프로필로 돌아가기
+  began: 개시
+  belongs_in_count_communities: 
+    one: 공동체 %{count}개에 속함
+    other: 공동체 %{count}개에 속함
+  bhl_publication: BHL 출판
+  bi_monthly: 매월 2주
+  biodiversity_heritage_library: 생물 다양성 유산 도서관
+  biomedical_terms: 생명 공학 용어
+  biomedical_terms_clouds_provided_by: MBL <a rel="nofollow" href="%{supplier_url}">노화 프로젝트의 생물학</a>에 의해 제공한 구름입니다.
+  biomedical_terms_provided_by: <a rel="nofollow" href="%{supplier_url}">PubMed</a>가 제공한 용어입니다.
   body: "본문:"
+  browsable: 찾아보기
+  browsable_hierarchies: 찾아볼 수 있는 계층
+  browse_hierarchy: 계층 찾아보기
+  browsing_branch_colon: "지점 탐색:"
+  build_communities: 공동체 구축
+  by_caps: 사용자
+  by_scientific_name_table_header: 과확적인 이름
+  cache_store: 캐시 저장소
+  calculate_averages_slow: 평균 계산 (느림)
   cancel: 취소
   cancel_split: 취소
+  cannot_be_associated_with_both_a_user_and_a_community: 사용자와 공동체 모두 연결할 수 없습니다
   cannot_be_empty: 비워둘 수 없습니다.
+  cannot_create_collection_item_from_class_error: "%{klass}에서 모음집 항목을 만들 수 없습니다."
+  cannot_create_community_from_watch_collection_error: 주시문서 목록에서 공동체를 만들 수 없습니다.
+  cannot_expand_children: 어린이 확장을 할 수 없습니다
+  cannot_find_member: 이 id로 된 구성원을 찾을 수 없습니다.
+  cannot_index_collection_item_type_error: "%{type}에서 모음집 항목을 색인할 수 없습니다."
   change: 바꾸기
   change_rating_to_1_of_5: 5점 중 1점으로 평가 바꾸기
   change_rating_to_2_of_5: 5점 중 2점으로 평가 바꾸기
@@ -487,17 +1044,67 @@ ko:
   change_rating_to_5_of_5: 5점 중 5점으로 평가 바꾸기
   choose_collection_header: 모음집 바꾸기
   citation: 인용
+  citing_link: 인용하기
+  classification_already_preferred: "오류: 이 분류는 이미 선호함으로 표시했습니다."
+  classification_curation_pending: 큐레이션이 대기 중입니다. 이 분류는 가까운 미래에 다른 문서로 이동할 수 있습니다.
+  classification_curation_split_comment_with_count: 
+    one: 이 문서에서 분류 %{count}개가 <a href='%{url}'>자신의 문서에 분할</a>했습니다.
+    other: 이 문서에서 분류 %{count}개가 <a href='%{url}'>자신의 문서에 분할</a>했습니다.
+  classification_from_agent: "%{agent}에서의 분류입니다."
+  classification_from_agent_chosen_by_curator: "%{curator}에 의해 선택한 %{agent}에서의 분류입니다."
+  classification_from_agent_chosen_by_curator_see_more: "%{curator}에 의해 선택한 %{agent}에서의 분류입니다. - <a href=\"%{more_link}\">더 보기</a>"
+  classification_preferred_for_taxon: 선호
+  classification_preferred_for_taxon_help_tip: "%{icon} 이 분류에 대한 선호 분류를 표시합니다."
+  classification_summary_section_header: 분류
+  classification_tree_header: 분류
+  classifications_edit_cancelled_merge_to_self: 원본과 대상이 같은 문서입니다. 이동하지 않습니다.
+  classifications_exemplar_column_header: 표본
   classifications_hierarchy_column_header: 분류
+  classifications_preferred_column_header: 선호
   classifications_rank_column_header: 순위
+  classifications_recognized_by_column_header: 인정한 콘텐츠 파트너
+  classifications_split_column_header: 나누기 / 이동
+  classifications_summary_header_with_count: 
+    one: 분류 %{count}개 찾음
+    other: 분류 %{count}개 찾음
+    zero: 분류가 EOL에 정상적으로 보이지 않음
+  classifications_with_count: 
+    one: 분류 %{count}개
+    other: 분류 %{count}개
+  clear_all_non_species_pages: 종이 아닌 문서 모두 지우기
+  clear_entire_cache_store: 캐시 저장소 모두 지우기
+  clear_species_page: 종 문서 지우기
   click: 클릭
   clicked_time: 클릭 시간
+  close_this_window_to_return_to_edit_window: 편집 창으로 돌아가려면 이 창을 닫으세요
   cms_available_in_languages: "이 문서는 다음에 존재합니다:"
-  cms_missing_content_title: 잘못된 번역
+  cms_missing_content_message: 죄송합니다, 이 문서는 선택한 %{selected_language}로 사용할 수 없습니다.
+  cms_missing_content_title: 번역 없음
+  collect_item: 항목 모음
+  collect_items: 항목 모음
+  collection_created_notice: <em>%{collection_name}</em> 모음집을 성공적으로 만들었습니다.
+  collection_created_with_count_notice: 
+    one: <em>%{collection_name}</em> 공동체에 모음집 항목 %{count}개를 성공적으로 만들었습니다.
+    other: <em>%{collection_name}</em> 공동체에 모음집 항목 %{count}개를 성공적으로 만들었습니다.
+  collection_delete_link: 이 모음집 영구 삭제
   collection_destroyed: 모음집을 삭제했습니다.
+  collection_error_no_items_selected: "오류: 항목을 선택하지 않아 어떠한 행동도 하지 않았습니다."
   collection_image: 모음집 그림
+  collection_is_empty: 이 모음집은 현재 비어있습니다.
+  collection_item_edit_by_javascript_not_authorized_error: 죄송합니다, 이 모음집 항목을 편집할 수 있는 권한이 없습니다. 이 모음집의 소유자나 편집자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
+  collection_item_edit_page_title: <em>%{collection_name}</em> 모음집에 항목 편집
+  collection_item_not_found_error: 해당 모음집 항목을 찾을 수 없습니다.
+  collection_name_cannot_be_blank: 모음집 이름은 비워둘 수 없습니다
   collection_name_label: 모음집 이름
   collection_newsfeed: 모음집 뉴스 피드
+  collection_not_created_error: 죄송합니다, 오류가 발생해 <em>%{collection_name}</em> 모음집을 만들지 못했습니다.
+  collection_not_destroyed_error: 죄송합니다, 모음집을 삭제할 수 없습니다.
+  collection_not_found_error: 죄송합니다, 해당 모음집을 찾을 수 없습니다.
+  collection_not_updated_error: 죄송합니다, 오류가 발생해 모음집을 업데이트하지 못했습니다.
   collection_rating: 모음집 평가
+  collection_updated_notice: <em>%{collection_name}</em> 모음집을 성공적으로 업데이트했습니다.
+  collection_was_added_to_community: "\"%{collection}\" 모음집을 이 공동체에 추가했습니다."
+  collection_was_removed_by_owner: 이 모음집은 소유자에 의해 제거됐습니다.
   collections: 
     editors: 
       show: 
@@ -507,9 +1114,24 @@ ko:
         tweet_text: "%{collection_name} 관리자"
     inaturalists: 
       show: 
+        add_observations: 관찰 추가
+        meta_description: 생명의 백과사전 %{collection_name} 모음집에 대한 iNaturalist 관찰
+        meta_keywords: "%{collection_name} iNaturalist 관찰"
+        meta_title: "%{collection_name} iNaturalist 관찰"
+        no_observations_added_to_this_project_yet: 아직 이 프로젝트에 관찰을 추가하지 않았습니다.
         observation_date: "날짜: %{observed_on}"
         observation_place: "장소: %{place}"
+        observer_with_link: "관찰자: %{observer_link}"
+        recent_observations: 최근 관찰
         some_taxon: 무언가
+        taxa_observed: 
+          one: 분류 %{count}개 관찰함
+          other: 분류 %{count}개 관찰함
+        top_contributors: 상위 iNaturalist 기여자
+        tweet_text: "%{collection_name} iNaturalist 관찰"
+        view_all_observations_on_inaturalist: iNaturalist에 %{project_title}에서 모든 관찰 보기
+        view_more_observations_on_inaturalist: iNaturalist에 %{project_title}에서 더 많은 관찰 보기
+        view_project_on_inaturalist: iNaturalist에 %{project_title} 보기
     newsfeeds: 
       show: 
         meta_description: "%{collection_name} 생명이 백과사전 모음집에 대한 뉴스, 덧글과 구성원 활동입니다."
@@ -524,19 +1146,48 @@ ko:
   collections_filter: 모음집
   collections_link: 모음집
   collections_page_title: 모음집
+  collections_summary_empty: 이 문서는 아직 어떠한 문서에도 속하지 않습니다.
+  collections_summary_header_with_count: 
+    one: 모음집 %{count}개 있음
+    other: 모음집 %{count}개 있음
+  collections_with_count: 
+    one: 모음집 %{count}개
+    other: 모음집 %{count}개
   comment: 덧글
   comment_added_notice: 덧글을 성공적으로 추가했습니다.
   comment_body_label: 내 덧글
+  comment_created_at: 만든 때
+  comment_delete_confirm: 덧글을 정말 삭제하겠습니까?
+  comment_edit_by_javascript_not_authorized_error: 죄송합니다, 이 덧글을 편집할 수 있는 권한이 없습니다. 이 덧글 작성자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
+  comment_new_posters_image_advisory_info: 프로필 사진과 이름이 목록에 덧글 옆에 나타납니다.
+  comment_new_posters_image_alt: 사진을 제공할 때의 프로필 사진입니다.
   comment_new_title: 새 덧글 추가
+  comment_not_added_error: 죄송합니다, 오류가 발생해 덧글을 추가할 수 없습니다.
+  comment_not_deleted_error: 죄송합니다, 오류가 발생해 덧글을 삭제할 수 없습니다.
+  comment_not_updated_error: 죄송합니다, 오류가 발생해 덧글을 업데이트할 수 없습니다.
   comment_or_rate_on_this_article: 이 문서에 덧글을 남기거나 평가하기
+  comment_or_rate_on_this_link: 이 링크에 덧글을 남기거나 평가하기
+  comment_show_posters_image_alt: 이 행동을 한 %{posters_name}의 프로필 사진입니다.
   comments: 덧글
   comments_and_tags: 덧글과 태그
   comments_filter: 덧글
+  comments_moderated: 덧글 검토함
+  comments_on: 덧글 남긴 곳
+  comments_with_count: 
+    one: 덧글 %{count}개
+    other: 덧글 %{count}개
+  common_activities_by_logged_in: 로그인한 사용자의 공통 활동입니다.
   common_name: 공통 이름
+  common_name_avg: 공통 이름 평균
+  common_name_exists: <em>%{name_string}</em> 공통 이름이 이미 존재합니다
+  common_names_with_count: 
+    one: 공통 이름 %{count}개
+    other: 공통 이름 %{count}개
   common_user_activity_page_title: 공통 사용자 활동
   communities: 
     collections: 
       index: 
+        meta_description: 생명의 백과사전 공동체에 %{community_name}에 의해 공동체 모음집에 함께 넣습니다.
         meta_keywords: "%{community_name} 모음집"
         meta_title: "%{community_name} 모음집"
         tweet_text: "%{community_name} 모음집"
@@ -547,17 +1198,46 @@ ko:
       meta_description: "%{community_name} 생명의 백과사전 공동체가 주인에 의해 제거되었습니다"
       meta_title: "%{community_name}(이)가 주인에 의해 제거됨"
   communities_filter: 공동체
+  communities_index_empty: 활발한 공동체가 없습니다.
+  communities_index_header: 활발한 공동체
   communities_link: 공동체
   communities_page_title: 공동체
-  communities_summary_empty: 이 분류군은 아직 어떠한 공동체에도 알차지 않습니다.
+  communities_summary_empty: 이 분류는 아직 어떠한 공동체에도 알차지 않습니다.
+  communities_summary_header_with_count: 
+    one: 공동체 %{count}개에 속함
+    other: 공동체 %{count}개에 속함
+  communities_that_can_edit_this_collection: 이 모음집을 관리할 수 있는 공동체
+  communities_with_count: 
+    one: 공동체 %{count}개
+    other: 공동체 %{count}개
   community: 공동체
   community_activity: 공동체 활동
-  community_description_default: 생명의 백과사전 공동체.
+  community_can_now_manage_this_collection: "\"%{community}\" 모음집은 지금 이 모음집을 관리할 수 있는 권한이 있습니다."
+  community_contributions_with_count: 
+    one: 기여 %{count}회
+    other: 기여 %{count}회
+  community_description_default: 생명의 백과사전 공동체입니다.
+  community_destroyed: 이 공동체를 삭제했습니다. 더 이상 분류 문서 또는 찾기 결과에서 보여지지 않습니다.
   community_empty_notice: 이 공동체에 구성원이 없습니다.
+  community_focus: 관리한 모음집
+  community_focus_items_with_count: 
+    one: 항목 %{count}개
+    other: 항목 %{count}개
+  community_invitation_comment: "\"%{community}\"에 가입하는 데 초대하고 싶습니다."
+  community_logo_alt_text: "%{community_name} 공동체에 대한 로고"
+  community_managers_with_count: 
+    one: 공동체 관리자 %{count}명
+    other: 공동체 관리자 %{count}명
   community_members: 공동체 구성원
+  community_members_with_count: 
+    one: 공동체 구성원 %{count}명
+    other: 공동체 구성원 %{count}명
   community_name_label: 공동체 이름
   community_newsfeed: 공동체 뉴스 피드
+  community_no_longer_has_manager_access_to_collection: "\"%{community}\" 공동체는 더 이상 \"%{collection}\" 모음집으로 관리자 접근할 수 없습니다."
+  community_not_destroyed_error: 죄송합니다, 문제가 발생해 공동체가 삭제되지 않았습니다.
   community_rating: 공동체 평가
+  community_removed_by_owner: 이 공동체는 소유자에 의해 제거됐습니다.
   community_tab_collections_header: 모음집
   completed: 완료
   confirm_leave: 정말 이 공동체를 떠나겠습니까?
@@ -576,33 +1256,60 @@ ko:
     new: 
       page_title: 피드백을 남겨주세요
     notices: 
-      message_sent: 의견을 보내드려서 감사합니다. 메시지는 해당 그룹에 보내졌습니다.
+      message_sent: 의견을 보내드려서 감사합니다. 메시지는 해당 그룹에 보냈습니다.
+  containing_value: "%{value}(을)를 포함합니다."
   content: 
     index: 
+      header_news: EOL 뉴스
       meta_description: 생명의 백과사전은 사진, 정보, 사실과 더 많은 우리의 식물계과 동물계에 살고 있는 모든 것에 대해 얻을 수 있는 모든 동물과 식물에 대한 과학적 지식을 수집하기 위해 전례없는 노력을 진행하고 있습니다.
       meta_keywords: 동물, 동물 사진, 동물 정보, 식물, 식물 생명, 식물 사진, 식물 정보, 식물상, 동물상
       meta_title: 동물 - 식물 - 사진과 정보
-      see_all_recent_activites: <span class="assistive">지난 주 활동</span>에 대해 더 보기
+      see_all_eol_news: <span class="assistive">eol 뉴스</span> 더 보기
+      see_all_recent_activites: <span class="assistive">지난 주 활동에 대해</span> 더 보기
+      see_all_statistics: <span class="assistive">EOL 통계</span> 더 보기
   content_has_been_updated: 콘텐트를 업데이트했습니다.
   content_notes_not_shown_to_us: "콘텐츠 참고 (사용자에게 보여지지 않음):"
   content_partner: 콘텐츠 파트너
   content_partner_about_header: "%{partner_name} 정보"
   content_partner_admin_index_link_back_to: 파트너 관리하기로 돌아가기
+  content_partner_administration_notes_empty: 관리 참고가 없습니다.
   content_partner_administration_notes_header: 관리 참고
   content_partner_administration_settings_header: 관리 설정
   content_partner_agreement_cancel_edit_agreement_link: 취소
   content_partner_agreement_cancel_new_agreement_link: 취소
   content_partner_agreement_cancel_sign_agreement_link: 취소
+  content_partner_agreement_create_successful_notice: 콘텐츠 파트너 약관 계약을 성공적으로 만들었습니다.
+  content_partner_agreement_create_unsuccessful_error: 죄송합니다, 오류가 발생해 콘텐츠 파트너 약관 계약을 만들지 못했습니다.
+  content_partner_agreement_signed_successful_notice: 성공적으로 콘텐츠 파트너 약관에 동의했고, 지금 데이터 자료를 추가할 수 있습니다.
+  content_partner_agreement_signed_unsuccessful_error: 죄송합니다, 오류가 발생해 콘텐츠 파트너 계약에 기술적인 문제가 발생했습니다. 다시 시도하시고 문제가 계속 발생하면 EOL에 알려주세요.
+  content_partner_agreement_subheader: 콘텐츠 파트너 계약
+  content_partner_agreement_update_successful_notice: 콘텐츠 파트너 약관 계약을 성공적으로 업데이트했습니다.
+  content_partner_agreement_update_unsuccessful_error: 죄송합니다, 오류가 발생해 콘텐츠 파트너 약관 계약을 업데이트하지 못했습니다.
+  content_partner_column_header_partner: 파트너
   content_partner_contact_create_successful_notice: 연락처가 삭제됐습니다.
+  content_partner_contact_create_unsuccessful_error: 죄송합니다, 오류가 발생해 내용을 추가하지 못했습니다.
   content_partner_contact_delete_successful_notice: 연락처가 삭제됐습니다.
+  content_partner_contact_delete_unsuccessful_error: 죄송합니다, 오류가 발생해 내용을 삭제하지 못했습니다.
   content_partner_contact_edit_link: 연락 편집
   content_partner_contact_edit_page_subheader: 연락 편집
+  content_partner_contact_new_edit_form_header: 콘텐츠 파트너 연락 정보
+  content_partner_contact_new_edit_form_tip: 이름, 성과 이메일은 %{required_icon}(이)가 필요합니다.
   content_partner_contact_new_link: 새 연락 추가
   content_partner_contact_new_page_subheader: 연락 추가
+  content_partner_contact_update_successful_notice: 내용을 성공적으로 업데이트했습니다.
+  content_partner_contact_update_unsuccessful_error: 죄송합니다, 오류가 발생해 내용을 업데이트하지 못했습니다.
   content_partner_contacts_header: 연락처
+  content_partner_create_successful_notice: 콘텐츠 파트너를 성공적으로 만들었습니다.
+  content_partner_create_unsuccessful_error: 죄송합니다, 오류가 발생해 콘텐츠 파트너를 만들지 못했습니다.
   content_partner_current_agreement_create_link: 새로 만들기
   content_partner_current_agreement_edit_link: 편집
+  content_partner_current_agreement_empty: 동의하지 않음
+  content_partner_current_agreement_not_accepted: 아직 동의하지 않았습니다
+  content_partner_current_agreement_signed_on_with_date: "%{date}에 가입함"
   content_partner_current_agreement_view_link: 보기
+  content_partner_data_description_header: 데이터 설명
+  content_partner_default_description: 생명의 백과사전 콘텐츠 파트너입니다.
+  content_partner_edit_link: 콘텐츠 파트너 편집
   content_partner_filter_option_published_latest_harvest_not_published: 최근 게시하지 않음
   content_partner_filter_option_published_latest_harvest_pending_publish: 최근 보류 중인 게시
   content_partner_filter_option_published_latest_harvest_published: 최근 게시함
@@ -615,12 +1322,16 @@ ko:
   content_partner_has_unpublished_content_false: 게시하지 않은 콘텐츠 없음
   content_partner_has_unpublished_content_true: 게시하지 않은 콘텐츠
   content_partner_homepage_link: 파트너 웹사이트에 방문하기
-  content_partner_latest_published_harvest_event_time_ago: 최근 %{time_passed}에 업데이트함;
+  content_partner_latest_published_harvest_event_time_ago: 최근 %{time_passed} 전에 업데이트함;
+  content_partner_logo_alt_text: "%{partner_name} 콘텐츠 파트너에 대한 로고"
   content_partner_managed_by_header: 관리자
+  content_partner_new_edit_form_profile_header: 콘텐츠 파트너 프로필 정보
   content_partner_new_link: 새 콘텐츠 파트너 추가
   content_partner_new_page_subheader: 새 콘텐츠 파트너 추가
   content_partner_notes_header: 프로젝트 참고
   content_partner_oldest_published_harvest_event_time_ago: "%{time_passed} 전에 EOL에 처음으로 게시함;"
+  content_partner_overview_agreement_header: 파트너 계약
+  content_partner_overview_agreement_link: 현재 계약 보기
   content_partner_overview_link: 파트너 둘러보기
   content_partner_overview_link_back_to: 파트너 둘러보기로 돌아가기
   content_partner_profile_menu: 콘텐츠 파트너 프로필
@@ -631,10 +1342,13 @@ ko:
   content_partner_resource_about_header: 자료 정보
   content_partner_resource_auto_publish_false: 아니오
   content_partner_resource_auto_publish_true: 예
+  content_partner_resource_collection_empty: 이 자료에 대한 모음집을 생성하지 않았습니다.
   content_partner_resource_collection_header: 모음집을 게시함
   content_partner_resource_collection_show_link: 게시한 모음집 보기
   content_partner_resource_collections_header: 모음집
+  content_partner_resource_create_unsuccessful_error: 죄송합니다, 오류가 발생해 자료를 추가하지 못했습니다.
   content_partner_resource_dataset_details_header: 데이터 집합
+  content_partner_resource_description_empty: 설명이 이 자료에 제공하지 않았습니다.
   content_partner_resource_edit_link: 편집
   content_partner_resource_edit_subheader: 자료 편집
   content_partner_resource_edit_with_type_link: 자료 편집
@@ -646,11 +1360,17 @@ ko:
   content_partner_resource_harvest_event_update_unsuccessful_error: 죄송합니다, 오류가 발생해 %{resource_title}에 대한 수확 사건을 업데이트하지 않았습니다.
   content_partner_resource_harvest_events_empty: 찾은 수확 사건이 없습니다.
   content_partner_resource_harvest_events_for_resource_subheader: "%{resource_title} 자료에 대한 수확 사전"
-  content_partner_resource_harvest_events_see_all_link: 모든 <span class="assistive">수확 사건</span> 보기
+  content_partner_resource_harvest_events_see_all_link: <span class="assistive">수확 사건</span> 모두 보기
   content_partner_resource_hierarchy_browsable: 찾아보기
+  content_partner_resource_hierarchy_complete_false: 이 계층은 큐레이트로 설정하지 않았습니다. 일치하는 항목은 개념 하나로 취급할 수 있습니다.
   content_partner_resource_hierarchy_edit_link: 편집
+  content_partner_resource_hierarchy_edit_subheader: <em>%{resource_title}</em> 자료에 대한 계층 편집
+  content_partner_resource_hierarchy_not_browsable: 찾아볼 수 없음
   content_partner_resource_hierarchy_request_publish: 요청 보류 중
   content_partner_resource_hierarchy_unknown: 알 수 없음
+  content_partner_resource_hierarchy_update_successful_notice: 계층을 성공적으로 업데이트했습니다.
+  content_partner_resource_hierarchy_update_unsuccessful_error: 죄송합니다, 오류가 발생해 계층을 업데이트하지 못했습니다.
+  content_partner_resource_licensing_details_header: 권리 및 귀속
   content_partner_resource_new_link: 새 자료 추가
   content_partner_resource_new_subheader: 새 자료 추가
   content_partner_resource_preview_collection_header: 미리 보기 모음집
@@ -658,18 +1378,28 @@ ko:
   content_partner_resource_processing_header: 과정 상태 및 설정
   content_partner_resource_resource_status_new: 만들어짐
   content_partner_resource_show_link_back_to: 자료로 돌아가기
+  content_partner_resource_show_subheader: <em>%{resource_title}</em> 자료에 대한 자세한 정보
   content_partner_resource_vetted_false: 아니오
   content_partner_resource_vetted_true: 예
   content_partner_resource_view_link: 보기
   content_partner_resources_header: 자료
+  content_partner_resources_link: 자료 및 연락
+  content_partner_resources_link_back_to: 자료 및 연락으로 돌아가기
+  content_partner_statistics_column_header_provider_count: 제공자 콘텐츠를 포함한 문서
+  content_partner_statistics_column_header_statistic: "%{year}년 %{month_name} 달에 측정한 통계"
   content_partner_statistics_column_header_taxa_page_page_views: 문서 보기
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: 문서당 시간 (초)
   content_partner_statistics_column_header_taxa_page_unique_page_views: 고유 문서 보기
   content_partner_statistics_column_header_total_count: 모든 문서
+  content_partner_statistics_empty: "%{year}년 %{month_name}에 대한 통계를 찾을 수 없습니다."
   content_partner_statistics_link: 사용 통계
   content_partner_statistics_month_label: 월
   content_partner_statistics_year_label: 년
   content_partner_status_empty: 알 수 없는 상태
+  content_partner_update_successful_notice: 파트너 자세한 정보를 성공적으로 업데이트했습니다.
+  content_partner_update_unsuccessful_error: 죄송합니다, 오류가 발생해 파트너 자세한 정보를 업데이트하지 못했습니다.
   content_partner_vetted_false: 검토하지 않음
+  content_partner_vetted_true: 심사함
   content_partners: 
     edit: 
       meta_title: "%{partner_name} 편집"
@@ -686,6 +1416,12 @@ ko:
         meta_keywords: "%{partner_name} 통계, %{partner_name} 웹 사용"
         meta_title: "%{partner_name} 통계"
         tweet_text: "%{partner_name} 사용 통계"
+  content_partners_empty: 콘텐츠 파트너를 찾을 수 없습니다.
+  content_partners_link: 콘텐츠 파트너
+  content_partners_page_title: 콘텐츠 파트너
+  content_partners_with_count: 
+    one: 콘텐츠 파트너 %{count}개
+    other: 콘텐츠 파트너 %{count}개
   content_server_full_url: 콘텐츠 서버 전체 URL
   content_servers: 콘텐츠 서버
   content_setting_colon: "콘텐츠 설정:"
@@ -697,11 +1433,27 @@ ko:
   content_summary_table_type_unreviewed_text_row: 검토하지 않은 텍스트 항목 수
   content_type: 콘텐츠 종류
   contribute: 기여
+  copied_all_items_from_collection_with_count: 
+    one: "%{from}에서 이 모음집으로 항목 하나를 복사했습니다."
+    other: "%{from}에서 이 모음집으로 모든 항목 %{count}개를 복사했습니다."
+  copied_all_items_to_collections: 
+    one: "%{name}에서 모음집 %{count}개로 모든 항목을 복사했습니다."
+    other: "%{name}에서 모음집 %{count}개로 모든 항목을 복사했습니다."
+  copied_items_from_collection_with_count_notice: 
+    one: "%{name}에서 항목 %{count}개를 복사했습니다."
+    other: "%{name}에서 항목 %{count}개를 복사했습니다."
   copy: 복사
+  copy_items_to_a_new_collection_with_count: 
+    one: 새 모음집에 항목 %{count}개를 복사합니다
+    other: 새 모음집에 항목 %{count}개를 복사합니다
   copy_of_name: "%{name} 복사"
   copyright: "저작권:"
-  could_not_find_collection_error: 죄송합니다, 모음집을 찾을 수 없습니다.
+  could_not_find_collection_error: 죄송합니다, 해당 모음집을 찾을 수 없습니다.
+  could_not_find_user: 이 공동체의 구성원이 아닙니다.
   count: 갯수
+  count_results_for_search_term: 
+    one: <em>%{search_term}</em>에 대한 결과 %{count}개
+    other: <em>%{search_term}</em>에 대한 결과 %{count}개
   create_a_collection: 모음집 만들기
   create_a_community: 공동체 만들기
   create_account: 계정 만들기
@@ -713,12 +1465,14 @@ ko:
   create_community_button: 공동체 만들기
   created: Created
   created_at: 만든 곳
-  created_by: 만든 이
-  created_colon: "만들어짐:"
+  created_by: 작성자
+  created_colon: "만든 날짜:"
   created_community: 공동체를 성공적으로 만들었습니다.
   creative_commons: 크리에이티브 커먼즈
   curated: 큐레이트됨
   curated_association_update_button: 바뀐 사항 저장
+  curated_objects_of: "%{name}의 큐레이트한 개체"
+  curated_species_of: "%{name}의 큐레이트한 종"
   curation_comment: 큐레이션 덧글
   curation_privileges_page_title: 큐레이터 되기
   curation_reason_placeholder: 추가적인 자세한 사항 (선택 사항)
@@ -737,22 +1491,29 @@ ko:
   curator_profile_of: "%{name}의 큐레이터 프로필"
   curator_question: 큐레이터?
   curator_scope_colon: "큐레이터 범위:"
+  curator_status_changed_by: "%{date}에 %{user} 사용자에 의해 큐레이터 상태를 바꿈"
   curators: 큐레이터
+  curators_empty: 우리 큐레이터는 아직 이 문서에 어떠한 작업도 하지 않았습니다.
   curators_summary_header_with_count: 
-    one: 큐레이터 %{count}명에 의해 검토함
-    other: 큐레이터 %{count}명에 의해 검토함
+    one: 큐레이터 %{count}명이 검토함
+    other: 큐레이터 %{count}명이 검토함
   curators_summary_learn_more_link: 큐레이트 방법 알아보기
   curators_with_count: 
     one: 큐레이터 %{count}명
     other: 큐레이터 %{count}명
   current_language: "언어: %{iso_code}"
-  currently_in_eol: 현재 생명의 백과사전에 있음
+  currently_in_eol: 현재 생명의 백과사전에서
   currently_published: 현재 게시함
+  daily: 매일
+  darwin_core: 다윈 코어
   dashboard: 데시보드
   data_database_colon: "날짜:"
+  data_logging_active: 데이터 기록 활동
   data_master_database_colon: "데이터 마스터:"
   data_object: 데이터 개체
+  data_object_ignore: 이 항목 무시
   data_object_reference: 데이터 개체 참고
+  data_object_undo_ignore: 무시 목록에서 제거
   data_objects: 
     show: 
       meta_description_article: 문서 - %{dato_description}
@@ -815,28 +1576,36 @@ ko:
       - 11월
       - 12월
     month_names_short: 
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
+      - 1월
+      - 2월
+      - 3월
+      - 4월
+      - 5월
+      - 6월
+      - 7월
+      - 8월
+      - 9월
+      - 10월
+      - 11월
+      - 12월
     next: 다음
     previous: 이전
   dato_create_cancel: 취소
+  dato_create_user_text_error: 죄송합니다, 오류가 발생해 문서를 추가하지 못했습니다.
   dato_edit_cancel: 취소
-  dato_edit_text_link_button: 이 문서 편집
+  dato_edit_link_button: 이 링크 편집
+  dato_edit_link_title: 링크 편집
+  dato_edit_text_button: 이 문서 편집
   dato_edit_text_title: 문서 편집
+  dato_location_created: "위치 만듦: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: 문서 콘텐츠
   dato_new_edit_user_text_fieldset_information_header: 문서 정보
+  dato_new_edit_user_text_link_fieldset_content_header: 링크 데이터
   dato_new_text_for_taxon_page_title: <i>%{taxon}</i>로 문서 추가
+  dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
+  dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트하지 못했습니다.
   default: 기본값
+  default_focus_collection_name_from_community: "%{name}의 집중"
   default_watch_collection_name: "%{username} 사용자의 주시문서 목록"
   delete: 삭제
   delete_community: 이 공동체 삭제
@@ -851,10 +1620,21 @@ ko:
   did_you_mean: "이것을 찾으셨나요: %{suggestions} ?"
   disabled_for_now: 지금 비활성화
   discover_link: 발견
+  displaying_numerical_range: "%{total}개 중 %{start_number} &ndash; %{end_number} 보기"
+  do_you_want_to_be_a_curator: 큐레이터가 되겠습니까
   donate: 기부
+  donation_amount_legend: 기부할 금액을 선택하세요
   donation_amount_other_label: 기타
+  donation_confirmation: 기부 확인
+  donation_error_no_amount: 기부 금액을 선택하세요.
+  donation_error_only_numbers: 숫자만 사용하여 금액을 입력하세요.
+  donation_sponsorship_content_title: 콘텐츠 후원
+  donation_sponsorship_fellowships_title: 동호회
+  donation_sponsorship_infrastructure_title: 핵심 인프라
   done_already: 이미 완료
   download_wav_file: WAV 파일 다운로드
+  dublin_core: 더블린 코어
+  duplicate_items_were_ignored: 중복된 항목은 무시했습니다.
   edit: 편집
   edit_collection_details: 모음집 자세한 정보 편집
   edit_collection_details_header: 모음집 자세한 정보 편집
@@ -863,11 +1643,13 @@ ko:
   edit_community: 공동체 편집
   edit_contact_us_topic: 주제 문의하기 편집
   edit_contact_us_topics: 주제 문의하기 편집
+  edit_eol_glossary: EOL 용어집 편집
+  edit_glossary_term: 용어집 용어 편집
+  edit_hierarchy: 계층 편집
   edit_my_profile: 내 프로필 편집
-  edit_news_item: 뉴스 항목 편집
   edit_news_items: 뉴스 항목 편집
   edit_page_contents: 문서 내용 편집
-  edit_search_suggestion: 검색 제안 편집
+  edit_search_suggestion: 찾기 제안 편집
   edit_search_suggestions: 검색 제안 편집
   edit_table_of_contents: 목차 편집
   edit_tag_suggestions: 태그 제안 편집
@@ -878,16 +1660,33 @@ ko:
   editors_tab_label: 운영자
   email: 이메일
   email_colon: "이메일:"
+  email_recipients: 이메일 받는 사람
   encyclopedia_of_life: 생명의 백과사전
+  endorsed_by: 알찬 문서 지정자
   endorsed_collections: 알찬 모음집
   endorsed_collections_with_count: 
     one: 알찬 모음집 %{count}개
     other: 알찬 모음집 %{count}개
+  eol_administration_console: EOL 관리 콘솔
+  eol_api: EOL API
+  eol_api_collections: "EOL API: 모음집"
+  eol_api_colon: "EOL API:"
   eol_api_data_objects: "EOL API: 데이터 개체"
+  eol_api_hierarchies: "EOL API: 계층"
+  eol_api_hierarchy_entries: "EOL API: 계층 항목"
+  eol_api_pages: "EOL API: 문서"
+  eol_api_ping: "EOL API: 핑"
+  eol_api_provider_hierarchies: "EOL API: 제공자 계층"
   eol_api_search: "EOL API: 찾기"
+  eol_api_search_by_provider: "EOL API: 제공자에 의한 검색"
+  eol_colon: "EOL:"
+  eol_curator_activity_email_message: 생명의 백과사전 큐레이터 <a href='%{profile_url}'>%{curator_full_name}</a> 사용자가 <a href='%{data_object_url}'>EOL 사이트</a>%{comment}에 %{action}
+  eol_flickr_group: EOL 플리커 그룹
+  eol_glossary: EOL 용어집
   eol_news: EOL 뉴스
   eol_pages: 문서
   eol_statistics: 
+    comparing_dates: <span class="date_one">%{date_one}</span><span class="assistive">(와)과</span> <span class="date_two">%{date_two}</span> <span class="assistive">비교</span>
     content_partners: 
       menu_link: 콘텐츠 파트너
       page_header: 콘텐츠 파트너 통계
@@ -918,48 +1717,88 @@ ko:
       page_title: 통계
     users_data_objects: 
       menu_link: 사용자가 제출한 텍스트
-      page_header: 사용자가 제출한 문서 통계
+      page_header: 사용자가 제출한 텍스트 통계
       page_title: 통계
+    warnings: 
+      stats_unavailable_for_date: 죄송합니다, 통계는 %{date}에 사용할 수 없습니다. 다른 날짜를 선택하세요.
+  error_401_description: 죄송합니다, 해당 URL에 접근할 수 있는 권한이 없습니다.
   error_401_page_title: 권한 없음
+  error_403_description: 죄송합니다, 해당 URL에 접근할 수 있는 권한이 없습니다.
   error_403_page_title: 접근 거부
+  error_404_description: 죄송합니다, 해당 URL에서 문서를 찾을 수 없습니다.
   error_404_page_title: 찾을 수 없음
   error_500_page_title: 이런.
   error_default_page_title: 이런.
+  error_homepage_or_search_option: "<a href=\"/\">대문 문서</a>로 돌아가거나 찾기 도구를 사용할 수 있습니다:"
   error_log: 오류 기록
   error_log_detail: 오류 기록 자세한 사항
+  error_logging_active: 오류 기록 활동
+  error_watch_collections_cannot_be_shared: 주시문서 모음집을 공유할 수 없습니다
   example_colon: "예시:"
-  explore: 탐색
+  exception: 예외
+  exceptions: 
+    security_violations: 
+      administrators_only: 죄송합니다, 접근은 EOL 관리자로 제한됩니다.
+      default: 접근이 거부되었습니다.
+      hidden_user_login: 죄송합니다, 로그인은 해당 계정에서 비활성화되어 있습니다.
+      hidden_user_recover_account: 죄송합니다, 계정 복구는 해당 계정에서 비활성화되어 있습니다.
+      hidden_user_temporary_login: 죄송합니다, 계정 복구와 로그인은 해당 계정에 대해 비활성화되어 있습니다.
+  expand_all_children: 모든 하위 확장
+  explore: 탐구
+  explore_what_we_know_about_taxon: "%{taxon}에 대한 EOL이 알고 있는 탐구입니다."
   export_all_of_the_entries_as_a: 항목 모두를 CSV 파일로 내보내기
   export_curator_csv_link: "[모든 큐레이터를 CSV로 내보내기]"
   export_this_list_as_csv: 이 목록을 CSV로 내보내기
   external_link_header: 바깥 링크
-  external_link_icon_alt_text: 바깥 링크.
-  external_report_click_url_to_proceed: 바깥 보고. 진행하려면 URL를 클릭하세요.
+  external_link_icon_alt_text: 바깥 링크입니다.
+  external_report_click_url_to_proceed: 바깥 보고입니다. 진행하려면 URL를 클릭하세요.
+  external_report_click_year_to_proceed: 바깥 보고입니다. 진행하려면 년도를 클릭하세요.
   facebook: 페이스북
+  failed_login_attempts_with_count: 
+    one: (로그인 시도를 %{count}회 실패했습니다)- 사용자가 로그인하려면 확인해야 합니다
+    other: (로그인 시도를 %{count}회 실패했습니다)- 사용자가 로그인하려면 확인해야 합니다
   family_name_colon: "성:"
   feedback: 피드백
   file: 파일
   file_id: 파일 ID
   file_size: 파일 크기
   filter_button: 필터
+  filter_by_day: 날짜별 필터
+  filter_by_status: 상태별 필터
+  filter_by_status_all_option: 모든 상태
   filter_by_status_inappropriate_option: 부적절
   filter_by_status_trusted_option: 신뢰함
   filter_by_status_unreviewed_option: 검토하지 않음
   filter_by_status_untrusted_option: 신뢰하지 않음
+  filter_by_type: 종류별 필터
+  filter_by_type_all_option: 모든 종류
+  filter_by_type_all_option_with_count: 
+    one: 모든 종류 (%{count}개)
+    other: 모든 종류 (%{count}개)
   filter_by_type_collection_option: 모음집
   filter_by_type_comment_option: 덧글
   filter_by_type_community_option: 공동체
-  filter_by_type_content_page_option: EOL 정보
+  filter_by_type_content_page_option: EOL 소개
   filter_by_type_image_option: 그림
+  filter_by_type_image_option_with_count: 
+    one: 그림 (%{count}개)
+    other: 그림 (%{count}개)
+  filter_by_type_link_option: 링크
   filter_by_type_name_option: 이름
   filter_by_type_object_curated_option: 개체 큐레이트함
   filter_by_type_sound_option: 소리
+  filter_by_type_sound_option_with_count: 
+    one: 소리 (%{count}개)
+    other: 소리 (%{count}개)
   filter_by_type_taxa_comment_option: 분류 덧글
   filter_by_type_taxon_concept_option: 분류
   filter_by_type_text_option: 문서
   filter_by_type_user_option: 사람
   filter_by_type_video_option: 동영상
-  filter_media: 필터 미디어
+  filter_by_type_video_option_with_count: 
+    one: 동영상 (%{count}개)
+    other: 동영상 (%{count}개)
+  filter_media: 미디어 필터
   filter_newsfeed_option_all: 모두
   filter_newsfeed_option_collections: 모음집
   filter_newsfeed_option_community: 공동체
@@ -968,17 +1807,54 @@ ko:
   filter_newsfeed_option_watchlist: 주시문서 목록
   filtered_information: 필터한 정보
   find_taxa_submit_button: 분류 찾기
-  flash_video: 플래시 비디오
+  flash_notice_redirected_from_search_html: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">찾기 페이지로 돌아가려면 여기를 클릭하세요.</a>
+  flash_notice_redirected_from_search_html_more_results: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">다른 찾기 결과를 보려면 여기를 클릭하세요.</a>
+  flash_video: 플래시 동영상
+  flickr: Flickr
+  focus_list_newsfeed: 뉴스 피드 집중 목록
+  for_images_to_reference_parens: (그림 참고용)
+  for_pdfs_and_docs_parens: (PDF 및 문서용)
   forgot_password: 비밀번호 잊음
   forgot_password_form_cancel: 취소
   forgot_password_form_choose_username_legend: 계정 선택
   forgot_password_form_header: 비밀번호 초기화
+  frequency: 주기
+  frequency_daily: 매일
+  frequency_monthly: 매월
+  frequency_never: 없음
+  frequency_weekly: 매주
+  friendly_url: 친절한 URL
+  from_communities: "공동체: %{communities}"
+  from_community: "%{community} 공동체"
+  full_content_url: 전체 내용 URL
+  gbif_map: GBIF 지도
+  general_site_admin: 일반 사이트 관리자
+  get_more_tasks: 더 많은 작업 갖기
+  given_name_colon: "주어진 이름:"
   global_access_tagline: 지구상의 생명에 관한 지식에 대한 전세계적 접근
+  global_navigation: 세계 항해
+  glossary_is_empty: (용어가 비어 있음)
   glossary_term: 이용 약관
+  glossary_terms: 용어 약관
   go: 가기
+  go_back: 돌아가기
   google: Google
+  google_analytic_results: Google 웹로그 분석 결과
+  google_analytics_active: Google 웹로그 분석 활동
+  google_analytics_google_account_and_access_required: Google 웹로그 분석 (Google 계정 및 접속 필요)
+  google_images: Google 이미지
+  google_scholar: Google 학술 검색
+  grant_full_curator_link: 부여
+  grant_manager_link: 관리자 역할 부여
   harvest_id: 수확 ID
+  harvesting_processes_log: 수확 과정 기록
+  harvests_for: "%{resource}에 대한 수확"
+  has_already_been_taken: 이미 토큰이 있습니다.
+  has_colon: "했습니다:"
   has_curated_your_image: 그림을 큐레이트했습니다
+  has_hidden_your_image: 그림을 숨겼습니다
+  has_trusted_your_image: 그림을 신뢰했습니다
+  has_untrusted_your_image: 그림을 신뢰할 수 없습니다
   hello_user: "%{user} 안녕하세요"
   help: 도움말
   helpers: 
@@ -1021,6 +1897,9 @@ ko:
         user_id: 콘텐츠 파트너 자세한 사항 관리자
       content_partner_agreement: 
         mou_url: 계약 파일 URL <small>(대체 선택 사항)</small>
+        mou_url_more: 선택적으로 이 파트너의 계약을 포함하는 파일에 대한 URL을 입력하세요. 이 파일은 다른 계약 텍스트보다 우선 적용됩니다. EOL 콘텐츠 서버에 파일(예를 들어 PDF 파일)을 저장하고 싶은 경우 처음에 URL을 얻으려면 <a href="%{upload_content_url}">파일을 올릴</a> 수 있습니다.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: 데이터 또는 데이터 집합과 관련된 분류 문서에 덧글이나 큐레이터 행동이 있다면 이메일 보고서가 보내집니다.
       data_object: 
         bibliographic_citation: 참고 문헌 인용
         description: 텍스트 <small>(일부 HTML 마크업은 허용함)</small>
@@ -1028,11 +1907,17 @@ ko:
         license_id_more: <a href="%{policy_url}">EOL 라이선스 정책</a>을 읽으세요
         object_title: 제목
         refs: 참고 <small>(새 행에 각 참조를 넣으세요)</small>
-        rights_holder: 권리 소유자
-        rights_statement: 권리 정책
-        rights_statement_more: 크리에이티브 커먼즈 저작자표시 (CC-BY) 라이선스에 따라 필요한 경우 사용 권리 정책은 <q cite="http://creativecommons.org/licenses/by/3.0">저자 또는 라이선스 제공자에 의해</q> 지정된 방식으로 상태 속성을하시기 바랍니다.
+        rights_holder: 권한 소유자
+        rights_holder_more: 이 데이터에 대한 권리를 소유 또는 관리하는 사람이나 조직을 지정합니다. 이 입력란을 공백으로 남겨두면 퍼블릭 도메인을 제외한 모든 라이선스 권리 보유자로 가정할 것입니다. 퍼블릭 도메인 라이선스는 저작권 보유자가 필요하지 않습니다.
+        rights_statement: 권한 정책
+        rights_statement_more: 크리에이티브 커먼즈 저작자표시 (CC-BY) 라이선스에 따라 필요한 경우 사용 권리 정책은 <q cite="http://creativecommons.org/licenses/by/3.0">저자 또는 라이선스 제공자에 의해 지정된 방식에 따라</q> 저자 표기에 주의하시기 바랍니다.
         source_url: 원래 데이터 개체에 대한 URL
         toc_item: 절
+      data_object_link: 
+        description: 설명 <small>(일부 HTML 마크업은 허용함)</small>
+        link_type: 분류
+        source_url: 링크 URL
+        toc_item: 제목
       eol_statistic: 
         date_one: 날짜
         date_two: 날짜
@@ -1051,16 +1936,27 @@ ko:
         published_at: 게시함
         published_status: 상태
       hierarchy: 
+        browsable_more: EOL의 기본 찾아보는 계층 구조 중 하나가 이 계층 구조를 홍보하기 위해 찾아보도록 확인합니다.
         browsable_status_with_colon: "본문 상태:"
         complete: 큐레이트됨
+        complete_more: "큐레이트한 계층 구조의 모든 항목이 고유하도록 간주합니다. 즉 일치하는 이름 문자열이 동음이의어로 간주합니다. <strong>경고: 데이터의 무결성을 위협할 수 있으므로 계층 구조의 동음이의어의 상태의 일부가 없는 한 이 속성을 바꾸지 마십시오.</strong>"
         request_publish: 요청한 게시
+        request_publish_more: EOL의 기본 찾아보는 계층 구조 중 하나가 이 계층 구조를 홍보하기 위해 대기 중인 요청이 있는지 여부를 나타냅니다.
+      news_item: 
+        active: 게시함
+        active_more: 게시한 뉴스 항목은 선택한 날짜와 시간에 공개적으로 보여집니다. 어떤 언어로 이 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
+        page_name: 고유 이름 <small>(ISO 기본 라틴 알파벳 문자를 소문자만을 밑줄)</small>
+        page_name_more: 이 뉴스 항목에 대한 고유하고 자기를 설명하며 의미있고 지속적인 식별자를 입력하세요. 여기에 입력한 이름은 이 뉴스 항목에 대한 URL을 만드는 데 사용합니다. 예를 들어 <em>new_version_of_eol</em> 고유한 이름은 <em>http://eol.org/news/new_version_of_eol</em> URL로 변환됩니다.
       open_authentication: 
         connect: 추가
         connected: 연결함
       resource: 
         accesspoint_url: 데이터 집합 URL
+        accesspoint_url_existing_remove: 이 자료는 현재 끝난 URL인 <em>%{accesspoint_url}</em>(을)를 불러오고 있습니다. 기존 URL을 제거하려면 파일을 올리고 대신 파일에서 자료를 불러오세요.
         administration_settings: 관리자 설정 <small>(EOL 관리자한테만 보여짐)</small>
         dataset: 데이터 집합
+        dataset_existing_remove: <em>%{file_name}</em> 파일은 현재 이 자료와 연결되어 있습니다. 기존 <em>%{file_name}</em> 파일을 바꾸려면 URL을 입력하고 대신 URL 자료를 불러오세요. (권장)
+        dataset_existing_replace: <em>%{file_name}</em> 파일은 현재 이 자료와 연결되어 있습니다. 기존 <em>%{file_name}</em> 파일을 바꾸려면 새 파일을 올리세요.
         dwc_archive_url: "이 자료와 관련된 다윈 코어 아카이브가 있다면, 여기에 URL을 입력하세요 <small>(TAR.GZIP, TAR.GZ 또는 TGZ만)</small>:"
         hierarchy: 체계
         latest_harvest_event: 최근 수확
@@ -1079,16 +1975,34 @@ ko:
         username_or_email: 사용자 이름이나 이메일 주소
       translated_content_page: 
         active_translation: 게시함
+        active_translation_more: 게시한 번역은 문서 자체를 게시하지 않은 경우를 제외하고 공개적으로 보여집니다. 문서의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
         language_id: 언어
+        left_content_more: "(선택 사항) 둘러보기 링크의 정렬하지 않은 목록을 추가합니다. 현재 문서 링크를 강조하려면 <code>active</code> 클래스 이름을 사용하세요, 예를 들어 <code>:id</code>인 곳에 <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>는 현재 문서 ID나 고유 이름이고 <code>:title</code>은 문서의 설명 제목입니다. (<strong>참고: EOL CMS 문서의 모든 링크는 슬래시로 시작해야 합니다: <code>/info/:id</code></strong>) 이러한 바뀜을 수행하려면 편집기 도구 모음에서 <em>원본</em>을 선택하여 직접 HTML 원본 코드를 편집해야 합니다."
+        main_content_more: "본문 영역에 주요 문서 내용을 입력하세요. 적절한 의미적 텍스트 요소를 선택하려면 <em>형식</em> 드롭다운을 사용하세요, 예를 들어 <em>2단계 문단 제목</em>을 사용하려면 <em>2단계 문단 제목</em>을 선택하세요. 참고: <em>1단계 문단 제목</em>은 문서 제목을 위해 예약되어 있습니다. 본문 영역의 문단 제목은 <em>2단계 문단 제목</em>으로 시작합니다. 수동으로 HTML을 삽입하고 편집하도록 허용하려면 HTML 원본 코드 보기로 전환하기 위해 <em>원본</em>을 선택하세요."
+        meta_description_more: 문서 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인와 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
+        meta_keywords_more: 문서의 내용을 최상으로 반영하기 위해 단어와 짧은 문장의 쉼표로 구분한 목록을 입력하세요. 키워드와 주요 단어가 가끔 검색어에 대한 문서의 관련성을 평가하기 위해 웹 검색 엔진에 의해 사용됩니다.
+        title_more: 이 내용의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
+      translated_news_item: 
+        active_translation: 게시함
+        active_translation_more: 게시한 번역은 뉴스 항목 자체가 게시하지 않은 경우를 제외하고 공개적으로 보여집니다. 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
+        body_more: "본문 영역에 뉴스 항목 내용을 입력하세요. 적절한 의미적 텍스트 요소를 선택하려면 <em>형식</em> 드롭다운을 사용하세요, 예를 들어 <em>2단계 문단 제목</em>을 사용하려면 <em>2단계 문단 제목</em>을 선택하세요. 참고: <em>1단계 문단 제목</em>은 뉴스 항목 제목을 위해 예약되어 있습니다. 본문 영역의 문단 제목은 <em>2단계 문단 제목</em>으로 시작합니다. 수동으로 HTML을 삽입하고 편집하도록 허용하려면 HTML 원본 코드 보기로 전환하기 위해 <em>원본</em>을 선택하세요."
+        language_id: 언어
+        meta_description_more: 뉴스 항목 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인와 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
+        meta_keywords_more: 뉴스 항목의 내용을 최상으로 반영하기 위해 단어와 짧은 문장의 쉼표로 구분한 목록을 입력하세요. 키워드와 주요 단어가 가끔 검색어에 대한 뉴스 항목의 관련성을 평가하기 위해 웹 검색 엔진에 의해 사용됩니다.
+        title_more: 이 뉴스 항목의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
       user: 
         agreed_with_terms: <a href="%{terms_url}">이용 약관</a>에 동의합니다
         api_key_more: <a href="%{api_docs_url}">API 호출에 키 더하기</a>에 대해 더 참고하세요.
         bio: 내 소개
         credentials: 자격 증명
+        credentials_more: "이 목록에서 하나 이상의 특정 자격 증명을 정하세요:"
+        credentials_more_academic: 관련 대학 학과의 교직원, 직원 또는 ​​대학생을 정합니다.
+        credentials_more_author: 같이 검토한 게시(참조 제공)의 저자입니다.
         credentials_more_professional: 전문적인 사회성의 구성원입니다.
         credentials_more_referral: 현재 큐레이터의 추천입니다.
         credentials_more_successful_assistant_curator: 조수 큐레이터로서 성공의 역사입니다.
         curation_application: 큐레이터 되기
+        curation_application_more: 큐레이션 권한을 수정하려면 그냥 신청서를 제출하면 당신의 자격을 검토하겠습니다.
         curation_priveleges_credentials: 자격 증명 <small>(전체 및 마스터 큐레이터만)</small>
         curator_level: 현재 %{curator_level_with_indefinite_article}입니다.
         curator_scope: 큐레이션 범위
@@ -1097,10 +2011,11 @@ ko:
         email_settings_submit: 이메일 설정
         entered_password: 비밀번호 <small>(4 - 16 문자)</small>
         generate_api_key: API 키 요청
-        generate_api_key_more: EOL API를 사용하는 데 관심이 있다면 어플리케이션을 식별하기 위한 API를 생성할 수 있습니다. <a href="%{api_docs_url}">API 호출에 키 더하기</a>에 대해 더 참고하세요.
+        generate_api_key_more: EOL API를 사용하는 데 관심이 있다면 어플리케이션을 식별하기 위한 API를 생성할 수 있습니다. <a href="%{api_docs_url}">API 호출에 키 추가</a>에 대해 더 참고하세요.
         logo: 새 사진 올리기
         new_password: 새 비밀번호 <small>(4 - 16 문자)</small>
         new_password_confirmation: 새 비밀번호 <small>(확인 차원)</small>
+        news_in_preferred_language: 선호하는 언어로 뉴스 보기
         notification_settings: 알림 설정
         notification_settings_more: 알림 설정을 구성합니다.
         open_authentications: 계정에 연결함
@@ -1142,14 +2057,26 @@ ko:
         create: 문서 추가
         create_text: 문서 추가
         update: 문서 저장
+      data_object_link: 
+        create: 링크 추가
+        update: 링크 저장
       eol_statistic: 
+        change_date: 날짜에 대한 통계 얻기
         download_csv: CSV로 다운로드
       filter_sort: 필터와 정렬
       harvest_event: 
         publish: 게시
+      hierarchy: 
+        request_publish: 계층 증진 요청
+        update: 계층 업데이트
       name: 
         create: 이름 추가
         update: 이름 업데이트
+      news_item: 
+        create: 뉴스 항목 만들기
+        edit: 편집
+        preview: 미리 보기
+        update: 뉴스 항목 업데이트
       open_authentication: 
         create: 연결
         destroy: 연결 안함
@@ -1168,7 +2095,10 @@ ko:
       submit: "%{model} 저장"
       translated_content_page: 
         create: 번역 추가
-        update: 번역에 대한 바뀜 저장
+        update: 번역 바뀜 저장
+      translated_news_item: 
+        create: 번역 추가
+        update: 번역 바뀜 저장
       update: "%{model} 업데이트"
       user: 
         create: 계정 만들기
@@ -1188,12 +2118,20 @@ ko:
   hidden: 숨겨짐
   hidden_comment: 숨겨진 덧글
   hide: 숨기기
+  hierarchies_title: 계층
+  hierarchy: 계층
+  hierarchy_node_missing: 죄송합니다, 이 노드에 대한 데이터가 없습니다.
+  hierarchy_roots_colon: "계층 뿌리:"
+  hierarchy_updated: 계층을 업데이트함
   home: 대문
+  home_page_cache_last_cleared_on: 대문 문서 캐시는 %{date}에 마지막으로 지웠습니다
+  home_page_link_advisory_information: 이 링크는 생명의 백과사전 웹 사이트의 대문 문서로 이동합니다
   html_format: (HTML 형식)
   id: ID
   image: 그림
   image_alt_text: "%{taxon_name}의 이 %{vetted_status} 그림입니다."
   image_from_supplier: "%{whom}에서 그림"
+  image_is_no_longer_available: 그림을 더 이상 사용할 수 없습니다
   image_map_alt_text: "%{taxon_name}의 이 %{vetted_status} 지도입니다."
   image_map_from_supplier: "%{whom}에서 지도"
   image_map_not_associated_with_any_published_entries: 이 지도는 모든 게시한 분류와 관련되지 않습니다.
@@ -1204,14 +2142,36 @@ ko:
   image_object: 그램 개체
   image_of_taxon: "%{taxon_name}의 그림"
   image_rating: 그림 평가
+  images: 그림
   images_in_red_are_not_trusted: 빨간 그림은 신뢰하지 않았습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
+  images_sort_worklist_note: 
+    one: 그림은 EOL 가져오기 날짜별로 최신 항목이 먼저 보이도록 정렬합니다. 이 작업 목록에 그림 %{count}개가 있습니다.
+    other: 그림은 EOL 가져오기 날짜별로 최신 항목이 먼저 보이도록 정렬합니다. 이 작업 목록에 그림 %{count}개가 있습니다.
+  images_with_count: 
+    one: 그림 %{count}개
+    other: 그림 %{count}개
   import_once: 한번에 가져오기
+  in_collection: 모음집
+  inappropriate: 부적절
+  inaturalist_tab_label: iNaturalist 관찰
+  include_all_metadata: 데이터 개체에 대한 모든 메타 데이터 포함
   indexed: 색인함
   info_item: 정보 항목
   info_items_col_header: 정보 항목
+  internal_ip_address: 내부 IP 주소
+  inverse_sort: 역순 정렬
+  invite_members_help_text: 여기에 EOL 사용자를 추가하고 새 공동체에 초대를 받을 것입니다!
+  invite_members_label: 구성원 초대
   ip: IP
   ip_address: IP 주소
+  item_added_to_collection_notice: 항목을 <em>%{collection_name}</em> 모음집에 추가했습니다
+  item_added_to_watch_collection_notice: "\"%{item_name}\"(을)를 %{collection_name} 모음집에 추가했습니다."
+  item_details_missing: 죄송합니다, 오류가 발생해 항목 정보를 찾을 수 없습니다.
+  item_not_added_already_in_collection: 이 항목은 이미 모음집에 추가했습니다.
+  item_not_added_to_collection_error: 죄송합니다, 오류가 발생해 선택한 항목을 모음집에 추가할 수 없습니다.
+  item_not_added_to_itself_notice: 죄송합니다, 자신을 <em>%{collection_name}</em> 모음집에 추가할 수 없습니다.
+  item_not_updated_in_collection_error: 죄송합니다, 오류가 발생해 모음집 항목을 업데이트할 수 없습니다.
   item_type_article: 문서
   item_type_article_assistive: 이 항목은 문서입니다
   item_type_collection: 모음집
@@ -1222,24 +2182,84 @@ ko:
   item_type_image_assistive: 이 항목은 그림입니다
   item_type_image_map: 지도
   item_type_image_map_assistive: 이 항목은 지도 그림입니다
+  item_type_link: 링크
+  item_type_link_assistive: 이 항목은 링크입니다
   item_type_map: 지도
   item_type_map_assistive: 이 항목은 지도입니다
   item_type_person: 사람
   item_type_person_assistive: 이 항목은 사람입니다
   item_type_sound: 소리
   item_type_sound_assistive: 이 항목은 소리입니다
-  item_type_taxon: 분류군
-  item_type_taxon_assistive: 이 항목은 분류군입니다
+  item_type_taxon: 분류
+  item_type_taxon_assistive: 이 항목은 분류입니다
   item_type_video: 동영상
   item_type_video_assistive: 이 항목은 동영상입니다
+  item_updated_in_collection_notice: 항목이 성공적으로 <em>%{collection_name}</em> 모음집에 업데이트했습니다.
+  items_with_count_semi_colon: 
+    one: 항목 %{count}개;
+    other: 항목 %{count}개;
   join_community_button: 이 커뮤니티에 가입하기
   join_eol_button_html: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr>에 지금 가입하기
   join_eol_community_html: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr> 공동체의 일원이 되세요!
+  joined_time_ago: "%{time_passed} 전에 가입함"
+  json_response: JSON 응답
+  jsonp_by_adding_a_callback_parameter: ... 그리고 콜백 변수를 추가하여 JSONP
   label: 레이블
   language: "언어:"
+  language_selector_advisory_information: 다음은 사이트의 내용으로 사용할 수 있는 언어의 목록이며, 현재 언어를 바꾸려면 이 목록에서 다른 언어를 선택하세요.
   language_with_count: "%{language} (%{count})"
   languages: 언어
   last_updated: 최근 업데이트
+  last_updated_time_ago: 최근 %{time_passed} 전에 업데이트함
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: EOL 인용하기
+        about_link_contact_us: 문의하기
+        about_link_discover: 발견
+        about_link_donate: EOL 기부
+        about_link_eol_blog: EOL 블로그
+        about_link_glossary: 용어집
+        about_link_help: 도움말
+        about_link_podcasts: 팟캐스트
+        about_link_statistics: 통계
+        about_link_terms_of_use: 이용 약관
+        about_link_what_is_eol: EOL은 무엇입니까?
+        header_about: EOL 소개
+        header_learn_more: 더 알아보기
+        header_questions: 더 말하기
+        learn_more_link_amphibians: 양서류
+        learn_more_link_animals: 동물
+        learn_more_link_archaea: 고세균
+        learn_more_link_bacteria: 박테리아
+        learn_more_link_birds: 조류
+        learn_more_link_crustaceans: 갑각류
+        learn_more_link_fish: 어류
+        learn_more_link_flowering_plants: 속씨식물
+        learn_more_link_fungi: 진균류
+        learn_more_link_insects: 곤충
+        learn_more_link_invertebrates: 무척추동물
+        learn_more_link_mammals: 포유류
+        learn_more_link_molds: 곰팡이
+        learn_more_link_mollusks: 연체동물
+        learn_more_link_mushrooms: 버섯
+        learn_more_link_plants: 식물
+        learn_more_link_protists: 원생생물
+        learn_more_link_reptiles: 파충류
+        learn_more_link_spiders: 거미
+        learn_more_link_trees: 나무
+        learn_more_link_viruses: 바이러스
+        learn_more_link_worms: 벌레
+        questions_link_binomial_nomenclature: 학명은 무엇입니까?
+        questions_link_biodiversity: 생물 다양성이 무엇입니까?
+        questions_link_biological_classification: 생물학적 분류는 무엇입니까?
+        questions_link_contributing_to_research: 어떻게 연구에 기여할 수 있나요?
+        questions_link_discovering_species: 어떻게 종을 발견합니까?
+        questions_link_indicator_species: 지표종은 무엇입니까?
+        questions_link_invasive_species: 침입종은 무엇입니까?
+        questions_link_model_organism: 모범 생물체는 무엇입니까?
+        questions_link_naming_species: 어떻게 종 이름을 짓습니까?
+        questions_link_species: 종은 무엇입니까?
   learn_about_collections: 어떻게 만들 수 있나요?
   learn_about_communities: 어떻게 참여할 수 있나요?
   learn_about_content_partners: 어떻게 될 수 있나요?
@@ -1247,7 +2267,7 @@ ko:
   learn_about_eol: 어떻게 EOL을 사용할 수 있나요?
   learn_about_joining: 어떻게 가입할 수 있나요?
   learn_more_about_communities_link: 공동체에 대해 더 알아보기
-  learn_more_about_names_for_this_taxon: 이 분류군에 대한 이름에 대해 더 알아보기
+  learn_more_about_names_for_this_taxon: 이 분류에 대한 이름에 대해 더 알아보기
   learn_more_link: (%{learn_more})
   learn_more_lowercase: 더 알아보기
   leave_a_comment: 덧글 남기기
@@ -1279,12 +2299,32 @@ ko:
   license_not_applicable: 라이선스가 적용되지 않음
   license_public_domain: 퍼블릭 도메인
   licensing: 라이선스
+  limits_the_number_of_returned_image_objects: 반환한 그림 개체의 수 제한
+  limits_the_number_of_returned_iucn_objects: IUCN 레드 리스트 상태 개체 포함
+  limits_the_number_of_returned_map_objects: 반환한 지도 개체의 수 제한
+  limits_the_number_of_returned_sound_objects: 반환한 소리 개체의 수 제한
+  limits_the_number_of_returned_text_objects: 반환한 텍스트 개체의 수 제한
+  limits_the_number_of_returned_video_objects: 반환한 동영상 개체의 수 제한
+  link_more_about: 이 링크에 대해 더 알아보기
   link_name: 링크 이름
+  link_not_associated_with_any_published_entries: 이 링크는 모든 게시한 분류와 관련되지 않습니다.
+  link_rating: 링크 평가
+  links_with_count: 
+    one: 링크 %{count}개
+    other: 링크 %{count}개
+  list_newsletter_emails: 목록 뉴스 레터 이메일
+  list_of_activity_combinations: 5분 동안 활동 조합의 목록입니다.
+  listing_collections: 목록 모음집
   literature: 문헌
+  literature_bhl_link: BHL에서 발견한 참고 문헌 보기
+  literature_empty: 참고을 찾을 수 없습니다.
   literature_header: 참고
+  literature_links: 문헌 링크
+  literature_links_link: 문헌 링크
   literature_references: 문헌 참고
   location: 위치
   location_colon: "위치:"
+  logging_database_colon: "기록 중:"
   login: 로그인
   login_header: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr> 계정에 로그인
   login_hidden_user_message: "%{given_name} 계정은 더 이상 활동하지 않습니다"
@@ -1293,14 +2333,42 @@ ko:
   login_to_the_website_as: "%{username} 사용자로서 웹사이트 로그인"
   logo_header: 로고
   logout: 로그아웃
+  looking_up_url: URL 찾는 중...
+  main_content_area: "주요 콘텐츠 영역:"
+  main_database_colon: "주요:"
+  main_master_database_colon: "주요 마스터:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; 종 문서>>"
+  make_user_an_editor_title: "%{user} 사용자가 다음 모음집을 관리하도록 허용"
   manage_your_profile: 내 프로필 관리
+  managed_by: 관리자
+  managed_collections_with_count: 
+    one: 관리한 모음집 %{count}개
+    other: 관리한 모음집 %{count}개
+  manager_parens: (관리자)
   map_alt_text: "%{taxon_name}의 이 %{vetted_status} 지도입니다."
   map_from_supplier: "%{whom}에서 지도"
   map_not_associated_with_any_published_entries: 이 지도는 모든 게시한 분류와 관련되지 않습니다.
   map_of_taxon: "%{taxon_name}의 지도"
   map_rating: 지도 평가
+  maps_empty: 아직 이 문서에 어떠한 지도를 기여하지 않았습니다.
+  maps_empty_contribute_instructions: EOL에 지도를 기여하는 방법을 알아보세요.
+  maps_image_maps_header: "'지도'로 태그한 미디어"
+  maps_with_count: 
+    one: 지도 %{count}개
+    other: 지도 %{count}개
+  matching_users_found_with_count: 
+    one: 기준과 일치하는 사용자 총 %{count}명을 찾았습니다.
+    other: 기준과 일치하는 사용자 총 %{count}명을 찾았습니다.
+  max_collection_items_error: 죄송합니다, 요청은 모음집 항목 %{max}개의 제한을 초과합니다.
   media: 미디어
+  media_list_empty: 아직 이 문서에 어떠한 미디어를 기여하지 않았습니다.
+  media_list_empty_contribute_instructions: EOL에 미디어를 기여하는 방법을 알아보세요.
+  media_list_empty_search: 찾기 조건과 일치하는 미디어를 사용할 수 없습니다.
+  media_summary_empty: 아직 이 문서에 어떠한 그림을 기여하지 않았습니다.
+  media_summary_empty_contribute_instructions: EOL에 그림을 기여하는 방법을 알아보세요.
+  media_with_count: 
+    one: 미디어 %{count}개
+    other: 미디어 %{count}개
   members: 
     index: 
       meta_description: "%{community_name}의 구성원, 생명의 백과사전 공동체."
@@ -1312,16 +2380,26 @@ ko:
       meta_keywords: "%{member_name} 공동체 구성원"
       meta_title: "%{community_name}의 %{member_name} 구성원"
       tweet_text: "%{community_name}의 %{member_name} 구성원"
+  members_like_you: 여러분과 같은 구성원
+  members_with_count: 
+    one: 구성원 %{count}명
+    other: 구성원 %{count}명
+  members_with_count_semi_colon: 
+    one: 구성원 %{count}명;
+    other: 구성원 %{count}명;
+  merge_concepts: 개념 병합
   message_colon: "메시지:"
   meta_description_colon: "메타 설명:"
   meta_keywords_colon: "메타 키워드:"
   meta_title_site_name: 생명의 백과사전
   method: 방식
+  methods: 방식
   mobile: 
     contents: 
       explore_eol: EOL 탐색
       full_site: 전체 사이트
       home: 대문
+      species: 종
       taxa: 분류
     search: 
       no_results_found: 결과가 없습니다
@@ -1334,53 +2412,123 @@ ko:
       literature: 문헌
       maps: 지도
       media: 미디어
+      nomenclature: 명명법
       overview: 둘러보기
       resources: 자료
       sounds: 소리
-      taxon_details: 분류군 자세한 사항
-      taxon_media: 분류군 미디어
-      taxon_overview: 분류군 둘러보기
+      taxon_details: 분류 자세한 사항
+      taxon_media: 분류 미디어
+      taxon_overview: 분류 둘러보기
       videos: 동영상
-  most_active_members: 가장 많이 활동한 구성원
+  moderator_colon: "중재자:"
+  monthly: 매월
+  more_children_with_count: 
+    one: 더 많은 %{count}개...
+    other: 더 많은 %{count}개...
+  more_siblings_with_count: 
+    one: 더 많은 형제 자매 %{count}개...
+    other: 더 많은 형제 자매 %{count}개...
+  most_active_members: 가장 많이 활발한 구성원
   move: 이동
   move_down: 아래로 이동
+  move_items_to_a_new_collection_with_count: 
+    one: 새 모음집에 항목 %{count}개를 이동합니다
+    other: 새 모음집에 항목 %{count}개를 이동합니다
   move_to_bottom: 맨 아래로 이동
   move_to_top: 맨 위로 이동
   move_up: 위로 이동
+  moved_all_items_from_collection_with_count: 
+    one: "%{from}에서 이 모음집으로 항목 %{count}개를 이동했습니다."
+    other: "%{from}에서 이 모음집으로 모든 항목 %{count}개를 이동했습니다."
+  moved_all_items_to_collections: 
+    one: "%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다."
+    other: "%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다."
+  moved_items_from_collection_with_count_notice: 
+    one: "%{name}에서 항목 %{count}개를 이동했습니다."
+    other: "%{name}에서 항목 %{count}개를 이동했습니다."
+  multimedia_links: 멀티미디어 링크
+  must_be_less_than_128_characters_long: 글자 128개 미만이어야합니다.
+  must_be_logged_in: 이 행동을 수행하려면 로그인해야 합니다.
+  must_provide_search_term_error: 검색어를 입력해야 합니다.
   my_activity: 내 활동
   my_info: 내 정보
   name: 이름
   name_colon: "이름:"
-  name_preferred_taxonomically_for_source_yes: 우선 사용
+  name_preferred_for_language_help_tip: "%{icon} 각 언어에 대해 선호하는 이름을 표시합니다."
+  name_preferred_for_language_yes: 선호
+  name_preferred_taxonomically_for_source_help_tip: "%{icon} 각 출처에서 선호하는 이름을 표시합니다."
+  name_preferred_taxonomically_for_source_yes: 선호
   names: 이름
   names_children_column_header: 어린이
+  names_common_empty: 아직 이 분류로 연관된 공통 이름이 없습니다
+  names_common_list_by_language_assistive_header: 언어별 공통 이름
   names_curation_column_header: 큐레이션
   names_filter: 이름
   names_name_column_header: 이름
   names_parents_column_header: 상위
-  names_preferred_column_header: 우선 사용
+  names_preferred_column_header: 선호
   names_relationship_column_header: 관계
+  names_sources_column_header: 출처
+  names_status_column_header: 상태
+  never: 없음
+  new_collection: 새 모음집
+  new_contact_us_topic: 새 주제 문의하기
   new_news_item: 새 뉴스 항목
+  new_search_suggestion: 새 찾기 제안
   new_upload: 새로 올리기
   new_user: 새 사용자
+  news_and_event_links: 뉴스 및 사건 링크
   news_archive_page: 뉴스 아카이브 문서
+  news_available_in_languages: "이 문서는 다음에 존재합니다:"
+  news_date: 뉴스 날짜
   news_item: 뉴스 항목
+  news_item_date_as_shown_to_user: "사용자한테 보여지는 뉴스 항목 날짜 (RSS 피드에만 시간이 보임):"
+  news_item_is_visible_on_website_after_this_time: "이 시간 이후 뉴스 항목을 웹 사이트에서 보입니다:"
   news_item_title: 뉴스 항목
-  news_items: 뉴스 항목
+  news_items: 
+    index: 
+      meta_keywords: eol 뉴스, 생명의 백과사전 뉴스
+      meta_title: EOL 뉴스
+      page_title: EOL 뉴스
+  news_missing_content_message: 죄송합니다, 이 문서는 선택한 %{selected_language}로 사용할 수 없습니다.
+  news_missing_content_title: 번역 없음
   newsfeed: 뉴스 피드
   next: 다음
+  no_active_members: 아직 충분한 활동이 없습니다.
   no_answer: 아니오
+  no_errors_are_available: 존재하는 오류가 없습니다.
+  no_results_for: 결과가 없습니다
+  no_tasks_found: 작업을 찾을 수 없음
+  no_uploaded_content_is_available: 올린 콘텐츠는 사용할 수 없습니다.
+  none: 없음
+  not_applicable: 적용할 수 없습니다
+  not_published_yet: 아직 게시하지 않았습니다.
+  not_recognized_by_available_hierarchies: 어떠한 사용할 수 있는 분류를 인정하지 않았습니다
   note: "참고:"
   notes: 참고
   notes_not_shown_to_user: "참고 (사용자에게 보여지지 않음):"
+  notification_frequency_daily_digest: 날마다 알림
+  notification_frequency_never: 없음
+  notification_frequency_newsfeed_only: 뉴스 피드만
+  notification_frequency_send_immediately: 바로 보내기
+  notification_frequency_weekly: 매주
+  notifications_tab_name: 알림
   notifier: 
     activity_log_empty: 큐레이터의 최근 행위가 없습니다.
+    activity_on_content_partner_content: 
+      message: "최근 덧글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 콘텐츠에 대한 큐레이트 행동을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.\n\n질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다\n\n큐레이트 행동:\n%{curator_activity_log}\n\n데이터 개체에 대한 덧글:\n%{data_object_comments}\n\n데이터와 연관된 문서에 대한 덧글:\n%{page_comments}"
+      subject: "%{partner_full_name} 콘텐츠 파트너에 의해 생명의 백과사전에 제공한 콘텐츠에 대한 최근 활동의 요약입니다"
     activity_on_user_content: 
+      message: "%{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 콘텐츠에 최근 덧글과 큐레이트 행동을 요약한  EOL에서 자동으로 보낸 이메일입니다.\n\n질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다\n\n\n큐레이트 행동:\n%{curator_activity_log}\n\n데이터 개체에 대한 덧글:\n%{data_object_comments}\n\n데이터와 연관된 문서에 대한 덧글:\n%{page_comments}"
       subject: 생명의 백과사전에 추가한 콘텐츠에 대한 최근 활동의 요약
-    activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 부적절함으로 표시함:\n%{object_name} (%{object_url})\n%{action_date}."
-    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 신뢰함으로 표시함:\n%{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})\n%{action_date}."
-    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 신뢰하지 않음으로 표시함:\n%{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})\n%{action_date}."
-    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 신뢰하지 않음으로 표시함:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 연관을 추가했습니다:\n%{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에\n%{object_name} (%{object_url})에 대해 알 수 없는 연관을 추가했습니다."
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 부적절함으로 표시했습니다:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 신뢰함으로 표시했습니다:\n%{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 신뢰하지 않음으로 표시했습니다:\n%{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 신뢰하지 않음으로 표시했습니다:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 연관을 제거했습니다:\n%{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에\n%{object_name} (%{object_url})에 대해 알 수 없는 연관을 제거했습니다."
     comments_empty: 최근 덧글이 없습니다.
     contact_us_auto_response: 
       message: "생명의 백과사전 프로젝트에 문의해 주셔서 감사합니다. 당신의 덧글은 해당 그룹에 보냈습니다.\n\n당신의 의견에 감사합니다."
@@ -1388,15 +2536,60 @@ ko:
     contact_us_message: 
       message: "다음 메시지는 문의하기 양식을 통해 EOL에 보냈습니다:\n받는 사람: %{from_name}\n이메일: %{from_email}\n제목: %{subject}\n\n%{message}"
       subject: "EOL로의 메시지: %{title}"
+    content_partner_created: 
+      message: "종 문서 그룹에 대한 자동화된 EOL 시스템 알림입니다. %{user_full_name} 사용자가 %{partner_full_name} 콘텐츠 파트너를 만들었으며, 자세한 내용은 다음과 같습니다:\n\n사용자: %{user_full_name}\n이메일: %{user_email}\n프로필 URL: %{user_profile_url}\n\n파트너: %{partner_full_name}\n파트너 프로필 URL: %{partner_profile_url}\n만든 날짜: %{partner_created_at_date}"
+      subject: "%{user_full_name} EOL 사용자가 %{partner_full_name} 콘텐츠 파트너를 만들었습니다"
+    content_partner_resource_created: 
+      message: "종 문서 그룹에 대한 자동화된 EOL 시스템 알림입니다. %{user_full_name} 사용자가 %{partner_full_name} 콘텐츠 파트너한테 새 %{resource_title} 자료를 추가했으며, 자세한 내용은 다음과 같습니다:\n\n사용자: %{user_full_name}\n이메일: %{user_email}\n프로필 URL: %{user_profile_url}\n\n파트너: %{partner_full_name}\n파트너 자료 URL: %{partner_resources_url}\n\n자료: %{resource_title}\n자료 URL: %{resource_url}\n만든 날짜: %{resource_created_at_date}\n상태: %{resource_status}"
+      subject: "%{user_full_name} EOL 사용자가 %{partner_full_name} 콘텐츠 파트너에 새 %{resource_title} 자료를 추가했습니다"
+    content_partner_resource_force_harvest_request: 
+      message: "종 문서 그룹에 대한 자동화된 EOL 시스템 알림입니다. %{user_full_name} 사용자가 %{partner_full_name} 콘텐츠 파트너에 속하는 %{resource_title} 자료에 대한 강제 수확을 요청했으며, 자세한 내용은 다음과 같습니다:\n\n사용자: %{user_full_name}\n이메일: %{user_email}\n프로필 URL: %{user_profile_url}\n\n파트너: %{partner_full_name}\n파트너 자료 URL: %{partner_resources_url}\n\n자료: %{resource_title}\n자료 URL: %{resource_url}\n업데이트한 날짜: %{resource_updated_at_date}\n상태: %{resource_status}"
+      subject: "%{user_full_name} EOL 사용자가 %{partner_full_name} 콘텐츠 파트너에 속하는 %{resource_title} 자료에 대한 강제 수확을 요청했습니다"
+    content_partner_resource_hierarchy_publish_request: 
+      message: "종 문서 그룹에 대한 자동화된 EOL 시스템 알림입니다. %{user_full_name} 사용자가 %{partner_full_name} 콘텐츠 파트너에 속하는 %{resource_title} 자료와 관련된 찾아볼 수 있는 계층으로 승진할 것을 요청했으며, 자세한 내용은 다음과 같습니다:\n\n사용자: %{user_full_name}\n이메일: %{user_email}\n프로필 URL: %{user_profile_url}\n\n파트너: %{partner_full_name}\n파트너 자료 URL: %{partner_resources_url}\n\n자료: %{resource_title}\n자료 URL: %{resource_url}\n자료 편집 URL: %{hierarchy_edit_url}"
+      subject: "%{user_full_name} EOL 사용자가 %{partner_full_name} 콘텐츠 파트너에 속하는 %{resource_title} 자료에 대한 계층 승진을 요청했습니다"
+    content_partner_statistics_reminder: 
+      message: 생명의 백과사전에서 자동화된 이메일 알림입니다. %{year}년 %{month}에 %{partner_full_name} 콘텐츠 파트너에 의해 EOL에 공급 데이터에 대한 웹 사용 통계를 %{partner_statistics_url}에서 사용할 수 있습니다.
+      subject: "%{year}년 %{month} %{partner_full_name}에 대한 생명의 백과사전 사용 통계 알림입니다"
+    curator_approved: 
+      message: "%{curator_level} 큐레이터 권한을 요청해주셔서 감사합니다. 요청을 승인했습니다.\n\n큐레이트에 대한 더 많은 정보와 어떤 기능을 사용할 수 있는지에 대해서는 http://eol.org/curators를 방문하세요."
+      subject: 생명의 백과사전 %{curator_level} 큐레이터 권한 요청을 승인했습니다
     greeting_dear_name_with_comma: "%{name}에게,"
     signature_basic: 생명의 백과사전 팀
     signature_with_contact_us_link: "문제가 발생하면 %{url} (으)로 문의하시기 바랍니다.\n\n생명의 백과사전 팀"
     signature_with_species_pages_group_contact: "궁금한 사항이 있으면 %{species_pages_group_email} (으)로 문의하시기 바랍니다.\n\n생명의 백과사전 팀"
+    unsubscribed_to_notifications: 
+      message: "생명의 백과사전에서 성공적으로 알림을 구독 취소했습니다. <a href='%{email_prefs_url}'>알림 환경 설정 문서</a>에서 이메일 설정을 바꾸거나 알림을 구독할 수 있습니다.\n\nEOL 모음집을 만드는 방법과 EOL 공동체에 참여하고 내용에 기여하는 방법을 포함하여 EOL를 사용하는 방법에 대한 자세한 내용에 대해서는 http://eol.org/help에서 도움말 문서로 방문하세요."
+      subject: 찾아 볼 수 없어서 죄송합니다...
+    user_activated: 
+      message: "생명에 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 사용자 이름은 %{username}이고 프로필 URL은 %{profile_url}인 것을 참고하세요. http://eol.org/login에서 계정에 로그인할 수 있습니다.\n\nEOL 모음집을 만드는 방법과 EOL 공동체에 참여하고 내용에 기여하는 방법을 포함하여 EOL를 사용하는 방법에 대한 자세한 내용에 대해서는 http://eol.org/help에서 도움말 문서로 방문하세요."
+      subject: 생명의 백과사전 계정을 활성화했습니다
+    user_activated_with_open_authentication: 
+      message: "생명에 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 인증 목적을 위해 기본 정보를 접근할 수 있는 EOL 권한을 갖고 가입한 것을 참고하세요. EOL에 프로필 URL은 %{profile_url}입니다. http://eol.org/login에서 %{oauth_provider}로 EOL 계정에 로그인할 수 있습니다.\n\nEOL 모음집을 만드는 방법과 EOL 공동체에 참여하고 내용에 기여하는 방법을 포함하여 EOL를 사용하는 방법에 대한 자세한 내용에 대해서는 http://eol.org/help에서 도움말 문서로 방문하세요."
+      subject: 생명의 백과사전 계정을 활성화했습니다
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) 다음에 덧글을 남겼습니다:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: 생명의 백과사전에서의 메시지
     user_recover_account: 
+      message: "생명의 백과사전(http://eol.org)은 계정을 복구하는 요청을 받았습니다. 이 요청을 하지 않았다면 이 메일을 무시하세요.\n\n다음 링크는 비밀번호를 바꿀 수 있도록 한 번 로그인을 제공합니다. 또는 앞으로 로그인하는 데 사용할 수 있는 새로운 연결된 계정을 추가하는 링크를 제공합니다:\n\n%{temporary_login_url}\n\n이 링크로 여전히 계정에 접근하는 데 문제가 있을 경우 새 임시 로그인 링크를 요청하도록 %{recover_account_url}을 방문할 수 있으며 이 시간으로부터 24시간 후에 만료됩니다."
       subject: 생명의 백과사전 계정 복구
+    user_updated_email_preferences: 
+      message: "자동화된 EOL 시스템 알림입니다. %{user_full_name} (%{user_profile_url}) 사용자가 이메일 주소나 메일링 리스트 환경 설정을 업데이트했습니다.\n\n이전 환경 설정:\n이메일: %{previous_email}\n메일링 리스트 환경 설정: %{previous_mailing_list_preference}\n\n업데이트할 환경 설정:\n이메일: %{updated_email}\n메일링 리스트 환경 설정: %{updated_mailing_list_preference}\n업데이트한 날짜: %{updated_at}"
+      subject: "%{user_full_name} EOL 사용자가 이메일 주소나 메일링 리스트 환경 설정을 바꾸었습니다"
+    user_verification: 
+      message: "생명에 백과사전에 등록해주셔서 감사합니다. 다음 링크로 등록을 완료하고자하는 계정을 확인하고 계정을 활성화하세요:\n\n%{verification_url}\n\n계정을 활성화하면 확인 이메일 메시지가 받게 됩니다."
+      subject: 생명의 백과사전 계정에 대한 요청 확인
+  nucleotide_sequences: 염기 서열
+  nucleotide_sequences_proteins_link: NCBI에서 단백질과 염기 서열 보기
+  number_of_taxa_at_this_entry: "이 항목에서 분류의 #"
+  number_of_trusted_images_at_this_entry: "이 항목에 신뢰하는 그림의 #"
+  number_of_trusted_text_objects_at_this_entry: "이 항목에 신뢰하는 텍스트 개체의 #"
+  number_of_unreviewed_images_at_this_entry: "이 항목에 검토하지 않은 그림의 #"
+  number_of_unreviewed_text_objects_at_this_entry: "이 항목에 검토하지 않은 텍스트 개체의 #"
+  object: 개체
+  object_curated: 개체를 큐레이트했습니다.
+  object_curation: 개체 큐레이트
+  object_status: 개체 상태
   object_status_all_option: 모두
   object_status_trusted_option: 신뢰함
   object_status_unreviewed_option: 검토하지 않음
@@ -1406,16 +2599,46 @@ ko:
   object_type_collection_option: 모음집
   object_type_community_option: 공동체
   object_type_image_option: 그림
+  object_type_link_option: 링크
   object_type_sound_option: 소리
+  object_type_taxon_concept_option: 분류 개념
   object_type_text_option: 텍스트
   object_type_user_option: 사용자
   object_type_video_option: 동영상
+  object_visibility: 개체 보이기
+  object_visibility_all_option: 모두
+  object_visibility_invisible_option: 숨겨짐
+  object_visibility_visible_option: 보임
+  objects_curated: 개체 큐레이트함
+  older_version_of_latest_published_data_object_title_link: "%{link}의 이전 버전"
+  only_show_authoritative_conten: "신뢰하는 콘텐츠만 보기:"
+  only_show_unapproved_curators: 승인하지 않은 큐레이터만 보기
+  option_please_select: 선택하거나
+  or_add_it_to_an_existing_collection: 기존 모음집에 추가하세요
+  or_add_it_to_an_existing_community: 기존 공동체에 추가하세요
+  or_copy_them_to_existing_collection: 기존 모음집에 복사하세요
+  or_email_education: "%{link}에 이메일 제안을 하세요."
+  or_move_them_to_existing_collection: 기존 모음집에 이동하세요
+  original: "원본:"
+  original_object: 원본 개체
+  other_collection_items_with_count: 
+    one: 다른 항목 %{count}개
+    other: 다른 항목 %{count}개
+  other_community_items_with_count: 
+    one: 다른 항목 %{count}개
+    other: 다른 항목 %{count}개
+  other_taxa_with_count: 
+    one: 다른 분류 %{count}개
+    other: 다른 분류 %{count}개
+  other_us_dollars_amount: "기타: 미화$"
   outlink: 바깥 링크
   overview: 둘러보기
   page: 문서
+  page_linked_to: 다음에 문서가 연결됨
   page_name: 문서 이름
   page_navigation: 문서 둘러보기
   page_not_found: 문서를 찾을 수 없습니다
+  page_reference: "\"%{title}\". 생명의 백과사전에 \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\"에 존재합니다. %{date}에 접근했습니다"
   page_results_avg: 문서 결과 평균
   page_statistics: 문서 통계
   page_statistics_and_tools: 문서 통계와 도구
@@ -1423,33 +2646,64 @@ ko:
   page_views_th: 문서 보기
   pages_admin_section_link: 관리자
   pages_curator_section_link: 큐레이터
-  pages_title: ckarh
+  pages_title: 참고
   pages_with_count: 
     one: "%{count}개"
     other: "%{count}개"
   pages_with_pictures_and_text: 사진과 텍스트로 된 문서
   pages_with_pictures_or_text: 사진과 텍스트로 된 문서
+  pagination_next: 다음
+  pagination_next_with_count: 
+    one: 다음 %{count}개 보기
+    other: 다음 %{count}개 보기
   pagination_page_number: 문서 %{number}개
   pagination_previous: 이전
+  pagination_previous_with_count: 
+    one: 이전 %{count}개 보기
+    other: 이전 %{count}개 보기
   parameters: 변수
   partner: 파트너
   partner_information: 파트너 정보
   partner_page: 파트너 문서
+  partner_web_site_colon: "파트너 웹 사이트:"
+  partnering_steps: 제휴 단계
   password_colon: "비밀번호:"
   password_must_be_4to16_characters: 비밀번호는 글자 4개에서 16개 사이여야 합니다.
+  pause: 일시 정지
   people_with_count: 
     one: 사람 %{count}명
     other: 사람 %{count}명
+  percentage_of_children_with_images: 그림으로 된 어린이의 %
+  percentage_of_children_with_text: 텍스트로 된 어린이의 %
+  percentage_of_descendants_with_images: 그림으로 된 자손의 백분율
+  percentage_of_descendants_with_text: 텍스트로 된 자손의 백분율
   permalink: 고유링크
   person_rating: 사람 평가
   personal_profile_menu: 개인 프로필
   personal_space: 개인 공간
+  please: 제발
+  please_confirm_your_donation_details: 기부 자세한 정보를 확인하세요
+  please_publish_this_resource_notice: "*** <strong>알림:</strong> 여기 이 리소스에 <strong>%{publish_link}</strong>하세요 ***"
   please_return_to_eol_homepage: EOL 대문 문서로 돌아가세요
   please_wait: 기다려 주세요...
+  post_comment: 덧글 남기기
+  preferred_common_name_advisory_information: 이 분류에 대한 선호하는 공통 이름입니다.
+  press_room: 프레스 룸
   preview: 미리 보기
+  preview_changes: 바뀜 미리 보기
+  preview_version_of_latest_published_data_object_title_link: "%{link} 버전 미리 보기"
+  previously_published: 이전에 게시함
+  proceed_to_checkout_page: 체크 아웃 문서로 이동
+  process_name: 프로세스 이름
+  profile: 프로필
+  profile_colon: "프로필:"
+  profile_image_alt_text_curator: "%{user_full_name} 큐레이터의 프로필 사진"
+  profile_image_alt_text_member: "%{user_full_name} 구성원에 대한 프로필 사진"
   profile_newsfeed: 내 뉴스 피드
   profile_picture: 프로필 사진
   project: 프로젝트
+  provider: 제공자
+  providers: 제공자
   public: 공개
   public_domain: 퍼블릭 도메인
   publish: 게시
@@ -1460,10 +2714,17 @@ ko:
   published_parens: (게시함)
   punctuation_comma: ","
   punctuation_semi_colon: ;
+  quarterly: 분기별
+  rails_databases: Rails 데이터베이스
+  rails_environment: Rails 환경
+  rank_recognized_by_agent: "%{agent}에 의해 인정한 %{rank}"
+  rank_recognized_by_agent_colon: "%{agent}에 의해 인정한 <b>%{rank}</b>:"
+  rank_recognized_by_from_source: "%{source}에 %{agent}에 의해 인정한 %{rank}"
   rated_by_count_people: 
     one: 사람 %{count}명
     other: 사람 %{count}명
   rating_added_notice: 등급을 성공적으로 추가했습니다.
+  rating_not_added_error: 죄송합니다, 오류가 발생해 평가를 추가할 수 없습니다.
   recaptcha: 아래에 보이는 단어 2개를 입력하세요
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha 글자</a>가 일치하지 않습니다, 다시 시도하세요.
   recent_activities: 
@@ -1473,22 +2734,72 @@ ko:
       meta_title: EOL 공동체 활동
       page_title: EOL 공동체 활동
   recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: "%{to}에 대한 업데이트가 있습니다"
+      other: "%{to}에 대한 업데이트 %{count}개가 있습니다"
+    bulk_comments_on_you_with_count: 
+      one: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 덧글이 있습니다
+      other: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 덧글 %{count}개가 있습니다
+    bulk_comments_with_count: 
+      one: "%{on}에 새 덧글이 있습니다"
+      other: "%{on}에 새 덧글 %{count}개가 있습니다"
+    bulk_community_activity_with_count: 
+      one: "%{to}에 대한 업데이트가 있습니다"
+      other: "%{to}에 대한 업데이트 %{count}개가 있습니다"
+    bulk_community_joins_with_count: 
+      one: 새 구성원이 %{community}에 가입했습니다
+      other: 새 구성원 %{count}명이 %{community}에 가입했습니다
+    bulk_curation_with_count: 
+      one: 큐레이터가 %{to}에 대한 개선을 만들었습니다
+      other: 큐레이터가 %{to}에 대한 개선 %{count}개를 만들었습니다
+    collection_activity_by_user: <b>%{user_name}</b> 사용자가 <b>%{collection_name}</b> 모음집에 %{activity_name} 행동을 수행했습니다.
     collection_activity_log_title: "%{who} 사용자가 모음집을 수정했습니다"
+    collection_activity_user_added_item: "<b>%{user_name}</b> 사용자가 <b>%{collection_name}</b> 모음집에 %{collected_item_type} #%{collected_item_id} 항목을 추가했습니다."
     collection_activity_user_watching_recipient: <b>%{user_name}</b> 사용자는 당신을 주시하고 있습니다.
+    comment_body_brief: "%{body} - %{author}"
     comment_link: EOL에 대한 덧글 보기
+    comment_title: "%{who} 사용자가 %{what}에 덧글을 남겼습니다"
+    comment_title_your_newsfeed: "%{who} 사용자가 뉴스 피드에 덧글을 남겼습니다"
+    community_activity_by_user: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b> 공동체에 %{activity_name} 행동을 수행했습니다.
     community_activity_log_title: "%{who} 사용자가 공동체를 수정했습니다"
+    community_activity_user_joined: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b> 공동체에 가입했습니다.
+    community_activity_user_left: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b> 공동체를 떠났습니다.
+    community_activity_user_made_member_a_manager: <b>%{user_name}</b> 사용자가 <b>%{member_name}</b> 사용자를 <b>%{community_name}</b> 공동체의 관리자로 정했습니다.
+    contact_us_link: 문제가 발생하면 <a href='http://eol.org/contact_us' style='color:#195184'>문의하세요</a>.
     curator_activity_log_title: "%{who} 사용자가 누군가하게 큐레이트했습니다"
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> 사용자가 <b>%{dato_title}</b> (%{dato_type} #%{dato_id})에 %{activity_name} 행동을 수행했습니다."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> 사용자가 <b>%{taxon_concept}</b> (%{taxon_overview_url})에 %{activity_name} 행동을 수행했습니다.
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> 사용자가 <b>%{taxon_concept}</b> (%{taxon_details_url})에 %{dato_title}(으)로 부르는 문서를 추가했습니다.
     data_object_title: "%{who} 사용자가 EOL에 새 콘텐츠를 추가했습니다"
     default_subject: EOL에 대한 최근 활동
+    intro: 여기에 %{time}에 당신의 EOL 활동 알림이 있습니다
     intro_immediately: "%{name} 안녕하세요 —"
+    intro_weekly: 여기에 %{ending} 마감일에 대한 EOL 활동 알림이 있습니다
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
+    see_all_activity: <a href='%{activity_url}' style='color:#195184'>내 사용자 뉴스 피드 문서</a>에서 이전의 모든 활동을 보세요.
+    someone_commented_on_something: <b>%{who}</b> 사용자가 <b>%{what}</b>에 덧글을 남겼습니다.
+    unsubscribe: 로그인하고 <a href='%{email_prefs_url}' style='color:#195184'>내 알림 환경 설정 문서</a>에서 당신의 이메일 설정을 바꾸거나 <a href='%{unsubscribe_url}' style='color:#195184'>로그인하지 않고 EOL 알림을 자동으로 모두 구독 취소하세요</a>.
   recent_updates: 최근 업데이트
   recently_visited: 최근 방문
+  recipients: 받는 사람
+  recognized_by_as_a_rank: "%{taxon_rank}로 %{recognized_by}"
+  recognized_by_from_source: "%{source}에서 %{recognized_by}"
+  recognized_by_from_source_as_a_rank: "%{taxon_rank}로 %{source}에서 %{recognized_by}"
+  record_not_found: "[기록을 찾을 수 없습니다]"
   references_cabs_colon: "참고:"
+  related_names_with_count: 
+    one: 관련된 이름 %{count}개
+    other: 관련된 이름 %{count}개
   remove: 제거
+  remove_curatorship_colon: "큐레이터쉽 제거:"
+  remove_data_object_association: 연관 제거
   remove_membership: 구성원 제거
+  removed_count_items_from_collection_notice: 
+    one: 항목 %{count}개를 이 모음집에서 제거했습니다.
+    other: 항목 %{count}개를 이 모음집에서 제거했습니다.
   reply: 답글
   request: 요청
-  request_mailing_list_colon: "메일링 리스트 요청:"
+  request_mailing_list_colon: "사용자가 이메일을 받고 싶지 않습니다:"
   required_form_element: 필수
   resource: 자료
   resources: 자료
@@ -1497,17 +2808,35 @@ ko:
   results: 결과
   results_offset: <em>%{for}</em>에 대한 결과 %{total}개 중 %{from} - %{to}
   results_per_page: "문서당 결과:"
+  return: 돌아가기
+  return_all_common_names_for_this_taxon: 이 분류에 대한 모든 공통 이름으로 돌아가기
+  return_all_synonyms_for_this_taxon: 이 분류에 대한 모든 동의어로 돌아가기
+  return_common_names_for_the_page_taxon: 문서의 분류에 대한 모든 공통 이름으로 돌아가기
   revisions: 판
-  rss_feed: RSS 피드
+  revoke_full_curator_link: 철회
+  revoke_manager_link: 관리자 역활 철회
+  richness_score: 풍부한 점수
+  rights: 권한
+  rights_holder: 권한 소유자
+  rights_statement: 권한 정책
   save: 저장
   save_comment_lowercase: 덧글 저장
+  save_curated_association_submit_button: 연관 저장
   save_email_settings: 이메일 설정 저장
+  sci_name_avg_table_head: 과학적인 이름 평균
+  scientific_name: 과확적인 이름
   search: 찾기
   search_by_term_page_title: "찾기: %{term}"
   search_field_common_name: 공통 이름
   search_field_label: EOL 찾기
   search_field_preferred_common_name: 선호하는 공통 이름
   search_field_preferred_scientific: 선호하는 과학적 이름
+  search_field_synonym: 동의어
+  search_for_comments_containing_the_text: "텍스트를 포함하는 덧글 찾기:"
+  search_for_curators_containing: "포함하는 큐레이터 찾기:"
+  search_for_messages_containing: "포함하는 메시지 찾기:"
+  search_for_terms_containing: "포함하는 용어 찾기:"
+  search_for_users_containing_this_in_their_username_name_or_email_address: 사용자 이름, 이름 또는 이메일 주소에 포함하는 사용자를 찾습니다.
   search_next_label: 다음
   search_placeholder: EOL 찾기 ...
   search_previous_label: 이전
@@ -1515,7 +2844,29 @@ ko:
   search_suggestion_created: 찾기 제안을 성공적으로 만들었습니다
   search_suggestion_updated: 찾기 제안을 성공적으로 업데이트했습니다.
   search_suggestions: 찾기 제안
+  search_term: 용어 찾기
+  search_term_detail_report: 용어 자세한 정보 보고서 찾기
+  search_term_reports: 용어 보고서 찾기
+  search_term_reports_title: 용어 보고서 찾기
   search_the_site: 사이트 찾기
+  see_all_classifications_with_count_html: 
+    one: <span class="assistive">이 분류가 나타나는 승인한 분류 %{count}개</span> 보기
+    other: <span class="assistive">이 분류가 나타나는 승인한 분류 %{count}개</span> 모두 보기
+  see_all_collections_with_count_html: 
+    one: <span class="assistive">이 문서가 표시하는 모음 %{count}개</span> 보기
+    other: <span class="assistive">이 문서가 표시하는 모음 %{count}개</span> 모두 보기
+  see_all_comments_with_count_for_link_or_rate: 
+    one: 이 링크나 평가에 대한 덧글 %{count}개 보기
+    other: 이 링크나 평가에 대한 덧글 %{count}개 보기
+  see_all_comments_with_count_for_text_or_rate: 
+    one: 이 문서나 평가에 대한 덧글 %{count}개 보기
+    other: 이 문서나 평가에 대한 덧글 %{count}개 보기
+  see_all_communities_with_count_html: 
+    one: <span class="assistive">이 문서를 갖춘 공동체 %{count}개</span> 보기
+    other: <span class="assistive">이 문서를 갖춘 공동체 %{count}개</span> 모두 보기
+  see_all_editors_with_count: 
+    one: 관리자 %{count}명 보기
+    other: 관리자 %{count}명 모두 보기
   see_all_featured_collections_with_count: 
     one: 알찬 모음집 %{count}개를 봅니다.
     other: 알찬 모음집 %{count}개를 봅니다.
@@ -1523,6 +2874,9 @@ ko:
   see_all_media_link: 모든 미디어 보기
   see_all_of_your_collections: 내 모음집 모두 보기
   see_all_of_your_communities: 내 공동체 모두 보기
+  see_all_updates_with_count_html: 
+    one: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 보기
+    other: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 모두 보기
   see_notes: 참고 보기
   select_an_item_from_the_menu: 메뉴에서 항목을 선택하세요
   select_colon: "선택:"
@@ -1533,6 +2887,9 @@ ko:
   send: 보내기
   send_contact_email: 문의 이메일 보내기
   send_email_colon: "이메일 보내기:"
+  sent_invitations_to_users: 
+    one: "%{users} 사용자에게 초대장을 보냈습니다."
+    other: "%{users} 사용자에게 초대장을 보냈습니다."
   server_ip_address: 서버 IP 주소
   sessions: 
     new: 
@@ -1544,9 +2901,16 @@ ko:
       meta_title: 로그인
       problems_signing_in_with_connected_accounts: 연결한 계정으로 로그인을 하는 데 문제가 있나요?
       problems_signing_in_with_eol_authentication: 비밀번호를 잊으셨나요?
+      tip: 기존 사용자입니까? 당신의 프로필 설정에서 페이스북, 구글, 그 외로 EOL 계정을 연결하세요. 계정에 연결하면 EOL에 로그인하도록 할 수 있습니다.
+  set_as_exemplar: 표본으로 설정
   share_a_collection: 모음집 공유
   show: 보기
+  show_all_other_classifications_with_count: 
+    one: 다른 찾아볼 수 없는 분류 %{count}개 보기
+    other: 다른 찾아볼 수 없는 분류 %{count}개 보기
+  show_data_from_all_content_partners: 분류 필터 제거
   show_email_message_area: "[이메일 메시지 영역 보기]"
+  show_full_tree: 전체 트리 보기...
   show_in_overview: 둘러보기 보기
   show_status_message: 상태 메시지 보기
   show_tasks: 작업 보기
@@ -1563,6 +2927,9 @@ ko:
   site_information: 사이트 정보
   site_language: 사이트 언어
   site_settings_menu: 사이트 설정
+  skip_to_content: 내용으로 건너뛰기
+  skip_to_navigation: 둘러보기로 건너뛰기
+  skip_to_table_of_contents: 목차로 건너뛰기
   social_sharing_twitter_follow_eol_button: "@eol 팔로우"
   social_sharing_twitter_tweet_button: 트윗
   sort_by: 정렬 기준
@@ -1578,16 +2945,18 @@ ko:
   sort_by_status_option: 상태
   sort_by_title_ascending: 제목 오름차순
   sort_by_title_descending: 제목 내림차순
-  sort_by_year_ascending: 년 오름차순
-  sort_by_year_descending: 년 내림차순
+  sort_by_year_ascending: 년도 오름차순
+  sort_by_year_descending: 년도 내림차순
   sort_collection_by_label: 모음집 정렬 기준
   sort_field: "정렬 필드:"
   sort_order: 정렬 순서
   sound_alt_text: "%{taxon_name}의 이 %{vetted_status} 소리 녹음입니다."
   sound_file: 소리 파일
+  sound_from: 소리
   sound_from_supplier: "%{whom}에서 소리"
   sound_not_associated_with_any_published_entries: 이 소리는 모든 게시한 분류와 관련되지 않습니다.
   sound_object: 소리 개체
+  sound_of: 소리
   sound_of_taxon: "%{taxon_name}의 소리"
   sound_rating: 소리 평가
   sounds_with_count: 
@@ -1600,6 +2969,7 @@ ko:
   special_collection: 특수 모음집
   special_collections_cannot_be_destroyed: 이 모음집은 특수하고 파괴할 수 없습니다.
   species: 종
+  species_curated: 종 큐레이트함
   species_profile_model: 종 프로필 모델
   species_profile_model_cp_count_title: 종 프로필 모델 - 콘텐츠 파트너 수
   species_profile_model_dato_count_title: 종 프로필 모델 - 데이터 개체 수
@@ -1608,76 +2978,339 @@ ko:
   spm_category_partner_count: SPM 분류 - 파트너 수
   started: 시작
   stat: 통계
+  stats: 통계
+  sub_heading: 하위 문단 제목
   subject: 제목
   submit: 제출
+  submit_term: 용어 제출
   suggested_result_page_id: "제안한 결과 문서 ID:"
   suggested_results_avg: 제안한 결과 평균
+  supplier: 공급 업체
+  supplier_allcaps: "공급 업체:"
+  supplier_colon: "공급 업체:"
   survey_link: 설문 조사하기
+  synonym: 동의어
+  synonyms_with_count: 
+    one: 동의어 %{count}개
+    other: 동의어 %{count}개
   table_column_header_actions: 행위
   table_of_contents: 목차
   table_of_contents_breakdown: 목차 현황
   table_of_contents_breakdown_title: 목차 현황
   table_of_contents_editor: 목차 편집기
   task_status: 작업 상태
+  task_status_active_option: 활발
+  task_status_curated_option: 큐레이트됨
+  task_status_ignored_option: 무시
   tasks_with_count: 
     one: 작업 %{count}개 찾음
     other: 작업 %{count}개 찾음
   taxa: 
     communities: 
+      collections: 
+        hierarchy_entry: 
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}을 포함하는 모음집입니다."
+          meta_description_with_common_name: "%{preferred_common_name}(을)를 포함하는 모음집입니다. (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          meta_keywords: "%{scientific_name} 모음집, %{scientific_name} 관찰, %{hierarchy_provider} 모음집, %{hierarchy_provider} 관찰, %{hierarchy_provider} 표본"
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 모음집"
+          meta_title_with_common_name: "%{preferred_common_name}의 모음집 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 모음집"
+        meta_description: "%{scientific_name}(을)를 포함하는 모음집입니다."
+        meta_description_with_common_name: "%{preferred_common_name} (%{scientific_name})(을)를 포함하는 모음집입니다."
+        meta_keywords: "%{scientific_name} 모음집, %{scientific_name} 관찰"
+        meta_keywords_with_common_name: "%{preferred_common_name} 모음집, %{preferred_common_name} 관찰, %{scientific_name} 모음집, %{scientific_name} 관찰"
+        meta_title: "%{scientific_name}의 모음집"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})의 모음집"
+        tweet_text: "%{scientific_name}의 모음집"
       curators: 
         hierarchy_entry: 
           meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 큐레이터"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 전문가 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
           tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 큐레이터"
+        meta_description_with_common_name: 생명의 백과사전에서 데이터를 모니터하는 (%{scientific_name} 전문가로도 알려진) %{preferred_common_name} 전문가
+        meta_keywords: "%{scientific_name} 전문가, %{scientific_name} 큐레이터"
+        meta_keywords_with_common_name: "%{preferred_common_name} 전문가, %{preferred_common_name} 큐레이터, %{scientific_name} 전문가, %{scientific_name} 큐레이터"
         meta_title: "%{scientific_name}의 큐레이터"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 전문가"
         tweet_text: "%{scientific_name}의 큐레이터"
       index: 
+        hierarchy_entry: 
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 정보와 전문 지식을 공유합니다."
+          meta_description_with_common_name: "%{hierarchy_provider}에 의해 분류한 %{preferred_common_name} (%{scientific_name})에 정보와 전문 지식을 공유합니다."
+          meta_keywords: "%{scientific_name} 공동체, %{hierarchy_provider}"
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 관심 있는 사람"
+          meta_title_with_common_name: "%{preferred_common_name}에 관심 있는 사람 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 관심 있는 사람"
+        meta_description: "%{scientific_name}에 관심이 있습니까? 전문가로 %{scientific_name}에 가입하고 생명의 백과사전 %{scientific_name}에 자신의 관찰을 공유하세요."
+        meta_description_with_common_name: "%{preferred_common_name} (%{scientific_name})에 관심이 있습니까? 전문가로 %{preferred_common_name}에 가입하고 생명의 백과사전 %{preferred_common_name}에 자신의 관찰을 공유하세요."
         meta_keywords: "%{scientific_name} 공동체"
+        meta_keywords_with_common_name: "%{preferred_common_name} 공동체, %{scientific_name} 공동체"
+        meta_title: "%{scientific_name}에 관심 있는 사람"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 관심 있는 사람"
+        tweet_text: "%{scientific_name}에 관심 있는 사람"
     details: 
       index: 
+        hierarchy_entry: 
+          meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 사실
+          meta_description_no_data: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 존재하는 사실이 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 사실을 기여하는 데 초대합니다.
+          meta_description_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 사실입니다. %{scientific_name}에 대한 %{chapter_list} 정보를 포함합니다.
+          meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 사실입니다.
+          meta_description_with_common_name_no_data: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}라고도 알려진 %{preferred_common_name}에 존재하는 사실이 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에 대한 사실을 기여하는 데 초대합니다.
+          meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 사실입니다. %{chapter_list}에 대한 사실을 포함합니다.
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 사실"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 사실 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 사실"
         meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 사실
+        meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 존재하는 사실이 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 사실을 기여하는 데 초대합니다.
+        meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 사실입니다. %{chapter_list}에 대한 사실을 포함합니다.
+        meta_description_with_common_name: 생명의 백과사전에서 과학적으로 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 사실입니다.
+        meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도 알려진 %{preferred_common_name}에 존재하는 사실이 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에 대한 사실을 기여하는 데 초대합니다.
+        meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 과학적으로 %{scientific_name}라고도 알려진 %{preferred_common_name}에 대한 사실입니다. %{chapter_list}에 대한 사실을 포함합니다.
         meta_title: "%{scientific_name}에 대한 사실"
-        meta_title_with_common_name: "%{preferred_common_name}에 대한 사실 (%{scientific_name})"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 사실"
         tweet_text: "%{scientific_name}에 대한 사실"
+    literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 BHL 문헌과 정보입니다. 생명에 백과사전에서 %{scientific_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서 문서를 읽으세요.
+          meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{preferred_common_name}라고도 알려진 %{scientific_name}에 대한 BHL 문헌과 정보입니다. 생명에 백과사전에서 %{preferred_common_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서 문서를 읽으세요.
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 BHL 문헌"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 BHL 문헌 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 #BHL 문헌"
+        meta_title: "%{scientific_name}에 대한 BHL 인용"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 BHL 참고"
+        tweet_text: "%{scientific_name}에 대한 #BHL 문헌"
+      show: 
+        hierarchy_entry: 
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 문헌"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 책 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 문헌"
+        meta_description: 생명의 백과사전에서 %{scientific_name}에 대한 책, 문서와 참고 문헌입니다. 생명의 백과사전에서 %{scientific_name}에 대한 문헌을 읽으세요.
+        meta_description_with_common_name: 생명의 백과사전에서 %{scientific_name}라고도 알려진 %{preferred_common_name}에 대한 책, 문서와 참고 문헌입니다. 생명의 백과사전에서 %{preferred_common_name}에 대한 문헌을 읽으세요.
+        meta_keywords: "%{scientific_name} 문서,%{scientific_name} 책,%{scientific_name} 참고 문헌,%{scientific_name} 문헌"
+        meta_keywords_with_common_name: "%{preferred_common_name} 문서,%{preferred_common_name} 책,%{preferred_common_name} 문헌,%{scientific_name} 문서,%{scientific_name} 책,%{scientific_name} 참고 문헌,%{scientific_name} 문헌"
+        meta_title: "%{scientific_name}에 대한 문서와 책"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 문서와 책"
+        tweet_text: "%{scientific_name}에 대한 문서와 책"
     maps: 
       show: 
+        hierarchy_entry: 
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}(이)가 어디서 살고 세계에 고유 위치가 어디에 있는지에 대한 지리 정보입니다."
+          meta_description_with_common_name: 어디서 %{preferred_common_name}(을)를 찾았고 어디서 살고 있습니까? %{hierarchy_provider}에 의해 분류한 %{scientific_name}(이)가 어디서 살고 세계에 고유 위치가 어디에 있는지에 대한 지리 정보입니다.
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 지도"
+          meta_title_with_common_name: "%{preferred_common_name}의 지도 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 지도"
+        meta_description: "%{scientific_name}에 대한 지리 정보입니다. 세계에서 살고 있는 곳입니다."
+        meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 대해 존재하는 지리 정보가 없습니다. EOL은 %{scientific_name}에 대한 지도를 기여하는 데 초대합니다.
+        meta_description_with_common_name: 어디서 %{preferred_common_name}(을)를 찾았고 어디서 살고 있습니까? %{scientific_name}에 대한 지리 정보입니다. 세계에서 살고 있는 장소입니다.
+        meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도 알려진 %{preferred_common_name}에 대해 존재하는 지리 정보가 없습니다. EOL은 %{preferred_common_name} (%{scientific_name})에 대한 지도를 기여하는 데 초대합니다.
+        meta_keywords: "%{scientific_name} 서식지, %{scientific_name}(이)가 사는 곳"
+        meta_keywords_with_common_name: "%{preferred_common_name} 서식지, %{preferred_common_name}(이)가 사는 곳"
         meta_title: "%{scientific_name}에 대한 지도"
-        meta_title_with_common_name: "%{preferred_common_name}에 대한 지도 (%{scientific_name})"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 지도"
         tweet_text: "%{scientific_name}에 대한 지도"
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 사진과 동영상입니다."
+          meta_description_with_common_name: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}라고도 알려진 %{preferred_common_name}의 사진, 영상과 소리입니다."
+          meta_keywords: "%{scientific_name} 사진, %{scientific_name} 영상, %{scientific_name} 소리, %{scientific_name} 소리"
+          meta_keywords_with_common_name: "%{preferred_common_name} 사진, %{preferred_common_name} 영상, %{preferred_common_name} 소리, %{preferred_common_name} 소리, %{scientific_name} 사진, %{scientific_name} 영상, %{scientific_name} 소리, %{scientific_name} 소리"
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 소리, 영상과 사진"
+          meta_title_with_common_name: "%{preferred_common_name}의 소리, 영상과 그림 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 미디어"
+        meta_description: "%{scientific_name}의 그림, 동영상과 소리입니다. 생명의 백과사전에서 %{scientific_name}의 그림, 사진, 영상과 소리를 찾으세요."
+        meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 대해 존재하는 멀티미디어가 없습니다. EOL은 %{scientific_name}에 대해 그림, 동영상 또는 소리를 기여하는 데 초대합니다.
+        meta_description_with_common_name: "%{scientific_name}라고도 알려진 %{preferred_common_name}의 사진, 동영상과 소리입니다. 생명의 백과사전에서 %{preferred_common_name} (%{scientific_name})의 그림, 사진, 영상과 소리를 찾으세요."
+        meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도 알려진 %{preferred_common_name}에 대해 존재하는 멀티미디어가 없습니다. EOL은 %{preferred_common_name} (%{scientific_name})에 대한 그림, 동영상, 또는 소리를 기여하는 데 초대합니다.
+        meta_keywords: "%{scientific_name} 사진, %{scientific_name} 동영상, %{scientific_name} 그림, %{scientific_name} 동영상, %{scientific_name} 사진, 미디어"
+        meta_keywords_with_common_name: "%{preferred_common_name} 사진, %{preferred_common_name} 동영상, %{preferred_common_name} 그림, %{preferred_common_name} 동영상, %{preferred_common_name} 사진, 미디어"
+        meta_title: "%{scientific_name}의 사진, 동영상과 소리 - %{scientific_name}의 그림, 사진, 영상과 소리"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})의 사진, 동영상과 소리 - %{preferred_common_name} (%{scientific_name})의 그림, 사진 영상과 소리"
+        tweet_text: "%{scientific_name}의 사진, 동영상과 소리"
+    names: 
+      common_names: 
+        hierarchy_entry: 
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}와 관련된 내나라 이름입니다."
+          meta_description_with_common_name: "%{scientific_name}에 대한 내나라 이름은 %{preferred_common_name}입니다. %{hierarchy_provider}에 의해 분류한 %{scientific_name}와 관련된 다른 내나라 이름을 찾으세요."
+          meta_keywords: "%{scientific_name}에 대한 내나라 이름"
+          meta_keywords_with_common_name: "%{preferred_common_name} 과학적인 이름, %{scientific_name} 내나라 이름"
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 내나라 이름"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 내나라 이름 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 공통 이름"
+        meta_description: "%{scientific_name}에 대한 공통 이름입니다."
+        meta_description_with_common_name: "%{preferred_common_name}에 대한 과학적인 이름은 %{scientific_name}입니다. %{scientific_name}에 대한 다른 공통 이름을 찾으세요."
+        meta_keywords: "%{scientific_name}에 대한 공통 이름"
+        meta_keywords_with_common_name: "%{scientific_name} 공통 이름, %{preferred_common_name} 과학적인 이름"
+        meta_title: "%{scientific_name}에 대한 공통 이름"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 공통 이름"
+        tweet_text: "%{scientific_name}에 대한 공통 이름"
+      index: 
+        hierarchy_entry: 
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 분류와 과학적인 이름입니다."
+          meta_description_with_common_name: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 분류와 과학적인 이름입니다."
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}(와)과 관련된 이름"
+        meta_description: "%{scientific_name}에 대한 분류와 과학적인 이름입니다. 생물 분류와 이름은 %{scientific_name}(와)과 관련있습니다."
+        meta_description_with_common_name: "%{scientific_name}라고도 알려진 %{preferred_common_name}에 대한 분류와 과학적인 이름입니다. 생물 분류와 이름은 %{preferred_common_name}(와)과 관련있습니다."
+        meta_title: "%{scientific_name}에 대한 분류 정보 - 생물 분류와 이름"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 분류 정보 - 생물 분류와 이름"
+        tweet_text: "%{scientific_name}에 대한 분류 정보"
+      synonyms: 
+        hierarchy_entry: 
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}와 관련된 동의어입니다."
+          meta_description_with_common_name: "%{hierarchy_provider}에 의해 분류한 일반적으로 %{preferred_common_name}라고 알려진 %{scientific_name}(와)과 관련된 동의어입니다."
+          meta_keywords: "%{scientific_name} 동의어"
+          meta_keywords_with_common_name: "%{preferred_common_name} 동의어 %{scientific_name} 동의어"
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name} 동의어"
+          meta_title_with_common_name: "%{preferred_common_name} 동의어 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 동의어"
+        meta_description: "%{scientific_name}의 동의어입니다."
+        meta_description_with_common_name: 과학적으로 %{scientific_name}라고 알려진 %{preferred_common_name}의 동의어입니다.
+        meta_keywords: "%{scientific_name}의 동의어"
+        meta_keywords_with_common_name: "%{preferred_common_name}의 동의어, %{scientific_name}의 동의어"
+        meta_title: "%{scientific_name}의 동의어"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})의 동의어"
+        tweet_text: "%{scientific_name}의 동의어"
+    overviews: 
+      show: 
+        hierarchy_entry: 
+          meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 인정한 %{scientific_name}에 대한 정보 요약입니다.
+          meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해 인정한 %{preferred_common_name}라고도 알려진 %{scientific_name}에 대한 정보 요약입니다.
+          meta_keywords: "%{hierarchy_provider}에 의해 인정한 %{scientific_name}, %{hierarchy_provider}에 의해 분류한 %{scientific_name}"
+          meta_keywords_with_common_name: "%{hierarchy_provider}에 의해 인정한 %{scientific_name}, %{hierarchy_provider}에 의해 분류한 %{scientific_name}"
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 둘러보기"
+        meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 정보입니다.
+        meta_description_with_common_name: 생명의 백과사전에서 과학적으로 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 정보입니다.
+        meta_keywords: "%{scientific_name}에 대한 정보,%{scientific_name} 정보"
+        meta_keywords_with_common_name: "%{scientific_name}에 대한 정보,%{preferred_common_name}에 대한 정보,%{scientific_name} 정보와 사실, %{preferred_common_name} 정보"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - %{preferred_common_name}에 대한 정보"
+        tweet_text: "%{scientific_name}에 대한 정보"
+    resources: 
+      biomedical_terms: 
+        hierarchy_entry: 
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 생물 의학 용어"
+        meta_title: "%{scientific_name}에 대한 생물 의학 용어"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 생물 의학 용어"
+        tweet_text: "%{scientific_name}에 대한 생물 의학 용어"
+      education: 
+        hierarchy_entry: 
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 학습 도구"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 학습 도구 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 학습 도구"
+        meta_title: "%{scientific_name}에 대한 교육 자료"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 교육 자료"
+        tweet_text: "%{scientific_name}에 대한 교육 자료"
+      identification_resources: 
+        hierarchy_entry: 
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 식별 자료"
+        meta_title: "%{scientific_name}에 대한 식별 자료"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 식별 자료"
+        tweet_text: "%{scientific_name}에 대한 식별 자료"
+      nucleotide_sequences: 
+        hierarchy_entry: 
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 염기 서열"
+        meta_title: "%{scientific_name}에 대한 염기 서열"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 염기 서열"
+        tweet_text: "%{scientific_name}에 대한 염기 서열"
+      show: 
+        hierarchy_entry: 
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 제공자와 원본 데이터의 목록입니다."
+          meta_description_with_common_name: "%{preferred_common_name}에 대한 제공자와 원본 데이터의 목록입니다. (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          meta_keywords: "%{scientific_name} 데이터 제공자, %{scientific_name} 원본 데이터"
+          meta_keywords_with_common_name: "%{preferred_common_name} 데이터 제공자, %{preferred_common_name} 원본 데이터, %{scientific_name} 데이터 제공자, %{scientific_name} 원본 데이터"
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 데이터 제공자"
+          meta_title_with_common_name: "%{hierarchy_provider}에 의해 분류한 %{preferred_common_name}에 대한 데이터 제공자"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 데이터 제공자"
+        meta_description: "%{scientific_name} 자료와 파트너 인용문입니다."
+        meta_description_with_common_name: "%{preferred_common_name} 자료와 %{scientific_name}에 대한 파트너 인용문입니다."
+        meta_keywords: "%{scientific_name} 자료, %{scientific_name} 콘텐츠 제공자"
+        meta_keywords_with_common_name: "%{preferred_common_name} 자료, %{preferred_common_name} 콘텐츠 제공자, %{scientific_name} 자료, %{scientific_name} 콘텐츠 제공자"
+        meta_title: "%{scientific_name}에 대한 콘텐츠 자료"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 콘텐츠 자료"
+        tweet_text: "%{scientific_name}에 대한 콘텐츠 자료"
     updates: 
       show: 
+        hierarchy_entry: 
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 업데이트"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 업데이트 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 업데이트"
+        meta_description: "%{scientific_name}에 대한 뉴스와 업데이트"
+        meta_description_with_common_name: "%{preferred_common_name}에 대한 뉴스와 %{scientific_name}에 대한 업데이트입니다."
+        meta_keywords: "%{scientific_name} 뉴스, %{scientific_name} 업데이트"
+        meta_keywords_with_common_name: "%{preferred_common_name} 뉴스, %{preferred_common_name} 업데이트, %{scientific_name} 업데이트"
         meta_title: "%{scientific_name}에 대한 덧글"
-        meta_title_with_common_name: "%{preferred_common_name}에 대한 덧글 (%{scientific_name})"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 덧글"
         tweet_text: "%{scientific_name}에 대한 덧글"
       statistics: 
+        hierarchy_entry: 
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 통계"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 통계 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 풍부한 점수"
+        meta_description: 생명의 백과사전에서 %{scientific_name}에 대한 통계와 데이터입니다.
+        meta_description_with_common_name: 생명의 백과사전에서 %{scientific_name}라고도 알려진 %{preferred_common_name}에 대한 통계와 데이터입니다.
+        meta_keywords: "%{scientific_name}에 대한 통계, %{scientific_name}에 대한 통계, %{scientific_name}에 대한 데이터"
+        meta_keywords_with_common_name: "%{preferred_common_name}에 대한 통계, %{preferred_common_name}에 대한 통계, %{preferred_common_name}에 대한 데이터"
         meta_title: "%{scientific_name}의 풍요로움"
-        meta_title_with_common_name: "%{preferred_common_name}의 풍요로움 (%{scientific_name})"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})의 풍요로움"
         tweet_text: "%{scientific_name}에 대한 풍요로움 점수"
+  taxa_column_header: 분류
+  taxa_with_count: 
+    one: 분류 %{count}개
+    other: 분류 %{count}개
+  taxon: 분류
+  taxon_biomedical_terms_link: 생명 공학 용어
   taxon_citizen_science_header: 시민 과학 링크
   taxon_citizen_science_link: 시민 과학 링크
+  taxon_citizen_science_resources_empty: 아직 이 문서에 어떠한 시민 과학 링크을 기여하지 않았습니다.
+  taxon_concept_stats: 분류 개념 통계
+  taxon_details_empty: 아직 이 문서에 어떠한 자세한 사항을 기여하지 않았습니다.
+  taxon_education_empty: 아직 이 문서에 어떠한 교육 자료를 기여하지 않았습니다.
   taxon_education_header: 교육 자료
   taxon_education_link: 교육 자료
+  taxon_group: 분류 그룹
+  taxon_id: 분류 ID
+  taxon_identification_resources_empty: 아직 이 문서에 어떠한 식별 자료를 기여하지 않았습니다.
+  taxon_identification_resources_header: 식별 리소스
+  taxon_identification_resources_link: 식별 리소스
+  taxon_multimedia_links_link: 멀티미디어 링크
+  taxon_news_and_event_links_link: 뉴스 및 사건 링크
+  taxon_newsfeed: 분류 뉴스 피드
   taxon_not_found_error: "\"%{taxon}\"(을)를 찾을 수 없습니다"
+  taxon_nucleotide_sequences_link: 염기 서열
+  taxon_page_content_disclaimer: EOL 내용은 자동으로 다양한 콘텐츠 제공자에서 조립합니다. 결과적으로 때때로 EOL에 찾는 문서는 혼란할 수 있습니다.
+  taxon_page_content_disclaimer_suggest_improvement: 개선하도록 요청하려면 문서에 덧글을 남겨주세요. 감사합니다!
   taxon_partner_links_header: 파트너 링크
   taxon_partner_links_link: 파트너 링크
-  taxon_rating: 분류군 평가
-  taxon_recognized_by: "%{whom}에 의해 인정한 분류군"
-  taxon_selected_from_search_res: 찾기 결과에서 선택한 분류군
-  taxon_suggested: 제안한 분류군
+  taxon_rating: 분류 평가
+  taxon_recognized_by: "%{whom}에 의해 인정한 분류"
+  taxon_related_organizations_link: 관련 기관
+  taxon_selected_from_search_res: 찾기 결과에서 선택한 분류
+  taxon_suggested: 제안한 분류
   technical_functions: 기술적인 기능
+  term_cannot_be_left_blank: 용어는 비워둘 수 없습니다
   term_for_search_admin_ui: 약관
+  term_is_already_def_error: "'%{term}'(은)는 이미 정의했습니다"
   terms_agreement_form_fallback: 계정에 접근하기 전에 <a href="%{terms_url}">이용 약관</a>을 검토하고 동의하세요.
   terms_agreement_form_header: 이용 약관
   terms_agreement_form_submit: 동의합니다
   terms_of_use_link: 이용 및 개인정보 정책 약관
+  test: 시험.
+  text: 텍스트
+  text_capital: 텍스트
+  text_object: 텍스트 개체
+  text_summary_empty: 아직 이 문서에 간단한 요약을 기여하지 않았습니다.
   text_summary_empty_header: 간단한 요약
   text_summary_more_link: 전체 항목 읽기
   text_with_count: 
     one: 문서 %{count}개
-    other: 문서 %{count}
+    other: 문서 %{count}개
   thank_you: 감사합니다
   thank_you_for_your_generous_support: 관대한 지원에 감사합니다
   thanks_for_donation: 생명의 백과 사전에 지원해 주어서 감사합니다.  정보가 제출되었으며 처리됩니다.
   thanks_for_your_time: 시간을 내어 주셔서 감사합니다,
+  the_amount_entered_was: "입력한 금액 : 미화 %{number}"
   the_comment_was_successfully_deleted: 덧글을 성공적으로 삭제했습니다.
   the_comment_was_successfully_updated: 덧글을 성공적으로 업데이트했습니다.
   the_content_could_not_be_displ: 컨텐츠를 볼 수 없습니다.
@@ -1688,8 +3321,6 @@ ko:
   the_message_was_sent: 메시지를 보냈습니다.
   the_new_topic_was_created: 새 주제를 만들었습니다.
   the_new_user_was_created: 새 사용자를 만들었습니다.
-  the_news_item_created: 뉴스 항목을 성공적으로 만들었습니다.
-  the_news_item_updated: 뉴스 항목을 성공적으로 업데이트했습니다.
   the_topic_was_updated: 주제를 업데이트했습니다.
   the_user_was_updated: 사용자를 업데이트했습니다.
   there_are_currently_no_members_in_this_community: 현재 이 공동체에 구성원이 없습니다.
@@ -1704,22 +3335,30 @@ ko:
   this_image_is_unpublished: 이 그림은 게시하지 않았습니다.
   this_image_map_cannot_be_curated_because_unpublished: 이 지도는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_image_map_is_unpublished: 이 지도는 게시하지 않았습니다.
+  this_link_cannot_be_curated_because_unpublished: 이 링크는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
+  this_link_is_unpublished: 이 링크는 게시하지 않았습니다.
   this_map_cannot_be_curated_because_unpublished: 이 지도는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_map_is_unpublished: 이 지도는 게시하지 않았습니다.
+  this_section_is_used_to_create: 이 문단은 뉴스 항목을 만드는 데 사용합니다. 뉴스 항목은 대문 문서의 오른쪽 부분에 보여지며, %{rss_link}와 %{news_archive}에도 보여집니다.
   this_sound_cannot_be_curated_because_unpublished: 이 소리는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_sound_is_unpublished: 이 소리는 게시하지 않았습니다.
   this_video_cannot_be_curated_because_unpublished: 이 동영상은 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_video_is_unpublished: 이 동영상은 게시하지 않았습니다.
+  threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr> 위기 등급:"
   thumbnail_page_colon: "섬네일 문서:"
   time_ago: "%{time_passed} 전"
-  tinyurl: 단축URL
   title: 제목
+  to_submit_a_species_photograph_for: "%{taxon} 분류에 대한 종 사진을 제출하려면 %{flickr_link}(으)로 사진을 보내고 해당 그룹의 대문문서에 보이는 지시를 따르세요."
   toc: 목차
   toc_entry_col_header: 목차 항목
   toc_no_longer_available: 목차 정보를 더 이상 사용할 수 없음
   topic: 주제
   topic_area: 주제 영역
   total: 전체
+  total_comments_have_been_submitted: 
+    one: 덧글 %{count}개를 %{string}에 제출했습니다
+    other: 총 덧글 %{count}개를 %{string}에 제출했습니다
+  total_distinct_searches: "총 고유 찾기:"
   total_items_with_count: 
     one: 항목 %{count}개
     other: 총 항목 %{count}개
@@ -1732,14 +3371,17 @@ ko:
   true_label: 참
   truncated_comment_omission: ... <a href='%{link}'>더 보기</a>
   truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: ... <a href='%{link}'>더 보기</a>
   trusted: 신뢰함
   trusted_images: 신뢰한 그림
   trusted_maps: 신뢰한 지도
   trusted_text_objects: 신뢰한 문서
+  tumblr: Tumblr
   twitter: 트위터
   type: 종류
   unique_page_views_th: 고유 문서 보기
   unknown: 알 수 없음
+  unknown_hierarchy: 알 수 없는 계층
   unknown_type_not_associated_with_any_published_entries: 이 데이터는 모든 게시한 분류와 관련되지 않습니다.
   unpublished: 게시하지 않음
   unreviewed: 검토하지 않음
@@ -1764,11 +3406,14 @@ ko:
   uploaded_content: 올린 콘텐츠
   uploaded_on: 올린 곳
   url: URL
+  url_not_accessible: 이 URL은 접근할 수 없습니다
   us_dolars_75: 미화 $75
   us_dollars_100: 미화 $100
   us_dollars_35: 미화 $35
   us_dollars_50: 미화 $50
+  use_as_examplar_button: 표본으로 사용
   user: 사용자
+  user_activation_successful_notice: 환영합니다, 그리고 생명의 백과사전 팀에 가입해주셔서 감사합니다. <em>%{username}</em> 사용자 이름으로 된 계정을 활성화했습니다, 로그인하세요.
   user_activity_page_title: 사용자 활동
   user_activity_stats_articles_added: 
     one: 문서 %{count}개 추가함
@@ -1780,13 +3425,26 @@ ko:
   user_activity_stats_common_names_added: 
     one: 공통 이름 %{count}개 추가함
     other: 공통 이름 %{count}개 추가함
+  user_activity_stats_common_names_curated: 
+    one: 공통 이름 %{count}개 큐레이트함
+    other: 공통 이름 %{count}개 큐레이트함
   user_activity_stats_common_names_removed: 
     one: 공통 이름 %{count}개 제거함
     other: 공통 이름 %{count}개 제거함
   user_activity_stats_header: 활동
+  user_activity_stats_objects_curated: 
+    one: 개체 %{count}개 큐레이트함
+    other: 개체 %{count}개 큐레이트함
+  user_activity_stats_objects_curated_dropdown: 개체 큐레이트함
+  user_activity_stats_preferred_classifications_selected: 
+    one: 선호하는 분류 %{count}개를 선택했습니다
+    other: 선호하는 분류 %{count}개를 선택했습니다
   user_activity_stats_selected_articles_for_overview: 
     one: 둘러보기에 대해 문서 %{count}개 선택함
     other: 둘러보기에 대해 문서 %{count}개 선택함
+  user_activity_stats_set_exemplar: 
+    one: 그림 %{count}개를 표본으로 설정했습니다
+    other: 그림 %{count}개를 표본으로 설정했습니다
   user_activity_stats_taxa_commented: 
     one: 분류 %{count}개에 덧글 달림
     other: 분류 %{count}개에 덧글 달림
@@ -1797,19 +3455,38 @@ ko:
   user_activity_stats_taxa_curated: 
     one: 분류 %{count}개에 큐레이트함
     other: 분류 %{count}개에 큐레이트함
+  user_activity_stats_wikipedia_nominated: 
+    one: 위키백과 문서 %{count}개를 추천했습니다
+    other: 위키백과 문서 %{count}개를 추천했습니다
+  user_agent: 유저 에이전트
   user_already_active_notice: 계정이 이미 활성화되어 있습니다, 로그인하세요.
   user_comment: 사용자 덧글
+  user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> 사용자가 제거한 사용자의 문서에 덧글을 남겼습니다:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> 사용자가 %{what}의 이전 판에 덧글을 남겼습니다:"
+  user_commented_on_something_colon: "<strong>%{user}</strong> 사용자가 \"%{what}\"에 덧글을 남겼습니다:"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> 사용자가 <a href='%{link}'>%{username}의 뉴스 피드</a>에 덧글을 남겼습니다:"
+  user_commented_on_your_image: "<strong>%{user}</strong> 사용자가 <a href='%{data_object_link}'>생명의 백과사전 사이트</a>에 있는 내 그림에 덧글을 남겼습니다:\n%{comment_body}"
   user_comments: 사용자 덧글
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: 사용자 ID
+  user_joined_community_on_date: "%{username} 사용자가 %{date}에 이 공동체에 가입했습니다."
   user_joined_when: "\"%{user}\" 사용자는 %{when}에 가입했습니다"
   user_left_comment_on_date: "%{username} 사용자가 %{date}에 덧글을 남겼습니다."
   user_no_longer_active_message: 이 사용자는 더 이상 활동하지 않습니다
+  user_no_longer_has_manager_access_to_collection: "%{user} 사용자는 더 이상 \"%{collection}\" 모음집으로 관리자 접근할 수 없습니다."
+  user_pending_notifications_assitive: <span class="assistive">알림</span>
   user_pending_notifications_comments_assistive: <span class="assistive">덧글</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: <span class="assistive">덧글 </span>%{count}개
+    other: <span class="assistive">덧글 </span>%{count}개
+  user_pending_notifications_with_count_assitive: 
+    one: <span class="assistive">알림 </span>%{count}개
+    other: <span class="assistive">알림 </span>%{count}개
   user_response: 사용자 응답
   user_says_colon: "%{users_name}의 말:"
   user_submitted_text: 사용자가 제출한 텍스트
   user_submitted_text_found: "사용자가 제출한 텍스트를 찾음:"
+  user_was_added_as_editor_of_collection: 이 사용자가 "%{collection}"의 관리자로 추가했습니다.
   username: 사용자 이름
   username_colon: "사용자 이름:"
   username_taken: "%{name}(은)는 이미 토큰이 있습니다"
@@ -1829,6 +3506,17 @@ ko:
         meta_description: "%{user_full_name}는 공동체의 구성원입니다."
         meta_title: "%{user_full_name} 공동체"
         tweet_text: "%{user_full_name} 공동체"
+    content_partners: 
+      index: 
+        meta_description: "%{user_full_name} 콘텐츠 파트너 협회입니다."
+        meta_title: "%{user_full_name} 콘텐츠 파트너"
+        tweet_text: "%{user_full_name} 콘텐츠 파트너"
+    edit: 
+      form_tip_account: EOL에 로그인하려면 EOL 사용자 이름과 비밀번호가 필요하거나 타사 계정을 연결할 수 있습니다. 연결한 계정을 가지고 있지 않으면 사용자 이름과 비밀번호가 필수입니다. 하지만 기존 계정을 바꾸고 싶다면 여기에 새 비밀번호만 입력해야 합니다. 이메일 주소와 선호하는 언어는 모든 사용자한테는 필수(%{required_icon})입니다.
+      form_tip_account_oauth: 이메일 주소와 선호 언어는 모든 사용자에 대해 필수%{required_icon}입니다.
+      form_tip_curation: 자격 증명과 큐레이션 범위는 조수 큐레이터한테는 선택 사항이지만 전체 큐레이터와 마스터 큐레이터한테는 필수%{required_icon}입니다.
+      form_tip_profile: 필수%{required_icon}로 표시한 항목은 일반 사용자한테는 선택 사항이지만 큐레이터한테는 필수입니다.
+      form_tip_profile_oauth: 이름은 필수입니다. 필수%{required_icon}로 표시한 다른 항목은 일반 사용자한테는 선택 사항이지만 큐레이터한테는 필수입니다.
     new: 
       complete_registration_header: EOL 등록을 완료했습니다
       create_user_header: 새 <abbr title="Encyclopedia of Life">EOL</abbr> 계정 만들기
@@ -1850,13 +3538,45 @@ ko:
       comments_link: 덧글
       newsfeed_link: 뉴스 피드
       show: 
-        meta_description: "%{user_full_name}에 대한 뉴스, 활동 업데이트와 덧글."
+        meta_description: "%{user_full_name}에 대한 뉴스, 활동 업데이트와 덧글입니다."
         meta_title: "%{user_full_name} 뉴스 피드"
         tweet_text: "%{user_full_name} 뉴스 피드"
     notifications: 
       edit: 
         page_title: 알림 설정
+      update: 
+        notification_settings_successfully_updated: 알림 설정을 성공적으로 업데이트했습니다.
+        sorry_notification_settings_could_not_be_updated: 죄송합니다, 알림 설정을 업데이트할 수 없습니다.
     open_authentications: 
+      errors: 
+        facebook: 
+          missing_attributes: 죄송합니다, 페이스북 자세한 정보에 접근하는 데 문제가 있습니다.
+          new_authentication_not_added: 죄송합니다, 오류가 발생해 페이스북 계정에 연결할 수 없습니다.
+          not_authorized_to_add_authentication: 죄송합니다, 페이스북 계정에 연결하는 데 인증할 수 없습니다.
+          not_authorized_to_login: 죄송합니다, 페이스북 계정을 사용해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 페이스북 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+        google: 
+          missing_attributes: 죄송합니다, 구글 자세한 정보에 접근하는 데 문제가 있습니다.
+          new_authentication_not_added: 죄송합니다, 오류가 발생해 구글 계정에 연결할 수 없습니다.
+          not_authorized_to_add_authentication: 죄송합니다, 구글 계정에 연결하는 데 인증할 수 없습니다.
+          not_authorized_to_login: 죄송합니다, 구글 계정을 사용해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 구글 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+        missing_attributes: 죄송합니다, 서드 파티 계정 자세한 정보에 접근하는 데 문제가 있습니다.
+        not_authorized_to_add_authentication: 죄송합니다, 해당 계정에 연결하는 데 인증할 수 없습니다.
+        not_authorized_to_login: 죄송합니다, 해당 계정으로 EOL에 로그인할 권한이 없습니다.
+        remove_connection_failed: 죄송합니다, 오류가 발생해 우리는 연결을 제거할 수 없습니다.
+        twitter: 
+          missing_attributes: 죄송합니다, 트위터 자세한 정보에 접근하는 데 문제가 있습니다.
+          new_authentication_not_added: 죄송합니다, 오류가 발생해 트위터 계정에 연결할 수 없습니다.
+          not_authorized_to_add_authentication: 죄송합니다, 트위터 계정에 연결하는 데 인증할 수 없습니다.
+          not_authorized_to_login: 죄송합니다, 트위터 계정을 사용해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 트위터 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+        yahoo: 
+          missing_attributes: 죄송합니다, 야후! 자세한 정보에 접근하는 데 문제가 있습니다.
+          new_authentication_not_added: 죄송합니다, 오류가 발생해 야후! 계정에 연결할 수 없습니다.
+          not_authorized_to_add_authentication: 죄송합니다, 야후! 계정에 연결하는 데 인증할 수 없습니다.
+          not_authorized_to_login: 죄송합니다, 야후! 계정을 사용해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 야후! 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
       facebook: 페이스북
       google: 구글
       index: 
@@ -1880,17 +3600,33 @@ ko:
     pending: 
       header: 등록하셔서 감사합니다!
     recover_account: 
+      errors: 
+        unable_to_update_token: 죄송합니다, 오류가 발생해 이메일을 보내지 못했습니다, 다시 시도하세요.
+        user_not_found_by_email_address: 해당 이메일 주소로 EOL 계정을 찾을 수 없습니다.
       form_header: 계정 복구
+      form_tip: EOL 계정을 복구하려면 해당 계정으로 연결한 이메일 주소를 입력하세요. 몇 시간 이내에 계정 복구 이메일을 받을 수 없을 때는 스팸 폴더를 확인하시기 바랍니다.
       meta_title: 계정 복구
     recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: 죄송합니다, 오류가 발생해 이메일을 보내지 않았습니다. 복구하고자 하는 계정을 선택하고 다시 시도하세요.
       form_header: 계정 복구
+      form_tip: <em>%{email}</em> 이메일 주소로 등록한 계정 여러 개가 있습니다. 복구하고자 하는 계정을 선택하세요.
       legend_choose_account: 계정 선택
     show: 
       meta_description: 생명의 백과사전에서 %{user_full_name}에 대한 구성원 프로필
       meta_description_curator: 생명의 백과사전에서 %{curator_level} %{user_full_name}에 대한 구성원 프로필
+    unsubscribe_notifications: 
+      already_unsubscribed: 이미 알림을 구독 취소했습니다.
+      unsubscribe_notifications_failed: 죄송합니다, 오류가 발생해 사용자가 알림을 구독 취소할 수 없습니다.
+      unsubscribed_notifications_successfully: 성공적으로 알림을 구독 취소했습니다.
   users_about_me_header: 내 소개
   users_content_partners_header: 콘텐츠 파트너
+  users_content_partners_with_count: 
+    one: 현재 콘텐츠 파트너 %{count}개
+    other: 현재 콘텐츠 파트너 %{count}개
+  users_curation_header: 큐레이터 자격
   users_form_account_header: 내 계정
+  users_form_curation_header: 큐레이터 자격
   users_form_profile_info_header: 공개 프로필 정보
   users_member_of_count_communities: 
     one: 공동체 %{count}개의 구성원
@@ -1903,15 +3639,22 @@ ko:
   value_default: (기본값)
   value_empty: (비었음)
   values: 값
+  vetted: 심사함
   video_alt_text: "%{taxon_name}의 이 %{vetted_status} 동영상입니다."
+  video_from: 동영상
   video_from_supplier: "%{whom}에서 동영상"
   video_not_associated_with_any_published_entries: 이 동영상은 모든 게시한 분류와 관련되지 않습니다.
-  video_object: 동영상 개제
+  video_object: 동영상 개체
   video_of_taxon: "%{taxon_name}의 동영상"
   video_rating: 동영상 평가
+  video_title_not_available_in_language: "%{language}에서 사용할 수 없는 제목"
+  videos_with_count: 
+    one: 동영상 %{count}개
+    other: 동영상 %{count}개
   view_added_text: 추가된 텍스트 보기
   view_article_source: 문서 자료 보기
   view_as_button: 바뀜 보기
+  view_as_label: 보기 방식
   view_common_activities: 공통 활동 보기
   view_contact_us_submissions: 문의하기 제출 보기
   view_curators: 큐레이터 보기
@@ -1925,12 +3668,15 @@ ko:
   view_map_source: 지도 자료 보기
   view_sound_source: 소리 자료 보기
   view_source: 자료 보기
+  view_this_hierarchy: 이 계층 보기
   view_translation_source_link: 번역 원본 보기
   view_user_activity: 사용자 활동 보기
   view_user_comments: 사용자 덧글 보기
   view_verb: 보기
   view_video_source: 동영상 자료 보기
   view_your_curator_profile: 내 큐레이터 프로필 보기
+  visible_title: 보임
+  visitors: 방문자
   wants_colon: "원함:"
   watch_list: 주시문서 목록
   watch_list_newsfeed: 뉴스 피드 주시 목록
@@ -1941,10 +3687,10 @@ ko:
   what_do_these_numbers_mean: 이 숫자가 무엇을 뜻합니까?
   what_is_eol: EOL은 무엇입니까?
   what_is_this_question: 이게 뭐죠?
+  wikipedia_queue_create_successful_notice: 위키백과 %{article} 문서 %{rev} 판을 가져오기 위해 대기하고 있습니다.
   wikipedia_queue_new_page_title: 위키백과 문서 가져오기 요청
   will_paginate: 
     next_label: 다음 &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; 이전"
   worklist: 작업 목록
   xml_response: XML 응답
@@ -1954,11 +3700,13 @@ ko:
   yes_answer: 예
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "당신은 관리자입니다. 오류 메시지를 보는 것을 허용합니다:"
   you_are_not_authorized_to_perform_this_action: 작업을 수행할 권한이 없습니다.
+  you_can_edit_those_later_if_ne: 필요한 경우 나중에 편집할 수 있습니다.
   you_have_been_logged_in_as_username: "%{username}(으)로 로그인했습니다"
   you_have_been_logged_out: 로그아웃했습니다.
   you_joined_community: 성공적으로 공동체에 가입했습니다.
   you_left_community: 성공적으로 공동체를 떠났습니다.
   you_removed_the_member_from_the_community: 성공적으로 공동체에서 이 구성원을 제거했습니다.
+  your_browser_does_not_support: 브라우저는 HTML5 동영상을 지원하지 않습니다.
   your_current_rating_0_of_5: "현재 평가: 5점 중 0점"
   your_current_rating_1_of_5: "현재 평가: 5점 중 1점"
   your_current_rating_2_of_5: "현재 평가: 5점 중 2점"

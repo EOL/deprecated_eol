@@ -13,7 +13,7 @@
         .header
           - start_number = (@harvest_events.current_page - 1) * @harvest_events.per_page + 1
           - end_number = [ (start_number + @harvest_events.per_page - 1), @harvest_events.count ].min
-          %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @harvest_events.total_entries)
+          %h3= raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @harvest_events.total_entries))
           = will_paginate @harvest_events, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
             :inner_window => 2, :outer_window => 2
         %table.standard

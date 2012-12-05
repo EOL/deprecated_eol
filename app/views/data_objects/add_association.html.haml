@@ -2,7 +2,7 @@
   .header
     - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
     - end_number = [ (start_number + @all_results.per_page - 1), @all_results.total_entries ].min
-    %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries)
+    %h3= raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries))
     = will_paginate @all_results, |
       :previous_label => I18n.t(:pagination_previous_with_count, :count => @all_results.per_page), |
       :next_label => I18n.t(:pagination_next_with_count, :count => @all_results.per_page), |
@@ -14,7 +14,7 @@
         - en_type = en_type(result_instance)
         - if en_type == "taxon"
           %li.taxon
-            = render :partial => "add_association.html.haml", :locals => { :item => result_instance, :data_object => @data_object }
+            = render :partial => "add_association", :locals => { :item => result_instance, :data_object => @data_object }
   .footer
     = will_paginate @all_results, |
     :previous_label => I18n.t(:pagination_previous_with_count, :count => @all_results.per_page), |

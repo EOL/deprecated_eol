@@ -4,7 +4,7 @@ class ContentController < ApplicationController
 
   caches_page :tc_api
 
-  layout 'v2/basic'
+  layout :which_layout
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
 
@@ -35,7 +35,7 @@ class ContentController < ApplicationController
         { :image_url => random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130'),
           :taxon_scientific_name => random_image.taxon_concept.title_canonical,
           :taxon_common_name => random_image.taxon_concept.preferred_common_name_in_language(current_language),
-          :taxon_page_path => taxon_overview_path(random_image.taxon_concept_id) }
+          :taxon_page_path => overview_taxon_path(random_image.taxon_concept_id) }
       end
       render :json => random_images, :callback => params[:callback]
     rescue
@@ -93,7 +93,7 @@ class ContentController < ApplicationController
   # GET /info/:crumbs where crumbs is an array of path segments
   def show
     # get the id parameter, which can be either a page ID # or a page name
-    @page_id = params[:id] || params[:crumbs].last
+    @page_id = params[:id] || params[:crumbs].split('/').last
 
     # temporarily forcing all new RSS requests to return HTML to address on of our most common bugs
     if @page_id == 'news' && params[:format] == 'rss'
@@ -129,6 +129,10 @@ class ContentController < ApplicationController
             Language.from_iso(current_language.iso_639_1)
           @translated_pages = translations_available_to_user
           @translated_content = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
+          unless @translated_content.nil?
+            @translated_content.left_content.gsub!(/href=\"info/, "href=\"/info")
+            @translated_content.main_content.gsub!(/href=\"info/, "href=\"/info")
+          end
           @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title
           @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
           current_user.log_activity(:viewed_content_page_id, :value => @page_id)
@@ -165,17 +169,41 @@ class ContentController < ApplicationController
   end
 
   def loggertest
+    restrict_to_admins
     time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    logger.fatal "~~ FATAL #{time}"
-    logger.error "** ERROR #{time}"
-    logger.warn  "!! WARN #{time}"
-    logger.info  "++ INFO #{time}"
-    logger.debug ".. DEBUG #{time}"
+    Rails.logger.fatal "~~ FATAL #{time}"
+    Rails.logger.error "** ERROR #{time}"
+    Rails.logger.warn  "!! WARN #{time}"
+    Rails.logger.info  "++ INFO #{time}"
+    Rails.logger.debug ".. DEBUG #{time}"
     render :text => "Logs written at #{time}."
+  end
+
+  def version
+    full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
+    render :text => full_version
+  end
+
+  def test_timeout
+    restrict_to_admins
+    sco = SiteConfigurationOption.find_by_parameter('test_timeout')
+    if sco
+      render :text => "Already testing a timeout elsewhere. Please be patient."
+    else
+      SiteConfigurationOption.create(:parameter => 'test_timeout', :value => params[:time])
+      sleep(params[:time].to_i)
+      SiteConfigurationOption.delete_all(:parameter => 'test_timeout')
+      render :text => "Done."
+    end
   end
 
   def boom
     raise "This is an exception." # I18n not req'd
+  end
+
+  def check_connection
+    require 'lib/check_connection'
+    render :text => CheckConnection.all_instantiable_models.join("<br/>")
   end
 
   def language
@@ -188,6 +216,8 @@ class ContentController < ApplicationController
     end
   end
 
+  # TODO - this is entirely non-portable and should be enabled or disabled based on local configuration. In fact, it
+  # would be even better if it were its own application. Yes, really.
   def donate
     @page_title = I18n.t(:donate)
     if request.post?
@@ -216,9 +246,20 @@ class ContentController < ApplicationController
     @donation_amount = @preset_amount.to_f > 0 ? @preset_amount.to_f : @other_amount
 
     @page_title = I18n.t(:donation_confirmation) if @donation_amount > 0
+
+    # This is actually calling the PHP service, because Cybersource gave us a PHP library (
+    # CyberSource::InsertSignature3 ) to handle the creation of the input elements.  Yeesh.
+    # http://www.cybersource.com/developers/develop/integration_methods/simple_order_and_soap_toolkit_api/
     parameters = 'function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=sale&currency=usd'
     @form_elements = EOLWebService.call(:parameters => parameters)
 
+  end
+  
+  def donate_complete
+  end
+
+  def maintenance
+    render :layout => false
   end
 
   # conveninece page to expire everything immediately (call with http://www.eol.org/clear_caches)
@@ -287,11 +328,15 @@ class ContentController < ApplicationController
 private
 
   def periodically_recalculate_homepage_parts
-    $CACHE.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+    Rails.cache.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
       expire_fragment(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}")
     end
-    $CACHE.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, :expires_in => 120.seconds) do
+    Rails.cache.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, :expires_in => 120.seconds) do
       expire_fragment(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}")
+    end
+    NewsItem
+    Rails.cache.fetch('homepage/news_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+      expire_fragment(:action => 'index', :action_suffix => "news_#{current_language.iso_639_1}")
     end
   end
 
@@ -309,5 +354,9 @@ private
     else
       collection_path($RICH_PAGES_COLLECTION_ID)
     end
+  end
+  
+  def which_layout
+    action_name == 'index' ? 'v2/basic' : 'v2/info'
   end
 end

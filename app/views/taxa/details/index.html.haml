@@ -21,18 +21,20 @@
       - unless @details_count_by_language.blank?
         %p.languages
           = I18n.t(:articles_in_languages_with_count, :count => @details_count_by_language.size)
-          = @details_count_by_language.collect{ |language, count| link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) }.join(', ')
-          = I18n.t(:learn_more_link, :learn_more => link_to(I18n.t(:learn_more_lowercase), cms_page_path('language_support')))
+          = raw(@details_count_by_language.collect{ |language, count| link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) }.join(', '))
+          = raw(I18n.t(:learn_more_link, :learn_more => link_to(I18n.t(:learn_more_lowercase), cms_page_path('language_support'))))
       .empty
         %p= I18n.t(:taxon_details_empty)
-        %p= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
+        %p
+          = link_to I18n.t(:add_article_to_page_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
+          = link_to I18n.t(:add_link_to_page_button), new_taxon_data_object_path(@taxon_concept, :link => true), :class => 'button link_button'
   - else
     #main
       - unless @details_count_by_language.blank?
         %p.languages
           = I18n.t(:articles_in_other_languages_with_count, :count => @details_count_by_language.size)
-          = @details_count_by_language.collect{ |language, count| language ? link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) : I18n.t(:language_with_count, :language => I18n.t(:unknown), :count => count)}.join(', ')
-          = I18n.t(:learn_more_link, :learn_more => link_to(I18n.t(:learn_more_lowercase), cms_page_path('language_support')))
+          = raw(@details_count_by_language.collect{ |language, count| language ? link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) : I18n.t(:language_with_count, :language => I18n.t(:unknown), :count => count)}.join(', '))
+          = raw(I18n.t(:learn_more_link, :learn_more => link_to(I18n.t(:learn_more_lowercase), cms_page_path('language_support'))))
       - for root in roots
         - root_content = @text_objects.collect{ |d| d if (d.toc_items.include?(root) rescue nil) }.compact
         - children = @toc_items_to_show.collect{ |toc_item| toc_item if toc_item.parent_id == root.id }.compact

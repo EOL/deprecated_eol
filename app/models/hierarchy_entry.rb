@@ -2,51 +2,48 @@
 # data links to these instances.
 class HierarchyEntry < ActiveRecord::Base
 
-  acts_as_tree :order => 'lft'
-
   belongs_to :hierarchy
   belongs_to :name
   belongs_to :rank
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
+  belongs_to :parent, :class_name => HierarchyEntry.to_s, :foreign_key => :parent_id
 
+  has_many :agents, :through => :agents_hierarchy_entries
   has_many :agents_hierarchy_entries
-  has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
-                                      WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
   has_many :top_images
   has_many :top_unpublished_images
   has_many :synonyms
   has_many :scientific_synonyms, :class_name => Synonym.to_s,
-      :conditions => 'synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
+      :conditions => Proc.new { "synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
   has_many :common_names, :class_name => Synonym.to_s,
-      :conditions => 'synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(",")})'
+      :conditions => Proc.new { "synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})" }
   has_many :flattened_ancestors, :class_name => HierarchyEntriesFlattened.to_s
   has_many :curator_activity_logs
+  has_many :hierarchy_entry_moves
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'hierarchy_entries_refs',
-    :association_foreign_key => 'ref_id', :conditions => 'published=1 AND visibility_id=#{Visibility.visible.id}'
+    :association_foreign_key => 'ref_id', :conditions => Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
+  has_and_belongs_to_many :ancestors, :class_name => HierarchyEntry.to_s, :join_table => 'hierarchy_entries_flattened',
+    :association_foreign_key => 'ancestor_id', :order => 'lft'
+  # Here is a way to find children and sort by name at the same time (this works for siblings too):
+  # HierarchyEntry.find(38802334).children.includes(:name).order('names.string').limit(2)
+  has_many :children, :class_name => HierarchyEntry.to_s, :foreign_key => [:parent_id, :hierarchy_id], :primary_key => [:id, :hierarchy_id],
+    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
+  # IMPORTANT: siblings will also return the entry itself. This is because it is not possible to use conditions which refer
+  # to a single node when using this association in preloading. For example you cannot have a condition: where id != #{id}, because
+  # ActiveRecord may not have a single 'id', it may have many if preloading for multiple entries at once. This will also not return siblings of
+  # top level taxa. This is because many hierarchies have hundreds or thousands of roots and we don't want to risk showing all of them
+  has_many :siblings, :class_name => HierarchyEntry.to_s, :foreign_key => [:parent_id, :hierarchy_id], :primary_key => [:parent_id, :hierarchy_id],
+    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
 
   has_one :hierarchy_entry_stat
 
-  define_core_relationships :select => {
-      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id, :rank_id ],
-      :names => [ :string, :italicized ],
-      :canonical_forms => :string },
-    :include => [ :name ]
-
-  def self.sort_by_lft(hierarchy_entries)
-    hierarchy_entries.sort_by{ |he| he.lft }
-  end
-
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }
-  end
-
-  def self.sort_by_common_name(hierarchy_entries, language)
-    hierarchy_entries.sort_by{ |he| he.common_name_in_language(language).downcase }
   end
 
   def self.sort_by_vetted(hierarchy_entries)
@@ -75,7 +72,7 @@ class HierarchyEntry < ActiveRecord::Base
   # this method will return either the original name string, or if the rank of the taxon
   # is one to be italicized, the italicized form of the original name string
   def italicized_name
-    if name.is_surrogate_or_hybrid?
+    if name.is_surrogate_or_hybrid? || name.is_subgenus?
       name.string
     else
       species_or_below? ? name.italicized : name.string
@@ -91,7 +88,7 @@ class HierarchyEntry < ActiveRecord::Base
   def title_canonical
     return @title_canonical unless @title_canonical.nil?
     # used the ranked version first
-    if name.is_surrogate_or_hybrid?
+    if name.is_surrogate_or_hybrid? || name.is_subgenus?
       @title_canonical = name.string.firstcap
     elsif name.ranked_canonical_form && !name.ranked_canonical_form.string.blank?
       @title_canonical = name.ranked_canonical_form.string.firstcap
@@ -111,7 +108,7 @@ class HierarchyEntry < ActiveRecord::Base
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
     @title_canonical_italicized = title_canonical
     # used the ranked version first
-    if name.is_surrogate_or_hybrid?
+    if name.is_surrogate_or_hybrid? || name.is_subgenus?
       # do nothing
     elsif name.ranked_canonical_form && !name.ranked_canonical_form.string.blank?
       @title_canonical_italicized = "<i>#{@title_canonical_italicized}</i>" if (species_or_below? || @title_canonical_italicized.match(/ /))
@@ -159,45 +156,8 @@ class HierarchyEntry < ActiveRecord::Base
     return Rank.italicized_ids.include?(rank_id)
   end
 
-  def ancestors(opts = {}, cross_reference_hierarchy = nil)
-    return @ancestors unless @ancestors.nil?
-    # TODO: reimplement completing a partial hierarchy with another curated hierarchy
-    add_include = [ :taxon_concept ]
-    add_select = { :taxon_concepts => '*' }
-    unless opts[:include_stats].blank?
-      add_include << :hierarchy_entry_stat
-      add_select[:hierarchy_entry_stats] = '*'
-    end
-    ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
-    ancestor_ids << self.id
-    ancestors = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_id(ancestor_ids)
-    @ancestors = HierarchyEntry.sort_by_lft(ancestors)
-  end
-
-  def ancestors_as_string(delimiter = "|")
-    ancestors.collect{ |he| he.name.string }.join(delimiter)
-  end
-
-  def children(opts = {})
-    add_include = [ :taxon_concept ]
-    add_select = { :taxon_concepts => '*' }
-    unless opts[:include_stats].blank?
-      add_include << :hierarchy_entry_stat
-      add_select[:hierarchy_entry_stats] = '*'
-    end
-    vis = [Visibility.visible.id, Visibility.preview.id]
-    c = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(hierarchy_id, id, vis)
-    return HierarchyEntry.sort_by_name(c)
-  end
-
-  def kingdom(hierarchy = nil)
-    return ancestors(hierarchy).first rescue nil
-  end
-
-  def kingdom_entry
-    entry_ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
-    entry_ancestor_ids << self.id
-    HierarchyEntry.find_by_id_and_parent_id(entry_ancestor_ids, 0)
+  def kingdom
+    return ancestors.first rescue nil
   end
 
   # Some HEs have a "source database" agent, which needs to be considered in addition to normal sources.
@@ -218,7 +178,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   # This gives you the correct array of source agents that recognize the taxon.  Keep in mind that if there is a
-  # source database, you MUST cite the hiearchy agent SEPARATELY, so it is not included; otherwise, it is:
+  # source database, you MUST cite the hierarchy agent SEPARATELY, so it is not included; otherwise, it is:
   def recognized_by_agents
     if has_source_database?
       (source_database_agents + source_agents).compact
@@ -242,17 +202,6 @@ class HierarchyEntry < ActiveRecord::Base
     else
       nil
     end
-  end
-
-  # Walk up the list of ancestors until you find a node that we can map to the specified hierarchy.
-  def find_ancestor_in_hierarchy(hierarchy)
-    he = self
-    until he.nil? || he.taxon_concept.nil? || he.taxon_concept.in_hierarchy?(hierarchy)
-      return nil if he.parent_id == 0
-      he = he.parent
-    end
-    return nil if he.nil? || he.taxon_concept.nil?
-    he.taxon_concept.entry(hierarchy)
   end
 
   def vet_synonyms(options = {})
@@ -284,28 +233,6 @@ class HierarchyEntry < ActiveRecord::Base
     end
   end
 
-  def split_from_concept
-    result = connection.execute("SELECT he2.id, he2.taxon_concept_id FROM hierarchy_entries he JOIN hierarchy_entries he2 USING (taxon_concept_id) WHERE he.id=#{self.id}").all_hashes
-    unless result.empty?
-      entries_in_concept = result.length
-      # if there is only one member in the entry's concept there is no need to split it
-      if entries_in_concept > 1
-        # create a new empty concept
-        new_taxon_concept = TaxonConcept.create(:published => self.published, :vetted_id => self.vetted_id, :supercedure_id => 0, :split_from => 0)
-
-        # set the concept of this entry to the new concept
-        self.taxon_concept_id = new_taxon_concept.id
-        self.save!
-
-        # update references to this entry to use new concept id
-        connection.execute("UPDATE IGNORE taxon_concept_names SET taxon_concept_id=#{new_taxon_concept.id} WHERE source_hierarchy_entry_id=#{self.id}");
-        connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{self.id}")
-        return new_taxon_concept
-      end
-    end
-    return false
-  end
-
   def number_of_descendants
     rgt - lft - 1
   end
@@ -321,7 +248,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def preferred_classification_summary
-    $CACHE.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
+    Rails.cache.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
       HierarchyEntry.preload_associations(self, { :flattened_ancestors => :ancestor }, :select =>
         { :hierarchy_entries => [ :id, :name_id, :rank_id, :taxon_concept_id, :lft, :rgt ] })
       return '' if flattened_ancestors.blank?

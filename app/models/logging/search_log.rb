@@ -1,4 +1,5 @@
 class SearchLog < LazyLoggingModel
+
   belongs_to :ip_address
   belongs_to :taxon_concept
 
@@ -11,7 +12,7 @@ class SearchLog < LazyLoggingModel
      opts = {
        :ip_address_raw => IpAddress.ip2int(request.remote_ip),
        :user_agent => request.user_agent || 'unknown',
-       :path => request.request_uri || 'unknown'
+       :path => request.url || 'unknown'
      }
      opts[:user_id] = user.id unless user.nil?
 
@@ -22,7 +23,7 @@ class SearchLog < LazyLoggingModel
   end
 
   def self.create_log(opts)
-    logger.warn('Bogus invocation of SearchLog creation function!') and return if opts.nil?
+    Rails.logger.warn('Bogus invocation of SearchLog creation function!') and return if opts.nil?
     l = SearchLog.create opts
     return l
   end

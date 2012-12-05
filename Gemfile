@@ -1,50 +1,79 @@
 source 'http://rubygems.org'
 
 group :development, :test do
-  gem 'faker'
-  gem 'eol_scenarios'
-  gem 'rspec', '1.3.0'
-  gem 'rspec-rails'
-  gem 'factory_girl', '2.0.4'
-  gem 'capybara', '0.3.9'
+  gem 'capistrano'
+  gem 'capistrano-unicorn-pleary', '=0.1.6.1'
+  gem 'rvm-capistrano'
+  gem 'capybara'
   gem 'daemons'
+  gem 'debugger'
+  gem 'factory_girl_rails'
+  gem 'faker'
   gem 'optiflag'
+  gem 'rspec-rails', '~>2.0'
   gem 'ruby-prof'
-  gem 'capistrano-unicorn'
+end
+
+group :staging do
+  gem 'debugger'
+end
+
+group :development, :staging_dev, :staging_dev_cache do
+  gem 'webrick'
+end
+
+group :production do
+  gem 'therubyracer'
+  gem 'execjs'
 end
 
 group :test do
   gem 'webmock'
+  gem 'rspec-html-matchers'
+end
+
+group :assets do
+  gem 'turbo-sprockets-rails3'
 end
 
 group :worker do
-  gem 'system_timer'
+  # TODO - try adding this again later; it doesn't appear to work with Ruby 1.9 ...we might not need it there,
+  # though.
+  #gem 'system_timer'
 end
 
+gem 'rails', '3.2.7'
+
+gem 'acts_as_tree_rails3'
+gem 'ckeditor'
+gem 'coffee-rails'
 gem 'composite_primary_keys'
-gem 'email_spec', '0.6.2'
+gem 'dalli'
+gem 'ar-octopus', :git => "git://github.com/tchandy/octopus.git", :require => "octopus"
+gem 'email_spec'
 gem 'escape'
 gem 'ezcrypto'
-gem 'fastercsv'
-gem 'graylog2_exceptions', '1.3.0'
-gem 'haml', '3.1.1'
+gem 'graylog2_exceptions'
+gem 'haml'
+gem 'haml-i18n'
 gem 'indifferent-variable-hash'
 gem 'invert'
-gem 'json', '1.5.3'
+gem 'jquery-rails'
+gem 'json'
 gem 'macaddr'
-gem 'memcache'
-gem 'mysql'
+gem 'mime-types'
+gem 'mysql2'
 gem 'newrelic_rpm'
 gem 'oauth'
 gem 'oauth2'
-gem 'rack', '1.1.0'
-gem 'rails', '2.3.8'
+gem 'paperclip'
+gem 'rails_autolink'
+gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'resque', :require => 'resque/server'
 gem 'rdoc'
-gem 'resque', :require => "resque/server"
-gem 'ruby-debug'
-gem 'sanitize','2.0.1'
-gem 'sass', '3.1.1'
-gem 'unicorn', '4.1.1'
-gem 'uuid', '2.3.3'
-gem 'will_paginate', '2.3.16'
-gem 'mime-types'
+gem 'sanitize'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'unicorn'
+gem 'uuid'
+gem 'will_paginate'

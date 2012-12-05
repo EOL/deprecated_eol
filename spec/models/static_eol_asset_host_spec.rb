@@ -8,7 +8,7 @@ describe StaticEolAssetHost do
   end
   
   it "should use static1 for CSS assets" do
-    css = "/stylesheets/test.css?1230601161"
+    css = "/assets/test.css?1230601161"
     @asset_host.call(css).should =~ /static1\./
   end
   
@@ -18,7 +18,7 @@ describe StaticEolAssetHost do
   end
   
   it "should use use neither static1 nor static2 for image assets" do
-    png = "/images/test.png?1230601161"
+    png = "/assets/test.png?1230601161"
     @asset_host.call(png).should_not =~ /static1\./
     @asset_host.call(png).should_not =~ /static2\./
   end

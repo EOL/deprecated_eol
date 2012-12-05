@@ -5,7 +5,7 @@ class CreateCuratorCommunity < ActiveRecord::Migration
     # Make Katja the owner of the community:
     katja = User.find(35200) rescue nil
     if katja
-      katja.member_of(community).update_attribute(:manager, true)
+      katja.member_of(community).update_column(:manager, true)
     end
   end
 

@@ -12,7 +12,7 @@
 - allow_more_splits = false if stored_classifications && !@hierarchy_entries.map {|h| h.id.to_s}.include?(stored_classifications.first.to_s)
 - allow_more_splits = false if @taxon_concept.classifications_locked?
 - if can_curate
-  = javascript_include_merged 'curation'
+  = javascript_include_tag 'curation'
 #taxon_names
   .article
     .copy
@@ -27,19 +27,19 @@
     - else
       - unless can_curate
         %p.help_text
-          = I18n.t(:classification_preferred_for_taxon_help_tip, :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
-      - if stored_classifications
+          = raw I18n.t(:classification_preferred_for_taxon_help_tip, :icon => image_tag("v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
+      - if stored_classifications && ! @confirm_split_or_merge
         %div.help_text.warning
-          %p= I18n.t(:stored_classifications, :anchor => '#classification_actions')
-      - if master_curator && @taxon_concept.classifications_locked? && ! @pending
+          %p= raw I18n.t(:stored_classifications, :anchor => '#classification_actions')
+      - if master_curator && @taxon_concept.classifications_locked? && @pending_moves.empty?
         %div.help_text.warning
           %p= I18n.t(:classifications_locked)
       - if @confirm_split_or_merge
         %div.help_text.warning
-          %p= I18n.t("classification_#{@confirm_split_or_merge}_help")
-          %p= I18n.t(:classification_split_warning)
-          %p= I18n.t(:classification_button_help)
-      - form_tag curated_taxon_concept_preferred_entries_path do
+          %p= raw I18n.t("classification_#{@confirm_split_or_merge}_help")
+          %p= raw I18n.t(:classification_split_warning)
+          %p= raw I18n.t(:classification_button_help)
+      = form_tag classifications_path do
         = hidden_field_tag 'taxon_concept_id', @move_to || @taxon_concept.id
         - if @confirm_split_or_merge
           = hidden_field_tag 'confirm', @confirm_split_or_merge
@@ -57,12 +57,12 @@
                 = check_box_tag('additional_confirm', 'additional_confirm', false)
                 = I18n.t(:classifications_merge_providers_match_confirm)
             %ul
-              %li= submit_tag(I18n.t(:merge_data).downcase, :name => 'merge')
-              %li= submit_tag(I18n.t(:cancel_split).downcase, :name => 'cancel_split')
+              %li= submit_tag(I18n.t(:merge_data).i18n_downcase, :name => 'merge')
+              %li= submit_tag(I18n.t(:cancel_split).i18n_downcase, :name => 'cancel_split')
         - if allow_more_splits
           - unless @other_hierarchy_entries.empty?
             #split_warning
-              = I18n.t(:split_only_possible_with_all_classifications, :link => @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1'))
+              = raw(I18n.t(:split_only_possible_with_all_classifications, :link => @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')))
           #split_instructions
             = I18n.t(:split_classification_instructions)
         %table.standard.classifications
@@ -79,13 +79,14 @@
               %th= I18n.t(:classifications_hierarchy_column_header)
           %tbody
             - @hierarchy_entries.each do |hierarchy_entry|
+              - pending = @pending_moves.any? {|move| move.hierarchy_entry_id == hierarchy_entry.id}
               - splitting = false
               - if allow_more_splits
                 - if stored_classifications && session[:split_hierarchy_entry_id].include?(hierarchy_entry.id.to_s)
                   - splitting = true
                   - stored_entries_on_this_page = true
               - unless splitting
-                %tr
+                %tr{:class => pending ? 'pending' : nil}
                   - preferred = @taxon_concept.uses_preferred_entry?(hierarchy_entry)
                   - preferred_label = preferred ? I18n.t(:classification_preferred_for_taxon) : nil
                   - if can_curate && ! @confirm_split_or_merge
@@ -105,17 +106,20 @@
                       = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                     - if hierarchy_entry.hierarchy.browsable.to_i == 1
                       %br
-                      = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
+                      = link_to(I18n.t(:view_in_classification), overview_taxon_entry_path(@taxon_concept, hierarchy_entry))
+                    - if pending
+                      %br
+                      = raw I18n.t(:classification_curation_pending)
                   %td.rank
                     - if hierarchy_entry.rank
                       = hierarchy_entry.rank_label
                   %td.browsable.classifications
-                    %ul= render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
+                    = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
         - if @other_hierarchy_entries.empty?
           - if master_curator
             %ul#classification_actions
               - if allow_more_splits && ! @confirm_split_or_merge
-                %li= submit_tag(I18n.t(:add_classifications).downcase, :name => 'add')
+                %li= submit_tag(I18n.t(:add_classifications).i18n_downcase, :name => 'add')
               - if stored_classifications
                 %li
                   = I18n.t(:merge_data_ready)
@@ -137,16 +141,16 @@
                             - if hierarchy_entry.rank
                               = hierarchy_entry.rank_label
                           %td.browsable.classifications
-                            %ul= render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
+                            = render(:partial => 'navigation/node', :locals => { :in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
                           %td
-                            = submit_tag(I18n.t(:remove).downcase, :name => "remove_#{hierarchy_entry.id}")
+                            = submit_tag(I18n.t(:remove).i18n_downcase, :name => "remove_#{hierarchy_entry.id}")
                 - unless @confirm_split_or_merge || stored_entries_on_this_page
-                  %li= submit_tag(I18n.t(:merge_data).downcase, :name => 'merge')
-                %li= submit_tag(I18n.t(:cancel_split).downcase, :name => 'cancel_split')
+                  %li= submit_tag(I18n.t(:merge_data).i18n_downcase, :name => 'merge')
+                %li= submit_tag(I18n.t(:cancel_split).i18n_downcase, :name => 'cancel_split')
               - unless @confirm_split_or_merge
-                %li= submit_tag(I18n.t(:split_into_new_concept).downcase, :name => 'split')
+                %li= submit_tag(I18n.t(:split_into_new_concept).i18n_downcase, :name => 'split')
         - else 
-          - link = @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
+          - link = @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
           .classification_actions
             %p= link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link, :id => 'show_other_classifications')
 

@@ -35,5 +35,14 @@ describe Administrator::CuratorController do
     expect { get :index, nil, { :user_id => @curator.id } }.
       to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == :administrators_only}
   end
+  # # if we allow the rescue_from in ApplicationController for the test ENV, then tests like this will need to be:
+  # it "should raise SecurityViolation for non-admin users" do
+  #   controller.should_receive(:rescue_from_exception).once.with do |p|
+  #     p.should be_an_instance_of(EOL::Exceptions::SecurityViolation)
+  #     p.flash_error_key.should == "ASdfasdf"
+  #   end
+  #   get :index, nil, { :user_id => @curator.id }
+  # end
+  
 
 end

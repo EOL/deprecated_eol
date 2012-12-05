@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe 'Community Activity' do
+describe 'Community Activity (loaded via scenario)' do
 
   before(:all) do
     truncate_all_tables
@@ -8,7 +8,7 @@ describe 'Community Activity' do
     @activity = EOL::TestInfo.load('community_activity')
   end
 
-  it 'should 10 users and 10 communities' do
+  it 'should have 10 users and 10 communities' do
     @activity[:users].length.should == 10
     @activity[:communities].length.should == 10
   end

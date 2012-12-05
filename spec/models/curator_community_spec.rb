@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 def clear_curator_community_cache
-  $CACHE.delete('test/communities/name/EOL_Curators')
-  CuratorCommunity.reset_cached_instances
+  Rails.cache.delete('test/communities/name/EOL_Curators')
 end
 
 describe CuratorCommunity do
@@ -16,13 +15,9 @@ describe CuratorCommunity do
   end
 
   it 'should be able to build the community' do
-    CuratorCommunity.get.destroy
+    CuratorCommunity.get.try(:destroy)
     clear_curator_community_cache
-    curator = User.gen
-    curator.curator_level_id = 1
-    curator.credentials = 'dfg'
-    curator.curator_scope = 'dfg'
-    curator.save!
+    curator = User.gen(:curator_level_id => 1, :credentials => 'fun', :curator_scope => 'joy')
     community = CuratorCommunity.build
     community.should_not be_nil
     community.name.should == $CURATOR_COMMUNITY_NAME
@@ -39,8 +34,6 @@ describe CuratorCommunity do
     comm.save
     clear_curator_community_cache
     CuratorCommunity.get.name.should == $CURATOR_COMMUNITY_NAME
-    CuratorCommunity.get.destroy
-    clear_curator_community_cache
   end
 
 end

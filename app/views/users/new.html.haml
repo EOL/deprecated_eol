@@ -2,19 +2,19 @@
   - # @user.eol_authentication? true means we are NOT on the confirmation page
   %h1
     - if @user.eol_authentication?
-      = t(".create_user_header")
+      = raw(t(".create_user_header"))
     - else
       = t(".complete_registration_header")
   - if @user.eol_authentication?
     .open_authentications
       - $ENABLED_SOCIAL_PLUGINS.each do |provider|
-        - form_for User.new, :url => new_user_url, :html => { :id => "new_user_#{provider}", :method => :get } do |f|
+        = form_for User.new, :url => new_user_url, :html => { :id => "new_user_#{provider}", :method => :get } do |f|
           = hidden_field_tag :oauth_provider, provider
           %fieldset.actions
             = f.submit I18n.t("helpers.submit.user.sign_up_with_#{provider}"),
               :id => "user_submit_#{provider}"
-  - form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
-    - f.fields_for :open_authentications, @user.open_authentications do |oaf|
+  = form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
+    = f.fields_for :open_authentications, @user.open_authentications do |oaf|
       = oaf.hidden_field :guid
       = oaf.hidden_field :provider
     %fieldset
@@ -24,7 +24,7 @@
       %dl
         - if @user.eol_authentication?
           %dt.required
-            = f.label :username
+            = f.label :username, raw(t('helpers.label.user.username'))
           %dd
             = f.text_field :username, { :maxlength => 32 }
         - else # it's the open authentication confirmation page
@@ -41,31 +41,29 @@
         %dd
           = f.text_field :email
         %dt.required
-          = f.label :email_confirmation
+          = f.label :email_confirmation, raw(t('activerecord.attributes.user.email_confirmation'))
         %dd
           = f.text_field :email_confirmation
         - if @user.eol_authentication?
           %dt{:class => @user.eol_authentication? ? 'required' : nil}
-            = f.label :entered_password
+            = f.label :entered_password, raw(t('helpers.label.user.entered_password'))
           %dd
             = f.password_field :entered_password, { :maxlength => 16 }
           %dt{:class => @user.eol_authentication? ? 'required' : nil}
-            = f.label :entered_password_confirmation
+            = f.label :entered_password_confirmation, raw(t('activerecord.attributes.user.entered_password_confirmation'))
           %dd
             = f.password_field :entered_password_confirmation, { :maxlength => 16 }
-      - f.label :agreed_with_terms, :class => 'checkbox' do
+      = f.label :agreed_with_terms, :class => 'checkbox' do
         = f.check_box :agreed_with_terms
-        = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
+        = raw(I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path))
     - if @user.eol_authentication? && $ENABLE_RECAPTCHA
       %fieldset
-        :javascript
-          var RecaptchaOptions = { theme : 'clean'};
         %dl
           %dt
             %label{ :for => "recaptcha" }
               = I18n.t(:recaptcha)
           %dd
-            = recaptcha_tags
+            = recaptcha_tags(display: {theme: 'clean'})
     %fieldset.actions
       = f.submit I18n.t('helpers.submit.user.create')
       - if @user.eol_authentication?

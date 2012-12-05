@@ -44,13 +44,13 @@ class Admins::EolStatisticsController < AdminsController
   private
   def stats
     @stats ||= if params[:commit_download_csv] && params[:all_records]
-                 EolStatistic.send(report)
+                 EolStatistic.send(report).latest
                else
                  # FIXME: WEB-3879 pagination broken on namedscopes.
-                 # This should be EolStatistic.send(report).paginate(:page => params[:page] ||= 1, :per_page => 30)
+                 # This should be EolStatistic.send(report).latest.paginate(:page => params[:page] ||= 1, :per_page => 30)
                  # but we can't chain paginate on named scope at the moment, so we throw in a dup to break
                  # the chain, loading all stats and then paginating.
-                 EolStatistic.send(report).dup.paginate(:page => params[:page] ||= 1, :per_page => 30)
+                 EolStatistic.send(report).latest.dup.paginate(:page => params[:page] ||= 1, :per_page => 30)
                end
   end
 

@@ -11,7 +11,7 @@
       %strong
         =I18n.t(:description)
     %td
-      = link_to (truncate(@comment.parent_name),@comment.parent_url)
+      = link_to truncate(@comment.parent_name), @comment.parent_url
   - if @comment.image_comment?
     %tr
       %td
@@ -34,5 +34,5 @@
 %br
 %br
 = cancel_button_goes_back(return_to_url)
-|
+&#124;
 = f.submit

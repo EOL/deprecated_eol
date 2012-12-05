@@ -4,12 +4,12 @@
 # explaining what kind of activity took place (and, thus, which partial to render).
 module EOL
 
+  # TODO - this class is too tightly coupled to Solr; it shouldn't know about query syntax. That belongs elsewhere.
+  # Move.
   class ActivityLog
 
     def self.find(source, options = {})
-      if source
-        klass = source.class.name
-      end
+      klass = source.class.name if source
       find_activities(klass, source, options)
     end
 
@@ -17,6 +17,8 @@ module EOL
       max = $ACTIVITIES_ON_HOME_PAGE if max <= 0
       return find(nil, :per_page => max)
     end
+
+  private
 
     def self.find_activities(klass, source, options = {})
       options[:per_page] ||= 20
@@ -52,6 +54,7 @@ module EOL
     def self.recent_activities(options = {})
       query = "*:*"
       if options[:filter]
+        # TODO - why are we using #include? here? it's an if/elsif clause, so we can't have multiple values...
         if options[:filter].include?('comments')
           query = "activity_log_type:Comment"
         elsif options[:filter].include?('data_object_curation')
@@ -70,7 +73,9 @@ module EOL
     end
 
     # TODO - it would make more sense to move these methods to the source models, passed in as an argument when the
-    # loggable is declared. ...That way defining new loggable classes would not have to happen here.
+    # loggable is declared. ...That way defining new loggable classes would not have to happen here. ...But that
+    # would (ideally) require a decoupled language for the query module, since we don't want Solr logic in those
+    # classes (any more than we really want it here).
 
     def self.user_activities(source, options = {})
       query = "feed_type_affected:User AND feed_type_primary_key:#{source.id}"
@@ -131,15 +136,30 @@ module EOL
 
     def self.data_object_activities(source, options = {})
       unless options[:ids].blank?
-        clause = "(feed_type_primary_key:" + options[:ids].join(" OR feed_type_primary_key:") + ")"
+        # TODO - this is not where this logic belongs and I'm not sure it's handled well anway. Rethink.
+        # limiting the number of revisions to 500. It should be rare (and an indication of a problem)
+        # if there are more than 500 revisions of a single object
+        clause = "(feed_type_primary_key:(" + options[:ids][0...500].join(" OR ") + "))"
       else
         clause = "feed_type_primary_key:#{source.id}"
       end
-      results = EOL::Solr::ActivityLog.search_with_pagination("feed_type_affected:DataObject AND " + clause, options)
+      begin
+        results = EOL::Solr::ActivityLog.search_with_pagination("feed_type_affected:DataObject AND " + clause, options)
+      rescue
+        results = nil
+      end
     end
 
     def self.taxon_concept_activities(source, options = {})
-      results = EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:TaxonConcept OR feed_type_affected:AncestorTaxonConcept) AND feed_type_primary_key:#{source.id}", options)
+      tc_ids = [ source.id ]
+      # TODO - this only needs the id and could be better-written anyway (limit could be used), fix:
+      TaxonConcept.find_all_by_supercedure_id(source.id).each do |tc|
+        tc_ids << tc.id
+      end
+      # TODO - repeated logic with :data_object_activities above
+      id_clause = "(feed_type_primary_key:(" + tc_ids[0...500].join(" OR ") + "))"
+      query = "(feed_type_affected:TaxonConcept OR feed_type_affected:AncestorTaxonConcept) AND (#{id_clause})"
+      results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 
     def self.other_activities(source, options = {})

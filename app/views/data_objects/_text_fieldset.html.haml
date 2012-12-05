@@ -1,58 +1,76 @@
+- link_object ||= false
 = f.hidden_field :data_type_id
 = validation_errors_for(@data_object)
 %fieldset.content
-  %h3= I18n.t(:dato_new_edit_user_text_fieldset_content_header)
-  %p.tip= I18n.t(:dato_new_edit_user_text_form_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''),
-    :add_article_help_url => cms_page_path('add_article_help'))
+  %h3= I18n.t("dato_new_edit_user_text#{'_link' if link_object}_fieldset_content_header")
+  %p.tip= raw(I18n.t("dato_new_edit_user_text#{'_link' if link_object}_form_tip", :required_icon => image_tag('v2/icon_required.png', :alt => ''),
+    :add_article_help_url => cms_page_path('add_article_help')))
   %dl
     - # Note: tried to use fields_for nested attributes :toc_items but got duplicate select box, unclear why
     %dt.required
-      = label_tag 'data_object[toc_items][id]', I18n.t('helpers.label.data_object.toc_item')
+      = label_tag 'data_object[toc_items][id]', I18n.t("helpers.label.data_object#{'_link' if link_object}.toc_item")
     %dd
       = select_tag 'data_object[toc_items][id]', options_from_collection_for_select(@toc_items, :id, :label, @selected_toc_item_id)
-      %p= link_to I18n.t(:get_help_choosing_a_subchapter), cms_page_path('writing_eol_chapters')
+      %p= link_to I18n.t("get_help_choosing_a_#{link_object ? 'subject' : 'subchapter'}"), cms_page_path('writing_eol_chapters')
+    - if link_object
+      %dt.required
+        = label_tag 'data_object[link_types][id]', I18n.t("helpers.label.data_object_link.link_type")
+      %dd
+        = select_tag 'data_object[link_types][id]', options_from_collection_for_select(@link_types, :id, :label, @selected_link_type_id)
+      %dt.required
+        = label_tag 'data_object[source_url]', I18n.t("helpers.label.data_object_link.source_url")
+      %dd.link_object
+        = f.text_field :source_url
+        %span.errors{ "data-pending_message" => I18n.t(:looking_up_url) }
     %dt
       = f.label :object_title
     %dd
       = f.text_field :object_title
-    %dt.required
-      = f.label :description
+    - if link_object
+      %dt.required
+        = f.label :language_id
+      %dd
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
+    %dt{:class => "#{link_object ? '' : 'required'}"}
+      = label_tag 'data_object[description]', raw(I18n.t("helpers.label.data_object#{'_link' if link_object}.description"))
     %dd
-      = fckeditor_textarea(:data_object, :description, :toolbarSet => 'Article', :height => 250, :width => 580)
+      = f.cktext_area(:description, :toolbar => 'Article', :height => 250, :width => 580)
       -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
-    %dt
-      = f.label :refs
-    %dd
-      = text_area_tag 'references', @references
-%fieldset.information
-  %h3= I18n.t(:dato_new_edit_user_text_fieldset_information_header)
-  %dl
-    %dt.required
-      = f.label :language_id
-    %dd
-      = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
-    %dt.required
-      = f.label :license_id
-    %dd
-      = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
-      %p= I18n.t('helpers.label.data_object.license_id_more', :policy_url => cms_page_path('eol_licensing_policy'))
-    %dt
-      = f.label :rights_holder
-    %dd
-      = f.text_field :rights_holder
-      %p= I18n.t('helpers.label.data_object.rights_holder_more')
-    %dt
-      = f.label :rights_statement
-    %dd
-      = f.text_field :rights_statement, { :maxlength => 300 }
-      %p= I18n.t('helpers.label.data_object.rights_statement_more')
-    %dt
-      = f.label :bibliographic_citation
-    %dd
-      = f.text_area :bibliographic_citation
-      %p= I18n.t('helpers.label.data_object.bibliographic_citation_more')
-      -# TODO: add this when its ready f.allowed_html_help_tip
-    %dt
-      = f.label :source_url
-    %dd
-      = f.text_field :source_url
+    - unless link_object
+      %dt
+        = f.label :refs, raw(t('helpers.label.data_object.refs'))
+      %dd
+        = text_area_tag 'references', @references
+- unless link_object
+  %fieldset.information
+    %h3= I18n.t(:dato_new_edit_user_text_fieldset_information_header)
+    %dl
+      %dt.required
+        = f.label :language_id
+      %dd
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
+      %dt.required
+        = f.label :license_id
+      %dd
+        = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
+        %p= raw(I18n.t('helpers.label.data_object.license_id_more', :policy_url => cms_page_path('eol_licensing_policy')))
+      %dt
+        = f.label :rights_holder
+      %dd
+        = f.text_field :rights_holder
+        %p= I18n.t('helpers.label.data_object.rights_holder_more')
+      %dt
+        = f.label :rights_statement
+      %dd
+        = f.text_field :rights_statement, { :maxlength => 300 }
+        %p= raw(I18n.t('helpers.label.data_object.rights_statement_more'))
+      %dt
+        = f.label :bibliographic_citation
+      %dd
+        = f.text_area :bibliographic_citation
+        %p= I18n.t('helpers.label.data_object.bibliographic_citation_more')
+        -# TODO: add this when its ready f.allowed_html_help_tip
+      %dt
+        = f.label :source_url
+      %dd
+        = f.text_field :source_url

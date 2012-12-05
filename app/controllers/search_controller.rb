@@ -14,6 +14,10 @@ class SearchController < ApplicationController
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
 
+    if request.format == Mime::XML
+      return redirect_to :controller => "api", :action => "search", :id => @querystring
+    end
+
     if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error)
       flash[:error] = I18n.t(:must_provide_search_term_error)
       redirect_to root_path
@@ -37,13 +41,7 @@ class SearchController < ApplicationController
       @suggestions = search_response[:suggestions]
       log_search(request) unless params[:mobile_search]
       current_user.log_activity(:text_search_on, :value => params[:q])
-      if params[:mobile_search] && !mobile_disabled_by_session?
-        if @all_results.length == 1 && @all_results.total_entries == 1
-          redirect_to mobile_taxon_path(@all_results.first["resource_id"]), :status => :moved_permanently
-        else
-          render :template => 'mobile/search/index', :layout => "v2/mobile/application"
-        end
-      elsif params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
+      if params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results.first, :total_results => 1, :params => params)
       elsif params[:show_all].blank? && @params_type[0].downcase == 'all' && @all_results.total_entries > 1 && @all_results.length > 1 &&
         superior_result = pick_superior_result(@all_results)
@@ -53,10 +51,10 @@ class SearchController < ApplicationController
     params.delete(:type) if params[:type] == ['all']
     params.delete(:sort_by) if params[:sort_by] == 'score'
 
-    @rel_canonical_href = search_q_url({:q => @querystring, :show_all => true,
+    @rel_canonical_href = search_url({:q => @querystring, :show_all => true,
       :page => rel_canonical_href_page_number(@all_results)})
-    @rel_prev_href = rel_prev_href_params(@all_results) ? search_q_url(@rel_prev_href_params) : nil
-    @rel_next_href = rel_next_href_params(@all_results) ? search_q_url(@rel_next_href_params) : nil
+    @rel_prev_href = rel_prev_href_params(@all_results) ? search_url(@rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(@all_results) ? search_url(@rel_next_href_params) : nil
   end
 
   # there are various object types which can be the only result. This method handles redirecting to all of them
@@ -64,12 +62,12 @@ class SearchController < ApplicationController
     modified_params = options[:params].dup
     modified_params.delete(:type) if modified_params[:type] == ['all']
     modified_params.delete(:sort_by) if modified_params[:sort_by] == 'score'
-    modified_params.delete_if{ |k, v| ![ :sort_by, :type ].include?(k) }
+    modified_params.delete_if{ |k, v| ![ 'sort_by', 'type' ].include?(k) }
     modified_params[:q] = @querystring
     if options[:total_results] > 1
-      flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html_more_results, :search_string => @querystring, :more_results_url => search_path(nil, modified_params.merge({ :show_all => true })))
+      flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html_more_results, :search_string => @querystring, :more_results_url => search_path(modified_params.merge({ :show_all => true })))
     elsif options[:total_results] == 1
-      flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring, :more_results_url => search_path(nil, modified_params.merge({ :show_all => true })))
+      flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring, :more_results_url => search_path(modified_params.merge({ :show_all => true })))
     end
     result_instance = result['instance']
     if result_instance.class == Collection
@@ -81,7 +79,7 @@ class SearchController < ApplicationController
     elsif result_instance.class == User
       redirect_to user_path(result_instance.id)
     elsif result_instance.class == TaxonConcept
-      redirect_to taxon_overview_path(result_instance.id)
+      redirect_to overview_taxon_path(result_instance.id)
     elsif result_instance.class == ContentPage
       redirect_to cms_page_path(result_instance.id)
     end

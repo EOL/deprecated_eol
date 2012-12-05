@@ -8,15 +8,17 @@
 # Author: Ghada.nabeel
 # Author: Malhargan
 # Author: Meno25
+# Author: Mutarjem horr
 # Author: OsamaK
 # Author: Rana El Deeb
+# Author: Rana el deeb
 # Author: Sara.elshobaky
 # Author: ترجمان05
 ar: 
   0_1_or_2: 0، 1 أو 2
   0_or_1: 0، أو 1
-  a_pipe_delimited_list_of_licenses: أنبوب تجزئة تنفيذ المعلومات | قائمة محددة من الرخص أو "الكل" لضم العناصر تحت أية رخصة. تعادل الرخص التي يتم اختصارها "cc-" الكل.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: أنبوب تجزئة تنفيذ المعلومات | قائمة محددة من اسماء موضوعات عناصر البيانات أو "الكل" لإيجاد نص في أي موضوع.
+  a_pipe_delimited_list_of_licenses: أنبوب | القائمة المجزءة للتراخيص أو 'all' لجلب العناصر تحت أية رخصة. الرخص المختصرة بـ cc- كلها %{creative_commons_link} رخص. قم بزيارة موقعهم لمزيد من المعلومات عن مختلف التراخيص التي يقدمونها.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "'overview' لعرض نص النظرة العامة (إن وجد)، شريط عمودي | قائمة محدودة من أسماء الموضوعات المتعلقة بعناصر بيانات نموذج معلومات الأنواع لعرض النص المتضمن في عناصر بيانات نموذج معلومات الأنواع، و'all' لعرض النص المتضمن في أي موضوع. دائمًا ما يتم عرض نص النظرة العامة كنتيجة أولى (إذا وجد في السياق المحدد)."
   a_taxon: أصنوفة
   a_total_of_comment_were_found_matching_your_criteria: 
     one: تم إيجاد %{count} تعليقًا يوافق المعيار الذي تم إدخاله
@@ -44,7 +46,7 @@ ar:
       collection_item: 
         annotation: تعليق توضيحي
         refs: المراجع
-        sort_field: افرز حسب
+        sort_field: الترتيب حسب
       comment: 
         body: تعليق
       community: 
@@ -134,7 +136,7 @@ ar:
         pages_with_image: صفحات تضم صور
         pages_with_image_no_text: صفحات تضم صور ولكن بدون نص
         pages_with_map: صفحات تضم خرائط
-        pages_with_score_10_to_39: صفحات ذات تقييم 10-39
+        pages_with_score_10_to_39: صفحات ذات تقييم 10-40
         pages_with_score_less_than_10: صفحات ذات تقييم أقل من 10
         pages_with_sound: صفحات تضم مقاطع صوتية
         pages_with_text: صفحات تضم نص
@@ -163,6 +165,10 @@ ar:
         request_publish: طلب النشر
       name: 
         string: الاسم
+      news_item: 
+        active: تم نشره
+        page_name: إسم مميز
+        sort_order: ترتيب الفرز
       notification: 
         changes_to_my_watched_collection: تغييرات على المجموعات في قائمة المراقبة الخاصة بك
         changes_to_my_watched_community: تغييرات على المجتمعات في قائمة المراقبة الخاصة بك
@@ -215,6 +221,12 @@ ar:
         meta_description: وصف البيانات الفوقية
         meta_keywords: الكلمات الدالة على البيانات الفوقية
         title: عنوان
+      translated_news_item: 
+        active_translation: تم نشره
+        body: نص الرسالة
+        meta_description: وصف البيانات الفوقية
+        meta_keywords: الكلمات الدالة على البيانات الفوقية
+        title: العنوان
       user: 
         agreed_with_terms: اتفاقية شروط الاستخدام
         api_key: مفتاح واجهة برمجة التطبيقات
@@ -288,13 +300,13 @@ ar:
             accesspoint_url: 
               blank: لا يمكن تركه خاليًا، إلا إذا قمت بتحميل ملف لمصدر عوضًا عن ذلك
               inaccessible: يتعذر الوصول إليه، يجب أن يتمكن العامة من الوصول إلى العنوان الإلكتروني
-              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة GZIP، أو TAR، أو XML.GZ.
+              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة XML، XML.GZIP، XML.GZ أو ZIP
             dataset: 
               blank: لا يمكن تركه خاليًا، إلا إذا قمت بإضافة عنوان إلكتروني خاص بمجموعة بيانات عوضًا عن ذلك
-              wrong_type: صيغة خاطئة، يجب أن يكون بصيغة GZIP، أو TAR، أو XML.
+              wrong_type: صيغة خاطئة، يجب أن يكون بصيغة GZIP، TAR، ZIP أو ملف XML
             dwc_archive_url: 
               inaccessible: يتعذر الوصول إليه، يجب أن يتمكن العامة من الوصول إلى العنوان الإلكتروني
-              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة GZIP، أو TAR، أو XML.GZ.
+              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة TAR.GZIP، TAR.GZ، TGZ أو ZIP
       template: 
         body: "تعذر التحقق من الخانات التالية:"
         header: 
@@ -431,6 +443,48 @@ ar:
         user_associated_data_object_to_association: قام <strong>%{user}</strong> بإضافة ارتباط بين "%{data_object}" و "%{association}".
         user_associated_it_to_an_unknown_association: قام <strong>%{user}</strong> بإضافة ارتباط بصفحة غير معروفة.
         user_associated_it_to_association: قام <strong>%{user}</strong> بإضافة ارتباط إلى "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفة إلى صفحة غير معروفة.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: قام مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفة.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفةإلى %{taxon}.
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة%{language}إلى صفحة غير معروفة.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: قام مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة %{language} إلى "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع %{name} بلغة غير معروفة إلى صفحة غير معروفة.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" بلغة غير معروفة.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة الأسم الشائع الخاص بـ"%{name}"  باللغة %{language} إلى صفحة غير معروفة.
+        an_unknown_user_added_name_in_language_to_it: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" باللغة %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" باللغة %{language}إلى الإصنوفة "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف بلغة غير معروفة إلى صفحة غير معروفة.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف بلغة غير معروفة.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف بلغة غير معروفة إلى الإصنوفة "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف باللغة %{language}إلى صفحة غير معروفة.
+        user_added_an_unknown_name_in_language_to_it: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف باللغة %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف باللغة %{language}إلى الإصنوفة "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى صفحة غير معروفة.
+        user_added_name_in_an_unknown_language_to_it: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة.
+        user_added_name_in_an_unknown_language_to_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى الإصنوفة "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" باللغة %{language}إلى صفحة غير معروفة.
+        user_added_name_in_language_to_it: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" باللغة %{language}.
+        user_added_name_in_language_to_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" باللغة %{language}إلى الإصنوفة "%{taxon}".
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام مستخدم غير معروف باختيار نسخة أقدم من "%{data_object}" لعرضها كنظرة عامة لصفحة غير معروفة.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام مستخدم غير معروف باختيار مقال غير معروف لعرضه ضمن النظرة العامة في صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: قام مستخدم غير معروف باختيار مقال غير معروف لعرضه ضمن النظرة العامة عن "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: قام مستخدم غير معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: قام مستخدم غير معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: قام مستخدم غير معروف باختيارها للعرض ضمن النظرة العامة عن صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_it_on_taxon: قام مستخدم غير معروف باختيارها لعرضها ضمن النظرة العامة عن "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيار نسخة أقدم من "%{data_object}" لعرضها ضمن النظرة العامة عن صفحة غير معروفة.
+        user_chose_exemplar_an_older_data_object_on_taxon: قام <strong>%{user}</strong> باختيار نسخة أقدم من "%{data_object}" لعرضها ضمن النظرة العامة عن "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيار مقال غير معروف لعرضه ضمن النظرة العامة عن صفحة غير معروفة.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: قام <strong>%{user}</strong> باختيار عنصر بيانات غير معروف لعرضها ضمن النظرة العامة عن"%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيار "%{data_object}" لعرضه ضمن النظرة العامة عن صفحة غير معروفة.
+        user_chose_exemplar_data_object_on_taxon: قام <strong>%{user}</strong> باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيارها للعرض ضمن النظرة العامة عن صفحة غير معروفة.
+        user_chose_exemplar_it_on_taxon: قام <strong>%{user}</strong> باختيارها  للعرض ضمن النظرة العامة عن "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام مستخدم غير معروف بوضع نسخة أقدم من "%{data_object}" كنموذج على صفحة غير معروفة.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير معروف بوضع "%{data_object}"  كنموذج على "%{taxon}".
@@ -448,6 +502,33 @@ ar:
         user_chose_exemplar_data_object_on_taxon: قام <strong>%{user}</strong> بوضع "%{data_object}" كنموذج على"%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضعها كنموذج على صفحة غير معروفة.
         user_chose_exemplar_it_on_taxon: قام <strong>%{user}</strong> بوضعها كنموذج على "%{taxon}".
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: قام مستخدم غير معروف بدمج صفحتين غير معروفتين.
+          an_unknown_user_merged_to_it: قام مستخدم غير معروف بدمج صفحة أخرى بتلك الصفحة.
+          an_unknown_user_merged_to_taxon: مستخدم غير معروف بدمج صفحة أخرى بـ%{target}.
+          user_merged_to_an_unknown_taxon: قام <strong>%{user}</strong> بدمج صفحتين غير معروفتين.
+          user_merged_to_it: قام <strong>%{user}</strong> بدمج صفحة أخرى بتلك الصفحة.
+          user_merged_to_taxon: قام <strong>%{user}</strong> بدمج صفحة أخرى بـ%{target}.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: قام مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} من صفحة غير معروفة إلى صفحة أخرى غير معروفة.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: قام مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} من صفحة غير معروفة إلى %{target}.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: قام مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} إلى صفحة غير معروفة.
+          an_unknown_user_moved_classifications_from_it_to_taxon: قام مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} إلى %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: قام مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} من الإصنوفة %{taxon}إلى صفحة غير معروفة.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: قام مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} من الإصنوفة %{taxon}إلى %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} من صفحة غير معروفة إلى صفحة أخرى غير معروفة.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} من صفحة غير معروفة إلى %{target}.
+          user_moved_classifications_from_it_to_an_unknown_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} صفحة غير معروفة.
+          user_moved_classifications_from_it_to_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} إلى %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} من %{taxon} إلى صفحة غير معروفة.
+          user_moved_classifications_from_taxon_to_taxon: قام <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} من %{taxon} إلى %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: قام مستخدم غير معروف بفصل التصنيفات الخاصة بـ%{classifications} عن صفحة غير معروفة وإضافتها إلى <a href='%{to}'>their own page</a> الصفحة الخاصة به.
+          an_unknown_user_split_classifications_from_it: قام مستخدم غير معروف بفصل التصنيفات الخاصة بـ%{classifications} وإضافتها إلى a href='%{to}'>their own page</a> الصفحة الخاصة به.
+          an_unknown_user_split_classifications_from_taxon: قام مستخدم غير معروف بفصل التصنيفات الخاصة بـ%{classifications} عن %{taxon} وإضافتها إلى <a href='%{to}'>their own page</a> الصفحة الخاصة به.
+          user_split_classifications_from_an_unknown_taxon: قام <strong>%{user}</strong> بفصل التصنيفات الخاصة بـ%{classifications} من صفحة غير معروفة إلى <a href='%{to}'>their own page</a> الصفحة الخاصة به.
+          user_split_classifications_from_taxon: قام <strong>%{user}</strong> بفصل التصنيفات الخاصة بـ%{classifications} وإضافتها إلى a href='%{to}'>their own page</a> الصفحة الخاصة به.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مخفي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_hid_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مخفي" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
@@ -465,13 +546,26 @@ ar:
         user_hid_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مخفّي"على "%{data_object}"  في صفحة "%{association}".
         user_hid_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مخفّي" عليها في سياق غير معروف.
         user_hid_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مخفّي" عليها في صفحة "%{association}".
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: قام مستخدم غير معروف بنقل التصنيفات المُعدة بواسطة "%{provider}" إلى إصنوفة غير معروفة.
+        an_unknown_user_merged_entry_to_it: قام مستخدم غير معروف بإضافة التصنيف المُعد بواسطة "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: قام مستخدم غير معروف بنقل التصنيف المُعد بواسطة "%{provider}" إلى "%{taxon}".
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: قام مستخدم غير معروف بنقل تصنيف غير معروف إلى إصنوفة غير معروفة.
+        an_unknown_user_merged_unknown_entry_to_it: قام مستخدم غير معروف بإضافة تصنيف غير معروف.
+        an_unknown_user_merged_unknown_entry_to_taxon: قام مستخدم مجهول بنقل تصنيف غير معروف إلى "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: قام <strong>%{user}</strong> بنقل التصنيفات المُعدة بواسطة "%{provider}" إلى إصنوفة غير معروفة.
+        user_merged_entry_to_it: قام <strong>%{user}</strong> بإضافة التصنيف المُعد بواسطة "%{provider}".
+        user_merged_entry_to_taxon: قام <strong>%{user}</strong> بنقل التصنيفات المُعدة بواسطة "%{provider}" إلى "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: قام <strong>%{user}</strong> بنقل تنصيف غير معروف إلى إصنوفة غير معروفة.
+        user_merged_unknown_entry_to_it: قام <strong>%{user}</strong> بإضافة تصنيف غير معروف.
+        user_merged_unknown_entry_to_taxon: قام <strong>%{user}</strong> بنقل تصنيف غير معروف إلى "%{taxon}".
       other_actions: 
         an_unknown_user_curated_an_older_data_object: قام مستخدم غير معروف بالإشراف على نسخة أقدم من "%{data_object}".
         an_unknown_user_curated_an_unknown_data_object: قام مستخدم غير معروف بالإشراف على كائن بيانات غير معروف.
         an_unknown_user_curated_data_object: قام مستخدم غير معروف بالإشراف على "%{data_object}".
         an_unknown_user_curated_it: قام مستخدم غير معروف بالإشراف عليها، إلا أن الإجراء الذي تم بالتفصيل قد فٌقِد.
         user_curated_an_older_data_object: قام <strong>%{user}</strong> بالإشراف على نسخة أقدم من "%{data_object}".
-        user_curated_an_unknown_data_object: قام <strong>%{user}</strong> بالإشراف على كائن بيانات غير معروف.
+        user_curated_an_unknown_data_object: قام <strong>%{user}</strong> بالإشراف على موضوع بيانات غير معروف.
         user_curated_data_object: قام <strong>%{user}</strong> بالإشراف على "%{data_object}".
         user_curated_it: قام <strong>%{user}</strong> بالإشراف عليها، إلا أن الإجراء الذي تم بالتفصيل قد فُقِد.
       preferred_classification: 
@@ -489,6 +583,36 @@ ar:
         user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> قام بتعليم تنصيف مجهول   كمفضل من أجل "%{taxon}".
       reasons_to_hide: "أسباب الإخفاء: %{reasons}"
       reasons_to_untrust: "أسباب عدم الوثوق: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: لقد قام مستخدم غير معروف بحذف ارتباط من نسخة أقدم من %{data_object}
+        an_unknown_user_disassociated_an_older_data_object_from_association: قام مستخدم غير معروف بحذف ارتباط بين "%{data_object}" و"%{association}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: قام مستخدم غير معروف بحذف ارتباط غير معروف.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: قام مستخدم غير معروف بحذف ارتباط بين عنصر بيانات غير معروف و"%{association}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: قام كائن غير معروف بحذف ارتباط بين "%{data_object}" وصفحة غير معروفة.
+        an_unknown_user_disassociated_data_object_from_association: قام مستخدم غير معروف بحذف ارتباط بين "%{data_object}" و"%{association}".
+        an_unknown_user_disassociated_it_from_an_unknown_association: قام مستخدم غير معروف بحذف ارتباط إلى صفحة غير معروفة.
+        an_unknown_user_disassociated_it_from_association: قام مستخدم غير معروف بحذف ارتباط إلى "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط بين نسخة أقدم من "%{data_object}" وصفحة غير معروفة.
+        user_disassociated_an_older_data_object_from_association: قام <strong>%{user}</strong> بحذف ارتباط بين نسخة أقدم من "%{data_object}" و"%{association}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط غير معروف.
+        user_disassociated_an_unknown_data_object_from_association: قام <strong>%{user}</strong> بحذف ارتباط بين عنصر بيانات غير معروف و"%{association}".
+        user_disassociated_data_object_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط بين "%{data_object}" وصفحة غير معروفة.
+        user_disassociated_data_object_from_association: قام <strong>%{user}</strong> بحذف ارتباط بين "%{data_object}" و"%{association}".
+        user_disassociated_it_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط إلى صفحة غير معروفة.
+        user_disassociated_it_from_association: قام <strong>%{user}</strong> بحذف ارتباط إلى "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: قام مستخدم غير معروف بحذف اسم شائع بلغة غير معروفة من صفحة غير معروفة.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: قام مستخدم غير معروف بحذف اسم شائع بلغة غير معروفة.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: قام مستخدم غير معروف بحذف اسم شائع غير معروف بلغة غير معروفة من %{taxon}.
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: قام مستخدم غير معروف بحذف اسم شائع باللغة%{language} من صفحة غير معروفة.
+        an_unknown_user_removed_name_in_language_from_it: قام مستخدم غير معروف بحذف اسم شائع باللغة %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: قام مستخدم غير معروف بحذف اسم شائع باللغة %{language} من "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: قام <strong>%{user}</strong> بحذف اسم شائع بلغة غير معروفة من صفحة غير معروفة.
+        user_removed_name_in_an_unknown_language_from_it: قام <strong>%{user}</strong> بحذف اسم شائع بلغة غير معروفة.
+        user_removed_name_in_an_unknown_language_from_taxon: قام <strong>%{user}</strong> بحذف اسم شائع بلغة غير معروفة من الإصنوفة "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: قام <strong>%{user}</strong> بحذف اسم شائع باللغة %{language}من صفحة غير معروفة.
+        user_removed_name_in_language_from_it: قام <strong>%{user}</strong> بحذف اسم شائع باللغة %{language}.
+        user_removed_name_in_language_from_taxon: قام <strong>%{user}</strong> بحذف اسم شائع باللغة %{language} من الإصنوفة "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_showed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" على صفحة "%{association}".
@@ -506,6 +630,44 @@ ar:
         user_showed_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على "%{data_object}"  في صفحة "%{association}".
         user_showed_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في سياق غير معروف.
         user_showed_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في صفحة "%{association}".
+      split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: قام مستخدم غير معروف بفصل التصنيف المقدم من "%{provider}" عن إصنوفة غير معروفة.
+        an_unknown_user_split_entry_from_it: قام مستخدم غير معروف بفصل التصنيف المقدم من "%{provider}".
+        an_unknown_user_split_entry_from_taxon: قام مستخدم غير معروف بفصل التصنيف المقدم من "%{provider}" عن "%{taxon}".
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: قام مستخدم مجهول بتقسيم تصنيف غير معلوم لصنف غير معروف.
+        an_unknown_user_split_unknown_entry_from_it: قام مستخدم غير معروف بفصل تنصيف غير معروف.
+        an_unknown_user_split_unknown_entry_from_taxon: قام مستخدم مجهول بتقسيم تصنيف غير معلوم من "%{taxon}".
+        user_split_entry_from_an_unknown_taxon: قام <strong>%{user}</strong> بفصل التصنيفالمقدم من "%{provider}" عن إصنوفة غير معروفة.
+        user_split_entry_from_it: قام <strong>%{user}</strong> بفصل التصنيف المقدم من "%{provider}".
+        user_split_entry_from_taxon: قام <strong>%{user}</strong> بفصل التصنيف المقدم من "%{provider}" عن "%{taxon}".
+        user_split_unknown_entry_from_an_unknown_taxon: قام <strong>%{user}</strong> بتقسيم تنصيف غير معلوم من صنف مجهول.
+        user_split_unknown_entry_from_it: قام <strong>%{user}</strong> بفصل تصنيف غير معروف.
+        user_split_unknown_entry_from_taxon: قام <strong>%{user}</strong> بتقسيم تصنيف غير معلوم من "%{taxon}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة بصفحة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} بصفحة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة وبصفحة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} بصفحة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_name_in_language_on_it: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} كموثوق به.
+        an_unknown_user_trusted_name_in_language_on_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة في صفحة غير معروفة "كموثوق به".
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة كموثوق به.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف باللغة %{language} في صفحة غير معروفة "كموثوق به".
+        user_trusted_an_unknown_name_in_language_on_it: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف باللغة %{language} كموثوق به.
+        user_trusted_an_unknown_name_in_language_on_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة من صفحة غير معروفة "كموثوق به".
+        user_trusted_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بتصنيف الاسم الشائع "%{name}"  بلغة غير معروفة كموثوق به.
+        user_trusted_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف الاسم الشائع" %{name}" باللغة %{language} في صفحة غير معروفة "كموثوق به".
+        user_trusted_name_in_language_on_it: قام <strong>%{user}</strong> بتصنيف الاسم الشائع "%{name}" باللغة %{language} كموثوق به.
+        user_trusted_name_in_language_on_taxon: قام <strong>%{user}</strong> بتصنيف الاسم الشائع" %{name}" باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار النسخة الأقدم من "%{data_object}" موثوقًا بها في سياق غير معروف.
         an_unknown_user_trusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" موثوقًا بها على صفحة "%{association}" .
@@ -523,6 +685,51 @@ ar:
         user_trusted_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على "%{data_object}" في صفحة "%{association}".
         user_trusted_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" عليها في سياق غير معروف.
         user_trusted_it_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" عليها في صفحة "%{association}".
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: لقد تمت عملية الدمج المطلوبة حديثًا، ولكن تعذر إيجاد الصفحة.
+        merge_of_it_unlocked: تم تنفيذ عملية الدمج المطلوبة مؤخرًا لتلك الصفحة بنجاح.
+        merge_of_taxon_unlocked: تم تنفيذ الدمج المطلوب مؤخرًا لصفحة %{taxon} بنجاح.
+        move_of_an_unknown_taxon_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بنجاح، ولكن تعذر إيجاد الصفحة.
+        move_of_it_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بتلك الصفحة بنجاح.
+        move_of_taxon_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بصفحة "%{taxon}" بنجاح.
+        split_of_an_unknown_taxon_unlocked: لقد تمت عملية فصل التصنيف المطلوبة حديثًا، ولكن تعذر إيجاد الصفحة.
+        split_of_it_unlocked: تم تنفيذ عملية فصل التصنيف المطلوبة حديثًا بتلك الصفحة وتم نقل التصنيفات إلى <a href='%{to}'>their own page</a> صفحتها الخاصة.
+        split_of_taxon_unlocked: تم تنفيذ عملية فصل التصنيف المطلوبة حديثًا  والخاصة بـ"%{taxon}"  وتم نقل التصنيفات إلى <a href='%{to}'>their own page</a> صفحتها الخاصة.
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية دمج الصفحة المطلوبة مؤخرًا: %{error}. كما تعذر إيجاد الصفحة المعنية."
+        merge_of_it_unlocked_with_error: "تعذر <strong>failed</strong> تنفيذ عملية الدمج المطلوبة مؤخرًا بتلك الصفحة: %{error}."
+        merge_of_taxon_unlocked_with_error: لقد تعذر <strong>failed</strong> تنفيذ دمج صفحة "%{taxon}" المطلوب مؤخرًا %{error}.
+        move_of_an_unknown_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية دمج الصفحة المطلوبة مؤخرًا: %{error}. كما تعذر إيجاد الصفحة المعنية."
+        move_of_it_unlocked_with_error: "تعذر <strong>failed</strong> تنفيذ عملية نقل التصنيف المطلوب مؤخرًا بتلك الصفحة: %{error}."
+        move_of_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية نقل التصنيف المطلوبة مؤخرًا بصفحة \"%{taxon}\" : %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية فصل التصنيف المطلوبة حديثًا: %{error}. كما تعذر إيجاد الصفحة المعنية."
+        split_of_it_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية فصل التصنيف المطلوبة حديثًا بتلك الصفحة: %{error}."
+        split_of_taxon_unlocked_with_error: "لقد تعذر <strong>failed</strong> تنفيذ عملية فصل التصنيف المطلوبة حديثًا والخاصة بـ\"%{taxon}\": %{error}."
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة من صفحة غير معروفة.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف من لغة غير معروفة.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة من "%{taxon}".
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language} من صفحة غير معروفة.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language}.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language} من "%{taxon}".
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" في لغة غير معروفة من صفحة غير معروفة.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" في لغة غير معروفة.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" في لغة غير معروفة من "%{taxon}".
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}" من صفحة غير معروفة.
+        an_unknown_user_unreviewed_name_in_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}".
+        an_unknown_user_unreviewed_name_in_language_on_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" لـ%{language} على الاسم الشائع "%{name}" من "%{taxon}".
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة من صفحة غير معروفة.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة من "%{taxon}".
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language} من صفحة غير معروفة.
+        user_unreviewed_an_unknown_name_in_language_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language}.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language} من "%{taxon}".
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة من صفحة غير معروفة.
+        user_unreviewed_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة من "%{taxon}".
+        user_unreviewed_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}" من صفحة غير معروفة.
+        user_unreviewed_name_in_language_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}".
+        user_unreviewed_name_in_language_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}" من "%{taxon}".
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_unreviewed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
@@ -540,6 +747,31 @@ ar:
         user_unreviewed_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" على "%{data_object}"  في صفحة "%{association}".
         user_unreviewed_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" عليها في سياق غير معروف.
         user_unreviewed_it_on_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" عليها في صفحة "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة بصفحة غير معروفة كغير موثوق به.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة كغير موثوق به.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف للإصنوفة "%{taxon}" بلغة غير معروفة كغير موثوق به.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} بصفحة غير معروفة كغير موثوق به.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} كغير موثوق به.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" كغير موثوق به.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة وبصفحة غير معروفة كغير موثوق به.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة كغير موثوق به.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}" كغير موثوق به.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} بصفحة غير معروفة كغير موثوق به.
+        an_unknown_user_untrusted_name_in_language_on_it: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} كغير موثوق به.
+        an_unknown_user_untrusted_name_in_language_on_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} للإصنوفة "%{taxon}" كغير موثوق به.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة في صفحة غير معروفة كغير موثوق به.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة كغير موثوق به.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة للإصنوفة "%{taxon}" كغير موثوق به.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف باللغة %{language} في صفحة غير معروفة كغير موثوق به.
+        user_untrusted_an_unknown_name_in_language_on_it: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف باللغة %{language} كغير موثوق به.
+        user_untrusted_an_unknown_name_in_language_on_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" كغير موثوق به.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة وفي صفحة غير معروفة كغير موثوق به.
+        user_untrusted_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بتصنيف الاسم الشائع "%{name}"  بلغة غير معروفة كغير موثوق به.
+        user_untrusted_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}" كغير موثوق به.
+        user_untrusted_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف الاسم الشائع" %{name}" باللغة %{language} في صفحة غير معروفة كغير موثوق به.
+        user_untrusted_name_in_language_on_it: قام <strong>%{user}</strong> بتصنيف الاسم الشائع "%{name}" باللغة %{language} كغير موثوق به.
+        user_untrusted_name_in_language_on_taxon: قام <strong>%{user}</strong> بتصنيف الاسم الشائع" %{name}" باللغة %{language} للإصنوفة "%{taxon}" كغير موثوق به.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها في سياق غير معروف.
         an_unknown_user_untrusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها على صفحة "%{association}".
@@ -557,7 +789,9 @@ ar:
         user_untrusted_data_object_on_association: اعتبر <strong>%{user}</strong> أن "%{data_object}" غير موثوق به في صفحة "%{association}".
         user_untrusted_it_on_an_unknown_association: اعتبرها <strong>%{user}</strong> "غير موثوق بها" في سياق غير معروف.
         user_untrusted_it_on_association: اعتبرها <strong>%{user}</strong> غير موثوق بها على صفحة "%{association}".
+  activity_user_created_link: قام <strong>%{user}</strong> بإضافة رابط إلى "%{object_name}" حول "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> أضاف نص إلى "%{object_name}" في "%{taxon_concept}".
+  activity_user_updated_link: قام <strong>%{user}</strong> بتحديث رابط "%{object_name}" حول "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> حدث نص "%{object_name}" في "%{taxon_concept}" .
   add: أضف
   add_a_collection_to_a_community: أضف "%{collection}"  لمجتمع.
@@ -565,29 +799,33 @@ ar:
   add_a_comment_colon: "أضف تعليقًا:"
   add_a_new_common_name: أضف اسمًا شائعًا جديدًا
   add_a_new_file_brackets: "[أضف ملف جديد]"
-  add_a_new_news_item: أضف خبر جديد
   add_a_new_role: أضف دور جديد
   add_a_new_search_suggestion: أضف اقتراح بحث جديد
   add_a_new_term: أضف مصطلح جديد
   add_a_new_topic_area: أضف موضوع جديد
   add_a_new_user: اضف مستخدم جديد
   add_a_taxon_association_label: أضف رابط لأصنوفة
-  add_article_to_page_link_button: أضف مقال إلى تلك الصفحة
+  add_article_instead: عوضًا عن ذلك، أضف مقال
+  add_article_to_page_button: إضافة مقال
   add_association_submit_button: اضافة رابط
   add_brief_summary_to_page_link_button: أضف نبذة مختصرة إلى تلك الصفحة
   add_citizen_science_resources_to_page_link_button: أضف رابط مواطن العلم لهذه الصفحة
+  add_classifications: إضافة تصنيفات مختارة للنقل
   add_collection_to_a_new_community: أضف "%{collection}"  لمجتمع جديد
   add_collection_to_community: أضف المجموعة للمجتمع
   add_education_resources_to_page_link_button: اضف مصادر  تعليمية إلى هذه الصفحة
   add_identification_resources_to_page_link_button: اضف مصادر تعريفية إلى هذه الصفحة
   add_item_to_new_collection: أضف "%{item}" إلى مجموعة جديدة
   add_language: أضف لغة
+  add_link_instead: عوضًا عن ذلك، أضف رابط
+  add_link_to_page_button: إضافة رابط
   add_new_association_link: أضف رابط جديد
   add_new_tag_suggestion: أضف اقتراح جديد على بطاقة دلالية
   add_page: أضف صفحة
   add_sub_chapter: أضف فصل فرعي
   add_to_a_community: أضف إلى مجتمع.
   add_to_my_collection_button: أضف إلى مجموعة
+  added_classifications_ready: البيانات المتضمنة في التصنيفات المختارة جاهزة للنقل إلى صفحة أخرى. لإتمام العملية، أختر "فصل البيانات ونقلها إلى صفحة جديدة" أو الانتقال إلى زر الأسماء بالصفحة التى ترغب في نقل البيانات إليها، ثم اختيار "دمج التصنيفات".
   admin_content_page_active: نشر
   admin_content_page_child_new_link: إنشاء صفحة فرعية
   admin_content_page_create_successful_notice: تم إنشاء صفحة <a href="#%{anchor}"><em>%{page_name}</em></a> بنجاح
@@ -631,6 +869,23 @@ ar:
   admin_information: هذه هي واجهة التحكم الجديدة في النسخة الثانية من موقع موسوعة الحياة.  نمر حاليًا بمرحلة نقل الإدارة من النسخة الأولى. إذا كان قسم الإدارة الذي تبحث عنه غير مدرج بالقائمة التالية، يرجى زيارة  <a href="/administrator">واجهة التحكم للنسخة اﻷولى لموقع موسوعة الحياة</a>.
   admin_link: نظرة عامة
   admin_login_confirmation: هل أنت متأكد من رغبتك في الدخول في سجل شريك المحتوى كـ %{name} ؟ في هذه الحالة، سيتم تسجيل خروجك من الموقع كإداري.
+  admin_news_item_active: تم نشره
+  admin_news_item_create_successful_notice: تم إنشاء عنصر أخبار <a href="#%{anchor}"><em>%{page_name}</em></a> بنجاح.
+  admin_news_item_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إنشاء عنصر الأخبار.
+  admin_news_item_delete_confirmation: هل أنت متأكد من رغبتك في حذف "%{page_name}" وجميع ترجماتها. لا يمكن إلغاء عمليات الحذف.
+  admin_news_item_delete_successful_notice: عنصر الأخبار %{page_name} وجميع الترجمات التابعة لها تم حذفها.
+  admin_news_item_edit_header: حدث معلومات عناصر الأخبار الأساسية للصفحة <em>%{page_name}</em>
+  admin_news_item_edit_tip: "يوصى بعدم تعديل الأسم المميز الخاص لعنصر الأخبار هذا ما لم تكن ملمًا بالعواقب بشكل كامل، بما في ذلك أثر ذلك على الراوبط في تلك الصفحة، أو المسارات المذكورة.\nيجب إدخال %{required_icon} الأسم المميز."
+  admin_news_item_new_header: أنشئ عنصر أخبار جديد
+  admin_news_item_new_link: أنشئ عنصر الأخبار
+  admin_news_item_new_tip: أدخل المعلومات الأساسية لهذه الصفحة. المطلوب هو %{required_icon} اسم وحيد.
+  admin_news_item_not_active: غير منشور
+  admin_news_item_update_successful_notice: تم تحديث عنصر الأخبار <a href="#%{anchor}"><em>%{page_name}</em></a> بنجاح.
+  admin_news_item_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث عنصر الأخبار.
+  admin_news_items_empty: لم يتم العثور على أي عناصر أخبار.
+  admin_news_items_index_information: تضم القائمة التالية جميع عناصر الأخبار المتاحة حاليًا بالموقع الإلكتروني لموسوعة الحياة وكذا عناصر الأخبار المستقبلية. هنالك ترجمة أو أكثر لكل صفحة. عندما تقوم بإنشاء عنصر أخبار، سوف يطلب منك إضافة ترجمة. جميع الترجمات المنشورة متاحة للعامة.
+  admin_news_items_page_title: "الإدارة: أخبار"
+  admin_news_link: الأخبار
   admin_notes_not_visible_to_user: "ملاحظات المشرف (غير ظاهرة للمستخدم):"
   admin_page_title: "الإدارة: نبذة عامة."
   admin_spam_delete: حذف الرسائل المزعجة
@@ -647,9 +902,58 @@ ar:
   admin_translated_content_page_new_tip: يجب إضافة %{required_icon} اللغة، والعنوان، والنص.
   admin_translated_content_page_update_successful_notice: تم تحديث الترجمة %{language} الخاصة بـ <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث الترجمة.
+  admin_translated_news_item_active: منشور
+  admin_translated_news_item_create_successful_notice: تمت إضافة الترجمة إلى <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إضافة الترجمة.
+  admin_translated_news_item_delete_confirmation: هل أنت متأكد من رغبتك في حذف النسخة %{language} لصفحة "%{page_name}". لا يمكن إلغاء الحذف.
+  admin_translated_news_item_delete_successful_notice: تم حذف ترجمة عنصر الأخبار %{language} للصفحة  <em>%{page_name}</em>.
+  admin_translated_news_item_edit_subheader: تعديل الترجمة %{language} لصفحة  <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: العنوان و النص هم %{required_icon} إلزاميتان.
+  admin_translated_news_item_new_header: إختر اللغة وأضف المحتوى
+  admin_translated_news_item_new_link: أضف ترجمة
+  admin_translated_news_item_new_subheader: أضف ترجمة للصفحة <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: يجب إضافة %{required_icon} اللغة، والعنوان، والنص.
+  admin_translated_news_item_not_active: لم يتم نشره
+  admin_translated_news_item_update_successful_notice: تم تحديث الترجمة %{language} لـ <a href="#%{anchor}"><em>%{page_name}</em></a>.
+  admin_translated_news_item_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث الترجمة.
   admin_user_delete_successful_notice: تم حذف المستخدم
   admin_user_hide_successful_notice: تم إخفاء المستخدم
   admin_user_unhide_successful_notice: تم إظهار المستخدم
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: شركاء المحتوى
+        page_header: إحصائيات شريك المحتوى
+        page_title: "الإدارة: إحصائيات شركاء المحتوى"
+      curators: 
+        menu_link: إحصائيات المشرف
+        page_header: إحصاءات المشرف
+        page_title: "الإدارة: إحصاءات المشرف"
+      data_objects: 
+        menu_link: عناصر البيانات
+        page_header: إحصائيات عناصر البيانات
+        page_title: "الإدارة: إحصائيات عناصر البيانات"
+      index: 
+        menu_link: الإحصائيات الإجمالية
+        page_header: الإحصائيات الإجمالية
+        page_title: "الإدارة: الإحصائيات الإجمالية"
+        table_caption: تم إنشاء الإحصائيات الإجمالية للموقع في %{created_at_time}
+      lifedesks: 
+        menu_link: مجموعات لايف ديسك
+        page_header: إحصائيات مجموعات لايف ديسك
+        page_title: "الإدارة: إحصائيات مجموعات لايف ديسك"
+      marine: 
+        menu_link: إحصائيات الصفحات البحرية
+        page_header: تغطية الكائنات البحرية في موسوعة الحياة
+        page_title: "الإدارة: إحصائيات الصفحات البحرية"
+      page_richness: 
+        menu_link: الصفحات الغنية
+        page_header: إحصائيات الصفحات الغنية
+        page_title: "الإدارة: إحصائيات الصفحات الغنية"
+      users_data_objects: 
+        menu_link: نص قدمه المستخدم
+        page_header: إحصائيات النص المقدم من المستخدم
+        page_title: "الإدارة: إحصائيات النص المقدم من المستخدم"
   agent: وكيل
   all: الكل
   all_apis_return_by_default_an_xml_response: "تقدم جميع واجهات برمجة التطبيقات استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، يمكن تنفيذ طرق واجهة برمجة التطبيقات بدون إضافة امتداد يحدد الصيغة لعرض استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، وسوف يؤدي إضافة امتداد لغة الترميز القابلة للامتداد (.XML) إلى استجابة مماثلة:"
@@ -711,7 +1015,7 @@ ar:
   assistive_literature_header: المواد المطبوعة
   assistive_maps_header: الخرائط
   assistive_media_header: الوسائط
-  assistive_names_classifictions_header: تصنيفات
+  assistive_names_classifications_header: تصنيفات
   assistive_names_common_header: الأسماء الشائعة
   assistive_names_related_header: الأسماء ذات الصلة
   assistive_names_synonyms_header: المترادفات
@@ -720,13 +1024,17 @@ ar:
   assistive_updates_header: تحديثات
   assistive_updates_statistics_header: إحصاءات الصفحة
   associated_submit_button: مرتبط
-  associated_with_article_header: مرتبط بـ
+  associated_with_article_header: في المقالة الأخيرة
   associated_with_header: مرتبط بـ
-  associated_with_image_header: في تلك الصورة
-  associated_with_image_map_header: في هذه الخريطة
-  associated_with_map_header: في هذه الخريطة
-  associated_with_sound_header: مرتبط بـ
-  associated_with_video_header: في ذلك الفيديو
+  associated_with_image_header: في الصورة الأخيرة
+  associated_with_image_map_header: على الخريطة الأخيرة
+  associated_with_link_header: عن الرابط الأخير
+  associated_with_map_header: على الخريطة الأخيرة
+  associated_with_sound_header: في  الصوت الأخير
+  associated_with_video_header: في الفيديو الأخير
+  association_trusted_for_taxa: "موثوق به فيما يخص:"
+  association_unreviewed_for_taxa: "غير مراجع فيما يخص:"
+  association_untrusted_for_taxa: "غير موثوق به فيما يخص:"
   associations_more_link: المزيد من  <span class="assistive">ارتباطات الأصنوفة</span>
   attribute: نسب
   audio_current_time_assistive: عند تفعيل لغة جافا سكريبت سوف يظهر ذلك موقع التشغيل الحالي للملف الصوتي بالدقائق والثواني.
@@ -765,7 +1073,8 @@ ar:
   by_scientific_name_table_header: بالاسم العلمي
   cache_store: مخزن الذاكرة المخبأة
   calculate_averages_slow: احسب المتوسطات (بطيء)
-  cancel: ألغِ
+  cancel: إلغاء
+  cancel_split: إلغاء
   cannot_be_associated_with_both_a_user_and_a_community: لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع
   cannot_be_empty: لا يمكن أن يكون خاليًا
   cannot_create_collection_item_from_class_error: لا يمكن إنشاء عنصر من %{klass}
@@ -780,22 +1089,37 @@ ar:
   change_rating_to_3_of_5: عدل التقييم إلى 3 من 5
   change_rating_to_4_of_5: عدل التقييم إلى 4 من 5
   change_rating_to_5_of_5: عدل التقييم إلى 5 من 5
-  check_this_to_browse_eol_by_the_hierarchy: إذا وُضعت علامة في هذا المربع، سيكون التسلسل الهرمي اختياري للمستخدمين للتصفح في موسوعة الحياة
+  check_this_to_browse_eol_by_the_hierarchy: (إذا تم تحديد هذا المربع سيظهر التصنيف على علامة تبويب الأسماء دون الحاجة إلى "مشاهدة جميع التصنيفات".)
   choose_collection_header: أختر مجموعة
   citation: الإقتباس
   citation_example: فيشر، براين. "Pogonomyrmex anergismus Cole, 1954." موسوعة الحياة، متاح عبر <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. تم الاستخدام في 15 يناير 2009.
   citing_link: اقتباس
   classification_already_preferred: "خطأ: تم تعليم هذا التنصيف كمفضل مسبقا."
+  classification_button_help: يرجى اختيار التصنيف الذي يمثل الصفحة التالية بصورة أفضل، والنقر على الزر الموازي "تعيين كنموذج". لإلغاء العملية برمتها، أنقر على "إلغاء"
+  classification_curation_pending: غير مراجع. قد ينتقل ذلك التصنيف إلى صفحة أخرى في القريب العاجل.
+  classification_from_agent: تصنيف مقدم من %{agent}.
   classification_from_agent_chosen_by_curator: تصنيف من %{agent} قام بأختياره %{curator}.
+  classification_from_agent_chosen_by_curator_see_more: تصنيف مقدم من %{agent} تم اختياره بواسطة %{curator} - استعرض المزيد <a href="%{more_link}">see more</a>.
+  classification_merge_help: <b> أنت بصدد نقل تصنيفات من تلك الصفحة. </b> للاستمرار، يجب أن تحدد أي التصنيفات القائمة تمثل صفحة الإصنوفة التي تنتوي نقل التصنيفات منها بصورة <i>أفضل</i> من وجهة نظرك، من شأن ذلك مساعدتنا على فصل التصنيفات التي قمت باختيارها عن تلك الصفحة في المستقبل.
   classification_preferred_for_taxon: المفضَّل
   classification_preferred_for_taxon_help_tip: "%{icon} يقوم بتعليم التّصنيف المفضّل لهذا التصنيف."
+  classification_split_help: <b>أنت بصدد فصل تصنيفات عن تلك الصفحة</b>. للاستمرار، حدد التصنيفات القائمة التي تمثل تلك الصفحة بالصورة <i>الأفضل</i> من وجهة نظرك، ومن شأن ذلك مساعدتنا على إبعاد التصنيفات المختارة عن تلك الصفحة في المستقبل.
+  classification_split_warning: <b>تأكد من اختيار <i>جميع</i> التصنيفات المطابقة للصفحة الهدف. على سبيل المثال، إذا كنت بصدد فصل أو نقل تصنيف خاص بفطر الأمانيت من صفحة خاصة بحيوان الراكون، فيجب أن تختار جميع تصنيفات فطر الأمانيت ليتم تنفيذ العملية. إذا فوت إحداها، سوف يكون من الصعب تعديلها لاحقًا.
   classification_summary_section_header: التّصنيف
   classification_tree_header: تصنيف
+  classifications_edit_cancelled_busy: عفوًا، تعذر تنفيذ طلب تعديل التصنيفات في الوقت الحالي؛ تم غلق واحدة أو أكثر من صفحات الأصناف، حيث يتم تنفيذ طلب خارجي لتعديل تلك التصنيفات.
+  classifications_edit_cancelled_merge_to_self: "لم يتم النقل: المصدر والهدف هما نفس الصفحة."
   classifications_empty: لم يتم إضافة تلك الصفحة إلى أي من التصنيفات القابلة للتصفح بموسوعة الحياة.
+  classifications_exemplar_column_header: نموذج
   classifications_hierarchy_column_header: تصنيف
+  classifications_locked: لا يمكن تعديل التصنيفات المعروضة بتلك الصفحة في الوقت الحالي، حيث يتم تنفيذ طلب آخر لتعديلها.
+  classifications_merge_additional_confirm_required: لدمج تلك التصنيفات، يجب أن يتم تقديم المزيد من المعلومات.
+  classifications_merge_providers_match_confirm: التأكيد على الرغبة في تجاوز توصية شريك المحتوى بفصل تلك البيانات.
+  classifications_merge_providers_match_warning: أنت بصدد دمج صفحتين شدد %{provider} على فصل البيانات المتضمنة بهما. يرجى تأكيد رغبتك في <i>override</i> تجاوز ذلك الطلب ووضع تلك البيانات بنفس الصفحة.
   classifications_preferred_column_header: المفضَّل
   classifications_rank_column_header: التّرتيب
   classifications_recognized_by_column_header: مُعترف بها من قبل
+  classifications_split_column_header: فصل / نقل
   classifications_summary_header_with_count: 
     one: وجدت في %{count} تصنيف
     other: وجدت في %{count} تصنيف
@@ -822,6 +1146,7 @@ ar:
     other: "تم إنشاء مجموعة %{collection_name}</em>  بنجاح بـ %{count} عنصر "
   collection_delete_link: حذف تلك المجموعة نهائيًا
   collection_destroyed: تم حذف المجموعة
+  collection_error_no_items_selected: "خطأ: لم يتم اختيار أي عنصر، لذلك لم يتم تنفيذ الطلب."
   collection_image: صورة المجموعة
   collection_is_empty: المجموعة خالية حاليًا
   collection_item_edit_by_javascript_not_authorized_error: للأسف غير مسموح لك بالتغيير في عنصر المجموعة هذا. إذا كنت مالك المجموعة أو كنت محررًا، رجاء إعادة تحميل الصفحة وتأكد من تسجيل الدخول.
@@ -856,6 +1181,10 @@ ar:
         observation_place: المكان %{place}
         observer_with_link: "المراقب: %{observer_link}"
         recent_observations: الملاحظات الأخيرة
+        some_taxon: شيء ما
+        taxa_observed: 
+          one: "%{count} تمت مراقبة أصنوفة"
+          other: "%{count} تمت مراقبة أصناف"
         top_contributors: كبار المساهمين في iNaturalist
         tweet_text: "%{collection_name} ملاحظات iNaturalist"
         view_all_observations_on_inaturalist: طالع كل الملاحظات من خلال %{project_title} على iNaturalist
@@ -868,6 +1197,9 @@ ar:
         meta_title: أخبار %{collection_name}
         tweet_text: أخبار %{collection_name}
     show: 
+      meta_description_default: مجموعة موسوعة الحياة تحت عنوان %{collection_name}.
+      meta_description_default_focus_collection: مجموعة تركيز موسوعة الحياة تحت عنوان %{collection_name}.
+      meta_description_default_watch_collection: "قائمة مشاهدة موسوعة الحياة: %{collection_name}."
       meta_keywords: "%{collection_name}، أحدى مجموعات موسوعة الحياة"
   collections_filter: المجموعات
   collections_link: المجموعات
@@ -892,6 +1224,7 @@ ar:
   comment_not_deleted_error: عذرا، حدث خطأ، لا يمكن حذف التعليق.
   comment_not_updated_error: عذرا، حدث خطأ، لا يمكن تحديث التعليق.
   comment_or_rate_on_this_article: التعليق على هذه المقالة أو تقييمها
+  comment_or_rate_on_this_link: قيم أو علق على الرابط
   comment_show_posters_image_alt: الصورة الشخصية لـ%{posters_name} الذي أضاف ذلك التعليق.
   comments: تعليقات
   comments_and_tags: التعليقات والعلامات
@@ -989,10 +1322,13 @@ ar:
   containing_value: يحتوي على %{value}.
   content: 
     index: 
+      header_news: أخبار موسوعة الحياة
       meta_description: تمثل موسوعة الحياة جهد غير مسبوق لجمع المعلومات العلمية عن حياة الحيوانات والنباتات حيث توفر الصور، والمعلومات، والحقائق، والمزيد عن جميع الكائنات الحية في ممالك النباتات والحيوانات.
       meta_keywords: الحيوانات، صور الحيوانات، معلومات عن الحيوانات، النباتات، حياة النباتات، صور النباتات، المعلومات عن النباتات، النباتات، الحيوانات
       meta_title: الحيوانات - النباتات - صور ومعلومات
+      see_all_eol_news: أطلع على المزيد من <span class="assistive">اخبار موسوعة الحياة</span>
       see_all_recent_activites: طالع المزيد من <span class="assistive">الأنشطة للأسبوع الماضي</span>
+      see_all_statistics: أطلع على المزيد من <span class="assistive">احصائيات موسوعة الحياة</span>
   content_has_been_updated: تم تحديث المحتوى.
   content_notes_not_shown_to_us: "ملاحظات خاصة بالمحتوى (لا تظهر للمستخدم):"
   content_partner: شريك في المحتوى
@@ -1002,9 +1338,9 @@ ar:
   content_partner_administration_notes_header: ملاحظات الإدارة
   content_partner_administration_settings_header: إعدادات الإدارة
   content_partner_administration_settings_introduction: تظهر الخانات الإدارية التالية إلى مشرفي موسوعة ويمكن تعديلها من قبلهم فقط.
-  content_partner_agreement_cancel_edit_agreement_link: ألغِ
-  content_partner_agreement_cancel_new_agreement_link: ألغِ
-  content_partner_agreement_cancel_sign_agreement_link: ألغِ
+  content_partner_agreement_cancel_edit_agreement_link: إلغاء
+  content_partner_agreement_cancel_new_agreement_link: إلغاء
+  content_partner_agreement_cancel_sign_agreement_link: إلغاء
   content_partner_agreement_create_successful_notice: تم إنشاء اتفاقية الشروط الخاصة بشريك المحتوى بنجاح.
   content_partner_agreement_create_unsuccessful_error: عفوًا، حدث خطأ، وتعذر إنشاء اتفاقية الشروط الخاصة بشريك المحتوى .
   content_partner_agreement_signed_successful_notice: لقد وافقت على شروط شريك المحتوى، يمكنك الأن إضافة مصادر البيانات.
@@ -1145,6 +1481,7 @@ ar:
   content_partner_statistics_summary_caption: ملخص إحصائيات الاستخدام لصفحات الأصناف التي تضم محتوى مقدم بواسطة %{partner_name} بشكل نسبي إلى إجمالي استخدام موقع موسوعة الحياة.
   content_partner_statistics_taxa_page_caption: إحصائيات الاستخدام المفصلة لصفحات الأصنوفة  التي تضم محتوى مقدم من  %{partner_name}.
   content_partner_statistics_year_label: عام
+  content_partner_stats_message: عذرًا، بيانات هذا الشهر غير متاحة نتيجة لتغيرات طرأت على الخدمة المستخدمة لتوليد الإحصائيات. يعكف فريق التطوير الخاص بنا حاليًا على إيجاد حل، وسوف يتم إخطار شركائنا حالما يتم حل المشكلة عبر البريد الإلكتروني.
   content_partner_status_empty: وضع غير معروف
   content_partner_update_successful_notice: تم تحديث معلومات الشريك بنجاح.
   content_partner_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث معلومات الشريك.
@@ -1305,19 +1642,81 @@ ar:
   data_usage_reports: تقارير استخدام البيانات
   date_caps: التاريخ
   date_uploaded: تحميل التاريخ
-  dato_create_cancel: ألغِ
+  datepicker: 
+    close: أغلق
+    current: اليوم
+    day_names: 
+      - الأحد
+      - الاثنين
+      - الثلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السبت
+    day_names_min: 
+      - الأحد
+      - الإثنين
+      - الثلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السبت
+    day_names_short: 
+      - الأحد
+      - الإثنين
+      - الثلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السبت
+    month_names: 
+      - كانون الثاني/يناير
+      - شباط/فبراير
+      - آذار/مارس
+      - نيسان/أبريل
+      - أيار/مايو
+      - حزيران/يونيه
+      - تموز/يوليه
+      - آب/أغسطس
+      - أيلول/سبتمبر
+      - تشرين الأول/أكتوبر
+      - تشرين الثاني/نوفمبر
+      - كانون الأول/ديسمبر
+    month_names_short: 
+      - يناير
+      - فبراير
+      - مارس
+      - أبريل
+      - مايو
+      - يونيو
+      - يوليو
+      - أغسطس
+      - سبتمبر
+      - أكتوبر
+      - نوفمبر
+      - ديسمبر
+    next: التالي
+    previous: السابق
+  dato_create_cancel: إلغاء
   dato_create_user_text_error: عفوًا، حدث خطأ، تعذر إضافة المقال.
   dato_create_user_text_missing_taxon_id_exception: يتعذر تكوين عنصر بيانات نصي أو عنصر بيانات خاص بالمستخدمين إذا كانت الأصنوفة تساوي لا شيء.
   dato_create_user_text_missing_user_exception: يتعذر تكوين عنصر بيانات نصي أو عنصر بيانات خاص بالمستخدمين إذا كانت الأصنوفة تساوي لا شيء.
   dato_create_user_text_validation_error: نرجو التأكد من ملؤكم النموذج بصورة صحيحة.
-  dato_edit_cancel: ألغِ
-  dato_edit_text_link_button: عدل  هذا المقال
+  dato_edit_cancel: إلغاء
+  dato_edit_link_button: تعديل الرابط
+  dato_edit_link_description: شكرًا لمشاركة خبراتك مع موسوعة الحياة. سوف يتم إضافة الرابط المراجع إلى قائمة المراقبة الخاصة بك لتتمكن من متايعة أي محادثات ذات صلة والتحقق من حالة الإشراف.
+  dato_edit_link_title: تعديل الرابط
+  dato_edit_text_button: تعديل المقال
   dato_edit_text_page_description: نشكرك على المساهمة في  موسوعة الحياة. ستضاف مساهمتك فى قائمة المشاهدة الخاصة بك حتى تتمكن من متابعة أي مداخلات متعلقة بها ووضعها من حيث اﻹشراف.
   dato_edit_text_title: تعديل المقالة
+  dato_location_created: "الموقع: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: محتوى المقال
   dato_new_edit_user_text_fieldset_information_header: معلومات المقال
   dato_new_edit_user_text_form_tip: سيتم عرض مقالك المكتمل على صفحة الأصنوفات. إن لم تكن مشرفًا، ستوضع عليها علامة "غير مُراجع" حتى يقوم مشرف بمراجعتها. مطلوب الفصل الفرعي والنص واللغة والرخصة (%{required_icon})، أما باقي الخانات فهي اختيارية. إذا قمت باختيار رخصة CC-BY - Attribution رجاء تضمين صاحب حق الملكية أو اترك المكان خاليًا لنستخدم اسمك كاملاً. لا تتطلب رخص الملك العام صاحب حق ملكية. لمزيد من المساعدة اقرأ <a href="%{add_article_help_url}">add article help</a>.
+  dato_new_edit_user_text_link_fieldset_content_header: بيانات الرابط
+  dato_new_edit_user_text_link_form_tip: سوف يتم نشر الرابط الخاص بك بصفحة الإصنوفة. إن لم تكن مشرفًا، سوف يتم تصنيفه "كغير مراجع" حتى يقوم أحد المشرفون بمراجعته. يجب إضافة البيانات المطلوبة بخانات الفئة، والوصف، والعنوان الإلكتروني (%{required_icon})، ولكن جميع الخانات الأخرى اختيارية. لتلقي مساعدة إضافية، يرجى قراءة <a href="%{add_article_help_url}">add article/link help</a>.
   dato_new_text_for_taxon_page_title: أضف مقال إلى <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: إضافة رابط إلى <i>%{taxon}</i>
   dato_new_text_page_description: نشكرك على المساهمة في  موسوعة الحياة. ستضاف مساهمتك فى قائمة المشاهدة الخاصة بك حتى تتمكن من متابعة أي مداخلات متعلقة بها ووضعها من حيث اﻹشراف.
   dato_update_user_text_error: عفوًا، حدث خطأ، تعذر تحديث المقال.
   dato_update_users_text_not_owner_exception: يُسمح فقط للكاتب الأصلي لهذا الكائن النصي أن يقوم بتحريره.
@@ -1363,8 +1762,8 @@ ar:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: عدم إظهار التواريخ المسجلة غير المعروفة (مستخدمو النسخة الأولى، كل ما سبق 5 يناير، 2009)
   download_wav_file: قم بتحميل ملف بصيغة (WAV)
   dublin_core: دبلن كور
+  duplicate_comment_warning: "لم يتم حفظ التعليق: يبدوا أنك قمت بنشر ذلك التعليق في السابق. هل قمت بالنقر على زر \"نشر التعليق\" مرتين؟"
   duplicate_items_were_ignored: تم تجاهل العناصر المكررة.
-  e_g_search_for_the_eol_page: (على سبيل المثال، ابحث عن تعريف صفحة موسوعة الحياة ذات الرقم التسلسلي 180542 بنظام المعلومات التصنيفية المتكامل)
   each_method_documentation_page_has_formatted_responses: تضم  صفحة توثيق كل طريقة مثال على الاستجابات  من صيغتي لغة الترميز القابلة للامتداد (إكس إم إل) وجسون.
   edit: تعديل
   edit_collection_details: تعديل شرح المجموعة
@@ -1378,8 +1777,6 @@ ar:
   edit_glossary_term: حرر مصطلح معجمي
   edit_hierarchy: تعديل التسلسل الهرمي
   edit_my_profile: تعديل الصفحة الشخصية
-  edit_news_item: حرر خبر
-  edit_news_item_instructions_with_link: حرر الخبر أدناه. يمكنك إضافة HTML في الحقلين ويجب أن يوجد *إما* العنوان أو النص. لأفضل النتائج، فقط استخدم العنوان وأضف خبر قصير. وعند إنشاء وصلات فوقية  hyperlinks لمواقع أخرى، يمكنك استخدام %{link} لإنشاء عناوين URL أقصر لحفظ الأحرف.
   edit_news_items: تعديل المواضيع الجديدة
   edit_page_contents: تعديل محتويات الصفحة
   edit_search_suggestion: حرر اقتراح بحث
@@ -1396,7 +1793,6 @@ ar:
   editors_tab_label: المديرين
   email: البريد الإلكتروني
   email_colon: "البريد الإلكتروني:"
-  email_error_notification_activ: إن إشعار الخطأ بالبريد الإلكتروني نشط
   email_recipients: المرسل إليهم البريد الإلكتروني
   email_updates_for_eol_addicts: تحديثات لعشاق موسوعة الحياة.
   email_updates_for_eol_members: تحديثات سيرغب أغلب أعضاء موسوعة الحياة في الحصول عليها.
@@ -1425,6 +1821,42 @@ ar:
   eol_glossary: قائمة مصطلحات موسوعة الحياة
   eol_news: أخبار موسوعة الحياة
   eol_pages: صفحات
+  eol_statistics: 
+    comparing_dates: <span class="assistive">مقارنة بين</span> <span class="date_one">%{date_one}</span> <span class="assistive">و</span> <span class="date_two">%{date_two}</span>
+    content_partners: 
+      menu_link: شركاء المحتوى
+      page_header: إحصائيات شركاء المحتوى
+      page_title: الإحصائيات
+    curators: 
+      menu_link: إحصائيات المشرف
+      page_header: إحصاءات المشرف
+      page_title: الإحصائيات
+    data_objects: 
+      menu_link: عناصر البيانات
+      page_header: إحصائيات عناصر البيانات
+      page_title: الإحصاءات
+    index: 
+      menu_link: الإحصائيات الإجمالية
+      page_header: الإحصائيات الإجمالية
+      page_title: الإحصائيات
+    lifedesks: 
+      menu_link: مجموعات لايف ديسك
+      page_header: إحصائيات مجموعات لايف ديسك
+      page_title: الإحصائيات
+    marine: 
+      menu_link: إحصائيات الصفحات البحرية
+      page_header: تغطية الكائنات البحرية في موسوعة الحياة
+      page_title: الإحصائيات
+    page_richness: 
+      menu_link: الصفحات الغنية
+      page_header: إحصائيات الصفحات الغنية
+      page_title: الإحصائيات
+    users_data_objects: 
+      menu_link: نص قدمه المستخدم
+      page_header: إحصائيات النص المقدم من المستخدم
+      page_title: الإحصائيات
+    warnings: 
+      stats_unavailable_for_date: عذراً، لا نملك إحصاءات لتاريخ %{date}. رجاءاً قم بأختيار تاريخ جديد.
   error_401_description: للأسف، غير مصرح لك بالدخول على هذا العنوان
   error_401_page_title: غير مصرح له
   error_403_description: للأسف، غير مصرح لك بالدخول على هذا العنوان.
@@ -1437,12 +1869,13 @@ ar:
   error_couldnt_find_community_by_id: تعذر العثور على مجموعة يمكنك إدارتها بالمعرف %{id}.
   error_default_description: نأسف، تواجهنا مشكلة. إن استمرت، رجاء إرسال رسالة إلى <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: نأسف!
+  error_exemplar_chosen_with_invalid_action: "عذرًا، لم يتم تغيير التصنيف المختار: فُقد جزء من الطلب. يرجى إعادة المحاولة."
   error_homepage_or_search_option: "يمكنك الرجوع إلى <a href=\"/\">الصفحة الرئيسية</a>  أو استخدام أداة البحث:"
   error_log: سجل الأخطاء
   error_log_detail: تفاصيل سجل الأخطاء
   error_logging_active: إن تسجيل الأخطاء نشط
+  error_updating_user: حدث خطأ خلال تحديث سجل ذلك المستخدم
   error_watch_collections_cannot_be_shared: لا يمكن مشاركة مجموعات المراقبة
-  esc_key_hides_this_message: (مفتاح "esc" يخفي تلك الرسالة)
   every_method_can_also_return_json_response: يمكن لكل طريقة أن تقدم استجابة بصيغة جسون عن طريق إضافة امتداد (.json)
   example_colon: "مثال:"
   exception: استثناء
@@ -1497,6 +1930,7 @@ ar:
   filter_by_type_image_option_with_count: 
     one: الصور (%{count})
     other: الصور (%{count})
+  filter_by_type_link_option: روابط
   filter_by_type_name_option: أسماء
   filter_by_type_object_curated_option: كائنات تم الإشراف عليها
   filter_by_type_photosynth_option: تطبيق فوتوسينث
@@ -1533,7 +1967,7 @@ ar:
   for_terms_or_definitions_conta: "للمصطلحات أو التعريفات المحتوية على:"
   forgot_password: هل نسيت كلمة السر؟
   forgot_password_cannot_find_user_from_username_or_email_error: عفوًا، لا يوجد حسابات للمستخدمين بأسم المستخدم أو البريد الإلكتروني المدخلين <em>%{username_or_email}</em>.
-  forgot_password_form_cancel: ألغِ
+  forgot_password_form_cancel: إلغاء
   forgot_password_form_choose_username_blank_error: يرجى إختيار الحساب الذي ترغب في إعادة ضبط كلمة السر الخاصة به.
   forgot_password_form_choose_username_instructions: هنالك عدة حسابات مسجلة بالعنوان الإلكتروني <em>%{email}</em>، يرجى اختيار حساب واحد لإعادة ضبط كلمة السر.
   forgot_password_form_choose_username_legend: يرجى اختيار حساب
@@ -1556,6 +1990,7 @@ ar:
   gbif_occurrence_learn_more_link: الوصول إلى هذه البيانات من خلال بوابة بيانات المرفق العالمي لمعلومات التنوع البيولوجي.
   general_site_admin: مشرف الموقع العام
   get_help_choosing_a_subchapter: أحصل على مساعدة في اختيار فصل فرعي
+  get_help_choosing_a_subject: تلقي المساعدة في اختيار موضوع
   get_more_tasks: تلقى مهمات إضافية.
   given_name_colon: "الاسم الأول:"
   given_the_vast_number: عند إدخال العدد الهائل من الاسماء العلمية والاسماء الشائعة (يبلغ إجمالي عددها ما يقارب 20 مليون) تزداد مهمة عرض الأنواع المحددة التي يبحث عنها المستخدمون صعوبة. على سبيل المثال، هنالك العديد من أنواع الطيور المسماة  روبن (الروبن الأمريكي، الروبن الألبي، والربن المدخن)، والعديد من أنواع الاسماك المسماة  روبن، وعالم تصنيف يسمى روبن قام بإطلاق الاسماء على العديد من الأنواع. لقد قمنا بضم معامل "محدد" ليعرض النتائج التي تطابق اسمائها مصطلح البحث بشكل كامل فحسب، ولكن لا يمكننا أن نضمن أن الأصناف المعروضة هي الأصناف التي ترغب في العثور عليها. نحاول تحسين مدى ارتباط نتائج البحث بشكل مستمر، لذلك توقع بعض التحسينات على كيفية تنظيم عملية البحث في المستقبل القريب.
@@ -1643,7 +2078,14 @@ ar:
         rights_statement_more: يرجى ذكر بيان حق الاستخدام حسب رخص المشاع الإبداعي(Attribution (CC-BY ، وذكر النسبة <q cite="http://creativecommons.org/licenses/by/3.0"> بالطريقة التي حددها صاحب العمل أو مُقدم الرخصة </q>.
         source_url: العنوان الإلكتروني الخاص بعنصر البيانات الأصلي
         toc_item: فصل فرعي
+      data_object_link: 
+        description: الوصف <small>(يسمح ببعض توصيفات لغة توصيف النصوص المترابطة)</small>
+        link_type: الفئة
+        source_url: إضافة رابط المسار
+        toc_item: الموضوع
       eol_statistic: 
+        date_one: التاريخ
+        date_two: التاريخ
         download_all: الجميع <small>(تضم السجلات من كافة الصفحات)</small>
       google_analytics_partner_summaries: 
         page_views: عدد مشاهدات الصفحة <small>(عدد مرات زيارة الصفحة)</small>
@@ -1665,6 +2107,11 @@ ar:
         complete_more: "يفترض التسلسل الهرمي المختار فردية كل مدخل، أي أنه سوف يتم التعامل مع التسلسلات ذات الاسماء المتطابقة كجناس.  <strong> تحذير:  لا تغير هذه الخاصية إلا إذا كنت متأكد من حالة الجناس في التسلسل الهرمي، حيث أن هذا من شأنه تعريض سلامة البيانات إلى الخطر. </strong>"
         request_publish: تم طلب النشر
         request_publish_more: يشير إلى ما إذا كان هناك طلب معلق لتطوير هذا التسلسل الهرمي ليصبح أحد التسلسلات الهرمية الرئيسية القابلة للتصفح بموسوعة الحياة.
+      news_item: 
+        active: تم نشره
+        active_more: عناصر الأخبار المنشورة ستكون مرئية علنا في الوقت والتاريخ المحدد. أزل علامة التحديد من زر <em>تم نشره</em> إذا كنت ترغب في منع عامة المستخدمين من الإطلاع على إصدارات عناصر الأخبار هذه في أي لغة.
+        page_name: الأسم المميز  <small>(أحرف ISO صغيرة للأبجدية اللاتينة الأساسية و التسطير فقط )</small>
+        page_name_more: "أدخل مًعرف مميز، ووصفي، وذا معنى وثابت لعنصر الأخبار. \nسوف يتم استخدام الاسم المضاف هنا لإنشاء عنوان إلكتروني لصفحة عنصر الأخبار هذه، على سبيل المثال سيتم تحويل الاسم المميز <em>new_version_of_eol</em> إلى العنوان الإلكتروني <em>http://eol.org/news/new_version_of_eol</em>."
       open_authentication: 
         connect: أضف
         connected: متصل
@@ -1695,11 +2142,19 @@ ar:
         active_translation: نشر
         active_translation_more: سوف تكون الترجمات المنشورة ظاهرة للعامة إلا إذا كانت الصفحة غير منشورة. أزل العلامة أمام <em>published</em> إذا كنت ترغب في منع العامة من مشاهدة تلك النسخة من الصفحة.
         language_id: اللغة
-        left_content_more: أضف قائمة غير مرتبة من الروابط بصورة اختيارية لإضافة عمود للتنقل في الصفحة. يجب أن يتم إضافة الروابط الثابتة يدويًا عن طريق اختيار  <em>Source</em> وتعديل نسب لغة رقم النص الفائق  <em>href</em> الخاص بالروابط. على سبيل المثال، للربط إلى النص الظاهر من الرابط المسمى <em>licensing_policy</em> في قسم المحتوى <em>Body</em>، يجب أن يضم الرابط المدرج في القائمة <em>href</em> قيمة "#licensing_polic"
-        main_content_more: "أدخل محتوى الصفحة الرئيسية في قسم النص. استخدم قائمة التنسيق <em>Format</em>  المنسدلة لاختيار عناصر النص الدلالية الملائمة، على سبيل المثال، اختار <em>Heading 2</em> لعنوان من المستوى الثاني. ملاحظة: عنوان الصفحة هو عنوان من المستوى الأول، لذلك إبداء العناوين في قسم النص بالمستوى الثاني <em>Heading 2</em>."
+        left_content_more: "(اختياري) أضف قائمة غير مرتبة لروابط التصفح. استخدم إسم الفئة <code>active</code> لتسليط الضوء على رابط الصفحة الحالي، أي <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> أين <code>:id</code> هو المعرف الحالي للصفحة او الإسم الفريد و <code>:title</code> هو العنوان الوصفي للصفحة (<strong>ملاحظة: كل روابط الصفحات إلى موسوعة الحياة CMS يجب أن تبدأ بـslash: <code>/info/:id</code></strong>)"
+        main_content_more: "أدخل محتوى الصفحة الرئيسية في قسم النص. استخدم قائمة التنسيق <em>Format</em>  المنسدلة لاختيار عناصر النص الدلالية الملائمة، على سبيل المثال، اختر <em>Heading 2</em> لعنوان من المستوى الثاني. ملاحظة: <em>Heading 1</em> محجوز لعنوان الصفحة، لذلك فإن العناوين في منطقة النص تبدأ بـ <em>Heading 2</em>. أختر <em>المصدر</em> للتغيير إلى عرض رمز مصدر الـ HTML والذي يمكنك من إدارج وتعديل الـ HTML يدويا."
         meta_description_more: أضف وصف مقتضب، يلخص المفاهيم الرئيسية لمحتوى الصفحة. يتم استخدام ذلك الوصف بواسطة محركات البحث للتحقق من الصلة وللعرض في نتائج البحث.
         meta_keywords_more: أضف سلسلة من الكلمات والعبارات القصيرة مفرقة باستخدام فواصل والتي تعكس محتوى الصفحة بأفضل صورة. يتم استخدام تلك الكلمات والعبارات الرئيسية بواسطة محركات البحث لتقييم مدى صلة الصفحة بمصطلحات البحث.
         title_more: سوف يظهر عنوان المحتوى في قسم العنونة من الصفحة. يجب أن يضم العنوان الكلمات الرئيسية المرتبطة بالمحتوى.
+      translated_news_item: 
+        active_translation: تم نشره
+        active_translation_more: "الترجمات المنشورة ستكون ظاهرة للعلن، إلا إذا كان عنصر الأخبار غير منشور.\nأزل التحديد من <em>تم نشره</em> إذا كنت ترغب في منع عامة المستخدمين من الإطلاع على هذا الإصدار لعنصر الأخبار."
+        body_more: "أدخل محتوى عنصر الأخبار في قسم النص. استخدم قائمة التنسيق <em>Format</em>  المنسدلة لاختيار عناصر النص الدلالية الملائمة، على سبيل المثال، اختر <em>Heading 2</em> لعنوان من المستوى الثاني. ملاحظة: <em>Heading 1</em> محجوز لعنوان عنصر الأخبار، لذلك فإن العناوين في منطقة النص تبدأ بـ <em>Heading 2</em>. أختر <em>المصدر</em> للتغيير إلى عرض رمز مصدر الـ HTML والذي يمكنك من إدراج وتعديل الـ HTML يدويا."
+        language_id: اللغة
+        meta_description_more: أضف وصف مقتضب، يلخص المفاهيم الرئيسية لمحتوى عنصر الأخبار. يتم استخدام ذلك الوصف بواسطة محركات البحث للتحقق من الصلة وللعرض في نتائج البحث.
+        meta_keywords_more: أضف سلسلة من الكلمات والعبارات القصيرة مفرقة باستخدام فواصل، تعكس محتوى عنصر الأخبار بأفضل صورة. يتم استخدام هذه الكلمات والعبارات الرئيسية بواسطة محركات البحث لتقييم مدى صلة عنصر الأخبار بمصطلحات البحث.
+        title_more: سوف يظهر عنوان محتوى عنصر الأخبار في قسم العنونة من الصفحة. يجب أن يضم العنوان الكلمات الرئيسية المرتبطة بالمحتوى.
       user: 
         agreed_with_terms: أوافق على <a href="%{terms_url}">شروط الاستخدام</a>
         api_key_more: أقراء المزيد عن <a href='%{api_docs_url}'>إضافة مفتاح إلى واجهة برمجة التطبيقات الخاصة بك</a> .
@@ -1713,6 +2168,7 @@ ar:
         credentials_more_successful_assistant_curator: تاريخ النجاح كمشرف مساعد
         curation_application: كن مشرفًا
         curation_application_more: إذا كنت ترغب في تعديل امتيازات الإشراف الخاصة بك، قم بتقديم طلب وسوف نقيم أهليتك.
+        curation_priveleges_credentials: أوراق اعتماد <small>(مراقبين كاملين و رئيسيين فقط)</small>
         curator_level: أنت الأن %{curator_level_with_indefinite_article}.
         curator_scope: نطاق الإشراف
         curator_scope_more: يرجى توضيح مجال خبراتك. على سبيل المثال؛ ''قوارض بورنيو''، أو ''تفاعلات المستويات الغذائية الثلاثية''، أو ''قضايا حفظ الأسماك''. لن يحد ذلك من قدرتك على الأشراف، ولكن سوف يخطر موسوعة الحياة.
@@ -1725,6 +2181,7 @@ ar:
         logo: رفع صورة جديدة
         new_password: كلمة سر جديدة <small>(4-16 حرف)</small>
         new_password_confirmation: كلمة سر جديدة <small>(للتأكيد)</small>
+        news_in_preferred_language: أظهر الأخبار في اللغة المفضلة
         notification_settings: إعدادات الإعلام
         notification_settings_more: كون إعدادات التنبيه الخاصة بك.
         open_authentications: الحسابات المتصلة
@@ -1742,7 +2199,7 @@ ar:
     select: 
       prompt: يرجى الاختيار
     submit: 
-      cancel: ألغِ
+      cancel: إلغاء
       collection_item: 
         update: احفظ
       contact: 
@@ -1768,7 +2225,11 @@ ar:
         create: إضافة المقالة
         create_text: إضافة المقالة
         update: حفظ المقال
+      data_object_link: 
+        create: إضافة رابط
+        update: حفظ الرابط
       eol_statistic: 
+        change_date: الحصول على إحصاءات التواريخ
         download_csv: تحميل بصيغة (CSV)
       filter_sort: تنقية وترتيب
       harvest_event: 
@@ -1779,6 +2240,11 @@ ar:
       name: 
         create: أضف أسم
         update: تحديث أسم
+      news_item: 
+        create: أنشئ عنصر الأخبار
+        edit: عدّل
+        preview: معاينة
+        update: حدث عنصر الأخبار
       open_authentication: 
         create: اربط
         destroy: اقطع التوصيل
@@ -1789,7 +2255,7 @@ ar:
         update: تحديث المصدر
         update_settings: تحديث الإعدادات
       session: 
-        create: تسجيل الدخول
+        create: ادخل
         sign_in_with_facebook: قم بتسجيل الدخول عن طريق Facebook
         sign_in_with_google: قم بتسجيل الدخول عن طريق Google
         sign_in_with_twitter: قم بتسجيل الدخول عن طريق Twitter
@@ -1798,6 +2264,9 @@ ar:
       translated_content_page: 
         create: إضافة ترجمة
         update: حفظ التغييرات بالترجمة
+      translated_news_item: 
+        create: أضف ترجمة
+        update: حفظ التغييرات إلى الترجمة
       update: تحديث %{model}
       user: 
         create: إنشاء حساب
@@ -1848,7 +2317,7 @@ ar:
   image_not_associated_with_any_published_entries: هذه الصورة غير مرتبطة بأي أصنوفات منشورة.
   image_not_found: لا توجد صورة
   image_object: كائن صورة
-  image_objects_will_contain_two_mediaurl_elements: سوف تضم العناصر من الصور عنصرين من العناوين الإلكترونية للوسائط - الأول هو العنوان الإلكتروني للصورة بالموقع الإلكتروني الخاص بمقدمها، والثاني هو العنوان الإلكتروني الخاص بالنسخة المؤقتة للوسائط الموجودة بخادم موسوعة الحياة. إذا  كان حجم الصورة الأصلية يتعدى 460 ميجا بكسل من حيث العرض أو 345 من حيث الطول، سوف يكون قد تم تغيير حجم نسخة الصورة بموسوعة الحياة (مع  الاحتفاظ  نسبة الابعاد)  .
+  image_objects_will_contain_two_mediaurl_elements: سوف تضم عناصر الصور عنصرين من 'mediaURL' للوسائط - الأول هو العنوان الإلكتروني للصورة بالموقع الإلكتروني الخاص بمقدمها، والثاني هو العنوان الإلكتروني الخاص بالنسخة المؤقتة للوسائط الموجودة بخادم موسوعة الحياة. إذا  كان حجم الصورة الأصلية يتعدى 460 ميجا بكسل من حيث العرض أو 345 من حيث الطول، فسيتم تغيير حجم نسخة الصورة بموسوعة الحياة (مع  الاحتفاظ بنسبة الأبعاد)  .
   image_of_taxon: صورة لـ %{taxon_name}
   image_rating: تقييم الصورة
   images: الصور
@@ -1896,6 +2365,8 @@ ar:
   item_type_image_assistive: هذا العنصر صورة
   item_type_image_map: خريطة
   item_type_image_map_assistive: هذا العنصر هو صورة لخريطة
+  item_type_link: رابط
+  item_type_link_assistive: ذلك العنصر رابط
   item_type_map: خريطة
   item_type_map_assistive: هذا العنصر خريطة
   item_type_person: شخص
@@ -1922,13 +2393,63 @@ ar:
   json_response: استجابة بصيغة JSON
   jsonp_by_adding_a_callback_parameter: ... و صيغة JSONP  عن طريق إضافة معامل استرجاع
   just_pages_with_pictures_and_text: الصفحات التي تضم صور ونصوص فقط
+  keep_split_entry_from_this_entry: الإبقاء عليه منفصل عن ذلك المدخل
   label: صنف
-  language: اللغة
+  language: "اللغة:"
   language_selector_advisory_information: فيما يلي قائمة باللغات المتاح من خلالها محتوى الموقع، لتغيير اللغة الحالية، يرجى اختيار لغة بديلة من القائمة.
   language_with_count: "%{language} (%{count})"
   languages: اللغات
-  last_updated: تم آخر تحديث
+  last_updated: آخر تحديث
   last_updated_time_ago: أخر تحديث منذ %{time_passed}
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: نقلا عن موسوعة الحياة
+        about_link_contact_us: إتصل بنا
+        about_link_discover: أكتشف
+        about_link_donate: تبرع لصالح موسوعة الحياة
+        about_link_eol_blog: مدونة موسوعة الحياة
+        about_link_glossary: قائمة المصطلحات
+        about_link_help: المساعدة
+        about_link_podcasts: حلقات البودكاست
+        about_link_statistics: الإحصائيات
+        about_link_terms_of_use: شروط الاستخدام
+        about_link_what_is_eol: ما هي موسوعة الحياة؟
+        header_about: عن موسوعة الحياة
+        header_learn_more: أطلع على مزيد من المعلومات حول
+        header_questions: أطلعني على المزيد
+        learn_more_link_amphibians: البرمائيات
+        learn_more_link_animals: الحيوانات
+        learn_more_link_archaea: البَدْئِيَات
+        learn_more_link_bacteria: البكتيريا
+        learn_more_link_birds: الطيور
+        learn_more_link_crustaceans: القشريات
+        learn_more_link_fish: السمك
+        learn_more_link_flowering_plants: النباتات المزهرة
+        learn_more_link_fungi: الفطريات
+        learn_more_link_insects: الحشرات
+        learn_more_link_invertebrates: اللافقاريات
+        learn_more_link_mammals: الثدييات
+        learn_more_link_molds: القوالب
+        learn_more_link_mollusks: الرخويات
+        learn_more_link_mushrooms: عَيْشُ الغراب
+        learn_more_link_plants: النباتات
+        learn_more_link_protists: الأولانيات
+        learn_more_link_reptiles: الزواحف
+        learn_more_link_spiders: العناكب
+        learn_more_link_trees: الأشجار
+        learn_more_link_viruses: الفيروسات
+        learn_more_link_worms: الديدان
+        questions_link_binomial_nomenclature: ما هي التسميات ذات الحدين؟
+        questions_link_biodiversity: ما هو التنوع البيولوجي؟
+        questions_link_biological_classification: ما هو التصنيف البيولوجي؟
+        questions_link_contributing_to_research: كيف يمكنني المساهمة في البحث؟
+        questions_link_discovering_species: كيف تكتشف الأنواع؟
+        questions_link_indicator_species: ما هو مؤشر الأنواع؟
+        questions_link_invasive_species: ما هي الأنواع الغازية؟
+        questions_link_model_organism: ما هو الكائن النموذج؟
+        questions_link_naming_species: كيف تلقب الأنواع؟
+        questions_link_species: ماهي الأنواع؟
   learn_about_collections: كيف أنشئ مجموعة؟
   learn_about_communities: كيف أشترك؟
   learn_about_content_partners: كيف أصبح شريكا فى المحتوى؟
@@ -1974,7 +2495,10 @@ ar:
   limits_the_number_of_returned_sound_objects: يحد من عدد عناصر المقاطع الصوتية التي يتم إعادتها.
   limits_the_number_of_returned_text_objects: يحد من عدد العناصر النصية المعروضة
   limits_the_number_of_returned_video_objects: يحد من عدد عناصر مقاطع الفيديو المعروضة
+  link_more_about: تعرف على المزيد عن ذلك الرابط
   link_name: اسم الرابط
+  link_not_associated_with_any_published_entries: لا يرتبط ذلك الرابط بأي من الأصناف المنشورة.
+  link_rating: تقييم الرابط
   list_newsletter_emails: ادرج رسائل النشرات الإخبارية الإلكترونية.
   list_of_activity_combinations: قائمة بتركيبات النشاط خلال خمس دقائق
   listing_collections: عرض المجموعات
@@ -1984,9 +2508,11 @@ ar:
   literature_bhl_link: عرض قائمة المراجع في مكتبة تراث التنوع البيولوجي
   literature_empty: لم يتم العثور على مراجع
   literature_header: المراجع
+  literature_links: روابط المواد
+  literature_links_link: روابط المواد
   literature_references: مراجع المطبوعات
   location: الموقع
-  location_colon: "المكان:"
+  location_colon: "الموقع:"
   logging_database_colon: "تسجيل الدخول:"
   login: تسجيل الدخول
   login_header: سجل دخولك لحسابك <abbr title="Encyclopedia of Life">بموسوعة الحياة</abbr>
@@ -1996,6 +2522,7 @@ ar:
   login_to_the_website_as: ادخل على الموقع باسم %{username}
   logo_header: شعار
   logout: تسجيل الخروج
+  looking_up_url: جاري البحث عن العنوان الإلكتروني...
   main_content_area: "مساحة المحتوى الرئيسية:"
   main_database_colon: "قواعد البيانات الرئيسية:"
   main_master_database_colon: "الأساسية والرئيسية:"
@@ -2055,14 +2582,17 @@ ar:
     one: "%{count} عضو؛"
     other: "%{count} عضو؛"
   merge_concepts: ادمج المفاهيم
+  merge_data: دمج التصنيفات
+  merge_data_ready: أنت بصدد دمج البيانات المتضمنة في التصنيفات التالية بصفحة الإصنوفة تلك، أو فصلها ونقلها إلى صفحة خاصة بها. يرجى التأكد <i>بصورة قاطعة</i> من اختيار جميع التصنيفات التي تمثل الإصنوفة المعنية. على سبيل المثال، إذا كنت بصدد حذف عثة من صفحة خاصة بالفطر، يرجى مراجعة <i>جميع<i> التصنيفات المعروضة أعلاه للتأكد من اختيار جميع العث (المتماثل).
+  merge_pending: سوف تستغرق عملية الدمج تلك بعض الوقت. تم تعليق تعديلات التصنيف الأخرى على الأصناف المعنية حتى اكتمال عملية الدمج. سوف تتلقى رسالة عبر البريد الإلكتروني حالما تنتهي العملية، كما سيظهر ذلك في تحديثات الصفحة.
   message_colon: "رسالة:"
+  message_will_disappear: (سوف تختفي تلك الرسالة خلال فترة وجيزة)
   meta_description_colon: "الأوصاف الفوقية:"
   meta_keywords_colon: "كلمات مفتاحية فوقية:"
   meta_title_site_name: موسوعة الحياة
   method: طريقة
   method_to_get_metadata_about_the_hierarchy: عند تقديم معرف تسلسل هرمي، تعرض تلك الطريقة بيانات فوقية عن التسلسل الهرمي وتعدد الأصناف الأساسية
   methods: طرق
-  minimal_page: صفحة صغرى
   mobile: 
     contents: 
       explore_eol: استكشف موسوعة الحياة
@@ -2113,6 +2643,7 @@ ar:
   moved_items_from_collection_with_count_notice: 
     one: تم نقل %{count} عنصر من %{name}
     other: تم نقل %{count} عنصر من %{name}
+  multimedia_links: روابط الوسائط المتعددة
   must_be_associated_with_either_a_user_or_a_community: يجب أن يكون مرتبط بمستخدم أو بمجتمع
   must_be_checked_in_to_show: يجب أن يتم التعليم عليها لتظهر للمستخدم
   must_be_checked_in_to_view: يجب أن يتم التعليم عليها لتُعرَض
@@ -2150,13 +2681,21 @@ ar:
   new_search_suggestion: اقتراح بحث جديد
   new_upload: تحميل جديد
   new_user: مستخدم جديد
+  news_and_event_links: روابط الأخبار والأحداث
   news_archive_page: صفحة أرشيف الأخبار
+  news_available_in_languages: "هذه الصفحة متاحة باللغة:"
   news_date: تاريخ الخبر
   news_item: خبر
-  news_item_date_as_shown_to_use: "تاريخ خبر جديد كما يظهر للمستخدم (يظهر الوقت فقط في الخبر المباشر RSS) :"
-  news_item_is_visible_on_websit: يظهر الخبر على الموقع بعد
+  news_item_date_as_shown_to_user: "تاريخ خبر جديد كما يظهر للمستخدم (يظهر الوقت فقط في الخبر المباشر RSS) :"
+  news_item_is_visible_on_website_after_this_time: "سوف يظهر ذلك الخبر على الموقع الإلكتروني بعد ذلك التوقيت:"
   news_item_title: خبر
-  news_items: مواضيع جديدة
+  news_items: 
+    index: 
+      meta_keywords: أخبار موسوعة الحياة، موسوعة الحياة أخبار
+      meta_title: أخبار موسوعة الحياة
+      page_title: أخبار موسوعة الحياة
+  news_missing_content_message: عذرًا، تلك الصفحة غير متاحة باللغة المختارة %{selected_language}.
+  news_missing_content_title: الترجمة غير متوفرة
   newsfeed: تحديثات
   newsfeed_help_for_collection: تجمع تحديثات أخبار مجموعة موسوعة الحياة تلك تحديثات مرتبطة بالعناصر التي تنتمي إليها، بما في ذلك نشاطات مالكها وتعليقات مستخدمو موسوعة الحياة الأخرون.
   newsfeed_help_for_community: تجمع تحديثات أخبار مجموعة موسوعة الحياة تلك تحديثات مرتبطة بالعناصر التي تنتمي إلى المجموعة التي تمثل مجال الاهتمام، بما في ذلك نشاطات أعضائها وتعليقات مستخدمو موسوعة الحياة الأخرون.
@@ -2167,13 +2706,13 @@ ar:
   next: التالي
   no_active_members: لا يوجد نشاط كاف إلى الأن.
   no_answer: لا
+  no_classificaitons_selected: لم يتم اختيار تصنيفات. لا يوجد ما ينقل.
   no_collections_apply: لا يمكن إضافة أي مدير إلى المجموعات التي لك حق الدخول عليها.
   no_comments_are_available_for_subject: لا توجد تعليقات متاحة لـ %{subject}
   no_comments_have_been_left_yet: لا توجد تعليقات باقية للآن
   no_errors_are_available: لا توجد أخطاء متاحة
   no_harvesting_logs_for_this_da: لا يوجد جمع سجلات لهذا التاريخ
   no_items_were_copied_to_collections_error: "لم يتم نسخ أي عناصر إلى المجموعات: %{names}."
-  no_news_items_are_available_ma: لا توجد أخبار متوافقة مع معايير البحث الخاصة بك.
   no_record_found_matching_your_criteria: لا يوجد سجل مطابق لمعيار البحث
   no_related_names: لا يوجد أسماء موصولة بهذه اﻷصنوفة حتى اﻵن.
   no_results_for: لا توجد نتائج لـ
@@ -2247,7 +2786,11 @@ ar:
       subject: تم الموافقة على طلبك للحصول على امتيازات الإشراف %{curator_level}
     greeting_dear_name_with_comma: عزيزي  %{name}،
     signature_basic: فريق عمل موسوعة الحياة
+    signature_with_contact_us_link: "إن واجهتك أي مشاكل، الرجاء الإتصال بنا على %{url}.\n\nفريق عمل موسوعة الحياة"
     signature_with_species_pages_group_contact: "في حال وجود أي أسئلة، يرجى الاتصال بنا عن طريق البريد الإلكتروني: \n%{species_pages_group_email}.\n\nفريق عمل موسوعة الحياة"
+    unsubscribed_to_notifications: 
+      message: "لقد ألغيت بنجاح أشتراكك في التنبيهات الواردة من موسوعة الحياة. يمكنك تعديل إعدادات البريد الإلكتروني أو الإشتراك في الإخطارات على <a href='%{email_prefs_url}'>صفحة التنبيهات الخاصة بك</a>.\n\nلمعرفة المزيد حول كيفية استخدام موسوعة الحياة، بما في ذلك كيفية إنشاء مجموعات موسوعة الحياة، والمشاركة في مجتمعات موسوعة الحياة و المساهمة في المحتوى، يرجى منك زيارة صفحات المساعدة على الرابط التالي http://eol.org/help."
+      subject: يؤسفنا رؤيتك ترحل عنا...
     user_activated: 
       message: "مرحبًا بك في موسوعة الحياة وشكرًا للتسجيل بالموقع! يرجى الانتباه إلى أن اسم المستخدم الخاص بك هو %{username}، وعنوان صفحتك الشخصية هو %{profile_url}. يمكنك تسجيل الدخول بحسابك في http://www.eol.org/login.\n\nلمعرفة المزيد عن كيفية استخدام موسوعة الحياة بما في ذلك كيفية إنشاء المجموعات بموسوعة الحياة، والمشاركة في مجتمعات موسوعة الحياة، وإضافة محتوى، يرجى زيارة صفحات المساعدة http://www.eol.org/help."
       subject: تم تفعيل حسابك بموسوعة الحياة
@@ -2278,6 +2821,7 @@ ar:
   number_of_unreviewed_images_at_this_entry: " عدد الصور غير المراجعة في ذلك المدخل"
   number_of_unreviewed_text_objects_at_this_entry: " عدد العناصر النصية غير المراجعة في ذلك المدخل"
   object: موضوع
+  object_curated: تم مراجعة العنصر.
   object_curation: تقييم موضوع
   object_status: حالة الكائن
   object_status_all_option: الكل
@@ -2289,6 +2833,7 @@ ar:
   object_type_collection_option: Collection
   object_type_community_option: المجتمع
   object_type_image_option: صورة
+  object_type_link_option: رابط
   object_type_sound_option: الصوت
   object_type_taxon_concept_option: Taxon Concept
   object_type_text_option: نص
@@ -2299,7 +2844,6 @@ ar:
   object_visibility_invisible_option: مخفي
   object_visibility_visible_option: مرئي
   objects_curated: المواضيع التي تم الإشراف عليها
-  older_version_of_latest_published_data_object_link: نسخة أقدم من %{link}
   older_version_of_latest_published_data_object_title_link: نسخة أقدم من %{link}
   on_time_col_header: يعمل
   only_multi_search_suggestions: في حالة وجود اقتراحات متعددة لنفس مصطلح البحث، يكون الترتيب من الأدنى --> الأعلى)
@@ -2360,6 +2904,7 @@ ar:
   partner: شريك
   partner_information: معلومات عن الشريك
   partner_page: صفحة الشريك
+  partner_web_site_colon: "عنوان الموقع الإلكتروني الخاص بالشريك:"
   partnering_steps: خطوات الشراكة
   password_colon: كلمة السر
   password_must_be_4to16_characters: طول كلمة المرور يجب أن يكون بين 4 و 16 حرفا.
@@ -2411,7 +2956,6 @@ ar:
   publish: انشر
   publish_after_utc: النشر بعد (التوقيت العالمي المنسق)
   publish_changes: نشر التعديلات
-  publish_item_based_on_time_set: انشر العنصر بناء على الزمن المحدد أعلاه (احذف العلامة للإخفاء الدائم)
   publish_requested: تم طلب النشر
   published: نشر
   published_parens: نُشر
@@ -2441,8 +2985,8 @@ ar:
       one: وقع تحديث لـ %{to}
       other: حصلت %{count} تحديثات لـ %{to}
     bulk_comments_on_you_with_count: 
-      one: لديك تعليق جديد على صفحتك الشخصية
-      other: لديك %{count} تعليقات جديدة على صفحتك الشخصية
+      one: لديك تعليق جديد على <a href='%{url}' style='color:#195184'>صفحتك الشخصية</a>
+      other: يوجد لديك %{count} تعليقات جديدة على <a href='%{url}' style='color:#195184'>صفحتك الشخصية</a>
     bulk_comments_with_count: 
       one: هناك تعليق جديد على%{on}
       other: هناك%{count} تعليقات جديدة على%{on}
@@ -2466,6 +3010,7 @@ ar:
     community_activity_user_joined: انضم المستخدم <b>%{user_name}</b> إلى المجتمع <b>%{community_name}</b>.
     community_activity_user_left: ترك المستخدم <b>%{user_name}</b> مجتمع <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: قام المستخدم <b>%{user_name}</b> بجعل العضو <b>%{member_name}</b> مديرًا لمجتمع <b>%{community_name}</b>.
+    contact_us_link: إن واجهتك أي مشاكل، الرجاء <a href='http://eol.org/contact_us' style='color:#195184'>الإتصال بنا</a>.
     curator_activity_log_title: قام %{who} بالإشراف على شيئ
     curator_activity_on_data_object_by_user: "قام <b>%{user_name}</b> بـ %{activity_name} على <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: قام <b>%{user_name}</b>  بـ %{activity_name} على <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2475,9 +3020,10 @@ ar:
     intro: إليك خلاصة نشاط موسوعة الحياة المتعلق بك لـ %{time}
     intro_immediately: أهلاً %{name} -
     intro_weekly: هذا موجز أنشطتك على موسوعة الحياة للأسبوع المنتهي في %{ending}.
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: طالع جميع أنشطتك السابقة على<a href='%{activity_url}' style='color:#195184'>صفحة أخبار المستخدم الخاصة بك</a>.
     someone_commented_on_something: قام <b>%{who}</b> بالتعليق على <b>%{what}</b>.
-    unsubscribe: قم بتغيير إعدادات بريدك الإلكتروني أو ألغي اشتراكك في<a href='%{email_prefs_url}' style='color:#195184'>صفحة تفضيلات الإخطار الخاصة بك</a>.
+    unsubscribe: قم بتسجيل دخولك وتغيير إعدادات بريدك الإلكتروني على <a href='%{email_prefs_url}' style='color:#195184'>صفحة التنبيهات الخاصة بك</a> أو <a href='%{unsubscribe_url}' style='color:#195184'>قم بإلغاء أشتراكك من جميع تنبيهات موسوعة الحياة التلقائية بدون تسجيل الدخول</a>.
   recent_updates: آخر التحديثات
   recently_visited: Recently visited
   recipients: المرسل إليهم
@@ -2489,6 +3035,7 @@ ar:
   related_names_with_count: 
     one: "%{count} أسم ذا صلة"
     other: "%{count} أسم ذا صلة"
+  related_organizations: منظمات ذات صلة
   remove: حذف
   remove_curatorship_colon: "إلغاء الإشراف:"
   remove_data_object_association: حذف الرابط
@@ -2498,7 +3045,7 @@ ar:
     other: تم حذف %{count} عنصر من تلك المجموعة
   reply: الرد
   request: طلب
-  request_mailing_list_colon: "طلب قائمة مراسلة:"
+  request_mailing_list_colon: "هذا المستخدم لا يريد استقبال البريد الإلكتروني:"
   required_form_element: مطلوب
   reset_password_enter_new_password_notice: تسجيل الدخول لمرة واحدة، يرجى أدخال كلمة سر جديدة للمتابعة
   reset_password_instructions_sent_to_user_notice: تم إرسال إرشادات إعادة ضبط كلمة السر الخاصة بحسابك <em>%{username}</em> إلى بريدك الإلكتروني.
@@ -2514,7 +3061,7 @@ ar:
   return_all_common_names_for_this_taxon: عرض جميع الاسماء الشائعة لتلك الأصنوفة
   return_all_synonyms_for_this_taxon: عرض جميع مرادفات تلك الأصنوفة
   return_common_names_for_the_page_taxon: عرض جميع الاسماء الشائعة لأصنوفة تلك الصفحة
-  return_content_by_vettedness: إذا كان التقييم = 1 سوف يتم عرض المحتوى الموثوق به فحسب. إذا كان التقييم = 2 سوف يتم عرض المحتوى الموثوق به وغير المراجع فحسب (لن يتم عرض المحتوى غير الموثوق به). الوضع الافتراضي هو عرض المحتوى بأكمله.
+  return_content_by_vettedness: إذا كان لـ'vetted' القيمة '1'، فسيتم إرجاع المحتوى الموثوق به فقط. إذا كان لـ'vetted' القيمة '2'، فسيتم إرجاع المحتوى الموثوق به و غير المراجع فقط (المحتوى غير الموثوق فيه لن تتم إعادته). الوضع الافتراضي هو عرض المحتوى بأكمله.
   returns_all_metadata_about_a_particular_collection: returns all metadata about a particular collection and the items it contains indexed by EOL
   returns_all_metadata_about_a_particular_data_object: يعرض جميع البيانات الفوقية عن عنصر بيانات محدد (نص، أو صورة، أو مقطع فيديو) مفهرس من قبل موسوعة الحياة.
   returns_either_a_positive_or_negative_response: يعرض استجابة إيجابية (تشير إلى أن واجهات برمجة التطبيقات تعمل بكفأة)، أو يعرض  استجابة سلبية أو لا شيء على الإطلاق (تشير إلى أن واجهات برمجة التطبيقات لا تعمل بكفأة في ذلك الوقت)
@@ -2525,7 +3072,6 @@ ar:
   rights: الحقوق
   rights_holder: صاحب حقوق الملكية
   rights_statement: إقرار الحقوق
-  rss_feed: خبر سريع RSS
   save: حفظ
   save_comment_lowercase: احفظ التعليق
   save_curated_association_submit_button: حفظ الارتباط
@@ -2533,17 +3079,16 @@ ar:
   sci_name_avg_table_head: متوسط الأسماء العلمية
   scientific_name: اسم علمي
   search: بحث
-  search_by_provider_method_description: أحصل على معرفات صفحة موسوعة الحياة عند إدخال معرف_تسلسل هرمي خاص بأحد مقدمي المحتوى والمعرف المميز الخاص بمقدم المحتوى.
+  search_by_provider_method_description_with_link: "أحصل على مُعرف صفحة موسوعة الحياة باستخدام مُعرف التسلسل الهرمي إلى جانب المُعرف المميز لمقدمه <br />( مثال، أبحث عن مُعرف صفحة موسوعة الحياة عبر الرقم المتسلسل التصنيفي التابع لنظام المعلومات التصنيفي المتكامل 180542: %{link})"
   search_by_term_page_title: "البحث: %{term}"
   search_field_common_name: الاسم الشائع
   search_field_label: البحث في موسوعة الحياة
   search_field_preferred_common_name: الاسم الشائع المفضل
-  search_field_preferred_scientific: العلمي المفضل
+  search_field_preferred_scientific: الاسم العلمي المفضل
   search_field_surrogate: بديل
   search_field_synonym: المرادف
   search_for_comments_containing_the_text: "البحث عن تعليقات تحتوى على النص:"
   search_for_curators_containing: "ابحث عن مشرفين ذوي:"
-  search_for_items_containing: "ابحث عن عناصر بها:"
   search_for_messages_containing: "ابحث عن رسائل بها:"
   search_for_terms_containing: "ابحث عن مصطلحات بها:"
   search_for_users_containing_this_in_their_username_name_or_email_address: "بحث عن المستخدمين الذين تحتوى اسماء المستخدمين، أو الاسماء، أو البريد الإلكتروني الخاص بهم على:"
@@ -2569,6 +3114,8 @@ ar:
   see_all_collections_with_count_html: 
     one: عرض  <span class="assistive">%{count} مجموعة التي تظهر بها هذه الصفحة.</span>
     other: عرض <span class="assistive">%{count} جميع المجموعات التي تظهر بها الصفحة.</span>
+  see_all_comments_with_count_for_link_or_rate: 
+    other: " واحد= عرض %{count} تعليق على ذلك الرابط أو تقييمه"
   see_all_comments_with_count_for_text_or_rate: 
     one: اعرض %{count} تعليق على هذا المقال أو قم بتقييمه
     other: اعرض %{count} تعليق على هذا المقال أو قم بتقييمه
@@ -2579,12 +3126,12 @@ ar:
   see_all_featured_collections_with_count: 
     one: مشاهدة  %{count} مجموعة المعروضة
     other: مشاهدة  %{count} مجموعة المعروضة
+  see_all_maps_link: عرض جميع الخرائط
   see_all_media_link: عرض جميع الوسائط
   see_all_of_your_collections: عرض جميع مجموعاتك
   see_all_of_your_communities: اعرض جميع مجتمعاتك
   see_all_updates_with_count_html: 
-    one: عرض <span class="assistive">%{count} جميع تحديثات تلك الصفحة.</span>
-    other: عرض <span class="assistive">%{count} جميع تحديثات تلك الصفحة.</span>
+    other: " واحد= عرض <span class=\"assistive\">%{count} التحديثات بتلك الصفحة.</span>"
   see_notes: عرض الملاحظات
   select_a_hierarchy_around_whic: "اختر تسلسل هرمي لتنظيم ملخصات المحتوى:"
   select_an_item_from_the_menu: اختر عنصر من القائمة
@@ -2619,15 +3166,16 @@ ar:
   show_data_from_all_content_partners: إزالة منقي التصنيف
   show_email_message_area: "[عرض رسالة البريد الإلكتروني هنا]"
   show_full_tree: عرض الشجرة بأكملها ...
+  show_in_overview: أظهر اللمحة العامة
   show_status_message: عرض رسالة الحالة
   show_tasks: عرض المهمات
   show_warning_message: عرض رسالة التحذير
   showing: إظهار
-  showing_errors_the_error_log_f: "إظهار الأخطاء في سجل الأخطاء لـ:"
+  showing_errors_the_error_log_f: "إظهار الأخطاء بتسجيل الدخول في:"
   showing_procs_from: "إظهار العمليات من:"
   shown_to_the_user_parens: (يظهر للمستخدم)
   shown_to_user_as_the_title_of_page: يظهر للمستخدم كعنوان الصفحة
-  sign_in: تسجيل الدخول
+  sign_in: ادخل
   sign_in_remember_me_disallowed_for_admins_notice: للأسباب تتعلق بالأمان، لا يستطيع المشرفون استخدام خاصية تذكرني.
   sign_in_successful_notice: تم تسجيل الدخول بنجاح.
   sign_in_unsuccessful_error: لم يتم تسجيل الدخول. أسم المستخدم، أو البريد الإلكتروني، أو كلمة السر غير صحيحين.
@@ -2640,14 +3188,14 @@ ar:
   skip_to_navigation: تخطي إلى التنقل
   skip_to_table_of_contents: تخطي إلى قائمة المحتويات
   social_sharing_twitter_follow_eol_button: اتبعنا على @eol
-  social_sharing_twitter_tweet_button: رسالة على تويتر
+  social_sharing_twitter_tweet_button: توت
   some_required_fields_were_not_entered: هناك خانات إلزامية لم تُملأ (يجب أن تضيف عنوانًا، ومحتوى أو عنوانًا إلكترونيًّا).
   sorry_no_collections_are_available_to_share: للأسف لا توجد مجموعات متوفرة لمشاركتها مع هذا المجتمع.
   sorry_no_communities_are_available_to_share: للأسف، لا توجد مجتمعات متوفرة لنشاركها هذه المجموعة.
-  sort_by: رتب وفقًا لـ
+  sort_by: الترتيب حسب
   sort_by_alphabetical_option: أبجديًّا
   sort_by_button: ترتيب
-  sort_by_label: رتب وفقًا لـ
+  sort_by_label: الترتيب حسب
   sort_by_newest_option: الأحدث
   sort_by_oldest_option: الأقدم
   sort_by_rating_option: تقييم
@@ -2685,12 +3233,18 @@ ar:
   species_profile_model: نموذج صفحة معلومات الأنواع
   species_profile_model_cp_count_title: Species Profile Model - Content Partners Count
   species_profile_model_dato_count_title: Species Profile Model - Data Objects Count
-  split_into_new_concept: تقسيم إلى مفهوم جديد
+  split_cancelled: تم إلغاء عملية الفصل
+  split_classification_instructions: لحذف ذلك التلسل الهرمي من تلك الصفحة بموسوعة الحياة، يجب أن تختار التسلسل الهرمي الذي يمثل ما "يجب" أن يكون بتلك الصفحة بالطريقة المثلى، حتى تُبقي عمليات الجمع المستقبلية عليهما منفصلين دائمًا.
+  split_into_new_concept: قَسم إلى صفحة جديدة
+  split_only_possible_with_all_classifications: على الرغم من تمتعك بحق فصل التصنيفات، يجب أن تقوم <a href='%{link}'>display all classifications</a> بعرض جميع التصنيفات قبيل السماح بتلك الخطوة.
+  split_pending: سوف تستغرق عملية الفصل بعض الوقت. سوف يتم تعليق التعديلات الأخرى المتعلقة بالتصنيف بتلك الصفحة حتى اكتمال عملية الفصل. وسوف تتلقى رسالة عبر البريد الإلكتروني حالما تنتهي العملية، كما سيظهر ذلك في تحديثات الصفحة.
   spm_category: تصنيف الخرائط الإحصائية البارامترية SPM
   spm_category_objects_count: فئة التخطيط الإحصائي المتكرر - عدد الموضوعات
   spm_category_partner_count: فئة التخطيط الإحصائي المتكرر - عدد المشاركين
   started: بدأ
   stat: إحصائية
+  stats: الإحصائيات
+  stored_classifications: يرجى الانتباه وجود تصنيفات محفوظة <a href='%{anchor}'>stored classifications, below</a> فيما يلي.
   sub_heading: عنوان فرعي
   subject: الموضوع
   submit: إرسال
@@ -2766,15 +3320,19 @@ ar:
       index: 
         hierarchy_entry: 
           meta_description: معلومات عن %{scientific_name} حسب تصنيف %{hierarchy_provider} بموسوعة الحياة
+          meta_description_no_data: لا توجد أي حقائق مرتبطة بـ%{scientific_name} كما تم تصنيفها من قبل %{hierarchy_provider} في موسوعة الحياة. تدعوك موسوعة الحياة إلى المساهمة بحقائق حول %{scientific_name} مثل الحفظ، و التوزيع، و علم البيئة، و المسكن، و المورفولوجيا وأكثر.
           meta_description_with_chapter_list: معلومات حول %{scientific_name} حسب تصنيف %{hierarchy_provider} بموسوعة الحياة. وتشمل معلومات %{chapter_list} حول {scientific_name}.
           meta_description_with_common_name: معلومات حول %{preferred_common_name}، والمعروف علميًا باسم %{scientific_name} حسب تصنيف %{hierarchy_provider} في موسوعة الحياة.
+          meta_description_with_common_name_no_data: لا توجد أي حقائق مرتبطة بـ%{preferred_common_name} و المعروف أيضا بـ%{scientific_name} كما تم تصنيفها من قبل %{hierarchy_provider} في موسوعة الحياة. تدعوك موسوعة الحياة إلى المساهمة بحقائق حول %{preferred_common_name} (%{scientific_name}) مثل الحفظ، و التوزيع، و علم البيئة، و المسكن، و المورفولوجيا وأكثر.
           meta_description_with_common_name_with_chapter_list: معلومات حول %{preferred_common_name}، والمعروف علمياً باسم %{scientific_name} حسب تصنيف %{hierarchy_provider} في موسوعة الحياة. وتتضمن معلومات عن %{chapter_list}.
           meta_title: مجموعات عن %{scientific_name} حسب تصنيف %{hierarchy_provider}
           meta_title_with_common_name: معلومات عن %{preferred_common_name} (%{scientific_name} حسب تصنيف %{hierarchy_provider})
           tweet_text: معلومات عن %{scientific_name} حسب تصنيف %{hierarchy_provider}
         meta_description: معلومات حول %{scientific_name} في موسوعة الحياة
+        meta_description_no_data: لا توجد أي حقائق مرتبطة بـ%{scientific_name} في موسوعة الحياة. تدعوك موسوعة الحياة إلى المساهمة بحقائق حول %{scientific_name} مثل الحفظ، و التوزيع، و علم البيئة، و المسكن، و المورفولوجيا وأكثر.
         meta_description_with_chapter_list: معلومات حول %{scientific_name} في موسوعة الحياة. وتشمل معلومات عن %{chapter_list}.
         meta_description_with_common_name: معلومات حول %{preferred_common_name} والمعروف علميًا باسم %{scientific_name} في موسوعة الحياة.
+        meta_description_with_common_name_no_data: لا توجد أي حقائق مرتبطة بـ%{preferred_common_name} و المعروف أيضا بـ%{scientific_name} في موسوعة الحياة. تدعوك موسوعة الحياة إلى المساهمة بحقائق حول %{preferred_common_name} (%{scientific_name}) مثل الحفظ، و التوزيع، و علم البيئة، و المسكن، و المورفولوجيا وأكثر.
         meta_description_with_common_name_with_chapter_list: معلومات حول%{preferred_common_name},  المعروف علمياً باسم%{scientific_name} في موسوعة الحياة. ويتضمن معلومات عن%{chapter_list}.
         meta_title: حقائق حول %{scientific_name}
         meta_title_with_common_name: حقائق عن %{preferred_common_name} (%{scientific_name})
@@ -2783,7 +3341,7 @@ ar:
       bhl: 
         hierarchy_entry: 
           meta_description: نصوص BHL  ومعلومات عن %{scientific_name} حسب تصنيف %{hierarchy_provider} في موسوعة الحياة. اقرأ مقالات من مكتبة تنوع الثرات البيلوجي (BHL) عن %{scientific_name} في موسوعة الحياة.
-          meta_description_with_common_name: نصوص ومعلومات عن %{preferred_common_name} المعروف أيضًا باسم %{scientific_name} حسب تصنيف %{hierarchy_provider} في موسوعة الحياة. اقرأ مقالات عن %{preferred_common_name} في موسوعة الحياة.
+          meta_description_with_common_name: نصوص ومعلومات تراث التنوع البيولوجي عن %{preferred_common_name} المعروف أيضًا باسم %{scientific_name} حسب تصنيف %{hierarchy_provider} في موسوعة الحياة. اقرأ المقالات من مكتبة التنوع البيولوجي (BHL) عن %{preferred_common_name} في موسوعة الحياة.
           meta_title: نصوص مكتبة تراث التنوع الحيوي عن%{scientific_name} حسب تصنيف%{hierarchy_provider}
           meta_title_with_common_name: نصوص مكتبة تراث التنوع الحيوي عن%{preferred_common_name} (%{scientific_name} حسب تصنيف%{hierarchy_provider}
           tweet_text: نصوص من مكتبة تراث التنوع الحيوي عن%{scientific_name} حسب تصنيف%{hierarchy_provider}
@@ -2795,13 +3353,13 @@ ar:
           meta_title: نصوص عن%{scientific_name} حسب تصنيف%{hierarchy_provider}
           meta_title_with_common_name: كتب عن%{preferred_common_name} (%{scientific_name} حسب تصنيف%{hierarchy_provider})
           tweet_text: نصوص عن%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: نصوص ومعلومات عن %{scientific_name} في موسوعة الحياة. اقرأ مقالات عن %{scientific_name} في موسوعة الحياة.
-        meta_description_with_common_name: نصوص ومعلومات عن %{preferred_common_name} المعروف أيضا باسم %{scientific_name}  في موسوعة الحياة. اقرأ مقالات عن %{preferred_common_name} في موسوعة الحياة.
-        meta_keywords: معلومات عن %{scientific_name}، نصوص عن %{scientific_name}، مقالات عن %{scientific_name}
-        meta_keywords_with_common_name: معلومات عن %{preferred_common_name}، نصوص عن %{preferred_common_name}، مقالات عن %{scientific_name}
-        meta_title: نصوص عن%{scientific_name}
-        meta_title_with_common_name: مقالات وكتب عن %{preferred_common_name} (%{scientific_name})
-        tweet_text: نصوص عن%{scientific_name}
+        meta_description: كتب، نصوص ومعلومات ومراجع عن %{scientific_name} في موسوعة الحياة. اقرأ الأعمال الأدبية عن %{scientific_name} في موسوعة الحياة.
+        meta_description_with_common_name: كتب، مقالات و مراجع عن %{preferred_common_name} المعروف أيضا باسم %{scientific_name}  في موسوعة الحياة. اقرأ الأعمال الأدبية عن %{preferred_common_name} في موسوعة الحياة.
+        meta_keywords: "%{scientific_name} المقالات،%{scientific_name} الكتب،%{scientific_name} المراجع الأدبية،%{scientific_name} literature"
+        meta_keywords_with_common_name: "%{preferred_common_name} المقالات،%{preferred_common_name} الكتب،%{preferred_common_name} الأدبيات،%{scientific_name} المقالات،%{scientific_name} الكتب،%{scientific_name} المراجع الأدبية،%{scientific_name} الأدبيات"
+        meta_title: المقالات والكتب حول %{scientific_name}
+        meta_title_with_common_name: المقالات والكتب حول %{preferred_common_name} (%{scientific_name})
+        tweet_text: المقالات والكتب عن %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
@@ -2809,14 +3367,16 @@ ar:
           meta_description_with_common_name: أين يوجد %{preferred_common_name}، وأين يعيش؟ معلومات جغرافية عن %{scientific_name} حسب تصنيف %{hierarchy_provider}، تضم المكان الذي يعيش فيه وموطنه الأصلي.
           meta_title: خرائط لـ%{scientific_name} حسب تصنيف%{hierarchy_provider}
           meta_title_with_common_name: خرائط لـ%{preferred_common_name} (%{scientific_name} حسب تصنيف%{hierarchy_provider})
-          tweet_text: خرائط لـ%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: معلومات جغرافية حول %{scientific_name}، تضم المكان الذي يعيش فيه وموطنه الأصلي في العالم.
-        meta_description_with_common_name: إين يتواجد %{preferred_common_name}، وأين يعيش؟ معلومات جغرافية حول %{scientific_name}، تضم المكان الذي يعيش فيه وموطنه الأصلي.
-        meta_keywords: بيئة %{scientific_name}، وموطنه الأصلي، والمكان الذي يعيش%{scientific_name} فيه.
-        meta_keywords_with_common_name: بيئة %{preferred_common_name}، وموطنه الأصلي، والمكان الذي يعيش%{preferred_common_name} فيه.
+          tweet_text: خرائط من أجل %{scientific_name} حسب تصنيف %{hierarchy_provider}
+        meta_description: معلومات جغرافية حول %{scientific_name}.الأماكن التي تعيش فيه في العالم.
+        meta_description_no_data: "لا تتوفر أي معلومات جغرافية لـ%{scientific_name} في موسوعة الحياة.\nتدعوك موسوعة الحياة للمساهمة في خرائط %{scientific_name}."
+        meta_description_with_common_name: أين يتواجد %{preferred_common_name}، وأين يعيش؟ معلومات جغرافية حول %{scientific_name}. أماكن عيشها في أنحاء العالم.
+        meta_description_with_common_name_no_data: "لا تتوفر أي معلومات جغرافية لـ%{preferred_common_name} و المعروف أيضا بـ%{scientific_name} في موسوعة الحياة.\nتدعوك موسوعة الحياة للمساهمة في خرائط %{preferred_common_name} (%{scientific_name})."
+        meta_keywords: مسكن %{scientific_name}، المكان الذي يعيش فيه %{scientific_name}
+        meta_keywords_with_common_name: المسكن الطبيعي لـ%{preferred_common_name}، المكان الذي يعيش فيه %{preferred_common_name}
         meta_title: خرائط من أجل %{scientific_name}
         meta_title_with_common_name: خرائط من أجل %{preferred_common_name} (%{scientific_name})
-        tweet_text: خرائط لـ%{scientific_name}
+        tweet_text: خرائط من أجل %{scientific_name}
     media: 
       index: 
         hierarchy_entry: 
@@ -2827,13 +3387,15 @@ ar:
           meta_title: مقاطع فيديو، وأفلام، وصور %{scientific_name} حسب تصنيف%{hierarchy_provider}
           meta_title_with_common_name: مقاطع فيديو، وأفلام، وصور %{preferred_common_name} (%{scientific_name} حسب تصنيف%{hierarchy_provider}
           tweet_text: الوسائط الخاصة بـ%{scientific_name} حسب تصنيف %{hierarchy_provider}
-        meta_description: صور ومقاطع فيديو عن %{scientific_name}.
-        meta_description_with_common_name: صور ومقاطع فيديو عن %{preferred_common_name} المعروف أيضًا باسم %{scientific_name}.
+        meta_description: صور، ومقاطع صوتية ومرئية لـ%{scientific_name}. يمكنك الإطلاع على صور، و أفلام و أصوات %{scientific_name} على موسوعة الحياة.
+        meta_description_no_data: لا تتوفر أي وسائط متعددة لـ%{scientific_name} في موسوعة الحياة. تدعوك موسوعة الحياة للمساهمة في خرائط %{scientific_name}.
+        meta_description_with_common_name: صور، ومقاطع صوتية ومرئية %{preferred_common_name} والمعروف أيضا باسم %{scientific_name}. يمكنك الإطلاع على صور، و أفلام و أصوات %{preferred_common_name} (%{scientific_name}) على موسوعة الحياة.
+        meta_description_with_common_name_no_data: لا تتوفر أي وسائط متعددة لـ%{preferred_common_name} و المعروف أيضا باسم %{scientific_name} في موسوعة الحياة. تدعوك موسوعة الحياة للمساهمة في خرائط %{preferred_common_name} (%{scientific_name}).
         meta_keywords: صور لـ %{scientific_name}، مقاطع فيديوعن%{scientific_name}، صور لـ %{scientific_name}، مقاطع فيديوعن%{scientific_name}، صور لـ %{scientific_name}، وسائط
         meta_keywords_with_common_name: صور لـ%{preferred_common_name}، مقاطع فيديو عن  %{preferred_common_name}، صور لـ %{preferred_common_name}، مقاطع فيديو عن %{preferred_common_name}، صور لـ %{preferred_common_name}، وسائط
-        meta_title: صور ومقاطع فيديو عن %{scientific_name}
-        meta_title_with_common_name: صور ومقاطع فيديو عن%{preferred_common_name} (%{scientific_name})
-        tweet_text: الوسائط الخاصة بـ %{scientific_name}
+        meta_title: صور ومقاطع فيديو و صوت عن %{scientific_name} - صور، أفلام، ومقاطع صوتية لـ%{scientific_name}
+        meta_title_with_common_name: صور ومقاطع فيديو عن%{preferred_common_name} (%{scientific_name}) - صور ومقاطع فيديو ومقاطع صوتية عن %{preferred_common_name} (%{scientific_name})
+        tweet_text: الصور، ومقاطع الفيديو والمقاطع الصوتية الخاصة بـ %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
@@ -2853,14 +3415,14 @@ ar:
         tweet_text: الأسماء الشائعة لـ%{scientific_name}.
       index: 
         hierarchy_entry: 
-          meta_description: التصنيف والتسلسلات الهرمية التصنيفية والأسماء العلمية لـ %{scientific_name} حسب تصنيف %{hierarchy_provider}.
-          meta_description_with_common_name: التصنيف والتسلسلات الهرمية التصنيفية والأسماء العلمية لـ %{preferred_common_name}، والمعروف أيضًا بـ %{scientific_name}  حسب تصنيف %{hierarchy_provider}.
+          meta_description: التصنيفات والأسماء العلمية لـ %{scientific_name} حسب تصنيف %{hierarchy_provider}.
+          meta_description_with_common_name: التصنيفات والأسماء العلمية لـ %{preferred_common_name}، والمعروف أيضًا بـ %{scientific_name}  حسب تصنيف %{hierarchy_provider}.
           tweet_text: أسماء مرتبطة بـ%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: التصنيف والأسماء العلمية لـ %{scientific_name}.
-        meta_description_with_common_name: التصنيف والأسماء العلمية لـ %{preferred_common_name}، المعروف أيضًا بـ %{scientific_name}.
-        meta_title: أسماء مرتبطة بـ%{scientific_name}
-        meta_title_with_common_name: أسماء مرتبطة بـ %{preferred_common_name} (%{scientific_name})
-        tweet_text: أسماء مرتبطة بـ%{scientific_name}
+        meta_description: التصنيفات والأسماء العلمية لـ %{scientific_name}. التصنيفات البيولوجية والأسماء المرتبطة بـ %{scientific_name}.
+        meta_description_with_common_name: التصنيفات، والتصنيفات البيولوجية والأسماء العلمية لـ %{preferred_common_name}، المعروف أيضًا بـ %{scientific_name}. الأسماء والتصنيفات البيولوجية المرتبطة بـ %{preferred_common_name}.
+        meta_title: المعلومات التصنيفية عن %{scientific_name} - الأسماء والتصنيفات البيولوجية
+        meta_title_with_common_name: معلومات تصنيفية عن %{preferred_common_name} (%{scientific_name}) - الأسماء والتصنيفات البيولوجية
+        tweet_text: معلومات تصنيفية عن %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: المرادفات المقترنة بـ%{scientific_name} حسب تصنيف %{hierarchy_provider}.
@@ -2887,12 +3449,12 @@ ar:
           meta_title: "%{scientific_name} حسب تصنيف %{hierarchy_provider}"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} كما أقره %{hierarchy_provider}، و%{scientific_name} حسب تصنيف %{hierarchy_provider}"
           tweet_text: نظرة عامة على%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: نظرة عامة عن%{scientific_name} في موسوعة الحياة.
-        meta_description_with_common_name: نظرة عامة عن%{preferred_common_name}، المعروف علمياً باسم %{scientific_name} في موسوعة الحياة.
+        meta_description: معلومات عن %{scientific_name} في موسوعة الحياة.
+        meta_description_with_common_name: معلومات عن%{preferred_common_name}، المعروف علمياً باسم %{scientific_name} في موسوعة الحياة.
         meta_keywords: "%{scientific_name} كما أقره %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} كما أقره %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: نظرة عامة عن %{scientific_name}
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})  - معلومات عن %{preferred_common_name}"
+        tweet_text: معلومات عن %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -2980,6 +3542,8 @@ ar:
   taxon_identification_resources_empty: لم تتم إضافة أي مصادر تعريف إلى تلك الصفحة إلى الأن.
   taxon_identification_resources_header: مصادر التعريف
   taxon_identification_resources_link: مصادر التعريف
+  taxon_multimedia_links_link: روابط الوسائط المتعددة
+  taxon_news_and_event_links_link: روابط الأخبار والأحداث
   taxon_newsfeed: تحديثات اﻷصنوفة
   taxon_not_found_error: "\"%{taxon}\" غير موجودة"
   taxon_nucleotide_sequences_link: تسلسلات النيوكليوتيدات
@@ -2993,6 +3557,7 @@ ar:
   taxon_partner_links_link: روابط الشركاء
   taxon_rating: تقييم الأصنوفة
   taxon_recognized_by: أصنوفة اعترف بها %{whom}
+  taxon_related_organizations_link: منظمات ذات صلة
   taxon_selected_from_search_res: أصنوفة تم اختيارها من نتائج البحث
   taxon_suggested: الأصنوفة المقترحة
   taxonomic_summary_of_content: الملخص التصنيفي للمحتوى
@@ -3039,8 +3604,6 @@ ar:
   the_message_was_sent: تم إرسال الرسالة.
   the_new_topic_was_created: تم إنشاء الموضوع الجديد.
   the_new_user_was_created: تم إنشاء المستخدم الجديد.
-  the_news_item_created: تم إنشاء الخبر بنجاح
-  the_news_item_updated: تم تحديث الخبر.
   the_suggested_page_to_direct_users_to_link: الصفحة التي  يُقترح توجيه المستخدمين إليها
   the_topic_was_updated: تم تحديث الموضوع
   the_user_was_updated: تم تحديث المستخدم.
@@ -3066,6 +3629,8 @@ ar:
   this_is_a_focus_collection_for_community: ذلك هو محور اهتمام %{community}.
   this_is_the_breakdown_of_chapt: هذا تقسيم الفصول، والفصول الفرعية وتصنيف نموذج الصفحات الخاصة بالأنواع المقابلة لها.
   this_is_the_label_that_will_be_used_for_attribution: ذلك هو التصنيف الذي سوف يتم استخدامه لذلك النسب
+  this_link_cannot_be_curated_because_unpublished: لا يمكن مراجعة ذلك الرابط لأنه لم يتم نشره.
+  this_link_is_unpublished: لم يتم نشر ذك الرابط.
   this_map_cannot_be_curated_because_unpublished: لا يمكن معالجة هذه الخريطة لأنها غير منشورة.
   this_map_is_unpublished: هذه الخريطة غير منشورة.
   this_method_takes_an_integer_or_string: This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API, I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}
@@ -3079,7 +3644,6 @@ ar:
   threat_status_header_colon: "حالة التهديد وفقا للاتحاد العالمى للحفاظ على الطبيعة  <abbr title=\"International Union for Conservation of Nature\">(IUCN)</abbr>:"
   thumbnail_page_colon: "صفحة مصغرة:"
   time_ago: منذ %{time_passed}
-  tinyurl: عنوان قصير
   title: عنوان
   to_process_your_donation_please_proceed: رجاء الاستمرار لتنفيذ التبرع
   to_remedy_this: لتصحيح هذا، نحن سيتم إغلاق هذه الحسابات غير النشطة ونطلب يمكنك زيارة eol.org لإنشاء حساب جديد. عندما تتلقى تأكيد بالبريد الإلكتروني، يرجى النقر على الرابط للتحقق من صحة الحساب الخاص بك.
@@ -3109,6 +3673,7 @@ ar:
   true_label: حقيقي
   truncated_comment_omission: ... <a href='%{link}'>المزيد</a>
   truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: ... <a href='%{link}'>more</a> المزيد
   trusted: موثوق به
   trusted_images: صور موثوق بها
   trusted_maps: خرائط موثوق بها
@@ -3117,6 +3682,7 @@ ar:
   twitter: موقع تويتر
   type: النوع
   unable_to_copy_items_to_collection_error: عفوًا، تعذر نسخ عناصر المجموعة إلى %{name}.
+  unable_to_determine_title: تعذر تحديد عنوان صفحة الويب
   unable_to_invite_users_to_community_error: تعذر إرسال الدعوات إلى  %{users}.
   unique_page_views_th: مشاهدات متفردة للصفحة
   unknown: غير معروف
@@ -3139,17 +3705,20 @@ ar:
   updated_community: تم تحديث المجتمع بنجاح.
   updated_member: تم تحديث العضو
   updates: تحديثات
-  upload: تحميل
+  upload: رفع
   upload_content: رفع المحتوى
   upload_logo_help_text: سوف تكون تلك الصورة هي الصورة الرئيسية التي تمثل مجتمعك . يمكن أن تكون أي صورة تفضلها.
   uploaded_by: قام بالتحميل
   uploaded_content: المحتوى الذي تم تحميله
   uploaded_on: تم التحميل في
   url: عنوان URL
+  url_not_accessible: لا يمكن الوصول إلى ذلك العنوان الإلكتروني
   us_dolars_75: 75 دولارًا أمريكيًّا
   us_dollars_100: 100 دولار أمريكي
   us_dollars_35: 35 دولارًا أمريكيًّا
   us_dollars_50: 50 دولارًا أمريكيًّا
+  use_as_examplar_button: تعيين كنموذج
+  use_as_examplar_note_preferred: "ملاحظة: هذه الملاحظة المفضلة. قد ترغب في استخدامها."
   used_for_friendly_url_note: (يستخدم لتوليد رابط سهل الاستخدام للمستخدمين، لا يمكن أن يحتوي على مسافات أو رموز)
   used_for_urls_note: يُستخدم لعناوين URL - ويجب أن يكون متفرد (عدا الصفحات المترجمة)؛ وإلا، فيجب أن تستخدم عناوين الصفحات معرِّف الصفحة.
   user: مستخدم
@@ -3168,6 +3737,12 @@ ar:
   user_activity_stats_header: النشاط
   user_activity_stats_objects_curated: خضع %{count} كائن للإشراف
   user_activity_stats_objects_curated_dropdown: الكائنات التي خضعت للإشراف
+  user_activity_stats_preferred_classifications_selected: 
+    one: "تم اختيار %{count} تصنيف مُفضل "
+    other: " تم اختيار %{count} تصنيف مُفضل"
+  user_activity_stats_selected_articles_for_overview: 
+    one: "%{count} مقال أخُتير ليتم إضافته إلى النظرة العامة "
+    other: "%{count} ليتم إضافته إلى النظرة العامة"
   user_activity_stats_set_exemplar: تم وضع %{count} صورة كنموذج
   user_activity_stats_taxa_commented: تم التعليق على %{count} أصنوفة.
   user_activity_stats_taxa_comments: تعليقات خاصة بـ %{count} أصنوفة.
@@ -3178,9 +3753,10 @@ ar:
   user_already_active_notice: تم تفعيل حسابك، يرجى تسجيل الدخول.
   user_comment: تعليق المستخدم
   user_commented_on_deleted_user: قام <strong>%{user_with_link}</strong> بالتعليق على صفحة خاصة بمستخدم تم حدفه.
-  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> أضاف تعليق على %{what}:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> قام بإضافة تعليق على نسخة قديمة لـ%{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> علق على %{what}:"
   user_commented_on_themself: "قام <strong>%{user_with_link}</strong> بالتعليق على الخبر <a href='%{link}'>%{username}'s newsfeed</a>:"
+  user_commented_on_your_image: "قام <strong>%{user}</strong> بالتعليق على صورتك على <a href='%{data_object_link}'>موقع موسوعة الحياة</a>:\n%{comment_body}"
   user_comments: تعليقات المستخدم
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: مُعرِّف المستخدم
@@ -3231,7 +3807,9 @@ ar:
     edit: 
       form_tip_account: "لكي تتمكن من تسجيل الدخول إلى موسوعة الحياة، أنت في حاجة إما إلى أسم مستخدم وكلمة مرور موسوعة الحياة أو يمكنك تسجيل الدخول عن طريق حساب لطرف ثالث. كلمة المرور وإسم المستخدم مطلوبان إن لم يكن لديك حساب متصل، ومع ذلك، فقط قم بإدخال كلمة مرور جديدة هنا، إن كنت تود في تغيير الكلمة الحالية.\nالبريد الإلكتروني و اللغة المفضلة مطلوبان (%{required_icon}) لكل المستخدمين."
       form_tip_account_oauth: عنوان البريد الإلكتروني و اللغة المفضلة مطلوبان (%{required_icon}) لكل المستخدمين.
+      form_tip_curation: تعد الإعتمادات ومجال الإشراف خانات اختيارية بالنسبة للمشرفين المساعدين ولكن إلزامية %{required_icon} بالنسبة للمشرفين والمشرفين الأوائل.
       form_tip_profile: العناصر المعلّمة كمطلوبة %{required_icon} إختيارية لعامة المستخدمين، لكنها إلزامية للمشرفين.
+      form_tip_profile_oauth: يلزم إضافة الأسم الأول بينما تعد الخانات الأخرى الواجب إضافتها %{required_icon} اختيارية بالنسبة لعامة المستخدمين ولكن إجبارية بالنسبة إلى المشرفين.
     new: 
       complete_registration_header: أكمل تسجيلك على موسوعة الحياة
       create_user_header: إنشاء حساب جديد  <abbr title="Encyclopedia of Life">بموسوعة الحياة</abbr>
@@ -3260,42 +3838,93 @@ ar:
       edit: 
         page_description: كافة التحديثات المدرجة أدناه (عدا نشرة موسوعة الحياة الإخبارية) متوفرة لك في <a href="%{user_newsfeed_link}">EOL newsfeed</a>. حيث أن العديد من الناس يرغب أيضًا في أن يتم تنبيههم بالبريد الإلكتروني حول بعض الأنشطة محط اهتمامهم، يمكنك استخدام الأزرار الموجودة أدناه لتحديد مدى تكرار رسائل موسوعة الحياة الإلكترونية كما يناسبك.
         page_title: إعدادات الإخطارات
+      update: 
+        notification_settings_successfully_updated: تم تحديث إعدادات الإخطارات بنجاح.
+        sorry_notification_settings_could_not_be_updated: عذراً، لم بتم تحديث إعدادات الإخطارات.
     open_authentications: 
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: عذراََ، لا يمكننا ربط حساب الـ Facebook الخاص بك بحساب موسوعة الحياة، لأنه مرتبط بالفعل مع <a href="%{existing_eol_account_url}">حساب آخر من موسوعة الحياة</a>.
+          login_failed_not_connected: عذرًا، لم نتمكنم من إيجاد رابط ما بين حسابك بموقع فايسبوك وموسوعة الحياة. إذا كان لديك حساب بموسوعة الحياة <a href="%{login_url}"> يرجى تسجيل الدخول بالموسوعة </a> باستخدام اعتمادات أخرى، ثم قم بربط حسابك بموقع فايسبوك بإعدادات صفحتك الشخصية بموقع الموسوعة. إذا لم يكن لديك حساب بموسوعة الحياة، يرجى <a href="%{register_url}">الانتهاء من التسجيل بالموسوعة</a> لإنشائه.
           missing_attributes: عذراََ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب الفايسبوك الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب الفايسبوك الخاص بك.
           not_authorized_to_add_authentication: عذراََ، نحن لا نملك إذناََ يسمح لنا بالإتصال بحساب الفايسبوك الخاص بك.
           not_authorized_to_login: عذراََ، نحن غير مخولين بتسجيل الدخول إلى حساب موسوعة الحياة بإستخدام حساب الفايسبوك الخاص بك.
           not_authorized_to_signup: عذراََ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب الفايسبوك الخاص بك.
+          signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد باستخدام حسابك بموقع فايسبوك حيث أنه مرتبط بالفعل <a href="%{existing_eol_account_url}"> بحد حسابات موسوعة الحياة. هل كنت تقصد <a href="%{login_url}">log in</a> تسجيل الدخول؟
         google: 
+          add_connection_failed_account_already_connected: عذرًا، لا يمكن ربط حسابك بموقع جوجبل بحسابك بموقع موسوعة الحياة لأنه مرتبط بالفعل بأحد <a href="%{existing_eol_account_url}"> حسابات موسوعة الحياة</a>.
+          login_failed_not_connected: عذرًا، لم نتمكن من إيجاد رابط ما بين حسابك بموقع فايسبوك وموسوعة الحياة. إذا كان لديك حساب بموسوعة الحياة <a href="%{login_url}">، يرجى تسجيل الدخول بالموسوعة </a> باستخدام اعتمادات أخرى، ثم قم بربط حسابك بموقع جوجل عبر إعدادات صفحتك الشخصية بموقع الموسوعة. إذا لم يكن لديك حساب بموسوعة الحياة، يرجى <a href="%{register_url}">الانتهاء من التسجيل بالموسوعة</a> لإنشائه.
           missing_attributes: عذراََ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب غوغل الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب غوغل الخاص بك.
           not_authorized_to_add_authentication: عذراَ، نحن لا نملك إذناَ يسمح لنا بالإتصال بحساب غوغل الخاص بك.
           not_authorized_to_login: عذراَ، نحن غير مخولين بتسجيل الدخول إلى موسوعة الحياة بإستخدام حساب غوغل الخاص بك.
           not_authorized_to_signup: عذراَ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب غوغل الخاص بك.
+          signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد بموسوعة الحياة باستخدام حسابك بموقع جوجل، حيث أنه مرتبط بالفعل a href="%{existing_eol_account_url}"> بأحد حسابات موسوعة الحياة</a>.  هل كنت تقصد a href="%{login_url}">log in</a> تسجيل الدخول؟
         missing_attributes: عذراََ، وقع خطأ في محاولة الحصول على تفاصيل حساب الطرف الثالث الخاص بك.
         not_authorized_to_add_authentication: عذراََ، نحن لا نملك إذناََ يسمح لنا بالإتصال بهذا الحساب.
         not_authorized_to_login: عذراََ، نحن غير مخولين بتسجيل الدخول إلى حساب موسوعة الحياة مع هذا الحساب.
         remove_connection_failed: عذراََ، وقع خطأ، لم نتمكن من فصل الإتصال.
         twitter: 
+          add_connection_failed_account_already_connected: عذرًا، لا يمكن ربط حسابك بموقع تويتر بحسابك بموقع موسوعة الحياة لأنه مرتبط بالفعل بأحد <a href="%{existing_eol_account_url}"> حسابات موسوعة الحياة</a>.
+          login_failed_not_connected: عذرًا، لم نتمكن من إيجاد رابط ما بين حسابك بموقع تويتر وموسوعة الحياة. إذا كان لديك حساب بموسوعة الحياة <a href="%{login_url}"> يرجى تسجيل الدخول بالموسوعة </a> باستخدام اعتمادات أخرى، ثم قم بربط حسابك بموقع تويتر بإعدادات صفحتك الشخصية بموقع الموسوعة. إذا لم يكن لديك حساب بموسوعة الحياة، يرجى <a href="%{register_url}">الانتهاء من التسجيل بالموسوعة</a> لإنشائه.
           missing_attributes: عذراَ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب تويتر الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب تويتر الخاص بك.
           not_authorized_to_add_authentication: عذراََ، نحن لا نملك إذناََ يسمح لنا بالإتصال بحساب تويتر الخاص بك.
           not_authorized_to_login: عذراََ، نحن غير مخولين بتسجيل الدخول إلى موسوعة الحياة بإستخدام حساب تويتر الخاص بك.
           not_authorized_to_signup: عذراََ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب تويتر الخاص بك.
+          signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد بموسوعة الحياة باستخدام حسابك بموقع تويتر، حيث أنه مرتبط بالفعل a href="%{existing_eol_account_url}"> بأحد حسابات موسوعة الحياة</a>.  هل كنت تقصد a href="%{login_url}">log in</a> تسجيل الدخول؟
         yahoo: 
+          add_connection_failed_account_already_connected: عذرًا، لا يمكن ربط حسابك بموقع ياهو بحسابك بموقع موسوعة الحياة لأنه مرتبط بالفعل بأحد <a href="%{existing_eol_account_url}"> حسابات موسوعة الحياة</a>.
+          login_failed_not_connected: عذرًا، لم نتمكنم من إيجاد رابط ما بين حسابك بموقع ياهو وموسوعة الحياة. إذا كان لديك حساب بموسوعة الحياة <a href="%{login_url}"> يرجى تسجيل الدخول بالموسوعة </a> باستخدام اعتمادات أخرى، ثم قم بربط حسابك بموقع ياهو بإعدادات صفحتك الشخصية بموقع الموسوعة. إذا لم يكن لديك حساب بموسوعة الحياة، يرجى <a href="%{register_url}">الانتهاء من التسجيل بالموسوعة</a> لإنشائه.
           missing_attributes: عذراََ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب الياهو! الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب الياهو! الخاص بك.
           not_authorized_to_add_authentication: عذراََ، نحن لا نملك إذناََ يسمح لنا بالإتصال بحساب الياهو! الخاص بك.
           not_authorized_to_login: عذراََ، نحن غير مخولين بتسجيل الدخول إلى موسوعة الحياة بإستخدام حساب الياهو! الخاص بك.
           not_authorized_to_signup: عذراََ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب الياهو! الخاص بك.
+          signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد بموسوعة الحياة باستخدام حسابك بموقع ياهو، حيث أنه مرتبط بالفعل a href="%{existing_eol_account_url}"> بأحد حسابات موسوعة الحياة</a>.  هل كنت تقصد a href="%{login_url}">log in</a> تسجيل الدخول؟
       facebook: فيس بوك
       google: جوجل
+      index: 
+        connected_last_verified: متصل؛ تم التحقق منذ %{time_passed}؛
+        connected_unverified: متصل؛ لم يتم التحقق من ذلك؛
+        not_connected: غير متصل؛
+        page_description: إدارة الارتباطات بحسابات الطرف الثالث التي يمكن استخدامها لتسجيل الدخول بموسوعة الحياة.
+        page_title: الحسابات المتصلة
+        return_link: الرجوع إلى تعديل الصفحة الشخصية.
+      notices: 
+        facebook: 
+          new_authentication_added: تم إضافة توثيق موقع فايسبوك إلى حسابك.
+          removed_connection: للقد تم حذف الرابط ما بين حسابك بموقع فايسبوك وموسوعة الحياة بنجاح. لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك بموقع فايسبوك وموسوعة الحياة تمامًا، يجب تعديل إعدادات حسابك بموقع فايسبوك.
+        google: 
+          new_authentication_added: تم إضافة توثيق موقع جوجل إلى حسابك.
+          removed_connection: للقد تم حذف الرابط ما بين حسابك بموقع جوجل وموسوعة الحياة بنجاح. لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك بموقع جوجل وموسوعة الحياة تمامًا، يجب تعديل إعدادات حسابك بموقع جوجل.
+        twitter: 
+          new_authentication_added: تم إضافة توثيق موقع جوجل إلى حسابك.
+          removed_connection: للقد تم حذف الرابط ما بين حسابك بموقع تويتر وموسوعة الحياة بنجاح. لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك بموقع تويتر وموسوعة الحياة تمامًا، يجب تعديل إعدادات حسابك بموقع تويتر.
+        yahoo: 
+          new_authentication_added: تم إضافة توثيق موقع ياهو إلى حسابك.
+          removed_connection: للقد تم حذف الرابط ما بين حسابك بموقع ياهو وموسوعة الحياة بنجاح. لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك بموقع ياهو وموسوعة الحياة تمامًا، يجب تعديل إعدادات حسابك بموقع ياهو.
+      twitter: موقع تويتر
+      warnings: 
+        no_way_to_login: لم يعد لديك أي حسابات متصلة، ولن تتمكن من تسجيل الدخول بموسوعة الحياة مرة أخرى ما لم تقوم بإضافة حساب متصل أو اسم مستخدم وكلمة سر خاصين بالموسوعة.
+      yahoo: موقع ياهو
+    pending: 
+      header: شكرا للتسجيل بموسوعة الحياة.
+      verify_email_instructions: <strong>يرجى تأكيد عنوان الريد الإلكتروني الخاص بك</strong>. تم إرسال رسالة تأكيد إلى عنوان البريد الإلكتروني المقدم من قبلك. لإكمال عملية التسجيل لتصبح عضوًا بموسوعة الحياة، يرجى النقر على الرابط المدرج بتلك الرسالة. شكرًا.
+      verify_email_tip: يرجى الانتباه إلى أن رسائل البريد الإلكتروني الخاصة بتأكيد الحسابات <em>كثيرًا</em> ما يتم تصنيفها ضمن "الرسائل غير المرغوب فيها"  بواسطة مرشحات البريد. يرجى التحقق من مجلد البريد غير المرغوب فيه إذا لم تصلك الرسالة خلال ساعة.
     recover_account: 
+      errors: 
+        temporary_login_user_not_found: عذرًا، لم يتم العثور على الحساب الذي تحاول استعادته، يرجى طلب رسالة بريد إلكتروني جديدة لاستعادة حسابك.
+        token_expired_or_invalid: عذرًا، رابط تسجيل الدخول المؤقت انتهت صلاحية أو غير صالح، يرجى طلب رسالة بريد إلكتروني لاستعادة حسابك.
+        unable_to_update_token: عذراً، حدث خطأ ولم يتم إرسال رسالة البريد الإلكتروني، يرجى المحاولة مرة أخرى.
+        user_not_found_by_email_address: لا يوجد حساب مرتبط بعنوان البريد الإلكتروني ذلك بموسوعة الحياة.
       form_header: إسترجاع الحساب
+      form_tip: لاستعادة حسابك بموسوعة الحياة، يرجى إدخال عنوان البريد الإلكتروني المرتبط بذلك الحساب. يرجى التحقق من مجلد البريد غير المرغوب فيه إذا لمم تتلقى رسالة استعادة الحساب خلال ساعة.
       meta_title: إسترجاع الحساب
+      notices: 
+        recovery_email_sent: لقد تم إرسال رسالة استعادة الحساب والتي تضم المزيد من الإرشادات عبر البريد الإلكتروني. يرجى إضافة %{from_address} إلى قائمة المرسلين الموثوق بهم والتحقق من من مرشحات البريد غير المرغوب به إذا لم تتلقى الرسالة خلال ساعة.
+        temporarily_logged_in_update_authentication_details: تم تسجيل الدخول بصورة مؤقتة للسماح باستعادة الحساب، يرجى تغيير كلمة السر أو تحديث الحسابات المرتبطة بالموسوعة لتتمكن من تسجيل الدخول بنجاح.
     recover_account_choose_account: 
       errors: 
         user_not_found_choose_again: عذراََ، وقع خطأ ما ولم يرسل البريد الإلكتروني، رجاءاََ حدد الحساب الذي تود في أسترجاع بيانات دخوله و أعد المحاولة من جديد.
@@ -3305,6 +3934,10 @@ ar:
     show: 
       meta_description: الصفحة الشخصية للعضو %{user_full_name} بموسوعة الحياة.
       meta_description_curator: الصفحة الشخصية للعضو %{curator_level} %{user_full_name} بموسوعة الحياة.
+    unsubscribe_notifications: 
+      already_unsubscribed: لقد تم انهاء اشتراكك لتلقي الإخطارات بالفعل.
+      unsubscribe_notifications_failed: عذراً، حدث خطأ، لم يتم انهاء اشتراك المستخدم بالإخطارات.
+      unsubscribed_notifications_successfully: لقد تم انهاء اشتراكك بالإخطارات بنجاح.
   users_about_me_header: التعريف بي
   users_content_partners_header: شركاء المحتوى
   users_content_partners_information: يتمثل شركاء محتوى موسوعة الحياة في أفراد ومنظمات تشارك ما تملكه من بيانات التنوع الحيوي مع العالم عبر موسوعة الحياة. تعرف على المزيد عن  <a href="%{more_url}">شركاء محتوى موسوعة الحياة</a> .
@@ -3397,7 +4030,6 @@ ar:
   will_find_taxon_pages_matching_the_search_term: سوف يتم إيجاد صفحات الأصنوفة إذا ما كان الاسم  المفضل أو أي مرادف أو اسم شائع يطابق مصطلح البحث
   will_paginate: 
     next_label: التالى
-    page_gap: "&hellip;"
     previous_label: السابق
   worklist: قائمة العمل
   would_you_like_to_become_a_curator_notice: هل تود أن تصبح مشرفاََ؟ يمكنك طلب الحصول على إذن على <a href='%{url}'>صفحة ملفك الشخصي</a>.
@@ -3418,6 +4050,7 @@ ar:
   you_may_upload_static_files_fo: "\nيمكنك تحميل الملفات الثابتة (مثل PDF، ووورد والصور، الخ) لاستخدامها هنا في برامج إدارة المحتوى. ولا يمكنك تحميل محتوى على صفحات الأنواع – بل يمكن التحميل فقط على غير  صفحات الأنواع (مثل إعلانات التوظيف والنشرات الإخبارية، ومذكرات التفاهم، الخ.). ويمكنك ربط ملفات الـ PDFمثل مذكرات التفاهم وملفات النشرات الإخبارية، مع عناوين URL صديقة إذا رغبت (وهذا سيوجهك مباشرة إلى عنوان المحتوى الكامل). أما مع الصور المتضمنة في صفحة ما والتي لها مرجع ذو رمز (tag) &lt;img&gt; فعليك أن تستخدم عنوان المحتوى كاملاً. وقد يُظهر العنوان الكامل للمحتوى رقم خادم محتوى مختلف في كل مرة تقوم فيها بتحديث الصفحة (مثل: \"content2.eol.org\"، \"content3.eol.org\"، الخ.) – وهذا طبيعي ويمكنك استخدام أيهم حين تقوم بإنشاء الروابط الخاصة بك إذ أنهم جميعهم متساويين."
   you_must_be_comfortable: يجب أن تكون على دراية بـ HTML إذا كنت ترغب في إنشاء روابط تشعبية أو استخدام التنسيق.
   you_removed_the_member_from_the_community: تم حذف العضو من المجتمع بنجاح.
+  your_browser_does_not_support: متصفحك لا يدعم ملقات الفيديو HTML5.
   your_current_rating_0_of_5: تقييمك الحالي 0 من 5
   your_current_rating_1_of_5: تقييمك الحالي 1 من 5
   your_current_rating_2_of_5: تقييمك الحالي 2 من 5

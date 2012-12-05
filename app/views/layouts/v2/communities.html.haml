@@ -1,5 +1,5 @@
 - content_for :head do
-  = javascript_include_merged 'communities'
+  = javascript_include_tag 'communities_pack'
 - content_for :main do
   #page_heading.with_image
     .site_column
@@ -21,7 +21,7 @@
                   = link_to I18n.t(:leave_community_button), leave_community_path(@community.id, :return_to => communities_path), :class => "button confirm", :data_confirm => I18n.t(:confirm_leave)
             - else
               %li
-                = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => community_path(@community)), :class => "button"
+                = link_to I18n.t(:join_community_button), join_community_path(@community), :class => "button"
             - if @current_member && @current_member.manager? && controller.action_name != 'edit'
               %li= link_to I18n.t(:edit_community), edit_community_path(@community.id), :class => "button"
               %li= link_to I18n.t(:share_a_collection), choose_editor_target_collections_path(:community_id => @community.id), :class => "button"
@@ -45,10 +45,10 @@
       - if @community && @community.published? && @community.id && controller.action_name != 'edit'
         #tabs_sidebar
           %ul.tabs
-            %li.newsfeed{:class => resource_is_active('communities/newsfeeds')}= link_to I18n.t(:community_newsfeed), community_newsfeed_path(@community)
+            %li.newsfeed{:class => resource_is_active('newsfeeds')}= link_to I18n.t(:community_newsfeed), community_newsfeed_path(@community)
             %li{:class => resource_is_active('members')}= link_to I18n.t(:members_with_count, :count => @community.members.count), community_members_path(@community)
             - if (col_count = @community.collections.count) > 0
-              %li{:class => resource_is_active('communities/collections')}= link_to I18n.t(:collections_link), community_collections_path(@community)
+              %li{:class => resource_is_active('collections')}= link_to I18n.t(:collections_link), community_collections_path(@community)
       = yield
 
 = render :file => 'layouts/v2/application'

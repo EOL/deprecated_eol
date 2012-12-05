@@ -158,6 +158,10 @@ mk:
         request_publish: Побарај објавување
       name: 
         string: Име
+      news_item: 
+        active: Објавено
+        page_name: Единствено име
+        sort_order: Редослед на подредување
       notification: 
         changes_to_my_watched_collection: Измени во збирките на вашиот список на набљудувања
         changes_to_my_watched_community: Измени во заедниците на вашиот список на набљудувања
@@ -207,6 +211,12 @@ mk:
         active_translation: Објавено
         left_content: Навигација
         main_content: Текст
+        meta_description: Опис на метаподатоците
+        meta_keywords: Клучни зборови во метаподатоците
+        title: Наслов
+      translated_news_item: 
+        active_translation: Објавено
+        body: Текст
         meta_description: Опис на метаподатоците
         meta_keywords: Клучни зборови во метаподатоците
         title: Наслов
@@ -485,6 +495,33 @@ mk:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> го укажа „%{data_object}“ како пример на „%{taxon}“.
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> го укажа како урнек на непозната страница.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> го укажа како урнек на „%{taxon}“.
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: Непознат корисник спои две непознати страници.
+          an_unknown_user_merged_to_it: Непознат корисник спои друга страница со оваа.
+          an_unknown_user_merged_to_taxon: Непознат корисник спои друга страница со %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> спои две непознати страници.
+          user_merged_to_it: <strong>%{user}</strong> спои друга страница со оваа.
+          user_merged_to_taxon: <strong>%{user}</strong> спои друга страница со %{target}.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Непознат корисник ги премести класификациите од %{classifications} од непозната страница во непозната страница.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Непознат корисник ги премести класификациите од %{classifications} од непозната страница во %{target}.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: Непознат корисник ги премести класификациите на %{classifications} во непозната страница.
+          an_unknown_user_moved_classifications_from_it_to_taxon: Непознат корисник ги премести класификациите на %{classifications} во %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: Непознат корисник ги премести класификациите на %{classifications} од %{taxon} во непозната страница.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: Непознат корисник ги премести класификациите на %{classifications} од %{taxon} во %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> ги премести класификациите на %{classifications} од непозната страница во непозната страница.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> ги премести класификациите на %{classifications} од непозната страница во  %{target}.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> ги премести класификациите на %{classifications} во  непозната страница.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> ги премести класификациите од %{classifications} во %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> ги премести класификациите на %{classifications} од %{taxon} во  непозната страница.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> ги премести класификациите на %{classifications} од %{taxon} во  %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Непознат корисник ги одвои класификациите од %{classifications} од непозната страница во <a href='%{to}'>неговата лична страница</a>.
+          an_unknown_user_split_classifications_from_it: Непознат корисник ги одвои класификациите на %{classifications} во <a href='%{to}'>неговата лична страница</a>.
+          an_unknown_user_split_classifications_from_taxon: Непознат корисник ги одвои класификациите од %{classifications} од %{taxon} во <a href='%{to}'>неговата лична страница</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} од непозната страница во <a href='%{to}'>неговата лична страница</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} во <a href='%{to}'>неговата лична страница</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена во непознат контекст.
         an_unknown_user_hid_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена на страницата „%{association}“.
@@ -642,13 +679,25 @@ mk:
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како доверлив во непознат контекст.
         user_trusted_it_on_association: <strong>%{user}</strong> го означи како доверлив на страницата „%{association}“.
       unlock: 
-        an_unknown_taxon_unlocked: Непозната страница заврши со позадинската кустоска обработка.
-        it_unlocked: Позадинската кустоска обработка заврши.
-        taxon_unlocked: „%{taxon}“ заврши со позадинската кустоска обработка.
+        merge_of_an_unknown_taxon_unlocked: Спојувањето што неодамна го побаравте е готово, но не можам да ја најдам страницата.
+        merge_of_it_unlocked: Спојувањето што неодамна го побаравте е готово.
+        merge_of_taxon_unlocked: Спојувањето што неодамна го побаравте за „%{taxon}“ е готово.
+        move_of_an_unknown_taxon_unlocked: Преместувањето на класификацијата што неодамна го побаравте е готово, но не можам да ја најдам страницата.
+        move_of_it_unlocked: Преместувањето на класификацијата што неодамна го побаравте на оваа страница е готово.
+        move_of_taxon_unlocked: Преместувањето на класификацијата што неодамна го побаравте за „%{taxon}“ е готово.
+        split_of_an_unknown_taxon_unlocked: Одвојувањето на класификацијата што неодамна го побаравте е готово, но не можам да ја најдам страницата.
+        split_of_it_unlocked: Одвојувањето на класификацијата што неодамна го побаравте на оваа страница е готово, и класификациите се преместени на <a href='%{to}'>своја страница</a>.
+        split_of_taxon_unlocked: Одвојувањето на класификацијата што неодамна го побаравте за „%{taxon}“ е готово, и класификациите се преместени на <a href='%{to}'>своја страница</a>.
       unlock_with_error: 
-        an_unknown_taxon_unlocked: "Непозната страница <strong>не успеа</strong> да ја спроведе позадинската кустоска обработка: %{error}."
-        it_unlocked: "Позадинската кустоска обработка<strong>не успеа</strong> : %{error}."
-        taxon_unlocked: "„%{taxon}“ <strong>не успеа</strong> да ја спроведе позадинската кустоска обработка: %{error}."
+        merge_of_an_unknown_taxon_unlocked_with_error: "Спојувањето на страниците што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа, не можам да ја најдам засегнатата страница."
+        merge_of_it_unlocked_with_error: "Спојувањето што неодамна го побаравте на оваа страница <strong>не успеа</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "Спојувањето што неодамна го побаравте за „%{taxon}“ <strong>не успеа</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "Преместувањето на класификацијата што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа, не можам да ја најдам засегнатата страница."
+        move_of_it_unlocked_with_error: "Преместувањето на класификацијата што неодамна го побаравте на оваа страница <strong>не успеа</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "Преместувањето на класификацијата што неодамна го побаравте за „%{taxon}“ <strong>не успеа</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "Одвојувањето на класификацијата што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа, не можам да ја најдам засегнатата страница."
+        split_of_it_unlocked_with_error: "Одвојувањето на класификацијата што неодамна го побаравте на оваа страница <strong>не успеа</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "Одвојувањето на класификацијата што неодамна го побаравте за „%{taxon}“ <strong>не успеа</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од непозната страница како непроверено.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Непознат корисник означи непознато тривијално име на непознат јазик како непроверено.
@@ -733,7 +782,9 @@ mk:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како недоверлив на страницата „%{association}“.
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како недоверливо во непознат контекст.
         user_untrusted_it_on_association: <strong>%{user}</strong> го означи како недоверливо на страницата „%{association}“.
+  activity_user_created_link: <strong>%{user}</strong> додаде врска во „%{object_name}“ на „%{taxon_concept}“.
   activity_user_created_text: <strong>%{user}</strong> додаде текст во „%{object_name}“ на „%{taxon_concept}“.
+  activity_user_updated_link: <strong>%{user}</strong> го измени текстот на врската „%{object_name}“ на „%{taxon_concept}“.
   activity_user_updated_text: <strong>%{user}</strong> го измени текстот на „%{object_name}“ на „%{taxon_concept}“.
   add: Додај
   add_a_collection_to_a_community: Додај ја збирката „%{collection}“ во заедница
@@ -741,14 +792,14 @@ mk:
   add_a_comment_colon: "Додај коментар:"
   add_a_new_common_name: Додај ново тривијално име
   add_a_new_file_brackets: "[додај нова податотека]"
-  add_a_new_news_item: Додај нова вест
   add_a_new_role: Додај нова улога
   add_a_new_search_suggestion: Додај нов предлог при пребарување
   add_a_new_term: Додај нов поим
   add_a_new_topic_area: Додај нова тематска област
   add_a_new_user: Додај нов корисник
   add_a_taxon_association_label: Додај поврзаност на таксон
-  add_article_to_page_link_button: Стави статија на страницата
+  add_article_instead: наместо тоа, додајте статија
+  add_article_to_page_button: Додај статија
   add_association_submit_button: додај поврзаност
   add_brief_summary_to_page_link_button: Додај краток опис на страницата
   add_citizen_science_resources_to_page_link_button: Додај врска за граѓанска наука
@@ -759,6 +810,8 @@ mk:
   add_identification_resources_to_page_link_button: Додај ресурси за препознавање во страницава
   add_item_to_new_collection: Додај го „%{item}“ во новата збирка
   add_language: Додај јазик
+  add_link_instead: наместо тоа, додајте врска
+  add_link_to_page_button: Додај врска
   add_new_association_link: Додај нова поврзаност
   add_new_tag_suggestion: Додај предлог за Нова ознака
   add_page: Додај страница
@@ -809,11 +862,28 @@ mk:
   admin_information: Ова е новата административна конзола за EOL V2. Моментално трае постапката на пренесување на администраторските функции од V1. Ако не е наведен административниот дел што го барате, посетете ја<a href="/administrator">Административната конзола од V1</a>.
   admin_link: Административна конзола
   admin_login_confirmation: Дали сте сигурни дека сакате да се најавите на регистарот на соучесникот како %{name}? Ако го сторите ова, тогаш ќе бидете одјавени како администратор од мрежното место.
+  admin_news_item_active: Објавено
+  admin_news_item_create_successful_notice: Новоста <a href="#%{anchor}"><em>%{page_name}</em></a> е успешно создадена.
+  admin_news_item_create_unsuccessful_error: Нажалост, се појави грешка. Новоста не е создадена.
+  admin_news_item_delete_confirmation: Дали сте сигурни дека сакате да ја избришете новоста „%{page_name}“ и сите преводи. Избришаното не може да се врати.
+  admin_news_item_delete_successful_notice: Новоста %{page_name} и поврзаните преводи се избришани.
+  admin_news_item_edit_header: Поднови основни информации за новоста <em>%{page_name}</em>
+  admin_news_item_edit_tip: Се препорачува да не го менувате единственото име на оваа страница ако не сте наполно свесни за последиците, вклучувајќи ги последиците по врските на страницата и именуваните правци. Единственото име е %{required_icon} задолжително.
+  admin_news_item_new_header: Создај нова новост
+  admin_news_item_new_link: Создај новост
+  admin_news_item_new_tip: Внесете основни информации за страницата. Единственото име е %{required_icon} задолжително.
+  admin_news_item_not_active: Необјавено
+  admin_news_item_update_successful_notice: Новоста <a href="#%{anchor}"><em>%{page_name}</em></a> е успешно подновена.
+  admin_news_item_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја подновам новоста.
+  admin_news_items_empty: Не пронајдов ниедна новост.
+  admin_news_items_index_information: Следниов список ги содржи сите новости што се моментално на располагање на мрежното место на EOL (на истиот ќе се прикажуваат и сите идни новости). Секоја страница има еден или повеќе преводи. Кога создавате нова страница, ќе ви биде побарано да додадете превод. Објавените преводи се јавно достапни.
+  admin_news_items_page_title: "Администрација: Новости"
+  admin_news_link: Новости
   admin_notes_not_visible_to_user: "Администраторски белешки (невидливи за корисникот):"
   admin_page_title: Административна конзола
   admin_spam_delete: Избриши спам
   admin_statistics_link: Статистики
-  admin_translated_content_page_create_successful_notice: Преводот е додаден на страницата <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_content_page_create_successful_notice: Додаден е превод на страницата <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да го додадам преводот.
   admin_translated_content_page_delete_confirmation: Дали сте сигурни дека сакате да ја избришете верзијата на %{language} на страницата „%{page_name}“. Избришаното не може да се врати.
   admin_translated_content_page_delete_successful_notice: Преводот на %{language} на страницата <em>%{page_name}</em> е избришан.
@@ -825,6 +895,20 @@ mk:
   admin_translated_content_page_new_tip: Јазикот, насловот и текстот се %{required_icon} задолжителни.
   admin_translated_content_page_update_successful_notice: Преводот на %{language} на страницата <a href="#%{anchor}"><em>%{page_name}</em></a> е подновен.
   admin_translated_content_page_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да го подновам преводот.
+  admin_translated_news_item_active: Објавено
+  admin_translated_news_item_create_successful_notice: Додаден е превод на новоста <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да го додадам преводот.
+  admin_translated_news_item_delete_confirmation: Дали сте сигурни дека сакате да ја избришете верзијата на %{language} на новоста „%{page_name}“. Избришаното не може да се врати.
+  admin_translated_news_item_delete_successful_notice: Преводот на %{language} на новоста <em>%{page_name}</em> е избришан.
+  admin_translated_news_item_edit_subheader: Уредување на преводот на %{language} на новоста <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: Насловот и текстот се %{required_icon} задолжителни.
+  admin_translated_news_item_new_header: Изберете јазик и додајте содржини
+  admin_translated_news_item_new_link: Додај превод
+  admin_translated_news_item_new_subheader: Додај превод на <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: Јазикот, насловот и текстот се %{required_icon} задолжителни.
+  admin_translated_news_item_not_active: Необјавено
+  admin_translated_news_item_update_successful_notice: Преводот на %{language} на новоста <a href="#%{anchor}"><em>%{page_name}</em></a> е подновен.
+  admin_translated_news_item_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да го подновам преводот.
   admin_user_delete_successful_notice: Корисникот е избришан
   admin_user_hide_successful_notice: Корисникот е скриен
   admin_user_unhide_successful_notice: Корисникот е откриен
@@ -906,7 +990,7 @@ mk:
   are_you_sure_this_action_cannot_be_undone: Дали сте сигурни? Ова дејство е неповратно.
   article_from: статија од
   article_from_supplier: Статија од %{whom}
-  article_more_about: Повеќе за статијава
+  article_more_about: Дознајте повеќе за статијава
   article_not_associated_with_any_published_entries: Оваа статија не е поврзана со ниеден објавен таксон.
   article_of_taxon: Статија за %{taxon_name}
   article_rating: Оценка на статијата
@@ -926,7 +1010,7 @@ mk:
   assistive_literature_header: Литература
   assistive_maps_header: Карти
   assistive_media_header: Медиуми
-  assistive_names_classifictions_header: Класификации
+  assistive_names_classifications_header: Класификации
   assistive_names_common_header: Тривијални имиња
   assistive_names_related_header: Поврзани имиња
   assistive_names_synonyms_header: Синоними
@@ -939,9 +1023,22 @@ mk:
   associated_with_header: Поврзано со
   associated_with_image_header: На најновата слика
   associated_with_image_map_header: На најновата карта
+  associated_with_link_header: На најновата врска
   associated_with_map_header: На најновата карта
   associated_with_sound_header: На најновата аудиоснимка
   associated_with_video_header: На најновата видеоснимка
+  association_hidden_for_taxa: 
+    one: "Скриен за:"
+    other: "Скриени за:"
+  association_trusted_for_taxa: 
+    one: "Доверлива за:"
+    other: "Доверливи за:"
+  association_unreviewed_for_taxa: 
+    one: "Непроверена за:"
+    other: "Непроверени за:"
+  association_untrusted_for_taxa: 
+    one: "Недоверлива за:"
+    other: "Недоверливи за:"
   associations_more_link: уште <span class="assistive">таксонски поврзаности</span>
   attribute: Заслуга
   audio_current_time_assistive: Ако имате овозможено Javascript, ова ќе ви ја покажува тековната положба на снимката во минути и секунди.
@@ -996,13 +1093,17 @@ mk:
   change_rating_to_3_of_5: Смени ја оценката на 3 од 5
   change_rating_to_4_of_5: Смени ја оценката на 4 од 5
   change_rating_to_5_of_5: Смени ја оценката на 5 од 5
-  check_this_to_browse_eol_by_the_hierarchy: ако кутивчево е штиклирано, корисниците ќе имаат можност да ја прелистуваат EOL и со хиерархија
+  check_this_to_browse_eol_by_the_hierarchy: (Ако кутивчево е штиклирано, класификацијата ќе се прикажува во јазичето за имиња без да треба да се избере „Прикажи ги сите класификации“.)
   choose_collection_header: Одберете збирка
   citation: Наведување
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, достапно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Проверено на 15 јануари 2009.
   citing_link: Наведување
   classification_already_preferred: "ГРЕШКА: Оваа класификација е веќе означена како претпочитана."
   classification_button_help: Подолу изберете класификација што најдобро ја претставува постоечката страница, па стиснете на соодветното копче „користи како пример“. Ако сакате целосно да ја откажете постапката, стиснете на „откажи“.
+  classification_curation_pending: Згрижувањето е во исчекување. Класификацијата во блиска иднина може да се премести на друга страница.
+  classification_curation_split_comment_with_count: 
+    one: "%{count} класификација од оваа страница е <a href='%{url}'>одвоена во своја страница</a>."
+    other: "%{count} класификации од оваа страница се  <a href='%{url}'>одвоени во своја страница</a>."
   classification_from_agent: Класификација од %{agent}.
   classification_from_agent_chosen_by_curator: Класификација од %{agent} по избор на %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Класификацијата од %{agent} ја избра %{curator} - <a href="%{more_link}">повеќе</a>.
@@ -1103,13 +1204,10 @@ mk:
         meta_title: Новости за %{collection_name}
         tweet_text: Новости за %{collection_name}
     show: 
-      meta_description: "%{collection_description}"
       meta_description_default: Збирка на Енциклопедијата на живиот свет насловена како %{collection_name}.
       meta_description_default_focus_collection: Тематска збирка на Енциклопедијата на живиот свет насловена како %{collection_name}.
       meta_description_default_watch_collection: "Список на набљудувања на Енциклопедијата на живиот свет: %{collection_name}."
       meta_keywords: "%{collection_name}, Збирка од Енциклопедијата на живиот свет"
-      meta_title: "%{collection_name}"
-      tweet_text: "%{collection_name}"
   collections_filter: Збирки
   collections_link: Збирки
   collections_page_title: Збирки
@@ -1133,6 +1231,7 @@ mk:
   comment_not_deleted_error: Нажалост, се појави грешка. Не можев да го избришам коментарот.
   comment_not_updated_error: Нажалост, се појави грешка. Не можев да го подновам коментарот.
   comment_or_rate_on_this_article: Коментирајте на статијава или оценете ја
+  comment_or_rate_on_this_link: коментирајте на врскава или оценете ја
   comment_show_posters_image_alt: Профилната слика на %{posters_name}, што го напиша коментаров.
   comments: Коментари
   comments_and_tags: Коментари и ознаки
@@ -1159,10 +1258,7 @@ mk:
         tweet_text: Збирки на %{community_name}
     newsfeeds: 
       show: 
-        meta_description: "%{community_description}"
         meta_keywords: "%{community_name}, Заедница на Енциклопедијата на живиот свет, новости на %{community_name}, коментари на %{community_name}, активности на %{community_name}"
-        meta_title: "%{community_name}"
-        tweet_text: "%{community_name}"
     show: 
       meta_description: Заедницата %{community_name} е отстранета од нејзиниот сопственик
       meta_title: "%{community_name} е отстранета од сопственикот"
@@ -1231,10 +1327,13 @@ mk:
   containing_value: содржи %{value}.
   content: 
     index: 
+      header_news: Новости за EOL
       meta_description: Енциклопедијата на живиот свет е ненадминат потфат кој има за цел да собере научни сознанија за сите животни и растенија во природата. Тука ќе најдете слики, информации, факти и многу друго за сите видови во растителното и животинското царство.
       meta_keywords: Животни, Слики од животни, Информации за животни, Растенија, Растителен свет, Слики од растенија, Информации за растенија, Флора, Фауна
       meta_title: Животни - Растенија - Слики и информации
+      see_all_eol_news: повеќе <span class="assistive">новости за EOL</span>
       see_all_recent_activites: погледајте повеќе <span class="assistive">активности од минатата недела</span>
+      see_all_statistics: повеќе <span class="assistive">статистики за EOL</span>
   content_has_been_updated: Содржината е подновена.
   content_notes_not_shown_to_us: "Белешки за содржината (не видливо за корисникот):"
   content_partner: Соучесник во содржините
@@ -1387,6 +1486,7 @@ mk:
   content_partner_statistics_summary_caption: Краток преглед на статистиките за користење на таксонските страници со содржини доставени од %{partner_name} во однос на вкупната употреба на мрежното место на EOL.
   content_partner_statistics_taxa_page_caption: Подробни статистики за употребата на таксонските страници со содржини доставени од %{partner_name}.
   content_partner_statistics_year_label: Година
+  content_partner_stats_message: Поради промени во службата со која ги пресметуваме статистиките за употреба, податоците за овој месец се моментално недостапни. Нашата екипа работи на решение. Штом ќе го решиме проблемот, нашите соработници ќе бидат известени по е-пошта.
   content_partner_status_empty: Непознат статус
   content_partner_update_successful_notice: Подробностите за соучесникот се успешно подновени.
   content_partner_update_unsuccessful_error: Нажалост, се појави грешка. Подробностите за соучесникот не се подновени.
@@ -1402,8 +1502,6 @@ mk:
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "%{partner_name}, Соучесник во содржините на Енциклопедијата на живиот свет"
-      meta_title: "%{partner_name}"
-      tweet_text: "%{partner_name}"
     statistics: 
       show: 
         meta_description: Статистики за употреба на податоците на %{partner_name}.
@@ -1476,6 +1574,7 @@ mk:
   created_community: Заедницата е успешно создадена.
   creative_commons: Криејтив комонс
   credentials: Полномоштва
+  credentials_colon: "Полномоштва:"
   curated: Згрижени
   curated_association_update_button: Зачувај промени
   curated_objects_of: згрижени објекти на %{name}
@@ -1612,14 +1711,21 @@ mk:
   dato_create_user_text_missing_user_exception: Не можам да срочам DataObject или UsersDataObject за текст ако нема назнака за таксонот.
   dato_create_user_text_validation_error: Внимавајте образецот да биде правилно пополнет.
   dato_edit_cancel: Откажи
-  dato_edit_text_link_button: Уреди ја статијава
-  dato_edit_text_page_description: Ви благодариме што придонесувате на EOL со вашата стручност. Проверената статија ќе биде ставена на вашиот Список на набљудувања за да можете да ги следите разговорите на таа тема (ако се јават), а и да го проверувате статусот на статијата.
+  dato_edit_link_button: Уред. врскава
+  dato_edit_link_description: Ви благодариме што придонесувате на EOL со вашата стручност. Проверената врска ќе биде ставена на вашиот Список на набљудувања за да можете да ги следите разговорите на таа тема (ако се јават), а и да го проверувате нејзиниот статус.
+  dato_edit_link_title: Уреди врска
+  dato_edit_text_button: Уреди ја статијава
+  dato_edit_text_page_description: Ви благодариме што придонесувате на EOL со вашата стручност. Проверената статија ќе биде ставена на вашиот список на набљудувања за да можете да ги следите разговорите на таа тема (ако се јават), а и да го проверувате нејзиниот статус.
   dato_edit_text_title: Уреди статија
+  dato_location_created: "Создадена местоположба: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Содржина на статијата
   dato_new_edit_user_text_fieldset_information_header: Информации за статијата
   dato_new_edit_user_text_form_tip: Вашата готова стати ќе биде објавена на страницата на таксонот. Доколку не сте кустос, таа ќе стои означена како „непроверена“ додека не ја провери кустос. Подглавата, текстот, јазикот и лиценцата се задолжителни (%{required_icon}), а сите други полиња се по избор. Ако ја изберете лиценцата CC-BY (НаведиИзвор), тогаш наведете го имателот на правата или оставете го полето празно за да стои вашето полно име. Лиценците за јавна сопственост не бараат наведување на имател. <a href="%{add_article_help_url}">Повеќе помош со додавање на статии</a>.
-  dato_new_text_for_taxon_page_title: Додај статија во таксонот <i>%{taxon}</i>
-  dato_new_text_page_description: Ви благодариме што придонесувате на EOL. Статија ќе биде ставена на вашиот Список на набљудувања за да можете да ги следите разговорите за неа (ако ги има), а и да го проверувате нејзиниот статус.
+  dato_new_edit_user_text_link_fieldset_content_header: Податоци од врската
+  dato_new_edit_user_text_link_form_tip: Врската ќе биде поставена на страницата на таксонот. Доколку не сте кустос, истата ќе биде означена како „непроверена“ додека не ја провери кустос. Полињата за категорија, опис и URL се задолжителни (%{required_icon}), а сите други се по избор. Повеќе помош ќе добиете на <a href="%{add_article_help_url}">Помош со додавање статии/врски</a>.
+  dato_new_text_for_taxon_page_title: Додај статија во <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Додај врска во <i>%{taxon}</i>
+  dato_new_text_page_description: Ви благодариме што придонесувате на EOL. Статија ќе биде ставена на вашиот дписок на набљудувања за да можете да ги следите разговорите за неа (ако ги има), а и да го проверувате нејзиниот статус.
   dato_update_user_text_error: Нажалост, се појави грешка. Не можев да ја подновам статијата.
   dato_update_users_text_not_owner_exception: Само изворниот автор на овој текстуален експонат може да го уредува.
   default: По основно
@@ -1664,8 +1770,8 @@ mk:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не прикажувај непознати регистрирани корисници (корисници на првата верзија, пред 5 јануари 2009)
   download_wav_file: Преземи WAV податотека
   dublin_core: Dublin Core
+  duplicate_comment_warning: "Коментарот не е зачуван: веќе го имате објавено. ...Можеби двапати стиснавте на копчето „Објави коментар“?"
   duplicate_items_were_ignored: Дуплираните експонати беа занемарени.
-  e_g_search_for_the_eol_page: "(на пр. пребарајте ја страницата на EOL со назнака (ID) за ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Страницата за документација на секој метод содржи по два примера за одговори во форматот XML и форматот JSON.
   edit: Уреди
   edit_collection_details: Уреди подробности за збирката
@@ -1678,9 +1784,7 @@ mk:
   edit_eol_glossary: уреди го поимникот на EOL
   edit_glossary_term: Уреди поим од поимникот
   edit_hierarchy: уреди хиерархија
-  edit_my_profile: Уредување на мојот профил
-  edit_news_item: Уреди новост
-  edit_news_item_instructions_with_link: Уредете ги вестите подолу. Во двете полиња е допуштена употреба на HTML, а се бара *или* насловот *или* содржината. За најдобри резултати, послужете се се насловот и внесете кратка вест. Кога правите хиепрврски до други мрежни места, можете да го употребите %{link} за да создадете пократка URL-адреса, со што би заштедиле на знаци.
+  edit_my_profile: Уреди профил
   edit_news_items: уреди новости
   edit_page_contents: уреди содржина на страниц.
   edit_search_suggestion: Уреди предлог при пребарување
@@ -1697,7 +1801,6 @@ mk:
   editors_tab_label: Раководители
   email: Е-пошта
   email_colon: "Е-пошта:"
-  email_error_notification_activ: Известувањето за гршки при испраќање на е-пошта е активно
   email_recipients: Примачи на е-пошта
   email_updates_for_eol_addicts: Актуелности за зависници од EOL.
   email_updates_for_eol_members: Новости што ќе сакаат да ги добиваат највеќето членови на EOL.
@@ -1770,16 +1873,18 @@ mk:
   error_404_page_title: Не е најдено
   error_500_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму продолжи, обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Внатрешна грешка во опслужувачот
+  error_classifications_locked_cannot_reindex: Нажалост, страницава засега не може да се преиндексира. Класификациите се заклучени.
   error_couldnt_find_collection_by_id: Не можев да пронајдам збирка што можете да ја раководите со назнаката %{id}.
   error_couldnt_find_community_by_id: Не можев да пронајдам заедница што можете да ја раководите со назнаката %{id}.
   error_default_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму продолжи, обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Упс.
+  error_exemplar_chosen_with_invalid_action: "Нажалост, класификацијата што ја избравте е непроменета: се изгуби дел од барањето. Ќе треба да пробате пак."
   error_homepage_or_search_option: "Можете да се вратите на <a href=\"/\">почетната страница</a> или да се послужите со нашата алатка за пребарување:"
   error_log: Дневник на грешки
   error_log_detail: Подробност од днев. на грешки
   error_logging_active: Заведувањето на грешки е активно
+  error_updating_user: Се појави грешка при подновата на евиденцијата за овој корисник
   error_watch_collections_cannot_be_shared: Збирките за набљудување не можат да се споделуваат.
-  esc_key_hides_this_message: (поракава се скрива на копчето Esc)
   every_method_can_also_return_json_response: Секој метод може да даде и JSON-одговор ако се додаде наставката .json
   example_colon: "Пример:"
   exception: Исклучок
@@ -1834,6 +1939,7 @@ mk:
   filter_by_type_image_option_with_count: 
     one: Слики (%{count})
     other: Слики (%{count})
+  filter_by_type_link_option: Врски
   filter_by_type_name_option: Имиња
   filter_by_type_object_curated_option: Згрижени објекти
   filter_by_type_photosynth_option: Photosynth-прикази
@@ -1893,6 +1999,7 @@ mk:
   gbif_occurrence_learn_more_link: Пристап до овие податоци преку Порталот на GBIF.
   general_site_admin: општ раководител на мреж. место
   get_help_choosing_a_subchapter: Помош со одбирањето на подглава
+  get_help_choosing_a_subject: Помош со одбирањето на наслов
   get_more_tasks: уште задачи
   given_name_colon: "Име:"
   given_the_vast_number: Земајќи го предвид огромниот број на научни и тривијални имиња (речиси 20 милиони), не е лесно секому да му се обезбеди точниот вид што го бара. Пример за тоа е англискиот поим Robin. Постојат неколку птици со такво име (American Robin, Alpine Robin, Smoky Robin) неколку вида риби Robin, како и таксоном со презиме Robin кој има именувано дузини видови. Во пребарувањето имаме и параметар „точно“ за добивање на резултати што целосно се совпаѓаат со бараното, но сепак не можеме да гарантираме дека добиениот таксон е токму оној што го барате. Постојано правиме напори да ја подобриме релевантноста на резултатите од пребарувањата, па затоа очекувајте подобрувања во подредувањето на резултатите во блиска иднина.
@@ -1980,6 +2087,11 @@ mk:
         rights_statement_more: Изјава за правата на употреба, која се бара за лиценците Криејтив комонс НаведиИзвор (CC-BY). Наведувањето треба да го извршите <q cite="http://creativecommons.org/licenses/by/3.0/deed.mk">на начинот укажан од авторот или лицензорот</q>.
         source_url: URL до изворниот податочен објект
         toc_item: Подглава
+      data_object_link: 
+        description: Опис <small>(допуштено извесно HTML-форматирање)</small>
+        link_type: Категорија
+        source_url: URL на врската
+        toc_item: Наслов
       eol_statistic: 
         date_one: Датум
         date_two: Датум
@@ -2004,6 +2116,11 @@ mk:
         complete_more: "Згрижената хиерархија работи под претпоставка дека секој запис е засебен, т.е. исти низи во имињата се сметаат за синонимни. <strong>ПРЕДУПРЕДУВАЊЕ: Не менувајте го овој атрибут доколку не сте сигурни за статусот на хомонимите во хиерархијата. Во спротивно можете да ја расипете целовидноста на податоците.</strong>"
         request_publish: Објавувањето е побарано
         request_publish_more: Укажува дали во исчекување има барање хиерархијата да се унапреди во една од главните прелистливи хиерархии на EOL.
+      news_item: 
+        active: Објавено
+        active_more: Објавените новости ќе бидат јавно видливи на одбраниот датум и време. Отштиклирајте го <em>објавено</em> ако сакате оваа верзија на страницата да не биде видлива за општото корисништво.
+        page_name: Единствено име <small>(мали азбучно-бројчени знаци и долна црта, согласно ISO-стандардот)</small>
+        page_name_more: Внесете единствено, самоописно и значенско име што ќе ја означува страницава. Тука внесеното име ќе се употреби за создавање на URL-адреса за страницава. на пр. единственото име <em>new_version_of_eol</em> се претвора во URL-адресата <em>new_version_of_eol</em>.
       open_authentication: 
         connect: Додај
         connected: Поврзано
@@ -2032,13 +2149,21 @@ mk:
         username_or_email: Корисничко име или е-пошта
       translated_content_page: 
         active_translation: Објавено
-        active_translation_more: Објавените преводи ќе бидат кавно видливи, осван ако самата страница е необјавена. Отштиклирајте го <em>објавено</em> ако сакате оваа верзија на страницата да не биде видлива за општото корисништво.
+        active_translation_more: Објавените преводи ќе бидат јавно видливи, осван ако самата страница е необјавена. Отштиклирајте го <em>објавено</em> ако сакате оваа верзија на страницата да не биде видлива за општото корисништво.
         language_id: Јазик
         left_content_more: "По желба можете да додадете и неподреден список на навигациони врски. Послужете се со ова име на класа <code>active</code> за да се истакне (потцрта) врската на тековната страница, i.e. <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> каде <code>:id</code> ќе биде назнаката (ID) на тековната страница или единствено име, а <code>:title</code> е описниот наслов на страницата (<strong>Напомена: сите врски до CMS-страници на EOL треба да почнуваат содесна коса црта slash: <code>/info/:id</code></strong>). За да ги направите овие промени, ќе треба непосредно да го уредите изворниот HTML-код. Ова ќе го добиете избирајќи <em>Извор</em> во алатникот за уредување."
         main_content_more: "Внесете ја главната содржина на страницата во делот за текст. Послужете се со паѓачкото мени <em>Формат</em> за да изберете соодветни семантички текстуални елементи, како на пр. <em>Поднаслов 2</em> за поднаслов од втор степен. Напомена: <em>Поднаслов 1</em> е резервиран за насловот на страницата, па затоа во содржината поднасловите треба да почнуваат од <em>Поднаслов 2</em>. Изберете <em>Извор</em> за да се префрлите на преглед на изворниот HTML-код, каде ќе можете рачно да додавате и менувате HTML-код."
         meta_description_more: Внесете краток опис во кој давате преглед на клучните поими и идеи во содржината. Овој опис им служи на пребарувачите за да ја утврдат релевантноста на страницата во однос на бараното.
         meta_keywords_more: Внесете список на зборови и кратки изрази (одделени со запирка) што најдобро ја опишуваат содржината на страницата. Овие клучни зборови и изрази им служат на пребарувачите за да ја утврдат релевантноста на страницата во однос на бараното.
         title_more: Насловот на оваа содржина ќе биде истакнат во заглавието на страницата. Насловот треба да има клучни зборови најпогодни за содржината.
+      translated_news_item: 
+        active_translation: Објавено
+        active_translation_more: Објавените преводи ќе бидат јавно видливи, осван ако самата новост е необјавена. Отштиклирајте го <em>објавено</em> ако сакате оваа верзија на новоста да не биде видлива за општото корисништво.
+        body_more: "Внесете ја содржина на новоста во делот за текст. Послужете се со паѓачкото мени <em>Формат</em> за да изберете соодветни семантички текстуални елементи, како на пр. <em>Поднаслов 2</em> за поднаслов од втор степен. Напомена: <em>Поднаслов 1</em> е резервиран за насловот на страницата, па затоа во содржината поднасловите треба да почнуваат од <em>Поднаслов 2</em>. Изберете <em>Извор</em> за да се префрлите на преглед на изворниот HTML-код, каде ќе можете рачно да додавате и менувате HTML-код."
+        language_id: Јазик
+        meta_description_more: Внесете краток опис во кој давате преглед на клучните поими и идеи во содржината. Овој опис им служи на пребарувачите за да ја утврдат релевантноста на страницата во однос на бараното.
+        meta_keywords_more: Внесете список на зборови и кратки изрази (одделени со запирка) што најдобро ја опишуваат содржината на страницата. Овие клучни зборови и изрази им служат на пребарувачите за да ја утврдат релевантноста на страницата во однос на бараното.
+        title_more: Насловот на оваа новост ќе биде истакнат во заглавието на страницата. Насловот треба да има клучни зборови најпогодни за содржината.
       user: 
         agreed_with_terms: Се согласувам на <a href="%{terms_url}">условите на употреба</a>
         api_key_more: Прочитајте повеќе за <a href="%{api_docs_url}">додавањето на клуч во вашите API-повици</a>.
@@ -2065,6 +2190,7 @@ mk:
         logo: Подигни нова слика
         new_password: Нова лозинка <small>(4 - 16 знаци)</small>
         new_password_confirmation: Нова лозинка <small>(за потврда)</small>
+        news_in_preferred_language: прикажи новости на претпочитаниот јазик
         notification_settings: Нагодувања за известувањата
         notification_settings_more: Наместете ги поставките за известувањата.
         open_authentications: Поврзани сметки
@@ -2108,6 +2234,9 @@ mk:
         create: Додај статија
         create_text: Додај статија
         update: Зачувај статија
+      data_object_link: 
+        create: Додај врска
+        update: Зачувај врска
       eol_statistic: 
         change_date: Приказ на статистики по датуми
         download_csv: Преземи како CSV
@@ -2120,6 +2249,11 @@ mk:
       name: 
         create: Додај име
         update: Поднови име
+      news_item: 
+        create: Создај новост
+        edit: Уреди
+        preview: Преглед
+        update: Поднови новост
       open_authentication: 
         create: Поврзи
         destroy: Прекрати
@@ -2137,6 +2271,9 @@ mk:
         sign_in_with_yahoo: Најава со Yahoo
       submit: Зачувај %{model}
       translated_content_page: 
+        create: Додај превод
+        update: Зачувај промени
+      translated_news_item: 
         create: Додај превод
         update: Зачувај промени
       update: Поднови %{model}
@@ -2157,7 +2294,6 @@ mk:
   here: тука
   hidden: Скриен
   hidden_comment: скриен коментар
-  hidden_for_colon: "Скриено за:"
   hide: скриј
   hierarchies_description: Енциклопедијата на живиот свет нема единствена таксономска хиерархија според која ги создава страниците, туку индексира повеќе разни хиерархии и ги споредува. Овој API ги наведува метаподатоците за хиерархијата како име на добавувачот и изворната URL-адреса, и ги наведува сите таксони што се основа на таксономското дрво
   hierarchies_entries_description: Енциклопедијата на живиот свет нема една таксономска хиерархија по која се води во создавањето на страниците, туку индексира повеќе разни хиерархии и меѓусебно ги споредува. Како резултат на ова, една страница на EOL може да се однесува на неколку јазли од разни хиерархии. Овој API-прилог овозможува пристап до една единствена хиерархија и нејзините внатрешни поврзаности. Погледајте ја документацијата на API на страниците, каде ќе најдете информации како да дојдете до други хиерархии што соодветствуваат на дадена страница на EOL. Полето taxonConceptID ја содржи назнаката на страницата на EOL што може да се употреби во API на страниците.
@@ -2190,7 +2326,7 @@ mk:
   image_not_associated_with_any_published_entries: Оваа слика не е поврзана со ниеден објавен таксон.
   image_not_found: Сликата не е пронајдена
   image_object: Сликовен објект
-  image_objects_will_contain_two_mediaurl_elements: Објектите кои се слики ќе содржат два елемента mediaURL - првиот е URL-адреса на сликата на мрежното место на добавувачот, а вториот е URL-адреса на кешираната верзија вдомена на опслужувачот на EOL. Верзијата на EOL ќе биде со изменета големина (запазувајќи ја сразмерноста) ако изворната слика е поголема од 460 пиксели во ширина и 345 пиксели во висина.
+  image_objects_will_contain_two_mediaurl_elements: Објектите што се слики ќе содржат два елемента „mediaURL“ - првиот е URL-адреса на сликата на мрежното место на добавувачот, а вториот е URL-адреса на кешираната верзија вдомена на опслужувачот на EOL. Верзијата на EOL ќе биде со изменета големина (запазувајќи ја сразмерноста) ако изворната слика е поголема од 460 пиксели во ширина и 345 пиксели во висина.
   image_of_taxon: Слика од %{taxon_name}
   image_rating: Оценка на сликата
   images: Слики
@@ -2204,6 +2340,7 @@ mk:
     other: "%{count} слики"
   import_once: Увези еднаш
   in_collection: во збирката
+  in_community: во заедницата
   in_providing_its_content_to_eo: Доставувајќи ја оваа содржина на EOL,
   in_this_data_type: "во оваа %{data_type}:"
   inappropriate: Несоодветни
@@ -2240,6 +2377,8 @@ mk:
   item_type_image_assistive: Овој експонат е слика
   item_type_image_map: Карта
   item_type_image_map_assistive: Овој експонат е слика на карта
+  item_type_link: Врска
+  item_type_link_assistive: Овој експонат е врска
   item_type_map: Карта
   item_type_map_assistive: Овој експонат е слика
   item_type_person: Лице
@@ -2267,6 +2406,7 @@ mk:
   jsonp_by_adding_a_callback_parameter: ... и JSONP додавајќи параметар за повикување
   just_pages_with_pictures_and_text: Само страниците со слики и текст
   keep_split_entry_from_this_entry: Одвој ја од овој запис
+  key: Клуч
   label: Натпис
   language: "Јазик:"
   language_selector_advisory_information: Ова е список на расположивите јазици на мрежното место. Одберете јазик ако сакате да го смените тековниот.
@@ -2274,6 +2414,55 @@ mk:
   languages: Јазици
   last_updated: Последна актуелност
   last_updated_time_ago: Последната измена е направена пред %{time_passed}
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Наведување на EOL
+        about_link_contact_us: Контактирајте нè
+        about_link_discover: Откријте
+        about_link_donate: Дајте доброволен прилог за EOL
+        about_link_eol_blog: Блогот на EOL
+        about_link_glossary: Поимник
+        about_link_help: Помош
+        about_link_podcasts: Подкастови
+        about_link_statistics: Статистики
+        about_link_terms_of_use: Услови на употреба
+        about_link_what_is_eol: Што е EOL?
+        header_about: За EOL
+        header_learn_more: Дознајте повеќе
+        header_questions: Сакам да знам повеќе
+        learn_more_link_amphibians: Водоземци
+        learn_more_link_animals: Животни
+        learn_more_link_archaea: Археи
+        learn_more_link_bacteria: Бактерии
+        learn_more_link_birds: Птици
+        learn_more_link_crustaceans: Ракови
+        learn_more_link_fish: Риби
+        learn_more_link_flowering_plants: Цветни растенија
+        learn_more_link_fungi: Габи
+        learn_more_link_insects: Инсекти
+        learn_more_link_invertebrates: Без’рбетници
+        learn_more_link_mammals: Цицачи
+        learn_more_link_molds: Мувли
+        learn_more_link_mollusks: Мекотелци
+        learn_more_link_mushrooms: Печурки
+        learn_more_link_plants: Растенија
+        learn_more_link_protists: Протисти
+        learn_more_link_reptiles: Влекачи
+        learn_more_link_spiders: Пајаци
+        learn_more_link_trees: Дрва
+        learn_more_link_viruses: Вируси
+        learn_more_link_worms: Црви
+        questions_link_binomial_nomenclature: Што е тоа биномна номенклатура?
+        questions_link_biodiversity: Што е тоа биоразновидност?
+        questions_link_biological_classification: Што е тоа биолошка класификација?
+        questions_link_contributing_to_research: Како можам да имам удел во истражувањата?
+        questions_link_discovering_species: Како се откриваат видовите?
+        questions_link_indicator_species: Што е тоа показателски вид?
+        questions_link_invasive_species: Што е тоа инвазивен вид?
+        questions_link_model_organism: Што е тоа моделен организам?
+        questions_link_naming_species: Како се именуваат видовите?
+        questions_link_species: Што е тоа вид?
   learn_about_collections: Како да направам збирка?
   learn_about_communities: Како можам да учествувам?
   learn_about_content_partners: Како да станам соучесник?
@@ -2319,7 +2508,13 @@ mk:
   limits_the_number_of_returned_sound_objects: го ограничува бројот на добиени аудиоснимки од пребарувањето
   limits_the_number_of_returned_text_objects: го ограничува бројот на добиени текстови од пребарувањето
   limits_the_number_of_returned_video_objects: го ограничува бројот на добиени видеоснимки од пребарувањето
+  link_more_about: Дознајте повеќе за врскава
   link_name: Име на врската
+  link_not_associated_with_any_published_entries: Оваа врска не е поврзана со ниеден објавен таксон.
+  link_rating: Оценка за врската
+  links_with_count: 
+    one: "%{count} врска"
+    other: "%{count} врски"
   list_newsletter_emails: наведи адреси за билтенот
   list_of_activity_combinations: Список на комбинации од активности во времетраење од 5 минути
   listing_collections: Збирки на списокот
@@ -2329,10 +2524,11 @@ mk:
   literature_bhl_link: Погл. Откриената библиографија во BHL
   literature_empty: Не пронајдов наводи.
   literature_header: Наводи
+  literature_links: Врски - Литература
+  literature_links_link: Врски - Литература
   literature_references: Наводи од литература
   location: Место
   location_colon: "Место:"
-  location_created_colon: "Создадено место:"
   logging_database_colon: "Дневничка:"
   login: најава
   login_header: Најавете се со вашата сметка на <abbr title="Енциклопедија на живиот свет">EOL</abbr>
@@ -2342,6 +2538,7 @@ mk:
   login_to_the_website_as: Најавете се како %{username}
   logo_header: Лого
   logout: Одјава
+  looking_up_url: Ја барам страницата...
   main_content_area: "Главен дел за содржина:"
   main_database_colon: "Главна:"
   main_master_database_colon: "Главна матична:"
@@ -2407,13 +2604,13 @@ mk:
   merge_data_ready: Подготвени сте да ги споите податоците од следниве класификации во оваа таксонска страница, или да ги освоите во посебни страници. Проверете внимателно и <i>апсолутно</i> осигурајте се дека сте ги избрале сите класификации што го претставуваат вашиот целен таксон. На пример, ако отстранувате молец од страница за печурки, прегледајте  ги <i>сите</i> горенаведени класификации за да бидете сигурни дека сте ги избрале сите молци.
   merge_pending: Постапката на спојување ќе потрае. Засегнатите таксони сега се заклучени за измени во класификацијата и ќе бидат недостапни додека не заврши спојувањето. Кога ќе заврши постапката, ќе бидете известени по е-пошта, а истата ќе биде истакната и во каналот за новости на страницата.
   message_colon: "Порака:"
+  message_will_disappear: (поракава набргу ќе исчезне)
   meta_description_colon: "Метаопис:"
   meta_keywords_colon: "Метаклучни зборови:"
   meta_title_site_name: Енциклопедија на живиот свет
   method: Метод
   method_to_get_metadata_about_the_hierarchy: кога ќе му се зададе хиерархиска назнака овој метод дава метаподатоци за хиерархијата и ги наведува основните таксони
   methods: Методи
-  minimal_page: Минимална страница
   mobile: 
     contents: 
       explore_eol: Истражете ја EOL
@@ -2466,6 +2663,7 @@ mk:
   moved_items_from_collection_with_count_notice: 
     one: Преместен %{count} експонат од %{name}.
     other: Преместени %{count} експонати од %{name}.
+  multimedia_links: Мултимедијални врски
   must_be_associated_with_either_a_user_or_a_community: Мора да биде поврзано или со корисник, или со заедица.
   must_be_checked_in_to_show: "- мора да е штиклирано за да се прикаже на корисникот"
   must_be_checked_in_to_view: "- мора да е штиклирано за да се прикаже"
@@ -2503,13 +2701,21 @@ mk:
   new_search_suggestion: Нов предлог при пребарување
   new_upload: Ново подигање
   new_user: Нов корисник
+  news_and_event_links: Новости и настани
   news_archive_page: архив на новости
+  news_available_in_languages: "Оваа страница е достапна на:"
   news_date: Датум на новоста
   news_item: новост
-  news_item_date_as_shown_to_use: "Датумот на новоста како што му се прикажува на корисникот (во RSS каналот се прикажува само времето):"
-  news_item_is_visible_on_websit: "Новоста да биде видлива на мрежното место по волку време:"
+  news_item_date_as_shown_to_user: "Датумот на новоста како што му се прикажува на корисникот (во RSS каналот се прикажува само времето):"
+  news_item_is_visible_on_website_after_this_time: "Новоста да биде видлива на мрежното место по олку време:"
   news_item_title: Новост
-  news_items: Новости
+  news_items: 
+    index: 
+      meta_keywords: новости за eol, новости за енциклопедијата на живиот свет
+      meta_title: Новости за EOL
+      page_title: Новости за EOL
+  news_missing_content_message: Нажалост, страницата не е достапна на избраниот јазик (%{selected_language}).
+  news_missing_content_title: Недостасува превод
   newsfeed: Актуелности
   newsfeed_help_for_collection: Каналот за оваа збирка собира актуелности поврзани со експонатите во неа, вклучувајќи ги и активностите на нејзиниот сопственик и коментарите од други корисници на EOL.
   newsfeed_help_for_community: Каналот за оваа заедница собира актуелности поврзани со објектите во збирките се кои раководи, вклучувајќи ги и активностите на нејзините членови и коментарите од други корисници на EOL.
@@ -2527,7 +2733,7 @@ mk:
   no_errors_are_available: Нема грешки.
   no_harvesting_logs_for_this_da: Нема записи за преземање на овој датум
   no_items_were_copied_to_collections_error: "Не ископирав ниеден експонат во збирките: %{names}."
-  no_news_items_are_available_ma: Нема новости што одговараат на бараното.
+  no_news_items_for_month_and_year: Нема новости за %{month_and_year}
   no_record_found_matching_your_criteria: Не пронајдов ништо што се совпаѓа со критериумите.
   no_related_names: Досега нема имиња поврзани со овој таксон.
   no_results_for: нема пронајдено резултати за
@@ -2648,6 +2854,7 @@ mk:
   object_type_collection_option: Збирка
   object_type_community_option: Заедница
   object_type_image_option: Слика
+  object_type_link_option: Врска
   object_type_sound_option: Звук
   object_type_taxon_concept_option: Концепт за таксон
   object_type_text_option: Текст
@@ -2658,9 +2865,9 @@ mk:
   object_visibility_invisible_option: Скриено
   object_visibility_visible_option: Видливо
   objects_curated: Згрижени објекти
-  older_version_of_latest_published_data_object_link: постара верзија на „%{link}“
   older_version_of_latest_published_data_object_title_link: Постара верзија на %{link}
   on_time_col_header: на
+  only_alphanum_with_no_spaces: може да содржи само букви и бројки, без празни места
   only_multi_search_suggestions: (само ако има повеќе предлози за еден ист пребаран поим; се подредува малку-->многу)
   only_show_authoritative_conten: "Прикажувај само стручно--проверени содржини:"
   only_show_unapproved_curators: Прикажи само неодобрени кустоси
@@ -2748,6 +2955,7 @@ mk:
   please_state_one_credential: "Наведете барем едно конкретно полномоштво од списокот:"
   please_wait: Почекајте...
   post_comment: Објави коментар
+  posts_from_year: Објави од %{year} г.
   preferred_common_name_advisory_information: Претпочитаното тривијално име на овој таксон.
   press_room: За јавноста
   preview: преглед
@@ -2771,7 +2979,6 @@ mk:
   publish: објави
   publish_after_utc: Објави по (UTC)
   publish_changes: Објави измени
-  publish_item_based_on_time_set: Објави го објектот во горенаведеното време (отштиклирајте за секогаш да биде скриено)
   publish_requested: Барањето за објава е поднесено
   published: Објавено
   published_parens: (Објавено)
@@ -2850,9 +3057,11 @@ mk:
   recognized_by_from_source_as_a_rank: "%{recognized_by} во %{source} како %{taxon_rank}"
   record_not_found: "[записот не е пронајден]"
   references_cabs_colon: "Наводи:"
+  reindex_page_button: Преиндексирај страница
   related_names_with_count: 
     one: "%{count} поврзано име"
     other: "%{count} поврзани имиња"
+  related_organizations: Сродни организации
   remove: Отстрани
   remove_curatorship_colon: "Отстрани кустоство:"
   remove_data_object_association: Отстрани поврзаност
@@ -2862,7 +3071,7 @@ mk:
     other: Од збиркава се отстранети %{count} експонати.
   reply: Одговори
   request: Барање
-  request_mailing_list_colon: "Побарај поштенски список:"
+  request_mailing_list_colon: "Корисникот не сака да добива пошта:"
   required_form_element: Задолжително
   reset_password_enter_new_password_notice: Ова е еднократно најавување. Внесете нова лозинка за да продолжите.
   reset_password_instructions_sent_to_user_notice: Ви испративме напатствија за поставање на нова лозинка за вашата сметка <em>%{username}</em> по е-пошта.
@@ -2878,7 +3087,7 @@ mk:
   return_all_common_names_for_this_taxon: дај ги сите тривијални имиња на таксонов
   return_all_synonyms_for_this_taxon: дај ги сите синоними за таксонов
   return_common_names_for_the_page_taxon: дај ги сите тривијални имиња за таксонот на страницата
-  return_content_by_vettedness: ако проверено = 1 тогаш ќе добивате само доверливи содржни. Ако проверено = 2 тогаш ќе добивате само доверливи и непроверени содржини (нема да добивате недоверливи содржини). По основно се добиваат сите содржини
+  return_content_by_vettedness: Ако на „проверено“ му се зададе вредност 1, тогаш ќе добивате само доверливи содржни. Ако „проверено“ е 2 тогаш ќе добивате само доверливи и непроверени содржини (нема да добивате недоверливи содржини). По основно се добиваат сите содржини.
   returns_all_metadata_about_a_particular_collection: ги дава сите метаподатоци за дадена збирка и објектите што ги содржи индексирани од EOL
   returns_all_metadata_about_a_particular_data_object: ги дава сите метаподатоци за даден податочен објект (текст, слика или видеоснимка) што е индексиран од EOL
   returns_either_a_positive_or_negative_response: дава или позитивен одговор (означувајќи дека API-прилозите се функционални) или негативен одговор, или пак ништо (означувајќи дека API-прилозите моментално не се функционални).
@@ -2889,7 +3098,6 @@ mk:
   rights: Права
   rights_holder: Сопственик на правата
   rights_statement: Изјава за правата
-  rss_feed: RSS канал
   save: Зачувај
   save_comment_lowercase: зачувај коментар
   save_curated_association_submit_button: Зачувај поврзаност
@@ -2897,7 +3105,7 @@ mk:
   sci_name_avg_table_head: Научно име (прос.)
   scientific_name: Научно име
   search: Пребарај
-  search_by_provider_method_description: добивање на назнаки на страници на EOL ако е зададен hierarchy_id and и единствената назнака на добавувачот
+  search_by_provider_method_description_with_link: "добијте ја назнаката на страница на EOL кога е познат hierarchy_id и единствената назнака на самиот добавувач<br />(на пр. пребарување на назнаката на страница на EOL за ITIS TSN 180542: %{link})"
   search_by_term_page_title: "Пребарување: %{term}"
   search_field_common_name: Тривијално име
   search_field_label: Пребарување по EOL
@@ -2907,7 +3115,6 @@ mk:
   search_field_synonym: Синоним
   search_for_comments_containing_the_text: "Пребарај коментари што го содржат текстот:"
   search_for_curators_containing: "Пребарај кустоси што содржат:"
-  search_for_items_containing: "Пребарај експонати што содржат:"
   search_for_messages_containing: "Пребарај пораки што содржат:"
   search_for_terms_containing: "Пребарај поими што содржат:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Пребарај корисници што го содржат ова во корисничкото име, името или е-поштата.
@@ -2933,6 +3140,9 @@ mk:
   see_all_collections_with_count_html: 
     one: Погледајте ја <span class="assistive">%{count} збирката кајшто фигурира овој таксон.</span>
     other: Погледајте ги сите <span class="assistive">%{count} збирки кајшто фигурира овој таксон.</span>
+  see_all_comments_with_count_for_link_or_rate: 
+    one: погл. %{count} коментар за врскава или оценете ја
+    other: погл. сите %{count} коментари за врскава или оценете ја
   see_all_comments_with_count_for_text_or_rate: 
     one: погл. %{count} коментар за статијава или оценете ја
     other: погл. сите %{count} коментари за статијава или оценете ја
@@ -2950,8 +3160,8 @@ mk:
   see_all_of_your_collections: Погл. сите ваши збирки
   see_all_of_your_communities: Погл. сите ваши заедници
   see_all_updates_with_count_html: 
-    one: Погледајте ги сите <span class="assistive">%{count} измени на овој таксон.</span>
-    other: Погледајте ги сите <span class="assistive">%{count} измени на овој таксон.</span>
+    one: Погледајте ја оваа <span class="assistive">%{count} измена на страницава.</span>
+    other: Погледајте ги сите <span class="assistive">%{count} измени на страницава.</span>
   see_notes: вид. белешки
   select_a_hierarchy_around_whic: "Одберете хиерархија според која ќе ги организирате кратките описи на содржините:"
   select_an_item_from_the_menu: Одберете ставка од менито
@@ -3275,7 +3485,6 @@ mk:
         meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
         meta_keywords: "%{scientific_name} признаено од %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} признаено од %{hierarchy_provider}"
-        meta_title: "%{scientific_name}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Информации за %{preferred_common_name}"
         tweet_text: Информации за %{scientific_name}
     resources: 
@@ -3365,6 +3574,8 @@ mk:
   taxon_identification_resources_empty: Досега никој нема ставено ресурси за препознавање на оваа страница.
   taxon_identification_resources_header: Ресурси за препознавање
   taxon_identification_resources_link: Ресурси за препознавање
+  taxon_multimedia_links_link: Мултимедијални врски
+  taxon_news_and_event_links_link: Новости и настани
   taxon_newsfeed: Канал за таксонот
   taxon_not_found_error: Не го пронајдов таксонот „%{taxon}“
   taxon_nucleotide_sequences_link: Нуклеотидни низи
@@ -3378,6 +3589,7 @@ mk:
   taxon_partner_links_link: Врски на соучесниците
   taxon_rating: Оценка на таксонот
   taxon_recognized_by: Таксонот е признаен од %{whom}
+  taxon_related_organizations_link: Сродни организации
   taxon_selected_from_search_res: Избран таксон од резултатите
   taxon_suggested: Предложен таксон
   taxonomic_summary_of_content: таксономски преглед на содржините
@@ -3424,8 +3636,6 @@ mk:
   the_message_was_sent: Пораката е испратена.
   the_new_topic_was_created: Новата тема е создадена.
   the_new_user_was_created: Новиот корисник е создаден.
-  the_news_item_created: Новоста е успешно создадена.
-  the_news_item_updated: Новоста е успешно подновена.
   the_suggested_page_to_direct_users_to_link: предложената страница на која ќе се префрлаат корисниците
   the_topic_was_updated: Темата е подновена.
   the_user_was_updated: Корисникот е подновен.
@@ -3434,7 +3644,7 @@ mk:
   there_are_currently_no_members_in_this_community: Заедницата моментално нема членови.
   there_is_no_singular_eol: EOL нема една единствена таксономска хиерархија, туку индексира повеќе разни хиерархии и меѓусебно ги споредува за да определи кои јазли се однесуваат на еден ист таксон. Овие таксонски елементи ги претставуваат споменатите хиерархиски јазли, и затоа може да се јават неколку од нив на една страница на EOL. Повеќе информации ќе најдете во документацијата на API-прилогот на %{link} .
   this_area_shows_all_submission: Во овој дел се наведени сите поднесувања преку страниците за контакт на личности и медиуми. За да ги проверите ставките, одберете тема подолу или %{link}
-  this_article_cannot_be_curated_because_unpublished: Оваа статија не може да се згрижи бидејќи е тргната од објавени.
+  this_article_cannot_be_curated_because_unpublished: Оваа статија не може да се згрижи бидејќи не е објавена.
   this_article_is_unpublished: Оваа статија е необјавена.
   this_cannot_be_undone_are_you_sure: Ова е неповратно. Дали сте сигурни?
   this_collection_has_no_managers: Оваа збирка нема раководители.
@@ -3443,28 +3653,30 @@ mk:
   this_community_has_no_focus_list: Оваа заедница нема тематски список на коијто се посветува.
   this_community_was_deleted: Оваа заедница е избришана од нејзиниот сопственик.
   this_does_not_necessarily_mean: "* ова не мора да значи дека се користат врските, туку само дека се определени во database.yml --- мора да ја погледате податотеката „config/environments/%{env}.rb“ за да проверите дали се поставении главните (управувачки) врски"
-  this_image_cannot_be_curated_because_unpublished: Оваа слика не може да се згрижи бидејќи е тргната од објавени.
+  this_image_cannot_be_curated_because_unpublished: Оваа слика не може да се згрижи бидејќи не е објавена.
   this_image_is_unpublished: Оваа слика е необјавена.
-  this_image_map_cannot_be_curated_because_unpublished: Оваа карта не може да се згрижи бидејќи е тргната од објавени.
+  this_image_map_cannot_be_curated_because_unpublished: Оваа карта не може да се згрижи бидејќи не е објавена.
   this_image_map_is_unpublished: Оваа карта е необјавена.
   this_is_a_flat_list_of_10_million_strings: Ова е рамен список на 10 милиони низи - нема да ви дозволам да го пребарувате
   this_is_a_focus_collection_for_community: На оваа збирка се има посветено „%{community}“.
   this_is_the_breakdown_of_chapt: Ова е разложен преглед на главите, подглавите и соодветните категории за Профилни модели на видови.
   this_is_the_label_that_will_be_used_for_attribution: Ова е натписот што ќе се користи за оддавање заслуги
-  this_map_cannot_be_curated_because_unpublished: Оваа статија не може да се згрижи бидејќи е тргната од објавени.
+  this_link_cannot_be_curated_because_unpublished: Оваа врска не може да се згрижи бидејќи не е објавена.
+  this_link_is_unpublished: Оваа врска е необјавена.
+  this_map_cannot_be_curated_because_unpublished: Оваа статија не може да се згрижи бидејќи не е објавена.
   this_map_is_unpublished: Оваа карта е необјавена.
   this_method_takes_an_integer_or_string: Овој метод зема цел број или низа што е единствена назнака на таксон од базата на еден добавувач, како и hierarchy_id што го претставува добавувачот и ја дава назнаката на страницата од EOL за тој таксон. На пример, користјеќи го API-прилогот на %{link_provider} можам да дознаам дека hierarchy_id од EOL за Интегрираниот таксономски информативен систем (ITIS) е %{itis_id}. Потоа можам да го пребарам по EOL таксономскиот сериски број на ITIS (TSN) 180542,<i>Ursus maritimus</i>, повикувајќи ја %{link_url}
   this_page_shows_information_ab: На оваа страница се прикажани информации за даден поим за пребарување и ги наведува резултатите од пребарувањето што ги стиснале корисниците.
+  this_page_will_be_reindexed: Оваа страница ќе се преиндексира во позадина, а ова може да потрае до 24 часа.
   this_resource_unpublished_notice: Овој ресурс во моментов не е означен како објавен од страна на администратор.
   this_section_is_used_to_create: Овој дел служи за создавање на нови експонати. Новостите се истакнуваат во десниот дел на домашната страница, како и во %{rss_link} и страницата %{news_archive}.
-  this_sound_cannot_be_curated_because_unpublished: Оваа звучна снимка не може да се згрижи бидејќи е тргната од објавени.
+  this_sound_cannot_be_curated_because_unpublished: Оваа звучна снимка не може да се згрижи бидејќи не е објавена.
   this_sound_is_unpublished: Оваа аудиоснимка е необјавена.
-  this_video_cannot_be_curated_because_unpublished: Оваа видеоснимка не може да се згрижи бидејќи е тргната од објавени.
+  this_video_cannot_be_curated_because_unpublished: Оваа видеоснимка не може да се згрижи бидејќи не е објавена.
   this_video_is_unpublished: Оваа видеоснимка е необјавена.
   threat_status_header_colon: "Загрозеност според <abbr title=\"Меѓународен сојуз за заштита на природата\">МСЗП</abbr>:"
   thumbnail_page_colon: "сттраница на минијатурата:"
   time_ago: пред %{time_passed}
-  tinyurl: TinyURL
   title: Наслов
   to_process_your_donation_please_proceed: За да се заведе вашиот прилог, продолжете
   to_remedy_this: Со цел да го поправиме проблемот, ќе ги затвориме овие неактивни сметки и ќе побараме да ја посетите eol.org за да направите нова сметка. Кога ќе ја добиете потврдата по е-пошта, стиснете на наведената врска за да ја заверите сметката.
@@ -3475,6 +3687,9 @@ mk:
   toc: Содржина
   toc_entry_col_header: Ставка во содржината
   toc_no_longer_available: Содржината повеќе не е достапна
+  too_many_descendants_to_curate_with_count: 
+    one: "ГРЕШКА: Вашето згрижување не може да се обработи преку автоматскиот систем. Има %{count} потомок, што ја надминува границата на дозволеното."
+    other: "ГРЕШКА: Вашето згрижување не може да се обработи преку автоматскиот систем. Има %{count} потомци, што ја надминува границата на дозволеното."
   topic: Тема
   topic_area: Тематска област
   topics_avilable_to_contact_us_info: Следниве тематски области достапни од страницата „Котактирајте нè“. Можете да додавате нови или да ги уредувате постоечките тематски области и нивните е-поштенски адреси. Сите измени се вршат веднаш.
@@ -3496,8 +3711,8 @@ mk:
   true_label: Точно
   truncated_comment_omission: ... <a href='%{link}'>повеќе</a>
   truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: ... <a href='%{link}'>повеќе</a>
   trusted: Доверливи
-  trusted_for_colon: "Доверливо за:"
   trusted_images: Доверливи слики
   trusted_maps: Доверливи карти
   trusted_text_objects: Доверливи статии
@@ -3505,19 +3720,19 @@ mk:
   twitter: Twitter
   type: Тип
   unable_to_copy_items_to_collection_error: Нажалост, не можев да ги ископирам експонатите во %{name}.
+  unable_to_determine_title: Не можам да го утврдам насловот на оваа мреж. страница
   unable_to_invite_users_to_community_error: Не можев да испратам покани до %{users}.
   unique_page_views_th: Засебни посети
   unknown: Непознат
+  unknown_data_object_title: Непознат податочен објект
   unknown_hierarchy: Непозната хиерархија
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
   unpublished: Необјавено
   unreviewed: Непроверено
-  unreviewed_for_colon: "Непроверено за:"
   unreviewed_images: Непроверени слики
   unreviewed_maps: Непроверени карти
   unreviewed_text_objects: Непроверени текстуални објекти
   untrusted: Недоверливи
-  untrusted_for_colon: "Недоверливо за:"
   update: Поднови
   update_collection_submit_button: Измени подробности за збирката
   update_language: Измени јазик
@@ -3536,6 +3751,7 @@ mk:
   uploaded_content: Подигната содржина
   uploaded_on: "Подигнато на:"
   url: URL
+  url_not_accessible: Оваа URL е недостапна
   us_dolars_75: US $75
   us_dollars_100: US $100
   us_dollars_35: US $35
@@ -3598,7 +3814,7 @@ mk:
   user_already_active_notice: Вашата сметка е веќе активна. Најавете се.
   user_comment: Кориснички коментар
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> коментираше на страницата на корисник што е отстранет:"
-  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> коментираше на %{what}:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> коментираше на постара верзија на %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> коментираше на %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> коментираше на <a href='%{link}'>каналот за новости на %{username}</a>:"
   user_commented_on_your_image: "<strong>%{user}</strong> коментираше на вашата слика на <a href='%{data_object_link}'>Енциклопедијата на живиот свет</a>:\n%{comment_body}"
@@ -3779,8 +3995,6 @@ mk:
     show: 
       meta_description: Членски профил на %{user_full_name} во Енциклопедијата на живиот свет.
       meta_description_curator: Членски профил на %{curator_level} %{user_full_name} во Енциклопедијата на живиот свет.
-      meta_title: "%{user_full_name}"
-      tweet_text: "%{user_full_name}"
     unsubscribe_notifications: 
       already_unsubscribed: Веќе ја имате откажано претплатата на известувања.
       unsubscribe_notifications_failed: Нажалост, се појави грешка. На корисникот не можев да му ја откажам претплатата на известувања.
@@ -3852,7 +4066,7 @@ mk:
   vivisimo: Vivisimo
   wants_colon: "Бара:"
   warning_you_are_editing_as_admin: "ПРЕДУПРЕДУВАЊЕ: дозволено ви е да ја уредувате оваа страница единствено бидејќи сте администратор."
-  watch_list: Список на набљудувања
+  watch_list: Набљудувања
   watch_list_newsfeed: Канал на списокот на набљудувања
   web_service_base_url: Основна URL-адреса на мреж. служб.
   web_users: Интернет-корисници
@@ -3877,7 +4091,6 @@ mk:
   will_find_taxon_pages_matching_the_search_term: ќе најде страници од таксонот ако пребараното точно се совпаѓа со претпочитаното име, некој од синонимите или тривијалното име
   will_paginate: 
     next_label: Следна &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Претходна"
   worklist: Работен список
   would_you_like_to_become_a_curator_notice: Дали би сакале да станете кустос? Кустоски пристап може да побарате на <a href='%{url}'>вашата профилна страница</a>.
@@ -3898,6 +4111,7 @@ mk:
   you_may_upload_static_files_fo: Тука можете да подигате неподвижни податотеки за употреба во CMS (на пример, PDF, Word-документи, слики и тн.). Ова не треба да се користи за подигање на содржини за страниците за видови - ова служи само за останатите страници (на пр. огласи за работа, билтени, меморандуми и тн.). За PDF-податотеки со билтени и меморандуми, можете да ставите „згодна URL-адреса“ (што автоматски пренасочува кон „содржајна URL-адреса“). За сликите што се вметнати во страници и наведени со ознаката &lt;img&gt; ќе мора да користите „содржајна URL-адреса“. Во оваа „содржајна URL-адреса“ може да биде претставен различен опслужувач секојпат кога ќе ја превчитате страницата (на пр. „содржина2.eol.org“, „содржина3.eol.org“ и тн.) - ова е нормално и можете даа го користите кога ги создавате врските бидејќи сите тие се истоветни.
   you_must_be_comfortable: Мора да имате познавања од HTML ако сакате да создавате хиперврски или да користите форматирање.
   you_removed_the_member_from_the_community: Успешно го отстранивте овој член од заедницата.
+  your_browser_does_not_support: Вашиот прелистувач не поддржува видео од типот HTML5.
   your_current_rating_0_of_5: "Ваша тековна оценка: 0 од 5"
   your_current_rating_1_of_5: "Ваша тековна оценка: 1 од 5"
   your_current_rating_2_of_5: "Ваша тековна оценка: 2 од 5"

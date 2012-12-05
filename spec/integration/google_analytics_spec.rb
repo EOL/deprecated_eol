@@ -34,7 +34,7 @@ describe "Google Analytics Stats Page" do
 
   it "should render monthly_page_stats page" do
     visit("/content_partners/#{@content_partner.id}/statistics")
-    body.should have_tag("form[action=/content_partners/#{@content_partner.id}/statistics]")
+    body.should have_tag("form[action='/content_partners/#{@content_partner.id}/statistics']")
     body.should include @summary.pageviews.to_s
     body.should include @partner_summary.page_views.to_s
     body.should include @page_stats.unique_page_views.to_s
@@ -47,8 +47,12 @@ describe "Google Analytics Stats Page" do
    summary = GoogleAnalyticsSummary.gen(:year => year, :month => month)
    page_stats = GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => @taxon_concept )
    partner_taxa = GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => @taxon_concept, :user => @user )
-   visit("/content_partners/#{@content_partner.id}/statistics", :method => :post, :params => {:year_month => "#{year}_#{month}", :user_id => @user.id})
-   body.should have_tag("form[action=/content_partners/#{@content_partner.id}/statistics]")
+   login_as @user
+   visit("/content_partners/#{@content_partner.id}/statistics")
+   select year.to_i.to_s, :from => 'date_year'
+   select Date::MONTHNAMES[month.to_i], :from => 'date_month'
+   click_button 'Change'
+   body.should have_tag("form[action='/content_partners/#{@content_partner.id}/statistics']")
    body.should include summary.pageviews.to_s
    body.should include partner_summary.page_views.to_s
    body.should include page_stats.unique_page_views.to_s

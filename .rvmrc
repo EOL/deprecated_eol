@@ -1,1 +1,6 @@
-rvm use ruby-1.8.7@eol --create
+rvm use ruby-1.9.3-p194@upgrade --create
+export RUBY_HEAP_MIN_SLOTS=500000
+export RUBY_HEAP_SLOTS_INCREMENT=250000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+export RUBY_GC_MALLOC_LIMIT=40000000
+export RUBY_HEAP_FREE_MIN=4096

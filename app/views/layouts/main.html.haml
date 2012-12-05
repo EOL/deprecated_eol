@@ -21,13 +21,8 @@
       %meta{ :name => "description", :content => h(strip_tags("#{@taxon_concept.title} (#{@taxon_concept.subtitle}) in Encyclopedia of Life")) }
       %meta{ :name => "keywords", :content => meta_keywords(h(strip_tags(@taxon_concept.title + ' ' + @taxon_concept.subtitle))) }
 
-      - if @taxon_concept.has_feed?
-        %link#content_rss{ :title => 'Latest Content', :href => url_for(:controller => :feeds, :action => :all, :id => @taxon_concept.id), :rel => "alternate", :type => "application/rss+xml"}
-      - if @taxon_concept.exemplar_or_best_image_from_solr
-        %link#media_rss{ :title => 'MediaRSS Feed', :href => "/content/mediarss/#{@taxon_concept.id}", :rel => "alternate", :type => "application/rss+xml" }
-      - else
-        %meta{ :name => "description", :content => "Encyclopedia of Life" }
-        %meta{ :name => "keywords", :content => "Encyclopedia of Life,Biodiversity,Biology,Bioinformatics" }
+      %meta{ :name => "description", :content => "Encyclopedia of Life" }
+      %meta{ :name => "keywords", :content => "Encyclopedia of Life,Biodiversity,Biology,Bioinformatics" }
 
     - if @no_cache
       %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }
@@ -37,10 +32,10 @@
     %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
     = stylesheet_include_i18n_merged 'v1'
     = stylesheet_include_i18n_merged 'buttons', :media => "all"
-    = javascript_include_merged 'application'
+    = javascript_include_tag 'application'
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
-        body { behavior: url(/javascripts/csshover.htc); }
+        body { behavior: url(/assets/csshover.htc); }
     = yield :head
 
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS != false # Weird, but in this case nil is okay: only false is bad.
@@ -80,9 +75,7 @@
                 = I18n.t(:home)
             %li
               %a.dropdown{ :title => "#{ I18n.t(:language) }: #{I18n.locale}" }
-                = I18n.t(:language)
-                \:
-                = I18n.locale
+                = I18n.t(:language) + I18n.locale.to_s
               %ul.uppercase
                 - Language.find_active.each do |language|
                   %li
@@ -113,7 +106,7 @@
           - if @home_page
             %span.quote
               "Imagine an electronic page for each species of organism on Earth..."
-            \- Edward O. Wilson
+            = "- Edward O. Wilson"
           - if logged_in? && $ALLOW_USER_LOGINS
             .desc-personal
               %p
@@ -123,18 +116,18 @@
                   - else
                     =  I18n.t(:hello_user , :user => current_user.given_name)
 
-                = @home_page.nil? ? "</p><p>" : " | "
+                = @home_page.nil? ? raw("</p><p>") : " | "
                 = link_to( I18n.t(:pages_admin_section_link) ,{:controller => '/admin',:action => 'index'}) + " | " if current_user.is_admin?
                 - if current_user.is_curator?
                   = link_to("curators", {:controller => '/content', :action => 'page', :id => 'curator_central'})
-                  |
+                  &#124;
                 = link_to( I18n.t(:your_preferences) , {:controller => '/account', :action => 'profile'}, {:class => 'return_to'})
-                |
+                &#124;
                 = link_to( I18n.t(:logout) , logout_url, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS
             %p
               = link_to( I18n.t(:login) , {:controller => '/account', :action => 'login'}, {:class => 'return_to'})
-              |
+              &#124;
               = link_to( I18n.t(:create_account) , {:controller => '/account', :action => 'signup'}, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
             %p
@@ -159,12 +152,12 @@
       #flash-good{ :style => "display: block" }
         = flash[:notice]
         .note
-          = I18n.t(:esc_key_hides_this_message)
+          = I18n.t(:message_will_disappear)
     - elsif flash[:warning] || flash[:error]
       #flash-bad{ :style => "display: block" }
         = (flash[:warning] || '') + (flash[:error] || '')
         .note
-          = I18n.t(:esc_key_hides_this_message)
+          = I18n.t(:message_will_disappear)
     - if flash[:notice] || flash[:warning] || flash[:error]
       - flash[:notice] = flash[:warning] = flash[:error] = nil
       :javascript

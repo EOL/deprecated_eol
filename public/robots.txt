@@ -13,3 +13,4 @@ Disallow: /api/provider_hierarchies/
 Disallow: /api/hierarchies/
 Disallow: /api/search_by_provider/
 Disallow: /uploads/
+Disallow: /maintenance

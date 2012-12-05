@@ -1,7 +1,7 @@
 class ApiController < ApplicationController
 
   include ApiHelper
-
+  skip_before_filter :original_request_params, :global_warning, :clear_any_logged_in_sessions, :set_locale, :check_user_agreed_with_terms
   before_filter :check_version, :handle_key
   layout 'main' , :only => [ :index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :hierarchies,
     :provider_hierarchies, :search_by_provider, :collections ]
@@ -31,9 +31,8 @@ class ApiController < ApplicationController
       render_error("Unknown identifier #{taxon_concept_id}")
       return
     end
-
     ApiLog.create(:request_ip => request.remote_ip,
-                  :request_uri => request.env["REQUEST_URI"],
+                  :request_uri => request.fullpath,
                   :method => 'pages',
                   :version => params[:version],
                   :format => params[:format],
@@ -42,11 +41,10 @@ class ApiController < ApplicationController
                   :user_id => @user_id)
 
     data_objects = taxon_concept.data_objects_for_api(params)
-
     if params[:version] == "1.0"
       respond_to do |format|
         format.xml do
-          render(:partial => 'pages_1_0.xml.builder',
+          render(:partial => 'pages_1_0',
                  :layout => false,
                  :locals => { :taxon_concept => taxon_concept, :data_objects => data_objects, :params => params } )
         end
@@ -71,32 +69,36 @@ class ApiController < ApplicationController
   end
 
   def data_objects
-    data_object_guid = params[:id] || 0
+    data_object_guid_or_id = params[:id] || 0
     params[:format] ||= 'xml'
     params[:common_names] ||= false
     params[:details] = true
 
     begin
-      d = DataObject.find_by_guid(data_object_guid)
+      if data_object_guid_or_id.is_numeric?
+        d = DataObject.find(data_object_guid_or_id)
+      else
+        d = DataObject.find_by_guid(data_object_guid_or_id)
+      end
       data_object = d.latest_version_in_same_language(:check_only_published => true)
       if data_object.blank?
         data_object = d.latest_version_in_same_language(:check_only_published => false)
       end
       raise if data_object.blank?
-      data_object = DataObject.core_relationships.find_by_id(data_object.id)
+      data_object = DataObject.find_by_id(data_object.id)
       raise if data_object.blank?
       taxon_concept = data_object.all_associations.first.taxon_concept
     rescue
-      render_error("Unknown identifier #{data_object_guid}")
+      render_error("Unknown identifier #{data_object_guid_or_id}")
       return
     end
 
     ApiLog.create(:request_ip => request.remote_ip,
-                  :request_uri => request.env["REQUEST_URI"],
+                  :request_uri => request.fullpath,
                   :method => 'data_objects',
                   :version => params[:version],
                   :format => params[:format],
-                  :request_id => data_object_guid,
+                  :request_id => data_object_guid_or_id,
                   :key => @key,
                   :user_id => @user_id)
 
@@ -145,7 +147,7 @@ class ApiController < ApplicationController
     @results = search_response[:results]
     @last_page = (@results.total_entries/@per_page.to_f).ceil
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'search', :version => params[:version], :format => params[:format], :request_id => @search_term, :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'search', :version => params[:version], :format => params[:format], :request_id => @search_term, :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -165,17 +167,18 @@ class ApiController < ApplicationController
     @include_synonyms = false if params[:synonyms] == '0'
 
     begin
-      add_include = [ { :name => :canonical_form }]
-      add_select = { :hierarchy_entries => '*', :canonical_forms => :string }
+      associations = [ { :name => :canonical_form }]
+      selects = { :hierarchy_entries => '*', :canonical_forms => [ :id, :string ] }
       if @include_common_names
-        add_include << { :common_names => [:name, :language] }
-        add_select[:languages] = :iso_639_1
+        associations << { :common_names => [:name, :language] }
+        selects[:languages] = [ :id, :iso_639_1 ]
       end
       if @include_synonyms
-        add_include << { :scientific_synonyms => [:name, :synonym_relation] }
+        associations << { :scientific_synonyms => [:name, :synonym_relation] }
       end
 
-      @hierarchy_entry = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find(id)
+      @hierarchy_entry = HierarchyEntry.find(id)
+      @hierarchy_entry.preload_associations(associations, :select => selects)
       @ancestors = @hierarchy_entry.ancestors
       @ancestors.pop # remove the last element which is the node itself
       @children = @hierarchy_entry.children
@@ -185,13 +188,13 @@ class ApiController < ApplicationController
       return
     end
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'hierarchy_entries', :version => params[:version], :format => format, :request_id => id, :key => @key, :user_id => @user_id)
-
-    if params[:format] == 'tcs'
-      render :action =>'hierarchy_entries.xml.builder', :layout => false
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'hierarchy_entries', :version => params[:version], :format => format, :request_id => id, :key => @key, :user_id => @user_id)
+    
+    if params[:render] == 'tcs'
+      render :action =>'hierarchy_entries', :layout => false
     else
       respond_to do |format|
-        format.xml { render :action =>'hierarchy_entries_dwc.xml.builder', :layout => false }
+        format.xml { render :action =>'hierarchy_entries_dwc', :layout => false }
         format.json {
           @return_hash = hierarchy_entries_json
           render :json => @return_hash, :callback => params[:callback]
@@ -211,7 +214,7 @@ class ApiController < ApplicationController
       return
     end
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'synonyms', :version => params[:version], :format => params[:format], :request_id => id, :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'synonyms', :version => params[:version], :format => params[:format], :request_id => id, :key => @key, :user_id => @user_id)
 
     respond_to do |format|
        format.xml { render :layout => false }
@@ -231,7 +234,7 @@ class ApiController < ApplicationController
       return
     end
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'hierarchies', :version => params[:version], :format => params[:format], :request_id => id, :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'hierarchies', :version => params[:version], :format => params[:format], :request_id => id, :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -247,7 +250,7 @@ class ApiController < ApplicationController
 
     @hierarchies = Hierarchy.browsable
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'provider_hierarchies', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'provider_hierarchies', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -268,7 +271,7 @@ class ApiController < ApplicationController
     end
     @results = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id], :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}")
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'search_by_provider', :version => params[:version], :format => params[:format], :request_id => params[:id], :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'search_by_provider', :version => params[:version], :format => params[:format], :request_id => params[:id], :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -282,7 +285,8 @@ class ApiController < ApplicationController
   def ping
     params[:format] ||= 'xml'
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'ping', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
+    # Decided not to log pings because - do we really care? we use it a bunch so its creating extra load, and to make it faster
+    # ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'ping', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -314,7 +318,7 @@ class ApiController < ApplicationController
         @sort_by = ss
       end
       @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
-      @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => params[:page], :per_page => @per_page, :sort_by => @sort_by)
+      @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => params[:page], :per_page => @per_page, :sort_by => @sort_by, :view_style => ViewStyle.list, :sort_field => params[:sort_field])
       @collection_items = @collection_results.map { |i| i['instance'] }
       CollectionItem.preload_associations(@collection_items, :refs)
       raise if @collection.blank?
@@ -323,7 +327,7 @@ class ApiController < ApplicationController
       return
     end
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"],
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath,
                   :method => 'collections', :version => params[:version], :format => params[:format],
                   :request_id => id, :key => @key, :user_id => @user_id)
 
@@ -349,7 +353,7 @@ class ApiController < ApplicationController
   
   def render_error(error_message)
     respond_to do |format|
-      format.xml { render(:partial => 'error.xml.builder', :locals => { :error => error_message }) }
+      format.xml { render(:partial => 'error', :locals => { :error => error_message }) }
       format.json { render(:json => [ :error => error_message ], :callback => params[:callback] ) }
     end
   end

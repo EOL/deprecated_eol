@@ -1,6 +1,6 @@
 =I18n.t("this_area_shows_all_submission", :link => link_to(I18n.t("export_all_of_the_entries_as_a"), :action=>'export'))
 %br
-- form_tag({:action=>'index'},:method=>'get') do
+= form_tag({:action=>'index'},:method=>'get') do
   %select#contact_subject_id{ :name => "id" }
     %option{ :value => "*" }
       =I18n.t("all_count" , :count => @all_contacts_count)

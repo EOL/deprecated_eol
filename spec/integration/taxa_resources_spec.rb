@@ -12,6 +12,7 @@ describe 'Taxa page' do
   end
   
   it 'should display Citizen science articles when we have them' do
+
     # details shouldn't have Citizen Science
     visit taxon_details_path(@taxon_concept)
     body.should_not include('Citizen Science Links')
@@ -24,8 +25,11 @@ describe 'Taxa page' do
     
     # add a Citizen Science article and index it
     citizen_science_article = build_data_object('Text', 'This is a Citizen Science links article',
-      :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
-    citizen_science_article.toc_items << TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
+      :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible,
+      :hierarchy_entry => @taxon_concept.entry)
+    cit_sci_toc_items = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
+    cit_sci_toc_items.should_not be_nil
+    citizen_science_article.toc_items << cit_sci_toc_items
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     
     # still shouldn't show up on details tab
@@ -35,7 +39,6 @@ describe 'Taxa page' do
     
     # and it should show up on the resources tab
     visit citizen_science_taxon_resources_path(@taxon_concept)
-    body.should include('Citizen Science Links')
     body.should include(citizen_science_article.description)
     
   end

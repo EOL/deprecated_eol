@@ -6,7 +6,7 @@
       .header
         %h3= I18n.t(:users_about_me_header)
       .copy
-        %p= allow_some_html @user.bio
+        %p= raw(allow_some_html @user.bio)
   .section.half
     .article
       .header
@@ -30,11 +30,11 @@
       %dl
         - if @user.is_curator?
           - if !@user.assistant_curator?
-            %dt= link_to I18n.t(:user_activity_stats_objects_curated, :count => EOL::Curator.total_objects_curated_by_action_and_user(nil, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
+            %dt= link_to I18n.t(:user_activity_stats_objects_curated, :count => Curator.total_objects_curated_by_action_and_user(nil, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
           %dt= I18n.t(:user_activity_stats_taxa_curated, :count => @user.total_species_curated)
-          %dt= link_to I18n.t(:user_activity_stats_set_exemplar, :count => EOL::Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_image.id, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
-          %dt= link_to I18n.t(:user_activity_stats_selected_articles_for_overview, :count => EOL::Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_article.id, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
-          %dt= I18n.t(:user_activity_stats_preferred_classifications_selected, :count => EOL::Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, @user.id, [ChangeableObjectType.curated_taxon_concept_preferred_entry.id]))
+          %dt= link_to I18n.t(:user_activity_stats_set_exemplar, :count => Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_image.id, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
+          %dt= link_to I18n.t(:user_activity_stats_selected_articles_for_overview, :count => Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_article.id, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
+          %dt= I18n.t(:user_activity_stats_preferred_classifications_selected, :count => Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, @user.id, [ChangeableObjectType.curated_taxon_concept_preferred_entry.id]))
           %br
           %dt= link_to I18n.t(:user_activity_stats_common_names_added, :count => @common_names_added), user_activity_path(@user, :filter => "names")
           %dt= link_to I18n.t(:user_activity_stats_common_names_removed, :count => @common_names_removed), user_activity_path(@user, :filter => "names")
@@ -51,6 +51,6 @@
           %h3= I18n.t(:users_curation_header)
         %dl
           %dt= I18n.t('activerecord.attributes.user.credentials')
-          %dd= @user.credentials
+          %dd= raw(@user.credentials)
           %dt= I18n.t('activerecord.attributes.user.curator_scope')
           %dd= h @user.curator_scope

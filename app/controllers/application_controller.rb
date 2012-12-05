@@ -1,27 +1,11 @@
-require 'uri'
-begin
-  require 'ruby-prof'
-  puts "** Ruby Profiler loaded.  You can profile requests, now."
-rescue MissingSourceFile
-  # Do nothing, we don't care and we don't want anyone to freak out from a warning.
-end
-ContentPage # This fails to auto-load.  Could be a memcached thing, but easy enough to fix here.
-
 class ApplicationController < ActionController::Base
 
+  protect_from_forgery
+
   include ImageManipulation
-
-  # Map custom exceptions to default response codes
-  ActionController::Base.rescue_responses.update(
-    'EOL::Exceptions::MustBeLoggedIn'     => :unauthorized,
-    'EOL::Exceptions::Pending'            => :not_implemented,
-    'EOL::Exceptions::SecurityViolation'  => :forbidden,
-    'OpenURI::HTTPError'                  => :bad_request
-  )
-
-  filter_parameter_logging :password
-
-  around_filter :profile
+  unless Rails.env.test?
+    rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, :with => :rescue_from_exception
+  end
 
   before_filter :original_request_params # store unmodified copy of request params
   before_filter :global_warning
@@ -44,17 +28,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def profile
-    return yield if params[:profile].nil?
-    return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
-    result = RubyProf.profile { yield }
-    printer = RubyProf::GraphHtmlPrinter.new(result)
-    out = StringIO.new
-    printer.print(out, :min_percent=>0)
-    response.body.replace out.string
-  end
-
-
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they miss this message.  So what?
   def global_warning
@@ -64,7 +37,7 @@ class ApplicationController < ActionController::Base
     # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
     # NOTE: if there is no row for global_site_warning, or the value is nil, we will cache the integer 1 so prevent
     # future lookups (when we check the cache and find a value of nil, it makes it look like the lookup was not cached)
-    warning = $CACHE.fetch("application/global_site_warning", :expires_in => 10.minutes) do
+    warning = Rails.cache.fetch("application/global_site_warning", :expires_in => 10.minutes) do
       sco = SiteConfigurationOption.find_by_parameter('global_site_warning')
       (sco && sco.value) ? sco.value : 1
     end
@@ -222,9 +195,10 @@ class ApplicationController < ActionController::Base
 
   # just clear all fragment caches quickly
   def clear_all_caches
-    $CACHE.clear
+    Rails.cache.clear
     remove_cached_feeds
     remove_cached_list_of_taxon_concepts
+    # The docs warn about doing this, TODO - should we remove it?
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear
       return true
@@ -294,6 +268,10 @@ class ApplicationController < ActionController::Base
       @current_user = EOL::AnonymousUser.new(current_language)
     end
     @current_user
+  end
+  
+  def set_current_user=(user)
+    @current_user = user
   end
 
   def recently_visited_collections(collection_id = nil)
@@ -377,10 +355,11 @@ class ApplicationController < ActionController::Base
 
   def set_language
     language = Language.from_iso(params[:language]) rescue Language.default
+    language ||= Language.default
     update_current_language(language)
     if logged_in?
       # Don't want to worry about validations on the user; language is simple.  Just update it:
-      current_user.update_attribute(:language_id, language.id)
+      User.update_all({:language_id => language.id}, {:id => current_user.id})
       current_user.clear_cache
     end
     redirect_to(params[:return_to].blank? ? root_url : params[:return_to])
@@ -401,14 +380,19 @@ class ApplicationController < ActionController::Base
 
   # Ensure that the user has this in their watch_colleciton, so they will get replies in their newsfeed:
   def auto_collect(what, options = {})
+    return if what === current_user
     watchlist = current_user.watch_collection
-    collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id,
-                                                                                         what.class.name)
+    if what.class == DataObject
+      all_revision_ids = DataObject.find_all_by_guid_and_language_id(what.guid, what.language_id, :select => 'id').collect{ |d| d.id }
+      collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, all_revision_ids, what.class.name)
+    else
+      collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id, what.class.name)
+    end
     if collection_item.nil?
-      collection_item = begin # No care if this fails.
+      collection_item = begin # We do not care if this fails.
         CollectionItem.create(:annotation => options[:annotation], :object => what, :collection_id => watchlist.id)
       rescue => e
-        logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"
+        Rails.logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"
         nil
       end
       if collection_item && collection_item.save
@@ -419,7 +403,7 @@ class ApplicationController < ActionController::Base
                                  :collection_name => self.class.helpers.link_to(watchlist.name,
                                                                                 collection_path(watchlist)),
                                  :item_name => what.summary_name)
-        CollectionActivityLog.create(:collection => watchlist, :user => current_user,
+        CollectionActivityLog.create(:collection => watchlist, :user_id => current_user.id,
                              :activity => Activity.collect, :collection_item => collection_item)
       end
     end
@@ -437,7 +421,11 @@ class ApplicationController < ActionController::Base
 
   # clear the cached activity logs on homepage
   def clear_cached_homepage_activity_logs
-    $CACHE.delete('homepage/activity_logs_expiration') if $CACHE
+    Rails.cache.delete('homepage/activity_logs_expiration') if Rails.cache
+  end
+
+  def rescue_from_exception(exception = env['action_dispatch.exception'])
+    rescue_action_in_public(exception)
   end
 
 protected
@@ -454,33 +442,26 @@ protected
   # public/404.html and public/500.html. Static pages are still used if exception prevents reaching controller
   # e.g. see ActionController::Failsafe which catches e.g. MySQL exceptions such as database unknown
   def rescue_action_in_public(exception)
-
-    # exceptions in views are wrapped by ActionView::TemplateError and will return 500 response
-    # if we use the original_exception we may get a more meaningful response code e.g. 404 for ActiveRecord::RecordNotFound
-    if exception.is_a?(ActionView::TemplateError) && defined?(exception.original_exception)
-      response_code = response_code_for_rescue(exception.original_exception)
-    else
-      response_code = response_code_for_rescue(exception)
-    end
-    render_exception_response(exception, response_code)
-
+    status_code     = ActionDispatch::ExceptionWrapper.new(env, exception).status_code
+    response_code   = ActionDispatch::ExceptionWrapper.rescue_responses[exception.class.name]
+    render_exception_response(exception, response_code, status_code)
     # Log to database
-    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s)
+    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
       ErrorLog.create(
-        :url => request.url,
+        :url => env['REQUEST_URI'],
         :ip_address => request.remote_ip,
         :user_agent => request.user_agent,
         :user_id => logged_in? ? current_user.id : 0,
         :exception_name => exception.to_s,
-        :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
+        :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.join("\r\n")
       )
+      # Notify New Relic about exception
+      NewRelic::Agent.notice_error(exception) if $PRODUCTION_MODE
     end
-    # Notify New Relic about exception
-    NewRelic::Agent.notice_error(exception) if $PRODUCTION_MODE
   end
 
   # custom method to render an appropriate response to an exception
-  def render_exception_response(exception, response_code)
+  def render_exception_response(exception, response_code, status_code)
     case response_code
     when :unauthorized
       logged_in? ? access_denied : must_be_logged_in
@@ -489,8 +470,6 @@ protected
     when :not_implemented
       not_yet_implemented
     else
-      status = interpret_status(response_code) # defaults to "500 Unknown Status" if response_code is not recognized
-      status_code = status[0,3]
       respond_to do |format|
         format.html do
           @error_page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])
@@ -500,7 +479,11 @@ protected
         format.js do
           render :layout => false, :template => 'content/error', :status => status_code
         end
-        format.all { render :text => status, :status => status_code }
+        format.all do
+          @error_page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])
+          @status_code = status_code
+          render :layout => 'v2/errors', :template => 'content/error', :status => status_code, :formats => 'html', :content_type => Mime::HTML.to_s
+        end
       end
     end
   end
@@ -565,7 +548,7 @@ protected
       'og:type' => 'website', # TODO: we may want to extend to other types depending on the page see http://ogp.me/#types
       'og:title' => meta_data[:title],
       'og:description' => meta_data[:description],
-      'og:image' => (!meta_open_graph_image_url.blank? && meta_open_graph_image_url != '#') ? meta_open_graph_image_url : view_helper_methods.image_url('v2/logo_open_graph_default.png')
+      'og:image' => (!meta_open_graph_image_url.blank? && meta_open_graph_image_url != '#') ? meta_open_graph_image_url : view_context.image_url('v2/logo_open_graph_default.png')
     }.delete_if{ |k, v| v.blank? }
   end
   helper_method :meta_open_graph_data
@@ -621,37 +604,42 @@ protected
 
   # NOTE - these two are TOTALLY DUPLICATED from application_helper, because I CAN'T GET COLLECTIONS TO WORK.  WTF?!?
   def link_to_item(item, options = {})
-    case item.class.name
-    when 'Collection'
+    case item
+    when Collection
       collection_url(item, options)
-    when 'Community'
+    when Community
       community_url(item, options)
-    when 'DataObject'
-      data_object_url(item, options)
-    when 'User'
+    when DataObject
+      data_object_url(item.latest_published_version_in_same_language || item, options)
+    when User
       user_url(item, options)
-    when 'TaxonConcept'
+    when TaxonConcept
       taxon_url(item, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end
   end
   def link_to_newsfeed(item, options = {})
-    case item.class.name
-    when 'Collection'
+    case item
+    when Collection
       collection_newsfeed_url(item, options)
-    when 'Community'
+    when Community
       community_newsfeed_url(item, options)
-    when 'DataObject'
-      data_object_url(item, options)
-    when 'User'
+    when DataObject
+      data_object_url(item.latest_published_version_in_same_language || item, options)
+    when User
       user_newsfeed_url(item, options)
-    when 'TaxonConcept'
-      taxon_url(item, options)
+    when TaxonConcept
+      if options[:taxon_updates] # Sometimes you want to go to the long activity view for taxa...
+        taxon_updates_url(item, options.delete(:taxon_updates))
+      else
+        taxon_url(item, options)
+      end
     else
       raise EOL::Exceptions::ObjectNotFound
     end
   end
+
 private
 
   # Currently only used by collections and content controllers to log in users coming from iNaturalist
@@ -703,11 +691,11 @@ private
   end
 
   def remove_cached_feeds
-    FileUtils.rm_rf(Dir.glob("#{RAILS_ROOT}/public/feeds/*"))
+    FileUtils.rm_rf(Dir.glob(Rails.root.join(Rails.public_path, 'feeds', '*')))
   end
 
   def remove_cached_list_of_taxon_concepts
-    FileUtils.rm_rf("#{RAILS_ROOT}/public/content/tc_api/page")
+    FileUtils.rm_rf(Rails.root.join(Rails.public_path, 'content', 'tc_api', 'page'))
     expire_page( :controller => 'content', :action => 'tc_api' )
   end
 
@@ -792,7 +780,7 @@ private
     rescue ActionController::SessionRestoreError => e
       reset_session
       cookies.delete(:user_auth_token)
-      logger.warn "!! Rescued a corrupt cookie."
+      Rails.logger.warn "!! Rescued a corrupt cookie."
       nil
     end
   end

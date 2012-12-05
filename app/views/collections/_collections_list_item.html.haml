@@ -6,14 +6,14 @@
     %span
       - if collection.communities.count == 1
         - community = collection.communities.first
-        •
-        = I18n.t(:from_community, :community => link_to(truncate(community.name, :length => 64), community_path(community)))
+        \&bull;
+        = raw(I18n.t(:from_community, :community => link_to(truncate(community.name, :length => 64), community_path(community))))
       - elsif collection.communities.count > 1
-        •
-        = I18n.t(:from_communities, :communities => collection.communities.map {|community| link_to(truncate(community.name, :length => 64), community_path(community)) }.to_sentence )
+        \&bull;
+        = raw(I18n.t(:from_communities, :communities => collection.communities.map {|community| link_to(truncate(community.name, :length => 64), community_path(community)) }.to_sentence ))
       - if collection.id == current_user.watch_collection.id
-        •
+        \&bull;
         = I18n.t(:your_watch_collection)
       - if has_item && ! hide_has_item
-        •
-        = link_to(I18n.t(:in_collection), collection_url(collection), :class => 'close_and_go')
+        \&bull;
+        = raw(link_to(I18n.t(:in_collection), collection_url(collection), :class => 'close_and_go'))

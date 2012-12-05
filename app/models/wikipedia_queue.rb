@@ -1,6 +1,6 @@
 class WikipediaQueue < ActiveRecord::Base
 
-  set_table_name "wikipedia_queue"
+  self.table_name = "wikipedia_queue"
 
   belongs_to :user
   attr_accessor :revision_url

@@ -1,0 +1,7 @@
+- content_for :social_sharing do
+  = render :partial => 'shared/social_sharing'
+#content.newsfeed
+  .site_column
+    .nav
+      = render :partial => 'menu'
+    = render :partial => 'news_items/index', :locals => {:translated_news_items => @translated_news_items}

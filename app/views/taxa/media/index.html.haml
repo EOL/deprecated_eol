@@ -1,7 +1,7 @@
 = content_for :head do
-  = javascript_include_merged 'taxa-media'
+  = javascript_include_tag 'exemplar_image.js'
 = content_for :footer do
-  = javascript_include_merged 'taxa-media-footer'
+  = javascript_include_tag 'media_list'
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 
@@ -23,7 +23,7 @@
       .header
         - start_number = (@media.current_page - 1) * @media.per_page + 1
         - end_number = [ (start_number + @media.per_page - 1), @media.total_entries ].min
-        %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @media.total_entries)
+        %h3= raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @media.total_entries))
         = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
           :inner_window => 2, :outer_window => 2
       %ul.media
@@ -42,7 +42,7 @@
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type_id == DataType.image.id && current_user.min_curator_level?(:assistant)
                 .overlay
-                - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
+                = form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
                   :html => {:class => 'taxon_concept_exemplar_image'} do |f|
                   %label
                     = f.radio_button :data_object_id, item.id, { :checked => (!@exemplar_image.blank? && @exemplar_image.id == item.id) }
@@ -54,13 +54,16 @@
             %p.flag{:class => item_status_class}= item_status_label
             - vetted_id = item.association_with_exact_or_best_vetted_status(@taxon_concept).vetted_id
             .associations
-              = I18n.t("#{item_status_label.downcase}_for_colon")
-              %br
               - associated_with_taxa_names = []
               - item.all_associations.each do |association|
                 - if association.vetted_id == vetted_id && association_belongs_to_taxon_concept?(association, @taxon_concept)
                   - associated_with_taxa_names << association.italicized_name
-              = associated_with_taxa_names.join("<br />") unless associated_with_taxa_names.blank?
+              -# TODO: What should we do when this IS blank?
+              - unless associated_with_taxa_names.blank?
+                = I18n.t("association_#{item_status_label.downcase}_for_taxa", :count => associated_with_taxa_names.count)
+                %ul
+                  - associated_with_taxa_names.each do |assoc|
+                    %li= assoc
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
       .footer
         = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),

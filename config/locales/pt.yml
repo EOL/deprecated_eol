@@ -1,11 +1,14 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Bonifácio
 # Author: Giro720
 # Author: GoEThe
 # Author: Hamilton Abreu
+# Author: Luckas Blade
 # Author: Malafaya
 # Author: McDutchie
+# Author: SandroHc
 pt: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
@@ -41,6 +44,11 @@ pt:
         description: Descrição da comunidade
         logo: Carregar um logótipo
         name: Nome da comunidade
+      contact: 
+        comments: Mensagem
+        contact_subject_id: Assunto contacto
+        email: E-mail
+        name: Nome
       content_page: 
         active: Publicado
         page_name: Nome único
@@ -79,8 +87,14 @@ pt:
         collections_count: Colecções
         communities_count: Comunidades
         created_at: Criado em
+        data_objects: Objectos de Dados
+        data_objects_images: Objectos de Imagem
+        data_objects_texts: Objectos de texto
         members_count: Membros
         pages_count: Número total de páginas
+        pages_with_BHL_links: Páginas com ligações à BHL
+        pages_with_BHL_links_no_text: Páginas sem texto com ligações à BHL
+        pages_with_at_least_a_trusted_object: Páginas com objecto de confiança
         pages_with_content: Páginas com conteúdo
         pages_with_image: Páginas com imagens
         pages_with_image_no_text: Páginas com imagens, mas sem texto
@@ -102,6 +116,8 @@ pt:
         request_publish: Solicitar publicação
       name: 
         string: Nome
+      open_authentication: 
+        created_at: Criado
       resource: 
         accesspoint_url: URL do conjunto de dados
         auto_publish: Auto-publicar
@@ -208,7 +224,6 @@ pt:
   add_a_new_common_name: Adicionar um novo nome comum
   add_a_new_user: Adicionar um novo utilizador
   add_a_taxon_association_label: Adicionar uma associação de táxon
-  add_article_to_page_link_button: Adicionar um artigo a esta página.
   add_association_submit_button: adicionar associação
   add_brief_summary_to_page_link_button: Adicionar um breve resumo a esta página.
   add_education_resources_to_page_link_button: Adicionar recursos educativos a esta página.
@@ -269,6 +284,10 @@ pt:
   admin_translated_content_page_new_tip: Língua, título e corpo são %{required_icon} necessários.
   admin_translated_content_page_update_successful_notice: A tradução em %{language} para <a href="#%{anchor}"><em>%{page_name}</em></a> foi actualizada.
   admin_translated_content_page_update_unsuccessful_error: Desculpe, ocorreu um erro, a tradução não pôde ser actualizada.
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Parceiros de conteúdo
   agent: Agente
   all: todos
   all_apis_return_by_default_an_xml_response: "Por padrão, todas as APIs retornam uma resposta em XML. Os métodos de API podem ser chamados sem uma extensão de formato para obter a resposta XML; adicionar uma extensão XML dará uma resposta idêntica:"
@@ -291,6 +310,7 @@ pt:
   alternate_classification: Classificação alternativa
   and: e
   and_between_form_items: e
+  annotation_cabs_colon: "Anotação:"
   any_integer: qualquer número inteiro
   api_docs_collections_description: Dado o identificador para uma colecção esta API retornará todos os metadados sobre a colecção e os itens que ele contém. A lista de itens pode ser filtrada por tipo de item e ordenada pelos atributos listados acima.
   application_version_advisory_information: Versão do aplicativo
@@ -330,7 +350,6 @@ pt:
   audio_pause: pausa
   audio_pause_assistive: Com Javascript activado este link permitirá que pause um ficheiro de áudio adjacente que esteja a tocar, caso contrário, por favor, ignore este link.
   audio_play: reproduzir
-  audio_play_assistive: Com Javascript habilitado, este link vai começar a reproduzir o ficheiro de áudio mantendo-o nesta mesma janela. Se o Javascript estiver desabilitado este link é para um ficheiro de áudio e se selecionado será se comportam de acordo com o seu dispositivo.
   audio_stop: parar
   audio_stop_assistive: Com Javascript habilitado este link permitirá que você interrompa um ficheiro de áudio adjacente que esteja a tocar, caso contrário, por favor, ignore este link.
   audio_unmute: reestabelecer som
@@ -379,7 +398,7 @@ pt:
   close_this_window_to_return_to_edit_window: FECHE ESTA JANELA PARA VOLTAR À JANELA DE EDIÇÃO
   cms_available_in_languages: "Esta página está disponível em:"
   cms_missing_content_message: Pedimos desculpa, mas esta página não está disponível nesta língua.
-  cms_missing_content_title: Conteúdo em falta
+  cms_missing_content_title: Falta a tradução
   collect_item: Colectar item
   collection_created_notice: Collecção <em>%{collection_name}</em> criada com sucesso.
   collection_created_with_count_notice: 
@@ -421,8 +440,11 @@ pt:
   common_names_with_count: 
     one: "%{count} nome comum"
     other: "%{count} nomes comuns"
+  communities_filter: Comunidades
   communities_index_empty: Não há nenhuma comunidade activa.
   communities_index_header: Comunidades activas
+  communities_link: Comunidades
+  communities_page_title: Comunidades
   communities_summary_empty: Este taxon ainda não foi destacado em nenhuma comunidade.
   communities_summary_header_with_count: 
     one: Pertence a %{count} comunidade
@@ -533,6 +555,9 @@ pt:
   content_partner_resource_update_unsuccessful_error: Desculpe, ocorreu um erro, o recurso não foi actualizado.
   content_partner_resource_upload_unsuccessful_error: "Desculpe, ocorreu um erro, os detalhes do recurso foram actualizados mas o recurso em si não foi carregado: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: URL do conjunto de dados ou ficheiro por recurso, não ambos. Por favor decida se quer fornecer uma URL ou carregar um ficheiro para o recurso descrito. Recursos adicionais podem ser adicionados mais tarde.
+  content_partner_resource_vetted_false: Não
+  content_partner_resource_vetted_true: Sim
+  content_partner_resource_view_link: Ver
   content_partner_resources_header: Recursos
   content_partner_resources_information: Recursos são conjuntos de dados que estão disponíveis para ser recolhidos pela EOL. Dados recolhidos são integrados na base de dados da EOL e servidos ao público através do site e API da EOL. Ficheiros de recursos podem ser quer carregados directamente na EOL ou, se disponibilizar o ficheiro de recurso num servidor Web público, a EOL pode automaticamente extrair os dados a intervalos regulares que pode definir. Cada ficheiro de recurso deve estar no formato <a href="%{eol_transfer_schema_url}">EOL Transfer Schema</a>
   content_partner_resources_link: Recursos &amp; Contactos
@@ -547,8 +572,11 @@ pt:
   content_partner_statistics_column_header_total_count: Todas as páginas
   content_partner_statistics_empty: Nenhuma estatística para %{month_name} %{year}.
   content_partner_statistics_link: Estatísticas de uso
+  content_partner_statistics_month_label: Mês
   content_partner_statistics_summary_caption: Resumo das estatísticas de uso para uma página de taxon contendo conteúdo fornecido por %{partner_name} relativo ao uso total do site da EOL.
   content_partner_statistics_taxa_page_caption: Estatísticas de uso detalhadas para páginas de taxon contendo conteúdo fornecido por %{partner_name}.
+  content_partner_statistics_year_label: Ano
+  content_partner_status_empty: Estado desconhecido
   content_partner_update_successful_notice: Detalhes do parceiro actualizados com sucesso.
   content_partner_update_unsuccessful_error: Desculpe, ocorreu um erro, os detalhes do parceiro não foram actualizados.
   content_partners_empty: Não foram encontradas parceiros de conteúdo.
@@ -636,12 +664,60 @@ pt:
   data_object_not_associated_with_any_hierarchies: Este objecto de dados não está associado com nenhuma hierarquia.
   data_object_undo_ignore: remover da lista de ignorados
   data_usage_reports: Relatórios de uso de dados
+  datepicker: 
+    close: Fechar
+    current: Hoje
+    day_names: 
+      - Domingo
+      - Segunda-feira
+      - Terça-feira
+      - Quarta-feira
+      - Quinta-feira
+      - Sexta-feira
+      - Sábado
+    day_names_min: 
+      - Do
+    day_names_short: 
+      - Dom
+      - Seg
+      - Ter
+      - Qua
+      - Qui
+      - Sex
+      - Sáb
+    month_names: 
+      - Janeiro
+      - Fevereiro
+      - Março
+      - Abril
+      - Maio
+      - Junho
+      - Julho
+      - Agosto
+      - Setembro
+      - Outubro
+      - Novembro
+      - Dezembro
+    month_names_short: 
+      - Jan
+      - Fev
+      - Mar
+      - Abr
+      - Mai
+      - Jun
+      - Jul
+      - Ago
+      - Set
+      - Out
+      - Nov
+      - Dez
+    next: Próximo
+    previous: Anterior
   dato_create_cancel: Cancelar
   dato_create_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser adicionado.
   dato_create_user_text_missing_taxon_id_exception: Não é possível contruir um texto DataObject ou UsersDataObject se o identificador do taxon for nulo.
   dato_create_user_text_missing_user_exception: Não é possível contruir um texto DataObject ou UsersDataObject se o identificador do taxon for nulo.
   dato_edit_cancel: Cancelar
-  dato_edit_text_link_button: Editar este artigo
   dato_edit_text_page_description: Obrigado por contribuir seus conhecimentos para a EOL. O artigo revisto será adicionado à sua Lista de Vigilância para que possa acompanhar qualquer conversa relacionada a ele e verificar o seu estado de curadoria.
   dato_edit_text_title: Editar artigo
   dato_new_edit_user_text_fieldset_content_header: Conteúdo do artigo
@@ -681,7 +757,6 @@ pt:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Não mostrar datas registadas desconhecidas (utilizadores da V1, todos anteriores a 5 de Janeiro de 2009)
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Itens duplicados foram ignorados.
-  e_g_search_for_the_eol_page: "(por exemplo, procurar pelo ID da página EOL para o ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: A página de documentação de cada método tem um exemplo de respostas formatadas quer em XML como em JSON.
   edit: Editar
   edit_collection_details: Editar detalhes da colecção
@@ -723,7 +798,6 @@ pt:
   error_404_page_title: Não encontrado
   error_500_page_title: Erro interno do servidor
   error_homepage_or_search_option: "Pode voltar à <a href=\"/\">homepage</a> ou usar a nossa ferramenta de procura:"
-  esc_key_hides_this_message: (a tecla esc esconde esta mensagem)
   every_method_can_also_return_json_response: Todos os métodos podem devolver uma resposta JSON adicionando a extensão .json
   example_colon: "Exemplo:"
   expand_all_children: expandir todos os descendentes
@@ -746,8 +820,10 @@ pt:
   filter_by_type: Filtrar por tipo
   filter_by_type_all_option: Todos os tipos
   filter_by_type_collection_option: Colecções
+  filter_by_type_comment_option: Comentários
   filter_by_type_community_option: Comunidades
   filter_by_type_image_option: Imagens
+  filter_by_type_name_option: Nomes
   filter_by_type_photosynth_option: Photosynths
   filter_by_type_sound_option: Sons
   filter_by_type_taxon_concept_option: Taxa
@@ -755,6 +831,11 @@ pt:
   filter_by_type_user_option: Pessoas
   filter_by_type_video_option: Vídeos
   filter_media: filtrar meios
+  filter_newsfeed_option_all: Todos
+  filter_newsfeed_option_collections: Coleções
+  filter_newsfeed_option_community: Comunidade
+  filter_newsfeed_option_messages: Comentários
+  filter_newsfeed_option_watchlist: Páginas vigiadas
   filtered_information: Informacão filtrada
   find_taxa_submit_button: encontrar taxa
   flash_notice_redirected_from_search_html: Chegou aqui procurando por <em>%{search_string}</em>. <a href="%{more_results_url}">Carregue aqui para voltar à página de pesquisa.</a>
@@ -768,6 +849,7 @@ pt:
   forgot_password_form_header: Redefinir a sua senha
   forgot_password_form_username_or_email_blank_error: Por favor, insira o seu nome de utilizador ou endereço de e-mail para redefinir a sua senha.
   form_validation_errors_for_attribute_assistive: Há um erro de validação sobre este elemento
+  frequency: Frequência
   frequency_daily: Diariamente
   frequency_monthly: Mensalmente
   frequency_never: Nunca
@@ -784,7 +866,9 @@ pt:
   global_navigation: Navegação Global
   go: Ir
   go_back: voltar
+  google: Google
   google_analytics_google_account_and_access_required: Google Analytics (conta do Google e acesso necessário)
+  google_images: Google Imagens
   grant_full_curator_link: Conceder
   grant_manager_link: Conceder papel de gestor
   has_already_been_taken: já não está disponível.
@@ -796,6 +880,13 @@ pt:
       collection_item: 
         annotation: Anotação
         sort_field: Ordenar por <small>(data AAAA.MM.DD, número ou texto)</small>
+      comment: 
+        body_edit: Editar comentário
+      contact: 
+        comments: Sua mensagem
+        contact_subject_id: Assunto
+        email: Seu endereço de e-mail
+        name: Seu nome
       content_page: 
         active: Publicado
         active_more: Páginas publicadas serão visíveis ao público. Desmarque <em>publicado</em> se quiser impedir utilizadores em geral de ver versões desta página em qualquer língua.
@@ -846,6 +937,8 @@ pt:
         complete: Curado
         request_publish: Foi pedida a publicação
         request_publish_more: Indica se há uma solicitação pendente para promover esta hierarquia para se tornar uma das hierarquias navegáveis primárias na EOL.
+      open_authentication: 
+        connect: Adicionar
       resource: 
         accesspoint_url: URL do conjunto de dados
         accesspoint_url_existing_remove: Este recurso está actualmente a ser carregado da URL terminada em <em>%{accesspoint_url}</em>. Carregar um ficheiro se gostaria de remover a URL existente e carregar o recurso de um ficheiro em vez disso (não recomendado).
@@ -913,6 +1006,7 @@ pt:
     select: 
       prompt: Por favor seleccione
     submit: 
+      cancel: Cancelar
       collection_item: 
         update: Gravar
       content_page: 
@@ -936,6 +1030,9 @@ pt:
         create: Adicionar artigo
         create_text: Adicionar artigo
         update: Guardar artigo
+      eol_statistic: 
+        download_csv: Baixar como CSV
+      filter_sort: Filtrar e classificar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -944,6 +1041,12 @@ pt:
       name: 
         create: Adicionar nome
         update: Actualizar nome
+      news_item: 
+        edit: Editar
+      open_authentication: 
+        create: Conectar
+        destroy: Desconectar
+        update: Verificar conexão
       resource: 
         create: Adicionar recurso
         force_harvest: Pedir colheita forçada
@@ -951,6 +1054,8 @@ pt:
         update_settings: Actualizar configurações
       session: 
         create: Iniciar sessão
+        sign_in_with_facebook: Entrar com Facebook
+        sign_in_with_twitter: Entrar com Twitter
       submit: Guarde %{model}
       translated_content_page: 
         create: Adicionar tradução
@@ -964,7 +1069,10 @@ pt:
         update: Guardar informação do perfil
       wikipedia_queue: 
         create: Submeter pedido
+  here: aqui
   hidden: Oculto
+  hidden_comment: comentário oculto
+  hide: ocultar
   hierarchies_description: A Encyclopedia of Life não tem uma hierarquia taxonómica única sobre a qual cria as suas páginas. Ao invés, a EOL indexa muitas hierarquias e compara-as umas com as outras. Esta API lista metadados sobre uma hierarquia tais como o nome do fornecedor e URL da fonte, assim como listas de todos os taxa que são a raiz da árvore taxonómica
   hierarchies_title: Hierarquias
   hierarchy: Hierarquia
@@ -975,6 +1083,7 @@ pt:
   home: Início
   home_page_link_advisory_information: Este link vai levá-lo à página inicial da Enciclopédia da Vida
   id: ID
+  image: Imagem
   image_is_no_longer_available: A imagem não está mais disponível
   image_not_found: Imagem não encontrada
   images: Imagens
@@ -991,6 +1100,8 @@ pt:
   insufficient_privileges_to_curate_names: Desculpe, não tem privilégios suficientes para curadoria de nomes.
   invite_members_help_text: Adicione alguns utilizadores EOL e eles irão receber um convite para a sua nova comunidade!
   invite_members_label: Convidar Membros
+  ip: IP
+  ip_address: Endereço IP
   item_added_to_collection_notice: Item foi adicionado à colecção <em>%{collection_name}</em>
   item_added_to_watch_collection_notice: "\"%{item_name}\" foi adicionado a %{collection_name}."
   item_details_missing: Desculpe, ocorreu um erro, não foi possível recuperar detalhes do item.
@@ -998,13 +1109,25 @@ pt:
   item_not_added_to_collection_error: Desculpe, ocorreu um erro, o item seleccionado não pôde ser adicionado à colecção.
   item_not_added_to_itself_notice: Desculpe, não pode adicionar <em>%{collection_name}</em> a si mesmo.
   item_not_updated_in_collection_error: Desculpe, ocorreu um erro, o item da colecção não pôde ser actualizado.
+  item_type_article: Artigo
   item_type_article_assistive: Este item é um artigo
+  item_type_collection: Coleção
   item_type_collection_assistive: Este item é uma colecção
+  item_type_community: Comunidade
   item_type_community_assistive: Este item é uma comunidade
+  item_type_image: Imagem
   item_type_image_assistive: Este item é uma imagem
+  item_type_image_map: Mapa
+  item_type_image_map_assistive: Este item é uma imagem de um mapa
+  item_type_map: Mapa
+  item_type_map_assistive: Este item é um mapa
+  item_type_person: Pessoa
   item_type_person_assistive: Este item é uma pessoa
+  item_type_sound: Som
   item_type_sound_assistive: Este item é um som
+  item_type_taxon: Táxon
   item_type_taxon_assistive: Este item é um taxon
+  item_type_video: Vídeo
   item_type_video_assistive: Este item é um vídeo
   item_updated_in_collection_notice: Item actualizado com sucesso na colecção <em>%{collection_name}</em>.
   items_with_count_semi_colon: 
@@ -1023,6 +1146,28 @@ pt:
   language_with_count: "%{language} (%{count})"
   languages: Línguas
   last_updated_time_ago: Última actualização há %{time_passed}
+  layouts: 
+    v2: 
+      application: 
+        learn_more_link_amphibians: Anfíbios
+        learn_more_link_animals: Animais
+        learn_more_link_bacteria: Bactérias
+        learn_more_link_birds: Aves
+        learn_more_link_crustaceans: Crustáceos
+        learn_more_link_fish: Peixes
+        learn_more_link_flowering_plants: Plantas com flor
+        learn_more_link_fungi: Fungos
+        learn_more_link_insects: Insetos
+        learn_more_link_invertebrates: Invertebrados
+        learn_more_link_mammals: Mamíferos
+        learn_more_link_molds: Mofos
+        learn_more_link_mollusks: Moluscos
+        learn_more_link_mushrooms: Cogumelos
+        learn_more_link_plants: Plantas
+        learn_more_link_protists: Protistas
+        learn_more_link_reptiles: Répteis
+        learn_more_link_spiders: Aranhas
+        learn_more_link_trees: Árvores
   learn_about_collections: Como posso criar uma?
   learn_about_communities: Como posso participar?
   learn_about_content_partners: Como me posso tornar um?
@@ -1105,7 +1250,22 @@ pt:
     other: "%{count} membros;"
   method: Método
   methods: Métodos
-  minimal_page: Página mínima
+  mobile: 
+    search: 
+      no_results_found: Nenhum resultado encontrado
+      results: Resultados
+      suggestions: Sugestões
+    taxa: 
+      community: Comunidade
+      details: Detalhes
+      images: Imagens
+      literature: Literatura
+      maps: Mapas
+      nomenclature: Nomenclatura
+      resources: Recursos
+      sounds: Sons
+      taxon_details: Detalhes do táxon
+      videos: Vídeos
   moderator_colon: "Moderador:"
   monthly: Mensalmente
   more_children_with_count: 
@@ -1121,6 +1281,7 @@ pt:
   my_activity: Minha actividade
   my_info: A minha informação
   name: Nome
+  name_colon: "Nome:"
   name_preferred_for_language_yes: Preferido
   name_preferred_taxonomically_for_source_yes: Preferido
   names: Nomes
@@ -1128,6 +1289,7 @@ pt:
   names_common_list_by_language_assistive_header: Nomes comuns listados por língua
   names_curation_column_header: Curadoria
   names_et_al: "%{names}, et al."
+  names_filter: Nomes
   names_name_column_header: Nome
   names_parents_column_header: Categorias superiores
   names_preferred_column_header: Preferido
@@ -1136,8 +1298,8 @@ pt:
   names_status_column_header: Estado
   never: Nunca
   new_collection: Nova colecção
-  news_items: Notícias
   no_active_members: Não houve ainda actividade suficiente.
+  no_answer: Não
   no_tasks_found: Não foram encontradas tarefas
   none: nenhum
   not_applicable: não aplicável
@@ -1182,15 +1344,20 @@ pt:
   object_status_untrusted_option: Não é de confiança
   object_type: Tipo de objecto
   object_type_all_option: Tudo
+  object_type_collection_option: Coleção
+  object_type_community_option: Comunidade
   object_type_image_option: Imagem
   object_type_sound_option: Som
+  object_type_taxon_concept_option: Conceito de táxon
   object_type_text_option: Texto
+  object_type_user_option: Usuário
   object_type_video_option: Vídeo
   object_visibility: Visibilidade do objecto
   object_visibility_all_option: Tudo
   object_visibility_invisible_option: Oculto
   object_visibility_visible_option: Visível
   objects_curated: Objectos Curados
+  older_version_of_latest_published_data_object_title_link: Versão mais antiga de %{link}
   option_please_select: Por favor seleccione
   or_add_it_to_an_existing_collection: ou adicione-o a uma colecção existente
   or_copy_them_to_existing_collection: ou copie-os para uma colecção existente
@@ -1247,6 +1414,7 @@ pt:
   profile_image_alt_text_member: Foto de perfil do membro %{user_full_name}
   profile_newsfeed: Meu Newsfeed
   public: Público
+  references_cabs_colon: "Referências:"
   reset_password_enter_new_password_notice: A senha usada só é válida para esta sessão, por favor entre nova senha para continuar.
   resources: Recursos
   response_formats: Formatos de resposta
@@ -1309,7 +1477,6 @@ pt:
       create_user_header: Criar uma nova conta <abbr title="Encyclopedia of Life">EOL</abbr>
   will_paginate: 
     next_label: Próximo &#8594;
-    page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"
   year: Ano
   yes_answer: Sim

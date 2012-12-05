@@ -4,11 +4,11 @@
   %br
   = I18n.t(:total_searches)
   = @search_totals.num_searches
-  |
+  &#124;
   = I18n.t(:total_distinct_searches)
   = @search_totals.distinct_searches
   %br
-  - form_tag({:action => 'index'}, :method => 'get', :id => 'form1') do
+  = form_tag({:action => 'index'}, :method => 'get', :id => 'form1') do
     %div{:style => 'padding:4pt 2em;'}
       = I18n.t(:search_for_terms_containing)
       = text_field_tag(:search_string, @search_string)

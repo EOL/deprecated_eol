@@ -325,6 +325,15 @@ class ContentController < ApplicationController
     @page_title = I18n.t("eol_glossary")
   end
 
+protected
+
+  def scoped_variables_for_translations
+    @scoped_variables_for_translations ||= super.dup.merge({
+      :meta_keywords => (@translated_content && !@translated_content.meta_keywords.blank?) ? @translated_content.meta_keywords : nil,
+      :meta_description => (@translated_content && !@translated_content.meta_description.blank?) ? @translated_content.meta_description : nil
+    }).freeze
+  end
+
 private
 
   def periodically_recalculate_homepage_parts

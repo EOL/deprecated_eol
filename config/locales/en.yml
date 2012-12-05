@@ -880,6 +880,9 @@ en:
       see_all_eol_news: "see more <span class=\"assistive\">EOL news</span>"
       see_all_recent_activites: "see more <span class=\"assistive\">activities in the last week</span>"
       see_all_statistics: "see more <span class=\"assistive\">EOL statistics</span>"
+    show:
+      meta_description: "%{meta_description}"
+      meta_keywords: "%{meta_keywords}"
   content_partners:
     statistics:
       show:

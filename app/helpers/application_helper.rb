@@ -508,7 +508,9 @@ module ApplicationHelper
   def show_nodes(hierarchy_entries, options={})
     options[:max_children] ||= 500
     capture_haml do
-      unless hierarchy_entries.blank?
+      # using .nil? || == 0 here instead of .blank? because that would create a COUNT query,
+      # but we need to load the data anyway, so a COUNT would be unnecessary and inefficient
+      unless hierarchy_entries.nil? || hierarchy_entries.length == 0
         haml_tag :ul, :class => 'branch' do
           # sort the array by name string
           # TODO: we should really not get back ALL records from the DB then sort, see if sorting in the DB is faster
@@ -536,8 +538,8 @@ module ApplicationHelper
                 full_link = options[:link_to_taxa] ?
                   overview_taxon_path(parent.taxon_concept_id, :full => true) :
                   overview_taxon_entry_path(parent.taxon_concept_id, parent, :full => true)
-                full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa], :show_siblings => options[:show_siblings],
-                  :show_hierarchy_label => options[:show_hierarchy_label])
+                full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa],
+                  :show_siblings => options[:show_siblings], :show_hierarchy_label => options[:show_hierarchy_label])
                 haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
               end
             end

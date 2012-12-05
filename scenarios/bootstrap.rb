@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Put a few taxa (all within a new hierarchy) in the database with a range of accoutrements
 #
 #   TODO add a description here of what actually gets created!
@@ -325,6 +326,11 @@ tc.add_common_name_synonym('lilly of the tiger', :agent => agent_col, :language 
 tc.add_common_name_synonym('Tiger flower', :agent => agent_col, :language => Language.english)
 tc.add_common_name_synonym('Tiger-stripe lilly', :agent => agent_col, :language => Language.english)
 tc.add_common_name_synonym('Tiger-eye lilly', :agent => agent_col, :language => Language.english)
+
+chinese = Language.from_iso('zh-Hans')
+tc.add_common_name_synonym('大熊猫', :agent => agent_col, :language => chinese)
+tc.add_common_name_synonym('白熊', :agent => agent_col, :language => chinese)
+tc.add_common_name_synonym('扁担花', :agent => agent_col, :language => chinese)
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,

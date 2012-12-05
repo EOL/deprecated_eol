@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
@@ -536,5 +537,25 @@ describe 'Taxa page' do
       current_url.should match /#{taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)}/
       body.should include('Comment successfully added')
     end
+  end
+end
+
+
+describe 'Chinese pronunciations' do
+  before(:all) do
+    truncate_all_tables
+    load_scenario_with_caching(:testy)
+    @testy = EOL::TestInfo.load('testy')
+    @taxon_concept = @testy[:taxon_concept]
+  end
+
+  it 'should display a pronunciation link when there are Chinese Common Names' do
+    visit('/set_language?language=zh-Hans')
+    visit overview_taxon_path(@taxon_concept)
+    body.should_not have_selector("#pronunciation_player")
+
+    @taxon_concept.add_common_name_synonym('大熊猫', :agent => Agent.gen, :language => Language.from_iso('zh-Hans'))
+    visit overview_taxon_path(@taxon_concept)
+    body.should have_selector("#pronunciation_player")
   end
 end

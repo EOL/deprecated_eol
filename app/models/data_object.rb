@@ -240,8 +240,8 @@ class DataObject < ActiveRecord::Base
     DataObject.find(find_these, :select => 'id, object_title', :include => [:toc_items, :data_type])
   end
 
-  def self.still_published?(dato)
-    DataObject.find(:first, dato, :select => 'published').published? 
+  def self.still_published?(data_object_id)
+    DataObject.find(data_object_id, :select => 'published').published?
   end
 
   # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.

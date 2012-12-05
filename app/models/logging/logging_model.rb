@@ -13,5 +13,8 @@ class LoggingModel < ActiveRecord::Base
         ActionController::Base.new.expire_fragment("taxon_overview_activity_#{tc_id}_#{l.iso_639_1}")
       end
     end
+    direct_concept_ids.each do |tc_id|
+      ActionController::Base.new.expire_fragment("taxon_overview_curators_#{tc_id}")
+    end
   end
 end

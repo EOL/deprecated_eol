@@ -29,7 +29,7 @@
         %tbody
           %tr
             %td
-              = "page"
+              page
             %td
               %i
                 = I18n.t("any_integer")
@@ -38,7 +38,7 @@
             %td
           %tr
             %td
-              = "per_page"
+              per_page
             %td
               %i
                 = I18n.t("any_integer")
@@ -47,14 +47,14 @@
             %td
           %tr
             %td
-              = "filter"
+              filter
             %td
               articles, collections, communities, images, sounds, taxa, users, video
             %td
             %td
           %tr
             %td
-              = "sort_by"
+              sort_by
             %td
               = SortStyle.all.map{ |ss| ss.name.downcase.gsub(' ', '_') rescue nil }.compact.join(', ')
             %td
@@ -62,8 +62,7 @@
             %td
           %tr
             %td
-              -# this is weird, but without quotes it was using the i18n translation
-              = "sort_field"
+              sort_field
             %td
               %i
                 = I18n.t("any_string")

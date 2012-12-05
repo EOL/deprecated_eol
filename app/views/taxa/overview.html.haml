@@ -8,7 +8,8 @@
   = render(:partial => 'taxa/communities_summary')
 #sidebar
   = render(:partial => 'taxa/classifications_summary')
-  = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})
+  - cache("taxon_overview_curators_#{@taxon_concept.id}") do
+    = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})
   - unless @selected_hierarchy_entry
     .article.list.updates
       - cache("taxon_overview_activity_#{@taxon_concept.id}_#{current_language.iso_639_1}") do

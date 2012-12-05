@@ -62,7 +62,7 @@ class Taxa::ResourcesController < TaxaController
   end
 
   def biomedical_terms
-    if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
+    if @taxon_concept.has_ligercat_entry?
       @assistive_section_header = I18n.t(:resources)
       @biomedical_exists = true
     else

@@ -5,7 +5,6 @@ class Taxa::DetailsController < TaxaController
 
   # GET /pages/:taxon_id/details
   def index
-    
     @text_objects = @taxon_concept.details_text_for_user(current_user)
     # TODO - hey, why not put this preload in #table_of_contents_for_text ?  :S
     DataObject.preload_associations(@text_objects, { :toc_items => :parent })
@@ -75,7 +74,8 @@ private
     @show_resources_links = []
     @show_literature_references_links = []
 
-    @show_resources_links << 'partner_links' unless @taxon_concept.content_partners_links.blank?
+    # every page should have at least one partner (since we got the name from somewhere)
+    @show_resources_links << 'partner_links'
     @show_resources_links << 'identification_resources' if concept_toc_ids.include?(TocItem.identification_resources.id)
 
     citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
@@ -90,7 +90,7 @@ private
     # & is array intersection
     @show_resources_links << 'education' unless (concept_toc_ids & education_toc_ids).empty?
 
-    if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
+    if @taxon_concept.has_ligercat_entry?
       @show_resources_links << 'biomedical_terms'
     end
     @show_resources_links << 'nucleotide_sequences' unless @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.nil?

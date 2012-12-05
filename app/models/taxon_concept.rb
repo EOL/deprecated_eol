@@ -90,11 +90,16 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def preferred_common_name_in_language(language)
-    best_name_in_language = preferred_common_names.detect{ |c| c.language_id == language.id }
+    if preferred_common_names.loaded?
+      # sometimes we preload preferred names in all languages for lots of taxa
+      best_name_in_language = preferred_common_names.detect{ |c| c.language_id == language.id }
+    else
+      # ...but if we don't, its faster to get only the one record in the current language
+      best_name_in_language = preferred_common_names.where("language_id = #{language.id}").first
+    end
     if best_name_in_language
       return best_name_in_language.name.string.capitalize_all_words_if_using_english
     end
-    nil
   end
 
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
@@ -170,7 +175,12 @@ class TaxonConcept < ActiveRecord::Base
 
   # Returns nucleotide sequences HE
   def nucleotide_sequences_hierarchy_entry_for_taxon
-    @ncbi_entry ||= TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
+    @ncbi_entry ||= HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", Hierarchy.ncbi.id, id).select(:identifier).first
+  end
+
+  def has_ligercat_entry?
+    return nil unless Resource.ligercat && Resource.ligercat.hierarchy
+    HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", Resource.ligercat.hierarchy.id, id).select(:identifier).first
   end
 
   # Returns external links
@@ -278,7 +288,7 @@ class TaxonConcept < ActiveRecord::Base
   def gbif_map_id
     return @gbif_map_id if @gbif_map_id
     if h = Hierarchy.gbif
-      if he = HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(h.id, self.id)
+      if he = HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", h.id, id).select(:identifier).first
         @gbif_map_id = he.identifier
         return he.identifier
       end
@@ -1022,11 +1032,11 @@ class TaxonConcept < ActiveRecord::Base
         :toc_items => '*',
         :translated_table_of_contents => '*',
         :users_data_objects => '*',
-        :resources => '*',
-        :content_partners => '*',
+        :resources => 'id, content_partner_id, title, hierarchy_id',
+        :content_partners => 'id, user_id, full_name, display_name, homepage',
         :refs => '*',
         :ref_identifiers => '*',
-        :comments => '*',
+        :comments => 'id, parent_id',
         :licenses => '*',
         :users_data_objects_ratings => '*' }
       DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments, :license,
@@ -1034,7 +1044,7 @@ class TaxonConcept < ActiveRecord::Base
         { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
           :vetted, :visibility ] },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object,
-        { :toc_items => [ :translations ] } ])
+        { :toc_items => [ :translations ] } ], :select => selects)
     end
     text_objects
   end

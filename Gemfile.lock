@@ -103,10 +103,6 @@ GEM
     graylog2_exceptions (1.3.0)
       gelf (= 1.1.3)
     haml (3.1.7)
-    haml-i18n (0.0.4)
-      activesupport
-      haml
-      i18n
     highline (1.6.15)
     hike (1.2.1)
     httpauth (0.2.0)
@@ -294,7 +290,6 @@ DEPENDENCIES
   faker
   graylog2_exceptions
   haml
-  haml-i18n
   indifferent-variable-hash
   invert
   jquery-rails

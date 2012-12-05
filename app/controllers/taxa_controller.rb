@@ -16,7 +16,9 @@ class TaxaController < ApplicationController
   end
 
   def overview
-    TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
+    TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy }, :select => {
+      :hierarchy_entries => [ :id, :name_id, :parent_id, :rank_id, :taxon_concept_id, :hierarchy_id, :lft, :rgt ],
+      :hierarchies => [ :id, :agent_id, :label, :browsable ] } )
     @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank?
     @browsable_hierarchy_entries.compact!
@@ -189,7 +191,7 @@ private
   end
 
   def instantiate_preferred_names
-    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_language) : @taxon_concept.preferred_common_name_in_language(current_language)
+    @preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_language)
     @scientific_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.italicized_name : @taxon_concept.title_canonical_italicized
   end
 

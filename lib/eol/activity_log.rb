@@ -152,12 +152,11 @@ module EOL
 
     def self.taxon_concept_activities(source, options = {})
       tc_ids = [ source.id ]
-      # TODO - this only needs the id and could be better-written anyway (limit could be used), fix:
-      TaxonConcept.find_all_by_supercedure_id(source.id).each do |tc|
+      TaxonConcept.where("supercedure_id = #{source.id}").select(:id).limit(500).each do |tc|
         tc_ids << tc.id
       end
       # TODO - repeated logic with :data_object_activities above
-      id_clause = "(feed_type_primary_key:(" + tc_ids[0...500].join(" OR ") + "))"
+      id_clause = "(feed_type_primary_key:(" + tc_ids.join(" OR ") + "))"
       query = "(feed_type_affected:TaxonConcept OR feed_type_affected:AncestorTaxonConcept) AND (#{id_clause})"
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end

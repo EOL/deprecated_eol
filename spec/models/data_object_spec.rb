@@ -52,8 +52,8 @@ describe DataObject do
     preview_do_association.vetted.should == Vetted.unknown
 
     preview_do.publish_wikipedia_article(@taxon_concept)
-    published_do.reload
-    preview_do.reload
+    published_do.reindex
+    preview_do.reindex
 
     published_do.published.should_not be_true
     preview_do.published.should be_true

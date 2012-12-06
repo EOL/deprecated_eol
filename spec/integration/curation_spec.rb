@@ -8,7 +8,6 @@ end
 describe 'Curation' do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
     commit_transactions # Curators are not recognized if transactions are being used, thanks to a lovely
@@ -46,10 +45,6 @@ describe 'Curation' do
     @new_name   = 'habrish lammer'
     @taxon_concept.add_common_name_synonym @new_name, :agent => Agent.find(@cn_curator.agent_id),
       :preferred => false, :language => Language.english
-  end
-
-  after(:all) do
-    truncate_all_tables
   end
 
   after(:each) do

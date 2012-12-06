@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Select with Preload Include' do
   before :all do
-    truncate_all_tables
     load_foundation_cache
     @taxon_concept = build_taxon_concept()
     @last_hierarchy_entry = HierarchyEntry.last

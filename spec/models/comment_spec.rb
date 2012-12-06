@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Comment do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     @tc = build_taxon_concept
     @tc_comment = @tc.comments[0]

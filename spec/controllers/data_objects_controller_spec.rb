@@ -12,7 +12,6 @@ end
 
 describe DataObjectsController do
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     @taxon_concept = TaxonConcept.gen
     @user = User.gen

@@ -858,7 +858,7 @@ public
   end
 
   def assistant_curator?
-    self.curator_level_id == CuratorLevel.assistant.id
+    self.curator_level_id && CuratorLevel.assistant && self.curator_level_id == CuratorLevel.assistant.id
   end
 
   def is_pending_curator?
@@ -896,7 +896,7 @@ public
   end
 
   def wants_to_be_assistant_curator?
-    self.requested_curator_level_id == CuratorLevel.assistant_curator.id
+    self.requested_curator_level_id && CuratorLevel.assistant_curator && self.requested_curator_level_id == CuratorLevel.assistant_curator.id
   end
 
   def already_has_requested_curator_level?

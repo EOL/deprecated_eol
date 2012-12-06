@@ -3,7 +3,6 @@ require "rake"
 
 describe 'Sitemaps' do
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     
     License.destroy_all

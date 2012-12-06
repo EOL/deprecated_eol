@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Taxa::LiteratureController do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     @test_taxon_concept = build_taxon_concept(:bhl => [])
     @publication = PublicationTitle.gen(:title => "Series publication title", :details => "publisher info",

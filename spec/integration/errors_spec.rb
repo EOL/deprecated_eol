@@ -6,7 +6,6 @@ describe 'Errors' do
   # render error view, thus they are not covered in this integration test.
   before(:all) do
     unless @admin = User.find_by_username('errors_integration_testing')
-      truncate_all_tables
       load_foundation_cache
       @admin = User.gen(:username => 'errors_integration_testing', :admin => true)
     end

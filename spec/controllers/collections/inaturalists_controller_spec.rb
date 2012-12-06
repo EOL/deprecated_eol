@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Collections::InaturalistsController do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     # Create a collection with a EOL collection id which already has a project on iNaturalist.
     $TESTING_INATURALIST_PROJECTS = true

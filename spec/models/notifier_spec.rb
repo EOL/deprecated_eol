@@ -4,7 +4,6 @@ describe Notifier do
 
   before(:all) do
     unless @user = User.find_by_username('notifier_model')
-      truncate_all_tables
       load_foundation_cache
       @user = User.gen(:username => "notifier_model", :email => "johndoe@example.com",
                        :given_name => "John", :family_name => "Doe")

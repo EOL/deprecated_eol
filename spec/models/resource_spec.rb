@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Resource do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     iucn_user = User.find_by_given_name('IUCN')
     iucn_content_partner = ContentPartner.find_by_user_id(iucn_user.id)

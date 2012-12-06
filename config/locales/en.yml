@@ -433,6 +433,7 @@ en:
           attributes:
             publish:
               inclusion: "is only allowed for the latest harvest event and only if that event is not already published"
+        inaccessible: "The record could not be saved because it was invalid. Check validation errors and resubmit."
         open_authentications:
           guid_provider_must_be_unique: "the third-party account is already connected with an EOL account"
           provider_user_id_must_be_unique: "only one account from each third-party provider can be connected to an EOL account"

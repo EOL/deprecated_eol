@@ -75,6 +75,7 @@ qqq:
           attributes:
             publish:
               inclusion: "This error message will be displayed (after the name of the checkbox on the form) if an admin attempts to flag a harvest event for publishisng in one of the cases where it cannot be published (ie: it musn't already be published and there must not be a more recent model to be published)."
+        inaccessible: "This is VERY LOW PRIORITY for translation, please move on; it will only be seen by developers but its inclusion in translations is required for specs to pass."
   user_response: "This is a table column heading where the cells in the column represent the response provided by a user when answering a survey question."
   who_registered_from: "The value of this key is simply 'who registered from' because it is used in the context of a search date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
   who_registered_before: "The value of this key is simply 'to' because it is used in the context of a search date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
@@ -212,3 +213,8 @@ qqq:
   this_page_will_be_reindexed: "Notification message that a curator would see in a flash message after clicking a button requesting a reindexing of a page"
   error_classifications_locked_cannot_reindex: "This is a flash message that a curator would receive if they attempted to request reindexing of a page where the classifications are locked; locked classifications imply that the conent of the page are about to change, so reindexing would be premature... or that someone else has already requested a reindexing."
   filed_under_label_with_date: "Note that the date is in the :long format."
+  or_add_it_to_an_existing_collection: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new collection to add an item to, then given this message, followed by a list of her existing collections."
+  or_add_it_to_an_existing_community: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new community to add a collection to, then given this message, followed by a list of the communities she has access to."
+  or_email_education: "The user was presented with a button (see add_education_resources_to_page_link_button) allowing them to contribute information about educational resources related to a taxon. This 'sentence' appears after that button, allowing them to email EOL staff with their suggestion instead. The 'link' thus contains a clickable email address."
+  page_reference: "This is a citation (as one might find in a bibliography), and the format should follow standards for bibliographic citations of websites. You may need to do some research to find out what that format is in your language."
+

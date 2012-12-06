@@ -855,18 +855,21 @@ class DataObject < ActiveRecord::Base
     best_first_entry
   end
 
+  # NOTE - if you plan on calling this, you are behooved by adding object_title and data_type_id to your selects.
   def best_title
-    first_try = best_title_or_nil
-    return first_try if first_try
-    reload unless data_type # Let's try again. ...It may not have been loaded (in, say, notifications)
-    second_try = best_title_or_nil
-    return second_try if second_try
+    return safe_object_title unless safe_object_title.blank?
+    return toc_items.first.label unless toc_items.blank?
+    return safe_data_type.simple_type if safe_data_type
     return I18n.t(:unknown_data_object_title)
   end
   alias :summary_name :best_title
 
+  # NOTE - if you plan on calling this, you are behooved by adding object_title to your selects. You MUST select
+  # description and data_type_id.
+  # TODO - this really doesn't belong here. Truncation belongs in the view (or a helper). Also, it duplicates SOME of
+  # the logic of best_title, but not all of it (why?). Very poor design.
   def short_title
-    return object_title unless object_title.blank?
+    return safe_object_title unless safe_object_title.blank?
     # TODO - ideally, we should extract some of the logic from data_objects/show to make this "Image of Procyon Lotor".
     return data_type.label if description.blank?
     st = description.gsub(/\n.*$/, '')
@@ -1074,17 +1077,24 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  # TODO - I changed all instances of #update_solr_index to use this instead, but then specs were failing. ...That's
-  # sad.  Please fix.  :)
-  # Note this is somewhat expensive (it takes miliseconds for each association), so don't call this recursively:
+  # TODO - generalize the instance variable reset. It could just be a module that's included at the top of the class.
+  # (I'm actually kinda surprised rails doesn't actually do this by default. Hmmmn.)
   def reload
     @@ar_instance_vars ||= DataObject.new.instance_variables
     (instance_variables - @@ar_instance_vars).each do |ivar|
       instance_variable_set(ivar, nil)
     end
-    update_solr_index
-    all_published_associations.map(&:taxon_concept).each { |tc| tc.reload }
     super
+  end
+
+  # TODO - I changed all instances of #update_solr_index to use this instead, but then specs were failing. ...That's
+  # sad.  Please fix.  :)
+  # NOTE this is somewhat expensive (it takes miliseconds for each association), so don't call this on large
+  # collections of data objects:
+  def reindex
+    reload
+    update_solr_index
+    all_published_associations.map(&:taxon_concept).each { |tc| tc.reload } # TODO - to be consistent, TC#reindex
   end
 
   def can_be_deleted_by?(requestor)
@@ -1099,11 +1109,26 @@ class DataObject < ActiveRecord::Base
 
 private
 
-  def best_title_or_nil
-    return object_title unless object_title.blank?
-    return toc_items.first.label unless toc_items.blank?
-    return data_type.simple_type if data_type
-    nil
+  def safe_object_title
+    safe_attribute(:object_title)
+  end
+
+  def safe_data_type
+    safe_attribute(:data_type_id) # We don't actually want this value, but it makes this possible (and safe):
+    data_type
+  end
+
+  # TODO - find the culrpits and fix them!
+  # Gives you the attribute regardless of whether it's been loaded in this instance. It's minimally but notably
+  # expensive, so if you find this is being called often, you should probably widen your #select from wherever you
+  # loaded your instance. In fact, when this method is called, it's a bit of a bad smell!
+  def safe_attribute(attribute)
+    @safe_attributes ||= {}
+    @safe_attributes[attribute] ||= if has_attribute?(attribute)
+        send(attribute)
+      else
+        DataObject.select(attribute.to_s).find(self).send(attribute)
+      end
   end
 
   def add_recipient_user_making_object_modification(recipients, options = {})

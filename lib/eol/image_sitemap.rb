@@ -24,8 +24,7 @@ module EOL
     end
     
     def write_image_urls
-      base_conditions = "published = 1 AND data_type_id = #{DataType.image.id} AND data_subtype_id IS NULL"
-      # base_conditions = "published = 1"
+      base_conditions = "published = 1"
       min_id, max_id = DataObject.connection.execute("SELECT MIN(id), MAX(id) FROM data_objects WHERE #{base_conditions}").first
       min_id = min_id.to_i
       max_id = max_id.to_i
@@ -37,6 +36,7 @@ module EOL
       until start > max_id
         data_objects = DataObject.all(:select => 'id, object_cache_url, data_type_id, object_title, location, description, license_id',
           :conditions => base_conditions + " AND id BETWEEN #{start} AND #{start + iteration_size - 1}")
+        DataObject.preload_associations(data_objects, :license)
         data_objects.each do |data_object|
           image_metadata = { :loc => DataObject.image_cache_path(data_object.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER) }
           image_metadata[:title] = data_object.object_title unless data_object.object_title.blank?

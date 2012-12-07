@@ -9,7 +9,6 @@ describe 'Solr API' do
 
   describe ': TaxonConcepts' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       Vetted.gen(:label => 'Trusted') unless Vetted.trusted
       trusted = Vetted.trusted
@@ -83,7 +82,6 @@ describe 'Solr API' do
   
   describe ': DataObjects' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
       @solr.delete_all_documents
@@ -99,7 +97,6 @@ describe 'Solr API' do
   
   describe ': SiteSearch' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       TaxonConcept.delete_all
       HierarchyEntry.delete_all
@@ -146,7 +143,6 @@ describe 'Solr API' do
   
   describe ': BHL' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       PublicationTitle.delete_all
       TitleItem.delete_all

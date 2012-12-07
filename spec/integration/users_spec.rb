@@ -11,7 +11,6 @@ end
 describe 'Users' do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
     username = 'userprofilespec'

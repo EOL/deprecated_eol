@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe HarvestEvent do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     resource = Resource.first
     @previous_unpublished_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => nil)

@@ -6,7 +6,6 @@ describe 'CMS' do
     # We use 'about' so we can test routes and canonical URLs i.e. /about
     # If 'about' is generated in a previous spec then specs in this file may fail e.g. if @content_page_about.active is false
     unless @content_page_about = ContentPage.find_by_page_name("about", :include => :translations)
-      truncate_all_tables
       load_foundation_cache
       @content_page_about = ContentPage.gen(:active => true, :page_name => "about")
       TranslatedContentPage.gen(:content_page => @content_page_about, :active_translation => true)

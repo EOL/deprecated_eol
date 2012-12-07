@@ -20,10 +20,6 @@ class ClassificationCuration < ActiveRecord::Base
 
   after_create :bridge
 
-  def moved_to
-    self[:target_id].nil? ? nil : TaxonConcept.find(self[:target_id])
-  end
-
   def bridge
     if split?
       bridge_split
@@ -47,6 +43,53 @@ class ClassificationCuration < ActiveRecord::Base
     !split? && !merge?
   end
 
+  def check_status_and_notify
+    if ready_to_complete? && ! already_complete?
+      mark_as_complete # Nothing else should pick this up for work, now...
+      if failed?
+        compile_errors_into_log
+      else
+        reindex_taxa
+        log_completion
+      end
+    end
+  end
+
+  def reindex_taxa
+    # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
+    TaxonConceptReindexing.reindex(moved_from, :flatten => split?, :allow_large_tree => true) if source_id
+    TaxonConceptReindexing.reindex(moved_to,   :flatten => split?, :allow_large_tree => true) if target_id
+  end
+  
+  def log_completion
+    log_activity_on(moved_from || moved_to)
+    log_unlock_and_notify(Activity.unlock)
+  end
+
+  def already_complete?
+    completed_at && hierarchy_entry_moves.all? {|move| move.complete?}
+  end
+
+  def ready_to_complete?
+    if merge?
+      # This is slightly expensive... but not THAT bad... and running in the background. The "magic" is NOT using the
+      # direct association, but using #find, so that supercedure is followed.
+      TaxonConcept.find(moved_from) == TaxonConcept.find(moved_to)
+    else
+      hierarchy_entry_moves.all? {|move| move.complete?}
+    end
+  end
+
+  def failed?
+    !(error.blank? && hierarchy_entry_moves.all? {|move| move.error.blank? })
+  end
+
+  def to_s
+    "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
+  end
+
+private
+
   def bridge_split
     hierarchy_entries.each do |he|
       CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
@@ -66,37 +109,6 @@ class ClassificationCuration < ActiveRecord::Base
     end
   end
 
-  def check_status_and_notify
-    if ready_to_complete? && ! already_complete?
-      mark_as_complete # Nothing else should pick this up for work, now...
-      if failed?
-        compile_errors_into_log
-      else
-        # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
-        TaxonConceptReindexing.reindex(moved_from, :flatten => split?, :allow_large_tree => true) if source_id
-        TaxonConceptReindexing.reindex(moved_to,   :flatten => split?, :allow_large_tree => true) if target_id
-        log_activity_on(moved_from || moved_to)
-        log_unlock_and_notify(Activity.unlock)
-      end
-    end
-  end
-
-  def already_complete?
-    completed_at && hierarchy_entry_moves.all? {|move| move.complete?}
-  end
-
-  def ready_to_complete?
-    if merge?
-      moved_from == moved_to # This is slightly expensive... but not THAT bad... and running in the background.
-    else
-      hierarchy_entry_moves.all? {|move| move.complete?}
-    end
-  end
-  alias :complete? :ready_to_complete? # Try not to use this one, though... it's confusing.
-
-  def failed?
-    !(error.blank? && hierarchy_entry_moves.all? {|move| move.error.blank? })
-  end
 
   def compile_errors_into_log
     # Yes, english. This is a comment and cannot be internationalized:
@@ -139,7 +151,7 @@ class ClassificationCuration < ActiveRecord::Base
                                           ChangeableObjectType.comment.id :
                                           ChangeableObjectType.classification_curation.id,
                                        :object_id => options[:comment] ? comment.id : id,
-                                       :activity_id => activity.id,
+                                       :activity => activity,
                                        :created_at => 0.seconds.from_now,
                                        :taxon_concept_id => parent.id)
     rescue => e
@@ -166,13 +178,9 @@ class ClassificationCuration < ActiveRecord::Base
       :taxon_concept => taxon_concept,
       :changeable_object_type => ChangeableObjectType.classification_curation,
       :object_id => id,
-      :activity_id => Activity.curate_classifications.id,
+      :activity => Activity.curate_classifications,
       :created_at => 0.seconds.from_now
     )
-  end
-
-  def to_s
-    "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
   end
 
   # This method makes sure we don't process a ClassificationCuration twice, and makes sure that classifications don't

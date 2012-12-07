@@ -28,8 +28,8 @@ class CuratorActivityLog < LoggingModel
 
   # I don't know why attribute-whitelisting still applies during tests, but they do.  Grr:
   attr_accessible :user, :user_id, :changeable_object_type, :changeable_object_type_id, :object_id,
-    :hierarchy_entry_id, :taxon_concept_id, :activity, :created_at, :data_object, :data_object_guid,
-    :created_at
+    :hierarchy_entry_id, :taxon_concept, :taxon_concept_id, :activity, :activity_id, :created_at,
+    :data_object, :data_object_id, :data_object_guid, :created_at
 
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}

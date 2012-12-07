@@ -234,6 +234,7 @@ describe 'Data Object Page' do
 
   it 'should be able curate a UDO association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
+    # TODO - we occasionaly get failures here, so we should probably use a distinct data object.
     visit("/data_objects/#{@user_submitted_text.id}")
     assoc_id = @user_submitted_text.all_associations.first.id
     review_status_should_be(assoc_id, 'Trusted', 'Visible')

@@ -174,6 +174,7 @@ nb:
         created_at: Opprettet
         guid: GUID
         provider: Tredjepartsleverandør
+        secret: Hemmelighet
         updated_at: Sist oppdatert
         user_id: Bruker-ID
         verified_at: Siste verifisert
@@ -2057,7 +2058,12 @@ nb:
       show: 
         hierarchy_entry: 
           meta_title: Oppdateringer for %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Oppdateringer for %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Oppdateringer for %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Nyheter og oppdateringer for %{scientific_name}.
+        meta_description_with_common_name: Nyheter om %{preferred_common_name} og oppdateringer på %{scientific_name}.
         meta_keywords: "%{scientific_name}-nyheter, %{scientific_name}-oppdateringer"
+        meta_keywords_with_common_name: "%{preferred_common_name}-nyheter, %{preferred_common_name}-oppdateringer, %{scientific_name}-oppdateringer"
         meta_title: Kommentarer på %{scientific_name}
         meta_title_with_common_name: Kommentarer på %{preferred_common_name} (%{scientific_name})
         tweet_text: Kommentarer på %{scientific_name}
@@ -2122,6 +2128,8 @@ nb:
     activities: 
       show: 
         meta_description: Kurateringshandlinger og kommentarer av %{user_full_name}
+        meta_title: "%{user_full_name} aktivitet"
+        tweet_text: "%{user_full_name} aktivitet"
     collections: 
       index: 
         meta_description: Samlinger administrert av %{user_full_name}.
@@ -2137,7 +2145,9 @@ nb:
         tweet_text: "%{user_full_name} innholdspartnere"
     edit: 
       form_tip_account_oauth: E-postadresse og foretrukket språk er påbudt %{required_icon} for alle brukere.
+      form_tip_curation: Akkrediteringer og kurateringsområde er valgfrie for assistentkuratorer men påkrevd %{required_icon} for fullstendige- of mesterkuratorer
       form_tip_profile: Objekter markert som påbudt %{required_icon} er valgfrie for vanlige brukere, men påbudt for kuratorer.
+      form_tip_profile_oauth: Fornavn kreves, andre elementer som er merket som påkrevd %{required_icon} er valgfrie for generelle brukere, men nødvendige for kuratorer.
     new: 
       complete_registration_header: Fullfør din EOL registrering
       create_user_header: Lag en ny <abbr title="Encyclopedia of Life">EOL</abbr>-konto
@@ -2148,10 +2158,20 @@ nb:
       sign_up_with_twitter_assistive: Meld deg på i EOL ved bruk av din Twitter-påloggingsinformasjon.
       sign_up_with_yahoo_assistive: Meld deg på i EOL ved bruk av din Yahoo-påloggingsinformasjon.
     newsfeeds: 
+      activity: 
+        meta_title: "%{user_full_name} aktivitetsfeed"
+        tweet_text: "%{user_full_name} aktivitetsfeed"
       activity_link: aktivitet
+      comments: 
+        meta_description: Kommentarfeed for %{user_full_name}.
+        meta_title: "%{user_full_name} kommentarfeed"
+        tweet_text: "%{user_full_name} kommentarfeed"
       comments_link: kommentarer
+      newsfeed_link: nyhetsfeed
       show: 
         meta_description: Nyheter, aktivitetsoppdateringer og kommentarer for %{user_full_name}.
+        meta_title: "%{user_full_name} nyhetsfeed"
+        tweet_text: "%{user_full_name} nyhetsfeed"
     notifications: 
       edit: 
         page_title: Meldingsinstillinger

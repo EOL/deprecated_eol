@@ -309,28 +309,225 @@ fr:
   activity_log_empty_learn_more_link: Apprenez comment contribuer
   activity_logs: 
     collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: Un utilisateur inconnu a été ajouté en tant que gestionnaire d'une collection inconnue.
+        an_unknown_user_of_collection: Un utilisateur inconnu a été ajouté en tant que gestionnaire de la collection "%{collection}".
+        an_unknown_user_of_it: Un utilisateur inconnu a été ajouté comme gestionnaire.
+        user_of_an_unknown_collection: <strong>%{user}</strong> a été ajouté comme gestionnaire d'une collection inconnue.
+        user_of_collection: <strong>%{user}</strong> a été ajouté comme gestionnaire de la collection "%{collection}".
+        user_of_it: <strong>%{user}</strong> a été ajouté comme gestionnaire.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Un utilisateur inconnu a ajouté des éléments en vrac à une collection inconnue.
+        an_unknown_user_added_bulk_items_to_collection: Un utilisateur inconnu a ajouté des éléments en vrac à la collection "%{collection}".
+        an_unknown_user_added_bulk_items_to_it: Un utilisateur inconnu a ajouté des éléments en vrac.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> a ajouté des éléments en vrac à une collection inconnue.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> a ajouté des éléments en vrac à la collection "%{collection}".
+        user_of_it: <strong>%{user}</strong> a ajouté des éléments en vrac.
       collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Un utilisateur inconnu a ajouté un élément inconnu à une collection inconnue.
+        an_unknown_user_added_an_unknown_item_to_collection: Un utilisateur inconnu a ajouté un élément inconnu dans la collection "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: Un utilisateur inconnu a ajouté un élément inconnu.
         an_unknown_user_added_item_to_an_unknown_collection: Un utilisateur inconnu a ajouté "%{item}" à une collection inconnue.
         an_unknown_user_added_item_to_collection: Un utilisateur inconnu a ajouté "%{item}" à la collection "%{collection}".
         an_unknown_user_added_item_to_it: Un utilisateur inconnu a ajouté "%{item}".
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> a ajouté un élément inconnu à une collection inconnue.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> a ajouté un élément inconnu à la collection "%{collection}".
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> a ajouté un élément inconnu.
         user_added_item_to_an_unknown_collection: <strong>%{user}</strong> a ajouté "%{item}" à une collection inconnue.
         user_added_item_to_collection: <strong>%{user}</strong> a ajouté "%{item}" à la collection "%{collection}".
+        user_added_item_to_it: <strong>%{user}</strong> a ajouté "%{item}".
       create: 
         an_unknown_user_created_an_unknown_collection: Un utilisateur inconnu a créé une collection inconnue.
         an_unknown_user_created_collection: Un utilisateur inconnu a créé la collection « %{collection} ».
+        an_unknown_user_created_it: Un utilisateur inconnu l'a créé.
         user_created_an_unknown_collection: <strong>%{user}</strong> a créé une collection inconnue.
         user_created_collection: <strong>%{user}</strong> a créé la collection « %{collection} ».
+        user_created_it: <strong>%{user}</strong> l'a créé.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: Un utilisateur inconnu a modifié une collection inconnue.
+        an_unknown_user_modified_collection: Un utilisateur inconnu a modifié la collection "%{collection}".
+        an_unknown_user_modified_it: Un utilisateur inconnu l'a modifié, et le changement exact a été perdu.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> a modifié une collection inconnue.
+        user_modified_collection: <strong>%{user}</strong> a modifié la collection "%{collection}".
+        user_modified_it: <strong>%{user}</strong> l'a modifié, mais le changement exact a été perdu.
       remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Un utilisateur inconnu a supprimé un élément inconnu d'une collection inconnue.
+        an_unknown_user_removed_an_unknown_item_from_collection: Un utilisateur inconnu a supprimé un élément inconnu de la collection "%{collection}".
+        an_unknown_user_removed_an_unknown_item_from_it: Un utilisateur inconnu a supprimé un élément inconnu.
+        an_unknown_user_removed_item_from_an_unknown_collection: Un utilisateur inconnu a supprimé "%{item}" d'une collection inconnue.
+        an_unknown_user_removed_item_from_collection: Un utilisateur inconnu a supprimé "%{item}" de la collection "%{collection}".
         an_unknown_user_removed_item_from_it: Un utilisateur inconnu a supprimer "%{item}".
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> a supprimé un élément inconnu d'une collection inconnue.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> a supprimé un élément inconnu de la collection "%{collection}".
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> a supprimé un élément inconnu.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> a supprimé "%{item}" d'une collection inconnue.
+        user_removed_item_from_collection: <strong>%{user}</strong> a supprimé "%{item}" de la collection "%{collection}".
         user_removed_item_from_it: <strong>%{user}</strong> a supprimé "%{item}".
       remove_all: 
         an_unknown_user_cleared_an_unknown_collection: Un utilisateur inconnu a retiré tous les éléments d’une collection inconnue.
         an_unknown_user_cleared_collection: Un utilisateur inconnu a retiré tous les éléments de la collection « %{collection} ».
+        an_unknown_user_cleared_it: Un utilisateur inconnu a supprimé tous les éléments.
         user_cleared_an_unknown_collection: <strong>%{user}</strong> a retiré tous les éléments d’une collection inconnue.
         user_cleared_collection: <strong>%{user}</strong> a retiré tous les éléments de la collection « %{collection} ».
+        user_cleared_it: <strong>%{user}</strong> a supprimé tous les éléments.
+    community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: Un utilisateur inconnu a ajouté un gestionnaire inconnu à une communauté inconnue.
+        an_unknown_user_added_an_unknown_manager_to_community: Un utilisateur inconnu a ajouté un gestionnaire inconnu à la communauté "%{community}".
+        an_unknown_user_added_manager_to_an_unknown_community: Un utilisateur inconnu a ajouté "%{manager}" en tant que gestionnaire d'une communauté inconnue.
+        an_unknown_user_added_manager_to_community: Un utilisateur inconnu a ajouté "%{manager}" en tant que gestionnaire de la communauté "%{community}".
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> a ajouté un gestionnaire inconnu à une communauté inconnue.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> a ajouté un gestionnaire inconnu à la communauté "%{community}".
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> a ajouté "%{manager}" à une communauté inconnue.
+        user_added_manager_to_community: <strong>%{user}</strong> a ajouté "%{manager}" en tant que gestionnaire de la communauté "%{community}".
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: Un utilisateur inconnu a modifié la description d'une communauté inconnue.
+        an_unknown_user_changed_the_description_of_community: Un utilisateur inconnu a modifié la description de la communauté "%{community}".
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> a modifié la description d'une communauté inconnue.
+        user_changed_the_description_of_community: <strong>%{user}</strong> a modifié la description de la communauté "%{community}".
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: Un utilisateur inconnu a modifié le logo d'une communauté inconnue.
+        an_unknown_user_changed_the_icon_of_community: Un utilisateur inconnu a modifié le logo de la communauté "%{community}".
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> a modifié le logo d'une communauté inconnue.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> a modifié le logo de la communauté "%{community}".
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: Un utilisateur inconnu a modifié le nom d'une communauté inconnue.
+        an_unknown_user_changed_the_name_of_community: Un utilisateur inconnu a modifié le nom de la communauté "%{community}".
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> a modifié le nom d'une communauté inconnue.
+        user_changed_the_name_of_community: <strong>%{user}</strong> a modifié le nom de la communauté "%{community}".
+      create: 
+        an_unknown_user_created_an_unknown_community: Un utilisateur inconnu a créé une communauté inconnue.
+        an_unknown_user_created_community: Un utilisateur inconnu a créé la communauté "%{community}".
+        user_created_an_unknown_community: <strong>%{user}</strong> a créé une communauté inconnue.
+        user_created_community: <strong>%{user}</strong> a créé la communauté "%{community}".
+      join: 
+        an_unknown_user_joined_an_unknown_community: Un utilisateur inconnu a rejoint une communauté inconnue.
+        an_unknown_user_joined_community: Un utilisateur inconnu a rejoint la communauté "%{community}".
+        user_joined_an_unknown_community: <strong>%{user}</strong> a rejoint une communauté inconnue.
+        user_joined_community: <strong>%{user}</strong> a rejoint la communauté "%{community}".
+      leave: 
+        an_unknown_user_left_an_unknown_community: Un utilisateur inconnu a quitté une communauté inconnue.
+        an_unknown_user_left_community: Un utilisateur inconnu a quitté la communauté "%{community}".
+        user_left_an_unknown_community: <strong>%{user}</strong> a quitté une communauté inconnue.
+        user_left_community: <strong>%{user}</strong> a quitté la communauté "%{community}".
+      other_actions: 
+        an_unknown_user_modified_an_unknown_community: Un utilisateur inconnu a modifié une communauté inconnue.
+        an_unknown_user_modified_community: Un utilisateur inconnu a modifié la communauté "%{community}".
+        user_modified_an_unknown_community: <strong>%{user}</strong> a modifié une communauté inconnue.
+        user_modified_community: <strong>%{user}</strong> a modifié la communauté "%{community}".
     curator_activity_log: 
       add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: Un utilisateur inconnu a ajouté une association entre une ancienne version de "%{data_object}" et une page inconnue.
+        an_unknown_user_associated_an_older_data_object_to_association: Un utilisateur inconnu a ajouté une association entre une ancienne version de "%{data_object}" et "%{association}".
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Un utilisateur inconnu a ajouté une association inconnue.
+        an_unknown_user_associated_an_unknown_data_object_to_association: Un utilisateur inconnu a ajouté une association entre un objet de donnée inconnu et "%{association}".
+        an_unknown_user_associated_data_object_to_an_unknown_association: Un utilisateur inconnu a ajouté une association entre "%{data_object}" et une page inconnue.
+        an_unknown_user_associated_data_object_to_association: Un utilisateur inconnu a ajouté une association entre "%{data_object}" et "%{association}".
+        an_unknown_user_associated_it_to_an_unknown_association: Un utilisateur inconnu a ajouté une association à une page inconnue
+        an_unknown_user_associated_it_to_association: Un utilisateur inconnu a ajouté une association à "%{association}".
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> a ajouté une association entre une ancienne version de "%{data_object}" et une page inconnue.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> a ajouté une association entre une ancienne version de "%{data_object}" et "%{association}".
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> a ajouté une association inconnue.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> a ajouté une association entre un objet de donnée inconnu et "%{association}".
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> a ajouté une association entre "%{data_object}" et une page inconnue.
         user_associated_data_object_to_association: <strong>%{user}</strong> a ajouté une association entre "%{data_object}" et "%{association}".
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> a ajouté une association à une page inconnue.
+        user_associated_it_to_association: <strong>%{user}</strong> a ajouté une association à "%{association}".
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masqué dans un contexte inconnu.
+        an_unknown_user_hid_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masquée sur la page "%{association}".
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme masqué dans un contexte inconnu.
+        an_unknown_user_hid_an_unknown_data_object_on_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme masqué sur la page "%{association}".
+        an_unknown_user_hid_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué "%{data_object}" comme masqué dans un contexte inconnu.
+        an_unknown_user_hid_data_object_on_association: Un utilisateur inconnu a marqué "%{data_object}" comme masqué sur la page "%{association}".
+        an_unknown_user_hid_it_on_an_unknown_association: Un utilisateur inconnu l'a marqué comme masqué dans un contexte inconnu.
+        an_unknown_user_hid_it_on_association: Un utilisateur inconnu l'a marqué comme masqué sur la page "%{association}".
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme masqué dans un contexte inconnu.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme masqué sur la page "%{association}".
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme masqué dans un contexte inconnu.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme masqué sur la page "%{association}".
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué "%{data_object}" comme masqué dans un contexte inconnu.
+        user_hid_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme masqué sur la page "%{association}".
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme masqué dans un contexte inconnu.
+        user_hid_it_on_association: <strong>%{user}</strong> l'a marqué comme masqué sur la page "%{association}".
+      reasons_to_hide: "Motifs de masquage: %{reasons}"
+      reasons_to_untrust: "Motifs de désapprobation: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: Un utilisateur inconnu a supprimé une association d'une ancienne version de "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_association: Un utilisateur inconnu a supprimé une association entre "%{data_object}" et "%{association}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: Un utilisateur inconnu a supprimé une association inconnue.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: Un utilisateur inconnu a supprimé une association entre un objet de donnée inconnu et "%{association}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: Un utilisateur inconnu a supprimé une association entre "%{data_object}" et une page inconnue.
+        an_unknown_user_disassociated_data_object_from_association: Un utilisateur inconnu a supprimé une association entre "%{data_object}" et "%{association}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> a retiré une association inconnue.
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme visible dans un contexte inconnu.
+        an_unknown_user_showed_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme visible sur la page "%{association}".
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme visible dans un contexte inconnu.
+        an_unknown_user_showed_an_unknown_data_object_on_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme visible sur la page "%{association}".
+        an_unknown_user_showed_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué "%{data_object}" comme visible dans un contexte inconnu.
+        an_unknown_user_showed_data_object_on_association: Un utilisateur inconnu a marqué "%{data_object}" comme visible sur la page "%{association}".
+        an_unknown_user_showed_it_on_an_unknown_association: Un utilisateur inconnu l'a marqué comme visible dans un contexte inconnu.
+        an_unknown_user_showed_it_on_association: Un utilisateur inconnu l&a marqué comme visible sur la page "%{association}".
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme visible dans un contexte inconnu.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme visible sur la page "%{association}".
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme visible dans un contexte inconnu.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme visible sur la page "%{association}".
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué "%{data_object}" comme visible dans un contexte inconnu.
+        user_showed_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme visible sur la page "%{association}".
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme visible dans un contexte inconnu.
+        user_showed_it_on_association: <strong>%{user}</strong> l'a marqué comme visible sur la page "%{association}".
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme fiable dans un contexte inconnu.
+        an_unknown_user_trusted_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme fiable sur la page "%{association}".
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme fiable dans un contexte inconnu.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme fiable sur la page "%{association}".
+        an_unknown_user_trusted_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué "%{data_object}" comme fiable dans un contexte inconnu.
+        an_unknown_user_trusted_data_object_on_association: Un utilisateur inconnu a marqué "%{data_object}" comme fiable sur la page "%{association}".
+        an_unknown_user_trusted_it_on_an_unknown_association: Un utilisateur inconnu l'a marqué comme fiable dans un contexte inconnu.
+        an_unknown_user_trusted_it_on_association: Un utilisateur inconnu l'a marqué comme fiable sur la page "%{association}".
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme fiable dans un contexte inconnu.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme fiable sur la page "%{association}".
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme fiable dans un contexte inconnu.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme fiable sur la page "%{association}".
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué "%{data_object}" comme fiable dans un contexte inconnu.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme fiable sur la page "%{association}".
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme fiable dans un contexte inconnu.
+        user_trusted_it_on_association: <strong>%{user}</strong> l'a marqué comme fiable sur la page "%{association}".
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme non relue dans un contexte inconnu.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme non relue sur la page "%{association}".
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme non relu dans un contexte inconnu.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme non relu sur la page "%{association}".
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué "%{data_object}" comme non relu dans un contexte inconnu.
+        an_unknown_user_unreviewed_data_object_on_association: Un utilisateur inconnu a marqué "%{data_object}" comme non relu sur la page "%{association}".
+        an_unknown_user_unreviewed_it_on_an_unknown_association: Un utilisateur inconnu l'a marqué comme non relu dans un contexte inconnu.
+        an_unknown_user_unreviewed_it_on_association: Un utilisateur inconnu l'a marqué comme non relu sur la page "%{association}".
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme non relue dans un contexte inconnu.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme non relue sur la page "%{association}".
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme non relu dans un contexte inconnu.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme non relu sur la page "%{association}".
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué "%{data_object}" comme non relu dans un contexte inconnu.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme non relu sur la page "%{association}".
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme non relu dans un contexte inconnu.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> l'a marqué comme non relu sur la page "%{association}".
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme non fiable dans un contexte inconnu.
+        an_unknown_user_untrusted_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme non fiable sur la page "%{association}".
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme non fiable dans un contexte inconnu.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: Un utilisateur inconnu a marqué un objet de donnée inconnu comme non fiable sur la page "%{association}".
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué "%{data_object}" comme non fiable dans un contexte inconnu.
+        an_unknown_user_untrusted_data_object_on_association: Un utilisateur inconnu a marqué "%{data_object}" comme non fiable sur la page "%{association}".
+        an_unknown_user_untrusted_it_on_an_unknown_association: Un utilisateur inconnu l'a marqué comme non fiable dans un contexte inconnu.
+        an_unknown_user_untrusted_it_on_association: Un utilisateur inconnu l'a marqué comme non fiable sur la page "%{association}".
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme non fiable dans un contexte inconnu.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> a marqué une ancienne version de "%{data_object}" comme non fiable sur la page "%{association}".
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme non fiable dans un contexte inconnu.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> a marqué un objet de donnée inconnu comme non fiable sur la page "%{association}".
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> a marqué "%{data_object}" comme non fiable dans un contexte inconnu.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme non fiable sur la page "%{association}".
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme non fiable dans un contexte inconnu.
+        user_untrusted_it_on_association: <strong>%{user}</strong> l'a marqué comme non fiable sur la page "%{association}".
   activity_user_created_text: <strong>%{user}</strong> a ajouté du texte à « %{object_name} » portant sur « %{taxon_concept} ».
   activity_user_updated_text: <strong>%{user}</strong> a mis à jour le texte « %{object_name} » portant sur « %{taxon_concept} ».
   add: Ajouter
@@ -1911,6 +2108,8 @@ fr:
   limits_the_number_of_returned_text_objects: limite le nombre d’objets texte renvoyés
   limits_the_number_of_returned_video_objects: limite le nombre d’objets vidéo renvoyés
   link_name: Nom du lien
+  link_not_associated_with_any_published_entries: Ce lien n'est associé avec aucune taxonomie publiée.
+  link_rating: Cote du lien
   links_with_count: 
     one: "%{count} lien"
     other: "%{count} liens"
@@ -3016,6 +3215,8 @@ fr:
   this_is_a_focus_collection_for_community: C’est le centre d’intérêt de %{community}.
   this_is_the_breakdown_of_chapt: Il s’agit de la répartition des chapitres, sous-chapitres et de la catégorie Modèle des profils d’espèce correspondante.
   this_is_the_label_that_will_be_used_for_attribution: C’est le libellé qui sera utilisé pour l’attribution
+  this_link_cannot_be_curated_because_unpublished: Ce lien ne peut pas être conservé car il n'est pas publié.
+  this_link_is_unpublished: Ce lien n'est pas publié.
   this_map_cannot_be_curated_because_unpublished: Cette carte ne peut pas être supervisée parce qu’elle n’est pas publiée.
   this_map_is_unpublished: Cette carte n’est pas publiée.
   this_method_takes_an_integer_or_string: Cette méthode prend un nombre entier ou une chaîne qui correspond à l’identifiant unique d’un taxon dans la base de données d’un des fournisseurs, et un hierarchy_id qui représente le fournisseur, et renvoie l’identifiant de la page EdlV pour ce taxon. Par exemple, en utilisant l’IPA %{link_provider}, je peux voir que le hierarchy_id de l’EdlV pour le Système d’information taxinomique intégré (ITIS) est %{itis_id}. Je peux alors rechercher dans l’EdlV pour le numéro de série taxinomique ITIS (TSN) 180542, <i>Ursus maritimus</i>, en appelant %{link_url}
@@ -3253,19 +3454,90 @@ fr:
           signup_failed_account_already_connected: Désolé, nous ne pouvons pas vous inscrire avec un nouveau compte EdlV avec votre compte Facebook, il est déjà connecté à un <a href="%{existing_eol_account_url}">compte utilisateur de EdlV</a>. Voulez-vous plutôt vous <a href="%{login_url}">connecter</a>?
         google: 
           add_connection_failed_account_already_connected: Désolé, nous ne pouvons pas relier votre compte Google à votre compte EdlV, votre compte Google est déjà relié à un <a href="%{existing_eol_account_url}">compte EdlV</a>.
+          login_failed_not_connected: Désolé, nous ne pouvons pas trouver de lien entre votre compte Google et EdlV. Si vous avez déjà un compte EdlV, veuillez <a href="%{login_url}">vous connecter à EdlV</a> en utilisant d’autres identifiants, puis relier votre compte Google dans vos paramètres de profil EdlV. Si vous n’avez pas encore de compte EdlV, veuillez <a href="%{register_url}">terminer votre enregistrement EdlV</a> pour en créer un.
+          missing_attributes: Désolé, il y a eu un problème d’accès à vos données Google.
+          new_authentication_not_added: Désolé, une erreur s’est produite, nous ne pouvons pas connecter votre compte Google.
+          not_authorized_to_add_authentication: Désolé, nous n’avons pas l’autorisation de connecter votre compte Google.
+          not_authorized_to_login: Désolé, nous ne sommes pas autorisés à vous connecter à EdlV en utilisant votre compte Google.
+          not_authorized_to_signup: Désolé, nous ne sommes pas autorisés à vous connecter à EdlV en utilisant votre compte Google.
+          signup_failed_account_already_connected: Désolé, nous ne pouvons pas vous inscrire avec un nouveau compte EdlV avec votre compte Google, il est déjà connecté à un <a href="%{existing_eol_account_url}">compte utilisateur de EdlV</a>. Voulez-vous plutôt vous <a href="%{login_url}">connecter</a>?
         missing_attributes: Désolé, il y a eu un problème dans l’accès au détail de votre compte tiers.
         not_authorized_to_add_authentication: Désolé, nous n’avons pas l’autorisation de connecter ce compte.
         not_authorized_to_login: Désolé, nous ne sommes pas autorisés à vous connecter à EdlV avec ce compte.
         remove_connection_failed: Désolé, une erreur s’est produite, nous ne pouvons pas supprimer la connexion.
+        twitter: 
+          add_connection_failed_account_already_connected: Désolé, nous ne pouvons pas relier votre compte Twitter à votre compte EdlV, votre compte Twitter est déjà relié à un <a href="%{existing_eol_account_url}">compte EdlV</a>.
+          login_failed_not_connected: Désolé, nous ne pouvons pas trouver de lien entre votre compte Twitter et EdlV. Si vous avez déjà un compte EdlV, veuillez <a href="%{login_url}">vous connecter à EdlV</a> en utilisant d’autres identifiants, puis relier votre compte Twitter dans vos paramètres de profil EdlV. Si vous n’avez pas encore de compte EdlV, veuillez <a href="%{register_url}">terminer votre enregistrement EdlV</a> pour en créer un.
+          missing_attributes: Désolé, il y a eu un problème d’accès à vos données Twitter.
+          new_authentication_not_added: Désolé, une erreur s’est produite, nous ne pouvons pas connecter votre compte Twitter.
+          not_authorized_to_add_authentication: Désolé, nous n’avons pas l’autorisation de connecter votre compte Twitter.
+          not_authorized_to_login: Désolé, nous ne sommes pas autorisés à vous connecter à EdlV en utilisant votre compte Twitter.
+          not_authorized_to_signup: Désolé, nous ne sommes pas autorisés à vous connecter à EdlV en utilisant votre compte Twitter.
+          signup_failed_account_already_connected: Désolé, nous ne pouvons pas vous inscrire avec un nouveau compte EdlV avec votre compte Twitter, il est déjà connecté à un <a href="%{existing_eol_account_url}">compte utilisateur de EdlV</a>. Voulez-vous plutôt vous <a href="%{login_url}">connecter</a>?
+        yahoo: 
+          add_connection_failed_account_already_connected: Désolé, nous ne pouvons pas connecter votre compte Twitter sur votre compte EdlV, votre compte Twitter est déjà connecté à un <a href="%{existing_eol_account_url}">compte EdlV</a>.
+          login_failed_not_connected: Désolé, nous ne pouvons pas trouver de lien entre votre compte Yahoo! et EdlV. Si vous avez déjà un compte EdlV, veuillez <a href="%{login_url}">vous connecter à EdlV</a> en utilisant d’autres identifiants, puis relier votre compte Yahoo! dans vos paramètres de profil EdlV. Si vous n’avez pas encore de compte EdlV, veuillez <a href="%{register_url}">terminer votre enregistrement EdlV</a> pour en créer un.
+          missing_attributes: Désolé, il y a eu un problème d’accès à vos données Yahoo!.
+          new_authentication_not_added: Désolé, une erreur s’est produite, nous ne pouvons pas connecter votre compte Yahoo!.
+          not_authorized_to_add_authentication: Désolé, nous n’avons pas l’autorisation de connecter votre compte Yahoo!.
+          not_authorized_to_login: Désolé, nous ne sommes pas autorisés à vous connecter à EdlV en utilisant votre compte Yahoo!.
+          not_authorized_to_signup: Désolé, nous ne sommes pas autorisés à vous connecter à EdlV en utilisant votre compte Yahoo!.
+          signup_failed_account_already_connected: Désolé, nous ne pouvons pas vous inscrire avec un nouveau compte EdlV avec votre compte Yahoo!, il est déjà connecté à un <a href="%{existing_eol_account_url}">compte utilisateur de EdlV</a>. Voulez-vous plutôt vous <a href="%{login_url}">connecter</a>?
       facebook: Facebook
       google: Google
       index: 
         connected_last_verified: Connecté ; Dernière vérification il y a %{time_passed} ;
         connected_unverified: Connecté ; Non vérifié ;
         not_connected: Non connecté ;
+        page_description: Gérer les connexions aux comptes tiers que vous pouvez utiliser pour vous connecter à EdlV.
+        page_title: Comptes connectés
         return_link: Retour à l'édition du profil.
+      notices: 
+        facebook: 
+          new_authentication_added: L'authentification Facebook a été ajoutée à votre compte.
+          removed_connection: Nous avons bien supprimé la connexion EdlV de votre compte Facebook. Pour interdire complètement de futures interactions entre votre compte Facebook et EdlV, vous devez aller sur Facebook et modifier vos préférences utilisateur.
+        google: 
+          new_authentication_added: L'authentification Google a été ajoutée à votre compte.
+          removed_connection: Nous avons bien supprimé la connexion EdlV de votre compte Google. Pour interdire complètement de futures interactions entre votre compte Google et EdlV, vous devez aller sur Google et modifier vos préférences utilisateur.
+        twitter: 
+          new_authentication_added: L'authentification Twitter a été ajoutée à votre compte.
+          removed_connection: Nous avons bien supprimé la connexion EdlV de votre compte Twitter. Pour interdire complètement de futures interactions entre votre compte Twitter et EdlV, vous devez aller sur Twitter et modifier vos préférences utilisateur.
+        yahoo: 
+          new_authentication_added: L'authentification Yahoo! a été ajoutée à votre compte.
+          removed_connection: Nous avons bien supprimé la connexion EdlV de votre compte Yahoo!. Pour interdire complètement de futures interactions entre votre compte Yahoo! et EdlV, vous devez aller sur Yahoo! et modifier vos préférences utilisateur.
       twitter: Twitter
+      warnings: 
+        no_way_to_login: Vous n'avez plus aucun compte connecté, vous ne pourrez plus vous connecter à EdlV sauf si vous ajoutez un compte connecté ou un utilisateur et mot de passe EdlV.
       yahoo: Yahoo!
+    pending: 
+      header: Merci pour votre inscription!
+      verify_email_instructions: <strong>Veuillez vérifier votre adresse de courriel</strong>. Un message de confirmation a été envoyé à l'adresse de courriel que vous avez fournie. Pour terminer le processus d'inscription et devenir membre de EdlV, veuillez cliquer sur le lien inclus dans ce courriel. Merci!
+      verify_email_tip: Notez bien que les courriels d'activation de compte sont <em>souvent</em> marqués comme 'Pourriel' par les filtres de courriel. Veuillez vérifier votre dossier de pourriels si vous n'avez pas reçu votre courriel dans une heure.
+    recover_account: 
+      errors: 
+        temporary_login_user_not_found: Désolé, le compte EdlV que vous essayez de restaurer ne peut pas être trouvé; veuillez demander un nouveau courriel pour restaurer votre compte.
+        token_expired_or_invalid: Désolé, le lien de connexion temporaire a expiré ou est invalide; veuillez demander un nouveau courriel pour restaurer votre compte.
+        unable_to_update_token: Désolé, une erreur s'est produite et le courriel n'a pas été envoyé; veuillez réessayer.
+        user_not_found_by_email_address: Un compte EdlV avec cette adresse de courriel ne peut pas être trouvé.
+      form_header: Récupérer le compte
+      form_tip: Pour récupérer votre compte EdlV, saisissez l'adresse de courriel associée avec ce compte. Veuillez vérifier votre dossier de pourriels pour voir si vous n'avez pas reçu un courriel de récupération de compte d'ici une heure.
+      meta_title: Récupérer le compte
+      notices: 
+        recovery_email_sent: Le courriel de récupération de compte a été envoyé avec d'autres instructions. Veuillez ajouter %{from_address} à votre liste de correspondants sûrs et vérifiez votre filtre de pourriels si vous n'avez pas reçu le courriel d'ici une heure.
+        temporarily_logged_in_update_authentication_details: Vous êtes temporairement connecté pour vous permettre de récupérer votre compte; veuillez modifier votre mot de passe ou mettre à jour vos comptes connectés pour être sûr de pouvoir bien vous connecter.
+    recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Désolé, une erreur s'est produite et le courriel n'a pas été envoyé; veuillez sélectionner le compte dont vous voulez récupérer l'accès et réessayer.
+      form_header: Récupérer le compte
+      form_tip: Il y a plusieurs comptes enregistrés avec cette adresse de courriel <em>%{email}</em>, veuillez sélectionner celui dont vous voulez récupérer l'accès.
+      legend_choose_account: Choisir un compte
+    show: 
+      meta_description: Profil de membre pour %{user_full_name} dans l'Encyclopédie de la Vie
+      meta_description_curator: Profil de membre pour %{curator_level} %{user_full_name} dans l'Encyclopédie de la Vie
+    unsubscribe_notifications: 
+      already_unsubscribed: Vous n'êtes déjà plus abonné aux notifications.
+      unsubscribe_notifications_failed: Désolé, une erreur s'est produite, l'utilisateur ne peut pas se désabonner des notifications.
+      unsubscribed_notifications_successfully: Vous vous êtes bien désabonné des notifications.
   users_about_me_header: À mon sujet
   users_content_partners_header: Partenaires de contenu
   users_content_partners_information: Les partenaires de contenu EdlV sont des individus ou des organisations qui partagent leurs données sur la biodiversité avec tout le monde via l’EdlV. Pour en savoir plus sur les <a href="%{more_url}">Partenaires de contenu EdlV</a>.

@@ -512,6 +512,17 @@ nl:
           user_merged_to_taxon: <strong>%{user}</strong> heeft een andere pagina samengevoegd met %{target}.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} verplaatst van een onbekende pagina naar een andere onbekende pagina.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} verplaatst van een onbekende pagina naar %{target}.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} verplaatst naar een onbekende pagina.
+          an_unknown_user_moved_classifications_from_it_to_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} verplaatst naar %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} verplaatst van %{taxon} naar een andere onbekende pagina.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} verplaatst van %{taxon} naar %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} verplaatst van een onbekende pagina naar een andere onbekende pagina.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} verplaatst van een onbekende pagina naar %{target}.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} verplaatst naar een onbekende pagina.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} verplaatst naar %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} verplaatst van %{taxon} naar een andere onbekende pagina.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} verplaatst van %{taxon} naar %{target}.
         split: 
           an_unknown_user_split_classifications_from_an_unknown_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
           an_unknown_user_split_classifications_from_it: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
@@ -674,6 +685,26 @@ nl:
         user_trusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd in een onbekende context.
         user_trusted_it_on_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd op de pagina "%{association}".
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: Het samenvoegen van pagina's waar u recentelijk om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
+        merge_of_it_unlocked: Het samenvoegen van pagina's waar u recentelijk om hebt gevraagd is uitgevoerd.
+        merge_of_taxon_unlocked: Het samenvoegen van pagina's voor "%{taxon}" waar u recentelijk om hebt gevraagd is uitgevoerd
+        move_of_an_unknown_taxon_unlocked: De classificatiewijziging waar u recentelijk om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
+        move_of_it_unlocked: De classificatiewijziging waar u recentelijk om hebt gevraagd is uitgevoerd.
+        move_of_taxon_unlocked: De classificatiewijziging voor "%{taxon}" waar u recentelijk om hebt gevraagd is uitgevoerd.
+        split_of_an_unknown_taxon_unlocked: De classificatiesplitsing waar u recentelijk om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
+        split_of_it_unlocked: De classificatiesplitsing die u recentelijk voor deze pagina heeft aangevraagd is uitgevoerd en de classificaties zijn verplaatst naar <a href='%{to}'>hun eigen pagina</a>.
+        split_of_taxon_unlocked: De classificatiesplitsing die u recentelijk voor "%{taxon}" heeft aangevraagd is uitgevoerd en de classificaties zijn verplaatst naar <a href='%{to}'>hun eigen pagina</a>.
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "Het samenvoegen van pagina's waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}. De betreffende pagina kan niet gevonden worden."
+        merge_of_it_unlocked_with_error: "Het samenvoegen van pagina's waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "Het samenvoegen van pagina's voor \"%{taxon}\" waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "Het verplaatsen van een classificatie waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}. De betreffende pagina kan niet gevonden worden."
+        move_of_it_unlocked_with_error: "Het verplaatsen van een classificatie waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "Het verplaatsen van een classificatie voor \"%{taxon}\" waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "Het splitsen van een classificatie waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}. De betreffende pagina kan niet gevonden worden."
+        split_of_it_unlocked_with_error: "Het splitsen van een classificatie waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "Het splitsen van een classificatie voor \"%{taxon}\" waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal op een onbekende pagina als ongecontroleerd gemarkeerd.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal als ongecontroleerd gemarkeerd.
@@ -758,7 +789,9 @@ nl:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als niet-vertrouwd gemarkeerd in een onbekende context.
         user_untrusted_it_on_association: <strong>%{user}</strong> heeft het als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+  activity_user_created_link: <strong>%{user}</strong> heeft een verwijzing toegevoegd aan "%{object_name}" in "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
+  activity_user_updated_link: <strong>%{user}</strong> heeft een verwijzing gewijzigd van "%{object_name}" in "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> heeft tekst gewijzigd van "%{object_name}" in "%{taxon_concept}".
   add: Toevoegen
   add_a_collection_to_a_community: "\"%{collection}\" toevoegen aan een gemeenschap"
@@ -1522,7 +1555,7 @@ nl:
     other: "%{count} items kopiëren naar een nieuwe verzameling"
   copy_of_name: Kopie van %{name}
   copyright: "Auteursrechten:"
-  correct_donation_message: Als deze gegevens niet correct zijn, ga dan %{go_back_link} om wijzigingen te maken
+  correct_donation_message: Als deze gegevens niet correct zijn, ga dan %{go_back_link} om wijzigingen te maken.
   could_not_find_collection_error: Die verzameling kon niet gevonden worden.
   could_not_find_user: U bent geen lid van deze gemeenschap.
   count: Aantal
@@ -1777,6 +1810,8 @@ nl:
   email: E-mailadres
   email_colon: "E-mailadres:"
   email_recipients: E-mailontvangers
+  email_updates_for_eol_addicts: Meldingen voor EOL-verslaafden.
+  email_updates_for_eol_members: Meldingen die de meeste EOL-leden wel willen ontvangen.
   encyclopedia_of_life: Encyclopedia of Life
   endorsed_by: Aanbevolen door
   endorsed_collections: Uitgelichte verzamelingen
@@ -1890,6 +1925,7 @@ nl:
   file: Bestand
   file_id: Bestandsnummer
   file_size: Bestandsgrootte
+  filed_under_label_with_date: Opgeslagen onder %{label} op %{date}
   fill_in_a_message_below_to_send_email_to_user: "Geef hieronder een bericht in dat aan deze gebruiker van de site gemaild kan worden. Het bericht wordt verzonden als u op de knop klikt:"
   filter_button: Filteren
   filter_by_day: Filteren op dag
@@ -1983,7 +2019,7 @@ nl:
   glossary_term: term
   glossary_terms: Termen uit de woordenlijst
   go: OK
-  go_back: Teruggaan
+  go_back: terug
   google: Google
   google_analytic_results: Resultaten van Google Analytics
   google_analytics_active: Google Analytics is actief
@@ -2326,7 +2362,7 @@ nl:
   inverse_sort: Omgekeerde sortering
   invite_members_help_text: Voeg hier de namen toe van een aantal EOL-gebruikers en dan krijgen ze een e-mail met een uitnodiging voor uw nieuwe gemeenschap!
   invite_members_label: Leden uitnodigen
-  ip: IP
+  ip: IP-adres
   ip_address: IP-adres
   item_added_to_collection_notice: Het items is toegevoegd aan de verzameling <em>%{collection_name}</em>
   item_added_to_watch_collection_notice: "\"%{item_name}\" is toegevoegd aan %{collection_name}."
@@ -2685,22 +2721,43 @@ nl:
   news_missing_content_message: Deze pagina is niet beschikbaar in de geselecteerde taal %{selected_language}.
   news_missing_content_title: Ontbrekende vertaling
   newsfeed: Nieuwsoverzicht
+  newsfeed_help_for_collection: In het nieuwsoverzicht voor deze EOL-verzameling staan berichten over de items in de verzameling, inclusief de handelingen van de eigenaar en reacties van andere gebruikers van EOL.
+  newsfeed_help_for_community: In het nieuwsoverzicht voor deze EOL-gemeenschap staan berichten over de items bij de beheerde verzamelingen horen, inclusief de handelingen van de leden en reacties van andere gebruikers van EOL.
+  newsfeed_help_for_focus_list: In het Focuslijstnieuwsoverzicht staan berichten over de items die horen bij de primaire focuslijst van een EOL-gemeenschap, inclusief de handelingen van de beheerders en reacties van andere gebruikers van EOL.
+  newsfeed_help_for_profile: In het EOL-profielnieuwsoverzicht staan reacties die door andere leden zijn achtergelaten voor de eigenaar, uitnodigingen van de EOL-gemeenschap en berichten over de items in de EOL-volglijst van de eigenaar.
+  newsfeed_help_for_taxon: In het nieuwsoverzicht voor deze EOL-taxonpagina staan berichten over de items in die aan de taxonpagina gekoppeld zijn, inclusief de conserveringshandelingen en reacties van gebruikers van EOL.
+  newsfeed_help_for_watchlist: In het EOL-volglijstoverzicht staan berichten over de items die gekoppeld zijn met de items op de volglijst van de eigenaar, inclusief de handelingen van de eigenaar.
   next: Volgende
   no_active_members: Er is nog niet genoeg activiteit geweest.
   no_answer: Nee
+  no_classificaitons_selected: Er zijn geen classificaties geselecteerd. Er is niets te verplaatsen.
+  no_collections_apply: Er kunnen geen beheerders toegevoegd worden aan verzamelingen waar u toegang toe hebt.
   no_comments_are_available_for_subject: Er zijn geen opmerkingen bij %{subject}
   no_comments_have_been_left_yet: Er zijn nog geen opmerkingen achtergelaten.
   no_errors_are_available: Er zijn geen fouten beschikbaar.
+  no_harvesting_logs_for_this_da: Er zijn geen oogstlogboeken voor deze datum
+  no_items_were_copied_to_collections_error: "Er zijn geen items gekopieerd naar verzamelingen: %{names}."
+  no_news_items_for_month_and_year: Er zijn geen nieuwsberichten voor %{month_and_year}
   no_record_found_matching_your_criteria: Er zijn geen records gevonden die aan uw criteria voldoen.
+  no_related_names: Er zijn nog geen namen gekoppeld aan dit taxon.
   no_results_for: geen resultaten voor
+  no_search_suggestions_are_avai: Er zijn geen zoeksuggesties voor uw zoekcriteria.
+  no_survey_responses_are_availa: Er zijn geen vragenlijstrespondenten beschikbaar.
   no_tasks_found: Geen taken gevonden
   no_uploaded_content_is_available: Er is geen geüploade inhoud beschikbaar.
+  no_user_submitted_data_objects: Er is geen door gebruikers gemaakte inhoud die aan uw zoekcriteria voldoet.
   no_users_matched_search: Er zijn geen gebruikers die voldoen aan uw zoekopdracht.
   none: geen
   not_applicable: niet van toepassing
   not_evaluated: Niet beoordeeld
   not_published_yet: nog niet gepubliceerd
+  not_recognized_by_available_hierarchies: Niet herkend in enige beschikbare classificatie
+  not_shown_on_the_website_note: (niet weergegeven op de website of in de URL van de verwijzing; alleen voor archiefdoeleinden)
+  not_yet_implemented_error: Die optie is helaas nog niet beschikbaar.
   note: "Notitie:"
+  note_about_homonym_problems: "Let op: wijzig deze eigenschap alleen als u het zeker weet. Deze optie deselecteren kan grote homoniemproblemen tot gevolg hebben"
+  note_all_times_utc: Alle tijden worden weergegeven in UTC (gecoördineerde wereldtijd)
+  note_that_it_may_take_a_few_mi: Het kan na uploaden enige minuten duren voordat de URL's werken, omdat uw bestand beschikbaar gesteld moet worden aan de webservers.
   notes: Notities
   notes_not_shown_to_user: "Notities (niet zichtbaar voor de gebruiker):"
   notification_frequency_daily_digest: Dagelijks overzicht
@@ -2708,6 +2765,7 @@ nl:
   notification_frequency_newsfeed_only: Alleen nieuwsoverzicht
   notification_frequency_send_immediately: Onmiddellijk verzenden
   notification_frequency_weekly: Wekelijks
+  notifications_and_messages_review_notice: Controleer alstublieft welke meldingen u per e-mail gaat ontvangen.
   notifications_tab_name: Meldingen
   notifier: 
     activity_log_empty: Geen recente handelingen door conservatoren.
@@ -2776,6 +2834,9 @@ nl:
       message: "Bedankt voor het registreren bij de Encyclopedia of Life. Via de volgende verwijzing kunt u uw registratie voltooien en activeren:\n\n%{verification_url}\n\nZodra u uw gebruiker hebt geactiveerd, ontvangt u een bevestiging per e-mail."
       subject: Bevestig uw gebruiker bij Encyclopedia of Life
   nucleotide_sequences: Nucleotidesequenties
+  nucleotide_sequences_ncbi_database: De database <a rel="nofollow" href="%{ncbi_taxonomy_link}">NCBI Taxonomy</a> bevat de namen van alle organismen die voorkomen in de genetische databases met tenminste één nucleotide- of proteïnesequentie.
+  nucleotide_sequences_ncbi_mission: De missie van het <a rel="nofollow" href="%{ncbi_link}">National Center for Biotechnology Information</a> is om nieuwe informatietechnologie te ontwikkelen om te helpen bij het begrijpen van de fundamentele moleculaire en genetische processen die een rol spelen bij gezondheid en ziekte.
+  nucleotide_sequences_proteins_link: Nucleotide- en proteïnesequenties in NCBI bekijken
   num_content_partners: Aantal contentpartners
   num_data_objects: Aantal gegevensobjecten
   number_of_taxa_at_this_entry: "# taxa voor dit item"
@@ -2809,11 +2870,15 @@ nl:
   objects_curated: Geconserveerde objecten
   older_version_of_latest_published_data_object_title_link: Oudere versie van %{link}
   on_time_col_header: op
+  only_alphanum_with_no_spaces: kan alleen alfanumeriek zonder spaties zijn
+  only_multi_search_suggestions: (alleen als er meerdere suggesties voor dezelfde zoekterm zijn, sorteren van laag naar hoog)
   only_show_authoritative_conten: "Alleen geautoriseerde inhoud weergeven:"
   only_show_unapproved_curators: Alleen nog niet goedgekeurde conservatoren weergeven
   option_please_select: Maak een keuze
   or_add_it_to_an_existing_collection: of voeg deze toe aan een bestaande verzameling
+  or_add_it_to_an_existing_community: of voeg het toe aan een bestaande gemeenschap
   or_copy_them_to_existing_collection: of kopieer ze naar een bestaande verzameling
+  or_email_education: Of e-mail uw suggestie aan %{link}.
   or_move_them_to_existing_collection: of verplaats ze naar een bestaande verzameling
   original: "Origineel:"
   original_object: Oorspronkelijke object
@@ -2834,8 +2899,11 @@ nl:
   page_name: Paginanaam
   page_navigation: Paginanavigatie
   page_not_found: Pagina niet gevonden
+  page_reference: "\"%{title}\". Encyclopedia of Life, beschikbaar op \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\". Geraadpleegd op %{date}"
+  page_results_avg: Paginaresultaten gem.
   page_statistics: Paginastatistieken
   page_statistics_and_tools: paginastatistieken en hulpmiddelen
+  page_statistics_explanation: "<p>EOL berekent automatisch enkele statistieken over pagina's. Deze statistieken worden elke paar dagen opnieuw berekend.</p>\n<h5>Rijkdomsscore</h5>\n<p>De rijkdomsscore is een samenstelling van verschillende factoren:\n<ul>\n<li>Hoeveel tekst een pagina bevat;</li>\n<li>Hoeveel multimedia- of kaartbestanden er beschikbaar zijn;</li>\n<li>Hoeveel verschillende onderwerpen aan bod komen;</li>\n<li>hoeveel verschillende bronnen informatie bijdragen;</li>\n<li>Of informatie is gecontroleerd of niet.</li>\n</ul></p>\n<p>Als een pagina al veel multimedia of tekst bevat, het meer toevoegen tot geen verhoging van de rijkdomsscore leiden.</p>\n<p>De rijkdomsscore kan variëren van 0 tot 100. Maak u geen zorgen, een verschil van een paar punten is niet erg belangrijk. Na verloop van tijd kunnen we de berekening van de score wijzigen, om uw ervaring met de site beter weer te geven. Laat ons weten wat u ervan vindt door het achterlaten van een reactie op pagina's waar u van mening bent dat de rijkheidsscore onjuist is.</p>\n<h5>Vertrouwde afbeeldingen</h5>\n<p>Bevat alle vertrouwde afbeeldingen voor deze pagina en pagina's die worden weergegeven in een classificatie onder deze pagina. Omvat zowel afbeeldingen die van vertrouwde partners komen als afbeeldingen afkomstig van partners als Flickr of Wikimedia Commons die zijn vertrouwd door een EOL-conservator.</p>\n<h5>Ongecontroleerde afbeeldingen</h5>\n<p>Bevat alle ongecontroleerde afbeeldingen voor deze pagina en pagina's die worden weergegeven in een classificatie onder deze pagina. Sommige EOL-partners bieden veel kwalitatief hoogwaardige afbeeldingen die nog niet zijn gecontroleerd. Bevat geen afbeeldingen die als niet-vertrouwd zijn gemarkeerd door een EOL-conservator.</p>\n<h5>Vertrouwde artikelen</h5>\n<p>Bevat alle vertrouwde tekstartikelen op het tabblad \"Details\" en verschillende artikelen op het tabblad \"Bronnen\". Bevat tekstartikelen van vertrouwde partners. Bevat ook artikelen die direct zijn bijgedragen aan EOL door haar leden of van artikelen van Wikipedia die zijn vertrouwd door een EOL-conservator. Bevat geen artikelen op pagina's die worden weergegeven in een classificatie onder deze pagina.</p>\n<h5>Ongecontroleerde artikelen</h5>\n<p>Bevat alle ongecontroleerde tekstartikelen op het tabblad \"Details\" van deze pagina en verschillende artikelen op het tabblad \"Bronnen\". Bevat tekstartikelen van vertrouwde partners. Bevat ook artikelen die direct zijn bijgedragen aan EOL door haar leden of van artikelen van Wikipedia die nog niet zijn gecontroleerd door een EOL-conservator. Bevat geen artikelen op pagina's die worden weergegeven in een classificatie onder deze pagina.</p>"
   page_urls: "Pagina-URL's:"
   page_views_th: Bekeken pagina's
   pages_admin_section_link: Beheerders
@@ -2883,6 +2951,7 @@ nl:
   please_state_one_credential: "Geef tenminste één specifieke referentie uit deze lijst:"
   please_wait: Even geduld alstublieft...
   post_comment: Bericht plaatsen
+  posts_from_year: Berichten uit %{year}
   preferred_common_name_advisory_information: Dit is de triviale naam voor dit taxon.
   press_room: Pers
   preview: voorvertoning
@@ -3592,13 +3661,51 @@ nl:
     one: één artikel toegevoegd
     other: "%{count} artikelen toegevoegd"
   user_activity_stats_articles_added_dropdown: Artikelen toegevoegd
+  user_activity_stats_comment_submitted: 
+    one: één reactie gegeven
+    other: "%{count} reacties gegeven"
+  user_activity_stats_common_names_added: 
+    one: één gewone naam toegevoegd
+    other: "%{count} gewone naam toegevoegd"
+  user_activity_stats_common_names_curated: 
+    one: één gewone naam geconserveerd
+    other: "%{count} gewone naam geconserveerd"
+  user_activity_stats_common_names_removed: 
+    one: één gewone naam verwijderd
+    other: "%{count} gewone naam verwijderd"
   user_activity_stats_header: Activiteit
+  user_activity_stats_objects_curated: 
+    one: één object geconserveerd
+    other: "%{count} object geconserveerd"
   user_activity_stats_objects_curated_dropdown: Geconserveerde objecten
+  user_activity_stats_preferred_classifications_selected: 
+    one: één voorkeursclassificatie geselecteerd
+    other: "%{count} voorkeursclassificaties geselecteerd"
+  user_activity_stats_selected_articles_for_overview: 
+    one: één artikel geselecteerd voor overzicht
+    other: "%{count} artikelen geselecteerd voor overzicht"
+  user_activity_stats_set_exemplar: 
+    one: één afbeelding als voorbeeldig ingesteld
+    other: "%{count} afbeeldingen als voorbeeldig ingesteld"
+  user_activity_stats_taxa_commented: 
+    one: één taxon geannoteerd
+    other: "%{count} taxa geannoteerd"
+  user_activity_stats_taxa_comments: 
+    one: één reactie bij een taxon gegeven
+    other: "%{count} reacties bij taxa gegeven"
   user_activity_stats_taxa_comments_dropdown: Reacties bij taxa
+  user_activity_stats_taxa_curated: 
+    one: één taxon geconserveerd
+    other: "%{count} taxa geconserveerd"
+  user_activity_stats_wikipedia_nominated: 
+    one: één Wikipedia-artikel genomineerd
+    other: "%{count} Wikipedia-artikelen genomineerd"
   user_agent: Gebruikersagent
   user_already_active_notice: Uw gebruiker is al actief. Meld u aan.
   user_comment: Opmerking van gebruiker
+  user_commented_on_something_colon: "<strong>%{user}</strong> heeft gereageerd op \"%{what}\":"
   user_comments: Opmerkingen van gebruikers
+  user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Gebruikers-ID
   user_joined_when: "\"%{user}\" is lid geworden op %{when}"
   user_left_comment_on_date: "%{username} heeft gereageerd op %{date}."

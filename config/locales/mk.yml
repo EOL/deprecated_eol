@@ -1547,7 +1547,7 @@ mk:
     other: Премести %{count} експонати во нова збирка
   copy_of_name: Копија на %{name}
   copyright: "АВТ. ПРАВА:"
-  correct_donation_message: Ако овие информации се погрешни, тогаш %{go_back_link} за да направите измени
+  correct_donation_message: Ако овие информации се погрешни, тогаш %{go_back_link} за да направите измени.
   could_not_find_collection_error: Нажалост, не можав да ја најдам таа збирка.
   could_not_find_user: Не членувате во оваа заедница.
   count: Број
@@ -1917,6 +1917,7 @@ mk:
   file: Податотека
   file_id: Назнака на податотеката
   file_size: Големина на податотеката
+  filed_under_label_with_date: Заведено под %{label} на %{date}
   fill_in_a_message_below_to_send_email_to_user: "Пополнете ја долунаведената порака и оттука испратете е-пошта на овој корисник. Пораката се испраќа со поднесување на образецот:"
   filter_button: Филтрирај
   filter_by_day: Филтрирање по ден
@@ -3612,7 +3613,7 @@ mk:
     one: "%{count} статија"
     other: "%{count} статии"
   thank_you: Ви благодариме
-  thank_you_for_your_generous_support: Ви благодариме за великодушната поддршка
+  thank_you_for_your_generous_support: Ви благодариме за великодушната поддршка!
   thanks_for_donation: Ви благодариме за вашата поддршка на Енциклопедијата на живиот свет. Вашите информации се поднесени и ќе бидат обработени.
   thanks_for_your_time: Ви благодариме за посветеното време,
   the_amount_entered_was: "Внесениот износ е : US %{number}"

@@ -1549,7 +1549,7 @@ gl:
     other: Copiar %{count} elementos a unha nova colección
   copy_of_name: Copia de "%{name}"
   copyright: "DEREITOS DE AUTOR:"
-  correct_donation_message: Se esta información non é correcta, %{go_back_link} para facer cambios
+  correct_donation_message: Se esta información non é correcta, %{go_back_link} para facer cambios.
   could_not_find_collection_error: Sentímolo, non se puido atopar a colección.
   could_not_find_user: Non es membro desta comunidade.
   count: Reconto
@@ -1919,6 +1919,7 @@ gl:
   file: Ficheiro
   file_id: ID do ficheiro
   file_size: Tamaño do ficheiro
+  filed_under_label_with_date: Arquivado en %{label} o %{date}
   fill_in_a_message_below_to_send_email_to_user: "Escribe unha mensaxe a continuación para enviar un correo electrónico a este usuario desde o sitio. A mensaxe enviarase cando envíe o formulario:"
   filter_button: Filtrar
   filter_by_day: Filtrar por día
@@ -3614,7 +3615,7 @@ gl:
     one: "%{count} artigo"
     other: "%{count} artigos"
   thank_you: Grazas
-  thank_you_for_your_generous_support: Grazas polo teu xeneroso apoio
+  thank_you_for_your_generous_support: Grazas polo teu xeneroso apoio!
   thanks_for_donation: Grazas por apoiares a Enciclopedia da vida. Enviouse a túa información e axiña será procesada.
   thanks_for_your_time: Grazas polo teu tempo,
   the_amount_entered_was: A cantidade indicada é %{number} dólares estadounidenses

@@ -86,7 +86,7 @@ zh-CN:
         active_curators: 活跃的管理员
         base_pages: 只含名称的物种页
         collections_count: 收藏
-        communities_count: 社区
+        communities_count: 小组
         content_partners: 内容合作伙伴
         content_partners_with_published_resources: 含有已发布的资源
         content_partners_with_published_trusted_resources: 含有已发布的可信的资源
@@ -113,7 +113,7 @@ zh-CN:
         marine_pages_in_col: CoL中包括的海洋物种
         marine_pages_with_objects: 有数据项的海洋物种页面
         marine_pages_with_objects_vetted: 有可信数据项的海洋物种页面
-        members_count: 会员
+        members_count: 成员
         newly_published_resources_in_the_last_30_days: 上个月刚发布的资源
         objects_curated_in_the_last_30_days: 过去30天管理过的数据项
         pages_count: 全部物种页
@@ -289,7 +289,7 @@ zh-CN:
         header: 
           other: 发现%{count} 次验证错误
     models: 
-      user: 帐户
+      user: 账户
   activity: 活动
   activity_log_empty: 暂无人提供更新。
   activity_log_empty_learn_more_link: 了解如作些贡献
@@ -885,11 +885,11 @@ zh-CN:
     show: 
       meta_description: 生命百科小组 %{community_name}被它的建立者删除
       meta_title: "%{community_name}被管理者删除"
-  communities_filter: 社区
+  communities_filter: 小组
   communities_index_empty: 没有活跃的社区。
   communities_index_header: 活跃的社区
-  communities_link: 社区
-  communities_page_title: 社区
+  communities_link: 小组
+  communities_page_title: 小组
   communities_summary_empty: 这个类群还没有在任何社区成为特色。
   communities_summary_header_with_count: 
     other: 属于 %{count}个社区
@@ -1401,7 +1401,7 @@ zh-CN:
     other: 共 (%{count})类型
   filter_by_type_collection_option: 收藏
   filter_by_type_comment_option: 评论
-  filter_by_type_community_option: 社区
+  filter_by_type_community_option: 小组
   filter_by_type_content_page_option: 关于EOL
   filter_by_type_image_option: 图像
   filter_by_type_image_option_with_count: 
@@ -1691,9 +1691,9 @@ zh-CN:
       session: 
         create: 登录
         sign_in_with_facebook: 使用Facebook账号登录
-        sign_in_with_google: 使用Google账号登录
+        sign_in_with_google: 使用Google帐户登录
         sign_in_with_twitter: 使用Twitter账号登录
-        sign_in_with_yahoo: 使用Yahoo账号登录
+        sign_in_with_yahoo: 使用雅虎帐号登录
       submit: 保存%{model}
       translated_content_page: 
         create: 添加翻译
@@ -1709,7 +1709,7 @@ zh-CN:
         sign_up_with_facebook: 使用Facebook账号登录
         sign_up_with_google: 使用Google帐户登录
         sign_up_with_twitter: 使用Twitter账号登录
-        sign_up_with_yahoo: 使用雅虎帐号登录
+        sign_up_with_yahoo: 使用雅虎帐号注册
         update: 保存简介信息
       wikipedia_queue: 
         create: 提交请求

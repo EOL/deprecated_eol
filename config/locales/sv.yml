@@ -151,6 +151,7 @@ sv:
         comment_on_my_collection: En kommentar på en samling som du hanterar
         comment_on_my_community: En kommentar i en av gemenskaperna som du är medlem i
         comment_on_my_profile: En kommentar på din profil
+        comment_on_my_watched_item: Kommentarer på objekt, taxa, samlingar eller gemenskaper i din bevakningslista
         invitation_to_community: Inbjudan om att gå med i en gemenskap
         made_me_a_manager: Du har blivit en samlings- eller gemenskapshanterare
         member_joined_my_community: En ny medlem har gått med i en gemenskap som du hanterar
@@ -247,15 +248,18 @@ sv:
           attributes: 
             rights_holder: 
               blank: kan inte vara tom för att CC-BY-licens
+              inclusion: måste vara tomt för en licens i allmän egendom
         resource: 
           attributes: 
             accesspoint_url: 
               blank: kan inte vara tomt, om du laddar upp en resursfil i stället
               inaccessible: är otillgänglig, webbadressen måste vara tillgänglig för allmänheten
+              invalid: är ogiltig. Den bör peka på en XML, XML.GZIP, XML.GZ eller ZIP-fil
             dataset: 
               wrong_type: är fel typ, det bör vara en GZIP, TAR, ZIP eller XML-fil
             dwc_archive_url: 
               inaccessible: är otillgänglig, webbadressen måste vara tillgänglig för allmänheten
+              invalid: är ogiltig. Den bör peka på en TAR.GZIP, TAR.GZ, TGZ eller ZIP-fil
       template: 
         body: "Följande fält kunde inte valideras:"
         header: 
@@ -610,6 +614,9 @@ sv:
         observation_place: "Plats: %{place}"
         observer_with_link: "Observatör: %{observer_link}"
         some_taxon: Någonting
+        taxa_observed: 
+          one: "%{count} taxon observerad"
+          other: "%{count} taxa observerade"
         view_project_on_inaturalist: Visa %{project_title} på iNaturalist
     newsfeeds: 
       show: 
@@ -617,6 +624,7 @@ sv:
         meta_title: "%{collection_name}-nyheter"
         tweet_text: "%{collection_name}-nyheter"
     show: 
+      meta_description_default: En Encyclopedia of Life-samling med titeln %{collection_name}.
       meta_keywords: "%{collection_name}, Encyclopedia of Life-samling"
   collections_filter: Samlingar
   collections_link: Samlingar
@@ -713,6 +721,8 @@ sv:
       message_not_sent: Tyvärr, ett fel uppstod, ditt meddelande har inte skickats.
     new: 
       page_title: Var god lämna din feedback
+    notices: 
+      message_sent: Tack för din feedback. Ditt meddelande har skickats till den lämpliga gruppen.
   containing_value: innehåller %{value}.
   content: 
     index: 
@@ -800,9 +810,11 @@ sv:
       meta_title: Innehållspartners
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: "%{partner_name}, innehållspartner för Encyclopedia of Life"
     statistics: 
       show: 
         meta_description: Användningsstatistik för %{partner_name}data.
+        meta_keywords: "%{partner_name}-statistiker, %{partner_name}-webbanvändning"
         meta_title: "%{partner_name} Statistik"
         tweet_text: "%{partner_name} användningsstatistik"
   content_partners_empty: Inget innehållspartner hittades.
@@ -1039,10 +1051,13 @@ sv:
     data_objects: 
       page_title: Statistik
     index: 
+      menu_link: Övergripande statistiker
+      page_header: Övergripande statistiker
       page_title: Statistiker
     lifedesks: 
       page_title: Statistiker
     marine: 
+      menu_link: Marinstatistiker
       page_title: Statistik
     page_richness: 
       menu_link: Innehållsrika sidor
@@ -1187,6 +1202,7 @@ sv:
         source_url: URL till det ursprungliga dataobjektet
         toc_item: Underkapitel
       data_object_link: 
+        description: Beskrivning <small>(vissa HTML-koder är tillåtet)</small>
         link_type: Kategori
         source_url: Länk-URL
         toc_item: Ämne
@@ -1237,6 +1253,7 @@ sv:
       translated_news_item: 
         active_translation: Publicerad
         language_id: Språk
+        title_more: Titeln på detta nyhetsobjekt kommer att visas i sidhuvudet på sidan. Titeln bör innehålla nyckelord som är mest relevanta för innehållet.
       user: 
         agreed_with_terms: Jag godkänner <a href="%{terms_url}">användarvillkoren</a>
         bio: Om mig
@@ -1703,16 +1720,23 @@ sv:
     activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) tog bort okänd association från %{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Inga nya kommentarer.
     contact_us_auto_response: 
+      message: "Tack för att kontaktar Encyclopedia of Life-projektet. Dina kommentarer har skickats till den lämpliga gruppen.\n\nVi uppskattar din feedback."
       subject: Tack för att du kontaktar Encyclopedia of Life
     contact_us_message: 
       message: "Följande meddelande skickades in the EOL via formuläret Kontakta oss:\nFrån: %{from_name}\nE-post: %{from_email}\nÄmne: %{subject}\n\n%{message}"
       subject: "Ett meddelande till EOL: %{title}"
     content_partner_created: 
       message: "Detta är ett automatiskt systemmeddelande från EOL för gruppen med artsidor. Användaren %{user_full_name} skapade innehållspartnern %{partner_full_name}, detaljer finns nedan:\n\nAnvändare: %{user_full_name}\nE-post: %{user_email}\nProfil-URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL för partnerprofil: %{partner_profile_url}\nSkapdes: %{partner_created_at_date}"
+      subject: EOL-användaren %{user_full_name} skapade innehållspartnern %{partner_full_name}
+    content_partner_resource_created: 
+      message: "Detta är ett automatiskt systemmeddelande från EOL för gruppen av artsidor. Användaren %{user_full_name} lade till den ny resursen %{resource_title} till innehållspartnern %{partner_full_name}, detaljer nedan:\n\nAnvändare: %{user_full_name}\nE-post: %{user_email}\nProfil-URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL för partnerresurser: %{partner_resources_url}\n\nResurs: %{resource_title}\nURL för resurser: %{resource_url}\nSkapades: %{resource_created_at_date}\nStatus: %{resource_status}"
+      subject: EOL-användaren %{user_full_name} lade till den nya resursen %{resource_title} till innehållspartnern %{partner_full_name}
     greeting_dear_name_with_comma: Kära %{name},
     signature_basic: Encyclopedia of Life-teamet
     signature_with_contact_us_link: "Om du stöter på några problem, var god kontakta oss på %{url}.\n\nEncyclopedia of Life-teamet"
     signature_with_species_pages_group_contact: "Om du har några frågor, kontakta oss på %{species_pages_group_email}.\n\nEncyclopedia of Life-teamet"
+    unsubscribed_to_notifications: 
+      subject: Synd att dig gå...
     user_activated: 
       subject: Ditt Encyclopedia of Life-konto har aktiverats
     user_activated_with_open_authentication: 
@@ -2132,20 +2156,39 @@ sv:
         meta_title: Fakta om %{scientific_name}
         tweet_text: Information om %{scientific_name}
     literature: 
+      bhl: 
+        tweet_text: "Litteratur från #BHL om %{scientific_name}"
       show: 
+        hierarchy_entry: 
+          meta_title: Litteratur om %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_title_with_common_name: Böcker om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
         meta_title: Artiklar och böcker om %{scientific_name}
+        meta_title_with_common_name: Artiklar och böcker om %{preferred_common_name} (%{scientific_name})
         tweet_text: Artiklar och böcker om %{scientific_name}
     maps: 
       show: 
+        hierarchy_entry: 
+          meta_description: Geografisk information om %{scientific_name} som är klassificerad av %{hierarchy_provider} var de bor och var de är inhemska i världen.
+          meta_title: Kartor över %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_title_with_common_name: Kartor över %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
+          tweet_text: Kartor över %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_description: Geografisk information om %{scientific_name}. Platser där de bor i världen.
+        meta_description_no_data: Ingen geografisk information finns tillgänglig för %{scientific_name} i Encyclopedia of Life. EOL välkomnar dig till att bidra kartor för %{scientific_name}.
+        meta_description_with_common_name: Var kan %{preferred_common_name} hittas och var bor de? Geografisk information om %{scientific_name}. Platser där de bor i världen.
         meta_title: Karta för %{scientific_name}
         meta_title_with_common_name: Kartor för %{preferred_common_name} (%{scientific_name})
         tweet_text: Kartor för %{scientific_name}
     media: 
       index: 
         hierarchy_entry: 
+          meta_description: Bilder och videoklipp om %{scientific_name} som är klassificerad av %{hierarchy_provider}.
+          meta_title: Ljud, film och fotografier om %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_title_with_common_name: Ljud, film och bilder om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Media av %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Bilder, videor och ljud om %{scientific_name}. Hitta bilder, foton, filmer och ljud om %{scientific_name} på Encyclopedia of Life.
+        meta_description_no_data: Ingen multimedia finns tillgänglig för %{scientific_name} i Encyclopedia of Life. EOL välkomnar dig till att bidra bilder, videoklipp, eller ljud för %{scientific_name}.
         meta_description_with_common_name: Bilder, videoklipp och ljud om %{preferred_common_name} även känd som %{scientific_name}. Hitta bilder, foton, filmer och ljud om %{preferred_common_name} (%{scientific_name}) på the Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Ingen multimedia finns tillgänglig för %{preferred_common_name} även känd som %{scientific_name} i Encyclopedia of Life. EOL välkomnar dig till att bidra bilder, videoklipp eller ljud för %{preferred_common_name} (%{scientific_name}).
         meta_title: Bilder, videolklipp och ljud om %{scientific_name} - Bilder, foton, filmer och ljud om %{scientific_name}
         meta_title_with_common_name: Bilder, videoklipp och ljud om %{preferred_common_name} (%{scientific_name}) - Bilder, foton, filmer och ljud om %{preferred_common_name} (%{scientific_name})
         tweet_text: Bilder, videoklipp och ljud om %{scientific_name}
@@ -2159,6 +2202,7 @@ sv:
         hierarchy_entry: 
           meta_description: Taxonomier och vetenskapliga namn för %{scientific_name} som är klassificerad av %{hierarchy_provider}.
           tweet_text: Namn med anknytning till %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_title: Taxonomisk information för %{scientific_name} - biologiska klassificeringar och namn
       synonyms: 
         meta_keywords_with_common_name: Synonym för %{preferred_common_name}, Synonymer för %{scientific_name}
         tweet_text: Synonym för %{scientific_name}

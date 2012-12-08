@@ -10,6 +10,7 @@
 # Author: Raoli
 # Author: Ribez
 # Author: Rippitippi
+# Author: Viscontino
 # Author: Ximo17
 it: 
   0_1_or_2: 0, 1 o 2
@@ -158,6 +159,7 @@ it:
         string: Nome
       news_item: 
         active: Pubblicato
+        page_name: Nome univoco
         sort_order: Ordinamento
       notification: 
         changes_to_my_watched_collection: Modifiche alle collezioni nei tuoi osservati speciali
@@ -171,6 +173,7 @@ it:
         eol_newsletter: Inviami la newsletter trimestrale EOL
         i_am_being_watched: Sei stati aggiunto agli osservati speciali di un altro membro
         invitation_to_community: Invito per unirsi ad una comunità
+        made_me_a_manager: Sei stato nominato direttore di una collezione o comunità
         member_joined_my_community: Un nuovo membro si è unito ad una comunità che gestisci
         member_joined_my_watched_community: Nuovi membri che si sono uniti a comunità di cui sei membro
         member_left_my_community: Membri che hanno lasciato una comunità che gestisci
@@ -193,6 +196,7 @@ it:
         hierarchy: Gerarchia
         language_id: Lingua predefinita
         license_id: Licenza predefinita
+        notes: Elaborazione di note
         resource_status_id: Stato delle risorse
         rights_holder: Detentore dei diritti predefinito
         rights_statement: Dichiarazione dei diritti predefinita
@@ -203,9 +207,13 @@ it:
         left_content: Navigazione
         main_content: Corpo
         meta_description: Descrizione del metadato
+        meta_keywords: Parole chiavi dei metadati
         title: Titolo
       translated_news_item: 
         active_translation: Pubblicato
+        body: Corpo
+        meta_description: Descrizione dei metadati
+        meta_keywords: Parole chiavi dei metadati
         title: Titolo
       user: 
         agreed_with_terms: Termini del contratto di utilizzo
@@ -224,6 +232,7 @@ it:
         given_name: Nome
         language_abbr: Lingua preferita.
         requested_curator_level_id: Livello curatore desiderato
+        tag_line: Tagline
         username: Nome utente
     errors: 
       format: "%{attribute} %{message}"
@@ -277,6 +286,7 @@ it:
               inaccessible: è inaccessibile, l'URL deve essere accessibile al pubblico
               invalid: non è valido, deve puntare ad un file XML, XML.GZIP, XML.GZ o ZIP
             dataset: 
+              blank: non può essere vuoto se non fornendo altrimenti l'URL di un dataset
               wrong_type: è di tipo errato, deve essere un file GZIP, TAR, ZIP o XML
             dwc_archive_url: 
               inaccessible: è inaccessibile, l'URL deve essere accessibile al pubblico
@@ -1320,6 +1330,8 @@ it:
         active_more: Le pagine pubblicate saranno visibili da tutti. Deseleziona <em>pubblicato</em> se non vuoi che lo siano
         page_name: Nome univoco <small>(minuscolo, solo caratteri alfanumerici latini ISO di base e trattino basso)</small>
         page_name_more: Inserisci un identificatore univoco, autodescrittivo, significativo e persistente per questa pagina. Il nome che scriverai qui verrà utilizzato per generare l'URL di questa pagina, ad esempio il nome univoco <em>terms_of_use</em> verrà convertito nell'URL <em>http://eol.org/info/terms_of_use</em>.
+        parent_content_page_id: Genitore
+        parent_content_page_id_more: Facoltativamente, selezionare un genitore sotto il quale questa pagina dovrebbe essere nidificata.
       content_partner: 
         created_at: Registrato
         current_agreement: Accordo attuale
@@ -1333,6 +1345,7 @@ it:
         logo_new: "Carica un nuovo logo:"
         notes: Note di progetto <small>(private)</small>
         oldest_published_harvest_event: Pubblicato la prima volta
+        user_id: Dettagli sui contenuti dei partner sono gestiti da
       data_object: 
         bibliographic_citation: Citazione bibliografica
         description: Testo <small>(alcuni tag HTML sono consentiti)</small>
@@ -1345,7 +1358,10 @@ it:
         source_url: URL all'oggetto dati originale
         toc_item: Sottocapitolo
       data_object_link: 
+        description: Descrizione <small>(alcuni tag HTML sono consentiti)</small>
         link_type: Categoria
+        source_url: Collegamento URL
+        toc_item: Oggetto
       eol_statistic: 
         date_one: Data
         date_two: Data

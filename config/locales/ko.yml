@@ -676,6 +676,9 @@ ko:
         user_trusted_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 신뢰한 것으로 표시했습니다.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 신뢰함으로 표시했습니다.
         user_trusted_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 신뢰함으로 표시했습니다.
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: 최근에 요청한 문서 병합을 완료했지만 문서를 찾을 수 없습니다.
+        merge_of_it_unlocked: 이 문서에 최근에 요청한 병합을 완료했습니다.
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
@@ -954,11 +957,11 @@ ko:
   article_of_taxon: "%{taxon_name}의 문서"
   article_rating: 문서 평가
   articles_in_languages_with_count: 
-    one: "이 문서에 대한 문서를 언어 %{count}개로 사용할 수 있습니다:"
-    other: "이 문서에 대한 문서를 언어 %{count}개로 사용할 수 있습니다:"
+    one: "이 문서에 대한 문서를 언어 %{count}개로 읽을 수 있습니다:"
+    other: "이 문서에 대한 문서를 언어 %{count}개로 읽을 수 있습니다:"
   articles_in_other_languages_with_count: 
-    one: "이 문서에 대한 문서를 다른 언어 %{count}개로 사용할 수 있습니다:"
-    other: "이 문서에 대한 문서를 다른 언어 %{count}개로 사용할 수 있습니다:"
+    one: "이 문서에 대한 문서를 다른 언어 %{count}개로 읽을 수 있습니다:"
+    other: "이 문서에 대한 문서를 다른 언어 %{count}개로 읽을 수 있습니다:"
   articles_with_count: 
     one: 문서 %{count}개
     other: 문서 %{count}개
@@ -1078,7 +1081,7 @@ ko:
   clicked_time: 클릭 시간
   close_this_window_to_return_to_edit_window: 편집 창으로 돌아가려면 이 창을 닫으세요
   cms_available_in_languages: "이 문서는 다음에 존재합니다:"
-  cms_missing_content_message: 죄송합니다, 이 문서는 선택한 %{selected_language}로 사용할 수 없습니다.
+  cms_missing_content_message: 죄송합니다, 이 문서는 %{selected_language}로 읽을 수 없습니다.
   cms_missing_content_title: 번역 없음
   collect_item: 항목 모음
   collect_items: 항목 모음
@@ -2153,6 +2156,9 @@ ko:
     other: 그림 %{count}개
   import_once: 한번에 가져오기
   in_collection: 모음집
+  in_community: 공동체에서
+  in_providing_its_content_to_eo: EOL에 콘텐츠를 제공해,
+  in_this_data_type: "이 %{data_type}에서:"
   inappropriate: 부적절
   inaturalist_tab_label: iNaturalist 관찰
   include_all_metadata: 데이터 개체에 대한 모든 메타 데이터 포함
@@ -2204,9 +2210,10 @@ ko:
   joined_time_ago: "%{time_passed} 전에 가입함"
   json_response: JSON 응답
   jsonp_by_adding_a_callback_parameter: ... 그리고 콜백 변수를 추가하여 JSONP
+  key: 키
   label: 레이블
   language: "언어:"
-  language_selector_advisory_information: 다음은 사이트의 내용으로 사용할 수 있는 언어의 목록이며, 현재 언어를 바꾸려면 이 목록에서 다른 언어를 선택하세요.
+  language_selector_advisory_information: 다음은 사이트의 내용으로 읽을 수 있는 언어의 목록이며, 현재 언어를 바꾸려면 이 목록에서 다른 언어를 선택하세요.
   language_with_count: "%{language} (%{count})"
   languages: 언어
   last_updated: 최근 업데이트
@@ -2490,7 +2497,7 @@ ko:
       meta_keywords: eol 뉴스, 생명의 백과사전 뉴스
       meta_title: EOL 뉴스
       page_title: EOL 뉴스
-  news_missing_content_message: 죄송합니다, 이 문서는 선택한 %{selected_language}로 사용할 수 없습니다.
+  news_missing_content_message: 죄송합니다, 이 문서는 %{selected_language}로 읽을 수 없습니다.
   news_missing_content_title: 번역 없음
   newsfeed: 뉴스 피드
   next: 다음
@@ -3307,7 +3314,7 @@ ko:
     one: 문서 %{count}개
     other: 문서 %{count}개
   thank_you: 감사합니다
-  thank_you_for_your_generous_support: 관대한 지원에 감사합니다
+  thank_you_for_your_generous_support: 관대한 지원에 감사합니다!
   thanks_for_donation: 생명의 백과 사전에 지원해 주어서 감사합니다.  정보가 제출되었으며 처리됩니다.
   thanks_for_your_time: 시간을 내어 주셔서 감사합니다,
   the_amount_entered_was: "입력한 금액 : 미화 %{number}"
@@ -3687,6 +3694,8 @@ ko:
   what_do_these_numbers_mean: 이 숫자가 무엇을 뜻합니까?
   what_is_eol: EOL은 무엇입니까?
   what_is_this_question: 이게 뭐죠?
+  who_registered_before: 다음 날짜
+  who_registered_from: 등록함, 이전 날짜
   wikipedia_queue_create_successful_notice: 위키백과 %{article} 문서 %{rev} 판을 가져오기 위해 대기하고 있습니다.
   wikipedia_queue_new_page_title: 위키백과 문서 가져오기 요청
   will_paginate: 

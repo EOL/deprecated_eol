@@ -1557,7 +1557,7 @@ de:
     other: "%{count} Objekte in eine neue Sammlung kopieren"
   copy_of_name: Kopie von %{name}
   copyright: "Rechtlich geschützt für:"
-  correct_donation_message: Sofern diese Informationen nicht richtig sind, gehe Sie bitte zu %{go_back_link} zurück, um Änderungen vorzunehmen
+  correct_donation_message: Sofern diese Informationen nicht richtig sind, gehe Sie bitte zu %{go_back_link} zurück, um Änderungen vorzunehmen.
   could_not_find_collection_error: Diese Sammlung konnte leider nicht gefunden werden.
   could_not_find_user: Sie sind nicht Mitglied dieser Gemeinschaft.
   count: Anzahl
@@ -1927,6 +1927,7 @@ de:
   file: Datei
   file_id: Dateikennung
   file_size: Dateigröße
+  filed_under_label_with_date: Gespeichert unter %{label} am %{date}
   fill_in_a_message_below_to_send_email_to_user: "Verfassen Sie hier eine Nachricht, die an diesen Nutzer der Website geschickt werden soll. Die Nachricht wird nach dem Speichern dieses Formulars versandt:"
   filter_button: Filtern
   filter_by_day: Nach Tag filtern
@@ -3622,7 +3623,7 @@ de:
     one: "%{count} Artikel"
     other: "%{count} Artikel"
   thank_you: Vielen Dank
-  thank_you_for_your_generous_support: Vielen Dank für Ihre großzügige Unterstützung
+  thank_you_for_your_generous_support: Vielen Dank für Ihre großzügige Unterstützung!
   thanks_for_donation: Vielen Dank, dass Sie die Enzyklopädie des Lebens (EOL) unterstützen. Ihre Informationen wurde übermittelt und werden nun bearbeitet.
   thanks_for_your_time: Vielen Dank für Ihre Zeit,
   the_amount_entered_was: "Der eingegebene Betrag war: US$ %{number}"

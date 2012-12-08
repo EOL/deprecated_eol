@@ -1,3 +1,78 @@
+# provides the ability to bridge ClassificationCurations to PHP
+class ClassificurationBridge
+
+  attr_accessor :curation
+  attr_reader   :bridger
+
+  delegate :bridge, :to => :bridger
+
+  def self.bridge(curation)
+    c = ClassificurationBridge.new(curation)
+    c.bridge
+    c
+  end
+
+  def initialize(curation)
+    @curation = curation
+    @bridger  = BridgeFactory.for(curation)
+  end
+
+end
+
+# Builds the correct strategy for bridging classification curations to PHP
+class BridgeFactory
+  def self.for(curation)
+    if curation.split?
+      BridgeSplit.new(curation)
+    elsif curation.merge?
+      BridgeMerge.new(curation)
+    elsif curation.move?
+      BridgeMove.new(curation)
+    end
+  end
+end
+
+# Classic Stratgey Pattern for bridging classification curations to PHP
+class Bridge
+
+  attr_accessor :curation
+
+  def initialize(curation)
+    @curation = curation
+  end
+
+  def bridge
+    raise "Unimplemented abstract method called"
+  end
+
+end
+
+class BridgeSplit < Bridge
+  def bridge
+    curation.hierarchy_entries.each do |he|
+      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => curation.exemplar_id,
+                             :notify => curation.user_id, :classification_curation_id => curation.id)
+    end
+  end
+end
+
+class BridgeMerge < Bridge
+  def bridge
+    CodeBridge.merge_taxa(curation.source_id, curation.target_id, :notify => curation.user_id,
+                          :classification_curation_id => curation.id)
+  end
+end
+
+class BridgeMove < Bridge
+  def bridge
+    curation.hierarchy_entries.each do |he|
+      CodeBridge.move_entry(:from_taxon_concept_id => curation.source_id, :to_taxon_concept_id => curation.target_id,
+                            :hierarchy_entry_id => he.id, :exemplar_id => curation.exemplar_id,
+                            :notify => curation.user_id, :classification_curation_id => curation.id)
+    end
+  end
+end
+
 class ClassificationCuration < ActiveRecord::Base
 
   # For convenience, these are the non-relationship fields:
@@ -21,13 +96,7 @@ class ClassificationCuration < ActiveRecord::Base
   after_create :bridge
 
   def bridge
-    if split?
-      bridge_split
-    elsif merge?
-      bridge_merge
-    else
-      bridge_move
-    end
+    ClassificurationBridge.bridge(self)
   end
 
   def split?
@@ -38,9 +107,8 @@ class ClassificationCuration < ActiveRecord::Base
     exemplar.nil?
   end
 
-  # This is not used anywhere (in practice, use split? / merge? / else), but is here for principle of least surprise:
   def move?
-    !split? && !merge?
+    moved_to && exemplar
   end
 
   def check_status_and_notify
@@ -89,26 +157,6 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
 private
-
-  def bridge_split
-    hierarchy_entries.each do |he|
-      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
-                             :classification_curation_id => id)
-    end
-  end
-
-  def bridge_merge
-    CodeBridge.merge_taxa(source_id, target_id, :notify => user_id, :classification_curation_id => id)
-  end
-
-  def bridge_move
-    hierarchy_entries.each do |he|
-      CodeBridge.move_entry(:from_taxon_concept_id => source_id, :to_taxon_concept_id => target_id,
-                            :hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
-                            :classification_curation_id => id)
-    end
-  end
-
 
   def compile_errors_into_log
     # Yes, english. This is a comment and cannot be internationalized:

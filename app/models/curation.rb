@@ -8,13 +8,13 @@ class Curation
     @association = options[:association]
     @data_object = options[:data_object]
     debugger if $FOO
-    curate_association(@user, @association, options)
+    curate_association(@user, options)
   end
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
-  def curate_association(user, hierarchy_entry, opts)
+  def curate_association(user, opts)
     if something_needs_curation?(opts)
-      curated_object = get_curated_object(hierarchy_entry)
+      curated_object = get_curated_object
       return if curated_object.visibility_id == Visibility.preview.id
       handle_curation(curated_object, user, opts).each do |action|
         log = log_action(curated_object, action)
@@ -25,7 +25,7 @@ class Curation
         unless opts[:hide_reason_ids].blank?
           save_hide_reasons(log, action, opts[:hide_reason_ids])
         end
-        clear_cached_media_count_and_exemplar(hierarchy_entry) if action == :hide
+        clear_cached_media_count_and_exemplar if action == :hide
       end
     end
   end
@@ -34,13 +34,13 @@ class Curation
     opts[:vet?] || opts[:visibility?]
   end
 
-  def get_curated_object(hierarchy_entry)
-    if hierarchy_entry.class == UsersDataObject
+  def get_curated_object
+    if @association.class == UsersDataObject
       curated_object = UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
-    elsif hierarchy_entry.associated_by_curator
-      curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, hierarchy_entry.id)
+    elsif @association.associated_by_curator
+      curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, @association.id)
     else
-      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_version_in_same_language.id, hierarchy_entry.id)
+      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_version_in_same_language.id, @association.id)
     end
   end
 
@@ -100,8 +100,8 @@ class Curation
     end
   end
 
-  def clear_cached_media_count_and_exemplar(he)
-    @clearables << he
+  def clear_cached_media_count_and_exemplar
+    @clearables << @association
   end
 
   def save_untrust_reasons(log, action, untrust_reason_ids)

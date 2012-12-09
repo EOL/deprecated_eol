@@ -7,16 +7,15 @@ class Curation
     @user = options[:user]
     @association = options[:association]
     @data_object = options[:data_object]
-    debugger if $FOO
-    curate_association(@user, options)
+    curate_association(options)
   end
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
-  def curate_association(user, opts)
+  def curate_association(opts)
     if something_needs_curation?(opts)
       curated_object = get_curated_object
       return if curated_object.visibility_id == Visibility.preview.id
-      handle_curation(curated_object, user, opts).each do |action|
+      handle_curation(curated_object, opts).each do |action|
         log = log_action(curated_object, action)
         # Saves untrust reasons, if any
         unless opts[:untrust_reason_ids].blank?
@@ -46,7 +45,7 @@ class Curation
 
   # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
   # representing the actions that were taken.  ...which you may want to log.  :)
-  def handle_curation(object, user, opts)
+  def handle_curation(object, opts)
     actions = []
     raise "Curator should supply at least visibility or vetted information" unless (opts[:vet?] || opts[:visibility?])
     actions << handle_vetting(object, opts[:vetted_id].to_i, opts[:visibility_id].to_i, opts) if opts[:vet?]

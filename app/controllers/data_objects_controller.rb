@@ -257,7 +257,7 @@ class DataObjectsController < ApplicationController
     @data_object.remove_curated_association(current_user, he)
     clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
-    log_action(he, :remove_association, :taxon_concept_id => he.taxon_concept_id)
+    log_action(he, :remove_association)
     redirect_to data_object_path(@data_object), :status => :moved_permanently
   end
 
@@ -315,17 +315,23 @@ class DataObjectsController < ApplicationController
         # if you are here to refactor the code(and about to remove the following line) then please make sure the hiding of the association works properly
         visibility_changed = (phe.visibility_id == Visibility.invisible.id && (vetted_id == Vetted.trusted.id || vetted_id == Vetted.unknown.id)) ? true : false unless visibility_changed == true
 
-        all_params = { :vetted_id => vetted_id,
-                       :visibility_id => visibility_id,
-                       :curation_comment => comment,
-                       :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
-                       :hide_reason_ids => params["hide_reasons_#{phe.id}"],
-                       :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
-                       :vet? => vetted_id.blank? ? false : (phe.vetted_id != vetted_id),
-                       :visibility? => visibility_changed,
-                       :comment? => !comment.nil?,
-                     }
-        curate_association(current_user, phe, all_params)
+        curation = Curation.new(
+          :association => phe,
+          :data_object => @data_object,
+          :user => current_user,
+          :vetted_id => vetted_id,
+          :visibility_id => visibility_id,
+          :curation_comment => comment,
+          :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
+          :hide_reason_ids => params["hide_reasons_#{phe.id}"],
+          :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
+          :vet? => vetted_id && phe.vetted_id != vetted_id,
+          :visibility? => visibility_changed,
+          :comment? => !comment.nil? )
+        curation.clearables.each { |clearable| clear_cached_media_count_and_exemplar(clearable) } # TODO - refactor, obviously. This is lame.
+        flash[:notice] ||= ''
+        flash[:notice]  += ' ' + I18n.t(:object_curated)
+        auto_collect(@data_object) # SPG wants all curated objects collected.
       end
       @data_object.reindex
     rescue => e
@@ -382,8 +388,6 @@ protected
       @data_object.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 
-  # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate
-  # places to put the following code for handling curation and the logging thereof.
 private
 
   def data_objects_layout
@@ -482,97 +486,7 @@ private
     end
   end
 
-  # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
-  def curate_association(user, hierarchy_entry, opts)
-    if something_needs_curation?(opts)
-      curated_object = get_curated_object(hierarchy_entry)
-      return if curated_object.visibility_id == Visibility.preview.id
-      handle_curation(curated_object, user, opts).each do |action|
-        log = log_action(curated_object, action)
-        # Saves untrust reasons, if any
-        unless opts[:untrust_reason_ids].blank?
-          save_untrust_reasons(log, action, opts[:untrust_reason_ids])
-        end
-        unless opts[:hide_reason_ids].blank?
-          save_hide_reasons(log, action, opts[:hide_reason_ids])
-        end
-        clear_cached_media_count_and_exemplar(hierarchy_entry) if action == :hide
-      end
-    end
-  end
-
-  def something_needs_curation?(opts)
-    opts[:vet?] || opts[:visibility?]
-  end
-
-  def get_curated_object(hierarchy_entry)
-    if hierarchy_entry.class == UsersDataObject
-      curated_object = UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
-    elsif hierarchy_entry.associated_by_curator
-      curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, hierarchy_entry.id)
-    else
-      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_version_in_same_language.id, hierarchy_entry.id)
-    end
-  end
-
-  # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
-  # representing the actions that were taken.  ...which you may want to log.  :)
-  def handle_curation(object, user, opts)
-    actions = []
-    raise "Curator should supply at least visibility or vetted information" unless (opts[:vet?] || opts[:visibility?])
-    actions << handle_vetting(object, opts[:vetted_id].to_i, opts[:visibility_id].to_i, opts) if opts[:vet?]
-    actions << handle_visibility(object, opts[:vetted_id].to_i, opts[:visibility_id].to_i, opts) if opts[:visibility?]
-    return actions.flatten
-  end
-
-  def handle_vetting(object, vetted_id, visibility_id, opts)
-    if vetted_id
-      case vetted_id
-      when Vetted.inappropriate.id
-        object.inappropriate(current_user)
-        return :inappropriate
-      when Vetted.untrusted.id
-        raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
-        object.untrust(current_user)
-        return :untrusted
-      when Vetted.trusted.id
-        if visibility_id == Visibility.invisible.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
-          raise "Curator should supply at least reason(s) to hide and/or curation comment"
-        end
-        object.trust(current_user)
-        return :trusted
-      when Vetted.unknown.id
-        if visibility_id == Visibility.invisible.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
-          raise "Curator should supply at least reason(s) to hide and/or curation comment"
-        end
-        object.unreviewed(current_user)
-        return :unreviewed
-      else
-        raise "Cannot set data object vetted id to #{vetted_id}"
-      end
-    end
-  end
-
-  def handle_visibility(object, vetted_id, visibility_id, opts)
-    if visibility_id
-      changeable_object_type = opts[:changeable_object_type]
-      case visibility_id
-      when Visibility.visible.id
-        object.show(current_user)
-        return :show
-      when Visibility.invisible.id
-        if vetted_id != Vetted.untrusted.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
-          raise "Curator should supply at least reason(s) to hide and/or curation comment"
-        end
-        object.hide(current_user)
-        return :hide
-      else
-        raise "Cannot set data object visibility id to #{visibility_id}"
-      end
-    end
-  end
-
-  def log_action(object, method, opts = {})
+  def log_action(object, method)
     object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
     return if object.blank?
     object_id = object.id if object_id.blank?
@@ -606,32 +520,6 @@ private
       create_options.merge!(:taxon_concept_id => object.taxon_concept_id)
     end
     CuratorActivityLog.create(create_options)
-  end
-
-  def save_untrust_reasons(log, action, untrust_reason_ids)
-    untrust_reason_ids.each do |untrust_reason_id|
-      case untrust_reason_id.to_i
-      when UntrustReason.misidentified.id
-        log.untrust_reasons << UntrustReason.misidentified if action == :untrusted
-      when UntrustReason.incorrect.id
-        log.untrust_reasons << UntrustReason.incorrect if action == :untrusted
-      else
-        raise "Please re-check the provided untrust reasons"
-      end
-    end
-  end
-
-  def save_hide_reasons(log, action, hide_reason_ids)
-    hide_reason_ids.each do |hide_reason_id|
-      case hide_reason_id.to_i
-      when UntrustReason.poor.id
-        log.untrust_reasons << UntrustReason.poor if action == :hide
-      when UntrustReason.duplicate.id
-        log.untrust_reasons << UntrustReason.duplicate if action == :hide
-      else
-        raise "Please re-check the provided hide reasons"
-      end
-    end
   end
 
   def empty_paginated_set
@@ -694,5 +582,4 @@ private
     @li ||= id_in_params ? id_in_params : nil
   end
   
-
 end

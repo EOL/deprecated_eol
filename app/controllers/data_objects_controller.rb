@@ -326,8 +326,7 @@ class DataObjectsController < ApplicationController
           :hide_reason_ids => params["hide_reasons_#{phe.id}"],
           :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
           :vet? => vetted_id && phe.vetted_id != vetted_id,
-          :visibility? => visibility_changed,
-          :comment? => !comment.nil? )
+          :visibility? => visibility_changed )
         curation.clearables.each { |clearable| clear_cached_media_count_and_exemplar(clearable) } # TODO - refactor, obviously. This is lame.
         flash[:notice] ||= ''
         flash[:notice]  += ' ' + I18n.t(:object_curated)
@@ -335,6 +334,7 @@ class DataObjectsController < ApplicationController
       end
       @data_object.reindex
     rescue => e
+      debugger if $FOO
       flash[:error] = e.message
     end
     redirect_back_or_default data_object_path(@data_object.latest_published_version_in_same_language)

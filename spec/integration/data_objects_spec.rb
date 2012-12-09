@@ -246,6 +246,7 @@ describe 'Data Object Page' do
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"
     select "Hidden", :from => "visibility_id_#{assoc_id}"
     check "#{assoc_id}_untrust_reason_duplicate"
+    $FOO = true
     click_button "Save changes"
     review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
     select "Untrusted", :from => "vetted_id_#{assoc_id}"

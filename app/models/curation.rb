@@ -7,30 +7,38 @@ class Curation
     @user = options[:user]
     @association = options[:association]
     @data_object = options[:data_object]
-    curate_association(options)
+    @vetted_id = options[:vetted_id]
+    @visibility_id = options[:visibility_id]
+    @curation_comment = options[:curation_comment]
+    @untrust_reason_ids = options[:untrust_reason_ids]
+    @hide_reason_ids = options[:hide_reason_ids]
+    @untrust_reasons_comment = options[:untrust_reasons_comment]
+    @vet = options[:vet?]
+    @visibility = options[:visibility?]
+    curate_association
   end
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
-  def curate_association(opts)
-    if something_needs_curation?(opts)
+  def curate_association
+    if something_needs_curation?
       curated_object = get_curated_object
       return if curated_object.visibility_id == Visibility.preview.id
-      handle_curation(curated_object, opts).each do |action|
+      handle_curation(curated_object).each do |action|
         log = log_action(curated_object, action)
         # Saves untrust reasons, if any
-        unless opts[:untrust_reason_ids].blank?
-          save_untrust_reasons(log, action, opts[:untrust_reason_ids])
+        unless @untrust_reason_ids.blank?
+          save_untrust_reasons(log, action, @untrust_reason_ids)
         end
-        unless opts[:hide_reason_ids].blank?
-          save_hide_reasons(log, action, opts[:hide_reason_ids])
+        unless @hide_reason_ids.blank?
+          save_hide_reasons(log, action, @hide_reason_ids)
         end
         clear_cached_media_count_and_exemplar if action == :hide
       end
     end
   end
 
-  def something_needs_curation?(opts)
-    opts[:vet?] || opts[:visibility?]
+  def something_needs_curation?
+    @vet || @visibility
   end
 
   def get_curated_object
@@ -45,32 +53,32 @@ class Curation
 
   # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
   # representing the actions that were taken.  ...which you may want to log.  :)
-  def handle_curation(object, opts)
+  def handle_curation(object)
     actions = []
-    raise "Curator should supply at least visibility or vetted information" unless (opts[:vet?] || opts[:visibility?])
-    actions << handle_vetting(object, opts[:vetted_id].to_i, opts[:visibility_id].to_i, opts) if opts[:vet?]
-    actions << handle_visibility(object, opts[:vetted_id].to_i, opts[:visibility_id].to_i, opts) if opts[:visibility?]
+    raise "Curator should supply at least visibility or vetted information" unless (@vet || @visibility)
+    actions << handle_vetting(object, @vetted_id.to_i, @visibility_id.to_i) if @vet
+    actions << handle_visibility(object, @vetted_id.to_i, @visibility_id.to_i) if @visibility
     return actions.flatten
   end
 
-  def handle_vetting(object, vetted_id, visibility_id, opts)
+  def handle_vetting(object, vetted_id, visibility_id)
     if vetted_id
       case vetted_id
       when Vetted.inappropriate.id
         object.inappropriate(@user)
         return :inappropriate
       when Vetted.untrusted.id
-        raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
+        raise "Curator should supply at least untrust reason(s) and/or curation comment" if (@untrust_reason_ids.blank? && @curation_comment.nil?)
         object.untrust(@user)
         return :untrusted
       when Vetted.trusted.id
-        if visibility_id == Visibility.invisible.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
+        if visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @curation_comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.trust(@user)
         return :trusted
       when Vetted.unknown.id
-        if visibility_id == Visibility.invisible.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
+        if visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @curation_comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.unreviewed(@user)
@@ -81,14 +89,14 @@ class Curation
     end
   end
 
-  def handle_visibility(object, vetted_id, visibility_id, opts)
+  def handle_visibility(object, vetted_id, visibility_id)
     if visibility_id
       case visibility_id
       when Visibility.visible.id
         object.show(@user)
         return :show
       when Visibility.invisible.id
-        if vetted_id != Vetted.untrusted.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
+        if vetted_id != Vetted.untrusted.id && @hide_reason_ids.blank? && @curation_comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.hide(@user)

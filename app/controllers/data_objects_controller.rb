@@ -300,33 +300,16 @@ class DataObjectsController < ApplicationController
     begin
       @data_object.all_associations.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])
-        vetted_id = params["vetted_id_#{phe.id}"].to_i # TODO - make sure we don't get weird 0s because of hte to_i
-
-        # make visibility hidden if curated as Inappropriate or Untrusted # TODO - make sure we don't get weird 0s because of hte to_i
-        visibility_id = (vetted_id == Vetted.inappropriate.id || vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : params["visibility_id_#{phe.id}"].to_i
-
-        # check if the visibility has been changed
-        visibility_changed = visibility_id && (phe.visibility_id != visibility_id)
-
-        # NOTE - this line is quite volitile in the tests!  Be careful changing it...
-        # explicitly mark visibility as changed if it is already hidden and marked as trusted or unreviewed from untrusted.
-        # this is required as we don't ask for hide reasons while marking an association as untrusted
-        # if we don't do this, code will grab the last hide reason for that association if it was marked as hidden in the past.
-        # if you are here to refactor the code(and about to remove the following line) then please make sure the hiding of the association works properly
-        visibility_changed = (phe.visibility_id == Visibility.invisible.id && (vetted_id == Vetted.trusted.id || vetted_id == Vetted.unknown.id)) ? true : false unless visibility_changed == true
-
         curation = Curation.new(
           :association => phe,
           :data_object => @data_object,
           :user => current_user,
-          :vetted_id => vetted_id,
-          :visibility_id => visibility_id,
+          :vetted_id => params["vetted_id_#{phe.id}"].to_i, # TODO - make sure we don't get weird 0s because of hte to_i
+          :visibility_id => params["visibility_id_#{phe.id}"].to_i, # TODO = 0s
           :curation_comment => comment,
           :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
           :hide_reason_ids => params["hide_reasons_#{phe.id}"],
-          :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
-          :vet? => vetted_id && phe.vetted_id != vetted_id,
-          :visibility? => visibility_changed )
+          :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"] )
         curation.clearables.each { |clearable| clear_cached_media_count_and_exemplar(clearable) } # TODO - refactor, obviously. This is lame.
         flash[:notice] ||= ''
         flash[:notice]  += ' ' + I18n.t(:object_curated)

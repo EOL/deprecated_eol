@@ -478,6 +478,7 @@ private
       he = object.hierarchy_entry
     elsif object.class.name == "HierarchyEntry"
       he = object
+    # TODO - what if it's a UsersDataObject?!
     end
 
     if method == :add_association || method == :remove_association
@@ -496,7 +497,7 @@ private
       :activity => Activity.send(method),
       :data_object => @data_object,
       :data_object_guid => @data_object.guid,
-      :hierarchy_entry_id => he.id,
+      :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
     }
     if object.class.name == "UsersDataObject"

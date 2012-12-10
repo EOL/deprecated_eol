@@ -13,18 +13,31 @@ class Curation
     @untrust_reason_ids = options[:untrust_reason_ids]
     @hide_reason_ids = options[:hide_reason_ids]
     @untrust_reasons_comment = options[:untrust_reasons_comment]
-    @vet = options[:vet?]
-    @visibility = options[:visibility?]
+
+    @vet = @vetted_id && @association.vetted_id != @vetted_id
+
+    # make visibility hidden if curated as Inappropriate or Untrusted # TODO - make sure we don't get weird 0s because of hte to_i
+    @visibility_id = (@vetted_id == Vetted.inappropriate.id || @vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : @visibility_id
+
+    # check if the visibility has been changed
+    @visibility = @visibility_id && (@association.visibility_id != @visibility_id)
+
+    # NOTE - this line is quite volitile in the tests!  Be careful changing it...
+    # explicitly mark visibility as changed if it is already hidden and marked as trusted or unreviewed from untrusted.
+    # this is required as we don't ask for hide reasons while marking an association as untrusted
+    # if we don't do this, code will grab the last hide reason for that association if it was marked as hidden in the past.
+    # if you are here to refactor the code(and about to remove the following line) then please make sure the hiding of the association works properly
+    @visibility = (@association.visibility_id == Visibility.invisible.id && (@vetted_id == Vetted.trusted.id || @vetted_id == Vetted.unknown.id)) ? true : false unless @visibility == true
+
     curate_association
   end
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
   def curate_association
     if something_needs_curation?
-      curated_object = get_curated_object
       return if curated_object.visibility_id == Visibility.preview.id
-      handle_curation(curated_object).each do |action|
-        log = log_action(curated_object, action)
+      handle_curation.each do |action|
+        log = log_action(action)
         # Saves untrust reasons, if any
         unless @untrust_reason_ids.blank?
           save_untrust_reasons(log, action, @untrust_reason_ids)
@@ -41,29 +54,30 @@ class Curation
     @vet || @visibility
   end
 
-  def get_curated_object
-    if @association.class == UsersDataObject
-      curated_object = UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
-    elsif @association.associated_by_curator
-      curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, @association.id)
-    else
-      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_version_in_same_language.id, @association.id)
-    end
+  def curated_object
+    @curated_object ||= if @association.class == UsersDataObject
+        UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
+      elsif @association.associated_by_curator
+        CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, @association.id)
+      else
+        DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_version_in_same_language.id, @association.id)
+      end
   end
 
   # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
   # representing the actions that were taken.  ...which you may want to log.  :)
-  def handle_curation(object)
+  def handle_curation
+    object = curated_object
     actions = []
     raise "Curator should supply at least visibility or vetted information" unless (@vet || @visibility)
-    actions << handle_vetting(object, @vetted_id.to_i, @visibility_id.to_i) if @vet
-    actions << handle_visibility(object, @vetted_id.to_i, @visibility_id.to_i) if @visibility
+    actions << handle_vetting(object) if @vet
+    actions << handle_visibility(object) if @visibility
     return actions.flatten
   end
 
-  def handle_vetting(object, vetted_id, visibility_id)
-    if vetted_id
-      case vetted_id
+  def handle_vetting(object)
+    if @vetted_id
+      case @vetted_id
       when Vetted.inappropriate.id
         object.inappropriate(@user)
         return :inappropriate
@@ -72,37 +86,37 @@ class Curation
         object.untrust(@user)
         return :untrusted
       when Vetted.trusted.id
-        if visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @curation_comment.nil?
+        if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @curation_comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.trust(@user)
         return :trusted
       when Vetted.unknown.id
-        if visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @curation_comment.nil?
+        if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @curation_comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.unreviewed(@user)
         return :unreviewed
       else
-        raise "Cannot set data object vetted id to #{vetted_id}"
+        raise "Cannot set data object vetted id to #{@vetted_id}"
       end
     end
   end
 
-  def handle_visibility(object, vetted_id, visibility_id)
-    if visibility_id
-      case visibility_id
+  def handle_visibility(object)
+    if @visibility_id
+      case @visibility_id
       when Visibility.visible.id
         object.show(@user)
         return :show
       when Visibility.invisible.id
-        if vetted_id != Vetted.untrusted.id && @hide_reason_ids.blank? && @curation_comment.nil?
+        if @vetted_id != Vetted.untrusted.id && @hide_reason_ids.blank? && @curation_comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.hide(@user)
         return :hide
       else
-        raise "Cannot set data object visibility id to #{visibility_id}"
+        raise "Cannot set data object visibility id to #{@visibility_id}"
       end
     end
   end
@@ -138,7 +152,8 @@ class Curation
   end
 
   # TODO - this was mostly stolen from data_objects controller. Generalize.
-  def log_action(object, method)
+  def log_action(method)
+    object = curated_object
     object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
     return if object.blank?
     object_id = object.id if object_id.blank?

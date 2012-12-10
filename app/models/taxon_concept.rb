@@ -98,7 +98,7 @@ class TaxonConcept < ActiveRecord::Base
       best_name_in_language = preferred_common_names.where("language_id = #{language.id}").first
     end
     if best_name_in_language
-      return best_name_in_language.name.string.capitalize_all_words_if_using_english
+      return best_name_in_language.name.string.capitalize_all_words_if_language_safe
     end
   end
 

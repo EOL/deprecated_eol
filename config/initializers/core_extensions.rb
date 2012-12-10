@@ -29,9 +29,10 @@ class String
     string.gsub(@@non_word_chars_regex, '_').gsub(@@dup_underscores_regex, '_')
   end
   
-  def capitalize_all_words_if_using_english
-    if I18n.locale == 'en' || I18n.locale == :en
-      # This is only safe in English:
+  # No, this is not a comprehensive list of languages where it's acceptable (and/or applicable) to capitalize all the
+  # words in a common name, but this is our current whitelist. ...Likely to be updated...
+  def capitalize_all_words_if_language_safe
+    if [:de, :en, :es, :fr, :nl].include?(I18n.locale.to_sym)
       capitalize_all_words
     else
       self

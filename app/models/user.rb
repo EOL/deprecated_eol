@@ -258,8 +258,9 @@ class User < ActiveRecord::Base
 
   def activate
     # Using update_column instead of updates_attributes to by pass validation errors.
-    self.update_column(:active, true)
-    self.update_column(:validation_code, nil)
+    update_column(:active, true)
+    update_column(:validation_code, nil)
+    add_to_index
     build_watch_collection
   end
 

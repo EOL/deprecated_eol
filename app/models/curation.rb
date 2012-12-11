@@ -9,7 +9,7 @@ class Curation
     @data_object = options[:data_object] # TODO - Change association to a class, give it a #data_object, stop passing
     @vetted_id = options[:vetted_id] || @association.vetted_id
     @visibility_id = options[:visibility_id] || @association.visibility_id
-    @curation_comment = options[:curation_comment] # TODO - rename (to comment)
+    @comment = options[:comment]
     @untrust_reason_ids = options[:untrust_reason_ids]
     @hide_reason_ids = options[:hide_reason_ids]
     @untrust_reasons_comment = options[:untrust_reasons_comment]
@@ -75,17 +75,17 @@ class Curation
     if @vetted_id
       case @vetted_id
       when Vetted.untrusted.id
-        raise "Curator should supply at least untrust reason(s) and/or curation comment" if (@untrust_reason_ids.blank? && @curation_comment.nil?)
+        raise "Curator should supply at least untrust reason(s) and/or curation comment" if (@untrust_reason_ids.blank? && @comment.nil?)
         object.untrust(@user)
         return :untrusted
       when Vetted.trusted.id
-        if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @curation_comment.nil?
+        if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.trust(@user)
         return :trusted
       when Vetted.unknown.id
-        if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @curation_comment.nil?
+        if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.unreviewed(@user)
@@ -103,7 +103,7 @@ class Curation
         object.show(@user)
         return :show
       when Visibility.invisible.id
-        if @vetted_id != Vetted.untrusted.id && @hide_reason_ids.blank? && @curation_comment.nil?
+        if @vetted_id != Vetted.untrusted.id && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.hide(@user)

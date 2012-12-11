@@ -299,14 +299,13 @@ class DataObjectsController < ApplicationController
     store_location(params[:return_to]) # TODO - this should be generalized at the application level, it's quick, it's common.
     begin
       @data_object.all_associations.each do |phe|
-        comment = curation_comment(params["curation_comment_#{phe.id}"])
         curation = Curation.new(
           :association => phe,
           :data_object => @data_object,
           :user => current_user,
           :vetted_id => params["vetted_id_#{phe.id}"].to_i, # TODO - make sure we don't get weird 0s because of hte to_i
           :visibility_id => params["visibility_id_#{phe.id}"].to_i, # TODO = 0s
-          :curation_comment => comment,
+          :comment => curation_comment(params["curation_comment_#{phe.id}"]), # Note, this gets saved regardless!
           :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
           :hide_reason_ids => params["hide_reasons_#{phe.id}"],
           :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"] )

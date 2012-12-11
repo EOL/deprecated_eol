@@ -66,7 +66,7 @@ describe Curation do
       :data_object => @data_object,
       :vetted_id => Vetted.untrusted.id,
       :visibility_id => Visibility.visible.id, # Note we *say* visible, here
-      :curation_comment => @comment
+      :comment => @comment
     )
     find_association.visibility.should == Visibility.invisible
   end
@@ -115,7 +115,7 @@ describe Curation do
       curation = Curation.new(
         :user => @user,
         :association => assoc,
-        :curation_comment => @comment,
+        :comment => @comment,
         :data_object => @data_object,
         :vetted_id => Vetted.trusted.id
       )
@@ -128,7 +128,7 @@ describe Curation do
       :association => association(:trusted, :visible),
       :data_object => @data_object,
       :visibility_id => Visibility.invisible.id,
-      :curation_comment => @comment
+      :comment => @comment
     )
     find_association.visibility.should == Visibility.invisible
     the_curation_activities_on(@data_object).should include("hide")
@@ -149,7 +149,7 @@ describe Curation do
     curation = Curation.new(
       :user => @user,
       :association => association(:trusted, :invisible), # Not that it matters, but invisible causes less work here
-      :curation_comment => @comment,
+      :comment => @comment,
       :data_object => @data_object,
       :vetted_id => Vetted.untrusted.id
     )
@@ -172,7 +172,7 @@ describe Curation do
     curation = Curation.new(
       :user => @user,
       :association => association(:trusted, :visible),
-      :curation_comment => @comment,
+      :comment => @comment,
       :data_object => @data_object,
       :vetted_id => Vetted.unknown.id
     )
@@ -311,7 +311,7 @@ describe Curation do
     curation = Curation.new(
       :user => @user,
       :association => assoc = association(:trusted, :visible),
-      :curation_comment => @comment,
+      :comment => @comment,
       :data_object => @data_object,
       :visibility_id => Visibility.invisible.id
     )

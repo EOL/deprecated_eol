@@ -119,6 +119,7 @@ class Curation
     @clearables << @association
   end
 
+  # TODO - wrong place for this logic; the curator activity log should handle these validations.
   def save_untrust_reasons(log, action, untrust_reason_ids)
     untrust_reason_ids.each do |untrust_reason_id|
       case untrust_reason_id.to_i

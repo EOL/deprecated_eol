@@ -19,24 +19,24 @@ class Curation
     curate_association
   end
 
-private
-
-  def errors
-    return @errors if @errors # NOTE - this means we cannot check twice, but hey.
-    @errors = []
-    @errors << 'nothing changed' unless something_needs_curation?
-    @errors << 'object in preview state cannot be curated' if object_in_preview_state?
-    @errors
+  def warnings
+    return @warnings if @warnings # NOTE - this means we cannot check twice, but hey.
+    @warnings = []
+    @warnings << 'nothing changed' unless something_needs_curation?
+    @warnings << 'object in preview state cannot be curated' if object_in_preview_state? # TODO - error!
+    @warnings
   end
+
+private
 
   def object_in_preview_state?
     curated_object.visibility == Visibility.preview
   end
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
-  # TODO - Really, I think we should report that nothing happened if nothing happened.  :|
   def curate_association
-    return unless errors.empty?
+    return unless something_needs_curation?
+    return if object_in_preview_state?
     handle_curation.each do |action|
       log = log_action(action)
       save_untrust_reasons(log, action)

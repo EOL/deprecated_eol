@@ -21,21 +21,32 @@ class Curation
 
 private
 
+  def errors
+    @errors = []
+    @errors << 'nothing changed' unless something_needs_curation?
+    @errors << 'object in preview state cannot be curated' if object_in_preview_state?
+  end
+
+  def object_in_preview_state?
+    curated_object.visibility == Visibility.preview
+  end
+
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
+  # TODO - Really, I think we should report that nothing happened if nothing happened.  :|
   def curate_association
-    if something_needs_curation?
-      return if curated_object.visibility == Visibility.preview
-      handle_curation.each do |action|
-        log = log_action(action)
-        # Saves untrust reasons, if any
-        unless @untrust_reason_ids.blank?
-          save_untrust_reasons(log, action, @untrust_reason_ids)
-        end
-        unless @hide_reason_ids.blank?
-          save_hide_reasons(log, action, @hide_reason_ids)
-        end
-        clear_cached_media_count_and_exemplar if action == :hide
+    # TODO - return unless errors.empty?
+    return unless something_needs_curation?
+    return if object_in_preview_state?
+    handle_curation.each do |action|
+      log = log_action(action)
+      # Saves untrust reasons, if any
+      unless @untrust_reason_ids.blank?
+        save_untrust_reasons(log, action, @untrust_reason_ids)
       end
+      unless @hide_reason_ids.blank?
+        save_hide_reasons(log, action, @hide_reason_ids)
+      end
+      clear_cached_media_count_and_exemplar if action == :hide
     end
   end
 

@@ -251,7 +251,6 @@ describe Curation do
     Curation.new(
       :user => @user,
       :association => association(:trusted, :visible),
-      :curation_comment => @comment,
       :data_object => @data_object,
       :visibility_id => Visibility.invisible.id,
       :hide_reason_ids => [@poor.id, @duplicate.id]
@@ -261,6 +260,38 @@ describe Curation do
     CuratorActivityLog.last.untrust_reasons.should include(@duplicate)
   end
 
+  # TODO - While this test is probably still going to hold, the failure should really be on the CuratorActivityLog,
+  # and thus really doesn't need to be tested here.
+  it 'should FAIL with bad untrust reasons' do
+    should_do_nothing(association(:trusted, :invisible)) do |assoc| # Invisible ensures we don't also hide it.
+      lambda {
+        Curation.new(
+          :user => @user,
+          :association => assoc,
+          :data_object => @data_object,
+          :vetted_id => Vetted.untrusted.id,
+          :untrust_reason_ids => [@UntrustReason.last.id + 1]
+        )
+      }.should raise_error
+    end
+  end
+
+  # TODO - While this test is probably still going to hold, the failure should really be on the CuratorActivityLog,
+  # and thus really doesn't need to be tested here.
+  it 'should FAIL with bad hide reasons' do
+    should_do_nothing(association(:trusted, :visible)) do |assoc|
+      lambda {
+        $FOO = 1
+        Curation.new(
+          :user => @user,
+          :association => assoc,
+          :data_object => @data_object,
+          :visibility_id => Visibility.invisible.id,
+          :hide_reason_ids => [UntrustReason.last.id + 1]
+        )
+      }.should raise_error
+    end
+  end
 
   # TODO - LAME. It should call TaxonConceptCacheClearing, which should be updated to handle the things in the
   # controller.

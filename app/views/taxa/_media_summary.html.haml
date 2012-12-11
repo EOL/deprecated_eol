@@ -10,8 +10,6 @@
             %p= link_to I18n.t(:media_summary_empty_contribute_instructions), cms_page_path('contribute')
     - else
       - @media[0..3].each do |item|
-        - if item.translations.length > 0
-          - item = item.translations[0].data_object
         .image
           %a{:href => data_object_path(item.id)}
             %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_concept), :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}

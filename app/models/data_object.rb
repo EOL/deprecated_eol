@@ -615,6 +615,12 @@ class DataObject < ActiveRecord::Base
   end
   
   def latest_version_in_same_language(params = {})
+    latest_version_in_language(language_id)
+  end
+  
+  def latest_version_in_language(chosen_language_id, params = {})
+    chosen_language_id ||= language.id
+    chosen_language_id = Language.english.id unless chosen_language_id && chosen_language_id != 0
     params[:check_only_published] = true unless params.has_key?(:check_only_published)
     if params[:check_only_published]
       # sometimes all_published_versions, but if not I anted to set a default set of select fields. Rails AREL
@@ -627,15 +633,17 @@ class DataObject < ActiveRecord::Base
     end
     # only looking at revisions with the same data type (due to a bug it is possible for different revisions to have different types)
     versions_to_look_at_in_language.delete_if{ |d| data_type_id && d.data_type_id != data_type_id }
-    # if this object has a language, and its different from the revision language,
-    # except when this is English and the other has no language
-    versions_to_look_at_in_language.delete_if{ |d| (language_id && language_id != 0) && (d.language_id != language_id && !(d.language_id == 0 && language_id == Language.english.id)) }
-    # if this object has no language, and the revision does have a language other than English
-    versions_to_look_at_in_language.delete_if{ |d| (language_id.nil? || language_id == 0) && (d.language_id && d.language_id != 0) && d.language_id != Language.english.id }
-    return nil if versions_to_look_at_in_language.empty?
+    versions_to_look_at_in_language.delete_if do |d|
+      if d.language_id && d.language_id != 0
+        true if d.language_id != chosen_language_id
+      else
+        true if chosen_language_id != Language.english.id
+      end
+    end
+    return DataObject.find(self.id) if versions_to_look_at_in_language.empty?
     DataObject.find(DataObject.sort_by_created_date(versions_to_look_at_in_language).reverse.first.id)
   end
-  
+
   def is_latest_published_version_in_same_language?
     return @is_latest_published_version unless @is_latest_published_version.nil?
     the_latest = latest_published_version_in_same_language
@@ -1059,7 +1067,7 @@ class DataObject < ActiveRecord::Base
         :languages => '*',
         :data_objects => default_selects | options[:select] } )
     data_objects.collect! do |d|
-      if latest_version = d.latest_published_version_in_same_language
+      if latest_version = d.latest_version_in_language(options[:language_id], :check_only_published => true)
         d = latest_version
       end
       d.is_the_latest_published_revision = true

@@ -1333,23 +1333,22 @@ en:
         meta_title: "Synonyms of %{scientific_name}"
         meta_title_with_common_name: "Synonyms of %{preferred_common_name} (%{scientific_name})"
         tweet_text: "Synonyms of %{scientific_name}"
-    overviews:
-      show:
-        hierarchy_entry:
-          meta_description: "A summary of information about %{scientific_name} as recognised by %{hierarchy_provider} in the Encyclopedia of Life."
-          meta_description_with_common_name: "A summary of information about %{preferred_common_name}, also known as %{scientific_name} as recognised by %{hierarchy_provider} in the Encyclopedia of Life."
-          meta_keywords: "%{scientific_name} recognised by %{hierarchy_provider}, %{scientific_name} classified by %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} recognised by %{hierarchy_provider}, %{scientific_name} classified by %{hierarchy_provider}"
-          meta_title: "%{scientific_name} Classified by %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Classified by %{hierarchy_provider})"
-          tweet_text: "Overview of %{scientific_name} as classified by %{hierarchy_provider}"
-        meta_description: "Information on %{scientific_name} in the Encyclopedia of Life."
-        meta_description_with_common_name: "Information on %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life."
-        meta_keywords: "info on %{scientific_name},%{scientific_name} information"
-        meta_keywords_with_common_name: "info on %{scientific_name},info on %{preferred_common_name},%{scientific_name} information and facts,%{preferred_common_name} information"
-        meta_title: "%{scientific_name} - Information on %{scientific_name}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information on %{preferred_common_name}"
-        tweet_text: "Information on %{scientific_name}"
+    overview:
+      hierarchy_entry:
+        meta_description: "A summary of information about %{scientific_name} as recognised by %{hierarchy_provider} in the Encyclopedia of Life."
+        meta_description_with_common_name: "A summary of information about %{preferred_common_name}, also known as %{scientific_name} as recognised by %{hierarchy_provider} in the Encyclopedia of Life."
+        meta_keywords: "%{scientific_name} recognised by %{hierarchy_provider}, %{scientific_name} classified by %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} recognised by %{hierarchy_provider}, %{scientific_name} classified by %{hierarchy_provider}"
+        meta_title: "%{scientific_name} Classified by %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Classified by %{hierarchy_provider})"
+        tweet_text: "Overview of %{scientific_name} as classified by %{hierarchy_provider}"
+      meta_description: "Information on %{scientific_name} in the Encyclopedia of Life."
+      meta_description_with_common_name: "Information on %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life."
+      meta_keywords: "info on %{scientific_name},%{scientific_name} information"
+      meta_keywords_with_common_name: "info on %{scientific_name},info on %{preferred_common_name},%{scientific_name} information and facts,%{preferred_common_name} information"
+      meta_title: "%{scientific_name} - Information on %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information on %{preferred_common_name}"
+      tweet_text: "Information on %{scientific_name}"
     resources:
       show:
         hierarchy_entry:

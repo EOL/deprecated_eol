@@ -55,7 +55,7 @@ class Admins::ContentPagesController < AdminsController
 
   # DELETE /admin/content_pages/:id
   def destroy
-    return redirect_to :action => 'index', :status => :moved_permanently unless request.method == :delete
+    return redirect_to :action => 'index', :status => :moved_permanently unless request.delete?
     content_page = ContentPage.find(params[:id], :include => [:translations, :children])
     page_name = content_page.page_name
     content_page.last_update_user_id = current_user.id

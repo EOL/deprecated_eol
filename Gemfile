@@ -12,6 +12,7 @@ group :development, :test do
   gem 'optiflag'
   gem 'rspec-rails', '~>2.0'
   gem 'ruby-prof'
+  gem 'spin'
 end
 
 group :staging do

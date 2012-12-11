@@ -42,7 +42,7 @@ class TaxaController < ApplicationController
     @media = @map.blank? ? media : media[0..2] + [ @map ]
     
     @media << @summary_text if @summary_text
-    DataObject.replace_with_latest_versions!(@media, :select => [ :description ])
+    DataObject.replace_with_latest_versions!(@media, :select => [ :description ], :language_id => current_language.id)
     includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ] }, :vetted, :visibility ] } ]
     includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
     includes << :users_data_object

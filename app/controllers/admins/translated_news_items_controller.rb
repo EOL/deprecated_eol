@@ -53,7 +53,7 @@ class Admins::TranslatedNewsItemsController < AdminsController
 
   # DELETE /admin/news_items/:news_item_id/translations/:id
   def destroy
-    return redirect_to :action => 'index', :status => :moved_permanently unless request_is_a_delete?
+    return redirect_to :action => 'index', :status => :moved_permanently unless request.delete?
     news_item = NewsItem.find(params[:news_item_id])
     page_name = news_item.page_name
     translated_news_item = TranslatedNewsItem.find(params[:id], :include => :language)
@@ -65,10 +65,6 @@ class Admins::TranslatedNewsItemsController < AdminsController
   end
 
 private
-
-  def request_is_a_delete?
-    request.method == 'DELETE' || request.method == :delete
-  end
 
   def set_translated_news_item_options
     @page_title = I18n.t(:admin_news_items_page_title)

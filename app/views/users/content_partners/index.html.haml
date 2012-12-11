@@ -15,7 +15,8 @@
             = link_to image_tag(partner.logo_url(:small), :alt => ''), content_partner_path(partner)
             .details
               %h4= link_to partner.name, content_partner_path(partner)
-    = form_for [@user, @new_partner], :url => new_content_partner_path do |form|
-      = form.hidden_field :user_id
-      %fieldset.actions
-        = form.submit I18n.t(:content_partner_new_link)
+    - if @user.can_be_updated_by?(current_user)
+      = form_for [@user, @new_partner], :url => new_content_partner_path do |form|
+        = form.hidden_field :user_id
+        %fieldset.actions
+          = form.submit I18n.t(:content_partner_new_link)

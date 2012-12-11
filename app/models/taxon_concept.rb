@@ -603,7 +603,9 @@ class TaxonConcept < ActiveRecord::Base
       DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
       text_objects = DataObject.sort_by_rating(text_objects, self)
       current_user.language ||= Language.default
-      if exemplar = self.overview_text_for_user(current_user)
+      exemplar = self.overview_text_for_user(current_user)
+      exemplar = nil if exemplar && solr_search_params[:license_ids] && !solr_search_params[:license_ids].include?(exemplar.license_id)
+      if exemplar
         include_exemplar = nil
         if options[:text_subjects].nil?
           include_exemplar = true
@@ -626,7 +628,7 @@ class TaxonConcept < ActiveRecord::Base
             # prepend the exemplar if it exists
             text_objects.unshift(exemplar)
             # if the exemplar increased the size of our image array, remove the last one
-            text_objects.pop if text_objects.length > original_length
+            text_objects.pop if text_objects.length > original_length && original_length != 0
           end
         end
       end
@@ -640,7 +642,9 @@ class TaxonConcept < ActiveRecord::Base
         :data_type_ids => DataType.image_type_ids,
         :return_hierarchically_aggregated_objects => true
       }))
-      if exemplar = published_exemplar_image
+      exemplar = published_exemplar_image
+      exemplar = nil if exemplar && solr_search_params[:license_ids] && !solr_search_params[:license_ids].include?(exemplar.license_id)
+      if exemplar
         original_length = image_objects.length
         # remove the exemplar if it is already in the list
         image_objects.delete_if{ |d| d.guid == exemplar.guid }

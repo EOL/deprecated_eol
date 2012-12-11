@@ -40,7 +40,7 @@ class Administrator::CommentController  < AdminController
 
   def destroy
 
-    (redirect_to referred_url, :status => :moved_permanently;return) unless request.method == :delete
+    (redirect_to referred_url, :status => :moved_permanently;return) unless request.delete?
 
     @comment = Comment.find(params[:id])
     @comment.update_attributes(:deleted => 1)

@@ -7,8 +7,8 @@ class Curation
     @user = options[:user]
     @association = options[:association]
     @data_object = options[:data_object] # TODO - can't we reliably get this from the association?
-    @vetted_id = options[:vetted_id]
-    @visibility_id = options[:visibility_id]
+    @vetted_id = options[:vetted_id] || @association.vetted_id
+    @visibility_id = options[:visibility_id] || @association.visibility_id
     @curation_comment = options[:curation_comment] # TODO - rename (to comment)
     @untrust_reason_ids = options[:untrust_reason_ids]
     @hide_reason_ids = options[:hide_reason_ids]
@@ -22,11 +22,8 @@ class Curation
     # check if the visibility has been changed
     @visibility = @visibility_id && (@association.visibility_id != @visibility_id)
 
-    # NOTE - this line is quite volitile in the tests!  Be careful changing it...
-    # explicitly mark visibility as changed if it is already hidden and marked as trusted or unreviewed from untrusted.
-    # this is required as we don't ask for hide reasons while marking an association as untrusted
-    # if we don't do this, code will grab the last hide reason for that association if it was marked as hidden in the past.
-    # if you are here to refactor the code(and about to remove the following line) then please make sure the hiding of the association works properly
+    # TODO - gotta be a better way to do this...
+    # Force a check of hide reasons if it was previously untrusted but now kept hidden
     @visibility = (@association.visibility_id == Visibility.invisible.id && (@vetted_id == Vetted.trusted.id || @vetted_id == Vetted.unknown.id)) ? true : false unless @visibility == true
 
     curate_association
@@ -71,7 +68,8 @@ class Curation
     actions = []
     actions << handle_vetting(object) if @vet
     actions << handle_visibility(object) if @visibility
-    return actions.flatten
+    debugger if actions.include?(nil)
+    return actions
   end
 
   def handle_vetting(object)

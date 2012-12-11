@@ -54,8 +54,27 @@ describe Curation do
     find_association.visibility.should == Visibility.invisible
   end
 
-  it 'should explicitly mark visibility as changed if it is already hidden and marked as trusted or unreviewed from
-  untrusted'
+  it 'should fail to trust an untrusted association and keep it hidden without hide reasons' do
+    lambda do
+      curation = Curation.new(
+        :user => @user,
+        :association => association(:untrusted, :invisible),
+        :data_object => @data_object,
+        :vetted_id => Vetted.trusted.id
+      )
+    end.should raise_error
+  end
+
+  it 'should fail to unreview an untrusted association and keep it hidden without hide reasons' do
+    lambda do
+      curation = Curation.new(
+        :user => @user,
+        :association => association(:untrusted, :invisible),
+        :data_object => @data_object,
+        :vetted_id => Vetted.unknown.id
+      )
+    end.should raise_error
+  end
 
   it 'should do nothing if nothing changed'
 

@@ -303,7 +303,7 @@ class DataObjectsController < ApplicationController
           :association => phe,
           :data_object => @data_object,
           :user => current_user,
-          :vetted_id => params["vetted_id_#{phe.id}"].to_i, # TODO - make sure we don't get weird 0s because of hte to_i
+          :vetted => Vetted.find(params["vetted_id_#{phe.id}"]),
           :visibility_id => params["visibility_id_#{phe.id}"].to_i, # TODO = 0s
           :comment => curation_comment(params["curation_comment_#{phe.id}"]), # Note, this gets saved regardless!
           :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],

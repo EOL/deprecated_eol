@@ -64,7 +64,7 @@ describe Curation do
       :user => @user,
       :association => association(:trusted, :visible),
       :data_object => @data_object,
-      :vetted_id => Vetted.untrusted.id,
+      :vetted => Vetted.untrusted,
       :visibility_id => Visibility.visible.id, # Note we *say* visible, here
       :comment => @comment
     )
@@ -78,7 +78,7 @@ describe Curation do
           :user => @user,
           :association => assoc,
           :data_object => @data_object,
-          :vetted_id => Vetted.trusted.id
+          :vetted => Vetted.trusted
         )
       end.should raise_error
     end
@@ -91,7 +91,7 @@ describe Curation do
           :user => @user,
           :association => assoc,
           :data_object => @data_object,
-          :vetted_id => Vetted.unknown.id
+          :vetted => Vetted.unknown
         )
       end.should raise_error
     end
@@ -103,7 +103,7 @@ describe Curation do
         :user => @user,
         :association => assoc,
         :data_object => @data_object,
-        :vetted_id => Vetted.trusted.id,
+        :vetted => Vetted.trusted,
         :visibility_id => Visibility.visible.id
       )
     end
@@ -117,7 +117,7 @@ describe Curation do
         :association => assoc,
         :comment => @comment,
         :data_object => @data_object,
-        :vetted_id => Vetted.trusted.id
+        :vetted => Vetted.trusted
       )
     end
   end
@@ -151,7 +151,7 @@ describe Curation do
       :association => association(:trusted, :invisible), # Not that it matters, but invisible causes less work here
       :comment => @comment,
       :data_object => @data_object,
-      :vetted_id => Vetted.untrusted.id
+      :vetted => Vetted.untrusted
     )
     find_association.vetted.should == Vetted.untrusted
     the_curation_activities_on(@data_object).should include("untrusted")
@@ -162,7 +162,7 @@ describe Curation do
       :user => @user,
       :association => association(:unknown, :visible),
       :data_object => @data_object,
-      :vetted_id => Vetted.trusted.id
+      :vetted => Vetted.trusted
     )
     find_association.vetted.should == Vetted.trusted
     the_curation_activities_on(@data_object).should include("trusted")
@@ -174,7 +174,7 @@ describe Curation do
       :association => association(:trusted, :visible),
       :comment => @comment,
       :data_object => @data_object,
-      :vetted_id => Vetted.unknown.id
+      :vetted => Vetted.unknown
     )
     find_association.vetted.should == Vetted.unknown
     the_curation_activities_on(@data_object).should include("unreviewed")
@@ -187,7 +187,7 @@ describe Curation do
           :user => @user,
           :association => assoc,
           :data_object => @data_object,
-          :vetted_id => Vetted.untrusted.id
+          :vetted => Vetted.untrusted
         )
       }.should raise_error
     end
@@ -214,7 +214,7 @@ describe Curation do
           :user => @user,
           :association => assoc,
           :data_object => @data_object,
-          :vetted_id => Vetted.last.id + 1,
+          :vetted => Vetted.last + 1,
         )
       }.should raise_error
     end
@@ -239,7 +239,7 @@ describe Curation do
       :user => @user,
       :association => association(:trusted, :invisible), # Invisible ensures we don't also hide it.
       :data_object => @data_object,
-      :vetted_id => Vetted.untrusted.id,
+      :vetted => Vetted.untrusted,
       :untrust_reason_ids => [@misidentified.id, @incorrect.id]
     )
     # NOTE - I'm not entirely comfortable with assuming the last log is the one we want, but hey:
@@ -269,7 +269,7 @@ describe Curation do
           :user => @user,
           :association => assoc,
           :data_object => @data_object,
-          :vetted_id => Vetted.untrusted.id,
+          :vetted => Vetted.untrusted,
           :untrust_reason_ids => [UntrustReason.last.id + 1]
         )
       }.should raise_error
@@ -300,7 +300,7 @@ describe Curation do
       :user => @user,
       :association => association(:untrusted, :visible),
       :data_object => @data_object,
-      :vetted_id => Vetted.trusted.id
+      :vetted => Vetted.trusted
     )
     curation.clearables.should be_empty
   end

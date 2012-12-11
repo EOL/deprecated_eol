@@ -66,11 +66,6 @@ $(document).ready(function() {
     form.find('div.processing').show();
     submit = form.find(':submit');
     the_comment = form.find('textarea');
-    var reasons = form.find('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get().join(",\n");
-    if (reasons) {
-      reasons = "Reasons to Untrust:\n\n" + reasons 
-      form.find('.untrust_reasons_comment').attr('value', reasons);
-    }
     $.ajax({
       url: form.attr('action'),
       type: 'PUT',
@@ -98,7 +93,6 @@ $(document).ready(function() {
         if (form.find('.reason').siblings("input").attr("checked") || the_comment.val()) {
           $('#comment_button_link_' + response.args[0]).click();
         }
-        form.find('.untrust_reasons_comment').attr('value', '');
         the_comment.val('');
         if (response.type == "text") {
           EOL.Curation.post_curate_text(response.args, page_type);

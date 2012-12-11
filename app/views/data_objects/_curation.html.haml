@@ -30,7 +30,6 @@
 
                 = check_box_tag "untrust_reasons_#{phe.id}[]", reason.id, untrusted_reasons.include?(reason.id), {:id => "#{phe.id}_untrust_reason_#{reason.class_name}", :class => "untrust_reason #{reason.class_name}"}
                 %label{ :for => "#{phe.id}_untrust_reason_#{reason.class_name}"}= reason.label
-            %input{ :type => "hidden", :id => "untrust_reasons_comment_#{phe.id}", :class => "untrust_reasons_comment", :name => "untrust_reasons_comment_#{phe.id}" }
           = I18n.t(:curation_comment)
           = text_area_tag "curation_comment_#{phe.id}", nil, :rows => 3, :cols => 30
           %hr.thin

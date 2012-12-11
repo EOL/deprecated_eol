@@ -206,18 +206,86 @@ describe Curation do
     end
   end
 
-  it 'should raise an exception if bad vetted id given'
-  it 'should raise an exception if bad visibility id given'
+  # TODO - we could handle this with a pain-old #find in the controller, yeah?
+  it 'should raise an exception if bad vetted id given' do
+    should_do_nothing(association(:trusted, :visible)) do |assoc|
+      lambda {
+        curation = Curation.new(
+          :user => @user,
+          :association => assoc,
+          :data_object => @data_object,
+          :vetted_id => Vetted.last.id + 1,
+        )
+      }.should raise_error
+    end
+  end
 
-  # TODO - WHY?  These should be generalized.
-  it 'should log misidentified reason'
-  it 'should log incorrect reason'
-  it 'should log poor reason'
-  it 'should log duplicate reason'
+  # TODO - we could handle this with a pain-old #find in the controller, yeah?
+  it 'should raise an exception if bad visibility id given' do
+    should_do_nothing(association(:trusted, :visible)) do |assoc|
+      lambda {
+        curation = Curation.new(
+          :user => @user,
+          :association => assoc,
+          :data_object => @data_object,
+          :visibility_id => Visibility.last.id + 1,
+        )
+      }.should raise_error
+    end
+  end
+
+  it 'should log untrusted with both reasons' do
+    Curation.new(
+      :user => @user,
+      :association => association(:trusted, :invisible), # Invisible ensures we don't also hide it.
+      :data_object => @data_object,
+      :vetted_id => Vetted.untrusted.id,
+      :untrust_reason_ids => [@misidentified.id, @incorrect.id]
+    )
+    # NOTE - I'm not entirely comfortable with assuming the last log is the one we want, but hey:
+    CuratorActivityLog.last.untrust_reasons.should include(@misidentified)
+    CuratorActivityLog.last.untrust_reasons.should include(@incorrect)
+  end
+
+  it 'should log hidden with both reasons' do
+    Curation.new(
+      :user => @user,
+      :association => association(:trusted, :visible),
+      :curation_comment => @comment,
+      :data_object => @data_object,
+      :visibility_id => Visibility.invisible.id,
+      :hide_reason_ids => [@poor.id, @duplicate.id]
+    )
+    # NOTE - I'm not entirely comfortable with assuming the last log is the one we want, but hey:
+    CuratorActivityLog.last.untrust_reasons.should include(@poor)
+    CuratorActivityLog.last.untrust_reasons.should include(@duplicate)
+  end
+
 
   # TODO - LAME. It should call TaxonConceptCacheClearing, which should be updated to handle the things in the
   # controller.
-  it 'should have clearables'
+  it 'should NOT have clearable associations for a trust' do # ...or any other curation, but I'll check one for now.
+    curation = Curation.new(
+      :user => @user,
+      :association => association(:untrusted, :visible),
+      :data_object => @data_object,
+      :vetted_id => Vetted.trusted.id
+    )
+    curation.clearables.should be_empty
+  end
+
+  # TODO - LAME. It should call TaxonConceptCacheClearing, which should be updated to handle the things in the
+  # controller.
+  it 'should have clearable associations for a hide' do
+    curation = Curation.new(
+      :user => @user,
+      :association => assoc = association(:trusted, :visible),
+      :curation_comment => @comment,
+      :data_object => @data_object,
+      :visibility_id => Visibility.invisible.id
+    )
+    curation.clearables.should include(assoc)
+  end
 
 end
 # *Have truer words ever been spoken?

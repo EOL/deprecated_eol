@@ -133,7 +133,6 @@ class Curation
   end
 
   def save_hide_reasons(log, action, hide_reason_ids)
-    debugger if $FOO
     hide_reason_ids.each do |hide_reason_id|
       case hide_reason_id.to_i
       when UntrustReason.poor.id

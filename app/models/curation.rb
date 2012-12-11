@@ -70,27 +70,26 @@ private
   # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
   # representing the actions that were taken.  ...which you may want to log.  :)
   def handle_curation
-    object = curated_object
     actions = []
-    actions << handle_vetting(object) if vetted_changed?
-    actions << handle_visibility(object) if visibility_changed?
+    actions << handle_vetting if vetted_changed?
+    actions << handle_visibility if visibility_changed?
     return actions
   end
 
-  def handle_vetting(object)
+  def handle_vetting
     if @vetted
       case @vetted
       when Vetted.untrusted
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if no_untrust_reasons_given?
-        object.untrust(@user)
+        curated_object.untrust(@user)
         return :untrusted
       when Vetted.trusted
         fail_if_no_hide_reasons_given
-        object.trust(@user)
+        curated_object.trust(@user)
         return :trusted
       when Vetted.unknown
         fail_if_no_hide_reasons_given
-        object.unreviewed(@user)
+        curated_object.unreviewed(@user)
         return :unreviewed
       else
         raise "Cannot set data object vetted id to #{@vetted.label}"
@@ -99,7 +98,7 @@ private
   end
 
   def fail_if_no_hide_reasons_given
-    raise 'no hide reasons given' if @visibility == Visibility.invisible && no_hide_reasons_given?
+    raise 'no hide reasons given' if @visibility == Visibility.invisible && @vetted != Vetted.untrusted && no_hide_reasons_given?
   end
 
   def no_untrust_reasons_given?
@@ -110,17 +109,15 @@ private
     @hide_reason_ids.blank? && @comment.nil?
   end
 
-  def handle_visibility(object)
+  def handle_visibility
     if @visibility
       case @visibility
       when Visibility.visible
-        object.show(@user)
+        curated_object.show(@user)
         return :show
       when Visibility.invisible
-        if @vetted != Vetted.untrusted && no_hide_reasons_given?
-          raise "Curator should supply at least reason(s) to hide and/or curation comment"
-        end
-        object.hide(@user)
+        fail_if_no_hide_reasons_given
+        curated_object.hide(@user)
         return :hide
       else
         raise "Cannot set data object visibility id to #{@visibility.label}"
@@ -161,21 +158,20 @@ private
 
   # TODO - this was mostly stolen from data_objects controller. Generalize.
   def log_action(method)
-    object = curated_object
-    object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
-    return if object.blank?
-    object_id = object.id if object_id.blank?
+    object_id = curated_object.data_object_id if curated_object.class.name == "DataObjectsHierarchyEntry" || curated_object.class.name == "CuratedDataObjectsHierarchyEntry" || curated_object.class.name == "UsersDataObject"
+    return if curated_object.blank?
+    object_id = curated_object.id if object_id.blank?
 
-    if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry"
-      he = object.hierarchy_entry
-    elsif object.class.name == "HierarchyEntry"
-      he = object
+    if curated_object.class.name == "DataObjectsHierarchyEntry" || curated_object.class.name == "CuratedDataObjectsHierarchyEntry"
+      he = curated_object.hierarchy_entry
+    elsif curated_object.class.name == "HierarchyEntry"
+      he = curated_object
     # TODO - what if object is a UsersDataObject?  Why isn't it clear?
     end
 
     create_options = {
       :user_id => @user.id,
-      :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
+      :changeable_object_type => ChangeableObjectType.send(curated_object.class.name.underscore.to_sym),
       :object_id => object_id,
       :activity => Activity.send(method),
       :data_object => @data_object,
@@ -183,8 +179,8 @@ private
       :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
     }
-    if object.class.name == "UsersDataObject"
-      create_options.merge!(:taxon_concept_id => object.taxon_concept_id)
+    if curated_object.class.name == "UsersDataObject"
+      create_options.merge!(:taxon_concept_id => curated_object.taxon_concept_id)
     end
     CuratorActivityLog.create(create_options)
   end

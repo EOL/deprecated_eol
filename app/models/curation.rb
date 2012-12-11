@@ -7,27 +7,31 @@ class Curation
     @user = options[:user]
     @association = options[:association]
     @data_object = options[:data_object] # TODO - Change association to a class, give it a #data_object, stop passing
-    @vetted_id = options[:vetted_id] || @association.vetted_id
+    @vetted = options[:vetted] || @association.vetted
     @visibility_id = options[:visibility_id] || @association.visibility_id
     @comment = options[:comment]
     @untrust_reason_ids = options[:untrust_reason_ids]
     @hide_reason_ids = options[:hide_reason_ids]
     @untrust_reasons_comment = options[:untrust_reasons_comment]
 
-    @vet = @vetted_id && @association.vetted_id != @vetted_id
+    # TODO - maje this a method
+    @vet = @vetted && @association.vetted != @vetted
 
     # make visibility hidden if curated as Inappropriate or Untrusted # TODO - make sure we don't get weird 0s because of hte to_i
-    @visibility_id = @vetted_id == Vetted.untrusted.id ? Visibility.invisible.id : @visibility_id
+    # TODO - makje this a method
+    @visibility_id = @vetted == Vetted.untrusted ? Visibility.invisible.id : @visibility_id
 
     # check if the visibility has been changed
     @visibility = @visibility_id && (@association.visibility_id != @visibility_id)
 
     # TODO - gotta be a better way to do this...
     # Force a check of hide reasons if it was previously untrusted but now kept hidden
-    @visibility = (@association.visibility_id == Visibility.invisible.id && (@vetted_id == Vetted.trusted.id || @vetted_id == Vetted.unknown.id)) ? true : false unless @visibility == true
+    @visibility = (@association.visibility_id == Visibility.invisible.id && (@vetted == Vetted.trusted || @vetted == Vetted.unknown)) ? true : false unless @visibility == true
 
     curate_association
   end
+
+private
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
   def curate_association
@@ -72,26 +76,26 @@ class Curation
   end
 
   def handle_vetting(object)
-    if @vetted_id
-      case @vetted_id
-      when Vetted.untrusted.id
+    if @vetted
+      case @vetted
+      when Vetted.untrusted
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if (@untrust_reason_ids.blank? && @comment.nil?)
         object.untrust(@user)
         return :untrusted
-      when Vetted.trusted.id
+      when Vetted.trusted
         if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.trust(@user)
         return :trusted
-      when Vetted.unknown.id
+      when Vetted.unknown
         if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.unreviewed(@user)
         return :unreviewed
       else
-        raise "Cannot set data object vetted id to #{@vetted_id}"
+        raise "Cannot set data object vetted id to #{@vetted}"
       end
     end
   end
@@ -103,7 +107,7 @@ class Curation
         object.show(@user)
         return :show
       when Visibility.invisible.id
-        if @vetted_id != Vetted.untrusted.id && @hide_reason_ids.blank? && @comment.nil?
+        if @vetted != Vetted.untrusted && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.hide(@user)

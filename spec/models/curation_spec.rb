@@ -65,7 +65,7 @@ describe Curation do
       :association => association(:trusted, :visible),
       :data_object => @data_object,
       :vetted => Vetted.untrusted,
-      :visibility_id => Visibility.visible.id, # Note we *say* visible, here
+      :visibility => Visibility.visible, # Note we *say* visible, here
       :comment => @comment
     )
     find_association.visibility.should == Visibility.invisible
@@ -104,7 +104,7 @@ describe Curation do
         :association => assoc,
         :data_object => @data_object,
         :vetted => Vetted.trusted,
-        :visibility_id => Visibility.visible.id
+        :visibility => Visibility.visible
       )
     end
   end
@@ -127,7 +127,7 @@ describe Curation do
       :user => @user,
       :association => association(:trusted, :visible),
       :data_object => @data_object,
-      :visibility_id => Visibility.invisible.id,
+      :visibility => Visibility.invisible,
       :comment => @comment
     )
     find_association.visibility.should == Visibility.invisible
@@ -139,7 +139,7 @@ describe Curation do
       :user => @user,
       :association => association(:trusted, :invisible),
       :data_object => @data_object,
-      :visibility_id => Visibility.visible.id
+      :visibility => Visibility.visible
     )
     find_association.visibility.should == Visibility.visible
     the_curation_activities_on(@data_object).should include("show")
@@ -200,7 +200,7 @@ describe Curation do
           :user => @user,
           :association => assoc,
           :data_object => @data_object,
-          :visibility_id => Visibility.invisible.id,
+          :visibility => Visibility.invisible,
         )
       }.should raise_error
     end
@@ -228,7 +228,7 @@ describe Curation do
           :user => @user,
           :association => assoc,
           :data_object => @data_object,
-          :visibility_id => Visibility.last.id + 1,
+          :visibility => Visibility.last + 1,
         )
       }.should raise_error
     end
@@ -252,7 +252,7 @@ describe Curation do
       :user => @user,
       :association => association(:trusted, :visible),
       :data_object => @data_object,
-      :visibility_id => Visibility.invisible.id,
+      :visibility => Visibility.invisible,
       :hide_reason_ids => [@poor.id, @duplicate.id]
     )
     # NOTE - I'm not entirely comfortable with assuming the last log is the one we want, but hey:
@@ -286,7 +286,7 @@ describe Curation do
           :user => @user,
           :association => assoc,
           :data_object => @data_object,
-          :visibility_id => Visibility.invisible.id,
+          :visibility => Visibility.invisible,
           :hide_reason_ids => [UntrustReason.last.id + 1]
         )
       }.should raise_error
@@ -313,7 +313,7 @@ describe Curation do
       :association => assoc = association(:trusted, :visible),
       :comment => @comment,
       :data_object => @data_object,
-      :visibility_id => Visibility.invisible.id
+      :visibility => Visibility.invisible
     )
     curation.clearables.should include(assoc)
   end

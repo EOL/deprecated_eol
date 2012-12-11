@@ -163,11 +163,11 @@ class CuratorActivityLog < LoggingModel
   end
 
   def udo_parent_text
-    DataObject.find(users_data_object.data_object_id)
+    DataObject.find(users_data_object.data_object_id) rescue nil
   end
 
   def udo_taxon_concept
-    TaxonConcept.find(users_data_object.taxon_concept_id)
+    TaxonConcept.find(users_data_object.taxon_concept_id) rescue nil
   end
 
   def log_activity_in_solr

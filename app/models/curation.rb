@@ -6,10 +6,10 @@ class Curation
     @clearables = []
     @user = options[:user]
     @association = options[:association]
-    @data_object = options[:data_object]
+    @data_object = options[:data_object] # TODO - can't we reliably get this from the association?
     @vetted_id = options[:vetted_id]
     @visibility_id = options[:visibility_id]
-    @curation_comment = options[:curation_comment]
+    @curation_comment = options[:curation_comment] # TODO - rename (to comment)
     @untrust_reason_ids = options[:untrust_reason_ids]
     @hide_reason_ids = options[:hide_reason_ids]
     @untrust_reasons_comment = options[:untrust_reasons_comment]
@@ -17,7 +17,7 @@ class Curation
     @vet = @vetted_id && @association.vetted_id != @vetted_id
 
     # make visibility hidden if curated as Inappropriate or Untrusted # TODO - make sure we don't get weird 0s because of hte to_i
-    @visibility_id = (@vetted_id == Vetted.inappropriate.id || @vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : @visibility_id
+    @visibility_id = @vetted_id == Vetted.untrusted.id ? Visibility.invisible.id : @visibility_id
 
     # check if the visibility has been changed
     @visibility = @visibility_id && (@association.visibility_id != @visibility_id)
@@ -69,7 +69,6 @@ class Curation
   def handle_curation
     object = curated_object
     actions = []
-    raise "Curator should supply at least visibility or vetted information" unless (@vet || @visibility)
     actions << handle_vetting(object) if @vet
     actions << handle_visibility(object) if @visibility
     return actions.flatten
@@ -78,9 +77,6 @@ class Curation
   def handle_vetting(object)
     if @vetted_id
       case @vetted_id
-      when Vetted.inappropriate.id
-        object.inappropriate(@user)
-        return :inappropriate
       when Vetted.untrusted.id
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if (@untrust_reason_ids.blank? && @curation_comment.nil?)
         object.untrust(@user)

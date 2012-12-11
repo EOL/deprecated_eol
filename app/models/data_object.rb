@@ -822,6 +822,12 @@ class DataObject < ActiveRecord::Base
     all_associations.select {|asoc| good_ids.include?(asoc.visibility_id) }.compact
   end
 
+  # TODO - what does this return?!  I know the answer, but do you? Would a new developer?  No. It's not at all
+  # obvious. It *should* be returning an array of Association objects, which have an interface we expect and can
+  # reuse throughout the code.
+  #
+  # ...That said, the answer is: HierarchyEntries that have been extended to include visilbity, vetted, name, 
+  # taxon_concept, and added_by_curator methods. Yup, five methods HE doesn't need or have. Awesome.
   def all_associations
     @all_assoc ||= (published_entries + unpublished_entries + [latest_published_users_data_object]).compact
   end

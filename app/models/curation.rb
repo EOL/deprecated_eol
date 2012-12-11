@@ -81,25 +81,33 @@ private
     if @vetted
       case @vetted
       when Vetted.untrusted
-        raise "Curator should supply at least untrust reason(s) and/or curation comment" if (@untrust_reason_ids.blank? && @comment.nil?)
+        raise "Curator should supply at least untrust reason(s) and/or curation comment" if no_untrust_reasons_given?
         object.untrust(@user)
         return :untrusted
       when Vetted.trusted
-        if @visibility == Visibility.invisible && @hide_reason_ids.blank? && @comment.nil?
-          raise "Curator should supply at least reason(s) to hide and/or curation comment"
-        end
+        fail_if_no_hide_reasons_given
         object.trust(@user)
         return :trusted
       when Vetted.unknown
-        if @visibility == Visibility.invisible && @hide_reason_ids.blank? && @comment.nil?
-          raise "Curator should supply at least reason(s) to hide and/or curation comment"
-        end
+        fail_if_no_hide_reasons_given
         object.unreviewed(@user)
         return :unreviewed
       else
         raise "Cannot set data object vetted id to #{@vetted.label}"
       end
     end
+  end
+
+  def fail_if_no_hide_reasons_given
+    raise 'no hide reasons given' if @visibility == Visibility.invisible && no_hide_reasons_given?
+  end
+
+  def no_untrust_reasons_given?
+    @untrust_reason_ids.blank? && @comment.nil?
+  end
+
+  def no_hide_reasons_given?
+    @hide_reason_ids.blank? && @comment.nil?
   end
 
   def handle_visibility(object)
@@ -109,7 +117,7 @@ private
         object.show(@user)
         return :show
       when Visibility.invisible
-        if @vetted != Vetted.untrusted && @hide_reason_ids.blank? && @comment.nil?
+        if @vetted != Vetted.untrusted && no_hide_reasons_given?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.hide(@user)

@@ -58,7 +58,6 @@ private
     @visibility_changed = @visibility && (@association.visibility != @visibility)
     # TODO - gotta be a better way to do this...
     # Force a check of hide reasons if it was previously untrusted but now kept hidden
-    @visibility_changed = (@association.visibility == Visibility.invisible && (@vetted == Vetted.trusted || @vetted == Vetted.unknown)) ? true : false unless @visibility_changed == true
     @visibility_changed
   end
 

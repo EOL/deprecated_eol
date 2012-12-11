@@ -8,7 +8,7 @@ class Curation
     @association = options[:association]
     @data_object = options[:data_object] # TODO - Change association to a class, give it a #data_object, stop passing
     @vetted = options[:vetted] || @association.vetted
-    @visibility_id = options[:visibility_id] || @association.visibility_id
+    @visibility = options[:visibility] || @association.visibility
     @comment = options[:comment]
     @untrust_reason_ids = options[:untrust_reason_ids]
     @hide_reason_ids = options[:hide_reason_ids]
@@ -19,14 +19,14 @@ class Curation
 
     # make visibility hidden if curated as Inappropriate or Untrusted # TODO - make sure we don't get weird 0s because of hte to_i
     # TODO - makje this a method
-    @visibility_id = @vetted == Vetted.untrusted ? Visibility.invisible.id : @visibility_id
+    @visibility = @vetted == Vetted.untrusted ? Visibility.invisible : @visibility
 
     # check if the visibility has been changed
-    @visibility = @visibility_id && (@association.visibility_id != @visibility_id)
+    @vis_changed = @visibility && (@association.visibility != @visibility)
 
     # TODO - gotta be a better way to do this...
     # Force a check of hide reasons if it was previously untrusted but now kept hidden
-    @visibility = (@association.visibility_id == Visibility.invisible.id && (@vetted == Vetted.trusted || @vetted == Vetted.unknown)) ? true : false unless @visibility == true
+    @vis_changed = (@association.visibility == Visibility.invisible && (@vetted == Vetted.trusted || @vetted == Vetted.unknown)) ? true : false unless @vis_changed == true
 
     curate_association
   end
@@ -36,7 +36,7 @@ private
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
   def curate_association
     if something_needs_curation?
-      return if curated_object.visibility_id == Visibility.preview.id
+      return if curated_object.visibility == Visibility.preview
       handle_curation.each do |action|
         log = log_action(action)
         # Saves untrust reasons, if any
@@ -83,37 +83,37 @@ private
         object.untrust(@user)
         return :untrusted
       when Vetted.trusted
-        if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @comment.nil?
+        if @visibility == Visibility.invisible && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.trust(@user)
         return :trusted
       when Vetted.unknown
-        if @visibility_id == Visibility.invisible.id && @hide_reason_ids.blank? && @comment.nil?
+        if @visibility == Visibility.invisible && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.unreviewed(@user)
         return :unreviewed
       else
-        raise "Cannot set data object vetted id to #{@vetted}"
+        raise "Cannot set data object vetted id to #{@vetted.label}"
       end
     end
   end
 
   def handle_visibility(object)
-    if @visibility_id
-      case @visibility_id
-      when Visibility.visible.id
+    if @visibility
+      case @visibility
+      when Visibility.visible
         object.show(@user)
         return :show
-      when Visibility.invisible.id
+      when Visibility.invisible
         if @vetted != Vetted.untrusted && @hide_reason_ids.blank? && @comment.nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
         object.hide(@user)
         return :hide
       else
-        raise "Cannot set data object visibility id to #{@visibility_id}"
+        raise "Cannot set data object visibility id to #{@visibility.label}"
       end
     end
   end

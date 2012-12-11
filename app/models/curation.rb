@@ -79,8 +79,8 @@ private
     return unless something_needs_curation?
     return if object_in_preview_state?
     validate
-    handle_curation.each do |action|
-    end
+    handle_vetting if vetted_changed?
+    handle_visibility if visibility_changed?
   end
 
   def something_needs_curation?
@@ -105,72 +105,35 @@ private
       end
   end
 
-  # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
-  # representing the actions that were taken.  ...which you may want to log.  :)
-  def handle_curation
-    actions = []
-    actions << handle_vetting if vetted_changed?
-    actions << handle_visibility if visibility_changed?
-    return actions
-  end
-
+  # TODO - Vetted.whatever.apply(object)!
   def handle_vetting
-    if vetted_changed?
-      case @vetted
-      when Vetted.untrusted
-        curated_object.untrust(@user)
-        save_log_with_untrust_reasons
-      when Vetted.trusted
-        curated_object.trust(@user)
-        log_action :trusted
-      when Vetted.unknown
-        curated_object.unreviewed(@user)
-        log_action :unreviewed
-      end
+    case @vetted
+    when Vetted.untrusted
+      curated_object.untrust(@user)
+      log_action(:untrusted).untrust_reasons = UntrustReason.find(@untrust_reason_ids)
+    when Vetted.trusted
+      curated_object.trust(@user)
+      log_action :trusted
+    when Vetted.unknown
+      curated_object.unreviewed(@user)
+      log_action :unreviewed
     end
   end
 
   def handle_visibility
-    if visibility_changed?
-      case @visibility
-      when Visibility.visible
-        curated_object.show(@user)
-        log_action :show
-      when Visibility.invisible
-        curated_object.hide(@user)
-        save_log_with_hide_reasons
-        clear_cached_media_count_and_exemplar
-      end
+    case @visibility
+    when Visibility.visible
+      curated_object.show(@user)
+      log_action :show
+    when Visibility.invisible
+      curated_object.hide(@user)
+      log_action(:hide).untrust_reasons = UntrustReason.find(@hide_reason_ids)
+      clear_cached_media_count_and_exemplar
     end
   end
 
   def clear_cached_media_count_and_exemplar
     @clearables << @association
-  end
-
-  # TODO - wrong place for this logic; the curator activity log should handle these validations.
-  def save_log_with_untrust_reasons
-    log = log_action(:untrusted)
-    @untrust_reason_ids.each do |untrust_reason_id|
-      case untrust_reason_id.to_i
-      when UntrustReason.misidentified.id
-        log.untrust_reasons << UntrustReason.misidentified
-      when UntrustReason.incorrect.id
-        log.untrust_reasons << UntrustReason.incorrect
-      end
-    end
-  end
-
-  def save_log_with_hide_reasons
-    log = log_action(:hide)
-    @hide_reason_ids.each do |hide_reason_id|
-      case hide_reason_id.to_i
-      when UntrustReason.poor.id
-        log.untrust_reasons << UntrustReason.poor
-      when UntrustReason.duplicate.id
-        log.untrust_reasons << UntrustReason.duplicate
-      end
-    end
   end
 
   # TODO - this was mostly stolen from data_objects controller. Generalize.

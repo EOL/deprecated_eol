@@ -159,7 +159,7 @@ class CuratorActivityLog < LoggingModel
   end
 
   def users_data_object
-    UsersDataObject.find(self['object_id'])
+    UsersDataObject.find(self['object_id']) rescue nil
   end
 
   def udo_parent_text

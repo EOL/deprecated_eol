@@ -29,6 +29,12 @@ class Curation
 
 private
 
+  # TODO - this just raises the first error. We shoudln't do that.
+  def validate
+    fail_if_hide_reasons_missing
+    fail_if_untrust_reasons_missing
+  end
+
   def object_in_preview_state?
     curated_object.visibility == Visibility.preview
   end
@@ -37,6 +43,7 @@ private
   def curate_association
     return unless something_needs_curation?
     return if object_in_preview_state?
+    validate
     handle_curation.each do |action|
       log = log_action(action)
       save_untrust_reasons(log, action)
@@ -80,15 +87,12 @@ private
     if @vetted
       case @vetted
       when Vetted.untrusted
-        raise "Curator should supply at least untrust reason(s) and/or curation comment" if no_untrust_reasons_given?
         curated_object.untrust(@user)
         return :untrusted
       when Vetted.trusted
-        fail_if_no_hide_reasons_given
         curated_object.trust(@user)
         return :trusted
       when Vetted.unknown
-        fail_if_no_hide_reasons_given
         curated_object.unreviewed(@user)
         return :unreviewed
       else
@@ -97,8 +101,14 @@ private
     end
   end
 
-  def fail_if_no_hide_reasons_given
-    raise 'no hide reasons given' if @visibility == Visibility.invisible && @vetted != Vetted.untrusted && no_hide_reasons_given?
+  # NOTE carefully that we don't care about hide reasons when we're untrusting...
+  def fail_if_hide_reasons_missing
+    raise 'no hide reasons given' if
+      @visibility == Visibility.invisible && @vetted != Vetted.untrusted && no_hide_reasons_given?
+  end
+
+  def fail_if_untrust_reasons_missing
+    raise 'no untrust reasons given' if @vetted == Vetted.untrusted && no_untrust_reasons_given?
   end
 
   def no_untrust_reasons_given?
@@ -116,7 +126,6 @@ private
         curated_object.show(@user)
         return :show
       when Visibility.invisible
-        fail_if_no_hide_reasons_given
         curated_object.hide(@user)
         return :hide
       else

@@ -22,9 +22,11 @@ class Curation
 private
 
   def errors
+    return @errors if @errors # NOTE - this means we cannot check twice, but hey.
     @errors = []
     @errors << 'nothing changed' unless something_needs_curation?
     @errors << 'object in preview state cannot be curated' if object_in_preview_state?
+    @errors
   end
 
   def object_in_preview_state?
@@ -34,9 +36,7 @@ private
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
   # TODO - Really, I think we should report that nothing happened if nothing happened.  :|
   def curate_association
-    # TODO - return unless errors.empty?
-    return unless something_needs_curation?
-    return if object_in_preview_state?
+    return unless errors.empty?
     handle_curation.each do |action|
       log = log_action(action)
       save_untrust_reasons(log, action)
@@ -54,11 +54,7 @@ private
   end
 
   def visibility_changed?
-    return @visibility_changed if @visibility_changed
-    @visibility_changed = @visibility && (@association.visibility != @visibility)
-    # TODO - gotta be a better way to do this...
-    # Force a check of hide reasons if it was previously untrusted but now kept hidden
-    @visibility_changed
+    @visibility_changed ||= @visibility && @association.visibility != @visibility
   end
 
   def curated_object

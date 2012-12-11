@@ -6,7 +6,7 @@ class Curation
     @clearables = []
     @user = options[:user]
     @association = options[:association]
-    @data_object = options[:data_object] # TODO - can't we reliably get this from the association?
+    @data_object = options[:data_object] # TODO - Change association to a class, give it a #data_object, stop passing
     @vetted_id = options[:vetted_id] || @association.vetted_id
     @visibility_id = options[:visibility_id] || @association.visibility_id
     @curation_comment = options[:curation_comment] # TODO - rename (to comment)

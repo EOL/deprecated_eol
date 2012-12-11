@@ -33,6 +33,9 @@ private
   def validate
     fail_if_hide_reasons_missing
     fail_if_untrust_reasons_missing
+    fail_if_vetted_invalid
+    fail_if_visibility_invalid
+    fail_if_untrust_reasons_invalid
   end
 
   # NOTE carefully that we don't care about hide reasons when we're untrusting...
@@ -45,6 +48,28 @@ private
     raise 'no untrust reasons given' if @vetted == Vetted.untrusted && @untrust_reason_ids.blank? && @comment.nil?
   end
 
+  def fail_if_vetted_invalid
+    raise 'vetted invalid' unless [Vetted.trusted, Vetted.untrusted, Vetted.unknown].include? @vetted
+  end
+
+  def fail_if_visibility_invalid
+    raise 'visibility invalid' unless [Visibility.visible, Visibility.invisible].include? @visibility
+  end
+
+  def fail_if_untrust_reasons_invalid
+    if @vetted == Vetted.untrusted # Important to check vetted first; we don't care about hiding if untrusting...
+      @untrust_reason_ids.each do |reason|
+        raise 'untrust reasons invalid' unless
+          [UntrustReason.misidentified.id, UntrustReason.incorrect.id].include?(reason.to_i)
+      end
+    elsif @visibility == Visibility.invisible
+      @hide_reason_ids.each do |reason|
+        raise 'hide reasons invalid' unless
+          [UntrustReason.poor.id, UntrustReason.duplicate.id].include?(reason.to_i)
+      end
+    end
+  end
+
   def object_in_preview_state?
     curated_object.visibility == Visibility.preview
   end
@@ -55,10 +80,6 @@ private
     return if object_in_preview_state?
     validate
     handle_curation.each do |action|
-      log = log_action(action)
-      save_untrust_reasons(log, action)
-      save_hide_reasons(log, action)
-      clear_cached_media_count_and_exemplar if action == :hide
     end
   end
 
@@ -94,34 +115,31 @@ private
   end
 
   def handle_vetting
-    if @vetted
+    if vetted_changed?
       case @vetted
       when Vetted.untrusted
         curated_object.untrust(@user)
-        return :untrusted
+        save_log_with_untrust_reasons
       when Vetted.trusted
         curated_object.trust(@user)
-        return :trusted
+        log_action :trusted
       when Vetted.unknown
         curated_object.unreviewed(@user)
-        return :unreviewed
-      else
-        raise "Cannot set data object vetted id to #{@vetted.label}"
+        log_action :unreviewed
       end
     end
   end
 
   def handle_visibility
-    if @visibility
+    if visibility_changed?
       case @visibility
       when Visibility.visible
         curated_object.show(@user)
-        return :show
+        log_action :show
       when Visibility.invisible
         curated_object.hide(@user)
-        return :hide
-      else
-        raise "Cannot set data object visibility id to #{@visibility.label}"
+        save_log_with_hide_reasons
+        clear_cached_media_count_and_exemplar
       end
     end
   end
@@ -131,28 +149,26 @@ private
   end
 
   # TODO - wrong place for this logic; the curator activity log should handle these validations.
-  def save_untrust_reasons(log, action)
+  def save_log_with_untrust_reasons
+    log = log_action(:untrusted)
     @untrust_reason_ids.each do |untrust_reason_id|
       case untrust_reason_id.to_i
       when UntrustReason.misidentified.id
-        log.untrust_reasons << UntrustReason.misidentified if action == :untrusted
+        log.untrust_reasons << UntrustReason.misidentified
       when UntrustReason.incorrect.id
-        log.untrust_reasons << UntrustReason.incorrect if action == :untrusted
-      else
-        raise "Please re-check the provided untrust reasons"
+        log.untrust_reasons << UntrustReason.incorrect
       end
     end
   end
 
-  def save_hide_reasons(log, action)
+  def save_log_with_hide_reasons
+    log = log_action(:hide)
     @hide_reason_ids.each do |hide_reason_id|
       case hide_reason_id.to_i
       when UntrustReason.poor.id
-        log.untrust_reasons << UntrustReason.poor if action == :hide
+        log.untrust_reasons << UntrustReason.poor
       when UntrustReason.duplicate.id
-        log.untrust_reasons << UntrustReason.duplicate if action == :hide
-      else
-        raise "Please re-check the provided hide reasons"
+        log.untrust_reasons << UntrustReason.duplicate
       end
     end
   end

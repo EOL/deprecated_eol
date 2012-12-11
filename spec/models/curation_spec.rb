@@ -262,7 +262,7 @@ describe Curation do
 
   # TODO - While this test is probably still going to hold, the failure should really be on the CuratorActivityLog,
   # and thus really doesn't need to be tested here.
-  it 'should FAIL with bad untrust reasons (not working yet)' do
+  it 'should FAIL with bad untrust reasons' do
     should_do_nothing(association(:trusted, :invisible)) do |assoc| # Invisible ensures we don't also hide it.
       lambda {
         Curation.new(
@@ -278,7 +278,7 @@ describe Curation do
 
   # TODO - While this test is probably still going to hold, the failure should really be on the CuratorActivityLog,
   # and thus really doesn't need to be tested here.
-  it 'should FAIL with bad hide reasons (not working yet)' do
+  it 'should FAIL with bad hide reasons' do
     should_do_nothing(association(:trusted, :visible)) do |assoc|
       lambda {
         $FOO = 1

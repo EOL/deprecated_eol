@@ -554,7 +554,7 @@ $(function() {
 //   type: method to use.  Defaults to POST.
 EOL.ajax_submit = function(el, args) {
   args = typeof(args) != 'undefined' ? args : {};
-  var form = el.closest('form');
+  var form = (el == null) ? null : el.closest('form');
   var cell = '';
   if(typeof(args.update) != 'undefined') { cell = args.update; } else { cell = el.closest('.editable'); }
   var url  = '';
@@ -577,7 +577,7 @@ EOL.ajax_submit = function(el, args) {
     type: type,
     dataType: 'html',
     beforeSend: function(xhr) { cell.fadeTo(225, 0.3); },
-    success: function(response) { cell.html(response); },
+    success: function(response) { cell.html(jQuery.trim(response)); },
     error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
     complete: function() {
       cell.delay(25).fadeTo(100, 1, function() {cell.css({filter:''});});

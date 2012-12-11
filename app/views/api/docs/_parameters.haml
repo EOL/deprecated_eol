@@ -1,0 +1,36 @@
+%h3
+  = I18n.t("parameters")
+- if @documentation[:parameters]
+  %table
+    %col.name
+    %col.values
+    %col.default
+    %col.notes
+    %thead
+      %tr
+        %th= I18n.t("name")
+        %th= I18n.t("values")
+        %th= I18n.t("default")
+        %th= I18n.t("notes")
+    %tbody
+      - @documentation[:parameters].each do |p|
+        %tr
+          %td= p[:name]
+          %td
+            - if p[:values]
+              = p[:values]
+            - elsif p[:class] == Integer
+              %em= I18n.t('any_integer')
+            - elsif p[:class] == String
+              %em= I18n.t('any_string')
+            - elsif p[:class] == 'Boolean'
+              = I18n.t("0_or_1")
+          %td
+            - if p[:default]
+              = p[:default]
+            - else
+              %em= "---"
+          %td= raw(p[:notes])
+- else
+  %p
+    %em= I18n.t("none")

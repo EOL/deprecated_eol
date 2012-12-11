@@ -97,7 +97,7 @@
             - if @resource.notes.blank?
               = I18n.t(:value_empty)
             - else
-              = truncate(@resource.notes, :length => 100000)
+              = raw(truncate(@resource.notes, :length => 100000))
           %dt
             = I18n.t('helpers.label.resource.refresh_period_hours')
           %dd

@@ -2,7 +2,7 @@ class ApiController < ApplicationController
 
   include ApiHelper
   skip_before_filter :original_request_params, :global_warning, :clear_any_logged_in_sessions, :set_locale, :check_user_agreed_with_terms
-  before_filter :check_version, :handle_key
+  before_filter :check_version, :handle_key, :set_default_format_to_xml
   layout 'main' , :only => [ :index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :hierarchies,
     :provider_hierarchies, :search_by_provider, :collections ]
 
@@ -116,7 +116,7 @@ class ApiController < ApplicationController
   end
 
   def search
-    @search_term = params[:id]
+    @search_term = params[:id] || params[:q]
     params[:format] ||= 'xml'
     params[:exact] = params[:exact] == "1" ? true : false
     @page = params[:page].to_i || 1
@@ -332,10 +332,22 @@ class ApiController < ApplicationController
                   :request_id => id, :key => @key, :user_id => @user_id)
 
     respond_to do |format|
-      format.xml { render :layout => false }
       format.json { render :json => collections_json, :callback => params[:callback] }
+      format.xml { render :layout => false }
     end
   end
+
+  def render_test_response
+    code = params[:code] || "Sorry, there was a problem"
+    code = JSON.pretty_generate(JSON.parse(code)) if code.is_json?
+    respond_to do |format|
+      format.js do
+        render :partial => "api/render_test_response", :locals => { :code => code }
+      end
+    end
+  end
+
+  private
 
   # this method wil ensure the version provided is valid, and set the default version to the latest API version
   def check_version
@@ -349,8 +361,6 @@ class ApiController < ApplicationController
     end
   end
 
-  private
-  
   def render_error(error_message)
     respond_to do |format|
       format.xml { render(:partial => 'error', :locals => { :error => error_message }) }
@@ -362,6 +372,13 @@ class ApiController < ApplicationController
     @key = params[:key]
     user = @key ? User.find_by_api_key(@key) : nil
     @user_id = user.is_a?(User) ? user.id : nil
+  end
+
+  def set_default_format_to_xml
+    # docs will default to HTML, and if given a format we should use that one
+    unless params[:controller] == 'api/docs' || params[:format]
+      request.format = "xml"
+    end
   end
 
 end

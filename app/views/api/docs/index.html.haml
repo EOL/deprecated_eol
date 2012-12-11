@@ -59,7 +59,11 @@
             %td
               = link_to 'search_by_provider', :controller => 'api/docs', :action => 'search_by_provider'
             %td
-              - url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => Hierarchy.itis.id, :only_path => false)
+              - if Hierarchy.itis
+                - test_entry = HierarchyEntry.where("hierarchy_id = #{Hierarchy.itis.id} AND identifier = '180542' AND published = 1").first
+              - else
+                - test_entry = HierarchyEntry.where("published = 1 AND identifier != '' AND identifier IS NOT NULL").last
+              - url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => test_entry.identifier, :hierarchy_id => test_entry.hierarchy_id, :only_path => false)
               = raw(I18n.t(:search_by_provider_method_description_with_link, :link => link_to(url, url)))
       %h3
         =I18n.t(:response_formats)

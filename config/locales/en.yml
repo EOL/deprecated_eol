@@ -2421,6 +2421,7 @@ en:
   by_scientific_name_table_header: "by Scientific Name"
   cache_store: "Cache Store"
   calculate_averages_slow: "Calculate averages (slow)"
+  call_api: "Call API"
   cancel: "Cancel"
   cancel_split: "Cancel"
   cannot_be_associated_with_both_a_user_and_a_community: "Cannot be associated with both a user and a community"
@@ -3057,6 +3058,7 @@ en:
   failed_login_attempts_with_count:
     one: "(%{count} failed login attempt)- must be checked for user to log in"
     other: "(%{count} failed login attempts)- must be checked for user to log in"
+  false_label: "False"
   family_name_colon: "Family Name:"
   feedback: "Feedback"
   file: "File"
@@ -3718,6 +3720,7 @@ en:
   remove_membership: "Remove membership"
   remove: "Remove"
   reply: "Reply"
+  required: "Required"
   revoke_full_curator_link: "Revoke"
   revoke_manager_link: "Revoke manager role"
   removed_count_items_from_collection_notice:
@@ -3977,6 +3980,7 @@ en:
   terms_of_use_link: "Terms of use &amp; privacy"
   term_for_search_admin_ui: "Term"
   test: "Test."
+  test_it_out: "Test It Out"
   text_object: "Text object"
   text_object: "Text Object"
   text: "text"

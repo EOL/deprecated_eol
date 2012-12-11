@@ -1,0 +1,14 @@
+= javascript_include_tag 'api'
+#content.cms_page
+  #api_doc.site_column
+    .nav= raw(@navigation_menu)
+    .article.copy
+      %h3= I18n.t('description')
+      %p= raw @documentation[:description]
+
+      = render :partial => 'api/docs/parameters'
+
+      %h3= I18n.t('test_it_out')
+      = render :partial => 'api/docs/api_test_form'
+      #api_test_url{ :style => 'display:none' }
+      %code#api_test_result{ :style => 'display:none' }

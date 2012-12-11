@@ -1,0 +1,36 @@
+%form#api_test_form{ :action => url_for(:controller => '/api', :action => @api_method, :version => @documentation[:version], :only_path => false) }
+  %table
+    %col.name
+    %col.required
+    %col.value
+    %thead
+      %tr
+        %th= I18n.t('name')
+        %th= I18n.t('required')
+        %th= I18n.t('value')
+    - required_label = I18n.t('yes_answer')
+    - if @documentation[:parameters]
+      - @documentation[:parameters].each do |p|
+        %tr
+          %td= p[:name]
+          %td= p[:required] ? required_label : ''
+          %td
+            - test_default = p[:test_value] || p[:default]
+            - if p[:class] == Integer || p[:class] == 'Identifier'
+              %input{ :name => p[:name], :type => 'text', :size => 15, :value => test_default }
+            - elsif p[:class] == 'Boolean'
+              %select{ :name => p[:name] }
+                %option{ :value => '0' }= I18n.t('false_label')
+                %option{ :value => '1', :selected => (test_default && test_default != 0) }= I18n.t('true_label')
+            - else
+              %input{ :name => p[:name], :type => 'text', :size => 50, :value => test_default }
+    %tr
+      %td= 'format'
+      %td= required_label
+      %td
+        %select{ :name => 'format' }
+          %option{ :value => 'json' }= 'JSON'
+          %option{ :value => 'xml' }= 'XML'
+    %tr
+      %td{ :colspan => 3 }
+        %input{ :type => 'submit', :value => I18n.t('call_api') }

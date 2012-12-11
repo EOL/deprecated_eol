@@ -209,6 +209,14 @@ class String
     end
   end
 
+  def is_json?
+    begin
+      !!JSON.parse(self)
+    rescue
+      false
+    end
+  end
+
   def is_int?
     begin
       Integer(self)

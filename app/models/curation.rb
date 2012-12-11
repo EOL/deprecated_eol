@@ -35,6 +35,16 @@ private
     fail_if_untrust_reasons_missing
   end
 
+  # NOTE carefully that we don't care about hide reasons when we're untrusting...
+  def fail_if_hide_reasons_missing
+    raise 'no hide reasons given' if
+      @visibility == Visibility.invisible && @vetted != Vetted.untrusted && @hide_reason_ids.blank? && @comment.nil?
+  end
+
+  def fail_if_untrust_reasons_missing
+    raise 'no untrust reasons given' if @vetted == Vetted.untrusted && @untrust_reason_ids.blank? && @comment.nil?
+  end
+
   def object_in_preview_state?
     curated_object.visibility == Visibility.preview
   end
@@ -99,24 +109,6 @@ private
         raise "Cannot set data object vetted id to #{@vetted.label}"
       end
     end
-  end
-
-  # NOTE carefully that we don't care about hide reasons when we're untrusting...
-  def fail_if_hide_reasons_missing
-    raise 'no hide reasons given' if
-      @visibility == Visibility.invisible && @vetted != Vetted.untrusted && no_hide_reasons_given?
-  end
-
-  def fail_if_untrust_reasons_missing
-    raise 'no untrust reasons given' if @vetted == Vetted.untrusted && no_untrust_reasons_given?
-  end
-
-  def no_untrust_reasons_given?
-    @untrust_reason_ids.blank? && @comment.nil?
-  end
-
-  def no_hide_reasons_given?
-    @hide_reason_ids.blank? && @comment.nil?
   end
 
   def handle_visibility

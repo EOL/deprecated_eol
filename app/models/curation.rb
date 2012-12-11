@@ -12,21 +12,9 @@ class Curation
     @comment = options[:comment]
     @untrust_reason_ids = options[:untrust_reason_ids]
     @hide_reason_ids = options[:hide_reason_ids]
-    @untrust_reasons_comment = options[:untrust_reasons_comment]
 
-    # TODO - maje this a method
-    @vet = @vetted && @association.vetted != @vetted
-
-    # make visibility hidden if curated as Inappropriate or Untrusted # TODO - make sure we don't get weird 0s because of hte to_i
-    # TODO - makje this a method
-    @visibility = @vetted == Vetted.untrusted ? Visibility.invisible : @visibility
-
-    # check if the visibility has been changed
-    @vis_changed = @visibility && (@association.visibility != @visibility)
-
-    # TODO - gotta be a better way to do this...
-    # Force a check of hide reasons if it was previously untrusted but now kept hidden
-    @vis_changed = (@association.visibility == Visibility.invisible && (@vetted == Vetted.trusted || @vetted == Vetted.unknown)) ? true : false unless @vis_changed == true
+    # Automatically hide it, if the curator made it untrusted:
+    @visibility = Visibility.invisible if @vetted == Vetted.untrusted
 
     curate_association
   end
@@ -52,7 +40,20 @@ private
   end
 
   def something_needs_curation?
-    @vet || @visibility
+    vetted_changed? || visibility_changed?
+  end
+
+  def vetted_changed?
+    @vetted_changed ||= @vetted && @association.vetted != @vetted
+  end
+
+  def visibility_changed?
+    return @visibility_changed if @visibility_changed
+    @visibility_changed = @visibility && (@association.visibility != @visibility)
+    # TODO - gotta be a better way to do this...
+    # Force a check of hide reasons if it was previously untrusted but now kept hidden
+    @visibility_changed = (@association.visibility == Visibility.invisible && (@vetted == Vetted.trusted || @vetted == Vetted.unknown)) ? true : false unless @visibility_changed == true
+    @visibility_changed
   end
 
   def curated_object
@@ -70,8 +71,8 @@ private
   def handle_curation
     object = curated_object
     actions = []
-    actions << handle_vetting(object) if @vet
-    actions << handle_visibility(object) if @visibility
+    actions << handle_vetting(object) if vetted_changed?
+    actions << handle_visibility(object) if visibility_changed?
     return actions
   end
 

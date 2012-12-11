@@ -307,8 +307,7 @@ class DataObjectsController < ApplicationController
           :visibility => Visibility.find(params["visibility_id_#{phe.id}"]),
           :comment => curation_comment(params["curation_comment_#{phe.id}"]), # Note, this gets saved regardless!
           :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
-          :hide_reason_ids => params["hide_reasons_#{phe.id}"],
-          :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"] )
+          :hide_reason_ids => params["hide_reasons_#{phe.id}"] )
         curation.clearables.each { |clearable| clear_cached_media_count_and_exemplar(clearable) } # TODO - refactor, obviously. This is lame.
         flash[:notice] ||= ''
         flash[:notice]  += ' ' + I18n.t(:object_curated)

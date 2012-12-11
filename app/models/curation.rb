@@ -10,8 +10,8 @@ class Curation
     @vetted = options[:vetted] || @association.vetted
     @visibility = options[:visibility] || @association.visibility
     @comment = options[:comment]
-    @untrust_reason_ids = options[:untrust_reason_ids]
-    @hide_reason_ids = options[:hide_reason_ids]
+    @untrust_reason_ids = options[:untrust_reason_ids] || []
+    @hide_reason_ids = options[:hide_reason_ids] || []
 
     # Automatically hide it, if the curator made it untrusted:
     @visibility = Visibility.invisible if @vetted == Vetted.untrusted
@@ -39,13 +39,8 @@ private
     return if object_in_preview_state?
     handle_curation.each do |action|
       log = log_action(action)
-      # Saves untrust reasons, if any
-      unless @untrust_reason_ids.blank?
-        save_untrust_reasons(log, action, @untrust_reason_ids)
-      end
-      unless @hide_reason_ids.blank?
-        save_hide_reasons(log, action, @hide_reason_ids)
-      end
+      save_untrust_reasons(log, action)
+      save_hide_reasons(log, action)
       clear_cached_media_count_and_exemplar if action == :hide
     end
   end
@@ -135,8 +130,8 @@ private
   end
 
   # TODO - wrong place for this logic; the curator activity log should handle these validations.
-  def save_untrust_reasons(log, action, untrust_reason_ids)
-    untrust_reason_ids.each do |untrust_reason_id|
+  def save_untrust_reasons(log, action)
+    @untrust_reason_ids.each do |untrust_reason_id|
       case untrust_reason_id.to_i
       when UntrustReason.misidentified.id
         log.untrust_reasons << UntrustReason.misidentified if action == :untrusted
@@ -148,8 +143,8 @@ private
     end
   end
 
-  def save_hide_reasons(log, action, hide_reason_ids)
-    hide_reason_ids.each do |hide_reason_id|
+  def save_hide_reasons(log, action)
+    @hide_reason_ids.each do |hide_reason_id|
       case hide_reason_id.to_i
       when UntrustReason.poor.id
         log.untrust_reasons << UntrustReason.poor if action == :hide

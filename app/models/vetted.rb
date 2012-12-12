@@ -49,10 +49,18 @@ class Vetted < ActiveRecord::Base
   end
 
   def to_action
-    return 'inappropriate' if id == Vetted.inappropriate.id
-    return 'unreviewed' if id == Vetted.unknown.id
-    return 'untrusted' if id == Vetted.untrusted.id
-    return 'trusted' if id == Vetted.trusted.id
+    case id
+    when Vetted.inappropriate.id
+      'inappropriate'
+    when Vetted.unknown.id
+      'unreviewed'
+    when Vetted.untrusted.id
+      'untrusted'
+    when Vetted.trusted.id
+      'trusted'
+    else
+      nil
+    end
   end
 
 private

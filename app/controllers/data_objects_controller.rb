@@ -310,7 +310,7 @@ class DataObjectsController < ApplicationController
           :hide_reason_ids => params["hide_reasons_#{phe.id}"] )
         curation.clearables.each { |clearable| clear_cached_media_count_and_exemplar(clearable) } # TODO - refactor, obviously. This is lame.
         flash[:notice] ||= ''
-        flash[:notice]  += ' ' + I18n.t(:object_curated)
+        flash[:notice]  += ' ' + I18n.t(:object_curated) # TODO - we'll get many of these if we curate many assoc's...
         auto_collect(@data_object) # SPG wants all curated objects collected.
       end
       @data_object.reindex
@@ -467,41 +467,16 @@ private
     end
   end
 
-  def log_action(object, method)
-    object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
-    return if object.blank?
-    object_id = object.id if object_id.blank?
-
-    if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry"
-      he = object.hierarchy_entry
-    elsif object.class.name == "HierarchyEntry"
-      he = object
-    # TODO - what if it's a UsersDataObject?!
-    end
-
-    if method == :add_association || method == :remove_association
-      changeable_object_type = ChangeableObjectType.send("CuratedDataObjectsHierarchyEntry".underscore.to_sym)
-    else
-      changeable_object_type = ChangeableObjectType.send(object.class.name.underscore.to_sym)
-    end
-
+  def log_action(object, action)
+    CuratorActivityLog.factory(
+      :action => action,
+      :association => object,
+      :data_object => @data_object,
+      :user => current_user
+    )
     flash[:notice] ||= ''
     flash[:notice]  += ' ' + I18n.t(:object_curated)
     auto_collect(@data_object) # SPG asks for all curation to add the item to their watchlist.
-    create_options = {
-      :user_id => current_user.id,
-      :changeable_object_type => changeable_object_type,
-      :object_id => object_id,
-      :activity => Activity.send(method),
-      :data_object => @data_object,
-      :data_object_guid => @data_object.guid,
-      :hierarchy_entry => he,
-      :created_at => 0.seconds.from_now
-    }
-    if object.class.name == "UsersDataObject"
-      create_options.merge!(:taxon_concept_id => object.taxon_concept_id)
-    end
-    CuratorActivityLog.create(create_options)
   end
 
   def empty_paginated_set

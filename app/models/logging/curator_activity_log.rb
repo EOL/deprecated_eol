@@ -56,6 +56,48 @@ class CuratorActivityLog < LoggingModel
     )
   end
 
+  # TODO - Association (as noted elsewhere) needs to be a class, which will change this (and clean it up): clearly it
+  # should have an object attribute, a changeable_object_type attribute, and a hierarchy_entry. ...Also an optional
+  # taxon_concept.
+  # 
+  # You should be passing in :action, :association, :data_object, and :user.
+  def self.factory(options)
+    return unless options[:association]
+    object_id = options[:association].data_object_id if options[:association].class.name == "DataObjectsHierarchyEntry" ||
+      options[:association].class.name == "CuratedDataObjectsHierarchyEntry" ||
+      options[:association].class.name == "UsersDataObject"
+    object_id ||= options[:association].id
+
+    he = if options[:association].class.name == "DataObjectsHierarchyEntry" || options[:association].class.name == "CuratedDataObjectsHierarchyEntry"
+      options[:association].hierarchy_entry
+    elsif options[:association].class.name == "HierarchyEntry"
+      options[:association]
+    else # UsersDataObject, notably... 
+      nil
+    end
+
+    changeable_object_type = if options[:action] == :add_association || options[:action] == :remove_association
+      ChangeableObjectType.curated_data_objects_hierarchy_entry
+    else
+      ChangeableObjectType.send(options[:association].class.name.underscore.to_sym)
+    end
+
+    create_options = {
+      :user_id => options[:user].id,
+      :changeable_object_type => changeable_object_type,
+      :object_id => object_id,
+      :activity => Activity.send(options[:action]),
+      :data_object => options[:data_object],
+      :data_object_guid => options[:data_object].guid,
+      :hierarchy_entry => he,
+      :created_at => 0.seconds.from_now # TODO - I thought this was automatic; why isn't it?
+    }
+    if options[:association].class.name == "UsersDataObject"
+      create_options.merge!(:taxon_concept_id => options[:association].taxon_concept_id)
+    end
+    CuratorActivityLog.create(create_options)
+  end
+
   def is_for_synonym?
     changeable_object_type_id == ChangeableObjectType.synonym.id
   end

@@ -103,7 +103,8 @@ private
     @visibility_changed ||= @visibility && @association.visibility != @visibility
   end
 
-  # TODO - what's happening here? I thought associations were all HEs (with extra methods)!  In any case, duck type this.
+  # When Association becomes a class (is this like the fifth time I've said this?) the data_object argument goes
+  # away. TODO
   def curated_object
     @curated_object ||= @association.curatable_object(@data_object)
   end

@@ -1,6 +1,8 @@
-# Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and most
-# data links to these instances.
+# Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and
+# most data links to these instances.
 class HierarchyEntry < ActiveRecord::Base
+
+  attr_accessor :associated_by_curator # TODO - extract Association class; this is currently used only for them.
 
   belongs_to :hierarchy
   belongs_to :name
@@ -147,6 +149,7 @@ class HierarchyEntry < ActiveRecord::Base
     @associated_by_curator
   end
 
+  # Duck-typed method for curation, don't change unless you know what you're doing. :)  TODO - extract to class
   def curatable_object(data_object)
     if associated_by_curator
       CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(data_object.guid, id)

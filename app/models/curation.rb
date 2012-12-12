@@ -103,7 +103,7 @@ private
     @visibility_changed ||= @visibility && @association.visibility != @visibility
   end
 
-  # TODO - what's happening here? I thought associations were all HEs!  In any case, duck type this.
+  # TODO - what's happening here? I thought associations were all HEs (with extra methods)!  In any case, duck type this.
   def curated_object
     @curated_object ||= if @association.class == UsersDataObject
         UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
@@ -121,13 +121,7 @@ private
   end
 
   def handle_visibility
-    case @visibility
-    when Visibility.visible
-      curated_object.show(@user)
-    when Visibility.invisible
-      curated_object.hide(@user)
-    end
-    # NOTE = this is a little awkward because I'm going to refactor the above.
+    @visibility.apply_to(curated_object, @user)
     log = log_action(@visibility.to_action)
     if hiding?
       log.untrust_reasons = UntrustReason.find(@hide_reason_ids)

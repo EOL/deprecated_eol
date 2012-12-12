@@ -45,4 +45,15 @@ class Visibility < ActiveRecord::Base
     end
   end
 
+  def apply_to(object, user)
+    case id
+    when Visibility.visible.id
+      object.show(user)
+    when Visibility.invisible.id
+      object.hide(user)
+    else
+      nil
+    end
+  end
+
 end

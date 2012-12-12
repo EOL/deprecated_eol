@@ -308,7 +308,6 @@ class DataObjectsController < ApplicationController
           :comment => curation_comment(params["curation_comment_#{phe.id}"]), # Note, this gets saved regardless!
           :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
           :hide_reason_ids => params["hide_reasons_#{phe.id}"] )
-        curation.clearables.each { |clearable| clear_cached_media_count_and_exemplar(clearable) } # TODO - refactor, obviously. This is lame.
         flash[:notice] ||= ''
         flash[:notice]  += ' ' + I18n.t(:object_curated) # TODO - we'll get many of these if we curate many assoc's...
         auto_collect(@data_object) # SPG wants all curated objects collected.
@@ -316,7 +315,7 @@ class DataObjectsController < ApplicationController
       @data_object.reindex
     rescue => e
       debugger if $FOO
-      flash[:error] = e.message
+      flash[:error] = e.message # TODO - I18n
     end
     redirect_back_or_default data_object_path(@data_object.latest_published_version_in_same_language)
   end
@@ -398,13 +397,11 @@ private
   end
 
   def curation_comment(comment)
-    commented = !comment.blank? # TODO - what is commented variable for?
     if comment.blank?
       return nil
     else
       auto_collect(@data_object) # SPG asks for all curation comments to add the item to their watchlist.
-      # TODO - we really don't need this from_curator flag now:
-      return Comment.create(:parent => @data_object, :body => comment, :user => current_user, :from_curator => true)
+      return Comment.create(:parent => @data_object, :body => comment, :user => current_user)
     end
   end
 

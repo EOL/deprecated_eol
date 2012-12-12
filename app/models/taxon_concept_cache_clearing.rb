@@ -9,6 +9,11 @@ class TaxonConceptCacheClearing
     TaxonConceptCacheClearing.new(taxon_concept).clear
   end
 
+  # TODO - this should really be for an association, not a combo of these two:
+  def self.clear_for_data_object(taxon_concept, data_object)
+    TaxonConceptCacheClearing.new(taxon_concept).clear_for_data_object(data_object)
+  end 
+
   def initialize(taxon_concept)
     @taxon_concept = taxon_concept
   end
@@ -19,31 +24,23 @@ class TaxonConceptCacheClearing
     clear_media_counts
   end
 
-  # TODO - this should really be for an association, not a combo of these two:
-  def self.clear_for_data_object(taxon_concept, data_object)
-    TaxonConceptCacheClearing.new(taxon_concept).clear_for_data_object(data_object)
-  end 
-
+  # TODO - refactor and test. Not in that order. I did only the most obvious cleanup, here.
   def clear_for_data_object(data_object)
     if data_object.data_type.label == 'Image'
-
-      txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept.id, data_object.id)
-      txei_exists.destroy unless txei_exists.nil?
-
-      cached_taxon_exemplar = Rails.cache.read(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}"))
-      unless cached_taxon_exemplar.nil? || cached_taxon_exemplar == "none"
-        Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}")) if DataObject.find(cached_taxon_exemplar).guid == data_object.guid
+      TaxonConceptExemplarImage.delete_all(:taxon_concept_id => @taxon_concept.id, :data_object_id => data_object.id)
+      if cached_taxon_exemplar = Rails.cache.read(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}")) &&
+        cached_taxon_exemplar != "none"
+        Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}")) if
+          DataObject.find(cached_taxon_exemplar).guid == data_object.guid
       end
-      Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{@taxon_concept.id}_curator"))
-      Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{@taxon_concept.id}"))
-
+      clear_media_counts
       @taxon_concept.published_browsable_hierarchy_entries.each do |pbhe|
-        cached_taxon_he_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}_#{pbhe.id}"))
-        unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"
-          Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == data_object.guid
+        if cached_taxon_he_exemplar =
+          Rails.cache.read(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}_#{pbhe.id}")) &&
+          cached_taxon_he_exemplar != "none"
+          Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}_#{pbhe.id}")) if
+            cached_taxon_he_exemplar.guid == data_object.guid
         end
-        Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{@taxon_concept.id}_#{pbhe.id}_curator"))
-        Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{@taxon_concept.id}_#{pbhe.id}"))
       end
     end
   end

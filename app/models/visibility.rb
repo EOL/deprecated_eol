@@ -34,4 +34,15 @@ class Visibility < ActiveRecord::Base
     self.id == Visibility.invisible.id ? I18n.t(:hidden) : self.label
   end
 
+  def to_action
+    case id
+    when Visibility.visible.id
+      'show'
+    when Visibility.invisible.id
+      'hide'
+    else
+      nil
+    end
+  end
+
 end

@@ -14,7 +14,7 @@ class Curation
     @hide_reason_ids = options[:hide_reason_ids] || []
 
     # Automatically hide it, if the curator made it untrusted:
-    @visibility = Visibility.invisible if @vetted == Vetted.untrusted
+    @visibility = Visibility.invisible if untrusting?
 
     curate_association
   end
@@ -29,6 +29,14 @@ class Curation
 
 private
 
+  def hiding?
+    @visibility == Visibility.invisible
+  end
+
+  def untrusting?
+    @vetted == Vetted.untrusted
+  end
+
   # TODO - this just raises the first error. We shoudln't do that.
   def validate
     fail_if_hide_reasons_missing
@@ -41,11 +49,11 @@ private
   # NOTE carefully that we don't care about hide reasons when we're untrusting...
   def fail_if_hide_reasons_missing
     raise 'no hide reasons given' if
-      @visibility == Visibility.invisible && @vetted != Vetted.untrusted && @hide_reason_ids.blank? && @comment.nil?
+      hiding? && @vetted != Vetted.untrusted && @hide_reason_ids.blank? && @comment.nil?
   end
 
   def fail_if_untrust_reasons_missing
-    raise 'no untrust reasons given' if @vetted == Vetted.untrusted && @untrust_reason_ids.blank? && @comment.nil?
+    raise 'no untrust reasons given' if untrusting? && @untrust_reason_ids.blank? && @comment.nil?
   end
 
   def fail_if_vetted_invalid
@@ -57,12 +65,12 @@ private
   end
 
   def fail_if_untrust_reasons_invalid
-    if @vetted == Vetted.untrusted # Important to check vetted first; we don't care about hiding if untrusting...
+    if untrusting? # Important to check vetted first; we don't care about hiding if untrusting...
       @untrust_reason_ids.each do |reason|
         raise 'untrust reasons invalid' unless
           [UntrustReason.misidentified.id, UntrustReason.incorrect.id].include?(reason.to_i)
       end
-    elsif @visibility == Visibility.invisible
+    elsif hiding?
       @hide_reason_ids.each do |reason|
         raise 'hide reasons invalid' unless
           [UntrustReason.poor.id, UntrustReason.duplicate.id].include?(reason.to_i)
@@ -110,24 +118,26 @@ private
     case @vetted
     when Vetted.untrusted
       curated_object.untrust(@user)
-      log_action(:untrusted).untrust_reasons = UntrustReason.find(@untrust_reason_ids)
     when Vetted.trusted
       curated_object.trust(@user)
-      log_action :trusted
     when Vetted.unknown
       curated_object.unreviewed(@user)
-      log_action :unreviewed
     end
+    log = log_action(@vetted.to_action)
+    log.untrust_reasons = UntrustReason.find(@untrust_reason_ids) if untrusting?
   end
 
   def handle_visibility
     case @visibility
     when Visibility.visible
       curated_object.show(@user)
-      log_action :show
     when Visibility.invisible
       curated_object.hide(@user)
-      log_action(:hide).untrust_reasons = UntrustReason.find(@hide_reason_ids)
+    end
+    # NOTE = this is a little awkward because I'm going to refactor the above.
+    log = log_action(@visibility.to_action)
+    if hiding?
+      log.untrust_reasons = UntrustReason.find(@hide_reason_ids)
       clear_cached_media_count_and_exemplar
     end
   end

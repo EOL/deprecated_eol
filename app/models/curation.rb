@@ -107,11 +107,9 @@ private
   def curated_object
     @curated_object ||= if @association.class == UsersDataObject
         UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
-      elsif @association.associated_by_curator
-        CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, @association.id)
-      else
-        DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_version_in_same_language.id, @association.id)
-      end
+                        else
+        @association.curatable_object(@data_object)
+                        end
   end
 
   def handle_vetting

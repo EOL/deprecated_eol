@@ -147,6 +147,14 @@ class HierarchyEntry < ActiveRecord::Base
     @associated_by_curator
   end
 
+  def curatable_object(data_object)
+    if associated_by_curator
+      CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(data_object.guid, id)
+    else
+      DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(data_object.latest_published_version_in_same_language.id, id)
+    end
+  end
+
   def can_be_deleted_by?(requestor)
     return true if by_curated_association? && (requestor.master_curator? || associated_by_curator == requestor)
   end

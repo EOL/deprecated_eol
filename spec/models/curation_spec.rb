@@ -293,21 +293,20 @@ describe Curation do
     end
   end
 
-  # TODO - LAME. It should call TaxonConceptCacheClearing, which should be updated to handle the things in the
-  # controller.
-  it 'should NOT have clearable associations for a trust' do # ...or any other curation, but I'll check one for now.
+  it 'should NOT clear caches for a trust' do # ...or any other curation, but I'll check one for now.
+    TaxonConceptCacheClearing.should_not_receive(:clear_for_data_object)
     curation = Curation.new(
       :user => @user,
       :association => association(:untrusted, :visible),
       :data_object => @data_object,
       :vetted => Vetted.trusted
     )
-    curation.clearables.should be_empty
   end
 
   # TODO - LAME. It should call TaxonConceptCacheClearing, which should be updated to handle the things in the
   # controller.
   it 'should have clearable associations for a hide' do
+    TaxonConceptCacheClearing.should_receive(:clear_for_data_object).with(@taxon_concept, @data_object).and_return(nil)
     curation = Curation.new(
       :user => @user,
       :association => assoc = association(:trusted, :visible),
@@ -315,7 +314,6 @@ describe Curation do
       :data_object => @data_object,
       :visibility => Visibility.invisible
     )
-    curation.clearables.should include(assoc)
   end
 
 end

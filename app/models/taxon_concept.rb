@@ -305,6 +305,10 @@ class TaxonConcept < ActiveRecord::Base
     super
   end
 
+  def clear_for_data_object(data_object)
+    TaxonConceptCacheClearing.clear_for_data_object(self, data_object)
+  end
+
   # Singleton method to fetch the "best available" Hierarchy Entry and store that value.
   def entry(hierarchy = nil)
     @cached_entry ||= {}

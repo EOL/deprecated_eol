@@ -103,6 +103,7 @@ private
     @visibility_changed ||= @visibility && @association.visibility != @visibility
   end
 
+  # TODO - what's happening here? I thought associations were all HEs!  In any case, duck type this.
   def curated_object
     @curated_object ||= if @association.class == UsersDataObject
         UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
@@ -138,33 +139,13 @@ private
     @clearables << @association
   end
 
-  # TODO - this was mostly stolen from data_objects controller. Generalize.
-  def log_action(method)
-    object_id = curated_object.data_object_id if curated_object.class.name == "DataObjectsHierarchyEntry" || curated_object.class.name == "CuratedDataObjectsHierarchyEntry" || curated_object.class.name == "UsersDataObject"
-    return if curated_object.blank?
-    object_id = curated_object.id if object_id.blank?
-
-    if curated_object.class.name == "DataObjectsHierarchyEntry" || curated_object.class.name == "CuratedDataObjectsHierarchyEntry"
-      he = curated_object.hierarchy_entry
-    elsif curated_object.class.name == "HierarchyEntry"
-      he = curated_object
-    # TODO - what if object is a UsersDataObject?  Why isn't it clear?
-    end
-
-    create_options = {
-      :user_id => @user.id,
-      :changeable_object_type => ChangeableObjectType.send(curated_object.class.name.underscore.to_sym),
-      :object_id => object_id,
-      :activity => Activity.send(method),
+  def log_action(action)
+    CuratorActivityLog.factory(
+      :action => action,
+      :association => curated_object,
       :data_object => @data_object,
-      :data_object_guid => @data_object.guid,
-      :hierarchy_entry => he,
-      :created_at => 0.seconds.from_now
-    }
-    if curated_object.class.name == "UsersDataObject"
-      create_options.merge!(:taxon_concept_id => curated_object.taxon_concept_id)
-    end
-    CuratorActivityLog.create(create_options)
+      :user => @user
+    )
   end
 
 end

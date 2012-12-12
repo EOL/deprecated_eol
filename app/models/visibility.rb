@@ -45,7 +45,12 @@ class Visibility < ActiveRecord::Base
     end
   end
 
+  def can_apply?
+    [Visibility.visible.id, Visibility.invisible.id].include? id
+  end
+
   def apply_to(object, user)
+    raise 'invalid visibility type' unless can_apply?
     case id
     when Visibility.visible.id
       object.show(user)

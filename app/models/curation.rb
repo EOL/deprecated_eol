@@ -49,19 +49,19 @@ private
   # NOTE carefully that we don't care about hide reasons when we're untrusting...
   def fail_if_hide_reasons_missing
     raise 'no hide reasons given' if
-      hiding? && @vetted != Vetted.untrusted && @hide_reason_ids.blank? && @comment.nil?
+      hiding? && !untrusting? && @hide_reason_ids.empty? && @comment.nil?
   end
 
   def fail_if_untrust_reasons_missing
-    raise 'no untrust reasons given' if untrusting? && @untrust_reason_ids.blank? && @comment.nil?
+    raise 'no untrust reasons given' if untrusting? && @untrust_reason_ids.empty? && @comment.nil?
   end
 
   def fail_if_vetted_invalid
-    raise 'vetted invalid' unless [Vetted.trusted, Vetted.untrusted, Vetted.unknown].include? @vetted
+    raise 'vetted invalid' unless @vetted.can_apply?
   end
 
   def fail_if_visibility_invalid
-    raise 'visibility invalid' unless [Visibility.visible, Visibility.invisible].include? @visibility
+    raise 'visibility invalid' unless @visibility.can_apply?
   end
 
   def fail_if_untrust_reasons_invalid

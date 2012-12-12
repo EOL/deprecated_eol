@@ -63,8 +63,13 @@ class Vetted < ActiveRecord::Base
     end
   end
 
+  def can_apply?
+    [Vetted.trusted.id, Vetted.untrusted.id, Vetted.unknown.id].include? id
+  end
+
   # curate an object, without the curating code needing to know anything about the methods used to do so.
   def apply_to(object, user)
+    raise 'invalid vetted type' unless can_apply?
     case id
     when Vetted.untrusted.id
       object.untrust(user)

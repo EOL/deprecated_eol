@@ -105,11 +105,7 @@ private
 
   # TODO - what's happening here? I thought associations were all HEs (with extra methods)!  In any case, duck type this.
   def curated_object
-    @curated_object ||= if @association.class == UsersDataObject
-        UsersDataObject.find_by_data_object_id(@data_object.latest_published_version_in_same_language.id)
-                        else
-        @association.curatable_object(@data_object)
-                        end
+    @curated_object ||= @association.curatable_object(@data_object)
   end
 
   def handle_vetting

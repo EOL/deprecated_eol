@@ -1,5 +1,11 @@
 class Curation
 
+  attr_reader :errors
+
+  # Curate without checking validations first. Exceptions will be raised if anything is invalid.
+  def self.curate(options)
+    Curation.new(options).curate
+  end
 
   def initialize(options)
     @user = options[:user]
@@ -13,8 +19,6 @@ class Curation
 
     # Automatically hide it, if the curator made it untrusted:
     @visibility = Visibility.invisible if untrusting?
-
-    curate_association
   end
 
   def warnings
@@ -23,6 +27,20 @@ class Curation
     @warnings << 'nothing changed' unless something_needs_curation?
     @warnings << 'object in preview state cannot be curated' if object_in_preview_state? # TODO - error!
     @warnings
+  end
+
+  # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
+  def curate
+    return unless something_needs_curation?
+    return if object_in_preview_state?
+    raise(@errors.to_sentence) unless valid?
+    handle_vetting if vetted_changed?
+    handle_visibility if visibility_changed?
+  end
+
+  def valid?
+    validate
+    @errors.empty?
   end
 
 private
@@ -37,40 +55,43 @@ private
 
   # TODO - this just raises the first error. We shoudln't do that.
   def validate
-    fail_if_hide_reasons_missing
-    fail_if_untrust_reasons_missing
-    fail_if_vetted_invalid
-    fail_if_visibility_invalid
-    fail_if_untrust_reasons_invalid
+    return @errors if @errors # Note you cannot try validation twice.
+    @errors = []
+    check_hide_reasons_missing
+    check_untrust_reasons_missing
+    check_vetted_invalid
+    check_visibility_invalid
+    check_untrust_reasons_invalid
+    @errors
   end
 
   # NOTE carefully that we don't care about hide reasons when we're untrusting...
-  def fail_if_hide_reasons_missing
-    raise 'no hide reasons given' if
+  def check_hide_reasons_missing
+    @errors << 'no hide reasons given' if
       hiding? && !untrusting? && @hide_reason_ids.empty? && @comment.nil?
   end
 
-  def fail_if_untrust_reasons_missing
-    raise 'no untrust reasons given' if untrusting? && @untrust_reason_ids.empty? && @comment.nil?
+  def check_untrust_reasons_missing
+    @errors << 'no untrust reasons given' if untrusting? && @untrust_reason_ids.empty? && @comment.nil?
   end
 
-  def fail_if_vetted_invalid
-    raise 'vetted invalid' unless @vetted.can_apply?
+  def check_vetted_invalid
+    @errors << 'vetted invalid' unless @vetted.can_apply?
   end
 
-  def fail_if_visibility_invalid
-    raise 'visibility invalid' unless @visibility.can_apply?
+  def check_visibility_invalid
+    @errors << 'visibility invalid' unless @visibility.can_apply?
   end
 
-  def fail_if_untrust_reasons_invalid
+  def check_untrust_reasons_invalid
     if untrusting? # Important to check vetted first; we don't care about hiding if untrusting...
       @untrust_reason_ids.each do |reason|
-        raise 'untrust reasons invalid' unless
+        @errors << 'untrust reasons invalid' unless
           [UntrustReason.misidentified.id, UntrustReason.incorrect.id].include?(reason.to_i)
       end
     elsif hiding?
       @hide_reason_ids.each do |reason|
-        raise 'hide reasons invalid' unless
+        @errors << 'hide reasons invalid' unless
           [UntrustReason.poor.id, UntrustReason.duplicate.id].include?(reason.to_i)
       end
     end
@@ -78,15 +99,6 @@ private
 
   def object_in_preview_state?
     curated_object.visibility == Visibility.preview
-  end
-
-  # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
-  def curate_association
-    return unless something_needs_curation?
-    return if object_in_preview_state?
-    validate
-    handle_vetting if vetted_changed?
-    handle_visibility if visibility_changed?
   end
 
   def something_needs_curation?

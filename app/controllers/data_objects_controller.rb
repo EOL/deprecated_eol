@@ -297,25 +297,25 @@ class DataObjectsController < ApplicationController
   def curate_associations
     access_denied unless current_user.min_curator_level?(:full)
     store_location(params[:return_to]) # TODO - this should be generalized at the application level, it's quick, it's common.
-    begin
-      @data_object.all_associations.each do |phe|
-        curation = Curation.new(
-          :association => phe,
-          :data_object => @data_object,
-          :user => current_user,
-          :vetted => Vetted.find(params["vetted_id_#{phe.id}"]),
-          :visibility => Visibility.find(params["visibility_id_#{phe.id}"]),
-          :comment => curation_comment(params["curation_comment_#{phe.id}"]), # Note, this gets saved regardless!
-          :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
-          :hide_reason_ids => params["hide_reasons_#{phe.id}"] )
-        flash[:notice] ||= ''
-        flash[:notice]  += ' ' + I18n.t(:object_curated) # TODO - we'll get many of these if we curate many assoc's...
-        auto_collect(@data_object) # SPG wants all curated objects collected.
-      end
+    curations = []
+    @data_object.all_associations.each do |phe|
+      curations << Curation.new(
+        :association => phe,
+        :data_object => @data_object,
+        :user => current_user,
+        :vetted => Vetted.find(params["vetted_id_#{phe.id}"]),
+        :visibility => Visibility.find(params["visibility_id_#{phe.id}"]),
+        :comment => curation_comment(params["curation_comment_#{phe.id}"]), # Note, this gets saved regardless!
+        :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
+        :hide_reason_ids => params["hide_reasons_#{phe.id}"] )
+    end
+    if curations.map { |curation| curation.valid? }.include?(false) # One (or more) of the curations were invalid.
+      flash[:error] = curations.map { |curation| curation.errors }.flatten.to_sentence # TODO - I18n
+    else
+      curations.each { |curation| curation.curate }
+      auto_collect(@data_object) # SPG wants all curated objects collected.
+      flash[:notice] = I18n.t(:object_curated)
       @data_object.reindex
-    rescue => e
-      debugger if $FOO
-      flash[:error] = e.message # TODO - I18n
     end
     redirect_back_or_default data_object_path(@data_object.latest_published_version_in_same_language)
   end

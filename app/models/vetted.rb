@@ -63,6 +63,18 @@ class Vetted < ActiveRecord::Base
     end
   end
 
+  # curate an object, without the curating code needing to know anything about the methods used to do so.
+  def apply_to(object, user)
+    case id
+    when Vetted.untrusted.id
+      object.untrust(user)
+    when Vetted.trusted.id
+      object.trust(user)
+    when Vetted.unknown.id
+      object.unreviewed(user)
+    end
+  end
+
 private
 
   # TODO - this should be in the DB.

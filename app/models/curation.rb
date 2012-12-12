@@ -113,16 +113,8 @@ private
       end
   end
 
-  # TODO - Vetted.whatever.apply(object)!
   def handle_vetting
-    case @vetted
-    when Vetted.untrusted
-      curated_object.untrust(@user)
-    when Vetted.trusted
-      curated_object.trust(@user)
-    when Vetted.unknown
-      curated_object.unreviewed(@user)
-    end
+    @vetted.apply_to(curated_object, @user)
     log = log_action(@vetted.to_action)
     log.untrust_reasons = UntrustReason.find(@untrust_reason_ids) if untrusting?
   end

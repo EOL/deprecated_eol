@@ -1,9 +1,7 @@
 class Curation
 
-  attr_reader :clearables
 
   def initialize(options)
-    @clearables = []
     @user = options[:user]
     @association = options[:association]
     @data_object = options[:data_object] # TODO - Change association to a class, give it a #data_object, stop passing
@@ -120,12 +118,8 @@ private
     log = log_action(@visibility.to_action)
     if hiding?
       log.untrust_reasons = UntrustReason.find(@hide_reason_ids)
-      clear_cached_media_count_and_exemplar
+      @association.taxon_concept.clear_for_data_object(@data_object) # TODO - why not for show?
     end
-  end
-
-  def clear_cached_media_count_and_exemplar
-    @clearables << @association
   end
 
   def log_action(action)

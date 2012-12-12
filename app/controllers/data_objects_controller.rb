@@ -483,31 +483,9 @@ private
     [].paginate(:page => 1, :per_page => @@results_per_page, :total_entries => 0)
   end
 
+  # TODO - this belongs on an association, yes?
   def clear_cached_media_count_and_exemplar(he)
-    if $CACHE
-      tc = he.taxon_concept
-      if @data_object.data_type.label == 'Image'
-
-        txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(tc.id, @data_object.id)
-        txei_exists.destroy unless txei_exists.nil?
-
-        cached_taxon_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_id_#{tc.id}"))
-        unless cached_taxon_exemplar.nil? || cached_taxon_exemplar == "none"
-          Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
-        end
-        Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_curator"))
-        Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}"))
-
-        tc.published_browsable_hierarchy_entries.each do |pbhe|
-          cached_taxon_he_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_id_#{tc.id}_#{pbhe.id}"))
-          unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"
-            Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{tc.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
-          end
-          Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}_curator"))
-          Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}"))
-        end
-      end
-    end
+    he.taxon_concept.clear_for_data_object(@data_object)
   end
 
   def add_references(dato)

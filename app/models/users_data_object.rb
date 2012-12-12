@@ -52,6 +52,7 @@ class UsersDataObject < ActiveRecord::Base
     false # The original association with the taxon concept while creating the udo should not be removed(same like we don't remove the DOHE associations provided by CPs).
   end
 
+  # Duck-typed method for curation, don't change unless you know what you're doing. :)  TODO - extract to class
   def curatable_object(dato) # I'm ignoring this argument but keeping it to model the duck type.
     UsersDataObject.find_by_data_object_id(data_object.latest_published_version_in_same_language.id)
   end

@@ -487,21 +487,20 @@ module ApplicationHelper
   end
 
   def show_full_tree(hierarchy_entry, options={})
-    capture_haml do
-      ancestors = hierarchy_entry.ancestors
-      if ancestor = ancestors.shift
-        haml_tag :ul, :class => 'branch' do
-          haml_tag :li do
-            haml_concat navigation_node(ancestor, options)
-            haml_concat show_full_tree(hierarchy_entry, options)
-          end
-        end
-      else
-        haml_concat show_nodes([ hierarchy_entry ], options.merge(:current => true))
-        if options[:show_siblings]
-          haml_concat show_nodes(options[:siblings], options.merge(:parent => hierarchy_entry.parent))
-        end
+    ancestors = hierarchy_entry.ancestors
+    if ancestor = ancestors.shift
+      # using strings here instead of haml.concat because it saves up to 30% of the processing time
+      html = "<ul class='branch'><li>" +
+        navigation_node(ancestor, options) +
+        show_full_tree(hierarchy_entry, options) +
+        "</li></ul>"
+      html
+    else
+      html = show_nodes([ hierarchy_entry ], options.merge(:current => true))
+      if options[:show_siblings]
+        html += show_nodes(options[:siblings], options.merge(:parent => hierarchy_entry.parent))
       end
+      html
     end
   end
 

@@ -978,7 +978,7 @@ en:
         learn_more_link_birds: Birds
         learn_more_link_amphibians: Amphibians
         learn_more_link_reptiles: Reptiles
-        learn_more_link_fish: Fish
+        learn_more_link_fish: Fishes
         learn_more_link_worms: Worms
         learn_more_link_invertebrates: Invertebrates
         learn_more_link_crustaceans: Crustaceans
@@ -2156,6 +2156,7 @@ en:
         user_curated_data_object: "<strong>%{user}</strong> curated \"%{data_object}\"."
         an_unknown_user_curated_it: "An unknown user curated it, but the exact action taken was lost."
         user_curated_it: "<strong>%{user}</strong> curated it, but the exact action taken was lost."
+  a_maximum_of_30_results_are_returned: "a maximum of 30 results are returned per page. This parameter allows you to fetch more pages of results if there are more than 30 matches"
   activity_log_empty: "No one has provided updates yet."
   activity_log_empty_learn_more_link: "Learn how to contribute"
   activity_user_created_link: "<strong>%{user}</strong> added a link to \"%{object_name}\" on \"%{taxon_concept}\"."

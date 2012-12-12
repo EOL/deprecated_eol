@@ -61,8 +61,8 @@ private
     api_overview = ContentPage.find_by_page_name('api_overview', :include => :translations)
     unless api_overview.blank?
       translation = api_overview.translations.select{|t| t.language_id == current_language.id}.compact
-      translation ||= api_overview.translations.select{|t| t.language_id == Language.english.id}.compact
-      @navigation_menu =  translation.first.left_content rescue nil
+      translation = api_overview.translations.select{|t| t.language_id == Language.english.id}.compact if translation.blank?
+      @navigation_menu = translation.first.left_content rescue nil
       @navigation_menu.gsub!(/<li>(<a href=\"\/api\/docs\/#{params[:action]}\">)/, "<li class='active'>\\1")
     end
   end
@@ -116,7 +116,8 @@ private
           :test_value => 'Ursus' },
         { :name => 'page',
           :class => Integer,
-          :default => 1 },
+          :default => 1,
+          :notes => I18n.t('a_maximum_of_30_results_are_returned') },
         { :name => 'exact',
           :class => 'Boolean',
           :notes => I18n.t('limits_the_number_of_returned_image_objects') } ]

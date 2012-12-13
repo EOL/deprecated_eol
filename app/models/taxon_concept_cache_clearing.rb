@@ -28,19 +28,10 @@ class TaxonConceptCacheClearing
   def clear_for_data_object(data_object)
     if data_object.data_type.label == 'Image'
       TaxonConceptExemplarImage.delete_all(:taxon_concept_id => @taxon_concept.id, :data_object_id => data_object.id)
-      if cached_taxon_exemplar = Rails.cache.read(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}")) &&
-        cached_taxon_exemplar != "none"
-        Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}")) if
-          DataObject.find(cached_taxon_exemplar).guid == data_object.guid
-      end
       clear_media_counts
+      clear_if_guid_matches("best_image_id_#{@taxon_concept.id}")
       @taxon_concept.published_browsable_hierarchy_entries.each do |pbhe|
-        if cached_taxon_he_exemplar =
-          Rails.cache.read(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}_#{pbhe.id}")) &&
-          cached_taxon_he_exemplar != "none"
-          Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{@taxon_concept.id}_#{pbhe.id}")) if
-            cached_taxon_he_exemplar.guid == data_object.guid
-        end
+        clear_if_guid_matches("best_image_id_#{@taxon_concept.id}_#{pbhe.id}")
       end
     end
   end
@@ -65,6 +56,14 @@ private
     associated_entries.map(&:id).each do |entry|
       Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{taxon_concept.id}_#{entry}"))
       Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{taxon_concept.id}_#{entry}_curator"))
+    end
+  end
+
+  def clear_if_guid_matches(key)
+    cached_exemplar = Rails.cache.read(TaxonConcept.cached_name_for(key))
+    if cached_exemplar && cached_exemplar != "none"
+      cached_dato = DataObject.find(cached_exemplar) rescue nil
+      Rails.cache.delete(TaxonConcept.cached_name_for(key)) if cached_dato && cached_dato.guid == data_object.guid
     end
   end
 

@@ -302,7 +302,7 @@ class DataObjectsController < ApplicationController
         :data_object => @data_object, # TODO - An Association class should know this.
         :user => current_user,
         :vetted => Vetted.find(params["vetted_id_#{phe.id}"]),
-        :visibility => Visibility.find(params["visibility_id_#{phe.id}"]),
+        :visibility => visibility_from_params(phe),
         :comment => curation_comment(params["curation_comment_#{phe.id}"]), # Note, this gets saved regardless!
         :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
         :hide_reason_ids => params["hide_reasons_#{phe.id}"] )
@@ -519,9 +519,13 @@ private
   def all_curation_errors_to_sentence(curations)
     curations.map do |curation|
       curation.errors.map { |error| I18n.t("curation_error_#{error.downcase.gsub(/\s+/, '_') }",
-                                           :association => curation.association, :vetted => curation.vetted.label,
+                                           :association => curation.association.name, :vetted => curation.vetted.label,
                                            :visibility => curation.visibility.label ) } 
     end.flatten.to_sentence
+  end
+
+  def visibility_from_params(he)
+    params["visibility_id_#{he.id}"] ? Visibility.find(params["visibility_id_#{he.id}"]) : nil
   end
 
 end

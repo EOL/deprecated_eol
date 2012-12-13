@@ -29,9 +29,9 @@ class TaxonConceptCacheClearing
     if data_object.data_type.label == 'Image'
       TaxonConceptExemplarImage.delete_all(:taxon_concept_id => @taxon_concept.id, :data_object_id => data_object.id)
       clear_media_counts
-      clear_if_guid_matches("best_image_id_#{@taxon_concept.id}")
+      clear_if_guid_matches("best_image_id_#{@taxon_concept.id}", data_object)
       @taxon_concept.published_browsable_hierarchy_entries.each do |pbhe|
-        clear_if_guid_matches("best_image_id_#{@taxon_concept.id}_#{pbhe.id}")
+        clear_if_guid_matches("best_image_id_#{@taxon_concept.id}_#{pbhe.id}", data_object)
       end
     end
   end
@@ -59,7 +59,7 @@ private
     end
   end
 
-  def clear_if_guid_matches(key)
+  def clear_if_guid_matches(key, data_object)
     cached_exemplar = Rails.cache.read(TaxonConcept.cached_name_for(key))
     if cached_exemplar && cached_exemplar != "none"
       cached_dato = DataObject.find(cached_exemplar) rescue nil

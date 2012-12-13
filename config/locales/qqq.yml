@@ -217,4 +217,10 @@ qqq:
   or_add_it_to_an_existing_community: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new community to add a collection to, then given this message, followed by a list of the communities she has access to."
   or_email_education: "The user was presented with a button (see add_education_resources_to_page_link_button) allowing them to contribute information about educational resources related to a taxon. This 'sentence' appears after that button, allowing them to email EOL staff with their suggestion instead. The 'link' thus contains a clickable email address."
   page_reference: "This is a citation (as one might find in a bibliography), and the format should follow standards for bibliographic citations of websites. You may need to do some research to find out what that format is in your language."
-
+  curation_error_no_hide_reasons_given: "A curator tried to hide a data object on the species page of 'association', but they did not give a reason for hiding it."
+  curation_error_no_untrust_reasons_given: "A curator tried to untrust (they decided it was improperly identified) a data object on the species page of 'association', but they did not give a reason for untrusting it."
+  curation_error_vetted_invalid: "This means an invalid parameter was passed in for curation. Very rare error."
+  curation_error_visibility_invalid: "This means an invalid parameter was passed in for curation. Very rare error."
+  curation_error_untrust_reasons_invalid: "A curator attempted to curate a data object on the page for 'association' but provided invalid reasons. A very rare error."
+  curation_error_hide_reasons_invalid: "A curator attempted to curate a data object on the page for 'association' but provided invalid reasons. A very rare error."
+  curation_error_object_in_preview_state_cannot_be_curated: "A curator attempted to curate a data object that hasn't finished being imported yet; this is not allowed."

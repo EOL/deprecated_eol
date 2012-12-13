@@ -25,14 +25,12 @@ class Curation
     return @warnings if @warnings # NOTE - this means we cannot check twice, but hey.
     @warnings = []
     @warnings << 'nothing changed' unless something_needs_curation?
-    @warnings << 'object in preview state cannot be curated' if object_in_preview_state? # TODO - error!
     @warnings
   end
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
   def curate
     return unless something_needs_curation?
-    return if object_in_preview_state?
     raise(@errors.to_sentence) unless valid?
     handle_vetting if vetted_changed?
     handle_visibility if visibility_changed?
@@ -62,6 +60,7 @@ private
     check_vetted_invalid
     check_visibility_invalid
     check_untrust_reasons_invalid
+    check_for_preview
     @errors
   end
 
@@ -95,6 +94,10 @@ private
           [UntrustReason.poor.id, UntrustReason.duplicate.id].include?(reason.to_i)
       end
     end
+  end
+
+  def check_for_preview
+    @errors << 'object in preview state cannot be curated' if object_in_preview_state?
   end
 
   def object_in_preview_state?

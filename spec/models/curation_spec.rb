@@ -130,16 +130,17 @@ describe Curation do
     end
   end
 
-  # TODO - really?  Really?  Nothing?!  No error or anything?!
-  it 'should do nothing if the object is in preview' do
+  it 'should FAIL if the object is in preview' do
     should_do_nothing(association(:untrusted, :preview)) do |assoc|
-      curation = Curation.curate(
-        :user => @user,
-        :association => assoc,
-        :comment => @comment,
-        :data_object => @data_object,
-        :vetted => Vetted.trusted
-      )
+      lambda {
+        curation = Curation.curate(
+          :user => @user,
+          :association => assoc,
+          :comment => @comment,
+          :data_object => @data_object,
+          :vetted => Vetted.trusted
+        )
+      }.should raise_error
     end
   end
 

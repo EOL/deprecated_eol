@@ -1,6 +1,6 @@
 class Curation
 
-  attr_reader :errors
+  attr_reader :errors, :association, :vetted, :visibility, :user, :comment, :untrust_reason_ids, :hide_reason_ids
 
   # Curate without checking validations first. Exceptions will be raised if anything is invalid.
   def self.curate(options)

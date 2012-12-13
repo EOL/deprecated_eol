@@ -301,7 +301,7 @@ class DataObjectsController < ApplicationController
     @data_object.all_associations.each do |phe|
       curations << Curation.new(
         :association => phe,
-        :data_object => @data_object,
+        :data_object => @data_object, # TODO - An Association class should know this.
         :user => current_user,
         :vetted => Vetted.find(params["vetted_id_#{phe.id}"]),
         :visibility => Visibility.find(params["visibility_id_#{phe.id}"]),
@@ -309,8 +309,8 @@ class DataObjectsController < ApplicationController
         :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
         :hide_reason_ids => params["hide_reasons_#{phe.id}"] )
     end
-    if curations.map { |curation| curation.valid? }.include?(false) # One (or more) of the curations were invalid.
-      flash[:error] = curations.map { |curation| curation.errors }.flatten.to_sentence # TODO - I18n
+    if any_errors_in_curations?(curations)
+      flash[:error] = all_curation_errors_to_sentence(curations)
     else
       curations.each { |curation| curation.curate }
       auto_collect(@data_object) # SPG wants all curated objects collected.
@@ -514,4 +514,16 @@ private
     @li ||= id_in_params ? id_in_params : nil
   end
   
+  def any_errors_in_curations?(curations)
+    curations.map { |curation| curation.valid? }.include?(false)
+  end
+
+  def all_curation_errors_to_sentence(curations)
+    curations.map do |curation|
+      curation.errors.map { |error| I18n.t("curation_error_#{error.downcase.gsub(/\s+/, '_') }",
+                                           :association => curation.association, :vetted => curation.vetted.label,
+                                           :visibility => curation.visibility.label ) } 
+    end.flatten.to_sentence
+  end
+
 end

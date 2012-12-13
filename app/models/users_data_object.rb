@@ -45,8 +45,9 @@ class UsersDataObject < ActiveRecord::Base
   end
 
   def italicized_name
-    @name ||= taxon_concept.quick_scientific_name
+    @name ||= taxon_concept.title
   end
+  alias :name :italicized_name # Again, duck-typed for Associations. TODO
 
   def can_be_deleted_by?(requestor)
     false # The original association with the taxon concept while creating the udo should not be removed(same like we don't remove the DOHE associations provided by CPs).

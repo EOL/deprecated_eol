@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   has_one :notification
 
   scope :admins, :conditions => ['admin IS NOT NULL']
-  scope :curators, :conditions => ['curator_level_id IS NOT NULL']
+  scope :curators, :conditions => 'curator_level_id is not null'
 
   before_save :check_credentials
   before_save :encrypt_password
@@ -94,8 +94,6 @@ class User < ActiveRecord::Base
   validates_presence_of :curator_scope, :if => :curator_attributes_required?
 
   attr_accessor :curator_request
-
-  scope :curators, :conditions => 'curator_level_id is not null'
 
 # END CURATOR CLASS DECLARATIONS
 

@@ -104,10 +104,10 @@ describe Notifier do
       @harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => nil)
       @data_object = DataObject.gen(:object_title => 'Content partner provided text object')
       DataObjectsHierarchyEntry.gen(:hierarchy_entry => @hierarchy_entry, :data_object => @data_object)
-      # Using ChangeableObjectType.data_objects_hierarchy_entry and object_id is DataObject.id because thats
+      # Using ChangeableObjectType.data_objects_hierarchy_entry and target_id is DataObject.id because thats
       # what the log_action method in DataObject controller is doing... but its a little weird
       @trusted_action = CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id,
-                                               :activity_id => Activity.trusted.id, :user => @curator, :object_id => @data_object.id,
+                                               :activity_id => Activity.trusted.id, :user => @curator, :target_id => @data_object.id,
                                                :hierarchy_entry_id => @hierarchy_entry.id, :created_at => Time.now)
       @comment_on_dato = Comment.gen(:user => @curator, :body => 'Comment on dato.', :parent_type => 'DataObject',
                                      :parent_id => @data_object, :created_at => Time.now)

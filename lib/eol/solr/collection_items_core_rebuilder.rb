@@ -74,11 +74,11 @@ module EOL
       end
 
       def self.preload_concepts_and_objects!(collection_items)
-        self.preload_object!(collection_items.select{ |d| d.object_type == 'Community' })
-        self.preload_object!(collection_items.select{ |d| d.object_type == 'Collection' })
-        self.preload_object!(collection_items.select{ |d| d.object_type == 'User' })
-        self.preload_taxon_concepts!(collection_items.select{ |d| d.object_type == 'TaxonConcept' })
-        self.preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'Link', 'DataObject'].include?(d.object_type) })
+        self.preload_object!(collection_items.select{ |d| d.collected_item_type == 'Community' })
+        self.preload_object!(collection_items.select{ |d| d.collected_item_type == 'Collection' })
+        self.preload_object!(collection_items.select{ |d| d.collected_item_type == 'User' })
+        self.preload_taxon_concepts!(collection_items.select{ |d| d.collected_item_type == 'TaxonConcept' })
+        self.preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'Link', 'DataObject'].include?(d.collected_item_type) })
       end
 
       def self.preload_object!(collection_items)

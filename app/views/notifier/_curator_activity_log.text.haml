@@ -6,7 +6,7 @@
     - users_url = user_url(action.user, :host => $SITE_DOMAIN_OR_IP)
     - users_curator_level = action.user.curator_level.translated_label rescue 'User'
     - action_date = format_date_time(action.created_at)
-    - # We check to make sure the action.data_object association is 'real' i.e. curator_activity_logs.object_id == data_objects.id
+    - # We check to make sure the action.data_object association is 'real' i.e. curator_activity_logs.target_id == data_objects.id
     - # Consequently this partial does not handle activity on e.g. ChangeableObjectType.taxon_concept_name (please remove these comments if that changes)
     - if ChangeableObjectType.data_object_scope.include?(action.changeable_object_type_id) && !action.data_object.blank?
       - en_activity_name = nil

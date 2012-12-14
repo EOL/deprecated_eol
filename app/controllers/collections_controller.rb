@@ -354,8 +354,8 @@ private
     destinations.each do |destination|
       CollectionItem.connection.execute(
         "INSERT IGNORE INTO collection_items
-          (object_type, object_id, collection_id, created_at, updated_at, added_by_user_id)
-          (SELECT object_type, object_id, #{destination.id}, NOW(), NOW(), #{current_user.id}
+          (collected_item_type, collected_item_id, collection_id, created_at, updated_at, added_by_user_id)
+          (SELECT collected_item_type, collected_item_id, #{destination.id}, NOW(), NOW(), #{current_user.id}
             FROM collection_items WHERE collection_id = #{source.id})"
       )
       # TODO - we should actually count the items and store that in the collection activity log. Lots of work:
@@ -407,8 +407,8 @@ private
         copiable = options[:from].editable_by?(current_user) ?
                      { :annotation => collection_item.annotation,
                        :sort_field => collection_item.sort_field } : {}
-        new_collection_items << { :object_id => collection_item.object.id,
-                                  :object_type => collection_item.object_type,
+        new_collection_items << { :collected_item_id => collection_item.collected_item.id,
+                                  :collected_item_type => collection_item.collected_item_type,
                                   :added_by_user_id => current_user.id }.merge!(copiable)
         count += 1
         # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:
@@ -657,7 +657,8 @@ private
   def log_activity(options = {})
     CollectionActivityLog.create(options.reverse_merge(:collection => @collection, :user => current_user))
   end
-  
+
+  # NOTE - object_type and object_id not changed due yet; they are stale names in Solr.
   def reindex_items_if_necessary(collection_results)
     collection_item_ids_to_reindex = []
     collection_results.each do |r|

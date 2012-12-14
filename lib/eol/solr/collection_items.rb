@@ -1,3 +1,4 @@
+# NOTE - Not changing object_id or object_type in this file because we don't want to reindex Solr entirely.
 module EOL
   module Solr
     class CollectionItems
@@ -178,28 +179,28 @@ module EOL
 
         # add facet filtering
         if options[:facet_type]
-          object_type = nil
+          facet_type = nil
           case options[:facet_type].downcase
           when 'taxa', 'taxonconcept', 'taxon'
-            object_type = 'TaxonConcept'
+            facet_type = 'TaxonConcept'
           when 'articles', 'text'
-            object_type = 'Text'
+            facet_type = 'Text'
           when 'videos', 'video'
-            object_type = 'Video'
+            facet_type = 'Video'
           when 'images', 'image'
-            object_type = 'Image'
+            facet_type = 'Image'
           when 'sounds', 'sound'
-            object_type = 'Sound'
+            facet_type = 'Sound'
           when 'links', 'link'
-            object_type = 'Link'
+            facet_type = 'Link'
           when 'communities', 'community'
-            object_type = 'Community'
+            facet_type = 'Community'
           when 'people', 'user'
-            object_type = 'User'
+            facet_type = 'User'
           when 'collections', 'collection'
-            object_type = 'Collection'
+            facet_type = 'Collection'
           end
-          url << "&fq=object_type:#{object_type}" if object_type
+          url << "&fq=object_type:#{facet_type}" if facet_type
         end
 
         # add sorting

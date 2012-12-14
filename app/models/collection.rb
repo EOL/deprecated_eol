@@ -10,7 +10,7 @@ class Collection < ActiveRecord::Base
 
   has_many :collection_items
   accepts_nested_attributes_for :collection_items
-  has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :object
+  has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :collected_item
   has_many :containing_collections, :through => :others_collection_items, :source => :collection
 
   has_many :comments, :as => :parent
@@ -56,8 +56,8 @@ class Collection < ActiveRecord::Base
   alias_attribute :summary_name, :name
 
   def self.which_contain(what)
-    Collection.joins(:collection_items).where(:collection_items => { :object_type => what.class.name, :object_id =>
-                                              what.id}).uniq
+    Collection.joins(:collection_items).where(:collection_items => { :collected_item_type => what.class.name,
+                                              :collected_item_id => what.id}).uniq
   end
 
   def self.get_taxa_counts(collections)
@@ -65,7 +65,7 @@ class Collection < ActiveRecord::Base
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
       SELECT c.id, count(*) as count
-      FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id AND ci.object_type = 'TaxonConcept')
+      FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id AND ci.collected_item_type = 'TaxonConcept')
       WHERE c.id IN (#{collection_ids})
       GROUP BY c.id")
     taxa_counts = {}
@@ -101,33 +101,35 @@ class Collection < ActiveRecord::Base
   # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
   # add more than two things... because this runs an expensive calculation at the end.
   # 
-  # Also NOTE that we don't just use { :object => what }, because Users are sometimes Curators... there may be other
+  # Also NOTE that we don't just use { :collected_item => what }, because Users are sometimes Curators... there may be other
   # reasons, but that was at least true, so I kept the other creates consistent.
+  #
+  # TODO ... why aren't we just using collected_tiem => what ?
   def add(what, opts = {})
     return if what.nil?
     name = "something"
     case what
     when TaxonConcept
-      collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object_id => what.id, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:collected_item_type => "TaxonConcept", :collected_item_id => what.id, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
       name = what.scientific_name
     when User
-      collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:collected_item_type => "User", :collected_item_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
       name = what.username
     when DataObject
-      collection_items << CollectionItem.create(:object_type => "DataObject", :object_id => what.id, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:collected_item_type => "DataObject", :collected_item_id => what.id, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
       name = what.data_type.simple_type('en')
     when Community
-      collection_items << CollectionItem.create(:object_type => "Community", :object_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:collected_item_type => "Community", :collected_item_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     when Collection
-      collection_items << CollectionItem.create(:object_type => "Collection", :object_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:collected_item_type => "Collection", :collected_item_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                   :klass => what.class.name))
     end
     set_relevance # This is actually safe, because we don't use #add in bulk.
-    what # Convenience.  Allows us to chain this command and continue using the object passed in.
+    what # Convenience.  Allows us to chain this command and continue using the collected_item passed in.
   end
 
   def logo_url(size = 'large', specified_content_host = nil)
@@ -155,14 +157,14 @@ class Collection < ActiveRecord::Base
 
   def has_item?(item)
     return false unless item
-    # find the first object in their collection matching the given item
+    # find the first collected_item in their collection matching the given item
     return true if CollectionItem.find(:first,
-      :conditions => "collection_id = #{self.id} and object_type = '#{item.class.name}' and object_id = #{item.id}")
+      :conditions => "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and collected_item_id = #{item.id}")
     if item.class == DataObject
       # for data objects we can further check for any item in the collection with the same guid
       return true if CollectionItem.find(:first,
-        :conditions => "collection_id = #{self.id} and object_type = '#{item.class.name}' and do_guid.id = #{item.id}",
-        :joins => 'JOIN data_objects do ON (collection_items.object_id=do.id) JOIN data_objects do_guid ON (do.guid=do_guid.guid)')
+        :conditions => "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and do_guid.id = #{item.id}",
+        :joins => 'JOIN data_objects do ON (collection_items.collected_item_id=do.id) JOIN data_objects do_guid ON (do.guid=do_guid.guid)')
     end
   end
 
@@ -218,7 +220,7 @@ class Collection < ActiveRecord::Base
         collections_communities cc
         JOIN communities com ON ( cc.community_id = com.id )
       ) ON ( c.id = cc.collection_id )
-      WHERE ( ci.object_id = #{self.id} AND ci.object_type = 'Collection') #{extra_condition}")
+      WHERE ( ci.collected_item_id = #{self.id} AND ci.collected_item_type = 'Collection') #{extra_condition}")
     count_result.first.first
   end
 

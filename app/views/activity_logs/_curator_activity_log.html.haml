@@ -52,7 +52,7 @@
 -# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):
 -# THE MERGE/SPLIT ACTIVITIES ARE LEGACY...
 - if item.activity_id == Activity.merge_classifications.id && item.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
-  - tc = TaxonConcept.find(item.object_id) rescue nil
+  - tc = TaxonConcept.find(item.target_id) rescue nil
   - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
   - translation_vars[:taxon] = link_to(tc.quick_scientific_name, taxon_url(tc), :style => link_style)
 - if item.activity_id == Activity.split_classifications.id || item.activity_id == Activity.merge_classifications.id || item.activity_id == Activity.preferred_classification.id

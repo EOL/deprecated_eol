@@ -35,8 +35,8 @@
         = hidden_field_tag :source_collection_id, @collection.id
         = hidden_field_tag :scope, @scope
       - else
-        = f.hidden_field :object_id
-        = f.hidden_field :object_type
+        = f.hidden_field :collected_item_id
+        = f.hidden_field :collected_item_type
       - if @items
         %h2= I18n.t("or_#{@for}_them_to_existing_collection")
       - else

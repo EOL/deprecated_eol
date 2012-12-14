@@ -19,13 +19,14 @@ xml.response do
       end
     end
     
+    # NOTE - Not changing the XML response, here, so it still uses object_id and object_type. Hmmmn...
     xml.collection_items do
       @collection_results.each do |r|
         xml.item do
           ci = r['instance']
-          object_type = ci.object_type
+          collected_item_type = ci.collected_item_type
           xml.name r['title']
-          xml.object_id ci.object_id
+          xml.object_id ci.collected_item_id
           xml.title ci.name
           xml.created ci.created_at
           xml.updated ci.updated_at
@@ -39,20 +40,20 @@ xml.response do
             end
           end
 
-          case ci.object_type
+          case ci.collected_item_type
           when 'TaxonConcept'
             xml.richness_score r['richness_score']
             # xml.taxonRank ci.object.entry.rank.label.firstcap unless ci.object.entry.rank.nil?
           when 'DataObject'
             xml.data_rating r['data_rating']
             xml.object_guid ci.object.guid
-            object_type = ci.object.data_type.simple_type
+            collected_item_type = ci.object.data_type.simple_type
             if ci.object.is_image?
               xml.source ci.object.thumb_or_object(:orig)
             end
           end
           
-          xml.object_type object_type
+          xml.object_type collected_item_type
         end
       end
     end

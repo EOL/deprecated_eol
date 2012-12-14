@@ -57,7 +57,7 @@ class Community < ActiveRecord::Base
   def featured_collections
     return [] unless self.collections && !self.collections.blank?
     collections.collect do |c|
-      c.collection_items.where("object_type = 'Collection'")
+      c.collection_items.where("collected_item_type = 'Collection'")
     end.flatten.compact.uniq
   end
 

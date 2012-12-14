@@ -46,7 +46,7 @@ class DataObject < ActiveRecord::Base
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
-  has_many :curator_activity_logs, :foreign_key => :object_id,
+  has_many :curator_activity_logs, :foreign_key => :target_id,
     :conditions => Proc.new { "changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
       ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(',') } )" }
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid

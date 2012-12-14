@@ -44,7 +44,7 @@ class CollectionItemsController < ApplicationController
         # so render that entire summary box again
         if params[:render_overview_summary] && @collection_item.object.is_a?(TaxonConcept)
           if @errors.blank?
-            @taxon_concept = TaxonConcept.find(@collection_item.object_id)
+            @taxon_concept = TaxonConcept.find(@collection_item.collected_item_id)
             render :partial => 'taxa/collections_summary', :layout => false
           else
             render :text => @errors.to_sentence
@@ -135,11 +135,9 @@ private
   end
 
   def create_collection_item(data)
-    # Lame exception:
-    data["object_type"] = "User" if data["object_type"] == "Curator" # TODO - fix this later.  Grrr.
     @collection_item = CollectionItem.new(data)
     @collection_item.collection ||= current_user.watch_collection unless current_user.blank?
-    if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.id
+    if @collection_item.collected_item_type == 'Collection' && @collection_item.collected_item_id == @collection_item.collection.id
       @notices << I18n.t(:item_not_added_to_itself_notice,
                                :collection_name => @collection_item.collection.name)
     elsif @collection_item.save

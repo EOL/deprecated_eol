@@ -279,19 +279,20 @@ module ApiHelper
     end
     
     return_hash['collection_items'] = []
+    # NOTE - Not changing object_id and object_type here, since it's Solr-related.
     @collection_results.each do |r|
       ci = r['instance']
       item_hash = {
         'name' => r['title'],
-        'object_type' => ci.object_type,
-        'object_id' => ci.object_id,
+        'object_type' => ci.collected_item_type,
+        'object_id' => ci.collected_item_id,
         'title' => ci.name,
         'created' => ci.created_at,
         'updated' => ci.updated_at,
         'annotation' => ci.annotation,
         'sort_field' => ci.sort_field
       }
-      case ci.object_type
+      case ci.collected_item_type
       when 'TaxonConcept'
         item_hash['richness_score'] = r['richness_score']
         # item_hash['taxonRank'] = ci.object.entry.rank.label.firstcap unless ci.object.entry.rank.nil?

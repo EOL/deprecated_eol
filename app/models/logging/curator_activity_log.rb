@@ -27,7 +27,7 @@ class CuratorActivityLog < LoggingModel
   after_create :queue_notifications
 
   # I don't know why attribute-whitelisting still applies during tests, but they do.  Grr:
-  attr_accessible :user, :user_id, :changeable_object_type, :changeable_object_type_id, :target_id,
+  attr_accessible :user, :user_id, :changeable_object_type, :changeable_object_type_id, :target, :target_id,
     :hierarchy_entry, :hierarchy_entry_id, :taxon_concept, :taxon_concept_id, :activity, :activity_id, :created_at,
     :data_object, :data_object_id, :data_object_guid, :created_at
 

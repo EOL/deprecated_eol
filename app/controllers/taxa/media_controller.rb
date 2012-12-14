@@ -84,6 +84,9 @@ class Taxa::MediaController < TaxaController
       @rel_next_href = rel_next_href_params(@media) ? taxon_media_url(@rel_next_href_params) : nil
     end
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
+    if params[:ajax]
+      return render :partial => 'taxa/media/index'
+    end
   end
 
   def set_as_exemplar

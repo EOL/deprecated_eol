@@ -29,6 +29,9 @@ class Taxa::DetailsController < TaxaController
       taxon_entry_details_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_details_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
+    if params[:ajax]
+      return render :partial => 'index.html', :layout => false
+    end
   end
 
   def set_article_as_exemplar

@@ -9,6 +9,9 @@ class Taxa::ResourcesController < TaxaController
       taxon_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_resources_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_resources_content_partners, :taxon_concept_id => @taxon_concept.id)
+    if params[:ajax]
+      render :partial => 'taxa/resources/index'
+    end
   end
 
   def identification_resources

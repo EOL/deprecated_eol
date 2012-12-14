@@ -30,8 +30,11 @@ class Taxa::NamesController < TaxaController
 
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count
-    render :action => 'classifications'
-
+    if params[:ajax]
+      render :partial => 'classifications'
+    else
+      render :action => 'classifications'
+    end
   end
 
   # GET /pages/:taxon_id/names

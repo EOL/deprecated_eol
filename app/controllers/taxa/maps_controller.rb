@@ -24,6 +24,9 @@ class Taxa::MapsController < TaxaController
       taxon_entry_maps_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_maps_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_maps, :taxon_concept_id => @taxon_concept.id)
+    if params[:ajax]
+      render :partial => 'taxa/maps/index'
+    end
   end
 
 protected

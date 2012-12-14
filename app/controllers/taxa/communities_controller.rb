@@ -10,6 +10,9 @@ class Taxa::CommunitiesController < TaxaController
     @rel_canonical_href = @selected_hierarchy_entry ?
       taxon_entry_communities_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_communities_url(@taxon_concept)
+    if params[:ajax]
+      render :partial => 'taxa/communities/communities'
+    end
   end
 
   def collections

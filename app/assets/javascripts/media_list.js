@@ -1,6 +1,6 @@
 //= require jplayer/js/jquery.jplayer.min
 
-$(function() {
+EOL.start_media_list = function() {
 
   (function($switch_hierarchy_entry) {
     if ($("#switch_hierarchy_entry").length > 0) {
@@ -50,4 +50,8 @@ $(function() {
     });
   })($("#media_list"));
 
+};
+
+$(function() {
+  EOL.start_media_list();
 });

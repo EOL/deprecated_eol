@@ -27,7 +27,7 @@ module TaxaHelper
   def category_anchor(toc_entry)
     # TODO: This probably only works if set and then used in the same page since labels on TocEntry's
     # will vary depending on language, would be better if we had machine names on TocItems instead
-    toc_entry.label.gsub(/[^0-9a-z]/i, '_').strip.downcase
+    toc_entry.label ? toc_entry.label.gsub(/[^0-9a-z]/i, '_').strip.downcase : "FIXME"
   end
 
   # used in v2 taxa overview

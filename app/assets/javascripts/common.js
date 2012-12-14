@@ -516,6 +516,12 @@ $(function() {
     $flash_div.delay('5000').fadeOut('slow');
   })($("#flash-bad, #flash-good"));
 
+  $('li.ajax a').click(function() {
+    var $clicked = $(this);
+    return EOL.ajax_get($clicked, {update: $('#content .site_column'), type: 'GET', complete: function() { $('li.ajax.active').removeClass('active'); $clicked.parent().addClass('active'); } });
+    return(false);
+  });
+
 });
 
 (function($) {

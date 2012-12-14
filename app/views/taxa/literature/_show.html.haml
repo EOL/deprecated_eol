@@ -1,0 +1,14 @@
+#taxon_literature
+  = render :partial => 'literature_menu'
+  .main_container
+    .copy
+      - unless @references.blank?
+        %p.help_text= I18n.t(:the_following_bibliography)
+      %h3= I18n.t(:literature_header)
+      - if @references.blank?
+        .empty
+          %p= I18n.t(:literature_empty)
+      - else
+        %ul.ref_list
+          - @references.each do |r|
+            %li= raw(r.full_reference)

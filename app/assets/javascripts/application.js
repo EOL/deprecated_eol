@@ -17,6 +17,8 @@
 //= require jquery.modal
 //= require comments
 //= require navigation
+//= require exemplar_image
+//= require media_list
 
 $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");

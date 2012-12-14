@@ -16,6 +16,9 @@ class Taxa::UpdatesController < TaxaController
       @rel_next_href = rel_next_href_params(@taxon_activity_log) ? taxon_updates_url(@rel_next_href_params) : nil
     end
     current_user.log_activity(:viewed_taxon_concept_updates, :taxon_concept_id => @taxon_concept.id)
+    if params[:ajax]
+      render :partial => 'taxa/updates/index'
+    end
   end
 
   def statistics

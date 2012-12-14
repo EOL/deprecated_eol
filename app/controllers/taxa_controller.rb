@@ -58,6 +58,9 @@ class TaxaController < ApplicationController
       overview_taxon_entry_url(@taxon_concept, @selected_hierarchy_entry) :
       overview_taxon_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
+    if params[:ajax]
+      render :partial => 'taxa/overview', :layout => false
+    end
   end
 
   ################

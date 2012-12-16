@@ -3439,22 +3439,6 @@ ar:
         meta_title: مرادفات %{scientific_name}.
         meta_title_with_common_name: مرادفات%{preferred_common_name} (%{scientific_name})
         tweet_text: مرادفات %{scientific_name}.
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: ملخص المعلومات عن %{scientific_name} كما أقرها %{hierarchy_provider} بموسوعة الحياة
-          meta_description_with_common_name: معلومات حول %{preferred_common_name}، والمعروف علميًا باسم %{scientific_name} كما أقرها%{hierarchy_provider} بموسوعة الحياة.
-          meta_keywords: "%{scientific_name} كما أقره %{hierarchy_provider}، و%{scientific_name} حسب تصنيف %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} كما أقره %{hierarchy_provider}، و%{scientific_name} حسب تصنيف %{hierarchy_provider}"
-          meta_title: "%{scientific_name} حسب تصنيف %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} كما أقره %{hierarchy_provider}، و%{scientific_name} حسب تصنيف %{hierarchy_provider}"
-          tweet_text: نظرة عامة على%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: معلومات عن %{scientific_name} في موسوعة الحياة.
-        meta_description_with_common_name: معلومات عن%{preferred_common_name}، المعروف علمياً باسم %{scientific_name} في موسوعة الحياة.
-        meta_keywords: "%{scientific_name} كما أقره %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} كما أقره %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})  - معلومات عن %{preferred_common_name}"
-        tweet_text: معلومات عن %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

@@ -4,6 +4,7 @@
 # Author: Base
 # Author: Dim Grits
 # Author: Pig1995z
+# Author: Steve.rusyn
 # Author: Дар'я Козлова
 uk: 
   translated_activities-name-activity_id-19: профіль
@@ -80,6 +81,7 @@ uk:
   translated_contact_subjects-title-contact_subject_id-32: Запит медіа-ресурсів (інтерв'ю, прес-релізи, логотип)
   translated_contact_subjects-title-contact_subject_id-33: Зробити грошову пожертву
   translated_content_partner_statuses-label-content_partner_status_id-2: Активний
+  translated_content_partner_statuses-label-content_partner_status_id-4: Неактивний
   translated_content_tables-label-content_table_id-1: Деталі
   translated_data_types-label-data_type_id-1: Зображення
   translated_data_types-label-data_type_id-10: Карта
@@ -90,6 +92,7 @@ uk:
   translated_data_types-label-data_type_id-6: МСОП
   translated_data_types-label-data_type_id-7: Adobe Flash
   translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Права не захищені
   translated_licenses-description-license_id-2: "&#169; Усі права захищено"
   translated_licenses-description-license_id-29: Деякі права захищені
   translated_licenses-description-license_id-3: Деякі права захищені
@@ -114,7 +117,9 @@ uk:
   translated_ranks-label-rank_id-112: рід
   translated_ranks-label-rank_id-113: рід
   translated_ranks-label-rank_id-118: рід
+  translated_ranks-label-rank_id-169: інфраряд
   translated_ranks-label-rank_id-175: надвид
+  translated_ranks-label-rank_id-183: царство
   translated_ranks-label-rank_id-266: відділ
   translated_ranks-label-rank_id-280: тип
   translated_ranks-label-rank_id-335: вид
@@ -129,11 +134,16 @@ uk:
   translated_ranks-label-rank_id-413: підвид
   translated_ranks-label-rank_id-414: підвид
   translated_ranks-label-rank_id-415: підвид
+  translated_ranks-label-rank_id-422: підтриба
+  translated_ranks-label-rank_id-463: надродина
+  translated_ranks-label-rank_id-472: надтип
+  translated_ranks-label-rank_id-494: триба
   translated_ranks-label-rank_id-51: клас
   translated_ranks-label-rank_id-513: різн.
   translated_ranks-label-rank_id-517: різновиди
   translated_ranks-label-rank_id-518: різновидність
   translated_ranks-label-rank_id-562: ноторід
+  translated_ranks-label-rank_id-74: тип
   translated_ranks-label-rank_id-85: родина
   translated_ranks-label-rank_id-86: родина
   translated_ranks-label-rank_id-91: родина

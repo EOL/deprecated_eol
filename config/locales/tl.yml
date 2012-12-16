@@ -3351,22 +3351,6 @@ tl:
         meta_title: Mga singkahulugan ng %{scientific_name}
         meta_title_with_common_name: Mga singkahulugan ng %{preferred_common_name} (%{scientific_name})
         tweet_text: Mga singkahulugan ng %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Isang kabuuran ng kabatiran na patungkol sa %{scientific_name} ayon sa pagkilala ni %{hierarchy_provider} sa loob ng Ensiklopedya ng Buhay.
-          meta_description_with_common_name: Isang buod ng kabatiran na patungkol sa %{preferred_common_name}, na nakikilala rin bilang %{scientific_name} ayon sa pagkilala ni %{hierarchy_provider} sa loob ng Ensiklopedya ng Buhay.
-          meta_keywords: Ang %{scientific_name} na kinilala ni %{hierarchy_provider}, ang %{scientific_name} na ayon sa pagkakauri ni %{hierarchy_provider}
-          meta_keywords_with_common_name: Ang %{scientific_name} na kinikilala ni %{hierarchy_provider}, ang %{scientific_name} na ayon sa pagkakauri ni %{hierarchy_provider}
-          meta_title: Ang %{scientific_name} na Iniuri ni %{hierarchy_provider}
-          meta_title_with_common_name: Ang %{preferred_common_name} (%{scientific_name} na Iniuri ni %{hierarchy_provider})
-          tweet_text: Malawakang pagtanaw ng %{scientific_name} ayon sa pagkakauri ni %{hierarchy_provider}
-        meta_description: Mga kabatiran hinggil sa %{scientific_name} na nasa loob ng Ensiklopedya ng Buhay.
-        meta_description_with_common_name: Mga kabatiran hinggil sa %{preferred_common_name}, na nakikilala sa agham bilang %{scientific_name} sa loob ng Ensiklopedya ng Buhay.
-        meta_keywords: kabatiran hinggil sa %{scientific_name}, kabatiran sa %{scientific_name}
-        meta_keywords_with_common_name: kabatiran hinggil sa %{scientific_name},kabatiran hinggil sa %{preferred_common_name},kabatiran at mga katotohanan sa %{scientific_name},kabatiran sa %{preferred_common_name}
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Kabatiran hinggil sa %{preferred_common_name}"
-        tweet_text: Kabatiran ukol sa %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

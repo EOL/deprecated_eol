@@ -285,6 +285,7 @@ mk:
           attributes: 
             publish: 
               inclusion: е допуштено само за најновото преземање и само ако не е веќе објавено
+        inaccessible: Не можев да го зачувам записот бидејќи е неважечки. Исправете ги грешките и поднесете го повторно.
         open_authentications: 
           guid_provider_must_be_unique: сметката на надворешниот добавувач е веќе поврзана со сметка на EOL
           provider_user_id_must_be_unique: секој надворешен добавувач може да поврзе само по една негова сметка со сметка на EOL
@@ -984,6 +985,7 @@ mk:
   anonymous_user_given_name: Анонимен
   anonymous_user_tag_line: Не сте најавени
   any_integer: секој цел број
+  any_string: било која низа
   api_docs_collections_description: Кога ќе му се зададе назнака на збирка, овој API ќе ги даде сите метаподатоци за збирката и експонатите што ги содржи. Списокот на експонати може да се филтрира по тип и да се подредува по горенаведените атрибути.
   application_version_advisory_information: Верзија на програмот
   are_you_sure: Дали сте сигурни?
@@ -1147,6 +1149,7 @@ mk:
   cms_missing_content_title: Недостасува превод
   collect_item: Додај во збирка
   collect_items: Додај во збирка
+  collection_api_sort_field_notes: Ако се содржи параметар „sort_field“, ќе се даваат само експонати (предмети) чие поле на подредување точно се совпаѓа со дадената низа
   collection_created_notice: Збирката <em>%{collection_name}</em> е успешно создадена.
   collection_created_with_count_notice: 
     one: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонат.
@@ -3472,22 +3475,6 @@ mk:
         meta_title: Синоними на %{scientific_name}
         meta_title_with_common_name: Синоними на %{preferred_common_name} (%{scientific_name})
         tweet_text: Синоними на %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Преглед на информациите за %{scientific_name} признаено од %{hierarchy_provider} во Енциклопедијата на живиот свет.
-          meta_description_with_common_name: Преглед на информациите за %{preferred_common_name} (%{scientific_name}) признаено од %{hierarchy_provider} во Енциклопедијата на живиот свет.
-          meta_keywords: "%{scientific_name} признаено од %{hierarchy_provider}, %{scientific_name} според класификацијата на %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} признаено од %{hierarchy_provider}, %{scientific_name} според класификацијата на %{hierarchy_provider}"
-          meta_title: "%{scientific_name} според класификацијата на %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})"
-          tweet_text: Преглед на %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Информации за %{scientific_name} во Енциклопедијата на живиот свет.
-        meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
-        meta_keywords: "%{scientific_name} признаено од %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} признаено од %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Информации за %{preferred_common_name}"
-        tweet_text: Информации за %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

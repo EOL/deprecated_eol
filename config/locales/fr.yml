@@ -285,6 +285,7 @@ fr:
           attributes: 
             publish: 
               inclusion: n’est autorisé que pour le dernier événement de récolte et seulement si cet événement n’est pas encore publié
+        inaccessible: L'enregistrement n'a pas pu être sauvegardé car il n'était pas valide. Contrôlez les erreurs de validation et resoumettez-le.
         open_authentications: 
           guid_provider_must_be_unique: le compte tiers est déjà connecté avec un compte EdlV
           provider_user_id_must_be_unique: un seul compte de chaque fournisseur tiers peut être connecté à un compte EdlV
@@ -433,6 +434,65 @@ fr:
         user_associated_data_object_to_association: <strong>%{user}</strong> a ajouté une association entre "%{data_object}" et "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> a ajouté une association à une page inconnue.
         user_associated_it_to_association: <strong>%{user}</strong> a ajouté une association à "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Un utilisateur inconnu a ajouté un nom commun inconnu dans une langue inconnue à une page inconnue.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Un utilisateur inconnu a ajouté un nom commun inconnu dans une langue inconnue
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Un utilisateur inconnu a ajouté un nom commun inconnu dans une langue inconnue à "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Un utilisateur inconnu a ajouté un nom commun inconnu en %{language} à une page inconnue.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Un utilisateur inconnu a ajouté un nom commun inconnu en %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Un utilisateur inconnu a ajouté un nom commun inconnu en %{language} à "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Un utilisateur inconnu a ajouté le nom commun "%{name}" dans une langue inconnue à une page inconnue.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Un utilisateur inconnu a ajouté le nom commun "%{name}" dans une langue inconnue.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Un utilisateur inconnu a ajouté le nom commun "%{name}" dans une langue inconnue à "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Un utilisateur inconnu a ajouté le nom commun "%{name}" en %{language} à une page inconnue.
+        an_unknown_user_added_name_in_language_to_it: Un utilisateur inconnu a ajouté le nom commun "%{name}" en %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: Un utilisateur inconnu a ajouté le nom commun "%{name}" en %{language} à "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> a ajouté un nom commun inconnu dans une langue inconnue à une page inconnue.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> a ajouté un nom commun inconnu dans une langue inconnue.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> a ajouté un nom commun inconnu dans une langue inconnue à "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> a ajouté un nom commun inconnu en %{language} à une page inconnue.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> a ajouté un nom commun inconnu en %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> a ajouté un nom commun inconnu en %{language} à "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> a ajouté le nom commun "%{name}" dans une langue inconnue à une page inconnue.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> a ajouté le nom commun "%{name}" dans une langue inconnue.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> a ajouté le nom commun "%{name}" dans une langue inconnue à "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> a ajouté le nom commun "%{name}" en  %{language} à une page inconnue.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> a ajouté le nom commun "%{name}" en %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> a ajouté le nom commun "%{name}" en %{language} à "%{taxon}".
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un utilisateur inconnu a sélectionné une ancienne version de "%{data_object}" pour afficher un aperçu sur une page inconnue.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un utilisateur inconnu a sélectionné "%{data_object}" pour afficher un aperçu sur "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Un utilisateur inconnu a sélectionné un article inconnu pour afficher un aperçu sur une page inconnue.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Un utilisateur inconnu a sélectionné un article inconnu pour afficher un aperçu sur "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Un utilisateur inconnu a sélectionné "%{data_object}" pour afficher un aperçu sur une page inconnue.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Un utilisateur inconnu a sélectionné "%{data_object}" pour afficher un aperçu sur "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Un utilisateur inconnu l'a sélectionné pour afficher un aperçu sur une page inconnue.
+        an_unknown_user_chose_exemplar_it_on_taxon: Un utilisateur inconnu l'a sélectionné pour afficher un aperçu sur "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a sélectionné une ancienne version de "%{data_object}" pour afficher un aperçu sur une page inconnue.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> a sélectionné une ancienne version de "%{data_object}" pour afficher un aperçu sur "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a sélectionné un article inconnu pour afficher un aperçu sur une page inconnue.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> a sélectionné un objet de donnée inconnu pour afficher un aperçu sur "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a sélectionné "%{data_object}" pour afficher un aperçu sur une page inconnue.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> a sélectionné "%{data_object}" pour afficher un aperçu sur "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> l'a sélectionné pour afficher un aperçu sur une page inconnue.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> l'a sélectionné pour afficher un aperçu sur "%{taxon}".
+      choose_exemplar_image: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un utilisateur inconnu a fixé une ancienne version de "%{data_object}" comme modèle sur une page inconnue.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un utilisateur inconnu a fixé "%{data_object}" comme modèle sur "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Un utilisateur inconnu a fixé une image modèle inconnue.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Un utilisateur inconnu a fixé un objet de donnée inconnu comme modèle sur "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Un utilisateur inconnu a fixé "%{data_object}" comme modèle sur une page inconnue.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Un utilisateur inconnu a fixé "%{data_object}" comme modèle sur "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Un utilisateur inconnu l'a fixé comme modèle sur une page inconnue.
+        an_unknown_user_chose_exemplar_it_on_taxon: Un utilisateur inconnu l'a fixé comme modèle sur "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a fixé une ancienne version de "%{data_object}" comme modèle sur une page inconnue.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> a fixé une ancienne version de "%{data_object}" comme modèle sur "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a fixé une image modèle inconnue.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> a fixé un objet de donnée inconnu comme modèle sur "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a fixé "%{data_object}" comme modèle sur une page inconnue.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> a fixé "%{data_object}" comme modèle sur "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> l'a fixé comme modèle sur une page inconnue.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> l'a fixé comme modèle sur "%{taxon}".
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masqué dans un contexte inconnu.
         an_unknown_user_hid_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masquée sur la page "%{association}".
@@ -459,7 +519,29 @@ fr:
         an_unknown_user_disassociated_an_unknown_data_object_from_association: Un utilisateur inconnu a supprimé une association entre un objet de donnée inconnu et "%{association}".
         an_unknown_user_disassociated_data_object_from_an_unknown_association: Un utilisateur inconnu a supprimé une association entre "%{data_object}" et une page inconnue.
         an_unknown_user_disassociated_data_object_from_association: Un utilisateur inconnu a supprimé une association entre "%{data_object}" et "%{association}".
+        an_unknown_user_disassociated_it_from_an_unknown_association: Un utilisateur inconnu a supprimé une association vers une page inconnue.
+        an_unknown_user_disassociated_it_from_association: Un utilisateur inconnu a supprimé une association vers "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> a supprimé une association entre une ancienne version de "%{data_object}" et une page inconnue.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> a supprimé une association entre une ancienne version de "%{data_object}" et "%{association}".
         user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> a retiré une association inconnue.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> a supprimé une association entre un objet de donnée inconnu et "%{association}".
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> a supprimé une association entre "%{data_object}" et une page inconnue.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> a supprimé une association entre "%{data_object}" et "%{association}".
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> a supprimé une association vers une page inconnue.
+        user_disassociated_it_from_association: <strong>%{user}</strong> a supprimé une association vers "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Un utilisateur inconnu a supprimé un nom commun dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Un utilisateur inconnu a supprimé un nom commun dans une langue inconnue.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Un utilisateur inconnu a supprimé un nom commun dans une langue inconnue de "%{taxon}".
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Un utilisateur inconnu a supprimé un nom commun en %{language} depuis une page inconnue.
+        an_unknown_user_removed_name_in_language_from_it: Un utilisateur inconnu a supprimé un nom commun en %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Un utilisateur inconnu a supprimé un nom commun en %{language} de "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> a supprimé un nom commun dans une langue inconnue depuis une page inconnue.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> a supprimé un nom commun dans une langue inconnue.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> a supprimé un nom commun dans une langue inconnue de "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> a supprimé un nom commun en %{language} depuis une page inconnue.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> a supprimé un nom commun en %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> a supprimé un nom commun en %{language} de "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme visible dans un contexte inconnu.
         an_unknown_user_showed_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme visible sur la page "%{association}".
@@ -477,6 +559,13 @@ fr:
         user_showed_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme visible sur la page "%{association}".
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme visible dans un contexte inconnu.
         user_showed_it_on_association: <strong>%{user}</strong> l'a marqué comme visible sur la page "%{association}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu dans une langue inconnue depuis "%{taxon}".
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu en %{language} depuis une page inconnue.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu en %{language} depuis "%{taxon}".
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable le nom commun "%{name}" dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable le nom commun "%{name}" en %{language} depuis une page inconnue.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme fiable dans un contexte inconnu.
         an_unknown_user_trusted_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme fiable sur la page "%{association}".
@@ -2312,6 +2401,7 @@ fr:
   no_errors_are_available: Aucune erreur n’est disponible.
   no_harvesting_logs_for_this_da: Aucun journal de collecte pour cette date.
   no_items_were_copied_to_collections_error: "Aucun élément n’a été copié dans les collections : %{names}."
+  no_news_items_for_month_and_year: Aucune actualité pour %{month_and_year}
   no_record_found_matching_your_criteria: Aucun enregistrement trouvé correspondant à vos critères.
   no_related_names: Aucun nom n’est pour le moment lié à ce taxon.
   no_results_for: aucun résultat pour
@@ -2529,6 +2619,7 @@ fr:
   please_state_one_credential: "Veuillez indiquer au moins un certificat spécifique de cette liste :"
   please_wait: Veuillez patienter...
   post_comment: Envoyer un commentaire
+  posts_from_year: Messages de %{year}
   preferred_common_name_advisory_information: Nom vulgaire préféré pour ce taxon
   press_room: Salle de presse
   preview: aperçu
@@ -3028,22 +3119,6 @@ fr:
         meta_title: Synonymes de %{scientific_name}
         meta_title_with_common_name: Synonymes du (de la) %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonymes de %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Un résumé des informations concernant %{scientific_name}, tel que classé par %{hierarchy_provider}, dans l’Encyclopédie de la Vie.
-          meta_description_with_common_name: Un résumé des informations concernant %{preferred_common_name}, scientifiquement appelé %{scientific_name}, tel que classé par %{hierarchy_provider}, dans l’Encyclopédie de la Vie.
-          meta_keywords: "%{scientific_name} tel que reconnu par %{hierarchy_provider}, %{scientific_name} tel que classé par %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} reconnu par %{hierarchy_provider}, %{scientific_name} classé par %{hierarchy_provider}"
-          meta_title: "%{scientific_name} Classé par %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Classé par %{hierarchy_provider})"
-          tweet_text: Vue d’ensemble de %{scientific_name}, tel que classé par %{hierarchy_provider}
-        meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie.
-        meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} dans l’Encyclopédie de la Vie.
-        meta_keywords: info sur %{scientific_name},information de %{scientific_name}
-        meta_keywords_with_common_name: info sur %{scientific_name}, info sur %{preferred_common_name}, information et faits sur %{scientific_name}, information sur %{preferred_common_name}
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information sur %{preferred_common_name}"
-        tweet_text: Information sur %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3166,7 +3241,7 @@ fr:
     one: "%{count} article"
     other: "%{count} articles"
   thank_you: Merci
-  thank_you_for_your_generous_support: Merci pour votre généreux soutien
+  thank_you_for_your_generous_support: Merci pour votre généreux soutien !
   thanks_for_donation: Merci de soutenir l’Encyclopédie de la Vie. Vos informations ont été envoyées et vont être traitées.
   thanks_for_your_time: Merci pour votre temps,
   the_amount_entered_was: "Le montant indiqué était : %{number} $US"
@@ -3300,6 +3375,7 @@ fr:
   uploaded_content: Contenu téléversé
   uploaded_on: Téléversé sur
   url: URL
+  url_not_accessible: Cette URL n'est pas accessible
   us_dolars_75: 75 US$
   us_dollars_100: 100 US$
   us_dollars_35: 35 US$

@@ -60,7 +60,7 @@ sv:
         notes: Projektanteckningar
         public: Offentlig
         resources: Resurser
-        user_id: Leds av
+        user_id: Hanterad av
         vetted: Granskad
       content_partner_agreement: 
         created_at: Skapades den
@@ -314,6 +314,7 @@ sv:
         an_unknown_user_removed_item_from_collection: En okänd användare tog bort "%{item}" från samlingen "%{collection}".
         an_unknown_user_removed_item_from_it: En okänd användare tog bort "%{item}".
         user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> tog bort ett okänt objekt från en okänd samling.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> tog bort ett okänt objekt från samlingen "%{collection}".
         user_removed_an_unknown_item_from_it: <strong>%{user}</strong> tog bort ett okänt objekt.
         user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> tog bort "%{item}" en okänd samling.
         user_removed_item_from_collection: <strong>%{user}</strong> tog bort "%{item}" från samlingen "%{collection}".
@@ -329,6 +330,12 @@ sv:
       add_manager: 
         an_unknown_user_added_an_unknown_manager_to_an_unknown_community: En okänd användare lade till en okänd hanterare till en okänd gemenskap.
         an_unknown_user_added_an_unknown_manager_to_community: En okänd användare lade till en okänd hanterare till gemenskapen "%{community}".
+        an_unknown_user_added_manager_to_an_unknown_community: En okänd användare lade till "%{manager}" som en hanterare till en okänd gemenskap.
+        an_unknown_user_added_manager_to_community: En okänd användare lade till "%{manager}" som en hanterare till gemenskapen "%{community}".
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> lade till en okänd hanterare till en okänd samling.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> lade till en okänd hanterare till gemenskapen "%{community}".
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> lade till "%{manager}" till en okänd samling.
+        user_added_manager_to_community: <strong>%{user}</strong> lade till "%{manager}" som en hanterare av gemenskapen "%{community}".
       change_description: 
         an_unknown_user_changed_the_description_of_an_unknown_community: En okänd användare ändrade beskrivningen av en okänd gemenskap.
         an_unknown_user_changed_the_description_of_community: En okänd användare ändrade beskrivningen av gemenskapen "%{community}".
@@ -360,11 +367,51 @@ sv:
         user_left_an_unknown_community: <strong>%{user}</strong> lämnade en okänd gemenskap.
         user_left_community: <strong>%{user}</strong> lämnade gemenskapen "%{community}".
       other_actions: 
+        an_unknown_user_modified_an_unknown_community: En okänd användare ändrade en okänd gemenskap.
+        an_unknown_user_modified_community: En okänd användare ändrade gemenskapen "%{community}".
         user_modified_an_unknown_community: <strong>%{user}</strong> ändrade en okänd gemenskap.
         user_modified_community: <strong>%{user}</strong> ändrade gemenskapen "%{community}".
     curator_activity_log: 
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: En okänd användare markerade en äldre version av "%{data_object}" som dold i en okänd kontext.
+        an_unknown_user_hid_an_older_data_object_on_association: En okänd användare markerade en äldre version av "%{data_object}" som dold på sidan "%{association}".
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: En okänd användare markerade ett okänt dataobjekt som dold i en okänd kontext.
+        an_unknown_user_hid_an_unknown_data_object_on_association: En okänd användare markerade ett okänd dataobjekt som dold på sidan "%{association}".
+        an_unknown_user_hid_data_object_on_an_unknown_association: En okänd användare markerade "%{data_object}" som dold i en okänd kontext.
+        an_unknown_user_hid_data_object_on_association: En okänd användare markerade "%{data_object}" som dold på sidan "%{association}".
+        an_unknown_user_hid_it_on_an_unknown_association: En okänd användare markerade den som dold i en okänd kontext.
+        an_unknown_user_hid_it_on_association: En okänd användare markerade den som dold på sidan "%{association}".
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som dold i en okänd kontext.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som dold på sidan "%{association}".
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade ett okänt dataobjekt som dold i en okänd kontext.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> markerade ett okänd dataobjekt som dold på sidan "%{association}".
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade "%{data_object}" som dold i en okänd kontext.
+        user_hid_data_object_on_association: <strong>%{user}</strong> markerade "%{data_object}" som dold på sidan "%{association}".
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> markerade den som dold i en okänd kontext.
+        user_hid_it_on_association: <strong>%{user}</strong> markerade den som dold på sidan "%{association}".
+      other_actions: 
+        user_curated_an_older_data_object: <strong>%{user}</strong> kurerade en äldre version av "%{data_object}".
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> kurerade ett okänt dataobjekt.
+        user_curated_data_object: <strong>%{user}</strong> kurerade "%{data_object}".
       reasons_to_hide: "Anledningar att dölja: %{reasons}"
       reasons_to_untrust: "Anledningar att inte vara pålitlig: %{reasons}"
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: En okänd användare markerade en äldre version av "%{data_object}" som synlig i en okänd kontext.
+        an_unknown_user_showed_an_older_data_object_on_association: En okänd användare markerade en äldre version av "%{data_object}" som synlig på sidan "%{association}".
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: En okänd användare markerade ett okänt dataobjekt som synlig i en okänd kontext.
+        an_unknown_user_showed_an_unknown_data_object_on_association: En okänd användare markerade ett okänd dataobjekt som synlig på sidan "%{association}".
+        an_unknown_user_showed_data_object_on_an_unknown_association: En okänd användare markerade "%{data_object}" som synlig i en okänd kontext.
+        an_unknown_user_showed_data_object_on_association: En okänd användare markerade "%{data_object}" som synlig på sidan "%{association}".
+        an_unknown_user_showed_it_on_an_unknown_association: En okänd användare markerade den som synlig i en okänd kontext.
+        an_unknown_user_showed_it_on_association: En okänd användare markerade den som synlig på sidan "%{association}".
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som synlig i en okänd kontext.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som synlig på sidan "%{association}".
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade ett okänt dataobjekt som synlig i en okänd kontext.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> markerade ett okänd dataobjekt som synlig på sidan "%{association}".
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade "%{data_object}" som synlig i en okänd kontext.
+        user_showed_data_object_on_association: <strong>%{user}</strong> markerade "%{data_object}" som synlig på sidan "%{association}".
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> markerade den som synlig i en okänd kontext.
+        user_showed_it_on_association: <strong>%{user}</strong> markerade den som synlig på sidan "%{association}".
       trust_common_name: 
         an_unknown_user_trusted_name_in_an_unknown_language_on_it: En okänd användare markerade det vanliga namnet "%{name}" på ett okänt språk som pålitlig.
         an_unknown_user_trusted_name_in_language_on_it: En okänd användare markerade det vanliga namnet "%{name}" på %{language} som pålitlig.
@@ -372,13 +419,64 @@ sv:
         user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> markerade ett okänt vanligt namn på %{language} som pålitlig.
         user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> markerade det vanliga namnet "%{name}" på ett okänt språk som pålitlig.
         user_trusted_name_in_language_on_it: <strong>%{user}</strong> markerade det vanliga namnet "%{name}" på %{language} som pålitlig.
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: En okänd användare markerade en äldre version av "%{data_object}" som pålitlig i en okänd kontext.
+        an_unknown_user_trusted_an_older_data_object_on_association: En okänd användare markerade "%{data_object}" som pålitlig på sidan "%{association}".
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: En okänd användare markerade ett okänt dataobjekt som pålitlig i en okänd kontext.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: En okänd användare markerade ett okänd dataobjekt som pålitlig på sidan "%{association}".
+        an_unknown_user_trusted_data_object_on_an_unknown_association: En okänd användare markerade "%{data_object}" som pålitlig i en okänd kontext.
+        an_unknown_user_trusted_data_object_on_association: En okänd användare markerade "%{data_object}" som pålitlig på sidan "%{association}".
+        an_unknown_user_trusted_it_on_an_unknown_association: En okänd användare markerade den som pålitlig i en okänd kontext.
+        an_unknown_user_trusted_it_on_association: En okänd användare markerade den som pålitlig på sidan "%{association}".
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som pålitlig i en okänd kontext.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som pålitlig på sidan "%{association}".
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade ett okänt dataobjekt som pålitlig i en okänd kontext.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> markerade ett okänd dataobjekt som pålitlig på sidan "%{association}".
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade "%{data_object}" som pålitlig i en okänd kontext.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> markerade "%{data_object}" som pålitlig på sidan "%{association}".
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> markerade den som pålitlig i en okänd kontext.
+        user_trusted_it_on_association: <strong>%{user}</strong> markerade den som pålitlig på sidan "%{association}".
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: En okänd användare markerade en äldre version av "%{data_object}" som ogranskad i en okänd kontext.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: En okänd användare markerade en äldre version av "%{data_object}" som ogranskad på sidan "%{association}".
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: En okänd användare markerade ett okänt dataobjekt som ogranskad i en okänd kontext.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: En okänd användare markerade ett okänd dataobjekt som ogranskad på sidan "%{association}".
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: En okänd användare markerade "%{data_object}" som ogranskad i en okänd kontext.
+        an_unknown_user_unreviewed_data_object_on_association: En okänd användare markerade "%{data_object}" som ogranskad på sidan "%{association}".
+        an_unknown_user_unreviewed_it_on_an_unknown_association: En okänd användare markerade den som ogranskad i en okänd kontext.
+        an_unknown_user_unreviewed_it_on_association: En okänd användare markerade den som ogranskad på sidan "%{association}".
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som ogranskad i en okänd kontext.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som ogranskad på sidan "%{association}".
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade ett okänt dataobjekt som ogranskad i en okänd kontext.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> markerade ett okänd dataobjekt som ogranskad på sidan "%{association}".
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade "%{data_object}" som ogranskad i en okänd kontext.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> markerade "%{data_object}" som ogranskad på sidan "%{association}".
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> markerade den som ogranskad i en okänd kontext.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> markerade den som ogranskad på sidan "%{association}".
       untrust_common_name: 
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: En okänd användare markerade ett okänt vanligt namn på ett okänt språk från en okänd sida som opålitlig.
         an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: En okänd användare markerade ett okänt vanligt namn på %{language} från en okänd sida som opålitlig.
       untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: En okänd användare markerade en äldre version av "%{data_object}" som opålitlig i en okänd kontext.
+        an_unknown_user_untrusted_an_older_data_object_on_association: En okänd användare markerade en äldre version av "%{data_object}" som opålitlig på sidan "%{association}".
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: En okänd användare markerade ett okänt dataobjekt som opålitlig i en okänd kontext.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: En okänd användare markerade ett okänd dataobjekt som opålitlig på sidan "%{association}".
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: En okänd användare markerade "%{data_object}" som opålitlig i en okänd kontext.
         an_unknown_user_untrusted_data_object_on_association: En okänd användare markerade "%{data_object}" som opålitlig på sidan "%{association}".
+        an_unknown_user_untrusted_it_on_an_unknown_association: En okänd användare markerade den som opålitlig i en okänd kontext.
+        an_unknown_user_untrusted_it_on_association: En okänd användare markerade den som opålitlig på sidan "%{association}".
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som opålitlig i en okänd kontext.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som opålitlig på sidan "%{association}".
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade ett okänt dataobjekt som pålitlig i en okänd kontext.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> markerade ett okänd dataobjekt som opålitlig på sidan "%{association}".
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> markerade "%{data_object}" som opålitlig i en okänd kontext.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> markerade "%{data_object}" som opålitlig på sidan "%{association}".
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> markerade den som opålitlig i en okänd kontext.
+        user_untrusted_it_on_association: <strong>%{user}</strong> markerade den som opålitlig på sidan "%{association}".
+  activity_user_created_link: <strong>%{user}</strong> lade till en länk till "%{object_name}" på "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> lade till text till "%{object_name}" på "%{taxon_concept}".
-  activity_user_updated_text: <strong>%{user}</strong> uppdaterade "%{object_name}" text på "%{taxon_concept}".
+  activity_user_updated_link: <strong>%{user}</strong> uppdaterade länken "%{object_name}" på "%{taxon_concept}".
+  activity_user_updated_text: <strong>%{user}</strong> uppdaterade texten "%{object_name}" på "%{taxon_concept}".
   add: Lägg till
   add_a_collection_to_a_community: Lägg till "%{collection}" i en gemenskap
   add_a_comment: Lägg till en kommentar.
@@ -388,19 +486,35 @@ sv:
   add_a_new_role: Lägg till en ny roll
   add_a_new_search_suggestion: Lägg till ett nytt sökförslag
   add_a_new_term: Lägg till en ny term
+  add_a_new_topic_area: Lägg till ett nytt ämnesområde
   add_a_new_user: Lägg till ett nytt användare
+  add_a_taxon_association_label: Lägg till en taxonassociation
+  add_article_instead: lägg till en artikel i stället
   add_article_to_page_button: Lägg till en artikel
+  add_association_submit_button: lägg till association
   add_brief_summary_to_page_link_button: Lägg till en kort sammanfattning till denna sida
+  add_collection_to_a_new_community: Lägg till "%{collection}" i en ny gemenskap
+  add_collection_to_community: Lägg till samling i gemenskapen
   add_item_to_new_collection: Lägg till "%{item}" till en ny samling
   add_language: Lägg till språk
+  add_link_instead: lägg till en länk i stället
+  add_link_to_page_button: Lägg till en länk
+  add_new_association_link: Lägg till ny association
+  add_new_tag_suggestion: Lägg till nytt taggförslag
   add_page: Lägg till sida
+  add_sub_chapter: Lägg till underkaptiel
+  add_to_a_community: Lägg till i en gemenskap
   add_to_my_collection_button: Lägg till i min samling
+  admin_content_page_active: Publicerad
   admin_content_page_child_new_link: Skapa underordnad sida
   admin_content_page_create_successful_notice: Sidan <a href="#%{anchor}"><em>%{page_name}</em></a> har skapats.
   admin_content_page_create_unsuccessful_error: Tyvärr, ett fel uppstod, sidan skapades inte.
   admin_content_page_delete_confirmation: Är du säker på att du vill ta bort "%{page_name}" och alla översättningar. Raderingsåtgärder kan inte ångras.
+  admin_content_page_delete_successful_notice: Sidan %{page_name} och associerade översättningar har tagits bort.
+  admin_content_page_edit_header: Uppdatera bassidinformation för <em>%{page_name}</em>
   admin_content_page_new_header: Skapa en ny innehållssida
   admin_content_page_new_link: Skapa ny sida
+  admin_content_page_new_tip: Ange grundläggande information om denna sida. Unikt namn som är %{required_icon} krävs.
   admin_content_page_not_active: Ej publicerad
   admin_content_page_update_successful_notice: Sidan <a href="#%{anchor}"><em>%{page_name}</em></a> uppdaterades.
   admin_content_page_update_unsuccessful_error: Tyvärr, ett fel uppstod. Sidan kunde inte uppdateras.
@@ -437,7 +551,9 @@ sv:
   admin_translated_content_page_update_successful_notice: Översättning på %{language} för <a href="#%{anchor}"><em>%{page_name}</em></a> har uppdaterats.
   admin_translated_content_page_update_unsuccessful_error: Tyvärr, ett fel uppstod. Översättningen inte kunde uppdateras.
   admin_translated_news_item_edit_subheader: Redigera översättningen på %{language} för <em>%{page_name}</em>
+  admin_translated_news_item_new_header: Välj språk och lägg till innehåll
   admin_translated_news_item_new_link: Lägg till översättning
+  admin_translated_news_item_new_subheader: Lägg till översättning för <em>%{page_name}</em>
   admin_user_delete_successful_notice: Användare har raderats
   admin_user_hide_successful_notice: Användare har dolts
   admin_user_unhide_successful_notice: Användare har tagits fram
@@ -525,15 +641,22 @@ sv:
   associated_with_article_header: I den senaste artikeln
   associated_with_image_header: I den senaste bilden
   associated_with_image_map_header: På den senaste kartan
+  associated_with_link_header: På den senaste länken
   associated_with_map_header: På den senaste kartan
   associated_with_sound_header: I det senaste ljudet
   associated_with_video_header: I den senaste videon
+  association_hidden_for_taxa: 
+    one: "Dold för:"
+    other: "Dolda för:"
   association_trusted_for_taxa: 
     one: "Pålitlig för:"
     other: "Pålitliga för:"
   association_unreviewed_for_taxa: 
     one: "Ogranskad för:"
     other: "Ogranskade för:"
+  association_untrusted_for_taxa: 
+    one: "Opålitlig för:"
+    other: "Opålitliga för:"
   audio_mute: ljud av
   audio_pause: pausa
   audio_play: spela upp
@@ -646,6 +769,7 @@ sv:
   comment_new_title: Lägg till en ny kommentar
   comment_not_added_error: Tyvärr, ett fel uppstod. Kommentaren inte kunde läggas till.
   comment_or_rate_on_this_article: Kommentera eller betygsätt denna artikel
+  comment_or_rate_on_this_link: kommentera eller betygsätt denna länk
   comment_show_posters_image_alt: Profilbild för %{posters_name} som lade till denna kommentar.
   comments: Kommentarer
   comments_and_tags: Kommentarer och taggar
@@ -673,6 +797,7 @@ sv:
   communities_index_header: Aktiva gemenskaper
   communities_link: Gemenskaper
   communities_page_title: Gemenskaper
+  communities_summary_empty: Detta taxon har inte blivit framhävd av någon gemenskap ännu.
   communities_summary_header_with_count: 
     one: Tillhör %{count} gemenskap
     other: Tillhör %{count} gemenskaper
@@ -748,6 +873,7 @@ sv:
   content_partner_contact_new_edit_form_tip: Förnamn, efternamn och e-post är %{required_icon} nödvändigt.
   content_partner_contact_new_link: Lägg till ny kontakt
   content_partner_contact_new_page_subheader: Lägg till en kontakt
+  content_partner_contact_update_unsuccessful_error: Tyvärr, ett fel uppstod. Kontakten uppdaterades inte.
   content_partner_contacts_header: Kontakter
   content_partner_current_agreement_create_link: Skapa ny
   content_partner_current_agreement_edit_link: Redigera
@@ -770,6 +896,7 @@ sv:
   content_partner_has_unpublished_content_true: Opublicerat innehåll
   content_partner_latest_published_harvest_event_time_ago: Senast uppdaterad %{time_passed} sedan;
   content_partner_logo_alt_text: Logotyp för innehållspartner %{partner_name}
+  content_partner_managed_by_header: Hanterad av
   content_partner_new_link: Lägg till ny innehållspartner
   content_partner_new_page_subheader: Lägg till en ny innehållspartner
   content_partner_notes_header: Projektanteckningar
@@ -841,7 +968,7 @@ sv:
   copy: Kopiera
   copy_of_name: Kopia av %{name}
   copyright: "UPPHOVSRÄTT:"
-  correct_donation_message: Om denna information inte är korrekt, var god %{go_back_link} för att ändra
+  correct_donation_message: Om denna information inte är korrekt, var god %{go_back_link} för att ändringar.
   could_not_find_collection_error: Tyvärr, samlingen kunde inte hittas.
   could_not_find_user: Du är inte en medlem i denna gemenskap.
   count: Räkna
@@ -874,6 +1001,9 @@ sv:
   curator_level_assistant_curator: Assistentkurator
   curator_level_full_curator: Fullständig kurator
   curator_level_master_curator: Mästarkurator
+  curator_level_with_indefinite_article_assistant_curator: en <strong>assisterande kurator</strong>
+  curator_level_with_indefinite_article_full_curator: en <strong>fullständig kurator</strong>
+  curator_level_with_indefinite_article_master_curator: en <strong>mästarkurator</strong>
   curator_profile: kuratorprofil
   curator_question: Kurator?
   curators: Kuratorer
@@ -892,6 +1022,7 @@ sv:
   data_database_colon: "Data:"
   data_object: Dataobjekt
   data_object_ignore: ignorera detta objekt
+  data_object_undo_ignore: ta bort från ignoreringslistan
   data_objects: 
     show: 
       meta_description_article: Artikel - %{dato_description}
@@ -972,6 +1103,7 @@ sv:
   dato_edit_cancel: Avbryt
   dato_edit_link_button: Redigera denna länk
   dato_edit_link_title: Redigera länk
+  dato_edit_text_button: Redigera denna artikel
   dato_edit_text_title: Redigera artikel
   dato_new_edit_user_text_fieldset_content_header: Artikelinnehåll
   dato_new_edit_user_text_fieldset_information_header: Artikelinformation
@@ -997,29 +1129,43 @@ sv:
   disabled_for_now: INAKTIVERAD FÖR NU
   discover_link: Upptäck
   displaying_numerical_range: Visar %{start_number} &mdash; %{end_number}
+  do_you_want_to_be_a_curator: Vill du bli en kurator
   donate: Donera
   donation_amount_legend: Välj beloppet du vill donera
   donation_amount_other_label: Andra
   donation_error_no_amount: Välj ett donationsbelopp.
   donation_error_only_numbers: Ange ett belopp med enbart siffror.
   donation_introduction_paragraph_one: EOL växer varje dag. Vi uppmuntrar dig att utforska EOL och dra nytta av allt som finns att erbjuda. Vi ber dig hjälpa till att behålla det initiativ växandet med ditt bidrag av innehåll, expertis och ekonomiskt stöd.
+  donation_introduction_paragraph_two: Din generösa gåva till Encyclopedia of Life stöder vårt arbete för att tillhandahålla global tillgång till kunskap om livet på jorden.
   donation_sponsorship_content_title: Innehållssponsring
+  donation_sponsorship_preamble: "Om du vill veta mer om specifika program som är tillgängliga för sponsring, eller skulle vilja göra en återkommande gåva, kontakta Encyclopedia of Life:s sekretariat via <a href=\"mailto:%{email_address}\">e-post</a> eller telefon på 1 (202) 633-8730 (i USA). Möjligheter för inriktade gåvor inkluderar:"
   done_already: Redan klart
   download_wav_file: Ladda ned WAV-fil
+  duplicate_comment_warning: "Kommentaren sparades inte: Det verkar som du redan har skickat denna kommentar. ...Klickade du på knappen 'Skicka kommentar' två gånger?"
   edit: Redigera
   edit_collection_details: Redigera samlingsdetaljer
   edit_collection_details_header: Redigera samlingsdetaljer
   edit_comment: Redigera kommentar
   edit_comment_lowercase: redigera kommentar
   edit_community: Redigera gemenskap
+  edit_hierarchy: redigera hierarki
   edit_my_profile: Redigera min profil
   edit_news_items: redigera nyhetsobjekt
   edit_page_contents: redigera sidinnehåll
+  edit_search_suggestion: Redigera sökförslag
+  edit_search_suggestions: redigera sökförslag
+  edit_table_of_contents: redigera innehållsförteckningen
+  edit_tag_suggestions: redigera taggförslag
+  edit_the_user_s_comment_below: Redigera användarens kommentar nedan.
+  edit_upload: Redigera uppladdning
   edit_username: Redigera %{username}
   edit_web_users: redigera webbanvändare
   edited_colon: "redigerades:"
+  editors_tab_label: Hanterare
   email: E-post
   email_colon: "E-post:"
+  email_updates_for_eol_addicts: Uppdateringar för hängivna EOL-medlemmar.
+  email_updates_for_eol_members: Uppdateringar som de flesta EOL-medlemmarna vill få.
   encyclopedia_of_life: Encyclopedia of Life
   endorsed_by: Utvald av
   endorsed_collections: Utvalda samlingar
@@ -1037,6 +1183,7 @@ sv:
   eol_api_search: "EOL API: Sök"
   eol_api_search_by_provider: "EOL API: Sökning efter leverantör"
   eol_colon: "EOL:"
+  eol_curator_activity_email_message: Encyclopedia of Life-kurator <a href='%{profile_url}'>%{curator_full_name}</a> %{action} på <a href='%{data_object_url}'>EOL-sidan</a>%{comment}
   eol_glossary: EOL-ordlista
   eol_news: EOL-nyheter
   eol_pages: Sidor
@@ -1067,18 +1214,37 @@ sv:
       menu_link: Användarinlämnad text
       page_header: Statistik för användarinlämnad text
       page_title: Statistik
+  error_401_description: Tyvärr, du är inte behörig att få tillgång till denna URL.
+  error_401_page_title: Obehörig
+  error_403_description: Tyvärr, du är inte behörig att få tillgång till denna URL.
   error_403_page_title: Förbjudet
+  error_404_description: Vi beklagar, vi inte kunde hitta en sida på denna URL.
   error_404_page_title: Hittades inte
   error_500_description: Vi beklagar, vi har stött på ett problem. Om problemet uppstår, var god skicka ett e-postmeddelande till <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Internt serverfel
   error_default_description: Vi beklagar, vi har stött på ett problem. Om problemet uppstår, var god skicka ett e-postmeddelande till <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Hoppsan.
   error_homepage_or_search_option: "Du kan antingen gå tillbaka till <a href=\"/\">hemsidan</a> eller använda vårt sökverktyg:"
+  error_log: Fellogg
+  error_log_detail: Fellogg detalj
+  error_logging_active: Felloggning aktiv
   example_colon: "Exempel:"
+  exception: Undantag
+  exceptions: 
+    security_violations: 
+      default: Åtkomst nekad.
+      hidden_user_login: Tyvärr, inloggningen är inaktiverad för detta konto.
+      hidden_user_recover_account: Tyvärr, återställning har inaktiverats för detta konto.
+  expand_all_children: expandera alla undersidor
   explore: Utforska
   explore_what_we_know_about_taxon: Utforska vad EOL vet om %{taxon}.
+  export_all_of_the_entries_as_a: exportera alla poster som en CSV-fil
+  export_curator_csv_link: "[exportera alla kuratorer som CSV]"
+  export_this_list_as_csv: Exportera denna lista som CSV.
   external_link_header: Extern länk
   external_link_icon_alt_text: Extern länk.
+  external_report_click_url_to_proceed: Extern rapport. Klicka på URL:en om du vill fortsätta.
+  external_report_click_year_to_proceed: Extern rapport. Klicka på året för att fortsätta.
   facebook: Facebook
   failed_login_attempts_with_count: 
     one: (%{count} misslyckat inloggningsförsök)- måste vara inbockad för användare ska logga in
@@ -1109,6 +1275,7 @@ sv:
   filter_by_type_image_option_with_count: 
     one: Bild (%{count})
     other: Bilder (%{count})
+  filter_by_type_link_option: Länkar
   filter_by_type_name_option: Namn
   filter_by_type_photosynth_option: Fotosynteser
   filter_by_type_sound_option: Ljud
@@ -1149,10 +1316,14 @@ sv:
   frequency_daily: Dagligen
   frequency_monthly: Månatligen
   frequency_never: Aldrig
+  friendly_url: Vänlig URL
+  from_communities: "från gemenskaper: %{communities}"
   from_community: från gemenskapen %{community}.
   gbif_occurrence_learn_more_link: Kom åt dessa data genom GBIF-portalen.
   global_access_tagline: Global tillgång till kunskap om livet på jorden.
   global_navigation: Global navigation
+  glossary_is_empty: (ordlistan är tom)
+  glossary_terms: Ordlistetermer
   go: Gå
   go_back: Gå tillbaka
   google: Google
@@ -1392,7 +1563,9 @@ sv:
   images_with_count: 
     one: "%{count} bild"
     other: "%{count} bilder"
+  import_once: Importera en gång
   in_collection: i samling
+  in_community: i gemenskap
   in_this_data_type: "i denna %{data_type}:"
   inappropriate: Olämplig
   indexed: Indexerad
@@ -1436,6 +1609,7 @@ sv:
   join_eol_community_html: Bli en del av <abbr title="Encyclopedia of Life">EOL</abbr>-gemenskapen!
   joined_time_ago: Blev medlem %{time_passed} sedan
   just_pages_with_pictures_and_text: Bara sidor med bilder och text
+  key: Nyckel
   label: Etikett
   language: "Språk:"
   language_selector_advisory_information: Följande är en lista över de språk som webbplatsens innehåll finns tillgängligt på. Välj ett språkalternativt från denna lista för att ändra det aktuella språket.
@@ -1532,6 +1706,7 @@ sv:
   licensing: Licensiering
   link_more_about: Läs mer om denna länk
   link_name: Länknamn
+  link_rating: Länkbetyg
   links_with_count: 
     one: "%{count} länk"
     other: "%{count} länkar"
@@ -1555,6 +1730,9 @@ sv:
   logout: Logga ut
   looking_up_url: Kollar upp URL...
   maintained_by: underhålls av
+  make_user_an_editor_title: Tillåt %{user} att hantera följande samlingar
+  manage_your_profile: Hantera din profil
+  managed_by: Hanterad av
   managed_collections_with_count: 
     one: "%{count} hanterad samling"
     other: "%{count} hanterade samlingar"
@@ -1639,9 +1817,15 @@ sv:
   most_active_members: Mest aktiva medlemmar
   move: Flytta
   move_down: Flytta ned
+  move_items_to_a_new_collection_with_count: 
+    one: Flytta %{count} objekt till en ny samling
+    other: Flytta %{count} objekt till en ny samling
   move_to_bottom: flytta till botten
   move_to_top: flytta till toppen
   move_up: Flytta upp
+  moved_all_items_from_collection_with_count: 
+    one: Flyttade %{count} objekt från %{from} till denna samling.
+    other: Flyttade alla %{count} objekt från %{from} till denna samling.
   moved_items_from_collection_with_count_notice: 
     one: Flyttade %{count} objekt från %{name}.
     other: Flyttade %{count} objekt från %{name}.
@@ -1663,6 +1847,7 @@ sv:
   names_filter: Namn
   names_name_column_header: Namn
   names_parents_column_header: Överordnade
+  names_preferred_column_header: Föredragen
   names_relationship_column_header: Förhållande
   names_sources_column_header: Källor
   names_status_column_header: Status
@@ -1671,6 +1856,7 @@ sv:
   new_search_suggestion: Nya sökförslag
   new_upload: Ny uppladdning
   new_user: Ny användare
+  news_and_event_links: Nyheter- och händelselänkar
   news_available_in_languages: "Denna sida finns tillgänglig på:"
   news_date: Nyhetsdatum
   news_item: nyhetsobjekt
@@ -1705,6 +1891,7 @@ sv:
   notes_not_shown_to_user: "Anteckningar (visas inte för användare):"
   notification_frequency_daily_digest: Dagligt sammandrag
   notification_frequency_never: Aldrig
+  notification_frequency_newsfeed_only: Endast nyhetsflöde
   notification_frequency_send_immediately: Skicka omedelbart
   notification_frequency_weekly: Varje vecka
   notifications_tab_name: Meddelanden
@@ -1751,6 +1938,7 @@ sv:
       subject: EOL-användaren %{user_full_name} ändrade sina inställningar för e-postadress eller e-postlista
     user_verification: 
       subject: Var god kontrollera din begäran för ett Encyclopedia of Life-konto
+  num_content_partners: Antal innehållspartners
   num_data_objects: Antal dataobjekt
   object: Objekt
   object_status: Objektstatus
@@ -1832,6 +2020,7 @@ sv:
   percentage_of_descendants_with_images: procentandel av underordnade med bilder
   percentage_of_descendants_with_text: procentandel av underordnade med text
   permalink: Permanent länk
+  person_rating: Personbetyg
   personal_profile_menu: Personlig profil
   personal_space: Personliga utrymme
   please: Var god
@@ -1842,11 +2031,13 @@ sv:
   please_return_to_eol_homepage: Var god gå tillbaka till EOL:s hemsida
   please_wait: Var god vänta …
   post_comment: Skicka kommentar
+  posts_from_year: Inlägg från %{year}
   preferred_common_name_advisory_information: Föredragna vanliga namnet för detta taxon.
   press_room: Pressrum
   preview: förhandsgranska
   preview_changes: Förhandsgranska ändringar
   preview_version_of_latest_published_data_object_title_link: Förhandsgranska version av %{link}
+  proceed_to_checkout_page: Fortsätt till betalningssidan
   process_name: Processnamn
   profile: Profil
   profile_colon: "Profil:"
@@ -1954,6 +2145,7 @@ sv:
   results: Resultat
   results_offset: Resultat %{from} - %{to} av %{total} för <em>%{for}</em>
   results_per_page: "Resultat per sida:"
+  return: gå tillbaka
   revisions: Versioner
   revoke_full_curator_link: Återkalla
   revoke_manager_link: Återkalla ledarroll
@@ -1969,6 +2161,7 @@ sv:
   search_field_common_name: Vanligt namn
   search_field_label: Sök EOL
   search_field_preferred_common_name: Föredraget vanligt namn
+  search_field_preferred_scientific: Fördraget vetenskapligt namn
   search_field_surrogate: Surrogat
   search_field_synonym: Synonym
   search_for_comments_containing_the_text: "Sök efter kommentarer som innehåller texten:"
@@ -2098,6 +2291,7 @@ sv:
   special_collection: Specialsamling
   special_collections_cannot_be_destroyed: Denna samling är speciell och inte kan förstöras.
   species: Arter
+  started: Startad
   stats: Statistik
   subject: ämne
   submit: Skicka
@@ -2206,18 +2400,11 @@ sv:
       synonyms: 
         meta_keywords_with_common_name: Synonym för %{preferred_common_name}, Synonymer för %{scientific_name}
         tweet_text: Synonym för %{scientific_name}
-    overviews: 
-      show: 
-        meta_description: Information om %{scientific_name} i Encyclopedia of Life.
-        meta_description_with_common_name: Information om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life.
-        meta_keywords: info om %{scientific_name},%{scientific_name}information
-        meta_keywords_with_common_name: info om %{scientific_name},info om %{preferred_common_name},%{scientific_name} information och fakta,%{preferred_common_name}information
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information om %{preferred_common_name}"
-        tweet_text: Information om %{scientific_name}
     updates: 
       show: 
         meta_title: Kommentarer på %{scientific_name}
         tweet_text: Kommentarer på %{scientific_name}
+  taxa_column_header: Taxa
   taxa_with_count: 
     one: "%{count} taxon"
     other: "%{count} taxa"
@@ -2232,6 +2419,7 @@ sv:
   taxon_page_content_disclaimer_suggest_improvement: För att begära en förbättring, var god lämna en kommentar på sidan. Tack!
   taxon_rating: Taxonbetyg
   technical_functions: Tekniska funktioner
+  term_is_already_def_error: "'%{term}' definieras redan"
   terms_agreement_form_fallback: Var god läs igenom och godkänn <a href="%{terms_url}">användarvillkoren</a> innan du loggar in på ditt konto.
   terms_agreement_form_header: Användarvillkor
   terms_agreement_form_submit: Jag godkänner
@@ -2271,6 +2459,7 @@ sv:
   this_cannot_be_undone_are_you_sure: Detta går inte att ångra; är du säker?
   this_collection_has_no_managers: Denna samling har inga hanterare.
   this_comment_was_deleted: Denna kommentar raderades.
+  this_community_has_no_endorsed_collections: Denna gemenskap har inte framhävt några samlingar.
   this_community_has_no_focus_list: Denna gemenskap har ingen fokuseringslista.
   this_community_was_deleted: Denna gemenskap har tagits bort av sin ägare.
   this_image_is_unpublished: Denna bild är opublicerad.
@@ -2290,6 +2479,7 @@ sv:
     one: "%{count} objekt"
     other: totalt %{count} objekt
   translation_deleted: Översättning har tagits bort
+  translation_information_header: Översättningsinformation
   translation_log: Frekvenshistogram för i18n-nyckel
   translation_saved: Översättning har sparats
   translations_submit: Visa översättning
@@ -2298,11 +2488,13 @@ sv:
   truncated_comment_omission_linkless: ...
   truncated_news_item_omission: ... <a href='%{link}'>mer</a>
   trusted: Pålitlig
-  trusted_images: Betrodda bilder
+  trusted_images: Pålitliga bilder
+  trusted_maps: Pålitliga kartor
   trusted_text_objects: Betrodda artiklarna
   tumblr: Tumblr
   twitter: Twitter
   type: Typ
+  unique_page_views_th: Unika sidvisningar
   unknown: Okänd
   unreviewed: Ogranskad
   untrusted: Opålitlig
@@ -2335,12 +2527,28 @@ sv:
     one: "%{count} tillagd artikel"
     other: "%{count} tillagda artiklar"
   user_activity_stats_articles_added_dropdown: Tillagda artiklar
+  user_activity_stats_comment_submitted: 
+    one: "%{count} kommentar inlämnad"
+    other: "%{count} kommentarer inlämnade"
+  user_activity_stats_common_names_added: 
+    one: "%{count} vanligt namn lades till"
+    other: "%{count} vanliga namn lades till"
+  user_activity_stats_common_names_curated: 
+    one: "%{count} vanligt namn kurerat"
+    other: "%{count} vanliga namn kurerade"
+  user_activity_stats_common_names_removed: 
+    one: "%{count} vanligt namn togs bort"
+    other: "%{count} vanliga namn togs bort"
   user_activity_stats_header: Aktivitet
+  user_activity_stats_objects_curated: 
+    one: "%{count} objekt kurerat"
+    other: "%{count} objekt kurerade"
+  user_activity_stats_objects_curated_dropdown: Kurerade objekt
   user_activity_stats_taxa_comments_dropdown: Taxakommentarer
   user_already_active_notice: Ditt konto är redan aktivt, var god logga in.
   user_comment: Användarkommentar
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> kommenterade på en sida av en användare som har tagits bort:"
-  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> kommenterade på %{what}:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> kommenterade på en äldre version av %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> kommenterade på %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> kommenterade på <a href='%{link}'>%{username}s nyhetsflöde</a>:"
   user_comments: Användarkommentarer
@@ -2351,9 +2559,17 @@ sv:
   user_left_comment_on_date: "%{username} lämnade en kommentar den %{date}."
   user_no_longer_active_message: Denna användare är inte längre aktiv
   user_no_longer_has_manager_access_to_collection: "%{user} har inte längre hanteringsbehörighet till \"%{collection}\"."
+  user_pending_notifications_assitive: <span class="assistive">meddelanden</span>
   user_pending_notifications_comments_assistive: <span class="assistive">kommentarer</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: "%{count}<span class=\"assistive\"> kommentar</span>"
+    other: "%{count}<span class=\"assistive\"> kommentarer</span>"
+  user_pending_notifications_with_count_assitive: 
+    one: "%{count}<span class=\"assistive\"> meddelande</span>"
+    other: "%{count}<span class=\"assistive\"> meddelanden</span>"
   user_says_colon: "%{users_name} säjer:"
   user_system_down: Vi ber om ursäkt, men systemet för användarregistrering är inte tillgänglig. Var god försök igen senare.
+  user_was_added_as_editor_of_collection: Denna användare lades till som en hanterare för "%{collection}".
   username: Användarnamn
   username_colon: "Användarnamn:"
   username_taken: "%{name} är upptaget"
@@ -2406,6 +2622,7 @@ sv:
     one: Medlem i %{count} gemenskap
     other: Medlem i %{count} gemenskaper
   users_my_info_header: Min info
+  users_that_can_edit_this_collection: Användare som kan hantera denna samling
   using_the_site: Använda denna sida
   validation_error: Verifieringsfel
   value: Värde
@@ -2422,10 +2639,12 @@ sv:
   videos_with_count: 
     one: "%{count} video"
     other: "%{count} videor"
+  view_added_text: visa tillagd text
   view_article_source: Visa artikelkälla
   view_as_button: Ändra vy
   view_as_label: Visa som
   view_curators: visa kuratorer
+  view_current_version_link: Visa aktuell version
   view_error_log: visa fellogg
   view_full_size_image: Visa bilden i full storlek
   view_image_map_source: Visa kartkälla
@@ -2462,6 +2681,7 @@ sv:
     next_label: Nästa &#8594;
     previous_label: "&#8592; Föregående"
   worklist: Arbetslista
+  would_you_like_to_become_a_curator_notice: Vill du bli en kurator? Du kan begära tillgång på <a href='%{url}'>din profilsida</a>.
   yahoo: Yahoo
   yahoo_images: Yahoo Bilder
   year: År
@@ -2474,6 +2694,7 @@ sv:
   you_joined_community: Du har gått med i denna gemenskap.
   you_left_community: Du har lämnat denna gemenskap.
   you_removed_the_member_from_the_community: Du har tagit bort denna medlem från gemenskapen.
+  your_browser_does_not_support: Din webbläsare stöder inte HTML5-videoklipp.
   your_current_rating_0_of_5: "Ditt nuvarande betyg: 0 av 5"
   your_current_rating_1_of_5: "Ditt nuvarande betyg: 1 av 5"
   your_current_rating_2_of_5: "Ditt nuvarande betyg: 2 av 5"

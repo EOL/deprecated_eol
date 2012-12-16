@@ -916,7 +916,7 @@ it:
   community_tab_collections_header: Collezioni
   completed: Completato
   confirm_leave: Sei sicuro di voler lasciare questa comunità?
-  confirm_password_colon: "Conferma Password:"
+  confirm_password_colon: "Conferma password:"
   contact: Contatto
   contact_information: Informazioni contatto
   contact_updated: Contatto aggiornato
@@ -2161,22 +2161,6 @@ it:
         meta_title: Sinonimi di %{scientific_name}
         meta_title_with_common_name: Sinonimi di %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinonimi di %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Un sommario delle informazioni su %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life
-          meta_description_with_common_name: Un sommario delle informazioni su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life.
-          meta_keywords: "%{scientific_name} riconosciuto da %{hierarchy_provider}, %{scientific_name} classificato da %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} riconosciuto da %{hierarchy_provider}, %{scientific_name} classificato da %{hierarchy_provider}"
-          meta_title: "%{scientific_name} classificato da %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classificato da %{hierarchy_provider})"
-          tweet_text: Panoramica di %{scientific_name} classificato da %{hierarchy_provider}
-        meta_description: Informazioni su %{scientific_name} in Encyclopedia of Life.
-        meta_description_with_common_name: Informazioni su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} in Encyclopedia of Life.
-        meta_keywords: informazioni su %{scientific_name}
-        meta_keywords_with_common_name: informazioni e fatti su %{scientific_name}, informazioni e fatti su %{preferred_common_name}
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informazioni su %{preferred_common_name}"
-        tweet_text: Informazioni su %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

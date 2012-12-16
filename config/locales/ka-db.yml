@@ -63,8 +63,10 @@ ka:
   translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: ფლეში
   translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: უფლებები არ არის დაცული
   translated_licenses-description-license_id-2: © ყველა უფლება დაცულია
   translated_licenses-description-license_id-29: ზოგიერთი უფლება დაცულია.
+  translated_licenses-description-license_id-3: ზოგიერთი უფლება დაცულია
   translated_licenses-description-license_id-30: ზოგიერთი უფლება დაცულია.
   translated_licenses-description-license_id-31: ზოგიერთი უფლება დაცულია.
   translated_licenses-description-license_id-32: ზოგიერთი უფლება დაცულია.
@@ -74,6 +76,15 @@ ka:
   translated_licenses-description-license_id-36: ზოგიერთი უფლება დაცულია.
   translated_licenses-description-license_id-37: ზოგიერთი უფლება დაცულია.
   translated_licenses-description-license_id-38: ზოგიერთი უფლება დაცულია.
+  translated_licenses-description-license_id-39: საზოგადოებრივი საკუთრება
+  translated_licenses-description-license_id-4: ზოგიერთი უფლება დაცულია
+  translated_licenses-description-license_id-42: ზოგიერთი უფლება დაცულია
+  translated_licenses-description-license_id-43: ლიცენზია არ გამოიყენება
+  translated_licenses-description-license_id-5: ზოგიერთი უფლება დაცულია
+  translated_licenses-description-license_id-6: ზოგიერთი უფლება დაცულია
+  translated_licenses-description-license_id-7: ზოგიერთი უფლება დაცულია
+  translated_licenses-description-license_id-8: ზოგიერთი უფლება დაცულია
+  translated_licenses-description-license_id-9: ზოგიერთი უფლება დაცულია
   translated_ranks-label-rank_id-112: გვარი
   translated_ranks-label-rank_id-113: გვარი
   translated_ranks-label-rank_id-118: გვარი
@@ -113,6 +124,19 @@ ka:
   translated_ranks-label-rank_id-91: ოჯახი
   translated_ranks-label-rank_id-92: ოჯახი
   translated_ranks-label-rank_id-99: ოჯახი
+  translated_resource_statuses-label-resource_status_id-1: იტვირთება
+  translated_resource_statuses-label-resource_status_id-2: ატვირთულია
+  translated_resource_statuses-label-resource_status_id-3: შეცდომა ატვირთვისას
+  translated_resource_statuses-label-resource_status_id-5: შემოწმებულია
+  translated_resource_statuses-label-resource_status_id-6: შემოწმების შეცდომა
+  translated_service_types-label-service_type_id-2: სხვა
+  translated_sort_styles-name-sort_style_id-2: უძველესი
+  translated_sort_styles-name-sort_style_id-3: ანბანურად
+  translated_sort_styles-name-sort_style_id-6: რეიტინგი
+  translated_synonym_relations-label-synonym_relation_id-50: სწორი
+  translated_synonym_relations-label-synonym_relation_id-51: მიღებულია
+  translated_synonym_relations-label-synonym_relation_id-63: არ არის მიღებული
+  translated_synonym_relations-label-synonym_relation_id-64: არასწორი
   translated_table_of_contents-label-table_of_contents_id-1: გადახედვა
   translated_table_of_contents-label-table_of_contents_id-13: საერთო სახელები
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
@@ -169,14 +193,23 @@ ka:
   translated_table_of_contents-label-table_of_contents_id-344: მონაცემები
   translated_table_of_contents-label-table_of_contents_id-345: მონაცემების წყარო
   translated_table_of_contents-label-table_of_contents_id-347: ტაქსონომია
+  translated_table_of_contents-label-table_of_contents_id-348: ტიპის ინფორმაცია
   translated_table_of_contents-label-table_of_contents_id-4: ეკოლოგია
   translated_table_of_contents-label-table_of_contents_id-41: ცხოვრების გარემო
   translated_table_of_contents-label-table_of_contents_id-5: ევოლუცია და სისტემატიკა
   translated_table_of_contents-label-table_of_contents_id-7: სქოლიო და სხვა ინფორმაცია
   translated_table_of_contents-label-table_of_contents_id-8: კონსერვაცია
+  translated_untrust_reasons-label-untrust_reason_id-3: დაბალი ხარისხი
+  translated_untrust_reasons-label-untrust_reason_id-4: დუბლიკატი
+  translated_untrust_reasons-label-untrust_reason_id-5: სხვა
   translated_user_identities-label-user_identity_id-1: ენთუზიასტი
   translated_user_identities-label-user_identity_id-2: სტუდენტი
   translated_user_identities-label-user_identity_id-3: აღმზრდელი
   translated_vetted-label-vetted_id-0: უცნობი
   translated_vetted-label-vetted_id-4: არასაიმედო
   translated_vetted-label-vetted_id-5: საიმედო
+  translated_view_styles-name-view_style_id-1: სია
+  translated_view_styles-name-view_style_id-2: გალერეა
+  translated_visibilities-label-visibility_id-0: უხილავი
+  translated_visibilities-label-visibility_id-1: ხილული
+  translated_visibilities-label-visibility_id-2: წინასწარი გადახედვა

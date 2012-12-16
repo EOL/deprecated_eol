@@ -13,6 +13,7 @@
 nl: 
   0_1_or_2: 0, 1 of 2
   0_or_1: 0 of 1
+  a_maximum_of_30_results_are_returned: er worden maximaal 30 resultaten per pagina weergegeven. Deze parameter maakt het mogelijk om meer pagina's met resultaten te laden als er meer dan 30 resultaten zijn
   a_pipe_delimited_list_of_licenses: Een door het pipe-teken ("|") gescheiden lijst met licenties, of "all" om objecten op te vragen die aan de opgegeven licenties voldoen. Licenties die afgekort beginnen met "cc-" zijn allemaal %{creative_commons_link}-licenties. Kijk op hun site voor meer informatie over de verschillende licenties die ze aanbieden.
   a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" om terug te gaan naar de overzichtstekst, een door het pipe-teken (\"|\") gescheiden lijst met SPM Info Item onderwerpnamen om tekst in de respectievelijke SPM Info Item onderwerpnamen te krijgen, \"all\" om de tekst in ieder onderwerp weer te geven. \"always\" geeft een overzichtstekst weer als eerste resultaat (als deze bestaat in een gegeven context)."
   a_taxon: een taxon
@@ -292,6 +293,7 @@ nl:
           attributes: 
             publish: 
               inclusion: is alleen toegestaan voor de laatste oogst en alleen als die gebeurtenis niet al is gepubliceerd.
+        inaccessible: Het record kon niet worden opgeslagen omdat het ongeldig was. Controleer de validatiefouten en sla het opnieuw op.
         open_authentications: 
           guid_provider_must_be_unique: de externe gebruiker is al gekoppeld met een EOL-gebruiker
           provider_user_id_must_be_unique: er kan slechts één externe gebruiker gekoppeld zijn aan een EOL-gebruiker
@@ -991,6 +993,7 @@ nl:
   anonymous_user_given_name: Anoniem
   anonymous_user_tag_line: Niet aangemeld
   any_integer: een geheel getal
+  any_string: willekeurige tekenreeks
   api_docs_collections_description: Deze API retourneert alle metadata van een verzameling en alle items die ertoe behoren als er een aanduiding wordt opgegeven. De list met items kan gefilterd worden op itemtype en gesorteerd worden op de eigenschappen die hierboven worden weergegeven.
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
@@ -1084,6 +1087,7 @@ nl:
   by_scientific_name_table_header: door wetenschappelijke naam
   cache_store: Cache-opslag
   calculate_averages_slow: Gemiddelden bereken (langzaam)
+  call_api: Call-API
   cancel: Annuleren
   cancel_split: Annuleren
   cannot_be_associated_with_both_a_user_and_a_community: Kan niet gekoppeld zijn aan een gebruiker en een gemeenschap
@@ -1154,6 +1158,7 @@ nl:
   cms_missing_content_title: Ontbrekende vertaling
   collect_item: Item in verzameling opnemen
   collect_items: Items in verzameling opnemen
+  collection_api_sort_field_notes: ��Als de parameter "sort_field" is opgenomen, worden alleen verzamelingsitems teruggegeven waarvan het sorteerveld precies overeenkomt met de opgegeven tekst.
   collection_created_notice: De verzameling <em>%{collection_name}</em> is aangemaakt.
   collection_created_with_count_notice: 
     one: De verzameling <em>%{collection_name}</em> is aangemaakt  met één item..
@@ -1588,6 +1593,13 @@ nl:
   curated_objects_of: heeft objecten van %{name} geconserveerd
   curated_species_of: heeft soorten van %{name} geconserveerd
   curation_comment: Opmerking van conservator
+  curation_error_hide_reasons_invalid: De redenen om %{association} te verbergen waren niet geldig
+  curation_error_no_hide_reasons_given: Kies een reden voor het verbergen van dit item op de pagina %{association} of laat een reactie achter waarin u uitlegt waarom u het item verbergt.
+  curation_error_no_untrust_reasons_given: Kies een reden voor het niet vertrouwen van dit item op de pagina %{association} of laat een reactie achter waarin u uitlegt waarom u het item niet vertrouwt.
+  curation_error_object_in_preview_state_cannot_be_curated: Dit object wordt voorvertoond voor importeren en kan niet geconserveerd worden
+  curation_error_untrust_reasons_invalid: De redenen om %{association} te als niet vertrouwd aan te merken waren niet geldig
+  curation_error_vetted_invalid: U kunt %{association} niet wijzigen naar "%{vetted}"
+  curation_error_visibility_invalid: U kunt %{association} niet wijzigen naar "%{visibility}"
   curation_privileges_page_description: Selecteer het gewenste conserveringsniveau, assistent-, volledig of meesterconservator. Aanmeldingen voor volledig en meesterconservator moeten een scope en referenties bevatten. Als uw gegevens gecontroleerd en geaccepteerd zijn, krijgt u hier per e-mail bericht van. Aanmeldingen voor assistentconservator worden niet gecontroleerd en direct goedgekeurd. U kunt meer lezen over <a href="%{curators_url}">conservator worden</a>.
   curation_privileges_page_title: Conservator worden
   curation_reason_placeholder: extra gegevens (optioneel)
@@ -1920,6 +1932,7 @@ nl:
   failed_login_attempts_with_count: 
     one: (één mislukt aanmeldpoging) - moet aangevinkt zijn voordat de gebruiker kan aanmelden
     other: (%{count} mislukte aanmeldpogingen) - moet aangevinkt zijn voordat de gebruiker kan aanmelden
+  false_label: Onwaar
   family_name_colon: "Familienaam:"
   feedback: Terugkoppeling
   file: Bestand
@@ -2287,7 +2300,7 @@ nl:
         update: Vertaling bijwerken
       update: "%{model} bijwerken"
       user: 
-        create: Gebruiker aanmaken
+        create: Registreren
         curation_application: Meld u nu aan
         curation_privileges: Aanvraag verzenden
         generate_api_key: Sleutel aanmaken
@@ -2958,6 +2971,7 @@ nl:
   preview_changes: Voorvertoning van de wijzigingen
   preview_version_of_latest_published_data_object_title_link: Voorvertoning van %{link}
   previously_published: eerder gepubliceerd
+  proceed_to_checkout_page: Afrekenen
   process_name: Procesnaam
   profile: Profiel
   profile_colon: "Profiel:"
@@ -2990,6 +3004,7 @@ nl:
   rating_added_notice: De beoordeling is toegevoegd.
   rating_not_added_error: Er is een fout opgetreden. De beoordeling is niet toegevoegd.
   recaptcha: Voer de twee weergegeven woorden in
+  recaptcha_incorrect_error_with_anchor: De <a href="#%{recaptcha_anchor}">reCaptcha-tekens</a> klopten niet. Probeer het opnieuw.
   recent_activities: 
     index: 
       list_header: Afgelopen 7 dagen
@@ -3054,6 +3069,7 @@ nl:
   related_names_with_count: 
     one: één gerelateerde naam
     other: "%{count} gerelateerde namen"
+  related_organizations: Gerelateerde organisaties
   remove: Verwijderen
   remove_curatorship_colon: "Conservatorschap verwijderen:"
   remove_data_object_association: Koppeling verwijderen
@@ -3063,13 +3079,16 @@ nl:
     other: "%{count} items zijn verwijderd uit deze verzameling."
   reply: Antwoorden
   request: Verzoek
-  required_form_element: Verplicht
+  request_mailing_list_colon: "Gebruiker wil geen e-mail ontvangen:"
+  required: Vereist
+  required_form_element: Vereist
   reset_password_enter_new_password_notice: Dit zijn éénmalige aanmeldgegevens. Voer een nieuw wachtwoord in om verder te gaan.
   reset_password_instructions_sent_to_user_notice: Instructies voor het opnieuw instellen van het wachtwoord voor uw gebruiker  <em>%{username}</em> zijn verzonden naar uw e-mailadres.
   reset_password_token_expired_error: Uw wachtwoord is helaas niet opnieuw ingesteld. De opgegeven verwijzing is verlopen. Vul het formulier voor vergeten wachtwoord opnieuw in om een nieuwe verwijzing te ontvangen.
   resource: Bron
   resources: Middelen
   response: Antwoord
+  response_formats: Mogelijkheden voor opmaak van de uitvoer
   results: Resultaten
   results_offset: Resultaten %{from} - %{to} van %{total} voor <em>%{for}</em>
   results_per_page: "Resultaten per pagina:"
@@ -3078,6 +3097,9 @@ nl:
   return_all_synonyms_for_this_taxon: alle synoniemen voor dit taxon weergeven
   return_common_names_for_the_page_taxon: alle gewone namen voor het taxon van de pagina weergeven
   return_content_by_vettedness: Als "gecontroleerd" de waarde "1" heeft, dan wordt alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft, dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
+  returns_all_metadata_about_a_particular_collection: geeft alle metadata van een bepaalde collectie terug en de items die erin zijn opgenomen en zijn geïndexeerd door EOL
+  returns_all_metadata_about_a_particular_data_object: geeft alle metadata van een bepaald gegevensobject (tekst, afbeelding, video) dat is geïndexeerd door EOL
+  returns_either_a_positive_or_negative_response: geeft een bevestigend antwoord (dat aangeeft dat de API's functioneel zijn) of geeft een negatief antwoord of helemaal geen antwoord (dat aangeeft dat de API's niet functioneel zijn op dat moment)
   revisions: Versies
   revoke_full_curator_link: Intrekken
   revoke_manager_link: Managersrol intrekken
@@ -3091,6 +3113,7 @@ nl:
   save_email_settings: e-mailinstellingen opslaan
   scientific_name: Wetenschappelijke naam
   search: Zoeken
+  search_by_provider_method_description_with_link: "haal de EOL pagina-ID's op op basis van een hierarchy_id van een provider en het unieke identificatienummer van een provider<br />(zoek bijvoorbeeld naar het EOL pagina-ID voor de ITIS TSN 180542: %{link})"
   search_by_term_page_title: "Zoeken: %{term}"
   search_field_common_name: Algemene naam
   search_field_label: EOL doorzoeken
@@ -3098,10 +3121,14 @@ nl:
   search_field_preferred_scientific: Voorkeur wetenschappelijke naam
   search_field_surrogate: Surrogaat
   search_field_synonym: Synoniem
+  search_for_comments_containing_the_text: "Zoeken naar reacties met de volgende tekst:"
   search_for_curators_containing: "Zoeken naar conservatoren die bevatten:"
   search_for_messages_containing: "Zoeken naar berichten die de volgende tekst bevatten:"
   search_for_terms_containing: "Zoeken naar termen die bevatten:"
+  search_for_users_containing_this_in_their_username_name_or_email_address: Zoeken naar gebruikers met de volgende tekst in hun gebruikersnaam, naam of e-mailadres.
   search_input_advisory_information: Voer de triviale of of wetenschappelijke namen van levende organismen in waar u meer over wilt weten. U kunt ook zoeken naar EOL-leden, verzamelingen en gemeenschappen.
+  search_log_report_intro: In dit gebied worden de meest gebruikte zoektermen weergegeven, het aantal keren dat de zoekopdracht is uitgevoerd en wat gegevens over het aantal resultaten dat een zoekopdracht heeft opgeleverd. Klik op de kolommen op erop te sorteren. Klik op een zoekterm om gegevens te zien over waar andere gebruikers op geklikt hebben na het zoeken.
+  search_method_description: gegeven een waarde voor een specifiek element (bijvoorbeeld "scientific name=Homo sapiens"), geeft dit een gepagineerde lijst terug met EOL-pagina's die de zoekterm bevatten
   search_next_label: Volgende
   search_placeholder: EOL doorzoeken ...
   search_previous_label: Vorige
@@ -3426,22 +3453,22 @@ nl:
         meta_title: Synoniemen van %{scientific_name}
         meta_title_with_common_name: Synoniemen van %{preferred_common_name} (%{scientific_name})
         tweet_text: Synoniemen van %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Een samenvatting van de gegevens over %{scientific_name} als erkend door %{hierarchy_provider} in Encyclopedia of Life.
-          meta_description_with_common_name: Een samenvatting van de gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} als erkend door %{hierarchy_provider} in Encyclopedia of Life.
-          meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}, %{scientific_name} ingedeeld door %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}, %{scientific_name} ingedeeld door %{hierarchy_provider}"
-          meta_title: "%{scientific_name} ingedeeld door %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})"
-          tweet_text: Overzicht van %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life.
-        meta_description_with_common_name: Informatie over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
-        meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informatie over %{preferred_common_name}"
-        tweet_text: Informatie over %{scientific_name}
+    overview: 
+      hierarchy_entry: 
+        meta_description: Een samenvatting van de gegevens over %{scientific_name} als erkend door %{hierarchy_provider} in Encyclopedia of Life.
+        meta_description_with_common_name: Een samenvatting van de gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} als erkend door %{hierarchy_provider} in Encyclopedia of Life.
+        meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}, %{scientific_name} ingedeeld door %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}, %{scientific_name} ingedeeld door %{hierarchy_provider}"
+        meta_title: "%{scientific_name} ingedeeld door %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})"
+        tweet_text: Overzicht van %{scientific_name} als ingedeeld door %{hierarchy_provider}
+      meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life.
+      meta_description_with_common_name: Informatie over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
+      meta_keywords: gegevens over %{scientific_name},informatie over %{hierarchy_provider}
+      meta_keywords_with_common_name: info over %{scientific_name},info over %{preferred_common_name},gegevens en feiten over %{scientific_name},informatie over %{preferred_common_name}
+      meta_title: "%{scientific_name} - Gegevens over %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informatie over %{preferred_common_name}"
+      tweet_text: Informatie over %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3550,6 +3577,7 @@ nl:
   terms_agreement_form_submit: Ik ga akkoord
   terms_of_use_link: Gebruiksvoorwaarden &amp; privacy
   test: Test.
+  test_it_out: Probeer het
   text: tekst
   text_capital: Tekst
   text_object: Tekstobject
@@ -3560,6 +3588,7 @@ nl:
     one: één artikel
     other: "%{count} artikelen"
   thank_you: Bedankt
+  thank_you_for_your_generous_support: Dank u wel voor uw vrijgevige steun!
   thanks_for_your_time: Bedankt voor uw tijd,
   the_comment_was_successfully_deleted: De opmerking is verwijderd.
   the_comment_was_successfully_updated: De opmerking is bijgewerkt.
@@ -3589,6 +3618,7 @@ nl:
   this_link_is_unpublished: Deze verwijzing is niet gepubliceerd.
   this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_map_is_unpublished: Deze kaart is niet gepubliceerd.
+  this_page_will_be_reindexed: Deze pagina wordt in de achtergrond opnieuw geïndexeerd. Dit kan tot wel 24 uur duren.
   this_sound_cannot_be_curated_because_unpublished: Dit geluidsbestand kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_sound_is_unpublished: Dit geluid is niet gepubliceerd.
   this_video_cannot_be_curated_because_unpublished: Deze video kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
@@ -3599,6 +3629,9 @@ nl:
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
   toc: Inhoudsopgave
   toc_no_longer_available: Gegevens voor de inhoudsopgave zijn niet langer beschikbaar
+  too_many_descendants_to_curate_with_count: 
+    one: "Fout: uw conservering kan niet verwerkt worden door het automatische systeem. Er is één afstammeling, meer dan het maximale aantal."
+    other: "Fout: uw conservering kan niet verwerkt worden door het automatische systeem. Er zijn %{count} afstammelingen, meer dan het maximale aantal."
   topic: Onderwerp
   topic_area: Aandachtsgebied
   total: Totaal
@@ -3622,8 +3655,10 @@ nl:
   tumblr: Tumblr
   twitter: Twitter
   type: Type
+  unable_to_determine_title: Het was niet mogelijk de naam van deze webpagina te bepalen
   unique_page_views_th: Unieke bekeken pagina's
   unknown: Onbekend
+  unknown_data_object_title: Onbekend dataobject
   unknown_hierarchy: Onbekende hiërarchie
   unknown_type_not_associated_with_any_published_entries: Deze gegevens zijn niet gekoppeld met gepubliceerde taxa.
   unpublished: Ongepubliceerd
@@ -3650,11 +3685,13 @@ nl:
   uploaded_content: Toegevoegde inhoud
   uploaded_on: Geüpload op
   url: URL
+  url_not_accessible: Deze URL is niet toegankelijk
   us_dolars_75: USD 75
   us_dollars_100: USD 100
   us_dollars_35: USD 35
   us_dollars_50: USD 50
   use_as_examplar_button: als voorbeeld instellen
+  use_as_examplar_note_preferred: "Let op: dit is de voorkeursclassificatie. Deze wilt u waarschijnlijk gebruiken."
   user: Gebruiker
   user_activity_page_title: Gebruikersactiviteit
   user_activity_stats_articles_added: 
@@ -3951,6 +3988,7 @@ nl:
   who_registered_before: aan
   who_registered_from: wie geregistreerd is uit
   wikipedia_queue_create_successful_notice: Wikipedia-artikel %{article} verzie %{rev} wordt binnenkort geïmporteerd.
+  wikipedia_queue_create_unsuccessful_error: Er is een fout opgetreden. De Wikipediapagina is niet in de wachtrij van te importeren pagina's opgenomen.<br />. De versie-URL moet overeenkomen met het patroon "http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*".
   wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
   will_paginate: 
     next_label: Volgende &#8594;

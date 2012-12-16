@@ -285,6 +285,7 @@ gl:
           attributes: 
             publish: 
               inclusion: só está permitido para o último rexistro de colleita e unicamente se ese rexistro non foi publicado aínda
+        inaccessible: O rexistro non se pode gardar porque non era válido. Comproba os erros de valicación e vólveo enviar.
         open_authentications: 
           guid_provider_must_be_unique: a conta externa xa está conectada cunha conta da EOL
           provider_user_id_must_be_unique: unicamente unha conta de cada provedor externo pode conectarse cunha conta da EOL
@@ -984,6 +985,7 @@ gl:
   anonymous_user_given_name: Anónimo
   anonymous_user_tag_line: Non accedeu ao sistema
   any_integer: calquera número enteiro
+  any_string: calquera cadea de texto
   api_docs_collections_description: Dado o identificador dunha colección, esta API devolverá todos os metadatos sobre a colección e os elementos que contén. A lista de elementos pódese filtrar por tipo de elemeto e ordenada baixo os atributos anteriores.
   application_version_advisory_information: Versión da aplicación
   are_you_sure: Estás seguro?
@@ -1098,7 +1100,7 @@ gl:
   citation: Cita
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Enciclopedia da vida, dispoñible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado o 15 de xaneiro de 2009.
   citing_link: Citando
-  classification_already_preferred: "ERRO: Esta clasificación xa está marcada como preferida."
+  classification_already_preferred: "Erro: Esta clasificación xa está marcada como preferida."
   classification_button_help: Selecciona a clasificación que mellor representa a páxina existente que hai a continuación e preme no "usar como exemplar" correspondente. Para cancelar a operación, preme en "cancelar".
   classification_curation_pending: Pendente de conservación. Esta clasificación pode ser trasladada a outra páxina nun futuro próximo.
   classification_curation_split_comment_with_count: 
@@ -1147,6 +1149,7 @@ gl:
   cms_missing_content_title: Falta a tradución
   collect_item: Recoller o elemento
   collect_items: Recoller os elementos
+  collection_api_sort_field_notes: Se houbese un parámetro sort_field incluído, unicamente se devolverán os elementos da colección cuxo campo de ordenación coincida coa cadea de texto especificada
   collection_created_notice: A colección <em>%{collection_name}</em> creouse correctamente.
   collection_created_with_count_notice: 
     one: Creouse a colección <em>%{collection_name}</em> con %{count} elemento.
@@ -3474,22 +3477,6 @@ gl:
         meta_title: Sinónimos de %{scientific_name}
         meta_title_with_common_name: Sinónimos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinónimos de %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Un resumo da información sobre %{scientific_name}, segundo o recoñeceu %{hierarchy_provider}, na Enciclopedia da vida.
-          meta_description_with_common_name: Un resumo da información sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo o recoñeceu %{hierarchy_provider}, na Enciclopedia da vida.
-          meta_keywords: "%{scientific_name} recoñecido por %{hierarchy_provider}, %{scientific_name} clasificado por %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} recoñecido por %{hierarchy_provider}, %{scientific_name} clasificado por %{hierarchy_provider}"
-          meta_title: "%{scientific_name} clasificado por %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} clasificado por %{hierarchy_provider})"
-          tweet_text: Vista xeral de %{scientific_name}, segundo o clasificou %{hierarchy_provider}
-        meta_description: Información sobre %{scientific_name} na Enciclopedia da vida
-        meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
-        meta_keywords: "%{scientific_name} recoñecido por %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} recoñecido por %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Información sobre %{preferred_common_name}"
-        tweet_text: Información sobre %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

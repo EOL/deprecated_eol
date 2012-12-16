@@ -7,6 +7,7 @@
 # Author: Eleferen
 # Author: Express2000
 # Author: Lvova
+# Author: Sprinter
 # Author: Александр Сигачёв
 ru: 
   0_1_or_2: 0, 1 или 2
@@ -147,6 +148,7 @@ ru:
       name: 
         string: Имя
       news_item: 
+        active: Опубликовано
         page_name: Уникальное имя
         sort_order: Порядок сортировки
       notification: 
@@ -200,6 +202,12 @@ ru:
         main_content: Текст
         meta_description: Описание метаданных
         meta_keywords: Метаданные
+        title: Заголовок
+      translated_news_item: 
+        active_translation: Опубликовано
+        body: Текст
+        meta_description: Описание метаданных
+        meta_keywords: Метаданные ключевые слова
         title: Заголовок
       user: 
         agreed_with_terms: Соглашение о использовании
@@ -262,6 +270,7 @@ ru:
           attributes: 
             publish: 
               inclusion: только для последних событий, и только если эти события уже не опубликованы
+        inaccessible: Запись не может быть сохранена, потому что она была неправильной. Проверьте наличие ошибок и повторите.
         open_authentications: 
           guid_provider_must_be_unique: сторонняя учетная запись уже связана с учетной записью EOL
           provider_user_id_must_be_unique: только одна учетная запись от каждого стороннего поставщика может быть подключена к учетной записи EOL
@@ -283,7 +292,7 @@ ru:
           one: найдена %{count} ошибка проверки
           other: найдено %{count} ошибок проверки
     models: 
-      user: аккаунт
+      user: Аккаунт
   add: Добавить
   add_a_collection_to_a_community: Добавить "%{collection}" в сообщество
   add_a_comment: Добавьте комментарий.
@@ -863,7 +872,10 @@ ru:
         source_url: URL-адрес исходного объекта данных
         toc_item: Подраздел
       data_object_link: 
+        description: Описание <small>(некоторые HTML-разметки Допускается)</small>
         link_type: Категория
+        source_url: URL-адрес ссылки
+        toc_item: Тема
       eol_statistic: 
         date_one: Дата
         date_two: Дата
@@ -888,6 +900,9 @@ ru:
         complete_more: "Прокурированная иерархия предполагает, что каждая запись уникальна, то есть соответствующие строки имени будут рассматриваться как омонимы. <strong>ПРЕДУПРЕЖДЕНИЕ: Не изменяйте этот атрибут, если вы не уверены, что в иерархии есть омонимы, иначе это может поставить под угрозу целостность данных.</strong>"
         request_publish: Запрос публикации
         request_publish_more: Указывает, ожидается ли запрос на рекламу этой иерархии, для становления одним из основных для просмотра иерархий на EOL.
+      news_item: 
+        active: Опубликовано
+        active_more: Опубликованные новости будут видны на выбранную дату и время. Снимите флажок <em>опубликовано</em> если вы хотите предотвратить просмотр этой новости для обычных пользователей на других языках.
       open_authentication: 
         connect: Добавить
         connected: Подключено

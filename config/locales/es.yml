@@ -7,6 +7,7 @@
 # Author: Crazymadlover
 # Author: Dalton2
 # Author: Eduardoescdel
+# Author: Erdemaslancan
 # Author: Erick mata
 # Author: Fitoschido
 # Author: Invadinado
@@ -21,6 +22,7 @@
 es: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
+  a_maximum_of_30_results_are_returned: se devuelven un máximo de 30 resultados por página. Este parámetro permite obtener más páginas de resultados si hay más de 30 resultados encontrados
   a_pipe_delimited_list_of_licenses: una lista de licencias delimitada por barras verticales | o bien, 'todo' para obtener objetos bajo cualquier licencia. Las licencias abreviadas cc- son todas licencias de %{creative_commons_link}. Visita su sitio para obtener más información sobre las licencias diferentes que ofrecen.
   a_pipe_delimited_list_of_spm_info_item_subject_names: un "overview" para volver al texto de introducción (si existe), una lista de nombres de elementos informativos SPM separados por barras verticales "|" o bien "all" para obtener el texto sobre cualquier tema. Siempre devuelve un texto de introducción como primer resultado (si existe en el contexto determinado).
   a_taxon: un taxón
@@ -300,6 +302,7 @@ es:
           attributes: 
             publish: 
               inclusion: sólo permitido para el último evento de recogida y sólo si ese evento ya no está publicado
+        inaccessible: No se pudo guardar el registro porque no era válido. Comprueba errores de validación y vuelve a enviarlo.
         open_authentications: 
           guid_provider_must_be_unique: la cuenta externa ya está conectada con una cuenta de EOL
           provider_user_id_must_be_unique: sólo puede conectarse una cuenta de cada proveedor externo a una cuenta de EOL
@@ -999,6 +1002,7 @@ es:
   anonymous_user_given_name: Anónimo
   anonymous_user_tag_line: No ha iniciado sesión
   any_integer: cualquier entero
+  any_string: cualquier cadena de texto
   api_docs_collections_description: Dado el identificador de una colección, esta API devolverá todos los metadatos sobre la colección y los elementos que contiene. La lista de elementos puede ser filtrada por tipo de elemento, y ordenada por los atributos listados arriba.
   application_version_advisory_information: Versión de la aplicación
   are_you_sure: ¿Está usted seguro?
@@ -1092,6 +1096,7 @@ es:
   by_scientific_name_table_header: por nombre científico
   cache_store: Almacenamiento de la memoria caché
   calculate_averages_slow: Calcular las medias (lento)
+  call_api: Llamada API
   cancel: Cancelar
   cancel_split: Cancelar
   cannot_be_associated_with_both_a_user_and_a_community: No se puede asociar con un usuario y una comunidad
@@ -1162,6 +1167,7 @@ es:
   cms_missing_content_title: Falta la traducción
   collect_item: Recoger el artículo
   collect_items: Recoger elementos
+  collection_api_sort_field_notes: Si está incluido un parámetro sort_field, sólo serán devueltos los elementos de la colección cuyo campo de ordenación coincida exactamente con la cadena especificada
   collection_created_notice: Colección <em>%{collection_name}</em> creado correctamente.
   collection_created_with_count_notice: 
     one: Colección <em>%{collection_name}</em> creado correctamente con %{count} elemento de la colección.
@@ -1597,6 +1603,13 @@ es:
   curated_objects_of: objetos supervisados de %{name}
   curated_species_of: especies supervisadas de %{name}
   curation_comment: Curación comentarios
+  curation_error_hide_reasons_invalid: Las razones para ocultar %{association} no eran válidas
+  curation_error_no_hide_reasons_given: Elige un motivo para ocultar esto en la página de %{association}, o deja un comentario explicando por qué vas a ocultarlo
+  curation_error_no_untrust_reasons_given: Elige una razón para esto no es confiable en la página de %{association}, o deja un comentario explicando por qué no confias en ello
+  curation_error_object_in_preview_state_cannot_be_curated: Se está previsualizando este objeto para importación y no puede ser conservado
+  curation_error_untrust_reasons_invalid: Las razones para no confiar en %{association} no eran válidas
+  curation_error_vetted_invalid: No puedes conservar %{association} a '%{vetted}'
+  curation_error_visibility_invalid: No puedes conservar %{association} a '%{visibility}'
   curation_privileges_page_description: Seleccionar el nivel de curación, asistente, total o curador principal. Aplicaciones curador y maestro completo debe incluir el alcance y las credenciales, se le notificará por correo electrónico una vez que sus datos han sido revisados ​​y aceptados. Aplicaciones del asistente curador no son moderados, y serán aprobados al instante. Aprenda más acerca de <a href="%{curators_url}">convertirse en un conservador</a> .
   curation_privileges_page_title: Convertirse en un curador
   curation_reason_placeholder: detalles adicionales (opcional)
@@ -1929,6 +1942,7 @@ es:
   failed_login_attempts_with_count: 
     one: (%{count} intento de registro erróneo)- compruebe que esté marcado para que el usuario inicie sesión
     other: (%{count} intentos de registro erróneos)- compruebe que esté marcado para que el usuario inicie sesión
+  false_label: Falso
   family_name_colon: "Apellido:"
   feedback: Realimentación
   file: Archivo
@@ -3090,6 +3104,7 @@ es:
   reply: Responder
   request: Request
   request_mailing_list_colon: "El usuario no desea recibir correos electrónicos:"
+  required: Obligatorio
   required_form_element: Obligatorio
   reset_password_enter_new_password_notice: Este es un inicio de sesión que debe hacer una sola vez, por favor, introduzca una nueva contraseña para continuar.
   reset_password_instructions_sent_to_user_notice: Las instrucciones para restablecer la contraseña de su cuenta <em>%{username}</em> se han enviado a su dirección de correo electrónico.
@@ -3489,22 +3504,22 @@ es:
         meta_title: Sinónimos de %{scientific_name}
         meta_title_with_common_name: Sinónimos de %{preferred_common_name}  (%{scientific_name})
         tweet_text: Sinónimos de %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Un resumen de información sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life.
-          meta_description_with_common_name: Un resumen de información sobre %{preferred_common_name}, también conocido como %{scientific_name} tal como es reconocido por %{hierarchy_provider} en la Encyclopedia of Life.
-          meta_keywords: "%{scientific_name} reconocido por %{hierarchy_provider}, {scientific_name} clasificado por %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} reconocido por % {hierarchy_provider}, {scientific_name} clasificado por %{hierarchy_provider}"
-          meta_title: "%{scientific_name} Clasificado por %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Clasificado por %{hierarchy_provider})"
-          tweet_text: Visión general de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
-        meta_description: Información sobre %{scientific_name} en la Encyclopedia of Life.
-        meta_description_with_common_name: Información sobre %{preferred_common_name}, conocida científicamente como %{scientific_name} en la Encyclopedia of Life.
-        meta_keywords: "%{scientific_name} reconocido por %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} reconocido por %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Información sobre %{preferred_common_name}"
-        tweet_text: Información sobre %{scientific_name}
+    overview: 
+      hierarchy_entry: 
+        meta_description: Un resumen de información sobre %{scientific_name} tal como fue reconocido por %{hierarchy_provider} en la Encyclopedia of Life.
+        meta_description_with_common_name: Un resumen de información sobre %{preferred_common_name}, también conocido como %{scientific_name} tal como fue reconocido por %{hierarchy_provider} en la Encyclopedia of Life.
+        meta_keywords: "%{scientific_name} reconocido por %{hierarchy_provider}, {scientific_name} clasificado por %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} reconocido por %{hierarchy_provider}, {scientific_name} clasificado por %{hierarchy_provider}"
+        meta_title: "%{scientific_name} Clasificado por %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Clasificado por %{hierarchy_provider})"
+        tweet_text: Resumen sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+      meta_description: Información sobre %{scientific_name} en la Encyclopedia of Life.
+      meta_description_with_common_name: Información sobre %{preferred_common_name}, conocida científicamente como %{scientific_name} en la Encyclopedia of Life.
+      meta_keywords: información sobre %{scientific_name}, información sobre %{scientific_name}
+      meta_keywords_with_common_name: información sobre %{scientific_name}, información sobre %preferred_common_name}, información y hechos sobre %{scientific_name}, información sobre %{preferred_common_name}
+      meta_title: "%{scientific_name} - Información sobre %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Información sobre %{preferred_common_name}"
+      tweet_text: Información sobre %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3620,6 +3635,7 @@ es:
   terms_agreement_form_submit: Estoy de acuerdo
   terms_of_use_link: Términos de uso &amp; privacidad
   test: Probar
+  test_it_out: Probarlo
   text: texto
   text_capital: Texto
   text_object: Objeto de texto

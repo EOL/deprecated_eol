@@ -1762,21 +1762,6 @@ br:
         meta_title: Heñvelsterioù da %{scientific_name}
         meta_title_with_common_name: Heñvelsterioù da %{preferred_common_name} (%{scientific_name})
         tweet_text: Heñvelsterioù da %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Un diverradenn eus an titouroù a sell ouzh  %{scientific_name}, evel ma'z int bet rummet gant %{hierarchy_provider}, e Kelc'hgeriadur ar Vuhez.
-          meta_description_with_common_name: Un diverradenn eus an titouroù a sell ouzh %{preferred_common_name}, zo %{scientific_name}, en anv skiantel, evel ma'z int bet rummet gant  %{hierarchy_provider}, e Kelc'hgeriadur ar Vuhez.
-          meta_keywords: "%{scientific_name} evel ma'z int bet anavezet gant %{hierarchy_provider}, %{scientific_name} evel ma'z int bet rummet gant %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} anavezet gant %{hierarchy_provider}, %{scientific_name} rummet gant %{hierarchy_provider}"
-          meta_title: "%{scientific_name} Rummet gant %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Rummet gant %{hierarchy_provider})"
-          tweet_text: Gwel a-vras eus %{scientific_name}, evel m'eo rummet gant %{hierarchy_provider}
-        meta_description: Titouroù war  %{scientific_name} e Kelc'hgeriadur ar Vuhez.
-        meta_description_with_common_name: Titouroù war %{preferred_common_name}, zo %{scientific_name} e anv skiantel e Kelc'hgeriadur ar Vuhez.
-        meta_keywords: Titouroù war {scientific_name}, titouroù %{scientific_name}.
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Titouroù war %{preferred_common_name}"
-        tweet_text: Titouroù war %{scientific_name}
     resources: 
       show: 
         hierarchy_entry: 

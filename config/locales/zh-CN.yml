@@ -2731,22 +2731,6 @@ zh-CN:
         meta_title: "%{scientific_name}的异名"
         meta_title_with_common_name: " %{preferred_common_name}的异名 (%{scientific_name})"
         tweet_text: "%{scientific_name}的异名"
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: "%{scientific_name}的概要信息，它在网络生命大百科中被 %{hierarchy_provider}确认。"
-          meta_description_with_common_name: "\"%{preferred_common_name}的概要信息,它同时也在网络生命大百科中被%{hierarchy_provider}确认为%{scientific_name}。\""
-          meta_keywords: "\"%{scientific_name} 由 %{hierarchy_provider}确定, %{scientific_name} 分类由 %{hierarchy_provider}确定\""
-          meta_keywords_with_common_name: "\"%{scientific_name} 由 %{hierarchy_provider}确定, %{scientific_name} 分类由 %{hierarchy_provider}提供\""
-          meta_title: "%{scientific_name} 分类由 %{hierarchy_provider}提供"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} 由 %{hierarchy_provider}分类)"
-          tweet_text: "%{scientific_name}的概述，分类由%{hierarchy_provider}提供"
-        meta_description: 网络生命大百科里学名%{scientific_name}概要。
-        meta_description_with_common_name: "%{preferred_common_name}概要，学名在网络生命大百科里是 %{scientific_name}。"
-        meta_keywords: "%{scientific_name} 由 %{hierarchy_provider}确定"
-        meta_keywords_with_common_name: "%{scientific_name} 由 %{hierarchy_provider}确定"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: "%{scientific_name}的概述"
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

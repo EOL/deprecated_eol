@@ -294,6 +294,7 @@ de:
           attributes: 
             publish: 
               inclusion: ist nur für den letzten Datenabruf zulässig und auch nur, sofern dieser Datenabruf noch nicht veröffentlicht wurde
+        inaccessible: Die Aufzeichnung konnte nicht gespeichert werden, da sie ungültig ist. Überprüfen Sie die Fehler und versuchen Sie es erneut.
         open_authentications: 
           guid_provider_must_be_unique: das Drittanbieterkonto ist bereits mit einem EOL-Konto verbunden.
           provider_user_id_must_be_unique: es kann nur je ein Konto pro Drittanbieter mit dem EOL-Konto verbunden werden
@@ -993,6 +994,7 @@ de:
   anonymous_user_given_name: Anonymer
   anonymous_user_tag_line: Nicht angemeldet
   any_integer: eine beliebige ganze Zahl
+  any_string: Beliebige Zeichenfolge
   api_docs_collections_description: Nach Angabe der Kennung für eine Sammlung wird diese API alle ihre Metadaten sowie die in ihr enthaltenen Objekte ausgeben. Die Objektliste kann nach Objekttyp gefiltert werden sowie nach den oben angegebenen Attributen sortiert werden.
   application_version_advisory_information: Programmversion
   are_you_sure: Sind Sie sicher?
@@ -1155,6 +1157,7 @@ de:
   cms_missing_content_title: Es ist noch keine Übersetzung vorhanden.
   collect_item: Objekt sammeln
   collect_items: Objekte sammeln
+  collection_api_sort_field_notes: Falls ein Parameter „sort_field“ angegeben ist, werden nur Sammlungsobjekte zurückgegeben, deren Sortierfeld exakt der angegebenen Zeichenfolge entspricht.
   collection_created_notice: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich erstellt.
   collection_created_with_count_notice: 
     one: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit einem Sammlungsobjekt erstellt.
@@ -1922,6 +1925,7 @@ de:
   failed_login_attempts_with_count: 
     one: (Ein gescheiterter Anmeldeversuch) - muss ausgewählt sein, damit sich der Nutzer anmelden kann
     other: (%{count} gescheiterte Anmeldeversuche) - muss ausgewählt sein, damit sich der Nutzer anmelden kann
+  false_label: Falsch
   family_name_colon: "Nachname:"
   feedback: Rückmeldungen
   file: Datei
@@ -3083,6 +3087,7 @@ de:
   reply: Antworten
   request: Anfrage
   request_mailing_list_colon: "Nutzer will keine E-Mail erhalten:"
+  required: Erforderlich
   required_form_element: Erforderlich
   reset_password_enter_new_password_notice: Diese Anmeldung war einmal möglich. Bitte geben Sie ein neues Passwort an, um fortfahren zu können.
   reset_password_instructions_sent_to_user_notice: Eine Anleitung zum Zurücksetzen des Passwort für das Nutzerkonto <em>%{username}</em> wurde an die dort hinterlegte E-Mail-Adresse gesandt.
@@ -3482,22 +3487,9 @@ de:
         meta_title: Synonyme zu %{scientific_name}
         meta_title_with_common_name: Synonyme zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonyme zu %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Eine Zusammenfassung der Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
-          meta_description_with_common_name: Eine Zusammenfassung der Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
-          meta_keywords: "%{scientific_name} anerkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} anerkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
-          meta_title: "%{scientific_name} - entsprechend der Klassifizierung durch %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}."
-          tweet_text: Überblick zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
-        meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
-        meta_keywords: "%{scientific_name} anerkannt durch %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} anerkannt durch %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informationen zu %{preferred_common_name}"
-        tweet_text: Informationen zu %{scientific_name}
+    overview: 
+      meta_description: Information auf %{scientific_name} in der Enzyklopädie des Lebens.
+      tweet_text: Information auf %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3613,6 +3605,7 @@ de:
   terms_agreement_form_submit: Ich bin einverstanden
   terms_of_use_link: Nutzungsbedingungen und Datenschutz
   test: Test.
+  test_it_out: Austesten
   text: Text
   text_capital: Text
   text_object: Textobjekt

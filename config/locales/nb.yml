@@ -175,6 +175,7 @@ nb:
         guid: GUID
         provider: Tredjepartsleverandør
         secret: Hemmelighet
+        token: Token
         updated_at: Sist oppdatert
         user_id: Bruker-ID
         verified_at: Siste verifisert
@@ -273,6 +274,7 @@ nb:
           attributes: 
             publish: 
               inclusion: kun tillatt for den siste innhøstingen og kun hvis den ikke er publisert allerede
+        inaccessible: Posten kunne ikke lagres fordi den var ugyldig. Sjekk valideringsfeil og send på nytt.
         open_authentications: 
           guid_provider_must_be_unique: tredjepartskontoen er allerede koblet til en EOL-konto
           provider_user_id_must_be_unique: bare en konto fra hver tredjepartsleverandør kan være koblet til en EOL-konto
@@ -1276,13 +1278,15 @@ nb:
         language_id: Språk
         left_content_more: "(Valgfritt) Legg til en usortert list av navigasjonslenker. Bruk class-navnet <code>active</code> for å markere lenken til den nåværende siden, f.eks. <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> hvor <code>:id</code> er ID'en eller det unike navnet til den nåværende siden og <code>:title</code> er den beskrivende tittelen til siden (<strong>NB: alle lenker til EOL CMS må begynne med en skråstrek: <code>/info/:id</code></strong>). For å gjøre disse endringer må du endre HTML-kildekoden direkte, velg <em>Kilde</em> i redigeringsmenyen for å gjøre dette."
         main_content_more: "Oppgi hovedsidens innhold i innholdsområdet. Bruk <em>Format</em> rullegardinlisten for å velge de riktige semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for sidens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
-        meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av sidens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner for å sjekke både relevans og for å danne lister over søkereslutater.
+        meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av sidens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner både for å sjekke relevans og for å danne lister over søkereslutater.
         meta_keywords_more: Sett inn en kommaseparert liste med ord og korte fraser som best gjenspeiler sidens innhold. Disse nøkkelordene og -fraser blir av og til brukt av søkemotorer for å bedømme sidens relevans i forhold til søkeord.
         title_more: Tittelen av dette innholdet vil vises i toppteksten til siden. Tittelen skal inneholde de mest relevante nøkkelord for innholdet.
       translated_news_item: 
         active_translation: Publisert
         active_translation_more: Publiserte oversettelser vil være offentlig synlige, med mindre selve nyhetssaken er upublisert. Fjern markeringen <em>publisert</em> hvis du vil unngå at generelle brukere skal kunne se denne versjonen av nyhetssaken.
+        body_more: "Oppgi nyhetssakens innhold i innholdsområdet. Bruk <em>Format</em>-rullegardinlisten for å velge de riktige semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for nyhetssakens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
         language_id: Språk
+        meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av nyhetssakens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner både for å sjekke relevans og for å danne lister over søkereslutater.
       user: 
         agreed_with_terms: Jeg aksepterer <a href="%{terms_url}">bruksvilkårene</a>
         api_key_more: Les mer om <a href="%{api_docs_url}">tilføring av en nøkkel til dine API-anrop</a>.
@@ -2019,22 +2023,6 @@ nb:
         meta_title: Synonymer for %{scientific_name}.
         meta_title_with_common_name: Synonymer for %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonymer for %{scientific_name}.
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Et sammendrag av informasjon om %{scientific_name} som gjenkjent av %{hierarchy_provider} i Encyclopedia of Life.
-          meta_description_with_common_name: Et sammendrag av informasjon om %{preferred_common_name}, også kjent som %{scientific_name} som gjenkjent av %{hierarchy_provider} i Encyclopedia of Life.
-          meta_keywords: "%{scientific_name} gjenkjent av %{hierarchy_provider}, %{scientific_name} klassifisert av %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} identifisert av %{hierarchy_provider}, %{scientific_name} klassifisert av %{hierarchy_provider}"
-          meta_title: "%{scientific_name} klassifisert av %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} klassifisert av %{hierarchy_provider})"
-          tweet_text: Oversikt over %{scientific_name} som klassifisert av %{hierarchy_provider}
-        meta_description: Informasjon om %{scientific_name} i Encyclopedia of Life.
-        meta_description_with_common_name: Informasjon om %{preferred_common_name}, vitenskapelig kjent som %{scientific_name} i Encyclopedia of Life.
-        meta_keywords: info om %{scientific_name},%{scientific_name}-information
-        meta_keywords_with_common_name: info om %{scientific_name},info om %{preferred_common_name},%{scientific_name}-informasjon og -fakta,%{preferred_common_name}-information
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informasjon om %{preferred_common_name}"
-        tweet_text: Informasjon om %{scientific_name}
     resources: 
       identification_resources: 
         meta_title: Identifikasjonsressurser for %{scientific_name}

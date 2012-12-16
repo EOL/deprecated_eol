@@ -1531,22 +1531,6 @@ ia:
         meta_title: Synonymos de %{scientific_name}
         meta_title_with_common_name: Synonymos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonymos de %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Summario de information sur %{scientific_name} como recognoscite per %{hierarchy_provider} in le Encyclopedia del Vita
-          meta_description_with_common_name: Summario de information sur %{preferred_common_name}, etiam cognoscite como %{scientific_name} como recognoscite per %{hierarchy_provider} in le Encyclopedia del Vita.
-          meta_keywords: "%{scientific_name} recognoscite per %{hierarchy_provider}, %{scientific_name} classificate per %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} recognoscite per %{hierarchy_provider}, %{scientific_name} classificate per %{hierarchy_provider}"
-          meta_title: "%{scientific_name} classificate per %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classificate per %{hierarchy_provider})"
-          tweet_text: Vision general de %{scientific_name} como classificate per %{hierarchy_provider}
-        meta_description: Un vision general de %{scientific_name} in le Encyclopedia del Vita.
-        meta_description_with_common_name: Un vision general del %{preferred_common_name}, scientificamente cognoscite como %{scientific_name} in le Encyclopedia del Vita.
-        meta_keywords: "%{scientific_name} recognoscite per %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} recognoscite per %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: Vision general de %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

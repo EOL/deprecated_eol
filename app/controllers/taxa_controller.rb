@@ -260,8 +260,7 @@ private
       :changeable_object_type => ChangeableObjectType.send(target.class.name.underscore.to_sym),
       :target_id => target.id,
       :activity => Activity.send(method),
-      :taxon_concept_id => tc.id,
-      :created_at => 0.seconds.from_now
+      :taxon_concept_id => tc.id
     )
   end
 

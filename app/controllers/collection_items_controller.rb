@@ -30,7 +30,7 @@ class CollectionItemsController < ApplicationController
     
     respond_to do |format|
       format.html do
-        redirect_object = @collection_item.object
+        redirect_object = @collection_item.collected_item
         if redirect_object.is_a?(TaxonConcept)
           redirect_object = overview_taxon_url(redirect_object)
         end
@@ -42,7 +42,7 @@ class CollectionItemsController < ApplicationController
       format.js do
         # this means we came from the collections summary on the overview page,
         # so render that entire summary box again
-        if params[:render_overview_summary] && @collection_item.object.is_a?(TaxonConcept)
+        if params[:render_overview_summary] && @collection_item.collected_item.is_a?(TaxonConcept)
           if @errors.blank?
             @taxon_concept = TaxonConcept.find(@collection_item.collected_item_id)
             render :partial => 'taxa/collections_summary', :layout => false

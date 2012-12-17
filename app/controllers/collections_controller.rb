@@ -122,7 +122,7 @@ class CollectionsController < ApplicationController
     begin
       @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
       # Helps identify where ONE item is in other collections...
-      @item = CollectionItem.find(@items.first).object if
+      @item = CollectionItem.find(@items.first).collected_item if
         @items.length == 1
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
@@ -398,7 +398,7 @@ private
     collection_items = CollectionItem.find_all_by_id(collection_items)
     CollectionItem.preload_associations(collection_items, [ :collected_item, :collection ])
     collection_items.each do |collection_item|
-      if copy_to_collection.has_item?(collection_item.object)
+      if copy_to_collection.has_item?(collection_item.collected_item)
         @duplicates = true
       else
         old_collection_items << collection_item
@@ -667,14 +667,14 @@ private
       if !(r['sort_field'].blank? && r['instance'].sort_field.blank?) && r['sort_field'] != r['instance'].sort_field
         collection_item_ids_to_reindex << r['instance'].id
       elsif r['object_type'] == 'TaxonConcept'
-        title = r['instance'].object.entry.name.canonical_form.string rescue nil
+        title = r['instance'].collected_item.entry.name.canonical_form.string rescue nil
         if title && r['title'] != title
           collection_item_ids_to_reindex << r['instance'].id
-        elsif r['instance'].object.taxon_concept_metric && r['richness_score'] != r['instance'].object.taxon_concept_metric.richness_score
+        elsif r['instance'].collected_item.taxon_concept_metric && r['richness_score'] != r['instance'].collected_item.taxon_concept_metric.richness_score
           collection_item_ids_to_reindex << r['instance'].id
         end
       elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link', 'Map'].include?(r['object_type'])
-        if r['data_rating'] != r['instance'].object.data_rating
+        if r['data_rating'] != r['instance'].collected_item.data_rating
           collection_item_ids_to_reindex << r['instance'].id
         end
       end

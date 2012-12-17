@@ -1,4 +1,4 @@
-%form#api_test_form{ :action => url_for(:controller => '/api', :action => @api_method, :version => @documentation[:version], :only_path => false) }
+%form#api_test_form{ :action => url_for(:controller => '/api', :action => @api_method.method_name, :version => @api_method::VERSION, :only_path => false) }
   %table
     %col.name
     %col.required
@@ -9,21 +9,29 @@
         %th= I18n.t('required')
         %th= I18n.t('value')
     - required_label = I18n.t('yes_answer')
-    - if @documentation[:parameters]
-      - @documentation[:parameters].each do |p|
+    - unless @api_method::PARAMETERS.blank?
+      - @api_method::PARAMETERS.each do |p|
         %tr
-          %td= p[:name]
-          %td= p[:required] ? required_label : ''
+          %td= p.name
+          %td= p.required ? required_label : ''
           %td
-            - test_default = p[:test_value] || p[:default]
-            - if p[:class] == Integer || p[:class] == 'Identifier'
-              %input{ :name => p[:name], :type => 'text', :size => 15, :value => test_default }
-            - elsif p[:class] == 'Boolean'
-              %select{ :name => p[:name] }
-                %option{ :value => '0' }= I18n.t('false_label')
-                %option{ :value => '1', :selected => (test_default && test_default != 0) }= I18n.t('true_label')
+            - test_default = p.test_value || p.default
+            -# when there is an array of possible values, use a drop-down list
+            - if p.array?
+              %select{ :name => p.name }
+                - if test_default.blank?
+                  %option{ :value => '', :selected => true }= I18n.t('none')
+                - p.values.each do |value|
+                  %option{ :value => value, :selected => (value == test_default) }= value
+            - elsif p.boolean?
+              -# boolean values get a drop-down with True or False
+              %select{ :name => p.name }
+                %option{ :value => 'false' }= I18n.t('false_label')
+                %option{ :value => 'true', :selected => (test_default == true) }= I18n.t('true_label')
             - else
-              %input{ :name => p[:name], :type => 'text', :size => 50, :value => test_default }
+              -# integers get a shorter text field
+              - size = (p.integer?) ? 15 : 50
+              %input{ :name => p.name, :type => 'text', :size => size, :value => test_default }
     %tr
       %td= 'format'
       %td= required_label

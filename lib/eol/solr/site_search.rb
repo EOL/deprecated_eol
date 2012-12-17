@@ -23,7 +23,7 @@ module EOL
         response['grouped']['resource_unique_key']['groups'].each do |g|
           return_hash[:results] << g['doclist']['docs'][0]
         end
-        add_resource_instances!(return_hash[:results])
+        add_resource_instances!(return_hash[:results], options)
         add_best_match_keywords!(return_hash[:results], query)
         return_hash[:results] = WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
            pager.replace(return_hash[:results])
@@ -49,16 +49,16 @@ module EOL
 
       private
 
-      def self.add_resource_instances!(docs)
-        add_community!(docs.select{ |d| d['resource_type'].include?('Community') })
-        add_collection!(docs.select{ |d| d['resource_type'].include?('Collection') })
-        add_user!(docs.select{ |d| d['resource_type'].include?('User') })
-        add_taxon_concept!(docs.select{ |d| d['resource_type'].include?('TaxonConcept') })
-        add_data_object!(docs.select{ |d| d['resource_type'].include?('DataObject') })
-        add_content_page!(docs.select{ |d| d['resource_type'].include?('ContentPage') })
+      def self.add_resource_instances!(docs, options)
+        add_community!(docs.select{ |d| d['resource_type'].include?('Community') }, options)
+        add_collection!(docs.select{ |d| d['resource_type'].include?('Collection') }, options)
+        add_user!(docs.select{ |d| d['resource_type'].include?('User') }, options)
+        add_taxon_concept!(docs.select{ |d| d['resource_type'].include?('TaxonConcept') }, options)
+        add_data_object!(docs.select{ |d| d['resource_type'].include?('DataObject') }, options)
+        add_content_page!(docs.select{ |d| d['resource_type'].include?('ContentPage') }, options)
       end
 
-      def self.add_community!(docs)
+      def self.add_community!(docs, options)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = Community.find_all_by_id(ids)
@@ -67,7 +67,7 @@ module EOL
         end
       end
 
-      def self.add_collection!(docs)
+      def self.add_collection!(docs, options)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = Collection.find_all_by_id(ids, :include => [ :users, :communities ])
@@ -76,7 +76,7 @@ module EOL
         end
       end
 
-      def self.add_user!(docs)
+      def self.add_user!(docs, options)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = User.find_all_by_id(ids)
@@ -85,7 +85,7 @@ module EOL
         end
       end
 
-      def self.add_content_page!(docs)
+      def self.add_content_page!(docs, options)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = ContentPage.find_all_by_id(ids)
@@ -94,7 +94,7 @@ module EOL
         end
       end
 
-      def self.add_taxon_concept!(docs)
+      def self.add_taxon_concept!(docs, options)
         includes = [
           { :preferred_entry => 
             { :hierarchy_entry => { :name => :ranked_canonical_form } } }, 
@@ -108,7 +108,7 @@ module EOL
         end
       end
 
-      def self.add_data_object!(docs)
+      def self.add_data_object!(docs, options)
         # TODO: do some preloading
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
@@ -226,7 +226,7 @@ module EOL
         elsif options[:filter_by_hierarchy_entry_id]
           hierarchy_entry = HierarchyEntry.find_by_id(options[:filter_by_hierarchy_entry_id], :select => 'taxon_concept_id')
           filter_taxon_concept_id = (hierarchy_entry.blank?) ? 'nonsense' : hierarchy_entry.taxon_concept_id
-        elsif options[:filter_by_string]
+        elsif !options[:filter_by_string].blank?
           response = search_with_pagination(options[:filter_by_string],
             :page => 1, :per_page => 1, :type => ['TaxonConcept'], :exact => true)
           filter_taxon_concept_id = response[:results][0]['resource_id'].to_i rescue 'nonsense'

@@ -577,9 +577,9 @@ class TaxonConcept < ActiveRecord::Base
         solr_search_params[:license_ids] = options[:licenses].blank? ? nil : options[:licenses].collect(&:id)
       end
     end
-    if options[:vetted] == "1"  # trusted
+    if options[:vetted] == 1  # trusted
       solr_search_params[:vetted_types] = ['trusted']
-    elsif options[:vetted] == "2"  # everything except untrusted
+    elsif options[:vetted] == 2  # everything except untrusted
       solr_search_params[:vetted_types] = ['trusted', 'unreviewed']
     else
       solr_search_params[:vetted_types] = ['trusted', 'unreviewed', 'untrusted']

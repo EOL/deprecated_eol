@@ -461,6 +461,7 @@ Eol::Application.routes.draw do
   match 'api/docs' => 'api/docs#index' # Default is actually the documenation
   # not sure why this didn't work in some places - but this is for documentation
   match 'api/docs/:action' => 'api/docs'
+  match 'api/docs/:action/:version' => 'api/docs', :version => /[0-1]\.[0-9]/
   # ping is a bit of an exception - it doesn't get versioned and takes no ID
   match 'api/:action' => 'api'
   match 'api/:action/:version' => 'api', :version => /[0-1]\.[0-9]/

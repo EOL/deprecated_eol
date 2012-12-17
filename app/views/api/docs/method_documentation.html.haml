@@ -1,0 +1,22 @@
+= javascript_include_tag 'api'
+#content.cms_page
+  #api_doc.site_column
+    .nav= raw(@navigation_menu)
+    .article.copy
+      %h3= I18n.t('description')
+      %p= raw @api_method::DESCRIPTION
+
+      %h3= I18n.t('version')
+      %p
+        = @api_method::VERSION
+        - unless @api_method.other_versions.blank?
+          %br
+          - version_links = @api_method.other_versions.collect{ |version| link_to(version, :controller => 'api/docs', :action => @api_method.method_name, :version => version ) }
+          = raw I18n.t('other_version_links', :version_links => version_links.join(", "))
+
+      = render :partial => 'api/docs/parameters'
+
+      %h3= I18n.t('test_it_out')
+      = render :partial => 'api/docs/api_test_form'
+      #api_test_url{ :style => 'display:none' }
+      %code#api_test_result{ :style => 'display:none' }

@@ -18,6 +18,8 @@ class Hierarchy < ActiveRecord::Base
   has_one :resource
   has_one :dwc_resource, :class_name => Resource.to_s, :foreign_key => :dwc_hierarchy_id
   has_many :hierarchy_entries
+  has_many :kingdoms, :class_name => HierarchyEntry.to_s, :foreign_key => [ :hierarchy_id ], :primary_key => [ :id ],
+    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
 
   validates_presence_of :label
   validates_length_of :label, :maximum => 255
@@ -99,14 +101,6 @@ class Hierarchy < ActiveRecord::Base
     return label
   end
 
-  def kingdoms(opts = {})
-    vis = [Visibility.visible.id, Visibility.preview.id]
-    k = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
-    HierarchyEntry.preload_associations(k, :name)
-    HierarchyEntry.preload_associations(k, :hierarchy_entry_stat) if opts[:include_stats]
-    k
-  end
-  
   def content_partner
     # the resource has a content partner
     if resource && resource.content_partner

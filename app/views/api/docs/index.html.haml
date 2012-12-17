@@ -15,56 +15,14 @@
         %tbody
           -# DON'T TRANSLATE WORDS THAT *MUST* BE PRESERVED.  A path of "data_objects" *must* be written
           -# "data_objects", since it's part of a URL. ...so you cannot translate it!
-          %tr
-            %td
-              = link_to 'ping', :controller => 'api/docs', :action => 'ping'
-            %td
-              =I18n.t(:returns_either_a_positive_or_negative_response)
-          %tr
-            %td
-              = link_to 'search', :controller => 'api/docs', :action => 'search'
-            %td
-              =I18n.t(:search_method_description)
-          %tr
-            %td
-              = link_to 'pages', :controller => 'api/docs', :action => 'pages'
-            %td
-              =I18n.t(:pages_method_description)
-          %tr
-            %td
-              = link_to 'collections', :controller => 'api/docs', :action => 'collections'
-            %td
-              =I18n.t(:returns_all_metadata_about_a_particular_collection)
-          %tr
-            %td
-              = link_to 'data_objects', :controller => 'api/docs', :action => 'data_objects'
-            %td
-              =I18n.t(:returns_all_metadata_about_a_particular_data_object)
-          %tr
-            %td
-              = link_to 'hierarchy_entries', :controller => 'api/docs', :action => 'hierarchy_entries'
-            %td
-              =I18n.t(:gives_access_to_a_single_hierarchy_indexed_by_eol)
-          %tr
-            %td
-              = link_to 'provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'
-            %td
-              =I18n.t(:lists_the_identifiers_for_all_hierarchies)
-          %tr
-            %td
-              = link_to 'hierarchies', :controller => 'api/docs', :action => 'hierarchies'
-            %td
-              =I18n.t(:method_to_get_metadata_about_the_hierarchy)
-          %tr
-            %td
-              = link_to 'search_by_provider', :controller => 'api/docs', :action => 'search_by_provider'
-            %td
-              - if Hierarchy.itis
-                - test_entry = HierarchyEntry.where("hierarchy_id = #{Hierarchy.itis.id} AND identifier = '180542' AND published = 1").first
-              - else
-                - test_entry = HierarchyEntry.where("published = 1 AND identifier != '' AND identifier IS NOT NULL").last
-              - url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => test_entry.identifier, :hierarchy_id => test_entry.hierarchy_id, :only_path => false)
-              = raw(I18n.t(:search_by_provider_method_description_with_link, :link => link_to(url, url)))
+          - EOL::Api::METHODS.each do |method|
+            - method_version = EOL::Api.default_version_of(method)
+            - unless method_version.nil?
+              %tr
+                %td
+                  = link_to method, :controller => 'api/docs', :action => method, :version => method_version::VERSION
+                %td
+                  = raw(method_version::BRIEF_DESCRIPTION)
       %h3
         =I18n.t(:response_formats)
       %p

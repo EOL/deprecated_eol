@@ -19,6 +19,7 @@ module EOL
     class OpenAuthUnauthorized < StandardError; end
     class Pending < StandardError; end
     class ProvidersMatchOnMerge < StandardError; end
+    class ApiException < StandardError; end
     class SecurityViolation < StandardError
       attr_accessor :flash_error_key, :flash_error_scope
       attr_writer :flash_error

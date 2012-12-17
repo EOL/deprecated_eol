@@ -167,7 +167,7 @@ class CuratorActivityLog < LoggingModel
           puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{target_id} does not have a HierarchyEntry"
         end
       when ChangeableObjectType.users_data_object.id
-        udo_taxon_concept.id
+        udo_taxon_concept.id # TODO - this is nil in spec/integration/data_objects_spec.rb:260
       when ChangeableObjectType.taxon_concept.id
         taxon_concept.id
       when ChangeableObjectType.curated_taxon_concept_preferred_entry.id

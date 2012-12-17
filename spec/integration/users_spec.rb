@@ -116,7 +116,7 @@ describe 'Users' do
       cot = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_taxon_concept_preferred_entry')
       CuratorActivityLog.create(:user => curator, :changeable_object_type => cot,
         :target_id => ctcpe.id, :hierarchy_entry_id => tc.entry.id, :taxon_concept_id => tc.id,
-        :activity => Activity.preferred_classification, :created_at => 0.seconds.from_now)
+        :activity => Activity.preferred_classification)
       visit(user_path(curator))
       body.should have_selector("h3", :content => "Activity")
       body.should have_selector("h3", :content => "Curator qualifications")

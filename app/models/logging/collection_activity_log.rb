@@ -80,7 +80,7 @@ private
 
   def add_recipient_users_getting_watched(recipients)
     if someone_is_being_watched?
-      collection_item.object.add_as_recipient_if_listening_to(:i_am_being_watched, recipients)
+      collection_item.collected_item.add_as_recipient_if_listening_to(:i_am_being_watched, recipients)
     end
   end
 

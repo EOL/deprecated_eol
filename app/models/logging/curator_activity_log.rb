@@ -145,6 +145,7 @@ class CuratorActivityLog < LoggingModel
     end
   end
 
+  # TODO - these all just call #id... so, evaluate whether it's worth making this #taxon_concept instead.
   def taxon_concept_id
     case changeable_object_type_id
       when ChangeableObjectType.data_object.id

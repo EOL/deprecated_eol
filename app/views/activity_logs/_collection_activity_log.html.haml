@@ -21,11 +21,11 @@
   - translation_vars[:collection] = link_to(item.collection.summary_name, collection_url(item.collection),
     :style => link_style)
 - item_type = 'item'
-- if item.collection_item.nil? || item.collection_item.object.nil?
+- if item.collection_item.nil? || item.collection_item.collected_item.nil?
   - item_type = 'an_unknown_item'
 - else
-  - translation_vars[:item] = link_to(raw(item.collection_item.object.summary_name),
-    link_to_item(item.collection_item.object), :style => link_style)
+  - translation_vars[:item] = link_to(raw(item.collection_item.collected_item.summary_name),
+    link_to_item(item.collection_item.collected_item), :style => link_style)
 - case item.activity_id
 - when Activity.add_editor.id
   = raw I18n.t("add_editor.#{user_type}_of_#{collection_type}", translation_vars)

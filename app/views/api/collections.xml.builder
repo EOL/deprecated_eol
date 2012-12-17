@@ -43,13 +43,13 @@ xml.response do
           case ci.collected_item_type
           when 'TaxonConcept'
             xml.richness_score r['richness_score']
-            # xml.taxonRank ci.object.entry.rank.label.firstcap unless ci.object.entry.rank.nil?
+            # xml.taxonRank ci.collected_item.entry.rank.label.firstcap unless ci.collected_item.entry.rank.nil?
           when 'DataObject'
             xml.data_rating r['data_rating']
-            xml.object_guid ci.object.guid
-            collected_item_type = ci.object.data_type.simple_type
-            if ci.object.is_image?
-              xml.source ci.object.thumb_or_object(:orig)
+            xml.object_guid ci.collected_item.guid
+            collected_item_type = ci.collected_item.data_type.simple_type
+            if ci.collected_item.is_image?
+              xml.source ci.collected_item.thumb_or_object(:orig)
             end
           end
           

@@ -47,7 +47,7 @@ module EOL
         instances = Community.find_all_by_id(ids)
         docs.map! do |d|
           unless d['instance'].nil?
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+            d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
           end
         end
       end
@@ -62,7 +62,7 @@ module EOL
         end
         docs.map! do |d|
           unless d['instance'].nil?
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+            d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
           end
         end
       end
@@ -73,7 +73,7 @@ module EOL
         instances = User.find_all_by_id(ids)
         docs.map! do |d|
           unless d['instance'].nil?
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+            d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
           end
         end
       end
@@ -109,7 +109,7 @@ module EOL
         TaxonConcept.preload_associations(instances, includes, :select => selects)
         docs.each do |d|
           if d['instance']
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+            d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
           end
         end
       end
@@ -124,12 +124,12 @@ module EOL
           if i = instances.detect{ |i| i.id == d['object_id'].to_i }
             if d['instance'] 
               if latest_version = i.latest_published_version_in_same_language
-                d['instance'].object = latest_version
+                d['instance'].collected_item = latest_version
               else
-                d['instance'].object = i
+                d['instance'].collected_item = i
               end
-              d['instance'].object.is_the_latest_published_revision = true
-              instances_that_are_used << d['instance'].object
+              d['instance'].collected_item.is_the_latest_published_revision = true
+              instances_that_are_used << d['instance'].collected_item
             end
           end
         end

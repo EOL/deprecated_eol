@@ -226,8 +226,7 @@ private
       :taxon_concept => taxon_concept,
       :changeable_object_type => ChangeableObjectType.classification_curation,
       :target_id => id,
-      :activity => Activity.curate_classifications,
-      :created_at => 0.seconds.from_now
+      :activity => Activity.curate_classifications
     )
   end
 

@@ -21,6 +21,6 @@
           %p= link_to I18n.t(:see_all_featured_collections_with_count, :count => @community_collections.count), community_collections_path(@community)
       %ul
         - @community_collections[0..3].each do |ci|
-          = render :partial => 'collections/collection_summary', :locals => {:collection => ci.object, :minimal => true}
+          = render :partial => 'collections/collection_summary', :locals => {:collection => ci.collected_item, :minimal => true}
 #community.main_container
   = render :partial => 'index'

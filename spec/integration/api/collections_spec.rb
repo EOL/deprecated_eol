@@ -37,8 +37,8 @@ describe 'API:collections' do
   end
 
   it 'should be able to filter by sort_field in XML' do
-    ci1 = CollectionItem.gen(:collection => @collection, :object => User.gen)
-    ci2 = CollectionItem.gen(:collection => @collection, :object => User.gen, :sort_field => "populated")
+    ci1 = CollectionItem.gen(:collection => @collection, :collected_item => User.gen)
+    ci2 = CollectionItem.gen(:collection => @collection, :collected_item => User.gen, :sort_field => "populated")
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
     response = get_as_xml("/api/collections/#{@collection.id}")
     response.xpath("//item").length.should == 2
@@ -49,8 +49,8 @@ describe 'API:collections' do
   end
 
   it 'should be able to filter by sort_field in XML' do
-    ci1 = CollectionItem.gen(:collection => @collection, :object => User.gen)
-    ci2 = CollectionItem.gen(:collection => @collection, :object => User.gen, :sort_field => "populated")
+    ci1 = CollectionItem.gen(:collection => @collection, :collected_item => User.gen)
+    ci2 = CollectionItem.gen(:collection => @collection, :collected_item => User.gen, :sort_field => "populated")
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
     response = get_as_json("/api/collections/#{@collection.id}.json")
     response['collection_items'].length.should == 2

@@ -296,7 +296,7 @@ private
       @copied_to = []
       all_items = []
       Collection.preload_associations(destinations, :collection_items)
-      params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :object) if params[:collection_items]
+      params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :collected_item) if params[:collection_items]
       Collection.preload_associations(source, :users)
       destinations.each do |destination|
         begin
@@ -396,7 +396,7 @@ private
     count = 0
     @duplicates = false
     collection_items = CollectionItem.find_all_by_id(collection_items)
-    CollectionItem.preload_associations(collection_items, [ :object, :collection ])
+    CollectionItem.preload_associations(collection_items, [ :collected_item, :collection ])
     collection_items.each do |collection_item|
       if copy_to_collection.has_item?(collection_item.object)
         @duplicates = true

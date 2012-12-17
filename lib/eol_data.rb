@@ -31,7 +31,7 @@ module EOL
 
     def self.drop
       raise "This action is ONLY available in the development and test environments." unless
-        Rails.env.development? || Rails.env.test?
+        Rails.env.development? || Rails.env.development_master? || Rails.env.test? || Rails.env.test_master?
       EOL::DB.all_connections.each do |connection|
         connection.drop_database connection.current_database
       end

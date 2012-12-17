@@ -8,7 +8,7 @@ class Community < ActiveRecord::Base
 
   has_many :members
   has_many :users, :through => :members
-  has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
+  has_many :collection_items, :as => :collected_item # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 

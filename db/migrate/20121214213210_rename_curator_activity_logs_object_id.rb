@@ -1,9 +1,9 @@
 class RenameCuratorActivityLogsObjectId < EOL::LoggingMigration
-  def self.up
-    connection.rename_column :curator_activity_logs, :object_id, :target_id
+  def up
+    rename_column :curator_activity_logs, :object_id, :target_id
   end
 
   def self.down
-    connection.rename_column :curator_activity_logs, :target_id, :object_id
+    rename_column :curator_activity_logs, :target_id, :object_id
   end
 end

@@ -37,7 +37,7 @@ class TaxonConcept < ActiveRecord::Base
   has_many :names, :through => :taxon_concept_names
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
-  has_many :collection_items, :as => :object
+  has_many :collection_items, :as => :collected_item
   has_many :collections, :through => :collection_items
   # TODO: this is just an alias of the above so all collectable entities have this association
   has_many :containing_collections, :through => :collection_items, :source => :collection
@@ -152,7 +152,7 @@ class TaxonConcept < ActiveRecord::Base
       SELECT cal.user_id
       FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
       JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
-      JOIN #{DataObject.full_table_name} do ON (cal.object_id = do.id)
+      JOIN #{DataObject.full_table_name} do ON (cal.target_id = do.id)
       JOIN #{DataObject.full_table_name} do_all_versions ON (do.guid = do_all_versions.guid)
       JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (do_all_versions.id = dotc.data_object_id)
       WHERE dotc.taxon_concept_id=#{self.id}
@@ -785,7 +785,7 @@ class TaxonConcept < ActiveRecord::Base
         JOIN collections_communities cc ON (cc.community_id = c.id)
         JOIN collections cl ON (cc.collection_id = cl.id)
         JOIN collection_items ci ON (ci.collection_id = cl.id)
-      WHERE ci.object_id = #{id} AND object_type = 'TaxonConcept' AND c.published = 1
+      WHERE ci.collected_item_id = #{id} AND collected_item_type = 'TaxonConcept' AND c.published = 1
     ")
   end
 

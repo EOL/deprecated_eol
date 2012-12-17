@@ -3,22 +3,22 @@
 class CollectionItem < ActiveRecord::Base
 
   belongs_to :collection, :touch => true
-  belongs_to :object, :polymorphic => true
+  belongs_to :collected_item, :polymorphic => true
   belongs_to :added_by_user, :class_name => User.to_s, :foreign_key => :added_by_user_id
   has_and_belongs_to_many :refs
 
-  scope :collections, :conditions => {:object_type => 'Collection'}
-  scope :communities, :conditions => {:object_type => 'Community'}
-  scope :data_objects, :conditions => {:object_type => 'DataObject'}
-  scope :taxa, :conditions => {:object_type => 'TaxonConcept'}
-  scope :users, :conditions => {:object_type => 'User'}
+  scope :collections, :conditions => {:collected_item_type => 'Collection'}
+  scope :communities, :conditions => {:collected_item_type => 'Community'}
+  scope :data_objects, :conditions => {:collected_item_type => 'DataObject'}
+  scope :taxa, :conditions => {:collected_item_type => 'TaxonConcept'}
+  scope :users, :conditions => {:collected_item_type => 'User'}
   scope :annotated, :conditions => 'annotation IS NOT NULL AND annotation != ""'
 
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch
   # of unused fields in collection_activity_logs, so it's actually better to have these "zombie" rows here!)
-  validates_presence_of :object_id, :object_type
-  validates_uniqueness_of :object_id, :scope => [:collection_id, :object_type],
+  validates_presence_of :collected_item_id, :collected_item_type
+  validates_uniqueness_of :collected_item_id, :scope => [:collection_id, :collected_item_type],
     :message => I18n.t(:item_not_added_already_in_collection), :if => Proc.new { |ci| ci.collection_id }
 
   # Note we DO NOT update relevance on the collection on save or delete, since we sometimes add/delete 1000 items at
@@ -67,22 +67,23 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def solr_index_hash
-    item_object_type = nil
-    if self.object_type == 'DataObject'
-      if self.object.is_link?
-        item_object_type = 'Link'
-        link_type_id = self.object.link_type.id
+    item_collected_item_type = nil
+    if self.collected_item_type == 'DataObject'
+      if self.collected_item.is_link?
+        item_collected_item_type = 'Link'
+        link_type_id = self.collected_item.link_type.id
       else
-        item_object_type = self.object.data_type.simple_type('en')
+        item_collected_item_type = self.collected_item.data_type.simple_type('en')
       end
     else
-      item_object_type = self.object_type
+      item_collected_item_type = self.collected_item_type
     end
 
     params = {}
+    # NOTE - not changing object_type and object_id from Solr until we fix coupling...
     params['collection_item_id'] = self.id
-    params['object_type'] = item_object_type
-    params['object_id'] = self.object_id
+    params['object_type'] = item_collected_item_type
+    params['object_id'] = self.collected_item_id
     params['collection_id'] = self.collection_id || 0
     params['annotation'] = self.annotation || ''
     params['added_by_user_id'] = self.added_by_user_id || 0
@@ -94,33 +95,33 @@ class CollectionItem < ActiveRecord::Base
     end
     params['link_type_id'] = link_type_id if link_type_id
 
-    case self.object
+    case self.collected_item
     when TaxonConcept
-      unless self.object.entry && self.object.entry.name && self.object.entry.name.canonical_form
+      unless self.collected_item.entry && self.collected_item.entry.name && self.collected_item.entry.name.canonical_form
         raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
                                                                     :type => 'Missing Hierarchy Entry'))
       end
-      params['title'] = self.object.entry.name.canonical_form.string
+      params['title'] = self.collected_item.entry.name.canonical_form.string
     when User
-      params['title'] = self.object.username
+      params['title'] = self.collected_item.username
     when DataObject
-      params['title'] = self.object.best_title
-      params['data_rating'] = self.object.safe_rating
+      params['title'] = self.collected_item.best_title
+      params['data_rating'] = self.collected_item.safe_rating
     when Community
-      params['title'] = self.object.name
+      params['title'] = self.collected_item.name
     when Collection
-      params['title'] = self.object.name
+      params['title'] = self.collected_item.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
-                                                                  :type => self.object.class.name))
+                                                                  :type => self.collected_item.class.name))
     end
 
     params['data_rating'] ||= 0
     params['richness_score'] ||= 0
     # this is a strange thing to do as only TaxonConcepts have richness, but putting this inside the case switch
     # above was giving me other mysterious errors
-    if self.object.class.name == "TaxonConcept" && self.object.taxon_concept_metric && !self.object.taxon_concept_metric.richness_score.blank?
-      params['richness_score'] = self.object.taxon_concept_metric.richness_score
+    if self.collected_item.class.name == "TaxonConcept" && self.collected_item.taxon_concept_metric && !self.collected_item.taxon_concept_metric.richness_score.blank?
+      params['richness_score'] = self.collected_item.taxon_concept_metric.richness_score
     end
     return params
   end

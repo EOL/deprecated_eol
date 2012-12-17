@@ -122,7 +122,7 @@ class CollectionsController < ApplicationController
     begin
       @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
       # Helps identify where ONE item is in other collections...
-      @item = CollectionItem.find(@items.first).object if
+      @item = CollectionItem.find(@items.first).collected_item if
         @items.length == 1
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
@@ -296,7 +296,7 @@ private
       @copied_to = []
       all_items = []
       Collection.preload_associations(destinations, :collection_items)
-      params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :object) if params[:collection_items]
+      params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :collected_item) if params[:collection_items]
       Collection.preload_associations(source, :users)
       destinations.each do |destination|
         begin
@@ -354,8 +354,8 @@ private
     destinations.each do |destination|
       CollectionItem.connection.execute(
         "INSERT IGNORE INTO collection_items
-          (object_type, object_id, collection_id, created_at, updated_at, added_by_user_id)
-          (SELECT object_type, object_id, #{destination.id}, NOW(), NOW(), #{current_user.id}
+          (collected_item_type, collected_item_id, collection_id, created_at, updated_at, added_by_user_id)
+          (SELECT collected_item_type, collected_item_id, #{destination.id}, NOW(), NOW(), #{current_user.id}
             FROM collection_items WHERE collection_id = #{source.id})"
       )
       # TODO - we should actually count the items and store that in the collection activity log. Lots of work:
@@ -396,9 +396,9 @@ private
     count = 0
     @duplicates = false
     collection_items = CollectionItem.find_all_by_id(collection_items)
-    CollectionItem.preload_associations(collection_items, [ :object, :collection ])
+    CollectionItem.preload_associations(collection_items, [ :collected_item, :collection ])
     collection_items.each do |collection_item|
-      if copy_to_collection.has_item?(collection_item.object)
+      if copy_to_collection.has_item?(collection_item.collected_item)
         @duplicates = true
       else
         old_collection_items << collection_item
@@ -407,8 +407,8 @@ private
         copiable = options[:from].editable_by?(current_user) ?
                      { :annotation => collection_item.annotation,
                        :sort_field => collection_item.sort_field } : {}
-        new_collection_items << { :object_id => collection_item.object.id,
-                                  :object_type => collection_item.object_type,
+        new_collection_items << { :collected_item_id => collection_item.collected_item.id,
+                                  :collected_item_type => collection_item.collected_item_type,
                                   :added_by_user_id => current_user.id }.merge!(copiable)
         count += 1
         # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:
@@ -657,7 +657,8 @@ private
   def log_activity(options = {})
     CollectionActivityLog.create(options.reverse_merge(:collection => @collection, :user => current_user))
   end
-  
+
+  # NOTE - object_type and object_id not changed due yet; they are stale names in Solr.
   def reindex_items_if_necessary(collection_results)
     collection_item_ids_to_reindex = []
     collection_results.each do |r|
@@ -666,14 +667,14 @@ private
       if !(r['sort_field'].blank? && r['instance'].sort_field.blank?) && r['sort_field'] != r['instance'].sort_field
         collection_item_ids_to_reindex << r['instance'].id
       elsif r['object_type'] == 'TaxonConcept'
-        title = r['instance'].object.entry.name.canonical_form.string rescue nil
+        title = r['instance'].collected_item.entry.name.canonical_form.string rescue nil
         if title && r['title'] != title
           collection_item_ids_to_reindex << r['instance'].id
-        elsif r['instance'].object.taxon_concept_metric && r['richness_score'] != r['instance'].object.taxon_concept_metric.richness_score
+        elsif r['instance'].collected_item.taxon_concept_metric && r['richness_score'] != r['instance'].collected_item.taxon_concept_metric.richness_score
           collection_item_ids_to_reindex << r['instance'].id
         end
       elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link', 'Map'].include?(r['object_type'])
-        if r['data_rating'] != r['instance'].object.data_rating
+        if r['data_rating'] != r['instance'].collected_item.data_rating
           collection_item_ids_to_reindex << r['instance'].id
         end
       end

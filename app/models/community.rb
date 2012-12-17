@@ -8,7 +8,7 @@ class Community < ActiveRecord::Base
 
   has_many :members
   has_many :users, :through => :members
-  has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
+  has_many :collection_items, :as => :collected_item # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 
@@ -57,7 +57,7 @@ class Community < ActiveRecord::Base
   def featured_collections
     return [] unless self.collections && !self.collections.blank?
     collections.collect do |c|
-      c.collection_items.where("object_type = 'Collection'")
+      c.collection_items.where("collected_item_type = 'Collection'")
     end.flatten.compact.uniq
   end
 

@@ -537,8 +537,8 @@ describe TaxonConcept do
     collection1 = community1.collections.first
     collection2 = community2.collections.first
     tc = build_taxon_concept
-    coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection1)
-    coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection2)
+    coll_item1 = CollectionItem.gen(:collected_item_type => "TaxonConcept", :collected_item_id => tc.id, :collection => collection1)
+    coll_item2 = CollectionItem.gen(:collected_item_type => "TaxonConcept", :collected_item_id => tc.id, :collection => collection2)
     tc.collection_items[1].collection.communities.include?(community2).should be_true
     tc.top_communities[0].name.should == community2.name
     tc.top_communities[1].name.should == community1.name

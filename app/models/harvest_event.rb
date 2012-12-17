@@ -63,7 +63,7 @@ class HarvestEvent < ActiveRecord::Base
     end
 
     curator_activity_logs = CuratorActivityLog.find(:all,
-      :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (curator_activity_logs.object_id=dohe.data_object_id)",
+      :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (curator_activity_logs.target_id=dohe.data_object_id)",
       :conditions => "curator_activity_logs.activity_id IN (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.inappropriate.id}, #{Activity.delete.id}) AND curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id} AND dohe.harvest_event_id = 2 #{date_condition}",
       :select => 'id')
 

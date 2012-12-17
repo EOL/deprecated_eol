@@ -110,13 +110,13 @@ describe 'Users' do
       udo = UsersDataObject.gen(:user_id => curator.id, :taxon_concept => tc, :visibility_id => Visibility.visible.id)
       user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?', curator.id])
       object = tc.data_objects.first
-      cal = CuratorActivityLog.gen(:user_id => curator.id, :taxon_concept => tc, :object_id => object.id, :activity_id => Activity.trusted.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('data_object').id)
+      cal = CuratorActivityLog.gen(:user_id => curator.id, :taxon_concept => tc, :target_id => object.id, :activity_id => Activity.trusted.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('data_object').id)
       
       ctcpe = CuratedTaxonConceptPreferredEntry.create(:taxon_concept_id => tc.id, :hierarchy_entry_id => tc.entry.id, :user_id => curator.id)
       cot = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_taxon_concept_preferred_entry')
       CuratorActivityLog.create(:user => curator, :changeable_object_type => cot,
-        :object_id => ctcpe.id, :hierarchy_entry_id => tc.entry.id, :taxon_concept_id => tc.id,
-        :activity => Activity.preferred_classification, :created_at => 0.seconds.from_now)
+        :target_id => ctcpe.id, :hierarchy_entry_id => tc.entry.id, :taxon_concept_id => tc.id,
+        :activity => Activity.preferred_classification)
       visit(user_path(curator))
       body.should have_selector("h3", :content => "Activity")
       body.should have_selector("h3", :content => "Curator qualifications")

@@ -26,7 +26,7 @@ class Curator
     action_id ||= Activity.raw_curator_action_ids
     changeable_object_type_ids ||= ChangeableObjectType.data_object_scope
     if return_type == 'count'
-      query = "SELECT cal.user_id, COUNT(DISTINCT cal.object_id) as count "
+      query = "SELECT cal.user_id, COUNT(DISTINCT cal.target_id) as count "
     elsif return_type == 'hash'
       query = "SELECT cal.* "
     end
@@ -69,7 +69,7 @@ class Curator
     query = "SELECT DISTINCT cal.user_id, dotc.taxon_concept_id
       FROM #{CuratorActivityLog.full_table_name} cal
       JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id)
-      JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id) WHERE "
+      JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.target_id = dotc.data_object_id) WHERE "
     if user_id.class == Fixnum
       query += "cal.user_id = #{user_id} AND "
     elsif user_id.class == Array
@@ -98,7 +98,7 @@ class Curator
 
   # TODO - This is only used in the admin console; should be removed
   def self.comment_curation_actions(user_id = nil)
-    query = "SELECT DISTINCT cal.user_id, cal.object_id
+    query = "SELECT DISTINCT cal.user_id, cal.target_id
       FROM #{CuratorActivityLog.full_table_name} cal
       JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
     if user_id.class == Fixnum
@@ -110,11 +110,11 @@ class Curator
       AND acts.id != #{Activity.create.id}"
     results = User.connection.execute(query)
     user_id_i = results.fields.index('user_id')
-    object_id_i = results.fields.index('object_id')
+    target_id_i = results.fields.index('target_id')
     return_hash = {}
     results.each do |r|
       return_hash[r[user_id_i].to_i] ||= []
-      return_hash[r[user_id_i].to_i] << r[object_id_i].to_i
+      return_hash[r[user_id_i].to_i] << r[target_id_i].to_i
     end
     if user_id.class == Fixnum
       return return_hash[user_id] || []

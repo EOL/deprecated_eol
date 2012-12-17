@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :members
   has_many :comments
   has_many :users_data_objects
-  has_many :collection_items, :as => :object
+  has_many :collection_items, :as => :collected_item
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_and_belongs_to_many :collections, :conditions => 'collections.published = 1'
   has_and_belongs_to_many :collections_including_unpublished, :class_name => Collection.to_s
@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   has_one :notification
 
   scope :admins, :conditions => ['admin IS NOT NULL']
-  scope :curators, :conditions => ['curator_level_id IS NOT NULL']
+  scope :curators, :conditions => 'curator_level_id is not null'
 
   before_save :check_credentials
   before_save :encrypt_password
@@ -94,8 +94,6 @@ class User < ActiveRecord::Base
   validates_presence_of :curator_scope, :if => :curator_attributes_required?
 
   attr_accessor :curator_request
-
-  scope :curators, :conditions => 'curator_level_id is not null'
 
 # END CURATOR CLASS DECLARATIONS
 

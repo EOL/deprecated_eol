@@ -198,7 +198,7 @@ private
                                        :changeable_object_type_id => comment ?
                                           ChangeableObjectType.comment.id :
                                           ChangeableObjectType.classification_curation.id,
-                                       :object_id => options[:comment] ? comment.id : id,
+                                       :target_id => options[:comment] ? comment.id : id,
                                        :activity => activity,
                                        :created_at => 0.seconds.from_now,
                                        :taxon_concept_id => parent.id)
@@ -225,9 +225,8 @@ private
       :user => user,
       :taxon_concept => taxon_concept,
       :changeable_object_type => ChangeableObjectType.classification_curation,
-      :object_id => id,
-      :activity => Activity.curate_classifications,
-      :created_at => 0.seconds.from_now
+      :target_id => id,
+      :activity => Activity.curate_classifications
     )
   end
 

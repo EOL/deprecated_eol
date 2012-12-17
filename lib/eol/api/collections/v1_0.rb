@@ -79,8 +79,8 @@ module EOL
             next if ci.nil?
             item_hash = {
               'name' => r['title'],
-              'object_type' => ci.object_type,
-              'object_id' => ci.object_id,
+              'object_type' => ci.collected_item_type,
+              'object_id' => ci.collected_item_id,
               'title' => ci.name,
               'created' => ci.created_at,
               'updated' => ci.updated_at,
@@ -95,7 +95,7 @@ module EOL
               end
             end
 
-            case ci.object_type
+            case ci.collected_item_type
             when 'TaxonConcept'
               item_hash['richness_score'] = r['richness_score']
               # item_hash['taxonRank'] = ci.object.entry.rank.label.firstcap unless ci.object.entry.rank.nil?

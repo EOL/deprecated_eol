@@ -28,7 +28,7 @@ def continue_collect(user, url)
   # TODO
   # current_url.should match /#{url}/
   # body.should include('added to collection')
-  # user.watch_collection.items.map {|li| li.object }.include?(collectable_item).should be_true
+  # user.watch_collection.items.map {|li| li.collected_item }.include?(collectable_item).should be_true
 end
 
 def it_should_create_and_collect_item(collectable_item_path, collectable_item)
@@ -138,12 +138,12 @@ describe "Collections" do
       login_as admin
       visit collection_path(@collection)
       body.should have_tag('h1', :text => @collection.name)
-      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.object)}']")
+      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.collected_item)}']")
 
       login_as @collection.users.first
       visit collection_path(@collection)
       body.should have_tag('h1', :text => @collection.name)
-      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.object)}']")
+      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.collected_item)}']")
     end
 
   end
@@ -154,7 +154,7 @@ describe "Collections" do
       it 'should be able to view a collection and its items' do
         visit collection_path(@collection)
         body.should have_tag('h1', :text => @collection.name)
-        body.should have_tag('ul.object_list li', :text => @collection.collection_items.first.object.best_title)
+        body.should have_tag('ul.object_list li', :text => @collection.collection_items.first.collected_item.best_title)
       end
 
       it "should be able to sort a collection's items" do

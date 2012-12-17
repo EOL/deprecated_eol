@@ -1,3 +1,4 @@
+# NOTE - Not changing object_id or object_type in this file because we don't want to reindex Solr entirely.
 module EOL
   module Solr
     class CollectionItems
@@ -46,7 +47,7 @@ module EOL
         instances = Community.find_all_by_id(ids)
         docs.map! do |d|
           unless d['instance'].nil?
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+            d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
           end
         end
       end
@@ -61,7 +62,7 @@ module EOL
         end
         docs.map! do |d|
           unless d['instance'].nil?
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+            d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
           end
         end
       end
@@ -72,7 +73,7 @@ module EOL
         instances = User.find_all_by_id(ids)
         docs.map! do |d|
           unless d['instance'].nil?
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+            d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
           end
         end
       end
@@ -108,7 +109,7 @@ module EOL
         TaxonConcept.preload_associations(instances, includes, :select => selects)
         docs.each do |d|
           if d['instance']
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+            d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
           end
         end
       end
@@ -123,12 +124,12 @@ module EOL
           if i = instances.detect{ |i| i.id == d['object_id'].to_i }
             if d['instance'] 
               if latest_version = i.latest_published_version_in_same_language
-                d['instance'].object = latest_version
+                d['instance'].collected_item = latest_version
               else
-                d['instance'].object = i
+                d['instance'].collected_item = i
               end
-              d['instance'].object.is_the_latest_published_revision = true
-              instances_that_are_used << d['instance'].object
+              d['instance'].collected_item.is_the_latest_published_revision = true
+              instances_that_are_used << d['instance'].collected_item
             end
           end
         end
@@ -178,28 +179,28 @@ module EOL
 
         # add facet filtering
         if options[:facet_type]
-          object_type = nil
+          facet_type = nil
           case options[:facet_type].downcase
           when 'taxa', 'taxonconcept', 'taxon'
-            object_type = 'TaxonConcept'
+            facet_type = 'TaxonConcept'
           when 'articles', 'text'
-            object_type = 'Text'
+            facet_type = 'Text'
           when 'videos', 'video'
-            object_type = 'Video'
+            facet_type = 'Video'
           when 'images', 'image'
-            object_type = 'Image'
+            facet_type = 'Image'
           when 'sounds', 'sound'
-            object_type = 'Sound'
+            facet_type = 'Sound'
           when 'links', 'link'
-            object_type = 'Link'
+            facet_type = 'Link'
           when 'communities', 'community'
-            object_type = 'Community'
+            facet_type = 'Community'
           when 'people', 'user'
-            object_type = 'User'
+            facet_type = 'User'
           when 'collections', 'collection'
-            object_type = 'Collection'
+            facet_type = 'Collection'
           end
-          url << "&fq=object_type:#{object_type}" if object_type
+          url << "&fq=object_type:#{facet_type}" if facet_type
         end
 
         # add sorting

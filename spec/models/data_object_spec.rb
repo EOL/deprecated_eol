@@ -359,7 +359,7 @@ describe DataObject do
                                                                                            @image_dato.id)
     cdohe.vetted_id = Vetted.untrusted.id
     cdohe.visibility_id = Visibility.invisible.id
-    cal = CuratorActivityLog.gen(:object_id => @image_dato.id,
+    cal = CuratorActivityLog.gen(:target_id => @image_dato.id,
                               :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
                               :activity_id => Activity.untrusted.id,
                               :hierarchy_entry_id => @hierarchy_entry.id,
@@ -381,7 +381,7 @@ describe DataObject do
                                                                                            @image_dato.id)
     cdohe.vetted_id = Vetted.unknown.id
     cdohe.visibility_id = Visibility.invisible.id
-    cal = CuratorActivityLog.gen(:object_id => @image_dato.id,
+    cal = CuratorActivityLog.gen(:target_id => @image_dato.id,
                               :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
                               :activity_id => Activity.hide.id,
                               :hierarchy_entry_id => @hierarchy_entry.id,

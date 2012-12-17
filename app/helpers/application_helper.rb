@@ -106,7 +106,7 @@ module ApplicationHelper
   # Used to provide a stable English type label for CSS and I18n keys
   def self.en_type(object)
     if object.class == CollectionItem
-      en_type(object.object)
+      en_type(object.collected_item)
     elsif object.class == DataObject
       return 'image_map' if object.is_image_map? # NOTE: this must appear before is_image? here
       return 'map' if object.is_map?

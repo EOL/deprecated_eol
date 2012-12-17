@@ -105,7 +105,7 @@ module PartnerUpdatesEmailer
           JOIN #{HierarchyEntry.full_table_name} he ON (dohe.hierarchy_entry_id = he.id)
           JOIN #{Resource.full_table_name} r ON (he.hierarchy_id = r.hierarchy_id)
           JOIN #{ContentPartner.full_table_name} cp ON (r.content_partner_id = cp.id)
-        ) ON (cal.object_id=dohe.data_object_id)
+        ) ON (cal.target_id=dohe.data_object_id)
         WHERE cal.id IN (#{all_action_ids.join(',')})
         AND cal.changeable_object_type_id IN (#{ChangeableObjectType.data_object.id},#{ChangeableObjectType.data_objects_hierarchy_entry.id},#{ChangeableObjectType.curated_data_objects_hierarchy_entry.id})
         AND cp.id IS NOT NULL
@@ -124,7 +124,7 @@ module PartnerUpdatesEmailer
           #{DataObject.full_table_name} do
           JOIN #{UsersDataObject.full_table_name} udo ON (do.id=udo.data_object_id)
           JOIN #{User.full_table_name} u ON (udo.user_id = u.id)
-        ) ON (cal.object_id=udo.data_object_id)
+        ) ON (cal.target_id=udo.data_object_id)
         WHERE cal.id IN (#{all_action_ids.join(',')})
         AND cal.changeable_object_type_id  IN (#{ChangeableObjectType.users_data_object.id},#{ChangeableObjectType.data_object.id},#{ChangeableObjectType.data_objects_hierarchy_entry.id},#{ChangeableObjectType.curated_data_objects_hierarchy_entry.id})
         AND u.id IS NOT NULL

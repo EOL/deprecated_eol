@@ -152,7 +152,7 @@ module EOL
 
         cot = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept')
         CuratorActivityLog.gen(:user => curator, :taxon_concept => tc, :changeable_object_type => cot,
-                               :object_id => tc.id)
+                               :target_id => tc.id)
 
         return curator
       end

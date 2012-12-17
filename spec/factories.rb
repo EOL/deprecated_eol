@@ -379,7 +379,7 @@ FactoryGirl.define do
 
   factory :collection_item do
     association :collection
-    association :object, :factory => :data_object
+    association :collected_item, :factory => :data_object
     created_at  { 5.minutes.ago }
   end
 
@@ -495,7 +495,6 @@ FactoryGirl.define do
     created_at  { 5.days.ago }
     updated_at  { 5.days.ago }
   end
-
 
   factory :curated_data_objects_hierarchy_entry do
     association :hierarchy_entry

@@ -25,7 +25,7 @@
   -# Note the reject simply disallows you from collecting a collection in itself:
   - collections = @collections.reject {|c| @collection && c.id == @collection.id }
   - unless collections.empty?
-    - form_target = @items ? @collection : CollectionItem.new(:object => @item)
+    - form_target = @items ? @collection : CollectionItem.new(:collected_item => @item)
     = form_for(form_target) do |f|
       - if @selected_collection_items
         - @selected_collection_items.each do |collection_item_id|

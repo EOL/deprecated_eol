@@ -37,7 +37,7 @@ class TaxonConcept < ActiveRecord::Base
   has_many :names, :through => :taxon_concept_names
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
-  has_many :collection_items, :as => :object
+  has_many :collection_items, :as => :collected_item
   has_many :collections, :through => :collection_items
   # TODO: this is just an alias of the above so all collectable entities have this association
   has_many :containing_collections, :through => :collection_items, :source => :collection

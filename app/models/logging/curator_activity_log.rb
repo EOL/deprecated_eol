@@ -21,15 +21,15 @@ class CuratorActivityLog < LoggingModel
   belongs_to :classification_curation, :foreign_key => :target_id
   belongs_to :affected_comment, :foreign_key => :target_id, :class_name => Comment.to_s
 
-  validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
+  validates_presence_of :user_id, :changeable_object_type_id, :activity_id
 
   after_create :log_activity_in_solr
   after_create :queue_notifications
 
   # I don't know why attribute-whitelisting still applies during tests, but they do.  Grr:
   attr_accessible :user, :user_id, :changeable_object_type, :changeable_object_type_id, :target, :target_id,
-    :hierarchy_entry, :hierarchy_entry_id, :taxon_concept, :taxon_concept_id, :activity, :activity_id, :created_at,
-    :data_object, :data_object_id, :data_object_guid, :created_at
+    :hierarchy_entry, :hierarchy_entry_id, :taxon_concept, :taxon_concept_id, :activity, :activity_id,
+    :data_object, :data_object_id, :data_object_guid
 
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}
@@ -51,8 +51,7 @@ class CuratorActivityLog < LoggingModel
       :target_id => classification.id,
       :hierarchy_entry_id => classification.hierarchy_entry_id,
       :taxon_concept_id => classification.taxon_concept_id,
-      :activity => Activity.preferred_classification,
-      :created_at => 0.seconds.from_now
+      :activity => Activity.preferred_classification
     )
   end
 
@@ -89,8 +88,7 @@ class CuratorActivityLog < LoggingModel
       :activity => Activity.send(options[:action]),
       :data_object => options[:data_object],
       :data_object_guid => options[:data_object].guid,
-      :hierarchy_entry => he,
-      :created_at => 0.seconds.from_now # TODO - I thought this was automatic; why isn't it?
+      :hierarchy_entry => he
     }
     if options[:association].class.name == "UsersDataObject"
       create_options.merge!(:taxon_concept_id => options[:association].taxon_concept_id)

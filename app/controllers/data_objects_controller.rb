@@ -57,7 +57,7 @@ class DataObjectsController < ApplicationController
                                 :taxon_concept_id => @taxon_concept.id)
       # add this new object to the user's watch collection
       collection_item = CollectionItem.create(
-        :object => @data_object,
+        :collected_item => @data_object,
         :collection => current_user.watch_collection
       )
       CollectionActivityLog.create(:collection => current_user.watch_collection, :user_id => current_user.id,

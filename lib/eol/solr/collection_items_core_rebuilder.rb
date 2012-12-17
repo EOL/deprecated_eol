@@ -83,12 +83,12 @@ module EOL
 
       def self.preload_object!(collection_items)
         return if collection_items.blank?
-        CollectionItem.preload_associations(collection_items, :object)
+        CollectionItem.preload_associations(collection_items, :collected_item)
       end
 
       def self.preload_taxon_concepts!(collection_items)
         return if collection_items.blank?
-        includes = { :object => [ :taxon_concept_metric,
+        includes = { :collected_item => [ :taxon_concept_metric,
           { :published_hierarchy_entries => { :name => :canonical_form } },
           { :preferred_entry => 
             { :hierarchy_entry => { :name => :canonical_form } } } ] }
@@ -105,7 +105,7 @@ module EOL
 
       def self.preload_data_objects!(collection_items)
         return if collection_items.blank?
-        includes = { :object => [ :data_type, { :toc_items => :translations }, { :data_objects_link_type => :link_type } ] }
+        includes = { :collected_item => [ :data_type, { :toc_items => :translations }, { :data_objects_link_type => :link_type } ] }
         selects = {
           :data_objects => [ :id, :object_title, :data_rating, :data_type_id, :data_subtype_id ],
           :table_of_contents => 'id',

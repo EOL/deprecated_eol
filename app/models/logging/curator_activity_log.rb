@@ -86,7 +86,6 @@ class CuratorActivityLog < LoggingModel
       :changeable_object_type => changeable_object_type,
       :target_id => target_id,
       :activity => Activity.send(options[:action]),
-      :data_object => options[:data_object],
       :data_object_guid => options[:data_object].guid,
       :hierarchy_entry => he
     }

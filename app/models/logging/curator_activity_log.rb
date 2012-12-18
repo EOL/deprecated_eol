@@ -62,14 +62,14 @@ class CuratorActivityLog < LoggingModel
   # You should be passing in :action, :association, :data_object, and :user.
   def self.factory(options)
     return unless options[:association]
-    target_id = options[:association].data_object_id if options[:association].class.name == "DataObjectsHierarchyEntry" ||
-      options[:association].class.name == "CuratedDataObjectsHierarchyEntry" ||
-      options[:association].class.name == "UsersDataObject"
+    target_id = options[:association].data_object_id if
+      options[:association].is_a?(DataObjectsHierarchyEntry) ||
+      options[:association].is_a?(CuratedDataObjectsHierarchyEntry)
     target_id ||= options[:association].id
 
-    he = if options[:association].class.name == "DataObjectsHierarchyEntry" || options[:association].class.name == "CuratedDataObjectsHierarchyEntry"
+    he = if options[:association].is_a?(DataObjectsHierarchyEntry) || options[:association].is_a?(CuratedDataObjectsHierarchyEntry)
       options[:association].hierarchy_entry
-    elsif options[:association].class.name == "HierarchyEntry"
+    elsif options[:association].is_a?(HierarchyEntry)
       options[:association]
     else # UsersDataObject, notably... 
       nil
@@ -90,7 +90,7 @@ class CuratorActivityLog < LoggingModel
       :data_object_guid => options[:data_object].guid,
       :hierarchy_entry => he
     }
-    if options[:association].class.name == "UsersDataObject"
+    if options[:association].is_a?(UsersDataObject)
       create_options.merge!(:taxon_concept_id => options[:association].taxon_concept_id)
     end
     CuratorActivityLog.create(create_options)
@@ -167,7 +167,7 @@ class CuratorActivityLog < LoggingModel
           puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{target_id} does not have a HierarchyEntry"
         end
       when ChangeableObjectType.users_data_object.id
-        udo_taxon_concept.id # TODO - this is nil in spec/integration/data_objects_spec.rb:260
+        udo_taxon_concept.id
       when ChangeableObjectType.taxon_concept.id
         taxon_concept.id
       when ChangeableObjectType.curated_taxon_concept_preferred_entry.id

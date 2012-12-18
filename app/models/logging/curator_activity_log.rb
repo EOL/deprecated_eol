@@ -64,7 +64,8 @@ class CuratorActivityLog < LoggingModel
     return unless options[:association]
     target_id = options[:association].data_object_id if
       options[:association].is_a?(DataObjectsHierarchyEntry) ||
-      options[:association].is_a?(CuratedDataObjectsHierarchyEntry)
+      options[:association].is_a?(CuratedDataObjectsHierarchyEntry) ||
+      options[:association].is_a?(UsersDataObject)
     target_id ||= options[:association].id
 
     he = if options[:association].is_a?(DataObjectsHierarchyEntry) || options[:association].is_a?(CuratedDataObjectsHierarchyEntry)
@@ -199,7 +200,7 @@ class CuratorActivityLog < LoggingModel
   end
 
   def users_data_object
-    UsersDataObject.find(self['target_id']) rescue nil # TODO Syntax?
+    data_object.users_data_object
   end
 
   def udo_parent_text

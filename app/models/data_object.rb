@@ -619,6 +619,7 @@ class DataObject < ActiveRecord::Base
   end
   
   def latest_version_in_language(chosen_language_id, params = {})
+    return self if id.nil?
     chosen_language_id ||= language.id
     chosen_language_id = Language.english.id unless chosen_language_id && chosen_language_id != 0
     params[:check_only_published] = true unless params.has_key?(:check_only_published)

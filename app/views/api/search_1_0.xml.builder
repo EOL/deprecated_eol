@@ -3,7 +3,7 @@ xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8", :standalone => "yes
 xml.feed "xmlns" => "http://www.w3.org/2005/Atom",
   "xmlns:os".to_sym => "http://a9.com/-/spec/opensearch/1.1/" do
 
-  search_api_url = url_for(:controller => 'api', :action => 'search', :id => @search_term, :only_path => false);
+  search_api_url = url_for(:controller => 'api', :action => 'search', :id => params[:q], :only_path => false)
   xml.title "Encyclopedia of Life search: #{@search_term}"
   xml.link :href => search_api_url
   xml.updated

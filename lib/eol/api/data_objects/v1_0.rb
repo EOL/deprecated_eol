@@ -12,7 +12,8 @@ module EOL
               :name => 'id',
               :type => String,
               :required => true,
-              :test_value => (DataObject.latest_published_version_of_guid('d72801627bf4adf1a38d9c5f10cc767f') || DataObject.last).id ),
+              :test_value => (DataObject.latest_published_version_of_guid('d72801627bf4adf1a38d9c5f10cc767f') || DataObject.last).id,
+              :notes => I18n.t('the_data_object_id_can_be') )
           ]
 
         def self.call(params={})

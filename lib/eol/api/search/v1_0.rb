@@ -13,7 +13,8 @@ module EOL
               :name => 'q',
               :type => String,
               :required => true,
-              :test_value => 'Ursus' ),
+              :test_value => 'Ursus',
+              :notes => I18n.t('the_query_string') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'page',
               :type => Integer,
@@ -26,13 +27,16 @@ module EOL
               :notes => I18n.t('will_find_taxon_pages_matching_the_search_term') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'filter_by_taxon_concept_id',
-              :type => Integer ),
+              :type => Integer,
+              :notes => I18n.t('provide_a_concept_id') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'filter_by_hierarchy_entry_id',
-              :type => Integer ),
+              :type => Integer,
+              :notes => I18n.t('provide_a_hierarchy_entry_id') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'filter_by_string',
-              :type => String ),
+              :type => String,
+              :notes => I18n.t('provide_a_search_string') ),
           ]
 
         def self.call(params={})

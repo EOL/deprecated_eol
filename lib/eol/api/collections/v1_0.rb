@@ -98,13 +98,13 @@ module EOL
             case ci.collected_item_type
             when 'TaxonConcept'
               item_hash['richness_score'] = r['richness_score']
-              # item_hash['taxonRank'] = ci.object.entry.rank.label.firstcap unless ci.object.entry.rank.nil?
+              # item_hash['taxonRank'] = ci.collected_item.entry.rank.label.firstcap unless ci.collected_item.entry.rank.nil?
             when 'DataObject'
               item_hash['data_rating'] = r['data_rating']
-              item_hash['object_guid'] = ci.object.guid
-              item_hash['object_type'] = ci.object.data_type.simple_type
-              if ci.object.is_image?
-                item_hash['source'] = ci.object.thumb_or_object(:orig)
+              item_hash['object_guid'] = ci.collected_item.guid
+              item_hash['object_type'] = ci.collected_item.data_type.simple_type
+              if ci.collected_item.is_image?
+                item_hash['source'] = ci.collected_item.thumb_or_object(:orig)
               end
             end
             return_hash['collection_items'] << item_hash

@@ -3,16 +3,17 @@
   #api_doc.site_column
     .nav= raw(@navigation_menu)
     .article.copy
+      %strong
+        = I18n.t('versions_colon')
+      - links = @api_method.parent::VERSIONS.collect{ |version|  |
+        link_text = version.dup;  |
+        link_text = "<strong>#{link_text}</strong>" if version == @api_method::VERSION;  |
+        link_to(raw(link_text), :controller => 'api/docs', :action => @api_method.method_name, :version => version ) }  |
+      = raw links.join(",&nbsp;&nbsp;&nbsp;")
+      %br
+      %br
       %h3= I18n.t('description')
       %p= raw @api_method::DESCRIPTION
-
-      %h3= I18n.t('version')
-      %p
-        = @api_method::VERSION
-        - unless @api_method.other_versions.blank?
-          %br
-          - version_links = @api_method.other_versions.collect{ |version| link_to(version, :controller => 'api/docs', :action => @api_method.method_name, :version => version ) }
-          = raw I18n.t('other_version_links', :version_links => version_links.join(", "))
 
       = render :partial => 'api/docs/parameters'
 

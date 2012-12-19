@@ -30,7 +30,11 @@ module EOL
       # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...
       # TODO - this is not a nice abstract way of getting the list of connections we have.  We should generalize.
       def all_connections
-        EOL::DB.all_connections
+        begin
+          EOL::DB.all_connections
+        rescue => e
+          debugger # WHY IS THIS HAPPENING?!?
+        end
       end
 
       # call truncate_all_tables but make sure it only

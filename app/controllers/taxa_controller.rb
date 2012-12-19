@@ -195,6 +195,7 @@ private
     @scientific_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.italicized_name : @taxon_concept.title_canonical_italicized
   end
 
+  # TODO - delete. This should no longer be used; it was moved to TaxonPage.
   def promote_exemplar_image(data_objects)
     # TODO: a comment may be needed. If the concept is blank, why would there be images to promote?
     # we should just return
@@ -204,7 +205,7 @@ private
       exemplar_image = @taxon_concept.published_exemplar_image
     end
     unless exemplar_image.nil?
-      data_objects.delete_if{ |d| d.guid == exemplar_image.guid }
+      data_objects.delete_if { |d| d.guid == exemplar_image.guid }
       data_objects.unshift(exemplar_image)
     end
     data_objects

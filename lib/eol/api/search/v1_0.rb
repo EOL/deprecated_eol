@@ -3,11 +3,11 @@ module EOL
     module Search
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = I18n.t(:search_method_description)
-        DESCRIPTION = I18n.t('the_xml_search_response_implements',
+        BRIEF_DESCRIPTION = Proc.new { I18n.t(:search_method_description) }
+        DESCRIPTION = Proc.new { I18n.t('the_xml_search_response_implements',
           :link => view_context.link_to('http://www.opensearch.org/Specifications/OpenSearch/1.1', 'http://www.opensearch.org/Specifications/OpenSearch/1.1')) +
-          '</p><p>' + I18n.t('given_the_vast_number')
-        PARAMETERS =
+          '</p><p>' + I18n.t('given_the_vast_number') }
+        PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
               :name => 'q',
@@ -37,7 +37,7 @@ module EOL
               :name => 'filter_by_string',
               :type => String,
               :notes => I18n.t('provide_a_search_string') ),
-          ]
+          ] }
 
         def self.call(params={})
           params[:q] ||= params[:id]

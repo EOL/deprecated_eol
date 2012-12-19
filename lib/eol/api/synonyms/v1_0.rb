@@ -3,9 +3,9 @@ module EOL
     module Synonyms
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = I18n.t(:returns_all_metadata_about_a_particular_collection)
-        DESCRIPTION = I18n.t(:api_docs_collections_description)
-        PARAMETERS =
+        BRIEF_DESCRIPTION = Proc.new { I18n.t(:returns_all_metadata_about_a_particular_collection) }
+        DESCRIPTION = Proc.new { I18n.t(:api_docs_collections_description) }
+        PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
               :name => 'id',
@@ -33,7 +33,7 @@ module EOL
               :name => 'sort_field',
               :type => String,
               :notes => I18n.t('collection_api_sort_field_notes') )
-          ]
+          ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)

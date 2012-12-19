@@ -22,7 +22,9 @@ Eol::Application.routes.draw do
   match '/users/:user_id/reset_password/:recover_account_token' => redirect("/users/recover_account")
   match '/info/xrayvision' => redirect("/collections/14770")
   match '/info/brian-skerry' => redirect("/collections/29285")
-  match '/info/naturesbest2011' =>  redirect("/collections/19338")
+  match '/info/naturesbest2011' => redirect("/collections/19338")
+  match '/voc/table_of_contents' => redirect("/schema/eol_info_items.xml")
+  match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
 

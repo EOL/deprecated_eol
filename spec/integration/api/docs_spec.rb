@@ -18,7 +18,7 @@ describe 'API:pages' do
     EOL::Api::METHODS.each do |method_name|
       latest_version_method = EOL::Api.default_version_of(method_name)
       body.should have_selector("tr td a", :content => method_name.to_s)
-      body.should have_selector("tr td", :content => latest_version_method::BRIEF_DESCRIPTION)
+      body.should have_selector("tr td", :content => latest_version_method.brief_description)
     end
   end
 
@@ -27,8 +27,8 @@ describe 'API:pages' do
       latest_version_method = EOL::Api.default_version_of(method_name)
       visit '/api/docs/' + method_name.to_s
       body.should include method_name.to_s
-      body.gsub(/\n/, '').should include latest_version_method::DESCRIPTION
-      latest_version_method::PARAMETERS.each do |p|
+      body.gsub(/\n/, '').should include latest_version_method.description
+      latest_version_method.parameters.each do |p|
         body.should have_selector("tr td", :content => p.name)
         body.should have_selector("tr td", :content => p.notes) unless p.notes.blank?
       end
@@ -40,7 +40,7 @@ describe 'API:pages' do
       latest_version_method = EOL::Api.default_version_of(method_name)
       visit '/api/docs/' + method_name.to_s
       body.should have_selector("form#api_test_form[action$='/api/#{method_name}/#{latest_version_method::VERSION}']")
-      latest_version_method::PARAMETERS.each do |p|
+      latest_version_method.parameters.each do |p|
         if p.boolean? || p.array?
           body.should have_selector("form#api_test_form select[name='#{p.name}']")
         else

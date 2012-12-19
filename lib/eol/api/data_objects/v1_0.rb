@@ -3,10 +3,10 @@ module EOL
     module DataObjects
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = I18n.t(:returns_all_metadata_about_a_particular_data_object)
-        DESCRIPTION = I18n.t('data_object_api_description') + '</p><p>' + I18n.t('image_objects_will_contain_two_mediaurl_elements')
+        BRIEF_DESCRIPTION = Proc.new { I18n.t(:returns_all_metadata_about_a_particular_data_object) }
+        DESCRIPTION = Proc.new { I18n.t('data_object_api_description') + '</p><p>' + I18n.t('image_objects_will_contain_two_mediaurl_elements') }
         TEMPLATE = '/api/pages_0_4'
-        PARAMETERS =
+        PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
               :name => 'id',
@@ -14,7 +14,7 @@ module EOL
               :required => true,
               :test_value => (DataObject.latest_published_version_of_guid('d72801627bf4adf1a38d9c5f10cc767f') || DataObject.last).id,
               :notes => I18n.t('the_data_object_id_can_be') )
-          ]
+          ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
@@ -57,6 +57,9 @@ module EOL
           return return_hash unless params[:details] == true
 
           return_hash['mimeType']               = data_object.mime_type.label unless data_object.mime_type.blank?
+          if return_hash['mimeType'].blank? && data_object.image?
+            return_hash['mimeType'] = 'image/jpeg'
+          end
           return_hash['created']                = data_object.object_created_at unless data_object.object_created_at.blank?
           return_hash['modified']               = data_object.object_modified_at unless data_object.object_modified_at.blank?
           return_hash['title']                  = data_object.object_title unless data_object.object_title.blank?

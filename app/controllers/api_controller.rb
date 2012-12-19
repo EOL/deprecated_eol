@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
 
-  skip_before_filter :original_request_params, :global_warning, :clear_any_logged_in_sessions, :set_locale, :check_user_agreed_with_terms
+  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms
   before_filter :set_default_format_to_xml
   before_filter :get_api_method, :except => [ :ping_host, :render_test_response ]
 

@@ -1,6 +1,6 @@
 %h3
   = I18n.t("parameters")
-- unless @api_method::PARAMETERS.blank?
+- unless @api_method.parameters.blank?
   %table
     %col.name
     %col.values
@@ -13,7 +13,7 @@
         %th= I18n.t("default")
         %th= I18n.t("notes")
     %tbody
-      - @api_method::PARAMETERS.each do |p|
+      - @api_method.parameters.each do |p|
         %tr
           %td= p.name
           %td

@@ -3633,7 +3633,7 @@ en:
   page_views_th: "Page Views"
   pages_curator_section_link: "Curators"
   pages_admin_section_link: "Admins"
-  pages_method_description: "takes an EOL page identifier and returns the scientific name for that page, and optionally returns information about common names, media (text, images and videos), and references to the hierarchies which recognize the taxon described on the"
+  pages_method_description: "takes an EOL page identifier and returns the scientific name for that page, and optionally returns information about common names, media (text, images and videos), and references to the hierarchies which recognize the taxon described on the page"
   pagination_page_number: "Page %{number}"
   pagination_next: "Next"
   pagination_next_with_count:

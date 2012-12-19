@@ -3,7 +3,7 @@ module EOL
     module SearchByProvider
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = begin
+        BRIEF_DESCRIPTION = Proc.new {
           if Hierarchy.itis
             test_entry = HierarchyEntry.where("hierarchy_id = #{Hierarchy.itis.id} AND identifier = '180542' AND published = 1").first
           else
@@ -11,8 +11,8 @@ module EOL
           end
           url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => test_entry.identifier, :hierarchy_id => test_entry.hierarchy_id, :only_path => false)
           I18n.t(:search_by_provider_method_description_with_link, :link => view_context.link_to(url, url))
-        end
-        DESCRIPTION = begin
+        }
+        DESCRIPTION = Proc.new {
           test_hierarchy = (Hierarchy.itis || HierarchyEntry.where("published = 1 AND identifier != '' AND identifier IS NOT NULL").last.hierarchy)
           provider_hierarchies_url = url_for(:controller => '/api/docs', :action => 'provider_hierarchies')
           search_by_provider_url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => test_hierarchy.id, :only_path => false)
@@ -20,8 +20,8 @@ module EOL
             :link_provider => view_context.link_to('provider_hierarchies', provider_hierarchies_url),
             :link_url => view_context.link_to(search_by_provider_url, search_by_provider_url),
             :itis_id => test_hierarchy.id)
-        end
-        PARAMETERS =
+        }
+        PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
               :name => 'id',
@@ -34,7 +34,7 @@ module EOL
               :required => true,
               :test_value => (Hierarchy.itis || HierarchyEntry.where("published = 1 AND identifier != '' AND identifier IS NOT NULL").last.hierarchy).id,
               :notes => I18n.t("the_id_of_provider_hierarchy_you_are_searching", :link => view_context.link_to('provider_hierarchies', url_for(:controller => 'api/docs', :action => 'provider_hierarchies'))) )
-          ]
+          ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)

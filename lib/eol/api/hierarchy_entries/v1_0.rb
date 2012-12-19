@@ -3,9 +3,9 @@ module EOL
     module HierarchyEntries
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = I18n.t(:gives_access_to_a_single_hierarchy_indexed_by_eol)
-        DESCRIPTION = I18n.t('hierarchies_entries_description') + '</p><p>' + I18n.t('the_json_response_for_this_method')
-        PARAMETERS =
+        BRIEF_DESCRIPTION = Proc.new { I18n.t(:gives_access_to_a_single_hierarchy_indexed_by_eol) }
+        DESCRIPTION = Proc.new { I18n.t('hierarchies_entries_description') + '</p><p>' + I18n.t('the_json_response_for_this_method') }
+        PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
               :name => 'id',
@@ -22,7 +22,7 @@ module EOL
               :type => 'Boolean',
               :default => 1,
               :notes => I18n.t('return_all_synonyms_for_this_taxon') )
-          ]
+          ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)

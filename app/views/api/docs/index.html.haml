@@ -22,7 +22,7 @@
                 %td
                   = link_to method, :controller => 'api/docs', :action => method, :version => method_version::VERSION
                 %td
-                  = raw(method_version::BRIEF_DESCRIPTION)
+                  = raw(method_version.brief_description)
       %h3
         =I18n.t(:response_formats)
       %p

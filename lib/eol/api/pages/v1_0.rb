@@ -3,8 +3,8 @@ module EOL
     module Pages
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = I18n.t(:pages_method_description)
-        DESCRIPTION = begin
+        BRIEF_DESCRIPTION = Proc.new { I18n.t(:pages_method_description) }
+        DESCRIPTION = Proc.new {
           hierarchy_entries_url = url_for(:controller => '/api/docs', :action => 'hierarchy_entries')
           I18n.t(:page_method_description) + '</p><p>' +
           I18n.t('the_darwin_core_taxon_elements') + ' ' +
@@ -15,8 +15,8 @@ module EOL
           I18n.t('if_the_details_parameter_is_not_set',
             :linka => view_context.link_to(I18n.t('dublin_core'), 'http://dublincore.org/documents/dcmi-type-vocabulary/'),
             :linkb => view_context.link_to(I18n.t('eol_accepted_subjects'), '/info/toc_subjects'))
-        end
-        PARAMETERS =
+        }
+        PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
               :name => 'id',
@@ -89,7 +89,7 @@ module EOL
               :values => [ 0, 1, 2 ],
               :default => 0,
               :notes => I18n.t('return_content_by_vettedness') ),
-          ]
+          ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)

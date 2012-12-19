@@ -9,8 +9,8 @@
         %th= I18n.t('required')
         %th= I18n.t('value')
     - required_label = I18n.t('yes_answer')
-    - unless @api_method::PARAMETERS.blank?
-      - @api_method::PARAMETERS.each do |p|
+    - unless @api_method.parameters.blank?
+      - @api_method.parameters.each do |p|
         %tr
           %td= p.name
           %td= p.required ? required_label : ''

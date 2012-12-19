@@ -11,12 +11,29 @@ module EOL
         Rails.application.routes.default_url_options[:host] = ActionMailer::Base.default_url_options[:host] || $SITE_DOMAIN_OR_IP
         include Rails.application.routes.url_helpers # for using user_url(id) type methods
 
+        def brief_description
+          call_proc_or_return_value(self::BRIEF_DESCRIPTION)
+        end
+
+        def description
+          call_proc_or_return_value(self::DESCRIPTION)
+        end
+
+        def parameters
+          call_proc_or_return_value(self::PARAMETERS)
+        end
+
+        def call_proc_or_return_value(proc_or_value)
+          return proc_or_value.call if proc_or_value.class == Proc
+          proc_or_value
+        end
+
         def view_context
           ApiController.new.view_context
         end
 
         def validate_and_normalize_input_parameters!(input_params)
-          self::PARAMETERS.each do |documented_parameter|
+          parameters.each do |documented_parameter|
             if incoming_value = input_params[documented_parameter.name]
               if documented_parameter.boolean?
                 incoming_value = convert_to_boolean(incoming_value)

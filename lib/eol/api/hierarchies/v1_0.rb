@@ -3,16 +3,16 @@ module EOL
     module Hierarchies
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = I18n.t(:method_to_get_metadata_about_the_hierarchy)
-        DESCRIPTION = I18n.t('hierarchies_description')
-        PARAMETERS =
+        BRIEF_DESCRIPTION = Proc.new { I18n.t(:method_to_get_metadata_about_the_hierarchy) }
+        DESCRIPTION = Proc.new { I18n.t('hierarchies_description') }
+        PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
               :name => 'id',
               :type => Integer,
               :required => true,
               :test_value => Hierarchy.default.id )
-          ]
+          ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)

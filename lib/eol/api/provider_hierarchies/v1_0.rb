@@ -3,8 +3,8 @@ module EOL
     module ProviderHierarchies
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = I18n.t(:lists_the_identifiers_for_all_hierarchies)
-        DESCRIPTION = I18n.t(:provider_hierarchies_method_description)
+        BRIEF_DESCRIPTION = Proc.new { I18n.t(:lists_the_identifiers_for_all_hierarchies) }
+        DESCRIPTION = Proc.new { I18n.t(:provider_hierarchies_method_description) }
         PARAMETERS = [ ]
 
         def self.call(params={})

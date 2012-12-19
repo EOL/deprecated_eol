@@ -28,8 +28,8 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'sort_by',
               :type => String,
-              :values => SortStyle.all.map{ |ss| ss.name.downcase.gsub(' ', '_') rescue nil }.compact,
-              :default => SortStyle.newest.name.downcase.gsub(' ', '_') ),
+              :values => SortStyle.all.map{ |ss| ss.name(:en).downcase.gsub(' ', '_') rescue nil }.compact,
+              :default => SortStyle.newest.name(:en).downcase.gsub(' ', '_') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'sort_field',
               :type => String,

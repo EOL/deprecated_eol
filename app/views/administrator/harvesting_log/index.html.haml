@@ -4,14 +4,8 @@
     - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
     = select_tag :date, options_for_select([['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}
   %br
-  - if @date == 'all'
-    =I18n.t("showing")
-    %strong
-      =I18n.t("all_harvesting_logs")
-  - elsif !@date.blank?
-    =I18n.t(:showing_procs_from)
-    %strong
-      = @date.strftime("%A, %B %d")
+  - unless @date.blank?
+    = @date == "all" ? I18n.t(:showing_all_harvest_logs) : I18n.t(:showing_harvest_logs_from_date, :date => I18n.l(@date))
   %br
   - if @logs.nil? == false && @logs.size > 0
     = will_paginate @logs, :params => {:date => @date}

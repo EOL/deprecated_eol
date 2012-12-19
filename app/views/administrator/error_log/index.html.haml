@@ -4,14 +4,8 @@
     - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
     = select_tag :date, options_for_select([['--select--', nil], ['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}
   %br
-  - if @date == 'all'
-    =I18n.t("showing")
-    %strong
-      =I18n.t("all_errors")
-  - elsif !@date.blank?
-    =I18n.t("showing_errors_the_error_log_f")
-    %strong
-      = @date.strftime("%A, %B %d")
+  - unless @date.blank?
+    = @date == "all" ? I18n.t(:showing_all_error_logs) : I18n.t(:showing_error_logs_from_date, :date => I18n.l(@date))
   %br
   - if @errors.nil? == false && @errors.size > 0
     = will_paginate @errors, :params => {:date => @date}

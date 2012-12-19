@@ -60,5 +60,5 @@
           = submit_tag I18n.t(:proceed_to_checkout_page)
         %br
         %br
-        = raw I18n.t(:correct_donation_message, :go_back_link=>link_to( I18n.t(:go_back) ,:action => 'donate'))
+        = raw I18n.t(:correct_donation_message_with_link, :link => url_for(:action => 'donate'))
         = raw I18n.t(:thank_you_for_your_generous_support)

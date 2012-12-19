@@ -345,7 +345,7 @@ private
   def object_is_data_object?
     [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
       ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id
-    ].include?(self.changeable_object_type_id)
+    ].include?(self.changeable_object_type_id) && data_object
   end
 
   def unlock?

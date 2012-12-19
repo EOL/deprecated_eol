@@ -908,7 +908,9 @@ class DataObject < ActiveRecord::Base
     taxon_concept_id = hierarchy_entry.taxon_concept.id
     vetted_id = user.min_curator_level?(:full) ? Vetted.trusted.id : Vetted.unknown.id
     # SILENTLY returns... this is not an error, but nothing needs to be done:
-    return if existing_association(hierarchy_entry)
+    if assoc = existing_association(hierarchy_entry)
+      return assoc
+    end
     cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
                                                     :data_object_id => self.id, :user_id => user.id,
                                                     :data_object_guid => self.guid,
@@ -925,6 +927,7 @@ class DataObject < ActiveRecord::Base
         dotc_exists.destroy unless dotc_exists.nil?
       end
     end
+    cdohe
   end
 
   def existing_association(hierarchy_entry)
@@ -950,6 +953,7 @@ class DataObject < ActiveRecord::Base
         dotc_exists.destroy unless dotc_exists.nil?
       end
     end
+    cdohe
   end
 
   def still_associated_with_taxon_concept?(taxon_concept_id)

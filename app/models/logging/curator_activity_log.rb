@@ -305,7 +305,7 @@ private
   end
 
   def add_recipient_affected_by_object_curation(recipients)
-    if object_is_data_object?
+    if target_is_a_data_object?
       recipients << self.data_object
       self.data_object.all_published_associations.each do |assoc|
         recipients << assoc.taxon_concept
@@ -332,7 +332,7 @@ private
   end
 
   def add_recipient_author_of_curated_text(recipients)
-    if object_is_data_object?
+    if target_is_a_data_object?
       if u = self.data_object.contributing_user
         u.add_as_recipient_if_listening_to(:comment_on_my_contribution, recipients)
       end
@@ -341,8 +341,7 @@ private
 
   # All of these "types" are actually stored as a data_object, for reasons that escape me at the time of this
   # writing.  ...But if you care to find out why, I suggest you look at the data objects controller.
-  # TODO - rename to target_is_data_object?
-  def object_is_data_object?
+  def target_is_a_data_object?
     [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
       ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id
     ].include?(self.changeable_object_type_id) && data_object

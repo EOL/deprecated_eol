@@ -62,14 +62,15 @@ class CuratorActivityLog < LoggingModel
   # You should be passing in :action, :association, :data_object, and :user.
   def self.factory(options)
     return unless options[:association]
-    target_id = options[:association].data_object_id if options[:association].class.name == "DataObjectsHierarchyEntry" ||
-      options[:association].class.name == "CuratedDataObjectsHierarchyEntry" ||
-      options[:association].class.name == "UsersDataObject"
+    target_id = options[:association].data_object_id if
+      options[:association].is_a?(DataObjectsHierarchyEntry) ||
+      options[:association].is_a?(CuratedDataObjectsHierarchyEntry) ||
+      options[:association].is_a?(UsersDataObject)
     target_id ||= options[:association].id
 
-    he = if options[:association].class.name == "DataObjectsHierarchyEntry" || options[:association].class.name == "CuratedDataObjectsHierarchyEntry"
+    he = if options[:association].is_a?(DataObjectsHierarchyEntry) || options[:association].is_a?(CuratedDataObjectsHierarchyEntry)
       options[:association].hierarchy_entry
-    elsif options[:association].class.name == "HierarchyEntry"
+    elsif options[:association].is_a?(HierarchyEntry)
       options[:association]
     else # UsersDataObject, notably... 
       nil
@@ -86,11 +87,10 @@ class CuratorActivityLog < LoggingModel
       :changeable_object_type => changeable_object_type,
       :target_id => target_id,
       :activity => Activity.send(options[:action]),
-      :data_object => options[:data_object],
       :data_object_guid => options[:data_object].guid,
       :hierarchy_entry => he
     }
-    if options[:association].class.name == "UsersDataObject"
+    if options[:association].is_a?(UsersDataObject)
       create_options.merge!(:taxon_concept_id => options[:association].taxon_concept_id)
     end
     CuratorActivityLog.create(create_options)
@@ -167,7 +167,7 @@ class CuratorActivityLog < LoggingModel
           puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{target_id} does not have a HierarchyEntry"
         end
       when ChangeableObjectType.users_data_object.id
-        udo_taxon_concept.id # TODO - this is nil in spec/integration/data_objects_spec.rb:260
+        udo_taxon_concept.id
       when ChangeableObjectType.taxon_concept.id
         taxon_concept.id
       when ChangeableObjectType.curated_taxon_concept_preferred_entry.id
@@ -200,7 +200,7 @@ class CuratorActivityLog < LoggingModel
   end
 
   def users_data_object
-    UsersDataObject.find(self['target_id']) rescue nil # TODO Syntax?
+    data_object.users_data_object
   end
 
   def udo_parent_text
@@ -305,7 +305,7 @@ private
   end
 
   def add_recipient_affected_by_object_curation(recipients)
-    if object_is_data_object?
+    if target_is_a_data_object?
       recipients << self.data_object
       self.data_object.all_published_associations.each do |assoc|
         recipients << assoc.taxon_concept
@@ -332,7 +332,7 @@ private
   end
 
   def add_recipient_author_of_curated_text(recipients)
-    if object_is_data_object?
+    if target_is_a_data_object?
       if u = self.data_object.contributing_user
         u.add_as_recipient_if_listening_to(:comment_on_my_contribution, recipients)
       end
@@ -341,11 +341,10 @@ private
 
   # All of these "types" are actually stored as a data_object, for reasons that escape me at the time of this
   # writing.  ...But if you care to find out why, I suggest you look at the data objects controller.
-  # TODO - rename to target_is_data_object?
-  def object_is_data_object?
+  def target_is_a_data_object?
     [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
       ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id
-    ].include?(self.changeable_object_type_id)
+    ].include?(self.changeable_object_type_id) && data_object
   end
 
   def unlock?

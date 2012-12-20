@@ -31,22 +31,22 @@ describe 'Users' do
     click_button 'Generate a key'
     body.should_not include("Generate a key")
     body.should have_selector('.requests dl') do |tags|
-      tags.should have_selector('dt', :content => 'API key')
+      tags.should have_selector('dt', :text => 'API key')
       tags.should have_selector('dd textarea')
     end
   end
 
   it 'should change preferred language' do
     login_as @user
-    body.should have_selector(".language p.en", :content => "English")
+    body.should have_selector(".language p.en", :text => "English")
     visit edit_user_path(@user)
     select "Français", :from => "user_language_abbr"
     click_button "Save profile information"
-    body.should have_selector(".language p.fr", :content => "Français")
+    body.should have_selector(".language p.fr", :text => "Français")
     visit edit_user_path(@user)
     select "English", :from => "user_language_abbr"
     click_button "Enregistrer les informations de profil"
-    body.should have_selector(".language p.en", :content => "English")
+    body.should have_selector(".language p.en", :text => "English")
   end
 
   # TODO - we appear to be missing this checkbox.  ...Meaning, really: it's not there. I don't know if this is
@@ -82,10 +82,10 @@ describe 'Users' do
       visit(user_path(@user))
     end
     it "should have a 'My info' section"  do
-      body.should have_selector("h3", :content => "My info")
+      body.should have_selector("h3", :text => "My info")
       body.should have_selector(".info") do |tags|
-        tags.should have_selector('dd', :content => @user.full_name)
-        tags.should have_selector('dd', :content => @user.username)
+        tags.should have_selector('dd', :text => @user.full_name)
+        tags.should have_selector('dd', :text => @user.username)
       end
       #TODO - add more tests for 'My info' section
     end
@@ -118,10 +118,10 @@ describe 'Users' do
         :target_id => ctcpe.id, :hierarchy_entry_id => tc.entry.id, :taxon_concept_id => tc.id,
         :activity => Activity.preferred_classification)
       visit(user_path(curator))
-      body.should have_selector("h3", :content => "Activity")
-      body.should have_selector("h3", :content => "Curator qualifications")
+      body.should have_selector("h3", :text => "Activity")
+      body.should have_selector("h3", :text => "Curator qualifications")
       body.should have_selector("a[href='" + user_activity_path(curator, :filter => "data_object_curation") + "']",
-                                :content => I18n.t(:user_activity_stats_objects_curated,
+                                :text => I18n.t(:user_activity_stats_objects_curated,
                                                    :count => Curator.total_objects_curated_by_action_and_user(nil,
                                                                                                         curator.id)))
       body.should include(I18n.t(:user_activity_stats_preferred_classifications_selected, 
@@ -131,7 +131,7 @@ describe 'Users' do
       body.should have_selector("a[href='" + user_activity_path(curator, :filter => "names") + "']")
       body.should have_selector("a[href='" + user_activity_path(curator, :filter => "taxa_comments") + "']")
       body.should have_selector("a[href='" + user_activity_path(curator, :filter => "comments") + "']")
-      body.should have_selector("a[href='" + user_activity_path(curator, :filter => "added_data_objects") + "']", :content => I18n.t(:user_activity_stats_articles_added, :count => user_submitted_text_count))
+      body.should have_selector("a[href='" + user_activity_path(curator, :filter => "added_data_objects") + "']", :text => I18n.t(:user_activity_stats_articles_added, :count => user_submitted_text_count))
     end
   end
 
@@ -142,12 +142,12 @@ describe 'Users' do
       body.should have_selector "form.filter" do |tags|
         tags.should have_selector("select[name=filter]")
       end
-      body.should have_selector("option:nth-child(1)", :content => "All")
-      body.should have_selector("option:nth-child(2)", :content => "Comments")
-      body.should have_selector("option:nth-child(3)", :content => "Objects curated")
-      body.should have_selector("option:nth-child(4)", :content => "Articles added")
-      body.should have_selector("option:nth-child(5)", :content => "Collections")
-      body.should have_selector("option:nth-child(6)", :content => "Communities")
+      body.should have_selector("option:nth-child(1)", :text => "All")
+      body.should have_selector("option:nth-child(2)", :text => "Comments")
+      body.should have_selector("option:nth-child(3)", :text => "Objects curated")
+      body.should have_selector("option:nth-child(4)", :text => "Articles added")
+      body.should have_selector("option:nth-child(5)", :text => "Collections")
+      body.should have_selector("option:nth-child(6)", :text => "Communities")
     end
     it "should get data from a form and display accordingly" do
       visit(user_activity_path(@user, :filter => "comments"))

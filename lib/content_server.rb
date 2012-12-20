@@ -51,7 +51,7 @@ class ContentServer
 
   def self.uploaded_content_url(url, ext)
     return self.blank if url.blank?
-    (self.next + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(url) + ext)
+    ($SINGLE_DOMAIN_CONTENT_SERVER + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(url) + ext)
   end
 
   # only uploading logos

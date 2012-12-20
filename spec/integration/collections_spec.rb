@@ -377,14 +377,14 @@ describe "Collections" do
       visit data_object_path(newer_version_collected_data_object)
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
-      body.should have_tag("li a", :content => I18n.t(:in_collection))
+      body.should have_tag("li a", :text => I18n.t(:in_collection))
 
       # and deleting the first version from the collection will allow the new one to be added
       @anon_user.watch_collection.collection_items[0].destroy
       visit data_object_path(newer_version_collected_data_object)
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
-      body.should have_tag("li a", :content => I18n.t(:in_collection))
+      body.should_not have_tag("li a", :text => I18n.t(:in_collection))
 
 
       newer_version_collected_data_object.destroy

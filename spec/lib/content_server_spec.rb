@@ -80,8 +80,7 @@ describe ContentServer do
     end
 
     it 'should start with the next server' do
-      ContentServer.should_receive(:next).and_return('nextone')
-      ContentServer.uploaded_content_url('whatever', '.ext').should =~ /^nextone/
+      ContentServer.uploaded_content_url('whatever', '.ext').should =~ /^#{$SINGLE_DOMAIN_CONTENT_SERVER}/
     end
 
     it 'should include the CONTENT_SERVER_CONTENT_PATH' do

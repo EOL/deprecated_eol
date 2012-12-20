@@ -439,6 +439,7 @@ Eol::Application.routes.draw do
         get 'hide'
       end
     end
+    resources :content_upload, :controller => 'administrator/content_upload'
     resources :translation_log, :controller => 'administrator/translation_log'
     resources :user_data_object, :controller => 'administrator/user_data_object'
     resources :error_log, :only => [:index, :show], :controller => 'administrator/error_log'
@@ -474,6 +475,7 @@ Eol::Application.routes.draw do
   
   match 'content/random_homepage_images' => 'content#random_homepage_images'
   match 'content/donate_complete' => 'content#donate_complete'
+  match 'content/file/:id' => 'content#file'
   match '/maintenance' => 'content#maintenance', :as => 'maintenance'
   
 

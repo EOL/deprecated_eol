@@ -46,7 +46,7 @@ class ContentPartnerAgreement < ActiveRecord::Base
 private
   def set_all_other_agreements_to_not_current
     self.template = '' if self.template.blank?
-    ContentPartnerAgreement.update_all("is_current=0", ["content_partner_id = ?", self.content_partner_id])
+    ContentPartnerAgreement.update_all("is_current=0", ["content_partner_id = ? AND id != ?", self.content_partner_id, id])
   end
 
   def mou_url_blank?

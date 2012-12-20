@@ -1,7 +1,7 @@
 # encoding: utf-8
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe 'API:pages' do
+describe 'API:Docs' do
   before(:all) do
     load_foundation_cache
     # create some entry in the default hierarchy with an identifier - needed to render some API docs
@@ -17,8 +17,9 @@ describe 'API:pages' do
     visit '/api/docs/'
     EOL::Api::METHODS.each do |method_name|
       latest_version_method = EOL::Api.default_version_of(method_name)
-      body.should have_selector("tr td a", :content => method_name.to_s)
-      body.should have_selector("tr td", :content => latest_version_method.brief_description)
+      body.should have_selector("tr td a[text()='#{method_name}']")
+      # removing everything after the first <br> since have_selector doesn't handle nested tags
+      body.should have_selector("td", :text => latest_version_method.brief_description.gsub(/<br.*/, ''))
     end
   end
 
@@ -29,8 +30,9 @@ describe 'API:pages' do
       body.should include method_name.to_s
       body.gsub(/\n/, '').should include latest_version_method.description
       latest_version_method.parameters.each do |p|
-        body.should have_selector("tr td", :content => p.name)
-        body.should have_selector("tr td", :content => p.notes) unless p.notes.blank?
+        body.should have_selector("tr td[text()=#{p.name}]")
+        # removing everything after the first <a> since have_selector doesn't handle nested tags
+        body.should have_selector("td", :text => p.notes.gsub(/<a.*/, '')) unless p.notes.blank?
       end
     end
   end

@@ -248,10 +248,6 @@ module ApplicationHelper
       options[:header_message] = I18n.t(:validation_error)  unless options.include?(:header_message)
       options[:message] ||=  I18n.t(:validation_following_fields)  unless options.include?(:message)
 
-      # <custom>
-      # Invert the default error messages so we can look them up easily for translation
-      default_error_messages_inverted = ActiveRecord::Errors.default_error_messages.invert
-
       # Translate error messages
       error_messages = objects.map do |obj|
         obj.errors.map do |field, error|
@@ -267,29 +263,21 @@ module ApplicationHelper
           error_attributes = error.scan(/\d+/)
           error_default = error.gsub(/\d+/,"%d")
           error_translate = error.gsub(/\d+/,"{n}") #
-          error_index = default_error_messages_inverted[error_default]
-
-          # TODO: Gibberish translation which doesn't work anymore
-          # error = error_translate["validation_#{error_index}".to_sym, *error_attributes]
 
           if error =~ /^\^/
             error_display = error[1..-1]
           else
             error_display =  "#{field == 'Base' ? '' : field} #{error}"
           end
-
-          content_tag(:li,error_display)
+          content_tag(:li, error_display)
         end
       end
-
-      # </custom>
 
       contents = ''
       contents << content_tag(options[:header_tag] || :h2, options[:header_message]) unless options[:header_message].blank?
       contents << content_tag(:p, options[:message]) unless options[:message].blank?
-      contents << content_tag(:ul, error_messages)
-
-      content_tag(:div, contents, html)
+      contents << content_tag(:ul, raw(error_messages.flatten.join))
+      content_tag(:div, raw(contents), html)
     else
       ''
     end

@@ -511,7 +511,7 @@ describe TaxonConcept do
   # ...Also, the expression of this spec is ... awful.  But I'm in a rush.
   it 'should show comments from superceded taxa' do
     @testy[:superceded_comment].log_activity_in_solr # It doesn't seem to be, by default.
-    @taxon_concept.activity_log.select { |a| a["activity_log_type"] == "Comment"}.map { |c|
+    @taxon_concept.activity_log(:per_page => 500).select { |a| a["activity_log_type"] == "Comment"}.map { |c|
       c["instance"].body }.should include(@testy[:superceded_comment].body)
   end
 

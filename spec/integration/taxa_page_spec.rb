@@ -94,13 +94,13 @@ describe 'Taxa page' do
     end
 
     it 'should show action to set article as an exemplar' do
-      should have_selector("div.actions p a", :content => I18n.t(:show_in_overview))
+      should have_selector("div.actions p a", :text => I18n.t(:show_in_overview))
     end
 
     it 'should show "Add an article or link to this page" button to the logged in users' do
-      should have_selector("#page_heading .page_actions li a", :content => "Add an article")
-      should have_selector("#page_heading .page_actions li a", :content => "Add a link")
-      should have_selector("#page_heading .page_actions li a", :content => "Add to a collection")
+      should have_selector("#page_heading .page_actions li a", :text => "Add an article")
+      should have_selector("#page_heading .page_actions li a", :text => "Add a link")
+      should have_selector("#page_heading .page_actions li a", :text => "Add to a collection")
     end
   end
 
@@ -115,8 +115,8 @@ describe 'Taxa page' do
     end
     it 'should have taxon links for the images in the gallery' do
       (0..3).each do |i|
-        taxon = @taxon_concept.images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.entry.canonical_form.string
-        should have_selector("a[href='#{overview_taxon_path(@taxon_concept)}']", :content => taxon)
+        taxon = @taxon_concept.images_from_solr[i].filtered_associations.first.taxon_concept.entry.title_canonical
+        should have_selector("a[href='#{overview_taxon_path(@taxon_concept)}']", :text => taxon)
       end
     end
 
@@ -128,11 +128,11 @@ describe 'Taxa page' do
 
     it 'should show summary text' do
       # TODO: Test the summary text selection logic - as model spec rather than here (?)
-      should have_selector('div#text_summary', :content => @testy[:brief_summary_text])
+      should have_selector('div#text_summary', :text => @testy[:brief_summary_text])
     end
 
     it 'should show table of contents label when text object title does not exist' do
-      should have_selector('h3', :content => @testy[:brief_summary].label)
+      should have_selector('h3', :text => @testy[:brief_summary].label)
     end
 
     it 'should show classifications'
@@ -175,7 +175,7 @@ describe 'Taxa page' do
       visit taxon_names_path(@taxon_concept)
       body.should have_selector('table.standard.classifications') do |tags|
         tags.should have_selector("a[href='#{overview_taxon_entry_path(@taxon_concept, @taxon_concept.entry)}']")
-        tags.should have_selector('td', :content => 'Catalogue of Life')
+        tags.should have_selector('td', :text => 'Catalogue of Life')
       end
     end
 
@@ -195,7 +195,7 @@ describe 'Taxa page' do
       # TODO: Test that common names from other languages are present and that current language names appear
       # first after language is switched.
       # English by default
-      body.should have_selector('h4', :content => "English")
+      body.should have_selector('h4', :text => "English")
       body.should match /#{@common_names.first.name_string}/i
       body.should match /#{@common_names.first.agents.first.full_name}/i
       body.should match /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i
@@ -211,7 +211,7 @@ describe 'Taxa page' do
       new_name = FactoryGirl.generate(:string)
       fill_in 'Name', :with => new_name
       click_button 'Add name'
-      body.should have_selector('td', :content => new_name.capitalize_all_words)
+      body.should have_selector('td', :text => new_name.capitalize_all_words)
     end
 
     it 'should allow curators to choose a preferred common name for each language'
@@ -331,6 +331,8 @@ describe 'Taxa page' do
   # details tab - taxon_concept
   context 'details when taxon has all expected data - taxon_concept' do
     before(:all) do
+      visit logout_url
+      login_as @testy[:curator]
       visit taxon_details_path(@taxon_concept)
       @section = 'details'
       @body = body
@@ -344,6 +346,8 @@ describe 'Taxa page' do
   # details tab - hierarchy_entry
   context 'details when taxon has all expected data - hierarchy_entry' do
     before(:all) do
+      visit logout_url
+      login_as @testy[:curator]
       visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry)
       @section = 'details'
       @body = body
@@ -419,15 +423,15 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
       visit(taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :content => "Communities")
+      body.should have_selector("h3", :text => "Communities")
     end
     it "should render communities - collections page" do
       visit(collections_taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :content => "Collections")
+      body.should have_selector("h3", :text => "Collections")
     end
     it "should render communities - curators page" do
       visit(curators_taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :content => "Curators")
+      body.should have_selector("h3", :text => "Curators")
     end
   end
 

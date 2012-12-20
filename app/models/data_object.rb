@@ -236,8 +236,11 @@ class DataObject < ActiveRecord::Base
     ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
 
+  # NOTE - this used to have a select, but there are too many ancillary methods that get called which need other
+  # fields (for example, language_id) and I got sick of adding them, so I just removed the select. Sorry.
+  # TODO - this would probably be safer to do using ARel syntax, so we don't load anything until we need it.
   def self.load_for_title_only(find_these)
-    DataObject.find(find_these, :select => 'id, object_title', :include => [:toc_items, :data_type])
+    DataObject.find(find_these, :include => [:toc_items, :data_type])
   end
 
   def self.still_published?(data_object_id)
@@ -615,7 +618,7 @@ class DataObject < ActiveRecord::Base
   end
   
   def latest_version_in_same_language(params = {})
-    latest_version_in_language(language_id)
+    latest_version_in_language(language_id, params)
   end
   
   def latest_version_in_language(chosen_language_id, params = {})

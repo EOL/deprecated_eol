@@ -894,7 +894,7 @@ class TaxonConcept < ActiveRecord::Base
         :translated_table_of_contents => '*',
         :users_data_objects => '*',
         :resources => 'id, content_partner_id, title, hierarchy_id',
-        :content_partners => 'id, user_id, full_name, display_name, homepage',
+        :content_partners => 'id, user_id, full_name, display_name, homepage, public',
         :refs => '*',
         :ref_identifiers => '*',
         :comments => 'id, parent_id',

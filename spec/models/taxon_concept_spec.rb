@@ -245,16 +245,6 @@ describe TaxonConcept do
     common_names.count.should > 0
   end
 
-  it "should be able to filter related_names by taxon_concept or hierarchy_entry" do
-    # by taxon_concept
-    related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
-    related_names.class.should == Hash
-    # by hierarchy_entry
-    hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries.first
-    related_names = TaxonConcept.related_names(:hierarchy_entry_id => hierarchy_entry.id)
-    related_names.class.should == Hash
-  end
-
   it "should be able to filter synonyms by taxon_concept or hierarchy_entry" do
     # by taxon_concept
     hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries

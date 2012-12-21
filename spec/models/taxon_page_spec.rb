@@ -10,4 +10,8 @@ describe TaxonPage do
     @taxon_page_with_entry = TaxonPage.new(@taxon_concept, @user, @entry)
   end
 
+  it "should be able to filter related_names by taxon_concept"
+
+  it "should be able to filter related_names by hierarchy_entry"
+
 end

@@ -47,11 +47,6 @@ class TaxonPage
     )
   end
 
-  # TODO - I would love it if this had a better name.
-  def rel_canonical_href
-    # YOU WERE HERE
-  end
-
   def hierarchy_provider
     hierarchy_entry ? hierarchy_entry.hierarchy_label.presence : nil
   end
@@ -72,11 +67,33 @@ class TaxonPage
     entry.rank_label
   end
 
-  # TODO - grep the project for more and fix
+  # TODO - Clean this up...
   def related_names
-    hierarchy_entry ?
-      TaxonConcept.related_names(:hierarchy_entry_id => hierarchy_entry.id) :
-      TaxonConcept.related_names(:taxon_concept_id => taxon_concept.id)
+    filter = hierarchy_entry ? "id=#{hierarchy_entry.id}" : "taxon_concept_id=#{taxon_concept.id}"
+
+    parents = TaxonConcept.connection.execute("
+      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label, he_parent.id hierarchy_entry_id
+      FROM hierarchy_entries he_parent
+      JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
+      JOIN names n ON (he_parent.name_id=n.id)
+      JOIN hierarchies h ON (he_child.hierarchy_id=h.id)
+      WHERE he_child.#{filter}
+      AND he_parent.published = 1
+      AND browsable = 1
+    ")
+
+    children = TaxonConcept.connection.execute("
+      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label, he_child.id hierarchy_entry_id
+      FROM hierarchy_entries he_parent
+      JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
+      JOIN names n ON (he_child.name_id=n.id)
+      JOIN hierarchies h ON (he_parent.hierarchy_id=h.id)
+      WHERE he_parent.#{filter}
+      AND he_child.published = 1
+      AND browsable = 1
+    ")
+
+    {'parents' => group_he_results(parents), 'children' => group_he_results(children)}
   end
 
   def related_names_count
@@ -121,6 +138,29 @@ private
       data_objects.unshift(exemplar_image)
     end
     data_objects
+  end
+
+  # TODO - clean up
+  def group_he_results(results)
+    grouped = {}
+    name_string_i = results.fields.index('name_string')
+    hierarchy_label_i = results.fields.index('hierarchy_label')
+    taxon_concept_id_i = results.fields.index('taxon_concept_id')
+    hierarchy_entry_id_i = results.fields.index('hierarchy_entry_id')
+    results.each do |result|
+      key = "#{result[name_string_i].downcase}|#{result[taxon_concept_id_i]}"
+      grouped[key] ||= {
+        'taxon_concept_id' => result[taxon_concept_id_i],
+        'name_string' => result[name_string_i],
+        'sources' => [],
+        'hierarchy_entry_id' => result[hierarchy_entry_id_i]
+      }
+      grouped[key]['sources'] << result[hierarchy_label_i]
+    end
+    grouped.each do |key, hash|
+      hash['sources'].sort! {|a,b| a[hierarchy_label_i] <=> b[hierarchy_label_i]}
+    end
+    grouped = grouped.sort {|a,b| a[0] <=> b[0]}
   end
 
 end

@@ -37,13 +37,8 @@ class Taxa::NamesController < TaxaController
   # GET /pages/:taxon_id/names
   # related names default tab
   def related_names
-    if @selected_hierarchy_entry
-      @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @selected_hierarchy_entry_id)
-      @rel_canonical_href = taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry)
-    else
-      @related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
-      @rel_canonical_href = taxon_names_url(@taxon_concept)
-    end
+    @related_names = @taxon_page.related_names(:taxon_concept_id => @taxon_concept.id)
+    @rel_canonical_href = taxon_names_url(@taxon_page)
     @assistive_section_header = I18n.t(:assistive_names_related_header)
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
     common_names_count

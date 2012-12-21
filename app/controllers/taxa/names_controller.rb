@@ -37,7 +37,7 @@ class Taxa::NamesController < TaxaController
   # GET /pages/:taxon_id/names
   # related names default tab
   def related_names
-    @related_names = @taxon_page.related_names(:taxon_concept_id => @taxon_concept.id)
+    @related_names = @taxon_page.related_names
     @rel_canonical_href = taxon_names_url(@taxon_page)
     @assistive_section_header = I18n.t(:assistive_names_related_header)
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)

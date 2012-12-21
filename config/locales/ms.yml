@@ -429,8 +429,6 @@ ms:
   all_comments_entered_by_users: Semua komen pengguna di tapak web ini ditunjukkan di bawah, diisih secara songsang mengikut waktu penciptaan.
   all_communities: Semua komuniti
   all_count: Semua (%{count})
-  all_errors: Semua ralat
-  all_harvesting_logs: Semua log kutipan
   all_images: Semua gambar
   all_information: Semua maklumat
   all_items: Semua perkara
@@ -845,7 +843,6 @@ ms:
   copy: Salin
   copy_of_name: Salin %{name}
   copyright: "HAK CIPTA:"
-  correct_donation_message: Jika maklumat ini tidak betul, sila %{go_back_link} untuk membuat perubahan
   could_not_find_collection_error: Maaf, himpunan itu tidak dapat dijumpai.
   could_not_find_user: Ahli tidak dapat dicari untuk pengguna ini
   count_results_for_search_term: "%{count} hasil untuk <em>%{search_term}</em>"

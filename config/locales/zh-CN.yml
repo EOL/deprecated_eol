@@ -1,6 +1,7 @@
 # Messages for Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Anthony Fok
 # Author: Chenxiaoqino
 # Author: Hydra
 # Author: Liangent
@@ -277,7 +278,7 @@ zh-CN:
             accesspoint_url: 
               blank: 不能为空，除非您上传一个资源文件
               inaccessible: 无法访问，该 URL 必须可公开访问
-              invalid: 是无效的，它应指向 XML、XML.GZIP 或 XML.GZ 文件
+              invalid: 是无效的，它应指向 XML、XML.GZIP、XML.GZ 或 ZIP 文件
             dataset: 
               blank: 不能为空，除非您提供一个数据集URL
               wrong_type: 是错误的类型，它应该是一个 GZIP、TAR或 XML 文件
@@ -632,9 +633,7 @@ zh-CN:
   all_comments_entered_by_users: 用户输入的所有评论都按创建时间反序排列在下面。
   all_communities: 所有社区
   all_count: 所有(%{count})
-  all_errors: 所有错误
   all_filter: 所有
-  all_harvesting_logs: 所有采集日志
   all_images: 所有图像
   all_information: 所有信息
   all_items: 所有条目
@@ -1144,7 +1143,6 @@ zh-CN:
     other: " 拷贝%{count}项到一个新的收藏中"
   copy_of_name: "%{name}的副本"
   copyright: 版权所有：
-  correct_donation_message: 如果此信息不正确，请点击%{go_back_link}修改
   could_not_find_collection_error: 抱歉，找不到该收藏。
   could_not_find_user: 您不是这个社区的会员。
   count: 数目
@@ -2235,7 +2233,6 @@ zh-CN:
   partner: 合作伙伴
   partner_information: 合作伙伴信息
   partner_page: 合作伙伴页面
-  partnering_steps: 合作步骤
   password_colon: 密码：
   password_must_be_4to16_characters: 密码长度必须介于4到16个字符之间。
   pause: 暂停
@@ -2250,7 +2247,6 @@ zh-CN:
   personal_profile_menu: 个人信息
   personal_space: 个人空间
   ping_method_description: 此方法失败（这种情况EOL错误页面极可能返回）或返回一个成功信息，没有其它可能信息。
-  please: 请
   please_ask_big_before_changing_toc: 在编辑内容之前，请与生物多样性信息学研究组的成员核对。 一些章节的名称不能被更改，因为程序会通过标签查找这些章节。不能在这个界面映射的信息项-必须在数据库中手动来完成。
   please_confirm_your_donation_details: 请确认您的捐赠细节
   please_indicate_curation_reason: 请选择一个理由，或者写出一个管理评论：
@@ -2479,9 +2475,6 @@ zh-CN:
   show_status_message: 显示状态消息
   show_tasks: 显示任务
   show_warning_message: 显示警告消息
-  showing: 显示
-  showing_errors_the_error_log_f: 显示如下日期的错误日志：
-  showing_procs_from: 显示进程自：
   shown_to_the_user_parens: （显示给用户）
   shown_to_user_as_the_title_of_page: 作为页面标题展示给用户
   sign_in: 登录

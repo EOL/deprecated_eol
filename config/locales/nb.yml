@@ -186,7 +186,7 @@ nb:
         dataset: Datasettfil
         description: Ressursbeskrivelse
         dwc_archive_url: Darwin Core Archive-adresse
-        harvest_events: Innhøstinger
+        harvest_events: Datahøstinger
         hierarchy: Hierarki
         language_id: Standardspråk
         license_id: Standardlisens
@@ -393,6 +393,7 @@ nb:
         user_left_an_unknown_community: <strong>%{user}</strong> har meldt seg ut av et ukjent brukersamfunn.
         user_left_community: <strong>%{user}</strong> har meldt seg ut av brukersamfunnet "%{community}".
       other_actions: 
+        an_unknown_user_modified_an_unknown_community: En ukjent bruker har endret et ukjent brukersamfunn.
         an_unknown_user_modified_community: En ukjent bruker har redigert brukersamfunnet "%{community}".
         user_modified_an_unknown_community: <strong>%{user}</strong> har redigert et ukjent brukersamfunn.
         user_modified_community: <strong>%{user}</strong> har redigert brukersamfunnet "%{community}".
@@ -406,6 +407,15 @@ nb:
         user_trusted_it_on_association: <strong>%{user}</strong> har markert den som klarert på "%{association}"-siden.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uklarert i en ukjent kontekst.
+  add: Legg til
+  add_a_comment: Legg til en kommentar.
+  add_a_comment_colon: "Legg til en kommentar:"
+  add_a_new_common_name: Legg til et nytt populærnavn
+  add_a_new_file_brackets: "[legg til en ny fil]"
+  add_a_new_role: Legg til en ny rolle
+  add_a_new_search_suggestion: Legg til et nytt søkforslag
+  add_a_new_term: Legg til et nytt begrep
+  add_page: Legg til side
   add_to_my_collection_button: Legg til i en samling
   admin_content_page_child_new_link: Opprett underordnet side
   admin_content_partners_statistics_first_published_download_csv_submit: Last ned som CSV
@@ -460,6 +470,7 @@ nb:
         page_title: "Administrering: Marine statistikker"
       page_richness: 
         menu_link: Innholdsrike sider
+        page_header: Statistikker for innholdsrike sider
       users_data_objects: 
         menu_link: Bruker-sendt tekst
   all: alle
@@ -468,9 +479,7 @@ nb:
   all_collections: Alle samlinger
   all_communities: Alle brukersamfunn
   all_count: Alle (%{count})
-  all_errors: ALLE feilmeldinger
   all_filter: alle
-  all_harvesting_logs: ALLE innhøstingslogger
   all_images: Alle bilder
   all_information: All informasjon
   all_items: Alle objekter
@@ -572,6 +581,8 @@ nb:
   cms_available_in_languages: "Denne siden er tilgjengelig på:"
   cms_missing_content_message: Beklager, denne siden er ikke tilgjengelig på det valgte språket %{selected_language}.
   cms_missing_content_title: Mangler oversettelse
+  collect_item: Samle inn element
+  collect_items: Samle inn elementer
   collection_delete_link: Slett denne samlingen permanent
   collection_destroyed: Samlingen ble slettet.
   collection_image: Samlingsbilde
@@ -579,6 +590,7 @@ nb:
   collection_item_not_found_error: Det samlingsobjektet ble ikke funnet.
   collection_name_cannot_be_blank: Samlingsnavn kan ikke være tom
   collection_name_label: Samlingsnavn
+  collection_newsfeed: Samling-nyhetsfeed
   collection_not_created_error: Beklager, det oppstod en feil, samlingen <em>%{collection_name}</em> kunne ikke opprettes.
   collection_not_destroyed_error: Beklager, samlingen ble ikke slettet.
   collection_not_found_error: Beklager, den samlingen ble ikke funnet.
@@ -622,6 +634,7 @@ nb:
   collections_filter: Samlinger
   collections_link: Samlinger
   collections_page_title: Samlinger
+  collections_summary_empty: Denne siden er ikke i noen samlinger ennå.
   collections_summary_header_with_count: 
     one: Tilstede i %{count} samlingen
     other: Tilstede i %{count} samlingene
@@ -682,6 +695,7 @@ nb:
     one: "%{count} brukersamfunnsmedlem"
     other: "%{count} brukersamfunnsmedlemmer"
   community_name_label: Brukersamfunnsnavn
+  community_newsfeed: Brukersamfunn-nyhetsfeed
   community_rating: Brukersamfunnsvurdering
   community_tab_collections_header: Samlinger
   completed: Fullført
@@ -690,9 +704,12 @@ nb:
   contact_information: Kontaktinformasjon
   contact_updated: Kontaktperson oppdatert
   contact_us: kontakt oss
+  contact_us_functions: Kontakt oss funksjoner
   contact_us_link: Kontakt oss
   contact_us_topics: Kontakt oss emner
   contacts: 
+    errors: 
+      message_not_sent: Beklager, det oppstod en feil, meldingen din ble ikke sendt.
     new: 
       page_title: Vennligst skriv inn din tilbakemelding.
   containing_value: inneholder %{value}.
@@ -738,6 +755,7 @@ nb:
   content_partner_edit_link: Rediger innholdspartner
   content_partner_filter_option_published_latest_harvest_not_published: Siste upublisert
   content_partner_filter_option_published_latest_harvest_published: Sist publisert
+  content_partner_filter_option_published_never_harvested: Aldri datahøstet
   content_partner_filter_option_published_never_published: Aldri publisert
   content_partner_filter_option_published_no_resources: Ingen ressurser
   content_partner_filter_option_vetted_no: Nei
@@ -746,27 +764,38 @@ nb:
   content_partner_has_unpublished_content_false: Ingen upublisert innhold
   content_partner_has_unpublished_content_true: Upublisert innhold
   content_partner_homepage_link: Besøk nettside til partner
+  content_partner_latest_published_harvest_event_time_ago: Sist oppdatert %{time_passed} siden
   content_partner_managed_by_header: Administrert av
   content_partner_new_link: Legg til ny innholdspartner
   content_partner_new_page_subheader: Legg til en ny innholdspartner
   content_partner_notes_header: Prosjektnotater
+  content_partner_oldest_published_harvest_event_time_ago: Først publisert på EOL for %{time_passed} siden;
   content_partner_overview_agreement_header: Partneravtale
   content_partner_overview_agreement_link: Vis gjeldende avtale
   content_partner_overview_link: Partneroversikt
   content_partner_overview_link_back_to: tilbake til partneroversikt
   content_partner_profile_menu: Innholdspartnerprofil
+  content_partner_public_false: Privat
+  content_partner_public_true: Offentlig
+  content_partner_registered_time_ago: Registrert for %{time_passed} siden;
   content_partner_reports: Innholdspartnerrapporter
   content_partner_resource_about_header: Om ressurs
   content_partner_resource_auto_publish_false: Nei
   content_partner_resource_auto_publish_true: Ja
   content_partner_resource_collection_header: Publisert samling
   content_partner_resource_collections_header: Samlinger
+  content_partner_resource_confirm_force_harvest: Er du sikker på at du vil påtvinge datahøstingen av ressursen %{resource_title}?
   content_partner_resource_dataset_details_header: Datasett
   content_partner_resource_edit_link: Rediger
   content_partner_resource_edit_subheader: Rediger ressurs
   content_partner_resource_edit_with_type_link: Rediger ressurs
   content_partner_resource_harvest_event_not_published: Ikke publisert
   content_partner_resource_harvest_event_previously_published: Tidligere publisert
+  content_partner_resource_harvest_event_update_successful_notice: Datahøsting for %{resource_title} ble oppdatert.
+  content_partner_resource_harvest_event_update_unsuccessful_error: Beklager, det oppstod en feil, datahøstingen for %{resource_title} ble ikke oppdatert.
+  content_partner_resource_harvest_events_empty: Ingen datahøstinger ble funnet.
+  content_partner_resource_harvest_events_for_resource_subheader: Datahøstinger for ressursen %{resource_title}
+  content_partner_resource_harvest_events_see_all_link: Se alle <span class="assistive">datahøstinger</span>
   content_partner_resource_hierarchy_browsable: Kan blas gjennom
   content_partner_resource_hierarchy_edit_link: Rediger
   content_partner_resource_hierarchy_not_browsable: Kan ikke blas gjennom
@@ -827,6 +856,7 @@ nb:
   content_type: Innholdstype
   contribute: Bidra
   copy: Kopier
+  copy_of_name: Kopi av %{name}
   could_not_find_user: Du er ikke et medlem av dette brukersamfunnet.
   count: Antall
   create_a_collection: Opprett en samling
@@ -864,6 +894,9 @@ nb:
   curator_level_full_pending_notice: Takk for at du søker å bli en <em>fullstendig kurator</em>. Vi vil melde fra per e-post når vi har vurdert din søknad.
   curator_level_master_curator: Mestarkurator
   curator_level_master_pending_notice: Takk for at du søker å bli en <em>mesterkurator</em>. Vi vil melde fra per e-post når vi har vurdert din søknad.
+  curator_level_with_indefinite_article_assistant_curator: en <strong>assistentkurator</strong>
+  curator_level_with_indefinite_article_full_curator: en <strong>fullstandig kurator</strong>
+  curator_level_with_indefinite_article_master_curator: en <strong>mesterkurator</strong>
   curator_profile: kuratorprofil
   curator_profile_menu: Kuratorprofil
   curator_profile_of: kuratorprofil av %{name}
@@ -974,6 +1007,9 @@ nb:
   dato_new_edit_user_text_fieldset_content_header: Artikkelinnhold
   dato_new_edit_user_text_fieldset_information_header: Artikkelinformasjon
   dato_new_edit_user_text_link_fieldset_content_header: Lenk til data
+  dato_new_text_for_taxon_page_title: Legg til en artikkel for <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Legg til en lenke til <i>%{taxon}</i>
+  dato_update_user_text_error: Beklager, det oppstod en feil, artikkelen kunne ikke oppdateres.
   default: Standard
   default_focus_collection_name_from_community: "%{name}s fokus"
   default_watch_collection_name: "%{username}s overvåkningsliste"
@@ -1014,6 +1050,7 @@ nb:
   edit_comment_lowercase: rediger kommentar
   edit_community: Rediger brukersamfunn
   edit_eol_glossary: rediger EOL ordliste
+  edit_glossary_term: Rediger ordlistebegrep
   edit_hierarchy: rediger hierarki
   edit_my_profile: Rediger min profil
   edit_news_items: rediger nyhetssaker
@@ -1094,6 +1131,7 @@ nb:
   external_link_icon_alt_text: Ekstern lenke.
   external_report_click_url_to_proceed: Eksternt rapport. Klikk URLen for å fortsette.
   facebook: Facebook
+  false_label: Usant
   family_name_colon: "Familienavn:"
   feedback: Tilbakemelding
   file: Fil
@@ -1142,17 +1180,26 @@ nb:
   frequency_never: Aldri
   frequency_weekly: Ukentlig
   friendly_url: Brukervennlig URL
+  from_community: fra brukersamfunnet %{community}
   gbif_map: GBIF-kart
   global_access_tagline: Global tilgang til kunnskap om livet på jorden.
   global_navigation: Global navigasjon
+  glossary_is_empty: (ordlisten er tom)
+  glossary_term: begrep
+  glossary_terms: Ordlistebegrep
   go: Gå
   go_back: gå tilbake
   google: Google
   google_analytic_results: Google Analytics-resultater
   google_images: Google Bilder
   google_scholar: Google Scholar
+  harvest_id: Datahøstings-ID
+  harvesting_processes_log: Datahøstingslogg
+  harvests_for: Datahøstinger for %{resource}
   has_already_been_taken: har allerede blitt tatt.
   has_colon: "Har:"
+  has_curated_your_image: har kuratert ditt bilde
+  has_hidden_your_image: har skjult ditt bilde
   hello_user: Hei %{user}
   help: Hjelp
   helpers: 
@@ -1258,7 +1305,7 @@ nb:
         dataset_existing_replace: Filen <em>%{file_name}</em> er for øyeblikket knyttet til denne ressursen. Last opp en ny fil for å erstatte den eksisterende <em>%{file_name}</em>-filen.
         dwc_archive_url: "Hvis der er en Darwin Core Archive knyttet til denne ressursen, sett inn adressen her <small>(kun TAR.GZIP, TAR.GZ eller TGZ)</small>:"
         hierarchy: Hierarki
-        latest_harvest_event: Siste innhøsting
+        latest_harvest_event: Siste datahøsting
         latest_published_harvest_event: Sist publisert
         oldest_published_harvest_event: Først publisert
         refresh_period_hours: Frekvens
@@ -1279,7 +1326,7 @@ nb:
         left_content_more: "(Valgfritt) Legg til en usortert list av navigasjonslenker. Bruk class-navnet <code>active</code> for å markere lenken til den nåværende siden, f.eks. <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> hvor <code>:id</code> er ID'en eller det unike navnet til den nåværende siden og <code>:title</code> er den beskrivende tittelen til siden (<strong>NB: alle lenker til EOL CMS må begynne med en skråstrek: <code>/info/:id</code></strong>). For å gjøre disse endringer må du endre HTML-kildekoden direkte, velg <em>Kilde</em> i redigeringsmenyen for å gjøre dette."
         main_content_more: "Oppgi hovedsidens innhold i innholdsområdet. Bruk <em>Format</em> rullegardinlisten for å velge de riktige semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for sidens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
         meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av sidens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner både for å sjekke relevans og for å danne lister over søkereslutater.
-        meta_keywords_more: Sett inn en kommaseparert liste med ord og korte fraser som best gjenspeiler sidens innhold. Disse nøkkelordene og -fraser blir av og til brukt av søkemotorer for å bedømme sidens relevans i forhold til søkeord.
+        meta_keywords_more: Sett inn en kommaseparert liste med ord og korte fraser som best gjenspeiler sidens innhold. Disse nøkkelordene og -fraser blir av og til brukt av søkemotorer for å bedømme sidens relevans i henhold til søkeord.
         title_more: Tittelen av dette innholdet vil vises i toppteksten til siden. Tittelen skal inneholde de mest relevante nøkkelord for innholdet.
       translated_news_item: 
         active_translation: Publisert
@@ -1287,6 +1334,8 @@ nb:
         body_more: "Oppgi nyhetssakens innhold i innholdsområdet. Bruk <em>Format</em>-rullegardinlisten for å velge de riktige semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for nyhetssakens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
         language_id: Språk
         meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av nyhetssakens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner både for å sjekke relevans og for å danne lister over søkereslutater.
+        meta_keywords_more: Sett inn en kommaseparert liste med ord og korte fraser som best gjenspeiler nyhetssakens innhold. Disse nøkkelordene og -fraser blir av og til brukt av søkemotorer for å bedømme nyhetssakens relevans i henhold til søkeord.
+        title_more: Tittelen av denne nyhetssaken vil vises i toppteksten til siden. Tittelen skal inneholde de mest relevante nøkkelord for innholdet.
       user: 
         agreed_with_terms: Jeg aksepterer <a href="%{terms_url}">bruksvilkårene</a>
         api_key_more: Les mer om <a href="%{api_docs_url}">tilføring av en nøkkel til dine API-anrop</a>.
@@ -1382,6 +1431,7 @@ nb:
         update: Kontroller tilkobling
       resource: 
         create: Legg til ressurs
+        force_harvest: Be om påtvunget datahøsting
         update: Oppdater ressurs
         update_settings: Oppdater innstillinger
       session: 
@@ -1442,10 +1492,12 @@ nb:
   images_with_count: 
     one: "%{count} bilde"
     other: "%{count} bilder"
+  import_once: Importer en gang
   in_collection: i samling
   inaturalist_tab_label: iNaturalist-observasjoner
   indexed: Indeksert
   internal_ip_address: intern IP-adresse
+  inverse_sort: Omvendt sortering
   ip: IP
   ip_address: IP-adresse
   item_not_added_already_in_collection: Dette objektet er allerede lagt inn i samlingen.
@@ -1482,8 +1534,10 @@ nb:
   json_response: JSON-svar
   jsonp_by_adding_a_callback_parameter: ... og JSONP ved å legge til en callback parameter
   just_pages_with_pictures_and_text: Bare de sidene med bilder og tekst
+  key: Nøkkel
   label: Etikett
   language: "Språk:"
+  language_with_count: "%{language} (%{count})"
   languages: Språk
   last_updated: Sist oppdatert
   last_updated_time_ago: Sist oppdatert %{time_passed} siden
@@ -1683,6 +1737,7 @@ nb:
   name_preferred_taxonomically_for_source_yes: Foretrukket
   names: Navn
   names_children_column_header: Underordnede objekter
+  names_common_list_by_language_assistive_header: Populærnavn oppført etter språk
   names_et_al: "%{names}, et al."
   names_filter: Navn
   names_name_column_header: Navn
@@ -1705,6 +1760,7 @@ nb:
   newsfeed: Nyhetsmating
   next: Neste
   no_answer: Nei
+  no_harvesting_logs_for_this_da: Ingen datahøstingslogger for denne datoen
   no_results_for: ingen resultater for
   no_uploaded_content_is_available: Ingen opplastet innhold er tilgjengelig.
   none: ingen
@@ -1733,6 +1789,11 @@ nb:
       subject: "En melding til EOL: %{title}"
     content_partner_created: 
       subject: EOL-bruker %{user_full_name} har lagt til innholdspartner %{partner_full_name}
+    content_partner_resource_created: 
+      subject: EOL-brukeren %{user_full_name} har lagt til den nye ressursen %{resource_title} til innholdspartneren %{partner_full_name}
+    content_partner_resource_force_harvest_request: 
+      message: "Dette er et automatisk EOL systembeskjed for artsside-gruppen. Brukeren %{user_full_name} har bedt om en påtvunget datahøsting for ressursen %{resource_title} som tilhører innholdspartneren %{partner_full_name}, detaljer følger:\n\nBruker: %{user_full_name}\nEpost: %{user_email}\nProfil-webadresse: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartnerressurser-webadresse: %{partner_resources_url}\n\nRessurs: %{resource_title}\nRessurs-webadresse: %{resource_url}\nOppdatert: %{resource_updated_at_date}\nStatus: %{resource_status}"
+      subject: EO-brukeren %{user_full_name} har bedt om en påtvunget datahøsting av ressursen %{resource_title} som tilhører innholdspartneren %{partner_full_name}
     greeting_dear_name_with_comma: Kjære %{name},
     signature_basic: Encyclopedia of Life-teamet
     unsubscribed_to_notifications: 
@@ -1777,6 +1838,7 @@ nb:
   on_time_col_header: på
   option_please_select: Vennligst velg
   or_move_them_to_existing_collection: eller flytt dem til en eksisterende samling
+  original: "ORIGINAL:"
   other_collection_items_with_count: 
     one: "%{count} annet element"
     other: "%{count} andre elementer"
@@ -1784,6 +1846,8 @@ nb:
     one: "%{count} annet element"
     other: "%{count} andre elementer"
   other_us_dollars_amount: "Annet: US$"
+  other_version_links: "Andre versjoner: %{version_links}"
+  outlink: Ekstern lenke
   overview: Oversikt
   page: Side
   page_linked_to: Side koblet til
@@ -1819,12 +1883,12 @@ nb:
   person_rating: Personsvurdering
   personal_profile_menu: Personlig profil
   personal_space: Personlig område
-  please: Vennligst
   please_return_to_eol_homepage: Vennligst gå tilbake til EOL-hjemmesiden
   please_wait: Vennligst vent...
   post_comment: Post kommentar
   preferred_common_name_advisory_information: Foretrukket populærnavnnavn for dette taksonet.
   press_room: Presserom
+  preview: forhåndsvisning
   preview_changes: Forhåndsvis endringer
   process_name: Prosessnavn
   profile: Profil
@@ -1834,6 +1898,7 @@ nb:
   project: Prosjekt
   provider: Leverandør
   providers: Leverandører
+  public: Offentlig
   public_domain: offentlig eiendom
   publish: publiser
   publish_after_utc: Publiser etter (UTC)
@@ -1877,11 +1942,14 @@ nb:
   remove: Fjern
   remove_membership: Fjern medlemsskap
   reply: Svar
+  required: Påkrevd
   required_form_element: Påkrevd
   resource: Ressurs
   resources: Ressurser
   response: Respons
   results: Resultater
+  revoke_full_curator_link: Tilbakekall
+  revoke_manager_link: Tilbakekall forvalterrolle
   rights: Rettigheter
   rights_holder: Rettighetsinnehaver
   rights_statement: Rettighetserklæring
@@ -1893,6 +1961,7 @@ nb:
   search_field_label: Søk EOL
   search_field_preferred_common_name: Foretrukket populærnavn
   search_field_preferred_scientific: Foretrukket vitenskapelig navn
+  search_field_surrogate: Surrogat
   search_field_synonym: Synonym
   search_input_advisory_information: Skriv inn et populærnavn eller vitenskapelig navn på et levende organisme du vil vite mer om. Du kan også søke etter EOL-medlemmer, samlinger og brukersamfunn.
   search_next_label: Neste
@@ -1910,43 +1979,91 @@ nb:
   see_all_communities_with_count_html: 
     one: Se det <span class="assisitive">%{count} brukersamfunnet som fokuserer på dette taksonet.</span>
     other: Se alle de <span class="assisitive">%{count} brukersamfunnene som fokuserer på dette taksonet.</span>
+  see_all_maps_link: Se alle kart
   see_all_media_link: Se all media
   see_all_of_your_collections: Se alle dine samlinger
   see_all_of_your_communities: Se alle dine brukersamfunn
+  see_notes: se notater
+  select_colon: "Velg:"
   select_topic: Velg et emneområde
+  selected_items: Merkede elementer
   selected_language_advisory_information: Dette er det valgte språket.
+  send: Send
+  send_contact_email: Send kontakt e-post
+  server_ip_address: Server IP-adresse
   sessions: 
     new: 
       meta_title: Logg inn
       problems_signing_in_with_eol_authentication: Glemt passordet?
   set_as_exemplar: Angi som forbilde
+  share_a_collection: Del en samling
+  show: Vis
+  show_email_message_area: "[Vis meldingsområdet for e-post]"
   show_in_overview: vis i oversikt
   show_status_message: Vis statusmelding
+  show_tasks: vis oppgaver
   show_warning_message: Vis advarselsmelding
   sign_in: Logg inn
   sign_out: Logg ut
+  site_cms: Side CMS
   site_information: Nettstedsinformasjon
+  site_language: Nettstedspråk
+  site_settings_menu: Nettstedsinnstillinger
   skip_to_content: Hopp til innhold
   skip_to_navigation: Hopp til navigasjonen
   skip_to_table_of_contents: Hopp til innholdsfortegnelsen
+  social_sharing_twitter_follow_eol_button: Følg @eol
+  social_sharing_twitter_tweet_button: Tweet
+  some_required_fields_were_not_entered: Noen obligatoriske felt ikke ble fylt ut (du må angi en tittel, og innhold eller en webadresse).
   sort_by: Sorter etter
+  sort_by_alphabetical_option: Alfabetisk
   sort_by_button: Sorter
   sort_by_label: Sorter etter
   sort_by_newest_option: Nyest
   sort_by_oldest_option: Eldst
   sort_by_rating_option: Vurdering
+  sort_by_recently_added_option: Nylig lagt til
+  sort_by_status_option: Status
+  sort_by_title_ascending: Tittel i stigende rekkefølge
+  sort_by_title_descending: Tittel i synkende rekkefølge
+  sort_by_year_ascending: År i stigende rekkefølge
+  sort_by_year_descending: År i synkende rekkefølge
+  sort_collection_by_label: Sorter samling etter
+  sort_field: "Sorteringsfelt:"
+  sort_order: Sorteringsrekkefølge
   sound_alt_text: Dette %{vetted_status} lydopptaket er av %{taxon_name}
+  sound_file: Lydfil
+  sound_from: lyd fra
   sound_from_supplier: Lyd fra %{whom}
   sound_not_associated_with_any_published_entries: Denne lyden er ikke knyttet til noen publiserte taksa.
+  sound_object: Lydobjekt
+  sound_of: Lyd av
   sound_of_taxon: Audio av %{taxon_name}
   sound_rating: Lydvurdering
   sounds_with_count: 
     one: "%{count} Lyd"
     other: "%{count} Lyder"
+  source_colon: "Kilde:"
+  source_information_header: Kildeinformasjon
   source_url: Kilde-URL
+  species: Arter
+  started: Påbegynt
+  sub_heading: Underoverskrift
+  subject: emne
+  submit: Send inn
+  submit_term: Send inn begrep
   supplier: Leverandør
+  supplier_allcaps: "LEVERANDØR:"
+  supplier_colon: "Leverandør:"
   switch_language_advisory_information: Bytt nettstedsspråket til %{language_label}
+  synonym: Synonym
+  synonyms_with_count: 
+    one: "%{count} synonym"
+    other: "%{count} synonymer"
+  table_column_header_actions: Handlinger
   table_of_contents: Innholdsfortegnelse
+  task_status_active_option: Aktiv
+  task_status_curated_option: Kuratert
   taxa: 
     communities: 
       collections: 
@@ -2059,11 +2176,27 @@ nb:
         hierarchy_entry: 
           meta_title: Statistikker for %{scientific_name} som klassifisert av %{hierarchy_provider}
           meta_title_with_common_name: Statistikker for %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+  taxa_column_header: Taksa
   taxa_with_count: 
     one: "%{count} takson"
     other: "%{count} taksoner"
   taxon: takson
+  taxon_biomedical_terms_link: Biomedisinske termer
+  taxon_group: Taksongruppe
+  taxon_id: Takson-ID
+  taxon_multimedia_links_link: Multimedialenker
+  taxon_not_found_error: "\"%{taxon}\" ikke funnet"
   taxon_rating: Taksonvurdering
+  taxon_suggested: Takson foreslått
+  term_for_search_admin_ui: Begrep
+  terms_agreement_form_header: Bruksvilkår
+  terms_agreement_form_submit: Jeg er enig
+  test: Test.
+  test_it_out: Test det ut
+  text: tekst
+  text_capital: Tekst
+  text_object: Tekstobjekt
+  text_summary_empty_header: Kort sammendrag
   text_summary_more_link: Les hele oppføringen
   text_with_count: "{PLURAL|one=%{count} Artikkel|%{count} Artikler}}"
   there_are_currently_no_members_in_this_community: Det er for øyeblikket ingen medlemmer i dette brukersamfunnet.
@@ -2090,6 +2223,7 @@ nb:
   translation_deleted: Oversettelsen ble slettet
   translation_log: Frekvenshistogram for i18n-nøkler
   translation_saved: Oversettelsen ble lagret
+  truncated_comment_omission_linkless: ...
   trusted: Klarert
   twitter: Twitter
   unknown: Ukjent
@@ -2108,6 +2242,7 @@ nb:
   user_comments: Brukerkommentarer
   user_no_longer_active_message: Denne brukeren er ikke lenger aktiv
   user_pending_notifications_comments_assistive: <span class="assistive">kommentarer</span>
+  user_says_colon: "%{users_name} sier:"
   user_system_down: Vi beklager, men brukerregistreringssystemet er ikke tilgjengelig for øyeblikket. Prøv igjen senere.
   username: Brukernavn
   username_colon: "Brukernavn:"
@@ -2210,6 +2345,7 @@ nb:
   view_as_label: Vis som
   view_curators: vis kuratorer
   view_current_version_link: Vis nåværende versjon
+  view_harvesting_log: Vis datahøstingslogg
   view_image_map_source: Vis kartkilde
   view_image_source: Vi bildekilde
   view_map_source: Vis kartkilde
@@ -2224,6 +2360,7 @@ nb:
   view_your_curator_profile: Vis din kuratorprofil
   visible_title: Synlig
   visitors: Besøkende
+  vivisimo: Vivisimo
   wants_colon: "Ønsker:"
   weekly: Ukentlig
   welcome: Velkommen

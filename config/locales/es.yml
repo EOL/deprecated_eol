@@ -974,9 +974,7 @@ es:
   all_comments_entered_by_users: Todos los comentarios ingresados por usuarios del sitio web se muestran abajo, en orden inverso al tiempo de creación.
   all_communities: Todas las comunidades
   all_count: Todos (%{count})
-  all_errors: TODOS los errores
   all_filter: todos
-  all_harvesting_logs: TODOS los registros de recogida
   all_images: Todas las imágenes
   all_information: Toda la información
   all_items: Todos los elementos
@@ -1570,7 +1568,6 @@ es:
     other: Copiar %{count} elementos a una nueva colección
   copy_of_name: Copia de %{name}
   copyright: "COPYRIGHT:"
-  correct_donation_message: Si esta información no es correcta, por favor %{go_back_link} para hacer cambios.
   could_not_find_collection_error: Lo sentimos, que no se encontró esa colección.
   could_not_find_user: No eres miembro de esta comunidad.
   count: Cantidad
@@ -2959,7 +2956,6 @@ es:
   partner_information: Información del socio
   partner_page: página de socio
   partner_web_site_colon: "Sitio web del socio:"
-  partnering_steps: PASOS PARA SER SOCIO
   password_colon: "Contraseña:"
   password_must_be_4to16_characters: La longitud de la contraseña debe estar entre 4 y 16 caracteres.
   pause: pausa
@@ -2975,7 +2971,6 @@ es:
   personal_profile_menu: Perfil personal
   personal_space: Espacio personal
   ping_method_description: este método tiene solo dos posibles resultados, puede fracasar (en cuyo caso posiblemente retorne una página de error de EOL), o bien, puede retornar un mensaje de éxito.
-  please: Por favor
   please_ask_big_before_changing_toc: Consulte con un miembro del grupo de Informática de la Biodiversidad antes de editar la tabla de contenido. Algunos nombres de capítulos no pueden modificarse porque el código apunta a ciertos capítulos por etiqueta. Los elementos de información InfoItems no se pueden asignar en esta interfaz - se debe hacer manualmente en la base de datos.
   please_confirm_your_donation_details: Por favor confirmar los detalles de su donación
   please_indicate_curation_reason: "Por favor, seleccione un motivo y, opcionalmente, deje un comentario de curación:"
@@ -3235,9 +3230,6 @@ es:
   show_status_message: Mostrar mensaje de estado
   show_tasks: mostrar las tareas
   show_warning_message: Mostrar mensaje de advertencia
-  showing: Mostrando
-  showing_errors_the_error_log_f: Mostrando errores registrados
-  showing_procs_from: "Mostrando procesos de:"
   shown_to_the_user_parens: (se muestra al usuario)
   shown_to_user_as_the_title_of_page: se muestra al usuario como título de la página
   sign_in: Iniciar sesión

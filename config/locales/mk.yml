@@ -6,8 +6,9 @@
 mk: 
   0_1_or_2: 0, 1 или 2
   0_or_1: 0 или 1
+  a_maximum_of_30_results_are_returned: по страница се прикажуваат највеќе 30 резултати. Со овој параметар можете да добиете повеќе страници во резултатите ако имате над 30 совпаѓања
   a_pipe_delimited_list_of_licenses: Список на лиценци одделени со вертикална црта | или „сите“ за да ги добиете објектите под сите лиценци. Сите лиценци со кратенката cc- се од %{creative_commons_link}. За да дознаете какви сè лиценци се нудат, посетете го нивното мрежно место.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: „предлед“ што се прикажува кога има текст во прегледот. Список на SPM-инфо експонати одделени со вертикална црта | во секоја предметна определница од SPM-инфоставките. „сите“ за да добиете текст за било која определница. Секогаш го дава текстот на прегледот како прв резултат (ако го има во дадениот контекст).
+  a_pipe_delimited_list_of_spm_info_item_subject_names: „overview“ ви дава што се прикажува кога има текст во прегледот. Ова е список на предметни определнци од списокот на %{subjects_text} (на пр. TaxonBiology, FossilHistory) одделени со вертикална црта |. Употребете „all“ за да добиете текст за било која определница. Секогаш го дава текстот на прегледот како прв резултат (ако го има во дадениот контекст).
   a_taxon: таксон
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Пронајден е вкупно %{count} коментар што одговара на критериумите.
@@ -957,9 +958,7 @@ mk:
   all_comments_entered_by_users: Подолу се прикажани сите коментари од корисници на мрежното место, подредени по обратен хронолошки редослед.
   all_communities: Сите заедници
   all_count: Сите (%{count})
-  all_errors: СИТЕ грешки
   all_filter: сè
-  all_harvesting_logs: СИТЕ дневници на преземања
   all_images: Сите слики
   all_information: Сите информации
   all_items: Сите експонати
@@ -1079,6 +1078,7 @@ mk:
   by_scientific_name_table_header: по Научно име
   cache_store: Складиште на кеш
   calculate_averages_slow: Пресметај просеци (бавно)
+  call_api: Повикај API
   cancel: Откажи
   cancel_split: Откажи
   cannot_be_associated_with_both_a_user_and_a_community: Не може истовремено да биде поврзано со корисник и заедница
@@ -1550,7 +1550,6 @@ mk:
     other: Премести %{count} експонати во нова збирка
   copy_of_name: Копија на %{name}
   copyright: "АВТ. ПРАВА:"
-  correct_donation_message: Ако овие информации се погрешни, тогаш %{go_back_link} за да направите измени.
   could_not_find_collection_error: Нажалост, не можав да ја најдам таа збирка.
   could_not_find_user: Не членувате во оваа заедница.
   count: Број
@@ -1583,6 +1582,13 @@ mk:
   curated_objects_of: згрижени објекти на %{name}
   curated_species_of: згрижени видови на %{name}
   curation_comment: Коментар на кустосот
+  curation_error_hide_reasons_invalid: Понудените причини за скривањето на %{association} се неважечки
+  curation_error_no_hide_reasons_given: Изберете од која причина го криете ова на страницата %{association}, или пак напишете со ваши зборови
+  curation_error_no_untrust_reasons_given: Изберете од која причина го означувате ова како недоверливо на страницата %{association}, или пак напишете со ваши зборови
+  curation_error_object_in_preview_state_cannot_be_curated: Овој експонат се прегледува за увоз и затоа не може да се згрижи
+  curation_error_untrust_reasons_invalid: Понудените причини за недоверливоста на %{association} се неважечки
+  curation_error_vetted_invalid: Не можете да го згрижите %{association} во „%{vetted}“
+  curation_error_visibility_invalid: Не можете да го згрижите %{association} во „%{visibility}“
   curation_privileges_page_description: "Одберете го сканиот чин: помошник-кустос, кустос или виш кустос. Пријавниците за кустос и виш кустос мора да го содржат вашиот поле на делување и полномоштво. Штом ќе ги разгледаме и прифатиме вашите податоци, Ќе бидете известени по е-пошта. Пријавниците за помошник-кустос не се разгледуваат и затоа веднаш се одобруваат. Дознајте повеќе за тоа <a href=\"%{curators_url}\">како се станува кустос</a>."
   curation_privileges_page_title: Станете кустос
   curation_reason_placeholder: дополнителни подробности (незадолжително)
@@ -1814,6 +1820,7 @@ mk:
     one: "%{count} истакната збирка"
     other: "%{count} истакнати збирки"
   enter_in_a_search_term_users_a: Внесете поим за пребарување, а потоа саканата назнака на таксон/страница до која ќе води како предлог во пребарувањето. Назнаката ќе ја најдете во URL-адресата на целната страница (на пр. www.eol.org/pages/5 ја има назнаката „5“). Името на страницата и првата слика (ако е на располагање) ќе бидат зачувани во резултатот.
+  eol_accepted_subjects: Предметни определници прифатени од EOL
   eol_administration_console: Административна конзола на EOL
   eol_api: API на EOL
   eol_api_collections: "EOL API: Збирки"
@@ -1915,6 +1922,7 @@ mk:
   failed_login_attempts_with_count: 
     one: (%{count} неуспешен обид за најава)- мора да е штиклирано за да може да се најави корисникот
     other: (%{count} неуспешни обиди за најава)- мора да е штиклирано за да може да се најави корисникот
+  false_label: Неточно
   family_name_colon: "Презиме:"
   feedback: Мислења
   file: Податотека
@@ -2316,7 +2324,7 @@ mk:
   icon_near_the_table_of_content: икона кај прегледот на содржината во левиот дел на страницата. Можете и да поднесете <a href=''>коментари</a> за овој вид непосредно на EOL користејќи го јазичето „Коментари“ близу сликите.
   id: Назнака (ID)
   if_checked_and_user_is_saved: Ако е штиклирано и корисникот е зачуван, тогаш полномоштвата, опсегот, одобрението и одбраниот клад се отстрануваат и корисникот повеќе нема да стои како кустос. Подолу треба да напишете белешка во која давате образложение за причината. На корисникот не му се испраќаат информации.
-  if_the_details_parameter_is_not_set: Ако параметарот за подробности не е зададен, тогаш изводот ќе даде само назнака на податочниот објект, податочниот тип и, во случај на статии, предметот (тематиката). Податочниот тип ќе биде вредност од поимникот на ресурсни типови %{linka}. Предметот на текстот ќе биде вредност од онтологијата %{linkb} на информативните експонати.
+  if_the_details_parameter_is_not_set: Ако параметарот за подробности не е зададен, тогаш изводот ќе даде само назнака на податочниот објект, податочниот тип и, во случај на статии, предметот (тематиката). Податочниот тип ќе биде вредност од поимникот на ресурсни типови %{linka}. Темата (насловот) на текстот ќе биде една од овие %{linkb}.
   image: Слика
   image_alt_text: Оваа %{vetted_status} слика го претставува таксонот %{taxon_name}
   image_from_supplier: Слика од %{whom}
@@ -2893,6 +2901,7 @@ mk:
     one: "%{count} друг таксон"
     other: "%{count} други таксони"
   other_us_dollars_amount: "Друг: US$"
+  other_version_links: "Други верзии: %{version_links}"
   outlink: Надв. врска
   overview: Преглед
   page: Страница
@@ -2931,7 +2940,6 @@ mk:
   partner_information: Информации за соучесникот
   partner_page: соучесничка страница
   partner_web_site_colon: "Мреж. место на соработникот:"
-  partnering_steps: ЧЕКОРИ ЗА СОУЧЕСНИШТВО
   password_colon: "Лозинка:"
   password_must_be_4to16_characters: Лозинката мора да има од 4 до 16 знаци.
   pause: паузирај
@@ -2947,7 +2955,6 @@ mk:
   personal_profile_menu: Личен профил
   personal_space: Личен простор
   ping_method_description: Овој метод или нема да успее (тогаш ќе добиете известување за грешка) или ќе даде порака за успешно спроведена постапка. Не постојат други пораки освен овие две
-  please: Ве молиме
   please_ask_big_before_changing_toc: Консултирајте член на групата Биоразновидносна информатика пред да го уредувате прегледот на содржини. Некои имиња на главите не можат да се менуваат бидејќи се врзани со самиот код. Инфообјектите не можат да се пресликаат на овој посредник - тоа мора да се изврши рачно во базата.
   please_confirm_your_donation_details: Потврдете ги податоците за прилогот
   please_indicate_curation_reason: Одберете причина и/или напишете кустоски коментар.
@@ -2975,6 +2982,9 @@ mk:
   profile_newsfeed: Мој канал
   profile_picture: Профилна слика
   project: Проект
+  provide_a_concept_id: задавајќи назнака на страница од EOL ги ограничувате резултатите од пребарувањето она што припаѓа во таа таксонономска група
+  provide_a_hierarchy_entry_id: задавајќи назнака на хиерархиски запис ги ограничувате резултатите од пребарувањето она што припаѓа во таа таксонономска група
+  provide_a_search_string: задавајќи поим за пребарување, ќе се изврши строго пребарување и совпаднатата страница ќе се користи како таксономската група во склад со која ќе се филтрираат резултатите од пребарувањето
   provider: Добавувач
   provider_hierarchies_method_description: Овој метод ќе ги даде сите наводи на сите хиерархии доставени од соучесниците на EOL. Во одговорот ќе има натпис на хиерархијата и единствената назнака што ја претставува таа хиерархија на EOL
   providers: Добавувачи
@@ -3076,6 +3086,7 @@ mk:
   reply: Одговори
   request: Барање
   request_mailing_list_colon: "Корисникот не сака да добива пошта:"
+  required: Задолжително
   required_form_element: Задолжително
   reset_password_enter_new_password_notice: Ова е еднократно најавување. Внесете нова лозинка за да продолжите.
   reset_password_instructions_sent_to_user_notice: Ви испративме напатствија за поставање на нова лозинка за вашата сметка <em>%{username}</em> по е-пошта.
@@ -3206,9 +3217,6 @@ mk:
   show_status_message: Прик. статусна порака
   show_tasks: прикажи задачи
   show_warning_message: Прикажи предупредување
-  showing: Приказ на
-  showing_errors_the_error_log_f: "Приказ на грешки заведени на:"
-  showing_procs_from: "Приказ на постапки од:"
   shown_to_the_user_parens: (се прикажува на корисникот)
   shown_to_user_as_the_title_of_page: се прикажува на корисникот како наслов на страницата
   sign_in: Најава
@@ -3475,6 +3483,22 @@ mk:
         meta_title: Синоними на %{scientific_name}
         meta_title_with_common_name: Синоними на %{preferred_common_name} (%{scientific_name})
         tweet_text: Синоними на %{scientific_name}
+    overview: 
+      hierarchy_entry: 
+        meta_description: Преглед на информациите за %{scientific_name} признаено од %{hierarchy_provider} во Енциклопедијата на живиот свет.
+        meta_description_with_common_name: Преглед на информациите за %{preferred_common_name} (%{scientific_name}) признаено од %{hierarchy_provider} во Енциклопедијата на живиот свет.
+        meta_keywords: "%{scientific_name} признаено од %{hierarchy_provider}, %{scientific_name} според класификацијата на %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} признаено од %{hierarchy_provider}, %{scientific_name} според класификацијата на %{hierarchy_provider}"
+        meta_title: "%{scientific_name} според класификацијата на %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})"
+        tweet_text: Преглед на %{scientific_name} според класификацијата на %{hierarchy_provider}
+      meta_description: Информации за %{scientific_name} во Енциклопедијата на живиот свет.
+      meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
+      meta_keywords: инфо за %{scientific_name}, информации за %{scientific_name}
+      meta_keywords_with_common_name: инфромации за %{scientific_name},инфо за %{preferred_common_name},информации и факти за %{scientific_name}, информации за %{preferred_common_name}
+      meta_title: "%{scientific_name} - Информации за %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Информации за %{preferred_common_name}"
+      tweet_text: Информации за %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3590,6 +3614,7 @@ mk:
   terms_agreement_form_submit: Се согласувам
   terms_of_use_link: Услови на употреба и приватност
   test: Проба.
+  test_it_out: Испробај
   text: текст
   text_capital: Текст
   text_object: Текстуален објект
@@ -3611,6 +3636,7 @@ mk:
   the_count_represents_the_total: Ова е вкупниот број на објавени податочни објекти под соодветна предметна категорија на SPM.
   the_cp_count_info: Ова е вкупниот број на соучесници во содржините со објавени податочни објекти под соодветна предметна категорија на SPM.
   the_darwin_core_taxon_elements: Таксонските елементи на Darwin Core (dwct:Taxon) што фигурираат под „additionalInformation“ содржат назнаки за јазли во хиерархиите што ги индексира EOL. Содржат dc:identifier кој е единствена назнака на таксонот <i>во базата на добавувачот.</i>
+  the_data_object_id_can_be: параметарот за назнака може да биде цел број (назнака на верзијата на DataObject) или GUID од 16 знаци кој ќе ја даде најновата верзија на тој објект
   the_file_was_uploaded: Податотеката е подигната.
   the_following_bibliography: Следнава библиографија е создадена со собирање на сите наводи добиени од соучесниците во содржините. Може да се јават дупликати.
   the_following_users_were_prese: "На следниве корисници им излегол скокачки анкетен прозорец и одговориле на молбата да ја пополнат долунаведената анкета:"
@@ -3624,6 +3650,7 @@ mk:
   the_message_was_sent: Пораката е испратена.
   the_new_topic_was_created: Новата тема е создадена.
   the_new_user_was_created: Новиот корисник е создаден.
+  the_query_string: низата на пребарувањето
   the_suggested_page_to_direct_users_to_link: предложената страница на која ќе се префрлаат корисниците
   the_topic_was_updated: Темата е подновена.
   the_user_was_updated: Корисникот е подновен.
@@ -3654,6 +3681,7 @@ mk:
   this_map_cannot_be_curated_because_unpublished: Оваа статија не може да се згрижи бидејќи не е објавена.
   this_map_is_unpublished: Оваа карта е необјавена.
   this_method_takes_an_integer_or_string: Овој метод зема цел број или низа што е единствена назнака на таксон од базата на еден добавувач, како и hierarchy_id што го претставува добавувачот и ја дава назнаката на страницата од EOL за тој таксон. На пример, користјеќи го API-прилогот на %{link_provider} можам да дознаам дека hierarchy_id од EOL за Интегрираниот таксономски информативен систем (ITIS) е %{itis_id}. Потоа можам да го пребарам по EOL таксономскиот сериски број на ITIS (TSN) 180542,<i>Ursus maritimus</i>, повикувајќи ја %{link_url}
+  this_older_version: Оваа постара верзија на API-методот за страници ги прифаќа истите параметри и дава речиси исти информации. Впрочем, одговорот на JSON е истоветен со верзијата 1.0, но XML-одговорот има малку поинаква структура.
   this_page_shows_information_ab: На оваа страница се прикажани информации за даден поим за пребарување и ги наведува резултатите од пребарувањето што ги стиснале корисниците.
   this_page_will_be_reindexed: Оваа страница ќе се преиндексира во позадина, а ова може да потрае до 24 часа.
   this_resource_unpublished_notice: Овој ресурс во моментов не е означен како објавен од страна на администратор.
@@ -4011,6 +4039,7 @@ mk:
   value_empty: (празно)
   values: Вредности
   version_1_0_uses_fields_from_the_latest_version: верзијата 1.0 користи полиња од најновата верзија на шемата %{link}
+  versions_colon: "Верзии:"
   vetted: Проверени
   video_alt_text: Оваа %{vetted_status} видеоснимка го претставува таксонот %{taxon_name}
   video_from: видео од

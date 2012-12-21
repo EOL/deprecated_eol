@@ -966,9 +966,7 @@ de:
   all_comments_entered_by_users: Alle auf der Website von Nutzern hinterlassenen Kommentare werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
   all_communities: Alle Gemeinschaften
   all_count: Alles (%{count})
-  all_errors: Alle Fehler
   all_filter: alle
-  all_harvesting_logs: Alle Datenabrufprotokolle
   all_images: Alle Bilder
   all_information: Alle Informationen
   all_items: Alle Objekte
@@ -1087,6 +1085,7 @@ de:
   by_scientific_name_table_header: nach wissenschaftlichem Namen
   cache_store: Cachespeicher
   calculate_averages_slow: Mittelwerte berechnen (langsam)
+  call_api: API aufrufen
   cancel: Abbrechen
   cancel_split: Abbrechen
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
@@ -1560,7 +1559,6 @@ de:
     other: "%{count} Objekte in eine neue Sammlung kopieren"
   copy_of_name: Kopie von %{name}
   copyright: "Rechtlich geschützt für:"
-  correct_donation_message: Sofern diese Informationen nicht richtig sind, gehe Sie bitte zu %{go_back_link} zurück, um Änderungen vorzunehmen.
   could_not_find_collection_error: Diese Sammlung konnte leider nicht gefunden werden.
   could_not_find_user: Sie sind nicht Mitglied dieser Gemeinschaft.
   count: Anzahl
@@ -2942,7 +2940,6 @@ de:
   partner_information: Partnerinformationen
   partner_page: Seite zum Inhaltspartner
   partner_web_site_colon: "Website des Partners:"
-  partnering_steps: SCHRITTE ZUR PARTNERSCHAFT
   password_colon: "Passwort:"
   password_must_be_4to16_characters: Das Passwort muss zwischen vier und sechzehn Zeichen lang sein.
   pause: anhalten
@@ -2958,7 +2955,6 @@ de:
   personal_profile_menu: Persönliches Profil
   personal_space: Persönlicher Bereich
   ping_method_description: Diese Methode wird entweder scheitern und höchstwahrscheinlich eine EOL-Fehlerseite anzeigen oder es wird eine Erfolgsnachricht gezeigt. Andere Meldungen gibt es hierzu nicht.
-  please: Bitte
   please_ask_big_before_changing_toc: Bitte nehmen Sie Kontakt zur Gruppe für Biodiversitätsinformatik auf, bevor Sie das Inhaltsverzeichnis bearbeiten. Einige Kapitelnamen können nicht verändert werden, da ihren Namen dem Abruf der Inhalte dienen. Informationsobjekte können nicht über diese Nutzeroberfläche hinterlegt und müssen manuell in der Datenbank gepflegt werden.
   please_confirm_your_donation_details: Bitte bestätigen Sie die Angaben zu Ihrer Spende
   please_indicate_curation_reason: "Wählen Sie bitte einen Grund und/oder geben Sie alternativ einen Kommentar an:"
@@ -3218,9 +3214,6 @@ de:
   show_status_message: Statusmeldung anzeigen
   show_tasks: Aufgaben anzeigen
   show_warning_message: Warnmeldung anzeigen
-  showing: Anzeige
-  showing_errors_the_error_log_f: "Anzeige der protokollierten Fehler zu:"
-  showing_procs_from: "Anzeige der Prozesse ab:"
   shown_to_the_user_parens: (dem Nutzer anzeigen)
   shown_to_user_as_the_title_of_page: dem Nutzer als Seitenname anzeigen
   sign_in: Anmelden
@@ -3488,6 +3481,8 @@ de:
         meta_title_with_common_name: Synonyme zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonyme zu %{scientific_name}
     overview: 
+      hierarchy_entry: 
+        meta_title: "%{scientific_name} klassifiziert von %{hierarchy_provider}"
       meta_description: Information auf %{scientific_name} in der Enzyklopädie des Lebens.
       tweet_text: Information auf %{scientific_name}
     resources: 

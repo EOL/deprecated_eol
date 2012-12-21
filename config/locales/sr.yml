@@ -356,8 +356,6 @@ sr:
   all_comments_entered_by_users: Доле су приказани сви коментари корисника на сајту, поређани по обрнутом хронолошком реду.
   all_communities: Све заједнице
   all_count: Све (%{count})
-  all_errors: СВЕ грешке
-  all_harvesting_logs: СВИ дневници преузимања
   all_images: Све слике
   all_information: Сви подаци
   all_items: Све ставке
@@ -859,7 +857,6 @@ sr:
     other: Премести %{count} ставке у нову збирку
   copy_of_name: Примерак %{name}
   copyright: "Ауторска права:"
-  correct_donation_message: Ако овај податак није тачан, онда %{go_back_link} да направите измене
   could_not_find_collection_error: Нажалост, не могу да пронађем тражену збирку.
   could_not_find_user: Не могу да пронађем члана за овог корисника
   count: Број
@@ -1909,7 +1906,6 @@ sr:
   partner: Партнер
   partner_information: Подаци о партнеру
   partner_page: страница партнера
-  partnering_steps: Кораци за партнерство
   password_colon: "Лозинка:"
   password_must_be_4to16_characters: Лозинка мора да има од 4 до 16 знакова.
   pause: паузирај
@@ -1925,7 +1921,6 @@ sr:
   personal_profile_menu: Лични профил
   personal_space: Лични простор
   ping_method_description: Ова метода или неће успети или ће пријавити поруку да је све прошло како треба. Не постоје друге могуће поруке
-  please: Молимо
   please_ask_big_before_changing_toc: Консултујте се с чланом групе Биоразноврсна информатика пре уређивања прегледа садржаја. Неки називи поглавља не могу да се мењају будући да су повезани са самим кодом. Инфообјекти не могу да се пресликају на ово сучеље – то мора да се уради ручно у бази.
   please_confirm_your_donation_details: Потврдите податке о прилогу
   please_indicate_curation_reason: "Изаберите разлог или напишите кустоски коментар:"
@@ -2105,9 +2100,6 @@ sr:
   show_status_message: Прикажи статусну поруку
   show_tasks: прикажи задатке
   show_warning_message: Прикажи упозорење
-  showing: Приказ
-  showing_errors_the_error_log_f: "Приказ грешака из дневника за:"
-  showing_procs_from: "Приказ поступака из:"
   shown_to_the_user_parens: (приказује се кориснику)
   shown_to_user_as_the_title_of_page: приказује се кориснику као наслов странице
   sign_in: Пријава

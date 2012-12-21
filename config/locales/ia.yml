@@ -455,8 +455,6 @@ ia:
   all_comments_entered_by_users: Tote le commentos entrate per usatores in le sito web es monstrate hic infra, in ordine inverse de tempore de coordination.
   all_communities: Tote le communitates
   all_count: Totes (%{count})
-  all_errors: TOTE le errores
-  all_harvesting_logs: TOTE le registros de recolta
   all_images: Tote le imagines
   all_information: Tote le informationes
   all_items: Tote le elementos

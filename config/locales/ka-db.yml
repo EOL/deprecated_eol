@@ -11,12 +11,14 @@ ka:
   translated_activities-name-activity_id-54: განახლება
   translated_activities-name-activity_id-55: დაუშვებელი
   translated_activities-name-activity_id-56: წაშლა
+  translated_activities-name-activity_id-57: სიხშირე
   translated_activities-name-activity_id-58: საიმედო
   translated_activities-name-activity_id-63: შეგროვება
   translated_activities-name-activity_id-64: წაშლა
   translated_agent_roles-label-agent_role_id-1: ანიმატორი
   translated_agent_roles-label-agent_role_id-10: პროექტი
   translated_agent_roles-label-agent_role_id-11: გამომქვეყნებელი
+  translated_agent_roles-label-agent_role_id-12: ჩანაწერი
   translated_agent_roles-label-agent_role_id-13: წყარო
   translated_agent_roles-label-agent_role_id-14: წყაროს მონაცემთა ბაზა
   translated_agent_roles-label-agent_role_id-15: საკონტაქტო პირი
@@ -28,6 +30,8 @@ ka:
   translated_agent_roles-label-agent_role_id-7: რედაქტორი
   translated_agent_roles-label-agent_role_id-8: ილუსტრატორი
   translated_agent_roles-label-agent_role_id-9: ფოტოგრაფი
+  translated_audiences-label-audience_id-1: გამოცდილი მომხმარებლები
+  translated_audiences-label-audience_id-2: ჩვეულებრივი მომხმარებლები
   translated_audiences-label-audience_id-3: ბავშვები
   translated_collection_types-label-collection_type_id-1: ტაქსონომია
   translated_collection_types-label-collection_type_id-10: ხმები
@@ -85,6 +89,8 @@ ka:
   translated_licenses-description-license_id-7: ზოგიერთი უფლება დაცულია
   translated_licenses-description-license_id-8: ზოგიერთი უფლება დაცულია
   translated_licenses-description-license_id-9: ზოგიერთი უფლება დაცულია
+  translated_ranks-label-rank_id-106: ფორმა
+  translated_ranks-label-rank_id-107: ფორმა
   translated_ranks-label-rank_id-112: გვარი
   translated_ranks-label-rank_id-113: გვარი
   translated_ranks-label-rank_id-118: გვარი
@@ -96,6 +102,7 @@ ka:
   translated_ranks-label-rank_id-313: სექცია
   translated_ranks-label-rank_id-314: სექცია
   translated_ranks-label-rank_id-317: სექცია
+  translated_ranks-label-rank_id-324: რიგი
   translated_ranks-label-rank_id-332: სახეობა
   translated_ranks-label-rank_id-333: სახეობა
   translated_ranks-label-rank_id-335: სახეობა

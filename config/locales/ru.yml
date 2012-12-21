@@ -426,9 +426,7 @@ ru:
   all_comments_entered_by_users: Все комментарии, введенные пользователями на веб-сайте будут отсортированы ниже, обратно по времени создания.
   all_communities: Все сообщества
   all_count: Все (%{count})
-  all_errors: ВСЕ ошибки
   all_filter: все
-  all_harvesting_logs: ВСЕ журналы урожая
   all_images: Все изображения
   all_information: Вся информация
   all_items: Все элементы
@@ -1137,6 +1135,11 @@ ru:
       meta_keywords: Участник сообщества - %{member_name}
       meta_title: "%{member_name} участник %{community_name}"
       tweet_text: "%{member_name} участник %{community_name}"
+  members_with_count: 
+    few: "%{count} участника"
+    many: "%{count} участников"
+    one: "%{count} участник"
+    other: "%{count} участников"
   message_colon: "Сообщение:"
   meta_description_colon: "Мета-описание:"
   meta_keywords_colon: "Ключевые слова:"
@@ -1171,6 +1174,11 @@ ru:
       videos: Видео
   monthly: Ежемесячно
   more_children_with_count: еще %{count}
+  more_siblings_with_count: 
+    few: "%{count} сиблинга"
+    many: "%{count} сиблингов"
+    one: "%{count} сиблинг"
+    other: "%{count} сиблингов"
   most_active_members: Наиболее активные участники
   move: Переместить
   move_down: Передвинуть ниже
@@ -1282,6 +1290,11 @@ ru:
     one: "%{count} комментарий был добавлен %{string}"
     other: "%{count} комментариев было добавлено в %{string}"
   total_distinct_searches: "Всего различных поисков:"
+  total_items_with_count: 
+    few: "%{count} элемента"
+    many: "%{count} элементов"
+    one: "%{count} элемент"
+    other: "%{count} элементов"
   total_searches: "Всего запросов:"
   translation_deleted: Перевод был удален
   translation_information_header: Сведения о переводе
@@ -1400,6 +1413,11 @@ ru:
   video_from: видео от
   video_object: Видеообъекты
   video_title_not_available_in_language: Заголовок не доступен на %{language}
+  videos_with_count: 
+    few: "%{count} видеозаписи"
+    many: "%{count} видеозаписей"
+    one: "%{count} видеозапись"
+    other: "%{count} видеозаписей"
   view_added_text: просмотреть добавленный текст
   view_article_source: Источник статьи
   view_as_button: Изменить вид

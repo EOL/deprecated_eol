@@ -903,9 +903,7 @@ tl:
   all_comments_entered_by_users: Ipinakikita sa ibaba ang lahat ng mga tekstong ipinasok ng mga tagagamit sa pook ng sangkasaputan, na inayos nang pabaligtad ayon sa oras ng pagkakalikha.
   all_communities: Lahat ng mga pamayanan
   all_count: Lahat (%{count})
-  all_errors: LAHAT ng mga kamalian
   all_filter: lahat
-  all_harvesting_logs: LAHAT ng mga talaan ng pag-ani
   all_images: Lahat ng mga larawan
   all_information: Lahat ng kabatiran
   all_items: Lahat ng mga bagay
@@ -1477,7 +1475,6 @@ tl:
     other: Kopyahin ang %{count} mga bagay papunta sa isang bagong kalipunan
   copy_of_name: Kopya ng %{name}
   copyright: "KARAPATANG MAGPALATHALA:"
-  correct_donation_message: Kung hindi tama ang kabatirang ito, paki %{go_back_link} upang makagawa ng mga pagbabago
   could_not_find_collection_error: Paumanhin, hindi matagpuan ang kalipunang iyan.
   could_not_find_user: Hindi ka isang kasapi sa pamayanang ito.
   count: Bilang
@@ -2813,7 +2810,6 @@ tl:
   partner_information: Kabatiran sa kawaksi
   partner_page: pahina ng kawaksi
   partner_web_site_colon: "Pook sa Sangkasaputan ng Kawaksi:"
-  partnering_steps: MGA HAKBANG SA PAGIGING KAWAKSI
   password_colon: "Hudyat:"
   password_must_be_4to16_characters: Ang haba ng hudya ay dapat na nasa pagitan ng 4 at 16 mga panitik.
   pause: huminto saglit
@@ -2829,7 +2825,6 @@ tl:
   personal_profile_menu: Personal na Balangkas ng Katangian
   personal_space: Pansariling Puwang
   ping_method_description: Ang pamamaraang ito ay maaaring mabigo (na sa ganitong kaso, ang pahina ng pagkakamali ng EOL ay mas malamang na ibalik) o kaya ay magbalik ng isang mensahe ng Tagumpay. Wala nang iba pang maaaring maging mga mensahe
-  please: Paki
   please_ask_big_before_changing_toc: Paki sumangguni sa isang kasapi sa pangkat ng Biodiversity Informatics o Impormatika ng Biyodibersidad bago baguhin ang talahanayan ng mga nilalaman. Ilan sa mga pangalan ng kabanata ay hindi maaaring baguhin dahil sa ang kodigo ay naghahanap sa pamamagitan ng katatakan. Hindi maimamapa ang Mga Bagay na Pangkabatiran sa loob ng ugnayang-mukhang ito - dapat iyang gawin nang kinakamay sa loob ng kalipunan ng dato.
   please_confirm_your_donation_details: Paki tiyakin ang mga detalye ng donasyon mo
   please_indicate_curation_reason: "Paki pumili ng isang dahilan, at/o mag-iwan o huwag kayang mag-iwan ng isang puna na  pampangangasiwa:"
@@ -3082,9 +3077,6 @@ tl:
   show_status_message: Ipakita ang mensahe ng katayuan
   show_tasks: ipakita ang mga gawain
   show_warning_message: Ipakita ang mensahe ng babala
-  showing: Ipinapakita ang
-  showing_errors_the_error_log_f: "Ipinapakita ang mga kamaliang naitala noong:"
-  showing_procs_from: "Ipinapakita ang mga proseso magmula sa:"
   shown_to_the_user_parens: (ipinapakita sa tagagamit)
   shown_to_user_as_the_title_of_page: ipinapakita sa tagagamit bilang pamagat ng pahina
   sign_in: Lumagdang papasok

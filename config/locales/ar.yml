@@ -963,9 +963,7 @@ ar:
   all_comments_entered_by_users: يعرض فيما يلي جميع تعليقات المستخدمين على الموقع، مرتبة عكسيًا وفقًا لوقت إضافتها.
   all_communities: " جميع المجتمعات"
   all_count: الكل (%{count})
-  all_errors: جميع الأخطاء
   all_filter: الكل
-  all_harvesting_logs: كل سجلات الجمع
   all_images: جميع الصور
   all_information: جميع المعلومات
   all_items: جميع العناصر
@@ -1540,7 +1538,6 @@ ar:
   copy_items_to_a_new_collection_with_count: قم بنسخ %{count} عنصرًا لمجموعة جديدة.
   copy_of_name: نسخة من %{name}
   copyright: "حقوق ملكية:"
-  correct_donation_message: إذا كانت تلك المعلومات صحيحة، يرجى %{go_back_link} لإضافة تعديلات
   could_not_find_collection_error: عفوًا، لم يتم العثور على تلك المجموعة.
   could_not_find_user: لست عضوًا في هذا المجتمع.
   count: العدد
@@ -2905,7 +2902,6 @@ ar:
   partner_information: معلومات عن الشريك
   partner_page: صفحة الشريك
   partner_web_site_colon: "عنوان الموقع الإلكتروني الخاص بالشريك:"
-  partnering_steps: خطوات الشراكة
   password_colon: كلمة السر
   password_must_be_4to16_characters: طول كلمة المرور يجب أن يكون بين 4 و 16 حرفا.
   pause: وقوف مؤقت
@@ -2921,7 +2917,6 @@ ar:
   personal_profile_menu: الصفحة الشخصية
   personal_space: المساحة الشخصية
   ping_method_description: يمكن لتلك الطريقة أن تفشل (في تلك الحالة من المرجح أن يتم عرض صفحة الخطأ بموسوعة الحياة) أو أن يتم عرض رسالة نجاح. لا يمكن عرض رسائل أخرى.
-  please: رجاءً
   please_ask_big_before_changing_toc: رجاء التأكد مع أحد أعضاء معلوماتية التنوع الحيوي قبل تحرير جدول المحتويات. فبعض أسماء الفصول لا يمكن تغييرها إذ يبحث الكود عن بعض الفصول بعنوانهم. لا يمكن رسم خرائط عناصر المعلومات في واجهة المستخدم هذه، إذ يجب أن يتم هذا يدويًا في قاعدة البيانات.
   please_confirm_your_donation_details: يرجى تأكيد تفاصيل التبرع
   please_indicate_curation_reason: "يرجى اختيار سبب، و/أو أضف تعليق تقييمي اختياريًّا:"
@@ -3170,9 +3165,6 @@ ar:
   show_status_message: عرض رسالة الحالة
   show_tasks: عرض المهمات
   show_warning_message: عرض رسالة التحذير
-  showing: إظهار
-  showing_errors_the_error_log_f: "إظهار الأخطاء بتسجيل الدخول في:"
-  showing_procs_from: "إظهار العمليات من:"
   shown_to_the_user_parens: (يظهر للمستخدم)
   shown_to_user_as_the_title_of_page: يظهر للمستخدم كعنوان الصفحة
   sign_in: ادخل

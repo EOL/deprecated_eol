@@ -291,8 +291,6 @@ sr-Latn:
   all_comments_entered_by_users: Dole su prikazani svi komentari korisnika na sajtu, poređani po obrnutom hronološkom redu.
   all_communities: Sve zajednice
   all_count: Sve (%{count})
-  all_errors: SVE greške
-  all_harvesting_logs: SVI dnevnici preuzimanja
   all_images: Sve slike
   all_information: Svi podaci
   all_items: Sve stavke
@@ -737,7 +735,6 @@ sr-Latn:
     other: Premesti %{count} stavke u novu zbirku
   copy_of_name: Primerak %{name}
   copyright: "Autorska prava:"
-  correct_donation_message: Ako ovaj podatak nije tačan, onda %{go_back_link} da napravite izmene
   could_not_find_collection_error: Nažalost, ne mogu da pronađem traženu zbirku.
   could_not_find_user: Ne mogu da pronađem člana za ovog korisnika
   count: Broj
@@ -1749,7 +1746,6 @@ sr-Latn:
   partner: Partner
   partner_information: Podaci o partneru
   partner_page: stranica partnera
-  partnering_steps: Koraci za partnerstvo
   password_colon: "Lozinka:"
   password_must_be_4to16_characters: Lozinka mora da ima od 4 do 16 znakova.
   pause: pauziraj
@@ -1765,7 +1761,6 @@ sr-Latn:
   personal_profile_menu: Lični profil
   personal_space: Lični prostor
   ping_method_description: Ova metoda ili neće uspeti ili će prijaviti poruku da je sve prošlo kako treba. Ne postoje druge moguće poruke
-  please: Molimo
   please_ask_big_before_changing_toc: Konsultujte se s članom grupe Bioraznovrsna informatika pre uređivanja pregleda sadržaja. Neki nazivi poglavlja ne mogu da se menjaju budući da su povezani sa samim kodom. Infoobjekti ne mogu da se preslikaju na ovo sučelje – to mora da se uradi ručno u bazi.
   please_confirm_your_donation_details: Potvrdite podatke o prilogu
   please_indicate_curation_reason: "Izaberite razlog ili napišite kustoski komentar:"
@@ -1939,9 +1934,6 @@ sr-Latn:
   show_status_message: Prikaži statusnu poruku
   show_tasks: prikaži zadatke
   show_warning_message: Prikaži upozorenje
-  showing: Prikaz
-  showing_errors_the_error_log_f: "Prikaz grešaka iz dnevnika za:"
-  showing_procs_from: "Prikaz postupaka iz:"
   shown_to_the_user_parens: (prikazuje se korisniku)
   shown_to_user_as_the_title_of_page: prikazuje se korisniku kao naslov stranice
   sign_in: Prijava

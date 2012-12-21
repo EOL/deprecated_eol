@@ -562,6 +562,9 @@ sv:
       content_partners: 
         menu_link: Innehållspartners
         page_header: Statistik för innehållspartners
+      curators: 
+        menu_link: Kuratorstatistiker
+        page_header: Kuratorstatistik
       data_objects: 
         menu_link: Dataobjekt
       index: 
@@ -585,7 +588,6 @@ sv:
   all_collections: Alla samlingar
   all_communities: Alla gemenskaper
   all_count: Alla (%{count})
-  all_errors: ALLA fel
   all_filter: alla
   all_images: Alla bilder
   all_information: All information
@@ -727,6 +729,7 @@ sv:
   collections: 
     editors: 
       show: 
+        meta_description: Hanterare av Enyclopedia of Life-samlingen %{collection_name}.
         meta_keywords: "%{collection_name}-hanterare"
         meta_title: "%{collection_name}-hanterare"
         tweet_text: "%{collection_name}-hanterare"
@@ -743,6 +746,7 @@ sv:
         view_project_on_inaturalist: Visa %{project_title} på iNaturalist
     newsfeeds: 
       show: 
+        meta_description: Nyheter, kommentarer och medlemsaktivitet för Encyclopedia of Life-samlingen %{collection_name}.
         meta_keywords: "%{collection_name}-nyheter"
         meta_title: "%{collection_name}-nyheter"
         tweet_text: "%{collection_name}-nyheter"
@@ -968,7 +972,6 @@ sv:
   copy: Kopiera
   copy_of_name: Kopia av %{name}
   copyright: "UPPHOVSRÄTT:"
-  correct_donation_message: Om denna information inte är korrekt, var god %{go_back_link} för att ändringar.
   could_not_find_collection_error: Tyvärr, samlingen kunde inte hittas.
   could_not_find_user: Du är inte en medlem i denna gemenskap.
   count: Räkna
@@ -1194,8 +1197,12 @@ sv:
       page_header: Statistik för innehållspartners
       page_title: Statistiker
     curators: 
+      menu_link: Kuratorstatistiker
+      page_header: Kuratorstatistik
       page_title: Statistiker
     data_objects: 
+      menu_link: Dataobjekt
+      page_header: Dataobjektstatistiker
       page_title: Statistik
     index: 
       menu_link: Övergripande statistiker
@@ -1434,6 +1441,7 @@ sv:
         credentials_more_professional: Medlem av ett professionellt sällskap.
         credentials_more_referral: Återknytning från aktuell kurator.
         curation_application: Bli en kurator
+        curation_priveleges_credentials: Referenser <small>(endast fullständiga och mästerkuratorer)</small>
         curator_level: Du är för närvarande %{curator_level_with_indefinite_article}.
         email: E-postadress
         email_settings_submit: e-postinställningar
@@ -1640,7 +1648,7 @@ sv:
         learn_more_link_bacteria: Bakterier
         learn_more_link_birds: Fåglar
         learn_more_link_crustaceans: Skaldjur
-        learn_more_link_fish: Fisk
+        learn_more_link_fish: Fiskar
         learn_more_link_flowering_plants: Fröväxter
         learn_more_link_fungi: Hussvampar
         learn_more_link_insects: Insekter
@@ -1918,6 +1926,8 @@ sv:
     content_partner_resource_created: 
       message: "Detta är ett automatiskt systemmeddelande från EOL för gruppen av artsidor. Användaren %{user_full_name} lade till den ny resursen %{resource_title} till innehållspartnern %{partner_full_name}, detaljer nedan:\n\nAnvändare: %{user_full_name}\nE-post: %{user_email}\nProfil-URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL för partnerresurser: %{partner_resources_url}\n\nResurs: %{resource_title}\nURL för resurser: %{resource_url}\nSkapades: %{resource_created_at_date}\nStatus: %{resource_status}"
       subject: EOL-användaren %{user_full_name} lade till den nya resursen %{resource_title} till innehållspartnern %{partner_full_name}
+    content_partner_statistics_reminder: 
+      message: Detta är en automatisk e-postpåminnelse från Encyclopedia of Life. Webbanvändningsstatistiker för data som levereras till EOL av %{partner_full_name} för %{month} %{year} finns nu tillgänglig på %{partner_statistics_url}.
     greeting_dear_name_with_comma: Kära %{name},
     signature_basic: Encyclopedia of Life-teamet
     signature_with_contact_us_link: "Om du stöter på några problem, var god kontakta oss på %{url}.\n\nEncyclopedia of Life-teamet"
@@ -1925,8 +1935,10 @@ sv:
     unsubscribed_to_notifications: 
       subject: Synd att dig gå...
     user_activated: 
+      message: "Välkommen till Encyclopedia of Life (EOL) och tack för att du registrerade dig! Var god notera att ditt användarnamn är %{username} och din profiladress är %{profile_url}. Du kan logga in på ditt konto på http://eol.org/login.\n\nFör att lära dig mer om hur man använder EOL, inklusive hur man skapar EOL-samlingar, deltar i EOL-gemenskaper och bidrar med innehåll, var god besök våra hjälpsidor på http://eol.org/help."
       subject: Ditt Encyclopedia of Life-konto har aktiverats
     user_activated_with_open_authentication: 
+      message: "Välkommen till Encyclopedia of Life (EOL) och tack för att du registrerade dig! Var god notera att du registrerade sig med hjälp av %{oauth_provider} som ger EOL tillåtelse att få tillgång till dina grundläggande uppgifter för a for verifieringssyften. Din profiladress på EOL är %{profile_url}. Du kan logga in på ditt EOL-konto med %{oauth_provider} på http://eol.org/login.\n\nFör att lära dig mer om hur man använder EOL, inklusive hur man skapar EOL-samlingar, deltar i EOL-gemenskaper och bidrar med innehåll, var god besök våra hjälpsidor på http://eol.org/help."
       subject: Ditt Encyclopedia of Life-konto har aktiverats
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) kommenterade på:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
@@ -2023,7 +2035,6 @@ sv:
   person_rating: Personbetyg
   personal_profile_menu: Personlig profil
   personal_space: Personliga utrymme
-  please: Var god
   please_confirm_your_donation_details: Var god bekräfta din donationsdetaljer
   please_indicate_curation_reason: "Var god välj en anledning och/eller alternativ lämna en kuratorkommentar:"
   please_publish_this_resource_notice: "*** <strong>OBSERVERA:</strong> Var god <strong>%{publish_link}</strong> denna resurs här ***"
@@ -2070,6 +2081,7 @@ sv:
   recent_activities: 
     index: 
       list_header: Senaste 7 dagarna
+      meta_keywords: eol gemenskapsaktivitet, eol senaste aktivitet, encyclopedia of life-aktiviteter
       meta_title: EOL Gemenskapsaktivitet
       page_title: EOL Gemenskapsaktivitet
   recent_activity: 
@@ -2240,7 +2252,6 @@ sv:
   show_status_message: Visa statusmeddelande
   show_tasks: visa uppgifter
   show_warning_message: Visa varningsmeddelande
-  showing: Visar
   shown_to_the_user_parens: (visas för användaren)
   sign_in: Logga in
   sign_in_successful_notice: Inloggning lyckades.
@@ -2318,12 +2329,14 @@ sv:
         hierarchy_entry: 
           meta_description: Samlingar som innehåller %{scientific_name} som är klassificerad av %{hierarchy_provider}.
           meta_description_with_common_name: Samlingar som innehåller %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider}).
+          meta_keywords: "%{scientific_name}samlingar, %{scientific_name}observationer, %{hierarchy_provider}samlingar, %{hierarchy_provider}observationer, %{hierarchy_provider}specimen"
           meta_title: Samlingar av %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Samlingar av %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Samlingar av %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Samlingar som innehåller %{scientific_name}.
         meta_description_with_common_name: Samlingar som innehåller %{preferred_common_name} (%{scientific_name}).
         meta_keywords: Samlingar av %{scientific_name}, observationer av %{scientific_name}
+        meta_keywords_with_common_name: "%{preferred_common_name}samlingar, %{preferred_common_name}observationer, %{scientific_name}samlingar, %{scientific_name}observationer"
         meta_title: Samlingar av %{scientific_name}
         tweet_text: Samlingar av %{scientific_name}
       curators: 
@@ -2331,6 +2344,9 @@ sv:
           meta_title: Kuratorer för %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Experter på %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Kuratorer för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_title: Kuratorer för %{scientific_name}
+        meta_title_with_common_name: Experter på %{preferred_common_name} (%{scientific_name})
+        tweet_text: Kuratorer för %{scientific_name}
       index: 
         hierarchy_entry: 
           meta_description: Dela information och expertis på %{scientific_name} som är klassificerad av %{hierarchy_provider}.
@@ -2340,12 +2356,16 @@ sv:
           meta_title_with_common_name: Personer intresserade i %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Personer intresserade i %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Intresserad i %{scientific_name}? Gå med experterna för %{scientific_name} och dela dina egna observationer av %{scientific_name} på Encyclopdia of Life.
+        meta_description_with_common_name: Intresserad av %{preferred_common_name} (%{scientific_name})? Anslut dig till %{preferred_common_name}experterna och dela med sig dina egna observationer av %{preferred_common_name} på Encyclopdia of Life.
         meta_keywords: gemenskap för %{scientific_name}
+        meta_keywords_with_common_name: "%{preferred_common_name}gemenskap, %{scientific_name}gemenskap"
         meta_title: Personer intresserade i %{scientific_name}
         meta_title_with_common_name: Personer intresserade i %{preferred_common_name} (%{scientific_name})
         tweet_text: Personer intresserade i %{scientific_name}
     details: 
       index: 
+        hierarchy_entry: 
+          meta_description: Fakta om %{scientific_name} som klassificeras som %{hierarchy_provider} i Encyclopedia of Life
         meta_description: Information om %{scientific_name} i Encyclopedia of Life
         meta_title: Fakta om %{scientific_name}
         tweet_text: Information om %{scientific_name}
@@ -2391,18 +2411,29 @@ sv:
         meta_description: Vanliga namn för %{scientific_name}.
         meta_keywords: Vanliga namn för %{scientific_name}.
         meta_title: Vanliga namn för %{scientific_name}.
+        meta_title_with_common_name: Vanliga namn för %{preferred_common_name} (%{scientific_name})
         tweet_text: Vanliga namn för %{scientific_name}.
       index: 
         hierarchy_entry: 
           meta_description: Taxonomier och vetenskapliga namn för %{scientific_name} som är klassificerad av %{hierarchy_provider}.
           tweet_text: Namn med anknytning till %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_title: Taxonomisk information för %{scientific_name} - biologiska klassificeringar och namn
+        tweet_text: Taxonomisk information för %{scientific_name}
       synonyms: 
         meta_keywords_with_common_name: Synonym för %{preferred_common_name}, Synonymer för %{scientific_name}
         tweet_text: Synonym för %{scientific_name}
+    overview: 
+      meta_keywords: info om %{scientific_name},%{scientific_name}information
+      tweet_text: Information om %{scientific_name}
     updates: 
       show: 
+        hierarchy_entry: 
+          tweet_text: Uppdateringar för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_description: Nyheter och uppdateringar om %{scientific_name}.
+        meta_description_with_common_name: Nyheter om %{preferred_common_name} och uppdateringar på %{scientific_name}.
+        meta_keywords: "%{scientific_name}-nyheter, %{scientific_name}-uppdateringar"
         meta_title: Kommentarer på %{scientific_name}
+        meta_title_with_common_name: Kommentarer på %{preferred_common_name} (%{scientific_name})
         tweet_text: Kommentarer på %{scientific_name}
   taxa_column_header: Taxa
   taxa_with_count: 
@@ -2574,10 +2605,28 @@ sv:
   username_colon: "Användarnamn:"
   username_taken: "%{name} är upptaget"
   users: 
+    activities: 
+      show: 
+        meta_title: "%{user_full_name}s aktivitet"
+        tweet_text: "%{user_full_name}s aktivitet"
+    collections: 
+      index: 
+        meta_description: Samlingar som hanteras av %{user_full_name}.
+        meta_title: "%{user_full_name}s samlingar"
+        tweet_text: "%{user_full_name}s samlingar"
+    communities: 
+      index: 
+        meta_description: Gemenskaperna som %{user_full_name} är medlem i.
+        meta_title: "%{user_full_name}s gemenskaper"
+        tweet_text: "%{user_full_name}s gemenskaper"
     new: 
       create_user_header: Skapa ett nytt <abbr title="Encyclopedia of Life">EOL</abbr>-konto
       create_user_with_eol_authentication_header: "Eller ange nya inloggningsuppgifter:"
       meta_title: Gå med i EOL
+      sign_up_with_facebook_assistive: Registrera dig på EOL med dina inloggningsuppgifter på Facebook.
+      sign_up_with_google_assistive: Registrera dig på EOL med dina inloggningsuppgifter på Google.
+      sign_up_with_twitter_assistive: Registrera dig på EOL med dina inloggningsuppgifter på Twitter.
+      sign_up_with_yahoo_assistive: Registrera dig på EOL med dina inloggningsuppgifter på Yahoo.
     newsfeeds: 
       activity_link: aktivitet
       comments: 
@@ -2585,6 +2634,13 @@ sv:
       comments_link: kommentarer
       newsfeed_link: nyhetsflöde
     open_authentications: 
+      errors: 
+        yahoo: 
+          new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta till ditt konto på Yahoo!.
+          not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta till ditt konto på Yahoo!.
+          not_authorized_to_login: Tyvärr, vi har inte behörighet till att logga in dig på EOL med ditt konto på Yahoo!.
+          not_authorized_to_signup: Tyvärr, vi har inte behörighet att registrera dig på EOL med ditt konto på Yahoo!.
+          signup_failed_account_already_connected: Tyvärr, vi kan inte registrera dig för ett EOL-konto med ditt konto på Yahoo!, eftersom det är redan anslutet till ett <a href="%{existing_eol_account_url}">användarkonto på EOL</a>. Ville du <a href="%{login_url}">logga in</a> istället?
       facebook: Facebook
       google: Google
       index: 
@@ -2592,6 +2648,7 @@ sv:
         connected_unverified: Ansluten; Inte verifierad;
         not_connected: Inte ansluten;
         page_title: Anslutna konton
+        return_link: Gå tillbaka till att redigera profilen.
       twitter: Twitter
       yahoo: Yahoo!
     pending: 

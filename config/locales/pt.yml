@@ -601,7 +601,6 @@ pt:
     other: Copiou %{count} itens de %{name}.
   copy: Copiar
   copy_of_name: Cópia de %{name}
-  correct_donation_message: Se esta informação não é correta, por favor %{go_back_link} para fazer alterações
   could_not_find_collection_error: Pedimos desculpa, mas essa colecção não foi encontrada.
   could_not_find_user: Você não é um membro desta comunidade.
   count_results_for_search_term: 

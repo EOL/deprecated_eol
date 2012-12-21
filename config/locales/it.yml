@@ -684,7 +684,6 @@ it:
   all_comments_entered_by_users: Tutti i commenti inseriti dagli utenti sul sito web sono mostrati qui sotto, ordinati inversamente per ora di creazione.
   all_communities: Tutte le comunità
   all_count: Tutti (%{count})
-  all_errors: Tutti gli errori
   all_filter: tutti
   all_images: Tutte le immagini
   all_information: Tutte le informazioni
@@ -1850,7 +1849,6 @@ it:
   person_rating: Valutazione persona
   personal_profile_menu: Profilo personale
   personal_space: Pagina personale
-  please: Per favore
   please_wait: Attendi per favore...
   post_comment: Lascia un commento
   preferred_common_name_advisory_information: Nome comune preferito per questo taxon.

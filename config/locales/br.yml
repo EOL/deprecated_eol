@@ -479,7 +479,6 @@ br:
   all_collections: An holl dastumadoù
   all_communities: An holl gumuniezhioù
   all_count: An holl (%{count})
-  all_errors: An holl fazioù
   all_filter: pep tra
   all_images: An holl skeudennoù
   all_information: An holl ditouroù
@@ -1615,7 +1614,6 @@ br:
   parameters: Arventennoù
   password_colon: "Ger-tremen :"
   person_rating: Priziadenn an den
-  please: Mar plij
   please_return_to_eol_homepage: Distroit da bajenn degemer KaV, mar plij
   please_wait: Gortozit mar plij...
   preview: rakwelet
@@ -1684,7 +1682,6 @@ br:
   share_a_collection: Rannañ un dastumad
   show: Diskouez
   show_full_tree: diskouez ar wezenn glok...
-  showing: O tiskouez
   sign_in: Kevreañ
   sign_out: Digevreañ
   site_language: Yezh al lec'hienn

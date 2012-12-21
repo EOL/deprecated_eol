@@ -15,7 +15,7 @@ nl:
   0_or_1: 0 of 1
   a_maximum_of_30_results_are_returned: er worden maximaal 30 resultaten per pagina weergegeven. Deze parameter maakt het mogelijk om meer pagina's met resultaten te laden als er meer dan 30 resultaten zijn
   a_pipe_delimited_list_of_licenses: Een door het pipe-teken ("|") gescheiden lijst met licenties, of "all" om objecten op te vragen die aan de opgegeven licenties voldoen. Licenties die afgekort beginnen met "cc-" zijn allemaal %{creative_commons_link}-licenties. Kijk op hun site voor meer informatie over de verschillende licenties die ze aanbieden.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" om terug te gaan naar de overzichtstekst, een door het pipe-teken (\"|\") gescheiden lijst met SPM Info Item onderwerpnamen om tekst in de respectievelijke SPM Info Item onderwerpnamen te krijgen, \"all\" om de tekst in ieder onderwerp weer te geven. \"always\" geeft een overzichtstekst weer als eerste resultaat (als deze bestaat in een gegeven context)."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" om terug te gaan naar de overzichtstekst, een door het pipe-teken (\"|\") gescheiden lijst met onderwerpnamen van de lijst van %{subjects_text} (bijvoorbeeld TaxonBiology, FossilHistory) of \"all\" om de tekst in ieder onderwerp weer te geven. \"always\" geeft een overzichtstekst weer als eerste resultaat (als deze bestaat in een gegeven context)."
   a_taxon: een taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Er is één reactie gevonden die aan uw zoekopdracht voldoet.
@@ -965,9 +965,7 @@ nl:
   all_comments_entered_by_users: Alle opmerkingen die door gebruikers op de website zijn toegevoegd, worden hieronder weergegeven, van nieuw naar oud.
   all_communities: Alle gemeenschappen
   all_count: Alle (%{count})
-  all_errors: ALLE foutmeldingen
   all_filter: alle
-  all_harvesting_logs: ALLE importlogboeken
   all_images: Alle afbeeldingen
   all_information: Alle gegevens
   all_items: Alle items
@@ -1155,7 +1153,7 @@ nl:
   close_this_window_to_return_to_edit_window: Sluit dit venster om terug te keren naar het bewerkingsvenster
   cms_available_in_languages: "Deze pagina is beschikbaar in:"
   cms_missing_content_message: Deze pagina is niet beschikbaar in de geselecteerde taal %{selected_language}.
-  cms_missing_content_title: Ontbrekende vertaling
+  cms_missing_content_title: Vertaling ontbreekt
   collect_item: Item in verzameling opnemen
   collect_items: Items in verzameling opnemen
   collection_api_sort_field_notes: ��Als de parameter "sort_field" is opgenomen, worden alleen verzamelingsitems teruggegeven waarvan het sorteerveld precies overeenkomt met de opgegeven tekst.
@@ -1242,7 +1240,8 @@ nl:
   comment_not_added_error: Er is een fout opgetreden. De reactie kon niet worden toegevoegd.
   comment_not_deleted_error: Er is een fout opgetreden. De reactie kon niet worden verwijderd.
   comment_not_updated_error: Er is een fout opgetreden. De reactie kon niet worden bijgewerkt.
-  comment_or_rate_on_this_article: Opmerking plaatsen bij deze pagina of een waardering geven
+  comment_or_rate_on_this_article: reageren op deze pagina of een waardering geven
+  comment_or_rate_on_this_link: reageren op deze verwijzing of een waardering geven
   comment_show_posters_image_alt: Profielafbeelding van %{posters_name} die deze opmerking heeft toegevoegd.
   comments: Opmerkingen
   comments_and_tags: Opmerkingen en labels
@@ -1560,7 +1559,6 @@ nl:
     other: "%{count} items kopiëren naar een nieuwe verzameling"
   copy_of_name: Kopie van %{name}
   copyright: "Auteursrechten:"
-  correct_donation_message: Als deze gegevens niet correct zijn, ga dan %{go_back_link} om wijzigingen te maken.
   could_not_find_collection_error: Die verzameling kon niet gevonden worden.
   could_not_find_user: U bent geen lid van deze gemeenschap.
   count: Aantal
@@ -1768,7 +1766,7 @@ nl:
   did_you_mean: "Bedoelde u: %{suggestions}?"
   disabled_for_now: Op dit moment niet beschikbaar
   discover_link: Ontdekken
-  displaying_numerical_range: Items van %{start_number} tot %{end_number}
+  displaying_numerical_range: Items %{start_number} tot %{end_number} van %{total}
   do_you_want_to_be_a_curator: Wilt u conservator worden
   donate: Doneren
   donation_amount_legend: Kies het bedrag dat u wilt schenken
@@ -1949,7 +1947,7 @@ nl:
   filter_by_status_unreviewed_option: Niet-beoordeeld
   filter_by_status_untrusted_option: niet-vertrouwd
   filter_by_type: Op type filteren
-  filter_by_type_all_option: alle typen
+  filter_by_type_all_option: Alle typen
   filter_by_type_all_option_with_count: 
     one: Alle typen (%{count})
     other: Alle typen (%{count})
@@ -2206,11 +2204,11 @@ nl:
         email: E-mailadres
         email_reports_frequency_hours: Hoe vaak wilt u e-mailberichten ontvangen over activiteiten binnen uw bijdragen?
         email_settings_submit: E-mailinstellingen
-        entered_password: Wachtwoord <small>(4 - 16 tekens)</small>
+        entered_password: Wachtwoord <small>(4-16 tekens)</small>
         generate_api_key: API-sleutel aanvragen
         generate_api_key_more: Als u geïnteresseerd bent in het gebruik van de EOL-API, kunt u een API-sleutel aanmaken om uw toepassing te identificeren. Lees meer over het <a href="%{api_docs_url}">toevoegen van een sleutel voor uw API-verzoeken</a>.
         logo: Nieuwe afbeelding uploaden
-        new_password: Nieuw wachtwoord <small>(4 - 16 tekens)</small>
+        new_password: Nieuw wachtwoord <small>(4-16 tekens)</small>
         new_password_confirmation: Nieuw wachtwoord <small>(te bevestigen)</small>
         news_in_preferred_language: nieuws in voorkeurstaal weergeven
         notification_settings: Instellingen voor berichten
@@ -2322,6 +2320,7 @@ nl:
   hierarchy_entry_switch_missing_id_error: De ingangspagina voor de hiërarchie die u hebt geselecteerd kon niet gevonden worden vanwege een missende aanduiding.
   hierarchy_node_missing: De gegevens voor deze node missen.
   hierarchy_roots_colon: "Hiërarchieroots:"
+  hierarchy_selector_drop_down_list_label: Dit is het label dat wordt opgenomen in de dropdownlijst voor de hiërarchie
   hierarchy_updated: De hiërarchie is bijgewerkt
   home: Startpagina
   home_page_cache_last_cleared_on: De cache voor de startpagina is voor het laatst geleegd op %{date}
@@ -2732,7 +2731,7 @@ nl:
       meta_title: EOL-nieuws
       page_title: EOL-nieuws
   news_missing_content_message: Deze pagina is niet beschikbaar in de geselecteerde taal %{selected_language}.
-  news_missing_content_title: Ontbrekende vertaling
+  news_missing_content_title: Vertaling ontbreekt
   newsfeed: Nieuwsoverzicht
   newsfeed_help_for_collection: In het nieuwsoverzicht voor deze EOL-verzameling staan berichten over de items in de verzameling, inclusief de handelingen van de eigenaar en reacties van andere gebruikers van EOL.
   newsfeed_help_for_community: In het nieuwsoverzicht voor deze EOL-gemeenschap staan berichten over de items bij de beheerde verzamelingen horen, inclusief de handelingen van de leden en reacties van andere gebruikers van EOL.
@@ -2921,6 +2920,7 @@ nl:
   page_views_th: Bekeken pagina's
   pages_admin_section_link: Beheerders
   pages_curator_section_link: Conservatoren
+  pages_method_description: heeft een EOL-pagina-identificatie nodig en geeft de wetenschappelijke naam voor die pagina terug, also ook optioneel gegevens over gewone namen, media (tekst, afbeeldingen en video) en referenties naar de hiërarchieën die het taxon erkennen op de
   pages_title: Referenties
   pages_with_count: 
     one: "%{count}"
@@ -2942,7 +2942,7 @@ nl:
   partner_page: partnerpagina
   partner_web_site_colon: "Partnerwebsite:"
   password_colon: "Wachtwoord:"
-  password_must_be_4to16_characters: Het wachtwoord tussen 4 en 16 tekens lang zijn.
+  password_must_be_4to16_characters: Het wachtwoord moet tussen 4 en 16 tekens lang zijn.
   pause: pauze
   people_with_count: 
     one: "%{count} persoon"
@@ -2955,10 +2955,12 @@ nl:
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
-  please: Gelieve
+  please_ask_big_before_changing_toc: Overleg met een lid van de groep Biodiversity Informatics voordat u de inhoudsopgave bewerkt. Sommige namen van hoofdstukken kunnen niet gewijzigd worden omdat de code sommige hoofdstukken opzoekt op label. InfoItems kunnen niet gemapt worden in deze interface. Dat moet handmatig gedaan worden in de database.
   please_confirm_your_donation_details: Bevestig uw donatiegegevens
   please_indicate_curation_reason: "Selecteer een reden en laat eventueel een opmerking achter:"
+  please_note_that_some_of_these: Sommige van deze functies zijn nog in ontwikkeling en kunnen nog wijzigen of bevatten mogelijk nog fouten.
   please_note_wiki_etc_are_not_spm: "* Wikipedia, Onderwijs en Barcode zijn interne onderwerpen in EOL, en zij zijn geen onderdeel van het SPM (soortenprofielmodel)."
+  please_publish_this_resource_notice: "*** <strong>Let op:</strong> <strong>%{publish_link}</strong> deze bron hier ***"
   please_refresh: Ververs de pagina in uw browser om de laatste versie van de EOL-website te bekijken
   please_return_to_eol_homepage: Ga alstublieft terug naar de introductiepagina van EOL
   please_state_one_credential: "Geef tenminste één specifieke referentie uit deze lijst:"
@@ -3133,6 +3135,7 @@ nl:
   search_placeholder: EOL doorzoeken ...
   search_previous_label: Vorige
   search_results: Zoekresultaten
+  search_suggestion_admin_intro: Dit gebied wordt gebruikt om zoeksuggesties te maken voor gebruikers door een trefwoord op te geven waar gebruikers op zoeken en een pagina waar ze heen gestuurd moeten worden als suggestie. Suggesties verschijnen altijd boven andere resultaten. U kunt meerdere suggesties opgeven voor een trefwoord.
   search_suggestion_created: De zoeksuggestie is aangemaakt.
   search_suggestion_updated: De zoeksuggestie is bijgewerkt.
   search_suggestions: Zoeksuggesties
@@ -3147,9 +3150,18 @@ nl:
   see_all_collections_with_count_html: 
     one: De <span class="assistive">verzameling waarin dit taxon voorkomt</span> bekijken.
     other: Alle <span class="assistive">%{count} verzamelingen waarin dit taxon voorkomt</span> bekijken.
+  see_all_comments_with_count_for_link_or_rate: 
+    one: zie de reactie voor deze verwijzing of waardeer deze
+    other: zie alle %{count} reacties voor deze verwijzing of waardeer deze
+  see_all_comments_with_count_for_text_or_rate: 
+    one: de reactie voor dit artikel verwijzing bekijken of deze waarderen
+    other: alle %{count} reacties voor deze artikelen bekijken of het waarderen
   see_all_communities_with_count_html: 
     one: De <span class="assistive">gemeenschap met focus op dit taxon</span> bekijken.
     other: Alle <span class="assistive">%{count} gemeenschappen met focus op dit taxon</span> bekijken.
+  see_all_editors_with_count: 
+    one: De beheerder bekijken
+    other: Alle %{count} beheerder bekijken
   see_all_featured_collections_with_count: 
     one: De uitgelichte verzameling bekijken.
     other: De %{count} uitgelichte verzamelingen bekijken.
@@ -3161,6 +3173,8 @@ nl:
     one: De <span class="assistive">update voor deze pagina</span> bekijken.
     other: Alle <span class="assistive">%{count} updates voor deze pagina</span> bekijken.
   see_notes: zie notities
+  select_a_hierarchy_around_whic: "Selecteer een hiërarchie waar u de samenvattingen omheen wilt organiseren:"
+  select_an_item_from_the_menu: Selecteer een item uit het menu
   select_colon: "Selecteer:"
   select_tool_and_go: "Selecteer een gereedschap en klik op \"Verder\":"
   select_topic: Selecteer een onderwerp
@@ -3172,6 +3186,7 @@ nl:
   sent_invitations_to_users: 
     one: Er is een uitnodiging verzonden naar %{users}.
     other: Er zijn uitnodigingen verzonden naar %{users}.
+  sep_emails_with_commas_note: (scheid meerdere e-mailadressen met komma's)
   server_ip_address: IP-adres server
   sessions: 
     new: 
@@ -3187,19 +3202,24 @@ nl:
   set_as_exemplar: Als voorbeeld instellen
   share_a_collection: Verzameling delen
   show: Weergeven
+  show_all_other_classifications_with_count: 
+    one: Andere niet doorbladerbare classificatie weergeven
+    other: "%{count} andere niet doorbladerbare classificaties weergeven"
   show_data_from_all_content_partners: Classificatiefilter verwijderen
+  show_email_message_area: "[gebied voor e-mailbericht weergeven]"
   show_full_tree: volledige boomstructuur weergeven...
   show_in_overview: weergeven in overzicht
   show_status_message: Statusbericht weergeven
   show_tasks: taken weergeven
   show_warning_message: Waarschuwing weergeven
-  showing: Weergeven
-  showing_procs_from: "Processen weergeven vanaf:"
   shown_to_the_user_parens: (zichtbaar voor de gebruiker)
   shown_to_user_as_the_title_of_page: weergegeven als paginatitel
   sign_in: Aanmelden
+  sign_in_remember_me_disallowed_for_admins_notice: Om veiligheidsredenen kunnen beheerders geen gebruik maken van de mogelijkheid om hun wachtwoord te laten onthouden.
   sign_in_successful_notice: U bent aangemeld.
+  sign_in_unsuccessful_error: Aanmelden is mislukt. De gebruikersnaam, het wachtwoord of het e-mailadres was onjuist.
   sign_out: Afmelden
+  site_cms: Site-CMS
   site_information: Sitegegevens
   site_language: Taal van de website
   site_settings_menu: Instellingen voor de site
@@ -3208,6 +3228,7 @@ nl:
   skip_to_table_of_contents: Naar inhoudsopgave gaan
   social_sharing_twitter_follow_eol_button: "@eol volgen"
   social_sharing_twitter_tweet_button: Tweet
+  some_required_fields_were_not_entered: Sommige verplichte velden zijn niet ingevuld (u moet een titel en inhoud invoeren of een URL).
   sorry_no_collections_are_available_to_share: Er zijn helaas geen collecties beschikbaar om te delen met deze gemeenschap.
   sorry_no_communities_are_available_to_share: Er zijn helaas geen gemeenschappen beschikbaar om deze collectie mee te delen.
   sort_by: Sorteren op
@@ -3251,7 +3272,11 @@ nl:
   species_profile_model: Soortenprofielmodel
   species_profile_model_cp_count_title: Soortenprofielmodel - Aantal contentpartners
   species_profile_model_dato_count_title: Soortenprofielmodel - Aantal dataobjecten
-  split_into_new_concept: opsplitsen in een nieuw concept
+  split_cancelled: Het splitsen is geannuleerd.
+  split_classification_instructions: Om deze hiërarchie van deze EOL-pagina te verwijderen, moet u de hiërarchie selecteren die het meest van toepassing is voor deze pagina, zodat deze hiërarchieën gescheiden blijven als de pagina in de toekomst wordt bijgewerkt.
+  split_into_new_concept: opsplitsen in een nieuwe pagina
+  split_only_possible_with_all_classifications: Hoewel u classificaties mag splitsen, moet u <a href='%{link}'>alle classificaties weergeven</a> voordat u deze handeling kunt uitvoeren.
+  split_pending: Het splitsen heeft enige tijd nodig. Aan deze pagina kunnen nu geen verdere classificatiewijzigingen gemaakt worden totdat het splitsen is afgerond. U ontvangt een e-mail als het proces is afgerond en de handeling verschijnt dan ook in het nieuwsoverzicht voor de pagina.
   spm_category: SPM-categorie
   spm_category_objects_count: SPM-categorie - aantal objecten
   spm_category_partner_count: SPM-categorie - aantal partners
@@ -3464,7 +3489,7 @@ nl:
         tweet_text: Overzicht van %{scientific_name} als ingedeeld door %{hierarchy_provider}
       meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life.
       meta_description_with_common_name: Informatie over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
-      meta_keywords: gegevens over %{scientific_name},informatie over %{hierarchy_provider}
+      meta_keywords: gegevens over %{scientific_name},informatie over %{scientific_name}
       meta_keywords_with_common_name: info over %{scientific_name},info over %{preferred_common_name},gegevens en feiten over %{scientific_name},informatie over %{preferred_common_name}
       meta_title: "%{scientific_name} - Gegevens over %{scientific_name}"
       meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informatie over %{preferred_common_name}"
@@ -3561,18 +3586,25 @@ nl:
   taxon_newsfeed: Taxonnewsfeed
   taxon_not_found_error: "\"%{taxon}\" niet gevonden"
   taxon_nucleotide_sequences_link: Nucleotidesequenties
+  taxon_page_content_disclaimer: De inhoud van EOL wordt automatisch samengesteld vanuit veel verschillende contentproviders. Hierdoor komt het van tijd tot tijd mogelijk voor dat u pagina's op EOL aantreft die een verwarrende inhoud hebben.
   taxon_page_content_disclaimer_header: Voorbehoud
+  taxon_page_content_disclaimer_suggest_improvement: Laat een reactie achter op de pagina met de vraag om verbetering. Dank u wel!
   taxon_partner_links_empty: Contentpartners hebben nog geen bronverwijzingen voor deze pagina toegevoegd.
   taxon_partner_links_empty_learn_more_link: Meer lezen over contentpartner worden
   taxon_partner_links_header: Partnerverwijzingen
+  taxon_partner_links_intro: Hieronder staat een lijst met partner, inclusief contentpartners, met gegevens op deze pagina. Waar mogelijk zijn verwijzingen toegevoegd naar de overeenkomende inhoud op de website van de partner. De unieke identificatiecode van iedere partner voor dit taxon is ingebed in de verwijzingen en deze codes zijn ook toegankelijk via de <a href="%{eol_api_link}">API van EOL</a>.
   taxon_partner_links_link: Partnerverwijzingen
   taxon_rating: Taxonwaardering
+  taxon_recognized_by: Taxon erkend door %{whom}
   taxon_related_organizations_link: Gerelateerde organisaties
+  taxon_selected_from_search_res: Taxon geselecteerd uit zoekresultaten
   taxon_suggested: Taxonsuggestie
   taxonomic_summary_of_content: taxonomische samenvatting van inhoud
   technical_functions: Technische functies
+  term_cannot_be_left_blank: De term kan niet leeg blijven
   term_for_search_admin_ui: Term
   term_is_already_def_error: "\"%{term}\" is al gedefinieerd"
+  terms_agreement_form_fallback: Lees alstublieft de <a href="%{terms_url}">gebruiksvoorwaarden</a>. U krijgt toegang tot uw gebruiker nadat u er akkoord mee gaat.
   terms_agreement_form_header: Gebruiksvoorwaarden
   terms_agreement_form_submit: Ik ga akkoord
   terms_of_use_link: Gebruiksvoorwaarden &amp; privacy
@@ -3589,11 +3621,15 @@ nl:
     other: "%{count} artikelen"
   thank_you: Bedankt
   thank_you_for_your_generous_support: Dank u wel voor uw vrijgevige steun!
+  thanks_for_donation: Dank u wel voor uw steun aan Encyclopedia of Life. Uw informatie is opgeslagen en we gaan deze verwerken.
   thanks_for_your_time: Bedankt voor uw tijd,
+  the_amount_entered_was: "Het ingevoerde bedrag is: USD %{number}"
   the_comment_was_successfully_deleted: De opmerking is verwijderd.
   the_comment_was_successfully_updated: De opmerking is bijgewerkt.
   the_content_could_not_be_displ: De inhoud kan niet worden weergegeven.
   the_content_was_updated: De inhoud is bijgewerkt.
+  the_count_represents_the_total: Het aantal stelt het aantal gepubliceerde dataobjecten voor onder de respectievelijke SPM-onderwerpcategorie.
+  the_cp_count_info: Het aantal stelt het aantal contentpartners voor dat gepubliceerde dataobjecten heeft onder de respectievelijke SPM-onderwerpcategorieën.
   the_file_was_uploaded: Het bestand is geüpload.
   the_image_from_this_source_has_not_been_reviewed: De afbeelding uit deze bron is niet gecontroleerd.
   the_image_from_this_source_is_not_trusted: De afbeelding uit deze bron wordt niet vertrouwd.
@@ -3602,18 +3638,23 @@ nl:
   the_new_user_was_created: De gebruiker is aangemaakt.
   the_topic_was_updated: Het onderwerp is bijgewerkt.
   the_user_was_updated: De gebruiker is bijgewerkt.
+  the_user_who_performed_this_action_was_removed: De gebruiker die deze handeling heeft uitgevoerd is verwijderd.
   there_are_currently_no_members_in_this_community: Er zijn momenteel geen leden in deze gemeenschap.
   this_article_cannot_be_curated_because_unpublished: Dit artikel kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_article_is_unpublished: Dit artikel is niet gepubliceerd.
   this_cannot_be_undone_are_you_sure: Dit kan niet ongedaan gemaakt worden. Weet u het zeker?
   this_collection_has_no_managers: Deze verzameling heeft geen beheerders.
   this_comment_was_deleted: Deze opmerking is verwijderd.
+  this_community_has_no_endorsed_collections: Deze gemeenschap heeft geen uitgelichte verzamelingen.
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
   this_community_was_deleted: Deze gemeenschap is verwijderd door de eigenaar.
   this_image_cannot_be_curated_because_unpublished: Deze afbeelding kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_image_is_unpublished: Deze afbeelding is niet gepubliceerd.
   this_image_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_image_map_is_unpublished: Deze kaart is niet gepubliceerd.
+  this_is_a_flat_list_of_10_million_strings: Dit is een platte lijst van 10 miljoen tekstdelen. U kunt deze niet bekijken in uw browser
+  this_is_a_focus_collection_for_community: Dit is de focus van de gemeenschap %{community}.
+  this_is_the_label_that_will_be_used_for_attribution: Dit is het label dat wordt gebruikt voor naamsvermelding
   this_link_cannot_be_curated_because_unpublished: Deze verwijzing kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_link_is_unpublished: Deze verwijzing is niet gepubliceerd.
   this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
@@ -3624,10 +3665,12 @@ nl:
   this_video_cannot_be_curated_because_unpublished: Deze video kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_video_is_unpublished: Deze video is niet gepubliceerd.
   threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">UCN</abbr> bedreigingsstatus:"
+  thumbnail_page_colon: "miniatuurpagina:"
   time_ago: "%{time_passed} geleden"
   title: Titel
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
   toc: Inhoudsopgave
+  toc_entry_col_header: Inhoudsopgave-item
   toc_no_longer_available: Gegevens voor de inhoudsopgave zijn niet langer beschikbaar
   too_many_descendants_to_curate_with_count: 
     one: "Fout: uw conservering kan niet verwerkt worden door het automatische systeem. Er is één afstammeling, meer dan het maximale aantal."

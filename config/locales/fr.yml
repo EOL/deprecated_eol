@@ -561,11 +561,26 @@ fr:
         user_showed_it_on_association: <strong>%{user}</strong> l'a marqué comme visible sur la page "%{association}".
       trust_common_name: 
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu dans une langue inconnue.
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu dans une langue inconnue depuis "%{taxon}".
         an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu en %{language} depuis une page inconnue.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu en %{language}.
         an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu en %{language} depuis "%{taxon}".
         an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable le nom commun "%{name}" dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Un utilisateur inconnu a marqué comme fiable le nom commun "%{name}" dans une langue inconnue.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Un utilisateur inconnu a marqué comme fiable le nom commun "%{name}" dans une langue inconnue depuis "%{taxon}".
         an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable le nom commun "%{name}" en %{language} depuis une page inconnue.
+        an_unknown_user_trusted_name_in_language_on_it: Un utilisateur inconnu a marqué comme fiable le nom commun "%{name}" en %{language}.
+        an_unknown_user_trusted_name_in_language_on_taxon: Un utilisateur inconnu a marqué comme fiable le nom commun "%{name}" en %{language} depuis "%{taxon}".
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu dans une langue inconnue depuis une page inconnue.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu dans une langue inconnue.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu dans une langue inconnue depuis "%{taxon}".
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu en %{language} depuis une page inconnue.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu en %{language} depuis "%{taxon}".
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" dans une langue inconnue depuis une page inconnue.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" dans une langue inconnue depuis "%{taxon}".
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" en  %{language} depuis une page inconnue.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" en %{language} depuis "%{taxon}".
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme fiable dans un contexte inconnu.
         an_unknown_user_trusted_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme fiable sur la page "%{association}".
@@ -757,9 +772,7 @@ fr:
   all_comments_entered_by_users: Tous les commentaires saisis sur le site par les utilisateurs sont affichés ci-dessous, triés dans l’ordre chronologique inversé de leur création.
   all_communities: Toutes les communautés
   all_count: Tous (%{count})
-  all_errors: Toutes les erreurs
   all_filter: tout
-  all_harvesting_logs: Tous les journaux de récolte
   all_images: Toutes les images
   all_information: Toutes les informations
   all_items: Tous les éléments
@@ -1280,7 +1293,6 @@ fr:
   copy: Copier
   copy_of_name: Copie de %{name}
   copyright: "COPYRIGHT (droits d’auteur) :"
-  correct_donation_message: Si ces informations ne sont pas correctes, veuillez %{go_back_link} pour effectuer les changements nécessaires.
   could_not_find_collection_error: Désolé, impossible de trouver cette collection.
   could_not_find_user: Vous n'êtes pas un membre de cette communauté.
   count: Quantité
@@ -2591,7 +2603,6 @@ fr:
   partner: Partenaire
   partner_information: Information sur le partenaire
   partner_page: page de partenaire
-  partnering_steps: ÉTAPES DE PARTENARIAT
   password_colon: "Mot de passe :"
   password_must_be_4to16_characters: La longueur du mot de passe doit être comprise entre 4 et 16 caractères.
   pause: pause
@@ -2607,7 +2618,6 @@ fr:
   personal_profile_menu: Profil personnel
   personal_space: Espace personnel
   ping_method_description: Cette méthode va échouer (auquel cas la page d’erreur de l’EdlV sera probablement renvoyée) ou renvoyer un message de réussite. Il n’y pas d’autre message possible
-  please: Veuillez
   please_ask_big_before_changing_toc: Veuillez vérifier avec un membre du groupe Informatique de la biodiversité avant de modifier la table des matières. Certains noms de chapitre ne peuvent pas être modifiés car le code recherche certains chapitres par leur libellé. Des éléments d’information ne peuvent pas être intégrés dans cette interface - cela doit être fait manuellement dans la base de données.
   please_confirm_your_donation_details: Veuillez confirmer les détails de votre don
   please_indicate_curation_reason: "Veuillez sélectionner un motif ou laisser un commentaire de conservation :"
@@ -2855,9 +2865,6 @@ fr:
   show_status_message: Montrer message de statut
   show_tasks: tâches
   show_warning_message: Afficher le message d’avertissement
-  showing: Afficher
-  showing_errors_the_error_log_f: "Afficher les erreurs journalisées pour :"
-  showing_procs_from: "Afficher les processus de :"
   shown_to_the_user_parens: (affiché à l’utilisateur)
   shown_to_user_as_the_title_of_page: affiché à l’utilisateur comme titre de la page
   sign_in: S’identifier
@@ -3119,6 +3126,22 @@ fr:
         meta_title: Synonymes de %{scientific_name}
         meta_title_with_common_name: Synonymes du (de la) %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonymes de %{scientific_name}
+    overview: 
+      hierarchy_entry: 
+        meta_description: Un résumé des informations concernant %{scientific_name}, tel que classé par %{hierarchy_provider}, dans l’Encyclopédie de la Vie.
+        meta_description_with_common_name: Un résumé des informations concernant %{preferred_common_name}, scientifiquement appelé %{scientific_name}, tel que classé par %{hierarchy_provider}, dans l’Encyclopédie de la Vie.
+        meta_keywords: "%{scientific_name} tel que reconnu par %{hierarchy_provider}, %{scientific_name} tel que classé par %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} tel que reconnu par %{hierarchy_provider}, %{scientific_name} tel que classé par %{hierarchy_provider}"
+        meta_title: "%{scientific_name} tel que classé par %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})"
+        tweet_text: Vue d’ensemble de %{scientific_name} tel que classé par %{hierarchy_provider}
+      meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie.
+      meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie.
+      meta_keywords: info sur %{scientific_name}, information sur %{scientific_name}
+      meta_keywords_with_common_name: info sur %{scientific_name}, info sur %{preferred_common_name}, information et faits sur %{scientific_name}, information sur %{preferred_common_name}
+      meta_title: "%{scientific_name} - Information sur %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information sur %{preferred_common_name}"
+      tweet_text: Information sur %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

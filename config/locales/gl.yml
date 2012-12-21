@@ -6,8 +6,9 @@
 gl: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
+  a_maximum_of_30_results_are_returned: devólvese un máximo de 30 resultados por páxina. Este parámetro permite obter máis páxinas de resultados se hai máis de 30 coincidencias
   a_pipe_delimited_list_of_licenses: unha lista de licenzas separadas por unha barra vertical "|" ou ben "all" para obter os obxectos baixo calquera licenza. As licenzas abreviadas con "cc-" son todas as licenzas %{creative_commons_link}. Visita o seu sitio para atopar máis información sobre as diversas licenzas que ofrecen.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" para devolver o texto da vista xeral (se existe); unha lista de nomes de elementos informativos SPM separados por unha barra vertical \"|\" para obter o texto nos respectivos nomes de elementos informativos SPM; \"all\" para obter o texto en calquera asunto. Sempre se devolve un texto da vista xeral como o primeiro resultado (se existe no contexto especificado)."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" para devolver o texto da vista xeral (se existe); unha lista de nomes de asunto separados por unha barra vertical (\"|\") da lista de %{subjects_text} (por exemplo, TaxonBiology, FossilHistory); ou \"all\" para obter o texto en calquera asunto. Sempre se devolve un texto da vista xeral como o primeiro resultado (se existe no contexto especificado)."
   a_taxon: un taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Atopouse %{count} comentario que coincidise cos teus criterios de procura.
@@ -957,9 +958,7 @@ gl:
   all_comments_entered_by_users: Todos os comentarios publicados polos usuarios na páxina web móstranse a continuación, por orde cronolóxica inversa.
   all_communities: Todas as comunidades
   all_count: Todos (%{count})
-  all_errors: TODOS os erros
   all_filter: todos
-  all_harvesting_logs: TODOS os rexistros de colleita
   all_images: Todas as imaxes
   all_information: Toda a información
   all_items: Todos os elementos
@@ -1079,6 +1078,7 @@ gl:
   by_scientific_name_table_header: por nome científico
   cache_store: Almacenamento da caché
   calculate_averages_slow: Calcular as medias (lento)
+  call_api: Chamar á API
   cancel: Cancelar
   cancel_split: Cancelar
   cannot_be_associated_with_both_a_user_and_a_community: Non pode estar asociado a un usuario e a unha comunidade á vez
@@ -1552,7 +1552,6 @@ gl:
     other: Copiar %{count} elementos a unha nova colección
   copy_of_name: Copia de "%{name}"
   copyright: "DEREITOS DE AUTOR:"
-  correct_donation_message: Se esta información non é correcta, %{go_back_link} para facer cambios.
   could_not_find_collection_error: Sentímolo, non se puido atopar a colección.
   could_not_find_user: Non es membro desta comunidade.
   count: Reconto
@@ -1585,6 +1584,13 @@ gl:
   curated_objects_of: conservou os obxectos de "%{name}"
   curated_species_of: conservou as especies de "%{name}"
   curation_comment: Comentario de conservación
+  curation_error_hide_reasons_invalid: Os motivos de agocho de %{association} non eran válidos
+  curation_error_no_hide_reasons_given: Escolle un motivo para agochar isto na páxina de %{association} ou deixa un comentario explicando por que vas agochalo
+  curation_error_no_untrust_reasons_given: Escolle un motivo para desconfiar disto na páxina de %{association} ou deixa un comentario explicando por que desconfías
+  curation_error_object_in_preview_state_cannot_be_curated: Estase vendo a vista previa do obxecto para a súa importación e non pode conservarse
+  curation_error_untrust_reasons_invalid: Os motivos de desconfianza en %{association} non eran válidos
+  curation_error_vetted_invalid: Non podes conservar %{association} a "%{vetted}"
+  curation_error_visibility_invalid: Non podes conservar %{association} a "%{visibility}"
   curation_privileges_page_description: "Selecciona o nivel de conservador que desexas: axudante, completo ou mestre. As candidaturas a conservador completo e mestre conservador deben incluír o ámbito e as certificacións necesarias. Recibirás unha notificación por correo electrónico unha vez que se revisen e acepten os teus datos. As candidaturas a conservador axudante non necesitan moderación e acéptanse no momento. Descubre máis sobre <a href=\"%{curators_url}\">converterse nun conservador</a>."
   curation_privileges_page_title: Converterse nun conservador
   curation_reason_placeholder: detalles adicionais (opcional)
@@ -1816,6 +1822,7 @@ gl:
     one: "%{count} colección destacada"
     other: "%{count} coleccións destacadas"
   enter_in_a_search_term_users_a: Escriba un termo de procura que os usuarios busquen e, entón, o ID do taxon ou da páxina de destino á que deberían dirixirse como suxestión para a devandita procura. O ID do taxon ou da páxina atópase no enderezo URL da páxina á queres dirixilos (por exemplo, para o enderezo www.eol.org/pages/5 o ID é 5). Recolleranse, se están dispoñibles, o nome da páxina e mais a primeira imaxe para almacenalos cos resultados.
+  eol_accepted_subjects: Temas aceptados na EOL
   eol_administration_console: Consola de administración da EOL
   eol_api: API da EOL
   eol_api_collections: "API da EOL: Coleccións"
@@ -1917,6 +1924,7 @@ gl:
   failed_login_attempts_with_count: 
     one: (%{count} intento de rexistro erróneo)- cómpre que estea marcada para que o usuario acceda ao sistema
     other: (%{count} intentos de rexistro erróneos)- cómpre que estea marcada para que o usuario acceda ao sistema
+  false_label: Falso
   family_name_colon: "Apelido:"
   feedback: Comentarios
   file: Ficheiro
@@ -2318,7 +2326,7 @@ gl:
   icon_near_the_table_of_content: icona preto da táboa de contidos no lado esquerdo da páxina. Tamén podes enviar <a href=''>comentarios</a> acerca desta especie directamente no sitio da EOL mediante a lapela "Comentarios" que está ao carón das imaxes.
   id: ID
   if_checked_and_user_is_saved: En caso de estar marcado e o usuario rexistrado, as súas credenciais, alcance, aprobación e clado seleccionados elimínanse e o usuario deixa de ser conservador. Deberías engadir unha nota a continuación indicando o motivo. Non se envía información ao usuario.
-  if_the_details_parameter_is_not_set: Se o parámetro de detalles non está configurado, entón unicamente se devolverá o identificador de obxectos de datos, o tipo de datos e, no caso de artigos, o tema. O tipo de datos ha ser un valor do vocabulario do tipo de recurso %{linka}. O tema do texto ha ser una valor da ontoloxía %{linkb} dos elementos informativos.
+  if_the_details_parameter_is_not_set: Se o parámetro de detalles non está configurado, entón unicamente se devolverá o identificador de obxecto de datos, o tipo de datos e, no caso de artigos, o tema. O tipo de datos ha ser un valor do vocabulario do tipo de recurso %{linka}. O tema do texto ha ser un dos %{linkb}.
   image: Imaxe
   image_alt_text: Esta imaxe %{vetted_status} pertence a %{taxon_name}
   image_from_supplier: Imaxe de %{whom}
@@ -2757,7 +2765,7 @@ gl:
   not_shown_on_the_website_note: (non se mostra no sitio web ou na ligazón URL; con fins informativos soamente)
   not_yet_implemented_error: Sentímolo, esa característica aínda non está introducida.
   note: "Nota:"
-  note_about_homonym_problems: "NOTA: Cambia este atributo unicamente se estás moi seguro do que fas; a desactivación pode causar serios problemas cos homónimos"
+  note_about_homonym_problems: "Nota: Cambia este atributo unicamente se estás moi seguro do que fas; a desactivación pode causar serios problemas cos homónimos"
   note_all_times_utc: Lembra que todas as horas están en UTC (Tempo Universal Coordinado)
   note_that_it_may_take_a_few_mi: Ten en conta que pode levar uns minutos que os enderezos URL funcionen despois da carga, dado que os ficheiros necesitan acomodarse nos servidores de contido.
   note_that_you_can_reference_im: Ten en conta que podes facer referencia a algunha imaxe mediante a etiqueta HTML &lt;img&gt;, pero a imaxe debe existir nun enderezo URL, como desde a páxina web de orixe ou desde un sitio como Flickr. Non hai posibilidade ningunha de cargar imaxes para usalas directamente nas novas.
@@ -2895,6 +2903,7 @@ gl:
     one: "%{count} taxon máis"
     other: "%{count} taxons máis"
   other_us_dollars_amount: "Outra: Dólares estadounidenses"
+  other_version_links: "Outras versións: %{version_links}"
   outlink: Ligazón externa
   overview: Vista xeral
   page: Páxina
@@ -2933,7 +2942,6 @@ gl:
   partner_information: Información do socio
   partner_page: páxina do socio
   partner_web_site_colon: "Sitio web do socio:"
-  partnering_steps: PASOS PARA SER SOCIO
   password_colon: "Contrasinal:"
   password_must_be_4to16_characters: O contrasinal debe ser de entre 4 e 16 caracteres.
   pause: pausar
@@ -2949,7 +2957,6 @@ gl:
   personal_profile_menu: Perfil persoal
   personal_space: Espazo persoal
   ping_method_description: Este método ha fallar (en cuxo caso aparecerá a páxina de erro da EOL) ou ha devolver unha mensaxe de éxito. Non hai outras mensaxes posibles
-  please: Por favor,
   please_ask_big_before_changing_toc: Fala cun membro do grupo informático da biodiversidade antes de editar a táboa de contidos. Os nomes dalgúns capítulos non se poden cambiar debido a que o código procura algúns capítulos por etiquetas. Os elementos de información non se poden integrar nesta interface; cómpre facelo de xeito manual na base de datos.
   please_confirm_your_donation_details: Confirma os detalles da túa doazón
   please_indicate_curation_reason: "Selecciona un motivo e/ou, opcionalmente, deixa un comentario de conservación:"
@@ -2977,6 +2984,9 @@ gl:
   profile_newsfeed: A miña fonte de novas
   profile_picture: Imaxe do perfil
   project: Proxecto
+  provide_a_concept_id: dado un identificador de páxina da EOL, os resultados da procura hanse limitar aos membros dese grupo taxonómico
+  provide_a_hierarchy_entry_id: dado un identificador de entrada de xerarquía, os resultados da procura hanse limitar aos membros dese grupo taxonómico
+  provide_a_search_string: dado un termo de busca, hase realizar a procura exacta e a páxina coincidante hase utilizar como o grupo taxonómico contra o que filtrar os resultados da procura
   provider: Provedor
   provider_hierarchies_method_description: Este método ha devolver as referencias a todas as xerarquías achegadas polos socios de contidos da EOL. Esta resposta incluirá a etiqueta da xerarquía e o ID único da EOL que represente a xerarquía
   providers: Provedores
@@ -3078,6 +3088,7 @@ gl:
   reply: Responder
   request: Solicitar
   request_mailing_list_colon: "O usuario non quere recibir correos electrónicos:"
+  required: Obrigatorio
   required_form_element: Obrigatorio
   reset_password_enter_new_password_notice: Este contrasinal serve para acceder unha única vez, escribe o novo contrasinal para continuar.
   reset_password_instructions_sent_to_user_notice: Enviáronse as instrucións para restablecer o contrasinal da túa conta <em>%{username}</em> ao teu enderezo de correo electrónico.
@@ -3208,9 +3219,6 @@ gl:
   show_status_message: Mostrar a mensaxe de estado
   show_tasks: mostrar as tarefas
   show_warning_message: Mostrar a mensaxe de advertencia
-  showing: Mostrar
-  showing_errors_the_error_log_f: "Mostrar os erros rexistrados:"
-  showing_procs_from: "Mostrar os procesos de:"
   shown_to_the_user_parens: (móstrase ao usuario)
   shown_to_user_as_the_title_of_page: móstrase ao usuario como título da páxina
   sign_in: Acceder
@@ -3477,6 +3485,22 @@ gl:
         meta_title: Sinónimos de %{scientific_name}
         meta_title_with_common_name: Sinónimos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinónimos de %{scientific_name}
+    overview: 
+      hierarchy_entry: 
+        meta_description: Un resumo da información sobre %{scientific_name}, segundo o recoñeceu %{hierarchy_provider}, na Enciclopedia da vida.
+        meta_description_with_common_name: Un resumo da información sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo o recoñeceu %{hierarchy_provider}, na Enciclopedia da vida.
+        meta_keywords: "%{scientific_name} recoñecido por %{hierarchy_provider}, %{scientific_name} clasificado por %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} recoñecido por %{hierarchy_provider}, %{scientific_name} clasificado por %{hierarchy_provider}"
+        meta_title: "%{scientific_name} clasificado por %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} clasificado por %{hierarchy_provider})"
+        tweet_text: Vista xeral de %{scientific_name}, segundo o clasificou %{hierarchy_provider}
+      meta_description: Información sobre %{scientific_name} na Enciclopedia da vida
+      meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
+      meta_keywords: información sobre %{scientific_name}
+      meta_keywords_with_common_name: información sobre %{scientific_name}, información sobre %{preferred_common_name}
+      meta_title: "%{scientific_name} - Información sobre %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Información sobre %{preferred_common_name}"
+      tweet_text: Información sobre %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3592,6 +3616,7 @@ gl:
   terms_agreement_form_submit: Acepto
   terms_of_use_link: Termos de uso e protección de datos
   test: Proba.
+  test_it_out: Probalo
   text: texto
   text_capital: Texto
   text_object: Obxecto de texto
@@ -3613,6 +3638,7 @@ gl:
   the_count_represents_the_total: O valor numérico representa o número total de obxectos de datos publicados baixo a categoría SPM respectiva do tema.
   the_cp_count_info: O valor numérico representa o número total de socios de contidos con obxectos de datos publicados baixo a categoría SPM respectiva do tema.
   the_darwin_core_taxon_elements: Os elementos do Darwin Core (dwct:Taxon) baixo additionalInformation inclúen identificadores para os nodos nas xerarquías que indexa a EOL. Conteñen un dc:identifier que é o único ID do taxon <i>na base de datos do provedor</i>.
+  the_data_object_id_can_be: o parámetro ID pode ser un enteiro (un ID de versión de DataObject) ou un identificador único global (GUID) de 16 caracteres que ha devolver a última versión dese obxecto
   the_file_was_uploaded: Cargouse o ficheiro.
   the_following_bibliography: A seguinte bibliografía sae de reunir todas as referencias proporcionadas polos nosos socios de contidos. Pode haber fontes duplicadas.
   the_following_users_were_prese: "Os seguintes usuarios viron a ventá emerxente coa enquisa e responderon á petición de respondela, tal como se mostra a continuación:"
@@ -3626,6 +3652,7 @@ gl:
   the_message_was_sent: Enviouse a mensaxe.
   the_new_topic_was_created: Creouse o novo tema.
   the_new_user_was_created: Creouse o novo usuario.
+  the_query_string: a cadea de pescuda
   the_suggested_page_to_direct_users_to_link: a páxina suxerida á que dirixir aos usuarios
   the_topic_was_updated: Actualizouse o tema.
   the_user_was_updated: Actualizouse o usuario.
@@ -3656,6 +3683,7 @@ gl:
   this_map_cannot_be_curated_because_unpublished: Este mapa non se pode conservar porque non está publicado.
   this_map_is_unpublished: Este mapa non está publicado.
   this_method_takes_an_integer_or_string: Este método recolle un número enteiro ou unha cadea que é o identificador único dun taxon na base de datos dun provedor, ademais dun hierarchy_id que representa o provedor, e devolve o ID da páxina da EOL dese taxon. Por exemplo, mediante a API %{link_provider}, pódese descubrir que o hierarchy_id do sistema integrado de información taxonómica (ITIS) da EOL é %{itis_id}. Logo, pódese procurar na EOL o número de serie taxonómico (TSN) ITIS de 180542, <i>Ursus maritimus</i>, chamando a %{link_url}
+  this_older_version: Esta versión vella do método da API para páxinas acepta os mesmos parámetros e devolve practicamente a mesma información. De feito, a resposta JSON é idéntica á versión 1.0, pero a resposta XML ten unha estrutura un chisco diferente.
   this_page_shows_information_ab: Esta páxina mostra información sobre un termo de procura específico e aqueles resultados aos que accederon os usuarios despois de facer a devandita procura.
   this_page_will_be_reindexed: Esta páxina ha renderizarse en segundo plano. Pode levar ata 24 horas completar o proceso.
   this_resource_unpublished_notice: Polo de agora, ningún administrador definiu este recurso como publicado.
@@ -4013,6 +4041,7 @@ gl:
   value_empty: (baleiro)
   values: Valores
   version_1_0_uses_fields_from_the_latest_version: a versión 1.0 utilizar campos da última versión do esquema %{link}
+  versions_colon: "Versións:"
   vetted: Aprobado
   video_alt_text: Este vídeo %{vetted_status} pertence a %{taxon_name}
   video_from: vídeo de

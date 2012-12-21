@@ -1,7 +1,10 @@
-- if @selected_hierarchy_entry
+-# TODO - It probably shouldn't be THAT different for a selected hierarchy entry view and a regular taxon view.
+-# Figure out why there's so much extra, here.
+- if @taxon_page.hierarchy_entry
   = render(:partial => 'taxa/classification_tree')
 - else
   - classifications_count = @browsable_hierarchy_entries.length
+  -# TODO - this conditional is probably too high up. With some duck-typing, we could clear this up, I suspect:
   - if preferred_classification = @taxon_concept.curator_chosen_classification
     #classification_tree.article
       - hierarchy_entry = preferred_classification.hierarchy_entry
@@ -9,10 +12,7 @@
         %h3= I18n.t(:classification_summary_section_header)
       .meta.curated
         - if classifications_count > 1
-          - more_link = taxon_names_path(@taxon_concept)
-          - if @selected_hierarchy_entry
-            - more_link = taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry)
-          = raw(I18n.t(:classification_from_agent_chosen_by_curator_see_more, :agent => hierarchy_display_title(hierarchy_entry.hierarchy), :curator => link_to(preferred_classification.user.full_name, user_path(preferred_classification.user_id)), :more_link => more_link))
+          = raw(I18n.t(:classification_from_agent_chosen_by_curator_see_more, :agent => hierarchy_display_title(hierarchy_entry.hierarchy), :curator => link_to(preferred_classification.user.full_name, user_path(preferred_classification.user_id)), :more_link => taxon_names_path(@taxon_page)))
         - else
           = raw(I18n.t(:classification_from_agent_chosen_by_curator, :agent => hierarchy_display_title(hierarchy_entry.hierarchy), :curator => link_to(preferred_classification.user.full_name, user_path(preferred_classification.user_id))))
       #classification_browser.browsable.classifications
@@ -25,12 +25,11 @@
         -# classification available.
         %h3= I18n.t(:classifications_summary_header_with_count, :count => classifications_count)
         - if classifications_count > 1
-          - if @selected_hierarchy_entry
-            = link_to(raw(I18n.t(:see_all_classifications_with_count_html, :count => classifications_count)), taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry))
-          - else
-            = link_to(raw(I18n.t(:see_all_classifications_with_count_html, :count => classifications_count)), taxon_names_path(@taxon_concept))
+          = link_to(raw(I18n.t(:see_all_classifications_with_count_html, :count => classifications_count)), taxon_names_path(@taxon_page))
+      -# TODO - @taxon_overview.classifications?
       - if classifications_count > 0 || @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.count > 0 || @taxon_concept.entry
         #classification_browser.browsable.classifications
+          -# TODO - @taxon_overview.classification ... or something like it.
           - hierarchy_entry = @browsable_hierarchy_entries.shuffle.first
           -# Please note that #deep_published_nonbrowsable_hierarchy_entries IS cached, so not really called twice.
           - hierarchy_entry ||= @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first

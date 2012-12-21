@@ -493,6 +493,8 @@ class TaxonConcept < ActiveRecord::Base
     return id <=> other.id
   end
 
+  # TODO - There is no reason for this to be here. It doesn't use any instance variables and is conceptually
+  # unrelated to a TaxonConcept. Move it.
   def related_names_count(related_names)
     if !related_names.blank?
       related_names_count = related_names['parents'].count

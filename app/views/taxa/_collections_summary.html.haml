@@ -1,17 +1,14 @@
 #collections_summary.article.half.list.clear
-  - count = @taxon_concept.top_collections.count
+  - count = @taxon_page.top_collections.count
   - if count == 0
     = render(:partial => 'taxa/collections_summary_empty', :locals => { :render_taxon_overview_collection_summary => true })
   - else
     .header
-      %h3= I18n.t(:collections_summary_header_with_count, :count => @taxon_concept.collections.select{ |c| c.published && !c.watch_collection? }.count)
+      %h3= I18n.t(:collections_summary_header_with_count, :count => @taxon_page.collections.select{ |c| c.published && !c.watch_collection? }.count)
       - if count > 1
-        - if @selected_hierarchy_entry
-          = link_to raw(I18n.t(:see_all_collections_with_count_html, :count => count)), collections_taxon_entry_communities_path(@taxon_concept, @selected_hierarchy_entry)
-        - else
-          = link_to raw(I18n.t(:see_all_collections_with_count_html, :count => count)), collections_taxon_communities_path(@taxon_concept)
+        = link_to raw(I18n.t(:see_all_collections_with_count_html, :count => count)), collections_taxon_communities_path(@taxon_page)
     %ul
-      - @taxon_concept.top_collections.each do |collection|
+      - @taxon_page.top_collections.each do |collection|
         %li
           - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
           = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)

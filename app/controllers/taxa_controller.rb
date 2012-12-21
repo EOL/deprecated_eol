@@ -188,6 +188,7 @@ private
         @selected_hierarchy_entry = nil
       end
     end
+    @taxon_page = TaxonPage.new(@taxon_concept, current_user, @selected_hierarchy_entry)
   end
 
   def instantiate_preferred_names

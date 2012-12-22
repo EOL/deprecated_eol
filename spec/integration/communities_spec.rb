@@ -201,8 +201,9 @@ describe "Communities" do
     user = User.gen(:curator_level_id => nil)
     login_as user
     visit(join_community_url(CuratorCommunity.get))
-    # NOTE - this failed when run in the whole suite (seed 31481 and 13258), passed individually. The login is
-    # failing.
+    # TODO - this failed when run in the whole suite (seed 31481 and 13258), passed individually. The login is
+    # failing. ...I wonder if some other spec is disabling logins?
+    debugger unless curation_privileges_user_path(user)
     page.body.should have_tag("a[href$='#{curation_privileges_user_path(user)}']")
   end
 

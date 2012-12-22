@@ -23,6 +23,8 @@ describe Resource do
     @resource.latest_published_harvest_event.should == @latest_published_harvest_event
   end
   it "should return the resource's latest harvest event" do
+    # TODO - this only fails some of the time, figure out why.
+    debugger unless @resource.latest_harvest_event == @latest_published_harvest_event
     @resource.latest_harvest_event.should == @latest_published_harvest_event
   end
 

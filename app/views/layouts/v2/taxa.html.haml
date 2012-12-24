@@ -1,5 +1,5 @@
 - content_for :main do
-  = render :partial => 'taxa/classification_selector' if @taxon_page.hierarchy_entry
+  = render :partial => 'taxa/classification_selector' if @taxon_page.classifcation_filter?
   #page_heading.with_nav
     .site_column
       .hgroup
@@ -31,9 +31,11 @@
 
       = render :partial => 'shared/flash_messages'
 
-      - if @taxon_page.hierarchy_entry
+      - if @taxon_page.classifcation_filter?
         %p#citation.status
-          = render :partial => 'shared/hierarchy_citation'
+          = raw(hierarchy_entry_display_attribution(@taxon_page.hierarchy_entry, :show_rank_first => true))
+          &emsp;&bull;&emsp;
+          = link_to I18n.t(:show_data_from_all_content_partners), overview_taxon_path(@taxon_concept)
 
       %ul.nav
         %li{:class => resource_is_active('overview')}= link_to raw(I18n.t(:overview)),

@@ -14,7 +14,7 @@ class Taxa::MediaController < TaxaController
     @status = params[:status] ||= ['all']
     @status = ['all'] if @status.include?('all')
     @status = @status.values if @status.is_a?(Hash)
-    @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
+    @exemplar_image = @taxon_page.image
 
     data_type_ids = []
     ['image', 'video', 'sound'].each do |t|
@@ -41,20 +41,16 @@ class Taxa::MediaController < TaxaController
       search_statuses = @status
     end
 
-    @media = @taxon_concept.data_objects_from_solr({
+    @media = @taxon_page.media(
       :page => @page,
       :per_page => @per_page,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
       :vetted_types => search_statuses,
-      :visibility_types => visibility_statuses,
-      :ignore_translations => true,
-      :filter_hierarchy_entry => @selected_hierarchy_entry,
-      :return_hierarchically_aggregated_objects => true,
-      :skip_preload => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
-    })
+      :visibility_types => visibility_statuses
+    )
 
+    # TODO - all of this @media stuff should move to TaxonPage (first), then to TaxonDetails (later):
     # There should not be an older revision of exemplar image on the media tab. But recently there were few cases found.
     # Replace older revision of the exemplar image from media with the latest published revision.
     unless @media.blank?
@@ -69,20 +65,11 @@ class Taxa::MediaController < TaxaController
     DataObject.preload_associations(@media, :language)
     DataObject.preload_associations(@media, :mime_type)
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
-    @facets = EOL::Solr::DataObjects.get_aggregated_media_facet_counts(@taxon_concept.id,
-      :filter_hierarchy_entry => @selected_hierarchy_entry, :user => current_user)
+    @facets = @taxon_page.facets
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_media_header)
-    if @selected_hierarchy_entry
-      @rel_canonical_href = taxon_entry_media_url(@taxon_concept, @selected_hierarchy_entry, :page => rel_canonical_href_page_number(@media))
-      @rel_prev_href = rel_prev_href_params(@media) ? taxon_entry_media_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@media) ? taxon_entry_media_url(@rel_next_href_params) : nil
-    else
-      @rel_canonical_href = taxon_media_url(@taxon_concept, :page => rel_canonical_href_page_number(@media))
-      @rel_prev_href = rel_prev_href_params(@media) ? taxon_media_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@media) ? taxon_media_url(@rel_next_href_params) : nil
-    end
+    set_canonical_urls(:for => @taxon_page, :paginated => @media, :url_method => :taxon_media_url)
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
 

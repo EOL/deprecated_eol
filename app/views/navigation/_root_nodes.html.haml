@@ -1,9 +1,9 @@
-- hierarchy    = @selected_hierarchy_entry.hierarchy
-- entry_root   = @selected_hierarchy_entry.kingdom
+- hierarchy    = @taxon_page.hierarchy_entry.hierarchy
+- entry_root   = @taxon_page.hierarchy_entry.kingdom
 %ul
   - roots = HierarchyEntry.sort_by_name(hierarchy.kingdoms(:common_name_language => current_language))
   - for root in roots
     - if entry_root && entry_root.id == root.id
-      = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => @selected_hierarchy_entry, :show_siblings => true })
+      = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => @taxon_page.hierarchy_entry, :show_siblings => true })
     - else
       %li= navigation_node(root, :link_to_taxa => false)

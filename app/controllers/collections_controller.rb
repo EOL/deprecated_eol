@@ -19,9 +19,7 @@ class CollectionsController < ApplicationController
   def show
     return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
     if @collection_results && @collection_results.is_a?(WillPaginate::Collection)
-      @rel_canonical_href = collection_url(@collection, :page => rel_canonical_href_page_number(@collection_results))
-      @rel_prev_href = rel_prev_href_params(@collection_results) ? collection_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@collection_results) ? collection_url(@rel_next_href_params) : nil
+      set_canonical_urls(:for => @collection, :paginated => @collection_results, :url_method => :collection_url)
       reindex_items_if_necessary(@collection_results)
     else
       @rel_canonical_href = collection_url(@collection)

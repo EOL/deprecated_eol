@@ -7,7 +7,7 @@
       - taxon = ''
       -# TODO - errr... why? This is absolultely something that should be generalized already, elsewhere. Worst case,
         this belongs in a helper:
-      - if @taxon_page.hierarchy_entry
+      - if @taxon_page.classifcation_filter?
         - taxon = @taxon_page.quick_scientific_name(:italicized, @taxon_page.hierarchy)
       - else
         - taxon = "<i>#{@taxon_page.title_canonical}</i>"

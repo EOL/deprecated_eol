@@ -10,7 +10,7 @@
   = render(:partial => 'taxa/classifications_summary')
   - cache("taxon_overview_curators_#{@taxon_concept.id}") do
     = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})
-  - unless @selected_hierarchy_entry
+  - unless @taxon_page.classifcation_filter?
     .article.list.updates
       - cache("taxon_overview_activity_#{@taxon_concept.id}_#{current_language.iso_639_1}") do
         - log = @taxon_concept.activity_log(:per_page => 5)

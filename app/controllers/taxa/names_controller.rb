@@ -4,8 +4,8 @@ class Taxa::NamesController < TaxaController
   before_filter :add_page_view_log_entry
   before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
-  before_filter :preload_associations_for_names, :only => [ :related_names, :common_names, :synonyms ]
-  before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
+  before_filter :load_hierarchy_entries, :only => [ :related_names, :common_names, :synonyms ]
+  before_filter :set_browsable_entries, :only => [:index, :related_names, :common_names, :synonyms]
   before_filter :parse_classification_controller_params, :only => :index
 
   def index
@@ -107,9 +107,7 @@ class Taxa::NamesController < TaxaController
                            :synonym_relations => [ :id ] } }
     TaxonConcept.preload_associations(@taxon_concept, associations, options )
     @assistive_section_header = I18n.t(:assistive_names_synonyms_header)
-    @rel_canonical_href = @selected_hierarchy_entry ?
-      synonyms_taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
-      synonyms_taxon_names_url(@taxon_concept)
+    @rel_canonical_href = synonyms_taxon_names_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
     common_names_count
   end
@@ -121,9 +119,7 @@ class Taxa::NamesController < TaxaController
     @common_names = get_common_names
     @common_names_count = @common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
-    @rel_canonical_href = @selected_hierarchy_entry ?
-      common_names_taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
-      common_names_taxon_names_url(@taxon_concept)
+    @rel_canonical_href = common_names_taxon_names_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -170,13 +166,7 @@ class Taxa::NamesController < TaxaController
 private
 
   def get_common_names(options = {})
-    unknown_id = Language.unknown.id
-    if @selected_hierarchy_entry
-      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(@selected_hierarchy_entry.id, options)
-    else
-      names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id, nil, options)
-    end
-    common_names = names.select {|n| !n.language.iso_639_1.blank? || !n.language.iso_639_2.blank? }
+    @taxon_page.common_names(options)
   end
 
   def common_names_count
@@ -187,11 +177,10 @@ private
     @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s}
   end
 
-  def preload_associations_for_names
-    @hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
-    @hierarchy_entries = @hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id} if
-      @selected_hierarchy_entry
-    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
+  # TODO - find out what we use this for an give it better names and/or move it. How is this different from
+  # set_browsable_entries? How is THAT different from the same idea in TaxaController?
+  def load_hierarchy_entries
+    @hierarchy_entries = @taxon_page.hierarchy_entries_for_names
   end
 
   def authentication_for_names
@@ -202,10 +191,8 @@ private
     end
   end
 
-  # NOTE - #||= because instantiate_taxon_concept could have set it.  Confusing but true.  We should refactor this.
-  def count_browsable_hierarchies
-    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.includes(:hierarchy).select{ |he| he.hierarchy.browsable? }
-    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
+  def set_browsable_entries
+    @browsable_hierarchy_entries = @taxon_page.hierarchy_entries
   end
 
   def parse_classification_controller_params

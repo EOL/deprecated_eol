@@ -232,9 +232,7 @@ class DataObjectsController < ApplicationController
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
     @page = params[:page]
     @activity_log = @data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil)
-    @rel_canonical_href = data_object_url(@data_object, :page => rel_canonical_href_page_number(@activity_log))
-    @rel_prev_href = rel_prev_href_params(@activity_log) ? data_object_url(@rel_prev_href_params) : nil
-    @rel_next_href = rel_next_href_params(@activity_log) ? data_object_url(@rel_next_href_params) : nil
+    set_canonical_urls(:for => @data_object, :paginated => @activity_log, :url_method => :data_object_url)
   end
 
   # GET /data_objects/1/attribution

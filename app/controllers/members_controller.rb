@@ -11,9 +11,7 @@ class MembersController < ApplicationController
   def index
     # TODO: It would make my life easier if this controller were nested under communities
     if @community
-      @rel_canonical_href = community_members_url(@community, :page => rel_canonical_href_page_number(@members))
-      @rel_prev_href = rel_prev_href_params(@members) ? community_members_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@members) ? community_members_url(@rel_next_href_params) : nil
+      set_canonical_urls(:for => @community, :paginated => @members, :url_method => :community_members_url)
     end
     respond_to do |format|
       format.html # index.html.erb

@@ -13,6 +13,7 @@
   = raw(common_name_display_attribution(name))
 %td{:class => 'vet_common_name'}
   - if synonym_id = name.synonym_id_for_user(current_user)
+    -# TODO - this should probably be a nested resource and use taxon_page to build this url:
     = link_to( I18n.t(:delete), delete_taxon_names_path(:taxon_id => @taxon_concept.id, :synonym_id => synonym_id, :hierarchy_entry_id => @selected_hierarchy_entry_id),
       :data => { :confirm => I18n.t(:are_you_sure) })
   - else

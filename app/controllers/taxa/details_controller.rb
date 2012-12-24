@@ -24,12 +24,10 @@ class Taxa::DetailsController < TaxaController
       @details_count_by_language[obj.language] ||= 0
       @details_count_by_language[obj.language] += 1
     end
-    @summary_text = @taxon_concept.overview_text_for_user(current_user)
-    @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
+    @summary_text = @taxon_page.text
+    @exemplar_image = @taxon_page.image
     @assistive_section_header = I18n.t(:assistive_details_header)
-    @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_entry_details_url(@taxon_concept, @selected_hierarchy_entry) :
-      taxon_details_url(@taxon_concept)
+    @rel_canonical_href = taxon_details_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
   end
 

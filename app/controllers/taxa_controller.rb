@@ -16,31 +16,15 @@ class TaxaController < ApplicationController
   end
 
   def overview
-    TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy }, :select => {
-      :hierarchy_entries => [ :id, :name_id, :parent_id, :rank_id, :taxon_concept_id, :hierarchy_id, :lft, :rgt ],
-      :hierarchies => [ :id, :agent_id, :label, :browsable ] } )
-    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
-    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank?
-    @browsable_hierarchy_entries.compact!
+    @browsable_hierarchy_entries = @taxon_page.hierarchy_entries
     @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
     
-    @summary_text = @taxon_concept.overview_text_for_user(current_user)
+    # TODO - no reason to set (most of) these anymore, just call directly:
+    @summary_text = @taxon_page.text
+    @map = @taxon_page.map
+    @media = @taxon_page.media
     
-    map_results = @taxon_concept.data_objects_from_solr({
-      :page => 1,
-      :per_page => 1,
-      :data_type_ids => DataType.image_type_ids,
-      :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => ['trusted', 'unreviewed'],
-      :visibility_types => ['visible'],
-      :ignore_translations => true,
-      :skip_preload => true
-    })
-    @map = map_results.blank? ? nil : map_results.first
-    limit = @map.blank? ? 4 : 3
-    media = promote_exemplar_image(@taxon_concept.images_from_solr(limit, { :filter_hierarchy_entry => @selected_hierarchy_entry, :ignore_translations => true }))
-    @media = @map.blank? ? media : media[0..2] + [ @map ]
-    
+    # TODO - this is a "magic trick" just to preload it along with the (real) media. Find another way:
     @media << @summary_text if @summary_text
     DataObject.replace_with_latest_versions!(@media, :select => [ :description ], :language_id => current_language.id)
     includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ] }, :vetted, :visibility ] } ]
@@ -50,13 +34,11 @@ class TaxaController < ApplicationController
     includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
     DataObject.preload_associations(@media, includes)
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
-    @summary_text = @media.pop if @summary_text
+    @summary_text = @media.pop if @summary_text # TODO - this is the other end of the proload magic. Fix.
     
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
-    @rel_canonical_href = @selected_hierarchy_entry ?
-      overview_taxon_entry_url(@taxon_concept, @selected_hierarchy_entry) :
-      overview_taxon_url(@taxon_concept)
+    @rel_canonical_href = overview_taxon_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -109,15 +91,17 @@ class TaxaController < ApplicationController
 
 protected
 
+  # TODO - what's this?  Explain.
   def controller_action_scope
     @controller_action_scope ||= @selected_hierarchy_entry ? super << :hierarchy_entry : super
   end
 
+  # TODO - what's this?  Explain. ...Is it ever really used?
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
       :preferred_common_name => @preferred_common_name.presence,
       :scientific_name => @scientific_name.presence,
-      :hierarchy_provider => @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label.presence : nil,
+      :hierarchy_provider => @taxon_page.hierarchy_provider,
     }).freeze
   end
 
@@ -172,44 +156,23 @@ private
       end
     end
 
-    @taxon_concept.current_user = current_user
+    @taxon_concept.current_user = current_user # TODO - taxon_page takes care of this, remove when it's safe...
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id] || params[:entry_id]
-    # making sure we know the HE_ID when browsing in entry mode
-    if @selected_hierarchy_entry_id.nil? && params[:taxon_id] && params[:id] && request.env['PATH_INFO'] =~ /^\/pages\/[0-9]+\/hierarchy_entries\/[0-9]+\//
+    if @selected_hierarchy_entry_id.nil? && entry_id_is_in_param_id?
       @selected_hierarchy_entry_id = params[:id]
     end
     unless @selected_hierarchy_entry_id.blank?
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
-      if @selected_hierarchy_entry && @selected_hierarchy_entry.hierarchy.browsable?
-        # TODO: Eager load hierarchy entry agents?
-        TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
-        @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
-      else
-        @selected_hierarchy_entry = nil
-      end
+      @selected_hierarchy_entry = nil unless @selected_hierarchy_entry &&
+        @selected_hierarchy_entry.hierarchy.browsable?
     end
     @taxon_page = TaxonPage.new(@taxon_concept, current_user, @selected_hierarchy_entry)
+    @browsable_hierarchy_entries = @taxon_page.hierarchy_entries
   end
 
   def instantiate_preferred_names
     @preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_language)
-    @scientific_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.italicized_name : @taxon_concept.title_canonical_italicized
-  end
-
-  # TODO - delete. This should no longer be used; it was moved to TaxonPage.
-  def promote_exemplar_image(data_objects)
-    # TODO: a comment may be needed. If the concept is blank, why would there be images to promote?
-    # we should just return
-    if @taxon_concept.blank? || @taxon_concept.published_exemplar_image.blank?
-      exemplar_image = data_objects[0] unless data_objects.blank?
-    else
-      exemplar_image = @taxon_concept.published_exemplar_image
-    end
-    unless exemplar_image.nil?
-      data_objects.delete_if { |d| d.guid == exemplar_image.guid }
-      data_objects.unshift(exemplar_image)
-    end
-    data_objects
+    @scientific_name = @taxon_page.scientific_name
   end
 
   def redirect_if_superceded
@@ -264,6 +227,11 @@ private
       :activity => Activity.send(method),
       :taxon_concept_id => tc.id
     )
+  end
+
+  # TODO - I think there may be a better way to express the path info check, here:
+  def entry_id_is_in_param_id?
+    params[:taxon_id] && params[:id] && request.env['PATH_INFO'] =~ /^\/pages\/[0-9]+\/hierarchy_entries\/[0-9]+\//
   end
 
 end

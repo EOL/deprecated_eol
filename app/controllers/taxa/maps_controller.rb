@@ -20,9 +20,7 @@ class Taxa::MapsController < TaxaController
     })
     DataObject.preload_associations(@maps, [ :users_data_objects_ratings, { :data_objects_hierarchy_entries =>
       [ :hierarchy_entry, :vetted, :visibility ] } ] )
-    @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_entry_maps_url(@taxon_concept, @selected_hierarchy_entry) :
-      taxon_maps_url(@taxon_concept)
+    @rel_canonical_href = taxon_maps_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_maps, :taxon_concept_id => @taxon_concept.id)
   end
 

@@ -18,7 +18,7 @@ describe 'Home page' do
   it "should provide consistent canonical URL for home page" do
     canonical_href = root_url.sub(/\/+$/,'')
     # TODO - this is only failing some of the time, figure out why.
-    debugger unless @homepage_with_foundation.body =~ canonical_href
+    debugger unless @homepage_with_foundation =~ canonical_href
     @homepage_with_foundation.should have_tag("link[rel=canonical][href='#{canonical_href}']")
     visit '/?page=3&q=blah'
     body.should have_tag("link[rel=canonical][href='#{canonical_href}']")

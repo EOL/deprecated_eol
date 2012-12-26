@@ -105,7 +105,7 @@
                   %td{:class => preferred && !can_curate ? 'preferred' : nil }
                     %strong
                       = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
-                    - if hierarchy_entry.hierarchy.browsable.to_i == 1
+                    - if hierarchy_entry.hierarchy.browsable?
                       %br
                       = link_to(I18n.t(:view_in_classification), overview_taxon_entry_path(@taxon_page.taxon_concept, hierarchy_entry))
                     - if pending

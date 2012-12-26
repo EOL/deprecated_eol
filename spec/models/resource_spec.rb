@@ -11,8 +11,8 @@ describe Resource do
     content_partner = ContentPartner.gen(:user => User.gen)
     resource = Resource.gen(:content_partner => content_partner)
     @oldest_published_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => 3.hours.ago)
-    @latest_unpublished_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => nil)
     @latest_published_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => 2.hours.ago)
+    @latest_unpublished_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => nil)
     @resource = Resource.find(resource.id)
   end
 
@@ -22,10 +22,8 @@ describe Resource do
   it "should return the resource's latest published harvest event" do
     @resource.latest_published_harvest_event.should == @latest_published_harvest_event
   end
-  it "should return the resource's latest harvest event" do
-    # TODO - this only fails some of the time, figure out why.
-    debugger unless @resource.latest_harvest_event == @latest_published_harvest_event
-    @resource.latest_harvest_event.should == @latest_published_harvest_event
+  it "should return the resource's latest harvest event" do # NOTE - ordered by id, so...
+    @resource.latest_harvest_event.should == @latest_unpublished_harvest_event
   end
 
   it '#iucn returns the last IUCN resource' do

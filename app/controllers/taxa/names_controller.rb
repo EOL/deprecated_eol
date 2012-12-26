@@ -5,7 +5,6 @@ class Taxa::NamesController < TaxaController
   before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
   before_filter :load_hierarchy_entries, :only => [ :related_names, :common_names, :synonyms ]
-  before_filter :set_browsable_entries, :only => [:index, :related_names, :common_names, :synonyms]
   before_filter :parse_classification_controller_params, :only => :index
 
   def index
@@ -178,7 +177,7 @@ private
   end
 
   # TODO - find out what we use this for an give it better names and/or move it. How is this different from
-  # set_browsable_entries? How is THAT different from the same idea in TaxaController?
+  # @taxon_page.hierarchy_entries?
   def load_hierarchy_entries
     @hierarchy_entries = @taxon_page.hierarchy_entries_for_names
   end
@@ -189,10 +188,6 @@ private
       store_location params[:return_to] unless params[:return_to].blank?
       redirect_back_or_default common_names_taxon_names_path(@taxon_concept)
     end
-  end
-
-  def set_browsable_entries
-    @browsable_hierarchy_entries = @taxon_page.hierarchy_entries
   end
 
   def parse_classification_controller_params

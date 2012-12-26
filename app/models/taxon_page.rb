@@ -38,9 +38,9 @@ class TaxonPage
     # ...though... don't we have a published_browsable_hierarchy_entries?
     # TODO - Eager load hierarchy entry agents?
     @hierarchy_entries = @taxon_concept.published_hierarchy_entries.includes(:hierarchy).select { |he|
-      he.hierarchy.browsable? }
+      he.hierarchy.browsable? }.compact
     @hierarchy_entries = [hierarchy_entry] if hierarchy_entry && @hierarchy_entries.empty?
-    @hierarchy_entries.compact!
+    @hierarchy_entries
   end
 
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map:
@@ -196,14 +196,14 @@ class TaxonPage
   end
 
   # TODO - This belongs in TaxonMedia
-  def media(options)
+  def media(options = {})
     @media ||= @taxon_concept.data_objects_from_solr(options.merge(
       :ignore_translations => true,
       :filter_hierarchy_entry => entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
-    )
+    ))
   end
 
   # Overriding this because it doesn't need to take the user anymore:

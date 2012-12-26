@@ -3,7 +3,7 @@
 - if @taxon_page.classifcation_filter?
   = render(:partial => 'taxa/classification_tree')
 - else
-  - classifications_count = @browsable_hierarchy_entries.length
+  - classifications_count = @taxon_page.hierarchy_entries.length
   -# TODO - this conditional is probably too high up. With some duck-typing, we could clear this up, I suspect:
   - if preferred_classification = @taxon_concept.curator_chosen_classification
     #classification_tree.article
@@ -30,7 +30,7 @@
       - if classifications_count > 0 || @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.count > 0 || @taxon_concept.entry
         #classification_browser.browsable.classifications
           -# TODO - @taxon_overview.classification ... or something like it.
-          - hierarchy_entry = @browsable_hierarchy_entries.shuffle.first
+          - hierarchy_entry = @taxon_page.hierarchy_entries.shuffle.first
           -# Please note that #deep_published_nonbrowsable_hierarchy_entries IS cached, so not really called twice.
           - hierarchy_entry ||= @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first
           - hierarchy_entry ||= @taxon_concept.entry

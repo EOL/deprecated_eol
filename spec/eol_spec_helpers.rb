@@ -34,6 +34,7 @@ module EOL
           EOL::DB.all_connections
         rescue => e
           debugger # WHY IS THIS HAPPENING?!?
+          raise e
         end
       end
 

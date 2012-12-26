@@ -1,7 +1,7 @@
 #tabs_sidebar
   %ul.tabs
     %li{:class => resource_is_active('index')}
-      = link_to I18n.t(:classifications_with_count, :count => @browsable_hierarchy_entries.length),
+      = link_to I18n.t(:classifications_with_count, :count => @taxon_page.hierarchy_entries.length),
         taxon_names_path(@taxon_page)
     %li{:class => resource_is_active('related_names')}
       = link_to I18n.t(:related_names_with_count, :count => @taxon_page.related_names_count),

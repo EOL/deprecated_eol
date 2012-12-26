@@ -16,8 +16,7 @@ class TaxaController < ApplicationController
   end
 
   def overview
-    @browsable_hierarchy_entries = @taxon_page.hierarchy_entries
-    @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
+    @hierarchies = @taxon_page.hierarchy_entries.map { |he| he.hierarchy }.uniq
     
     # TODO - no reason to set (most of) these anymore, just call directly:
     @summary_text = @taxon_page.text
@@ -167,7 +166,6 @@ private
         @selected_hierarchy_entry.hierarchy.browsable?
     end
     @taxon_page = TaxonPage.new(@taxon_concept, current_user, @selected_hierarchy_entry)
-    @browsable_hierarchy_entries = @taxon_page.hierarchy_entries
   end
 
   def instantiate_preferred_names

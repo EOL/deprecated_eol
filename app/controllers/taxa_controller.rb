@@ -21,7 +21,7 @@ class TaxaController < ApplicationController
     # TODO - no reason to set (most of) these anymore, just call directly:
     @summary_text = @taxon_page.text
     @map = @taxon_page.map
-    @media = @taxon_page.media
+    @media = @taxon_page.top_media
     
     # TODO - this is a "magic trick" just to preload it along with the (real) media. Find another way:
     @media << @summary_text if @summary_text

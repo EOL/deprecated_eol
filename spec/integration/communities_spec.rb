@@ -201,19 +201,14 @@ describe "Communities" do
     user = User.gen(:curator_level_id => nil)
     login_as user
     visit(join_community_url(CuratorCommunity.get))
-    # TODO - this failed when run in the whole suite (seed 31481 and 13258), passed individually. The login is
-    # failing. ...I wonder if some other spec is disabling logins?
-    debugger unless curation_privileges_user_path(user)
-    page.body.should have_tag("a[href$='#{curation_privileges_user_path(user)}']")
+    body.should have_tag("a[href$='#{curation_privileges_user_path(user)}']")
   end
 
   it 'should not allow editing the name of the curator community' do
     manager = Member.create(:user => User.gen, :community => CuratorCommunity.get, :manager => true)
     login_as manager.user
     visit(edit_community_url(CuratorCommunity.get))
-    # NOTE - this failed when run in the whole suite (seed 31481 and 13258), passed individually. The login is
-    # failing.
-    page.body.should have_tag("input#community_name[disabled=disabled]")
+    body.should have_tag("input#community_name[disabled=disabled]")
   end
 
 end

@@ -43,9 +43,10 @@ class TaxonPage
     @hierarchy_entries
   end
 
-  # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map:
+  # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
+  # there is any map at all without filters):
   def map?
-    map_taxon_concept.has_map # TODO - question mark
+    map_taxon_concept.has_map && map # TODO - question mark
   end
 
   # TODO - this belongs on TaxonOverview
@@ -73,14 +74,14 @@ class TaxonPage
   end
 
   # TODO - this belongs on TaxonOverview... but review.
-  def images
-    limit = @map.blank? ? 4 : 3
+  def top_media
     @images ||= promote_exemplar_image(
       taxon_concept.images_from_solr(
-        limit, { :filter_hierarchy_entry => hierarchy_entry, :ignore_translations => true }
+        map? ? 3 : 4, { :filter_hierarchy_entry => hierarchy_entry, :ignore_translations => true }
       )
-    )
-    @images = @map ? (@images[0..2] << @map) : @images
+    ).compact
+    @images = map? ? (@images[0..2] << map) : @images
+    @images
   end
 
   # This is used by the TaxaController (and thus all its children) to help build information for ALL translations:

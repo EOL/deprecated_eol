@@ -683,16 +683,16 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
+  # TODO - this belongs on TaxonOverview
+  def map
+    return @map if @map
+    map_results = get_one_map
+    @map = map_results.blank? ? nil : map_results.first
+  end
+
   def maps_count()
     @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
-      count = self.data_objects_from_solr({
-        :per_page => 1,
-        :data_type_ids => DataType.image_type_ids,
-        :data_subtype_ids => DataType.map_type_ids,
-        :vetted_types => ['trusted', 'unreviewed'],
-        :visibility_types => ['visible'],
-        :ignore_translations => true
-      }).total_entries
+      count = get_one_map.total_entries
       count +=1 if self.has_map
       count
     end
@@ -700,6 +700,8 @@ class TaxonConcept < ActiveRecord::Base
 
   # returns a DataObject, not a TaxonConceptExemplarImage
   def published_exemplar_image
+    return @published_exemplar_image if @published_exemplar_image_calculated # NOTE - weird, but ...
+    @published_exemplar_image_calculated = true # NOTE ...since @published_exemplar_image can be nil, we need this.
     if concept_exemplar_image = taxon_concept_exemplar_image
       if the_best_image = concept_exemplar_image.data_object
         if the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
@@ -709,7 +711,7 @@ class TaxonConcept < ActiveRecord::Base
             # unpublished exemplar images
             the_best_image = the_best_image.latest_published_version_in_same_language
           end
-          return the_best_image
+          return @published_exemplar_image = the_best_image
         end
       end
     end
@@ -728,9 +730,9 @@ class TaxonConcept < ActiveRecord::Base
       cache_key += "_#{selected_hierarchy_entry.id}"
     end
     TaxonConcept.prepare_cache_classes
-    best_image_id ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.second) do
-      if published_exemplar = self.published_exemplar_image
-        published_exemplar.id
+    best_image_id ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+      if published_exemplar_image
+        published_exemplar_image.id
       else
         best_images = self.data_objects_from_solr({
           :per_page => 1,
@@ -1102,6 +1104,19 @@ class TaxonConcept < ActiveRecord::Base
   end
 
 private
+
+  def get_one_map
+    data_objects_from_solr(
+      :page => 1, 
+      :per_page => 1,
+      :data_type_ids => DataType.image_type_ids,
+      :data_subtype_ids => DataType.map_type_ids,
+      :vetted_types => ['trusted', 'unreviewed'],
+      :visibility_types => ['visible'],
+      :ignore_translations => true,
+      :skip_preload => true
+    )
+  end
 
   # Assume this method is expensive.
   def best_article_for_user(the_user)

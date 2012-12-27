@@ -16,6 +16,9 @@ class TaxonPage
   end
 
   # Use this one when you DON'T care if the page is filtered or not:
+  # NOTE = we use "entry" just because that had become a convention on TaxonConcept. We might want to give this a
+  # more appropriate name later... though I'm not sure what that would be.  Perhaps something like
+  # safe_hierarchy_entry ?
   def entry
     hierarchy_entry || @taxon_concept.entry
   end
@@ -43,34 +46,14 @@ class TaxonPage
     @hierarchy_entries
   end
 
-  # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
-  # there is any map at all without filters):
-  def map?
-    map_taxon_concept.has_map && map # TODO - question mark
-  end
-
-  # TODO - this belongs on TaxonOverview
-  def map
-    return @map if @map
-    map_results = taxon_concept.data_objects_from_solr(
-      :page => 1, 
-      :per_page => 1,
-      :data_type_ids => DataType.image_type_ids,
-      :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => ['trusted', 'unreviewed'],
-      :visibility_types => ['visible'],
-      :ignore_translations => true,
-      :skip_preload => true
-    )
-    @map = map_results.blank? ? nil : map_results.first
-  end
-
   def gbif_map_id
     map_taxon_concept.gbif_map_id
   end
 
-  def map_taxon_concept
-    @map_taxon_concept ||= hierarchy_entry ? hierarchy_entry.taxon_concept : taxon_concept
+  # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
+  # there is any map at all without filters):
+  def map?
+    map_taxon_concept.has_map && map # TODO - question mark on has_map? from taxon_concept...
   end
 
   # TODO - this belongs on TaxonOverview... but review.
@@ -86,15 +69,14 @@ class TaxonPage
 
   # This is used by the TaxaController (and thus all its children) to help build information for ALL translations:
   def hierarchy_provider
-    hierarchy_entry ? hierarchy_entry.hierarchy_label.presence : nil
+    hierarchy_entry ? hierarchy_entry.hierarchy_provider : nil
   end
 
   def scientific_name
-    # TODO - Why? hierarchy_entry has a title_canonical_italicized method which actually seems "smarter"... soooo...
-    hierarchy_entry ? hierarchy_entry.italicized_name : taxon_concept.title_canonical_italicized
+    hierarchy_entry_or_taxon_concept.title_canonical_italicized
   end
 
-  # TODO - don't we count these somewhere?  Seems like a bit of a waste to get the count and not save it.
+  # NOTE - Seems like a bit of a waste to get the count and not save it, but I don't think we use the counts.
   def synonyms?
     hierarchy_entry ? hierarchy_entry.scientific_synonyms.length > 0 :
       taxon_concept.count_of_viewable_synonyms > 0
@@ -117,42 +99,14 @@ class TaxonPage
     entry.rank_label
   end
 
-  # TODO - Clean this up...
   def related_names
-    filter = hierarchy_entry ? "id=#{hierarchy_entry.id}" : "taxon_concept_id=#{taxon_concept.id}"
-
-    parents = TaxonConcept.connection.execute("
-      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label, he_parent.id hierarchy_entry_id
-      FROM hierarchy_entries he_parent
-      JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
-      JOIN names n ON (he_parent.name_id=n.id)
-      JOIN hierarchies h ON (he_child.hierarchy_id=h.id)
-      WHERE he_child.#{filter}
-      AND he_parent.published = 1
-      AND browsable = 1
-    ")
-
-    children = TaxonConcept.connection.execute("
-      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label, he_child.id hierarchy_entry_id
-      FROM hierarchy_entries he_parent
-      JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
-      JOIN names n ON (he_child.name_id=n.id)
-      JOIN hierarchies h ON (he_parent.hierarchy_id=h.id)
-      WHERE he_parent.#{filter}
-      AND he_child.published = 1
-      AND browsable = 1
-    ")
-
-    {'parents' => group_he_results(parents), 'children' => group_he_results(children)}
+    @related_names ||=
+      {'parents' => group_he_results(get_related_names(:parents)),
+       'children' => group_he_results(get_related_names(:children))}
   end
 
   def related_names_count
-    if related_names.blank?
-      return 0
-    else
-      related_names_count = related_names['parents'].count
-      related_names_count += related_names['children'].count
-    end
+    related_names['parents'].count + related_names['children'].count
   end
 
   def details?
@@ -207,7 +161,6 @@ class TaxonPage
     ))
   end
 
-  # Overriding this because it doesn't need to take the user anymore:
   def media_count
     @media_count ||= taxon_concept.media_count(user, hierarchy_entry)
   end
@@ -237,42 +190,60 @@ class TaxonPage
 
 private
 
+  def hierarchy_entry_or_taxon_concept
+    hierarchy_entry || taxon_concept
+  end
+
+  def map_taxon_concept
+    @map_taxon_concept ||= hierarchy_entry ? hierarchy_entry.taxon_concept : taxon_concept
+  end
+
+  def get_related_names(which)
+    from = which == :children ? 'he_child' : 'he_parent'
+    other = which == :children ? 'he_parent' : 'he_child'
+    filter = hierarchy_entry ? "id=#{hierarchy_entry.id}" : "taxon_concept_id=#{taxon_concept.id}"
+    TaxonConcept.connection.execute("
+      SELECT n.id name_id, n.string name_string, n.canonical_form_id, #{from}.taxon_concept_id, h.label hierarchy_label, #{from}.id hierarchy_entry_id
+      FROM hierarchy_entries he_parent
+      JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
+      JOIN names n ON (#{from}.name_id=n.id)
+      JOIN hierarchies h ON (#{other}.hierarchy_id=h.id)
+      WHERE #{other}.#{filter}
+      AND #{from}.published = 1
+      AND browsable = 1
+    ")
+  end
+
+  # NOTE - if the exemplar was not in data_objects, we'll end up with a longer list. ...Is this dangerous?
   def promote_exemplar_image(data_objects)
-    # TODO: a comment may be needed. If the concept is blank, why would there be images to promote?
-    # we should just return
-    if taxon_concept.blank? || taxon_concept.published_exemplar_image.blank?
-      exemplar_image = data_objects[0] unless data_objects.blank?
-    else
-      exemplar_image = taxon_concept.published_exemplar_image
-    end
-    unless exemplar_image.nil?
-      data_objects.delete_if{ |d| d.guid == exemplar_image.guid }
-      data_objects.unshift(exemplar_image)
-    end
+    return data_objects unless taxon_concept.published_exemplar_image
+    data_objects.delete_if { |d| d.guid == taxon_concept.published_exemplar_image.guid }
+    data_objects.unshift(taxon_concept.published_exemplar_image)
     data_objects
   end
 
-  # TODO - clean up
+  # TODO - These are hashes that are used in the view(s), but we should document (or make obvious) how they are
+  # constructed and used:
+  # This is a method used to build and sort the hash we use in related names (synonyms) views (and sort the sources).
   def group_he_results(results)
-    grouped = {}
     name_string_i = results.fields.index('name_string')
     hierarchy_label_i = results.fields.index('hierarchy_label')
     taxon_concept_id_i = results.fields.index('taxon_concept_id')
     hierarchy_entry_id_i = results.fields.index('hierarchy_entry_id')
+    grouped = {}
     results.each do |result|
       key = "#{result[name_string_i].downcase}|#{result[taxon_concept_id_i]}"
       grouped[key] ||= {
         'taxon_concept_id' => result[taxon_concept_id_i],
         'name_string' => result[name_string_i],
-        'sources' => [],
+        'sources' => result[hierarchy_label_i],
         'hierarchy_entry_id' => result[hierarchy_entry_id_i]
       }
-      grouped[key]['sources'] << result[hierarchy_label_i]
     end
     grouped.each do |key, hash|
       hash['sources'].sort! {|a,b| a[hierarchy_label_i] <=> b[hierarchy_label_i]}
     end
-    grouped = grouped.sort {|a,b| a[0] <=> b[0]}
+    grouped.sort {|a,b| a[0] <=> b[0]}
   end
 
 end

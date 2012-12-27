@@ -9,6 +9,7 @@ describe 'Home page' do
     Capybara.reset_sessions!
     visit('/') # cache the response the homepage gives before changes
     @homepage_with_foundation = source #source in contrast with body returns html BEFORE any javascript
+    @homepage_url = current_url
   end
 
   after :all do
@@ -16,9 +17,8 @@ describe 'Home page' do
   end
 
   it "should provide consistent canonical URL for home page" do
-    canonical_href = root_url.sub(/\/+$/,'')
-    # TODO - this is only failing some of the time, figure out why.
-    debugger unless @homepage_with_foundation =~ /#{canonical_href}/
+    # NOTE - root_url DOES NOT WORK HERE when you run the full test suite. I'm not sure why it changes, but:
+    canonical_href = @homepage_url.sub(/\/+$/,'')
     @homepage_with_foundation.should have_tag("link[rel=canonical][href='#{canonical_href}']")
     visit '/?page=3&q=blah'
     body.should have_tag("link[rel=canonical][href='#{canonical_href}']")

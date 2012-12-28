@@ -8,7 +8,7 @@ class License < ActiveRecord::Base
   has_many :data_objects
   has_many :resources
   
-  attr_accessible :logo_url
+  attr_accessible :title, :source_url, :version, :logo_url, :show_to_content_partners
 
   def small_logo_url
     return logo_url if logo_url =~ /_small/ # already there!

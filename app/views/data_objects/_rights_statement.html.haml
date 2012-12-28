@@ -1,6 +1,8 @@
 - data_object ||= @data_object
 - unless data_object.blank?
   - rights = data_object.rights_statement
-  - rights = data_object.license.description if rights.blank? && ! data_object.license.blank?
+  -# if there is no rights statement, but there is a license and there is a license logo.
+  -# when there is no license logo, the license text will already be display by the license partial
+  - rights = data_object.license.description if rights.blank? && !data_object.license.blank? && !data_object.license.logo_url.blank?
   - unless rights.blank?
     %p{:title => I18n.t(:rights_statement)}= "#{rights}"

@@ -107,6 +107,7 @@ module EOL
           url << CGI.escape(Array(options[:visibility_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
           url << CGI.escape(")")
         end
+        url << CGI.escape(" NOT (preview_#{field_suffix}:#{search_id})")
 
         if options[:data_type_ids]
            # TODO: do we want to remove IUCN from this query?

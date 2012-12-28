@@ -138,10 +138,13 @@ unknown.update_attributes(:activated_on => nil)
 
 License.gen_if_not_exists(:title => 'public domain',
                           :description => 'No rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/publicdomain/')
+                          :source_url => 'http://creativecommons.org/licenses/publicdomain/',
+                          :logo_url => '')
 License.gen_if_not_exists(:title => 'all rights reserved',
                           :description => '&#169; All rights reserved',
-                          :show_to_content_partners => 0)
+                          :source_url => '',
+                          :logo_url => '',
+                          :show_to_content_partners => 0, )
 License.gen_if_not_exists(:title => 'cc-by-nc 3.0',
                           :description => 'Some rights reserved',
                           :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',
@@ -158,6 +161,19 @@ License.gen_if_not_exists(:title => 'cc-by-nc-sa 3.0',
                           :description => 'Some rights reserved',
                           :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/',
                           :logo_url => 'cc_by_nc_sa_small.png')
+License.gen_if_not_exists(:title => 'cc-zero 1.0',
+                          :description => 'Public Domain',
+                          :source_url => 'http://creativecommons.org/publicdomain/zero/1.0/',
+                          :logo_url => 'cc_zero_small.png')
+License.gen_if_not_exists(:title => 'no known copyright restrictions',
+                          :description => 'No known copyright restrictions',
+                          :source_url => 'http://www.flickr.com/commons/usage/',
+                          :logo_url => '',)
+License.gen_if_not_exists(:title => 'not applicable',
+                          :description => 'License not applicable',
+                          :source_url => '',
+                          :logo_url => '',
+                          :show_to_content_partners => 0)
 
 MimeType.gen_if_not_exists(:label => 'image/jpeg')
 MimeType.gen_if_not_exists(:label => 'audio/mpeg')
@@ -209,7 +225,7 @@ description = TocItem.gen_if_not_exists(:label => 'Description', :view_order => 
 TocItem.gen_if_not_exists(:label => 'Nucleotide Sequences', :view_order => 5, :parent_id => description.id)
 ecology_and_distribution = TocItem.gen_if_not_exists(:label => 'Ecology and Distribution', :view_order => 6)
 TocItem.gen_if_not_exists(:label => 'Distribution', :view_order => 7, :parent_id => ecology_and_distribution.id)
-TocItem.gen_if_not_exists(:label => 'Wikipedia', :view_order => 8)
+wikipedia = TocItem.gen_if_not_exists(:label => 'Wikipedia', :view_order => 8)
 TocItem.gen_if_not_exists(:label => 'Identification Resources', :view_order => 9, :parent_id => description.id)
 #--
 names_and_taxonomy = TocItem.gen_if_not_exists(:label => 'Names and Taxonomy', :view_order => 50)
@@ -253,6 +269,8 @@ InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_con
   :label => 'Education', :toc_item => education)
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#IdentificationResources',
   :label => 'IdentificationResources', :toc_item => description)
+InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#Wikipedia',
+  :label => 'Wikipedia', :toc_item => wikipedia)
 
 ServiceType.gen_if_not_exists(:label => 'EOL Transfer Schema')
 

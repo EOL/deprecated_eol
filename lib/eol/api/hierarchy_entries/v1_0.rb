@@ -96,6 +96,7 @@ module EOL
           end
 
           return_hash['ancestors'] = []
+          HierarchyEntry.preload_associations(hierarchy_entry, { :ancestors => [ :rank, :name ] })
           hierarchy_entry.ancestors.each do |ancestor|
             ancestor_hash = {}
             ancestor_hash['sourceIdentifier'] = ancestor.identifier unless ancestor.identifier.blank?
@@ -108,6 +109,7 @@ module EOL
           end
 
           return_hash['children'] = []
+          HierarchyEntry.preload_associations(hierarchy_entry, { :children => [ :rank, :name ] })
           hierarchy_entry.children.each do |child|
             child_hash = {}
             child_hash['sourceIdentifier'] = child.identifier unless child.identifier.blank?

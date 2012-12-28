@@ -134,20 +134,6 @@ def load_old_foundation_data
   InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label => 'TrophicStrategy')
   InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label => 'Uses')
 
-  License.gen_if_not_exists(:title => 'gnu-fdl',
-                            :description => 'Some rights reserved',
-                            :source_url => 'http://www.gnu.org/licenses/fdl.html',
-                            :logo_url => 'licenses/gnu_fdl_small.png',
-                            :show_to_content_partners => 0)
-  License.gen_if_not_exists(:title => 'gnu-gpl',
-                            :description => 'Some rights reserved',
-                            :source_url => 'http://www.gnu.org/licenses/gpl.html',
-                            :logo_url => 'licenses/gnu_fdl_small.png',
-                            :show_to_content_partners => 0)
-  License.gen_if_not_exists(:title => 'no license',
-                            :description => 'The material cannot be licensed',
-                            :show_to_content_partners => 0)
-
   MimeType.gen_if_not_exists(:label => 'audio/mpeg')
   MimeType.gen_if_not_exists(:label => 'audio/x-ms-wma')
   MimeType.gen_if_not_exists(:label => 'audio/x-pn-realaudio')

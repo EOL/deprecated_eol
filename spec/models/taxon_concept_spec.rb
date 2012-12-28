@@ -161,9 +161,10 @@ describe TaxonConcept do
   it 'should be able to show a table of contents' do
     # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are
     # appropriate.  I could test for those here, but that seems the perview of TocItem.  So, I'm only checking the
-    # first three elements:
+    # first three elements. Also ugly is that I'm using TaxonPage to "know" which text to show.
     user = User.gen
-    text = @taxon_concept.details_text_for_user(user)
+    taxon_page = TaxonPage.new(@taxon_concept, user)
+    text = taxon_page.details
     toc_items_to_show = @taxon_concept.table_of_contents_for_text(text)
     toc_items_to_show[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
   end
@@ -544,17 +545,6 @@ describe TaxonConcept do
 
   it 'should not return hidden exemplar image' do
     @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
-  end
-
-  it 'should show details text with no language only to users in the default language' do
-    user = User.gen(:language => Language.default)
-    @taxon_concept.details_text_for_user(user).first.language_id.should == Language.default.id
-    best_text = @testy[:no_language_in_toc].details_text_for_user(user).first
-    best_text.language_id.should == 0
-
-    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
-    new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
-    new_best_text.should be_nil
   end
 
   it 'should show overview text with no language only to users in the default language' do

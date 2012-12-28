@@ -280,6 +280,9 @@ describe TaxonPage do
     @taxon_page.details.should == "gee wiz"
   end
 
+  # Hard to test.  :\  ...Though the "spirit" of this may be captured in other specs...
+  it 'should show details text with no language only to users in the default language'
+
   it '#common_names should call EOL::CommonNameDisplay.find_by_hierarchy_entry_id when entry provided' do
     EOL::CommonNameDisplay.should_receive(:find_by_hierarchy_entry_id).with(@entry.id, foo: 'bar').and_return([])
     @taxon_page_with_entry.common_names(foo: 'bar')

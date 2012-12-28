@@ -51,6 +51,7 @@ module EOL
           :content_page_cache_str => 'anonymous',
           :credentials => '',
           :curator_scope => '',
+          :default_language? => true,
           :email => '',
           :full_name => I18n.t(:anonymous_user_full_name),
           :given_name => I18n.t(:anonymous_user_given_name),

@@ -69,10 +69,12 @@ describe 'Taxa page' do
     it 'should not show unpublished user data objects'
     it 'should only show the most recent revision of a user data object'
 
+    # NOTE - all of these strings come from the scenario loaded above...
     it 'should show text references' do
       should include('A published visible reference for testing.')
     end
     it 'should show doi identifiers for references' do
+      $FOO = 1
       should include('A published visible reference with a DOI identifier for testing.')
     end
     it 'should show url identifiers for references' do

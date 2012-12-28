@@ -5,6 +5,7 @@ class Taxa::DetailsController < TaxaController
 
   # GET /pages/:taxon_id/details
   def index
+    debugger if $FOO
     @text_objects = @taxon_page.details
     # TODO - hey, why not put this preload in #table_of_contents_for_text ?  :S
     DataObject.preload_associations(@text_objects, { :toc_items => :parent })

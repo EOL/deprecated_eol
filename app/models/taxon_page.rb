@@ -230,12 +230,14 @@ private
     hierarchy_entry_id_i = results.fields.index('hierarchy_entry_id')
     grouped = {}
     results.each do |result|
-      grouped["#{result[name_string_i].downcase}|#{result[taxon_concept_id_i]}"] ||= {
+      key = "#{result[name_string_i].downcase}|#{result[taxon_concept_id_i]}"
+      grouped[key] ||= {
         'taxon_concept_id' => result[taxon_concept_id_i],
         'name_string' => result[name_string_i],
-        'sources' => result[hierarchy_label_i],
+        'sources' => [], # NOTE - there can be many values of this for one key, so...
         'hierarchy_entry_id' => result[hierarchy_entry_id_i]
       }
+      grouped[key]['sources'] << result[hierarchy_label_i] # ...we do this separately.
     end
     grouped.values.each do |hash|
       hash['sources'].sort! {|a,b| a[hierarchy_label_i] <=> b[hierarchy_label_i]}

@@ -96,10 +96,6 @@ describe 'Data Object Page' do
     end
   end
 
-  after(:each) do
-    $FOO = nil # delete this after block, if you find it.  :) I was debugging...
-  end
-
   it "should render" do
     visit("/data_objects/#{@image.id}")
     page.status_code.should == 200
@@ -184,18 +180,15 @@ describe 'Data Object Page' do
     page.should have_selector('p.status.error')
     review_status_should_be(taid, 'Trusted', 'Visible')
     review_status_should_be(taid, 'Trusted', 'Visible', :duplicate => false, :poor => false)
-    $FOO = true
     select "Unreviewed", :from => "vetted_id_#{taid}"
     select "Hidden", :from => "visibility_id_#{taid}"
     check "#{taid}_untrust_reason_duplicate"
     click_button "Save changes"
     review_status_should_be(taid, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
-    $FOO = false
     select "Untrusted", :from => "vetted_id_#{taid}"
     click_button "Save changes"
     page.should have_selector('p.status.error')
     review_status_should_be(taid, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
-    $FOO = true
     select "Untrusted", :from => "vetted_id_#{taid}"
     check "#{taid}_untrust_reason_misidentified"
     click_button "Save changes"
@@ -218,18 +211,15 @@ describe 'Data Object Page' do
     click_button "Save changes"
     page.should have_selector('p.status.error')
     review_status_should_be(assoc_id, 'Trusted', 'Visible', :duplicate => false, :poor => false)
-    $FOO = true
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"
     select "Hidden", :from => "visibility_id_#{assoc_id}"
     check "#{assoc_id}_untrust_reason_duplicate"
     click_button "Save changes"
     review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
-    $FOO = false
     select "Untrusted", :from => "vetted_id_#{assoc_id}"
     click_button "Save changes"
     page.should have_selector('p.status.error')
     review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
-    $FOO = true
     select "Untrusted", :from => "vetted_id_#{assoc_id}"
     check "#{assoc_id}_untrust_reason_misidentified"
     click_button "Save changes"
@@ -253,17 +243,14 @@ describe 'Data Object Page' do
     click_button "Save changes"
     page.should have_selector('p.status.error')
     review_status_should_be(assoc_id, 'Trusted', 'Visible')
-    $FOO = true
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"
     select "Hidden", :from => "visibility_id_#{assoc_id}"
     check "#{assoc_id}_untrust_reason_duplicate"
     click_button "Save changes"
     review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
-    $FOO = false
     select "Untrusted", :from => "vetted_id_#{assoc_id}"
     click_button "Save changes"
     review_status_should_be(assoc_id, 'Unreviewed', 'Hidden', :duplicate => true, :poor => false)
-    $FOO = true
     select "Untrusted", :from => "vetted_id_#{assoc_id}"
     check "#{assoc_id}_untrust_reason_misidentified"
     click_button "Save changes"

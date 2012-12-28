@@ -74,7 +74,7 @@ describe 'Taxa page' do
       should include('A published visible reference for testing.')
     end
     it 'should show doi identifiers for references' do
-      $FOO = 1
+      # TODO - this is failing in the full suite, and I want to know why.  Caching, prolly.
       should include('A published visible reference with a DOI identifier for testing.')
     end
     it 'should show url identifiers for references' do
@@ -354,6 +354,7 @@ describe 'Taxa page' do
       visit taxon_details_path(@taxon_concept)
       @section = 'details'
       @body = body
+      $FOO = 1
     end
     subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'

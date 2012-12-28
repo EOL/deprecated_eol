@@ -118,7 +118,7 @@ class TaxonPage
   end
 
   def details
-    details_text_for_user
+    @details ||= details_text_for_user
   end
   
   # TODO - This belongs on TaxonNames or the like:

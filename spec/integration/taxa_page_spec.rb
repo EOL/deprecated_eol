@@ -42,9 +42,10 @@ describe 'Taxa page' do
 
   before(:all) do
     # so this part of the before :all runs only once
-    unless User.find_by_username('testy_scenario')
+    unless User.find_by_username('testy_taxa_page_spec')
       truncate_all_tables
       load_scenario_with_caching(:testy)
+      User.gen(:username => 'testy_taxa_page_spec')
     end
     @testy = EOL::TestInfo.load('testy')
     @taxon_concept = @testy[:taxon_concept]
@@ -354,7 +355,6 @@ describe 'Taxa page' do
       visit taxon_details_path(@taxon_concept)
       @section = 'details'
       @body = body
-      $FOO = 1
     end
     subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'

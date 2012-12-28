@@ -1,8 +1,6 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-- roots = @toc_items_to_show.collect { |toc_item| toc_item unless toc_item.is_child? }.compact
--# TODO - remove this:
-- debugger if $FOO && roots.empty?
+- roots = @toc_items_to_show.delete_if { |toc_item| toc_item.is_child? }
 #taxon_detail
   #sidebar
     - if @exemplar_image && img = @exemplar_image.thumb_or_object('260_190')

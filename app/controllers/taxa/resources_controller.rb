@@ -17,10 +17,11 @@ class Taxa::ResourcesController < TaxaController
     @add_article_toc_id = TocItem.identification_resources ? TocItem.identification_resources.id : nil
     @rel_canonical_href = identification_resources_taxon_resources_url(@taxon_page)
 
-    @contents = @taxon_concept.text_for_user(current_user, {
+    @contents = @taxon_page.text(
       :language_ids => [ current_language.id ],
       :toc_ids => [ TocItem.identification_resources.id ],
-      :filter_by_subtype => true })
+      :filter_by_subtype => true
+    )
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -32,10 +33,11 @@ class Taxa::ResourcesController < TaxaController
 
     citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
     citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
-    @contents = @taxon_concept.text_for_user(current_user, {
+    @contents = @taxon_page.text(
       :language_ids => [ current_language.id ],
       :toc_ids => [ citizen_science.id, citizen_science_links.id ],
-      :filter_by_subtype => true })
+      :filter_by_subtype => true
+    )
     current_user.log_activity(:viewed_taxon_concept_resources_citizen_science, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -48,10 +50,11 @@ class Taxa::ResourcesController < TaxaController
     # there are two education chapters - one is the parent of the other
     education_root = TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
     education_chapters = [ education_root ] + education_root.children
-    @contents = @taxon_concept.text_for_user(current_user, {
+    @contents = @taxon_page.text(
       :language_ids => [ current_language.id ],
       :toc_ids => education_chapters.collect{ |toc_item| toc_item.id },
-      :filter_by_subtype => true })
+      :filter_by_subtype => true
+    )
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -104,15 +107,18 @@ class Taxa::ResourcesController < TaxaController
 private
 
   def link_objects_contents
-    @news_and_event_links_contents ||= @taxon_concept.text_for_user(current_user, {
+    @news_and_event_links_contents ||= @taxon_page.text(
       :language_ids => [ current_language.id ],
-      :link_type_ids => [ LinkType.news.id, LinkType.blog.id ] })
-    @related_organizations_contents ||= @taxon_concept.text_for_user(current_user, {
+      :link_type_ids => [ LinkType.news.id, LinkType.blog.id ]
+    )
+    @related_organizations_contents ||= @taxon_page.text(
       :language_ids => [ current_language.id ],
-      :link_type_ids => [ LinkType.organization.id ] })
-    @multimedia_links_contents ||= @taxon_concept.text_for_user(current_user, {
+      :link_type_ids => [ LinkType.organization.id ]
+    )
+    @multimedia_links_contents ||= @taxon_page.text(
       :language_ids => [ current_language.id ],
-      :link_type_ids => [ LinkType.multimedia.id ] })
+      :link_type_ids => [ LinkType.multimedia.id ]
+    )
   end
 
 end

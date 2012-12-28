@@ -342,7 +342,7 @@ class TaxonConcept < ActiveRecord::Base
     return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
   end
 
-  def has_map
+  def has_map?
     return true if (gbif_map_id && GbifIdentifiersWithMap.find_by_gbif_taxon_id(gbif_map_id))
   end
 
@@ -448,6 +448,10 @@ class TaxonConcept < ActiveRecord::Base
         :parent => entry.parent
       }
     end
+  end
+
+  def classified_by
+    entry.rank_label
   end
 
   def title(hierarchy = nil)
@@ -693,7 +697,7 @@ class TaxonConcept < ActiveRecord::Base
   def maps_count()
     @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
       count = get_one_map.total_entries
-      count +=1 if self.has_map
+      count +=1 if self.has_map?
       count
     end
   end
@@ -775,6 +779,8 @@ class TaxonConcept < ActiveRecord::Base
     })
   end
   
+  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
+  # want to touch the API quite yet.
   def overview_text_for_user(the_user)
     TaxonConcept.prepare_cache_classes
     cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
@@ -804,49 +810,9 @@ class TaxonConcept < ActiveRecord::Base
     toc_items_to_show.sort_by(&:view_order)
   end
   
-  def has_details_text_for_user?(the_user)
-    !details_text_for_user(the_user, :limit => 1, :skip_preload => true).empty?
-  end
-  
-  # there is an artificial limit of 600 text objects here to increase the default 30
-  def details_text_for_user(the_user, options = {})
-    text_objects = self.text_for_user(the_user, {
-      :language_ids => the_user.language.all_ids,
-      :filter_by_subtype => true,
-      :allow_nil_languages => (the_user.language.id == Language.default.id),
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
-      :per_page => (options[:limit] || 600) })
-    
-    # now preload info needed for display details metadata
-    unless options[:skip_preload]
-      selects = {
-        :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-        :hierarchies => [ :id, :agent_id, :browsable, :outlink_uri, :label ],
-        :data_objects_hierarchy_entries => '*',
-        :curated_data_objects_hierarchy_entries => '*',
-        :data_object_translations => '*',
-        :table_of_contents => '*',
-        :info_items => '*',
-        :toc_items => '*',
-        :translated_table_of_contents => '*',
-        :users_data_objects => '*',
-        :resources => 'id, content_partner_id, title, hierarchy_id',
-        :content_partners => 'id, user_id, full_name, display_name, homepage, public',
-        :refs => '*',
-        :ref_identifiers => '*',
-        :comments => 'id, parent_id',
-        :licenses => '*',
-        :users_data_objects_ratings => '*' }
-      DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments, :license,
-        { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items },
-        { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
-          :vetted, :visibility ] },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object,
-        { :toc_items => [ :translations ] } ], :select => selects)
-    end
-    text_objects
-  end
-  
+  # TODO - there may have been changes to #has_details_text_for_user? ...I need to check that and change the
+  # TaxonPage class, if so.
+  # TODO - this belongs in the same class as #overview_text_for_user.
   def text_for_user(the_user = nil, options = {})
     vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(the_user)
     options[:per_page] ||= 500
@@ -1119,6 +1085,7 @@ private
   end
 
   # Assume this method is expensive.
+  # TODO - this belongs in the same class as #overview_text_for_user
   def best_article_for_user(the_user)
     if published_exemplar = published_visible_exemplar_article
       published_exemplar

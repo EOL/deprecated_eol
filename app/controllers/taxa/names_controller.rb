@@ -176,10 +176,8 @@ private
     @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s}
   end
 
-  # TODO - find out what we use this for an give it better names and/or move it. How is this different from
-  # @taxon_page.hierarchy_entries?
   def load_hierarchy_entries
-    @hierarchy_entries = @taxon_page.hierarchy_entries_for_names
+    @hierarchy_entries = @taxon_page.hierarchy_entries
   end
 
   def authentication_for_names

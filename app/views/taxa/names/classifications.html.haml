@@ -113,7 +113,7 @@
                       = raw I18n.t(:classification_curation_pending)
                   %td.rank
                     - if hierarchy_entry.rank
-                      = hierarchy_entry.rank_label
+                      = hierarchy_entry.classified_by
                   %td.browsable.classifications
                     = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
         - if @other_hierarchy_entries.empty?
@@ -140,7 +140,7 @@
                               = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                           %td.rank
                             - if hierarchy_entry.rank
-                              = hierarchy_entry.rank_label
+                              = hierarchy_entry.classified_by
                           %td.browsable.classifications
                             = render(:partial => 'navigation/node', :locals => { :in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
                           %td

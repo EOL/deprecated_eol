@@ -43,9 +43,10 @@ class Taxa::LiteratureController < TaxaController
   end
   
   def literature_links_contents
-    @literature_links_contents ||= @taxon_concept.text_for_user(current_user, {
+    @literature_links_contents ||= @taxon_page.text(
       :language_ids => [ current_language.id ],
-      :link_type_ids => [ LinkType.paper.id ] })
+      :link_type_ids => [ LinkType.paper.id ]
+    )
   end
 
 end

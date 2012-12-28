@@ -19,7 +19,7 @@ class TaxaController < ApplicationController
     @hierarchies = @taxon_page.hierarchy_entries.map { |he| he.hierarchy }.uniq
     
     # TODO - no reason to set (most of) these anymore, just call directly:
-    @summary_text = @taxon_page.text
+    @summary_text = @taxon_page.summary_text
     @map = @taxon_page.map
     @media = @taxon_page.top_media
     

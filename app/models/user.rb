@@ -373,6 +373,10 @@ class User < ActiveRecord::Base
     return language.nil? ? Language.english.iso_639_1 : language.iso_639_1
   end
 
+  def default_language?
+    language_id == Language.default.id
+  end
+
   def is_admin?
     self.admin.nil? ? false : self.admin # return false for anonymous users
   end

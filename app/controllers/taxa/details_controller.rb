@@ -5,18 +5,19 @@ class Taxa::DetailsController < TaxaController
 
   # GET /pages/:taxon_id/details
   def index
-    @text_objects = @taxon_concept.details_text_for_user(current_user)
+    @text_objects = @taxon_page.details
     # TODO - hey, why not put this preload in #table_of_contents_for_text ?  :S
     DataObject.preload_associations(@text_objects, { :toc_items => :parent })
     @toc_items_to_show = @taxon_concept.table_of_contents_for_text(@text_objects)
     
-    data_objects_in_other_languages = @taxon_concept.text_for_user(current_user, {
-      :language_ids_to_ignore => current_language.all_ids + [ 0 ],
+    @data_objects_in_other_languages = @taxon_page.text(
+      :language_ids_to_ignore => current_language.all_ids << 0,
       :allow_nil_languages => false,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] },
       :skip_preload => true,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id } })
-    DataObject.preload_associations(data_objects_in_other_languages, :language)
+      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id }
+    )
+    DataObject.preload_associations(@data_objects_in_other_languages, :language)
     @details_count_by_language = {}
     data_objects_in_other_languages.each do |obj|
       obj.language = obj.language.representative_language
@@ -24,7 +25,8 @@ class Taxa::DetailsController < TaxaController
       @details_count_by_language[obj.language] ||= 0
       @details_count_by_language[obj.language] += 1
     end
-    @summary_text = @taxon_page.text
+    # TODO - no reason to set these anymore, just call them directly in view:
+    @summary_text = @taxon_page.summary_text
     @exemplar_image = @taxon_page.image
     @assistive_section_header = I18n.t(:assistive_details_header)
     @rel_canonical_href = taxon_details_url(@taxon_page)

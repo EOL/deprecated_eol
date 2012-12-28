@@ -74,19 +74,22 @@ module TaxaHelper
     if hierarchy_entry.has_source_database?
       recognized_by = hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
       if options[:show_rank_first]
-        return I18n.t(:rank_recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title, :rank => hierarchy_entry.rank_label)
+        return I18n.t(:rank_recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title,
+                      :rank => hierarchy_entry.classified_by)
       elsif options[:show_rank] == false
         return I18n.t(:recognized_by_from_source, :recognized_by => recognized_by, :source => hierarchy_title)
       else
-        return I18n.t(:recognized_by_from_source_as_a_rank, :recognized_by => recognized_by, :source => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
+        return I18n.t(:recognized_by_from_source_as_a_rank, :recognized_by => recognized_by,
+                      :source => hierarchy_title, :taxon_rank => hierarchy_entry.classified_by)
       end
     else
       if options[:show_rank_first]
-        return I18n.t(:rank_recognized_by_agent, :agent => hierarchy_title, :rank => hierarchy_entry.rank_label)
+        return I18n.t(:rank_recognized_by_agent, :agent => hierarchy_title, :rank => hierarchy_entry.classified_by)
       elsif options[:show_rank] == false
         return hierarchy_title
       else
-        return I18n.t(:recognized_by_as_a_rank, :recognized_by => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
+        return I18n.t(:recognized_by_as_a_rank, :recognized_by => hierarchy_title,
+                      :taxon_rank => hierarchy_entry.classified_by)
       end
     end
   end

@@ -1550,6 +1550,7 @@ mk:
     other: Премести %{count} експонати во нова збирка
   copy_of_name: Копија на %{name}
   copyright: "АВТ. ПРАВА:"
+  correct_donation_message_with_link: Овие информации се неисправни. <a href='%{link}'>Вратете се</a> и изменете ги.
   could_not_find_collection_error: Нажалост, не можав да ја најдам таа збирка.
   could_not_find_user: Не членувате во оваа заедница.
   count: Број
@@ -2919,7 +2920,7 @@ mk:
   page_views_th: Посети
   pages_admin_section_link: Администратори
   pages_curator_section_link: Кустоси
-  pages_method_description: зема назнака на страница на EOL и го дава научното име за таа страница. По желба дава и информации за тривијалните имиња, медиумите (текст, слики и видеоснимки) и упатува на хиерархиите што го признаваат таксонот опишан на
+  pages_method_description: зема назнака на страница на EOL и го дава научното име за таа страница. По желба дава и информации за тривијалните имиња, медиумите (текст, слики и видеоснимки) и упатува на хиерархиите што го признаваат таксонот опишан на страницата
   pages_title: Страници
   pages_with_count: 
     one: "%{count} страница"
@@ -3217,6 +3218,10 @@ mk:
   show_status_message: Прик. статусна порака
   show_tasks: прикажи задачи
   show_warning_message: Прикажи предупредување
+  showing_all_error_logs: Приказ на <b>сите грешки</b>
+  showing_all_harvest_logs: Приказ на сите <b>преземања на податоци од извори</b>
+  showing_error_logs_from_date: Приказ на грешки од <b>%{date}</b>
+  showing_harvest_logs_from_date: Приказ на преземања на податоци од извори од <b>%{date}</b>
   shown_to_the_user_parens: (се прикажува на корисникот)
   shown_to_user_as_the_title_of_page: се прикажува на корисникот како наслов на страницата
   sign_in: Најава

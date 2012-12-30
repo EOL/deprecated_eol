@@ -1559,6 +1559,7 @@ nl:
     other: "%{count} items kopiëren naar een nieuwe verzameling"
   copy_of_name: Kopie van %{name}
   copyright: "Auteursrechten:"
+  correct_donation_message_with_link: Als deze gegevens onjuist zijn, <a href='%{link}'>ga dan terug</a> en maak correcties.
   could_not_find_collection_error: Die verzameling kon niet gevonden worden.
   could_not_find_user: U bent geen lid van deze gemeenschap.
   count: Aantal
@@ -1829,6 +1830,7 @@ nl:
     one: één uitgelichte verzameling
     other: "%{count} uitgelichte verzamelingen"
   enter_in_a_search_term_users_a: Voer een zoekterm in waar gebruikers op zoeken en daarna het resulterende taxon- of pagina-ID waar deze naar moet doorverwijzen als suggestie voor die zoekopdracht. Het taxon- of pagina-ID is te vinden in de URL van de pagina waar u naar wilt doorverwijzen (bijvoorbeeld www.eol.org/pages/5 heeft een taxon- of pagina-ID van 5). De paginanaam en de eerste afbeelding, als beschikbaar, worden opgeslagen met het resultaat.
+  eol_accepted_subjects: Geaccepteerde onderwerpen in EOL
   eol_administration_console: EOL-beheerconsole
   eol_api: EOL API
   eol_api_collections: "EOL API: verzamelingen"
@@ -2315,6 +2317,8 @@ nl:
   hidden: Verborgen
   hidden_comment: verborgen opmerking
   hide: verbergen
+  hierarchies_description: Encyclopedia of Life heeft niet één enkele taxonomische hiërarchie waarvan pagina's gemaakt worden. EOL indexeert veel hiërarchieën en vergelijkt ze met elkaar. Via deze API wordt metadata weergegeven over een hiërarchie zoals de naam van een provider en een bron-URL, en lijsten met alle taxa die roottaxa zijn van de taxonomische boomstructuur.
+  hierarchies_entries_description: Encyclopedia of Life heeft niet één enkele taxonomische hiërarchie waarvan pagina's gemaakt worden. EOL indexeert veel hiërarchieën en vergelijkt ze met elkaar. Daarom kan een pagina in EOL gekoppeld zijn aan meerdere nodes uit verschillende hiërarchieën. Deze API geeft toegang tot een enkele hiërarchie en de interne relatie daarvan. Kijk in de documentatie over de API voor pagina's voor informatie over toegang tot andere hiërarchieën die overeenkomen met een bepaalde pagina in EOL. Het veld "taxonConceptID" bevat het pagina-ID van EOL dat gebruikt kan worden in de API voor pagina's.
   hierarchies_title: Hiërarchieën
   hierarchy: Hiërarchie
   hierarchy_entry_switch_missing_id_error: De ingangspagina voor de hiërarchie die u hebt geselecteerd kon niet gevonden worden vanwege een missende aanduiding.
@@ -2327,8 +2331,10 @@ nl:
   home_page_link_advisory_information: Via deze verwijzing komt u op de hoofdpagina van de website Encyclopedia of Life
   html_format: (HTML-indeling)
   html_format_with_left_col: "{HTML-opmaak; alleen invoeren als u een linkerkolom op de pagina wilt hebben; anders leeg laten)"
+  icon_near_the_table_of_content: icoon bij de inhoudsopgave aan de linkerkant van de pagina. U kunt ook direct op de site van EOL <a href=''>reacties</a> geven over deze soort via het tabblad "Reacties" in de buurt van de afbeeldingen.
   id: ID
   if_checked_and_user_is_saved: Als aangevinkt en de gebruiker is opgeslagen, dan worden referenties, scope, goedkeuring en geselecteerde claden allemaal verwijderd en wordt de gebruiker niet langer weergegeven als conservator. U hoort een opmerkingen toe te voegen met de reden. De gebruiker ontvangt hierover geen melding.
+  if_the_details_parameter_is_not_set: Als de parameter "details" niet is ingesteld, dan worden alleen de velden dataobject-ID, gegevenstype en in het geval van artikelen, onderwerp, teruggegeven. Het gegevenstype is een waarde uit het vocabulaire of het brontype %{linka}. Het tekstonderwerp is een van de %{linkb}.
   image: Afbeelding
   image_alt_text: "Deze afbeelding hoort bij %{taxon_name} (status: %{vetted_status})"
   image_from_supplier: Afbeelding van %{whom}
@@ -2513,8 +2519,10 @@ nl:
   license_cc_by_sa_2_0: Creative Commons Naamsvermelding-Gelijk delen 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: Creative Commons Naamsvermelding-Gelijk delen 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons Naamsvermelding-Gelijk delen 3.0 (CC-BY-SA 3.0)
+  license_cc_zero: Creative Commons — CC0 1.0 Universeel
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_no_known_copyright_restrictions: Geen bekende auteursrechtelijke beperkingen
   license_not_applicable: Licentie niet van toepassing
   license_public_domain: Publiek domein
   licensing: Licentie
@@ -2770,6 +2778,7 @@ nl:
   note_about_homonym_problems: "Let op: wijzig deze eigenschap alleen als u het zeker weet. Deze optie deselecteren kan grote homoniemproblemen tot gevolg hebben"
   note_all_times_utc: Alle tijden worden weergegeven in UTC (gecoördineerde wereldtijd)
   note_that_it_may_take_a_few_mi: Het kan na uploaden enige minuten duren voordat de URL's werken, omdat uw bestand beschikbaar gesteld moet worden aan de webservers.
+  note_that_you_can_reference_im: U kunt afbeeldingen toevoegen met de HTML-tag &lt;img&gt;, maar deze afbeeldingen moeten bestaan op een URL, zoals bij de website waar ze vandaan komen of een site zoals Flickr. U kunt afbeeldingen niet via deze site uploaden en ze daarna in een nieuwsitem gebruiken.
   notes: Notities
   notes_not_shown_to_user: "Notities (niet zichtbaar voor de gebruiker):"
   notification_frequency_daily_digest: Dagelijks overzicht
@@ -2904,10 +2913,12 @@ nl:
     one: "%{count} ander taxon"
     other: "%{count} andere taxa"
   other_us_dollars_amount: "Anders: US$"
+  other_version_links: "Andere versies: %{version_links}"
   outlink: Uitgaande verwijzing
   overview: Overzicht
   page: Pagina
   page_linked_to: Pagina gekoppeld aan
+  page_method_description: Deze methode heeft een EOL-pagina-identificatie nodig en geeft de wetenschappelijke naam voor die pagina terug, als ook optioneel gegevens over gewone namen, media (tekst, afbeeldingen en video) en referenties naar de hiërarchieën die het taxon erkennen op de pagina.
   page_name: Paginanaam
   page_navigation: Paginanavigatie
   page_not_found: Pagina niet gevonden
@@ -2920,7 +2931,7 @@ nl:
   page_views_th: Bekeken pagina's
   pages_admin_section_link: Beheerders
   pages_curator_section_link: Conservatoren
-  pages_method_description: heeft een EOL-pagina-identificatie nodig en geeft de wetenschappelijke naam voor die pagina terug, also ook optioneel gegevens over gewone namen, media (tekst, afbeeldingen en video) en referenties naar de hiërarchieën die het taxon erkennen op de
+  pages_method_description: heeft een EOL-pagina-identificatie nodig en geeft de wetenschappelijke naam voor die pagina terug, als ook optioneel gegevens over gewone namen, media (tekst, afbeeldingen en video) en referenties naar de hiërarchieën die het taxon erkennen op de pagina
   pages_title: Referenties
   pages_with_count: 
     one: "%{count}"
@@ -2955,6 +2966,7 @@ nl:
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
+  ping_method_description: Deze methode faalt (in dat geval wordt er waarschijnlijk een foutpagina van EOL teruggegeven) of geeft het bericht "Success". Er zijn geen andere mogelijke berichten
   please_ask_big_before_changing_toc: Overleg met een lid van de groep Biodiversity Informatics voordat u de inhoudsopgave bewerkt. Sommige namen van hoofdstukken kunnen niet gewijzigd worden omdat de code sommige hoofdstukken opzoekt op label. InfoItems kunnen niet gemapt worden in deze interface. Dat moet handmatig gedaan worden in de database.
   please_confirm_your_donation_details: Bevestig uw donatiegegevens
   please_indicate_curation_reason: "Selecteer een reden en laat eventueel een opmerking achter:"
@@ -2982,7 +2994,11 @@ nl:
   profile_newsfeed: Mijn nieuwsfeed
   profile_picture: Profielfoto
   project: Project
+  provide_a_concept_id: als er een EOL pagina-ID wordt opgegeven, worden de zoekresultaten beperkt tot leden van die taxonomische groep
+  provide_a_hierarchy_entry_id: als er een "Hierarchy Entry ID" wordt opgegeven, worden de zoekresultaten beperkt tot leden van die taxonomische groep
+  provide_a_search_string: als er een zoekterm wordt opgegeven, wordt er precies gezocht naar die term en wordt de gevonden pagina gebruikt als de taxonomische groep waar de resultaten op gefilterd moeten worden
   provider: Leverancier
+  provider_hierarchies_method_description: Deze methode geeft de referenties terug naar alle hiërarchieën van Contentpartners van EOL. Het antwoord bevat het lavel van de hiërarchie en het unieke ID van EOL voor de hiërarchie.
   providers: Leveranciers
   public: Openbaar
   public_domain: publiek domein
@@ -3113,6 +3129,7 @@ nl:
   save_comment_lowercase: opmerking opslaan
   save_curated_association_submit_button: Koppeling opslaan
   save_email_settings: e-mailinstellingen opslaan
+  sci_name_avg_table_head: Gem.Wetensch.naam
   scientific_name: Wetenschappelijke naam
   search: Zoeken
   search_by_provider_method_description_with_link: "haal de EOL pagina-ID's op op basis van een hierarchy_id van een provider en het unieke identificatienummer van een provider<br />(zoek bijvoorbeeld naar het EOL pagina-ID voor de ITIS TSN 180542: %{link})"
@@ -3212,6 +3229,10 @@ nl:
   show_status_message: Statusbericht weergeven
   show_tasks: taken weergeven
   show_warning_message: Waarschuwing weergeven
+  showing_all_error_logs: <b>Alle fouten</b> weergeven
+  showing_all_harvest_logs: <b>Alle oogsten</b> weergeven
+  showing_error_logs_from_date: "Weergegeven: fouten van <b>%{date}</b>"
+  showing_harvest_logs_from_date: "Weergegeven: oogst van <b>%{date}</b>"
   shown_to_the_user_parens: (zichtbaar voor de gebruiker)
   shown_to_user_as_the_title_of_page: weergegeven als paginatitel
   sign_in: Aanmelden
@@ -3630,16 +3651,30 @@ nl:
   the_content_was_updated: De inhoud is bijgewerkt.
   the_count_represents_the_total: Het aantal stelt het aantal gepubliceerde dataobjecten voor onder de respectievelijke SPM-onderwerpcategorie.
   the_cp_count_info: Het aantal stelt het aantal contentpartners voor dat gepubliceerde dataobjecten heeft onder de respectievelijke SPM-onderwerpcategorieën.
+  the_darwin_core_taxon_elements: De Darwin Core Taxonelementen (dwct:Taxon) onder "additionalInformation" bevat ID's voor nodes in hiërarchieën die EOL indexeert. Ze bevatten een dc:identifier die het unieke ID is voor het taxon <i>in de database van de provider</i>.
+  the_data_object_id_can_be: de ID-parameter kan een integer zijn (het versienummer van een DataObject) of een GUID van 16 tekens waarop geantwoord wordt met de laatste versie van dat object
   the_file_was_uploaded: Het bestand is geüpload.
+  the_following_bibliography: De volgende bibliografie is gegenereerd door het samenbrengen van alle referenties van onze contentpartners. Kan er dubbel werk in staan.
+  the_following_users_were_prese: "De volgende gebruikers zijn gevraagd een vragenlijst in te vullen via een pop-upvenster en hebben hier gevolg aan gegevens:"
+  the_glossary_term_was_successf: De term voor de woordenlijst is bijgewerkt.
+  the_id_of_provider_hierarchy_you_are_searching: het ID van de hiërarchie van de provider waarin u wilt zoeken. Kijk op %{link} voor geldige ID's
   the_image_from_this_source_has_not_been_reviewed: De afbeelding uit deze bron is niet gecontroleerd.
   the_image_from_this_source_is_not_trusted: De afbeelding uit deze bron wordt niet vertrouwd.
+  the_info_highlighted_is_reviewed: De gegevens die hieronder in rood worden gemarkeerd, zijn gecontroleerd door een conservator en als niet vertrouwd aangemerkt.
+  the_information_highlighted_in: De gegevens die hieronder in geel worden gemarkeerd, zijn nog niet gecontroleerd.
+  the_json_response_for_this_method: Het JSON-antwoord voor deze methode levert meer gegevens dan het XML-antwoord. Het JSON-antwoord bevat een aantal statistieken over deze node en de taxonomische afstammelingen. Er is bijvoorbeeld een veld "total_descendants" waarin het aantal afstammelingen in de hierarcie voor de node is opgenomen. In "total_trusted_text" staat het totaal aantal unieke tekstobjecten dat aan deze pagina of de afstammelingen is gekoppeld.
   the_message_was_sent: Het bericht is verzonden.
   the_new_topic_was_created: Het onderwerp is aangemaakt.
   the_new_user_was_created: De gebruiker is aangemaakt.
+  the_query_string: de zoekstring
+  the_suggested_page_to_direct_users_to_link: de pagina waar gebruikers naar verwezen worden
   the_topic_was_updated: Het onderwerp is bijgewerkt.
   the_user_was_updated: De gebruiker is bijgewerkt.
   the_user_who_performed_this_action_was_removed: De gebruiker die deze handeling heeft uitgevoerd is verwijderd.
+  the_xml_search_response_implements: De XML-zoekrespons implementeert de OpenSearchopmaak die Atom 1.0 gebruikt. Zie %{link} voor de volledige specificatie van OpenSearch
   there_are_currently_no_members_in_this_community: Er zijn momenteel geen leden in deze gemeenschap.
+  there_is_no_singular_eol: Er is niet één enkele taxonomische hiërarchie, maar EOL indexeert veel hiërarchieën en vergelijkt ze met elkaar om uit te vinden welke nodes naar dezelfde taxa verwijzen. Deze taxonelementen stellen deze hiërarchienodes voor. Om deze reden zijn er potentieel meerdere voor een pagina in EOL. Raadpleeg de documentatie voor de  %{link}-API voor meer informatie.
+  this_area_shows_all_submission: In dit gebied worden alle berichten weergegeven die zijn binnengekomen via de contactformulieren. Selecteer een onderwerp of %{link} om berichten te bekijken.
   this_article_cannot_be_curated_because_unpublished: Dit artikel kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_article_is_unpublished: Dit artikel is niet gepubliceerd.
   this_cannot_be_undone_are_you_sure: Dit kan niet ongedaan gemaakt worden. Weet u het zeker?
@@ -3648,18 +3683,25 @@ nl:
   this_community_has_no_endorsed_collections: Deze gemeenschap heeft geen uitgelichte verzamelingen.
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
   this_community_was_deleted: Deze gemeenschap is verwijderd door de eigenaar.
+  this_does_not_necessarily_mean: "* dit betekent niet per se dat de verbindingen worden gebruikt, allen dat ze zijn ingesteld in database.yml. U moet controleren of de masterverbindingen zijn ingesteld in het bestand \"config/environments/%{env}.rb\"."
   this_image_cannot_be_curated_because_unpublished: Deze afbeelding kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_image_is_unpublished: Deze afbeelding is niet gepubliceerd.
   this_image_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_image_map_is_unpublished: Deze kaart is niet gepubliceerd.
   this_is_a_flat_list_of_10_million_strings: Dit is een platte lijst van 10 miljoen tekstdelen. U kunt deze niet bekijken in uw browser
   this_is_a_focus_collection_for_community: Dit is de focus van de gemeenschap %{community}.
+  this_is_the_breakdown_of_chapt: Dit is de verdeling van hoofdstukken, paragrafen en de overeenkomstige Species Profile Model-categorie.
   this_is_the_label_that_will_be_used_for_attribution: Dit is het label dat wordt gebruikt voor naamsvermelding
   this_link_cannot_be_curated_because_unpublished: Deze verwijzing kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_link_is_unpublished: Deze verwijzing is niet gepubliceerd.
   this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_map_is_unpublished: Deze kaart is niet gepubliceerd.
+  this_method_takes_an_integer_or_string: Deze methode gebruikt een integer of string die een unieke identificatie is voor een taxon in de database van een provider en een hierarchy_id dat de provider voorstelt en geeft het pagina-ID van EOL voor dat taxon terug. Met bijvoorbeeld de %{link_provider}-API, is het mogelijk om uit te vinden dat het EOL hierarchy_id voor de the Integrated Taxonomic Information System (ITIS), %{itis_id} is. Daarna is het mogelijk in EOL te zoeken naar het ITIS Taxonomic Serial Number (TSN) van 180542, <i>Ursus maritimus</i>, door %{link_url} aan te roepen
+  this_older_version: Deze oudere versies van de Page API-methode accepteert dezelfde parameters en geeft vrijwel dezelfde gegevens terug. Het JSON-antwoord is vrijwel identiek aan dat voor versie 1.0, maar de XML-antwoord heeft een iets andere structuur.
+  this_page_shows_information_ab: Op deze pagina worden gegevens weergegeven over een specifiek trefwoord en op welke resultaten gebruikers hebben geklikt na deze zoekopdracht.
   this_page_will_be_reindexed: Deze pagina wordt in de achtergrond opnieuw geïndexeerd. Dit kan tot wel 24 uur duren.
+  this_resource_unpublished_notice: Deze bron is op het moment door een beheerder ingesteld als "niet gepubliceerd".
+  this_section_is_used_to_create: Dit onderdeel wordt gebruikt om nieuwsberichten te maken. Nieuwsberichten worden op de startpagina rechts weergegeven en in en %{rss_link} en de %{news_archive}-pagina.
   this_sound_cannot_be_curated_because_unpublished: Dit geluidsbestand kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_sound_is_unpublished: Dit geluid is niet gepubliceerd.
   this_video_cannot_be_curated_because_unpublished: Deze video kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
@@ -3669,6 +3711,11 @@ nl:
   time_ago: "%{time_passed} geleden"
   title: Titel
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
+  to_remedy_this: Om dit te verhelpen sluiten we inactieve gebruikers af en we vragen u op eol.org een nieuwe gebruiker aan te maken. Als u de bevestigingse-mail hebt ontvangen, klik dan op koppeling om uw gebruiker te bevestigen.
+  to_see_all_activity_combinatio: om alle acitiviteitscombinaties te bekijken in een interval van 5 minuten (3-4 minuten).
+  to_send_email_enter_text: Voer hieronder tekst in en klik op "Verzenden" om deze gebruiker een e-mail te sturen.
+  to_submit_a_species_photograph_for: Om een foto voor %{taxon} toe te voegen, kunt u de foto's sturen naar %{flickr_link}  en de aanwijzingen volgen op de startpagina van die groep.
+  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Om tekst op te slaan voor %{taxon} moet u aangemeld zijn bij EOL en dan klikken op
   toc: Inhoudsopgave
   toc_entry_col_header: Inhoudsopgave-item
   toc_no_longer_available: Gegevens voor de inhoudsopgave zijn niet langer beschikbaar
@@ -3677,7 +3724,11 @@ nl:
     other: "Fout: uw conservering kan niet verwerkt worden door het automatische systeem. Er zijn %{count} afstammelingen, meer dan het maximale aantal."
   topic: Onderwerp
   topic_area: Aandachtsgebied
+  topics_avilable_to_contact_us_info: De volgende onderwerpen zijn beschikbaar via de contactpagina. U kunt onderwerpen toevoegen of bewerken en voor ieder onderwerp een e-mailadres instellen. Alle wijzigingen worden onmiddellijk actief.
   total: Totaal
+  total_comments_have_been_submitted: 
+    one: Er is één reactie gegeven in %{string}
+    other: Er zijn %{count} reacties gegeven in %{string}
   total_distinct_searches: "Totaal aantal unieke zoekopdrachten:"
   total_items_with_count: 
     one: "%{count} item"
@@ -3688,9 +3739,11 @@ nl:
   translation_log: Frequentiehistogram voor i18n-sleutels
   translation_saved: De vertaling is opgeslagen
   translations_submit: Vertaling bekijken
+  trigger_search_term_entered_by: triggerzoekterm ingevoerd door de gebruiker
   true_label: Waar
   truncated_comment_omission: ... <a href='%{link}'>meer</a>
   truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: ... <a href='%{link}'>meer</a>
   trusted: Vertrouwd
   trusted_images: Vertrouwde afbeeldingen
   trusted_maps: Vertrouwde kaarten
@@ -3698,7 +3751,9 @@ nl:
   tumblr: Tumblr
   twitter: Twitter
   type: Type
+  unable_to_copy_items_to_collection_error: Het is helaas niet mogelijk de verzamelingsitems te kopiëren naar %{name}.
   unable_to_determine_title: Het was niet mogelijk de naam van deze webpagina te bepalen
+  unable_to_invite_users_to_community_error: De uitnodiging kon niet verzonden worden naar %{users}.
   unique_page_views_th: Unieke bekeken pagina's
   unknown: Onbekend
   unknown_data_object_title: Onbekend dataobject
@@ -3735,8 +3790,15 @@ nl:
   us_dollars_50: USD 50
   use_as_examplar_button: als voorbeeld instellen
   use_as_examplar_note_preferred: "Let op: dit is de voorkeursclassificatie. Deze wilt u waarschijnlijk gebruiken."
+  used_for_friendly_url_note: (gebruikt om vriendelijk ogende koppelingen te genereren voor gebruikers, kan geen spaties of speciale tekens bevatten)
+  used_for_urls_note: gebruikt voor URL's - moet uniek zijn (behalve voor vertaalde pagina's. Als niet, dan moeten URL's naar pagina een pagina-ID gebruiken
   user: Gebruiker
+  user_activation_failed_resent_validation_email_error: Er is helaas een fout opgetreden. Uw gebruiker kon niet bevestigd worden. Dit gebeurt meestal als de bevestigingskoppeling die u hebt ingevoerd of geselecteerd niet wordt herkend. Instructies voor het bevestigen van uw gebruiker zijn opnieuw verzonden naar het e-mailadres dat u hebt opgegeven tijdens de registratie van uw gebruiker. Zorg er alstublieft voor dat de bevestigingskoppeling overeenkomt met de koppeling die in de e-mail staat.
+  user_activation_failed_user_not_found_error: Er is helaas een fout opgetreden. De gebruiker die u wilt bevestigen komt niet voor in ons systeem. Zorg er alstublieft voor dat de bevestigingskoppeling overeenkomt met de koppeling die in de e-mail staat die u hebt ontvangen na het registreren.
+  user_activation_successful_notice: Welkom en bedankt voor het versterken van het team van Encyclopedia of Life. Uw gebruiker met de naam <em>%{username}</em> is nu actief. Meld u nu aan.
+  user_activity_click_on_the_numbers: Klik op de getallen om de bijbehorende activiteitsoverzichten te bekijken.
   user_activity_page_title: Gebruikersactiviteit
+  user_activity_report_intro: Rapportage gebruikersactiviteit. Selecteer een gebruiker om de activiteit van die gebruiker te bekijken, gesorteerd op tijd, de meest recente activiteit bovenaan. Klik daarna op "Zoeken" om door te gaan. Gebruik de knop "Terug" in uw browser om terug te gaan naar deze pagina.
   user_activity_stats_articles_added: 
     one: één artikel toegevoegd
     other: "%{count} artikelen toegevoegd"
@@ -3783,20 +3845,34 @@ nl:
   user_agent: Gebruikersagent
   user_already_active_notice: Uw gebruiker is al actief. Meld u aan.
   user_comment: Opmerking van gebruiker
+  user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> heeft gereageerd op de pagina van een gebruiker die is verwijderd:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> heeft gereageerd op een oudere versie van %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> heeft gereageerd op \"%{what}\":"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> heeft gereageerd op het <a href='%{link}'>nieuwsoverzicht van %{username}</a>:"
+  user_commented_on_your_image: "<strong>%{user}</strong> heeft gereageerd op jouw afbeelding op de <a href='%{data_object_link}'>site Encyclopedia of Life</a>:\n%{comment_body}"
   user_comments: Opmerkingen van gebruikers
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Gebruikers-ID
+  user_index_intro: Hieronder worden alle geregistreerde webgebruikers weergegeven, de meeste recente registratie bovenaan. Registratiedatums voor gebruikers voor EOL V2 (5 januari 2009) zijn niet beschikbaar. Klik op een gebruikersnaam om een gebruiker te bewerken.
+  user_joined_community_on_date: "%{username} is lid geworden van deze gemeenschap op %{date}."
   user_joined_when: "\"%{user}\" is lid geworden op %{when}"
   user_left_comment_on_date: "%{username} heeft gereageerd op %{date}."
   user_no_longer_active_message: Deze gebruiker is niet langer actief
   user_no_longer_has_manager_access_to_collection: "\"%{user}\" heeft niet langer beheertoegang tot \"%{collection}\"."
   user_pending_notifications_assitive: <span class="assistive">meldingen</span>
+  user_pending_notifications_comments_assistive: <span class="assistive">reacties</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: één <span class="assistive">reactie</span>
+    other: "%{count} <span class=\"assistive\">reacties</span>"
+  user_pending_notifications_with_count_assitive: 
+    one: één <span class="assistive">melding</span>
+    other: "%{count} <span class=\"assistive\">meldingen</span>"
   user_response: Antwoord van de gebruiker
   user_says_colon: "%{users_name} schrijft:"
   user_submitted_text: Door gebruikers toegevoegde tekst
   user_submitted_text_found: "Door gebruikers toegevoegde tekst gevonden:"
   user_system_down: Onze excuses, maar het gebruikersregistratiesysteem is momenteel niet beschikbaar. Probeer het later opnieuw.
+  user_was_added_as_editor_of_collection: Deze gebruiker is toegevoegd als een beheerder van "%{collection}".
   username: Gebruikersnaam
   username_colon: "Gebruikersnaam:"
   username_taken: "%{name} wordt al gebruikt"
@@ -3957,6 +4033,10 @@ nl:
       unsubscribed_notifications_successfully: Uw abonnementen op meldingen zijn opgezegd.
   users_about_me_header: Over mij
   users_content_partners_header: Contentpartners
+  users_content_partners_information: Contentpartners van EOL zijn individuen of organisaties die hun gegevens over biodiversiteit met de wereld delen via EOL. Lees meer over <a href="%{more_url}">Contentpartners van EOL</a>.
+  users_content_partners_with_count: 
+    one: één huidige contentpartner
+    other: "%{count} huidige contentpartners"
   users_curation_header: Conservatorkwalificaties
   users_form_account_header: Uw gebruiker
   users_form_curation_header: Conservatorkwalificaties
@@ -3975,6 +4055,7 @@ nl:
   value_empty: (leeg)
   values: Waarden
   version_1_0_uses_fields_from_the_latest_version: versie 1.0 gebruikt velden van de laatste versie van het %{link}-schema
+  versions_colon: "Versies:"
   vetted: Doorgelicht
   video_alt_text: "Deze video hoort bij %{taxon_name} (status: %{vetted_status})"
   video_from: video van
@@ -4017,6 +4098,7 @@ nl:
   visitors: Bezoekers
   vivisimo: Vivisimo
   wants_colon: "Wil:"
+  warning_you_are_editing_as_admin: "Waarschuwing: u kunt deze pagina bewerken omdat u beheerder bent."
   watch_list: Volglijst
   watch_list_newsfeed: Nieuwsfeedlijst bekijken
   web_service_base_url: Webservicebasis-URL
@@ -4029,14 +4111,22 @@ nl:
   what_is_eol: Wat is EOL?
   what_is_this_question: Wat is dit?
   who_registered_before: aan
-  who_registered_from: wie geregistreerd is uit
+  who_registered_from: geregistreerd van
   wikipedia_queue_create_successful_notice: Wikipedia-artikel %{article} verzie %{rev} wordt binnenkort geïmporteerd.
   wikipedia_queue_create_unsuccessful_error: Er is een fout opgetreden. De Wikipediapagina is niet in de wachtrij van te importeren pagina's opgenomen.<br />. De versie-URL moet overeenkomen met het patroon "http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*".
+  wikipedia_queue_new_instructions_intro: "Om de versie-URL van een artikel in Wikipedia te vinden:"
+  wikipedia_queue_new_instructions_step_four: "Kopieer de URL van de versie uit de adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel=\"nofollow\" href=\"http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
+  wikipedia_queue_new_instructions_step_one: Ga naar de pagina op Wikipedia, bijvoorbeeld <a rel="nofollow" href="http://en.wikipedia.org/wiki/Giraffe">http://en.wikipedia.org/wiki/Giraffe</a>.
+  wikipedia_queue_new_instructions_step_three: In de adresbalk van uw browser kunt u nu de URL van de huidige versie van de pagina zien. Bovenaan de pagina kunt u navigeren naar eerdere versie van de pagina.
+  wikipedia_queue_new_instructions_step_two: Klik in de zijbalk in het menu "Hulpmiddelen" op "Permanente verwijzing".
+  wikipedia_queue_new_intro: Geef een versie van een artikel in Wikipedia op dat opgenomen kan worden in EOL als een gecontroleerd tekstobject.
   wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
+  will_find_taxon_pages_matching_the_search_term: vindt taxonpagina's als de voorkeursnaam, een synoniem of gewone naam precies overeen komt met de zoekterm
   will_paginate: 
     next_label: Volgende &#8594;
     previous_label: "&#8592; Vorige"
   worklist: Werklijst
+  would_you_like_to_become_a_curator_notice: Wilt u conservator worden? U kunt toegang vragen op <a href='%{url}'>uw profielpagina</a>.
   xml_response: XML-antwoord
   yahoo: Yahoo
   yahoo_images: Yahoo Afbeeldingen
@@ -4044,12 +4134,17 @@ nl:
   yes_answer: Ja
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "U bent beheerder en daarom wordt hieronder de foutmelding weergegeven:"
   you_are_not_authorized_to_perform_this_action: U mag deze handeling niet uitvoeren.
+  you_are_viewing_this_rank_as_classified_by: "U bekijkt deze %{rank} als ingedeeld door:"
   you_can_edit_those_later_if_ne: U kunt ze later bewerken als u dat wilt.
+  you_can_identify_yourself_to_eol: "U kunt zichzelf bij EOL identificeren door uw API-sleutel toe te voegen aan verzoeken (meld u aan en maak uw sleutel aan in de pagina voor voorkeuren):"
   you_have_been_logged_in_as_username: U bent aangemeld als %{username}
   you_have_been_logged_out: U bent afgemeld.
   you_joined_community: U lid bent geworden van deze gemeenschap.
   you_left_community: U hebt deze gemeenschap verlaten.
+  you_may_upload_static_files_fo: Hier kunt u statische bestanden voor gebruiker in het CMS uploaden, zoals PDF's, Worddocumenten, afbeeldingen, enzovoort. Gebruik deze functie niet om te uploaden voor soortenpagina's. Deze functie is alleen voor niet-soortenpagina's, zoals vacatures, nieuwsbrieven, enzovoort. Voor PDF's, zoals samenwerkingsovereenkomsten en nieuwsbriefbestanden, kunt u verwijzen naar de "vriendelijke URL" als u wilt. De vriendelijke URL verwijst automatisch door naar de "URL voor de volledige inhoud". De "URL voor de volledige inhoud" kan iedere keer dat u de pagina ververst van een andere contentserver komen, bijvoorbeeld "content2.eol.org", "content3.eol.org", enzovoort. Dit is normaal en alle URL's kunnen gebruikt worden als u verwijzing maakt.
+  you_must_be_comfortable: U moet overweg kunnen met HTML als u hyperlinks wilt maken of tekst wilt opmaken.
   you_removed_the_member_from_the_community: Dit lid is uit de gemeenschap verwijderd.
+  your_browser_does_not_support: Uw browser ondersteunt geen HTML5 video.
   your_current_rating_0_of_5: "Uw huidige beoordeling: 0 van 5"
   your_current_rating_1_of_5: "Uw huidige waardering: 1 van 5"
   your_current_rating_2_of_5: "Uw huidige waardering: 2 van 5"

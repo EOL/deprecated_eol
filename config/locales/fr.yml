@@ -576,10 +576,13 @@ fr:
         user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu dans une langue inconnue.
         user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu dans une langue inconnue depuis "%{taxon}".
         user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu en %{language} depuis une page inconnue.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu en %{language}.
         user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> a marqué comme fiable un nom commun inconnu en %{language} depuis "%{taxon}".
         user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" dans une langue inconnue depuis une page inconnue.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" dans une langue inconnue.
         user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" dans une langue inconnue depuis "%{taxon}".
         user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" en  %{language} depuis une page inconnue.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" en %{language}.
         user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> a marqué comme fiable le nom commun "%{name}" en %{language} depuis "%{taxon}".
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme fiable dans un contexte inconnu.
@@ -598,6 +601,31 @@ fr:
         user_trusted_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme fiable sur la page "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme fiable dans un contexte inconnu.
         user_trusted_it_on_association: <strong>%{user}</strong> l'a marqué comme fiable sur la page "%{association}".
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non relu un nom commun inconnu dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Un utilisateur inconnu a marqué comme non relu un nom commun inconnu dans une langue inconnue.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Un utilisateur inconnu a marqué comme relu un nom commun inconnu dans une langue inconnue depuis "%{taxon}".
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non relu un nom commun inconnu en %{language} depuis une page inconnue.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Un utilisateur inconnu a marqué comme non relu un nom commun inconnu en %{language}.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Un utilisateur inconnu a marqué comme non relu un nom commun inconnu en %{language} depuis "%{taxon}".
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non relu le nom commun "%{name}" dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Un utilisateur inconnu a marqué comme non relu le nom commun "%{name}" dans une langue inconnue.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Un utilisateur inconnu a marqué comme non relu le nom commun "%{name}" dans une langue inconnue depuis "%{taxon}".
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non relu le nom commun "%{name}" en %{language} depuis une page inconnue.
+        an_unknown_user_unreviewed_name_in_language_on_it: Un utilisateur inconnu a marqué comme non relu le nom commun "%{name}" en %{language}.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Un utilisateur inconnu a marqué comme non relu le nom commun "%{name}" en %{language} depuis "%{taxon}".
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme non relu un nom commun inconnu dans une langue inconnue depuis une page inconnue.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> a marqué comme non relu un nom commun inconnu dans une langue inconnue.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> a marqué comme non relu un nom commun inconnu dans une langue inconnue depuis "%{taxon}".
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme non relu un nom commun inconnu en %{language} depuis une page inconnue.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> a marqué comme non relu un nom commun inconnu en %{language}.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> a marqué comme non relu un nom commun inconnu en %{language} depuis "%{taxon}".
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme non relu le nom commun "%{name}" dans une langue inconnue depuis une page inconnue.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> a marqué comme non relu le nom commun "%{name}" dans une langue inconnue.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> a marqué comme non relu le nom commun "%{name}" dans une langue inconnue depuis "%{taxon}".
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme non relu le nom commun "%{name}" en  %{language} depuis une page inconnue.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> a marqué comme non relu le nom commun "%{name}" en %{language}.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> a marqué comme non relu le nom commun "%{name}" en %{language} depuis "%{taxon}".
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme non relue dans un contexte inconnu.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme non relue sur la page "%{association}".
@@ -615,6 +643,31 @@ fr:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme non relu sur la page "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme non relu dans un contexte inconnu.
         user_unreviewed_it_on_association: <strong>%{user}</strong> l'a marqué comme non relu sur la page "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non fiable un nom commun inconnu dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Un utilisateur inconnu a marqué comme non fiable un nom commun inconnu dans une langue inconnue.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Un utilisateur inconnu a marqué comme non fiable un nom commun inconnu dans une langue inconnue depuis "%{taxon}".
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non fiable un nom commun inconnu en %{language} depuis une page inconnue.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Un utilisateur inconnu a marqué comme non fiable un nom commun inconnu en %{language}.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Un utilisateur inconnu a marqué comme non fiable un nom commun inconnu en %{language} depuis "%{taxon}".
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non fiable le nom commun "%{name}" dans une langue inconnue depuis une page inconnue.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Un utilisateur inconnu a marqué comme non fiable le nom commun "%{name}" dans une langue inconnue.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Un utilisateur inconnu a marqué comme non fiable le nom commun "%{name}" dans une langue inconnue depuis "%{taxon}".
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non fiable le nom commun "%{name}" en %{language} depuis une page inconnue.
+        an_unknown_user_untrusted_name_in_language_on_it: Un utilisateur inconnu a marqué comme non fiable le nom commun "%{name}" en %{language}.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Un utilisateur inconnu a marqué comme non fiable le nom commun "%{name}" en %{language} depuis "%{taxon}".
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme non fiable un nom commun inconnu dans une langue inconnue depuis une page inconnue.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> a marqué comme non fiable un nom commun inconnu dans une langue inconnue.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> a marqué comme non fiable un nom commun inconnu dans une langue inconnue depuis "%{taxon}".
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme non fiable un nom commun inconnu en %{language} depuis une page inconnue.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> a marqué comme non fiable un nom commun inconnu en %{language}.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> a marqué comme non fiable un nom commun inconnu en %{language} depuis "%{taxon}".
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme non fiable le nom commun "%{name}" dans une langue inconnue depuis une page inconnue.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> a marqué comme non fiable le nom commun "%{name}" dans une langue inconnue.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> a marqué comme non fiable le nom commun "%{name}" dans une langue inconnue depuis "%{taxon}".
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme non fiable le nom commun "%{name}" en  %{language} depuis une page inconnue.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> a marqué comme non fiable le nom commun "%{name}" en %{language}.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> a marqué comme non fiable le nom commun "%{name}" en %{language} depuis "%{taxon}".
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme non fiable dans un contexte inconnu.
         an_unknown_user_untrusted_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme non fiable sur la page "%{association}".

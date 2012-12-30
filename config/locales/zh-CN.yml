@@ -50,6 +50,10 @@ zh-CN:
         description: 社区描述
         logo: 上传一个logo
         name: 社区名称
+      contact: 
+        comments: 信息
+        email: 电邮地址
+        name: 姓名
       content_page: 
         active: 已发布
         page_name: 唯一的名字
@@ -128,7 +132,7 @@ zh-CN:
         pages_with_image: 有图像的页面
         pages_with_image_no_text: 有图像但是没有文字描述的页面
         pages_with_map: 有地图的页面
-        pages_with_score_10_to_39: 评分在10-39的页面
+        pages_with_score_10_to_39: 评分在10-40的页面
         pages_with_score_less_than_10: 评分低于10的页面
         pages_with_sound: 有声音的页面
         pages_with_text: 有文字描述的页面
@@ -157,6 +161,10 @@ zh-CN:
         request_publish: 请求发布
       name: 
         string: 名称
+      news_item: 
+        active: 已出版
+        page_name: 独特名称
+        sort_order: 排序顺序
       notification: 
         changes_to_my_watched_collection: 您关注列表中的收藏更新
         changes_to_my_watched_community: 您关注列表中的社区更新
@@ -208,6 +216,10 @@ zh-CN:
         main_content: 内容页主体
         meta_description: 元数据描述
         meta_keywords: 元数据关键词
+        title: 标题
+      translated_news_item: 
+        active_translation: 已出版
+        body: 正文
         title: 标题
       user: 
         agreed_with_terms: 使用协议条款
@@ -624,6 +636,11 @@ zh-CN:
   admin_user_delete_successful_notice: 用户已删除
   admin_user_hide_successful_notice: 用户已隐藏
   admin_user_unhide_successful_notice: 用户已显示
+  admins: 
+    eol_statistics: 
+      index: 
+        menu_link: 全体统计
+        page_header: 全体统计
   agent: 代理
   all: 所有
   all_apis_return_by_default_an_xml_response: 所有API默认返回XML的响应。调用API方法时，有无扩展名都可获得一致的响应：
@@ -1227,6 +1244,61 @@ zh-CN:
   data_usage_reports: 数据使用报告
   date_caps: 日期
   date_uploaded: 上传日期
+  datepicker: 
+    close: 关闭
+    current: 今天
+    day_names: 
+      - 星期日
+      - 星期一
+      - 星期二
+      - 星期三
+      - 星期四
+      - 星期五
+      - 星期六
+    day_names_min: 
+      - 星期日
+      - 星期一
+      - 星期二
+      - 星期三
+      - 星期四
+      - 星期五
+      - 星期六
+    day_names_short: 
+      - 星期日
+      - 星期一
+      - 星期二
+      - 星期三
+      - 星期四
+      - 星期五
+      - 星期六
+    month_names: 
+      - 一月
+      - 二月
+      - 三月
+      - 四月
+      - 五月
+      - 六月
+      - 七月
+      - 八月
+      - 九月
+      - 十月
+      - 十一月
+      - 十二月
+    month_names_short: 
+      - 一月
+      - 二月
+      - 三月
+      - 四月
+      - 五月
+      - 六月
+      - 七月
+      - 八月
+      - 九月
+      - 十月
+      - 十一月
+      - 十二月
+    next: 下一页
+    previous: 上一页
   dato_create_cancel: 取消
   dato_create_user_text_error: 抱歉，发生了一个错误，此文章不能被添加。
   dato_create_user_text_missing_taxon_id_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
@@ -1337,6 +1409,25 @@ zh-CN:
   eol_glossary: EOL术语表
   eol_news: EOL新闻
   eol_pages: 页面
+  eol_statistics: 
+    content_partners: 
+      page_title: 统计
+    curators: 
+      page_title: 统计
+    data_objects: 
+      page_title: 统计
+    index: 
+      menu_link: 全体统计
+      page_header: 全体统计
+      page_title: 统计
+    lifedesks: 
+      page_title: 统计
+    marine: 
+      page_title: 统计
+    page_richness: 
+      page_title: 统计
+    users_data_objects: 
+      page_title: 统计
   error_401_description: 抱歉，您没有权限访问这个URL。
   error_401_page_title: 未授权
   error_403_description: 抱歉，您没有权限访问这个URL。
@@ -1502,6 +1593,11 @@ zh-CN:
         sort_field_show: 对值进行排序：
       comment: 
         body_edit: 编辑评论
+      contact: 
+        comments: 您的信息
+        contact_subject_id: 主题
+        email: 您的电邮地址
+        name: 您的姓名
       content_page: 
         active: 已发布
         active_more: 已发布的网页将公开可见。如果要防止一般用户查看此页的任何一种语言版本，取消选中<em>已发布</em>。
@@ -1543,7 +1639,14 @@ zh-CN:
         rights_statement_more: 根据知识共享署名协议(CC-By)的版权使用说明，请<q cite=http://creativecommons.org/licenses/by/3.0>按照作者或版权所有者指定的规则</q>声明版权归属。
         source_url: 原始数据对象的链接
         toc_item: 子章节
+      data_object_link: 
+        description: 描述<small>（允许一些HTML标记）</small>
+        link_type: 类别
+        source_url: 链接网址：
+        toc_item: 主题
       eol_statistic: 
+        date_one: 日期
+        date_two: 日期
         download_all: 所有 <small>(包括所有页面的记录)</small>
       google_analytics_partner_summaries: 
         page_views: 页面访问量 <small>(页面浏览次数)</small>
@@ -1565,6 +1668,8 @@ zh-CN:
         complete_more: "已审核的分类树假定每一个分类节点都是唯一的，例如：名称字符串相同的物种会被认为是异物同名。<strong>警告: 请不要更改这个属性，除非您已确认分类树中的异物同名状态，这么做会破坏数据的完整性。</strong>"
         request_publish: 已请求发布
         request_publish_more: 表明是否有待定的请求，申请将此分类树设置为EOL中的可浏览的基本分类系统。
+      news_item: 
+        active: 已出版
       open_authentication: 
         connect: 添加
         connected: 已连接
@@ -1600,6 +1705,9 @@ zh-CN:
         meta_description_more: 提供一个简短的描述，用以概括本页内容的关键概念。该描述有时会被搜索引擎用于检查相关性和直接列于搜索结果中。
         meta_keywords_more: 输入能最好反应该页内容的关键词或者短语，以逗号间隔。搜索引擎有时候使用这些关键词和短语来评估页面与搜素条目的相关性。
         title_more: 内容的标题会显示在页面的标题区域。标题应该包括一些与内容最相关的关键词。
+      translated_news_item: 
+        active_translation: 已出版
+        language_id: 语言
       user: 
         agreed_with_terms: "\"我同意<a href=\"\"%{terms_url}\"\">使用条款</a>\""
         api_key_more: "\"查看更多<a href=\"\"%{api_docs_url}\"\">给API调用添加密钥</a>的详细信息。\""
@@ -1645,6 +1753,8 @@ zh-CN:
       cancel: 取消
       collection_item: 
         update: 保存
+      contact: 
+        new: 发送反馈
       content_page: 
         create: 创建页面
         edit: 编辑
@@ -1666,7 +1776,11 @@ zh-CN:
         create: 添加文章
         create_text: 添加文章
         update: 保存文章
+      data_object_link: 
+        create: 添加链接
+        update: 保存链接
       eol_statistic: 
+        change_date: 获取日期的统计信息
         download_csv: 以CSV格式下载
       filter_sort: 筛选和排序
       harvest_event: 
@@ -1677,6 +1791,10 @@ zh-CN:
       name: 
         create: 添加名称
         update: 更新名称
+      news_item: 
+        edit: 编辑
+        preview: 预览
+        update: 更新新闻项目
       open_authentication: 
         create: 连接
         destroy: 断线
@@ -1694,6 +1812,9 @@ zh-CN:
         sign_in_with_yahoo: 使用雅虎帐号登录
       submit: 保存%{model}
       translated_content_page: 
+        create: 添加翻译
+        update: 保存对翻译的更改
+      translated_news_item: 
         create: 添加翻译
         update: 保存对翻译的更改
       update: 更新%{model}
@@ -1825,6 +1946,18 @@ zh-CN:
   languages: 语言
   last_updated: 最后更新
   last_updated_time_ago: 最后一次更新于%{time_passed}之前
+  layouts: 
+    v2: 
+      application: 
+        about_link_contact_us: 联络我们
+        about_link_help: 帮助
+        about_link_statistics: 统计
+        about_link_what_is_eol: 什么是 EOL ？
+        header_about: 关于 EOL
+        header_learn_more: 了解更多关于
+        header_questions: 了解更多
+        learn_more_link_animals: 动物
+        learn_more_link_birds: 鸟类
   learn_about_collections: 如何创建一个收藏？
   learn_about_communities: 如何参与到社区活动？
   learn_about_content_partners: 如何成为内容合作伙伴？

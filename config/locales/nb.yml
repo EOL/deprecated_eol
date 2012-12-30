@@ -308,6 +308,13 @@ nb:
         user_of_an_unknown_collection: <strong>%{user}</strong> ble lagt til som administrator av en ukjent samling.
         user_of_collection: <strong>%{user}</strong> ble lagt til som administrator av samlingen "%{collection}".
         user_of_it: <strong>%{user}</strong> ble lagt til som administrator.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: En ukjent bruker har lagt til flere objekter på en gang til en ukjent samling.
+        an_unknown_user_added_bulk_items_to_collection: En ukjent bruker har lagt til flere objekter på en gang til samlingen "%{collection}".
+        an_unknown_user_added_bulk_items_to_it: En ukjent bruker har lagt til flere objekter på en gang.
+        user_added_bulk_items_to_an_unknown_collection: Brukeren %{user} har lagt til flere objekter på en gang til en ukjent samling.
+        user_added_bulk_items_to_collection: Brukeren %{user} har lagt til flere objekter på en gang til samlingen "%{collection}".
+        user_of_it: <strong>%{user}</strong> har lagt til flere elementer på en gang.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En ukjent bruker har lagt et ukjent objekt til en ukjent samling.
         an_unknown_user_added_an_unknown_item_to_collection: En ukjent bruker har lagt et ukjent objekt til samlingen "%{collection}".
@@ -361,7 +368,10 @@ nb:
         an_unknown_user_added_an_unknown_manager_to_community: En ukjent bruker har lagt til en ukjent administrator til brukersamfunnet "%{community}".
         an_unknown_user_added_manager_to_an_unknown_community: En ukjent bruker har lagt til "%{manager}" som administrator av et ukjent brukersamfunn.
         an_unknown_user_added_manager_to_community: En ukjent bruker har lagt til "%{manager} som administrator av brukersamfunnet "%{community}".
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> har lagt til en ukjent administrator til et ukjent brukersamfunn.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> har lagt til en ukjent administrator til brukersamfunnet "%{community}".
         user_added_manager_to_an_unknown_community: <strong>%{user}</strong> har lagt til "%{manager}" til et ukjent brukersamfunn.
+        user_added_manager_to_community: <strong>%{user}</strong> har lagt til "%{manager} som administrator av brukersamfunnet "%{community}".
       change_description: 
         an_unknown_user_changed_the_description_of_an_unknown_community: En ukjent bruker har endret beskrivelsen av et ukjent brukersamfunn.
         an_unknown_user_changed_the_description_of_community: En ukjent bruker har endret beskrivelsen av brukersamfunnet "%{community}".
@@ -401,12 +411,24 @@ nb:
       reasons_to_hide: "Grunnlag for skjuling: %{reasons}"
       reasons_to_untrust: "Grunnlag for uklarering: %{reasons}"
       trusted: 
-        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som klarert i en ukjent kontekst.
-        an_unknown_user_trusted_it_on_an_unknown_association: En ukjent bruker har markert den som klarert i en ukjent kontekst.
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som klarert i en ukjent sammenheng.
+        an_unknown_user_trusted_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som klarert på "%{association}"-siden.
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: En ukjent bruker har markert et ukjent dataobjekt som klarert i en ukjent sammenheng.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: En ukjent bruker har markert et ukjent dataobjekt som klarert på "%{association}"-siden.
+        an_unknown_user_trusted_data_object_on_an_unknown_association: En ukjent bruker har markert "%{data_object}" som klarert i en ukjent sammenheng.
+        an_unknown_user_trusted_data_object_on_association: En ukjent bruker har markert "%{data_object}" som klarert på "%{association}"-siden.
+        an_unknown_user_trusted_it_on_an_unknown_association: En ukjent bruker har markert den som klarert i en ukjent sammenheng.
         an_unknown_user_trusted_it_on_association: En ukjent bruker har markert den som klarert på "%{association}"-siden.
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som klarert i en ukjent sammenheng.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som klarert på "%{association}"-siden.
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som klarert i en ukjent sammenheng.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som klarert på "%{association}"-siden.
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert "%{data_object}" som klarert i en ukjent sammenheng.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som klarert på "%{association}"-siden.
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> har markert det som klarert i en ukjent sammenheng.
         user_trusted_it_on_association: <strong>%{user}</strong> har markert den som klarert på "%{association}"-siden.
       untrusted: 
-        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uklarert i en ukjent kontekst.
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uklarert i en ukjent sammenheng.
   add: Legg til
   add_a_comment: Legg til en kommentar.
   add_a_comment_colon: "Legg til en kommentar:"
@@ -471,8 +493,11 @@ nb:
       page_richness: 
         menu_link: Innholdsrike sider
         page_header: Statistikker for innholdsrike sider
+        page_title: "Administrering: Statistikker for innholdsrike sider"
       users_data_objects: 
         menu_link: Bruker-sendt tekst
+        page_header: Statistikker for bruker-sendt tekst
+        page_title: "Administrering: Statistikker for bruker-sendt tekst"
   all: alle
   all_articles: Alle artikler
   all_changes: Alle endringer
@@ -617,6 +642,7 @@ nb:
         taxa_observed: 
           one: "%{count} takson observert"
           other: "%{count} taksa observert"
+        top_contributors: Topp iNaturalist bidragsytere
         tweet_text: "%{collection_name} iNaturalist-observasjoner"
         view_all_observations_on_inaturalist: Se alle observasjoner fra  %{project_title} på iNaturalist
         view_more_observations_on_inaturalist: Se flere observasjoner fra  %{project_title} på iNaturalist
@@ -629,6 +655,7 @@ nb:
         tweet_text: "%{collection_name}-nyheter"
     show: 
       meta_description_default: En Encyclopedia of Life-samling med navnet %{collection_name}.
+      meta_description_default_focus_collection: En Encyclopedia of Life-fokussamling med navnet %{collection_name}.
       meta_description_default_watch_collection: "En Encyclopedia of Life-overvåkningsliste: %{collection_name}."
       meta_keywords: "%{collection_name}, Encyclopedia of Life-samling"
   collections_filter: Samlinger
@@ -661,6 +688,9 @@ nb:
         meta_keywords: "%{community_name}-samlinger"
         meta_title: "%{community_name}-samlinger"
         tweet_text: "%{community_name}-samlinger"
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, Encyclopedia of Life-brukersamfunn, %{community_name}-nyhetsfeed, %{community_name}-kommentarer, %{community_name}-aktivitet"
     show: 
       meta_description: Encyclopedia of Life-brukersamfunnet %{community_name} har blitt slettet av eieren
       meta_title: "%{community_name} Slettet av eier"
@@ -712,10 +742,13 @@ nb:
       message_not_sent: Beklager, det oppstod en feil, meldingen din ble ikke sendt.
     new: 
       page_title: Vennligst skriv inn din tilbakemelding.
+    notices: 
+      message_sent: Takk for din tilbakemelding, din melding har blitt sendt til riktig gruppe.
   containing_value: inneholder %{value}.
   content: 
     index: 
       header_news: EOL-nyheter
+      meta_description: Encyclopedia of Life er en unik innsats for å samle vitenskapelig kunnskap om alt dyre- og planteliv der bilder, informasjon, fakta og mer er tilgjengelig for alt som lever i våre plante- og dyreriker.
       meta_keywords: Dyr, Dyrebilder, Dyreinformasjon, Planter, Plantelivet, Plantebilder, Planteinformasjon, Flora, Fauna
       meta_title: Dyr - Planter - Bilder & Informasjon
       see_all_eol_news: se mer <span class="assistive">EOL-nyheter</span>
@@ -737,7 +770,7 @@ nb:
   content_partner_contact_edit_link: Rediger kontakt
   content_partner_contact_edit_page_subheader: Rediger kontakt
   content_partner_contact_new_edit_form_header: Kontaktinformasjon for innholdspartner
-  content_partner_contact_new_edit_form_tip: Fornavn, etternavn og e-post er %{required_icon} påbudt.
+  content_partner_contact_new_edit_form_tip: Fornavn, etternavn og e-post er %{required_icon} påkrevd.
   content_partner_contact_new_link: Legg til ny kontakt
   content_partner_contact_new_page_subheader: Legg til kontakt
   content_partner_contact_update_successful_notice: Kontakten ble oppdatert.
@@ -1131,6 +1164,7 @@ nb:
   external_link_icon_alt_text: Ekstern lenke.
   external_report_click_url_to_proceed: Eksternt rapport. Klikk URLen for å fortsette.
   facebook: Facebook
+  faculty_staff_or_grad_student_credential_option: status som fakultet, ansatt eller masterstudent eller høyere i en aktuell avdeling på et universitet eller en høgskole
   false_label: Usant
   family_name_colon: "Familienavn:"
   feedback: Tilbakemelding
@@ -1246,7 +1280,7 @@ nb:
       content_partner_contact: 
         email_reports_frequency_hours_more: E-postrapporter blir sendt kun hvis det er kommentarer eller kuratorhandlinger angående dine data eller taksonsider relevante for ditt datasett.
       data_object: 
-        bibliographic_citation: Bibliografisk sitat
+        bibliographic_citation: Bibliografisk sitering
         bibliographic_citation_more: En anbefalt sitering for denne informasjonen i form av en bibliografisk referanse, få med tilstrekkelig detaljnivå for å identifisere informasjonen så utvetydig som mulig.
         description: Tekst <small>(noen HTML-koder er tillatt)</small>
         license_id: Lisens
@@ -1342,6 +1376,7 @@ nb:
         bio: Om meg
         credentials: Akkrediteringer
         credentials_more: "Vennligst oppgi minst en spesifik akkreditering fra denne listen:"
+        credentials_more_academic: Status som fakultet, ansatt eller masterstudent eller høyere i en aktuell avdeling på et universitet eller en høgskole.
         credentials_more_author: Forfatterskap av en fagfellevurdert publikasjon (oppgi referanse).
         credentials_more_professional: Medlem i et professionelt fellesskap.
         credentials_more_referral: Henvisning fra nåværende kurator.
@@ -1773,6 +1808,12 @@ nb:
   notifications_tab_name: Varslinger
   notifier: 
     activity_log_empty: Ingen nylige handlinger av kuratorer.
+    activity_on_content_partner_content: 
+      message: "Dette er en automatisk e-post fra Encyclopedia of Life (EOL) med et sammendrag av de siste kommentarer og kuratoriske handlinger på innhold levert til EOL av innholdspartner %{partner_full_name} (%{partner_profile_url}). Du får dette sammendraget fordi du er registrert som kontaktperson for %{partner_full_name}.\n\nHvis du har spørsmål eller trenger hjelp å få tilgang til EOL-medlemskontoen din, vennligst kontakt %{species_pages_group_email}.\n\n\nKuratoriske handlinger:\n%{curator_activity_log}\n\nKommentarer på dataobjekter:\n%{data_object_comments}\n\nKommentarer på sider knyttet til dine dataene:\n%{page_comments}"
+      subject: Sammendrag av nylig aktivitet på innhold levert til Encyclopedia of Life av innholdspartner %{partner_full_name}
+    activity_on_user_content: 
+      message: "Dette er en automatisk e-post fra Encyclopedia of Life (EOL) med et sammendrag av de siste kommentarene og kuratoriske handlinger på innhold som du har lagt til EOL gjennom din medlemskonto med brukernavn %{members_username}.\n\nHvis du har spørsmål eller trenger hjelp å få tilgang til EOL-medlemskontoen din, vennligst kontakt %{species_pages_group_email}.\n\nKuratoriske handlinger:\n%{curator_activity_log}\n\nKommentarer på dataobjekter:\n%{data_object_comments}\n\nKommentarer på sider knyttet til dine dataene:\n%{page_comments}"
+      subject: Sammendrag av nylig aktivitet på innhold som du har lagt til på Encyclopedia of Life
     activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) la til tilknytningen:\n%{taxon_name} (%{taxon_url}) for %{object_name} (%{object_url})\n%{action_date}."
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) la til en ukjent tilknytning for %{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som upassende:\n%{object_name} (%{object_url})\n%{action_date}."
@@ -1786,25 +1827,50 @@ nb:
       message: "Takk for at du kontaktet Encyclopedia of Life-prosjektet. Dine kommentarer har blitt sendt til den aktuelle gruppen.\n\nVi setter pris på din tilbakemelding."
       subject: Takk for at du kontaktet Encyclopedia of Life
     contact_us_message: 
+      message: "Følgende melding ble sendt til EOL via kontakt oss skjemaet:\nFra: %{from_name}\nE-post: %{from_email}\nEmne: %{subject}\n\n%{message}"
       subject: "En melding til EOL: %{title}"
     content_partner_created: 
+      message: "Dette er et automatisk EOL systembeskjed for artsside-gruppen. Brukeren %{user_full_name} har lagt til innholdspartneren %{partner_full_name}, detaljer følger:\n\nBruker: %{user_full_name}\nE-post: %{user_email}\nProfil-webadresse: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartnerprofil-webadresse: %{partner_profile_url}\nOpprettet: %{partner_created_at_date}"
       subject: EOL-bruker %{user_full_name} har lagt til innholdspartner %{partner_full_name}
     content_partner_resource_created: 
+      message: "Dette er et automatisk EOL systembeskjed for artsside-gruppen. Brukeren %{user_full_name} har lagt til en ny ressurs %{resource_title} til innholdspartneren %{partner_full_name}, detaljer følger:\n\nBruker: %{user_full_name}\nE-post: %{user_email}\nProfil-webadresse: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartnerressurser-webadresse: %{partner_resources_url}\n\nRessurs: %{resource_title}\nRessurs-webadresse: %{resource_url}\nOpprettet: %{resource_created_at_date}\nStatus: %{resource_status}"
       subject: EOL-brukeren %{user_full_name} har lagt til den nye ressursen %{resource_title} til innholdspartneren %{partner_full_name}
     content_partner_resource_force_harvest_request: 
-      message: "Dette er et automatisk EOL systembeskjed for artsside-gruppen. Brukeren %{user_full_name} har bedt om en påtvunget datahøsting for ressursen %{resource_title} som tilhører innholdspartneren %{partner_full_name}, detaljer følger:\n\nBruker: %{user_full_name}\nEpost: %{user_email}\nProfil-webadresse: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartnerressurser-webadresse: %{partner_resources_url}\n\nRessurs: %{resource_title}\nRessurs-webadresse: %{resource_url}\nOppdatert: %{resource_updated_at_date}\nStatus: %{resource_status}"
+      message: "Dette er et automatisk EOL systembeskjed for artsside-gruppen. Brukeren %{user_full_name} har bedt om en påtvunget datahøsting for ressursen %{resource_title} som tilhører innholdspartneren %{partner_full_name}, detaljer følger:\n\nBruker: %{user_full_name}\nE-post: %{user_email}\nProfil-webadresse: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartnerressurser-webadresse: %{partner_resources_url}\n\nRessurs: %{resource_title}\nRessurs-webadresse: %{resource_url}\nOppdatert: %{resource_updated_at_date}\nStatus: %{resource_status}"
       subject: EO-brukeren %{user_full_name} har bedt om en påtvunget datahøsting av ressursen %{resource_title} som tilhører innholdspartneren %{partner_full_name}
+    content_partner_resource_hierarchy_publish_request: 
+      message: "Dette er en automatisk EOL-systembeskjed for artssidegruppen. Brukeren %{user_full_name} har bedt om at en hierarki knyttet til ressursen %{resource_title} som tilhører innholdspartneren %{partner_full_name} blir promotert (publisert) til en hierarki som kan blas gjennom på EOL, detaljer følger:\n\nBruker: %{user_full_name}\nE-post: %{user_email}\nProfil-webadresse: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartnerressurser-webadresse: %{partner_resources_url}\n\nRessurs: %{resource_title}\nRessurs-webadresse: %{resource_url}\nRediger hierarki webadresse: %{hierarchy_edit_url}"
+      subject: EOL-brukeren %{user_full_name} har bedt om en hierarki-promotering for ressursen %{resource_title} som tilhører innholdspartneren %{partner_full_name}
+    content_partner_statistics_reminder: 
+      message: Dette er en automatisk påminnelse per e-post fra Encyclopedia of Life. Webbruksstatistikker for dataleveranser til EOL av %{partner_full_name} for %{month} %{year} er nå tilgjengelige på %{partner_statistics_url}.
+      subject: Encyclopedia of Life bruksstatistikker-påminnelse for %{partner_full_name} %{month} %{year}
+    curator_approved: 
+      message: "Takk for din forespørsel om kuratorprivilegiet %{curator_level}. Din forspørsel har blitt godkjent.\n\nFor mer informasjon om kuratering og hvilke funksjoner er tilgjengelige for deg, se http://eol.org/curators."
+      subject: Din forespørsel om Encyclopedia of Life kuratorprivilegiet %{curator_level} er godkjent
     greeting_dear_name_with_comma: Kjære %{name},
     signature_basic: Encyclopedia of Life-teamet
+    signature_with_contact_us_link: "Hvis du opplever problemer, vennligst kontakt oss på %{url}.\n\n\nEncyclopedia of Life-teamet"
+    signature_with_species_pages_group_contact: "Hvis du har noen spørsmål, vennligst kontakt oss på %{species_pages_group_email}.\n\n\nEncyclopedia of Life-teamet"
     unsubscribed_to_notifications: 
+      message: "Du er avmeldt meldinger fra Encyclopedia of Life. Du kan endre dine e-postinstillinger eller påmelde deg for meldinger på <a href='%{email_prefs_url}'>dine meldingsinstillingerside</a>.\n\nFor å finne ut mer om hvordan man bruker EOL, inklusiv hvordan man oppretter EOL-samlinger, deltar i EOL-brukersamfunn og bidrar med innhold, vennligst besøk våre hjelpsider på http://eol.org/help."
       subject: Synd å se deg dra...
+    user_activated: 
+      message: "Velkommen til Encyclopedia of Life (EOL) og takk for din registrering! Vennligst merk at brukernavnet ditt er %{username} og webadressa til din profil er %{profile_url}. Du kan logge inn på din konto på http://eol.org/login.\n\nFor å finne ut mer om hvordan man bruker EOL, inklusiv hvordan man oppretter EOL-samlinger, deltar i EOL-brukersamfunn og bidrar med innhold, vennligst besøk våre hjelpsider på http://eol.org/help."
+      subject: Din Encyclopedia of Life-konto er aktivert
+    user_activated_with_open_authentication: 
+      message: "Velkommen til Encyclopedia of Life (EOL) og takk for din registrering! Vennligst merk at du har meldt deg på ved bruk av %{oauth_provider} og dermed har gitt EOL tilgang til din basisinformasjon til autentifiseringsformål. Webadressen til din EOL-profil er %{profile_url}. Du kan bruke %{oauth_provider} til å logge på på din EOL-konto på http://eol.org/login.\n\nFor å finne ut mer om hvordan man bruker EOL, inklusiv hvordan man oppretter EOL-samlinger, deltar i EOL-brukersamfunn og bidrar med innhold, vennligst besøk våre hjelpsider på http://eol.org/help."
+      subject: Din Encyclopedia of Life-konto er aktivert
+    user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) har lagt inn et kommentar på:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Et beskjed fra Encyclopedia of Life
     user_recover_account: 
+      message: "Encyclopedia of Life (http://eol.org) har mottatt en forespørsel om å gjenopprette din konto. Hvis denne forespørselen ikke kommer fra deg kan du ignorere denne e-posten.\n\nFølgende lenke gir en engangspålogging slik at du kan endre ditt passord, eller legge til en ny tilknyttet konto som du kan bruke til å logge på med i fremtiden:\n\n%{temporary_login_url}\n\nVær oppmerksom på at denne lenken utløper etter 24 timer, etter dette tidspunktet kan du besøke %{recover_account_url} for å be om en ny midlertidig påloggingslenke hvis du fortsatt har problemer med tilgang til din konto."
       subject: Gjenopprett din Encyclopedia of Life-konto
     user_updated_email_preferences: 
+      message: "Dette er en automatisk EOL-systemmelding. Brukeren %{user_full_name} (%{user_profile_url}) har oppdatert sin e-postadresse eller mailinglisteinnstillinger.\n\nTidligere innstillinger:\nE-post: %{previous_email}\nMailingliste innstillinger: %{previous_mailing_list_preference}\n\nOppdaterte innstillinger:\nE-post: %{updated_email}\nMailingliste innstillinger: %{updated_mailing_list_preference}\nOppdatert: %{updated_at}"
       subject: EOL-bruker %{user_full_name} endret sin e-postadresse eller changed their email address or mailingliste-instillinger
     user_verification: 
+      message: "Takk for din registrering hos Encyclopedia of Life. Følgende lenken vil bekrefte at du ønsker å fullføre registreringen og aktivere kontoen din:\n\n%{verification_url}\n\nNår kontoen din er aktivert vil du motta en bekreftelse per e-post."
       subject: Vennligst bekreft din forespørsel om en Encyclopedia of Life-konto
   nucleotide_sequences: Nukleotidsekvenser
   nucleotide_sequences_proteins_link: Vis protein- og nukleotidsekvenser i NCBI
@@ -1913,26 +1979,55 @@ nb:
   recent_activities: 
     index: 
       list_header: Siste 7 dager
+      meta_keywords: eol brukersamfunnsaktivitet, eol nylig aktivitet, encyclopedia of life-aktiviteter
       meta_title: EOL brukersamfunnsaktivitet
       page_title: EOL brukersamfunnsaktivitet
   recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Det var en oppdatering på %{to}
+      other: Det var %{count} oppdateringer på %{to}
+    bulk_comments_on_you_with_count: 
+      one: Det er en ny kommentar på <a href='%{url}' style='color:#195184'>din profil</a>
+      other: Det er %{count} nye kommentarer på <a href='%{url}' style='color:#195184'>din profil</a>
+    bulk_comments_with_count: 
+      one: Det er en ny kommentar på %{on}
+      other: Det er %{count} nye kommentarer på %{on}
+    bulk_community_activity_with_count: 
+      one: Det var en oppdatering på %{to}
+      other: Det var %{count} oppdateringer på %{to}
+    bulk_community_joins_with_count: 
+      one: Et nytt medlem har blitt med i %{community}
+      other: "%{count} nye medlemmer har blitt med i %{community}"
+    bulk_curation_with_count: 
+      one: Kuratorer har gjort en forbedring på %{to}
+      other: Kuratorer har gjort %{count} forbedringer på %{to}
+    collection_activity_by_user: <b>%{user_name}</b> har utført en %{activity_name} på samlingen <b>%{collection_name}</b>.
     collection_activity_log_title: "%{who} har endret en samling"
+    collection_activity_user_added_item: "<b>%{user_name}</b> har lagt til %{collected_item_type} #%{collected_item_id} til <b>%{collection_name}</b>."
     collection_activity_user_watching_recipient: <b>%{user_name}</b> følger deg.
     comment_body_brief: "%{body} - %{author}"
     comment_link: Vis kommentar på EOL
     comment_title: "%{who} har kommentert på %{what}"
     comment_title_your_newsfeed: "%{who} har kommentert på din nyhetsfeed"
+    community_activity_by_user: <b>%{user_name}</b> har utført en %{activity_name} på brukersamfunnet <b>%{community_name}</b>.
     community_activity_log_title: "%{who} har endret et brukersamfunn"
     community_activity_user_joined: Brukeren <b>%{user_name}</b> har blitt medlem i brukersamfunnet <b>%{community_name}</b>.
     community_activity_user_left: Brukeren <b>%{user_name}</b> har meldt seg ut av brukersamfunnet <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Brukeren <b>%{user_name}</b> la til <b>%{member_name}</b> som administrator av brukersamfunnet <b>%{community_name}</b>.
+    contact_us_link: Hvis du opplever problemer, vennligst <a href='http://eol.org/contact_us' style='color:#195184'>kontakt oss</a>.
     curator_activity_log_title: "%{who} har kuratert noe"
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> har utført en %{activity_name}-handling på <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> har utført en %{activity_name}-handling på <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> har lagt til en artikkel med navnet %{dato_title} til <b>%{taxon_concept}</b> (%{taxon_details_url}).
     data_object_title: "%{who} har lagt inn nytt innhold på EOL"
     default_subject: Nylig aktivitet på EOL
     intro: Her er ditt sammendrag av EOL-aktiviteten for %{time}
     intro_immediately: Hei %{name} —
+    intro_weekly: Her er ditt aktivitetssammendrag for uken til og med %{ending}
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
+    see_all_activity: Se all tidligere aktivitet på <a href='%{activity_url}' style='color:#195184'>din brukernyhetsfeed-side</a>.
     someone_commented_on_something: <b>%{who}</b> har kommentert på <b>%{what}</b>.
+    unsubscribe: Logg på og endre dine e-postinnstillinger på <a href='%{email_prefs_url}' style='color:#195184'>din side for meldingsinstillinger</a> eller <a href='%{unsubscribe_url}' style='color:#195184'>meld deg av for ALLE automatiske EOL-meldinger uten å logge på</a>.
   recent_updates: Siste oppdateringer
   recipients: Mottakere
   recognized_by_as_a_rank: "%{recognized_by} som en %{taxon_rank}"
@@ -1993,8 +2088,15 @@ nb:
   server_ip_address: Server IP-adresse
   sessions: 
     new: 
+      login_with_eol_authentication_header: "Eller logg på med dine EOL-påloggingsdetaljer:"
+      login_with_facebook_assistive: Logg inn på EOL ved bruk av dine Facebook-påloggingsdetaljer.
+      login_with_google_assistive: Logg inn på EOL ved bruk av dine Google-påloggingsdetaljer.
+      login_with_twitter_assistive: Logg inn på EOL ved bruk av dine Twitter-påloggingsdetaljer.
+      login_with_yahoo_assistive: Logg inn på EOL ved bruk av dine Yahoo-påloggingsdetaljer.
       meta_title: Logg inn
+      problems_signing_in_with_connected_accounts: Problemer med pålogging med dine tilkoblede kontoer?
       problems_signing_in_with_eol_authentication: Glemt passordet?
+      tip: Eksisterende bruker? Koble din EOL-konto med Facebook, Google og mer i dine profilinnstillinger. Når kontoene dine er tilkoblet kan du bruke dem til å logge inn på EOL.
   set_as_exemplar: Angi som forbilde
   share_a_collection: Del en samling
   show: Vis
@@ -2067,19 +2169,41 @@ nb:
   taxa: 
     communities: 
       collections: 
+        hierarchy_entry: 
+          meta_description: Samlinger som inneholder %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          meta_description_with_common_name: Samlinger som inneholder %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider}).
+          meta_keywords: "%{scientific_name}-samlinger, %{scientific_name}-observasjoner, %{hierarchy_provider}-samlinger, %{hierarchy_provider}-observasjoner, %{hierarchy_provider}-specimen"
+          meta_title: Samlinger av %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Samlinger av %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Samlinger av %{scientific_name} som klassifisert av %{hierarchy_provider}
         meta_description: Samlinger som inneholder %{scientific_name}.
         meta_description_with_common_name: Samlinger som inneholder %{preferred_common_name} (%{scientific_name}).
         meta_keywords: "%{scientific_name}-samlinger, %{scientific_name}-observasjoner"
+        meta_keywords_with_common_name: "%{preferred_common_name}-samlinger, %{preferred_common_name}-observasjoner, %{scientific_name}-samlinger, %{scientific_name}-observasjoner"
         meta_title: Samlinger av %{scientific_name}
         meta_title_with_common_name: Samlinger av %{preferred_common_name} (%{scientific_name})
         tweet_text: Samlinger av %{scientific_name}
       curators: 
+        hierarchy_entry: 
+          meta_title: Kuratorer av %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Eksperter på %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Kuratorer av %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description_with_common_name: "%{preferred_common_name}-eksperter (også kjent som %{scientific_name}-eksperter) som overvåker dataene dens i Encyclopedia of Life."
         meta_keywords: "%{scientific_name}-eksperter, %{scientific_name}-kuratorer"
         meta_keywords_with_common_name: "%{preferred_common_name}-eksperter, %{preferred_common_name}-kuratorer, %{scientific_name}-eksperter, %{scientific_name}-kuratorer"
         meta_title: Kuratorer av %{scientific_name}
         meta_title_with_common_name: Eksperter på %{preferred_common_name} (%{scientific_name})
         tweet_text: Kuratorer av %{scientific_name}
       index: 
+        hierarchy_entry: 
+          meta_description: Del informasjon og ekspertise på %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          meta_description_with_common_name: Del informasjon og ekspertise på %{preferred_common_name} (%{scientific_name}) som klassifisert av %{hierarchy_provider}.
+          meta_keywords: "%{scientific_name}-brukersamfunn, %{hierarchy_provider}"
+          meta_title: Personer interessert i %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Personer interessert i %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Personer interessert i %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Interessert i %{scientific_name}? Bli med %{scientific_name}-eksperter og del dine egne observasjoner av %{scientific_name} på Encyclopdia of Life.
+        meta_description_with_common_name: Interessert i %{preferred_common_name} (%{scientific_name})? Bli med %{preferred_common_name}-eksperter og del dine egne observasjoner av %{preferred_common_name} på Encyclopdia of Life.
         meta_keywords: "%{scientific_name}-brukersamfunn"
         meta_keywords_with_common_name: "%{preferred_common_name}-brukersamfunn, %{scientific_name}-brukersamfunn"
         meta_title: Personer interessert i %{scientific_name}
@@ -2088,30 +2212,88 @@ nb:
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Fakter om %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life
-          meta_title: Fakter om %{scientific_name} som klassifisert av %{hierarchy_provider}
-        meta_description: Fakter om %{scientific_name} i Encyclopedia of Life
-        meta_description_no_data: Ingen fakter er tilgjengelige for %{scientific_name} i Encyclopedia of Life. EOL inviterer deg til å bidra med fakter om %{scientific_name} som bevaring, spredning, økologi, habitat, morfologi osv.
-        meta_description_with_chapter_list: Fakter om %{scientific_name} i Encyclopedia of Life. Inneholder fakter om %{chapter_list}.
-        meta_title: Fakter om %{scientific_name}
-        meta_title_with_common_name: Fakter om %{preferred_common_name} (%{scientific_name})
-        tweet_text: Fakter om %{scientific_name}
+          meta_description: Fakta om %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life
+          meta_description_no_data: Ingen fakta er tilgjengelige for %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life. EOL inviterer deg til å bidra med fakta om %{scientific_name} som bevaring, spredning, økologi, habitat, morfologi osv.
+          meta_description_with_chapter_list: Fakta om %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life. Inkluderer %{chapter_list}-informasjon for %{scientific_name}.
+          meta_description_with_common_name: Fakta om %{preferred_common_name}, vitenskapelig kjent som %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life.
+          meta_description_with_common_name_no_data: Ingen fakta er tilgjengelige for %{preferred_common_name} også kjent som %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life. EOL inviterer deg til å bidra med fakta om %{preferred_common_name} (%{scientific_name}) som bevaring, spredning, økologi, habitat, morfologi osv.
+          meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vitenskapelig kjent som %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life. Inkluderer fakta på %{chapter_list}.
+          meta_title: Fakta om %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Fakta om %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Fakta om %{scientific_name} i Encyclopedia of Life
+        meta_description_no_data: Ingen fakta er tilgjengelige for %{scientific_name} i Encyclopedia of Life. EOL inviterer deg til å bidra med fakta om %{scientific_name} som bevaring, spredning, økologi, habitat, morfologi osv.
+        meta_description_with_chapter_list: Fakta om %{scientific_name} i Encyclopedia of Life. Inneholder fakta om %{chapter_list}.
+        meta_description_with_common_name: Fakta om %{preferred_common_name}, vitenskapelig kjent som %{scientific_name} i Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Ingen fakta er tilgjengelige for %{preferred_common_name} også kjent som %{scientific_name} i Encyclopedia of Life. EOL inviterer deg til å bidra fakta om %{preferred_common_name} (%{scientific_name}) som bevaring, spredning, økologi, habitat, morfologi osv.
+        meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vitenskapelig kjent som %{scientific_name} i Encyclopedia of Life. Inkluderer fakta på %{chapter_list}.
+        meta_title: Fakta om %{scientific_name}
+        meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name})
+        tweet_text: Fakta om %{scientific_name}
     literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: BHL-litteratur og informasjon om %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life. Les artikler fra Biodiversity Heritage Library (BHL) om %{scientific_name} i Encyclopedia of Life.
+          meta_description_with_common_name: BHL-litteratur og informasjon om %{preferred_common_name} også kjent som %{scientific_name} som klassifisert av %{hierarchy_provider} i Encyclopedia of Life. Les artikler fra Biodiversity Heritage Library (BHL) om %{preferred_common_name} i Encyclopedia of Life.
+          meta_title: BHL-litteratur om %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: BHL-litteratur om %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: "Litteratur fra #BHL om %{scientific_name} som klassifisert av %{hierarchy_provider}"
+        meta_title: BHL-siteringer for %{scientific_name}
+        meta_title_with_common_name: BHL-referanser for %{preferred_common_name} (%{scientific_name})
+        tweet_text: "Litteratur fra #BHL om %{scientific_name}"
       show: 
+        hierarchy_entry: 
+          meta_title: Litteratur om %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Bøker om %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Litteratur om %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Bøker, artikler og bibliografier om %{scientific_name} i Encyclopedia of Life. Les litteratur om %{scientific_name} på Encyclopedia of Life.
+        meta_description_with_common_name: Bøker, artikler og bibliografier om %{preferred_common_name}, også kjent som %{scientific_name} i Encyclopedia of Life. Les litteratur om %{preferred_common_name} på Encyclopedia of Life.
+        meta_keywords: "%{scientific_name}-artikler, %{scientific_name}-bøker, %{scientific_name}-bibliografier, %{scientific_name}-litteratur"
+        meta_keywords_with_common_name: "%{preferred_common_name}-artikler, %{preferred_common_name}-bøker, %{preferred_common_name}-litteratur, %{scientific_name}-artikler, %{scientific_name}-bøker, %{scientific_name}-bibliografier, %{scientific_name}-litteratur"
         meta_title: Artikler & bøker om %{scientific_name}
         meta_title_with_common_name: Artikler & bøker om %{preferred_common_name} (%{scientific_name})
         tweet_text: Artikler & bøker om %{scientific_name}
     maps: 
       show: 
+        hierarchy_entry: 
+          meta_description: Geografisk informasjon om %{scientific_name} som klassifisert av %{hierarchy_provider} hvor de bor, og hvor i verden de har sin opprinnelse.
+          meta_description_with_common_name: Hvor finnes %{preferred_common_name}, og hvor bor de? Geografisk informasjon om %{scientific_name} som klassifisert av %{hierarchy_provider}, hvor de bor, og hvor i verden de har sin opprinnelse.
+          meta_title: Kart over %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Kart over %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Kart over %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Geografisk informasjon om %{scientific_name}. Steder der de bor i verden.
+        meta_description_no_data: Ingen geografisk informasjon er tilgjengelig for %{scientific_name} i Encyclopedia of Life. EOL inviterer deg til å bidra kart for %{scientific_name}.
+        meta_description_with_common_name: Hvor finnes %{preferred_common_name}, og hvor bor de? Geografisk informasjon om %{scientific_name}. Steder der de bor i verden.
+        meta_description_with_common_name_no_data: Ingen geografisk informasjon er tilgjengelig for %{preferred_common_name} også kjent som %{scientific_name} i Encyclopedia of Life. EOL inviterer deg til å bidra kart for %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: "%{scientific_name}-habitat, hvor bor %{scientific_name}"
+        meta_keywords_with_common_name: "%{preferred_common_name}-habitat, hvor bor %{preferred_common_name}"
         meta_title: Kart for %{scientific_name}
         meta_title_with_common_name: Kart for %{preferred_common_name} (%{scientific_name})
         tweet_text: Kart for %{scientific_name}
     media: 
       index: 
+        hierarchy_entry: 
+          meta_description: Bilder og videoer av %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          meta_description_with_common_name: Fotografier, film og lyd av %{preferred_common_name} også kjent som %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          meta_keywords: fotografier av %{scientific_name}, filmer av %{scientific_name}, lyder av %{scientific_name}, lyd av %{scientific_name}
+          meta_keywords_with_common_name: fotografier av %{preferred_common_name}, filmer av %{preferred_common_name}, lyder av %{preferred_common_name}, lyd av %{preferred_common_name}, fotografier av %{scientific_name}, filmer av %{scientific_name}, lyder av %{scientific_name}, lyd av %{scientific_name}
+          meta_title: Lyd, film & fotografier av %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Lyd, film & bilder av %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Media av %{scientific_name} som klassifisert av %{hierarchy_provider}
         meta_description: Bilder, video og lyder av %{scientific_name}. Finn bilder, fotografier, filmer og lyder av %{scientific_name} på Encyclopedia of Life.
+        meta_description_no_data: Ingen multimedia er tilgjengelig for %{scientific_name} i Encyclopedia of Life. EOL inviterer deg til å bidra med bilder, videoer, eller lyder av %{scientific_name}.
+        meta_description_with_common_name: Bilder, video og lyd av %{preferred_common_name} også kjent som %{scientific_name}. Finn bilder, fotografier, filmer og lyder av %{preferred_common_name} (%{scientific_name}) på Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Ingen multimedia er tilgjengelig for %{preferred_common_name} også kjent som %{scientific_name} i Encyclopedia of Life. EOL inviterer deg til å bidra med bilder, videoer, eller lyder for %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: bilder av %{scientific_name}, videoer av %{scientific_name}, bilder av %{scientific_name}, videoer av %{scientific_name}, bilder av %{scientific_name}, media
+        meta_keywords_with_common_name: bilder av %{preferred_common_name}, videoer av %{preferred_common_name}, bilder av %{preferred_common_name}, videoer av %{preferred_common_name}, bilder av %{preferred_common_name}, media
+        meta_title: Bilder, video & lyd av %{scientific_name} - bilder, fotografier, filmer & lyder av %{scientific_name}
+        meta_title_with_common_name: Bilder, video & lyd av %{preferred_common_name} (%{scientific_name}) - bilder, fotografier, filmer & lyder av %{preferred_common_name} (%{scientific_name})
+        tweet_text: Bilder, video og lyd av %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
+          meta_description: Populærnavn knyttet til %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_description_with_common_name: Et populærnavn for %{scientific_name} er %{preferred_common_name}. Finn ut hvilke andre populærnavn er knyttet til %{scientific_name} som klassifisert av %{hierarchy_provider}.
           meta_keywords: Populærnavn for %{scientific_name}
           meta_keywords_with_common_name: Vitenskapelig navn for %{preferred_common_name}, Populærnavn for %{scientific_name}
           meta_title: Populærnavn for %{scientific_name} som klassifisert av %{hierarchy_provider}
@@ -2124,6 +2306,16 @@ nb:
         meta_title: Populærnavn for %{scientific_name}
         meta_title_with_common_name: Populærnavn for %{preferred_common_name} (%{scientific_name})
         tweet_text: Populærnavn for %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Taksonomier og vitenskapelige navn for %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          meta_description_with_common_name: Taksonomier og og vitenskapelige navn for %{preferred_common_name}, også kalt %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          tweet_text: Navn knyttet til %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Taksonomier og vitenskapelige navn for %{scientific_name}. Biologiske klassifiseringer og navn knyttet til % {scientific_name}.
+        meta_description_with_common_name: Taksonomier, biologiske klassifiseringer og vitenskapelige navn for %{preferred_common_name}, også kalt %{scientific_name}. Biologiske klassifiseringer og navn knyttet til %{preferred_common_name}.
+        meta_title: Taksonomisk informasjon for %{scientific_name} - biologiske klassifikasjoner & navn
+        meta_title_with_common_name: Taksonomisk informasjon for %{preferred_common_name} (%{scientific_name}) - biologiske klassifikasjoner & navn
+        tweet_text: Taksonomisk informasjon for %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: Synonymer knyttet til %{scientific_name} som klassifisert av %{hierarchy_provider}.
@@ -2140,11 +2332,43 @@ nb:
         meta_title: Synonymer for %{scientific_name}.
         meta_title_with_common_name: Synonymer for %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonymer for %{scientific_name}.
+    overview: 
+      hierarchy_entry: 
+        meta_description: Et sammendrag av informasjon om %{scientific_name} som identifisert av %{hierarchy_provider} i Encyclopedia of Life.
+        meta_description_with_common_name: Et sammendrag av informasjon om %{preferred_common_name}, også kjent som %{scientific_name} som identifisert av %{hierarchy_provider} i Encyclopedia of Life.
+        meta_keywords: "% {scientific_name} identifisert av %{hierarchy_provider}, %{scientific_name} klassifisert av %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} identifisert av %{hierarchy_provider} %{scientific_name} klassifisert av %{hierarchy_provider}"
+        meta_title: "%{scientific_name} klassifisert av %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} klassifisert av %{hierarchy_provider})"
+        tweet_text: Oversikt over %{scientific_name} som klassifisert av %{hierarchy_provider}
+      meta_description: Informasjon om %{scientific_name} i Encyclopedia of Life.
+      meta_description_with_common_name: Informasjon om %{preferred_common_name}, vitenskapelig kjent som %{scientific_name} i Encyclopedia of Life.
+      meta_keywords: info om %{scientific_name},%{scientific_name}-informasjon
+      meta_keywords_with_common_name: info om %{scientific_name},info om %{preferred_common_name},%{scientific_name}-informasjon og fakta, %{preferred_common_name}-informasjon
+      meta_title: "% {scientific_name} - Informasjon om %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informasjon om %{preferred_common_name}"
+      tweet_text: Informasjon om %{scientific_name}
     resources: 
+      biomedical_terms: 
+        hierarchy_entry: 
+          tweet_text: Biomedisinske termer for %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_title: Biomedisinske termer for %{scientific_name}
+        meta_title_with_common_name: Biomedisinske termer for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Biomedisinske termer for %{scientific_name}
+      education: 
+        hierarchy_entry: 
+          meta_title: Læringsverktøy for %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Læringsverktøy for %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Læringsverktøy for %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_title: Utdanningsressurser for %{scientific_name}
+        meta_title_with_common_name: Utdanningsressurser for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Utdanningsressurser for %{scientific_name}
       identification_resources: 
-        meta_title: Identifikasjonsressurser for %{scientific_name}
-        meta_title_with_common_name: Identifikasjonsressurser for %{preferred_common_name} (%{scientific_name})
-        tweet_text: Identifikasjonsressurser for %{scientific_name}
+        hierarchy_entry: 
+          tweet_text: Identifisertingsressurser for %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_title: Identifisertingsressurser for %{scientific_name}
+        meta_title_with_common_name: Identifiseringsressurser for %{preferred_common_name} (%{scientific_name})
+        tweet_text: Identifiseringsressurser for %{scientific_name}
       nucleotide_sequences: 
         hierarchy_entry: 
           tweet_text: Nukleotidsekvenser for %{scientific_name} som klassifisert av %{hierarchy_provider}
@@ -2153,9 +2377,17 @@ nb:
         tweet_text: Nukleotidsekvenser for %{scientific_name}
       show: 
         hierarchy_entry: 
+          meta_description: Liste over leverandører og kildedataene for %{scientific_name} som klassifisert av %{hierarchy_provider}.
+          meta_description_with_common_name: Liste over leverandører og kildedataene for %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider}).
           meta_keywords: "%{scientific_name}-dataleverandører, %{scientific_name}-kildedata"
           meta_keywords_with_common_name: "%{preferred_common_name}-dataleverandører, %{preferred_common_name}-kildedata, %{scientific_name}-dataleverandører, %{scientific_name}-kildedata"
+          meta_title: Dataleverandører for %{scientific_name} som klassifisert av %{hierarchy_provider}
+          meta_title_with_common_name: Dataleverandører for %{preferred_common_name} som klassifisert av %{hierarchy_provider}
+          tweet_text: Dataleverandører for %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: "%{scientific_name}-ressurser og -partnersiteringer."
+        meta_description_with_common_name: "%{preferred_common_name}-ressurser og partnersiteringer for %{scientific_name}."
         meta_keywords: "%{scientific_name}-ressurser, %{scientific_name}-innholdsleverandører"
+        meta_keywords_with_common_name: "%{preferred_common_name}-ressurser, % {preferred_common_name}-innholdsleverandører, %{scientific_name}-ressurser, %{scientific_name}-innholdsleverandører"
         meta_title: Innholdsressurser for %{scientific_name}
         meta_title_with_common_name: Innholdsressurser for %{preferred_common_name} (%{scientific_name})
         tweet_text: Innholdsressurser for %{scientific_name}
@@ -2176,6 +2408,14 @@ nb:
         hierarchy_entry: 
           meta_title: Statistikker for %{scientific_name} som klassifisert av %{hierarchy_provider}
           meta_title_with_common_name: Statistikker for %{preferred_common_name} (%{scientific_name} som klassifisert av %{hierarchy_provider})
+          tweet_text: Poengsum over innholdsrikdom for %{scientific_name} som klassifisert av %{hierarchy_provider}
+        meta_description: Statistikker og dataer for %{scientific_name} på Encyclopedia of Life.
+        meta_description_with_common_name: Statistikker og dataer for %{preferred_common_name} også kjent som %{scientific_name} på Encyclopedia of Life.
+        meta_keywords: statistikk på %{scientific_name}, statistikker for %{scientific_name}, dataer for %{scientific_name}
+        meta_keywords_with_common_name: statistikk på %{preferred_common_name}, statistikker for %{preferred_common_name}, dataer for %{preferred_common_name}
+        meta_title: Innholdsrikdom av %{scientific_name}
+        meta_title_with_common_name: Innholdsrikdom av %{preferred_common_name} (%{scientific_name})
+        tweet_text: Poengsum over innholdsrikdom for %{scientific_name}
   taxa_column_header: Taksa
   taxa_with_count: 
     one: "%{count} takson"
@@ -2260,16 +2500,19 @@ nb:
         tweet_text: "%{user_full_name} samlinger"
     communities: 
       index: 
+        meta_description: Brukersamfunn som %{user_full_name} er medlem av.
         meta_title: "%{user_full_name} Brukersamfunn"
         tweet_text: "%{user_full_name} brukersamfunn"
     content_partners: 
       index: 
+        meta_description: "%{user_full_name} innholdspartner-knytninger."
         meta_title: "%{user_full_name} Innholdspartnere"
         tweet_text: "%{user_full_name} innholdspartnere"
     edit: 
-      form_tip_account_oauth: E-postadresse og foretrukket språk er påbudt %{required_icon} for alle brukere.
+      form_tip_account: For å logge på EOL trenger du enten et EOL-brukernavn og -passord, eller du kan koble til en tredjepartskonto. Brukernavn og passord er påkrevd hvis du ikke har en tilkoblet konto, men kun angi et nytt passord her hvis du ønsker å endre det eksisterende. E-postadresse og foretrukket språk er påkrevd (% {required_icon}) for alle brukere.
+      form_tip_account_oauth: E-postadresse og foretrukket språk er påkrevd %{required_icon} for alle brukere.
       form_tip_curation: Akkrediteringer og kurateringsområde er valgfrie for assistentkuratorer men påkrevd %{required_icon} for fullstendige- of mesterkuratorer
-      form_tip_profile: Objekter markert som påbudt %{required_icon} er valgfrie for vanlige brukere, men påbudt for kuratorer.
+      form_tip_profile: Objekter markert som påkrevd %{required_icon} er valgfrie for vanlige brukere, men påkrevd for kuratorer.
       form_tip_profile_oauth: Fornavn kreves, andre elementer som er merket som påkrevd %{required_icon} er valgfrie for generelle brukere, men nødvendige for kuratorer.
     new: 
       complete_registration_header: Fullfør din EOL registrering
@@ -2297,28 +2540,108 @@ nb:
         tweet_text: "%{user_full_name} nyhetsfeed"
     notifications: 
       edit: 
+        page_description: Alle oppdateringene som er oppført nedenfor (unntatt EOL-nyhetsbrevet) er tilgjengelige for deg i din <a href="%{user_newsfeed_link}">EOL-nyhetsfeed</a>, men mange ønsker også å bli varslet via e-post om visse typer aktiviteter som de mener er spesielt interessante. Du kan bruke knappene nedenfor for stille inn frekvensen på EOL e-poster etter behov.
         page_title: Meldingsinstillinger
       update: 
-        sorry_notification_settings_could_not_be_updated: Beklager, meldingsinstillinger kunne ikke oppdateres.
+        notification_settings_successfully_updated: Meldingsinstillinger er oppdatert.
+        sorry_notification_settings_could_not_be_updated: Beklager, meldingsinstillingene kunne ikke oppdateres.
     open_authentications: 
+      errors: 
+        facebook: 
+          add_connection_failed_account_already_connected: Beklager, vi kan ikke koble din Facebook-konto til din EOL-konto, din Facebook-konto er allerede koblet til en <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          login_failed_not_connected: Beklager, vi ikke kunne finne en tilkobling mellom din Facebook-konto og EOL. Hvis du allerede har en EOL-konto vennligst <a href="%{login_url}">logg inn til EOL</a> ved hjelp av andre påloggingsdetaljer, og koble deretter din Facebook-konto i EOL-profilinnstillingene. Hvis du ikke har en EOL-konto ennå vennligst <a href="%{register_url}">fullfør din EOL-registrering</a> for å opprette en.
+          missing_attributes: Beklager, det oppstod et problem under tilgangen til din Facebook-informasjon.
+          new_authentication_not_added: Beklager, det oppstod en feil, vi kunne ikke tilkoble din Facebook-konto.
+          not_authorized_to_add_authentication: Beklager, vi har ikke tillatelse til å koble til din Facebook-konto.
+          not_authorized_to_login: Beklager, vi har ikke tillatelse til å logge deg på EOL med din Facebook-konto.
+          not_authorized_to_signup: Beklager, vi har ikke tillatelse til å melde deg inn til EOL med din Facebook-konto.
+          signup_failed_account_already_connected: Beklager, vi kan ikke registrere deg for en ny EOL-konto med din Facebook-konto, den er allerede koblet til en <a href="%{existing_eol_account_url}">EOL-brukerkonto</a>. Mente du å <a href="%{login_url}">logge inn</a> i stedet?
+        google: 
+          add_connection_failed_account_already_connected: Beklager, vi kan ikke koble din Google-konto til din EOL-konto, din Google-konto er allerede koblet til en <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          login_failed_not_connected: Beklager, vi ikke kunne finne en tilkobling mellom din Google-konto og EOL. Hvis du allerede har en EOL-konto vennligst <a href="%{login_url}">logg inn til EOL</a> ved hjelp av andre påloggingsdetaljer, og koble deretter din Google-konto i EOL-profilinnstillingene. Hvis du ikke har en EOL-konto ennå vennligst <a href="%{register_url}">fullfør din EOL-registrering</a> for å opprette en.
+          missing_attributes: Beklager, det oppstod et problem under tilgangen til din Google-informasjon.
+          new_authentication_not_added: Beklager, det oppstod en feil, vi kunne ikke tilkoble din Google-konto.
+          not_authorized_to_add_authentication: Beklager, vi har ikke tillatelse til å koble til din Google-konto.
+          not_authorized_to_login: Beklager, vi har ikke tillatelse til å logge deg på EOL med din Google-konto.
+          not_authorized_to_signup: Beklager, vi har ikke tillatelse til å melde deg inn til EOL med din Google-konto.
+          signup_failed_account_already_connected: Beklager, vi kan ikke registrere deg for en ny EOL-konto med din Google-konto, den er allerede koblet til en <a href="%{existing_eol_account_url}">EOL-brukerkonto</a>. Mente du å <a href="%{login_url}">logge inn</a> i stedet?
+        missing_attributes: Beklager, det oppstod et problem med tilgangen til dine tredjepartskonto-detaljer.
+        not_authorized_to_add_authentication: Beklager, vi har ikke tillatelse til å koble til denne kontoen.
+        not_authorized_to_login: Beklager, vi har ikke tillatelse til å logge deg på EOL med den kontoen.
+        remove_connection_failed: Beklager, det oppstod en feil, vi kunne ikke fjerne tilkoblingen.
+        twitter: 
+          add_connection_failed_account_already_connected: Beklager, vi kan ikke koble din Twitter-konto til din EOL-konto, din Twitter-konto er allerede koblet til en <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          login_failed_not_connected: Beklager, vi ikke kunne finne en tilkobling mellom din Twitter-konto og EOL. Hvis du allerede har en EOL-konto vennligst <a href="%{login_url}">logg inn til EOL</a> ved hjelp av andre påloggingsdetaljer, og koble deretter din Twitter-konto i EOL-profilinnstillingene. Hvis du ikke har en EOL-konto ennå vennligst <a href="%{register_url}">fullfør din EOL-registrering</a> for å opprette en.
+          missing_attributes: Beklager, det oppstod et problem under tilgangen til din Twitter-informasjon.
+          new_authentication_not_added: Beklager, det oppstod en feil, vi kunne ikke tilkoble din Twitter-konto.
+          not_authorized_to_add_authentication: Beklager, vi har ikke tillatelse til å koble til din Twitter-konto.
+          not_authorized_to_login: Beklager, vi har ikke tillatelse til å logge deg på EOL med din Twitter-konto.
+          not_authorized_to_signup: Beklager, vi har ikke tillatelse til å melde deg inn til EOL med din Twitter-konto.
+          signup_failed_account_already_connected: Beklager, vi kan ikke registrere deg for en ny EOL-konto med din Twitter-konto, den er allerede koblet til en <a href="%{existing_eol_account_url}">EOL-brukerkonto</a>. Mente du å <a href="%{login_url}">logge inn</a> i stedet?
+        yahoo: 
+          add_connection_failed_account_already_connected: Beklager, vi kan ikke koble din Yahoo!-konto til din EOL-konto, din Yahoo!-konto er allerede koblet til en <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          login_failed_not_connected: Beklager, vi ikke kunne finne en tilkobling mellom din Yahoo!-konto og EOL. Hvis du allerede har en EOL-konto vennligst <a href="%{login_url}">logg inn til EOL</a> ved hjelp av andre påloggingsdetaljer, og koble deretter din Yahoo!-konto i EOL-profilinnstillingene. Hvis du ikke har en EOL-konto ennå vennligst <a href="%{register_url}">fullfør din EOL-registrering</a> for å opprette en.
+          missing_attributes: Beklager, det oppstod et problem under tilgangen til din Yahoo!-informasjon.
+          new_authentication_not_added: Beklager, det oppstod en feil, vi kunne ikke tilkoble din Yahoo!-konto.
+          not_authorized_to_add_authentication: Beklager, vi har ikke tillatelse til å koble til din Yahoo!-konto.
+          not_authorized_to_login: Beklager, vi har ikke tillatelse til å logge deg på EOL med din Yahoo!-konto.
+          not_authorized_to_signup: Beklager, vi har ikke tillatelse til å melde deg inn til EOL med din Yahoo!-konto.
+          signup_failed_account_already_connected: Beklager, vi kan ikke registrere deg for en ny EOL-konto med din Yahoo!-konto, den er allerede koblet til en <a href="%{existing_eol_account_url}">EOL-brukerkonto</a>. Mente du å <a href="%{login_url}">logge inn</a> i stedet?
       facebook: Facebook
       google: Google
       index: 
+        connected_last_verified: Tilkoblet; Sist bekreftet %{time_passed} siden;
+        connected_unverified: Tilkoblet; Ikke bekreftet;
+        not_connected: Ikke tilkoblet;
         page_description: Administrer koblinger mot tredjeparts-kontoer som du kan bruke for å logge inn på EOL.
         page_title: Tilkoblede kontoer
+        return_link: Tilbake til rediger profil.
+      notices: 
+        facebook: 
+          new_authentication_added: Facebook-innlogging har blitt lagt til din konto.
+          removed_connection: Vi har fjernet EOL-tilkoblingen til din Facebook-konto. For å fullstendig fjerne autoriseringen på fremtidig kommunikasjon mellom din Facebook-konto og EOL må du gå til Facebook og redigere kontoinnstillingene dine.
+        google: 
+          new_authentication_added: Google-innlogging har blitt lagt til din konto.
+          removed_connection: Vi har fjernet EOL-tilkoblingen til din Google-konto. For å fullstendig fjerne autoriseringen på fremtidig kommunikasjon mellom din Google-konto og EOL må du gå til Google og redigere kontoinnstillingene dine.
+        twitter: 
+          new_authentication_added: Twitter-innlogging har blitt lagt til din konto.
+          removed_connection: Vi har fjernet EOL-tilkoblingen til din Twitter-konto. For å fullstendig fjerne autoriseringen på fremtidig kommunikasjon mellom din Twitter-konto og EOL må du gå til Twitter og redigere kontoinnstillingene dine.
+        yahoo: 
+          new_authentication_added: Yahoo!-innlogging har blitt lagt til din konto.
+          removed_connection: Vi har fjernet EOL-tilkoblingen til din Yahoo!-konto. For å fullstendig fjerne autoriseringen på fremtidig kommunikasjon mellom din Yahoo!-konto og EOL må du gå til Yahoo! og redigere kontoinnstillingene dine.
       twitter: Twitter
+      warnings: 
+        no_way_to_login: Du har ikke noe tilkoblede kontoer lenger, du vil ikke kunne logge på EOL igjen med mindre du legger til en tilkoblet konto, eller oppretter et EOL-brukernavn og -passord.
       yahoo: Yahoo!
     pending: 
       header: Takk for din registrering!
+      verify_email_instructions: <strong>Vennligst bekreft din e-postadresse</strong>. En bekreftelsesmail har blitt sendt til e-postadressen du har oppgitt. For å fullføre registreringsprosessen og bli en EOL-medlem, vennligst klikk på lenken i den e-postmeldingen. Takk!
+      verify_email_tip: Vær oppmerksom på at kontoaktiviseringe-poster <em>ofte</em> bli merket som "spam" av e-postfiltre. Vennligst sjekk din spam-mappe hvis du ikke mottar din e-post innen en time.
     recover_account: 
+      errors: 
+        temporary_login_user_not_found: Beklager, EOL-kontoen du prøver å gjenopprette kunne ikke bli funnet, vennligst forespør en ny e-post for å gjenopprette kontoen.
+        token_expired_or_invalid: Beklager, den midlertidige påloggingslenken er utløpt eller ugyldig, vennligst forespør en ny e-post for å gjenopprette kontoen.
+        unable_to_update_token: Beklager, det oppstod en feil og e-posten ble ikke sendt, vennligst prøv igjen.
+        user_not_found_by_email_address: Et EOL-konto med den e-postadressen kunne ikke finnes.
       form_header: Gjenopprett konto
+      form_tip: For å gjenopprette din EOL-konto, oppgi e-postadressen knyttet til kontoen. Vennligst sjekk din spam-mappe hvis du ikke mottar en kontogjenopprettingsmail innen en time.
       meta_title: Gjenopprett konto
+      notices: 
+        recovery_email_sent: Kontogjenopprettingsmail har blitt sendt med videre instruksjoner. Legg til %{from_address} til listen over sikre avsendere, og sjekk din spamfilter hvis du ikke mottar e-posten innen en time.
+        temporarily_logged_in_update_authentication_details: Du er midlertidig pålogget for å tillate gjenoppretting av konto, vennligst endre passordet ditt eller oppdater dine tilkoblede kontoer for å sikre at du kan logge inn.
     recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Beklager, det oppstod en feil og e-posten ble ikke sendt, vennligst velg kontoen du ønsker å gjenopprette adgangen til, og prøv på nytt.
       form_header: Gjenopprett konto
+      form_tip: Det er flere kontoer som er registrert med e-postadressen <em>%{email}</em>, vennligst velg hvilken konto du ønsker å gjenopprette adgangen til.
       legend_choose_account: Velg en konto
     show: 
       meta_description: Medlemsprofil for %{user_full_name} på Encyclopedia of Life.
       meta_description_curator: Medlemsprofil for %{curator_level} %{user_full_name} på Encyclopedia of Life.
+    unsubscribe_notifications: 
+      already_unsubscribed: Du er allerede avmeldt meldinger.
+      unsubscribe_notifications_failed: Beklager, det oppstod en feil, brukeren kunne ikke avmeldes meldinger.
+      unsubscribed_notifications_successfully: Du har meldt deg meldinger.
   users_about_me_header: Om meg
   users_content_partners_header: Innholdspartnere
   users_form_account_header: Din konto

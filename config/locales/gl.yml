@@ -1551,7 +1551,8 @@ gl:
     one: Copiar %{count} elemento a unha nova colección
     other: Copiar %{count} elementos a unha nova colección
   copy_of_name: Copia de "%{name}"
-  copyright: "DEREITOS DE AUTOR:"
+  copyright: "DEREITOS DE AUTORÍA:"
+  correct_donation_message_with_link: Se esta información non é correcta, <a href='%{link}'>volve atrás</a> para facer as modificacións pertinentes.
   could_not_find_collection_error: Sentímolo, non se puido atopar a colección.
   could_not_find_user: Non es membro desta comunidade.
   count: Reconto
@@ -2921,7 +2922,7 @@ gl:
   page_views_th: Visitas de páxinas
   pages_admin_section_link: Administradores
   pages_curator_section_link: Conservadores
-  pages_method_description: colle o identificador dunha páxina da EOL e devolve o nome científico desa páxina e, opcionalmente, achega información acerca dos nomes comúns, os ficheiros multimedia (texto, imaxes e vídeos) e as referencias ás xerarquías que recoñecen o taxon descrito no
+  pages_method_description: colle o identificador dunha páxina da EOL e devolve o nome científico desa páxina e, opcionalmente, achega información acerca dos nomes comúns, os ficheiros multimedia (texto, imaxes e vídeos) e as referencias ás xerarquías que recoñecen o taxon descrito na páxina
   pages_title: Referencias
   pages_with_count: 
     one: "%{count}"
@@ -3219,6 +3220,10 @@ gl:
   show_status_message: Mostrar a mensaxe de estado
   show_tasks: mostrar as tarefas
   show_warning_message: Mostrar a mensaxe de advertencia
+  showing_all_error_logs: Mostrando <b>todos os erros</b>
+  showing_all_harvest_logs: Mostrando <b>todas as colleitas</b>
+  showing_error_logs_from_date: Mostrando os erros desde <b>%{date}</b>
+  showing_harvest_logs_from_date: Mostrando as colleitas desde <b>%{date}</b>
   shown_to_the_user_parens: (móstrase ao usuario)
   shown_to_user_as_the_title_of_page: móstrase ao usuario como título da páxina
   sign_in: Acceder
@@ -3599,7 +3604,7 @@ gl:
   taxon_partner_links_empty: Polo de agora, os socios de contidos non proporcionaron ligazóns ás fontes desta páxina.
   taxon_partner_links_empty_learn_more_link: Descubre como converterse en socio de contidos
   taxon_partner_links_header: Ligazóns asociadas
-  taxon_partner_links_intro: A continuación hai unha lista dos socios, incluídos os socios de contidos, con información sobre esta páxina. Onde sexa posible, as ligazóns levarante ao correspondente contido no sitio web do socio. O identificador único deste taxon utilizado por cada socio está incorporado nestas ligazóns, e estes identificadores están accesibles a través da <a href="%{eol_api_link}">API da EOL</a>
+  taxon_partner_links_intro: A continuación hai unha lista dos socios, incluídos os socios de contidos, con información sobre esta páxina. Onde sexa posible, as ligazóns levarante ao correspondente contido no sitio web do socio. O identificador único deste taxon utilizado por cada socio está incorporado nestas ligazóns, e estes identificadores están accesibles a través da <a href="%{eol_api_link}">API da EOL</a>.
   taxon_partner_links_link: Ligazóns asociadas
   taxon_rating: Avaliación do taxon
   taxon_recognized_by: Taxon recoñecido por %{whom}

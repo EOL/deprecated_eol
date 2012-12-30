@@ -11,6 +11,7 @@
 # Author: Erick mata
 # Author: Fitoschido
 # Author: Invadinado
+# Author: Jacobo
 # Author: Larjona
 # Author: McDutchie
 # Author: Mor
@@ -3662,6 +3663,7 @@ es:
   the_message_was_sent: El mensaje fue enviado.
   the_new_topic_was_created: Fue creado el nuevo tema.
   the_new_user_was_created: Fue creado el nuevo usuario.
+  the_query_string: la cadena de consulta
   the_suggested_page_to_direct_users_to_link: la página sugerida para dirigir a los usuarios
   the_topic_was_updated: Se actualizó el tema.
   the_user_was_updated: Se actualizó el usuario.
@@ -4049,6 +4051,7 @@ es:
   value_empty: (vacío)
   values: Valores
   version_1_0_uses_fields_from_the_latest_version: la versión 1.0 usa campos de la última versión del esquema %{link}
+  versions_colon: "Versiones:"
   vetted: Aprobados
   video_alt_text: Este vídeo %{vetted_status} es de %{taxon_name}
   video_from: vídeo de

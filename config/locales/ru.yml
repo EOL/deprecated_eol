@@ -4,6 +4,7 @@
 # Author: Adata80
 # Author: CoderSI
 # Author: DCamer
+# Author: Dr&mx
 # Author: Eleferen
 # Author: Express2000
 # Author: Lvova
@@ -33,12 +34,12 @@ ru:
         body: Комментарий
       community: 
         description: Описание сообщества
-        logo: Загрузить логотип
+        logo: Закачать логотип
         name: Название сообщества
       contact: 
         comments: Сообщение
         contact_subject_id: Контакт
-        email: Email
+        email: Электронная почта
         name: Имя
       content_page: 
         active: Опубликовано
@@ -652,10 +653,13 @@ ru:
   containing_value: содержащие %{value}.
   content: 
     index: 
+      header_news: Новости Энциклопедии жизни
       meta_description: Энциклопедия жизни является беспрецедентные достижением для сбора научных знаний о жизни всех животных и растений, где доступны фотографии, информация, факты и многое другого для всего живущего в наших царствах растительного и животного мира.
       meta_keywords: Животные, фотографии животных, информация о животных, растения, жизнь растений, фотографии растений, информация о растениях, флора, фауна
       meta_title: Животные - Растения -Фотографии и информация
+      see_all_eol_news: см. ещё <span class="assistive">Новости ЭЖ</span>
       see_all_recent_activites: прочая <span class="assistive">активность на прошлой неделе</span>
+      see_all_statistics: см. ещё <span class="assistive">Статистика ЭЖ</span>
   content_has_been_updated: Содержимое было обновлено.
   content_notes_not_shown_to_us: "Примечания (не показаны для пользователя):"
   content_partner: Контент-партнер
@@ -901,6 +905,8 @@ ru:
       news_item: 
         active: Опубликовано
         active_more: Опубликованные новости будут видны на выбранную дату и время. Снимите флажок <em>опубликовано</em> если вы хотите предотвратить просмотр этой новости для обычных пользователей на других языках.
+        page_name: Уникальное имя <small>(только строчные латинские буквы, цифры, символы и знак подчеркивания)</small>
+        page_name_more: Введите уникальный, описательный, значимый и однозначный идентификатор для этой новости. Имя, которое вы введете здесь, будет использоваться для генерации ссылки на неё, например уникальное имя <em>new_version_of_eol</em> преобразуется в URL <em>http://eol.org/news/new_version_of_eol</em>.
       open_authentication: 
         connect: Добавить
         connected: Подключено
@@ -937,7 +943,13 @@ ru:
         meta_keywords_more: Введите разделенный запятыми список слов и коротких фраз, которые лучше всего отражают содержание страницы. Эти ключевые слова и ключевые фразы иногда используются поисковыми системами для оценки релевантности страницы условиям поиска.
         title_more: Название это содержание будет отображаться в области верхнего колонтитула страницы. Название должно включать ключевые слова, наиболее релевантные содержанию.
       translated_news_item: 
+        active_translation: Опубликовано
+        active_translation_more: Опубликованные переводы будут общедоступными если сама новость опубликована. Снимите флажок с <em>Опубликовано</em> если вы не хотите чтобы обычные пользователи видели эту версию новости.
+        body_more: "Введите содержимое элемента \"новость\" в область тела сообщения. Используйте раскрывающийся список <em>Форматирование</em> чтобы выбрать соответствующий семантический элемент, например, <em>Заголовок 2</em> для заголовка второго уровня. Примечание: <em>Заголовок 1</em> зарезервировано для названия элемента новостей, поэтому заголовки в области тела начинаются с <em>Заголовок 2</em>. Выберите <em>Исходный код</em> для переключения в режим редактирования HTML кода."
         language_id: Язык
+        meta_description_more: Введите краткое описание резюмирующее основные сведения элемента новостей. Это описание иногда используется поисковыми системами для проверки релевантности и для включения в результаты поиска.
+        meta_keywords_more: Введите разделенный запятыми список слов и коротких фраз, которые лучше всего отражают содержание страницы. Эти ключевые слова и ключевые фразы иногда используются поисковыми системами для оценки релевантности страницы условиям поиска.
+        title_more: Название этой новости появится в области заголовка страницы. Заголовок должен содержать ключевые слова наиболее соответствующие содержанию.
       user: 
         agreed_with_terms: Я согласен с <a href="%{terms_url}">условиями использования</a>
         api_key_more: Подробнее о <a href="%{api_docs_url}">добавлении ключа к API-запросам</a>.
@@ -964,6 +976,7 @@ ru:
         logo: Загрузить новую фотографию
         new_password: Новый пароль <small>(4-16 символов)</small>
         new_password_confirmation: Новый пароль <small>(для подтверждения)</small>
+        news_in_preferred_language: показывать новости на предпочтительном языке
         notification_settings: Настройки уведомлений
         notification_settings_more: Настройте параметры уведомлений.
         open_authentications: Подключенные учетные записи
@@ -1009,6 +1022,7 @@ ru:
         update: Сохранить статью
       data_object_link: 
         create: Добавить ссылку
+        update: Сохранить ссылку
       eol_statistic: 
         change_date: Получить статистику для дат
         download_csv: Скачать как CSV
@@ -1021,6 +1035,11 @@ ru:
       name: 
         create: Добавить имя
         update: Обновить имя
+      news_item: 
+        create: Создать новость
+        edit: Редактировать
+        preview: Предпросмотр
+        update: Обновить новость
       open_authentication: 
         create: Подключить
         destroy: Отключить
@@ -1042,6 +1061,7 @@ ru:
         update: Сохранить изменения в переводе
       translated_news_item: 
         create: Добавить перевод
+        update: Сохранить изменения в переводе
       update: Обновить %{model}
       user: 
         create: Регистрация
@@ -1066,7 +1086,10 @@ ru:
   layouts: 
     v2: 
       application: 
+        about_link_citing: Цитировать ЭЖ
         about_link_contact_us: Как с нами связаться
+        about_link_discover: Узнать больше
+        about_link_donate: Пожертвовать для ЭЖ
         about_link_eol_blog: Блог EOL
         about_link_glossary: Глоссарий
         about_link_help: Помощь
@@ -1076,13 +1099,14 @@ ru:
         about_link_what_is_eol: Что такое EOL?
         header_about: О EOL
         header_learn_more: Узнайте больше о
+        header_questions: Расскажите мне больше
         learn_more_link_amphibians: Амфибиях
         learn_more_link_animals: Животные
         learn_more_link_archaea: Археях
         learn_more_link_bacteria: Бактериях
         learn_more_link_birds: Птицы
         learn_more_link_crustaceans: Ракообразных
-        learn_more_link_fish: Рыбах
+        learn_more_link_fish: Рыбы
         learn_more_link_flowering_plants: Цветах
         learn_more_link_fungi: Грибах
         learn_more_link_insects: Насекомых
@@ -1098,6 +1122,16 @@ ru:
         learn_more_link_trees: Деревья
         learn_more_link_viruses: Вирусах
         learn_more_link_worms: Червях
+        questions_link_binomial_nomenclature: Что такое бинарное название?
+        questions_link_biodiversity: Что такое биоразнообразие?
+        questions_link_biological_classification: Что такое биологическая систематика?
+        questions_link_contributing_to_research: Как я могу содействовать научно-исследовательской работе?
+        questions_link_discovering_species: Как открывают виды?
+        questions_link_indicator_species: Что такое индикатор видов?
+        questions_link_invasive_species: Что такое инвазивный вид?
+        questions_link_model_organism: Что такое модельный организм?
+        questions_link_naming_species: Как называют виды?
+        questions_link_species: Что такое вид?
   license: Лицензия
   license_all_rights_reserved: Все права защищены
   license_cc_by: Creative Commons Attribution (CC BY)
@@ -1187,6 +1221,7 @@ ru:
   news_archive_page: архив новостей
   news_items: 
     index: 
+      meta_keywords: эж новости, новости энциклопедии жизни
       meta_title: Новости EOL
       page_title: Новости EOL
   no_answer: Нет
@@ -1214,7 +1249,11 @@ ru:
       message: "Следующее сообщение было передано EOL через форму обратной связи:\nОт: %{from_name}\nE-mail: %{from_email}\nТема: %{subject}\n\n%{message}"
       subject: "Сообщение для EOL: %{title}"
     content_partner_created: 
+      message: "Это уведомление автоматизированной системы ЭЖ для группы \"Страницы видов\". Пользователь %{user_full_name} создал контент партнеру %{partner_full_name}, подробности ниже:\n\nПользователь: %{user_full_name}\nE-mail: %{user_email}\nURL профиля: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nURL профиля партнера: %{partner_profile_url}\nСоздано: %{partner_created_at_date}"
       subject: Пользователь EOL «%{user_full_name}» создал контент-партнера «%{partner_full_name}»
+    content_partner_resource_created: 
+      message: "Это уведомление автоматизированной системы ЭЖ для группы \"Страницы видов\". Пользователь %{user_full_name} создал новый ресурс %{resource_title} контенту партнера %{partner_full_name}, подробности ниже:\n\nПользователь: %{user_full_name}\nE-mail: %{user_email}\nURL профиля: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nПартнеров ресурсов URL: %{partner_resources_url}\n\nРесурс: %{resource_title}\nРесурсов URL: %{resource_url}\nСоздано: %{resource_created_at_date}\nСтатус: %{resource_status}"
+      subject: Пользователь ЭЖ %{user_full_name} добавил новый ресурс %{resource_title} контенту партнера %{partner_full_name}
     greeting_dear_name_with_comma: Уважаемый, %{name},
     signature_basic: Команда энциклопедии жизни
     signature_with_contact_us_link: "Если у вас возникли какие-либо проблемы, пожалуйста, свяжитесь с нами по адресу %{url}.\n\nКоманда энциклопедии жизни"

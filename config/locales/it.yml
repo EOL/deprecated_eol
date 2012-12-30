@@ -1388,6 +1388,7 @@ it:
         connected: Connesso
       resource: 
         administration_settings: Impostazioni di amministrazione <small>(visibile solo agli amministratori EOL)</small>
+        dataset: Gruppo di dati
         hierarchy: Gerarchia
         latest_published_harvest_event: Pubblicato l'ultima volta
         oldest_published_harvest_event: Pubblicato la prima volta
@@ -1606,7 +1607,7 @@ it:
         learn_more_link_bacteria: Batteri
         learn_more_link_birds: Uccelli
         learn_more_link_crustaceans: Crostacei
-        learn_more_link_fish: Pesce
+        learn_more_link_fish: Pesci
         learn_more_link_flowering_plants: Piante da fiore
         learn_more_link_fungi: Funghi
         learn_more_link_insects: Insetti
@@ -2248,7 +2249,7 @@ it:
     one: "%{count} articolo"
     other: "%{count} articoli"
   thank_you: Grazie
-  thank_you_for_your_generous_support: Grazie per il generoso sostegno
+  thank_you_for_your_generous_support: Grazie per il tuo generoso sostegno
   thanks_for_your_time: Grazie per il vostro tempo,
   the_comment_was_successfully_deleted: Il commento è stato cancellato
   the_message_was_sent: Il messaggio è stato inviato.

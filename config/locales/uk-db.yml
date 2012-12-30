@@ -80,7 +80,11 @@ uk:
   translated_contact_subjects-title-contact_subject_id-31: Зображення, відео або звуки
   translated_contact_subjects-title-contact_subject_id-32: Запит медіа-ресурсів (інтерв'ю, прес-релізи, логотип)
   translated_contact_subjects-title-contact_subject_id-33: Зробити грошову пожертву
+  translated_contact_subjects-title-contact_subject_id-34: Технічні питання (проблеми із пошуком, із функціоналом сайту)
+  translated_contact_subjects-title-contact_subject_id-35: Загальні відгуки
+  translated_content_partner_statuses-label-content_partner_status_id-1: У стані розгляду
   translated_content_partner_statuses-label-content_partner_status_id-2: Активний
+  translated_content_partner_statuses-label-content_partner_status_id-3: Архівовано
   translated_content_partner_statuses-label-content_partner_status_id-4: Неактивний
   translated_content_tables-label-content_table_id-1: Деталі
   translated_data_types-label-data_type_id-1: Зображення
@@ -108,12 +112,14 @@ uk:
   translated_licenses-description-license_id-39: Суспільне надбання (Public Domain)
   translated_licenses-description-license_id-4: Деякі права захищені
   translated_licenses-description-license_id-42: Деякі права захищені
+  translated_licenses-description-license_id-43: Ліцензія не підходить
   translated_licenses-description-license_id-5: Деякі права захищені
   translated_licenses-description-license_id-6: Деякі права захищені
   translated_licenses-description-license_id-7: Деякі права захищені
   translated_licenses-description-license_id-8: Деякі права захищені
   translated_licenses-description-license_id-9: Деякі права захищені
   translated_ranks-label-rank_id-106: форма
+  translated_ranks-label-rank_id-107: форма
   translated_ranks-label-rank_id-112: рід
   translated_ranks-label-rank_id-113: рід
   translated_ranks-label-rank_id-118: рід
@@ -139,6 +145,7 @@ uk:
   translated_ranks-label-rank_id-472: надтип
   translated_ranks-label-rank_id-494: триба
   translated_ranks-label-rank_id-51: клас
+  translated_ranks-label-rank_id-512: різн.
   translated_ranks-label-rank_id-513: різн.
   translated_ranks-label-rank_id-517: різновиди
   translated_ranks-label-rank_id-518: різновидність

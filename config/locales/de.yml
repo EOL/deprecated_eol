@@ -10,13 +10,15 @@
 # Author: Kghbln
 # Author: McDutchie
 # Author: Metalhead64
+# Author: Nipsky
 # Author: Purodha
 # Author: Tbleher
 de: 
   0_1_or_2: 0, 1 oder 2
   0_or_1: 0 oder 1
+  a_maximum_of_30_results_are_returned: maximal werden 30 Ergebnisse pro Seite zurückgegeben. Dieser Parameter erlaubt es Ihnen, mehrere Seiten mit Ergebnissen abzurufen, wenn es mehr als 30 Zeilen Treffer gibt.
   a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „all“, um alle einer vorhandenen Lizenz zugeordneten Objekte zu erhalten. Mit cc- abgekürzte Listen sind allesamt %{creative_commons_link}-Lizenzen. Für mehr Informationen besuchen Sie bitte die jeweilige Website der verschiedenen angebotenen Lizenzen.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: „overview“, um den Übersichtstext auszugeben zu lassen (sofern vorhanden); eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SPM-Informationsobjektthemen, um den Text zu den Namen der entsprechenden SPM-Informationsobjektthemen zu erhalten; „all“, um Texte zu jedem Thema zu erhalten. Gibt stets den Übersichtstext als erstes Ergebnis aus (sofern im betreffenden Kontext vorhanden).
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "'Überblick', um den Überblickstext zurückzugeben (falls vorhanden), eine durch das Pipe-Zeichen | getrennte Liste der Antragstellernamen aus der Liste aus %{subjects_text} (z.B. TaxonBiology, FossilHistory) oder 'Alle', um einen Text zu jedem Thema zu erhalten. Gibt immer einen Überblickstext als erstes Ergebnis zurück (falls im gegebenen Kontext vorhanden)."
   a_taxon: ein Taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Insgesamt wurde ein Kommentar gefunden, der zu Ihren Kriterien passt.
@@ -1559,6 +1561,7 @@ de:
     other: "%{count} Objekte in eine neue Sammlung kopieren"
   copy_of_name: Kopie von %{name}
   copyright: "Rechtlich geschützt für:"
+  correct_donation_message_with_link: Wenn diese Informationen nicht korrekt ist, gehen Sie bitte <a href='%{link}'>zurück</a>, um Änderungen vorzunehmen.
   could_not_find_collection_error: Diese Sammlung konnte leider nicht gefunden werden.
   could_not_find_user: Sie sind nicht Mitglied dieser Gemeinschaft.
   count: Anzahl
@@ -1591,6 +1594,13 @@ de:
   curated_objects_of: von %{name} kuratierte Objekte
   curated_species_of: von %{name} kuratierte Arten
   curation_comment: Kommentar des Kurators
+  curation_error_hide_reasons_invalid: Die Gründe %{association} zu verbergen waren ungültig
+  curation_error_no_hide_reasons_given: Bitte wählen Sie einen Grund, aus dem Sie dieses Element auf  der %{association}-Seite verbergen, oder hinterlassen Sie einen Kommentar, um zu erklären, warum Sie es verbergen
+  curation_error_no_untrust_reasons_given: Bitte wählen Sie einen Grund, aus dem Sie diesem Element auf der %{association}-Seite nicht mehr vertrauen, oder hinterlassen Sie einen Kommentar, um zu erklären, warum Sie ihm nicht mehr vertrauen
+  curation_error_object_in_preview_state_cannot_be_curated: Dieses Objekt wird für den Import als Vorschau angezeigt und kann nicht kuratiert werden
+  curation_error_untrust_reasons_invalid: Die Gründe %{association} nicht mehr zu vertrauen waren ungültig
+  curation_error_vetted_invalid: Sie können %{association} nicht zu '%{vetted}' kuratieren
+  curation_error_visibility_invalid: Sie können %{association} nicht zu '%{visibility}' kuratieren
   curation_privileges_page_description: Wählen Sie die gewünschte Tätigkeitsebene aus, entweder Pro-, Ober- oder Hauptkurator. Bewerbungen zum Ober- und Hauptkurator müssen den angestrebten Tätigkeitsumfang sowie Referenzen enthalten. Sie werden per E-Mail darüber informiert, sobald Ihre Angaben geprüft und akzeptiert wurden. Bewerbungen zum Prokurator werden nicht gesondert geprüft und umgehend genehmigt. Erfahren Sie mehr darüber, wie man <a href="%{curators_url}">ein Kurator werden</a> kann.
   curation_privileges_page_title: Werden Sie ein Kurator
   curation_reason_placeholder: zusätzliche Informationen (optional)
@@ -1822,6 +1832,7 @@ de:
     one: "%{count} empfohlene Sammlung"
     other: "%{count} empfohlene Sammlungen"
   enter_in_a_search_term_users_a: Geben Sie einen Suchbegriff ein, nach dem die Nutzer suchen, und dann die Seitenkennung des Taxons als Ziel einer entsprechenden Suche. Die Seitenkennung des Taxons ist aus der URL des Taxons ersichtlich, z. B. hat www.eol.org/pages/5 die Seitenkennung 5. Der Seitenname und das erste Bild werden, sofern sie verfügbar sind, automatisch hinzugefügt und mit dem angegebenen Ergebnis gespeichert.
+  eol_accepted_subjects: Von der EOL akzeptierte Themen
   eol_administration_console: EOL-Verwaltungskonsole
   eol_api: EOL-API
   eol_api_collections: "EOL-API: Sammlungen"
@@ -2325,7 +2336,7 @@ de:
   icon_near_the_table_of_content: Symbol in der Nähe des Inhaltsverzeichnisses auf der linken Seite der Seite. Sie können auch <a href=''>Kommentare</a> zu dieser Art direkt auf EOL speichern, indem Sie hierzu den Reiter „Kommentare“ in unmittelbarer Nähe der Bilder nutzen.
   id: Kennung
   if_checked_and_user_is_saved: Sofern diese Option ausgewählt und der Nutzer gespeichert wird, werden die Referenzen, der Kompetenzbereich, die Genehmigung sowie die ausgewählte Gruppe entfernt. Der Nutzer wird danach nicht länger als Kurator angezeigt. Bitte geben Sie eine hinweisende Anmerkung zur Begründung an. Der Nutzer erhält darüber keine Informationen.
-  if_the_details_parameter_is_not_set: Sofern der Parameter zu den Informationen nicht festgelegt wird, werden nur die Kennung des Datenobjekts, der Datentyp, sowie im Fall eines Artikels, das Thema zurückgegeben. Der Datentyp wird ein Wert des Quellenartenvokabulars %{linka} sein. Das Thema wird ein Wert der Ontologie %{linkb} für Informationsobjekte sein.
+  if_the_details_parameter_is_not_set: Sofern der Parameter zu den Informationen nicht festgelegt ist, werden nur die Kennung des Datenobjekts, der Datentyp, sowie im Fall eines Artikels das Thema zurückgegeben. Der Datentyp wird ein Wert des Quellenartenvokabulars %{linka} sein. Das Textthema wird eines der %{linkb} sein.
   image: Bild
   image_alt_text: Dieses Bild mit Status %{vetted_status} ist von %{taxon_name}
   image_from_supplier: Bild von %{whom}
@@ -2902,6 +2913,7 @@ de:
     one: "%{count} weiteres Taxon"
     other: "%{count} weitere Taxa"
   other_us_dollars_amount: "Anderer: USD"
+  other_version_links: "Andere Versionen: %{version_links}"
   outlink: Externer Link
   overview: Übersicht
   page: Seite
@@ -2982,6 +2994,9 @@ de:
   profile_newsfeed: Mein Nachrichtenfeed
   profile_picture: Profilbild
   project: Projekt
+  provide_a_concept_id: bei gegebener EOL-Seiten-ID werden die Suchergebnisse auf die Mitglieder dieser Taxonomiegruppe beschränkt
+  provide_a_hierarchy_entry_id: bei gegebener Hierarchieeintrags-ID werden die Suchergebnisse auf die Mitglieder dieser Taxonomiegruppe beschränkt
+  provide_a_search_string: bei gegebenem Suchbegriff wird eine exakte Suche durchgeführt und die passende Seite wird als die Taxonomiegruppe benutzt, nach der die Suchergebnisse gefiltert werden
   provider: Anbieter
   provider_hierarchies_method_description: Diese Methode wird Quellen zu allen Hierarchien ausgeben, die von EOL-Inhaltspartnern bereitgestellt wurden. Die Ausgabe wird die Bezeichnung der Hierarchie und deren eindeutige EOL-Kennung enthalten.
   providers: Anbieter
@@ -3214,6 +3229,10 @@ de:
   show_status_message: Statusmeldung anzeigen
   show_tasks: Aufgaben anzeigen
   show_warning_message: Warnmeldung anzeigen
+  showing_all_error_logs: <b>Alle Fehler</b> anzeigen
+  showing_all_harvest_logs: <b>Alle Harvests</b> werden angezeigt
+  showing_error_logs_from_date: Fehler vom <b>%{date}</b> anzeigen
+  showing_harvest_logs_from_date: Alle Harvests für den <b>%{date}</b> werden angezeigt
   shown_to_the_user_parens: (dem Nutzer anzeigen)
   shown_to_user_as_the_title_of_page: dem Nutzer als Seitenname anzeigen
   sign_in: Anmelden
@@ -3482,8 +3501,19 @@ de:
         tweet_text: Synonyme zu %{scientific_name}
     overview: 
       hierarchy_entry: 
+        meta_description: Eine Zusammenfassung der Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_description_with_common_name: Eine Zusammenfassung der Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_keywords: "%{scientific_name} anerkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} erkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
         meta_title: "%{scientific_name} klassifiziert von %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}, klassifiziert von %{hierarchy_provider})"
+        tweet_text: Überblick zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
       meta_description: Information auf %{scientific_name} in der Enzyklopädie des Lebens.
+      meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name} in der Enzyklopädie des Lebens.
+      meta_keywords: Informationen zu %{scientific_name},%{scientific_name}-Informationen
+      meta_keywords_with_common_name: Informationen zu %{scientific_name},Informationen zu %{preferred_common_name},%{scientific_name}-Informationen und Fakten,%{preferred_common_name}-Informationen
+      meta_title: "%{scientific_name} - Informationen zu %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informationen zu %{preferred_common_name}"
       tweet_text: Information auf %{scientific_name}
     resources: 
       biomedical_terms: 
@@ -3622,6 +3652,7 @@ de:
   the_count_represents_the_total: Die Anzahl entspricht der Gesamtzahl der veröffentlichten Datenobjekten in der jeweiligen SPM-Kategorie.
   the_cp_count_info: Die Anzahl entspricht der Gesamtzahl der Inhaltspartner mit veröffentlichten Datenobjekten in der jeweiligen SPM-Kategorie.
   the_darwin_core_taxon_elements: Das Darwin-Core-Taxonelement (dwct:Taxon) bei „additionalInformation“ enthält Kennungen für die Knotenpunkte innerhalb von Hierarchien, die EOL indexiert. Sie enthalten einen „dc:identifier“, welcher der eindeutigen Kennung des Taxons <i>in der Datenbank des Bereitstellers der Daten</i> entspricht.
+  the_data_object_id_can_be: Der ID-Parameter kann entweder ein Integer (eine DataObject-Versions-ID) oder eine 16 Zeichen lange GUID sein, welche die letzte Version dieses Objekts zurückliefert
   the_file_was_uploaded: Die Datei wurde hochgeladen.
   the_following_bibliography: Die folgende Bibliografie wurde durch Zusammenführung aller, von unseren Inhaltspartnern bereitgestellten, Quellen generiert. Möglicherweise gibt es Überschneidungen.
   the_following_users_were_prese: "Den folgenden Nutzern wurde die unten angezeigte Umfrage, mit Hilfe eines Aufklappfensters, angezeigt und nahmen an ihr teil:"
@@ -3635,6 +3666,7 @@ de:
   the_message_was_sent: Die Nachricht wurde gesendet.
   the_new_topic_was_created: Das neue Thema wurde erstellt.
   the_new_user_was_created: Der neue Nutzer wurde erstellt.
+  the_query_string: der Query-String
   the_suggested_page_to_direct_users_to_link: die vorgeschlagene Seite, zu der die Nutzer geleitet werden sollen
   the_topic_was_updated: Das Thema wurde aktualisiert.
   the_user_was_updated: Der Nutzer wurde aktualisiert.
@@ -3665,6 +3697,7 @@ de:
   this_map_cannot_be_curated_because_unpublished: Diese Karte kann nicht kuratiert werden, da er unveröffentlicht ist.
   this_map_is_unpublished: Diese Karte ist unveröffentlicht.
   this_method_takes_an_integer_or_string: Diese Methode gibt zu einer Ganzzahl oder einer Zeichenkette, die der eindeutigen Bezeichner eines Taxons in der Datenbank eines Anbieters ist, in Verbindung mit der Hierarchiekennung des Datenanbieters, die Seitenkennung von EOL zum entsprechenden Taxons aus. Sofern man bspw. die %{link_provider}-API nutzt, kann man die Hierarchiekennung bei EOL zur Kennung %{itis_id} des „Integrated Taxonomic Information System“ (ITIS) ermitteln. Danach kann man in der EOL nach der „ITIS Taxonomic Serial Number“ (TSN) 180542,<i>Ursus maritimus</i> suchen, indem man %{link_url} aufruft.
+  this_older_version: Diese ältere Version der Pages-API-Methode akzeptiert dieselben Parameter und gibt in etwa die selben Informationen zurück. Tatsächlich ist die JSON-Antwort mit der Version 1.0 identisch, die XML-Antwort hat jedoch eine etwas andere Struktur.
   this_page_shows_information_ab: Diese Seite zeigt Informationen über die Anzahl der zur Suche jeweils angezeigten Ergebnisse an, sowie welche Ergebnisse die Nutzer nach Abschluss der Suche anklickten.
   this_page_will_be_reindexed: Diese Seite wird im Hintergrund reindiziert. Die Fertigstellung kann bis zu 24 Stunden in Anspruch nehmen.
   this_resource_unpublished_notice: Diese Quelle wurde bis zum jetzigen Zeitpunkt noch nicht als veröffentlicht festgelegt.
@@ -4022,6 +4055,7 @@ de:
   value_empty: (leer)
   values: Werte
   version_1_0_uses_fields_from_the_latest_version: Version 1.0 nutzt Felder der neuesten Version von Schema %{link}
+  versions_colon: "Versionen:"
   vetted: Geprüft
   video_alt_text: Dieses Video mit Status %{vetted_status} ist von %{taxon_name}
   video_from: Video von

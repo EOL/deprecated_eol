@@ -6,6 +6,7 @@
 ko: 
   0_1_or_2: 0, 1 또는 2
   0_or_1: 0 또는 1
+  a_maximum_of_30_results_are_returned: 최대 문서 당 결과 30개가 나타납니다. 이 변수는 30개 이상 일치할 때 더 많은 결과 문서를 가져올 수 있습니다
   a_taxon: 분류
   a_total_of_comment_were_found_matching_your_criteria: 
     one: 기준과 일치하는 덧글 총 %{count}개를 찾았습니다.
@@ -680,6 +681,23 @@ ko:
       unlock: 
         merge_of_an_unknown_taxon_unlocked: 최근에 요청한 문서 병합을 완료했지만 문서를 찾을 수 없습니다.
         merge_of_it_unlocked: 이 문서에 최근에 요청한 병합을 완료했습니다.
+        merge_of_taxon_unlocked: "\"%{taxon}\" 분류에 대해 최근에 요청한 문서 병합을 완료했습니다."
+        move_of_an_unknown_taxon_unlocked: 최근에 요청한 분류 이동을 완료했지만 문서를 찾을 수 없습니다.
+        move_of_it_unlocked: 이 문서에 최근에 요청한 분류 이동을 완료했습니다.
+        move_of_taxon_unlocked: "\"%{taxon}\" 분류에 대해 최근에 요청한 분류 이동을 완료했습니다."
+        split_of_an_unknown_taxon_unlocked: 최근에 요청한 분류 나누기를 완료했지만 문서를 찾을 수 없습니다.
+        split_of_it_unlocked: 이 문서에 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로 이동했습니다.
+        split_of_taxon_unlocked: "\"%{taxon}\" 분류에 대해 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로 이동했습니다."
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "최근에 요청한 문서 병합을 <strong>실패했습니다</strong>: %{error} 또한 영향을 받은 문서를 찾을 수 없습니다."
+        merge_of_it_unlocked_with_error: "이 문서에 최근에 요청한 병합을 <strong>실패했습니다</strong>: %{error}"
+        merge_of_taxon_unlocked_with_error: "\"%{taxon}\" 분류에 대해 최근에 요청한 문서 병합을 <strong>실패했습니다</strong>: %{error}"
+        move_of_an_unknown_taxon_unlocked_with_error: "최근에 요청한 분류 이동을 <strong>실패했습니다</strong>: %{error} 또한 영향을 받은 문서를 찾을 수 없습니다."
+        move_of_it_unlocked_with_error: "이 문서에 최근에 요청한 분류 이동을 <strong>실패했습니다</strong>: %{error}"
+        move_of_taxon_unlocked_with_error: "\"%{taxon}\" 분류에 대해 최근에 요청한 분류 이동을 <strong>실패했습니다</strong>: %{error}"
+        split_of_an_unknown_taxon_unlocked_with_error: "최근에 요청한 분류 나누기를 <strong>실패했습니다</strong>: %{error} 또한 영향을 받은 문서를 찾을 수 없습니다."
+        split_of_it_unlocked_with_error: "이 문서에 최근에 요청한 분류 나누기를 <strong>실패했습니다</strong>: %{error}"
+        split_of_taxon_unlocked_with_error: "\"%{taxon}\" 분류에 대해 최근에 요청한 분류 나누기를 <strong>실패했습니다</strong>: %{error}"
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
@@ -804,6 +822,7 @@ ko:
   admin_content_page_child_new_link: 자매 문서 만들기
   admin_content_page_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서를 성공적으로 만들었습니다.
   admin_content_page_create_unsuccessful_error: 죄송합니다, 오류가 발생해 문서를 만들지 못했습니다.
+  admin_content_page_delete_confirmation: "\"%{page_name}\" 문서와 모든 번역을 삭제하시겠습니까? 삭제 행위는 취소할 수 없습니다."
   admin_content_page_delete_successful_notice: "%{page_name} 문서와 관련된 번역을 삭제했습니다."
   admin_content_page_edit_header: <em>%{page_name}</em> 문서에 대한 기본 문서 정보 업데이트
   admin_content_page_new_header: 새 콘텐츠 문서 만들기
@@ -946,6 +965,7 @@ ko:
   anonymous_user_given_name: 익명
   anonymous_user_tag_line: 로그인하지 않음
   any_integer: 어떤 정수
+  any_string: 어떠한 문자열
   application_version_advisory_information: 어플리케이션 버전
   are_you_sure: 확실합니까?
   are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 행동은 되돌릴 수 없습니다.
@@ -1032,6 +1052,7 @@ ko:
   by_scientific_name_table_header: 과확적인 이름
   cache_store: 캐시 저장소
   calculate_averages_slow: 평균 계산 (느림)
+  call_api: API 호출
   cancel: 취소
   cancel_split: 취소
   cannot_be_associated_with_both_a_user_and_a_community: 사용자와 공동체 모두 연결할 수 없습니다
@@ -1084,7 +1105,7 @@ ko:
   click: 클릭
   clicked_time: 클릭 시간
   close_this_window_to_return_to_edit_window: 편집 창으로 돌아가려면 이 창을 닫으세요
-  cms_available_in_languages: "이 문서는 다음에 존재합니다:"
+  cms_available_in_languages: "이 문서는 다음 언어로 읽을 수 있습니다:"
   cms_missing_content_message: 죄송합니다, 이 문서는 %{selected_language}로 읽을 수 없습니다.
   cms_missing_content_title: 번역 없음
   collect_item: 항목 모음
@@ -1282,6 +1303,7 @@ ko:
   content_partner_administration_notes_empty: 관리 참고가 없습니다.
   content_partner_administration_notes_header: 관리 참고
   content_partner_administration_settings_header: 관리 설정
+  content_partner_administration_settings_introduction: 다음 관리 필드는 EOL 관리자만 볼 수 있고 편집할 수 있습니다.
   content_partner_agreement_cancel_edit_agreement_link: 취소
   content_partner_agreement_cancel_new_agreement_link: 취소
   content_partner_agreement_cancel_sign_agreement_link: 취소
@@ -1314,6 +1336,7 @@ ko:
   content_partner_current_agreement_not_accepted: 아직 동의하지 않았습니다
   content_partner_current_agreement_signed_on_with_date: "%{date}에 가입함"
   content_partner_current_agreement_view_link: 보기
+  content_partner_data_description_empty: 아무도 제공하는 데이터의 설명을 추가하지 않았습니다.
   content_partner_data_description_header: 데이터 설명
   content_partner_default_description: 생명의 백과사전 콘텐츠 파트너입니다.
   content_partner_edit_link: 콘텐츠 파트너 편집
@@ -1333,8 +1356,10 @@ ko:
   content_partner_logo_alt_text: "%{partner_name} 콘텐츠 파트너에 대한 로고"
   content_partner_managed_by_header: 관리자
   content_partner_new_edit_form_profile_header: 콘텐츠 파트너 프로필 정보
+  content_partner_new_edit_form_tip: 여기에 입력한 정보의 일부는 공개적으로 보여집니다. 프로젝트 이름과 설명은 필수%{required_icon}입니다.
   content_partner_new_link: 새 콘텐츠 파트너 추가
   content_partner_new_page_subheader: 새 콘텐츠 파트너 추가
+  content_partner_notes_empty: 이 프로젝트에 대한 추가 참고가 없습니다.
   content_partner_notes_header: 프로젝트 참고
   content_partner_oldest_published_harvest_event_time_ago: "%{time_passed} 전에 EOL에 처음으로 게시함;"
   content_partner_overview_agreement_header: 파트너 계약
@@ -1353,6 +1378,8 @@ ko:
   content_partner_resource_collection_header: 모음집을 게시함
   content_partner_resource_collection_show_link: 게시한 모음집 보기
   content_partner_resource_collections_header: 모음집
+  content_partner_resource_confirm_force_harvest: "%{resource_title} 자료를 강제 수확하겠습니까?"
+  content_partner_resource_create_successful_notice: "콘텐츠 파트너 자료 자세한 정보를 성공적으로 추가했습니다. 자료 데이터의 현재 상태: %{resource_status}"
   content_partner_resource_create_unsuccessful_error: 죄송합니다, 오류가 발생해 자료를 추가하지 못했습니다.
   content_partner_resource_dataset_details_header: 데이터 집합
   content_partner_resource_description_empty: 설명이 이 자료에 제공하지 않았습니다.
@@ -1393,6 +1420,7 @@ ko:
   content_partner_resources_link: 자료 및 연락
   content_partner_resources_link_back_to: 자료 및 연락으로 돌아가기
   content_partner_statistics_column_header_provider_count: 제공자 콘텐츠를 포함한 문서
+  content_partner_statistics_column_header_provider_proportion: 제공자 비율
   content_partner_statistics_column_header_statistic: "%{year}년 %{month_name} 달에 측정한 통계"
   content_partner_statistics_column_header_taxa_page_page_views: 문서 보기
   content_partner_statistics_column_header_taxa_page_time_on_page_seconds: 문서당 시간 (초)
@@ -1433,6 +1461,7 @@ ko:
   content_servers: 콘텐츠 서버
   content_setting_colon: "콘텐츠 설정:"
   content_summary_table_count_column_header: 갯수
+  content_summary_table_type_descendants_row: 자손 수
   content_summary_table_type_status_column_header: 콘텐츠 종류와 상태
   content_summary_table_type_trusted_images_row: 신뢰한 그림 수
   content_summary_table_type_trusted_text_row: 신뢰한 텍스트 항목 수
@@ -1470,7 +1499,7 @@ ko:
   create_community_about_heading: 공동체 만들기에 대해
   create_community_around_this_collection_header: 이 모음집 주위의 공동체 만들기
   create_community_button: 공동체 만들기
-  created: Created
+  created: 만들어짐
   created_at: 만든 곳
   created_by: 작성자
   created_colon: "만든 날짜:"
@@ -1500,7 +1529,7 @@ ko:
   curator_scope_colon: "큐레이터 범위:"
   curator_status_changed_by: "%{date}에 %{user} 사용자에 의해 큐레이터 상태를 바꿈"
   curators: 큐레이터
-  curators_empty: 우리 큐레이터는 아직 이 문서에 어떠한 작업도 하지 않았습니다.
+  curators_empty: 큐레이터는 아직 이 문서에 어떠한 작업도 하지 않았습니다.
   curators_summary_header_with_count: 
     one: 큐레이터 %{count}명이 검토함
     other: 큐레이터 %{count}명이 검토함
@@ -1876,10 +1905,10 @@ ko:
       comment: 
         body_edit: 덧글 편집
       contact: 
-        comments: 내 메시지
+        comments: 메시지
         contact_subject_id: 주제
-        email: 당신의 이메일 주소
-        name: 당신의 이름
+        email: 이메일 주소
+        name: 이름
       content_page: 
         active: 게시함
         active_more: 게시한 문서는 공개적으로 보여집니다. 어떤 언어로 이 문서의 버전을 확인하는 일반 사용자를 방지하려면 <em>게시함</em> 확인을 취소하세요.
@@ -2038,6 +2067,7 @@ ko:
         username_or_email: 사용자 이름이나 이메일 주소
       wikipedia_queue: 
         revision_url: 판 URL <small>(예를 들어 http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url_more: 요청하는 위키백과 판 URL을 입력하면 심사하여 EOL은 특정 판을 수집합니다. 이미 판이 있다면 해당 문서의 현재 판으로 바뀝니다.
     select: 
       prompt: 선택하세요
     submit: 
@@ -2494,7 +2524,7 @@ ko:
   new_user: 새 사용자
   news_and_event_links: 뉴스 및 사건 링크
   news_archive_page: 뉴스 아카이브 문서
-  news_available_in_languages: "이 문서는 다음에 존재합니다:"
+  news_available_in_languages: "이 문서는 다음 언어로 읽을 수 있습니다:"
   news_date: 뉴스 날짜
   news_item: 뉴스 항목
   news_item_date_as_shown_to_user: "사용자한테 보여지는 뉴스 항목 날짜 (RSS 피드에만 시간이 보임):"
@@ -3197,6 +3227,22 @@ ko:
         meta_title: "%{scientific_name}의 동의어"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})의 동의어"
         tweet_text: "%{scientific_name}의 동의어"
+    overview: 
+      hierarchy_entry: 
+        meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 인정한 %{scientific_name}에 대한 정보 요약입니다.
+        meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해 인정한 %{preferred_common_name}라고도 알려진 %{scientific_name}에 대한 정보 요약입니다.
+        meta_keywords: "%{hierarchy_provider}에 의해 인정한 %{scientific_name}, %{hierarchy_provider}에 의해 분류한 %{scientific_name}"
+        meta_keywords_with_common_name: "%{hierarchy_provider}에 의해 인정한 %{scientific_name}, %{hierarchy_provider}에 의해 분류한 %{scientific_name}"
+        meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+        tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 둘러보기"
+      meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 정보입니다.
+      meta_description_with_common_name: 생명의 백과사전에서 과학적으로 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 정보입니다.
+      meta_keywords: "%{scientific_name}에 대한 정보,%{scientific_name} 정보"
+      meta_keywords_with_common_name: "%{scientific_name}에 대한 정보,%{preferred_common_name}에 대한 정보,%{scientific_name} 정보와 사실, %{preferred_common_name} 정보"
+      meta_title: "%{scientific_name} - %{scientific_name}에 대한 정보"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - %{preferred_common_name}에 대한 정보"
+      tweet_text: "%{scientific_name}에 대한 정보"
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3573,12 +3619,14 @@ ko:
     open_authentications: 
       errors: 
         facebook: 
+          add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 페이스북 계정을 연결할 수 없으며, 페이스북 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
           missing_attributes: 죄송합니다, 페이스북 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 페이스북 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 페이스북 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 페이스북 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 페이스북 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
         google: 
+          add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 구글 계정을 연결할 수 없으며, 구글 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
           missing_attributes: 죄송합니다, 구글 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 구글 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 구글 계정에 연결하는 데 인증할 수 없습니다.
@@ -3587,14 +3635,16 @@ ko:
         missing_attributes: 죄송합니다, 서드 파티 계정 자세한 정보에 접근하는 데 문제가 있습니다.
         not_authorized_to_add_authentication: 죄송합니다, 해당 계정에 연결하는 데 인증할 수 없습니다.
         not_authorized_to_login: 죄송합니다, 해당 계정으로 EOL에 로그인할 권한이 없습니다.
-        remove_connection_failed: 죄송합니다, 오류가 발생해 우리는 연결을 제거할 수 없습니다.
+        remove_connection_failed: 죄송합니다, 오류가 발생해 연결을 제거할 수 없습니다.
         twitter: 
+          add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 트위터 계정을 연결할 수 없으며, 트위터 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
           missing_attributes: 죄송합니다, 트위터 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 트위터 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 트위터 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 트위터 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 트위터 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
         yahoo: 
+          add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 야후! 계정을 연결할 수 없으며, 야후! 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
           missing_attributes: 죄송합니다, 야후! 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 야후! 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 야후! 계정에 연결하는 데 인증할 수 없습니다.

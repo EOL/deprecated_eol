@@ -50,7 +50,7 @@ gem 'ckeditor'
 gem 'coffee-rails'
 gem 'composite_primary_keys'
 gem 'dalli'
-gem 'ar-octopus', :git => "git://github.com/tchandy/octopus.git", :require => "octopus"
+gem 'ar-octopus', :git => "https://github.com/tchandy/octopus.git", :require => "octopus"
 gem 'email_spec'
 gem 'escape'
 gem 'ezcrypto'

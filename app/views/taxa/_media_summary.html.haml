@@ -1,7 +1,7 @@
 #media_summary.gallery
   %h3.assistive= I18n.t(:media)
   .images
-    - if @media.blank?
+    - if @taxon_page.top_media.blank?
       .image
         = image_tag 'v2/img_taxon-placeholder.png', :alt => ''
         .attribution
@@ -9,7 +9,7 @@
             %p= I18n.t(:media_summary_empty)
             %p= link_to I18n.t(:media_summary_empty_contribute_instructions), cms_page_path('contribute')
     - else
-      - @media[0..3].each do |item|
+      - @taxon_page.top_media.each do |item|
         .image
           %a{:href => data_object_path(item.id)}
             %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_page),
@@ -22,4 +22,4 @@
   %p.all
     = link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_page)
     %br/
-    = link_to I18n.t(:see_all_maps_link), taxon_maps_path(@taxon_page) unless @map.blank?
+    = link_to I18n.t(:see_all_maps_link), taxon_maps_path(@taxon_page) unless @taxon_page.map.blank?

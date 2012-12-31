@@ -221,7 +221,6 @@ private
       render :action => 'unpublished'
       return false
     end
-    @watch_collection = logged_in? ? current_user.watch_collection : nil
   end
 
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:

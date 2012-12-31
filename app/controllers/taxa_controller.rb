@@ -16,26 +16,7 @@ class TaxaController < ApplicationController
   end
 
   def overview
-    @hierarchies = @taxon_page.hierarchy_entries.map { |he| he.hierarchy }.uniq
-    
-    # TODO - no reason to set (most of) these anymore, just call directly:
-    @summary_text = @taxon_page.summary_text
-    @map = @taxon_page.map
-    @media = @taxon_page.top_media
-    
-    # TODO - this is a "magic trick" just to preload it along with the (real) media. Find another way:
-    @media << @summary_text if @summary_text
-    DataObject.replace_with_latest_versions!(@media, :select => [ :description ], :language_id => current_language.id)
-    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ] }, :vetted, :visibility ] } ]
-    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
-    includes << :users_data_object
-    includes << :license
-    includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
-    DataObject.preload_associations(@media, includes)
-    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
-    @summary_text = @media.pop if @summary_text # TODO - this is the other end of the proload magic. Fix.
-    
-    @watch_collection = logged_in? ? current_user.watch_collection : nil
+    @taxon_page.preload_overview # Cuts down on queries by loading everything up front.
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = overview_taxon_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)

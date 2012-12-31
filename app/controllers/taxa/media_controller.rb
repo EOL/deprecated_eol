@@ -67,7 +67,6 @@ class Taxa::MediaController < TaxaController
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
     @facets = @taxon_page.facets
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}
-    @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_media_header)
     set_canonical_urls(:for => @taxon_page, :paginated => @media, :url_method => :taxon_media_url)
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)

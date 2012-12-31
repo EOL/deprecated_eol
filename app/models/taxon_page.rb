@@ -1,15 +1,17 @@
 # This is an interface to the TaxonConcept that is aware of the user and whether the user wants to see data from a
 # single partner or not. This would be a good class to use to build a webpage. :)
+#
+# NOTE - when you create a TaxonPage, the TaxonConcept is *immediately* loaded, if it wasn't already... so if you're
+# counting on ARel to handle lazy loading, you will want to attach any selects and includes *before* calling
+# TaxonPage.
 class TaxonPage
 
   attr_reader :taxon_concept, :user, :hierarchy_entry
 
   def initialize(taxon_concept, user, hierarchy_entry = nil) 
     @taxon_concept = taxon_concept
-    @user = user # TODO - we'll make more use of this later. For now, TaxonConcept uses it directly:
-    # NOTE - this next command loads the taxon concept (if it hasn't been already), so we may want to do some
-    # preloading magic, here:
-    @taxon_concept.current_user = @user
+    @user = user
+    @taxon_concept.current_user = user
     @hierarchy_entry = hierarchy_entry
   end
 
@@ -25,13 +27,41 @@ class TaxonPage
     hierarchy_entry
   end
 
+  def classification_entry
+    return hierarchy_entry if classifcation_filter?
+    return @classification_entry if @classification_entry
+    if chosen = taxon_concept.curator_chosen_classification
+      @classification_chosen_by = chosen.user
+      @classification_entry = chosen.hierarchy_entry
+    else
+      @classification_entry = hierarchy_entries.shuffle.first
+      @classification_entry ||= deep_published_nonbrowsable_hierarchy_entries.shuffle.first
+      @classification_entry ||= entry
+    end
+    @classification_entry
+  end
+
+  def classification
+    classification_entry.hierarchy
+  end
+
+  def classification_chosen_by
+    return @classification_chosen_by if @classification_chosen_by
+    chosen = taxon_concept.curator_chosen_classification
+    @classification_chosen_by = chosen ? chosen.user : nil
+  end
+
+  def classification_curated?
+    @classification_curated ||= taxon_concept.curator_chosen_classification
+  end
+
   def hierarchy
     classifcation_filter? ? hierarchy_entry.hierarchy : taxon_concept.hierarchy
   end
 
-  # We want to delegate damn near eveything to TaxonConcept... but don't want to maintain a list of those methods:
-  # But note that we do NOT delegate the methods defined in this class (obviously), so pay attention to them!
-  # NOTE - someday we might want to stop doing this, so that TaxonPage (or the other classes that rely on it) has a
+  # We're not inheriting from Delegator here, because we want to be more surgical about what gets called on
+  # TaxonConcept... but this sets up *almost* everything to go to the TC (without maintaining a full list).
+  # TODO - we might want to stop doing this, so that TaxonPage (or the other classes that rely on it) has a
   # nice, mangageable interface to all of the information we might want about a TaxonConcept.
   def method_missing(method, *args, &block)
     super unless taxon_concept.respond_to?(method)
@@ -144,6 +174,7 @@ class TaxonPage
   end
 
   # TODO - This belongs in TaxonMedia
+  # NOTE - we use this instance var in #preload_overview...
   def media(options = {})
     @media ||= taxon_concept.data_objects_from_solr(options.merge(
       :ignore_translations => true,
@@ -160,7 +191,7 @@ class TaxonPage
 
   # TODO - This belongs on TaxonConceptOverview
   def summary_text
-    taxon_concept.overview_text_for_user(user)
+    @summary_text ||= taxon_concept.overview_text_for_user(user) # NOTE - we use this instance var in #preload_overview.
   end
 
   def text(options = {})
@@ -181,6 +212,28 @@ class TaxonPage
                             taxon_concept.to_param
   end
 
+  # TODO - Clearly this belongs in TaxonOverview...
+  def preload_overview
+    # TODO - this is a "magic trick" just to preload it along with the (real) media. Find another way:
+    loadables = (media + [summary_text]).compact
+    DataObject.replace_with_latest_versions!(loadables,
+                                             :select => [ :description ], :language_id => user.language_id)
+    includes = [ {
+      :data_objects_hierarchy_entries => [ {
+        :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ]
+      }, :vetted, :visibility ]
+    } ]
+    includes << { :all_curated_data_objects_hierarchy_entries =>
+      [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
+    includes << :users_data_object
+    includes << :license
+    includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
+    DataObject.preload_associations(loadables, includes)
+    DataObject.preload_associations(loadables, :translations , :conditions => "data_object_translations.language_id=#{user.language_id}")
+    @summary_text = loadables.pop if @summary_text # TODO - this is the other end of the proload magic. Fix.
+    @media = loadables
+  end
+    
 private
 
   def hierarchy_entry_or_taxon_concept
@@ -246,14 +299,13 @@ private
   end
 
   # TODO - there are three other methods related to this one, but I don't want to move them yet.
-  # there is an artificial limit of 600 text objects here to increase the default 30
   def details_text_for_user(only_one = false)
     text_objects = taxon_concept.text_for_user(user,
       :language_ids => [ user.language_id ],
       :filter_by_subtype => true,
       :allow_nil_languages => user.default_language?,
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => (only_one ? 1 : 600)
+      :per_page => (only_one ? 1 : 600) # NOTE - artificial limit of text objects here to increase the default 30
     )
     
     # now preload info needed for display details metadata

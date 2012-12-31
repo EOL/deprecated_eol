@@ -25,4 +25,4 @@
                     :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
               %p.flag{:class => item_status_class }= item_status_label
-              = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
+              = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => current_user.watch_collection }

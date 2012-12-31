@@ -6,7 +6,6 @@ class Taxa::MapsController < TaxaController
     # TODO - On next line @curator is defined and doesn't seem to be used anywhere for maps tab. Remove it if not really needed.
     @curator = current_user.min_curator_level?(:full)
     @assistive_section_header = I18n.t(:assistive_maps_header)
-    @watch_collection = logged_in? ? current_user.watch_collection : nil
     
     vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(current_user)
     @maps = @taxon_concept.data_objects_from_solr({

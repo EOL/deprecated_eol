@@ -22,7 +22,7 @@
       .page_actions
         %ul
           %li
-            = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => @watch_collection } if @latest_published_revision && @latest_published_revision.id == @data_object.id
+            = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => current_user.watch_collection } if @latest_published_revision && @latest_published_revision.id == @data_object.id
           - if @data_object.users_data_object && @data_object.users_data_object.user_id == current_user.id && @latest_published_revision
             - if @data_object.data_subtype_id == DataType.link.id
               %li= link_to I18n.t(:dato_edit_link_button), edit_data_object_path(@latest_published_revision, :link => true), :class => 'button'

@@ -27,7 +27,6 @@ class Taxa::DetailsController < TaxaController
       @details_count_by_language[obj.language] += 1
     end
     # TODO - no reason to set these anymore, just call them directly in view:
-    @summary_text = @taxon_page.summary_text
     @exemplar_image = @taxon_page.image
     @assistive_section_header = I18n.t(:assistive_details_header)
     @rel_canonical_href = taxon_details_url(@taxon_page)

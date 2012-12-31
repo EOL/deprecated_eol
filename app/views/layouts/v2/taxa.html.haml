@@ -20,7 +20,7 @@
       .page_actions
         %ul
           %li
-            = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => @watch_collection }
+            = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => current_user.watch_collection }
           - unless @taxon_page.can_be_reindexed?
             %li= link_to(I18n.t(:reindex_page_button), taxon_reindexing_url(@taxon_page), :method => :post, :class => "button reindex")
           -# TODO - rewrite this conditional

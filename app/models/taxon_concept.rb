@@ -793,23 +793,6 @@ class TaxonConcept < ActiveRecord::Base
     article
   end
   
-  # this just gets the TOCitems and their parents for the text given, sorted by view_order
-  def table_of_contents_for_text(text_objects)
-    toc_items_to_show = []
-    text_objects.each do |obj|
-      next unless obj.toc_items
-      obj.toc_items.each do |toc_item|
-        toc_items_to_show << toc_item
-        if p = toc_item.parent
-          toc_items_to_show << p
-        end
-      end
-    end
-    toc_items_to_show.compact!
-    toc_items_to_show.uniq!
-    toc_items_to_show.sort_by(&:view_order)
-  end
-  
   # TODO - there may have been changes to #has_details_text_for_user? ...I need to check that and change the
   # TaxonPage class, if so.
   # TODO - this belongs in the same class as #overview_text_for_user.

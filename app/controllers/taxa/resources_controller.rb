@@ -2,8 +2,6 @@ class Taxa::ResourcesController < TaxaController
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry, :link_objects_contents
 
-  # TODO - Many of these are nearly identical. Why are we repeating ourselves so much, here? Generalize.
-
   def index
     @assistive_section_header = I18n.t(:resources)
     @links = @taxon_concept.content_partners_links

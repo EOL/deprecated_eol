@@ -147,10 +147,24 @@ class TaxonPage
     details_text_for_user(:only_one)
   end
 
-  def details
+  def details(options = {})
     @details ||= details_text_for_user
+    options[:exclude_toc_item] ?
+      @details.select { |d| !d.toc_items.include?(options[:exclude_toc_item]) } :
+      @details
   end
-  
+
+  def toc(options = {})
+    @toc_items ||= TocItem.table_of_contents_for_text(details)
+    options[:under] ?
+      @toc_items.select { |toc_item| toc_item.parent_id == options[:under].id } :
+      @toc_items
+  end
+
+  def toc_roots
+    @toc_roots ||= toc.dup.delete_if(&:is_child?)
+  end
+
   # TODO - This belongs on TaxonNames or the like:
   # TODO - rewrite EOL::CommonNameDisplay to make use of TaxonPage... and to not suck.
   # options are just passed along to EOL::CommonNameDisplay.
@@ -175,6 +189,8 @@ class TaxonPage
 
   # TODO - This belongs in TaxonMedia
   # NOTE - we use this instance var in #preload_overview...
+  # NOTE - Once you call this (with options), those options are preserved and you cannot call this with different
+  # options. Be careful. (In practice, this never matters.)
   def media(options = {})
     @media ||= taxon_concept.data_objects_from_solr(options.merge(
       :ignore_translations => true,
@@ -229,11 +245,38 @@ class TaxonPage
     includes << :license
     includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
     DataObject.preload_associations(loadables, includes)
-    DataObject.preload_associations(loadables, :translations , :conditions => "data_object_translations.language_id=#{user.language_id}")
+    DataObject.preload_associations(loadables, :translations, :conditions => "data_object_translations.language_id=#{user.language_id}")
     @summary_text = loadables.pop if @summary_text # TODO - this is the other end of the proload magic. Fix.
     @media = loadables
   end
-    
+
+  # TODO - clearly this belongs in TaxonDetails...
+  # NOTE - this assumes you have already called #media with whatever options you care to use.
+  def preload_details
+    # There should not be an older revision of exemplar image on the media tab. But recently there were few cases
+    # found. Replace older revision of the exemplar image from media with the latest published revision.
+    if image # If there's no exemplar image, don't bother...
+      @media.map! { |m| (m.guid == image.guid && m.id != image.id) ? image : m }
+    end
+    DataObject.replace_with_latest_versions!(@media, :language_id => current_language.id)
+    includes = [ {
+      :data_objects_hierarchy_entries => [ {
+        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
+      }, :vetted, :visibility ]
+    } ]
+    includes << {
+      :all_curated_data_objects_hierarchy_entries => [ {
+        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
+      }, :vetted, :visibility, :user ]
+    }
+    DataObject.preload_associations(@media, includes)
+    DataObject.preload_associations(@media, :users_data_object)
+    DataObject.preload_associations(@media, :language)
+    DataObject.preload_associations(@media, :mime_type)
+    DataObject.preload_associations(@media, :translations,
+                                    :conditions => "data_object_translations.language_id = #{current_language.id}")
+  end
+
 private
 
   def hierarchy_entry_or_taxon_concept

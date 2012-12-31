@@ -206,6 +206,24 @@ class TocItem < ActiveRecord::Base
     TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
   end
 
+  # this just gets the TOCitems and their parents for the text given, sorted by view_order
+  def self.table_of_contents_for_text(text_objects)
+    DataObject.preload_associations(text_objects, { :toc_items => :parent })
+    toc = []
+    text_objects.each do |obj|
+      next unless obj.toc_items
+      obj.toc_items.each do |toc_item|
+        toc << toc_item
+        if p = toc_item.parent
+          toc << p
+        end
+      end
+    end
+    toc.compact!
+    toc.uniq!
+    toc.sort_by(&:view_order)
+  end
+  
   def object_count
     counts = TocItem.toc_object_counts
     return counts[id] || 0

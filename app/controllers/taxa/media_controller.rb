@@ -14,7 +14,6 @@ class Taxa::MediaController < TaxaController
     @status = params[:status] ||= ['all']
     @status = ['all'] if @status.include?('all')
     @status = @status.values if @status.is_a?(Hash)
-    @exemplar_image = @taxon_page.image
 
     data_type_ids = []
     ['image', 'video', 'sound'].each do |t|
@@ -49,22 +48,8 @@ class Taxa::MediaController < TaxaController
       :vetted_types => search_statuses,
       :visibility_types => visibility_statuses
     )
+    @taxon_page.preload_details
 
-    # TODO - all of this @media stuff should move to TaxonPage (first), then to TaxonDetails (later):
-    # There should not be an older revision of exemplar image on the media tab. But recently there were few cases found.
-    # Replace older revision of the exemplar image from media with the latest published revision.
-    unless @media.blank?
-      @media.map!{ |m| (m.guid == @exemplar_image.guid && m.id != @exemplar_image.id) ? @exemplar_image : m } unless @exemplar_image.nil?
-    end
-    
-    DataObject.replace_with_latest_versions!(@media, :language_id => current_language.id)
-    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility ] } ]
-    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility, :user ] }
-    DataObject.preload_associations(@media, includes)
-    DataObject.preload_associations(@media, :users_data_object)
-    DataObject.preload_associations(@media, :language)
-    DataObject.preload_associations(@media, :mime_type)
-    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
     @facets = @taxon_page.facets
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}
     @assistive_section_header = I18n.t(:assistive_media_header)

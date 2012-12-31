@@ -7,7 +7,7 @@
 
 #media_list
   #sidebar.filters
-    = image_tag @exemplar_image.thumb_or_object('260_190'), :alt => '' unless @exemplar_image.blank?
+    = image_tag @taxon_page.image.thumb_or_object('260_190'), :alt => '' unless @taxon_page.image.blank?
     #filters
       %h3= I18n.t(:media)
       = render :partial => "media_sort_filter"
@@ -43,7 +43,7 @@
                 = form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
                   :html => {:class => 'taxon_concept_exemplar_image'} do |f|
                   %label
-                    = f.radio_button :data_object_id, item.id, { :checked => (!@exemplar_image.blank? && @exemplar_image.id == item.id) }
+                    = f.radio_button :data_object_id, item.id, { :checked => (!@taxon_page.image.blank? && @taxon_page.image.id == item.id) }
                     = I18n.t(:set_as_exemplar)
                   %fieldset.actions
                     = f.submit I18n.t(:set_as_exemplar)

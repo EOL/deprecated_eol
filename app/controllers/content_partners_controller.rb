@@ -37,7 +37,6 @@ class ContentPartnersController < ApplicationController
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
     @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners')).html_safe
-    # TODO - test if this works!  I'm not passing in a :for ... which is weird.
     set_canonical_urls(:paginated => @partners, :url_method => :content_partner_statistics_url)
   end
 

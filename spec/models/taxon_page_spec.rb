@@ -28,7 +28,7 @@ describe TaxonPage do
   it "should be able to filter related_names by hierarchy_entry" # Yeesh, this is really hard to test.
 
   it "should store the hierarchy entry, when passed in." do
-    @taxon_page_with_entry.entry.should == @entry
+    @taxon_page_with_entry.hierarchy_entry.should == @entry
   end
 
   it "should know if the hierarchy entry was proided (and thus we're filtering)" do
@@ -38,7 +38,7 @@ describe TaxonPage do
 
   it "should delegate the hierarchy_entry to taxon_concept, when not passed in" do
     @taxon_concept.should_receive(:entry).and_return('foo')
-    @taxon_page.entry.should == 'foo'
+    @taxon_page.hierarchy_entry.should == 'foo'
   end
 
   it "should intelligently delegate #hierarchy" do

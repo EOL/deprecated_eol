@@ -71,12 +71,14 @@ class TaxaController < ApplicationController
 
 protected
 
-  # TODO - what's this?  Explain.
+  # Defines the scope of the controller and action method (i.e. view path) for using in i18n calls
+  # Used by meta tag helper methods (also see ApplicationController for #super)
   def controller_action_scope
     @controller_action_scope ||= @selected_hierarchy_entry ? super << :hierarchy_entry : super
   end
 
-  # TODO - what's this?  Explain. ...Is it ever really used?
+  # Defines base variables for use in scoped i18n calls, used by meta tag helper methods (also see
+  # ApplicationController for #super)
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
       :preferred_common_name => @preferred_common_name.presence,
@@ -208,7 +210,6 @@ private
     )
   end
 
-  # TODO - I think there may be a better way to express the path info check, here:
   def entry_id_is_in_param_id?
     params[:taxon_id] && params[:id] && request.env['PATH_INFO'] =~ /^\/pages\/[0-9]+\/hierarchy_entries\/[0-9]+\//
   end

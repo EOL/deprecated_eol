@@ -6,29 +6,25 @@
 # TaxonPage.
 class TaxonPage
 
-  attr_reader :taxon_concept, :user, :hierarchy_entry
+  attr_reader :taxon_concept, :user
 
   def initialize(taxon_concept, user, hierarchy_entry = nil) 
     @taxon_concept = taxon_concept
     @user = user
     @taxon_concept.current_user = user
-    @hierarchy_entry = hierarchy_entry
+    @_hierarchy_entry = hierarchy_entry
   end
 
-  # Use this one when you DON'T care if the page is filtered or not:
-  # TODO - this should really be renamed to hierarchy_entry, and the current #hierarchy_entry should be a *private*
-  # method to store the HE... perhaps just _hierarchy_entry (with the leading underscore)... but we need to make sure
-  # we're calling #classifcation_filter? where appropriate instead of checking #hierarchy_entry...
-  def entry
-    hierarchy_entry || @taxon_concept.entry
+  def hierarchy_entry
+    _hierarchy_entry || @taxon_concept.entry
   end
 
   def classifcation_filter?
-    hierarchy_entry
+    _hierarchy_entry
   end
 
   def classification_entry
-    return hierarchy_entry if classifcation_filter?
+    return _hierarchy_entry if classifcation_filter?
     return @classification_entry if @classification_entry
     if chosen = taxon_concept.curator_chosen_classification
       @classification_chosen_by = chosen.user
@@ -36,7 +32,7 @@ class TaxonPage
     else
       @classification_entry = hierarchy_entries.shuffle.first
       @classification_entry ||= deep_published_nonbrowsable_hierarchy_entries.shuffle.first
-      @classification_entry ||= entry
+      @classification_entry ||= hierarchy_entry
     end
     @classification_entry
   end
@@ -56,7 +52,11 @@ class TaxonPage
   end
 
   def hierarchy
-    classifcation_filter? ? hierarchy_entry.hierarchy : taxon_concept.hierarchy
+    classifcation_filter? ? _hierarchy_entry.hierarchy : taxon_concept.hierarchy
+  end
+
+  def kingdom
+    classifcation_filter? ? _hierarchy_entry.hierarchy.kingdom : taxon_concept.hierarchy.kingdom
   end
 
   # We're not inheriting from Delegator here, because we want to be more surgical about what gets called on
@@ -72,7 +72,7 @@ class TaxonPage
   def hierarchy_entries
     return @hierarchy_entries if @hierarchy_entries
     @hierarchy_entries = taxon_concept.published_browsable_hierarchy_entries
-    @hierarchy_entries = [hierarchy_entry] if hierarchy_entry && @hierarchy_entries.empty?
+    @hierarchy_entries = [_hierarchy_entry] if _hierarchy_entry && @hierarchy_entries.empty?
     HierarchyEntry.preload_associations(
       @hierarchy_entries,
       [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ],
@@ -95,7 +95,7 @@ class TaxonPage
   def top_media
     @images ||= promote_exemplar_image(
       taxon_concept.images_from_solr(
-        map? ? 3 : 4, { :filter_hierarchy_entry => hierarchy_entry, :ignore_translations => true }
+        map? ? 3 : 4, { :filter_hierarchy_entry => _hierarchy_entry, :ignore_translations => true }
       )
     ).compact
     @images = map? ? (@images[0..2] << map) : @images
@@ -104,7 +104,7 @@ class TaxonPage
 
   # This is used by the TaxaController (and thus all its children) to help build information for ALL translations:
   def hierarchy_provider
-    classifcation_filter? ? hierarchy_entry.hierarchy_provider : nil
+    classifcation_filter? ? _hierarchy_entry.hierarchy_provider : nil
   end
 
   def scientific_name
@@ -113,18 +113,18 @@ class TaxonPage
 
   # NOTE - Seems like a bit of a waste to get the count and not save it, but I don't think we use the counts.
   def synonyms?
-    classifcation_filter? ? hierarchy_entry.scientific_synonyms.length > 0 :
+    classifcation_filter? ? _hierarchy_entry.scientific_synonyms.length > 0 :
       taxon_concept.count_of_viewable_synonyms > 0
   end
 
   def can_be_reindexed?
-    return false if hierarchy_entry
+    return false if _hierarchy_entry
     return false unless user.min_curator_level?(:master)
     !taxon_concept.classifications_locked?
   end
 
   def can_set_exemplars?
-    return false if hierarchy_entry
+    return false if _hierarchy_entry
     return false unless user.min_curator_level?(:assistant)
     true
   end
@@ -170,7 +170,7 @@ class TaxonPage
   # options are just passed along to EOL::CommonNameDisplay.
   def common_names(options = {})
     return @common_names if @common_names
-    if hierarchy_entry
+    if _hierarchy_entry
       names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(hierarchy_entry.id, options)
     else
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(taxon_concept.id, nil, options)
@@ -180,10 +180,10 @@ class TaxonPage
   end
 
   # TODO - This belongs in TaxonMedia or the like:
-  # NOTE - hierarchy_entry can be nil
+  # NOTE - _hierarchy_entry can be nil
   def facets
     @facets ||= EOL::Solr::DataObjects.get_aggregated_media_facet_counts(
-      taxon_concept.id, :filter_hierarchy_entry => hierarchy_entry, :user => user
+      taxon_concept.id, :filter_hierarchy_entry => _hierarchy_entry, :user => user
     )
   end
 
@@ -194,7 +194,7 @@ class TaxonPage
   def media(options = {})
     @media ||= taxon_concept.data_objects_from_solr(options.merge(
       :ignore_translations => true,
-      :filter_hierarchy_entry => entry,
+      :filter_hierarchy_entry => hierarchy_entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
@@ -202,7 +202,7 @@ class TaxonPage
   end
 
   def media_count
-    @media_count ||= taxon_concept.media_count(user, hierarchy_entry)
+    @media_count ||= taxon_concept.media_count(user, _hierarchy_entry)
   end
 
   # TODO - This belongs on TaxonConceptOverview
@@ -216,15 +216,15 @@ class TaxonPage
 
   # TODO - this prolly belongs on TaxonConceptOverview, not here, but I'm not sure...
   def image
-    taxon_concept.exemplar_or_best_image_from_solr(entry)
+    taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
   end
 
-  # helper.link_to "foo", app.overview_taxon_path(taxon_page) # Results depend on hierarchy entry:
+  # helper.link_to "foo", app.overview_taxon_path(taxon_page) # Results depend on hierarchy_entry:
   # => "<a href=\"/pages/910093/hierarchy_entries/16/overview\">foo</a>"
   # OR
   # => "<a href=\"/pages/910093/overview\">foo</a>"
   def to_param
-    classifcation_filter? ? "#{taxon_concept.to_param}/hierarchy_entries/#{hierarchy_entry.to_param}" :
+    classifcation_filter? ? "#{taxon_concept.to_param}/hierarchy_entries/#{_hierarchy_entry.to_param}" :
                             taxon_concept.to_param
   end
 
@@ -258,7 +258,7 @@ class TaxonPage
     if image # If there's no exemplar image, don't bother...
       @media.map! { |m| (m.guid == image.guid && m.id != image.id) ? image : m }
     end
-    DataObject.replace_with_latest_versions!(@media, :language_id => current_language.id)
+    DataObject.replace_with_latest_versions!(@media, :language_id => user.language_id)
     includes = [ {
       :data_objects_hierarchy_entries => [ {
         :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
@@ -274,24 +274,28 @@ class TaxonPage
     DataObject.preload_associations(@media, :language)
     DataObject.preload_associations(@media, :mime_type)
     DataObject.preload_associations(@media, :translations,
-                                    :conditions => "data_object_translations.language_id = #{current_language.id}")
+                                    :conditions => "data_object_translations.language_id = #{user.language_id}")
   end
 
 private
 
+  def _hierarchy_entry
+    @_hierarchy_entry
+  end
+
   def hierarchy_entry_or_taxon_concept
-    hierarchy_entry || taxon_concept
+    _hierarchy_entry || taxon_concept
   end
 
   def map_taxon_concept
-    @map_taxon_concept ||= classifcation_filter? ? hierarchy_entry.taxon_concept : taxon_concept
+    @map_taxon_concept ||= classifcation_filter? ? _hierarchy_entry.taxon_concept : taxon_concept
   end
 
   # NOTE - the field aliases used in this query are required by #build_related_names_hash and are used in views.
   def get_related_names(which)
     from = which == :children ? 'he_child' : 'he_parent'
     other = which == :children ? 'he_parent' : 'he_child'
-    filter = classifcation_filter? ? "id=#{hierarchy_entry.id}" : "taxon_concept_id=#{taxon_concept.id}"
+    filter = classifcation_filter? ? "id=#{_hierarchy_entry.id}" : "taxon_concept_id=#{taxon_concept.id}"
     # NOTE - if you chande this at all... even a space... the spec will fail. Perhaps you should re-write this? For
     # example, could you make this a method on HierarchyEntry and create scopes using that method in a lambda?
     HierarchyEntry.connection.execute("

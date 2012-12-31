@@ -536,4 +536,31 @@ module ApplicationHelper
     end
   end
 
+  # will return the class name and label used to generate the colored box showing
+  # this object's curation status: Green/Trusted, Gray/Unreviewed, Red/Untrusted, Red/Hidden
+  # or if none available: nil, nil
+  # NOTE - this assumes you have loaded either @taxon_page (preferred) or @taxon_concept.
+  def status_class_and_label_for_data_object(data_object)
+    if best_association = data_object.association_with_exact_or_best_vetted_status(@taxon_page || @taxon_concept)
+      if best_association.visibility == Visibility.invisible
+        return 'untrusted', I18n.t(:hidden)
+      else
+        # Well, shoot. We can't use #label here, because #label is translated.
+        status_class = case best_association.vetted
+          when Vetted.unknown       then 'unknown'
+          when Vetted.untrusted     then 'untrusted'
+          when Vetted.trusted       then 'trusted'
+          when Vetted.inappropriate then 'inappropriate'
+          else nil
+        end
+        status_label = case best_association.vetted
+          when Vetted.unknown then I18n.t(:unreviewed)
+          else best_association.vetted.label
+        end
+        return status_class, status_label
+      end
+    end
+    return nil, nil
+  end
+
 end

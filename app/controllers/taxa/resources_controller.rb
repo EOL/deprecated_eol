@@ -1,6 +1,10 @@
+# TODO - there are a lot of checks for LinkType.something ? LinkType.something : nil ... remove those and fix the
+# tests by adding them to the scenario or creating/calling LinType.create_defaults; these are clearly only being
+# called this way because tests were failing. When that's fixed, fix @show_add_link_buttons (to put it in one place).
 class Taxa::ResourcesController < TaxaController
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry, :link_objects_contents
+  before_filter :show_add_link_buttons, :only => [:identification_resources, :citizen_science, :education]
 
   def index
     @assistive_section_header = I18n.t(:resources)
@@ -11,7 +15,6 @@ class Taxa::ResourcesController < TaxaController
 
   def identification_resources
     @assistive_section_header = I18n.t(:resources)
-    @add_link_type_id = nil
     @add_article_toc_id = TocItem.identification_resources ? TocItem.identification_resources.id : nil
     @rel_canonical_href = identification_resources_taxon_resources_url(@taxon_page)
 
@@ -25,7 +28,6 @@ class Taxa::ResourcesController < TaxaController
 
   def citizen_science
     @assistive_section_header = I18n.t(:citizen_science)
-    @add_link_type_id = nil
     @add_article_toc_id = TocItem.citizen_science_links ? TocItem.citizen_science_links.id : nil
     @rel_canonical_href = citizen_science_taxon_resources_url(@taxon_page)
 
@@ -41,7 +43,6 @@ class Taxa::ResourcesController < TaxaController
 
   def education
     @assistive_section_header = I18n.t(:resources)
-    @add_link_type_id = nil
     @add_article_toc_id = TocItem.education_resources ? TocItem.education_resources.id : nil
     @rel_canonical_href = education_taxon_resources_url(@taxon_page)
     
@@ -82,6 +83,7 @@ class Taxa::ResourcesController < TaxaController
     @assistive_section_header = I18n.t(:news_and_event_links)
     @add_article_toc_id = nil
     @add_link_type_id = LinkType.blog ? LinkType.blog.id : (LinkType.news ? LinkType.news.id : nil)
+    @show_add_link_buttons = @add_link_type_id
     @rel_canonical_href = news_and_event_links_taxon_resources_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_resources_news_and_event_links, :taxon_concept_id => @taxon_concept.id)
   end
@@ -90,6 +92,7 @@ class Taxa::ResourcesController < TaxaController
     @assistive_section_header = I18n.t(:related_organizations)
     @add_article_toc_id = nil
     @add_link_type_id = LinkType.organization ? LinkType.organization.id : nil
+    @show_add_link_buttons = @add_link_type_id
     @rel_canonical_href = related_organizations_taxon_resources_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_resources_related_organizations, :taxon_concept_id => @taxon_concept.id)
   end
@@ -98,6 +101,7 @@ class Taxa::ResourcesController < TaxaController
     @assistive_section_header = I18n.t(:multimedia_links)
     @add_article_toc_id = nil
     @add_link_type_id = LinkType.multimedia ? LinkType.multimedia.id : nil
+    @show_add_link_buttons = @add_link_type_id
     @rel_canonical_href = multimedia_links_taxon_resources_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_resources_multimedia_links, :taxon_concept_id => @taxon_concept.id)
   end
@@ -117,6 +121,10 @@ private
       :language_ids => [ current_language.id ],
       :link_type_ids => [ LinkType.multimedia.id ]
     )
+  end
+
+  def show_add_link_buttons
+    @show_add_link_buttons = true
   end
 
 end

@@ -13,6 +13,7 @@ class Taxa::DetailsController < TaxaController
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id }
     )
     DataObject.preload_associations(@data_objects_in_other_languages, :language)
+    @show_add_link_buttons = true
     @details_count_by_language = {}
     data_objects_in_other_languages.each do |obj|
       obj.language = obj.language.representative_language

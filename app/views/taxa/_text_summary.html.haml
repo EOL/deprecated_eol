@@ -4,20 +4,11 @@
       %h3= I18n.t(:text_summary_empty_header)
     .empty
       %p= I18n.t(:text_summary_empty)
-      - taxon = ''
-      -# TODO - errr... why? This is absolultely something that should be generalized already, elsewhere. Worst case,
-        this belongs in a helper:
-      - if @taxon_page.classifcation_filter?
-        - taxon = @taxon_page.quick_scientific_name(:italicized, @taxon_page.hierarchy)
-      - else
-        - taxon = "<i>#{@taxon_page.title_canonical}</i>"
       - if @taxon_page.details?
-        %p= raw(I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(raw(taxon), taxon_details_path(@taxon_page))))
+        %p= raw(I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(raw(@taxon_page.scientific_name), taxon_details_path(@taxon_page))))
       = link_to I18n.t(:add_brief_summary_to_page_link_button), new_taxon_data_object_path(@taxon_page), :class => 'button'
   - else
-    -# TODO ... Ummmn... why does the summary text not know about the taxon_concept that BUILT it?  Why are we
-    -# passing it in?!
-    - item_status_class, item_status_label = @taxon_page.summary_text.status_class_and_label_by_taxon_concept(@taxon_concept)
+    - item_status_class, item_status_label = status_class_and_label_for_data_object(@taxon_page.summary_text)
     - unless @taxon_page.summary_text.description.empty? || @taxon_page.summary_text.description.nil? || @taxon_page.summary_text.toc_items.empty?
       %div{:class => item_status_class, :data => { :text_id =>  @taxon_page.summary_text.id } }
         .header

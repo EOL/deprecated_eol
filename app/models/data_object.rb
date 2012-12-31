@@ -716,31 +716,6 @@ class DataObject < ActiveRecord::Base
     return nil
   end
   
-  # will return the class name and label used to generate the colored box showing
-  # this object's curation status: Green/Trusted, Gray/Unreviewed, Red/Untrusted, Red/Hidden
-  # or if none available: nil, nil
-  def status_class_and_label_by_taxon_concept(taxon_concept)
-    if best_association = association_with_exact_or_best_vetted_status(taxon_concept)
-      if best_association.visibility == Visibility.invisible
-        return 'untrusted', I18n.t(:hidden)
-      else
-        status_class = case best_association.vetted
-          when Vetted.unknown       then 'unknown'
-          when Vetted.untrusted     then 'untrusted'
-          when Vetted.trusted       then 'trusted'
-          when Vetted.inappropriate then 'inappropriate'
-          else nil
-        end
-        status_label = case best_association.vetted
-          when Vetted.unknown then I18n.t(:unreviewed)
-          else best_association.vetted.label
-        end
-        return status_class, status_label
-      end
-    end
-    return nil, nil
-  end
-
   # To retrieve the reasons provided while untrusting or hiding an association
   def reasons(hierarchy_entry, activity)
     if hierarchy_entry.class == UsersDataObject

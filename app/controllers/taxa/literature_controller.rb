@@ -39,6 +39,7 @@ class Taxa::LiteratureController < TaxaController
     @assistive_section_header = I18n.t(:literature_links)
     @add_article_toc_id = nil
     @add_link_type_id = LinkType.paper ? LinkType.paper.id : nil
+    @show_add_link_buttons = @add_link_type_id
     @rel_canonical_href = literature_links_taxon_literature_url(@taxon_page)
   end
   

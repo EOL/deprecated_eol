@@ -23,8 +23,7 @@
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => current_user.watch_collection }
           - unless @taxon_page.can_be_reindexed?
             %li= link_to(I18n.t(:reindex_page_button), taxon_reindexing_url(@taxon_page), :method => :post, :class => "button reindex")
-          -# TODO - rewrite this conditional
-          - if current_page?(:controller => 'taxa/details', :action => 'index') || @add_article_toc_id || @add_link_type_id
+          - if @show_add_link_buttons
             %li
               = link_to I18n.t(:add_link_to_page_button), new_taxon_data_object_path(@taxon_page, :link => true), :class => 'button link_button'
               = link_to I18n.t(:add_article_to_page_button), new_taxon_data_object_path(@taxon_page, :toc => @add_article_toc_id), :class => 'button'

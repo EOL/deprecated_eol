@@ -1,13 +1,8 @@
 - chinese_name ||= nil
 = content_for :footer do
-  = javascript_include_tag 'media_list'
+  <script language="javascript" type="text/javascript" src="http://chinese.biodinfo.org/audioplayer/swfobject.js"></script>
+  <script language="javascript" type="text/javascript" src="http://chinese.biodinfo.org/audioplayer/embswf.js"/></script>
+  <script type="text/javascript">var name=$("#flashContent").attr("name");setSwf(name);</script>
 - unless chinese_name.blank?
-  #media_list
-    #main
-      %ul
-        %li
-          .figure
-            .player{ :style => 'height:0px;' }
-            .player_interface{ :id => "pronunciation_player" }
-              %a{:class => 'play', :title => I18n.t(:audio_play_assistive), :href => "#{CHINESE_PRONUNCIATION_API_PREFIX}#{URI::encode(chinese_name)}", :data => { :mime_type => "audio/mpeg" } }
-                = I18n.t(:pronounce_this_name)
+  #flashPlayer{:style => 'height:18px;width:20px'}
+    #flashContent{name:chinese_name}

@@ -688,6 +688,19 @@ class User < ActiveRecord::Base
     Rails.cache.delete("users/#{self.id}") if $CACHE
   end
 
+  def vetted_types
+    vetted_types = ['trusted', 'unreviewed']
+    vetted_types << 'untrusted' if is_curator?
+    vetted_types
+  end
+
+  def visibility_types
+    vetted_types = ['visible']
+    vetted_types << 'invisible' if is_curator?
+    vetted_types
+  end
+
+  # TODO - does this belong here?  Is it duplicated somewhere else?
   def rating_weight
     is_curator? ? curator_level.rating_weight : 1
   end

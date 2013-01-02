@@ -227,12 +227,22 @@ describe TaxonConcept do
     results.count.should == 2
   end
 
+  # TODO - this doesn't express the difference between #all_common_names and #common_names... the latter filters out
+  # duplicates and entries with unknown languages...
   it "should have common names" do
     @taxon_concept.all_common_names.length.should > 0
+    @taxon_concept.all_common_names.should include(@testy[:common_name])
+    @taxon_concept.all_common_names.should_not include(@testy[:scientific_name])
   end
 
-  it "should not have common names" do
+  it "should not have common names when there are none" do
     @tc_with_no_common_names.all_common_names.length.should == 0
+  end
+
+  it "should have scientific names" do
+    @taxon_concept.all_scientific_names.length.should > 0
+    @taxon_concept.all_scientific_names.should include(@testy[:scientific_name])
+    @taxon_concept.all_scientific_names.should_not include(@testy[:common_name])
   end
 
   it "should be able to filter common_names by taxon_concept or hierarchy_entry" do

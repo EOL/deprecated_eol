@@ -7,14 +7,13 @@ class Taxa::MapsController < TaxaController
     @curator = current_user.min_curator_level?(:full)
     @assistive_section_header = I18n.t(:assistive_maps_header)
     
-    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(current_user)
     @maps = @taxon_concept.data_objects_from_solr({
       :page => 1,
       :per_page => 100,
       :data_type_ids => DataType.image_type_ids,
       :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => vetted_types,
-      :visibility_types => visibility_types,
+      :vetted_types => current_user.vetted_types,
+      :visibility_types => current_user.visibility_types,
       :ignore_translations => true
     })
     DataObject.preload_associations(@maps, [ :users_data_objects_ratings, { :data_objects_hierarchy_entries =>

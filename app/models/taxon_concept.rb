@@ -84,6 +84,62 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConcept.find(load_these, :include => [:hierarchy_entries])
   end
 
+  def self.default_solr_query_parameters(solr_query_parameters)
+    solr_query_parameters[:page] ||= 1  # return FIRST page by default
+    solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
+    solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
+    solr_query_parameters[:data_type_ids] ||= nil  # return objects of ANY type by default
+    unless solr_query_parameters.has_key?(:filter_by_subtype)
+      solr_query_parameters[:filter_by_subtype] = true  # if this is true then we'll query using the data_subtype_id, even if its nil
+    end
+    solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
+    solr_query_parameters[:license_ids] ||= nil
+    solr_query_parameters[:language_ids] ||= nil
+    solr_query_parameters[:language_ids_to_ignore] ||= nil
+    solr_query_parameters[:allow_nil_languages] ||= false  # true or false
+    solr_query_parameters[:toc_ids] ||= nil
+    solr_query_parameters[:toc_ids_to_ignore] ||= nil
+    solr_query_parameters[:published] = true  # this can't be overridden - we always want published objects
+    solr_query_parameters[:vetted_types] ||= ['trusted', 'unreviewed']  # labels are english strings simply because the SOLR fields use these labels
+    solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
+    solr_query_parameters[:filter_hierarchy_entry] ||= nil  # the entry in the concept when the user has the classification filter on
+    solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
+    solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
+    solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
+    
+    # these are really only relevant to the worklist
+    solr_query_parameters[:resource_id] ||= nil
+    unless solr_query_parameters.has_key?(:curated_by_user)
+      solr_query_parameters[:curated_by_user] = nil  # true, false or nil
+    end
+    unless solr_query_parameters.has_key?(:ignored_by_user)
+      solr_query_parameters[:ignored_by_user] = nil  # true, false or nil
+    end
+    solr_query_parameters[:user] ||= nil
+    solr_query_parameters[:facet_by_resource] ||= false  # this will add a facet parameter to the solr query
+    return solr_query_parameters
+  end
+  
+  def self.find_entry_in_hierarchy(taxon_concept_id, hierarchy_id)
+    return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
+  end
+
+  # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
+  def self.find_with_supercedure(*args)
+    concept = TaxonConcept.find_without_supercedure(*args)
+    return nil if concept.nil?
+    return concept unless concept.respond_to? :supercedure_id # sometimes it's an array.
+    return concept if concept.supercedure_id == 0
+    attempts = 0
+    while concept.supercedure_id != 0 and attempts <= 6
+      concept = TaxonConcept.find_without_supercedure(concept.supercedure_id)
+      attempts += 1
+    end
+    concept.superceded_the_requested_id # Sets a flag that we can check later.
+    return concept
+  end
+  class << self; alias_method_chain :find, :supercedure ; end
+
   # The common name will defaut to the current user's language.
   def common_name(hierarchy = nil)
     quick_common_name(hierarchy)
@@ -102,36 +158,24 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
+  # NOTE - this filters out results with no name, no language, languages with no iso_639_1, and dulicates within the
+  # same language. Then it sorts the results. # TODO - rename it to make the filtering and sorting more clear.
   def common_names(options = {})
-    if options[:hierarchy_entry_id]
-      tcn = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(options[:hierarchy_entry_id], 1, :include => [ :name, :language ])
+    @common_names = if options[:hierarchy_entry_id]
+      TaxonConceptName.all.joins(:name, :language).where(source_hierarchy_entry_id: options[:hierarchy_entry_id])
     else
-      tcn = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1, :include => [ :name, :language ])
+      taxon_concept_names.joins(:name, :language)
     end
-
-    sorted_names = TaxonConceptName.sort_by_language_and_name(tcn)
+    @common_names.where("vern = 1 AND languages.iso_639_1 IS NOT NULL AND languages.iso_639_1 != ''")
+    # remove duplicate names in the same language:
     duplicate_check = {}
-    name_languages = {}
-    # remove duplicate names in the same language
-    sorted_names.each_with_index do |tcn, index|
-      lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
-      duplicate_check[lang] ||= []
-      if tcn.name
-        sorted_names[index] = nil if duplicate_check[lang].include?(tcn.name.string)
-        duplicate_check[lang] << tcn.name.string
-        name_languages[tcn.name.string] = lang
-      end
+    @common_names = @common_names.select do |tcn|
+      key = "#{tcn.language.iso_639_1}:#{tcn.name.string}"
+      keep = !duplicate_check[key]
+      duplicate_check[key] = true
+      keep
     end
-
-    # now removing anything without a language if it exists with a language
-    sorted_names.each_with_index do |tcn, index|
-      next if tcn.nil? || tcn.name.nil?
-      lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
-      sorted_names[index] = nil if lang.blank? && !name_languages[tcn.name.string].blank?
-    end
-
-    sorted_names.compact
+    TaxonConceptName.sort_by_language_and_name(@common_names)
   end
 
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
@@ -168,6 +212,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
+  # TODO - this is much slower than #title and should be removed.
   def scientific_name(hierarchy = nil, italicize = true)
     hierarchy ||= Hierarchy.default
     quick_scientific_name(italicize && species_or_below? ? :italicized : :normal, hierarchy)
@@ -338,14 +383,11 @@ class TaxonConcept < ActiveRecord::Base
     return entries.nil? ? false : true
   end
 
-  def self.find_entry_in_hierarchy(taxon_concept_id, hierarchy_id)
-    return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
-  end
-
   def has_map?
     return true if (gbif_map_id && GbifIdentifiersWithMap.find_by_gbif_taxon_id(gbif_map_id))
   end
 
+  # TODO - this is only used privately.
   def quick_common_name(language = nil, hierarchy = nil)
     language ||= current_user.language || Language.default
     hierarchy ||= Hierarchy.default
@@ -397,22 +439,6 @@ class TaxonConcept < ActiveRecord::Base
     @superceded_the_requested_id = true
   end
 
-  # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
-  def self.find_with_supercedure(*args)
-    concept = TaxonConcept.find_without_supercedure(*args)
-    return nil if concept.nil?
-    return concept unless concept.respond_to? :supercedure_id # sometimes it's an array.
-    return concept if concept.supercedure_id == 0
-    attempts = 0
-    while concept.supercedure_id != 0 and attempts <= 6
-      concept = TaxonConcept.find_without_supercedure(concept.supercedure_id)
-      attempts += 1
-    end
-    concept.superceded_the_requested_id # Sets a flag that we can check later.
-    return concept
-  end
-  class << self; alias_method_chain :find, :supercedure ; end
-
   def iucn
     return @iucn if !@iucn.nil?
     # IUCN was getting called over 240 times below, so I am checking the data_type
@@ -454,6 +480,7 @@ class TaxonConcept < ActiveRecord::Base
     entry.rank_label
   end
 
+  # TODO - this should be renamed to scientific_name, and #title should be an alias to this method on TaxonPage.
   def title(hierarchy = nil)
     return @title unless @title.nil?
     return '' if entry(hierarchy).nil?
@@ -461,12 +488,14 @@ class TaxonConcept < ActiveRecord::Base
   end
   alias :summary_name :title
 
+  # TODO - move to TaxonPage
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry(hierarchy).nil?
     @title_canonical = entry(hierarchy).title_canonical
   end
 
+  # TODO - move to TaxonPage
   def title_canonical_italicized(hierarchy = nil)
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
     return '' if entry(hierarchy).nil?
@@ -477,6 +506,7 @@ class TaxonConcept < ActiveRecord::Base
     "TaxonConcept ##{id}: #{title}"
   end
 
+  # TODO - move to TaxonPage.
   def subtitle(hierarchy = nil)
     return @subtitle unless @subtitle.nil?
     hierarchy ||= Hierarchy.default
@@ -485,7 +515,7 @@ class TaxonConcept < ActiveRecord::Base
     @subtitle = subtitle
   end
 
-  # comment on this
+  # TODO - make a Commentable mixin
   def comment user, body
     comment = comments.create :user => user, :body => body
     user.comments.reload # be friendly - update the user's comments automatically
@@ -497,27 +527,25 @@ class TaxonConcept < ActiveRecord::Base
     return id <=> other.id
   end
 
+  # NOTE - this is only used in the Solr API. This ignores the filters from #common_names, which removes duplicates
+  # and common names that don't have a proper language. Thus, the Solr stores common names that won't show up on the
+  # site. If this is a feature, it hasn't been expressed in comments yet.
+  # TODO - I'm inclined to remove this method entirely and use #common_names for solr... or to at least comment on
+  # the need for unfiltered names there...  OR (!) rename #common_names to
+  # #uniq_common_names_with_no_missing_languages to express what's going on there, then rename this to
+  # #common_name_strings
   def all_common_names
-    common_names = []
-    taxon_concept_names.each do |tcn|
-      if tcn.vern == 1
-        common_names << tcn.name
-      end
-    end
-    common_names
+    taxon_concept_names.includes(:name).where(vern: 1).map { |tcn| tcn.name.string }
   end
 
-  # Unlike all_common_names, this method doesn't return language information.  In theory, they are all "scientific", anyway.
+  # TODO - see #all_common_names
   def all_scientific_names
-    Name.find_by_sql(['SELECT names.string
-                         FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
-                         WHERE tcn.taxon_concept_id = ? AND vern = 0', id])
+    taxon_concept_names.includes(:name).where(vern: 0).map { |tcn| tcn.name.string }
   end
 
   def has_literature_references?
     Ref.literature_references_for?(self.id)
   end
-
 
   def add_common_name_synonym(name_string, options = {})
     agent     = options[:agent]
@@ -670,7 +698,6 @@ class TaxonConcept < ActiveRecord::Base
   def media_count(user, selected_hierarchy_entry = nil)
     cache_key = "media_count_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(user)
     if user && user.is_curator?
       cache_key += "_curator"
     end
@@ -678,8 +705,8 @@ class TaxonConcept < ActiveRecord::Base
       best_images = self.data_objects_from_solr({
         :per_page => 1,
         :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
-        :vetted_types => vetted_types,
-        :visibility_types => visibility_types,
+        :vetted_types => user.vetted_types,
+        :visibility_types => user.visibility_types,
         :ignore_translations => true,
         :filter_hierarchy_entry => selected_hierarchy_entry,
         :return_hierarchically_aggregated_objects => true
@@ -758,13 +785,13 @@ class TaxonConcept < ActiveRecord::Base
     best_image
   end
 
+  # NOTE - If you call #images_from_solr with two different sets of options, you will get the same
+  # results on the second as with the first, so you only get one shot!
   def images_from_solr(limit = 4, options = {})
     unless options[:skip_preload] == false
       options[:skip_preload] == true
       options[:preload_select] == { :data_objects => [ :id, :guid, :language_id, :data_type_id ] }
     end
-    # TODO - this is a bug. If you call #images_from_solr with two different sets of options, you will get the same
-    # results on the second as with the first:
     @images_from_solr ||= data_objects_from_solr({
       :per_page => limit,
       :sort_by => 'status',
@@ -797,11 +824,10 @@ class TaxonConcept < ActiveRecord::Base
   # TaxonPage class, if so.
   # TODO - this belongs in the same class as #overview_text_for_user.
   def text_for_user(the_user = nil, options = {})
-    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(the_user)
     options[:per_page] ||= 500
     options[:data_type_ids] = DataType.text_type_ids
-    options[:vetted_types] = vetted_types
-    options[:visibility_types] = visibility_types
+    options[:vetted_types] = the_user.vetted_types
+    options[:visibility_types] = the_user.visibility_types
     options[:filter_by_subtype] ||= false
     self.data_objects_from_solr(options)
   end
@@ -810,72 +836,24 @@ class TaxonConcept < ActiveRecord::Base
     EOL::Solr::DataObjects.search_with_pagination(id, TaxonConcept.default_solr_query_parameters(solr_query_parameters))
   end
   
-  def self.default_solr_query_parameters(solr_query_parameters)
-    solr_query_parameters[:page] ||= 1  # return FIRST page by default
-    solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
-    solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
-    solr_query_parameters[:data_type_ids] ||= nil  # return objects of ANY type by default
-    unless solr_query_parameters.has_key?(:filter_by_subtype)
-      solr_query_parameters[:filter_by_subtype] = true  # if this is true then we'll query using the data_subtype_id, even if its nil
-    end
-    solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
-    solr_query_parameters[:license_ids] ||= nil
-    solr_query_parameters[:language_ids] ||= nil
-    solr_query_parameters[:language_ids_to_ignore] ||= nil
-    solr_query_parameters[:allow_nil_languages] ||= false  # true or false
-    solr_query_parameters[:toc_ids] ||= nil
-    solr_query_parameters[:toc_ids_to_ignore] ||= nil
-    solr_query_parameters[:published] = true  # this can't be overridden - we always want published objects
-    solr_query_parameters[:vetted_types] ||= ['trusted', 'unreviewed']  # labels are english strings simply because the SOLR fields use these labels
-    solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
-    solr_query_parameters[:filter_hierarchy_entry] ||= nil  # the entry in the concept when the user has the classification filter on
-    solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
-    solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
-    solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
-    
-    # these are really only relevant to the worklist
-    solr_query_parameters[:resource_id] ||= nil
-    unless solr_query_parameters.has_key?(:curated_by_user)
-      solr_query_parameters[:curated_by_user] = nil  # true, false or nil
-    end
-    unless solr_query_parameters.has_key?(:ignored_by_user)
-      solr_query_parameters[:ignored_by_user] = nil  # true, false or nil
-    end
-    solr_query_parameters[:user] ||= nil
-    solr_query_parameters[:facet_by_resource] ||= false  # this will add a facet parameter to the solr query
-    return solr_query_parameters
-  end
-  
   def get_unique_link_type_ids_for_user(the_user, options)
     return @get_unique_link_type_ids_for_user if @get_unique_link_type_ids_for_user
-    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(the_user)
     options[:data_type_ids] = DataType.text_type_ids
-    options[:vetted_types] = vetted_types
-    options[:visibility_types] = visibility_types
+    options[:vetted_types] = the_user.vetted_types
+    options[:visibility_types] = the_user.visibility_types
     options[:filter_by_subtype] = false
     @get_unique_link_type_ids_for_user = EOL::Solr::DataObjects.unique_link_type_ids(self.id, TaxonConcept.default_solr_query_parameters(options))
   end
   
   def get_unique_toc_ids_for_user(the_user, options)
     return @get_unique_toc_ids_for_user if @get_unique_toc_ids_for_user
-    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(the_user)
     options[:data_type_ids] = DataType.text_type_ids
-    options[:vetted_types] = vetted_types
-    options[:visibility_types] = visibility_types
+    options[:vetted_types] = the_user.vetted_types
+    options[:visibility_types] = the_user.visibility_types
     options[:filter_by_subtype] = true
     @get_unique_toc_ids_for_user = EOL::Solr::DataObjects.unique_toc_ids(self.id, TaxonConcept.default_solr_query_parameters(options))
   end
   
-  def self.vetted_and_visibility_types_for_user(the_user)
-    vetted_types = ['trusted', 'unreviewed']
-    visibility_types = ['visible']
-    if the_user.class == User && the_user.is_curator?
-      vetted_types << 'untrusted'
-      visibility_types << 'invisible'
-    end
-    return vetted_types, visibility_types
-  end
-
   def media_facet_counts
     @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)
   end

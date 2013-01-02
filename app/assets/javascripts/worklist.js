@@ -1,49 +1,8 @@
+//= require 'worklist_curation'
+//= require 'permalink'
+//= require 'jplayer/js/jquery.jplayer.min'
+
 if(!EOL) { var EOL = {}; }
-
-EOL.init_curation_behaviours = function() {
-
-  (function($form) {
-    var actions = {
-      trusted: function() {
-        this.closest("fieldset").find("ul").hide()
-          .end().find("select[name*=visibility]").prop("disabled", false).trigger("change");
-      },
-      unreviewed: function() {
-        this.closest("fieldset").find("ul").hide()
-          .end().find("select[name*=visibility]").prop("disabled", false).trigger("change");
-      },
-      untrusted: function() {
-        this.closest("fieldset").find("select[name*=visibility]").val("hidden").prop("disabled", true)
-          .end().find("ul").hide().filter(".untrusted").show();
-      },
-      inappropriate: function() {
-        this.closest("fieldset").find("select[name*=visibility]").val("hidden").prop("disabled", true)
-          .end().find("ul").hide();
-      },
-      hidden: function () {
-        this.closest("fieldset").find("ul").hide().filter(".hidden").show();
-      },
-      visible: function() {
-        this.closest("fieldset").find("ul").hide();
-      }
-    };
-
-    $form.find("select").change(function() {
-      var $e = $(this);
-      if ($e.is(":enabled")) {
-        actions[$e.find(":selected").text().toLowerCase()].apply($e);
-      }
-    }).trigger("change");
-
-    $form.find("fieldset").each(function() {
-      if ($(this).find('select').length == 0) {
-        $(this).find('ul').hide();
-      }
-    })
-
-  })($("form.review_status"));
-
-}
 
 EOL.init_worklist_behaviors = function() {
   init_comments();

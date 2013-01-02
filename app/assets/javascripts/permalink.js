@@ -1,3 +1,4 @@
+//= require 'worklist_curation'
 $(function() {
 
   (function($main) {

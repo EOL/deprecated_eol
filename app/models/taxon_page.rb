@@ -8,6 +8,9 @@ class TaxonPage
 
   attr_reader :taxon_concept, :user
 
+  # The hierarchy_entry is optional and, if provided, creates a classification filter using that entry. We use
+  # entries instead of classifications for mainly historical reasons... we *could* use a hierarchy instead, though
+  # it's ultimately the hierarchy_entry that we need anyway.
   def initialize(taxon_concept, user, hierarchy_entry = nil) 
     @taxon_concept = taxon_concept
     @user = user
@@ -279,6 +282,12 @@ class TaxonPage
 
 private
 
+  # Using the Rails codebase's convention of putting an underscore before the method name, here, because this isn't a
+  # value you should ever be calling from outside this class... though we have a #hierarchy_entry method that you
+  # *can* call. The difference is that this value can be nil (when no hierarchy_entry was passed into the
+  # constructor). There are places, such as #hierarchy_entry_or_taxon_concept, where we need to know this, but only
+  # privately. Outside of this class, you can test whether the entry was provided to the constructor using
+  # #classifcation_filter?
   def _hierarchy_entry
     @_hierarchy_entry
   end

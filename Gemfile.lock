@@ -1,9 +1,10 @@
 GIT
   remote: git://github.com/tchandy/octopus.git
-  revision: 2b8a8d0c7dd2434cf8bb41c5e5099af1180bc935
+  revision: 942676bb3683184d89bd2d06be4cd9b3b3d9931f
   specs:
     ar-octopus (0.4.0)
       activerecord (>= 2.3.0)
+      activesupport (>= 2.3.0)
 
 GEM
   remote: http://rubygems.org/
@@ -272,54 +273,54 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_tree_rails3
-  ar-octopus!
-  capistrano
+  acts_as_tree_rails3 (= 0.1.0)
+  ar-octopus (= 0.4.0)!
+  capistrano (= 2.13.5)
   capistrano-unicorn-pleary (= 0.1.6.1)
-  capybara
-  ckeditor
-  coffee-rails
-  composite_primary_keys
-  daemons
-  dalli
-  debugger
-  email_spec
-  escape
-  execjs
-  ezcrypto
-  factory_girl_rails
-  faker
-  graylog2_exceptions
-  haml
-  indifferent-variable-hash
-  invert
-  jquery-rails
-  json
-  macaddr
-  mime-types
-  mysql2
+  capybara (= 1.1.3)
+  ckeditor (= 3.7.3)
+  coffee-rails (= 3.2.2)
+  composite_primary_keys (= 5.0.8)
+  daemons (= 1.1.9)
+  dalli (= 2.3.0)
+  debugger (= 1.2.1)
+  email_spec (= 1.4.0)
+  escape (= 0.0.4)
+  execjs (= 1.4.0)
+  ezcrypto (= 0.7.2)
+  factory_girl_rails (= 4.1.0)
+  faker (= 1.1.2)
+  graylog2_exceptions (= 1.3.0)
+  haml (= 3.1.7)
+  indifferent-variable-hash (= 0.1.0)
+  invert (= 0.1.0)
+  jquery-rails (= 2.1.3)
+  json (= 1.7.5)
+  macaddr (= 1.6.1)
+  mime-types (= 1.19)
+  mysql2 (= 0.3.11)
   newrelic_rpm (> 3.5.3)
-  oauth
-  oauth2
-  optiflag
-  paperclip
+  oauth (= 0.4.7)
+  oauth2 (= 0.8.0)
+  optiflag (= 0.7)
+  paperclip (= 3.3.1)
   rails (= 3.2.7)
-  rails_autolink
-  rdoc
-  recaptcha
-  resque
-  rspec-html-matchers
-  rspec-rails (~> 2.0)
-  ruby-prof
-  rvm-capistrano
-  sanitize
-  sass-rails
-  spin
-  therubyracer
-  turbo-sprockets-rails3
-  uglifier
-  unicorn
-  uuid
-  webmock
-  webrick
-  will_paginate
+  rails_autolink (= 1.0.9)
+  rdoc (= 3.12)
+  recaptcha (= 0.3.4)
+  resque (= 1.23.0)
+  rspec-html-matchers (= 0.3.5)
+  rspec-rails (= 2.11.4)
+  ruby-prof (= 0.11.2)
+  rvm-capistrano (= 1.2.7)
+  sanitize (= 2.0.3)
+  sass-rails (= 3.2.5)
+  spin (= 0.5.3)
+  therubyracer (= 0.10.2)
+  turbo-sprockets-rails3 (= 0.2.12)
+  uglifier (= 1.3.0)
+  unicorn (= 4.4.0)
+  uuid (= 2.3.5)
+  webmock (= 1.8.11)
+  webrick (= 1.3.1)
+  will_paginate (= 3.0.3)

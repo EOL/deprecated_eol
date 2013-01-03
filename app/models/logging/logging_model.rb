@@ -2,7 +2,7 @@
 # LazyLoggingModel instead.
 class LoggingModel < ActiveRecord::Base
   self.abstract_class = true
-  octopus_establish_connection("#{Rails.env}_logging")
+  establish_connection("#{Rails.env}_logging")
 
   def self.clear_taxon_activity_log_fragment_caches(notification_recipient_objects)
     direct_concept_ids = notification_recipient_objects.select{ |r| r.class == TaxonConcept }.collect{ |tc| tc.id }

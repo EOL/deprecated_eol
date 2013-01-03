@@ -34,15 +34,15 @@ group :test do
 end
 
 group :assets do
-  gem 'turbo-sprockets-rails3', '0.2.12'
+  gem 'turbo-sprockets-rails3', '0.3.4'
 end
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.10'
 
 gem 'acts_as_tree_rails3', '0.1.0'
 gem 'ckeditor', '3.7.3'
 gem 'coffee-rails', '3.2.2'
-gem 'composite_primary_keys', '5.0.8'
+gem 'composite_primary_keys'
 gem 'dalli', '2.3.0'
 gem 'ar-octopus', '0.4.0', :git => "git://github.com/tchandy/octopus.git", :require => "octopus"
 gem 'email_spec', '1.4.0'

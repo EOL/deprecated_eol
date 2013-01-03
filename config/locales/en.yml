@@ -2200,7 +2200,7 @@ en:
   admin_content_page_child_new_link: "Create child page"
   admin_content_page_create_successful_notice: "Page <a href=\"#%{anchor}\"><em>%{page_name}</em></a> created successfully."
   admin_content_page_create_unsuccessful_error: "Sorry, an error occurred, the page was not created."
-  admin_content_page_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations? Delete actions cannot be undone.'
+  admin_content_page_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations?  Deleted pages cannot be recovered.'
   admin_content_page_delete_successful_notice: "Page %{page_name} and associated translations have been deleted."
   admin_content_page_edit_header: "Update basic page information for <em>%{page_name}</em>"
   admin_content_page_edit_tip: "It is recommended that you do not edit the unique name of this page unless you are fully aware of the consequences, including the impact on links to this page, or to named routes. Unique name is %{required_icon} required."
@@ -2238,7 +2238,7 @@ en:
   admin_news_item_active: "Published"
   admin_news_item_create_successful_notice: "News item <a href=\"#%{anchor}\"><em>%{page_name}</em></a> created successfully."
   admin_news_item_create_unsuccessful_error: "Sorry, an error occurred, the news item was not created."
-  admin_news_item_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations. Delete actions cannot be undone.'
+  admin_news_item_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations? Deleted pages cannot be recovered.'
   admin_news_item_delete_successful_notice: "News item %{page_name} and associated translations have been deleted."
   admin_news_item_edit_header: "Update basic news item information for <em>%{page_name}</em>"
   admin_news_item_edit_tip: "It is recommended that you do not edit the unique name of this news item unless you are fully aware of the consequences, including the impact on links to this page, or to named routes. Unique name is %{required_icon} required."
@@ -2259,7 +2259,7 @@ en:
   admin_statistics_link: "Statistics"
   admin_translated_content_page_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_content_page_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
-  admin_translated_content_page_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}". Delete action cannot be undone.'
+  admin_translated_content_page_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}"? Deleted pages cannot be recovered.'
   admin_translated_content_page_delete_successful_notice: "%{language} translation of page <em>%{page_name}</em> has been deleted."
   admin_translated_content_page_edit_subheader: "Edit %{language} translation for <em>%{page_name}</em>"
   admin_translated_content_page_edit_tip: "Title and body are %{required_icon} required."
@@ -2272,7 +2272,7 @@ en:
   admin_translated_news_item_active: "Published"
   admin_translated_news_item_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_news_item_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
-  admin_translated_news_item_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}". Delete action cannot be undone.'
+  admin_translated_news_item_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}"? Deleted pages cannot be recovered.'
   admin_translated_news_item_delete_successful_notice: "%{language} translation of news item <em>%{page_name}</em> has been deleted."
   admin_translated_news_item_edit_subheader: "Edit %{language} translation for <em>%{page_name}</em>"
   admin_translated_news_item_edit_tip: "Title and body are %{required_icon} required."
@@ -3795,6 +3795,7 @@ en:
   search_term_reports_title: "Search Term Reports"
   search_term: "Search Term"
   search_the_site: "Search the site"
+  see_all_activity_combinations: "See all activity combinations within 5 minutes."
   see_all_of_your_collections: "See all of your collections"
   see_all_of_your_communities: "See all of your communities"
   see_all_classifications_with_count_html:
@@ -4074,9 +4075,7 @@ en:
   topic: "Topic"
   to_process_your_donation_please_proceed: "To process your donation please proceed"
   to_remedy_this: "To remedy this, we will close these inactive accounts and we ask that you visit eol.org to create a new account. When you receive the confirmation email, please click the link to validate your account."
-  to_see_all_activity_combinatio: "to see all activity combinations in a 5-min. duration {3-4 mins.}."
   to_send_email_enter_text: "To send this user an email, enter the text below and click 'Send'."
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: "To submit text content for %{taxon}, please be sure you are logged into EOL and then click the"
   total_comments_have_been_submitted:
     one: "%{count} comment has been submitted in %{string}"
     other: "%{count} total comments have been submitted in %{string}"
@@ -4137,7 +4136,6 @@ en:
   us_dolars_75: "US $75"
   use_as_examplar_button: "use as exemplar"
   use_as_examplar_note_preferred: "Note: This classification is preferred. You probably want to use this one."
-  used_for_urls_note: "used for URLS - should be unique (except for translated pages); if not, URLs to page must use page ID"
   used_for_friendly_url_note: "(used to generate a friendly link for users, cannot contain spaces or special characters)"
   user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognized. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
   user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
@@ -4341,7 +4339,6 @@ en:
   you_must_be_comfortable: "You must be comfortable with HTML if you wish to create hyperlinks or use formatting."
   note_that_you_can_reference_im: "Note that you can reference images with the HTML &lt;img&gt; tag, but they must exist at a URL, such as from the originating website or a site such as Flickr. There is no facility to upload images for use directly in the news item."
   to_submit_a_species_photograph_for: "To submit a species photograph for %{taxon}, please send the photos to the %{flickr_link} and follow the directions shown on thehomepage of that group."
-  icon_near_the_table_of_content: "icon near the table of contents on the left side of the page. You can also submit <a href=''>comments</a> about this species directly on the EOL site using the \"Comments\" tab near the images."
   this_method_takes_an_integer_or_string: "This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API, I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542, <i>Ursus maritimus</i>, by calling %{link_url}"
   supplier: "Supplier"
   rights: "Rights"

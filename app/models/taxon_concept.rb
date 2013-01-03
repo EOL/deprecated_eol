@@ -794,7 +794,7 @@ class TaxonConcept < ActiveRecord::Base
       cache_key += "_#{selected_hierarchy_entry.id}"
     end
     TaxonConcept.prepare_cache_classes
-    best_image_id ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+    best_image_id ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.second) do
       if published_exemplar = self.published_exemplar_image
         published_exemplar.id
       else
@@ -846,7 +846,8 @@ class TaxonConcept < ActiveRecord::Base
     return nil if best_article_id == 0 # Nothing's available, quickly move on...
     return DataObject.find(best_article_id) if best_article_id && DataObject.still_published?(best_article_id)
     article = best_article_for_user(the_user)
-    Rails.cache.fetch(cached_key, :expires_in => 1.week) { article.nil? ? 0 : article.id }
+    expire_time = article.nil? ? 1.day : 1.week
+    Rails.cache.fetch(cached_key, :expires_in => expire_time) { article.nil? ? 0 : article.id }
     article
   end
   

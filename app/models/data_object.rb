@@ -644,8 +644,14 @@ class DataObject < ActiveRecord::Base
         true if chosen_language_id != Language.english.id
       end
     end
-    return DataObject.find(self.id) if versions_to_look_at_in_language.empty?
-    DataObject.find(DataObject.sort_by_created_date(versions_to_look_at_in_language).reverse.first.id)
+    if versions_to_look_at_in_language.empty?
+      latest_version = self
+    else
+      latest_version = DataObject.sort_by_created_date(versions_to_look_at_in_language).reverse.first
+    end
+    latest_version = DataObject.find(latest_version.id)
+    return nil if params[:check_only_published] && !latest_version.published?
+    latest_version
   end
 
   def is_latest_published_version_in_same_language?

@@ -13,15 +13,17 @@ class DataObjectsController < ApplicationController
   def new
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
     set_text_data_object_options
-    @data_object = DataObject.new(:data_type => DataType.text,
+    @data_object ||= DataObject.new(:data_type => DataType.text,
                                   :license_id => License.cc.id,
                                   :language_id => current_language.id)
-    # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
-    selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first ||
-                        @toc_items.select{|ti| ti == TocItem.brief_summary}.first ||
-                        @toc_items[0]
-    @selected_toc_item_id = selected_toc_item.id
-    if params[:link]
+    unless params[:data_object]
+      # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
+      selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first ||
+                          @toc_items.select{|ti| ti == TocItem.brief_summary}.first ||
+                          @toc_items[0]
+      @selected_toc_item_id = selected_toc_item.id
+    end
+    if params[:link] || params[:commit_link]
       @add_link = true
       @page_title = I18n.t(:dato_new_text_link_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
     else
@@ -30,6 +32,7 @@ class DataObjectsController < ApplicationController
     end
     @page_description = I18n.t(:dato_new_text_page_description)
     current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
+    render :new
   end
 
   # POST /pages/:taxon_id/data_objects
@@ -420,12 +423,8 @@ private
 
   def create_failed
     if params[:data_object]
-      flash.now[:error] = I18n.t(:dato_create_user_text_error)
-      set_text_data_object_options
-      @page_title = I18n.t(:dato_new_text_for_taxon_page_title,
-                           :taxon => Sanitize.clean(@taxon_concept.title_canonical))
-      @page_description = I18n.t(:dato_new_text_page_description)
-      render :action => 'new', :layout => 'v2/basic'
+      flash.now[:error] = params[:commit_link] ? I18n.t(:dato_create_user_link_error) : I18n.t(:dato_create_user_text_error)
+      self.new
     else
       flash[:error] = I18n.t(:dato_create_user_text_error)
       redirect_to new_taxon_data_object_path(@taxon_concept)

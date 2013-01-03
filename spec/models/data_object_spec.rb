@@ -563,5 +563,12 @@ describe DataObject do
     }.should raise_error
   end
 
+  it '#latest_published_version_in_same_language should not return itself if the object is unpublished' do
+    d = DataObject.gen(:published => 1)
+    d.latest_published_version_in_same_language.should == d
+    d = DataObject.gen(:published => 0)
+    d.latest_published_version_in_same_language.should == nil
+  end
+
 end
 

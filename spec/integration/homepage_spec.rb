@@ -73,6 +73,13 @@ describe 'Home page' do
     end
   end
 
+  it "should links to social media sites" do
+    visit('/')
+    ['Twitter', 'Facebook', 'Tumblr', 'Flickr', 'YouTube', 'Pinterest'].each do |social_site|
+      body.should have_tag("li a.#{social_site.downcase}", :text => social_site)
+    end
+  end
+
   it 'should show the March of Life'
 
   it 'should show a statistical summary of what is currently in EOL'

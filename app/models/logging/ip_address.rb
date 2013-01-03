@@ -1,6 +1,7 @@
 require 'ipaddr'
 
 class IpAddress < LazyLoggingModel
+  establish_connection("#{Rails.env}_logging")
 
   before_validation :set_provider_if_null
 

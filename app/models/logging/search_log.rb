@@ -1,4 +1,5 @@
 class SearchLog < LazyLoggingModel
+  establish_connection("#{Rails.env}_logging")
 
   belongs_to :ip_address
   belongs_to :taxon_concept

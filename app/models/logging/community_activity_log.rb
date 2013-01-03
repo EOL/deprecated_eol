@@ -1,6 +1,7 @@
 require 'eol/activity_log_item'
 
 class CommunityActivityLog < LoggingModel
+  establish_connection("#{Rails.env}_logging")
 
   include EOL::ActivityLogItem
 

@@ -1,4 +1,5 @@
 class TranslationLog < LoggingModel
+  establish_connection("#{Rails.env}_logging")
   def self.inc(which)
     if $ENABLE_TRANSLATION_LOGS
       self.connection.execute(

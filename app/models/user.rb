@@ -8,7 +8,7 @@ require 'eol/activity_loggable'
 # Also worth noting that #full_name (and the methods that count on it) need to know about
 # curators, so you will see references to curator methods, there. They didn't seem worth moving.
 class User < ActiveRecord::Base
-  establish_connection_with_octopus(Rails.env)
+  establish_connection(Rails.env)
 
   include EOL::ActivityLoggable
 

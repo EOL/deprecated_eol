@@ -1,5 +1,6 @@
 # encoding: utf-8
 class LazyLoggingModel < LoggingModel
+  establish_connection("#{Rails.env}_logging")
 
   self.abstract_class = true
 

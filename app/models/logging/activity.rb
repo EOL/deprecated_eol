@@ -1,4 +1,5 @@
 class Activity < LazyLoggingModel
+  establish_connection("#{Rails.env}_logging")
 
   CACHE_ALL_ROWS = true
   uses_translations

@@ -110,9 +110,9 @@ describe Notifier do
                                                :activity_id => Activity.trusted.id, :user => @curator, :target_id => @data_object.id,
                                                :hierarchy_entry_id => @hierarchy_entry.id, :created_at => Time.now)
       @comment_on_dato = Comment.gen(:user => @curator, :body => 'Comment on dato.', :parent_type => 'DataObject',
-                                     :parent_id => @data_object, :created_at => Time.now)
+                                     :parent_id => @data_object.id, :created_at => Time.now)
       @comment_on_page = Comment.gen(:user => @curator, :body => 'Comment on page.', :parent_type => 'TaxonConcept',
-                                     :parent_id => @taxon_concept, :created_at => Time.now)
+                                     :parent_id => @taxon_concept.id, :created_at => Time.now)
       all_activity = PartnerUpdatesEmailer.all_activity_since_hour(1)
       @activity = all_activity[:partner_activity][@content_partner.id]
       @email = Notifier.activity_on_content_partner_content(@content_partner, @content_partner_contact, @activity)

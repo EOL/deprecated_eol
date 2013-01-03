@@ -296,16 +296,16 @@ class DataObjectsController < ApplicationController
     access_denied unless current_user.min_curator_level?(:full)
     store_location(params[:return_to]) # TODO - this should be generalized at the application level, it's quick, it's common.
     curations = []
-    @data_object.all_associations.each do |phe|
+    @data_object.all_associations.each do |association|
       curations << Curation.new(
-        :association => phe,
+        :association => association,
         :data_object => @data_object, # TODO - An Association class should know this.
         :user => current_user,
-        :vetted => Vetted.find(params["vetted_id_#{phe.id}"]),
-        :visibility => visibility_from_params(phe),
-        :comment => curation_comment(params["curation_comment_#{phe.id}"]), # Note, this gets saved regardless!
-        :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
-        :hide_reason_ids => params["hide_reasons_#{phe.id}"] )
+        :vetted => Vetted.find(params["vetted_id_#{association.id}"]),
+        :visibility => visibility_from_params(association),
+        :comment => curation_comment(params["curation_comment_#{association.id}"]), # Note, this gets saved regardless!
+        :untrust_reason_ids => params["untrust_reasons_#{association.id}"],
+        :hide_reason_ids => params["hide_reasons_#{association.id}"] )
     end
     if any_errors_in_curations?(curations)
       flash[:error] = all_curation_errors_to_sentence(curations)

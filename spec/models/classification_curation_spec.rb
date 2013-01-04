@@ -33,7 +33,7 @@ describe ClassificationCuration do
     @move  = ClassificationCuration.create(@move_args)
     @php_split  = ClassificationCuration.create(@split_args)
     @php_split.hierarchy_entry_moves.each { |move| move.update_attributes(:completed_at => Time.now) }
-    @php_merged = ClassificationCuration.create(@merge_args.merge(:source_id => @merged_source))
+    @php_merged = ClassificationCuration.create(@merge_args.merge(:source_id => @merged_source.id))
     @merged_source.update_attributes(:supercedure_id => @target.id) # Fakes a merge
     @php_moved  = ClassificationCuration.create(@move_args)
     @php_moved.hierarchy_entry_moves.each { |move| move.update_attributes(:completed_at => Time.now) }

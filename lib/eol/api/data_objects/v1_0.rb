@@ -28,11 +28,11 @@ module EOL
           else
             data_object = DataObject.find_by_guid(params[:id])
             raise EOL::Exceptions::ApiException.new("Unknown data_object id \"#{params[:id]}\"") if data_object.blank?
-            data_object = data_object.latest_version_in_same_language(:check_only_published => true)
-            if data_object.blank?
-              data_object = data_object.latest_version_in_same_language(:check_only_published => false)
+            latest_version = data_object.latest_version_in_same_language(:check_only_published => true)
+            if latest_version.blank?
+              latest_version = data_object.latest_version_in_same_language(:check_only_published => false)
             end
-            data_object = DataObject.find_by_id(data_object.id)
+            data_object = DataObject.find_by_id(latest_version.id)
           end
 
           taxon_concept = data_object.all_associations.first.taxon_concept

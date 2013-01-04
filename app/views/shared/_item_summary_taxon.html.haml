@@ -17,16 +17,15 @@
   - unless subtitle.blank?
     = link_to subtitle.firstcap, overview_taxon_path(item)
   - # we need the search result object, and the best match can't be in the title or subtitle
-  - if search_result || @querystring # This was a search result... perhaps we should be more intelligent about this.
-    - querystring = @querystring.blank? ? "" : @querystring.downcase
-    - best_keyword_match = search_result['best_keyword_match'].blank? ? "" : search_result['best_keyword_match'].downcase
-    - unless search_result.nil? || |
-      item.title_canonical.downcase.match(Regexp.escape(querystring)) || |
-      item.title_canonical.downcase.match(Regexp.escape(best_keyword_match)) || |
-      (subtitle && subtitle.downcase.match(Regexp.escape(querystring))) || |
-      (subtitle && subtitle.downcase.match(Regexp.escape(best_keyword_match))) |
-      - unless subtitle.blank?
-        %br
-      %strong
-        = I18n.t("search_field_" + search_result['keyword_type'].underscore) + ": "
-      = search_result['best_keyword_match'].firstcap
+  - if search_result && @querystring # This was a search result... perhaps we should be more intelligent about this.
+    - querystring = Regexp.escape(@querystring.downcase)
+    - unless querystring.blank? || |
+      item.title_canonical.downcase.match(querystring) || |
+      (subtitle && subtitle.downcase.match(querystring))  |
+      %p.alternate_name
+        %span.label
+          - if [ 'PreferredCommonName', 'CommonName' ].include?(search_result['keyword_type'])
+            = I18n.t("alternative_common_name_colon")
+          - else
+            = I18n.t("alternative_name_colon")
+        = search_result['best_keyword_match'].firstcap

@@ -36,7 +36,9 @@ class Vetted < ActiveRecord::Base
     return(@@for_curating_selects[I18n.locale]) if @@for_curating_selects[I18n.locale]
     @@for_curating_selects ||= {}
     @@for_curating_selects[I18n.locale] =
-      [Vetted.trusted, Vetted.unknown, Vetted.untrusted].map {|v| [v.curation_label, v.id] }.compact.sort
+      [Vetted.trusted, Vetted.unknown, Vetted.untrusted].map do |v|
+        [v.curation_label, v.id, { :class => v.to_action }]
+      end.compact.sort
   end
 
   def curation_label

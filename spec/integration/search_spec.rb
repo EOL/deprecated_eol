@@ -227,7 +227,7 @@ describe 'Search' do
     visit search_path(:q => @name_for_all_types, :type => ['user'])
     current_path.should match /^\/users\/#{@user2.id}/
   end
-  
+
   it 'should only show next and previous links when necessary' do
     # make enough so paging kicks in
     26.times do |i|
@@ -237,9 +237,34 @@ describe 'Search' do
     visit("/search?q=testingsearchpaging&page=1")
     body.should_not include "see previous"
     body.should include "see next"
-    
+
     visit("/search?q=testingsearchpaging&page=2")
     body.should include "see previous"
     body.should_not include "see next"
+  end
+
+  it 'should properly list matches found on names which are not the preferred names' do
+    h = Hierarchy.gen(:browsable => 1)
+    other_preferred_name = Name.gen(:canonical_form => CanonicalForm.gen(:string => 'Ailuropoda melanoleuca'),
+      :string => 'Ailuropoda melanoleuca',
+      :italicized => '<i>Ailuropoda melanoleuca</i>')
+    entry = build_hierarchy_entry(0, @panda, other_preferred_name, :hierarchy => h )
+    synonym = Synonym.gen(:hierarchy => h, :hierarchy_entry => entry, :synonym_relation => SynonymRelation.synonym,
+      :name => Name.gen(:canonical_form => CanonicalForm.gen(:string => 'Itsapanda'),
+        :string => 'Itsapanda',
+        :italicized => '<i>Itsapanda</i>'))
+
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    visit("/search?q=Ailuropoda%20melanoleuca&show_all=1")
+    body.should have_selector('.alternate_name', :text => 'Alternative name:')
+    body.should have_selector('.alternate_name', :text => 'Ailuropoda melanoleuca')
+
+    visit("/search?q=Itsapanda&show_all=1")
+    body.should have_selector('.alternate_name', :text => 'Alternative name:')
+    body.should have_selector('.alternate_name', :text => 'Itsapanda')
+
+    visit("/search?q=trigger&show_all=1")
+    body.should have_selector('.alternate_name', :text => 'Alternative common name:')
+    body.should have_selector('.alternate_name', :text => 'Trigger')
   end
 end

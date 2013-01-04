@@ -1,4 +1,5 @@
 class UserActivityLog < LazyLoggingModel
+  establish_connection("#{Rails.env}_logging")
   belongs_to :taxon_concept
   belongs_to :activity
   belongs_to :user

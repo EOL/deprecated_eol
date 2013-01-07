@@ -2333,7 +2333,6 @@ de:
   home_page_link_advisory_information: Dieser Link führt zur Hauptseite der Enzyklopädie des Lebens.
   html_format: (HTML-Format)
   html_format_with_left_col: (HTML-Format. Nur eingeben, sofern Sie eine Spalte auf der linken Seite haben möchten. Ansonsten bitte frei lassen.)
-  icon_near_the_table_of_content: Symbol in der Nähe des Inhaltsverzeichnisses auf der linken Seite der Seite. Sie können auch <a href=''>Kommentare</a> zu dieser Art direkt auf EOL speichern, indem Sie hierzu den Reiter „Kommentare“ in unmittelbarer Nähe der Bilder nutzen.
   id: Kennung
   if_checked_and_user_is_saved: Sofern diese Option ausgewählt und der Nutzer gespeichert wird, werden die Referenzen, der Kompetenzbereich, die Genehmigung sowie die ausgewählte Gruppe entfernt. Der Nutzer wird danach nicht länger als Kurator angezeigt. Bitte geben Sie eine hinweisende Anmerkung zur Begründung an. Der Nutzer erhält darüber keine Informationen.
   if_the_details_parameter_is_not_set: Sofern der Parameter zu den Informationen nicht festgelegt ist, werden nur die Kennung des Datenobjekts, der Datentyp, sowie im Fall eines Artikels das Thema zurückgegeben. Der Datentyp wird ein Wert des Quellenartenvokabulars %{linka} sein. Das Textthema wird eines der %{linkb} sein.
@@ -2521,8 +2520,10 @@ de:
   license_cc_by_sa_2_0: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 3.0 (CC BY-SA 3.0)
+  license_cc_zero: Creative Commons – CC0 1.0 Universell
   license_gnu_fdl: GNU Lizenz für freie Dokumentation (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_no_known_copyright_restrictions: Keine bekannten Urheberrechtsbeschränkungen
   license_not_applicable: Lizenz nicht zutreffend
   license_public_domain: Gemeinfreiheit
   licensing: Lizenz
@@ -3712,10 +3713,8 @@ de:
   title: Name
   to_process_your_donation_please_proceed: Bitte fortfahren, um Ihre Spende durchzuführen
   to_remedy_this: Um Abhilfe zu schaffen, werden wir diese inaktiven Konten schließen und bitten Sie eol.org zu besuchen, um ein neues Nutzerkonto zu erstellen. Sobald Sie die Bestätigungs-E-Mail erhalten, klicken Sie bitte auf den darin enthaltenen Link, um Ihr Nutzerkonto zu aktivieren.
-  to_see_all_activity_combinatio: ", um alle Aktivitäten während der vergangenen fünf Minuten anzusehen."
   to_send_email_enter_text: Um diesem Nutzer eine E-Mail zu senden, geben Sie bitten unten Ihre Nachricht ein und klicken Sie anschließend auf „Senden“.
   to_submit_a_species_photograph_for: Um eine Fotografie für %{taxon} einzureichen, senden Sie bitte das Foto an %{flickr_link} und folgen Sie der Anleitung auf der dortigen Seite.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Um Texte für %{taxon} speichern zu können, müssen Sie darauf achten bei der EOL angemeldet zu sein. Klicken Sie
   toc: Inhaltsverzeichnis
   toc_entry_col_header: Inhaltsverzeichniseintrag
   toc_no_longer_available: Die Informationen zum Inhaltsverzeichnis sind nicht mehr verfügbar.
@@ -3791,7 +3790,6 @@ de:
   use_as_examplar_button: als beispielhaft verwenden
   use_as_examplar_note_preferred: "Hinweis: Diese Klassifikation ist eine bevorzugte. Wahrscheinlich möchte Sie sie verwenden."
   used_for_friendly_url_note: (wird verwendet, um nutzerfreundliche Links zu erzeugen; darf weder Leer- noch Sonderzeichen enthalten)
-  used_for_urls_note: wird für URLs verwendet - sollte eindeutig sein (übersetzte Seiten ausgenommen); anderenfalls müssen URLs die Seitenkennung enthalten
   user: Nutzer
   user_activation_failed_resent_validation_email_error: Es ist leider ein Fehler aufgetreten, so dass Ihr Konto nicht bestätigt werden konnte. Dies geschieht normalerweise in den Fällen, in denen der eingegebene oder ausgewählte Bestätigungslink nicht erkannt wird. Anweisungen zur Aktivierung des Kontos wurden erneut an die während des Registrierungsvorgangs angegebene E-Mail-Adresse gesandt. Bitte stellen Sie sicher, dass der Link dem, mit der Bestätigungs-E-Mail mitgeteilten, Bestätigungslink entspricht.
   user_activation_failed_user_not_found_error: Es ist leider ein Fehler aufgetreten. Das Nutzerkonto, dass Sie zu bestätigen versuchen, konnte nicht gefunden werden. Bitte stellen Sie sicher, das der von Ihnen genutzte Bestätigungslink dem Link entspricht, den Sie während des Registrierungsvorgangs erhalten haben.

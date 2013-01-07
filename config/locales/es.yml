@@ -2339,7 +2339,6 @@ es:
   home_page_link_advisory_information: Este enlace te llevará a la página principal de Encyclopedia Of Life
   html_format: (Formato HTML)
   html_format_with_left_col: (FORMATO HTML, escriba sólo si desea tener una columna a la izquierda de la página, de lo contrario déjela en blanco)
-  icon_near_the_table_of_content: icono cerca de la tabla de contenidos en el lado izquierdo de la página. También puede enviar <a href=''>comentarios</a> acerca de esta especie directamente en el sitio EOL mediante la ficha de "Comentarios" junto a las imágenes.
   id: ID
   if_checked_and_user_is_saved: Si se marca y el usuario se guarda, a continuación, los credenciales, alcance, aprobación y clade seleccionados se borran y el usuario ya no aparece como curador.  Usted debería agregar una nota a continuación para indicar la razón.  No se envía información al usuario.
   if_the_details_parameter_is_not_set: Si el parámetro de detalles no es establecido, entonces solamente el identificador de objeto de datos, tipo de datos, y, en el caso de artículos, el tema será retornado. EL tipo de datos será un valor del %{linka} vocabulario de tipo de datos. EL texto del tema será un valor de la %{linkb} ontología de elementos de información.
@@ -3708,10 +3707,8 @@ es:
   title: Título
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   to_remedy_this: Para solucionar esto, cerraremos estas cuentas inactivas y le pediremos que visite eol.org para crear una nueva cuenta. Cuando reciba el mensaje de confirmación, haga clic en el enlace para validar su cuenta.
-  to_see_all_activity_combinatio: para ver todas las combinaciones de actividad en un intervalo de 5 min. {3-4 min.}.
   to_send_email_enter_text: Para enviar un correo electrónico a este usuario, introduzca el texto a continuación y haga clic en 'Enviar'.
   to_submit_a_species_photograph_for: Para enviar una fotografía de una especie para %{taxon}, por favor envíe las fotos a %{flickr_link} y siga las instrucciones que aparecen en la página de inicio de ese grupo.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Para enviar contenido de texto sobre %{taxon}, asegúrese que ha iniciado sesión en EOL y, a continuación, haga clic en el
   toc: TDC
   toc_entry_col_header: Entrada de índice
   toc_no_longer_available: La información de la tabla de contenido ya no está disponible
@@ -3787,7 +3784,6 @@ es:
   use_as_examplar_button: establecer como ejemplar
   use_as_examplar_note_preferred: "nota: esta es la clasificación preferida. Probablemente desees usar esta."
   used_for_friendly_url_note: (utilizado para generar un enlace amistoso para los usuarios, no puede contener espacios ni caracteres especiales)
-  used_for_urls_note: utilizado para las direcciones URL - debe ser único (excepto para páginas traducidas); Si no, las direcciones URL de la página deben utilizar identificador de página
   user: Usuario
   user_activation_failed_resent_validation_email_error: Lo sentimos, ha ocurrido un error, su cuenta no pudo ser verificada. Esto generalmente ocurre cuando el enlace de verficiación que ha introducido o seleccionado no es reconocido. Las instrucciones de activación han sido reenviadas a la dirección de correo electrónico que se registró con, asegúrese de que el enlace de verficiación que utiliza coincide con el proporcionado en el email de activación.
   user_activation_failed_user_not_found_error: Lo sentimos, ha ocurrido un error, la cuenta que están tratando de verificar que no se pudo encontrar. Asegúrese de que el enlace de verficiación que utiliza coincida con el proporcionado en el correo electrónico de activación que recibió después de registrarse.

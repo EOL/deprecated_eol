@@ -1849,7 +1849,6 @@ zh-CN:
   home_page_link_advisory_information: 此链接将带您到网络生命大百科网站的首页
   html_format: (HTML格式)
   html_format_with_left_col: "\"(HTML格式, 如果希望页面有一左边栏则输入,否则请留空)\""
-  icon_near_the_table_of_content: 网页左侧内容表旁的图标。您可以直接使用图像旁边的“评论”按钮来提交关于该物种的<a href=''>评论</a>。
   id: ID
   if_checked_and_user_is_saved: 如果用户选择此项并保存，则相关的资历认证、专业范围、审批和已选项都将被移除，并且用户不显示为管理员。您应给出与此有关的说明。没有信息反馈给此用户。
   if_the_details_parameter_is_not_set: 如果没有设置详细参数，则只返回数据项标识符和数据类型，以文章为例，将只返回主题。数据类型可以是%{linka}资源类型词汇。文本主题可以是%{linkb}本体项。
@@ -3042,10 +3041,8 @@ zh-CN:
   title: 标题
   to_process_your_donation_please_proceed: 要处理您的捐赠，请继续
   to_remedy_this: 为了补救，我们将关闭这些不活动的账户并邀请您访问eol.org来创建一个新的帐户。当您收到确认邮件时请点击以激活您的帐户。
-  to_see_all_activity_combinatio: 要查看在5分钟内所有活动的集合。持续{3-4f分种}。
   to_send_email_enter_text: 要发送给该用户一封邮件，在下方输入文本并点击发送。
   to_submit_a_species_photograph_for: "\"为了给%{taxon}提交一张物种的照片，请将照片上传到%{flickr_link},然后按照群组的主页上的指示操作。\""
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: 为了提交%{taxon}的文本内容，请先确认您已经登录EOL在点击提交。
   toc: 目录
   toc_entry_col_header: 目录条目
   toc_no_longer_available: 目录信息不再可用
@@ -3110,7 +3107,6 @@ zh-CN:
   us_dollars_35: 35美元
   us_dollars_50: 50美元
   used_for_friendly_url_note: （用来产生一个用户友好的链接，不要包含空格和特殊字符）
-  used_for_urls_note: URLS的使用必须唯一（翻译的页面除外）；否则页面的URLs必须使用页面ID
   user: 用户
   user_activation_failed_resent_validation_email_error: 抱歉，出现了一个错误，您的帐户无法验证。原因可能是您使用的验证链接没有被识别。激活说明已发送到您注册时的邮箱，请确保使用的验证链接和激活邮件中的一致。
   user_activation_failed_user_not_found_error: 抱歉，发生了一个错误，您要验证的帐户不存在。请您确保使用注册后激活邮箱收到的验证链接。

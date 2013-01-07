@@ -152,7 +152,7 @@ ko:
         browsable: 찾아보기
         complete: 완료
         description: 설명
-        descriptive_label: 설명 라벨
+        descriptive_label: 설명 레이블
         label: 라벨
         request_publish: 게시 요청
       name: 
@@ -847,7 +847,9 @@ ko:
   admin_content_partners_page_title: "관리: 콘텐츠 파트너 관리"
   admin_content_partners_statistics_date_from_label: 보낸 사람
   admin_content_partners_statistics_date_to_label: 받는 사람
+  admin_content_partners_statistics_first_published_caption: "%{date_from}과 %{date_to} 사이에 콘텐츠 파트너가 첫 게시한 자료입니다."
   admin_content_partners_statistics_first_published_download_csv_submit: CSV로 다운로드
+  admin_content_partners_statistics_first_published_empty: "%{date_from}과 %{date_to} 사이에 첫 게시한 콘텐츠 파트너 자료가 없습니다."
   admin_content_partners_statistics_first_published_header: 자료가 처음으로 게시함
   admin_content_partners_statistics_link: 통계
   admin_content_partners_statistics_page_title: "관리: 콘텐츠 파트너 통계"
@@ -1505,6 +1507,8 @@ ko:
   created_colon: "만든 날짜:"
   created_community: 공동체를 성공적으로 만들었습니다.
   creative_commons: 크리에이티브 커먼즈
+  credentials: 자격 증명
+  credentials_colon: "자격 증명:"
   curated: 큐레이트됨
   curated_association_update_button: 바뀐 사항 저장
   curated_objects_of: "%{name}의 큐레이트한 개체"
@@ -1643,12 +1647,16 @@ ko:
   default: 기본값
   default_focus_collection_name_from_community: "%{name}의 집중"
   default_watch_collection_name: "%{username} 사용자의 주시문서 목록"
+  definition: 정의
   delete: 삭제
   delete_community: 이 공동체 삭제
   delete_firstcap: 삭제
   deleted_colon: "삭제함:"
   description: 설명
+  description_of: 설명
+  descriptive_label: 설명 레이블
   destination_inappropriate_for_logged_in_users: 로그인하고 있습니다.
+  destroy: 파괴
   detail: 자세한 사항
   details: 자세한 사항
   details_title: 자세한 사항
@@ -1793,6 +1801,7 @@ ko:
   failed_login_attempts_with_count: 
     one: (로그인 시도를 %{count}회 실패했습니다)- 사용자가 로그인하려면 확인해야 합니다
     other: (로그인 시도를 %{count}회 실패했습니다)- 사용자가 로그인하려면 확인해야 합니다
+  false_label: 거짓
   family_name_colon: "성:"
   feedback: 피드백
   file: 파일
@@ -1851,6 +1860,7 @@ ko:
   for_images_to_reference_parens: (그림 참고용)
   for_pdfs_and_docs_parens: (PDF 및 문서용)
   forgot_password: 비밀번호 잊음
+  forgot_password_cannot_find_user_from_username_or_email_error: 죄송합니다, 제공한 <em>%{username_or_email}</em> 사용자 이름이나 이메일로 된 사용자 계정이 없습니다.
   forgot_password_form_cancel: 취소
   forgot_password_form_choose_username_legend: 계정 선택
   forgot_password_form_header: 비밀번호 초기화
@@ -2179,7 +2189,7 @@ ko:
   image_map_rating: 지도 평가
   image_not_associated_with_any_published_entries: 이 그림은 모든 게시한 분류와 관련되지 않습니다.
   image_not_found: 그림을 찾지 않았습니다
-  image_object: 그램 개체
+  image_object: 그림 개체
   image_of_taxon: "%{taxon_name}의 그림"
   image_rating: 그림 평가
   images: 그림
@@ -2237,7 +2247,7 @@ ko:
   item_type_taxon_assistive: 이 항목은 분류입니다
   item_type_video: 동영상
   item_type_video_assistive: 이 항목은 동영상입니다
-  item_updated_in_collection_notice: 항목이 성공적으로 <em>%{collection_name}</em> 모음집에 업데이트했습니다.
+  item_updated_in_collection_notice: 항목을 성공적으로 <em>%{collection_name}</em> 모음집에 업데이트했습니다.
   items_with_count_semi_colon: 
     one: 항목 %{count}개;
     other: 항목 %{count}개;
@@ -2969,6 +2979,10 @@ ko:
   show_status_message: 상태 메시지 보기
   show_tasks: 작업 보기
   show_warning_message: 경고 메시지 보기
+  showing_all_error_logs: <b>모든 오류</b> 보기
+  showing_all_harvest_logs: <b>모든 수확</b> 보기
+  showing_error_logs_from_date: <b>%{date}</b>에서 오류 보기
+  showing_harvest_logs_from_date: <b>%{date}</b>에서 수확 보기
   shown_to_the_user_parens: (사용자에게 보기)
   shown_to_user_as_the_title_of_page: 문서의 제목으로 사용자에게 보기
   sign_in: 로그인

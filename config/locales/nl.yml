@@ -42,7 +42,7 @@ nl:
         description: Beschrijving van de verzameling
         logo: Primaire verzamelingsafbeelding
         name: Naam van de verzameling
-        show_references: Verwijzingen (tekst of URL)
+        show_references: Referenties (tekst of URL)
         sort_style_id: Standaard sorteerrichting
       collection_item: 
         annotation: Annotatie
@@ -128,9 +128,9 @@ nl:
         objects_curated_in_the_last_30_days: Objecten die beheerd zijn in de afgelopen 30 dagen
         pages_count: Totaal aantal pagina's
         pages_curated_by_active_curators: Pagina's die beheerd worden door actieve conservatoren
-        pages_with_BHL_links: Pagina's met BHL-verwijzingen
-        pages_with_BHL_links_no_text: Pagina's met BHL-verwijzingen maar geen tekst
-        pages_with_BHL_links_only: Pagina's met alleen BHL-verwijzingen
+        pages_with_BHL_links: Pagina's met BHL-koppelingen
+        pages_with_BHL_links_no_text: Pagina's met BHL-koppelingen maar geen tekst
+        pages_with_BHL_links_only: Pagina's met alleen BHL-koppelingen
         pages_with_at_least_a_curatorial_action: Pagina's met conservatoire handeling
         pages_with_at_least_a_trusted_object: Pagina's met een vertrouwd object
         pages_with_content: Pagina's met inhoud
@@ -791,9 +791,9 @@ nl:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als niet-vertrouwd gemarkeerd in een onbekende context.
         user_untrusted_it_on_association: <strong>%{user}</strong> heeft het als niet-vertrouwd gemarkeerd op de pagina "%{association}".
-  activity_user_created_link: <strong>%{user}</strong> heeft een verwijzing toegevoegd aan "%{object_name}" in "%{taxon_concept}".
+  activity_user_created_link: <strong>%{user}</strong> heeft een koppeling toegevoegd aan "%{object_name}" in "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
-  activity_user_updated_link: <strong>%{user}</strong> heeft een verwijzing gewijzigd van "%{object_name}" in "%{taxon_concept}".
+  activity_user_updated_link: <strong>%{user}</strong> heeft een koppeling gewijzigd van "%{object_name}" in "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> heeft tekst gewijzigd van "%{object_name}" in "%{taxon_concept}".
   add: Toevoegen
   add_a_collection_to_a_community: "\"%{collection}\" toevoegen aan een gemeenschap"
@@ -811,7 +811,7 @@ nl:
   add_article_to_page_button: Artikel toevoegen
   add_association_submit_button: koppeling toevoegen
   add_brief_summary_to_page_link_button: Korte samenvatting aan deze pagina toevoegen
-  add_citizen_science_resources_to_page_link_button: Verwijzing naar burgerwetenschap aan deze pagina toevoegen
+  add_citizen_science_resources_to_page_link_button: Koppeling naar burgerwetenschap aan deze pagina toevoegen
   add_classifications: Geselecteerde classificaties toevoegen bij verplaatsen
   add_collection_to_a_new_community: "\"%{collection}\" toevoegen aan een nieuwe gemeenschap"
   add_collection_to_community: Verzameling aan gemeenschap toevoegen
@@ -819,8 +819,8 @@ nl:
   add_identification_resources_to_page_link_button: Identificatiebronnen toevoegen aan deze pagina
   add_item_to_new_collection: "\"%{item}\" toevoegen aan een nieuwe verzameling"
   add_language: Taal toevoegen
-  add_link_instead: voeg in plaats daarvan een verwijzing toe
-  add_link_to_page_button: Verwijzing toevoegen
+  add_link_instead: voeg in plaats daarvan een koppeling toe
+  add_link_to_page_button: Koppeling toevoegen
   add_new_association_link: Nieuwe associatie toevoegen
   add_new_tag_suggestion: Nieuwe labelsuggestie toevoegen
   add_page: Pagina toevoegen
@@ -835,7 +835,7 @@ nl:
   admin_content_page_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen. Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
   admin_content_page_delete_successful_notice: Pagina %{page_name} en bijbehorende vertalingen zijn verwijderd.
   admin_content_page_edit_header: Basispaginagegevens voor <em>%{page_name}</em> bijwerken
-  admin_content_page_edit_tip: We raden u aan de unieke naam van deze pagina niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op verwijzingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
+  admin_content_page_edit_tip: We raden u aan de unieke naam van deze pagina niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op koppelingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
   admin_content_page_new_header: Nieuwe inhoudspagina aanmaken
   admin_content_page_new_link: Nieuwe pagina aanmaken
   admin_content_page_new_tip: Voer basisgegevens in over deze pagina. De unieke naam is %{required_icon} verplicht.
@@ -877,7 +877,7 @@ nl:
   admin_news_item_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen. Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
   admin_news_item_delete_successful_notice: Het nieuwsitem %{page_name} en bijbehorende vertalingen zijn verwijderd.
   admin_news_item_edit_header: Basispaginagegevens voor het nieuwsitem <em>%{page_name}</em> bijwerken
-  admin_news_item_edit_tip: We raden u aan de unieke naam van dit nieuwsitem niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op verwijzingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
+  admin_news_item_edit_tip: We raden u aan de unieke naam van dit nieuwsitem niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op koppelingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
   admin_news_item_new_header: Nieuw nieuwsitem maken
   admin_news_item_new_link: Nieuwsitem aanmaken
   admin_news_item_new_tip: Voer basisgegevens in over deze pagina. De unieke naam is %{required_icon} verplicht.
@@ -982,6 +982,8 @@ nl:
   already_a_member_question: Bent u al lid?
   already_member_of_community: U bent al lid van deze gemeenschap.
   alternate_classification: Alternatieve classificatie
+  alternative_common_name_colon: "Alternatieve gewone naam:"
+  alternative_name_colon: "Alternatieve naam:"
   amount: Bedrag
   an_unknown_user: Een onbekende gebruiker
   and: en
@@ -1031,7 +1033,7 @@ nl:
   associated_with_header: Gekoppeld met
   associated_with_image_header: In de laatste afbeelding
   associated_with_image_map_header: Op de laatste kaart
-  associated_with_link_header: Op de laatste verwijzing
+  associated_with_link_header: Op de laatste koppeling
   associated_with_map_header: Op de laatste kaart
   associated_with_sound_header: In het laatste geluidsbestand
   associated_with_video_header: In de laatste video
@@ -1053,10 +1055,10 @@ nl:
   audio_duration_assistive: Met JavaScript ingeschakeld wordt de lengte van het audiobestand in minuten en seconden aangeven. Afhankelijk van de grootte van het bestand kan het even duren voor de lengte van het bestand is berekend en hier wordt weergegeven.
   audio_mute: geluid uit
   audio_pause: pauzeren
-  audio_pause_assistive: Als u JavaScript hebt ingeschakeld, kunt u via deze verwijzing een audiobestand dat wordt afgespeeld pauzeren. In andere gevallen kunt u deze verwijzing negeren.
+  audio_pause_assistive: Als u JavaScript hebt ingeschakeld, kunt u via deze koppeling een audiobestand dat wordt afgespeeld pauzeren. In andere gevallen kunt u deze koppeling negeren.
   audio_play: afspelen
   audio_stop: stoppen
-  audio_stop_assistive: Als u JavaScript hebt ingeschakeld, kunt u via deze verwijzing een audiobestand dat wordt afgespeeld stoppen. In andere gevallen kunt u deze verwijzing negeren.
+  audio_stop_assistive: Als u JavaScript hebt ingeschakeld, kunt u via deze koppeling een audiobestand dat wordt afgespeeld stoppen. In andere gevallen kunt u deze koppeling negeren.
   audio_unmute: geluid aan
   author_of_peer_reviewed_publication_credential_option: auteurschap van een publicatie met peer-review (lever een referentie referentie).
   authoritative_information: gezaghebbende gegevens
@@ -1241,7 +1243,7 @@ nl:
   comment_not_deleted_error: Er is een fout opgetreden. De reactie kon niet worden verwijderd.
   comment_not_updated_error: Er is een fout opgetreden. De reactie kon niet worden bijgewerkt.
   comment_or_rate_on_this_article: reageren op deze pagina of een waardering geven
-  comment_or_rate_on_this_link: reageren op deze verwijzing of een waardering geven
+  comment_or_rate_on_this_link: reageren op deze koppeling of een waardering geven
   comment_show_posters_image_alt: Profielafbeelding van %{posters_name} die deze opmerking heeft toegevoegd.
   comments: Opmerkingen
   comments_and_tags: Opmerkingen en labels
@@ -1646,7 +1648,7 @@ nl:
   data_object_api_description: Als er een aanduiding voor een gegevensobject wordt opgegeven, geeft deze API alle metadata over het object terug zoals opgegeven aan EOL voor de bijdragende contentpartner. De contentpartner wordt aangegeven in het eerste agentelement en heeft de rol van "partner".
   data_object_ignore: dit item negeren
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld aan een hiërarchie.
-  data_object_reference: Gegevensobjectverwijzing
+  data_object_reference: Gegevensobjectkoppeling
   data_object_undo_ignore: uit de negeerlijst verwijderen
   data_objects: 
     show: 
@@ -1725,14 +1727,15 @@ nl:
     next: Volgende
     previous: Vorige
   dato_create_cancel: Annuleren
+  dato_create_user_link_error: Er is een fout opgetreden. De koppeling is niet toegevoegd.
   dato_create_user_text_error: Er is een fout opgetreden. De pagina is niet toegevoegd.
   dato_create_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
   dato_create_user_text_missing_user_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
   dato_create_user_text_validation_error: Zorg dat u het formulier correct hebt ingevuld.
   dato_edit_cancel: Annuleren
-  dato_edit_link_button: Verwijzing bewerken
-  dato_edit_link_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste verwijzing wordt toegevoegd aan uw volglijst zodat u overleg over deze verwijzing kunt volgen en de conserveringsstatus kunt bijhouden.
-  dato_edit_link_title: Verwijzing bewerken
+  dato_edit_link_button: Koppeling bewerken
+  dato_edit_link_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste koppeling wordt toegevoegd aan uw volglijst zodat u overleg over deze koppeling kunt volgen en de conserveringsstatus kunt bijhouden.
+  dato_edit_link_title: Koppeling bewerken
   dato_edit_text_button: Artikel bewerken
   dato_edit_text_page_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste pagina wordt toegevoegd aan uw volglijst zodat u overleg over deze pagina kunt volgen en de conserveringsstatus kunt bijhouden.
   dato_edit_text_title: Artikel bewerken
@@ -1740,10 +1743,10 @@ nl:
   dato_new_edit_user_text_fieldset_content_header: Artikelinhoud
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
   dato_new_edit_user_text_form_tip: Uw afgeronde artikel wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt het gemarkeerd als "niet-beoordeeld" totdat het wordt beoordeeld door een conservator. Hoofdstuk, tekst, taal en licentie zijn vereist (%{required_icon}), alle andere velden zijn optioneel. Als u een CC BY-licentie (Naamsvermelding) selecteert, neem dan een rechthebbende op of laat het veld leeft om uw eigen volledige naam te gebruiken. Voor Publiek domeinlicenties is geen rechthebbende nodig. Lees voor meer informatie de <a href="%{add_article_help_url}">hulppagina voor artikel toevoegen</a>.
-  dato_new_edit_user_text_link_fieldset_content_header: Gegevens voor verwijzing
-  dato_new_edit_user_text_link_form_tip: Uw verwijzing wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt deze gemarkeerd als "niet gecontroleerd" totdat een conservator deze controleerd. Categorie, beschrijving en URL zijn verplicht (%{required_icon}). Alle overige velden zijn optioneel. Lees <a href="%{add_article_help_url}">artikel toevoegen/hulp voor verwijzingen</a> voor meer informatie.
+  dato_new_edit_user_text_link_fieldset_content_header: Koppelingsgegevens
+  dato_new_edit_user_text_link_form_tip: Uw koppeling wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt deze gemarkeerd als "niet gecontroleerd" totdat een conservator deze controleerd. Categorie, beschrijving en URL zijn verplicht (%{required_icon}). Alle overige velden zijn optioneel. Lees <a href="%{add_article_help_url}">artikel toevoegen/hulp voor koppelingen</a> voor meer informatie.
   dato_new_text_for_taxon_page_title: Een pagina toevoegen aan <i>%{taxon}</i>
-  dato_new_text_link_for_taxon_page_title: Verwijzing toevoegen aan <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Koppeling toevoegen aan <i>%{taxon}</i>
   dato_new_text_page_description: Dank u wel voor uw bijdragen aan EOL. Uw artikel wordt toegevoegd aan uw volglijst zodat u reacties en de conserveringsstatus kunt volgen.
   dato_update_user_text_error: Er is een fout opgetreden. Het artikel kon niet worden bijgewerkt.
   dato_update_users_text_not_owner_exception: Alleen de oorspronkelijke auteur van dit tekstobject mag het bewerken.
@@ -1923,8 +1926,8 @@ nl:
   export_all_of_the_entries_as_a: alle gegevens als CSV-bestand exporteren
   export_curator_csv_link: "[alle conservatoren als CSV-bestand exporteren]"
   export_this_list_as_csv: Deze lijst exporteren als CSV
-  external_link_header: Externe verwijzing
-  external_link_icon_alt_text: Externe verwijzing.
+  external_link_header: Externe koppeling
+  external_link_icon_alt_text: Externe koppeling.
   external_report_click_url_to_proceed: Externe rapport. Klik op URL om verder te gaan.
   external_report_click_year_to_proceed: Extern rapport. Selecteer een jaar om verder te gaan.
   facebook: Facebook
@@ -1961,7 +1964,7 @@ nl:
   filter_by_type_image_option_with_count: 
     one: Afbeelding (%{count})
     other: Afbeeldingen (%{count})
-  filter_by_type_link_option: Verwijzingen
+  filter_by_type_link_option: Koppelingen
   filter_by_type_name_option: Namen
   filter_by_type_object_curated_option: Geconserveerde objecten
   filter_by_type_photosynth_option: Photosynths
@@ -2058,7 +2061,7 @@ nl:
         view_style_id: Standaardweergave
       collection_item: 
         annotation: Annotatie
-        refs: Verwijzingen <small>(zet elke verwijzing op een nieuwe regel)</small>
+        refs: Referenties <small>(zet elke koppeling op een nieuwe regel)</small>
         sort_field: Sorteren op <small>(datum in notatie JJJJ.MM.DD, nummer of tekst)</small>
         sort_field_show: "Sorteerwaarde:"
       comment: 
@@ -2102,7 +2105,7 @@ nl:
         license_id: Licentie
         license_id_more: Lees het <a href="%{policy_url}">EOL-licentiebeleid</a>
         object_title: Naam
-        refs: Verwijzingen <small>(zet elke verwijzing op een nieuwe regel)</small>
+        refs: Referenties <small>(zet elke koppeling op een nieuwe regel)</small>
         rights_holder: Rechthebbende
         rights_holder_more: Geef een persoon of organisatie op die de rechten voor deze gegevens bezit of beheert. Als u dit veld leeg laat, nemen we aan dat u de rechthebbende bent voor alle licenties, met uitzondering van Publiek Domein. Publiek Domein-licenties vereisen geen rechthebbende.
         rights_statement: Rechtenverklaring
@@ -2112,7 +2115,7 @@ nl:
       data_object_link: 
         description: Beschrijving <small>(sommige HTML-opmaak is toegestaan)</small>
         link_type: Categorie
-        source_url: Verwijzings-URL
+        source_url: Koppelings-URL
         toc_item: Onderwerp
       eol_statistic: 
         date_one: Datum
@@ -2173,7 +2176,7 @@ nl:
         active_translation: Gepubliceerd
         active_translation_more: Gepubliceerde vertalingen zijn openbaar, tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
         language_id: Taal
-        left_content_more: "(optioneel) Voeg een ongesorteerde lijst toe met navigatieerwijzingen. Gebruik de klassenaam <code>active</code> om de verwijzing voor de huidige pagina uit te lichten, bijvoorbeeld <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> waar <code>:id</code> is het ID of de unieke naam van de huidige pagina en <code>:title</code> is de beschrijvende titel van de pagina. Let op: alle verwijzingen naar pagina's uit het EOL CMS moeten beginnen met een slash (/): <code>/info/:id</code>.</strong> U moet de HTML-broncode direct bewerken om deze wijzigingen te maken. Doe dit door <em>Broncode</em> te selecteren in de werkbalk van de tekstverwerker."
+        left_content_more: "(optioneel) Voeg een ongesorteerde lijst toe met navigatieerwijzingen. Gebruik de klassenaam <code>active</code> om de koppeling voor de huidige pagina uit te lichten, bijvoorbeeld <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> waar <code>:id</code> is het ID of de unieke naam van de huidige pagina en <code>:title</code> is de beschrijvende titel van de pagina. Let op: alle koppelingen naar pagina's uit het EOL CMS moeten beginnen met een slash (/): <code>/info/:id</code>.</strong> U moet de HTML-broncode direct bewerken om deze wijzigingen te maken. Doe dit door <em>Broncode</em> te selecteren in de werkbalk van de tekstverwerker."
         main_content_more: "Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de paginanaam, dus kopteksten in de inhoud beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
         meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van de pagina verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
         meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van de pagina weergeven. Deze trefwoorden en zinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
@@ -2195,7 +2198,7 @@ nl:
         credentials_more_academic: Faculteitsmedewerker-, staf- or promovendusstatus in een relevante universiteit of HBO-opleiding.
         credentials_more_author: Auteurschap van een publicatie met peer-review (lever een referentie referentie).
         credentials_more_professional: Lid van een beroepsvereniging.
-        credentials_more_referral: Verwijzing van huidige conservator.
+        credentials_more_referral: Koppeling van huidige conservator.
         credentials_more_successful_assistant_curator: Succesvol verleden als assistentconservator.
         curation_application: Conservator worden
         curation_application_more: Als u uw conservatorrechten wilt wijzigen, dien dan gewoon een aanvraag in en wij bekijken of u in aanmerking komt.
@@ -2257,8 +2260,8 @@ nl:
         create_text: Artikel toevoegen
         update: Artikel opslaan
       data_object_link: 
-        create: Verwijzing toevoegen
-        update: Verwijzing opslaan
+        create: Koppeling toevoegen
+        update: Koppeling opslaan
       eol_statistic: 
         change_date: Statistieken voor datums weergeven
         download_csv: Downloaden als CSV
@@ -2328,10 +2331,9 @@ nl:
   hierarchy_updated: De hiërarchie is bijgewerkt
   home: Startpagina
   home_page_cache_last_cleared_on: De cache voor de startpagina is voor het laatst geleegd op %{date}
-  home_page_link_advisory_information: Via deze verwijzing komt u op de hoofdpagina van de website Encyclopedia of Life
+  home_page_link_advisory_information: Via deze koppeling komt u op de hoofdpagina van de website Encyclopedia of Life
   html_format: (HTML-indeling)
   html_format_with_left_col: "{HTML-opmaak; alleen invoeren als u een linkerkolom op de pagina wilt hebben; anders leeg laten)"
-  icon_near_the_table_of_content: icoon bij de inhoudsopgave aan de linkerkant van de pagina. U kunt ook direct op de site van EOL <a href=''>reacties</a> geven over deze soort via het tabblad "Reacties" in de buurt van de afbeeldingen.
   id: ID
   if_checked_and_user_is_saved: Als aangevinkt en de gebruiker is opgeslagen, dan worden referenties, scope, goedkeuring en geselecteerde claden allemaal verwijderd en wordt de gebruiker niet langer weergegeven als conservator. U hoort een opmerkingen toe te voegen met de reden. De gebruiker ontvangt hierover geen melding.
   if_the_details_parameter_is_not_set: Als de parameter "details" niet is ingesteld, dan worden alleen de velden dataobject-ID, gegevenstype en in het geval van artikelen, onderwerp, teruggegeven. Het gegevenstype is een waarde uit het vocabulaire of het brontype %{linka}. Het tekstonderwerp is een van de %{linkb}.
@@ -2399,8 +2401,8 @@ nl:
   item_type_image_assistive: Dit item is een afbeelding
   item_type_image_map: Kaart
   item_type_image_map_assistive: Dit item is een afbeelding van een kaart
-  item_type_link: Verwijzing
-  item_type_link_assistive: Dit item is een verwijzing
+  item_type_link: Koppeling
+  item_type_link_assistive: Dit item is een koppeling
   item_type_map: Kaart
   item_type_map_assistive: Dit item is een kaart
   item_type_person: Persoon
@@ -2418,7 +2420,7 @@ nl:
   items_with_count_semi_colon: 
     one: één item;
     other: "%{count} items;"
-  iucn_red_list_status_advisory_information: Deze verwijzing brengt u naar de website van de Internationale Unie voor het Behoud van de Natuur (IUCN) waar u meer informatie kunt vinden over de Rode Lijst van Bedreigde Soorten van de IUCN.
+  iucn_red_list_status_advisory_information: Deze koppeling brengt u naar de website van de Internationale Unie voor het Behoud van de Natuur (IUCN) waar u meer informatie kunt vinden over de Rode Lijst van Bedreigde Soorten van de IUCN.
   join_community_button: Lid worden van deze gemeenschap
   join_eol_button_html: Meld u nu aan bij <abbr title="Encyclopedia of Life">EOL</abbr>
   join_eol_community_html: Word lid van de <abbr title="Encyclopedia of Life">EOL</abbr>-gemeenschap!
@@ -2532,13 +2534,13 @@ nl:
   limits_the_number_of_returned_sound_objects: beperkt het aantal teruggegeven geluidsobjecten
   limits_the_number_of_returned_text_objects: beperkt het aantal tekstobjecten
   limits_the_number_of_returned_video_objects: beperkt het aantal videoobjecten
-  link_more_about: Meer informatie over deze verwijzing
-  link_name: Beschrijving voor verwijzing
-  link_not_associated_with_any_published_entries: Deze verwijzing is niet gekoppeld aan gepubliceerde taxa.
-  link_rating: Rang van de verwijzing
+  link_more_about: Meer informatie over deze koppeling
+  link_name: Beschrijving voor koppeling
+  link_not_associated_with_any_published_entries: Deze koppeling is niet gekoppeld aan gepubliceerde taxa.
+  link_rating: Rang van de koppeling
   links_with_count: 
-    one: één verwijzing
-    other: "%{count} verwijzingen"
+    one: één koppeling
+    other: "%{count} koppelingen"
   list_newsletter_emails: e-mailadressen voor nieuwbrief weergeven
   list_of_activity_combinations: Lijst van handelingencombinaties gedurende 5 minuten
   listing_collections: Verzamelingen weergeven
@@ -2687,7 +2689,7 @@ nl:
   moved_items_from_collection_with_count_notice: 
     one: Eén item vanuit %{name} verplaatst.
     other: "%{count} items vanuit %{name} verplaatst."
-  multimedia_links: Multimediaverwijzingen
+  multimedia_links: Multimediakoppelingen
   must_be_associated_with_either_a_user_or_a_community: Moet gekoppeld zijn met een gebruiker of een gemeenschap
   must_be_checked_in_to_show: "- moet aangevinkt zijn om aan een gebruiker weer te geven"
   must_be_checked_in_to_view: "- moet aangevinkt zijn om te kunnen bekijken"
@@ -2725,7 +2727,7 @@ nl:
   new_search_suggestion: Nieuwe zoeksuggestie
   new_upload: Nieuwe upload
   new_user: Nieuwe gebruiker
-  news_and_event_links: Verwijzingen naar nieuws en evenementen
+  news_and_event_links: Koppelingen naar nieuws en evenementen
   news_archive_page: nieuwsarchiefpagina
   news_available_in_languages: "Deze pagina is beschikbaar in:"
   news_date: Nieuwsdatum
@@ -2772,7 +2774,7 @@ nl:
   not_evaluated: Niet beoordeeld
   not_published_yet: nog niet gepubliceerd
   not_recognized_by_available_hierarchies: Niet herkend in enige beschikbare classificatie
-  not_shown_on_the_website_note: (niet weergegeven op de website of in de URL van de verwijzing; alleen voor archiefdoeleinden)
+  not_shown_on_the_website_note: (niet weergegeven op de website of in de URL van de koppeling; alleen voor archiefdoeleinden)
   not_yet_implemented_error: Die optie is helaas nog niet beschikbaar.
   note: "Notitie:"
   note_about_homonym_problems: "Let op: wijzig deze eigenschap alleen als u het zeker weet. Deze optie deselecteren kan grote homoniemproblemen tot gevolg hebben"
@@ -2846,13 +2848,13 @@ nl:
     user_message: 
       subject: Een bericht van de Encyclopedia of Life
     user_recover_account: 
-      message: "Encyclopedia of Life (http://eol.org) heeft een verzoek ontvangen om uw gebruiker te herstellen. Als u dit verzoek niet heeft gemaakt, negeer deze e-mail dan.\n\nMet de volgende verwijzing kunt u eenmalig aanmelden om uw wachtwoord te wijzigen, of om uw gebruiker te koppelen met die van een andere website, waar u dan in het vervolg mee kunt aanmelden: \n\n%{temporary_login_url}\n\nDeze verwijzing verloopt na 24 uur. Daarna kunt u via %{recover_account_url} opnieuw een eenmalige verwijzing om aan te melden aanvragen als u nog steeds niet kunt aanmelden met uw gebruiker."
+      message: "Encyclopedia of Life (http://eol.org) heeft een verzoek ontvangen om uw gebruiker te herstellen. Als u dit verzoek niet heeft gemaakt, negeer deze e-mail dan.\n\nMet de volgende koppeling kunt u eenmalig aanmelden om uw wachtwoord te wijzigen, of om uw gebruiker te koppelen met die van een andere website, waar u dan in het vervolg mee kunt aanmelden: \n\n%{temporary_login_url}\n\nDeze koppeling verloopt na 24 uur. Daarna kunt u via %{recover_account_url} opnieuw een eenmalige koppeling om aan te melden aanvragen als u nog steeds niet kunt aanmelden met uw gebruiker."
       subject: Uw Encyclopedia of Life-gebruiker herstellen
     user_updated_email_preferences: 
       message: "Dit is een automatisch bericht van het EOL-berichtensysteem. De gebruiker %{user_full_name} (%{user_profile_url}) heeft zijn e-mailadres of e-mailvoorkeuren aangepast.\n\nVorige voorkeuren:\nE-mailadres: %{previous_email}\nMailinglijstvoorkeuren: %{previous_mailing_list_preference}\n\nBijgewerkt naar:\nE-mailadres: %{updated_email}\nMailinglijstvoorkeuren: %{updated_mailing_list_preference}\nBijgewerkt: %{updated_at}"
       subject: EOL-gebruiker %{user_full_name} heeft e-mailadres of de mailinglijstvoorkeuren gewijzigd
     user_verification: 
-      message: "Bedankt voor het registreren bij de Encyclopedia of Life. Via de volgende verwijzing kunt u uw registratie voltooien en activeren:\n\n%{verification_url}\n\nZodra u uw gebruiker hebt geactiveerd, ontvangt u een bevestiging per e-mail."
+      message: "Bedankt voor het registreren bij de Encyclopedia of Life. Via de volgende koppeling kunt u uw registratie voltooien en activeren:\n\n%{verification_url}\n\nZodra u uw gebruiker hebt geactiveerd, ontvangt u een bevestiging per e-mail."
       subject: Bevestig uw gebruiker bij Encyclopedia of Life
   nucleotide_sequences: Nucleotidesequenties
   nucleotide_sequences_ncbi_database: De database <a rel="nofollow" href="%{ncbi_taxonomy_link}">NCBI Taxonomy</a> bevat de namen van alle organismen die voorkomen in de genetische databases met tenminste één nucleotide- of proteïnesequentie.
@@ -2878,7 +2880,7 @@ nl:
   object_type_collection_option: Verzameling
   object_type_community_option: Gemeenschap
   object_type_image_option: Afbeelding
-  object_type_link_option: Verwijzing
+  object_type_link_option: Koppeling
   object_type_sound_option: Geluid
   object_type_taxon_concept_option: Taxonconcept
   object_type_text_option: Tekst
@@ -2914,7 +2916,7 @@ nl:
     other: "%{count} andere taxa"
   other_us_dollars_amount: "Anders: US$"
   other_version_links: "Andere versies: %{version_links}"
-  outlink: Uitgaande verwijzing
+  outlink: Uitgaande koppeling
   overview: Overzicht
   page: Pagina
   page_linked_to: Pagina gekoppeld aan
@@ -2962,11 +2964,12 @@ nl:
   percentage_of_children_with_text: "% kinderen met tekst"
   percentage_of_descendants_with_images: percentage nakomelingen met afbeeldingen
   percentage_of_descendants_with_text: percentage nakomelingen met tekst
-  permalink: Permanente verwijzing
+  permalink: Permanente koppeling
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
   ping_method_description: Deze methode faalt (in dat geval wordt er waarschijnlijk een foutpagina van EOL teruggegeven) of geeft het bericht "Success". Er zijn geen andere mogelijke berichten
+  pinterest: Pinterest
   please_ask_big_before_changing_toc: Overleg met een lid van de groep Biodiversity Informatics voordat u de inhoudsopgave bewerkt. Sommige namen van hoofdstukken kunnen niet gewijzigd worden omdat de code sommige hoofdstukken opzoekt op label. InfoItems kunnen niet gemapt worden in deze interface. Dat moet handmatig gedaan worden in de database.
   please_confirm_your_donation_details: Bevestig uw donatiegegevens
   please_indicate_curation_reason: "Selecteer een reden en laat eventueel een opmerking achter:"
@@ -3102,7 +3105,7 @@ nl:
   required_form_element: Vereist
   reset_password_enter_new_password_notice: Dit zijn éénmalige aanmeldgegevens. Voer een nieuw wachtwoord in om verder te gaan.
   reset_password_instructions_sent_to_user_notice: Instructies voor het opnieuw instellen van het wachtwoord voor uw gebruiker  <em>%{username}</em> zijn verzonden naar uw e-mailadres.
-  reset_password_token_expired_error: Uw wachtwoord is helaas niet opnieuw ingesteld. De opgegeven verwijzing is verlopen. Vul het formulier voor vergeten wachtwoord opnieuw in om een nieuwe verwijzing te ontvangen.
+  reset_password_token_expired_error: Uw wachtwoord is helaas niet opnieuw ingesteld. De opgegeven koppeling is verlopen. Vul het formulier voor vergeten wachtwoord opnieuw in om een nieuwe koppeling te ontvangen.
   resource: Bron
   resources: Middelen
   response: Antwoord
@@ -3161,6 +3164,7 @@ nl:
   search_term_reports: zoektermrapporten
   search_term_reports_title: Rapport zoektermen
   search_the_site: Site doorzoeken
+  see_all_activity_combinations: Alle activiteitscombinaties in 5 minuten bekijken
   see_all_classifications_with_count_html: 
     one: De <span class="assistive">goedgekeurde classificatie waarin dit taxon voorkomt</span> bekijken.
     other: Alle <span class="assistive">%{count} goedgekeurde classificaties waarin dit taxon voorkomt</span> bekijken.
@@ -3168,10 +3172,10 @@ nl:
     one: De <span class="assistive">verzameling waarin dit taxon voorkomt</span> bekijken.
     other: Alle <span class="assistive">%{count} verzamelingen waarin dit taxon voorkomt</span> bekijken.
   see_all_comments_with_count_for_link_or_rate: 
-    one: zie de reactie voor deze verwijzing of waardeer deze
-    other: zie alle %{count} reacties voor deze verwijzing of waardeer deze
+    one: zie de reactie voor deze koppeling of waardeer deze
+    other: zie alle %{count} reacties voor deze koppeling of waardeer deze
   see_all_comments_with_count_for_text_or_rate: 
-    one: de reactie voor dit artikel verwijzing bekijken of deze waarderen
+    one: de reactie voor dit artikel bekijken of deze waarderen
     other: alle %{count} reacties voor deze artikelen bekijken of het waarderen
   see_all_communities_with_count_html: 
     one: De <span class="assistive">gemeenschap met focus op dit taxon</span> bekijken.
@@ -3325,7 +3329,7 @@ nl:
   table_of_contents_breakdown: verdeling inhoudsopgave
   table_of_contents_breakdown_title: Verdeling inhoudsopgave
   table_of_contents_editor: Tekstverwerker voor inhoudsopgave
-  target_blank_advisory_information: Als u deze verwijzing volgt, wordt de doelpagina geopend in een nieuw venster.
+  target_blank_advisory_information: Als u deze koppeling volgt, wordt de doelpagina geopend in een nieuw venster.
   task_status: Taakstatus
   task_status_active_option: Actief
   task_status_curated_option: Geconserveerd
@@ -3602,19 +3606,19 @@ nl:
   taxon_identification_resources_empty: Er heeft nog niemand identificatiebronnen bijgedragen aan deze pagina.
   taxon_identification_resources_header: Identificatiebronnen
   taxon_identification_resources_link: Identificatiebronnen
-  taxon_multimedia_links_link: Multimediaverwijzingen
-  taxon_news_and_event_links_link: Verwijzingen naar nieuws en evenementen
+  taxon_multimedia_links_link: Multimediakoppelingen
+  taxon_news_and_event_links_link: Koppelingen naar nieuws en evenementen
   taxon_newsfeed: Taxonnewsfeed
   taxon_not_found_error: "\"%{taxon}\" niet gevonden"
   taxon_nucleotide_sequences_link: Nucleotidesequenties
   taxon_page_content_disclaimer: De inhoud van EOL wordt automatisch samengesteld vanuit veel verschillende contentproviders. Hierdoor komt het van tijd tot tijd mogelijk voor dat u pagina's op EOL aantreft die een verwarrende inhoud hebben.
   taxon_page_content_disclaimer_header: Voorbehoud
   taxon_page_content_disclaimer_suggest_improvement: Laat een reactie achter op de pagina met de vraag om verbetering. Dank u wel!
-  taxon_partner_links_empty: Contentpartners hebben nog geen bronverwijzingen voor deze pagina toegevoegd.
+  taxon_partner_links_empty: Contentpartners hebben nog geen bronkoppelingen voor deze pagina toegevoegd.
   taxon_partner_links_empty_learn_more_link: Meer lezen over contentpartner worden
-  taxon_partner_links_header: Partnerverwijzingen
-  taxon_partner_links_intro: Hieronder staat een lijst met partner, inclusief contentpartners, met gegevens op deze pagina. Waar mogelijk zijn verwijzingen toegevoegd naar de overeenkomende inhoud op de website van de partner. De unieke identificatiecode van iedere partner voor dit taxon is ingebed in de verwijzingen en deze codes zijn ook toegankelijk via de <a href="%{eol_api_link}">API van EOL</a>.
-  taxon_partner_links_link: Partnerverwijzingen
+  taxon_partner_links_header: Partnerkoppelingen
+  taxon_partner_links_intro: Hieronder staat een lijst met partners, inclusief contentpartners, met gegevens op deze pagina. Waar mogelijk zijn koppelingen toegevoegd naar de overeenkomende inhoud op de website van de partner. De unieke identificatiecode van iedere partner voor dit taxon is ingebed in de koppelingen en deze codes zijn ook toegankelijk via de <a href="%{eol_api_link}">API van EOL</a>.
+  taxon_partner_links_link: Partnerkoppelingen
   taxon_rating: Taxonwaardering
   taxon_recognized_by: Taxon erkend door %{whom}
   taxon_related_organizations_link: Gerelateerde organisaties
@@ -3692,8 +3696,8 @@ nl:
   this_is_a_focus_collection_for_community: Dit is de focus van de gemeenschap %{community}.
   this_is_the_breakdown_of_chapt: Dit is de verdeling van hoofdstukken, paragrafen en de overeenkomstige Species Profile Model-categorie.
   this_is_the_label_that_will_be_used_for_attribution: Dit is het label dat wordt gebruikt voor naamsvermelding
-  this_link_cannot_be_curated_because_unpublished: Deze verwijzing kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
-  this_link_is_unpublished: Deze verwijzing is niet gepubliceerd.
+  this_link_cannot_be_curated_because_unpublished: Deze koppeling kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
+  this_link_is_unpublished: Deze koppeling is niet gepubliceerd.
   this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
   this_map_is_unpublished: Deze kaart is niet gepubliceerd.
   this_method_takes_an_integer_or_string: Deze methode gebruikt een integer of string die een unieke identificatie is voor een taxon in de database van een provider en een hierarchy_id dat de provider voorstelt en geeft het pagina-ID van EOL voor dat taxon terug. Met bijvoorbeeld de %{link_provider}-API, is het mogelijk om uit te vinden dat het EOL hierarchy_id voor de the Integrated Taxonomic Information System (ITIS), %{itis_id} is. Daarna is het mogelijk in EOL te zoeken naar het ITIS Taxonomic Serial Number (TSN) van 180542, <i>Ursus maritimus</i>, door %{link_url} aan te roepen
@@ -3712,10 +3716,8 @@ nl:
   title: Titel
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
   to_remedy_this: Om dit te verhelpen sluiten we inactieve gebruikers af en we vragen u op eol.org een nieuwe gebruiker aan te maken. Als u de bevestigingse-mail hebt ontvangen, klik dan op koppeling om uw gebruiker te bevestigen.
-  to_see_all_activity_combinatio: om alle acitiviteitscombinaties te bekijken in een interval van 5 minuten (3-4 minuten).
   to_send_email_enter_text: Voer hieronder tekst in en klik op "Verzenden" om deze gebruiker een e-mail te sturen.
   to_submit_a_species_photograph_for: Om een foto voor %{taxon} toe te voegen, kunt u de foto's sturen naar %{flickr_link}  en de aanwijzingen volgen op de startpagina van die groep.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Om tekst op te slaan voor %{taxon} moet u aangemeld zijn bij EOL en dan klikken op
   toc: Inhoudsopgave
   toc_entry_col_header: Inhoudsopgave-item
   toc_no_longer_available: Gegevens voor de inhoudsopgave zijn niet langer beschikbaar
@@ -3791,7 +3793,6 @@ nl:
   use_as_examplar_button: als voorbeeld instellen
   use_as_examplar_note_preferred: "Let op: dit is de voorkeursclassificatie. Deze wilt u waarschijnlijk gebruiken."
   used_for_friendly_url_note: (gebruikt om vriendelijk ogende koppelingen te genereren voor gebruikers, kan geen spaties of speciale tekens bevatten)
-  used_for_urls_note: gebruikt voor URL's - moet uniek zijn (behalve voor vertaalde pagina's. Als niet, dan moeten URL's naar pagina een pagina-ID gebruiken
   user: Gebruiker
   user_activation_failed_resent_validation_email_error: Er is helaas een fout opgetreden. Uw gebruiker kon niet bevestigd worden. Dit gebeurt meestal als de bevestigingskoppeling die u hebt ingevoerd of geselecteerd niet wordt herkend. Instructies voor het bevestigen van uw gebruiker zijn opnieuw verzonden naar het e-mailadres dat u hebt opgegeven tijdens de registratie van uw gebruiker. Zorg er alstublieft voor dat de bevestigingskoppeling overeenkomt met de koppeling die in de e-mail staat.
   user_activation_failed_user_not_found_error: Er is helaas een fout opgetreden. De gebruiker die u wilt bevestigen komt niet voor in ons systeem. Zorg er alstublieft voor dat de bevestigingskoppeling overeenkomt met de koppeling die in de e-mail staat die u hebt ontvangen na het registreren.
@@ -4004,7 +4005,7 @@ nl:
       yahoo: Yahoo!
     pending: 
       header: Bedankt voor het registreren!
-      verify_email_instructions: <strong>Bevestig uw e-mailadres</strong>. Er is een bevestigingsbericht verzonden aan het e-mailadres dat u hebt opgegeven. Klik op de verwijzing in die e-mail om het inschrijvingsproces te voltooien en lid te worden van EOL. Dank u wel!
+      verify_email_instructions: <strong>Bevestig uw e-mailadres</strong>. Er is een bevestigingsbericht verzonden aan het e-mailadres dat u hebt opgegeven. Klik op de koppeling in die e-mail om het inschrijvingsproces te voltooien en lid te worden van EOL. Dank u wel!
       verify_email_tip: Denk eraan dat bevestigingse-mails <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer alstublieft uw spammap als u binnen een uur geen e-mail ontvangt.
     recover_account: 
       errors: 
@@ -4118,7 +4119,7 @@ nl:
   wikipedia_queue_new_instructions_step_four: "Kopieer de URL van de versie uit de adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel=\"nofollow\" href=\"http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
   wikipedia_queue_new_instructions_step_one: Ga naar de pagina op Wikipedia, bijvoorbeeld <a rel="nofollow" href="http://en.wikipedia.org/wiki/Giraffe">http://en.wikipedia.org/wiki/Giraffe</a>.
   wikipedia_queue_new_instructions_step_three: In de adresbalk van uw browser kunt u nu de URL van de huidige versie van de pagina zien. Bovenaan de pagina kunt u navigeren naar eerdere versie van de pagina.
-  wikipedia_queue_new_instructions_step_two: Klik in de zijbalk in het menu "Hulpmiddelen" op "Permanente verwijzing".
+  wikipedia_queue_new_instructions_step_two: Klik in de zijbalk in het menu "Hulpmiddelen" op "Permanente koppeling".
   wikipedia_queue_new_intro: Geef een versie van een artikel in Wikipedia op dat opgenomen kan worden in EOL als een gecontroleerd tekstobject.
   wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
   will_find_taxon_pages_matching_the_search_term: vindt taxonpagina's als de voorkeursnaam, een synoniem of gewone naam precies overeen komt met de zoekterm
@@ -4141,7 +4142,7 @@ nl:
   you_have_been_logged_out: U bent afgemeld.
   you_joined_community: U lid bent geworden van deze gemeenschap.
   you_left_community: U hebt deze gemeenschap verlaten.
-  you_may_upload_static_files_fo: Hier kunt u statische bestanden voor gebruiker in het CMS uploaden, zoals PDF's, Worddocumenten, afbeeldingen, enzovoort. Gebruik deze functie niet om te uploaden voor soortenpagina's. Deze functie is alleen voor niet-soortenpagina's, zoals vacatures, nieuwsbrieven, enzovoort. Voor PDF's, zoals samenwerkingsovereenkomsten en nieuwsbriefbestanden, kunt u verwijzen naar de "vriendelijke URL" als u wilt. De vriendelijke URL verwijst automatisch door naar de "URL voor de volledige inhoud". De "URL voor de volledige inhoud" kan iedere keer dat u de pagina ververst van een andere contentserver komen, bijvoorbeeld "content2.eol.org", "content3.eol.org", enzovoort. Dit is normaal en alle URL's kunnen gebruikt worden als u verwijzing maakt.
+  you_may_upload_static_files_fo: Hier kunt u statische bestanden voor gebruiker in het CMS uploaden, zoals PDF's, Worddocumenten, afbeeldingen, enzovoort. Gebruik deze functie niet om te uploaden voor soortenpagina's. Deze functie is alleen voor niet-soortenpagina's, zoals vacatures, nieuwsbrieven, enzovoort. Voor PDF's, zoals samenwerkingsovereenkomsten en nieuwsbriefbestanden, kunt u verwijzen naar de "vriendelijke URL" als u wilt. De vriendelijke URL verwijst automatisch door naar de "URL voor de volledige inhoud". De "URL voor de volledige inhoud" kan iedere keer dat u de pagina ververst van een andere contentserver komen, bijvoorbeeld "content2.eol.org", "content3.eol.org", enzovoort. Dit is normaal en alle URL's kunnen gebruikt worden als u koppeling maakt.
   you_must_be_comfortable: U moet overweg kunnen met HTML als u hyperlinks wilt maken of tekst wilt opmaken.
   you_removed_the_member_from_the_community: Dit lid is uit de gemeenschap verwijderd.
   your_browser_does_not_support: Uw browser ondersteunt geen HTML5 video.

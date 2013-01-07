@@ -14,6 +14,7 @@
 # Author: Johann Grimm
 # Author: Joshuajohnlee
 # Author: Ljubinka
+# Author: Lucky
 # Author: McDutchie
 # Author: Moyg
 # Author: Od1n
@@ -493,6 +494,33 @@ fr:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> a fixé "%{data_object}" comme modèle sur "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> l'a fixé comme modèle sur une page inconnue.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> l'a fixé comme modèle sur "%{taxon}".
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: Un utilisateur inconnu a fusionné deux pages inconnues.
+          an_unknown_user_merged_to_it: Un utilisateur inconnu a fusionné une autre page avec celle-ci.
+          an_unknown_user_merged_to_taxon: Un utilisateur inconnu a fusionné une autre page avec %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> a fusionné deux pages inconnues.
+          user_merged_to_it: <strong>%{user}</strong> a fusionné une autre page avec celle-ci.
+          user_merged_to_taxon: <strong>%{user}</strong> a fusionné une autre page avec %{target}.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Un utilisateur inconnu a déplacé les classifications par %{classifications} d'une page inconnue vers une autre page inconnue.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Un utilisateur inconnu a déplacé les classifications par %{classifications} d'une page inconnue vers %{target}.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: Un utilisateur inconnu a déplacé les classifications par %{classifications} vers une page inconnue.
+          an_unknown_user_moved_classifications_from_it_to_taxon: Un utilisateur inconnu a déplacé les classifications par %{classifications} depuis %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: Un utilisateur inconnu a déplacé les classifications par %{classifications} de %{taxon} vers une page inconnue.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: Un utilisateur inconnu a déplacé les classifications par %{classifications} de %{taxon} vers %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> a déplacé les classifications par %{classifications} d'une page inconnue vers une page inconnue.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> a déplacé les classifications par %{classifications} d'une page inconnue vers %{target}.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> a déplacé les classifications par %{classifications} vers une page inconnue.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> a déplacé les classifications par %{classifications} vers %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> a déplacé les classifications par %{classifications} de %{taxon} vers une page inconnue.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> a déplacé les classifications par %{classifications} de %{taxon} vers %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Un utilisateur inconnu a divisé les classifications par %{classifications} depuis une page inconnue vers <a href='%{to}'>leur propre page</a>.
+          an_unknown_user_split_classifications_from_it: Un utilisateur inconnu a divisé les classifications par %{classifications} vers <a href='%{to}'>leur propre page</a>.
+          an_unknown_user_split_classifications_from_taxon: Un utilisateur inconnu a divisé les classifications par %{classifications} depuis %{taxon} vers <a href='%{to}'>leur propre page</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> a divisé les classifications par %{classifications} depuis une page inconnue vers <a href='%{to}'>leur propre page</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> a divisé les classifications par %{classifications} vers <a href='%{to}'>leur propre page</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masqué dans un contexte inconnu.
         an_unknown_user_hid_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masquée sur la page "%{association}".
@@ -510,6 +538,19 @@ fr:
         user_hid_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme masqué sur la page "%{association}".
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme masqué dans un contexte inconnu.
         user_hid_it_on_association: <strong>%{user}</strong> l'a marqué comme masqué sur la page "%{association}".
+      preferred_classification: 
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme préférée la classification de "%{provider}" pour un taxon inconnu.
+        an_unknown_user_preferred_classification_on_it: Un utilisateur inconnu a marqué comme préférée la classification de "%{provider}".
+        an_unknown_user_preferred_classification_on_taxon: Un utilisateur inconnu a marqué comme préférée la classification de "%{provider}" pour "%{taxon}".
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme préférée une classification inconnue pour un taxon inconnu.
+        an_unknown_user_preferred_unknown_classification_on_it: Un utilisateur inconnu a marqué comme préférée une classification inconnue.
+        an_unknown_user_preferred_unknown_classification_on_taxon: Un utilisateur inconnu a marqué comme préférée une classification inconnue pour "%{taxon}".
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme préférée la classification de "%{provider}" pour un taxon inconnu.
+        user_preferred_classification_on_it: <strong>%{user}</strong> a marqué comme préférée la classification de "%{provider}".
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> a marqué comme préférée la classification de "%{provider}" pour "%{taxon}".
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> a marqué comme préférée une classification inconnue pour un taxon inconnu.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> a marqué comme préférée une classification inconnue.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> a marqué comme préférée une classification inconnue pour "%{taxon}".
       reasons_to_hide: "Motifs de masquage: %{reasons}"
       reasons_to_untrust: "Motifs de désapprobation: %{reasons}"
       remove_association: 
@@ -559,6 +600,19 @@ fr:
         user_showed_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme visible sur la page "%{association}".
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme visible dans un contexte inconnu.
         user_showed_it_on_association: <strong>%{user}</strong> l'a marqué comme visible sur la page "%{association}".
+      split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: Un utilisateur inconnu a divisé la classification par "%{provider}" depuis un taxon inconnu.
+        an_unknown_user_split_entry_from_it: Un utilisateur inconnu a divisé la classification par "%{provider}".
+        an_unknown_user_split_entry_from_taxon: Un utilisateur inconnu a divisé la classification par "%{provider}" depuis "%{taxon}".
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: Un utilisateur inconnu a divisé une classification inconnue depuis un taxon inconnu.
+        an_unknown_user_split_unknown_entry_from_it: Un utilisateur inconnu a séparé une classification inconnue.
+        an_unknown_user_split_unknown_entry_from_taxon: Un utilisateur inconnu a divisé une classification inconnue depuis "%{taxon}".
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> a divisé la classification par "%{provider}" depuis un taxon inconnu.
+        user_split_entry_from_it: <strong>%{user}</strong> a divisé la classification par "%{provider}".
+        user_split_entry_from_taxon: <strong>%{user}</strong> a divisé la classification par "%{provider}" depuis "%{taxon}".
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> a divisé une classification inconnue depuis un taxon inconnu.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> a séparé une classification inconnue.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> a séparé une classification inconnue depuis "%{taxon}".
       trust_common_name: 
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu dans une langue inconnue depuis une page inconnue.
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Un utilisateur inconnu a marqué comme fiable un nom commun inconnu dans une langue inconnue.
@@ -777,6 +831,7 @@ fr:
   admin_translated_content_page_new_tip: La langue, le titre et le corps de la page sont %{required_icon}&nbsp;nécessaires.
   admin_translated_content_page_update_successful_notice: La traduction en %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
   admin_translated_content_page_update_unsuccessful_error: Désolé, une erreur est survenue ; la traduction n’a pas pu être mise à jour.
+  admin_translated_news_item_not_active: Non publié
   admin_translated_news_item_update_unsuccessful_error: Désolé, une erreur est survenue, la traduction n’a pas pu être mise à jour.
   admin_user_delete_successful_notice: Utilisateur a été supprimé
   admin_user_hide_successful_notice: Utilisateur a été masqué
@@ -2065,7 +2120,6 @@ fr:
   home_page_link_advisory_information: Ce lien vous mènera à la page d’accueil du site de l’Encyclopédie de la vie
   html_format: (format HTML)
   html_format_with_left_col: (FORMAT HTML, à saisir seulement si vous souhaitez avoir une colonne à gauche sur la page, sinon à laisser blanc)
-  icon_near_the_table_of_content: icône près de la table des matières sur le côté gauche de la page. Vous pouvez aussi envoyer des <a href=''>commentaires</a> sur cette espèce directement sur le site de l’EdlV à l’aide de l’onglet « Commentaires » à côté des images.
   id: Identifiant
   if_checked_and_user_is_saved: Si vous cochez et que l’utilisateur est enregistré, alors ses informations d’identification, d’étendue, de certification et d’embranchement sélectionné sont supprimés et l’utilisateur n’apparaîtra plus comme conservateur. Vous devriez ajouter une note ci-dessous pour en indiquer la raison. Aucune information n’est envoyée à l’utilisateur.
   if_the_details_parameter_is_not_set: Si le paramètre détails n’est pas positionné, alors seul l’identifiant de l’objet de données, le type de la donnée et, dans le cas d’articles, le sujet, seront renvoyés. Le type de donnée sera une valeur du vocabulaire de type de ressource %{linka}. Le sujet texte sera une valeur de l’ontologie %{linkb} des éléments d’information.
@@ -3384,10 +3438,8 @@ fr:
   title: Titre
   to_process_your_donation_please_proceed: Pour traiter votre don veuillez procéder
   to_remedy_this: Pour y remédier, nous clôturerons ces comptes inactifs et nous demandons que vous visitez eol.org pour créer un nouveau compte. Lorsque vous recevez l’e-mail de confirmation, veuillez cliquer sur le lien pour valider votre compte.
-  to_see_all_activity_combinatio: pour voir toutes les combinaisons d’activité dans une durée de 5 min {3-4 min.}.
   to_send_email_enter_text: Pour envoyer cet utilisateur un courriel, entrez le texte ci-dessous et cliquez sur « Envoyer ».
   to_submit_a_species_photograph_for: Pour envoyer une photo de l’espèce %{taxon}, veuillez envoyer les photos sur %{flickr_link} et suivez les instructions figurant sur la page d’accueil de ce groupe.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Pour soumettre du contenu texte pour %{taxon}, veuillez vous assurez que vous êtes connecté à l’EdlV, puis cliquez sur
   toc: TABLE DES MATIÈRES
   toc_entry_col_header: Entrée de la table des matières
   toc_no_longer_available: Information de la table des matières n’est plus disponible
@@ -3457,7 +3509,6 @@ fr:
   us_dollars_35: 35 US$
   us_dollars_50: 50 US$
   used_for_friendly_url_note: (utilisé pour générer un lien accueillant pour les utilisateurs, ne peut pas contenir d’espaces ou de caractères spéciaux)
-  used_for_urls_note: utilisé pour les URLs - doit être unique (sauf pour les pages traduites); si non, les URLs vers la page doivent utiliser l’ID de la page
   user: Utilisateur
   user_activation_failed_resent_validation_email_error: Désolé, une erreur est survenue, votre compte n’a pas pu être vérifié. Cela se produit généralement lorsque le lien de vérification que vous avez saisi ou sélectionné n’est pas reconnu. Les instructions d’activation ont été envoyées de nouveau à l’adresse de courriel avec laquelle vous vous êtes enregistrés; assurez-vous que le lien de vérification que vous utilisez correspond à celui fourni dans le courriel d’activation.
   user_activation_failed_user_not_found_error: Désolé, une erreur s’est produite, le compte que vous essayez de vérifier est introuvable. Assurez-vous que le lien vérification que vous utilisez correspond à celui fourni dans le courriel d’activation que vous avez reçu après vous être inscrit.

@@ -1265,7 +1265,6 @@ sr-Latn:
   home_page_link_advisory_information: Ova veza odvešće vas do početne stranice Enciklopedije života
   html_format: (format HTML)
   html_format_with_left_col: (FORMAT HTML – unesite samo ako želite da imate kolonu u levom delu stranice; u suprotnom, ostavite prazno)
-  icon_near_the_table_of_content: ikona blizu pregleda sadržaja u levom delu stranice. Možete da pošaljete i <a href=''>komentare</a> o ovim vrstama neposredno na EOL koristeći jezičak „Komentari“ blizu slike.
   id: Naznaka
   if_checked_and_user_is_saved: Ako je označeno i korisnik je sačuvan, onda se sva uverenja, opseg, odobrenja i izabrane klade uklanjaju i korisnik prestaje da bude kustos. Dole možete napisati belešku u kojoj dajete obrazloženje za to. Podaci se ne šalju korisniku.
   if_the_details_parameter_is_not_set: Ako parametar za detalje nije postavljen, onda će samo objekat podataka, vrsta podataka, a u slučaju članaka, natpis biti prikazan. Vrsta podataka će biti vrednost iz rečnika resursa (%{linka}), a tekst natpisa vrednost iz ontologije stavki (%{linkb}).
@@ -2138,10 +2137,8 @@ sr-Latn:
   title: Naslov
   to_process_your_donation_please_proceed: Ako želite da date novčani prilog, nastavite
   to_remedy_this: S ciljem da ispravimo problem, zatvorićemo ove neaktivne naloge. Posetite www.eol.org da otvorite novi nalog. Kada primite potvrdnu poruku, kliknite na navedenu vezu da overite nalog.
-  to_see_all_activity_combinatio: da biste videli sve kombinacije aktivnosti u trajanju od pet minuta {3-4 min.}.
   to_send_email_enter_text: Da biste poslali poruku ovom korisniku, unesite tekst ispod i kliknite na „Pošalji“.
   to_submit_a_species_photograph_for: Da biste poslali sliku za %{taxon}, pošaljite slike na %{flickr_link} i pratite uputstva prikazana na početnoj stranici te grupe.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Da biste poslali tekstualni sadržaj za %{taxon}, proverite da li ste prijavljeni na EOL, pa kliknite na
   toc: Sadržaj
   toc_no_longer_available: "Sadržaj: više nije dostupan"
   topic: Tema
@@ -2201,7 +2198,6 @@ sr-Latn:
   us_dollars_35: US $35
   us_dollars_50: US $50
   used_for_friendly_url_note: (koristi se za stvaranje zgodnih veza za korisnike; ne sme da sadrži razmake ili posebne znakove)
-  used_for_urls_note: koristi se adrese i treba da bude jedinstvena (osim u prevedenim stranicama); ako ne može, adrese moraju da koriste naznaku stranice
   user: Korisnik
   user_activation_failed_resent_validation_email_error: Nažalost, došlo je do greške. Ne mogu da proverim vaš nalog. Ovo se obično dešava kada uneta potvrdna veza ne može da se prepozna. Uputstva za aktiviranje naloga su poslata na vašu e-adresu s kojom ste se upisali. Proverite da li se potvrdna veza poklapa s onom iz e-poruke.
   user_activation_failed_user_not_found_error: Nažalost, došlo je do greške. Ne mogu da pronađem nalog koji želite da proverim. Proverite da li se potvrdna veza poklapa s onom iz e-poruke koju ste primili nakon upisa.

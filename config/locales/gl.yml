@@ -2324,7 +2324,6 @@ gl:
   home_page_link_advisory_information: Esta ligazón leva ata a páxina de inicio do sitio web da Enciclopedia da vida
   html_format: (formato HTML)
   html_format_with_left_col: (FORMATO HTML, a inserir unicamente se queres ter unha columna á esquerda na páxina; en caso contrario, déixao en branco)
-  icon_near_the_table_of_content: icona preto da táboa de contidos no lado esquerdo da páxina. Tamén podes enviar <a href=''>comentarios</a> acerca desta especie directamente no sitio da EOL mediante a lapela "Comentarios" que está ao carón das imaxes.
   id: ID
   if_checked_and_user_is_saved: En caso de estar marcado e o usuario rexistrado, as súas credenciais, alcance, aprobación e clado seleccionados elimínanse e o usuario deixa de ser conservador. Deberías engadir unha nota a continuación indicando o motivo. Non se envía información ao usuario.
   if_the_details_parameter_is_not_set: Se o parámetro de detalles non está configurado, entón unicamente se devolverá o identificador de obxecto de datos, o tipo de datos e, no caso de artigos, o tema. O tipo de datos ha ser un valor do vocabulario do tipo de recurso %{linka}. O tema do texto ha ser un dos %{linkb}.
@@ -2512,8 +2511,10 @@ gl:
   license_cc_by_sa_2_0: Creative Commons recoñecemento compartir igual 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: Creative Commons recoñecemento compartir igual 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons recoñecemento compartir igual 3.0 (CC BY-SA 3.0)
+  license_cc_zero: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: Licenza de documentación libre de GNU (GNU FDL)
   license_gnu_gpl: Licenza pública xeral GNU (GNU GPL)
+  license_no_known_copyright_restrictions: Sen restricións coñecidas por dereitos de autoría
   license_not_applicable: Licenza non aplicable
   license_public_domain: Dominio público
   licensing: Licenza
@@ -3703,10 +3704,8 @@ gl:
   title: Título
   to_process_your_donation_please_proceed: Para procesar a túa doazón, continúa
   to_remedy_this: Co fin de solucionar isto, pecharemos estas contas inactivas e pedirémoste que visites eol.org para crear unha nova conta. En canto recibas o correo electrónico de confirmación, preme na ligazón para validar a conta.
-  to_see_all_activity_combinatio: para ollar todas as combinacións de actividade nun intervalo de 5 minutos de duración {3-4 min.}.
   to_send_email_enter_text: Para enviar un correo electrónico a este usuario escribe o texto a continuación e preme en "Enviar".
   to_submit_a_species_photograph_for: Para enviar unha fotografía dunha especie de %{taxon}, manda as imaxes a %{flickr_link} e sigue as instrucións que figuran na páxina de inicio dese grupo.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Para enviar contidos sobre %{taxon}, asegúrate de que accediches ao sistema da EOL; entón, preme no
   toc: ÍNDICE
   toc_entry_col_header: Entrada do ÍNDICE
   toc_no_longer_available: A información do ÍNDICE xa non está dispoñible
@@ -3782,7 +3781,6 @@ gl:
   use_as_examplar_button: usar como exemplar
   use_as_examplar_note_preferred: "Nota: Prefírese esta clasificación. Probablemente queiras usar esta."
   used_for_friendly_url_note: (utilizado para xerar ligazóns amigables para os usuarios; non pode conter espazos ou caracteres especiais)
-  used_for_urls_note: utilizado para os enderezos URL; debe ser único (agás para as páxinas traducidas); en caso contrario, os enderezos URL das páxinas deben usar o ID da páxina
   user: Usuario
   user_activation_failed_resent_validation_email_error: Sentímolo, houbo un erro. Non se puido verificar a túa conta. Isto acontece normalmente cando non se recoñece a ligazón de verificación que escribiches ou seleccionaches. Acabamos de enviar novamente ao enderezo de correo electrónico co que te rexistraches as instrucións para a activación. Asegúrate de que a ligazón de verificación que uses coincide coa que está no correo de activación.
   user_activation_failed_user_not_found_error: Sentímolo, houbo un erro. Non se puido atopar a conta que intentas verificar. Asegúrate de que a ligazón de verificación que uses coincide coa que está no correo de activación que recibiches despois do rexistro.

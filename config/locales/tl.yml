@@ -2214,7 +2214,6 @@ tl:
   home_page_link_advisory_information: Ang kawing na ito ay magdadala sa iyo papunta sa bahay-pahina ng Pook-sapot ng Ensiklopedya ng Buhay
   html_format: (anyo ng HTML)
   html_format_with_left_col: (ANYO NG HTML, ipasok lamang kung nais mong magkaroon ng isang haliging nasa kaliwa sa ibabaw ng pahina. kung hindi iwanang walang laman)
-  icon_near_the_table_of_content: kinatawang larawan na malapit sa talaan ng mga nilalaman na nasa kaliwang gilid ng pahina. Tuwiran ka ring makapagpapasa ng <a href=''>mga puna</a> patungkol sa espesyeng ito roon sa pook ng EOL na ginagamit ang laylayang "Mga Puna" na malapit sa mga imahe.
   id: ID
   if_checked_and_user_is_saved: Kapag may tsek at nasagip ang tagagamit, kung gayon ang mga kredensiyal, ang nasasakupan, ang pagpayag at ang napiling klado ay tinatanggal na lahat at ang tagagamit ay hindi na lumilitaw bilang isang katiwala. Dapat kang magdagdag ng isang paunawa sa ibaba upang ipahiwatig ang dahilan. Walang kabatiran na ipapadala sa tagagamit.
   if_the_details_parameter_is_not_set: Kung ang parametro ng mga detalye ay hindi nakatakda, kung gayon tanging ang pangkilala ng bagay na pangdato, uri ng dato, at sa kaso ng mga artikulo, paksa lamang ang mga maibabalik. Ang uri ng dato ay magiging isang halaga mula sa %{linka} talasalitaan ng uri ng pinagkunan. Ang paksa ng teksto ay magiging isang halaga magmula sa %{linkb} ontolohiya ng mga bagay na pangkabatiran.
@@ -3530,10 +3529,8 @@ tl:
   title: Pamagat
   to_process_your_donation_please_proceed: Upang maproseso ang donasyon mo mangyaring magpatuloy
   to_remedy_this: Upang maremedyuhan ito, isasara namin ang hindi masisiglang mga akawnt na ito at hinihiling namin na dalawin mo ang eol.org upang lumikha ng isang bagong akawnt. Kapag natanggap mo na ang e-liham ng paniniyak, paki pindutin ang kawing upang mapatunayan ang akawnt mo.
-  to_see_all_activity_combinatio: upang makita ang lahat ng mga kumbinasyon ng gawain sa loob ng tagal na 5 mga minuto (3-4 mga minuto).
   to_send_email_enter_text: Upang mapadalhan ang tagagamit na ito ng isang e-liham, ipasok ang tekstong nasa ibaba at pindutin ang 'Ipadala'.
   to_submit_a_species_photograph_for: Upang makapagpasa ng isang litrato ng espesye para sa %{taxon}, paki ipadala ang mga litrato sa %{flickr_link} at sundin ang ipinapakitang mga panuto roon sa tahanang pahina ng pangkat na iyan.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Upang ipasa ang nilalaman ng teksto para sa %{taxon}, paki tiyakin na ikaw ay nakalagda sa EOL at pagkaraan ay pindutin ang
   toc: Talaan ng Nilalaman (TNN)
   toc_entry_col_header: Lahok sa Talaan ng Nilalaman
   toc_no_longer_available: Hindi na makukuha ang kabatiran ng Talaan ng Nilalaman
@@ -3603,7 +3600,6 @@ tl:
   use_as_examplar_button: gamitin bilang uliran
   use_as_examplar_note_preferred: "paunawa: mas ninanais ang klasipikasyong ito. Marahil ay nanaisin mong gamitin ang isang ito."
   used_for_friendly_url_note: (ginagamit upang lumikha ng isang palakaibigang kawing para sa mga tagagamit, hindi maaaring maglaman ng mga puwang o natatanging mga panitik)
-  used_for_urls_note: ginagamit para sa mga URL - dapat na namumukod-tangi (maliban sa mga pahinang naisalinwika); kung hindi, ang mga URL sa pahina ay dapat na gumamit ng ID ng pahina
   user: Tagagamit
   user_activation_failed_resent_validation_email_error: Paumanhin, naganap ang isang kamalian, hindi mapatotohanan ang akawnt mo. Karaniwan itong nangyayari kapag ang kawing sa pagpapatunay na ipinasok mo o napili ay hindi nakilala. Muling ipinadala ang mga tagubilin sa pagbuhay papunta sa tirahan ng elektronikong liham na ipinarehistro mo, paki tiyakin na tumutugma ang gagamitin mong kawing ng pagpapatotoo sa isang ibinigay sa loob ng e-liham na pambuhay.
   user_activation_failed_user_not_found_error: Paumanhin, naganap ang isang pagkakamali, hindi matagpuan ang akawnt na tinatangka mong patunayan. Paki tiyakin na ang kawing ng pagpapatotoo na gagamitin mo ay tutugma sa isang ibinigay na nasa loob ng e-liham na pambuhay na matatanggap mo pagkaraan ng pagpaparehistro.

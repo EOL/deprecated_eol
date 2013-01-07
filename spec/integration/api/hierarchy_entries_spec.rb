@@ -22,14 +22,6 @@ describe 'API:hierarchy_entries' do
     check_api_key("/api/hierarchy_entries/#{@hierarchy_entry.id}?key=#{user.api_key}", user)
   end
 
-  it 'hierarchy_entries should return only published hierarchy_entries' do
-    @hierarchy_entry.update_column(:published, 0)
-    visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
-    source.should include('<error>')
-    source.should include('</response>')
-    @hierarchy_entry.update_column(:published, 1)
-  end
-
   it 'hierarchy_entries should show all information for hierarchy entries in DWC format' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
     xml_response = Nokogiri.XML(source)

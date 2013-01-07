@@ -68,6 +68,9 @@ module EOL
           return_hash['rights']                 = data_object.rights_statement unless data_object.rights_statement.blank?
           return_hash['rightsHolder']           = data_object.rights_holder unless data_object.rights_holder.blank?
           return_hash['bibliographicCitation']  = data_object.bibliographic_citation unless data_object.bibliographic_citation.blank?
+          unless data_object.audiences.blank?
+            return_hash['audience']             = data_object.audiences.collect{ |a| a.label }
+          end
           return_hash['source']                 = data_object.source_url unless data_object.source_url.blank?
           return_hash['description']            = data_object.description unless data_object.description.blank?
           return_hash['mediaURL']               = data_object.object_url unless data_object.object_url.blank?
@@ -124,6 +127,7 @@ module EOL
           return_hash['references'] = []
           data_object.published_refs.each do |r|
             return_hash['references'] << r.full_reference
+            return_hash['references'].uniq!
           end
 
           return return_hash

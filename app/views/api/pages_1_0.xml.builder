@@ -23,6 +23,10 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
       xml.commonName common_name['vernacularName'], attributes
     end
 
+    @json_response['references'].each do |ref|
+      xml.reference ref
+    end
+
     xml.additionalInformation do
       xml.richness_score @json_response['richness_score']
       @json_response['taxonConcepts'].each do |tc|

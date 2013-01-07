@@ -84,6 +84,11 @@ module EOL
               :test_value => true,
               :notes => I18n.t('return_common_names_for_the_page_taxon') ),
             EOL::Api::DocumentationParameter.new(
+              :name => 'references',
+              :type => 'Boolean',
+              :test_value => true,
+              :notes => I18n.t('return_references_for_the_page_taxon') ),
+            EOL::Api::DocumentationParameter.new(
               :name => 'vetted',
               :type => Integer,
               :values => [ 0, 1, 2 ],
@@ -132,6 +137,16 @@ module EOL
               common_name_hash['eol_preferred'] = preferred unless preferred.blank?
               return_hash['vernacularNames'] << common_name_hash
             end
+          end
+
+          return_hash['references'] = []
+          if params[:references]
+            references = Ref.find_refs_for(taxon_concept.id)
+            references = Ref.sort_by_full_reference(references)
+            references.each do |r|
+              return_hash['references'] << r.full_reference
+            end
+            return_hash['references'].uniq!
           end
 
           return_hash['taxonConcepts'] = []

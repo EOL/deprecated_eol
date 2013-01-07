@@ -19,6 +19,7 @@ else
         xml.dwc :taxonConceptID, ancestor['taxonConceptID']
         xml.dwc :scientificName, ancestor['scientificName']
         xml.dwc :taxonRank, ancestor['taxonRank']
+        xml.dc :source, ancestor['source'] unless ancestor['source'].blank?
       end
     end
 
@@ -29,6 +30,7 @@ else
       xml.dwc :taxonConceptID, @json_response['taxonConceptID']
       xml.dwc :scientificName, @json_response['scientificName']
       xml.dwc :taxonRank, @json_response['taxonRank']
+      xml.dc :source, @json_response['source'] unless @json_response['source'].blank?
 
       entry = @json_response['hierarchy_entry']
       canonical_form_words = entry.name.canonical_form.string.split(/ /)
@@ -79,6 +81,7 @@ else
         xml.dwc :taxonConceptID, child['taxonConceptID']
         xml.dwc :scientificName, child['scientificName']
         xml.dwc :taxonRank, child['taxonRank']
+        xml.dc :source, child['source'] unless child['source'].blank?
       end
     end
   end

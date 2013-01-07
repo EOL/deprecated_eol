@@ -97,13 +97,13 @@ describe 'Curator' do
 
     taxon_concept = TaxonConcept.gen()
     data_object = DataObject.gen()
-    udo = UsersDataObject.gen(:user => @curator, :taxon_concept => taxon_concept, :data_object => data_object, :vetted_id => Vetted.trusted)
+    udo = UsersDataObject.gen(:user => @curator, :taxon_concept => taxon_concept, :data_object => data_object, :vetted => Vetted.trusted)
     temp_count2 = UsersDataObject.count(:conditions => ['user_id = ?',@curator.id])
     temp_count2.should > temp_count
 
     taxon_concept = TaxonConcept.gen()
     data_object = DataObject.gen()
-    udo = UsersDataObject.gen(:user => @curator, :taxon_concept => taxon_concept, :data_object => data_object, :vetted_id => Vetted.trusted)
+    udo = UsersDataObject.gen(:user => @curator, :taxon_concept => taxon_concept, :data_object => data_object, :vetted => Vetted.trusted)
     temp_count = UsersDataObject.count(:conditions => ['user_id = ?',@curator.id])
     temp_count.should > temp_count2
   end

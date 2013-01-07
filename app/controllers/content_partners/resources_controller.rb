@@ -19,7 +19,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
   def new
     @partner = ContentPartner.find(params[:content_partner_id])
     set_new_resource_options
-    @resource = @partner.resources.build(:license_id => @licenses.first,
+    @resource = @partner.resources.build(:license_id => @licenses.first.id,
                                          :language_id => current_language.id,
                                          :refresh_period_hours => @import_frequencies.first.second )
     access_denied unless current_user.can_create?(@resource)

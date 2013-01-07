@@ -24,6 +24,10 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
       xml.commonName common_name['vernacularName'], attributes
     end
 
+    @json_response['references'].each do |ref|
+      xml.reference ref
+    end
+
     xml.additionalInformation do
       @json_response['taxonConcepts'].each do |tc|
         xml.dwct :Taxon do

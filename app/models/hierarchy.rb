@@ -96,6 +96,12 @@ class Hierarchy < ActiveRecord::Base
       where(['hierarchies.browsable = 1 AND hierarchy_entries.taxon_concept_id = ?', taxon_concept.id])
   end
 
+  def self.available_via_api
+    available_hierarchies = Hierarchy.browsable
+    available_hierarchies << Hierarchy.gbif if Hierarchy.gbif
+    available_hierarchies.sort_by(&:id)
+  end
+
   def form_label
     return descriptive_label unless descriptive_label.blank?
     return label

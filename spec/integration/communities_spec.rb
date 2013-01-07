@@ -208,7 +208,7 @@ describe "Communities" do
 
   it 'should not allow editing the name of the curator community' do
     katja = User.gen
-    manager = Member.create(:user_id => katja.id, :community_id => CuratorCommunity.get, :manager => true)
+    manager = Member.create(:user_id => katja.id, :community => CuratorCommunity.get, :manager => true)
     login_as katja
     visit(edit_community_url(CuratorCommunity.get))
     # NOTE - this failed when run in the whole suite (seed 31481 and 13258), passed individually. The login is

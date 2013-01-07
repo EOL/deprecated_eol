@@ -9,7 +9,7 @@ module EOL
 
         def self.call(params={})
           return_hash = []
-          Hierarchy.browsable.collect do |h|
+          Hierarchy.available_via_api.collect do |h|
             { 'id' => h.id, 'label' => h.label }
           end
         end

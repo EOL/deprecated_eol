@@ -22,7 +22,7 @@ module EOL
           rescue
             raise EOL::Exceptions::ApiException.new("Unknown hierarchy id \"#{params[:id]}\"")
           end
-          raise EOL::Exceptions::ApiException.new("Hierarchy #{id} is currently inaccessible through the API") unless hierarchy.browsable?
+          raise EOL::Exceptions::ApiException.new("Hierarchy #{id} is currently inaccessible through the API") unless Hierarchy.available_via_api.include?(hierarchy)
           prepare_hash(hierarchy)
         end
 

@@ -4,7 +4,10 @@ module EOL
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
         BRIEF_DESCRIPTION = Proc.new { I18n.t(:returns_all_metadata_about_a_particular_collection) }
-        DESCRIPTION = Proc.new { I18n.t(:api_docs_collections_description) }
+        DESCRIPTION = Proc.new {
+          # updates/stats tab of page 1 - Animalia
+          updates_url = statistics_taxon_updates_url(1)
+          I18n.t(:api_docs_collections_description, :richness_url => view_context.link_to(updates_url, updates_url) ) }
         PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
@@ -97,7 +100,7 @@ module EOL
 
             case ci.collected_item_type
             when 'TaxonConcept'
-              item_hash['richness_score'] = r['richness_score']
+              item_hash['richness_score'] = sprintf("%.5f", r['richness_score'] * 100.00).to_f
               # item_hash['taxonRank'] = ci.collected_item.entry.rank.label.firstcap unless ci.collected_item.entry.rank.nil?
             when 'DataObject'
               item_hash['data_rating'] = r['data_rating']

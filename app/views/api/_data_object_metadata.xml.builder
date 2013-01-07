@@ -13,7 +13,11 @@ if params[:details]
   xml.dc :rights, data_object_hash['rights'] unless data_object_hash['rights'].blank?
   xml.dcterms :rightsHolder, data_object_hash['rightsHolder'] unless data_object_hash['rightsHolder'].blank?
   xml.dcterms :bibliographicCitation, data_object_hash['bibliographicCitation'] unless data_object_hash['bibliographicCitation'].blank?
-  # leaving out audience
+  unless data_object_hash['audience'].blank?
+    data_object_hash['audience'].each do |label|
+      xml.audience label
+    end
+  end
   xml.dc :source, data_object_hash['source'] unless data_object_hash['source'].blank?
 end
 

@@ -16,7 +16,7 @@
           .details
             .copy
               = render :partial => "data_objects/associations_minimal", :locals => {:data_object => item}
-            .attribution
+            .attribution{ :class => (item.license == License.no_known_restrictions) ? 'license_string' : '' }
               = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item}
   - if @selected_hierarchy_entry
     %p.all

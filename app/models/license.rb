@@ -7,7 +7,7 @@ class License < ActiveRecord::Base
   TRANSLATIONS_ARE_UNIQUE = false
   has_many :data_objects
   has_many :resources
-  
+
   attr_accessible :title, :source_url, :version, :logo_url, :show_to_content_partners
 
   def small_logo_url
@@ -25,23 +25,27 @@ class License < ActiveRecord::Base
   class << self
     alias default public_domain
   end
-  
+
   def self.cc
     cached_find(:title, 'cc-by 3.0')
   end
-  
+
   def self.by_nc
     cached_find(:title, 'cc-by-nc 3.0')
   end
-  
+
   def self.by_nc_sa
     cached_find(:title, 'cc-by-nc-sa 3.0')
   end
-  
+
   def self.by_sa
     cached_find(:title, 'cc-by-sa 3.0')
   end
-  
+
+  def self.no_known_restrictions
+    cached_find(:title, 'no known copyright restrictions')
+  end
+
   # we have several different licenses with the title public domain
   def is_public_domain?
     self.title == 'public domain'

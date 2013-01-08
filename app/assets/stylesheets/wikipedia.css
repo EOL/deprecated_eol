@@ -64,8 +64,6 @@ div#globalWrapper ul {
   padding: 0; }
 div#globalWrapper ol {
   line-height: 1.5em;
-  margin: .3em 0 0 0em;
-  padding: 0;
   list-style-image: none; }
 div#globalWrapper li {
   margin-bottom: .1em; }

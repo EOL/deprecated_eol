@@ -80,6 +80,23 @@ describe 'Home page' do
     end
   end
 
+  it 'should link to translated forms of gateway articles, not just English versions' do
+    visit('/')
+    body.should include(cms_page_path('animals'))
+    body.should_not include(cms_page_path('animals', :language => 'en'))
+    body.should include(cms_page_path('about_biodiversity'))
+    body.should_not include(cms_page_path('about_biodiversity', :language => 'en'))
+
+    Language.gen_if_not_exists(:iso_639_1 => 'ar', :label => 'Arabic')
+    visit('/set_language?language=ar')
+    body.should include(cms_page_path('animals'))
+    body.should_not include(cms_page_path('animals', :language => 'en'))
+    body.should_not include(cms_page_path('animals', :language => 'ar'))
+    body.should include(cms_page_path('about_biodiversity'))
+    body.should_not include(cms_page_path('about_biodiversity', :language => 'en'))
+    body.should_not include(cms_page_path('about_biodiversity', :language => 'ar'))
+  end
+
   it 'should show the March of Life'
 
   it 'should show a statistical summary of what is currently in EOL'

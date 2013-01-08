@@ -101,6 +101,10 @@ class CuratorActivityLog < LoggingModel
     changeable_object_type_id == ChangeableObjectType.synonym.id
   end
 
+  def is_for_data_object?
+    changeable_object_type_id == ChangeableObjectType.data_object.id
+  end
+
   # Needed for rendering links; we need to know which association to make the link to
   def link_to
     case changeable_object_type_id
@@ -115,6 +119,8 @@ class CuratorActivityLog < LoggingModel
       when ChangeableObjectType.taxon_concept.id
         taxon_concept
       when ChangeableObjectType.classification_curation.id
+        taxon_concept
+      when ChangeableObjectType.curated_taxon_concept_preferred_entry.id
         taxon_concept
       else
         data_object

@@ -1,4 +1,6 @@
 # encoding: utf-8
+# NOTE - This file should NOT be named *_spec.rb ...we don't want this to run as part of the regular suite. It's
+# very, very slow. You should only run it individually, before deploys.
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'capybara'
 
@@ -43,7 +45,7 @@ describe 'Home page', :js => true do
 
   it 'should find jrice' do
     visit "http://staging.eol.org/search?q=jrice"
-    page.should have_content "6 results for jrice"
+    page.should have_content "7 results for jrice"
     click_link "jrice"
     page.should have_content "Activity"
     page.should have_content "My info"

@@ -56,6 +56,7 @@ class HierarchyEntry < ActiveRecord::Base
       [published,
        vetted_view_order,
        browsable,
+       he.hierarchy.sort_order,
        he.taxon_concept_id,
        he.id]
     end
@@ -262,8 +263,8 @@ class HierarchyEntry < ActiveRecord::Base
     Rails.cache.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
       HierarchyEntry.preload_associations(self, { :flattened_ancestors => :ancestor }, :select =>
         { :hierarchy_entries => [ :id, :name_id, :rank_id, :taxon_concept_id, :lft, :rgt ] })
-      return '' if flattened_ancestors.blank?
       root_ancestor, immediate_parent = kingdom_and_immediate_parent
+      return '' if root_ancestor.blank?
       str_to_return = root_ancestor.name.string
       str_to_return += " > " + immediate_parent.name.string if immediate_parent
       str_to_return
@@ -273,6 +274,8 @@ class HierarchyEntry < ActiveRecord::Base
   def kingdom_and_immediate_parent
     return [ nil, nil ] if flattened_ancestors.blank?
     sorted_ancestors = flattened_ancestors.sort{ |a,b| a.ancestor.lft <=> b.ancestor.lft }
+    sorted_ancestors.shift if hierarchy = Hierarchy.ncbi
+    return [ nil, nil ] if sorted_ancestors.blank?  # sorted ancestors might be blank now
     root_ancestor = sorted_ancestors.first.ancestor
     immediate_parent = sorted_ancestors.pop.ancestor
     while immediate_parent && immediate_parent != root_ancestor && [ Rank.genus.id, Rank.species.id, Rank.subspecies.id, Rank.variety.id, Rank.infraspecies.id ].include?(immediate_parent.rank_id)

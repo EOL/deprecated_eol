@@ -650,6 +650,44 @@ describe TaxonConcept do
     @taxon_concept.number_of_descendants.should == 14
   end
 
+  it 'should weight particular hierarchies over others for the entry method' do
+    tc = TaxonConcept.gen
+    tc.hierarchy_entries.destroy_all
+    random_entry = HierarchyEntry.gen()
+    tc.hierarchy_entries << random_entry
+    tc.entry.should == random_entry
+
+    # adding a better entry
+    index_fungorum_entry = HierarchyEntry.gen(:hierarchy => Hierarchy.gen(:label => 'Index Fungorum'), :taxon_concept => tc)
+    TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
+    tc.reload
+    tc.entry.should == index_fungorum_entry
+
+    # not as good as IndexFungorum
+    tc.hierarchy_entries << HierarchyEntry.gen()
+    TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
+    tc.reload
+    tc.entry.should == index_fungorum_entry
+
+    # not as good as IndexFungorum
+    paleo_entry = HierarchyEntry.gen(:hierarchy => Hierarchy.gen(:label => 'Paleobiology Database'), :taxon_concept => tc)
+    TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
+    tc.reload
+    tc.entry.should == index_fungorum_entry
+
+    # adding an even better entry
+    fishbase_entry = HierarchyEntry.gen(:hierarchy => Hierarchy.gen(:label => 'FishBase (Fish Species)'), :taxon_concept => tc)
+    TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
+    tc.reload
+    tc.entry.should == fishbase_entry
+
+    # adding an even better entry
+    col_entry = HierarchyEntry.gen(:hierarchy => Hierarchy.col, :taxon_concept => tc)
+    TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
+    tc.reload
+    tc.entry.should == col_entry
+  end
+
   describe '#split_classifications' do
 
     before(:all) do

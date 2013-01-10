@@ -60,6 +60,12 @@ class Hierarchy < ActiveRecord::Base
     cached_find(:label, $DEFAULT_HIERARCHY_NAME)
   end
 
+  def self.col
+    cached('col') do
+      Hierarchy.where("label LIKE 'Species 2000 & ITIS Catalogue of Life%%'").includes(:agent).last
+    end
+  end
+
   def self.gbif
     cached_find(:label, 'GBIF Nub Taxonomy')
   end
@@ -100,6 +106,18 @@ class Hierarchy < ActiveRecord::Base
     available_hierarchies = Hierarchy.browsable
     available_hierarchies << Hierarchy.gbif if Hierarchy.gbif
     available_hierarchies.sort_by(&:id)
+  end
+
+  def sort_order
+    return 1 if self == Hierarchy.col
+    return 2 if self == Hierarchy.itis
+    return 3 if self.label == 'Avibase - IOC World Bird Names (2011)'
+    return 4 if self.label == 'WORMS Species Information (Marine Species)'
+    return 5 if self.label == 'FishBase (Fish Species)'
+    return 6 if self.label == 'IUCN Red List (Species Assessed for Global Conservation)'
+    return 7 if self.label == 'Index Fungorum'
+    return 8 if self.label == 'Paleobiology Database'
+    9999
   end
 
   def form_label

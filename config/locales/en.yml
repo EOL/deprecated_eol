@@ -2398,6 +2398,7 @@ en:
   authoritative_information: "authoritative information"
   author_of_peer_reviewed_publication_credential_option: "authorship of a peer-reviewed publication (provide reference)"
   available: "available"
+  average_rating: "average rating"
   average_rating_value_of_total: "Average rating: %{rating} of %{total}"
   back: "Back"
   back_to_profile: "Back to profile"
@@ -3923,6 +3924,9 @@ en:
   spm_category_objects_count: "SPM category - objects count"
   spm_category_partner_count: "SPM category - partner count"
   spm_category: "SPM Category"
+  stars_with_count:
+    one: "%{count} star"
+    other: "%{count} stars"
   started: "Started"
   stats: "Statistics"
   stat: "Stat"
@@ -4286,6 +4290,9 @@ en:
   visible_title: "Visible"
   visitors: "Visitors"
   vivisimo: "Vivisimo"
+  votes_with_count:
+    one: "%{count} vote"
+    other: "%{count} votes"
   wants_colon: "Wants:"
   watch_list: "Watch list"
   watch_list_newsfeed: "Watch List Newsfeed"

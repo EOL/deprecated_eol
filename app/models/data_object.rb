@@ -303,42 +303,23 @@ class DataObject < ActiveRecord::Base
   end
 
   def rate(user, new_rating)
-    existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    users_current_ratings, other_ratings = existing_ratings.partition { |r| r.user_id == user.id }
-
-    weight = user.is_curator? ? user.curator_level.rating_weight : 1
-    new_udor = nil
-    if users_current_ratings.blank?
-      new_udor = UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id,
-                                               :rating => new_rating, :weight => weight)
-    elsif (new_udor = users_current_ratings.first).rating != new_rating
-      new_udor.update_column(:rating, new_rating)
-      new_udor.update_column(:weight, weight)
+    if this_users_current_rating = rating_from_user(user)
+      if this_users_current_rating.rating != new_rating
+        this_users_current_rating.update_column(:rating, new_rating)
+        this_users_current_rating.update_column(:weight, user.rating_weight)
+      end
+    else
+      UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id,
+                                    :rating => new_rating, :weight => user.rating_weight)
     end
 
-    self.update_column(:data_rating, ratings_calculator(other_ratings + [new_udor]))
+    users_data_objects_ratings.reload
+    self.update_column(:data_rating, average_rating)
   end
 
-  def recalculate_rating(debug = false)
-    ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    self.update_column(:data_rating, ratings_calculator(ratings, debug))
-    self.data_rating
-  end
-
-  def ratings_calculator(ratings, debug = false)
-    count = 0
-    self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r|
-      if r.respond_to?(:weight)
-        sum += (r.rating * r.weight)
-        count += r.weight
-        Rails.logger.warn ".. Giving score of #{r.rating} weight of #{r.weight}." if debug
-      else
-        sum += r.rating
-        count += 1
-        Rails.logger.warn ".. Giving score of #{r.rating} weight of 1 (it had no weight specified)." if debug
-      end
-      sum
-    }.to_f / count
+  def recalculate_rating
+    self.update_column(:data_rating, average_rating)
+    data_rating
   end
 
   def rating_from_user(u)
@@ -349,7 +330,7 @@ class DataObject < ActiveRecord::Base
   def safe_rating
     return self.data_rating if self.data_rating >= @@minimum_rating && self.data_rating <= @@maximum_rating
     Rails.logger.warn "!! WARNING: data object #{self.id} had a data_rating of #{self.data_rating}. Attempted fix:"
-    rating = recalculate_rating(true)
+    rating = recalculate_rating
     if rating <= @@minimum_rating
       Rails.logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
       return @@minimum_rating
@@ -1128,11 +1109,28 @@ class DataObject < ActiveRecord::Base
   def can_be_deleted_by?(requestor)
     return false
   end
-  
+
   def link_type
     if data_objects_link_type && data_objects_link_type.link_type
       data_objects_link_type.link_type
     end
+  end
+
+  def rating_summary
+    rating_summary_hash = { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0 }
+    users_data_objects_ratings.each do |udo|
+      rating_summary_hash[udo.rating] += udo.weight
+    end
+    rating_summary_hash
+  end
+
+  def total_ratings
+    rating_summary.collect{ |score, votes| votes }.inject(:+)
+  end
+
+  def average_rating
+    return 2.5 if users_data_objects_ratings.blank?
+    rating_summary.collect{ |score, votes| score * votes }.inject(:+) / total_ratings.to_f
   end
 
 private

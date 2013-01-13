@@ -95,7 +95,7 @@ nb:
         data_objects_trusted: Klarerte dataobjekter
         data_objects_trusted_or_unreviewed_but_hidden: Klarert eller uvurdert, men skjult
         data_objects_unreviewed: Uvurderte dataobjekter
-        data_objects_untrusted: Uklarerte dataobjekter
+        data_objects_untrusted: Ikke-klarerte dataobjekter
         data_objects_videos: Videoobjekter
         hotlist_pages: Sider om prioriterte organismer
         lifedesk_data_objects: LifeDesks-dataobjekter
@@ -408,8 +408,85 @@ nb:
         user_modified_an_unknown_community: <strong>%{user}</strong> har redigert et ukjent brukersamfunn.
         user_modified_community: <strong>%{user}</strong> har redigert brukersamfunnet "%{community}".
     curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: En ukjent bruker har lagt til en tilknytning mellom en eldre versjon av "%{data_object}" og en ukjent side.
+        an_unknown_user_associated_an_older_data_object_to_association: En ukjent bruker har lagt til en tilknytning mellom en eldre versjon av "%{data_object}" og "%{association}".
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: En ukjent bruker har lagt til en ukjent tilknytning.
+        an_unknown_user_associated_an_unknown_data_object_to_association: En ukjent bruker har lagt til en tilknytning mellom et ukjent dataobjekt og "%{association}".
+        an_unknown_user_associated_data_object_to_an_unknown_association: En ukjent bruker har lagt til en tilknytning mellom "%{data_object}" og en ukjent side.
+        an_unknown_user_associated_data_object_to_association: En ukjent bruker har lagt til en tilknytning mellom "%{data_object}" og "%{association}".
+        an_unknown_user_associated_it_to_an_unknown_association: En ukjent bruker har lagt til en tilknytning til en ukjent side.
+        an_unknown_user_associated_it_to_association: En ukjent bruker har lagt til en tilknytning til "%{association}".
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> har lagt til en tilknytning mellom en eldre versjon av "%{data_object}" og en ukjent side.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> har lagt til en tilknytning mellom en eldre versjon av "%{data_object}" og "%{association}".
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> har lagt til en ukjent tilknytning.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> har lagt til en tilknytning mellom et ukjent dataobjekt og "%{association}".
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> har lagt til en tilknytning "%{data_object}" og en ukjent side.
+        user_associated_data_object_to_association: <strong>%{user}</strong> har lagt til en tilknytning mellom "%{data_object}" og "%{association}".
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> har lagt til en tilknytning til en ukjent side.
+        user_associated_it_to_association: <strong>%{user}</strong> har lagt til en tilknytning til "%{association}".
+      add_common_name: 
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> har lagt til et ukjent populærnavn på et ukjent språk til en ukjent side.
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: En ukjent bruker har slått sammen to sider.
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som skjult i en ukjent sammenheng.
+        an_unknown_user_hid_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som skjult på "%{association}"-siden.
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: En ukjent bruker har markert et ukjent dataobjekt som skjult i en ukjent sammenheng.
+        an_unknown_user_hid_an_unknown_data_object_on_association: En ukjent bruker har markert et ukjent dataobjekt som skjult på "%{association}"-siden.
+        an_unknown_user_hid_data_object_on_an_unknown_association: En ukjent bruker har markert "%{data_object}" som skjult i en ukjent sammenheng.
+        an_unknown_user_hid_data_object_on_association: En ukjent bruker har markert "%{data_object}" som skjult på "%{association}"-siden.
+        an_unknown_user_hid_it_on_an_unknown_association: En ukjent bruker har markert den som skjult i en ukjent sammenheng.
+        an_unknown_user_hid_it_on_association: En ukjent bruker har markert den som skjult på "%{association}"-siden.
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som skjult i en ukjent sammenheng.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som skjult på "%{association}"-siden.
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som skjult i en ukjent sammenheng.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som skjult på "%{association}"-siden.
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert "%{data_object}" som skjult i en ukjent sammenheng.
+        user_hid_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som skjult på "%{association}"-siden.
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> har markert det som skjult i en ukjent sammenheng.
+        user_hid_it_on_association: <strong>%{user}</strong> har markert den som skjult på "%{association}"-siden.
+      merge: 
+        an_unknown_user_merged_unknown_entry_to_it: En ukjent bruker har lagt til en ukjent klassifisering.
+      other_actions: 
+        an_unknown_user_curated_data_object: En ukjent bruker har kuratert "%{data_object}".
       reasons_to_hide: "Grunnlag for skjuling: %{reasons}"
-      reasons_to_untrust: "Grunnlag for uklarering: %{reasons}"
+      reasons_to_untrust: "Grunnlag for å ikke-klarere: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: En ukjent bruker har fjernet en tilknytning fra en eldre versjon av "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_association: En ukjent bruker har fjernet en tilknytning mellom "%{data_object}" og "%{association}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: En ukjent bruker har fjernet en ukjent tilknytning.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: En ukjent bruker har fjernet en tilknytning mellom et ukjent dataobjekt og "%{association}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: En ukjent bruker har fjernet en tilknytning mellom "%{data_object}" og en ukjent side.
+        an_unknown_user_disassociated_data_object_from_association: En ukjent bruker har fjernet en tilknytning mellom "%{data_object}" og "%{association}".
+        an_unknown_user_disassociated_it_from_an_unknown_association: En ukjent bruker har fjernet en tilknytning til en ukjent side.
+        an_unknown_user_disassociated_it_from_association: En ukjent bruker har fjernet en tilknytning til "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> har fjernet en tilknytning mellom en eldre versjon av "%{data_object}" og en ukjent side.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> har fjernet en tilknytning mellom en eldre versjon av "%{data_object}" og "%{association}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> har fjernet en ukjent tilknytning.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> har fjernet en tilknytning mellom et ukjent dataobjekt og "%{association}".
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> har fjernet en tilknytning "%{data_object}" og en ukjent side.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> har fjernet en tilknytning mellom "%{data_object}" og "%{association}".
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> har fjernet en tilknytning til en ukjent side.
+        user_disassociated_it_from_association: <strong>%{user}</strong> har fjernet en tilknytning til "%{association}".
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som synlig i en ukjent sammenheng.
+        an_unknown_user_showed_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som synlig på "%{association}"-siden.
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: En ukjent bruker har markert et ukjent dataobjekt som synlig i en ukjent sammenheng.
+        an_unknown_user_showed_an_unknown_data_object_on_association: En ukjent bruker har markert et ukjent dataobjekt som synlig på "%{association}"-siden.
+        an_unknown_user_showed_data_object_on_an_unknown_association: En ukjent bruker har markert "%{data_object}" som synlig i en ukjent sammenheng.
+        an_unknown_user_showed_data_object_on_association: En ukjent bruker har markert "%{data_object}" som synlig på "%{association}"-siden.
+        an_unknown_user_showed_it_on_an_unknown_association: En ukjent bruker har markert den som synlig i en ukjent sammenheng.
+        an_unknown_user_showed_it_on_association: En ukjent bruker har markert den som synlig på "%{association}"-siden.
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som synlig i en ukjent sammenheng.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som synlig på "%{association}"-siden.
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som synlig i en ukjent sammenheng.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som synlig på "%{association}"-siden.
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert "%{data_object}" som synlig i en ukjent sammenheng.
+        user_showed_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som synlig på "%{association}"-siden.
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> har markert den som synlig i en ukjent sammenheng.
+        user_showed_it_on_association: <strong>%{user}</strong> har markert den som synlig på "%{association}"-siden.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som klarert i en ukjent sammenheng.
         an_unknown_user_trusted_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som klarert på "%{association}"-siden.
@@ -427,8 +504,40 @@ nb:
         user_trusted_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som klarert på "%{association}"-siden.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> har markert det som klarert i en ukjent sammenheng.
         user_trusted_it_on_association: <strong>%{user}</strong> har markert den som klarert på "%{association}"-siden.
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uvurdert i en ukjent sammenheng.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uvurdert på "%{association}"-siden.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: En ukjent bruker har markert et ukjent dataobjekt som uvurdert i en ukjent sammenheng.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: En ukjent bruker har markert et ukjent dataobjekt som uvurdert på "%{association}"-siden.
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: En ukjent bruker har markert "%{data_object}" som uvurdert i en ukjent sammenheng.
+        an_unknown_user_unreviewed_data_object_on_association: En ukjent bruker har markert "%{data_object}" som uvurdert på "%{association}"-siden.
+        an_unknown_user_unreviewed_it_on_an_unknown_association: En ukjent bruker har markert den som uvurdert i en ukjent sammenheng.
+        an_unknown_user_unreviewed_it_on_association: En ukjent bruker har markert den som uvurdert på "%{association}"-siden.
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som uvurdert i en ukjent sammenheng.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som uvurdert på "%{association}"-siden.
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som uvurdert i en ukjent sammenheng.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som uvurdert på "%{association}"-siden.
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert "%{data_object}" som uvurdert i en ukjent sammenheng.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som uvurdert på "%{association}"-siden.
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> har markert det som uvurdert i en ukjent sammenheng.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> har markert den som uvurdert på "%{association}"-siden.
       untrusted: 
-        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uklarert i en ukjent sammenheng.
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som ikke-klarert i en ukjent sammenheng.
+        an_unknown_user_untrusted_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som ikke-klarert på "%{association}"-siden.
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: En ukjent bruker har markert et ukjent dataobjekt som ikke-klarert i en ukjent sammenheng.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: En ukjent bruker har markert et ukjent dataobjekt som ikke-klarert på "%{association}"-siden.
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: En ukjent bruker har markert "%{data_object}" som ikke-klarert i en ukjent sammenheng.
+        an_unknown_user_untrusted_data_object_on_association: En ukjent bruker har markert "%{data_object}" som ikke-klarert på "%{association}"-siden.
+        an_unknown_user_untrusted_it_on_an_unknown_association: En ukjent bruker har markert den som ikke-klarert i en ukjent sammenheng.
+        an_unknown_user_untrusted_it_on_association: En ukjent bruker har markert den som ikke-klarert på "%{association}"-siden.
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som ikke-klarert i en ukjent sammenheng.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> har markert en eldre versjon av "%{data_object}" som ikke-klarert på "%{association}"-siden.
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som ikke-klarert i en ukjent sammenheng.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> har markert et ukjent dataobjekt som ikke-klarert på "%{association}"-siden.
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> har markert "%{data_object}" som ikke-klarert i en ukjent sammenheng.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som ikke-klarert på "%{association}"-siden.
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> har markert den som ikke-klarert i en ukjent sammenheng.
+        user_untrusted_it_on_association: <strong>%{user}</strong> har markert den som ikke-klarert på "%{association}"-siden.
   add: Legg til
   add_a_comment: Legg til en kommentar.
   add_a_comment_colon: "Legg til en kommentar:"
@@ -1178,7 +1287,7 @@ nb:
   filter_by_status_inappropriate_option: Upassende
   filter_by_status_trusted_option: Klarert
   filter_by_status_unreviewed_option: Uvurdert
-  filter_by_status_untrusted_option: Uklarert
+  filter_by_status_untrusted_option: Ikke-klarert
   filter_by_type: Filtrer etter type
   filter_by_type_all_option: Alle typer
   filter_by_type_collection_option: Samlinger
@@ -1818,8 +1927,8 @@ nb:
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) la til en ukjent tilknytning for %{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som upassende:\n%{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som klarert:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}."
-    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som uklarert:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}."
-    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som uklarert:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som ikke-klarert:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url}) markerte som ikke-klarert:\n%{object_name} (%{object_url})\n%{action_date}."
     activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) fjernet tilknytningen:\n%{taxon_name} (%{taxon_url}) fra %{object_name} (%{object_url})\n%{action_date}."
     activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) slettet en ukjent tilknytning fra %{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Ingen nylige kommentarer
@@ -1883,7 +1992,7 @@ nb:
   object_status_all_option: Alle
   object_status_trusted_option: Klarert
   object_status_unreviewed_option: Uvurdert
-  object_status_untrusted_option: Uklarert
+  object_status_untrusted_option: Ikke-klarert
   object_type: Objekttype
   object_type_all_option: Alle
   object_type_collection_option: Samling

@@ -9,6 +9,7 @@
 # Author: Malafaya
 # Author: McDutchie
 # Author: SandroHc
+# Author: Sarilho1
 pt: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
@@ -116,6 +117,8 @@ pt:
         request_publish: Solicitar publicação
       name: 
         string: Nome
+      notification: 
+        invitation_to_community: Convite para participar numa comunidade
       open_authentication: 
         created_at: Criado
       resource: 
@@ -201,7 +204,7 @@ pt:
             accesspoint_url: 
               blank: não pode ficar em branco, a menos que carregue um arquivo de recurso em vez
               inaccessible: é inacessível, o URL deve ser acessível ao público
-              invalid: é inválido, ele deve apontar para um arquivo XML, XML.GZIP ou XML.GZ.
+              invalid: é inválido, ele deve apontar para um arquivo XML, XML.GZIP, XML.GZ ou ZIP file
             dataset: 
               blank: não pode estar em branco a não ser que em vez forneça um URL do conjunto de dados
               wrong_type: é do tipo errado, deve ser um ficheiro GZIP, TAR ou XML
@@ -416,6 +419,11 @@ pt:
   collection_not_found_error: Pedimos desculpa, mas a colecção não foi encontrada.
   collection_updated_notice: Colecção <em>%{collection_name}</em> actualizada com sucesso.
   collection_was_removed_by_owner: Esta colecção foi retirada pelo seu proprietário.
+  collections: 
+    inaturalists: 
+      show: 
+        observation_date: "Data: % {observed_on}"
+        observation_place: "Localização: %{place}"
   collections_summary_empty: Esta página ainda não está em nenhuma colecção,
   collections_summary_header_with_count: 
     one: Presente em %{count} colecção
@@ -482,6 +490,9 @@ pt:
   confirm_password_colon: "Confirme senha:"
   contact_us_functions: Funções para nos contactar
   contact_us_link: Contactos
+  contacts: 
+    new: 
+      page_title: Por favor, dê-nos a sua opinião
   content_has_been_updated: O conteúdo foi actualizado.
   content_partner: Parceiro de conteúdo
   content_partner_about_header: Sobre %{partner_name}
@@ -676,6 +687,12 @@ pt:
       - Sábado
     day_names_min: 
       - Do
+      - Seg
+      - Ter
+      - Qua
+      - Qui
+      - Sex
+      - Sáb
     day_names_short: 
       - Dom
       - Seg
@@ -970,6 +987,8 @@ pt:
         meta_description_more: Forneça uma breve descrição, resumindo os conceitos-chave do conteúdo da página. Esta descrição é por vezes utilizada pelos motores de busca da Web quer para verificar a relevância como para listar nos resultados de pesquisas.
         meta_keywords_more: Escreva uma lista separada por vírgulas de palavras e frases curtas que melhor reflictam o conteúdo da página. Essas palavras-chave e conceitos-chave são por vezes usados por motores de busca da Web para avaliar a relevância da página em relação aos termos de pesquisa.
         title_more: O título deste conteúdo aparecerá na área de cabeçalho da página. O título deve incluir palavras-chave mais relevante para o conteúdo.
+      translated_news_item: 
+        language_id: Língua
       user: 
         agreed_with_terms: Concordo com os <a href="%{terms_url}">termos de uso</a>
         api_key_more: Leia mais sobre como <a href="%{api_docs_url}">adicionar uma chave para as suas chamadas de API</a>.
@@ -1008,6 +1027,8 @@ pt:
       cancel: Cancelar
       collection_item: 
         update: Gravar
+      contact: 
+        new: Enviar opinião
       content_page: 
         create: Criar página
         edit: Editar
@@ -1054,7 +1075,9 @@ pt:
       session: 
         create: Iniciar sessão
         sign_in_with_facebook: Entrar com Facebook
+        sign_in_with_google: Iniciar sessão com Google
         sign_in_with_twitter: Entrar com Twitter
+        sign_in_with_yahoo: Iniciar sessão com Yahoo
       submit: Guarde %{model}
       translated_content_page: 
         create: Adicionar tradução

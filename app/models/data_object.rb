@@ -1087,7 +1087,7 @@ class DataObject < ActiveRecord::Base
         :languages => '*',
         :data_objects => default_selects | options[:select] } )
     data_objects.collect! do |d|
-      if latest_version = d.latest_version_in_language(options[:language_id], :check_only_published => true)
+      if latest_version = d.latest_version_in_language(options[:language_id], :check_only_published => false)
         d = latest_version
       end
       d.is_the_latest_published_revision = true

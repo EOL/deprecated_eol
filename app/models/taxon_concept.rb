@@ -875,7 +875,7 @@ class TaxonConcept < ActiveRecord::Base
   # there is an artificial limit of 600 text objects here to increase the default 30
   def details_text_for_user(the_user, options = {})
     text_objects = self.text_for_user(the_user, {
-      :language_ids => [ the_user.language.id ],
+      :language_ids => the_user.language.all_ids,
       :filter_by_subtype => true,
       :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
@@ -1178,7 +1178,7 @@ private
       # and admins should not see hidden text in the overview tab
       overview_text_objects = text_for_user(User.new, {
         :per_page => 30,
-        :language_ids => [ the_user.language.id ],
+        :language_ids => the_user.language.all_ids,
         :allow_nil_languages => (the_user.language.id == Language.default.id),
         :toc_ids => TocItem.possible_overview_ids,
         :filter_by_subtype => true })

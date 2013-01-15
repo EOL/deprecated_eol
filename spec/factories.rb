@@ -716,6 +716,10 @@ FactoryGirl.define do
     sort_order   { generate(:int) % 128 }
   end
 
+  factory :language_group do
+    association :representative_language, :factory => :language
+  end
+
   factory :license do
     title                    'cc-by 3.0'
     source_url               'http://creativecommons.org/licenses/by/3.0/'

@@ -28,6 +28,14 @@ describe "Core Extensions" do
       @lower.capitalize_all_words_if_language_safe.should == @lower
     end
 
+    it 'should NOT capitalize some small words in English ' do
+      I18n.locale = :en
+      "tom and jerry".capitalize_all_words_if_language_safe.should == "Tom and Jerry"
+      "first of january".capitalize_all_words_if_language_safe.should == "First of January"
+      "word and".capitalize_all_words_if_language_safe.should == "Word and"
+      "word of".capitalize_all_words_if_language_safe.should == "Word of"
+    end
+
   end
 
 end

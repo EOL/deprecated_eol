@@ -1,10 +1,11 @@
 class Language < ActiveRecord::Base
   uses_translations(:foreign_key => 'original_language_id')
+  belongs_to :language_group, :foreign_key => :language_group_id
   has_many :data_objects
   has_many :users
   has_many :taxon_concept_names
 
-  attr_accessible :iso_639_1, :iso_639_2, :iso_639_3, :source_form, :sort_order, :activated_on
+  attr_accessible :iso_639_1, :iso_639_2, :iso_639_3, :source_form, :sort_order, :activated_on, :language_group_id
 
   def to_s
     iso_639_1
@@ -79,7 +80,7 @@ class Language < ActiveRecord::Base
   def self.unknown
     @@unknown_language ||= cached_find_translated(:label, "Unknown")
   end
-  
+
   def self.all_unknowns
     @@all_unknown_languages ||= cached("unknown_languages") do
       unknown_languages = []
@@ -91,8 +92,7 @@ class Language < ActiveRecord::Base
       unknown_languages
     end
   end
-  
-  
+
   def self.common_name
     cached_find_translated(:label, "Common name")
   end
@@ -109,5 +109,15 @@ class Language < ActiveRecord::Base
 
   def iso_code
     iso_639_1
+  end
+
+  def all_ids
+    return [ self.id ] if language_group.blank?
+    return language_group.languages.collect{ |l| l.id }
+  end
+
+  def representative_language
+    return self if language_group.blank?
+    return language_group.representative_language
   end
 end

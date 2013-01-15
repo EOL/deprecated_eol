@@ -109,6 +109,22 @@ describe Name do
     end
   end
 
+  it 'should convert "and"s for scientific but no common names' do
+    common_name = Name.new
+    common_name.string = 'Tom and Jerry'
+    common_name.is_common_name = true
+    common_name.save!
+    common_name.clean_name.should == 'tom and jerry'
+
+    sci_name = Name.new
+    sci_name.string = 'Tom and Jerry'
+    sci_name.save!
+    sci_name.clean_name.should == 'tom & jerry'
+
+    Name.find_by_string('Tom and Jerry').should == sci_name  # and gets converted to & before find
+    Name.find_by_string('Tom and Jerry', :is_common_name => true).should == common_name
+  end
+
   describe "::prepare_clean_name" do
     it "should prepare a clean name" do
       read_test_file("clean_name.csv") do |row|
@@ -151,7 +167,7 @@ describe Name do
     end
 
     it 'should run prepare_clean_name on its input' do
-      Name.should_receive(:prepare_clean_name).with('Care bear').at_least(1).times.and_return('care bear')
+      Name.should_receive(:prepare_clean_name).with('Care bear', :is_common_name => true).at_least(1).times.and_return('care bear')
       Name.create_common_name('Care bear')
     end
 

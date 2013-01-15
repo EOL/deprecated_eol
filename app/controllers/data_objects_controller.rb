@@ -333,6 +333,32 @@ class DataObjectsController < ApplicationController
     redirect_back_or_default
   end
 
+  def crop
+    x = params['x']
+    y = params['y']
+    w = params['w']
+    if x.is_numeric? && y.is_numeric? && w.is_numeric?
+      x = x.to_i
+      y = y.to_i
+      w = w.to_i
+      # x and y can be 0
+      if x >= 0 && y >= 0 && w > 0
+        if new_object_cache_url = ContentServer.update_data_object_crop(@data_object.id, x, y, w)
+          ImageCrop.create(:data_object_id => @data_object.id, :user_id => current_user.id,
+            :original_object_cache_url => @data_object.object_cache_url, :new_object_cache_url => new_object_cache_url)
+          # NOTE: using update_attribute here instead of update_attribute*S* as there can be harvest objects
+          # which would fail Rails validations, yet we still want to update their object_cache_url
+          @data_object.update_attribute('object_cache_url', new_object_cache_url)
+          current_user.log_activity(:cropped_data_object_id, :value => @data_object.id)
+          flash[:notice] = I18n.t(:image_cropped_notice)
+        else
+          flash[:error] = I18n.t(:image_crop_failed_error)
+        end
+      end
+    end
+    redirect_to data_object_path(@data_object)
+  end
+
 protected
 
   def scoped_variables_for_translations
@@ -366,7 +392,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @data_object ?
-      @data_object.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
+      @data_object.thumb_or_object('260_190', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 
 private

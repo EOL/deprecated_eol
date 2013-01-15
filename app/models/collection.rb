@@ -136,9 +136,9 @@ class Collection < ActiveRecord::Base
     if logo_cache_url.blank?
       return "v2/logos/collection_default.png"
     elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '88_88', :specified_content_host => specified_content_host)
     else
-      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '130_130', :specified_content_host => specified_content_host)
     end
   end
 

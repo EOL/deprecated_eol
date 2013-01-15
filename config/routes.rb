@@ -244,6 +244,7 @@ Eol::Application.routes.draw do
       get 'curation'
       get 'attribution'
       get 'rate'
+      get 'crop'
     end
     resources :comments
   end

@@ -684,6 +684,12 @@ FactoryGirl.define do
     total_children      { rand(1000) }
   end
 
+  factory :image_crop do
+    association               :data_object
+    association               :user
+    original_object_cache_url ''
+    new_object_cache_url      ''
+  end
 
   factory :info_item do
     schema_value 'http://rs.tdwg.org/ontology/voc/ThisWontWork.JustForTesting'

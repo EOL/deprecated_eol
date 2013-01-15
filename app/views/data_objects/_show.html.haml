@@ -25,6 +25,8 @@
         .empty
           = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision)
 #sidebar
+  - if current_user.is_admin?
+    = render :partial => '/data_objects/image_cropper', :locals => { :data_object => @data_object }
   = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
   .article.source
     .header

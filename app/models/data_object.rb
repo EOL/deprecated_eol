@@ -57,6 +57,8 @@ class DataObject < ActiveRecord::Base
   has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id, created_at'
   has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc",
     :conditions => 'published = 1'
+  has_many :image_crops
+  has_many :all_image_crops, :class_name => ImageCrop.to_s, :through => :all_versions, :primary_key => :guid, :source => :image_crops
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -230,10 +232,10 @@ class DataObject < ActiveRecord::Base
     DataObject.find_by_guid_and_language_id(self.guid, self.language_id, :conditions => "id < #{self.id}", :order=> 'id desc', :limit => 1)
   end
 
-  def self.image_cache_path(cache_url, size = '580_360', specified_content_host = nil)
+  def self.image_cache_path(cache_url, size = '580_360', options={})
     return if cache_url.blank? || cache_url == 0
     size = size ? "_" + size.to_s : ''
-    ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
+    ContentServer.cache_path(cache_url, options) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
 
   # NOTE - this used to have a select, but there are too many ancillary methods that get called which need other
@@ -483,11 +485,17 @@ class DataObject < ActiveRecord::Base
     ((is_video? || is_sound?) && thumbnail_cache_url?) || (is_image? && object_cache_url?)
   end
 
-  def thumb_or_object(size = '580_360', specified_content_host = nil)
+  def thumb_or_object(size = '580_360', options={})
     if self.is_video? || self.is_sound?
-      return DataObject.image_cache_path(thumbnail_cache_url, size, specified_content_host)
+      return DataObject.image_cache_path(thumbnail_cache_url, size, options)
     elsif has_object_cache_url?
-      return DataObject.image_cache_path(object_cache_url, size, specified_content_host)
+      # this is just for Staging and can be removed for production. Staging uses a different
+      # content server and needs to generate URLS with a different host for image crops
+      is_crop = false
+      if Rails.env.staging? || Rails.env.staging_dev?
+        is_crop = all_image_crops.detect{ |c| c.new_object_cache_url == object_cache_url }
+      end
+      return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
     else
       return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
     end

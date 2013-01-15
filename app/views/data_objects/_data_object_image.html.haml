@@ -1,3 +1,9 @@
+- if current_user.is_admin?
+  = content_for :head do
+    = javascript_include_tag "jquery.Jcrop.min.js"
+    = javascript_include_tag "jcrop_data_objects.js"
+    = stylesheet_link_tag "jquery.Jcrop.min.css"
+
 - data_object ||= @data_object
 - taxon_concept ||= nil
 - size ||= '260_190'
@@ -8,4 +14,7 @@
 - elsif data_object.access_image_from_remote_server?(size)
   = link_to(image_tag(data_object.object_url, :alt => alt), @data_object.object_url)
 - else
-  = link_to(image_tag(data_object.thumb_or_object(size), :alt => alt), @data_object.thumb_or_object(:orig))
+  - if current_user.is_admin?
+    = image_tag(data_object.thumb_or_object(size), :alt => alt)
+  - else
+    = link_to(image_tag(data_object.thumb_or_object(size), :alt => alt), @data_object.thumb_or_object(:orig))

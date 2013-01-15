@@ -266,7 +266,7 @@ describe DataObject do
   end
 
   it 'should delegate #image_cache_path to ContentServer' do
-    ContentServer.should_receive(:cache_path).with(:foo, nil).and_return("worked")
+    ContentServer.should_receive(:cache_path).with(:foo, {}).and_return("worked")
     DataObject.image_cache_path(:foo, :large).should == "worked_large.#{$SPECIES_IMAGE_FORMAT}"
   end
 

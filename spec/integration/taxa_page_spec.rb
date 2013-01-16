@@ -22,6 +22,22 @@ def remove_classification_filter_if_used
   end
 end
 
+describe 'Taxa page basic tests' do
+  before(:all) do
+    load_foundation_cache
+  end
+  
+  it 'should not convert ampersands in preferred common names' do
+    tc = build_taxon_concept
+    curator = build_curator(tc)
+    tc.add_common_name_synonym("Tom & Jerry", :agent => curator.agent, :language => Language.english,
+                               :vetted => Vetted.trusted, :preferred => true)
+    visit overview_taxon_path(tc.id)
+    body.should include('Tom &amp; Jerry')
+    body.should_not include('Tom &amp;amp; Jerry')
+  end
+end
+
 describe 'Taxa page' do
 
   before(:all) do

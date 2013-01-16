@@ -27,8 +27,9 @@
 fr: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
+  a_maximum_of_30_results_are_returned: un maximum de 30 résultats est renvoyé par page. Ce paramètre vous permet de ramener davantage de pages de résultats s'il y en a plus de 30
   a_pipe_delimited_list_of_licenses: une liste de licences séparées par des traits verticaux « | » ou « all » pour obtenir les objets fournis sous n’importe quelle licence. Les licences abrégées avec cc- sont toutes des licences %{creative_commons_link}. Visitez leur site pour plus d’information sur les différentes licences qu’ils offrent.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: une liste de noms de sujet d’Élément d’information SPM délimitée par des traits verticaux « | » ou « all » pour obtenir des textes portant sur un sujet quelconque
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "'supervisé' pour renvoyer le texte supervisé (s'il existe), une liste séparée par des pipes | de noms de sujet de la liste des %{subjects_text} (par ex. TaxonBiology, FossilHistory), ou 'tous' pour obtenir le texte de n’importe quel sujet. Renvoie toujours un texte de supervision comme premier résultat (s’il en existe un dans le contexte donné)."
   a_taxon: un taxon
   about_eol: À propos de l’EdlV
   account_information: Informations du compte
@@ -538,6 +539,28 @@ fr:
         user_hid_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme masqué sur la page "%{association}".
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme masqué dans un contexte inconnu.
         user_hid_it_on_association: <strong>%{user}</strong> l'a marqué comme masqué sur la page "%{association}".
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Un utilisateur inconnu a déplacé la classification par "%{provider}" vers un taxon inconnu.
+        an_unknown_user_merged_entry_to_it: Un utilisateur inconnu a ajouté la classification par "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: Un utilisateur inconnu a déplacé la classification par "%{provider}" vers "%{taxon}".
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Un utilisateur inconnu a déplacé une classification inconnue vers un taxon inconnu.
+        an_unknown_user_merged_unknown_entry_to_it: Un utilisateur inconnu a ajouté une classification inconnue.
+        an_unknown_user_merged_unknown_entry_to_taxon: Un utilisateur inconnu a déplacé une classification inconnue vers "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> a déplacé la classification par "%{provider}" vers un taxon inconnu.
+        user_merged_entry_to_it: <strong>%{user}</strong> a ajouté la classification par "%{provider}".
+        user_merged_entry_to_taxon: <strong>%{user}</strong> a déplacé la classification par "%{provider}" vers "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> a déplacé une classification inconnue vers un taxon inconnu.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> a ajouté une classification inconnue.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> a déplacé une classification inconnue vers "%{taxon}".
+      other_actions: 
+        an_unknown_user_curated_an_older_data_object: Un utilisateur inconnu a conservé une ancienne version de "%{data_object}".
+        an_unknown_user_curated_an_unknown_data_object: Un utilisateur inconnu a conservé un objet de donnée inconnu.
+        an_unknown_user_curated_data_object: Un utilisateur inconnu a conservé "%{data_object}".
+        an_unknown_user_curated_it: Un utilisateur inconnu l’a conservé, mais l’action réellement entreprise a été perdue.
+        user_curated_an_older_data_object: <strong>%{user}</strong> a conservé une ancienne version de "%{data_object}".
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> a conservé un objet de donnée inconnu.
+        user_curated_data_object: <strong>%{user}</strong> a conservé "%{data_object}".
+        user_curated_it: <strong>%{user}</strong> l’a conservé, mais l’action réellement entreprise a été perdue.
       preferred_classification: 
         an_unknown_user_preferred_classification_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme préférée la classification de "%{provider}" pour un taxon inconnu.
         an_unknown_user_preferred_classification_on_it: Un utilisateur inconnu a marqué comme préférée la classification de "%{provider}".
@@ -655,6 +678,26 @@ fr:
         user_trusted_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme fiable sur la page "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme fiable dans un contexte inconnu.
         user_trusted_it_on_association: <strong>%{user}</strong> l'a marqué comme fiable sur la page "%{association}".
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: La fusion de page que vous avez récemment demandée est terminée, mais la page est introuvable.
+        merge_of_it_unlocked: La fusion que vous avez demandé récemment sur cette page s'est terminée.
+        merge_of_taxon_unlocked: La fusion de page que vous avez récemment demandée pour "%{taxon}" s’est terminée.
+        move_of_an_unknown_taxon_unlocked: Le déplacement de classification que vous avez récemment demandé s'est terminé, mais la page est introuvable.
+        move_of_it_unlocked: Le déplacement de classification que vous avez récemment demandé sur cette page s'est terminé.
+        move_of_taxon_unlocked: Le déplacement de classification que vous avez récemment demandé pour "%{taxon}" s’est terminée.
+        split_of_an_unknown_taxon_unlocked: La division de classification que vous avez récemment demandée est terminée, mais la page est introuvable.
+        split_of_it_unlocked: La division de classification que vous avez récemment demandée sur cette page est terminée et les classifications ont été déplacées vers <a href='%{to}'>leur propre page</a>.
+        split_of_taxon_unlocked: La division de classification que vous avez récemment demandée pour "%{taxon}" est terminée et les classifications ont été déplacées vers <a href='%{to}'>leur propre page</a>.
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "La fusion de page que vous avez récemment demandée <strong>a échoué</strong>: %{error}. De plus, la page concernée est introuvable."
+        merge_of_it_unlocked_with_error: "La fusion que vous avez récemment demandée sur cette page <strong>a échoué</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "La fusion de page que vous avez demandée pour \"%{taxon}\" <strong>a échoué</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "Le déplacement de classification que vous avez récemment demandé <strong>a échoué</strong>: %{error}. De plus, la page concernée est introuvable."
+        move_of_it_unlocked_with_error: "Le déplacement de classification que vous avez récemment demandé sur cette page <strong>a échoué</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "Le déplacement de classification que vous avez récemment demandé pour \"%{taxon}\" <strong>a échoué</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "La division de classification que vous avez récemment demandée <strong>a échoué</strong>: %{error}. De plus, la page concernée est introuvable."
+        split_of_it_unlocked_with_error: "La division de classification que vous avez récemment demandée sur cette page <strong>a échoué</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "La division de classification que vous avez récemment demandée pour \"%{taxon}\" <strong>a échoué</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un utilisateur inconnu a marqué comme non relu un nom commun inconnu dans une langue inconnue depuis une page inconnue.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Un utilisateur inconnu a marqué comme non relu un nom commun inconnu dans une langue inconnue.
@@ -739,7 +782,9 @@ fr:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme non fiable sur la page "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme non fiable dans un contexte inconnu.
         user_untrusted_it_on_association: <strong>%{user}</strong> l'a marqué comme non fiable sur la page "%{association}".
+  activity_user_created_link: <strong>%{user}</strong> a ajouté un lien vers "%{object_name}" sur "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> a ajouté du texte à « %{object_name} » portant sur « %{taxon_concept} ».
+  activity_user_updated_link: <strong>%{user}</strong> a mis à jour le lien de "%{object_name}" sur "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> a mis à jour le texte « %{object_name} » portant sur « %{taxon_concept} ».
   add: Ajouter
   add_a_collection_to_a_community: Ajouter « %{collection} » à une communauté
@@ -758,6 +803,7 @@ fr:
   add_association_submit_button: ajouter l’association
   add_brief_summary_to_page_link_button: Ajouter un bref résumé à cette page
   add_citizen_science_resources_to_page_link_button: ajouter un lien de scientifique personnel à cette page
+  add_classifications: ajouter les classifications sélectionnées pour être déplacées
   add_collection_to_a_new_community: Ajouter « %{collection} » à une nouvelle communauté
   add_collection_to_community: Ajouter la collection à la communauté
   add_education_resources_to_page_link_button: Ajouter des ressources éducatives à cette page
@@ -776,7 +822,7 @@ fr:
   admin_content_page_child_new_link: Créer une sous-page
   admin_content_page_create_successful_notice: La page <a href="#%{anchor}"><em>%{page_name}</em></a> a été créée avec succès.
   admin_content_page_create_unsuccessful_error: Désolé, une erreur est survenue ; la page n’a pas été créée.
-  admin_content_page_delete_confirmation: Êtes-vous sûr de vouloir supprimer « %{page_name} » et toutes ses traductions ? Les actions de suppression sont irréversibles.
+  admin_content_page_delete_confirmation: Êtes-vous sûr de vouloir supprimer "%{page_name}" et toutes ses traductions? Les pages supprimées ne peuvent pas être récupérées.
   admin_content_page_delete_successful_notice: La page %{page_name} et les traductions associées ont été supprimées.
   admin_content_page_edit_header: Mettre à jour les informations de base pour la page <em>%{page_name}</em>
   admin_content_page_edit_tip: Il vous est recommandé de ne pas modifier le nom unique de cette page, à moins que vous soyez pleinement conscient des conséquences, y compris celles impactant les liens vers cette page ou vers les routes nommées. Un nom unique est %{required_icon}&nbsp;nécessaire.
@@ -815,13 +861,30 @@ fr:
   admin_information: Ceci est la nouvelle console d’administration de l’EdlV v2. Nous sommes en train de transférer les fonctionnalités de la version 1. Si la section d’administration que vous cherchez ne s’y trouve pas, veuillez vous rendre sur la <a href="/administrator">console d’administration v1</a>.
   admin_link: Vue d’ensemble
   admin_login_confirmation: Êtes-vous sûr de vouloir vous identifier sur le registre du partenaire de contenu en tant que %{name} ? Si vous le faites, vous serez déconnecté du site web en tant qu’administrateur.
+  admin_news_item_active: Publié
+  admin_news_item_create_successful_notice: L’élément d’information <a href="#%{anchor}"><em>%{page_name}</em></a> a bien été créé.
+  admin_news_item_create_unsuccessful_error: Désolé, une erreur est survenue, l’élément d’information n’a pas été créé.
+  admin_news_item_delete_confirmation: Êtes-vous sûr de vouloir supprimer "%{page_name}" et toutes ses traductions? Les pages supprimées ne peuvent pas être récupérées.
+  admin_news_item_delete_successful_notice: L’élément d’information %{page_name} et les traductions associées ont été supprimés.
+  admin_news_item_edit_header: Mise à jour des informations de l’élément d’information de base pour <em>%{page_name}</em>
+  admin_news_item_edit_tip: Il est recommandé de ne pas modifier le nom unique de cette élément d’information, à moins d’être pleinement conscient des conséquences, y compris les impacts sur les liens vers cette page ou sur les chemins nommés. Un nom unique est %{required_icon} obligatoire.
+  admin_news_item_new_header: Créer un nouvel élément d’information
+  admin_news_item_new_link: Créer un élément d’information
+  admin_news_item_new_tip: Entrez les informations de base à propos de cette page. Un nom unique est %{required_icon} obligatoire.
+  admin_news_item_not_active: Non publié
+  admin_news_item_update_successful_notice: Élément d’information <a href="#%{anchor}"><em>%{page_name}</em></a> mis à jour avec succès.
+  admin_news_item_update_unsuccessful_error: Désolé, une erreur s’est produite, l’élément d’information n’a pas pu être mis à jour.
+  admin_news_items_empty: Aucun élément d’information trouvé.
+  admin_news_items_index_information: La liste suivante comprend tous les éléments d’information actuellement disponibles sur le site Web de EdlV, ainsi que les éléments d’information à venir. Chaque page comporte une ou plusieurs traductions. Lorsque vous créez un nouvel élément d’information, il vous sera demandé d’ajouter une traduction. Les traductions publiées sont accessibles publiquement.
+  admin_news_items_page_title: "Administration: Informations"
+  admin_news_link: Actualités
   admin_notes_not_visible_to_user: "Notes d’administration (non visibles par l’utilisateur) :"
   admin_page_title: "Administration : vue d’ensemble"
   admin_spam_delete: Supprimer les pourriels
   admin_statistics_link: Statistiques
   admin_translated_content_page_create_successful_notice: La traduction a été ajoutée à <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Désolé, une erreur est survenue ; la traduction n’a pas pu être ajoutée.
-  admin_translated_content_page_delete_confirmation: Êtes-vous sûr de vouloir supprimer la version en %{language} de « %{page_name} » ? L’action de suppression est irréversible.
+  admin_translated_content_page_delete_confirmation: Êtes-vous sûr de vouloir supprimer la version %{language} de "%{page_name}"? Les pages supprimées ne peuvent pas être récupérées.
   admin_translated_content_page_delete_successful_notice: La traduction en %{language} de <em>%{page_name}</em> a été supprimée.
   admin_translated_content_page_edit_subheader: Modifier la traduction en %{language} de <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Le titre et le corps de la page sont %{required_icon}&nbsp;nécessaires.
@@ -831,7 +894,19 @@ fr:
   admin_translated_content_page_new_tip: La langue, le titre et le corps de la page sont %{required_icon}&nbsp;nécessaires.
   admin_translated_content_page_update_successful_notice: La traduction en %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
   admin_translated_content_page_update_unsuccessful_error: Désolé, une erreur est survenue ; la traduction n’a pas pu être mise à jour.
+  admin_translated_news_item_active: Publié
+  admin_translated_news_item_create_successful_notice: La traduction a été ajoutée à <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: Désolé, une erreur s’est produite, la traduction n’a pas pu être ajoutée.
+  admin_translated_news_item_delete_confirmation: Êtes-vous sûr de vouloir supprimer la version %{language} de "%{page_name}"? Les pages supprimées ne peuvent pas être récupérées.
+  admin_translated_news_item_delete_successful_notice: La traduction en %{language} de l’élément d’information <em>%{page_name}</em> a été supprimée.
+  admin_translated_news_item_edit_subheader: Modifier la traduction en %{language} de <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: Le titre et le corps de la page sont %{required_icon} obligatoires.
+  admin_translated_news_item_new_header: Choisissez une langue et ajoutez le contenu
+  admin_translated_news_item_new_link: Ajouter la traduction
+  admin_translated_news_item_new_subheader: Ajouter une traduction à <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: La langue, le titre et le corps de la page sont %{required_icon} obligatoires.
   admin_translated_news_item_not_active: Non publié
+  admin_translated_news_item_update_successful_notice: La traduction en %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
   admin_translated_news_item_update_unsuccessful_error: Désolé, une erreur est survenue, la traduction n’a pas pu être mise à jour.
   admin_user_delete_successful_notice: Utilisateur a été supprimé
   admin_user_hide_successful_notice: Utilisateur a été masqué
@@ -897,6 +972,8 @@ fr:
   already_a_member_question: Déjà membre ?
   already_member_of_community: Vous êtes déjà un membre de cette communauté.
   alternate_classification: Classification alternative
+  alternative_common_name_colon: "Autre nom usuel:"
+  alternative_name_colon: "Autre nom:"
   amount: Montant
   an_unknown_user: Un utilisateur inconnu
   and: et
@@ -906,6 +983,7 @@ fr:
   anonymous_user_given_name: Anonyme
   anonymous_user_tag_line: Non Connecté
   any_integer: un entier quelconque
+  any_string: n'importe quelle chaîne
   api_docs_collections_description: Étant donné l’identifiant d’une collection, cette IPA retournera toutes les métadonnées à propos de la collection et des éléments qu’elle contient. La liste des éléments peut être filtrée par type d’élément et triée selon les attributs listés ci-dessus.
   application_version_advisory_information: Version de l’application
   are_you_sure: Êtes-vous sûr ?
@@ -929,6 +1007,7 @@ fr:
   assistive_literature_header: Littérature
   assistive_maps_header: Cartes
   assistive_media_header: Média
+  assistive_names_classifications_header: Classifications
   assistive_names_common_header: Noms usuels
   assistive_names_related_header: Noms apparentés
   assistive_names_synonyms_header: Synonymes
@@ -945,6 +1024,18 @@ fr:
   associated_with_map_header: Dans la dernière carte
   associated_with_sound_header: Dans le dernier enregistrement sonore
   associated_with_video_header: Dans la dernière vidéo
+  association_hidden_for_taxa: 
+    one: "Masqué pour:"
+    other: "Masqués pour:"
+  association_trusted_for_taxa: 
+    one: "Fiable pour:"
+    other: "Fiables pour:"
+  association_unreviewed_for_taxa: 
+    one: "Non relu pour:"
+    other: "Non relus pour:"
+  association_untrusted_for_taxa: 
+    one: "Non fiable pour:"
+    other: "Non fiables pour:"
   associations_more_link: davantage d’<span class="assistive">associations au taxon</span>
   attribute: Attribut
   audio_current_time_assistive: Lorsque JavaScript est activé, cela indiquera la position actuelle de lecture du fichier sonore en minutes et secondes.
@@ -983,12 +1074,14 @@ fr:
   by_scientific_name_table_header: par nom scientifique
   cache_store: Stockage du cache
   calculate_averages_slow: Calculer des moyennes (lent)
+  call_api: Appeler l'API
   cancel: Annuler
   cancel_split: Annuler
   cannot_be_associated_with_both_a_user_and_a_community: Ne peux être associé à la fois à un utilisateur et une communauté
   cannot_be_empty: ne peut pas être vide.
   cannot_create_collection_item_from_class_error: On ne peut créer aucun élément de collection à partir d’une %{klass}
   cannot_create_community_from_watch_collection_error: Vous ne pouvez créer aucune communauté à partir d’une liste de suivi.
+  cannot_curate_association_in_preview_mode: L'association avec %{name} ne peut pas être conservée car elle a été vue après une récolte.
   cannot_expand_children: impossible d’étendre les enfants
   cannot_find_member: Impossible de trouver un membre avec cet identifiant.
   cannot_index_collection_item_type_error: Impossible d’indexer un élément de collection à partir d’un %{type}
@@ -1003,11 +1096,35 @@ fr:
   citation: Citation
   citation_example: Fisher, Brian. « Pogonomyrmex anergismus Cole, 1954. » Encyclopédie de la vie, disponible sur <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accédé le 15 janvier 2009.
   citing_link: Citation
+  classification_already_preferred: "Erreur: Cette classification a déjà été marquée comme préférée."
+  classification_button_help: Veuillez sélectionner la classification qui représente le mieux la page existante ci-dessous, et cliquez sur le bouton "utiliser comme modèle" correspondant. Pour annuler toute l’opération, cliquez sur "annuler".
+  classification_curation_pending: Conservation en attente. Cette classification pourrait être déplacée vers une autre page dans un proche avenir.
+  classification_curation_split_comment_with_count: 
+    one: "%{count} classification depuis cette page a été <a href='%{url}'>divisée sur sa propre page</a>."
+    other: "%{count} classifications depuis cette page ont été <a href='%{url}'>divisées sur leur propre page</a>."
+  classification_from_agent: Classification de %{agent}.
+  classification_from_agent_chosen_by_curator: Classification de %{agent} choisie par %{curator}.
+  classification_from_agent_chosen_by_curator_see_more: Classification de %{agent} choisie par %{curator} - <a href="%{more_link}">voir davantage</a>.
+  classification_merge_help: <b>Vous êtes sur le point de déplacer des classifications depuis cette page.</b> Pour le faire, vous devez nous faire savoir lesquelles, parmi les classifications existantes, vous pensez représenter  <i>le mieux</i> la page de taxon depuis laquelle vous déplacez les classifications. Cela nous aidera à conserver les classifications que vous avez sélectionnées séparées depuis cette page à l'avenir.
+  classification_preferred_for_taxon: Préféré
   classification_preferred_for_taxon_help_tip: "%{icon} marque la classification préférée pour ce taxon."
+  classification_split_help: <b>Vous êtes sur le point de divises des classifications depuis cette page.</b> Pour le faire, vous devez nous faire savoir lesquelles, parmi les classifications existantes, vous pensez représenter <i>le mieux</i> la page existante. Cela nous aidera à conserver les classifications que vous avez sélectionnées séparées depuis cette page à l'avenir.
+  classification_split_warning: <b>Prenez un moment pour vous assurez que vous avez sélectionné <i>toutes</i> les classifications qui correspondent à la page cible.</b> Par exemple, si vous divisez ou déplacez une classification des amanites depuis une page de raton-laveur, vous devez sélectionner toutes les classifications des amanites pour cette opération. Si vous en oubliez une, corriger cela plus tard pourrait être difficile.
+  classification_summary_section_header: Classification
   classification_tree_header: Classification
+  classifications_edit_cancelled_busy: Désolé, votre requête pour modifier les classifications ne peut pas être exécutée pour l’instant; une ou plusieurs des pages de taxon sont verrouillées. Une requête existante pour modifier ces classifications est en cours d’exécution.
+  classifications_edit_cancelled_merge_to_self: Votre source et votre cible sont la même page; rien à déplacer.
   classifications_empty: Cette page ne fait partie d’aucune des classifications qui peuvent être parcourues sur l’EdlV.
+  classifications_exemplar_column_header: Modèle
+  classifications_hierarchy_column_header: Classification
+  classifications_locked: Les classifications de cette page ne peuvent pas être modifiées pour l’instant. Une autre demande pour modifier ces classifications est en cours d’exécution.
+  classifications_merge_additional_confirm_required: Pour fusionner ces classifications, une confirmation supplémentaire est nécessaire.
+  classifications_merge_providers_match_confirm: Je confirme que je veut écraser l’affirmation de ce partenaire de contenu que ces données devraient être séparées.
+  classifications_merge_providers_match_warning: Vous êtes sur le point de fusionner deux pages où %{provider} a affirmé que les données devraient être séparées. Veuillez confirmer que vous voulez <i>écraser</i> cette affirmation et mettre ces données sur la même page.
+  classifications_preferred_column_header: Préféré
   classifications_rank_column_header: Rang
   classifications_recognized_by_column_header: Reconnu par
+  classifications_split_column_header: Séparer / Déplacer
   classifications_summary_header_with_count: 
     one: Trouvé dans %{count} classification
     other: Trouvé dans %{count} classifications
@@ -1029,9 +1146,11 @@ fr:
   cms_missing_content_title: Traduction manquante
   collect_item: élément de collecte
   collect_items: éléments de collecte
+  collection_api_sort_field_notes: Si un paramètre sort_field est inclus, seuls les éléments de la collection dont le champ de tri correspond exactement à la chaîne fournie seront renvoyés
   collection_created_notice: La collection <em>%{collection_name}</em> a été créée avec succès.
   collection_delete_link: Supprimer définitivement cette collection.
   collection_destroyed: La collection a été supprimée.
+  collection_error_no_items_selected: "Erreur: Aucun élément sélectionné, aucune action ne sera effectuée."
   collection_image: Image de la collection
   collection_is_empty: Cette collection est actuellement vide.
   collection_item_edit_by_javascript_not_authorized_error: Désolé, vous n’êtes pas autorisé à modifier cet élément de collection. Si vous êtes le propriétaire de la collection ou son modificateur, veuillez recharger la page et vérifier que vous êtes encore identifié.
@@ -1158,6 +1277,7 @@ fr:
   community_contributions_with_count: 
     one: "%{count} contribution"
     other: "%{count} contributions"
+  community_description_default: Une communauté de l’Encyclopédie de la Vie.
   community_destroyed: Vous avez supprimé cette communauté. Elle n’apparaîtra plus dans les pages de taxon ni dans les résultats de recherches.
   community_empty_notice: Cette communauté n’a aucun membre.
   community_focus: Collections gérées
@@ -1250,6 +1370,7 @@ fr:
   content_partner_current_agreement_view_link: Afficher
   content_partner_data_description_empty: Personne n’a ajouté de description aux données fournies.
   content_partner_data_description_header: Description des données
+  content_partner_default_description: Un partenaire de contenu de l’Encyclopédie de la Vie.
   content_partner_edit_link: Modifier le partenaire de contenu
   content_partner_filter_option_published_latest_harvest_not_published: Non-publiés les plus récents
   content_partner_filter_option_published_latest_harvest_pending_publish: Dernière publication en attente

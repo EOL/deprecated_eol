@@ -28,7 +28,7 @@ class String
     string = self.clone
     string.gsub(@@non_word_chars_regex, '_').gsub(@@dup_underscores_regex, '_')
   end
-  
+
   # No, this is not a comprehensive list of languages where it's acceptable (and/or applicable) to capitalize all the
   # words in a common name, but this is our current whitelist. ...Likely to be updated...
   def capitalize_all_words_if_language_safe
@@ -38,15 +38,26 @@ class String
       self
     end
   end
-  
+
   def capitalize_all_words
     string = self.clone
     unless string.blank?
-      string = string.split(/ /).map {|w| w.firstcap }.join(' ')
+      string = string.split(/ /).map do |w|
+        ignores = String.words_not_to_capitalize[I18n.locale.to_sym]
+        if(ignores && ignores.include?(w.downcase))
+          w.downcase
+        else
+          w.firstcap
+        end
+      end.join(' ')
     end
     string
   end
-  
+
+  def self.words_not_to_capitalize
+    { :en => [ 'and', 'of' ] }
+  end
+
 end
 
 module ActiveRecord

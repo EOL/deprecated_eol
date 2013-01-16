@@ -5,7 +5,7 @@
 # Author: Wouterkoch
 nb: 
   translated_activities-name-activity_id-19: profil
-  translated_activities-name-activity_id-50: uklarert
+  translated_activities-name-activity_id-50: ikke-klarert
   translated_activities-name-activity_id-51: vis
   translated_activities-name-activity_id-52: opprett
   translated_activities-name-activity_id-53: skjul
@@ -352,7 +352,7 @@ nb:
   translated_user_identities-label-user_identity_id-4: en borgerforsker
   translated_user_identities-label-user_identity_id-5: en profesjonell vitenskapsmann
   translated_vetted-label-vetted_id-0: Ukjent
-  translated_vetted-label-vetted_id-4: Uklarert
+  translated_vetted-label-vetted_id-4: Ikke-klarert
   translated_vetted-label-vetted_id-5: Klarert
   translated_vetted-label-vetted_id-6: Upassende
   translated_view_styles-name-view_style_id-1: Liste

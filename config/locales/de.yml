@@ -835,7 +835,7 @@ de:
   admin_content_page_child_new_link: Untergeordnete Seite erstellen
   admin_content_page_create_successful_notice: Die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde erfolgreich erstellt.
   admin_content_page_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Seite nicht erstellt werden konnte.
-  admin_content_page_delete_confirmation: Sind Sie sicher, dass Sie „%{page_name}“ und alle Übersetzungen löschen möchten. Löschungen können nicht rückgängig gemacht werden.
+  admin_content_page_delete_confirmation: Sind Sie sicher, dass Sie „%{page_name}“ und alle Übersetzungen löschen möchten? Löschungen können nicht wiederhergestellt werden.
   admin_content_page_delete_successful_notice: Die Seite %{page_name} sowie alle ihr zugeordneten Übersetzungen wurde gelöscht.
   admin_content_page_edit_header: Die grundlegenden Informationen zur Seite <em>%{page_name}</em> aktualisieren
   admin_content_page_edit_tip: Es wird empfohlen, dass Sie den eindeutigen Namen dieser Seiten nicht bearbeiten, es sei denn, Sie sind sich der Folgen dessen vollkommen Bewusst. Dies schließt auch die Auswirkungen auf bestehende Verlinkungen auf diese Seite, oder anderweitig festgelegte Links zu ihr, mit ein. Der eindeutige Name ist %{required_icon} erforderlich.
@@ -877,7 +877,7 @@ de:
   admin_news_item_active: Veröffentlicht
   admin_news_item_create_successful_notice: Die Nachricht <a href="#%{anchor}"><em>%{page_name}</em></a> wurde erfolgreich erstellt.
   admin_news_item_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Nachricht nicht erstellt werden konnte.
-  admin_news_item_delete_confirmation: Sind Sie sicher, dass Sie „%{page_name}“ und alle Übersetzungen löschen möchten. Löschungen können nicht rückgängig gemacht werden.
+  admin_news_item_delete_confirmation: Sind Sie sicher, dass Sie „%{page_name}“ und alle Übersetzungen löschen möchten? Löschungen können nicht wiederhergestellt werden.
   admin_news_item_delete_successful_notice: Die Nachricht %{page_name} sowie alle ihr zugeordneten Übersetzungen wurde gelöscht.
   admin_news_item_edit_header: Die grundlegenden Informationen zur Nachricht <em>%{page_name}</em> aktualisieren
   admin_news_item_edit_tip: Es wird empfohlen, dass Sie den eindeutigen Namen dieser Nachricht nicht bearbeiten, es sei denn, Sie sind sich der Folgen dessen vollkommen Bewusst. Dies schließt auch die Auswirkungen auf bestehende Verlinkungen auf diese Seite, oder anderweitig festgelegte Links zu ihr, mit ein. Der eindeutige Name ist %{required_icon} erforderlich.
@@ -897,7 +897,7 @@ de:
   admin_statistics_link: Statistiken
   admin_translated_content_page_create_successful_notice: Die Übersetzung wurde der Seite <a href="#%{anchor}"><em>%{page_name}</em></a> hinzugefügt.
   admin_translated_content_page_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Übersetzung nicht hinzugefügt werden konnte.
-  admin_translated_content_page_delete_confirmation: Sind Sie sicher, dass Sie die Übersetzung auf %{language} der Seite „%{page_name}“ löschen möchten. Löschungen können nicht rückgängig gemacht werden.
+  admin_translated_content_page_delete_confirmation: Sind Sie sicher, dass Sie die Übersetzung auf %{language} der Seite „%{page_name}“ löschen möchten? Löschungen können nicht wiederhergestellt werden.
   admin_translated_content_page_delete_successful_notice: Die Übersetzung auf %{language} der Seite <em>%{page_name}</em> wurde gelöscht.
   admin_translated_content_page_edit_subheader: Bearbeiten Sie die Übersetzung auf %{language} der Seite <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Titel und Text sind %{required_icon} erforderlich.
@@ -910,7 +910,7 @@ de:
   admin_translated_news_item_active: Veröffentlicht
   admin_translated_news_item_create_successful_notice: Die Übersetzung wurde der Seite <a href="#%{anchor}"><em>%{page_name}</em></a> hinzugefügt.
   admin_translated_news_item_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Übersetzung nicht hinzugefügt werden konnte.
-  admin_translated_news_item_delete_confirmation: Sind Sie sicher, dass Sie die Übersetzung auf %{language} der Seite „%{page_name}“ löschen möchten. Löschungen können nicht rückgängig gemacht werden.
+  admin_translated_news_item_delete_confirmation: Sind Sie sicher, dass Sie die Übersetzung auf %{language} der Seite „%{page_name}“ löschen möchten? Löschungen können nicht wiederhergestellt werden.
   admin_translated_news_item_delete_successful_notice: Die Übersetzung auf %{language} der Nachricht <em>%{page_name}</em> wurde gelöscht.
   admin_translated_news_item_edit_subheader: Bearbeiten Sie die Übersetzung auf %{language} der Seite <em>%{page_name}</em>
   admin_translated_news_item_edit_tip: Titel und Text sind %{required_icon} erforderlich.
@@ -985,6 +985,8 @@ de:
   already_a_member_question: Sind Sie bereits Mitglied?
   already_member_of_community: Sie sind bereits Mitglied dieser Gemeinschaft.
   alternate_classification: Alternative Klassifizierung
+  alternative_common_name_colon: "Alternativer gebräuchlicher Name:"
+  alternative_name_colon: "Alternativer Name:"
   amount: Betrag
   an_unknown_user: Ein unbekannter Nutzer
   and: und
@@ -1727,6 +1729,7 @@ de:
     next: Nächster
     previous: Vorheriger
   dato_create_cancel: Abbrechen
+  dato_create_user_link_error: Leider ist ein Fehler aufgetreten. Der Link konnte nicht hinzugefügt werden.
   dato_create_user_text_error: Es ist leider ein Fehler aufgetreten, so dass der Artikel nicht hinzugefügt werden konnte.
   dato_create_user_text_missing_taxon_id_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_id gleich Null ist.
   dato_create_user_text_missing_user_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_id gleich Null ist.
@@ -2968,6 +2971,7 @@ de:
   personal_profile_menu: Persönliches Profil
   personal_space: Persönlicher Bereich
   ping_method_description: Diese Methode wird entweder scheitern und höchstwahrscheinlich eine EOL-Fehlerseite anzeigen oder es wird eine Erfolgsnachricht gezeigt. Andere Meldungen gibt es hierzu nicht.
+  pinterest: Pinterest
   please_ask_big_before_changing_toc: Bitte nehmen Sie Kontakt zur Gruppe für Biodiversitätsinformatik auf, bevor Sie das Inhaltsverzeichnis bearbeiten. Einige Kapitelnamen können nicht verändert werden, da ihren Namen dem Abruf der Inhalte dienen. Informationsobjekte können nicht über diese Nutzeroberfläche hinterlegt und müssen manuell in der Datenbank gepflegt werden.
   please_confirm_your_donation_details: Bitte bestätigen Sie die Angaben zu Ihrer Spende
   please_indicate_curation_reason: "Wählen Sie bitte einen Grund und/oder geben Sie alternativ einen Kommentar an:"
@@ -3162,6 +3166,7 @@ de:
   search_term_reports: Bericht zu den Suchbegriffen
   search_term_reports_title: Berichte zu den Suchbegriffen
   search_the_site: Website durchsuchen
+  see_all_activity_combinations: Alle Aktivitätskombinationen innerhalb 5 Minuten ansehen.
   see_all_classifications_with_count_html: 
     one: <span class="assistive">Die genehmigte Klassifikation ansehen, in der dieses Taxon vorkommt.</span>
     other: <span class="assistive">Alle %{count} genehmigten Klassifikationen ansehen, in denen dieses Taxon vorkommt.</span>

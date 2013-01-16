@@ -1481,9 +1481,9 @@ sr:
   item_type_video: Видео
   item_type_video_assistive: Ова ставка је видео-снимак
   item_updated_in_collection_notice: Ставка је ажурирана у збирци <em>%{collection_name}</em>.
-  items_no_copy_none_selected_warning: Умножавање није спроведено јер ставке нису изабране. Ако желите да умножите ставке на другу збирку, прво означите одговарајућу кућицу поред жељене ставке.
-  items_no_move_none_selected_warning: Премештање није спроведено јер ставке нису изабране. Ако желите да преместите ставке на другу збирку, прво означите одговарајућу кућицу поред жељене ставке.
-  items_no_remove_none_selected_warning: Уклањање није спроведено јер ставке нису изабране. Ако желите да уклоните ставке из збирке, прво означите одговарајућу кућицу поред жељене ставке.
+  items_no_copy_none_selected_warning: Не могу да копирам ставке јер нисте изабрали ниједну. Да бисте копирали ставке у другу збирку, прво означите кућицу до жељене ставке у списку.
+  items_no_move_none_selected_warning: Не могу да преместим ставке јер нисте изабрали ниједну. Да бисте преместили ставке у другу збирку, прво означите кућицу до жељене ставке у списку.
+  items_no_remove_none_selected_warning: Не могу да уклоним ставке јер нисте изабрали ниједну. Да бисте уклонили ставке из збирке, прво означите кућицу до жељене ставке у списку.
   items_with_count_semi_colon: 
     one: "%{count} ставка;"
     other: "%{count} ставке;"
@@ -1853,7 +1853,7 @@ sr:
   option_please_select: Изаберите
   or_add_it_to_an_existing_collection: или је додајте у постојећу збирку
   or_add_it_to_an_existing_community: или је додајте у постојећу заједницу
-  or_copy_them_to_existing_collection: или их умножите у постојећу збирку
+  or_copy_them_to_existing_collection: или их копирајте у постојећу збирку
   or_email_education: Или пошаљите предлог на %{link}.
   or_move_them_to_existing_collection: или их преместите у постојећу збирку
   original: "Изворно:"
@@ -2620,7 +2620,7 @@ sr:
   wikipedia_queue_create_successful_notice: Чланак %{article} измена %{rev} из Википедије је стављена у ред за увоз.
   wikipedia_queue_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ставим Википедијин чланак у ред за увоз.<br/>Адреса измене се мора поклапати са http://en.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
   wikipedia_queue_new_instructions_intro: "Да бисте добили адресу измене Википедијиног чланка:"
-  wikipedia_queue_new_instructions_step_four: "Умножите адресу измене из прегледача и убаците је у образац за увоз на Википедији. Адреса измене треба да буде у следећем облику: <a href=\"http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931\">http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931</a>"
+  wikipedia_queue_new_instructions_step_four: "Копирајте адресу измене из прегледача у приказани образац за увоз из Википедије. Адреса измене треба да буде у следећем облику: <a href=\"http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931\">http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931</a>"
   wikipedia_queue_new_instructions_step_one: Идите на страницу Википедије, нпр. <a href="http://sr.wikipedia.org/w/index.php?title=Пингвин">http://sr.wikipedia.org/w/index.php?title=Пингвин</a>
   wikipedia_queue_new_instructions_step_three: Кликните на ставку „Трајна веза“. Ово је адреса текуће измене чланка, где можете прегледати и претходна издања.
   wikipedia_queue_new_instructions_step_two: Отворите мени „Алатке“ и тамо ћете видети ставку „Трајна веза“.

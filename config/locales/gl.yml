@@ -825,7 +825,7 @@ gl:
   admin_content_page_child_new_link: Crear a páxina secundaria
   admin_content_page_create_successful_notice: A páxina <a href="#%{anchor}"><em>%{page_name}</em></a> creouse correctamente.
   admin_content_page_create_unsuccessful_error: Sentímolo, houbo un erro. Non se creou a páxina.
-  admin_content_page_delete_confirmation: Estás seguro de querer borrar "%{page_name}" e todas as traducións. As eliminacións non se poden desfacer.
+  admin_content_page_delete_confirmation: Estás seguro de querer borrar "%{page_name}" e todas as traducións? As páxinas borradas non se poden recuperar.
   admin_content_page_delete_successful_notice: Borrouse a páxina "%{page_name}" xunto coas traducións asociadas.
   admin_content_page_edit_header: Actualizar a información básica da páxina <em>%{page_name}</em>
   admin_content_page_edit_tip: Recoméndase non editar o nome único da páxina a menos que sexas completamente consciente das consecuencias, incluído o impacto nas ligazóns cara a esta páxina ou cara ás raíces chamadas. %{required_icon} Cómpre un nome único.
@@ -867,7 +867,7 @@ gl:
   admin_news_item_active: Publicado
   admin_news_item_create_successful_notice: A nova <a href="#%{anchor}"><em>%{page_name}</em></a> creouse correctamente.
   admin_news_item_create_unsuccessful_error: Sentímolo, houbo un erro. Non se creou a nova.
-  admin_news_item_delete_confirmation: Estás seguro de querer borrar "%{page_name}" e todas as traducións. As eliminacións non se poden desfacer.
+  admin_news_item_delete_confirmation: Estás seguro de querer borrar "%{page_name}" e todas as traducións? As páxinas borradas non se poden recuperar.
   admin_news_item_delete_successful_notice: Borrouse a nova "%{page_name}" xunto coas traducións asociadas.
   admin_news_item_edit_header: Actualizar a información básica da nova <em>%{page_name}</em>
   admin_news_item_edit_tip: Recoméndase non editar o nome único da nova a menos que sexas completamente consciente das consecuencias, incluído o impacto nas ligazóns cara a esta páxina ou cara ás raíces chamadas. %{required_icon} Cómpre un nome único.
@@ -887,7 +887,7 @@ gl:
   admin_statistics_link: Estatísticas
   admin_translated_content_page_create_successful_notice: A tradución engadiuse a <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Sentímolo, houbo un erro. Non se engadiu a tradución.
-  admin_translated_content_page_delete_confirmation: Está seguro de querer borrar a versión en %{language} de "%{page_name}". A eliminación non se pode desfacer.
+  admin_translated_content_page_delete_confirmation: Está seguro de querer borrar a versión en %{language} de "%{page_name}"? As páxinas borradas non se poden recuperar.
   admin_translated_content_page_delete_successful_notice: Borrouse a tradución en %{language} da páxina <em>%{page_name}</em>.
   admin_translated_content_page_edit_subheader: Editar a tradución en %{language} da páxina <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: "%{required_icon} Cómpre especificar o título e o corpo."
@@ -900,7 +900,7 @@ gl:
   admin_translated_news_item_active: Publicado
   admin_translated_news_item_create_successful_notice: A tradución engadiuse a <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: Sentímolo, houbo un erro. Non se engadiu a tradución.
-  admin_translated_news_item_delete_confirmation: Está seguro de querer borrar a versión en %{language} de "%{page_name}". A eliminación non se pode desfacer.
+  admin_translated_news_item_delete_confirmation: Está seguro de querer borrar a versión en %{language} de "%{page_name}"? As páxinas borradas non se poden recuperar.
   admin_translated_news_item_delete_successful_notice: Borrouse a tradución en %{language} da nova <em>%{page_name}</em>.
   admin_translated_news_item_edit_subheader: Editar a tradución en %{language} da páxina <em>%{page_name}</em>
   admin_translated_news_item_edit_tip: "%{required_icon} Cómpre especificar o título e o corpo."
@@ -975,6 +975,8 @@ gl:
   already_a_member_question: Xa es membro?
   already_member_of_community: Xa es membro desta comunidade.
   alternate_classification: Clasificación alternativa
+  alternative_common_name_colon: "Nome común alternativo:"
+  alternative_name_colon: "Nome alternativo:"
   amount: Cantidade
   an_unknown_user: Un usuario descoñecido
   and: e
@@ -1718,6 +1720,7 @@ gl:
     next: Seguinte
     previous: Anterior
   dato_create_cancel: Cancelar
+  dato_create_user_link_error: Sentímolo, houbo un erro. Non se engadiu a ligazón.
   dato_create_user_text_error: Sentímolo, houbo un erro. Non se engadiu o artigo.
   dato_create_user_text_missing_taxon_id_exception: Non se pode construír un obxecto de datos textual ou de usuario se o identificador do taxon é nulo.
   dato_create_user_text_missing_user_exception: Non se pode construír un obxecto de datos textual ou de usuario se o identificador do taxon é nulo.
@@ -2959,6 +2962,7 @@ gl:
   personal_profile_menu: Perfil persoal
   personal_space: Espazo persoal
   ping_method_description: Este método ha fallar (en cuxo caso aparecerá a páxina de erro da EOL) ou ha devolver unha mensaxe de éxito. Non hai outras mensaxes posibles
+  pinterest: Pinterest
   please_ask_big_before_changing_toc: Fala cun membro do grupo informático da biodiversidade antes de editar a táboa de contidos. Os nomes dalgúns capítulos non se poden cambiar debido a que o código procura algúns capítulos por etiquetas. Os elementos de información non se poden integrar nesta interface; cómpre facelo de xeito manual na base de datos.
   please_confirm_your_donation_details: Confirma os detalles da túa doazón
   please_indicate_curation_reason: "Selecciona un motivo e/ou, opcionalmente, deixa un comentario de conservación:"
@@ -3153,6 +3157,7 @@ gl:
   search_term_reports: informes sobre a procura de termos
   search_term_reports_title: Informes sobre a procura de termos
   search_the_site: Procurar no sitio
+  see_all_activity_combinations: Ollar todas as combinacións de actividade dentro de 5 minutos.
   see_all_classifications_with_count_html: 
     one: Ollar <span class="assistive">%{count} clasificación aprobada na que aparece este taxon.</span>
     other: Ollar as <span class="assistive">%{count} clasificacións aprobadas nas que aparece este taxon.</span>

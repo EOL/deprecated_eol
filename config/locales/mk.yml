@@ -825,7 +825,7 @@ mk:
   admin_content_page_child_new_link: Создај потстраница
   admin_content_page_create_successful_notice: Страницата <a href="#%{anchor}"><em>%{page_name}</em></a> е успешно создадена.
   admin_content_page_create_unsuccessful_error: Нажалост, се појави грешка. Страницата не е создадена.
-  admin_content_page_delete_confirmation: Дали сте сигурни дека сакате да ја избришете страницата „%{page_name}“ и сите преводи. Избришаното не може да се врати.
+  admin_content_page_delete_confirmation: Дали сте сигурни дека сакате да ја избришете страницата „%{page_name}“ и сите преводи? Избришаното не може да се поврати.
   admin_content_page_delete_successful_notice: Страницата %{page_name} и поврзаните преводи се избришани.
   admin_content_page_edit_header: Поднови основни информации за страницата <em>%{page_name}</em>
   admin_content_page_edit_tip: Се препорачува да не го менувате единственото име на оваа страница ако не сте наполно свесни за последиците, вклучувајќи ги последиците по врските на страницата и именуваните правци. Единственото име е %{required_icon} задолжително.
@@ -867,7 +867,7 @@ mk:
   admin_news_item_active: Објавено
   admin_news_item_create_successful_notice: Новоста <a href="#%{anchor}"><em>%{page_name}</em></a> е успешно создадена.
   admin_news_item_create_unsuccessful_error: Нажалост, се појави грешка. Новоста не е создадена.
-  admin_news_item_delete_confirmation: Дали сте сигурни дека сакате да ја избришете новоста „%{page_name}“ и сите преводи. Избришаното не може да се врати.
+  admin_news_item_delete_confirmation: Дали сте сигурни дека сакате да ја избришете новоста „%{page_name}“ и сите преводи? Избришаното не може да се поврати.
   admin_news_item_delete_successful_notice: Новоста %{page_name} и поврзаните преводи се избришани.
   admin_news_item_edit_header: Поднови основни информации за новоста <em>%{page_name}</em>
   admin_news_item_edit_tip: Се препорачува да не го менувате единственото име на оваа страница ако не сте наполно свесни за последиците, вклучувајќи ги последиците по врските на страницата и именуваните правци. Единственото име е %{required_icon} задолжително.
@@ -887,7 +887,7 @@ mk:
   admin_statistics_link: Статистики
   admin_translated_content_page_create_successful_notice: Додаден е превод на страницата <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да го додадам преводот.
-  admin_translated_content_page_delete_confirmation: Дали сте сигурни дека сакате да ја избришете верзијата на %{language} на страницата „%{page_name}“. Избришаното не може да се врати.
+  admin_translated_content_page_delete_confirmation: Дали сте сигурни дека сакате да ја избришете верзијата на %{language} на страницата „%{page_name}“? Избришаното не може да се поврати.
   admin_translated_content_page_delete_successful_notice: Преводот на %{language} на страницата <em>%{page_name}</em> е избришан.
   admin_translated_content_page_edit_subheader: Уредување на преводот на %{language} на страницата <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Насловот и текстот се %{required_icon} задолжителни.
@@ -900,7 +900,7 @@ mk:
   admin_translated_news_item_active: Објавено
   admin_translated_news_item_create_successful_notice: Додаден е превод на новоста <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да го додадам преводот.
-  admin_translated_news_item_delete_confirmation: Дали сте сигурни дека сакате да ја избришете верзијата на %{language} на новоста „%{page_name}“. Избришаното не може да се врати.
+  admin_translated_news_item_delete_confirmation: Дали сте сигурни дека сакате да ја избришете верзијата на %{language} на новоста „%{page_name}“? Избришаното не може да се поврати.
   admin_translated_news_item_delete_successful_notice: Преводот на %{language} на новоста <em>%{page_name}</em> е избришан.
   admin_translated_news_item_edit_subheader: Уредување на преводот на %{language} на новоста <em>%{page_name}</em>
   admin_translated_news_item_edit_tip: Насловот и текстот се %{required_icon} задолжителни.
@@ -975,6 +975,8 @@ mk:
   already_a_member_question: Веќе членувате?
   already_member_of_community: Веќе членувате во оваа заедница.
   alternate_classification: Алтернативна класификација
+  alternative_common_name_colon: "Друго тривијално име:"
+  alternative_name_colon: "Друго име:"
   amount: Износ
   an_unknown_user: Непознат корисник
   and: и
@@ -1716,6 +1718,7 @@ mk:
     next: Следно
     previous: Претходно
   dato_create_cancel: Откажи
+  dato_create_user_link_error: Нажалост, се појави грешка. Не можев да ја додадам врската.
   dato_create_user_text_error: Нажалост, се појави грешка. Не можев да ја додадам статијата.
   dato_create_user_text_missing_taxon_id_exception: Не можам да составам текстуален DataObject или UsersDataObject ако нема назнака за таксонот.
   dato_create_user_text_missing_user_exception: Не можам да срочам DataObject или UsersDataObject за текст ако нема назнака за таксонот.
@@ -2957,6 +2960,7 @@ mk:
   personal_profile_menu: Личен профил
   personal_space: Личен простор
   ping_method_description: Овој метод или нема да успее (тогаш ќе добиете известување за грешка) или ќе даде порака за успешно спроведена постапка. Не постојат други пораки освен овие две
+  pinterest: Pinterest
   please_ask_big_before_changing_toc: Консултирајте член на групата Биоразновидносна информатика пред да го уредувате прегледот на содржини. Некои имиња на главите не можат да се менуваат бидејќи се врзани со самиот код. Инфообјектите не можат да се пресликаат на овој посредник - тоа мора да се изврши рачно во базата.
   please_confirm_your_donation_details: Потврдете ги податоците за прилогот
   please_indicate_curation_reason: Одберете причина и/или напишете кустоски коментар.
@@ -3151,6 +3155,7 @@ mk:
   search_term_reports: извештаи за пребараните поими
   search_term_reports_title: Извештаи за пребарувани поими
   search_the_site: Пребарајте по мрежното место
+  see_all_activity_combinations: Погл. сите комбинации на активности во траење од 5 минути.
   see_all_classifications_with_count_html: 
     one: Погледајте ја <span class="assistive">%{count} одобрената класификација кајшто фигурира овој таксон.</span>
     other: Погледајте ги сите <span class="assistive">%{count} одобрени класификации кајшто фигурира овој таксон.</span>

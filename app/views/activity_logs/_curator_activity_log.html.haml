@@ -55,7 +55,7 @@
   - tc = TaxonConcept.find(item.target_id) rescue nil
   - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
   - translation_vars[:taxon] = link_to(tc.quick_scientific_name, taxon_url(tc), :style => link_style)
-- if item.activity_id == Activity.split_classifications.id || item.activity_id == Activity.merge_classifications.id || item.activity_id == Activity.preferred_classification.id
+- if (item.activity_id == Activity.split_classifications.id || item.activity_id == Activity.merge_classifications.id || item.activity_id == Activity.preferred_classification.id) && item.hierarchy_entry
   - provider = hierarchy_entry_display_attribution(HierarchyEntry.find(item.hierarchy_entry), :show_rank => false, :show_link => true)
   - if item.hierarchy_entry.has_source_database?
     - provider = raw(I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name))

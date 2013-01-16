@@ -2835,7 +2835,7 @@ en:
   credentials: "Credentials"
   credentials_colon: "Credentials:"
   crop_image: "crop image"
-  crop_image_thumbnails: "Crop Image Thumbnails"
+  crop_image_thumbnails: "Crop image thumbnails"
   curated: "Curated"
   curated_association_update_button: "Save changes"
   curated_objects_of: "curated objects of %{name}"

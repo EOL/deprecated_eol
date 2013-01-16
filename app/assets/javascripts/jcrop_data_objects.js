@@ -55,7 +55,7 @@ $(function(){
   function checkCoords()
   {
     if (parseInt($crop_form.children('[name="w"]').val())>0) return true;
-    alert('Please select a crop region then press submit.');
+    alert('Please select a crop region in the larger image, then press "crop image".');
     return false;
   }
 

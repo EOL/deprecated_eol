@@ -1,7 +1,6 @@
 # encoding: utf-8
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'capybara'
-
 include ActionController::Caching::Fragments
 
 describe 'Home page', :js => true do
@@ -36,6 +35,8 @@ describe 'Home page', :js => true do
     click_link "Click here to see other search results."
     page.should have_content("Panthera tigris")
     page.should have_content("Displaying 1 – 25 of") # I don't care how many, as long as > 25.
+    click_link "see next 25"
+    page.should have_content("Displaying 26 – 50 of") # Still don't care how many.
     check "type_taxon_concept"
     click_button "Filter"
     page.should have_content("691 results for tiger") # Okay, I *do* care about the number, here.  :\
@@ -43,10 +44,22 @@ describe 'Home page', :js => true do
 
   it 'should find jrice' do
     visit "http://staging.eol.org/search?q=jrice"
-    page.should have_content "6 results for jrice"
+    page.should have_content "7 results for jrice"
     click_link "jrice"
     page.should have_content "Activity"
     page.should have_content "My info"
+  end
+
+  it 'should have a what is EOL link' do
+    visit "http://staging.eol.org/"
+    click_link "What is EOL?"
+    page.should have_content "Mission"
+  end
+
+  it 'should have a podcasts link' do
+    visit "http://staging.eol.org/"
+    click_link "Podcasts"
+    page.should have_content "Black-tailed prairie dogs"
   end
 
 end

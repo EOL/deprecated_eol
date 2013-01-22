@@ -867,6 +867,9 @@ sv:
         meta_keywords: "%{community_name}-samlingar"
         meta_title: "%{community_name}-samlingar"
         tweet_text: "%{community_name}-samlingar"
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, Encyclopedia of Life-gemenskap, %{community_name}-nyhetsflöde, %{community_name}-kommentarer, %{community_name}-aktivitet"
     show: 
       meta_description: Encyclopedia of Life-gemenskapen %{community_name} togs bort av sin ägare
       meta_title: "%{community_name} Togs bort av ägare"
@@ -1012,6 +1015,7 @@ sv:
     edit: 
       meta_title: Redigera %{partner_name}
     index: 
+      meta_description: Lista över dataleverantörer och innehållspartners på Encyclopedia of Life.
       meta_title: Innehållspartners
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
@@ -1046,6 +1050,7 @@ sv:
   copy: Kopiera
   copy_of_name: Kopia av %{name}
   copyright: "UPPHOVSRÄTT:"
+  correct_donation_message_with_link: Om denna information inte är korrekt, var god <a href='%{link}'>gå tillbaka</a> om du vill göra ändringar.
   could_not_find_collection_error: Tyvärr, samlingen kunde inte hittas.
   could_not_find_user: Du är inte en medlem i denna gemenskap.
   count: Räkna
@@ -1082,6 +1087,8 @@ sv:
   curator_level_with_indefinite_article_full_curator: en <strong>fullständig kurator</strong>
   curator_level_with_indefinite_article_master_curator: en <strong>mästarkurator</strong>
   curator_profile: kuratorprofil
+  curator_profile_menu: Kuratorprofil
+  curator_profile_of: kuratorprofil för %{name}
   curator_question: Kurator?
   curators: Kuratorer
   curators_empty: Våra kuratorer inte har bidragit information till detta taxon ännu.
@@ -1176,7 +1183,8 @@ sv:
     next: Nästa
     previous: Föregående
   dato_create_cancel: Avbryt
-  dato_create_user_text_error: Tyvärr, ett fel uppstod. Artikeln inte kunde läggas till.
+  dato_create_user_link_error: Tyvärr, ett fel uppstod. Länken kunde inte läggas till.
+  dato_create_user_text_error: Tyvärr, ett fel uppstod. Artikeln kunde inte läggas till.
   dato_edit_cancel: Avbryt
   dato_edit_link_button: Redigera denna länk
   dato_edit_link_title: Redigera länk
@@ -2171,7 +2179,7 @@ sv:
     one: från %{count} person
     other: från %{count} personer
   rating_added_notice: Betyg har lagts till.
-  rating_not_added_error: Tyvärr, ett fel uppstod. Betygsättningen inte kunde läggas till.
+  rating_not_added_error: Tyvärr, ett fel uppstod. Betygsättningen kunde inte läggas till.
   recaptcha: Skriv in de två orden du ser nedan
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha-tecknen</a> stämde inte överens, försök igen.
   recent_activities: 
@@ -2441,6 +2449,8 @@ sv:
           meta_title: Kuratorer för %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Experter på %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Kuratorer för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_keywords: "%{scientific_name}-experter, %{scientific_name}-kuratorer"
+        meta_keywords_with_common_name: "%{preferred_common_name}-experter, %{preferred_common_name}-kuratorer, %{scientific_name}-experter, %{scientific_name}-kuratorer"
         meta_title: Kuratorer för %{scientific_name}
         meta_title_with_common_name: Experter på %{preferred_common_name} (%{scientific_name})
         tweet_text: Kuratorer för %{scientific_name}
@@ -2544,6 +2554,10 @@ sv:
         meta_title: Utbildningsresurser för %{scientific_name}
         meta_title_with_common_name: Utbildningsresurser för %{preferred_common_name} (%{scientific_name})
         tweet_text: Utbildningsresurser för %{scientific_name}
+      show: 
+        meta_title: Innehållsresurser för %{scientific_name}
+        meta_title_with_common_name: Innehållsresurser för %{preferred_common_name} (%{scientific_name})
+        tweet_text: Innehållsresurser för %{scientific_name}
     updates: 
       show: 
         hierarchy_entry: 

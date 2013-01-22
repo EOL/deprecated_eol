@@ -6,6 +6,7 @@
 nb: 
   0_1_or_2: 0, 1 eller 2
   0_or_1: 0 eller 1
+  a_maximum_of_30_results_are_returned: et maksimum av 30 resultater returneres per side. Med denne parameteren kan du hente inn flere sider med resultater dersom det finnes mer enn 30 søkeresultater
   a_taxon: et takson
   about_eol: Om EOL
   account_information: Kontoinformasjon
@@ -298,6 +299,7 @@ nb:
     models: 
       user: konto
   activity: Aktivitet
+  activity_log_empty: Ingen har sendt inn oppdateringer ennå.
   activity_log_empty_learn_more_link: Lær hvordan du kan bidra
   activity_logs: 
     collection_activity_log: 
@@ -426,10 +428,91 @@ nb:
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> har lagt til en tilknytning til en ukjent side.
         user_associated_it_to_association: <strong>%{user}</strong> har lagt til en tilknytning til "%{association}".
       add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: En ukjent bruker har lagt til et ukjent populærnavn på et ukjent språk til en ukjent side.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: En ukjent bruker har lagt til et ukjent populærnavn på et ukjent språk.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: En ukjent bruker har lagt til et ukjent populærnavn på et ukjent språk til "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: En ukjent bruker har lagt til et ukjent populærnavn på %{language} til en ukjent side.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: En ukjent bruker har lagt til et ukjent populærnavn på %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: En ukjent bruker har lagt til et ukjent populærnavn på %{language} til "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: En ukjent bruker har lagt til populærnavnet "%{name}" på et ukjent språk til en ukjent side.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: En ukjent bruker har lagt til populærnavnet "%{name}" på et ukjent språk.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: En ukjent bruker har lagt til populærnavnet "%{name}" på et ukjent språk til "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: En ukjent bruker har lagt til det %{language}e populærnavnet "%{name}" til en ukjent side.
+        an_unknown_user_added_name_in_language_to_it: En ukjent bruker har lagt til det %{language}e populærnavnet "%{name}".
+        an_unknown_user_added_name_in_language_to_taxon: En ukjent bruker har lagt til det %{language}e populærnavnet "%{name}" til "%{taxon}".
         user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> har lagt til et ukjent populærnavn på et ukjent språk til en ukjent side.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> har lagt til et ukjent populærnavn på et ukjent språk.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> har lagt til et ukjent populærnavn på et ukjent språk til "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> har lagt til et ukjent populærnavn på %{language} til en ukjent side.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> har lagt til et ukjent populærnavn på %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> har lagt til et ukjent populærnavn på %{language} til "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> har lagt til populærnavnet "%{name}" på et ukjent språk til en ukjent side.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> har lagt til populærnavnet "%{name}" på et ukjent språk.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> har lagt til populærnavnet "%{name}" på et ukjent språk til "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> har lagt til det %{language}e populærnavnet "%{name}" til en ukjent side.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> har lagt til det %{language}e populærnavnet "%{name}".
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> har lagt til det %{language}e populærnavnet "%{name}" til "%{taxon}".
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: En ukjent bruker har valgt en eldre versjon av "%{data_object}" til å vises i oversikten på en ukjent side.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: En ukjent bruker har valgt "%{data_object}" til å vises i oversikten på "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: En ukjent bruker har valgt en ukjent artikkel til å vises i oversikten på en ukjent side.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: En ukjent bruker har valgt en ukjent artikkel til å vises i oversikten på "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: En ukjent bruker har valgt "%{data_object}" til å vises i oversikten på en ukjent side.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: En ukjent bruker har valgt "%{data_object}" til å vises i oversikten på "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: En ukjent bruker har valgt det til å vises i oversikten på en ukjent side.
+        an_unknown_user_chose_exemplar_it_on_taxon: En ukjent bruker har valgt det til å vises i oversikten på "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> har valgt en eldre versjon av "%{data_object}" til å vises i oversikten på en ukjent side.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> har valgt en eldre versjon av "%{data_object}" til å vises i oversikten på "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> har valgt en ukjent artikkel til å vises i oversikten på en ukjent side.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> har valgt et ukjent dataobjekt til å vises i oversikten på "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> har valgt "%{data_object}" til å vises i oversikten på en ukjent side.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> har valgt "%{data_object}" til å vises i oversikten på "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> har valgt det til å vises i oversikten på en ukjent side.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> har valgt det til å vises i oversikten på "%{taxon}".
+      choose_exemplar_image: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: En ukjent bruker har valgt en eldre versjon av "%{data_object}" som et eksempel på en ukjent side.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: En ukjent bruker har valgt "%{data_object}" som et eksempel på "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: En ukjent bruker har valgt et ukjent eksempelbilde.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: En ukjent bruker har valgt et ukjent dataobjekt som et eksempel på "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: En ukjent bruker har valgt "%{data_object}" som et eksempel på en ukjent side.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: En ukjent bruker har valgt "%{data_object}" som et eksempel på "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: En ukjent bruker har valgt det som et eksempel på en ukjent side.
+        an_unknown_user_chose_exemplar_it_on_taxon: En ukjent bruker har valgt det som et eksempel på "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> har valgt en eldre versjon av "%{data_object}" som et eksempel på en ukjent side.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> har valgt en eldre versjon av "%{data_object}" som et eksempel på "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> har valgt et ukjent eksempelbilde.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> har valgt et ukjent dataobjekt som et eksempel på "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> har valgt "%{data_object}" som et eksempel på en ukjent side.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> har valgt "%{data_object}" som et eksempel på "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> har valgt det som et eksempel på en ukjent side.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> har valgt det som et eksempel på "%{taxon}".
       classification_curation: 
         merge: 
           an_unknown_user_merged_to_an_unknown_taxon: En ukjent bruker har slått sammen to sider.
+          an_unknown_user_merged_to_it: En ukjent bruker har slått sammen en annen side med denne.
+          an_unknown_user_merged_to_taxon: En ukjent bruker har slått sammen en annen side til %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> har slått sammen to ukjente sider.
+          user_merged_to_it: <strong>%{user}</strong> har slått sammen en annen side med denne.
+          user_merged_to_taxon: <strong>%{user}</strong> har slått sammen en annen side med %{target}.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: En ukjent bruker har flyttet klassifiseringene av %{classifications} fra en ukjent side til en annen ukjent side.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: En ukjent bruker har flyttet klassifiseringene av %{classifications} fra en ukjent side til %{target}.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: En ukjent bruker har flyttet klassifiseringene av %{classifications} til en ukjent side.
+          an_unknown_user_moved_classifications_from_it_to_taxon: En ukjent bruker har flyttet klassifiseringene av %{classifications} til %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: En ukjent bruker har flyttet klassifiseringene av %{classifications} fra %{taxon} til en ukjent side.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: En ukjent bruker har flyttet klassifiseringene av %{classifications} fra %{taxon} til %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> har flyttet klassifiseringene av %{classifications} fra en ukjent side til en ukjent side.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> har flyttet klassifiseringene av %{classifications} fra en ukjent side til %{target}.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> har flyttet klassifiseringene av %{classifications} til en ukjent side.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> har flyttet klassifiseringene av %{classifications} til %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> har flyttet klassifiseringene av %{classifications} fra %{taxon} til en ukjent side.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> har flyttet klassifiseringene av %{classifications} fra %{taxon} til %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: En ukjent bruker har delt opp klassifiseringene av %{classifications} fra en ukjent side til <a href='%{to}'>en egen side</a>.
+          an_unknown_user_split_classifications_from_it: En ukjent bruker har delt opp klassifiseringene av %{classifications} til <a href='%{to}'>en egen side</a>.
+          an_unknown_user_split_classifications_from_taxon: En ukjent bruker har delt opp klassifiseringene av %{classifications} fra %{taxon} til <a href='%{to}'>en egen side</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> har delt opp klassifiseringene av %{classifications} fra en ukjent side til <a href='%{to}'>en egen side</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> har delt opp klassifiseringene av %{classifications} til <a href='%{to}'>en egen side</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som skjult i en ukjent sammenheng.
         an_unknown_user_hid_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som skjult på "%{association}"-siden.
@@ -448,9 +531,40 @@ nb:
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> har markert det som skjult i en ukjent sammenheng.
         user_hid_it_on_association: <strong>%{user}</strong> har markert den som skjult på "%{association}"-siden.
       merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: En ukjent bruker har flyttet klassifiseringen av "%{provider}" til et ukjent takson.
+        an_unknown_user_merged_entry_to_it: En ukjent bruker har lagt til klassifiseringen av "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: En ukjent bruker har flyttet klassifiseringen av "%{provider}" til "%{taxon}".
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: En ukjent bruker har flyttet en ukjent klassifisering til et ukjent takson.
         an_unknown_user_merged_unknown_entry_to_it: En ukjent bruker har lagt til en ukjent klassifisering.
+        an_unknown_user_merged_unknown_entry_to_taxon: En ukjent bruker har flyttet en ukjent klassifisering til "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> har flyttet klassifiseringen av "%{provider}" til et ukjent takson.
+        user_merged_entry_to_it: <strong>%{user}</strong> har lagt til klassifiseringen av "%{provider}".
+        user_merged_entry_to_taxon: <strong>%{user}</strong> har flyttet klassifiseringen av "%{provider}" til "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> har flyttet en ukjent klassifisering til et ukjent takson.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> har lagt til en ukjent klassifisering.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> har flyttet en ukjent klassifisering til "%{taxon}".
       other_actions: 
+        an_unknown_user_curated_an_older_data_object: En ukjent bruker har kuratert en eldre versjon av "%{data_object}".
+        an_unknown_user_curated_an_unknown_data_object: En ukjent bruker har kuratert et ukjent dataobjekt.
         an_unknown_user_curated_data_object: En ukjent bruker har kuratert "%{data_object}".
+        an_unknown_user_curated_it: En ukjent bruker har kuratert det, men den nøyaktige handlingen har gått tapt.
+        user_curated_an_older_data_object: <strong>%{user}</strong> har kuratert en eldre versjon av "%{data_object}".
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> har kuratert et ukjent dataobjekt.
+        user_curated_data_object: <strong>%{user}</strong> har kuratert "%{data_object}".
+        user_curated_it: <strong>%{user}</strong> har kuratert det, men den nøyaktige handlingen har gått tapt.
+      preferred_classification: 
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: En ukjent bruker har markert klassifiseringen fra "%{provider}" som foretrukket for et ukjent takson.
+        an_unknown_user_preferred_classification_on_it: En ukjent bruker har markert klassifiseringen fra "%{provider}" som foretrukket.
+        an_unknown_user_preferred_classification_on_taxon: En ukjent bruker har markert klassifiseringen fra "%{provider}" som foretrukket for "%{taxon}".
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: En ukjent bruker har markert en ukjent klassifisering som foretrukket for et ukjent takson.
+        an_unknown_user_preferred_unknown_classification_on_it: En ukjent bruker har markert en ukjent klassifisering som foretrukket.
+        an_unknown_user_preferred_unknown_classification_on_taxon: En ukjent bruker har markert en ukjent klassifisering som foretrukket for "%{taxon}".
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> har markert klassifiseringen fra "%{provider}" som foretrukket for et ukjent takson.
+        user_preferred_classification_on_it: <strong>%{user}</strong> har markert klassifiseringen fra "%{provider}" som foretrukket.
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> har markert klassifiseringen fra "%{provider}" som foretrukket for "%{taxon}".
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> har markert en ukjent klassifisering som foretrukket for et ukjent takson.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> har markert en ukjent klassifisering som foretrukket.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> har markert en ukjent klassifisering som foretrukket for "%{taxon}".
       reasons_to_hide: "Grunnlag for skjuling: %{reasons}"
       reasons_to_untrust: "Grunnlag for å ikke-klarere: %{reasons}"
       remove_association: 
@@ -470,6 +584,19 @@ nb:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> har fjernet en tilknytning mellom "%{data_object}" og "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> har fjernet en tilknytning til en ukjent side.
         user_disassociated_it_from_association: <strong>%{user}</strong> har fjernet en tilknytning til "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: En ukjent bruker har fjernet et populærnavn på et ukjent språk fra en ukjent side.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: En ukjent bruker har fjernet et ukjent populærnavn på et ukjent språk.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: En ukjent bruker har fjernet et populærnavn på et ukjent språk fra "%{taxon}".
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: En ukjent bruker har fjernet et populærnavn på %{language} fra en ukjent side.
+        an_unknown_user_removed_name_in_language_from_it: En ukjent bruker har fjernet et ukjent populærnavn på %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: En ukjent bruker har fjernet et populærnavn på %{language} fra "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> har fjernet et populærnavn på et ukjent språk fra en ukjent side.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> har fjernet et populærnavn på et ukjent språk.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> har fjernet et populærnavn på et ukjent språk fra "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> har fjernet et populærnavn på %{language} fra en ukjent side.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> har fjernet et populærnavn på %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> har fjernet et populærnavn på %{language} fra "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som synlig i en ukjent sammenheng.
         an_unknown_user_showed_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som synlig på "%{association}"-siden.
@@ -487,6 +614,44 @@ nb:
         user_showed_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som synlig på "%{association}"-siden.
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> har markert den som synlig i en ukjent sammenheng.
         user_showed_it_on_association: <strong>%{user}</strong> har markert den som synlig på "%{association}"-siden.
+      split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: En ukjent bruker har skilt klassifiseringen av "%{provider}" fra et ukjent takson.
+        an_unknown_user_split_entry_from_it: En ukjent bruker har delt opp klassifiseringen av "%{provider}".
+        an_unknown_user_split_entry_from_taxon: En ukjent bruker har skilt klassifiseringen av "%{provider}" fra "%{taxon}".
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: En ukjent bruker har skilt en ukjent klassifisering fra et ukjent takson.
+        an_unknown_user_split_unknown_entry_from_it: En ukjent bruker har delt opp en ukjent klassifisering.
+        an_unknown_user_split_unknown_entry_from_taxon: En ukjent bruker har skilt en ukjent klassifisering fra "%{taxon}".
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> har skilt klassifiseringen av "%{provider}" fra et ukjent takson.
+        user_split_entry_from_it: <strong>%{user}</strong> har delt opp klassifiseringen av "%{provider}".
+        user_split_entry_from_taxon: <strong>%{user}</strong> har skilt klassifiseringen av "%{provider}" fra "%{taxon}".
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> har skilt en ukjent klassifisering fra et ukjent takson.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> har delt opp en ukjent klassifisering.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> har skilt en ukjent klassifisering fra "%{taxon}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: En ukjent bruker har markert et ukjent populærnavn på et ukjent språk fra en ukjent side som klarert.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: En ukjent bruker har markert et ukjent populærnavn på et ukjent språk som klarert.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: En ukjent bruker har markert et ukjent populærnavn på et ukjent språk fra "%{taxon}" som klarert.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: En ukjent bruker har markert et ukjent populærnavn på %{language} fra en ukjent side som klarert.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: En ukjent bruker har markert et ukjent populærnavn på %{language} som klarert.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: En ukjent bruker har markert et ukjent populærnavn på %{language} fra "%{taxon}" som klarert.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk fra en ukjent side som klarert.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk som klarert.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk fra "%{taxon}" som klarert.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" fra en ukjent side som klarert.
+        an_unknown_user_trusted_name_in_language_on_it: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" som klarert.
+        an_unknown_user_trusted_name_in_language_on_taxon: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" fra "%{taxon}" som klarert.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk fra en ukjent side som klarert.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk som klarert.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk fra "%{taxon}" som klarert.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert ut ukjent populærnavn på %{language} fra en ukjent side som klarert.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> har markert et ukjent populærnavn på %{language} som klarert.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> har markert ut ukjent populærnavn på %{language} fra "%{taxon}" som klarert.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk fra en ukjent side som klarert.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk som klarert.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk fra "%{taxon}" som klarert.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" fra en ukjent side som klarert.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" som klarert.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" fra "%{taxon}" som klarert.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som klarert i en ukjent sammenheng.
         an_unknown_user_trusted_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som klarert på "%{association}"-siden.
@@ -504,6 +669,51 @@ nb:
         user_trusted_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som klarert på "%{association}"-siden.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> har markert det som klarert i en ukjent sammenheng.
         user_trusted_it_on_association: <strong>%{user}</strong> har markert den som klarert på "%{association}"-siden.
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: Sammenslåingen av sidene du nylig har forespurt er fullført, men siden kan ikke bli funnet.
+        merge_of_it_unlocked: Sammenslåingen du nylig har forespurt på denne siden er fullført.
+        merge_of_taxon_unlocked: Sammenslåingen du nylig har forespurt for "%{taxon}" er fullført.
+        move_of_an_unknown_taxon_unlocked: Flyttingen av klassifiseringen du nylig har forespurt er fullført, men siden kan ikke bli funnet.
+        move_of_it_unlocked: Flyttingen av klassifiseringen du nylig har forespurt på denne siden er fullført.
+        move_of_taxon_unlocked: Flyttingen av klassifiseringen du nylig har forespurt for "%{taxon}" er fullført.
+        split_of_an_unknown_taxon_unlocked: Splittelsen av klassifiseringen du nylig har forespurt er fullført, men siden kan ikke bli funnet.
+        split_of_it_unlocked: Splittelsen av klassifiseringen du nylig har forespurt på denne siden er fullført og klassifiseringene har blitt flyttet til <a href='%{to}'>en egen side</a>.
+        split_of_taxon_unlocked: Splittelsen av klassifiseringen du nylig har forespurt for "%{taxon}" er fullført og klassifiseringene har blitt flyttet til <a href='%{to}'>en egen side</a>.
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "Sidesammenslåingen du nylig har forespurt <strong>mislyktes</strong>: %{error}. I tillegg kan den aktuelle siden ikke bli funnet."
+        merge_of_it_unlocked_with_error: "Sammenslåingen du nylig har forespurt på denne siden <strong>mislyktes</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "Sammenslåingen du nylig har forespurt for \"%{taxon}\" <strong>mislyktes</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "Flyttingen av klassifiseringen du nylig har forespurt <strong>mislyktes</strong>: %{error}. I tillegg kan den aktuelle siden ikke bli funnet."
+        move_of_it_unlocked_with_error: "Flyttingen av klassifiseringen du nylig har forespurt på denne siden <strong>mislyktes</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "Flyttingen av klassifiseringen du nylig har forespurt for \"%{taxon}\" <strong>mislyktes</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "Splittelsen av klassifiseringen du nylig har forespurt <strong>mislyktes</strong>: %{error}. I tillegg kan den aktuelle siden ikke bli funnet."
+        split_of_it_unlocked_with_error: "Splittelsen av klassifiseringen du nylig har forespurt på denne siden <strong>mislyktes</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "Splittelsen av klassifiseringen du nylig har forespurt for \"%{taxon}\" <strong>mislyktes</strong>: %{error}."
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: En ukjent bruker har markert et ukjent populærnavn på et ukjent språk fra en ukjent side som uvurdert.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: En ukjent bruker har markert et ukjent populærnavn på et ukjent språk som uvurdert.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: En ukjent bruker har markert et ukjent populærnavn på et ukjent språk fra "%{taxon}" som uvurdert.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: En ukjent bruker har markert et ukjent populærnavn på %{language} fra en ukjent side som uvurdert.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: En ukjent bruker har markert et ukjent populærnavn på %{language} som uvurdert.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: En ukjent bruker har markert et ukjent populærnavn på %{language} fra "%{taxon}" som uvurdert.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk fra en ukjent side som uvurdert.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk som uvurdert.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk fra "%{taxon}" som uvurdert.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" fra en ukjent side som uvurdert.
+        an_unknown_user_unreviewed_name_in_language_on_it: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" som uvurdert.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" fra "%{taxon}" som uvurdert.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk fra en ukjent side som uvurdert.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk som uvurdert.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk fra "%{taxon}" som uvurdert.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert ut ukjent populærnavn på %{language} fra en ukjent side som uvurdert.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> har markert et ukjent populærnavn på %{language} som uvurdert.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> har markert ut ukjent populærnavn på %{language} fra "%{taxon}" som uvurdert.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk fra en ukjent side som uvurdert.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk som uvurdert.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk fra "%{taxon}" som uvurdert.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" fra en ukjent side som uvurdert.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" som uvurdert.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" fra "%{taxon}" som uvurdert.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uvurdert i en ukjent sammenheng.
         an_unknown_user_unreviewed_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som uvurdert på "%{association}"-siden.
@@ -521,6 +731,31 @@ nb:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som uvurdert på "%{association}"-siden.
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> har markert det som uvurdert i en ukjent sammenheng.
         user_unreviewed_it_on_association: <strong>%{user}</strong> har markert den som uvurdert på "%{association}"-siden.
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: En ukjent bruker har markert et ukjent populærnavn på et ukjent språk fra en ukjent side som ikke-klarert.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: En ukjent bruker har markert et ukjent populærnavn på et ukjent språk som ikke-klarert.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: En ukjent bruker har markert et ukjent populærnavn fra "%{taxon}" på et ukjent språk som ikke-klarert.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: En ukjent bruker har markert et ukjent populærnavn på %{language} fra en ukjent side som ikke-klarert.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: En ukjent bruker har markert et ukjent populærnavn på %{language} som ikke-klarert.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: En ukjent bruker har markert et ukjent populærnavn på %{language} fra "%{taxon}" som  ikke-klarert.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk fra en ukjent side som ikke-klarert.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk som ikke-klarert.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: En ukjent bruker har markert populærnavnet "%{name}" på et ukjent språk fra "%{taxon}" som ikke-klarert.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" fra en ukjent side som ikke-klarert.
+        an_unknown_user_untrusted_name_in_language_on_it: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" som ikke-klarert.
+        an_unknown_user_untrusted_name_in_language_on_taxon: En ukjent bruker har markert det %{language}e populærnavnet "%{name}" fra "%{taxon}" som ikke-klarert.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk fra en ukjent side som ikke-klarert.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk som ikke-klarert.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> har markert et ukjent populærnavn på et ukjent språk fra "%{taxon}" som ikke-klarert.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert ut ukjent populærnavn på %{language} fra en ukjent side som ikke-klarert.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> har markert et ukjent populærnavn på %{language} som ikke-klarert.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> har markert ut ukjent populærnavn på %{language} fra "%{taxon}" som ikke-klarert.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk fra en ukjent side som ikke-klarert.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk som ikke-klarert.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> har markert populærnavnet "%{name}" på et ukjent språk fra "%{taxon}" som ikke-klarert.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" fra en ukjent side som ikke-klarert.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" som ikke-klarert.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> har markert det %{language}e populærnavnet "%{name}" fra "%{taxon}" som ikke-klarert.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som ikke-klarert i en ukjent sammenheng.
         an_unknown_user_untrusted_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som ikke-klarert på "%{association}"-siden.
@@ -538,7 +773,12 @@ nb:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> har markert "%{data_object}" som ikke-klarert på "%{association}"-siden.
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> har markert den som ikke-klarert i en ukjent sammenheng.
         user_untrusted_it_on_association: <strong>%{user}</strong> har markert den som ikke-klarert på "%{association}"-siden.
+  activity_user_created_link: <strong>%{user}</strong> har lagt til en lenke til "%{object_name}" på "%{taxon_concept}".
+  activity_user_created_text: <strong>%{user}</strong> har lagt til en tekst til "%{object_name}" på "%{taxon_concept}".
+  activity_user_updated_link: <strong>%{user}</strong> har oppdatert "%{object_name}"-lenken på "%{taxon_concept}".
+  activity_user_updated_text: <strong>%{user}</strong> har oppdatert "%{object_name}"-teksten på "%{taxon_concept}".
   add: Legg til
+  add_a_collection_to_a_community: Legg til "%{collection}" til et brukersamfunn
   add_a_comment: Legg til en kommentar.
   add_a_comment_colon: "Legg til en kommentar:"
   add_a_new_common_name: Legg til et nytt populærnavn
@@ -546,9 +786,20 @@ nb:
   add_a_new_role: Legg til en ny rolle
   add_a_new_search_suggestion: Legg til et nytt søkforslag
   add_a_new_term: Legg til et nytt begrep
+  add_article_to_page_button: Legg til en artikkel
+  add_association_submit_button: lege til tilknytning
+  add_collection_to_community: Legg til samling til brukersamfunn
+  add_language: Legg til språk
+  add_link_to_page_button: Legg til en lenke
+  add_new_association_link: Legg til ny tilknytning
   add_page: Legg til side
+  add_sub_chapter: Legg til underkapittel
   add_to_my_collection_button: Legg til i en samling
+  admin_content_page_active: Publisert
   admin_content_page_child_new_link: Opprett underordnet side
+  admin_content_page_new_link: Opprett ny side
+  admin_content_page_not_active: Upublisert
+  admin_content_pages_link: Innholdsforvaltning
   admin_content_partners_statistics_first_published_download_csv_submit: Last ned som CSV
   admin_content_partners_statistics_link: Statistikker
   admin_link: Oversikt
@@ -562,6 +813,8 @@ nb:
   admin_notes_not_visible_to_user: "Administrator-notater (ikke synlig for bruker):"
   admin_page_title: "Administrering: Oversikt"
   admin_statistics_link: Statistikker
+  admin_translated_content_page_edit_tip: Tittel og innhold er %{required_icon} påkrevd.
+  admin_translated_content_page_new_header: Velg språk og legg til innhold
   admin_translated_content_page_new_link: Legg til oversettelse
   admin_translated_content_page_new_subheader: Legg til oversettelse for <em>%{page_name}</em>
   admin_translated_content_page_new_tip: Språk, tittel og innhold er %{required_icon} påkrevd.
@@ -570,6 +823,7 @@ nb:
   admin_translated_news_item_new_header: Velg språk og legg til innhold
   admin_translated_news_item_new_link: Legg til oversettelse
   admin_translated_news_item_new_subheader: Legg til oversettelse for <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: Språk, tittel og innhold er %{required_icon} påkrevd.
   admin_translated_news_item_not_active: Upublisert
   admin_user_delete_successful_notice: Brukeren har blitt slettet
   admins: 
@@ -607,6 +861,7 @@ nb:
         menu_link: Bruker-sendt tekst
         page_header: Statistikker for bruker-sendt tekst
         page_title: "Administrering: Statistikker for bruker-sendt tekst"
+  agent: Agent
   all: alle
   all_articles: Alle artikler
   all_changes: Alle endringer
@@ -629,6 +884,8 @@ nb:
   already_a_member_question: Allerede et medlem?
   already_member_of_community: Du er allerede et medlem av dette brukersamfunnet.
   alternate_classification: Alternativ klassifisering
+  alternative_common_name_colon: "Alternativt populærnavn:"
+  alternative_name_colon: "Alternativt navn:"
   amount: Beløp
   an_unknown_user: En ukjent bruker
   and: og
@@ -650,7 +907,9 @@ nb:
   assistive_literature_header: Litteratur
   assistive_maps_header: Kart
   assistive_media_header: Media
+  assistive_names_classifications_header: Klassifiseringer
   assistive_names_common_header: Populærnavn
+  assistive_names_related_header: Relaterte navn
   assistive_names_synonyms_header: Synonymer
   assistive_overview_header: Oversikt
   assistive_taxon_community_header: Brukersamfunn
@@ -2548,9 +2807,11 @@ nb:
   text_summary_empty_header: Kort sammendrag
   text_summary_more_link: Les hele oppføringen
   text_with_count: "{PLURAL|one=%{count} Artikkel|%{count} Artikler}}"
+  the_file_was_uploaded: Filen ble lastet opp.
   there_are_currently_no_members_in_this_community: Det er for øyeblikket ingen medlemmer i dette brukersamfunnet.
   this_article_cannot_be_curated_because_unpublished: Denne artikkelen kan ikke kurateres fordi den er upublisert.
   this_article_is_unpublished: Denne artikkelen er upublisert.
+  this_comment_was_deleted: Denne kommentaren ble slettet.
   this_image_cannot_be_curated_because_unpublished: Dette bildet kan ikke kurateres fordi det er upublisert.
   this_image_is_unpublished: Dette bildet er upublisert.
   this_image_map_cannot_be_curated_because_unpublished: Dette kartet kan ikke kurateres fordi det er upublisert.
@@ -2586,6 +2847,7 @@ nb:
   upload: Last opp
   url: URL
   user: Bruker
+  user_activity_stats_articles_added_dropdown: Artikler lagt til
   user_already_active_notice: Din konto er allerede aktiv, vennligst logg inn.
   user_comment: Brukerkommentar
   user_comments: Brukerkommentarer

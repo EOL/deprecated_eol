@@ -67,7 +67,7 @@ describe 'Taxa worklist' do
   it 'should show ratings, description, associations, revisions, source information sections selected task' do
     visit taxon_worklist_path(@taxon_concept)
     page.should have_selector('#worklist #task')
-    page.should have_selector('#worklist #task .ratings .average_rating')
+    body.should have_selector("#worklist #task .ratings dt", :text => "average rating")
     page.should have_selector('#worklist #task .article.source h3', :text => 'Source information')
     page.should have_selector('#worklist #task .article form.review_status')
     page.should have_selector('#worklist #task .article.list ul')
@@ -159,17 +159,17 @@ describe 'Taxa worklist' do
   it 'should be able to rate active task' do
     visit taxon_worklist_path(@taxon_concept)
     page.should have_selector('.ratings')
-    page.should have_selector('.ratings .average_rating h5 small', :text => 'from 0 people')
+    body.should have_selector(".ratings dt", :text => "average rating")
     page.should have_selector('.ratings .average_rating .rating', :text => 'Average rating: 2.5 of 5')
-    page.should have_selector('.ratings .rating h5', :text => 'Your rating')
-    page.should have_selector('.rating ul .current_rating_0', :text => 'Your current rating: 0 of 5')
+    body.should have_selector(".ratings dt", :text => "Your rating")
+    page.should have_selector('.rating ul li.current_rating_0', :text => 'Your current rating: 0 of 5')
     
     click_link 'Change rating to 5 of 5'
     page.should have_selector('.ratings')
-    page.should have_selector('.ratings .average_rating h5 small', :text => 'from 1 person')
+    body.should have_selector(".ratings dt", :text => "average rating")
     page.should have_selector('.ratings .average_rating .rating', :text => 'Average rating: 5.0 of 5')
-    page.should have_selector('.ratings .rating h5', :text => 'Your rating')
-    page.should have_selector('.rating ul .current_rating_5', :text => 'Your current rating: 5 of 5')
+    body.should have_selector(".ratings dt", :text => "Your rating")
+    page.should have_selector('.rating ul li.current_rating_5', :text => 'Your current rating: 5 of 5')
   end
   
   # it 'should be able to curate an association for the active task'

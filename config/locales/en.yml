@@ -2407,6 +2407,7 @@ en:
   authoritative_information: "authoritative information"
   author_of_peer_reviewed_publication_credential_option: "authorship of a peer-reviewed publication (provide reference)"
   available: "available"
+  average_rating: "average rating"
   average_rating_value_of_total: "Average rating: %{rating} of %{total}"
   back: "Back"
   back_to_profile: "Back to profile"
@@ -3730,6 +3731,7 @@ en:
     one: "from %{count} person"
     other: "from %{count} people"
   rating_added_notice: "Rating was added successfully."
+  rating_learn_more_link: "Learn about rating"
   rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
   recaptcha: "Type in the two words you see below"
   recaptcha_incorrect_error_with_anchor: 'The <a href="#%{recaptcha_anchor}">reCaptcha characters</a> did not match, please try again.'
@@ -3937,6 +3939,9 @@ en:
   spm_category_objects_count: "SPM category - objects count"
   spm_category_partner_count: "SPM category - partner count"
   spm_category: "SPM Category"
+  stars_with_count:
+    one: "%{count} star"
+    other: "%{count} stars"
   started: "Started"
   stats: "Statistics"
   stat: "Stat"

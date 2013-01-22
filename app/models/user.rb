@@ -684,6 +684,10 @@ class User < ActiveRecord::Base
     Rails.cache.delete("users/#{self.id}") if $CACHE
   end
 
+  def rating_weight
+    is_curator? ? curator_level.rating_weight : 1
+  end
+
 private
 
   def reload_if_stale

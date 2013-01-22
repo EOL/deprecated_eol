@@ -306,14 +306,14 @@ describe 'Data Object Page' do
   it 'should allow logged in users to rate' do
     login_as @user
     visit data_object_path(@image)
-    body.should have_tag("#sidebar .ratings .rating") do
-      with_tag('h5', :text => "Your rating")
+    body.should have_tag("#sidebar .ratings") do
+      with_tag('dt', :text => "Your rating")
     end
     click_link('Change rating to 3 of 5')
     current_url.should match /#{data_object_path(@image)}/
     body.should include('Rating was added successfully')
-    body.should have_tag("#sidebar .ratings .rating") do
-      with_tag('h5', :text => "Your rating")
+    body.should have_tag("#sidebar .ratings") do
+      with_tag('dt', :text => "Your rating")
       with_tag('ul li', :text => "Your current rating: 3 of 5")
     end
     visit('/logout')

@@ -832,7 +832,7 @@ nl:
   admin_content_page_child_new_link: Onderliggende pagina aanmaken
   admin_content_page_create_successful_notice: De pagina <a href="#%{anchor}"><em>%{page_name}</em></a> is aangemaakt.
   admin_content_page_create_unsuccessful_error: Er is een fout opgetreden. De pagina is niet aangemaakt.
-  admin_content_page_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen. Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
+  admin_content_page_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen? Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
   admin_content_page_delete_successful_notice: Pagina %{page_name} en bijbehorende vertalingen zijn verwijderd.
   admin_content_page_edit_header: Basispaginagegevens voor <em>%{page_name}</em> bijwerken
   admin_content_page_edit_tip: We raden u aan de unieke naam van deze pagina niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op koppelingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
@@ -874,7 +874,7 @@ nl:
   admin_news_item_active: Gepubliceerd
   admin_news_item_create_successful_notice: Het nieuwsitem <a href="#%{anchor}"><em>%{page_name}</em></a> is aangemaakt.
   admin_news_item_create_unsuccessful_error: Er is een fout opgetreden. Het nieuwsitem is niet aangemaakt.
-  admin_news_item_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen. Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
+  admin_news_item_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen? Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
   admin_news_item_delete_successful_notice: Het nieuwsitem %{page_name} en bijbehorende vertalingen zijn verwijderd.
   admin_news_item_edit_header: Basispaginagegevens voor het nieuwsitem <em>%{page_name}</em> bijwerken
   admin_news_item_edit_tip: We raden u aan de unieke naam van dit nieuwsitem niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op koppelingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
@@ -894,7 +894,7 @@ nl:
   admin_statistics_link: Statistieken
   admin_translated_content_page_create_successful_notice: De vertaling is toegevoegd aan <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden toegevoegd.
-  admin_translated_content_page_delete_confirmation: Weet u zeker dat u de versie in %{language} van "%{page_name}" wilt verwijderen? Deze handeling kan niet ongedaan gemaakt worden.
+  admin_translated_content_page_delete_confirmation: Weet u zeker dat u de versie in %{language} van "%{page_name}" wilt verwijderen? Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
   admin_translated_content_page_delete_successful_notice: De vertaling in %{language} van de pagina <em>%{page_name}</em> is verwijderd.
   admin_translated_content_page_edit_subheader: Vertaling in %{language} voor <em>%{page_name}</em> bewerken
   admin_translated_content_page_edit_tip: Paginanam en inhoud zijn %{required_icon} verplicht.
@@ -907,7 +907,7 @@ nl:
   admin_translated_news_item_active: Gepubliceerd
   admin_translated_news_item_create_successful_notice: De vertaling is toegevoegd aan <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden toegevoegd.
-  admin_translated_news_item_delete_confirmation: Weet u zeker dat u de versie in %{language} van "%{page_name}" wilt verwijderen? Deze handeling kan niet ongedaan gemaakt worden.
+  admin_translated_news_item_delete_confirmation: Weet u zeker dat u de versie in %{language} van "%{page_name}" wilt verwijderen? Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
   admin_translated_news_item_delete_successful_notice: De vertaling in %{language} van het nieuwsitem <em>%{page_name}</em> is verwijderd.
   admin_translated_news_item_edit_subheader: Vertaling in %{language} voor <em>%{page_name}</em> bewerken
   admin_translated_news_item_edit_tip: Paginanam en inhoud zijn %{required_icon} verplicht.
@@ -994,7 +994,7 @@ nl:
   anonymous_user_tag_line: Niet aangemeld
   any_integer: een geheel getal
   any_string: willekeurige tekenreeks
-  api_docs_collections_description: Deze API retourneert alle metadata van een verzameling en alle items die ertoe behoren als er een aanduiding wordt opgegeven. De list met items kan gefilterd worden op itemtype en gesorteerd worden op de eigenschappen die hierboven worden weergegeven.
+  api_docs_collections_description: Deze API retourneert alle metadata van een verzameling en alle items die ertoe behoren als er een aanduiding wordt opgegeven. De list met items kan gefilterd worden op itemtype en gesorteerd worden op de eigenschappen die worden weergegeven. Sommige items bevatten een optioneel attribuut "sort_field". Het sorteerveld is een door de gebruiker opgegeven tekenreeks die een speciale annotatie is voor een item in een verzameling. Het kan een willekeurige tekenreeks zijn, maar als het een datum is, dan moet deze voldoen aan JJJJ-MM-DD. Taxonitems bevatten een "richness_score". Rijkheid is een statistiek de wordt weergegeven als een getal tussen 0 en 100, waarbij een hoger getal aangeeft dat een pagina rijk is aan inhoud vanuit verschillende bronnen. Leest meer over de rijkheid van taxa via het tabblad "Updates" op een taxonpagina, bijvoorbeeld %{richness_url}.
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
   are_you_sure_this_action_cannot_be_undone: Weet u het zeker?  Deze handeling kan niet ongedaan worden gemaakt.
@@ -3118,6 +3118,7 @@ nl:
   return_all_synonyms_for_this_taxon: alle synoniemen voor dit taxon weergeven
   return_common_names_for_the_page_taxon: alle gewone namen voor het taxon van de pagina weergeven
   return_content_by_vettedness: Als "gecontroleerd" de waarde "1" heeft, dan wordt alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft, dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
+  return_references_for_the_page_taxon: alle referenties voor het taxon van de pagina teruggeven
   returns_all_metadata_about_a_particular_collection: geeft alle metadata van een bepaalde collectie terug en de items die erin zijn opgenomen en zijn geïndexeerd door EOL
   returns_all_metadata_about_a_particular_data_object: geeft alle metadata van een bepaald gegevensobject (tekst, afbeelding, video) dat is geïndexeerd door EOL
   returns_either_a_positive_or_negative_response: geeft een bevestigend antwoord (dat aangeeft dat de API's functioneel zijn) of geeft een negatief antwoord of helemaal geen antwoord (dat aangeeft dat de API's niet functioneel zijn op dat moment)

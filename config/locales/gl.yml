@@ -987,7 +987,7 @@ gl:
   anonymous_user_tag_line: Non accedeu ao sistema
   any_integer: calquera número enteiro
   any_string: calquera cadea de texto
-  api_docs_collections_description: Dado o identificador dunha colección, esta API devolverá todos os metadatos sobre a colección e os elementos que contén. A lista de elementos pódese filtrar por tipo de elemeto e ordenada baixo os atributos anteriores.
+  api_docs_collections_description: Dado o identificador dunha colección, esta API devolverá todos os metadatos sobre a colección e os elementos que contén. A lista de elementos pódese filtrar por tipo de elemeto e ordenar baixo os atributos listados. Algúns elementos conteñen un atributo "sort_field" opcional. O campo de ordenación é unha cadea achegada polo usuario que é unha anotación especial dun elemento da colección. Pode ser calquera cadea de caracteres, pero se é unha data, debe aterse ao formato AAAA-MM-DD. Os elementos do taxon conteñen un "richness_score". A riqueza é unha métrica representada por un número enteiro entre 0 e 100; canto máis grande sexa o número a páxina terá maior riqueza de contidos dunha ampla variedade de fontes. Podes atopar máis información sobre a riqueza dos taxons na lapela de actualizacións dunha páxina de taxon; por exemplo, %{richness_url}.
   application_version_advisory_information: Versión da aplicación
   are_you_sure: Estás seguro?
   are_you_sure_this_action_cannot_be_undone: Estás seguro? Esta acción non se pode desfacer.
@@ -3111,6 +3111,7 @@ gl:
   return_all_synonyms_for_this_taxon: devolver todos os sinónimos deste taxon
   return_common_names_for_the_page_taxon: devolver todos os nomes comúns do taxon da páxina
   return_content_by_vettedness: Se "vetted" ten o valor "1", entón unicamente se devolverá contido de confianza. Se "vetted" é "2", entón unicamente se devolverá contido de confianza e non revisado (deixando sen mostrar aqueles contidos que non sexan de confianza). A opción predeterminada é devolver todo o contido.
+  return_references_for_the_page_taxon: devolver todas as referencias do taxon da páxina
   returns_all_metadata_about_a_particular_collection: devolve todos os metadatos acerca dunha colección particular e os elementos que contén indexados pola EOL
   returns_all_metadata_about_a_particular_data_object: devolve todos os metadatos acerca dun obxecto de datos particular (texto, imaxe ou vídeo) indexado pola EOL
   returns_either_a_positive_or_negative_response: devolve ou ben unha resposta positiva (indicando que as API están funcionais) ou ben unha resposta negativa ou ben nada (indicando que as API non están funcionais).

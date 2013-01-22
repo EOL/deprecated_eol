@@ -3717,6 +3717,7 @@ en:
     one: "from %{count} person"
     other: "from %{count} people"
   rating_added_notice: "Rating was added successfully."
+  rating_learn_more_link: "Learn about rating"
   rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
   recaptcha: "Type in the two words you see below"
   recaptcha_incorrect_error_with_anchor: 'The <a href="#%{recaptcha_anchor}">reCaptcha characters</a> did not match, please try again.'
@@ -4290,9 +4291,6 @@ en:
   visible_title: "Visible"
   visitors: "Visitors"
   vivisimo: "Vivisimo"
-  votes_with_count:
-    one: "%{count} vote"
-    other: "%{count} votes"
   wants_colon: "Wants:"
   watch_list: "Watch list"
   watch_list_newsfeed: "Watch List Newsfeed"

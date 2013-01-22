@@ -42,6 +42,7 @@
     .article.list
       .header
         %h3 Image rating
+        = link_to I18n.t(:rating_learn_more_link), cms_page_path('curation_standards', :anchor => 'rating')
       - rating_summary = data_object.rating_summary
       %dl.rating_counts
         - [ 5, 4, 3, 2, 1 ].each do |rating_score|
@@ -52,7 +53,7 @@
               - percentage_with_this_score = (votes_for_this_score / data_object.total_ratings.to_f) * 100
               - if percentage_with_this_score > 0
                 %span{ :style => "width: #{percentage_with_this_score}%" }
-            = I18n.t('votes_with_count', :count => votes_for_this_score)
+            = votes_for_this_score
         %dt= I18n.t('average_rating')
         %dd.average_rating
           .rating

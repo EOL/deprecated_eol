@@ -2,26 +2,37 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Bartek50003
+# Author: Cysioland
 # Author: Olgak85
 # Author: Woytecr
 pl: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: niezaufany
   translated_activities-name-activity_id-51: pokaż
   translated_activities-name-activity_id-52: utwórz
   translated_activities-name-activity_id-53: ukryj
   translated_activities-name-activity_id-54: aktualizuj
+  translated_activities-name-activity_id-55: nieodpowiedni
   translated_activities-name-activity_id-56: usuń
   translated_activities-name-activity_id-57: oceń
+  translated_activities-name-activity_id-58: zaufany
+  translated_activities-name-activity_id-59: nieprzejrzany
   translated_activities-name-activity_id-64: usuń
+  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Projekt
   translated_agent_roles-label-agent_role_id-11: Wydawca
   translated_agent_roles-label-agent_role_id-13: Źródło
+  translated_agent_roles-label-agent_role_id-16: Współtwórca
   translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-21: dostawca
   translated_agent_roles-label-agent_role_id-22: Tłumacz
+  translated_agent_roles-label-agent_role_id-23: Recenzent Naukowy
   translated_agent_roles-label-agent_role_id-9: Fotograf
   translated_audiences-label-audience_id-1: Użytkownicy zaawansowani
   translated_audiences-label-audience_id-2: Ogół społeczeństwa
   translated_audiences-label-audience_id-3: Dzieci
   translated_collection_types-label-collection_type_id-1: Taksonomia
+  translated_collection_types-label-collection_type_id-10: Dźwięki
   translated_collection_types-label-collection_type_id-11: Linki
   translated_collection_types-label-collection_type_id-3: Opis
   translated_contact_roles-label-contact_role_id-2: Kontakt administracyjny

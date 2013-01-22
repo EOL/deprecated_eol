@@ -115,7 +115,7 @@ ko:
         marine_pages_with_objects: 데이터 개체와 해양 문서
         marine_pages_with_objects_vetted: 신뢰할 수 있는 데이터 개체와 해양 문서
         members_count: 구성원
-        newly_published_resources_in_the_last_30_days: 지난 달에 새로 게시
+        newly_published_resources_in_the_last_30_days: 지난 달에 새로 게시함
         objects_curated_in_the_last_30_days: 최근 30일 동안 큐레이트된 개체
         pages_count: 전체 문서
         pages_curated_by_active_curators: 활발한 큐레이터에 의해 문서가 큐레이트됨
@@ -153,7 +153,7 @@ ko:
         complete: 완료
         description: 설명
         descriptive_label: 설명 레이블
-        label: 라벨
+        label: 레이블
         request_publish: 게시 요청
       name: 
         string: 이름
@@ -239,41 +239,41 @@ ko:
         tag_line: 태그 라인
         username: 사용자 이름
     errors: 
-      format: "%{attribute}%{message}"
+      format: "%{attribute}(은)는 %{message}"
       full_messages: 
         format: "%{attribute}(은)는 %{message}"
       messages: 
-        accepted: (은)는 동의해야 합니다
-        blank: (은)는 비워둘 수 없습니다
-        confirmation: (이)가 확인과 일치하지 않습니다
-        empty: (은)는 비워둘 수 없습니다
-        equal_to: (은)는 %{count}(와)과 같아야 합니다
-        even: (은)는 짝수여야 합니다
-        exclusion: (이)가 소유합니다
+        accepted: 동의해야 합니다
+        blank: 비워둘 수 없습니다
+        confirmation: 확인과 일치하지 않습니다
+        empty: 비워둘 수 없습니다
+        equal_to: "%{count}(와)과 같아야 합니다"
+        even: 짝수여야 합니다
+        exclusion: 소유합니다
         greater_than: 
-          one: (은)는 %{count}보다 많아야 합니다
-          other: (은)는 %{count}보다 많아야 합니다
-        greater_than_or_equal_to: (은)는 %{count}보다 크거나 같아야 합니다
-        inaccessible: 에 접근할 수 없습니다
-        inclusion: (은)는 목록에 포함하지 않습니다
-        invalid: (이)가 잘못되었습니다
+          one: "%{count}보다 많아야 합니다"
+          other: "%{count}보다 많아야 합니다"
+        greater_than_or_equal_to: "%{count}보다 크거나 같아야 합니다"
+        inaccessible: 접근할 수 없습니다
+        inclusion: 목록에 포함하지 않습니다
+        invalid: 잘못되었습니다
         less_than: 
-          one: (은)는 %{count}보다 적어야 합니다
-          other: (은)는 %{count}보다 적어야 합니다
-        less_than_or_equal_to: (은)는 %{count}보다 적거나 같아야 합니다
-        not_a_number: (은)는 숫자가 아닙니다
-        not_an_integer: (은)는 정수여야 합니다
-        odd: (은)는 홀수여야 합니다
-        record_invalid: "(은)는 인증에 실패했습니다: %{errors}"
-        taken: (은)는 이미 토큰을 가지고 있습니다
+          one: "%{count}보다 적어야 합니다"
+          other: "%{count}보다 적어야 합니다"
+        less_than_or_equal_to: "%{count}보다 적거나 같아야 합니다"
+        not_a_number: 숫자가 아닙니다
+        not_an_integer: 정수여야 합니다
+        odd: 홀수여야 합니다
+        record_invalid: "인증에 실패했습니다: %{errors}"
+        taken: 이미 토큰을 가지고 있습니다
         too_long: 
-          one: (이)가 너무 깁니다 (최대 문자 %{count}개)
-          other: (이)가 너무 깁니다 (최대 문자 %{count}개))
+          one: 너무 깁니다 (최대 글자는 %{count}개입니다
+          other: 너무 깁니다 (최대 글자는 %{count}개입니다)
         too_short: 
-          one: (이)가 너무 짧습니다 (최소 문자 %{count}개)
-          other: (이)가 너무 짧습니다 (최소 문자 %{count}개))
-        wrong_length: (은)는 잘못된 길이입니다 (글자 %{count}개여야 합니다)
-        wrong_type: (은)는 잘못된 형식입니다
+          one: 너무 짧습니다 (최소 글자는 %{count}개입니다)
+          other: 너무 짧습니다 (최소 글자는 %{count}개입니다)
+        wrong_length: 잘못된 길이입니다 (글자 %{count}개여야 합니다)
+        wrong_type: 잘못된 형식입니다
       models: 
         data_object: 
           attributes: 
@@ -301,10 +301,10 @@ ko:
               inaccessible: 접근할 수 없으며 URL은 공개적으로 접근할 수 있어야 합니다
               invalid: 유효하지 않으며 TAR, GZIP, TAR.GZ, TGZ 또는 ZIP 파일을 가리켜야 합니다
       template: 
-        body: "(이)가 다음 필드를 확인하는 데 실패했습니다:"
+        body: "다음 필드를 확인하는 데 실패했습니다:"
         header: 
-          one: (이)가 유효한 오류 %{count}개를 찾았습니다
-          other: (이)가 유효한 오류 %{count}개를 찾았습니다
+          one: 유효한 오류 %{count}개를 찾았습니다
+          other: 유효한 오류 %{count}개를 찾았습니다
     models: 
       user: 계정
   activity: 활동
@@ -1193,7 +1193,7 @@ ko:
   comment_added_notice: 덧글을 성공적으로 추가했습니다.
   comment_body_label: 내 덧글
   comment_created_at: 만든 때
-  comment_delete_confirm: 덧글을 정말 삭제하겠습니까?
+  comment_delete_confirm: 덧글을 삭제하겠습니까?
   comment_edit_by_javascript_not_authorized_error: 죄송합니다, 이 덧글을 편집할 수 있는 권한이 없습니다. 이 덧글 작성자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
   comment_new_posters_image_advisory_info: 프로필 사진과 이름이 목록에 덧글 옆에 나타납니다.
   comment_new_posters_image_alt: 사진을 제공할 때의 프로필 사진입니다.
@@ -1421,8 +1421,12 @@ ko:
   content_partner_resource_resource_status_new: 만들어짐
   content_partner_resource_show_link_back_to: 자료로 돌아가기
   content_partner_resource_show_subheader: <em>%{resource_title}</em> 자료에 대한 자세한 정보
+  content_partner_resource_status_update_successful_notice: "%{resource_title} 자료의 상태를 성공적으로 %{resource_status}에 업데이트했습니다."
+  content_partner_resource_status_update_unsuccessful_error: 죄송합니다, 오류가 발생해 %{resource_title} 자료의 상태를 %{resource_status}에 업데이트할 수 없습니다.
+  content_partner_resource_update_successful_notice: "콘텐츠 파트너 자료 자세한 사항을 성공적으로 업데이트했습니다. 자료 데이터의 현재 상태: %{resource_status}"
   content_partner_resource_update_unsuccessful_error: 죄송합니다, 오류가 발생해 자료 자세한 사항을 업데이트하지 못했습니다.
   content_partner_resource_upload_unsuccessful_error: "죄송합니다, 오류가 발생해 자료 자세한 사항은 업데이트했지만 자료 자체는 올리지 못했습니다: %{resource_status}."
+  content_partner_resource_validation_unsuccessful_error: 죄송합니다, 자료 자세한 사항은 업데이트했지만 자료를 확인하는 데 실패했습니다. 아래에 처리 정보를 참고하세요.
   content_partner_resource_vetted_false: 아니오
   content_partner_resource_vetted_true: 예
   content_partner_resource_view_link: 보기
@@ -1695,6 +1699,7 @@ ko:
   donation_sponsorship_fellowships_title: 동호회
   donation_sponsorship_infrastructure_title: 핵심 인프라
   done_already: 이미 완료
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 알 수 없는 등록한 날짜를 보여주지 마세요 (2009년 1월 5일 이전의 모든 V1 사용자)
   download_wav_file: WAV 파일 다운로드
   dublin_core: 더블린 코어
   duplicate_items_were_ignored: 중복된 항목은 무시했습니다.
@@ -1732,6 +1737,7 @@ ko:
   endorsed_collections_with_count: 
     one: 알찬 모음집 %{count}개
     other: 알찬 모음집 %{count}개
+  eol_accepted_subjects: EOL이 수락한 주제
   eol_administration_console: EOL 관리 콘솔
   eol_api: EOL API
   eol_api_collections: "EOL API: 모음집"
@@ -1792,12 +1798,18 @@ ko:
   error_403_page_title: 접근 거부
   error_404_description: 죄송합니다, 해당 URL에서 문서를 찾을 수 없습니다.
   error_404_page_title: 찾을 수 없음
+  error_500_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로 이메일을 보내주세요.
   error_500_page_title: 이런.
+  error_couldnt_find_collection_by_id: "%{id} id로 된 관리할 수 있는 모음집을 찾을 수 없습니다."
+  error_couldnt_find_community_by_id: "%{id} id로 된 관리할 수 있는 공동체를 찾을 수 없습니다."
+  error_default_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로 이메일을 보내주세요.
   error_default_page_title: 이런.
+  error_exemplar_chosen_with_invalid_action: "죄송하지만 선택한 분류를 바꿀 수 없습니다: 요청의 일부를 잃었습니다. 다시 시도해야 합니다."
   error_homepage_or_search_option: "<a href=\"/\">대문 문서</a>로 돌아가거나 찾기 도구를 사용할 수 있습니다:"
   error_log: 오류 기록
   error_log_detail: 오류 기록 자세한 사항
   error_logging_active: 오류 기록 활동
+  error_updating_user: 이 사용자의 기록을 업데이트 하는 동안 오류가 났습니다
   error_watch_collections_cannot_be_shared: 주시문서 모음집을 공유할 수 없습니다
   example_colon: "예시:"
   exception: 예외
@@ -1852,6 +1864,7 @@ ko:
   filter_by_type_link_option: 링크
   filter_by_type_name_option: 이름
   filter_by_type_object_curated_option: 개체 큐레이트함
+  filter_by_type_photosynth_option: 광합성
   filter_by_type_sound_option: 소리
   filter_by_type_sound_option_with_count: 
     one: 소리 (%{count}개)
@@ -1936,7 +1949,7 @@ ko:
       comment: 
         body_edit: 덧글 편집
       contact: 
-        comments: 메시지
+        comments: 내 메시지
         contact_subject_id: 주제
         email: 이메일 주소
         name: 이름
@@ -2150,7 +2163,7 @@ ko:
         update: 뉴스 항목 업데이트
       open_authentication: 
         create: 연결
-        destroy: 연결 안함
+        destroy: 연결 끊기
         update: 연결 확인
       resource: 
         create: 자료 추가
@@ -2450,12 +2463,12 @@ ko:
   member_of_professional_society_credential_option: 전문적인 사회성의 구성원
   members: 
     index: 
-      meta_description: "%{community_name}의 구성원, 생명의 백과사전 공동체."
+      meta_description: 생명의 백과사전 공동체인 %{community_name}의 구성원입니다.
       meta_keywords: "%{community_name} 구성원"
       meta_title: "%{community_name} 구성원"
       tweet_text: "%{community_name} 구성원"
     show: 
-      meta_description: "%{member_name} 구성원은 생명의 백과사전 공동체, %{community_name}의 구성원입니다."
+      meta_description: "%{member_name} 구성원은 생명의 백과사전 공동체인 %{community_name}의 구성원입니다."
       meta_keywords: "%{member_name} 공동체 구성원"
       meta_title: "%{community_name}의 %{member_name} 구성원"
       tweet_text: "%{community_name}의 %{member_name} 구성원"
@@ -2817,7 +2830,7 @@ ko:
   rating_added_notice: 등급을 성공적으로 추가했습니다.
   rating_not_added_error: 죄송합니다, 오류가 발생해 평가를 추가할 수 없습니다.
   recaptcha: 아래에 보이는 단어 2개를 입력하세요
-  recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha 글자</a>가 일치하지 않습니다, 다시 시도하세요.
+  recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha 글자</a>가 일치하지 않습니다. 다시 시도하세요.
   recent_activities: 
     index: 
       list_header: 최근 7일
@@ -2926,7 +2939,7 @@ ko:
   search_field_label: EOL 찾기
   search_field_preferred_common_name: 선호하는 공통 이름
   search_field_preferred_scientific: 선호하는 과학적 이름
-  search_field_surrogate: 대리
+  search_field_surrogate: 서로게이트
   search_field_synonym: 동의어
   search_for_comments_containing_the_text: "텍스트를 포함하는 덧글 찾기:"
   search_for_curators_containing: "포함하는 큐레이터 찾기:"
@@ -3669,36 +3682,44 @@ ko:
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 페이스북 계정을 연결할 수 없으며, 페이스북 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
+          login_failed_not_connected: 죄송합니다, 페이스북 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 사용하여 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 페이스북 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
           missing_attributes: 죄송합니다, 페이스북 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 페이스북 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 페이스북 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 페이스북 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 페이스북 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+          signup_failed_account_already_connected: 죄송합니다, 페이스북 계정으로 새 EOL 계정에 가입할 수 없으며 이미 <a href="%{existing_eol_account_url}">EOL 사용자 계정</a>에 연결되어 있습니다. 대신 <a href="%{login_url}">로그인</a>하려 했습니까?
         google: 
           add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 구글 계정을 연결할 수 없으며, 구글 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
+          login_failed_not_connected: 죄송합니다, 구글 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 사용하여 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 구글 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
           missing_attributes: 죄송합니다, 구글 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 구글 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 구글 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 구글 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 구글 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+          signup_failed_account_already_connected: 죄송합니다, 구글 계정으로 새 EOL 계정에 가입할 수 없으며 이미 <a href="%{existing_eol_account_url}">EOL 사용자 계정</a>에 연결되어 있습니다. 대신 <a href="%{login_url}">로그인</a>하려 했습니까?
         missing_attributes: 죄송합니다, 서드 파티 계정 자세한 정보에 접근하는 데 문제가 있습니다.
         not_authorized_to_add_authentication: 죄송합니다, 해당 계정에 연결하는 데 인증할 수 없습니다.
         not_authorized_to_login: 죄송합니다, 해당 계정으로 EOL에 로그인할 권한이 없습니다.
         remove_connection_failed: 죄송합니다, 오류가 발생해 연결을 제거할 수 없습니다.
         twitter: 
           add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 트위터 계정을 연결할 수 없으며, 트위터 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
+          login_failed_not_connected: 죄송합니다, 트위터 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 사용하여 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 트위터 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
           missing_attributes: 죄송합니다, 트위터 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 트위터 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 트위터 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 트위터 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 트위터 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+          signup_failed_account_already_connected: 죄송합니다, 트위터 계정으로 새 EOL 계정에 가입할 수 없으며 이미 <a href="%{existing_eol_account_url}">EOL 사용자 계정</a>에 연결되어 있습니다. 대신 <a href="%{login_url}">로그인</a>하려 했습니까?
         yahoo: 
           add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 야후! 계정을 연결할 수 없으며, 야후! 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
+          login_failed_not_connected: 죄송합니다, 야후! 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 사용하여 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 야후! 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
           missing_attributes: 죄송합니다, 야후! 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 야후! 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 야후! 계정에 연결하는 데 인증할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 야후! 계정을 사용해 EOL에 로그인할 권한이 없습니다.
           not_authorized_to_signup: 죄송합니다, 야후! 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+          signup_failed_account_already_connected: 죄송합니다, 야후! 계정으로 새 EOL 계정에 가입할 수 없으며 이미 <a href="%{existing_eol_account_url}">EOL 사용자 계정</a>에 연결되어 있습니다. 대신 <a href="%{login_url}">로그인</a>하려 했습니까?
       facebook: 페이스북
       google: 구글
       index: 
@@ -3711,12 +3732,16 @@ ko:
       notices: 
         facebook: 
           new_authentication_added: 페이스북 인증이 당신의 계정에 추가되었습니다.
+          removed_connection: 성공적으로 페이스북 계정에 EOL 연결을 제거했습니다. 앞으로 완벽하게 페이스북 계정과 EOL 사이에 상호 통신을 승인 취소하려면 페이스북에 가서 계정 설정을 편집해야 합니다.
         google: 
           new_authentication_added: 구글 인증이 당신의 계정에 추가되었습니다.
+          removed_connection: 성공적으로 구글 계정에 EOL 연결을 제거했습니다. 앞으로 완벽하게 구글 계정과 EOL 사이에 상호 통신을 승인 취소하려면 구글에 가서 계정 설정을 편집해야 합니다.
         twitter: 
           new_authentication_added: 트위터 인증이 당신의 계정에 추가되었습니다.
+          removed_connection: 성공적으로 트위터 계정에 EOL 연결을 제거했습니다. 앞으로 완벽하게 트위터 계정과 EOL 사이에 상호 통신을 승인 취소하려면 트위터에 가서 계정 설정을 편집해야 합니다.
         yahoo: 
           new_authentication_added: 야후! 인증이 당신의 계정에 추가되었습니다.
+          removed_connection: 성공적으로 야휴! 계정에 EOL 연결을 제거했습니다. 앞으로 완벽하게 야후! 계정과 EOL 사이에 상호 통신을 승인 취소하려면 야후!에 가서 계정 설정을 편집해야 합니다.
       twitter: 트위터
       warnings: 
         no_way_to_login: 더 이상 어떠한 연결한 계정이 없으며 연결한 계정을 추가하거나 EOL 사용자 이름과 비밀번호를 추가하지 않는 한 EOL에 다시 로그인 할 수 없습니다.
@@ -3821,8 +3846,8 @@ ko:
   wikipedia_queue_new_instructions_intro: "위키백과 문서의 판 URL 찾아보기:"
   wikipedia_queue_new_page_title: 위키백과 문서 가져오기 요청
   will_paginate: 
-    next_label: 다음 &#8594;
-    previous_label: "&#8592; 이전"
+    next_label: 다음
+    previous_label: 이전
   worklist: 작업 목록
   would_you_like_to_become_a_curator_notice: 큐레이터가 되겠습니까? <a href='%{url}'>내 프로필 문서</a>에 접근을 요청할 수 있습니다.
   xml_response: XML 응답

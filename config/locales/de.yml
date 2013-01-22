@@ -997,7 +997,7 @@ de:
   anonymous_user_tag_line: Nicht angemeldet
   any_integer: eine beliebige ganze Zahl
   any_string: Beliebige Zeichenfolge
-  api_docs_collections_description: Nach Angabe der Kennung für eine Sammlung wird diese API alle ihre Metadaten sowie die in ihr enthaltenen Objekte ausgeben. Die Objektliste kann nach Objekttyp gefiltert werden sowie nach den oben angegebenen Attributen sortiert werden.
+  api_docs_collections_description: Nach Angabe der Kennung für eine Sammlung wird diese API alle ihre Metadaten sowie die in ihr enthaltenen Objekte ausgeben. Die Objektliste kann nach Objekttyp gefiltert sowie nach den angegebenen Attributen sortiert werden. Einige Objekte enthalten das optionale Attribut „sort_field“. Das Sortierfeld ist eine Zeichenfolge, die eine spezielle Anmerkung eines Sammlungseintrags ist. Es kann eine beliebige Zeichenfolge sein. Falls es jedoch ein Datum ist, sollte es das Format „JJJJ-MM-TT“ aufweisen. Taxonobjekte enthalten ein „richness_score“. Vielfalt ist eine Metrik, die als ganze Zahl zwischen 0 und 100 dargestellt wird. Eine höhere Anzahl kennzeichnet eine Seite mit viel Inhalt einer weiten Quellenvielfalt. Mehr über Taxonvielfalt beim Update-Reiter der Taxonseite, z.&nbsp;B. %{richness_url}.
   application_version_advisory_information: Programmversion
   are_you_sure: Sind Sie sicher?
   are_you_sure_this_action_cannot_be_undone: Sind Sie sicher? Diese Aktion kann nicht rückgängig gemacht werden.
@@ -3120,6 +3120,7 @@ de:
   return_all_synonyms_for_this_taxon: Alle Synonyme dieses Taxons ausgeben
   return_common_names_for_the_page_taxon: Alle Trivialnamen für das Taxon auf dieser Seite ausgeben
   return_content_by_vettedness: Sofern „geprüft“ der Wert „1“ zugewiesen wird, werden nur vertrauenswürdige Inhalte ausgegeben. Sofern „geprüft“ der Wert „2“ zugewiesen wird, werden nur vertrauenswürdige und nicht geprüfte Inhalte ausgeben. Nicht vertrauenswürdige Inhalte werden dabei nicht ausgegeben. Die Standardeinstellung gibt alle Inhalte ungeachtet des Status aus.
+  return_references_for_the_page_taxon: Alle Quellen für das Seitentaxon ausgeben
   returns_all_metadata_about_a_particular_collection: gibt alle Metadaten zu einer bestimmten Sammlung sowie den in ihr enthaltenen und von EOL indexierten Elemente zurück
   returns_all_metadata_about_a_particular_data_object: gibt alle Metadaten eines bestimmten, bei EOL indizierten, Datenobjekts (Text, Bild oder Video) zurück
   returns_either_a_positive_or_negative_response: gibt entweder eine positive (alle API funktionieren) oder aber eine negative bzw. gar keine Antwort (alle API funktionieren momentan nicht) zurück

@@ -435,7 +435,6 @@ describe 'Data Object Page' do
   it 'should not show an image cropping tool to non-admins' do
     login_as @mastger_curator
     visit("/data_objects/#{@image.id}")
-    body.should have_tag(".media a[href='#{@image.thumb_or_object(:orig)}']")
     body.should_not have_tag('.crop_preview.width_130')
     body.should_not have_tag('.crop_preview.width_88')
     body.should_not have_tag('#crop_form')
@@ -445,7 +444,6 @@ describe 'Data Object Page' do
   it 'should show admins an image cropping tool' do
     login_as @admin
     visit("/data_objects/#{@image.id}")
-    body.should_not have_tag(".media a[href='#{@image.thumb_or_object(:orig)}']")
     body.should have_tag('.crop_preview.width_130')
     body.should have_tag('.crop_preview.width_88')
     body.should have_tag('#crop_form')

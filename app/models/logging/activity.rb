@@ -44,6 +44,7 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('unreview_common_name')
     Activity.find_or_create('unlock') # ...when a backgrounded process finishes.
     Activity.find_or_create('unlock_with_error') # ...when a backgrounded process fails.
+    Activity.find_or_create('crop')
     # Collection:
     Activity.find_or_create('add_editor')
     Activity.find_or_create('bulk_add')

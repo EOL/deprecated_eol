@@ -1,4 +1,8 @@
 - if data_object && data_object.image?
+  = content_for :head do
+    = javascript_include_tag "jquery.Jcrop.min.js"
+    = javascript_include_tag "jcrop_data_objects.js"
+    = stylesheet_link_tag "jquery.Jcrop.min.css"
   .article.source
     .header
       %h3= I18n.t('crop_image_thumbnails')

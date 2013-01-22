@@ -224,7 +224,7 @@ class CuratorActivityLog < LoggingModel
     loggable_activities = {
       ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id,
                                                Activity.untrusted.id, Activity.choose_exemplar_image.id, 
-                                               Activity.choose_exemplar_article.id ],
+                                               Activity.choose_exemplar_article.id, Activity.crop.id ],
       ChangeableObjectType.synonym.id => [ Activity.add_common_name.id, Activity.remove_common_name.id,
                                            Activity.trust_common_name.id, Activity.unreview_common_name.id,
                                            Activity.untrust_common_name.id, Activity.inappropriate_common_name.id],

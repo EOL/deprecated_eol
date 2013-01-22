@@ -325,11 +325,18 @@ class ApplicationController < ActionController::Base
       :administrators_only) unless current_user.is_admin?
   end
 
-  def restrict_to_curators
+  def restrict_to_full_curators
     raise EOL::Exceptions::SecurityViolation.new(
       "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
       " that is restricted to EOL Full Curators and above, and was disallowed.",
       :min_full_curators_only) unless current_user.min_curator_level?(:full)
+  end
+
+  def restrict_to_curators
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL Assistant Curators and above, and was disallowed.",
+      :min_assistant_curators_only) unless current_user.min_curator_level?(:assistant)
   end
 
   # A user is not authorized for the particular controller/action:

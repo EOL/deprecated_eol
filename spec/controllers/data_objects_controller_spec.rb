@@ -94,23 +94,22 @@ describe DataObjectsController do
       @image = DataObject.gen(:data_type_id => DataType.image.id, :object_cache_url => FactoryGirl.generate(:image))
     end
 
-    it 'should not allow access to non-admins' do
+    it 'should not allow access to non-curators' do
       get :crop, { :id => @image.id }
       response.should redirect_to(login_url)
 
       expect { get :crop, { :id => @image.id }, { :user => @user, :user_id => @user.id } }.
-        to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == :administrators_only}
+        to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == :min_assistant_curators_only}
     end
 
-    it 'should allow access to admins' do
-      admin = User.gen(:username => "admin", :password => "admin")
-      admin.grant_admin
+    it 'should allow access to curators' do
+      curator = build_curator(TaxonConcept.gen, :level => :assistant)
       original_object_cache_url = @image.object_cache_url
       new_object_cache_url = FactoryGirl.generate(:image)
       new_object_cache_url.should_not == original_object_cache_url
       @image.object_cache_url.should == original_object_cache_url
       ContentServer.should_receive(:update_data_object_crop).and_return(new_object_cache_url)
-      get :crop, { :id => @image.id, :x => 0, :y => 0, :w => 1 }, { :user => admin, :user_id => admin.id }
+      get :crop, { :id => @image.id, :x => 0, :y => 0, :w => 1 }, { :user => curator, :user_id => curator.id }
       @image.reload
       @image.object_cache_url.should == new_object_cache_url
       response.should redirect_to(data_object_path(@image))

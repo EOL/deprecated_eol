@@ -2147,6 +2147,15 @@ en:
         split_of_an_unknown_taxon_unlocked_with_error: "The classification split you recently requested has <strong>failed</strong>: %{error}. Additionally, the affected page cannot be found."
         split_of_it_unlocked_with_error: "The classification split you recently requested on this page <strong>failed</strong>: %{error}."
         split_of_taxon_unlocked_with_error: "The classification split you recently requested for \"%{taxon}\" has <strong>failed</strong>: %{error}."
+      crop:
+        an_unknown_user_cropped_an_older_data_object: "An unknown user changed the thumbnail image of \"%{data_object}\"."
+        an_unknown_user_cropped_an_unknown_data_object: "An unknown user changed the thumbnail of an unknown image."
+        an_unknown_user_cropped_data_object: "An unknown user changed the thumbnail image of \"%{data_object}\"."
+        user_cropped_an_older_data_object: "<strong>%{user}</strong> changed the thumbnail of an older version of \"%{data_object}\"."
+        user_cropped_an_unknown_data_object: "<strong>%{user}</strong> changed the thumbnail of unknown image."
+        user_cropped_data_object: "<strong>%{user}</strong> changed the thumbnail image of \"%{data_object}\"."
+        an_unknown_user_cropped_it: "An unknown user changed the thumbnail of an unknown image."
+        user_cropped_it: "<strong>%{user}</strong> changed the thumbnail of unknown image."
       other_actions:
         an_unknown_user_curated_an_older_data_object: "An unknown user curated an older version of \"%{data_object}\"."
         an_unknown_user_curated_an_unknown_data_object: "An unknown user curated an unknown data object."
@@ -3056,6 +3065,7 @@ en:
       hidden_user_temporary_login: "Sorry, account recovery and login are disabled for that account."
       inactive_user_login: "Sorry, that account is not yet active. If you did not receive a verification email when you signed up please follow the account recovery procedure to verify your email address and activate your account."
       min_full_curators_only: "Sorry, access is restricted to EOL Curators with a minimum curator level of Full."
+      min_assistant_curators_only: "Sorry, access is restricted to EOL Curators with a minimum curator level of Assistant."
   expand_all_children: "expand all children"
   explore: "Explore"
   explore_what_we_know_about_taxon: "Explore what EOL knows about %{taxon}."

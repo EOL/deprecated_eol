@@ -7,7 +7,7 @@ class DataObjectsController < ApplicationController
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit] # update handled separately
   before_filter :allow_login_then_submit, :only => [:rate]
   before_filter :curators_and_owners_only, :only => [:add_association, :remove_association]
-  before_filter :restrict_to_admins, :only => :crop
+  before_filter :restrict_to_curators, :only => :crop
 
   # GET /pages/:taxon_id/data_objects/new
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
@@ -350,6 +350,7 @@ class DataObjectsController < ApplicationController
           # NOTE: using update_attribute here instead of update_attribute*S* as there can be harvest objects
           # which would fail Rails validations, yet we still want to update their object_cache_url
           @data_object.update_attribute('object_cache_url', new_object_cache_url)
+          log_action(@data_object, :crop, :notice => false, :collect => false)
           current_user.log_activity(:cropped_data_object_id, :value => @data_object.id)
           flash[:notice] = I18n.t(:image_cropped_notice)
         else
@@ -488,16 +489,18 @@ private
     end
   end
 
-  def log_action(object, action)
+  def log_action(object, action, options={})
     CuratorActivityLog.factory(
       :action => action,
       :association => object,
       :data_object => @data_object,
       :user => current_user
     )
-    flash[:notice] ||= ''
-    flash[:notice]  += ' ' + I18n.t(:object_curated)
-    auto_collect(@data_object) # SPG asks for all curation to add the item to their watchlist.
+    unless options[:notice] === false
+      flash[:notice] ||= ''
+      flash[:notice]  += ' ' + I18n.t(:object_curated)
+    end
+    auto_collect(@data_object) unless options[:collect] === false # SPG asks for all curation to add the item to their watchlist.
   end
 
   def empty_paginated_set

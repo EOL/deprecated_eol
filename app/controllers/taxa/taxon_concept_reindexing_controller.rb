@@ -1,7 +1,7 @@
 class Taxa::TaxonConceptReindexingController < TaxaController
 
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :restrict_to_curators
+  before_filter :restrict_to_full_curators
 
   def create
     begin

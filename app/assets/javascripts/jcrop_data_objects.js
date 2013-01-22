@@ -11,6 +11,10 @@ $(function(){
     aspectRatio: 1
   });
 
+  $target_image.closest('a').click(function(e) {
+      e.preventDefault();
+  });
+
   $crop_form.submit(function() {
     return checkCoords();
   });

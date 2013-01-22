@@ -86,6 +86,8 @@
     = raw I18n.t("choose_exemplar_image.#{user_type}_chose_exemplar_#{data_object_type}_on_#{taxon_type}", translation_vars)
   - when Activity.choose_exemplar_article.id
     = raw I18n.t("choose_exemplar_article.#{user_type}_chose_exemplar_#{data_object_type}_on_#{taxon_type}", translation_vars)
+  - when Activity.crop.id
+    = raw I18n.t("crop.#{user_type}_cropped_#{data_object_type}", translation_vars)
   - when Activity.add_common_name.id
     = raw I18n.t("add_common_name.#{user_type}_added_#{name_type}_in_#{language_type}_to_#{taxon_type}", translation_vars)
   - when Activity.remove_common_name.id

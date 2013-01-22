@@ -131,6 +131,7 @@ class Name < ActiveRecord::Base
     return true if string.match(/1[02345][0-9]{2}/) # 1600 - 1999
     return true if string.match(/2[1-9][0-9]{2}/) # 2000 - 2100
     return true if string.match(/virus([^\w]|$)/i)
+    return true if string.match(/viruses([^\w]|$)/i)
     return false
   end
   

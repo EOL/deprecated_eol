@@ -6,7 +6,7 @@ describe Collections::InaturalistsController do
     load_foundation_cache
     # Create a collection with a EOL collection id which already has a project on iNaturalist.
     $TESTING_INATURALIST_PROJECTS = true
-    @inat_collection = Collection.gen(:id => 5709, :name => "Cape Cod")
+    @inat_collection = Collection.gen(:id => 31199, :name => "CoMBIN")
     @inat_collection.users = [User.gen]
     @inat_collection.add(DataObject.gen)
     @inaturalist_project_info = @inat_collection.inaturalist_project_info
@@ -18,7 +18,7 @@ describe Collections::InaturalistsController do
   end
 
   after(:each) do
-    $TESTING_INATURALIST_PROJECTS = true
+    $TESTING_INATURALIST_PROJECTS = false
   end
 
   describe 'GET show' do

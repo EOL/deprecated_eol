@@ -1,5 +1,9 @@
 GIT
+<<<<<<< HEAD
+  remote: https://github.com/tchandy/octopus.git
+=======
   remote: git://github.com/tchandy/octopus.git
+>>>>>>> c2ec7786dac2381cef55a04f63b4141889c1c0ba
   revision: 942676bb3683184d89bd2d06be4cd9b3b3d9931f
   specs:
     ar-octopus (0.4.0)

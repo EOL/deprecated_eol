@@ -62,6 +62,7 @@ describe 'Home page', :js => true do
     page.should have_content "Black-tailed prairie dogs"
   end
 
+<<<<<<< HEAD
   it 'should have old updates on dato pages' do
     visit "http://staging.eol.org/data_objects/21078282"
     page.should have_content %q{Tracy Barbaro added an association between "Nile Crocodile, Botswana" } +
@@ -69,4 +70,6 @@ describe 'Home page', :js => true do
     page.should have_content %q{Tracy Barbaro commented on an older version of Nile Crocodile, Botswana}
   end
 
+=======
+>>>>>>> ef70e06... Integration spec additions
 end

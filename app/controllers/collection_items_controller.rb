@@ -12,8 +12,8 @@ class CollectionItemsController < ApplicationController
     # Sooo... we could get our data in a lot of different ways.
     if session[:submitted_data] # They are coming back from logging in, data is stored:
       store_location(session[:submitted_data][:return_to])
-      session.delete(:submitted_data)
       create_collection_item(session[:submitted_data][:collection_item])
+      session.delete(:submitted_data)
     elsif params[:collection_id] # They are collecting to MULTIPLE collections (potentially):
       if params[:collection_id].is_a? Array
         params[:collection_id].each do |collection_id|

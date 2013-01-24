@@ -18,6 +18,8 @@ class TaxonPage
     @_hierarchy_entry = hierarchy_entry
   end
 
+  # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
+  # you see "hierarchy_entry" (no leading underscore) it means "do the right thing".
   def hierarchy_entry
     _hierarchy_entry || @taxon_concept.entry
   end
@@ -59,7 +61,7 @@ class TaxonPage
   end
 
   def kingdom
-    classifcation_filter? ? _hierarchy_entry.hierarchy.kingdom : taxon_concept.hierarchy.kingdom
+    classifcation_filter? ? _hierarchy_entry.kingdom : hierarchy_entry.kingdom
   end
 
   # We're not inheriting from Delegator here, because we want to be more surgical about what gets called on

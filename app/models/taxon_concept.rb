@@ -162,7 +162,7 @@ class TaxonConcept < ActiveRecord::Base
   # same language. Then it sorts the results. # TODO - rename it to make the filtering and sorting more clear.
   def common_names(options = {})
     @common_names = if options[:hierarchy_entry_id]
-      TaxonConceptName.all.joins(:name, :language).where(source_hierarchy_entry_id: options[:hierarchy_entry_id])
+      TaxonConceptName.joins(:name, :language).where(source_hierarchy_entry_id: options[:hierarchy_entry_id])
     else
       taxon_concept_names.joins(:name, :language)
     end
@@ -824,6 +824,7 @@ class TaxonConcept < ActiveRecord::Base
   # TaxonPage class, if so.
   # TODO - this belongs in the same class as #overview_text_for_user.
   def text_for_user(the_user = nil, options = {})
+    the_user ||= EOL::AnonymousUser.new(Language.default)
     options[:per_page] ||= 500
     options[:data_type_ids] = DataType.text_type_ids
     options[:vetted_types] = the_user.vetted_types

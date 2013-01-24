@@ -15,7 +15,7 @@ class Taxa::DetailsController < TaxaController
     DataObject.preload_associations(@data_objects_in_other_languages, :language)
     @show_add_link_buttons = true
     @details_count_by_language = {}
-    data_objects_in_other_languages.each do |obj|
+    @data_objects_in_other_languages.each do |obj|
       obj.language = obj.language.representative_language
       next unless Language.approved_languages.include?(obj.language)
       @details_count_by_language[obj.language] ||= 0

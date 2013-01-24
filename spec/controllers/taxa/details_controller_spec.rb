@@ -21,15 +21,15 @@ describe Taxa::DetailsController do
     end
     it 'should instantiate the details Array containing text data objects and special content' do
       details_do_index
-      assigns[:text_objects].should be_a(Array)
-      assigns[:text_objects].take_while{|d| d.should be_a(DataObject)}.should == assigns[:text_objects]
+      assigns[:taxon_page].text.should be_a(Array)
+      assigns[:taxon_page].text.take_while{|d| d.should be_a(DataObject)}.should == assigns[:taxon_page].text
     end
     it 'should instantiate a table of contents' do
       details_do_index
-      assigns[:toc_items_to_show].should be_a(Array)
-      assigns[:toc_items_to_show].include?(@testy[:overview]).should be_true # TocItem with content should be included
-      assigns[:toc_items_to_show].include?(@testy[:toc_item_4]).should be_false # TocItem without content should be excluded
-      assigns[:toc_items_to_show].include?(@testy[:education]).should be_false # TocItem from resources and literature tabs should be excluded
+      assigns[:taxon_page].toc.should be_a(Array)
+      assigns[:taxon_page].toc.include?(@testy[:overview]).should be_true # TocItem with content should be included
+      assigns[:taxon_page].toc.include?(@testy[:toc_item_4]).should be_false # TocItem without content should be excluded
+      assigns[:taxon_page].toc.include?(@testy[:education]).should be_false # TocItem from resources and literature tabs should be excluded
     end
     it 'should instantiate an exemplar image'
     it 'should instantiate an assistive header' do

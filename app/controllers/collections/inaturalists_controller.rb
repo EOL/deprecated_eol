@@ -22,6 +22,7 @@ class Collections::InaturalistsController < CollectionsController
 private
 
   def inaturalist_project_observations(project_id)
+    return nil if project_id.nil?
     url = "http://www.inaturalist.org/observations/project/#{project_id}.json?per_page=20"
     response = Net::HTTP.get(URI.parse(url))
     JSON.parse(response)

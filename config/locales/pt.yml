@@ -207,10 +207,10 @@ pt:
               invalid: é inválido, ele deve apontar para um arquivo XML, XML.GZIP, XML.GZ ou ZIP file
             dataset: 
               blank: não pode estar em branco a não ser que em vez forneça um URL do conjunto de dados
-              wrong_type: é do tipo errado, deve ser um ficheiro GZIP, TAR ou XML
+              wrong_type: é do tipo errado, deve ser um ficheiro GZIP, TAR, ZIP ou XML
             dwc_archive_url: 
               inaccessible: é inacessível, o URL deve ser acessível ao público
-              invalid: é inválido, deve apontar para um ficheiro TAR.GZIP, TAR.GZ ou TGZ.
+              invalid: é inválido, deve apontar para um ficheiro TAR.GZ, TGZ ou ZIP file
       template: 
         body: Os campos seguintes não foram validados correctamente
         header: 

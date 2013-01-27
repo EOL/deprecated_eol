@@ -534,6 +534,15 @@ de:
           an_unknown_user_split_classifications_from_taxon: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} von der Seite zu %{taxon} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} von einer unbekannten Seite und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
           user_split_classifications_from_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: Ein unbekannter Nutzer änderte das Vorschaubild von „%{data_object}“.
+        an_unknown_user_cropped_an_unknown_data_object: Ein unbekannter Nutzer änderte das Vorschaubild eines unbekannten Bildes.
+        an_unknown_user_cropped_data_object: Ein unbekannter Nutzer änderte das Vorschaubild von „%{data_object}“.
+        an_unknown_user_cropped_it: Ein unbekannter Nutzer änderte das Vorschaubild eines unbekannten Bildes.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> änderte das Vorschaubild einer älteren Version von „%{data_object}“.
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> änderte das Vorschaubild eines unbekannten Bildes.
+        user_cropped_data_object: <strong>%{user}</strong> änderte das Vorschaubild von „%{data_object}“.
+        user_cropped_it: <strong>%{user}</strong> änderte das Vorschaubild eines unbekannten Bildes.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
         an_unknown_user_hid_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
@@ -1065,6 +1074,7 @@ de:
   author_of_peer_reviewed_publication_credential_option: Autor einer von Fachleuten geprüften Publikation (Bitte einen Nachweis beifügen)
   authoritative_information: Verbindliche Informationen
   available: verfügbar
+  average_rating: Durchschnittliche Bewertung
   average_rating_value_of_total: "Durchschnittliche Bewertung: %{rating} von %{total}"
   back: Zurück
   back_to_profile: Zurück zum Profil
@@ -1591,6 +1601,8 @@ de:
   creative_commons: Creative Commons
   credentials: Anmeldeinformationen
   credentials_colon: "Anmeldedaten:"
+  crop_image: Bild zuschneiden
+  crop_image_thumbnails: Vorschaubilder zuschneiden
   curated: Kuratiert
   curated_association_update_button: Änderungen speichern
   curated_objects_of: von %{name} kuratierte Objekte
@@ -1921,6 +1933,7 @@ de:
       hidden_user_recover_account: Das Bergen wurde für dieses Konto deaktiviert.
       hidden_user_temporary_login: Sowohl das Bergen wie das Anmelden wurden für dieses Konto deaktiviert.
       inactive_user_login: Das Konto ist leider noch nicht aktiv. Sofern Sie keine E-Mail zum Aktivieren des Kontos erhalten haben, führen Sie bitte die Schritte zum Bergen eines Kontos durch, um Ihre E-Mail-Adresse zu bestätigen und Ihr Konto zu aktivieren.
+      min_assistant_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Prokuratoren sind.
       min_full_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Oberkuratoren sind.
   expand_all_children: alle untergeordneten Objekte expandieren
   explore: Entdecken
@@ -2341,6 +2354,8 @@ de:
   if_the_details_parameter_is_not_set: Sofern der Parameter zu den Informationen nicht festgelegt ist, werden nur die Kennung des Datenobjekts, der Datentyp, sowie im Fall eines Artikels das Thema zurückgegeben. Der Datentyp wird ein Wert des Quellenartenvokabulars %{linka} sein. Das Textthema wird eines der %{linkb} sein.
   image: Bild
   image_alt_text: Dieses Bild mit Status %{vetted_status} ist von %{taxon_name}
+  image_crop_failed_error: Leider ist ein Fehler aufgetreten. Das Bild konnte nicht zugeschnitten werden.
+  image_cropped_notice: Das Bild wurde erfolgreich zugeschnitten.
   image_from_supplier: Bild von %{whom}
   image_is_no_longer_available: Das Bild ist nicht mehr verfügbar.
   image_map_alt_text: Diese Karte mit Status %{vetted_status} ist von %{taxon_name}
@@ -2372,7 +2387,7 @@ de:
   inappropriate: Ungeeignet
   inaturalist_tab_label: Beobachtungen von iNaturalist
   include_all_metadata: alle Metadaten zu Datenobjekten einbeziehen
-  indexed: Indiziert
+  indexed: Indexiert
   info_item: Information
   info_items_col_header: Informationen
   information_for_any_audience: Informationen für alle Nutzer
@@ -3025,6 +3040,7 @@ de:
     one: von einer Person
     other: von %{count} Personen
   rating_added_notice: Die Bewertung wurde erfolgreich abgegeben.
+  rating_learn_more_link: Mehr über Bewertungen erfahren
   rating_not_added_error: Es ist leider ein Fehler aufgetreten, so dass die Bewertung nicht hinzugefügt werden konnte.
   recaptcha: Geben Sie bitte die beiden Wörter ein, die Sie unten sehen.
   recaptcha_incorrect_error_with_anchor: Das eingegebene <a href="#%{recaptcha_anchor}">CAPTCHA</a> stimmte nicht mit der Vorgabe überein. Versuchen Sie es bitte noch einmal.
@@ -3308,6 +3324,9 @@ de:
   spm_category: SPM-Kategorie
   spm_category_objects_count: SPM-Kategorie - Objektanzahl
   spm_category_partner_count: SPM-Kategorie - Inhaltspartneranzahl
+  stars_with_count: 
+    one: Ein Stern
+    other: "%{count} Sterne"
   started: Gestartet
   stat: Statistik
   stats: Statistiken

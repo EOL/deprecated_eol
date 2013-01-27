@@ -531,6 +531,15 @@ nl:
           an_unknown_user_split_classifications_from_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van %{taxon} naar <a href='%{to}'>de eigen pagina</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
           user_split_classifications_from_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: Een onbekende gebruiker heeft de miniatuurafbeelding gewijzigd van "%{data_object}".
+        an_unknown_user_cropped_an_unknown_data_object: Een onbekende gebruiker heeft de miniatuurafbeelding gewijzigd van een onbekende afbeelding.
+        an_unknown_user_cropped_data_object: Een onbekende gebruiker heeft de miniatuurafbeelding gewijzigd van "%{data_object}".
+        an_unknown_user_cropped_it: Een onbekende gebruiker heeft de miniatuurafbeelding gewijzigd van een onbekende afbeelding.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> heeft de miniatuurafbeelding gewijzigd van een oudere versie van "%{data_object}".
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> heeft de miniatuurafbeelding gewijzigd van een onbekende afbeelding.
+        user_cropped_data_object: <strong>%{user}</strong> heeft de miniatuurafbeelding gewijzigd van "%{data_object}".
+        user_cropped_it: <strong>%{user}</strong> heeft de miniatuurafbeelding gewijzigd van een onbekende afbeelding.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd in een onbekende context.
         an_unknown_user_hid_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
@@ -1063,6 +1072,7 @@ nl:
   author_of_peer_reviewed_publication_credential_option: auteurschap van een publicatie met peer-review (lever een referentie referentie).
   authoritative_information: gezaghebbende gegevens
   available: beschikbaar
+  average_rating: gemiddelde beoordeling
   average_rating_value_of_total: "Gemiddelde waardering: %{rating} van %{total}"
   back: Terug
   back_to_profile: Terug naar het profiel
@@ -1589,6 +1599,8 @@ nl:
   creative_commons: Creative Commons
   credentials: Gebruikersgegevens
   credentials_colon: "Gebruikersgegevens:"
+  crop_image: afbeelding bijsnijden
+  crop_image_thumbnails: Miniatuurafbeeldingen bijsnijden
   curated: Gecureerd
   curated_association_update_button: Wijzigingen opslaan
   curated_objects_of: heeft objecten van %{name} geconserveerd
@@ -1919,6 +1931,7 @@ nl:
       hidden_user_recover_account: Gebruikersherstel is uitgeschakeld voor deze gebruiker.
       hidden_user_temporary_login: Gebruikersherstel en aanmelden zijn uitgeschakeld voor deze gebruiker.
       inactive_user_login: Die gebruiker is nog niet actief. Als u geen bevestigingse-mail hebt ontvangen toen u lid bent geworden, volg dan de aanwijzingen voor gebruikersherstel om uw e-mailadres te bevestigen en uw gebruiker te activeren.
+      min_assistant_curators_only: Toegang is beperkt tot EOL-conservatoren met een minimaal conservatorniveau van assistent.
       min_full_curators_only: Toegang is beperkt tot conservatoren van EOL met een minimum conversatorniveau van "Volledig".
   expand_all_children: alle kinderen uitvouwen
   explore: Verkennen
@@ -2339,6 +2352,8 @@ nl:
   if_the_details_parameter_is_not_set: Als de parameter "details" niet is ingesteld, dan worden alleen de velden dataobject-ID, gegevenstype en in het geval van artikelen, onderwerp, teruggegeven. Het gegevenstype is een waarde uit het vocabulaire of het brontype %{linka}. Het tekstonderwerp is een van de %{linkb}.
   image: Afbeelding
   image_alt_text: "Deze afbeelding hoort bij %{taxon_name} (status: %{vetted_status})"
+  image_crop_failed_error: Er is een fout opgetreden. De afbeelding kon niet worden bijgesneden.
+  image_cropped_notice: De afbeelding bijgesneden.
   image_from_supplier: Afbeelding van %{whom}
   image_is_no_longer_available: Afbeelding is niet meer beschikbaar
   image_map_alt_text: "Deze kaart hoort bij %{taxon_name} (status: %{vetted_status})"
@@ -3023,6 +3038,7 @@ nl:
     one: van één person
     other: van %{count} personen
   rating_added_notice: De beoordeling is toegevoegd.
+  rating_learn_more_link: Meer informatie over beoordelingen
   rating_not_added_error: Er is een fout opgetreden. De beoordeling is niet toegevoegd.
   recaptcha: Voer de twee weergegeven woorden in
   recaptcha_incorrect_error_with_anchor: De <a href="#%{recaptcha_anchor}">reCaptcha-tekens</a> klopten niet. Probeer het opnieuw.
@@ -3306,6 +3322,9 @@ nl:
   spm_category: SPM-categorie
   spm_category_objects_count: SPM-categorie - aantal objecten
   spm_category_partner_count: SPM-categorie - aantal partners
+  stars_with_count: 
+    one: "%{count} ster"
+    other: "%{count} sterren"
   started: Gestart
   stat: Stat.
   stats: Statistieken

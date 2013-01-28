@@ -47,7 +47,12 @@ class License < ActiveRecord::Base
   end
 
   # we have several different licenses with the title public domain
+  # NOTE - this *does* work in other languages (I checked), though I'm honestly not sure why; I didn't dig.
   def is_public_domain?
     self.title == 'public domain'
+  end
+
+  def show_rights_holder?
+    !(is_public_domain? || self.id == License.no_known_restrictions.id)
   end
 end

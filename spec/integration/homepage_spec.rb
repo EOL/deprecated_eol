@@ -21,7 +21,7 @@ describe 'Home page' do
     canonical_href = @homepage_url.sub(/\/+$/,'')
     @homepage_with_foundation.should have_tag("link[rel=canonical][href='#{canonical_href}']")
     visit '/?page=3&q=blah'
-    body.should have_tag("link[rel=canonical][href='#{canonical_href}']")
+    body.should have_tag("link[rel=canonical][href='http://www.example.com']")
   end
 
   it "should not have rel prev or next link tags" do

@@ -18,7 +18,7 @@
           - @maps.each_with_index do |item, index|
             - item_status_class, item_status_label = status_class_and_label_for_data_object(item)
             %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{item_status_class}"}
-              = raw item.best_title
+              = item.best_title
               .figure
                 %a{ :data => { :data_object_id => item.id }, :class => item_status_class, :href => data_object_path(item) }
                   = render :partial => "data_objects/data_object_image",

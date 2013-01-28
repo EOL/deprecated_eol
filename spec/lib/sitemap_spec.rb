@@ -34,6 +34,8 @@ describe 'Sitemaps' do
     
     @cc_license = License.gen(:title => 'cc-by-sa 1.0', :source_url => 'http://creativecommons.org/licenses/by-sa/1.0/')
     @non_cc_license = License.gen(:title => 'not applicable', :source_url => 'http://who.cares')
+    # Needed for #show_rights_holder?
+    License.gen(:title => 'no known copyright restrictions', :source_url => 'http://not.here.com')
     @published_image_cc_license = DataObject.gen(:data_type => DataType.image, :license => @cc_license, :published => 1, :object_cache_url => '201201190911111')
     @published_image_non_cc_license = DataObject.gen(:data_type => DataType.image, :license => @non_cc_license, :published => 1, :object_cache_url => '201201190922222')
     @unpublished_image = DataObject.gen(:data_type => DataType.image, :license => @cc_license, :published => 0, :object_cache_url => '201201190933333')

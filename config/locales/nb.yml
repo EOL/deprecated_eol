@@ -1602,6 +1602,7 @@ nb:
   has_colon: "Har:"
   has_curated_your_image: har kuratert ditt bilde
   has_hidden_your_image: har skjult ditt bilde
+  has_trusted_your_image: har klarert ditt bilde
   hello_user: Hei %{user}
   help: Hjelp
   helpers: 
@@ -1897,6 +1898,7 @@ nb:
     other: "%{count} bilder"
   import_once: Importer en gang
   in_collection: i samling
+  in_this_data_type: "i denne %{data_type}:"
   inaturalist_tab_label: iNaturalist-observasjoner
   indexed: Indeksert
   internal_ip_address: intern IP-adresse
@@ -2030,7 +2032,7 @@ nb:
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_not_applicable: Lisens ikke anvendelig
-  license_public_domain: Offentlig rom
+  license_public_domain: Offentlig eiendom
   licensing: Lisensiering
   link_more_about: Lær mer om denne lenken
   link_name: Lenkenavn

@@ -164,7 +164,7 @@ class String
       l = options[:length] - options[:omission].mb_chars.length
       chars = self.mb_chars
       if chars.length <= options[:length]
-        return self
+        return self.html_safe
       else
         trimmed_string = chars[0...l].to_s
         if matches = trimmed_string.match(/^(.*)<a (.*)/im)
@@ -180,7 +180,7 @@ class String
         # Clear off truncated tags:
         trimmed_string.sub!(/<[^>]+$/, '')
         
-        return (trimmed_string.strip + options[:omission]).balance_tags
+        return (trimmed_string.strip + options[:omission]).balance_tags.html_safe
       end
     end
   end

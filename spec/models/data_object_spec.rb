@@ -570,5 +570,14 @@ describe DataObject do
     d.latest_published_version_in_same_language.should == nil
   end
 
+  it 'should know when the rights holder s/b displayed' do
+    d = DataObject.gen(:license => License.public_domain, :rights_holder => '')
+    d.show_rights_holder?.should_not be_true
+    d.license = License.cc
+    d.show_rights_holder?.should be_true
+    d.license = License.no_known_restrictions
+    d.show_rights_holder?.should_not be_true
+  end
+
 end
 

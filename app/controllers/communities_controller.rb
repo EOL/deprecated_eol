@@ -299,7 +299,8 @@ private
     end
     unless not_sent_to.empty?
       flash[:error] = flash[:error].nil? ? '' : "#{flash[:error]} " # NOTE - add space if needed
-      flash[:error] += I18n.t(:unable_to_invite_users_to_community_error, :users => not_sent_to.to_sentence)
+      flash[:error] += I18n.t(:unable_to_invite_users_to_community_with_count, :list => not_sent_to.to_sentence,
+                              :count => not_sent_to.count)
     end
     return sent_to
   end

@@ -1,4 +1,4 @@
-=I18n.t("this_area_shows_all_submission", :link => link_to(I18n.t("export_all_of_the_entries_as_a"), :action=>'export'))
+=I18n.t("this_area_shows_all_submission", :link => url_for(:action=>'export'))
 %br
 = form_tag({:action=>'index'},:method=>'get') do
   %select#contact_subject_id{ :name => "id" }

@@ -158,17 +158,6 @@ describe TaxonConcept do
     @taxon_concept.comments.find_all {|comment| comment.visible? }.map(&:body).should == [@comment_1, @comment_2] # Order DOES matter, now.
   end
 
-  it 'should be able to show a table of contents' do
-    # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are
-    # appropriate.  I could test for those here, but that seems the perview of TocItem.  So, I'm only checking the
-    # first three elements. Also ugly is that I'm using TaxonPage to "know" which text to show.
-    user = User.gen
-    taxon_page = TaxonPage.new(@taxon_concept, user)
-    text = taxon_page.details
-    toc_items_to_show = @taxon_concept.table_of_contents_for_text(text)
-    toc_items_to_show[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
-  end
-
   it 'should have images and videos in #media' do
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters).map(&:description).should include(@video_1_text)
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters).map(&:object_cache_url).should include(@testy[:image_1])

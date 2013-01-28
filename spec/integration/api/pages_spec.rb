@@ -225,6 +225,7 @@ describe 'API:pages' do
 
   it 'pages should show which common names are preferred' do
     response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?common_names=1")
+    # NOTE - this is failing because we end up with two preferred names. I'm not sure why.  :\
     response.xpath('//xmlns:taxon/xmlns:commonName[1]/@eol_preferred').inner_text.should == 'true'
     response.xpath('//xmlns:taxon/xmlns:commonName[2]/@eol_preferred').inner_text.should == ''
   end

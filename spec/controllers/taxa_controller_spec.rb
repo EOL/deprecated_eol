@@ -40,31 +40,16 @@ describe TaxaController do
       overviews_do_show
       response.status.should == 200
     end
-    it 'should instantiate the taxon concept' do
+    it 'should instantiate the taxon concept and page' do
       overviews_do_show
       assigns[:taxon_concept].should be_a(TaxonConcept)
-    end
-    it 'should instantiate summary text' do
-      overviews_do_show
-      assigns[:summary_text].should be_a(DataObject)
-    end
-    it 'should instantiate summary media' do
-      overviews_do_show
-      assigns[:taxon_page].media.first.should be_a(DataObject)
+      assigns[:taxon_page].should be_a(TaxonPage)
     end
     it 'should instantiate an assistive header' do
       overviews_do_show
       assigns[:assistive_section_header].should be_a(String)
     end
-    it 'should instantiate summary media to include image map if exists' do
-      image_map = DataObject.gen(:data_type_id => DataType.image.id, :data_subtype_id => DataType.map.id)
-      overviews_do_show
-      assigns[:taxon_page].media.last.should_not == image_map
-      image_map.add_curated_association(@testy[:curator], @testy[:taxon_concept].entry)
-      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      overviews_do_show
-      assigns[:taxon_page].media.last.should == image_map
-    end
+    # Note: I removed the map test, since this is now tested in TaxonPage.
 
   end
 

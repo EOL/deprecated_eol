@@ -168,6 +168,19 @@ describe TaxonConcept do
     @taxon_concept.images_from_solr(100).map {|d| DataObject.find(d).object_cache_url }.should include(@image_unknown_trust)
   end
 
+  it 'should not throw an error if there are activity logs with user ID 0' do
+    # creating a curator activity log with user_id = 0
+    l = CuratorActivityLog.gen(
+      :user_id => 0,
+      :changeable_object_type => ChangeableObjectType.data_object,
+      :target_id => @taxon_concept.data_objects.last.id,
+      :taxon_concept => @taxon_concept,
+      :activity => Activity.trusted)
+    lambda { @taxon_concept.data_object_curators }.should_not raise_error
+    @taxon_concept.data_object_curators.should == []
+    l.destroy
+  end
+
   describe '#overview_text_for_user' do
     it 'should return single text object' do
       overview_text_for_user = @testy[:only_brief_summary].overview_text_for_user(@testy[:user])
@@ -544,6 +557,38 @@ describe TaxonConcept do
 
   it 'should not return hidden exemplar image' do
     @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
+  end
+
+  it 'should not return unpublished images as examplars' do
+    best_image = @testy[:has_one_image].exemplar_or_best_image_from_solr
+    best_image.published?.should == true
+    best_image.update_attribute('published', 0)
+    @testy[:has_one_image].reload
+    # when the best image is unpublished it should not be returned. At this point Solr hasn't been
+    # updated so it still things best_image is the best, but the code will check its published
+    # status, look for a later version, and if none exists then return nil
+    @testy[:has_one_image].exemplar_or_best_image_from_solr.should == nil
+
+    newer_version = DataObject.gen(:guid => best_image.guid, :language_id => best_image.language_id, :published => true)
+    @testy[:has_one_image].reload
+    # here Solr will return the original object, but then we will find the latest published version of it
+    @testy[:has_one_image].exemplar_or_best_image_from_solr.should == newer_version
+    newer_version.destroy
+    best_image.update_attribute('published', 1)
+    @testy[:has_one_image].reload
+  end
+
+  # TODO: this should be moved to the TaxaPage spec
+  it 'should show details text with no language only to users in the default language' do
+    user = User.gen(:language => Language.default)
+    taxon_page = TaxonPage.new(@taxon_concept, user)
+    taxon_page.details.first.language_id.should == Language.default.id
+    taxon_page = TaxonPage.new(@testy[:no_language_in_toc], user)
+    taxon_page.details.first.language_id.should == 0
+
+    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
+    taxon_page = TaxonPage.new(@testy[:no_language_in_toc], user)
+    taxon_page.details.should be_nil
   end
 
   it 'should show overview text with no language only to users in the default language' do

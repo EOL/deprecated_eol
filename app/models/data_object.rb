@@ -1054,7 +1054,7 @@ class DataObject < ActiveRecord::Base
       # TODO - just use compact instead of this? ...Unfortunately, as-is, it looks like nils are passed through...
       next if d.nil?
       # NOTE - I changed this from "false", below... was this a problem?
-      if latest_version = d.latest_version_in_language(options[:language_id], :check_only_published => true)
+      if latest_version = d.latest_version_in_language(options[:language_id] || d.language_id, :check_only_published => true)
         d = latest_version
       end
       d.is_the_latest_published_revision = true

@@ -21,8 +21,8 @@
       - if data_object.added_by_user?
         -# Submitted text is now being sanitized before being saved. 
         -# And once the migration to sanitize/balance_tags existing UDO is done then we don't need to run Sanitize/balance_tags here anymore
-        -# We will only need: data_object.description.allow_some_html instead.
-        = raw(Sanitize.clean(auto_link(data_object.description).balance_tags, Sanitize::Config::RELAXED))
+        -# We will only need: data_object.description.newlines_into_linebreaks instead.
+        = raw(Sanitize.clean(auto_link(data_object.description).balance_tags, Sanitize::Config::RELAXED).newlines_into_linebreaks(:wrap_in_paragraph => true))
       - else
         = raw data_object.description.balance_tags
     - tr_source = data_object.translation_source

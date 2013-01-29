@@ -165,7 +165,7 @@ $(function() {
       if ($("#data_object_object_title").val() == "") {
         var data = "url=" + $dato_source_url.val();
         $.ajax({
-          url: "/users/fetch_external_page_title",
+          url: "/fetch_external_page_title",
           data: data,
           dataType: 'json',
           beforeSend: function(xhr) {

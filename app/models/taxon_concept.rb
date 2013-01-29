@@ -194,15 +194,16 @@ class TaxonConcept < ActiveRecord::Base
   def data_object_curators
     curators = connection.select_values("
       SELECT cal.user_id
-      FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
-      JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
+      FROM #{CuratorActivityLog.full_table_name} cal
+      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id)
       JOIN #{DataObject.full_table_name} do ON (cal.target_id = do.id)
       JOIN #{DataObject.full_table_name} do_all_versions ON (do.guid = do_all_versions.guid)
       JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (do_all_versions.id = dotc.data_object_id)
       WHERE dotc.taxon_concept_id=#{self.id}
       AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
       AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})").uniq
-    User.find(curators)
+    # using find_all_by_id instead of find because occasionally the user_id from activities is 0 and that causes this to fail
+    User.find_all_by_id(curators)
   end
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
@@ -776,6 +777,12 @@ class TaxonConcept < ActiveRecord::Base
           :return_hierarchically_aggregated_objects => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
+        # if for some reason we get back unpublished objects (Solr out of date), try to get the latest published versions
+        unless best_images.empty?
+          unless best_images.first.published?
+            DataObject.replace_with_latest_versions!(best_images, :select => [ :description ])
+          end
+        end
         (best_images.empty?) ? 'none' : best_images.first.id
       end
     end

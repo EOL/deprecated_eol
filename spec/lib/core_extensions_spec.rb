@@ -35,7 +35,24 @@ describe "Core Extensions" do
       "word and".capitalize_all_words_if_language_safe.should == "Word and"
       "word of".capitalize_all_words_if_language_safe.should == "Word of"
     end
-
   end
 
+  describe 'newlines_into_linebreaks' do
+    it 'should replace line breaks with HTML BR tags' do
+      "This is\ntext".newlines_into_linebreaks.should == 'This is<br/>text'
+      "This is\rtext".newlines_into_linebreaks.should == 'This is<br/>text'
+    end
+
+    it 'should wrap the text in a paragraph tag if requested' do
+      "This is\ntext".newlines_into_linebreaks.should == 'This is<br/>text'
+      "This is\ntext".newlines_into_linebreaks(:wrap_in_paragraph => true).should == '<p>This is<br/>text</p>'
+    end
+
+    it 'should not convert if there are already breaks in the text' do
+      "This is\n<br>text".newlines_into_linebreaks.should == "This is\n<br>text"
+      "This is\n<br>text".newlines_into_linebreaks(:wrap_in_paragraph => true).should == "This is\n<br>text"
+      "This is\n<p>text".newlines_into_linebreaks.should == "This is\n<p>text"
+      "This is\n<p>text".newlines_into_linebreaks(:wrap_in_paragraph => true).should == "This is\n<p>text"
+    end
+  end
 end

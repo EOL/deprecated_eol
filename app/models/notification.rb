@@ -67,7 +67,8 @@ class Notification < ActiveRecord::Base
       target.user_id != object[:user].id && # Users are never notified about their own action.
       object[:frequency] != NotificationFrequency.never && # User doesn't want any notification at all
       object[:frequency] != NotificationFrequency.newsfeed_only && # User doesn't want email for this
-      ! object[:user].disable_email_notifications # User doesn't want any email at all.
+      ! object[:user].disable_email_notifications && # User doesn't want any email at all.
+      ! (target.class == CuratorActivityLog && target.activity == Activity.crop) # We don't send emails about image crops.
   end
   
 end

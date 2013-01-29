@@ -4,13 +4,14 @@ require 'partner_updates_emailer'
 class ContentCronTasksController < ApplicationController
 
   def send_curator_action_emails
-    parameter = SiteConfigurationOption.find_by_parameter('email_actions_to_curators')
-    if parameter && parameter.value == 'true'
-      PartnerUpdatesEmailer.send_email_updates
-      render :text => "Emails sent"
-    else
-      render :text => "Not configured to send emails"
-    end
+    # parameter = SiteConfigurationOption.find_by_parameter('email_actions_to_curators')
+    # if parameter && parameter.value == 'true'
+    #   PartnerUpdatesEmailer.send_email_updates
+    #   render :text => "Emails sent"
+    # else
+    #   render :text => "Not configured to send emails"
+    # end
+    render :text => "Not configured to send emails"
   end
 
   def submit_flickr_comments

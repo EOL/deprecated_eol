@@ -88,6 +88,25 @@ class String
     return text
   end
 
+  # this method is only acting on text which does not current contain <br> or <p> tag.
+  # We used to not have a WYSIWYG editor for text and newlines were the way to break text into paragraphs.
+  # Some informed users would still put in HTML tags, and if they did then they were responsible for their
+  # own linebreaking. So this will prevent WYSIWYG text (which always has at least one <p>) and pre-tagged
+  # text from getting extra linebreaks. The 'wrap_in_paragraph' parameter will wrap this legacy text into
+  # a <p> tag so that the styles on the DataObject page are applied consistently
+  def newlines_into_linebreaks(options={})
+    line_breaks = /[\r\n]+/
+    unless self.match(/<(br|p)\s*[\/]?\s*>/)  # if there is a br or p tag, then don't do the conversion
+      text = self.gsub(line_breaks, '<br/>')
+      if options[:wrap_in_paragraph]
+        return "<p>#{text}</p>"
+      else
+        return text
+      end
+    end
+    return self
+  end
+
   def firstcap
     @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
     self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }

@@ -117,7 +117,7 @@ class Name < ActiveRecord::Base
                        'endosymbiont', 'species', 'complex',
                        'unassigned', 'n', 'gen', 'auct', 'non', 'aff',
                        'mixed', 'library', 'genomic', 'unidentified', 'parasite', 'synthetic',
-                       'phytoplasma' ]
+                       'phytoplasma', 'bacterium' ]
     return true if string.match(/(^|[^\w])(#{red_flag_words.join('|')})([^\w]|$)/i)
     return true if string.match(/ [abcd] /i)
     return true if string.match(/(_|'|")/i)

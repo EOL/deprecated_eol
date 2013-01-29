@@ -71,7 +71,8 @@ describe Name do
       'Coccidioides posadasii CPA 0001',
       'Coccidioides posadasii str. Silveira',
       'Arctiidae_unassigned',
-      'haloarchaeon TP100'].each do |str|
+      'haloarchaeon TP100',
+      'Amanita bacterium'].each do |str|
       name.string = str
       name.is_surrogate_or_hybrid?.should == true
     end

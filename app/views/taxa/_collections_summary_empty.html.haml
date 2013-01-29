@@ -4,4 +4,4 @@
   %p
     = I18n.t(:collections_summary_empty)
     %fieldset.actions
-      = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => @watch_collection }
+      = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => current_user.watch_collection }

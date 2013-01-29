@@ -3,18 +3,11 @@
 #taxon_names
   = render :partial => 'menu'
   .main_container
-    - if (@selected_hierarchy_entry && @selected_hierarchy_entry.scientific_synonyms.length <= 0) || @taxon_concept.count_of_viewable_synonyms <= 0
-      .empty
-        %p= I18n.t(:names_synonyms_empty)
-    - else
+    - if @taxon_page.synonyms?
       %p.help_text
         = raw(I18n.t(:name_preferred_taxonomically_for_source_help_tip,
           :icon => image_tag("v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
-
-      - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
-      - HierarchyEntry.preload_associations(hierarchy_entries, :hierarchy)
-      - hierarchy_entries.delete_if{ |he| !he.hierarchy.browsable? }
-      - for he in hierarchy_entries
+      - @taxon_page.hierarchy_entries.each do |he|
         - unless he.scientific_synonyms.blank?
           %h4= hierarchy_display_title(he.hierarchy, :show_link => false)
           %table.standard.synonyms
@@ -28,9 +21,12 @@
                   = he.name.string
                 %td
                   = I18n.t(:name_preferred_taxonomically_for_source_yes)
-              - for s in he.scientific_synonyms
+              - he.scientific_synonyms.each do |s|
                 %tr
                   %td
                     = s.name.string
                   %td
                     = s.synonym_relation ? s.synonym_relation.label.capitalize! : I18n.t(:synonym)
+    - else # no synonyms...  :(
+      .empty
+        %p= I18n.t(:names_synonyms_empty)

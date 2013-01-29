@@ -1,6 +1,5 @@
-- taxon_concept = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept : @taxon_concept
 .article
-  - if taxon_concept.has_map
+  - if @taxon_page.has_map?
     = javascript_include_tag 'swfobject.js'
     #map_image
     :javascript
@@ -8,7 +7,7 @@
       so.addParam("allowFullScreen", "true");
       so.addParam("wmode", "transparent");
       so.addVariable("swf", "");
-      so.addVariable("taxon_id", #{taxon_concept.gbif_map_id});
+      so.addVariable("taxon_id", #{@taxon_page.gbif_map_id});
       so.addVariable("data_server_endpoint", '#{$MAP_DATA_SERVER_ENDPOINT}');
       so.addVariable("gmap_key", '#{$GOOGLE_MAP_API_KEY}');
       var tileServers = new Array();
@@ -24,4 +23,4 @@
       so.write("map_image");
     %p
       = raw(I18n.t(:gbif_occurrence_disclaimer))
-      = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://data.gbif.org/species/#{taxon_concept.gbif_map_id}/", :rel => :nofollow
+      = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://data.gbif.org/species/#{@taxon_page.gbif_map_id}/", :rel => :nofollow

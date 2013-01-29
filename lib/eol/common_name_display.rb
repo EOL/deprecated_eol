@@ -85,6 +85,10 @@ module EOL
       new_names
     end
 
+    def known_language?
+      !(language.iso_639_1.blank? && language.iso_639_2.blank?)
+    end
+
     def synonym_id_for_user(user)
       @agent_synonyms[user.agent.id] rescue nil
     end

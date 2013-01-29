@@ -124,16 +124,21 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def rank_label
-    if rank.blank? || rank.label.blank?
-      I18n.t(:taxon).firstcap
-    else
-      rank.label.firstcap
-    end
+    @rank_label ||= if rank.blank? || rank.label.blank?
+        I18n.t(:taxon).firstcap
+      else
+        rank.label.firstcap
+      end
   end
+  alias :classified_by :rank_label 
 
   # wrapper function used in options_from_collection_for_select
   def hierarchy_label
     hierarchy.label
+  end
+
+  def hierarchy_provider
+    hierarchy_label.presence
   end
 
   # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See

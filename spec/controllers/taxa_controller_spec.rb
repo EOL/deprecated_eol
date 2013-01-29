@@ -40,30 +40,48 @@ describe TaxaController do
       overviews_do_show
       response.status.should == 200
     end
-    it 'should instantiate the taxon concept' do
+    it 'should instantiate the taxon concept and page' do
       overviews_do_show
       assigns[:taxon_concept].should be_a(TaxonConcept)
-    end
-    it 'should instantiate summary text' do
-      overviews_do_show
-      assigns[:summary_text].should be_a(DataObject)
-    end
-    it 'should instantiate summary media' do
-      overviews_do_show
-      assigns[:media][0].should be_a(DataObject)
+      assigns[:taxon_page].should be_a(TaxonPage)
     end
     it 'should instantiate an assistive header' do
       overviews_do_show
       assigns[:assistive_section_header].should be_a(String)
     end
-    it 'should instantiate summary media to include image map if exists' do
-      image_map = DataObject.gen(:data_type_id => DataType.image.id, :data_subtype_id => DataType.map.id)
-      overviews_do_show
-      assigns[:media].last.should_not == image_map
-      image_map.add_curated_association(@testy[:curator], @testy[:taxon_concept].entry)
-      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      overviews_do_show
-      assigns[:media].last.should == image_map
+    # Note: I removed the map test, since this is now tested in TaxonPage.
+
+  end
+
+  # This seems slightly misplaced, but, in fact, we need a controller spec to test this...
+  describe "TaxonPage links" do
+
+    before(:all) do
+      @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
+      @entry = HierarchyEntry.gen
+      @user = User.gen
+      @taxon_page = TaxonPage.new(@taxon_concept, @user)
+      @taxon_page_with_entry = TaxonPage.new(@taxon_concept, @user, @entry)
+    end
+
+    it 'should link to the overview just like the taxon_concept' do
+      overview_taxon_path(@taxon_concept).should == overview_taxon_path(@taxon_page)
+    end
+
+    it 'should link to the selected hierarchy entry view just like the taxon_concept' do
+      overview_taxon_entry_path(@taxon_concept, @entry).should == overview_taxon_path(@taxon_page_with_entry)
+    end
+
+    # I don't want to test every single link, just the common one (overview) and something more complicated:
+    it 'should link to the common names just like the taxon_concept' do
+      common_names_taxon_names_path(@taxon_concept).should ==
+        common_names_taxon_names_path(@taxon_page)
+    end
+
+    # I don't want to test every single link, just the common one (overview) and something more complicated:
+    it 'should link to the selected hierarhcy entry view of common names just like the taxon_concept' do
+      common_names_taxon_entry_names_path(@taxon_concept, @entry).should ==
+        common_names_taxon_names_path(@taxon_page_with_entry)
     end
 
   end

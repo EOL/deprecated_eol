@@ -14,14 +14,10 @@ class Users::ActivitiesController < UsersController
       # TODO: I think the use if the filter for curated taxa is weird since its not included in the filter list for the user
       # This also messes up SEO as filter all does not include this data.
       # TODO: we should provide unique meta data (title etc) for this filter's page
-      @rel_canonical_href = user_activity_url(@user, :page => rel_canonical_href_page_number(@curated_taxa_ids), :filter => "curated_taxa")
-      @rel_prev_href = rel_prev_href_params(@curated_taxa_ids) ? user_activity_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@curated_taxa_ids) ? user_activity_url(@rel_next_href_params) : nil
+      set_canonical_urls(:for => @user, :paginated => @curated_taxa_ids, :url_method => :user_activity_url)
     else
       @user_activity_log = @user.activity_log(:page => @page, :filter => @filter)
-      @rel_canonical_href = user_activity_url(@user, :page => rel_canonical_href_page_number(@user_activity_log))
-      @rel_prev_href = rel_prev_href_params(@user_activity_log) ? user_activity_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@user_activity_log) ? user_activity_url(@rel_next_href_params) : nil
+      set_canonical_urls(:for => @user, :paginated => @user_activity_log, :url_method => :user_activity_url)
     end
 
   end

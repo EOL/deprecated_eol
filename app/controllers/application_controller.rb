@@ -568,14 +568,33 @@ protected
     @meta_open_graph_image_url ||= nil
   end
 
+  # You should pass in :for (the object page you're on), :paginated (a collection of WillPaginate results), and
+  # :url_method (to the object's page--don't use *_path, use *_url).
+  def set_canonical_urls(options = {})
+    page = rel_canonical_href_page_number(options[:paginated])
+    parameters = []
+    if options[:for].is_a? Hash
+      parameters << options[:for].merge(:page => page)
+    else
+      parameters << options[:for] if options[:for]
+      parameters << {:page => page}
+    end
+    @rel_canonical_href = self.send(options[:url_method], *parameters)
+    @rel_prev_href = rel_prev_href_params(options[:paginated]) ?
+      self.send(options[:url_method], @rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(options[:paginated]) ?
+      self.send(options[:url_method], @rel_next_href_params) : nil
+  end
+
   # rel canonical only cares about page param for paginated records with current_page greater than 1
   def rel_canonical_href_page_number(records)
     @rel_canonical_href_page_number ||= records.is_a?(WillPaginate::Collection) && records.current_page > 1 ?
       records.current_page : nil
   end
 
-  # rel prev href needs the current request params with current page number swapped out for the number of the previous page
-  # return nil if there is no previous page
+  # rel prev href needs the current request params with current page number swapped out for the number of the
+  # previous page; return nil if there is no previous page
+  # NOTE - original_params is *never* passed in.
   def rel_prev_href_params(records, original_params = original_request_params.clone)
     @rel_prev_href_params ||= records.is_a?(WillPaginate::Collection) && records.previous_page ?
       original_params.merge({ :page => records.previous_page }) : nil

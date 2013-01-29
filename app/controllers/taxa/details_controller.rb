@@ -5,31 +5,24 @@ class Taxa::DetailsController < TaxaController
 
   # GET /pages/:taxon_id/details
   def index
-    @text_objects = @taxon_concept.details_text_for_user(current_user)
-    # TODO - hey, why not put this preload in #table_of_contents_for_text ?  :S
-    DataObject.preload_associations(@text_objects, { :toc_items => :parent })
-    @toc_items_to_show = @taxon_concept.table_of_contents_for_text(@text_objects)
-    
-    data_objects_in_other_languages = @taxon_concept.text_for_user(current_user, {
-      :language_ids_to_ignore => current_language.all_ids + [ 0 ],
+    @data_objects_in_other_languages = @taxon_page.text(
+      :language_ids_to_ignore => current_language.all_ids << 0,
       :allow_nil_languages => false,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] },
       :skip_preload => true,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id } })
-    DataObject.preload_associations(data_objects_in_other_languages, :language)
+      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id }
+    )
+    DataObject.preload_associations(@data_objects_in_other_languages, :language)
+    @show_add_link_buttons = true
     @details_count_by_language = {}
-    data_objects_in_other_languages.each do |obj|
+    @data_objects_in_other_languages.each do |obj|
       obj.language = obj.language.representative_language
       next unless Language.approved_languages.include?(obj.language)
       @details_count_by_language[obj.language] ||= 0
       @details_count_by_language[obj.language] += 1
     end
-    @summary_text = @taxon_concept.overview_text_for_user(current_user)
-    @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
     @assistive_section_header = I18n.t(:assistive_details_header)
-    @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_entry_details_url(@taxon_concept, @selected_hierarchy_entry) :
-      taxon_details_url(@taxon_concept)
+    @rel_canonical_href = taxon_details_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -53,7 +46,7 @@ class Taxa::DetailsController < TaxaController
 
 protected
   def meta_description
-    chapter_list = @toc_items_to_show.collect{|i| i.label}.uniq.compact.join("; ") unless @toc_items_to_show.blank?
+    chapter_list = @taxon_page.toc.map { |i| i.label}.uniq.compact.join("; ") unless @taxon_page.toc.blank?
     translation_vars = scoped_variables_for_translations.dup
     translation_vars[:chapter_list] = chapter_list unless chapter_list.blank?
     I18n.t("meta_description#{translation_vars[:preferred_common_name] ? '_with_common_name' :
@@ -62,7 +55,7 @@ protected
   end
   def meta_keywords
     keywords = super
-    toc_subjects = @toc_items_to_show.collect{|i| i.label}.compact.join(", ")
+    toc_subjects = @taxon_page.toc.map { |i| i.label}.compact.join(", ")
     [keywords, toc_subjects].compact.join(', ')
   end
   
@@ -88,7 +81,7 @@ private
     # there are two education chapters - one is the parent of the other
     education_root = TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
     education_chapters = [ education_root ] + education_root.children
-    education_toc_ids = education_chapters.collect{ |toc_item| toc_item.id }
+    education_toc_ids = education_chapters.map { |toc_item| toc_item.id }
     # & is array intersection
     @show_resources_links << 'education' unless (concept_toc_ids & education_toc_ids).empty?
 

@@ -6,23 +6,19 @@ class Taxa::MapsController < TaxaController
     # TODO - On next line @curator is defined and doesn't seem to be used anywhere for maps tab. Remove it if not really needed.
     @curator = current_user.min_curator_level?(:full)
     @assistive_section_header = I18n.t(:assistive_maps_header)
-    @watch_collection = logged_in? ? current_user.watch_collection : nil
     
-    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(current_user)
     @maps = @taxon_concept.data_objects_from_solr({
       :page => 1,
       :per_page => 100,
       :data_type_ids => DataType.image_type_ids,
       :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => vetted_types,
-      :visibility_types => visibility_types,
+      :vetted_types => current_user.vetted_types,
+      :visibility_types => current_user.visibility_types,
       :ignore_translations => true
     })
     DataObject.preload_associations(@maps, [ :users_data_objects_ratings, { :data_objects_hierarchy_entries =>
       [ :hierarchy_entry, :vetted, :visibility ] } ] )
-    @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_entry_maps_url(@taxon_concept, @selected_hierarchy_entry) :
-      taxon_maps_url(@taxon_concept)
+    @rel_canonical_href = taxon_maps_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_maps, :taxon_concept_id => @taxon_concept.id)
   end
 

@@ -126,10 +126,9 @@ class Resource < ActiveRecord::Base
     HarvestEvent
     cache_key = "latest_published_harvest_event_for_resource_#{id}"
     @latest_published_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
-      he = HarvestEvent.find(:first,
-       :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-       :limit => 1, :order => 'published_at desc')
-      he.nil? ? 0 : he # use 0 instead of nil when setting for cache because cache treats nil as a miss
+      # Uses 0 instead of nil when setting for cache because cache treats nil as a miss
+      HarvestEvent.where(["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id]). \
+        order('published_at desc').first || 0
     end
     @latest_published_harvest = nil if @latest_published_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_published_harvest
@@ -140,8 +139,8 @@ class Resource < ActiveRecord::Base
     HarvestEvent
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
     @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
-      he = HarvestEvent.where(resource_id: id).order('id DESC').limit(1).first
-      he.nil? ? 0 : he # use 0 instead of nil when setting for cache because cache treats nil as a miss
+      # Use 0 instead of nil when setting for cache because cache treats nil as a miss
+      HarvestEvent.where(resource_id: id).order('id DESC').first || 0
     end
     @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_harvest

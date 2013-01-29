@@ -1,7 +1,7 @@
 - content_for :head do
   = javascript_include_tag 'navigation'
 - content_for :main do
-  = render :partial => 'taxa/classification_selector' unless @selected_hierarchy_entry.blank?
+  = render :partial => 'taxa/classification_selector' if @taxon_page && @taxon_page.classifcation_filter?
   #content
     .site_column
       = yield

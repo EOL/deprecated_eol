@@ -14,8 +14,6 @@ class ContentPartners::StatisticsController < ContentPartnersController
     @pages = GoogleAnalyticsPageStat.page_summary(@partner.user.id, @year, @month, @page)
     GoogleAnalyticsPageStat.preload_associations(@pages, { :taxon_concept => { :published_hierarchy_entries => [ :name, :hierarchy ] } } )
     @month_name = Date::MONTHNAMES[@month.to_i]
-    @rel_canonical_href = content_partner_statistics_url(@partner, :page => rel_canonical_href_page_number(@pages))
-    @rel_prev_href = rel_prev_href_params(@pages) ? content_partner_statistics_url(@rel_prev_href_params) : nil
-    @rel_next_href = rel_next_href_params(@pages) ? content_partner_statistics_url(@rel_next_href_params) : nil
+    set_canonical_urls(:for => @partner, :paginated => @pages, :url_method => :content_partner_statistics_url)
   end
 end

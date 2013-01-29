@@ -8,7 +8,8 @@
           = s.label :language_id
         %dd
           = s.select(:language_id, @languages, :selected => current_language.id)
-          = s.hidden_field :hierarchy_entry_id, :value => @selected_hierarchy_entry_id
+          - if @taxon_page.classifcation_filter?
+            = s.hidden_field :hierarchy_entry_id, :value => @taxon_page.hierarchy_entry.id
       %dt
         = f.label :string
       %dd

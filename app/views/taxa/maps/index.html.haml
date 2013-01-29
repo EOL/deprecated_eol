@@ -1,11 +1,11 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 .site_column#taxon_maps
-  - if ! @taxon_concept.has_map && @maps.blank?
+  - if ! @taxon_concept.has_map? && @maps.blank?
     .empty
       %p= I18n.t(:maps_empty)
       %p= link_to I18n.t(:maps_empty_contribute_instructions), cms_page_path('partners')
-  - if @taxon_concept.has_map
+  - if @taxon_concept.has_map?
     #map
       = render :partial => 'maps'
   - unless @maps.blank?
@@ -16,7 +16,7 @@
       #main
         %ul.media
           - @maps.each_with_index do |item, index|
-            - item_status_class, item_status_label = item.status_class_and_label_by_taxon_concept(@taxon_concept)
+            - item_status_class, item_status_label = status_class_and_label_for_data_object(item)
             %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{item_status_class}"}
               = item.best_title
               .figure
@@ -25,4 +25,4 @@
                     :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
               %p.flag{:class => item_status_class }= item_status_label
-              = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
+              = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => current_user.watch_collection }

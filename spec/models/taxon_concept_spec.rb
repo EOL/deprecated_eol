@@ -158,16 +158,6 @@ describe TaxonConcept do
     @taxon_concept.comments.find_all {|comment| comment.visible? }.map(&:body).should == [@comment_1, @comment_2] # Order DOES matter, now.
   end
 
-  it 'should be able to show a table of contents' do
-    # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are
-    # appropriate.  I could test for those here, but that seems the perview of TocItem.  So, I'm only checking the
-    # first three elements:
-    user = User.gen
-    text = @taxon_concept.details_text_for_user(user)
-    toc_items_to_show = @taxon_concept.table_of_contents_for_text(text)
-    toc_items_to_show[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
-  end
-
   it 'should have images and videos in #media' do
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters).map(&:description).should include(@video_1_text)
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters).map(&:object_cache_url).should include(@testy[:image_1])
@@ -226,12 +216,22 @@ describe TaxonConcept do
     results.count.should == 2
   end
 
+  # TODO - this doesn't express the difference between #all_common_names and #common_names... the latter filters out
+  # duplicates and entries with unknown languages...
   it "should have common names" do
     @taxon_concept.all_common_names.length.should > 0
+    @taxon_concept.all_common_names.should include(@testy[:common_name])
+    @taxon_concept.all_common_names.should_not include(@testy[:scientific_name])
   end
 
-  it "should not have common names" do
+  it "should not have common names when there are none" do
     @tc_with_no_common_names.all_common_names.length.should == 0
+  end
+
+  it "should have scientific names" do
+    @taxon_concept.all_scientific_names.length.should > 0
+    @taxon_concept.all_scientific_names.should include(@testy[:scientific_name])
+    @taxon_concept.all_scientific_names.should_not include(@testy[:common_name])
   end
 
   it "should be able to filter common_names by taxon_concept or hierarchy_entry" do
@@ -243,16 +243,6 @@ describe TaxonConcept do
     taxon_concept_name = TaxonConceptName.gen(:vern => 1, :source_hierarchy_entry_id => hierarchy_entry.id, :taxon_concept_id => @taxon_concept.id)
     common_names = @taxon_concept.common_names(:hierarchy_entry_id => hierarchy_entry.id)
     common_names.count.should > 0
-  end
-
-  it "should be able to filter related_names by taxon_concept or hierarchy_entry" do
-    # by taxon_concept
-    related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
-    related_names.class.should == Hash
-    # by hierarchy_entry
-    hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries.first
-    related_names = TaxonConcept.related_names(:hierarchy_entry_id => hierarchy_entry.id)
-    related_names.class.should == Hash
   end
 
   it "should be able to filter synonyms by taxon_concept or hierarchy_entry" do
@@ -554,17 +544,6 @@ describe TaxonConcept do
 
   it 'should not return hidden exemplar image' do
     @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
-  end
-
-  it 'should show details text with no language only to users in the default language' do
-    user = User.gen(:language => Language.default)
-    @taxon_concept.details_text_for_user(user).first.language_id.should == Language.default.id
-    best_text = @testy[:no_language_in_toc].details_text_for_user(user).first
-    best_text.language_id.should == 0
-
-    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
-    new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
-    new_best_text.should be_nil
   end
 
   it 'should show overview text with no language only to users in the default language' do

@@ -3,14 +3,14 @@
 - can_curate = current_user.min_curator_level?(:full)
 - master_curator = current_user.min_curator_level?(:master)
 - allow_more_splits = master_curator
--# This is a bit cryptic, but what it's checking is whether we're on the TC page for the selected hierarchy entries
+-# This is a bit cryptic, but what it's checking is whether we're on the TC page for the hierarchy entries
 -# stored in the session... because if we are, we allow them to add more entries. If we're on another page, they
 -# cannot add more.  If there are none stored, then of course they can add.
 - stored_classifications = Array(session[:split_hierarchy_entry_id]).compact
 - stored_classifications = false if stored_classifications.blank?
 - stored_entries_on_this_page = false # When true, disables the "merge" button for the page (can't merge to yourself)
 - allow_more_splits = false if stored_classifications && !@hierarchy_entries.map {|h| h.id.to_s}.include?(stored_classifications.first.to_s)
-- allow_more_splits = false if @taxon_concept.classifications_locked?
+- allow_more_splits = false if @taxon_page.classifications_locked?
 - if can_curate
   = javascript_include_tag 'curation'
 #taxon_names
@@ -31,7 +31,7 @@
       - if stored_classifications && ! @confirm_split_or_merge
         %div.help_text.warning
           %p= raw I18n.t(:stored_classifications, :anchor => '#classification_actions')
-      - if master_curator && @taxon_concept.classifications_locked? && @pending_moves.empty?
+      - if master_curator && @taxon_page.classifications_locked? && @pending_moves.empty?
         %div.help_text.warning
           %p= I18n.t(:classifications_locked)
       - if @confirm_split_or_merge
@@ -40,7 +40,7 @@
           %p= raw I18n.t(:classification_split_warning)
           %p= raw I18n.t(:classification_button_help)
       = form_tag classifications_path do
-        = hidden_field_tag 'taxon_concept_id', @move_to || @taxon_concept.id
+        = hidden_field_tag 'taxon_concept_id', @move_to || @taxon_page.taxon_concept.id
         - if @confirm_split_or_merge
           = hidden_field_tag 'confirm', @confirm_split_or_merge
         - if @additional_confirm # NOTE = grr, this is getting ugly. :| But they have already confirmed partner merge:
@@ -62,7 +62,8 @@
         - if allow_more_splits
           - unless @other_hierarchy_entries.empty?
             #split_warning
-              = raw(I18n.t(:split_only_possible_with_all_classifications, :link => @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')))
+              = raw(I18n.t(:split_only_possible_with_all_classifications,
+                :link => taxon_names_path(@taxon_page, :all => '1')))
           #split_instructions
             = I18n.t(:split_classification_instructions)
         %table.standard.classifications
@@ -87,7 +88,7 @@
                   - stored_entries_on_this_page = true
               - unless splitting
                 %tr{:class => pending ? 'pending' : nil}
-                  - preferred = @taxon_concept.uses_preferred_entry?(hierarchy_entry)
+                  - preferred = @taxon_page.uses_preferred_entry?(hierarchy_entry)
                   - preferred_label = preferred ? I18n.t(:classification_preferred_for_taxon) : nil
                   - if can_curate && ! @confirm_split_or_merge
                     %td{:class => "preferred_entry_selector", :title => preferred_label }
@@ -104,15 +105,15 @@
                   %td{:class => preferred && !can_curate ? 'preferred' : nil }
                     %strong
                       = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
-                    - if hierarchy_entry.hierarchy.browsable.to_i == 1
+                    - if hierarchy_entry.hierarchy.browsable?
                       %br
-                      = link_to(I18n.t(:view_in_classification), overview_taxon_entry_path(@taxon_concept, hierarchy_entry))
+                      = link_to(I18n.t(:view_in_classification), overview_taxon_entry_path(@taxon_page.taxon_concept, hierarchy_entry))
                     - if pending
                       %br
                       = raw I18n.t(:classification_curation_pending)
                   %td.rank
                     - if hierarchy_entry.rank
-                      = hierarchy_entry.rank_label
+                      = hierarchy_entry.classified_by
                   %td.browsable.classifications
                     = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
         - if @other_hierarchy_entries.empty?
@@ -139,7 +140,7 @@
                               = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                           %td.rank
                             - if hierarchy_entry.rank
-                              = hierarchy_entry.rank_label
+                              = hierarchy_entry.classified_by
                           %td.browsable.classifications
                             = render(:partial => 'navigation/node', :locals => { :in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
                           %td
@@ -150,11 +151,8 @@
               - unless @confirm_split_or_merge
                 %li= submit_tag(I18n.t(:split_into_new_concept).i18n_downcase, :name => 'split')
         - else 
-          - link = @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
+          - link = taxon_names_path(@taxon_page, :all => '1')
           .classification_actions
             %p= link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link, :id => 'show_other_classifications')
 
--#
-  TODO 
-  - tie into PHP
-  - undo-ability
+-# TODO undo-ability

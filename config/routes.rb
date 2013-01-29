@@ -68,6 +68,7 @@ Eol::Application.routes.draw do
           get 'common_names'
           get 'related_names'
           get 'synonyms'
+          get 'delete'
         end
         member do
           get 'vet_common_name'

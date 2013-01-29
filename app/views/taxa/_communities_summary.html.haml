@@ -1,22 +1,18 @@
 #communities_summary.article.half.list
-  - count = @taxon_concept.communities.count
+  - count = @taxon_page.communities.count
   .header
     %h3= I18n.t(:communities_summary_header_with_count, :count => count)
     - if count > 1
-      - if @selected_hierarchy_entry
-        = link_to raw(I18n.t(:see_all_communities_with_count_html, :count => count)), taxon_entry_communities_path(@taxon_concept.id, @selected_hierarchy_entry)
-      - else
-        = link_to raw(I18n.t(:see_all_communities_with_count_html, :count => count)), taxon_communities_path(@taxon_concept.id)
+      = link_to raw(I18n.t(:see_all_communities_with_count_html, :count => count)), taxon_communities_path(@taxon_page)
   - if count > 0
     %ul
-      - @taxon_concept.top_communities.each do |community|
+      - @taxon_page.top_communities.each do |community|
         %li
           = link_to image_tag(community.logo_url(:small), :alt => ''), community_url(community)
           .details
             %h4= link_to community.name, community_url(community)
             %p
-              -# the .reduce(:+) add all the values of the array, thus counting all the items in all collections
-              = I18n.t(:other_community_items_with_count, :count => community.collections.map {|c| c.cached_count }.reduce(:+) )
+              = I18n.t(:other_community_items_with_count, :count => community.all_items_in_all_collections_count)
               = I18n.t(:punctuation_comma)
               = I18n.t(:members_with_count, :count => community.cached_count_members)
   - else

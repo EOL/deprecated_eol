@@ -331,16 +331,6 @@ class TaxonConcept < ActiveRecord::Base
     return all_outlinks
   end
 
-  def gbif_map_id
-    return @gbif_map_id if @gbif_map_id
-    if h = Hierarchy.gbif
-      if he = HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", h.id, id).select(:identifier).first
-        @gbif_map_id = he.identifier
-        return he.identifier
-      end
-    end
-  end
-
   # Cleans up instance variables in addition to the usual lot.
   def reload
     @@ar_instance_vars ||= TaxonConcept.new.instance_variables
@@ -386,6 +376,16 @@ class TaxonConcept < ActiveRecord::Base
 
   def has_map?
     return true if (gbif_map_id && GbifIdentifiersWithMap.find_by_gbif_taxon_id(gbif_map_id))
+  end
+
+  def gbif_map_id
+    return @gbif_map_id if @gbif_map_id
+    if h = Hierarchy.gbif
+      if he = HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", h.id, id).select(:identifier).first
+        @gbif_map_id = he.identifier
+        return he.identifier
+      end
+    end
   end
 
   # TODO - this is only used privately.
@@ -477,7 +477,7 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def classified_by
+  def rank_label
     entry.rank_label
   end
 
@@ -713,13 +713,6 @@ class TaxonConcept < ActiveRecord::Base
         :return_hierarchically_aggregated_objects => true
       }).total_entries
     end
-  end
-
-  # TODO - this belongs on TaxonOverview
-  def map
-    return @map if @map
-    map_results = get_one_map
-    @map = map_results.blank? ? nil : map_results.first
   end
 
   def maps_count()

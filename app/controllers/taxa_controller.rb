@@ -16,9 +16,12 @@ class TaxaController < ApplicationController
   end
 
   def overview
-    @taxon_page.preload_overview # Cuts down on queries by loading everything up front.
+    # TODO - I feel like we should skip building the taxon_page object, but I'm not sure how to do that most
+    # elegantly.
+    @overview = TaxonOverview.new(@taxon_concept, current_user, @selected_hierarchy_entry)
+    @overview.preload_overview # Cuts down on queries by loading everything up front.  TODO - this s/b automatic.
     @assistive_section_header = I18n.t(:assistive_overview_header)
-    @rel_canonical_href = overview_taxon_url(@taxon_page)
+    @rel_canonical_href = overview_taxon_url(@overview)
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 

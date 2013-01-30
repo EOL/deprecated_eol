@@ -1,7 +1,7 @@
 #media_summary.gallery
   %h3.assistive= I18n.t(:media)
   .images
-    - if @taxon_page.top_media.blank?
+    - if @overview.top_media.blank?
       .image
         = image_tag 'v2/img_taxon-placeholder.png', :alt => ''
         .attribution
@@ -9,10 +9,10 @@
             %p= I18n.t(:media_summary_empty)
             %p= link_to I18n.t(:media_summary_empty_contribute_instructions), cms_page_path('contribute')
     - else
-      - @taxon_page.top_media.each do |item|
+      - @overview.top_media.each do |item|
         .image
           %a{:href => data_object_path(item.id)}
-            %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_page),
+            %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @overview.taxon_concept),
               :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
           .details
             .copy
@@ -20,6 +20,6 @@
             .attribution{ :class => (item.license == License.no_known_restrictions) ? 'license_string' : '' }
               = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item}
   %p.all
-    = link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_page)
+    = link_to I18n.t(:see_all_media_link), taxon_media_path(@overview)
     %br/
-    = link_to I18n.t(:see_all_maps_link), taxon_maps_path(@taxon_page) unless @taxon_page.map.blank?
+    = link_to I18n.t(:see_all_maps_link), taxon_maps_path(@overview) if @overview.map?

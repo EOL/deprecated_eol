@@ -130,7 +130,6 @@ class HierarchyEntry < ActiveRecord::Base
         rank.label.firstcap
       end
   end
-  alias :classified_by :rank_label 
 
   # wrapper function used in options_from_collection_for_select
   def hierarchy_label

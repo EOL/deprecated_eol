@@ -5,28 +5,8 @@
 # counting on ARel to handle lazy loading, you will want to attach any selects and includes *before* calling
 # TaxonPage.
 class TaxonPage
-
-  attr_reader :taxon_concept, :user
-
-  # The hierarchy_entry is optional and, if provided, creates a classification filter using that entry. We use
-  # entries instead of classifications for mainly historical reasons... we *could* use a hierarchy instead, though
-  # it's ultimately the hierarchy_entry that we need anyway.
-  def initialize(taxon_concept, user, hierarchy_entry = nil) 
-    @taxon_concept = taxon_concept
-    @user = user
-    @taxon_concept.current_user = user
-    @_hierarchy_entry = hierarchy_entry
-  end
-
-  # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
-  # you see "hierarchy_entry" (no leading underscore) it means "do the right thing".
-  def hierarchy_entry
-    _hierarchy_entry || @taxon_concept.entry
-  end
-
-  def classifcation_filter?
-    _hierarchy_entry
-  end
+  
+  include TaxonPresenter # Covers initialization and the storing of those values passed in: tc, he, user.
 
   def classification_entry
     return _hierarchy_entry if classifcation_filter?
@@ -86,27 +66,6 @@ class TaxonPage
     @hierarchy_entries
   end
 
-  def gbif_map_id
-    map_taxon_concept.gbif_map_id
-  end
-
-  # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
-  # there is any map at all without filters):
-  def map?
-    map_taxon_concept.has_map? && map
-  end
-
-  # TODO - this belongs on TaxonOverview... but review.
-  def top_media
-    @images ||= promote_exemplar_image(
-      taxon_concept.images_from_solr(
-        map? ? 3 : 4, { :filter_hierarchy_entry => _hierarchy_entry, :ignore_translations => true }
-      )
-    ).compact
-    @images = map? ? (@images[0..2] << map) : @images
-    @images
-  end
-
   # This is used by the TaxaController (and thus all its children) to help build information for ALL translations:
   def hierarchy_provider
     classifcation_filter? ? _hierarchy_entry.hierarchy_provider : nil
@@ -134,8 +93,8 @@ class TaxonPage
     true
   end
 
-  def classified_by
-    hierarchy_entry_or_taxon_concept.classified_by
+  def rank_label
+    hierarchy_entry_or_taxon_concept.rank_label
   end
 
   def related_names
@@ -210,49 +169,12 @@ class TaxonPage
     @media_count ||= taxon_concept.media_count(user, _hierarchy_entry)
   end
 
-  # TODO - This belongs on TaxonConceptOverview
-  def summary_text
-    @summary_text ||= taxon_concept.overview_text_for_user(user) # NOTE - we use this instance var in #preload_overview.
-  end
-
-  def text(options = {})
-    taxon_concept.text_for_user(user, options)
-  end
-
-  # TODO - this prolly belongs on TaxonConceptOverview, not here, but I'm not sure...
   def image
     taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
   end
 
-  # helper.link_to "foo", app.overview_taxon_path(taxon_page) # Results depend on hierarchy_entry:
-  # => "<a href=\"/pages/910093/hierarchy_entries/16/overview\">foo</a>"
-  # OR
-  # => "<a href=\"/pages/910093/overview\">foo</a>"
-  def to_param
-    classifcation_filter? ? "#{taxon_concept.to_param}/hierarchy_entries/#{_hierarchy_entry.to_param}" :
-                            taxon_concept.to_param
-  end
-
-  # TODO - Clearly this belongs in TaxonOverview...
-  def preload_overview
-    # TODO - this is a "magic trick" just to preload it along with the (real) media. Find another way:
-    loadables = (media + [summary_text]).compact
-    DataObject.replace_with_latest_versions!(loadables,
-                                             :select => [ :description ], :language_id => user.language_id)
-    includes = [ {
-      :data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ]
-      }, :vetted, :visibility ]
-    } ]
-    includes << { :all_curated_data_objects_hierarchy_entries =>
-      [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
-    includes << :users_data_object
-    includes << :license
-    includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
-    DataObject.preload_associations(loadables, includes)
-    DataObject.preload_associations(loadables, :translations, :conditions => "data_object_translations.language_id=#{user.language_id}")
-    @summary_text = loadables.pop if @summary_text # TODO - this is the other end of the proload magic. Fix.
-    @media = loadables
+  def text(options = {})
+    taxon_concept.text_for_user(user, options)
   end
 
   # TODO - clearly this belongs in TaxonDetails...
@@ -286,7 +208,7 @@ private
 
   # Using the Rails codebase's convention of putting an underscore before the method name, here, because this isn't a
   # value you should ever be calling from outside this class... though we have a #hierarchy_entry method that you
-  # *can* call. The difference is that this value can be nil (when no hierarchy_entry was passed into the
+  # *can* call. The difference is that _this value can be nil (when no hierarchy_entry was passed into the
   # constructor). There are places, such as #hierarchy_entry_or_taxon_concept, where we need to know this, but only
   # privately. Outside of this class, you can test whether the entry was provided to the constructor using
   # #classifcation_filter?
@@ -296,10 +218,6 @@ private
 
   def hierarchy_entry_or_taxon_concept
     _hierarchy_entry || taxon_concept
-  end
-
-  def map_taxon_concept
-    @map_taxon_concept ||= classifcation_filter? ? _hierarchy_entry.taxon_concept : taxon_concept
   end
 
   # NOTE - the field aliases used in this query are required by #build_related_names_hash and are used in views.

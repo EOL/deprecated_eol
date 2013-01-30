@@ -1123,6 +1123,12 @@ class DataObject < ActiveRecord::Base
     license && license.show_rights_holder?
   end
 
+  # TODO - test
+  def is_already_overview_text_for?(taxon_concept)
+    visibility_by_taxon_concept(taxon_concept) != Visibility.visible ||
+      guid == taxon_concept.overview_text_for_user(user).guid
+  end     
+
 private
 
   def safe_object_title

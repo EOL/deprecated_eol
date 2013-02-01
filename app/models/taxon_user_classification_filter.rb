@@ -1,15 +1,34 @@
 # This is an interface to the TaxonConcept that is aware of the user and whether the user wants to see data from a
-# single partner or not. This would be a good class to use to build a webpage. :)
+# single partner or not. This is the basis for may of the taxon_concept resources that are exposed on EOL.
 #
-# NOTE - when you create a TaxonPage, the TaxonConcept is *immediately* loaded, if it wasn't already... so if you're
+# NOTE - when you call #initialize, the TaxonConcept is *immediately* loaded, if it wasn't already... so if you're
 # counting on ARel to handle lazy loading, you will want to attach any selects and includes *before* calling
 # TaxonPage.
-class TaxonPage
-  
-  include TaxonPresenter # Covers initialization and the storing of those values passed in: tc, he, user.
+class TaxonUserClassificationFilter
+
+  attr_reader :taxon_concept, :user
+
+  def initialize(taxon_concept, user, hierarchy_entry = nil) 
+    @taxon_concept = taxon_concept
+    @user = user
+    @taxon_concept.current_user = user # TODO - do we need this anymore?
+    @_hierarchy_entry = hierarchy_entry
+  end
+
+  # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
+  # you see "hierarchy_entry" (no leading underscore) it means "do the right thing".
+  def hierarchy_entry
+    _hierarchy_entry || @taxon_concept.entry
+  end
+
+  # This tells you whether the presenter is being viewed with a classification filter. ...Of course. Please don't
+  # trust the return value to be the actual HE; you should only be using this for t/f tests.
+  def classification_filter?
+    _hierarchy_entry
+  end
 
   def classification_entry
-    return _hierarchy_entry if classifcation_filter?
+    return _hierarchy_entry if classification_filter?
     return @classification_entry if @classification_entry
     if chosen = taxon_concept.curator_chosen_classification
       @classification_chosen_by = chosen.user
@@ -36,12 +55,55 @@ class TaxonPage
     @classification_curated ||= taxon_concept.curator_chosen_classification
   end
 
+  # All permutations of presenters need to know how to name themselves:
+  def scientific_name
+    hierarchy_entry_or_taxon_concept.title_canonical_italicized
+  end
+
+  # helper.link_to "foo", app.overview_taxon_path(taxon_page) # Results depend on hierarchy_entry:
+  # => "<a href=\"/pages/910093/hierarchy_entries/16/overview\">foo</a>"
+  # OR
+  # => "<a href=\"/pages/910093/overview\">foo</a>"
+  def to_param
+    classification_filter? ? "#{taxon_concept.to_param}/hierarchy_entries/#{_hierarchy_entry.to_param}" :
+                            taxon_concept.to_param
+  end
+
+  # NOTE - these map methods are perhaps not best-suited to living here, but at the moment, it's the best place for
+  # them since they are used by both classes that implement this module:
+  def map_taxon_concept
+    @map_taxon_concept ||= classification_filter? ? _hierarchy_entry.taxon_concept : taxon_concept
+  end
+
+  def gbif_map_id
+    map_taxon_concept.gbif_map_id
+  end
+
+  # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
+  # there is any map at all without filters):
+  def map?
+    map_taxon_concept.has_map? && map
+  end
+
+  # TODO - we use this instance var in TaxonOverview#preload_overview... which is sub-par.  :|
+  # NOTE - Once you call this (with options), those options are preserved and you cannot call this with different
+  # options. Be careful. (In practice, this never matters.)
+  def media(options = {})
+    @media ||= taxon_concept.data_objects_from_solr(options.merge(
+      :ignore_translations => true,
+      :filter_hierarchy_entry => hierarchy_entry,
+      :return_hierarchically_aggregated_objects => true,
+      :skip_preload => true,
+      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
+    ))
+  end
+
   def hierarchy
-    classifcation_filter? ? _hierarchy_entry.hierarchy : taxon_concept.hierarchy
+    classification_filter? ? _hierarchy_entry.hierarchy : taxon_concept.hierarchy
   end
 
   def kingdom
-    classifcation_filter? ? _hierarchy_entry.kingdom : hierarchy_entry.kingdom
+    classification_filter? ? _hierarchy_entry.kingdom : hierarchy_entry.kingdom
   end
 
   # We're not inheriting from Delegator here, because we want to be more surgical about what gets called on
@@ -68,16 +130,12 @@ class TaxonPage
 
   # This is used by the TaxaController (and thus all its children) to help build information for ALL translations:
   def hierarchy_provider
-    classifcation_filter? ? _hierarchy_entry.hierarchy_provider : nil
+    classification_filter? ? _hierarchy_entry.hierarchy_provider : nil
   end
 
-  def scientific_name
-    hierarchy_entry_or_taxon_concept.title_canonical_italicized
-  end
-
-  # NOTE - Seems like a bit of a waste to get the count and not save it, but I don't think we use the counts.
+  # NOTE - We don't ever use the counts, so they are not saved here.
   def synonyms?
-    classifcation_filter? ? _hierarchy_entry.scientific_synonyms.length > 0 :
+    classification_filter? ? _hierarchy_entry.scientific_synonyms.length > 0 :
       taxon_concept.count_of_viewable_synonyms > 0
   end
 
@@ -105,10 +163,6 @@ class TaxonPage
 
   def related_names_count
     related_names['parents'].count + related_names['children'].count
-  end
-
-  def details?
-    details_text_for_user(:only_one)
   end
 
   def details(options = {})
@@ -149,20 +203,6 @@ class TaxonPage
     @facets ||= EOL::Solr::DataObjects.get_aggregated_media_facet_counts(
       taxon_concept.id, :filter_hierarchy_entry => _hierarchy_entry, :user => user
     )
-  end
-
-  # TODO - This belongs in TaxonMedia
-  # NOTE - we use this instance var in #preload_overview...
-  # NOTE - Once you call this (with options), those options are preserved and you cannot call this with different
-  # options. Be careful. (In practice, this never matters.)
-  def media(options = {})
-    @media ||= taxon_concept.data_objects_from_solr(options.merge(
-      :ignore_translations => true,
-      :filter_hierarchy_entry => hierarchy_entry,
-      :return_hierarchically_aggregated_objects => true,
-      :skip_preload => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
-    ))
   end
 
   def media_count
@@ -211,7 +251,7 @@ private
   # *can* call. The difference is that _this value can be nil (when no hierarchy_entry was passed into the
   # constructor). There are places, such as #hierarchy_entry_or_taxon_concept, where we need to know this, but only
   # privately. Outside of this class, you can test whether the entry was provided to the constructor using
-  # #classifcation_filter?
+  # #classification_filter?
   def _hierarchy_entry
     @_hierarchy_entry
   end
@@ -224,7 +264,7 @@ private
   def get_related_names(which)
     from = which == :children ? 'he_child' : 'he_parent'
     other = which == :children ? 'he_parent' : 'he_child'
-    filter = classifcation_filter? ? "id=#{_hierarchy_entry.id}" : "taxon_concept_id=#{taxon_concept.id}"
+    filter = classification_filter? ? "id=#{_hierarchy_entry.id}" : "taxon_concept_id=#{taxon_concept.id}"
     # NOTE - if you chande this at all... even a space... the spec will fail. Perhaps you should re-write this? For
     # example, could you make this a method on HierarchyEntry and create scopes using that method in a lambda?
     HierarchyEntry.connection.execute("
@@ -273,6 +313,8 @@ private
     end
     grouped.sort {|a,b| a[0] <=> b[0]}
   end
+
+protected # You can only call these from the classes that inherit from TaxonUserClassificationFilter
 
   # TODO - there are three other methods related to this one, but I don't want to move them yet.
   def details_text_for_user(only_one = false)

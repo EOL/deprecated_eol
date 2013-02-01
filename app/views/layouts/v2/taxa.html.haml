@@ -1,5 +1,5 @@
 - content_for :main do
-  = render :partial => 'taxa/classification_selector' if @taxon_page.classifcation_filter?
+  = render :partial => 'taxa/classification_selector' if @taxon_page.classification_filter?
   #page_heading.with_nav
     .site_column
       .hgroup
@@ -30,7 +30,7 @@
 
       = render :partial => 'shared/flash_messages'
 
-      - if @taxon_page.classifcation_filter?
+      - if @taxon_page.classification_filter?
         %p#citation.status
           = raw(hierarchy_entry_display_attribution(@taxon_page.hierarchy_entry, :show_rank_first => true))
           &emsp;&bull;&emsp;

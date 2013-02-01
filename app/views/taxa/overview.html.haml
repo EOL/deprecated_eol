@@ -1,16 +1,159 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 #taxon
-  = render(:partial => 'taxa/media_summary')
-  = render(:partial => 'taxa/iucn_status_summary')
-  = render(:partial => 'taxa/text_summary')
-  = render(:partial => 'taxa/collections_summary')
-  = render(:partial => 'taxa/communities_summary')
+  #media_summary.gallery
+    %h3.assistive= I18n.t(:media)
+    .images
+      - if @overview.top_media.blank?
+        .image
+          = image_tag 'v2/img_taxon-placeholder.png', :alt => ''
+          .attribution
+            .copy
+              %p= I18n.t(:media_summary_empty)
+              %p= link_to I18n.t(:media_summary_empty_contribute_instructions), cms_page_path('contribute')
+      - else
+        - @overview.top_media.each do |item|
+          .image
+            %a{:href => data_object_path(item.id)}
+              %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @overview.taxon_concept),
+                :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
+            .details
+              .copy
+                = render :partial => "data_objects/associations_minimal", :locals => {:data_object => item}
+              .attribution{ :class => (item.license == License.no_known_restrictions) ? 'license_string' : '' }
+                = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item}
+    %p.all
+      = link_to I18n.t(:see_all_media_link), taxon_media_path(@overview)
+      %br/
+      = link_to I18n.t(:see_all_maps_link), taxon_maps_path(@overview) if @overview.map?
+  - if @overview.iucn?
+    #iucn_status{:class => iucn_status_class(@overview.iucn_status)}
+      %h3= raw(I18n.t(:threat_status_header_colon))
+      %p= link_to(@overview.iucn_status, @overview.iucn_url, :rel => :nofollow,
+          :title => I18n.t(:iucn_red_list_status_advisory_information))
+  #text_summary.article.overview
+    - if @overview.summary?
+      - item_status_class, item_status_label = status_class_and_label_for_data_object(@overview.summary)
+      - unless @overview.summary.description.empty? || @overview.summary.description.nil? || @overview.summary.toc_items.empty?
+        %div{:class => item_status_class, :data => { :text_id =>  @overview.summary.id } }
+          .header
+            %h3= h @overview.summary.toc_items[0].label
+            = link_to(I18n.t(:text_summary_more_link), taxon_details_path(@overview))
+          .meta.learn_more
+            %p= link_to I18n.t(:article_more_about), data_object_path(@overview.summary)
+            = render :partial => 'data_objects/view_translation', :locals => { :data_object => @overview.summary, :taxon => @overview.taxon_concept}
+          - if @overview.summary.content_partner && @overview.summary.content_partner == ContentPartner.wikipedia
+            = stylesheet_link_tag("wikipedia")
+            = javascript_include_tag("wiki_ogg_player")
+          .copy
+            - unless @overview.summary.object_title.blank?
+              %h4= @overview.summary.object_title
+            - @overview.summary.description = @overview.summary.description_linked unless @overview.summary.description_linked.blank? rescue nil
+            - if @overview.summary.added_by_user?
+              = raw(Sanitize.clean(@overview.summary.description.balance_tags, Sanitize::Config::RELAXED))
+            - else
+              = raw(@overview.summary.description.balance_tags)
+          %p.flag{:class => item_status_class}= item_status_label
+          .meta.attribution
+            = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => @overview.summary }
+    - else
+      .header
+        %h3= I18n.t(:text_summary_empty_header)
+      .empty
+        %p= I18n.t(:text_summary_empty)
+        - if @overview.details?
+          %p= raw(I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(raw(@overview.scientific_name), taxon_details_path(@overview))))
+        = link_to I18n.t(:add_brief_summary_to_page_link_button), new_taxon_data_object_path(@overview), :class => 'button'
+  #collections_summary.article.half.list.clear
+    - count = @overview.collections_count
+    - if count > 0
+      .header
+        %h3= I18n.t(:collections_summary_header_with_count, :count => count)
+        = link_to raw(I18n.t(:see_all_collections_with_count_html, :count => count)), collections_taxon_communities_path(@overview)
+      %ul
+        - @overview.collections.each do |collection|
+          %li
+            - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
+            = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)
+            .details
+              %h4= link_to collection.name, collection_path(collection)
+              -# NOTE - Sometimes we cache the counts of the collections with fewer queries... (but not always).
+              -# NOTE - -1 because we're counting items *other* than this page...
+              %p= I18n.t(:other_collection_items_with_count, :count => collection.cached_count - 1 )
+    - else
+      .header
+        %h3= I18n.t(:collections_summary_header_with_count, :count => 0)
+      .empty
+        %p
+          = I18n.t(:collections_summary_empty)
+          %fieldset.actions
+            = render :partial => 'shared/add_to_my_collection', :locals => { :item => @overview.taxon_concept, :my_collection => current_user.watch_collection }
+  #communities_summary.article.half.list
+    - count = @overview.communities_count
+    .header
+      %h3= I18n.t(:communities_summary_header_with_count, :count => count)
+      - if count > 1
+        = link_to raw(I18n.t(:see_all_communities_with_count_html, :count => count)), taxon_communities_path(@overview)
+    - if count > 0
+      %ul
+        - @overview.communities.each do |community|
+          %li
+            = link_to image_tag(community.logo_url(:small), :alt => ''), community_url(community)
+            .details
+              %h4= link_to community.name, community_url(community)
+              %p
+                = I18n.t(:other_community_items_with_count, :count => community.all_items_in_all_collections_count)
+                = I18n.t(:punctuation_comma)
+                = I18n.t(:members_with_count, :count => community.cached_count_members)
+    - else
+      .empty
+        %p= I18n.t(:communities_summary_empty)
+        %p= link_to I18n.t(:learn_more_about_communities_link), cms_page_path('communities')
+
 #sidebar
-  = render(:partial => 'taxa/classifications_summary')
+  -# TODO - It probably shouldn't be THAT different for a selected hierarchy entry view and a regular taxon view.
+  -# Figure out why there's so much extra, here.
+  - if @overview.classification_filter?
+    = render(:partial => 'taxa/classification_tree')
+  - else
+    #classification_tree.article
+      .header
+        - if @overview.classification_curated?
+          %h3= I18n.t(:classification_summary_section_header)
+        - else
+          %h3= I18n.t(:classifications_summary_header_with_count, :count => @overview.classifications_count)
+          - if @overview.classifications_count > 1
+            = link_to(raw(I18n.t(:see_all_classifications_with_count_html, :count => @overview.classifications_count)), taxon_names_path(@overview))
+      - if @overview.classification_curated?
+        .meta.curated
+          - if @overview.classifications_count > 1
+            = raw(I18n.t(:classification_from_agent_chosen_by_curator_see_more, :agent => hierarchy_display_title(@overview.classification), :curator => link_to(@overview.classification_chosen_by.full_name, user_path(@overview.classification_chosen_by.id)), :more_link => taxon_names_path(@overview)))
+          - else
+            = raw(I18n.t(:classification_from_agent_chosen_by_curator, :agent => hierarchy_display_title(@overview.classification), :curator => link_to(@overview.classification_chosen_by.full_name, user_path(@overview.classification_chosen_by.id))))
+      - if @overview.classification_entry
+        #classification_browser.browsable.classifications
+          = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => @overview.classification_entry, :link_to_taxa => true, :show_siblings => true, :show_hierarchy_label => !@overview.classification_curated? })
+      - else # TODO - is it even possible to have NO classification?  If not, remove this.
+        .empty
+          %p= I18n.t(:classifications_empty)
   - cache("taxon_overview_curators_#{@overview.cache_id}") do
-    = render(:partial => 'taxa/curators_summary', :locals => {:curators => @overview.curators})
-  - unless @overview.classifcation_filter?
+    #curators_summary.article.list
+      - count = curators.count
+      .header
+        %h3= I18n.t(:curators_summary_header_with_count, :count => count)
+        = link_to I18n.t(:curators_summary_learn_more_link), curators_path
+      - if count > 0
+        %ul
+          - curators.each do |curator|
+            %li
+              = link_to image_tag(curator.logo_url(:small), :alt => I18n.t(:profile_image_alt_text_curator, :user_full_name => h(curator.full_name))), curator
+              .details
+                %h4= link_to h(curator.full_name), curator
+                %p.meta= h(curator.tag_line)
+      - else
+        .empty
+          %p= I18n.t(:curators_empty)
+  - unless @overview.classification_filter?
     .article.list.updates
       - cache("activity_#{@overview.cache_id}") do
         .header

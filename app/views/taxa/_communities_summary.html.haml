@@ -1,12 +1,12 @@
 #communities_summary.article.half.list
-  - count = @taxon_page.communities.count
+  - count = @overview.communities_count
   .header
     %h3= I18n.t(:communities_summary_header_with_count, :count => count)
     - if count > 1
-      = link_to raw(I18n.t(:see_all_communities_with_count_html, :count => count)), taxon_communities_path(@taxon_page)
+      = link_to raw(I18n.t(:see_all_communities_with_count_html, :count => count)), taxon_communities_path(@overview)
   - if count > 0
     %ul
-      - @taxon_page.top_communities.each do |community|
+      - @overview.communities.each do |community|
         %li
           = link_to image_tag(community.logo_url(:small), :alt => ''), community_url(community)
           .details

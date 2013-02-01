@@ -8,7 +8,7 @@
   - next if names.blank?
   = form_tag "/pages/#{@taxon_concept.id}/names/update", :method => :put, :class => 'update_common_names' do
     = hidden_field_tag 'language_id', names[0].language.id
-    - if @taxon_page.classifcation_filter?
+    - if @taxon_page.classification_filter?
       = hidden_field_tag "hierarchy_entry_id", @taxon_page.hierarchy_entry.id
     %h4= language
     %table.standard.edit_common_names

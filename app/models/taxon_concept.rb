@@ -206,12 +206,6 @@ class TaxonConcept < ActiveRecord::Base
     User.find_all_by_id(curators)
   end
 
-  # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
-  # species is.  This will default to "unknown" for species that are not being tracked.
-  def iucn_conservation_status
-    return iucn.description
-  end
-
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
   # TODO - this is much slower than #title and should be removed.
   def scientific_name(hierarchy = nil, italicize = true)
@@ -440,26 +434,6 @@ class TaxonConcept < ActiveRecord::Base
     @superceded_the_requested_id = true
   end
 
-  def iucn
-    return @iucn if !@iucn.nil?
-    # IUCN was getting called over 240 times below, so I am checking the data_type
-    # here rather than using the is_iucn? which would call DataType.iucn later in DataObject
-    iucn_data_type = DataType.iucn
-    
-    iucn_objects = DataObject.find(:all, :joins => :data_objects_taxon_concepts,
-      :conditions => "`data_objects_taxon_concepts`.`taxon_concept_id` = #{self.id}
-        AND `data_objects`.`data_type_id` = #{DataType.iucn.id} AND `data_objects`.`published` = 1",
-      :order => "`data_objects`.`id` DESC")
-    my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
-    temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
-    @iucn = temp_iucn
-    return @iucn
-  end
-
-  def iucn_conservation_status_url
-    return iucn.source_url
-  end
-
   # Returns an array of HierarchyEntry models (not TaxonConcept models), useful for building navigable
   # trees.  If you really want TCs, refer to #ancestors (yes, TODO - these sould be better-named!)
   def ancestry(hierarchy_id = nil)
@@ -583,22 +557,6 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def top_communities
-    # communities are sorted by the most number of members - descending order
-    community_ids = communities.map{|c| c.id}.compact
-    return [] if community_ids.blank?
-    member_counts = Member.select("community_id").group("community_id").where(["community_id IN (?)", community_ids]).
-      order('count_community_id DESC').count
-    if member_counts.blank?
-      return communities
-    else
-      communities_sorted_by_member_count = member_counts.keys.map { |collection_id| communities.detect{ |c| c.id == collection_id } }
-    end
-    best_three = communities_sorted_by_member_count[0..2]
-    Community.preload_associations(best_three, :collections, :select => { :collections => :id })
-    return best_three
-  end
-
   def communities
     @communities ||= Community.find_by_sql("
       SELECT c.* FROM communities c
@@ -607,13 +565,6 @@ class TaxonConcept < ActiveRecord::Base
         JOIN collection_items ci ON (ci.collection_id = cl.id)
       WHERE ci.collected_item_id = #{id} AND collected_item_type = 'TaxonConcept' AND c.published = 1
     ")
-  end
-
-  def top_collections
-    return @top_collections if @top_collections
-    all_containing_collections = collections.select{ |c| c.published? && !c.watch_collection? }
-    # This algorithm (-relevance) was faster than either #reverse or rel * -1.
-    @top_collections = all_containing_collections.sort_by { |c| [ -c.relevance ] }[0..2]
   end
 
   def flattened_ancestor_ids

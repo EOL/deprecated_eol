@@ -1,6 +1,6 @@
 -# TODO - It probably shouldn't be THAT different for a selected hierarchy entry view and a regular taxon view.
 -# Figure out why there's so much extra, here.
-- if @taxon_page.classifcation_filter?
+- if @taxon_page.classification_filter?
   = render(:partial => 'taxa/classification_tree')
 - else
   - classifications_count = @taxon_page.hierarchy_entries.length

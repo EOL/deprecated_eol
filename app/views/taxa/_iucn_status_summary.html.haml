@@ -1,7 +1,0 @@
-- # TODO: Find out what this should look like for V2, e.g. should we show 'not evaluated'.
-- # Also is the iucn_conservation_status ever blank or nil? Looks like it returns 'not evaluated' if empty?
-- unless @overview.iucn?
-  #iucn_status{:class => iucn_status_class(@overview.iucn_status)}
-    %h3= raw(I18n.t(:threat_status_header_colon))
-    %p= link_to(@overview.iucn_status, @overview.iucn_url, :rel => :nofollow,
-        :title => I18n.t(:iucn_red_list_status_advisory_information))

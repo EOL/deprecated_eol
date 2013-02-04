@@ -238,7 +238,7 @@ class TaxonConcept < ActiveRecord::Base
   # models, not TaxonConcept models.  Hmmmn.
   def ancestors
     return [] unless entry
-    entry.ancestors.map {|a| a.taxon_concept }
+    entry.ancestors.map { |a| a.taxon_concept }
   end
 
   # Get a list of TaxonConcept models that are children to this one.
@@ -262,7 +262,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # If *any* of the associated HEs are species or below, we consider this to be a species:
   def species_or_below?
-    published_hierarchy_entries.detect {|he| he.species_or_below? }
+    published_hierarchy_entries.detect { |he| he.species_or_below? }
   end
 
   def has_outlinks?
@@ -349,7 +349,7 @@ class TaxonConcept < ActiveRecord::Base
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
     @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries) if @all_entries.blank?
     best_entry = hierarchy ? 
-      @all_entries.detect {|he| he.hierarchy_id == hierarchy.id } || @all_entries.first :
+      @all_entries.detect { |he| he.hierarchy_id == hierarchy.id } || @all_entries.first :
       @all_entries.first
     create_preferred_entry(best_entry) if hierarchy.nil?
     @cached_entry[hierarchy] = best_entry
@@ -364,7 +364,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def in_hierarchy?(search_hierarchy = nil)
     return false unless search_hierarchy
-    entries = published_hierarchy_entries.detect {|he| he.hierarchy_id == search_hierarchy.id }
+    entries = published_hierarchy_entries.detect { |he| he.hierarchy_id == search_hierarchy.id }
     return entries.nil? ? false : true
   end
 
@@ -568,7 +568,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def flattened_ancestor_ids
-    @flattened_ancestor_ids ||= flattened_ancestors.map {|a| a.ancestor_id }
+    @flattened_ancestor_ids ||= flattened_ancestors.map { |a| a.ancestor_id }
   end
 
   def scientific_names_for_solr
@@ -667,11 +667,29 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def maps_count()
+    # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
+    # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be 
+    # TaxonConceptCache, where we can handle both storing and clearing keys. That centralizes the logic,
+    # and would allow us to put these two methods where they belong:
     @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
       count = get_one_map.total_entries
       count +=1 if self.has_map?
       count
     end
+  end
+
+  # This is needed by the presenter classes as well as #maps_count:
+  def get_one_map
+    data_objects_from_solr(
+      :page => 1, 
+      :per_page => 1,
+      :data_type_ids => DataType.image_type_ids,
+      :data_subtype_ids => DataType.map_type_ids,
+      :vetted_types => ['trusted', 'unreviewed'],
+      :visibility_types => ['visible'],
+      :ignore_translations => true,
+      :skip_preload => true
+    )
   end
 
   # returns a DataObject, not a TaxonConceptExemplarImage
@@ -855,7 +873,7 @@ class TaxonConcept < ActiveRecord::Base
     return @deep_browsables if @deep_browsables
     current_entry_id = entry.id # Don't want to call #entry so many times...
     @deep_browsables = cached_deep_published_hierarchy_entries.dup
-    @deep_browsables.delete_if {|he| current_entry_id != he.id && he.hierarchy.browsable.to_i == 0 }
+    @deep_browsables.delete_if { |he| current_entry_id != he.id && he.hierarchy.browsable.to_i == 0 }
     @deep_browsables += deep_published_browsable_hierarchy_entries if
       @deep_browsables.count == 1 && @deep_browsables.first.id == current_entry_id &&
         @deep_browsables.first.hierarchy.browsable.to_i == 0
@@ -868,9 +886,9 @@ class TaxonConcept < ActiveRecord::Base
   # them.
   def deep_published_nonbrowsable_hierarchy_entries
     return @deep_nonbrowsables if @deep_nonbrowsables
-    current_entry_id = entry.id # Don't want to call #entry so many times...
+    current_entry_id = entry.id  # Don't want to call #entry so many times...
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
-    @deep_nonbrowsables.delete_if {|he| he.hierarchy.browsable.to_i == 1 || current_entry_id == he.id }
+    @deep_nonbrowsables.delete_if { |he| he.hierarchy.browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)
   end
 
@@ -921,7 +939,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def all_published_entries?(hierarchy_entry_ids)
-    hierarchy_entry_ids.map {|he| he.is_a?(HierarchyEntry) ? he.id : he.to_i }.compact.sort == deep_published_sorted_hierarchy_entries.map {|he| he.id}.compact.sort
+    hierarchy_entry_ids.map { |he| he.is_a?(HierarchyEntry) ? he.id : he.to_i }.compact.sort == deep_published_sorted_hierarchy_entries.map { |he| he.id}.compact.sort
   end
 
   def providers_match_on_merge(hierarchy_entry_ids)
@@ -984,19 +1002,6 @@ class TaxonConcept < ActiveRecord::Base
 
 private
 
-  def get_one_map
-    data_objects_from_solr(
-      :page => 1, 
-      :per_page => 1,
-      :data_type_ids => DataType.image_type_ids,
-      :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => ['trusted', 'unreviewed'],
-      :visibility_types => ['visible'],
-      :ignore_translations => true,
-      :skip_preload => true
-    )
-  end
-
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user
   def best_article_for_user(the_user)
@@ -1012,7 +1017,7 @@ private
         :toc_ids => TocItem.possible_overview_ids,
         :filter_by_subtype => true })
       # TODO - really? #text_for_user returns unpublished articles?
-      overview_text_objects.delete_if {|article| ! article.published? }
+      overview_text_objects.delete_if { |article| ! article.published? }
       DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
         :vetted, :visibility ] })
       return nil if overview_text_objects.empty?
@@ -1023,7 +1028,7 @@ private
   # Put the currently-preferred entry at the top of the list and load associations:
   def sort_and_preload_deeply_browsable_entries(set) 
     current_entry_id = entry.id # Don't want to call #entry so many times...
-    set.sort! {|a,b| a.id == current_entry_id ? -1 : b.id == current_entry_id ? 1 : 0}
+    set.sort! { |a,b| a.id == current_entry_id ? -1 : b.id == current_entry_id ? 1 : 0}
     HierarchyEntry.preload_deeply_browsable(set)
   end
 

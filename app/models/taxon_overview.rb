@@ -1,21 +1,59 @@
 # This represents the overview of a taxon concept, providing a minimal interface to only the aspects you might
 # need to display one.
 #
-# Note this is somewhat similar to a TaxonPage (q.v.), but provides a much more minimal API for easier handling.
-class TaxonOverview
+# NOTE - this represents an OVERVIEW. It restricts the number of things it shows, so a method like #media
+# does NOT give you the full list of media for the filtered taxon, it gives you the "overview" of them, 
+# limited in number. I've tried to follow a pattern (usually) of having a "feature" (like #media) have a 
+# method to return the subset (#media), tell you whether there are any at all (#details?) and return a count
+# of the full list available (#classifications_count). There are exceptions; not all permutations were needed.
+class TaxonOverview < TaxonUserClassificationFilter
+
+  MEDIA_TO_SHOW = 4
+  COLLECTIONS_TO_SHOW = 3
+  COMMUNITIES_TO_SHOW = 3
+
+  def classification
+    classification_entry.hierarchy
+  end
+
+  # NOTE - It should be "relatively impossible" for this to be nil. ...At least, TCs with no identifyable
+  # entry should at least be unpublished (and thus not accessible on the site).
+  def hierarchy_entry
+    return _hierarchy_entry if classification_filter?
+    return @entry if @entry
+    if chosen = taxon_concept.curator_chosen_classification
+      @classification_chosen_by = chosen.user # Might as well set it while we have it.
+      @entry = chosen.hierarchy_entry
+    else
+      @entry = taxon_concept.hierarchy_entries.shuffle.first
+      @entry ||= taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first
+      @entry ||= super
+    end
+    @entry
+  end
+
+  def classification_chosen_by
+    return @classification_chosen_by if @classification_chosen_by
+    chosen = taxon_concept.curator_chosen_classification
+    @classification_chosen_by = chosen ? chosen.user : nil
+  end
+
+  def classification_curated?
+    @classification_curated ||= taxon_concept.curator_chosen_classification
+  end
 
   def classifications_count
     @classifications_count ||= taxon_concept.hierarchy_entries.length
   end
 
-  def top_media
-    @images ||= promote_exemplar_image(
+  def media
+    @media ||= promote_exemplar_image(
       taxon_concept.images_from_solr(
-        map? ? 3 : 4, { :filter_hierarchy_entry => _hierarchy_entry, :ignore_translations => true }
+        map? ? MEDIA_TO_SHOW-1 : MEDIA_TO_SHOW, { :filter_hierarchy_entry => _hierarchy_entry, :ignore_translations => true }
       )
     ).compact
-    @images = map? ? (@images[0..2] << map) : @images
-    @images
+    @media = @media[0..MEDIA_TO_SHOW-2] << map if map?
+    @media
   end
 
   def details?
@@ -27,7 +65,7 @@ class TaxonOverview
   end
 
   def summary
-    @summary ||= taxon_concept.overview_text_for_user(user) # NOTE - we use this instance var in #preload_overview.
+    @summary ||= taxon_concept.overview_text_for_user(user)
   end
 
   def image
@@ -36,7 +74,7 @@ class TaxonOverview
 
   def collections
     # NOTE - -relevance was faster than either #reverse or rel * -1.
-    @collections ||= all_collections.sort_by { |c| [ -c.relevance ] }[0..2]
+    @collections ||= all_collections.sort_by { |c| [ -c.relevance ] }[0..COLLECTIONS_TO_SHOW-1]
   end
 
   def collections_count
@@ -53,7 +91,7 @@ class TaxonOverview
       order('count_community_id DESC').count
     return taxon_concept.communities if member_counts.blank?
     communities_sorted_by_member_count = member_counts.keys.map { |collection_id| taxon_concept.communities.detect { |c| c.id == collection_id } }
-    best_three = communities_sorted_by_member_count[0..2]
+    best_three = communities_sorted_by_member_count[0..COMMUNITIES_TO_SHOW-1]
     Community.preload_associations(best_three, :collections, :select => { :collections => :id })
     return best_three
   end
@@ -63,7 +101,11 @@ class TaxonOverview
   end
 
   def curators
-    taxon_concept.data_object_curators
+    @curators ||= taxon_concept.data_object_curators
+  end
+
+  def curators_count
+    @curators_count ||= curators.count
   end
 
   def activity_log
@@ -71,9 +113,7 @@ class TaxonOverview
   end
 
   def map
-    return @map if @map
-    map_results = get_one_map
-    @map = map_results.blank? ? nil : map_results.first
+    @map ||= taxon_concept.get_one_map
   end
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how
@@ -87,7 +127,7 @@ class TaxonOverview
   end
 
   def iucn?
-    !iucn_conservation_status.blank?
+    !iucn_status.blank?
   end
 
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
@@ -96,10 +136,14 @@ class TaxonOverview
     map_taxon_concept.has_map? && map
   end
 
-  # TODO - This should be called by a hook on #initialize.
-  def preload_overview
-    # TODO - this is a "magic trick" just to preload it along with the (real) media. Find another way:
-    loadables = (media + [@summary]).compact
+  def cache_id
+    "taxon_overview_#{taxon_concept.id}_#{user.language_abbr}"
+  end
+
+private
+
+  def after_initialize
+    loadables = (media << summary).compact
     DataObject.replace_with_latest_versions!(loadables,
                                              :select => [ :description ], :language_id => user.language_id)
     includes = [ {
@@ -114,15 +158,7 @@ class TaxonOverview
     includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
     DataObject.preload_associations(loadables, includes)
     DataObject.preload_associations(loadables, :translations, :conditions => "data_object_translations.language_id=#{user.language_id}")
-    @summary = loadables.pop if @summary # TODO - this is the other end of the proload magic. Fix.
-    @media = loadables
   end
-
-  def cache_id
-    "taxon_overview_#{taxon_concept.id}_#{user.language_abbr}"
-  end
-
-private
 
   def all_collections
     @all_collections ||= taxon_concept.collections.published.watch
@@ -137,6 +173,14 @@ private
       :order => "`data_objects`.`id` DESC")
     my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
     @iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
+  end
+
+  # NOTE - if the exemplar was not in data_objects, we'll end up with a longer list. ...Is this dangerous?
+  def promote_exemplar_image(data_objects)
+    return data_objects unless taxon_concept.published_exemplar_image
+    data_objects.delete_if { |d| d.guid == taxon_concept.published_exemplar_image.guid }
+    data_objects.unshift(taxon_concept.published_exemplar_image)
+    data_objects
   end
 
 end

@@ -13,6 +13,11 @@ class TaxonUserClassificationFilter
     @user = user
     @taxon_concept.current_user = user # TODO - do we need this anymore?
     @_hierarchy_entry = hierarchy_entry
+    after_initialize
+  end
+
+  def after_initialize
+    # Do nothing. If you inherit from the class, you'll want to override this.
   end
 
   # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
@@ -25,34 +30,6 @@ class TaxonUserClassificationFilter
   # trust the return value to be the actual HE; you should only be using this for t/f tests.
   def classification_filter?
     _hierarchy_entry
-  end
-
-  def classification_entry
-    return _hierarchy_entry if classification_filter?
-    return @classification_entry if @classification_entry
-    if chosen = taxon_concept.curator_chosen_classification
-      @classification_chosen_by = chosen.user
-      @classification_entry = chosen.hierarchy_entry
-    else
-      @classification_entry = hierarchy_entries.shuffle.first
-      @classification_entry ||= deep_published_nonbrowsable_hierarchy_entries.shuffle.first
-      @classification_entry ||= hierarchy_entry
-    end
-    @classification_entry
-  end
-
-  def classification
-    classification_entry.hierarchy
-  end
-
-  def classification_chosen_by
-    return @classification_chosen_by if @classification_chosen_by
-    chosen = taxon_concept.curator_chosen_classification
-    @classification_chosen_by = chosen ? chosen.user : nil
-  end
-
-  def classification_curated?
-    @classification_curated ||= taxon_concept.curator_chosen_classification
   end
 
   # All permutations of presenters need to know how to name themselves:
@@ -69,20 +46,17 @@ class TaxonUserClassificationFilter
                             taxon_concept.to_param
   end
 
-  # NOTE - these map methods are perhaps not best-suited to living here, but at the moment, it's the best place for
-  # them since they are used by both classes that implement this module:
-  def map_taxon_concept
-    @map_taxon_concept ||= classification_filter? ? _hierarchy_entry.taxon_concept : taxon_concept
-  end
-
   def gbif_map_id
     map_taxon_concept.gbif_map_id
   end
 
-  # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
-  # there is any map at all without filters):
+  # NOTE - this checks if the *filtered* page really has a map (as opposed to whether there is any map at all):
   def map?
     map_taxon_concept.has_map? && map
+  end
+
+  def map_taxon_concept
+    @map_taxon_concept ||= classification_filter? ? _hierarchy_entry.taxon_concept : taxon_concept
   end
 
   # TODO - we use this instance var in TaxonOverview#preload_overview... which is sub-par.  :|
@@ -278,14 +252,6 @@ private
       AND #{from}.published = 1
       AND browsable = 1
     ")
-  end
-
-  # NOTE - if the exemplar was not in data_objects, we'll end up with a longer list. ...Is this dangerous?
-  def promote_exemplar_image(data_objects)
-    return data_objects unless taxon_concept.published_exemplar_image
-    data_objects.delete_if { |d| d.guid == taxon_concept.published_exemplar_image.guid }
-    data_objects.unshift(taxon_concept.published_exemplar_image)
-    data_objects
   end
 
   # TODO - These are hashes that are used in the view(s), but we should document (or make obvious) how they are

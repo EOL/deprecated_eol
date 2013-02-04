@@ -4,25 +4,12 @@ class TaxaController < ApplicationController
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
 
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names, :only => 'overview'
-  before_filter :add_page_view_log_entry, :only => 'overview'
-
   def show
     if this_request_is_really_a_search
       do_the_search
       return
     end
     return redirect_to overview_taxon_path(params[:id]), :status => :moved_permanently
-  end
-
-  def overview
-    # TODO - I feel like we should skip building the taxon_page object, but I'm not sure how to do that most
-    # elegantly.
-    @overview = TaxonOverview.new(@taxon_concept, current_user, @selected_hierarchy_entry)
-    @overview.preload_overview # Cuts down on queries by loading everything up front.  TODO - this s/b automatic.
-    @assistive_section_header = I18n.t(:assistive_overview_header)
-    @rel_canonical_href = overview_taxon_url(@overview)
-    current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 
   ################
@@ -126,7 +113,7 @@ protected
 
 private
 
-  def instantiate_taxon_concept
+  def instantiate_taxon_page
     tc_id = params[:taxon_concept_id] || params[:taxon_id] || params[:id]
     # we had cases of app servers not properly getting the page ID from parameters and throwing 404
     # errors instead of 500. This may cause site crawlers to think pages don't exist. So throw errors instead

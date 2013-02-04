@@ -2469,7 +2469,6 @@ en:
   classification_tree_header: "Classification"
   classifications_edit_cancelled_merge_to_self: "Your source and target are the same page; nothing to move."
   classifications_edit_cancelled_busy: "Sorry, your request to edit the classifications cannot be processed at this time; one or more of the taxon pages is locked. An existing request to edit these classifications is being processed."
-  classifications_empty: "This page is not included in any of the classifications that are browsable in EOL."
   classifications_locked: "The classifications on this page cannot be edited at this time. Another request to edit these classifications is being processed."
   classifications_preferred_column_header: "Preferred"
   classifications_exemplar_column_header: "Exemplar"

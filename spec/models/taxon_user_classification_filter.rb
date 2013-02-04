@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe TaxonPage do
+describe TaxonUserClassificationFilter do
 
   def check_delegation_of(method)
     some_string = FactoryGirl.generate(:string)
@@ -19,8 +19,8 @@ describe TaxonPage do
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
     @entry = HierarchyEntry.gen
     @user = User.gen
-    @taxon_page = TaxonPage.new(@taxon_concept, @user)
-    @taxon_page_with_entry = TaxonPage.new(@taxon_concept, @user, @entry)
+    @taxon_page = TaxonUserClassificationFilter.new(@taxon_concept, @user)
+    @taxon_page_with_entry = TaxonUserClassificationFilter.new(@taxon_concept, @user, @entry)
   end
 
   it "should be able to filter related_names by taxon_concept" # Yeesh, this is really hard to test.
@@ -134,10 +134,6 @@ describe TaxonPage do
     @taxon_page.can_set_exemplars?.should be_true
   end
 
-  it 'should intelligently delegate #classified_by' do
-    check_delegation_of(:classified_by)
-  end
-
   # TODO - this is hard to test, so we're probably doing something wrong.
   it '#related_names should call a really nasty query for parents and children' do
     # http://stackoverflow.com/questions/1785382/rspec-expecting-a-message-multiple-times-but-with-differing-parameters
@@ -210,20 +206,6 @@ describe TaxonPage do
   it 'should cound all related names' do
     @taxon_page.should_receive(:related_names).twice.and_return('parents' => [1,2,3], 'children' => [4,5,6,7])
     @taxon_page.related_names_count.should == 7
-  end
-
-  # TODO - hard to test, refactor
-  it '#details? should check if details exist with only one detail (and not preload)' do
-    @taxon_concept.should_receive(:text_for_user).with(
-      @user, 
-      :language_ids => [ @user.language_id ],
-      :filter_by_subtype => true,
-      :allow_nil_languages => @user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => 1
-    ).and_return(true)
-    DataObject.should_not_receive(:preload_associations)
-    @taxon_page.details?.should be_true
   end
 
   # TODO - rethink this one. :\
@@ -318,6 +300,17 @@ describe TaxonPage do
 
   it '#to_param should delegate to taxon_concept with no entry' do
     @taxon_page.to_param.should == @taxon_concept.to_param
+  end
+
+  it 'should intelligently delegate #rank_label' do
+    check_delegation_of(:rank_label)
+  end
+
+  it 'should delegate #gbif_map_id to hierarchy_entry.taxon_concept when available' do
+    tc = TaxonConcept.gen
+    @entry.should_receive(:taxon_concept).at_least(1).times.and_return(tc)
+    tc.should_receive(:gbif_map_id).and_return(98)
+    @taxon_page_with_entry.gbif_map_id.should == 98
   end
 
 end

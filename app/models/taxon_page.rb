@@ -221,7 +221,7 @@ class TaxonPage
 
   # TODO - this prolly belongs on TaxonConceptOverview, not here, but I'm not sure...
   def image
-    taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
+    taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end
 
   # helper.link_to "foo", app.overview_taxon_path(taxon_page) # Results depend on hierarchy_entry:

@@ -27,12 +27,12 @@ $global_nav_height: 2.7em !default
   filter: alpha(opacity=$val*100)
 = gradient-bg($color1, $color2)
   background-color: $color2
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#{$color1}, endColorstr=#{$color2})
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#{ie-hex-str($color1)}', endColorstr='#{ie-hex-str($color2)}')
   background-image: -moz-linear-gradient(100% 100% 90deg, $color2, $color1)
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($color1), to($color2))
 = gradient-bg-horizontal($color1, $color2)
   background-color: $color2
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#{$color1}, endColorstr=#{$color2})
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr='#{ie-hex-str($color1)}', endColorstr='#{ie-hex-str($color2)}')
   background-image: -moz-linear-gradient(100% 100% 180deg, $color2, $color1)
   background-image: -webkit-gradient(linear, left center, right center, from($color1), to($color2))
 

@@ -3,7 +3,7 @@
   = form_for :user, :action => :recover_account_connections, :method => :post do |f|
     = f.hidden_field :email, :value => @users[0].email
     %fieldset
-      %p= t(".form_tip", :email => @users[0].email)
+      %p= raw t(".form_tip", :email => @users[0].email)
     %fieldset.radio
       %legend= t(".legend_choose_account")
       - @users.each_with_index do |user, i|

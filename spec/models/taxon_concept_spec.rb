@@ -588,7 +588,7 @@ describe TaxonConcept do
 
     user = User.gen(:language => Language.find_by_iso_639_1('fr'))
     taxon_page = TaxonPage.new(@testy[:no_language_in_toc], user)
-    taxon_page.details.should be_nil
+    taxon_page.details.should == []
   end
 
   it 'should show overview text with no language only to users in the default language' do

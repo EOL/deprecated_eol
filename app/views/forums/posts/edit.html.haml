@@ -1,0 +1,15 @@
+= content_for :head do
+  = javascript_include_tag "ckeditor/init"
+= form_for @post, :url => forum_topic_post_path(@post.forum_topic.forum, @post.forum_topic, @post), :builder => ApplicationHelper::EolFormBuilder do |f|
+  %fieldset
+    %dl
+      %dt
+        = f.label :subject, 'Subject'
+      %dd
+        = f.text_field :subject, :size => 100
+      %dt
+        = f.label :text, 'Text'
+      %dd
+        = f.cktext_area(:text, :toolbar => 'ForumPost', :height => 200, :width => 750)
+  %fieldset.actions
+    = submit_tag("Update Post")

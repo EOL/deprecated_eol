@@ -1,0 +1,25 @@
+= content_for :head do
+  = javascript_include_tag "ckeditor/init"
+- default_text = nil
+- if @reply_to_post
+  - default_text = render :partial => 'forums/posts/reply_text', :locals => { :post => @reply_to_post }
+= form_for ForumPost.new(:text => default_text),
+  :url => forum_topic_posts_path(@topic.forum, @topic), :builder => ApplicationHelper::EolFormBuilder,
+  :html => { :class => 'boxed' } do |f|
+  %h3= "Make a post"
+  = hidden_field_tag :submit_to, forum_posts_create_path(:forum_id => @topic.forum.id, :topic_id => @topic.id) unless logged_in?
+  = f.hidden_field :forum_topic_id, :value => @topic.id
+  - if @reply_to_post
+    = f.hidden_field :reply_to_post_id, :value => @reply_to_post.id
+  %fieldset
+    %dl
+      %dt
+        = f.label :subject
+      %dd
+        = f.text_field :subject, :size => 100, :value => @reply_to_post ? @reply_to_post.reply_to_subject : nil
+      %dt
+        = f.label :text
+      %dd
+        = f.cktext_area(:text, :toolbar => 'ForumPost', :height => 200, :width => 750)
+  %fieldset.actions
+    = submit_tag(I18n.t('forums.posts.submit_post'))

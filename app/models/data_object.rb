@@ -846,7 +846,7 @@ class DataObject < ActiveRecord::Base
   # NOTE - if you plan on calling this, you are behooved by adding object_title and data_type_id to your selects.
   def best_title
     return safe_object_title.html_safe unless safe_object_title.blank?
-    return toc_items.first.label.html_safe unless toc_items.blank?
+    return toc_items.first.label.html_safe unless toc_items.blank? || toc_items.first.label.nil?
     return safe_data_type.simple_type.html_safe if safe_data_type
     return I18n.t(:unknown_data_object_title).html_safe
   end

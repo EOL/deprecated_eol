@@ -300,7 +300,32 @@ Eol::Application.routes.draw do
       resources :translated_news_items, :as => :translations, :except => [:show, :index],
         :controller => 'admins/translated_news_items'
     end
-    
+  end
+
+  resources :forum_categories, :controller => 'forums/categories', :only => [:create, :destroy] do
+    member do
+      post 'move_up'
+      post 'move_down'
+    end
+  end
+
+  # when adding a commenting and not logged in, user will get redirected to login
+  # then redirected to create via GET. We need to define the abilty to send GET to create
+  get '/forums/create' => 'forums#create', :as => 'forums_create'
+  get '/forums/:forum_id/topics/create' => 'forums/topics#create', :as => 'forum_topics_create'
+  get '/forums/:forum_id/topics/:topic_id/posts/create' => 'forums/posts#create', :as => 'forum_posts_create'
+  resources :forums, :only => [ :index, :show, :create, :destroy ] do
+    member do
+      post 'move_up'
+      post 'move_down'
+    end
+    resources :topics, :controller => 'forums/topics', :only => [ :show, :create, :destroy ] do
+      resources :posts, :controller => 'forums/posts', :only => [ :show, :new, :create, :edit, :update, :destroy ] do
+        member do
+          get 'reply'
+        end
+      end
+    end
   end
 
   # Old V1 admin search logs:
@@ -462,16 +487,10 @@ Eol::Application.routes.draw do
     resources :table_of_contents, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/table_of_contents'
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end
-  
+
   resource :navigation, :controller => 'navigation' do
     member do
       get 'browse_stats'
-    end
-  end
-  
-  resource :wysiwyg, :controller => 'wysiwyg' do
-    collection do
-      post 'upload_image'
     end
   end
 
@@ -488,12 +507,12 @@ Eol::Application.routes.draw do
   match 'api/:action/:id' => 'api'
   # looks for version, ID
   match 'api/:action/:version/:id' => 'api', :version =>  /\d\.\d/
-  
+
   match 'content/random_homepage_images' => 'content#random_homepage_images'
   match 'content/donate_complete' => 'content#donate_complete'
   match 'content/file/:id' => 'content#file'
   match '/maintenance' => 'content#maintenance', :as => 'maintenance'
-  
+
 
   # These are expensive and broad and should be kept at the bottom of the file:
   match '/:id' => redirect("/pages/%{id}/overview"), :id => /\d+/

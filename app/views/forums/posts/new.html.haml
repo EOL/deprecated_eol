@@ -1,0 +1,4 @@
+- if @reply_to_post
+  %h2= "Replying to"
+  = render :partial => 'forums/posts/show', :locals => { :post => @reply_to_post }
+= render :partial => 'forums/posts/create_form'

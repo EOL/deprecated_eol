@@ -38,6 +38,7 @@ Eol::Application.configure do
   
   config.after_initialize do
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
+    $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
   end
 end
 

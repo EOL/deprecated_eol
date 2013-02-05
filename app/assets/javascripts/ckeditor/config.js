@@ -27,36 +27,44 @@ CKEDITOR.editorConfig = function( config )
 
   config.toolbar_Easy =
     [
-      [ 'Bold' ,'Italic' ,'Underline' ,'Strike' ,'-' ],
-      [ 'NumberedList' ,'BulletedList' ,'-' ],
-      [ 'FontSize' ], [ 'TextColor' ,'BGColor' ],
+      [ 'Bold', 'Italic', 'Underline', 'Strike', '-' ],
+      [ 'NumberedList', 'BulletedList', '-' ],
+      [ 'FontSize' ], [ 'TextColor', 'BGColor' ],
       [ 'ImageButton', 'Link', 'Unlink' ],
-      [ 'Source' ,'-' ,'ShowBlocks' ,'-' ,'Preview' ]
+      [ 'Source', '-', 'ShowBlocks', '-', 'Preview' ]
     ] ;
 
   config.toolbar_Article =
     [
-        [ 'Cut' ,'Copy' ,'Paste' ,'PasteFromWord' ,'-' ,'SpellChecker' ,'-' ,'Undo' ,'Redo' ,'-' ,'Find' ,'Replace' ,'-' ,'SelectAll' ,'RemoveFormat' ],
-        [ 'Bold' ,'Italic', 'Subscript', 'Superscript' ,'-', 'Link' ,'Unlink' ,'Anchor' ], [ 'Source' ,'-' ,'ShowBlocks' ,'-' ,'Preview' ]
+        [ 'Cut', 'Copy', 'Paste', 'PasteFromWord', '-', 'SpellChecker', '-', 'Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat' ],
+        [ 'Bold', 'Italic', 'Subscript', 'Superscript', '-', 'Link', 'Unlink', 'Anchor' ], [ 'Source', '-', 'ShowBlocks', '-', 'Preview' ]
+    ] ;
+
+  config.toolbar_ForumPost =
+    [
+        [ 'Format', 'NumberedList', 'BulletedList', 'Blockquote', 'Bold', 'Italic', 'Subscript', 'Superscript',
+          '-', 'RemoveFormat', '-', 'Link', 'Unlink' ],
+        [ 'Undo', 'Redo' ],
+        [ 'Source', '-', 'ShowBlocks' ]
     ] ;
 
   config.toolbar_CMSNavigation =
     [
-        [ 'Cut' ,'Copy' ,'Paste' ,'PasteFromWord' ,'-' ,'SpellChecker' ],
-        [ 'Undo' ,'Redo' ,'-' ,'Find' ,'Replace' ,'-' ,'SelectAll' ,'RemoveFormat' ],
+        [ 'Cut', 'Copy', 'Paste', 'PasteFromWord', '-', 'SpellChecker' ],
+        [ 'Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat' ],
         [ 'BulletedList' ],
-        [ 'Link' ,'Unlink' ],
-        [ 'Source' ,'-' ,'ShowBlocks' ,'-' ,'Preview' ]
+        [ 'Link', 'Unlink' ],
+        [ 'Source', '-', 'ShowBlocks', '-', 'Preview' ]
     ] ;
 
   config.toolbar_CMSBody =
     [
-        [ 'Cut' ,'Copy' ,'Paste' ,'PasteFromWord' ,'-' ,'SpellChecker' ,'-' ,'Undo' ,'Redo' ,'-' ,'Find' ,'Replace' ,'-' ,'SelectAll' ,'RemoveFormat' ],
-        [ 'Source' ,'-' ,'ShowBlocks' ,'-' ,'Preview' ],
+        [ 'Cut', 'Copy', 'Paste', 'PasteFromWord', '-', 'SpellChecker', '-', 'Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat' ],
+        [ 'Source', '-', 'ShowBlocks', '-', 'Preview' ],
         '/',
-        [ 'Format' ,'NumberedList' ,'BulletedList' ,'Blockquote' ,'-' ,'Bold' ,'Italic' ,'-' ,'Subscript' ,'Superscript' ],
-        [ 'Link' ,'Unlink' ,'Anchor' ],
-        [ 'Image' ,'Table' ,'HorizontalRule' ,'SpecialChar' ]
+        [ 'Format', 'NumberedList', 'BulletedList', 'Blockquote', '-', 'Bold', 'Italic', '-', 'Subscript', 'Superscript' ],
+        [ 'Link', 'Unlink', 'Anchor' ],
+        [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar' ]
     ];
     
   CKEDITOR.on( 'instanceReady', function( ev )

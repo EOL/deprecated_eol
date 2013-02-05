@@ -1,0 +1,23 @@
+.post{ :id => "post_#{post.id}" }
+  .post_body
+    .actions
+      %ul
+        - if current_user.can_update?(post)
+          %li= button_to I18n.t('edit'), edit_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :get
+        - if current_user.can_delete?(post)
+          %li= button_to I18n.t('delete'), forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+        %li= button_to I18n.t('reply'), reply_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :get
+    .title= post.subject
+    .author
+      = raw I18n.t('forums.post_by_user_at_time', :user => link_to(post.user.username, post.user), :time => I18n.l(post.created_at, :format => :blog))
+    .text= raw post.text
+  .attribution
+    = link_to image_tag(post.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+      :posters_name => h(post.user.full_name))), user_url(post.user), :class => 'avatar'
+    .primary_name
+      = link_to post.user.full_name, post.user
+    - if post.user.full_name != post.user.username
+      .secondary_name
+        = link_to post.user.username, post.user
+    .join_date
+      = raw I18n.t('forums.posts.joined_date', :date => I18n.l(post.user.created_at, :format => :blog))

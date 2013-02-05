@@ -62,6 +62,7 @@ en:
       long_utc: "%B %d, %Y %H:%M UTC"
       month_name: "%B"
       month_and_year: "%B %Y"
+      blog: "%a %b %d, %Y %l:%M %P"
     am: "am"
     pm: "pm"
   support:
@@ -290,6 +291,16 @@ en:
         # lifedesk stats
         lifedesk_taxa: "LifeDesks taxa"
         lifedesk_data_objects: "LifeDesks data objects"
+      forum:
+        forum_category_id: "Category"
+        name: "Forum name"
+        description: "Description <small>(optional)</small>"
+      forum_category:
+        title: "Category name"
+        description: "Description <small>(optional)</small>"
+      forum_post:
+        subject: "Subject"
+        text: "Body"
       harvest_event:
         resource: "Resource"
       hierarchy:
@@ -956,6 +967,21 @@ en:
       menu_link: "User-submitted text"
       page_header: "User-Submitted Text Statistics"
       page_title: "Statistics"
+  forums:
+    last_post: "Last Post"
+    posts_heading: "Posts"
+    replies: "Replies"
+    topics_heading: "Topics"
+    views: "Views"
+    create_category: "create category"
+    create_forum: "create forum"
+    post_by_user_at_time: "by %{user}, %{time}"
+    actions: "Actions"
+    posts:
+      joined_date: "Joined: %{date}"
+      submit_post: "submit post"
+    topics:
+      start_topic: "start topic"
   layouts:
     v2:
       application:

@@ -1,0 +1,6 @@
+%blockquote
+  .reply_link
+    = link_to post.user.username, forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post)
+    = " wrote:"
+  = post.text
+%p

@@ -1,0 +1,29 @@
+- ForumCategory.order(:view_order).includes(:forums => :last_post).each do |category|
+  %table.standard.forum_category
+    %thead
+      %tr
+        %th.title= category.title
+        %th.number= I18n.t('forums.topics_heading')
+        %th.number= I18n.t('forums.posts_heading')
+        %th.last_post= I18n.t('forums.last_post')
+        %th.actions
+          - if current_user.is_admin?
+            = button_to raw("&uarr;"), move_up_forum_category_path(category)
+            = button_to raw("&darr;"), move_down_forum_category_path(category)
+            = button_to "X", category, :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+    - category.forums.order(:view_order).each do |forum|
+      %tr
+        %td= link_to forum.name, forum_path(forum)
+        %td= forum.number_of_topics
+        %td= forum.number_of_posts
+        %td= render :partial => 'forums/posts/summary', :locals => { :post => forum.last_post, :display_title => :topic }
+        %td.actions
+          - if current_user.is_admin?
+            = button_to raw("&uarr;"), move_up_forum_path(forum)
+            = button_to raw("&darr;"), move_down_forum_path(forum)
+            = button_to "X", forum, :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+
+- if current_user.is_admin?
+  = render :partial => 'forums/forum_form'
+  = render :partial => 'forums/category_form'
+

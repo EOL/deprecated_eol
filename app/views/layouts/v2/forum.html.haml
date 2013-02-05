@@ -1,0 +1,26 @@
+- content_for :head do
+  = stylesheet_link_tag 'forum'
+  = javascript_include_tag 'forum'
+
+- content_for :main do
+  #page_heading.with_image
+    .site_column
+      .hgroup
+        %h1
+          - breadcrumbs = []
+          - if @forum
+            - breadcrumbs << link_to("Forums", forums_path)
+            - breadcrumbs << @forum.name
+          - elsif @topic
+            - breadcrumbs << link_to("Forums", forums_path)
+            - breadcrumbs << link_to(@topic.forum.name, @topic.forum)
+            - breadcrumbs << @topic.title
+          - else
+            - breadcrumbs << "Forums"
+          = raw breadcrumbs.join(" - ")
+    = render :partial => 'shared/flash_messages'
+  #content
+    .site_column
+      = yield
+
+= render :file => 'layouts/v2/application'

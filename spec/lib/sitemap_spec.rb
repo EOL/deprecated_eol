@@ -128,7 +128,7 @@ def urls_for_object(object)
   elsif object.class == ContentPartner
     urls << EOL::URLHelper.get_url('content_partner_url', object.id, :host => 'eol.org')
   elsif object.class == TaxonConcept
-    urls << EOL::URLHelper.get_url('overview_taxon_url', object.id, :host => 'eol.org')
+    urls << EOL::URLHelper.get_url('taxon_overview_url', object.id, :host => 'eol.org')
   elsif object.class == User
     urls << EOL::URLHelper.get_url('user_url', object.id, :host => 'eol.org')
     urls << EOL::URLHelper.get_url('user_newsfeed_url', object.id, :host => 'eol.org')

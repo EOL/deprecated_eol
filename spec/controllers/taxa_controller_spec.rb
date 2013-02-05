@@ -18,7 +18,7 @@ describe TaxaController do
       taxon_concept = stub_model(TaxonConcept)
       taxon_concept.stub!(:published?).and_return(true)
       get :show, :id => taxon_concept.id
-      expect(response).to redirect_to(overview_taxon_path(taxon_concept.id))
+      expect(response).to redirect_to(taxon_overview_path(taxon_concept.id))
     end
 
     it "should redirect to search if taxon id is not an integer" do
@@ -65,11 +65,11 @@ describe TaxaController do
     end
 
     it 'should link to the overview just like the taxon_concept' do
-      overview_taxon_path(@taxon_concept).should == overview_taxon_path(@taxon_page)
+      taxon_overview_path(@taxon_concept).should == taxon_overview_path(@taxon_page)
     end
 
     it 'should link to the selected hierarchy entry view just like the taxon_concept' do
-      overview_taxon_entry_path(@taxon_concept, @entry).should == overview_taxon_path(@taxon_page_with_entry)
+      taxon_entry_overview_path(@taxon_concept, @entry).should == taxon_overview_path(@taxon_page_with_entry)
     end
 
     # I don't want to test every single link, just the common one (overview) and something more complicated:

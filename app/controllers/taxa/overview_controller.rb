@@ -10,7 +10,7 @@ class Taxa::OverviewController < TaxaController
   def show
     @overview = TaxonOverview.new(@taxon_concept, current_user, @selected_hierarchy_entry)
     @assistive_section_header = I18n.t(:assistive_overview_header)
-    @rel_canonical_href = overview_taxon_url(@overview)
+    @rel_canonical_href = taxon_overview_url(@overview)
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 

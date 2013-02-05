@@ -34,11 +34,11 @@
         %p#citation.status
           = raw(hierarchy_entry_display_attribution(@taxon_page.hierarchy_entry, :show_rank_first => true))
           &emsp;&bull;&emsp;
-          = link_to I18n.t(:show_data_from_all_content_partners), overview_taxon_path(@taxon_concept)
+          = link_to I18n.t(:show_data_from_all_content_partners), taxon_overview_path(@taxon_concept)
 
       %ul.nav
         %li{:class => resource_is_active('overview')}= link_to raw(I18n.t(:overview)),
-          overview_taxon_path(@taxon_page)
+          taxon_overview_path(@taxon_page)
         %li{:class => resource_is_active('details')}= link_to raw(I18n.t(:detail)), taxon_details_path(@taxon_page)
         %li{:class => resource_is_active('media')}= link_to raw(I18n.t(:media_with_count,
           :count => @taxon_page.media_count)), taxon_media_path(@taxon_page)

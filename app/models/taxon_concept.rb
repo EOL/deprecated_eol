@@ -778,6 +778,7 @@ class TaxonConcept < ActiveRecord::Base
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
   # want to touch the API quite yet.
   def overview_text_for_user(the_user)
+    the_user ||= EOL::AnonymousUser.new(Language.default)
     TaxonConcept.prepare_cache_classes
     cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
     best_article_id ||= Rails.cache.read(cached_key)

@@ -37,7 +37,7 @@ class TaxonUserClassificationFilter
     hierarchy_entry_or_taxon_concept.title_canonical_italicized
   end
 
-  # helper.link_to "foo", app.overview_taxon_path(taxon_page) # Results depend on hierarchy_entry:
+  # helper.link_to "foo", app.taxon_overview_path(taxon_page) # Results depend on hierarchy_entry:
   # => "<a href=\"/pages/910093/hierarchy_entries/16/overview\">foo</a>"
   # OR
   # => "<a href=\"/pages/910093/overview\">foo</a>"

@@ -1042,10 +1042,17 @@ class DataObject < ActiveRecord::Base
     @revisions_by_date ||= DataObject.sort_by_created_date(self.revisions).reverse
   end
 
+  # TODO - this is unfortunate; data_objects can be a *paginated* set. We don'ta always need or want pagination. ...But
+  # our Solr classes have made this such a convention that I'm hesitating to replace the three methods I would have
+  # to replace just to allow results without pagination. So instead I'm essentially "unpaginating," here. Of course,
+  # eventually, we will want to re-think this. Honestly, the Solr libs shouldn't assume we want pagination; that's
+  # the responsibility of controllers, so I would suggest we eventualy move all that and then clean this up... but
+  # that's a lot of work:
   def self.replace_with_latest_versions!(data_objects, options={})
     options[:select] = [] if options[:select].blank? || options[:select].class != Array
-    default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url, :data_rating, :object_title,
-      :rights_holder, :source_url, :license_id, :mime_type_id, :object_url, :thumbnail_cache_url, :created_at ]
+    default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url,
+      :data_rating, :object_title, :rights_holder, :source_url, :license_id, :mime_type_id, :object_url,
+      :thumbnail_cache_url, :created_at ]
     DataObject.preload_associations(data_objects, [ :language, :all_published_versions ],
       :select => {
         :languages => '*',

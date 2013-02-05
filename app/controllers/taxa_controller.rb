@@ -9,7 +9,7 @@ class TaxaController < ApplicationController
       do_the_search
       return
     end
-    return redirect_to overview_taxon_path(params[:id]), :status => :moved_permanently
+    return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
   end
 
   ################

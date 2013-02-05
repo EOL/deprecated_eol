@@ -107,7 +107,7 @@
                       = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                     - if hierarchy_entry.hierarchy.browsable?
                       %br
-                      = link_to(I18n.t(:view_in_classification), overview_taxon_entry_path(@taxon_page.taxon_concept, hierarchy_entry))
+                      = link_to(I18n.t(:view_in_classification), taxon_entry_overview_path(@taxon_page.taxon_concept, hierarchy_entry))
                     - if pending
                       %br
                       = raw I18n.t(:classification_curation_pending)

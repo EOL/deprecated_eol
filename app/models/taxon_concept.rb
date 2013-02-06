@@ -672,14 +672,13 @@ class TaxonConcept < ActiveRecord::Base
     # TaxonConceptCache, where we can handle both storing and clearing keys. That centralizes the logic,
     # and would allow us to put these two methods where they belong:
     @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
-      count = get_one_map.total_entries
+      count = get_one_map_from_solr.total_entries
       count +=1 if self.has_map?
       count
     end
   end
 
-  # This is needed by the presenter classes as well as #maps_count:
-  def get_one_map
+  def get_one_map_from_solr
     data_objects_from_solr(
       :page => 1, 
       :per_page => 1,

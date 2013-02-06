@@ -1042,12 +1042,6 @@ class DataObject < ActiveRecord::Base
     @revisions_by_date ||= DataObject.sort_by_created_date(self.revisions).reverse
   end
 
-  # TODO - this is unfortunate; data_objects can be a *paginated* set. We don'ta always need or want pagination. ...But
-  # our Solr classes have made this such a convention that I'm hesitating to replace the three methods I would have
-  # to replace just to allow results without pagination. So instead I'm essentially "unpaginating," here. Of course,
-  # eventually, we will want to re-think this. Honestly, the Solr libs shouldn't assume we want pagination; that's
-  # the responsibility of controllers, so I would suggest we eventualy move all that and then clean this up... but
-  # that's a lot of work:
   def self.replace_with_latest_versions!(data_objects, options={})
     options[:select] = [] if options[:select].blank? || options[:select].class != Array
     default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url,
@@ -1057,16 +1051,13 @@ class DataObject < ActiveRecord::Base
       :select => {
         :languages => '*',
         :data_objects => default_selects | options[:select] } )
-    data_objects.map! do |d|
-      # TODO - just use compact instead of this? ...Unfortunately, as-is, it looks like nils are passed through...
-      next if d.nil?
-      # NOTE - I changed this from "false", below... was this a problem?
-      if latest_version = d.latest_version_in_language(options[:language_id] || d.language_id, :check_only_published => true)
-        d = latest_version
-      end
-      d.is_the_latest_published_revision = true
-      d
-    end
+    DataObject.replace_with_latest_versions_no_preload(data_objects, options)
+  end
+
+  def self.replace_with_latest_versions_no_preload(data_objects, options = {})
+    data_objects.select { |instance| instance.is_a? DataObject }.compact.map do |dato|
+      dato.latest_version_in_language(options[:language_id] || dato.language_id, :check_only_published => false)
+    end.map { |dato| dato.is_the_latest_published_revision = true }
   end
 
   def unpublish_previous_revisions

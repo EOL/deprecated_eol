@@ -8,6 +8,8 @@
 # of the full list available (#classifications_count). There are exceptions; not all permutations were needed.
 class TaxonOverview < TaxonUserClassificationFilter
 
+  attr_accessor :media, :summary
+
   MEDIA_TO_SHOW = 4
   COLLECTIONS_TO_SHOW = 3
   COMMUNITIES_TO_SHOW = 3
@@ -46,26 +48,12 @@ class TaxonOverview < TaxonUserClassificationFilter
     @classifications_count ||= taxon_concept.hierarchy_entries.length
   end
 
-  def media
-    @media ||= promote_exemplar_image(
-      taxon_concept.images_from_solr(
-        map? ? MEDIA_TO_SHOW-1 : MEDIA_TO_SHOW, { :filter_hierarchy_entry => _hierarchy_entry, :ignore_translations => true }
-      )
-    ).compact
-    @media = @media[0..MEDIA_TO_SHOW-2] << map if map?
-    @media
-  end
-
   def details?
     details_text_for_user(:only_one)
   end
 
   def summary?
-    !summary.blank?
-  end
-
-  def summary
-    @summary ||= taxon_concept.overview_text_for_user(user)
+    !@summary.blank?
   end
 
   def image
@@ -113,7 +101,8 @@ class TaxonOverview < TaxonUserClassificationFilter
   end
 
   def map
-    @map ||= taxon_concept.get_one_map
+    return @map if defined?(@map) # can be nil. :\
+    @map = taxon_concept.get_one_map_from_solr.first
   end
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how
@@ -133,7 +122,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
   # there is any map at all without filters):
   def map?
-    map_taxon_concept.has_map? && map
+    @has_map ||= map_taxon_concept.has_map? && map
   end
 
   def cache_id
@@ -143,9 +132,8 @@ class TaxonOverview < TaxonUserClassificationFilter
 private
 
   def after_initialize
-    loadables = (media + [summary]).compact
-    DataObject.replace_with_latest_versions!(loadables,
-                                             :select => [ :description ], :language_id => user.language_id)
+    loadables = load_media.push(load_summary)
+    DataObject.replace_with_latest_versions_no_preload(loadables)
     includes = [ {
       :data_objects_hierarchy_entries => [ {
         :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ]
@@ -157,7 +145,26 @@ private
     includes << :license
     includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
     DataObject.preload_associations(loadables, includes)
-    DataObject.preload_associations(loadables, :translations, :conditions => "data_object_translations.language_id=#{user.language_id}")
+    DataObject.preload_associations(loadables, :translations,
+                                    :conditions => "data_object_translations.language_id=#{user.language_id}")
+    @summary = loadables.pop
+    @media = loadables
+  end
+
+  def load_media
+    media ||= promote_exemplar_image(
+      taxon_concept.images_from_solr(
+        map? ? MEDIA_TO_SHOW-1 : MEDIA_TO_SHOW,
+        :filter_hierarchy_entry => _hierarchy_entry,
+        :ignore_translations => true
+      )
+    ).compact
+    media = media[0..MEDIA_TO_SHOW-2] << map if map?
+    media
+  end
+
+  def load_summary
+    taxon_concept.overview_text_for_user(user)
   end
 
   def all_collections

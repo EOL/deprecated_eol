@@ -29,14 +29,14 @@ describe TaxonOverview do
   # (though not likely) that this could happen:
   it 'should NOT have a map even if the TC says there is one but there is not really one' do
     @taxon_concept.should_receive(:has_map?).and_return(true)
-    @taxon_concept.should_receive(:get_one_map).and_return(nil)
+    @taxon_concept.should_receive(:get_one_map_from_solr).and_return([nil])
     @overview.map?.should_not be_true
   end
 
   it 'should add the map to media if available' do
     map = DataObject.gen
     @taxon_concept.should_receive(:has_map?).at_least(1).times.and_return(true)
-    @taxon_concept.should_receive(:get_one_map).at_least(1).times.and_return(map)
+    @taxon_concept.should_receive(:get_one_map_from_solr).at_least(1).times.and_return([map])
     @overview = TaxonOverview.new(@taxon_concept, @user) # NOTE - you MUST rebuild the overview if you add media to it, since it's preloaded.
     @overview.media.last.should == map
   end
@@ -59,8 +59,10 @@ describe TaxonOverview do
   end
 
   it '#summary should delegate to taxon_concept#overview_text_for_user' do
-    @taxon_concept.should_receive(:overview_text_for_user).with(@user).and_return "yay"
-    @overview.summary.should == "yay"
+    overtext = DataObject.gen
+    @taxon_concept.should_receive(:overview_text_for_user).with(@user).and_return overtext
+    @overview = TaxonOverview.new(@taxon_concept, @user) # NOTE - you MUST rebuild the overview if you add media to it, since it's preloaded.
+    @overview.summary.should == overtext
   end
 
   it "#image should delegate to taxon_concept#exemplar_or_best_image_from_solr and pass entry, if provided" do

@@ -364,19 +364,22 @@ class DataObject < ActiveRecord::Base
     return @data_supplier_agent
   end
 
-  # need supplier as content partner object, is this right ?
   def content_partner
+    resource.content_partner if resource
+  end
+
+  def resource
     # TODO - change this, since it would be more efficient to go through hierarchy_entries... but the first attempt
     # (using hierarchy_entries.first) failed to find the correct data in observed cases. WEB-2850
-    return @content_partner if @content_partner
-    @content_partner = data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.resource.content_partner rescue (harvest_events.last.resource.content_partner rescue nil)
+    return @resource if @resource
+    @resource = data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.resource rescue (harvest_events.last.resource rescue nil)
   end
 
   # 'owner' chooses someone responsible for this data object in order of preference
   # this method returns [OwnerName, OwnerUser || nil]
   def owner
     # rights holder is preferred
-    return rights_holder, nil unless rights_holder.blank?
+    return rights_holder_for_display, nil unless rights_holder_for_display.blank?
     unless agents_data_objects.empty?
       AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
       if first_agent = agents_data_objects.first.agent
@@ -442,22 +445,16 @@ class DataObject < ActiveRecord::Base
   end
 
   def is_subtype_map?
-    return true if self.data_subtype.id == DataType.map.id
+    return true if self.data_subtype_id && self.data_subtype_id == DataType.map.id
     false
   end
 
   def map_from_DiscoverLife?
-    last_harvest_event = self.harvest_events.last rescue nil
-    if last_harvest_event
-      if r = last_harvest_event.resource
-        return true if r.from_DiscoverLife? and self.is_subtype_map?
-      end
-    end
-    false
+    (is_subtype_map? && resource && resource.from_DiscoverLife? && self.is_subtype_map?)
   end
 
   def access_image_from_remote_server?(size)
-    return true if ['580_360', :orig].include?(size) && self.map_from_DiscoverLife?
+    return true if ['580_360', :orig].include?(size) && map_from_DiscoverLife?
     # we can add here other criterias for image to be hosted remotely
     false
   end
@@ -1121,6 +1118,21 @@ class DataObject < ActiveRecord::Base
 
   def show_rights_holder?
     license && license.show_rights_holder?
+  end
+
+  def rights_holder_for_display
+    return rights_holder unless rights_holder.blank?
+    return resource.rights_holder unless resource.blank? || resource.rights_holder.blank?
+  end
+
+  def rights_statement_for_display
+    return rights_statement unless rights_statement.blank?
+    return resource.rights_statement unless resource.blank? || resource.rights_statement.blank?
+  end
+
+  def bibliographic_citation_for_display
+    return bibliographic_citation unless bibliographic_citation.blank?
+    return resource.bibliographic_citation unless resource.blank? || resource.bibliographic_citation.blank?
   end
 
 private

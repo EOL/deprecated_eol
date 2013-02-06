@@ -16,8 +16,10 @@ class TaxonUserClassificationFilter
     after_initialize
   end
 
-  def after_initialize
-    # Do nothing. If you inherit from the class, you'll want to override this.
+  # You could say TaxonUserClassificationFilter has_a overview.  :)
+  # NOTE - what is a little odd is that an Overview now has an #overview.  ...Which is... weird... but hey.
+  def overview
+    TaxonOverview.new(taxon_concept, user, _hierarchy_entry)
   end
 
   # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
@@ -281,6 +283,10 @@ private
   end
 
 protected # You can only call these from the classes that inherit from TaxonUserClassificationFilter
+
+  def after_initialize
+    # Do nothing. If you inherit from the class, you'll want to override this.
+  end
 
   # TODO - there are three other methods related to this one, but I don't want to move them yet.
   def details_text_for_user(only_one = false)

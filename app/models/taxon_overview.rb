@@ -143,10 +143,7 @@ class TaxonOverview < TaxonUserClassificationFilter
 private
 
   def after_initialize
-    # NOTE - this next line looks odd, creating an anonymous array for summary... but other permutations end up with
-    # a WillPaginate object in it, which throws an error during #preload_associations. Keep this as-is, unless you
-    # know what you're doing:
-    loadables = (media + [summary]).flatten.select { |m| m.is_a? DataObject }
+    loadables = (media + [summary]).compact
     DataObject.replace_with_latest_versions!(loadables,
                                              :select => [ :description ], :language_id => user.language_id)
     includes = [ {

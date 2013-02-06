@@ -3,4 +3,5 @@
 # It has no additional functionality; I just want to use this name as a kind of alias for
 # TaxonUserClassificationFilter.
 class TaxonPage < TaxonUserClassificationFilter
+
 end

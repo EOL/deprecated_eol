@@ -94,9 +94,9 @@ describe 'API:synonyms' do
     response.xpath('//xmlns:dataObject/dc:title').inner_text.should == @object.object_title
     response.xpath('//xmlns:dataObject/dc:language').inner_text.should == @object.language.iso_639_1
     response.xpath('//xmlns:dataObject/xmlns:license').inner_text.should == @object.license.source_url
-    response.xpath('//xmlns:dataObject/dc:rights').inner_text.should == @object.rights_statement
-    response.xpath('//xmlns:dataObject/dcterms:rightsHolder').inner_text.should == @object.rights_holder
-    response.xpath('//xmlns:dataObject/dcterms:bibliographicCitation').inner_text.should == @object.bibliographic_citation
+    response.xpath('//xmlns:dataObject/dc:rights').inner_text.should == @object.rights_statement_for_display
+    response.xpath('//xmlns:dataObject/dcterms:rightsHolder').inner_text.should == @object.rights_holder_for_display
+    response.xpath('//xmlns:dataObject/dcterms:bibliographicCitation').inner_text.should == @object.bibliographic_citation_for_display
     response.xpath('//xmlns:dataObject/dc:source').inner_text.should == @object.source_url
     response.xpath('//xmlns:dataObject/xmlns:subject').inner_text.should == @object.info_items[0].schema_value
     response.xpath('//xmlns:dataObject/dc:description').inner_text.should == @object.description
@@ -128,9 +128,9 @@ describe 'API:synonyms' do
     response['dataObjects'][0]['title'].should == @object.object_title
     response['dataObjects'][0]['language'].should == @object.language.iso_639_1
     response['dataObjects'][0]['license'].should == @object.license.source_url
-    response['dataObjects'][0]['rights'].should == @object.rights_statement
-    response['dataObjects'][0]['rightsHolder'].should == @object.rights_holder
-    response['dataObjects'][0]['bibliographicCitation'].should == @object.bibliographic_citation
+    response['dataObjects'][0]['rights'].should == @object.rights_statement_for_display
+    response['dataObjects'][0]['rightsHolder'].should == @object.rights_holder_for_display
+    response['dataObjects'][0]['bibliographicCitation'].should == @object.bibliographic_citation_for_display
     response['dataObjects'][0]['source'].should == @object.source_url
     response['dataObjects'][0]['subject'].should == @object.info_items[0].schema_value
     response['dataObjects'][0]['description'].should == @object.description

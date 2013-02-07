@@ -143,8 +143,8 @@ class TaxonUserClassificationFilter
 
   def details(options = {})
     @details ||= details_text_for_user
-    options[:exclude_toc_item] ?
-      @details.select { |d| !d.toc_items.include?(options[:exclude_toc_item]) } :
+    options[:include_toc_item] ?
+      @details.select { |d| !d.toc_items.include?(options[:include_toc_item]) } :
       @details
   end
 
@@ -311,7 +311,7 @@ protected # You can only call these from the classes that inherit from TaxonUser
         :toc_items => '*',
         :translated_table_of_contents => '*',
         :users_data_objects => '*',
-        :resources => 'id, content_partner_id, title, hierarchy_id',
+        :resources => '*',
         :content_partners => 'id, user_id, full_name, display_name, homepage, public',
         :refs => '*',
         :ref_identifiers => '*',

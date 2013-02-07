@@ -98,5 +98,57 @@ describe TaxonOverview do
     DataObject.should_not_receive(:preload_associations)
     @overview.details?.should be_true
   end
+ 
+# TODO - these should be tested... but there's no need to go to these lengths (taken from TaxonConcept spec):
+#
+#  it 'should rely on collection for sorting #top_collections' do
+#    tc = TaxonConcept.gen
+#    col1 = Collection.gen
+#    col2 = Collection.gen
+#    tc.should_receive(:collections).and_return([col1, col2])
+#    col1.should_receive(:relevance).and_return(1)
+#    col2.should_receive(:relevance).and_return(2)
+#    tc.top_collections
+#  end
+#
+#  it 'should list communites in the proper order - most number of members show first' do
+#    community1 = Community.gen()
+#    community2 = Community.gen()
+#    user1 = User.gen()
+#    user2 = User.gen()
+#    user3 = User.gen()
+#    member1 = Member.gen(:community => community2, :user => user1)
+#    member2 = Member.gen(:community => community2, :user => user2)
+#    member3 = Member.gen(:community => community1, :user => user3)
+#    collection1 = community1.collections.first
+#    collection2 = community2.collections.first
+#    tc = build_taxon_concept
+#    coll_item1 = CollectionItem.gen(:collected_item_type => "TaxonConcept", :collected_item_id => tc.id, :collection => collection1)
+#    coll_item2 = CollectionItem.gen(:collected_item_type => "TaxonConcept", :collected_item_id => tc.id, :collection => collection2)
+#    tc.collection_items[1].collection.communities.include?(community2).should be_true
+#    tc.top_communities[0].name.should == community2.name
+#    tc.top_communities[1].name.should == community1.name
+#  end
+#  it 'should have a default IUCN conservation status of "Not evaluated"' do
+#    @empty_taxon_concept.iucn_conservation_status.should match(/not evaluated/i)
+#  end
+#
+#  it 'should have an IUCN conservation status' do
+#    @taxon_concept.iucn_conservation_status.should == @iucn_status
+#  end
+#
+#  it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
+#    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+#    he1 = build_iucn_entry(@taxon_concept, FactoryGirl.generate(:iucn))
+#    he2 = build_iucn_entry(@taxon_concept, FactoryGirl.generate(:iucn))
+#    result = @taxon_concept.iucn
+#    result.should be_an_instance_of DataObject # (not an Array, mind you.)
+#    he1.delete
+#    he2.delete
+#  end
+#
+#  it 'should not use an unpublished IUCN status' do
+#    @bad_iucn_tc.iucn_conservation_status.should match(/not evaluated/i)
+#  end
 
 end

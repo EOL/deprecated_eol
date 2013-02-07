@@ -61,7 +61,6 @@ class TaxonUserClassificationFilter
     @map_taxon_concept ||= classification_filter? ? _hierarchy_entry.taxon_concept : taxon_concept
   end
 
-  # TODO - we use this instance var in TaxonOverview#preload_overview... which is sub-par.  :|
   # NOTE - Once you call this (with options), those options are preserved and you cannot call this with different
   # options. Be careful. (In practice, this never matters.)
   def media(options = {})
@@ -70,7 +69,8 @@ class TaxonUserClassificationFilter
       :filter_hierarchy_entry => hierarchy_entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
+      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
+                                              :object_cache_url, :object_url, :data_rating ] }
     ))
   end
 

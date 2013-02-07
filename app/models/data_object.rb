@@ -422,12 +422,12 @@ class DataObject < ActiveRecord::Base
 
   # NOTE: Specifically for image maps
   def image_map?
-    self.is_image? && DataType.map_type_ids.include?(data_subtype_id)
+    self.is_image? && is_subtype?(:map)
   end
   alias is_image_map? image_map?
 
   def link?
-    self.is_text? && DataType.link_type_ids.include?(data_subtype_id)
+    self.is_text? && is_subtype?(:link)
   end
   alias is_link? link?
 
@@ -1128,6 +1128,11 @@ class DataObject < ActiveRecord::Base
   end     
 
 private
+
+  def is_subtype?(type)
+    reload unless self.has_attribute?(:data_subtype_id) 
+    DataType.send("#{type}_type_ids".to_sym).include?(data_subtype_id)
+  end
 
   def safe_object_title
     safe_attribute(:object_title)

@@ -35,7 +35,7 @@
           = raw(@details_count_by_language.map { |language, count| language ? link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) : I18n.t(:language_with_count, :language => I18n.t(:unknown), :count => count)}.join(', '))
           = raw(I18n.t(:learn_more_link, :learn_more => link_to(I18n.t(:learn_more_lowercase), cms_page_path('language_support'))))
       - @taxon_page.toc_roots.each do |root|
-        - root_content = @taxon_page.details(:exclude_toc_item => root)
+        - root_content = @taxon_page.details(:include_toc_item => root)
         - children = @taxon_page.toc(:under => root)
         - unless root_content.empty? && children.empty?
           - root_content = DataObject.sort_by_rating(root_content, @taxon_concept)
@@ -44,7 +44,7 @@
             = render :partial => 'category_content', :locals => { :content => root_content }
             - unless children.empty?
               - for child in children
-                - child_content = @taxon_page.details(:exclude_toc_item => child)
+                - child_content = @taxon_page.details(:include_toc_item => child)
                 - unless child_content.empty?
                   - child_content = DataObject.sort_by_rating(child_content, @taxon_concept)
                   %h3{:id => category_anchor(child)}= child.label

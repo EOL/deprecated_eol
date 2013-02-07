@@ -154,8 +154,8 @@ class TaxonPage
 
   def details(options = {})
     @details ||= details_text_for_user
-    options[:exclude_toc_item] ?
-      @details.select { |d| !d.toc_items.include?(options[:exclude_toc_item]) } :
+    options[:include_toc_item] ?
+      @details.select { |d| d.toc_items.include?(options[:include_toc_item]) } :
       @details
   end
 
@@ -221,7 +221,7 @@ class TaxonPage
 
   # TODO - this prolly belongs on TaxonConceptOverview, not here, but I'm not sure...
   def image
-    taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
+    taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end
 
   # helper.link_to "foo", app.overview_taxon_path(taxon_page) # Results depend on hierarchy_entry:
@@ -379,7 +379,7 @@ private
         :toc_items => '*',
         :translated_table_of_contents => '*',
         :users_data_objects => '*',
-        :resources => 'id, content_partner_id, title, hierarchy_id',
+        :resources => '*',
         :content_partners => 'id, user_id, full_name, display_name, homepage, public',
         :refs => '*',
         :ref_identifiers => '*',

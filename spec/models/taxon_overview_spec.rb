@@ -100,6 +100,11 @@ describe TaxonOverview do
     @overview.details?.should be_true
   end
 
+  it 'should know its classification' do
+    @entry.should_receive(:hierarchy).and_return("Bob was not here")
+    @overview_with_entry.classification.should == "Bob was not here"
+  end
+
   it 'should know who chose its classification' do
     user = User.gen
     chosen = CuratedTaxonConceptPreferredEntry.gen(:user => user)

@@ -15,7 +15,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   COMMUNITIES_TO_SHOW = 3
 
   def classification
-    classification_entry.hierarchy
+    hierarchy_entry.hierarchy
   end
 
   # NOTE - It should be "relatively impossible" for this to be nil. ...At least, TCs with no identifyable

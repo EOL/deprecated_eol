@@ -154,8 +154,8 @@ class TaxonPage
 
   def details(options = {})
     @details ||= details_text_for_user
-    options[:exclude_toc_item] ?
-      @details.select { |d| !d.toc_items.include?(options[:exclude_toc_item]) } :
+    options[:include_toc_item] ?
+      @details.select { |d| d.toc_items.include?(options[:include_toc_item]) } :
       @details
   end
 

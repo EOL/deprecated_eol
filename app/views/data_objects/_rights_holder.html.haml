@@ -1,5 +1,5 @@
-- unless data_object.rights_holder.blank?
-  %p{:title => I18n.t(:rights_holder)}= raw("&copy; #{data_object.rights_holder}")
+- unless data_object.rights_holder_for_display.blank?
+  %p{:title => I18n.t(:rights_holder)}= raw("&copy; #{data_object.rights_holder_for_display}")
 - else
   - if data_object.added_by_user?
     %p{:title => I18n.t(:rights_holder)}= raw("&copy; #{data_object.users_data_object.user.full_name}")

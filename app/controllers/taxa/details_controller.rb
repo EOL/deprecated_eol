@@ -8,7 +8,7 @@ class Taxa::DetailsController < TaxaController
     @data_objects_in_other_languages = @taxon_page.text(
       :language_ids_to_ignore => current_language.all_ids << 0,
       :allow_nil_languages => false,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] },
+      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder ] },
       :skip_preload => true,
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id }
     )

@@ -65,9 +65,9 @@ module EOL
           return_hash['title']                  = data_object.object_title unless data_object.object_title.blank?
           return_hash['language']               = data_object.language.iso_639_1 unless data_object.language.blank?
           return_hash['license']                = data_object.license.source_url unless data_object.license.blank?
-          return_hash['rights']                 = data_object.rights_statement unless data_object.rights_statement.blank?
-          return_hash['rightsHolder']           = data_object.rights_holder unless data_object.rights_holder.blank?
-          return_hash['bibliographicCitation']  = data_object.bibliographic_citation unless data_object.bibliographic_citation.blank?
+          return_hash['rights']                 = data_object.rights_statement_for_display unless data_object.rights_statement_for_display.blank?
+          return_hash['rightsHolder']           = data_object.rights_holder_for_display unless data_object.rights_holder_for_display.blank?
+          return_hash['bibliographicCitation']  = data_object.bibliographic_citation_for_display unless data_object.bibliographic_citation_for_display.blank?
           unless data_object.audiences.blank?
             return_hash['audience']             = data_object.audiences.collect{ |a| a.label }
           end

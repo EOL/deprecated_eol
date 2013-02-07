@@ -46,6 +46,7 @@ module EOL
         
         url =  $SOLR_SERVER + $SOLR_BHL_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         name_ids = TaxonConceptName.connection.select_values("SELECT DISTINCT(name_id) FROM taxon_concept_names WHERE taxon_concept_id=#{taxon_concept.id} AND vern=0 LIMIT 100")
+        name_ids = [0] if name_ids.blank?
         url << CGI.escape("(name_id:(#{name_ids.join(' ')}) NOT year:0)")
         if options[:title_item_id]
           url << CGI.escape(" AND title_item_id:#{options[:title_item_id]}")

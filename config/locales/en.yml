@@ -3065,6 +3065,7 @@ en:
       hidden_user_recover_account: "Sorry, account recovery is disabled for that account."
       hidden_user_temporary_login: "Sorry, account recovery and login are disabled for that account."
       inactive_user_login: "Sorry, that account is not yet active. If you did not receive a verification email when you signed up please follow the account recovery procedure to verify your email address and activate your account."
+      min_master_curators_only: "Sorry, access is restricted to EOL Curators with a minimum curator level of Master."
       min_full_curators_only: "Sorry, access is restricted to EOL Curators with a minimum curator level of Full."
       min_assistant_curators_only: "Sorry, access is restricted to EOL Curators with a minimum curator level of Assistant."
   expand_all_children: "expand all children"

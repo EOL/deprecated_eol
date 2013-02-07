@@ -8,7 +8,7 @@
   - # list maximum of 2
   - entries[0..1].each do |entry| 
     - i = i + 1
-    = link_to entry.canonical_form.string, overview_taxon_path(entry.taxon_concept_id)
+    = link_to entry.canonical_form.string, taxon_overview_path(entry.taxon_concept_id)
     - if i < 2
       - if i < entries.count
         = ", "

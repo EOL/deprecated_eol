@@ -56,7 +56,7 @@ module EOL
           return_hash['taxonConceptID'] = hierarchy_entry.taxon_concept_id
           return_hash['scientificName'] = hierarchy_entry.name.string
           return_hash['taxonRank'] = hierarchy_entry.rank.label.firstcap unless hierarchy_entry.rank.nil?
-          return_hash['source'] = overview_taxon_entry_url(hierarchy_entry.taxon_concept, hierarchy_entry)
+          return_hash['source'] = taxon_entry_overview_url(hierarchy_entry.taxon_concept, hierarchy_entry)
 
           if stats = hierarchy_entry.hierarchy_entry_stat
             return_hash['total_descendants'] = stats.total_children
@@ -107,7 +107,7 @@ module EOL
             ancestor_hash['taxonConceptID'] = ancestor.taxon_concept_id
             ancestor_hash['scientificName'] = ancestor.name.string.firstcap
             ancestor_hash['taxonRank'] = ancestor.rank.label unless ancestor.rank_id == 0 || ancestor.rank.blank?
-            ancestor_hash['source'] = overview_taxon_entry_url(ancestor.taxon_concept_id, ancestor)
+            ancestor_hash['source'] = taxon_entry_overview_url(ancestor.taxon_concept_id, ancestor)
             return_hash['ancestors'] << ancestor_hash
           end
 
@@ -121,7 +121,7 @@ module EOL
             child_hash['taxonConceptID'] = child.taxon_concept_id
             child_hash['scientificName'] = child.name.string.firstcap
             child_hash['taxonRank'] = child.rank.label unless child.rank_id == 0 || child.rank.blank?
-            child_hash['source'] = overview_taxon_entry_url(child.taxon_concept_id, child)
+            child_hash['source'] = taxon_entry_overview_url(child.taxon_concept_id, child)
             return_hash['children'] << child_hash
           end
           return return_hash

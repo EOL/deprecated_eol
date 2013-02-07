@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe TaxonPage do
+describe TaxonUserClassificationFilter do
 
   def check_delegation_of(method)
     some_string = FactoryGirl.generate(:string)
@@ -19,21 +19,22 @@ describe TaxonPage do
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
     @entry = HierarchyEntry.gen
     @user = User.gen
-    @taxon_page = TaxonPage.new(@taxon_concept, @user)
-    @taxon_page_with_entry = TaxonPage.new(@taxon_concept, @user, @entry)
+    @taxon_page = TaxonUserClassificationFilter.new(@taxon_concept, @user)
+    @taxon_page_with_entry = TaxonUserClassificationFilter.new(@taxon_concept, @user, @entry)
   end
 
   it "should be able to filter related_names by taxon_concept" # Yeesh, this is really hard to test.
 
   it "should be able to filter related_names by hierarchy_entry" # Yeesh, this is really hard to test.
 
+  # TODO - move these to a spec for the taxon_presenter module
   it "should store the hierarchy entry, when passed in." do
     @taxon_page_with_entry.hierarchy_entry.should == @entry
   end
 
   it "should know if the hierarchy entry was proided (and thus we're filtering)" do
-    @taxon_page.classifcation_filter?.should_not be_true
-    @taxon_page_with_entry.classifcation_filter?.should be_true
+    @taxon_page.classification_filter?.should_not be_true
+    @taxon_page_with_entry.classification_filter?.should be_true
   end
 
   it "should delegate the hierarchy_entry to taxon_concept, when not passed in" do
@@ -60,47 +61,6 @@ describe TaxonPage do
 
   it "should return the provided hierarchy_entry if there are no hierarchy_entries" do
     @taxon_page_with_entry.hierarchy_entries.should == [@entry]
-  end
-
-  it 'should delegate #gbif_map_id to taxon_concept without an entry' do
-    @taxon_concept.should_receive(:gbif_map_id).and_return(36)
-    @taxon_page.gbif_map_id.should == 36
-  end
-
-  it 'should delegate #gbif_map_id to hierarchy_entry.taxon_concept when available' do
-    tc = TaxonConcept.gen
-    @entry.should_receive(:taxon_concept).at_least(1).times.and_return(tc)
-    tc.should_receive(:gbif_map_id).and_return(98)
-    @taxon_page_with_entry.gbif_map_id.should == 98
-  end
-
-  # This is (strangely) necessary because TaxonConcept#has_map? actually checks GBIF, not Solr, so it's possible
-  # (though not likely) that this could happen:
-  it 'should NOT have a map even if the TC says there is one but there is not really one' do
-    @taxon_concept.should_receive(:has_map?).and_return(true)
-    @taxon_concept.should_receive(:map).and_return(nil)
-    @taxon_page.map?.should_not be_true
-  end
-
-  it 'should add the map to top_media if available' do
-    map = DataObject.gen
-    @taxon_concept.should_receive(:has_map?).at_least(1).times.and_return(true)
-    @taxon_concept.should_receive(:map).at_least(1).times.and_return(map)
-    @taxon_page.top_media.last.should == map
-  end
-
-  # Ouch... we need to know a little too much to test this one...  :\
-  it 'should filter #top_media on the hierarchy_entry if available' do
-    @taxon_concept.should_receive(:images_from_solr).with(4, :filter_hierarchy_entry => @entry,
-                                                          :ignore_translations => true).and_return([])
-    @taxon_page_with_entry.top_media
-  end
-
-  it 'should promote the exemplar image' do
-    exemplar = DataObject.gen
-    @taxon_concept.should_receive(:images_from_solr).and_return([DataObject.gen, DataObject.gen, exemplar])
-    @taxon_concept.should_receive(:published_exemplar_image).at_least(1).times.and_return(exemplar)
-    @taxon_page.top_media.first.should == exemplar
   end
 
   it 'should NOT have a hierarchy_provider without a hierarchy_entry' do
@@ -172,10 +132,6 @@ describe TaxonPage do
   it 'should allow exemplar-setting when the user is an assistant curator' do
     @user.should_receive(:min_curator_level?).with(:assistant).and_return(true)
     @taxon_page.can_set_exemplars?.should be_true
-  end
-
-  it 'should intelligently delegate #classified_by' do
-    check_delegation_of(:classified_by)
   end
 
   # TODO - this is hard to test, so we're probably doing something wrong.
@@ -250,20 +206,6 @@ describe TaxonPage do
   it 'should cound all related names' do
     @taxon_page.should_receive(:related_names).twice.and_return('parents' => [1,2,3], 'children' => [4,5,6,7])
     @taxon_page.related_names_count.should == 7
-  end
-
-  # TODO - hard to test, refactor
-  it '#details? should check if details exist with only one detail (and not preload)' do
-    @taxon_concept.should_receive(:text_for_user).with(
-      @user, 
-      :language_ids => [ @user.language_id ],
-      :filter_by_subtype => true,
-      :allow_nil_languages => @user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => 1
-    ).and_return(true)
-    DataObject.should_not_receive(:preload_associations)
-    @taxon_page.details?.should be_true
   end
 
   # TODO - rethink this one. :\
@@ -346,32 +288,29 @@ describe TaxonPage do
     @taxon_page_with_entry.media_count.should == "booya"
   end
 
-  it '#summary_text should delegate to taxon_concept#overview_text_for_user' do
-    @taxon_concept.should_receive(:overview_text_for_user).with(@user).and_return "yay"
-    @taxon_page.summary_text.should == "yay"
-  end
-
   it "#text should delegate to taxon_concept#text_for_user and pass options" do
     @taxon_concept.should_receive(:text_for_user).with(@user, foo: 'bar').and_return "that worked"
     @taxon_page.text(foo: 'bar').should == "that worked"
   end
 
-  it "#image should delegate to taxon_concept#exemplar_or_best_image_from_solr and pass entry, if provided" do
-    @taxon_concept.should_receive(:exemplar_or_best_image_from_solr).with(@entry).and_return "here here"
-    @taxon_page_with_entry.image.should == "here here"
-  end
-
-  it "#image should delegate to taxon_concept#exemplar_or_best_image_from_solr without entry if missing" do
-    @taxon_concept.should_receive(:exemplar_or_best_image_from_solr).with(@taxon_concept.entry).and_return "there there"
-    @taxon_page.image.should == "there there"
-  end
-
+  # TODO - move these to the TaxonPresenter spec
   it '#to_param should add entry#to_param (with path) to taxon_concept#to_param if provided' do
     @taxon_page_with_entry.to_param.should == "#{@taxon_concept.to_param}/hierarchy_entries/#{@entry.to_param}"
   end
 
   it '#to_param should delegate to taxon_concept with no entry' do
     @taxon_page.to_param.should == @taxon_concept.to_param
+  end
+
+  it 'should intelligently delegate #rank_label' do
+    check_delegation_of(:rank_label)
+  end
+
+  it 'should delegate #gbif_map_id to hierarchy_entry.taxon_concept when available' do
+    tc = TaxonConcept.gen
+    @entry.should_receive(:taxon_concept).at_least(1).times.and_return(tc)
+    tc.should_receive(:gbif_map_id).and_return(98)
+    @taxon_page_with_entry.gbif_map_id.should == 98
   end
 
 end

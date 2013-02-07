@@ -496,6 +496,12 @@ FactoryGirl.define do
     updated_at  { 5.days.ago }
   end
 
+  factory :curated_taxon_concept_preferred_entry do
+    association :hierarchy_entry
+    association :taxon_concept
+    association :user
+  end
+
   factory :curated_data_objects_hierarchy_entry do
     association :hierarchy_entry
     association :data_object

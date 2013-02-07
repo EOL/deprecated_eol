@@ -2,7 +2,7 @@
 # tests by adding them to the scenario or creating/calling LinType.create_defaults; these are clearly only being
 # called this way because tests were failing. When that's fixed, fix @show_add_link_buttons (to put it in one place).
 class Taxa::ResourcesController < TaxaController
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
+  before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry, :link_objects_contents
   before_filter :show_add_link_buttons, :only => [:identification_resources, :citizen_science, :education]
 

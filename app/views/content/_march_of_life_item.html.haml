@@ -13,4 +13,4 @@
       - scientific_name = random_image.taxon_concept.title_canonical
       - common_name = random_image.taxon_concept.preferred_common_name_in_language(current_language)
       - alt_text = scientific_name
-      = link_to image_tag(img_url, :alt => alt_text, :"data-scientific_name" => scientific_name, :"data-common_name" => common_name), overview_taxon_path(random_image.taxon_concept_id), :style => "position:absolute; opacity:#{opacity}; z-index: #{zindex};", :height => 130, :width => 130
+      = link_to image_tag(img_url, :alt => alt_text, :"data-scientific_name" => scientific_name, :"data-common_name" => common_name), taxon_overview_path(random_image.taxon_concept_id), :style => "position:absolute; opacity:#{opacity}; z-index: #{zindex};", :height => 130, :width => 130

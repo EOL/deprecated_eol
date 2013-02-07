@@ -99,7 +99,7 @@ describe DataObjectsController do
       response.should redirect_to(login_url)
 
       expect { get :crop, { :id => @image.id }, { :user => @user, :user_id => @user.id } }.
-        to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == :min_assistant_curators_only}
+        to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == "min_assistant_curators_only"}
     end
 
     it 'should allow access to curators' do

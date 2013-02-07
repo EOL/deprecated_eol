@@ -447,8 +447,8 @@ module ApplicationHelper
     return hierarchy_entry.italicized_name.firstcap if options[:current]
     options = options.select{ |k, v| [ :link_to_taxa,  :show_siblings, :show_hierarchy_label ].include?(k) }
     link = options[:link_to_taxa] ?
-      overview_taxon_path(hierarchy_entry.taxon_concept_id) :
-      overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+      taxon_overview_path(hierarchy_entry.taxon_concept_id) :
+      taxon_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
     node = link_to(raw(hierarchy_entry.italicized_name.firstcap), link)
     node << ' '
     node << navigation_show_descendants_link(hierarchy_entry, options.reverse_merge(:link => link))
@@ -459,8 +459,8 @@ module ApplicationHelper
       options.delete(:link)
     else
       options[:link_to_taxa] ?
-        overview_taxon_path(hierarchy_entry.taxon_concept_id) :
-        overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+        taxon_overview_path(hierarchy_entry.taxon_concept_id) :
+        taxon_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
     end
     if hierarchy_entry.number_of_descendants == 0
       ''
@@ -523,8 +523,8 @@ module ApplicationHelper
               haml_tag :li, :class => 'show_tree_count' do
                 haml_concat I18n.t(:more_children_with_count, :count => potential_entries_to_show - options[:max_children])
                 full_link = options[:link_to_taxa] ?
-                  overview_taxon_path(parent.taxon_concept_id, :full => true) :
-                  overview_taxon_entry_path(parent.taxon_concept_id, parent, :full => true)
+                  taxon_overview_path(parent.taxon_concept_id, :full => true) :
+                  taxon_entry_overview_path(parent.taxon_concept_id, parent, :full => true)
                 full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa],
                   :show_siblings => options[:show_siblings], :show_hierarchy_label => options[:show_hierarchy_label])
                 haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)

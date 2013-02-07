@@ -100,40 +100,115 @@ describe TaxonOverview do
     @overview.details?.should be_true
   end
 
-  it 'should know its classification'
+  it 'should know who chose its classification' do
+    user = User.gen
+    chosen = CuratedTaxonConceptPreferredEntry.gen(:user => user)
+    @taxon_concept.should_receive(:curator_chosen_classification).and_return(chosen)
+    @overview.classification_chosen_by.should == user
+  end
 
-  it 'should know who chose its classification'
+  it 'should know when its classification has been selected by curator' do
+    stubby = CuratedTaxonConceptPreferredEntry.gen
+    @taxon_concept.should_receive(:curator_chosen_classification).and_return stubby
+    @overview.classification_curated?.should be_true
+    another_overview = TaxonOverview.new(TaxonConcept.gen, User.gen)
+    another_overview.classification_curated?.should_not be_true
+  end
 
-  it 'should know when its classification has been selected by curator'
+  it 'should know how many classifications it has available' do
+    @taxon_concept.should_receive(:hierarchy_entries).and_return([1,2,3,4])
+    @overview.classifications_count.should == 4
+  end
 
-  it 'should know how many classifications it has available'
+  it 'should use entry from taxon_concept#curator_chosen_classification when looking for #hierarchy_entry' do
+    he = HierarchyEntry.gen
+    chosen = CuratedTaxonConceptPreferredEntry.gen(:hierarchy_entry => he)
+    @taxon_concept.should_receive(:curator_chosen_classification).and_return(chosen)
+    @overview.hierarchy_entry.should == he
+  end
 
-  it 'should use entry from taxon_concept#curator_chosen_classification when looking for #hierarchy_entry'
-
-  it 'should pick random hierarchy entry'
+  it 'should pick random hierarchy entry' do
+    @taxon_concept.stub_chain(:hierarchy_entries, :shuffle, :first).and_return("yay")
+    @overview.hierarchy_entry.should == 'yay'
+  end
 
   it 'should grab an unpublished hierarchy entry when there are no others'
 
-  it 'should pick the three most relevant collections'
+  it 'should pick the three most relevant collections' do
+    one = Collection.gen
+    one.stub(:relevance).and_return(2)
+    two = Collection.gen
+    two.stub(:relevance).and_return(5)
+    three = Collection.gen
+    three.stub(:relevance).and_return(3)
+    four = Collection.gen
+    four.stub(:relevance).and_return(6)
+    @taxon_concept.stub_chain(:collections, :published, :watch).and_return([one, two, three, four])
+    @overview.collections.map(&:id).should == [four, two, three].map(&:id)
+  end
 
-  it 'should know how many collections are available'
+  it 'should know how many collections are available' do
+    @taxon_concept.stub_chain(:collections, :published, :watch).and_return([1,2,3,4,5,6])
+    @overview.collections_count.should == 6
+  end
 
-  it 'should know how many communities are available'
+  # TODO ... eww.  Lots of setup.  We could minimize this by fixing the query and moving things around:
+  it 'should grab the three communities with the most members' do
+    communities = []
+    [2, 6, 3, 9].each do |count|
+      communities << Community.gen
+      collection = Collection.gen
+      collection.add @taxon_concept
+      communities.last.collections << collection
+      count.times { Member.gen(:community_id => communities.last.id) }
+    end
+    @overview.communities.map(&:id).sort.should == [communities[1], communities[2], communities[3]].map(&:id).sort
+  end
 
-  it 'should have a list of curators'
+  it 'should know how many communities are available' do
+    @taxon_concept.should_receive(:communities).and_return([1,2,3,4,5])
+    @overview.communities_count.should == 5
+  end
 
-  it 'should know how many curators there are'
+  it 'should have a list of curators' do
+    @taxon_concept.should_receive(:data_object_curators).and_return('blah blah')
+    @overview.curators.should == 'blah blah'
+  end
 
-  it 'should know the last five activities from the activity_log'
+  it 'should know how many curators there are' do
+    @taxon_concept.should_receive(:data_object_curators).and_return([1,2,3,4,5,6,7])
+    @overview.curators_count.should == 7
+  end
 
-  it 'should get one map from the taxon_concept'
+  it 'should know the last five activities from the activity_log' do
+    @taxon_concept.should_receive(:activity_log).with(:per_page => 5).and_return('hi from activity')
+    @overview.activity_log.should == 'hi from activity'
+  end
 
-  it 'should know iucn status'
+  it 'should get one map from the taxon_concept' do
+    @taxon_concept.should_receive(:get_one_map_from_solr).and_return(['one map', 'not_another'])
+    @overview.map.should == 'one map'
+  end
 
-  it 'should know iucn url'
+  it 'should know iucn status' do
+    iucn = DataObject.gen(:description => 'wunderbar')
+    DataObject.should_receive(:find).and_return([iucn])
+    @overview.iucn_status.should == 'wunderbar'
+  end
 
-  it 'should know if it has iucn information' do
+  it 'should default to "not evaluated" iucn status' do
+    @overview.iucn_status.should == I18n.t(:not_evaluated)
+  end
 
+  it 'should know iucn url' do
+    iucn = DataObject.gen(:source_url => 'faked')
+    DataObject.should_receive(:find).and_return([iucn])
+    @overview.iucn_url.should == 'faked'
+  end
+
+  # TODO - this doesn't belong in this class.
+  it 'should default to http://www.iucnredlist.org/about iucn url' do
+    @overview.iucn_url.should == 'http://www.iucnredlist.org/about'
   end
 
   it 'should generate a normalized cache id' do

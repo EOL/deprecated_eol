@@ -71,14 +71,14 @@ class TaxonOverview < TaxonUserClassificationFilter
 
   # TODO - should we cache this?  Seems expensive for something that won't change often. It seems simple (to me) to at least denormalize the member count on the community
   # model itself, which would save us the bigger query here. ...But that would be in addition to caching the results for this overview.
-  def top_communities
+  def communities
     # communities are sorted by the most number of members - descending order
-    community_ids = taxon_concept.communities.select('id').map(&:id).compact
+    community_ids = taxon_concept.communities.map(&:id).compact
     return [] if community_ids.blank?
     member_counts = Member.select("community_id").group("community_id").where(["community_id IN (?)", community_ids]).
       order('count_community_id DESC').count
     best_three = if member_counts.blank?
-      taxon_concept.communities
+      taxon_concept.communities[0..COMMUNITIES_TO_SHOW-1]
                  else
       communities_sorted_by_member_count = member_counts.keys.map { |collection_id| taxon_concept.communities.detect { |c| c.id == collection_id } }
       communities_sorted_by_member_count[0..COMMUNITIES_TO_SHOW-1]
@@ -111,15 +111,11 @@ class TaxonOverview < TaxonUserClassificationFilter
   # The International Union for Conservation of Nature keeps a status for most known species, representing how
   # endangered that species is.  This will default to "unknown" for species that are not being tracked.
   def iucn_status
-    taxon_concept.iucn.description
+    iucn.description
   end
 
   def iucn_url
-    taxon_concept.iucn.source_url
-  end
-
-  def iucn?
-    !iucn_status.blank?
+    iucn.source_url
   end
 
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether

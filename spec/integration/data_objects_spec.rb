@@ -437,6 +437,59 @@ describe 'Data Object Page' do
     visit('/logout')
   end
 
+  it 'should use the resource rights holder if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:rights_holder, '')
+    resource.update_column(:rights_holder, 'RESOURCE RIGHTS')
+    visit("/data_objects/#{data_object.id}")
+    body.should include('RESOURCE RIGHTS')
+    body.should_not include('OBJECT RIGHTS')
+
+    data_object.update_column(:rights_holder, 'OBJECT RIGHTS')
+    visit("/data_objects/#{data_object.id}")
+    body.should include('OBJECT RIGHTS')
+    body.should_not include('RESOURCE RIGHTS')
+  end
+
+  it 'should use the resource rights statement if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:rights_statement, '')
+    resource.update_column(:rights_statement, 'RESOURCE STATEMENT')
+    visit("/data_objects/#{data_object.id}")
+    body.should include('RESOURCE STATEMENT')
+    body.should_not include('OBJECT STATEMENT')
+
+    data_object.update_column(:rights_statement, 'OBJECT STATEMENT')
+    data_object.reload.rights_statement_for_display.should == 'OBJECT STATEMENT'
+    visit("/data_objects/#{data_object.id}")
+    body.should include('OBJECT STATEMENT')
+    body.should_not include('RESOURCE STATEMENT')
+  end
+
+  it 'should use the resource bibliographic citation if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:bibliographic_citation, '')
+    resource.update_column(:bibliographic_citation, 'RESOURCE CITATION')
+    visit("/data_objects/#{data_object.id}")
+    body.should include('RESOURCE CITATION')
+    body.should_not include('OBJECT CITATION')
+
+    data_object.update_column(:bibliographic_citation, 'OBJECT CITATION')
+    data_object.reload.bibliographic_citation_for_display.should == 'OBJECT CITATION'
+    visit("/data_objects/#{data_object.id}")
+    body.should include('OBJECT CITATION')
+    body.should_not include('RESOURCE CITATION')
+  end
+
   it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'
   it 'should change vetted to trusted and visibility to visible when self added article is edited by full/master curator or admin'
 

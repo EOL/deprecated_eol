@@ -73,13 +73,16 @@ class TaxonOverview < TaxonUserClassificationFilter
   # model itself, which would save us the bigger query here. ...But that would be in addition to caching the results for this overview.
   def top_communities
     # communities are sorted by the most number of members - descending order
-    community_ids = taxon_concept.communities.map(&:id).compact
+    community_ids = taxon_concept.communities.select('id').map(&:id).compact
     return [] if community_ids.blank?
     member_counts = Member.select("community_id").group("community_id").where(["community_id IN (?)", community_ids]).
       order('count_community_id DESC').count
-    return taxon_concept.communities if member_counts.blank?
-    communities_sorted_by_member_count = member_counts.keys.map { |collection_id| taxon_concept.communities.detect { |c| c.id == collection_id } }
-    best_three = communities_sorted_by_member_count[0..COMMUNITIES_TO_SHOW-1]
+    best_three = if member_counts.blank?
+      taxon_concept.communities
+                 else
+      communities_sorted_by_member_count = member_counts.keys.map { |collection_id| taxon_concept.communities.detect { |c| c.id == collection_id } }
+      communities_sorted_by_member_count[0..COMMUNITIES_TO_SHOW-1]
+                 end
     Community.preload_associations(best_three, :collections, :select => { :collections => :id })
     return best_three
   end
@@ -108,11 +111,11 @@ class TaxonOverview < TaxonUserClassificationFilter
   # The International Union for Conservation of Nature keeps a status for most known species, representing how
   # endangered that species is.  This will default to "unknown" for species that are not being tracked.
   def iucn_status
-    iucn.description
+    taxon_concept.iucn.description
   end
 
   def iucn_url
-    iucn.source_url
+    taxon_concept.iucn.source_url
   end
 
   def iucn?

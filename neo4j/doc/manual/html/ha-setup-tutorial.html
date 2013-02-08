@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>22.5. High Availability setup tutorial</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.76.1" /><link rel="home" href="index.html" title="The Neo4j Manual v1.8.1" /><link rel="up" href="ha.html" title="Chapter 22. High Availability" /><link rel="prev" href="upgrade-guide.html" title="22.4. Upgrading a Neo4j HA Cluster" /><link rel="next" href="ha-haproxy.html" title="22.6. Setting up HAProxy as a load balancer" /><link rel="preface" href="preface.html" title="Preface" /><link rel="part" href="introduction.html" title="Part I. Introduction" /><link rel="chapter" href="introduction-highlights.html" title="Chapter 1. Neo4j Highlights" /><link rel="chapter" href="graphdb-concepts.html" title="Chapter 2. Graph Database Concepts" /><link rel="chapter" href="graphdb-neo4j.html" title="Chapter 3. The Neo4j Graph Database" /><link rel="part" href="tutorials.html" title="Part II. Tutorials" /><link rel="chapter" href="tutorials-java-embedded.html" title="Chapter 4. Using Neo4j embedded in Java applications" /><link rel="chapter" href="tutorials-rest.html" title="Chapter 5. Neo4j Remote Client Libraries" /><link rel="chapter" href="tutorial-traversal.html" title="Chapter 6. The Traversal Framework" /><link rel="chapter" href="data-modeling-examples.html" title="Chapter 7. Data Modeling Examples" /><link rel="chapter" href="languages.html" title="Chapter 8. Languages" /><link rel="chapter" href="tutorials-python-embedded.html" title="Chapter 9. Using Neo4j embedded in Python applications" /><link rel="chapter" href="server-extending.html" title="Chapter 10. Extending the Neo4j Server" /><link rel="part" href="reference-documentation.html" title="Part III. Reference" /><link rel="chapter" href="capabilities.html" title="Chapter 11. Capabilities" /><link rel="chapter" href="transactions.html" title="Chapter 12. Transaction Management" /><link rel="chapter" href="import.html" title="Chapter 13. Data Import" /><link rel="chapter" href="indexing.html" title="Chapter 14. Indexing" /><link rel="chapter" href="cypher-query-lang.html" title="Chapter 15. Cypher Query Language" /><link rel="chapter" href="graph-algo.html" title="Chapter 16. Graph Algorithms" /><link rel="chapter" href="server.html" title="Chapter 17. Neo4j Server" /><link rel="chapter" href="rest-api.html" title="Chapter 18. REST API" /><link rel="chapter" href="python-embedded.html" title="Chapter 19. Python embedded bindings" /><link rel="part" href="operations.html" title="Part IV. Operations" /><link rel="chapter" href="deployment.html" title="Chapter 20. Installation &amp; Deployment" /><link rel="chapter" href="embedded-configuration.html" title="Chapter 21. Configuration &amp; Performance" /><link rel="chapter" href="ha.html" title="Chapter 22. High Availability" /><link rel="chapter" href="operations-backup.html" title="Chapter 23. Backup" /><link rel="chapter" href="operations-security.html" title="Chapter 24. Security" /><link rel="chapter" href="operations-monitoring.html" title="Chapter 25. Monitoring" /><link rel="part" href="tools.html" title="Part V. Tools" /><link rel="chapter" href="tools-webadmin.html" title="Chapter 26. Web Administration" /><link rel="chapter" href="shell.html" title="Chapter 27. Neo4j Shell" /><link rel="part" href="community.html" title="Part VI. Community" /><link rel="chapter" href="community-support.html" title="Chapter 28. Community Support" /><link rel="chapter" href="community-contributing.html" title="Chapter 29. Contributing to Neo4j" /><link rel="appendix" href="manpages.html" title="Appendix A. Manpages" /><link rel="refentry" href="re01.html" title="neo4j" /><link rel="refentry" href="re02.html" title="neo4j-shell" /><link rel="refentry" href="re03.html" title="neo4j-backup" /><link rel="refentry" href="re04.html" title="neo4j-coordinator" /><link rel="refentry" href="re05.html" title="neo4j-coordinator-shell" /><link rel="appendix" href="questions.html" title="Appendix B. Questions &amp; Answers" /><link rel="subsection" href="ha-setup-tutorial.html#_background" title="22.5.1. Background" /><link rel="subsection" href="ha-setup-tutorial.html#_setup_and_start_the_coordinator_cluster" title="22.5.2. Setup and start the Coordinator cluster" /><link rel="subsection" href="ha-setup-tutorial.html#_start_the_neo4j_servers_in_ha_mode" title="22.5.3. Start the Neo4j Servers in HA mode" /><link rel="subsection" href="ha-setup-tutorial.html#_start_neo4j_embedded_in_ha_mode" title="22.5.4. Start Neo4j Embedded in HA mode" /><link rel="copyright" href="ln-idp249856.html" title="License: Creative Commons 3.0" />
+
+
+<!-- favicon -->
+
+<link rel="shortcut icon" href="http://neo4j.org/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://neo4j.org/favicon.ico" type="image/x-icon" />
+
+<!-- style -->
+
+<link href="css/shCore.css" rel="stylesheet" type="text/css" />
+<link href="css/shCoreEclipse.css" rel="stylesheet" type="text/css" />
+<link href="css/shThemeEclipse.css" rel="stylesheet" type="text/css" />
+<link href="css/neo.css" rel="stylesheet" type="text/css" />
+
+<!-- Syntax Highlighter -->
+
+<script type="text/javascript" src="js/shCore.js"></script>
+<script type="text/javascript" src="js/shBrushJava.js"></script>
+<script type="text/javascript" src="js/shBrushJScript.js"></script>
+<script type="text/javascript" src="js/shBrushBash.js"></script>
+<script type="text/javascript" src="js/shBrushPlain.js"></script>
+<script type="text/javascript" src="js/shBrushXml.js"></script>
+<script type="text/javascript" src="js/shBrushGroovy.js"></script>
+<script type="text/javascript" src="js/shBrushCypher.js"></script>
+<script type="text/javascript" src="js/shBrushScala.js"></script>
+<script type="text/javascript" src="js/shBrushSql.js"></script>
+<script type="text/javascript" src="js/shBrushPython.js"></script>
+
+<!-- activate when needed
+<script type="text/javascript" src="js/shBrushRuby.js"></script>
+<script type="text/javascript" src="js/shBrushCSharp.js"></script>
+-->
+ 
+<script type="text/javascript">
+  SyntaxHighlighter.defaults['tab-size'] = 4;
+  SyntaxHighlighter.defaults['gutter'] = false;
+  SyntaxHighlighter.defaults['toolbar'] = false;
+  SyntaxHighlighter.all()
+</script>
+
+<!-- JQuery -->
+
+<script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+
+<!-- Replace SVG for browsers that lack support. -->
+<script type="text/javascript" src="js/svgreplacer.js"></script>
+
+<!-- Image Scaler -->
+
+<script type="text/javascript" src="js/imagescaler.js"></script>
+
+<!-- Table Styler -->
+
+<script type="text/javascript" src="js/tablestyler.js"></script>
+
+<!-- Version -->
+
+<script type="text/javascript" src="js/version.js"></script>
+
+<!-- Offline Sidebar -->
+
+<script type="text/javascript" src="js/sidebar.js"></script>
+
+
+<div xmlns="" class="breadcrumbs"><span class="breadcrumb-link"><a href="index.html">The Neo4j Manual</a></span> &gt; <span class="breadcrumb-link"><a href="operations.html">Operations</a></span> &gt; <span class="breadcrumb-link"><a href="ha.html">High Availability</a></span> &gt; <span class="breadcrumb-node">High Availability setup tutorial</span></div></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="upgrade-guide.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ha-haproxy.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ha-setup-tutorial"></a>22.5. High Availability setup tutorial</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="ha-setup-tutorial.html#_background">22.5.1. Background</a></span></dt><dt><span class="section"><a href="ha-setup-tutorial.html#_setup_and_start_the_coordinator_cluster">22.5.2. Setup and start the Coordinator cluster</a></span></dt><dt><span class="section"><a href="ha-setup-tutorial.html#_start_the_neo4j_servers_in_ha_mode">22.5.3. Start the Neo4j Servers in HA mode</a></span></dt><dt><span class="section"><a href="ha-setup-tutorial.html#_start_neo4j_embedded_in_ha_mode">22.5.4. Start Neo4j Embedded in HA mode</a></span></dt></dl></div><p>This is a guide to set up a Neo4j HA cluster and run embedded Neo4j or Neo4j Server instances participating as cluster nodes.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_background"></a>22.5.1. Background</h3></div></div></div><p>The members of the HA cluster (see <a class="xref" href="ha.html" title="Chapter 22. High Availability">Chapter 22, <em>High Availability</em></a>) use a Coordinator cluster to manage themselves and
+coordinate lifecycle activity like electing a master. When running an Neo4j HA cluster,
+a Coordinator cluster is used for cluster collaboration and must be installed and configured
+before working with the Neo4j database HA instances.</p><div class="tip" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="images/icons/admon/tip.png" /></td><th align="left">Tip</th></tr><tr><td align="left" valign="top"><p>Neo4j Server (see <a class="xref" href="server.html" title="Chapter 17. Neo4j Server">Chapter 17, <em>Neo4j Server</em></a>) and Neo4j Embedded (see <a class="xref" href="configuration-introduction.html" title="21.1. Introduction">Section 21.1, “Introduction”</a>) can both be used as nodes in the same HA cluster.
+This opens for scenarios where one application can insert and update data via a Java or JVM language based application, and other instances can run Neo4j Server and expose the data via the REST API (<a class="xref" href="rest-api.html" title="Chapter 18. REST API">Chapter 18, <em>REST API</em></a>).</p></td></tr></table></div><p>Below, there will be 3 coordinator instances set up on one local machine.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_download_and_unpack_neoj4_enterprise"></a>Download and unpack Neoj4 Enterprise</h4></div></div></div><p>Download and unpack three installations of Neo4j Enterprise
+(called <code class="literal">$NEO4J_HOME1</code>, <code class="literal">$NEO4J_HOME2</code>, <code class="literal">$NEO4J_HOME3</code>) from <a class="ulink" href="http://neo4j.org/download" target="_top">the Neo4j download site</a>.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_setup_and_start_the_coordinator_cluster"></a>22.5.2. Setup and start the Coordinator cluster</h3></div></div></div><p>Now, in the <span class="emphasis"><em>NEO4J_HOME1/conf/coord.cfg</em></span> file, adjust the coordinator <code class="literal">clientPort</code> and let the coordinator search for other coordinator cluster members at the localhost port ranges:</p><pre class="programlisting brush: plain">#$NEO4J_HOME1/conf/coord.cfg
+
+server.1=localhost:2888:3888
+server.2=localhost:2889:3889
+server.3=localhost:2890:3890
+
+clientPort=2181</pre><p>The other two config files in <code class="literal">$NEO4J_HOME2</code> and <code class="literal">$NEO4J_HOME3</code> will have a different <code class="literal">clienttPort</code> set but the other parameters identical to the first one:</p><pre class="programlisting brush: plain">#$NEO4J_HOME2/conf/coord.cfg
+...
+server.1=localhost:2888:3888
+server.2=localhost:2889:3889
+server.3=localhost:2890:3890
+...
+clientPort=2182</pre><pre class="programlisting brush: plain">#$NEO4J_HOME2/conf/coord.cfg
+...
+server.1=localhost:2888:3888
+server.2=localhost:2889:3889
+server.3=localhost:2890:3890
+...
+clientPort=2183</pre><p>Next we need to create a file in each data directory called "myid" that contains an id for each server
+equal to the number in <code class="literal">server.1</code>, <code class="literal">server.2</code> and <code class="literal">server.3</code> from the configuration files.</p><pre class="programlisting brush: shell">neo4j_home1$ echo '1' &gt; data/coordinator/myid
+neo4j_home2$ echo '2' &gt; data/coordinator/myid
+neo4j_home3$ echo '3' &gt; data/coordinator/myid</pre><p>We are now ready to start the Coordinator instances:</p><pre class="programlisting brush: shell">neo4j_home1$ ./bin/neo4j-coordinator start
+neo4j_home2$ ./bin/neo4j-coordinator start
+neo4j_home3$ ./bin/neo4j-coordinator start</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_start_the_neo4j_servers_in_ha_mode"></a>22.5.3. Start the Neo4j Servers in HA mode</h3></div></div></div><p>In your <span class="emphasis"><em>conf/neo4j.properties</em></span> file, enable HA by setting the necessary parameters for all 3 installations, adjusting the <code class="literal">ha.server_id</code> for all instances:</p><pre class="programlisting brush: plain">#$NEO4J_HOME1/conf/neo4j.properties
+#unique server id for this graph database
+#can not be negative id and must be unique
+ha.server_id = 1
+
+#ip and port for this instance to bind to
+ha.server = localhost:6001
+
+#connection information to the coordinator cluster client ports
+ha.coordinators = localhost:2181,localhost:2182,localhost:2183</pre><pre class="programlisting brush: plain">#$NEO4J_HOME2/conf/neo4j.properties
+#unique server id for this graph database
+#can not be negative id and must be unique
+ha.server_id = 2
+
+#ip and port for this instance to bind to
+ha.server = localhost:6002
+
+#connection information to the coordinator cluster client ports
+ha.coordinators = localhost:2181,localhost:2182,localhost:2183</pre><pre class="programlisting brush: plain">#$NEO4J_HOME3/conf/neo4j.properties
+#unique server id for this graph database
+#can not be negative id and must be unique
+ha.server_id = 3
+
+#ip and port for this instance to bind to
+ha.server = localhost:6003
+
+#connection information to the coordinator cluster client ports
+ha.coordinators = localhost:2181,localhost:2182,localhost:2183</pre><p>To avoid port clashes when starting the servers, adjust the ports for the REST endpoints in all instances under <span class="emphasis"><em>conf/neo4j-server.properties</em></span> and enable HA mode:</p><pre class="programlisting brush: plain">#$NEO4J_HOME1/conf/neo4j-server.properties
+...
+# http port (for all data, administrative, and UI access)
+org.neo4j.server.webserver.port=7474
+...
+# https port (for all data, administrative, and UI access)
+org.neo4j.server.webserver.https.port=7473
+...
+# Allowed values:
+# HA - High Availability
+# SINGLE - Single mode, default.
+# To run in High Availability mode, configure the coord.cfg file, and the
+# neo4j.properties config file, then uncomment this line:
+org.neo4j.server.database.mode=HA</pre><pre class="programlisting brush: plain">#$NEO4J_HOME2/conf/neo4j-server.properties
+...
+# http port (for all data, administrative, and UI access)
+org.neo4j.server.webserver.port=7475
+...
+# https port (for all data, administrative, and UI access)
+org.neo4j.server.webserver.https.port=7472
+...
+# Allowed values:
+# HA - High Availability
+# SINGLE - Single mode, default.
+# To run in High Availability mode, configure the coord.cfg file, and the
+# neo4j.properties config file, then uncomment this line:
+org.neo4j.server.database.mode=HA</pre><pre class="programlisting brush: plain">#$NEO4J_HOME3/conf/neo4j-server.properties
+...
+# http port (for all data, administrative, and UI access)
+org.neo4j.server.webserver.port=7476
+...
+# https port (for all data, administrative, and UI access)
+org.neo4j.server.webserver.https.port=7471
+...
+# Allowed values:
+# HA - High Availability
+# SINGLE - Single mode, default.
+# To run in High Availability mode, configure the coord.cfg file, and the
+# neo4j.properties config file, then uncomment this line:
+org.neo4j.server.database.mode=HA</pre><p>To avoid JMX port clashes adjust the assigned ports for all instances in <span class="emphasis"><em>conf/neo4j-wrapper.properties</em></span>.
+The paths to the <span class="emphasis"><em>jmx.password</em></span> and <span class="emphasis"><em>jmx.access</em></span> files also needs to be set.
+Note that the <span class="emphasis"><em>jmx.password</em></span> file needs the correct permissions set, see the configuration file for further information.</p><pre class="programlisting brush: plain">#$NEO4J_HOME1/conf/neo4j-wrapper.conf
+...
+wrapper.java.additional.4=-Dcom.sun.management.jmxremote.port=3637
+wrapper.java.additional.5=-Dcom.sun.management.jmxremote.password.file=conf/jmx.password
+wrapper.java.additional.6=-Dcom.sun.management.jmxremote.access.file=conf/jmx.access
+...</pre><pre class="programlisting brush: plain">#$NEO4J_HOME2/conf/neo4j-wrapper.conf
+...
+wrapper.java.additional.4=-Dcom.sun.management.jmxremote.port=3638
+wrapper.java.additional.5=-Dcom.sun.management.jmxremote.password.file=conf/jmx.password
+wrapper.java.additional.6=-Dcom.sun.management.jmxremote.access.file=conf/jmx.access
+...</pre><pre class="programlisting brush: plain">#$NEO4J_HOME3/conf/neo4j-server.properties
+...
+wrapper.java.additional.4=-Dcom.sun.management.jmxremote.port=3639
+wrapper.java.additional.5=-Dcom.sun.management.jmxremote.password.file=conf/jmx.password
+wrapper.java.additional.6=-Dcom.sun.management.jmxremote.access.file=conf/jmx.access
+...</pre><p>Now, start all three server instances.</p><pre class="programlisting brush: shell">neo4j_home1$ ./bin/neo4j start
+neo4j_home2$ ./bin/neo4j start
+neo4j_home3$ ./bin/neo4j start</pre><p>Now, you should be able to access the 3 servers (the first one being elected as master since it was started first) at
+<a class="ulink" href="http://localhost:7474/webadmin/#/info/org.neo4j/High%20Availability/" target="_top">http://localhost:7474/webadmin/#/info/org.neo4j/High%20Availability/</a>,
+<a class="ulink" href="http://localhost:7475/webadmin/#/info/org.neo4j/High%20Availability/" target="_top">http://localhost:7475/webadmin/#/info/org.neo4j/High%20Availability/</a>
+and
+<a class="ulink" href="http://localhost:7476/webadmin/#/info/org.neo4j/High%20Availability/" target="_top">http://localhost:7476/webadmin/#/info/org.neo4j/High%20Availability/</a>
+and check the status of the HA configuration.
+Alternatively, the REST API is exposing JMX, so you can check the HA JMX bean with e.g.</p><pre class="programlisting brush: shell">curl -H "Content-Type:application/json" -d '["org.neo4j:*"]' http://localhost:7474/db/manage/server/jmx/query</pre><p>And find in the response</p><pre class="programlisting brush: javascript">"description" : "Information about all instances in this cluster",
+    "name" : "InstancesInCluster",
+    "value" : [ {
+      "description" : "org.neo4j.management.InstanceInfo",
+      "value" : [ {
+        "description" : "address",
+        "name" : "address"
+      }, {
+        "description" : "instanceId",
+        "name" : "instanceId"
+      }, {
+        "description" : "lastCommittedTransactionId",
+        "name" : "lastCommittedTransactionId",
+        "value" : 1
+      }, {
+        "description" : "machineId",
+        "name" : "machineId",
+        "value" : 1
+      }, {
+        "description" : "master",
+        "name" : "master",
+        "value" : true
+      } ],
+      "type" : "org.neo4j.management.InstanceInfo"
+    }</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_start_neo4j_embedded_in_ha_mode"></a>22.5.4. Start Neo4j Embedded in HA mode</h3></div></div></div><p>If you are using Maven and Neo4j Embedded, simply add the following dependency to your project:</p><pre class="programlisting brush: xml">&lt;dependency&gt;
+   &lt;groupId&gt;org.neo4j&lt;/groupId&gt;
+   &lt;artifactId&gt;neo4j-ha&lt;/artifactId&gt;
+   &lt;version&gt;${neo4j-version}&lt;/version&gt;
+&lt;/dependency&gt;</pre><p><span class="emphasis"><em>Where <code class="literal">${neo4j-version}</code> is the Neo4j version used.</em></span></p><p>If you prefer to download the jar files manually, they are included in the <a class="ulink" href="http://neo4j.org/download/" target="_top">Neo4j distribution</a>.</p><p>The difference in code when using Neo4j-HA is the creation of the graph database service.</p><pre class="programlisting brush: java">GraphDatabaseService db = new HighlyAvailableGraphDatabase( path, config );</pre><p>The configuration can contain the standard configuration parameters (provided as part of the <code class="literal">config</code> above or
+in <span class="emphasis"><em>neo4j.properties</em></span> but will also have to contain:</p><pre class="programlisting brush: plain">#HA instance1
+#unique machine id for this graph database
+#can not be negative id and must be unique
+ha.server_id = 1
+
+#ip and port for this instance to bind to
+ha.server = localhost:6001
+
+#connection information to the coordinator cluster client ports
+ha.coordinators = localhost:2181,localhost:2182,localhost:2183
+
+enable_remote_shell = port=1331</pre><p>First we need to create a database that can be used for replication.
+This is easiest done by just starting a normal embedded graph database, pointing out a path and shutdown.</p><pre class="programlisting brush: java">Map&lt;String,String&gt; config = HighlyAvailableGraphDatabase.loadConfigurations( configFile );
+GraphDatabaseService db = new HighlyAvailableGraphDatabase( path, config );</pre><p>We created a config file with machine id=1 and enabled remote shell.
+The main method will expect the path to the db as first parameter and the configuration file as the second parameter.</p><p>It should now be possible to connect to the instance using <a class="xref" href="shell.html" title="Chapter 27. Neo4j Shell">Chapter 27, <em>Neo4j Shell</em></a>:</p><pre class="programlisting brush: shell">neo4j_home1$ ./bin/neo4j-shell -port 1331
+NOTE: Remote Neo4j graph database service 'shell' at port 1331
+Welcome to the Neo4j Shell! Enter 'help' for a list of commands
+
+neo4j-sh (0)$ hainfo
+I'm currently master
+Connected slaves:</pre><p>Since it is the first instance to join the cluster it is elected master.
+Starting another instance would require a second configuration and another path to the db.</p><pre class="programlisting brush: plain">#HA instance2
+#unique machine id for this graph database
+#can not be negative id and must be unique
+ha.server_id = 2
+
+#ip and port for this instance to bind to
+ha.server = localhost:6001
+
+#connection information to the coordinator cluster client ports
+ha.coordinators = localhost:2181,localhost:2182,localhost:2183
+
+enable_remote_shell = port=1332</pre><p>Now start the shell connecting to port 1332:</p><pre class="programlisting brush: shell">neo4j_home1$ ./bin/neo4j-shell -port 1332
+NOTE: Remote Neo4j graph database service 'shell' at port 1332
+Welcome to the Neo4j Shell! Enter 'help' for a list of commands
+
+neo4j-sh (0)$ hainfo
+I'm currently slave</pre></div></div><HR xmlns=""></HR><a xmlns="" href="ln-idp249856.html"><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">Copyright © 2012 Neo Technology</p></a><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="upgrade-guide.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ha.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ha-haproxy.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

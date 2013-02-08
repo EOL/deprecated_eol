@@ -1,0 +1,81 @@
+13:16:30,734 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+13:16:30,734 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+13:16:30,735 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [jar:file:/Users/jrice/eol/neo4j/system/lib/neo4j-server-1.8.1.jar!/logback.xml]
+13:16:30,751 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@682bc3f5 - URL [jar:file:/Users/jrice/eol/neo4j/system/lib/neo4j-server-1.8.1.jar!/logback.xml] is not of type file
+13:16:30,796 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - debug attribute not set
+13:16:30,802 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+13:16:30,805 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+13:16:30,815 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+13:16:30,854 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+13:16:30,854 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+13:16:30,856 |-ERROR in ch.qos.logback.core.joran.action.IncludeAction - Could not find resource corresponding to [custom-logback.xml]
+13:16:30,857 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@114e3f41 - Registering current configuration as safe fallback point
+
+2/8/13 1:16:30 PM org.neo4j.server.database.Database INFO: Loaded neo4j tuning properties from conf/neo4j.properties
+13:16:31.070 [main] INFO  neo4j - WARNING! Deprecated configuration options used. See manual for details
+13:16:31.072 [main] INFO  neo4j - cannot configure writers and searchers individually since they go together
+13:16:31.112 [main] INFO  neo4j.datasource - Creating new db @ /Users/jrice/eol/neo4j/data/graph.db/neostore
+13:16:31.132 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.nodestore.db] brickCount=0 brickSize=975168b mappedMem=97517568b (storeSize=0b)
+13:16:31.136 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.nodestore.db hit=1 miss=0 switches=0 ooe=0
+13:16:31.167 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db.names] brickCount=0 brickSize=0b mappedMem=0b (storeSize=38b)
+13:16:31.170 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db] brickCount=0 brickSize=0b mappedMem=0b (storeSize=0b)
+13:16:31.170 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db.names hit=0 miss=0 switches=0 ooe=0
+13:16:31.171 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db hit=0 miss=0 switches=0 ooe=0
+13:16:31.173 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db.names] brickCount=0 brickSize=0b mappedMem=0b (storeSize=38b)
+13:16:31.173 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db] brickCount=0 brickSize=0b mappedMem=0b (storeSize=0b)
+13:16:31.175 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.strings] brickCount=0 brickSize=300928b mappedMem=300941312b (storeSize=128b)
+13:16:31.175 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.index.keys] brickCount=0 brickSize=1026b mappedMem=1048576b (storeSize=38b)
+13:16:31.177 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.index] brickCount=0 brickSize=10485b mappedMem=1048576b (storeSize=0b)
+13:16:31.178 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.arrays] brickCount=0 brickSize=340736b mappedMem=340787200b (storeSize=128b)
+13:16:31.181 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db] brickCount=0 brickSize=3533667b mappedMem=353370112b (storeSize=0b)
+13:16:31.183 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.relationshipstore.db] brickCount=0 brickSize=4330590b mappedMem=433061888b (storeSize=0b)
+13:16:31.183 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.nodestore.db] brickCount=0 brickSize=97515b mappedMem=97517568b (storeSize=9b)
+13:16:31.184 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore] brickCount=0 brickSize=0b mappedMem=0b (storeSize=0b)
+13:16:31.190 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db.names hit=0 miss=0 switches=0 ooe=0
+13:16:31.190 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db hit=0 miss=0 switches=0 ooe=0
+13:16:31.192 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.strings hit=0 miss=0 switches=0 ooe=0
+13:16:31.193 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.index.keys hit=0 miss=0 switches=0 ooe=0
+13:16:31.194 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.index hit=0 miss=0 switches=0 ooe=0
+13:16:31.195 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.arrays hit=0 miss=0 switches=0 ooe=0
+13:16:31.196 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db hit=0 miss=0 switches=0 ooe=0
+13:16:31.200 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.relationshipstore.db hit=0 miss=0 switches=0 ooe=0
+13:16:31.202 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore.nodestore.db hit=0 miss=0 switches=0 ooe=0
+13:16:31.203 [main] INFO  neo4j.neostore - /Users/jrice/eol/neo4j/data/graph.db/neostore hit=0 miss=8 switches=0 ooe=0
+13:16:31.207 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db.names] brickCount=0 brickSize=0b mappedMem=0b (storeSize=38b)
+13:16:31.208 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.relationshiptypestore.db] brickCount=0 brickSize=0b mappedMem=0b (storeSize=0b)
+13:16:31.208 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.strings] brickCount=0 brickSize=300928b mappedMem=300941312b (storeSize=128b)
+13:16:31.209 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.index.keys] brickCount=0 brickSize=1026b mappedMem=1048576b (storeSize=38b)
+13:16:31.210 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.index] brickCount=0 brickSize=10485b mappedMem=1048576b (storeSize=0b)
+13:16:31.210 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db.arrays] brickCount=0 brickSize=340736b mappedMem=340787200b (storeSize=128b)
+13:16:31.211 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.propertystore.db] brickCount=0 brickSize=3533667b mappedMem=353370112b (storeSize=0b)
+13:16:31.212 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.relationshipstore.db] brickCount=0 brickSize=4330590b mappedMem=433061888b (storeSize=0b)
+13:16:31.213 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore.nodestore.db] brickCount=0 brickSize=97515b mappedMem=97517568b (storeSize=9b)
+13:16:31.214 [main] INFO  neo4j.neostore - [/Users/jrice/eol/neo4j/data/graph.db/neostore] brickCount=0 brickSize=0b mappedMem=0b (storeSize=54b)
+13:16:31.227 [main] INFO  neo4j.xafactory - Opened logical log [/Users/jrice/eol/neo4j/data/graph.db/nioneo_logical.log.1] version=0, lastTxId=1 (clean)
+2/8/13 1:16:31 PM org.neo4j.server.database.Database INFO: Successfully started database
+2/8/13 1:16:31 PM org.neo4j.server.AbstractNeoServer INFO: Starting Neo Server on port [7474] with [20] threads available
+2/8/13 1:16:31 PM org.neo4j.server.AbstractNeoServer INFO: Enabling HTTPS on port [7473]
+2/8/13 1:16:31 PM org.neo4j.server.AbstractNeoServer INFO: No SSL certificate found, generating a self-signed certificate..
+Logger not configured, logging to std out instead: [FINE] Adding JAXRS packages [org.neo4j.server.rest.discovery] at [/]
+2/8/13 1:16:32 PM org.neo4j.server.modules.DiscoveryModule INFO: Mounted discovery module at [/]
+Logger not configured, logging to std out instead: [FINE] Adding JAXRS packages [org.neo4j.server.rest.web] at [/db/data]
+2/8/13 1:16:32 PM org.neo4j.server.plugins.PluginManager INFO: Loaded server plugin "CypherPlugin"
+2/8/13 1:16:32 PM org.neo4j.server.plugins.PluginManager INFO: Loaded server plugin "GremlinPlugin"
+2/8/13 1:16:32 PM org.neo4j.server.modules.RESTApiModule INFO: Mounted REST API at [/db/data/]
+Logger not configured, logging to std out instead: [FINE] Adding JAXRS packages [org.neo4j.server.webadmin.rest] at [/db/manage]
+2/8/13 1:16:32 PM org.neo4j.server.modules.ManagementApiModule INFO: Mounted management API at [/db/manage/]
+2/8/13 1:16:32 PM org.neo4j.server.modules.WebAdminModule INFO: Mounted webadmin at [/webadmin]
+13:16:32.640 [main] INFO  org.mortbay.log - Logging to Logger[org.mortbay.log] via org.mortbay.log.Slf4jLog
+2/8/13 1:16:32 PM org.neo4j.server.web.Jetty6WebServer INFO: Mounting static content at [/webadmin] from [webadmin-html]
+Logger not configured, logging to std out instead: [FINE] Found [jar:file:/Users/jrice/eol/neo4j/system/lib/neo4j-server-1.8.1-static-web.jar!/webadmin-html]
+Logger not configured, logging to std out instead: [FINE] Mounting static content from [jar:file:/Users/jrice/eol/neo4j/system/lib/neo4j-server-1.8.1-static-web.jar!/webadmin-html] at [/webadmin]
+Logger not configured, logging to std out instead: [FINE] Mounting servlet at [/db/manage]
+Logger not configured, logging to std out instead: [FINE] Mounting servlet at [/db/data]
+Logger not configured, logging to std out instead: [FINE] Mounting servlet at [/]
+13:16:32.680 [main] INFO  org.mortbay.log - jetty-6.1.25
+13:16:32.781 [main] INFO  org.mortbay.log - NO JSP Support for /webadmin, did not find org.apache.jasper.servlet.JspServlet
+13:16:34.092 [main] INFO  org.mortbay.log - Started SelectChannelConnector@localhost:7474
+13:16:34.221 [main] INFO  org.mortbay.log - Started SslSocketConnector@localhost:7473
+2/8/13 1:16:34 PM org.neo4j.server.AbstractNeoServer INFO: Server started on [http://localhost:7474/]
+Logger not configured, logging to std out instead: [FINEST] org.neo4j.server.webadmin.rest.ShellSession@49833c9c
+Logger not configured, logging to std out instead: [FINEST] org.neo4j.server.webadmin.console.GremlinSession@18145132

@@ -78,9 +78,12 @@ describe OpenAuthentication do
   end
 
   describe '#can_be_deleted_by?' do
-    it 'should know whether a user has access to delete an open authentication' do
+    it 'should know whether a user DOESN\'T have access to delete an open authentication' do
       @open_authentication.update_column(:user_id, @user.id + 1).should be_true
       @open_authentication.can_be_deleted_by?(@user).should be_false
+    end
+
+    it 'should know when a yser can delete open authentication' do
       @open_authentication.update_column(:user_id, @user.id).should be_true
       @open_authentication.can_be_deleted_by?(@user).should be_true
     end

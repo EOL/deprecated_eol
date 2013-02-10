@@ -476,7 +476,6 @@ sr:
   citation_example: Брајан Фишер. „Pogonomyrmex anergismus Cole, 1954.“ Енциклопедија живота, доступно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Проверено 15. јануара 2009.
   citing_link: Навођење
   classification_tree_header: Класификација
-  classifications_empty: Ова страница није укључена ни у једну класификацију која се може погледати на EOL-у.
   classifications_summary_header_with_count: 
     one: Пронађено у %{count} класификацији
     other: Пронађено у %{count} класификације
@@ -1080,7 +1079,6 @@ sr:
   expand_all_children: отвори све подтаксоне
   explore: Истражи
   explore_what_we_know_about_taxon: Истражите шта EOL зна о таксону %{taxon}.
-  export_all_of_the_entries_as_a: извези све уносе као CVS
   export_curator_csv_link: "[извези све кустосе као CSV]"
   export_this_list_as_csv: Извези списак као CSV
   external_link_header: Спољна веза
@@ -2395,7 +2393,6 @@ sr:
   this_method_takes_an_integer_or_string: Ова метода узима цео број или ниску која је јединствена назнака таксона из базе једног добављача, као и hierarchy_id који представља добављача и приказује назнаку странице на EOL-у тог таксона. На пример, користећи АПИ %{link_provider}, можете сазнати да је hierarchy_id за Интегрисани таксономски систем информација (ITIS) %{itis_id}. Потом можете претражити EOL за таксономски серијски број на ITIS-у (TSN) 180542,<i>Ursus maritimus</i>, позивајући %{link_url}
   this_page_shows_information_ab: На овој страници су приказани подаци о датом појму за претрагу и наведени су резултати претраге који су кликнули корисници.
   this_resource_unpublished_notice: Овај ресурс тренутно није означен као објављен од стране администратора.
-  this_section_is_used_to_create: Овај одељак служи за стварање нових ставки. Новости су приказане у десном делу почетне странице, као и у %{rss_link} и страници %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Овај звучни снимак не може да се кустосира јер је уклоњен из објава.
   this_sound_is_unpublished: Овај звучни снимак је необјављен.
   this_video_cannot_be_curated_because_unpublished: Овај видео-снимак не може да се кустосира јер је уклоњен из објава.
@@ -2437,7 +2434,6 @@ sr:
   twitter: Твитер
   type: Врста
   unable_to_copy_items_to_collection_error: Нажалост, не могу да умножим ставке %{name}.
-  unable_to_invite_users_to_community_error: Не могу да пошаљем позивнице за %{users}.
   unique_page_views_th: Засебне посете
   unknown: Непознато
   unknown_type_not_associated_with_any_published_entries: Ови подаци нису повезани ни с једним објављеним таксоном.

@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Bartek50003
 # Author: Cysioland
+# Author: Mateuszek045
 # Author: Olgak85
 # Author: Woytecr
 pl: 
@@ -27,6 +28,7 @@ pl:
   translated_agent_roles-label-agent_role_id-21: dostawca
   translated_agent_roles-label-agent_role_id-22: Tłumacz
   translated_agent_roles-label-agent_role_id-23: Recenzent Naukowy
+  translated_agent_roles-label-agent_role_id-7: Edytor
   translated_agent_roles-label-agent_role_id-9: Fotograf
   translated_audiences-label-audience_id-1: Użytkownicy zaawansowani
   translated_audiences-label-audience_id-2: Ogół społeczeństwa

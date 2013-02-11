@@ -558,13 +558,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def communities
-    @communities ||= Community.find_by_sql("
-      SELECT c.* FROM communities c
-        JOIN collections_communities cc ON (cc.community_id = c.id)
-        JOIN collections cl ON (cc.collection_id = cl.id)
-        JOIN collection_items ci ON (ci.collection_id = cl.id)
-      WHERE ci.collected_item_id = #{id} AND collected_item_type = 'TaxonConcept' AND c.published = 1
-    ")
+    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c| c.communities }.flatten.compact.uniq
   end
 
   def flattened_ancestor_ids
@@ -711,8 +705,10 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   # returns a DataObject, not a TaxonConceptExemplarArticle
-  def published_visible_exemplar_article
-    if taxon_concept_exemplar_article && (the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language)
+  def published_visible_exemplar_article_in_language(language)
+    return nil unless taxon_concept_exemplar_article
+    if the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language
+      return nil if the_best_article.language != language
       return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.visible.id
     end
   end
@@ -1005,7 +1001,7 @@ private
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user
   def best_article_for_user(the_user)
-    if published_exemplar = published_visible_exemplar_article
+    if published_exemplar = published_visible_exemplar_article_in_language(the_user.language)
       published_exemplar
     else
       # Sending User.new here since overview text should be the same for all users - curators

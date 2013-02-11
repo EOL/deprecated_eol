@@ -69,7 +69,7 @@ class TaxonUserClassificationFilter
   def media(options = {})
     @media ||= taxon_concept.data_objects_from_solr(options.merge(
       :ignore_translations => true,
-      :filter_hierarchy_entry => hierarchy_entry,
+      :filter_hierarchy_entry => _hierarchy_entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
@@ -156,7 +156,7 @@ class TaxonUserClassificationFilter
   def details(options = {})
     @details ||= details_text_for_user
     options[:include_toc_item] ?
-      @details.select { |d| !d.toc_items.include?(options[:include_toc_item]) } :
+      @details.select { |d| d.toc_items.include?(options[:include_toc_item]) } :
       @details
   end
 

@@ -1107,11 +1107,15 @@ class DataObject < ActiveRecord::Base
     license && license.show_rights_holder?
   end
 
-  # TODO - test
-  def is_already_overview_text_for?(taxon_concept)
-    visibility_by_taxon_concept(taxon_concept) != Visibility.visible ||
-      text = taxon_concept.overview_text_for_user(user) && text.guid == guid
-  end     
+  def can_be_made_overview_text_for_user?(user, taxon_concept)
+    return false unless published?
+    if visibility_by_taxon_concept(taxon_concept) == Visibility.visible
+      overview = taxon_concept.overview_text_for_user(user)
+      return true if overview.blank?
+      return true if guid != taxon_concept.overview_text_for_user(user).guid
+    end
+    false
+  end
 
   def rights_holder_for_display
     return rights_holder unless rights_holder.blank?

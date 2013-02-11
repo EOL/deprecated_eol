@@ -128,6 +128,10 @@ describe "Communities" do
         @test_data[:user_non_member].leave_community(@test_data[:community])
         @test_data[:user_non_member].is_member_of?(@test_data[:community]).should_not be_true
       end
+      it "should not have a share collection button" do
+        body.should_not have_tag("a[href='#{choose_editor_target_collections_path(:community_id => @test_data[:community].id)}']",
+          :text => 'Share a collection')
+      end
     end
     context 'visiting edit community' do
       it 'should not be allowed' do
@@ -165,6 +169,10 @@ describe "Communities" do
         @test_data[:user_community_member].join_community(@test_data[:community])
         @test_data[:user_community_member].is_member_of?(@test_data[:community]).should be_true
       end
+      it "should not have a share collection button" do
+        body.should_not have_tag("a[href='#{choose_editor_target_collections_path(:community_id => @test_data[:community].id)}']",
+          :text => 'Share a collection')
+      end
     end
   end
 
@@ -176,6 +184,15 @@ describe "Communities" do
       before(:each) { visit community_path(@test_data[:community]) }
       subject { body }
       # TODO - we could test a few things here.
+      it "should have a share collection button" do
+        body.should have_tag("a[href='#{choose_editor_target_collections_path(:community_id => @test_data[:community].id)}']",
+          :text => 'Share a collection')
+      end
+      it "should do something" do
+        click_link 'Share a collection'
+        body.should include("Allow #{@test_data[:community].name} to manage the following collections")
+        body.should have_tag("input[type=submit][value='Share a collection']")
+      end
     end
     context 'visiting edit community' do
       before(:each) { visit edit_community_path(@test_data[:community]) }

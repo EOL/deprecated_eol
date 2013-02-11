@@ -51,10 +51,11 @@ describe TaxonOverview do
 
   it 'should promote the exemplar image' do
     exemplar = DataObject.gen
-    @taxon_concept.should_receive(:images_from_solr).at_least(1).times.and_return([DataObject.gen, DataObject.gen, exemplar])
+    @taxon_concept.should_receive(:images_from_solr).at_least(1).times.and_return([DataObject.gen, DataObject.gen, DataObject.gen, DataObject.gen, exemplar])
     @taxon_concept.should_receive(:published_exemplar_image).at_least(1).times.and_return(exemplar)
     @overview = TaxonOverview.new(@taxon_concept, @user) # NOTE - you MUST rebuild the overview if you add media to it, since it's preloaded.
     @overview.media.first.should == exemplar
+    @overview.media.length.should_not > TaxonOverview::MEDIA_TO_SHOW
   end
 
   it '#summary should delegate to taxon_concept#overview_text_for_user' do

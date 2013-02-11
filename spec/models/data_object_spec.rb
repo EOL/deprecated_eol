@@ -628,5 +628,26 @@ describe DataObject do
     Resource.destroy(resource)
   end
 
+  it 'should return proper values for can_be_made_overview_text_for_user' do
+    text = @taxon_concept.data_objects.select{ |d| d.text? && !d.added_by_user? }.last
+    text.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
+    text.update_column(:published, false)
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # unpublished
+    text.update_column(:published, true)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, text.id)
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # already exemplar
+    TaxonConceptExemplarArticle.destroy_all
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.preview.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # preview
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.invisible.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # invisible
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.visible.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
+  end
 end
 

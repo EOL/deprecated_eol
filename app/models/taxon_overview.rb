@@ -158,7 +158,8 @@ private
         :ignore_translations => true
       )
     ).compact
-    media = media[0..MEDIA_TO_SHOW-2] << map if map?
+    media = media[0...MEDIA_TO_SHOW] if media.length > MEDIA_TO_SHOW
+    media = media[0...MEDIA_TO_SHOW-1] << map if map?
     media
   end
 

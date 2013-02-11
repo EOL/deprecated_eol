@@ -27,7 +27,7 @@ class TaxonOverview < TaxonUserClassificationFilter
       @classification_chosen_by = chosen.user # Might as well set it while we have it.
       @entry = chosen.hierarchy_entry
     else
-      @entry = taxon_concept.hierarchy_entries.shuffle.first
+      @entry = hierarchy_entries.shuffle.first
       @entry ||= taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first
       @entry ||= super
     end

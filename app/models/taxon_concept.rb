@@ -148,7 +148,7 @@ class TaxonConcept < ActiveRecord::Base
   def preferred_common_name_in_language(language)
     if preferred_common_names.loaded?
       # sometimes we preload preferred names in all languages for lots of taxa
-      best_name_in_language = preferred_common_names.detect{ |c| c.language_id == language.id }
+      best_name_in_language = preferred_common_names.detect { |c| c.language_id == language.id }
     else
       # ...but if we don't, its faster to get only the one record in the current language
       best_name_in_language = preferred_common_names.where("language_id = #{language.id}").first

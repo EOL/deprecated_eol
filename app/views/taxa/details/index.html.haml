@@ -2,50 +2,44 @@
   = render :partial => 'shared/social_sharing'
 #taxon_detail
   #sidebar
-    - if @taxon_page.image && img = @taxon_page.image.thumb_or_object('260_190')
-      = image_tag(img)
+    - if @details.thumb?
+      = image_tag(@details.thumb)
     #toc
       %h3= I18n.t(:table_of_contents)
-      - @taxon_page.toc_roots.each do |root|
+      - @details.each_toc_item do |root, root_content|
         .section
           %h4= link_to root.label, url_for(:anchor => category_anchor(root))
-          - children = @taxon_page.toc(:under => root)
-          - unless children.empty?
+          - if @details.toc_items_under?(root)
             %ul
-              - for child in children
+              - @details.each_nested_toc_item(root) do |child, child_content|
                 %li= link_to child.label, url_for(:anchor => category_anchor(child))
       = render :partial => 'show_literatures_and_resources_links'
-  - if @taxon_page.toc_roots.empty?
+  - unless @details.toc_items?
     #main
-      - unless @details_count_by_language.blank?
+      - unless @details.count_by_language.blank?
         %p.languages
-          = I18n.t(:articles_in_languages_with_count, :count => @details_count_by_language.size)
-          = raw(@details_count_by_language.map { |language, count| link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) }.join(', '))
+          = I18n.t(:articles_in_languages_with_count, :count => @details.count_by_language.size)
+          = raw(@details.count_by_language.map { |language, count| link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) }.join(', '))
           = raw(I18n.t(:learn_more_link, :learn_more => link_to(I18n.t(:learn_more_lowercase), cms_page_path('language_support'))))
       .empty
         %p= I18n.t(:taxon_details_empty)
         %p
-          = link_to I18n.t(:add_article_to_page_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
-          = link_to I18n.t(:add_link_to_page_button), new_taxon_data_object_path(@taxon_concept, :link => true), :class => 'button link_button'
+          = link_to I18n.t(:add_article_to_page_button), new_taxon_data_object_path(@details), :class => 'button'
+          = link_to I18n.t(:add_link_to_page_button), new_taxon_data_object_path(@details, :link => true), :class => 'button link_button'
   - else
     #main
-      - unless @details_count_by_language.blank?
+      - unless @details.count_by_language.blank?
         %p.languages
-          = I18n.t(:articles_in_other_languages_with_count, :count => @details_count_by_language.size)
-          = raw(@details_count_by_language.map { |language, count| language ? link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) : I18n.t(:language_with_count, :language => I18n.t(:unknown), :count => count)}.join(', '))
+          = I18n.t(:articles_in_other_languages_with_count, :count => @details.count_by_language.size)
+          = raw(@details.count_by_language.map { |language, count| language ? link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) : I18n.t(:language_with_count, :language => I18n.t(:unknown), :count => count)}.join(', '))
           = raw(I18n.t(:learn_more_link, :learn_more => link_to(I18n.t(:learn_more_lowercase), cms_page_path('language_support'))))
-      - @taxon_page.toc_roots.each do |root|
-        - root_content = @taxon_page.details(:include_toc_item => root)
-        - children = @taxon_page.toc(:under => root)
-        - unless root_content.empty? && children.empty?
-          - root_content = DataObject.sort_by_rating(root_content, @taxon_concept)
+      - @details.each_toc_item do |root, root_content|
+        - unless root_content.empty? && !@details.toc_items_under?(root)
           %h2{:id => category_anchor(root)}= root.label
           .section
             = render :partial => 'category_content', :locals => { :content => root_content }
-            - unless children.empty?
-              - for child in children
-                - child_content = @taxon_page.details(:include_toc_item => child)
+            - if @details.toc_items_under?(root)
+              - @details.each_nested_toc_item(root) do |child, child_content|
                 - unless child_content.empty?
-                  - child_content = DataObject.sort_by_rating(child_content, @taxon_concept)
                   %h3{:id => category_anchor(child)}= child.label
                   = render :partial => 'category_content', :locals => { :content => child_content }

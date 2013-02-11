@@ -5,22 +5,8 @@ class Taxa::DetailsController < TaxaController
 
   # GET /pages/:taxon_id/details
   def index
-    @data_objects_in_other_languages = @taxon_page.text(
-      :language_ids_to_ignore => current_language.all_ids << 0,
-      :allow_nil_languages => false,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder ] },
-      :skip_preload => true,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id }
-    )
-    DataObject.preload_associations(@data_objects_in_other_languages, :language)
+    @details = @taxon_page.details
     @show_add_link_buttons = true
-    @details_count_by_language = {}
-    @data_objects_in_other_languages.each do |obj|
-      obj.language = obj.language.representative_language
-      next unless Language.approved_languages.include?(obj.language)
-      @details_count_by_language[obj.language] ||= 0
-      @details_count_by_language[obj.language] += 1
-    end
     @assistive_section_header = I18n.t(:assistive_details_header)
     @rel_canonical_href = taxon_details_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)

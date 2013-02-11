@@ -17,9 +17,13 @@ class TaxonUserClassificationFilter
   end
 
   # You could say TaxonUserClassificationFilter has_a overview.  :)
-  # NOTE - what is a little odd is that an Overview now has an #overview.  ...Which is... weird... but hey.
+  # NOTE - what is a little odd is that an Overview now has an #overview (inherited).  ...Which is... weird... but hey.
   def overview
     TaxonOverview.new(taxon_concept, user, _hierarchy_entry)
+  end
+
+  def details
+    TaxonDetails.new(taxon_concept, user, _hierarchy_entry)
   end
 
   # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
@@ -139,24 +143,6 @@ class TaxonUserClassificationFilter
 
   def related_names_count
     related_names['parents'].count + related_names['children'].count
-  end
-
-  def details(options = {})
-    @details ||= details_text_for_user
-    options[:include_toc_item] ?
-      @details.select { |d| !d.toc_items.include?(options[:include_toc_item]) } :
-      @details
-  end
-
-  def toc(options = {})
-    @toc_items ||= TocItem.table_of_contents_for_text(details)
-    options[:under] ?
-      @toc_items.select { |toc_item| toc_item.parent_id == options[:under].id } :
-      @toc_items
-  end
-
-  def toc_roots
-    @toc_roots ||= toc.dup.delete_if(&:is_child?)
   end
 
   # TODO - This belongs on TaxonNames or the like:
@@ -288,44 +274,4 @@ protected # You can only call these from the classes that inherit from TaxonUser
     # Do nothing. If you inherit from the class, you'll want to override this.
   end
 
-  # TODO - there are three other methods related to this one, but I don't want to move them yet.
-  def details_text_for_user(only_one = false)
-    text_objects = taxon_concept.text_for_user(user,
-      :language_ids => [ user.language_id ],
-      :filter_by_subtype => true,
-      :allow_nil_languages => user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => (only_one ? 1 : 600) # NOTE - artificial limit of text objects here to increase the default 30
-    )
-    
-    # now preload info needed for display details metadata
-    unless only_one
-      selects = {
-        :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-        :hierarchies => [ :id, :agent_id, :browsable, :outlink_uri, :label ],
-        :data_objects_hierarchy_entries => '*',
-        :curated_data_objects_hierarchy_entries => '*',
-        :data_object_translations => '*',
-        :table_of_contents => '*',
-        :info_items => '*',
-        :toc_items => '*',
-        :translated_table_of_contents => '*',
-        :users_data_objects => '*',
-        :resources => '*',
-        :content_partners => 'id, user_id, full_name, display_name, homepage, public',
-        :refs => '*',
-        :ref_identifiers => '*',
-        :comments => 'id, parent_id',
-        :licenses => '*',
-        :users_data_objects_ratings => '*' }
-      DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments, :license,
-        { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items },
-        { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
-          :vetted, :visibility ] },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object,
-        { :toc_items => [ :translations ] } ], :select => selects)
-    end
-    text_objects
-  end
-  
 end

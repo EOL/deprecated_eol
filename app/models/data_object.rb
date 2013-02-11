@@ -186,34 +186,6 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  # TODO - params and options?  Really?  Really?!
-  def self.create_user_text(params, options)
-    unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
-      if options[:link_object]
-        params[:data_subtype_id] = DataType.link.id
-      else
-        params[:rights_holder] = options[:user].full_name
-      end
-    end
-    dato = DataObject.new(params.reverse_merge!({:published => true}))
-    if dato.save
-      begin
-        dato.toc_items = Array(TocItem.find(options[:toc_id]))
-        dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
-        unless options[:link_type_id].blank? && options[:link_type_id] != 0
-          dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => dato, :link_type_id => options[:link_type_id])
-        end
-      rescue => e
-        dato.update_column(:published, false)
-        raise e
-      ensure
-        options[:taxon_concept].reload if options[:taxon_concept]
-        dato.update_solr_index
-      end
-    end
-    dato
-  end
-
   def self.latest_published_version_of(data_object_id)
     obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
@@ -249,15 +221,32 @@ class DataObject < ActiveRecord::Base
     DataObject.find(data_object_id, :select => 'published').published?
   end
 
-  # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
-  def replicate(params, options)
-    unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
-      if options[:link_object]
-        params[:data_subtype_id] = DataType.link.id
-      else
-        params[:rights_holder] = options[:user].full_name
+  def self.create_user_text(params, options)
+    DataObject.set_subtype_if_link_object(params, options)
+    DataObject.populate_rights_holder_or_data_subtype(params, options)
+    dato = DataObject.new(params.reverse_merge!({:published => true}))
+    if dato.save
+      begin
+        dato.toc_items = Array(TocItem.find(options[:toc_id]))
+        dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
+        unless options[:link_type_id].blank? && options[:link_type_id] != 0
+          dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => dato, :link_type_id => options[:link_type_id])
+        end
+      rescue => e
+        dato.update_column(:published, false)
+        raise e
+      ensure
+        options[:taxon_concept].reload if options[:taxon_concept]
+        dato.update_solr_index
       end
     end
+    dato
+  end
+
+  # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
+  def replicate(params, options)
+    DataObject.set_subtype_if_link_object(params, options)
+    DataObject.populate_rights_holder_or_data_subtype(params, options)
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
       begin
@@ -1121,7 +1110,7 @@ class DataObject < ActiveRecord::Base
   # TODO - test
   def is_already_overview_text_for?(taxon_concept)
     visibility_by_taxon_concept(taxon_concept) != Visibility.visible ||
-      guid == taxon_concept.overview_text_for_user(user).guid
+      text = taxon_concept.overview_text_for_user(user) && text.guid == guid
   end     
 
   def rights_holder_for_display
@@ -1140,6 +1129,20 @@ class DataObject < ActiveRecord::Base
   end
 
 private
+
+  # TODO - this is quite lame. Best to re-think this. Perhaps a class that handles and cleans the DatoParams?
+  # NOTE that this can modify params.
+  # Remember, you don't put a bang on overwrite methods unless there's a safe version that *doesn't* do it.
+  def self.populate_rights_holder_or_data_subtype(params, options)
+    return if options[:link_object]
+    license = License.find(params[:license_id]) rescue nil
+    needs_rights = license && license.show_rights_holder? 
+    params[:rights_holder] = options[:user].full_name if needs_rights && params[:rights_holder].blank?
+  end
+
+  def self.set_subtype_if_link_object(params, options)
+    params[:data_subtype_id] = DataType.link.id if options[:link_object]
+  end
 
   def is_subtype?(type)
     reload unless self.has_attribute?(:data_subtype_id) 

@@ -806,24 +806,6 @@ class TaxonConcept < ActiveRecord::Base
     EOL::Solr::DataObjects.search_with_pagination(id, TaxonConcept.default_solr_query_parameters(solr_query_parameters))
   end
   
-  def get_unique_link_type_ids_for_user(the_user, options)
-    return @get_unique_link_type_ids_for_user if @get_unique_link_type_ids_for_user
-    options[:data_type_ids] = DataType.text_type_ids
-    options[:vetted_types] = the_user.vetted_types
-    options[:visibility_types] = the_user.visibility_types
-    options[:filter_by_subtype] = false
-    @get_unique_link_type_ids_for_user = EOL::Solr::DataObjects.unique_link_type_ids(self.id, TaxonConcept.default_solr_query_parameters(options))
-  end
-  
-  def get_unique_toc_ids_for_user(the_user, options)
-    return @get_unique_toc_ids_for_user if @get_unique_toc_ids_for_user
-    options[:data_type_ids] = DataType.text_type_ids
-    options[:vetted_types] = the_user.vetted_types
-    options[:visibility_types] = the_user.visibility_types
-    options[:filter_by_subtype] = true
-    @get_unique_toc_ids_for_user = EOL::Solr::DataObjects.unique_toc_ids(self.id, TaxonConcept.default_solr_query_parameters(options))
-  end
-  
   def media_facet_counts
     @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)
   end

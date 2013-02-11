@@ -1,7 +1,7 @@
 class Taxa::DetailsController < TaxaController
 
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :literatures_and_resources_links
+  before_filter :add_page_view_log_entry
 
   # GET /pages/:taxon_id/details
   def index
@@ -45,41 +45,4 @@ protected
     [keywords, toc_subjects].compact.join(', ')
   end
   
-private
-  def literatures_and_resources_links
-    concept_link_type_ids = @taxon_concept.get_unique_link_type_ids_for_user(current_user, {
-      :language_ids => [ current_language.id ] })
-    concept_toc_ids = @taxon_concept.get_unique_toc_ids_for_user(current_user, {
-      :language_ids => [ current_language.id ] })
-
-    @show_resources_links = []
-    @show_literature_references_links = []
-
-    # every page should have at least one partner (since we got the name from somewhere)
-    @show_resources_links << 'partner_links'
-    @show_resources_links << 'identification_resources' if concept_toc_ids.include?(TocItem.identification_resources.id)
-
-    citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
-    citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
-    # & is array intersection
-    @show_resources_links << 'citizen_science' unless (concept_toc_ids & [citizen_science.id, citizen_science_links.id]).empty?
-
-    # there are two education chapters - one is the parent of the other
-    education_root = TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
-    education_chapters = [ education_root ] + education_root.children
-    education_toc_ids = education_chapters.map { |toc_item| toc_item.id }
-    # & is array intersection
-    @show_resources_links << 'education' unless (concept_toc_ids & education_toc_ids).empty?
-
-    if @taxon_concept.has_ligercat_entry?
-      @show_resources_links << 'biomedical_terms'
-    end
-    @show_resources_links << 'nucleotide_sequences' unless @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.nil?
-    @show_resources_links << 'news_and_event_links' unless (concept_link_type_ids & [LinkType.news.id, LinkType.blog.id]).empty?
-    @show_resources_links << 'related_organizations' if concept_link_type_ids.include?(LinkType.organization.id)
-    @show_resources_links << 'multimedia_links' if concept_link_type_ids.include?(LinkType.multimedia.id)
-
-    @show_literature_references_links << 'literature_references' if Ref.literature_references_for?(@taxon_concept.id)
-    @show_literature_references_links << 'literature_links' if concept_link_type_ids.include?(LinkType.paper.id)
-  end
 end

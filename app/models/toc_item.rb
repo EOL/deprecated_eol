@@ -81,6 +81,14 @@ class TocItem < ActiveRecord::Base
   def self.possible_overview_ids
     [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].map(&:id)
   end
+  # TODO - why specifically en?!
+  def self.education_root
+    cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
+  end
+  def self.education_toc_ids
+    # there are two education chapters - one is the parent of the other
+    @education_toc_ids ||= ([ TocItem.education_root ] + TocItem.education_root.children).map { |toc_item| toc_item.id }
+  end
   def self.education
     InfoItem
     cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
@@ -104,6 +112,10 @@ class TocItem < ActiveRecord::Base
   def self.nucleotide_sequences
     InfoItem
     cached_find_translated(:label, 'Nucleotide Sequences', :include => [ :info_items, { :parent => :info_items } ])
+  end
+  def self.citizen_science
+    InfoItem
+    cached_find_translated(:label, 'Citizen Science', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.citizen_science_links
     InfoItem

@@ -5,6 +5,10 @@
 # Presenter objects, when appropriate.
 class TaxonDetails < TaxonUserClassificationFilter
 
+  def articles_in_other_languages?
+    !@details_count_by_language.blank?
+  end
+
   def count_by_language
     return @details_count_by_language if defined? @details_count_by_language 
     @details_count_by_language = {}
@@ -26,7 +30,7 @@ class TaxonDetails < TaxonUserClassificationFilter
   end
 
   def details(options = {})
-    @details ||= DataObject.sort_by_rating(details_text_for_user, taxon_concept)
+    @details ||= DataObject.sort_by_rating(details_text, taxon_concept)
     options[:include_toc_item] ?
       @details.select { |d| !d.toc_items.include?(options[:include_toc_item]) } :
       @details
@@ -51,6 +55,36 @@ class TaxonDetails < TaxonUserClassificationFilter
     toc_nest_under(under).each do |toc_item|
       yield(toc_item, details_cache(toc_item))
     end
+  end
+
+  def resources?
+    !resources_links.blank?
+  end
+
+  def resources_links
+    return @resources_links if defined? @resources_links
+    @resources_links = []
+    # every page should have at least one partner (since we got the name from somewhere)
+    @resources_links << :partner_links
+    @resources_links << :identification_resources if toc_ids.include?(TocItem.identification_resources.id)
+    # NOTE - & is array intersection
+    @resources_links << :citizen_science unless (toc_ids & [TocItem.citizen_science.id, TocItem.citizen_science_links.id]).empty?
+    @resources_links << :education unless (toc_ids & TocItem.education_toc_ids).empty?
+    # TODO - I feel like we can move #has_ligercat_entry? ...but it's also used by TaxonResources.
+    @resources_links << :biomedical_terms if taxon_concept.has_ligercat_entry?
+    @resources_links << :nucleotide_sequences unless taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.nil?
+    @resources_links << :news_and_event_links unless (link_type_ids & [LinkType.news.id, LinkType.blog.id]).empty?
+    @resources_links << :related_organizations if link_type_ids.include?(LinkType.organization.id)
+    @resources_links << :multimedia_links if link_type_ids.include?(LinkType.multimedia.id)
+    @resources_links
+  end
+
+  def literature_references_links
+    return @literature_references_links if defined? @literature_references_links
+    @literature_references_links = []
+    @literature_references_links << :literature_references if Ref.literature_references_for?(taxon_concept.id)
+    @literature_references_links << :literature_links if link_type_ids.include?(LinkType.paper.id)
+    @literature_references_links
   end
 
 private
@@ -81,7 +115,7 @@ private
   end
 
   # TODO - there are three other methods related to this one, but I don't want to move them yet.
-  def details_text_for_user(only_one = false)
+  def details_text(only_one = false)
     text_objects = taxon_concept.text_for_user(user,
       :language_ids => [ user.language_id ],
       :filter_by_subtype => true,
@@ -118,6 +152,24 @@ private
         { :toc_items => [ :translations ] } ], :select => selects)
     end
     text_objects
+  end
+  
+  def link_type_ids
+    @link_type_ids ||= EOL::Solr::DataObjects.unique_link_type_ids(taxon_concept.id, default_solr_options)
+  end
+  
+  def toc_ids
+    @toc_ids ||= EOL::Solr::DataObjects.unique_toc_ids(taxon_concept.id, default_solr_options)
+  end
+
+  def default_solr_options
+    TaxonConcept.default_solr_query_parameters(
+      :data_type_ids => DataType.text_type_ids
+      :vetted_types => user.vetted_types
+      :visibility_types => user.visibility_types
+      :filter_by_subtype => false
+      :language_ids => [ user.language_id ]
+    )
   end
   
 end

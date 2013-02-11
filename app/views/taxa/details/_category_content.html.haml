@@ -17,6 +17,6 @@
           = link_to I18n.t("see_all_comments_with_count_for_#{link_object ? 'link' : 'text'}_or_rate", :count => dato.comments.length), data_object_path(dato)
         - else
           = link_to I18n.t("comment_or_rate_on_this_#{link_object ? 'link' : 'article'}"), data_object_path(dato)
-        - if current_user.min_curator_level?(:assistant) && !dato.is_already_overview_text_for?(@taxon_concept) && !link_object
+        - if current_user.min_curator_level?(:assistant) && !dato.is_already_overview_text_for?(@details.taxon_concept) && !link_object
           &bull;
-          = link_to I18n.t(:show_in_overview), set_article_as_exemplar_path(:taxon_id => @taxon_concept.id, :data_object_id => dato.id)
+          = link_to I18n.t(:show_in_overview), set_article_as_exemplar_path(:taxon_id => @details.taxon_concept.id, :data_object_id => dato.id)

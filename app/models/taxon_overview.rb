@@ -49,7 +49,13 @@ class TaxonOverview < TaxonUserClassificationFilter
   end
 
   def details?
-    details_text_for_user(:only_one)
+    @has_details ||= taxon_concept.text_for_user(user,
+      :language_ids => [ user.language_id ],
+      :filter_by_subtype => true,
+      :allow_nil_languages => user.default_language?,
+      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
+      :per_page => 1
+    )
   end
 
   def summary?

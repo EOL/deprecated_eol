@@ -2,15 +2,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TaxonOverview do
 
-  def check_delegation_of(method)
-    some_string = FactoryGirl.generate(:string)
-    @entry.should_receive(method).and_return(some_string)
-    @overview_with_entry.send(method).should == some_string
-    another_string = FactoryGirl.generate(:string)
-    @taxon_concept.should_receive(method).and_return(another_string)
-    @overview.send(method).should == another_string
-  end
-
   before(:all) do
     load_foundation_cache
   end

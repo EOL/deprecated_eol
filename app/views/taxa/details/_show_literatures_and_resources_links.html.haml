@@ -3,7 +3,7 @@
     %h4= link_to I18n.t(:resources), taxon_resources_path(@details)
     %ul
       - @details.resources_links.each do |link|
-        -# TODO - It seems possible to me to generalize this... at least with a Resources class to store the order and a
+        -# TODO - It seems possible to generalize this... at least with a Resources class to store the order and a
           simple helper to auto-generate the appropriate link.
         - case link
         - when :partner_links

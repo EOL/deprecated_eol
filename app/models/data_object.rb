@@ -1139,6 +1139,17 @@ class DataObject < ActiveRecord::Base
     return resource.bibliographic_citation unless resource.blank? || resource.bibliographic_citation.blank?
   end
 
+  # NOTE - this is not very intention-revealing, because we #set_to_representative_language... but that doesn't
+  # bother me enough to give it a loooooong method name.
+  def approved_language?
+    set_to_representative_language
+    Language.approved_languages.include?(language)
+  end
+
+  def set_to_representative_language
+    language = language.representative_language
+  end
+
 private
 
   def is_subtype?(type)

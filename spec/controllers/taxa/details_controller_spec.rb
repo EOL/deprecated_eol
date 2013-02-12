@@ -24,14 +24,6 @@ describe Taxa::DetailsController do
       assigns[:taxon_page].text.should be_a(Array)
       assigns[:taxon_page].text.take_while{|d| d.should be_a(DataObject)}.should == assigns[:taxon_page].text
     end
-    it 'should instantiate a table of contents' do
-      details_do_index
-      assigns[:taxon_page].toc.should be_a(Array)
-      assigns[:taxon_page].toc.include?(@testy[:overview]).should be_true # TocItem with content should be included
-      assigns[:taxon_page].toc.include?(@testy[:toc_item_4]).should be_false # TocItem without content should be excluded
-      assigns[:taxon_page].toc.include?(@testy[:education]).should be_false # TocItem from resources and literature tabs should be excluded
-    end
-    it 'should instantiate an exemplar image'
     it 'should instantiate an assistive header' do
       details_do_index
       assigns[:assistive_section_header].should be_a(String)

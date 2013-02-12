@@ -1092,7 +1092,6 @@ ko:
   classification_summary_section_header: 분류
   classification_tree_header: 분류
   classifications_edit_cancelled_merge_to_self: 원본과 대상이 같은 문서입니다. 이동하지 않습니다.
-  classifications_empty: 이 문서는 EOL에 찾아 볼 수 있는 어떠한 분류에 속해 있지 않습니다.
   classifications_exemplar_column_header: 표본
   classifications_hierarchy_column_header: 분류
   classifications_merge_additional_confirm_required: 이 분류를 병합하려면 추가적인 확인이 필요합니다.
@@ -1823,7 +1822,6 @@ ko:
   expand_all_children: 모든 하위 확장
   explore: 탐구
   explore_what_we_know_about_taxon: "%{taxon}에 대한 EOL이 알고 있는 탐구입니다."
-  export_all_of_the_entries_as_a: 항목 모두를 CSV 파일로 내보내기
   export_curator_csv_link: "[모든 큐레이터를 CSV로 내보내기]"
   export_this_list_as_csv: 이 목록을 CSV로 내보내기
   external_link_header: 바깥 링크
@@ -1929,7 +1927,7 @@ ko:
   harvest_id: 수확 ID
   harvesting_processes_log: 수확 과정 기록
   harvests_for: "%{resource}에 대한 수확"
-  has_already_been_taken: 이미 토큰이 있습니다.
+  has_already_been_taken: 이미 쓰이고 있습니다
   has_colon: "했습니다:"
   has_curated_your_image: 그림을 큐레이트했습니다
   has_hidden_your_image: 그림을 숨겼습니다
@@ -2516,11 +2514,11 @@ ko:
   moderator_colon: "중재자:"
   monthly: 매월
   more_children_with_count: 
-    one: 더 많은 %{count}개...
-    other: 더 많은 %{count}개...
+    one: "%{count}개 더 있습니다..."
+    other: "%{count}개 더 있습니다..."
   more_siblings_with_count: 
-    one: 더 많은 형제 자매 %{count}개...
-    other: 더 많은 형제 자매 %{count}개...
+    one: 형제 자매 %{count}개 더 있습니다...
+    other: 형제 자매 %{count}개 더 있습니다...
   most_active_members: 가장 많이 활발한 구성원
   move: 이동
   move_down: 아래로 이동
@@ -3465,7 +3463,6 @@ ko:
   this_link_is_unpublished: 이 링크는 게시하지 않았습니다.
   this_map_cannot_be_curated_because_unpublished: 이 지도는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_map_is_unpublished: 이 지도는 게시하지 않았습니다.
-  this_section_is_used_to_create: 이 문단은 뉴스 항목을 만드는 데 사용합니다. 뉴스 항목은 대문 문서의 오른쪽 부분에 보여지며, %{rss_link}와 %{news_archive}에도 보여집니다.
   this_sound_cannot_be_curated_because_unpublished: 이 소리는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_sound_is_unpublished: 이 소리는 게시하지 않았습니다.
   this_video_cannot_be_curated_because_unpublished: 이 동영상은 게시하지 않았기 때문에 큐레이트할 수 없습니다.

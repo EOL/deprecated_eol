@@ -144,7 +144,7 @@ class CollectionsController < ApplicationController
     raise EOL::Exceptions::NoCollectionsApply if @collections.blank?
     @page_title = I18n.t(:make_user_an_editor_title, :user => @item.summary_name)
     respond_to do |format|
-      format.html { render :partial => 'choose_editor_target', :layout => 'v2/users' }
+      format.html { render 'choose_editor_target', :layout => 'v2/users' }
       format.js   { render :partial => 'choose_editor_target' }
     end
   end

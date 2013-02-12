@@ -1137,7 +1137,6 @@ nl:
   classification_tree_header: Classificatie
   classifications_edit_cancelled_busy: Uw verzoek om de classificaties te bewerken kan op dit moment helaas niet uitgevoerd worden. Eén of meer van de taxonpagina's zijn beveiligd. Er staat op dit moment al een verzoek om de classificaties te wijzigen open.
   classifications_edit_cancelled_merge_to_self: Uw bronpagina en doelpagina zijn hetzelfde. Er is niets te verplaatsen.
-  classifications_empty: Deze pagina is niet opgenomen in een classificatie die doorbladerbaar is in EOL.
   classifications_exemplar_column_header: Exemplarisch
   classifications_hierarchy_column_header: Classificatie
   classifications_locked: Op dit moment kunnen de classificaties van deze pagina niet bewerkt worden. Er staat op dit moment al een verzoek om deze classificaties te wijzigen open.
@@ -1933,10 +1932,10 @@ nl:
       inactive_user_login: Die gebruiker is nog niet actief. Als u geen bevestigingse-mail hebt ontvangen toen u lid bent geworden, volg dan de aanwijzingen voor gebruikersherstel om uw e-mailadres te bevestigen en uw gebruiker te activeren.
       min_assistant_curators_only: Toegang is beperkt tot EOL-conservatoren met een minimaal conservatorniveau van assistent.
       min_full_curators_only: Toegang is beperkt tot conservatoren van EOL met een minimum conversatorniveau van "Volledig".
+      min_master_curators_only: Toegang is alleen beschikbaar voor EOL-conservatoren met een minimaal conservatorniveau van Meester.
   expand_all_children: alle kinderen uitvouwen
   explore: Verkennen
   explore_what_we_know_about_taxon: Ontdek wat EOL weet over %{taxon}.
-  export_all_of_the_entries_as_a: alle gegevens als CSV-bestand exporteren
   export_curator_csv_link: "[alle conservatoren als CSV-bestand exporteren]"
   export_this_list_as_csv: Deze lijst exporteren als CSV
   external_link_header: Externe koppeling
@@ -3725,7 +3724,6 @@ nl:
   this_page_shows_information_ab: Op deze pagina worden gegevens weergegeven over een specifiek trefwoord en op welke resultaten gebruikers hebben geklikt na deze zoekopdracht.
   this_page_will_be_reindexed: Deze pagina wordt in de achtergrond opnieuw geïndexeerd. Dit kan tot wel 24 uur duren.
   this_resource_unpublished_notice: Deze bron is op het moment door een beheerder ingesteld als "niet gepubliceerd".
-  this_section_is_used_to_create: Dit onderdeel wordt gebruikt om nieuwsberichten te maken. Nieuwsberichten worden op de startpagina rechts weergegeven en in en %{rss_link} en de %{news_archive}-pagina.
   this_sound_cannot_be_curated_because_unpublished: Dit geluidsbestand kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_sound_is_unpublished: Dit geluid is niet gepubliceerd.
   this_video_cannot_be_curated_because_unpublished: Deze video kan niet worden geconserveerd omdat die nog niet is gepubliceerd.
@@ -3775,7 +3773,9 @@ nl:
   type: Type
   unable_to_copy_items_to_collection_error: Het is helaas niet mogelijk de verzamelingsitems te kopiëren naar %{name}.
   unable_to_determine_title: Het was niet mogelijk de naam van deze webpagina te bepalen
-  unable_to_invite_users_to_community_error: De uitnodiging kon niet verzonden worden naar %{users}.
+  unable_to_invite_users_to_community_with_count: 
+    one: De uitnodiging kon niet verzonden worden naar %{list}.
+    other: De uitnodigingen konden niet verzonden worden naar %{list}.
   unique_page_views_th: Unieke bekeken pagina's
   unknown: Onbekend
   unknown_data_object_title: Onbekend dataobject

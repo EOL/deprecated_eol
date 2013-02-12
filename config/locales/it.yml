@@ -7,9 +7,11 @@
 # Author: F. Cosoleto
 # Author: Gianfranco
 # Author: Inskatolata
+# Author: Nemo bis
 # Author: Raoli
 # Author: Ribez
 # Author: Rippitippi
+# Author: Semiramide
 # Author: Viscontino
 # Author: Ximo17
 it: 
@@ -117,6 +119,11 @@ it:
         data_objects_unreviewed: Oggetti dati non revisionati
         data_objects_untrusted: Oggetti dati non attendibili
         data_objects_videos: Oggetti video
+        hotlist_pages: Pagine preferite
+        marine_pages: Pagine marine
+        marine_pages_in_col: Pagine marine trovate in CoL
+        marine_pages_with_objects: Pagine marine con elementi di dati
+        marine_pages_with_objects_vetted: Pagine marine con elementi di dati attendibili
         members_count: Membri
         newly_published_resources_in_the_last_30_days: Recenti (pubblicate nell'ultimo mese)
         objects_curated_in_the_last_30_days: Oggetti curati negli ultimi 30 giorni
@@ -142,7 +149,10 @@ it:
         published_resources: Risorse pubblicate
         published_trusted_resources: Risorse pubblicate ed attendibili
         published_unreviewed_resources: Risorse pubblicate non revisionate
+        redhotlist_pages: Pagine altamente preferite
+        rich_hotlist_pages: Pagine preferite più ricche
         rich_pages: Pagine ricche di contenuti
+        rich_redhotlist_pages: Pagine altamente preferite più ricche
         udo_published: Testo inviato da utenti
         udo_published_by_curators: Testo inviato da curatori
         udo_published_by_non_curators: Testo inviato non da curatori
@@ -276,6 +286,11 @@ it:
             rights_holder: 
               blank: non può essere vuoto per una licenza CC-BY
               inclusion: deve essere vuoto per una licenza di pubblico dominio
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: è permesso solo per l'ultimo evento del raccolto, e solo se questo evento non è già stato pubblicato
+        inaccessible: Il record potrebbe non salvarsi perchè non valido. Controllare gli errori di validazione e inviare nuovamente.
         open_authentications: 
           guid_provider_must_be_unique: l'account di terze parti è già connesso con un account EOL
           provider_user_id_must_be_unique: solo un account da ciascun fornitore di terze parti può essere connesso ad un account EOL

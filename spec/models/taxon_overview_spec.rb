@@ -8,8 +8,7 @@ describe TaxonOverview do
 
   before(:each) do # NOTE - we want these 'pristine' for each test, because values get cached.
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
-    @native_entry = HierarchyEntry.gen
-    @taxon_concept.stub!(:hierarchy_entries).and_return([@native_entry])
+    @native_entry = HierarchyEntry.gen(:taxon_concept => @taxon_concept)
     @entry = HierarchyEntry.gen
     @language = Language.gen(:iso_639_1 => 'aa')
     @user = User.gen(:language => @language)
@@ -42,12 +41,12 @@ describe TaxonOverview do
   end
 
   it 'should promote the exemplar image' do
-    $FOO = 1
     exemplar = DataObject.gen
-    @taxon_concept.should_receive(:images_from_solr).at_least(1).times.and_return([DataObject.gen, DataObject.gen, exemplar])
+    @taxon_concept.should_receive(:images_from_solr).at_least(1).times.and_return([DataObject.gen, DataObject.gen, DataObject.gen, DataObject.gen, exemplar])
     @taxon_concept.should_receive(:published_exemplar_image).at_least(1).times.and_return(exemplar)
     @overview = TaxonOverview.new(@taxon_concept, @user) # NOTE - you MUST rebuild the overview if you add media to it, since it's preloaded.
     @overview.media.first.should == exemplar
+    @overview.media.length.should_not > TaxonOverview::MEDIA_TO_SHOW
   end
 
   it '#summary should delegate to taxon_concept#overview_text_for_user' do
@@ -63,6 +62,7 @@ describe TaxonOverview do
   end
 
   it "#image should delegate to taxon_concept#exemplar_or_best_image_from_solr without entry if missing" do
+    $FOO = 1
     img = DataObject.gen
     @taxon_concept.should_receive(:exemplar_or_best_image_from_solr).with(@native_entry).and_return img
     @overview.image.should == img
@@ -124,7 +124,7 @@ describe TaxonOverview do
   end
 
   it 'should pick random hierarchy entry' do
-    @taxon_concept.stub_chain(:hierarchy_entries, :shuffle, :first).and_return("yay")
+    @overview.stub_chain(:hierarchy_entries, :shuffle, :first).and_return("yay")
     @overview.hierarchy_entry.should == 'yay'
   end
 

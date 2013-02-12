@@ -536,7 +536,6 @@ ms:
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, didapati dari <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Dicapai pada 15 Jan 2009.
   citing_link: Memetik
   classification_tree_header: Pengelasan
-  classifications_empty: Halaman ini tiada dalam sebarang klasifikasi yang boleh dilayari di EOL.
   classifications_summary_header_with_count: Dijumpai dalam %{count} pengelasan
   classifications_with_count: "%{count} Pengelasan"
   clear_all_non_species_pages: Padamkan semua halaman bukan spesies
@@ -1110,7 +1109,6 @@ ms:
   expand_all_children: kembangkan semua anak
   explore: Jelajah
   explore_what_we_know_about_taxon: Jelajahi apa yang yang diketahui oleh EOL tentang %{taxon}.
-  export_all_of_the_entries_as_a: eksport semua entri sebagai satu fail CSV
   export_this_list_as_csv: Eksport senarai ini dalam bentuk CSV
   external_link_header: Pautan Luar
   external_link_icon_alt_text: Pautan luar.
@@ -2158,7 +2156,6 @@ ms:
   twitter: Twitter
   type: Jenis
   unable_to_copy_items_to_collection_error: Maaf, saya tidak dapat menyalin perkara-perkara himpunan ini kepada %{name}.
-  unable_to_invite_users_to_community_error: Jemputan tidak dapat dihantar ke %{users}.
   unknown: Tidak diketahui
   unpublished: Tidak diterbitkan
   unreviewed: Belum diperiksa

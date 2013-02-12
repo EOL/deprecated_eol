@@ -524,6 +524,15 @@ gl:
           an_unknown_user_split_classifications_from_taxon: Un usuario descoñecido separou as clasificacións por %{classifications} desde "%{taxon}" á súa <a href='%{to}'>propia páxina</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> separou as clasificacións por %{classifications} desde unha páxina descoñecida á súa <a href='%{to}'>propia páxina</a>.
           user_split_classifications_from_taxon: <strong>%{user}</strong> separou as clasificacións por %{classifications} á súa <a href='%{to}'>propia páxina</a>.
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: Un usuario descoñecido modificou a miniatura de "%{data_object}".
+        an_unknown_user_cropped_an_unknown_data_object: Un usuario descoñecido modificou a miniatura dunha imaxe descoñecida.
+        an_unknown_user_cropped_data_object: Un usuario descoñecido modificou a miniatura de "%{data_object}".
+        an_unknown_user_cropped_it: Un usuario descoñecido modificou a miniatura dunha imaxe descoñecida.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> modificou a miniatura dunha versión vella de "%{data_object}".
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> modificou a miniatura dunha imaxe descoñecida.
+        user_cropped_data_object: <strong>%{user}</strong> modificou a miniatura de "%{data_object}".
+        user_cropped_it: <strong>%{user}</strong> modificou a miniatura dunha imaxe descoñecida.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada nun contexto descoñecido.
         an_unknown_user_hid_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada na páxina "%{association}".
@@ -1056,6 +1065,7 @@ gl:
   author_of_peer_reviewed_publication_credential_option: autor dunha publicación revisada (achega unha referencia)
   authoritative_information: información autorizada
   available: dispoñible
+  average_rating: nota media
   average_rating_value_of_total: "Nota media: %{rating} de %{total}"
   back: Volver
   back_to_profile: Volver ao perfil
@@ -1120,7 +1130,6 @@ gl:
   classification_tree_header: Clasificación
   classifications_edit_cancelled_busy: Sentímolo, nestes intres non se pode procesar a túa solicitude de edición das clasificacións; unha ou máis páxinas do taxon están bloqueadas. Estase procesando outra solicitude de edición destas clasificacións.
   classifications_edit_cancelled_merge_to_self: A orixe e mais o destino son a mesma páxina. Non hai nada que mover.
-  classifications_empty: Esta páxina non está incluída en ningunha das clasificacións que se poden explorar na EOL.
   classifications_exemplar_column_header: Exemplar
   classifications_hierarchy_column_header: Clasificación
   classifications_locked: As clasificacións desta páxina non se poden editar neste momento. Estase procesando outra solicitude de edición destas clasificacións.
@@ -1582,6 +1591,8 @@ gl:
   creative_commons: Creative Commons
   credentials: Credenciais
   credentials_colon: "Credenciais:"
+  crop_image: cortar a imaxe
+  crop_image_thumbnails: Cortar as miniaturas da imaxe
   curated: Conservada
   curated_association_update_button: Gardar os cambios
   curated_objects_of: conservou os obxectos de "%{name}"
@@ -1912,11 +1923,11 @@ gl:
       hidden_user_recover_account: Sentímolo, a recuperación da conta está desactivada para esa conta.
       hidden_user_temporary_login: Sentímolo, a recuperación da conta e o inicio de sesión están desactivados para esa conta.
       inactive_user_login: Sentímolo, a conta aínda non está activa. Se non recibiches o correo electrónico de verificación cando te rexistraches, sigue o procedemento de recuperación de contas para verificar o teu enderezo de correo electrónico e activar a conta.
-      min_full_curators_only: Sentímolo, o acceso está restrinxido aos conservadores da EOL cun nivel mínimo de conservación de "Completo".
+      min_assistant_curators_only: Sentímolo, o acceso está restrinxido aos conservadores da EOL cun nivel mínimo de conservador axudante.
+      min_full_curators_only: Sentímolo, o acceso está restrinxido aos conservadores da EOL cun nivel mínimo de conservador completo.
   expand_all_children: expandir todas as dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar o que a EOL sabe acerca de %{taxon}.
-  export_all_of_the_entries_as_a: exportar todas as entradas nun ficheiro en formato CSV
   export_curator_csv_link: "[exportar todos os conservadores en formato CSV]"
   export_this_list_as_csv: Exportar esta lista en CSV
   external_link_header: Ligazón externa
@@ -2332,6 +2343,8 @@ gl:
   if_the_details_parameter_is_not_set: Se o parámetro de detalles non está configurado, entón unicamente se devolverá o identificador de obxecto de datos, o tipo de datos e, no caso de artigos, o tema. O tipo de datos ha ser un valor do vocabulario do tipo de recurso %{linka}. O tema do texto ha ser un dos %{linkb}.
   image: Imaxe
   image_alt_text: Esta imaxe %{vetted_status} pertence a %{taxon_name}
+  image_crop_failed_error: Sentímolo, houbo un erro. Non se cortou a imaxe.
+  image_cropped_notice: A imaxe cortouse correctamente.
   image_from_supplier: Imaxe de %{whom}
   image_is_no_longer_available: A imaxe xa non está dispoñible
   image_map_alt_text: Este mapa %{vetted_status} pertence a %{taxon_name}
@@ -3016,6 +3029,7 @@ gl:
     one: de %{count} persoa
     other: de %{count} persoas
   rating_added_notice: A avaliación engadiuse correctamente.
+  rating_learn_more_link: Máis información sobre a avaliación
   rating_not_added_error: Sentímolo, houbo un erro. Non se engadiu a avaliación.
   recaptcha: Escribe as dúas palabras que vexas a continuación
   recaptcha_incorrect_error_with_anchor: Os <a href="#%{recaptcha_anchor}">caracteres do reCaptcha</a> non coinciden. Inténtao de novo.
@@ -3299,6 +3313,9 @@ gl:
   spm_category: Categoría SPM
   spm_category_objects_count: Categoría SPM - número de obxectos
   spm_category_partner_count: Categoría SPM - número de socios
+  stars_with_count: 
+    one: "%{count} estrela"
+    other: "%{count} estrelas"
   started: Iniciado
   stat: Estatísticas
   stats: Estatísticas
@@ -3699,7 +3716,6 @@ gl:
   this_page_shows_information_ab: Esta páxina mostra información sobre un termo de procura específico e aqueles resultados aos que accederon os usuarios despois de facer a devandita procura.
   this_page_will_be_reindexed: Esta páxina ha renderizarse en segundo plano. Pode levar ata 24 horas completar o proceso.
   this_resource_unpublished_notice: Polo de agora, ningún administrador definiu este recurso como publicado.
-  this_section_is_used_to_create: Esta sección utilízase para crear elementos de novas. As novas móstranse na parte dereita da páxina inicial, así como nunha %{rss_link} e a páxina de %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Este son non se pode conservar porque non está publicado.
   this_sound_is_unpublished: Este son non está publicado.
   this_video_cannot_be_curated_because_unpublished: Este vídeo non se pode conservar porque non está publicado.
@@ -3749,7 +3765,6 @@ gl:
   type: Tipo
   unable_to_copy_items_to_collection_error: Sentímolo, non se puideron copiar os elementos da colección a %{name}.
   unable_to_determine_title: Non se puido determinar o título desta páxina web
-  unable_to_invite_users_to_community_error: Non se puideron enviar os convites a %{users}.
   unique_page_views_th: Visitas por páxina únicas
   unknown: Descoñecido
   unknown_data_object_title: Obxecto de datos descoñecido

@@ -1044,7 +1044,6 @@ tl:
   classification_tree_header: Klasipikasyon
   classifications_edit_cancelled_busy: Paumanhin, ang kahilingan mo na baguhin ang mga klasipikasyon ay hindi mapuproseso sa oras na ito; nakakandado ang isa o mas marami pang mga pahina ng takson. Pinuproseso ang isang umiiral na kahilingan upang baguhin ang mga klasipikasyong ito.
   classifications_edit_cancelled_merge_to_self: Iisang pahina lamang ang iyong pinagmulan at ang iyong puntirya; walang ililipat.
-  classifications_empty: Ang pahinang ito ay hindi kasama sa anuman sa mga klasipikasyon na matitingnan-tingnan sa loob ng EOL.
   classifications_exemplar_column_header: Halimbawa
   classifications_hierarchy_column_header: Klasipikasyon
   classifications_locked: Hindi mababago sa mga oras na ito ang mga klasipikasyong nasa pahinang ito. Pinupruseso na ang isa pang kahilingan upang mapatnugutan ang mga klasipikasyong ito.
@@ -1815,7 +1814,6 @@ tl:
   expand_all_children: palawigin ang lahat ng mga anak
   explore: Galugarin
   explore_what_we_know_about_taxon: Galugarin kung ano ang nalalaman ng EOL patungkol sa %{taxon}.
-  export_all_of_the_entries_as_a: iluwas ang lahat ng mga lahok bilang isang talaksang CSV
   export_curator_csv_link: "[iluwas ang lahat ng mga kurador bilang CSV]"
   export_this_list_as_csv: Iluwas ang listahang ito bilang CSV
   external_link_header: Kawing Panlabas
@@ -3518,7 +3516,6 @@ tl:
   this_method_takes_an_integer_or_string: Ang pamamaraang ito ay kumukuha ng isang buumbilang o bagting na siyang namumukod-tanging pampakilala para sa isang takson mula sa kalipunan ng dato ng ilang tagapagbigay, at ng isang hierarchy_id na kumakatawan sa tagapagbigay at nagbabalik ng ID ng pahina ng EOL para sa taksong iyon. Bilang halimbawa, sa paggamit ng API ng %{link_provider}, matutuklasan ko na ang hierarchy_id ng EOL para sa Integrated Taxonomic Information System (ITIS) ay %{itis_id}. Makapaghahanap na ngayon ako sa EOL ng Taxonomic Serial Number (TSN) ng ITIS ng 180542,<i>Ursus maritimus</i>, sa pamamagitan ng pagtawag sa %{link_url}
   this_page_shows_information_ab: Ang pahinang ito ay nagpapakita ng kabatiran patungkol sa isang tiyak na katagang panghanap at kung anong mga resulta ang pinindot ng mga tagagamit pagkaraang patakbuhin ang paghahanap.
   this_resource_unpublished_notice: Sa ngayon, ang pinagkunang ito ay hindi nakatakda bilang nalathala na ng tagapangasiwa.
-  this_section_is_used_to_create: Ang seksiyong ito ay ginagagamit upang lumikha ng mga bagay na pambalita. Ang mga bagay na pambalita ay ipinapakita sa kanang bahagi ng tahanang pahina, pati na rin sa loob ng isang %{rss_link} at sa pahina ng %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Hindi mapapangasiwaan ang tunog na ito sapagkat hindi ito nakalathala.
   this_sound_is_unpublished: Hindi nakalathala ang tunog na ito.
   this_video_cannot_be_curated_because_unpublished: Hindi mapapangasiwaan ang bidyong ito sapagkat hindi ito nakalathala.
@@ -3564,7 +3561,6 @@ tl:
   twitter: Twitter
   type: Uri
   unable_to_copy_items_to_collection_error: Paumanhin, hindi namin nagawang kopyahin ang mga bagay ng kalipunan papunta sa %{name}.
-  unable_to_invite_users_to_community_error: Hindi maipapadala ang mga paanyaya papunta sa %{users}.
   unique_page_views_th: Natatanging mga Pagtingin sa Pahina
   unknown: Hindi nalalaman
   unknown_hierarchy: Hindi Nalalamang Hirarkiya

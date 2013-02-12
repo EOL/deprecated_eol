@@ -27,7 +27,7 @@ class TaxonOverview < TaxonUserClassificationFilter
       @classification_chosen_by = chosen.user # Might as well set it while we have it.
       @entry = chosen.hierarchy_entry
     else
-      @entry = taxon_concept.hierarchy_entries.shuffle.first
+      @entry = hierarchy_entries.shuffle.first
       @entry ||= taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first
       @entry ||= super
     end
@@ -164,7 +164,8 @@ private
         :ignore_translations => true
       )
     ).compact
-    media = media[0..MEDIA_TO_SHOW-2] << map if map?
+    media = media[0...MEDIA_TO_SHOW] if media.length > MEDIA_TO_SHOW
+    media = media[0...MEDIA_TO_SHOW-1] << map if map?
     media
   end
 

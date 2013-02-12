@@ -132,7 +132,7 @@ class DataObjectsController < ApplicationController
       @edit_article = true
       @page_title = I18n.t(:dato_edit_text_title)
       @page_description = I18n.t(:dato_edit_text_page_description)
-      @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
+      @references = @data_object.visible_references.map { |r| r.full_reference }.join("\n\n")
     end
   end
 

@@ -589,8 +589,8 @@ describe TaxonConcept do
     lambda { tc.preferred_entry.hierarchy_entry_id }.should raise_error
   end
 
-  it '#published_visible_exemplar_article should return published and visible exemplar article if there is one' do
-    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article
+  it '#published_visible_exemplar_article_in_language should return published and visible exemplar article if there is one' do
+    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article_in_language(Language.default)
     if published_visible_exemplar_article
       published_visible_exemplar_article.class.should == DataObject
     end
@@ -600,7 +600,7 @@ describe TaxonConcept do
                                      :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
     TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, data_object.id)
     @taxon_concept.reload
-    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article
+    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article_in_language(Language.default)
     published_visible_exemplar_article.class.should == DataObject
     published_visible_exemplar_article.id.should == data_object.id
   end
@@ -646,6 +646,39 @@ describe TaxonConcept do
     TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
     tc.reload
     tc.entry.should == col_entry
+  end
+
+  it 'should not list duplicate communities' do
+    taxon_concept = TaxonConcept.gen
+    community = Community.gen
+    3.times do
+      c = Collection.gen
+      c.add(taxon_concept)
+      c.communities << community
+    end
+    taxon_concept.collections.count.should == 3
+    taxon_concept.communities.count.should == 1
+  end
+
+  it 'should show the best articles according to users languages' do
+    TaxonConceptExemplarArticle.destroy_all
+    best_article = @taxon_concept.data_objects.select{ |d| d.text? && !d.added_by_user? }.last
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, best_article.id)
+    @taxon_concept.reload
+
+    arabic = Language.from_iso('ar')
+    best_article.update_column(:language_id, arabic.id)
+    default_user = User.gen
+    default_user_text = @taxon_concept.send(:best_article_for_user, default_user)
+    default_user_text.should_not == best_article
+    default_user_text.language.should == default_user.language
+
+    arabic_user = User.gen(:language => arabic)
+    arabic_user_text = @taxon_concept.send(:best_article_for_user, arabic_user)
+    arabic_user_text.should == best_article
+    arabic_user_text.language.should == arabic_user.language
+    best_article.update_column(:language_id, Language.default.id)
+    TaxonConceptExemplarArticle.destroy_all
   end
 
   describe '#split_classifications' do

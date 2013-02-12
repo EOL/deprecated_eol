@@ -27,11 +27,6 @@ class TaxonDetails < TaxonUserClassificationFilter
     @thumb ||= image.thumb_or_object('260_190')
   end
 
-  def details(options = {})
-    @details ||= details_text
-    options[:include_toc_item] ? @details.select { |d| ! d.toc_items.include?(options[:include_toc_item]) } : @details
-  end
-
   def toc_items?
     toc_roots
   end
@@ -90,27 +85,9 @@ private
     @details_cache[item] ||= details(:include_toc_item => item)
   end
 
-  def toc_nest_under(under)
-    @toc_nest[under] ||= toc(:under => under)
-  end
-
-  def toc_roots
-    @toc_roots ||= toc.dup.delete_if(&:is_child?)
-  end
-
-  def details_in_all_other_languages
-    return @details_in_all_other_languages if defined?(@details_in_all_other_languages)
-    @details_in_all_other_languages = DataObject.preload_associations(
-      taxon_concept.text_for_user(user,
-        :language_ids_to_ignore => user.language.all_ids << 0,
-        :allow_nil_languages => false,
-        :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder ] },
-        :skip_preload => true,
-        :toc_ids_to_ignore => TocItem.exclude_from_details.map { |toc_item| toc_item.id }
-      ),
-      :language
-    )
-    @details_in_all_other_languages ||= []
+  def details(options = {})
+    @details ||= details_text
+    options[:include_toc_item] ? @details.select { |d| ! d.toc_items.include?(options[:include_toc_item]) } : @details
   end
 
   def details_text
@@ -147,11 +124,33 @@ private
       { :toc_items => [ :translations ] } ], :select => selects)
     DataObject.sort_by_rating(text_objects, taxon_concept)
   end
-  
+  def toc_nest_under(under)
+    @toc_nest[under] ||= toc(:under => under)
+  end
+
+  def toc_roots
+    @toc_roots ||= toc.select { |item| ! item.is_child? }
+  end
+
+  def details_in_all_other_languages
+    return @details_in_all_other_languages if defined?(@details_in_all_other_languages)
+    @details_in_all_other_languages = DataObject.preload_associations(
+      taxon_concept.text_for_user(user,
+        :language_ids_to_ignore => user.language.all_ids << 0,
+        :allow_nil_languages => false,
+        :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder ] },
+        :skip_preload => true,
+        :toc_ids_to_ignore => TocItem.exclude_from_details.map { |toc_item| toc_item.id }
+      ),
+      :language
+    )
+    @details_in_all_other_languages ||= []
+  end
+
   def link_type_ids
     @link_type_ids ||= EOL::Solr::DataObjects.unique_link_type_ids(taxon_concept.id, default_solr_options)
   end
-  
+
   def toc_ids
     @toc_ids ||= EOL::Solr::DataObjects.unique_toc_ids(taxon_concept.id, default_solr_options)
   end
@@ -165,5 +164,5 @@ private
       :language_ids => [ user.language_id ]
     )
   end
-  
+
 end

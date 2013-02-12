@@ -61,6 +61,16 @@ describe TaxonDetails do
     @details.thumb.should == 'howdy'
   end
 
+  it 'should know if there are any toc_items if there are toc_roots' do
+    @details.should_receive(toc_roots).and_return('sure')
+    @details.toc_item?.should be_true
+  end
+
+  it 'should know there are not any toc_items when there are no toc_roots' do
+    @details.should_receive(toc_roots).and_return(nil)
+    @details.toc_item?.should_not be_true
+  end
+
   # NOTE - I'm not testing all the args. There's just too many to bother.
   it '#details should get text from taxon_concept, preload it, and sort it' do
     texts = [DataObject.gen]

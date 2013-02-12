@@ -28,7 +28,7 @@ class TaxonDetails < TaxonUserClassificationFilter
   end
 
   def toc_items?
-    toc_roots
+    !toc_roots.empty?
   end
 
   # Passes back the child and the content for that child.
@@ -39,17 +39,13 @@ class TaxonDetails < TaxonUserClassificationFilter
   end
 
   def toc_items_under?(under)
-    toc_nest_under(under)
+    !toc_nest_under(under).empty?
   end
 
   def each_nested_toc_item(under)
     toc_nest_under(under).each do |toc_item|
       yield(toc_item, details_cache(toc_item))
     end
-  end
-
-  def resources?
-    !resources_links.blank?
   end
 
   # TODO - these two methods are extremely odd, and likely deserve their own class to handle.
@@ -64,7 +60,7 @@ class TaxonDetails < TaxonUserClassificationFilter
     @resources_links << :education unless (toc_ids & TocItem.education_toc_ids).empty?
     # TODO - I feel like we can move #has_ligercat_entry? ...but it's also used by TaxonResources.
     @resources_links << :biomedical_terms if taxon_concept.has_ligercat_entry?
-    @resources_links << :nucleotide_sequences unless taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.nil?
+    @resources_links << :nucleotide_sequences if taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon
     @resources_links << :news_and_event_links unless (link_type_ids & [LinkType.news.id, LinkType.blog.id]).empty?
     @resources_links << :related_organizations if link_type_ids.include?(LinkType.organization.id)
     @resources_links << :multimedia_links if link_type_ids.include?(LinkType.multimedia.id)
@@ -82,12 +78,13 @@ class TaxonDetails < TaxonUserClassificationFilter
 private
 
   def details_cache(item)
+    @details_cache ||= {}
     @details_cache[item] ||= details(:include_toc_item => item)
   end
 
   def details(options = {})
     @details ||= details_text
-    options[:include_toc_item] ? @details.select { |d| ! d.toc_items.include?(options[:include_toc_item]) } : @details
+    options[:include_toc_item] ? @details.select { |d| d.toc_items.include?(options[:include_toc_item]) } : @details
   end
 
   def details_text
@@ -124,12 +121,21 @@ private
       { :toc_items => [ :translations ] } ], :select => selects)
     DataObject.sort_by_rating(text_objects, taxon_concept)
   end
+
   def toc_nest_under(under)
+    @toc_nest ||= {}
     @toc_nest[under] ||= toc(:under => under)
   end
 
   def toc_roots
     @toc_roots ||= toc.select { |item| ! item.is_child? }
+  end
+
+  def toc(options = {})
+    @toc_items ||= TocItem.table_of_contents_for_text(details)
+    options[:under] ?
+      @toc_items.select { |toc_item| toc_item.parent_id == options[:under].id } :
+      @toc_items
   end
 
   def details_in_all_other_languages

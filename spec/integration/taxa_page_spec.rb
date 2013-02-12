@@ -32,7 +32,6 @@ describe 'Taxa page basic tests' do
     curator = build_curator(tc)
     tc.add_common_name_synonym("Tom & Jerry", :agent => curator.agent, :language => Language.english,
                                :vetted => Vetted.trusted, :preferred => true)
-    $FOO = 1
     visit taxon_overview_path(tc.id)
     body.should include('Tom &amp; Jerry')
     body.should_not include('Tom &amp;amp; Jerry')

@@ -32,16 +32,16 @@ class Taxa::DetailsController < TaxaController
 
 protected
   def meta_description
-    chapter_list = @taxon_page.toc.map { |i| i.label}.uniq.compact.join("; ") unless @taxon_page.toc.blank?
+    chapter_list = @details.chapter_list
     translation_vars = scoped_variables_for_translations.dup
-    translation_vars[:chapter_list] = chapter_list unless chapter_list.blank?
+    translation_vars[:chapter_list] = chapter_list.join("; ") unless chapter_list.blank?
     I18n.t("meta_description#{translation_vars[:preferred_common_name] ? '_with_common_name' :
            ''}#{translation_vars[:chapter_list] ? '_with_chapter_list' : '_no_data'}",
            translation_vars)
   end
   def meta_keywords
     keywords = super
-    toc_subjects = @taxon_page.toc.map { |i| i.label}.compact.join(", ")
+    toc_subjects = @details.chapter_list.join(", ")
     [keywords, toc_subjects].compact.join(', ')
   end
   

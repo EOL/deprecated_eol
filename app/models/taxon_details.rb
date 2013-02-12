@@ -75,6 +75,14 @@ class TaxonDetails < TaxonUserClassificationFilter
     @literature_references_links
   end
 
+  def chapter_list
+    if toc_items?
+      @chapter_list ||= toc.map(&:label).uniq.compact
+    else
+      []
+    end
+  end
+
 private
 
   def details_cache(item)

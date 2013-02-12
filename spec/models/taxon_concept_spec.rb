@@ -527,19 +527,6 @@ describe TaxonConcept do
     @testy[:has_one_image].reload
   end
 
-  # TODO: this should be moved to the TaxaPage spec
-  it 'should show details text with no language only to users in the default language' do
-    user = User.gen(:language => Language.default)
-    taxon_page = TaxonPage.new(@taxon_concept, user)
-    taxon_page.details.first.language_id.should == Language.default.id
-    taxon_page = TaxonPage.new(@testy[:no_language_in_toc], user)
-    taxon_page.details.first.language_id.should == 0
-
-    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
-    taxon_page = TaxonPage.new(@testy[:no_language_in_toc], user)
-    taxon_page.details.should == []
-  end
-
   it 'should show overview text with no language only to users in the default language' do
     user = User.gen(:language => Language.default)
     @taxon_concept.overview_text_for_user(user).language_id.should == Language.default.id

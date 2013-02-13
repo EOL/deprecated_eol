@@ -353,12 +353,18 @@ class User < ActiveRecord::Base
   end
 
   def grant_permission(perm)
-    permissions << Permission.send(perm)
+    unless can?(perm)
+      permissions << permission = Permission.send(perm)
+      permission.inc_user_count
+    end
   end
 
-  # NOTE - #delete method keeps the cache_count updated on the Permission.
   def revoke_permission(perm)
-    permissions.delete(Permission.send(perm))
+    if can?(perm)
+      permission = Permission.send(perm)
+      permissions.delete permission
+      permission.dec_user_count
+    end
   end
 
   def clear_entered_password

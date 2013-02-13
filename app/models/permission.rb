@@ -2,7 +2,7 @@ class Permission < ActiveRecord::Base
 
   uses_translations
 
-  has_and_belongs_to_many :users, :counter_cache => true
+  has_and_belongs_to_many :users
 
   KNOWN_PERMISSIONS = [:edit_permissions]
 
@@ -21,6 +21,16 @@ class Permission < ActiveRecord::Base
   def self.method_missing(sym, *args, &block)
     super unless KNOWN_PERMISSIONS.include?(sym)
     cached_find_translated(:name, sym.gsub('_', ' ')) || super
+  end
+
+  def inc_user_count
+    users_count += 1
+    save
+  end
+
+  def dec_user_count
+    users_count -= 1
+    save
   end
 
 end

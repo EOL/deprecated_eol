@@ -780,8 +780,12 @@ FactoryGirl.define do
     association :item_page
   end
 
+  factory :permission do
+    name { generate(:string) }
+  end
+
   factory :publication_title do
-    short_title 'hello'
+    short_title 'Publication'
     author      'bob'
     call_number ''
     end_year    ''
@@ -1218,10 +1222,6 @@ FactoryGirl.define do
 
   factory :eol_statistic do
     members_count { rand(1000) }
-  end
-
-  factory :permission do
-    name generate(:string)
   end
 
 end

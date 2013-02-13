@@ -43,6 +43,7 @@ module EOL
           :all_collections => [],
           :assistant_curator? => false,
           :blank? => true,
+          :can? => false,
           :can_create? => false,
           :can_delete? => false,
           :can_edit_collection? => false,

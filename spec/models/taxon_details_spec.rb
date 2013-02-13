@@ -161,8 +161,8 @@ describe TaxonDetails do
     index.should == 2 # Ensure there weren't more results that we didn't check
   end
 
-  it '#resources_links should always include partner links and only partner links, by default.' do
-    @details.resources_links.should == [:partner_links]
+  it '#resources_links should always include partner links, by default' do
+    @details.resources_links.should include(:partner_links)
   end
 
   it '#resources_links should include identification_resources if toc includes them' do

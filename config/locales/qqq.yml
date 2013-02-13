@@ -238,3 +238,6 @@ qqq:
   the_darwin_core_taxon_elements: "'additionalInformation' is a parameter name and should not be translated."
   link_rating: "In this context, a 'Link' is actually a user-submitted link. Users can add web resources to EOL
   pages, and we call them 'Links'. So those links have ratings."
+  permissions_list_header: "Admins can see a list of permissions available to users on the site; this is the heading to the page that lists all of them."
+  edit_permission_header: "Admins can see a list of permissions available to users on the site; this is the heading to the page for editing a single permission."
+  permissions_users_count: "Admins can see a list of permissions available to users on the site. Each permission is shown with a count of how many users have that permission; this is that count."

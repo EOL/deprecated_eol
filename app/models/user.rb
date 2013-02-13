@@ -308,7 +308,8 @@ class User < ActiveRecord::Base
   end
 
   def can?(perm)
-    permissions.include?(Permission.send(perm))
+    permission = perm.is_a?(Permission) ? perm : Permission.send(perm)
+    permissions.include?(permission)
   end
 
   def can_create?(resource)
@@ -354,14 +355,15 @@ class User < ActiveRecord::Base
 
   def grant_permission(perm)
     unless can?(perm)
-      permissions << permission = Permission.send(perm)
+      permission = perm.is_a?(Permission) ? perm : Permission.send(perm)
+      permissions << permission
       permission.inc_user_count
     end
   end
 
   def revoke_permission(perm)
     if can?(perm)
-      permission = Permission.send(perm)
+      permission = perm.is_a?(Permission) ? perm : Permission.send(perm)
       permissions.delete permission
       permission.dec_user_count
     end

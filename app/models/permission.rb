@@ -41,4 +41,7 @@ class Permission < ActiveRecord::Base
     save
   end
 
+  def <=>(other)
+    self.name <=> other.name
+  end
 end

@@ -218,6 +218,8 @@ Eol::Application.routes.draw do
       get 'activated'
       get 'curation_privileges'
       put 'make_editor'
+      get 'grant_permission'
+      get 'revoke_permission'
       get 'revoke_editor'
       get 'pending_notifications'
       get 'unsubscribe_notifications/:key', :action => 'unsubscribe_notifications',

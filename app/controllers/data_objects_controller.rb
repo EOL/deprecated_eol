@@ -19,8 +19,8 @@ class DataObjectsController < ApplicationController
                                   :language_id => current_language.id)
     unless params[:data_object]
       # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
-      selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first ||
-                          @toc_items.select{|ti| ti == TocItem.brief_summary}.first ||
+      selected_toc_item = @toc_items.select { |ti| ti.id == params[:toc].to_i }.first ||
+                          @toc_items.select { |ti| ti == TocItem.brief_summary }.first ||
                           @toc_items[0]
       @selected_toc_item_id = selected_toc_item.id
     end
@@ -164,7 +164,7 @@ class DataObjectsController < ApplicationController
       log_action(new_data_object.users_data_object, visibility_action) unless new_data_object.users_data_object.visibility_id == @data_object.users_data_object.visibility_id
       # Activity logs for auto vetted CDOHEs
       new_cdohe_associations.each do |cdohe|
-        if old_cdohe = old_cdohe_associations.detect{|oca| oca if oca == cdohe}
+        if old_cdohe = old_cdohe_associations.detect { |oca| oca if oca == cdohe }
           if old_cdohe
             log_action(cdohe, vetted_action) unless cdohe.vetted_id == old_cdohe.vetted_id
             log_action(cdohe, visibility_action) unless cdohe.visibility_id == old_cdohe.visibility_id

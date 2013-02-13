@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 def data_object_create_edit_variables_should_be_assigned
   assigns[:data_object].should be_a(DataObject)
+  assigns[:toc_items].should_not be_nil
   assigns[:toc_items].first.should be_a(TocItem)
   assigns[:toc_items].select{|ti| ti.id == assigns[:selected_toc_item_id]}.first.should be_a(TocItem)
   assigns[:languages].first.should be_a(Language)
@@ -55,6 +56,9 @@ describe DataObjectsController do
                       :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.image.id.to_s,
                                         :object_title => "Test Article", :description => "Test text" } },
                     { :user => @user, :user_id => @user.id }
+      # NOTE - This started failing after my (JRice's) recent merge, but I don't see any evidence that it's intended to work... meaning, in the controller, these
+      # variables are never set for the #create action. So I'd like to check recent commits and see if there was a change to reflect that, or if this is really a
+      # requirement.  More later.
       data_object_create_edit_variables_should_be_assigned
       response.should render_template('data_objects/new')
     end

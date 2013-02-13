@@ -335,6 +335,7 @@ Eol::Application.routes.draw do
   get '/comments/create' => 'comments#create'
   resources :sessions, :only => [:new, :create, :destroy]
   resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
+  resources :permissions, :only => [:index, :show]
 
   # Miscellaneous named routes:
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'

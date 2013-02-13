@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_and_belongs_to_many :collections, :conditions => 'collections.published = 1'
   has_and_belongs_to_many :collections_including_unpublished, :class_name => Collection.to_s
+  has_and_belongs_to_many :permissions
   has_many :communities, :through => :members
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
@@ -250,10 +251,6 @@ class User < ActiveRecord::Base
       gsub(/__amp__/, '&')
   end
 
-  def can_be_updated_by?(user_wanting_access)
-    user_wanting_access.id == id || user_wanting_access.is_admin?
-  end
-
   def activate
     # Using update_column instead of updates_attributes to by pass validation errors.
     update_column(:active, true)
@@ -310,6 +307,10 @@ class User < ActiveRecord::Base
     return WikipediaQueue.find_all_by_user_id(self.id).count
   end
 
+  def can?(perm)
+    permissions.include?(Permission.send(perm))
+  end
+
   def can_create?(resource)
     return false if resource.nil?
     resource.can_be_created_by?(self)
@@ -327,8 +328,37 @@ class User < ActiveRecord::Base
     resource.can_be_deleted_by?(self)
   end
 
+  def can_manage_community?(community)
+    if member = member_of(community) # Not a community she's even in.
+      return true if community && member.manager? # She's a manager
+    end
+    return false
+  end
+
+  def can_edit_collection?(collection)
+    return false if collection.blank?
+    return true if collection.users.include?(self) # Her collection
+    collection.communities.each do |community|
+      return true if can_manage_community?(community)
+    end
+    false # She's not a manager
+  end
+
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.id == id || user_wanting_access.is_admin?
+  end
+
   def grant_admin
     self.update_attributes(:admin => true)
+  end
+
+  def grant_permission(perm)
+    permissions << Permission.send(perm)
+  end
+
+  # NOTE - #delete method keeps the cache_count updated on the Permission.
+  def revoke_permission(perm)
+    permissions.delete(Permission.send(perm))
   end
 
   def clear_entered_password
@@ -383,22 +413,6 @@ class User < ActiveRecord::Base
 
   def is_content_partner?
     content_partners.blank? ? false : true
-  end
-
-  def can_manage_community?(community)
-    if member = member_of(community) # Not a community she's even in.
-      return true if community && member.manager? # She's a manager
-    end
-    return false
-  end
-
-  def can_edit_collection?(collection)
-    return false if collection.blank?
-    return true if collection.users.include?(self) # Her collection
-    collection.communities.each do |community|
-      return true if can_manage_community?(community)
-    end
-    false # She's not a manager
   end
 
   # Returns an array of data objects submitted by this user.  NOT USED ANYWHERE.  This is a convenience method for

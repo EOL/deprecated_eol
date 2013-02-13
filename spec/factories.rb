@@ -1220,4 +1220,8 @@ FactoryGirl.define do
     members_count { rand(1000) }
   end
 
+  factory :permission do
+    name generate(:string)
+  end
+
 end

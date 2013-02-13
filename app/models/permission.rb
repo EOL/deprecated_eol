@@ -4,7 +4,7 @@ class Permission < ActiveRecord::Base
 
   has_and_belongs_to_many :users
 
-  KNOWN_PERMISSIONS = [:edit_permissions]
+  KNOWN_PERMISSIONS = [:edit_permissions, :beta_test]
 
   def self.create_defaults
     KNOWN_PERMISSIONS.each do |sym|
@@ -29,11 +29,13 @@ class Permission < ActiveRecord::Base
 
   # NOTE - I don't know why 'self' is required here, but it's nil otherwise. :|
   def inc_user_count
+    reload
     self.users_count += 1
     save
   end
 
   def dec_user_count
+    reload
     self.users_count -= 1
     self.users_count = 0 if self.users_count < 0
     save

@@ -298,8 +298,8 @@ Visibility.gen_if_not_exists(:label => 'Visible')
 Visibility.gen_if_not_exists(:label => 'Preview')
 
 ContentTable.create_details
-
 NotificationFrequency.create_defaults
+Permission.create_defaults
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

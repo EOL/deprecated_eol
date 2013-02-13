@@ -781,7 +781,7 @@ FactoryGirl.define do
   end
 
   factory :permission do
-    name { generate(:string) }
+    users_count 0
   end
 
   factory :publication_title do
@@ -1038,6 +1038,12 @@ FactoryGirl.define do
     association     :license
     language        { Language.english }
     description     { generate(:string) }
+  end
+
+  factory :translated_permission do
+    association :permission
+    language    { Language.english }
+    name        { generate(:string) }
   end
 
   factory :translated_news_item do

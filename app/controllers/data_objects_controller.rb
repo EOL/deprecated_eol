@@ -40,7 +40,7 @@ class DataObjectsController < ApplicationController
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
   def create
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
-    unless params[:data_object]
+    unless params[:data_object] && params[:data_object][:data_type_id].to_i == DataType.text.id
       create_failed
       return
     end

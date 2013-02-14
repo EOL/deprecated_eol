@@ -44,7 +44,7 @@ class Forums::TopicsController < ForumsController
       @topic.destroy
       flash[:notice] = I18n.t('forums.topics.delete_successful')
     else
-      flash[:error] = I18n.t('forums.topics.delete_failed')
+      flash[:error] = I18n.t('forums.topics.delete_failed_not_empty')
     end
     redirect_to forum_path(@topic.forum)
   end

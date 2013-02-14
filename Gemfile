@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-group :development, :test do
+group :development, :test, :staging_dev do
   gem 'capistrano', '2.13.5'
   gem 'capistrano-unicorn-pleary', '=0.1.6.1'
   gem 'rvm-capistrano', '1.2.7'

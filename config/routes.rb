@@ -297,24 +297,24 @@ Eol::Application.routes.draw do
       end
     end
     resources :news_items, :controller => 'admins/news_items' do
-      resources :translated_news_items, :as => :translations, :except => [:show, :index],
+      resources :translated_news_items, :as => :translations, :except => [ :show, :index ],
         :controller => 'admins/translated_news_items'
     end
   end
 
-  resources :forum_categories, :controller => 'forums/categories', :only => [:create, :destroy] do
+  resources :forum_categories, :controller => 'forums/categories', :only => [ :new, :create, :edit, :update, :destroy ] do
     member do
       post 'move_up'
       post 'move_down'
     end
   end
 
-  # when adding a commenting and not logged in, user will get redirected to login
+  # when adding these items when not logged in, the user will get redirected to login
   # then redirected to create via GET. We need to define the abilty to send GET to create
   get '/forums/create' => 'forums#create', :as => 'forums_create'
   get '/forums/:forum_id/topics/create' => 'forums/topics#create', :as => 'forum_topics_create'
   get '/forums/:forum_id/topics/:topic_id/posts/create' => 'forums/posts#create', :as => 'forum_posts_create'
-  resources :forums, :only => [ :index, :show, :create, :destroy ] do
+  resources :forums, :only => [ :index, :show, :new, :create, :edit, :update, :destroy ] do
     member do
       post 'move_up'
       post 'move_down'

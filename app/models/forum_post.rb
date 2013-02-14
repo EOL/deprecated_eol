@@ -9,7 +9,10 @@ class ForumPost < ActiveRecord::Base
 
   after_create :update_topic
   after_create :update_forum
+  after_destroy :update_topic
+  after_destroy :update_forum
   before_update :increment_edit_count
+  after_update :update_topic_title
 
   def can_be_deleted_by?(user_wanting_access)
     user == user_wanting_access || user_wanting_access.is_admin? || forum_topic.first_post.user == user_wanting_access
@@ -47,17 +50,29 @@ class ForumPost < ActiveRecord::Base
     self == forum_topic.first_post
   end
 
+  def page_in_topic
+    ((forum_topic.forum_posts.select(:id).index(self)) / ForumTopic::POSTS_PER_PAGE) + 1
+  end
+
   private
 
   def update_topic
-    if forum_topic.first_post.nil?
-      forum_topic.update_attributes(:first_post_id => id)
+    forum_topic.update_attributes(:first_post_id => id) if forum_topic.first_post.nil?
+    unless forum_topic.destroyed?
+      forum_topic.update_attributes(:last_post_id => forum_topic.forum_posts.maximum('forum_posts.id'))
+      forum_topic.update_attributes(:number_of_posts => forum_topic.forum_posts.count)
     end
-    forum_topic.update_attributes(:number_of_posts => forum_topic.number_of_posts + 1, :last_post_id => id)
   end
 
   def update_forum
-    forum_topic.forum.update_attributes(:number_of_posts => forum_topic.forum.number_of_posts + 1, :last_post_id => id)
+    forum_topic.forum.update_attributes(:last_post_id => forum_topic.forum.forum_topics.joins(:forum_posts).maximum('forum_posts.id'))
+    forum_topic.forum.update_attributes(:number_of_posts => forum_topic.forum.forum_topics.joins(:forum_posts).count)
+  end
+
+  def update_topic_title
+    if topic_starter?
+      forum_topic.update_attributes(:title => subject)
+    end
   end
 
   def increment_edit_count

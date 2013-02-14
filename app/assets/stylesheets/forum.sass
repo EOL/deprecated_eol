@@ -9,25 +9,21 @@ table.forum_category
         &.number
           width: 50px
         &.actions
-          width: 120px
+          width: 200px
+          padding: 5px 0px 5px 10px
   td
     &.actions
-      padding-left: 40px
+      padding: 5px 0px 5px 25px
     .subject
     .author
       line-height: 90%
       font-size: 0.9em
-  .button_to
-    float: left
-    margin: 0px
-    div
-      margin: 0px
 .post
   background: #e2e9ef
   margin-bottom: 10px
   padding: 10px
   overflow: hidden
-  +box-shadow(2px 2px 4px 1px #ccc)
+  border: 1px solid #cad3db
   .post_body
     float: left
     width: 76%
@@ -45,11 +41,6 @@ table.forum_category
       float: right
       li
         display: inline
-      .button_to
-        float: left
-        margin: 0px
-        div
-          margin: 0px
   .attribution
     float: right
     width: 22%
@@ -121,8 +112,23 @@ table.forum_category
 form.boxed
   background: #F3F7FA
   border: 1px solid #CAD3DB
-  margin: 40px 0px 40px
+  margin: 0px 0px 40px 0px
   padding: 15px 20px
   h3
     font-size: 1.3em
     padding-bottom: 15px
+thead, .actions, td
+  .button_to, .button
+    float: left
+    margin: 0px
+    div
+      margin: 0px
+  .button
+    margin: 0 5px 0 0
+    font-size: .92em
+    padding: 3px 10px
+    &.image
+      padding: 3px 4px 0px
+      line-height: 100%
+#admin
+  padding-top: 40px

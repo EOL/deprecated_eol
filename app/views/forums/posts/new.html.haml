@@ -1,4 +1,4 @@
 - if @reply_to_post
-  %h2= "Replying to"
+  %h3= I18n.t('forums.posts.replying_to_post')
   = render :partial => 'forums/posts/show', :locals => { :post => @reply_to_post }
-= render :partial => 'forums/posts/create_form'
+= render :partial => 'forums/posts/form'

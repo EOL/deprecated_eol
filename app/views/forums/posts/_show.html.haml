@@ -3,10 +3,11 @@
     .actions
       %ul
         - if current_user.can_update?(post)
-          %li= button_to I18n.t('edit'), edit_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :get
+          %li= link_to I18n.t('forums.buttons.edit'), edit_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => :button
         - if current_user.can_delete?(post)
-          %li= button_to I18n.t('delete'), forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
-        %li= button_to I18n.t('reply'), reply_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :get
+          %li= button_to I18n.t('forums.buttons.delete'), forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+        %li= link_to I18n.t('forums.buttons.reply'), reply_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => :button
+        %li= link_to I18n.t('forums.buttons.link'), forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => :button
     .title= post.subject
     .author
       = raw I18n.t('forums.post_by_user_at_time', :user => link_to(post.user.username, post.user), :time => I18n.l(post.created_at, :format => :blog))
@@ -19,5 +20,6 @@
     - if post.user.full_name != post.user.username
       .secondary_name
         = link_to post.user.username, post.user
-    .join_date
-      = raw I18n.t('forums.posts.joined_date', :date => I18n.l(post.user.created_at, :format => :blog))
+    - if post.user.created_at
+      .join_date
+        = raw I18n.t('forums.posts.joined_date', :date => I18n.t(:time_ago, :time_passed => time_ago_in_words(post.user.created_at)))

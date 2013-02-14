@@ -6,18 +6,17 @@
   #page_heading.with_image
     .site_column
       .hgroup
-        %h1
-          - breadcrumbs = []
-          - if @forum
-            - breadcrumbs << link_to("Forums", forums_path)
-            - breadcrumbs << @forum.name
-          - elsif @topic
-            - breadcrumbs << link_to("Forums", forums_path)
-            - breadcrumbs << link_to(@topic.forum.name, @topic.forum)
-            - breadcrumbs << @topic.title
-          - else
-            - breadcrumbs << "Forums"
-          = raw breadcrumbs.join(" - ")
+        - if @forum
+          %h1= @forum.name
+          %h2= link_to(I18n.t('forums.forums_heading'), forums_path)
+        - elsif @topic
+          %h1= @topic.title
+          %h2
+            = link_to(I18n.t('forums.forums_heading'), forums_path)
+            = raw " &bull; "
+            = link_to(@topic.forum.name, @topic.forum)
+        - else
+          %h1= I18n.t('forums.forums_heading')
     = render :partial => 'shared/flash_messages'
   #content
     .site_column

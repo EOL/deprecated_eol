@@ -9,6 +9,9 @@ class Forum < ActiveRecord::Base
   validates_presence_of :name
 
   before_create :set_view_order
+  before_update :reset_view_order_if_category_changed
+
+  TOPICS_PER_PAGE = 30
 
   def can_be_deleted_by?(user_wanting_access)
     user_wanting_access.is_admin?
@@ -18,6 +21,10 @@ class Forum < ActiveRecord::Base
   end
 
   private
+
+  def reset_view_order_if_category_changed
+    set_view_order if forum_category_id_changed?
+  end
 
   def set_view_order
     self.view_order = (Forum.where(:forum_category_id => self.forum_category_id).maximum('view_order') || 0) + 1

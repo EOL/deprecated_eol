@@ -8,12 +8,22 @@ class ForumTopic < ActiveRecord::Base
 
   accepts_nested_attributes_for :forum_posts
 
-  after_create :increment_forum_count
+  after_create :update_forum
+  after_destroy :update_forum
+
+  POSTS_PER_PAGE = 30
+
+  def can_be_deleted_by?(user_wanting_access)
+    user == user_wanting_access || user_wanting_access.is_admin? || first_post.user == user_wanting_access
+  end
+  def can_be_updated_by?(user_wanting_access)
+    user == user_wanting_access || user_wanting_access.is_admin? || first_post.user == user_wanting_access
+  end
 
   private
 
-  def increment_forum_count
-    forum.update_attributes(:number_of_topics => forum.number_of_topics + 1)
+  def update_forum
+    forum.update_attributes(:number_of_topics => forum.forum_topics.count)
   end
 
 end

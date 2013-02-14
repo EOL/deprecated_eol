@@ -58,7 +58,7 @@ categories = {
   }
 }
 
-u = User.gen
+u = User.find_by_id_and_username(13, 'pleary') || User.find_by_username(28, 'test_curator') || User.gen
 
 # Categories
 categories.each do |category_name, forums|
@@ -76,11 +76,16 @@ categories.each do |category_name, forums|
       post_data.each do |post|
         ForumPost.gen(:subject => post[:subject], :text => post[:text], :user => u, :forum_topic => topic)
       end
-
-      # making a bunch of random posts
-      60.times do
-        ForumPost.gen(:forum_topic => topic)
-      end
     end
   end
+end
+
+category = ForumCategory.gen(:title => "This is a big one", :user => u)
+forum = Forum.gen(:name => "Lots of topics", :forum_category => category, :user => u)
+40.times do
+  ForumTopic.gen(:forum => forum, :user => u)
+end
+topic = ForumTopic.gen(:title => "Lots of posts", :forum => forum, :user => u)
+50.times do
+  ForumPost.gen(:forum_topic => topic, :user => (u.username == 'pleary' ? User.first(:offset => rand(User.count)) : User.gen))
 end

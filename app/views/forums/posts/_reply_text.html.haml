@@ -1,6 +1,6 @@
 %blockquote
   .reply_link
-    = link_to post.user.username, forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post)
-    = " wrote:"
+    = I18n.t('forums.posts.post_written_by_user', :user => link_to(post.user.username, forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post)))
   = post.text
+-# the paragraph here is important - we lose the default one by providing this default text
 %p

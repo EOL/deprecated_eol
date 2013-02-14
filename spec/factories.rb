@@ -628,27 +628,27 @@ FactoryGirl.define do
 
   factory :forum do
     association :forum_category
-    name { generate(:string) }
+    name { Faker::Lorem.words(rand(10) + 1).join(' ') }
     description { Faker::Lorem.paragraph }
     association :user
   end
 
   factory :forum_category do
-    title { generate(:string) }
+    title { Faker::Lorem.words(rand(10) + 1).join(' ') }
     description { Faker::Lorem.paragraph }
     association :user
   end
 
   factory :forum_topic do
     association :forum
-    title { generate(:string) }
+    title { Faker::Lorem.words(rand(10) + 1).join(' ') }
     association :user
   end
 
   factory :forum_post do
     association :forum_topic
-    subject { generate(:string) }
-    text { Faker::Lorem.paragraph }
+    subject { Faker::Lorem.words(rand(10) + 1).join(' ') }
+    text { Faker::Lorem.paragraphs(rand(6) + 1).map{ |s| "<p>#{s}</p>" }.join }
     association :user
   end
 

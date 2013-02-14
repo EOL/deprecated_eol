@@ -1,3 +1,9 @@
-- @topic.forum_posts.each do |post|
-  = render :partial => 'forums/posts/show', :locals => { :post => post }
-= render :partial => 'forums/posts/create_form'
+- if @posts.blank?
+  .empty
+    %p= I18n.t('forums.topics.no_posts')
+- else
+  = will_paginate @posts, :renderer => ForumTopicLinkRenderer
+  - @posts.each do |post|
+    = render :partial => 'forums/posts/show', :locals => { :post => post }
+  = will_paginate @posts, :renderer => ForumTopicLinkRenderer
+= render :partial => 'forums/posts/form'

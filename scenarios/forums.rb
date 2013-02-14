@@ -58,7 +58,7 @@ categories = {
   }
 }
 
-u = User.find_by_id_and_username(13, 'pleary') || User.find_by_username(28, 'test_curator') || User.gen
+u = User.find_by_id_and_username(13, 'pleary') || User.find_by_id_and_username(28, 'test_curator') || User.gen
 
 # Categories
 categories.each do |category_name, forums|
@@ -83,7 +83,8 @@ end
 category = ForumCategory.gen(:title => "This is a big one", :user => u)
 forum = Forum.gen(:name => "Lots of topics", :forum_category => category, :user => u)
 40.times do
-  ForumTopic.gen(:forum => forum, :user => u)
+  topic = ForumTopic.gen(:forum => forum, :user => u)
+  ForumPost.gen(:forum_topic => topic, :user => u)
 end
 topic = ForumTopic.gen(:title => "Lots of posts", :forum => forum, :user => u)
 50.times do

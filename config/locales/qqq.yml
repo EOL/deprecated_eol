@@ -241,3 +241,5 @@ qqq:
   permissions_list_header: "Admins can see a list of permissions available to users on the site; this is the heading to the page that lists all of them."
   edit_permission_header: "Admins can see a list of permissions available to users on the site; this is the heading to the page for editing a single permission."
   permissions_users_count: "Admins can see a list of permissions available to users on the site. Each permission is shown with a count of how many users have that permission; this is that count."
+  march_of_life_thumbnail_title: "On data object pages for images, curators have the ability to crop images for two types of thumbnails. Each type has a preview. This is the title for the march of life thumbnail, which is only used for the so-called 'march of life' on the homepage."
+  summary_thumbnail_title: "On data object pages for images, curators have the ability to crop images for two types of thumbnails. Each type has a preview. This is the title for the preview of the 'summary thumbnail', which is used frequently throughout the site."

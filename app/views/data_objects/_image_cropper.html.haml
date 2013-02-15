@@ -7,10 +7,16 @@
     .header
       %h3= I18n.t('crop_image_thumbnails')
     #crop_panel
-      .crop_preview.width_130
-        %img#preview_image{ :src => data_object.thumb_or_object('130_130'), :original_src => data_object.thumb_or_object('130_130') }
-      .crop_preview.width_88
-        %img#preview_image{ :src => data_object.thumb_or_object('88_88'), :original_src => data_object.thumb_or_object('88_88') }
+      .preview
+        .title
+          = I18n.t(:march_of_life_thumbnail_title)
+        .crop_preview.width_130
+          %img#preview_image{ :src => data_object.thumb_or_object('130_130'), :original_src => data_object.thumb_or_object('130_130') }
+      .preview
+        .title
+          = I18n.t(:summary_thumbnail_title)
+        .crop_preview.width_88
+          %img#preview_image{ :src => data_object.thumb_or_object('88_88'), :original_src => data_object.thumb_or_object('88_88') }
     #crop_form
       %form{ :action => crop_data_object_path(data_object), :method => :get }
         = hidden_field_tag 'id', data_object.id

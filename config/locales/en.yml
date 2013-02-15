@@ -3411,6 +3411,7 @@ en:
   maps_empty: "No one has contributed any maps to this page yet."
   maps_empty_contribute_instructions: "Learn how to contribute maps to EOL."
   maps_image_maps_header: "Media tagged as 'map'"
+  march_of_life_thumbnail_title: "March of Life:"
   matching_users_found_with_count:
     one: "A total of %{count} user was found matching your criteria."
     other: "A total of %{count} users were found matching your criteria."
@@ -3961,6 +3962,7 @@ en:
   submit_term: "Submit Term"
   suggested_result_page_id: "Suggested Result Page ID:"
   suggested_results_avg: "Suggested Results avg"
+  summary_thumbnail_title: "Summary:"
   supplier_allcaps: "SUPPLIER:"
   supplier_colon: "Supplier:"
   survey_link: "Take our survey"

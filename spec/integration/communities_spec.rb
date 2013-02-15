@@ -188,7 +188,11 @@ describe "Communities" do
         body.should have_tag("a[href='#{choose_editor_target_collections_path(:community_id => @test_data[:community].id)}']",
           :text => 'Share a collection')
       end
-      it "should do something" do
+      it "should do allow sharing" do
+        # Give the user a new collection to share:
+        collection = Collection.gen 
+        collection.users = [@test_data[:user_community_administrator]]
+        collection.save
         click_link 'Share a collection'
         body.should include("Allow #{@test_data[:community].name} to manage the following collections")
         body.should have_tag("input[type=submit][value='Share a collection']")

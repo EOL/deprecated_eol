@@ -1925,6 +1925,7 @@ gl:
       inactive_user_login: Sentímolo, a conta aínda non está activa. Se non recibiches o correo electrónico de verificación cando te rexistraches, sigue o procedemento de recuperación de contas para verificar o teu enderezo de correo electrónico e activar a conta.
       min_assistant_curators_only: Sentímolo, o acceso está restrinxido aos conservadores da EOL cun nivel mínimo de conservador axudante.
       min_full_curators_only: Sentímolo, o acceso está restrinxido aos conservadores da EOL cun nivel mínimo de conservador completo.
+      min_master_curators_only: Sentímolo, o acceso está restrinxido aos conservadores da EOL cun nivel mínimo de mestre conservador.
   expand_all_children: expandir todas as dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar o que a EOL sabe acerca de %{taxon}.
@@ -3765,6 +3766,9 @@ gl:
   type: Tipo
   unable_to_copy_items_to_collection_error: Sentímolo, non se puideron copiar os elementos da colección a %{name}.
   unable_to_determine_title: Non se puido determinar o título desta páxina web
+  unable_to_invite_users_to_community_with_count: 
+    one: Non se puido enviar o convite a %{list}.
+    other: Non se puideron enviar os convites a %{list}.
   unique_page_views_th: Visitas por páxina únicas
   unknown: Descoñecido
   unknown_data_object_title: Obxecto de datos descoñecido

@@ -143,7 +143,7 @@ ja:
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-99: 家族
-  translated_resource_statuses-label-resource_status_id-1: アップロード中...
+  translated_resource_statuses-label-resource_status_id-1: アップロード中
   translated_resource_statuses-label-resource_status_id-10: 公開済み
   translated_resource_statuses-label-resource_status_id-11: 公開保留
   translated_resource_statuses-label-resource_status_id-12: 非公開保留
@@ -152,7 +152,7 @@ ja:
   translated_resource_statuses-label-resource_status_id-4: コンテンツサーバに移動
   translated_resource_statuses-label-resource_status_id-5: 検証済
   translated_resource_statuses-label-resource_status_id-6: 検証に失敗しました
-  translated_resource_statuses-label-resource_status_id-7: 処理中...
+  translated_resource_statuses-label-resource_status_id-7: 処理中
   translated_resource_statuses-label-resource_status_id-8: 処理済み
   translated_resource_statuses-label-resource_status_id-9: 処理に失敗しました
   translated_service_types-label-service_type_id-1: EOL 転送スキーマ

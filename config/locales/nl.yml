@@ -244,6 +244,7 @@ nl:
         full_name: Volledige naam
         given_name: Voornaam
         language_abbr: Voorkeurstaal
+        permissions: Rechten
         requested_curator_level_id: Gewenst conservatieniveau
         tag_line: Motto
         username: Gebruikersnaam
@@ -1820,6 +1821,7 @@ nl:
   edit_my_profile: Mijn profiel bewerken
   edit_news_items: nieuwsberichten bewerken
   edit_page_contents: pagina-inhoud bewerken
+  edit_permission_header: "U bent het volgende recht aan het bewerken: %{permission}"
   edit_search_suggestion: Zoeksuggestie bewerken
   edit_search_suggestions: zoeksuggesties bewerken
   edit_table_of_contents: inhoudsopgave bewerken
@@ -2056,6 +2058,7 @@ nl:
   google_scholar: Google Scholar
   grant_full_curator_link: Toekennen
   grant_manager_link: Managerrol toekennen
+  grant_permission: toekennen
   harvest_id: Import-ID
   harvesting_processes_log: Verwerkingslogboek voor oogsten
   harvests_for: Oogsten voor %{resource}
@@ -2606,6 +2609,7 @@ nl:
   maps_with_count: 
     one: "%{count} kaart"
     other: "%{count} kaarten"
+  march_of_life_thumbnail_title: "Mars van het leven:"
   matching_users_found_with_count: 
     one: Er is één gebruiker gevonden die aan uw zoekopdracht voldoet.
     other: Er zijn %{count} gebruikers gevonden die aan uw zoekopdracht voldoen.
@@ -2979,6 +2983,9 @@ nl:
   percentage_of_descendants_with_images: percentage nakomelingen met afbeeldingen
   percentage_of_descendants_with_text: percentage nakomelingen met tekst
   permalink: Permanente koppeling
+  permission_granted: Het recht is toegekend.
+  permission_revoked: Het recht is ingetrokken.
+  permissions_list_header: Rechten in EOL
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte

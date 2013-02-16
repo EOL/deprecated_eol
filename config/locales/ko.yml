@@ -522,6 +522,15 @@ ko:
           an_unknown_user_split_classifications_from_taxon: 알 수 없는 사용자가 <a href='%{to}'>자신의 문서</a>에 %{taxon} 문서에서 %{classifications} 분류를 나누었습니다.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 <a href='%{to}'>자신의 문서</a>에 알 수 없는 문서에서 %{classifications} 분류를 나누었습니다.
           user_split_classifications_from_taxon: <strong>%{user}</strong> 사용자가 <a href='%{to}'>자신의 문서</a>에 %{classifications} 분류를 나누었습니다.
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: 알 수 없는 사용자가 "%{data_object}" 개체의 섬네일 그림을 바꿨습니다.
+        an_unknown_user_cropped_an_unknown_data_object: 알 수 없는 사용자가 알 수 없는 그림의 섬네일을 바꿨습니다.
+        an_unknown_user_cropped_data_object: 알 수 없는 사용자가 "%{data_object}" 개체의 섬네일 그림을 바꿨습니다.
+        an_unknown_user_cropped_it: 알 수 없는 사용자가 알 수 없는 그림의 섬네일을 바꿨습니다.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체의 이전 버전의 섬네일을 바꿨습니다.
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> 사용자가 알 수 없는 그림의 섬네일을 바꿨습니다.
+        user_cropped_data_object: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체의 섬네일 그림을 바꿨습니다.
+        user_cropped_it: <strong>%{user}</strong> 사용자가 알 수 없는 그림의 섬네일을 바꿨습니다.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
         an_unknown_user_hid_an_older_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
@@ -877,7 +886,7 @@ ko:
   admin_statistics_link: 통계
   admin_translated_content_page_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서에 번역을 추가했습니다.
   admin_translated_content_page_create_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 추가하지 못했습니다.
-  admin_translated_content_page_delete_confirmation: 정말 "%{page_name}" 문서의 %{language} 버전을 삭제하겠습니까? 삭제한 문서는 되살릴 수 없습니다.
+  admin_translated_content_page_delete_confirmation: "\"%{page_name}\" 문서의 %{language} 버전을 삭제하겠습니까? 삭제한 문서는 되살릴 수 없습니다."
   admin_translated_content_page_delete_successful_notice: <em>%{page_name}</em> 문서에 대한 %{language} 번역을 삭제했습니다.
   admin_translated_content_page_edit_subheader: <em>%{page_name}</em>에 대한 %{language} 번역 편집
   admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
@@ -890,7 +899,7 @@ ko:
   admin_translated_news_item_active: 게시함
   admin_translated_news_item_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서에 번역을 추가했습니다.
   admin_translated_news_item_create_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 추가하지 못했습니다.
-  admin_translated_news_item_delete_confirmation: 정말 "%{page_name}" 문서의 %{language} 버전을 삭제하겠습니까? 삭제한 문서는 되살릴 수 없습니다.
+  admin_translated_news_item_delete_confirmation: "\"%{page_name}\" 문서의 %{language} 버전을 삭제하겠습니까? 삭제한 문서는 되살릴 수 없습니다."
   admin_translated_news_item_delete_successful_notice: <em>%{page_name}</em> 뉴스 항목에 대한 %{language} 번역을 삭제했습니다.
   admin_translated_news_item_edit_subheader: <em>%{page_name}</em>에 대한 %{language} 번역 편집
   admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
@@ -1037,6 +1046,7 @@ ko:
   audio_unmute: 음소거 해제
   authoritative_information: 신뢰할 수 없는 정보
   available: 사용 가능
+  average_rating: 평가의 평균
   average_rating_value_of_total: "평균 평점: %{total} 중 %{rating}"
   back: 뒤로
   back_to_profile: 프로필로 돌아가기
@@ -1078,6 +1088,7 @@ ko:
   change_rating_to_5_of_5: 5점 중 5점으로 평가 바꾸기
   choose_collection_header: 모음집 바꾸기
   citation: 인용
+  citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." 생명의 백과사전, <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>에서 사용할 수 있습니다. 2009년 1월 15일에 접근했습니다.
   citing_link: 인용하기
   classification_already_preferred: "오류: 이 분류는 이미 선호함으로 표시했습니다."
   classification_curation_pending: 큐레이션이 대기 중입니다. 이 분류는 가까운 미래에 다른 문서로 이동할 수 있습니다.
@@ -1275,7 +1286,7 @@ ko:
   community_removed_by_owner: 이 공동체는 소유자에 의해 제거됐습니다.
   community_tab_collections_header: 모음집
   completed: 완료
-  confirm_leave: 정말 이 공동체를 떠나겠습니까?
+  confirm_leave: 이 공동체를 떠나겠습니까?
   confirm_password_colon: "비밀번호 확인:"
   contact: 연락하기
   contact_information: 연락처 정보
@@ -1473,6 +1484,7 @@ ko:
   content_server_full_url: 콘텐츠 서버 전체 URL
   content_servers: 콘텐츠 서버
   content_setting_colon: "콘텐츠 설정:"
+  content_summary_table_caption: "%{taxon_name} 이름과 %{hierarchy_label} 레이블의 자손과 연결된 내용의 요약"
   content_summary_table_count_column_header: 갯수
   content_summary_table_type_descendants_row: 자손 수
   content_summary_table_type_status_column_header: 콘텐츠 종류와 상태
@@ -1510,6 +1522,7 @@ ko:
   create_collection_button: 모음집 만들기
   create_community: 공동체 만들기
   create_community_about_heading: 공동체 만들기에 대해
+  create_community_about_text: "\"%{collection_name}\"의 내용 주위에 공동체를 만드려고 합니다. 모든 사용자는 공동체에 가입할 수 있지만 \"관리자\" 자격을 부여한 구성원만 공동체 자체나 공동체와 관련된 모음집을 편집할 수 있게 됩니다."
   create_community_around_this_collection_header: 이 모음집 주위의 공동체 만들기
   create_community_button: 공동체 만들기
   created: 만들어짐
@@ -1520,6 +1533,8 @@ ko:
   creative_commons: 크리에이티브 커먼즈
   credentials: 자격 증명
   credentials_colon: "자격 증명:"
+  crop_image: 그림 자르기
+  crop_image_thumbnails: 그림 자르기 섬네일
   curated: 큐레이트됨
   curated_association_update_button: 바뀐 사항 저장
   curated_objects_of: "%{name}의 큐레이트한 개체"
@@ -1573,6 +1588,7 @@ ko:
   data_master_database_colon: "데이터 마스터:"
   data_object: 데이터 개체
   data_object_ignore: 이 항목 무시
+  data_object_not_associated_with_any_hierarchies: 이 데이터 개체는 어떠한 계층과 연결되어 있지 않습니다.
   data_object_reference: 데이터 개체 참고
   data_object_undo_ignore: 무시 목록에서 제거
   data_objects: 
@@ -1799,6 +1815,7 @@ ko:
   error_404_page_title: 찾을 수 없음
   error_500_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로 이메일을 보내주세요.
   error_500_page_title: 이런.
+  error_classifications_locked_cannot_reindex: 죄송합니다, 이 문서는 현재 다시 색인을 만들 수 없습니다. 분류가 잠겨 있습니다.
   error_couldnt_find_collection_by_id: "%{id} id로 된 관리할 수 있는 모음집을 찾을 수 없습니다."
   error_couldnt_find_community_by_id: "%{id} id로 된 관리할 수 있는 공동체를 찾을 수 없습니다."
   error_default_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로 이메일을 보내주세요.
@@ -1819,6 +1836,9 @@ ko:
       hidden_user_login: 죄송합니다, 로그인은 해당 계정에서 비활성화되어 있습니다.
       hidden_user_recover_account: 죄송합니다, 계정 복구는 해당 계정에서 비활성화되어 있습니다.
       hidden_user_temporary_login: 죄송합니다, 계정 복구와 로그인은 해당 계정에 대해 비활성화되어 있습니다.
+      min_assistant_curators_only: 죄송합니다, 접근은 조수의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
+      min_full_curators_only: 죄송합니다, 접근은 전체의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
+      min_master_curators_only: 죄송합니다, 접근은 마스터의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
   expand_all_children: 모든 하위 확장
   explore: 탐구
   explore_what_we_know_about_taxon: "%{taxon}에 대한 EOL이 알고 있는 탐구입니다."
@@ -1829,6 +1849,7 @@ ko:
   external_report_click_url_to_proceed: 바깥 보고입니다. 진행하려면 URL를 클릭하세요.
   external_report_click_year_to_proceed: 바깥 보고입니다. 진행하려면 년도를 클릭하세요.
   facebook: 페이스북
+  faculty_staff_or_grad_student_credential_option: 관련 대학 학과의 교직원, 직원 또는 ​​대학생 상태
   failed_login_attempts_with_count: 
     one: (로그인 시도를 %{count}회 실패했습니다)- 사용자가 로그인하려면 확인해야 합니다
     other: (로그인 시도를 %{count}회 실패했습니다)- 사용자가 로그인하려면 확인해야 합니다
@@ -1838,6 +1859,8 @@ ko:
   file: 파일
   file_id: 파일 ID
   file_size: 파일 크기
+  filed_under_label_with_date: "%{date}에 %{label}에 따라 제출함"
+  fill_in_a_message_below_to_send_email_to_user: "사이트에서 이 사용자에게 이메일을 보내려면 아래에 메시지를 채우세요. 양식을 제출하면 메시지를 보냅니다:"
   filter_button: 필터
   filter_by_day: 날짜별 필터
   filter_by_status: 상태별 필터
@@ -1888,14 +1911,20 @@ ko:
   flash_notice_redirected_from_search_html_more_results: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">다른 찾기 결과를 보려면 여기를 클릭하세요.</a>
   flash_video: 플래시 동영상
   flickr: Flickr
+  focus_collection_edit: 각 모음집의 편집 문서에서 직접 이 공동테의 모음집을 편집할 수 있습니다.
   focus_list_newsfeed: 뉴스 피드 집중 목록
   for_images_to_reference_parens: (그림 참고용)
   for_pdfs_and_docs_parens: (PDF 및 문서용)
+  for_terms_or_definitions_conta: "포함하는 용어나 정의:"
   forgot_password: 비밀번호 잊음
   forgot_password_cannot_find_user_from_username_or_email_error: 죄송합니다, 제공한 <em>%{username_or_email}</em> 사용자 이름이나 이메일로 된 사용자 계정이 없습니다.
   forgot_password_form_cancel: 취소
+  forgot_password_form_choose_username_blank_error: 비밀번호를 재설정할 계정을 선택하세요.
+  forgot_password_form_choose_username_instructions: <em>%{email}</em> 이메일 주소로 등록한 계정 여러 개가 있습니다. 비밀번호를 재설정할 계정 하나를 선택하세요.
   forgot_password_form_choose_username_legend: 계정 선택
   forgot_password_form_header: 비밀번호 초기화
+  forgot_password_form_helper: 비밀번호 재설정 이메일이 <em>자주</em> 이메일 필터에 의해 '스팸'으로 표시할 수 있습니다. 시간 안에 이메일을 받지 못했다면 스팸 폴더를 확인하세요.
+  forgot_password_form_username_or_email_blank_error: 비밀번호를 재설정할 사용자 이름이나 이메일 주소를 입력하세요.
   frequency: 주기
   frequency_daily: 매일
   frequency_monthly: 매월
@@ -2075,7 +2104,7 @@ ko:
         bio: 내 소개
         credentials: 자격 증명
         credentials_more: "이 목록에서 하나 이상의 특정 자격 증명을 정하세요:"
-        credentials_more_academic: 관련 대학 학과의 교직원, 직원 또는 ​​대학생을 정합니다.
+        credentials_more_academic: 관련 대학 학과의 교직원, 직원 또는 ​​대학생 상태입니다
         credentials_more_author: 같이 검토한 게시(참조 제공)의 저자입니다.
         credentials_more_professional: 전문적인 사회성의 구성원입니다.
         credentials_more_referral: 현재 큐레이터의 추천입니다.
@@ -2731,12 +2760,12 @@ ko:
   other_taxa_with_count: 
     one: 다른 분류 %{count}개
     other: 다른 분류 %{count}개
-  other_us_dollars_amount: "기타: 미화$"
+  other_us_dollars_amount: "기타: 미국 $"
   other_version_links: "다른 버전: %{version_links}"
   outlink: 바깥 링크
   overview: 둘러보기
   page: 문서
-  page_linked_to: 다음에 문서가 연결됨
+  page_linked_to: 다음에 문서를 링크함
   page_name: 문서 이름
   page_navigation: 문서 둘러보기
   page_not_found: 문서를 찾을 수 없습니다
@@ -3001,10 +3030,10 @@ ko:
   sessions: 
     new: 
       login_with_eol_authentication_header: "또는 EOL 자격 증명으로 로그인:"
-      login_with_facebook_assistive: 페이스북 자격 증명을 사용하여 EOL에 로그인
-      login_with_google_assistive: 구글 자격 증명을 사용하여 EOL에 로그인
-      login_with_twitter_assistive: 트위터 자격 증명을 사용하여 EOL에 로그인
-      login_with_yahoo_assistive: 야후 자격 증명을 사용하여 EOL에 로그인
+      login_with_facebook_assistive: 페이스북 자격 증명을 통해 EOL에 로그인합니다.
+      login_with_google_assistive: 구글 자격 증명을 통해 EOL에 로그인합니다.
+      login_with_twitter_assistive: 트위터 자격 증명을 통해 EOL에 로그인합니다.
+      login_with_yahoo_assistive: 야후 자격 증명을 통해 EOL에 로그인합니다.
       meta_title: 로그인
       problems_signing_in_with_connected_accounts: 연결한 계정으로 로그인을 하는 데 문제가 있나요?
       problems_signing_in_with_eol_authentication: 비밀번호를 잊으셨나요?
@@ -3535,10 +3564,10 @@ ko:
   uploaded_on: 올린 곳
   url: URL
   url_not_accessible: 이 URL은 접근할 수 없습니다
-  us_dolars_75: 미화 $75
-  us_dollars_100: 미화 $100
-  us_dollars_35: 미화 $35
-  us_dollars_50: 미화 $50
+  us_dolars_75: 미국 $75
+  us_dollars_100: 미국 $100
+  us_dollars_35: 미국 $35
+  us_dollars_50: 미국 $50
   use_as_examplar_button: 표본으로 사용
   user: 사용자
   user_activation_successful_notice: 환영합니다, 그리고 생명의 백과사전 팀에 가입해주셔서 감사합니다. <em>%{username}</em> 사용자 이름으로 된 계정을 활성화했습니다, 로그인하세요.
@@ -3650,10 +3679,10 @@ ko:
       create_user_header: 새 <abbr title="Encyclopedia of Life">EOL</abbr> 계정 만들기
       create_user_with_eol_authentication_header: "또는 새 자격 증명 제공:"
       meta_title: EOL에 가입
-      sign_up_with_facebook_assistive: 페이스북 자격 증명을 사용하여 EOL에 가입합니다.
-      sign_up_with_google_assistive: 구글 자격 증명을 사용하여 EOL에 가입합니다.
-      sign_up_with_twitter_assistive: 트위터 자격 증명을 사용하여 EOL에 가입합니다.
-      sign_up_with_yahoo_assistive: 야후 자격 증명을 사용하여 EOL에 가입합니다.
+      sign_up_with_facebook_assistive: 페이스북 자격 증명을 통해 EOL에 가입합니다.
+      sign_up_with_google_assistive: 구글 자격 증명을 통해 EOL에 가입합니다.
+      sign_up_with_twitter_assistive: 트위터 자격 증명을 통해 EOL에 가입합니다.
+      sign_up_with_yahoo_assistive: 야후 자격 증명을 통해 EOL에 가입합니다.
     newsfeeds: 
       activity: 
         meta_title: "%{user_full_name} 활동 피드"
@@ -3679,21 +3708,21 @@ ko:
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 페이스북 계정을 연결할 수 없으며, 페이스북 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
-          login_failed_not_connected: 죄송합니다, 페이스북 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 사용하여 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 페이스북 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
+          login_failed_not_connected: 죄송합니다, 페이스북 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 통해 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 페이스북 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
           missing_attributes: 죄송합니다, 페이스북 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 페이스북 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 페이스북 계정에 연결하는 데 인증할 수 없습니다.
-          not_authorized_to_login: 죄송합니다, 페이스북 계정을 사용해 EOL에 로그인할 권한이 없습니다.
-          not_authorized_to_signup: 죄송합니다, 페이스북 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+          not_authorized_to_login: 죄송합니다, 페이스북 계정을 통해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 페이스북 계정을 통해 EOL에 가입할 수 있는 권한이 없습니다.
           signup_failed_account_already_connected: 죄송합니다, 페이스북 계정으로 새 EOL 계정에 가입할 수 없으며 이미 <a href="%{existing_eol_account_url}">EOL 사용자 계정</a>에 연결되어 있습니다. 대신 <a href="%{login_url}">로그인</a>하려 했습니까?
         google: 
           add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 구글 계정을 연결할 수 없으며, 구글 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
-          login_failed_not_connected: 죄송합니다, 구글 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 사용하여 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 구글 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
+          login_failed_not_connected: 죄송합니다, 구글 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 통해 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 구글 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
           missing_attributes: 죄송합니다, 구글 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 구글 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 구글 계정에 연결하는 데 인증할 수 없습니다.
-          not_authorized_to_login: 죄송합니다, 구글 계정을 사용해 EOL에 로그인할 권한이 없습니다.
-          not_authorized_to_signup: 죄송합니다, 구글 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+          not_authorized_to_login: 죄송합니다, 구글 계정을 통해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 구글 계정을 통해 EOL에 가입할 수 있는 권한이 없습니다.
           signup_failed_account_already_connected: 죄송합니다, 구글 계정으로 새 EOL 계정에 가입할 수 없으며 이미 <a href="%{existing_eol_account_url}">EOL 사용자 계정</a>에 연결되어 있습니다. 대신 <a href="%{login_url}">로그인</a>하려 했습니까?
         missing_attributes: 죄송합니다, 서드 파티 계정 자세한 정보에 접근하는 데 문제가 있습니다.
         not_authorized_to_add_authentication: 죄송합니다, 해당 계정에 연결하는 데 인증할 수 없습니다.
@@ -3701,21 +3730,21 @@ ko:
         remove_connection_failed: 죄송합니다, 오류가 발생해 연결을 제거할 수 없습니다.
         twitter: 
           add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 트위터 계정을 연결할 수 없으며, 트위터 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
-          login_failed_not_connected: 죄송합니다, 트위터 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 사용하여 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 트위터 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
+          login_failed_not_connected: 죄송합니다, 트위터 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 통해 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 트위터 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
           missing_attributes: 죄송합니다, 트위터 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 트위터 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 트위터 계정에 연결하는 데 인증할 수 없습니다.
-          not_authorized_to_login: 죄송합니다, 트위터 계정을 사용해 EOL에 로그인할 권한이 없습니다.
-          not_authorized_to_signup: 죄송합니다, 트위터 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+          not_authorized_to_login: 죄송합니다, 트위터 계정을 통해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 트위터 계정을 통해 EOL에 가입할 수 있는 권한이 없습니다.
           signup_failed_account_already_connected: 죄송합니다, 트위터 계정으로 새 EOL 계정에 가입할 수 없으며 이미 <a href="%{existing_eol_account_url}">EOL 사용자 계정</a>에 연결되어 있습니다. 대신 <a href="%{login_url}">로그인</a>하려 했습니까?
         yahoo: 
           add_connection_failed_account_already_connected: 죄송합니다, EOL 계정에 야후! 계정을 연결할 수 없으며, 야후! 계정은 이미 <a href="%{existing_eol_account_url}">EOL 계정</a>에 연결되어 있습니다.
-          login_failed_not_connected: 죄송합니다, 야후! 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 사용하여 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 야후! 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
+          login_failed_not_connected: 죄송합니다, 야후! 계정과 EOL 사이에 연결을 찾을 수 없습니다. 이미 EOL 계정이 있다면 다른 자격 증명을 통해 <a href="%{login_url}">EOL에 로그인하고</a> 나서 내 EOL 프로필 설정에서 야후! 계정을 연결하세요. 아직 EOL 계정이 없다면 계정을 만들기 위해 <a href="%{register_url}">EOL 등록을 완료하세요</a>.
           missing_attributes: 죄송합니다, 야후! 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 야후! 계정에 연결할 수 없습니다.
           not_authorized_to_add_authentication: 죄송합니다, 야후! 계정에 연결하는 데 인증할 수 없습니다.
-          not_authorized_to_login: 죄송합니다, 야후! 계정을 사용해 EOL에 로그인할 권한이 없습니다.
-          not_authorized_to_signup: 죄송합니다, 야후! 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
+          not_authorized_to_login: 죄송합니다, 야후! 계정을 통해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 야후! 계정을 통해 EOL에 가입할 수 있는 권한이 없습니다.
           signup_failed_account_already_connected: 죄송합니다, 야후! 계정으로 새 EOL 계정에 가입할 수 없으며 이미 <a href="%{existing_eol_account_url}">EOL 사용자 계정</a>에 연결되어 있습니다. 대신 <a href="%{login_url}">로그인</a>하려 했습니까?
       facebook: 페이스북
       google: 구글

@@ -1897,6 +1897,7 @@ fr:
       inactive_user_login: Désolé, ce compte n’est pas encore actif. Si vous n’avez pas reçu un courriel de vérification quand vous vous êtes inscrit, veuillez suivre la procédure de récupération du compte pour vérifier votre adresse de courriel et activer votre compte.
       min_assistant_curators_only: Désolé, l’accès est restreint aux conservateurs de EdlV avec un niveau de conservation minimal d’assistant.
       min_full_curators_only: Désolé, l’accès est limité aux Conservateurs EdlV avec un niveau de conservation minimal de Total.
+      min_master_curators_only: Désolé, l’accès est limité aux Conservateurs EdlV avec un niveau de conservation minimal de maître.
   expand_all_children: Développer tous les enfants
   explore: à découvrir
   explore_what_we_know_about_taxon: Découvrez ce que l’EdlV sait de %{taxon}.
@@ -3726,6 +3727,9 @@ fr:
   type: Type
   unable_to_copy_items_to_collection_error: Désolé, nous n’avons pas pu copier les éléments de la collection dans %{name}.
   unable_to_determine_title: Impossible de déterminer le titre de cette page web
+  unable_to_invite_users_to_community_with_count: 
+    one: L’invitation n’a pas pu être envoyée à %{list}.
+    other: Les invitations n’ont pas pu être envoyées à %{list}.
   unique_page_views_th: Nombre de pages uniques vues
   unknown: Inconnu
   unknown_data_object_title: Objet de donnée inconnu

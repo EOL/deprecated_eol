@@ -1934,6 +1934,7 @@ de:
       inactive_user_login: Das Konto ist leider noch nicht aktiv. Sofern Sie keine E-Mail zum Aktivieren des Kontos erhalten haben, führen Sie bitte die Schritte zum Bergen eines Kontos durch, um Ihre E-Mail-Adresse zu bestätigen und Ihr Konto zu aktivieren.
       min_assistant_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Prokuratoren sind.
       min_full_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Oberkuratoren sind.
+      min_master_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Hauptkuratoren sind.
   expand_all_children: alle untergeordneten Objekte expandieren
   explore: Entdecken
   explore_what_we_know_about_taxon: Erkunden Sie was EOL zu %{taxon} verfügbar hat.
@@ -3774,6 +3775,9 @@ de:
   type: Art
   unable_to_copy_items_to_collection_error: Es war leider nicht möglich die Sammlung zu %{name} zu kopieren.
   unable_to_determine_title: Der Titel dieser Webseite konnte nicht ermittelt werden.
+  unable_to_invite_users_to_community_with_count: 
+    one: Die Einladung konnte nicht an %{list} versandt werden.
+    other: Die Einladungen konnten nicht an %{list} versandt werden.
   unique_page_views_th: Eindeutige Seitenzugriffe
   unknown: Unbekannt
   unknown_data_object_title: Unbekanntes Datenobjekt

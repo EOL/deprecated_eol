@@ -1140,7 +1140,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def set_to_representative_language
-    language = language.representative_language
+    self.language = language.representative_language
   end
 
 private

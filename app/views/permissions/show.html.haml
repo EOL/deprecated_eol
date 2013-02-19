@@ -7,4 +7,4 @@
       %td
         = link_to user.username, user
       %td
-        = link_to(I18n.t(:revoke_permission), revoke_permission_user_path(user, :permission_id => @permission.id, :format => :js), :remote => true)
+        = link_to(I18n.t(:revoke_permission), revoke_permission_user_path(user, :permission_id => @permission.id, 'data-type' => :json), :remote => true)

@@ -522,6 +522,15 @@ fr:
           an_unknown_user_split_classifications_from_taxon: Un utilisateur inconnu a divisé les classifications par %{classifications} depuis %{taxon} vers <a href='%{to}'>leur propre page</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> a divisé les classifications par %{classifications} depuis une page inconnue vers <a href='%{to}'>leur propre page</a>.
           user_split_classifications_from_taxon: <strong>%{user}</strong> a divisé les classifications par %{classifications} vers <a href='%{to}'>leur propre page</a>.
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: Un utilisateur inconnu a modifié la vignette de l’image de "%{data_object}".
+        an_unknown_user_cropped_an_unknown_data_object: Un utilisateur inconnu a modifié la vignette d’une image inconnue.
+        an_unknown_user_cropped_data_object: Un utilisateur inconnu a modifié la vignette de l’image de "%{data_object}".
+        an_unknown_user_cropped_it: Un utilisateur inconnu a modifié la vignette d’une image inconnue.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> a modifié la vignette d’une ancienne version de "%{data_object}".
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> a modifié la vignette d’une image inconnue.
+        user_cropped_data_object: <strong>%{user}</strong> a modifié la vignette de l’image de "%{data_object}".
+        user_cropped_it: <strong>%{user}</strong> a modifié la vignette d’une image inconnue.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masqué dans un contexte inconnu.
         an_unknown_user_hid_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masquée sur la page "%{association}".
@@ -1051,6 +1060,7 @@ fr:
   author_of_peer_reviewed_publication_credential_option: Paternité d’une publication supervisée par un pair (fournir la référence).
   authoritative_information: Informations faisant autorité
   available: disponible
+  average_rating: note moyenne
   average_rating_value_of_total: "Évaluation moyenne : %{rating} sur %{total}"
   back: Arrière
   back_to_profile: Retour au profil
@@ -1115,7 +1125,6 @@ fr:
   classification_tree_header: Classification
   classifications_edit_cancelled_busy: Désolé, votre requête pour modifier les classifications ne peut pas être exécutée pour l’instant; une ou plusieurs des pages de taxon sont verrouillées. Une requête existante pour modifier ces classifications est en cours d’exécution.
   classifications_edit_cancelled_merge_to_self: Votre source et votre cible sont la même page; rien à déplacer.
-  classifications_empty: Cette page ne fait partie d’aucune des classifications qui peuvent être parcourues sur l’EdlV.
   classifications_exemplar_column_header: Modèle
   classifications_hierarchy_column_header: Classification
   classifications_locked: Les classifications de cette page ne peuvent pas être modifiées pour l’instant. Une autre demande pour modifier ces classifications est en cours d’exécution.
@@ -1557,6 +1566,8 @@ fr:
   creative_commons: Creative Commons
   credentials: Certifications
   credentials_colon: "Identification:"
+  crop_image: rogner l’image
+  crop_image_thumbnails: Rogner les vignettes d’image
   curated: Conservé
   curated_association_update_button: Enregistrer les modifications
   curated_objects_of: objets conservés de %{name}
@@ -1884,11 +1895,12 @@ fr:
       hidden_user_recover_account: Désolé, la récupération du compte est désactivée pour ce compte.
       hidden_user_temporary_login: Désolé, la récupération du compte et la connexion sont désactivées pour ce compte.
       inactive_user_login: Désolé, ce compte n’est pas encore actif. Si vous n’avez pas reçu un courriel de vérification quand vous vous êtes inscrit, veuillez suivre la procédure de récupération du compte pour vérifier votre adresse de courriel et activer votre compte.
+      min_assistant_curators_only: Désolé, l’accès est restreint aux conservateurs de EdlV avec un niveau de conservation minimal d’assistant.
       min_full_curators_only: Désolé, l’accès est limité aux Conservateurs EdlV avec un niveau de conservation minimal de Total.
+      min_master_curators_only: Désolé, l’accès est limité aux Conservateurs EdlV avec un niveau de conservation minimal de maître.
   expand_all_children: Développer tous les enfants
   explore: à découvrir
   explore_what_we_know_about_taxon: Découvrez ce que l’EdlV sait de %{taxon}.
-  export_all_of_the_entries_as_a: exporter toutes les entrées dans un fichier CSV
   export_curator_csv_link: "[exporter tous les conservateurs en CSV]"
   export_this_list_as_csv: Exporter cette liste en CSV
   external_link_header: Lien externe
@@ -2295,6 +2307,8 @@ fr:
   if_the_details_parameter_is_not_set: Si le paramètre détails n’est pas positionné, alors seul l’identifiant de l’objet de données, le type de la donnée et, dans le cas d’articles, le sujet, seront renvoyés. Le type de donnée sera une valeur du vocabulaire de type de ressource %{linka}. Le texte du sujet sera un des %{linkb}.
   image: Image
   image_alt_text: "Cette image %{vetted_status} porte sur : %{taxon_name}"
+  image_crop_failed_error: Désolé, une erreur s’est produite, l’image n’a pas pu être rognée.
+  image_cropped_notice: L’image a bien été rognée.
   image_from_supplier: Image fournie par %{whom}
   image_is_no_longer_available: L’image n’est plus disponible
   image_map_alt_text: "Cette carte %{vetted_status} porte sur : %{taxon_name}"
@@ -2977,6 +2991,7 @@ fr:
     one: par %{count} personne
     other: par %{count} personnes
   rating_added_notice: L'évaluation a été ajoutée avec succès.
+  rating_learn_more_link: En savoir plus sur la notation
   rating_not_added_error: Désolé, une erreur est survenue ; l’évaluation n’a pas pu être ajoutée.
   recaptcha: Tapez les deux mots que vous voyez ci-dessous
   recaptcha_incorrect_error_with_anchor: Les <a href="#%{recaptcha_anchor}">caractères du reCaptcha</a> ne correspondent pas, veuillez essayer de nouveau.
@@ -3260,6 +3275,9 @@ fr:
   spm_category: Catégorie SPM
   spm_category_objects_count: Catégorie SPM - nombre d’objets
   spm_category_partner_count: Catégorie SPM - nombre de partenaires
+  stars_with_count: 
+    one: "%{count} étoile"
+    other: "%{count} étoiles"
   started: Démarré
   stat: Stat
   stats: Statistiques
@@ -3660,7 +3678,6 @@ fr:
   this_page_shows_information_ab: Cette page affiche les informations sur un critère de recherche spécifique et sur quels résultats ont cliqué les utilisateurs après avoir exécuté la recherche.
   this_page_will_be_reindexed: Cette page sera réindexée en tâche de fond, et cela peut demander jusqu’à 24 heures pour être achevé.
   this_resource_unpublished_notice: Cette ressource n’est pas définie comme publiée par l’administrateur, pour l’instant.
-  this_section_is_used_to_create: Cette section est utilisée pour créer de nouveaux éléments. Les articles de nouvelles sont affichés sur la partie droite de la page d’accueil, ainsi que dans un %{rss_link} et dans la page de %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Cet enregistrement sonore ne peut pas être supervisé parce qu’il n’est pas publié.
   this_sound_is_unpublished: Cet enregistrement sonore n’est pas publié.
   this_video_cannot_be_curated_because_unpublished: Cette vidéo ne peut pas être supervisée parce qu’elle n’est pas publiée.
@@ -3710,7 +3727,9 @@ fr:
   type: Type
   unable_to_copy_items_to_collection_error: Désolé, nous n’avons pas pu copier les éléments de la collection dans %{name}.
   unable_to_determine_title: Impossible de déterminer le titre de cette page web
-  unable_to_invite_users_to_community_error: Les invitations n’ont pas pu être envoyées aux %{users}.
+  unable_to_invite_users_to_community_with_count: 
+    one: L’invitation n’a pas pu être envoyée à %{list}.
+    other: Les invitations n’ont pas pu être envoyées à %{list}.
   unique_page_views_th: Nombre de pages uniques vues
   unknown: Inconnu
   unknown_data_object_title: Objet de donnée inconnu

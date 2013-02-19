@@ -349,6 +349,36 @@ class UsersController < ApplicationController
     redirect_to recover_account_users_path
   end
 
+  def grant_permission
+    user = User.find(params[:id])
+    @permission = Permission.find(params[:permission_id])
+    raise EOL::Exceptions::ObjectNotFound unless @permission
+    raise EOL::Exceptions::SecurityViolation unless current_user.can?(:edit_permissions)
+    user.grant_permission(@permission)
+    respond_to do |format|
+      format.html do
+        redirect_to user, :status => :moved_permanently
+        flash[:notice] = I18n.t(:permission_granted)
+      end
+      format.js { }
+    end
+  end
+
+  def revoke_permission
+    @user = User.find(params[:id])
+    @permission = Permission.find(params[:permission_id])
+    raise EOL::Exceptions::ObjectNotFound unless @permission
+    raise EOL::Exceptions::SecurityViolation unless current_user.can?(:edit_permissions)
+    @user.revoke_permission(@permission)
+    respond_to do |format|
+      format.html do
+        redirect_to @user, :status => :moved_permanently
+        flash[:notice] = I18n.t(:permission_revoked)
+      end
+      format.js { }
+    end
+  end
+
 protected
 
   def scoped_variables_for_translations

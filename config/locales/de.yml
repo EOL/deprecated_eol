@@ -1139,7 +1139,6 @@ de:
   classification_tree_header: Klassifikation
   classifications_edit_cancelled_busy: Ihre Anforderung zum Bearbeiten der Klassifikationen kann momentan leider nicht verarbeitet werden. Eine oder mehrere Seiten zu Taxa sind gesperrt. Eine vorhandene Anforderung zum Bearbeiten dieser Klassifikationen wird gerade bearbeitet.
   classifications_edit_cancelled_merge_to_self: Die Ausgangs- und die Zielseite sind identisch. Es ist nichts zum Verschieben vorhanden.
-  classifications_empty: Diese Seite ist in keiner der Klassifikationen enthalten, die auf EOL durchsuchbar sind.
   classifications_exemplar_column_header: Beispielhaft
   classifications_hierarchy_column_header: Klassifikation
   classifications_locked: Die Klassifikationen auf dieser Seite können aktuell nicht bearbeitet werden. Eine weitere Anforderung, diese Klassifikationen zu bearbeiten, wird verarbeitet.
@@ -1935,10 +1934,10 @@ de:
       inactive_user_login: Das Konto ist leider noch nicht aktiv. Sofern Sie keine E-Mail zum Aktivieren des Kontos erhalten haben, führen Sie bitte die Schritte zum Bergen eines Kontos durch, um Ihre E-Mail-Adresse zu bestätigen und Ihr Konto zu aktivieren.
       min_assistant_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Prokuratoren sind.
       min_full_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Oberkuratoren sind.
+      min_master_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Hauptkuratoren sind.
   expand_all_children: alle untergeordneten Objekte expandieren
   explore: Entdecken
   explore_what_we_know_about_taxon: Erkunden Sie was EOL zu %{taxon} verfügbar hat.
-  export_all_of_the_entries_as_a: alle Einträge in eine CSV-Datei exportieren
   export_curator_csv_link: "[alle Kuratoren im CSV-Format exportieren]"
   export_this_list_as_csv: Diese Liste als CSV-Datei exportieren
   external_link_header: Externer Link
@@ -3727,7 +3726,6 @@ de:
   this_page_shows_information_ab: Diese Seite zeigt Informationen über die Anzahl der zur Suche jeweils angezeigten Ergebnisse an, sowie welche Ergebnisse die Nutzer nach Abschluss der Suche anklickten.
   this_page_will_be_reindexed: Diese Seite wird im Hintergrund reindiziert. Die Fertigstellung kann bis zu 24 Stunden in Anspruch nehmen.
   this_resource_unpublished_notice: Diese Quelle wurde bis zum jetzigen Zeitpunkt noch nicht als veröffentlicht festgelegt.
-  this_section_is_used_to_create: Dieser Abschnitt wird dazu verwendet Nachrichten zu erstellen. Nachrichten werden auf der rechten Seite der Startseite sowie in einem %{rss_link} und auf der Archivseite %{news_archive} angezeigt.
   this_sound_cannot_be_curated_because_unpublished: Diese Geräusche können nicht kuratiert werden, da er unveröffentlicht ist.
   this_sound_is_unpublished: Dieses Geräusch ist unveröffentlicht.
   this_video_cannot_be_curated_because_unpublished: Dieses Video kann nicht kuratiert werden, da er unveröffentlicht ist.
@@ -3777,7 +3775,9 @@ de:
   type: Art
   unable_to_copy_items_to_collection_error: Es war leider nicht möglich die Sammlung zu %{name} zu kopieren.
   unable_to_determine_title: Der Titel dieser Webseite konnte nicht ermittelt werden.
-  unable_to_invite_users_to_community_error: Die Einladungen konnten nicht zu %{users} gesendet werden.
+  unable_to_invite_users_to_community_with_count: 
+    one: Die Einladung konnte nicht an %{list} versandt werden.
+    other: Die Einladungen konnten nicht an %{list} versandt werden.
   unique_page_views_th: Eindeutige Seitenzugriffe
   unknown: Unbekannt
   unknown_data_object_title: Unbekanntes Datenobjekt

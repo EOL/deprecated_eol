@@ -148,7 +148,7 @@ class TaxonConcept < ActiveRecord::Base
   def preferred_common_name_in_language(language)
     if preferred_common_names.loaded?
       # sometimes we preload preferred names in all languages for lots of taxa
-      best_name_in_language = preferred_common_names.detect{ |c| c.language_id == language.id }
+      best_name_in_language = preferred_common_names.detect { |c| c.language_id == language.id }
     else
       # ...but if we don't, its faster to get only the one record in the current language
       best_name_in_language = preferred_common_names.where("language_id = #{language.id}").first
@@ -206,12 +206,6 @@ class TaxonConcept < ActiveRecord::Base
     User.find_all_by_id(curators)
   end
 
-  # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
-  # species is.  This will default to "unknown" for species that are not being tracked.
-  def iucn_conservation_status
-    return iucn.description
-  end
-
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
   # TODO - this is much slower than #title and should be removed.
   def scientific_name(hierarchy = nil, italicize = true)
@@ -244,7 +238,7 @@ class TaxonConcept < ActiveRecord::Base
   # models, not TaxonConcept models.  Hmmmn.
   def ancestors
     return [] unless entry
-    entry.ancestors.map {|a| a.taxon_concept }
+    entry.ancestors.map { |a| a.taxon_concept }
   end
 
   # Get a list of TaxonConcept models that are children to this one.
@@ -268,7 +262,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # If *any* of the associated HEs are species or below, we consider this to be a species:
   def species_or_below?
-    published_hierarchy_entries.detect {|he| he.species_or_below? }
+    published_hierarchy_entries.detect { |he| he.species_or_below? }
   end
 
   def has_outlinks?
@@ -331,16 +325,6 @@ class TaxonConcept < ActiveRecord::Base
     return all_outlinks
   end
 
-  def gbif_map_id
-    return @gbif_map_id if @gbif_map_id
-    if h = Hierarchy.gbif
-      if he = HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", h.id, id).select(:identifier).first
-        @gbif_map_id = he.identifier
-        return he.identifier
-      end
-    end
-  end
-
   # Cleans up instance variables in addition to the usual lot.
   def reload
     @@ar_instance_vars ||= TaxonConcept.new.instance_variables
@@ -365,7 +349,7 @@ class TaxonConcept < ActiveRecord::Base
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
     @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries) if @all_entries.blank?
     best_entry = hierarchy ? 
-      @all_entries.detect {|he| he.hierarchy_id == hierarchy.id } || @all_entries.first :
+      @all_entries.detect { |he| he.hierarchy_id == hierarchy.id } || @all_entries.first :
       @all_entries.first
     create_preferred_entry(best_entry) if hierarchy.nil?
     @cached_entry[hierarchy] = best_entry
@@ -380,12 +364,22 @@ class TaxonConcept < ActiveRecord::Base
 
   def in_hierarchy?(search_hierarchy = nil)
     return false unless search_hierarchy
-    entries = published_hierarchy_entries.detect {|he| he.hierarchy_id == search_hierarchy.id }
+    entries = published_hierarchy_entries.detect { |he| he.hierarchy_id == search_hierarchy.id }
     return entries.nil? ? false : true
   end
 
   def has_map?
     return true if (gbif_map_id && GbifIdentifiersWithMap.find_by_gbif_taxon_id(gbif_map_id))
+  end
+
+  def gbif_map_id
+    return @gbif_map_id if @gbif_map_id
+    if h = Hierarchy.gbif
+      if he = HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", h.id, id).select(:identifier).first
+        @gbif_map_id = he.identifier
+        return he.identifier
+      end
+    end
   end
 
   # TODO - this is only used privately.
@@ -440,26 +434,6 @@ class TaxonConcept < ActiveRecord::Base
     @superceded_the_requested_id = true
   end
 
-  def iucn
-    return @iucn if !@iucn.nil?
-    # IUCN was getting called over 240 times below, so I am checking the data_type
-    # here rather than using the is_iucn? which would call DataType.iucn later in DataObject
-    iucn_data_type = DataType.iucn
-    
-    iucn_objects = DataObject.find(:all, :joins => :data_objects_taxon_concepts,
-      :conditions => "`data_objects_taxon_concepts`.`taxon_concept_id` = #{self.id}
-        AND `data_objects`.`data_type_id` = #{DataType.iucn.id} AND `data_objects`.`published` = 1",
-      :order => "`data_objects`.`id` DESC")
-    my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
-    temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
-    @iucn = temp_iucn
-    return @iucn
-  end
-
-  def iucn_conservation_status_url
-    return iucn.source_url
-  end
-
   # Returns an array of HierarchyEntry models (not TaxonConcept models), useful for building navigable
   # trees.  If you really want TCs, refer to #ancestors (yes, TODO - these sould be better-named!)
   def ancestry(hierarchy_id = nil)
@@ -477,7 +451,7 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def classified_by
+  def rank_label
     entry.rank_label
   end
 
@@ -583,41 +557,12 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def top_communities
-    # communities are sorted by the most number of members - descending order
-    community_ids = communities.map{|c| c.id}.compact
-    return [] if community_ids.blank?
-    member_counts = Member.select("community_id").group("community_id").where(["community_id IN (?)", community_ids]).
-      order('count_community_id DESC').count
-    if member_counts.blank?
-      return communities
-    else
-      communities_sorted_by_member_count = member_counts.keys.map { |collection_id| communities.detect{ |c| c.id == collection_id } }
-    end
-    best_three = communities_sorted_by_member_count[0..2]
-    Community.preload_associations(best_three, :collections, :select => { :collections => :id })
-    return best_three
-  end
-
   def communities
-    @communities ||= Community.find_by_sql("
-      SELECT c.* FROM communities c
-        JOIN collections_communities cc ON (cc.community_id = c.id)
-        JOIN collections cl ON (cc.collection_id = cl.id)
-        JOIN collection_items ci ON (ci.collection_id = cl.id)
-      WHERE ci.collected_item_id = #{id} AND collected_item_type = 'TaxonConcept' AND c.published = 1
-    ")
-  end
-
-  def top_collections
-    return @top_collections if @top_collections
-    all_containing_collections = collections.select{ |c| c.published? && !c.watch_collection? }
-    # This algorithm (-relevance) was faster than either #reverse or rel * -1.
-    @top_collections = all_containing_collections.sort_by { |c| [ -c.relevance ] }[0..2]
+    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c| c.communities }.flatten.compact.uniq
   end
 
   def flattened_ancestor_ids
-    @flattened_ancestor_ids ||= flattened_ancestors.map {|a| a.ancestor_id }
+    @flattened_ancestor_ids ||= flattened_ancestors.map { |a| a.ancestor_id }
   end
 
   def scientific_names_for_solr
@@ -715,19 +660,29 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # TODO - this belongs on TaxonOverview
-  def map
-    return @map if @map
-    map_results = get_one_map
-    @map = map_results.blank? ? nil : map_results.first
-  end
-
   def maps_count()
+    # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
+    # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be 
+    # TaxonConceptCache, where we can handle both storing and clearing keys. That centralizes the logic,
+    # and would allow us to put these two methods where they belong:
     @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
-      count = get_one_map.total_entries
+      count = get_one_map_from_solr.total_entries
       count +=1 if self.has_map?
       count
     end
+  end
+
+  def get_one_map_from_solr
+    data_objects_from_solr(
+      :page => 1, 
+      :per_page => 1,
+      :data_type_ids => DataType.image_type_ids,
+      :data_subtype_ids => DataType.map_type_ids,
+      :vetted_types => ['trusted', 'unreviewed'],
+      :visibility_types => ['visible'],
+      :ignore_translations => true,
+      :skip_preload => true
+    )
   end
 
   # returns a DataObject, not a TaxonConceptExemplarImage
@@ -750,8 +705,10 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   # returns a DataObject, not a TaxonConceptExemplarArticle
-  def published_visible_exemplar_article
-    if taxon_concept_exemplar_article && (the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language)
+  def published_visible_exemplar_article_in_language(language)
+    return nil unless taxon_concept_exemplar_article
+    if the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language
+      return nil if the_best_article.language != language
       return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.visible.id
     end
   end
@@ -816,6 +773,7 @@ class TaxonConcept < ActiveRecord::Base
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
   # want to touch the API quite yet.
   def overview_text_for_user(the_user)
+    the_user ||= EOL::AnonymousUser.new(Language.default)
     TaxonConcept.prepare_cache_classes
     cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
     best_article_id ||= Rails.cache.read(cached_key)
@@ -842,24 +800,6 @@ class TaxonConcept < ActiveRecord::Base
   
   def data_objects_from_solr(solr_query_parameters = {})
     EOL::Solr::DataObjects.search_with_pagination(id, TaxonConcept.default_solr_query_parameters(solr_query_parameters))
-  end
-  
-  def get_unique_link_type_ids_for_user(the_user, options)
-    return @get_unique_link_type_ids_for_user if @get_unique_link_type_ids_for_user
-    options[:data_type_ids] = DataType.text_type_ids
-    options[:vetted_types] = the_user.vetted_types
-    options[:visibility_types] = the_user.visibility_types
-    options[:filter_by_subtype] = false
-    @get_unique_link_type_ids_for_user = EOL::Solr::DataObjects.unique_link_type_ids(self.id, TaxonConcept.default_solr_query_parameters(options))
-  end
-  
-  def get_unique_toc_ids_for_user(the_user, options)
-    return @get_unique_toc_ids_for_user if @get_unique_toc_ids_for_user
-    options[:data_type_ids] = DataType.text_type_ids
-    options[:vetted_types] = the_user.vetted_types
-    options[:visibility_types] = the_user.visibility_types
-    options[:filter_by_subtype] = true
-    @get_unique_toc_ids_for_user = EOL::Solr::DataObjects.unique_toc_ids(self.id, TaxonConcept.default_solr_query_parameters(options))
   end
   
   def media_facet_counts
@@ -911,7 +851,7 @@ class TaxonConcept < ActiveRecord::Base
     return @deep_browsables if @deep_browsables
     current_entry_id = entry.id # Don't want to call #entry so many times...
     @deep_browsables = cached_deep_published_hierarchy_entries.dup
-    @deep_browsables.delete_if {|he| current_entry_id != he.id && he.hierarchy.browsable.to_i == 0 }
+    @deep_browsables.delete_if { |he| current_entry_id != he.id && he.hierarchy.browsable.to_i == 0 }
     @deep_browsables += deep_published_browsable_hierarchy_entries if
       @deep_browsables.count == 1 && @deep_browsables.first.id == current_entry_id &&
         @deep_browsables.first.hierarchy.browsable.to_i == 0
@@ -924,9 +864,9 @@ class TaxonConcept < ActiveRecord::Base
   # them.
   def deep_published_nonbrowsable_hierarchy_entries
     return @deep_nonbrowsables if @deep_nonbrowsables
-    current_entry_id = entry.id # Don't want to call #entry so many times...
+    current_entry_id = entry.id  # Don't want to call #entry so many times...
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
-    @deep_nonbrowsables.delete_if {|he| he.hierarchy.browsable.to_i == 1 || current_entry_id == he.id }
+    @deep_nonbrowsables.delete_if { |he| he.hierarchy.browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)
   end
 
@@ -977,7 +917,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def all_published_entries?(hierarchy_entry_ids)
-    hierarchy_entry_ids.map {|he| he.is_a?(HierarchyEntry) ? he.id : he.to_i }.compact.sort == deep_published_sorted_hierarchy_entries.map {|he| he.id}.compact.sort
+    hierarchy_entry_ids.map { |he| he.is_a?(HierarchyEntry) ? he.id : he.to_i }.compact.sort == deep_published_sorted_hierarchy_entries.map { |he| he.id}.compact.sort
   end
 
   def providers_match_on_merge(hierarchy_entry_ids)
@@ -1040,23 +980,10 @@ class TaxonConcept < ActiveRecord::Base
 
 private
 
-  def get_one_map
-    data_objects_from_solr(
-      :page => 1, 
-      :per_page => 1,
-      :data_type_ids => DataType.image_type_ids,
-      :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => ['trusted', 'unreviewed'],
-      :visibility_types => ['visible'],
-      :ignore_translations => true,
-      :skip_preload => true
-    )
-  end
-
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user
   def best_article_for_user(the_user)
-    if published_exemplar = published_visible_exemplar_article
+    if published_exemplar = published_visible_exemplar_article_in_language(the_user.language)
       published_exemplar
     else
       # Sending User.new here since overview text should be the same for all users - curators
@@ -1068,7 +995,7 @@ private
         :toc_ids => TocItem.possible_overview_ids,
         :filter_by_subtype => true })
       # TODO - really? #text_for_user returns unpublished articles?
-      overview_text_objects.delete_if {|article| ! article.published? }
+      overview_text_objects.delete_if { |article| ! article.published? }
       DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
         :vetted, :visibility ] })
       return nil if overview_text_objects.empty?
@@ -1079,7 +1006,7 @@ private
   # Put the currently-preferred entry at the top of the list and load associations:
   def sort_and_preload_deeply_browsable_entries(set) 
     current_entry_id = entry.id # Don't want to call #entry so many times...
-    set.sort! {|a,b| a.id == current_entry_id ? -1 : b.id == current_entry_id ? 1 : 0}
+    set.sort! { |a,b| a.id == current_entry_id ? -1 : b.id == current_entry_id ? 1 : 0}
     HierarchyEntry.preload_deeply_browsable(set)
   end
 

@@ -147,6 +147,8 @@ sv:
   translated_ranks-label-rank_id-494: stam
   translated_ranks-label-rank_id-503: oklassificerad
   translated_ranks-label-rank_id-51: klass
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-91: fam
@@ -179,12 +181,14 @@ sv:
   translated_synonym_relations-label-synonym_relation_id-12: inkluderar
   translated_synonym_relations-label-synonym_relation_id-14: felstavning
   translated_synonym_relations-label-synonym_relation_id-15: teleomorf
+  translated_synonym_relations-label-synonym_relation_id-17: felaktigt namn
   translated_synonym_relations-label-synonym_relation_id-18: preliminärt godkänt namn
   translated_synonym_relations-label-synonym_relation_id-19: accepterat namn
   translated_synonym_relations-label-synonym_relation_id-2: vanligt namn
   translated_synonym_relations-label-synonym_relation_id-20: databasartefakt
   translated_synonym_relations-label-synonym_relation_id-21: andra, se kommentarer
   translated_synonym_relations-label-synonym_relation_id-22: ortografisk variant (felstavning)
+  translated_synonym_relations-label-synonym_relation_id-23: felaktigt
   translated_synonym_relations-label-synonym_relation_id-24: avvisat namn
   translated_synonym_relations-label-synonym_relation_id-3: akronym
   translated_synonym_relations-label-synonym_relation_id-30: otillgänglig, databasartefakt

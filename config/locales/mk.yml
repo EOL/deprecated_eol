@@ -524,6 +524,15 @@ mk:
           an_unknown_user_split_classifications_from_taxon: Непознат корисник ги одвои класификациите од %{classifications} од %{taxon} во <a href='%{to}'>неговата лична страница</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} од непозната страница во <a href='%{to}'>неговата лична страница</a>.
           user_split_classifications_from_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} во <a href='%{to}'>неговата лична страница</a>.
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: Непознат корисник ја смени минијатурата на „%{data_object}“.
+        an_unknown_user_cropped_an_unknown_data_object: Непознат корисник ја смени минијатурата на непозната слика.
+        an_unknown_user_cropped_data_object: Непознат корисник ја смени минијатурата на „%{data_object}“.
+        an_unknown_user_cropped_it: Непознат корисник ја смени минијатурата на непозната слика.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> ја смени минијатурата на постара верзија на „%{data_object}“.
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> ја смени минијатурата на непозната слика.
+        user_cropped_data_object: <strong>%{user}</strong> ја смени минијатурата на „%{data_object}“.
+        user_cropped_it: <strong>%{user}</strong> ја смени минијатурата на непозната слика.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена во непознат контекст.
         an_unknown_user_hid_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена на страницата „%{association}“.
@@ -1056,6 +1065,7 @@ mk:
   author_of_peer_reviewed_publication_credential_option: авторство на рецензираното дело (треба навод)
   authoritative_information: меродавни информации
   available: достапно
+  average_rating: просечна оценка
   average_rating_value_of_total: "Просечна оценка: %{rating} од %{total}"
   back: Назад
   back_to_profile: Назад кон профилот
@@ -1120,7 +1130,6 @@ mk:
   classification_tree_header: Класификација
   classifications_edit_cancelled_busy: Нажалост, во моментов не можеме да го обработиме барањето за измена на класификациите бидејќи една или повеќе од таксонските страници се заклучени. Ова се должи на тоа што веќе обработуваме претходно зададено барање за измена на класификациите.
   classifications_edit_cancelled_merge_to_self: Изворната и целната страница се исти. Нема што да се премести.
-  classifications_empty: Оваа страница не фигурира во ниедна класификација што може да се најде на EOL.
   classifications_exemplar_column_header: Пример
   classifications_hierarchy_column_header: Класификација
   classifications_locked: Во моментов не можат да се менуваат класификациите на оваа страница. Веќе обработуваме претходно зададено барање за измена на класификациите.
@@ -1580,6 +1589,8 @@ mk:
   creative_commons: Криејтив комонс
   credentials: Полномоштва
   credentials_colon: "Полномоштва:"
+  crop_image: кадрирај
+  crop_image_thumbnails: Кадрирање на минијатури
   curated: Згрижени
   curated_association_update_button: Зачувај промени
   curated_objects_of: згрижени објекти на %{name}
@@ -1910,11 +1921,12 @@ mk:
       hidden_user_recover_account: Нажалост, на таа сметка ѝ е оневозможен повраток.
       hidden_user_temporary_login: Нажалост, на таа сметка ѝ е оневозможено најавување и повраток.
       inactive_user_login: Нажалост, таа сметка сè уште не е активна. Доколку не добивте порака за заверка кога се пријавивте, тогаш проследете ја постапката за повраток на сметката за да ја потврдите вашата е-пошта и така да ја активирате сметката.
+      min_assistant_curators_only: Нажалост, пристапот е дозволен само на корисници со статус барем на помошник-кустос.
       min_full_curators_only: Нажалост, пристапот е ограничен само на полни Кустоси.
+      min_master_curators_only: Нажалост, пристапот е дозволен само на корисници со статус барем на виш кустос.
   expand_all_children: отвори ги сите поттаксони
   explore: Истражете
   explore_what_we_know_about_taxon: Истражете што сè знае EOL за таксонот %{taxon}.
-  export_all_of_the_entries_as_a: извеси ги сите ставки како CVS-податотека
   export_curator_csv_link: "[извези ги сите кустоси како CSV]"
   export_this_list_as_csv: Извези го списоков како CSV
   external_link_header: Надворешна врска
@@ -2330,6 +2342,8 @@ mk:
   if_the_details_parameter_is_not_set: Ако параметарот за подробности не е зададен, тогаш изводот ќе даде само назнака на податочниот објект, податочниот тип и, во случај на статии, предметот (тематиката). Податочниот тип ќе биде вредност од поимникот на ресурсни типови %{linka}. Темата (насловот) на текстот ќе биде една од овие %{linkb}.
   image: Слика
   image_alt_text: Оваа %{vetted_status} слика го претставува таксонот %{taxon_name}
+  image_crop_failed_error: Нажалост, се појави грешка. Не можев да ја кадрирам сликата.
+  image_cropped_notice: Сликата е успешно кадрирана.
   image_from_supplier: Слика од %{whom}
   image_is_no_longer_available: Сликата повеќе не е достапна
   image_map_alt_text: Оваа %{vetted_status} карта го претставува таксонот %{taxon_name}
@@ -3014,6 +3028,7 @@ mk:
     one: од %{count} лице
     other: од %{count} лица
   rating_added_notice: Оценката е успешно додадена.
+  rating_learn_more_link: Дознајте за оценувањето
   rating_not_added_error: Нажалост, се појави грешка. Не можев да ја додадам оценката.
   recaptcha: Внесете ги двата збора прикажани подолу
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">Знаците во reCaptcha</a> не се совпаѓаат. Обидете се повторно.
@@ -3297,6 +3312,9 @@ mk:
   spm_category: SPM категорија
   spm_category_objects_count: SPM категорија - број на објекти
   spm_category_partner_count: SPM категорија - број на партнери
+  stars_with_count: 
+    one: "%{count} ѕвезда"
+    other: "%{count} ѕвезди"
   started: Отпочнато
   stat: Статистика
   stats: Статистики
@@ -3697,7 +3715,6 @@ mk:
   this_page_shows_information_ab: На оваа страница се прикажани информации за даден поим за пребарување и ги наведува резултатите од пребарувањето што ги стиснале корисниците.
   this_page_will_be_reindexed: Оваа страница ќе се преиндексира во позадина, а ова може да потрае до 24 часа.
   this_resource_unpublished_notice: Овој ресурс во моментов не е означен како објавен од страна на администратор.
-  this_section_is_used_to_create: Овој дел служи за создавање на нови експонати. Новостите се истакнуваат во десниот дел на домашната страница, како и во %{rss_link} и страницата %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Оваа звучна снимка не може да се згрижи бидејќи не е објавена.
   this_sound_is_unpublished: Оваа аудиоснимка е необјавена.
   this_video_cannot_be_curated_because_unpublished: Оваа видеоснимка не може да се згрижи бидејќи не е објавена.
@@ -3747,7 +3764,9 @@ mk:
   type: Тип
   unable_to_copy_items_to_collection_error: Нажалост, не можев да ги ископирам експонатите во %{name}.
   unable_to_determine_title: Не можам да го утврдам насловот на оваа мреж. страница
-  unable_to_invite_users_to_community_error: Не можев да испратам покани до %{users}.
+  unable_to_invite_users_to_community_with_count: 
+    one: Не можав да ја испратам поканата на %{list}.
+    other: Не можав да ги испратам поканите на %{list}.
   unique_page_views_th: Засебни посети
   unknown: Непознат
   unknown_data_object_title: Непознат податочен објект

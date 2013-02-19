@@ -1135,7 +1135,6 @@ es:
   classification_tree_header: Clasificación
   classifications_edit_cancelled_busy: Lo sentimos, no se puede procesar tu solicitud para editar las clasificaciones en este momento; una o más páginas del taxón están bloqueadas. Se está tramitando una solicitud existente para editar estas clasificaciones.
   classifications_edit_cancelled_merge_to_self: Tu origen y destino son la misma página; no hay nada que trasladar.
-  classifications_empty: Esta página no está incluida en ninguna de las clasificaciones que se pueden examinar en EOL.
   classifications_exemplar_column_header: Ejemplar
   classifications_hierarchy_column_header: Clasificación
   classifications_locked: Las clasificaciones de esta página no se pueden editar en este momento. Otra solicitud para editar estas clasificaciones se está tramitando.
@@ -1928,7 +1927,6 @@ es:
   expand_all_children: expandir todas las dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar qué sabe EOL de %{taxon}.
-  export_all_of_the_entries_as_a: exportar todas las entradas como un archivo en formato CSV
   export_curator_csv_link: "[exportar todos los supervisores en formato CSV]"
   export_this_list_as_csv: Exporta esta lista como CSV
   external_link_header: Enlace externo
@@ -3696,7 +3694,6 @@ es:
   this_page_shows_information_ab: Esta página muestra información sobre un término de búsqueda específica y los resultados a los que accedieron los usuarios haciendo clic sobre ellos después de ejecutar la búsqueda.
   this_page_will_be_reindexed: Esta página será reindexada en segundo plano, y pueden ser necesarias hasta 24 horas para completar el proceso.
   this_resource_unpublished_notice: Este recurso no está definido como publicado por el administrador, en este momento.
-  this_section_is_used_to_create: En esta sección se utiliza para crear noticias.  Las noticias se muestran en la parte derecha de la página principal, así como en un %{rss_link} y en la página de %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Este sonido no puede ser supervisado porque no ha sido publicado.
   this_sound_is_unpublished: Este sonido no ha sido publicado.
   this_video_cannot_be_curated_because_unpublished: Este vídeo no puede ser supervisado porque no ha sido publicado.
@@ -3746,7 +3743,6 @@ es:
   type: Tipo
   unable_to_copy_items_to_collection_error: Lo siento, no se pudo copiar los elementos de la colección a %{name}.
   unable_to_determine_title: No se ha podido determinar el título de esta página web
-  unable_to_invite_users_to_community_error: No se pudo enviar invitaciones a %{users}.
   unique_page_views_th: Visitas únicas de página
   unknown: Desconocido
   unknown_data_object_title: Objeto de datos desconocido

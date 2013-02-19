@@ -107,13 +107,13 @@
                       = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                     - if hierarchy_entry.hierarchy.browsable?
                       %br
-                      = link_to(I18n.t(:view_in_classification), overview_taxon_entry_path(@taxon_page.taxon_concept, hierarchy_entry))
+                      = link_to(I18n.t(:view_in_classification), taxon_entry_overview_path(@taxon_page.taxon_concept, hierarchy_entry))
                     - if pending
                       %br
                       = raw I18n.t(:classification_curation_pending)
                   %td.rank
                     - if hierarchy_entry.rank
-                      = hierarchy_entry.classified_by
+                      = hierarchy_entry.rank_label
                   %td.browsable.classifications
                     = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
         - if @other_hierarchy_entries.empty?
@@ -140,7 +140,7 @@
                               = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                           %td.rank
                             - if hierarchy_entry.rank
-                              = hierarchy_entry.classified_by
+                              = hierarchy_entry.rank_label
                           %td.browsable.classifications
                             = render(:partial => 'navigation/node', :locals => { :in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true })
                           %td

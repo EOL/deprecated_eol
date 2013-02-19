@@ -1,7 +1,7 @@
 class Taxa::TaxonConceptReindexingController < TaxaController
 
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :restrict_to_full_curators
+  before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
+  before_filter :restrict_to_master_curators
 
   def create
     begin
@@ -14,7 +14,7 @@ class Taxa::TaxonConceptReindexingController < TaxaController
     end
     respond_to do |format|
       format.html do
-        redirect_to overview_taxon_url(@taxon_concept)
+        redirect_to taxon_overview_url(@taxon_concept)
       end
       format.js do
         convert_flash_messages_for_ajax

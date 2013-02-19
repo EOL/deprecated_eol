@@ -12,7 +12,7 @@
 - if hierarchy_entry
   - if show_hierarchy_label
     - hierarchy_label = hierarchy_display_title(hierarchy_entry.hierarchy)
-    %h4= raw(I18n.t(:rank_recognized_by_agent_colon, :rank => hierarchy_entry.classified_by, :agent => hierarchy_label))
+    %h4= raw(I18n.t(:rank_recognized_by_agent_colon, :rank => hierarchy_entry.rank_label, :agent => hierarchy_label))
   -# preloading the name information for ancestors and current node at the same time
   - HierarchyEntry.preload_associations(hierarchy_entry.ancestors + [hierarchy_entry], :name)
   - siblings = nil

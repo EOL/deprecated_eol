@@ -517,6 +517,12 @@ FactoryGirl.define do
     updated_at  { 5.days.ago }
   end
 
+  factory :curated_taxon_concept_preferred_entry do
+    association :hierarchy_entry
+    association :taxon_concept
+    association :user
+  end
+
   factory :curated_data_objects_hierarchy_entry do
     association :hierarchy_entry
     association :data_object
@@ -821,8 +827,12 @@ FactoryGirl.define do
     association :item_page
   end
 
+  factory :permission do
+    users_count 0
+  end
+
   factory :publication_title do
-    short_title 'hello'
+    short_title 'Publication'
     author      'bob'
     call_number ''
     end_year    ''
@@ -1075,6 +1085,12 @@ FactoryGirl.define do
     association     :license
     language        { Language.english }
     description     { generate(:string) }
+  end
+
+  factory :translated_permission do
+    association :permission
+    language    { Language.english }
+    name        { generate(:string) }
   end
 
   factory :translated_news_item do

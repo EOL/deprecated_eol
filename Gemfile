@@ -37,7 +37,7 @@ group :assets do
   gem 'turbo-sprockets-rails3', '0.3.4'
 end
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 gem 'acts_as_tree_rails3', '0.1.0'
 gem 'ckeditor', '3.7.3'
@@ -53,7 +53,7 @@ gem 'haml', '3.1.7'
 gem 'indifferent-variable-hash', '0.1.0'
 gem 'invert', '0.1.0'
 gem 'jquery-rails', '2.1.3'
-gem 'json', '1.7.5'
+gem 'json', '1.7.7'
 gem 'macaddr', '1.6.1'
 gem 'mime-types', '1.19'
 gem 'mysql2', '0.3.11'

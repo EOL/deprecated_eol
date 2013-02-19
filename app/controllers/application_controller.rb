@@ -324,18 +324,16 @@ class ApplicationController < ActionController::Base
       :administrators_only) unless current_user.is_admin?
   end
 
+  def restrict_to_master_curators
+    restrict_to_curators_of_level(:master)
+  end
+
   def restrict_to_full_curators
-    raise EOL::Exceptions::SecurityViolation.new(
-      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
-      " that is restricted to EOL Full Curators and above, and was disallowed.",
-      :min_full_curators_only) unless current_user.min_curator_level?(:full)
+    restrict_to_curators_of_level(:full)
   end
 
   def restrict_to_curators
-    raise EOL::Exceptions::SecurityViolation.new(
-      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
-      " that is restricted to EOL Assistant Curators and above, and was disallowed.",
-      :min_assistant_curators_only) unless current_user.min_curator_level?(:assistant)
+    restrict_to_curators_of_level(:assistant)
   end
 
   # A user is not authorized for the particular controller/action:
@@ -702,6 +700,14 @@ protected
   end
 
 private
+
+  # NOTE - levels allowed are :assistant, :full and :master. (You may need this for the i18n YAML.)
+  def restrict_to_curators_of_level(level)
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL #{level} curators and above, and was disallowed.",
+      "min_#{level}_curators_only") unless current_user.min_curator_level?(level)
+  end
 
   # Currently only used by collections and content controllers to log in users coming from iNaturalist
   # TODO: Allow for all URLs except be sure not to interfere with EOL registration or login

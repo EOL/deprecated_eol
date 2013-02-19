@@ -1937,6 +1937,9 @@ ul.content_partner_contacts
     img
       display: block
       margin: 0 auto
+    p
+      padding-top: 8px
+      text-align: center
   &.image
     #main
       .article
@@ -2042,17 +2045,24 @@ ul.content_partner_contacts
           margin: 0 3px 0 0
   #crop_panel
     height: 140px
-  .crop_preview
-    overflow: hidden
-    margin-left: 10px
-    border: 2px black solid
-    float: left
-    &.width_130
-      width: 130px
-      height: 130px
-    &.width_88
-      width: 88px
-      height: 88px
+    .preview
+      float: left
+      margin-left: 10px
+      .title
+        padding: 0 0 4px 0
+        font-weight: bold
+    .crop_preview
+      overflow: hidden
+      border: 2px black solid
+      &.width_130
+        width: 130px
+        height: 130px
+      &.width_88
+        width: 88px
+        height: 88px
+  #crop_form
+    clear: both
+    padding: 4px 0 0 10px
 
 #permalink_add_association
   width: 700px
@@ -2979,3 +2989,22 @@ ul.spotlite-matches
         left: -1px
         border: 1px solid #7e90a0
         background: #93a4b2
+ul#permissions
+  .can
+    font-weight: bold
+    a.grant
+      display: none
+    a.revoke
+      padding-left: 1em
+      display: inline
+      font-weight: normal
+  .cannot
+    font-weight: normal
+    a.grant
+      padding-left: 1em
+      display: inline
+      font-weight: normal
+    a.revoke
+      display: none
+.override_lowercase
+  text-transform: none !important

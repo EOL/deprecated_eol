@@ -186,34 +186,6 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  # TODO - params and options?  Really?  Really?!
-  def self.create_user_text(params, options)
-    unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
-      if options[:link_object]
-        params[:data_subtype_id] = DataType.link.id
-      else
-        params[:rights_holder] = options[:user].full_name
-      end
-    end
-    dato = DataObject.new(params.reverse_merge!({:published => true}))
-    if dato.save
-      begin
-        dato.toc_items = Array(TocItem.find(options[:toc_id]))
-        dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
-        unless options[:link_type_id].blank? && options[:link_type_id] != 0
-          dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => dato, :link_type_id => options[:link_type_id])
-        end
-      rescue => e
-        dato.update_column(:published, false)
-        raise e
-      ensure
-        options[:taxon_concept].reload if options[:taxon_concept]
-        dato.update_solr_index
-      end
-    end
-    dato
-  end
-
   def self.latest_published_version_of(data_object_id)
     obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
@@ -249,15 +221,32 @@ class DataObject < ActiveRecord::Base
     DataObject.find(data_object_id, :select => 'published').published?
   end
 
-  # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
-  def replicate(params, options)
-    unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
-      if options[:link_object]
-        params[:data_subtype_id] = DataType.link.id
-      else
-        params[:rights_holder] = options[:user].full_name
+  def self.create_user_text(params, options)
+    DataObject.set_subtype_if_link_object(params, options)
+    DataObject.populate_rights_holder_or_data_subtype(params, options)
+    dato = DataObject.new(params.reverse_merge!({:published => true}))
+    if dato.save
+      begin
+        dato.toc_items = Array(TocItem.find(options[:toc_id]))
+        dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
+        unless options[:link_type_id].blank? && options[:link_type_id] != 0
+          dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => dato, :link_type_id => options[:link_type_id])
+        end
+      rescue => e
+        dato.update_column(:published, false)
+        raise e
+      ensure
+        options[:taxon_concept].reload if options[:taxon_concept]
+        dato.update_solr_index
       end
     end
+    dato
+  end
+
+  # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
+  def replicate(params, options)
+    DataObject.set_subtype_if_link_object(params, options)
+    DataObject.populate_rights_holder_or_data_subtype(params, options)
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
       begin
@@ -425,12 +414,12 @@ class DataObject < ActiveRecord::Base
 
   # NOTE: Specifically for image maps
   def image_map?
-    self.is_image? && DataType.map_type_ids.include?(data_subtype_id)
+    self.is_image? && is_subtype?(:map)
   end
   alias is_image_map? image_map?
 
   def link?
-    self.is_text? && DataType.link_type_ids.include?(data_subtype_id)
+    self.is_text? && is_subtype?(:link)
   end
   alias is_link? link?
 
@@ -1041,22 +1030,20 @@ class DataObject < ActiveRecord::Base
 
   def self.replace_with_latest_versions!(data_objects, options={})
     options[:select] = [] if options[:select].blank? || options[:select].class != Array
-    default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url, :data_rating, :object_title,
-      :rights_holder, :source_url, :license_id, :mime_type_id, :object_url, :thumbnail_cache_url, :created_at ]
+    default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url,
+      :data_rating, :object_title, :rights_holder, :source_url, :license_id, :mime_type_id, :object_url,
+      :thumbnail_cache_url, :created_at ]
     DataObject.preload_associations(data_objects, [ :language, :all_published_versions ],
       :select => {
         :languages => '*',
         :data_objects => default_selects | options[:select] } )
-    data_objects.map! do |d|
-      # TODO - just use compact instead of this? ...Unfortunately, as-is, it looks like nils are passed through...
-      next if d.nil?
-      # NOTE - I changed this from "false", below... was this a problem?
-      if latest_version = d.latest_version_in_language(options[:language_id] || d.language_id, :check_only_published => true)
-        d = latest_version
-      end
-      d.is_the_latest_published_revision = true
-      d
-    end
+    DataObject.replace_with_latest_versions_no_preload(data_objects, options)
+  end
+
+  def self.replace_with_latest_versions_no_preload(data_objects, options = {})
+    data_objects.select { |instance| instance.is_a? DataObject }.compact.map do |dato|
+      dato.latest_version_in_language(options[:language_id] || dato.language_id, :check_only_published => false)
+    end.map { |dato| dato.is_the_latest_published_revision = true }
   end
 
   def unpublish_previous_revisions
@@ -1120,6 +1107,16 @@ class DataObject < ActiveRecord::Base
     license && license.show_rights_holder?
   end
 
+  def can_be_made_overview_text_for_user?(user, taxon_concept)
+    return false unless published?
+    if visibility_by_taxon_concept(taxon_concept) == Visibility.visible
+      overview = taxon_concept.overview_text_for_user(user)
+      return true if overview.blank?
+      return true if guid != taxon_concept.overview_text_for_user(user).guid
+    end
+    false
+  end
+
   def rights_holder_for_display
     return rights_holder unless rights_holder.blank?
     return resource.rights_holder unless resource.blank? || resource.rights_holder.blank?
@@ -1135,7 +1132,37 @@ class DataObject < ActiveRecord::Base
     return resource.bibliographic_citation unless resource.blank? || resource.bibliographic_citation.blank?
   end
 
+  # NOTE - this is not very intention-revealing, because we #set_to_representative_language... but that doesn't
+  # bother me enough to give it a loooooong method name.
+  def approved_language?
+    set_to_representative_language
+    Language.approved_languages.include?(language)
+  end
+
+  def set_to_representative_language
+    language = language.representative_language
+  end
+
 private
+
+  # TODO - this is quite lame. Best to re-think this. Perhaps a class that handles and cleans the DatoParams?
+  # NOTE that this can modify params.
+  # Remember, you don't put a bang on overwrite methods unless there's a safe version that *doesn't* do it.
+  def self.populate_rights_holder_or_data_subtype(params, options)
+    return if options[:link_object]
+    license = License.find(params[:license_id]) rescue nil
+    needs_rights = license && license.show_rights_holder? 
+    params[:rights_holder] = options[:user].full_name if needs_rights && params[:rights_holder].blank?
+  end
+
+  def self.set_subtype_if_link_object(params, options)
+    params[:data_subtype_id] = DataType.link.id if options[:link_object]
+  end
+
+  def is_subtype?(type)
+    reload unless self.has_attribute?(:data_subtype_id) 
+    DataType.send("#{type}_type_ids".to_sym).include?(data_subtype_id)
+  end
 
   def safe_object_title
     safe_attribute(:object_title)

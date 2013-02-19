@@ -32,7 +32,7 @@ describe 'Taxa page basic tests' do
     curator = build_curator(tc)
     tc.add_common_name_synonym("Tom & Jerry", :agent => curator.agent, :language => Language.english,
                                :vetted => Vetted.trusted, :preferred => true)
-    visit overview_taxon_path(tc.id)
+    visit taxon_overview_path(tc.id)
     body.should include('Tom &amp; Jerry')
     body.should_not include('Tom &amp;amp; Jerry')
   end
@@ -135,7 +135,7 @@ describe 'Taxa page' do
     it 'should have taxon links for the images in the gallery' do
       (0..3).each do |i|
         taxon = @taxon_concept.images_from_solr[i].filtered_associations.first.taxon_concept.entry.title_canonical
-        should have_selector("a[href='#{overview_taxon_path(@taxon_concept)}']", :text => taxon)
+        should have_selector("a[href='#{taxon_overview_path(@taxon_concept)}']", :text => taxon)
       end
     end
 
@@ -193,7 +193,7 @@ describe 'Taxa page' do
       visit logout_url
       visit taxon_names_path(@taxon_concept)
       body.should have_selector('table.standard.classifications') do |tags|
-        tags.should have_selector("a[href='#{overview_taxon_entry_path(@taxon_concept, @taxon_concept.entry)}']")
+        tags.should have_selector("a[href='#{taxon_entry_overview_path(@taxon_concept, @taxon_concept.entry)}']")
         tags.should have_selector('td', :text => 'Catalogue of Life')
       end
     end
@@ -284,7 +284,7 @@ describe 'Taxa page' do
   context 'overview when taxon has all expected data - taxon_concept' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      visit overview_taxon_path(@testy[:id])
+      visit taxon_overview_path(@testy[:id])
       @section = 'overview'
       @body = body
     end
@@ -295,13 +295,13 @@ describe 'Taxa page' do
     it 'should allow logged in users to post comment in "Latest Updates" section' do
       visit logout_url
       login_as @user
-      visit overview_taxon_path(@taxon_concept)
+      visit taxon_overview_path(@taxon_concept)
       comment = "Test comment by a logged in user. #{FactoryGirl.generate(:string)}"
       body.should have_selector(".updates .comment #comment_body")
       should have_selector(".updates .comment .actions input[value='Post Comment']")
       fill_in 'comment_body', :with => comment
       click_button "Post Comment"
-      current_url.should match /#{overview_taxon_path(@taxon_concept)}/
+      current_url.should match /#{taxon_overview_path(@taxon_concept)}/
       body.should include('Comment successfully added')
     end
   end
@@ -310,7 +310,7 @@ describe 'Taxa page' do
   context 'overview when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      visit overview_taxon_entry_path(@taxon_concept, @hierarchy_entry)
+      visit taxon_entry_overview_path(@taxon_concept, @hierarchy_entry)
       @section = 'overview'
       @body = body
       # NOTE - these specs *could* leave a classification filter applied when they should not... but seems okay.
@@ -457,7 +457,7 @@ describe 'Taxa page' do
 
   context 'when taxon does not have any common names' do
     before(:all) do
-      visit overview_taxon_path @testy[:taxon_concept_with_no_common_names]
+      visit taxon_overview_path @testy[:taxon_concept_with_no_common_names]
       @body = body
     end
     subject { @body }
@@ -486,7 +486,7 @@ describe 'Taxa page' do
 
   context 'when taxon supercedes another concept' do
     it 'should use supercedure to find taxon if user visits the other concept' do
-      visit overview_taxon_path @testy[:superceded_taxon_concept]
+      visit taxon_overview_path @testy[:superceded_taxon_concept]
       remove_classification_filter_if_used
       body.should match(/#{@taxon_concept.common_name}/i)
       visit taxon_details_path @testy[:superceded_taxon_concept]

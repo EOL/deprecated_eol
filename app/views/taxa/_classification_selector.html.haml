@@ -6,7 +6,7 @@
   :url => switch_taxon_entry_path(@taxon_page.taxon_concept, @taxon_page.hierarchy_entry),
   :html => {:class => 'select_content_partner select_submit', :id => 'switch_hierarchy_entry'} do |f|
   %fieldset
-    %p= I18n.t(:you_are_viewing_this_rank_as_classified_by, :rank => @taxon_page.classified_by)
+    %p= I18n.t(:you_are_viewing_this_rank_as_classified_by, :rank => @taxon_page.rank_label)
     = f.select :id, options_from_collection_for_select(@taxon_page.hierarchy_entries, :id, 'hierarchy_label', @taxon_page.hierarchy_entry.id)
   %fieldset.actions
     %input{ :type => 'submit', :value => I18n.t("submit") }

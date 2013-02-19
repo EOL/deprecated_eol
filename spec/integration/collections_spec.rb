@@ -172,7 +172,7 @@ describe "Collections" do
     shared_examples_for 'collecting all users' do
       describe "should be able to collect" do
         it 'taxa' do
-          it_should_collect_item(overview_taxon_path(@taxon), @taxon)
+          it_should_collect_item(taxon_overview_path(@taxon), @taxon)
         end
         it 'data objects' do
           latest_revision_of_dato = @taxon.data_objects.first.latest_published_version_in_same_language
@@ -199,7 +199,7 @@ describe "Collections" do
     shared_examples_for 'creating collection and collecting all users' do
       describe "should be able to create collection and collect" do
         it 'taxa' do
-          it_should_create_and_collect_item(overview_taxon_path(@taxon_to_collect), @taxon_to_collect)
+          it_should_create_and_collect_item(taxon_overview_path(@taxon_to_collect), @taxon_to_collect)
         end
         it 'data objects' do
           latest_revision_of_dato = @taxon_to_collect.data_objects.first.latest_published_version_in_same_language

@@ -777,6 +777,8 @@ br:
   content_partner_resource_hierarchy_browsable: Merdeüs
   content_partner_resource_hierarchy_edit_link: Aozañ
   content_partner_resource_hierarchy_unknown: Dianav
+  content_partner_resource_new_link: Ouzhpennañ ur mammenn nevez
+  content_partner_resource_new_subheader: Ouzhpennañ ur mammenn nevez
   content_partner_resource_preview_collection_header: Rakwelet an dastumad
   content_partner_resource_resource_status_new: Krouet
   content_partner_resource_vetted_false: Ket
@@ -980,6 +982,8 @@ br:
   download_wav_file: Pellgargañ ar restr WAV
   dublin_core: Dublin Core
   edit: Aozañ
+  edit_comment: Kemmañ an evezhiadenn
+  edit_comment_lowercase: kemmañ an evezhiadenn
   edit_community: Aozañ ar gumuniezh
   edit_eol_glossary: aozañ geriaoueg KaV
   edit_glossary_term: Aozañ un termen eus ar c'heriaoueg
@@ -1054,8 +1058,11 @@ br:
   external_link_header: Liamm diavaez
   external_link_icon_alt_text: Liamm diavaez.
   facebook: Facebook
+  false_label: Gaou
   family_name_colon: "Anv :"
+  feedback: Sonjoù
   file: Restr
+  file_id: ID ar restr
   file_size: Ment ar restr
   filter_button: Silañ
   filter_by_day: Silañ dre zevezhioù
@@ -1070,7 +1077,9 @@ br:
   filter_by_type_collection_option: Dastumadoù
   filter_by_type_comment_option: Evezhiadennoù
   filter_by_type_community_option: Kumuniezhoù
+  filter_by_type_content_page_option: Diwar-benn EOL
   filter_by_type_image_option: Skeudennoù
+  filter_by_type_image_option_with_count: Skeudennoù (%{count})
   filter_by_type_link_option: Liammoù
   filter_by_type_name_option: Anvioù
   filter_by_type_sound_option: Sonioù
@@ -1516,6 +1525,7 @@ br:
       media: Media
       nomenclature: Nomenkladur
       overview: Brassell
+      resources: Mammennoù
       sounds: Sonioù
       taxon_details: Munudoù an takson
       videos: Videoioù
@@ -1591,6 +1601,7 @@ br:
   object_visibility_visible_option: Gwelus
   older_version_of_latest_published_data_object_title_link: Stumm kozh %{link}
   on_time_col_header: gweredekaet
+  other_us_dollars_amount: "All : US$"
   outlink: Liamm diavaez
   overview: Brassell
   page: Pajenn
@@ -1645,11 +1656,15 @@ br:
   references_cabs_colon: "Daveennoù :"
   remove: Dilemel
   reply: Respont
+  request: Reked
   required_form_element: Rekis
+  resource: Mammenn
   resources: Mammenn
   response: Respont
   results: Disoc'hoù
   results_per_page: "Disoc'hoù dre bajenn :"
+  return: distreiñ
+  revisions: Adweladennoù
   rights: Gwirioù
   save: Enrollañ
   save_curated_association_submit_button: Enrollañ ar gevredigezh
@@ -1657,6 +1672,7 @@ br:
   scientific_name: Anv skiantel
   search: Klask
   search_by_term_page_title: "Klask: %{term}"
+  search_field_common_name: Anv-boutin
   search_field_label: Furchal KaV
   search_field_synonym: Heñvelster
   search_next_label: War-lerc'h
@@ -1675,7 +1691,7 @@ br:
   server_ip_address: Chomlec'h IP ar servijer
   sessions: 
     new: 
-      meta_title: Anv implijer
+      meta_title: Kevreañ
       problems_signing_in_with_connected_accounts: Kudennoù kevreañ gant hol kontoù kevreet
       problems_signing_in_with_eol_authentication: Ankouaet ho ker-tremen ganeoc'h ?
   set_as_exemplar: Lakaat da batrom

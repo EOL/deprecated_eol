@@ -112,28 +112,6 @@ describe TaxonConcept do
     @taxon_concept.current_user = nil
   end
 
-  it 'should have a default IUCN conservation status of "Not evaluated"' do
-    @empty_taxon_concept.iucn_conservation_status.should match(/not evaluated/i)
-  end
-
-  it 'should have an IUCN conservation status' do
-    @taxon_concept.iucn_conservation_status.should == @iucn_status
-  end
-
-  it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
-    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
-    he1 = build_iucn_entry(@taxon_concept, FactoryGirl.generate(:iucn))
-    he2 = build_iucn_entry(@taxon_concept, FactoryGirl.generate(:iucn))
-    result = @taxon_concept.iucn
-    result.should be_an_instance_of DataObject # (not an Array, mind you.)
-    he1.delete
-    he2.delete
-  end
-
-  it 'should not use an unpublished IUCN status' do
-    @bad_iucn_tc.iucn_conservation_status.should match(/not evaluated/i)
-  end
-
   it 'should be able to list its ancestors' do
     @testy[:species].ancestors.map(&:id).should == [@testy[:kingdom].taxon_concept_id, @testy[:phylum].taxon_concept_id, @testy[:order].taxon_concept_id]
   end
@@ -518,35 +496,6 @@ describe TaxonConcept do
       c["instance"].body }.should include(@testy[:superceded_comment].body)
   end
 
-  it 'should rely on collection for sorting #top_collections' do
-    tc = TaxonConcept.gen
-    col1 = Collection.gen
-    col2 = Collection.gen
-    tc.should_receive(:collections).and_return([col1, col2])
-    col1.should_receive(:relevance).and_return(1)
-    col2.should_receive(:relevance).and_return(2)
-    tc.top_collections
-  end
-
-  it 'should list communites in the proper order - most number of members show first' do
-    community1 = Community.gen()
-    community2 = Community.gen()
-    user1 = User.gen()
-    user2 = User.gen()
-    user3 = User.gen()
-    member1 = Member.gen(:community => community2, :user => user1)
-    member2 = Member.gen(:community => community2, :user => user2)
-    member3 = Member.gen(:community => community1, :user => user3)
-    collection1 = community1.collections.first
-    collection2 = community2.collections.first
-    tc = build_taxon_concept
-    coll_item1 = CollectionItem.gen(:collected_item_type => "TaxonConcept", :collected_item_id => tc.id, :collection => collection1)
-    coll_item2 = CollectionItem.gen(:collected_item_type => "TaxonConcept", :collected_item_id => tc.id, :collection => collection2)
-    tc.collection_items[1].collection.communities.include?(community2).should be_true
-    tc.top_communities[0].name.should == community2.name
-    tc.top_communities[1].name.should == community1.name
-  end
-
   it 'should return an exemplar' do
     @testy[:has_one_image].exemplar_or_best_image_from_solr.id.should == @testy[:the_one_image].id
   end
@@ -576,19 +525,6 @@ describe TaxonConcept do
     newer_version.destroy
     best_image.update_attribute('published', 1)
     @testy[:has_one_image].reload
-  end
-
-  # TODO: this should be moved to the TaxaPage spec
-  it 'should show details text with no language only to users in the default language' do
-    user = User.gen(:language => Language.default)
-    taxon_page = TaxonPage.new(@taxon_concept, user)
-    taxon_page.details.first.language_id.should == Language.default.id
-    taxon_page = TaxonPage.new(@testy[:no_language_in_toc], user)
-    taxon_page.details.first.language_id.should == 0
-
-    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
-    taxon_page = TaxonPage.new(@testy[:no_language_in_toc], user)
-    taxon_page.details.should == []
   end
 
   it 'should show overview text with no language only to users in the default language' do
@@ -653,8 +589,8 @@ describe TaxonConcept do
     lambda { tc.preferred_entry.hierarchy_entry_id }.should raise_error
   end
 
-  it '#published_visible_exemplar_article should return published and visible exemplar article if there is one' do
-    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article
+  it '#published_visible_exemplar_article_in_language should return published and visible exemplar article if there is one' do
+    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article_in_language(Language.default)
     if published_visible_exemplar_article
       published_visible_exemplar_article.class.should == DataObject
     end
@@ -664,7 +600,7 @@ describe TaxonConcept do
                                      :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
     TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, data_object.id)
     @taxon_concept.reload
-    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article
+    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article_in_language(Language.default)
     published_visible_exemplar_article.class.should == DataObject
     published_visible_exemplar_article.id.should == data_object.id
   end
@@ -710,6 +646,39 @@ describe TaxonConcept do
     TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
     tc.reload
     tc.entry.should == col_entry
+  end
+
+  it 'should not list duplicate communities' do
+    taxon_concept = TaxonConcept.gen
+    community = Community.gen
+    3.times do
+      c = Collection.gen
+      c.add(taxon_concept)
+      c.communities << community
+    end
+    taxon_concept.collections.count.should == 3
+    taxon_concept.communities.count.should == 1
+  end
+
+  it 'should show the best articles according to users languages' do
+    TaxonConceptExemplarArticle.destroy_all
+    best_article = @taxon_concept.data_objects.select{ |d| d.text? && !d.added_by_user? }.last
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, best_article.id)
+    @taxon_concept.reload
+
+    arabic = Language.from_iso('ar')
+    best_article.update_column(:language_id, arabic.id)
+    default_user = User.gen
+    default_user_text = @taxon_concept.send(:best_article_for_user, default_user)
+    default_user_text.should_not == best_article
+    default_user_text.language.should == default_user.language
+
+    arabic_user = User.gen(:language => arabic)
+    arabic_user_text = @taxon_concept.send(:best_article_for_user, arabic_user)
+    arabic_user_text.should == best_article
+    arabic_user_text.language.should == arabic_user.language
+    best_article.update_column(:language_id, Language.default.id)
+    TaxonConceptExemplarArticle.destroy_all
   end
 
   describe '#split_classifications' do

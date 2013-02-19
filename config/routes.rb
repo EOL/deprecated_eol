@@ -37,9 +37,7 @@ Eol::Application.routes.draw do
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do
-    member do
-      get 'overview'
-    end
+    resource :overview, :only => [:show], :controller => 'taxa/overview'
     resource :tree, :only => [:show], :controller => 'taxa/trees'
     resources :maps, :only => [:index], :controller => 'taxa/maps'
     resources :media, :only => [:show], :controller => 'taxa/media'
@@ -51,8 +49,8 @@ Eol::Application.routes.draw do
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
       member do
         put 'switch'
-        get 'overview', :controller => 'taxa'
       end
+      resource :overview, :only => [:show], :controller => 'taxa/overview'
       resource :tree, :only => [:show], :controller => 'taxa/trees'
       resources :maps, :only => [:index], :controller => 'taxa/maps'
       resources :media, :only => [:index], :controller => 'taxa/media'
@@ -220,6 +218,8 @@ Eol::Application.routes.draw do
       get 'activated'
       get 'curation_privileges'
       put 'make_editor'
+      get 'grant_permission'
+      get 'revoke_permission'
       get 'revoke_editor'
       get 'pending_notifications'
       get 'unsubscribe_notifications/:key', :action => 'unsubscribe_notifications',
@@ -362,6 +362,7 @@ Eol::Application.routes.draw do
   get '/comments/create' => 'comments#create'
   resources :sessions, :only => [:new, :create, :destroy]
   resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
+  resources :permissions, :only => [:index, :show]
 
   # Miscellaneous named routes:
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'

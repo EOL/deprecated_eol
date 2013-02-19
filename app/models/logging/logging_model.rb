@@ -8,7 +8,7 @@ class LoggingModel < ActiveRecord::Base
     all_taxon_concept_ids = (direct_concept_ids + ancestor_concept_ids).flatten.compact.uniq
     all_taxon_concept_ids.each do |tc_id|
       Language.approved_languages.each do |l|
-        ActionController::Base.new.expire_fragment("taxon_overview_activity_#{tc_id}_#{l.iso_639_1}")
+        ActionController::Base.new.expire_fragment("activity_taxon_overview_#{tc_id}_#{l.iso_639_1}")
       end
     end
     direct_concept_ids.each do |tc_id|

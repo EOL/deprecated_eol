@@ -35,13 +35,18 @@ class UsersDataObject < ActiveRecord::Base
     return obj_ids
   end
 
-  # Used when a user-submitted text is replicated.
+  # Used when a user-submitted text is replicated. Note that before_create makes vet/vis moot until afterwards.
   def replicate(new_dato)
-    UsersDataObject.create(:user_id => user_id,
-                           :data_object => new_dato,
-                           :taxon_concept_id => taxon_concept_id,
-                           :visibility_id => visibility_id,
-                           :vetted_id => vetted_id)
+    udo = UsersDataObject.create(
+      :user_id => user_id,
+      :data_object => new_dato,
+      :taxon_concept_id => taxon_concept_id,
+    )
+    udo.update_attributes(
+      :visibility_id => visibility_id,
+      :vetted_id => vetted_id
+    )
+    udo
   end
 
   def italicized_name

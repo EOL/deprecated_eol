@@ -1,6 +1,7 @@
 class ForumsController < ApplicationController
 
   layout 'v2/forum'
+  before_filter :must_be_allowed_to_view_forum
   before_filter :allow_login_then_submit, :only => [ :create ]
   before_filter :restrict_to_admins, :only => [ :create, :destroy, :move_up, :move_down ]
 
@@ -104,4 +105,15 @@ class ForumsController < ApplicationController
     redirect_to forums_path
   end
 
+  private
+
+  def must_be_allowed_to_view_forum
+    if current_user.blank?
+      raise EOL::Exceptions::SecurityViolation,
+        "Must be logged in and sufficient priveleges to access to Forum"
+    elsif !current_user.can?(:beta_test)
+      raise EOL::Exceptions::SecurityViolation,
+        "User with ID=#{current_user.id} does not have access to Forum"
+    end
+  end
 end

@@ -21,6 +21,7 @@ class ContentCronTasksController < ApplicationController
     comments = RecentContentCollector::flickr_comments(params[:hours])
     all_text = ""
     comments.each do |c|
+      next if c.deleted?
       text = render_to_string(:template => "/content_cron_tasks/flickr_comment", :locals => {:comment => c})
       if text
         all_text += "#{c.visible_at} #{c.parent.flickr_photo_id}: #{text}\n\n<br\><br\>"

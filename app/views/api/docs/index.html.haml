@@ -3,15 +3,16 @@
     .nav
       = raw(@navigation_menu)
     .article.copy
+      - if current_user.can?(:beta_test)
+        %h3= I18n.t('forums.forums_heading')
+        %p= raw I18n.t('api.docs.forum_beta_test_text', :forums_link => forums_path)
       %h3
         =I18n.t(:methods)
       %table
         %thead
           %tr
-            %th
-              =I18n.t(:method)
-            %th
-              =I18n.t(:description)
+            %th= I18n.t(:method)
+            %th= I18n.t(:description)
         %tbody
           -# DON'T TRANSLATE WORDS THAT *MUST* BE PRESERVED.  A path of "data_objects" *must* be written
           -# "data_objects", since it's part of a URL. ...so you cannot translate it!
@@ -19,12 +20,9 @@
             - method_version = EOL::Api.default_version_of(method)
             - unless method_version.nil?
               %tr
-                %td
-                  = link_to method, :controller => 'api/docs', :action => method, :version => method_version::VERSION
-                %td
-                  = raw(method_version.brief_description)
-      %h3
-        =I18n.t(:response_formats)
+                %td= link_to method, :controller => 'api/docs', :action => method, :version => method_version::VERSION
+                %td= raw(method_version.brief_description)
+      %h3= I18n.t(:response_formats)
       %p
         =I18n.t(:all_apis_return_by_default_an_xml_response)
         %code<
@@ -47,5 +45,4 @@
         =I18n.t(:you_can_identify_yourself_to_eol)
         %code<
           ="http://eol.org/api/search/Robin?key=1111111111111111111111111111111111"
-      %p
-        =I18n.t(:each_method_documentation_page_has_formatted_responses)
+      %p= I18n.t(:each_method_documentation_page_has_formatted_responses)

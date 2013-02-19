@@ -823,6 +823,9 @@ en:
         menu_link: "User-submitted text"
         page_header: "User-Submitted Text Statistics"
         page_title: "Administration: User-Submitted Text Statistics"
+  api:
+    docs:
+      forum_beta_test_text: "<a href=\"%{forums_link}\">Click here</a> to access the beta test of the new EOL forums. Your feedback is welcome."
   contacts:
     errors:
       message_not_sent: "Sorry, an error occurred, your message has not been sent."

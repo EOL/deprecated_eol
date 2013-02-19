@@ -48,6 +48,8 @@ class Forums::CategoriesController < ForumsController
   # DELETE /forum_categories/:id
   def destroy
     @category = ForumCategory.find(params[:id])
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}" unless current_user.can_delete?(@category)
     if @category.forums.count == 0
       @category.destroy
       flash[:notice] = I18n.t('forums.categories.delete_successful')

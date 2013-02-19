@@ -146,6 +146,7 @@ private
       @toc_items
   end
 
+  # TODO - the intended behaviour of this is woefully untested in the specs.
   def details_in_all_other_languages
     return @details_in_all_other_languages if defined?(@details_in_all_other_languages)
     @details_in_all_other_languages = taxon_concept.text_for_user(user,
@@ -155,10 +156,8 @@ private
       :skip_preload => true,
       :toc_ids_to_ignore => TocItem.exclude_from_details.map { |toc_item| toc_item.id }
     )
-
     DataObject.preload_associations(@details_in_all_other_languages, :language)
     @details_in_all_other_languages ||= []
-    @details_in_all_other_languages
   end
 
   def link_type_ids

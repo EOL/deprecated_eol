@@ -255,13 +255,10 @@ class DataObject < ActiveRecord::Base
         unless options[:link_type_id].blank? && options[:link_type_id] != 0
           new_dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => new_dato, :link_type_id => options[:link_type_id])
         end
-        
-
+        # NOTE - associations will be preserved in their current vetted state by virtue of the GUID.
+        # There was once code here to trust all associations, if the user was a curator or admin. We have since
+        # elucidated that we do NOT want to change the vetted state after an update.
         new_dato.users_data_object = users_data_object.replicate(new_dato)
-        new_vetted_id_for_cdohes = (user.min_curator_level?(:full) || user.is_admin?) ? Vetted.trusted.id : Vetted.unknown.id
-        if all_cdohe_associations = new_dato.all_curated_data_objects_hierarchy_entries
-          all_cdohe_associations.each {|cdohe_assoc| cdohe_assoc.replicate(new_vetted_id_for_cdohes)} unless all_cdohe_associations.blank?
-        end
         DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
       rescue => e
         new_dato.update_column(:published, false)
@@ -1140,7 +1137,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def set_to_representative_language
-    self.language = language.representative_language
+    self.language = language ? language.representative_language : nil
   end
 
 private

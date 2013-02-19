@@ -7,6 +7,7 @@ describe ForumCategory do
   end
 
   it "should increment view orders" do
+    ForumCategory.destroy_all
     ForumCategory.gen.view_order.should == 1
     ForumCategory.gen.view_order.should == 2
     # it should increment from the highest

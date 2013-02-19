@@ -3,14 +3,18 @@ class ForumPost < ActiveRecord::Base
   belongs_to :forum_topic
   belongs_to :user
 
+  scope :visible, where(:deleted_at => nil)
+
   validates_presence_of :text
   validate :text_should_be_more_than_whitespace
   validate :subject_must_exist_if_first_post
 
   after_create :update_topic
   after_create :update_forum
-  after_destroy :update_topic
-  after_destroy :update_forum
+  after_create :update_user_posts_count
+  after_update :update_topic
+  after_update :update_forum
+  after_update :update_user_posts_count
   before_update :increment_edit_count
   after_update :update_topic_title
 
@@ -29,8 +33,9 @@ class ForumPost < ActiveRecord::Base
   end
 
   def display_subject
+    return I18n.t('forums.posts.deleted_subject') if deleted?
     return subject unless subject.blank?
-    "(no subject)"
+    I18n.t('forums.posts.no_subject')
   end
 
   def text_should_be_more_than_whitespace
@@ -54,19 +59,20 @@ class ForumPost < ActiveRecord::Base
     ((forum_topic.forum_posts.select(:id).index(self)) / ForumTopic::POSTS_PER_PAGE) + 1
   end
 
+  def deleted?
+    deleted_at != nil
+  end
+
   private
 
   def update_topic
-    forum_topic.update_attributes(:first_post_id => id) if forum_topic.first_post.nil?
-    unless forum_topic.destroyed?
-      forum_topic.update_attributes(:last_post_id => forum_topic.forum_posts.maximum('forum_posts.id'))
-      forum_topic.update_attributes(:number_of_posts => forum_topic.forum_posts.count)
-    end
+    forum_topic.set_first_post
+    forum_topic.set_last_post
+    forum_topic.set_post_count
   end
 
   def update_forum
-    forum_topic.forum.update_attributes(:last_post_id => forum_topic.forum.forum_topics.joins(:forum_posts).maximum('forum_posts.id'))
-    forum_topic.forum.update_attributes(:number_of_posts => forum_topic.forum.forum_topics.joins(:forum_posts).count)
+    forum_topic.forum.update_last_post_and_count
   end
 
   def update_topic_title
@@ -83,4 +89,7 @@ class ForumPost < ActiveRecord::Base
     end
   end
 
+  def update_user_posts_count
+    user.update_attributes(:number_of_forum_posts => user.forum_posts.visible.count)
+  end
 end

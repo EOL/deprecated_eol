@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_many :worklist_ignored_data_objects
   has_many :pending_notifications
   has_many :open_authentications, :dependent => :destroy
+  has_many :forum_posts
 
   has_many :content_partners
   has_one :user_info

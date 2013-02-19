@@ -15,7 +15,7 @@ class ForumsController < ApplicationController
     params[:page] ||= 1
     params[:page] = 1 if params[:page].to_i < 1
     @forum = Forum.find(params[:id])
-    @forum_topics = @forum.forum_topics.order('last_post_id desc').paginate(:page => params[:page], :per_page => Forum::TOPICS_PER_PAGE)
+    @forum_topics = @forum.forum_topics.visible.order('last_post_id desc').paginate(:page => params[:page], :per_page => Forum::TOPICS_PER_PAGE)
     ForumTopic.preload_associations(@forum_topics, { :last_post => [ :user, { :forum_topic => :forum } ] })
   end
 

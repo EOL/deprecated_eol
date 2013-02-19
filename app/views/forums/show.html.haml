@@ -6,21 +6,22 @@
   %table.standard.forum_category
     %thead
       %tr
-        %th= I18n.t('forums.topics_heading')
+        %th.title= I18n.t('forums.topics_heading')
         %th.number= I18n.t('forums.replies')
         %th.number= I18n.t('forums.views')
         %th.last_post= I18n.t('forums.last_post')
-        %th.actions
-          - if current_user.is_admin?
-            = I18n.t('forums.actions')
+        - if current_user.is_admin?
+          %th.actions
+            - if current_user.is_admin?
+              = I18n.t('forums.actions')
     - @forum_topics.each do |topic|
       %tr
         %td= link_to topic.title, forum_topic_path(@forum, topic)
         %td= topic.number_of_posts
         %td= topic.number_of_views
         %td= render :partial => 'forums/posts/summary', :locals => { :post => topic.last_post }
-        %td
-          - if current_user.is_admin?
+        - if current_user.is_admin?
+          %td
             = button_to I18n.t('forums.buttons.delete'), forum_topic_path(@forum, topic), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
   = will_paginate @forum_topics
 = render :partial => 'forums/topics/form'

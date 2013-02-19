@@ -6,6 +6,18 @@ describe Forums::PostsController do
     load_foundation_cache
   end
 
+  describe 'GET show' do
+    it "should increment its topics view count" do
+      post = ForumPost.gen
+      get :show, :id => post.id
+      post.forum_topic.reload.number_of_views.should == 1
+      5.times do
+        get :show, :id => post.id
+      end
+      post.forum_topic.reload.number_of_views.should == 6
+    end
+  end
+
   describe 'POST create' do
     it "must be logged in to create" do
       topic = ForumTopic.gen

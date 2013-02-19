@@ -11,6 +11,7 @@ class Forums::TopicsController < ForumsController
     if params[:page].to_i > @topic.forum_posts.last.page_in_topic
       params[:page] = @topic.forum_posts.last.page_in_topic
     end
+    @topic.increment_view_count
     @posts = @topic.forum_posts.paginate(:page => params[:page], :per_page => ForumTopic::POSTS_PER_PAGE)
     ForumPost.preload_associations(@posts, [ :user, :forum_topic ])
   end
@@ -40,8 +41,8 @@ class Forums::TopicsController < ForumsController
   # DELETE /forums/:forum_id/topics/:id
   def destroy
     @topic = ForumTopic.find(params[:id])
-    if @topic.forum_posts.count == 0
-      @topic.destroy
+    if @topic.forum_posts.visible.count == 0
+      @topic.update_attributes({ :deleted_at => Time.now, :deleted_by_user_id => current_user.id })
       flash[:notice] = I18n.t('forums.topics.delete_successful')
     else
       flash[:error] = I18n.t('forums.topics.delete_failed_not_empty')

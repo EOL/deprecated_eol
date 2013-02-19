@@ -4,7 +4,7 @@ table.forum_category
   thead
     tr
       th
-        &.last_post
+        &.title
           width: 250px
         &.number
           width: 50px
@@ -38,9 +38,27 @@ table.forum_category
       font-size: 0.9em
       border-bottom: 1px solid white
     .actions
+      width: 240px
       float: right
       li
         display: inline
+        float: right
+    .permalink
+      display: none
+      position: absolute
+      margin-top: 30px
+      margin-left: -70px
+      background: #dddddd
+      border: 1px solid black
+      p
+        margin: 15px 15px 5px
+      .close
+        float: right
+        margin: 7px 7px 0px
+        font-size: 0.9em
+      input
+        width: 280px
+        margin: 0px 15px 15px
   .attribution
     float: right
     width: 22%
@@ -51,7 +69,7 @@ table.forum_category
       min-height: 68px
     .secondary_name
       font-size: 0.9em
-    .join_date
+    ul.stats
       padding-top: 10px
 .post > .post_body > .text, .post_text
   font-size: 110%

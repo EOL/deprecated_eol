@@ -1,17 +1,32 @@
 .post{ :id => "post_#{post.id}" }
   .post_body
-    .actions
-      %ul
-        - if current_user.can_update?(post)
-          %li= link_to I18n.t('forums.buttons.edit'), edit_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => :button
-        - if current_user.can_delete?(post)
-          %li= button_to I18n.t('forums.buttons.delete'), forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
-        %li= link_to I18n.t('forums.buttons.reply'), reply_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => :button
-        %li= link_to I18n.t('forums.buttons.link'), forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => :button
-    .title= post.subject
+    - unless post.deleted?
+      .actions
+        %ul
+          -# these will show up in reverse order due to a float: right - in order to prevent unused space on the right
+          %li= link_to I18n.t('forums.buttons.link'), forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => [ :button, :link ]
+          %li= link_to I18n.t('forums.buttons.reply'), reply_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => :button
+          - if current_user.can_delete?(post)
+            %li= button_to I18n.t('forums.buttons.delete'), forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+          - if current_user.can_update?(post)
+            %li= link_to I18n.t('forums.buttons.edit'), edit_forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post), :class => :button
+        .permalink
+          .close
+            (
+            = link_to I18n.t('forums.posts.close_window'), current_url
+            )
+          %p= I18n.t('forums.posts.permalink_to_this_post')
+          %div
+            %input{ :type => :text, :value => forum_topic_post_url(post.forum_topic.forum, post.forum_topic, post) }
+    .title= post.display_subject
     .author
       = raw I18n.t('forums.post_by_user_at_time', :user => link_to(post.user.username, post.user), :time => I18n.l(post.created_at, :format => :blog))
-    .text= raw post.text
+    .text
+      - if post.deleted?
+        .empty
+          %p= I18n.t('forums.posts.post_has_been_deleted')
+      - else
+        = raw post.text
   .attribution
     = link_to image_tag(post.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
       :posters_name => h(post.user.full_name))), user_url(post.user), :class => 'avatar'
@@ -20,6 +35,7 @@
     - if post.user.full_name != post.user.username
       .secondary_name
         = link_to post.user.username, post.user
-    - if post.user.created_at
-      .join_date
-        = raw I18n.t('forums.posts.joined_date', :date => I18n.t(:time_ago, :time_passed => time_ago_in_words(post.user.created_at)))
+    %ul.stats
+      - if post.user.created_at
+        %li= raw I18n.t('forums.posts.joined_date', :date => I18n.t(:time_ago, :time_passed => time_ago_in_words(post.user.created_at)))
+      %li= I18n.t('forums.posts.posts_with_count', :count => post.user.number_of_forum_posts || 0)

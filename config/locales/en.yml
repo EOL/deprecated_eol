@@ -1010,7 +1010,7 @@ en:
       move_successful: "Category was successfully moved"
       move_failed: "Category could not be moved"
     posts:
-      joined_date: "Joined: %{date}"
+      joined_date: "Joined %{date}"
       create: "Make a new post"
       edit: "Edit post"
       post_written_by_user: "%{user} wrote:"
@@ -1022,6 +1022,14 @@ en:
       delete_successful: "Post was successfully deleted"
       topic_and_post_delete_successful: "Post and thread were successfully deleted"
       delete_failed_topic_not_empty: "Post could not be deleted because the thread is not empty"
+      post_has_been_deleted: "This post has been deleted"
+      deleted_subject: "(deleted)"
+      no_subject: "(no subject)"
+      permalink_to_this_post: "Permalink to this post:"
+      close_window: "close"
+      posts_with_count:
+        one: "%{count} post"
+        other: "%{count} posts"
     topics:
       create: "Start a new thread"
       no_posts: "There are no posts in this thread"

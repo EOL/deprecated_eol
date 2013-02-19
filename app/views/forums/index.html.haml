@@ -6,8 +6,8 @@
         %th.number= I18n.t('forums.topics_heading')
         %th.number= I18n.t('forums.posts_heading')
         %th.last_post= I18n.t('forums.last_post')
-        %th.actions
-          - if current_user.is_admin?
+        - if current_user.is_admin?
+          %th.actions
             = button_to raw(I18n.t('forums.buttons.move_up')), move_up_forum_category_path(category)
             = button_to raw(I18n.t('forums.buttons.move_down')), move_down_forum_category_path(category)
             = link_to I18n.t('forums.buttons.edit'), edit_forum_category_path(category), :class => :button
@@ -18,8 +18,8 @@
         %td= forum.number_of_topics
         %td= forum.number_of_posts
         %td= render :partial => 'forums/posts/summary', :locals => { :post => forum.last_post, :display_title => :topic }
-        %td.actions
-          - if current_user.is_admin?
+        - if current_user.is_admin?
+          %td.actions
             = button_to raw(I18n.t('forums.buttons.move_up')), move_up_forum_path(forum)
             = button_to raw(I18n.t('forums.buttons.move_down')), move_down_forum_path(forum)
             = link_to I18n.t('forums.buttons.edit'), edit_forum_path(forum), :class => :button

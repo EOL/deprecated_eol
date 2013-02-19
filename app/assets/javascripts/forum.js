@@ -1,6 +1,24 @@
 $(function(){
+
+  $('a.button.link').click(function(e) {
+    $('.permalink').css({ display: 'none' }).hide();
+    var permalink = $(this).closest('ul').siblings('.permalink');
+    permalink.css({ display: 'block' }).show();
+    return false;
+  });
+
+  $('.permalink .close').click(function(e) {
+    var permalink = $(this).closest('.permalink');
+    permalink.css({ display: 'none' }).hide();
+    return false;
+  });
+
+  $(".permalink input[type=text]").click(function() {
+     $(this).select();
+  });
+
   // if the post getting linked to is on the page, jump to it
-  $('a').click(function(e) {
+  $('a:not(.close a):not(.button.link)').click(function(e) {
     var url = $(this).attr('href');
     return move_to_post_if_available(url, true);
   });

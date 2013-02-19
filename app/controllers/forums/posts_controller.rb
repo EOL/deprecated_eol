@@ -9,6 +9,7 @@ class Forums::PostsController < ForumsController
     post = ForumPost.find(params[:id])
     page = post.page_in_topic
     @topic = post.forum_topic
+    @topic.increment_view_count
     @posts = @topic.forum_posts.paginate(:page => page, :per_page => ForumTopic::POSTS_PER_PAGE)
     ForumPost.preload_associations(@posts, [ :user, :forum_topic ])
     render :template => 'forums/topics/show'
@@ -79,25 +80,23 @@ class Forums::PostsController < ForumsController
     topic = @post.forum_topic
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}" unless current_user.can_delete?(@post)
-    if @post.topic_starter? && @post.forum_topic.forum_posts.count > 1
+    if @post.topic_starter? && @post.forum_topic.forum_posts.visible.count > 1
       flash[:error] = I18n.t('forums.posts.delete_failed_topic_not_empty')
       redirect_to forum_topic_path(@post.forum_topic.forum, @post.forum_topic)
       return
     else
-      if @post.forum_topic.forum_posts.count == 1
-        @post.forum_topic.destroy
-        @post.destroy
+      if @post.forum_topic.forum_posts.visible.count == 1
+        @post.forum_topic.update_attributes({ :deleted_at => Time.now, :deleted_by_user_id => current_user.id })
+        @post.update_attributes({ :deleted_at => Time.now, :deleted_by_user_id => current_user.id })
         flash[:notice] = I18n.t('forums.posts.topic_and_post_delete_successful')
         redirect_to forum_path(@post.forum_topic.forum)
         return
       else
-        @post.destroy
+        @post.update_attributes({ :deleted_at => Time.now, :deleted_by_user_id => current_user.id })
         flash[:notice] = I18n.t('forums.posts.delete_successful')
       end
     end
-    next_earliest_post_id = @post.forum_topic.forum_posts.where("id < #{@post.id}").maximum(:id)
-    page = ForumPost.find(next_earliest_post_id).page_in_topic
-    redirect_to forum_topic_path(@post.forum_topic.forum, @post.forum_topic, :page => page, :anchor => "post_#{next_earliest_post_id}")
+    redirect_to forum_topic_path(@post.forum_topic.forum, @post.forum_topic, :page => @post.page_in_topic, :anchor => "post_#{@post.id}")
   end
 
 end

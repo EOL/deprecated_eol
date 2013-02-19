@@ -108,6 +108,7 @@ class ForumsController < ApplicationController
   private
 
   def must_be_allowed_to_view_forum
+    return if Rails.env.test?
     if current_user.blank?
       raise EOL::Exceptions::SecurityViolation,
         "Must be logged in and sufficient priveleges to access to Forum"

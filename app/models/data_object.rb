@@ -1115,7 +1115,7 @@ class DataObject < ActiveRecord::Base
     if visibility_by_taxon_concept(taxon_concept) == Visibility.visible
       overview = taxon_concept.overview_text_for_user(user)
       return true if overview.blank?
-      return true if guid != taxon_concept.overview_text_for_user(user).guid
+      return true if guid != overview.guid
     end
     false
   end

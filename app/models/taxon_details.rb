@@ -150,14 +150,15 @@ private
   def details_in_all_other_languages
     return @details_in_all_other_languages if defined?(@details_in_all_other_languages)
     @details_in_all_other_languages = taxon_concept.text_for_user(user,
-      :language_ids_to_ignore => user.language.all_ids << 0,
-      :allow_nil_languages => false,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder ] },
-      :skip_preload => true,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.map { |toc_item| toc_item.id }
+        :language_ids_to_ignore => user.language.all_ids << 0,
+        :allow_nil_languages => false,
+        :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder ] },
+        :skip_preload => true,
+        :toc_ids_to_ignore => TocItem.exclude_from_details.map { |toc_item| toc_item.id }
     )
     DataObject.preload_associations(@details_in_all_other_languages, :language)
     @details_in_all_other_languages ||= []
+    @details_in_all_other_languages
   end
 
   def link_type_ids

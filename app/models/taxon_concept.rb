@@ -761,16 +761,24 @@ class TaxonConcept < ActiveRecord::Base
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
   # want to touch the API quite yet.
   def overview_text_for_user(the_user)
+    @overview_text_for_user ||= {}
+    return @overview_text_for_user[the_user.id] if the_user && @overview_text_for_user[the_user.id]
     the_user ||= EOL::AnonymousUser.new(Language.default)
     TaxonConcept.prepare_cache_classes
     cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
     best_article_id ||= Rails.cache.read(cached_key)
     return nil if best_article_id == 0 # Nothing's available, quickly move on...
-    return DataObject.find(best_article_id) if best_article_id && DataObject.still_published?(best_article_id)
-    article = best_article_for_user(the_user)
-    expire_time = article.nil? ? 1.day : 1.week
-    Rails.cache.fetch(cached_key, :expires_in => expire_time) { article.nil? ? 0 : article.id }
-    article
+    if best_article_id && DataObject.still_published?(best_article_id)
+      article = DataObject.find(best_article_id)
+      @overview_text_for_user[the_user.id] = article
+      return article
+    else
+      article = best_article_for_user(the_user)
+      expire_time = article.nil? ? 1.day : 1.week
+      Rails.cache.fetch(cached_key, :expires_in => expire_time) { article.nil? ? 0 : article.id }
+      @overview_text_for_user[the_user.id] = article
+      return article
+    end
   end
   
   # TODO - there may have been changes to #has_details_text_for_user? ...I need to check that and change the

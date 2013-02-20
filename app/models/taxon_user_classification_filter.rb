@@ -176,7 +176,7 @@ class TaxonUserClassificationFilter
   end
 
   def image
-    taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
+    @image ||= taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end
 
   def text(options = {})

@@ -609,26 +609,14 @@ class TaxonConcept < ActiveRecord::Base
 
   def common_names_for_solr
     common_names_by_language = {}
-    unknowns = Language.all_unknowns
-    published_hierarchy_entries.each do |he|
-      he.common_names.each do |cn|
-        vet_id = begin
-                   cn.vetted_id
-                 rescue # This seems to happen mostly during tests, but I figure it's best to be safe, anyway.
-                   Synonym.find(cn).vetted_id
-                 end
-        next unless vet_id == Vetted.trusted.id || vet_id == Vetted.unknown.id # only Trusted or Unknown names go in
-        next if cn.name.blank?
-        # HE is sometimes being queried against an incomplete cache, so we reload it if needed:
-        he = HierarchyEntry.find(he) unless he.attributes.keys.include?('published') && he.attributes.keys.include?('visibility_id')
-        # only names from our curators, ubio, or from published and visible entries go in
-        next unless ((he.published == 1 && he.visibility_id == Visibility.visible.id) || cn.hierarchy_id == Hierarchy.eol_contributors.id || cn.hierarchy_id == Hierarchy.ubio.id)
-        next if unknowns.include? cn.language
-        language = (cn.language_id!=0 && cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
-        next if language == 'unknown' # we dont index names in unknown languages to cut down on noise
-        common_names_by_language[language] ||= []
-        common_names_by_language[language] << cn.name.string
-      end
+    common_names.each do |tcn|
+      next unless [ Vetted.trusted.id, Vetted.unknown.id ].include?(tcn.vetted_id) # only Trusted or Unknown names go in
+      next if tcn.name.blank?
+      next if Language.all_unknowns.include?(tcn.language)
+      language = (tcn.language_id != 0 && tcn.language && !tcn.language.iso_code.blank?) ? tcn.language.iso_code : 'unknown'
+      next if language == 'unknown' # we dont index names in unknown languages to cut down on noise
+      common_names_by_language[language] ||= []
+      common_names_by_language[language] << tcn.name.string
     end
 
     keywords = []
@@ -773,16 +761,24 @@ class TaxonConcept < ActiveRecord::Base
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
   # want to touch the API quite yet.
   def overview_text_for_user(the_user)
+    @overview_text_for_user ||= {}
+    return @overview_text_for_user[the_user.id] if the_user && @overview_text_for_user[the_user.id]
     the_user ||= EOL::AnonymousUser.new(Language.default)
     TaxonConcept.prepare_cache_classes
     cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
     best_article_id ||= Rails.cache.read(cached_key)
     return nil if best_article_id == 0 # Nothing's available, quickly move on...
-    return DataObject.find(best_article_id) if best_article_id && DataObject.still_published?(best_article_id)
-    article = best_article_for_user(the_user)
-    expire_time = article.nil? ? 1.day : 1.week
-    Rails.cache.fetch(cached_key, :expires_in => expire_time) { article.nil? ? 0 : article.id }
-    article
+    if best_article_id && DataObject.still_published?(best_article_id)
+      article = DataObject.find(best_article_id)
+      @overview_text_for_user[the_user.id] = article
+      return article
+    else
+      article = best_article_for_user(the_user)
+      expire_time = article.nil? ? 1.day : 1.week
+      Rails.cache.fetch(cached_key, :expires_in => expire_time) { article.nil? ? 0 : article.id }
+      @overview_text_for_user[the_user.id] = article
+      return article
+    end
   end
   
   # TODO - there may have been changes to #has_details_text_for_user? ...I need to check that and change the

@@ -158,6 +158,7 @@ private
     )
     DataObject.preload_associations(@details_in_all_other_languages, :language)
     @details_in_all_other_languages ||= []
+    @details_in_all_other_languages
   end
 
   def link_type_ids

@@ -141,12 +141,12 @@ describe TaxonOverview do
     three.stub(:relevance).and_return(3)
     four = Collection.gen
     four.stub(:relevance).and_return(6)
-    @taxon_concept.stub_chain(:collections, :published, :watch).and_return([one, two, three, four])
+    @taxon_concept.stub_chain(:collections, :published, :select).and_return([one, two, three, four])
     @overview.collections.map(&:id).should == [four, two, three].map(&:id)
   end
 
   it 'should know how many collections are available' do
-    @taxon_concept.stub_chain(:collections, :published, :watch).and_return([1,2,3,4,5,6])
+    @taxon_concept.stub_chain(:collections, :published, :select).and_return([1,2,3,4,5,6])
     @overview.collections_count.should == 6
   end
 

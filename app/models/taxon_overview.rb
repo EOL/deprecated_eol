@@ -175,7 +175,7 @@ private
   end
 
   def all_collections
-    @all_collections ||= taxon_concept.collections.published.watch
+    @all_collections ||= taxon_concept.collections.published.select{ |c| !c.watch_collection? }
   end
 
   def iucn

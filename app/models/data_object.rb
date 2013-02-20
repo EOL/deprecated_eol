@@ -1038,9 +1038,15 @@ class DataObject < ActiveRecord::Base
   end
 
   def self.replace_with_latest_versions_no_preload(data_objects, options = {})
-    data_objects.select { |instance| instance.is_a? DataObject }.compact.map do |dato|
-      dato.latest_version_in_language(options[:language_id] || dato.language_id, :check_only_published => false)
-    end.map { |dato| dato.is_the_latest_published_revision = true }
+    data_objects.collect! do |dato|
+      if dato.blank? || !dato.is_a?(DataObject)
+        dato
+      else
+        latest = dato.latest_version_in_language(options[:language_id] || dato.language_id, :check_only_published => false)
+        latest.is_the_latest_published_revision = true
+        latest
+      end
+    end
   end
 
   def unpublish_previous_revisions
@@ -1109,7 +1115,7 @@ class DataObject < ActiveRecord::Base
     if visibility_by_taxon_concept(taxon_concept) == Visibility.visible
       overview = taxon_concept.overview_text_for_user(user)
       return true if overview.blank?
-      return true if guid != taxon_concept.overview_text_for_user(user).guid
+      return true if guid != overview.guid
     end
     false
   end
@@ -1137,7 +1143,6 @@ class DataObject < ActiveRecord::Base
   end
 
   def set_to_representative_language
-    language = language.representative_language
     self.language = language ? language.representative_language : nil
   end
 

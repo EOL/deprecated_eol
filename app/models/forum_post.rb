@@ -90,6 +90,6 @@ class ForumPost < ActiveRecord::Base
   end
 
   def update_user_posts_count
-    user.update_attributes(:number_of_forum_posts => user.forum_posts.visible.count)
+    user.update_column(:number_of_forum_posts, user.forum_posts.visible.count)
   end
 end

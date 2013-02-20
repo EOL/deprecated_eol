@@ -18,7 +18,7 @@ class HierarchyEntriesController < ApplicationController
       return_to_params[:hierarchy_entry_id] = hierarchy_entry_id
       store_location url_for(return_to_params)
     end
-    redirect_back_or_default taxon_entry_overview_path(params[:taxon_id], hierarchy_entry_id)
+    redirect_to taxon_entry_overview_path(params[:taxon_id], hierarchy_entry_id)
   end
 
 end

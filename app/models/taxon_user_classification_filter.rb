@@ -99,15 +99,7 @@ class TaxonUserClassificationFilter
     taxon_concept.send(method, *args, &block)
   end
 
-  # TODO - see if this can/should be moved. ATM, it's definitely needed by TaxonOverview (called through inheritance)...
-  # Also used in these... should it be?
-  # app/controllers/taxa/names_controller.rb:    @hierarchy_entries = @taxon_page.hierarchy_entries
-  # app/views/taxa/_classification_selector.html.haml:    = f.select :id, options_from_collection_for_select(@taxon_page.hierarchy_entries, :id, 'hierarchy_label',
-                                                                                                           # @taxon_page.h
-  # app/views/taxa/_classification_tree.html.haml:  - count = @taxon_page.hierarchy_entries.length
-  # app/views/taxa/names/_menu.html.haml:      = link_to I18n.t(:classifications_with_count, :count => @taxon_page.hierarchy_entries.length),
-  # app/views/taxa/names/synonyms.html.haml:      - @taxon_page.hierarchy_entries.each do |he|
-  # spec/models/taxon_user_classification_filter.rb:    @taxon_page.hierarchy_entries.should == []
+  # NOTE - these are only *browsable* hierarchies!
   def hierarchy_entries
     return @hierarchy_entries if @hierarchy_entries
     @hierarchy_entries = taxon_concept.published_browsable_hierarchy_entries

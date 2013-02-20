@@ -226,9 +226,9 @@ private
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def configure_sorting_and_filtering_and_facet_counts
     set_view_as_options
-    @view_as = ViewStyle.find(params[:view_as].blank? ? @collection.default_view_style : params[:view_as])
+    @view_as = ViewStyle.find(params[:view_as].blank? ? @collection.view_style_or_default : params[:view_as])
     set_sort_options
-    @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.default_sort_style : params[:sort_by])
+    @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.sort_style_or_default : params[:sort_by])
     @filter = params[:filter]
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []

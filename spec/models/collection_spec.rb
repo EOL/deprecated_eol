@@ -178,10 +178,10 @@ describe Collection do
 
   it 'should know what its default view style is' do
     collection = Collection.gen
-    collection.default_view_style.should == ViewStyle.annotated
+    collection.view_style_or_default.should == ViewStyle.annotated
     collection.update_attributes(:view_style => ViewStyle.gallery)
     collection.reload
-    collection.default_view_style.should == ViewStyle.gallery
+    collection.view_style_or_default.should == ViewStyle.gallery
   end
 
   it '#inaturalist_project_info should call InaturalistProjectInfo' do

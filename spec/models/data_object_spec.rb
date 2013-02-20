@@ -649,5 +649,23 @@ describe DataObject do
     text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.visible.id)
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
   end
+
+  it 'should replace objects with their latest versions with replace_with_latest_versions!' do
+    @image_dato = DataObject.find(@image_dato)
+    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    test_array = [ @image_dato ]
+    DataObject.replace_with_latest_versions!(test_array)
+    test_array.should_not == [ @image_dato ]
+    test_array.should == [ new_image_dato ]
+  end
+
+  it 'should replace objects with their latest versions with replace_with_latest_versions_no_preload' do
+    @image_dato = DataObject.find(@image_dato)
+    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    test_array = [ @image_dato ]
+    DataObject.replace_with_latest_versions_no_preload(test_array)
+    test_array.should_not == [ @image_dato ]
+    test_array.should == [ new_image_dato ]
+  end
 end
 

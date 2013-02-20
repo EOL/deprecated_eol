@@ -77,7 +77,7 @@ class TaxonUserClassificationFilter
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
-                                              :object_cache_url, :object_url, :data_rating ] }
+                                              :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
     ))
   end
 

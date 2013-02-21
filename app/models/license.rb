@@ -10,6 +10,58 @@ class License < ActiveRecord::Base
 
   attr_accessible :title, :source_url, :version, :logo_url, :show_to_content_partners
 
+  def self.create_defaults
+    [ {:title => 'public domain',
+       :description => 'No rights reserved',
+       :source_url => 'http://creativecommons.org/licenses/publicdomain/',
+       :logo_url => ''},
+      {:title => 'all rights reserved',
+       :description => '&#169; All rights reserved',
+       :source_url => '',
+       :logo_url => '',
+       :show_to_content_partners => 0, },
+      {:title => 'cc-by-nc 3.0',
+       :description => 'Some rights reserved',
+       :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',
+       :logo_url => 'cc_by_nc_small.png'},
+      {:title => 'cc-by 3.0',
+       :description => 'Some rights reserved',
+       :source_url => 'http://creativecommons.org/licenses/by/3.0/',
+       :logo_url => 'cc_by_small.png'},
+      {:title => 'cc-by-sa 3.0',
+       :description => 'Some rights reserved',
+       :source_url => 'http://creativecommons.org/licenses/by-sa/3.0/',
+       :logo_url => 'cc_by_sa_small.png'},
+      {:title => 'cc-by-nc-sa 3.0',
+       :description => 'Some rights reserved',
+       :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/',
+       :logo_url => 'cc_by_nc_sa_small.png'},
+      {:title => 'cc-zero 1.0',
+       :description => 'Public Domain',
+       :source_url => 'http://creativecommons.org/publicdomain/zero/1.0/',
+       :logo_url => 'cc_zero_small.png'},
+      {:title => 'no known copyright restrictions',
+       :description => 'No known copyright restrictions',
+       :source_url => 'http://www.flickr.com/commons/usage/',
+       :logo_url => '',},
+      {:title => 'not applicable',
+       :description => 'License not applicable',
+       :source_url => '',
+       :logo_url => '',
+       :show_to_content_partners => 0}].each do |default|
+        desc = default.delete(:description)
+        trans = TranslatedLicense.find_by_description_and_language_id(desc, Language.default.id)
+        next if trans && trans.license
+        lic = License.create(default.reverse_merge(:version => 1))
+        if trans && ! trans.license
+          trans.license = lic
+          trans.save
+        else
+          TranslatedLicense.create(:description => desc, :license => lic, :language => Language.default)
+        end
+    end
+  end
+
   def small_logo_url
     return logo_url if logo_url =~ /_small/ # already there!
     return logo_url.sub(/\.(\w\w\w)$/, "_small.\\1")

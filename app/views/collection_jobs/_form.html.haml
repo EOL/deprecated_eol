@@ -1,0 +1,28 @@
+= form_for @collection_job do |f|
+  - if @collection_job.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@collection_job.errors.count, "error")} prohibited this collection_job from being saved:"
+      %ul
+        - @collection_job.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :user_id
+    = f.number_field :user_id
+  .field
+    = f.label :collection_id
+    = f.number_field :collection_id
+  .field
+    = f.label :target_collection_id
+    = f.number_field :target_collection_id
+  .field
+    = f.label :finished_at
+    = f.datetime_select :finished_at
+  .field
+    = f.label :item_count
+    = f.number_field :item_count
+  .field
+    = f.label :command
+    = f.text_field :command
+  .actions
+    = f.submit 'Save'

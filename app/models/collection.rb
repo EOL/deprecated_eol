@@ -117,9 +117,9 @@ class Collection < ActiveRecord::Base
         raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                     :klass => what.class.name))
       end
-    collection_items << CollectionItem.create(:collected_item => what, :name => name, :collection => self, :added_by_user => opts[:user])
+    collection_items << item = CollectionItem.create(:collected_item => what, :name => name, :collection => self, :added_by_user => opts[:user])
     set_relevance # This is actually safe, because we don't use #add in bulk.
-    what # Convenience.  Allows us to chain this command and continue using the collected_item passed in.
+    item # Convenience.  Allows us to know the collection_item created and possibly chain it.
   end
 
   def logo_url(size = 'large', specified_content_host = nil)

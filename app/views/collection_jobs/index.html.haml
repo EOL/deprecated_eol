@@ -1,0 +1,29 @@
+%h1 Listing collection_jobs
+
+%table
+  %tr
+    %th User
+    %th Collection
+    %th Target collection
+    %th Finished at
+    %th Item count
+    %th Command
+    %th
+    %th
+    %th
+
+  - @collection_jobs.each do |collection_job|
+    %tr
+      %td= collection_job.user_id
+      %td= collection_job.collection_id
+      %td= collection_job.target_collection_id
+      %td= collection_job.finished_at
+      %td= collection_job.item_count
+      %td= collection_job.command
+      %td= link_to 'Show', collection_job
+      %td= link_to 'Edit', edit_collection_job_path(collection_job)
+      %td= link_to 'Destroy', collection_job, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Collection job', new_collection_job_path

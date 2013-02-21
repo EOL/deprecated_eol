@@ -9,6 +9,7 @@ group :development, :test, :staging_dev do
   gem 'debugger', '1.2.1'
   gem 'factory_girl_rails', '4.1.0'
   gem 'faker', '1.1.2'
+  gem 'haml-rails' # Just for rails generators.
   gem 'optiflag', '0.7'
   gem 'rspec-rails', '2.11.4'
   gem 'ruby-prof', '0.11.2'

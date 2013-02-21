@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @collection_job.user_id
+%p
+  %b Collection:
+  = @collection_job.collection_id
+%p
+  %b Target collection:
+  = @collection_job.target_collection_id
+%p
+  %b Finished at:
+  = @collection_job.finished_at
+%p
+  %b Item count:
+  = @collection_job.item_count
+%p
+  %b Command:
+  = @collection_job.command
+
+= link_to 'Edit', edit_collection_job_path(@collection_job)
+\|
+= link_to 'Back', collection_jobs_path

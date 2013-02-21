@@ -96,16 +96,7 @@ Audience.gen_if_not_exists(:label => 'Children')
 Audience.gen_if_not_exists(:label => 'Expert users')
 Audience.gen_if_not_exists(:label => 'General public')
 
-DataType.gen_if_not_exists(:label => 'Image',     :schema_value => 'http://purl.org/dc/dcmitype/StillImage')
-DataType.gen_if_not_exists(:label => 'Sound',     :schema_value => 'http://purl.org/dc/dcmitype/Sound')
-DataType.gen_if_not_exists(:label => 'Text',      :schema_value => 'http://purl.org/dc/dcmitype/Text')
-DataType.gen_if_not_exists(:label => 'Video',     :schema_value => 'http://purl.org/dc/dcmitype/MovingImage')
-DataType.gen_if_not_exists(:label => 'GBIF Image')
-DataType.gen_if_not_exists(:label => 'IUCN',      :schema_value => 'IUCN')
-DataType.gen_if_not_exists(:label => 'Flash',     :schema_value => 'Flash')
-DataType.gen_if_not_exists(:label => 'YouTube',   :schema_value => 'YouTube')
-DataType.gen_if_not_exists(:label => 'Map',       :schema_value => 'Map')
-DataType.gen_if_not_exists(:label => 'Link',      :schema_value => 'Link')
+DataType.create_defaults
 
 LinkType.gen_if_not_exists(:label => 'Blog')
 LinkType.gen_if_not_exists(:label => 'News')
@@ -136,44 +127,7 @@ unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '', :so
 sci_name.update_attributes(:activated_on => nil)
 unknown.update_attributes(:activated_on => nil)
 
-License.gen_if_not_exists(:title => 'public domain',
-                          :description => 'No rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/publicdomain/',
-                          :logo_url => '')
-License.gen_if_not_exists(:title => 'all rights reserved',
-                          :description => '&#169; All rights reserved',
-                          :source_url => '',
-                          :logo_url => '',
-                          :show_to_content_partners => 0, )
-License.gen_if_not_exists(:title => 'cc-by-nc 3.0',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',
-                          :logo_url => 'cc_by_nc_small.png')
-License.gen_if_not_exists(:title => 'cc-by 3.0',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                          :logo_url => 'cc_by_small.png')
-License.gen_if_not_exists(:title => 'cc-by-sa 3.0',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/by-sa/3.0/',
-                          :logo_url => 'cc_by_sa_small.png')
-License.gen_if_not_exists(:title => 'cc-by-nc-sa 3.0',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/',
-                          :logo_url => 'cc_by_nc_sa_small.png')
-License.gen_if_not_exists(:title => 'cc-zero 1.0',
-                          :description => 'Public Domain',
-                          :source_url => 'http://creativecommons.org/publicdomain/zero/1.0/',
-                          :logo_url => 'cc_zero_small.png')
-License.gen_if_not_exists(:title => 'no known copyright restrictions',
-                          :description => 'No known copyright restrictions',
-                          :source_url => 'http://www.flickr.com/commons/usage/',
-                          :logo_url => '',)
-License.gen_if_not_exists(:title => 'not applicable',
-                          :description => 'License not applicable',
-                          :source_url => '',
-                          :logo_url => '',
-                          :show_to_content_partners => 0)
+License.create_defaults
 
 MimeType.gen_if_not_exists(:label => 'image/jpeg')
 MimeType.gen_if_not_exists(:label => 'audio/mpeg')

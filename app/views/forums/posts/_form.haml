@@ -1,0 +1,37 @@
+= content_for :head do
+  = javascript_include_tag "ckeditor/init"
+
+- if @post
+  - submit_to_url = forum_topic_post_path(@post.forum_topic.forum, @post.forum_topic, @post)
+- else
+  - submit_to_url = forum_topic_posts_path(@topic.forum, @topic)
+- default_text = @reply_to_post ? (render :partial => 'forums/posts/reply_text', :locals => { :post => @reply_to_post }) : nil
+
+= form_for @post || ForumPost.new(:text => default_text), :url => submit_to_url,
+  :html => { :class => 'boxed' }, :builder => ApplicationHelper::EolFormBuilder do |f|
+  = hidden_field_tag 'return_to', current_url(false)
+  %h3
+    - if @post
+      = I18n.t('forums.posts.edit')
+    - else
+      = I18n.t('forums.posts.create')
+  - unless @post
+    = hidden_field_tag :submit_to, forum_posts_create_path(:forum_id => @topic.forum.id, :topic_id => @topic.id) unless logged_in?
+    = f.hidden_field :forum_topic_id, :value => @topic.id
+    - if @reply_to_post
+      = f.hidden_field :reply_to_post_id, :value => @reply_to_post.id
+  %fieldset
+    %dl
+      %dt
+        = f.label :subject
+      %dd
+        = f.text_field :subject, :size => 100, :value => @reply_to_post ? @reply_to_post.reply_to_subject : (@post ? @post.subject : nil)
+      %dt
+        = f.label :text
+      %dd
+        = f.cktext_area(:text, :toolbar => 'ForumPost', :height => 200, :width => 750)
+  %fieldset.actions
+    - if @post
+      = submit_tag(I18n.t('save'))
+    - else
+      = submit_tag(I18n.t('submit'))

@@ -572,7 +572,6 @@ ia:
   citation: Citation
   citing_link: Citation
   classification_tree_header: Classification
-  classifications_empty: Iste pagina non es includite in alcun classification que pote esser percurrite in EOL.
   classifications_summary_header_with_count: 
     one: Parte de %{count} classification approbate
     other: Parte de %{count} classificationes approbate

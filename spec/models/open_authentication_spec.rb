@@ -83,8 +83,12 @@ describe OpenAuthentication do
       @open_authentication.can_be_deleted_by?(@user).should be_false
     end
 
-    it 'should know when a yser can delete open authentication' do
-      @open_authentication.update_column(:user_id, @user.id).should be_true
+    it 'should know when a user can delete open authentication' do
+      begin
+        @open_authentication.update_column(:user_id, @user.id)
+      rescue
+        @open_authentication = OpenAuthentication.find(1, 'facebook')
+      end
       @open_authentication.can_be_deleted_by?(@user).should be_true
     end
   end

@@ -575,12 +575,7 @@ TaxonConcept.all.each do |tc|
   end
 end
 
-RandomHierarchyImage.delete_all
 
-HierarchyEntry.all.each do |he|
-  entry_best_images = he.taxon_concept.data_objects.select{ |d| d.is_image? }
-  RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => entry_best_images.first) if !entry_best_images.blank?
-end
 
 # NOTE: the join table between this and toc items will end up with a lot of orphans in it, but I don't really care for now.
 ContentTable.delete_all
@@ -611,6 +606,18 @@ c.add(DataObject.gen)
 EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
 EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
 EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
+
+# Creating images for the march of life
+RandomHierarchyImage.delete_all
+TaxonConceptExemplarImage.delete_all
+TaxonConcept.where('published = 1').each do |tc|
+  if image = tc.data_objects.select{ |d| d.is_image? }.first
+    if dohe = image.data_objects_hierarchy_entries.first
+      RandomHierarchyImage.gen(:hierarchy => dohe.hierarchy_entry.hierarchy, :hierarchy_entry => dohe.hierarchy_entry, :data_object => image, :taxon_concept => tc);
+      TaxonConceptExemplarImage.gen(:taxon_concept => tc, :data_object => image)
+    end
+  end
+end
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS = false

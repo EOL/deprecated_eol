@@ -23,6 +23,15 @@
         - if @user.curator_level
           %dt= I18n.t('activerecord.attributes.user.curator_level')
           %dd= @user.curator_level.translated_label
+        - if current_user.can?(:edit_permissions)
+          %dt= I18n.t('activerecord.attributes.user.permissions')
+          %ul#permissions
+            - Permission.all.sort.each do |permission|
+              - can = @user.can?(permission) ? 'can' : 'cannot'
+              %dd{:id => "permission_#{permission.id}", :class => can}
+                = permission.name
+                = link_to(I18n.t(:grant_permission), grant_permission_user_path(@user, :permission_id => permission.id, 'data-type' => :json), :remote => true, :class => 'grant')
+                = link_to(I18n.t(:revoke_permission), revoke_permission_user_path(@user, :permission_id => permission.id, 'data-type' => :json), :remote => true, :class => 'revoke')
   .section.half
     .article
       .header

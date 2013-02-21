@@ -4,6 +4,9 @@
 # NOTE - when you call #initialize, the TaxonConcept is *immediately* loaded, if it wasn't already... so if you're
 # counting on ARel to handle lazy loading, you will want to attach any selects and includes *before* calling
 # TaxonPage.
+#
+# NOTE - as you write descendants of this class, please DO NOT rely on the #method_missing!  Please.  We want to
+# eventually remove that. Where needed, call your methods striaght from #taxon_concept.
 class TaxonUserClassificationFilter
 
   attr_reader :taxon_concept, :user
@@ -17,9 +20,13 @@ class TaxonUserClassificationFilter
   end
 
   # You could say TaxonUserClassificationFilter has_a overview.  :)
-  # NOTE - what is a little odd is that an Overview now has an #overview.  ...Which is... weird... but hey.
+  # NOTE - what is a little odd is that an Overview now has an #overview (inherited).  ...Which is... weird... but hey.
   def overview
     TaxonOverview.new(taxon_concept, user, _hierarchy_entry)
+  end
+
+  def details
+    TaxonDetails.new(taxon_concept, user, _hierarchy_entry)
   end
 
   # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
@@ -66,11 +73,11 @@ class TaxonUserClassificationFilter
   def media(options = {})
     @media ||= taxon_concept.data_objects_from_solr(options.merge(
       :ignore_translations => true,
-      :filter_hierarchy_entry => hierarchy_entry,
+      :filter_hierarchy_entry => _hierarchy_entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
-                                              :object_cache_url, :object_url, :data_rating ] }
+                                              :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
     ))
   end
 
@@ -92,6 +99,7 @@ class TaxonUserClassificationFilter
     taxon_concept.send(method, *args, &block)
   end
 
+  # NOTE - these are only *browsable* hierarchies!
   def hierarchy_entries
     return @hierarchy_entries if @hierarchy_entries
     @hierarchy_entries = taxon_concept.published_browsable_hierarchy_entries
@@ -141,24 +149,6 @@ class TaxonUserClassificationFilter
     related_names['parents'].count + related_names['children'].count
   end
 
-  def details(options = {})
-    @details ||= details_text_for_user
-    options[:include_toc_item] ?
-      @details.select { |d| !d.toc_items.include?(options[:include_toc_item]) } :
-      @details
-  end
-
-  def toc(options = {})
-    @toc_items ||= TocItem.table_of_contents_for_text(details)
-    options[:under] ?
-      @toc_items.select { |toc_item| toc_item.parent_id == options[:under].id } :
-      @toc_items
-  end
-
-  def toc_roots
-    @toc_roots ||= toc.dup.delete_if(&:is_child?)
-  end
-
   # TODO - This belongs on TaxonNames or the like:
   # TODO - rewrite EOL::CommonNameDisplay to make use of TaxonPage... and to not suck.
   # options are just passed along to EOL::CommonNameDisplay.
@@ -186,7 +176,7 @@ class TaxonUserClassificationFilter
   end
 
   def image
-    taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
+    @image ||= taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end
 
   def text(options = {})
@@ -288,44 +278,4 @@ protected # You can only call these from the classes that inherit from TaxonUser
     # Do nothing. If you inherit from the class, you'll want to override this.
   end
 
-  # TODO - there are three other methods related to this one, but I don't want to move them yet.
-  def details_text_for_user(only_one = false)
-    text_objects = taxon_concept.text_for_user(user,
-      :language_ids => [ user.language_id ],
-      :filter_by_subtype => true,
-      :allow_nil_languages => user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => (only_one ? 1 : 600) # NOTE - artificial limit of text objects here to increase the default 30
-    )
-    
-    # now preload info needed for display details metadata
-    unless only_one
-      selects = {
-        :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-        :hierarchies => [ :id, :agent_id, :browsable, :outlink_uri, :label ],
-        :data_objects_hierarchy_entries => '*',
-        :curated_data_objects_hierarchy_entries => '*',
-        :data_object_translations => '*',
-        :table_of_contents => '*',
-        :info_items => '*',
-        :toc_items => '*',
-        :translated_table_of_contents => '*',
-        :users_data_objects => '*',
-        :resources => '*',
-        :content_partners => 'id, user_id, full_name, display_name, homepage, public',
-        :refs => '*',
-        :ref_identifiers => '*',
-        :comments => 'id, parent_id',
-        :licenses => '*',
-        :users_data_objects_ratings => '*' }
-      DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments, :license,
-        { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items },
-        { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
-          :vetted, :visibility ] },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object,
-        { :toc_items => [ :translations ] } ], :select => selects)
-    end
-    text_objects
-  end
-  
 end

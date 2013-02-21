@@ -446,9 +446,9 @@ describe DataObject do
                           :object_url => 'http://my.object.url',
                           :data_subtype_id => DataType.map.id)
     dohe = DataObjectsHarvestEvent.gen(:data_object_id => dato.id, :harvest_event_id => harvest.id)
-    dato.access_image_from_remote_server?('580_360').should == true
-    dato.access_image_from_remote_server?('260_190').should == false
-    dato.access_image_from_remote_server?(:orig).should == true
+    dato.access_image_from_remote_server?('580_360').should be_true
+    dato.access_image_from_remote_server?('260_190').should_not be_true
+    dato.access_image_from_remote_server?(:orig).should be_true
   end
 
   it '#create_user_text should add rights holder only if rights holder not provided, license is not public domain and if it is not a link object' do
@@ -496,7 +496,7 @@ describe DataObject do
     params[:license_id] = nil
     params[:rights_holder] = ''
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.rights_holder.should == ''
   end
 
@@ -519,27 +519,27 @@ describe DataObject do
                 :link_object => true }
     options[:user] = @user
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.untrusted.id
     dato.users_data_object.visibility_id.should == Visibility.invisible.id
     options[:user] = assistant_curator
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.unknown.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = full_curator
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = master_curator
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = admin
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
   end
@@ -628,5 +628,44 @@ describe DataObject do
     Resource.destroy(resource)
   end
 
+  it 'should return proper values for can_be_made_overview_text_for_user' do
+    text = @taxon_concept.data_objects.select{ |d| d.text? && !d.added_by_user? }.last
+    text.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
+    text.update_column(:published, false)
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # unpublished
+    text.update_column(:published, true)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, text.id)
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # already exemplar
+    TaxonConceptExemplarArticle.destroy_all
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.preview.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # preview
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.invisible.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # invisible
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.visible.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
+  end
+
+  it 'should replace objects with their latest versions with replace_with_latest_versions!' do
+    @image_dato = DataObject.find(@image_dato)
+    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    test_array = [ @image_dato ]
+    DataObject.replace_with_latest_versions!(test_array)
+    test_array.should_not == [ @image_dato ]
+    test_array.should == [ new_image_dato ]
+  end
+
+  it 'should replace objects with their latest versions with replace_with_latest_versions_no_preload' do
+    @image_dato = DataObject.find(@image_dato)
+    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    test_array = [ @image_dato ]
+    DataObject.replace_with_latest_versions_no_preload(test_array)
+    test_array.should_not == [ @image_dato ]
+    test_array.should == [ new_image_dato ]
+  end
 end
 

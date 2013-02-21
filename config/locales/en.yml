@@ -62,6 +62,7 @@ en:
       long_utc: "%B %d, %Y %H:%M UTC"
       month_name: "%B"
       month_and_year: "%B %Y"
+      blog: "%a %b %d, %Y %l:%M %P"
     am: "am"
     pm: "pm"
   support:
@@ -290,6 +291,19 @@ en:
         # lifedesk stats
         lifedesk_taxa: "LifeDesks taxa"
         lifedesk_data_objects: "LifeDesks data objects"
+      forum:
+        forum_category_id: "Category"
+        name: "Forum name"
+        description: "Description <small>(optional)</small>"
+      forum_category:
+        title: "Category name"
+        description: "Description <small>(optional)</small>"
+      forum_post:
+        subject: "Subject"
+        text: "Body"
+      forum_topic:
+        subject: "Subject"
+        text: "Body"
       harvest_event:
         resource: "Resource"
       hierarchy:
@@ -379,6 +393,7 @@ en:
         full_name: "Full name"
         given_name: "First name"
         language_abbr: "Preferred language"
+        permissions: "Permissions"
         requested_curator_level_id: "Desired curation level"
         tag_line: "Tagline"
         username: "Username"
@@ -808,6 +823,9 @@ en:
         menu_link: "User-submitted text"
         page_header: "User-Submitted Text Statistics"
         page_title: "Administration: User-Submitted Text Statistics"
+  api:
+    docs:
+      forum_beta_test_text: "<a href=\"%{forums_link}\">Click here</a> to access the beta test of the new EOL forums. Your feedback is welcome."
   contacts:
     errors:
       message_not_sent: "Sorry, an error occurred, your message has not been sent."
@@ -956,6 +974,73 @@ en:
       menu_link: "User-submitted text"
       page_header: "User-Submitted Text Statistics"
       page_title: "Statistics"
+  forums:
+    forums_heading: "EOL Forums"
+    last_post: "Last Post"
+    posts_heading: "Posts"
+    replies: "Replies"
+    topics_heading: "Threads"
+    views: "Views"
+    create: "Create a forum"
+    create_successful: "Forum was successfully created"
+    create_failed: "Sorry, an error occured, the forum could not be added"
+    update_successful: "Forum was successfully updated"
+    update_failed: "Sorry, an error occured, the forum could not be updated"
+    delete_successful: "Forum was successfully deleted"
+    delete_failed_not_empty: "Forum could not be deleted because it is not empty"
+    move_successful: "Forum was successfully moved"
+    move_failed: "Forum could not be moved"
+    edit: "Edit forum"
+    post_by_user_at_time: "by %{user}, %{time}"
+    actions: "Actions"
+    administration: "Administration"
+    no_topics: "There are no threads in this forum"
+    buttons:
+      move_up: "&uarr;"
+      move_down: "&darr;"
+      delete: "delete"
+      edit: "edit"
+      reply: "reply"
+      link: "link"
+    categories:
+      create: "Create a category"
+      edit: "Edit category"
+      create_successful: "Category was successfully created"
+      create_failed: "Sorry, an error occured, the category could not be added"
+      update_successful: "Category was successfully updated"
+      update_failed: "Sorry, an error occured, the category could not be updated"
+      delete_successful: "Category was successfully deleted"
+      delete_failed_not_empty: "Category could not be deleted because it is not empty"
+      move_successful: "Category was successfully moved"
+      move_failed: "Category could not be moved"
+    posts:
+      joined_date: "Joined %{date}"
+      create: "Make a new post"
+      edit: "Edit post"
+      post_written_by_user: "%{user} wrote:"
+      replying_to_post: "Replying to:"
+      create_successful: "Post was successfully created"
+      create_failed: "Sorry, an error occured, the post could not be added"
+      update_successful: "Post was successfully updated"
+      update_failed: "Sorry, an error occured, the post could not be updated"
+      delete_successful: "Post was successfully deleted"
+      topic_and_post_delete_successful: "Post and thread were successfully deleted"
+      delete_failed_topic_not_empty: "Post could not be deleted because the thread is not empty"
+      post_has_been_deleted: "This post has been deleted"
+      deleted_subject: "(deleted)"
+      no_subject: "(no subject)"
+      permalink_to_this_post: "Permalink to this post:"
+      close_window: "close"
+      posts_with_count:
+        one: "%{count} post"
+        other: "%{count} posts"
+    topics:
+      create: "Start a new thread"
+      no_posts: "There are no posts in this thread"
+      create_successful: "Thread was successfully created"
+      create_failed: "Sorry, an error occured, the thread could not be added"
+      delete_successful: "Thread was successfully deleted"
+      delete_failed_not_empty: "Thread could not be deleted because it is not empty"
   layouts:
     v2:
       application:
@@ -2993,6 +3078,7 @@ en:
   edit_my_profile: "Edit my profile"
   edit_news_items: "edit news items"
   edit_page_contents: "edit page contents"
+  edit_permission_header: "Editing Permission: %{permission}"
   edit_search_suggestion: "Edit Search Suggestion"
   edit_search_suggestions: "edit search suggestions"
   edit_table_of_contents: "edit table of contents"
@@ -3188,6 +3274,7 @@ en:
   google_images: "Google Images"
   google_scholar: "Google Scholar"
   grant_manager_link: "Grant manager role"
+  grant_permission: "grant"
   grant_full_curator_link: "Grant"
   harvest_id: "Harvest ID"
   harvesting_processes_log: "Harvesting Processes Log"
@@ -3408,6 +3495,7 @@ en:
   maps_empty: "No one has contributed any maps to this page yet."
   maps_empty_contribute_instructions: "Learn how to contribute maps to EOL."
   maps_image_maps_header: "Media tagged as 'map'"
+  march_of_life_thumbnail_title: "March of Life:"
   matching_users_found_with_count:
     one: "A total of %{count} user was found matching your criteria."
     other: "A total of %{count} users were found matching your criteria."
@@ -3676,6 +3764,12 @@ en:
   percentage_of_descendants_with_images: "percentage of descendants with images"
   percentage_of_descendants_with_text: "percentage of descendants with text"
   permalink: "Permalink"
+  permissions_list_header: "Permissions on EOL"
+  permission_granted: "Permission granted."
+  permission_revoked: "Permission revoked."
+  permissions_users_count:
+    one: "%{count} user"
+    other: "%{count} users"
   personal_profile_menu: "Personal Profile"
   personal_space: "Personal Space"
   pinterest: "Pinterest"
@@ -3753,6 +3847,7 @@ en:
   required: "Required"
   revoke_full_curator_link: "Revoke"
   revoke_manager_link: "Revoke manager role"
+  revoke_permission: "revoke"
   removed_count_items_from_collection_notice:
     one: "%{count} item has been removed from this collection."
     other: "%{count} items have been removed from this collection."
@@ -3951,6 +4046,7 @@ en:
   submit_term: "Submit Term"
   suggested_result_page_id: "Suggested Result Page ID:"
   suggested_results_avg: "Suggested Results avg"
+  summary_thumbnail_title: "Summary:"
   supplier_allcaps: "SUPPLIER:"
   supplier_colon: "Supplier:"
   survey_link: "Take our survey"

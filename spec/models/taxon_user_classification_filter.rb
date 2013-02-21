@@ -222,6 +222,17 @@ describe TaxonUserClassificationFilter do
     @taxon_page.details.should == "gee wiz"
   end
 
+  it '#details should filter by toc item' do
+    d_first = DataObject.gen(:data_type => DataType.text)
+    d_first.toc_items << TocItem.first
+    d_last = DataObject.gen(:data_type => DataType.text)
+    d_last.toc_items << TocItem.last
+    @taxon_concept.should_receive(:text_for_user).and_return([d_first, d_last])
+    @taxon_page.details().should == [ d_first, d_last ]
+    @taxon_page.details(:include_toc_item => TocItem.first).should == [ d_first ]
+    @taxon_page.details(:include_toc_item => TocItem.last).should == [ d_last ]
+  end
+
   # Hard to test.  :\  ...Though the "spirit" of this may be captured in other specs...
   it 'should show details text with no language only to users in the default language'
 
@@ -262,7 +273,7 @@ describe TaxonUserClassificationFilter do
       :filter_hierarchy_entry => @entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
+      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_cache_url, :object_url, :data_rating ] }
     ).and_return("this here")
     @taxon_page_with_entry.media.should == "this here"
   end
@@ -273,7 +284,7 @@ describe TaxonUserClassificationFilter do
       :filter_hierarchy_entry => @taxon_concept.entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at ] }
+      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_cache_url, :object_url, :data_rating ] }
     ).and_return("badda bing")
     @taxon_page.media.should == "badda bing"
   end

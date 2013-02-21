@@ -1,0 +1,8 @@
+%ul
+  - @permissions.sort.each do |permission|
+    -# NOTE - reload is required before counting because all of these permissions are cached, normally.
+    %li
+      = link_to permission.name, permission
+      (
+      = I18n.t(:permissions_users_count, :count => permission.reload.users_count)
+      )

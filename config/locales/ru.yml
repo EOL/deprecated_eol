@@ -1254,10 +1254,18 @@ ru:
     content_partner_resource_created: 
       message: "Это уведомление автоматизированной системы ЭЖ для группы \"Страницы видов\". Пользователь %{user_full_name} создал новый ресурс %{resource_title} контенту партнера %{partner_full_name}, подробности ниже:\n\nПользователь: %{user_full_name}\nE-mail: %{user_email}\nURL профиля: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nПартнеров ресурсов URL: %{partner_resources_url}\n\nРесурс: %{resource_title}\nРесурсов URL: %{resource_url}\nСоздано: %{resource_created_at_date}\nСтатус: %{resource_status}"
       subject: Пользователь ЭЖ %{user_full_name} добавил новый ресурс %{resource_title} контенту партнера %{partner_full_name}
+    content_partner_statistics_reminder: 
+      message: Это автоматическое напоминание от Энциклопедии Жизни. Веб-статистика использования данных, поставляемых в EOL от %{partner_full_name} за %{month} %{year} теперь доступна в %{partner_statistics_url}.
+      subject: Напоминание статистики использования Энциклопедии Жизни для %{partner_full_name} за %{month} %{year}
+    curator_approved: 
+      message: "Благодарим вас за запрос кураторских привилегий %{curator_level}. Ваш запрос был одобрен.\n\nДля получения дополнительной информации о курирование и какие функции доступны для вас, посетите http://eol.org/curators."
+      subject: Ваш запрос на статус куратора %{curator_level} Энциклопедия Жизни был одобрен
     greeting_dear_name_with_comma: Уважаемый, %{name},
     signature_basic: Команда энциклопедии жизни
     signature_with_contact_us_link: "Если у вас возникли какие-либо проблемы, пожалуйста, свяжитесь с нами по адресу %{url}.\n\nКоманда энциклопедии жизни"
     signature_with_species_pages_group_contact: "Если у вас есть какие-либо вопросы, пожалуйста, свяжитесь с нами по адресу %{species_pages_group_email}.\n\nКоманда энциклопедии жизни"
+    unsubscribed_to_notifications: 
+      subject: Жаль, что вы улетаете...
     user_activated: 
       subject: Ваш аккаунт в Энциклопедии Жизни (EOL) был активирован
     user_activated_with_open_authentication: 
@@ -1275,9 +1283,27 @@ ru:
       meta_title: Активность сообщества EOL
       page_title: Активность сообщества EOL
   recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Обновление в %{to}
+      other: "%{count} обновлений в  %{to}"
+    bulk_comments_on_you_with_count: 
+      one: Новый комментарий в <a href='%{url}' style='color:#195184'>вашем профиле</a>
+      other: "%{count} новых комментариев в <a href='%{url}' style='color:#195184'>вашем профиле</a>"
+    bulk_comments_with_count: 
+      one: Новый комментарий на %{on}
+      other: "%{count} новых комментариев на %{on}"
+    bulk_community_activity_with_count: 
+      one: Обновление в %{to}
+      other: "%{count} обновлений в  %{to}"
+    bulk_curation_with_count: 
+      one: Кураторы сделали улучшение в %{to}
+      other: Кураторы сделали %{count} улучшений в %{to}
     comment_link: Просмотр комментариев на EOL
+    contact_us_link: Если вы испытываете какие-либо проблемы, пожалуйста, <a href='http://eol.org/contact_us' style='color:#195184'>свяжитесь с нами</a>.
     default_subject: Последние данные по активности на EOL
     intro_immediately: Привет, %{name} —
+    see_all_activity: Просмотреть всю активность на <a href='%{activity_url}' style='color:#195184'>странице новостей пользователя</a>.
+    unsubscribe: Войти в систему и изменить настройки электронной почты на <a href='%{email_prefs_url}' style='color:#195184'>странице настройки уведомлений</a> или <a href='%{unsubscribe_url}' style='color:#195184'>отказаться от всех автоматических уведомлений EOL без входа в систему</a>.
   references_cabs_colon: "Примечания:"
   rights: Права
   rights_holder: Правообладатель
@@ -1350,7 +1376,6 @@ ru:
   twitter: Twitter
   type: Тип
   unable_to_copy_items_to_collection_error: К сожалению, не удалось скопировать элементы коллекции в %{name}.
-  unable_to_invite_users_to_community_error: Приглашения не могут быть отправлены для %{users}.
   unique_page_views_th: Уникальных просмотров страниц
   unknown: Неизвестно
   unknown_hierarchy: Неизвестная иерархия

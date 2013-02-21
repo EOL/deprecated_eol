@@ -1,0 +1,4 @@
+$('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
+$('#flashes').html('<p class="status notice"><%= I18n.t(:permission_granted) %></p>');
+$('#flashes').delay('5000').fadeOut('slow');
+$('#permission_<%= @permission.id %>').addClass("can").removeClass("cannot");

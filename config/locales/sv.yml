@@ -205,6 +205,7 @@ sv:
         bio: Bio
         credentials: Autentiseringsuppgifter
         curator_level: Kuratornivå
+        curator_scope: Kureringsområde
         disable_email_notifications: Skicka inte NÅGRA uppdateringar via e-post
         email: E-postadresser
         email_confirmation: E-postadress igen <small>(för att bekräfta)</small>
@@ -390,6 +391,7 @@ sv:
         an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: En okänd användare lade till det vanliga namnet "%{name}" på ett okänt språk till en okänd sida.
         an_unknown_user_added_name_in_an_unknown_language_to_taxon: En okänd användare lade till det vanliga namnet "%{name}" på ett okänt språk till "%{taxon}".
         an_unknown_user_added_name_in_language_to_an_unknown_taxon: En okänd användare lade till det vanliga namnet "%{name}" på %{language} till en okänd sida.
+        an_unknown_user_added_name_in_language_to_it: En okänd användare lade till det vanliga namnet "%{name}" på %{language}.
         an_unknown_user_added_name_in_language_to_taxon: En okänd användare lade till det vanliga namnet "%{name}" på %{language} till "%{taxon}".
         user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> lade till ett okänt vanligt namn på ett okänt språk till en okänd sida.
         user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> lade till ett okänt vanligt namn på ett okänt språk till %{taxon}.
@@ -397,6 +399,17 @@ sv:
         user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> lade till ett okänt vanligt namn på %{language} till %{taxon}.
         user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> lade till det vanliga namnet %{name}" på ett okänt språk till en okänd sida.
         user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> lade till det vanliga namnet "%{name}" på %{language} till en okänd sida.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> lade till det vanliga namnet "%{name}" på %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> lade till det vanliga namnet "%{name}" på %{language} till "%{taxon}".
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: En okänd användare ändrade miniatyrbilden för "%{data_object}".
+        an_unknown_user_cropped_an_unknown_data_object: En okänd användare ändrade ändrade miniatyrbilden för en okänd bild.
+        an_unknown_user_cropped_data_object: En okänd användare ändrade miniatyrbilden för "%{data_object}".
+        an_unknown_user_cropped_it: En okänd användare ändrade ändrade miniatyrbilden för en okänd bild.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> ändrade miniatyrbilden för en äldre version av "%{data_object}".
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> ändrade miniatyrbilden för en okänd bild.
+        user_cropped_data_object: <strong>%{user}</strong> ändrade miniatyrbilden för "%{data_object}".
+        user_cropped_it: <strong>%{user}</strong> ändrade miniatyrbilden för en okänd bild.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: En okänd användare markerade en äldre version av "%{data_object}" som dold i en okänd kontext.
         an_unknown_user_hid_an_older_data_object_on_association: En okänd användare markerade en äldre version av "%{data_object}" som dold på sidan "%{association}".
@@ -419,6 +432,9 @@ sv:
         an_unknown_user_merged_entry_to_it: En okänd användare flyttade klassificeringen av "%{provider}".
         user_merged_entry_to_it: <strong>%{user}</strong> lade till klassificeringen av "%{provider}".
       other_actions: 
+        an_unknown_user_curated_an_older_data_object: En okänd användare kurerade en äldre version av "%{data_object}".
+        an_unknown_user_curated_an_unknown_data_object: En okänd användare kurerade ett okänt dataobjekt.
+        an_unknown_user_curated_data_object: En okänd användare kurerade "%{data_object}".
         user_curated_an_older_data_object: <strong>%{user}</strong> kurerade en äldre version av "%{data_object}".
         user_curated_an_unknown_data_object: <strong>%{user}</strong> kurerade ett okänt dataobjekt.
         user_curated_data_object: <strong>%{user}</strong> kurerade "%{data_object}".
@@ -598,6 +614,8 @@ sv:
   add_brief_summary_to_page_link_button: Lägg till en kort sammanfattning till denna sida
   add_collection_to_a_new_community: Lägg till "%{collection}" i en ny gemenskap
   add_collection_to_community: Lägg till samling i gemenskapen
+  add_education_resources_to_page_link_button: Lägg till utbildningsresurser till denna sida
+  add_identification_resources_to_page_link_button: Lägg till identifieringsresurser till denna sida
   add_item_to_new_collection: Lägg till "%{item}" till en ny samling
   add_language: Lägg till språk
   add_link_instead: lägg till en länk i stället
@@ -619,11 +637,15 @@ sv:
   admin_content_page_new_link: Skapa ny sida
   admin_content_page_new_tip: Ange grundläggande information om denna sida. Unikt namn som är %{required_icon} krävs.
   admin_content_page_not_active: Ej publicerad
+  admin_content_page_parent_option_root: Ingen överordnad
+  admin_content_page_root: Rot
+  admin_content_page_sort_order_updated: Sidornas ordning har ändrats.
   admin_content_page_update_successful_notice: Sidan <a href="#%{anchor}"><em>%{page_name}</em></a> uppdaterades.
   admin_content_page_update_unsuccessful_error: Tyvärr, ett fel uppstod. Sidan kunde inte uppdateras.
   admin_content_pages_empty: Inget innehållssidor hittas.
   admin_content_partners_index_header: Innehållspartners
   admin_content_partners_link: Innehållspartners
+  admin_content_partners_notifications_link: Meddelanden
   admin_content_partners_notifications_statistics_reminder_send_submit: Skicka påminnelse
   admin_content_partners_statistics_date_from_label: Från
   admin_content_partners_statistics_date_to_label: Till
@@ -866,6 +888,8 @@ sv:
         taxa_observed: 
           one: "%{count} taxon observerad"
           other: "%{count} taxa observerade"
+        view_all_observations_on_inaturalist: Visa alla observationer från %{project_title} på iNaturalist
+        view_more_observations_on_inaturalist: Visa fler observationer från %{project_title} på iNaturalist
         view_project_on_inaturalist: Visa %{project_title} på iNaturalist
     newsfeeds: 
       show: 
@@ -1127,6 +1151,9 @@ sv:
   created_colon: "Skapades:"
   created_community: Gemenskapen skapades.
   creative_commons: Creative Commons
+  crop_image: beskär bild
+  crop_image_thumbnails: Beskär bildminiatyrer
+  curated: Kurerad
   curated_association_update_button: Spara ändringar
   curation_privileges_page_title: Bli en kurator
   curation_reason_placeholder: ytterligare detaljer (valfritt)
@@ -1279,6 +1306,7 @@ sv:
   donate: Donera
   donation_amount_legend: Välj beloppet du vill donera
   donation_amount_other_label: Andra
+  donation_confirmation: Doneringsbekräftelse
   donation_error_no_amount: Välj ett donationsbelopp.
   donation_error_only_numbers: Ange ett belopp med enbart siffror.
   donation_introduction_paragraph_one: EOL växer varje dag. Vi uppmuntrar dig att utforska EOL och dra nytta av allt som finns att erbjuda. Vi ber dig hjälpa till att behålla det initiativ växandet med ditt bidrag av innehåll, expertis och ekonomiskt stöd.
@@ -1391,7 +1419,6 @@ sv:
   expand_all_children: expandera alla undersidor
   explore: Utforska
   explore_what_we_know_about_taxon: Utforska vad EOL vet om %{taxon}.
-  export_all_of_the_entries_as_a: exportera alla poster som en CSV-fil
   export_curator_csv_link: "[exportera alla kuratorer som CSV]"
   export_this_list_as_csv: Exportera denna lista som CSV.
   external_link_header: Extern länk
@@ -1477,6 +1504,7 @@ sv:
   from_communities: "från gemenskaper: %{communities}"
   from_community: från gemenskapen %{community}.
   gbif_occurrence_learn_more_link: Kom åt dessa data genom GBIF-portalen.
+  given_name_colon: "Förnamn:"
   global_access_tagline: Global tillgång till kunskap om livet på jorden.
   global_navigation: Global navigation
   glossary_is_empty: (ordlistan är tom)
@@ -1600,6 +1628,7 @@ sv:
         curation_application: Bli en kurator
         curation_priveleges_credentials: Referenser <small>(endast fullständiga och mästerkuratorer)</small>
         curator_level: Du är för närvarande %{curator_level_with_indefinite_article}.
+        curator_scope: Kureringsområde
         email: E-postadress
         email_reports_frequency_hours: Hur ofta vill du få e-postmeddelanden om aktiviteten på dina bidrag?
         email_settings_submit: e-postinställningar
@@ -1885,6 +1914,7 @@ sv:
     other: "%{count} länkar"
   listing_collections: Listar samlingar
   literature: Litteratur
+  literature_bhl_information: Följande bibliografi har genererats med automatiska tjänster. BHL använder taxonomiska upplysningsverktyg för att hitta, kontrollera och registrera vetenskapliga namn som finns i texten i varje digitaliserad sida i BHL:s digitala samling.
   literature_empty: Inga referenser hittades.
   literature_header: Referenser
   literature_links: Litteraturlänkar
@@ -2128,6 +2158,7 @@ sv:
       message: "Detta är en automatiskt systemmeddelande från EOL. Användaren %{user_full_name} (%{user_profile_url}) uppdaterade sin e-postadress eller inställningarna för e-postlistan.\n\nFöregående inställningar:\nE-post: %{previous_email}\nE-postlistans inställningar: %{previous_mailing_list_preference}\n\nUppdaterades till:\nE-post: %{updated_email}\nE-postlistans inställningar: %{updated_mailing_list_preference}\nUppdaterades: %{updated_at}"
       subject: EOL-användaren %{user_full_name} ändrade sina inställningar för e-postadress eller e-postlista
     user_verification: 
+      message: "Tack för din registrering på Encyclopedia of Life. Följande länk kommer att bekräfta att du vill slutföra din registrering och aktivera ditt konto:\n\n%{verification_url}\n\nNär ditt konto har aktiverat kommer du att få ett bekräftelsemeddelande via e-post."
       subject: Var god kontrollera din begäran för ett Encyclopedia of Life-konto
   num_content_partners: Antal innehållspartners
   num_data_objects: Antal dataobjekt
@@ -2311,6 +2342,7 @@ sv:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Se alla tidigare aktiviteter på <a href='%{activity_url}' style='color:#195184'>din sida för användarnyhetsflöden</a>.
     someone_commented_on_something: <b>%{who}</b> har kommenterat på <b>%{what}</b>.
+    unsubscribe: Logga in och ändra dina e-postinställningar på <a href='%{email_prefs_url}' style='color:#195184'>dina meddelandeinställningar</a> eller <a href='%{unsubscribe_url}' style='color:#195184'>avbeställ ALLA automatiska EOL-meddelanden utan att logga in</a>.
   recent_updates: Senaste uppdateringar
   recently_visited: Nyligen besökta
   recipients: Mottagare
@@ -2492,6 +2524,9 @@ sv:
   special_collection: Specialsamling
   special_collections_cannot_be_destroyed: Denna samling är speciell och inte kan förstöras.
   species: Arter
+  stars_with_count: 
+    one: "%{count} stjärna"
+    other: "%{count} stjärnor"
   started: Startad
   stats: Statistik
   subject: ämne
@@ -2529,6 +2564,7 @@ sv:
         meta_keywords: Samlingar av %{scientific_name}, observationer av %{scientific_name}
         meta_keywords_with_common_name: "%{preferred_common_name}samlingar, %{preferred_common_name}observationer, %{scientific_name}samlingar, %{scientific_name}observationer"
         meta_title: Samlingar av %{scientific_name}
+        meta_title_with_common_name: Samlingar för %{preferred_common_name} (%{scientific_name})
         tweet_text: Samlingar av %{scientific_name}
       curators: 
         hierarchy_entry: 
@@ -2568,6 +2604,9 @@ sv:
         tweet_text: Information om %{scientific_name}
     literature: 
       bhl: 
+        hierarchy_entry: 
+          meta_title: BHL-litteratur om %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          tweet_text: "Litteratur från #BHL om %{scientific_name} som är klassificerad av %{hierarchy_provider}"
         tweet_text: "Litteratur från #BHL om %{scientific_name}"
       show: 
         hierarchy_entry: 
@@ -2678,6 +2717,7 @@ sv:
   taxon_partner_links_header: Partnerlänkar
   taxon_partner_links_link: Partnerlänkar
   taxon_rating: Taxonbetyg
+  taxon_recognized_by: Taxon känns igen av %{whom}
   taxon_suggested: Taxon föreslagen
   technical_functions: Tekniska funktioner
   term_is_already_def_error: "'%{term}' definieras redan"
@@ -2743,6 +2783,7 @@ sv:
   time_ago: "%{time_passed} sedan"
   title: Titel
   to_process_your_donation_please_proceed: För att behandla din donation går du vidare
+  to_send_email_enter_text: För att skicka e-post till denna användare, skriv in texten nedan och klicka på 'Skicka'.
   topic: Ämne
   topic_area: Ämnesområde
   total: Totalt
@@ -2767,7 +2808,12 @@ sv:
   type: Typ
   unique_page_views_th: Unika sidvisningar
   unknown: Okänd
+  unknown_data_object_title: Okänt dataobjekt
+  unpublished: Ej publicerad
   unreviewed: Ogranskad
+  unreviewed_images: Ogranskade bilder
+  unreviewed_maps: Ogranskade kartor
+  unreviewed_text_objects: Ogranskade artiklarna
   untrusted: Opålitlig
   update: Uppdatera
   update_collection_submit_button: Uppdatera samlingsdetaljer

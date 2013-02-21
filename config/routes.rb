@@ -33,6 +33,7 @@ Eol::Application.routes.draw do
   match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
+  match '/forum' => redirect('/forums'), :as => 'forum_redirect'
 
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
@@ -218,6 +219,8 @@ Eol::Application.routes.draw do
       get 'activated'
       get 'curation_privileges'
       put 'make_editor'
+      get 'grant_permission'
+      get 'revoke_permission'
       get 'revoke_editor'
       get 'pending_notifications'
       get 'unsubscribe_notifications/:key', :action => 'unsubscribe_notifications',
@@ -295,10 +298,35 @@ Eol::Application.routes.draw do
       end
     end
     resources :news_items, :controller => 'admins/news_items' do
-      resources :translated_news_items, :as => :translations, :except => [:show, :index],
+      resources :translated_news_items, :as => :translations, :except => [ :show, :index ],
         :controller => 'admins/translated_news_items'
     end
-    
+  end
+
+  resources :forum_categories, :controller => 'forums/categories', :only => [ :new, :create, :edit, :update, :destroy ] do
+    member do
+      post 'move_up'
+      post 'move_down'
+    end
+  end
+
+  # when adding these items when not logged in, the user will get redirected to login
+  # then redirected to create via GET. We need to define the abilty to send GET to create
+  get '/forums/create' => 'forums#create', :as => 'forums_create'
+  get '/forums/:forum_id/topics/create' => 'forums/topics#create', :as => 'forum_topics_create'
+  get '/forums/:forum_id/topics/:topic_id/posts/create' => 'forums/posts#create', :as => 'forum_posts_create'
+  resources :forums, :only => [ :index, :show, :new, :create, :edit, :update, :destroy ] do
+    member do
+      post 'move_up'
+      post 'move_down'
+    end
+    resources :topics, :controller => 'forums/topics', :only => [ :show, :create, :destroy ] do
+      resources :posts, :controller => 'forums/posts', :only => [ :show, :new, :create, :edit, :update, :destroy ] do
+        member do
+          get 'reply'
+        end
+      end
+    end
   end
 
   # Old V1 admin search logs:
@@ -335,6 +363,7 @@ Eol::Application.routes.draw do
   get '/comments/create' => 'comments#create'
   resources :sessions, :only => [:new, :create, :destroy]
   resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
+  resources :permissions, :only => [:index, :show]
 
   # Miscellaneous named routes:
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'
@@ -460,16 +489,10 @@ Eol::Application.routes.draw do
     resources :table_of_contents, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/table_of_contents'
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end
-  
+
   resource :navigation, :controller => 'navigation' do
     member do
       get 'browse_stats'
-    end
-  end
-  
-  resource :wysiwyg, :controller => 'wysiwyg' do
-    collection do
-      post 'upload_image'
     end
   end
 
@@ -486,12 +509,12 @@ Eol::Application.routes.draw do
   match 'api/:action/:id' => 'api'
   # looks for version, ID
   match 'api/:action/:version/:id' => 'api', :version =>  /\d\.\d/
-  
+
   match 'content/random_homepage_images' => 'content#random_homepage_images'
   match 'content/donate_complete' => 'content#donate_complete'
   match 'content/file/:id' => 'content#file'
   match '/maintenance' => 'content#maintenance', :as => 'maintenance'
-  
+
 
   # These are expensive and broad and should be kept at the bottom of the file:
   match '/:id' => redirect("/pages/%{id}/overview"), :id => /\d+/

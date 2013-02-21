@@ -27,7 +27,7 @@ class TaxonOverview < TaxonUserClassificationFilter
       @classification_chosen_by = chosen.user # Might as well set it while we have it.
       @entry = chosen.hierarchy_entry
     else
-      @entry = taxon_concept.hierarchy_entries.shuffle.first
+      @entry = hierarchy_entries.shuffle.first
       @entry ||= taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first
       @entry ||= super
     end
@@ -44,12 +44,19 @@ class TaxonOverview < TaxonUserClassificationFilter
     @classification_curated ||= taxon_concept.curator_chosen_classification
   end
 
+  # NOTE - This is actually meant to be a count of *browsable* hierarchies, so we don't go to tc.
   def classifications_count
-    @classifications_count ||= taxon_concept.hierarchy_entries.length
+    @classifications_count ||= hierarchy_entries.length
   end
 
   def details?
-    details_text_for_user(:only_one)
+    @has_details ||= taxon_concept.text_for_user(user,
+      :language_ids => [ user.language_id ],
+      :filter_by_subtype => true,
+      :allow_nil_languages => user.default_language?,
+      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
+      :per_page => 1
+    )
   end
 
   def summary?
@@ -158,7 +165,8 @@ private
         :ignore_translations => true
       )
     ).compact
-    media = media[0..MEDIA_TO_SHOW-2] << map if map?
+    media = media[0...MEDIA_TO_SHOW] if media.length > MEDIA_TO_SHOW
+    media = media[0...MEDIA_TO_SHOW-1] << map if map?
     media
   end
 
@@ -167,7 +175,7 @@ private
   end
 
   def all_collections
-    @all_collections ||= taxon_concept.collections.published.watch
+    @all_collections ||= taxon_concept.collections.published.select{ |c| !c.watch_collection? }
   end
 
   def iucn

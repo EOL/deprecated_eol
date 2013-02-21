@@ -36,7 +36,9 @@ Eol::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  require "ruby-debug"
+  config.after_initialize do
+    $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
+  end
 end
 
 # TODO - Where do these go, now?  :S

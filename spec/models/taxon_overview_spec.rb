@@ -2,23 +2,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TaxonOverview do
 
-  def check_delegation_of(method)
-    some_string = FactoryGirl.generate(:string)
-    @entry.should_receive(method).and_return(some_string)
-    @overview_with_entry.send(method).should == some_string
-    another_string = FactoryGirl.generate(:string)
-    @taxon_concept.should_receive(method).and_return(another_string)
-    @overview.send(method).should == another_string
-  end
-
   before(:all) do
     load_foundation_cache
   end
 
   before(:each) do # NOTE - we want these 'pristine' for each test, because values get cached.
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
-    @native_entry = HierarchyEntry.gen
-    @taxon_concept.stub!(:hierarchy_entries).and_return([@native_entry])
+    @native_entry = HierarchyEntry.gen(:taxon_concept => @taxon_concept)
     @entry = HierarchyEntry.gen
     @language = Language.gen(:iso_639_1 => 'aa')
     @user = User.gen(:language => @language)
@@ -51,12 +41,12 @@ describe TaxonOverview do
   end
 
   it 'should promote the exemplar image' do
-    $FOO = 1
     exemplar = DataObject.gen
-    @taxon_concept.should_receive(:images_from_solr).at_least(1).times.and_return([DataObject.gen, DataObject.gen, exemplar])
+    @taxon_concept.should_receive(:images_from_solr).at_least(1).times.and_return([DataObject.gen, DataObject.gen, DataObject.gen, DataObject.gen, exemplar])
     @taxon_concept.should_receive(:published_exemplar_image).at_least(1).times.and_return(exemplar)
     @overview = TaxonOverview.new(@taxon_concept, @user) # NOTE - you MUST rebuild the overview if you add media to it, since it's preloaded.
     @overview.media.first.should == exemplar
+    @overview.media.length.should_not > TaxonOverview::MEDIA_TO_SHOW
   end
 
   it '#summary should delegate to taxon_concept#overview_text_for_user' do
@@ -72,6 +62,7 @@ describe TaxonOverview do
   end
 
   it "#image should delegate to taxon_concept#exemplar_or_best_image_from_solr without entry if missing" do
+    $FOO = 1
     img = DataObject.gen
     @taxon_concept.should_receive(:exemplar_or_best_image_from_solr).with(@native_entry).and_return img
     @overview.image.should == img
@@ -121,7 +112,9 @@ describe TaxonOverview do
   end
 
   it 'should know how many classifications it has available' do
-    @taxon_concept.should_receive(:hierarchy_entries).and_return([1,2,3,4])
+    hiers = []
+    4.times { hiers << HierarchyEntry.gen(:taxon_concept => @taxon_concept) }
+    @taxon_concept.should_receive(:published_browsable_hierarchy_entries).and_return(hiers)
     @overview.classifications_count.should == 4
   end
 
@@ -133,7 +126,7 @@ describe TaxonOverview do
   end
 
   it 'should pick random hierarchy entry' do
-    @taxon_concept.stub_chain(:hierarchy_entries, :shuffle, :first).and_return("yay")
+    @overview.stub_chain(:hierarchy_entries, :shuffle, :first).and_return("yay")
     @overview.hierarchy_entry.should == 'yay'
   end
 
@@ -148,12 +141,12 @@ describe TaxonOverview do
     three.stub(:relevance).and_return(3)
     four = Collection.gen
     four.stub(:relevance).and_return(6)
-    @taxon_concept.stub_chain(:collections, :published, :watch).and_return([one, two, three, four])
+    @taxon_concept.stub_chain(:collections, :published, :select).and_return([one, two, three, four])
     @overview.collections.map(&:id).should == [four, two, three].map(&:id)
   end
 
   it 'should know how many collections are available' do
-    @taxon_concept.stub_chain(:collections, :published, :watch).and_return([1,2,3,4,5,6])
+    @taxon_concept.stub_chain(:collections, :published, :select).and_return([1,2,3,4,5,6])
     @overview.collections_count.should == 6
   end
 

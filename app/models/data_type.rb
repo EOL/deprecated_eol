@@ -14,7 +14,8 @@ class DataType < ActiveRecord::Base
      {:label => 'YouTube'},
      {:label => 'Map'},
      {:label => 'Link'}].each do |default|
-      next if trans = TranslatedDataType.find_by_label_and_language_id(default[:label], Language.default.id) && trans.data_type
+      trans = TranslatedDataType.find_by_label_and_language_id(default[:label], Language.default.id)
+      next if trans && trans.data_type # Already there.
       dt = DataType.create(:schema_value => default[:schema_value] || default[:label])
       if trans && ! trans.data_type
         trans.data_type = dt

@@ -10,6 +10,8 @@ class License < ActiveRecord::Base
 
   attr_accessible :title, :source_url, :version, :logo_url, :show_to_content_partners
 
+  # NOTE - "Normally" I would look for translations that already exist, but in this case, the Translation is on description,
+  # which needn't be unique, so I just create a translation for every one, whether or not it already exists.
   def self.create_defaults
     [ {:title => 'public domain',
        :description => 'No rights reserved',
@@ -50,15 +52,9 @@ class License < ActiveRecord::Base
        :logo_url => '',
        :show_to_content_partners => 0}].each do |default|
         desc = default.delete(:description)
-        trans = TranslatedLicense.find_by_description_and_language_id(desc, Language.default.id)
-        next if trans && trans.license
-        lic = License.create(default.reverse_merge(:version => 1))
-        if trans && ! trans.license
-          trans.license = lic
-          trans.save
-        else
-          TranslatedLicense.create(:description => desc, :license => lic, :language => Language.default)
-        end
+        lic = License.find_by_title(default[:title])
+        lic ||= License.create(default.reverse_merge(:version => 1))
+        TranslatedLicense.find_or_create_by_description_and_language_id_and_license_id(desc, Language.default.id, lic.id)
     end
   end
 

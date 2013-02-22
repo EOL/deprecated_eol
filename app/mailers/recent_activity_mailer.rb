@@ -8,7 +8,7 @@ class RecentActivityMailer < ActionMailer::Base
 
   def recent_activity(user, notes, fqz) # :immediately, :daily, :weekly are the only values allowed.
     @user = user
-    @notes = notes
+    @notes = notes.compact # NOTE - we would occasionally get notification failures due to nil notes...
     @frequency = fqz
     supress_activity_email = SiteConfigurationOption.find_by_parameter('supress_activity_email').value rescue nil
     puts "++ ACTIVITY EMAIL SUPRESSED." if supress_activity_email

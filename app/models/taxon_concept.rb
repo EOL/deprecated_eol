@@ -989,6 +989,21 @@ class TaxonConcept < ActiveRecord::Base
     TaxonClassificationsLock.create(:taxon_concept_id => self.id)
   end
 
+  def collected_title
+    raise(EOL::Exceptions::InvalidCollectionItemType.new(
+      I18n.t(:cannot_index_collection_item_type_error, :type => 'Missing Hierarchy Entry')
+    )) unless has_canonical_form?
+    entry.name.canonical_form.string
+  end
+
+  def richness
+    taxon_concept_metric.richness_score
+  end
+
+  def has_richness?
+    taxon_concept_metric && !taxon_concept_metric.richness_score.blank?
+  end
+
 private
 
   # Assume this method is expensive.
@@ -1060,5 +1075,10 @@ private
       he.vet_synonyms(options)
     end
   end
+
+  def has_canonical_form?
+    entry && entry.name && entry.name.canonical_form
+  end
+
 end
 

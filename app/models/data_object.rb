@@ -846,6 +846,7 @@ class DataObject < ActiveRecord::Base
     return I18n.t(:unknown_data_object_title).html_safe
   end
   alias :summary_name :best_title
+  alias :collected_title :best_title
 
   # NOTE - if you plan on calling this, you are behooved by adding object_title to your selects. You MUST select
   # description and data_type_id.
@@ -1156,6 +1157,14 @@ class DataObject < ActiveRecord::Base
 
   def set_to_representative_language
     self.language = language ? language.representative_language : nil
+  end
+
+  def collected_type
+    if is_link?
+      item_collected_item_type = 'Link'
+    else
+      item_collected_item_type = data_type.simple_type('en')
+    end
   end
 
 private

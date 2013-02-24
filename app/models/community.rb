@@ -47,6 +47,7 @@ class Community < ActiveRecord::Base
 
   alias :focuses :collections
   alias_attribute :summary_name, :name
+  alias_attribute :collected_title, :name
 
   # Don't get dizzy.  This is all of the collections this community has collected.  This is the same thing as
   # "featured" collections or "endorsed" collections... that is the way it's done, now: you simply add the collection

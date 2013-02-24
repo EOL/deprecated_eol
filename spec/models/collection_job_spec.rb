@@ -19,7 +19,7 @@ describe CollectionJob do
   describe 'class methods' do
 
     # This looks like a lot of setup, but it's actually really simple stuff; don't be intimidated. Collections have
-    # lots of items.  :)
+    # lots of items, and items can be complicated!  :)
     before(:each) do
       @user = User.gen
       @has_source_but_not_target = User.gen
@@ -28,9 +28,21 @@ describe CollectionJob do
       @tc = TaxonConcept.gen
       @tc.stub(:scientific_name).and_return('Ambiguii nomenclatura')
       @source_tc = @source.add @tc
+        @source_tc_annotation = 'source tc annotation'
+        @source_tc_refs = [Ref.gen, Ref.gen]
+        @source_tc_sort = 'concept sorter'
+        @source_tc.annotation = @source_collection_annotation
+        @source_tc.refs = @source_collection_refs
+        @source_tc.sort_field = @source_collection_sort
       @dato = DataObject.gen(:object_title => 'Image of your mom')
       @source_dato = @source.add @dato
       @source_collection = @source.add @collection = Collection.gen
+        @source_collection_annotation = 'source col annotation'
+        @source_collection_refs = [Ref.gen, Ref.gen]
+        @source_collection_sort = 'collection sorter'
+        @source_collection.annotation = @source_collection_annotation
+        @source_collection.refs = @source_collection_refs
+        @source_collection.sort_field = @source_collection_sort
       @source_person = @source.add @person = User.gen
       @user.collections << @source
       @has_source_but_not_target.collections << @source
@@ -66,7 +78,7 @@ describe CollectionJob do
       collection_should_include(@target, @tc)
       collection_should_include(@target, @dato)
       collection_should_include(@target, @collection)
-      job.item_count.should == 1 # THIS ONE FAILS... re-write the algo to manually count.
+      job.item_count.should == 1
     end
 
     it 'should remove items from a collection' do
@@ -102,7 +114,7 @@ describe CollectionJob do
       collection_should_include(@target, @dato)
       collection_should_include(@target, @collection)
       collection_should_include(@target, @person)
-      job.item_count.should == 2 # THIS ONE FAILS... re-write the algo to manually count.
+      job.item_count.should == 2
     end
 
     it 'should remove all items items from a collection' do
@@ -115,6 +127,56 @@ describe CollectionJob do
       job.item_count.should == 4
     end
 
+    it 'should copy attribution and references if user owns both collections' do
+      CollectionJob.copy(:user => @user, :source => @source, :target => @target,
+                         :collection_item_ids => [@source_collection.id])
+      target_collection = @target.select_item(@collection)
+      target_collection.annotation.should == @source_collection_annotation
+      target_collection.refs.should == @source_collection_refs
+      target_collection.sort_field.should == @source_collection_sort
+    end
+
+    it 'should NOT copy attribution and references if user only owns target' do
+      CollectionJob.copy(:user => @has_target_but_not_source, :source => @source, :target => @target,
+                         :collection_item_ids => [@source_collection.id])
+      target_collection = @target.select_item(@collection)
+      target_collection.annotation.should_not == @source_collection_annotation
+      target_collection.refs.should_not == @source_collection_refs
+      target_collection.sort_field.should_not == @source_collection_sort
+    end
+
+    it 'should move attibutions and references' do
+      CollectionJob.move(:user => @user, :source => @source, :target => @target,
+                         :collection_item_ids => [@source_collection.id])
+      target_collection = @target.select_item(@collection)
+      target_collection.annotation.should_not == @source_collection_annotation
+      target_collection.refs.should_not == @source_collection_refs
+      target_collection.sort_field.should_not == @source_collection_sort
+    end
+
+    it 'should remove moved items if overwrite forced' do
+      CollectionJob.move(:user => @user, :source => @source, :target => @target,
+                         :collection_item_ids => [@source_tc.id], :overwrite => true)
+      collection_should_not_include(@source, @tc)
+    end
+
+    it 'should replace attributions and references on duplicates if copy overwrite forced' do
+      CollectionJob.copy(:user => @user, :source => @source, :target => @target,
+                         :collection_item_ids => [@source_tc.id], :overwrite => true)
+      target_tc = @target.select_item(@tc)
+      target_tc.annotation.should == @source_tc_annotation
+      target_tc.refs.should == @source_tc_refs
+      target_tc.sort_field.should == @source_tc_sort
+    end
+
+    it 'should replace attributions and references on duplicates if move overwrite forced' do
+      CollectionJob.move(:user => @user, :source => @source, :target => @target,
+                         :collection_item_ids => [@source_tc.id], :overwrite => true)
+      target_tc = @target.select_item(@tc)
+      target_tc.annotation.should == @source_tc_annotation
+      target_tc.refs.should == @source_tc_refs
+      target_tc.sort_field.should == @source_tc_sort
+    end
 
     # NOTE - this is a weird test, because it *actually* fails for permissions (can't edit nil), but the effect is desirable:
     it 'should raise an exception if copying without a target' do
@@ -166,9 +228,29 @@ describe CollectionJob do
       end.should raise_error(EOL::Exceptions::CollectionJobRequiresScope)
     end
 
-    it 'should recalculate the relevances and reindex solr after a copy'
-    it 'should recalculate the relevances and reindex solr after a move'
-    it 'should recalculate the relevance and reindex solr after a remove'
+    it 'should recalculate the relevances after a copy' do
+      @source.should_receive(:set_relevance).and_return(51)
+      @target.should_receive(:set_relevance).and_return(49)
+      CollectionJob.copy(:user => @user, :source => @source, :target => @target, :all_items => true)
+    end
+
+    it 'should recalculate the relevances after a move' do
+      @source.should_receive(:set_relevance).and_return(52)
+      @target.should_receive(:set_relevance).and_return(48)
+      CollectionJob.move(:user => @user, :source => @source, :target => @target, :all_items => true)
+    end
+
+    it 'should recalculate the relevance after a remove' do
+      @source.should_receive(:set_relevance).and_return(53)
+      CollectionJob.remove(:user => @user, :source => @source, :all_items => true)
+    end
+
+    it 'should reindex solr after a copy all'
+    it 'should reindex solr after a move all'
+    it 'should reindex solr after a remove all'
+    it 'should reindex solr after a copy items'
+    it 'should reindex solr after a move items'
+    it 'should reindex solr after a remove items'
 
     # Possibly premature:
     it 'should remove caches after a copy'

@@ -54,6 +54,7 @@ class Collection < ActiveRecord::Base
 
   alias :items :collection_items
   alias_attribute :summary_name, :name
+  alias_attribute :collected_title, :name
 
   def self.which_contain(what)
     Collection.joins(:collection_items).where(:collection_items => { :collected_item_type => what.class.name,
@@ -145,17 +146,25 @@ class Collection < ActiveRecord::Base
     (users + communities.map {|com| com.managers_as_users }).flatten.compact.uniq
   end
 
-  def has_item?(item)
+  def select_item(item)
     return false unless item
     # find the first collected_item in their collection matching the given item
-    return true if CollectionItem.find(:first,
+    found = CollectionItem.find(:first,
       :conditions => "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and collected_item_id = #{item.id}")
+    return found if found
     if item.class == DataObject
       # for data objects we can further check for any item in the collection with the same guid
-      return true if CollectionItem.find(:first,
+      found = CollectionItem.find(:first,
         :conditions => "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and do_guid.id = #{item.id}",
         :joins => 'JOIN data_objects do ON (collection_items.collected_item_id=do.id) JOIN data_objects do_guid ON (do.guid=do_guid.guid)')
+      return found if found
     end
+    nil
+  end
+
+  def has_item?(item)
+    return false unless item
+    return true if select_item(item)
   end
 
   def view_style_or_default

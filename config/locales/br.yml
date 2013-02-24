@@ -1698,6 +1698,7 @@ br:
   share_a_collection: Rannañ un dastumad
   show: Diskouez
   show_full_tree: diskouez ar wezenn glok...
+  shown_to_the_user_parens: (diskouezet d'an implijer)
   sign_in: Kevreañ
   sign_out: Digevreañ
   site_language: Yezh al lec'hienn
@@ -1709,6 +1710,7 @@ br:
   sort_by_newest_option: Nevesañ
   sort_by_oldest_option: Koshañ
   sort_by_rating_option: Priziañ
+  sort_by_recently_added_option: Ouzhpennet nevez zo
   sort_by_richness_option: Pinvidigezh
   sort_by_status_option: Statud
   sound_file: Restr son
@@ -1731,6 +1733,8 @@ br:
   taxa: 
     communities: 
       collections: 
+        hierarchy_entry: 
+          meta_title: Dastumadoù eus %{scientific_name} evel m'int bet urzhiet gant %{hierarchy_provider}
         meta_description: Dastumoù zo %{scientific_name} enno.
         meta_description_with_common_name: Dastumoù zo %{preferred_common_name} (%{scientific_name}) enno.
         meta_title: Dastumoù %{scientific_name}
@@ -1827,6 +1831,7 @@ br:
   toc: TAOLENN
   total: Hollad
   translation_deleted: Diverket eo bet an droidigezh
+  translation_information_header: Titouroù treiñ
   translation_saved: Enrollet eo bet an droidigezh
   translations_submit: Gwelet an droidigezh
   true_label: Gwir
@@ -1874,6 +1879,7 @@ br:
     newsfeeds: 
       activity: 
         tweet_text: Obererezh %{user_full_name}
+      activity_link: oberiantiz
       comments: 
         tweet_text: Displegadennoù %{user_full_name}
       comments_link: evezhiadennoù
@@ -1909,6 +1915,7 @@ br:
   value_default: (dre ziouer)
   value_empty: (goullo)
   values: Talvoudoù
+  versions_colon: "Stummoù :"
   vetted: Aprouet
   video_from: video gant
   video_from_supplier: Video digant %{whom}

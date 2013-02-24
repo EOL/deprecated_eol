@@ -215,6 +215,7 @@ sv:
         full_name: Fullständigt namn
         given_name: Förnamn
         language_abbr: Föredraget språk
+        permissions: Behörigheter
         requested_curator_level_id: Önskad kuratornivå
         tag_line: Motto
         username: Användarnamn
@@ -1558,6 +1559,7 @@ sv:
         object_title: Titel
         refs: Referenser <small>(lägg in varje referens på en ny rad)</small>
         rights_holder: Rättighetsinnehavare
+        rights_holder_more: Ange en person eller en organisation som äger eller hanterar rättigheterna till dessa data. Om du lämnar detta fält tomt kommer vi anta att du är rättighetsinnehavaren för alla licenser utom Public Domain. Public Domain-licenserna kräver ingen rättighetsinnehavare.
         rights_statement: Rättighetsuttalande
         source_url: URL till det ursprungliga dataobjektet
         toc_item: Underkapitel
@@ -1610,6 +1612,7 @@ sv:
         username_or_email: Användarnamn eller e-postadress
       translated_content_page: 
         active_translation: Publicerad
+        active_translation_more: Publicerade översättningar kommer att visas offentligt, såvida sidan själv inte är opublicerad. Avmarkera <em>publicerad</em> om du vill förhindra att allmänna användare kan se denna version av sidan.
         language_id: Språk
       translated_news_item: 
         active_translation: Publicerad
@@ -2670,6 +2673,7 @@ sv:
       hierarchy_entry: 
         meta_title: "%{scientific_name} Klassificerad av %{hierarchy_provider}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Klassificerad av %{hierarchy_provider})"
+      meta_description: Information om %{scientific_name} i Encyclopedia of Life.
       meta_keywords: info om %{scientific_name},%{scientific_name}information
       meta_title: "%{scientific_name} - Information om %{scientific_name}"
       meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information om %{preferred_common_name}"
@@ -2929,6 +2933,7 @@ sv:
       activity_link: aktivitet
       comments: 
         meta_description: Kommentarflöde för %{user_full_name}.
+        meta_title: "%{user_full_name}s kommentarsflöde"
       comments_link: kommentarer
       newsfeed_link: nyhetsflöde
       show: 

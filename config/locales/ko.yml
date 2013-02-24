@@ -235,6 +235,7 @@ ko:
         full_name: 실명
         given_name: 이름
         language_abbr: 선호하는 언어
+        permissions: 권한
         requested_curator_level_id: 원하는 큐레이션 수준
         tag_line: 태그 라인
         username: 사용자 이름
@@ -1732,6 +1733,7 @@ ko:
   edit_my_profile: 내 프로필 편집
   edit_news_items: 뉴스 항목 편집
   edit_page_contents: 문서 내용 편집
+  edit_permission_header: "권한 편집 중: %{permission}"
   edit_search_suggestion: 찾기 제안 편집
   edit_search_suggestions: 검색 제안 편집
   edit_table_of_contents: 목차 편집
@@ -1923,7 +1925,7 @@ ko:
   forgot_password_form_choose_username_instructions: <em>%{email}</em> 이메일 주소로 등록한 계정 여러 개가 있습니다. 비밀번호를 재설정할 계정 하나를 선택하세요.
   forgot_password_form_choose_username_legend: 계정 선택
   forgot_password_form_header: 비밀번호 초기화
-  forgot_password_form_helper: 비밀번호 재설정 이메일이 <em>자주</em> 이메일 필터에 의해 '스팸'으로 표시할 수 있습니다. 시간 안에 이메일을 받지 못했다면 스팸 폴더를 확인하세요.
+  forgot_password_form_helper: 비밀번호 재설정 이메일이 <em>자주</em> 이메일 필터에 의해 '스팸'으로 표시할 수 있음을 참고하세요. 시간 안에 이메일을 받지 못했다면 스팸 폴더를 확인하세요.
   forgot_password_form_username_or_email_blank_error: 비밀번호를 재설정할 사용자 이름이나 이메일 주소를 입력하세요.
   frequency: 주기
   frequency_daily: 매일
@@ -1953,6 +1955,7 @@ ko:
   google_scholar: Google 학술 검색
   grant_full_curator_link: 부여
   grant_manager_link: 관리자 역할 부여
+  grant_permission: 부여
   harvest_id: 수확 ID
   harvesting_processes_log: 수확 과정 기록
   harvests_for: "%{resource}에 대한 수확"
@@ -3479,7 +3482,7 @@ ko:
   this_article_is_unpublished: 이 문서는 게시하지 않았습니다.
   this_cannot_be_undone_are_you_sure: 되돌릴 수 없습니다. 확실합니까?
   this_collection_has_no_managers: 이 모음집에 관리자가 없습니다.
-  this_comment_was_deleted: 이 덧글을 삭제했습니다.
+  this_comment_was_deleted: 이 덧글은 삭제되었습니다.
   this_community_has_no_endorsed_collections: 이 공동체는 어떠한 모음집도 알차지 않습니다.
   this_community_has_no_focus_list: 이 공동체는 포커스 목록이 없습니다.
   this_community_was_deleted: 이 공동체는 소유자에 의해 삭제됐습니다.
@@ -3774,6 +3777,8 @@ ko:
       yahoo: 야후!
     pending: 
       header: 등록하셔서 감사합니다!
+      verify_email_instructions: <strong>이메일 주소를 확인하세요</strong>. 확인 메시지를 제공한 이메일 주소로 보냈습니다. 등록 과정을 완료하고 EOL 구성원이 되려면 이메일에 포함된 링크를 클릭하세요. 감사합니다!
+      verify_email_tip: 해당 계정 활성화 이메일이 <em>자주</em> 이메일 필터에 의해 '스팸'으로 표시할 수 있음을 참고하세요. 시간 안에 이메일을 받지 못했다면 스팸 폴더를 확인하세요.
     recover_account: 
       errors: 
         temporary_login_user_not_found: 죄송합니다, 복구하려는 EOL 계정을 찾을 수 없습니다. 계정을 복구하려면 새 이메일을 요청하세요.

@@ -247,6 +247,7 @@ de:
         full_name: Bürgerlicher Name
         given_name: Vorname
         language_abbr: Bevorzugte Sprache
+        permissions: Berechtigungen
         requested_curator_level_id: Gewünschtes Kuratierungsniveau
         tag_line: Motto
         username: Nutzername
@@ -1822,6 +1823,7 @@ de:
   edit_my_profile: Ihr Profil bearbeiten
   edit_news_items: Nachrichten bearbeiten
   edit_page_contents: Seiteninhalte bearbeiten
+  edit_permission_header: "Berechtigung bearbeiten: %{permission}"
   edit_search_suggestion: Suchvorschlag bearbeiten
   edit_search_suggestions: Suchvorschläge bearbeiten
   edit_table_of_contents: Inhaltsverzeichnis bearbeiten
@@ -2058,6 +2060,7 @@ de:
   google_scholar: Google Scholar
   grant_full_curator_link: Förderung
   grant_manager_link: Förderungsverwalter
+  grant_permission: erteilen
   harvest_id: Datenabrufkennung
   harvesting_processes_log: Datenabrufprotokoll
   harvests_for: Datenabrufe für %{resource}
@@ -2608,6 +2611,7 @@ de:
   maps_with_count: 
     one: "%{count} Karte"
     other: "%{count} Karten"
+  march_of_life_thumbnail_title: "Marsch des Lebens:"
   matching_users_found_with_count: 
     one: Insgesamt wurde ein Nutzer gefunden, der zu Ihren Kriterien passt.
     other: Insgesamt wurden %{count} Nutzer gefunden, die zu Ihren Kriterien passen.
@@ -2981,6 +2985,12 @@ de:
   percentage_of_descendants_with_images: Prozentsatz Abstammender mit Bildern
   percentage_of_descendants_with_text: Prozentsatz Abstammender mit Text
   permalink: Permanentlink
+  permission_granted: Berechtigung erteilt.
+  permission_revoked: Berechtigung verweigert.
+  permissions_list_header: Berechtigungen auf EOL
+  permissions_users_count: 
+    one: Ein Nutzer
+    other: "%{count} Nutzer"
   person_rating: Personenbewertung
   personal_profile_menu: Persönliches Profil
   personal_space: Persönlicher Bereich
@@ -3142,6 +3152,7 @@ de:
   revisions: Versionen
   revoke_full_curator_link: Widerrufen
   revoke_manager_link: Verwalterrechte widerrufen
+  revoke_permission: verweigern
   richness_score: Reichhaltigkeitswert
   rights: Berechtigungen
   rights_holder: Rechteinhaber
@@ -3336,6 +3347,7 @@ de:
   submit_term: Begriff speichern
   suggested_result_page_id: "Kennung der Seite mit den vorgeschlagenen Ergebnissen:"
   suggested_results_avg: Durchschnittlich vorgeschlagene Ergebnisse
+  summary_thumbnail_title: "Zusammenfassung:"
   supplier: Datenlieferant
   supplier_allcaps: "BEREITSTELLER:"
   supplier_colon: "Datenlieferant:"

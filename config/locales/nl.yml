@@ -2986,6 +2986,9 @@ nl:
   permission_granted: Het recht is toegekend.
   permission_revoked: Het recht is ingetrokken.
   permissions_list_header: Rechten in EOL
+  permissions_users_count: 
+    one: één gebruiker
+    other: "%{count} gebruikers�"
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
@@ -3147,6 +3150,7 @@ nl:
   revisions: Versies
   revoke_full_curator_link: Intrekken
   revoke_manager_link: Managersrol intrekken
+  revoke_permission: intrekken
   richness_score: Rijkheidsscores
   rights: Rechten
   rights_holder: Rechthebbende
@@ -3341,6 +3345,7 @@ nl:
   submit_term: Term opslaan
   suggested_result_page_id: "Pagina-ID voor suggestie in resultaat:"
   suggested_results_avg: Aangeraden resultaten gem.
+  summary_thumbnail_title: "Samenvatting:"
   supplier: Leverancier
   supplier_allcaps: "Leverancier:"
   supplier_colon: "Leverancier:"

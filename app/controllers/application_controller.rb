@@ -436,6 +436,7 @@ class ApplicationController < ActionController::Base
     data = {}
     success = nil
     response_title = nil
+    I18n.locale = params['lang'] if params['lang']
     begin
       response = Net::HTTP.get_response(URI.parse(params[:url]))
       if (response.code == "301" || response.code == "302" || response.code == "303") && response.kind_of?(Net::HTTPRedirection)

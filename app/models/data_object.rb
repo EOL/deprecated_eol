@@ -260,6 +260,7 @@ class DataObject < ActiveRecord::Base
         # elucidated that we do NOT want to change the vetted state after an update.
         new_dato.users_data_object = users_data_object.replicate(new_dato)
         DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
+        new_dato.recalculate_rating
       rescue => e
         new_dato.update_column(:published, false)
         raise e

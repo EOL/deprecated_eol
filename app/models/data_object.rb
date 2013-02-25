@@ -224,12 +224,16 @@ class DataObject < ActiveRecord::Base
   def self.create_user_text(params, options)
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
+    object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
+    if object_is_a_link
+      params[:source_url] = "http://" + params[:source_url] unless params[:source_url] =~ /^[a-z]{3,5}:\/\//i
+    end
     dato = DataObject.new(params.reverse_merge!({:published => true}))
     if dato.save
       begin
         dato.toc_items = Array(TocItem.find(options[:toc_id]))
         dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
-        unless options[:link_type_id].blank? && options[:link_type_id] != 0
+        if object_is_a_link
           dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => dato, :link_type_id => options[:link_type_id])
         end
       rescue => e
@@ -247,12 +251,16 @@ class DataObject < ActiveRecord::Base
   def replicate(params, options)
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
+    object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
+    if object_is_a_link
+      params[:source_url] = "http://" + params[:source_url] unless params[:source_url] =~ /^[a-z]{3,5}:\/\//i
+    end
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
       begin
         new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
         new_dato.unpublish_previous_revisions
-        unless options[:link_type_id].blank? && options[:link_type_id] != 0
+        if object_is_a_link
           new_dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => new_dato, :link_type_id => options[:link_type_id])
         end
         # NOTE - associations will be preserved in their current vetted state by virtue of the GUID.

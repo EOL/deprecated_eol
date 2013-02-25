@@ -3,6 +3,9 @@
 # effort. I can't make them private, though, because they are called from the class methods...
 class SolrCollections
 
+  # YOU WERE HERE : https://github.com/EOL/eol_php_code/blob/master/vendor/solr/SolrAPI.php#L127 ...or perhaps not
+  # that line, but the ideas are here.
+
   attr_reader :connection
 
   # Okay, all these class methods duplicating instance methods are annoying, but useful. I couldn't think of

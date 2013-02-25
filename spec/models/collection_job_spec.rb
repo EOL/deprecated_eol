@@ -245,7 +245,10 @@ describe CollectionJob do
       CollectionJob.remove(:user => @user, :source => @source, :all_items => true)
     end
 
-    it 'should reindex solr after a copy all'
+    it 'should reindex solr after a copy all' do
+      # YOU WERE HERE ... was just re-arranging the SolrCollections module to make these work, but hadn't written the tests yet.
+    end
+
     it 'should reindex solr after a move all'
     it 'should reindex solr after a remove all'
     it 'should reindex solr after a copy items'

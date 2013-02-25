@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ApplicationController < ActionController::Base
 
   protect_from_forgery
@@ -437,7 +438,9 @@ class ApplicationController < ActionController::Base
     success = nil
     response_title = nil
     begin
-      response = Net::HTTP.get_response(URI.parse(params[:url]))
+      url = params[:url]
+      url = "http://" + url unless url =~ /^[a-z]{3,5}:\/\//i
+      response = Net::HTTP.get_response(URI.parse(url))
       if (response.code == "301" || response.code == "302" || response.code == "303") && response.kind_of?(Net::HTTPRedirection)
         response = Net::HTTP.get_response(URI.parse(response['location']))
       end
@@ -447,7 +450,7 @@ class ApplicationController < ActionController::Base
           response_body = ActiveSupport::Gzip.decompress(response.body)
         end
         success = true
-        if matches = response_body.match(/<title>(.*?)<\/title>/ims)
+        if matches = response_body.match(/<title>(.*?)<\/title>/ium)
           response_title = matches[1].strip
         end
       end

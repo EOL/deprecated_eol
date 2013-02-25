@@ -487,9 +487,12 @@ class DataObject < ActiveRecord::Base
   def sound_url
     if !object_cache_url.blank? && !object_url.blank?
       filename_extension = File.extname(object_url).downcase
-      return ContentServer.cache_path(object_cache_url) + filename_extension
-    elsif mime_type.label('en') == 'audio/mpeg'
+      return (ContentServer.cache_path(object_cache_url) + filename_extension) unless filename_extension.blank?
+    end
+    if mime_type.id == MimeType.mp3.id
       return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.mp3' : ''
+    elsif mime_type.id == MimeType.wav.id
+      return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.wav' : ''
     else
       return object_url
     end

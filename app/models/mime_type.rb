@@ -18,4 +18,10 @@ class MimeType < ActiveRecord::Base
   def self.flv
     cached_find_translated(:label, 'video/x-flv')
   end
+  def self.mp3
+    cached_find_translated(:label, 'audio/mpeg')
+  end
+  def self.wav
+    cached_find_translated(:label, 'audio/x-wav')
+  end
 end

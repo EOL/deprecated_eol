@@ -135,6 +135,8 @@ MimeType.gen_if_not_exists(:label => 'text/html')
 MimeType.gen_if_not_exists(:label => 'text/plain')
 MimeType.gen_if_not_exists(:label => 'video/x-flv')
 MimeType.gen_if_not_exists(:label => 'video/quicktime')
+MimeType.gen_if_not_exists(:label => 'audio/mpeg')
+MimeType.gen_if_not_exists(:label => 'audio/x-wav')
 
 
 # create_if_not_exists These don't exist yet, but will in the future:

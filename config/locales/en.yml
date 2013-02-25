@@ -62,7 +62,7 @@ en:
       long_utc: "%B %d, %Y %H:%M UTC"
       month_name: "%B"
       month_and_year: "%B %Y"
-      blog: "%a %b %d, %Y %l:%M %P"
+      forum: "%a %b %d, %Y %H:%M UTC"
     am: "am"
     pm: "pm"
   support:

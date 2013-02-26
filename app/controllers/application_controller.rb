@@ -448,7 +448,7 @@ class ApplicationController < ActionController::Base
         response = Net::HTTP.get_response(URI.parse(response['location']))
       end
       if response.code == "200"
-        response_body = response.body
+        response_body = response.body.force_encoding('utf-8') # NOTE the force, here... regex fails on some pages w/o
         if response['Content-Encoding'] == "gzip"
           response_body = ActiveSupport::Gzip.decompress(response.body)
         end

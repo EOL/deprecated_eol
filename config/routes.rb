@@ -1,6 +1,9 @@
 # first created -> highest priority.
 Eol::Application.routes.draw do
 
+  resources :collection_jobs
+
+
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 

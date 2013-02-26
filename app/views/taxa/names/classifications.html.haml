@@ -48,7 +48,7 @@
         - if @providers_match
           %div.help_text.warning
             %p
-              = I18n.t(:classifications_merge_providers_match_warning, :provider => hierarchy_entry_display_attribution(HierarchyEntry.find(@providers_match), :show_rank => false, :show_link => false))
+              = raw I18n.t(:classifications_merge_providers_match_warning, :provider => hierarchy_entry_display_attribution(HierarchyEntry.find(@providers_match), :show_rank => false, :show_link => false))
             - if @exemplar # NOTE - this means they (somehow) got past the first step... give them buttons:
               = hidden_field_tag('additional_confirm', 1)
               = hidden_field_tag("exemplar_#{@exemplar}", 1) # NOTE - simulates re-pressing that button...
@@ -123,7 +123,7 @@
                 %li= submit_tag(I18n.t(:add_classifications).i18n_downcase, :name => 'add')
               - if stored_classifications
                 %li
-                  = I18n.t(:merge_data_ready)
+                  = raw I18n.t(:merge_data_ready)
                   %table.standard.classifications
                     %thead
                       %tr

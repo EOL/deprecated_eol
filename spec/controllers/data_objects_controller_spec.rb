@@ -51,6 +51,22 @@ describe DataObjectsController do
       data_object_create_edit_variables_should_be_assigned
       response.should render_template('data_objects/new')
     end
+    it 'should create Link objects and prefix URLs with http://' do
+      TocItem.gen_if_not_exists(:label => 'overview')
+      post :create, { :taxon_id => 1, :commit_link => true,
+                      :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
+                                        :link_types => { :id => LinkType.blog.id.to_s }, :source_url => 'eol.org',
+                                        :object_title => "Link to EOL", :language_id => Language.english.id.to_s,
+                                        :description => "Link text" } },
+                      { :user => @user, :user_id => @user.id }
+      DataObject.exists?(assigns[:data_object]).should == true
+      assigns[:data_object].link?.should == true
+      assigns[:data_object].data_type.should == DataType.text
+      assigns[:data_object].data_subtype.should == DataType.link
+      assigns[:data_object].link_type.should == LinkType.blog
+      assigns[:data_object].toc_items.should == [ TocItem.overview ]
+      assigns[:data_object].source_url.should == "http://eol.org"  # even though it was submitted as eol.org
+    end
   end
 
   describe 'GET edit' do

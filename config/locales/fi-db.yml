@@ -74,6 +74,8 @@ fi:
   translated_contact_subjects-title-contact_subject_id-27: Ryhdy sisältökumppaniksi
   translated_contact_subjects-title-contact_subject_id-29: Kuraattorien tuki
   translated_contact_subjects-title-contact_subject_id-30: Korjata (oikeinkirjoitus ja kielioppi, kuvat, tiedot)
+  translated_contact_subjects-title-contact_subject_id-33: Lahjoita rahaa
+  translated_contact_subjects-title-contact_subject_id-34: Tekniset kysymykset (ongelmat haun kanssa, verkkosivun toiminnallisuus)
   translated_contact_subjects-title-contact_subject_id-35: Yleinen palaute
   translated_content_partner_statuses-label-content_partner_status_id-1: Odottava
   translated_content_partner_statuses-label-content_partner_status_id-2: Käytössä
@@ -110,6 +112,7 @@ fi:
   translated_licenses-description-license_id-6: Jotkut oikeudet pidätetään
   translated_licenses-description-license_id-7: Jotkut oikeudet pidätetään
   translated_licenses-description-license_id-8: Jotkut oikeudet pidätetään
+  translated_licenses-description-license_id-9: Jotkut oikeudet pidätetään
   translated_ranks-label-rank_id-118: suku
   translated_ranks-label-rank_id-183: kunta
   translated_ranks-label-rank_id-266: lahko

@@ -99,12 +99,11 @@ form
         margin-left: -10px
 /** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
 form
-  dt
-    &.required
-      label
-        background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
-        padding-left: 10px
-        margin-left: -10px
+  dt.required
+    label
+      background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+      padding-left: 10px
+      margin-left: -10px
 
   fieldset
     &#errors
@@ -523,6 +522,8 @@ p.flag, span.flag
             line-height: 200%
         > .copy
           padding-bottom: 15px
+          &.link
+            padding-bottom: 0px
   .rating
     h5
       float: left
@@ -1225,3 +1226,7 @@ li table.classifications
 table.classifications
   tr.pending
     background-color: #fee
+
+// No margin on the left was hiding required fields:
+div#text_object_new_edit
+  margin-left: 10px

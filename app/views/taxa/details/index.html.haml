@@ -32,7 +32,11 @@
                   = render :partial => 'category_content', :locals => { :content => child_content }
     - else
       .empty
-        %p= I18n.t(:taxon_details_empty)
+        %p
+          - if @details.articles_in_other_languages?
+            = I18n.t(:taxon_details_empty_in_this_language)
+          - else
+            = I18n.t(:taxon_details_empty)
         %p
           = link_to I18n.t(:add_article_to_page_button), new_taxon_data_object_path(@details), :class => 'button'
           = link_to I18n.t(:add_link_to_page_button), new_taxon_data_object_path(@details, :link => true), :class => 'button link_button'

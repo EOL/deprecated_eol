@@ -20,7 +20,7 @@
             %input{ :type => :text, :value => forum_topic_post_url(post.forum_topic.forum, post.forum_topic, post) }
     .title= post.display_subject
     .author
-      = raw I18n.t('forums.post_by_user_at_time', :user => link_to(post.user.username, post.user), :time => I18n.l(post.created_at, :format => :blog))
+      = raw I18n.t('forums.post_by_user_at_time', :user => link_to(post.user.username, post.user), :time => I18n.l(post.created_at, :format => :forum))
     .text
       - if post.deleted?
         .empty

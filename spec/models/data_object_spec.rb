@@ -667,5 +667,18 @@ describe DataObject do
     test_array.should_not == [ @image_dato ]
     test_array.should == [ new_image_dato ]
   end
+
+  it 'should create the right sound_url for MP3s with no extension in its object_url' do
+    mp3 = DataObject.gen(:data_type => DataType.sound, :mime_type => MimeType.mp3, :object_cache_url => @big_int,
+      :object_url => "http://api.soundcloud.com/tracks/72574158/download?client_id=ac6cdf58548a238e00b7892c031378ce")
+    mp3.sound_url.should =~ /#{ContentServer.cache_path(@big_int)}.mp3/
+  end
+
+  it 'should create the right sound_url for WAVs with no extension in its object_url' do
+    wav = DataObject.gen(:data_type => DataType.sound, :mime_type => MimeType.wav, :object_cache_url => @big_int,
+      :object_url => "http://api.soundcloud.com/tracks/50714448/download?client_id=ac6cdf58548a238e00b7892c031378ce")
+    wav.sound_url.should =~ /#{ContentServer.cache_path(@big_int)}.wav/
+  end
+
 end
 

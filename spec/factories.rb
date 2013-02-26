@@ -391,6 +391,14 @@ FactoryGirl.define do
     association           :sort_style
   end
 
+  factory :collection_job do
+    all_items false
+    collection
+    command 'copy'
+    association :target_collection, :factory => :collection
+    user
+  end
+
   factory :collection_activity_log do
     association :user
     association :collection

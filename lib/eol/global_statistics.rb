@@ -9,9 +9,7 @@ module EOL
           when "taxon_concepts"
             count = EOL::GlobalStatistics.count_pages_with_content
           when "images"
-            count = EOL::GlobalStatistics.solr_count('Image')
-            count = DataObject.count(:conditions => "data_type_id=#{DataType.image.id} and published=1") if
-              count == 0
+            count = EOL::GlobalStatistics.count_images
           when "users" then
             count = EOL::GlobalStatistics.solr_count('User')
             count = User.count(:conditions => "active=1") if count == 0
@@ -32,6 +30,16 @@ module EOL
 
     def self.count_pages_with_content
       EolStatistic.find(:last).pages_with_content rescue 0
+    end
+
+    def self.count_images
+      begin
+        EolStatistic.find(:last).data_objects_images
+      rescue
+        count = EOL::GlobalStatistics.solr_count('Image')
+        count = DataObject.count(:conditions => "data_type_id=#{DataType.image.id} and published=1") if
+          count == 0
+      end
     end
 
     def self.solr_count(type)

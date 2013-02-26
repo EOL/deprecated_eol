@@ -100,36 +100,26 @@ class Collection < ActiveRecord::Base
 
   # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
   # add more than two things... because this runs an expensive calculation at the end.
-  # 
-  # Also NOTE that we don't just use { :collected_item => what }, because Users are sometimes Curators... there may be other
-  # reasons, but that was at least true, so I kept the other creates consistent.
-  #
-  # TODO ... why aren't we just using collected_tiem => what ?
   def add(what, opts = {})
     return if what.nil?
-    name = "something"
-    case what
-    when TaxonConcept
-      collection_items << CollectionItem.create(:collected_item_type => "TaxonConcept", :collected_item_id => what.id, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
-      name = what.scientific_name
-    when User
-      collection_items << CollectionItem.create(:collected_item_type => "User", :collected_item_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
-      name = what.username
-    when DataObject
-      collection_items << CollectionItem.create(:collected_item_type => "DataObject", :collected_item_id => what.id, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
-      name = what.data_type.simple_type('en')
-    when Community
-      collection_items << CollectionItem.create(:collected_item_type => "Community", :collected_item_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
-      name = what.name
-    when Collection
-      collection_items << CollectionItem.create(:collected_item_type => "Collection", :collected_item_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
-      name = what.name
-    else
-      raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
-                                                                  :klass => what.class.name))
-    end
+    name = case what
+      when TaxonConcept
+        what.scientific_name
+      when User
+        what.full_name
+      when DataObject
+        what.short_title
+      when Community
+        what.name
+      when Collection
+        what.name
+      else
+        raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
+                                                                    :klass => what.class.name))
+      end
+    collection_items << item = CollectionItem.create(:collected_item => what, :name => name, :collection => self, :added_by_user => opts[:user])
     set_relevance # This is actually safe, because we don't use #add in bulk.
-    what # Convenience.  Allows us to chain this command and continue using the collected_item passed in.
+    item # Convenience.  Allows us to know the collection_item created and possibly chain it.
   end
 
   def logo_url(size = 'large', specified_content_host = nil)
@@ -168,17 +158,16 @@ class Collection < ActiveRecord::Base
     end
   end
 
-  # TODO - This does NOT belong here.  It belongs on ViewStyle (as a class method).  Fix.
-  def default_view_style
+  def view_style_or_default
     view_style ? view_style : ViewStyle.annotated
   end
 
-  def default_sort_style
+  def sort_style_or_default
     sort_style ? sort_style : SortStyle.newest
   end
 
   def items_from_solr(options={})
-    sort_by_style = SortStyle.find(options[:sort_by].blank? ? default_sort_style : options[:sort_by])
+    sort_by_style = SortStyle.find(options[:sort_by].blank? ? sort_style_or_default : options[:sort_by])
     EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
   end
 

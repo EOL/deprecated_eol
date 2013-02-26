@@ -249,6 +249,7 @@ fr:
         full_name: Nom complet
         given_name: Prénom
         language_abbr: Langue préférée
+        permissions: Autorisations
         requested_curator_level_id: Niveau souhaité de supervision
         tag_line: Titre d’appel
         username: Nom d’utilisateur
@@ -1788,6 +1789,7 @@ fr:
   edit_my_profile: Modifier mon profil
   edit_news_items: modifier l’actualité
   edit_page_contents: modifier le contenu de la page
+  edit_permission_header: "Modifier les autorisations: %{permission}"
   edit_search_suggestion: Modifier la suggestion de recherche
   edit_search_suggestions: modifier les suggestions de recherche
   edit_table_of_contents: modifier la table des matières
@@ -2012,6 +2014,7 @@ fr:
   google_scholar: Savant Google
   grant_full_curator_link: Accorder
   grant_manager_link: Accorder le rôle de gestionnaire
+  grant_permission: autoriser
   harvest_id: Identifiant de récolte
   harvesting_processes_log: Journal des processus de récolte
   harvests_for: Récoltes de %{resource}
@@ -2562,6 +2565,7 @@ fr:
   maps_with_count: 
     one: "%{count} carte"
     other: "%{count} cartes"
+  march_of_life_thumbnail_title: "Marche de la vie:"
   matching_users_found_with_count: 
     one: Un total de %{count} utilisateur correspond à vos critères.
     other: Un total de %{count} utilisateurs correspond à vos critères.
@@ -2933,6 +2937,12 @@ fr:
   percentage_of_descendants_with_images: pourcentage de descendants avec des images
   percentage_of_descendants_with_text: pourcentage de descendants avec du texte
   permalink: Lien permanent
+  permission_granted: Autorisation accordée!
+  permission_revoked: Autorisation révoquée.
+  permissions_list_header: Autorisations sur EdlV
+  permissions_users_count: 
+    one: "%{count} utilisateur"
+    other: "%{count} utilisateurs"
   person_rating: Évaluation de la personne
   personal_profile_menu: Profil personnel
   personal_space: Espace personnel
@@ -3094,6 +3104,7 @@ fr:
   revisions: Révisions
   revoke_full_curator_link: Révoquer
   revoke_manager_link: Révoquer le rôle de gestionnaire
+  revoke_permission: révoquer
   richness_score: Indicateur de richesse
   rights: Droits
   rights_holder: Détenteur des droits
@@ -3288,6 +3299,7 @@ fr:
   submit_term: Condition d’envoi
   suggested_result_page_id: "Identifiant de page de résultat suggéré :"
   suggested_results_avg: Moyenne des résultats suggérés
+  summary_thumbnail_title: "Résumé:"
   supplier: Fournisseur
   supplier_allcaps: "FOURNISSEUR :"
   supplier_colon: "Fournisseur :"

@@ -17,7 +17,7 @@ describe CollectionsController do
   describe 'GET show' do
     it 'should set view as options and currently selected view' do
       get :show, :id => @collection.id
-      assigns[:view_as].should == @collection.default_view_style
+      assigns[:view_as].should == @collection.view_style_or_default
       assigns[:view_as_options].should == [ViewStyle.list, ViewStyle.gallery, ViewStyle.annotated]
       get :show, :id => @collection.id, :view_as => ViewStyle.gallery.id
       assigns[:view_as].should == ViewStyle.gallery

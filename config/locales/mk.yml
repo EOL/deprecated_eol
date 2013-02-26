@@ -237,6 +237,7 @@ mk:
         full_name: Име и презиме
         given_name: Име
         language_abbr: Претпочитан јазик
+        permissions: Дозволи
         requested_curator_level_id: Посакувано ниво на згрижување
         tag_line: Гесло
         username: Корисничко име
@@ -1811,6 +1812,7 @@ mk:
   edit_my_profile: Уреди профил
   edit_news_items: уреди новости
   edit_page_contents: уреди содржина на страниц.
+  edit_permission_header: "Менување на дозволата: %{permission}"
   edit_search_suggestion: Уреди предлог при пребарување
   edit_search_suggestions: уреди предлози при пребарување
   edit_table_of_contents: уреди Содржина
@@ -2047,6 +2049,7 @@ mk:
   google_scholar: Google Scholar
   grant_full_curator_link: Додели
   grant_manager_link: Додели улога „раководител“
+  grant_permission: додели
   harvest_id: Назнака на преземањето
   harvesting_processes_log: Записник на постапката на преземање
   harvests_for: Преземања од %{resource}
@@ -2597,6 +2600,7 @@ mk:
   maps_with_count: 
     one: "%{count} карта"
     other: "%{count} карти"
+  march_of_life_thumbnail_title: "Марш на животот:"
   matching_users_found_with_count: 
     one: Пронајден е вкупно %{count} корисник што одговара на бараното.
     other: Пронајдени се вкупно %{count} корисници што одговараат на бараното.
@@ -2970,6 +2974,12 @@ mk:
   percentage_of_descendants_with_images: постоток на поттаксони со слики
   percentage_of_descendants_with_text: постоток на поттаксони со текст
   permalink: Постојана врска
+  permission_granted: Дозволата е доделена.
+  permission_revoked: Дозволата е одземена!
+  permissions_list_header: Дозволи на EOL
+  permissions_users_count: 
+    one: "%{count} корисник"
+    other: "%{count} корисници"
   person_rating: Оценка на лицето
   personal_profile_menu: Личен профил
   personal_space: Личен простор
@@ -3131,6 +3141,7 @@ mk:
   revisions: Ревизии
   revoke_full_curator_link: Одземи
   revoke_manager_link: Одземи улога „раководител“
+  revoke_permission: одземи
   richness_score: Оценка на содржајноста
   rights: Права
   rights_holder: Сопственик на правата
@@ -3325,6 +3336,7 @@ mk:
   submit_term: Поднеси поим
   suggested_result_page_id: "Назнака за страницата на предложените резултати:"
   suggested_results_avg: Предложени резултати (прос.)
+  summary_thumbnail_title: "Опис:"
   supplier: Добавувач
   supplier_allcaps: "ДОБАВУВАЧ:"
   supplier_colon: "Добавувач:"

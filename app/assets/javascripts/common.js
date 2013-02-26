@@ -163,7 +163,7 @@ $(function() {
   (function($dato_source_url) {
     $dato_source_url.focusout(function() {
       if ($("#data_object_object_title").val() == "") {
-        var data = "url=" + $dato_source_url.val();
+        var data = "url=" + $dato_source_url.val() + "&lang=" + $('html').attr('lang');
         $.ajax({
           url: "/fetch_external_page_title",
           data: data,

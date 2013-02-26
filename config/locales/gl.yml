@@ -237,6 +237,7 @@ gl:
         full_name: Nome completo
         given_name: Nome
         language_abbr: Lingua preferida
+        permissions: Permisos
         requested_curator_level_id: Nivel de conservación desexado
         tag_line: Slogan
         username: Nome de usuario
@@ -1813,6 +1814,7 @@ gl:
   edit_my_profile: Editar o meu perfil
   edit_news_items: editar as novas
   edit_page_contents: editar o contido da páxina
+  edit_permission_header: "Editando o permiso: %{permission}"
   edit_search_suggestion: Editar as suxestións de procura
   edit_search_suggestions: editar as suxestións de procura
   edit_table_of_contents: editar a táboa de contidos
@@ -2049,6 +2051,7 @@ gl:
   google_scholar: Google Académico
   grant_full_curator_link: Outorgar
   grant_manager_link: Outorgar rol de administrador
+  grant_permission: outorgar
   harvest_id: ID da colleita
   harvesting_processes_log: Rexistro de procesos de colleita
   harvests_for: Colleitas de %{resource}
@@ -2599,6 +2602,7 @@ gl:
   maps_with_count: 
     one: "%{count} mapa"
     other: "%{count} mapas"
+  march_of_life_thumbnail_title: "Marcha da vida:"
   matching_users_found_with_count: 
     one: Atopouse %{count} usuario que coincidise cos teus criterios de procura.
     other: Atopáronse %{count} usuarios que coincidisen cos teus criterios de procura.
@@ -2972,6 +2976,12 @@ gl:
   percentage_of_descendants_with_images: porcentaxe de descendentes con imaxes
   percentage_of_descendants_with_text: porcentaxe de descendentes con texto
   permalink: Ligazón permanente
+  permission_granted: Permisos outorgados.
+  permission_revoked: Permisos revogados.
+  permissions_list_header: Permisos na EOL
+  permissions_users_count: 
+    one: "%{count} usuario"
+    other: "%{count} usuarios"
   person_rating: Avaliación da persoa
   personal_profile_menu: Perfil persoal
   personal_space: Espazo persoal
@@ -3133,6 +3143,7 @@ gl:
   revisions: Revisións
   revoke_full_curator_link: Revogar
   revoke_manager_link: Revogar o rol de administrador
+  revoke_permission: revogar
   richness_score: Puntuación de riqueza
   rights: Dereitos
   rights_holder: Titular dos dereitos
@@ -3327,6 +3338,7 @@ gl:
   submit_term: Enviar o termo
   suggested_result_page_id: "ID da páxina de resultados suxeridos:"
   suggested_results_avg: Media dos resultados suxeridos
+  summary_thumbnail_title: "Resumo:"
   supplier: Provedor
   supplier_allcaps: "PROVEDOR:"
   supplier_colon: "Provedor:"

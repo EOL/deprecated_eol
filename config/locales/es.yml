@@ -12,6 +12,7 @@
 # Author: Fitoschido
 # Author: Invadinado
 # Author: Jacobo
+# Author: Jgauthier
 # Author: Larjona
 # Author: McDutchie
 # Author: Mor
@@ -254,6 +255,7 @@ es:
         full_name: Nombre completo
         given_name: "Nombre:"
         language_abbr: Idioma preferido
+        permissions: Permisos
         requested_curator_level_id: Nivel deseado para curación
         tag_line: Lema
         username: Nombre de usuario
@@ -541,6 +543,15 @@ es:
           an_unknown_user_split_classifications_from_taxon: Un usuario desconocido ha dividido las clasificaciones por %{classifications} desde el %{taxon} hasta <a href='%{to}'>su propia página</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} desde una página desconocida a <a href='%{to}'>su propia página</a>.
           user_split_classifications_from_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} hasta <a href='%{to}'>su propia página</a>.
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: Un usuario desconocido cambió la miniatura de "%{data_object}".
+        an_unknown_user_cropped_an_unknown_data_object: Un usuario desconocido cambió la miniatura de una imagen desconocida.
+        an_unknown_user_cropped_data_object: Un usuario desconocido cambió la miniatura de la imagen de "%{data_object}".
+        an_unknown_user_cropped_it: Un usuario desconocido cambió la miniatura de una imagen desconocida.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> cambió la miniatura de una versión más antigua de "%{data_object}".
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> cambió la miniatura de una imagen desconocida.
+        user_cropped_data_object: <strong>%{user}</strong> cambió la miniatura de la imagen de "%{data_object}".
+        user_cropped_it: <strong>%{user}</strong> cambió la miniatura de una imagen desconocida.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como oculto en un contexto desconocido.
         an_unknown_user_hid_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como oculto en la página "%{association}".
@@ -842,7 +853,7 @@ es:
   admin_content_page_child_new_link: Crear página secundaria
   admin_content_page_create_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a> creada correctamente.
   admin_content_page_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, la página no se ha creado.
-  admin_content_page_delete_confirmation: ¿Está seguro de que desea eliminar "%{page_name}" y todas las traducciones? Las acciones de eliminación no se pueden deshacer.
+  admin_content_page_delete_confirmation: ¿Está seguro de que desea eliminar "%{page_name}" y todas las traducciones? No se puede recuperar las páginas eliminadas.
   admin_content_page_delete_successful_notice: Page %{page_name} y traducciones asociadas han sido eliminadas.
   admin_content_page_edit_header: Actualiza la información de la página básica <em>%{page_name}</em>
   admin_content_page_edit_tip: Se recomienda que no modifiques el nombre único de esta página, a menos que usted está plenamente consciente de las consecuencias, incluido el impacto sobre los vínculos de esta página, o rutas llamadas. Nombre único es %{required_icon} necesita.
@@ -884,7 +895,7 @@ es:
   admin_news_item_active: Publicado
   admin_news_item_create_successful_notice: La noticia <a href="#%{anchor}"><em>%{page_name}</em></a> se ha creado correctamente.
   admin_news_item_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, la noticia no se ha creado.
-  admin_news_item_delete_confirmation: ¿Está seguro de que desea eliminar "%{page_name}" y todas las traducciones? Las acciones de eliminación no se pueden deshacer.
+  admin_news_item_delete_confirmation: ¿Está seguro de que desea eliminar "%{page_name}" y todas las traducciones? No se puede recuperar las páginas eliminadas.
   admin_news_item_delete_successful_notice: La noticia %{page_name} y sus traducciones asociadas se han eliminado.
   admin_news_item_edit_header: Actualizar la información básica de la noticia <em>%{page_name}</em>
   admin_news_item_edit_tip: Se recomienda que no modifiques el nombre único de esta noticia, a menos que seas plenamente consciente de las consecuencias, incluido el impacto sobre los vínculos de esta página, o las rutas llamadas. El nombre único es %{required_icon} necesario.
@@ -992,6 +1003,7 @@ es:
   already_a_member_question: ¿Ya eres miembro?
   already_member_of_community: Ya eres miembro de esta comunidad.
   alternate_classification: Clasificación alternativa
+  alternative_name_colon: "Nombre alternativo:"
   amount: Cantidad
   an_unknown_user: Un usuario desconocido
   and: 'y'

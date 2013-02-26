@@ -490,6 +490,41 @@ describe 'Data Object Page' do
     body.should_not include('RESOURCE CITATION')
   end
 
+  it 'should preserve data rating when editing' do
+    user_submitted_text = @tc.add_user_submitted_text(:user => @user)
+    login_as @user
+    # Visit page and add a rating
+    visit("/data_objects/#{user_submitted_text.id}")
+    click_link('Change rating to 4 of 5')
+    current_url.should match "/data_objects/#{user_submitted_text.id}"
+    body.should include('Rating was added successfully')
+    body.should have_tag("#sidebar .ratings") do
+      with_tag('dt', :text => "Your rating")
+      with_tag('ul li', :text => "Your current rating: 4 of 5")
+    end
+    user_submitted_text.reload.data_rating.should == 4
+    user_submitted_text.latest_published_version_in_same_language.should == user_submitted_text
+
+    # edit article and check on latest version
+    click_link "Edit this article"
+    fill_in 'data_object_rights_holder', :with => "nonsense"
+    click_button "Save article"
+    user_submitted_text.reload.latest_published_version_in_same_language.should_not == user_submitted_text
+    user_submitted_text.latest_published_version_in_same_language.guid.should == user_submitted_text.guid
+    user_submitted_text.latest_published_version_in_same_language.id.should > user_submitted_text.id
+    user_submitted_text.latest_published_version_in_same_language.data_rating.should == 4
+  end
+
+  it 'should not show a description if there isnt one' do
+    d = DataObject.gen(:description => "", :data_type => DataType.image)
+    visit(data_object_path(d))
+    body.should_not have_tag("h3", :text => 'Description' )
+
+    d = DataObject.gen(:description => "anything", :data_type => DataType.image)
+    visit(data_object_path(d))
+    body.should have_tag("h3", :text => 'Description' )
+  end
+
   it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'
   it 'should change vetted to trusted and visibility to visible when self added article is edited by full/master curator or admin'
 

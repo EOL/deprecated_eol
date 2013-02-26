@@ -62,7 +62,7 @@ en:
       long_utc: "%B %d, %Y %H:%M UTC"
       month_name: "%B"
       month_and_year: "%B %Y"
-      blog: "%a %b %d, %Y %l:%M %P"
+      forum: "%a %b %d, %Y %H:%M UTC"
     am: "am"
     pm: "pm"
   support:
@@ -4079,6 +4079,7 @@ en:
   taxon_citizen_science_resources_empty: "No one has contributed any citizen science links to this page yet."
   taxon_concept_stats: "Taxon Concept Stats"
   taxon_details_empty: "No one has contributed any details to this page yet."
+  taxon_details_empty_in_this_language: "No one has contributed any details to this page in this language."
   taxon_education_empty: "No one has contributed any education resources to this page yet."
   taxon_education_header: "Education Resources"
   taxon_education_link: "Education resources"

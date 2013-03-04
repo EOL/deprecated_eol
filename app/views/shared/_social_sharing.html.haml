@@ -20,5 +20,5 @@
           = I18n.t(:social_sharing_twitter_tweet_button)
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
       -# TODO: this is a temporary fix to put facebook over the image cropping tool
-      #fb-root.facebook{ :style => "z-index: 1000" }
+      #fb-root.facebook
         %fb:like{:layout => "button_count", :send => "false", :show_faces => "false"}

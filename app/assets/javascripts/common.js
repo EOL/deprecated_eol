@@ -32,6 +32,12 @@ $("html :not(.thumbnails ul li)").bind("ajaxStart", function(){
   $(this).removeClass('busy');
 });
 
+$(document).on('mouseover', '#social_sharing .facebook', function() {
+  if($('.jcrop-holder').length > 0) {
+    $('#social_sharing .facebook').css('z-index', parseInt($('.jcrop-holder > div:first').css('z-index')) + 1);
+  }
+});
+
 $(function() {
 
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")

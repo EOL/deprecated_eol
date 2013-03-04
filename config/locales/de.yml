@@ -158,6 +158,19 @@ de:
         udo_published: Von Nutzern verfasste Texte
         udo_published_by_curators: Von Kuratoren verfasste Texte
         udo_published_by_non_curators: Nicht von Kuratoren verfasste Texte
+      forum: 
+        description: Beschreibung <small>(optional)</small>
+        forum_category_id: Kategorie
+        name: Forumname
+      forum_category: 
+        description: Beschreibung <small>(optional)</small>
+        title: Kategoriename
+      forum_post: 
+        subject: Betreff
+        text: Textkörper
+      forum_topic: 
+        subject: Betreff
+        text: Textkörper
       harvest_event: 
         resource: Quelle
       hierarchy: 
@@ -1007,6 +1020,9 @@ de:
   anonymous_user_tag_line: Nicht angemeldet
   any_integer: eine beliebige ganze Zahl
   any_string: Beliebige Zeichenfolge
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Klicken Sie hier</a>, um den Betatest der neuen EOL-Foren zu starten. Ihre Rückmeldung ist willkommen.
   api_docs_collections_description: Nach Angabe der Kennung für eine Sammlung wird diese API alle ihre Metadaten sowie die in ihr enthaltenen Objekte ausgeben. Die Objektliste kann nach Objekttyp gefiltert sowie nach den angegebenen Attributen sortiert werden. Einige Objekte enthalten das optionale Attribut „sort_field“. Das Sortierfeld ist eine Zeichenfolge, die eine spezielle Anmerkung eines Sammlungseintrags ist. Es kann eine beliebige Zeichenfolge sein. Falls es jedoch ein Datum ist, sollte es das Format „JJJJ-MM-TT“ aufweisen. Taxonobjekte enthalten ein „richness_score“. Vielfalt ist eine Metrik, die als ganze Zahl zwischen 0 und 100 dargestellt wird. Eine höhere Anzahl kennzeichnet eine Seite mit viel Inhalt einer weiten Quellenvielfalt. Mehr über Taxonvielfalt beim Update-Reiter der Taxonseite, z.&nbsp;B. %{richness_url}.
   application_version_advisory_information: Programmversion
   are_you_sure: Sind Sie sicher?
@@ -2025,6 +2041,71 @@ de:
   forgot_password_form_helper: Bitte beachten Sie, dass die E-Mail-Nachrichten zum Zurücksetzen des Passworts <em>häufig</em> von E-Mail-Filtern als Spam gekennzeichnet werden. Bitte überprüfen Sie Ihren Ordner für entsprechend gekennzeichnete E-Mail-Nachrichten, sofern Sie diese E-Mail-Nachricht nicht innerhalb einer Stunde erhalten.
   forgot_password_form_username_or_email_blank_error: Bitte geben Sie Ihren Nutzernamen oder Ihre E-Mail-Adresse an, um Ihr Passwort zurückzusetzen.
   form_validation_errors_for_attribute_assistive: Es ist ein Fehler bei der Überprüfung dieses Elements aufgetreten.
+  forums: 
+    actions: Aktionen
+    administration: Verwaltung
+    buttons: 
+      delete: löschen
+      edit: bearbeiten
+      link: Verlinken
+      reply: antworten
+    categories: 
+      create: Eine Kategorie erstellen
+      create_failed: Leider ist ein Fehler aufgetreten. Die Kategorie konnte nicht hinzugefügt werden.
+      create_successful: Die Kategorie wurde erfolgreich erstellt
+      delete_failed_not_empty: Die Kategorie konnte nicht gelöscht werden, da sie nicht leer ist.
+      delete_successful: Die Kategorie wurde erfolgreich gelöscht
+      edit: Kategorie bearbeiten
+      move_failed: Die Kategorie konnte nicht verschoben werden
+      move_successful: Die Kategorie wurde erfolgreich verschoben
+      update_failed: Leider ist ein Fehler aufgetreten. Die Kategorie konnte nicht aktualisiert werden.
+      update_successful: Die Kategorie wurde erfolgreich aktualisiert
+    create: Ein Forum erstellen
+    create_failed: Leider ist ein Fehler aufgetreten. Das Forum konnte nicht hinzugefügt werden.
+    create_successful: Das Forum wurde erfolgreich erstellt
+    delete_failed_not_empty: Das Forum konnte nicht gelöscht werden, da es nicht leer ist.
+    delete_successful: Das Forum wurde erfolgreich gelöscht
+    edit: Forum bearbeiten
+    forums_heading: EOL-Foren
+    last_post: Letzter Beitrag
+    move_failed: Das Forum konnte nicht verschoben werden
+    move_successful: Das Forum wurde erfolgreich verschoben
+    no_topics: Es gibt keine Themen in diesem Forum
+    post_by_user_at_time: von %{user}, %{time}
+    posts: 
+      close_window: schließen
+      create: Einen neuen Beitrag erstellen
+      create_failed: Leider ist ein Fehler aufgetreten. Der Beitrag konnte nicht hinzugefügt werden.
+      create_successful: Der Beitrag wurde erfolgreich erstellt
+      delete_failed_topic_not_empty: Der Beitrag konnte nicht gelöscht werden, da das Thema nicht leer ist.
+      delete_successful: Der Beitrag wurde erfolgreich gelöscht
+      deleted_subject: (gelöscht)
+      edit: Beitrag bearbeiten
+      joined_date: "Beigetreten: %{date}"
+      no_subject: (kein Betreff)
+      permalink_to_this_post: "Permanentlink zu diesem Beitrag:"
+      post_has_been_deleted: Dieser Beitrag wurde gelöscht
+      post_written_by_user: "%{user} schrieb:"
+      posts_with_count: 
+        one: Ein Beitrag
+        other: "%{count} Beiträge"
+      replying_to_post: "Antworten auf:"
+      topic_and_post_delete_successful: Der Beitrag und das Thema wurden erfolgreich gelöscht
+      update_failed: Leider ist ein Fehler aufgetreten. Der Beitrag konnte nicht aktualisiert werden.
+      update_successful: Der Beitrag wurde erfolgreich aktualisiert
+    posts_heading: Beiträge
+    replies: Antworten
+    topics: 
+      create: Ein neues Thema beginnen
+      create_failed: Leider ist ein Fehler aufgetreten. Das Thema konnte nicht hinzugefügt werden.
+      create_successful: Das Thema wurde erfolgreich erstellt
+      delete_failed_not_empty: Das Thema konnte nicht gelöscht werden, da es nicht leer ist.
+      delete_successful: Das Thema wurde erfolgreich gelöscht
+      no_posts: Es gibt keine Beiträge zu diesem Thema
+    topics_heading: Themen
+    update_failed: Leider ist ein Fehler aufgetreten. Das Forum konnte nicht aktualisiert werden.
+    update_successful: Das Forum wurde erfolgreich aktualisiert
+    views: Aufrufe
   fragment_caching_enabled: Fragmentzwischenspeicherung aktiviert
   frequency: Frequenz
   frequency_daily: Täglich

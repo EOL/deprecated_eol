@@ -146,6 +146,19 @@ ko:
         udo_published: 사용자가 제출한 텍스트
         udo_published_by_curators: 큐레이터가 제출한 텍스트
         udo_published_by_non_curators: 큐레이터가 아닌 사용자가 제출한 텍스트
+      forum: 
+        description: 설명 <small>(선택 사항)</small>
+        forum_category_id: 분류
+        name: 포럼 이름
+      forum_category: 
+        description: 설명 <small>(선택 사항)</small>
+        title: 분류 이름
+      forum_post: 
+        subject: 제목
+        text: 내용
+      forum_topic: 
+        subject: 제목
+        text: 내용
       harvest_event: 
         resource: 자료
       hierarchy: 
@@ -843,7 +856,7 @@ ko:
   admin_content_page_root: 루트
   admin_content_page_sort_order_updated: 문서 순가가 바뀌었습니다.
   admin_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서를 성공적으로 업데이트했습니다.
-  admin_content_page_update_unsuccessful_error: 죄송합니다, 오류가 발생해 문서를 업데이트하지 못했습니다.
+  admin_content_page_update_unsuccessful_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
   admin_content_pages_empty: 콘텐츠 문서를 찾을 수 없습니다.
   admin_content_pages_link: 콘텐츠 관리
   admin_content_pages_page_title: "관리: 콘텐츠 관리"
@@ -877,7 +890,7 @@ ko:
   admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
   admin_news_item_not_active: 게시하지 않음
   admin_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 뉴스 항목을 성공적으로 업데이트했습니다.
-  admin_news_item_update_unsuccessful_error: 죄송합니다, 오류가 발생해 뉴스 항목을 업데이트하지 못했습니다.
+  admin_news_item_update_unsuccessful_error: 죄송합니다, 오류가 발생해 뉴스 항목을 업데이트할 수 없습니다.
   admin_news_items_empty: 뉴스 항목을 찾을 수 없습니다.
   admin_news_items_page_title: "관리: 뉴스"
   admin_news_link: 뉴스
@@ -984,6 +997,9 @@ ko:
   anonymous_user_tag_line: 로그인하지 않음
   any_integer: 어떤 정수
   any_string: 어떠한 문자열
+  api: 
+    docs: 
+      forum_beta_test_text: 새 EOL 포럼의 베타 테스트에 접근하려면 <a href="%{forums_link}">여기를 클릭하세요</a>. 의견을 환영합니다.
   application_version_advisory_information: 어플리케이션 버전
   are_you_sure: 확실합니까?
   are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 행동은 되돌릴 수 없습니다.
@@ -1682,7 +1698,7 @@ ko:
   dato_new_edit_user_text_link_fieldset_content_header: 링크 데이터
   dato_new_text_for_taxon_page_title: <i>%{taxon}</i>로 문서 추가
   dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
-  dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트하지 못했습니다.
+  dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
   default: 기본값
   default_focus_collection_name_from_community: "%{name}의 집중"
   default_watch_collection_name: "%{username} 사용자의 주시문서 목록"
@@ -1927,6 +1943,56 @@ ko:
   forgot_password_form_header: 비밀번호 초기화
   forgot_password_form_helper: 비밀번호 재설정 이메일이 <em>자주</em> 이메일 필터에 의해 '스팸'으로 표시할 수 있음을 참고하세요. 시간 안에 이메일을 받지 못했다면 스팸 폴더를 확인하세요.
   forgot_password_form_username_or_email_blank_error: 비밀번호를 재설정할 사용자 이름이나 이메일 주소를 입력하세요.
+  forums: 
+    actions: 행위
+    administration: 관리
+    buttons: 
+      delete: 삭제
+      edit: 편집
+      link: 링크
+      reply: 답글
+    categories: 
+      create: 분류 만들기
+      create_failed: 죄송합니다, 오류가 발생해 분류를 추가할 수 없습니다
+      create_successful: 분류를 성공적으로 만들었습니다
+      delete_failed_not_empty: 분류가 비어있지 않으므로 분류를 삭제할 수 없습니다
+      delete_successful: 분류 성공적으로 삭제했습니다
+      edit: 분류 편집
+      move_failed: 분류를 이동할 수 없습니다
+      move_successful: 분류를 성공적으로 옮겼습니다
+      update_failed: 죄송합니다, 오류가 발생해 분류를 업데이트할 수 없습니다
+      update_successful: 분류를 성공적으로 업데이트했습니다
+    create: 포럼 만들기
+    create_failed: 죄송합니다, 오류가 발생해 포럼을 추가할 수 없습니다
+    create_successful: 포럼을 성공적으로 만들었습니다
+    delete_failed_not_empty: 포럼이 비어있지 않으므로 포럼을 삭제할 수 없습니다
+    delete_successful: 포럼을 성공적으로 삭제했습니다
+    edit: 포럼 편집
+    forums_heading: EOL 포럼
+    last_post: 마지막 게시물
+    move_failed: 포럼을 옮길 수 없습니다
+    move_successful: 포럼을 성공적으로 옮겼습니다
+    no_topics: 이 포럼에 스레드가 없습니다
+    post_by_user_at_time: "%{user}, %{time}"
+    posts: 
+      create: 새 게시물 만들기
+      deleted_subject: (삭제됨)
+      edit: 게시물 편집
+      joined_date: "%{date}에 가입함"
+      no_subject: (제목 없음)
+      post_written_by_user: "%{user} 씀:"
+      posts_with_count: 
+        one: 게시물 %{count}개
+        other: 게시물 %{count}개
+      replying_to_post: "답글:"
+    posts_heading: 게시물
+    replies: 답글
+    topics: 
+      create: 새 스레드 시작
+    topics_heading: 스레드
+    update_failed: 죄송합니다, 오류가 발생해 포럼을 업데이트할 수 없습니다
+    update_successful: 포럼을 성공적으로 업데이트했습니다
+    views: 보기
   frequency: 주기
   frequency_daily: 매일
   frequency_monthly: 매월
@@ -1980,7 +2046,7 @@ ko:
         body_edit: 덧글 편집
       contact: 
         comments: 내 메시지
-        contact_subject_id: 주제
+        contact_subject_id: 제목
         email: 이메일 주소
         name: 이름
       content_page: 
@@ -2413,6 +2479,7 @@ ko:
   license_cc_by_sa_2_0: 크리에이티브 커먼즈 저작자표시-동일조건변경허락 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: 크리에이티브 커먼즈 저작자표시-동일조건변경허락 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: 크리에이티브 커먼즈 저작자표시-동일조건변경허락 3.0 (CC BY-SA 3.0)
+  license_cc_zero: 크리에이티브 커먼즈 — CC0 1.0 보편적
   license_gnu_fdl: GNU 자유 문서 사용 허가서 (GNU FDL)
   license_gnu_gpl: GNU 일반 공중 사용 허가서 (GNU GPL)
   license_not_applicable: 라이선스가 적용되지 않음
@@ -2457,6 +2524,7 @@ ko:
   main_database_colon: "주요:"
   main_master_database_colon: "주요 마스터:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; 종 문서>>"
+  make_an_editor: 관리자 되기
   make_user_an_editor_title: "%{user} 사용자가 다음 모음집을 관리하도록 허용"
   manage_your_profile: 내 프로필 관리
   managed_by: 관리자
@@ -2811,6 +2879,12 @@ ko:
   percentage_of_descendants_with_images: 그림으로 된 자손의 백분율
   percentage_of_descendants_with_text: 텍스트로 된 자손의 백분율
   permalink: 고유링크
+  permission_granted: 권한을 부여했습니다.
+  permission_revoked: 권한을 철회했습니다.
+  permissions_list_header: EOL의 권한
+  permissions_users_count: 
+    one: 사용자 %{count}명
+    other: 사용자 %{count}명
   person_rating: 사람 평가
   personal_profile_menu: 개인 프로필
   personal_space: 개인 공간
@@ -2858,6 +2932,7 @@ ko:
     one: 사람 %{count}명
     other: 사람 %{count}명
   rating_added_notice: 등급을 성공적으로 추가했습니다.
+  rating_learn_more_link: 평가에 대해 알아보기
   rating_not_added_error: 죄송합니다, 오류가 발생해 평가를 추가할 수 없습니다.
   recaptcha: 아래에 보이는 단어 2개를 입력하세요
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha 글자</a>가 일치하지 않습니다. 다시 시도하세요.
@@ -2953,6 +3028,7 @@ ko:
   revisions: 판
   revoke_full_curator_link: 철회
   revoke_manager_link: 관리자 역활 철회
+  revoke_permission: 철회
   richness_score: 풍부한 점수
   rights: 권한
   rights_holder: 권한 소유자
@@ -3120,6 +3196,9 @@ ko:
   spm_category: SPM 분류
   spm_category_objects_count: SPM 분류 - 개체 수
   spm_category_partner_count: SPM 분류 - 파트너 수
+  stars_with_count: 
+    one: 별 %{count}개
+    other: 별 %{count}개
   started: 시작
   stat: 통계
   stats: 통계
@@ -3129,6 +3208,7 @@ ko:
   submit_term: 용어 제출
   suggested_result_page_id: "제안한 결과 문서 ID:"
   suggested_results_avg: 제안한 결과 평균
+  summary_thumbnail_title: "요약:"
   supplier: 공급 업체
   supplier_allcaps: "공급 업체:"
   supplier_colon: "공급 업체:"
@@ -3649,7 +3729,7 @@ ko:
   user_was_added_as_editor_of_collection: 이 사용자가 "%{collection}"의 관리자로 추가했습니다.
   username: 사용자 이름
   username_colon: "사용자 이름:"
-  username_taken: "%{name}(은)는 이미 토큰이 있습니다"
+  username_taken: "%{name} 이미 토큰이 있습니다"
   users: 
     activities: 
       show: 

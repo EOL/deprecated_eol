@@ -160,6 +160,19 @@ fr:
         udo_published: Texte soumis par l’utilisateur
         udo_published_by_curators: Texte soumis par un conservateur
         udo_published_by_non_curators: Texte soumis par un non-conservateur
+      forum: 
+        description: Description <small>(facultative)</small>
+        forum_category_id: Catégorie
+        name: Nom du forum
+      forum_category: 
+        description: Description <small>(facultative)</small>
+        title: Nom de la catégorie
+      forum_post: 
+        subject: Sujet
+        text: Corps
+      forum_topic: 
+        subject: Sujet
+        text: Corps
       harvest_event: 
         resource: Ressource
       hierarchy: 
@@ -995,6 +1008,9 @@ fr:
   anonymous_user_tag_line: Non Connecté
   any_integer: un entier quelconque
   any_string: n'importe quelle chaîne
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Cliquez ici</a> pour accéder au bêta-test des nouveaux forums de EdlV. Votre avis sera le bienvenu.
   api_docs_collections_description: Étant donné l’identifiant d’une collection, cette API retournera toutes les métadonnées à propos de la collection et des éléments qu’elle contient. La liste des éléments peut être filtrée par type d’élément et triée selon les attributs listés. Certains éléments contiennent un attribut optionnel 'sort_field'. C’est une chaîne fournie par l'utilisateur qui est une annotation particulière d’un élément collection. Cela peut être n’importe quelle chaîne de caractère, mais si c'est une date, elle doit respecter le format AAAA-MM-JJ. Les éléments de taxon contiendront un 'richness_score'. La richesse est une métrique représentée par un entier entre 0 et 100, un grand nombre dénotant une page avec un contenu riche d’une vaste variété de sources. Lisez davantage sur la richesse des tacons sur les onglets mise à jour d’une page de taxon, par ex. %{richness_url}.
   application_version_advisory_information: Version de l’application
   are_you_sure: Êtes-vous sûr ?
@@ -1979,6 +1995,71 @@ fr:
   forgot_password_form_helper: Notez bien que les courriels de réinitialisation des mots de passe sont <em>souvent</em> marqués comme 'Pourriel' par les filtres de courriel. Veuillez vérifier votre dossier de pourriels pour voir si vous n'avez pas reçu votre courriel d’ici une heure.
   forgot_password_form_username_or_email_blank_error: Veuillez entrer votre nom d’utilisateur et email pour réinitialiser votre mot de passe.
   form_validation_errors_for_attribute_assistive: Il y a une erreur de validation sur cet élément.
+  forums: 
+    actions: Actions
+    administration: Administration
+    buttons: 
+      delete: supprimer
+      edit: modifier
+      link: lier
+      reply: répondre
+    categories: 
+      create: Créer une catégorie
+      create_failed: Désolé, une erreur s’est produite, la catégorie n’a pas pu être ajoutée
+      create_successful: La catégorie a bien été créée
+      delete_failed_not_empty: La catégorie n’a pas pu être supprimée car elle n’est pas vide
+      delete_successful: La catégorie a bien été supprimée
+      edit: Modifier une catégorie
+      move_failed: La catégorie n’a pas pu être déplacée
+      move_successful: La catégorie a bien été déplacée
+      update_failed: Désolé, une erreur s’est produite, la catégorie n’a pas pu être mise à jour
+      update_successful: La catégorie a bien été mise à jour
+    create: Créer un forum
+    create_failed: Désolé, une erreur s’est produite, le forum n’a pas pu être ajouté
+    create_successful: Le forum a bien été créé
+    delete_failed_not_empty: Le forum n’a pas pu être supprimé car il n’est pas vide
+    delete_successful: Le forum a bien été supprimé
+    edit: Modifier le forum
+    forums_heading: Forums EdlV
+    last_post: Dernier billet
+    move_failed: Le forum n’a pas pu être déplacé
+    move_successful: Le forum a bien été déplacé
+    no_topics: Il n’y a aucune discussion dans ce forum
+    post_by_user_at_time: par %{user}, %{time}
+    posts: 
+      close_window: fermer
+      create: Faire un nouveau billet
+      create_failed: Désolé, une erreur s’est produite, le billet n’a pas pu être ajouté
+      create_successful: Le billet a bien été créé
+      delete_failed_topic_not_empty: Le billet n’a pas pu être supprimé car la discussion n’est pas vide
+      delete_successful: Le billet a bien été supprimé
+      deleted_subject: (supprimé)
+      edit: Modifier le billet
+      joined_date: Rejoint le %{date}
+      no_subject: (aucun sujet)
+      permalink_to_this_post: "Lien permanent vers ce billet:"
+      post_has_been_deleted: Ce billet a été supprimé
+      post_written_by_user: "%{user} a écrit:"
+      posts_with_count: 
+        one: "%{count} billet"
+        other: "%{count} billets"
+      replying_to_post: "Répondre à:"
+      topic_and_post_delete_successful: Le billet et la discussion ont bien été supprimés
+      update_failed: Désolé, une erreur s’est produite, le billet n’a pas pu être mis à jour
+      update_successful: Le billet a bien été mis à jour
+    posts_heading: Billets
+    replies: Réponses
+    topics: 
+      create: Commencer une nouvelle discussion
+      create_failed: Désolé, une erreur s’est produite, la discussion n’a pas pu être ajoutée
+      create_successful: La discussion a bien été créée
+      delete_failed_not_empty: La discussion n’a pas pu être supprimée car elle n’est pas vide
+      delete_successful: La discussion a bien été supprimée
+      no_posts: Il n’y a aucun billet dans cette discussion
+    topics_heading: Discussions
+    update_failed: Désolé, une erreur s’est produite, le forum n’a pas pu être mis à jour
+    update_successful: Le forum a bien été mis à jour
+    views: Vues
   fragment_caching_enabled: Activation de la mise en cache des fragments
   frequency: Fréquence
   frequency_daily: Quotidien

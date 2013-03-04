@@ -148,6 +148,19 @@ gl:
         udo_published: Texto enviado polo usuario
         udo_published_by_curators: Texto enviado polo conservador
         udo_published_by_non_curators: Texto enviado polo non-conservador
+      forum: 
+        description: Descrición <small>(opcional)</small>
+        forum_category_id: Categoría
+        name: Nome do foro
+      forum_category: 
+        description: Descrición <small>(opcional)</small>
+        title: Nome da categoría
+      forum_post: 
+        subject: Asunto
+        text: Corpo
+      forum_topic: 
+        subject: Asunto
+        text: Corpo
       harvest_event: 
         resource: Recurso
       hierarchy: 
@@ -997,6 +1010,9 @@ gl:
   anonymous_user_tag_line: Non accedeu ao sistema
   any_integer: calquera número enteiro
   any_string: calquera cadea de texto
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Preme aquí</a> para acceder ás probas en fase beta dos novos foros da EOL. Agradecemos os teus comentarios.
   api_docs_collections_description: Dado o identificador dunha colección, esta API devolverá todos os metadatos sobre a colección e os elementos que contén. A lista de elementos pódese filtrar por tipo de elemeto e ordenar baixo os atributos listados. Algúns elementos conteñen un atributo "sort_field" opcional. O campo de ordenación é unha cadea achegada polo usuario que é unha anotación especial dun elemento da colección. Pode ser calquera cadea de caracteres, pero se é unha data, debe aterse ao formato AAAA-MM-DD. Os elementos do taxon conteñen un "richness_score". A riqueza é unha métrica representada por un número enteiro entre 0 e 100; canto máis grande sexa o número a páxina terá maior riqueza de contidos dunha ampla variedade de fontes. Podes atopar máis información sobre a riqueza dos taxons na lapela de actualizacións dunha páxina de taxon; por exemplo, %{richness_url}.
   application_version_advisory_information: Versión da aplicación
   are_you_sure: Estás seguro?
@@ -2016,6 +2032,71 @@ gl:
   forgot_password_form_helper: Ten en conta que os correos electrónicos de restablecemento do contrasinal rematan <em>a miúdo</em> no cartafol de correo lixo. Comproba ese cartafol se non recibes a mensaxe na vindeira hora.
   forgot_password_form_username_or_email_blank_error: Escribe o teu nome de usuario ou enderezo de correo electrónico para restablecer o teu contrasinal.
   form_validation_errors_for_attribute_assistive: Hai un erro de validación neste elemento
+  forums: 
+    actions: Accións
+    administration: Administración
+    buttons: 
+      delete: borrar
+      edit: editar
+      link: ligazón
+      reply: responder
+    categories: 
+      create: Crear unha categoría
+      create_failed: Sentímolo, houbo un erro; non se engadiu a categoría
+      create_successful: A categoría creouse correctamente
+      delete_failed_not_empty: Non se puido borrar a categoría porque non está baleira
+      delete_successful: A categoría borrouse correctamente
+      edit: Editar a categoría
+      move_failed: Non se puido trasladar a categoría
+      move_successful: A categoría trasladouse correctamente
+      update_failed: Sentímolo, houbo un erro; non se actualizou a categoría
+      update_successful: A categoría actualizouse correctamente
+    create: Crear un foro
+    create_failed: Sentímolo, houbo un erro; non se engadiu o foro
+    create_successful: O foro creouse correctamente
+    delete_failed_not_empty: Non se puido borrar o foro porque non está baleiro
+    delete_successful: O foro borrouse correctamente
+    edit: Editar o foro
+    forums_heading: Foros da EOL
+    last_post: Última mensaxe
+    move_failed: Non se puido trasladar o foro
+    move_successful: O foro trasladouse correctamente
+    no_topics: Este foro aínda non ten ningunha conversa
+    post_by_user_at_time: por %{user}, %{time}
+    posts: 
+      close_window: pechar
+      create: Deixar unha nova mensaxe
+      create_failed: Sentímolo, houbo un erro; non se engadiu a mensaxe
+      create_successful: A mensaxe creouse correctamente
+      delete_failed_topic_not_empty: Non se puido borrar a mensaxe porque o fío non está baleiro
+      delete_successful: A mensaxe borrouse correctamente
+      deleted_subject: (borrado)
+      edit: Editar a mensaxe
+      joined_date: Uniuse o %{date}
+      no_subject: (sen asunto)
+      permalink_to_this_post: "Ligazón permanente a esta mensaxe:"
+      post_has_been_deleted: Esta mensaxe foi borrada
+      post_written_by_user: "%{user} escribiu:"
+      posts_with_count: 
+        one: "%{count} mensaxe"
+        other: "%{count} mensaxes"
+      replying_to_post: "Respondendo a:"
+      topic_and_post_delete_successful: A mensaxe e mais o fío borráronse correctamente
+      update_failed: Sentímolo, houbo un erro; non se actualizou a mensaxe
+      update_successful: A mensaxe actualizouse correctamente
+    posts_heading: Mensaxes
+    replies: Respostas
+    topics: 
+      create: Comezar un novo fío de conversa
+      create_failed: Sentímolo, houbo un erro; non se engadiu o fío
+      create_successful: O fío creouse correctamente
+      delete_failed_not_empty: Non se puido borrar o fío porque non está baleiro
+      delete_successful: O fío borrouse correctamente
+      no_posts: Non hai mensaxes neste fío de conversa
+    topics_heading: Fíos
+    update_failed: Sentímolo, houbo un erro; non se actualizou o foro
+    update_successful: O foro actualizouse correctamente
+    views: Visitas
   fragment_caching_enabled: A caché dos fragmentos está activada
   frequency: Frecuencia
   frequency_daily: Diariamente

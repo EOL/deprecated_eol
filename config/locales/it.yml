@@ -4,9 +4,11 @@
 # Author: Beta16
 # Author: Darth Kule
 # Author: EdoDodo
+# Author: Eleonora negri
 # Author: F. Cosoleto
 # Author: Gianfranco
 # Author: Inskatolata
+# Author: Mishatk
 # Author: Nemo bis
 # Author: Raoli
 # Author: Ribez
@@ -156,6 +158,17 @@ it:
         udo_published: Testo inviato da utenti
         udo_published_by_curators: Testo inviato da curatori
         udo_published_by_non_curators: Testo inviato non da curatori
+      forum: 
+        description: Descrizione <small>(facoltativa)</small>
+        forum_category_id: Categoria
+        name: Nome del forum
+      forum_category: 
+        title: Nome della categoria
+      forum_post: 
+        subject: Soggetto
+        text: Corpo
+      forum_topic: 
+        subject: Soggetto
       harvest_event: 
         resource: Fonte
       hierarchy: 
@@ -203,6 +216,7 @@ it:
         auto_publish: Auto-pubblica
         bibliographic_citation: Citazione bibliografica
         description: Descrizione delle risorse
+        harvest_events: Raccolta di eventi
         hierarchy: Gerarchia
         language_id: Lingua predefinita
         license_id: Licenza predefinita
@@ -241,6 +255,7 @@ it:
         full_name: Nome completo
         given_name: Nome
         language_abbr: Lingua preferita.
+        permissions: Permessi
         requested_curator_level_id: Livello curatore desiderato
         tag_line: Tagline
         username: Nome utente
@@ -656,6 +671,7 @@ it:
   admin_information: Questa è la nuova console di amministrazione per EOL V2. Stiamo trasferendo le funzionalità di amministrazione da V1. Se la sezione di amministrazione che stai cercando non è elencata qui visita la <a href="/administrator">console di amministrazione V1</a>.
   admin_link: Panoramica
   admin_login_confirmation: Sei sicuro di voler accedere al registro dei fornitori di contenuti come %{name}? Se si esegue questa operazione, l'accesso verrà registrato dal sito web come un amministratore.
+  admin_news_item_not_active: Inedito
   admin_notes_not_visible_to_user: "Note amministratore (non visibili all'utente):"
   admin_page_title: "Amministrazione: panoramica"
   admin_spam_delete: Cancella spam
@@ -672,7 +688,9 @@ it:
   admin_translated_content_page_new_tip: Lingua, titolo e corpo sono %{required_icon} obbligatori.
   admin_translated_content_page_update_successful_notice: La traduzione %{language} per <a href="#%{anchor}"><em>%{page_name}</em></a> è stata aggiornata.
   admin_translated_content_page_update_unsuccessful_error: Spiacenti, si è verificato un errore, la traduzione non è stata aggiornata.
+  admin_translated_news_item_active: Pubblicato
   admin_translated_news_item_new_link: Aggiungi traduzione
+  admin_translated_news_item_not_active: Inedito
   admin_user_delete_successful_notice: L'utente è stato cancellato
   admin_user_hide_successful_notice: L'utente è stato nascosto
   admins: 
@@ -783,6 +801,7 @@ it:
   average_rating_value_of_total: "Media voto: %{rating} su %{total} voti"
   back: Indietro
   back_to_profile: Torna al profilo
+  bhl_publication: Pubblicazione BHL
   bi_monthly: Due volte al mese
   biomedical_terms: Termini biomedici
   biomedical_terms_provided_by: Termini forniti da <a rel="nofollow" href="%{supplier_url}">PubMed</a>.
@@ -1243,10 +1262,15 @@ it:
       menu_link: Testo inviato da utenti
       page_header: Statistiche testi inviati da utenti
       page_title: Statistiche
+  error_401_description: Siamo spiacenti, non sei autorizzato ad accedere a questa URL
   error_401_page_title: Non autorizzato
+  error_403_description: Siamo spiacenti, non sei autorizzato ad accedere a questa URL
   error_403_page_title: Proibito
+  error_404_description: Siamo spiacenti, nessuna pagina corrispondente a questa URL è stata trovata
   error_404_page_title: Non trovato
+  error_500_description: Siamo spiacenti, abbiamo riscontrato un problema. Se il problema persiste, si prega di inviare una e-mail a <a href="mailto:<span class=" notranslate"="">% {email_address}? subject = % {errore} "&gt; % {email_address}</a>
   error_500_page_title: Oops.
+  error_default_description: Siamo spiacenti, abbiamo riscontrato un problema. Se il problema persiste, si prega di inviare una e-mail a <a href="mailto:<span class=" notranslate"="">% {email_address}? subject = % {errore} "&gt; % {email_address}</a>
   error_default_page_title: Oops.
   error_log: Registro degli errori
   error_log_detail: Dettagli registro degli errori
@@ -1307,6 +1331,23 @@ it:
   forgot_password_form_choose_username_legend: Scegli un profilo
   forgot_password_form_header: Reimposta la tua password
   forgot_password_form_username_or_email_blank_error: Inserisci il tuo nome utente o il tuo indirizzo email per resettare la tua password
+  forums: 
+    buttons: 
+      delete: cancella
+      edit: modifica
+      link: collegamento
+      reply: rispondi
+    categories: 
+      create: Crea categoria
+      create_successful: Categoria creata correttamente
+      delete_failed_not_empty: Impossibile eliminare la categoria perché non è vuota
+      delete_successful: Categoria eliminata correttamente
+      edit: Modifica categoria
+      update_successful: Categoria aggiornata correttamente
+    create_successful: Il Forum è stato creato con successo
+    move_failed: Impossibile spostare il forum.
+    update_successful: Il forum è stato aggiornato con successo.
+    views: Visualizzazioni
   frequency: Frequenza
   frequency_daily: Giornaliera
   frequency_monthly: Mensile
@@ -1368,6 +1409,7 @@ it:
         object_title: Titolo
         refs: Riferimenti <small>(mettere ogni riferimento su una nuova riga)</small>
         rights_holder: Detentore dei diritti
+        rights_holder_more: Specificare una persona o un'organizzazione che sia proprietaria o che gestisca i diritti di questi dati. Se si lascia vuoto questo campo, assumeremo che tu sei il titolare dei diritti per tutte le licenze, eccetto il Dominio Pubblico. Il Dominio Pubblico non richiede un titolare dei diritti.
         rights_statement: Dichiarazione dei diritti
         source_url: URL all'oggetto dati originale
         toc_item: Sottocapitolo
@@ -1390,12 +1432,16 @@ it:
         began_at: Iniziato
         completed_at: Completato
         first_published_at: Pubblicato la prima volta
+        publish_more: Le bandiere raccolgono l'evento per la pubblicazione, il contenuto non sarà reso pubblico immediatamente.
         published_at: Pubblicato
         published_status: Stato
       hierarchy: 
+        browsable_more: Controllare la navigabilità per promuovere questa gerarchia a diventare una delle gerarchie navigabili principali su EOL
         browsable_status_with_colon: "Stato esplorabile:"
         complete: A cura
+        complete_more: "Per un'accurata gerarchia si assume che ogni voce sia univoca, quindi la corrispondenza del nome delle stringhe saranno trattati come omonimi. <strong>Attenzione: non modificare questo attributo a meno che non si è certi dello stato degli omonimi nella gerarchia, facendo ciò potrebbe compromettere l'integrità dei dati.</strong>"
         request_publish: Pubblicazione richiesta
+        request_publish_more: Indica se c'è una richiesta in sospeso per promuovere questa gerarchia a diventare una delle gerarchie navigabili principali su EOL.
       news_item: 
         active: Pubblicato
       open_authentication: 
@@ -1421,10 +1467,12 @@ it:
       translated_content_page: 
         active_translation: Pubblicato
         language_id: Lingua
+        meta_description_more: Fornire una breve descrizione, riassumendo i concetti chiave del contenuto della pagina. Questa descrizione è a volte utilizzata dai motori di ricerca Web sia per controllare la rilevanza che per includere i risultati nei motori di ricerca.
       translated_news_item: 
         active_translation: Pubblicato
         language_id: Lingua
         meta_description_more: Fornisci una breve descrizione, riassumendo i concetti chiave del contenuto di ciascuna notizia. Questa descrizione è talvolta utilizzata dai motori di ricerca Web sia per controllare la rilevanza, che per l'inclusione nei risultati della ricerca.
+        title_more: Il titolo di questo nuovo oggetto apparirà nella parte superiore della pagina. Il titolo dovrebbe includere le parole chiavi più attinenti al contenuto.
       user: 
         agreed_with_terms: Accetto le <a href="%{terms_url}">condizioni d'uso</a>
         bio: Informazioni su di me
@@ -1497,8 +1545,10 @@ it:
         create: Aggiungi nome
         update: Aggiorna nome
       news_item: 
+        create: Crea un nuovo oggetto
         edit: Modifica
         preview: Anteprima
+        update: Aggiorna le informazioni dell'oggetto
       open_authentication: 
         create: Connetti
         destroy: Disconnetti

@@ -180,13 +180,7 @@ private
 
   def iucn
     return @iucn if @iucn
-    # TODO - rewrite query ... move to new class, perhaps?
-    iucn_objects = DataObject.find(:all, :joins => :data_objects_taxon_concepts,
-      :conditions => "`data_objects_taxon_concepts`.`taxon_concept_id` = #{taxon_concept.id}
-        AND `data_objects`.`data_type_id` = #{DataType.iucn.id} AND `data_objects`.`published` = 1",
-      :order => "`data_objects`.`id` DESC")
-    my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
-    @iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
+    @iucn = taxon_concept.iucn
   end
 
   # NOTE - if the exemplar was not in data_objects, we'll end up with a longer list. ...Is this dangerous?

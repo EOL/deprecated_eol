@@ -499,6 +499,12 @@ Eol::Application.routes.draw do
     end
   end
 
+  resource :wysiwyg, :controller => 'wysiwyg' do
+    member do
+      post 'upload_image'
+    end
+  end
+
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation
   match 'api/docs' => 'api/docs#index' # Default is actually the documenation

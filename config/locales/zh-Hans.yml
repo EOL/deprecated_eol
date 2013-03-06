@@ -23,7 +23,7 @@ zh-Hans:
       - 星期五
       - 星期六
     month_names:
-      - ~
+      -  ~
       - 1月
       - 2月
       - 3月
@@ -37,7 +37,7 @@ zh-Hans:
       - 11月
       - 12月
     abbr_month_names:
-      - ~
+      -  ~
       - 1月
       - 2月
       - 3月
@@ -62,6 +62,7 @@ zh-Hans:
       long_utc: "世界标准时间 %Y年%B月%d日 %H:%M"
       month_name: "%B月"
       month_and_year: "%Y年%B月"
+      forum: "%a %b %d, %Y %H:%M UTC"
     am: "上午"
     pm: "下午"
   support:
@@ -290,6 +291,19 @@ zh-Hans:
         # lifedesk stats
         lifedesk_taxa: "LifeDesk的类群"
         lifedesk_data_objects: "LifeDesk的数据"
+      forum:
+        forum_category_id: "Category"
+        name: "Forum name"
+        description: "Description <small>(optional)</small>"
+      forum_category:
+        title: "Category name"
+        description: "Description <small>(optional)</small>"
+      forum_post:
+        subject: "Subject"
+        text: "Body"
+      forum_topic:
+        subject: "Subject"
+        text: "Body"
       harvest_event:
         resource: "资源"
       hierarchy:
@@ -379,6 +393,7 @@ zh-Hans:
         full_name: "全名"
         given_name: "名字"
         language_abbr: "首选语言"
+        permissions: "Permissions"
         requested_curator_level_id: "所需管理级别"
         tag_line: "标签"
         username: "用户名"
@@ -433,7 +448,7 @@ zh-Hans:
           attributes:
             publish:
               inclusion: "只允许为最新的采集事件，且该事件尚未发布的情况下"
-        inaccessible: "The record could not be saved because it was invalid. Check validation errors and resubmit."
+        inaccessible: "由于此记录是无效的，无法保存。检查验证错误后重新提交。"
         open_authentications:
           guid_provider_must_be_unique: "第三方账号已经和EOL账号建立了链接"
           provider_user_id_must_be_unique: "每个第三方提供者只能有一个账号与EOL账号相关联。"
@@ -716,7 +731,7 @@ zh-Hans:
     page_gap: "&hellip;"
   faker:
     lorem:
-      words: [alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]
+      words: "[alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]"
   datepicker:
     day_names:
       - 星期日
@@ -735,15 +750,15 @@ zh-Hans:
       - 星期五
       - 星期六
     day_names_min:
-      - Su
-      - Mo
-      - Tu
-      - We
-      - Th
-      - Fr
-      - Sa
-    close: Close
-    current: Today
+      -  日
+      -  一
+      -  二
+      -  三
+      -  四
+      -  五
+      -  六
+    close: "关闭"
+    current: "今天"
     month_names:
       - 1月
       - 2月
@@ -770,8 +785,8 @@ zh-Hans:
       - 10月
       - 11月
       - 12月
-    next: Next
-    previous: Previous
+    next: "下一页"
+    previous: "上一页"
   # start of views scope
   admins:
     eol_statistics:
@@ -808,6 +823,9 @@ zh-Hans:
         menu_link: "用户提交文本"
         page_header: "用户提交文本的统计"
         page_title: "管理：用户提交的文字统计"
+  api:
+    docs:
+      forum_beta_test_text: "<a href=\"%{forums_link}\">Click here</a> to access the beta test of the new EOL forums. Your feedback is welcome."
   contacts:
     errors:
       message_not_sent: "抱歉，发生了一个错误，您的消息尚未发送。"
@@ -874,7 +892,7 @@ zh-Hans:
       meta_title: "%{community_name}被管理者删除"
   content:
     index:
-      header_news: EOL News
+      header_news: "EOL新闻"
       meta_description: "网络生命大百科是一个致力于收集所有动物和植物生命科学知识的史无前例的努力。动物界和植物界的所有生物的图片，信息，事实及更多资料在这里可以得到。"
       meta_keywords: "动物，动物图片，动物信息，植物，植物物种，植物图片，植物信息，植物志，动物志"
       meta_title: "动物 - 植物 - 图片 和 信息"
@@ -956,55 +974,122 @@ zh-Hans:
       menu_link: "用户提交文本"
       page_header: "用户提交文本的统计"
       page_title: "统计"
+  forums:
+    forums_heading: "EOL Forums"
+    last_post: "Last Post"
+    posts_heading: "Posts"
+    replies: "Replies"
+    topics_heading: "Threads"
+    views: "Views"
+    create: "Create a forum"
+    create_successful: "Forum was successfully created"
+    create_failed: "Sorry, an error occured, the forum could not be added"
+    update_successful: "Forum was successfully updated"
+    update_failed: "Sorry, an error occured, the forum could not be updated"
+    delete_successful: "Forum was successfully deleted"
+    delete_failed_not_empty: "Forum could not be deleted because it is not empty"
+    move_successful: "Forum was successfully moved"
+    move_failed: "Forum could not be moved"
+    edit: "Edit forum"
+    post_by_user_at_time: "by %{user}, %{time}"
+    actions: "Actions"
+    administration: "Administration"
+    no_topics: "There are no threads in this forum"
+    buttons:
+      move_up: "&uarr;"
+      move_down: "&darr;"
+      delete: "delete"
+      edit: "edit"
+      reply: "reply"
+      link: "link"
+    categories:
+      create: "Create a category"
+      edit: "Edit category"
+      create_successful: "Category was successfully created"
+      create_failed: "Sorry, an error occured, the category could not be added"
+      update_successful: "Category was successfully updated"
+      update_failed: "Sorry, an error occured, the category could not be updated"
+      delete_successful: "Category was successfully deleted"
+      delete_failed_not_empty: "Category could not be deleted because it is not empty"
+      move_successful: "Category was successfully moved"
+      move_failed: "Category could not be moved"
+    posts:
+      joined_date: "Joined %{date}"
+      create: "Make a new post"
+      edit: "Edit post"
+      post_written_by_user: "%{user} wrote:"
+      replying_to_post: "Replying to:"
+      create_successful: "Post was successfully created"
+      create_failed: "Sorry, an error occured, the post could not be added"
+      update_successful: "Post was successfully updated"
+      update_failed: "Sorry, an error occured, the post could not be updated"
+      delete_successful: "Post was successfully deleted"
+      topic_and_post_delete_successful: "Post and thread were successfully deleted"
+      delete_failed_topic_not_empty: "Post could not be deleted because the thread is not empty"
+      post_has_been_deleted: "This post has been deleted"
+      deleted_subject: "(deleted)"
+      no_subject: "(no subject)"
+      permalink_to_this_post: "Permalink to this post:"
+      close_window: "close"
+      posts_with_count:
+        one: "%{count} post"
+        other: "%{count} posts"
+    topics:
+      create: "Start a new thread"
+      no_posts: "There are no posts in this thread"
+      create_successful: "Thread was successfully created"
+      create_failed: "Sorry, an error occured, the thread could not be added"
+      delete_successful: "Thread was successfully deleted"
+      delete_failed_not_empty: "Thread could not be deleted because it is not empty"
   layouts:
     v2:
       application:
-        header_about: About EOL
-        header_learn_more: Learn more about
-        header_questions: Tell me more
-        about_link_what_is_eol: What is EOL?
-        about_link_eol_blog: The EOL Blog
-        about_link_discover: Discover
-        about_link_statistics: Statistics
-        about_link_glossary: Glossary
-        about_link_podcasts: Podcasts
-        about_link_donate: Donate to EOL
-        about_link_citing: Citing EOL
-        about_link_help: Help
-        about_link_terms_of_use: Terms of Use
-        about_link_contact_us: Contact Us
-        learn_more_link_animals: Animals
-        learn_more_link_mammals: Mammals
-        learn_more_link_birds: Birds
-        learn_more_link_amphibians: Amphibians
-        learn_more_link_reptiles: Reptiles
-        learn_more_link_fish: Fishes
-        learn_more_link_worms: Worms
-        learn_more_link_invertebrates: Invertebrates
-        learn_more_link_crustaceans: Crustaceans
-        learn_more_link_mollusks: Mollusks
-        learn_more_link_insects: Insects
-        learn_more_link_spiders: Spiders
-        learn_more_link_plants: Plants
-        learn_more_link_flowering_plants: Flowering Plants
-        learn_more_link_trees: Trees
-        learn_more_link_fungi: Fungi
-        learn_more_link_mushrooms: Mushrooms
-        learn_more_link_molds: Molds
-        learn_more_link_bacteria: Bacteria
-        learn_more_link_protists: Protists
-        learn_more_link_archaea: Archaea
-        learn_more_link_viruses: Viruses
-        questions_link_biodiversity: What is biodiversity?
-        questions_link_species: What is a species?
-        questions_link_discovering_species: How are species discovered?
-        questions_link_naming_species: How are species named?
-        questions_link_binomial_nomenclature: What is binomial nomenclature?
-        questions_link_biological_classification: What is a biological classification?
-        questions_link_invasive_species: What is an invasive species?
-        questions_link_indicator_species: What is an indicator species?
-        questions_link_model_organism: What is a model organism?
-        questions_link_contributing_to_research: How can I contribute to research?
+        header_about: "关于EOL"
+        header_learn_more: "学习更多关于"
+        header_questions: "告诉我更多"
+        about_link_what_is_eol: "什么是网络生命大百科？"
+        about_link_eol_blog: "EOL博客"
+        about_link_discover: "探索"
+        about_link_statistics: "统计"
+        about_link_glossary: "词汇表"
+        about_link_podcasts: "Podcasts"
+        about_link_donate: "向EOL捐赠"
+        about_link_citing: "引用EOL"
+        about_link_help: "帮助"
+        about_link_terms_of_use: "使用项"
+        about_link_contact_us: "联系我们"
+        learn_more_link_animals: "动物"
+        learn_more_link_mammals: "哺乳动物"
+        learn_more_link_birds: "鸟类"
+        learn_more_link_amphibians: "两栖类动物"
+        learn_more_link_reptiles: "爬行类动物"
+        learn_more_link_fish: "鱼类"
+        learn_more_link_worms: "蠕虫"
+        learn_more_link_invertebrates: "无脊椎动物"
+        learn_more_link_crustaceans: "甲壳动物"
+        learn_more_link_mollusks: "软体动物"
+        learn_more_link_insects: "昆虫"
+        learn_more_link_spiders: "蜘蛛"
+        learn_more_link_plants: "植物"
+        learn_more_link_flowering_plants: "有花植物"
+        learn_more_link_trees: "树"
+        learn_more_link_fungi: "真菌"
+        learn_more_link_mushrooms: "蘑菇"
+        learn_more_link_molds: "霉菌"
+        learn_more_link_bacteria: "细菌"
+        learn_more_link_protists: "原生生物"
+        learn_more_link_archaea: "古菌界生物"
+        learn_more_link_viruses: "病毒"
+        questions_link_biodiversity: "什么是生物多样性？"
+        questions_link_species: "什么是一个物种？"
+        questions_link_discovering_species: "物种如何被发现？"
+        questions_link_naming_species: "物种如何被命名？"
+        questions_link_binomial_nomenclature: "什么是双名法？"
+        questions_link_biological_classification: "什么是生物学分类？"
+        questions_link_invasive_species: "什么是入侵种？"
+        questions_link_indicator_species: "什么是指示种？"
+        questions_link_model_organism: "什么是模式生物？"
+        questions_link_contributing_to_research: "我如何为研究作贡献？"
   members:
     index:
       meta_description: "网络生命大百科%{community_name}社区的会员。"
@@ -1068,7 +1153,7 @@ zh-Hans:
       subject: "您提出的网络生命大百科管理员权限%{curator_level}的请求已经获得批准"
       message: "感谢您申请管理权 %{curator_level}。您的请求已经获得批准。\n\n希望了解更多管理及您可用的功能有关的信息，请访问http://eol.org/curators。"
     unsubscribed_to_notifications:
-      subject: "Sorry to see you go..."
+      subject: "很遗憾看见你离开......"
       message: "您已成功取消网络生命大百科通知的订阅。您可以更改您的邮箱设置或在您的通知偏好页面<a href='%{email_prefs_url}'>订阅通知。\n\n了解更多关于EOL使用，包括如何创建EOL收藏，加入EOL社区并上传内容，请访问我们的帮助页面http://eol.org/help 。"
     user_activated:
       subject: "您的网络生命大百科账户已经激活"
@@ -2079,8 +2164,8 @@ zh-Hans:
           an_unknown_user_split_classifications_from_taxon: "一个未知用户把%{classifications}中的类群从%{taxon}物种页抽取到<a href='%{to}'>自己的页面。"
           an_unknown_user_split_classifications_from_it: "一个未知用户将%{classifications}的分类信息抽取到<a href='%{to}'>它们自己的页面</a>。"
           user_split_classifications_from_an_unknown_taxon: "<strong>%{user}</strong>将%{classifications}的分类信息从未知页抽取到<a href='%{to}'>它们自己的页面</a>。"
-          user_split_classifications_from_taxon: "<strong>%{user}</strong>将%{classifications}的分类信息抽取到<a href='%{to}'>它们自己的页面</a>。"
-          user_split_classifications_from_taxon: "<strong>%{user}</strong>将%{classifications}的分类信息抽取到<a href='%{to}'>它们自己的页面</a>。"
+          user_split_classifications_from_taxon: "用户<strong>%{user}</strong>将%{classifications}建立的分类系统从%{taxon}抽取到他们自己的页面。"
+          user_split_classifications_from_taxon: "用户<strong>%{user}</strong>将%{classifications}建立的分类系统从%{taxon}抽取到他们自己的页面。"
         merge:
           an_unknown_user_merged_to_an_unknown_taxon: "一个未知用户合并了两个未知页。"
           an_unknown_user_merged_to_taxon: "一个未知用户合并另一个页面到%{target}。"
@@ -2136,7 +2221,7 @@ zh-Hans:
         move_of_taxon_unlocked: "您最近为\"%{taxon}\"请求的分类信息移动已完成。"
         split_of_an_unknown_taxon_unlocked: "您最近请求的分类信息的抽取已完成，但没有找到页面。"
         split_of_it_unlocked: "您最近请求的分类信息的抽取已完成，此分类信息已经移动到<a href='%{to}'>它们自己的页面</a>。"
-        split_of_taxon_unlocked: "您最近为\"%{taxon}\" 请求的分类信息的抽取已完成，此分类信息已经移动到<a href='%{to}'>它们自己的页面</a>。"
+        split_of_taxon_unlocked: "您最近提交的从\"%{taxon}\"抽取分类系统的任务已经完成，分类系统已经转移到他们自己的页面中。"
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: "您最近请求的合并<strong>失败</strong>：%{error}。此外，没有找到相关页面。"
         merge_of_it_unlocked_with_error: "您最近在这个页面上请求的合并<strong>失败</strong>：%{error}。"
@@ -2147,6 +2232,15 @@ zh-Hans:
         split_of_an_unknown_taxon_unlocked_with_error: "您最近请求的分类信息的抽取<strong>失败</strong>：%{error}。此外，没有找到相关页面。"
         split_of_it_unlocked_with_error: "您最近在本页面请求的分类信息的抽取<strong>失败</strong>：%{error}。"
         split_of_taxon_unlocked_with_error: "您最近为\"%{taxon}\"请求的分类信息的抽取<strong>失败</strong>：%{error}。"
+      crop:
+        an_unknown_user_cropped_an_older_data_object: "一个未知用户变更了\"%{data_object}\"的缩略图。"
+        an_unknown_user_cropped_an_unknown_data_object: "一个未知用户变更了一个未知图像的缩略图。"
+        an_unknown_user_cropped_data_object: "一个未知用户变更了\"%{data_object}\"的缩略图。"
+        user_cropped_an_older_data_object: "用户<strong>%{user}</strong>变更了\"%{data_object}\"的一个旧版本的缩略图。"
+        user_cropped_an_unknown_data_object: "用户<strong>%{user}</strong>变更了未知图像的缩略图。"
+        user_cropped_data_object: "用户<strong>%{user}</strong>变更了\"%{data_object}\"的缩略图。"
+        an_unknown_user_cropped_it: "一个未知用户变更了一个未知图像的缩略图。"
+        user_cropped_it: "用户<strong>%{user}</strong>变更了未知图像的缩略图。"
       other_actions:
         an_unknown_user_curated_an_older_data_object: "一个未知用户管理了一个旧版本的\"%{data_object}\"。"
         an_unknown_user_curated_an_unknown_data_object: "一个未知用户管理了未知数据项。"
@@ -2156,7 +2250,7 @@ zh-Hans:
         user_curated_data_object: "<strong>%{user}</strong> 管理了 \"%{data_object}\"。"
         an_unknown_user_curated_it: "一个未知用户做了管理，但确切的管理操作已丢失。"
         user_curated_it: "<strong>%{user}</strong> 管理了它, 但确切的管理操作已丢失。"
-  a_maximum_of_30_results_are_returned: "a maximum of 30 results are returned per page. This parameter allows you to fetch more pages of results if there are more than 30 matches"
+  a_maximum_of_30_results_are_returned: "每页最多显示30个返回的结果。当匹配的结果多于30时，这个参数允许你通过分页查看更多结果。"
   activity_log_empty: "暂无人提供更新。"
   activity_log_empty_learn_more_link: "了解如作些贡献"
   activity_user_created_link: "<strong>%{user}</strong>在\"%{taxon_concept}\"上添加一个链接到\"%{object_name}\"。"
@@ -2238,7 +2332,7 @@ zh-Hans:
   admin_news_item_active: "已发布"
   admin_news_item_create_successful_notice: "成功创建<a href=\"#%{anchor}\"><em>%{page_name}</em></a>的新闻条目。"
   admin_news_item_create_unsuccessful_error: "抱歉，出现错误，本新闻条目未创建。"
-  admin_news_item_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations? Deleted pages cannot be recovered.'
+  admin_news_item_delete_confirmation: "你确定要删除"%{page_name}"及它的所有翻译吗？被删除的页面不能再被恢复。"
   admin_news_item_delete_successful_notice: "新闻条目%{page_name}及其相关翻译已经删除"
   admin_news_item_edit_header: "为<em>%{page_name}</em>更新基本新闻条目信息"
   admin_news_item_edit_tip: "建议您不要编辑此新闻条目的唯一名称，除非您非常清楚这一操作的后果，包括对本页的链接、名称路径的影响。唯一名称 %{required_icon} 是必须的。"
@@ -2272,7 +2366,7 @@ zh-Hans:
   admin_translated_news_item_active: "已发布"
   admin_translated_news_item_create_successful_notice: "翻译已添加到 <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_news_item_create_unsuccessful_error: "抱歉，出现了一个错误，翻译无法添加。"
-  admin_translated_news_item_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}"? Deleted pages cannot be recovered.'
+  admin_translated_news_item_delete_confirmation: "你确定要删除"%{page_name}"的%{language}版本吗？被删除的页面不能再被恢复。"
   admin_translated_news_item_delete_successful_notice: "新闻条目<em>%{page_name}</em>的%{language}翻译已经被删除。"
   admin_translated_news_item_edit_subheader: "编辑<em>%{page_name}</em>的%{language} 翻译"
   admin_translated_news_item_edit_tip: "标题和正文是 %{required_icon} 需要的。"
@@ -2308,8 +2402,8 @@ zh-Hans:
   already_a_member_question: "已经是会员？"
   already_member_of_community: "您已经是这个社区的一名会员。"
   alternate_classification: "另一种分类系统"
-  alternative_name_colon: "Alternative name: "
-  alternative_common_name_colon: "Alternative common name:"
+  alternative_name_colon: "其他名称:"
+  alternative_common_name_colon: "其他别名:"
   amount: "数量"
   an_unknown_user: "一个未知用户"
   anonymous_user_full_name: "匿名用户"
@@ -2320,9 +2414,9 @@ zh-Hans:
   jsonp_by_adding_a_callback_parameter: "…以及通过添加回调参数而成的JSONP"
   any_integer: "任何整数"
   any_string: "任何字符串"
-  api_docs_collections_description: "给收藏一个标识符，此API将返回所有关于收藏和它包含的条目的元数据。条目列表可按条目类型筛选，并按上面列出的属性排序。"
+  api_docs_collections_description: "如果给出一个收藏的标识符，这个API将返回这个收藏的全部元数据和它包含的所有条目。条目清单可以按照条目类型筛选、按照属性排序。某些条目将包含一个可选的‘排序字段’属性。排序字段是一个用户提供的字符串，对收藏条目的一个特殊注释。它可能是任意的字符串，但如果是一个日期，它应该满足YYYY-MM-DD的格式。类群条目将包含一个‘丰富度评分’。丰富度是一种量化的评分，取0到100之间的整数，分数高表示一个页面包含了多种多样来源的丰富内容。可以从类群页面的更新签上，如%{richness_url}，获得更多关于该类群丰富度的信息。"
   a_pipe_delimited_list_of_licenses: "一个用 | 符号分隔的授权列表，或是用'all'表示任意授权。简写cc-是所有%{creative_commons_link}的授权。获取更多授权信息可以访问其网站。"
-  a_pipe_delimited_list_of_spm_info_item_subject_names: "'概要' 可以返回概要文字(如果存在)，用 | 符号分隔的物种数据模型中的主题项名称列表返回相应的主题内容，'所有'用来获取所有主题中的内容。通常概要作为返回的第一结果(如果存在)."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "选择‘概述’返回概述内容（如果存在），或输入一个用‘|’符号分隔的关于%{subjects_text}的主题名列表（如类群生物学、化石历史），或选择‘全部’，可返回相应的主题信息。总是把概述第一个显示出来（如果在给定的内容里存在概述信息）。"
   application_version_advisory_information: "应用程序版本"
   are_you_sure: "您确定吗？"
   are_you_sure_this_action_cannot_be_undone: "您确定吗？本次操作不能恢复。"
@@ -2398,6 +2492,7 @@ zh-Hans:
   authoritative_information: "权威信息"
   author_of_peer_reviewed_publication_credential_option: "同行评审的出版物的著作权（提供参考）"
   available: "可用的"
+  average_rating: "平均分数"
   average_rating_value_of_total: "平均评分： %{rating} (满分%{total})"
   back: "返回"
   back_to_profile: "返回到信息页"
@@ -2422,7 +2517,7 @@ zh-Hans:
   by_scientific_name_table_header: "通过学名"
   cache_store: "缓存"
   calculate_averages_slow: "计算平均值（慢）"
-  call_api: "Call API"
+  call_api: "调用API"
   cancel: "取消"
   cancel_split: "取消"
   cannot_be_associated_with_both_a_user_and_a_community: "无法同时与用户和社区建立关联"
@@ -2459,7 +2554,6 @@ zh-Hans:
   classification_tree_header: "分类"
   classifications_edit_cancelled_merge_to_self: "你的来源页和目标页是相同的页面；无信息可移动。"
   classifications_edit_cancelled_busy: "对不起，当前不能执行你编辑分类系统的请求，一个或多个物种页被锁定。已存在一个编辑该分类系统的请求正在处理中。"
-  classifications_empty: "该页面不包括在任何EOL中可浏览的分类系统。"
   classifications_locked: "该页面的分类系统当前不能编辑。另一个编辑这些分类系统的请求正在处理中。"
   classifications_preferred_column_header: "首选"
   classifications_exemplar_column_header: "范例"
@@ -2807,7 +2901,7 @@ zh-Hans:
     one: " 拷贝%{count}项到一个新的收藏中"
     other: " 拷贝%{count}项到一个新的收藏中"
   copyright: "版权所有："
-  correct_donation_message_with_link: "If this information is not correct, please <a href='%{link}'>go back</a> to make changes."
+  correct_donation_message_with_link: "如果这个信息不正确，请<a href='%{link}'>返回去</a>做修改。"
   could_not_find_collection_error: "抱歉，找不到该收藏。"
   could_not_find_user: "您不是这个社区的会员。"
   count: "数目"
@@ -2834,18 +2928,20 @@ zh-Hans:
   creative_commons: "知识共享"
   credentials: "资历"
   credentials_colon: "证书："
+  crop_image: "收获图像"
+  crop_image_thumbnails: "收获图像缩略图"
   curated: "已管理"
   curated_association_update_button: "保存更改"
   curated_objects_of: "已管理的%{name}的数据项"
   curated_species_of: "已管理的%{name}物种"
   curation_comment: "管理评论"
-  curation_error_no_hide_reasons_given: "Please choose a reason for hiding this on the %{association} page, or leave a comment explaining why you're hiding it"
-  curation_error_no_untrust_reasons_given: "Please choose a reason for untrusting this on the %{association} page, or leave a comment explaining why you're untrusting it"
-  curation_error_vetted_invalid: "You cannot curate %{association} to '%{vetted}'"
-  curation_error_visibility_invalid: "You cannot curate %{association} to '%{visibility}'"
-  curation_error_untrust_reasons_invalid: "The untrust reasons for %{association} were not valid"
-  curation_error_hide_reasons_invalid: "The hide reasons for %{association} were not valid"
-  curation_error_object_in_preview_state_cannot_be_curated: "This object is being previewed for import and cannot be curated"
+  curation_error_no_hide_reasons_given: "请选择一个理由表明为什么要在%{association}页面上隐藏它，或输入一段评论解释你为什么隐藏它。"
+  curation_error_no_untrust_reasons_given: "请选择一个理由表明为什么要在%{association}页面上将它标记为不可信，或输入一段评论解释你为什么将它标记为不可信。"
+  curation_error_vetted_invalid: "你不能将%{association}设置为‘%{vetted}’"
+  curation_error_visibility_invalid: "你不能将%{association}设置为‘%{visibility}’"
+  curation_error_untrust_reasons_invalid: "对于%{association}的不可信理由是无效的"
+  curation_error_hide_reasons_invalid: "对于%{association}的隐藏理由是无效的"
+  curation_error_object_in_preview_state_cannot_be_curated: "此数据对象为了导入已经被预审，不能再被管理"
   curation_privileges_page_description: "选择您想申请的管理等级：助理管理员，专业管理员，高级管理员。若想申请后两者，您必须提供您的专业领域和资历信息，一旦您的信息被审核通过，我们将通过email通知您。助理管理员的申请可以立即通过。了解更多<a href=\"%{curators_url}\">成为一名管理员</a>。"
   curation_privileges_page_title: "成为管理员"
   curation_scope: "审核范围"
@@ -2900,13 +2996,13 @@ zh-Hans:
   date_uploaded: "上传日期"
   dato_create_cancel: "取消"
   dato_edit_cancel: "取消"
-  dato_create_user_link_error: "Sorry, an error occurred, the link could not be added."
+  dato_create_user_link_error: "抱歉，发生了一个错误，此连接不能被添加。"
   dato_create_user_text_error: "抱歉，发生了一个错误，此文章不能被添加。"
   dato_location_created: "位置创建：%{loc}"
   dato_new_edit_user_text_fieldset_content_header: "文章内容"
   dato_new_edit_user_text_link_fieldset_content_header: "链接数据"
   dato_new_edit_user_text_fieldset_information_header: "文章信息"
-  dato_new_edit_user_text_link_form_tip: 'Your link will be posted to the taxon page. If you are not a curator, it will be marked as "unreviewed" until a curator reviews it. Category, description, and URL are required (%{required_icon}), all other fields are optional. For further assistance read <a href="%{add_article_help_url}">add article/link help</a>.'
+  dato_new_edit_user_text_link_form_tip: "你的连接将被粘贴在该类群的页面。如果你不是一个管理员，它将被标记为‘未审核’，直到一个管理员审核它。类别、描述和URL是必填的(%{required_icon})，其他字段时可选的。如需更多帮助，请阅读<a href="%{add_article_help_url}">添加文章/连接的帮助</a>。"
   dato_new_edit_user_text_form_tip: "您的整篇文章将被添加到物种页。如果您不是一个管理员，这篇文章在被管理员审核之前将被标记为\"未审核\"。章节、文字、语言和版权许可是必填项(%{required_icon})，其他都是选填项。如果您选择了CC-BY（属性）许可，请附上版权持有人或者留空以使用您的全名。公共领域的许可证不需要版权持有人。想进一步了解请阅读<a href=\"%{add_article_help_url}\">添加文章帮助</a>。"
   dato_create_user_text_missing_taxon_id_exception: "如果物种ID为空，则不能创建文字数据项或用户数据项。"
   dato_create_user_text_missing_user_exception: "如果物种ID为空，则不能创建文字数据项或用户数据项。"
@@ -2982,6 +3078,7 @@ zh-Hans:
   edit_my_profile: "编辑个人信息"
   edit_news_items: "编辑新闻项"
   edit_page_contents: "编辑页面内容"
+  edit_permission_header: "Editing Permission: %{permission}"
   edit_search_suggestion: "编辑搜索建议"
   edit_search_suggestions: "编辑搜索建议"
   edit_table_of_contents: "编辑内容表"
@@ -2996,7 +3093,7 @@ zh-Hans:
   email: "邮箱"
   email_colon: "邮件："
   email_recipients: "邮件收件人"
-  eol_accepted_subjects: "EOL accepted subjects"
+  eol_accepted_subjects: "EOL接受的主题"
   eol_curator_activity_email_message: "网络生命大百科管理员 <a href='%{profile_url}'>%{curator_full_name}</a> %{action} <a href='%{data_object_url}'>EOL网站</a>的%{comment}"
   encyclopedia_of_life: "网络生命大百科"
   endorsed_by: "关注者"
@@ -3053,12 +3150,13 @@ zh-Hans:
       hidden_user_recover_account: "抱歉，当前账户的恢复被禁用。"
       hidden_user_temporary_login: "抱歉，当前账户的恢复与登录都被禁用。"
       inactive_user_login: "抱歉，当前账号尚未激活。如果您在注册时未收到验证邮件，请按照账户的恢复程序来验证您的邮箱地址并激活账户。"
+      min_master_curators_only: "Sorry, access is restricted to EOL Curators with a minimum curator level of Master."
       min_full_curators_only: "抱歉，访问的最低权限是EOL管理员。"
+      min_assistant_curators_only: "抱歉，只有助理管理员级别以上的EOL管理员才可以访问。"
   expand_all_children: "展开所有子节点"
   explore: "探索"
   explore_what_we_know_about_taxon: "搜索EOL了解的%{taxon}。"
   export_curator_csv_link: "[导出全部管理员到CSV文件]"
-  export_all_of_the_entries_as_a: "导出所有条目到CSV文件"
   export_this_list_as_csv: "导出该列表到CSV文件"
   external_link_icon_alt_text: "外部链接"
   external_report_click_url_to_proceed: "外部报告。点击URL来处理。"
@@ -3068,7 +3166,7 @@ zh-Hans:
   failed_login_attempts_with_count:
     one: "(%{count} 次登录失败)- 请检查用户登录信息"
     other: "(%{count} 次登录失败)- 请检查用户登录信息"
-  false_label: "False"
+  false_label: "失败"
   family_name_colon: "科名："
   feedback: "反馈"
   file: "文件"
@@ -3176,6 +3274,7 @@ zh-Hans:
   google_images: "Google图像"
   google_scholar: "Google学术"
   grant_manager_link: "授权管理员角色"
+  grant_permission: "grant"
   grant_full_curator_link: "授权"
   harvest_id: "数据采集ID"
   harvesting_processes_log: "采集过程日志"
@@ -3211,6 +3310,8 @@ zh-Hans:
   return_content_by_vettedness: "如果'vetted'赋予值'1'，仅返回可信的内容。如果'vetted'值为'2'，仅返回可信的和未审核的内容（不可信的内容不返回）。缺省返回所有的内容。"
   reindex_page_button: "重建索引页面"
   image: "图像"
+  image_cropped_notice: "图像获取成功。"
+  image_crop_failed_error: "抱歉，发生了一个错误，图像无法被获取。"
   image_is_no_longer_available: "图像不再可用"
   image_not_found: "找不到图像"
   image_object: "图像"
@@ -3333,10 +3434,10 @@ zh-Hans:
   license_cc_by_sa_2_0: "知识共享属名协议-相同方式共享2.0(CC BY-SA 2.0)"
   license_cc_by_sa_2_5: "知识共享属名协议-相同方式共享2.5(CC BY-SA 2.5)"
   license_cc_by_sa_3_0: "知识共享属名协议-相同方式共享3.0(CC BY-SA 3.0)"
-  license_cc_zero: "Creative Commons — CC0 1.0 Universal"
+  license_cc_zero: "知识共享 - CC0 1.0 一般原则"
   license_gnu_fdl: "GNU自由文档许可证(GNU FDL)"
   license_gnu_gpl: "GNU通用公共许可证(GNU GPL)"
-  license_no_known_copyright_restrictions: "No known copyright restrictions"
+  license_no_known_copyright_restrictions: "没有已知的版权限制"
   license_not_applicable: "不适用的授权协议"
   license_public_domain: "公共领域"
   licensing: "授权中"
@@ -3394,6 +3495,7 @@ zh-Hans:
   maps_empty: "本物种页暂无人提供地图。"
   maps_empty_contribute_instructions: "了解如何向EOL提供地图。"
   maps_image_maps_header: "标记为'地图'的媒体文件"
+  march_of_life_thumbnail_title: "March of Life:"
   matching_users_found_with_count:
     one: "总共 %{count}个用户与您的标准匹配。"
     other: "总共 %{count}个用户与您的标准匹配。"
@@ -3585,7 +3687,7 @@ zh-Hans:
   object_visibility_visible_option: "可见的"
   object_visibility_invisible_option: "隐藏的"
   older_version_of_latest_published_data_object_title_link: "旧版本的%{link}"
-  other_version_links: "Other versions: %{version_links}"
+  other_version_links: "其他版本: %{version_links}"
   percentage_of_children_with_images: "有图像的子节点的百分比"
   percentage_of_children_with_text: "有文本的子节点的百分比"
   number_of_taxa_at_this_entry: "该条目类群的数量"
@@ -3638,7 +3740,7 @@ zh-Hans:
   page_views_th: "页面访问量"
   pages_curator_section_link: "管理员"
   pages_admin_section_link: "管理员"
-  pages_method_description: "使用一个EOL页面标识符返回这个页面的学名，同时为识别这个分类单元的分类树可选地返回俗名，多媒体（文本，图像和视频）和参考文献。"
+  pages_method_description: "使用一个EOL页面标识符返回这个页面的学名，还可选择返回这个页面的别名、多媒体（文本，图像和视频）和关于包含此类群的分类树的参考文献等信息。"
   pagination_page_number: "第%{number}页"
   pagination_next: "下一页"
   pagination_next_with_count:
@@ -3662,6 +3764,12 @@ zh-Hans:
   percentage_of_descendants_with_images: "带图像的子节点的百分比"
   percentage_of_descendants_with_text: "带文本的子节点的百分比"
   permalink: "永久链接"
+  permissions_list_header: "Permissions on EOL"
+  permission_granted: "Permission granted."
+  permission_revoked: "Permission revoked."
+  permissions_users_count:
+    one: "%{count} user"
+    other: "%{count} users"
   personal_profile_menu: "个人信息"
   personal_space: "个人空间"
   pinterest: "Pinterest"
@@ -3691,9 +3799,9 @@ zh-Hans:
   profile_newsfeed: "我的消息"
   profile_picture: "个人照片"
   project: "项目"
-  provide_a_concept_id: "given an EOL page ID, search results will be limited to members of that taxonomic group"
-  provide_a_hierarchy_entry_id: "given a Hierarchy Entry ID, search results will be limited to members of that taxonomic group"
-  provide_a_search_string: "given a search term, an exact search will be made and that matching page will be used as the taxonomic group against which to filter search results"
+  provide_a_concept_id: "给出一个EOL页面标识符，搜索结果将被限制在相应的分类学组的成员中。"
+  provide_a_hierarchy_entry_id: "给出一个分类树入口标识符，搜索结果将被限制在相应的分类学组的成员中。"
+  provide_a_search_string: "给出一个搜索词，即可进行精确搜索，匹配的页面将形成分类学组，在此基础上再进行筛选。"
   provider: "提供者"
   providers: "提供者"
   public: "公开的"
@@ -3716,6 +3824,7 @@ zh-Hans:
     one: "来自%{count}个人"
     other: "来自%{count}个人"
   rating_added_notice: "已成功添加评级。"
+  rating_learn_more_link: "学习如何评分"
   rating_not_added_error: "抱歉, 出现了一个错误, 评级无法添加。"
   recaptcha: "输入下面您看到的两个单词"
   recaptcha_incorrect_error_with_anchor: " <a href=\"#%{recaptcha_anchor}\">验证码</a> 不匹配, 请重试。"
@@ -3738,6 +3847,7 @@ zh-Hans:
   required: "必需的"
   revoke_full_curator_link: "撤销"
   revoke_manager_link: "撤销管理者角色"
+  revoke_permission: "revoke"
   removed_count_items_from_collection_notice:
     one: "%{count}项已从收藏中移除。"
     other: "%{count}项已从收藏中移除。"
@@ -3758,6 +3868,7 @@ zh-Hans:
   return: "返回"
   return_all_common_names_for_this_taxon: "返回该分类群的所有俗名"
   return_all_synonyms_for_this_taxon: "返回该分类群的所有异名"
+  return_references_for_the_page_taxon: "返回关于此页面类群的所有参考文献"
   returns_all_metadata_about_a_particular_collection: "返回一个特殊收藏的所有元数据以及该收藏中被EOL索引的数据项"
   returns_all_metadata_about_a_particular_data_object: "返回一个被EOL索引的特殊数据项的所有元数据（文本，图像或视频）"
   returns_either_a_positive_or_negative_response: "返回一个肯定的响应（表示APIs工作正常），或者返回一个否定的响应，或者不做任何响应（表示APIs此时工作不正常）。"
@@ -3799,7 +3910,7 @@ zh-Hans:
   search_term_reports_title: "搜索项报告"
   search_term: "搜索项"
   search_the_site: "搜索网站"
-  see_all_activity_combinations: "See all activity combinations within 5 minutes."
+  see_all_activity_combinations: "查看5分钟内的所有活动"
   see_all_of_your_collections: "查看您的所有收藏"
   see_all_of_your_communities: "查看您的所有社区"
   see_all_classifications_with_count_html:
@@ -3852,10 +3963,10 @@ zh-Hans:
   show_email_message_area: "[显示邮件消息区域]"
   show_data_from_all_content_partners: "删除分类系统过滤器"
   show_full_tree: "显示完整的树"
-  showing_all_error_logs: "Showing <b>all errors</b>"
-  showing_error_logs_from_date: "Showing errors from <b>%{date}</b>"
-  showing_all_harvest_logs: "Showing <b>all harvests</b>"
-  showing_harvest_logs_from_date: "Showing harvests from <b>%{date}</b>"
+  showing_all_error_logs: "显示<b>所有错误</b>"
+  showing_error_logs_from_date: "显示<b>%{date}</b>以来的错误"
+  showing_all_harvest_logs: "显示<b>所有的采集</b>"
+  showing_harvest_logs_from_date: "显示<b>%{date}</b>以来的采集"
   shown_to_the_user_parens: "（显示给用户）"
   shown_to_user_as_the_title_of_page: "作为页面标题展示给用户"
   show: "显示"
@@ -3922,6 +4033,9 @@ zh-Hans:
   spm_category_objects_count: "物种介绍模块目录 - 对象的数量"
   spm_category_partner_count: "物种介绍模块目录 - 合作伙伴的数量"
   spm_category: "物种介绍模块目录"
+  stars_with_count:
+    one: "%{count}星"
+    other: "%{count}星"
   started: "开始"
   stats: "统计"
   stat: "状态"
@@ -3932,6 +4046,7 @@ zh-Hans:
   submit_term: "提交期限"
   suggested_result_page_id: "建议结果页面的ID:"
   suggested_results_avg: "建议结果平均数"
+  summary_thumbnail_title: "Summary:"
   supplier_allcaps: "提供者："
   supplier_colon: "提供者："
   survey_link: "参与我们的调查"
@@ -3964,6 +4079,7 @@ zh-Hans:
   taxon_citizen_science_resources_empty: "本物种页暂无人提供公民科学链接。"
   taxon_concept_stats: "分类概念状态"
   taxon_details_empty: "本物种页暂无人提供信息。"
+  taxon_details_empty_in_this_language: "No one has contributed any details to this page in this language."
   taxon_education_empty: "本物种页暂无人提供教育资源。"
   taxon_education_header: "教育资源"
   taxon_education_link: "教育资源"
@@ -3979,7 +4095,7 @@ zh-Hans:
   taxon_partner_links_empty: "内容合作伙伴还没有为该页面提供来源链接。"
   taxon_partner_links_empty_learn_more_link: "了解如何成为一个内容合作伙伴"
   taxon_partner_links_header: "合作伙伴链接"
-  taxon_partner_links_intro: "以下是合作者列表及其信息, 包括内容合作伙伴。上面的链接可能带您到相应的合作者的网站。这些被每个合作者使用的分类单元的唯一的标识被包含在这些链接中，这些唯一标识同样可以通过<a href=\"%{eol_api_link}\">EOL API</a>进入。"
+  taxon_partner_links_intro: "下面是此页面合作伙伴的列表，包括内容合作伙伴，及其相关信息。可能的连接可以将你引导到对应该内容的合作伙伴的网站。合作伙伴对该类群赋予的唯一标识符将嵌在连接中，这些唯一标识符也可以从<a href=\"%{eol_api_link}\">EOL API</a>中得到。"
   taxon_partner_links_link: "合作伙伴链接"
   taxon_page_content_disclaimer_header: "放弃"
   taxon_page_content_disclaimer: "EOL的内容来自许多不同的内容提供者并自动组合在一起。因此，有时您会在EOL上发现不好理解的页面。"
@@ -3997,7 +4113,7 @@ zh-Hans:
   terms_of_use_link: "使用权和隐私权条款"
   term_for_search_admin_ui: "项"
   test: "测试。"
-  test_it_out: "Test It Out"
+  test_it_out: "对它进行彻底检验"
   text_object: "文本对象"
   text_object: "文本对象"
   text: "文本"
@@ -4012,14 +4128,14 @@ zh-Hans:
   thanks_for_your_time: "感谢您花费时间，"
   thank_you_for_your_generous_support: "感谢您的大力支持！"
   thank_you: "感谢您"
-  the_amount_entered_was: "登记的总量为： US %{number}"
+  the_amount_entered_was: "输入的数值是: %{number} 美元"
   the_comment_was_successfully_updated: "已成功更新评论。"
   the_comment_was_successfully_deleted: "已成功删除评论。"
   the_content_could_not_be_displ: "内容无法显示。"
   the_content_was_updated: "内容已更新。"
   the_cp_count_info: "该数目为在各自的物种信息模块主题类别中发布了数据对象的内容合作伙伴的总数。"
   the_count_represents_the_total: "该数目为在每个物种信息模块主题类别中发布的数据对象的总数。"
-  hierarchies_entries_description: "网络生命大百科并不是基于一个单一的分类学系统，而是包含了很多分类系统，并给这些系统建立索引，比较它们之间的区别。因此任何网络生命大百科网站网页中的数据节点都可能来自多个分类系统。该API允许访问单一的分类系统以及它的内部关系。参考网络生命大百科其它网页中的API文档信息，可以访问其它的分类系统。taxonConceptID是网络生命大百科网页标识符，可用于API页面。"
+  hierarchies_entries_description: "网络生命大百科没有单独的分类树对应这个页面。然而，EOL拥有多个分类树并把它们进行比较。结果是，任意一个EOL页面都可能与多个分类树上的节点相关。这个API给出了单一一个分类树及其内部关系的访问路径。如果想了解如何获得一个页面其他分类树的信息，请参考页面API的说明文档。，‘taxonConceptID’字段包含EOL页面标识符，它可以用于页面API中。"
   hierarchies_description: "网络生命大百科不基于一个分类系统建立物种页。EOL为许多分类系统建立了索引并对它们做了比较。该API列出关于分类系统的元数据，例如数据提供者、源URL，以及分类树所有根节点的分类单元的元数据。"
   the_file_was_uploaded: "文件已上传。"
   the_following_bibliography: "下面的书目通过将我们内容合作伙伴提供的所有参考文献整合到一起而生成。来自各个内容合伙人提供的所有文献。可能有重复。"
@@ -4027,7 +4143,7 @@ zh-Hans:
   too_many_descendants_to_curate_with_count:
     one: "错误：您的管理不能通过自动化系统被处理。存在%{count}个后代，这超出了允许的最大值。"
     other: "错误：您的管理不能通过自动化系统被处理。存在%{count}个后代，这超出了允许的最大值。"
-  the_data_object_id_can_be: "the ID parameter can either be an integer (a DataObject version ID) or a 16 character GUID which will return the latest version of that object"
+  the_data_object_id_can_be: "标识符ID参数可以是一个整数（一个数据对象版本ID）或是一个16个字符的GUID字符串，它返回那个对象的最新版本"
   the_following_users_were_prese: "下列用户会出现在弹出的调查窗口，并对调查的请求作出如下响应："
   the_glossary_term_was_successf: "术语词汇表已更新。"
   the_id_of_provider_hierarchy_you_are_searching: "您正在使用数据提供者分类系统的ID。核对%{link}是否为有效IDs。"
@@ -4040,13 +4156,13 @@ zh-Hans:
   the_new_topic_was_created: "新主题已创建。"
   the_new_user_was_created: "新用户已创建。"
   there_are_currently_no_members_in_this_community: "当前这个社区没有会员。"
-  the_query_string: "the query string"
+  the_query_string: "查询字符串"
   the_suggested_page_to_direct_users_to_link: "引导用户到链接的推荐页面"
   the_topic_was_updated: "主题已更新。"
   the_user_was_updated: "用户已更新。"
   the_user_who_performed_this_action_was_removed: "执行此操作的用户已被移除。"
   the_xml_search_response_implements: "XML搜索响应实现了使用Atom 1.0.的OpenSearch响应格式。查看%{link}全面了解OpenSearch的说明"
-  this_area_shows_all_submission: "这个区域显示了所有通过联系我们或媒体联系页面提交的信息。要查看条目，选择下面的主题或者点击%{link}"
+  this_area_shows_all_submission: "这个区域显示所有通过‘联系我们’或‘媒体联系’页面提交的信息。要查看这些输入，选择下面的主题，或<a href=%{link}>导出所有输入信息到一个CSV文件</a>"
   this_cannot_be_undone_are_you_sure: "不能取消，您确定吗？"
   this_collection_has_no_managers: "该收藏没有管理者。"
   this_comment_was_deleted: "该评论已删除。"
@@ -4059,7 +4175,7 @@ zh-Hans:
   this_is_the_breakdown_of_chapt: "这是对章节、子章节及相应的物种介绍模块目录的细分。"
   hierarchy_selector_drop_down_list_label: "这是分类系统选择下拉列表中出现的标签"
   this_is_the_label_that_will_be_used_for_attribution: "这是用作属性的标签"
-  this_older_version: "This older version of the Pages API method accepts the same parameters and returns nearly the same information. In fact the JSON response is identical to version 1.0, but the XML response has a slightly different structure."
+  this_older_version: "页面API方式的老版本接受相同的参数，并且返回几乎相同的信息。事实上，JSON响应是与版本1.0相同的，但是XML响应的结构稍微有些不同。"
   this_page_will_be_reindexed: "这个页面将在后台重建索引，并可能需要24来完成。"
   gbif_occurrence_disclaimer: "该地图基于<a rel='nofollow' href='http://www.gbif.org/' >GBIF网络</a>可用的物种出现记录，可能并不表示完整的分布区。"
   gbif_occurrence_learn_more_link: "通过GBIF入口访问这些数据。"
@@ -4105,7 +4221,9 @@ zh-Hans:
   twitter: "Twitter"
   type: "类型"
   unable_to_copy_items_to_collection_error: "抱歉，我们无法拷贝集合条目到%{name}。"
-  unable_to_invite_users_to_community_error: "无法向%{users}发送邀请。"
+  unable_to_invite_users_to_community_with_count:
+    one: "无法给%{list}发送邀请。"
+    other: "无法给%{list}发送邀请。"
   unique_page_views_th: "唯一页面视图"
   unknown: "未知"
   unknown_hierarchy: "未知的分类系统"
@@ -4208,12 +4326,12 @@ zh-Hans:
   user_no_longer_has_manager_access_to_collection: "%{user} 不再拥有对 \"%{collection}\"的管理权限。"
   user_pending_notifications_assitive: "<span class=\"assistive\">提示</span>"
   user_pending_notifications_with_count_assitive:
-    one: '%{count}<span class="assistive"> notification</span>'
-    other: '%{count}<span class="assistive"> notifications</span>'
+    one: "{{PLURAL|%{count}<span class=\"assistive\"> 条提示</span>}}"
+    other: "{{PLURAL|%{count}<span class=\"assistive\"> 条提示</span>}}"
   user_pending_notifications_comments_assistive: "<span class=\"assistive\">评论</span>"
   user_pending_notifications_comments_with_count_assistive:
-    one: '%{count}<span class="assistive"> comment</span>'
-    other: '%{count}<span class="assistive"> comments</span>'
+    one: "{{PLURAL|%{count}<span class=\"assistive\">条评论</span>}}"
+    other: "{{PLURAL|%{count}<span class=\"assistive\">条评论</span>}}"
   user_was_added_as_editor_of_collection: "该用户已被添加为\"%{collection}\"收藏的管理员。"
   username_taken: "%{name}名字已存在"
   username_colon: "用户名："
@@ -4248,7 +4366,7 @@ zh-Hans:
   value_empty: "（空）"
   value_default: "(默认)"
   version_1_0_uses_fields_from_the_latest_version: "版本1.0使用了 %{link} 结构模版最新版本中的元素"
-  versions_colon: "Versions: "
+  versions_colon: "版本: "
   vetted: "已审核"
   video_from: "视频来自"
   video_object: "视频数据"
@@ -4335,11 +4453,10 @@ zh-Hans:
   your_rating: "您的评级"
   youtube: "YouTube"
   youtube_video: "YouTube视频"
-  the_darwin_core_taxon_elements: "附属信息中的达尔文核心分类元素(dwct:Taxon)包括了由EOL索引的分类系统中节点的标识符。它们包括一个在<i>提供者数据库</i>中的分类单元的唯一的ID-dc:identifier。"
+  the_darwin_core_taxon_elements: "在‘additionalInformation’中的达尔文核心类群元素(dwct:Taxon)包括EOL管理的分类树上各节点的标识符。他们包含一个dc:identifier元素，是<i>在提供者的数据库中</i>标识该类群的唯一ID。"
   for_example_for_the_taxon_element_for_a_node: "例如，对于ITIS分类系统中的分类阶元，dc:identifier就是ITIS TSN。dwct:taxonID元素包含了在API %{link}中使用的<i>EOL identifier</i>。"
   there_is_no_singular_eol: "没有单一的EOL分类系统，EOL为许多分类系统建立了索引并比较指出哪些节点涉及相同的分类单元。这些分类单元的元素表现为分类系统的节点，这就是为什么对于一个给定的EOL物种页潜在地有它们中的几个分类节点。"
-  if_the_details_parameter_is_not_set: "如果没有设置详细参数，则只返回数据项标识符和数据类型，以文章为例，将只返回主题。数据类型可以是%{linka}资源类型词汇。文本主题可以是%{linkb}本体项。"
-  this_section_is_used_to_create: "本部分用于创建新闻条目，创建的新闻条目将会在主页右侧部分、%{rss_link}以及%{news_archive}页面显示。"
+  if_the_details_parameter_is_not_set: "如果‘详细’参数没有被设置，则只有数据对象标识符、数据类型和文章的主题（如果是文章）被返回。数据类型将是从%{linka}资源类型词表中取出的一个值。"
   you_must_be_comfortable: "如果您打算创建超链接或者使用格式化功能，HTML将会非常适合。"
   note_that_you_can_reference_im: "您可以使用HTML &lt;img&gt; 标签来引用图像，但是所引用的图像必须有URL地址，例如图片可以存在于源网站或者类似Flickr这样的网站。在新闻项中没有直接上传图像的功能。"
   to_submit_a_species_photograph_for: "为了给%{taxon}提交一张物种的照片，请将照片上传到%{flickr_link},然后按照群组的主页上的指示操作。"

@@ -50,6 +50,7 @@ end
 gem 'rails', '3.2.12'
 
 gem 'acts_as_tree_rails3', '0.1.0'
+gem 'biodiversity19'
 gem 'ckeditor', '3.7.3'
 gem 'coffee-rails', '3.2.2'
 gem 'composite_primary_keys'

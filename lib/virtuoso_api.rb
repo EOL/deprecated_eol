@@ -9,10 +9,13 @@ class VirtuosoAPI
 
     self.namespaces = {
       'dwc' => 'http://rs.tdwg.org/dwc/terms/',
+      'dwct' => 'http://rs.tdwg.org/dwc/dwctype/',
       'dc' => 'http://purl.org/dc/terms/',
       'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
       'foaf' => 'http://xmlns.com/foaf/0.1/',
-      'eol' => 'http://eol.org/schema/terms/'
+      'eol' => 'http://eol.org/schema/terms/',
+      'obis' => 'http://iobis.org/schema/terms/',
+      'anage' => 'http://anage.org/schema/terms/'
     }
   end
 

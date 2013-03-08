@@ -15,4 +15,14 @@ namespace :rdf do
     EOL::RDF.load_users
   end
 
+  desc 'load_obis'
+  task :load_obis => :environment do
+    EOL::RDF.load_obis
+  end
+
+  desc 'load_anage'
+  task :load_anage => :environment do
+    EOL::RDF.load_anage
+  end
+
 end

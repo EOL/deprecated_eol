@@ -3701,6 +3701,7 @@ mk:
   taxon_citizen_science_resources_empty: Досега никој нема ставено врски за граѓанска наука.
   taxon_concept_stats: Статистики за таксонски концепти
   taxon_details_empty: Сè уште никој нема внесено податоци за овој таксон.
+  taxon_details_empty_in_this_language: Досега никој нема внесено податоци на страницава на овој јазик.
   taxon_education_empty: Досега никој нема ставено образовни ресурси на оваа страница.
   taxon_education_header: Образовни ресурси
   taxon_education_link: Образовни ресурси

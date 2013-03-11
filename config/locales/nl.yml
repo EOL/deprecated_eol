@@ -3069,7 +3069,7 @@ nl:
   permissions_list_header: Rechten in EOL
   permissions_users_count: 
     one: één gebruiker
-    other: "%{count} gebruikers�"
+    other: "%{count} gebruikers"
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte

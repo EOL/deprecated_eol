@@ -3664,6 +3664,7 @@ fr:
   taxon_citizen_science_resources_empty: Personne n’a encore contribué avec un lien scientifique personnel pour cette page.
   taxon_concept_stats: Statistiques du concept de taxon
   taxon_details_empty: Personne n’a encore contribué à un détail sur cette page.
+  taxon_details_empty_in_this_language: Personne n’a contribué sur aucun détail de cette page dans cette langue.
   taxon_education_empty: Personne n’a encore contribué à une ressource d'éducation sur cette page.
   taxon_education_header: Ressources éducatives
   taxon_education_link: Ressources éducatives

@@ -1541,8 +1541,23 @@ sv:
     no_topics: Det finns inga trådar i detta forum
     post_by_user_at_time: av %{user}, %{time}
     posts: 
+      close_window: stäng
       create: Gör ett nytt inlägg
+      create_failed: Tyvärr, ett fel uppstod. Inlägget kunde inte läggas till.
+      create_successful: Inlägget skapades
+      delete_failed_topic_not_empty: Inlägget kunde inte raderas eftersom tråden inte är tom
+      delete_successful: Inlägget har raderats
+      deleted_subject: (raderad)
+      edit: Redigera inlägg
       joined_date: Gick med %{date}
+      no_subject: (inget ämne)
+      permalink_to_this_post: "Permanent länk till detta inlägg:"
+      post_has_been_deleted: Detta inlägg har raderats
+      post_written_by_user: "%{user} skrev:"
+      replying_to_post: "Svarar på:"
+      topic_and_post_delete_successful: Inlägget och tråden har tagits bort
+      update_failed: Tyvärr, ett fel uppstod. Inlägget kunde inte uppdateras
+      update_successful: Inlägget har uppdaterats
     posts_heading: Inlägg
     replies: Svar
     topics_heading: Trådar
@@ -2314,6 +2329,9 @@ sv:
   percentage_of_descendants_with_text: procentandel av underordnade med text
   permalink: Permanent länk
   permissions_list_header: Behörigheter på EOL
+  permissions_users_count: 
+    one: "%{count} användare"
+    other: "%{count} användare"
   person_rating: Personbetyg
   personal_profile_menu: Personlig profil
   personal_space: Personliga utrymme
@@ -2925,22 +2943,25 @@ sv:
     other: "%{count} tillagda artiklar"
   user_activity_stats_articles_added_dropdown: Tillagda artiklar
   user_activity_stats_comment_submitted: 
-    one: "%{count} kommentar inlämnad"
-    other: "%{count} kommentarer inlämnade"
+    one: "%{count} kommentar på inlämningar"
+    other: "%{count} kommentarer på inlämningar"
   user_activity_stats_common_names_added: 
-    one: "%{count} vanligt namn lades till"
-    other: "%{count} vanliga namn lades till"
+    one: "%{count} vanligt namn tillagt"
+    other: "%{count} vanliga namn tillagda"
   user_activity_stats_common_names_curated: 
     one: "%{count} vanligt namn kurerat"
     other: "%{count} vanliga namn kurerade"
   user_activity_stats_common_names_removed: 
-    one: "%{count} vanligt namn togs bort"
-    other: "%{count} vanliga namn togs bort"
+    one: "%{count} vanligt namn borttagit"
+    other: "%{count} vanliga namn borttagna"
   user_activity_stats_header: Aktivitet
   user_activity_stats_objects_curated: 
     one: "%{count} objekt kurerat"
     other: "%{count} objekt kurerade"
   user_activity_stats_objects_curated_dropdown: Kurerade objekt
+  user_activity_stats_taxa_commented: 
+    one: "%{count} kommentar på taxon"
+    other: "%{count} kommentarer på taxa"
   user_activity_stats_taxa_comments: 
     one: "%{count} taxakommentar"
     other: "%{count} taxakommentarer"

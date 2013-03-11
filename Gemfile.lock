@@ -89,9 +89,6 @@ GEM
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.4)
     diff-lcs (1.1.3)
-    ebnf (0.2.0)
-      rdf
-      sxp
     email_spec (1.4.0)
       launchy (~> 2.1)
       mail (~> 2.2)
@@ -318,14 +315,6 @@ GEM
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
-    sparql (1.0.3)
-      builder (>= 3.0)
-      ebnf (>= 0.1.1)
-      json (>= 1.7)
-      rdf (>= 1.0.1)
-      rdf-xsd (>= 1.0)
-      sparql-client (>= 1.0)
-      sxp
     sparql-client (1.0.1)
       json_pure (>= 1.4)
       net-http-persistent (>= 1.4)
@@ -336,8 +325,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sxp (0.1.0)
-      json (>= 1.4.6)
     systemu (2.5.2)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
@@ -424,7 +411,6 @@ DEPENDENCIES
   rvm-capistrano (= 1.2.7)
   sanitize (= 2.0.3)
   sass-rails (= 3.2.5)
-  sparql (= 1.0.3)
   sparql-client
   spin (= 0.5.3)
   therubyracer (= 0.10.2)

@@ -290,8 +290,8 @@ module EOL
       virtuoso_api = VirtuosoAPI.new(
         :instance_uri => 'http://localhost:8890',
         :upload_path => '/DAV/xx/yy',
-        :username => 'demo',
-        :password => 'demo')
+        :username => 'dba',
+        :password => 'dba')
       virtuoso_api.insert_data(:data => data, :graph_name => graph_name)
     end
 
@@ -300,8 +300,20 @@ module EOL
       sparql.query("DEFINE sql:log-enable 3 CLEAR GRAPH <#{graph_name}>") rescue puts "***Graph <#{graph_name}> probably didn't exist***"
       puts "sleeping for 10 seconds"
       sleep(10)
-      sparql.query("DROP GRAPH <#{graph_name}>") rescue puts "***Graph <#{graph_name}> probably didn't exist***"
-      sparql.query("CREATE GRAPH <#{graph_name}>")
+      begin
+        sparql.query("DROP GRAPH <#{graph_name}>")
+      rescue => e
+        puts "** Graph <#{graph_name}> probably didn't exist, drop failed."
+        debugger
+        puts "..."
+      end
+      begin
+        sparql.query("CREATE GRAPH <#{graph_name}>")
+      rescue => e
+        puts "** Graph <#{graph_name}> already exists, create failed."
+        debugger
+        puts "..."
+      end
     end
 
     def self.convert(str)

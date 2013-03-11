@@ -36,7 +36,8 @@ class VirtuosoAPI
       end
       pp response
       if response.code.to_i != 201
-        pp query
+        debugger
+        puts "..."
       end
     end
   end

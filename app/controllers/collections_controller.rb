@@ -648,7 +648,7 @@ private
     types = CollectionItem.types
     @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
     @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
-    @recently_visited_collections = Collection.find(recently_visited_collections(@collection.id)) if @collection
+    @recently_visited_collections = Collection.find_all_by_id(recently_visited_collections(@collection.id)) if @collection
   end
 
   def log_activity(options = {})

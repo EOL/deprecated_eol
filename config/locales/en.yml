@@ -4230,6 +4230,9 @@ en:
   unknown_data_object_title: "Unknown data object"
   unable_to_determine_title: "Unable to determine the title of this web page"
   unpublished: "Unpublished"
+  unpublished_collections_with_count:
+    one: "%{count} hidden collection"
+    other: "%{count} hidden collections"
   unreviewed: "Unreviewed"
   unreviewed_images: "Unreviewed images"
   unreviewed_maps: "Unreviewed maps"

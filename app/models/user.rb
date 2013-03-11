@@ -584,24 +584,31 @@ class User < ActiveRecord::Base
     end
   end
 
+  # NOTE - This REMOVES the watchlist (using #shift)!
+  def published_collections(as_user = nil)
+    @published_collections ||= all_collections(as_user).shift && all_collections.select { |c| c.published? }
+  end
+
+  def unpublished_collections(as_user = nil)
+    @unpublished_collections ||= all_collections(as_user).select { |c| ! c.published? }
+  end
+
   # #collections is only a list of the collections the user *owns*.  This is a list that includes the collections the
   # user has access to through communities
   #
   # NOTE - this will ALWAYS put the watch collection first.
-  # NOTE - this will include unpublished (ie: deleted) collections... is that intended?
-  def all_collections(logged_in_as_user = nil)
-    editable_collections = collections_including_unpublished.reject {|c| c.watch_collection? }
-    # I changed this to m.manager? instead of using the named scope as I couldn't see
-    # how to preload named scopes, but members could be preloaded
-    # TODO - use scopes.  :|
-    editable_collections += members.select{ |m| m.manager? }.map {|m| m.community && m.community.collections }.flatten.compact
-    editable_collections = [watch_collection] + editable_collections.sort_by{ |c| c.name.downcase }.uniq
-    if logged_in_as_user && logged_in_as_user.class == User
-      editable_collections.delete_if{ |c| !logged_in_as_user.can_read?(c) }
+  def all_collections(as_user = nil)
+    @all_collections ||= {}
+    return @all_collections[as_user] if @all_collections.has_key?(as_user)
+    editable_collections = collections_including_unpublished.reject { |c| c.watch_collection? }
+    editable_collections += Collection.joins(:communities => :members).where(['user_id = ? AND manager = 1', id])
+    editable_collections = [watch_collection] + editable_collections.sort_by { |c| c.name.downcase }.uniq
+    if as_user.is_a?(User)
+      editable_collections.delete_if { |c| ! as_user.can_read?(c) }
     else
-      editable_collections.delete_if{ |c| !c.published? }
+      editable_collections.delete_if { |c| ! c.published? }
     end
-    editable_collections.compact
+    @all_collections[as_user] = editable_collections.compact
   end
 
   def ignored_data_object?(data_object)

@@ -107,16 +107,8 @@ describe "Collections" do
       body.should_not match(@collection.name)
     end
 
-    it 'should show resource preview collections on the user profile page to the owner' do
-      @collection.update_column(:published, false)
-      @collection.update_column(:view_style_id, nil)
-      @resource = Resource.gen
-      @resource.preview_collection = @collection
-      @resource.save
-      login_as @collection.users.first
-      visit user_collections_path(@collection.users.first)
-      body.should match(@collection.name)
-    end
+    # See 9853360275ad5f3b673c4ba86379397d32efa805 if you want this back:
+    # it 'should show resource preview collections on the user profile page to the owner'
 
     it 'should allow EOL administrators and owners to view unpublished collections' do
       @collection.update_column(:published, false)

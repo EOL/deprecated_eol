@@ -232,6 +232,15 @@ class Collection < ActiveRecord::Base
     end.flatten.compact.uniq
   end
 
+  def unpublish
+    if update_attributes(:published => false)
+      EOL::GlobalStatistics.decrement('collections')
+      true
+    else 
+      false
+    end
+  end
+
 private
 
   # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:

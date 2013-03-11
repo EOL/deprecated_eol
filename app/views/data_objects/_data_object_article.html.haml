@@ -6,7 +6,9 @@
 -# routines.  ...So we're going to try this out for articles for a while... it should speed up some of the common
 -# text-heavy details tabs and overviews.  That said, there is one caveat:
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
--# To manually expire an article run: ActionController::Base.new.expire_fragment('article/#{I18n.locale}/#{data_object.id}')
+-# To manually expire an article run: ActionController::Base.new.expire_fragment("article/#{I18n.locale}/#{data_object.id}")
+-# NOTE - The above wasn't working for JRice on app1 on 2013-03-11. PL, however, says it had been working for him in
+-# previous weeks. I'm not sure what the difference is, but be aware of it.
 - cache "article/#{I18n.locale}/#{data_object.id}" do
   - if data_object.content_partner && data_object.content_partner == ContentPartner.wikipedia
     = stylesheet_link_tag("wikipedia")

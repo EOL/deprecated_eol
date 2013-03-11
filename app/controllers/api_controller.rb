@@ -3,6 +3,7 @@ class ApiController < ApplicationController
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms
   before_filter :set_default_format_to_xml
   before_filter :get_api_method, :except => [ :ping_host, :render_test_response ]
+  before_filter :set_cache_headers
 
   # most APIs use the `default_render` methods
   def pages
@@ -124,6 +125,12 @@ class ApiController < ApplicationController
   def set_default_format_to_xml
     # all APIs return XML by default when no extension is given
     request.format = "xml" unless params[:format]
+  end
+
+  def set_cache_headers
+    if params[:cache]
+      expires_in 1.day, :public => true
+    end
   end
 
   def create_api_log(params={})

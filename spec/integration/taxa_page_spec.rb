@@ -26,7 +26,7 @@ describe 'Taxa page basic tests' do
   before(:all) do
     load_foundation_cache
   end
-  
+
   it 'should not convert ampersands in preferred common names' do
     tc = build_taxon_concept
     curator = build_curator(tc)
@@ -35,6 +35,21 @@ describe 'Taxa page basic tests' do
     visit taxon_overview_path(tc.id)
     body.should include('Tom &amp; Jerry')
     body.should_not include('Tom &amp;amp; Jerry')
+  end
+
+  it 'should not show deleted communities in overview' do
+    tc = build_taxon_concept
+    collection = Collection.gen
+    collection.add(tc)
+    community = Community.gen(:name => "This is for testing")
+    collection.communities << community
+    # published communities will show
+    visit taxon_overview_path(tc.id)
+    body.should include(community.name)
+    # unpublished communities will not show
+    community.update_column(:published, false)
+    visit taxon_overview_path(tc.id)
+    body.should_not include(community.name)
   end
 end
 

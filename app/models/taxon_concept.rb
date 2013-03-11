@@ -558,7 +558,8 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def communities
-    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c| c.communities }.flatten.compact.uniq
+    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c|
+      c.communities.select{ |com| com.published? } }.flatten.compact.uniq
   end
 
   def flattened_ancestor_ids

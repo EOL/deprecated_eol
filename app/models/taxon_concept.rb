@@ -166,7 +166,8 @@ class TaxonConcept < ActiveRecord::Base
     else
       taxon_concept_names.joins(:name, :language)
     end
-    @common_names = @common_names.where("vern = 1 AND languages.iso_639_1 IS NOT NULL AND languages.iso_639_1 != ''").includes([ :language, :name ])
+    @common_names = @common_names.where("vern = 1 AND languages.iso_639_1 IS NOT NULL AND languages.iso_639_1 != ''").
+      includes([ :language, :name ]).order('taxon_concept_names.language_id ASC, taxon_concept_names.preferred DESC')
     # remove duplicate names in the same language:
     duplicate_check = {}
     @common_names = @common_names.select do |tcn|

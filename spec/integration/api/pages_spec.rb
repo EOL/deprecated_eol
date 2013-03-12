@@ -33,7 +33,7 @@ describe 'API:pages' do
                             {:toc_item => @description, :description => @description_text, :license => License.public_domain, :rights_holder => ""},
                             {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown, :license => License.by_nc, :rights_holder => "Someone"},
                             {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted, :license => License.cc, :rights_holder => "Someone"}])
-    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
+    @preferred_common_name_synonym = @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
     @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
 
     d = DataObject.last
@@ -301,6 +301,15 @@ describe 'API:pages' do
     response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
     response['dataObjects'].first['identifier'].should == next_exemplar.guid
     response['dataObjects'][1]['identifier'].should == first_text.guid
+  end
+
+  it 'pages should return preferred common names, no matter their order in the DB' do
+    new_synonym = @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.gen, :language => Language.english, :preferred => 1)
+    last_tcn = TaxonConceptName.last
+    last_tcn.name_id = @preferred_common_name_synonym.name_id
+    last_tcn.save
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?common_names=1")
+    response['vernacularNames'][0]['eol_preferred'].should == true
   end
 
 end

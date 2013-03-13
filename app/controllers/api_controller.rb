@@ -128,8 +128,12 @@ class ApiController < ApplicationController
   end
 
   def set_cache_headers
-    if params[:cache]
-      expires_in 1.day, :public => true
+    if params[:cache_ttl] && params[:cache_ttl].is_numeric?
+      # between 0 and 1 year
+      cache_seconds = params[:cache_ttl].to_i
+      if cache_seconds >= 0 && cache_seconds < 31536000
+        expires_in cache_seconds.seconds, :public => true
+      end
     end
   end
 

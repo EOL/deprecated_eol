@@ -1,28 +1,43 @@
 namespace :rdf do
 
-  desc 'Create Catalogue of Life RDF'
-  task :create_col_rdf => :environment do
-    EOL::RDF.create_col_rdf
+  desc 'Create Catalogue of Life RDF/XML'
+  task :create_col_rdf_xml => :environment do
+    EOL::Sparql::ExportCol.as_rdf_xml
+  end
+
+  desc 'Create Catalogue of Life N-Tuples'
+  task :create_col_tuples => :environment do
+    EOL::Sparql::ExportCol.as_turtle
   end
 
   desc 'load_catalogue_of_life'
   task :load_catalogue_of_life => :environment do
-    EOL::RDF.load_catalogue_of_life
+    importer = EOL::Sparql::ImportCol.new(:triplestore => :four_store)  # :triplestore => :four_store
+    importer.begin
   end
 
   desc 'load_users'
   task :load_users => :environment do
-    EOL::RDF.load_users
+    importer = EOL::Sparql::ImportUsers.new(:triplestore => :virtuoso)  # :triplestore => :four_store
+    importer.begin
   end
 
   desc 'load_obis'
   task :load_obis => :environment do
-    EOL::RDF.load_obis
+    importer = EOL::Sparql::ImportObis.new(:triplestore => :virtuoso)  # :triplestore => :four_store
+    importer.begin
   end
 
   desc 'load_anage'
   task :load_anage => :environment do
-    EOL::RDF.load_anage
+    importer = EOL::Sparql::ImportAnage.new(:triplestore => :virtuoso)  # :triplestore => :four_store
+    importer.begin
+  end
+
+  desc 'test'
+  task :test => :environment do
+    tester = EOL::Sparql::Tester.new
+    tester.begin
   end
 
 end

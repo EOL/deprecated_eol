@@ -17,10 +17,7 @@ group :development, :test, :staging_dev do
   # These are only for the RDF-store tests:
   gem 'neography'
   gem 'rest-client', '1.6.7'
-  gem 'rdf', '1.0.1'
-  gem 'linkeddata'
   gem 'sparql-client'
-  gem 'equivalent-xml'
   gem 'rdoc', '3.12'
   gem 'nokogiri', '1.5.5' # Yeah, I know this has given us grief in the past.  :\ Trying things out, is all.
 end

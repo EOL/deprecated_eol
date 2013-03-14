@@ -248,10 +248,7 @@ SynonymRelation.gen_if_not_exists(:label => "synonym")
 SynonymRelation.gen_if_not_exists(:label => "common name")
 SynonymRelation.gen_if_not_exists(:label => "genbank common name")
 
-
-Visibility.gen_if_not_exists(:label => 'Invisible')
-Visibility.gen_if_not_exists(:label => 'Visible')
-Visibility.gen_if_not_exists(:label => 'Preview')
+Visibility.create_defaults
 
 ContentTable.create_details
 NotificationFrequency.create_defaults

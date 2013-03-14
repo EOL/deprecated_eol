@@ -1,8 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
-# YOU WERE HERE - fix all the fake Name stuff to use EOL::CommonNameDisplay... 
-
 def add_language_to_name(name, language)
   name[:language_label] = language.label
   name[:language_name] = language.source_form

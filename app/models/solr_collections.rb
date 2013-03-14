@@ -3,25 +3,25 @@
 # effort. I can't make them private, though, because they are called from the class methods...
 class SolrCollections
 
-  # YOU WERE HERE : https://github.com/EOL/eol_php_code/blob/master/vendor/solr/SolrAPI.php#L127 ...or perhaps not
-  # that line, but the ideas are here.
-
   attr_reader :connection
 
   # Okay, all these class methods duplicating instance methods are annoying, but useful. I couldn't think of
   # a reasonable way to generalize it, short of method_missing, which seemed like overkill.
 
   def self.remove_collection(collection)
+    return(nil) unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
     solr = SolrCollections.new
     solr.remove_collection(collection) if solr
   end
 
   def self.remove_collection_items(items)
+    return(nil) unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
     solr = SolrCollections.new
     solr.remove_collection_items(items) if solr
   end
 
   def self.reindex_collection(collection)
+    return(nil) unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
     solr = SolrCollections.new
     if solr
       solr.remove_collection(collection)
@@ -30,6 +30,7 @@ class SolrCollections
   end
 
   def self.reindex_collection_items(items)
+    return(nil) unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
     solr = SolrCollections.new
     if solr
       solr.remove_collection_items(items)
@@ -38,7 +39,6 @@ class SolrCollections
   end
 
   def initialize
-    return(nil) unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
     begin
       @connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
     rescue Errno::ECONNREFUSED => e
@@ -54,11 +54,11 @@ class SolrCollections
     end
   end
 
-  # NOTE - If there is no collection associated with this collection item, it is meant for historical indexing only,
-  # and there is no need to index this in solr.  ...In fact, it had better not be indexed!
   def index_collection_items(items)
     # TODO - re-write this to be a more efficient POST:
     items.each do |item|
+      # NOTE - If there is no collection associated with a collection item, it is meant for historical indexing only,
+      # and there is no need to index it in solr.  ...In fact, it had better not be indexed!
       connection.create(collection_item_hash(item)) if item.collection_id
     end
   end
@@ -67,17 +67,22 @@ class SolrCollections
     connection.delete_by_query("collection_id:#{collection.id}")
   end
 
+  # NOTE that the size of items is limited by the number of collection items shown on a page, which
+  # should be a reasonable number.
   def remove_collection_items(items)
     connection.delete_by_query("collection_item_id:#{items.map(&:id).join(',')}")
   end
 
+  # This builds the hash that Solr expects to see for each collection item. This may not be the best
+  # place for this logic, but ATM this is the only place it's being used.
   def collection_item_hash(item)
     unless item.collected_item.respond_to?(:collected_title)
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
                                                                   :type => item.collected_item.class.name))
     end
     
-    # Some items (see DataObject) want to store a more specific type than simply their class name:
+    # Some items (q.v. DataObject) want to store a more specific type than simply their class name:
+    # TODO - we could just duck-type this on each collectable class.
     item_collected_item_type = item.collected_item.respond_to?(:collected_type) ?
       item.collected_item.collected_type :
       item.collected_item_type

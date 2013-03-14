@@ -4,16 +4,22 @@ describe CollectionJob do
 
   # TODO - custom matcher
   def collection_should_include(collection, item)
-    collection.collection_items.map(&:collected_item).should include(item)
+    collection.reload.collection_items.map(&:collected_item).should include(item)
   end
   def collection_should_not_include(collection, item)
-    collection.collection_items.map(&:collected_item).should_not include(item)
+    collection.reload.collection_items.map(&:collected_item).should_not include(item)
   end
 
   before(:all) do
-    # We don't need the full foundation for this stuff...
-    DataType.create_defaults
-    License.create_defaults
+    @old_val = $INDEX_RECORDS_IN_SOLR_ON_SAVE
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = true # Nothing happens otherwise.
+    load_foundation_cache
+    # Expensive, so let's do this one beforehand:
+    @tc = build_taxon_concept(:scientific_name => 'Ambiguii nomenclatura')
+  end
+
+  after(:all) do
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = @old_val
   end
 
   describe 'class methods' do
@@ -25,24 +31,26 @@ describe CollectionJob do
       @has_source_but_not_target = User.gen
       @has_target_but_not_source = User.gen
       @source = Collection.gen
-      @tc = TaxonConcept.gen
-      @tc.stub(:scientific_name).and_return('Ambiguii nomenclatura')
+
       @source_tc = @source.add @tc
-        @source_tc_annotation = 'source tc annotation'
-        @source_tc_refs = [Ref.gen, Ref.gen]
-        @source_tc_sort = 'concept sorter'
-        @source_tc.annotation = @source_collection_annotation
-        @source_tc.refs = @source_collection_refs
-        @source_tc.sort_field = @source_collection_sort
+      @source_tc_annotation = 'source tc annotation'
+      @source_tc_refs = [Ref.gen, Ref.gen]
+      @source_tc_sort = 'concept sorter'
+      @source_tc.annotation = @source_tc_annotation
+      @source_tc.refs = @source_tc_refs
+      @source_tc.sort_field = @source_tc_sort
+
       @dato = DataObject.gen(:object_title => 'Image of your mom')
       @source_dato = @source.add @dato
+
       @source_collection = @source.add @collection = Collection.gen
-        @source_collection_annotation = 'source col annotation'
-        @source_collection_refs = [Ref.gen, Ref.gen]
-        @source_collection_sort = 'collection sorter'
-        @source_collection.annotation = @source_collection_annotation
-        @source_collection.refs = @source_collection_refs
-        @source_collection.sort_field = @source_collection_sort
+      @source_collection_annotation = 'source col annotation'
+      @source_collection_refs = [Ref.gen, Ref.gen]
+      @source_collection_sort = 'collection sorter'
+      @source_collection.annotation = @source_collection_annotation
+      @source_collection.refs = @source_collection_refs
+      @source_collection.sort_field = @source_collection_sort
+
       @source_person = @source.add @person = User.gen
       @user.collections << @source
       @has_source_but_not_target.collections << @source
@@ -103,7 +111,7 @@ describe CollectionJob do
     end
 
     it 'should move all items from one collection to another without moving duplicates' do
-      job = CollectionJob.move(:user => @user, :source => @source, :target => @target, :all_items => true)
+      job = CollectionJob.move(user: @user, source: @source, target: @target, all_items: true, overwrite: false)
       @source.reload.collection_items.count.should == 2
       @target.reload.collection_items.count.should == 4
       collection_should_include(@source, @tc) # Dupe, should have stayed.
@@ -114,7 +122,7 @@ describe CollectionJob do
       collection_should_include(@target, @dato)
       collection_should_include(@target, @collection)
       collection_should_include(@target, @person)
-      job.item_count.should == 2
+      job.item_count.should == 2 # Failing, getting 3, but only two moved...
     end
 
     it 'should remove all items items from a collection' do
@@ -149,9 +157,9 @@ describe CollectionJob do
       CollectionJob.move(:user => @user, :source => @source, :target => @target,
                          :collection_item_ids => [@source_collection.id])
       target_collection = @target.select_item(@collection)
-      target_collection.annotation.should_not == @source_collection_annotation
-      target_collection.refs.should_not == @source_collection_refs
-      target_collection.sort_field.should_not == @source_collection_sort
+      target_collection.annotation.should == @source_collection_annotation
+      target_collection.refs.should == @source_collection_refs
+      target_collection.sort_field.should == @source_collection_sort
     end
 
     it 'should remove moved items if overwrite forced' do
@@ -172,7 +180,7 @@ describe CollectionJob do
     it 'should replace attributions and references on duplicates if move overwrite forced' do
       CollectionJob.move(:user => @user, :source => @source, :target => @target,
                          :collection_item_ids => [@source_tc.id], :overwrite => true)
-      target_tc = @target.select_item(@tc)
+      target_tc = @target.select_item(@tc).reload
       target_tc.annotation.should == @source_tc_annotation
       target_tc.refs.should == @source_tc_refs
       target_tc.sort_field.should == @source_tc_sort
@@ -228,8 +236,8 @@ describe CollectionJob do
       end.should raise_error(EOL::Exceptions::CollectionJobRequiresScope)
     end
 
-    it 'should recalculate the relevances after a copy' do
-      @source.should_receive(:set_relevance).and_return(51)
+    it 'should recalculate the relevance for the target after a copy' do
+      @source.should_not_receive(:set_relevance)
       @target.should_receive(:set_relevance).and_return(49)
       CollectionJob.copy(:user => @user, :source => @source, :target => @target, :all_items => true)
     end
@@ -259,33 +267,6 @@ describe CollectionJob do
     it 'should remove caches after a copy'
     it 'should remove caches after a move'
     it 'should remove caches after a remove'
-
-  end
-
-  # Requires some knowledge of private methods, alas, but they are important checks:
-  describe '#run' do
-
-    before(:each) do
-      @copy = CollectionJob.gen(:command => 'copy')
-      @copy_all = CollectionJob.gen(:all_items => true, :command => 'copy')
-    end
-
-    it 'should call #copy_all if all items' do
-      @copy_all.should_receive(:copy_all).and_return(23)
-      @copy_all.run
-      @copy_all.item_count.should == 23
-    end
-
-    it 'should call #copy_some if NOT all items' do
-      @copy.should_receive(:copy_some).and_return(24)
-      @copy.run
-      @copy.item_count.should == 24
-    end
-
-    it 'should call #move_all if all items'
-    it 'should call #move_some if NOT all items'
-    it 'should call #remove_all if all items'
-    it 'should call #remove_some if NOT all items'
 
   end
 

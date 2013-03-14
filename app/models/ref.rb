@@ -5,6 +5,7 @@ class Ref < ActiveRecord::Base
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :hierarchy_entries
+  has_and_belongs_to_many :collection_items
 
   # this method is not just sorting by rating
   def self.sort_by_full_reference(refs)

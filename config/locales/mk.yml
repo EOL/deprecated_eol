@@ -148,6 +148,19 @@ mk:
         udo_published: Текст поднесен од корисници
         udo_published_by_curators: Текст поднесен од кустоси
         udo_published_by_non_curators: Текст поднесен од некустоси
+      forum: 
+        description: Опис <small>(незадолж.)</small>
+        forum_category_id: Категорија
+        name: Име на форумот
+      forum_category: 
+        description: Опис <small>(незадолж.)</small>
+        title: Име на категоријата
+      forum_post: 
+        subject: Наслов
+        text: Текст
+      forum_topic: 
+        subject: Наслов
+        text: Текст
       harvest_event: 
         resource: Ресурс
       hierarchy: 
@@ -997,6 +1010,9 @@ mk:
   anonymous_user_tag_line: Не сте најавени
   any_integer: секој цел број
   any_string: било која низа
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Стиснете тука</a> за да појдете на бета-испробување на новите форуми на EOL. Би го ценеле вашето мислење за нив.
   api_docs_collections_description: Кога ќе му се зададе назнака на збирка, овој API ќе ги даде сите метаподатоци за збирката и експонатите што ги содржи. Списокот на експонати може да се филтрира по тип и да се подредува по наведените атрибути. Некои експонати ќе го содржат изборниот атрибут „sort_field“ (подредување на поле). Овој атрибут е низа што ја става корисникот и претставува посебна прибелешка за експонатот. Може да биде низа од знаци, но ако е датум, тогаш мора да се запише во форматот ГГГГ-ММ-ДД. Експонатите од еден таксон ќе содржат бодување за содржајност. Содржајноста ќе се изразува со број од 0 до 100 - што повеќе различни извори, тоа е повисока оценката. Прочитајте за содржајност на таксоните во јазичето за актуелности (поднови) на таксонската страница (на пр. %{richness_url}).
   application_version_advisory_information: Верзија на програмот
   are_you_sure: Дали сте сигурни?
@@ -2014,6 +2030,71 @@ mk:
   forgot_password_form_helper: Имајте предвид дека <em>често</em> се случува филтрите да ги означат пораките за промена на лозинки како „Спам“. Доколку не ја добиете пораката во рок од еден час, проверете ја папката за спам.
   forgot_password_form_username_or_email_blank_error: Внесете го вашето корисничко име или е-пошта за да ја смените лозинката.
   form_validation_errors_for_attribute_assistive: Се појави грешка при проверката на овој елемент
+  forums: 
+    actions: Дејства
+    administration: Администрација
+    buttons: 
+      delete: избриши
+      edit: уреди
+      link: поврзи
+      reply: одговори
+    categories: 
+      create: Создај категорија
+      create_failed: Нажалост, се појави грешка. Не можев да ја додадам категоријата
+      create_successful: Категоријата е успешно создадена
+      delete_failed_not_empty: Не можам да ја избришам категоријата бидејќи не е празна
+      delete_successful: Категоријата е успешно избришана
+      edit: Уреди категорија
+      move_failed: Не можев да ја преместам категоријата
+      move_successful: Категоријата е успешно преместена
+      update_failed: Нажалост, се појави грешка. Не можав да ја подновам категоријата
+      update_successful: Категоријата е успешно подновена
+    create: Создај форум
+    create_failed: Нажалост, се појави грешка. Не можев да го додадам форумот.
+    create_successful: Форумот е успешно создаден
+    delete_failed_not_empty: Не можам да го избришам форумот бидејќи не е празен
+    delete_successful: Форумот е успешно избришан
+    edit: Уреди форум
+    forums_heading: Форуми на EOL
+    last_post: Последна објава
+    move_failed: Не можев да го преместам форумот
+    move_successful: Форумот е успешно преместен
+    no_topics: Нема теми на форумот
+    post_by_user_at_time: од %{user}, %{time}
+    posts: 
+      close_window: затвори
+      create: Пиши нова објава
+      create_failed: Нажалост, се појави грешка. Не можев да ја додадам објавата.
+      create_successful: Објавата е успешно создадена
+      delete_failed_topic_not_empty: Не можев да ја избришам објавата бидејќи темата не е празна
+      delete_successful: Објавата е успешно избришана
+      deleted_subject: (избришана)
+      edit: Измени
+      joined_date: "Зачленет: %{date}"
+      no_subject: (без наслов)
+      permalink_to_this_post: "Постој. врска до објавава:"
+      post_has_been_deleted: Оваа објава е избришана
+      post_written_by_user: "%{user} напиша:"
+      posts_with_count: 
+        one: "%{count} објава"
+        other: "%{count} објави"
+      replying_to_post: "Во одговор на:"
+      topic_and_post_delete_successful: Објавата и темата се успешно избришани
+      update_failed: Нажалост, се појави грешка. Не можав да ја изменам објавата.
+      update_successful: Објавата е успешно изменета
+    posts_heading: Објави
+    replies: Одговори
+    topics: 
+      create: Отвори нова тема
+      create_failed: Нажалост, се појави грешка. Не можев да ја додадам темата.
+      create_successful: Темата е успешно создадена
+      delete_failed_not_empty: Не можам да ја избришам темата бидејќи не е празна
+      delete_successful: Темата е успешно избришана
+      no_posts: Нема објави во темава
+    topics_heading: Теми
+    update_failed: Нажалост, се појави грешка. Не можав да го подновам форумот.
+    update_successful: Форумот е успешно подновен
+    views: Посети
   fragment_caching_enabled: Кеширањето на поделоци е овозможено
   frequency: Честота
   frequency_daily: Дневно
@@ -3620,6 +3701,7 @@ mk:
   taxon_citizen_science_resources_empty: Досега никој нема ставено врски за граѓанска наука.
   taxon_concept_stats: Статистики за таксонски концепти
   taxon_details_empty: Сè уште никој нема внесено податоци за овој таксон.
+  taxon_details_empty_in_this_language: Досега никој нема внесено податоци на страницава на овој јазик.
   taxon_education_empty: Досега никој нема ставено образовни ресурси на оваа страница.
   taxon_education_header: Образовни ресурси
   taxon_education_link: Образовни ресурси

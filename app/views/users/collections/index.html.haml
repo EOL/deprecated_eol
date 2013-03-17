@@ -8,12 +8,12 @@
     %ul.object_list
       = render :partial => 'collections/collection_summary', :locals => { :collection => @user.watch_collection }
     .heading
-      %h3= I18n.t(:collections_with_count, :count => @featured_collections.size)
-      - if @featured_collections.size > 1
+      %h3= I18n.t(:collections_with_count, :count => @published_collections.size)
+      - if @published_collections.size > 1
         = render :partial => 'shared/sort_by_date_form'
       - else
         = link_to I18n.t(:what_is_this_question), cms_page_path('collections')
-    - unless @featured_collections.empty?
+    - unless @published_collections.empty?
       %ul.object_list
-        - @featured_collections.each do |collection|
+        - @published_collections.each do |collection|
           = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => true }

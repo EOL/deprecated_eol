@@ -166,7 +166,8 @@ class TaxonConcept < ActiveRecord::Base
     else
       taxon_concept_names.joins(:name, :language)
     end
-    @common_names.where("vern = 1 AND languages.iso_639_1 IS NOT NULL AND languages.iso_639_1 != ''")
+    @common_names = @common_names.where("vern = 1 AND languages.iso_639_1 IS NOT NULL AND languages.iso_639_1 != ''").
+      includes([ :language, :name ]).order('taxon_concept_names.language_id ASC, taxon_concept_names.preferred DESC')
     # remove duplicate names in the same language:
     duplicate_check = {}
     @common_names = @common_names.select do |tcn|
@@ -558,7 +559,8 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def communities
-    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c| c.communities }.flatten.compact.uniq
+    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c|
+      c.communities.select{ |com| com.published? } }.flatten.compact.uniq
   end
 
   def flattened_ancestor_ids
@@ -757,7 +759,20 @@ class TaxonConcept < ActiveRecord::Base
       :preload_select => options[:preload_select]
     })
   end
-  
+
+  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
+  # want to touch the API quite yet.
+  def iucn
+    return @iucn if @iucn
+    # TODO - rewrite query ... move to new class, perhaps?
+    iucn_objects = DataObject.find(:all, :joins => :data_objects_taxon_concepts,
+      :conditions => "`data_objects_taxon_concepts`.`taxon_concept_id` = #{id}
+        AND `data_objects`.`data_type_id` = #{DataType.iucn.id} AND `data_objects`.`published` = 1",
+      :order => "`data_objects`.`id` DESC")
+    my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
+    @iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
+  end
+
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
   # want to touch the API quite yet.
   def overview_text_for_user(the_user)

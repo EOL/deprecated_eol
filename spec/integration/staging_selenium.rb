@@ -3,6 +3,17 @@ require File.dirname(__FILE__) + '/../spec_helper'
 require 'capybara'
 include ActionController::Caching::Fragments
 
+# NOTE - *Important* ... you should enter a curator username/password for the curator specs to work correctly.
+# Remember to delete the information if/when you save this file for committing! ...We *could* create a fake curator
+# in the staging DB, but assuming we import prod data over to staging every week or two, and given that we DON'T want
+# a hard-coded curator with public password in production (EVER!), I don't think that's worth doing. This is just a
+# super-simple solution:
+
+class CuratorLogin
+  USER = ''
+  PASS = ''
+end
+
 describe 'Home page', :js => true do
 
   describe 'Languages' do
@@ -44,7 +55,7 @@ describe 'Home page', :js => true do
 
   it 'should find jrice' do
     visit "http://staging.eol.org/search?q=jrice"
-    page.should have_content "7 results for jrice"
+    page.should have_content "8 results for jrice"
     click_link "jrice"
     page.should have_content "Activity"
     page.should have_content "My info"
@@ -62,7 +73,6 @@ describe 'Home page', :js => true do
     page.should have_content "Black-tailed prairie dogs"
   end
 
-<<<<<<< HEAD
   it 'should have old updates on dato pages' do
     visit "http://staging.eol.org/data_objects/21078282"
     page.should have_content %q{Tracy Barbaro added an association between "Nile Crocodile, Botswana" } +
@@ -70,6 +80,53 @@ describe 'Home page', :js => true do
     page.should have_content %q{Tracy Barbaro commented on an older version of Nile Crocodile, Botswana}
   end
 
-=======
->>>>>>> ef70e06... Integration spec additions
+  it 'should have a contact us page' do
+    visit 'http://staging.eol.org/contact_us'
+    page.should have_content 'Your name'
+    page.should have_content 'Your email'
+    page.should have_content 'Subject'
+    page.should have_content 'Your message'
+    page.should have_selector 'div#recaptcha_widget_div'
+    click_button 'Send feedback'
+    page.should have_content 'Message can\'t be blank'
+  end
+
+  it 'should handle comments correctly' do
+    visit 'http://staging.eol.org/logout'
+    visit 'http://staging.eol.org/pages/1089042'
+    test_text = 'Whatever dude, '
+    bad_text = 'QWERQWERQWER'
+    more_text = 'Yay!'
+    link_stuff = 'http://whatever.org and one starting with www.google.com and a third marked up using <a href="something.edu">this</a>.'
+    fill_in 'comment_body', :with => test_text + link_stuff
+    click_button 'Post Comment'
+    fill_in 'session_username_or_email', :with => CuratorLogin::USER 
+    fill_in 'session_password', :with => CuratorLogin::PASS 
+    click_button 'Sign in'
+    page.should have_content test_text # It won't have link_stuff 'cause it's too long...
+    page.should have_content 'Comment successfully added.'
+    visit 'http://staging.eol.org/pages/1089042/updates'
+    within("ul.feed") do
+      page.should have_selector 'a[href="http://whatever.org"]'
+      page.should have_selector 'a[href="http://www.google.com"]'
+      page.should have_selector 'a[href="something.edu"]', :text => 'this'
+      click_link 'Edit' # There should only be one...
+      fill_in 'comment_body', :with => bad_text
+      click_link 'Cancel'
+      page.should_not have_content bad_text
+      click_link 'Edit'
+      fill_in 'comment_body', :with => more_text
+      click_button 'save comment'
+      page.should have_content more_text
+      click_link 'Edit'
+      click_link 'Cancel'
+      click_button 'delete'
+      page.driver.browser.switch_to.alert.dismiss
+      page.should have_content more_text
+      click_button 'delete'
+      page.driver.browser.switch_to.alert.accept
+      page.should_not have_content more_text
+    end
+  end
+
 end

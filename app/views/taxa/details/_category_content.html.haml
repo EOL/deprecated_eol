@@ -19,4 +19,4 @@
           = link_to I18n.t("comment_or_rate_on_this_#{link_object ? 'link' : 'article'}"), data_object_path(dato)
         - if current_user.min_curator_level?(:assistant) && dato.can_be_made_overview_text_for_user?(current_user, @taxon_concept) && !link_object
           &bull;
-          = link_to I18n.t(:show_in_overview), set_article_as_exemplar_path(:taxon_id => @details.taxon_concept.id, :data_object_id => dato.id)
+          = link_to I18n.t(:show_in_overview), set_article_as_exemplar_path(:taxon_id => @taxon_concept.id, :data_object_id => dato.id)

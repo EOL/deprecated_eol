@@ -73,8 +73,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def must_be_logged_in
-    flash[:warning] =  I18n.t(:must_be_logged_in)
+  def must_be_logged_in(exception = nil)
+    flash[:warning] = I18n.t(:must_be_logged_in)
+    # NOTE - by default an exception (with no message) reports its class name as the message. We don't want that:
+    flash[:warning] += " #{exception.message}" if exception && exception.message != exception.class.name
     session[:return_to] = request.url if params[:return_to].nil?
     redirect_to(login_path, :return_to => params[:return_to])
   end
@@ -446,7 +448,7 @@ class ApplicationController < ActionController::Base
         response = Net::HTTP.get_response(URI.parse(response['location']))
       end
       if response.code == "200"
-        response_body = response.body
+        response_body = response.body.force_encoding('utf-8') # NOTE the force, here... regex fails on some pages w/o
         if response['Content-Encoding'] == "gzip"
           response_body = ActiveSupport::Gzip.decompress(response.body)
         end
@@ -507,8 +509,8 @@ protected
   # custom method to render an appropriate response to an exception
   def render_exception_response(exception, response_code, status_code)
     case response_code
-    when :unauthorized
-      logged_in? ? access_denied : must_be_logged_in
+    when :unauthorized # This is caused by MustBeLoggedIn, actually...
+      logged_in? ? access_denied(exception) : must_be_logged_in(exception)
     when :forbidden
       access_denied(exception)
     when :not_implemented

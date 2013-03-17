@@ -133,6 +133,19 @@ sv:
         udo_published: Användarinlämnad text
         udo_published_by_curators: Kuratorinlämnad text
         udo_published_by_non_curators: Icke-kuratorinlämnad text
+      forum: 
+        description: Beskrivning <small>(valfritt)</small>
+        forum_category_id: Kategori
+        name: Forumnamn
+      forum_category: 
+        description: Beskrivning <small>(valfritt)</small>
+        title: Kategorinamn
+      forum_post: 
+        subject: Ämne
+        text: Innehåll
+      forum_topic: 
+        subject: Ämne
+        text: Innehåll
       harvest_event: 
         resource: Resurs
       hierarchy: 
@@ -1496,6 +1509,61 @@ sv:
   forgot_password_form_header: Återställ ditt lösenord
   forgot_password_form_helper: Var god notera att e-post med lösenordsåterställningar blir <em>ofta</em> flaggade som 'spam' av e-postfilter. Var god kontrollera dina spammappar om du inte har fått ditt e-postmeddelande inom en timme.
   forgot_password_form_username_or_email_blank_error: Ange ditt användarnamn eller e-postadress för att återställa ditt lösenord.
+  forums: 
+    actions: Handlingar
+    administration: Administration
+    buttons: 
+      delete: radera
+      edit: redigera
+      link: länk
+      reply: svara
+    categories: 
+      create: Skapa en kategori
+      create_failed: Tyvärr, ett fel uppstod. Kategorin kunde inte läggas till.
+      create_successful: Kategorin har skapats
+      delete_failed_not_empty: Kategorin kunde inte raderas eftersom den inte är tom
+      delete_successful: Kategori har raderats
+      edit: Redigera kategori
+      move_failed: Kategorin kunde inte flyttas
+      move_successful: Kategorin har flyttats
+      update_failed: Tyvärr, ett fel uppstod. Kategorin kunde inte uppdateras
+      update_successful: Kategorin har uppdaterats
+    create: Skapa ett forum
+    create_failed: Tyvärr, ett fel uppstod. Forumet kunde inte läggas till.
+    create_successful: Forumet har skapats
+    delete_failed_not_empty: Forumet kunde inte raderas eftersom den inte är tom
+    delete_successful: Forumet har skapats
+    edit: Redigera forum
+    forums_heading: EOL forum
+    last_post: Senaste inlägget
+    move_failed: Forumet kunde inte flyttas
+    move_successful: Forumet har flyttats
+    no_topics: Det finns inga trådar i detta forum
+    post_by_user_at_time: av %{user}, %{time}
+    posts: 
+      close_window: stäng
+      create: Gör ett nytt inlägg
+      create_failed: Tyvärr, ett fel uppstod. Inlägget kunde inte läggas till.
+      create_successful: Inlägget skapades
+      delete_failed_topic_not_empty: Inlägget kunde inte raderas eftersom tråden inte är tom
+      delete_successful: Inlägget har raderats
+      deleted_subject: (raderad)
+      edit: Redigera inlägg
+      joined_date: Gick med %{date}
+      no_subject: (inget ämne)
+      permalink_to_this_post: "Permanent länk till detta inlägg:"
+      post_has_been_deleted: Detta inlägg har raderats
+      post_written_by_user: "%{user} skrev:"
+      replying_to_post: "Svarar på:"
+      topic_and_post_delete_successful: Inlägget och tråden har tagits bort
+      update_failed: Tyvärr, ett fel uppstod. Inlägget kunde inte uppdateras
+      update_successful: Inlägget har uppdaterats
+    posts_heading: Inlägg
+    replies: Svar
+    topics_heading: Trådar
+    update_failed: Tyvärr, ett fel uppstod. Forumet kunde inte uppdateras
+    update_successful: Forumet har uppdaterats
+    views: Visningar
   frequency: Frekvens
   frequency_daily: Dagligen
   frequency_monthly: Månatligen
@@ -1904,8 +1972,10 @@ sv:
   license_cc_by_sa_2_0: Creative Commons Erkännande-DelaLika 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: Creative Commons Erkännande-DelaLika 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons Erkännande-DelaLika 3.0 (CC BY-SA 3.0)
+  license_cc_zero: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_no_known_copyright_restrictions: Inga kända upphovsrättsliga begränsningar
   license_not_applicable: Licens är inte tillämplig
   license_public_domain: Allmän egendom
   licensing: Licensiering
@@ -1935,6 +2005,7 @@ sv:
   logo_header: Logotyp
   logout: Logga ut
   looking_up_url: Kollar upp URL...
+  main_species_page_link_with_spaces: " &nbsp;&nbsp; artsida>>"
   maintained_by: underhålls av
   make_user_an_editor_title: Tillåt %{user} att hantera följande samlingar
   manage_your_profile: Hantera din profil
@@ -2036,6 +2107,9 @@ sv:
   moved_all_items_from_collection_with_count: 
     one: Flyttade %{count} objekt från %{from} till denna samling.
     other: Flyttade alla %{count} objekt från %{from} till denna samling.
+  moved_all_items_to_collections: 
+    one: Flyttade alla objekt från %{name} till %{count} samling.
+    other: Flyttade alla objekt från %{name} till %{count} samlingar.
   moved_items_from_collection_with_count_notice: 
     one: Flyttade %{count} objekt från %{name}.
     other: Flyttade %{count} objekt från %{name}.
@@ -2054,6 +2128,7 @@ sv:
   name_preferred_taxonomically_for_source_yes: Föredragen
   names: Namn
   names_children_column_header: Underliggande
+  names_common_empty: Inga vanliga namn har associerats med detta taxon ännu.
   names_common_list_by_language_assistive_header: Vanliga namn listade efter språk
   names_curation_column_header: Kurering
   names_filter: Namn
@@ -2063,6 +2138,7 @@ sv:
   names_relationship_column_header: Förhållande
   names_sources_column_header: Källor
   names_status_column_header: Status
+  names_synonyms_empty: Inga synonymer har associerats med detta taxon ännu.
   never: Aldrig
   new_collection: Ny samling
   new_search_suggestion: Nya sökförslag
@@ -2089,6 +2165,8 @@ sv:
   no_comments_are_available_for_subject: Inga kommentarer är tillgängliga för %{subject}
   no_comments_have_been_left_yet: Inga kommentarer har lämnats ännu.
   no_errors_are_available: Det finns inga fel.
+  no_news_items_for_month_and_year: Inga nyheter för %{month_and_year}
+  no_record_found_matching_your_criteria: Ingen post hittades som matchade dina kriterier.
   no_related_names: Inga namn har blivit relaterade till detta taxon ännu.
   no_results_for: inga resultat för
   no_tasks_found: Inga uppgifter hittades
@@ -2166,6 +2244,8 @@ sv:
   num_content_partners: Antal innehållspartners
   num_data_objects: Antal dataobjekt
   object: Objekt
+  object_curated: Kurerade objekt.
+  object_curation: Objektskurering
   object_status: Objektstatus
   object_status_all_option: Alla
   object_status_trusted_option: Pålitlig
@@ -2178,6 +2258,7 @@ sv:
   object_type_image_option: Bild
   object_type_link_option: Länk
   object_type_sound_option: Ljud
+  object_type_taxon_concept_option: Taxonkoncept
   object_type_text_option: Text
   object_type_user_option: Användare
   object_type_video_option: Video
@@ -2185,6 +2266,7 @@ sv:
   object_visibility_all_option: Alla
   object_visibility_invisible_option: Dolda
   object_visibility_visible_option: Synlig
+  objects_curated: Kurerade objekt
   older_version_of_latest_published_data_object_title_link: Äldre version av %{link}
   on_time_col_header: kl
   option_please_select: Var god välj
@@ -2246,6 +2328,10 @@ sv:
   percentage_of_descendants_with_images: procentandel av underordnade med bilder
   percentage_of_descendants_with_text: procentandel av underordnade med text
   permalink: Permanent länk
+  permissions_list_header: Behörigheter på EOL
+  permissions_users_count: 
+    one: "%{count} användare"
+    other: "%{count} användare"
   person_rating: Personbetyg
   personal_profile_menu: Personlig profil
   personal_space: Personliga utrymme
@@ -2262,6 +2348,7 @@ sv:
   preview: förhandsgranska
   preview_changes: Förhandsgranska ändringar
   preview_version_of_latest_published_data_object_title_link: Förhandsgranska version av %{link}
+  previously_published: tidigare publicerade
   proceed_to_checkout_page: Fortsätt till betalningssidan
   process_name: Processnamn
   profile: Profil
@@ -2291,6 +2378,7 @@ sv:
     one: från %{count} person
     other: från %{count} personer
   rating_added_notice: Betyg har lagts till.
+  rating_learn_more_link: Lär dig mer om betyg
   rating_not_added_error: Tyvärr, ett fel uppstod. Betygsättningen kunde inte läggas till.
   recaptcha: Skriv in de två orden du ser nedan
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha-tecknen</a> stämde inte överens, försök igen.
@@ -2412,10 +2500,10 @@ sv:
   search_the_site: Sök på webbplatsen
   see_all_classifications_with_count_html: 
     one: Se den <span class="assistive">%{count} godkända klassificering i vilken denna taxon ingår.</span>
-    other: Se alla de <span class="assistive">%{count} godkända klassificeringar i vilka denna taxon ingår.</span>
+    other: Se alla <span class="assistive">%{count} godkända klassificeringar i vilka denna taxon ingår.</span>
   see_all_collections_with_count_html: 
     one: Se den <span class="assistive">%{count} samling i vilken denna taxon ingår.</span>
-    other: Se alla de <span class="assistive">%{count} samlingar i vilka denna taxon ingår.</span>
+    other: Se alla <span class="assistive">%{count} samlingar i vilka denna sida ingår.</span>
   see_all_comments_with_count_for_link_or_rate: 
     one: se %{count} kommentar för denna länk eller betygsätt den
     other: se alla %{count} kommentarer för denna länk eller betygsätt dem
@@ -2423,8 +2511,8 @@ sv:
     one: se %{count} kommentar för denna artikel eller betygsätt den
     other: se alla %{count} kommentarer för denna artikel eller betygsätt den
   see_all_communities_with_count_html: 
-    one: Se <span class="assistive">%{count} gemenskap som fokuserar på detta taxon.</span>
-    other: Se alla <span class="assistive">%{count} gemenskaperna som fokuserar på detta taxon.</span>
+    one: Se <span class="assistive">%{count} gemenskap</span> som framhäver denna sida.
+    other: Se alla <span class="assistive">%{count} gemenskaperna</span> som framhäver denna sida.
   see_all_editors_with_count: 
     one: Se %{count} hanteraren
     other: Se alla %{count} hanterare
@@ -2791,6 +2879,9 @@ sv:
   topic: Ämne
   topic_area: Ämnesområde
   total: Totalt
+  total_comments_have_been_submitted: 
+    one: "%{count} kommentar har skickats in till %{string}"
+    other: totalt %{count} kommentarer har skickats in till %{string}
   total_items_with_count: 
     one: "%{count} objekt"
     other: totalt %{count} objekt
@@ -2813,6 +2904,7 @@ sv:
   unique_page_views_th: Unika sidvisningar
   unknown: Okänd
   unknown_data_object_title: Okänt dataobjekt
+  unknown_hierarchy: Okänd hierarki
   unpublished: Ej publicerad
   unreviewed: Ogranskad
   unreviewed_images: Ogranskade bilder
@@ -2844,28 +2936,32 @@ sv:
   use_as_examplar_button: använd som exempel
   user: Användare
   user_activation_successful_notice: Välkommen och tack för att du gick med i Encyclopedia Of Life-gruppen. Ditt konto med användarnamnet <em>%{username}</em> är nu aktivt. Var god logga in.
+  user_activity_click_on_the_numbers: Klicka på siffrorna för att se respektive aktivitetsflöde.
   user_activity_page_title: Användaraktivitet
   user_activity_stats_articles_added: 
     one: "%{count} tillagd artikel"
     other: "%{count} tillagda artiklar"
   user_activity_stats_articles_added_dropdown: Tillagda artiklar
   user_activity_stats_comment_submitted: 
-    one: "%{count} kommentar inlämnad"
-    other: "%{count} kommentarer inlämnade"
+    one: "%{count} kommentar på inlämningar"
+    other: "%{count} kommentarer på inlämningar"
   user_activity_stats_common_names_added: 
-    one: "%{count} vanligt namn lades till"
-    other: "%{count} vanliga namn lades till"
+    one: "%{count} vanligt namn tillagt"
+    other: "%{count} vanliga namn tillagda"
   user_activity_stats_common_names_curated: 
     one: "%{count} vanligt namn kurerat"
     other: "%{count} vanliga namn kurerade"
   user_activity_stats_common_names_removed: 
-    one: "%{count} vanligt namn togs bort"
-    other: "%{count} vanliga namn togs bort"
+    one: "%{count} vanligt namn borttagit"
+    other: "%{count} vanliga namn borttagna"
   user_activity_stats_header: Aktivitet
   user_activity_stats_objects_curated: 
     one: "%{count} objekt kurerat"
     other: "%{count} objekt kurerade"
   user_activity_stats_objects_curated_dropdown: Kurerade objekt
+  user_activity_stats_taxa_commented: 
+    one: "%{count} kommentar på taxon"
+    other: "%{count} kommentarer på taxa"
   user_activity_stats_taxa_comments: 
     one: "%{count} taxakommentar"
     other: "%{count} taxakommentarer"
@@ -3023,6 +3119,7 @@ sv:
   view_full_size_image: Visa bilden i full storlek
   view_image_map_source: Visa kartkälla
   view_image_source: Visa bildkälla
+  view_in_classification: visa i klassificeringen
   view_map_source: Visa kartkälla
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Visa bara sidor med minst en bild eller ett textstycke
   view_sound_source: Visa ljudkälla
@@ -3063,6 +3160,7 @@ sv:
   yes_answer: Ja
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Du är en administratör. Därför kommer jag visa dig att felet var:"
   you_are_not_authorized_to_perform_this_action: Du har inte behörighet att utföra denna åtgärd.
+  you_are_viewing_this_rank_as_classified_by: "Du visar denna %{rank} som är klassificerad av:"
   you_can_edit_those_later_if_ne: Du kan redigera dessa senare om det behövs.
   you_have_been_logged_in_as_username: Du har loggats in som %{username}
   you_have_been_logged_out: Du har blivit utloggad.

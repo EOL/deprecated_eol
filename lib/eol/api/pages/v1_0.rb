@@ -209,9 +209,9 @@ module EOL
           end
 
           # preload necessary associations for API response
-          DataObject.preload_associations(all_data_objects, [ { :data_objects_hierarchy_entries => :vetted },
+          DataObject.preload_associations(all_data_objects, [ { :data_objects_hierarchy_entries => [ :vetted, { :hierarchy_entry => { :hierarchy => :resource } } ] },
             :curated_data_objects_hierarchy_entries, :data_type, :license, :language, :mime_type,
-            :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs ] )
+            :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs, :audiences ] )
           all_data_objects
         end
 

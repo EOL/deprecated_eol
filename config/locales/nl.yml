@@ -155,6 +155,19 @@ nl:
         udo_published: Door gebruikers toegevoegde tekst
         udo_published_by_curators: Door conservator toegevoegde tekst
         udo_published_by_non_curators: Door niet-conservator toegevoegde tekst
+      forum: 
+        description: Beschrijving <small>(optioneel)</small>
+        forum_category_id: Categorie
+        name: Forumnaam
+      forum_category: 
+        description: Beschrijving <small>(optioneel)</small>
+        title: Categorienaam
+      forum_post: 
+        subject: Onderwerp
+        text: Bericht
+      forum_topic: 
+        subject: Onderwerp
+        text: Bericht
       harvest_event: 
         resource: Bron
       hierarchy: 
@@ -1004,6 +1017,9 @@ nl:
   anonymous_user_tag_line: Niet aangemeld
   any_integer: een geheel getal
   any_string: willekeurige tekenreeks
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Deelnemen aan de betatest voor de nieuwe EOL-forums</a>. Uw terugkoppeling is welkom.
   api_docs_collections_description: Deze API retourneert alle metadata van een verzameling en alle items die ertoe behoren als er een aanduiding wordt opgegeven. De list met items kan gefilterd worden op itemtype en gesorteerd worden op de eigenschappen die worden weergegeven. Sommige items bevatten een optioneel attribuut "sort_field". Het sorteerveld is een door de gebruiker opgegeven tekenreeks die een speciale annotatie is voor een item in een verzameling. Het kan een willekeurige tekenreeks zijn, maar als het een datum is, dan moet deze voldoen aan JJJJ-MM-DD. Taxonitems bevatten een "richness_score". Rijkheid is een statistiek de wordt weergegeven als een getal tussen 0 en 100, waarbij een hoger getal aangeeft dat een pagina rijk is aan inhoud vanuit verschillende bronnen. Leest meer over de rijkheid van taxa via het tabblad "Updates" op een taxonpagina, bijvoorbeeld %{richness_url}.
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
@@ -2023,6 +2039,71 @@ nl:
   forgot_password_form_helper: Denk eraan dat e-mails voor het opnieuw instellen van een wachtwoord <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer alstublieft uw spammap als u binnen een uur geen e-mail ontvangt.
   forgot_password_form_username_or_email_blank_error: Voer uw gebruikersnaam of e-mailadres in om uw wachtwoord opnieuw in te stellen.
   form_validation_errors_for_attribute_assistive: Er is een onjuiste waarde ingevoerd in dit element
+  forums: 
+    actions: Handelingen
+    administration: Beheer
+    buttons: 
+      delete: verwijderen
+      edit: bewerken
+      link: koppeling
+      reply: antwoorden
+    categories: 
+      create: Categorie aanmaken
+      create_failed: Er is helaas een fout opgetreden. De categorie is niet toegevoegd
+      create_successful: De categorie is aangemaakt
+      delete_failed_not_empty: De categorie is niet verwijderd omdat die niet leeg is
+      delete_successful: De categorie is verwijderd
+      edit: Categorie bewerken
+      move_failed: Categorie kan niet worden hernoemd
+      move_successful: De categorie is hernoemd
+      update_failed: Er is helaas een fout opgetreden. De categorie is niet bijgwerkt
+      update_successful: De categorie is bijgewerkt
+    create: Forum aanmaken
+    create_failed: Er is helaas een fout opgetreden. Het forum is niet toegevoegd
+    create_successful: Het forum is aangemaakt
+    delete_failed_not_empty: Het forum is niet verwijderd omdat het niet leeg is
+    delete_successful: Het forum is verwijderd
+    edit: Forum bewerken
+    forums_heading: EOL-forums
+    last_post: Laatste bericht
+    move_failed: Het forum is niet hernoemd
+    move_successful: Het forum is hernoemd
+    no_topics: Er zijn geen onderwerpen in dit forum
+    post_by_user_at_time: door %{user}, %{time}
+    posts: 
+      close_window: sluiten
+      create: Nieuw bericht schrijven
+      create_failed: Er is helaas een fout opgetreden. Het bericht is niet toegevoegd
+      create_successful: Het bericht is aangemaakt
+      delete_failed_topic_not_empty: Het bericht kon niet verwijderd worden omdat het overleg niet leeg is
+      delete_successful: Het bericht is verwijderd
+      deleted_subject: (verwijderd)
+      edit: Bericht bewerken
+      joined_date: Lid geworden op %{date}
+      no_subject: (geen onderwerp)
+      permalink_to_this_post: "Permanente koppeling naar dit bericht:"
+      post_has_been_deleted: Dit bericht is verwijderd
+      post_written_by_user: "%{user} heeft geschreven:"
+      posts_with_count: 
+        one: één bericht
+        other: "%{count} berichten"
+      replying_to_post: "Antwoord op:"
+      topic_and_post_delete_successful: Het bericht en het overleg zijn verwijderd
+      update_failed: Er is helaas een fout opgetreden. Het bericht is niet bijgewerkt
+      update_successful: Het bericht is bijgewerkt
+    posts_heading: Berichten
+    replies: Antwoorden
+    topics: 
+      create: Nieuw onderwerp starten
+      create_failed: Er is helaas een fout opgetreden. Het onderwerp is niet toegevoegd
+      create_successful: Het onderwerp is aangemaakt
+      delete_failed_not_empty: Het onderwerp is niet verwijderd omdat het niet leeg is
+      delete_successful: Het onderwerp is verwijderd
+      no_posts: Er zijn geen berichten in dit onderwerp
+    topics_heading: Onderwerpen
+    update_failed: Er is helaas een fout opgetreden. Het forum is niet bijgewerkt
+    update_successful: Het forum is aangemaakt
+    views: Weergaven
   fragment_caching_enabled: Cachen van fragmenten is ingeschakeld
   frequency: Frequentie
   frequency_daily: Dagelijks
@@ -2988,7 +3069,7 @@ nl:
   permissions_list_header: Rechten in EOL
   permissions_users_count: 
     one: één gebruiker
-    other: "%{count} gebruikers�"
+    other: "%{count} gebruikers"
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
@@ -3629,6 +3710,7 @@ nl:
   taxon_citizen_science_resources_empty: Niemand heeft nog burgerwetenschap bijgedragen voor deze pagina.
   taxon_concept_stats: Taxonconceptstatistieken
   taxon_details_empty: Er heeft nog niemand bijgedragen aan deze pagina.
+  taxon_details_empty_in_this_language: Niemand heeft nog bijgedragen aan deze pagina in deze taal.
   taxon_education_empty: Er heeft nog niemand onderwijsbronnen bijgedragen aan deze pagina.
   taxon_education_header: Onderwijsmiddelen
   taxon_education_link: Onderwijsmiddelen

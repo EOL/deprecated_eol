@@ -99,6 +99,20 @@ describe 'Home page' do
     body.should_not include(cms_page_path('about_biodiversity', :language => 'ar'))
   end
 
+  it 'should not show deleted comments in community activity' do
+    user = User.gen
+    comment = Comment.gen(:user => user, :body => 'test comment body')
+    # the comment should show up when published
+    visit('/')
+    body.should include(comment.body)
+    comment.update_column(:deleted, true)
+    # the comment should not show up when deleted
+    visit('/')
+    body.should_not include(comment.body)
+    body.should_not include("This comment was deleted")
+    body.should include("No one has provided updates yet")
+  end
+
   it 'should show the March of Life'
 
   it 'should show a statistical summary of what is currently in EOL'

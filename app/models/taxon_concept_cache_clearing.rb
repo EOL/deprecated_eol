@@ -24,6 +24,19 @@ class TaxonConceptCacheClearing
     clear_media_counts
   end
 
+  # TODO - test
+  # NOTE - this can take a long time if there are many media!
+  def self.clear_media(taxon_concept)
+    # NOTE - user doesn't actually get used here, yet.  Once we have TaxonMedia, it will, so...
+    # TODO - update this to TaxonMedia when available.
+    page = TaxonPage.new(taxon_concept, User.first)
+      page.media(:data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
+                 :vetted_types => ['trusted', 'unreviewed', 'untrusted'],
+                 :visibility_types => ['visible', 'invisible']).each do |dato|
+      DataObject.find(dato).update_solr_index # Find needed because it doesn't have all attributes otherwise.
+               end
+  end
+
   # TODO - refactor and test. Not in that order. I did only the most obvious cleanup, here.
   def clear_for_data_object(data_object)
     if data_object.data_type.label == 'Image'

@@ -96,9 +96,10 @@ class CollectionsController < ApplicationController
       flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to collection_url(@collection)
     else
-      back = @collection.users.include?(current_user) ? user_collections_url(current_user) : collection_url(@collection.community)
-      if @collection.update_attributes(:published => false)
-        EOL::GlobalStatistics.decrement('collections')
+      back = @collection.users.include?(current_user) ?
+        user_collections_url(current_user) :
+        collection_url(@collection.community)
+      if @collection.unpublish
         flash[:notice] = I18n.t(:collection_destroyed)
       else
         flash[:error] = I18n.t(:collection_not_destroyed_error)
@@ -151,9 +152,9 @@ class CollectionsController < ApplicationController
 
   def choose_collect_target
     return must_be_logged_in unless logged_in?
-    @collections = current_user.all_collections
+    @collections = current_user.all_collections || []
     Collection.preload_associations(@collections, [ :resource, :resource_preview ])
-    @collections.delete_if{ |c| c.is_resource_collection? }
+    @collections.delete_if { |c| c.is_resource_collection? }
     raise EOL::Exceptions::ObjectNotFound unless @item
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
@@ -244,7 +245,7 @@ private
       @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as)
     @collection_items = @collection_results.map { |i| i['instance'] }
     if params[:commit_select_all]
-      @selected_collection_items = @collection_items.map {|ci| ci.id.to_s }
+      @selected_collection_items = @collection_items.map { |ci| ci.id.to_s }
     end
   end
 
@@ -313,7 +314,7 @@ private
         if options[:move]
           # Not handling any weird errors here, to simplify flash notice handling.
           remove_items(:from => source, :items => all_items)
-          @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items && params['collection_items']
+          @collection_items.delete_if { |ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items && params['collection_items']
           if destinations.length == 1
             flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
                                     :name => link_to_name(source))
@@ -332,7 +333,7 @@ private
         end
         flash[:notice] = I18n.t(flash_i18n_name,
                                 :count => all_items.count,
-                                :names => copied.keys.map {|c| "#{c} (#{copied[c]})"}.to_sentence)
+                                :names => copied.keys.map { |c| "#{c} (#{copied[c]})"}.to_sentence)
         flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
         return redirect_to collection_path(source), :status => :moved_permanently
       elsif all_items.count == 0
@@ -360,8 +361,8 @@ private
     end
     ids = CollectionItem.connection.execute(
       "SELECT id FROM collection_items
-       WHERE id > #{last_collection_item.id} AND collection_id IN (#{destinations.map {|d| d.id}.join(',')})"
-    ).map {|a| a.first }
+       WHERE id > #{last_collection_item.id} AND collection_id IN (#{destinations.map { |d| d.id}.join(',')})"
+    ).map { |a| a.first }
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(ids)
     # NOTE - this is pretty brutal. The older method preserves objects that didn't actually move (ie: if they were
     # duplicates), but I figure that's not entirely desirable, anyway...
@@ -445,7 +446,7 @@ private
     Collection.with_master do
       Collection.uncached do
         if @collection.update_attributes(params[:collection])
-          @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+          @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map { |i|
                 params[:collection][:collection_items_attributes][i][:id] }.first)
           if @collection.show_references
             @collection_item.refs.clear
@@ -648,7 +649,7 @@ private
     types = CollectionItem.types
     @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
     @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
-    @recently_visited_collections = Collection.find(recently_visited_collections(@collection.id)) if @collection
+    @recently_visited_collections = Collection.find_all_by_id(recently_visited_collections(@collection.id)) if @collection
   end
 
   def log_activity(options = {})

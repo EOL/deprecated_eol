@@ -1,0 +1,23 @@
+-# NOTE - Yes, it's definitely unusual to have a 'create' view, since that method is supposed to redirect, but... this works in the case where you must specify a taget:
+#choose_collections
+  -# NOTE - values for command can be found in CollectionJob::VALID_COMMANDS ... but only commands required a target will be used.
+  %h2= I18n.t("collection_#{@collection_job.command}_choose_target_title")
+  = form_for @collection_job do |f|
+    %fieldset
+      = f.hidden_field :command
+      = f.hidden_field :collection_id
+      = f.hidden_field :all_items
+      = f.hidden_field :overwrite
+      - if @collection_job.collection_items
+        - @collection_job.collection_items.each do |collection_item|
+          = hidden_field_tag "collection_job[collection_item_ids]", collection_item.id
+      - item = @collection_job.collection_items.count == 1 ? @collection_job.collection_items.first : nil
+      %ul
+        = render :partial => 'collections_list_item',
+          :locals => { collection: current_user.watch_collection, has_item: item && current_user.watch_collection.has_item?(item), f: f }
+        - @collections.reject { |c| c == current_user.watch_collection || c == @collection_job.collection }.each do |collection|
+          = render :partial => 'collections_list_item', :locals => { :collection => collection, :has_item => collection.has_item?(@item), f: f }
+    %fieldset.actions
+      = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
+      = submit_tag(I18n.t(@collection_job.command))
+-# TODO - new collection.  The existing version wasn't usable.  Let's just pass in the name and do everything using the existing form.

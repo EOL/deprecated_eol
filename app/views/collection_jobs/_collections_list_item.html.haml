@@ -1,0 +1,18 @@
+%li{:class => has_item ? 'collected' : nil}
+  = check_box_tag "collection_job[collection_ids]", collection.id, has_item, :disabled => has_item
+  = label_tag('collection_name', h(truncate(collection.name, :length => 64)))
+  - if collection.communities || has_item || collection.id == current_user.watch_collection.id
+    %span
+      - if collection.communities.count == 1
+        - community = collection.communities.first
+        \&bull;
+        = raw(I18n.t(:from_community, :community => link_to(truncate(community.name, :length => 64), community_path(community))))
+      - elsif collection.communities.count > 1
+        \&bull;
+        = raw(I18n.t(:from_communities, :communities => collection.communities.map {|community| link_to(truncate(community.name, :length => 64), community_path(community)) }.to_sentence ))
+      - if collection.id == current_user.watch_collection.id
+        \&bull;
+        = I18n.t(:your_watch_collection)
+      - if has_item
+        \&bull;
+        = raw(link_to(I18n.t(:in_collection), collection_url(collection), :class => 'close_and_go'))

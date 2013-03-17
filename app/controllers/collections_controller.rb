@@ -17,9 +17,12 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
+    # TODO - this line should be somewhere else:
     return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
+    @collection_job = CollectionJob.new(:collection => @collection)
     if @collection_results && @collection_results.is_a?(WillPaginate::Collection)
       set_canonical_urls(:for => @collection, :paginated => @collection_results, :url_method => :collection_url)
+      # TODO - this is... expensive, yeah?  Should we REALLY be doing this every time we show a page of a collection?!
       reindex_items_if_necessary(@collection_results)
     else
       @rel_canonical_href = collection_url(@collection)
@@ -60,13 +63,16 @@ class CollectionsController < ApplicationController
   end
 
   def update
+    # TODO - These next two lines shouldn't be handled with a POST, they should be GETs (to #show):
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_view_as]
     return redirect_to_choose(:copy) if params[:commit_copy]
+    # TODO - these should all go to collection_jobs_controller, now:
     return chosen if params[:scope] && params[:for] == 'copy'
     return remove_and_redirect if params[:commit_remove]
     return redirect_to_choose(:move) if params[:commit_move]
     
+    # TODO - annotations need their own controller.
     # some of the following methods need the list of items on the page... I think.
     # if not, we should remove this as it is very expensive
     build_collection_items unless params[:commit_annotation]
@@ -76,6 +82,7 @@ class CollectionsController < ApplicationController
     return annotate if params[:commit_annotation]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     
+    # TODO - This is really the only stuff that needs to stay here!
     name_change = params[:collection][:name] != @collection.name
     description_change = params[:collection][:description] != @collection.description
     if @collection.update_attributes(params[:collection])
@@ -133,6 +140,7 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:choose_collection_header)
   end
 
+  # TODO - this should be its own controller (or possibly two with a shared view).
   # Either a user is passed in and we're making her a manager, or a community is passed in and we're "featuring" it.
   def choose_editor_target
     return must_be_logged_in unless logged_in?

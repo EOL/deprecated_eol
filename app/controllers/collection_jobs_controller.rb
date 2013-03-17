@@ -1,83 +1,65 @@
 class CollectionJobsController < ApplicationController
-  # GET /collection_jobs
-  # GET /collection_jobs.json
-  def index
-    @collection_jobs = CollectionJob.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @collection_jobs }
-    end
-  end
+  before_filter :modal, :only => :choose_target
 
-  # GET /collection_jobs/1
-  # GET /collection_jobs/1.json
-  def show
-    @collection_job = CollectionJob.find(params[:id])
+  before_filter :force_login
+  before_filter :read_collection_job_from_params
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @collection_job }
-    end
-  end
+  layout 'v2/choose_collect_target'
 
-  # GET /collection_jobs/new
-  # GET /collection_jobs/new.json
-  def new
-    @collection_job = CollectionJob.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @collection_job }
-    end
-  end
-
-  # GET /collection_jobs/1/edit
-  def edit
-    @collection_job = CollectionJob.find(params[:id])
-  end
-
-  # POST /collection_jobs
-  # POST /collection_jobs.json
   def create
-    @collection_job = CollectionJob.new(params[:collection_job])
-
-    respond_to do |format|
+    unless @collection_job.target_needed? && ! @collection_job.target_collection_id
       if @collection_job.save
-        format.html { redirect_to @collection_job, notice: 'Collection job was successfully created.' }
-        format.json { render json: @collection_job, status: :created, location: @collection_job }
+        @collection_job.run # TODO - we really want to decide if this is a "big" job and delay it, if so.
+        collection = @collection_job.target_needed? ? @collection_job.target_collection : @collection_job.collection
+        redirect_to collection, notice: complete_notice
       else
-        format.html { render action: "new" }
-        format.json { render json: @collection_job.errors, status: :unprocessable_entity }
+        redirect_to @collection_job.collection # TODO - errors are lost because we redirect rather than render...  fix.
       end
     end
+    @collections = current_user.all_non_resource_collections
   end
 
-  # PUT /collection_jobs/1
-  # PUT /collection_jobs/1.json
-  def update
-    @collection_job = CollectionJob.find(params[:id])
+  private
 
-    respond_to do |format|
-      if @collection_job.update_attributes(params[:collection_job])
-        format.html { redirect_to @collection_job, notice: 'Collection job was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @collection_job.errors, status: :unprocessable_entity }
-      end
+  def modal
+    @modal = true # When this is JS, we need a "go back" link at the bottom if there's an error
+  end
+
+  # TODO - this doesn't even SORT of work.
+  def redirect_to_choose
+    return_to = collection_path(@collection)
+    return redirect_to params.merge(:action => 'choose', :for => for_what, :return_to => return_to).except(*unnecessary_keys_for_redirect)
+  end
+
+  def force_login
+    raise EOL::Exceptions::MustBeLoggedIn unless logged_in?
+  end
+
+  def read_collection_job_from_params
+    # Convert the sumbit button to a command by looking for each valid command in the 'raw' params:
+    CollectionJob::VALID_COMMANDS.each do |command|
+      params[:collection_job][:command] = command if params.delete(command)
     end
+    # Convert all_items:
+    params[:collection_job][:all_items] = true if params[:scope] == 'all_items'
+    # TODO - Either remove the "other scopes" (and reduce the complexity of the controller/view) from collections,
+    # or handle them here. ie: "All Images", "All Taxa" ... doesn't seem to work ATM, so I say remove it.
+    # And add the user as we create the new Job:
+    @collection_job = CollectionJob.new(params[:collection_job].reverse_merge(:user => current_user))
   end
 
-  # DELETE /collection_jobs/1
-  # DELETE /collection_jobs/1.json
-  def destroy
-    @collection_job = CollectionJob.find(params[:id])
-    @collection_job.destroy
-
-    respond_to do |format|
-      format.html { redirect_to collection_jobs_url }
-      format.json { head :no_content }
-    end
+  def complete_notice
+    # NOTE - values for command can be found in CollectionJob::VALID_COMMANDS
+    I18n.t("collection_#{@collection_job.command}_complete_with_count",
+           :count => @collection_job.item_count,
+           :from => link_to_name(@collection_job.collection),
+           :to => link_to_name(@collection_job.target_collection))
   end
+
+  def link_to_name(collection)
+    return "ERROR: UNKNOWN COLLECTION" unless collection
+    self.class.helpers.link_to(collection.name, collection_path(collection))
+  end
+
 end

@@ -20,6 +20,7 @@ class Collection < ActiveRecord::Base
 
   has_and_belongs_to_many :communities, :uniq => true
   has_and_belongs_to_many :users
+  has_and_belongs_to_many :collection_jobs
 
   scope :published, :conditions => {:published => 1}
   # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...

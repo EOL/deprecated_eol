@@ -14,26 +14,14 @@
       - if editable && ! @collection.special?
         = button_to I18n.t(:collection_delete_link), collection_url(@collection), :data => { :confirm => I18n.t(:collection_delete_link) }, :method => :delete
 - else
-  = form_for @collection, :method => :put, :builder => ApplicationHelper::EolFormBuilder do |f|
-    = hidden_field_tag(:filter, @filter) if @filter
-    #tabs_sidebar
-      = render :partial => 'collections/filter_by_item_type'
-    #sidebar
-      - if logged_in?
-        .filters
-          %h4= I18n.t(:actions)
-          %fieldset.actions
-            = select_tag :scope, options_for_select(@collection_item_scopes)
-            - if editable && !@collection.is_resource_collection?
-              -# NOTE - we use name because we don't want to handle the I18n of the button.
-              = submit_tag I18n.t(:move),   :name => 'commit_move'
-              = submit_tag I18n.t(:copy),   :name => 'commit_copy'
-              = submit_tag I18n.t(:remove), :name => 'commit_remove'
-            - else
-              = submit_tag I18n.t(:copy), :name => 'commit_copy'
-      = render :partial => 'collections/recently_visited'
-    #collection.main_container
-      .heading
+  #tabs_sidebar
+    = render :partial => 'collections/filter_by_item_type'
+  #collection.main_container
+    .heading
+      -# TODO - deal with this later. Really, these should be *links* and then JS should "clean them up" to make them look like drop-down. There's no *form* here, these
+      -# are just GET requests!
+      = form_for @collection, :method => :put, :builder => ApplicationHelper::EolFormBuilder do |f|
+        = hidden_field_tag(:filter, @filter) if @filter
         %fieldset
           = label_tag :sort_by, I18n.t(:sort_collection_by_label)
           = select_tag :sort_by, options_for_select(@sort_options.map {|so| [so.name, so.id]}, @sort_by.id)
@@ -44,6 +32,22 @@
           = select_tag :view_as, options_from_collection_for_select(@view_as_options, :id, :name, @view_as.id)
         %fieldset.actions
           = submit_tag I18n.t(:view_as_button), :name => 'commit_view_as'
+    = form_for @collection_job do |f|
+      = validation_errors_for(@collection_job)
+      = f.hidden_field :collection_id
+      -# TODO - change all the layout stuff to make this a sidebar again. Had to move it to put it in the form!
+      #sidebar
+        - if logged_in?
+          .filters
+            %h4= I18n.t(:actions)
+            %fieldset.actions
+              = select_tag :scope, options_for_select(@collection_item_scopes)
+              - if editable && ! @collection.is_resource_collection?
+                - CollectionJob::VALID_COMMANDS.each do |command|
+                  = f.submit I18n.t(command), :name => command
+              - else
+                = f.submit I18n.t(:copy), :name => 'copy'
+        = render :partial => 'collections/recently_visited'
       - previous_label = (@collection_results.current_page == 1) ? '' : I18n.t(:pagination_previous)
       - next_label = (@collection_results.current_page == @collection_results.total_pages) ? '' : I18n.t(:pagination_next)
       = will_paginate @collection_results, :previous_label => previous_label, :next_label => next_label, :inner_window => 2, :outer_window => 2
@@ -53,7 +57,7 @@
       - when ViewStyle.list
         = render :partial => 'collections/show_list_style'
       - else
-        = render :partial => 'collections/show_annotated_style', :locals => { :editable => editable, :parent_form => f }
+        = render :partial => 'collections/show_annotated_style', :locals => { editable: editable }
       = will_paginate @collection_results, :previous_label => previous_label, :next_label => next_label, :inner_window => 2, :outer_window => 2
 
 - if InaturalistProjectInfo.needs_caching?

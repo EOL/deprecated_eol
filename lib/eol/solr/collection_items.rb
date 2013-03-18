@@ -23,7 +23,7 @@ module EOL
       def self.add_resource_instances!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['collection_item_id'] }
-        instances = CollectionItem.find_all_by_id(ids)
+        instances = CollectionItem.find(ids)
         if options[:view_style] == ViewStyle.annotated
           CollectionItem.preload_associations(instances, :refs, :select =>
             { :refs => [ :id, :full_reference ] } )
@@ -44,7 +44,7 @@ module EOL
       def self.add_community!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
-        instances = Community.find_all_by_id(ids)
+        instances = Community.find(ids)
         docs.map! do |d|
           unless d['instance'].nil?
             d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
@@ -55,7 +55,7 @@ module EOL
       def self.add_collection!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
-        instances = Collection.find_all_by_id(ids)
+        instances = Collection.find(ids)
         if options[:view_style] == ViewStyle.annotated
           Collection.preload_associations(instances, [ :users, :communities ], :select =>
             { :users => '*', :communities => '*' } )
@@ -70,7 +70,7 @@ module EOL
       def self.add_user!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
-        instances = User.find_all_by_id(ids)
+        instances = User.find(ids)
         docs.map! do |d|
           unless d['instance'].nil?
             d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
@@ -105,7 +105,7 @@ module EOL
           includes << { :taxon_concept_exemplar_image => :data_object }
         end
         ids = docs.map{ |d| d['object_id'] }
-        instances = TaxonConcept.find_all_by_id(ids)
+        instances = TaxonConcept.find(ids)
         TaxonConcept.preload_associations(instances, includes, :select => selects)
         docs.each do |d|
           if d['instance']
@@ -117,7 +117,7 @@ module EOL
       def self.add_data_object!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
-        instances = DataObject.find_all_by_id(ids)
+        instances = DataObject.find(ids)
         DataObject.preload_associations(instances, [ :language, :all_published_versions ] )
         instances_that_are_used = []
         docs.each do |d|

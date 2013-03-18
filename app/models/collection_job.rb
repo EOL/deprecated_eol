@@ -76,6 +76,10 @@ class CollectionJob < ActiveRecord::Base
     command == 'remove'
   end
 
+  def missing_targets?
+    target_needed? && collections.blank?
+  end
+
 private
 
   def user_can_edit_source
@@ -203,13 +207,6 @@ private
       CollectionItem.where(['id > ? AND collection_id IN (?)', last_id, collections.map(&:id)])
     else # Really only useful in tests:
       CollectionItem.where(['collection_id IN (?)', collections.map(&:id)])
-    end
-  end
-
-  def collection_items_matching(items)
-    ids = items.map { |item| [item.collected_item_type, item.collected_item_id] }
-    collection_items.select do |item|
-      ids.include?([item.collected_item_type, item.collected_item_id]) 
     end
   end
 

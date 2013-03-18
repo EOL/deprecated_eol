@@ -10,7 +10,7 @@
       = f.hidden_field :overwrite
       - if @collection_job.collection_items
         - @collection_job.collection_items.each do |collection_item|
-          = hidden_field_tag "collection_job[collection_item_ids]", collection_item.id
+          = hidden_field_tag "collection_job[collection_item_ids][]", collection_item.id
       - item = @collection_job.collection_items.count == 1 ? @collection_job.collection_items.first : nil
       %ul
         = render :partial => 'collections_list_item',

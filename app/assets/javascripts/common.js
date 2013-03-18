@@ -217,29 +217,6 @@ $(function() {
       });
     });
 
-    $collection.find("ul.object_list").children().each(function() {
-      var $li = $(this);
-      $li.delegate("p.edit a", "click", function( event ) {
-        event.preventDefault();
-        $(this).parent().parent().hide().after('<div class="collection_item_form"></div>');
-        var $update = $(this).parent().parent().next('.collection_item_form');
-        EOL.ajax_get($(this), {update: $update, type: 'GET'});
-      });
-      $li.delegate(".collection_item_form a", "click", function( event ) {
-        event.preventDefault();
-        $(this).closest(".collection_item_form").hide().prev().show().end().html('');
-      });
-      $li.delegate(".collection_item_form input[type='submit']", "click", function( event ) {
-        event.preventDefault();
-        var $ci_form = $(this).closest(".collection_item_form");
-        EOL.ajax_submit($(this), {
-          data: "_method=put&commit_annotation=true&" +
-            $ci_form.find("input, textarea").serialize(),
-            update: $ci_form.prev(),
-            complete: function() { $ci_form.hide().remove(); }
-        });
-      });
-    });
     $collection.find('#sort_by').change(function() {
       $(this).closest('form').find('input[name="commit_sort"]').click();
     });
@@ -259,6 +236,38 @@ $(function() {
       if (e.type === "focus" && $e.val() === placeholder) { $e.val(""); }
       else { if (!$e.val()) { $e.val(placeholder); } }
     });
+  });
+
+  // TODO - make this less redundant with a.collect.modal (below)
+  $('#collection_items .editable a').modal({
+    beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
+    beforeShow: function() {
+      $('form#new_collection :submit').click(function() {
+        if($('#collection_name').val() == ""){
+          $('.collection_name_error').show();
+          return(false);
+        }
+        if($('#flashes')[0] == undefined) {
+          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
+        }
+        EOL.ajax_submit($(this), { update: $('#flashes') });
+        $('#choose_collections a.close').click();
+        return(false);
+      });
+      $('form#new_collection_item :submit').click(function() {
+        if($('#flashes')[0] == undefined) {
+          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
+        }
+        EOL.ajax_submit($(this), { update: $('#flashes') });
+        $('#choose_collections a.close').click();
+        return(false);
+      });
+      $('#choose_collections a.close_and_go').click(function() { $('#choose_collections a.close').click(); });
+    },
+    afterClose: function() {
+      $('#collection_items .editable a').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });
+    },
+    duration: 200
   });
 
   // Collecting happens through a modal dialog box:

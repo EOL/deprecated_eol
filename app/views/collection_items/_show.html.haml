@@ -4,7 +4,7 @@
 - if logged_in?
   - if collection_item
     .checkbox
-      = check_box_tag "collection_job[collection_item_ids]", collection_item.id, @collection_job.collection_items.include?(collection_item)
+      = check_box_tag "collection_job[collection_item_ids][]", collection_item.id, @collection_job.collection_items.include?(collection_item)
 - if ['image_map', 'image', 'video', 'sound'].include?(item_type)
   = render :partial => "shared/item_summary_media", :locals => {:item => collection_item.collected_item, :en_type => item_type, :view_style => view_style}
 - elsif ! item_type.blank?

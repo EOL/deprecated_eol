@@ -210,8 +210,10 @@ module EOL
       end
 
       def load_foundation_cache
+        print "(fnd"
         truncate_all_tables
         load_scenario_with_caching(:foundation)
+        print ")"
       end
 
       def load_scenario_with_caching(name)

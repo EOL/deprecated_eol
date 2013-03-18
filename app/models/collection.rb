@@ -9,7 +9,6 @@ class Collection < ActiveRecord::Base
   belongs_to :view_style
 
   has_many :collection_items
-  accepts_nested_attributes_for :collection_items
   has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :collected_item
   has_many :containing_collections, :through => :others_collection_items, :source => :collection
 
@@ -100,8 +99,6 @@ class Collection < ActiveRecord::Base
   end
   alias :is_focus_list? :focus?
 
-  # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
-  # add more than two things... because this runs an expensive calculation at the end.
   def add(what, opts = {})
     return if what.nil?
     name = case what
@@ -120,7 +117,7 @@ class Collection < ActiveRecord::Base
                                                                     :klass => what.class.name))
       end
     collection_items << item = CollectionItem.create(:collected_item => what, :name => name, :collection => self, :added_by_user => opts[:user])
-    set_relevance # This is actually safe, because we don't use #add in bulk.
+    set_relevance
     item # Convenience.  Allows us to know the collection_item created and possibly chain it.
   end
 
@@ -200,29 +197,9 @@ class Collection < ActiveRecord::Base
   end
 
   def set_relevance
-    # TODO - this occasionally seems to make Paperclip quite grumpy, but only in tests.  Hmmmn.
-    update_attributes(:relevance => calculate_relevance)
+    Resque.enqueue(CollectionRelevanceCalculator, id)
   end
   
-  def count_containing_collections(opts = {})
-    if opts[:is_featured] === true
-      extra_condition = "AND com.id IS NOT NULL"
-    elsif opts[:is_featured] === false
-      extra_condition = "AND com.id IS NULL"
-    end
-      
-    count_result = connection.execute("
-      SELECT COUNT(DISTINCT(c.id))
-      FROM collections c
-      JOIN collection_items ci ON ( c.id = ci.collection_id )
-      LEFT JOIN (
-        collections_communities cc
-        JOIN communities com ON ( cc.community_id = com.id )
-      ) ON ( c.id = cc.collection_id )
-      WHERE ( ci.collected_item_id = #{self.id} AND ci.collected_item_type = 'Collection') #{extra_condition}")
-    count_result.first.first
-  end
-
   def can_be_read_by?(user)
     return true if published? || users.include?(user) || user.is_admin?
     false
@@ -253,82 +230,8 @@ class Collection < ActiveRecord::Base
 
 private
 
-  # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:
-  def calculate_relevance
-    return 0 if watch_collection? # Watch collections are irrelevant.
-    @taxa_count = collection_items.taxa.count
-    return 0 if @taxa_count <= 0 # Collections with no taxa (ie: friend lists and the like) are irrelevant.
-    # Each sub-category should return a score between 1 and 100:
-    score = (calculate_feature_relevance * 0.4) + (calculate_taxa_relevance * 0.4) + (calculate_item_relevance * 0.2)
-    return 0 if score <= 0
-    return 100 if score >= 100
-    score.to_i
-  end
-
-  def calculate_feature_relevance
-    features = count_containing_collections(:is_featured => true)
-    times_featured_score = case features
-                           when 0
-                             0
-                           when 1..25
-                             2 * features
-                           else
-                             50
-                           end
-    collected = count_containing_collections(:is_featured => false)
-    times_collected_score = case collected
-                            when 0
-                              0
-                            when 1..30
-                              collected
-                            else
-                              30
-                            end
-    is_focus_list_score = focus? ? 20 : 0
-    score = times_featured_score + times_collected_score + is_focus_list_score
-    return 0 if score <= 0
-    return 100 if score >= 100
-    return score.to_i
-  end
-
-  # Extremely focused list = high score ... too many taxa = not as relevant.
-  def calculate_taxa_relevance
-    taxa = @taxa_count || collection_items.taxa.count
-    score = case taxa
-            when 0
-              0 # No taxa = irrelvant. Really, you shouldn't get here.
-            when 1
-              100
-            when 2..4
-              100 - (taxa * 4)
-            when 5..300
-              (80 / (taxa / 4.0)).to_i
-            else
-              0 # Way too big.
-            end
-    return 0 if score <= 0
-    return 100 if score >= 100
-    return score.to_i
-  end
-
-  def calculate_item_relevance
-    items = collection_items.count
-    annotated = collection_items.annotated.count
-    item_score = case items
-                 when 0..100
-                   items
-                 else
-                   100
-                 end
-    percent_annotated = annotated <= 0 ? 0 : (items / annotated.to_f)
-    score = ((item_score / 2) + (percent_annotated / 2)).to_i
-    return 0 if score <= 0
-    return 100 if score >= 100
-    return score.to_i
-  end
-
   def set_relevance_if_collection_items_changed
-    relevance = calculate_relevance if collection_items && collection_items.last && collection_items.last.changed?
+    set_relevance if collection_items && collection_items.last && collection_items.last.changed?
   end
 
 end

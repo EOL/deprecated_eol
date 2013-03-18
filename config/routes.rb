@@ -359,7 +359,7 @@ Eol::Application.routes.draw do
   resources :recent_activities, :only => [:index]
   resources :classifications, :only => [:create]
   resources :contacts, :only => [:index, :create, :new]
-  resources :collection_items, :only => [:create, :edit, :update]
+  resources :collection_items, :only => [:create, :show, :edit, :update]
   resources :comments, :only => [:create, :edit, :update, :destroy]
   # when adding a commenting and not logged in, user will get redirected to login
   # then redirected to create via GET. We need to define the abilty to send GET to create

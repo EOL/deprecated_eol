@@ -1,36 +1,23 @@
 class CollectionJobsController < ApplicationController
 
-  before_filter :modal, :only => :choose_target
-
   before_filter :force_login
   before_filter :read_collection_job_from_params
 
   layout 'v2/choose_collect_target'
 
   def create
-    unless @collection_job.target_needed? && ! @collection_job.target_collection_id
+    unless @collection_job.missing_targets?
       if @collection_job.save
         @collection_job.run # TODO - we really want to decide if this is a "big" job and delay it, if so.
-        collection = @collection_job.target_needed? ? @collection_job.target_collection : @collection_job.collection
-        redirect_to collection, notice: complete_notice
+        redirect_to job_should_redirect_to, notice: complete_notice
       else
         redirect_to @collection_job.collection # TODO - errors are lost because we redirect rather than render...  fix.
       end
     end
-    @collections = current_user.all_non_resource_collections
+    @collections = current_user.all_non_resource_collections # A little weird, but use the 'create' view to get the targets...
   end
 
   private
-
-  def modal
-    @modal = true # When this is JS, we need a "go back" link at the bottom if there's an error
-  end
-
-  # TODO - this doesn't even SORT of work.
-  def redirect_to_choose
-    return_to = collection_path(@collection)
-    return redirect_to params.merge(:action => 'choose', :for => for_what, :return_to => return_to).except(*unnecessary_keys_for_redirect)
-  end
 
   def force_login
     raise EOL::Exceptions::MustBeLoggedIn unless logged_in?
@@ -54,12 +41,19 @@ class CollectionJobsController < ApplicationController
     I18n.t("collection_#{@collection_job.command}_complete_with_count",
            :count => @collection_job.item_count,
            :from => link_to_name(@collection_job.collection),
-           :to => link_to_name(@collection_job.target_collection))
+           :to => @collection_job.collections.map { |col| link_to_name(col) }.to_sentence )
   end
 
   def link_to_name(collection)
     return "ERROR: UNKNOWN COLLECTION" unless collection
     self.class.helpers.link_to(collection.name, collection_path(collection))
+  end
+
+  def job_should_redirect_to
+    collection = @collection_job.collection
+    # If they only copy/moved to ONE collection, take them there:
+    collection = @collection_job.collections.first if @collection_job.target_needed? && @collection_job.collections.count == 1
+    collection
   end
 
 end

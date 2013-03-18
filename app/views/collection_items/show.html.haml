@@ -1,0 +1,31 @@
+- # Full page used for editing collection items when JS is disabled.
+#collection_item_edit.site_column
+  - item_type ||= en_type(@collection_item)
+  - if ['image_map', 'image', 'video', 'sound'].include?(item_type)
+    = render :partial => "shared/item_summary_media", :locals => {:item => @collection_item.collected_item, :en_type => item_type, :view_style => 'default'}
+  - elsif ! item_type.blank?
+    = render :partial => "shared/item_summary_#{item_type}", :locals => {:item => @collection_item.collected_item, :view_style => 'default'}
+  - else
+    = I18n.t(:item_details_missing)
+  = form_for @collection_item, :builder => ApplicationHelper::EolFormBuilder do |item_form|
+    = hidden_field_tag :return_to, params[:return_to]
+    %fieldset
+      %dl
+        %dt
+          = item_form.label :annotation
+        %dd
+          = item_form.text_area :annotation, rows: 10
+          %p= item_form.allowed_html_help_tip
+        - if @collection.show_references
+          %dt
+            = item_form.label :refs, raw(I18n.t('helpers.label.collection_item.refs'))
+          %dd
+            = text_area_tag 'references', @references
+        %dt
+          - # TODO: figure out why I18n is not getting the label value automatically for sort_field: label value should override attribute value.
+          = item_form.label :sort_field, raw(I18n.t('helpers.label.collection_item.sort_field'))
+        %dd
+          = item_form.text_field :sort_field
+    %fieldset.actions
+      = item_form.submit I18n.t('helpers.submit.collection_item.update')
+      = link_to I18n.t(:cancel), params[:return_to] || @collection

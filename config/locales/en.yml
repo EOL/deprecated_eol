@@ -173,6 +173,8 @@ en:
         logo: Primary collection image
         additional_annotation_fields: Additional annotation fields
         show_references: References (Text or URL)
+      collection_job:
+        overwrite: "Overwrite"
       collection_item:
         annotation: "Annotation"
         sort_field: "Sort by"
@@ -2601,10 +2603,10 @@ en:
   collection_item_edit_by_javascript_not_authorized_error: "Sorry, you do not have permission to edit this collection item. If you are the collection owner or editor please reload the page and check that you are logged in."
   collection_copy_complete_with_count:
     one: "Copied %{count} item from %{from} to %{to}."
-    other: "Copied %{count} items from %{from} to %{to}."
+    other: "Copied a total of %{count} items from %{from} to %{to}."
   collection_move_complete_with_count:
     one: "Moved %{count} item from %{from} to %{to}."
-    other: "Moved %{count} items from %{from} to %{to}."
+    other: "Moved a total of %{count} items from %{from} to %{to}."
   collection_remove_complete_with_count:
     one: "Removed %{count} item from %{from}."
     other: "Removed %{count} items from %{from}."

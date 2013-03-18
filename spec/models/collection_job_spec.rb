@@ -4,10 +4,10 @@ describe CollectionJob do
 
   # TODO - custom matcher
   def collection_should_include(collection, item)
-    collection.reload.collection_items.map(&:collected_item).should include(item)
+    collection.collection_items.reload.map(&:collected_item).should include(item)
   end
   def collection_should_not_include(collection, item)
-    collection.reload.collection_items.map(&:collected_item).should_not include(item)
+    collection.collection_items.reload.map(&:collected_item).should_not include(item)
   end
 
   def all_item_job(command)
@@ -17,9 +17,11 @@ describe CollectionJob do
   before(:all) do
     @old_val = $INDEX_RECORDS_IN_SOLR_ON_SAVE
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = true # Nothing happens otherwise.
-    load_foundation_cache
-    # Expensive, so let's do this one beforehand:
-    @tc = build_taxon_concept(:scientific_name => 'Ambiguii nomenclatura')
+    Visibility.create_defaults
+    DataType.create_defaults
+    License.create_defaults
+    entry = HierarchyEntry.gen # Gives the TC a name.
+    @tc = entry.taxon_concept
     @user = User.gen
     @has_source_but_not_target = User.gen
     @has_target_but_not_source = User.gen
@@ -27,9 +29,16 @@ describe CollectionJob do
     @person = User.gen
     @source = Collection.gen
     @target = Collection.gen
+    @collection = Collection.gen
     @user.collections = [@source, @target]
     @has_source_but_not_target.collections << @source
     @has_target_but_not_source.collections << @target
+    @source_tc_annotation = 'source tc annotation'
+    @source_tc_refs = [Ref.gen, Ref.gen]
+    @source_tc_sort = 'concept sorter'
+    @source_collection_annotation = 'source collection annotation'
+    @source_collection_refs = [Ref.gen, Ref.gen]
+    @source_collection_sort = 'collection sorter'
   end
 
   after(:all) do
@@ -40,34 +49,22 @@ describe CollectionJob do
   # lots of items, and items can be complicated!  :)
   before(:each) do
     CollectionItem.delete_all
+    @source_tc = CollectionItem.create(collected_item: @tc, name: 'unused', collection: @source,
+                                       added_by_user: @user, annotation: @source_tc_annotation,
+                                       refs: @source_tc_refs, sort_field: @source_tc_sort)
+    @source_dato = CollectionItem.create(collected_item: @dato, name: 'unused', collection: @source,
+                                         added_by_user: @user)
+    @source_collection = CollectionItem.create(collected_item: @collection, name: 'unused', collection: @source,
+                                               added_by_user: @user, annotation: @source_collection_annotation,
+                                               refs: @source_collection_refs, sort_field: @source_collection_sort)
+    CollectionItem.create(collected_item: @person, name: 'unused', collection: @source, added_by_user: @user)
 
-    @source_tc = @source.add @tc
-    @source_tc_annotation = 'source tc annotation'
-    @source_tc_refs = [Ref.gen, Ref.gen]
-    @source_tc_sort = 'concept sorter'
-    @source_tc.annotation = @source_tc_annotation
-    @source_tc.refs = @source_tc_refs
-    @source_tc.sort_field = @source_tc_sort
-    @source_dato = @source.add @dato
-    @source_collection = @source.add @collection = Collection.gen
-    @source_collection_annotation = 'source col annotation'
-    @source_collection_refs = [Ref.gen, Ref.gen]
-    @source_collection_sort = 'collection sorter'
-    @source_collection.annotation = @source_collection_annotation
-    @source_collection.refs = @source_collection_refs
-    @source_collection.sort_field = @source_collection_sort
-
-    @source_person = @source.add @person
-
-    @target.add @tc
-    @target.add @dato
+    CollectionItem.create(collected_item: @tc, name: 'unused', collection: @target, added_by_user: @user)
+    CollectionItem.create(collected_item: @dato, name: 'unused', collection: @target, added_by_user: @user)
 
     # The following assuptions are used in multiple specs, so we check them universally:
-    @source.collection_items.count.should == 4
-    @target.collection_items.count.should == 2
-    collection_should_not_include(@target, @collection)
-    collection_should_not_include(@target, @person)
-
+    @source.reload
+    @target.reload
   end
 
   it 'should copy from one collection to another without copying duplicates' do

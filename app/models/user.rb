@@ -616,7 +616,7 @@ class User < ActiveRecord::Base
   # NOTE - this method ASSUMES it's only being called for a user's own collections.
   def all_non_resource_collections
     return @all_non_resource_collections if defined?(@all_non_resource_collections)
-    collections = all_collections(self) || []
+    collections = published_collections(self) || []
     Collection.preload_associations(collections, [ :resource, :resource_preview ])
     collections.delete_if { |c| c.is_resource_collection? }
     @all_non_resource_collections = collections

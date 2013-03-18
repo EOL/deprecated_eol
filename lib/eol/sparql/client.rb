@@ -1,6 +1,6 @@
 module EOL
   module Sparql
-    class Endpoint
+    class Client
 
       attr_accessor :endpoint_uri, :namespaces, :username, :password, :sparql_client
 
@@ -23,10 +23,12 @@ module EOL
       end
 
       def delete_graph(graph_name)
+        return unless graph_name
         delete_graph_via_sparql_update(graph_name)
       end
 
       def delete_graph_via_sparql_update(graph_name)
+        return unless graph_name
         sparql_update("CLEAR GRAPH <#{graph_name}>")
         sparql_update("DROP SILENT GRAPH <#{graph_name}>")
       end

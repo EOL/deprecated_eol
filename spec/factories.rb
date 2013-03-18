@@ -899,7 +899,7 @@ FactoryGirl.define do
                                           :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                           :logo_url => 'cc_by_small.png') }
     resource_status { ResourceStatus.processed || ResourceStatus.gen_if_not_exists(:label => 'Processed') }
-    accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
+    accesspoint_url 'http://eol.org/opensearchdescription.xml' # Won't work without a real, live URL for an XML file
     refresh_period_hours 0
     resource_created_at 48.hours.ago
     association :hierarchy

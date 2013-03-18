@@ -1,6 +1,6 @@
 module EOL
   module Sparql
-    class VirtuosoEndpoint < Endpoint
+    class VirtuosoClient < Client
 
       attr_accessor :upload_uri
 
@@ -28,8 +28,7 @@ module EOL
           end
           pp response
           if response.code.to_i != 201
-            debugger
-            puts "..."
+            puts " ** SOME DATA FAILED TO LOAD IN VIRTUOSO **"
           end
         end
       end

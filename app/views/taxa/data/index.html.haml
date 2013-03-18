@@ -1,0 +1,36 @@
+- content_for :social_sharing do
+  = render :partial => 'shared/social_sharing'
+.main_container
+  %table.standard
+    %thead
+      %tr
+        %th= "Attribute"
+        %th= "Value"
+        %th= "Added by"
+    - @data.each do |row|
+      %tr
+        %td= row[:attribute]
+        %td= row[:value]
+        %td
+          - if row[:user_added_data_id] && matches = row[:user_added_data_id].to_s.match(/\/([0-9])$/)
+            - user_added_data = UserAddedData.find(matches[1])
+            = link_to user_added_data.user.full_name, user_added_data.user
+          - else
+            = row[:graph]
+  .article
+    .header
+      %h3= "Add some"
+    = form_for UserAddedData.new, :url => user_added_data_path, :builder => ApplicationHelper::EolFormBuilder do |f|
+      = hidden_field_tag 'taxon_concept_id', @taxon_concept.id
+      %fieldset
+        %dl
+          %dt
+            = f.label :predicate
+          %dd
+            = f.text_field :predicate, :size => 100
+          %dt
+            = f.label :object
+          %dd
+            = f.text_field :object, :size => 100
+      %fieldset.actions
+        = submit_tag(I18n.t('submit'))

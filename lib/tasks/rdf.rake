@@ -12,25 +12,25 @@ namespace :rdf do
 
   desc 'load_catalogue_of_life'
   task :load_catalogue_of_life => :environment do
-    importer = EOL::Sparql::ImportCol.new(:triplestore => :four_store)  # :triplestore => :four_store
+    importer = EOL::Sparql::ImportCol.new()
     importer.begin
   end
 
   desc 'load_users'
   task :load_users => :environment do
-    importer = EOL::Sparql::ImportUsers.new(:triplestore => :virtuoso)  # :triplestore => :four_store
+    importer = EOL::Sparql::ImportUsers.new()
     importer.begin
   end
 
   desc 'load_obis'
   task :load_obis => :environment do
-    importer = EOL::Sparql::ImportObis.new(:triplestore => :virtuoso)  # :triplestore => :four_store
+    importer = EOL::Sparql::ImportObis.new()
     importer.begin
   end
 
   desc 'load_anage'
   task :load_anage => :environment do
-    importer = EOL::Sparql::ImportAnage.new(:triplestore => :virtuoso)  # :triplestore => :four_store
+    importer = EOL::Sparql::ImportAnage.new()
     importer.begin
   end
 

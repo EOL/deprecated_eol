@@ -6,11 +6,7 @@ module EOL
 
       def initialize(options={})
         self.graph_name = options[:graph_name]
-        if options[:triplestore] == :four_store
-          self.sparql_client = EOL::Sparql.four_store_connection
-        else
-          self.sparql_client = EOL::Sparql.virtuoso_connection
-        end
+        self.sparql_client = EOL::Sparql.connection
       end
 
     end

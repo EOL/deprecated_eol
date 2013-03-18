@@ -1,6 +1,6 @@
 module EOL
   module Sparql
-    class FourStoreEndpoint < Endpoint
+    class FourStoreClient < Client
 
       attr_accessor :action_uri
 
@@ -50,6 +50,7 @@ module EOL
 
       # # This is an alternative way to delete 4store graphs
       def delete_graph(graph_name)
+        return unless graph_name
         uri = URI(action_uri)
         response = Net::HTTP.start(uri.host, uri.port) do |http|
           request = Net::HTTP::Delete.new("/data/?graph=" + graph_name)

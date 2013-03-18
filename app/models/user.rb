@@ -588,7 +588,7 @@ class User < ActiveRecord::Base
 
   # NOTE - This REMOVES the watchlist (using #shift)!
   def published_collections(as_user = nil)
-    @published_collections ||= all_collections(as_user).shift && all_collections.select { |c| c.published? }
+    @published_collections ||= all_collections(as_user).shift && all_collections(as_user).select { |c| c.published? }
   end
 
   def unpublished_collections(as_user = nil)

@@ -238,34 +238,18 @@ $(function() {
     });
   });
 
-  // TODO - make this less redundant with a.collect.modal (below)
+  // TODO - generalize this with the other modals...
   $('#collection_items .editable a').modal({
     beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
     beforeShow: function() {
-      $('form#new_collection :submit').click(function() {
-        if($('#collection_name').val() == ""){
-          $('.collection_name_error').show();
-          return(false);
-        }
-        if($('#flashes')[0] == undefined) {
-          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
-        }
-        EOL.ajax_submit($(this), { update: $('#flashes') });
-        $('#choose_collections a.close').click();
+      $('form.edit_collection_item :submit').click(function() {
+        EOL.ajax_submit($(this), { update: $('li#collection_item_'+$(this).attr('data-id')+' div.editable') });
+        $('#collection_items_edit a.close').click();
         return(false);
       });
-      $('form#new_collection_item :submit').click(function() {
-        if($('#flashes')[0] == undefined) {
-          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
-        }
-        EOL.ajax_submit($(this), { update: $('#flashes') });
-        $('#choose_collections a.close').click();
-        return(false);
-      });
-      $('#choose_collections a.close_and_go').click(function() { $('#choose_collections a.close').click(); });
     },
     afterClose: function() {
-      $('#collection_items .editable a').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });
+      $('#collection_items .editable a').delay(25).fadeTo(100, 1, function() {$('#collection_items .editable a').css({filter:''}); });
     },
     duration: 200
   });

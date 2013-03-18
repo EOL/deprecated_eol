@@ -176,6 +176,7 @@ Eol::Application.routes.draw do
   resources :collections do
     member do
       get 'choose'
+      get 'reindex'
     end
     collection do
       get 'cache_inaturalist_projects'

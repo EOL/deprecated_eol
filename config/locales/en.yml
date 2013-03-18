@@ -2619,6 +2619,7 @@ en:
   collection_not_destroyed_error: "Sorry, the collection was not deleted."
   collection_not_found_error: Sorry, that collection could not be found.
   collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
+  collection_redindexed: "Collection reindexed."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
   collection_was_removed_by_owner: "This collection was removed by its owner."
   collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."

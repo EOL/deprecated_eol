@@ -1975,20 +1975,35 @@ ko:
     no_topics: 이 포럼에 스레드가 없습니다
     post_by_user_at_time: "%{user}, %{time}"
     posts: 
+      close_window: 닫기
       create: 새 게시물 만들기
+      create_failed: 죄송합니다, 오류가 발생해 게시물을 추가할 수 없습니다
+      create_successful: 게시물을 성공적으로 만들었습니다
+      delete_failed_topic_not_empty: 스레드가 비어있지 않으므로 게시물을 삭제할 수 없습니다
+      delete_successful: 게시물을 성공적으로 삭제했습니다
       deleted_subject: (삭제됨)
       edit: 게시물 편집
       joined_date: "%{date}에 가입함"
       no_subject: (제목 없음)
+      permalink_to_this_post: "이 게시물로의 고유링크:"
+      post_has_been_deleted: 이 게시물은 삭제되었습니다
       post_written_by_user: "%{user} 씀:"
       posts_with_count: 
         one: 게시물 %{count}개
         other: 게시물 %{count}개
       replying_to_post: "답글:"
+      topic_and_post_delete_successful: 게시물과 스레드를 성공적으로 삭제했습니다
+      update_failed: 죄송합니다, 오류가 발생해 게시물을 업데이트할 수 없습니다
+      update_successful: 게시물을 성공적으로 업데이트했습니다
     posts_heading: 게시물
     replies: 답글
     topics: 
       create: 새 스레드 시작
+      create_failed: 죄송합니다, 오류가 발생해 스레드를 추가할 수 없습니다
+      create_successful: 스레드를 성공적으로 만들었습니다
+      delete_failed_not_empty: 스레드가 비어있지 않으므로 스레드를 삭제할 수 없습니다
+      delete_successful: 스레드를 성공적으로 삭제했습니다
+      no_posts: 이 스레드에 게시물이 없습니다
     topics_heading: 스레드
     update_failed: 죄송합니다, 오류가 발생해 포럼을 업데이트할 수 없습니다
     update_successful: 포럼을 성공적으로 업데이트했습니다

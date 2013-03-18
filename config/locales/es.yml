@@ -1,6 +1,7 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Almupg
 # Author: AndreyWiki
 # Author: Armando-Martin
 # Author: Bernardom
@@ -915,7 +916,7 @@ es:
   admin_statistics_link: Estadísticas
   admin_translated_content_page_create_successful_notice: Se ha agregado la traducción a <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, la traducción no se pudo agregar.
-  admin_translated_content_page_delete_confirmation: ¿Está seguro de que desea eliminar la versión en %{language} de "%{page_name}". No se puede deshacer la acción de eliminación.
+  admin_translated_content_page_delete_confirmation: ¿Está seguro de que desea eliminar la versión en %{language} de "%{page_name}"? Las páginas borradas no podrán recuperarse.
   admin_translated_content_page_delete_successful_notice: traducción de página <em>%{page_name}</em>  en %{language} se ha borrado.
   admin_translated_content_page_edit_subheader: Editar traducción a %{language} <em>de %{page_name}</em>
   admin_translated_content_page_edit_tip: Título y el cuerpo son %{required_icon} requeridos.
@@ -928,7 +929,7 @@ es:
   admin_translated_news_item_active: Publicado
   admin_translated_news_item_create_successful_notice: Se ha agregado la traducción a <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, la traducción no se pudo agregar.
-  admin_translated_news_item_delete_confirmation: ¿Estás seguro de que deseas eliminar la versión en %{language} de "%{page_name}". No se puede deshacer la acción de eliminación.
+  admin_translated_news_item_delete_confirmation: ¿Está seguro de que desea eliminar la versión en %{language} de "%{page_name}"? Las páginas borradas no podrán recuperarse.
   admin_translated_news_item_delete_successful_notice: La traducción de la noticia <em>%{page_name}</em> en %{language} se ha borrado.
   admin_translated_news_item_edit_subheader: Editar la traducción en %{language} de la página <em>%{page_name}</em>
   admin_translated_news_item_edit_tip: El título y el cuerpo son %{required_icon} requeridos.

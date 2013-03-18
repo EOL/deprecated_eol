@@ -104,6 +104,11 @@ class CollectionItemsController < ApplicationController
           flash[:notice] = I18n.t(:item_updated_in_collection_notice, :collection_name => @collection_item.collection.name)
           redirect_to(@collection_item.collection)
         end
+        format.js do
+          @collection = @collection_item.collection # Need to know whether refs are shown...
+          render partial: 'collection_items/show_editable_attributes',
+            locals: { collection_item: @collection_item, item_editable: true }
+        end
       end
     else
       respond_to do |format|

@@ -2,6 +2,6 @@
 %ul#collection_items.object_list
   - @collection_items.each do |item|
     - item_type = en_type(item)
-    %li{:class => item_type}
+    %li{class: item_type, id: "collection_item_#{item.id}"}
       = render :partial => 'collection_items/show', :locals => { :collection_item => item, :item_type => item_type,
         :view_style => 'annotated', :item_editable => editable }

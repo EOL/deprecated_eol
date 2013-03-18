@@ -13,6 +13,7 @@ class CollectionsController < ApplicationController
   before_filter :configure_sorting_and_filtering_and_facet_counts, :only => [:show, :update]
   before_filter :build_collection_items, :only => [:show]
   before_filter :load_item, :only => [:choose_editor_target, :choose_collect_target, :create]
+  before_filter :restrict_to_admins, only: :reindex
 
   layout 'v2/collections'
 
@@ -27,6 +28,12 @@ class CollectionsController < ApplicationController
     else
       @rel_canonical_href = collection_url(@collection)
     end
+  end
+
+  def reindex
+    collection = Collection.find(params[:id])
+    SolrCollections.reindex_collection(collection)
+    redirect_to collection, notice: I18n.t(:collection_redindexed)
   end
 
   def new

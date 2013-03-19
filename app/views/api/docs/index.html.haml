@@ -26,23 +26,24 @@
       %p
         =I18n.t(:all_apis_return_by_default_an_xml_response)
         %code<
-          :escaped
-            http://eol.org/api/search/Robin
+          = url_for(:controller => '/api', :action => 'search', :id => 'Robin', :only_path => false)
         %code<
-          :escaped
-            http://eol.org/api/search/Robin.xml
+          = url_for(:controller => '/api', :action => 'search', :id => 'Robin', :format => 'xml', :only_path => false)
       %p
         =I18n.t(:every_method_can_also_return_json_response)
         %code<
-          :escaped
-            http://eol.org/api/search/Robin.json
+          = url_for(:controller => '/api', :action => 'search', :id => 'Robin', :format => 'json', :only_path => false)
       %p
         =I18n.t(:jsonp_by_adding_a_callback_parameter)
         %code<
-          :escaped
-            http://eol.org/api/search/Robin.json?callback=some_neat_function
+          = url_for(:controller => '/api', :action => 'search', :id => 'Robin', :format => 'json', :callback => 'some_neat_function', :only_path => false)
       %p#api_key_section.indent
         =I18n.t(:you_can_identify_yourself_to_eol)
         %code<
-          ="http://eol.org/api/search/Robin?key=1111111111111111111111111111111111"
+          = url_for(:controller => '/api', :action => 'search', :id => 'Robin', :key => 1111111111111111111111111111111111, :only_path => false)
       %p= I18n.t(:each_method_documentation_page_has_formatted_responses)
+      %h3= I18n.t(:caching_results)
+      %p
+        =I18n.t(:api_results_can_be_cached)
+        %code<
+          = url_for(:controller => '/api', :action => 'search', :id => 'Robin', :cache_ttl => 60, :only_path => false)

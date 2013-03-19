@@ -87,29 +87,29 @@ class CollectionItem < ActiveRecord::Base
     params['collection_id'] = self.collection_id || 0
     params['annotation'] = self.annotation || ''
     params['added_by_user_id'] = self.added_by_user_id || 0
-    params['date_created'] = self.created_at.solr_timestamp rescue nil
-    params['date_modified'] = self.updated_at.solr_timestamp rescue nil
+    params['date_created'] = self.created_at.solr_timestamp rescue '1960-01-01T00:00:01Z'
+    params['date_modified'] = self.updated_at.solr_timestamp rescue '1960-01-01T00:00:01Z'
     params['sort_field'] = self.sort_field
     if params['sort_field'].blank?
       params.delete('sort_field')
     end
     params['link_type_id'] = link_type_id if link_type_id
 
-    case self.collected_item
-    when TaxonConcept
+    case self.collected_item_type
+    when 'TaxonConcept'
       unless self.collected_item.entry && self.collected_item.entry.name && self.collected_item.entry.name.canonical_form
         raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
                                                                     :type => 'Missing Hierarchy Entry'))
       end
       params['title'] = self.collected_item.entry.name.canonical_form.string
-    when User
+    when 'User'
       params['title'] = self.collected_item.username
-    when DataObject
+    when 'DataObject'
       params['title'] = self.collected_item.best_title
       params['data_rating'] = self.collected_item.safe_rating
-    when Community
+    when 'Community'
       params['title'] = self.collected_item.name
-    when Collection
+    when 'Collection'
       params['title'] = self.collected_item.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,

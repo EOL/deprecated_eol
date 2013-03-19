@@ -390,10 +390,11 @@ class ApplicationController < ActionController::Base
     return if what === current_user
     watchlist = current_user.watch_collection
     if what.class == DataObject
-      all_revision_ids = DataObject.find_all_by_guid_and_language_id(what.guid, what.language_id, :select => 'id').collect{ |d| d.id }
-      collection_item = CollectionItem.find_by_collection_id_and_collected_item_id_and_collected_item_type(watchlist.id, all_revision_ids, what.class.name)
+      all_revision_ids = DataObject.find_all_by_guid_and_language_id(what.guid, what.language_id, :select => 'id').map { |d| d.id }
+      collection_item = CollectionItem.where(['collection_id = ? AND collected_item_id IN (?) AND collected_item_type = ?',
+                                             watchlist.id, all_revision_ids, what.class.name]).first
     else
-      collection_item = CollectionItem.find_by_collection_id_and_collected_item_id_and_collected_item_type(watchlist.id, what.id, what.class.name)
+      collection_item = CollectionItem.where(['collection_id = ? AND collected_item_id = ? AND collected_item_type = ?', watchlist.id, what.id, what.class.name])
     end
     if collection_item.nil?
       collection_item = begin # We do not care if this fails.

@@ -169,11 +169,10 @@ describe Collection do
     taxa_counts[collections[2].id].should == 3
   end
 
-  it 'should be able to set relevance by calculation' do
+  it 'should be able to set relevance by background calculation' do
     col = Collection.gen
-    col.should_receive(:calculate_relevance).and_return(2)
+    Resque.should_receive(:enqueue).with(CollectionRelevanceCalculator, col.id)
     col.set_relevance
-    col.relevance.should == 2
   end
 
   it 'should know what its default view style is' do

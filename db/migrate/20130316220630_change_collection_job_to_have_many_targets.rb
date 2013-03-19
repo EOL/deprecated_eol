@@ -11,3 +11,5 @@ class ChangeCollectionJobToHaveManyTargets < ActiveRecord::Migration
   def down
     add_column :collection_jobs, :target_collection_id, :integer
     drop_table :collection_jobs_collections
+  end
+end

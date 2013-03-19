@@ -58,8 +58,8 @@ class SolrCollections
     params['collection_id'] = item.collection_id || 0
     params['collection_item_id'] = item.id
     params['data_rating'] = item.collected_item.safe_rating if item.collected_item.is_a?(DataObject)
-    params['date_created'] = item.created_at.solr_timestamp rescue '1960-01-01T00:00:01Z'
-    params['date_modified'] = item.updated_at.solr_timestamp rescue '1960-01-01T00:00:01Z'
+    params['date_created'] = item.created_at.solr_timestamp rescue nil
+    params['date_modified'] = item.updated_at.solr_timestamp rescue nil
     params['link_type_id'] = item.collected_item.link_type.id if item_collected_item_type == 'Link'
     params['object_type'] = item_collected_item_type
     params['object_id'] = item.collected_item_id
@@ -104,4 +104,38 @@ class SolrCollections
     connection.delete_by_query("collection_item_id:#{items.map(&:id).join(',')}")
   end
 
+<<<<<<< HEAD
+  # This builds the hash that Solr expects to see for each collection item. This may not be the best
+  # place for this logic, but ATM this is the only place it's being used.
+  def collection_item_hash(item)
+    unless item.collected_item.respond_to?(:collected_title)
+      raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
+                                                                  :type => item.collected_item.class.name))
+    end
+    
+    # Some items (q.v. DataObject) want to store a more specific type than simply their class name:
+    # TODO - we could just duck-type this on each collectable class.
+    item_collected_item_type = item.collected_item.respond_to?(:collected_type) ?
+      item.collected_item.collected_type :
+      item.collected_item_type
+
+    params = {'data_rating' => 0, 'richness_score' => 0}
+    params['annotation'] = item.annotation || ''
+    params['added_by_user_id'] = item.added_by_user_id || 0
+    params['collection_id'] = item.collection_id || 0
+    params['collection_item_id'] = item.id
+    params['data_rating'] = item.collected_item.safe_rating if item.collected_item.is_a?(DataObject)
+    params['date_created'] = item.created_at.solr_timestamp rescue '1960-01-01T00:00:01Z'
+    params['date_modified'] = item.updated_at.solr_timestamp rescue '1960-01-01T00:00:01Z'
+    params['link_type_id'] = item.collected_item.link_type.id if item_collected_item_type == 'Link'
+    params['object_type'] = item_collected_item_type
+    params['object_id'] = item.collected_item_id
+    params['richness_score'] = item.collected_item.richness if item.respond_to?(:richness) && item.has_richness?
+    params['sort_field'] = item.sort_field unless item.sort_field.blank?
+    params['title'] = item.collected_item.collected_title
+    params
+  end
+
+=======
+>>>>>>> Specs shoud be green.
 end

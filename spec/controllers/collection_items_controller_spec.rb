@@ -13,19 +13,6 @@ describe CollectionItemsController do
     @collection_editor = @test_data[:collection].users.first
   end
 
-  # This method is used both when JS is disabled and enabled rendering different views for HTML and JS formats
-  describe "GET edit" do
-    it "should NOT render edit if user is not logged in" do
-      get :edit, :id => @collection_item.id
-      expect(response).to redirect_to(login_url)
-    end
-    it "should render edit if user has permission to update" do
-      session[:user_id] = @collection_editor.id
-      get :edit, { :id => @collection_item.id }
-      response.should render_template('collection_items/edit') # TODO test JS format response
-    end
-  end
-
   # This method is used when JS is disabled, otherwise items are updated through Collection controller
   describe "POST update" do
     it "should NOT update the item if user not logged in" do

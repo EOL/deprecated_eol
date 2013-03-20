@@ -68,7 +68,7 @@ class ForumsController < ApplicationController
   # DELETE /forums/:id
   def destroy
     @forum = Forum.find(params[:id])
-    if @forum.forum_topics.count == 0
+    if @forum.open_topics.count == 0
       @forum.destroy
       flash[:notice] = I18n.t('forums.delete_successful')
     else

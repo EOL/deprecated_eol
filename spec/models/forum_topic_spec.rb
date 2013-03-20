@@ -20,17 +20,21 @@ describe ForumTopic do
 
   it "should increment the topic count of its forum on create" do
     topic1 = ForumTopic.gen
+    post1 = ForumPost.gen(:forum_topic => topic1)
     topic1.forum.number_of_topics.should == 1
     topic2 = ForumTopic.gen(:forum => topic1.forum)
+    post2 = ForumPost.gen(:forum_topic => topic2)
     topic2.forum.number_of_topics.should == 2
   end
 
   it "should increment the topic count of its forum on destroy" do
     topic1 = ForumTopic.gen
+    post1 = ForumPost.gen(:forum_topic => topic1)
     topic1.forum.number_of_topics.should == 1
     topic2 = ForumTopic.gen(:forum => topic1.forum)
+    post2 = ForumPost.gen(:forum_topic => topic2)
     topic1.forum.number_of_topics.should == 2
-    topic2.destroy
+    topic2.update_attributes({ :deleted_at => Time.now })
     topic1.forum.number_of_topics.should == 1
   end
 

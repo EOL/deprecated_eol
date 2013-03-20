@@ -174,7 +174,7 @@ module EOL
         def self.get_data_objects(taxon_concept, options={})
           # setting some default search options which will get sent to the Solr methods
           solr_search_params = {}
-          solr_search_params[:sort_by] = 'status',
+          solr_search_params[:sort_by] = 'status'
           solr_search_params[:visibility_types] = ['visible']
           solr_search_params[:skip_preload] = true
           if options[:vetted] == 1  # 1 = trusted

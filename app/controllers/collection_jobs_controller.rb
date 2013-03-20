@@ -1,11 +1,13 @@
 class CollectionJobsController < ApplicationController
 
   before_filter :force_login
+  before_filter :create_collection_if_asked
   before_filter :read_collection_job_from_params
 
   layout 'v2/choose_collect_target'
 
   def create
+    create_collection_if_asked
     unless @collection_job.missing_targets?
       if @collection_job.save
         @collection_job.run # TODO - we really want to decide if this is a "big" job and delay it, if so.
@@ -54,6 +56,19 @@ class CollectionJobsController < ApplicationController
     # If they only copy/moved to ONE collection, take them there:
     collection = @collection_job.collections.first if @collection_job.target_needed? && @collection_job.collections.count == 1
     collection
+  end
+
+  def create_collection_if_asked
+    if params[:collection_job] && params[:collection_job][:collection_ids] &&
+       params[:collection_job][:collection_ids].delete("0") && params[:collection_name]
+      collection = Collection.new(name: params[:collection_name])
+      if collection.save
+        collection.users = [current_user]
+        params[:collection_job][:collection_ids] << collection.id
+      else
+        raise "Critical error creating new collection." # this shouldn't happen unless, say, DB is down.
+      end
+    end
   end
 
 end

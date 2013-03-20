@@ -17,7 +17,10 @@
           :locals => { collection: current_user.watch_collection, has_item: item && current_user.watch_collection.has_item?(item), f: f }
         - @collections.reject { |c| c == current_user.watch_collection || c == @collection_job.collection }.each do |collection|
           = render :partial => 'collections_list_item', :locals => { :collection => collection, :has_item => collection.has_item?(@item), f: f }
+        %li
+          = check_box_tag "collection_job[collection_ids][]", 0, false
+          = text_field_tag('collection_name', '', data: { default: I18n.t(:create_a_new_collection) }, size: 24, class: 'clear_on_focus' )
     %fieldset.actions
       = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
       = submit_tag(I18n.t(@collection_job.command))
--# TODO - new collection.  The existing version wasn't usable.  Let's just pass in the name and do everything using the existing form.
+

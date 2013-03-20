@@ -12,7 +12,6 @@ if(!EOL) { var EOL = {}; }
     $.event.props = res;
 }());
 
-
 // TODO - not all of these are required, if we know we won't use them:
 $.ajaxSetup({accepts: {
   '*': "text/javascript, */*",
@@ -22,7 +21,6 @@ $.ajaxSetup({accepts: {
   text: "text/plain",
   xml: "application/xml, text/xml"
 }});
-
 
 // Globally change cursor to busy when we're waiting on AJAX event to finish,
 // except for the homepage march of life
@@ -37,6 +35,11 @@ $(document).on('mouseover', '#social_sharing .facebook', function() {
     $('#social_sharing .facebook').css('z-index', parseInt($('.jcrop-holder > div:first').css('z-index')) + 1);
   }
 });
+
+EOL.check_siblings = function(of, val) {
+  try { $($(of).siblings()).prop('checked', val); }
+  catch(err) { /* Don't care if this fails. */ }
+};
 
 $(function() {
 
@@ -395,11 +398,11 @@ $(function() {
 
   // uncheck search filter All when other options are selected
   $("#main_search_type_filter input[type=checkbox][value!='all']").click(function() {
-    $("#main_search_type_filter input[type=checkbox][value='all']").removeAttr("checked");
+    $("#main_search_type_filter input[type=checkbox][value='all']").prop("checked", false);
   });
   // uncheck all other search filter options when All is selected
   $("#main_search_type_filter input[type=checkbox][value='all']").click(function() {
-    $("#main_search_type_filter input[type=checkbox][value!='all']").removeAttr("checked");
+    $("#main_search_type_filter input[type=checkbox][value!='all']").prop("checked", false);
   });
   // disable the checkboxes for filter categories with no results
   $("#main_search_type_filter li.no_results input[type=checkbox]").attr("disabled", true);
@@ -419,11 +422,11 @@ $(function() {
 
   // uncheck media list filter All when other options are selected
   $("#media_list #sidebar input[type=checkbox][value!='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
+    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
   });
   // uncheck all other media list filter options when All is selected
   $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
+    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
   });
   // disable the checkboxes for filter categories with no results
   $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
@@ -514,6 +517,18 @@ $(function() {
   (function($flash_div) {
     $flash_div.delay('5000').fadeOut('slow');
   })($("#flash-bad, #flash-good"));
+
+  $('input.clear_on_focus').each(function() { $(this).val($(this).attr('data-default')); });
+  $('input.clear_on_focus').on('focus', function() {
+    $(this).val('');
+    EOL.check_siblings(this, true);
+  });
+  $('input.clear_on_focus').on('blur', function() {
+    if ($(this).val() == '') {
+      $(this).val($(this).attr('data-default'));
+      EOL.check_siblings(this, false);
+    }
+  });
 
 });
 

@@ -803,7 +803,7 @@ class DataObject < ActiveRecord::Base
   # obvious. It *should* be returning an array of Association objects, which have an interface we expect and can
   # reuse throughout the code.
   #
-  # ...That said, the answer is: HierarchyEntries that have been extended to include visilbity, vetted, name, 
+  # ...That said, the answer is: HierarchyEntries that have been extended to include visibility, vetted, name, 
   # taxon_concept, and added_by_curator methods. Yup, five methods HE doesn't need or have. Awesome.
   def all_associations
     @all_assoc ||= (published_entries + unpublished_entries + [latest_published_users_data_object]).compact
@@ -1030,6 +1030,7 @@ class DataObject < ActiveRecord::Base
     end
   end
 
+  # TODO - this seems odd to me. We essentially have two tables storing the same relationship, but one with extra info?
   def build_relationship_to_taxon_concept_by_user(taxon_concept, user)
     DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, self.id)
     UsersDataObject.create(:user => user, :data_object => self,

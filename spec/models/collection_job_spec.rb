@@ -243,22 +243,37 @@ describe CollectionJob do
   end
 
   it 'should reindex solr after a copy all' do
-    # YOU WERE HERE ... was just re-arranging the SolrCollections module to make these work, but hadn't written the tests yet.
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection).with(@target).and_return(true)
+    all_item_job('copy').run
   end
 
-  it 'should reindex solr after a move all'
-  it 'should reindex solr after a remove all'
-  it 'should reindex solr after a copy items'
-  it 'should reindex solr after a move items'
-  it 'should reindex solr after a remove items'
+  it 'should reindex solr after a move all' do
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection).with(@source).and_return(true)
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection).with(@target).and_return(true)
+    all_item_job('move').run
+  end
 
-  # Possibly premature:
-  it 'should remove caches after a copy'
-  it 'should remove caches after a move'
-  it 'should remove caches after a remove'
+  it 'should reindex solr after a remove all' do
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:remove_collection).with(@source).and_return(true)
+    all_item_job('remove').run
+  end
+
+  it 'should reindex solr after a copy items' do
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection_items).once.and_return(true) # Sadly, we can't tell what args will be passed in here...
+    CollectionJob.new(command: 'copy', user: @user, collection: @source, collections: [@target], collection_item_ids: [@source_collection.id]).run
+  end
+
+  it 'should reindex solr after a move items' do
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection_items).with([@source_collection]).and_return(true)
+    CollectionJob.new(command: 'move', user: @user, collection: @source, collections: [@target], collection_item_ids: [@source_collection.id]).run
+  end
+
+  it 'should reindex solr after a remove items' do
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:remove_collection_items).with([@source_collection]).and_return(true)
+    CollectionJob.new(command: 'remove', user: @user, collection: @source, collections: [@target], collection_item_ids: [@source_collection.id]).run
+  end
 
   it 'should be able to copy to multiple target collections'
-
   it 'should be able to move to multiple target collections'
 
 end

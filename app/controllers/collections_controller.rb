@@ -32,7 +32,7 @@ class CollectionsController < ApplicationController
 
   def reindex
     collection = Collection.find(params[:id])
-    SolrCollections.reindex_collection(collection)
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
     redirect_to collection, notice: I18n.t(:collection_redindexed)
   end
 

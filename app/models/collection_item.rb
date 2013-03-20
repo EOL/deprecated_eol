@@ -53,11 +53,11 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def reindex_collection_item_in_solr
-    SolrCollections.reindex_collection_items([self])
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items([self])
   end
 
   def remove_collection_item_from_solr
-    SolrCollections.remove_collection_items([self])
+    EOL::Solr::CollectionItemsCoreRebuilder.remove_collection_items([self])
   end
 
   # This is somewhat expensive (can take a second to run), so use sparringly.

@@ -3,8 +3,6 @@ class CollectionJob < ActiveRecord::Base
 
   VALID_COMMANDS = %w(copy move remove)
 
-  MAX_ITEMS_TO_REINDEX = 250
-
   # Columns that users are allowed to copy when they don't own the source:
   SAFE_COLUMNS = %w(collected_item_id collected_item_type).join(',')
 
@@ -41,18 +39,18 @@ class CollectionJob < ActiveRecord::Base
       end
       if remove?
         if all_items?
-          SolrCollections.remove_collection(collection)
+          EOL::Solr::CollectionItemsCoreRebuilder.remove_collection(collection)
         else
-          SolrCollections.remove_collection_items(collection_items)
+          EOL::Solr::CollectionItemsCoreRebuilder.remove_collection_items(collection_items)
         end
       else
-        if ! all_items? && count < MAX_ITEMS_TO_REINDEX
-          SolrCollections.reindex_collection_items(affected)
+        if ! all_items?
+          EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items(affected)
         else
-          SolrCollections.reindex_collection(collection) unless copy?
+          EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection) unless copy?
           if target_needed?
             collections.each do |target_collection|
-              SolrCollections.reindex_collection(target_collection)
+              EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(target_collection)
             end
           end
         end

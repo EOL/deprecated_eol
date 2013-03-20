@@ -2923,6 +2923,7 @@ en:
     one: "%{count} result for <em>%{search_term}</em>"
     other: "%{count} results for <em>%{search_term}</em>"
   create_account: "create an account"
+  create_a_new_collection: "Create a new collection"
   create_community_unsuccessful_error: "Sorry, an error occurred, your community was not created. Please ensure all fields are completed correctly."
   create_community: "Create community"
   create_community_about_heading: "About creating a community"

@@ -589,7 +589,7 @@ p.flag, span.flag
     border-color: #f2d2cc
     background: #ffeae6
     a
-      #E84226
+      color: #E84226
 
 /** Hierarchy Entry classification browser does not have styles from HR
   * HR assumes a list of classifications, where each top level list item is the container
@@ -916,13 +916,18 @@ form
     padding: 0
 .new_collection_job
   #sidebar 
-    border-left: 1px solid #93a4b0
+    border-left: 1px solid $darker_gray
     margin-left: 10px
-    #overwrite label
-      font-size: 0.9em
-      font-weight: bold
-      text-transform: uppercase
-      color: $loafer_text_color
+    #overwrite
+      margin-top: 1.3em
+      input[type="checkbox"]
+        float: left
+        margin-right: 0.5em
+      label
+        font-size: 0.9em
+        font-weight: bold
+        text-transform: uppercase
+        color: $loafer_text_color
 table.standard
   td.nowrap
     white-space: nowrap
@@ -1279,6 +1284,12 @@ table.classifications
 
 #new_collection_job
   ul.object_list
-    width: 502px
+    width: 515px
   #sidebar
     width: 170px
+
+// Squeeze a few more pixels out of collections:
+#collection.main_container
+  padding: 0 0 0 17px
+  border-right: 0
+  border-left: 1px solid $darker_gray

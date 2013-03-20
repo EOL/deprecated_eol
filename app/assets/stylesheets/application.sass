@@ -104,7 +104,7 @@ form
   left: -1px
   z-index: 1
   padding: 0 17px
-  border: 1px solid #93a4b0
+  border: 1px solid $darker_gray
   border-width: 0 1px
   .heading
     position: relative
@@ -181,7 +181,7 @@ ul.tabs
     margin: 0 0 1px 0
     font-weight: bold
     border: 1px solid #cad3db
-    border-right-color: #93a4b0
+    border-right-color: $darker_gray
     +border-top-left-radius(3px)
     +border-bottom-left-radius(3px)
     +gradient-bg-horizontal(#ffffff, #f0f4f7)
@@ -191,11 +191,11 @@ ul.tabs
       text-decoration: none
       color: #616e7a
     &:hover
-      border-color: #93a4b0
+      border-color: $darker_gray
       a
         color: #28323a
     &.active
-      border-color: #93a4b0
+      border-color: $darker_gray
       border-right-color: #ffffff
       +gradient-bg-horizontal(#fff, #fff)
       a
@@ -760,10 +760,10 @@ body
             text-decoration: none
             color: #616e7a
             &:hover
-              border-color: #93a4b0
+              border-color: $darker_gray
           &.active
             a
-              border-color: #93a4b0
+              border-color: $darker_gray
               background: #e2e9ef
               color: #394651
     .copy
@@ -795,7 +795,7 @@ body
 
 #page_heading
   padding: 10px 0 0 0
-  border-bottom: 1px solid #93a4b0
+  border-bottom: 1px solid $darker_gray
   background: #e2e9ef
   .hgroup
     float: left
@@ -937,7 +937,7 @@ body
         color: #616e7a
       &.active,
       &:hover
-        border-color: #93a4b0
+        border-color: $darker_gray
         a
           color: #28323a
       &.active
@@ -2176,7 +2176,7 @@ ul.content_partner_contacts
       float: left
       width: 360px
       margin: 0 20px 25px 0
-      border: 1px solid #93a4b0
+      border: 1px solid $darker_gray
       border-top: none
       border-bottom: none
       li
@@ -2187,11 +2187,11 @@ ul.content_partner_contacts
         padding: 10px
         cursor: pointer
         background: #f3f7fa
-        border-top: 1px solid #93a4b0
+        border-top: 1px solid $darker_gray
         + li
           border-top: 1px solid #d7dadc
         &.last
-          border-bottom: 1px solid #93a4b0
+          border-bottom: 1px solid $darker_gray
         &:hover
           background-color: #ffffff
         p
@@ -2251,7 +2251,7 @@ ul.content_partner_contacts
         &.active
           width: 340px
           padding-right: 30px
-          border: 1px solid #93a4b0
+          border: 1px solid $darker_gray
           border-left: none
           border-right-color: #ffffff
           background: #ffffff
@@ -2264,7 +2264,7 @@ ul.content_partner_contacts
   #task
     overflow: hidden
     padding: 19px
-    border: 1px solid #93a4b0
+    border: 1px solid $darker_gray
     #sidebar
       h3
         padding: 0 10px 3px 10px
@@ -2579,7 +2579,7 @@ ul.content_partner_contacts
           display: none
     dl
       position: relative
-      border: 1px solid #93a4b0
+      border: 1px solid $darker_gray
       line-height: 2.2em
       background: #f6f8fa
       margin: 0 0 40px 0
@@ -2605,7 +2605,7 @@ ul.content_partner_contacts
       dd
         margin: 0
         width: 160px
-        border-right: 1px solid #93a4b0
+        border-right: 1px solid $darker_gray
         background: #e2e9ef
         float: left
         text-align: right
@@ -2618,7 +2618,7 @@ ul.content_partner_contacts
           float: right
           text-align: left
           border-right: none
-          border-left: 1px solid #93a4b0
+          border-left: 1px solid $darker_gray
         span
           display: block
           background: #e2e9ef
@@ -2630,7 +2630,7 @@ ul.content_partner_contacts
           span
             background: #fff
             padding: 0 22px
-            border: 1px solid #93a4b0
+            border: 1px solid $darker_gray
             margin: 1px -3px
             color: #394651
 
@@ -2881,7 +2881,7 @@ ul.spotlite-matches
     fieldset
       &.new_community
         input[type="text"]
-        +input(210px)
+          +input(210px)
       &.new_collection
         overflow: hidden
         margin: 0 0 20px 0

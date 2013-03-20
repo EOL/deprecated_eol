@@ -4,28 +4,52 @@ module EOL
 
       attr_accessor :solr_api, :objects_to_send_to_solr, :debug
 
-      def self.reindex_collection_items_by_ids(collection_item_ids)
-        return unless collection_item_ids && collection_item_ids.class == Array
-        rebuilder = self.new
-        rebuilder.index_collection_items(collection_item_ids)
-      end
-
       def self.begin_rebuild
-        rebuilder = self.new
+        rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
         rebuilder.index_all_collection_items
       end
 
+      def self.reindex_collection(collection)
+        rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
+        rebuilder.index_collection(collection.id)
+      end
+
+      def self.reindex_collection_items(collection_items)
+        rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
+        rebuilder.index_collection_items_by_id(collection_items.map(&:id))
+      end
+
+      def self.reindex_collection_items_by_ids(collection_item_ids)
+        return unless collection_item_ids && collection_item_ids.class == Array
+        rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
+        rebuilder.index_collection_items_by_id(collection_item_ids)
+      end
+
+      def self.remove_collection(collection)
+        rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
+        rebuilder.remove_collection_by_id(collection.id) 
+      end
+
+      def self.remove_collection_items(items)
+        rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
+        rebuilder.remove_collection_items_by_id(items.map(&:id)) 
+      end
+
       def initialize(options={})
-        self.solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
-        self.objects_to_send_to_solr = []
-        self.debug = options[:debug]
+        @solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
+        @objects_to_send_to_solr = []
+        @debug = options[:debug]
       end
 
       def index_collection(collection_id)
         return unless collection_id && collection_id.class == Fixnum
-        solr_api.delete_by_query("collection_id:#{collection_id}")
+        remove_collection_by_id(collection_id)
         result = Collection.connection.execute("SELECT id FROM collection_items WHERE collection_id = #{collection_id}")
-        index_collection_items(result.collect{ |r| r.first })
+        index_collection_items_by_id(result.collect{ |r| r.first })
+      end
+
+      def remove_collection_by_id(collection_id)
+        solr_api.delete_by_query("collection_id:#{collection_id}")
       end
 
       def index_all_collection_items
@@ -37,17 +61,23 @@ module EOL
         while start <= max_id
           puts "Processing ids #{start} to #{start + batch_size - 1} of #{max_id}. Running time #{Time.now - start_time} seconds" if debug
           result = Collection.connection.execute("SELECT id FROM collection_items WHERE id BETWEEN #{start} AND #{start + batch_size - 1}")
-          index_collection_items(result.collect{ |r| r.first })
+          index_collection_items_by_id(result.collect{ |r| r.first })
           start += batch_size
         end
       end
 
-      def index_collection_items(collection_item_ids)
+      def index_collection_items_by_id(collection_item_ids)
         return unless collection_item_ids && collection_item_ids.class == Array
         collection_item_ids.each_slice(10000) do |batch_ids|
           index_batch(batch_ids)
         end
       end
+
+      def remove_collection_items_by_id(item_ids)
+        solr_api.delete_by_ids(item_ids, :commit => false)
+      end
+
+      private
 
       def index_batch(collection_item_ids)
         return unless collection_item_ids && collection_item_ids.class == Array
@@ -57,8 +87,7 @@ module EOL
         lookup_users(collection_item_ids)
         lookup_collections(collection_item_ids)
         lookup_communities(collection_item_ids)
-
-        solr_api.delete_by_ids(collection_item_ids, :commit => false)
+        remove_collection_items_by_id(collection_item_ids)
         unless self.objects_to_send_to_solr.blank?
           solr_api.create(self.objects_to_send_to_solr)
         end

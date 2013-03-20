@@ -174,7 +174,7 @@ en:
         additional_annotation_fields: Additional annotation fields
         show_references: References (Text or URL)
       collection_job:
-        overwrite: "Overwrite"
+        overwrite: "Replace duplicates"
       collection_item:
         annotation: "Annotation"
         sort_field: "Sort by"

@@ -2602,6 +2602,7 @@ en:
   collection_item_not_found_error: "That collection item could not be found."
   collection_item_edit_by_javascript_not_authorized_error: "Sorry, you do not have permission to edit this collection item. If you are the collection owner or editor please reload the page and check that you are logged in."
   collection_items_count:
+    zero: "Empty"
     one: "%{count} item"
     other: "%{count} items"
   collection_copy_complete_with_count:
@@ -2613,8 +2614,14 @@ en:
   collection_remove_complete_with_count:
     one: "Removed %{count} item from %{from}."
     other: "Removed %{count} items from %{from}."
-  collection_copy_choose_target_title: "Choose a collection to copy to:"
-  collection_move_choose_target_title: "Choose a collection to move to:"
+  collection_copy_choose_all_items_target_title: "Copy all items from \"%{collection}\" to:"
+  collection_move_choose_all_items_target_title: "Move all items from \"%{collection}\" to:"
+  collection_copy_choose_target_title_with_count:
+    one: "Copy %{count} item from \"%{collection}\" to:"
+    other: "Copy %{count} items from \"%{collection}\" to:"
+  collection_move_choose_target_title_with_count:
+    one: "Move %{count} item from \"%{collection}\" to:"
+    other: "Move %{count} items from \"%{collection}\" to:"
   collection_name_cannot_be_blank: "Collection name can't be blank"
   collection_name_label: "Collection name"
   collection_newsfeed: "Collection newsfeed"
@@ -3155,6 +3162,7 @@ en:
   error_couldnt_find_community_by_id: "Couldn't find a community that you can manage with id %{id}."
   error_exemplar_chosen_with_invalid_action: "We're sorry, but the classification you have chosen was unchanged: part of the request was lost. You will need to try again."
   error_homepage_or_search_option: "You can either return to the <a href=\"/\">homepage</a> or use our search tool:"
+  error_no_items_selected: "You must either select items from the collection, or select \"All items\" from the drop-down."
   error_watch_collections_cannot_be_shared: "Watch collections cannot be shared"
   error_updating_user: "There was an error updating this user's record"
   every_method_can_also_return_json_response: "Every method can also return a JSON response by adding a .json extension."

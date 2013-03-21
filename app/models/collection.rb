@@ -175,7 +175,12 @@ class Collection < ActiveRecord::Base
 
   def items_from_solr(options={})
     sort_by_style = SortStyle.find(options[:sort_by].blank? ? sort_style_or_default : options[:sort_by])
-    EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
+    items = begin
+              EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
+            rescue ActiveRecord::RecordNotFound
+              logger.error "** ERROR: Collection #{id} failed to find all items... reindexing."
+              EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(self)
+            end
   end
 
   def facet_count(type)

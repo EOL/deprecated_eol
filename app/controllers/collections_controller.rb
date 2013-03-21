@@ -256,8 +256,9 @@ private
   # we don't need the collection items on the update page
   def build_collection_items
     @per_page = @view_as.max_items_per_page || 50
+    # NOTE - I added a reload here because it seems that if one app instance stores the collection, it fails to see the correct items on a page reload.
     @collection_results = @filter == 'editors' ?  [] :
-      @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as)
+      @collection.reload.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as)
     @collection_items = @collection_results.map { |i| i['instance'] }
     if params[:commit_select_all]
       @selected_collection_items = @collection_items.map { |ci| ci.id.to_s }

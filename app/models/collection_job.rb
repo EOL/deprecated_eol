@@ -78,6 +78,10 @@ class CollectionJob < ActiveRecord::Base
     target_needed? && collections.blank?
   end
 
+  def has_items?
+    all_items? || ! collection_items.blank?
+  end
+
 private
 
   def user_can_edit_source

@@ -7,6 +7,9 @@ class CollectionJobsController < ApplicationController
   layout 'v2/choose_collect_target'
 
   def create
+    unless @collection_job.has_items?
+      return redirect_to(@collection_job.collection, notice: I18n.t(:error_no_items_selected))
+    end
     create_collection_if_asked
     unless @collection_job.missing_targets?
       if @collection_job.save

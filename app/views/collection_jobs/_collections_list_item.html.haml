@@ -4,9 +4,8 @@
   - if collection.communities || has_item || collection.id == current_user.watch_collection.id
     %span
       - items_count = collection.collection_items.count
-      - if items_count > 1
-        \&bull;
-        = raw(I18n.t(:collection_items_count, :count => items_count))
+      \&bull;
+      = raw(I18n.t(:collection_items_count, :count => items_count))
       - if collection.communities.count == 1
         - community = collection.communities.first
         \&bull;

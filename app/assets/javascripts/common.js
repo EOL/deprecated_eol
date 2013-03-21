@@ -436,8 +436,8 @@ $(function() {
   });
 
   // When you select all items, hide the checkboxes (and vice-versa) on collection items:
-  $('form.edit_collection #scope').change(function() {
-    if ($('form.edit_collection #scope').val() == 'all_items') {
+  $('form.new_collection_job #scope').change(function() {
+    if ($('form.new_collection_job #scope').val() == 'all_items') {
       $('#collection_items :checkbox').parent().hide();
     } else {
       $('#collection_items :checkbox').parent().show();

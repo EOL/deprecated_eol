@@ -2601,6 +2601,9 @@ en:
   collection_item_edit_page_title: "Edit item in collection <em>%{collection_name}</em>"
   collection_item_not_found_error: "That collection item could not be found."
   collection_item_edit_by_javascript_not_authorized_error: "Sorry, you do not have permission to edit this collection item. If you are the collection owner or editor please reload the page and check that you are logged in."
+  collection_items_count:
+    one: "%{count} item"
+    other: "%{count} items"
   collection_copy_complete_with_count:
     one: "Copied %{count} item from %{from} to %{to}."
     other: "Copied a total of %{count} items from %{from} to %{to}."

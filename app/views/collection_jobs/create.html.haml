@@ -23,4 +23,5 @@
     %fieldset.actions
       = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
       = submit_tag(I18n.t(@collection_job.command))
+      = link_to(I18n.t(:cancel), @collection_job.collection, :class => 'close')
 

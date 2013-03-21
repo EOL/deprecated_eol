@@ -50,7 +50,7 @@ class CollectionRelevanceCalculator
                             else
                               30
                             end
-    is_focus_list_score = focus? ? 20 : 0
+    is_focus_list_score = collection.focus? ? 20 : 0
     score = times_featured_score + times_collected_score + is_focus_list_score
     return 0 if score <= 0
     return 100 if score >= 100

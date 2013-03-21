@@ -32,7 +32,7 @@ module EOL
 
       def self.remove_collection_items(items)
         rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
-        rebuilder.remove_collection_items_by_id(items.map(&:id)) 
+        rebuilder.solr_api.delete_by_ids(items.map(&:id))
       end
 
       def initialize(options={})
@@ -73,10 +73,6 @@ module EOL
         end
       end
 
-      def remove_collection_items_by_id(item_ids)
-        solr_api.delete_by_ids(item_ids, :commit => false)
-      end
-
       private
 
       def index_batch(collection_item_ids)
@@ -87,7 +83,7 @@ module EOL
         lookup_users(collection_item_ids)
         lookup_collections(collection_item_ids)
         lookup_communities(collection_item_ids)
-        remove_collection_items_by_id(collection_item_ids)
+        solr_api.delete_by_ids(collection_item_ids, :commit => false)
         unless self.objects_to_send_to_solr.blank?
           solr_api.create(self.objects_to_send_to_solr)
         end

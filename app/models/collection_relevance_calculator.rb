@@ -7,7 +7,11 @@ class CollectionRelevanceCalculator
 
   def self.perform(id)
     puts "++ #{Time.now.strftime("%F %T")} - CollectionRelevanceCalculator performing for collection ##{id}."
-    CollectionRelevanceCalculator.new(Collection.find(id)).set_relevance
+    begin
+      CollectionRelevanceCalculator.new(Collection.find(id)).set_relevance
+    rescue => e
+      puts "++ #{Time.now.strftime("%F %T")} - ERROR: #{e.message} (#{e.backtrace.first})."
+    end
     puts "++ #{Time.now.strftime("%F %T")} - Done."
   end
 
@@ -96,7 +100,7 @@ class CollectionRelevanceCalculator
       extra_condition = "AND com.id IS NULL"
     end
       
-    count_result = connection.execute("
+    Collection.connection.execute %(
       SELECT COUNT(DISTINCT(c.id))
       FROM collections c
       JOIN collection_items ci ON ( c.id = ci.collection_id )
@@ -104,8 +108,8 @@ class CollectionRelevanceCalculator
         collections_communities cc
         JOIN communities com ON ( cc.community_id = com.id )
       ) ON ( c.id = cc.collection_id )
-      WHERE ( ci.collected_item_id = #{collection.id} AND ci.collected_item_type = 'Collection') #{extra_condition}")
-    count_result.first.first
+      WHERE ( ci.collected_item_id = #{collection.id}
+        AND ci.collected_item_type = 'Collection') #{extra_condition}).first.first
   end
 
 end

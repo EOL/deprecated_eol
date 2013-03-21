@@ -180,6 +180,7 @@ class Collection < ActiveRecord::Base
             rescue ActiveRecord::RecordNotFound
               logger.error "** ERROR: Collection #{id} failed to find all items... reindexing."
               EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(self)
+              EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
             end
   end
 

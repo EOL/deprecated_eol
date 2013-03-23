@@ -3869,6 +3869,9 @@ gl:
   unknown_hierarchy: Xerarquía descoñecida
   unknown_type_not_associated_with_any_published_entries: Estes datos non están asociados a ningún taxon publicado.
   unpublished: Sen publicar
+  unpublished_collections_with_count: 
+    one: "%{count} colección agochada"
+    other: "%{count} coleccións agochadas"
   unreviewed: Sen revisar
   unreviewed_images: Imaxes sen revisar
   unreviewed_maps: Mapas sen revisar

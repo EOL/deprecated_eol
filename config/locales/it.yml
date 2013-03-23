@@ -8,6 +8,7 @@
 # Author: F. Cosoleto
 # Author: Gianfranco
 # Author: Inskatolata
+# Author: Luigipiccoli
 # Author: Mishatk
 # Author: Nemo bis
 # Author: Raoli
@@ -707,6 +708,7 @@ it:
         page_header: Statistiche globali
         page_title: "Amministrazione: statistiche globali"
       users_data_objects: 
+        menu_link: Testo inviato dall'utente
         page_header: Statistiche di testo inviate da utenti
   agent: Agente
   all: tutto

@@ -3876,6 +3876,9 @@ nl:
   unknown_hierarchy: Onbekende hiërarchie
   unknown_type_not_associated_with_any_published_entries: Deze gegevens zijn niet gekoppeld met gepubliceerde taxa.
   unpublished: Ongepubliceerd
+  unpublished_collections_with_count: 
+    one: één verborgen verzameling
+    other: "%{count} verborgen verzamelingen"
   unreviewed: Niet-beoordeeld
   unreviewed_images: Ongecontroleerde afbeeldingen
   unreviewed_maps: Ongecontroleerde kaarten

@@ -107,12 +107,14 @@ class CollectionsController < ApplicationController
 
   def destroy
     if @collection.special? || @collection.communities.count == 1
-      flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
+      flash[:error] = @collection.watch_collection? ?
+        I18n.t(:watch_collections_cannot_be_destroyed) :
+        I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to collection_url(@collection)
     else
-      back = @collection.users.include?(current_user) ?
-        user_collections_url(current_user) :
-        collection_url(@collection.community)
+      back = @collection.communities ?
+        collection_url(@collection.communities.first) :
+        user_collections_url(current_user)
       if @collection.unpublish
         flash[:notice] = I18n.t(:collection_destroyed)
       else

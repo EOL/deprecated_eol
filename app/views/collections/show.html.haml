@@ -13,7 +13,7 @@
   #collection.main_container
     .empty
       %p= I18n.t(:collection_is_empty)
-      - if editable && ! @collection.special?
+      - if editable && ! @collection.special? && ! @collection.communities.count == 1
         = button_to I18n.t(:collection_delete_link), collection_url(@collection), :data => { :confirm => I18n.t(:collection_delete_link) }, :method => :delete
 - else
   #tabs_sidebar

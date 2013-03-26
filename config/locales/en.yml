@@ -4045,7 +4045,7 @@ en:
   source_and_additional_information: "Source and Additional Information"
   source_colon: "Source:"
   special_collection: "Special collection"
-  special_collections_cannot_be_destroyed: This collection is special and cannot be destroyed.
+  special_collections_cannot_be_destroyed: "This collection is the only collection associated with its community and cannot be deleted."
   species_curated: "Species Curated"
   species_profile_model_cp_count_title: "Species Profile Model - Content Partners Count"
   species_profile_model_dato_count_title: "Species Profile Model - Data Objects Count"
@@ -4436,6 +4436,7 @@ en:
   wants_colon: "Wants:"
   watch_list: "Watch list"
   watch_list_newsfeed: "Watch List Newsfeed"
+  watch_collections_cannot_be_destroyed: "This collection is the only collection associated with its community and cannot be deleted."
   warning_you_are_editing_as_admin: "Warning: You are only allowed to edit this page because you are an admin."
   web_service_base_url: "Web service base URL"
   web_users: "Web Users"

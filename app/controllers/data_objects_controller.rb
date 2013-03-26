@@ -122,6 +122,7 @@ class DataObjectsController < ApplicationController
   def edit
     # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
+    @data_object.description = @data_object.description.fix_old_user_added_text_linebreaks
     @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
     @selected_link_type_id = @data_object.link_type.id rescue nil
     if params[:link]

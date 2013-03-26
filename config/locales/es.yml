@@ -17,6 +17,7 @@
 # Author: Larjona
 # Author: McDutchie
 # Author: Mor
+# Author: Penarc
 # Author: Rbcastroc
 # Author: Sampalahnuk
 # Author: Shirayuki
@@ -167,6 +168,10 @@ es:
         udo_published: Texto enviado por el usuario
         udo_published_by_curators: Texto enviado por el responsable de mantenimiento
         udo_published_by_non_curators: Texto no enviado por responsable de mantenimiento
+      forum_category: 
+        title: Nombre de la categoría
+      forum_post: 
+        text: Cuerpo (del texto)
       harvest_event: 
         resource: Recurso
       hierarchy: 
@@ -1004,6 +1009,7 @@ es:
   already_a_member_question: ¿Ya eres miembro?
   already_member_of_community: Ya eres miembro de esta comunidad.
   alternate_classification: Clasificación alternativa
+  alternative_common_name_colon: Nombre vernáculo alternativo
   alternative_name_colon: "Nombre alternativo:"
   amount: Cantidad
   an_unknown_user: Un usuario desconocido
@@ -1084,6 +1090,7 @@ es:
   author_of_peer_reviewed_publication_credential_option: autoría de una publicación revisada por pares (proporcionar referencia)
   authoritative_information: información autorizada
   available: disponible
+  average_rating: valoración promedio
   average_rating_value_of_total: Promedio de calificacio'n %{rating} of %{total}
   back: Volver
   back_to_profile: Regresar al perfil
@@ -1581,6 +1588,7 @@ es:
     other: Copiar %{count} elementos a una nueva colección
   copy_of_name: Copia de %{name}
   copyright: "COPYRIGHT:"
+  correct_donation_message_with_link: Si la información no es correcta, por favor <a href='%{link}'>regresar</a> para realizar los cambios
   could_not_find_collection_error: Lo sentimos, que no se encontró esa colección.
   could_not_find_user: No eres miembro de esta comunidad.
   count: Cantidad
@@ -1608,6 +1616,8 @@ es:
   creative_commons: Creative Commons
   credentials: Credenciales
   credentials_colon: "Credenciales:"
+  crop_image: Recortar la imagen
+  crop_image_thumbnails: Fragmentar la imagen miniatura
   curated: Curada
   curated_association_update_button: Guardar cambios
   curated_objects_of: objetos supervisados de %{name}
@@ -1746,6 +1756,7 @@ es:
     next: Siguiente
     previous: Anterior
   dato_create_cancel: Cancelar
+  dato_create_user_link_error: Lo sentimos, ha ocurrido un error, el enlace no se pudo generar
   dato_create_user_text_error: Lo sentimos, ha ocurrido un error, el artículo no se pudo agregar.
   dato_create_user_text_missing_taxon_id_exception: No se puede construir un texto DataObject o UsersDataObject si un identificador de taxón es nulo.
   dato_create_user_text_missing_user_exception: No se puede construir un texto DataObject o UsersDataObject si el identificador del taxón es nulo.
@@ -1851,6 +1862,7 @@ es:
     one: "%{count} Colección destacada"
     other: "%{count} Colecciones destacadas"
   enter_in_a_search_term_users_a: Introduzca un término de búsqueda que los usuarios estén buscando y, a continuación, el identificador ID del taxón/página resultante a la que deberían dirigirse como sugerencia para esa búsqueda.  El ID del taxón/página se encuentra en la dirección URL de la página a la que desea dirigirlos (por ejemplo, www.eol.org/pages/5 tiene un ID de taxón/página que es 5).  El nombre de la página y la primera imagen se recogerán si están disponibles y se almacenarán con el resultado.
+  eol_accepted_subjects: temas aceptados por EOL
   eol_administration_console: Consola de administración de EOL
   eol_api: EOL API
   eol_api_collections: "EOL API: Colecciones"
@@ -1936,7 +1948,9 @@ es:
       hidden_user_recover_account: Lo sentimos, la recuperación de cuenta está deshabilitada para esa cuenta.
       hidden_user_temporary_login: Lo sentimos, el inicio de sesión y la recuperación de cuenta están desactivados para esa cuenta.
       inactive_user_login: Lo sentimos, esa cuenta aún no está activa. Si no recibiste un correo electrónico de verificación cuando te registraste, por favor, sigue el procedimiento de recuperación de cuenta para verificar tu dirección de correo electrónico y activar tu cuenta.
+      min_assistant_curators_only: Disculpas, el acceso se restringe a los curadores de EOL, con un bivel mínimo de asistente
       min_full_curators_only: El acceso está restringido a los supervisores de EOL con un nivel mínimo de supervisor "Full".
+      min_master_curators_only: Lo sentimos, el acceso se restringe a los curadores de EOL, con un nivel de supervisor principal
   expand_all_children: expandir todas las dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar qué sabe EOL de %{taxon}.
@@ -2025,6 +2039,36 @@ es:
   forgot_password_form_helper: Tenga en cuenta que esa contraseña restablece los mensajes de correo electrónico que son marcados <em>con frecuencia</em> como 'Spam' por los filtros de correo electrónico. Compruebe su carpeta de spam si no recibe el correo electrónico dentro de una hora.
   forgot_password_form_username_or_email_blank_error: Por favor ingrese su nombre de usuario o dirección de correo electrónico para restablecer su contraseña.
   form_validation_errors_for_attribute_assistive: Hay un error de validación en este elemento
+  forums: 
+    administration: Administración
+    buttons: 
+      delete: eliminar
+    categories: 
+      create: Cree una categoría
+    create_failed: Lo sentimos, ha ocurrido un error, no se pudo generar un foro
+    move_failed: No se puede mover el foro
+    posts: 
+      close_window: Cerrar
+      create: Haga un nuevo artículo
+      create_failed: Lo sentimos, se ha producido un error, la página no se pudo actualizar
+      delete_failed_topic_not_empty: el artículo no se puede eliminar, porque el hilo no está vacio
+      deleted_subject: (eliminado)
+      edit: Edite su artículo
+      joined_date: Reunir %{date}
+      no_subject: (sin asunto)
+      permalink_to_this_post: Enlace estable a este artículo
+      post_has_been_deleted: Este artículo ha sido eliminado
+      topic_and_post_delete_successful: Se eliminan artículo y hilo correctamente
+      update_successful: El artículo fue actualizado correctamente
+    posts_heading: Artículo (Publicación)
+    topics: 
+      create: Comenzar un nuevo hilo
+      create_failed: Lo sentimos, ha ocurrido un error, no se pudo generar un nuevo tema
+      create_successful: Un nuevo tema (hilo de conversación) se ha creado correctamente
+      delete_failed_not_empty: el hilo no puede eliminarse porque no está vacío
+      delete_successful: Un nuevo tema (hilo de conversación) se ha eliminado correctamente
+      no_posts: No existen artículos para este hilo (de la conversación)
+    topics_heading: Hilos
   fragment_caching_enabled: La memoria caché de los fragmentos está activada
   frequency: Frecuencia
   frequency_daily: Diario
@@ -2060,6 +2104,7 @@ es:
   google_scholar: Google Académico
   grant_full_curator_link: Conceder
   grant_manager_link: Otorgar papel de administrador
+  grant_permission: concesión
   harvest_id: Identificador ID de la recogida
   harvesting_processes_log: Registro de procesos de recogida
   harvests_for: Recogidas de %{resource}
@@ -2355,6 +2400,8 @@ es:
   if_the_details_parameter_is_not_set: Si el parámetro de detalles no es establecido, entonces solamente el identificador de objeto de datos, tipo de datos, y, en el caso de artículos, el tema será retornado. EL tipo de datos será un valor del %{linka} vocabulario de tipo de datos. EL texto del tema será un valor de la %{linkb} ontología de elementos de información.
   image: Imagen
   image_alt_text: Esta imagen %{vetted_status} es de %{taxon_name}
+  image_crop_failed_error: Lo sentimos, se ha producido un error, la imagen no se pudo recortar
+  image_cropped_notice: La imagen fue recortada correctamente
   image_from_supplier: Imagen de %{whom}
   image_is_no_longer_available: La imagen ya no está disponible
   image_map_alt_text: Este mapa %{vetted_status} es de %{taxon_name}
@@ -2537,8 +2584,10 @@ es:
   license_cc_by_sa_2_0: Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)
+  license_cc_zero: Creative Commons - CCO 1.0 Universal
   license_gnu_fdl: Licencia de documentación libre de GNU (GBU FDL)
   license_gnu_gpl: Licencia Pública General de GNU (GNU GPL)
+  license_no_known_copyright_restrictions: Sin restricciones de derechos de autor
   license_not_applicable: Licencia no aplicable
   license_public_domain: Dominio Público
   licensing: Licencia
@@ -2606,6 +2655,7 @@ es:
   maps_with_count: 
     one: "%{count} Mapa"
     other: "%{count} Mapas"
+  march_of_life_thumbnail_title: Transcurso de la vida.
   matching_users_found_with_count: 
     one: Ha sido encontrado %{count} usuario que coincide con sus criterios de búsqueda.
     other: Han sido encontrado un total de %{count} usuarios que coinciden con sus criterios de búsqueda.
@@ -2929,6 +2979,7 @@ es:
     one: "%{count} taxón"
     other: "%{count} taxones"
   other_us_dollars_amount: "Otros: US$"
+  other_version_links: "Otras versiones: %{version_links}"
   outlink: Enlace externo
   overview: Vista general
   page: Página
@@ -2978,10 +3029,14 @@ es:
   percentage_of_descendants_with_images: porcentaje de descendientes con imágenes
   percentage_of_descendants_with_text: porcentaje de descendientes con texto
   permalink: Permalink
+  permission_granted: Permiso concedido
+  permission_revoked: Permiso denegado
+  permissions_list_header: Permisos en EOL
   person_rating: Evaluación de la persona
   personal_profile_menu: Perfil personal
   personal_space: Espacio personal
   ping_method_description: este método tiene solo dos posibles resultados, puede fracasar (en cuyo caso posiblemente retorne una página de error de EOL), o bien, puede retornar un mensaje de éxito.
+  pinterest: Pinterest
   please_ask_big_before_changing_toc: Consulte con un miembro del grupo de Informática de la Biodiversidad antes de editar la tabla de contenido. Algunos nombres de capítulos no pueden modificarse porque el código apunta a ciertos capítulos por etiqueta. Los elementos de información InfoItems no se pueden asignar en esta interfaz - se debe hacer manualmente en la base de datos.
   please_confirm_your_donation_details: Por favor confirmar los detalles de su donación
   please_indicate_curation_reason: "Por favor, seleccione un motivo y, opcionalmente, deje un comentario de curación:"
@@ -3009,6 +3064,9 @@ es:
   profile_newsfeed: Newsfeed Mio
   profile_picture: Imagen del perfil
   project: Proyecto
+  provide_a_concept_id: para un ID de EOL, los resultados de la búsqueda se limitarán a los miembros de ese grupo taxonómico
+  provide_a_hierarchy_entry_id: Para una entrada jerárquica de ID, los resultados se limitarán a los miembros de ese grupo taxonómico.
+  provide_a_search_string: Para el antecedente, se realizará una búsqueda exacta y esa página se utilizará como grupo taxonómico, que se filtrará contra los resultados de la pesquiza.
   provider: Proveedor
   provider_hierarchies_method_description: Este método retornará referencias a todas las jerarquías proveídas por los Socios de Contenido de EOL. La respuesta incluirá la etiqueta de la jerarquía y el ID único de EOL que la representa
   providers: Proveedores
@@ -3032,6 +3090,7 @@ es:
     one: de %{count} persona
     other: de %{count} personas
   rating_added_notice: Puntaje se agregó exitosamente.
+  rating_learn_more_link: Aprenda sobre valoración
   rating_not_added_error: Lo sentimos, ha ocurrido un error, el puntaje no se pudo agregar.
   recaptcha: Escriba las dos palabras que ve abajo
   recaptcha_incorrect_error_with_anchor: Los caracteres <a href="#%{recaptcha_anchor}"></a> no coinciden, por favor, vuelva a intentarlo.
@@ -3127,12 +3186,14 @@ es:
   return_all_synonyms_for_this_taxon: devolver todos los sinónimos para este taxón
   return_common_names_for_the_page_taxon: devolver todos los nombres comunes para taxón de la página
   return_content_by_vettedness: Si 'vetted' tiene el valor 1 entonces solo se devolverá contenido de confianza. Si 'vetted' es 2 entonces solo se devolverá contenido de confianza y no revisado (no se mostrarán contenidos no fiables). Por defecto, se retornará todo el contenido.
+  return_references_for_the_page_taxon: Entregar todos los nombres vernáculos del taxon de la página
   returns_all_metadata_about_a_particular_collection: Devuelve todos los metadatos sobre una colección particular y los elementos que contiene indexados por EOL
   returns_all_metadata_about_a_particular_data_object: retorna todos los metadatos sobre un objeto de datos particuar (texto, imagen o vídeo) indexado por EOL
   returns_either_a_positive_or_negative_response: retorna una respuesta positiva (indicando que los API están funcionales), o una respuesta negativa, o del todo nada (indicando que en ese momento los APIs no están funcionales).
   revisions: Revisiones
   revoke_full_curator_link: Revocar
   revoke_manager_link: Revocar el papel de administrador
+  revoke_permission: Revocar
   richness_score: Puntuación de riqueza
   rights: Derechos
   rights_holder: Titular de los derechos
@@ -3173,6 +3234,7 @@ es:
   search_term_reports: buscar informes
   search_term_reports_title: Informes de término de búsqueda
   search_the_site: Buscar en el sitio
+  see_all_activity_combinations: vea todas las combinaciones de actividad dentro de 5 minutos.
   see_all_classifications_with_count_html: 
     one: Ver <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
     other: Ver todas <span class="assistive">las %{count} clasificaciones aprobadas en las que aparece este taxón.</span>

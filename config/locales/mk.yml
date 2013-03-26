@@ -3867,6 +3867,9 @@ mk:
   unknown_hierarchy: Непозната хиерархија
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
   unpublished: Необјавено
+  unpublished_collections_with_count: 
+    one: "%{count} скриена збирка"
+    other: "%{count} скриени збирки"
   unreviewed: Непроверено
   unreviewed_images: Непроверени слики
   unreviewed_maps: Непроверени карти

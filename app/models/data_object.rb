@@ -995,15 +995,17 @@ class DataObject < ActiveRecord::Base
   end
 
   def log_activity_in_solr(options)
-    base_index_hash = {
-      'activity_log_unique_key' => "UsersDataObject_#{id}",
-      'activity_log_type' => 'UsersDataObject',
-      'activity_log_id' => self.users_data_object.id,
-      'action_keyword' => options[:keyword],
-      'date_created' => self.updated_at.solr_timestamp || self.created_at.solr_timestamp }
-    base_index_hash[:user_id] = options[:user].id if options[:user]
-    EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects(options))
-    queue_notifications
+    DataObject.with_master do
+      base_index_hash = {
+        'activity_log_unique_key' => "UsersDataObject_#{id}",
+        'activity_log_type' => 'UsersDataObject',
+        'activity_log_id' => self.users_data_object.id,
+        'action_keyword' => options[:keyword],
+        'date_created' => self.updated_at.solr_timestamp || self.created_at.solr_timestamp }
+      base_index_hash[:user_id] = options[:user].id if options[:user]
+      EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects(options))
+      queue_notifications
+    end
   end
 
   def queue_notifications

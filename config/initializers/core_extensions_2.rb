@@ -94,10 +94,11 @@ class String
   # own linebreaking. So this will prevent WYSIWYG text (which always has at least one <p>) and pre-tagged
   # text from getting extra linebreaks. The 'wrap_in_paragraph' parameter will wrap this legacy text into
   # a <p> tag so that the styles on the DataObject page are applied consistently
-  def newlines_into_linebreaks(options={})
-    line_breaks = /[\r\n]+/
+  def fix_old_user_added_text_linebreaks(options={})
+    line_breaks = /[\r\n]/
     unless self.match(/<(br|p)\s*[\/]?\s*>/)  # if there is a br or p tag, then don't do the conversion
       text = self.gsub(line_breaks, '<br/>')
+      text.gsub!(/(<br\/>){2,}/, "<br/><br/>")
       if options[:wrap_in_paragraph]
         return "<p>#{text}</p>"
       else

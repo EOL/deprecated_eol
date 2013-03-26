@@ -54,6 +54,10 @@ module EOL
         end
 
         def self.prepare_hash(params={})
+          if params[:q] =~ /^".*"$/
+            params[:q] = params[:q][1...-1]
+            params[:exact] = true
+          end
           search_response = EOL::Solr::SiteSearch.search_with_pagination(params[:q], :page => params[:page],
             :per_page => params[:per_page], :type => [ 'taxon_concept' ], :exact => params[:exact],
             :filter_by_taxon_concept_id => params[:filter_by_taxon_concept_id],

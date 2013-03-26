@@ -138,6 +138,7 @@ module EOL
       def self.solr_search(query, options = {})
         url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         lucene_query = ''
+        escaped_query = query.gsub(/"/, "\\\"")
         # if its a wildcard search and we're not looking for everything, or all concepts, do a real wildcard search
         if query == '*' && options[:type] && options[:type].size == 1 && types_to_show_all.include?(options[:type].first)
           lucene_query << '*:*'
@@ -150,9 +151,9 @@ module EOL
           # create initial query, 'exact' or 'contains'
           query.fix_spaces
           if options[:exact]
-            lucene_query << "keyword_exact:\"#{query}\"^5"
+            lucene_query << "keyword_exact:\"#{escaped_query}\"^5"
           else
-            lucene_query << "(keyword_exact:\"#{query}\"^5 OR #{self.keyword_field_for_term(query)}:\"#{query}\"~10^2)"
+            lucene_query << "(keyword_exact:\"#{escaped_query}\"^5 OR #{self.keyword_field_for_term(query)}:\"#{escaped_query}\"~10^2)"
           end
         
           # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
@@ -177,7 +178,7 @@ module EOL
         end
         
         # add spellchecking - its using the spellcheck.q option because the main query main have gotten too complicated
-        url << '&spellcheck.q=' + CGI.escape(%Q[#{query}]) + '&spellcheck=true&spellcheck.count=500'
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=500'
         
         # add grouping and faceting
         url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on"
@@ -236,14 +237,15 @@ module EOL
 
       def self.get_facet_counts(query, options={})
         url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
+        escaped_query = query.gsub(/"/, "\\\"")
         if query == '*'
           url << CGI.escape('*:* AND (resource_type:' + types_to_show_all.join(' OR resource_type:') + ')')
         else
           # create initial query, 'exact' or 'contains'
           if options[:exact]
-            url << CGI.escape("keyword_exact:\"#{query}\"")
+            url << CGI.escape("keyword_exact:\"#{escaped_query}\"")
           else
-            url << CGI.escape("(keyword_exact:\"#{query}\" OR #{self.keyword_field_for_term(query)}:\"#{query}\")")
+            url << CGI.escape("(keyword_exact:\"#{escaped_query}\" OR #{self.keyword_field_for_term(query)}:\"#{escaped_query}\")")
           end
           
           # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts

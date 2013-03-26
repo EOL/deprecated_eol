@@ -49,7 +49,7 @@
               %h4= @overview.summary.object_title
             - @overview.summary.description = @overview.summary.description_linked unless @overview.summary.description_linked.blank? rescue nil
             - if @overview.summary.added_by_user?
-              = raw(Sanitize.clean(@overview.summary.description.balance_tags, Sanitize::Config::RELAXED))
+              = raw(Sanitize.clean(@overview.summary.description.balance_tags.fix_old_user_added_text_linebreaks, Sanitize::Config::RELAXED))
             - else
               = raw(@overview.summary.description.balance_tags)
           %p.flag{:class => item_status_class}= item_status_label

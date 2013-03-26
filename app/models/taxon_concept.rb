@@ -819,6 +819,11 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConceptsFlattened.descendants_of(id).count
   end
 
+  def reindex
+    reload
+    reindex_in_solr
+  end
+
   # These methods are defined in config/initializers, FWIW:
   def reindex_in_solr
     remove_from_index

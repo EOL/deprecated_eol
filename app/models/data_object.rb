@@ -672,13 +672,6 @@ class DataObject < ActiveRecord::Base
     associations.sort_by{ |a| a.vetted.view_order }.first
   end
 
-  # To retrieve the vetted status of an association by using given hierarchy entry
-  def vetted_by_hierarchy_entry(hierarchy_entry)
-    association = association_for_hierarchy_entry(hierarchy_entry)
-    return association.vetted unless association.blank?
-    return nil
-  end
-
   # To retrieve the vetted status of an association by using given taxon concept
   def vetted_by_taxon_concept(taxon_concept, options={})
     if association = association_with_exact_or_best_vetted_status(taxon_concept, options)
@@ -817,15 +810,10 @@ class DataObject < ActiveRecord::Base
     latest_published_version_in_same_language.users_data_object if users_data_object && latest_published_version_in_same_language
   end
 
+  # TODO - The only place this is used is app/controllers/feeds_controller.rb ...which doesn't actually seem terribly important (it's the partner feed). Can't we use the
+  # find-concept-by-hierarchy-entry using the partner's entry or something?
   def first_concept_name
     first_hierarchy_entry.name.string rescue nil
-  end
-
-  def first_taxon_concept
-    if created_by_user?
-      return users_data_object.taxon_concept
-    end
-    first_hierarchy_entry.taxon_concept rescue nil
   end
 
   def first_hierarchy_entry(options={})
@@ -1085,14 +1073,11 @@ class DataObject < ActiveRecord::Base
     super
   end
 
-  # TODO - I changed all instances of #update_solr_index to use this instead, but then specs were failing. ...That's
-  # sad.  Please fix.  :)
-  # NOTE this is somewhat expensive (it takes miliseconds for each association), so don't call this on large
-  # collections of data objects:
+  # NOTE this is expensive, so don't call this on large collections of data objects:
   def reindex
     reload
     update_solr_index
-    all_published_associations.map(&:taxon_concept).each { |tc| tc.reload } # TODO - to be consistent, TC#reindex
+    all_published_associations.map(&:taxon_concept).each { |tc| tc.reindex }
   end
 
   def can_be_deleted_by?(requestor)

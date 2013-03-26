@@ -97,7 +97,7 @@
         - dato = association.class.name == 'DataObject' ? DataObject.load_for_title_only(association) : nil
         - taxon = association.class.name == 'TaxonConcept' ? TaxonConcept.load_for_title_only(association) : nil
         %h2= raw I18n.t("recent_activity.bulk_curation_with_count", :count => items.count,
-          :to => link_to((taxon || dato).summary_name, link_to_item(taxon || dato), :style => 'color:#195184'))
+          :to => raw(link_to((taxon || dato).summary_name, link_to_item(taxon || dato), :style => 'color:#195184')))
         - items.each do |item|
           = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
             :action => render(:partial => 'activity_logs/curator_activity_log',

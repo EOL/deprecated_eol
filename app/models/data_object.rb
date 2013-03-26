@@ -846,7 +846,7 @@ class DataObject < ActiveRecord::Base
     return I18n.t(:unknown_data_object_title).html_safe
   end
   alias :summary_name :best_title
-  alias :collected_title :best_title
+  alias :collected_name :best_title
 
   # NOTE - if you plan on calling this, you are behooved by adding object_title to your selects. You MUST select
   # description and data_type_id.

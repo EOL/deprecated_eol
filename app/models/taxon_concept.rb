@@ -464,14 +464,12 @@ class TaxonConcept < ActiveRecord::Base
   end
   alias :summary_name :title
 
-  # TODO - move to TaxonPage
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry(hierarchy).nil?
     @title_canonical = entry(hierarchy).title_canonical
   end
 
-  # TODO - move to TaxonPage
   def title_canonical_italicized(hierarchy = nil)
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
     return '' if entry(hierarchy).nil?
@@ -989,7 +987,7 @@ class TaxonConcept < ActiveRecord::Base
     TaxonClassificationsLock.create(:taxon_concept_id => self.id)
   end
 
-  def collected_title
+  def collected_name
     raise(EOL::Exceptions::InvalidCollectionItemType.new(
       I18n.t(:cannot_index_collection_item_type_error, :type => 'Missing Hierarchy Entry')
     )) unless has_canonical_form?

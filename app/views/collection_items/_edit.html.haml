@@ -1,7 +1,7 @@
 -# Okay, weeeeeeeeird, but: this form fixes a problem (?) in Chrome, at least, where the action gets replaced with the action on the page's other form (which is wrong).
 = raw %(<form> </form>)
 #collection_items_edit
-  %h2= @collection_item.name
+  %h2= @collection_item.collected_item.collected_name
   = form_for(@collection_item) do |f|
     %fieldset
       %dl

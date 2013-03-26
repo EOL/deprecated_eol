@@ -221,9 +221,10 @@ class User < ActiveRecord::Base
       return [given_name, family_name].join(' ').strip
     end
   end
-  alias summary_name full_name # This is for collection item duck-typing, you need not use this elsewhere.
+  alias :summary_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
+  alias :collected_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
 
-  alias_attribute :collected_title, :username # This is for collection item duck-typing, you need not use this elsewhere.
+  alias_attribute :collected_name, :username # This is for collection item duck-typing, you need not use this elsewhere.
 
   # Note that this can end up being expensive, but avoids errors.  Watch your qeries!
   def reload_all_values_if_missing(which)

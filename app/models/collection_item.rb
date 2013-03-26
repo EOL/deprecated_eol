@@ -1,6 +1,6 @@
 # NOTE - you can get a list of all the possible collection item types with this command:
 # git grep "has_many :collection_items, :as" app
-# ...Also note, that to be "collectable", you must implement #summary_name and #collected_title.
+# ...Also note, that to be "collectable", you must implement #summary_name and #collected_name.
 class CollectionItem < ActiveRecord::Base
 
   belongs_to :collection, :touch => true

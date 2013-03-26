@@ -54,7 +54,7 @@ class Collection < ActiveRecord::Base
 
   alias :items :collection_items
   alias_attribute :summary_name, :name
-  alias_attribute :collected_title, :name
+  alias_attribute :collected_name, :name
 
   def self.which_contain(what)
     Collection.joins(:collection_items).where(:collection_items => { :collected_item_type => what.class.name,

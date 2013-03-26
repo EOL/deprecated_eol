@@ -3,7 +3,7 @@
   - unless view_style == 'list'
     = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_link_assistive)}), data_object_path(item)
   %h4
-    = link_to item.best_title.truncate_html(:length => 64), data_object_path(item)
+    = link_to item.collected_name.truncate_html(:length => 64), data_object_path(item)
     - if view_style == 'list' && @filter.nil?
       %small= I18n.t(:item_type_link)
   - unless ['gallery','list'].include?(view_style)

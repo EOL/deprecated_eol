@@ -24,7 +24,7 @@ describe Users::CollectionsController do
     it "should instantiate and sort user collections" do
       assigns[:published_collections].should be_a(Array)
       assigns[:published_collections].first.should be_a(Collection)
-      assigns[:published_collections].should == assigns[:published_collections].sort_by { |c| - c.created_at.to_i }
+      assigns[:published_collections].should == assigns[:published_collections].sort_by(&:name)
 
       get :index, :user_id => @collections[:user].id.to_i, :sort_by => "oldest"
       assigns[:published_collections].should == assigns[:published_collections].sort_by(&:created_at)

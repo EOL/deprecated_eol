@@ -45,7 +45,7 @@ module EOL
           return_hash['dataObjectVersionID'] = data_object.id
           return_hash['dataType'] = data_object.data_type.schema_value
           return_hash['dataSubtype'] = data_object.data_subtype.label rescue ''
-          return_hash['vettedStatus'] = data_object.association.vetted.label unless data_object.association.vetted.blank?
+          return_hash['vettedStatus'] = data_object.an_association.vetted.label unless data_object.an_association.vetted.blank?
           return_hash['dataRating'] = data_object.data_rating
           if data_object.is_text?
             if data_object.created_by_user? && !data_object.toc_items.blank?

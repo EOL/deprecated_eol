@@ -647,7 +647,7 @@ class DataObject < ActiveRecord::Base
   # Associations:
 
   def associated_with_entry?(he)
-    association(:hierarchy_entry => he)
+    an_association(hierarchy_entry: he)
   end
 
   def visibility_by_taxon_concept(taxon_concept)

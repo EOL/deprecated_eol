@@ -38,18 +38,16 @@ describe DataObject do
     published_do = build_data_object('Text', 'This is a test wikipedia article content', :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => published_do.id)
     published_do.toc_items << TocItem.wikipedia
-    published_do_association = published_do.association_with_exact_or_best_vetted_status(@taxon_concept)
 
     preview_do = build_data_object('Text', 'This is a test wikipedia article content', :guid => published_do.guid,
                                    :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => preview_do.id)
     preview_do.toc_items << TocItem.wikipedia
-    preview_do_association = preview_do.association_with_exact_or_best_vetted_status(@taxon_concept)
 
     published_do.published.should be_true
     # ...This one is failing, but it's quite complicated, so I'm coming back to it:
-    preview_do_association.visibility.should == Visibility.preview
-    preview_do_association.vetted.should == Vetted.unknown
+    preview_do.visibility_by_taxon_concept(@taxon_concept).should == Visibility.preview
+    preview_do.vetted_by_taxon_concept(@taxon_concept).should == Vetted.unknown
 
     preview_do.publish_wikipedia_article(@taxon_concept)
     published_do.reindex
@@ -58,8 +56,8 @@ describe DataObject do
     published_do.published.should_not be_true
     preview_do.published.should be_true
 
-    published_do_association.vetted.should == Vetted.trusted
-    published_do_association.visibility.should == Visibility.visible
+    published_do.vetted_by_taxon_concept(@taxon_concept).should == Vetted.trusted
+    published_do.visibility_by_taxon_concept(@taxon_concept).should == Visibility.visible
   end
 
  it 'ratings should have a default rating of 2.5' do

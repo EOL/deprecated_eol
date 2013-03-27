@@ -289,7 +289,7 @@ class User < ActiveRecord::Base
       if comment.parent_type == 'DataObject'
         object = comment.parent
         if !object.blank?
-          best_association = object.association
+          best_association = object.an_association
           if best_association.class.name == 'DataObjectsHierarchyEntry' || best_association.class.name == 'CuratedDataObjectsHierarchyEntry'
             @taxa_commented << best_association.hierarchy_entry.taxon_concept_id rescue nil
           elsif best_association.class.name == 'UsersDataObject'

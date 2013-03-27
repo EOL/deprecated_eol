@@ -57,7 +57,7 @@ describe DataObject do
     preview_do.published.should be_true
 
     published_do.vetted_by_taxon_concept(@taxon_concept).should == Vetted.trusted
-    published_do_association.visibility.should == Visibility.visible
+    published_do.visibility_by_taxon_concept(@taxon_concept).should == Visibility.visible
   end
 
  it 'ratings should have a default rating of 2.5' do

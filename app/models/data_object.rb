@@ -572,12 +572,12 @@ class DataObject < ActiveRecord::Base
     connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
 
-    dato_vetted = self.vetted_by_taxon_concept(taxon_concept)
+    dato_vetted = vetted_by_taxon_concept(taxon_concept)
     dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
-    dato_visibility = self.visibility_by_taxon_concept(taxon_concept)
+    dato_visibility = visibility_by_taxon_concept(taxon_concept)
     dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
 
-    dato_association = self.association_with_taxon_or_best_vetted(taxon_concept)
+    dato_association = association_with_taxon_or_best_vetted(taxon_concept)
     dato_association.visibility_id = Visibility.visible.id
     dato_association.vetted_id = Vetted.trusted.id
     dato_association.save!
@@ -651,33 +651,36 @@ class DataObject < ActiveRecord::Base
   end
 
   def visibility_by_taxon_concept(taxon_concept)
-    return a = association_with_taxon_or_best_vetted(taxon_concept) && a.visibility
+    a = association_with_taxon_or_best_vetted(taxon_concept)
+    return a ? a.visibility : a
   end
   
   def vetted_by_taxon_concept(taxon_concept)
-    return a = association_with_taxon_or_best_vetted(taxon_concept) && a.vetted
+    a = association_with_taxon_or_best_vetted(taxon_concept)
+    return a ? a.vetted : a
   end
 
-  def association(options = {})
+  # NOTE - do NOT rename this "association". It mucks up EVERYTHING.  :)
+  def an_association(options = {})
     associations(options).first
   end
 
   # Options allowed are the :hierarchy_entry or :taxon_concept to filter on. Don't use both.
   # With no options, this sorts by best vetted status.
   def associations(options = {})
-    associations = filter_associations(data_objects_hierarchy_entries, options)
-    associations += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
-      associations.empty? || options.empty?
-    if associations.empty? || options.empty?
+    assocs = filter_associations(data_objects_hierarchy_entries, options)
+    assocs += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
+      assocs.empty? || options.empty?
+    if assocs.empty? || options.empty?
       return [] if options[:hierarchy_entry] # Can't match this on UDO, so there were none.
       if users_data_object
-        associations << users_data_object unless
+        assocs << users_data_object unless
           options[:taxon_concept] && users_data_object.taxon_concept_id != options[:taxon_concept].id
       end
     end
-    associations.compact!
-    return [] if associations.empty?
-    associations.sort_by { |a| a.vetted.view_order }
+    assocs.compact!
+    return [] if assocs.empty?
+    assocs.sort_by { |a| a.vetted.view_order }
   end
 
   # To retrieve the reasons provided while untrusting or hiding an association
@@ -890,11 +893,11 @@ class DataObject < ActiveRecord::Base
   end
 
   def still_associated_with_taxon_concept?(taxon_concept_id)
-    all_associations.each do |association|
-      if association.class == UsersDataObject
-        return true if association.taxon_concept_id == taxon_concept_id
+    all_associations.each do |assoc|
+      if assoc.class == UsersDataObject
+        return true if assoc.taxon_concept_id == taxon_concept_id
       else
-        return true if association.taxon_concept.id == taxon_concept_id
+        return true if assoc.taxon_concept.id == taxon_concept_id
       end
     end
     return false
@@ -1155,13 +1158,13 @@ private
     @association_with_taxon_or_best_vetted ||= {}
     return @association_with_taxon_or_best_vetted[taxon_concept.id] if
       @association_with_taxon_or_best_vetted.has_key?(taxon_concept.id)
-    assoc = association(:taxon_concept => taxon_concept)
+    assoc = an_association(:taxon_concept => taxon_concept)
     return @association_with_taxon_or_best_vetted[taxon_concept.id] = assoc unless assoc.blank?
-    return @association_with_taxon_or_best_vetted[taxon_concept.id] = association
+    return @association_with_taxon_or_best_vetted[taxon_concept.id] = an_association
   end
 
-  def filter_associations(associations, options = {})
-    associations.select do |dohe|
+  def filter_associations(assocs, options = {})
+    assocs.select do |dohe|
       if options[:taxon_concept]
         dohe.hierarchy_entry.taxon_concept_id == options[:taxon_concept].id
       elsif options[:hierarchy_entry]

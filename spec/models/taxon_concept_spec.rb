@@ -254,7 +254,7 @@ describe TaxonConcept do
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids)).map { |item|
-      item_vetted = item.association.vetted
+      item_vetted = item.an_association.vetted
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id
     }.uniq.should == [trusted, unknown]
@@ -266,7 +266,7 @@ describe TaxonConcept do
     unknown   = Vetted.unknown.id
     untrusted = Vetted.untrusted.id
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids, :vetted_types => ['trusted', 'unreviewed', 'untrusted'])).map { |item|
-      item_vetted = item.association.vetted
+      item_vetted = item.an_association.vetted
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id
     }.uniq.should == [trusted, unknown, untrusted]
@@ -276,7 +276,7 @@ describe TaxonConcept do
   it 'should sort the vetted images by data rating' do
     @taxon_concept.current_user = @user
     ratings = @taxon_concept.images_from_solr(100).select { |item|
-      item_vetted = item.association.vetted
+      item_vetted = item.an_association.vetted
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id == Vetted.trusted.id
     }.map! {|d| DataObject.find(d).data_rating }

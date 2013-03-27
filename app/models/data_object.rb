@@ -644,25 +644,42 @@ class DataObject < ActiveRecord::Base
     @is_latest_published_version = (the_latest && the_latest.id == self.id) ? true : false
   end
 
-  # To retrieve an association for the data object by using given hierarchy entry
-  def association_for_hierarchy_entry(hierarchy_entry)
-    association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
-    if association.blank?
-      association = all_curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
-    end
-    association
+  def associated_with_entry?(he)
+    association(:hierarchy_entry => he)
   end
 
-  # To retrieve an association for the data object by using given taxon concept
-  def association_for_taxon_concept(taxon_concept)
-    association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
-    if association.blank?
-      association = all_curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
+  def association(options = {})
+    associations(options).first
+  end
+
+  # Options allowed are :hierarchy_entry or :taxon_concept to filter on. With no options, this sorts by best vetted status.
+  def associations(options = {})
+    associations = filter_associations(data_objects_hierarchy_entries, options)
+    associations += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
+      associations.empty? || options.empty?
+    if associations.empty? || options.empty?
+      return [] if options[:hierarchy_entry] # Can't match this on UDO, so there were none.
+      if users_data_object
+        associations << users_data_object unless
+          options[:taxon_concept] && users_data_object.taxon_concept_id != options[:taxon_concept].id
+      end
     end
-    if association.blank?
-      association = users_data_object if users_data_object && users_data_object.taxon_concept_id == taxon_concept.id
+    associations.compact!
+    return [] if associations.empty?
+    associations.sort_by { |a| a.vetted.view_order }
+  end
+
+  # TODO - private
+  def filter_associations(associations, options = {})
+    associations.select do |dohe|
+      if options[:taxon_concept]
+        dohe.hierarchy_entry.taxon_concept_id == options[:taxon_concept].id
+      elsif options[:hierarchy_entry]
+        dohe.hierarchy_entry_id == options[:hierarchy_entry].id
+      else
+        true
+      end
     end
-    association
   end
 
   # To retrieve an association for the data object if taxon concept and hierarchy entry are unknown
@@ -684,15 +701,11 @@ class DataObject < ActiveRecord::Base
   # otherwise retrieve an association with best vetted status.
   # when :find_best is used, we want to prefer the best vetted status
   def association_with_exact_or_best_vetted_status(taxon_concept, options={})
-    if options[:find_best] == true && association = association_with_best_vetted_status
-      return association
-    end
-    association = association_for_taxon_concept(taxon_concept)
-    return association unless association.blank?
-    if !options[:find_best]
-      association = association_with_best_vetted_status
-      return association
-    end
+    return a if options[:find_best] && a = association
+    assoc = association(:taxon_concept => taxon_concept) # TODO - huh?  We'll never get anything here if :find_best is true... it didn't find *anything*, so how can it
+                                                         # match a taxon concept?!
+    return assoc unless assoc.blank?
+    return association unless options[:find_best]
     return nil
   end
 

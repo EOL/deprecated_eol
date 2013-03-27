@@ -9,8 +9,6 @@ describe Association do
   end
 
   # TODO - rewrite DataObject'#association_with_exact_or_best_vetted_status'
-  # TODO - rewrite DataObject'#association_for_hierarchy_entry'
-  # TODO - rewrite DataObject'#association_for_taxon_concept'
   # TODO - rewrite DataObject'#association_with_best_vetted_status'
   # TODO - rewrite DataObject'#vetted_by_taxon_concept'
   # TODO - rewrite DataObject'#visibility_by_taxon_concept'
@@ -32,10 +30,12 @@ describe Association do
     it 'should know its taxon concept'
   end
 
-  it 'should be created with a user, data object, and hierarchy entry'
-  it 'should be removable with a user, data object, and hierarchy entry'
-  it 'should check existence between data object and taxon concept'
-  it 'should be able to add a relationship by a user'
+  describe 'class methods' do
+    it 'should be created with a user, data object, and hierarchy entry'
+    it 'should be removable with a user, data object, and hierarchy entry'
+    it 'should check existence between data object and taxon concept'
+    it 'should be able to add a relationship by a user'
+  end
 
   it 'should know if it was added by a curator'
   it 'should know if it was added by a user'

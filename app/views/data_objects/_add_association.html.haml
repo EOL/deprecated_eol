@@ -12,7 +12,7 @@
     %ul
       - item.entries.each do |he|
         %li
-          - unless data_object.association_for_hierarchy_entry(he).nil?
+          - if data_object.associated_with_entry?(he)
             %form{ :action => data_object_path(data_object) }
               %input.button.associated(type="submit" value="#{I18n.t(:associated_submit_button)}")
           - else

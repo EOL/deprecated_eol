@@ -277,7 +277,7 @@ module EOL
           return if options[:text_subjects] && (options[:text_subjects] & exemplar_object.toc_items).blank?
 
           # confirm vetted state
-          best_association = exemplar_object.association_with_best_vetted_status
+          best_association = exemplar_object.association
           return unless best_association
           best_association_vetted_label = best_association.vetted ? best_association.vetted.label('en').downcase : nil
           best_association_vetted_label = 'unreviewed' if best_association_vetted_label == 'unknown'

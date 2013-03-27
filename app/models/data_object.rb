@@ -97,9 +97,8 @@ class DataObject < ActiveRecord::Base
   # this method is not just sorting by rating
   def self.sort_by_rating(data_objects, taxon_concept = nil, sort_order = [:type, :toc, :visibility, :vetted, :rating, :date])
     data_objects.sort_by do |obj|
-      obj_association = obj.association_with_exact_or_best_vetted_status(taxon_concept)
-      obj_vetted = obj_association.vetted unless obj_association.nil?
-      obj_visibility = obj_association.visibility unless obj_association.nil?
+      obj_vetted = obj.vetted_by_taxon_concept(taxon_concept)
+      obj_visibility = obj.visibility_by_taxon_concept(taxon_concept)
       type_order = obj.data_type_id
       toc_view_order = (!obj.is_text? || obj.toc_items.blank?) ? 0 : obj.toc_items[0].view_order
       vetted_view_order = obj_vetted.blank? ? 0 : obj_vetted.view_order
@@ -167,18 +166,18 @@ class DataObject < ActiveRecord::Base
     # removing from the array the ones not mathching our criteria
     data_objects.compact.select do |d|
       tc = options[:taxon_concept]
-      dato_association = d.association_with_exact_or_best_vetted_status(tc)
-      dato_vetted_id = dato_association.vetted_id unless dato_association.nil?
-      dato_visibility_id = dato_association.visibility_id unless dato_association.nil?
+      dato_vetted = vetted_by_taxon_concept(tc)
+      dato_visibility = visibility_by_taxon_concept(tc)
       # partners see all their PREVIEW or PUBLISHED objects
       # user can see preview objects
-      if show_preview && dato_visibility_id == Visibility.preview.id
+      if show_preview && dato_visibility == Visibility.preview
         true
       # Users can see text that they have added:
       elsif d.added_by_user? && d.users_data_object.user_id == options[:user].id
         true
       # otherwise object must be PUBLISHED and in the vetted and visibility selection
-      elsif d.published == true && vetted_ids.include?(dato_vetted_id) && visibility_ids.include?(dato_visibility_id)
+      elsif d.published? && dato_vetted && dato_visibility &&
+            vetted_ids.include?(dato_vetted.id) && visibility_ids.include?(dato_visibility.id)
         true
       else
         false
@@ -531,7 +530,7 @@ class DataObject < ActiveRecord::Base
       @taxon_concepts = taxon_concepts
     end
     if opts[:published]
-      published, unpublished = @taxon_concepts.partition {|item| item.published?}
+      published, unpublished = @taxon_concepts.partition { |item| item.published? }
       @taxon_concepts = (!published.empty? || opts[:published] == :strict) ? published : unpublished
     end
     @taxon_concepts
@@ -565,10 +564,10 @@ class DataObject < ActiveRecord::Base
     toc_items.include?(TocItem.wikipedia)
   end
 
+  # TODO - really?  No logging?  Not going through Curation at all?  :S
   def publish_wikipedia_article(taxon_concept)
-    dato_association = self.association_with_exact_or_best_vetted_status(taxon_concept)
     return false unless in_wikipedia?
-    return false unless dato_association.visibility_id == Visibility.preview.id
+    return false unless visibility_by_taxon_concept(taxon_concept) == Visibility.preview
 
     connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
@@ -578,6 +577,7 @@ class DataObject < ActiveRecord::Base
     dato_visibility = self.visibility_by_taxon_concept(taxon_concept)
     dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
 
+    dato_association = self.association_with_taxon_or_best_vetted(taxon_concept)
     dato_association.visibility_id = Visibility.visible.id
     dato_association.vetted_id = Vetted.trusted.id
     dato_association.save!
@@ -644,15 +644,26 @@ class DataObject < ActiveRecord::Base
     @is_latest_published_version = (the_latest && the_latest.id == self.id) ? true : false
   end
 
+  # Associations:
+
   def associated_with_entry?(he)
     association(:hierarchy_entry => he)
+  end
+
+  def visibility_by_taxon_concept(taxon_concept)
+    return a = association_with_taxon_or_best_vetted(taxon_concept) && a.visibility
+  end
+  
+  def vetted_by_taxon_concept(taxon_concept)
+    return a = association_with_taxon_or_best_vetted(taxon_concept) && a.vetted
   end
 
   def association(options = {})
     associations(options).first
   end
 
-  # Options allowed are :hierarchy_entry or :taxon_concept to filter on. With no options, this sorts by best vetted status.
+  # Options allowed are the :hierarchy_entry or :taxon_concept to filter on. Don't use both.
+  # With no options, this sorts by best vetted status.
   def associations(options = {})
     associations = filter_associations(data_objects_hierarchy_entries, options)
     associations += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
@@ -669,54 +680,6 @@ class DataObject < ActiveRecord::Base
     associations.sort_by { |a| a.vetted.view_order }
   end
 
-  # TODO - private
-  def filter_associations(associations, options = {})
-    associations.select do |dohe|
-      if options[:taxon_concept]
-        dohe.hierarchy_entry.taxon_concept_id == options[:taxon_concept].id
-      elsif options[:hierarchy_entry]
-        dohe.hierarchy_entry_id == options[:hierarchy_entry].id
-      else
-        true
-      end
-    end
-  end
-
-  # To retrieve an association for the data object if taxon concept and hierarchy entry are unknown
-  def association_with_best_vetted_status
-    associations = (data_objects_hierarchy_entries + all_curated_data_objects_hierarchy_entries + [users_data_object]).compact
-    return if associations.empty?
-    associations.sort_by{ |a| a.vetted.view_order }.first
-  end
-
-  # To retrieve the vetted status of an association by using given taxon concept
-  def vetted_by_taxon_concept(taxon_concept, options={})
-    if association = association_with_exact_or_best_vetted_status(taxon_concept, options)
-      return association.vetted
-    end
-    return nil
-  end
-
-  # To retrieve an exact association(if exists) for the given taxon concept,
-  # otherwise retrieve an association with best vetted status.
-  # when :find_best is used, we want to prefer the best vetted status
-  def association_with_exact_or_best_vetted_status(taxon_concept, options={})
-    return a if options[:find_best] && a = association
-    assoc = association(:taxon_concept => taxon_concept) # TODO - huh?  We'll never get anything here if :find_best is true... it didn't find *anything*, so how can it
-                                                         # match a taxon concept?!
-    return assoc unless assoc.blank?
-    return association unless options[:find_best]
-    return nil
-  end
-
-  # To retrieve the visibility status of an association by using taxon concept
-  def visibility_by_taxon_concept(taxon_concept, options={})
-    if association = association_with_exact_or_best_vetted_status(taxon_concept, options)
-      return association.visibility
-    end
-    return nil
-  end
-  
   # To retrieve the reasons provided while untrusting or hiding an association
   def reasons(hierarchy_entry, activity)
     if hierarchy_entry.class == UsersDataObject
@@ -802,7 +765,7 @@ class DataObject < ActiveRecord::Base
     good_ids = [Visibility.visible.id]
     good_ids << Visibility.preview.id unless which[:preview] == false
     good_ids << Visibility.invisible.id if which[:invisible]
-    all_associations.select {|asoc| good_ids.include?(asoc.visibility_id) }.compact
+    all_associations.select { |assoc| good_ids.include?(assoc.visibility_id) }
   end
 
   # TODO - what does this return?!  I know the answer, but do you? Would a new developer?  No. It's not at all
@@ -1182,6 +1145,31 @@ private
 
   def self.set_subtype_if_link_object(params, options)
     params[:data_subtype_id] = DataType.link.id if options[:link_object]
+  end
+
+  # To retrieve an exact association(if exists) for the given taxon concept,
+  # otherwise retrieve an association with best vetted status.
+  # TODO - let's put this in Rails.cache to avoid the lookup more often. Clearing it will, of course, be a little tricky.
+  # Expiry should be one day.
+  def association_with_taxon_or_best_vetted(taxon_concept)
+    @association_with_taxon_or_best_vetted ||= {}
+    return @association_with_taxon_or_best_vetted[taxon_concept.id] if
+      @association_with_taxon_or_best_vetted.has_key?(taxon_concept.id)
+    assoc = association(:taxon_concept => taxon_concept)
+    return @association_with_taxon_or_best_vetted[taxon_concept.id] = assoc unless assoc.blank?
+    return @association_with_taxon_or_best_vetted[taxon_concept.id] = association
+  end
+
+  def filter_associations(associations, options = {})
+    associations.select do |dohe|
+      if options[:taxon_concept]
+        dohe.hierarchy_entry.taxon_concept_id == options[:taxon_concept].id
+      elsif options[:hierarchy_entry]
+        dohe.hierarchy_entry_id == options[:hierarchy_entry].id
+      else
+        true
+      end
+    end
   end
 
   def is_subtype?(type)

@@ -8,10 +8,6 @@ describe Association do
     # I'm sure I'll need it...
   end
 
-  # TODO - rewrite DataObject'#association_with_exact_or_best_vetted_status'
-  # TODO - rewrite DataObject'#association_with_best_vetted_status'
-  # TODO - rewrite DataObject'#vetted_by_taxon_concept'
-  # TODO - rewrite DataObject'#visibility_by_taxon_concept'
   # TODO - rewrite DataObject'#filtered_associations'
   # TODO - rewrite DataObject'#all_associations'
   # TODO - rewrite DataObject'#all_published_associations'

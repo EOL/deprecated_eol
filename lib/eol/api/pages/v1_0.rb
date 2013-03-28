@@ -277,12 +277,10 @@ module EOL
           return if options[:text_subjects] && (options[:text_subjects] & exemplar_object.toc_items).blank?
 
           # confirm vetted state
-          best_association = exemplar_object.an_association
-          return unless best_association
-          best_association_vetted_label = best_association.vetted ? best_association.vetted.label('en').downcase : nil
-          best_association_vetted_label = 'unreviewed' if best_association_vetted_label == 'unknown'
-          return unless best_association_vetted_label
-          return if options[:vetted_types] && !options[:vetted_types].include?(best_association_vetted_label)
+          return unless exemplar_object.vetted
+          best_vetted_label = exemplar_object.vetted.label('en').downcase
+          best_vetted_label = 'unreviewed' if best_vetted_label == 'unknown'
+          return if options[:vetted_types] && ! options[:vetted_types].include?(best_vetted_label)
 
           # now add in the exemplar, and remove one if the array is now too large
           original_length = existing_objects_of_same_type.length

@@ -280,27 +280,16 @@ class User < ActiveRecord::Base
   def taxa_commented
     return @taxa_commented unless @taxa_commented.nil?
     # list of taxa where user entered a comment
-    @taxa_commented = []
+    set = Set.new
     Comment.preload_associations(comments.select{ |c| c.parent_type == 'DataObject' },
       { :parent => [ { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { :users_data_object => :vetted } ] },
       :select => [ { :data_objects => :id } ])
     comments.each do |comment|
-      @taxa_commented << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
-      if comment.parent_type == 'DataObject'
-        object = comment.parent
-        if !object.blank?
-          best_association = object.an_association
-          if best_association.class.name == 'DataObjectsHierarchyEntry' || best_association.class.name == 'CuratedDataObjectsHierarchyEntry'
-            @taxa_commented << best_association.hierarchy_entry.taxon_concept_id rescue nil
-          elsif best_association.class.name == 'UsersDataObject'
-            @taxa_commented << best_association.taxon_concept_id
-          end
-        end
-      end
+      set << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
+      set << comment.parent.taxon_concept_id if
+        comment.parent.respond_to?(:taxon_concept_id)
     end
-    @taxa_commented.compact!
-    @taxa_commented.uniq!
-    @taxa_commented
+    @taxa_commented = set.to_a.compact
   end
 
   def total_comment_submitted

@@ -72,9 +72,6 @@ class DataObject < ActiveRecord::Base
 
   attr_accessor :vetted_by, :is_the_latest_published_revision # who changed the state of this object? (not persisted on DataObject but required by observer)
 
-  scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
-  scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
-
   validates_presence_of :description, :if => :is_text?
   validates_presence_of :source_url, :if => :is_link?
   validates_presence_of :rights_holder, :if => :rights_required?
@@ -644,10 +641,19 @@ class DataObject < ActiveRecord::Base
     @is_latest_published_version = (the_latest && the_latest.id == self.id) ? true : false
   end
 
-  # Associations:
+  # NOTE - You probably shouldn't be using these. It isn't really true that a data object has *one* visibility... it
+  # has several. This is currently here only because the old API made that (false) assumption.
+  def visibility
+    @visibility ||= an_association.visibility
+  end
+  def vetted
+    @vetted ||= an_association.vetted
+  end
 
-  def associated_with_entry?(he)
-    an_association(hierarchy_entry: he)
+  # ATM, this is really only used by the User model to get the pages where the user commented...
+  def taxon_concept_id
+    return users_data_object.taxon_concept_id if users_data_object
+    an_association.hierarchy_entry.taxon_concept_id
   end
 
   def visibility_by_taxon_concept(taxon_concept)
@@ -660,27 +666,16 @@ class DataObject < ActiveRecord::Base
     return a ? a.vetted : a
   end
 
-  # NOTE - do NOT rename this "association". It mucks up EVERYTHING.  :)
-  def an_association(options = {})
-    associations(options).first
+  # Really only used in specs.  :\
+  def vet_by_taxon_concept(tc, vet)
+    assoc = an_association(taxon_concept: tc)
+    assoc.vetted_id = vet.id
+    assoc.save!
   end
 
-  # Options allowed are the :hierarchy_entry or :taxon_concept to filter on. Don't use both.
-  # With no options, this sorts by best vetted status.
-  def associations(options = {})
-    assocs = filter_associations(data_objects_hierarchy_entries, options)
-    assocs += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
-      assocs.empty? || options.empty?
-    if assocs.empty? || options.empty?
-      return [] if options[:hierarchy_entry] # Can't match this on UDO, so there were none.
-      if users_data_object
-        assocs << users_data_object unless
-          options[:taxon_concept] && users_data_object.taxon_concept_id != options[:taxon_concept].id
-      end
-    end
-    assocs.compact!
-    return [] if assocs.empty?
-    assocs.sort_by { |a| a.vetted.view_order }
+  # Used in the add-association view to recognize whether an association already exists:
+  def associated_with_entry?(he)
+    an_association(hierarchy_entry: he)
   end
 
   # To retrieve the reasons provided while untrusting or hiding an association
@@ -1148,6 +1143,29 @@ private
 
   def self.set_subtype_if_link_object(params, options)
     params[:data_subtype_id] = DataType.link.id if options[:link_object]
+  end
+
+  # NOTE - do NOT rename this "association". It mucks up EVERYTHING.  :)
+  def an_association(options = {})
+    associations(options).first
+  end
+
+  # Options allowed are the :hierarchy_entry or :taxon_concept to filter on. Don't use both.
+  # With no options, this sorts by best vetted status.
+  def associations(options = {})
+    assocs = filter_associations(data_objects_hierarchy_entries, options)
+    assocs += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
+      assocs.empty? || options.empty?
+    if assocs.empty? || options.empty?
+      return [] if options[:hierarchy_entry] # Can't match this on UDO, so there were none.
+      if users_data_object
+        assocs << users_data_object unless
+          options[:taxon_concept] && users_data_object.taxon_concept_id != options[:taxon_concept].id
+      end
+    end
+    assocs.compact!
+    return [] if assocs.empty?
+    assocs.sort_by { |a| a.vetted.view_order }
   end
 
   # To retrieve an exact association(if exists) for the given taxon concept,

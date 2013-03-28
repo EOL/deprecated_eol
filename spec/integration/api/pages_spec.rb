@@ -171,7 +171,7 @@ describe 'API:pages' do
     images = @taxon_concept.images_from_solr(100, :skip_preload => false)
     # and they should still contain vetted and rating info
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
-      inner_text.should == images.first.an_association.vetted.label
+      inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept).label
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').
       inner_text.should == images.first.data_rating.to_s
   end
@@ -181,7 +181,7 @@ describe 'API:pages' do
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1")
     response['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
-      vetted_stasuses << data_object.an_association.vetted.id
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
     end
     vetted_stasuses.uniq!
     vetted_stasuses.include?(Vetted.unknown.id).should == true
@@ -194,7 +194,7 @@ describe 'API:pages' do
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=1")
     response['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
-      vetted_stasuses << data_object.an_association.vetted.id
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
     end
     vetted_stasuses.uniq!
     vetted_stasuses.include?(Vetted.unknown.id).should == false
@@ -207,7 +207,7 @@ describe 'API:pages' do
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=2")
     response['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
-      vetted_stasuses << data_object.an_association.vetted.id
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
     end
     vetted_stasuses.uniq!
     vetted_stasuses.include?(Vetted.unknown.id).should == true
@@ -239,7 +239,7 @@ describe 'API:pages' do
     response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}")
     images = @taxon_concept.images_from_solr(100, :skip_preload => false)
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
-      inner_text.should == images.first.an_association.vetted.label
+      inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept).label
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').
       inner_text.should == images.first.data_rating.to_s
   end

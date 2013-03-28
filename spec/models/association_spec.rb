@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 require File.dirname(__FILE__) + '/../scenario_helpers'
 
 # Handles the associations between a data object and its taxon concepts.
-describe Association do
+describe DataObjectTaxon do
 
   before(:all) do
     # I'm sure I'll need it...

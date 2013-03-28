@@ -644,16 +644,16 @@ class DataObject < ActiveRecord::Base
   # NOTE - You probably shouldn't be using these. It isn't really true that a data object has *one* visibility... it
   # has several. This is currently here only because the old API made that (false) assumption.
   def visibility
-    @visibility ||= an_association.visibility
+    @visibility ||= raw_association.visibility
   end
   def vetted
-    @vetted ||= an_association.vetted
+    @vetted ||= raw_association.vetted
   end
 
   # ATM, this is really only used by the User model to get the pages where the user commented...
   def taxon_concept_id
     return users_data_object.taxon_concept_id if users_data_object
-    an_association.hierarchy_entry.taxon_concept_id
+    raw_association.hierarchy_entry.taxon_concept_id
   end
 
   def visibility_by_taxon_concept(taxon_concept)
@@ -668,14 +668,14 @@ class DataObject < ActiveRecord::Base
 
   # Really only used in specs.  :\
   def vet_by_taxon_concept(tc, vet)
-    assoc = an_association(taxon_concept: tc)
+    assoc = raw_association(taxon_concept: tc)
     assoc.vetted_id = vet.id
     assoc.save!
   end
 
   # Used in the add-association view to recognize whether an association already exists:
   def associated_with_entry?(he)
-    an_association(hierarchy_entry: he)
+    raw_association(hierarchy_entry: he)
   end
 
   # To retrieve the reasons provided while untrusting or hiding an association
@@ -1145,14 +1145,14 @@ private
     params[:data_subtype_id] = DataType.link.id if options[:link_object]
   end
 
-  # NOTE - do NOT rename this "association". It mucks up EVERYTHING.  :)
-  def an_association(options = {})
-    associations(options).first
+  # NOTE - do NOT rename this "association", that appears to be a reserved Rails name.
+  def raw_association(options = {})
+    raw_associations(options).first
   end
 
   # Options allowed are the :hierarchy_entry or :taxon_concept to filter on. Don't use both.
   # With no options, this sorts by best vetted status.
-  def associations(options = {})
+  def raw_associations(options = {})
     assocs = filter_associations(data_objects_hierarchy_entries, options)
     assocs += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
       assocs.empty? || options.empty?
@@ -1176,9 +1176,9 @@ private
     @association_with_taxon_or_best_vetted ||= {}
     return @association_with_taxon_or_best_vetted[taxon_concept.id] if
       @association_with_taxon_or_best_vetted.has_key?(taxon_concept.id)
-    assoc = an_association(:taxon_concept => taxon_concept)
+    assoc = raw_association(:taxon_concept => taxon_concept)
     return @association_with_taxon_or_best_vetted[taxon_concept.id] = assoc unless assoc.blank?
-    return @association_with_taxon_or_best_vetted[taxon_concept.id] = an_association
+    return @association_with_taxon_or_best_vetted[taxon_concept.id] = raw_association
   end
 
   def filter_associations(assocs, options = {})

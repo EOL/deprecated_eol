@@ -8,10 +8,6 @@ describe DataObjectTaxon do
     # I'm sure I'll need it...
   end
 
-  # TODO - rewrite DataObject'#filtered_associations'
-  # TODO - rewrite DataObject'#all_associations'
-  # TODO - rewrite DataObject'#all_published_associations'
-
   describe 'for a content-partner submitted object' do
 
     it 'should know its data object'

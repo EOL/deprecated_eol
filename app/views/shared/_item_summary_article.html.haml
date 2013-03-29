@@ -15,8 +15,8 @@
   - unless ['gallery','list'].include?(view_style)
     - if he = item.first_hierarchy_entry(:include_preview_entries => true)
       - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
-    - if item.published_entries.length > 1
-      - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)
+    - if item.data_object_taxa(:published).length > 1
+      - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.data_object_taxa(:published).length - 1)
     - if secondary_title.blank? && udo = item.users_data_object
       - secondary_title = I18n.t(:description_of) + ' ' + udo.taxon_concept.entry.name.canonical_form.string rescue ""
     - unless secondary_title.blank?

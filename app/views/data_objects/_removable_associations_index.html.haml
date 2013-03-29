@@ -1,6 +1,6 @@
 - data_object ||= @data_object
 - unless data_object.blank?
-  - entries = data_object.filtered_associations
+  - entries = data_object.data_object_taxa_by_visibility
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else

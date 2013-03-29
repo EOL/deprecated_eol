@@ -35,7 +35,7 @@ module EOL
             data_object = DataObject.find_by_id(latest_version.id)
           end
 
-          taxon_concept = data_object.all_associations.first.taxon_concept
+          taxon_concept = data_object.data_object_taxa.first.taxon_concept
           EOL::Api::Pages::V1_0.prepare_hash(taxon_concept, params.merge({ :data_object => data_object, :details => true }))
         end
 

@@ -116,7 +116,7 @@ module EOL
           hash['curated_by_user_id'] << cal.user_id
         end
         # add concepts and ancestors
-        (data_object.curated_hierarchy_entries + [data_object.latest_published_users_data_object]).compact.each do |he|
+        data_object.data_object_taxa.each do |he| # TODO - really a DataObjectTaxon, change name of var here
           field_prefixes = []
           if he.vetted
             vetted_label = he.vetted.label('en').downcase rescue nil
@@ -131,7 +131,7 @@ module EOL
           hash['taxon_concept_id'] << he.taxon_concept_id
           hash['ancestor_id'] ||= []
           hash['ancestor_id'] << he.taxon_concept_id
-          if he.class == UsersDataObject
+          if he.users_data_object?
             hash['added_by_user_id'] = he.user_id
           else
             hash['hierarchy_entry_id'] ||= []

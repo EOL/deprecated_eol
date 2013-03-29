@@ -24,6 +24,7 @@ class DataObject < ActiveRecord::Base
   # this is the DataObjectTranslation record which links this translated object
   # to the original data object
   has_one :data_object_translation
+  # TODO - really, we should add a SQL finder to this to make it latest_published_users_data_object:
   has_one :users_data_object
   has_one :data_objects_link_type
 
@@ -518,7 +519,7 @@ class DataObject < ActiveRecord::Base
   # it's actually used quite often. ...and in some cases, just to get the ID of the first one.  Ouch.
   # :published -> :strict - return only published taxon concepts
   # :published -> :preferred - same as above, but returns unpublished taxon concepts if no published ones are found
-  # NOTE - honestly, I don't know if I trust this anymore anyway!  Compare to #all_associations, for example.
+  # NOTE - honestly, I don't know if I trust this anymore anyway!  Compare to #data_object_taxa, for example.
   def get_taxon_concepts(opts = {})
     return @taxon_concepts if @taxon_concepts
     if created_by_user?
@@ -589,15 +590,6 @@ class DataObject < ActiveRecord::Base
     "[DataObject id:#{id}]"
   end
 
-  # this method will be run on an instance of an object unlike the above methods. It is best to have preloaded
-  # all_published_versions in order for this method to be efficient
-  # NOTE: English is basically the default language in the DB and we have cases where some revisions have
-  # a language == English, but other revisions have a language_id of 0. That explains some
-  # of the complicated logic in this method
-  def latest_published_version_in_same_language
-    @latest_published_version_in_same_language ||= latest_version_in_same_language(:check_only_published => true)
-  end
-  
   def latest_version_in_same_language(params = {})
     latest_version_in_language(language_id, params)
   end
@@ -641,6 +633,15 @@ class DataObject < ActiveRecord::Base
     @is_latest_published_version = (the_latest && the_latest.id == self.id) ? true : false
   end
 
+  # this method will be run on an instance of an object unlike the above methods. It is best to have preloaded
+  # all_published_versions in order for this method to be efficient
+  # NOTE: English is basically the default language in the DB and we have cases where some revisions have
+  # a language == English, but other revisions have a language_id of 0. That explains some
+  # of the complicated logic in this method
+  def latest_published_version_in_same_language
+    @latest_published_version_in_same_language ||= latest_version_in_same_language(:check_only_published => true)
+  end
+  
   # NOTE - You probably shouldn't be using these. It isn't really true that a data object has *one* visibility... it
   # has several. This is currently here only because the old API made that (false) assumption.
   def visibility
@@ -678,36 +679,6 @@ class DataObject < ActiveRecord::Base
     raw_association(hierarchy_entry: he)
   end
 
-  # To retrieve the reasons provided while untrusting or hiding an association
-  def reasons(hierarchy_entry, activity)
-    if hierarchy_entry.class == UsersDataObject
-      log = CuratorActivityLog.find_all_by_data_object_guid_and_changeable_object_type_id_and_activity_id(
-        guid, ChangeableObjectType.users_data_object.id, activity.id
-      ).last
-      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
-    elsif hierarchy_entry.associated_by_curator
-      log = CuratorActivityLog.find_all_by_data_object_guid_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
-        guid, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
-      ).last
-      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
-    else
-      log = CuratorActivityLog.find_all_by_data_object_guid_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
-        guid, ChangeableObjectType.data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
-      ).last
-      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
-    end
-  end
-
-  # To retrieve the reasons provided while untrusting an association
-  def untrust_reasons(hierarchy_entry)
-    reasons(hierarchy_entry, Activity.untrusted)
-  end
-
-  # To retrieve the reasons provided while hiding an association
-  def hide_reasons(hierarchy_entry)
-    reasons(hierarchy_entry, Activity.hide)
-  end
-
   def flickr_photo_id
     if matches = source_url.match(/flickr\.com\/photos\/.*?\/([0-9]+)\//)
       return matches[1]
@@ -715,77 +686,31 @@ class DataObject < ActiveRecord::Base
     nil
   end
 
-  def curated_hierarchy_entries
-    dohes = []
-    if is_the_latest_published_revision
-      latest_revision = self
-    else
-      latest_revision = latest_published_version_in_same_language.nil? ? revisions_by_date.first : latest_published_version_in_same_language
-    end
-    if latest_revision
-      dohes = latest_revision.data_objects_hierarchy_entries.compact.map { |dohe|
-        if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
-          he.vetted = dohe.vetted
-          he.visibility = dohe.visibility
-          # TODO: I really wanted preloaded assocations to have been included in .dup, but it appears they are not
-          he.name = dohe.hierarchy_entry.name
-          he.taxon_concept = dohe.hierarchy_entry.taxon_concept
-        end
-        he
-      }.compact
-    end
-    cdohes = all_curated_data_objects_hierarchy_entries.compact.map { |cdohe|
-      if cdohe.hierarchy_entry && he = cdohe.hierarchy_entry.dup
-        he.associated_by_curator = cdohe.user
-        he.vetted = cdohe.vetted
-        he.visibility = cdohe.visibility
-        # TODO: I really wanted preloaded assocations to have been included in .dup, but it appears they are not
-        he.name = cdohe.hierarchy_entry.name
-        he.taxon_concept = cdohe.hierarchy_entry.taxon_concept
-      end
-      he
-    }.compact
-    dohes + cdohes
-  end
-
-  def published_entries
-    @published_entries ||= curated_hierarchy_entries.select{ |he| he.published == 1 }
-  end
-
-  def unpublished_entries
-    @unpublished_entries ||= curated_hierarchy_entries.select{ |he| he.published != 1 }
-  end
-
   # Preview visibility CAN apply here, so be careful. By default, preview is included; otherwise, pages would show up
   # without any association at all, and that would be confusing. But note that preview associations should NOT be
   # curatable!
-  def filtered_associations(which = {})
+  def data_object_taxa_by_visibility(which = {})
     good_ids = [Visibility.visible.id]
     good_ids << Visibility.preview.id unless which[:preview] == false
     good_ids << Visibility.invisible.id if which[:invisible]
-    all_associations.select { |assoc| good_ids.include?(assoc.visibility_id) }
+    data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
   end
 
-  # TODO - what does this return?!  I know the answer, but do you? Would a new developer?  No. It's not at all
-  # obvious. It *should* be returning an array of Association objects, which have an interface we expect and can
-  # reuse throughout the code.
-  #
-  # ...That said, the answer is: HierarchyEntries that have been extended to include visibility, vetted, name, 
-  # taxon_concept, and added_by_curator methods. Yup, five methods HE doesn't need or have. Awesome.
-  def all_associations
-    @all_assoc ||= (published_entries + unpublished_entries + [latest_published_users_data_object]).compact
+  # The only filter allowed right now is :published.
+  def data_object_taxa(filter = nil)
+    @data_object_taxa ||= {}
+    return @data_object_taxa[filter] if @data_object_taxa.has_key?(filter)
+    assocs = filter == :published ? 
+      published_entries :
+      curated_hierarchy_entries
+    assocs << DataObjectTaxon.new(latest_published_users_data_object) if latest_published_users_data_object
+    @data_object_taxa[filter] = assocs || []
   end
+  alias :associations :data_object_taxa 
 
-  def all_published_associations
-    @all_pub_assoc ||= (published_entries + [latest_published_users_data_object]).compact
-  end
-
-  def latest_published_users_data_object
-    latest_published_version_in_same_language.users_data_object if users_data_object && latest_published_version_in_same_language
-  end
-
-  # TODO - The only place this is used is app/controllers/feeds_controller.rb ...which doesn't actually seem terribly important (it's the partner feed). Can't we use the
-  # find-concept-by-hierarchy-entry using the partner's entry or something?
+  # TODO - The only place this is used is app/controllers/feeds_controller.rb ...which doesn't actually seem
+  # terribly important (it's the partner feed). Can't we use the find-concept-by-hierarchy-entry using the
+  # partner's entry or something?
   def first_concept_name
     first_hierarchy_entry.name.string rescue nil
   end
@@ -797,7 +722,8 @@ class DataObject < ActiveRecord::Base
       sorted_entries = HierarchyEntry.sort_by_vetted(curated_hierarchy_entries)
       best_first_entry = sorted_entries[0] rescue nil
     end
-    best_first_entry
+    return nil unless best_first_entry
+    best_first_entry.hierarchy_entry # Because #published_entries returns DataObjectTaxon instances...
   end
 
   # NOTE - if you plan on calling this, you are behooved by adding object_title and data_type_id to your selects.
@@ -888,7 +814,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def still_associated_with_taxon_concept?(taxon_concept_id)
-    all_associations.each do |assoc|
+    data_object_taxa.each do |assoc|
       if assoc.class == UsersDataObject
         return true if assoc.taxon_concept_id == taxon_concept_id
       else
@@ -1051,7 +977,7 @@ class DataObject < ActiveRecord::Base
   def reindex
     reload
     update_solr_index
-    all_published_associations.map(&:taxon_concept).each { |tc| tc.reindex }
+    data_object_taxa(:published).map(&:taxon_concept).each { |tc| tc.reindex if tc }
   end
 
   def can_be_deleted_by?(requestor)
@@ -1193,6 +1119,34 @@ private
     end
   end
 
+  def published_entries
+    @published_entries ||= curated_hierarchy_entries.select { |he| he.published == 1 }
+  end
+
+  def curated_hierarchy_entries
+    return @curated_hierarchy_entries if @curated_hierarchy_entries
+    @curated_hierarchy_entries = []
+    if latest_revision
+      @curated_hierarchy_entries += latest_revision.data_objects_hierarchy_entries.compact.map do |dohe|
+        DataObjectTaxon.new(dohe)
+      end
+    end
+    @curated_hierarchy_entries += all_curated_data_objects_hierarchy_entries.compact.map do |cdohe|
+      DataObjectTaxon.new(cdohe)
+    end
+    @curated_hierarchy_entries.compact!
+    @curated_hierarchy_entries ||= []
+  end
+
+  def latest_revision
+    @latest_revision ||=
+      if is_the_latest_published_revision # we already know this is the latest...
+        self
+      else
+        latest_published_version_in_same_language || revisions_by_date.first
+      end
+  end
+
   def is_subtype?(type)
     reload unless self.has_attribute?(:data_subtype_id) 
     DataType.send("#{type}_type_ids".to_sym).include?(data_subtype_id)
@@ -1286,6 +1240,11 @@ private
   
   def rights_required?
     license.show_rights_holder?
+  end
+
+  def latest_published_users_data_object
+    latest_published_version_in_same_language.users_data_object if
+      users_data_object && latest_published_version_in_same_language
   end
 
 end

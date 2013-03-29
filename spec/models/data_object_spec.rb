@@ -33,6 +33,7 @@ describe DataObject do
   end
 
   it 'should be able to replace wikipedia articles' do
+    $FOO = 1
     TocItem.gen_if_not_exists(:label => 'wikipedia')
 
     published_do = build_data_object('Text', 'This is a test wikipedia article content', :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
@@ -366,9 +367,9 @@ describe DataObject do
                               :created_at => 0.seconds.from_now)
     CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.misidentified.id)
     @image_dato = DataObject.find(@image_dato)
-    @image_dato.untrust_reasons(@image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
+    @image_dato.data_object_taxa.last.untrust_reasons.should == [UntrustReason.misidentified.id]
     new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
-    new_image_dato.untrust_reasons(new_image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
+    new_image_dato.data_object_taxa.last.untrust_reasons.should == [UntrustReason.misidentified.id]
   end
   
   it '#hide_reasons should return the same hide reasons for all versions of the data object' do
@@ -388,21 +389,21 @@ describe DataObject do
                               :created_at => 0.seconds.from_now)
     CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.poor.id)
     @image_dato = DataObject.find(@image_dato)
-    @image_dato.hide_reasons(@image_dato.all_associations.last).should == [UntrustReason.poor.id]
+    @image_dato.data_object_taxa.last.hide_reasons.should == [UntrustReason.poor.id]
     new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
-    new_image_dato.hide_reasons(new_image_dato.all_associations.last).should == [UntrustReason.poor.id]
+    new_image_dato.data_object_taxa.last.hide_reasons.should == [UntrustReason.poor.id]
   end
 
   it '#published_entries should read data_objects_hierarchy_entries'
 
   it '#published_entries should have a user_id on hierarchy entries that were added by curators'
 
-  it '#all_associations should return all associations for the data object' do
-    all_associations_count_for_udo = @user_submitted_text.all_associations.count
+  it '#data_object_taxa should return all associations for the data object' do
+    data_object_taxa_count_for_udo = @user_submitted_text.data_object_taxa.count
     CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
         @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted,
         :visibility => Visibility.visible, :user => @curator)
-    DataObject.find(@user_submitted_text).all_associations.count.should == all_associations_count_for_udo + 1
+    DataObject.find(@user_submitted_text).data_object_taxa.count.should == data_object_taxa_count_for_udo + 1
   end
 
   it '#safe_rating should NOT re-calculate ratings that are in the normal range.' do

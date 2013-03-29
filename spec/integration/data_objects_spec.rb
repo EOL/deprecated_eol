@@ -172,7 +172,7 @@ describe 'Data Object Page' do
   it 'should be able curate a DOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
-    taid = @image.all_associations.first.id
+    taid = @image.data_object_taxa.first.id
     review_status_should_be(taid, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{taid}"
     select "Hidden", :from => "visibility_id_#{taid}"
@@ -204,7 +204,7 @@ describe 'Data Object Page' do
   it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
-    assoc_id = @image.all_associations.first.id
+    assoc_id = @image.data_object_taxa.first.id
     review_status_should_be(assoc_id, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"
     select "Hidden", :from => "visibility_id_#{assoc_id}"
@@ -236,7 +236,7 @@ describe 'Data Object Page' do
     login_as @full_curator
     # TODO - we occasionaly get failures here, so we should probably use a distinct data object.
     visit("/data_objects/#{@user_submitted_text.id}")
-    assoc_id = @user_submitted_text.all_associations.first.id
+    assoc_id = @user_submitted_text.data_object_taxa.first.id
     review_status_should_be(assoc_id, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"
     select "Hidden", :from => "visibility_id_#{assoc_id}"
@@ -397,7 +397,6 @@ describe 'Data Object Page' do
     login_as @full_curator
     visit("/data_objects/#{@user_submitted_text.id}")
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
-    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     click_link("Add new association")
     fill_in 'name', :with => @extra_name
     click_button "find taxa"

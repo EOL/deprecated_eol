@@ -19,4 +19,12 @@ class CuratedDataObjectsHierarchyEntry < ActiveRecord::Base
     self
   end
 
+  def taxon_concept
+    hierarchy_entry.taxon_concept
+  end
+
+  def guid
+    data_object_guid
+  end
+
 end

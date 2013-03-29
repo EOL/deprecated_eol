@@ -550,6 +550,7 @@ class TaxonConcept < ActiveRecord::Base
     vet_synonyms(options)
   end
 
+  # NOTE - this is only used by the old API.
   def curated_hierarchy_entries
     published_hierarchy_entries.select do |he|
       he.hierarchy.browsable == 1 && he.published == 1 && he.visibility_id == Visibility.visible.id

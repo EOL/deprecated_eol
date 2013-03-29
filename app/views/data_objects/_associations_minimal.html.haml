@@ -1,5 +1,5 @@
 - unless data_object.blank?
-  - associations = data_object.filtered_associations(:preview => false, :invisible => current_user.is_admin? || current_user.is_curator?)
+  - associations = data_object.data_object_taxa_by_visibility(:preview => false, :invisible => current_user.is_admin? || current_user.is_curator?)
   - unless associations.blank?
     %p
       = raw collect_names_and_status(associations[0..2]).join(' &bull; ')

@@ -42,24 +42,24 @@ module EOL
     alias trusted? vetted?
 
     def trust(user)
-      update_attributes({:vetted_id => Vetted.trusted.id})
+      update_attributes(:vetted_id => Vetted.trusted.id)
     end
 
     def untrust(user)
-      update_attributes({:vetted_id => Vetted.untrusted.id})
+      update_attributes(:vetted_id => Vetted.untrusted.id)
     end
 
     def unreviewed(user)
-      update_attributes({:vetted_id => Vetted.unknown.id})
+      update_attributes(:vetted_id => Vetted.unknown.id)
     end
 
     def inappropriate(user)
-      update_attributes({:vetted_id => Vetted.inappropriate.id})
+      update_attributes(:vetted_id => Vetted.inappropriate.id)
     end
 
     def set_visibility(user, visibility_id)
       vetted_by = user
-      update_attributes({:visibility_id => visibility_id})
+      update_attributes(:visibility_id => visibility_id)
     end
 
   end

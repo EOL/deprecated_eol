@@ -9,4 +9,12 @@ class DataObjectsHierarchyEntry < ActiveRecord::Base
   belongs_to :vetted
   belongs_to :visibility
 
+  def taxon_concept
+    hierarchy_entry.taxon_concept
+  end
+
+  def guid
+    data_object.guid
+  end
+
 end

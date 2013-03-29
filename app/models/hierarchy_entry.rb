@@ -2,8 +2,6 @@
 # most data links to these instances.
 class HierarchyEntry < ActiveRecord::Base
 
-  attr_accessor :associated_by_curator # TODO - extract Association class; this is currently used only for them.
-
   belongs_to :hierarchy
   belongs_to :name
   belongs_to :rank
@@ -138,33 +136,6 @@ class HierarchyEntry < ActiveRecord::Base
 
   def hierarchy_provider
     hierarchy_label.presence
-  end
-
-  # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See
-  # DataObject.curated_hierarchy_entries
-  def by_curated_association?
-    @associated_by_curator
-  end
-
-  def associated_by_curator=(who)
-    @associated_by_curator = who
-  end
-
-  def associated_by_curator
-    @associated_by_curator
-  end
-
-  # Duck-typed method for curation, don't change unless you know what you're doing. :)  TODO - extract to class
-  def curatable_object(data_object)
-    if associated_by_curator
-      CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(data_object.guid, id)
-    else
-      DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(data_object.latest_published_version_in_same_language.id, id)
-    end
-  end
-
-  def can_be_deleted_by?(requestor)
-    return true if by_curated_association? && (requestor.master_curator? || associated_by_curator == requestor)
   end
 
   def species_or_below?

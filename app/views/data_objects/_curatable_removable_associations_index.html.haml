@@ -1,4 +1,3 @@
--# TODO - change all of the vet/vis checks where it's asking == Vis.preview? to just assoc.preview? 
 - data_object ||= @data_object
 - show_curation_submit = false
 - unless data_object.blank?
@@ -15,7 +14,7 @@
         = hidden_field_tag :return_to, current_url
       - dots.each do |data_object_taxon|
         %fieldset
-          - if data_object_taxon.visibility == Visibility.preview
+          - if data_object_taxon.preview?
             %legend= raw(I18n.t(:cannot_curate_association_in_preview_mode,
               :name => link_to(raw(data_object_taxon.italicized_name), taxon_overview_path(data_object_taxon.taxon_concept_id))))
           - else
@@ -32,11 +31,11 @@
           - if data_object_taxon.by_curated_association?
             = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => data_object_taxon.associated_by_curator, :data_object => data_object }
           - reasons = [] # TODO - Ummmn... why did we combine reasons?!? Explain or fix.
-          - if data_object_taxon.vetted == Vetted.untrusted
+          - if data_object_taxon.untrusted?
             - reasons = data_object_taxon.untrust_reasons
-          - elsif data_object_taxon.visibility == Visibility.invisible
+          - elsif data_object_taxon.invisible?
             - reasons = data_object_taxon.hide_reasons
-          - unless data_object_taxon.visibility == Visibility.preview
+          - unless data_object_taxon.preview?
             -# TODO - clean this up. A helper could make this pretty minimal; not sure if all these #to_s calls are needed, etc.
             %ul.untrusted
               %li

@@ -32,14 +32,6 @@ class DataObjectTaxon
     taxon_concept.entry.hierarchy
   end
 
-  # TODO - remove this! It was only for development's sake.
-  def method_missing(method, *args, &block)
-    print "(mm:#{method})"
-    super unless hierarchy_entry.respond_to?(method)
-    class_eval { delegate method, :to => :hierarchy_entry } # Won't use method_missing next time!
-    hierarchy_entry.send(method, *args, &block)
-  end
-
   # Views make the assumption that the ID is the hierarchy_entry_id if it's available, or the UDO id otherwise.
   def id
     hierarchy_entry_id ? hierarchy_entry_id : source.id

@@ -535,6 +535,7 @@ FactoryGirl.define do
     association :hierarchy_entry
     association :data_object
     association :user
+    data_object_guid { generate(:guid) }
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
     visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
   end

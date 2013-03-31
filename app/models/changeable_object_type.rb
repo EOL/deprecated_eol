@@ -5,6 +5,15 @@ class ChangeableObjectType < ActiveRecord::Base
   validates_presence_of   :ch_object_type
   validates_uniqueness_of :ch_object_type
 
+  def self.create_defaults
+    %w(comment data_object synonym taxon_concept_name tag users_data_object hierarchy_entry
+       curated_data_objects_hierarchy_entry data_objects_hierarchy_entry users_submitted_text
+       curated_taxon_concept_preferred_entry taxon_concept classification_curation).each do |type|
+      ChangeableObjectType.create(:ch_object_type => type)
+    end
+
+  end
+
   def self.raw_data_object_id
     cot = self.find_by_ch_object_type('data_object')
     return 2 if cot.nil? # THIS IS FOR TESTS.  Since we need this at compile-time, we are "guessing"

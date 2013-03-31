@@ -127,6 +127,17 @@ module EOL
         return tc_builder.tc
       end
 
+      # A dumbed-down version of #build_curator
+      def gen_curator(options = {})
+        options = {
+          curator_level:    options[:curator_level] || CuratorLevel.full,
+          curator_approved: true,
+          curator_scope:    'scope',
+          credentials:      'Curator'
+        }.merge(options)
+        curator = User.gen(options)
+      end
+
       # Curators are tricky... not just a plain model, but require some activity before they are "active":
       # The first argument is the TaxonConcept or HierarchyEntry to associate the curator to; the second argument is
       # the options hash to use when building the User model.

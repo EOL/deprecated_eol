@@ -32,9 +32,9 @@
             = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => data_object_taxon.associated_by_curator, :data_object => data_object }
           - reasons = [] # TODO - Ummmn... why did we combine reasons?!? Explain or fix.
           - if data_object_taxon.untrusted?
-            - reasons = data_object_taxon.untrust_reasons
+            - reasons = data_object_taxon.untrust_reason_ids
           - elsif data_object_taxon.invisible?
-            - reasons = data_object_taxon.hide_reasons
+            - reasons = data_object_taxon.hide_reason_ids
           - unless data_object_taxon.preview?
             -# TODO - clean this up. A helper could make this pretty minimal; not sure if all these #to_s calls are needed, etc.
             %ul.untrusted

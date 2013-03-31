@@ -3,13 +3,14 @@
 #   DataObjectHierarchyEntry
 #   CuratedDataObjectHierarchyEntry
 #   UsersDataObject
+# For more information, see the model spec. You... *are* looking at the specs to learn how things work, right?
 class DataObjectTaxon
 
   include EOL::CuratableAssociation
 
   attr_accessor :source, :hierarchy_entry, :vetted, :visibility, :associated_by_curator, :name, :taxon_concept,
-                :data_object, :hierarchy_entry_id, :vetted_id, :visibility_id, :user_id, :taxon_concept_id,
-                :data_object_id
+                :data_object, :user, :hierarchy_entry_id, :vetted_id, :visibility_id, :user_id, :taxon_concept_id,
+                :data_object_id, :user_id
   
   def initialize(source)
     return nil unless source
@@ -22,14 +23,12 @@ class DataObjectTaxon
   end
 
   def published
-    return hierarchy_entry.published if hierarchy_entry
-    taxon_concept.published
+    users_data_object? ? taxon_concept.published : hierarchy_entry.published
   end
   alias :published? :published
 
   def hierarchy
-    return hierarchy_entry.hierarchy if hierarchy_entry
-    taxon_concept.entry.hierarchy
+    users_data_object? ? taxon_concept.entry.hierarchy : hierarchy_entry.hierarchy
   end
 
   # Views make the assumption that the ID is the hierarchy_entry_id if it's available, or the UDO id otherwise.
@@ -37,7 +36,7 @@ class DataObjectTaxon
     hierarchy_entry_id ? hierarchy_entry_id : source.id
   end
 
-  # TODO - change this to #name
+  # TODO - change this to #name, if #name really isn't used (and I don't think it is).
   def italicized_name
     users_data_object? ? taxon_concept.title : hierarchy_entry.italicized_name
   end
@@ -55,13 +54,13 @@ class DataObjectTaxon
   end
 
   # To retrieve the reasons provided while untrusting an association
-  def untrust_reasons
-    @untrust_reasons ||= reasons(Activity.untrusted)
+  def untrust_reason_ids
+    @untrust_reasons ||= reason_ids(Activity.untrusted)
   end
 
   # To retrieve the reasons provided while hiding an association
-  def hide_reasons
-    @hide_reasons ||= reasons(Activity.hide)
+  def hide_reason_ids
+    @hide_reasons ||= reason_ids(Activity.hide)
   end
 
   # TODO - can we pull in Rails's delegate method to do this kind of stuff?
@@ -85,28 +84,29 @@ class DataObjectTaxon
     @vetted = source.vetted
     @visibility = source.visibility
     @data_object = source.data_object
-    @associated_by_curator = source.user if source.respond_to?(:user)
-    # TODO - when is this used?  I'd like to replace italicized_name with this...
+    @user = source.user if source.respond_to?(:user)
+    @associated_by_curator = @user if @user && @user.is_curator? # Not all users are curators, of course.
+    # TODO - when is this used? I don't think it is.
     @name = @hierarchy_entry.name if @hierarchy_entry.respond_to?(:name)
     @taxon_concept = source.taxon_concept
     # IDs are really only used by Solr indexing, but are here for convenience (and Least Surprise):
     @hierarchy_entry_id = @hierarchy_entry.id if @hierarchy_entry.is_a? HierarchyEntry
     @vetted_id = @vetted.id if @vetted.is_a? Vetted
     @visibility_id = @visibility.id if @visibility.is_a? Visibility
-    @user_id = @associated_by_curator.id if @associated_by_curator.is_a? User
+    @user_id = @user.id if @user.is_a? User
     @taxon_concept_id = @taxon_concept.id if @taxon_concept.is_a? TaxonConcept
     @data_object_id = @data_object.id if @data_object.is_a? DataObject
   end
 
 
-  def reasons(activity)
+  def reason_ids(activity)
     method = "find_all_by_data_object_guid_and_changeable_object_type_id_and_activity_id"
     method << "_and_hierarchy_entry_id" if hierarchy_entry
     args = [source.guid, ChangeableObjectType.send(source.class.name.underscore).id, activity.id]
     args << hierarchy_entry.id if hierarchy_entry
     # TODO - #last is weak, here: we should only be selecting one and specifying an order...
     log = CuratorActivityLog.send(method, *args).last # #last is supposed to give us the most recent...
-    log ? log.untrust_reasons.map(&:untrust_reason_id) : []
+    log ? log.untrust_reasons.map(&:id) : []
   end
 
 end

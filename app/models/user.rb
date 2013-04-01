@@ -281,15 +281,22 @@ class User < ActiveRecord::Base
     return @taxa_commented unless @taxa_commented.nil?
     # list of taxa where user entered a comment
     set = Set.new
-    Comment.preload_associations(comments.select{ |c| c.parent_type == 'DataObject' },
+    # DataObject needs a lot to find its TC, so we preload all of those:
+    Comment.preload_associations(comments.select { |c| c.parent_type == 'DataObject' },
       { :parent => [ { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { :users_data_object => :vetted } ] },
       :select => [ { :data_objects => :id } ])
     comments.each do |comment|
-      set << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
-      set << comment.parent.taxon_concept_id if
-        comment.parent.respond_to?(:taxon_concept_id)
+      next unless comment.parent_id # Not worth checking...
+      # NOTE - We're avoiding instantiating the parent unless it's a DataObject, so if we add new Comment parent
+      # types, this code will need to be updated.
+      case comment.parent_type
+      when 'TaxonConcept'
+        set << comment.parent_id
+      when 'DataObject'
+        set << comment.parent.taxon_concept_id if comment.parent && comment.parent.taxon_concept_id
+      end
     end
-    @taxa_commented = set.to_a.compact
+    @taxa_commented = set.to_a
   end
 
   def total_comment_submitted

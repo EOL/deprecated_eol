@@ -7,7 +7,7 @@
 # Comments are polymorphically related to many kind of models.  At the time of this writing, it includes Taxon
 # Concepts, Data Objects, Communities, Collections, and Users... but could be extended in the future.
 #
-# Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
+# User#taxa_commented will need to be updated if you add a comment parent type, for example.
 require 'eol/activity_log_item'
 
 class Comment < ActiveRecord::Base

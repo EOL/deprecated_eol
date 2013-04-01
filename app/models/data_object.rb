@@ -654,7 +654,8 @@ class DataObject < ActiveRecord::Base
   # ATM, this is really only used by the User model to get the pages where the user commented...
   def taxon_concept_id
     return users_data_object.taxon_concept_id if users_data_object
-    raw_association.hierarchy_entry.taxon_concept_id
+    assoc = raw_association
+    assoc.hierarchy_entry.taxon_concept_id if assoc
   end
 
   def visibility_by_taxon_concept(taxon_concept)

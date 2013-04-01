@@ -88,10 +88,6 @@ describe TaxonConcept do
     @taxon_concept.curators.map(&:id).should include(@curator.id)
   end
 
-  it 'should have a scientific name (italicized for species)' do
-    @taxon_concept.scientific_name.should == @italicized
-  end
-
   it 'should have a common name' do
     @taxon_concept_common_name_at_start.should == @common_name
   end

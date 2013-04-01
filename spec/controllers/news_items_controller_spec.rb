@@ -7,10 +7,10 @@ describe NewsItemsController do
       load_foundation_cache
       @admin = User.gen(:username => 'admins_controllers_specs', :password => "password", :admin => true)
     end
-    @news_item_1 = NewsItem.gen(:page_name => "test_translated_news_item_1", :active => true, :user => @admin, :display_date => Time.now - 2.hours)
+    @news_item_1 = NewsItem.gen(:page_name => "test_translated_news_item_1", :active => true, :user => @admin, :display_date => Time.now - 23.hours)
     @translated_news_item_1 = TranslatedNewsItem.gen(:news_item_id => @news_item_1.id, :title => "Test Translated News1",
                                       :language => Language.english, :body => "Test Translated News Item Body1", :active_translation => true)
-    @news_item_2 = NewsItem.gen(:page_name => "test_translated_news_item_2", :active => true, :user => @admin, :display_date => Time.now - 1.hour)
+    @news_item_2 = NewsItem.gen(:page_name => "test_translated_news_item_2", :active => true, :user => @admin, :display_date => Time.now - 22.hours)
     @translated_news_item_2 = TranslatedNewsItem.gen(:news_item_id => @news_item_2.id, :title => "Test Translated News2",
                                       :language => Language.english, :body => "Test Translated News Item Body2", :active_translation => true)
   end

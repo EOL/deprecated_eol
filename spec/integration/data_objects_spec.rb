@@ -40,6 +40,7 @@ end
 
 describe 'Data Object Page' do
 
+  # TODO - this is REALLY slow. Try to reduce the number of TCs, or fix that method.
   before(:all) do
     load_foundation_cache
     # Somewhat empty, to speed things up:
@@ -84,6 +85,7 @@ describe 'Data Object Page' do
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
   end
 
+  # TODO - this is slow. Find out why.
   before(:each) do
     @image.add_curated_association(@full_curator, @extra_he)
     @image.data_objects_hierarchy_entries.first.trust(@full_curator)
@@ -363,21 +365,22 @@ describe 'Data Object Page' do
     page.body.should_not have_tag('ul.review_status select')
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
     page.body.should have_tag("a[href='#{remove_association_path(@image.id, @assistants_entry.id)}']")
-    page.body.should have_tag('.review_status li a', :text => @extra_name)
+    page.body.should have_tag('.review_status a', :text => @extra_name)
     click_link "remove_association_#{@assistants_entry.id}"
     page.body.should_not have_tag("a[href='#{remove_association_path(@image.id, @assistants_entry.id)}']")
     visit('/logout')
   end
 
   it "should allow data object owners to add and/or remove associations, but not to curate them" do
-    user_submitted_text = @tc.add_user_submitted_text(:user => @user)
-    user_submitted_text.add_curated_association(@user, @extra_he)
-    login_as @user
+    $FOO = 1
+    user_submitted_text = @tc.add_user_submitted_text(:user => @full_curator)
+    user_submitted_text.add_curated_association(@full_curator, @extra_he)
+    login_as @full_curator
     visit("/data_objects/#{user_submitted_text.id}")
     page.body.should_not have_tag('ul.review_status select')
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
-    page.body.should have_tag('.review_status li a', :text => 'Remove association')
-    page.body.should have_tag('.review_status li a', :text => @extra_name)
+    page.body.should have_tag('.remove_association a', :text => 'Remove association')
+    page.body.should have_tag('.review_status a', :text => @extra_name)
     click_link "remove_association_#{@extra_he.id}"
     page.body.should_not have_tag('.review_status li a', :text => @extra_name)
     visit('/logout')

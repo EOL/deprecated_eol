@@ -220,17 +220,17 @@ module EOL
       end
 
       def load_foundation_cache
-        print "(fnd"
         truncate_all_tables
         load_scenario_with_caching(:foundation)
-        print ")"
       end
 
       def load_scenario_with_caching(name)
+        print "(s"
         loader = EOL::ScenarioLoader.new(name, all_connections)
         # TODO - this may want to check if it NEEDS loading, here, and then truncate the tables before proceeding, if it
         # does.
         loader.load_with_caching
+        print ")"
       end
 
       def oauth_request_data(provider, oauth_protocol = 1)

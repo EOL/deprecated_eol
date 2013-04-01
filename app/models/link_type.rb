@@ -26,5 +26,9 @@ class LinkType < ActiveRecord::Base
   def self.paper
     cached_find_translated(:label, 'Paper')
   end
+  def self.citizen_science
+    cached_find_translated(:label, 'Citizen Science')
+  end
+
 
 end

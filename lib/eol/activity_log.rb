@@ -58,6 +58,7 @@ module EOL
         if options[:filter].include?('comments')
           query = "activity_log_type:Comment"
         elsif options[:filter].include?('data_object_curation')
+          # TODO - this doesn't include ClassificationCuration, and it should.
           query = "activity_log_type:CuratorActivityLog AND feed_type_affected:DataObject"
         elsif options[:filter].include?('names')
           query = "activity_log_type:CuratorActivityLog AND action_keyword:Synonym"

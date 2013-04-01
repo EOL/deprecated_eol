@@ -156,6 +156,11 @@ class ClassificationCuration < ActiveRecord::Base
     "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
   end
 
+  # A split doesn't specify a target (it creates one), so we look to see where it went (for logging):
+  def split_to
+    hierarchy_entry_moves.first.hierarchy_entry.taxon_concept
+  end
+
 private
 
   def compile_errors_into_log
@@ -237,10 +242,6 @@ private
       move.update_column(:completed_at, Time.now)
     end
     update_column(:completed_at, Time.now)
-  end
-
-  def split_to_id
-    hierarchy_entry_moves.first.hierarchy_entry.taxon_concept_id
   end
 
 end

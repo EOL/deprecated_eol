@@ -71,11 +71,6 @@ private
   
   # DataObject#create_user_text and #replicate count on this working, so if you change this, check those!
   def auto_vet
-    if self.data_object.data_subtype_id == DataType.link.id && !user.is_curator? && !user.is_admin?
-      self.vetted_id = Vetted.untrusted.id
-      self.visibility_id = Visibility.invisible.id
-      return
-    end
     # full curators and admins get to have it auto-trusted and other users get to have it auto-unreviewed
     self.vetted_id = (user.min_curator_level?(:full) || user.is_admin?) ? Vetted.trusted.id : Vetted.unknown.id
     self.visibility_id = Visibility.visible.id # should be visible if a new revision is created by anyone.

@@ -27,8 +27,6 @@ class Taxa::ResourcesController < TaxaController
     @add_article_toc_id = TocItem.citizen_science_links ? TocItem.citizen_science_links.id : nil
     @rel_canonical_href = citizen_science_taxon_resources_url(@taxon_page)
 
-    citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
-    citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
     @contents = @citizen_science_contents || get_toc_text([citizen_science, citizen_science_links])
     current_user.log_activity(:viewed_taxon_concept_resources_citizen_science, :taxon_concept_id => @taxon_concept.id)
   end
@@ -98,6 +96,8 @@ private
     @related_organizations_contents ||= get_link_text(:organization)
     @multimedia_links_contents ||= get_link_text(:multimedia)
     @citizen_science_contents = get_toc_text(TocItem.identification_resources)
+    citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
+    citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
     @identification_contents = get_toc_text([citizen_science, citizen_science_links])
     @education_contents = get_toc_text(education_chapters)
   end
@@ -113,7 +113,7 @@ private
   def get_toc_text(which)
     @taxon_page.text(
       :language_ids => [ current_language.id ],
-      :toc_ids => which.map(&:id),
+      :toc_ids => Array(which).map(&:id),
       :filter_by_subtype => true
     )
   end

@@ -1,3 +1,4 @@
+-# TODO - why is this so inconsistent? We're checking instance variables and @taxon_page... why not just one?
 #tabs_sidebar
   %ul.tabs
     %li{:class => resource_is_active('index')}
@@ -5,16 +6,19 @@
     - unless @news_and_event_links_contents.blank?
       %li{:class => resource_is_active('news_and_event_links')}
         = link_to I18n.t(:taxon_news_and_event_links_link), news_and_event_links_taxon_resources_path(@taxon_page)
-    %li{:class => resource_is_active('education')}
-      = link_to I18n.t(:taxon_education_link), education_taxon_resources_path(@taxon_page)
-    %li{:class => resource_is_active('citizen_science')}
-      = link_to I18n.t(:taxon_citizen_science_link), citizen_science_taxon_resources_path(@taxon_page)
+    - unless @education_contents.blank?
+      %li{:class => resource_is_active('education')}
+        = link_to I18n.t(:taxon_education_link), education_taxon_resources_path(@taxon_page)
+    - unless @citizen_science_contents.blank?
+      %li{:class => resource_is_active('citizen_science')}
+        = link_to I18n.t(:taxon_citizen_science_link), citizen_science_taxon_resources_path(@taxon_page)
     - if @taxon_page.has_ligercat_entry?
       %li{:class => resource_is_active('biomedical_terms')}
         = link_to I18n.t(:taxon_biomedical_terms_link), biomedical_terms_taxon_resources_path(@taxon_page)
-    %li{:class => resource_is_active('identification_resources')}
-      = link_to I18n.t(:taxon_identification_resources_link),
-        identification_resources_taxon_resources_path(@taxon_page)
+    - unless @identification_contents.blank?
+      %li{:class => resource_is_active('identification_resources')}
+        = link_to I18n.t(:taxon_identification_resources_link),
+          identification_resources_taxon_resources_path(@taxon_page)
     - unless @taxon_page.nucleotide_sequences_hierarchy_entry_for_taxon.blank?
       %li{:class => resource_is_active('nucleotide_sequences')}
         = link_to I18n.t(:taxon_nucleotide_sequences_link), nucleotide_sequences_taxon_resources_path(@taxon_page)

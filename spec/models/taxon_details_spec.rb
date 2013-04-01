@@ -169,19 +169,15 @@ describe TaxonDetails do
     should_get_sym_when_toc_includes(:identification_resources, :identification_resources)
   end
 
-  it '#resources_links should include identification_resources if toc includes them' do
-    should_get_sym_when_toc_includes(:identification_resources, :identification_resources)
-  end
-
-  it '#resources_links should include identification_resources if toc includes them' do
+  it '#resources_links should include citizen_science if toc includes them' do
     should_get_sym_when_toc_includes(:citizen_science, :citizen_science)
   end
 
-  it '#resources_links should include identification_resources if toc includes them' do
+  it '#resources_links should include citizen_science_links if toc includes them' do
     should_get_sym_when_toc_includes(:citizen_science, :citizen_science_links)
   end
 
-  it '#resources_links should include identification_resources if toc includes them' do
+  it '#resources_links should include education if toc includes them' do
     should_get_sym_when_toc_includes(:education, :education_toc_ids)
   end
 
@@ -209,6 +205,10 @@ describe TaxonDetails do
 
   it '#resources_links should include multimedia_links when it incudes multimedia link_types' do
     should_get_sym_when_links_include(:multimedia_links, :multimedia)
+  end
+
+  it '#resources_links should include citizen_science_links when it incudes citizen_science_links link_types' do
+    should_get_sym_when_links_include(:citizen_science, :citizen_science_links)
   end
 
   it '#literature_references_links should be blank by default' do

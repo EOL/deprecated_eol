@@ -138,7 +138,7 @@
   - when Activity.unlock.id
     - if item.respond_to?(:classification_curation) && item.classification_curation
       - if item.classification_curation.split?
-        - translation_vars[:to] = taxon_url(TaxonConcept.find(item.classification_curation.split_to_id))
+        - translation_vars[:to] = taxon_url(item.classification_curation.split_to)
         = raw I18n.t("unlock.split_of_#{taxon_type}_unlocked", translation_vars)
       - elsif item.classification_curation.merge?
         = raw I18n.t("unlock.merge_of_#{taxon_type}_unlocked", translation_vars)

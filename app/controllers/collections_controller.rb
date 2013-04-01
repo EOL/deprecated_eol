@@ -112,7 +112,7 @@ class CollectionsController < ApplicationController
         I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to collection_url(@collection)
     else
-      back = @collection.communities ?
+      back = @collection.communities.first ?
         collection_url(@collection.communities.first) :
         user_collections_url(current_user)
       if @collection.unpublish

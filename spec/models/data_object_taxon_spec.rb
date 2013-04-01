@@ -124,7 +124,9 @@ describe DataObjectTaxon do
   it 'should know its hierarchy' do
     @dohe.hierarchy_entry.should_receive(:hierarchy).and_return(1)
     @cdohe.hierarchy_entry.should_receive(:hierarchy).and_return(2)
-    @udo.taxon_concept.entry.should_receive(:hierarchy).and_return(3)
+    entry = mock_model(HierarchyEntry)
+    @udo.taxon_concept.should_receive(:entry).and_return(entry)
+    entry.should_receive(:hierarchy).and_return(3)
     @dohe_dot.hierarchy.should == 1
     @cdohe_dot.hierarchy.should == 2
     @udo_dot.hierarchy.should == 3

@@ -1,21 +1,20 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 # TODO - these are fragile tests. We should mock the responses: we shouldn't have to be connected to get these, and
-# we shouldn't have to change our tests if, say, CNN changes its title. ...I just got failures from Google, for
-# example, but I'm 99.99% sure that the code isn't broken (I didn't touch it).  :|
+# we shouldn't have to change our tests if, say, CNN changes its title.
 describe 'Application' do
 
   it 'should be able to get external page titles' do
-    response = get_as_json(fetch_external_page_title_path(:url => 'http://google.com'))
+    response = get_as_json(fetch_external_page_title_path(:url => 'http://eol.org'))
     response.class.should == Hash
-    response['message'].should == "Google"
+    response['message'].should =~ /Encyclopedia of Life/
     response['exception'].should == false
   end
 
   it 'should not require an http prefix' do
-    response = get_as_json(fetch_external_page_title_path(:url => 'google.com'))
+    response = get_as_json(fetch_external_page_title_path(:url => 'eol.org'))
     response.class.should == Hash
-    response['message'].should == "Google"
+    response['message'].should =~ /Encyclopedia of Life/
     response['exception'].should == false
   end
 
@@ -26,7 +25,7 @@ describe 'Application' do
     response['exception'].should == false
   end
 
-  it 'should be able to get titles from compresses pages' do
+  it 'should be able to get titles from compressed pages' do
     response = get_as_json(fetch_external_page_title_path(:url => 'eol.org')) # our homepage is gzipped
     response.class.should == Hash
     response['message'].should == "Encyclopedia of Life - Animals - Plants - Pictures &amp; Information"

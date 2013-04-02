@@ -32,14 +32,6 @@ describe TaxonOverview do
     @overview.media.last.should == map
   end
 
-  # Ouch... we need to know a little too much to test this one...  :\
-  it 'should filter #media on the hierarchy_entry if available' do
-    @taxon_concept.should_receive(:images_from_solr).with(4, :filter_hierarchy_entry => @entry,
-                                                          :ignore_translations => true).and_return([])
-    @overview_with_entry = TaxonOverview.new(@taxon_concept, @user, @entry) # NOTE - you MUST rebuild the overview if you add media to it, since it's preloaded.
-    @overview_with_entry.media
-  end
-
   it 'should promote the exemplar image' do
     exemplar = DataObject.gen
     @taxon_concept.should_receive(:images_from_solr).at_least(1).times.and_return([DataObject.gen, DataObject.gen, DataObject.gen, DataObject.gen, exemplar])

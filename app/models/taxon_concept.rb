@@ -102,7 +102,6 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:published] = true  # this can't be overridden - we always want published objects
     solr_query_parameters[:vetted_types] ||= ['trusted', 'unreviewed']  # labels are english strings simply because the SOLR fields use these labels
     solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
-    solr_query_parameters[:filter_hierarchy_entry] ||= nil  # the entry in the concept when the user has the classification filter on
     solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
     solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
     solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
@@ -643,7 +642,6 @@ class TaxonConcept < ActiveRecord::Base
         :vetted_types => user.vetted_types,
         :visibility_types => user.visibility_types,
         :ignore_translations => true,
-        :filter_hierarchy_entry => selected_hierarchy_entry,
         :return_hierarchically_aggregated_objects => true
       }).total_entries
     end
@@ -720,8 +718,7 @@ class TaxonConcept < ActiveRecord::Base
           :visibility_types => ['visible'],
           :published => true,
           :skip_preload => true,
-          :return_hierarchically_aggregated_objects => true,
-          :filter_hierarchy_entry => selected_hierarchy_entry
+          :return_hierarchically_aggregated_objects => true
         })
         # if for some reason we get back unpublished objects (Solr out of date), try to get the latest published versions
         unless best_images.empty?
@@ -751,7 +748,6 @@ class TaxonConcept < ActiveRecord::Base
       :data_type_ids => DataType.image_type_ids,
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
-      :filter_hierarchy_entry => options[:filter_hierarchy_entry],
       :ignore_translations => options[:ignore_translations] || false,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => options[:skip_preload],

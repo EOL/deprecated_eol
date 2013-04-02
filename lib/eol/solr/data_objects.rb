@@ -81,20 +81,11 @@ module EOL
           url << CGI.escape(" AND (link_type_id:#{options[:link_type_ids].join(' OR link_type_id:')})")
         end
         
-        if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
-          field_suffix = "ancestor_he_id"
-          search_id = options[:filter_hierarchy_entry].id
-          url << CGI.escape(" AND ancestor_he_id:#{search_id}")
-          unless options[:return_hierarchically_aggregated_objects]
-            url << CGI.escape(" AND hierarchy_entry_id:#{search_id}")
-          end
-        else
-          field_suffix = "ancestor_id"
-          search_id = taxon_concept_id
-          unless options[:return_hierarchically_aggregated_objects]
-            field_suffix = "taxon_concept_id"
-            url << CGI.escape(" AND taxon_concept_id:#{search_id}")
-          end
+        field_suffix = "ancestor_id"
+        search_id = taxon_concept_id
+        unless options[:return_hierarchically_aggregated_objects]
+          field_suffix = "taxon_concept_id"
+          url << CGI.escape(" AND taxon_concept_id:#{search_id}")
         end
 
         if options[:vetted_types] && !options[:vetted_types].include?('all')
@@ -211,14 +202,8 @@ module EOL
       def self.get_aggregated_media_facet_counts(taxon_concept_id, options = {})
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q='
         url << CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}")
-        if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
-          field_suffix = "ancestor_he_id"
-          search_id = options[:filter_hierarchy_entry].id
-          url << CGI.escape(" AND ancestor_he_id:#{options[:filter_hierarchy_entry].id}")
-        else
-          field_suffix = "ancestor_id"
-          search_id = taxon_concept_id
-        end
+        field_suffix = "ancestor_id"
+        search_id = taxon_concept_id
         
         options[:vetted_types] = ['trusted', 'unreviewed']
         options[:vetted_types] << 'untrusted' if options[:user] && options[:user].is_curator?

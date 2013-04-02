@@ -11,7 +11,11 @@ module EOL
               :name => 'id',
               :type => Integer,
               :required => true,
-              :test_value => Hierarchy.default.id )
+              :test_value => Hierarchy.default.id ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})

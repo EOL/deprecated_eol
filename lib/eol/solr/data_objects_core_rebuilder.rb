@@ -133,9 +133,6 @@ module EOL
           hash['ancestor_id'] << assoc.taxon_concept_id
           if assoc.users_data_object?
             hash['added_by_user_id'] = assoc.user_id
-          else
-            hash['hierarchy_entry_id'] ||= []
-            hash['hierarchy_entry_id'] << assoc.id
           end
           field_prefixes.each do |prefix|
             hash[prefix + '_taxon_concept_id'] ||= []
@@ -147,11 +144,7 @@ module EOL
           # TC ancestors
           if assoc.taxon_concept # sometimes in specs there isn't a concept for an entry...
             ancestor_tc_ids = []
-            ancestor_he_ids = []
             ancestor_tc_ids += assoc.taxon_concept.flattened_ancestors.collect(&:ancestor_id)
-            ancestor_he_ids += assoc.taxon_concept.published_hierarchy_entries.collect(&:id)
-            HierarchyEntry.preload_associations(assoc.taxon_concept.published_hierarchy_entries, :flattened_ancestors)
-            ancestor_he_ids += assoc.taxon_concept.published_hierarchy_entries.collect{ |he| he.flattened_ancestors.collect(&:ancestor_id) }.flatten
             
             ancestor_tc_ids.uniq.each do |tc_id|
               hash['ancestor_id'] ||= []
@@ -159,14 +152,6 @@ module EOL
               field_prefixes.each do |prefix|
                 hash[prefix + '_ancestor_id'] ||= []
                 hash[prefix + '_ancestor_id'] << tc_id
-              end
-            end
-            ancestor_he_ids.uniq.each do |he_id|
-              hash['ancestor_he_id'] ||= []
-              hash['ancestor_he_id'] << he_id
-              field_prefixes.each do |prefix|
-                hash[prefix + '_ancestor_he_id'] ||= []
-                hash[prefix + '_ancestor_he_id'] << he_id
               end
             end
           end

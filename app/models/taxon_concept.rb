@@ -836,6 +836,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def uses_preferred_entry?(he)
+    return false if preferred_entry.blank?
     preferred_entry.hierarchy_entry_id == he.id &&
     CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
   end
@@ -990,7 +991,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def lock_classifications
-    TaxonClassificationsLock.create(:taxon_concept_id => self.id)
+    TaxonClassificationsLock.find_or_create_by_taxon_concept_id(self.id)
   end
 
   def collected_name

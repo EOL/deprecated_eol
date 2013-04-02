@@ -33,7 +33,11 @@ module EOL
               :type => Integer,
               :required => true,
               :test_value => (Hierarchy.itis || HierarchyEntry.where("published = 1 AND identifier != '' AND identifier IS NOT NULL").last.hierarchy).id,
-              :notes => I18n.t("the_id_of_provider_hierarchy_you_are_searching", :link => view_context.link_to('provider_hierarchies', url_for(:controller => 'api/docs', :action => 'provider_hierarchies'))) )
+              :notes => I18n.t("the_id_of_provider_hierarchy_you_are_searching", :link => view_context.link_to('provider_hierarchies', url_for(:controller => 'api/docs', :action => 'provider_hierarchies'))) ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})

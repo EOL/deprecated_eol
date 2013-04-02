@@ -94,6 +94,10 @@ module EOL
               :values => [ 0, 1, 2 ],
               :default => 0,
               :notes => I18n.t('return_content_by_vettedness') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})

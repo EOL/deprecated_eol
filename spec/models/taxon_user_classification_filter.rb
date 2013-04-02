@@ -255,33 +255,14 @@ describe TaxonUserClassificationFilter do
 
   it '#facets should ignore entry if none provided' do
     EOL::Solr::DataObjects.should_receive(:get_aggregated_media_facet_counts).with(
-      @taxon_concept.id, :filter_hierarchy_entry => nil, :user => @user
+      @taxon_concept.id, :user => @user
     )
     @taxon_page.facets
   end
 
-  it '#facets should use entry if provided' do
-    EOL::Solr::DataObjects.should_receive(:get_aggregated_media_facet_counts).with(
-      @taxon_concept.id, :filter_hierarchy_entry => @entry, :user => @user
-    )
-    @taxon_page_with_entry.facets
-  end
-
-  it '#media should delegate to taxon_concept#data_objects_from_solr with entry (and defaults) if provided' do
+  it '#media should delegate to taxon_concept#data_objects_from_solr with defaults' do
     @taxon_concept.should_receive(:data_objects_from_solr).with(
       :ignore_translations => true,
-      :filter_hierarchy_entry => @entry,
-      :return_hierarchically_aggregated_objects => true,
-      :skip_preload => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_cache_url, :object_url, :data_rating ] }
-    ).and_return("this here")
-    @taxon_page_with_entry.media.should == "this here"
-  end
-
-  it '#media should delegate to taxon_concept#data_objects_from_solr with defaults when no entry given' do
-    @taxon_concept.should_receive(:data_objects_from_solr).with(
-      :ignore_translations => true,
-      :filter_hierarchy_entry => @taxon_concept.entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_cache_url, :object_url, :data_rating ] }

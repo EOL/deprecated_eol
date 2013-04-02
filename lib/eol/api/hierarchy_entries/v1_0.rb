@@ -21,7 +21,11 @@ module EOL
               :name => 'synonyms',
               :type => 'Boolean',
               :default => 1,
-              :notes => I18n.t('return_all_synonyms_for_this_taxon') )
+              :notes => I18n.t('return_all_synonyms_for_this_taxon') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})

@@ -37,6 +37,10 @@ module EOL
               :name => 'filter_by_string',
               :type => String,
               :notes => I18n.t('provide_a_search_string') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})

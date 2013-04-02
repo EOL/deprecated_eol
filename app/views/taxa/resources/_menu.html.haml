@@ -2,7 +2,9 @@
 #tabs_sidebar
   %ul.tabs
     %li{:class => resource_is_active('index')}
-      = link_to I18n.t(:taxon_partner_links_link), taxon_resources_path(@taxon_page)
+      = link_to I18n.t(:about_resources), taxon_resources_path(@taxon_page)
+    %li{:class => "end_section #{resource_is_active('partner_links')}"}
+      = link_to I18n.t(:taxon_partner_links_link), partner_links_taxon_resources_path(@taxon_page)
     - unless @news_and_event_links_contents.blank?
       %li{:class => resource_is_active('news_and_event_links')}
         = link_to I18n.t(:taxon_news_and_event_links_link), news_and_event_links_taxon_resources_path(@taxon_page)

@@ -84,6 +84,7 @@ Eol::Application.routes.draw do
       end
       resources :resources, :only => [:index], :controller => 'taxa/resources' do
         collection do
+          get 'partner_links'
           get 'identification_resources'
           get 'education'
           get 'nucleotide_sequences'
@@ -125,6 +126,7 @@ Eol::Application.routes.draw do
     end
     resources :resources, :controller => 'taxa/resources', :only => [:index] do
       collection do
+        get 'partner_links'
         get 'identification_resources'
         get 'education'
         get 'nucleotide_sequences'

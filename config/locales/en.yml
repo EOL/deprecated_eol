@@ -1761,6 +1761,14 @@ en:
   0_or_1: "0 or 1"
   0_1_or_2: "0, 1 or 2"
   about_eol: "About EOL"
+  about_resources: "About Resources"
+  about_resources_title: "Links To External Resources"
+  about_resources_button: "Add a link to the resources tab"
+  about_resources_body: "The resources tab on an EOL page is where you will find links to the original data from our
+  content partners, as well as a collection of relevant resources about the species that can be found outside of EOL.
+  You are welcome to contribute to the resources tab on EOL by clicking either the \"Add a link\" button above, or
+  the \"Add a link to the resources tab\" button below. Both take you to the same page, where you can provide us with
+  a URL to external information as well as a custom description about it."
   account_information: "Account Information"
   account_information_menu: "Account Information"
   account_registered_but_not_ready_try_later: "Your account is registered but not ready for you to access. Please try again in five minutes."

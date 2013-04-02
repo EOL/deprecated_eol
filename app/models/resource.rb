@@ -95,6 +95,15 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  # TODO - generalize this instance-variable reset.
+  def reload
+    @@ar_instance_vars ||= Resource.new.instance_variables
+    (instance_variables - @@ar_instance_vars).each do |ivar|
+      remove_instance_variable(ivar)
+    end
+    super
+  end
+
   def status_label
     (resource_status.nil?) ?  I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
   end
@@ -140,7 +149,7 @@ class Resource < ActiveRecord::Base
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
     @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
       # Use 0 instead of nil when setting for cache because cache treats nil as a miss
-      HarvestEvent.where(resource_id: id).order('id DESC').first || 0
+      HarvestEvent.where(resource_id: id).last || 0
     end
     @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_harvest

@@ -969,7 +969,7 @@ class DataObject < ActiveRecord::Base
   def reload
     @@ar_instance_vars ||= DataObject.new.instance_variables
     (instance_variables - @@ar_instance_vars).each do |ivar|
-      instance_variable_set(ivar, nil)
+      remove_instance_variable(ivar)
     end
     super
   end

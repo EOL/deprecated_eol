@@ -49,9 +49,6 @@
                   = f.submit I18n.t(command), :name => command
               - else
                 = f.submit I18n.t(:copy), :name => 'copy'
-              #overwrite
-                = f.check_box :overwrite 
-                = f.label :overwrite
         = render :partial => 'collections/recently_visited'
       - previous_label = (@collection_results.current_page == 1) ? '' : I18n.t(:pagination_previous)
       - next_label = (@collection_results.current_page == @collection_results.total_pages) ? '' : I18n.t(:pagination_next)

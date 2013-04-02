@@ -519,14 +519,29 @@ $(function() {
   })($("#flash-bad, #flash-good"));
 
   $('input.clear_on_focus').each(function() { $(this).val($(this).attr('data-default')); });
+  $('input.clear_on_focus').siblings().each(function() { $(this).on('click', function() {
+    if ($(this).prop('checked')) {
+      $(this).siblings().focus()
+    }
+  })});
   $('input.clear_on_focus').on('focus', function() {
-    $(this).val('');
-    EOL.check_siblings(this, true);
+    if ($(this).val() == $(this).attr('data-default')) {
+      $(this).val('');
+      EOL.check_siblings(this, true);
+    }
   });
   $('input.clear_on_focus').on('blur', function() {
-    if ($(this).val() == '') {
+    if ($(this).val() == '' || $(this).val() == $(this).attr('data-default')) {
       $(this).val($(this).attr('data-default'));
       EOL.check_siblings(this, false);
+    }
+  });
+
+  $('input#collection_job_overwrite').on('click', function() {
+    if ($(this).prop('checked')) {
+      $('form#new_collection_job li.collected input').prop('checked', false).attr("disabled", false);
+    } else {
+      $('form#new_collection_job li.collected input').prop('checked', true).attr("disabled", true);
     }
   });
 

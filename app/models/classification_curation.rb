@@ -125,8 +125,15 @@ class ClassificationCuration < ActiveRecord::Base
 
   def reindex_taxa
     # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
-    TaxonConceptReindexing.reindex(moved_from, :flatten => split?, :allow_large_tree => true) if source_id
-    TaxonConceptReindexing.reindex(moved_to,   :flatten => split?, :allow_large_tree => true) if target_id
+    TaxonConceptReindexing.reindex(moved_from, :allow_large_tree => true) if source_id
+    if target_id
+      TaxonConceptReindexing.reindex(moved_to, :allow_large_tree => true)
+    elsif hierarchy_entry_moves
+      taxon_concepts = hierarchy_entry_moves.collect{ |m| m.hierarchy_entry.taxon_concept }.compact.uniq
+      taxon_concepts.each do |taxon_concept|
+        TaxonConceptReindexing.reindex(taxon_concept, :allow_large_tree => true)
+      end
+    end
   end
   
   def log_completion

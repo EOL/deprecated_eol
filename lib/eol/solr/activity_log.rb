@@ -39,7 +39,7 @@ module EOL
         # we might get less than 6 non-watch list activities grouped by user, so continue paging through
         # activity logs until we have the result set we want, or until there are no more results
         while docs_to_return.length < 6
-          response = solr_search('*:*', options)
+          response = solr_search('*:* NOT action_keyword:unlock', options)
           total_results = response['grouped'][options[:group_field]]['ngroups']
           break if total_results == 0
           results = []

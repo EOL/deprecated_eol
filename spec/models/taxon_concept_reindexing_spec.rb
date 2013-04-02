@@ -36,8 +36,8 @@ describe TaxonConceptReindexing do
   end
 
   it 'should call CodeBridge for the reindexing and lock classifications (also checking flatten option)' do
-    CodeBridge.should_receive(:reindex_taxon_concept).with(@taxon_concept.id, :flatten => true).and_return(nil)
-    TaxonConceptReindexing.new(@taxon_concept, :flatten => true).reindex
+    CodeBridge.should_receive(:reindex_taxon_concept).with(@taxon_concept.id).and_return(nil)
+    TaxonConceptReindexing.new(@taxon_concept).reindex
     @taxon_concept.reload
     @taxon_concept.classifications_locked?.should be_true
   end

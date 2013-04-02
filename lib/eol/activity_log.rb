@@ -52,7 +52,7 @@ module EOL
     end
 
     def self.recent_activities(options = {})
-      query = "*:*"
+      query = "*:* NOT action_keyword:unlock"
       if options[:filter]
         # TODO - why are we using #include? here? it's an if/elsif clause, so we can't have multiple values...
         if options[:filter].include?('comments')

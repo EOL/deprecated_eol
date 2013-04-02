@@ -148,19 +148,7 @@ MimeType.gen_if_not_exists(:label => 'audio/x-wav')
   Rank.gen_if_not_exists(:label => rank)
 end
 
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'comment')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_object')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'synonym')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept_name')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'tag')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_data_object')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'hierarchy_entry')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_data_objects_hierarchy_entry')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_objects_hierarchy_entry')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_taxon_concept_preferred_entry')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'classification_curation')
+ChangeableObjectType.create_defaults
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 
@@ -239,19 +227,13 @@ UntrustReason.gen_if_not_exists(:label => 'incorrect/misleading', :class_name =>
 UntrustReason.gen_if_not_exists(:label => 'low quality', :class_name => 'poor')
 UntrustReason.gen_if_not_exists(:label => 'duplicate', :class_name => 'duplicate')
 
-Vetted.gen_if_not_exists(:label => 'Unknown', :view_order => 2)
-Vetted.gen_if_not_exists(:label => 'Untrusted', :view_order => 3)
-Vetted.gen_if_not_exists(:label => 'Inappropriate', :view_order => 4)
-Vetted.gen_if_not_exists(:label => 'Trusted', :view_order => 1)
+Vetted.create_defaults
 
 SynonymRelation.gen_if_not_exists(:label => "synonym")
 SynonymRelation.gen_if_not_exists(:label => "common name")
 SynonymRelation.gen_if_not_exists(:label => "genbank common name")
 
-
-Visibility.gen_if_not_exists(:label => 'Invisible')
-Visibility.gen_if_not_exists(:label => 'Visible')
-Visibility.gen_if_not_exists(:label => 'Preview')
+Visibility.create_defaults
 
 ContentTable.create_details
 NotificationFrequency.create_defaults

@@ -30,6 +30,13 @@ class SearchController < ApplicationController
       end
     end
 
+    params[:exact] = false
+    # if the querystring is a double-quoted string, then interpret this as an exact search
+    if @querystring =~ /^".*"$/
+      @querystring = @querystring[1...-1]
+      params[:exact] = true
+    end
+
     @page_title  = I18n.t(:search_by_term_page_title, :term => @querystring)
     if @querystring.blank? || bad_query
       @all_results = empty_paginated_set

@@ -3878,6 +3878,9 @@ de:
   unknown_hierarchy: Unbekannte Hierarchie
   unknown_type_not_associated_with_any_published_entries: Diese Daten sind keinen veröffentlichten Taxa zugeordnet.
   unpublished: Unveröffentlicht
+  unpublished_collections_with_count: 
+    one: Eine versteckte Sammlung
+    other: "%{count} versteckte Sammlungen"
   unreviewed: Nicht geprüft
   unreviewed_images: Ungeprüfte Bilder
   unreviewed_maps: Ungeprüfte Karten

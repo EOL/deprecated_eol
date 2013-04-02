@@ -2,4 +2,4 @@
   - @collection_items.each_with_index do |item, index|
     - item_type = en_type(item)
     %li{:class => "#{index.modulo(5) == 0 ? 'first' : nil} #{item_type}".strip}
-      = render :partial => 'collection_items/show', :locals => { :collection_item => item, :item_type => item_type, :view_style => 'gallery' }
+      = render :partial => 'collection_items/show', :locals => { collection_item: item, item_type: item_type, view_style: 'gallery' }

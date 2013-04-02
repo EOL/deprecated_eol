@@ -37,22 +37,22 @@ describe "Core Extensions" do
     end
   end
 
-  describe 'newlines_into_linebreaks' do
+  describe 'fix_old_user_added_text_linebreaks' do
     it 'should replace line breaks with HTML BR tags' do
-      "This is\ntext".newlines_into_linebreaks.should == 'This is<br/>text'
-      "This is\rtext".newlines_into_linebreaks.should == 'This is<br/>text'
+      "This is\ntext".fix_old_user_added_text_linebreaks.should == 'This is<br/>text'
+      "This is\rtext".fix_old_user_added_text_linebreaks.should == 'This is<br/>text'
     end
 
     it 'should wrap the text in a paragraph tag if requested' do
-      "This is\ntext".newlines_into_linebreaks.should == 'This is<br/>text'
-      "This is\ntext".newlines_into_linebreaks(:wrap_in_paragraph => true).should == '<p>This is<br/>text</p>'
+      "This is\ntext".fix_old_user_added_text_linebreaks.should == 'This is<br/>text'
+      "This is\ntext".fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true).should == '<p>This is<br/>text</p>'
     end
 
     it 'should not convert if there are already breaks in the text' do
-      "This is\n<br>text".newlines_into_linebreaks.should == "This is\n<br>text"
-      "This is\n<br>text".newlines_into_linebreaks(:wrap_in_paragraph => true).should == "This is\n<br>text"
-      "This is\n<p>text".newlines_into_linebreaks.should == "This is\n<p>text"
-      "This is\n<p>text".newlines_into_linebreaks(:wrap_in_paragraph => true).should == "This is\n<p>text"
+      "This is\n<br>text".fix_old_user_added_text_linebreaks.should == "This is\n<br>text"
+      "This is\n<br>text".fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true).should == "This is\n<br>text"
+      "This is\n<p>text".fix_old_user_added_text_linebreaks.should == "This is\n<p>text"
+      "This is\n<p>text".fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true).should == "This is\n<p>text"
     end
   end
 end

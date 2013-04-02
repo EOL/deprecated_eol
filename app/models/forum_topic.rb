@@ -11,7 +11,7 @@ class ForumTopic < ActiveRecord::Base
   accepts_nested_attributes_for :forum_posts
 
   after_create :update_forum
-  after_destroy :update_forum
+  after_update :update_forum
 
   POSTS_PER_PAGE = 30
 
@@ -43,7 +43,7 @@ class ForumTopic < ActiveRecord::Base
   private
 
   def update_forum
-    forum.update_attributes(:number_of_topics => forum.forum_topics.count)
+    forum.update_attributes(:number_of_topics => forum.open_topics.count)
   end
 
 end

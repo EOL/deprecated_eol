@@ -36,7 +36,11 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'sort_field',
               :type => String,
-              :notes => I18n.t('collection_api_sort_field_notes') )
+              :notes => I18n.t('collection_api_sort_field_notes')),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})

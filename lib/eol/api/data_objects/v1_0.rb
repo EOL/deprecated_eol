@@ -13,7 +13,11 @@ module EOL
               :type => String,
               :required => true,
               :test_value => (DataObject.latest_published_version_of_guid('d72801627bf4adf1a38d9c5f10cc767f') || DataObject.last).id,
-              :notes => I18n.t('the_data_object_id_can_be') )
+              :notes => I18n.t('the_data_object_id_can_be') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})
@@ -35,7 +39,7 @@ module EOL
             data_object = DataObject.find_by_id(latest_version.id)
           end
 
-          taxon_concept = data_object.all_associations.first.taxon_concept
+          taxon_concept = data_object.data_object_taxa.first.taxon_concept
           EOL::Api::Pages::V1_0.prepare_hash(taxon_concept, params.merge({ :data_object => data_object, :details => true }))
         end
 
@@ -45,7 +49,7 @@ module EOL
           return_hash['dataObjectVersionID'] = data_object.id
           return_hash['dataType'] = data_object.data_type.schema_value
           return_hash['dataSubtype'] = data_object.data_subtype.label rescue ''
-          return_hash['vettedStatus'] = data_object.association_with_best_vetted_status.vetted.label unless data_object.association_with_best_vetted_status.vetted.blank?
+          return_hash['vettedStatus'] = data_object.vetted.curation_label if data_object.vetted
           return_hash['dataRating'] = data_object.data_rating
           if data_object.is_text?
             if data_object.created_by_user? && !data_object.toc_items.blank?

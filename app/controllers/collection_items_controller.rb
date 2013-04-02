@@ -1,7 +1,25 @@
 class CollectionItemsController < ApplicationController
 
   before_filter :allow_login_then_submit, :only => [:create]
-  before_filter :find_collection_item, :only => [:update, :edit]
+  before_filter :find_collection_item, :only => [:show, :update, :edit]
+
+  layout 'v2/collections'
+
+  def show
+    return access_denied unless current_user.can_update?(@collection_item)
+    @collection = @collection_item.collection # For layout
+    @references = ''
+    @collection_item.refs.each do |ref|
+      @references = @references + "\n" unless @references==''
+      @references = @references + ref.full_reference
+    end
+    respond_to do |format|
+      format.html do
+        @page_title = I18n.t(:collection_item_edit_page_title, :collection_name => @collection.name)
+      end
+      format.js { render :partial => 'edit' }
+    end
+  end
 
   # POST /collection_items
   def create
@@ -86,6 +104,11 @@ class CollectionItemsController < ApplicationController
           flash[:notice] = I18n.t(:item_updated_in_collection_notice, :collection_name => @collection_item.collection.name)
           redirect_to(@collection_item.collection)
         end
+        format.js do
+          @collection = @collection_item.collection # Need to know whether refs are shown...
+          render partial: 'collection_items/show_editable_attributes',
+            locals: { collection_item: @collection_item, item_editable: true }
+        end
       end
     else
       respond_to do |format|
@@ -100,17 +123,6 @@ class CollectionItemsController < ApplicationController
   # GET /collection_items/:id/edit
   def edit
     respond_to do |format|
-      format.html do
-        return access_denied unless current_user.can_update?(@collection_item)
-        @collection = @collection_item.collection
-        @page_title = I18n.t(:collection_item_edit_page_title, :collection_name => @collection.name)
-        @references = ''
-        @collection_item.refs.each do |ref|
-          @references = @references + "\n" unless @references==''
-          @references = @references + ref.full_reference
-        end
-        render :edit, :layout => 'v2/basic'
-      end
       format.js do
         if current_user.can_update?(@collection_item)
           @collection = @collection_item.collection

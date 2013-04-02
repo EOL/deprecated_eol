@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe NewsItemsController do
 
+  # NOTE - if you're getting failures on this one, check the time. If it's close the end of a day at the end of the
+  # month, you will get failures because of the way we're creating the date. We should probably change that.  TODO.
+  # :|
   before(:all) do
     unless @admin = User.find_by_username('admins_controller_specs')
       load_foundation_cache

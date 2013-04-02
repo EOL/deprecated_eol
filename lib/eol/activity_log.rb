@@ -52,12 +52,13 @@ module EOL
     end
 
     def self.recent_activities(options = {})
-      query = "*:*"
+      query = "*:* NOT action_keyword:unlock"
       if options[:filter]
         # TODO - why are we using #include? here? it's an if/elsif clause, so we can't have multiple values...
         if options[:filter].include?('comments')
           query = "activity_log_type:Comment"
         elsif options[:filter].include?('data_object_curation')
+          # TODO - this doesn't include ClassificationCuration, and it should.
           query = "activity_log_type:CuratorActivityLog AND feed_type_affected:DataObject"
         elsif options[:filter].include?('names')
           query = "activity_log_type:CuratorActivityLog AND action_keyword:Synonym"

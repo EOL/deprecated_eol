@@ -44,19 +44,19 @@ class DataType < ActiveRecord::Base
   end
 
   def self.text
-    cached_find_translated(:label, 'Text')
+    @@text ||= cached_find_translated(:label, 'Text')
   end
 
   def self.image
-    cached_find_translated(:label, 'Image')
+    @@image ||= cached_find_translated(:label, 'Image')
   end
 
   def self.sound
-    cached_find_translated(:label, 'Sound')
+    @@sound ||= cached_find_translated(:label, 'Sound')
   end
 
   def self.video
-    cached_find_translated(:label, 'Video')
+    @@video ||= cached_find_translated(:label, 'Video')
   end
 
   # TODO -this is essentially "SWF" and could be handled as Video...

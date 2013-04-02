@@ -73,7 +73,6 @@ class TaxonUserClassificationFilter
   def media(options = {})
     @media ||= taxon_concept.data_objects_from_solr(options.merge(
       :ignore_translations => true,
-      :filter_hierarchy_entry => _hierarchy_entry,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => true,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
@@ -167,7 +166,7 @@ class TaxonUserClassificationFilter
   # NOTE - _hierarchy_entry can be nil
   def facets
     @facets ||= EOL::Solr::DataObjects.get_aggregated_media_facet_counts(
-      taxon_concept.id, :filter_hierarchy_entry => _hierarchy_entry, :user => user
+      taxon_concept.id, :user => user
     )
   end
 

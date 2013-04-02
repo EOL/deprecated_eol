@@ -30,7 +30,7 @@ class CuratorActivityLog < LoggingModel
   # I don't know why attribute-whitelisting still applies during tests, but they do.  Grr:
   attr_accessible :user, :user_id, :changeable_object_type, :changeable_object_type_id, :target, :target_id,
     :hierarchy_entry, :hierarchy_entry_id, :taxon_concept, :taxon_concept_id, :activity, :activity_id,
-    :data_object, :data_object_id, :data_object_guid
+    :data_object, :data_object_id, :data_object_guid, :created_at
 
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}
@@ -314,7 +314,7 @@ private
   def add_recipient_affected_by_object_curation(recipients)
     if target_is_a_data_object?
       recipients << self.data_object
-      self.data_object.all_published_associations.each do |assoc|
+      self.data_object.data_object_taxa(:published).each do |assoc|
         recipients << assoc.taxon_concept
         recipients << { :ancestor_ids => assoc.taxon_concept.flattened_ancestor_ids }
       end

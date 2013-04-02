@@ -59,8 +59,6 @@
           %h6= link_to I18n.t(:encyclopedia_of_life), root_url
           %p{ :title => I18n.t(:application_version_advisory_information) }
             = "v. #{EOL_CODEBASE_MASTER_VERSION}"
-      .questions
-        %h6= t('header_questions', :scope => t_scope)
         %ul.social_media
           %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter", :rel => :nofollow
           %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook", :rel => :nofollow
@@ -68,6 +66,9 @@
           %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr", :rel => :nofollow
           %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
           %li= link_to I18n.t(:pinterest), $EOL_PINTEREST_ACCOUNT, :class => "pinterest", :rel => :nofollow
+          %li= link_to I18n.t(:vimeo), $EOL_VIMEO_ACCOUNT, :class => "vimeo", :rel => :nofollow
+      .questions
+        %h6= t('header_questions', :scope => t_scope)
         %ul
           %li= link_to t('questions_link_biodiversity', :scope => t_scope), cms_page_path('about_biodiversity')
           %li= link_to t('questions_link_species', :scope => t_scope),  cms_page_path('species_concepts')

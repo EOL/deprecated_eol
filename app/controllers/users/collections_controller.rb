@@ -8,9 +8,10 @@ class Users::CollectionsController < UsersController
     redirect_if_user_is_inactive
     preload_user_associations
     @published_collections = @user.published_collections(current_user)
-    if params[:sort_by] && params[:sort_by].to_sym == :oldest
+    sort_by = params[:sort_by] && params[:sort_by].to_sym
+    if sort_by == :oldest
       @published_collections = @published_collections.sort_by(&:created_at)
-    else # Must be :newest
+    elsif sort_by == :newest
       @published_collections = @published_collections.sort_by { |c| - c.created_at.to_i }
     end
     @rel_canonical_href = user_collections_url(@user)

@@ -589,7 +589,7 @@ p.flag, span.flag
     border-color: #f2d2cc
     background: #ffeae6
     a
-      #E84226
+      color: #E84226
 
 /** Hierarchy Entry classification browser does not have styles from HR
   * HR assumes a list of classifications, where each top level list item is the container
@@ -914,6 +914,20 @@ form
     max-width: 135px
   fieldset.actions
     padding: 0
+.new_collection_job
+  #sidebar 
+    border-left: 1px solid $darker_gray
+    margin-left: 10px
+    #overwrite
+      margin-top: 1.3em
+      input[type="checkbox"]
+        float: left
+        margin-right: 0.5em
+      label
+        font-size: 0.9em
+        font-weight: bold
+        text-transform: uppercase
+        color: $loafer_text_color
 table.standard
   td.nowrap
     white-space: nowrap
@@ -1227,6 +1241,61 @@ table.classifications
   tr.pending
     background-color: #fee
 
-// No margin on the left was hiding required fields:
-div#text_object_new_edit
-  margin-left: 10px
+#collection_item_edit
+  img
+    float: left
+    margin-right: 10px
+    margin-bottom: 1em
+  h4
+    font-size: 1.5em
+    margin-bottom: 1em
+  form
+    margin-top: 2em
+  fieldset
+    clear: both
+    margin-left: 8em
+    textarea, input[type=text]
+      width: 400px
+
+// Note the plural, collection item*S*:
+#collection_items_edit
+  width: auto
+  margin: 10px 45px
+  h2
+    margin: 0 0 20px 0
+    font-size: 1.3em
+    color: $lighter_text_color
+  input[type="text"]
+    +input(488px)
+  label
+    color: $lighter_text_color
+    font-weight: bold
+    font-size: 1.1em
+  textarea
+    +input(488px)
+    margin: 4px 0 2em 0
+    width: 482px
+    height: 60px
+  fieldset.actions
+    padding: 10px 0 0 0
+    input[type="submit"]
+      margin: 4px 0 2em 0
+      padding: 7px 10px
+      font-size: 1em
+  .close
+    margin-left: 2em
+
+#new_collection_job
+  ul.object_list, ul#collection_items
+    width: 515px
+  #sidebar
+    width: 170px
+  .pagination
+    clear: none
+    margin-top: 10px
+
+// Squeeze a few more pixels out of collections:
+#collection.main_container
+  padding: 0 0 0 17px
+  border-right: 0
+  border-left: 1px solid $darker_gray

@@ -254,7 +254,7 @@ fr:
         curator_level: Niveau de supervision
         curator_scope: Étendue de conservation
         disable_email_notifications: Ne m’envoyez AUCUNE mise à jour par courriel
-        email: Adresse électronique
+        email: Adresse de courriel
         email_confirmation: Répétez le courriel <small>(pour confirmation)</small>
         entered_password: Mot de passe
         entered_password_confirmation: Répétez le mot de passe <small>(pour confirmation)</small>
@@ -3830,6 +3830,9 @@ fr:
   unknown_hierarchy: Hiérarchie inconnue
   unknown_type_not_associated_with_any_published_entries: Ces données ne sont associées à aucune des taxinomies publiées.
   unpublished: Non publié
+  unpublished_collections_with_count: 
+    one: "%{count} collection cachée"
+    other: "%{count} collections cachées"
   unreviewed: Non révisé
   unreviewed_images: Images non revues
   unreviewed_maps: Cartes non revues

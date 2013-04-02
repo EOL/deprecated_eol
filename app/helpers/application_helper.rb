@@ -317,7 +317,7 @@ module ApplicationHelper
     html_options[:class] += ' external_link'
     html_options[:class] += ' external_link_popup' if $USE_EXTERNAL_LINK_POPUPS
     # TODO - use of target=_blank is bad for accessibility are we sure we want this? target was deprecated for xhtml but is back in html5
-    html_options[:target] = '_blank' # YOU WERE HERE ... make sure this works.
+    html_options[:target] = '_blank'
     html_options[:title] ||= I18n.t(:target_blank_advisory_information)
 
     if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true
@@ -541,24 +541,24 @@ module ApplicationHelper
   # or if none available: nil, nil
   # NOTE - this assumes you have loaded either @taxon_page (preferred) or @taxon_concept.
   def status_class_and_label_for_data_object(data_object)
-    if best_association = data_object.association_with_exact_or_best_vetted_status(@taxon_page || @taxon_concept)
-      if best_association.visibility == Visibility.invisible
-        return 'untrusted', I18n.t(:hidden)
-      else
-        # Well, shoot. We can't use #label here, because #label is translated.
-        status_class = case best_association.vetted
-          when Vetted.unknown       then 'unknown'
-          when Vetted.untrusted     then 'untrusted'
-          when Vetted.trusted       then 'trusted'
-          when Vetted.inappropriate then 'inappropriate'
-          else nil
-        end
-        status_label = case best_association.vetted
-          when Vetted.unknown then I18n.t(:unreviewed)
-          else best_association.vetted.label
-        end
-        return status_class, status_label
+    vis = data_object.visibility_by_taxon_concept(@taxon_page || @taxon_concept)
+    vet = data_object.vetted_by_taxon_concept(@taxon_page || @taxon_concept)
+    if vis == Visibility.invisible
+      return 'untrusted', I18n.t(:hidden)
+    else
+      # Well, shoot. We can't use #label here, because #label is translated.
+      status_class = case vet
+        when Vetted.unknown       then 'unknown'
+        when Vetted.untrusted     then 'untrusted'
+        when Vetted.trusted       then 'trusted'
+        when Vetted.inappropriate then 'inappropriate'
+        else nil
       end
+      status_label = case vet
+        when Vetted.unknown then I18n.t(:unreviewed)
+        else vet.label
+      end
+      return status_class, status_label
     end
     return nil, nil
   end

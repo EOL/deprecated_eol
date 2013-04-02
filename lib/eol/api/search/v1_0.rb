@@ -37,6 +37,10 @@ module EOL
               :name => 'filter_by_string',
               :type => String,
               :notes => I18n.t('provide_a_search_string') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})
@@ -54,6 +58,10 @@ module EOL
         end
 
         def self.prepare_hash(params={})
+          if params[:q] =~ /^".*"$/
+            params[:q] = params[:q][1...-1]
+            params[:exact] = true
+          end
           search_response = EOL::Solr::SiteSearch.search_with_pagination(params[:q], :page => params[:page],
             :per_page => params[:per_page], :type => [ 'taxon_concept' ], :exact => params[:exact],
             :filter_by_taxon_concept_id => params[:filter_by_taxon_concept_id],

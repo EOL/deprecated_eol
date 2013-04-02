@@ -102,7 +102,6 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:published] = true  # this can't be overridden - we always want published objects
     solr_query_parameters[:vetted_types] ||= ['trusted', 'unreviewed']  # labels are english strings simply because the SOLR fields use these labels
     solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
-    solr_query_parameters[:filter_hierarchy_entry] ||= nil  # the entry in the concept when the user has the classification filter on
     solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
     solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
     solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
@@ -464,14 +463,12 @@ class TaxonConcept < ActiveRecord::Base
   end
   alias :summary_name :title
 
-  # TODO - move to TaxonPage
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry(hierarchy).nil?
     @title_canonical = entry(hierarchy).title_canonical
   end
 
-  # TODO - move to TaxonPage
   def title_canonical_italicized(hierarchy = nil)
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
     return '' if entry(hierarchy).nil?
@@ -552,6 +549,7 @@ class TaxonConcept < ActiveRecord::Base
     vet_synonyms(options)
   end
 
+  # NOTE - this is only used by the old API.
   def curated_hierarchy_entries
     published_hierarchy_entries.select do |he|
       he.hierarchy.browsable == 1 && he.published == 1 && he.visibility_id == Visibility.visible.id
@@ -644,7 +642,6 @@ class TaxonConcept < ActiveRecord::Base
         :vetted_types => user.vetted_types,
         :visibility_types => user.visibility_types,
         :ignore_translations => true,
-        :filter_hierarchy_entry => selected_hierarchy_entry,
         :return_hierarchically_aggregated_objects => true
       }).total_entries
     end
@@ -721,8 +718,7 @@ class TaxonConcept < ActiveRecord::Base
           :visibility_types => ['visible'],
           :published => true,
           :skip_preload => true,
-          :return_hierarchically_aggregated_objects => true,
-          :filter_hierarchy_entry => selected_hierarchy_entry
+          :return_hierarchically_aggregated_objects => true
         })
         # if for some reason we get back unpublished objects (Solr out of date), try to get the latest published versions
         unless best_images.empty?
@@ -752,7 +748,6 @@ class TaxonConcept < ActiveRecord::Base
       :data_type_ids => DataType.image_type_ids,
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
-      :filter_hierarchy_entry => options[:filter_hierarchy_entry],
       :ignore_translations => options[:ignore_translations] || false,
       :return_hierarchically_aggregated_objects => true,
       :skip_preload => options[:skip_preload],
@@ -821,6 +816,11 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConceptsFlattened.descendants_of(id).count
   end
 
+  def reindex
+    reload
+    reindex_in_solr
+  end
+
   # These methods are defined in config/initializers, FWIW:
   def reindex_in_solr
     remove_from_index
@@ -832,6 +832,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def uses_preferred_entry?(he)
+    return false if preferred_entry.blank?
     preferred_entry.hierarchy_entry_id == he.id &&
     CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
   end
@@ -986,7 +987,22 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def lock_classifications
-    TaxonClassificationsLock.create(:taxon_concept_id => self.id)
+    TaxonClassificationsLock.find_or_create_by_taxon_concept_id(self.id)
+  end
+
+  def collected_name
+    raise(EOL::Exceptions::InvalidCollectionItemType.new(
+      I18n.t(:cannot_index_collection_item_type_error, :type => 'Missing Hierarchy Entry')
+    )) unless has_canonical_form?
+    entry.name.canonical_form.string
+  end
+
+  def richness
+    taxon_concept_metric.richness_score
+  end
+
+  def has_richness?
+    taxon_concept_metric && !taxon_concept_metric.richness_score.blank?
   end
 
 private
@@ -1060,5 +1076,10 @@ private
       he.vet_synonyms(options)
     end
   end
+
+  def has_canonical_form?
+    entry && entry.name && entry.name.canonical_form
+  end
+
 end
 

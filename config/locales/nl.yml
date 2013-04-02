@@ -49,7 +49,7 @@ nl:
         refs: Referenties
         sort_field: Sorteren op
       comment: 
-        body: Opmerking
+        body: Reactie
       community: 
         description: Beschrijving van de gemeenschap
         logo: Upload een logo
@@ -820,8 +820,8 @@ nl:
   activity_user_updated_text: <strong>%{user}</strong> heeft tekst gewijzigd van "%{object_name}" in "%{taxon_concept}".
   add: Toevoegen
   add_a_collection_to_a_community: "\"%{collection}\" toevoegen aan een gemeenschap"
-  add_a_comment: Een opmerking toevoegen.
-  add_a_comment_colon: "Opmerking toevoegen:"
+  add_a_comment: Een reactie toevoegen.
+  add_a_comment_colon: "Reactie toevoegen:"
   add_a_new_common_name: Nieuwe gemeenschappelijke naam toevoegen
   add_a_new_file_brackets: "[nieuw bestand toevoegen]"
   add_a_new_role: Nieuwe rol toevoegen
@@ -1256,15 +1256,15 @@ nl:
   collections_with_count: 
     one: één verzameling
     other: "%{count} verzamelingen"
-  comment: Opmerking
-  comment_added_notice: De opmerking is toegevoegd.
-  comment_body_label: Uw opmerking
+  comment: Reactie
+  comment_added_notice: De reactie is toegevoegd.
+  comment_body_label: Uw reactie
   comment_created_at: Aangemaakt op
   comment_delete_confirm: Weet u zeker dat u deze reactie wilt verwijderen?
   comment_edit_by_javascript_not_authorized_error: U mag deze reactie niet bewerken. Als u de reactie hebt geschreven, laad de pagina dan opnieuw en controleer of u bent aangemeld.
   comment_new_posters_image_advisory_info: Uw profielafbeelding en uw naam verschijnen naast uw opmerkingen in overzichten.
   comment_new_posters_image_alt: Uw profielafbeelding, als u die hebt opgegeven.
-  comment_new_title: Opmerking toevoegen
+  comment_new_title: Reactie toevoegen
   comment_not_added_error: Er is een fout opgetreden. De reactie kon niet worden toegevoegd.
   comment_not_deleted_error: Er is een fout opgetreden. De reactie kon niet worden verwijderd.
   comment_not_updated_error: Er is een fout opgetreden. De reactie kon niet worden bijgewerkt.
@@ -1621,7 +1621,7 @@ nl:
   curated_association_update_button: Wijzigingen opslaan
   curated_objects_of: heeft objecten van %{name} geconserveerd
   curated_species_of: heeft soorten van %{name} geconserveerd
-  curation_comment: Opmerking van conservator
+  curation_comment: Reactie van conservator
   curation_error_hide_reasons_invalid: De redenen om %{association} te verbergen waren niet geldig
   curation_error_no_hide_reasons_given: Kies een reden voor het verbergen van dit item op de pagina %{association} of laat een reactie achter waarin u uitlegt waarom u het item verbergt.
   curation_error_no_untrust_reasons_given: Kies een reden voor het niet vertrouwen van dit item op de pagina %{association} of laat een reactie achter waarin u uitlegt waarom u het item niet vertrouwt.
@@ -1826,8 +1826,8 @@ nl:
   edit: Bewerken
   edit_collection_details: Collectiegegevens bewerken
   edit_collection_details_header: Collectiegegevens bewerken
-  edit_comment: Opmerking bewerken
-  edit_comment_lowercase: opmerking bewerken
+  edit_comment: Reactie bewerken
+  edit_comment_lowercase: reactie bewerken
   edit_community: Gemeenschap bewerken
   edit_contact_us_topic: Onderwerp voor "Contact met ons opnemen" bewerken
   edit_contact_us_topics: onderwerpen voor "contact met ons opnemen" bewerken
@@ -2161,7 +2161,7 @@ nl:
         sort_field: Sorteren op <small>(datum in notatie JJJJ.MM.DD, nummer of tekst)</small>
         sort_field_show: "Sorteerwaarde:"
       comment: 
-        body_edit: Opmerking bewerken
+        body_edit: Reactie bewerken
       contact: 
         comments: Uw bericht
         contact_subject_id: Onderwerp
@@ -2414,7 +2414,7 @@ nl:
         create: Aanvraag verzenden
   here: hier
   hidden: Verborgen
-  hidden_comment: verborgen opmerking
+  hidden_comment: verborgen reactie
   hide: verbergen
   hierarchies_description: Encyclopedia of Life heeft niet één enkele taxonomische hiërarchie waarvan pagina's gemaakt worden. EOL indexeert veel hiërarchieën en vergelijkt ze met elkaar. Via deze API wordt metadata weergegeven over een hiërarchie zoals de naam van een provider en een bron-URL, en lijsten met alle taxa die roottaxa zijn van de taxonomische boomstructuur.
   hierarchies_entries_description: Encyclopedia of Life heeft niet één enkele taxonomische hiërarchie waarvan pagina's gemaakt worden. EOL indexeert veel hiërarchieën en vergelijkt ze met elkaar. Daarom kan een pagina in EOL gekoppeld zijn aan meerdere nodes uit verschillende hiërarchieën. Deze API geeft toegang tot een enkele hiërarchie en de interne relatie daarvan. Kijk in de documentatie over de API voor pagina's voor informatie over toegang tot andere hiërarchieën die overeenkomen met een bepaalde pagina in EOL. Het veld "taxonConceptID" bevat het pagina-ID van EOL dat gebruikt kan worden in de API voor pagina's.
@@ -2595,7 +2595,7 @@ nl:
   learn_more_about_names_for_this_taxon: meer informatie over namen voor dit taxon
   learn_more_link: (%{learn_more})
   learn_more_lowercase: meer lezen
-  leave_a_comment: Opmerking achterlaten
+  leave_a_comment: Reactie achterlaten
   leave_community_button: Deze gemeenschap verlaten
   leave_reply: Antwoord achterlaten
   left_content_area: Contentgebied aan de linkerkant
@@ -3237,7 +3237,7 @@ nl:
   rights_holder: Rechthebbende
   rights_statement: Rechtenverklaring
   save: Opslaan
-  save_comment_lowercase: opmerking opslaan
+  save_comment_lowercase: reactie opslaan
   save_curated_association_submit_button: Koppeling opslaan
   save_email_settings: e-mailinstellingen opslaan
   sci_name_avg_table_head: Gem.Wetensch.naam
@@ -3762,8 +3762,8 @@ nl:
   thanks_for_donation: Dank u wel voor uw steun aan Encyclopedia of Life. Uw informatie is opgeslagen en we gaan deze verwerken.
   thanks_for_your_time: Bedankt voor uw tijd,
   the_amount_entered_was: "Het ingevoerde bedrag is: USD %{number}"
-  the_comment_was_successfully_deleted: De opmerking is verwijderd.
-  the_comment_was_successfully_updated: De opmerking is bijgewerkt.
+  the_comment_was_successfully_deleted: De reactie is verwijderd.
+  the_comment_was_successfully_updated: De reactie is bijgewerkt.
   the_content_could_not_be_displ: De inhoud kan niet worden weergegeven.
   the_content_was_updated: De inhoud is bijgewerkt.
   the_count_represents_the_total: Het aantal stelt het aantal gepubliceerde dataobjecten voor onder de respectievelijke SPM-onderwerpcategorie.
@@ -3796,7 +3796,7 @@ nl:
   this_article_is_unpublished: Dit artikel is niet gepubliceerd.
   this_cannot_be_undone_are_you_sure: Dit kan niet ongedaan gemaakt worden. Weet u het zeker?
   this_collection_has_no_managers: Deze verzameling heeft geen beheerders.
-  this_comment_was_deleted: Deze opmerking is verwijderd.
+  this_comment_was_deleted: Deze reactie is verwijderd.
   this_community_has_no_endorsed_collections: Deze gemeenschap heeft geen uitgelichte verzamelingen.
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
   this_community_was_deleted: Deze gemeenschap is verwijderd door de eigenaar.
@@ -3876,6 +3876,9 @@ nl:
   unknown_hierarchy: Onbekende hiërarchie
   unknown_type_not_associated_with_any_published_entries: Deze gegevens zijn niet gekoppeld met gepubliceerde taxa.
   unpublished: Ongepubliceerd
+  unpublished_collections_with_count: 
+    one: één verborgen verzameling
+    other: "%{count} verborgen verzamelingen"
   unreviewed: Niet-beoordeeld
   unreviewed_images: Ongecontroleerde afbeeldingen
   unreviewed_maps: Ongecontroleerde kaarten
@@ -3959,7 +3962,7 @@ nl:
     other: "%{count} Wikipedia-artikelen genomineerd"
   user_agent: Gebruikersagent
   user_already_active_notice: Uw gebruiker is al actief. Meld u aan.
-  user_comment: Opmerking van gebruiker
+  user_comment: Reactie van gebruiker
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> heeft gereageerd op de pagina van een gebruiker die is verwijderd:"
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> heeft gereageerd op een oudere versie van %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> heeft gereageerd op \"%{what}\":"

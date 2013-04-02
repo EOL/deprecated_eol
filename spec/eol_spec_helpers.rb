@@ -33,8 +33,8 @@ module EOL
         begin
           EOL::DB.all_connections
         rescue => e
-          debugger # WHY IS THIS HAPPENING?!?
-          raise e
+          load 'lib/eol_data.rb' # Weird that this happens (in the middle of specs, no less), but it does.
+          EOL::DB.all_connections
         end
       end
 
@@ -62,15 +62,14 @@ module EOL
         all_connections.uniq.each do |conn|
           count = 0
           conn.tables.each do |table|
-            unless table == 'schema_migrations'
-              count += 1
-              if conn.respond_to? :with_master
-                conn.with_master do
-                  truncate_table(conn, table, options[:skip_empty_tables])
-                end
-              else
+            next if table == 'schema_migrations'
+            count += 1
+            if conn.respond_to? :with_master
+              conn.with_master do
                 truncate_table(conn, table, options[:skip_empty_tables])
               end
+            else
+              truncate_table(conn, table, options[:skip_empty_tables])
             end
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
@@ -126,6 +125,17 @@ module EOL
       def build_taxon_concept(options = {})
         tc_builder = EOL::TaxonConceptBuilder.new(options)
         return tc_builder.tc
+      end
+
+      # A dumbed-down version of #build_curator
+      def gen_curator(options = {})
+        options = {
+          curator_level:    options[:curator_level] || CuratorLevel.full,
+          curator_approved: true,
+          curator_scope:    'scope',
+          credentials:      'Curator'
+        }.merge(options)
+        curator = User.gen(options)
       end
 
       # Curators are tricky... not just a plain model, but require some activity before they are "active":

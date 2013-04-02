@@ -9,6 +9,8 @@
         - if @forum
           %h1= @forum.name
           %h2= link_to(I18n.t('forums.forums_heading'), forums_path)
+          - unless @forum.description.blank?
+            %p= sanitize @forum.description.balance_tags
         - elsif @topic
           %h1= @topic.title
           %h2

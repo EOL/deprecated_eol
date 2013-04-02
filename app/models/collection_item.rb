@@ -1,5 +1,6 @@
 # NOTE - you can get a list of all the possible collection item types with this command:
 # git grep "has_many :collection_items, :as" app
+# ...Also note, that to be "collectable", you must implement #summary_name and #collected_name.
 class CollectionItem < ActiveRecord::Base
 
   belongs_to :collection, :touch => true
@@ -23,7 +24,7 @@ class CollectionItem < ActiveRecord::Base
 
   # Note we DO NOT update relevance on the collection on save or delete, since we sometimes add/delete 1000 items at
   # a time, and that would be a disaster, since the collection only need be recalculated once.
-  after_save     :index_collection_item_in_solr
+  after_save     :reindex_collection_item_in_solr
   after_update   :update_collection_relevance_if_annotation_switched
   before_destroy :remove_collection_item_from_solr
 
@@ -43,6 +44,7 @@ class CollectionItem < ActiveRecord::Base
   def can_be_updated_by?(user_wanting_access)
     user_wanting_access.can_edit_collection?(collection)
   end
+
   # Using has_one :through didn't work:
   def community
     return nil unless collection
@@ -50,91 +52,12 @@ class CollectionItem < ActiveRecord::Base
     return collection.community
   end
 
-  def index_collection_item_in_solr
-    return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
-    remove_collection_item_from_solr
-    # If there is no collection associated with this collection item, it is meant for historical indexing only, and
-    # there is no need to index this in solr.  ...In fact, it had better not be indexed!
-    if collection_id
-      begin
-        solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
-      rescue Errno::ECONNREFUSED => e
-        puts "** WARNING: Solr connection failed."
-        return nil
-      end
-      solr_connection.create(solr_index_hash)
-    end
-  end
-
-  def solr_index_hash
-    item_collected_item_type = nil
-    if self.collected_item_type == 'DataObject'
-      if self.collected_item.is_link?
-        item_collected_item_type = 'Link'
-        link_type_id = self.collected_item.link_type.id
-      else
-        item_collected_item_type = self.collected_item.data_type.simple_type('en')
-      end
-    else
-      item_collected_item_type = self.collected_item_type
-    end
-
-    params = {}
-    # NOTE - not changing object_type and object_id from Solr until we fix coupling...
-    params['collection_item_id'] = self.id
-    params['object_type'] = item_collected_item_type
-    params['object_id'] = self.collected_item_id
-    params['collection_id'] = self.collection_id || 0
-    params['annotation'] = self.annotation || ''
-    params['added_by_user_id'] = self.added_by_user_id || 0
-    params['date_created'] = self.created_at.solr_timestamp rescue nil
-    params['date_modified'] = self.updated_at.solr_timestamp rescue nil
-    params['sort_field'] = self.sort_field
-    if params['sort_field'].blank?
-      params.delete('sort_field')
-    end
-    params['link_type_id'] = link_type_id if link_type_id
-
-    case self.collected_item
-    when TaxonConcept
-      unless self.collected_item.entry && self.collected_item.entry.name && self.collected_item.entry.name.canonical_form
-        raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
-                                                                    :type => 'Missing Hierarchy Entry'))
-      end
-      params['title'] = self.collected_item.entry.name.canonical_form.string
-    when User
-      params['title'] = self.collected_item.username
-    when DataObject
-      params['title'] = self.collected_item.best_title
-      params['data_rating'] = self.collected_item.safe_rating
-    when Community
-      params['title'] = self.collected_item.name
-    when Collection
-      params['title'] = self.collected_item.name
-    else
-      raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
-                                                                  :type => self.collected_item.class.name))
-    end
-
-    params['data_rating'] ||= 0
-    params['richness_score'] ||= 0
-    # this is a strange thing to do as only TaxonConcepts have richness, but putting this inside the case switch
-    # above was giving me other mysterious errors
-    if self.collected_item.class.name == "TaxonConcept" && self.collected_item.taxon_concept_metric && !self.collected_item.taxon_concept_metric.richness_score.blank?
-      params['richness_score'] = self.collected_item.taxon_concept_metric.richness_score
-    end
-    return params
+  def reindex_collection_item_in_solr
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items([self])
   end
 
   def remove_collection_item_from_solr
-    return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
-    begin
-      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
-    rescue Errno::ECONNREFUSED => e
-      puts "** WARNING: Solr connection failed."
-      return nil
-    end
-    solr_connection.delete_by_query("collection_item_id:#{self.id}")
+    EOL::Solr::CollectionItemsCoreRebuilder.remove_collection_items([self])
   end
 
   # This is somewhat expensive (can take a second to run), so use sparringly.

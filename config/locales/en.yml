@@ -173,6 +173,8 @@ en:
         logo: Primary collection image
         additional_annotation_fields: Additional annotation fields
         show_references: References (Text or URL)
+      collection_job:
+        overwrite: "Replace duplicates"
       collection_item:
         annotation: "Annotation"
         sort_field: "Sort by"
@@ -2414,9 +2416,11 @@ en:
   jsonp_by_adding_a_callback_parameter: "... and JSONP by adding a callback parameter"
   any_integer: "any integer"
   any_string: "any string"
+  api_cache_time_to_live_parameter: "the number of seconds you wish to have the response cached"
   api_docs_collections_description: "Given the identifier for a collection this API will return all metadata about the collection and the items it contains. The item list can be filtered by item type, and sorted on the listed attributes. Some items will contain an optional 'sort_field' attribute. The sort field is a user-supplied string that is a special annotation on a collection item. It may be any character string, but if it is a date, it should conform to the format YYYY-MM-DD. Taxon items will contain a 'richness_score'. Richness is a metric represented as an integer between 0 and 100, with a higher number denoting a page with rich content from a wide variety of sources. Read more about taxon richness on the updates tab of a taxon page, e.g. %{richness_url}."
   a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all %{creative_commons_link} licenses. Visit their site for more information on the various licenses they offer."
   a_pipe_delimited_list_of_spm_info_item_subject_names: "'overview' to return the overview text (if exists), a pipe | delimited list of subject names from the list of %{subjects_text} (e.g. TaxonBiology, FossilHistory), or 'all' to get text in any subject. Always returns an overview text as a first result (if one exists in the given context)."
+  api_results_can_be_cached: "The response of any API call can be cached for a specified length of time. A \"cache_ttl\" parameter can be provided whose value is the number of seconds for which the response will be cached. This will create HTTP headers indicating the result should be cached by web browsers, and additionally the response will be cached on EOL's servers for the specified number of seconds. If the value of \"cache_ttl\" is changed, the first request with the new value will not hit the cache, but subsequent requests will leverage the newly cached response."
   application_version_advisory_information: "Application version"
   are_you_sure: "Are you sure?"
   are_you_sure_this_action_cannot_be_undone: "Are you sure? This action cannot be undone."
@@ -2516,6 +2520,7 @@ en:
   by_caps: "By"
   by_scientific_name_table_header: "by Scientific Name"
   cache_store: "Cache Store"
+  caching_results: "Caching Results"
   calculate_averages_slow: "Calculate averages (slow)"
   call_api: "Call API"
   cancel: "Cancel"
@@ -2564,6 +2569,7 @@ en:
   classifications_recognized_by_column_header: "Recognized By"
   classifications_rank_column_header: "Rank"
   classifications_split_column_header: "Split / Move"
+  classifications_split_one_classification_only: "Please select only one classification to split. Other classifications can be moved to the new page after it has been created"
   classifications_summary_header_with_count:
     zero: "Classification not normally visible on EOL"
     one: "Found in %{count} classification"
@@ -2599,6 +2605,27 @@ en:
   collection_item_edit_page_title: "Edit item in collection <em>%{collection_name}</em>"
   collection_item_not_found_error: "That collection item could not be found."
   collection_item_edit_by_javascript_not_authorized_error: "Sorry, you do not have permission to edit this collection item. If you are the collection owner or editor please reload the page and check that you are logged in."
+  collection_items_count:
+    zero: "Empty"
+    one: "%{count} item"
+    other: "%{count} items"
+  collection_copy_complete_with_count:
+    one: "Copied %{count} item from %{from} to %{to}."
+    other: "Copied a total of %{count} items from %{from} to %{to}."
+  collection_move_complete_with_count:
+    one: "Moved %{count} item from %{from} to %{to}."
+    other: "Moved a total of %{count} items from %{from} to %{to}."
+  collection_remove_complete_with_count:
+    one: "Removed %{count} item from %{from}."
+    other: "Removed %{count} items from %{from}."
+  collection_copy_choose_all_items_target_title: "Copy all items from \"%{collection}\" to:"
+  collection_move_choose_all_items_target_title: "Move all items from \"%{collection}\" to:"
+  collection_copy_choose_target_title_with_count:
+    one: "Copy %{count} item from \"%{collection}\" to:"
+    other: "Copy %{count} items from \"%{collection}\" to:"
+  collection_move_choose_target_title_with_count:
+    one: "Move %{count} item from \"%{collection}\" to:"
+    other: "Move %{count} items from \"%{collection}\" to:"
   collection_name_cannot_be_blank: "Collection name can't be blank"
   collection_name_label: "Collection name"
   collection_newsfeed: "Collection newsfeed"
@@ -2606,6 +2633,7 @@ en:
   collection_not_destroyed_error: "Sorry, the collection was not deleted."
   collection_not_found_error: Sorry, that collection could not be found.
   collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
+  collection_redindexed: "Collection reindexed."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
   collection_was_removed_by_owner: "This collection was removed by its owner."
   collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."
@@ -2909,6 +2937,7 @@ en:
     one: "%{count} result for <em>%{search_term}</em>"
     other: "%{count} results for <em>%{search_term}</em>"
   create_account: "create an account"
+  create_a_new_collection: "Create a new collection"
   create_community_unsuccessful_error: "Sorry, an error occurred, your community was not created. Please ensure all fields are completed correctly."
   create_community: "Create community"
   create_community_about_heading: "About creating a community"
@@ -3138,6 +3167,7 @@ en:
   error_couldnt_find_community_by_id: "Couldn't find a community that you can manage with id %{id}."
   error_exemplar_chosen_with_invalid_action: "We're sorry, but the classification you have chosen was unchanged: part of the request was lost. You will need to try again."
   error_homepage_or_search_option: "You can either return to the <a href=\"/\">homepage</a> or use our search tool:"
+  error_no_items_selected: "You must either select items from the collection, or select \"All items\" from the drop-down."
   error_watch_collections_cannot_be_shared: "Watch collections cannot be shared"
   error_updating_user: "There was an error updating this user's record"
   every_method_can_also_return_json_response: "Every method can also return a JSON response by adding a .json extension."
@@ -4020,7 +4050,7 @@ en:
   source_and_additional_information: "Source and Additional Information"
   source_colon: "Source:"
   special_collection: "Special collection"
-  special_collections_cannot_be_destroyed: This collection is special and cannot be destroyed.
+  special_collections_cannot_be_destroyed: "This collection is the only collection associated with its community and cannot be deleted."
   species_curated: "Species Curated"
   species_profile_model_cp_count_title: "Species Profile Model - Content Partners Count"
   species_profile_model_dato_count_title: "Species Profile Model - Data Objects Count"
@@ -4404,12 +4434,14 @@ en:
   view_user_activity: "view user activity"
   view_user_comments: "view user comments"
   view_your_curator_profile: "View your curator profile"
+  vimeo: Vimeo
   visible_title: "Visible"
   visitors: "Visitors"
   vivisimo: "Vivisimo"
   wants_colon: "Wants:"
   watch_list: "Watch list"
   watch_list_newsfeed: "Watch List Newsfeed"
+  watch_collections_cannot_be_destroyed: "This collection is the only collection associated with its community and cannot be deleted."
   warning_you_are_editing_as_admin: "Warning: You are only allowed to edit this page because you are an admin."
   web_service_base_url: "Web service base URL"
   web_users: "Web Users"

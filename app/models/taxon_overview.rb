@@ -161,7 +161,6 @@ private
     media ||= promote_exemplar_image(
       taxon_concept.images_from_solr(
         map? ? MEDIA_TO_SHOW-1 : MEDIA_TO_SHOW,
-        :filter_hierarchy_entry => _hierarchy_entry,
         :ignore_translations => true
       )
     ).compact

@@ -10,7 +10,6 @@ class Curation
   def initialize(options)
     @user = options[:user]
     @association = options[:association]
-    @data_object = options[:data_object] # TODO - Change association to a class, give it a #data_object, stop passing
     @vetted = options[:vetted] || @association.vetted
     @visibility = options[:visibility] || @association.visibility
     @comment = options[:comment]
@@ -101,7 +100,7 @@ private
   end
 
   def object_in_preview_state?
-    curated_object.visibility == Visibility.preview
+    @association.preview?
   end
 
   def something_needs_curation?
@@ -116,32 +115,26 @@ private
     @visibility_changed ||= @visibility && @association.visibility != @visibility
   end
 
-  # When Association becomes a class (is this like the fifth time I've said this?) the data_object argument goes
-  # away. TODO
-  def curated_object
-    @curated_object ||= @association.curatable_object(@data_object)
-  end
-
   def handle_vetting
-    @vetted.apply_to(curated_object, @user)
+    @vetted.apply_to(@association, @user)
     log = log_action(@vetted.to_action)
     log.untrust_reasons = UntrustReason.find(@untrust_reason_ids) if untrusting?
   end
 
   def handle_visibility
-    @visibility.apply_to(curated_object, @user)
+    @visibility.apply_to(@association, @user)
     log = log_action(@visibility.to_action)
     if hiding?
       log.untrust_reasons = UntrustReason.find(@hide_reason_ids)
-      @association.taxon_concept.clear_for_data_object(@data_object) # TODO - why not for show?
     end
+    @association.taxon_concept.clear_for_data_object(@association.data_object)
   end
 
   def log_action(action)
     CuratorActivityLog.factory(
       :action => action,
-      :association => curated_object,
-      :data_object => @data_object,
+      :association => @association.source,
+      :data_object => @association.data_object,
       :user => @user
     )
   end

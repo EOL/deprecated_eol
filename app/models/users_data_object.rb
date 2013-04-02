@@ -35,6 +35,10 @@ class UsersDataObject < ActiveRecord::Base
     return obj_ids
   end
 
+  def guid
+    data_object.guid
+  end
+
   # Used when a user-submitted text is replicated. Note that before_create makes vet/vis moot until afterwards.
   def replicate(new_dato)
     udo = UsersDataObject.create(

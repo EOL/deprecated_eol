@@ -49,11 +49,11 @@
                     = f.submit I18n.t(:set_as_exemplar)
             = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
             %p.flag{:class => item_status_class}= item_status_label
-            - vetted_id = item.association_with_exact_or_best_vetted_status(@taxon_concept).vetted_id
+            - vetted = item.vetted_by_taxon_concept(@taxon_concept)
             .associations
               - associated_with_taxa_names = []
-              - item.all_associations.each do |association|
-                - if association.vetted_id == vetted_id && association_belongs_to_taxon_concept?(association, @taxon_concept)
+              - item.data_object_taxa.each do |association|
+                - if association.vetted == vetted && association_belongs_to_taxon_concept?(association, @taxon_concept)
                   - associated_with_taxa_names << association.italicized_name
               -# TODO: What should we do when this IS blank?
               - unless associated_with_taxa_names.blank?

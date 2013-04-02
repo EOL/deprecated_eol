@@ -88,10 +88,6 @@ describe TaxonConcept do
     @taxon_concept.curators.map(&:id).should include(@curator.id)
   end
 
-  it 'should have a scientific name (italicized for species)' do
-    @taxon_concept.scientific_name.should == @italicized
-  end
-
   it 'should have a common name' do
     @taxon_concept_common_name_at_start.should == @common_name
   end
@@ -249,36 +245,27 @@ describe TaxonConcept do
     end
   end
 
+  # TODO - Re-express this so that it's actually checking that the values are NOT untrusted, rather than that they
+  # ARE either trusted or unknown.  :|
   it 'should not return untrusted images to non-curators' do
     @taxon_concept.reload
-    trusted   = Vetted.trusted.id
-    unknown   = Vetted.unknown.id
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids)).map { |item|
-      item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-      item_vetted_id = item_vetted.id unless item_vetted.nil?
-      item_vetted_id
-    }.uniq.should == [trusted, unknown]
+      item.vetted_by_taxon_concept(@taxon_concept)
+    }.uniq.should == [Vetted.trusted, Vetted.unknown]
   end
   
   it 'should return media sorted by trusted, unknown, untrusted' do
     @taxon_concept.reload
-    trusted   = Vetted.trusted.id
-    unknown   = Vetted.unknown.id
-    untrusted = Vetted.untrusted.id
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids, :vetted_types => ['trusted', 'unreviewed', 'untrusted'])).map { |item|
-      item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-      item_vetted_id = item_vetted.id unless item_vetted.nil?
-      item_vetted_id
-    }.uniq.should == [trusted, unknown, untrusted]
+      item.vetted_by_taxon_concept(@taxon_concept)
+    }.uniq.should == [Vetted.trusted, Vetted.unknown, Vetted.untrusted]
   end
   
 
   it 'should sort the vetted images by data rating' do
     @taxon_concept.current_user = @user
     ratings = @taxon_concept.images_from_solr(100).select { |item|
-      item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-      item_vetted_id = item_vetted.id unless item_vetted.nil?
-      item_vetted_id == Vetted.trusted.id
+      item.vetted_by_taxon_concept(@taxon_concept) == Vetted.trusted
     }.map! {|d| DataObject.find(d).data_rating }
     ratings.should == ratings.sort.reverse
   end

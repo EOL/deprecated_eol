@@ -41,64 +41,44 @@ describe Taxa::MediaController do
       @oldest_image_highly_rated_unreviewed = @taxon_concept.images_from_solr.first
       @highly_ranked_image = @taxon_concept.images_from_solr.second
       @newest_image_poorly_rated_trusted.data_rating = 0
-      newest_image_poorly_rated_trusted_association = @newest_image_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
-      newest_image_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
-      newest_image_poorly_rated_trusted_association.save!
+      @newest_image_poorly_rated_trusted.vet_by_taxon_concept(@taxon_concept, Vetted.trusted)
       @newest_image_poorly_rated_trusted.save
       @oldest_image_highly_rated_unreviewed.data_rating = 20
-      oldest_image_highly_rated_unreviewed_association = @oldest_image_highly_rated_unreviewed.association_for_taxon_concept(@taxon_concept)
-      oldest_image_highly_rated_unreviewed_association.vetted_id = Vetted.unknown.id
-      oldest_image_highly_rated_unreviewed_association.save!
+      @oldest_image_highly_rated_unreviewed.vet_by_taxon_concept(@taxon_concept, Vetted.unknown)
       @oldest_image_highly_rated_unreviewed.save
       @highly_ranked_image.data_rating = 8
-      highly_ranked_image_association = @highly_ranked_image.association_for_taxon_concept(@taxon_concept)
-      highly_ranked_image_association.vetted_id = Vetted.trusted.id
-      highly_ranked_image_association.save!
+      @highly_ranked_image.vet_by_taxon_concept(@taxon_concept, Vetted.trusted)
       @highly_ranked_image.save
 
       @newest_video_poorly_rated_trusted = @taxon_concept.data_objects.select{ |d| d.is_video? }.last
       @oldest_video_highly_rated_unreviewed = @taxon_concept.data_objects.select{ |d| d.is_video? }.first
       @highly_ranked_video = @taxon_concept.data_objects.select{ |d| d.is_video? }.second
       @newest_video_poorly_rated_trusted.data_rating = 0
-      newest_video_poorly_rated_trusted_association = @newest_video_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
-      newest_video_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
-      newest_video_poorly_rated_trusted_association.save!
+      @newest_video_poorly_rated_trusted.vet_by_taxon_concept(@taxon_concept, Vetted.trusted)
       @newest_video_poorly_rated_trusted.save
       @oldest_video_highly_rated_unreviewed.data_rating = 19
-      oldest_video_highly_rated_unreviewed_association = @oldest_video_highly_rated_unreviewed.association_for_taxon_concept(@taxon_concept)
-      oldest_video_highly_rated_unreviewed_association.vetted_id = Vetted.unknown.id
-      oldest_video_highly_rated_unreviewed_association.save!
+      @oldest_video_highly_rated_unreviewed.vet_by_taxon_concept(@taxon_concept, Vetted.unknown)
       @oldest_video_highly_rated_unreviewed.save
       @highly_ranked_video.data_rating = 7
-      highly_ranked_video_association = @highly_ranked_video.association_for_taxon_concept(@taxon_concept)
-      highly_ranked_video_association.vetted_id = Vetted.trusted.id
-      highly_ranked_video_association.save!
+      @highly_ranked_video.vet_by_taxon_concept(@taxon_concept, Vetted.trusted)
       @highly_ranked_video.save
 
       @newest_sound_poorly_rated_trusted = @taxon_concept.data_objects.select{ |d| d.is_sound? }.last
       @oldest_sound_highly_rated_unreviewed = @taxon_concept.data_objects.select{ |d| d.is_sound? }.first
       @highly_ranked_sound = @taxon_concept.data_objects.select{ |d| d.is_sound? }.second
       @newest_sound_poorly_rated_trusted.data_rating = 0
-      newest_sound_poorly_rated_trusted_association = @newest_sound_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
-      newest_sound_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
-      newest_sound_poorly_rated_trusted_association.save!
+      @newest_sound_poorly_rated_trusted.vet_by_taxon_concept(@taxon_concept, Vetted.trusted)
       @newest_sound_poorly_rated_trusted.save
       @oldest_sound_highly_rated_unreviewed.data_rating = 18
-      oldest_sound_highly_rated_unreviewed_association = @oldest_sound_highly_rated_unreviewed.association_for_taxon_concept(@taxon_concept)
-      oldest_sound_highly_rated_unreviewed_association.vetted_id = Vetted.unknown.id
-      oldest_sound_highly_rated_unreviewed_association.save!
+      @oldest_sound_highly_rated_unreviewed.vet_by_taxon_concept(@taxon_concept, Vetted.unknown)
       @oldest_sound_highly_rated_unreviewed.save
       @highly_ranked_sound.data_rating = 6
-      highly_ranked_sound_association = @highly_ranked_sound.association_for_taxon_concept(@taxon_concept)
-      highly_ranked_sound_association.vetted_id = Vetted.trusted.id
-      highly_ranked_sound_association.save!
+      @highly_ranked_sound.vet_by_taxon_concept(@taxon_concept, Vetted.trusted)
       @highly_ranked_sound.save
 
       @highly_ranked_text = @taxon_concept.data_objects.detect{ |d| d.is_text? }
       @highly_ranked_text.data_rating = 21
-      highly_ranked_text_association = @highly_ranked_text.association_for_taxon_concept(@taxon_concept)
-      highly_ranked_text_association.vetted_id = Vetted.trusted.id
-      highly_ranked_text_association.save!
+      @highly_ranked_text.vet_by_taxon_concept(@taxon_concept, Vetted.trusted)
       @highly_ranked_text.save
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     end

@@ -7,7 +7,7 @@
 # Comments are polymorphically related to many kind of models.  At the time of this writing, it includes Taxon
 # Concepts, Data Objects, Communities, Collections, and Users... but could be extended in the future.
 #
-# Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
+# User#taxa_commented will need to be updated if you add a comment parent type, for example.
 require 'eol/activity_log_item'
 
 class Comment < ActiveRecord::Base
@@ -220,11 +220,12 @@ private
     if self.parent.respond_to?(:flattened_ancestor_ids)
       # page's ancestors
       recipients << { :ancestor_ids => self.parent.flattened_ancestor_ids }
-    elsif self.parent.respond_to?(:curated_hierarchy_entries)
+    elsif self.parent.respond_to?(:data_object_taxa)
       # object's pages and pages' ancestors
-      self.parent.curated_hierarchy_entries.each do |he|
-        recipients << he.taxon_concept
-        recipients << { :ancestor_ids => he.taxon_concept.flattened_ancestor_ids }
+      self.parent.data_object_taxa.each do |association|
+        recipients << association.taxon_concept
+        recipients << { :ancestor_ids => association.taxon_concept.flattened_ancestor_ids } if
+          association.taxon_concept.respond_to?(:flattened_ancestor_ids)
       end
     end
   end

@@ -15,13 +15,13 @@ describe Users::CollectionsController do
 
   describe 'GET index' do
 
+    before(:each) { do_index }
+
     it "should instantiate the user through the users controller" do
-      do_index
       assigns[:user].should be_a(User)
     end
 
     it "should instantiate and sort user collections" do
-      do_index
       assigns[:published_collections].should be_a(Array)
       assigns[:published_collections].first.should be_a(Collection)
       assigns[:published_collections].should == assigns[:published_collections].sort_by(&:name)

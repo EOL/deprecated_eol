@@ -21,8 +21,12 @@ class Forum < ActiveRecord::Base
   end
 
   def update_last_post_and_count
-    update_attributes(:last_post_id => forum_topics.visible.joins(:forum_posts).where("forum_posts.deleted_at IS NULL").maximum('forum_posts.id'))
-    update_attributes(:number_of_posts => forum_topics.visible.joins(:forum_posts).where("forum_posts.deleted_at IS NULL").count)
+    update_attributes(:last_post_id => open_topics.maximum('forum_posts.id'))
+    update_attributes(:number_of_posts => open_topics.count)
+  end
+
+  def open_topics
+    forum_topics.visible.joins(:forum_posts).where("forum_posts.deleted_at IS NULL")
   end
 
   private

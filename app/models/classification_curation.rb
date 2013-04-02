@@ -125,8 +125,15 @@ class ClassificationCuration < ActiveRecord::Base
 
   def reindex_taxa
     # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
-    TaxonConceptReindexing.reindex(moved_from, :flatten => split?, :allow_large_tree => true) if source_id
-    TaxonConceptReindexing.reindex(moved_to,   :flatten => split?, :allow_large_tree => true) if target_id
+    TaxonConceptReindexing.reindex(moved_from, :allow_large_tree => true) if source_id
+    if target_id
+      TaxonConceptReindexing.reindex(moved_to, :allow_large_tree => true)
+    elsif hierarchy_entry_moves
+      taxon_concepts = hierarchy_entry_moves.collect{ |m| m.hierarchy_entry.taxon_concept }.compact.uniq
+      taxon_concepts.each do |taxon_concept|
+        TaxonConceptReindexing.reindex(taxon_concept, :allow_large_tree => true)
+      end
+    end
   end
   
   def log_completion
@@ -154,6 +161,11 @@ class ClassificationCuration < ActiveRecord::Base
 
   def to_s
     "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
+  end
+
+  # A split doesn't specify a target (it creates one), so we look to see where it went (for logging):
+  def split_to
+    hierarchy_entry_moves.first.hierarchy_entry.taxon_concept
   end
 
 private
@@ -237,10 +249,6 @@ private
       move.update_column(:completed_at, Time.now)
     end
     update_column(:completed_at, Time.now)
-  end
-
-  def split_to_id
-    hierarchy_entry_moves.first.hierarchy_entry.taxon_concept_id
   end
 
 end

@@ -7,6 +7,16 @@ class Vetted < ActiveRecord::Base
   has_many :curated_data_objects_hierarchy_entries
   has_many :users_data_objects
 
+  def self.create_defaults
+    %w(Trusted Unknown Untrusted Inappropriate).each_with_index do |lbl, order|
+      vis = Vetted.create(:view_order => order + 1 )
+      trans = TranslatedVetted.create(vetted_id: vis.id,
+                                      language_id: Language.default.id,
+                                      label: lbl,
+                                      phonetic_label: nil)
+    end
+  end
+
   def self.inappropriate
     cached_find_translated(:label, 'Inappropriate')
   end

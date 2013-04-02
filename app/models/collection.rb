@@ -9,7 +9,6 @@ class Collection < ActiveRecord::Base
   belongs_to :view_style
 
   has_many :collection_items
-  accepts_nested_attributes_for :collection_items
   has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :collected_item
   has_many :containing_collections, :through => :others_collection_items, :source => :collection
 
@@ -20,6 +19,7 @@ class Collection < ActiveRecord::Base
 
   has_and_belongs_to_many :communities, :uniq => true
   has_and_belongs_to_many :users
+  has_and_belongs_to_many :collection_jobs
 
   scope :published, :conditions => {:published => 1}
   # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...
@@ -54,6 +54,7 @@ class Collection < ActiveRecord::Base
 
   alias :items :collection_items
   alias_attribute :summary_name, :name
+  alias_attribute :collected_name, :name
 
   def self.which_contain(what)
     Collection.joins(:collection_items).where(:collection_items => { :collected_item_type => what.class.name,
@@ -98,8 +99,6 @@ class Collection < ActiveRecord::Base
   end
   alias :is_focus_list? :focus?
 
-  # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
-  # add more than two things... because this runs an expensive calculation at the end.
   def add(what, opts = {})
     return if what.nil?
     name = case what
@@ -118,7 +117,7 @@ class Collection < ActiveRecord::Base
                                                                     :klass => what.class.name))
       end
     collection_items << item = CollectionItem.create(:collected_item => what, :name => name, :collection => self, :added_by_user => opts[:user])
-    set_relevance # This is actually safe, because we don't use #add in bulk.
+    set_relevance
     item # Convenience.  Allows us to know the collection_item created and possibly chain it.
   end
 
@@ -145,17 +144,25 @@ class Collection < ActiveRecord::Base
     (users + communities.map {|com| com.managers_as_users }).flatten.compact.uniq
   end
 
-  def has_item?(item)
+  def select_item(item)
     return false unless item
     # find the first collected_item in their collection matching the given item
-    return true if CollectionItem.find(:first,
+    found = CollectionItem.find(:first,
       :conditions => "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and collected_item_id = #{item.id}")
+    return found if found
     if item.class == DataObject
       # for data objects we can further check for any item in the collection with the same guid
-      return true if CollectionItem.find(:first,
+      found = CollectionItem.find(:first,
         :conditions => "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and do_guid.id = #{item.id}",
         :joins => 'JOIN data_objects do ON (collection_items.collected_item_id=do.id) JOIN data_objects do_guid ON (do.guid=do_guid.guid)')
+      return found if found
     end
+    nil
+  end
+
+  def has_item?(item)
+    return false unless item
+    return true if select_item(item)
   end
 
   def view_style_or_default
@@ -168,7 +175,13 @@ class Collection < ActiveRecord::Base
 
   def items_from_solr(options={})
     sort_by_style = SortStyle.find(options[:sort_by].blank? ? sort_style_or_default : options[:sort_by])
-    EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
+    items = begin
+              EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
+            rescue ActiveRecord::RecordNotFound
+              logger.error "** ERROR: Collection #{id} failed to find all items... reindexing."
+              EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(self)
+              EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
+            end
   end
 
   def facet_count(type)
@@ -190,29 +203,9 @@ class Collection < ActiveRecord::Base
   end
 
   def set_relevance
-    # TODO - this occasionally seems to make Paperclip quite grumpy, but only in tests.  Hmmmn.
-    update_attributes(:relevance => calculate_relevance)
+    Resque.enqueue(CollectionRelevanceCalculator, id)
   end
   
-  def count_containing_collections(opts = {})
-    if opts[:is_featured] === true
-      extra_condition = "AND com.id IS NOT NULL"
-    elsif opts[:is_featured] === false
-      extra_condition = "AND com.id IS NULL"
-    end
-      
-    count_result = connection.execute("
-      SELECT COUNT(DISTINCT(c.id))
-      FROM collections c
-      JOIN collection_items ci ON ( c.id = ci.collection_id )
-      LEFT JOIN (
-        collections_communities cc
-        JOIN communities com ON ( cc.community_id = com.id )
-      ) ON ( c.id = cc.collection_id )
-      WHERE ( ci.collected_item_id = #{self.id} AND ci.collected_item_type = 'Collection') #{extra_condition}")
-    count_result.first.first
-  end
-
   def can_be_read_by?(user)
     return true if published? || users.include?(user) || user.is_admin?
     false
@@ -243,82 +236,8 @@ class Collection < ActiveRecord::Base
 
 private
 
-  # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:
-  def calculate_relevance
-    return 0 if watch_collection? # Watch collections are irrelevant.
-    @taxa_count = collection_items.taxa.count
-    return 0 if @taxa_count <= 0 # Collections with no taxa (ie: friend lists and the like) are irrelevant.
-    # Each sub-category should return a score between 1 and 100:
-    score = (calculate_feature_relevance * 0.4) + (calculate_taxa_relevance * 0.4) + (calculate_item_relevance * 0.2)
-    return 0 if score <= 0
-    return 100 if score >= 100
-    score.to_i
-  end
-
-  def calculate_feature_relevance
-    features = count_containing_collections(:is_featured => true)
-    times_featured_score = case features
-                           when 0
-                             0
-                           when 1..25
-                             2 * features
-                           else
-                             50
-                           end
-    collected = count_containing_collections(:is_featured => false)
-    times_collected_score = case collected
-                            when 0
-                              0
-                            when 1..30
-                              collected
-                            else
-                              30
-                            end
-    is_focus_list_score = focus? ? 20 : 0
-    score = times_featured_score + times_collected_score + is_focus_list_score
-    return 0 if score <= 0
-    return 100 if score >= 100
-    return score.to_i
-  end
-
-  # Extremely focused list = high score ... too many taxa = not as relevant.
-  def calculate_taxa_relevance
-    taxa = @taxa_count || collection_items.taxa.count
-    score = case taxa
-            when 0
-              0 # No taxa = irrelvant. Really, you shouldn't get here.
-            when 1
-              100
-            when 2..4
-              100 - (taxa * 4)
-            when 5..300
-              (80 / (taxa / 4.0)).to_i
-            else
-              0 # Way too big.
-            end
-    return 0 if score <= 0
-    return 100 if score >= 100
-    return score.to_i
-  end
-
-  def calculate_item_relevance
-    items = collection_items.count
-    annotated = collection_items.annotated.count
-    item_score = case items
-                 when 0..100
-                   items
-                 else
-                   100
-                 end
-    percent_annotated = annotated <= 0 ? 0 : (items / annotated.to_f)
-    score = ((item_score / 2) + (percent_annotated / 2)).to_i
-    return 0 if score <= 0
-    return 100 if score >= 100
-    return score.to_i
-  end
-
   def set_relevance_if_collection_items_changed
-    relevance = calculate_relevance if collection_items && collection_items.last && collection_items.last.changed?
+    set_relevance if collection_items && collection_items.last && collection_items.last.changed?
   end
 
 end

@@ -1,6 +1,6 @@
 - data_object ||= @data_object
 - unless data_object.blank?
-  - entries = data_object.filtered_associations
+  - entries = data_object.data_object_taxa_by_visibility
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else
@@ -12,8 +12,8 @@
         %li
           %p{:class => en_status}= status
           %legend= link_to raw(entry.italicized_name), taxon_overview_path(entry.taxon_concept_id)
-          .remove_association
-            - if entry.can_be_deleted_by?(current_user)
+          - if entry.can_be_deleted_by?(current_user)
+            .remove_association
               = link_to I18n.t(:remove_data_object_association),
                 remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id),
                 :id => "remove_association_#{entry.id}", :data => { :confirm => I18n.t(:are_you_sure) }

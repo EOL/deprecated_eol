@@ -36,7 +36,12 @@ private
     debug '#split'
     # They may have (and often have) selected more to move...
     add_entries_to_session if params[:split_hierarchy_entry_id]
-    @target_params[:confirm] = 'split' # hard-coded string, no need to translate.
+    if session[:split_hierarchy_entry_id].length > 1
+      clear_entries_from_session
+      flash[:error] = I18n.t(:classifications_split_one_classification_only)
+    else
+      @target_params[:confirm] = 'split' # hard-coded string, no need to translate.
+    end
   end
 
   # They have a list of classifications they want to merge into this taxon concept.

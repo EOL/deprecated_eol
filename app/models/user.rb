@@ -221,7 +221,8 @@ class User < ActiveRecord::Base
       return [given_name, family_name].join(' ').strip
     end
   end
-  alias summary_name full_name # This is for collection item duck-typing, you need not use this elsewhere.
+  alias :summary_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
+  alias :collected_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
 
   # Note that this can end up being expensive, but avoids errors.  Watch your qeries!
   def reload_all_values_if_missing(which)
@@ -277,27 +278,23 @@ class User < ActiveRecord::Base
   def taxa_commented
     return @taxa_commented unless @taxa_commented.nil?
     # list of taxa where user entered a comment
-    @taxa_commented = []
-    Comment.preload_associations(comments.select{ |c| c.parent_type == 'DataObject' },
+    set = Set.new
+    # DataObject needs a lot to find its TC, so we preload all of those:
+    Comment.preload_associations(comments.select { |c| c.parent_type == 'DataObject' },
       { :parent => [ { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { :users_data_object => :vetted } ] },
       :select => [ { :data_objects => :id } ])
     comments.each do |comment|
-      @taxa_commented << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
-      if comment.parent_type == 'DataObject'
-        object = comment.parent
-        if !object.blank?
-          best_association = object.association_with_best_vetted_status
-          if best_association.class.name == 'DataObjectsHierarchyEntry' || best_association.class.name == 'CuratedDataObjectsHierarchyEntry'
-            @taxa_commented << best_association.hierarchy_entry.taxon_concept_id rescue nil
-          elsif best_association.class.name == 'UsersDataObject'
-            @taxa_commented << best_association.taxon_concept_id
-          end
-        end
+      next unless comment.parent_id # Not worth checking...
+      # NOTE - We're avoiding instantiating the parent unless it's a DataObject, so if we add new Comment parent
+      # types, this code will need to be updated.
+      case comment.parent_type
+      when 'TaxonConcept'
+        set << comment.parent_id
+      when 'DataObject'
+        set << comment.parent.taxon_concept_id if comment.parent && comment.parent.taxon_concept_id
       end
     end
-    @taxa_commented.compact!
-    @taxa_commented.uniq!
-    @taxa_commented
+    @taxa_commented = set.to_a
   end
 
   def total_comment_submitted
@@ -586,7 +583,7 @@ class User < ActiveRecord::Base
 
   # NOTE - This REMOVES the watchlist (using #shift)!
   def published_collections(as_user = nil)
-    @published_collections ||= all_collections(as_user).shift && all_collections.select { |c| c.published? }
+    @published_collections ||= all_collections(as_user).shift && all_collections(as_user).select { |c| c.published? }
   end
 
   def unpublished_collections(as_user = nil)
@@ -609,6 +606,15 @@ class User < ActiveRecord::Base
       editable_collections.delete_if { |c| ! c.published? }
     end
     @all_collections[as_user] = editable_collections.compact
+  end
+
+  # NOTE - this method ASSUMES it's only being called for a user's own collections.
+  def all_non_resource_collections
+    return @all_non_resource_collections if defined?(@all_non_resource_collections)
+    collections = published_collections(self) || []
+    Collection.preload_associations(collections, [ :resource, :resource_preview ])
+    collections.delete_if { |c| c.is_resource_collection? }
+    @all_non_resource_collections = collections
   end
 
   def ignored_data_object?(data_object)

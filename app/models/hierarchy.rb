@@ -61,7 +61,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.col
-    cached('col') do
+    @@col ||= cached('col') do
       Hierarchy.where("label LIKE 'Species 2000 & ITIS Catalogue of Life%%'").includes(:agent).last
     end
   end
@@ -92,7 +92,7 @@ class Hierarchy < ActiveRecord::Base
   end
   
   def self.itis
-    cached('itis') do
+    @@itis ||= cached('itis') do
       Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', :order => 'id desc')
     end
   end

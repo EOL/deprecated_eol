@@ -108,6 +108,15 @@ describe ClassificationCuration do
     @source.comments.select {|c| c.body =~ /Something horrible/}.should_not be_empty
   end
 
+  it 'should know where a split ended up' do
+    move = mock_model(HierarchyEntryMove)
+    @split.should_receive(:hierarchy_entry_moves).and_return([move])
+    entry = mock_model(HierarchyEntry)
+    move.should_receive(:hierarchy_entry).and_return(entry)
+    entry.should_receive(:taxon_concept).and_return(:this)
+    @split.split_to.should == :this
+  end
+
   # TODO - I lost momentum, here. Thoughts:
   # I'm testing that reindex_taxa is being called, when I suppose it's more useful to test that
   # TaxonConceptReindexing is being called (correctly). That's probably worth extracting, though, into a method.

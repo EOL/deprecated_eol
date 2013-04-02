@@ -1,7 +1,7 @@
 - en_type ||= 'unknown_type'
 - data_object ||= @data_object
 - unless data_object.blank?
-  - entries = data_object.filtered_associations(:invisible => current_user.is_admin? || current_user.is_curator?)
+  - entries = data_object.data_object_taxa_by_visibility(:invisible => current_user.is_admin? || current_user.is_curator?)
   - if entries.compact.blank?
     .copy
       %p= I18n.t("#{en_type}_not_associated_with_any_published_entries")

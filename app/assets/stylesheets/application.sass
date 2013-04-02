@@ -82,7 +82,7 @@ form
   .heading &.filter
     label
       text-transform: uppercase
-      color: #828d33
+      color: $loafer_text_color
     dl
       display: inline
       dt
@@ -103,8 +103,8 @@ form
   position: relative
   left: -1px
   z-index: 1
-  padding: 0 20px
-  border: 1px solid #93a4b0
+  padding: 0 17px
+  border: 1px solid $darker_gray
   border-width: 0 1px
   .heading
     position: relative
@@ -116,7 +116,7 @@ form
     h3, label
       font-weight: bold
       text-transform: uppercase
-      color: #828d33
+      color: $loafer_text_color
     h3, &.subnav ul
       + form, + a
         position: absolute
@@ -138,13 +138,13 @@ form
           &.active a
             background: #fff
           &.active a, a:hover
-            border: 1px solid #828d33
+            border: 1px solid $loafer_text_color
             color: #394651
           a
             padding: 5px
             display: block
             text-decoration: none
-            color: #828d33
+            color: $loafer_text_color
             background: #f5f7e7
             border: 1px solid #cfd5a9
       form
@@ -181,7 +181,7 @@ ul.tabs
     margin: 0 0 1px 0
     font-weight: bold
     border: 1px solid #cad3db
-    border-right-color: #93a4b0
+    border-right-color: $darker_gray
     +border-top-left-radius(3px)
     +border-bottom-left-radius(3px)
     +gradient-bg-horizontal(#ffffff, #f0f4f7)
@@ -191,11 +191,11 @@ ul.tabs
       text-decoration: none
       color: #616e7a
     &:hover
-      border-color: #93a4b0
+      border-color: $darker_gray
       a
         color: #28323a
     &.active
-      border-color: #93a4b0
+      border-color: $darker_gray
       border-right-color: #ffffff
       +gradient-bg-horizontal(#fff, #fff)
       a
@@ -579,7 +579,7 @@ ul.object_list
     padding: 10px
     overflow: hidden
     line-height: 160%
-    color: #5f6c76
+    color: $lighter_text_color
     & + li
       border-top: 1px solid #d7dadc
     .annotation
@@ -760,10 +760,10 @@ body
             text-decoration: none
             color: #616e7a
             &:hover
-              border-color: #93a4b0
+              border-color: $darker_gray
           &.active
             a
-              border-color: #93a4b0
+              border-color: $darker_gray
               background: #e2e9ef
               color: #394651
     .copy
@@ -795,7 +795,7 @@ body
 
 #page_heading
   padding: 10px 0 0 0
-  border-bottom: 1px solid #93a4b0
+  border-bottom: 1px solid $darker_gray
   background: #e2e9ef
   .hgroup
     float: left
@@ -842,14 +842,14 @@ body
     margin: 5px 0 0 0
     font-size: 1.66em
     font-weight: normal
-    color: #5f6c76
+    color: $lighter_text_color
     small
       padding: 0 0 0 10px
       font-size: .6em
   p
     font-size: 1.08em
     line-height: 140%
-    color: #5f6c76
+    color: $lighter_text_color
     &.status
       color: #394651
     &.message
@@ -937,7 +937,7 @@ body
         color: #616e7a
       &.active,
       &:hover
-        border-color: #93a4b0
+        border-color: $darker_gray
         a
           color: #28323a
       &.active
@@ -1150,7 +1150,7 @@ body
         z-index: 1
       &.first
         margin-left: 0
-        clear: both
+        clear: left
       .checkbox
         position: absolute
         border: 1px solid #cad3db
@@ -1172,9 +1172,9 @@ body
       h4
         small
           font-weight: bold
-          color: #5F6C76
+          color: $lighter_text_color
 
-#collections_edit, #collection_items_edit
+#collections_edit
   width: 500px
   margin: 0 auto
   h2
@@ -1782,7 +1782,7 @@ ul.content_partner_contacts
       padding: 10px 20px
       margin: 0 0 20px 0
       text-transform: uppercase
-      color: #828d33
+      color: $loafer_text_color
       border: 1px solid #ccd399
       border-width: 1px 0
       background: #f1f4dc
@@ -2113,13 +2113,13 @@ ul.content_partner_contacts
               &:hover
                 text-decoration: underline
           p
-            color: #5f6c76
+            color: $lighter_text_color
             margin: 0 0 10px 0
           ul
             li
               margin: 0 0 3px 0
               font-size: .9em
-              color: #5f6c76
+              color: $lighter_text_color
               form
                 display: inline
                 input[type="submit"]
@@ -2176,7 +2176,7 @@ ul.content_partner_contacts
       float: left
       width: 360px
       margin: 0 20px 25px 0
-      border: 1px solid #93a4b0
+      border: 1px solid $darker_gray
       border-top: none
       border-bottom: none
       li
@@ -2187,18 +2187,18 @@ ul.content_partner_contacts
         padding: 10px
         cursor: pointer
         background: #f3f7fa
-        border-top: 1px solid #93a4b0
+        border-top: 1px solid $darker_gray
         + li
           border-top: 1px solid #d7dadc
         &.last
-          border-bottom: 1px solid #93a4b0
+          border-bottom: 1px solid $darker_gray
         &:hover
           background-color: #ffffff
         p
           padding: 10px 0 0 0
           font-weight: bold
           line-height: 140%
-          color: #5f6c76
+          color: $lighter_text_color
           font-size: .92em
         a
           display: block
@@ -2251,7 +2251,7 @@ ul.content_partner_contacts
         &.active
           width: 340px
           padding-right: 30px
-          border: 1px solid #93a4b0
+          border: 1px solid $darker_gray
           border-left: none
           border-right-color: #ffffff
           background: #ffffff
@@ -2264,7 +2264,7 @@ ul.content_partner_contacts
   #task
     overflow: hidden
     padding: 19px
-    border: 1px solid #93a4b0
+    border: 1px solid $darker_gray
     #sidebar
       h3
         padding: 0 10px 3px 10px
@@ -2453,7 +2453,7 @@ ul.content_partner_contacts
       padding: 6px 0 0 0
       font-weight: bold
       line-height: 160%
-      color: #5f6c76
+      color: $lighter_text_color
     h4
       padding: 15px 0 0 0
     a
@@ -2579,7 +2579,7 @@ ul.content_partner_contacts
           display: none
     dl
       position: relative
-      border: 1px solid #93a4b0
+      border: 1px solid $darker_gray
       line-height: 2.2em
       background: #f6f8fa
       margin: 0 0 40px 0
@@ -2605,7 +2605,7 @@ ul.content_partner_contacts
       dd
         margin: 0
         width: 160px
-        border-right: 1px solid #93a4b0
+        border-right: 1px solid $darker_gray
         background: #e2e9ef
         float: left
         text-align: right
@@ -2618,7 +2618,7 @@ ul.content_partner_contacts
           float: right
           text-align: left
           border-right: none
-          border-left: 1px solid #93a4b0
+          border-left: 1px solid $darker_gray
         span
           display: block
           background: #e2e9ef
@@ -2630,7 +2630,7 @@ ul.content_partner_contacts
           span
             background: #fff
             padding: 0 22px
-            border: 1px solid #93a4b0
+            border: 1px solid $darker_gray
             margin: 1px -3px
             color: #394651
 
@@ -2881,7 +2881,7 @@ ul.spotlite-matches
     fieldset
       &.new_community
         input[type="text"]
-        +input(210px)
+          +input(210px)
       &.new_collection
         overflow: hidden
         margin: 0 0 20px 0

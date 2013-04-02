@@ -140,6 +140,7 @@ $EOL_TUMBLR_ACCOUNT     = "http://blog.eol.org"
 $EOL_FLICKR_ACCOUNT     = "http://www.flickr.com/groups/encyclopedia_of_life/"
 $EOL_YOUTUBE_ACCOUNT    = "http://www.youtube.com/user/EncyclopediaOfLife/"
 $EOL_PINTEREST_ACCOUNT  = "http://pinterest.com/eoflife/"
+$EOL_VIMEO_ACCOUNT      = "http://vimeo.com/groups/encyclopediaoflife"
 
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'

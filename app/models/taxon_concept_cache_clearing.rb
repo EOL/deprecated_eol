@@ -34,7 +34,7 @@ class TaxonConceptCacheClearing
                  :vetted_types => ['trusted', 'unreviewed', 'untrusted'],
                  :visibility_types => ['visible', 'invisible']).each do |dato|
       DataObject.find(dato).update_solr_index # Find needed because it doesn't have all attributes otherwise.
-               end
+    end
   end
 
   # TODO - refactor and test. Not in that order. I did only the most obvious cleanup, here.
@@ -60,6 +60,7 @@ private
       Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{taxon_concept.id}_#{lang.id}"))
     end
     Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
+    TaxonConceptPreferredEntry.delete_all(:taxon_concept_id => taxon_concept.id)
   end
 
   def clear_media_counts

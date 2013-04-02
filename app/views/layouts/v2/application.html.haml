@@ -21,6 +21,8 @@
       %meta{ :name => "keywords", :content => h(strip_tags(@meta_data[:keywords])) }
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
       %meta{ :property => "fb:app_id", :content => $FACEBOOK_APP_ID }
+    - if $PINTEREST_VERIFICATION_CODE
+      %meta{ :name => "p:domain_verify", :content => $PINTEREST_VERIFICATION_CODE }
 
     - if @no_cache
       %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }

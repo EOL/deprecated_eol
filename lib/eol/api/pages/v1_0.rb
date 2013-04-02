@@ -94,6 +94,10 @@ module EOL
               :values => [ 0, 1, 2 ],
               :default => 0,
               :notes => I18n.t('return_content_by_vettedness') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'cache_ttl',
+              :type => Integer,
+              :notes => I18n.t('api_cache_time_to_live_parameter'))
           ] }
 
         def self.call(params={})
@@ -174,7 +178,7 @@ module EOL
         def self.get_data_objects(taxon_concept, options={})
           # setting some default search options which will get sent to the Solr methods
           solr_search_params = {}
-          solr_search_params[:sort_by] = 'status',
+          solr_search_params[:sort_by] = 'status'
           solr_search_params[:visibility_types] = ['visible']
           solr_search_params[:skip_preload] = true
           if options[:vetted] == 1  # 1 = trusted
@@ -277,12 +281,10 @@ module EOL
           return if options[:text_subjects] && (options[:text_subjects] & exemplar_object.toc_items).blank?
 
           # confirm vetted state
-          best_association = exemplar_object.association_with_best_vetted_status
-          return unless best_association
-          best_association_vetted_label = best_association.vetted ? best_association.vetted.label('en').downcase : nil
-          best_association_vetted_label = 'unreviewed' if best_association_vetted_label == 'unknown'
-          return unless best_association_vetted_label
-          return if options[:vetted_types] && !options[:vetted_types].include?(best_association_vetted_label)
+          return unless exemplar_object.vetted
+          best_vetted_label = exemplar_object.vetted.label('en').downcase
+          best_vetted_label = 'unreviewed' if best_vetted_label == 'unknown'
+          return if options[:vetted_types] && ! options[:vetted_types].include?(best_vetted_label)
 
           # now add in the exemplar, and remove one if the array is now too large
           original_length = existing_objects_of_same_type.length

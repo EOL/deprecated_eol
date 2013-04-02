@@ -130,7 +130,7 @@ private
           new_collection_item = CollectionItem.where(collected_item_id: collection_item.collected_item_id, 
                                                      collected_item_type: collection_item.collected_item_type,
                                                      collection_id: target_collection.id).first
-          new_collection_item.refs << ref if new_collection_item
+          new_collection_item.refs << ref if new_collection_item && ! new_collection_item.refs.include?(ref)
         end
       end
     end

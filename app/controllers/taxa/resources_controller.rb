@@ -8,6 +8,12 @@ class Taxa::ResourcesController < TaxaController
 
   def index
     @assistive_section_header = I18n.t(:resources)
+    @rel_canonical_href = taxon_resources_url(@taxon_page)
+    current_user.log_activity(:viewed_taxon_concept_resources_index, :taxon_concept_id => @taxon_concept.id)
+  end
+
+  def partner_links
+    @assistive_section_header = I18n.t(:resources)
     @links = @taxon_concept.content_partners_links
     @rel_canonical_href = taxon_resources_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_resources_content_partners, :taxon_concept_id => @taxon_concept.id)

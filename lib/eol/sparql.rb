@@ -34,8 +34,8 @@ module EOL
       EOL::Sparql::VirtuosoClient.new(
         :endpoint_uri => 'http://localhost:8890/sparql',
         :upload_uri => 'http://localhost:8890/DAV/xx/yy',
-        :username => 'demo',
-        :password => 'demo')
+        :username => $VIRTUOSO_USER,
+        :password => $VIRTUOSO_PW)
     end
 
     def self.to_underscore(str)

@@ -6,8 +6,6 @@ class UserAddedData < ActiveRecord::Base
   SUBJECT_PREFIX = "http://eol.org/pages/" # TODO - this should probably be configurable.
   GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
 
-  attr_accessor :graph_name
-
   belongs_to :user
 
   validates_presence_of :user_id
@@ -56,7 +54,7 @@ class UserAddedData < ActiveRecord::Base
     begin
       EOL::Sparql.connection.insert_data(
         :data => [ turtle ],
-        :graph_name => self.class.graph_name)
+        :graph_name => UserAddedData::GRAPH_NAME)
     rescue
       return false
     end
@@ -64,14 +62,14 @@ class UserAddedData < ActiveRecord::Base
 
   def remove_from_triplestore
     begin
-      EOL::Sparql.connection.sparql_update("DELETE DATA { GRAPH <#{self.class.graph_name}> { #{turtle} } }")
+      EOL::Sparql.connection.sparql_update("DELETE DATA { GRAPH <#{UserAddedData::GRAPH_NAME}> { #{turtle} } }")
     rescue
       return false
     end
   end
 
   def turtle
-    "<#{self.class.graph_name}#{id}> a dwc:MeasurementOrFact" +
+    "<#{UserAddedData::GRAPH_NAME}#{id}> a dwc:MeasurementOrFact" +
     "; <http://rs.tdwg.org/dwc/terms/taxonConceptID> " + subject +
     "; <http://rs.tdwg.org/dwc/terms/measurementType> " + predicate +
     "; <http://rs.tdwg.org/dwc/terms/measurementValue> " + object
@@ -100,14 +98,16 @@ class UserAddedData < ActiveRecord::Base
     false
   end
 
+  # TODO - this is just for testing. You really don't want to run this in production...
   def self.recreate_triplestore_graph
-    EOL::Sparql.connection.delete_graph(graph_name)
+    EOL::Sparql.connection.delete_graph(GRAPH_NAME)
     begin
       EOL::Sparql.connection.insert_data(
-        :data => UserAddedData.all.collect{ |d| d.turtle },
-        :graph_name => graph_name)
+        :data => UserAddedData.all.map(&:turtle),
+        :graph_name => GRAPH_NAME)
     rescue
       return false
     end
   end
+
 end

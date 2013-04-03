@@ -29,6 +29,10 @@ class TaxonUserClassificationFilter
     TaxonDetails.new(taxon_concept, user, _hierarchy_entry)
   end
 
+  def data
+    TaxonData.new(taxon_concept, user, _hierarchy_entry)
+  end
+
   # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
   # you see "hierarchy_entry" (no leading underscore) it means "do the right thing".
   def hierarchy_entry

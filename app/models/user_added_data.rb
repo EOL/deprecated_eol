@@ -3,6 +3,8 @@ class UserAddedData < ActiveRecord::Base
   BASIC_URI_REGEX = /^http:\/\/[^ ]+$/i
   ENCLOSED_URI_REGEX = /^<http:\/\/[^ ]+>$/i
   NAMESPACED_URI_REGEX = /^([a-z0-9_-]{1,30}):(.*)$/i
+  SUBJECT_PREFIX = "http://eol.org/pages/" # TODO - this should probably be configurable.
+  GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
 
   attr_accessor :graph_name
 
@@ -18,10 +20,6 @@ class UserAddedData < ActiveRecord::Base
   before_create :expand_namespaces
   after_create :add_to_triplestore
   before_destroy :remove_from_triplestore
-
-  def self.graph_name
-    "http://eol.org/user_data/"
-  end
 
   def subject_must_be_uri
     errors.add('subject', "Subject must be a URI") unless self.class.is_uri?(self.subject)

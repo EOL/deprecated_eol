@@ -5,6 +5,7 @@ class UserAddedData < ActiveRecord::Base
   NAMESPACED_URI_REGEX = /^([a-z0-9_-]{1,30}):(.*)$/i
   SUBJECT_PREFIX = "http://eol.org/pages/" # TODO - this should probably be configurable.
   GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
+  URI_REGEX = /#{GRAPH_NAME.sub('/', '\\/')}(\d+)$/
 
   belongs_to :user
 

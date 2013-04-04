@@ -14,7 +14,8 @@ class TaxonData < TaxonUserClassificationFilter
   private
 
   def get_user(value)
-    if value && matches = value.to_s.match(/\/([0-9])$/)
+    # TODO - make this more specific...
+    if value && matches = value.to_s.match(UserAddedData::URI_REGEX)
       uad = UserAddedData.find(matches[1])
       return uad.user if uad
     end

@@ -1,8 +1,5 @@
 class UserAddedData < ActiveRecord::Base
 
-  BASIC_URI_REGEX = /^http:\/\/[^ ]+$/i
-  ENCLOSED_URI_REGEX = /^<http:\/\/[^ ]+>$/i
-  NAMESPACED_URI_REGEX = /^([a-z0-9_-]{1,30}):(.*)$/i
   SUBJECT_PREFIX = "http://eol.org/pages/" # TODO - this should probably be configurable.
   GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
   URI_REGEX = /#{GRAPH_NAME.sub('/', '\\/')}(\d+)$/
@@ -39,29 +36,6 @@ class UserAddedData < ActiveRecord::Base
     end
   end
 
-  def self.prepare_value_for_sparql(value)
-    if value =~ BASIC_URI_REGEX                              # full URI
-      return "<" + value + ">"
-    elsif value =~ ENCLOSED_URI_REGEX                        # full URI
-      return value
-    elsif matches = value.match(NAMESPACED_URI_REGEX)        # namespace
-      if full_uri = EOL::Sparql.common_namespaces[matches[1]]
-        return "<" + full_uri + matches[2] + ">"
-      else
-        return false  # this is the failure - an unknown namespace was given
-      end
-    else                                                     # literal value
-      value = '"' + value + '"'
-    end
-  end
-
-  def self.is_uri?(string)
-    return true if string =~ BASIC_URI_REGEX
-    return true if string =~ ENCLOSED_URI_REGEX
-    return true if string =~ NAMESPACED_URI_REGEX
-    false
-  end
-
   def add_to_triplestore
     begin
       sparql.insert_data(data: [turtle], graph_name: GRAPH_NAME)
@@ -93,17 +67,17 @@ class UserAddedData < ActiveRecord::Base
 
   def subject_must_be_uri
     # TODO - I18n
-    errors.add('subject', "Subject must be a URI") unless self.class.is_uri?(self.subject)
+    errors.add('subject', "Subject must be a URI") unless EOL::Sparql.is_uri?(self.subject)
   end
 
   def predicate_must_be_uri
     # TODO - I18n
-    errors.add('predicate', "Predicate must be a URI") unless self.class.is_uri?(self.predicate)
+    errors.add('predicate', "Predicate must be a URI") unless EOL::Sparql.is_uri?(self.predicate)
   end
 
   def expand_namespaces
     return if @already_expanded
-    str = self.class.prepare_value_for_sparql(self.subject)
+    str = EOL::Sparql.prepare_value(self.subject)
     if str === false
       # TODO - I18n
       errors.add('subject', "Unknown namespace")
@@ -111,7 +85,7 @@ class UserAddedData < ActiveRecord::Base
     end
     self.subject = str
 
-    str = self.class.prepare_value_for_sparql(self.predicate)
+    str = EOL::Sparql.prepare_value(self.predicate)
     if str === false
       # TODO - I18n
       errors.add('predicate', "Unknown namespace")
@@ -119,7 +93,7 @@ class UserAddedData < ActiveRecord::Base
     end
     self.predicate = str
 
-    str = self.class.prepare_value_for_sparql(self.object)
+    str = EOL::Sparql.prepare_value(self.object)
     if str === false
       # TODO - I18n
       errors.add('object', "Unknown namespace")

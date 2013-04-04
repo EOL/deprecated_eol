@@ -1,8 +1,11 @@
 module EOL
   module Sparql
 
-    def self.common_namespaces
-      {
+    BASIC_URI_REGEX = /^http:\/\/[^ ]+$/i
+    ENCLOSED_URI_REGEX = /^<http:\/\/[^ ]+>$/i
+    NAMESPACED_URI_REGEX = /^([a-z0-9_-]{1,30}):(.*)$/i
+    # TODO - it would be handy if this read from a config file (or at least added things from a config file):
+    NAMESPACES = {
         'dwc' => 'http://rs.tdwg.org/dwc/terms/',
         'dwct' => 'http://rs.tdwg.org/dwc/dwctype/',
         'dc' => 'http://purl.org/dc/terms/',
@@ -14,7 +17,6 @@ module EOL
         'owl' => 'http://www.w3.org/2002/07/owl#',
         'anage' => 'http://anage.org/schema/terms/'
       }
-    end
 
     def self.connection
       EOL::Sparql::VirtuosoClient.new(
@@ -26,6 +28,31 @@ module EOL
 
     def self.to_underscore(str)
       convert(str.downcase.tr(' ','_'))
+    end
+
+    def self.is_uri?(string)
+      return true if string =~ BASIC_URI_REGEX
+      return true if string =~ ENCLOSED_URI_REGEX
+      return true if string =~ NAMESPACED_URI_REGEX
+      false
+    end
+
+    # Puts URIs in <brackets>, dereferences namespaces, and quotes literals.
+    def self.prepare_value(value)
+      if value =~ BASIC_URI_REGEX                              # full URI
+        return "<" + value + ">"
+      elsif value =~ ENCLOSED_URI_REGEX                        # full URI
+        return value
+      elsif matches = value.match(NAMESPACED_URI_REGEX)        # namespace
+        if full_uri = EOL::Sparql::NAMESPACES[matches[1]]
+          return "<" + full_uri + matches[2] + ">"
+        else
+          return false  # this is the failure - an unknown namespace was given
+        end
+      else                                                     # literal value
+        # TODO - this should probably meta-quote quotes...
+        value = '"' + value + '"'
+      end
     end
 
     def self.convert(str)

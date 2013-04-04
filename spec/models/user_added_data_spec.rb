@@ -39,6 +39,12 @@ describe UserAddedData do
     UserAddedData.new(@valid_args.merge(object: "badns:something")).should_not be_valid
   end
 
+  it 'should dereference namespaces' do
+    uad = UserAddedData.new(@valid_args.merge(object: "dwc:something"))
+    uad.should be_valid
+    uad.object.should == "<#{EOL::Sparql::NAMESPACES['dwc']}something>"
+  end
+
   # NOTE - this does expect an array for the data...
   it '#add_to_triplestore should call SPARQL with its turtle in the proper namespace' do
     @uad.should_receive(:turtle).and_return('whatever')

@@ -8,7 +8,7 @@ module EOL
         @endpoint_uri = options[:endpoint_uri]
         @username = options[:username]
         @password = options[:password]
-        @namespaces = EOL::Sparql.common_namespaces
+        @namespaces = EOL::Sparql::NAMESPACES
         @sparql_client = SPARQL::Client.new(endpoint_uri)
       end
 

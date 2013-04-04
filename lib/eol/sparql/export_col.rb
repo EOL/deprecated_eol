@@ -84,7 +84,7 @@ module EOL
       end
 
       def self.header(format)
-        namespaces = EOL::Sparql.common_namespaces
+        namespaces = EOL::Sparql::NAMESPACES
         if format == :rdf_xml
           "<rdf:RDF\n  " +
           namespaces.collect{ |ns,uri| "xmlns:#{ns}=\"#{uri}\"" }.join("\n  ") + ">\n\n"

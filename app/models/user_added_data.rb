@@ -66,37 +66,32 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def subject_must_be_uri
-    # TODO - I18n
-    errors.add('subject', "Subject must be a URI") unless EOL::Sparql.is_uri?(self.subject)
+    errors.add('subject', :must_be_uri) unless EOL::Sparql.is_uri?(self.subject)
   end
 
   def predicate_must_be_uri
-    # TODO - I18n
-    errors.add('predicate', "Predicate must be a URI") unless EOL::Sparql.is_uri?(self.predicate)
+    errors.add('predicate', :must_be_uri) unless EOL::Sparql.is_uri?(self.predicate)
   end
 
   def expand_namespaces
     return if @already_expanded
     str = EOL::Sparql.prepare_value(self.subject)
     if str === false
-      # TODO - I18n
-      errors.add('subject', "Unknown namespace")
+      errors.add('subject', :namespace)
       return false
     end
     self.subject = str
 
     str = EOL::Sparql.prepare_value(self.predicate)
     if str === false
-      # TODO - I18n
-      errors.add('predicate', "Unknown namespace")
+      errors.add('predicate', :namespace)
       return false
     end
     self.predicate = str
 
     str = EOL::Sparql.prepare_value(self.object)
     if str === false
-      # TODO - I18n
-      errors.add('object', "Unknown namespace")
+      errors.add('object', :namespace)
       return false
     end
     self.object = str

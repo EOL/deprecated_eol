@@ -399,6 +399,10 @@ en:
         requested_curator_level_id: "Desired curation level"
         tag_line: "Tagline"
         username: "Username"
+      user_added_data:
+        predicate: "Attribute"
+        object: "Value"
+        user: "Added by"
     errors:
       format: "%{attribute} %{message}"
       template:
@@ -466,6 +470,14 @@ en:
             dwc_archive_url:
               inaccessible: "is inaccessible, the URL must be publicly accessible"
               invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ, TGZ or ZIP file"
+        user_added_data:
+          attributes:
+            predicate:
+              must_be_uri: "must be a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              namespace: "used a namespace that was not recognized"
+            subject:
+              must_be_uri: "must be a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              namespace: "used a namespace that was not recognized"
   helpers:
     label:
       collection:
@@ -2291,6 +2303,7 @@ en:
   add_sub_chapter: "Add sub-chapter"
   add_to_a_community: "Add to a community"
   add_to_my_collection_button: "Add to a collection"
+  added_data: "Your data was added. Thanks."
   admin_content_page_active: "Published"
   admin_content_page_not_active: "Unpublished"
   admin_content_page_child_new_link: "Create child page"
@@ -3170,6 +3183,7 @@ en:
   error_no_items_selected: "You must either select items from the collection, or select \"All items\" from the drop-down."
   error_watch_collections_cannot_be_shared: "Watch collections cannot be shared"
   error_updating_user: "There was an error updating this user's record"
+  error_unable_to_create_user_data: "Unable to add your data: %{errors}"
   every_method_can_also_return_json_response: "Every method can also return a JSON response by adding a .json extension."
   example_colon: "Example:"
   exception: "Exception"
@@ -4342,6 +4356,7 @@ en:
   user_activity_stats_wikipedia_nominated:
     one: "%{count} Wikipedia article nominated"
     other: "%{count} Wikipedia articles nominated"
+  user_added_data_header: "Contribute your own data"
   user_agent: "User agent"
   user_already_active_notice: "Your account is already active, please login."
   user_comments: "User Comments"

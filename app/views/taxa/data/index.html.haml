@@ -4,9 +4,9 @@
   %table.standard
     %thead
       %tr
-        %th= "Attribute"
-        %th= "Value"
-        %th= "Added by"
+        %th= I18n.t('activerecord.attributes.user_added_data.predicate')
+        %th= I18n.t('activerecord.attributes.user_added_data.object')
+        %th= I18n.t('activerecord.attributes.user_added_data.user')
     - @data.each do |row|
       %tr
         %td= row[:attribute]
@@ -18,10 +18,11 @@
             = row[:graph]
   .article
     .header
-      %h3= "Add some"
-    = form_for UserAddedData.new, :url => user_added_data_path, :builder => ApplicationHelper::EolFormBuilder do |f|
-      = hidden_field_tag 'taxon_concept_id', @taxon_concept.id
+      %h3= I18n.t(:user_added_data_header)
+    = form_for @user_added_data, :url => user_added_data_path, :builder => ApplicationHelper::EolFormBuilder do |f|
+      = f.hidden_field 'taxon_concept_id'
       %fieldset
+        = validation_errors_for(@user_added_data)
         %dl
           %dt
             = f.label :predicate
@@ -32,4 +33,4 @@
           %dd
             = f.text_field :object, :size => 100
       %fieldset.actions
-        = submit_tag(I18n.t('submit'))
+        = submit_tag(I18n.t(:submit))

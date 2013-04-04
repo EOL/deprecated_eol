@@ -6,6 +6,7 @@ class Taxa::DataController < TaxaController
   def index
     @assistive_section_header = "ASdfsfasdfasdfasdaf" # TODO
     @data = @taxon_page.data.get_data
+    @user_added_data = UserAddedData.new(taxon_concept_id: @taxon_concept.id)
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)
   end
 

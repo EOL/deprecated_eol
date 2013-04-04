@@ -18,12 +18,13 @@ class ContentPage < ActiveRecord::Base
   before_destroy :archive_self
   before_destroy :destroy_translations # TODO: can we have :dependent => :destroy on translations rather than this custom callback?
 
-
   validates_presence_of :page_name
   validates_length_of :page_name, :maximum => 255
   validates_uniqueness_of :page_name, :scope => :id
   # TODO: add unique index of page_name in db ?
   # TODO: Validate format of page name alphanumeric and underscores only - when we move to machine names
+
+  alias_attribute :collected_name, :page_name
 
   index_with_solr :keywords => [ :content_pages_for_solr ], :fulltexts => [ :content_pages_for_solr ]
 

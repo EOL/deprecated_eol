@@ -1078,7 +1078,7 @@ private
   end
 
   def has_canonical_form?
-    entry && entry.name && entry.name.canonical_form
+    entry && entry.title_canonical
   end
 
 end

@@ -15,7 +15,6 @@ group :development, :test, :staging_dev do
   gem 'ruby-prof', '0.11.2'
   gem 'spin', '0.5.3'
   # These are only for the RDF-store tests:
-  gem 'neography'
   gem 'rest-client', '1.6.7'
   gem 'sparql-client'
   gem 'rdoc', '3.12'

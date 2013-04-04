@@ -24,8 +24,6 @@ class ContentPage < ActiveRecord::Base
   # TODO: add unique index of page_name in db ?
   # TODO: Validate format of page name alphanumeric and underscores only - when we move to machine names
 
-  alias_attribute :collected_name, :page_name
-
   index_with_solr :keywords => [ :content_pages_for_solr ], :fulltexts => [ :content_pages_for_solr ]
 
   def can_be_read_by?(user_wanting_access)

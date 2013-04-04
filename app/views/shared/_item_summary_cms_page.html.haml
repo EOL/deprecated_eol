@@ -1,3 +1,3 @@
 = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_cms_page_assistive)}), cms_page_path(item.page_name)
-%h4= link_to h(truncate(item.collected_name, :length => 64)), cms_page_path(item.page_name)
+%h4= link_to h(truncate(item.title, :length => 64)), cms_page_path(item.page_name)
 = item.main_content_teaser

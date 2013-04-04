@@ -1,6 +1,5 @@
 module EOL
   module Sparql
-    TRIPLESTORE_TYPE = :virtuoso # :virtuoso or :four_store
 
     def self.common_namespaces
       {
@@ -18,19 +17,6 @@ module EOL
     end
 
     def self.connection
-      if TRIPLESTORE_TYPE == :four_store
-        return four_store_connection
-      end
-      return virtuoso_connection
-    end
-
-    def self.four_store_connection
-      EOL::Sparql::FourStoreClient.new(
-        :endpoint_uri => 'http://localhost:8000/sparql/',
-        :action_uri => 'http://localhost:8000/')
-    end
-
-    def self.virtuoso_connection
       EOL::Sparql::VirtuosoClient.new(
         :endpoint_uri => 'http://localhost:8890/sparql',
         :upload_uri => 'http://localhost:8890/DAV/xx/yy',

@@ -15,80 +15,38 @@ class UserAddedData < ActiveRecord::Base
   validates_presence_of :object
   validate :subject_must_be_uri
   validate :predicate_must_be_uri
+  validate :expand_namespaces # Without this, the validation on namespaces doesn't run.
 
   before_create :expand_namespaces
   after_create :add_to_triplestore
   before_destroy :remove_from_triplestore
 
-  def subject_must_be_uri
-    errors.add('subject', "Subject must be a URI") unless self.class.is_uri?(self.subject)
-  end
-
-  def predicate_must_be_uri
-    errors.add('predicate', "Predicate must be a URI") unless self.class.is_uri?(self.predicate)
-  end
-
-  def expand_namespaces
-    str = self.class.prepare_value_for_sparql(self.subject)
-    if str === false
-      errors.add('subject', "Unknown namespace")
-      return false
-    end
-    self.subject = str
-
-    str = self.class.prepare_value_for_sparql(self.predicate)
-    if str === false
-      errors.add('predicate', "Unknown namespace")
-      return false
-    end
-    self.predicate = str
-
-    str = self.class.prepare_value_for_sparql(self.object)
-    if str === false
-      errors.add('object', "Unknown namespace")
-      return false
-    end
-    self.object = str
-  end
-
-  def add_to_triplestore
+  # TODO - this is just for testing. You really don't want to run this in production...
+  def self.recreate_triplestore_graph
+    sparql = EOL::Sparql.connection
+    sparql.delete_graph(GRAPH_NAME)
     begin
-      EOL::Sparql.connection.insert_data(
-        :data => [ turtle ],
-        :graph_name => UserAddedData::GRAPH_NAME)
+      sparql.insert_data(
+        :data => UserAddedData.all.map(&:turtle),
+        :graph_name => GRAPH_NAME)
     rescue
       return false
     end
   end
 
-  def remove_from_triplestore
-    begin
-      EOL::Sparql.connection.sparql_update("DELETE DATA { GRAPH <#{UserAddedData::GRAPH_NAME}> { #{turtle} } }")
-    rescue
-      return false
-    end
-  end
-
-  def turtle
-    "<#{UserAddedData::GRAPH_NAME}#{id}> a dwc:MeasurementOrFact" +
-    "; <http://rs.tdwg.org/dwc/terms/taxonConceptID> " + subject +
-    "; <http://rs.tdwg.org/dwc/terms/measurementType> " + predicate +
-    "; <http://rs.tdwg.org/dwc/terms/measurementValue> " + object
-  end
-
-  def self.prepare_value_for_sparql(uri_namespace_or_literal)
-    if uri_namespace_or_literal =~ BASIC_URI_REGEX                              # full URI
-      return "<" + uri_namespace_or_literal + ">"
-    elsif uri_namespace_or_literal =~ ENCLOSED_URI_REGEX                        # full URI
-      return uri_namespace_or_literal
-    elsif matches = uri_namespace_or_literal.match(NAMESPACED_URI_REGEX)        # namespace
+  def self.prepare_value_for_sparql(value)
+    if value =~ BASIC_URI_REGEX                              # full URI
+      return "<" + value + ">"
+    elsif value =~ ENCLOSED_URI_REGEX                        # full URI
+      return value
+    elsif matches = value.match(NAMESPACED_URI_REGEX)        # namespace
       if full_uri = EOL::Sparql.common_namespaces[matches[1]]
         return "<" + full_uri + matches[2] + ">"
       else
         return false  # this is the failure - an unknown namespace was given
       end
-    else                                                                        # literal value
-      uri_namespace_or_literal = '"' + uri_namespace_or_literal + '"'
+    else                                                     # literal value
+      value = '"' + value + '"'
     end
   end
 
@@ -99,16 +57,71 @@ class UserAddedData < ActiveRecord::Base
     false
   end
 
-  # TODO - this is just for testing. You really don't want to run this in production...
-  def self.recreate_triplestore_graph
-    EOL::Sparql.connection.delete_graph(GRAPH_NAME)
+  def add_to_triplestore
     begin
-      EOL::Sparql.connection.insert_data(
-        :data => UserAddedData.all.map(&:turtle),
-        :graph_name => GRAPH_NAME)
+      sparql.insert_data(data: [turtle], graph_name: GRAPH_NAME)
     rescue
       return false
     end
+  end
+
+  def remove_from_triplestore
+    begin
+      sparql.delete_data(data: turtle, graph_name: GRAPH_NAME)
+    rescue
+      return false
+    end
+  end
+
+  def turtle
+    %(<#{GRAPH_NAME}#{id}> a dwc:MeasurementOrFact
+    ; <http://rs.tdwg.org/dwc/terms/taxonConceptID> #{subject}
+    ; <http://rs.tdwg.org/dwc/terms/measurementType> #{predicate}
+    ; <http://rs.tdwg.org/dwc/terms/measurementValue> #{object})
+  end
+
+  private
+
+  def sparql
+    @sparql ||= EOL::Sparql.connection
+  end
+
+  def subject_must_be_uri
+    # TODO - I18n
+    errors.add('subject', "Subject must be a URI") unless self.class.is_uri?(self.subject)
+  end
+
+  def predicate_must_be_uri
+    # TODO - I18n
+    errors.add('predicate', "Predicate must be a URI") unless self.class.is_uri?(self.predicate)
+  end
+
+  def expand_namespaces
+    return if @already_expanded
+    str = self.class.prepare_value_for_sparql(self.subject)
+    if str === false
+      # TODO - I18n
+      errors.add('subject', "Unknown namespace")
+      return false
+    end
+    self.subject = str
+
+    str = self.class.prepare_value_for_sparql(self.predicate)
+    if str === false
+      # TODO - I18n
+      errors.add('predicate', "Unknown namespace")
+      return false
+    end
+    self.predicate = str
+
+    str = self.class.prepare_value_for_sparql(self.object)
+    if str === false
+      # TODO - I18n
+      errors.add('object', "Unknown namespace")
+      return false
+    end
+    self.object = str
+    @already_expanded = true
   end
 
 end

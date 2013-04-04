@@ -34,10 +34,4 @@ namespace :rdf do
     importer.begin
   end
 
-  desc 'test'
-  task :test => :environment do
-    tester = EOL::Sparql::Tester.new
-    tester.begin
-  end
-
 end

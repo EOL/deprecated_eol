@@ -1218,6 +1218,13 @@ FactoryGirl.define do
     created_at { 12.hours.ago }
   end
 
+  factory :user_added_data do
+    subject   "<http://eol.org/pages/17>"
+    predicate "<http://somethinguseful.com/fake_ontology>"
+    object    { generate(:string) }
+    association :user
+  end
+
   factory :users_data_object do
     association :data_object
     association :user

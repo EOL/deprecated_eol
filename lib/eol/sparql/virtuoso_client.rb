@@ -4,14 +4,14 @@ module EOL
 
       attr_accessor :upload_uri
 
-      def initialize(options={})
-        self.upload_uri = options[:upload_uri]
+      def initialize(options = {})
+        @upload_uri = options[:upload_uri]
         super(options)
       end
 
       # Virtuoso data is getting posted to upload_uri
       # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtRDFInsert#HTTP POST Example 1
-      def insert_data(options={})
+      def insert_data(options = {})
         unless options[:data].blank?
           query = namespaces.collect{ |key,value| "PREFIX #{key}: <#{value}>"}.join(" ")
           query += " INSERT DATA INTO <#{options[:graph_name]}> { "+ options[:data].join(" .\n") +" }"
@@ -26,11 +26,17 @@ module EOL
             http.read_timeout = 240
             http.request(request)
           end
+
+          # TODO - we should pass a logger into the constructor and log to that.
           pp response
           if response.code.to_i != 201
             puts " ** SOME DATA FAILED TO LOAD IN VIRTUOSO **"
           end
         end
+      end
+
+      def delete_data(options = {})
+        update("DELETE DATA { GRAPH <#{options[:graph_name]}> { #{options[:data]} } }")
       end
 
     end

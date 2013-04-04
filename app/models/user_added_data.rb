@@ -7,6 +7,9 @@ class UserAddedData < ActiveRecord::Base
   GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
   URI_REGEX = /#{GRAPH_NAME.sub('/', '\\/')}(\d+)$/
 
+  # The Subject should probably point to a taxon_concept, so we allow you to specify one:
+  attr_accessor :taxon_concept_id
+
   belongs_to :user
 
   validates_presence_of :user_id
@@ -17,9 +20,11 @@ class UserAddedData < ActiveRecord::Base
   validate :predicate_must_be_uri
   validate :expand_namespaces # Without this, the validation on namespaces doesn't run.
 
+  before_validation :turn_taxon_concept_id_into_subject
   before_create :expand_namespaces
-  after_create :add_to_triplestore
   before_destroy :remove_from_triplestore
+
+  after_create :add_to_triplestore
 
   # TODO - this is just for testing. You really don't want to run this in production...
   def self.recreate_triplestore_graph
@@ -122,6 +127,10 @@ class UserAddedData < ActiveRecord::Base
     end
     self.object = str
     @already_expanded = true
+  end
+
+  def turn_taxon_concept_id_into_subject
+    self.subject = "<#{SUBJECT_PREFIX}#{self.taxon_concept_id}>" if self.taxon_concept_id
   end
 
 end

@@ -8,9 +8,15 @@ describe UserAddedData do
       subject:   "<http://eol.org/pages/17>",
       predicate: "<http://somethinguseful.com/fake_ontology>",
       object:    "foo",
-      user: @user
+      user:      @user
     }
     @uad = UserAddedData.gen
+  end
+
+  it 'should turn a taxon_concept_id into a proper subject URI' do
+    uad = UserAddedData.new(@valid_args.merge(taxon_concept_id: 17))
+    uad.should be_valid
+    uad.subject.should == "<#{UserAddedData::SUBJECT_PREFIX}17>"
   end
 
   it 'should be invalid if the subject is not a uri' do

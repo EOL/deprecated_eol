@@ -98,11 +98,7 @@ Audience.gen_if_not_exists(:label => 'General public')
 
 DataType.create_defaults
 
-LinkType.gen_if_not_exists(:label => 'Blog')
-LinkType.gen_if_not_exists(:label => 'News')
-LinkType.gen_if_not_exists(:label => 'Organization')
-LinkType.gen_if_not_exists(:label => 'Paper')
-LinkType.gen_if_not_exists(:label => 'Multimedia')
+LinkType.create_defaults
 
 default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
 Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label =>  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :browsable => 0)

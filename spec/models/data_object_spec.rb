@@ -475,8 +475,8 @@ describe DataObject do
     options[:user] = @user
     dato = DataObject.create_user_text(params, options)
     dato.link?.should be_true
-    dato.users_data_object.vetted_id.should == Vetted.untrusted.id
-    dato.users_data_object.visibility_id.should == Visibility.invisible.id
+    dato.users_data_object.vetted_id.should == Vetted.unknown.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = assistant_curator
     dato = DataObject.create_user_text(params, options)
     dato.link?.should be_true

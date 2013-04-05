@@ -24,16 +24,16 @@ class Taxa::ResourcesController < TaxaController
     @add_article_toc_id = TocItem.identification_resources ? TocItem.identification_resources.id : nil
     @rel_canonical_href = identification_resources_taxon_resources_url(@taxon_page)
 
-    @contents = @identification_contents || get_toc_text(TocItem.identification_resources)
+    @contents = @identification_contents || get_toc_text(:identification_resources)
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
   end
 
   def citizen_science
-    @assistive_section_header = I18n.t(:citizen_science)
+    @assistive_section_header = I18n.t(:taxon_citizen_science_header)
     @add_article_toc_id = TocItem.citizen_science_links ? TocItem.citizen_science_links.id : nil
     @rel_canonical_href = citizen_science_taxon_resources_url(@taxon_page)
 
-    @contents = @citizen_science_contents || get_toc_text([citizen_science, citizen_science_links])
+    @contents = @citizen_science_contents || get_toc_text([:citizen_science, :citizen_science_links])
     current_user.log_activity(:viewed_taxon_concept_resources_citizen_science, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -42,7 +42,7 @@ class Taxa::ResourcesController < TaxaController
     @add_article_toc_id = TocItem.education_resources ? TocItem.education_resources.id : nil
     @rel_canonical_href = education_taxon_resources_url(@taxon_page)
     
-    @contents = @education_contents || get_toc_text(education_chapters)
+    @contents = @education_contents || get_toc_text(:education_chapters)
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -101,11 +101,9 @@ private
     @news_and_event_links_contents ||= get_link_text([:news, :blog])
     @related_organizations_contents ||= get_link_text(:organization)
     @multimedia_links_contents ||= get_link_text(:multimedia)
-    @citizen_science_contents = get_toc_text(TocItem.identification_resources)
-    citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
-    citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
-    @identification_contents = get_toc_text([citizen_science, citizen_science_links])
-    @education_contents = get_toc_text(education_chapters)
+    @citizen_science_contents = get_toc_text([:citizen_science, :citizen_science_links])
+    @identification_contents = get_toc_text(:identification_resources)
+    @education_contents = get_toc_text(:education_chapters)
   end
 
   def get_link_text(which)
@@ -117,20 +115,17 @@ private
   end
 
   def get_toc_text(which)
+    # A little messier, since it can get arrays back:
+    types = Array(which).map { |t| TocItem.send(t) }.flatten.map(&:id)
     @taxon_page.text(
       :language_ids => [ current_language.id ],
-      :toc_ids => Array(which).map(&:id),
+      :toc_ids => types,
       :filter_by_subtype => true
     )
   end
 
   def show_add_link_buttons
     @show_add_link_buttons = true
-  end
-
-  # There are multiple education chapters - one is the parent of the others (but we don't care which is which, here)
-  def education_chapters
-    TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true)
   end
 
 end

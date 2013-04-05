@@ -207,10 +207,6 @@ describe TaxonDetails do
     should_get_sym_when_links_include(:multimedia_links, :multimedia)
   end
 
-  it '#resources_links should include citizen_science_links when it incudes citizen_science_links link_types' do
-    should_get_sym_when_links_include(:citizen_science, :citizen_science_links)
-  end
-
   it '#literature_references_links should be blank by default' do
     @details.literature_references_links.should == []
   end

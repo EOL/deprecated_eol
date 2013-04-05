@@ -176,17 +176,11 @@ describe 'Taxa page' do
   end
 
   shared_examples_for 'taxon resources tab' do
-    it 'should include Identification Resources' do
-      should include('Identification resources')
-    end
-    it 'should include Education' do
-      should include('Education')
+    it 'should include About Resources' do
+      should include('About Resources')
     end
     it 'should include Partner Links' do
       should include('Partner links')
-    end
-    it 'should include Citizen science links' do
-      should include('Citizen science links')
     end
   end
 

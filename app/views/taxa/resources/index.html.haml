@@ -6,6 +6,8 @@
     .copy
       %h3= I18n.t(:about_resources_title)
       .empty.about
-        %p= I18n.t(:about_resources_body)
+        -# Note that the translation includes paragraph tags.
+        = raw I18n.t(:about_resources_body, contact_us_link: contact_us_path(subject:'Contribute images, videos or sounds'))
         .button
-          = link_to I18n.t(:about_resources_button), new_taxon_data_object_path(@taxon_concept, :link => true), :class => 'button'
+          = link_to I18n.t(:add_link_to_page_button), new_taxon_data_object_path(@taxon_concept, :link => true), :class => 'button'
+        %p.notice= raw I18n.t(:about_resources_notice, contact_us_link: contact_us_path(subject:'Contribute images, videos or sounds'))

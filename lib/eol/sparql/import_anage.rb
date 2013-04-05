@@ -26,14 +26,16 @@ module EOL
           'Adult weight (g)' => { :uri => 'anage:adult_weight' },
           'Growth rate (1/days)' => { :uri => 'anage:growth_rate' },
           'Maximum longevity (yrs)' => { :uri => 'anage:max_longevity' },
-          'Specimen origin' => { :uri => 'anage:origin', :value_prefix => 'http://anage.org/origin/' },
-          'Sample size' => { :uri => 'anage:sample_size', :value_prefix => 'http://anage.org/sample_size/' },
-          'Data quality' => { :uri => 'anage:quality', :value_prefix => 'http://anage.org/data_quality/' },
           'IMR (per yr)' => { :uri => 'anage:imr' },
           'MRDT (yrs)' => { :uri => 'anage:mrdt' },
           'Metabolic rate (W)' => { :uri => 'anage:metabolic_rate' },
           'Body mass (g)' => { :uri => 'anage:body_mass' },
           'Temperature (K)' => { :uri => 'anage:temperature' }
+        }
+        metadata_fields = {
+          'Specimen origin' => { :uri => 'anage:origin', :value_prefix => 'http://anage.org/origin/' },
+          'Sample size' => { :uri => 'anage:sample_size', :value_prefix => 'http://anage.org/sample_size/' },
+          'Data quality' => { :uri => 'anage:quality', :value_prefix => 'http://anage.org/data_quality/' }
         }
         data = []
         total_lines_inserted = 0
@@ -53,17 +55,24 @@ module EOL
           canonical = genus +" "+ species
           canonical = EOL::Sparql.to_underscore(canonical)
 
-          data_line = "<http://anage.org/taxa/#{canonical}> a dwct:Taxon";
-          data_line += "; eol:canonical <http://eol.org/canonical_forms/#{canonical}>"
+          dataset_uri = "http://anage.org/taxa/#{canonical}/data"
+          data_line = "<#{dataset_uri}> a eol:DataSet";
+          data_line += "; dwc:taxonID <http://anage.org/taxa/#{canonical}>";
+          metadata_fields.each do |field_name, info|
+            value = row[column_number_by_field_name[field_name]]
+            unless value.blank?
+              value = "<#{info[:value_prefix]}#{EOL::Sparql.to_underscore(value)}>"
+              data_line += "; #{info[:uri]} #{value}"
+            end
+          end
           fields_to_ingest.each do |field_name, info|
             value = row[column_number_by_field_name[field_name]]
             unless value.blank?
-              if info[:value_prefix]
-                value = "<#{info[:value_prefix]}#{EOL::Sparql.to_underscore(value)}>"
-              else
-                value = EOL::Sparql.convert(value)
-              end
-              data_line += "; #{info[:uri]} #{value}"
+              value = EOL::Sparql.convert(value)
+              data_line += " . <http://anage.org/taxa/#{canonical}/#{info[:uri]}> a eol:DataPoint";
+              data_line += "; dwc:measurementType #{info[:uri]}"
+              data_line += "; dwc:measurementValue #{value}"
+              data_line += "; eol:inDataSet <#{dataset_uri}>"
             end
           end
 

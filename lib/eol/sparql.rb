@@ -37,22 +37,25 @@ module EOL
       false
     end
 
+    def self.enclose_value(value)
+      return "<" + value + ">" if value =~ BASIC_URI_REGEX
+      "\"" + value + "\""
+    end
+
     # Puts URIs in <brackets>, dereferences namespaces, and quotes literals.
-    def self.prepare_value(value)
+    def self.expand_namespaces(value)
       if value =~ BASIC_URI_REGEX                              # full URI
-        return "<" + value + ">"
+        return value
       elsif value =~ ENCLOSED_URI_REGEX                        # full URI
         return value
       elsif matches = value.match(NAMESPACED_URI_REGEX)        # namespace
         if full_uri = EOL::Sparql::NAMESPACES[matches[1]]
-          return "<" + full_uri + matches[2] + ">"
+          return full_uri + matches[2]
         else
           return false  # this is the failure - an unknown namespace was given
         end
-      else                                                     # literal value
-        # TODO - this should probably meta-quote quotes...
-        value = '"' + value + '"'
       end
+      return value                                             # literal value
     end
 
     def self.convert(str)

@@ -25,7 +25,7 @@ module ApplicationHelper
     def label(method, content_or_options_with_block = nil, options = {}, &block)
       options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
       options.symbolize_keys!
-      if errors_on?(method)
+      if errors_on?(method) && !options[:hide_errors]
         (options[:class] = "#{options[:class].to_s} errors").strip!
         (options[:title] = "#{options[:title].to_s} #{I18n.t(:form_validation_errors_for_attribute_assistive)}").strip!
         errors = errors_for_method(@object, method)
@@ -75,7 +75,7 @@ module ApplicationHelper
           haml_tag :legend, message
           haml_tag :ul do
             resource.errors.full_messages.each do |error|
-              haml_tag :li, error
+              haml_tag :li, raw(error)
             end
           end
         end

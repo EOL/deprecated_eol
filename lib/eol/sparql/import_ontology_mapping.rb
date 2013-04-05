@@ -7,7 +7,7 @@ module EOL
       #    rdfs_rule_set ('http://eol.org/ontology_mappings', 'http://eol.org/ontology_mappings');
       # you can delete a rule set with:
       #    delete from sys_rdf_schema where RS_NAME='http://eol.org/ontology_mappings';
-      # lear more at http://docs.openlinksw.com/virtuoso/rdfsparqlrule.html
+      # learn more at http://docs.openlinksw.com/virtuoso/rdfsparqlrule.html
 
       def initialize(options={})
         super(options)

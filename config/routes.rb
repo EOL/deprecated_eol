@@ -335,7 +335,7 @@ Eol::Application.routes.draw do
     end
   end
 
-  resources :user_added_data, :only => [ :create ] do
+  resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do
   end
 
   # Old V1 admin search logs:

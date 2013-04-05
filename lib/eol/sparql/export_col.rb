@@ -10,7 +10,7 @@ module EOL
         export(:turtle)
       end
 
-      def self.export(format)
+      def self.export(format = :turtle)
         min_id = Hierarchy.where(:id => Hierarchy.col.id).joins(:hierarchy_entries).minimum('hierarchy_entries.id') || 0
         max_id = Hierarchy.where(:id => Hierarchy.col.id).joins(:hierarchy_entries).maximum('hierarchy_entries.id') || 0
 

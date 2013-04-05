@@ -4,59 +4,70 @@ class UserAddedData < ActiveRecord::Base
   GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
   URI_REGEX = /#{GRAPH_NAME.sub('/', '\\/')}(\d+)$/
 
-  # The Subject should probably point to a taxon_concept, so we allow you to specify one:
-  attr_accessor :taxon_concept_id
-
+  belongs_to :subject, :polymorphic => true
   belongs_to :user
+  has_many :user_added_data_metadata, :class_name => "UserAddedDataMetadata"
 
-  validates_presence_of :user_id
-  validates_presence_of :subject
-  validates_presence_of :predicate
-  validates_presence_of :object
-  validate :subject_must_be_uri
+  validates_presence_of :user_id, :subject_type, :subject_id, :subject, :predicate, :object
   validate :predicate_must_be_uri
-  validate :expand_namespaces # Without this, the validation on namespaces doesn't run.
+  validate :expand_and_validate_namespaces # Without this, the validation on namespaces doesn't run.
 
-  before_validation :turn_taxon_concept_id_into_subject
-  before_create :expand_namespaces
-  before_destroy :remove_from_triplestore
+  after_create :update_triplestore
+  after_update :update_triplestore
 
-  after_create :add_to_triplestore
+  accepts_nested_attributes_for :user_added_data_metadata, :allow_destroy => true
+
+  def can_be_updated_by?(user_wanting_access)
+    user == user_wanting_access || user_wanting_access.is_admin?
+  end
+  def can_be_deleted_by?(user_wanting_access)
+    user == user_wanting_access || user_wanting_access.is_admin?
+  end
+
+  def taxon_concept_id
+    if subject_type == 'TaxonConcept'
+      return subject_id
+    end
+  end
 
   # TODO - this is just for testing. You really don't want to run this in production...
   def self.recreate_triplestore_graph
-    sparql = EOL::Sparql.connection
-    sparql.delete_graph(GRAPH_NAME)
-    begin
-      sparql.insert_data(
-        :data => UserAddedData.all.map(&:turtle),
-        :graph_name => GRAPH_NAME)
-    rescue
-      return false
+    EOL::Sparql.connection.delete_graph(GRAPH_NAME)
+    UserAddedData.where("deleted_at IS NULL").each do |uad|
+      uad.add_to_triplestore
+      uad.user_added_data_metadata.each do |meta|
+        meta.add_to_triplestore
+      end
     end
   end
 
   def add_to_triplestore
-    begin
+    unless deleted_at
       sparql.insert_data(data: [turtle], graph_name: GRAPH_NAME)
-    rescue
-      return false
+      user_added_data_metadata.each do |metadata|
+        sparql.insert_data(data: [metadata.turtle], graph_name: GRAPH_NAME)
+      end
     end
+  end
+
+  def update_triplestore
+    remove_from_triplestore
+    add_to_triplestore unless deleted_at
   end
 
   def remove_from_triplestore
-    begin
-      sparql.delete_data(data: turtle, graph_name: GRAPH_NAME)
-    rescue
-      return false
-    end
+    sparql.update("DELETE WHERE { GRAPH <#{GRAPH_NAME}> { <#{uri}> ?p ?o } }")
+  end
+
+  def uri
+    GRAPH_NAME + id.to_s
   end
 
   def turtle
-    %(<#{GRAPH_NAME}#{id}> a dwc:MeasurementOrFact
-    ; <http://rs.tdwg.org/dwc/terms/taxonConceptID> #{subject}
-    ; <http://rs.tdwg.org/dwc/terms/measurementType> #{predicate}
-    ; <http://rs.tdwg.org/dwc/terms/measurementValue> #{object})
+    "<#{uri}> a dwc:MeasurementOrFact" +
+    "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject_id.to_s + ">" +
+    "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +
+    "; dwc:measurementValue " + EOL::Sparql.enclose_value(object)
   end
 
   private
@@ -65,41 +76,26 @@ class UserAddedData < ActiveRecord::Base
     @sparql ||= EOL::Sparql.connection
   end
 
-  def subject_must_be_uri
-    errors.add('subject', :must_be_uri) unless EOL::Sparql.is_uri?(self.subject)
-  end
-
   def predicate_must_be_uri
     errors.add('predicate', :must_be_uri) unless EOL::Sparql.is_uri?(self.predicate)
   end
 
-  def expand_namespaces
+  def expand_and_validate_namespaces
     return if @already_expanded
-    str = EOL::Sparql.prepare_value(self.subject)
-    if str === false
-      errors.add('subject', :namespace)
-      return false
-    end
-    self.subject = str
-
-    str = EOL::Sparql.prepare_value(self.predicate)
+    str = EOL::Sparql.expand_namespaces(self.predicate)
     if str === false
       errors.add('predicate', :namespace)
       return false
     end
     self.predicate = str
 
-    str = EOL::Sparql.prepare_value(self.object)
+    str = EOL::Sparql.expand_namespaces(self.object)
     if str === false
       errors.add('object', :namespace)
       return false
     end
     self.object = str
     @already_expanded = true
-  end
-
-  def turn_taxon_concept_id_into_subject
-    self.subject = "<#{SUBJECT_PREFIX}#{self.taxon_concept_id}>" if self.taxon_concept_id
   end
 
 end

@@ -18,7 +18,7 @@ module EOL
       end
 
       def update(query)
-        sparql_client.query(query)
+        sparql_client.query(append_namespaces_to_query(query))
       end
 
       def delete_graph(graph_name)
@@ -28,7 +28,7 @@ module EOL
 
       def query(query)
         results = []
-        sparql_client.query(query).each_solution { |s| results << s.to_hash }
+        sparql_client.query(append_namespaces_to_query(query)).each_solution{ |s| results << s.to_hash }
         results
       end
 
@@ -40,6 +40,9 @@ module EOL
         update("DROP SILENT GRAPH <#{graph_name}>")
       end
 
+      def append_namespaces_to_query(query)
+        namespaces.collect{ |key,value| "PREFIX #{key}: <#{value}>"}.join(" ") + " " + query
+      end
     end
   end
 end

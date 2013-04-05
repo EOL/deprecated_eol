@@ -7,6 +7,7 @@
         %th= I18n.t('activerecord.attributes.user_added_data.predicate')
         %th= I18n.t('activerecord.attributes.user_added_data.object')
         %th= I18n.t('activerecord.attributes.user_added_data.user')
+        %th
     - @data.each do |row|
       %tr
         %td= row[:attribute]
@@ -15,22 +16,17 @@
           - if row.has_key?(:user)
             = link_to row[:user].full_name, row[:user]
           - else
-            = row[:graph]
+            = "Source: " + row[:graph]
+          - if row[:metadata]
+            %br
+            - row[:metadata].each do |key, value|
+              %br
+              = "#{key} => #{value}"
+        %td
+          - if row.has_key?(:user_added_data) && current_user.can_update?(row[:user_added_data])
+            = button_to "edit", edit_user_added_datum_path(row[:user_added_data]), :method => :get
+            = button_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
   .article
     .header
-      %h3= I18n.t(:user_added_data_header)
-    = form_for @user_added_data, :url => user_added_data_path, :builder => ApplicationHelper::EolFormBuilder do |f|
-      = f.hidden_field 'taxon_concept_id'
-      %fieldset
-        = validation_errors_for(@user_added_data)
-        %dl
-          %dt
-            = f.label :predicate
-          %dd
-            = f.text_field :predicate, :size => 100
-          %dt
-            = f.label :object
-          %dd
-            = f.text_field :object, :size => 100
-      %fieldset.actions
-        = submit_tag(I18n.t(:submit))
+      %h3= I18n.t('user_added_data.add_data_header')
+    = render :partial => 'user_added_data/form'

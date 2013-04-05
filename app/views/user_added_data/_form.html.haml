@@ -1,0 +1,57 @@
+.article
+  - if @user_added_data
+    - submit_to_url = user_added_datum_path(@user_added_data)
+    .header
+      %h3= I18n.t('user_added_data.edit_data_header')
+  - else
+    - submit_to_url = user_added_data_path
+  = form_for @user_added_data || UserAddedData.new(:subject_type => 'TaxonConcept', :subject_id => (@taxon_concept ? @taxon_concept.id : nil)),
+    :url => submit_to_url, :html => { :class => 'user_added_data' }, :builder => ApplicationHelper::EolFormBuilder do |f|
+    = f.hidden_field :subject_type
+    = f.hidden_field :subject_id
+    %fieldset
+      = validation_errors_for(@user_added_data) if @user_added_data
+      %dl
+        %dt
+          = f.label :predicate, :hide_errors => true
+        %dd
+          = f.text_field :predicate, :size => 100
+        %dt
+          = f.label :object, :hide_errors => true
+        %dd
+          = f.text_field :object, :size => 100
+    - if @user_added_data && !@user_added_data.user_added_data_metadata.empty?
+      .header
+        %h3= I18n.t('user_added_data.edit_metadata_header')
+      - @user_added_data.user_added_data_metadata.each do |metadata|
+        = validation_errors_for(metadata)
+        = f.fields_for :user_added_data_metadata, metadata do |m|
+          %fieldset
+            %dl
+              %dt
+                = m.label :predicate, :hide_errors => true
+              %dd
+                = m.text_field :predicate, :size => 100
+              %dt
+                = m.label :object, :hide_errors => true
+              %dd
+                = m.text_field :object, :size => 100
+              %dt
+                = m.label :_destroy, I18n.t(:delete)
+              %dd
+                = m.check_box :_destroy
+    .header
+      %h3= I18n.t('user_added_data.add_metadata_header')
+    = f.fields_for :user_added_data_metadata, UserAddedDataMetadata.new do |m|
+      %fieldset
+        %dl
+          %dt
+            = m.label :predicate
+          %dd
+            = m.text_field :predicate, :size => 100
+          %dt
+            = m.label :object
+          %dd
+            = m.text_field :object, :size => 100
+    %fieldset.actions
+      = submit_tag(I18n.t(:submit))

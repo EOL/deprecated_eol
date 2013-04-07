@@ -1579,7 +1579,8 @@ cs:
   us_dollars_50: US $50
   user: Uživatel
   user_activity_stats_articles_added: 
-    other: přidán jeden=%{count} článek
+    one: "%{count} článek"
+    other: přidány %{count} články
   user_activity_stats_header: Činnost
   user_says_colon: "%{users_name} říká:"
   username: Uživatelské jméno

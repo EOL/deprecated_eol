@@ -20,6 +20,8 @@ gl:
     one: Atopouse %{count} termo que coincidise cos teus criterios de procura.
     other: Atopáronse %{count} termos que coincidisen cos teus criterios de procura.
   about_eol: Acerca da EOL
+  about_resources: Acerca dos recursos
+  about_resources_title: Ligazóns cara a recursos externos
   account_information: Información sobre a conta
   account_information_menu: Información sobre a conta
   account_registered_but_not_ready_try_later: A túa conta está rexistrada, pero non está lista para accederes a ela. Inténtao de novo en cinco minutos.
@@ -1108,6 +1110,7 @@ gl:
   by_caps: Por
   by_scientific_name_table_header: por nome científico
   cache_store: Almacenamento da caché
+  caching_results: Resultados da caché
   calculate_averages_slow: Calcular as medias (lento)
   call_api: Chamar á API
   cancel: Cancelar

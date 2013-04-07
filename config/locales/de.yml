@@ -30,6 +30,10 @@ de:
     one: Insgesamt wurde ein Objekt gefunden, das zu Ihren Kriterien passt.
     other: Insgesamt wurden %{count} Objekte gefunden, die zu Ihren Kriterien passen.
   about_eol: Über EOL
+  about_resources: Über Quellen
+  about_resources_body: <p>Wir begrüßen es, Links zu Drittparteiwebsites anzugeben, die diesen Organismus oder diese Organismusgruppe führen. Beispiele schließen Websites ein, die Identifizierungsschlüssel, Nachrichten, Blogs sowie Bildungs- und Citizen-Science-Quellen anbieten.</p>
+  about_resources_notice: Anmerkung &mdash; Alle Links sind den Nutzungsbedingungen der EOL unterworfen und werden von Kuratoren geprüft.<br />Falls Sie Fragen zu einer Quelle haben, die Sie auf der EOL verlinken wollen, <a href='%{contact_us_link}'>kontaktieren Sie uns bitte</a>.</p>
+  about_resources_title: Links auf externe Quellen
   account_information: Nutzerkontoinformationen
   account_information_menu: Nutzerkontoinformationen
   account_registered_but_not_ready_try_later: Ihr Konto ist registriert aber noch nicht zum Nutzen bereit. Bitte versuchen Sie es erneut in fünf Minuten.
@@ -51,6 +55,8 @@ de:
         annotation: Annotation
         refs: Quellen
         sort_field: Sortieren nach
+      collection_job: 
+        overwrite: Duplikate ersetzen
       comment: 
         body: Kommentar
       community: 
@@ -1023,7 +1029,9 @@ de:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Klicken Sie hier</a>, um den Betatest der neuen EOL-Foren zu starten. Ihre Rückmeldung ist willkommen.
+  api_cache_time_to_live_parameter: Die Länge in Sekunden für die Zwischenspeicherung der Antwort
   api_docs_collections_description: Nach Angabe der Kennung für eine Sammlung wird diese API alle ihre Metadaten sowie die in ihr enthaltenen Objekte ausgeben. Die Objektliste kann nach Objekttyp gefiltert sowie nach den angegebenen Attributen sortiert werden. Einige Objekte enthalten das optionale Attribut „sort_field“. Das Sortierfeld ist eine Zeichenfolge, die eine spezielle Anmerkung eines Sammlungseintrags ist. Es kann eine beliebige Zeichenfolge sein. Falls es jedoch ein Datum ist, sollte es das Format „JJJJ-MM-TT“ aufweisen. Taxonobjekte enthalten ein „richness_score“. Vielfalt ist eine Metrik, die als ganze Zahl zwischen 0 und 100 dargestellt wird. Eine höhere Anzahl kennzeichnet eine Seite mit viel Inhalt einer weiten Quellenvielfalt. Mehr über Taxonvielfalt beim Update-Reiter der Taxonseite, z.&nbsp;B. %{richness_url}.
+  api_results_can_be_cached: Die Antwort einer beliebigen API-Abfrage kann für eine bestimmte Dauer zwischengespeichert werden. Der Parameter „cache_ttl“ kann angegeben werden, dessen Wert die Anzahl in Sekunden ist, für wie lang die Antwort zwischengespeichert wird. Dies erstellt HTTP-Header, die darauf hindeuten, dass das Ergebnis von Webbrowsern zwischengespeichert werden soll. Zusätzlich wird die Antwort auf EOL-Servern für die angegebene Anzahl an Sekunden zwischengespeichert. Falls der Wert von „cache_ttl“ geändert wurde, trifft die erste Anfrage mit dem neuen Wert den Zwischenspeicher nicht. Nachfolgende Anfragen hebeln die neu zwischengespeicherte Antwort aus.
   application_version_advisory_information: Programmversion
   are_you_sure: Sind Sie sicher?
   are_you_sure_this_action_cannot_be_undone: Sind Sie sicher? Diese Aktion kann nicht rückgängig gemacht werden.
@@ -1115,6 +1123,7 @@ de:
   by_caps: Nach
   by_scientific_name_table_header: nach wissenschaftlichem Namen
   cache_store: Cachespeicher
+  caching_results: Zwischenspeicherungsergebnisse
   calculate_averages_slow: Mittelwerte berechnen (langsam)
   call_api: API aufrufen
   cancel: Abbrechen
@@ -1166,6 +1175,7 @@ de:
   classifications_rank_column_header: Rang
   classifications_recognized_by_column_header: Anerkannt von
   classifications_split_column_header: Aufteilen / Verschieben
+  classifications_split_one_classification_only: Bitte nur eine aufzuteilende Klassifikation auswählen. Andere Klassifikationen können auf die neue Seite nach der Erstellung verschoben werden.
   classifications_summary_header_with_count: 
     one: In einer Klassifikation gefunden
     other: In %{count} Klassifikationen gefunden
@@ -1187,6 +1197,13 @@ de:
   collect_item: Objekt sammeln
   collect_items: Objekte sammeln
   collection_api_sort_field_notes: Falls ein Parameter „sort_field“ angegeben ist, werden nur Sammlungsobjekte zurückgegeben, deren Sortierfeld exakt der angegebenen Zeichenfolge entspricht.
+  collection_copy_choose_all_items_target_title: "Alle Objekte von „%{collection}“ kopieren nach:"
+  collection_copy_choose_target_title_with_count: 
+    one: "Ein Objekt von „%{collection}“ kopieren nach:"
+    other: "%{count} Objekte von „%{collection}“ kopieren nach:"
+  collection_copy_complete_with_count: 
+    one: Kopierte ein Objekt von %{from} nach %{to}.
+    other: Kopierte %{count} Objekte von %{from} nach %{to}.
   collection_created_notice: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich erstellt.
   collection_created_with_count_notice: 
     one: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit einem Sammlungsobjekt erstellt.
@@ -1199,6 +1216,17 @@ de:
   collection_item_edit_by_javascript_not_authorized_error: Sie verfügen leider nicht über die Berechtigung dieses Objekt in dieser Sammlung zu bearbeiten. Sofern Sie der Besitzer oder Bearbeiter dieser Sammlung sind, laden Sie bitte diese Seite erneut oder prüfen Sie, ob Sie angemeldet sind.
   collection_item_edit_page_title: Ein Objekt in der Sammlung <em>%{collection_name}</em> bearbeiten.
   collection_item_not_found_error: Dieses Sammlungsobjekt konnte nicht gefunden werden.
+  collection_items_count: 
+    one: Ein Objekt
+    other: "%{count} Objekte"
+    zero: Leer
+  collection_move_choose_all_items_target_title: "Alle Objekte von „%{collection}“ verschieben nach:"
+  collection_move_choose_target_title_with_count: 
+    one: "Ein Objekt von „%{collection}“ verschieben nach:"
+    other: "%{count} Objekte von „%{collection}“ verschieben nach:"
+  collection_move_complete_with_count: 
+    one: Verschob ein Objekt von %{from} nach %{to}.
+    other: Verschob %{count} Objekte von %{from} nach %{to}.
   collection_name_cannot_be_blank: Es muss ein Name für die Sammlung angegeben werden.
   collection_name_label: Name der Sammlung
   collection_newsfeed: Nachrichtenfeed der Sammlung
@@ -1207,6 +1235,10 @@ de:
   collection_not_found_error: Diese Sammlung konnte leider nicht gefunden werden.
   collection_not_updated_error: Es ist leider ein Fehler aufgetreten, so dass die Sammlung nicht aktualisiert werden konnte.
   collection_rating: Sammlungsbewertung
+  collection_redindexed: Sammlung neu indexiert.
+  collection_remove_complete_with_count: 
+    one: Entfernte ein Objekt von %{from}.
+    other: Entfernte %{count} Objekte von %{from}.
   collection_updated_notice: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich aktualisiert.
   collection_was_added_to_community: Die Sammlung „%{collection}“ wurde dieser Gemeinschaft hinzugefügt.
   collection_was_removed_by_owner: Diese Sammlung wurde von ihrem Besitzer entfernt.
@@ -1599,6 +1631,7 @@ de:
   create_a_collection: Eine Sammlung erstellen
   create_a_community: Eine Gemeinschaft gründen
   create_a_community_login_advisory: Vor dem Erstellen dieser Gemeinschaft werden Sie gebeten werden, sich anzumelden.
+  create_a_new_collection: Eine neue Sammlung erstellen
   create_account: Nutzerkonto erstellen
   create_child_page: Untergeordnete Seite erstellen
   create_collection_button: Sammlung erstellen
@@ -1937,6 +1970,7 @@ de:
   error_log: Fehlerprotokoll
   error_log_detail: Fehlerprotokolldetail
   error_logging_active: Fehlerprotokollierung aktive
+  error_no_items_selected: Sie müssen entweder Objekte aus der Sammlung oder „Alle Objekte“ aus dem Dropdownmenü auswählen.
   error_updating_user: Beim Aktualisieren des Datensatzes zu diesem Nutzer ist ein Fehler aufgetreten.
   error_watch_collections_cannot_be_shared: Beobachtungslisten zu Sammlungen können leider nicht mit anderen geteilt werden
   every_method_can_also_return_json_response: Jede Methode kann auch eine Antwort in JSON zurückgeben, indem man die Dateiendung .json anhängt.
@@ -3401,7 +3435,7 @@ de:
   source_information_header: Informationen zur Quelle
   source_url: Quell-URL
   special_collection: Sondersammlung
-  special_collections_cannot_be_destroyed: Diese Sammlung ist einzigartig und kann nicht aufgelöst werden.
+  special_collections_cannot_be_destroyed: Diese Sammlung ist die einzige, die mit ihrer Gemeinschaft verbunden ist und kann nicht gelöscht werden.
   species: Arten
   species_curated: Kuratierte Arten
   species_profile_model: Artenbeschreibungsmodell (SPM)
@@ -4214,11 +4248,13 @@ de:
   view_verb: Ansehen
   view_video_source: Quelle der Videodatei anzeigen
   view_your_curator_profile: Ihr Profil als Kurator ansehen
+  vimeo: Vimeo
   visible_title: Sichtbar
   visitors: Besucher
   vivisimo: Vivisimo
   wants_colon: "Begehr:"
   warning_you_are_editing_as_admin: "WARNUNG: Sie dürfen die Seite lediglich bearbeiten, da Sie ein Administrator sind."
+  watch_collections_cannot_be_destroyed: Diese Sammlung ist die einzige, die mit ihrer Gemeinschaft verbunden ist und kann nicht gelöscht werden.
   watch_list: Beobachtungsliste
   watch_list_newsfeed: Nachrichtenfeed zur Beobachtungsliste
   web_service_base_url: Basis-URL des Webdienstes

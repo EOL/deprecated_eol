@@ -7,6 +7,7 @@
 # Author: Dr&mx
 # Author: Eleferen
 # Author: Express2000
+# Author: Iluvatar
 # Author: Lvova
 # Author: Sprinter
 # Author: Александр Сигачёв
@@ -137,6 +138,14 @@ ru:
         udo_published: Добавленный пользователем текст
         udo_published_by_curators: Текст, предоставленный куратором
         udo_published_by_non_curators: Текст, предоставленный не-куратором
+      forum: 
+        forum_category_id: Категория
+      forum_category: 
+        description: Описание <small>(необязательно)</small>
+        title: "Название категории:"
+      forum_post: 
+        subject: Тема
+        text: Текст
       harvest_event: 
         resource: Ресурс
       hierarchy: 
@@ -226,6 +235,7 @@ ru:
         full_name: Полное имя
         given_name: Имя
         language_abbr: Предпочитаемый язык
+        permissions: Разрешения
         requested_curator_level_id: Желаемый уровень курирования
         tag_line: Слоган
         username: Имя пользователя

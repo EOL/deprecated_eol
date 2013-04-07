@@ -41,6 +41,8 @@ mk:
         annotation: Прибелешка
         refs: Наводи
         sort_field: Подреди по
+      collection_job: 
+        overwrite: Замени дупликати
       comment: 
         body: Коментар
       community: 
@@ -1178,6 +1180,13 @@ mk:
   collect_item: Додај во збирка
   collect_items: Додај во збирка
   collection_api_sort_field_notes: Ако се содржи параметар „sort_field“, ќе се даваат само експонати (предмети) чие поле на подредување точно се совпаѓа со дадената низа
+  collection_copy_choose_all_items_target_title: "Прекопирај ги сите објекти од „%{collection}“ во:"
+  collection_copy_choose_target_title_with_count: 
+    one: "Прекопирај еден објект од „%{collection}“ во:"
+    other: "Прекопирај %{count} објекти од „%{collection}“ во:"
+  collection_copy_complete_with_count: 
+    one: Прекопиран еден објект од %{from} во %{to}.
+    other: Прекопирани вкупно %{count} објекти од %{from} во %{to}.
   collection_created_notice: Збирката <em>%{collection_name}</em> е успешно создадена.
   collection_created_with_count_notice: 
     one: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонат.
@@ -1190,6 +1199,17 @@ mk:
   collection_item_edit_by_javascript_not_authorized_error: Нажалост, немате дозвола да го уредувате овој експонат во збирката. Доколку сте сопственик или уредник на збирката, превчитајте ја страницата и проверете дали сте најавени.
   collection_item_edit_page_title: Уреди експонат во збирката <em>%{collection_name}</em>
   collection_item_not_found_error: Експонатот не е пронајден.
+  collection_items_count: 
+    one: "%{count} објект"
+    other: "%{count} објекти"
+    zero: Празно
+  collection_move_choose_all_items_target_title: "Премести ги сите објекти од „%{collection}“ во:"
+  collection_move_choose_target_title_with_count: 
+    one: "Премести еден објект од „%{collection}“ во:"
+    other: "Премести %{count} објекти од „%{collection}“ во:"
+  collection_move_complete_with_count: 
+    one: Прместен еден објект од %{from} во %{to}.
+    other: Преместени вкупно %{count} објекти од %{from} во %{to}.
   collection_name_cannot_be_blank: Збирката мора да има име. Не може да стои празно.
   collection_name_label: Име на збирката
   collection_newsfeed: Канал на збирката
@@ -1198,6 +1218,10 @@ mk:
   collection_not_found_error: Нажалост, не можев да ја најдам таа збирка.
   collection_not_updated_error: Нажалост, се појави грешка. Не можев да ја подновам збирката.
   collection_rating: Оценка на збирката
+  collection_redindexed: Збирката е преиндексирана.
+  collection_remove_complete_with_count: 
+    one: Отстранет еден објект од %{from}.
+    other: Отстранети %{count} објекти од %{from}.
   collection_updated_notice: Збирката <em>%{collection_name}</em> е успешно подновена.
   collection_was_added_to_community: Збирката „%{collection}“ е додадена во оваа заедница.
   collection_was_removed_by_owner: Оваа збирка е отстранета од нејзиниот сопственик.
@@ -1588,6 +1612,7 @@ mk:
   create_a_collection: Создај збирка
   create_a_community: Создајте заедница
   create_a_community_login_advisory: Пред да ја создадете заедницата, ќе ви биде побарано да се најавите
+  create_a_new_collection: Создај нова збирка
   create_account: направи сметка
   create_child_page: Создај потстраница
   create_collection_button: Создај збирка
@@ -1926,6 +1951,7 @@ mk:
   error_log: Дневник на грешки
   error_log_detail: Подробност од днев. на грешки
   error_logging_active: Заведувањето на грешки е активно
+  error_no_items_selected: Мора да изберете објекти од збирката, или да изберете „Сите објекти“ од расклопното мени
   error_updating_user: Се појави грешка при подновата на евиденцијата за овој корисник
   error_watch_collections_cannot_be_shared: Збирките за набљудување не можат да се споделуваат.
   every_method_can_also_return_json_response: Секој метод може да даде и JSON-одговор ако се додаде наставката .json
@@ -3390,7 +3416,7 @@ mk:
   source_information_header: Информации за изворот
   source_url: Изворна URL-адреса
   special_collection: Посебна збирка
-  special_collections_cannot_be_destroyed: Оваа збирка е посебна и затоа не може да се уништи.
+  special_collections_cannot_be_destroyed: Збиркава е единствената збирка поврзана со оваа заедница и затоа не може да се избрише.
   species: Вид
   species_curated: Згрижени видови
   species_profile_model: Модел за профил на вид
@@ -4203,11 +4229,13 @@ mk:
   view_verb: Погл.
   view_video_source: Погл. извор на видеоснимката
   view_your_curator_profile: Погл. вашиот кустоски профил
+  vimeo: Vimeo
   visible_title: Видливо
   visitors: Посетители
   vivisimo: Vivisimo
   wants_colon: "Бара:"
   warning_you_are_editing_as_admin: "ПРЕДУПРЕДУВАЊЕ: дозволено ви е да ја уредувате оваа страница единствено бидејќи сте администратор."
+  watch_collections_cannot_be_destroyed: Збиркава е единствената збирка поврзана со оваа заедница и затоа не може да се избрише.
   watch_list: Набљудувања
   watch_list_newsfeed: Канал на списокот на набљудувања
   web_service_base_url: Основна URL-адреса на мреж. служб.

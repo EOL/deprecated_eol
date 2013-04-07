@@ -31,6 +31,8 @@ sv:
         annotation: Anteckning
         refs: Referenser
         sort_field: Sortera efter
+      collection_job: 
+        overwrite: Ersätt dubbletter
       comment: 
         body: Kommentar
       community: 
@@ -898,6 +900,7 @@ sv:
         observation_date: "Datum: %{observed_on}"
         observation_place: "Plats: %{place}"
         observer_with_link: "Observatör: %{observer_link}"
+        recent_observations: Senaste observationer
         some_taxon: Någonting
         taxa_observed: 
           one: "%{count} taxon observerad"
@@ -1560,6 +1563,13 @@ sv:
       update_successful: Inlägget har uppdaterats
     posts_heading: Inlägg
     replies: Svar
+    topics: 
+      create: Starta en ny tråd
+      create_failed: Tyvärr, ett fel uppstod. Tråden kunde inte läggas till.
+      create_successful: Tråden har skapats
+      delete_failed_not_empty: Tråden kunde inte raderas eftersom den inte är tom
+      delete_successful: Tråden har raderats
+      no_posts: Det finns inga inlägg i denna tråd
     topics_heading: Trådar
     update_failed: Tyvärr, ett fel uppstod. Forumet kunde inte uppdateras
     update_successful: Forumet har uppdaterats
@@ -2613,7 +2623,7 @@ sv:
   source_information_header: Källinformation
   source_url: Käll-URL
   special_collection: Specialsamling
-  special_collections_cannot_be_destroyed: Denna samling är speciell och inte kan förstöras.
+  special_collections_cannot_be_destroyed: Denna samling är den enda samlingen som är associerad med dess gemenskap och kan inte raderas.
   species: Arter
   stars_with_count: 
     one: "%{count} stjärna"
@@ -3036,6 +3046,12 @@ sv:
         meta_description: Nyheter, uppdateringar och kommentarer för %{user_full_name}.
         meta_title: "%{user_full_name}-nyhetsflöde"
         tweet_text: "%{user_full_name}-nyhetsflöde"
+    notifications: 
+      edit: 
+        page_title: Meddelandeinställningar
+      update: 
+        notification_settings_successfully_updated: Meddelandeinställningarna är uppdaterats.
+        sorry_notification_settings_could_not_be_updated: Tyvärr. Meddelandeinställningarna kunde inte uppdateras.
     open_authentications: 
       errors: 
         google: 

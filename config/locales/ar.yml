@@ -3108,7 +3108,7 @@ ar:
     one: عرض  <span class="assistive">%{count} مجموعة التي تظهر بها هذه الصفحة.</span>
     other: عرض <span class="assistive">%{count} جميع المجموعات التي تظهر بها الصفحة.</span>
   see_all_comments_with_count_for_link_or_rate: 
-    one: " واحد= عرض %{count} تعليق على ذلك الرابط أو تقييمه"
+    one: واحد= عرض %{count} تعليق على ذلك الرابط أو تقييمه
     other: " واحد= عرض %{count} تعليق على ذلك الرابط أو تقييمه"
   see_all_comments_with_count_for_text_or_rate: 
     one: اعرض %{count} تعليق على هذا المقال أو قم بتقييمه
@@ -3125,7 +3125,7 @@ ar:
   see_all_of_your_collections: عرض جميع مجموعاتك
   see_all_of_your_communities: اعرض جميع مجتمعاتك
   see_all_updates_with_count_html: 
-    one: " واحد= عرض <span class=\"assistive\">%{count} التحديثات بتلك الصفحة.</span>"
+    one: واحد= عرض <span class="assistive">%{count} التحديثات بتلك الصفحة.</span>
     other: " واحد= عرض <span class=\"assistive\">%{count} التحديثات بتلك الصفحة.</span>"
   see_notes: عرض الملاحظات
   select_a_hierarchy_around_whic: "اختر تسلسل هرمي لتنظيم ملخصات المحتوى:"

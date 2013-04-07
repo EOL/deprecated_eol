@@ -16,8 +16,10 @@
 # Author: Ljubinka
 # Author: Lucky
 # Author: McDutchie
+# Author: Metroitendo
 # Author: Moyg
 # Author: Od1n
+# Author: Peter17
 # Author: Seb35
 # Author: Sherbrooke
 # Author: Tititou36
@@ -53,6 +55,8 @@ fr:
         annotation: Annotation
         refs: Références
         sort_field: Trier par
+      collection_job: 
+        overwrite: Remplacer les doublons
       comment: 
         body: Commentaire
       community: 
@@ -1174,6 +1178,13 @@ fr:
   collect_item: élément de collecte
   collect_items: éléments de collecte
   collection_api_sort_field_notes: Si un paramètre sort_field est inclus, seuls les éléments de la collection dont le champ de tri correspond exactement à la chaîne fournie seront renvoyés
+  collection_copy_choose_all_items_target_title: "Copier tous les éléments de « %{collection} » dans :"
+  collection_copy_choose_target_title_with_count: 
+    one: "Copier %{count} élément de « %{collection} » à :"
+    other: "Copier %{count} éléments de « %{collection} » à :"
+  collection_copy_complete_with_count: 
+    one: "%{count} élément copié de %{from} à %{to}."
+    other: "%{count} éléments au total, copiés de %{from} à %{to}."
   collection_created_notice: La collection <em>%{collection_name}</em> a été créée avec succès.
   collection_delete_link: Supprimer définitivement cette collection.
   collection_destroyed: La collection a été supprimée.
@@ -1183,6 +1194,17 @@ fr:
   collection_item_edit_by_javascript_not_authorized_error: Désolé, vous n’êtes pas autorisé à modifier cet élément de collection. Si vous êtes le propriétaire de la collection ou son modificateur, veuillez recharger la page et vérifier que vous êtes encore identifié.
   collection_item_edit_page_title: Modifier l’élément dans la collection <em>%{collection_name}</em>
   collection_item_not_found_error: Impossible de trouver cet élément de la collection.
+  collection_items_count: 
+    one: "%{count} élément"
+    other: "%{count} éléments"
+    zero: Vide
+  collection_move_choose_all_items_target_title: "Déplacer tous les éléments de « %{collection} » dans :"
+  collection_move_choose_target_title_with_count: 
+    one: "Déplacer %{count} élément de « %{collection} » à :"
+    other: "Déplacer %{count} éléments de « %{collection} » à :"
+  collection_move_complete_with_count: 
+    one: "%{count} élément déplacé de %{from} à %{to}."
+    other: "%{count} éléments au total, déplacés de %{from} à %{to}."
   collection_name_cannot_be_blank: Le nom d’une collection ne peut pas être vide
   collection_name_label: Nom de la collection
   collection_newsfeed: Fil d’actualités de la collection
@@ -1191,6 +1213,10 @@ fr:
   collection_not_found_error: Désolé, impossible de trouver cette collection.
   collection_not_updated_error: Désolé, une erreur est survenue ; la collection n’a pas pu être mise à jour.
   collection_rating: Évaluation de la collection
+  collection_redindexed: Collection réindexée.
+  collection_remove_complete_with_count: 
+    one: "%{count} élément retiré de %{from}."
+    other: "%{count} éléments retirés de %{from}."
   collection_updated_notice: La collection <em>%{collection_name}</em> a été mise à jour avec succès.
   collection_was_added_to_community: La collection « %{collection} » a été ajoutée à cette communauté.
   collection_was_removed_by_owner: Cette collection a été retirée par son propriétaire.
@@ -1565,6 +1591,7 @@ fr:
   create_a_collection: Créer une collection
   create_a_community: Créer une communauté
   create_a_community_login_advisory: On vous demandera de vous identifier avant de créer votre communauté
+  create_a_new_collection: Créer une collection
   create_account: créer un compte
   create_child_page: Créer une sous-page
   create_collection_button: Créer une collection
@@ -1900,6 +1927,7 @@ fr:
   error_log: Journal d’erreurs
   error_log_detail: Détails du journal d’erreurs
   error_logging_active: Journalisation des erreurs active
+  error_no_items_selected: Vous devez sélectionner les éléments depuis la collection, ou sélectionner « Tous les éléments » dans la liste déroulante.
   error_updating_user: Il y a eu une erreur en mettant à jour l’enregistrement de cet utilisateur
   error_watch_collections_cannot_be_shared: Les collections de suivi ne peuvent pas être partagées.
   every_method_can_also_return_json_response: Chaque méthode peut également retourner une réponse JSON en ajoutant une extension .json
@@ -3353,7 +3381,7 @@ fr:
   source_information_header: Source d’information
   source_url: URL source
   special_collection: Collection spéciale
-  special_collections_cannot_be_destroyed: Cette collection est spéciale et ne peut pas être détruite.
+  special_collections_cannot_be_destroyed: Cette collection est la seule associée à sa communauté et ne peut être supprimée.
   species: Espèces
   species_curated: Espèces supervisées
   species_profile_model: Modèle de profil des espèces
@@ -4166,11 +4194,13 @@ fr:
   view_verb: Afficher
   view_video_source: Afficher la source vidéo
   view_your_curator_profile: Voir votre profil de conservateur
+  vimeo: Vimeo
   visible_title: Visible
   visitors: Visiteurs
   vivisimo: Vivisimo
   wants_colon: "Veut :"
   warning_you_are_editing_as_admin: "Attention: Vous n’êtes autorisé à modifier cette page que si vous êtes un administrateur."
+  watch_collections_cannot_be_destroyed: Cette collection est la seule associée à sa communauté et ne peut être supprimée.
   watch_list: Liste de suivi
   watch_list_newsfeed: Regarder la liste Fil de nouvelles
   web_service_base_url: URL de base du service web

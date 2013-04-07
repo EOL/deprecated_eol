@@ -39,6 +39,8 @@ ko:
         annotation: 주석
         refs: 참고
         sort_field: 정렬 기준
+      collection_job: 
+        overwrite: 중복 바꾸기
       comment: 
         body: 덧글
       community: 
@@ -1145,6 +1147,13 @@ ko:
   cms_missing_content_title: 번역 없음
   collect_item: 항목 모음
   collect_items: 항목 모음
+  collection_copy_choose_all_items_target_title: "\"%{collection}\" 모음집에서 다음으로 모든 항목 복사:"
+  collection_copy_choose_target_title_with_count: 
+    one: "\"%{collection}\" 모음집에서 다음으로 항목 %{count}개 복사:"
+    other: "\"%{collection}\" 모음집에서 다음으로 항목 %{count}개 복사:"
+  collection_copy_complete_with_count: 
+    one: 항목 %{count}개를 %{from}에서 %{to}으로 복사했습니다.
+    other: 항목 총 %{count}개를 %{from}에서 %{to}으로 복사했습니다.
   collection_created_notice: <em>%{collection_name}</em> 모음집을 성공적으로 만들었습니다.
   collection_created_with_count_notice: 
     one: <em>%{collection_name}</em> 공동체에 모음집 항목 %{count}개를 성공적으로 만들었습니다.
@@ -1157,6 +1166,17 @@ ko:
   collection_item_edit_by_javascript_not_authorized_error: 죄송합니다, 이 모음집 항목을 편집할 수 있는 권한이 없습니다. 이 모음집의 소유자나 편집자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
   collection_item_edit_page_title: <em>%{collection_name}</em> 모음집에 항목 편집
   collection_item_not_found_error: 해당 모음집 항목을 찾을 수 없습니다.
+  collection_items_count: 
+    one: 항목 %{count}개
+    other: 항목 %{count}개
+    zero: 비어 있음
+  collection_move_choose_all_items_target_title: "\"%{collection}\" 모음집에서 다음으로 모든 항목 옮기기:"
+  collection_move_choose_target_title_with_count: 
+    one: "\"%{collection}\" 모음집에서 다음으로 항목 %{count}개 옮기기:"
+    other: "\"%{collection}\" 모음집에서 다음으로 항목 %{count}개 옮기기:"
+  collection_move_complete_with_count: 
+    one: 항목 %{count}개를 %{from}에서 %{to}으로 옮겼습니다.
+    other: 항목 총 %{count}개를 %{from}에서 %{to}으로 옮겼습니다.
   collection_name_cannot_be_blank: 모음집 이름은 비워둘 수 없습니다
   collection_name_label: 모음집 이름
   collection_newsfeed: 모음집 뉴스 피드
@@ -1165,6 +1185,10 @@ ko:
   collection_not_found_error: 죄송합니다, 해당 모음집을 찾을 수 없습니다.
   collection_not_updated_error: 죄송합니다, 오류가 발생해 모음집을 업데이트하지 못했습니다.
   collection_rating: 모음집 평가
+  collection_redindexed: 모음집을 다시 색인했습니다.
+  collection_remove_complete_with_count: 
+    one: 항목 %{count}개를 %{from}에서 제거했습니다.
+    other: 항목 %{count}개를 %{from}에서 제거했습니다.
   collection_updated_notice: <em>%{collection_name}</em> 모음집을 성공적으로 업데이트했습니다.
   collection_was_added_to_community: "\"%{collection}\" 모음집을 이 공동체에 추가했습니다."
   collection_was_removed_by_owner: 이 모음집은 소유자에 의해 제거됐습니다.
@@ -1526,6 +1550,7 @@ ko:
     other: 새 모음집에 항목 %{count}개를 복사합니다
   copy_of_name: "%{name} 복사"
   copyright: "저작권:"
+  correct_donation_message_with_link: 이 정보가 올바르지 않으면 바꾸기 위해 <a href='%{link}'>뒤로 가세요</a>.
   could_not_find_collection_error: 죄송합니다, 해당 모음집을 찾을 수 없습니다.
   could_not_find_user: 이 공동체의 구성원이 아닙니다.
   count: 갯수
@@ -1534,6 +1559,7 @@ ko:
     other: <em>%{search_term}</em>에 대한 결과 %{count}개
   create_a_collection: 모음집 만들기
   create_a_community: 공동체 만들기
+  create_a_new_collection: 새 모음집 만들기
   create_account: 계정 만들기
   create_child_page: 자매 문서 만들기
   create_collection_button: 모음집 만들기
@@ -2202,11 +2228,11 @@ ko:
         email: 이메일 주소
         email_reports_frequency_hours: 얼마나 자주 기여 활동에 대해 이메일 알림을 받겠습니까?
         email_settings_submit: 이메일 설정
-        entered_password: 비밀번호 <small>(4 - 16 문자)</small>
+        entered_password: 비밀번호 <small>(4 - 16 글자)</small>
         generate_api_key: API 키 요청
         generate_api_key_more: EOL API를 사용하는 데 관심이 있다면 어플리케이션을 식별하기 위한 API를 생성할 수 있습니다. <a href="%{api_docs_url}">API 호출에 키 추가</a>에 대해 더 참고하세요.
         logo: 새 사진 올리기
-        new_password: 새 비밀번호 <small>(4 - 16 문자)</small>
+        new_password: 새 비밀번호 <small>(4 - 16 글자)</small>
         new_password_confirmation: 새 비밀번호 <small>(확인 차원)</small>
         news_in_preferred_language: 선호하는 언어로 뉴스 보기
         notification_settings: 알림 설정
@@ -2218,7 +2244,7 @@ ko:
         requested_curator_level_id_more: 아직 어떠한 자격을 갖추지 않았으면 <em>조수 큐레이터</em>를 선택하세요. 전문 과학자나 대학원생 자격을 갖추었다면 <em>전체 큐레이터</em>를 선택하세요. EOL 큐레이터를 경험했거나 더 많은 책임을 지고 싶다면 <em>마스터 큐레이터</em>를 선택하세요.
         tag_line: "태그라인 또는 제목 <small>예: \"조류 애호가\"</small>"
         user_identities: 나는
-        username: 사용자 이름 <small>(4 - 32 문자)</small>
+        username: 사용자 이름 <small>(4 - 32 글자)</small>
         username_or_email: 사용자 이름이나 이메일 주소
       wikipedia_queue: 
         revision_url: 판 URL <small>(예를 들어 http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
@@ -3200,7 +3226,7 @@ ko:
   source_information_header: 출처 정보
   source_url: 출처 URL
   special_collection: 특수 모음집
-  special_collections_cannot_be_destroyed: 이 모음집은 특수하고 파괴할 수 없습니다.
+  special_collections_cannot_be_destroyed: 이 모음집은 공동체와 관련된 유일한 모음집이므로 삭제할 수 없습니다.
   species: 종
   species_curated: 종 큐레이트함
   species_profile_model: 종 프로필 모델
@@ -3633,12 +3659,18 @@ ko:
   twitter: 트위터
   type: 종류
   unable_to_determine_title: 이 웹 페이지의 제목을 정할 수 없습니다
+  unable_to_invite_users_to_community_with_count: 
+    one: "%{list}에 초대장을 보낼 수 없습니다."
+    other: "%{list}에 초대장을 보낼 수 없습니다."
   unique_page_views_th: 고유 문서 보기
   unknown: 알 수 없음
   unknown_data_object_title: 알 수 없는 데이터 개체
   unknown_hierarchy: 알 수 없는 계층
   unknown_type_not_associated_with_any_published_entries: 이 데이터는 모든 게시한 분류와 관련되지 않습니다.
   unpublished: 게시하지 않음
+  unpublished_collections_with_count: 
+    one: 숨겨진 모음집 %{count}개
+    other: 숨겨진 모음집 %{count}개
   unreviewed: 검토하지 않음
   unreviewed_images: 검토하지 않은 그림
   unreviewed_maps: 검토하지 않은 지도

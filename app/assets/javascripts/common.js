@@ -242,7 +242,7 @@ $(function() {
   });
 
   // TODO - generalize this with the other modals...
-  $('#collection_items .editable a').modal({
+  $('#collection_items .editable .edit a').modal({
     beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
     beforeShow: function() {
       $('form.edit_collection_item :submit').click(function() {

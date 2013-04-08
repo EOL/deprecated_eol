@@ -211,7 +211,7 @@ Eol::Application.routes.draw do
       resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/resources/harvest_events'
       resources :hierarchies, :only => [:edit, :update] do
         member do
-          post 'request_publish', :controller => 'content_partners/hierarchies'
+          post 'request_publish', :controller => 'content_partners/resources/hierarchies'
         end
       end
     end

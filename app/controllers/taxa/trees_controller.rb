@@ -2,6 +2,7 @@ class Taxa::TreesController < TaxaController
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,:redirect_if_superceded
 
   def show
+    I18n.locale = params[:lang] if params[:lang]
     @hierarchy_entry = HierarchyEntry.find(params[:entry_id])
     params.each do |k,v|
       params[k] = false if v == 'false'

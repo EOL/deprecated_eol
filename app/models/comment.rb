@@ -263,7 +263,11 @@ private
 
   def add_recipient_users_watching(recipients)
     if self.parent.respond_to?(:containing_collections)
-      self.parent.containing_collections.watch.each do |collection|
+      collections = self.parent.containing_collections.watch
+      # Some children (notably DataObjects) will report on the taxa that contain them:
+      collections += self.parent.watch_collections_for_associated_taxa if
+        self.parent.respond_to?(:watch_collections_for_associated_taxa)
+      collections.each do |collection|
         collection.users.each do |user|
           user.add_as_recipient_if_listening_to(:comment_on_my_watched_item, recipients)
         end

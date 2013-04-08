@@ -1056,6 +1056,11 @@ class DataObject < ActiveRecord::Base
     end
   end
 
+  # Used for notifications only. Expensive.
+  def watch_collections_for_associated_taxa
+    data_object_taxa(:published).map(&:taxon_concept).map { |tc| tc.containing_collections.watch }.flatten
+  end
+
 private
 
   # TODO - this is quite lame. Best to re-think this. Perhaps a class that handles and cleans the DatoParams?
@@ -1071,7 +1076,7 @@ private
   def self.set_subtype_if_link_object(params, options)
     params[:data_subtype_id] = DataType.link.id if options[:link_object]
   end
-
+  
   # NOTE - do NOT rename this "association", that appears to be a reserved Rails name.
   def raw_association(options = {})
     raw_associations(options).first

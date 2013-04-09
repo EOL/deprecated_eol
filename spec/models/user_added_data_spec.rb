@@ -3,15 +3,36 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe UserAddedData do
 
   before(:all) do
-    @user = User.gen
-    @tc   = TaxonConcept.gen
+    @test_user = User.gen
+    @test_subject_concept = TaxonConcept.gen
+    @test_predicate = 'http://somethinguseful.com/fake_ontology'
+    @test_object = 'foo'
     @valid_args = {
-      subject:   @tc,
-      predicate: "http://somethinguseful.com/fake_ontology",
-      object:    "foo",
-      user:      @user
+      subject:      @test_subject_concept,
+      predicate:    @test_predicate,
+      object:       @test_object,
+      user:         @test_user
     }
     @uad = UserAddedData.gen
+  end
+
+  it 'should create a valid user added data instance' do
+    uad = UserAddedData.new(@valid_args)
+    uad.should be_valid
+    uad.subject.should == @test_subject_concept
+    uad.subject_type.should == 'TaxonConcept'
+    uad.subject_id.should == @test_subject_concept.id
+    uad.predicate.should == @test_predicate
+    uad.object.should == @test_object
+    uad.user.should == @test_user
+  end
+
+  it 'should be invalid if the subject_type is not present' do
+    UserAddedData.new(@valid_args.merge(subject_type: nil)).should_not be_valid
+  end
+
+  it 'should be invalid if the subject_id is not present' do
+    UserAddedData.new(@valid_args.merge(subject_id: nil)).should_not be_valid
   end
 
   it 'should be invalid if the predicate is not a uri' do

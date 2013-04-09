@@ -1,9 +1,6 @@
 # first created -> highest priority.
 Eol::Application.routes.draw do
 
-  resources :collection_jobs
-
-
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
@@ -191,6 +188,8 @@ Eol::Application.routes.draw do
     resource :inaturalist, :only => [:show], :controller => 'collections/inaturalists'
   end
 
+  resources :collection_jobs, :only => [:create]
+
   resources :content_partners do
     member do
       post 'new'
@@ -335,8 +334,9 @@ Eol::Application.routes.draw do
     end
   end
 
-  resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do
-  end
+  resources :known_uris
+
+  resources :user_added_data, :only => [ :create, :edit, :update, :destroy ]
 
   # Old V1 admin search logs:
   resources :search_logs, :controller => 'administrator/search_logs'

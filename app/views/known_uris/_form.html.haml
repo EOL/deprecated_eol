@@ -1,0 +1,6 @@
+= f.fields_for :translated_known_uri do |nested|
+  = nested.label :name
+  = nested.text_field :name
+= f.label :uri
+= f.text_field :uri
+= f.submit I18n.t(:save)

@@ -1,0 +1,7 @@
+This will be the index.
+%ul
+  - @known_uris.each do |known_uri|
+    %li
+      = known_uri.name
+      is
+      = known_uri.uri

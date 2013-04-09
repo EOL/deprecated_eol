@@ -3,6 +3,7 @@
     .nav
       = raw(@navigation_menu)
     .article.copy
+      %p= raw I18n.t(:api_refer_to_the_getting_started_page, :link => cms_page_path('api_overview'))
       - if current_user.can?(:beta_test)
         %h3= I18n.t('forums.forums_heading')
         %p= raw I18n.t('api.docs.forum_beta_test_text', :forums_link => forums_path)

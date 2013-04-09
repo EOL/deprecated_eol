@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe EolStatistic do
   before(:all) do
-    EolStatistic.gen
+    @first = EolStatistic.gen(:created_at => Time.now - 1.month)
+    @second = EolStatistic.gen(:created_at => Time.now - 1.month + 1.day)
+    @latest = EolStatistic.gen(:created_at => Time.now)
   end
 
   describe "#scopes" do
@@ -37,13 +39,15 @@ describe EolStatistic do
       stats = EolStatistic.data_objects
       EolStatistic.sorted_report_attributes(:data_objects).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
     end
-    it 'should select earliest' do
-      stats = EolStatistic.overall.earliest(1)
-      EolStatistic.sorted_report_attributes(:overall).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
+    it 'should select something from a week ago' do
+      stats = EolStatistic.at_least_one_week_ago(1).first
+      EolStatistic.sorted_report_attributes(:overall).map{|attribute| stats.has_attribute?(attribute).should be_true}
+      stats.should == @second
     end
     it 'should select latest' do
-      stats = EolStatistic.overall.latest(1)
-      EolStatistic.sorted_report_attributes(:overall).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
+      stats = EolStatistic.latest(1).first
+      EolStatistic.sorted_report_attributes(:overall).map{|attribute| stats.has_attribute?(attribute).should be_true}
+      stats.should == @latest
     end
   end
 end

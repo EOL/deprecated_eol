@@ -64,7 +64,7 @@ class EolStatisticsController < ApplicationController
     @stats_two ||= EolStatistic.send(report).latest(1).first # Default to latest stats
     @stats_one ||= EolStatistic.send(report).on_dates([Date.parse(params[:date_one_set])]).first if params[:date_one_set] # Fallback to the previously selected date if a newly selected date has no stats
     @stats_one ||= EolStatistic.send(report).on_dates([(@stats_two.created_at.to_date - 1.week)]).first unless @stats_two.nil? # Try to default to 1 week prior to second stats
-    @stats_one ||= EolStatistic.send(report).earliest(1).first # Otherwise default to earliest
+    @stats_one ||= EolStatistic.send(report).at_least_one_week_ago(1).first # Otherwise default to something from a week ago
     EolStatistic.compare_and_set_greatest(@stats_one, @stats_two)
   end
 

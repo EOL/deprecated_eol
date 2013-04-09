@@ -984,8 +984,8 @@ class TaxonConcept < ActiveRecord::Base
 
   def disallow_large_curations
     max_curatable_descendants = SiteConfigurationOption.max_curatable_descendants rescue 10000
-    raise EOL::Exceptions::TooManyDescendantsToCurate.new(num) if
-      num = number_of_descendants > max_curatable_descendants
+    raise EOL::Exceptions::TooManyDescendantsToCurate.new(number_of_descendants) if
+      number_of_descendants > max_curatable_descendants
   end
 
   def lock_classifications

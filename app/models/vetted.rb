@@ -18,19 +18,19 @@ class Vetted < ActiveRecord::Base
   end
 
   def self.inappropriate
-    cached_find_translated(:label, 'Inappropriate')
+    @@inappropriate ||= cached_find_translated(:label, 'Inappropriate')
   end
 
   def self.untrusted
-    cached_find_translated(:label, 'Untrusted')
+    @@untrusted ||= cached_find_translated(:label, 'Untrusted')
   end
 
   def self.trusted
-    cached_find_translated(:label, 'Trusted')
+    @@trusted ||= cached_find_translated(:label, 'Trusted')
   end
 
   def self.unknown
-    cached_find_translated(:label, 'Unknown')
+    @@unknown ||= cached_find_translated(:label, 'Unknown')
   end
 
   def self.trusted_ids

@@ -17,27 +17,27 @@ class LinkType < ActiveRecord::Base
   end
 
   def self.blog
-    cached_find_translated(:label, 'Blog')
+    @@blog ||= cached_find_translated(:label, 'Blog')
   end
 
   def self.multimedia
-    cached_find_translated(:label, 'Multimedia')
+    @@multimedia ||= cached_find_translated(:label, 'Multimedia')
   end
 
   def self.news
-    cached_find_translated(:label, 'News')
+    @@news ||= cached_find_translated(:label, 'News')
   end
 
   def self.organization
-    cached_find_translated(:label, 'Organization')
+    @@organization ||= cached_find_translated(:label, 'Organization')
   end
 
   def self.paper
-    cached_find_translated(:label, 'Paper')
+    @@paper ||= cached_find_translated(:label, 'Paper')
   end
 
   def self.citizen_science
-    cached_find_translated(:label, 'Citizen Science')
+    @@citizen_science ||= cached_find_translated(:label, 'Citizen Science')
   end
 
 end

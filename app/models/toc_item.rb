@@ -44,15 +44,15 @@ class TocItem < ActiveRecord::Base
     end
     def content_partners
       InfoItem
-      cached_find_translated(:label, 'Content Partners', :include => [ :info_items, { :parent => :info_items } ])
+      @@content_partners ||= cached_find_translated(:label, 'Content Partners', :include => [ :info_items, { :parent => :info_items } ])
     end
     def name_and_taxonomy
       InfoItem
-      cached_find_translated(:label, 'Names and Taxonomy', :include => [ :info_items, { :parent => :info_items } ])
+      @@name_and_taxonomy ||= cached_find_translated(:label, 'Names and Taxonomy', :include => [ :info_items, { :parent => :info_items } ])
     end
     def related_names
       InfoItem
-      cached_find_translated(:label, 'Related Names', :include => [ :info_items, { :parent => :info_items } ])
+      @@related_names ||= cached_find_translated(:label, 'Related Names', :include => [ :info_items, { :parent => :info_items } ])
     end
     def synonyms
       InfoItem
@@ -104,7 +104,7 @@ class TocItem < ActiveRecord::Base
 
     def identification_resources
       InfoItem
-      cached_find_translated(:label, 'Identification Resources', :include => [ :info_items, { :parent => :info_items } ])
+      @@identification_resources ||= cached_find_translated(:label, 'Identification Resources', :include => [ :info_items, { :parent => :info_items } ])
     end
     def biomedical_terms
       InfoItem
@@ -120,11 +120,11 @@ class TocItem < ActiveRecord::Base
     end
     def citizen_science
       InfoItem
-      cached_find_translated(:label, 'Citizen Science', :include => [ :info_items, { :parent => :info_items } ])
+      @@citizen_science ||= cached_find_translated(:label, 'Citizen Science', :include => [ :info_items, { :parent => :info_items } ])
     end
     def citizen_science_links
       InfoItem
-      cached_find_translated(:label, 'Citizen Science links', :include => [ :info_items, { :parent => :info_items } ])
+      @@citizen_science_links ||= cached_find_translated(:label, 'Citizen Science links', :include => [ :info_items, { :parent => :info_items } ])
     end
     def wikipedia
       InfoItem
@@ -148,7 +148,7 @@ class TocItem < ActiveRecord::Base
     end
 
     def exclude_from_details
-      cached('exclude_from_details') do
+      @@exclude_from_details ||= cached('exclude_from_details') do
         temp = []
         # Education:
         temp = temp | ["Education", "Education Resources", "High School Lab Series"] # to Resource tab

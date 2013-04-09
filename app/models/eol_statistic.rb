@@ -57,7 +57,7 @@ class EolStatistic < ActiveRecord::Base
     { :conditions => [conditions.join(' OR '), conditions_replacements] }
   }
 
-  scope :earliest, lambda {|limit| { :order => 'created_at ASC', :limit => limit } }
+  scope :at_least_one_week_ago, lambda {|limit| { :conditions => "created_at < '#{Time.now - 1.week}'", :order => 'created_at DESC', :limit => limit } }
 
   scope :latest, lambda {|limit| { :order => 'created_at DESC', :limit => limit } }
 

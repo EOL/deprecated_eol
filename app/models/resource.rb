@@ -84,7 +84,7 @@ class Resource < ActiveRecord::Base
   end
 
   def self.ligercat
-    cached('ligercat') do
+    @@ligercat ||= cached('ligercat') do
       if Agent.boa.user
         Agent.boa.user.content_partners.first.resources.first rescue nil
       else

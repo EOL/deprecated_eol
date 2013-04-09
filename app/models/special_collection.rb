@@ -8,11 +8,11 @@ class SpecialCollection < ActiveRecord::Base
   end
 
   def self.focus # This is a community's focus collection
-    cached_find(:name, 'Focus')
+    @@focus ||= cached_find(:name, 'Focus')
   end
 
   def self.watch
-    cached_find(:name, 'Watch')
+    @@watch ||= cached_find(:name, 'Watch')
   end
 
 end

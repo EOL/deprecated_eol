@@ -8,7 +8,7 @@ class UserAddedData < ActiveRecord::Base
   belongs_to :user
   has_many :user_added_data_metadata, :class_name => "UserAddedDataMetadata"
 
-  validates_presence_of :user_id, :subject_type, :subject_id, :subject, :predicate, :object
+  validates_presence_of :user_id, :subject, :predicate, :object
   validate :predicate_must_be_uri
   validate :expand_and_validate_namespaces # Without this, the validation on namespaces doesn't run.
 
@@ -25,9 +25,7 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def taxon_concept_id
-    if subject_type == 'TaxonConcept'
-      return subject_id
-    end
+    return subject_id if subject_type == 'TaxonConcept'
   end
 
   # TODO - this is just for testing. You really don't want to run this in production...
@@ -56,7 +54,7 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def remove_from_triplestore
-    sparql.update("DELETE WHERE { GRAPH <#{GRAPH_NAME}> { <#{uri}> ?p ?o } }")
+    sparql.delete_uri(graph_name: GRAPH_NAME, uri: uri)
   end
 
   def uri
@@ -65,6 +63,7 @@ class UserAddedData < ActiveRecord::Base
 
   def turtle
     "<#{uri}> a dwc:MeasurementOrFact" +
+      # TODO - if this is really polymorphic, this needs to be dynamic:
     "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject_id.to_s + ">" +
     "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +
     "; dwc:measurementValue " + EOL::Sparql.enclose_value(object)

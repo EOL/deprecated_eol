@@ -1219,8 +1219,8 @@ FactoryGirl.define do
   end
 
   factory :user_added_data do
-    subject   "<http://eol.org/pages/17>"
-    predicate "<http://somethinguseful.com/fake_ontology>"
+    association :subject, factory: :taxon_concept
+    predicate "http://somethinguseful.com/fake_ontology"
     object    { generate(:string) }
     association :user
   end

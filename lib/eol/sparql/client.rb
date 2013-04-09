@@ -17,6 +17,18 @@ module EOL
         raise NotImplementedError
       end
 
+      def delete_data(options = {})
+        if options[:graph_name] && options[:data]
+          update("DELETE DATA { GRAPH <#{options[:graph_name]}> { #{options[:data]} } }")
+        end
+      end
+
+      def delete_uri(options)
+        if options[:graph_name] && options[:uri]
+          sparql_client.query("DELETE WHERE { GRAPH <#{options[:graph_name]}> { <#{options[:uri]}> ?p ?o } }")
+        end
+      end
+
       def update(query)
         sparql_client.query(append_namespaces_to_query(query))
       end

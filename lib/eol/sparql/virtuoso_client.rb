@@ -35,10 +35,6 @@ module EOL
         end
       end
 
-      def delete_data(options = {})
-        update("DELETE DATA { GRAPH <#{options[:graph_name]}> { #{options[:data]} } }")
-      end
-
     end
   end
 end

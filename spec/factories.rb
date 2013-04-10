@@ -1219,10 +1219,16 @@ FactoryGirl.define do
   end
 
   factory :user_added_data do
-    association :subject, factory: :taxon_concept
+    association :subject, :factory => :taxon_concept
     predicate "http://somethinguseful.com/fake_ontology"
     object    { generate(:string) }
     association :user
+  end
+
+  factory :user_added_data_metadata do
+    association  :user_added_data
+    predicate "http://somethinguseful.com/fake_ontology"
+    object    { generate(:string) }
   end
 
   factory :users_data_object do

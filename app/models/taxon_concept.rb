@@ -462,6 +462,7 @@ class TaxonConcept < ActiveRecord::Base
     @title = entry(hierarchy).italicized_name.firstcap
   end
   alias :summary_name :title
+  alias :collected_name :title
 
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
@@ -988,14 +989,6 @@ class TaxonConcept < ActiveRecord::Base
 
   def lock_classifications
     TaxonClassificationsLock.find_or_create_by_taxon_concept_id(self.id)
-  end
-
-  # TODO - Grrrrr.  Why not just use title?!  Why do we have so many forms?  The code should make distinctions
-  # clearer.
-  def collected_name
-    return entry.name.canonical_form.string if has_canonical_form?
-    return entry.title_canonical unless entry.title_canonical.blank
-    return title
   end
 
   def richness

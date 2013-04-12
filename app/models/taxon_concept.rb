@@ -457,26 +457,37 @@ class TaxonConcept < ActiveRecord::Base
     entry.rank_label
   end
 
-  # TODO - this should be renamed to scientific_name, and #title should be an alias to this method on TaxonPage.
+  # NOTE - the following name methods *attempt* to get what you're asking for. If such a thing isn't available, you
+  # may get something different (ie: no attribution, no italics, etc).
+
+  # TODO - these should be renamed to scientific_name, and #title should be an alias to this method on TaxonPage.
+  # (There shouldn't be a "title" for a taxon_concept.)
+
   def title(hierarchy = nil)
     return @title unless @title.nil?
     return '' if entry(hierarchy).nil?
     @title = entry(hierarchy).italicized_name.firstcap
   end
   alias :summary_name :title
-  alias :collected_name :title
+  alias :italicized_attibuted_title :title
 
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry(hierarchy).nil?
     @title_canonical = entry(hierarchy).title_canonical
   end
+  alias :non_italicized_unattributed_title :title_canonical
+  alias :collected_name :title_canonical
 
   def title_canonical_italicized(hierarchy = nil)
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
     return '' if entry(hierarchy).nil?
     @title_canonical_italicized = entry(hierarchy).title_canonical_italicized
   end
+  alias :italicized_unattributed_title :title_canonical_italicized
+
+  # NOTE - there is no non_italicized_attributed_title. You would never want one. Attribution implies proper
+  # italicized form.
 
   def to_s
     "TaxonConcept ##{id}: #{title}"

@@ -5,7 +5,12 @@ class UserAddedDataController < ApplicationController
   # POST /user_added_data
   def create
     delete_empty_metadata
-    @user_added_data = UserAddedData.new(params[:user_added_data].reverse_merge(user: current_user))
+    # TODO - fix this later:
+    type = params[:user_added_data].delete(:subject_type)
+    raise "I don't know anything about #{type}, can't find one." unless type == 'TaxonConcept'
+    subject = TaxonConcept.find(params[:user_added_data].delete(:subject_id))
+    @user_added_data = UserAddedData.new(params[:user_added_data].reverse_merge(user: current_user,
+                                                                                subject: subject))
     if @user_added_data.save
       flash[:notice] = I18n.t('user_added_data.create_successful')
     else
@@ -43,7 +48,7 @@ class UserAddedDataController < ApplicationController
       render :edit
       return
     end
-    redirect_to taxon_data_path(@user_added_data.subject_id)
+    redirect_to taxon_data_path(@user_added_data.subject)
   end
 
   # DELETE /user_added_data/:id

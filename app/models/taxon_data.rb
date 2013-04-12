@@ -1,4 +1,6 @@
 #encoding: utf-8
+# NOTE - I had to change a whole bunch of "NOT IN" clauses because they weren't working (SPARQL syntax error in my
+# version.)  I think this will be fixed in later versions (it works for PL), but for now, this seems to work.
 class TaxonData < TaxonUserClassificationFilter
 
   # TODO - break down into friendlier syntax. :)
@@ -26,17 +28,20 @@ class TaxonData < TaxonUserClassificationFilter
     group_data_by_graph_and_uri(single_point_data + dataset_data) + flat_data
   end
 
+  # NOTE - I changed the order of the two GRAPH clauses because the Q wasn't working for me as written. At all.
+  # Syntax error.
   def flat_data
     EOL::Sparql.connection.query("
       SELECT DISTINCT ?graph ?taxon_uri ?attribute ?value
       WHERE {
-        GRAPH <http://eol.org/taxon_mappings/> {
-          ?taxon_uri dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
-        } .
         GRAPH ?graph {
           ?taxon_uri ?attribute ?value
           FILTER (?graph != <http://eol.org/taxon_mappings/> AND ?graph != <#{UserAddedData::GRAPH_NAME}>)
-          FILTER (?attribute NOT IN (rdf:type, eol:canonical))
+          FILTER ((?attribute != rdf:type) &&
+                  (?attribute != eol:canonical))
+        } .
+        GRAPH <http://eol.org/taxon_mappings/> {
+          ?taxon_uri dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
         }
       }
       ORDER BY ?attribute")
@@ -57,10 +62,13 @@ class TaxonData < TaxonUserClassificationFilter
           ?data_point_uri dwc:measurementValue ?value .
           OPTIONAL {
             ?data_point_uri ?attribution_predicate ?attribution_object .
-            FILTER (?attribution_predicate NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue))
+            FILTER ((?attribution_predicate != rdf:type) &&
+                    (?attribution_predicate != dwc:taxonConceptID) &&
+                    (?attribution_predicate != dwc:measurementType) &&
+                    (?attribution_predicate != dwc:measurementValue))
           } .
           FILTER (?graph != <http://eol.org/taxon_mappings/>)
-          FILTER (?attribute NOT IN (rdf:type))
+          FILTER (?attribute != rdf:type)
         }
       }
       ORDER BY ?attribute")
@@ -80,7 +88,8 @@ class TaxonData < TaxonUserClassificationFilter
           { ?dataset dwc:taxonID ?taxon } .
           OPTIONAL {
             ?dataset ?attribution_predicate ?attribution_object .
-            FILTER (?attribution_predicate NOT IN (rdf:type, dwc:taxonID))
+            FILTER ((?attribution_predicate != rdf:type) &&
+                    (?attribution_predicate != dwc:taxonID))
           } .
           ?data_point_uri a eol:DataPoint .
           ?data_point_uri eol:inDataSet ?dataset .

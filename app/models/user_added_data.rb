@@ -15,6 +15,8 @@ class UserAddedData < ActiveRecord::Base
   after_create :update_triplestore
   after_update :update_triplestore
 
+  attr_accessible :subject, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes
+
   accepts_nested_attributes_for :user_added_data_metadata, :allow_destroy => true
 
   def can_be_updated_by?(user_wanting_access)
@@ -25,7 +27,7 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def taxon_concept_id
-    return subject_id if subject_type == 'TaxonConcept'
+    return subject.id if subject.is_a?(TaxonConcept)
   end
 
   # TODO - this is just for testing. You really don't want to run this in production...
@@ -64,7 +66,7 @@ class UserAddedData < ActiveRecord::Base
   def turtle
     "<#{uri}> a dwc:MeasurementOrFact" +
       # TODO - if this is really polymorphic, this needs to be dynamic:
-    "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject_id.to_s + ">" +
+    "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject.id.to_s + ">" +
     "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +
     "; dwc:measurementValue " + EOL::Sparql.enclose_value(object)
   end

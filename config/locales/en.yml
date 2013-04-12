@@ -315,6 +315,8 @@ en:
         descriptive_label: "Descriptive label"
         label: "Label"
         request_publish: "Request publish"
+      known_uri:
+        uri: "URI"
       open_authentication:
         created_at: "Created"
         guid: "GUID"
@@ -458,6 +460,10 @@ en:
             publish:
               inclusion: "is only allowed for the latest harvest event and only if that event is not already published"
         inaccessible: "The record could not be saved because it was invalid. Check validation errors and resubmit."
+        known_uri:
+          attributes:
+            uri:
+              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
         open_authentications:
           guid_provider_must_be_unique: "the third-party account is already connected with an EOL account"
           provider_user_id_must_be_unique: "only one account from each third-party provider can be connected to an EOL account"
@@ -476,18 +482,18 @@ en:
         user_added_data:
           attributes:
             predicate:
-              must_be_uri: "must be a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
             subject:
-              must_be_uri: "must be a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
         user_added_data_metadata:
           attributes:
             predicate:
-              must_be_uri: "must be a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
             subject:
-              must_be_uri: "must be a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
   helpers:
     label:
@@ -2320,6 +2326,7 @@ en:
   add_link_to_page_button: "Add a link"
   add_new_association_link: "Add new association"
   add_new_tag_suggestion: "Add new tag suggestion"
+  add_new_known_uri_link: "Add a new URI"
   add_page: "Add page"
   add_sub_chapter: "Add sub-chapter"
   add_to_a_community: "Add to a community"
@@ -4320,6 +4327,7 @@ en:
   uploaded_content: "Uploaded Content"
   uploaded_on: "Uploaded On"
   upload: "Upload"
+  uri: "URI"
   url: "URL"
   url_not_accessible: "This URL is not accessible"
   us_dollars_100: "US $100"

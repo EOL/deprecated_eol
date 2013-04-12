@@ -5,7 +5,7 @@
       %h3= I18n.t('user_added_data.edit_data_header')
   - else
     - submit_to_url = user_added_data_path
-  = form_for @user_added_data || UserAddedData.new(:subject_type => 'TaxonConcept', :subject_id => (@taxon_concept ? @taxon_concept.id : nil)),
+  = form_for @user_added_data || UserAddedData.new(:subject => @taxon_concept),
     :url => submit_to_url, :html => { :class => 'user_added_data' }, :builder => ApplicationHelper::EolFormBuilder do |f|
     = f.hidden_field :subject_type
     = f.hidden_field :subject_id

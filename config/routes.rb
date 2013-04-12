@@ -334,7 +334,12 @@ Eol::Application.routes.draw do
     end
   end
 
-  resources :known_uris
+  resources :known_uris do
+    member do
+      put 'unhide'
+      put 'hide'
+    end
+  end
 
   resources :user_added_data, :only => [ :create, :edit, :update, :destroy ]
 

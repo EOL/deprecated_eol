@@ -1,7 +1,21 @@
-This will be the index.
-%ul
-  - @known_uris.each do |known_uri|
-    %li
-      = known_uri.name
-      is
-      = known_uri.uri
+#content
+  #known_uris.site_column
+    %table.standard
+      %tr
+        %th= I18n.t(:uri)
+        %th= I18n.t(:name)
+        - if current_user.is_admin?
+          %th= I18n.t(:actions)
+      - @known_uris.each do |known_uri|
+        %tr{ class: known_uri.hidden? ? 'hidden' : nil }
+          %td= known_uri.uri
+          %td= known_uri.name
+          - if current_user.is_admin?
+            %td
+              = link_to I18n.t(:edit).i18n_downcase, known_uri
+              = link_to I18n.t(:delete).i18n_downcase, known_uri, data: { confirm: I18n.t(:are_you_sure) }, method: :delete
+              - if known_uri.visible?
+                = link_to I18n.t(:hide).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put
+              - elsif known_uri.hidden?
+                = link_to I18n.t(:show).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
+    %p= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')

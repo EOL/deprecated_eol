@@ -25,7 +25,7 @@ module EOL
 
       def delete_uri(options)
         if options[:graph_name] && options[:uri]
-          sparql_client.query("DELETE WHERE { GRAPH <#{options[:graph_name]}> { <#{options[:uri]}> ?p ?o } }")
+          sparql_client.query("DELETE FROM <#{options[:graph_name]}> { <#{options[:uri]}> ?p ?o } WHERE { <#{options[:uri]}> ?p ?o }")
         end
       end
 
@@ -40,6 +40,8 @@ module EOL
 
       def query(query)
         results = []
+          puts "*" * 100
+          puts "** #{query}"
         sparql_client.query(append_namespaces_to_query(query)).each_solution{ |s| results << s.to_hash }
         results
       end

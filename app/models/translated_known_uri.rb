@@ -6,7 +6,7 @@ class TranslatedKnownUri < ActiveRecord::Base
   belongs_to :known_uri
   belongs_to :language
 
-  attr_accessible :name
+  attr_accessible :name, :language, :language_id
 
   validates_presence_of :name
 

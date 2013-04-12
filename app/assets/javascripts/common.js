@@ -530,6 +530,15 @@ $(function() {
     }
   });
 
+
+  $('input#user_added_data_predicate').keypress(function() {
+    if ($(this).val().match(/^ht/i)) {
+      $(this).attr('data-autocomplete', $(this).attr('data-http'));
+    } else {
+      $(this).attr('data-autocomplete', $(this).attr('data-orig'));
+    }
+  });
+
 });
 
 (function($) {

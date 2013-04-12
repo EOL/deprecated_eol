@@ -4,12 +4,14 @@
       %tr
         %th= I18n.t(:uri)
         %th= I18n.t(:name)
+        %th= I18n.t(:category)
         - if current_user.is_admin?
           %th= I18n.t(:actions)
       - @known_uris.each do |known_uri|
         %tr{ class: known_uri.hidden? ? 'hidden' : nil }
           %td= known_uri.uri
           %td= known_uri.name
+          %td= "Physical Characteristics"
           - if current_user.is_admin?
             %td
               = link_to I18n.t(:edit).i18n_downcase, known_uri

@@ -6,5 +6,7 @@
       = nested.hidden_field :language_id
       %dt= nested.label :name
       %dd= nested.text_field :name
+    %dt= label_tag "Category"
+    %dd= select_tag "category", "<option>Physical Characteristics</option>"
 %fieldset.actions
   = f.submit I18n.t(:save)

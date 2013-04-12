@@ -317,6 +317,7 @@ en:
         request_publish: "Request publish"
       known_uri:
         uri: "URI"
+        category: "Category"
       open_authentication:
         created_at: "Created"
         guid: "GUID"
@@ -4118,6 +4119,7 @@ en:
   subject: "subject"
   submit: "Submit"
   submit_term: "Submit Term"
+  suggested_attributes: "Suggested attributes:"
   suggested_result_page_id: "Suggested Result Page ID:"
   suggested_results_avg: "Suggested Results avg"
   summary_thumbnail_title: "Summary:"

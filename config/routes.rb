@@ -44,7 +44,10 @@ Eol::Application.routes.draw do
     resources :media, :only => [:show], :controller => 'taxa/media'
     resources :details, :except => [:show], :controller => 'taxa/details'
     resource :worklist, :only => [:show], :controller => 'taxa/worklist'
-    resources :data, :only => [:index], :controller => 'taxa/data'
+    resources :data, :only => [:index], :controller => 'taxa/data' do
+      get :autocomplete_known_uri_uri, :on => :collection
+      get :autocomplete_translated_known_uri_name, :on => :collection
+    end
     resources :data_objects, :only => [:create, :new]
     resource :taxon_concept_reindexing, :as => 'reindexing', :only => [:create],
       :controller => 'taxa/taxon_concept_reindexing'

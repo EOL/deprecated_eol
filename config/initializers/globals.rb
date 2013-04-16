@@ -136,7 +136,6 @@ $ENABLE_TRANSLATION_LOGS = false # This is expensive; DON'T do it by default!
 # Default values for some footer elements:
 $EOL_TWITTER_ACCOUNT    = "http://twitter.com/#!/EOL"
 $EOL_FACEBOOK_ACCOUNT   = "http://www.facebook.com/encyclopediaoflife"
-$EOL_TUMBLR_ACCOUNT     = "http://blog.eol.org"
 $EOL_FLICKR_ACCOUNT     = "http://www.flickr.com/groups/encyclopedia_of_life/"
 $EOL_YOUTUBE_ACCOUNT    = "http://www.youtube.com/user/EncyclopediaOfLife/"
 $EOL_PINTEREST_ACCOUNT  = "http://pinterest.com/eoflife/"

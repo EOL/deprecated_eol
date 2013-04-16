@@ -67,7 +67,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.gbif
-    cached_find(:label, 'GBIF Nub Taxonomy')
+    @@gbif ||= cached_find(:label, 'GBIF Nub Taxonomy')
   end
 
   # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
@@ -76,7 +76,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.eol_contributors
-    cached('eol_contributors') do
+    @@eol_contributors ||= cached('eol_contributors') do
       Hierarchy.find_by_label("Encyclopedia of Life Contributors", :include => :agent)
     end
   end
@@ -86,7 +86,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.ncbi
-    cached('ncbi') do
+    @@ncbi ||= cached('ncbi') do
       Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
     end
   end

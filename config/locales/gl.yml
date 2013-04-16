@@ -20,6 +20,8 @@ gl:
     one: Atopouse %{count} termo que coincidise cos teus criterios de procura.
     other: Atopáronse %{count} termos que coincidisen cos teus criterios de procura.
   about_eol: Acerca da EOL
+  about_resources: Acerca dos recursos
+  about_resources_title: Ligazóns cara a recursos externos
   account_information: Información sobre a conta
   account_information_menu: Información sobre a conta
   account_registered_but_not_ready_try_later: A túa conta está rexistrada, pero non está lista para accederes a ela. Inténtao de novo en cinco minutos.
@@ -41,6 +43,8 @@ gl:
         annotation: Anotación
         refs: Referencias
         sort_field: Ordenar por
+      collection_job: 
+        overwrite: Substituír os duplicados
       comment: 
         body: Comentario
       community: 
@@ -1106,6 +1110,7 @@ gl:
   by_caps: Por
   by_scientific_name_table_header: por nome científico
   cache_store: Almacenamento da caché
+  caching_results: Resultados da caché
   calculate_averages_slow: Calcular as medias (lento)
   call_api: Chamar á API
   cancel: Cancelar
@@ -1178,6 +1183,13 @@ gl:
   collect_item: Recoller o elemento
   collect_items: Recoller os elementos
   collection_api_sort_field_notes: Se houbese un parámetro sort_field incluído, unicamente se devolverán os elementos da colección cuxo campo de ordenación coincida coa cadea de texto especificada
+  collection_copy_choose_all_items_target_title: "Copiar todos os elementos de \"%{collection}\" en:"
+  collection_copy_choose_target_title_with_count: 
+    one: "Copiar %{count} elemento de \"%{collection}\" en:"
+    other: "Copiar %{count} elementos de \"%{collection}\" en:"
+  collection_copy_complete_with_count: 
+    one: Copiouse %{count} elemento de "%{from}" a "%{to}".
+    other: Copiouse un total de %{count} elementos de "%{from}" a "%{to}".
   collection_created_notice: A colección <em>%{collection_name}</em> creouse correctamente.
   collection_created_with_count_notice: 
     one: Creouse a colección <em>%{collection_name}</em> con %{count} elemento.
@@ -1190,6 +1202,17 @@ gl:
   collection_item_edit_by_javascript_not_authorized_error: Sentímolo, non tes os permisos necesarios para editar este elemento de colección. Se ti es o propietario ou editor da colección, volve cargar a páxina e comproba que accediches ao sistema.
   collection_item_edit_page_title: Editar o elemento da colección <em>%{collection_name}</em>
   collection_item_not_found_error: Non se puido atopar o elemento da colección.
+  collection_items_count: 
+    one: "%{count} elemento"
+    other: "%{count} elementos"
+    zero: Baleiro
+  collection_move_choose_all_items_target_title: "Trasladar todos os elementos de \"%{collection}\" a:"
+  collection_move_choose_target_title_with_count: 
+    one: "Trasladar %{count} elemento de \"%{collection}\" a:"
+    other: "Trasladar %{count} elementos de \"%{collection}\" a:"
+  collection_move_complete_with_count: 
+    one: Trasladouse %{count} elemento de "%{from}" a "%{to}".
+    other: Trasladouse un total de %{count} elementos de "%{from}" a "%{to}".
   collection_name_cannot_be_blank: O nome da colección non pode estar baleiro
   collection_name_label: Nome da colección
   collection_newsfeed: Fonte de novas da colección
@@ -1198,6 +1221,10 @@ gl:
   collection_not_found_error: Sentímolo, non se puido atopar a colección.
   collection_not_updated_error: Sentímolo, houbo un erro. Non se actualizou a colección.
   collection_rating: Avaliación da colección
+  collection_redindexed: Reindexouse a colección.
+  collection_remove_complete_with_count: 
+    one: Eliminouse %{count} elemento de "%{from}".
+    other: Elimináronse %{count} elementos de "%{from}".
   collection_updated_notice: A colección <em>%{collection_name}</em> actualizouse correctamente.
   collection_was_added_to_community: "\"%{collection}\" engadiuse á comunidade."
   collection_was_removed_by_owner: O propietario borrou esta colección.
@@ -1590,6 +1617,7 @@ gl:
   create_a_collection: Crear unha colección
   create_a_community: Crear unha comunidade
   create_a_community_login_advisory: Terás que iniciar sesión antes de crear a túa comunidade
+  create_a_new_collection: Crear unha nova colección
   create_account: crear unha conta
   create_child_page: Crear a páxina secundaria
   create_collection_button: Crear a colección
@@ -1928,6 +1956,7 @@ gl:
   error_log: Rexistro de erros
   error_log_detail: Detalles no rexistro de erros
   error_logging_active: Rexistro activo dos erros
+  error_no_items_selected: Debes seleccionar elementos da colección ou seleccionar "Todos os elementos" no menú despregable.
   error_updating_user: Houbo un erro ao actualizar o rexistro deste usuario
   error_watch_collections_cannot_be_shared: As coleccións de seguimento non se poden compartir
   every_method_can_also_return_json_response: Cada método pode devolver tamén unha resposta JSON engadindo a extensión .json
@@ -3392,7 +3421,7 @@ gl:
   source_information_header: Fonte da información
   source_url: URL de orixe
   special_collection: Colección especial
-  special_collections_cannot_be_destroyed: Esta colección é especial e non pode ser destruída.
+  special_collections_cannot_be_destroyed: Esta colección é a única asociada á súa comunidade e non se pode borrar.
   species: Especie
   species_curated: Especie conservada
   species_profile_model: Modelo de perfil de especies
@@ -4205,11 +4234,13 @@ gl:
   view_verb: Ver
   view_video_source: Ollar a fonte do vídeo
   view_your_curator_profile: Ollar o teu perfil de conservador
+  vimeo: Vimeo
   visible_title: Visible
   visitors: Visitantes
   vivisimo: Vivisimo
   wants_colon: "Quere:"
   warning_you_are_editing_as_admin: "AVISO: Non podes editar esta páxina porque non es administrador."
+  watch_collections_cannot_be_destroyed: Esta colección é a única asociada á súa comunidade e non se pode borrar.
   watch_list: Lista de vixilancia
   watch_list_newsfeed: Fonte de novas da lista de vixilancia
   web_service_base_url: URL de base do servizo web

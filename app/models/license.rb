@@ -91,7 +91,7 @@ class License < ActiveRecord::Base
   end
 
   def self.no_known_restrictions
-    cached_find(:title, 'no known copyright restrictions')
+    @@no_known_restrictions ||= cached_find(:title, 'no known copyright restrictions')
   end
 
   # we have several different licenses with the title public domain

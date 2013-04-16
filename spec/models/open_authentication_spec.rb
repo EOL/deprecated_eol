@@ -87,7 +87,7 @@ describe OpenAuthentication do
       begin
         @open_authentication.update_column(:user_id, @user.id)
       rescue
-        @open_authentication = OpenAuthentication.find(1, 'facebook')
+        @open_authentication = OpenAuthentication.where(user_id: 1, provider: 'facebook').first
       end
       @open_authentication.can_be_deleted_by?(@user).should be_true
     end

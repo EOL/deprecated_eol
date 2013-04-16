@@ -86,6 +86,7 @@ Eol::Application.routes.draw do
       end
       resources :resources, :only => [:index], :controller => 'taxa/resources' do
         collection do
+          get 'partner_links'
           get 'identification_resources'
           get 'education'
           get 'nucleotide_sequences'
@@ -127,6 +128,7 @@ Eol::Application.routes.draw do
     end
     resources :resources, :controller => 'taxa/resources', :only => [:index] do
       collection do
+        get 'partner_links'
         get 'identification_resources'
         get 'education'
         get 'nucleotide_sequences'
@@ -213,7 +215,7 @@ Eol::Application.routes.draw do
       resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/resources/harvest_events'
       resources :hierarchies, :only => [:edit, :update] do
         member do
-          post 'request_publish', :controller => 'content_partners/hierarchies'
+          post 'request_publish', :controller => 'content_partners/resources/hierarchies'
         end
       end
     end

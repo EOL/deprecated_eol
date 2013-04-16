@@ -16,17 +16,20 @@
         - @collection_job.collection_items.each do |collection_item|
           = hidden_field_tag "collection_job[collection_item_ids][]", collection_item.id
       - item = @collection_job.collection_items.length == 1 ? @collection_job.collection_items.first.collected_item : nil
-      %ul
+      %ul#collections
+        %li
+          = check_box_tag "collection_job[collection_ids][]", 0, false
+          = text_field_tag('collection_name', '', data: { default: I18n.t(:create_a_new_collection) }, size: 24, class: 'clear_on_focus' )
         - unless @collection_job.collection == current_user.watch_collection
           = render :partial => 'collections_list_item',
             :locals => { collection: current_user.watch_collection, has_item: item && current_user.watch_collection.has_item?(item), f: f }
         - @collections.reject { |c| c == current_user.watch_collection || c == @collection_job.collection }.each do |collection|
           = render :partial => 'collections_list_item', :locals => { :collection => collection, :has_item => collection.has_item?(item), f: f }
-        %li
-          = check_box_tag "collection_job[collection_ids][]", 0, false
-          = text_field_tag('collection_name', '', data: { default: I18n.t(:create_a_new_collection) }, size: 24, class: 'clear_on_focus' )
     %fieldset.actions
       = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
       = submit_tag(I18n.t(@collection_job.command))
+      %span#overwrite
+        = f.check_box :overwrite 
+        = f.label :overwrite
       = link_to(I18n.t(:cancel), @collection_job.collection, :class => 'close')
 

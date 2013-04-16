@@ -19,7 +19,7 @@ class Language < ActiveRecord::Base
 
   def self.approved_languages
     approved_language_iso_codes = APPROVED_LANGUAGES rescue ['en', 'es', 'ar']
-    cached("approved_languages") do
+    @@approved_languages ||= cached("approved_languages") do
       self.find_all_by_iso_639_1(approved_language_iso_codes,
                                  :order => 'sort_order ASC, source_form ASC')
     end
@@ -35,8 +35,9 @@ class Language < ActiveRecord::Base
     end
   end
 
-  def self.from_iso(iso, params={})
-    cached_find(:iso_639_1, iso)
+  def self.from_iso(iso)
+    @@from_iso ||= {}
+    @@from_iso[iso] ||= cached_find(:iso_639_1, iso)
   end
 
   def self.find_by_iso_exclusive_scope(iso)
@@ -69,7 +70,7 @@ class Language < ActiveRecord::Base
   end
 
   def self.default
-    cached('default') do
+    @@default ||= cached('default') do
       self.english_for_migrations # Slightly weird, but... as it implies... needed for migrations.
     end
   end

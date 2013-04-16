@@ -918,16 +918,6 @@ form
   #sidebar 
     border-left: 1px solid $darker_gray
     margin-left: 10px
-    #overwrite
-      margin-top: 1.3em
-      input[type="checkbox"]
-        float: left
-        margin-right: 0.5em
-      label
-        font-size: 0.9em
-        font-weight: bold
-        text-transform: uppercase
-        color: $loafer_text_color
 table.standard
   td.nowrap
     white-space: nowrap
@@ -1288,11 +1278,18 @@ table.classifications
 #new_collection_job
   ul.object_list, ul#collection_items
     width: 515px
+  ul#collections
+    height: 320px
   #sidebar
     width: 170px
   .pagination
-    clear: none
+    clear: left
     margin-top: 10px
+  #overwrite
+    margin: 0 1.6em
+    label
+      font-size: 0.9em
+      font-weight: bold
 
 // Squeeze a few more pixels out of collections:
 #collection.main_container
@@ -1340,3 +1337,17 @@ table.classifications
     font-size: 0
     line-height: 0
     border-width: 1px 0 0 0
+
+ul.tabs
+  .end_section
+    margin-bottom: 20px
+
+.main_container .empty.about
+  text-align: left
+  div.button
+    padding-top: 1em
+    text-align: center
+  .notice
+    text-align: center
+    margin-top: 1em
+    font-size: 0.8em

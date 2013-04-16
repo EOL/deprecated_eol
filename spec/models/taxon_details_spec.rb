@@ -169,19 +169,15 @@ describe TaxonDetails do
     should_get_sym_when_toc_includes(:identification_resources, :identification_resources)
   end
 
-  it '#resources_links should include identification_resources if toc includes them' do
-    should_get_sym_when_toc_includes(:identification_resources, :identification_resources)
-  end
-
-  it '#resources_links should include identification_resources if toc includes them' do
+  it '#resources_links should include citizen_science if toc includes them' do
     should_get_sym_when_toc_includes(:citizen_science, :citizen_science)
   end
 
-  it '#resources_links should include identification_resources if toc includes them' do
+  it '#resources_links should include citizen_science_links if toc includes them' do
     should_get_sym_when_toc_includes(:citizen_science, :citizen_science_links)
   end
 
-  it '#resources_links should include identification_resources if toc includes them' do
+  it '#resources_links should include education if toc includes them' do
     should_get_sym_when_toc_includes(:education, :education_toc_ids)
   end
 

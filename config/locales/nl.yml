@@ -48,6 +48,8 @@ nl:
         annotation: Annotatie
         refs: Referenties
         sort_field: Sorteren op
+      collection_job: 
+        overwrite: Duplicaten vervangen
       comment: 
         body: Reactie
       community: 
@@ -1185,6 +1187,10 @@ nl:
   collect_item: Item in verzameling opnemen
   collect_items: Items in verzameling opnemen
   collection_api_sort_field_notes: ��Als de parameter "sort_field" is opgenomen, worden alleen verzamelingsitems teruggegeven waarvan het sorteerveld precies overeenkomt met de opgegeven tekst.
+  collection_copy_choose_all_items_target_title: "Alle items kopiëren van \"%{collection}\" naar:"
+  collection_copy_complete_with_count: 
+    one: Eén item gekopieerd van %{from} naar %{to}.
+    other: In totaal %{count} items gekopieerd van %{from} naar %{to}.
   collection_created_notice: De verzameling <em>%{collection_name}</em> is aangemaakt.
   collection_created_with_count_notice: 
     one: De verzameling <em>%{collection_name}</em> is aangemaakt  met één item..
@@ -1197,6 +1203,14 @@ nl:
   collection_item_edit_by_javascript_not_authorized_error: U hebt geen rechten om dit verzamelingsitem te bewerken. Als u de eigenaar of redacteur van de verzameling bent, laad de pagina dan opnieuw en controleer of u bent aangemeld.
   collection_item_edit_page_title: Item in verzameling <em>%{collection_name}</em> bewerken
   collection_item_not_found_error: Dat verzamelingsitem is niet aangetroffen.
+  collection_items_count: 
+    one: "%{count} item"
+    other: "%{count} items"
+    zero: Leeg
+  collection_move_choose_all_items_target_title: "Alle item verplaatsen van \"%{collection}\" naar:"
+  collection_move_complete_with_count: 
+    one: Eén item verplaatst van %{from} naar %{to}.
+    other: In totaal %{count} items verplaatst van %{from} naar %{to}.
   collection_name_cannot_be_blank: De naam van de verzameling mag niet leeg zijn
   collection_name_label: Naam van de verzameling
   collection_newsfeed: Newsfeed voor verzameling
@@ -1205,6 +1219,10 @@ nl:
   collection_not_found_error: Die verzameling is niet aangetroffen.
   collection_not_updated_error: Er is een fout opgetreden. De verzameling kon niet worden bijgewerkt.
   collection_rating: Verzamelingwaardering
+  collection_redindexed: De verzameling is opnieuw geïndexeerd.
+  collection_remove_complete_with_count: 
+    one: Eén item verwijderd van %{from}.
+    other: "%{count} items verwijderd %{from}."
   collection_updated_notice: De verzameling <em>%{collection_name}</em> is bijgewerkt.
   collection_was_added_to_community: "\"%{collection}\" is toegevoegd aan deze gemeenschap."
   collection_was_removed_by_owner: Deze verzameling is verwijderd door de eigenaar.
@@ -1597,6 +1615,7 @@ nl:
   create_a_collection: Verzameling aanmaken
   create_a_community: Gemeenschap aanmaken
   create_a_community_login_advisory: U moet aanmelden voordat u een gemeenschap kunt starten
+  create_a_new_collection: Nieuwe verzameling aanmaken
   create_account: gebruiker aanmaken
   create_child_page: Onderliggende pagina aanmaken
   create_collection_button: Verzameling aanmaken
@@ -3399,7 +3418,7 @@ nl:
   source_information_header: Brongegevens
   source_url: Bron-URL
   special_collection: Speciale verzameling
-  special_collections_cannot_be_destroyed: Deze verzameling is bijzonder en kan niet verwijderd worden.
+  special_collections_cannot_be_destroyed: Deze verzameling is de enige verzameling die gekoppeld is met de gemeenschap en deze kan niet worden verwijderd.
   species: Soorten
   species_curated: Geconserveerde soorten
   species_profile_model: Soortenprofielmodel
@@ -4212,11 +4231,13 @@ nl:
   view_verb: Bekijken
   view_video_source: Videobron weergeven
   view_your_curator_profile: Uw conservatorprofiel bekijken
+  vimeo: Vimeo
   visible_title: Zichtbaar
   visitors: Bezoekers
   vivisimo: Vivisimo
   wants_colon: "Wil:"
   warning_you_are_editing_as_admin: "Waarschuwing: u kunt deze pagina bewerken omdat u beheerder bent."
+  watch_collections_cannot_be_destroyed: Deze verzameling is de enige verzameling die gekoppeld is met de gemeenschap en deze kan niet worden verwijderd.
   watch_list: Volglijst
   watch_list_newsfeed: Nieuwsfeedlijst bekijken
   web_service_base_url: Webservicebasis-URL

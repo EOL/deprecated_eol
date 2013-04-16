@@ -21,15 +21,15 @@ class Visibility < ActiveRecord::Base
   end
 
   def self.visible
-    cached_find_translated(:label, 'Visible')
+    @@visible ||= cached_find_translated(:label, 'Visible')
   end
 
   def self.preview
-    cached_find_translated(:label, 'Preview')
+    @@preview ||= cached_find_translated(:label, 'Preview')
   end
   
   def self.invisible
-    cached_find_translated(:label, 'Invisible')
+    @@invisible ||= cached_find_translated(:label, 'Invisible')
   end
 
   def self.for_curating_selects

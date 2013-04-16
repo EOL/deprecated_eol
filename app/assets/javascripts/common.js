@@ -242,7 +242,7 @@ $(function() {
   });
 
   // TODO - generalize this with the other modals...
-  $('#collection_items .editable a').modal({
+  $('#collection_items .editable .edit a').modal({
     beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
     beforeShow: function() {
       $('form.edit_collection_item :submit').click(function() {
@@ -519,23 +519,37 @@ $(function() {
   })($("#flash-bad, #flash-good"));
 
   $('input.clear_on_focus').each(function() { $(this).val($(this).attr('data-default')); });
+  $('input.clear_on_focus').siblings().each(function() { $(this).on('click', function() {
+    if ($(this).prop('checked')) {
+      $(this).siblings().focus()
+    }
+  })});
   $('input.clear_on_focus').on('focus', function() {
-    $(this).val('');
-    EOL.check_siblings(this, true);
+    if ($(this).val() == $(this).attr('data-default')) {
+      $(this).val('');
+      EOL.check_siblings(this, true);
+    }
   });
   $('input.clear_on_focus').on('blur', function() {
-    if ($(this).val() == '') {
+    if ($(this).val() == '' || $(this).val() == $(this).attr('data-default')) {
       $(this).val($(this).attr('data-default'));
       EOL.check_siblings(this, false);
     }
   });
-
 
   $('input#user_added_data_predicate').keypress(function() {
     if ($(this).val().match(/^ht/i)) {
       $(this).attr('data-autocomplete', $(this).attr('data-http'));
     } else {
       $(this).attr('data-autocomplete', $(this).attr('data-orig'));
+    }
+  });
+
+  $('input#collection_job_overwrite').on('click', function() {
+    if ($(this).prop('checked')) {
+      $('form#new_collection_job li.collected input').prop('checked', false).attr("disabled", false);
+    } else {
+      $('form#new_collection_job li.collected input').prop('checked', true).attr("disabled", true);
     }
   });
 

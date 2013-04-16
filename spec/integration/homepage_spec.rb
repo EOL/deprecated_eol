@@ -77,7 +77,7 @@ describe 'Home page' do
 
   it "should links to social media sites" do
     visit('/')
-    ['Twitter', 'Facebook', 'Tumblr', 'Flickr', 'YouTube', 'Pinterest', 'Vimeo'].each do |social_site|
+    ['Twitter', 'Facebook', 'Flickr', 'YouTube', 'Pinterest', 'Vimeo'].each do |social_site|
       body.should have_tag("li a.#{social_site.downcase}", :text => social_site)
     end
   end

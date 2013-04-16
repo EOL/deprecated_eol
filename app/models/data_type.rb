@@ -61,24 +61,24 @@ class DataType < ActiveRecord::Base
 
   # TODO -this is essentially "SWF" and could be handled as Video...
   def self.youtube
-    cached_find_translated(:label, 'YouTube')
+    @@youtube ||= cached_find_translated(:label, 'YouTube')
   end
 
   # TODO -this is essentially "SWF" and could be handled as Video...
   def self.flash
-    cached_find_translated(:label, 'Flash')
+    @@flash ||= cached_find_translated(:label, 'Flash')
   end
 
   def self.iucn
-    cached_find_translated(:label, 'IUCN')
+    @@iucn ||= cached_find_translated(:label, 'IUCN')
   end
   
   def self.map
-    cached_find_translated(:label, 'Map')
+    @@youtubmape ||= cached_find_translated(:label, 'Map')
   end
   
   def self.link
-    cached_find_translated(:label, 'Link')
+    @@link ||= cached_find_translated(:label, 'Link')
   end
 
   def self.sound_type_ids

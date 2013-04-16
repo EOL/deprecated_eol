@@ -213,11 +213,13 @@ class TaxonConcept < ActiveRecord::Base
     quick_scientific_name(italicize && species_or_below? ? :italicized : :normal, hierarchy)
   end
 
+  # TODO - this should move to TaxonUserClassificationFilter or TaxonDetails or TaxonResources or something...
   # Returns nucleotide sequences HE
   def nucleotide_sequences_hierarchy_entry_for_taxon
     @ncbi_entry ||= HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", Hierarchy.ncbi.id, id).select(:identifier).first
   end
 
+  # TODO - this should move to TaxonUserClassificationFilter or TaxonDetails or TaxonResources or something...
   def has_ligercat_entry?
     return nil unless Resource.ligercat && Resource.ligercat.hierarchy
     HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", Resource.ligercat.hierarchy.id, id).select(:identifier).first
@@ -329,7 +331,7 @@ class TaxonConcept < ActiveRecord::Base
   def reload
     @@ar_instance_vars ||= TaxonConcept.new.instance_variables
     (instance_variables - @@ar_instance_vars).each do |ivar|
-      instance_variable_set(ivar, nil)
+      remove_instance_variable(ivar)
     end
     TaxonConceptCacheClearing.clear(self)
     super
@@ -982,8 +984,8 @@ class TaxonConcept < ActiveRecord::Base
 
   def disallow_large_curations
     max_curatable_descendants = SiteConfigurationOption.max_curatable_descendants rescue 10000
-    raise EOL::Exceptions::TooManyDescendantsToCurate.new(num) if
-      num = number_of_descendants > max_curatable_descendants
+    raise EOL::Exceptions::TooManyDescendantsToCurate.new(number_of_descendants) if
+      number_of_descendants > max_curatable_descendants
   end
 
   def lock_classifications

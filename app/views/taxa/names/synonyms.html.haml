@@ -1,6 +1,9 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 #taxon_names
+  .article
+    .copy
+      %p= I18n.t(:taxon_synonyms_subtab_explanation)
   = render :partial => 'menu'
   .main_container
     - if @taxon_page.synonyms?

@@ -171,7 +171,7 @@ es:
       forum_category: 
         title: Nombre de la categoría
       forum_post: 
-        text: Cuerpo (del texto)
+        text: Contenido
       harvest_event: 
         resource: Recurso
       hierarchy: 
@@ -2060,7 +2060,7 @@ es:
       post_has_been_deleted: Este artículo ha sido eliminado
       topic_and_post_delete_successful: Se eliminan artículo y hilo correctamente
       update_successful: El artículo fue actualizado correctamente
-    posts_heading: Artículo (Publicación)
+    posts_heading: Publicaciones
     topics: 
       create: Comenzar un nuevo hilo
       create_failed: Lo sentimos, ha ocurrido un error, no se pudo generar un nuevo tema
@@ -2401,7 +2401,7 @@ es:
   image: Imagen
   image_alt_text: Esta imagen %{vetted_status} es de %{taxon_name}
   image_crop_failed_error: Lo sentimos, se ha producido un error, la imagen no se pudo recortar
-  image_cropped_notice: La imagen fue recortada correctamente
+  image_cropped_notice: La imagen se recortó correctamente.
   image_from_supplier: Imagen de %{whom}
   image_is_no_longer_available: La imagen ya no está disponible
   image_map_alt_text: Este mapa %{vetted_status} es de %{taxon_name}
@@ -3030,7 +3030,7 @@ es:
   percentage_of_descendants_with_text: porcentaje de descendientes con texto
   permalink: Permalink
   permission_granted: Permiso concedido
-  permission_revoked: Permiso denegado
+  permission_revoked: Se revocó el permiso.
   permissions_list_header: Permisos en EOL
   person_rating: Evaluación de la persona
   personal_profile_menu: Perfil personal

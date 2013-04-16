@@ -76,7 +76,7 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def self.wikipedia
-    cached_find(:full_name, 'Wikipedia')
+    @@wikipedia ||= cached_find(:full_name, 'Wikipedia')
   end
 
   def all_harvest_events

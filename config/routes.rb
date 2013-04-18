@@ -44,10 +44,7 @@ Eol::Application.routes.draw do
     resources :media, :only => [:show], :controller => 'taxa/media'
     resources :details, :except => [:show], :controller => 'taxa/details'
     resource :worklist, :only => [:show], :controller => 'taxa/worklist'
-    resources :data, :only => [:index], :controller => 'taxa/data' do
-      get :autocomplete_known_uri_uri, :on => :collection
-      get :autocomplete_translated_known_uri_name, :on => :collection
-    end
+    resources :data, :only => [:index], :controller => 'taxa/data'
     resources :data_objects, :only => [:create, :new]
     resource :taxon_concept_reindexing, :as => 'reindexing', :only => [:create],
       :controller => 'taxa/taxon_concept_reindexing'
@@ -340,13 +337,19 @@ Eol::Application.routes.draw do
   end
 
   resources :known_uris do
+    collection do
+      get 'categories'
+    end
     member do
       put 'unhide'
       put 'hide'
     end
   end
 
-  resources :user_added_data, :only => [ :create, :edit, :update, :destroy ]
+  resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do
+    get :autocomplete_known_uri_uri, :on => :collection
+    get :autocomplete_translated_known_uri_name, :on => :collection
+  end
 
   # Old V1 admin search logs:
   resources :search_logs, :controller => 'administrator/search_logs'

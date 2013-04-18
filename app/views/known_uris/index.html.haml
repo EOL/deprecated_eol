@@ -25,4 +25,5 @@
                 = link_to I18n.t(:hide).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put
               - elsif known_uri.hidden?
                 = link_to I18n.t(:show).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
-    %p= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')
+    - if current_user.is_admin?
+      %p= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')

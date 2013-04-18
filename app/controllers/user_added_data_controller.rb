@@ -2,9 +2,14 @@ class UserAddedDataController < ApplicationController
 
   layout 'v2/basic'
 
+  # Doesn't seem to work unless it's here as WELL as taxon/data.
+  autocomplete :known_uri, :uri
+  autocomplete :translated_known_uri, :name
+
   # POST /user_added_data
   def create
     delete_empty_metadata
+    convert_fields_to_uri
     # TODO - fix this later:
     type = params[:user_added_data].delete(:subject_type)
     raise "I don't know anything about #{type}, can't find one." unless type == 'TaxonConcept'
@@ -66,4 +71,25 @@ class UserAddedDataController < ApplicationController
   def delete_empty_metadata
     params['user_added_data']['user_added_data_metadata_attributes'].delete_if{ |k,v| v['id'].blank? && v['predicate'].blank? && v['object'].blank? }
   end
+
+  def convert_fields_to_uri
+    convert_field_to_uri(params[:user_added_data], :predicate)
+    convert_field_to_uri(params[:user_added_data], :object)
+    convert_field_to_uri(params[:user_added_data][:user_added_data_metadata_attributes][0], :predicate)
+    convert_field_to_uri(params[:user_added_data][:user_added_data_metadata_attributes][0], :object)
+  end
+
+  # NOTE - just passing in the field wasn't working (thought it would be by ref, but I guess not), so we need the hash and the key:
+  def convert_field_to_uri(hash, key)
+    return unless hash[key]
+    converted = convert_to_uri(hash[key])
+    hash[key] = converted unless converted.blank?
+  end
+
+  # NOTE that this only takes the first one it finds.
+  def convert_to_uri(name)
+    return nil unless TranslatedKnownUri.exists?(name: name, language_id: current_language.id)
+    TranslatedKnownUri.where(name: name, language_id: current_language.id).first.known_uri.uri
+  end
+
 end

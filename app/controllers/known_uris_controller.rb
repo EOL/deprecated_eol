@@ -1,12 +1,28 @@
 class KnownUrisController < ApplicationController
 
   before_filter :set_page_title
-  before_filter :restrict_to_admins
+  before_filter :restrict_to_admins, :except => :index
 
   layout 'v2/basic'
 
   def index
-    @known_uris = KnownUri.paginate(page: params[:page], order: 'uri')
+    @known_uris = params[:category_id] ?
+      KnownUri.
+        includes([:toc_items, :translated_known_uris]).
+        where(translated_known_uris: { language_id: current_language.id }, known_uris_toc_items: { toc_item_id: params[:category_id] }).
+        order('translated_known_uris.name') :
+      KnownUri.paginate(page: params[:page], order: 'uri')
+    respond_to do |format|
+      format.html { }
+      format.js { @category = TocItem.find(params[:category_id]) }
+    end
+  end
+
+  def categories
+    respond_to do |format|
+      format.html { }
+      format.js { }
+    end
   end
 
   def show

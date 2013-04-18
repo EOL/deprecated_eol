@@ -434,9 +434,9 @@ form
       &.sound
         .figure
           background: #394651 url(image-path("v2/icon_sound_tabs.png")) no-repeat 50% 20%
-          color: #e2e9ef
+          color: $light_blue
           a
-            color: #e2e9ef
+            color: $light_blue
           .player
             background-color: transparent !important
           .player_interface
@@ -1299,16 +1299,17 @@ table.classifications
 
 #known_uris
   th
-    background: #e2e9ef
+    background: $light_blue
   tr.hidden
     background-color: #eee
     color: #777
     a
       color: #7597B5
 
-#new_user_added_data .suggestions
-  clear: left
-  font-weight: bold
+#new_user_added_data
+  .suggestions
+    clear: left
+    font-weight: bold
 
 .ui-menu
   list-style: none
@@ -1335,7 +1336,7 @@ table.classifications
     margin: -1px
     font-weight: bold
     color: black
-    background-color: #e2e9ef
+    background-color: $light_blue
     border: 1px solid #cad3db
   .ui-menu-divider
     margin: 5px -2px 5px -2px
@@ -1358,26 +1359,64 @@ ul.tabs
     margin-top: 1em
     font-size: 0.8em
 
-table.data
-  tr:hover
-    border-color: #aab3bb
-    cursor: hand
-    cursor: pointer
-  th
-    text-transform: uppercase
-    color: #616e7a
-    font-weight: normal
-    text-align: right
-    width: 30%
-  td
-    font-weight: bold
-    font-size: 1.2em
-    color: #394651
-  tr.actions
-    background-color: #e2e9ef 
-    font-weight: normal
-    li
-      margin-left: 2pt
-      display: inline
-    td
+#taxon_data
+  table.data
+    tr:hover
+      border-color: #aab3bb
+      cursor: hand
+      cursor: pointer
+    th
+      text-transform: uppercase
+      color: $darker_blue
       font-weight: normal
+      text-align: right
+      width: 30%
+      padding-top: 5pt
+      vertical-align: top
+    td
+      font-weight: bold
+      font-size: 1.2em
+      color: #394651
+      vertical-align: top
+      table
+        font-size: 0.9em
+    tr.actions
+      background-color: $light_blue
+      font-weight: normal
+      li
+        margin-left: 2pt
+        display: inline
+      td
+        font-weight: normal
+  #suggestions
+    width: 40em
+    margin: 1px
+    padding: 13px
+    border: 1px solid $darker_gray
+    color: $darker_blue
+    background-color: #FFF
+    position: absolute
+    z-index: 2
+    h3
+      font: 1.4em bold helvetica,arial
+      margin-bottom: 6pt
+    li
+      margin: 4pt
+    li.attribute
+      padding: 4pt
+      text-transform: uppercase
+      color: $darker_blue
+      small
+        color: #999
+        text-transform: none
+        display: block
+        margin: 2pt 6pt
+        font-weight: normal
+    li.attribute:hover
+      cursor: pointer
+      background-color: $light_blue
+      border: 1px solid $darker_blue
+    a.cancel
+      margin-left: 4pt
+      font-size: 0.9em
+

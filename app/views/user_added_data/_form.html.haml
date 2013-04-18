@@ -15,20 +15,13 @@
         %dt
           = f.label :predicate, :hide_errors => true
         %dd
-          = f.autocomplete_field :predicate, autocomplete_translated_known_uri_name_taxon_data_path, :size => 100,
-            'data-orig' => autocomplete_translated_known_uri_name_taxon_data_path,
-            'data-http' => autocomplete_known_uri_uri_taxon_data_path
+          = f.autocomplete_field :predicate, autocomplete_translated_known_uri_name_user_added_data_path, :size => 100,
+            'data-orig' => autocomplete_translated_known_uri_name_user_added_data_path,
+            'data-http' => autocomplete_known_uri_uri_user_added_data_path
         %dt
           = f.label :object, :hide_errors => true
         %dd
           = f.text_field :object, :size => 100
-      %dl.suggestions
-        %dt
-          = I18n.t(:suggested_attributes)
-        -# TODO - this should only appear via JS.
-        %dd
-          = select_tag :category, options_from_collection_for_select(@categories, :id, :label)
-          = select_tag :category, "<option>--</option>"
     - if @user_added_data && !@user_added_data.user_added_data_metadata.empty?
       .header
         %h3= I18n.t('user_added_data.edit_metadata_header')

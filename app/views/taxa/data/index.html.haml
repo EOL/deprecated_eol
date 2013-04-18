@@ -1,6 +1,6 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-.main_container
+.main_container#taxon_data
   %table.standard.data
     - @data.each do |row|
       %tr
@@ -14,6 +14,12 @@
             %span{title: row[:value].uri}= row[:value].name
           - else
             = row[:value]
+          - if row[:metadata]
+            %table.meta
+              - row[:metadata].each do |key, value|
+                %tr
+                  %th= key
+                  %td= value
       %tr.actions
         %td{colspan:2}
           %ul
@@ -27,19 +33,15 @@
                 = "Source: " + row[:graph]
               %li
                 &bull;
-            - if row[:metadata]
-              - row[:metadata].each do |key, value|
-                %li
-                  = "#{key} => #{value}"
-                  - if row.has_key?(:user_added_data) && current_user.can_update?(row[:user_added_data])
-                    %li
-                      &bull;
             - if row.has_key?(:user_added_data) && current_user.can_update?(row[:user_added_data])
               %li= link_to "edit", edit_user_added_datum_path(row[:user_added_data]), :method => :get
               %li
                 &bull;
-              %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+              %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
   .article
     .header
       %h3= I18n.t('user_added_data.add_data_header')
     = render :partial => 'user_added_data/form'
+    -# You can't have nested forms, so this is external. ...It will be handled by Ajax (only), anyway.
+    #suggestions{style: 'display:none;'}
+      = render :partial => 'known_uris/categories'

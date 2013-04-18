@@ -562,6 +562,26 @@ $(function() {
     }
   });
 
+  $("#user_added_data_predicate").focus(function() {
+    /* var offset = 20;
+    $('div#suggestions').css({
+      top: $(this).offset().top - $('div#suggestions').parent().offset().top + offset,
+      left: $(this).offset().left - $('div#suggestions').parent().offset().left + offset}); */
+    $('div#suggestions').appendTo($(this).parent());
+    $('div#suggestions').show();
+    $(this).parent().hover(function() {
+      $('div#suggestions').show();
+    }, function () {
+      $('div#suggestions').hide();
+    });
+    $(this).keyup(function() {
+      if($(this).val() != '') {
+        $('div#suggestions').hide();
+      }
+    });
+  });
+
+
 });
 
 (function($) {
@@ -714,3 +734,4 @@ EOL.after_onload_JS = function(jsFile) {
     else if (w.attachEvent) { w.attachEvent("onload",go); }
   }(window, document, 'script'));
 };
+

@@ -1,6 +1,7 @@
 class KnownUrisController < ApplicationController
 
   before_filter :set_page_title
+  before_filter :restrict_to_admins
 
   layout 'v2/basic'
 

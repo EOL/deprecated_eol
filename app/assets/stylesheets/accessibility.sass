@@ -1297,8 +1297,14 @@ table.classifications
   border-right: 0
   border-left: 1px solid $darker_gray
 
-#known_uris tr.hidden
-  background-color: #d8d8d8
+#known_uris
+  th
+    background: #e2e9ef
+  tr.hidden
+    background-color: #eee
+    color: #777
+    a
+      color: #7597B5
 
 #new_user_added_data .suggestions
   clear: left
@@ -1351,3 +1357,27 @@ ul.tabs
     text-align: center
     margin-top: 1em
     font-size: 0.8em
+
+table.data
+  tr:hover
+    border-color: #aab3bb
+    cursor: hand
+    cursor: pointer
+  th
+    text-transform: uppercase
+    color: #616e7a
+    font-weight: normal
+    text-align: right
+    width: 30%
+  td
+    font-weight: bold
+    font-size: 1.2em
+    color: #394651
+  tr.actions
+    background-color: #e2e9ef 
+    font-weight: normal
+    li
+      margin-left: 2pt
+      display: inline
+    td
+      font-weight: normal

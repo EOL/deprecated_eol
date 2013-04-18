@@ -1,31 +1,44 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 .main_container
-  %table.standard
-    %thead
-      %tr
-        %th= I18n.t('activerecord.attributes.user_added_data.predicate')
-        %th= I18n.t('activerecord.attributes.user_added_data.object')
-        %th= I18n.t('activerecord.attributes.user_added_data.user')
-        %th
+  %table.standard.data
     - @data.each do |row|
       %tr
-        %td= row[:attribute]
-        %td= row[:value]
-        %td
-          - if row.has_key?(:user)
-            = link_to row[:user].full_name, row[:user]
+        %th
+          - if row[:attribute].is_a?(KnownUri)
+            %span{title: row[:attribute].uri}= row[:attribute].name
           - else
-            = "Source: " + row[:graph]
-          - if row[:metadata]
-            %br
-            - row[:metadata].each do |key, value|
-              %br
-              = "#{key} => #{value}"
+            = row[:attribute]
         %td
-          - if row.has_key?(:user_added_data) && current_user.can_update?(row[:user_added_data])
-            = button_to "edit", edit_user_added_datum_path(row[:user_added_data]), :method => :get
-            = button_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+          - if row[:value].is_a?(KnownUri)
+            %span{title: row[:value].uri}= row[:value].name
+          - else
+            = row[:value]
+      %tr.actions
+        %td{colspan:2}
+          %ul
+            - if row.has_key?(:user)
+              %li
+                = raw I18n.t(:data_provided_by, user: link_to(row[:user].full_name, row[:user]))
+              %li
+                &bull;
+            - else
+              %li
+                = "Source: " + row[:graph]
+              %li
+                &bull;
+            - if row[:metadata]
+              - row[:metadata].each do |key, value|
+                %li
+                  = "#{key} => #{value}"
+                  - if row.has_key?(:user_added_data) && current_user.can_update?(row[:user_added_data])
+                    %li
+                      &bull;
+            - if row.has_key?(:user_added_data) && current_user.can_update?(row[:user_added_data])
+              %li= link_to "edit", edit_user_added_datum_path(row[:user_added_data]), :method => :get
+              %li
+                &bull;
+              %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
   .article
     .header
       %h3= I18n.t('user_added_data.add_data_header')

@@ -4,17 +4,22 @@
       %tr
         %th= I18n.t(:uri)
         %th= I18n.t(:name)
-        %th= I18n.t(:category)
+        %th= I18n.t(:known_uri_category_header)
         - if current_user.is_admin?
           %th= I18n.t(:actions)
       - @known_uris.each do |known_uri|
         %tr{ class: known_uri.hidden? ? 'hidden' : nil }
           %td= known_uri.uri
           %td= known_uri.name
-          %td= "Physical Characteristics"
+          %td
+            - cats = known_uri.toc_items.map(&:label).join('<br />')
+            - if cats.blank?
+              = I18n.t(:none)
+            - else
+              = cats
           - if current_user.is_admin?
             %td
-              = link_to I18n.t(:edit).i18n_downcase, known_uri
+              = link_to I18n.t(:edit).i18n_downcase, edit_known_uri_url(known_uri)
               = link_to I18n.t(:delete).i18n_downcase, known_uri, data: { confirm: I18n.t(:are_you_sure) }, method: :delete
               - if known_uri.visible?
                 = link_to I18n.t(:hide).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put

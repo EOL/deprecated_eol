@@ -15,8 +15,10 @@ class KnownUri < ActiveRecord::Base
   has_many :translated_known_uris
   has_many :user_added_data
 
+  has_and_belongs_to_many :toc_items
+
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
-    :translated_known_uris_attributes
+    :translated_known_uris_attributes, :toc_items, :toc_item_ids
 
   accepts_nested_attributes_for :translated_known_uris
 

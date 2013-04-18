@@ -6,7 +6,14 @@
       = nested.hidden_field :language_id
       %dt= nested.label :name
       %dd= nested.text_field :name
-    %dt= label_tag "Category"
-    %dd= select_tag "category", "<option>Physical Characteristics</option>"
+    %dt= f.label :toc_items
+    %dd
+      %ul
+        -# NOTE - I don't actually think we should be using toc items here, but [NAME_REDACTED] suggested it, sooooo...
+        - TocItem.selectable_toc.each do |toc_item|
+          %li
+            = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, @known_uri.toc_items.include?(toc_item)
+            = toc_item.label
 %fieldset.actions
   = f.submit I18n.t(:save)
+  = link_to I18n.t(:cancel), known_uris_url

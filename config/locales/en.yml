@@ -317,7 +317,7 @@ en:
         request_publish: "Request publish"
       known_uri:
         uri: "URI"
-        category: "Category"
+        toc_items: "Categories"
       open_authentication:
         created_at: "Created"
         guid: "GUID"
@@ -3067,6 +3067,7 @@ en:
   data_object_reference: "Data object reference"
   data_object_ignore: "ignore this item"
   data_object_undo_ignore: "remove from ignore list"
+  data_provided_by: "provided by %{user}"
   data_usage_reports: "Data Usage Reports"
   date_caps: "Date"
   date_uploaded: "Date uploaded"
@@ -3471,6 +3472,7 @@ en:
   keep_split_entry_from_this_entry: "Keep separate from this entry"
   key: "Key"
   known_uris_page_title: "URIs for Data on EOL"  
+  known_uri_category_header: "Categories"  
   known_uri_created: "URI added."
   known_uri_updated: "URI updated."
   label: "Label"

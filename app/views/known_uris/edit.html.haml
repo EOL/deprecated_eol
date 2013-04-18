@@ -1,3 +1,5 @@
-This will be the edit view.
-= form_for @known_uri do |f|
-  = render partial: 'form', locals: { f: f }
+#content
+  #known_uris.site_column
+    = form_for @known_uri do |f|
+      = validation_errors_for(@known_uri)
+      = render partial: 'form', locals: { f: f }

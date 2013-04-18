@@ -553,6 +553,15 @@ $(function() {
     }
   });
 
+  $('table.data tr.actions').hide().prev().on('click', function() {
+    var $next_row = $(this).next();
+    if ($next_row.is(":visible")) {
+      $next_row.hide();
+    } else {
+      $next_row.show();
+    }
+  });
+
 });
 
 (function($) {

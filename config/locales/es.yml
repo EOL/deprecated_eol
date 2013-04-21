@@ -1830,7 +1830,7 @@ es:
   donation_sponsorship_fellowships_title: Becas
   donation_sponsorship_infrastructure_description: Con el fin de poner el poder de EOL en la manos de la gente alrededor de todo el mundo, se aceptan donaciones de toda escala para apoyar la infraestructura fundamental y la de EOL.
   donation_sponsorship_infrastructure_title: Infrastructura fundamental
-  donation_sponsorship_preamble: "Si usted quiere aprender más sobre programas específicos a los que puede apoyar, o quisiera hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">email</a>  o por teléfono al 1 (202) 633-8730 (en los Estados Unidos). Entre las oportunidades para donaciones específicas tenemos:"
+  donation_sponsorship_preamble: "Si quieres aprender obtener más información sobre los programas de patrocinio que hay disponibles o quieres hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">correo electrónico</a> o por teléfono al 1 (202) 633-8730 (en los Estados Unidos). Entre las oportunidades para donaciones específicas tenemos:"
   done_already: Ya lo ha hecho
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: No mostrar fechas registradas desconocidas (usuario de v1, todo anterior al 5 de enero, 2009)
   download_wav_file: Descargar archivo WAV
@@ -3880,7 +3880,7 @@ es:
   use_as_examplar_note_preferred: "nota: esta es la clasificación preferida. Probablemente desees usar esta."
   used_for_friendly_url_note: (utilizado para generar un enlace amistoso para los usuarios, no puede contener espacios ni caracteres especiales)
   user: Usuario
-  user_activation_failed_resent_validation_email_error: Lo sentimos, ha ocurrido un error, su cuenta no pudo ser verificada. Esto generalmente ocurre cuando el enlace de verficiación que ha introducido o seleccionado no es reconocido. Las instrucciones de activación han sido reenviadas a la dirección de correo electrónico que se registró con, asegúrese de que el enlace de verficiación que utiliza coincide con el proporcionado en el email de activación.
+  user_activation_failed_resent_validation_email_error: Lo sentimos, ha ocurrido un error, tu cuenta no pudo ser verificada. Esto generalmente ocurre cuando el enlace de verificación que introdujiste o seleccionado no es reconocido. Las instrucciones de activación han sido reenviadas a la dirección de correo electrónico con la que te registraste. Asegúrate de que el enlace de verificación que utilizas coincide con el proporcionado en el correo electrónico de activación.
   user_activation_failed_user_not_found_error: Lo sentimos, ha ocurrido un error, la cuenta que están tratando de verificar que no se pudo encontrar. Asegúrese de que el enlace de verficiación que utiliza coincida con el proporcionado en el correo electrónico de activación que recibió después de registrarse.
   user_activation_successful_notice: Bienvenido y gracias por unirse al equipo de la Enciclopedia de la Vida. Su cuenta, con nombre de usuario <em>%{username}</em> ya está activa, por favor inicie una sesión.
   user_activity_click_on_the_numbers: Haga clic en los números para ver la actividad de las fuentes web respectivas.

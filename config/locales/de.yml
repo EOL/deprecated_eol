@@ -1031,6 +1031,7 @@ de:
       forum_beta_test_text: <a href="%{forums_link}">Klicken Sie hier</a>, um den Betatest der neuen EOL-Foren zu starten. Ihre Rückmeldung ist willkommen.
   api_cache_time_to_live_parameter: Die Länge in Sekunden für die Zwischenspeicherung der Antwort
   api_docs_collections_description: Nach Angabe der Kennung für eine Sammlung wird diese API alle ihre Metadaten sowie die in ihr enthaltenen Objekte ausgeben. Die Objektliste kann nach Objekttyp gefiltert sowie nach den angegebenen Attributen sortiert werden. Einige Objekte enthalten das optionale Attribut „sort_field“. Das Sortierfeld ist eine Zeichenfolge, die eine spezielle Anmerkung eines Sammlungseintrags ist. Es kann eine beliebige Zeichenfolge sein. Falls es jedoch ein Datum ist, sollte es das Format „JJJJ-MM-TT“ aufweisen. Taxonobjekte enthalten ein „richness_score“. Vielfalt ist eine Metrik, die als ganze Zahl zwischen 0 und 100 dargestellt wird. Eine höhere Anzahl kennzeichnet eine Seite mit viel Inhalt einer weiten Quellenvielfalt. Mehr über Taxonvielfalt beim Update-Reiter der Taxonseite, z.&nbsp;B. %{richness_url}.
+  api_refer_to_the_getting_started_page: Siehe die <a href="%{link}">Erste-Schritte-Seite</a> für Beispiele zur EOL-API-Verwendung, Nutzungsbedingungen und Informationen zur Registrierung für einen API-Schlüssel.
   api_results_can_be_cached: Die Antwort einer beliebigen API-Abfrage kann für eine bestimmte Dauer zwischengespeichert werden. Der Parameter „cache_ttl“ kann angegeben werden, dessen Wert die Anzahl in Sekunden ist, für wie lang die Antwort zwischengespeichert wird. Dies erstellt HTTP-Header, die darauf hindeuten, dass das Ergebnis von Webbrowsern zwischengespeichert werden soll. Zusätzlich wird die Antwort auf EOL-Servern für die angegebene Anzahl an Sekunden zwischengespeichert. Falls der Wert von „cache_ttl“ geändert wurde, trifft die erste Anfrage mit dem neuen Wert den Zwischenspeicher nicht. Nachfolgende Anfragen hebeln jedoch die neue zwischengespeicherte Antwort aus.
   application_version_advisory_information: Programmversion
   are_you_sure: Sind Sie sicher?
@@ -3744,6 +3745,7 @@ de:
   taxon_citizen_science_header: Links zu „Wissenschaft für Bürger“
   taxon_citizen_science_link: Links zu „Wissenschaft für Bürger“
   taxon_citizen_science_resources_empty: Bislang wurden auf dieser Seite noch keine Links zu „Wissenschaft für Bürger“ hinzugefügt.
+  taxon_common_names_subtab_explanation: Viele Menschen kennen Organismen nur unter ihrem Trivialnamen oder „umgangssprachlichen“ Namen. Anders als wissenschaftliche Namen sind Trivialnamen fast immer für Sprecher unterschiedlicher Sprachen unterschiedlich. Dies kann auch innerhalb einer Sprache regional variieren. Dieser Reiter zeigt alle Trivialnamen der EOL für diesen Organismus aus einer Vielzahl von Anbietern, einschließlich EOL-Kuratoren. Derzeit können wir nur einen Trivialnamen pro Sprache für eine EOL-Seite festlegen, jedoch sollten alle Namen auffindbar sein.
   taxon_concept_stats: Statistiken zum Taxonkonzept
   taxon_details_empty: Bislang hat noch niemand Einzelheiten für diese Seite zur Verfügung gestellt.
   taxon_details_empty_in_this_language: Es hat niemand Einzelheiten für diese Seite in dieser Sprache beigetragen.
@@ -3770,9 +3772,11 @@ de:
   taxon_partner_links_link: Links von Inhaltspartnern
   taxon_rating: Taxonbewertung
   taxon_recognized_by: Taxon wurde von %{whom} anerkannt
+  taxon_related_names_subtab_explanation: Die Namen in diesem Reiter bieten einen Überblick über die Beziehungen dieser Gruppe zu anderen Gruppen in dem Baum des Lebens, basierend auf den Klassifikationshierarchien der EOL-Klassifizierungspartner. „Übergeordnete Gruppen“ sind Gruppen, die in der Hierarchie eine Stufe weiter oben sind. „Untergeordnete Gruppen“ sind die Untergruppen der aktuellen Gruppe. Im Klassifizierungsreiter können Sie den Link „alle Klassifikationen anzeigen“ verwenden, um eine komplette Liste aller Hierarchien unserer Partner anzusehen. Dies beinhaltet auch zusätzlich ähnliche Namen, die hier nicht gezeigt werden.
   taxon_related_organizations_link: Ähnliche Organisationen
   taxon_selected_from_search_res: Aus Suchergebnissen ausgewähltes Taxon
   taxon_suggested: Vorgeschlagenes Taxon
+  taxon_synonyms_subtab_explanation: Manchmal erstellen Systematiker neue Namen für Gruppen, die bereits einen Namen haben. Sie tun dies aus Unwissenheit über den ursprünglichen Namen oder sie denken, dass der Organismus einer anderen Gruppe gehört, was tatsächlich nicht so ist. Falls zwei oder mehr Namen für die gleiche Gruppe gefunden werden, sind dies angesehene Synonyme. In den meisten Fällen hat der erste Name Vorrang und er sollte der angesehene gültige oder anerkannte Name sein. Jedoch kann es Ausnahmen geben und es ist nicht immer einfach zu bestimmen, welches Synonym in einer Serie als gültig oder anerkannt angesehen wird. Hier listen wir die Synonyme der EOL-Klassifikationspartner auf. Wir führen auch andere Versionen des Namens auf, die sich am meisten auf die gleiche Gruppe beziehen, zum Beispiel Falschschreibungen in der Literatur oder andere Variationen der Autorenschaft, verbunden mit dem Namen.
   taxonomic_summary_of_content: taxonomische Zusammenfassung des Inhalts
   technical_functions: Technische Funktionen
   term_cannot_be_left_blank: Der Begriff darf nicht ausgelassen werden

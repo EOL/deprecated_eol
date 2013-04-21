@@ -3743,6 +3743,7 @@ nl:
   taxon_citizen_science_header: Verwijzigingen voor burgerwetenschap
   taxon_citizen_science_link: Verwijzigingen voor burgerwetenschap
   taxon_citizen_science_resources_empty: Niemand heeft nog burgerwetenschap bijgedragen voor deze pagina.
+  taxon_common_names_subtab_explanation: Veel mensen kennen organismen alleen door de gewone namen of volkstaalnamen. In tegenstelling tot de wetenschappelijke namen zijn gewone namen bijna altijd verschillend voor sprekers van verschillende talen. Zij kunnen ook variëren naar regio binnen een taal. In dit tabblad worden alle gewone namen die EOL zijn aangeleverd voor een organisme weergegeven, met inbegrip van namen die zijn ingevoerd door conservatoren van EOL. Momenteel is het alleen mogelijk één voorkeursnaam per taal in te stellen voor een bepaalde pagina in EOL, maar alleen namen zijn via zoeken te vinden.
   taxon_concept_stats: Taxonconceptstatistieken
   taxon_details_empty: Er heeft nog niemand bijgedragen aan deze pagina.
   taxon_details_empty_in_this_language: Niemand heeft nog bijgedragen aan deze pagina in deze taal.
@@ -3769,9 +3770,11 @@ nl:
   taxon_partner_links_link: Partnerkoppelingen
   taxon_rating: Taxonwaardering
   taxon_recognized_by: Taxon erkend door %{whom}
+  taxon_related_names_subtab_explanation: De namen in dit tabblad presenteren een overzicht van de relaties van deze groep met andere groepen in de boom des levens, gebaseerd op de classificatiehiërarchieën die classificatiepartners van EOL hebben aangeleverd. "Ouders" zijn meer inclusieve groepen, één niveau hoger in de hiërarchie. "Kinderen" zijn de deelgroepen van de huidige groep. Op het tabblad classificatie kunt u de koppeling "Alle classificaties weergeven" gebruiken om alle door onze partners aangeleverde hiërarchieën te bekijken. Deze kunnen extra verwante namen bevatten die hier niet worden weergegeven.
   taxon_related_organizations_link: Gerelateerde organisaties
   taxon_selected_from_search_res: Taxon geselecteerd uit zoekresultaten
   taxon_suggested: Taxonsuggestie
+  taxon_synonyms_subtab_explanation: Soms maken taxonomen nieuwe namen voor groepen die al een naam hebben. Zij kunnen dit doen omdat zij zich niet bewust zijn van de oorspronkelijke naam, of ze denken dat het organisme ervoor behoort tot een andere groep, terwijl dat feitelijk niet zo is. Als twee of meer namen van toepassing zijn op dezelfde groep, worden ze beschouwd als synoniemen. In de meeste gevallen heeft de eerste naam voorrang en wordt deze beschouwd als de geldige naam of erkende naam. Er kunnen echter uitzonderingen zijn en het is niet altijd eenvoudig om te bepalen welke van een aantal synoniemen moet worden beschouwd als geldig of erkend. Hier worden de synoniemen weergegeven die door onze classificatiepartners zijn aangeleverd. We geven ook andere versies van de naam weer die waarschijnlijk verwijzen naar dezelfde groep, bijvoorbeeld, spelfouten in de literatuur en de verschillende varianten van het auteurschap die aan de naam zijn gekoppeld.
   taxonomic_summary_of_content: taxonomische samenvatting van inhoud
   technical_functions: Technische functies
   term_cannot_be_left_blank: De term kan niet leeg blijven

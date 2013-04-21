@@ -1017,6 +1017,7 @@ gl:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Preme aquí</a> para acceder ás probas en fase beta dos novos foros da EOL. Agradecemos os teus comentarios.
+  api_cache_time_to_live_parameter: o número de segundos que queres que pasen ata que a resposta estea na caché
   api_docs_collections_description: Dado o identificador dunha colección, esta API devolverá todos os metadatos sobre a colección e os elementos que contén. A lista de elementos pódese filtrar por tipo de elemeto e ordenar baixo os atributos listados. Algúns elementos conteñen un atributo "sort_field" opcional. O campo de ordenación é unha cadea achegada polo usuario que é unha anotación especial dun elemento da colección. Pode ser calquera cadea de caracteres, pero se é unha data, debe aterse ao formato AAAA-MM-DD. Os elementos do taxon conteñen un "richness_score". A riqueza é unha métrica representada por un número enteiro entre 0 e 100; canto máis grande sexa o número a páxina terá maior riqueza de contidos dunha ampla variedade de fontes. Podes atopar máis información sobre a riqueza dos taxons na lapela de actualizacións dunha páxina de taxon; por exemplo, %{richness_url}.
   application_version_advisory_information: Versión da aplicación
   are_you_sure: Estás seguro?

@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 group :development, :test, :staging_dev do
   gem 'capistrano', '2.13.5'

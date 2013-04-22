@@ -2579,7 +2579,7 @@ en:
   cannot_expand_children: "cannot expand children"
   cannot_find_member: "Cannot find a member with this id."
   cannot_index_collection_item_type_error: "We cannot index a collection item from a %{type}"
-  categories_title: "Suggested URIs"
+  categories_title: "Select a category, then a URI:"
   category_suggestions: "If you are unsure of what URIs to use for attributes or values, the following links will provide some suggested URIs chosen by EOL curators:"
   change: "Change"
   change_rating_to_1_of_5: "Change rating to 1 of 5"
@@ -3476,7 +3476,7 @@ en:
   known_uris_page_title: "URIs for Data on EOL"  
   known_uri_category_header: "Categories"  
   known_uri_created: "URI added."
-  known_uris_empty_sorry: "Sorry, there are no suggested URIs for that category, yet."
+  known_uris_empty_sorry: "Sorry, there are no suggested URIs for this category, yet."
   known_uri_updated: "URI updated."
   label: "Label"
   language: "Language:"
@@ -3915,6 +3915,7 @@ en:
   recaptcha_incorrect_error_with_anchor: 'The <a href="#%{recaptcha_anchor}">reCaptcha characters</a> did not match, please try again.'
   recent_updates: "Latest updates"
   recently_visited: "Recently visited"
+  recently_used_link: "Recently used"
   recipients: "Recipients"
   recognized_by_from_source: '%{recognized_by} in %{source}'
   recognized_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
@@ -4401,6 +4402,7 @@ en:
   user_activity_stats_wikipedia_nominated:
     one: "%{count} Wikipedia article nominated"
     other: "%{count} Wikipedia articles nominated"
+  new_uri_warning: "The term you are about to add is not part of the EOL vocabulary."
   user_agent: "User agent"
   user_already_active_notice: "Your account is already active, please login."
   user_comments: "User Comments"

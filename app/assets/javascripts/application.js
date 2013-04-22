@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require common
+//= require taxon_data
 //= require jquery.cycle.all.min
 //= require jquery.modal
 //= require comments

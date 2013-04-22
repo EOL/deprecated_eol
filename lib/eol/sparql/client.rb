@@ -41,7 +41,7 @@ module EOL
       def query(query)
         results = []
           puts "*" * 100
-          puts "** #{query}"
+          puts "** #{append_namespaces_to_query(query)}"
         sparql_client.query(append_namespaces_to_query(query)).each_solution{ |s| results << s.to_hash }
         results
       end

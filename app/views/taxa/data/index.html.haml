@@ -18,8 +18,14 @@
             %table.meta
               - row[:metadata].each do |key, value|
                 %tr
-                  %th= key
-                  %td= value
+                  - if key.is_a?(KnownUri)
+                    %th{title: key.uri}= key.name
+                  - else
+                    %th= key
+                  - if value.is_a?(KnownUri)
+                    %td{title: value.uri}= value.name
+                  - else
+                    %td= value
       %tr.actions
         %td{colspan:2}
           %ul

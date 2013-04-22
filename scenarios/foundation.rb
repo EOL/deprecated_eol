@@ -191,6 +191,14 @@ TocItem.gen_if_not_exists(:label => 'Search the Web',         :view_order => 67,
 education = TocItem.gen_if_not_exists(:label => 'Education',  :view_order => 68)
 TocItem.gen_if_not_exists(:label => 'Education Links',        :view_order => 69, :parent_id => education.id)
 
+# Ensure all of the FOR_URIs are there:
+order = 75
+TocItem::FOR_URIS.each do |label|
+  unless TranslatedTocItem.exists?(label: label, language_id: Language.default.id)
+    TocItem.gen_if_not_exists(label: label, view_order: order += 1)
+  end
+end
+
 InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',
   :label => 'TaxonBiology', :toc_item => TocItem.overview)
 InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription',

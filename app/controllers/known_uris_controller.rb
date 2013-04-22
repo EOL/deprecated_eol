@@ -19,6 +19,7 @@ class KnownUrisController < ApplicationController
   end
 
   def categories
+    @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
     respond_to do |format|
       format.html { }
       format.js { }

@@ -1,6 +1,13 @@
 %h3= I18n.t(:categories_title)
-= I18n.t(:category_suggestions)
 %ul
-  -# TODO - I don't think we want #selectable_toc, but I'm not sure what we do want.
-  - TocItem.selectable_toc.select { |r| ! r.label.blank? }.sort_by(&:label).each do |category|
-    %li= link_to category.label, known_uris_path(category_id: category.id), :remote => true
+  - if @recently_used 
+    %li#recently_used_category.category
+      = link_to I18n.t(:recently_used_link), '#'
+      .children
+        - @known_uris = @recently_used
+        = render partial: 'known_uris/index'
+  - TocItem.for_uris(current_language).sort_by(&:label).each do |category|
+    %li.category{id: "category_#{category.id}"}
+      = link_to category.label, known_uris_path(category_id: category.id), :remote => true
+      .children
+        -# Empty by default.

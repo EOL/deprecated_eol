@@ -12,6 +12,21 @@ class TocItem < ActiveRecord::Base
 
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
 
+  FOR_URIS = [
+    'Overview',
+    'Physical Description',
+    'Ecology',
+    'Life History and Behavior',
+    'Evolution and Systematics',
+    'Physiology and Cell Biology',
+    'Molecular Biology and Genetics',
+    'Conservation',
+    'Relevance to Humans and Ecosystems',
+    'Notes',
+    'Names and Taxonomy'
+  ]
+
+
   class << self 
 
     def exclude_editable
@@ -240,6 +255,14 @@ class TocItem < ActiveRecord::Base
       toc.compact!
       toc.uniq!
       toc.sort_by(&:view_order)
+    end
+
+    def for_uris(lang)
+      lang = lang.iso_code if lang.respond_to?(:iso_code)
+      @for_uris ||= {}
+      @for_uris[lang] ||= FOR_URIS.map do
+        |label| TocItem.cached_find_translated(:label, label, lang)
+      end.sort_by(&:label)
     end
 
   end

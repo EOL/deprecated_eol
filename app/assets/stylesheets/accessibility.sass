@@ -81,7 +81,7 @@ form
     p
       &.browsable, &.not_browsable, &.request_publish
         background: #F3F7FA
-        border: 1px solid #CAD3DB
+        border: 1px solid $grayblue
         font-size: 1.33em
         font-weight: bold
         padding: 10px
@@ -192,7 +192,7 @@ form#switch_hierarchy_entry
     line-height: 170%
     thead
       tr
-        border: 1px solid #CAD3DB
+        border: 1px solid $grayblue
         th
           background: #EFF2F4
           padding: 5px 20px
@@ -200,7 +200,7 @@ form#switch_hierarchy_entry
           text-align: left
     tbody
       tr
-        border: 1px solid #CAD3DB
+        border: 1px solid $grayblue
         td
           padding: 5px 20px
   a
@@ -254,7 +254,7 @@ form#switch_hierarchy_entry
         overflow: hidden
         list-style-type: none
         clear: both
-        border-bottom: 1px solid #CAD3DB
+        border-bottom: 1px solid $grayblue
         padding: 10px
         img
           max-width: 88px
@@ -382,7 +382,7 @@ p.status
       margin: 0 auto
       .jp-interface
         background-color: #EEEEEE
-        border: 1px solid #CAD3DB
+        border: 1px solid $grayblue
     img
       max-width: 540px
       width: expression(this.width > 540 ? "540px" : true)
@@ -390,7 +390,7 @@ p.status
 form
   p.tip
     background: #F3F7FA
-    border: 1px solid #CAD3DB
+    border: 1px solid $grayblue
     padding: 10px
     margin: 0 40px 20px 0
     line-height: 140%
@@ -463,7 +463,7 @@ form
       &.video
         .figure
           background: url(image-path("v2/icon_videos_tabs.png")) no-repeat 50% 20% transparent
-          border: 1px solid #CAD3DB
+          border: 1px solid $grayblue
           width: 158px
           height: 123px
           p
@@ -567,7 +567,7 @@ p.flag, span.flag
 
 /** IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. **/
 #iucn_status
-  border: 1px solid #cad3db
+  border: 1px solid $grayblue
   background: #f1f4f7
   text-align: center
   padding: 7px 10px
@@ -628,7 +628,7 @@ p.flag, span.flag
   form
     &#new_name
       background: #F3F7FA
-      border: 1px solid #CAD3DB
+      border: 1px solid $grayblue
       margin-bottom: 40px
       padding: 5px 20px
       .copy
@@ -930,7 +930,7 @@ table.standard
     // Sorry, not taking the time to find the right way to do this.
     background-color: white
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #F0F4F7)
-    border: 1px solid #CAD3DB
+    border: 1px solid $grayblue
     font: 1em Helvetica,Arial,sans-serif
     height: 22px
     padding: 2px 5px
@@ -1012,7 +1012,7 @@ h1.notice
       width: 380px
       margin-top: 30px
       background: #f3f7fa
-      border: 1px solid #cad3db
+      border: 1px solid $grayblue
       padding: 20px 20px 0 20px
 
 // Wanted to add a link to the modal collect dialogue:
@@ -1044,7 +1044,7 @@ a.other_actions
     font-size: 1.08em
     padding: 5px 10px 6px 10px
   ul
-    border: 1px solid #cad3db
+    border: 1px solid $grayblue
     height: 230px
     overflow-y: scroll
     margin: 0 0 20px 0
@@ -1060,7 +1060,7 @@ a.other_actions
       span
         font-size: .95em
       & + li
-        border-top: 1px solid #cad3db
+        border-top: 1px solid $grayblue
 
 .cms_page
   span.icon
@@ -1307,6 +1307,7 @@ table.classifications
       color: #7597B5
 
 #new_user_added_data
+  height: 33em
   .suggestions
     clear: left
     font-weight: bold
@@ -1337,7 +1338,7 @@ table.classifications
     font-weight: bold
     color: black
     background-color: $light_blue
-    border: 1px solid #cad3db
+    border: 1px solid $grayblue
   .ui-menu-divider
     margin: 5px -2px 5px -2px
     height: 0
@@ -1360,11 +1361,23 @@ ul.tabs
     font-size: 0.8em
 
 #taxon_data
+  #new_uri_warning
+    display: none
+    color: #880
+    background-color: #ffc
+    border: 1px solid #880
+    margin-left: 1em
+    padding: 3pt 8pt
+    top: 146px
+    left: 252px
+  input.problems
+    +gradient-bg(#fcb, #fff)
   table.data
     tr:hover
       border-color: #aab3bb
       cursor: hand
       cursor: pointer
+      background: #fbfdff
     th
       text-transform: uppercase
       color: $darker_blue
@@ -1379,10 +1392,15 @@ ul.tabs
       color: #394651
       vertical-align: top
       table
-        font-size: 0.9em
+        th
+          font-size: 0.7em
+        td
+          font-size: 0.8em
+          font-weight: normal
     tr.actions
       background-color: $light_blue
       font-weight: normal
+      font-size: 0.8em
       li
         margin-left: 2pt
         display: inline
@@ -1390,6 +1408,8 @@ ul.tabs
         font-weight: normal
   #suggestions
     width: 40em
+    height: 24em
+    overflow: auto
     margin: 1px
     padding: 13px
     border: 1px solid $darker_gray
@@ -1402,21 +1422,26 @@ ul.tabs
       margin-bottom: 6pt
     li
       margin: 4pt
+    li.category
+      font-size: 1.2em
+      font-weight: bold
     li.attribute
       padding: 4pt
       text-transform: uppercase
       color: $darker_blue
+      border: 1px solid white  /* clears up spacing issues. */
       small
         color: #999
         text-transform: none
         display: block
-        margin: 2pt 6pt
+        margin: 2pt 0
         font-weight: normal
     li.attribute:hover
       cursor: pointer
-      background-color: $light_blue
-      border: 1px solid $darker_blue
-    a.cancel
-      margin-left: 4pt
-      font-size: 0.9em
+      +gradient-bg($light_blue, #fff)
+      border: 1px solid $grayblue
+    a
+      color: $darker_blue
+    .children
+      display: none
 

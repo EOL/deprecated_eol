@@ -16,7 +16,7 @@
             - if cats.blank?
               = I18n.t(:none)
             - else
-              = cats
+              = raw cats
           - if current_user.is_admin?
             %td
               = link_to I18n.t(:edit).i18n_downcase, edit_known_uri_url(known_uri)

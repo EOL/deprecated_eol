@@ -49,9 +49,9 @@ class TaxonData < TaxonUserClassificationFilter
 
   # TODO - gah!  Don't commit this.  I had to remove these lines to get things to work locally, without the
   # taxon_mappings data that PL has:
-  #     GRAPH <http://eol.org/taxon_mappings/> {
-  #       ?taxon dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
-  #     } .
+        #GRAPH <http://eol.org/taxon_mappings/> {
+          #?taxon dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
+        #} .
   def single_point_data
     EOL::Sparql.connection.query("
       SELECT DISTINCT ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object

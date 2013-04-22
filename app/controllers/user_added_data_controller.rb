@@ -75,8 +75,10 @@ class UserAddedDataController < ApplicationController
   def convert_fields_to_uri
     convert_field_to_uri(params[:user_added_data], :predicate)
     convert_field_to_uri(params[:user_added_data], :object)
-    convert_field_to_uri(params[:user_added_data][:user_added_data_metadata_attributes][0], :predicate)
-    convert_field_to_uri(params[:user_added_data][:user_added_data_metadata_attributes][0], :object)
+    params[:user_added_data][:user_added_data_metadata_attributes].each do |meta|
+      convert_field_to_uri(meta, :predicate)
+      convert_field_to_uri(meta, :object)
+    end
   end
 
   # NOTE - just passing in the field wasn't working (thought it would be by ref, but I guess not), so we need the hash and the key:
@@ -89,7 +91,10 @@ class UserAddedDataController < ApplicationController
   # NOTE that this only takes the first one it finds.
   def convert_to_uri(name)
     return nil unless TranslatedKnownUri.exists?(name: name, language_id: current_language.id)
-    TranslatedKnownUri.where(name: name, language_id: current_language.id).first.known_uri.uri
+    uri = TranslatedKnownUri.where(name: name, language_id: current_language.id).first.known_uri.uri
+    session[:rec_uris] ||= []
+    session[:rec_uris] << uri
+    uri
   end
 
 end

@@ -40,7 +40,7 @@ class KnownUri < ActiveRecord::Base
 
   def default_values
     self.vetted ||= Vetted.unknown
-    self.visibility ||= Visibility.visible
+    self.visibility ||= Visibility.hidden # Since there are so many, we want them "not suggested", first.
   end
 
   def uri_must_be_uri

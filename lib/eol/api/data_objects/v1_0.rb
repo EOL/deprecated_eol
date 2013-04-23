@@ -27,11 +27,11 @@ module EOL
             begin
               data_object = DataObject.find(params[:id])
             rescue
-              raise EOL::Exceptions::ApiException.new("Unknown data_object id \"#{params[:id]}\"")
+              raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"")
             end
           else
             data_object = DataObject.find_by_guid(params[:id])
-            raise EOL::Exceptions::ApiException.new("Unknown data_object id \"#{params[:id]}\"") if data_object.blank?
+            raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"") if data_object.blank?
             latest_version = data_object.latest_version_in_same_language(:check_only_published => true)
             if latest_version.blank?
               latest_version = data_object.latest_version_in_same_language(:check_only_published => false)

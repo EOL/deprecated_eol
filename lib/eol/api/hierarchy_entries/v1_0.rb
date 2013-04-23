@@ -44,9 +44,9 @@ module EOL
             hierarchy_entry = HierarchyEntry.find(params[:id])
             hierarchy_entry.preload_associations(associations, :select => selects)
           rescue
-            raise EOL::Exceptions::ApiException.new("Unknown hierarchy_entry id \"#{params[:id]}\"")
+            raise ActiveRecord::RecordNotFound.new("Unknown hierarchy_entry id \"#{params[:id]}\"")
           end
-          raise EOL::Exceptions::ApiException.new("hierarchy_entry \"#{params[:id]}\" is no longer available") if hierarchy_entry.nil?
+          raise ActiveRecord::RecordNotFound.new("hierarchy_entry \"#{params[:id]}\" is no longer available") if hierarchy_entry.nil?
 
           prepare_hash(hierarchy_entry, params)
         end

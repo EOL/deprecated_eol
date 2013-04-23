@@ -40,7 +40,7 @@ module EOL
           begin
             synonym = Synonym.find(params[:id])
           rescue
-            raise EOL::Exceptions::ApiException.new("Unknown synonym id \"#{params[:id]}\"")
+            raise ActiveRecord::RecordNotFound.new("Unknown synonym id \"#{params[:id]}\"")
           end
           prepare_hash(synonym, params)
         end

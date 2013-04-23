@@ -106,9 +106,9 @@ module EOL
           begin
             taxon_concept = TaxonConcept.find(params[:id], :include => { :published_hierarchy_entries => [ :hierarchy, :name, :rank ] })
           rescue
-            raise EOL::Exceptions::ApiException.new("Unknown page id \"#{params[:id]}\"")
+            raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
           end
-          raise EOL::Exceptions::ApiException.new("Page \"#{params[:id]}\" is no longer available") if !taxon_concept.published?
+          raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") if !taxon_concept.published?
           prepare_hash(taxon_concept, params)
         end
 

@@ -63,7 +63,7 @@ describe 'Taxa page' do
       User.gen(:username => 'testy_taxa_page_spec')
     end
     @testy = EOL::TestInfo.load('testy')
-    @taxon_concept = @testy[:taxon_concept].reload # Adding reload to avoid errors in full suite... I hope.
+    @taxon_concept = @testy[:taxon_concept]
     @hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries[0]
     @user = @testy[:user]
     Capybara.reset_sessions!

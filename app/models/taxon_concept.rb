@@ -258,7 +258,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
-    @images = nil
+    reload
     @current_user = who
   end
 

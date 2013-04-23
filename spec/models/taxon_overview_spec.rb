@@ -43,7 +43,6 @@ describe TaxonOverview do
 
   it '#summary should delegate to taxon_concept#overview_text_for_user' do
     overtext = DataObject.gen
-    debugger
     @taxon_concept.should_receive(:overview_text_for_user).with(@user).and_return overtext
     @overview = TaxonOverview.new(@taxon_concept, @user) # NOTE - you MUST rebuild the overview if you add media to it, since it's preloaded.
     @overview.summary.should == overtext

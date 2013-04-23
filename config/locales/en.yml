@@ -3351,6 +3351,7 @@ en:
   image_not_found: "Image not found"
   image_object: "Image object"
   image_objects_will_contain_two_mediaurl_elements: "Image objects will contain two 'mediaURL' elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (preserving the aspect ratio) if the original image is larger than 460 pixels wide or 345 pixels in height."
+  image_title_with_taxa: "Image of %{taxa}"
   images: "Images"
   images_in_red_are_not_trusted: "Images in red are not trusted."
   images_in_yellow_are_not_reviewed: "Images in yellow are not reviewed."

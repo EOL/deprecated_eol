@@ -22,6 +22,7 @@ class TaxonConceptCacheClearing
   def clear
     clear_exemplars
     clear_media_counts
+    clear_images
   end
 
   # TODO - test
@@ -71,6 +72,11 @@ private
       Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{taxon_concept.id}_#{entry}"))
       Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{taxon_concept.id}_#{entry}_curator"))
     end
+  end
+
+  # Titles of images can be dependant on the (prefered classification's scientific) names of taxa:
+  def clear_images
+    taxon_concept.images_from_solr.each { |img| DataObjectCaching.clear(img) }
   end
 
   def clear_if_guid_matches(key, data_object)

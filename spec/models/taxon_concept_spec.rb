@@ -138,8 +138,9 @@ describe TaxonConcept do
   end
 
   it 'should show its untrusted images, by default' do
-    @taxon_concept.current_user = nil
-    @taxon_concept.images_from_solr(100).map {|d| DataObject.find(d).object_cache_url }.should include(@image_unknown_trust)
+    @taxon_concept.reload
+    DataObject.find(@taxon_concept.images_from_solr(100).map(&:id)).map(&:object_cache_url).should
+      include(@image_unknown_trust)
   end
 
   it 'should not throw an error if there are activity logs with user ID 0' do

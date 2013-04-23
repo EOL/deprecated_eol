@@ -698,7 +698,15 @@ class DataObject < ActiveRecord::Base
   end
 
   # The only filter allowed right now is :published.
+  # This is obnoxiously expensive, so we cache it by default. See #uncached_data_object_taxa if you need it, but
+  # consider clearing the cache instead...
   def data_object_taxa(filter = nil)
+    DataObjectCaching.associations(self, filter)
+  end
+  alias :associations :data_object_taxa 
+
+  # The only filter allowed right now is :published.
+  def uncached_data_object_taxa(filter = nil)
     @data_object_taxa ||= {}
     return @data_object_taxa[filter] if @data_object_taxa.has_key?(filter)
     assocs = filter == :published ? 
@@ -707,7 +715,6 @@ class DataObject < ActiveRecord::Base
     assocs << DataObjectTaxon.new(latest_published_users_data_object) if latest_published_users_data_object
     @data_object_taxa[filter] = assocs || []
   end
-  alias :associations :data_object_taxa 
 
   # TODO - The only place this is used is app/controllers/feeds_controller.rb ...which doesn't actually seem
   # terribly important (it's the partner feed). Can't we use the find-concept-by-hierarchy-entry using the
@@ -731,6 +738,7 @@ class DataObject < ActiveRecord::Base
   def best_title
     return safe_object_title.html_safe unless safe_object_title.blank?
     return toc_items.first.label.html_safe unless toc_items.blank? || toc_items.first.label.nil?
+    return image_title_with_taxa.html_safe if image?
     return safe_data_type.simple_type.html_safe if safe_data_type
     return I18n.t(:unknown_data_object_title).html_safe
   end
@@ -1062,6 +1070,13 @@ class DataObject < ActiveRecord::Base
   end
 
 private
+
+  # This is relatively expensive... but accurate.
+  def image_title_with_taxa
+    @image_title_with_taxa ||= I18n.t(:image_title_with_taxa,
+                                      taxa: data_object_taxa(:published).
+                                            map(&:italicized_unattributed_title).to_sentence)
+  end
 
   # TODO - this is quite lame. Best to re-think this. Perhaps a class that handles and cleans the DatoParams?
   # NOTE that this can modify params.

@@ -330,7 +330,7 @@ class TaxonConcept < ActiveRecord::Base
   # Cleans up instance variables in addition to the usual lot.
   def reload
     TaxonConceptCacheClearing.clear(self) # NOTE - run this BEFORE clearing instance vars.
-    @@ar_instance_vars ||= TaxonConcept.new.instance_variables
+    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
     (instance_variables - @@ar_instance_vars).each do |ivar|
       remove_instance_variable(ivar)
     end

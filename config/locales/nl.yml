@@ -28,7 +28,7 @@ nl:
     other: Er zijn %{count} termen gevonden die aan uw zoekopdracht voldoen.
   about_eol: Over EOL
   about_resources: Over bronnen
-  about_resources_body: <p>Wij verwelkomen koppelingen naar websites van derde partijen over dit organisme of deze groep organismen. Voorbeelden hiervan zijn websites met identificatiecodes, nieuwsberichten, blogs, en educatieve sites en burgerwetenschappelijke websites</p>
+  about_resources_body: Wij verwelkomen koppelingen naar websites van derde partijen over dit organisme of deze groep organismen. Voorbeelden hiervan zijn websites met identificatiecodes, nieuwsberichten, blogs, en educatieve sites en burgerwetenschappelijke websites.
   about_resources_notice: "Opmerking: op alle koppelingen zijn de gebruiksvoorwaarden van de EOL van toepassing en controle door de conservatoren.<br />Als u vragen hebt over een bron die u wilt koppelen aan EOL, neem dan <a href='%{contact_us_link}'>contact met ons op</a>."
   about_resources_title: Koppelingen naar externe bronnen
   account_information: Gebruikersgegevens
@@ -2058,6 +2058,7 @@ nl:
   flash_notice_redirected_from_search_html_more_results: U bent hier aangekomen door te zoeken naar <em>%{search_string}</em>. <a href="%{more_results_url}">Klik hier om andere zoekresultaten te bekijken.</a>
   flash_video: Flash-video
   flickr: Flickr
+  flipboard: Flipboard
   focus_collection_edit: U kunt de verzamelingen van deze gemeenschap direct bewerken via de bewerkingspagina van iedere verzameling.
   focus_list_newsfeed: Newsfeed voor focuslijsten
   for_example_for_the_taxon_element_for_a_node: Voor bijvoorbeeld het taxonelement van een node in de hiërarchie ITIS, is de dc:indentifier dat van ITIS TSN. Het element dwct:taxonID bevat de <i>EOL identifier</i> die wordt gebruikt in de %{link}-API.
@@ -2486,6 +2487,7 @@ nl:
   image_objects_will_contain_two_mediaurl_elements: Afbeeldingsobjecten bevatten twee "mediaURL"-elementen. Het eerste is de URL van de afbeelding op de website van de provider, en de tweede is de URL van de versie in de cache op een EOL-server. De EOL-versie van de afbeelding heeft andere afmetingen (maar wel dezelfde verhoudingen), als de afbeelding groter is dan 460 pixels breed of 345 pixels hoog.
   image_of_taxon: Afbeelding van %{taxon_name}
   image_rating: Afbeeldingswaardering
+  image_title_with_taxa: Afbeelding van %{taxa}
   images: Afbeeldingen
   images_in_red_are_not_trusted: Afbeeldingen in het rood worden niet vertrouwd.
   images_in_yellow_are_not_reviewed: Afbeeldingen in het geel zijn niet gecontroleerd.

@@ -31,8 +31,8 @@ de:
     other: Insgesamt wurden %{count} Objekte gefunden, die zu Ihren Kriterien passen.
   about_eol: Über EOL
   about_resources: Über Quellen
-  about_resources_body: <p>Wir begrüßen es, Links zu Drittparteiwebsites anzugeben, die diesen Organismus oder diese Organismusgruppe führen. Beispiele schließen Websites ein, die Identifizierungsschlüssel, Nachrichten, Blogs sowie Bildungs- und Citizen-Science-Quellen anbieten.</p>
-  about_resources_notice: Anmerkung &mdash; Alle Links sind den Nutzungsbedingungen der EOL unterworfen und werden von Kuratoren geprüft.<br />Falls Sie Fragen zu einer Quelle haben, die Sie auf der EOL verlinken wollen, <a href='%{contact_us_link}'>kontaktieren Sie uns bitte</a>.</p>
+  about_resources_body: Wir begrüßen es, Links zu Drittparteiwebsites anzugeben, die diesen Organismus oder diese Organismusgruppe führen. Beispiele schließen Websites ein, die Identifizierungsschlüssel, Nachrichten, Blogs sowie Bildungs- und Citizen-Science-Quellen anbieten.
+  about_resources_notice: Anmerkung &mdash; Alle Links sind den Nutzungsbedingungen der EOL unterworfen und werden von Kuratoren geprüft.<br />Falls Sie Fragen zu einer Quelle haben, die Sie auf der EOL verlinken wollen, <a href='%{contact_us_link}'>kontaktieren Sie uns bitte</a>.
   about_resources_title: Links auf externe Quellen
   account_information: Nutzerkontoinformationen
   account_information_menu: Nutzerkontoinformationen
@@ -2488,6 +2488,7 @@ de:
   image_objects_will_contain_two_mediaurl_elements: Bildobjekte werden zwei Elemente zur URL (mediaURL) enthalten. Das erste wird die URL des Bildes auf der Website des Bildanbieters und die zweite die gecachte Version des Bildes auf dem EOL-Server sein. Die Version des Bildes bei EOL wird unter Beibehaltung des Seitenverhältnisses verkleinert worden sein, sofern das Originalbild größer als 460 x 345 Pixel war.
   image_of_taxon: Bild zu %{taxon_name}
   image_rating: Bildbewertung
+  image_title_with_taxa: Bild von %{taxa}
   images: Bilder
   images_in_red_are_not_trusted: Rot gekennzeichneten Bildern wird nicht vertraut.
   images_in_yellow_are_not_reviewed: Gelb gekennzeichnete Bilder wurden noch nicht überprüft.

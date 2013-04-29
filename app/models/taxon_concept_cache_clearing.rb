@@ -61,7 +61,9 @@ private
       Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{taxon_concept.id}_#{lang.id}"))
     end
     Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
-    TaxonConceptPreferredEntry.delete_all(:taxon_concept_id => taxon_concept.id)
+    TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: taxon_concept.id)
+    ctcpe = CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(taxon_concept.id)
+    taxon_concept.create_preferred_entry(ctcpe.hierarchy_entry) if ctcpe
   end
 
   def clear_media_counts

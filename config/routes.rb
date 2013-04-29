@@ -359,7 +359,7 @@ Eol::Application.routes.draw do
   end
 
   # Putting these after the complex resources because they are less common.
-  resources :tasks, :task_states, :task_names, :feed_items, :random_images
+  resources :tasks, :task_states, :task_names, :random_images
   resources :recent_activities, :only => [:index]
   resources :classifications, :only => [:create]
   resources :contacts, :only => [:index, :create, :new]

@@ -24,7 +24,6 @@ class TaxonConcept < ActiveRecord::Base
 
   attr_accessor :entries # TODO - this is used by DataObjectsController#add_association (and its partial) and probably shouldn't be.
 
-  has_many :feed_data_objects
   has_many :hierarchy_entries
   has_many :scientific_synonyms, :through => :hierarchy_entries
   has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
@@ -550,11 +549,6 @@ class TaxonConcept < ActiveRecord::Base
     language_id = taxon_concept_name.language.id
     syn_id = taxon_concept_name.synonym.id
     Synonym.find(syn_id).destroy
-  end
-
-  def has_feed?
-    feed_object = FeedDataObject.find_by_taxon_concept_id(self.id, :limit => 1)
-    return !feed_object.blank?
   end
 
   # This needs to work on both TCNs and Synonyms.  Which, of course, smells like bad design, so.... TODO - review.

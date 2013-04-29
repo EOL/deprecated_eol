@@ -29,7 +29,6 @@ class DataObject < ActiveRecord::Base
   has_one :data_objects_link_type
 
   has_many :top_images
-  has_many :feed_data_objects
   has_many :top_concept_images
   has_many :agents_data_objects
   has_many :data_objects_hierarchy_entries

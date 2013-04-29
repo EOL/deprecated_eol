@@ -62,16 +62,6 @@ module EOL
           return_hash['taxonRank'] = hierarchy_entry.rank.label.firstcap unless hierarchy_entry.rank.nil?
           return_hash['source'] = taxon_entry_overview_url(hierarchy_entry.taxon_concept, hierarchy_entry)
 
-          if stats = hierarchy_entry.hierarchy_entry_stat
-            return_hash['total_descendants'] = stats.total_children
-            return_hash['total_trusted_text'] = stats.all_text_trusted
-            return_hash['total_unreviewed_text'] = stats.all_text_untrusted
-            return_hash['total_descendants_with_text'] = stats.have_text
-            return_hash['total_trusted_images'] = stats.all_image_trusted
-            return_hash['total_unreviewed_images'] = stats.all_image_untrusted
-            return_hash['total_descendants_with_images'] = stats.have_images
-          end
-
           return_hash['nameAccordingTo'] = []
           hierarchy_entry.agents_roles.each do |agent_role|
             return_hash['nameAccordingTo'] << agent_role.agent.full_name

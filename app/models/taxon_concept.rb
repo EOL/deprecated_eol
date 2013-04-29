@@ -52,6 +52,7 @@ class TaxonConcept < ActiveRecord::Base
   has_one :taxon_concept_exemplar_image
   has_one :taxon_concept_exemplar_article
   has_one :preferred_entry, :class_name => 'TaxonConceptPreferredEntry'
+  has_one :curator_preferred_entry, :class_name => 'CuratedTaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
 
@@ -840,16 +841,16 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def uses_preferred_entry?(he)
-    return false if preferred_entry.blank?
+    if preferred_entry.blank?
+      ctcpe = CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(id)
+      if ctcpe
+        create_preferred_entry(ctcpe.hierarchy_entry)
+      else
+        return nil
+      end
+    end
     preferred_entry.hierarchy_entry_id == he.id &&
-    CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
-  end
-
-  def curator_chosen_classification
-    return nil if preferred_entry.nil?
-    CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(
-      preferred_entry.hierarchy_entry_id, self.id
-    ) 
+      CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
   end
 
   # Avoid re-loading the deep_published_hierarchy_entries from the DB:
@@ -1052,8 +1053,8 @@ private
 
   def create_preferred_entry(entry)
     return if entry.nil?
-    preferred_entry = 
-      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+    TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
+    TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
   end
 
   def vet_taxon_concept_names(options = {})

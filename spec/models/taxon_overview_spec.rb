@@ -91,13 +91,13 @@ describe TaxonOverview do
   it 'should know who chose its classification' do
     user = User.gen
     chosen = CuratedTaxonConceptPreferredEntry.gen(:user => user)
-    @taxon_concept.should_receive(:curator_chosen_classification).and_return(chosen)
+    @overview.should_receive(:curator_chosen_classification).and_return(chosen)
     @overview.classification_chosen_by.should == user
   end
 
   it 'should know when its classification has been selected by curator' do
     stubby = CuratedTaxonConceptPreferredEntry.gen
-    @taxon_concept.should_receive(:curator_chosen_classification).and_return stubby
+    @overview.should_receive(:curator_chosen_classification).and_return stubby
     @overview.classification_curated?.should be_true
     another_overview = TaxonOverview.new(TaxonConcept.gen, User.gen)
     another_overview.classification_curated?.should_not be_true
@@ -108,13 +108,6 @@ describe TaxonOverview do
     4.times { hiers << HierarchyEntry.gen(:taxon_concept => @taxon_concept) }
     @taxon_concept.should_receive(:published_browsable_hierarchy_entries).and_return(hiers)
     @overview.classifications_count.should == 4
-  end
-
-  it 'should use entry from taxon_concept#curator_chosen_classification when looking for #hierarchy_entry' do
-    he = HierarchyEntry.gen
-    chosen = CuratedTaxonConceptPreferredEntry.gen(:hierarchy_entry => he)
-    @taxon_concept.should_receive(:curator_chosen_classification).and_return(chosen)
-    @overview.hierarchy_entry.should == he
   end
 
   it 'should pick random hierarchy entry' do

@@ -36,12 +36,12 @@ class TaxonOverview < TaxonUserClassificationFilter
 
   def classification_chosen_by
     return @classification_chosen_by if @classification_chosen_by
-    chosen = taxon_concept.curator_chosen_classification
+    chosen = curator_chosen_classification
     @classification_chosen_by = chosen ? chosen.user : nil
   end
 
   def classification_curated?
-    @classification_curated ||= taxon_concept.curator_chosen_classification
+    @classification_curated ||= curator_chosen_classification
   end
 
   # NOTE - This is actually meant to be a count of *browsable* hierarchies, so we don't go to tc.

@@ -571,12 +571,6 @@ describe TaxonConcept do
     # # 'which creates a preferred entry if one did not exist'
   end
 
-  it 'should not give an error when there is no preferred_entry' do
-    tc = build_taxon_concept
-    lambda { tc.curator_chosen_classification }.should_not raise_error
-    lambda { tc.preferred_entry.hierarchy_entry_id }.should raise_error
-  end
-
   it '#published_visible_exemplar_article_in_language should return published and visible exemplar article if there is one' do
     published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article_in_language(Language.default)
     if published_visible_exemplar_article

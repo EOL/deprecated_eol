@@ -1013,6 +1013,12 @@ class TaxonConcept < ActiveRecord::Base
     taxon_concept_metric && !taxon_concept_metric.richness_score.blank?
   end
 
+  def create_preferred_entry(entry)
+    return if entry.nil?
+    TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
+    TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+  end
+
 private
 
   # Assume this method is expensive.
@@ -1055,12 +1061,6 @@ private
     else 
       false
     end
-  end
-
-  def create_preferred_entry(entry)
-    return if entry.nil?
-    TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
-    TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
   end
 
   def vet_taxon_concept_names(options = {})

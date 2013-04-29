@@ -47,6 +47,9 @@ class KnownUrisController < ApplicationController
 
   def edit
     @known_uri = KnownUri.find(params[:id])
+    if @known_uri.name.blank?
+      @known_uri.translated_known_uris << [TranslatedKnownUri.new(language: current_language)]
+    end
   end
 
   def unhide # awful name because 'show' is--DUH--reserved for Rails.

@@ -4,8 +4,7 @@
   <ul>
     <% @known_uris.each do |ku| %>
       <li class="attribute">
-        <span class='name'><%= raw(ku.name) %></span>
-        <small><%= ku.uri %></small>
+        <span title=<%=ku.uri%> class='name'><%= raw(ku.name) %></span>
       </li>
     <% end %>
   </ul>

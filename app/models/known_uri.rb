@@ -3,6 +3,8 @@
 # this easier than splitting up that class.
 class KnownUri < ActiveRecord::Base
 
+  BASE = 'http://eol.org/schema/terms/'
+
   include EOL::CuratableAssociation
 
   uses_translations
@@ -36,11 +38,19 @@ class KnownUri < ActiveRecord::Base
     uri
   end
 
+  def self.license
+    cached_find_translated(:name, 'License')
+  end
+
+  def unknown?
+    name.blank?
+  end
+
   private
 
   def default_values
     self.vetted ||= Vetted.unknown
-    self.visibility ||= Visibility.hidden # Since there are so many, we want them "not suggested", first.
+    self.visibility ||= Visibility.invisible # Since there are so many, we want them "not suggested", first.
   end
 
   def uri_must_be_uri

@@ -18,6 +18,7 @@ protected
     @meta_description ||= "this is so meta"
   end
 
+  # TODO - move this to KnownUri (mostly)
   def add_known_uris_to_data
     known_uris = KnownUri.where(["uri in (?)", uris_in_data])
     @data.each do |row|
@@ -29,6 +30,13 @@ protected
       delete_keys = []
       new_keys = {}
       row[:metadata].each do |key, val|
+        # Licenses are special:
+        if key == UserAddedDataMetadata::LICENSE_URI.downcase &&
+           License.exists?(source_url: row[:metadata][key].to_s)
+          new_keys[KnownUri.license] = License.find_by_source_url(row[:metadata][key].to_s).title
+          delete_keys << key
+          next
+        end
         key_uri = known_uris.select { |known_uri| known_uri.uri == key }.first
         val_uri = known_uris.select { |known_uri| known_uri.uri == val }.first
         row[:metadata][key] = val_uri if val_uri

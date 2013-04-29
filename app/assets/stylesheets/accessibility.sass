@@ -55,7 +55,7 @@ html.busy, html.busy *, .busy
     img
       float: left
       margin: 0 10px 0 0
-      border: 1px solid #394651
+      border: 1px solid $nearly_black
     h4
       a
         color: inherit
@@ -71,7 +71,7 @@ html.busy, html.busy *, .busy
       img
         float: left
         margin: 0 10px 0 0
-        border: 1px solid #394651
+        border: 1px solid $nearly_black
         +max_dimensions($logo_size_secondary, $logo_size_secondary)
       .details
         padding: 5px 0 0 0
@@ -183,7 +183,7 @@ form#switch_hierarchy_entry
 #content.cms_page,
 #content.news_page
   .header
-    border-bottom: 1px solid #394651
+    border-bottom: 1px solid $nearly_black
     text-align: center
   table
     border-collapse: collapse
@@ -342,7 +342,7 @@ p.status
       font-size: 1.08em
       font-weight: bold
       text-align: center
-      color: #394651
+      color: $nearly_black
       border: 1px solid #C7D471
       background: #EDF6B2
     &.error
@@ -433,7 +433,7 @@ form
               margin: 0 10px
       &.sound
         .figure
-          background: #394651 url(image-path("v2/icon_sound_tabs.png")) no-repeat 50% 20%
+          background: $nearly_black url(image-path("v2/icon_sound_tabs.png")) no-repeat 50% 20%
           color: $light_blue
           a
             color: $light_blue
@@ -573,7 +573,7 @@ p.flag, span.flag
   padding: 7px 10px
   font-size: 1.16em
   margin: 20px 0
-  color: #394651
+  color: $nearly_black
   h3, p, abbr
     display: inline-block
   abbr
@@ -680,7 +680,7 @@ p.flag, span.flag
           float: left
           padding: 0 10px 3px 10px
           font-size: 1.16em
-          border-bottom: 3px solid #394651
+          border-bottom: 3px solid $nearly_black
     .list
       img
         +max_dimensions($logo_size_primary, $logo_size_primary)
@@ -814,7 +814,7 @@ p.flag, span.flag
             padding-bottom: 8px
             img
               margin: 0 10px 0 0
-              border: 1px solid #394651
+              border: 1px solid $nearly_black
               +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
             a
               float: left
@@ -936,7 +936,7 @@ table.standard
     padding: 2px 5px
     width: 248px
   ul
-    border-top: 1px solid #394651
+    border-top: 1px solid $nearly_black
   li img
     float: left
     // ACK!  Sorry.  No time to fix the important thing.  TODO
@@ -986,7 +986,7 @@ h1.notice
     position: relative
     padding: 10px 0
     text-align: center
-    border-bottom: 1px solid #394651
+    border-bottom: 1px solid $nearly_black
     h3
       font-size: 1.33em
   .page_statistics
@@ -1091,7 +1091,7 @@ a.other_actions
         margin: 15px 0
         padding: 3px
         width: 155px
-        background-color: #394651
+        background-color: $nearly_black
         background: rgba(57, 70, 81, 0.9)
         color: #fff
       fieldset
@@ -1132,7 +1132,7 @@ body#prelaunch
     font-size: 1.16em
     font-weight: bold
     text-align: center
-    color: #394651
+    color: $nearly_black
     border: 2px solid #c7d471
     background: #edf6b2
 
@@ -1305,12 +1305,11 @@ table.classifications
     color: #777
     a
       color: #7597B5
-
-#new_user_added_data
-  height: 33em
-  .suggestions
-    clear: left
-    font-weight: bold
+  tr.unknown
+    background-color: #fcc
+    color: #855
+    a
+      color: #979
 
 .ui-menu
   list-style: none
@@ -1360,6 +1359,14 @@ ul.tabs
     margin-top: 1em
     font-size: 0.8em
 
+#new_user_added_data
+  height: 33em
+  .suggestions
+    clear: left
+    font-weight: bold
+  fieldset.actions
+    text-align: center
+
 #taxon_data
   #new_uri_warning
     display: none
@@ -1370,8 +1377,21 @@ ul.tabs
     padding: 3pt 8pt
     top: 146px
     left: 252px
+  .metadata
+    width: 40em
+    margin-left: 6em
+    dd
+      margin-top: 5px
+    dt
+      line-height: 2em
+      margin-right: 1em
+      font-weight: bold
+      text-align: right
+      width: 110px
+      input[type="text"]
+        +input(100px)
   input.problems
-    +gradient-bg(#fcb, #fff)
+    +gradient-bg(#ffc, #fff)
   table.data
     tr:hover
       border-color: #aab3bb
@@ -1389,7 +1409,7 @@ ul.tabs
     td
       font-weight: bold
       font-size: 1.2em
-      color: #394651
+      color: $nearly_black
       vertical-align: top
       table
         th
@@ -1418,24 +1438,21 @@ ul.tabs
     position: absolute
     z-index: 2
     h3
-      font: 1.4em bold helvetica,arial
-      margin-bottom: 6pt
+      color: $nearly_black
+      font: 1.16em
     li
       margin: 4pt
     li.category
       font-size: 1.2em
       font-weight: bold
     li.attribute
-      padding: 4pt
+      margin: 0px
+      padding: 4px /* Change margin to padding to make highlight look right */
       text-transform: uppercase
       color: $darker_blue
       border: 1px solid white  /* clears up spacing issues. */
-      small
-        color: #999
-        text-transform: none
-        display: block
-        margin: 2pt 0
-        font-weight: normal
+      font-size: 0.9em
+      font-weight: normal
     li.attribute:hover
       cursor: pointer
       +gradient-bg($light_blue, #fff)
@@ -1444,4 +1461,3 @@ ul.tabs
       color: $darker_blue
     .children
       display: none
-

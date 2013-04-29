@@ -8,7 +8,10 @@
         - if current_user.is_admin?
           %th= I18n.t(:actions)
       - @known_uris.each do |known_uri|
-        %tr{ class: known_uri.hidden? ? 'hidden' : nil }
+        - klass = nil
+        - klass = 'hidden' if known_uri.hidden?
+        - klass = 'unknown' if known_uri.unknown?
+        %tr{ class: klass }
           %td= known_uri.uri
           %td= known_uri.name
           %td
@@ -21,9 +24,10 @@
             %td
               = link_to I18n.t(:edit).i18n_downcase, edit_known_uri_url(known_uri)
               = link_to I18n.t(:delete).i18n_downcase, known_uri, data: { confirm: I18n.t(:are_you_sure) }, method: :delete
+              %br
               - if known_uri.visible?
-                = link_to I18n.t(:hide).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put
+                = link_to I18n.t(:suggested_vocab_remove).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put
               - elsif known_uri.hidden?
-                = link_to I18n.t(:show).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
+                = link_to I18n.t(:suggested_vocab_add).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
     - if current_user.is_admin?
       %p= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')

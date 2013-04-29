@@ -69,15 +69,35 @@ class UserAddedDataController < ApplicationController
   private
 
   def delete_empty_metadata
-    params['user_added_data']['user_added_data_metadata_attributes'].delete_if{ |k,v| v['id'].blank? && v['predicate'].blank? && v['object'].blank? }
+    params[:user_added_data][:user_added_data_metadata_attributes].delete_if do |k,v|
+      if v[:id].blank? && v[:predicate].blank? && v[:object].blank?
+        true
+      else
+        case v[:predicate]
+        when UserAddedDataMetadata::SUPPLIER_URI
+          v[:object] == current_user.full_name # No need to add this; it's in the DB already.
+        when UserAddedDataMetadata::SOURCE_URI
+          v[:object] == I18n.t('user_added_data.source_field_helper')
+        when I18n.t('user_added_data.new_field')
+          true # They didn't add (or at least name) this one, just remove it.
+        else
+          false
+        end
+      end
+    end
   end
 
   def convert_fields_to_uri
     convert_field_to_uri(params[:user_added_data], :predicate)
     convert_field_to_uri(params[:user_added_data], :object)
-    params[:user_added_data][:user_added_data_metadata_attributes].each do |meta|
-      convert_field_to_uri(meta, :predicate)
-      convert_field_to_uri(meta, :object)
+    params[:user_added_data][:user_added_data_metadata_attributes].each do |index, meta|
+      if meta[:predicate] == KnownUri.license.uri
+        meta[:predicate] = KnownUri.license
+        meta[:object] = License.find_by_source_url(meta[:object])
+      else
+        convert_field_to_uri(meta, :predicate)
+        convert_field_to_uri(meta, :object)
+      end
     end
   end
 
@@ -85,13 +105,26 @@ class UserAddedDataController < ApplicationController
   def convert_field_to_uri(hash, key)
     return unless hash[key]
     converted = convert_to_uri(hash[key])
-    hash[key] = converted unless converted.blank?
+    # Licenses are... special:
+
+    # They want to create a new EOL-based URI:
+    if converted.blank? && key != :object
+      uri = KnownUri::BASE + CGI.escape(hash[key].gsub(/\s+/, '_').camelize)
+      known_uri = KnownUri.create(uri: uri)
+      translated_known_uri = TranslatedKnownUri.create(name: hash[key], language: current_language,
+                                                       known_uri: known_uri)
+      hash[key] = uri
+    else
+      hash[key] = converted
+    end
   end
 
   # NOTE that this only takes the first one it finds.
   def convert_to_uri(name)
     return nil unless TranslatedKnownUri.exists?(name: name, language_id: current_language.id)
-    uri = TranslatedKnownUri.where(name: name, language_id: current_language.id).first.known_uri.uri
+    turi = TranslatedKnownUri.where(name: name, language_id: current_language.id).first
+    return nil unless turi.known_uri && ! turi.known_uri.uri.blank?
+    uri = turi.known_uri.uri
     session[:rec_uris] ||= []
     session[:rec_uris] << uri
     uri

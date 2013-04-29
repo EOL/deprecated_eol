@@ -79,4 +79,22 @@ $(function() {
     return(false);
   });
 
+  $('li.attribute').click(function() {
+    $('#user_added_data_predicate').val($(this).find('.name').text());
+    EOL.attribute_is_okay();
+  });
+
+  $('input.has_default').each(function() { 
+    $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
+    $(this).on('focus', function() {
+      if ($(this).val() == $(this).attr('data-default')) {
+        $(this).val('').fadeTo(150, 1);
+      }
+    }).on('blur', function() {
+      if ($(this).val() == '') {
+        $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
+      }
+    });
+  });
+
 });

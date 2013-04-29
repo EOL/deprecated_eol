@@ -51,7 +51,7 @@ class License < ActiveRecord::Base
        :source_url => '',
        :logo_url => '',
        :show_to_content_partners => 0}].each do |default|
-        desc = default.delete(:description)
+        desc = default.delete(:description).reverse_merge(show_to_content_partners: 1)
         lic = License.find_by_title(default[:title])
         lic ||= License.create(default.reverse_merge(:version => 1))
         TranslatedLicense.find_or_create_by_description_and_language_id_and_license_id(desc, Language.default.id, lic.id)

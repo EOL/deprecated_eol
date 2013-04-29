@@ -19,7 +19,7 @@ module EOL
 
       def delete_data(options = {})
         if options[:graph_name] && options[:data]
-          update("DELETE DATA { GRAPH <#{options[:graph_name]}> { #{options[:data]} } }")
+          update("DELETE DATA FROM <#{options[:graph_name]}> { #{options[:data]} }")
         end
       end
 

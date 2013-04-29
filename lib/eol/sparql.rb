@@ -43,7 +43,8 @@ module EOL
     end
 
     # Puts URIs in <brackets>, dereferences namespaces, and quotes literals.
-    def self.expand_namespaces(value)
+    def self.expand_namespaces(input)
+      value = input.to_s
       if value =~ BASIC_URI_REGEX                              # full URI
         return value
       elsif value =~ ENCLOSED_URI_REGEX                        # full URI

@@ -55,9 +55,11 @@ class DataObjectCaching
     if exists?(name)
       assoc_hash = read(name) # Read the hash,
       assoc_hash.each do |key, values|
-        objects = key.send(:find, values)
+        # DataObjectsHierarchyEntry fails if you only have one nested array, like [[1994145, 30875197]], so we pull
+        # out the first one if there is only one:
+        objects = key.send(:find, values.length == 1 ? values.first : values)
         key.send(:preload_associations, objects, PRELOAD_ARRAYS[key])
-        objects.each do |this|
+        Array(objects).each do |this|
           assocs << DataObjectTaxon.new(this) # Rebuild the associations
         end
       end

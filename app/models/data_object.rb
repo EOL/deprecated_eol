@@ -974,6 +974,7 @@ class DataObject < ActiveRecord::Base
   # TODO - generalize the instance variable reset. It could just be a module that's included at the top of the class.
   # (I'm actually kinda surprised rails doesn't actually do this by default. Hmmmn.)
   def reload
+    DataObjectCaching.clear(self)
     @@ar_instance_vars ||= DataObject.new.instance_variables << :mock_proxy # For tests
     (instance_variables - @@ar_instance_vars).each do |ivar|
       remove_instance_variable(ivar)

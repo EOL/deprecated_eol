@@ -57,7 +57,13 @@ class DataObjectCaching
       assoc_hash.each do |key, values|
         # DataObjectsHierarchyEntry fails if you only have one nested array, like [[1994145, 30875197]], so we pull
         # out the first one if there is only one:
-        objects = key.send(:find, values.length == 1 ? values.first : values)
+        objects = begin
+                    key.send(:find, values.length == 1 ? values.first : values)
+                  rescue ActiveRecord::RecordNotFound # Cache must be stale, some are missing:
+                    clear
+                    new_vals = values.select { |v| key.send(:exists?, v) }
+                    key.send(:find, new_vals.length == 1 ? new_vals.first : new_vals)
+                  end
         key.send(:preload_associations, objects, PRELOAD_ARRAYS[key])
         Array(objects).each do |this|
           assocs << DataObjectTaxon.new(this) # Rebuild the associations

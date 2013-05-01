@@ -6,7 +6,7 @@ group :development, :test, :staging_dev do
   gem 'rvm-capistrano', '1.2.7'
   gem 'capybara', '1.1.3'
   gem 'daemons', '1.1.9'
-  gem 'debugger', '1.2.1'
+  gem 'debugger'
   gem 'factory_girl_rails', '4.1.0'
   gem 'faker', '1.1.2'
   gem 'haml-rails' # Just for rails generators.
@@ -17,7 +17,7 @@ group :development, :test, :staging_dev do
 end
 
 group :staging do
-  gem 'debugger', '1.2.1'
+  gem 'debugger'
 end
 
 group :development, :staging_dev, :staging_dev_cache do
@@ -38,7 +38,7 @@ group :assets do
   gem 'turbo-sprockets-rails3', '0.3.4'
 end
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 gem 'acts_as_tree_rails3', '0.1.0'
 gem 'ckeditor', '3.7.3'

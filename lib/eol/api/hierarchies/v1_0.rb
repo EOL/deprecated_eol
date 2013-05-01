@@ -24,9 +24,9 @@ module EOL
             hierarchy = Hierarchy.find(params[:id])
             Hierarchy.preload_associations(hierarchy, { :kingdoms => [ :rank, :name ] })
           rescue
-            raise EOL::Exceptions::ApiException.new("Unknown hierarchy id \"#{params[:id]}\"")
+            raise ActiveRecord::RecordNotFound.new("Unknown hierarchy id \"#{params[:id]}\"")
           end
-          raise EOL::Exceptions::ApiException.new("Hierarchy #{id} is currently inaccessible through the API") unless Hierarchy.available_via_api.include?(hierarchy)
+          raise ActiveRecord::RecordNotFound.new("Hierarchy #{id} is currently inaccessible through the API") unless Hierarchy.available_via_api.include?(hierarchy)
           prepare_hash(hierarchy)
         end
 

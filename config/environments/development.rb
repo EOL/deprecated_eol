@@ -43,5 +43,3 @@ end
 
 # TODO - Where do these go, now?  :S
 $UNSUBSCRIBE_NOTIFICATIONS_KEY = 'f0de2a0651aa88a090e5679e5e3a7d28'
-$VIRTUOSO_USER ||= 'demo'
-$VIRTUOSO_PW ||= 'demo'

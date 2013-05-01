@@ -34,6 +34,10 @@ fr:
   a_pipe_delimited_list_of_spm_info_item_subject_names: "'supervisé' pour renvoyer le texte supervisé (s'il existe), une liste séparée par des pipes | de noms de sujet de la liste des %{subjects_text} (par ex. TaxonBiology, FossilHistory), ou 'tous' pour obtenir le texte de n’importe quel sujet. Renvoie toujours un texte de supervision comme premier résultat (s’il en existe un dans le contexte donné)."
   a_taxon: un taxon
   about_eol: À propos de l’EdlV
+  about_resources: À propos des ressources
+  about_resources_body: <p>Nous vous invitons à fournir des liens vers des sites tiers qui se rapportent à cet organisme ou à ce groupe d’organismes. Des exemples comprennent des sites web offrant des clés d’identification, des reportages, des blogs, ainsi que des ressources scientifiques d’éducation et citoyennes.</p>
+  about_resources_notice: Note&mdash;tous les liens sont soumis aux Conditions d’utilisation de EdlV et vérifiés par les conservateurs.<br />Si vous avez des questions à propos d’une ressource que vous aimeriez référencer dans EdlV, veuillez <a href='%{contact_us_link}'>nous contacter</a>.</p>
+  about_resources_title: Liens vers des ressources externes
   account_information: Informations du compte
   account_information_menu: Informations du compte
   account_registered_but_not_ready_try_later: Votre compte est inscrit mais vous ne pouvez pas encore y accéder. Veuillez réessayer dans cinq minutes.
@@ -1015,7 +1019,10 @@ fr:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Cliquez ici</a> pour accéder au bêta-test des nouveaux forums de EdlV. Votre avis sera le bienvenu.
+  api_cache_time_to_live_parameter: le nombre de secondes pendant lequel vous voulez que la réponse soit mise en cache
   api_docs_collections_description: Étant donné l’identifiant d’une collection, cette API retournera toutes les métadonnées à propos de la collection et des éléments qu’elle contient. La liste des éléments peut être filtrée par type d’élément et triée selon les attributs listés. Certains éléments contiennent un attribut optionnel 'sort_field'. C’est une chaîne fournie par l'utilisateur qui est une annotation particulière d’un élément collection. Cela peut être n’importe quelle chaîne de caractère, mais si c'est une date, elle doit respecter le format AAAA-MM-JJ. Les éléments de taxon contiendront un 'richness_score'. La richesse est une métrique représentée par un entier entre 0 et 100, un grand nombre dénotant une page avec un contenu riche d’une vaste variété de sources. Lisez davantage sur la richesse des tacons sur les onglets mise à jour d’une page de taxon, par ex. %{richness_url}.
+  api_refer_to_the_getting_started_page: Voir la page <a href="%{link}">Premiers pas</a> pour des exemples d’utilisation de l’API de EdlV, ses conditions d’utilisation et des informations sur l’enregistrement pour obtenir une clé de l’API.
+  api_results_can_be_cached: La réponse de n’importe quel appel d’API peut être mise en cache pour une durée déterminée. Un paramètre "cache_ttl" peut être fourni, dont la valeur est le nombre de secondes pendant lequel la réponse sera en cache. Cela créera les entêtes HTTP indiquant que le résultat devrait être mis en cache par les navigateurs web, et de plus, la réponse sera mise en cache dans les serveurs de EdlV pendant le nombre de secondes indiqué. Si la valeur de "cache_ttl" est modifiée, la première requête avec la nouvelle valeur n’atteindra pas le cache, mais les requêtes suivantes profiteront de la réponse récemment mise en cache.
   application_version_advisory_information: Version de l’application
   are_you_sure: Êtes-vous sûr ?
   are_you_sure_this_action_cannot_be_undone: Êtes-vous sûr ? Cette action est irréversible.
@@ -1105,6 +1112,7 @@ fr:
   by_caps: Par
   by_scientific_name_table_header: par nom scientifique
   cache_store: Stockage du cache
+  caching_results: Mise en cache des résultats
   calculate_averages_slow: Calculer des moyennes (lent)
   call_api: Appeler l'API
   cancel: Annuler
@@ -1156,6 +1164,7 @@ fr:
   classifications_rank_column_header: Rang
   classifications_recognized_by_column_header: Reconnu par
   classifications_split_column_header: Séparer / Déplacer
+  classifications_split_one_classification_only: Veuillez sélectionner une seule classification à diviser. Les autres classifications peuvent être déplacées vers la nouvelle page après sa création
   classifications_summary_header_with_count: 
     one: Trouvé dans %{count} classification
     other: Trouvé dans %{count} classifications
@@ -3690,6 +3699,7 @@ fr:
   taxon_citizen_science_header: Liens Scientifiques Personnels
   taxon_citizen_science_link: Liens scientifiques personnels
   taxon_citizen_science_resources_empty: Personne n’a encore contribué avec un lien scientifique personnel pour cette page.
+  taxon_common_names_subtab_explanation: Beaucoup de personnes ne connaissent les organismes que par leurs noms communs, ou noms « vernaculaires ». À la différence des noms scientifiques, les noms communs sont presque toujours différents pour des interlocuteurs de langues différentes. Ils peuvent aussi varier régionalement pour une même langue. Cet onglet montre tous les noms communs fournis à EdlV pour cet organisme par divers fournisseurs, y compris les conservateurs de EdlV. Actuellement, nous ne pouvons définir qu’un seul nom commun préféré par langue sur une page EdlV donnée, mais tous les noms peuvent être recherchés.
   taxon_concept_stats: Statistiques du concept de taxon
   taxon_details_empty: Personne n’a encore contribué à un détail sur cette page.
   taxon_details_empty_in_this_language: Personne n’a contribué sur aucun détail de cette page dans cette langue.
@@ -3716,9 +3726,11 @@ fr:
   taxon_partner_links_link: Liens vers un partenaire
   taxon_rating: Évaluation du taxon
   taxon_recognized_by: Taxon reconnu par %{whom}
+  taxon_related_names_subtab_explanation: Les noms dans cet onglet présentent un aperçu des relations de ce groupe avec les autres dans l’arbre de la vie, en se basant sur les hiérarchies de classification fournies par les partenaires de classification de EdlV. « Parents » sont des groupes plus inclusifs un niveau au-dessus de la hiérarchie. « Enfants » sont les sous-groupes du groupe actuel. Dans la table des classification, vous pouvez utiliser le lien « afficher toutes les classifications » pour voir une liste complète de toutes les hiérarchies fournies par nos partenaires. Cela peut comprendre des noms liés supplémentaires qui ne sont pas mis en évidence ici.
   taxon_related_organizations_link: Organisations connexes
   taxon_selected_from_search_res: Taxon sélectionné à partir des résultats de la recherche
   taxon_suggested: Taxon suggéré
+  taxon_synonyms_subtab_explanation: Parfois, les taxonomistes créent de nouveaux noms pour des groupes qui ont déjà un nom. Ils peuvent le faire parce qu’ils ne sont pas au courant du nom d’origine, ou parce qu’ils peuvent penser que l’organisme devant eux appartient à un groupe différent alors que ce n’est pas le cas. Si deux noms ou plus sont trouvés s’appliquer au même groupe, ils sont considérés comme synonymes. Dans la plupart des cas, le premier nom garde la priorité et est considéré comme le nom valide et accepté. Toutefois, il peut y avoir des exceptions, et il n’est pas toujours facile de déterminer lequel, dans une liste de synonymes, devrait être considéré comme valide ou accepté. Ici, nous listons les synonymes fournis à EdlV par nos partenaires de classification. Nous y incluons aussi des versions du nom qui se réfèrent très certainement au même groupe, par exemple, des erreurs d’orthographe dans la littérature ou diverses variantes de la paternité associée au nom.
   taxonomic_summary_of_content: Résumé taxinomique du contenu
   technical_functions: Fonctions techniques
   term_cannot_be_left_blank: Le critère ne peut pas être laissé vide

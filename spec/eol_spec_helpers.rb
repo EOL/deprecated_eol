@@ -117,7 +117,6 @@ module EOL
                                 :vetted_id       => options[:vetted_id] || Vetted.trusted.id,
                                 :taxon_concept => tc,
                                 :name          => name)
-        HierarchyEntryStat.gen(:hierarchy_entry => he)
         # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as partner roles
         return he
       end
@@ -481,7 +480,6 @@ TaxonConcept.class_eval do
     DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
     dato.save!
     DataObjectsHierarchyEntry.gen(:data_object => dato, :hierarchy_entry => hierarchy_entries.first)
-    FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
 
@@ -492,7 +490,6 @@ TaxonConcept.class_eval do
       dato.save!
     end
     DataObjectsHierarchyEntry.gen(:data_object => dato, :hierarchy_entry => hierarchy_entries.first)
-    FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
 

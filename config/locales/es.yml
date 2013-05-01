@@ -61,6 +61,8 @@ es:
         annotation: Anotación
         refs: Referencias
         sort_field: Ordenar por
+      collection_job: 
+        overwrite: Reemplazar duplicados
       comment: 
         body: Comentario
       community: 
@@ -168,9 +170,18 @@ es:
         udo_published: Texto enviado por el usuario
         udo_published_by_curators: Texto enviado por el responsable de mantenimiento
         udo_published_by_non_curators: Texto no enviado por responsable de mantenimiento
+      forum: 
+        description: Descripción <small>(opcional)</small>
+        forum_category_id: Categoría
+        name: Nombre del foro
       forum_category: 
+        description: Descripción <small>(opcional)</small>
         title: Nombre de la categoría
       forum_post: 
+        subject: Asunto
+        text: Contenido
+      forum_topic: 
+        subject: Asunto
         text: Contenido
       harvest_event: 
         resource: Recurso
@@ -1021,6 +1032,9 @@ es:
   anonymous_user_tag_line: No ha iniciado sesión
   any_integer: cualquier entero
   any_string: cualquier cadena de texto
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Haga clic aquí</a> para acceder a la prueba beta de los nuevos foros EOL. Sus comentarios son bienvenidos.
   api_docs_collections_description: Dado el identificador de una colección, esta API devolverá todos los metadatos sobre la colección y los elementos que contiene. La lista de elementos puede ser filtrada por tipo de elemento, y ordenada por los atributos listados arriba.
   application_version_advisory_information: Versión de la aplicación
   are_you_sure: ¿Está usted seguro?
@@ -1816,7 +1830,7 @@ es:
   donation_sponsorship_fellowships_title: Becas
   donation_sponsorship_infrastructure_description: Con el fin de poner el poder de EOL en la manos de la gente alrededor de todo el mundo, se aceptan donaciones de toda escala para apoyar la infraestructura fundamental y la de EOL.
   donation_sponsorship_infrastructure_title: Infrastructura fundamental
-  donation_sponsorship_preamble: "Si usted quiere aprender más sobre programas específicos a los que puede apoyar, o quisiera hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">email</a>  o por teléfono al 1 (202) 633-8730 (en los Estados Unidos). Entre las oportunidades para donaciones específicas tenemos:"
+  donation_sponsorship_preamble: "Si quieres aprender obtener más información sobre los programas de patrocinio que hay disponibles o quieres hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">correo electrónico</a> o por teléfono al 1 (202) 633-8730 (en los Estados Unidos). Entre las oportunidades para donaciones específicas tenemos:"
   done_already: Ya lo ha hecho
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: No mostrar fechas registradas desconocidas (usuario de v1, todo anterior al 5 de enero, 2009)
   download_wav_file: Descargar archivo WAV
@@ -2045,7 +2059,13 @@ es:
       delete: eliminar
     categories: 
       create: Cree una categoría
+    create: Crear un foro
     create_failed: Lo sentimos, ha ocurrido un error, no se pudo generar un foro
+    create_successful: El foro se ha creado correctamente
+    delete_failed_not_empty: El foro no puede borrarse porque no está vacío
+    delete_successful: El foro se ha borrado correctamente
+    forums_heading: Foros EOL
+    last_post: Último mensaje
     move_failed: No se puede mover el foro
     posts: 
       close_window: Cerrar
@@ -2061,6 +2081,7 @@ es:
       topic_and_post_delete_successful: Se eliminan artículo y hilo correctamente
       update_successful: El artículo fue actualizado correctamente
     posts_heading: Publicaciones
+    replies: Respuestas
     topics: 
       create: Comenzar un nuevo hilo
       create_failed: Lo sentimos, ha ocurrido un error, no se pudo generar un nuevo tema
@@ -2069,6 +2090,9 @@ es:
       delete_successful: Un nuevo tema (hilo de conversación) se ha eliminado correctamente
       no_posts: No existen artículos para este hilo (de la conversación)
     topics_heading: Hilos
+    update_failed: Lo sentimos, se ha producido un error, el foro no se ha podido actualizar.
+    update_successful: El foro se ha actualizado correctamente
+    views: Vistas
   fragment_caching_enabled: La memoria caché de los fragmentos está activada
   frequency: Frecuencia
   frequency_daily: Diario
@@ -3840,7 +3864,7 @@ es:
   updated_community: La comunidad se ha actualizado correctamente.
   updated_member: Miembro se ha actualizado correctamente.
   updates: Actualizaciones
-  upload: Cargar
+  upload: Subir
   upload_content: subir el contenido
   upload_logo_help_text: Esta será la imagen principal que representa a su comunidad - puede ser lo que quiera.
   uploaded_by: Cargado por
@@ -3856,7 +3880,7 @@ es:
   use_as_examplar_note_preferred: "nota: esta es la clasificación preferida. Probablemente desees usar esta."
   used_for_friendly_url_note: (utilizado para generar un enlace amistoso para los usuarios, no puede contener espacios ni caracteres especiales)
   user: Usuario
-  user_activation_failed_resent_validation_email_error: Lo sentimos, ha ocurrido un error, su cuenta no pudo ser verificada. Esto generalmente ocurre cuando el enlace de verficiación que ha introducido o seleccionado no es reconocido. Las instrucciones de activación han sido reenviadas a la dirección de correo electrónico que se registró con, asegúrese de que el enlace de verficiación que utiliza coincide con el proporcionado en el email de activación.
+  user_activation_failed_resent_validation_email_error: Lo sentimos, ha ocurrido un error, tu cuenta no pudo ser verificada. Esto generalmente ocurre cuando el enlace de verificación que introdujiste o seleccionado no es reconocido. Las instrucciones de activación han sido reenviadas a la dirección de correo electrónico con la que te registraste. Asegúrate de que el enlace de verificación que utilizas coincide con el proporcionado en el correo electrónico de activación.
   user_activation_failed_user_not_found_error: Lo sentimos, ha ocurrido un error, la cuenta que están tratando de verificar que no se pudo encontrar. Asegúrese de que el enlace de verficiación que utiliza coincida con el proporcionado en el correo electrónico de activación que recibió después de registrarse.
   user_activation_successful_notice: Bienvenido y gracias por unirse al equipo de la Enciclopedia de la Vida. Su cuenta, con nombre de usuario <em>%{username}</em> ya está activa, por favor inicie una sesión.
   user_activity_click_on_the_numbers: Haga clic en los números para ver la actividad de las fuentes web respectivas.

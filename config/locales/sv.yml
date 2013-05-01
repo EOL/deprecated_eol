@@ -11,6 +11,8 @@ sv:
   0_or_1: 0 eller 1
   a_taxon: ett taxon
   about_eol: Om EOL
+  about_resources: Om resurser
+  about_resources_title: Länkar till externa resurser
   account_information: Kontoinformation
   account_information_menu: Kontoinformation
   account_registered_but_not_ready_try_later: Ditt konto är registrerat, men inte redo för dig att få tillgång till det. Försök igen om fem minuter.
@@ -399,6 +401,8 @@ sv:
         user_modified_an_unknown_community: <strong>%{user}</strong> ändrade en okänd gemenskap.
         user_modified_community: <strong>%{user}</strong> ändrade gemenskapen "%{community}".
     curator_activity_log: 
+      add_association: 
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> lade till en okänd association.
       add_common_name: 
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: En okänd användare lade till ett okänt vanligt namn på ett okänt språk till en okänd sida.
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: En okänd användare lade till ett okänt vanligt namn på ett okänt språk till "%{taxon}".
@@ -714,6 +718,8 @@ sv:
         page_header: Kuratorstatistik
       data_objects: 
         menu_link: Dataobjekt
+        page_header: Dataobjektstatistiker
+        page_title: "Administration: Dataobjektstatistiker"
       index: 
         menu_link: Övergripande statistik
         page_header: Övergripande statistik
@@ -762,6 +768,9 @@ sv:
   anonymous_user_full_name: Anonym användare
   anonymous_user_given_name: Anonym
   anonymous_user_tag_line: Inte inloggad
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Klicka här</a> för att få tillgång till betatestet av EOL:s nya forum. Feedback är välkommen.
   application_version_advisory_information: Programversion
   are_you_sure: Är du säker?
   are_you_sure_this_action_cannot_be_undone: Är du säker?  Den här åtgärden kan inte ångras.
@@ -2700,6 +2709,8 @@ sv:
           meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Information om %{scientific_name} i Encyclopedia of Life
+        meta_description_with_chapter_list: Fakta om %{scientific_name} i Encyclopedia of Life. Innehåller fakta om %{chapter_list}.
+        meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life.
         meta_title: Fakta om %{scientific_name}
         meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name})
         tweet_text: Information om %{scientific_name}
@@ -2721,6 +2732,7 @@ sv:
       show: 
         hierarchy_entry: 
           meta_description: Geografisk information om %{scientific_name} som är klassificerad av %{hierarchy_provider} var de bor och var de är inhemska i världen.
+          meta_description_with_common_name: Var kan %{preferred_common_name} hittas och var bor de? Geografisk information om %{scientific_name} som klassificeras av %{hierarchy_provider} där de bor och är inhemska i världen.
           meta_title: Kartor över %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Kartor över %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Kartor över %{scientific_name} som är klassificerad av %{hierarchy_provider}
@@ -2761,6 +2773,8 @@ sv:
         hierarchy_entry: 
           meta_keywords: "%{scientific_name}-synonymer"
           meta_keywords_with_common_name: "%{preferred_common_name}-synonymer, %{scientific_name}-synonymerer"
+          tweet_text: Synonym för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_description: Synonym för %{scientific_name}.
         meta_description_with_common_name: Synonymer för %{preferred_common_name}, vetenskapligt känd som %{scientific_name}
         meta_keywords: Synonym för %{scientific_name}
         meta_keywords_with_common_name: Synonym för %{preferred_common_name}, Synonymer för %{scientific_name}
@@ -3036,10 +3050,14 @@ sv:
       sign_up_with_twitter_assistive: Registrera dig på EOL med dina inloggningsuppgifter på Twitter.
       sign_up_with_yahoo_assistive: Registrera dig på EOL med dina inloggningsuppgifter på Yahoo.
     newsfeeds: 
+      activity: 
+        meta_title: "%{user_full_name}s aktivitetsflöde"
+        tweet_text: "%{user_full_name}s aktivitetsflöde"
       activity_link: aktivitet
       comments: 
         meta_description: Kommentarflöde för %{user_full_name}.
         meta_title: "%{user_full_name}s kommentarsflöde"
+        tweet_text: "%{user_full_name}s kommentarsflöde"
       comments_link: kommentarer
       newsfeed_link: nyhetsflöde
       show: 
@@ -3079,8 +3097,13 @@ sv:
       yahoo: Yahoo!
     pending: 
       header: Tack för din registrering!
+      verify_email_instructions: <strong>Var god kontrollera din e-postadress</strong>. Ett bekräftelsemeddelande har skickats e-postadressen du angav. För att slutföra registreringen och bli medlem i EOL, var god klicka på länken i e-postmeddelandet. Tack!
+      verify_email_tip: Var god notera att kontoaktiveringar med lösenordsåterställningar blir <em>ofta</em> flaggade som 'spam' av e-postfilter. Var god kontrollera din spammapp om du inte har fått ditt e-postmeddelande inom en timme.
     recover_account: 
       errors: 
+        temporary_login_user_not_found: Tyvärr, EOL-kontot du försöker återställa inte kunde hittas, var god begär ett nytt e-postmeddelande att återställa ditt konto.
+        token_expired_or_invalid: Tyvärr, den tillfälliga inloggningslänken har gått ut eller är ogiltig, var god begär ett nytt e-postmeddelande att återställa ditt konto.
+        unable_to_update_token: Tyvärr, ett fel uppstod och e-postmeddeladet kunde inte skickas. Var god försök igen.
         user_not_found_by_email_address: Ett EOL-konto med den e-postadressen kunde inte hittas.
       form_header: Återställ konto
       form_tip: För att återställa ditt EOL-konto, skriv in e-postadressen som är associerad med det kontot. Var god kontrollera din spammapp om du inte har fått ett meddelande inom en timme.

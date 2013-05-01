@@ -625,22 +625,6 @@ FactoryGirl.define do
     schema_value ''
   end
 
-  factory :feed_data_object do
-    association :taxon_concept
-    association :data_object
-    association :data_type
-    created_at      { 2.hours.ago }
-  end
-
-  factory :feed_item do
-    association  :feed, :factory => :user
-    body 'some important notification here'
-  end
-
-  factory :feed_item_type do
-    name { generate(:string) }
-  end
-
   factory :forum do
     association :forum_category
     name { Faker::Lorem.words(rand(10) + 1).join(' ') }
@@ -727,23 +711,6 @@ FactoryGirl.define do
     visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
     created_at     Time.now
     updated_at     Time.now
-  end
-
-  factory :hierarchy_entry_stat do
-    association         :hierarchy_entry
-    text_trusted        { rand(1000) }
-    text_untrusted      { rand(1000) }
-    image_trusted       { rand(1000) }
-    image_untrusted     { rand(1000) }
-    bhl                 { rand(1000) }
-    all_text_trusted    { rand(1000) }
-    all_text_untrusted  { rand(1000) }
-    have_text           { rand(1000) }
-    all_image_trusted   { rand(1000) }
-    all_image_untrusted { rand(1000) }
-    have_images         { rand(1000) }
-    all_bhl             { rand(1000) }
-    total_children      { rand(1000) }
   end
 
   factory :image_crop do

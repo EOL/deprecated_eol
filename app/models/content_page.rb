@@ -18,6 +18,7 @@ class ContentPage < ActiveRecord::Base
   before_destroy :archive_self
   before_destroy :destroy_translations # TODO: can we have :dependent => :destroy on translations rather than this custom callback?
 
+  alias_attribute :collected_name, :title # Used in search results because of shared partial--we should really normalize and rename this.
 
   validates_presence_of :page_name
   validates_length_of :page_name, :maximum => 255

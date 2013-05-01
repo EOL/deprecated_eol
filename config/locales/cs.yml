@@ -34,6 +34,8 @@ cs:
         annotation: Anotace
         refs: Reference
         sort_field: Řadit dle
+      collection_job: 
+        overwrite: Nahradit duplicity
       comment: 
         body: Komentář
       community: 
@@ -149,13 +151,24 @@ cs:
       forum_post: 
         subject: Předmět
         text: Text
+      forum_topic: 
+        subject: Předmět
+        text: Tělo
       harvest_event: 
         resource: Zdroj
       hierarchy: 
+        browsable: Prohlížitelné
         complete: Dokončit
         description: Popis
+        descriptive_label: Popiska
+        label: Štítek
+        request_publish: Požádat o zveřejnění
       name: 
         string: Název
+      news_item: 
+        active: Zveřejněno
+        page_name: Jedinečný název
+        sort_order: Řazení
       notification: 
         changes_to_my_watched_collection: Změny ve sbírkách na vámi sledovaném seznamu
         changes_to_my_watched_community: Změny v komunitách na vámi sledovaném seznamu
@@ -176,9 +189,15 @@ cs:
         new_manager_in_my_community: Jiný člen se stal správcem komunity, kterou spravujete
         reply_to_comment: Odpověď na váš komentář
       open_authentication: 
+        created_at: Vytvořeno
+        guid: GUID
+        provider: Poskytovatel třetí strany
+        updated_at: Poslední aktualizace
         user_id: ID uživatele
+        verified_at: Poslední ověření
       resource: 
         accesspoint_url: URL Datasetu
+        auto_publish: Automaticky zveřejnit
         bibliographic_citation: Bibliografická citace
         dataset: Soubor dat
         description: Popis zdroje
@@ -199,6 +218,8 @@ cs:
         meta_keywords: Klíčová slova metadat
         title: Nadpis
       translated_news_item: 
+        active_translation: Zveřejněno
+        body: Tělo
         meta_description: Popis metadat
         meta_keywords: Klíčová slova metadat
         title: Název
@@ -220,6 +241,7 @@ cs:
         language_abbr: Preferovaný jazyk
         permissions: Oprávnění
         requested_curator_level_id: Požadované kurátorská úroveň
+        tag_line: Doplňující text
         username: Uživatelské jméno
     errors: 
       format: "%{attribute} %{message}"
@@ -258,7 +280,15 @@ cs:
         wrong_length: nesprávná délka (mělo by obsahovat %{count} znaků)
         wrong_type: je špatného typu
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: nemůže být prázdné na licenci CC-BY
+              inclusion: musí být prázdné pro Public Domain licence
         inaccessible: Záznam nelze uložit, protože je neplatný. Zkontrolujte chyby ověření a uložte znovu.
+        open_authentications: 
+          guid_provider_must_be_unique: účet třetí strany je již propojen s účtem EOL
+          provider_user_id_must_be_unique: s EOL může být propojen pouze jeden účet od každého poskytovatele
         resource: 
           attributes: 
             accesspoint_url: 

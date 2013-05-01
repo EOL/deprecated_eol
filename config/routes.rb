@@ -29,6 +29,7 @@ Eol::Application.routes.draw do
   match '/info/xrayvision' => redirect("/collections/14770")
   match '/info/brian-skerry' => redirect("/collections/29285")
   match '/info/naturesbest2011' => redirect("/collections/19338")
+  match '/info/naturesbest2012' => redirect("/collections/54659")
   match '/voc/table_of_contents' => redirect("/schema/eol_info_items.xml")
   match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
   match '/index' => redirect('/')
@@ -374,7 +375,7 @@ Eol::Application.routes.draw do
   end
 
   # Putting these after the complex resources because they are less common.
-  resources :tasks, :task_states, :task_names, :feed_items, :random_images
+  resources :tasks, :task_states, :task_names, :random_images
   resources :recent_activities, :only => [:index]
   resources :classifications, :only => [:create]
   resources :contacts, :only => [:index, :create, :new]

@@ -17,10 +17,11 @@
 - assistive_or_nil = minimal ? 'assistive' : nil
 - hide_user_rating ||= false
 .ratings
+  - title = I18n.t("#{en_type}_rating")
   - if minimal || hide_user_rating
     .average_rating
       %h5{:class => assistive_or_nil}
-        = I18n.t("#{en_type}_rating")
+        = title
         - unless minimal
           %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.length)
       .rating
@@ -41,7 +42,7 @@
   - else
     .article.list
       .header
-        %h3 Image rating
+        %h3= title
         = link_to I18n.t(:rating_learn_more_link), cms_page_path('curation_standards', :anchor => 'rating')
       - rating_summary = data_object.rating_summary
       %dl.rating_counts

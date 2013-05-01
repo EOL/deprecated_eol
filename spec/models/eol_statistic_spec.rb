@@ -50,4 +50,33 @@ describe EolStatistic do
       stats.should == @latest
     end
   end
+
+  it 'should create rich_hotlist_pages_percentage' do
+    @first.rich_hotlist_pages.class.should == Fixnum
+    @first.hotlist_pages.class.should == Fixnum
+    @first.rich_hotlist_pages_percentage.class.should == Float
+  end
+
+  it 'should create rich_redhotlist_pages_percentage' do
+    @first.rich_redhotlist_pages.class.should == Fixnum
+    @first.redhotlist_pages.class.should == Fixnum
+    @first.rich_redhotlist_pages_percentage.class.should == Float
+  end
+
+  it 'should create prepare greatest values for rich_hotlist_pages_percentage' do
+    stat1 = EolStatistic.gen()
+    stat2 = EolStatistic.gen()
+    stat1.greatest.should be_nil
+    stat2.greatest.should be_nil
+
+    attribute_names = stat1.attribute_names + [ 'rich_hotlist_pages_percentage', 'rich_redhotlist_pages_percentage' ] - [ 'id', 'created_at' ]
+    EolStatistic.compare_and_set_greatest(stat1, stat2)
+    [ stat1, stat2 ].each do |stat|
+      stat.greatest.class.should == Hash
+      attribute_names.each do |att|
+        stat.greatest[att.to_sym].should == (stat.send(att) == [ stat1.send(att), stat2.send(att) ].max)
+      end
+    end
+  end
+
 end

@@ -9,10 +9,16 @@
         - report_attributes.each_with_index do |attributes, index|
           - attributes.each do |stat|
             %dt{:class => emphasize_indexes.include?(index) ? 'emphasize' : nil}
+              - if stat.class == Symbol
+                - type = :integer
+              - elsif stat.class == Array
+                - type = stat[1]
+                - stat = stat[0]
               %span= t(stat, :scope => [:activerecord, :attributes, :eol_statistic])
               - [@stats_one, @stats_two].each do |stats|
                 %dd{:class => greater(stats.greatest[stat])}
                   %span.assistive= stats.created_at.strftime('%b %d, %Y')
-                  %span= number_with_delimiter(stats.send(stat))
-
-
+                  - if type == :percentage
+                    %span= number_to_percentage(stats.send(stat), :precision => 2)
+                  - else
+                    %span= number_with_delimiter(stats.send(stat))

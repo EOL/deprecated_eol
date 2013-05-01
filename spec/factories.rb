@@ -1251,7 +1251,68 @@ FactoryGirl.define do
   end
 
   factory :eol_statistic do
-    members_count { rand(1000) }
+    members_count                                     { rand(100000) }
+    communities_count                                 { rand(100000) }
+    collections_count                                 { rand(100000) }
+    pages_count                                       { rand(100000) }
+    pages_with_content                                { rand(100000) }
+    pages_with_text                                   { rand(100000) }
+    pages_with_image                                  { rand(100000) }
+    pages_with_map                                    { rand(100000) }
+    pages_with_video                                  { rand(100000) }
+    pages_with_sound                                  { rand(100000) }
+    pages_without_text                                { rand(100000) }
+    pages_without_image                               { rand(100000) }
+    pages_with_image_no_text                          { rand(100000) }
+    pages_with_text_no_image                          { rand(100000) }
+    base_pages                                        { rand(100000) }
+    pages_with_at_least_a_trusted_object              { rand(100000) }
+    pages_with_at_least_a_curatorial_action           { rand(100000) }
+    pages_with_BHL_links                              { rand(100000) }
+    pages_with_BHL_links_no_text                      { rand(100000) }
+    pages_with_BHL_links_only                         { rand(100000) }
+    content_partners                                  { rand(100000) }
+    content_partners_with_published_resources         { rand(100000) }
+    content_partners_with_published_trusted_resources { rand(100000) }
+    published_resources                               { rand(100000) }
+    published_trusted_resources                       { rand(100000) }
+    published_unreviewed_resources                    { rand(100000) }
+    newly_published_resources_in_the_last_30_days     { rand(100000) }
+    data_objects                                      { rand(100000) }
+    data_objects_texts                                { rand(100000) }
+    data_objects_images                               { rand(100000) }
+    data_objects_videos                               { rand(100000) }
+    data_objects_sounds                               { rand(100000) }
+    data_objects_maps                                 { rand(100000) }
+    data_objects_trusted                              { rand(100000) }
+    data_objects_unreviewed                           { rand(100000) }
+    data_objects_untrusted                            { rand(100000) }
+    data_objects_trusted_or_unreviewed_but_hidden     { rand(100000) }
+    udo_published                                     { rand(100000) }
+    udo_published_by_curators                         { rand(100000) }
+    udo_published_by_non_curators                     { rand(100000) }
+    rich_pages                                        { rand(100000) }
+    hotlist_pages                                     { rand(100000) }
+    rich_hotlist_pages                                { rand(100000) }
+    redhotlist_pages                                  { rand(100000) }
+    rich_redhotlist_pages                             { rand(100000) }
+    pages_with_score_10_to_39                         { rand(100000) }
+    pages_with_score_less_than_10                     { rand(100000) }
+    curators                                          { rand(100000) }
+    curators_assistant                                { rand(100000) }
+    curators_full                                     { rand(100000) }
+    curators_master                                   { rand(100000) }
+    active_curators                                   { rand(100000) }
+    pages_curated_by_active_curators                  { rand(100000) }
+    objects_curated_in_the_last_30_days               { rand(100000) }
+    curator_actions_in_the_last_30_days               { rand(100000) }
+    lifedesk_taxa                                     { rand(100000) }
+    lifedesk_data_objects                             { rand(100000) }
+    marine_pages                                      { rand(100000) }
+    marine_pages_in_col                               { rand(100000) }
+    marine_pages_with_objects                         { rand(100000) }
+    marine_pages_with_objects_vetted                  { rand(100000) }
+    created_at                                        { 5.days.ago }
   end
 
 end

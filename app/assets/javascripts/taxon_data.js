@@ -24,7 +24,39 @@ EOL.attribute_is_okay = function() {
   // EOL.enable_button($('#new_user_added_data').find('input:submit'));
 };
 
+EOL.add_has_default_behavior = function() {
+  $('input.has_default').each(function() { 
+    $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
+    $(this).unbind('focus').unbind('blur');
+    $(this).on('focus', function() {
+      if ($(this).val() == $(this).attr('data-default')) {
+        $(this).val('').fadeTo(150, 1);
+      }
+    }).on('blur', function() {
+      if ($(this).val() == '') {
+        $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
+      }
+    });
+  });
+};
+
 $(function() {
+
+  $('.has_many').each(function() {
+    var $subform = $(this).clone().appendTo($(this)).addClass('subform').hide();
+    $(this).append('<span class="add"><a href="#">'+$(this).attr('data-another')+'</a></span>');
+    var other_fields = $(this).attr('data-other-fields');
+    $(this).find('.add a').click(function() {
+      $subform.clone().insertBefore($(this).parent()).show().find('input').each(function() {
+        var count = ($('.metadata').find('input[id^=user_added_data_user_added_data_metadata_attributes]').length -
+          other_fields) / 2;
+        $(this).attr('id', $(this).attr('id').replace(/\d+/, count));
+        $(this).attr('name', $(this).attr('name').replace(/\d+/, count));
+      });
+      EOL.add_has_default_behavior();
+      return(false);
+    });
+  });
 
   $('input#user_added_data_predicate').keyup(function() {
     var $field = $(this)
@@ -84,17 +116,6 @@ $(function() {
     EOL.attribute_is_okay();
   });
 
-  $('input.has_default').each(function() { 
-    $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
-    $(this).on('focus', function() {
-      if ($(this).val() == $(this).attr('data-default')) {
-        $(this).val('').fadeTo(150, 1);
-      }
-    }).on('blur', function() {
-      if ($(this).val() == '') {
-        $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
-      }
-    });
-  });
+  EOL.add_has_default_behavior();
 
 });

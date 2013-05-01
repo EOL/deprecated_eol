@@ -2318,6 +2318,7 @@ en:
   add_a_new_topic_area: "Add a new topic area"
   add_a_new_user: "Add a new user"
   add_a_taxon_association_label: "Add a taxon association"
+  add_another_for_has_many: "Add another"
   add_article_instead: "add an article instead"
   add_article_to_page_button: "Add an article"
   add_association_submit_button: "add association"

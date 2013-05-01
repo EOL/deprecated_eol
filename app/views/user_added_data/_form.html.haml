@@ -52,11 +52,12 @@
               %dt= I18n.t(:source)
               %dd= m.text_field :object, :size => 100, :class => 'has_default',
                 'data-default' => I18n.t('user_added_data.source_field_helper')
-      = f.fields_for :user_added_data_metadata, UserAddedDataMetadata.new do |m|
-        %fieldset
-          %dl
-            %dt= m.text_field :predicate, size: 25, :class => 'has_default', 'data-default' => I18n.t('user_added_data.new_field')
-            %dd= m.text_field :object, size: 100, :class => 'has_default', 'data-default' => I18n.t('user_added_data.new_value')
+      .has_many{'data-another' => I18n.t(:add_another_for_has_many), 'data-other-fields' => 3}
+        = f.fields_for :user_added_data_metadata, UserAddedDataMetadata.new do |m|
+          %fieldset
+            %dl
+              %dt= m.text_field :predicate, size: 25, :class => 'has_default', 'data-default' => I18n.t('user_added_data.new_field')
+              %dd= m.text_field :object, size: 100, :class => 'has_default', 'data-default' => I18n.t('user_added_data.new_value')
     %fieldset.actions
       = submit_tag(I18n.t(:submit))
       %span#new_uri_warning= I18n.t(:new_uri_warning)

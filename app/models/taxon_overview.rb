@@ -23,7 +23,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   def hierarchy_entry
     return _hierarchy_entry if classification_filter?
     return @entry if @entry
-    if chosen = taxon_concept.curator_chosen_classification
+    if chosen = curator_chosen_classification
       @classification_chosen_by = chosen.user # Might as well set it while we have it.
       @entry = chosen.hierarchy_entry
     else
@@ -36,12 +36,12 @@ class TaxonOverview < TaxonUserClassificationFilter
 
   def classification_chosen_by
     return @classification_chosen_by if @classification_chosen_by
-    chosen = taxon_concept.curator_chosen_classification
+    chosen = curator_chosen_classification
     @classification_chosen_by = chosen ? chosen.user : nil
   end
 
   def classification_curated?
-    @classification_curated ||= taxon_concept.curator_chosen_classification
+    @classification_curated ||= curator_chosen_classification
   end
 
   # NOTE - This is actually meant to be a count of *browsable* hierarchies, so we don't go to tc.
@@ -175,6 +175,10 @@ private
 
   def all_collections
     @all_collections ||= taxon_concept.collections.published.select{ |c| !c.watch_collection? }
+  end
+
+  def curator_chosen_classification
+    CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(taxon_concept.id) 
   end
 
   def iucn

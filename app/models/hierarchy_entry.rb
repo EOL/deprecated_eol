@@ -40,8 +40,6 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :siblings, :class_name => HierarchyEntry.to_s, :foreign_key => [:parent_id, :hierarchy_id], :primary_key => [:parent_id, :hierarchy_id],
     :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
 
-  has_one :hierarchy_entry_stat
-
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }
   end
@@ -72,6 +70,7 @@ class HierarchyEntry < ActiveRecord::Base
 
   # this method will return either the original name string, or if the rank of the taxon
   # is one to be italicized, the italicized form of the original name string
+  # This is essentially an italicized, attributed title for the entry.
   def italicized_name
     if name.is_surrogate_or_hybrid? || name.is_subgenus?
       name.string
@@ -86,6 +85,7 @@ class HierarchyEntry < ActiveRecord::Base
     return name.canonical_form
   end
 
+  # This is essentially a non-italicized, non-attributed title for the entry.
   def title_canonical
     return @title_canonical unless @title_canonical.nil?
     # used the ranked version first

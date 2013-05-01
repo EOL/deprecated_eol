@@ -37,24 +37,7 @@ class CollectionJob < ActiveRecord::Base
           target_collection.set_relevance
         end
       end
-      if remove?
-        if all_items?
-          EOL::Solr::CollectionItemsCoreRebuilder.remove_collection(collection)
-        else
-          EOL::Solr::CollectionItemsCoreRebuilder.remove_collection_items(collection_items)
-        end
-      else
-        if ! all_items?
-          EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items(affected)
-        else
-          EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection) unless copy?
-          if target_needed?
-            collections.each do |target_collection|
-              EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(target_collection)
-            end
-          end
-        end
-      end
+      reindex(affected)
     end
   end
 
@@ -159,6 +142,27 @@ private
 
   def remove
     CollectionItem.delete_all([source_where_clause, source_where_argument])
+  end
+
+  def reindex(affected)
+    if remove?
+      if all_items?
+        EOL::Solr::CollectionItemsCoreRebuilder.remove_collection(collection)
+      else
+        EOL::Solr::CollectionItemsCoreRebuilder.remove_collection_items(collection_items)
+      end
+    else # move/copy
+      if ! all_items?
+        EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items(affected)
+      else
+        EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection) unless copy?
+        if target_needed?
+          collections.each do |target_collection|
+            EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(target_collection)
+          end
+        end
+      end
+    end
   end
 
   def source_where_clause

@@ -199,7 +199,7 @@ class DataObjectsController < ApplicationController
 
   # GET /data_objects/:id
   def show
-    @page_title = @data_object.best_title
+    @page_title = DataObjectCaching.title(@data_object, current_language)
     get_attribution
     @slim_container = true
     DataObject.preload_associations(@data_object,
@@ -296,6 +296,7 @@ class DataObjectsController < ApplicationController
       flash[:error] = all_curation_errors_to_sentence(curations)
     else
       curations.each { |curation| curation.curate }
+      DataObjectCaching.clear(@data_object)
       auto_collect(@data_object) # SPG wants all curated objects collected.
       flash[:notice] = I18n.t(:object_curated)
       @data_object.reindex
@@ -488,8 +489,8 @@ private
     [].paginate(:page => 1, :per_page => @@results_per_page, :total_entries => 0)
   end
 
-  # TODO - this belongs on an association, yes?
   def clear_cached_media_count_and_exemplar(he)
+    DataObjectCaching.clear(@data_object)
     he.taxon_concept.clear_for_data_object(@data_object)
   end
 

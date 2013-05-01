@@ -138,8 +138,9 @@ describe TaxonConcept do
   end
 
   it 'should show its untrusted images, by default' do
-    @taxon_concept.current_user = nil
-    @taxon_concept.images_from_solr(100).map {|d| DataObject.find(d).object_cache_url }.should include(@image_unknown_trust)
+    @taxon_concept.reload
+    DataObject.find(@taxon_concept.images_from_solr(100).map(&:id)).map(&:object_cache_url).should
+      include(@image_unknown_trust)
   end
 
   it 'should not throw an error if there are activity logs with user ID 0' do
@@ -568,12 +569,6 @@ describe TaxonConcept do
     # # 'which uses the first availble HE if the specified hierarchy has no entry availble.'
     # # 'which does NOT use an expired preferred_entry'
     # # 'which creates a preferred entry if one did not exist'
-  end
-
-  it 'should not give an error when there is no preferred_entry' do
-    tc = build_taxon_concept
-    lambda { tc.curator_chosen_classification }.should_not raise_error
-    lambda { tc.preferred_entry.hierarchy_entry_id }.should raise_error
   end
 
   it '#published_visible_exemplar_article_in_language should return published and visible exemplar article if there is one' do

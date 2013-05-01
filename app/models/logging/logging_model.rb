@@ -12,7 +12,9 @@ class LoggingModel < ActiveRecord::Base
       end
     end
     direct_concept_ids.each do |tc_id|
-      ActionController::Base.new.expire_fragment("taxon_overview_curators_#{tc_id}")
+      Language.approved_languages.each do |l|
+        ActionController::Base.new.expire_fragment("taxon_overview_curators_#{tc_id}_#{l.iso_639_1}")
+      end
     end
   end
 end

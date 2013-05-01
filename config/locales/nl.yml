@@ -27,6 +27,10 @@ nl:
     one: Er is één term gevonden die aan uw zoekopdracht voldoet.
     other: Er zijn %{count} termen gevonden die aan uw zoekopdracht voldoen.
   about_eol: Over EOL
+  about_resources: Over bronnen
+  about_resources_body: Wij verwelkomen koppelingen naar websites van derde partijen over dit organisme of deze groep organismen. Voorbeelden hiervan zijn websites met identificatiecodes, nieuwsberichten, blogs, en educatieve sites en burgerwetenschappelijke websites.
+  about_resources_notice: "Opmerking: op alle koppelingen zijn de gebruiksvoorwaarden van de EOL van toepassing en controle door de conservatoren.<br />Als u vragen hebt over een bron die u wilt koppelen aan EOL, neem dan <a href='%{contact_us_link}'>contact met ons op</a>."
+  about_resources_title: Koppelingen naar externe bronnen
   account_information: Gebruikersgegevens
   account_information_menu: Gebruikersgegevens
   account_registered_but_not_ready_try_later: Uw gebruiker is aangemaakt, maar kan nog niet gebruikt worden. Probeer het over vijf minuten nog een keer.
@@ -1022,7 +1026,10 @@ nl:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Deelnemen aan de betatest voor de nieuwe EOL-forums</a>. Uw terugkoppeling is welkom.
+  api_cache_time_to_live_parameter: het aantal seconden dat u wilt dat een antwoord in de cache blijft opgeslagen
   api_docs_collections_description: Deze API retourneert alle metadata van een verzameling en alle items die ertoe behoren als er een aanduiding wordt opgegeven. De list met items kan gefilterd worden op itemtype en gesorteerd worden op de eigenschappen die worden weergegeven. Sommige items bevatten een optioneel attribuut "sort_field". Het sorteerveld is een door de gebruiker opgegeven tekenreeks die een speciale annotatie is voor een item in een verzameling. Het kan een willekeurige tekenreeks zijn, maar als het een datum is, dan moet deze voldoen aan JJJJ-MM-DD. Taxonitems bevatten een "richness_score". Rijkheid is een statistiek de wordt weergegeven als een getal tussen 0 en 100, waarbij een hoger getal aangeeft dat een pagina rijk is aan inhoud vanuit verschillende bronnen. Leest meer over de rijkheid van taxa via het tabblad "Updates" op een taxonpagina, bijvoorbeeld %{richness_url}.
+  api_refer_to_the_getting_started_page: Zie de pagina <a href="%{link}">Aan de slag</a> voor voorbeelden van het gebruik van de API van EOL, gebruiksvoorwaarden en informatie over het registreren van een API-sleutel.
+  api_results_can_be_cached: Het antwoord op een API-aanroep kan gedurende een aangegeven tijd in de cache opgeslagen. U kunt een parameter "cache_ttl" (in seconden) opgeven die instelt hoe lang het antwoord in de cache moet blijven staan. Hierdoor worden HTTP-headers gemaakt die aangeven dat het resultaat in de cache van webbrowsers opgeslagen moet worden. Daarnaast wordt het antwoord gedurende het opgegeven aantal seconden opgeslagen op de servers van EOL. Als de waarde van "cache_ttl" wordt gewijzigd, komt het antwoord op de eerste aanvraag met de nieuwe waarde niet uit de cache, maar volgende aanvragen komen wel uit de cache.
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
   are_you_sure_this_action_cannot_be_undone: Weet u het zeker?  Deze handeling kan niet ongedaan worden gemaakt.
@@ -1115,6 +1122,7 @@ nl:
   by_caps: Door
   by_scientific_name_table_header: door wetenschappelijke naam
   cache_store: Cache-opslag
+  caching_results: Cacheresultaten
   calculate_averages_slow: Gemiddelden bereken (langzaam)
   call_api: Call-API
   cancel: Annuleren
@@ -1161,11 +1169,12 @@ nl:
   classifications_locked: Op dit moment kunnen de classificaties van deze pagina niet bewerkt worden. Er staat op dit moment al een verzoek om deze classificaties te wijzigen open.
   classifications_merge_additional_confirm_required: Er is extra bevestiging nodig om deze classificaties samen te voegen.
   classifications_merge_providers_match_confirm: Ik bevestig dat ik de stellingname van de contentpartner dat deze gegevens gescheiden moeten blijven terzijde wil schuiven.
-  classifications_merge_providers_match_warning: U staat op het punt twee pagina's samen te voegen waarvan %{provider} heeft aangegeven dat deze gegevens gescheiden moeten blijven. Bevestig alstublieft dat u deze stellingname <i>terzijde wilt schuiven</i> en deze gegevens op dezelfde pagina thuishoren.
+  classifications_merge_providers_match_warning: U staat op het punt twee pagina's samen te voegen waarvan %{provider} heeft opgegeven dat deze gegevens gescheiden moeten blijven. Bevestig dat u deze stellingname <i>terzijde wilt schuiven</i> en deze gegevens op dezelfde pagina thuishoren.
   classifications_preferred_column_header: Voorkeur
   classifications_rank_column_header: Positie
   classifications_recognized_by_column_header: Erkend door
   classifications_split_column_header: Scheiden/verplaatsen
+  classifications_split_one_classification_only: Selecteer slechts één te splitsen classificatie. Andere classificaties kunnen worden verplaatst naar de nieuwe pagina nadat u deze hebt gemaakt
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
@@ -1188,6 +1197,9 @@ nl:
   collect_items: Items in verzameling opnemen
   collection_api_sort_field_notes: ��Als de parameter "sort_field" is opgenomen, worden alleen verzamelingsitems teruggegeven waarvan het sorteerveld precies overeenkomt met de opgegeven tekst.
   collection_copy_choose_all_items_target_title: "Alle items kopiëren van \"%{collection}\" naar:"
+  collection_copy_choose_target_title_with_count: 
+    one: "Eén item kopieren van \"%{collection}\" naar:"
+    other: "%{count} items kopieren van \"%{collection}\" naar:"
   collection_copy_complete_with_count: 
     one: Eén item gekopieerd van %{from} naar %{to}.
     other: In totaal %{count} items gekopieerd van %{from} naar %{to}.
@@ -1208,6 +1220,9 @@ nl:
     other: "%{count} items"
     zero: Leeg
   collection_move_choose_all_items_target_title: "Alle item verplaatsen van \"%{collection}\" naar:"
+  collection_move_choose_target_title_with_count: 
+    one: "Eén item verplaatsen van \"%{collection}\" to:"
+    other: "%{count} items verplaatsen van \"%{collection}\" naar:"
   collection_move_complete_with_count: 
     one: Eén item verplaatst van %{from} naar %{to}.
     other: In totaal %{count} items verplaatst van %{from} naar %{to}.
@@ -1407,7 +1422,7 @@ nl:
   content_partner_agreement_create_successful_notice: De contentpartnerovereenkomst is aangemaakt.
   content_partner_agreement_create_unsuccessful_error: Er is een fout opgetreden. De contentpartnerovereenkomst is niet aangemaakt.
   content_partner_agreement_signed_successful_notice: U bent akkoord gegaan met de contentpartnerovereenkomst. U kunt niet databronnen toevoegen.
-  content_partner_agreement_signed_unsuccessful_error: Er is een fout opgetreden. Er likt een technisch probleem te zijn met contentpartnerovereenkomsten. Probeer het opnieuw. Als het probleem blijft voorkomen, laat dit dan alstublieft weten aan EOL.
+  content_partner_agreement_signed_unsuccessful_error: Er is een fout opgetreden. Er lijkt een technisch probleem te zijn met contentpartnerovereenkomsten. Probeer het opnieuw. Als het probleem blijft voorkomen, laat dit dan weten aan EOL.
   content_partner_agreement_subheader: Contentpartnerovereenkomst
   content_partner_agreement_update_successful_notice: De contentpartnerovereenkomst is bijgewerkt.
   content_partner_agreement_update_unsuccessful_error: Er is een fout opgetreden. De contentpartnerovereenkomst is niet bijgewerkt.
@@ -1521,7 +1536,7 @@ nl:
   content_partner_resource_update_successful_notice: "De brongegevens voor de contentpartner zijn bijgewerkt. De huidige status van de brongegevens: %{resource_status}."
   content_partner_resource_update_unsuccessful_error: Er is een fout opgetreden. De bron is niet bijgewerkt.
   content_partner_resource_upload_unsuccessful_error: "Er is een fout opgetreden. De brongegevens zijn bijgewerkt, maar de bron zelf is niet geüpload: %{resource_status}."
-  content_partner_resource_url_or_dataset_not_both_error: Geef een dataset-URL of een bestand per bron op, niet beiden. Beslis alstublieft of u een URL wilt opgeven of een bestand wilt uploaden voor deze beschreven bron. U kunt later meer bronnen toevoegen.
+  content_partner_resource_url_or_dataset_not_both_error: Geef een dataset-URL of een bestand per bron op, niet beiden. Beslis of u een URL wilt opgeven of een bestand wilt uploaden voor deze beschreven bron. U kunt later meer bronnen toevoegen.
   content_partner_resource_validation_unsuccessful_error: De brongegevens zijn bijgewerkt, maar konden niet gevalideerd worden. Zie de onderstaande opmerkingen voor verwerking.
   content_partner_resource_vetted_false: Nee
   content_partner_resource_vetted_true: Ja
@@ -1671,7 +1686,7 @@ nl:
   curator_profile_of: conservatorprofiel van %{name}
   curator_question: Conservator?
   curator_scope_colon: "Conservatiegebied:"
-  curator_signup_message: U moet de scope van uw referenties hieronder aangeven. Als uw gegevens gecontroleerd en geaccepteerd zijn, krijgt u hier per e-mail bericht van.
+  curator_signup_message: U moet de scope van uw referenties hieronder opgeven. Als uw gegevens gecontroleerd en geaccepteerd zijn, krijgt u hier per e-mail bericht van.
   curator_status_changed_by: Conservatorstatus is gewijzigd door %{user} op %{date}
   curators: Conservatoren
   curators_empty: Onze conservatoren hebben nog geen enkele handeling uitgevoerd op deze pagina.
@@ -1692,7 +1707,7 @@ nl:
   data_logging_active: Er worden gegevens verzameld
   data_master_database_colon: "Gegevensmaster:"
   data_object: Gegevensobject
-  data_object_api_description: Als er een aanduiding voor een gegevensobject wordt opgegeven, geeft deze API alle metadata over het object terug zoals opgegeven aan EOL voor de bijdragende contentpartner. De contentpartner wordt aangegeven in het eerste agentelement en heeft de rol van "partner".
+  data_object_api_description: Als er een aanduiding voor een gegevensobject wordt opgegeven, geeft deze API alle metadata over het object terug zoals opgegeven aan EOL voor de bijdragende contentpartner. De contentpartner wordt opgegeven in het eerste agentelement en heeft de rol van "partner".
   data_object_ignore: dit item negeren
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld aan een hiërarchie.
   data_object_reference: Gegevensobjectkoppeling
@@ -1823,9 +1838,9 @@ nl:
   donation_amount_legend: Kies het bedrag dat u wilt schenken
   donation_amount_other_label: Anders
   donation_confirmation: Donatiebevestiging
-  donation_error_no_amount: Selecteer alstublieft een te doneren bedrag.
-  donation_error_only_numbers: Voer alstublieft een bedrag in dat alleen uit cijfers bestaat.
-  donation_introduction_paragraph_one: EOL groeit iedere dag. We raden u aan EOL te verkennen en te profiteren van alles wat het te bieden heeft. Help alstublieft om het initiatief te laten groeien door inhoud, expertise en financieel bij te dragen.
+  donation_error_no_amount: Selecteer een te doneren bedrag.
+  donation_error_only_numbers: Geef een bedrag op dat alleen uit cijfers bestaat.
+  donation_introduction_paragraph_one: EOL groeit iedere dag. We raden u aan EOL te verkennen en te profiteren van alles wat het te bieden heeft. Help om het initiatief te laten groeien door inhoud, expertise en financieel bij te dragen.
   donation_introduction_paragraph_two: Uw genereuze gift aan de Encyclopedia of Life ondersteunt ons werk om wereldwijd toegang te verschaffen tot kennis over het leven op aarde.
   donation_privacy_notice: <em>Bericht over privacy en veiligheid:</em> Via deze pagina en de volgende bevestigingspagina worden geen persoonlijke gegevens of creditcardgegevens verzameld; daarom is deze pagina niet beveiligd. Nadat u het te doneren bedrag hebt bevestigd, wordt u doorgeleid naar een beveiligde pagina waar u de overschrijvingsgegevens kunt invoeren. Uw creditcard wordt niet belast totdat u bevestigt op de pagina die uw persoonlijke gegevens bevat.
   donation_sponsorship_content_description: Donateurs die interesse hebben in bepaalde takken van de stamboom van het leven kunnen inspanningen sponsoren om nieuwe inhoud voor EOL te zoeken. Giften kunnen besteed worden aan het aanmaken van verzamelingen van soortenpagina's zo breed als "alle zoogdieren in Noord-Amerika" of "volgens in Brazilië" of zo specifiek als "zeeleeuwen in de baai van San Francisco" of "Voedsel uit de nieuwe wereld".
@@ -1834,7 +1849,7 @@ nl:
   donation_sponsorship_fellowships_title: Beurzen
   donation_sponsorship_infrastructure_description: Om EOL in de handen van mensen in de hele wereld te leggen, zijn alle giften welkom die bijdragen aan de kerninfrastructuur en de dagelijkse behoeften van dit initiatief.
   donation_sponsorship_infrastructure_title: Kerninfrastructuur
-  donation_sponsorship_preamble: "Als u meer wilt weten over specifieke programma's voor sponsoring, of als u een terugkerende gift wilt maken, neem dan alstublieft per <a href=\"mailto:%{email_address}\">e-mail</a> contact op het met secretariaat van Encyclopedia of Life. U kunt ook bellen: +1 (202) 633-8730 (in de Verenigde Staten)."
+  donation_sponsorship_preamble: "Als u meer wilt weten over specifieke programma's voor sponsoring, of als u een terugkerende gift wilt maken, neem dan per <a href=\"mailto:%{email_address}\">e-mail</a> contact op het met secretariaat van Encyclopedia of Life. U kunt ook bellen: +1 (202) 633-8730 (in de Verenigde Staten)."
   done_already: Al gedaan
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Onbekende registratiedatums niet weergeven (V1-gebruikers, allemaal voor 5 januari 2009)
   download_wav_file: WAV-bestand downloaden
@@ -1942,18 +1957,19 @@ nl:
   error_403_page_title: Niet toegestaan
   error_404_description: Er is geen pagina gevonden op de URL.
   error_404_page_title: Niet gevonden
-  error_500_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan alstublieft een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+  error_500_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Interne serverfout
   error_classifications_locked_cannot_reindex: Deze pagina kan op het moment helaas niet opnieuw geïndexeerd worden. De classificaties zijn vergrendeld.
   error_couldnt_find_collection_by_id: Er is geen door u beheerde verzameling met het ID %{id}.
   error_couldnt_find_community_by_id: Er is geen door u beheerde gemeenschap met het ID %{id}.
-  error_default_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan alstublieft een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+  error_default_description: Er is helaas een probleem opgetreden. Als het probleem aanhoudt, stuur dan een e-mail naar <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Oeps.
   error_exemplar_chosen_with_invalid_action: De door u gekozen classificatie is helaas niet gewijzigd. Een deel van het verzoek is zoekgeraakt. Probeer het opnieuw.
   error_homepage_or_search_option: "U kunt teruggaan naar de <a href=\"/\">startpagina</a> of onze zoekmachine gebruiken:"
   error_log: Foutenlogboek
   error_log_detail: Detailgegevens foutenlogboek
   error_logging_active: Er worden foutgegevens verzameld
+  error_no_items_selected: U moet in het dropdownmenu items uit de verzameling selecteren of "Alle items".
   error_updating_user: Er is een fout opgetreden tijdens het bijwerken van de gegevens van deze gebruiker
   error_watch_collections_cannot_be_shared: Volgverzamelingen kunnen niet gedeeld worden
   every_method_can_also_return_json_response: Iedere methode kan ook een JSON-antwoord geven door de extensie ".json" toe te voegen
@@ -2042,6 +2058,7 @@ nl:
   flash_notice_redirected_from_search_html_more_results: U bent hier aangekomen door te zoeken naar <em>%{search_string}</em>. <a href="%{more_results_url}">Klik hier om andere zoekresultaten te bekijken.</a>
   flash_video: Flash-video
   flickr: Flickr
+  flipboard: Flipboard
   focus_collection_edit: U kunt de verzamelingen van deze gemeenschap direct bewerken via de bewerkingspagina van iedere verzameling.
   focus_list_newsfeed: Newsfeed voor focuslijsten
   for_example_for_the_taxon_element_for_a_node: Voor bijvoorbeeld het taxonelement van een node in de hiërarchie ITIS, is de dc:indentifier dat van ITIS TSN. Het element dwct:taxonID bevat de <i>EOL identifier</i> die wordt gebruikt in de %{link}-API.
@@ -2055,7 +2072,7 @@ nl:
   forgot_password_form_choose_username_instructions: Er zijn meerdere gebruikers geregistreerd met het e-mailadres <em>%{email}</em>. Selecteer de gebruiker waarvoor u het wachtwoord opnieuw wilt instellen.
   forgot_password_form_choose_username_legend: Kies een gebruiker
   forgot_password_form_header: Uw wachtwoord opnieuw instellen
-  forgot_password_form_helper: Denk eraan dat e-mails voor het opnieuw instellen van een wachtwoord <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer alstublieft uw spammap als u binnen een uur geen e-mail ontvangt.
+  forgot_password_form_helper: Denk eraan dat e-mails voor het opnieuw instellen van een wachtwoord <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer uw spammap als u binnen een uur geen e-mail ontvangt.
   forgot_password_form_username_or_email_blank_error: Voer uw gebruikersnaam of e-mailadres in om uw wachtwoord opnieuw in te stellen.
   form_validation_errors_for_attribute_assistive: Er is een onjuiste waarde ingevoerd in dit element
   forums: 
@@ -2224,7 +2241,7 @@ nl:
         rights_holder: Rechthebbende
         rights_holder_more: Geef een persoon of organisatie op die de rechten voor deze gegevens bezit of beheert. Als u dit veld leeg laat, nemen we aan dat u de rechthebbende bent voor alle licenties, met uitzondering van Publiek Domein. Publiek Domein-licenties vereisen geen rechthebbende.
         rights_statement: Rechtenverklaring
-        rights_statement_more: Verklaring van gebruiksrechten zoals vereist door de licentie Creative Commons Naamsvermelding (CC-BY). Pas naamsvermelding alstublieft toe <q cite="http://creativecommons.org/licenses/by/3.0">op de wijze die is aangegeven door de auteur of de licentiegever</q>.
+        rights_statement_more: Verklaring van gebruiksrechten zoals vereist door de licentie Creative Commons Naamsvermelding (CC-BY). Pas naamsvermelding toe <q cite="http://creativecommons.org/licenses/by/3.0">op de wijze die is opgegeven door de auteur of de licentiegever</q>.
         source_url: URL naar het oorspronkelijke gegevensobject
         toc_item: Subhoofdstuk
       data_object_link: 
@@ -2470,6 +2487,7 @@ nl:
   image_objects_will_contain_two_mediaurl_elements: Afbeeldingsobjecten bevatten twee "mediaURL"-elementen. Het eerste is de URL van de afbeelding op de website van de provider, en de tweede is de URL van de versie in de cache op een EOL-server. De EOL-versie van de afbeelding heeft andere afmetingen (maar wel dezelfde verhoudingen), als de afbeelding groter is dan 460 pixels breed of 345 pixels hoog.
   image_of_taxon: Afbeelding van %{taxon_name}
   image_rating: Afbeeldingswaardering
+  image_title_with_taxa: Afbeelding van %{taxa}
   images: Afbeeldingen
   images_in_red_are_not_trusted: Afbeeldingen in het rood worden niet vertrouwd.
   images_in_yellow_are_not_reviewed: Afbeeldingen in het geel zijn niet gecontroleerd.
@@ -2906,7 +2924,7 @@ nl:
   notification_frequency_newsfeed_only: Alleen nieuwsoverzicht
   notification_frequency_send_immediately: Onmiddellijk verzenden
   notification_frequency_weekly: Wekelijks
-  notifications_and_messages_review_notice: Controleer alstublieft welke meldingen u per e-mail gaat ontvangen.
+  notifications_and_messages_review_notice: Controleer welke meldingen u per e-mail wilt ontvangen.
   notifications_tab_name: Meldingen
   notifier: 
     activity_log_empty: Geen recente handelingen door conservatoren.
@@ -3101,9 +3119,9 @@ nl:
   please_note_wiki_etc_are_not_spm: "* Wikipedia, Onderwijs en Barcode zijn interne onderwerpen in EOL, en zij zijn geen onderdeel van het SPM (soortenprofielmodel)."
   please_publish_this_resource_notice: "*** <strong>Let op:</strong> <strong>%{publish_link}</strong> deze bron hier ***"
   please_refresh: Ververs de pagina in uw browser om de laatste versie van de EOL-website te bekijken
-  please_return_to_eol_homepage: Ga alstublieft terug naar de introductiepagina van EOL
+  please_return_to_eol_homepage: Ga terug naar de introductiepagina van EOL
   please_state_one_credential: "Geef tenminste één specifieke referentie uit deze lijst:"
-  please_wait: Even geduld alstublieft...
+  please_wait: Een ogenblik geduld...
   post_comment: Bericht plaatsen
   posts_from_year: Berichten uit %{year}
   preferred_common_name_advisory_information: Dit is de triviale naam voor dit taxon.
@@ -3189,7 +3207,7 @@ nl:
     community_activity_user_joined: De gebruiker <b>%{user_name}</b> is lid geworden van de gemeenschap <b>%{community_name}</b>.
     community_activity_user_left: De gebruiker <b>%{user_name}</b> heeft de gemeenschap <b>%{community_name}</b> verlaten.
     community_activity_user_made_member_a_manager: De gebruiker <b>%{user_name}</b> heeft <b>%{member_name}</b> beheerder van de gemeenschap <b>%{community_name}</b> gemaakt.
-    contact_us_link: Als u problemen tegenkomt, <a href='http://eol.org/contact_us' style='color:#195184'>neem dan alstublieft contact met ons op</a>.
+    contact_us_link: Als u problemen tegenkomt, <a href='http://eol.org/contact_us' style='color:#195184'>neem dan contact met ons op</a>.
     curator_activity_log_title: "%{who} heeft iets geconserveerd"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> heeft de handeling %{activity_name} uitgevoerd op <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> heeft de handeling %{activity_name} uitgevoerd op <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -3727,6 +3745,7 @@ nl:
   taxon_citizen_science_header: Verwijzigingen voor burgerwetenschap
   taxon_citizen_science_link: Verwijzigingen voor burgerwetenschap
   taxon_citizen_science_resources_empty: Niemand heeft nog burgerwetenschap bijgedragen voor deze pagina.
+  taxon_common_names_subtab_explanation: Veel mensen kennen organismen alleen door de gewone namen of volkstaalnamen. In tegenstelling tot de wetenschappelijke namen zijn gewone namen bijna altijd verschillend voor sprekers van verschillende talen. Zij kunnen ook variëren naar regio binnen een taal. In dit tabblad worden alle gewone namen die EOL zijn aangeleverd voor een organisme weergegeven, met inbegrip van namen die zijn ingevoerd door conservatoren van EOL. Momenteel is het alleen mogelijk één voorkeursnaam per taal in te stellen voor een bepaalde pagina in EOL, maar alleen namen zijn via zoeken te vinden.
   taxon_concept_stats: Taxonconceptstatistieken
   taxon_details_empty: Er heeft nog niemand bijgedragen aan deze pagina.
   taxon_details_empty_in_this_language: Niemand heeft nog bijgedragen aan deze pagina in deze taal.
@@ -3753,15 +3772,17 @@ nl:
   taxon_partner_links_link: Partnerkoppelingen
   taxon_rating: Taxonwaardering
   taxon_recognized_by: Taxon erkend door %{whom}
+  taxon_related_names_subtab_explanation: De namen in dit tabblad presenteren een overzicht van de relaties van deze groep met andere groepen in de boom des levens, gebaseerd op de classificatiehiërarchieën die classificatiepartners van EOL hebben aangeleverd. "Ouders" zijn meer inclusieve groepen, één niveau hoger in de hiërarchie. "Kinderen" zijn de deelgroepen van de huidige groep. Op het tabblad classificatie kunt u de koppeling "Alle classificaties weergeven" gebruiken om alle door onze partners aangeleverde hiërarchieën te bekijken. Deze kunnen extra verwante namen bevatten die hier niet worden weergegeven.
   taxon_related_organizations_link: Gerelateerde organisaties
   taxon_selected_from_search_res: Taxon geselecteerd uit zoekresultaten
   taxon_suggested: Taxonsuggestie
+  taxon_synonyms_subtab_explanation: Soms maken taxonomen nieuwe namen voor groepen die al een naam hebben. Zij kunnen dit doen omdat zij zich niet bewust zijn van de oorspronkelijke naam, of ze denken dat het organisme ervoor behoort tot een andere groep, terwijl dat feitelijk niet zo is. Als twee of meer namen van toepassing zijn op dezelfde groep, worden ze beschouwd als synoniemen. In de meeste gevallen heeft de eerste naam voorrang en wordt deze beschouwd als de geldige naam of erkende naam. Er kunnen echter uitzonderingen zijn en het is niet altijd eenvoudig om te bepalen welke van een aantal synoniemen moet worden beschouwd als geldig of erkend. Hier worden de synoniemen weergegeven die door onze classificatiepartners zijn aangeleverd. We geven ook andere versies van de naam weer die waarschijnlijk verwijzen naar dezelfde groep, bijvoorbeeld, spelfouten in de literatuur en de verschillende varianten van het auteurschap die aan de naam zijn gekoppeld.
   taxonomic_summary_of_content: taxonomische samenvatting van inhoud
   technical_functions: Technische functies
   term_cannot_be_left_blank: De term kan niet leeg blijven
   term_for_search_admin_ui: Term
   term_is_already_def_error: "\"%{term}\" is al gedefinieerd"
-  terms_agreement_form_fallback: Lees alstublieft de <a href="%{terms_url}">gebruiksvoorwaarden</a>. U krijgt toegang tot uw gebruiker nadat u er akkoord mee gaat.
+  terms_agreement_form_fallback: Lees de <a href="%{terms_url}">gebruiksvoorwaarden</a>. U krijgt toegang tot uw gebruiker nadat u er akkoord mee gaat.
   terms_agreement_form_header: Gebruiksvoorwaarden
   terms_agreement_form_submit: Ik ga akkoord
   terms_of_use_link: Gebruiksvoorwaarden &amp; privacy
@@ -3930,8 +3951,8 @@ nl:
   use_as_examplar_note_preferred: "Let op: dit is de voorkeursclassificatie. Deze wilt u waarschijnlijk gebruiken."
   used_for_friendly_url_note: (gebruikt om vriendelijk ogende koppelingen te genereren voor gebruikers, kan geen spaties of speciale tekens bevatten)
   user: Gebruiker
-  user_activation_failed_resent_validation_email_error: Er is helaas een fout opgetreden. Uw gebruiker kon niet bevestigd worden. Dit gebeurt meestal als de bevestigingskoppeling die u hebt ingevoerd of geselecteerd niet wordt herkend. Instructies voor het bevestigen van uw gebruiker zijn opnieuw verzonden naar het e-mailadres dat u hebt opgegeven tijdens de registratie van uw gebruiker. Zorg er alstublieft voor dat de bevestigingskoppeling overeenkomt met de koppeling die in de e-mail staat.
-  user_activation_failed_user_not_found_error: Er is helaas een fout opgetreden. De gebruiker die u wilt bevestigen komt niet voor in ons systeem. Zorg er alstublieft voor dat de bevestigingskoppeling overeenkomt met de koppeling die in de e-mail staat die u hebt ontvangen na het registreren.
+  user_activation_failed_resent_validation_email_error: Er is helaas een fout opgetreden. Uw gebruiker kon niet bevestigd worden. Dit gebeurt meestal als de bevestigingskoppeling die u hebt ingevoerd of geselecteerd niet wordt herkend. Instructies voor het bevestigen van uw gebruiker zijn opnieuw verzonden naar het e-mailadres dat u hebt opgegeven tijdens de registratie van uw gebruiker. Zorg er voor dat de bevestigingskoppeling overeenkomt met de koppeling die in de e-mail staat.
+  user_activation_failed_user_not_found_error: Er is helaas een fout opgetreden. De gebruiker die u wilt bevestigen komt niet voor in ons systeem. Zorg er voor dat de bevestigingskoppeling overeenkomt met de koppeling die in de e-mail staat die u hebt ontvangen na het registreren.
   user_activation_successful_notice: Welkom en bedankt voor het versterken van het team van Encyclopedia of Life. Uw gebruiker met de naam <em>%{username}</em> is nu actief. Meld u nu aan.
   user_activity_click_on_the_numbers: Klik op de getallen om de bijbehorende activiteitsoverzichten te bekijken.
   user_activity_page_title: Gebruikersactiviteit
@@ -4142,19 +4163,19 @@ nl:
     pending: 
       header: Bedankt voor het registreren!
       verify_email_instructions: <strong>Bevestig uw e-mailadres</strong>. Er is een bevestigingsbericht verzonden aan het e-mailadres dat u hebt opgegeven. Klik op de koppeling in die e-mail om het inschrijvingsproces te voltooien en lid te worden van EOL. Dank u wel!
-      verify_email_tip: Denk eraan dat bevestigingse-mails <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer alstublieft uw spammap als u binnen een uur geen e-mail ontvangt.
+      verify_email_tip: Denk eraan dat bevestigingse-mails <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer uw spammap als u binnen een uur geen e-mail ontvangt.
     recover_account: 
       errors: 
-        temporary_login_user_not_found: De EOL-gebruiker waar u toegang toe probeert te krijgen is niet aangetroffen. Vraag alstublieft een nieuwe e-mail voor een volgende poging om toegang te krijgen tot uw gebruiker.
-        token_expired_or_invalid: De mogelijkheid om tijdelijk aan te melden is verlopen of ongeldig. Vraag alstublieft een nieuwe e-mail voor een volgende poging om toegang te krijgen tot uw gebruiker.
+        temporary_login_user_not_found: De EOL-gebruiker waar u toegang toe probeert te krijgen is niet aangetroffen. Vraag een nieuwe e-mail voor een volgende poging om toegang te krijgen tot uw gebruiker.
+        token_expired_or_invalid: De mogelijkheid om tijdelijk aan te melden is verlopen of ongeldig. Vraag een nieuwe e-mail voor een volgende poging om toegang te krijgen tot uw gebruiker.
         unable_to_update_token: Er is een fout opgetreden en de e-mail is niet verzonden. Probeer het opnieuw.
         user_not_found_by_email_address: Er is geen EOL-gebruiker met dat e-mailadres bekend.
       form_header: Wachtwoord vergeten
       form_tip: Voer een e-mailadres in dat gekoppeld is aan een gebruiker om weer toegang te krijgen tot uw EOL-gebruiker. Kijk ook in uw spammap als u binnen een uur geen e-mail van ons ontvangt.
       meta_title: Wachtwoord vergeten
       notices: 
-        recovery_email_sent: Er is een e-mail aan uw verzonden met instructies over hoe u weer toegang kunt krijgen tot uw gebruiker. Voeg %{from_address} alstublieft toe aan uw lijst met veilige e-mailadressen en kijk ook in uw spammap als u binnen een uur geen bericht van ons hebt ontvangen.
-        temporarily_logged_in_update_authentication_details: U bent nu tijdelijk aangemeld om weer toegang te krijgen tot uw gebruiker. Wijzig alstublieft uw wachtwoord of werk uw gekoppelde gebruikers bij om ervoor te zorgen dat u vanaf nu weer kunt aanmelden.
+        recovery_email_sent: Er is een e-mail aan uw verzonden met instructies over hoe u weer toegang kunt krijgen tot uw gebruiker. Voeg %{from_address} toe aan uw lijst met veilige e-mailadressen en kijk ook in uw spammap als u binnen een uur geen bericht van ons hebt ontvangen.
+        temporarily_logged_in_update_authentication_details: U bent nu tijdelijk aangemeld om weer toegang te krijgen tot uw gebruiker. Wijzig uw wachtwoord of werk uw gekoppelde gebruikers bij om ervoor te zorgen dat u vanaf nu weer kunt aanmelden.
     recover_account_choose_account: 
       errors: 
         user_not_found_choose_again: Er is een fout opgetreden en de e-mail is niet verzonden. Selecteer de gebruiker waar u weer toegang toe wilt krijgen en probeer het opnieuw.

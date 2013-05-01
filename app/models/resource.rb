@@ -97,7 +97,7 @@ class Resource < ActiveRecord::Base
 
   # TODO - generalize this instance-variable reset.
   def reload
-    @@ar_instance_vars ||= Resource.new.instance_variables
+    @@ar_instance_vars ||= Resource.new.instance_variables << :mock_proxy # For tests
     (instance_variables - @@ar_instance_vars).each do |ivar|
       remove_instance_variable(ivar)
     end

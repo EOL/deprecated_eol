@@ -3,7 +3,7 @@ class ApiController < ApplicationController
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms
   before_filter :set_default_format_to_xml
   before_filter :get_api_method, :except => [ :ping_host, :render_test_response ]
-  before_filter :set_cache_headers
+  after_filter :set_cache_headers
 
   # most APIs use the `default_render` methods
   def pages
@@ -64,6 +64,8 @@ class ApiController < ApplicationController
     return if @api_method.blank?
     begin
       @json_response = @api_method.call(params)
+    rescue ActiveRecord::RecordNotFound => e
+      return render_error(e.message, 404)
     rescue EOL::Exceptions::ApiException => e
       return render_error(e.message)
     rescue => e
@@ -112,11 +114,11 @@ class ApiController < ApplicationController
     return @api_method
   end
 
-  def render_error(error_message)
+  def render_error(error_message, status_code = 500)
     # default response for all API errors, with XML or JSON repsonses
     respond_to do |format|
-      format.xml { render(:partial => 'error', :locals => { :error => error_message }) }
-      format.json { render(:json => [ :error => error_message ], :callback => params[:callback] ) }
+      format.xml { render(:partial => 'error', :locals => { :error => error_message }, :status => status_code) }
+      format.json { render(:json => [ :error => error_message ], :callback => params[:callback], :status => status_code ) }
       # API docs might have an error too, but in that case raise to get the default HTML error handling
       format.html { raise }
     end
@@ -128,12 +130,15 @@ class ApiController < ApplicationController
   end
 
   def set_cache_headers
-    if params[:cache_ttl] && params[:cache_ttl].is_numeric?
+    return if response.status != 200
+    if params[:cache_ttl] && (params[:cache_ttl].class == Fixnum || params[:cache_ttl].is_numeric?)
       # between 0 and 1 year
       cache_seconds = params[:cache_ttl].to_i
       if cache_seconds >= 0 && cache_seconds < 31536000
         expires_in cache_seconds.seconds, :public => true
       end
+    else
+      response.cache_control.replace({})
     end
   end
 

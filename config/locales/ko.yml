@@ -711,8 +711,8 @@ ko:
         move_of_it_unlocked: 이 문서에 최근에 요청한 분류 이동을 완료했습니다.
         move_of_taxon_unlocked: "\"%{taxon}\" 분류에 대해 최근에 요청한 분류 이동을 완료했습니다."
         split_of_an_unknown_taxon_unlocked: 최근에 요청한 분류 나누기를 완료했지만 문서를 찾을 수 없습니다.
-        split_of_it_unlocked: 이 문서에 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로 이동했습니다.
-        split_of_taxon_unlocked: "\"%{taxon}\" 분류에 대해 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로 이동했습니다."
+        split_of_it_unlocked: 이 문서에 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로 옮겼습니다.
+        split_of_taxon_unlocked: "\"%{taxon}\" 분류에 대해 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로 옮겼습니다."
       unlock_with_error: 
         merge_of_an_unknown_taxon_unlocked_with_error: "최근에 요청한 문서 병합을 <strong>실패했습니다</strong>: %{error} 또한 영향을 받은 문서를 찾을 수 없습니다."
         merge_of_it_unlocked_with_error: "이 문서에 최근에 요청한 병합을 <strong>실패했습니다</strong>: %{error}"
@@ -1002,7 +1002,7 @@ ko:
   api: 
     docs: 
       forum_beta_test_text: 새 EOL 포럼의 베타 테스트에 접근하려면 <a href="%{forums_link}">여기를 클릭하세요</a>. 의견을 환영합니다.
-  application_version_advisory_information: 어플리케이션 버전
+  application_version_advisory_information: 애플리케이션 버전
   are_you_sure: 확실합니까?
   are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 행동은 되돌릴 수 없습니다.
   article_from: 문서
@@ -1984,7 +1984,7 @@ ko:
       delete_failed_not_empty: 분류가 비어있지 않으므로 분류를 삭제할 수 없습니다
       delete_successful: 분류 성공적으로 삭제했습니다
       edit: 분류 편집
-      move_failed: 분류를 이동할 수 없습니다
+      move_failed: 분류를 옮길 수 없습니다
       move_successful: 분류를 성공적으로 옮겼습니다
       update_failed: 죄송합니다, 오류가 발생해 분류를 업데이트할 수 없습니다
       update_successful: 분류를 성공적으로 업데이트했습니다
@@ -2670,14 +2670,14 @@ ko:
   move_to_top: 맨 위로 이동
   move_up: 위로 이동
   moved_all_items_from_collection_with_count: 
-    one: "%{from}에서 이 모음집으로 항목 %{count}개를 이동했습니다."
-    other: "%{from}에서 이 모음집으로 모든 항목 %{count}개를 이동했습니다."
+    one: "%{from}에서 이 모음집으로 항목 %{count}개를 옮겼습니다."
+    other: "%{from}에서 이 모음집으로 모든 항목 %{count}개를 옮겼습니다."
   moved_all_items_to_collections: 
-    one: "%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다."
-    other: "%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다."
+    one: "%{name}에서 모음집 %{count}개로 모든 항목을 옮겼습니다."
+    other: "%{name}에서 모음집 %{count}개로 모든 항목을 옮겼습니다."
   moved_items_from_collection_with_count_notice: 
-    one: "%{name}에서 항목 %{count}개를 이동했습니다."
-    other: "%{name}에서 항목 %{count}개를 이동했습니다."
+    one: "%{name}에서 항목 %{count}개를 옮겼습니다."
+    other: "%{name}에서 항목 %{count}개를 옮겼습니다."
   multimedia_links: 멀티미디어 링크
   must_be_less_than_128_characters_long: 글자 128개 미만이어야합니다.
   must_be_logged_in: 이 행동을 수행하려면 로그인해야 합니다.

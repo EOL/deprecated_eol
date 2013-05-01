@@ -106,6 +106,8 @@ private
       CuratedTaxonConceptPreferredEntry.best_classification(:taxon_concept_id => @taxon_concept.id,
                                                             :hierarchy_entry_id => params[:hierarchy_entry_id],
                                                             :user_id => current_user.id)
+    # This at least clears out the caches for the titles of all images that might use the scientific name:
+    @taxon_concept.images_from_solr.each { |img| DataObjectCaching.clear(img) }
     auto_collect(@taxon_concept) # SPG asks for all curation to add the item to their watchlist.
     CuratorActivityLog.log_preferred_classification(preferred_entry, :user => current_user)
   end

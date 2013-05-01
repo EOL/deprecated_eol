@@ -11,7 +11,19 @@ class DataObjectTaxon
   attr_accessor :source, :hierarchy_entry, :vetted, :visibility, :associated_by_curator, :name, :taxon_concept,
                 :data_object, :user, :hierarchy_entry_id, :vetted_id, :visibility_id, :user_id, :taxon_concept_id,
                 :data_object_id, :user_id
+
+  def italicized_attributed_title
+    taxon_concept.italicized_attributed_title
+  end
   
+  def italicized_unattributed_title
+    taxon_concept.italicized_unattributed_title
+  end
+  
+  def non_italicized_unattributed_title
+    taxon_concept.non_italicized_unattributed_title
+  end
+
   def initialize(source)
     return nil unless source
     @source = source

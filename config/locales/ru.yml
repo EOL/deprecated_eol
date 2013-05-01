@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Adata80
+# Author: Aygulka
 # Author: CoderSI
 # Author: DCamer
 # Author: Dr&mx
@@ -824,6 +825,16 @@ ru:
       stats_unavailable_for_date: К сожалению статистические данные не доступны для %{date}. Пожалуйста, выберите другую дату.
   explore: Ознакомление
   external_link_header: Внешняя ссылка
+  forums: 
+    categories: 
+      create: Создать категорию
+    create: Создать форум
+    edit: Редактировать форум
+    last_post: Последнее сообщение
+    posts: 
+      edit: Редактировать сообщение
+    posts_heading: Сообщения
+    replies: Ответы
   global_navigation: Общая навигация
   help: Помощь
   helpers: 

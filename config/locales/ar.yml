@@ -4,6 +4,7 @@
 # Author: AWikitranslator
 # Author: Ali1
 # Author: AwamerT
+# Author: Bachounda
 # Author: DRIHEM
 # Author: Ghada.nabeel
 # Author: Malhargan
@@ -48,6 +49,8 @@ ar:
         annotation: تعليق توضيحي
         refs: المراجع
         sort_field: الترتيب حسب
+      collection_job: 
+        overwrite: إستبدال المكررات
       comment: 
         body: تعليق
       community: 
@@ -155,6 +158,19 @@ ar:
         udo_published: نص مقدم من المستخدم
         udo_published_by_curators: نص مقدم من المشرف
         udo_published_by_non_curators: نص غير مقدم من المشرف
+      forum: 
+        description: الوصف <small>(اختياري)</small>
+        forum_category_id: فئة
+        name: إسم النموذج
+      forum_category: 
+        description: الوصف <small>(اختياري)</small>
+        title: إسم التصنيف
+      forum_post: 
+        subject: الموضع
+        text: نص الرسالة
+      forum_topic: 
+        subject: موضوع
+        text: نص الرسالة
       harvest_event: 
         resource: مورد
       hierarchy: 
@@ -293,6 +309,7 @@ ar:
           attributes: 
             publish: 
               inclusion: مصرح به فقط لآخر حدث حصاد وهذا فقط إن لم يُنشر الحدث.
+        inaccessible: تعذر حفظ السجل لأنه كان غير صالح. التحقق من أخطاء التحقق من الصحة وإعادة إرساله
         open_authentications: 
           guid_provider_must_be_unique: حساب الطرف الثالث متصل مسبقا بحساب موسوعة الحياة EOL
           provider_user_id_must_be_unique: يمكن لحساب واحد، لكل موفر طرف ثالث، من الإتصال بحساب موسوعة الحياة EOL
@@ -990,6 +1007,9 @@ ar:
   anonymous_user_given_name: مجهول الاسم
   anonymous_user_tag_line: غير مسجل الدخول
   any_integer: أي عدد صحيح
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">انقر هنا</a> للوصول إلى اختبار بيتا من المنتديات EOL الجديدة. تعليقاتك موضع ترحيب.
   api_docs_collections_description: عند إدخال معرف مجموعة ما، سوف تعرض واجهة برمجة التطبيقات جميع البيانات الفوقية المتعلقة بالمجموعة والعناصر التي تتضمنها. يمكن تصفية قائمة العناصر وفقًا للنوع، وترتيبها وفقًا للسمات المذكورة أعلاه.
   application_version_advisory_information: نسخة التطبيق
   are_you_sure: هل أنت متأكد؟
@@ -1971,6 +1991,31 @@ ar:
   forgot_password_form_helper: لاحظ أن خاصية فلترة الرسائل "email filters" تصِف رسائل تفعيل الحساب الإلكترونية <em>frequently</em> برسائل "مزعجة" أو "spam". رجاء فحص ملف الرسائل المزعجة "spam" الخاص بك إن لم تصلك الرسالة الإلكترونية خلال ساعة.
   forgot_password_form_username_or_email_blank_error: يرجى إدخال أسم المستخدم أو البريد الإلكتروني لإعادة ضبط كلمة السر.
   form_validation_errors_for_attribute_assistive: هنالك خطأ في التحقق بذلك العنصر
+  forums: 
+    actions: الإجراءات
+    administration: إدارة
+    buttons: 
+      delete: حذف
+      edit: تحرير
+      reply: رد
+    create: إنشاء منتدى
+    create_failed: عذراً، حدث خطأ، لم يمكن إضافة المنتدى
+    create_successful: تم إنشاء المنتدى بنجاح
+    delete_failed_not_empty: تعذر حذف المنتدى نظراً لأنه غير فارغ
+    delete_successful: تم حذف المنتدى بنجاح
+    edit: تحرير المنتدى
+    forums_heading: EOL منتديات
+    last_post: آخر مشاركة
+    move_failed: تعذر نقل المنتدى
+    move_successful: تم بنجاح نقل المنتدى
+    no_topics: ليس  هناك مواضيع في هذا المنتدى
+    post_by_user_at_time: "% {المستخدم}، {وقت} %"
+    posts_heading: إرسال
+    replies: الردود
+    topics_heading: خيوط المناقشات
+    update_failed: آسف، لقد وقع خطأ، تعذر تحديث المنتدى
+    update_successful: تم بنجاح تحديث المنتدى
+    views: العروض
   fragment_caching_enabled: تفعيل التحكم في الذاكرة لفترة معينة
   frequency: التكرار
   frequency_daily: يوميًّا

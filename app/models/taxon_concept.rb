@@ -24,7 +24,6 @@ class TaxonConcept < ActiveRecord::Base
 
   attr_accessor :entries # TODO - this is used by DataObjectsController#add_association (and its partial) and probably shouldn't be.
 
-  has_many :feed_data_objects
   has_many :hierarchy_entries
   has_many :scientific_synonyms, :through => :hierarchy_entries
   has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
@@ -53,6 +52,7 @@ class TaxonConcept < ActiveRecord::Base
   has_one :taxon_concept_exemplar_image
   has_one :taxon_concept_exemplar_article
   has_one :preferred_entry, :class_name => 'TaxonConceptPreferredEntry'
+  has_one :curator_preferred_entry, :class_name => 'CuratedTaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
 
@@ -258,7 +258,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
-    @images = nil
+    reload
     @current_user = who
   end
 
@@ -329,11 +329,11 @@ class TaxonConcept < ActiveRecord::Base
 
   # Cleans up instance variables in addition to the usual lot.
   def reload
-    @@ar_instance_vars ||= TaxonConcept.new.instance_variables
+    TaxonConceptCacheClearing.clear(self) # NOTE - run this BEFORE clearing instance vars.
+    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
     (instance_variables - @@ar_instance_vars).each do |ivar|
       remove_instance_variable(ivar)
     end
-    TaxonConceptCacheClearing.clear(self)
     super
   end
 
@@ -457,25 +457,37 @@ class TaxonConcept < ActiveRecord::Base
     entry.rank_label
   end
 
-  # TODO - this should be renamed to scientific_name, and #title should be an alias to this method on TaxonPage.
+  # NOTE - the following name methods *attempt* to get what you're asking for. If such a thing isn't available, you
+  # may get something different (ie: no attribution, no italics, etc).
+
+  # TODO - these should be renamed to scientific_name, and #title should be an alias to this method on TaxonPage.
+  # (There shouldn't be a "title" for a taxon_concept.)
+
   def title(hierarchy = nil)
     return @title unless @title.nil?
     return '' if entry(hierarchy).nil?
     @title = entry(hierarchy).italicized_name.firstcap
   end
   alias :summary_name :title
+  alias :italicized_attibuted_title :title
 
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry(hierarchy).nil?
     @title_canonical = entry(hierarchy).title_canonical
   end
+  alias :non_italicized_unattributed_title :title_canonical
+  alias :collected_name :title_canonical
 
   def title_canonical_italicized(hierarchy = nil)
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
     return '' if entry(hierarchy).nil?
     @title_canonical_italicized = entry(hierarchy).title_canonical_italicized
   end
+  alias :italicized_unattributed_title :title_canonical_italicized
+
+  # NOTE - there is no non_italicized_attributed_title. You would never want one. Attribution implies proper
+  # italicized form.
 
   def to_s
     "TaxonConcept ##{id}: #{title}"
@@ -538,11 +550,6 @@ class TaxonConcept < ActiveRecord::Base
     language_id = taxon_concept_name.language.id
     syn_id = taxon_concept_name.synonym.id
     Synonym.find(syn_id).destroy
-  end
-
-  def has_feed?
-    feed_object = FeedDataObject.find_by_taxon_concept_id(self.id, :limit => 1)
-    return !feed_object.blank?
   end
 
   # This needs to work on both TCNs and Synonyms.  Which, of course, smells like bad design, so.... TODO - review.
@@ -834,16 +841,16 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def uses_preferred_entry?(he)
-    return false if preferred_entry.blank?
+    if preferred_entry.blank?
+      ctcpe = CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(id)
+      if ctcpe
+        create_preferred_entry(ctcpe.hierarchy_entry)
+      else
+        return nil
+      end
+    end
     preferred_entry.hierarchy_entry_id == he.id &&
-    CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
-  end
-
-  def curator_chosen_classification
-    return nil if preferred_entry.nil?
-    CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(
-      preferred_entry.hierarchy_entry_id, self.id
-    ) 
+      CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
   end
 
   # Avoid re-loading the deep_published_hierarchy_entries from the DB:
@@ -992,19 +999,18 @@ class TaxonConcept < ActiveRecord::Base
     TaxonClassificationsLock.find_or_create_by_taxon_concept_id(self.id)
   end
 
-  def collected_name
-    raise(EOL::Exceptions::InvalidCollectionItemType.new(
-      I18n.t(:cannot_index_collection_item_type_error, :type => 'Missing Hierarchy Entry')
-    )) unless has_canonical_form?
-    entry.name.canonical_form.string
-  end
-
   def richness
     taxon_concept_metric.richness_score
   end
 
   def has_richness?
     taxon_concept_metric && !taxon_concept_metric.richness_score.blank?
+  end
+
+  def create_preferred_entry(entry)
+    return if entry.nil?
+    TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
+    TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
   end
 
 private
@@ -1049,12 +1055,6 @@ private
     else 
       false
     end
-  end
-
-  def create_preferred_entry(entry)
-    return if entry.nil?
-    preferred_entry = 
-      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
   end
 
   def vet_taxon_concept_names(options = {})

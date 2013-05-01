@@ -21,6 +21,8 @@ gl:
     other: Atopáronse %{count} termos que coincidisen cos teus criterios de procura.
   about_eol: Acerca da EOL
   about_resources: Acerca dos recursos
+  about_resources_body: <p>Agradecemos que achegue ligazóns cara a sitios web de terceiros que estean relacionados con este organismo ou grupo de organismos. Por exemplo, páxinas web que ofrezan claves de identificación, reportaxes, blogues, así como recursos científicos educativos e cidadás.</p>
+  about_resources_notice: "Nota: Todas as ligazóns están suxeitas aos termos de uso da EOL e están revisadas polos conservadores.<br />Se tes algunha pregunta sobre un recurso co que queiras ligar na EOL, <a href='%{contact_us_link}'>ponte en contacto con nós</a>.</p>"
   about_resources_title: Ligazóns cara a recursos externos
   account_information: Información sobre a conta
   account_information_menu: Información sobre a conta
@@ -1017,7 +1019,9 @@ gl:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Preme aquí</a> para acceder ás probas en fase beta dos novos foros da EOL. Agradecemos os teus comentarios.
+  api_cache_time_to_live_parameter: o número de segundos que queres que pasen ata que a resposta estea na caché
   api_docs_collections_description: Dado o identificador dunha colección, esta API devolverá todos os metadatos sobre a colección e os elementos que contén. A lista de elementos pódese filtrar por tipo de elemeto e ordenar baixo os atributos listados. Algúns elementos conteñen un atributo "sort_field" opcional. O campo de ordenación é unha cadea achegada polo usuario que é unha anotación especial dun elemento da colección. Pode ser calquera cadea de caracteres, pero se é unha data, debe aterse ao formato AAAA-MM-DD. Os elementos do taxon conteñen un "richness_score". A riqueza é unha métrica representada por un número enteiro entre 0 e 100; canto máis grande sexa o número a páxina terá maior riqueza de contidos dunha ampla variedade de fontes. Podes atopar máis información sobre a riqueza dos taxons na lapela de actualizacións dunha páxina de taxon; por exemplo, %{richness_url}.
+  api_refer_to_the_getting_started_page: Consulta a páxina dos <a href="%{link}">primeiros pasos</a> para ver exemplos do uso da API na EOL, os termos de uso e información sobre o rexistro para obter unha clave da API.
   application_version_advisory_information: Versión da aplicación
   are_you_sure: Estás seguro?
   are_you_sure_this_action_cannot_be_undone: Estás seguro? Esta acción non se pode desfacer.
@@ -1162,6 +1166,7 @@ gl:
   classifications_rank_column_header: Clasificación
   classifications_recognized_by_column_header: Recoñecido por
   classifications_split_column_header: Separar / Mover
+  classifications_split_one_classification_only: Selecciona unha única clasificación para separala. As outras clasificacións pódense trasladar a unha nova páxina despois da súa creación
   classifications_summary_header_with_count: 
     one: Atopado en %{count} clasificación
     other: Atopado en %{count} clasificacións

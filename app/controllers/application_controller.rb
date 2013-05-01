@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   include ImageManipulation
-  unless Rails.env.test?
+  unless Rails.application.config.consider_all_requests_local
     rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, :with => :rescue_from_exception
+    rescue_from ActionView::MissingTemplate, :with => :rescue_from_exception
   end
 
   before_filter :original_request_params, :except => [ :fetch_external_page_title ] # store unmodified copy of request params
@@ -351,7 +352,8 @@ class ApplicationController < ActionController::Base
     if logged_in?
       redirect_back_or_default
     else
-      redirect_back_or_default(login_url)
+      session[:return_to] = request.url if params[:return_to].nil?
+      redirect_to login_path
     end
   end
 
@@ -491,6 +493,10 @@ protected
   def rescue_action_in_public(exception)
     status_code     = ActionDispatch::ExceptionWrapper.new(env, exception).status_code
     response_code   = ActionDispatch::ExceptionWrapper.rescue_responses[exception.class.name]
+    if exception.class == ActionView::MissingTemplate
+      status_code = 404
+      response_code = :not_found
+    end
     render_exception_response(exception, response_code, status_code)
     # Log to database
     if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)

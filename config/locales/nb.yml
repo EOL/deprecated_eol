@@ -9,6 +9,10 @@ nb:
   a_maximum_of_30_results_are_returned: et maksimum av 30 resultater returneres per side. Med denne parameteren kan du hente inn flere sider med resultater dersom det finnes mer enn 30 søkeresultater
   a_taxon: et takson
   about_eol: Om EOL
+  about_resources: Om ressurser
+  about_resources_body: <p>Vi mottar gjerne lenker til tredjeparters nettsider som omhandler denne organismen eller gruppe med organismer. Eksempler er blant annet nettsider med identifiseringsnøkler, nyhetsartikler, blogger, samt undervisnings- og borgerforskningsressurser.</p>
+  about_resources_notice: NB&mdash;alle lenker faller under EOLs bruksvilkår og granskning av kuratorer.<br />Hvis du har spørsmål rundt en ressurs som du vil lenke opp mot EOL, vennligst <a href='%{contact_us_link}'>kontakt oss</a>.</p>
+  about_resources_title: Lenker til eksterne ressurser
   account_information: Kontoinformasjon
   account_information_menu: Kontoinformasjon
   account_registered_but_not_ready_try_later: Kontoen din er registrert men er ikke klar for å bli brukt. Prøv igjen om fem minutter.
@@ -30,6 +34,8 @@ nb:
         annotation: Annotering
         refs: Referanser
         sort_field: Sorter etter
+      collection_job: 
+        overwrite: Erstatt duplikater
       comment: 
         body: Kommentar
       community: 
@@ -137,6 +143,19 @@ nb:
         udo_published: Bruker-sendt tekst
         udo_published_by_curators: Kurator-sendt tekst
         udo_published_by_non_curators: Ikke-kurator-sendt tekst
+      forum: 
+        description: Beskrivelse <small>(valgfritt)</small>
+        forum_category_id: Kategori
+        name: Forumnavn
+      forum_category: 
+        description: Beskrivelse <small>(valgfritt)</small>
+        title: Kategorinavn
+      forum_post: 
+        subject: Emne
+        text: Innhold
+      forum_topic: 
+        subject: Emne
+        text: Innhold
       harvest_event: 
         resource: Ressurs
       hierarchy: 
@@ -226,6 +245,7 @@ nb:
         full_name: Fullt navn
         given_name: Fornavn
         language_abbr: Foretrukket språk
+        permissions: Rettigheter
         requested_curator_level_id: Ønsket kuratornivå
         tag_line: Motto
         username: Brukernavn
@@ -513,6 +533,15 @@ nb:
           an_unknown_user_split_classifications_from_taxon: En ukjent bruker har delt opp klassifiseringene av %{classifications} fra %{taxon} til <a href='%{to}'>en egen side</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> har delt opp klassifiseringene av %{classifications} fra en ukjent side til <a href='%{to}'>en egen side</a>.
           user_split_classifications_from_taxon: <strong>%{user}</strong> har delt opp klassifiseringene av %{classifications} til <a href='%{to}'>en egen side</a>.
+      crop: 
+        an_unknown_user_cropped_an_older_data_object: En ukjent bruker har endret miniatyrbildet til "%{data_object}".
+        an_unknown_user_cropped_an_unknown_data_object: En ukjent bruker har endret miniatyrbildet til et ukjent bilde.
+        an_unknown_user_cropped_data_object: En ukjent bruker har endret miniatyrbildet til "%{data_object}".
+        an_unknown_user_cropped_it: En ukjent bruker har endret miniatyrbildet til et ukjent bilde.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> har endret miniatyrbildet til en eldre versjon av "%{data_object}".
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> har endret miniatyrbildet til et ukjent bilde.
+        user_cropped_data_object: <strong>%{user}</strong> har endret miniatyrbildet til "%{data_object}".
+        user_cropped_it: <strong>%{user}</strong> har endret miniatyrbildet til et ukjent bilde.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som skjult i en ukjent sammenheng.
         an_unknown_user_hid_an_older_data_object_on_association: En ukjent bruker har markert en eldre versjon av "%{data_object}" som skjult på "%{association}"-siden.
@@ -786,20 +815,37 @@ nb:
   add_a_new_role: Legg til en ny rolle
   add_a_new_search_suggestion: Legg til et nytt søkforslag
   add_a_new_term: Legg til et nytt begrep
+  add_a_new_topic_area: Legg til et nytt emneområde
+  add_a_new_user: Legg til en ny bruker
+  add_a_taxon_association_label: Legg til en tilknytning til et takson
+  add_article_instead: legg til en artikkel istedenfor
   add_article_to_page_button: Legg til en artikkel
   add_association_submit_button: lege til tilknytning
+  add_brief_summary_to_page_link_button: Legg til en kort oppsummering til denne siden
+  add_citizen_science_resources_to_page_link_button: Legg til en borgerforskningslenke til denne siden
+  add_collection_to_a_new_community: Legg til "%{collection}" til et nytt brukersamfunn
   add_collection_to_community: Legg til samling til brukersamfunn
+  add_education_resources_to_page_link_button: Legg til undervisningsressurser til denne siden
+  add_identification_resources_to_page_link_button: Legg til identifiseringsressurser til denne siden
+  add_item_to_new_collection: Legg til "%{item}" til en ny samling
   add_language: Legg til språk
+  add_link_instead: legg til en lenke istedenfor
   add_link_to_page_button: Legg til en lenke
   add_new_association_link: Legg til ny tilknytning
   add_page: Legg til side
   add_sub_chapter: Legg til underkapittel
+  add_to_a_community: Legg til i et brukersamfunn
   add_to_my_collection_button: Legg til i en samling
   admin_content_page_active: Publisert
   admin_content_page_child_new_link: Opprett underordnet side
   admin_content_page_new_link: Opprett ny side
   admin_content_page_not_active: Upublisert
   admin_content_pages_link: Innholdsforvaltning
+  admin_content_partners_index_header: Innholdspartnere
+  admin_content_partners_link: Innholdspartnere
+  admin_content_partners_notifications_statistics_reminder_send_submit: Send påminnelse
+  admin_content_partners_statistics_date_from_label: Fra
+  admin_content_partners_statistics_date_to_label: Til
   admin_content_partners_statistics_first_published_download_csv_submit: Last ned som CSV
   admin_content_partners_statistics_link: Statistikker
   admin_link: Oversikt
@@ -813,18 +859,26 @@ nb:
   admin_notes_not_visible_to_user: "Administrator-notater (ikke synlig for bruker):"
   admin_page_title: "Administrering: Oversikt"
   admin_statistics_link: Statistikker
+  admin_translated_content_page_create_unsuccessful_error: Beklager, det oppstod en feil, oversettelsen kunne ikke legges til.
+  admin_translated_content_page_delete_successful_notice: "%{language} oversettelse av siden <em>%{page_name}</em> har blitt slettet."
+  admin_translated_content_page_edit_subheader: Rediger %{language} oversettelse av <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Tittel og innhold er %{required_icon} påkrevd.
   admin_translated_content_page_new_header: Velg språk og legg til innhold
   admin_translated_content_page_new_link: Legg til oversettelse
   admin_translated_content_page_new_subheader: Legg til oversettelse for <em>%{page_name}</em>
   admin_translated_content_page_new_tip: Språk, tittel og innhold er %{required_icon} påkrevd.
+  admin_translated_content_page_update_unsuccessful_error: Beklager, det oppstod en feil, oversettelsen kunne ikke oppdateres.
   admin_translated_news_item_active: Publisert
+  admin_translated_news_item_create_unsuccessful_error: Beklager, det oppstod en feil, oversettelsen kunne ikke legges til.
+  admin_translated_news_item_delete_successful_notice: "%{language} oversettelse av nyhetssaken <em>%{page_name}</em> har blitt slettet."
+  admin_translated_news_item_edit_subheader: Rediger %{language} oversettelse av <em>%{page_name}</em>
   admin_translated_news_item_edit_tip: Tittel og innhold er %{required_icon} påkrevd.
   admin_translated_news_item_new_header: Velg språk og legg til innhold
   admin_translated_news_item_new_link: Legg til oversettelse
   admin_translated_news_item_new_subheader: Legg til oversettelse for <em>%{page_name}</em>
   admin_translated_news_item_new_tip: Språk, tittel og innhold er %{required_icon} påkrevd.
   admin_translated_news_item_not_active: Upublisert
+  admin_translated_news_item_update_unsuccessful_error: Beklager, det oppstod en feil, oversettelsen kunne ikke oppdateres.
   admin_user_delete_successful_notice: Brukeren har blitt slettet
   admins: 
     eol_statistics: 
@@ -895,6 +949,9 @@ nb:
   anonymous_user_given_name: Anonym
   anonymous_user_tag_line: Ikke logget inn
   any_integer: et hvilket som helst heltall
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Klikk her</a> for å få tilgang til betatesten av EOLs nye fora. Din tilbakemelding er velkommen.
   application_version_advisory_information: Programversjon
   are_you_sure: Er du sikker?
   article_from: artikkel fra
@@ -903,6 +960,13 @@ nb:
   article_not_associated_with_any_published_entries: Denne artikkelen er ikke knyttet til noen publiserte taksa.
   article_of_taxon: Artikkel av %{taxon_name}
   article_rating: Artikkelvurdering
+  articles_in_languages_with_count: 
+    one: "Artikler på denne siden er tilgjengelige på %{count} språk:"
+    other: "Artikler på denne siden er tilgjengelige på %{count} språk:"
+  articles_in_other_languages_with_count: 
+    one: "Artikler på denne siden er tilgjengelige på %{count} annet språk:"
+    other: "Artikler på denne siden er tilgjengelige på %{count} andre språk:"
+  articles_with_count: "{PLURAL|one=%{count} artikkel|%{count} artikler}}"
   assistive_details_header: Detaljer
   assistive_literature_header: Litteratur
   assistive_maps_header: Kart
@@ -915,11 +979,16 @@ nb:
   assistive_taxon_community_header: Brukersamfunn
   assistive_updates_header: Oppdateringer
   assistive_updates_statistics_header: Sidestatistikk
+  associated_with_article_header: I den siste artikkelen
+  associated_with_image_header: I det siste bildet
   associated_with_image_map_header: På det siste kartet
   associated_with_link_header: På den siste lenken
   associated_with_map_header: På det siste kartet
   associated_with_sound_header: I den siste lyden
   associated_with_video_header: I den siste videoen
+  association_hidden_for_taxa: 
+    one: "Skjult for:"
+    other: "Skjult for:"
   audio_mute: demp
   audio_pause: pause
   audio_play: spill av
@@ -1398,7 +1467,7 @@ nb:
     next: Neste
     previous: Forrige
   dato_create_cancel: Avbryt
-  dato_create_user_text_error: Beklager, det oppstod en feil, artikkelen kunne ikke bli lagt til.
+  dato_create_user_text_error: Beklager, det oppstod en feil, artikkelen kunne ikke legges til.
   dato_edit_cancel: Avbryt
   dato_edit_link_button: Rediger denne lenken
   dato_edit_link_title: Rediger lenke
@@ -1576,6 +1645,71 @@ nb:
   forgot_password: Glemt passord
   forgot_password_form_cancel: Avbryt
   forgot_password_form_choose_username_legend: Velg en konto
+  forums: 
+    actions: Handlinger
+    administration: Administrasjon
+    buttons: 
+      delete: slett
+      edit: rediger
+      link: lenke
+      reply: svar
+    categories: 
+      create: Opprett en kategori
+      create_failed: Beklager, det oppstod en feil, kategorien kunne ikke legges til
+      create_successful: Kategorien ble opprettet
+      delete_failed_not_empty: Kategorien kunne ikke slettes fordi den ikke er tom
+      delete_successful: Kategorien ble slettet
+      edit: Rediger kategori
+      move_failed: Kategorien kunne ikke flyttes
+      move_successful: Kategorien ble flyttet
+      update_failed: Beklager, det oppstod en feil, kategorien kunne ikke oppdateres
+      update_successful: Kategorien ble oppdatert
+    create: Opprett et forum
+    create_failed: Beklager, det oppstod en feil, forumet kunne ikke legges til
+    create_successful: Forumet ble opprettet
+    delete_failed_not_empty: Forumet kunne ikke slettes fordi det ikke er tomt
+    delete_successful: Forumet ble slettet
+    edit: Rediger forum
+    forums_heading: EOL-forum
+    last_post: Siste innlegg
+    move_failed: Forumet kunne ikke flyttes
+    move_successful: Forumet ble flyttet
+    no_topics: Det finnes ingen tråder i dette forumet
+    post_by_user_at_time: av %{user}, %{time}
+    posts: 
+      close_window: lukk
+      create: Lag nytt innlegg
+      create_failed: Beklager, det oppstod en feil, innlegget kunne ikke legges til
+      create_successful: Innlegget ble opprettet
+      delete_failed_topic_not_empty: Innlegget kunne ikke slettes fordi tråden ikke er tom
+      delete_successful: Inlegget ble slettet
+      deleted_subject: (slettet)
+      edit: Rediger innlegg
+      joined_date: Medlem siden %{date}
+      no_subject: (ingen emne)
+      permalink_to_this_post: "Permanent lenke til dette innlegget:"
+      post_has_been_deleted: Dette innlegget har blitt slettet
+      post_written_by_user: "%{user} skrev:"
+      posts_with_count: 
+        one: "%{count} innlegg"
+        other: "%{count} innlegg"
+      replying_to_post: "Svarer på:"
+      topic_and_post_delete_successful: Innlegg og forum ble slettet
+      update_failed: Beklager, det oppstod en feil, innlegget kunne ikke oppdateres
+      update_successful: Innlegget ble oppdatert
+    posts_heading: Innlegg
+    replies: Svar
+    topics: 
+      create: Start en ny tråd
+      create_failed: Beklager, det oppstod en feil, tråden kunne ikke legges til
+      create_successful: Tråden ble opprettet
+      delete_failed_not_empty: Tråden kunne ikke slettes fordi den ikke er tom
+      delete_successful: Tråden ble slettet
+      no_posts: Det er ingen innlegg i denne tråden
+    topics_heading: Tråder
+    update_failed: Beklager, det oppstod en feil, forumet kunne ikke oppdateres
+    update_successful: Forumet ble oppdatert
+    views: Visninger
   frequency: Frekvens
   frequency_daily: Daglig
   frequency_monthly: Månedlig
@@ -1969,7 +2103,7 @@ nb:
         learn_more_link_bacteria: Bakterier
         learn_more_link_birds: Fugler
         learn_more_link_crustaceans: Krepsdyr
-        learn_more_link_fish: Fisk
+        learn_more_link_fish: Fisker
         learn_more_link_flowering_plants: Dekkfrøede planter
         learn_more_link_fungi: Sopper
         learn_more_link_insects: Insekter
@@ -2882,7 +3016,7 @@ nb:
         meta_title: "%{user_full_name} Innholdspartnere"
         tweet_text: "%{user_full_name} innholdspartnere"
     edit: 
-      form_tip_account: For å logge på EOL trenger du enten et EOL-brukernavn og -passord, eller du kan koble til en tredjepartskonto. Brukernavn og passord er påkrevd hvis du ikke har en tilkoblet konto, men kun angi et nytt passord her hvis du ønsker å endre det eksisterende. E-postadresse og foretrukket språk er påkrevd (% {required_icon}) for alle brukere.
+      form_tip_account: For å logge på EOL trenger du enten et EOL-brukernavn og -passord, eller du kan koble til en tredjepartskonto. Brukernavn og passord er påkrevd hvis du ikke har en tilkoblet konto, men kun angi et nytt passord her hvis du ønsker å endre det eksisterende. E-postadresse og foretrukket språk er påkrevd (%{required_icon}) for alle brukere.
       form_tip_account_oauth: E-postadresse og foretrukket språk er påkrevd %{required_icon} for alle brukere.
       form_tip_curation: Akkrediteringer og kurateringsområde er valgfrie for assistentkuratorer men påkrevd %{required_icon} for fullstendige- of mesterkuratorer
       form_tip_profile: Objekter markert som påkrevd %{required_icon} er valgfrie for vanlige brukere, men påkrevd for kuratorer.

@@ -7,13 +7,15 @@ class CollectionJobsController < ApplicationController
   layout 'v2/choose_collect_target'
 
   def create
-    unless @collection_job.has_items?
-      return redirect_to(@collection_job.collection, notice: I18n.t(:error_no_items_selected))
-    end
+    return redirect_to(@collection_job.collection, notice: I18n.t(:error_no_items_selected)) unless
+      @collection_job.has_items?
     create_collection_if_asked
     unless @collection_job.missing_targets?
       if @collection_job.save
-        @collection_job.run # TODO - we really want to decide if this is a "big" job and delay it, if so.
+        # TODO - we really want to decide if this is a "big" job and delay it, if so.
+        Collection.with_master do
+          Collection.uncached { @collection_job.run }
+        end
         redirect_to job_should_redirect_to, notice: complete_notice
       else
         redirect_to @collection_job.collection # TODO - errors are lost because we redirect rather than render...  fix.

@@ -129,7 +129,7 @@ $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
 $HOMEPAGE_NEWS_CACHE_TIME = 10  # minutes
 $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
-APPROVED_LANGUAGES = ['ar', 'de', 'en', 'es', 'fr', 'gl', 'ko', 'mk', 'nl', 'sr', 'sr-Latn', 'tl', 'zh-Hans']       
+APPROVED_LANGUAGES = ['ar', 'de', 'en', 'es', 'fr', 'gl', 'ko', 'mk', 'nl', 'sr', 'sr-Latn', 'tl', 'zh-Hans']
 
 $ENABLE_TRANSLATION_LOGS = false # This is expensive; DON'T do it by default!
 
@@ -143,6 +143,11 @@ $EOL_VIMEO_ACCOUNT      = "http://vimeo.com/groups/encyclopediaoflife"
 
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
+
+$VIRTUOSO_USER = 'demo'
+$VIRTUOSO_PW = 'demo'
+$VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
+$VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/xx/yy'
 
 # Recaptcha Keys
 ENV['RECAPTCHA_PUBLIC_KEY'] = ''

@@ -20,8 +20,8 @@ module EOL
 
     def self.connection
       EOL::Sparql::VirtuosoClient.new(
-        :endpoint_uri => 'http://localhost:8890/sparql',
-        :upload_uri => 'http://localhost:8890/DAV/xx/yy',
+        :endpoint_uri => $VIRTUOSO_SPARQL_ENDPOINT_URI,
+        :upload_uri => $VIRTUOSO_UPLOAD_URI,
         :username => $VIRTUOSO_USER,
         :password => $VIRTUOSO_PW)
     end

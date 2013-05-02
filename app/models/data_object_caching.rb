@@ -55,10 +55,11 @@ class DataObjectCaching
     if exists?(name)
       assoc_hash = read(name) # Read the hash,
       assoc_hash.each do |key, values|
-        # DataObjectsHierarchyEntry fails if you only have one nested array, like [[1994145, 30875197]], so we pull
-        # out the first one if there is only one:
+        # DataObjectsHierarchyEntry has CPK, so it's handled differently (and somewhat less efficiently):
         objects = begin
-                    key.send(:find, values.length == 1 ? values.first : values)
+                    key == DataObjectsHierarchyEntry ?
+                      DataObjectsHierarchyEntry.find_all(values) :
+                      key.send(:find, values)
                   rescue ActiveRecord::RecordNotFound # Cache must be stale, some are missing:
                     clear
                     new_vals = values.select { |v| key.send(:exists?, v) }

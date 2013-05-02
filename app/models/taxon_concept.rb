@@ -1015,8 +1015,10 @@ class TaxonConcept < ActiveRecord::Base
 
   def create_preferred_entry(entry)
     return if entry.nil?
-    TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
-    TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+    TaxonConceptPreferredEntry.with_master do
+      TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
+      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+    end
   end
 
 private

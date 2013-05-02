@@ -72,19 +72,19 @@ describe 'Curation' do
     visit("/pages/#{@taxon_concept.id}/names/common_names")
     first_trusted_name =
       @taxon_concept.common_names.select {|n| n.vetted_id == Vetted.trusted.id}.map {|n| n.name.string}.sort[0]
-    page.should have_selector(".main_container .update_common_names")
-    page.should have_selector('.main_container .update_common_names td:nth-child(2)', :text => first_trusted_name.capitalize_all_words)
-    page.should have_selector('.main_container .update_common_names td:nth-child(2)', :text => @unreviewed_name.capitalize_all_words)
-    page.should have_selector('.main_container .update_common_names td:nth-child(2)', :text => @untrusted_name.capitalize_all_words)
+    page.should have_selector(".main_container .edit_common_names")
+    page.should have_selector('.main_container .edit_common_names td:nth-child(2)', :text => first_trusted_name.capitalize_all_words)
+    page.should have_selector('.main_container .edit_common_names td:nth-child(2)', :text => @unreviewed_name.capitalize_all_words)
+    page.should have_selector('.main_container .edit_common_names td:nth-child(2)', :text => @untrusted_name.capitalize_all_words)
   end
   
   it 'should show vetting drop-down for common names either NOT added by this curator or added by a CP' do
     login_as(@cn_curator)
     visit("/pages/#{@taxon_concept.id}/names/common_names")
-    page.should have_selector(".main_container .update_common_names")
-    page.should have_selector(".main_container .update_common_names td:nth-child(4) option", :text => 'Trusted')
-    page.should have_selector(".main_container .update_common_names td:nth-child(4) option", :text => 'Unreviewed')
-    page.should have_selector(".main_container .update_common_names td:nth-child(4) option", :text => 'Untrusted')
+    page.should have_selector(".main_container .edit_common_names")
+    page.should have_selector(".main_container .edit_common_names td:nth-child(4) option", :text => 'Trusted')
+    page.should have_selector(".main_container .edit_common_names td:nth-child(4) option", :text => 'Unreviewed')
+    page.should have_selector(".main_container .edit_common_names td:nth-child(4) option", :text => 'Untrusted')
   end
   
   it 'should show delete link for common names added by this curator' do

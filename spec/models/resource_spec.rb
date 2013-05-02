@@ -26,6 +26,10 @@ describe Resource do
   end
 
   it "should return the resource's latest harvest event" do # NOTE - ordered by id, so...
+    unless @resource.latest_harvest_event.should == @latest_unpublished_harvest_event
+      puts "** Weird problem, not always reproducible: this usually works. Why didn't it work this time?"
+      debugger
+    end
     @resource.latest_harvest_event.should == @latest_unpublished_harvest_event
   end
 

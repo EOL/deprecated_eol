@@ -163,8 +163,8 @@ class DataObject < ActiveRecord::Base
     # removing from the array the ones not mathching our criteria
     data_objects.compact.select do |d|
       tc = options[:taxon_concept]
-      dato_vetted = vetted_by_taxon_concept(tc)
-      dato_visibility = visibility_by_taxon_concept(tc)
+      dato_vetted = d.vetted_by_taxon_concept(tc)
+      dato_visibility = d.visibility_by_taxon_concept(tc)
       # partners see all their PREVIEW or PUBLISHED objects
       # user can see preview objects
       if show_preview && dato_visibility == Visibility.preview

@@ -372,15 +372,15 @@ describe 'Data Object Page' do
   end
 
   it "should allow data object owners to add and/or remove associations, but not to curate them" do
-    $FOO = 1
     user_submitted_text = @tc.add_user_submitted_text(:user => @full_curator)
     user_submitted_text.add_curated_association(@full_curator, @extra_he)
+    user_submitted_text.reload # it's the responsibility of the controller to do this, so...
     login_as @full_curator
     visit("/data_objects/#{user_submitted_text.id}")
     page.body.should_not have_tag('ul.review_status select')
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
     page.body.should have_tag('.remove_association a', :text => 'Remove association')
-    page.body.should have_tag('.review_status a', :text => @extra_name)
+    find('.review_status').all('a').map(&:text).should include(@extra_name)
     click_link "remove_association_#{@extra_he.id}"
     page.body.should_not have_tag('.review_status li a', :text => @extra_name)
     visit('/logout')

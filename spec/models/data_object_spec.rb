@@ -356,6 +356,7 @@ describe DataObject do
 
   it '#data_object_taxa should return all associations for the data object' do
     data_object_taxa_count_for_udo = @user_submitted_text.data_object_taxa.count
+    @user_submitted_text.reload
     CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
         @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted,
         :visibility => Visibility.visible, :user => @curator)

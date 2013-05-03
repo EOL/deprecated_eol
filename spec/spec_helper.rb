@@ -35,6 +35,7 @@ RSpec.configure do |config|
 
   truncate_all_tables_once
 
+  # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
   config.after(:each) do
     Rails.cache.clear if Rails.cache
   end

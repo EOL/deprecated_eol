@@ -63,6 +63,14 @@ class EolStatistic < ActiveRecord::Base
 
   attr_accessor :greatest
 
+  def rich_hotlist_pages_percentage
+    (rich_hotlist_pages.to_f / hotlist_pages.to_f) * 100.0 rescue 0
+  end
+
+  def rich_redhotlist_pages_percentage
+    (rich_redhotlist_pages.to_f / redhotlist_pages.to_f) * 100.0 rescue 0
+  end
+
   # TODO: Slightly cheating to have these here but we re-use this sorted list of
   # attribute subsets in a number of places. Is there a better way to achieve this?
   def self.sorted_report_attributes(report)
@@ -107,10 +115,13 @@ class EolStatistic < ActiveRecord::Base
   # Performs greater than comparison on two instances of EolStatistic
   # Saves results to EolStatistic.greatest attribute
   def self.compare_and_set_greatest(eol_statistic_a, eol_statistic_b)
-    eol_statistic_a.greatest = Hash[eol_statistic_a.attributes.collect do |k,v|
-                                 [k.to_sym, v > eol_statistic_b.send(k)]
+    attribute_names = eol_statistic_a.attribute_names + [ 'rich_hotlist_pages_percentage', 'rich_redhotlist_pages_percentage' ]
+    eol_statistic_a.greatest = Hash[attribute_names.collect do |k|
+                                 [k.to_sym, eol_statistic_a.send(k) >= eol_statistic_b.send(k)]
                                end]
-    eol_statistic_b.greatest = Hash[eol_statistic_a.greatest.collect{|k,v| [k,!v]}]
+    eol_statistic_b.greatest = Hash[attribute_names.collect do |k|
+                                 [k.to_sym, eol_statistic_b.send(k) >= eol_statistic_a.send(k)]
+                               end]
     [eol_statistic_a.greatest, eol_statistic_b.greatest]
   end
 

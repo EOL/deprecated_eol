@@ -9,6 +9,15 @@ class DataObjectsHierarchyEntry < ActiveRecord::Base
   belongs_to :vetted
   belongs_to :visibility
 
+  def self.find_all(values)
+    DataObjectsHierarchyEntry.where(
+      values.map do |pair|
+        "(#{DataObjectsHierarchyEntry.primary_keys.first} = #{pair.first} AND " +
+        "#{DataObjectsHierarchyEntry.primary_keys.second} = #{pair.second})" 
+      end.join(' OR ')
+    )
+  end
+
   def taxon_concept
     hierarchy_entry.taxon_concept
   end

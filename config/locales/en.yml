@@ -286,8 +286,10 @@ en:
         rich_pages: "Rich pages"
         hotlist_pages: "Hotlist pages"
         rich_hotlist_pages: "Rich Hotlist pages"
+        rich_hotlist_pages_percentage: "Rich Hotlist pages %"
         redhotlist_pages: "Red Hotlist pages"
         rich_redhotlist_pages: "Rich Red Hotlist pages"
+        rich_redhotlist_pages_percentage: "Rich Red Hotlist pages %"
         pages_with_score_10_to_39: "Pages with score 10-40"
         pages_with_score_less_than_10: "Pages with score less than 10"
         # lifedesk stats

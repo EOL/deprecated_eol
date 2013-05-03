@@ -142,12 +142,9 @@ describe 'Users' do
       body.should have_selector "form.filter" do |tags|
         tags.should have_selector("select[name=filter]")
       end
-      body.should have_selector("option:nth-child(1)", :text => "All")
-      body.should have_selector("option:nth-child(2)", :text => "Comments")
-      body.should have_selector("option:nth-child(3)", :text => "Objects curated")
-      body.should have_selector("option:nth-child(4)", :text => "Articles added")
-      body.should have_selector("option:nth-child(5)", :text => "Collections")
-      body.should have_selector("option:nth-child(6)", :text => "Communities")
+      ["All", "Comments", "Objects curated", "Articles added", "Collections", "Communities"].each_with_index do |filt,i|
+        find(:xpath, "//option[#{i+1}]").text.should == filt
+      end
     end
     it "should get data from a form and display accordingly" do
       visit(user_activity_path(@user, :filter => "comments"))

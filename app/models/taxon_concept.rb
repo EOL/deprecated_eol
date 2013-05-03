@@ -258,7 +258,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
-    reload
+    clear_instance_variables
     @current_user = who
   end
 
@@ -330,10 +330,7 @@ class TaxonConcept < ActiveRecord::Base
   # Cleans up instance variables in addition to the usual lot.
   def reload
     TaxonConceptCacheClearing.clear(self) # NOTE - run this BEFORE clearing instance vars.
-    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
-    (instance_variables - @@ar_instance_vars).each do |ivar|
-      remove_instance_variable(ivar)
-    end
+    clear_instance_variables
     super
   end
 
@@ -1009,11 +1006,20 @@ class TaxonConcept < ActiveRecord::Base
 
   def create_preferred_entry(entry)
     return if entry.nil?
-    TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
-    TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+    TaxonConceptPreferredEntry.with_master do
+      TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
+      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+    end
   end
 
 private
+
+  def clear_instance_variables
+    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
+    (instance_variables - @@ar_instance_vars).each do |ivar|
+      remove_instance_variable(ivar)
+    end
+  end
 
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user

@@ -12,6 +12,8 @@ class UserAddedData < ActiveRecord::Base
   validate :predicate_must_be_uri
   validate :expand_and_validate_namespaces # Without this, the validation on namespaces doesn't run.
 
+  before_validation :convert_known_uris
+
   after_create :update_triplestore
   after_update :update_triplestore
 
@@ -72,6 +74,16 @@ class UserAddedData < ActiveRecord::Base
   end
 
   private
+
+  def convert_known_uris
+    self.predicate = convert_known_uri(self.predicate) unless EOL::Sparql.is_uri?(self.predicate)
+    self.object = convert_known_uri(self.object) unless EOL::Sparql.is_uri?(self.predicate)
+  end
+
+  def convert_known_uri(which)
+    tku = TranslatedKnownUri.find_by_name(which)
+    return tku ? tku.known_uri.uri : which
+  end
 
   def sparql
     @sparql ||= EOL::Sparql.connection

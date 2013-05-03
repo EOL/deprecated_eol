@@ -19,6 +19,7 @@ class UserAddedDataController < ApplicationController
     if @user_added_data.save
       flash[:notice] = I18n.t('user_added_data.create_successful')
     else
+      debugger
       # NOTE - we can't just use validation messages quite yet, since it's created in another controller. :\
       if @user_added_data.errors.any?
         flash[:error] = I18n.t('user_added_data.create_failed',
@@ -68,6 +69,7 @@ class UserAddedDataController < ApplicationController
 
   private
 
+  # Not just "empty" but also deafult values that we consider "empty".
   def delete_empty_metadata
     params[:user_added_data][:user_added_data_metadata_attributes].delete_if do |k,v|
       if v[:id].blank? && v[:predicate].blank? && v[:object].blank?
@@ -78,6 +80,8 @@ class UserAddedDataController < ApplicationController
           v[:object] == current_user.full_name # No need to add this; it's in the DB already.
         when UserAddedDataMetadata::SOURCE_URI
           v[:object] == I18n.t('user_added_data.source_field_helper')
+        when UserAddedDataMetadata::LICENSE_URI
+          v[:object] == I18n.t(:license_none)
         when I18n.t('user_added_data.new_field')
           true # They didn't add (or at least name) this one, just remove it.
         else
@@ -91,13 +95,8 @@ class UserAddedDataController < ApplicationController
     convert_field_to_uri(params[:user_added_data], :predicate)
     convert_field_to_uri(params[:user_added_data], :object)
     params[:user_added_data][:user_added_data_metadata_attributes].each do |index, meta|
-      if meta[:predicate] == KnownUri.license.uri
-        meta[:predicate] = KnownUri.license
-        meta[:object] = License.find_by_source_url(meta[:object])
-      else
-        convert_field_to_uri(meta, :predicate)
-        convert_field_to_uri(meta, :object)
-      end
+      convert_field_to_uri(meta, :predicate)
+      convert_field_to_uri(meta, :object)
     end
   end
 
@@ -105,15 +104,9 @@ class UserAddedDataController < ApplicationController
   def convert_field_to_uri(hash, key)
     return unless hash[key]
     converted = convert_to_uri(hash[key])
-    # Licenses are... special:
-
     # They want to create a new EOL-based URI:
-    if converted.blank? && key != :object
-      uri = KnownUri::BASE + CGI.escape(hash[key].gsub(/\s+/, '_').camelize)
-      known_uri = KnownUri.create(uri: uri)
-      translated_known_uri = TranslatedKnownUri.create(name: hash[key], language: current_language,
-                                                       known_uri: known_uri)
-      hash[key] = uri
+    if converted.blank?
+      hash[key] = KnownUri.custom(hash[key], current_language).uri unless key != :object # Not for values.
     else
       hash[key] = converted
     end
@@ -126,7 +119,8 @@ class UserAddedDataController < ApplicationController
     return nil unless turi.known_uri && ! turi.known_uri.uri.blank?
     uri = turi.known_uri.uri
     session[:rec_uris] ||= []
-    session[:rec_uris] << uri
+    session[:rec_uris].unshift(uri)
+    session[:rec_uris] = session[:rec_uris].uniq[0..7]
     uri
   end
 

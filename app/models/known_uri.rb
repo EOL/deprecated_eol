@@ -42,6 +42,12 @@ class KnownUri < ActiveRecord::Base
     cached_find_translated(:name, 'License')
   end
 
+  def self.custom(name, language)
+    known_uri = KnownUri.create(uri: BASE + CGI.escape(name.gsub(/\s+/, '_').camelize))
+    translated_known_uri = TranslatedKnownUri.create(name: name, language: language, known_uri: known_uri)
+    known_uri
+  end
+
   def unknown?
     name.blank?
   end

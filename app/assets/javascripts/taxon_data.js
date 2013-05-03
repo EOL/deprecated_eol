@@ -26,7 +26,9 @@ EOL.attribute_is_okay = function() {
 
 EOL.add_has_default_behavior = function() {
   $('input.has_default').each(function() { 
-    $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
+    if ($(this).val() == '') {
+      $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
+    }
     $(this).unbind('focus').unbind('blur');
     $(this).on('focus', function() {
       if ($(this).val() == $(this).attr('data-default')) {
@@ -114,6 +116,21 @@ $(function() {
   $('li.attribute').click(function() {
     $('#user_added_data_predicate').val($(this).find('.name').text());
     EOL.attribute_is_okay();
+  });
+
+  $('ul.categories a').click(function() {
+    if($(this).hasClass('all')) { // Acts as a reset button/link
+      $('table.data tr.actions').hide();
+      $('table.data tr.data').show();
+    } else if($(this).hasClass('other')) {
+      $('table.data tr').hide();
+      $('table.data tr.data.toc_other').show();
+    } else {
+      // TODO - this could be more efficient and only hide rows that DON'T have this id...
+      $('table.data tr').hide();
+      $('table.data tr.data.toc_' + $(this).attr('data-toc-id')).show();
+    }
+    return(false);
   });
 
   EOL.add_has_default_behavior();

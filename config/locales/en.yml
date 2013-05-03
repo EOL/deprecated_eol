@@ -2434,6 +2434,7 @@ en:
   all: "all"
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
   all_articles: All articles
+  all_categories: "All"
   all_changes: "All changes"
   all_collections: All collections
   all_comments_entered_by_users: "All comments entered by users on the website are shown below, sorted inversely by time created."
@@ -3781,6 +3782,7 @@ en:
   object_visibility_invisible_option: "Hidden"
   older_version_of_latest_published_data_object_title_link: "Older version of %{link}"
   other_version_links: "Other versions: %{version_links}"
+  other_category: "Other"
   percentage_of_children_with_images: "% of children with images"
   percentage_of_children_with_text: "% of children with text"
   number_of_taxa_at_this_entry: "# of taxa at this entry"

@@ -19,6 +19,8 @@ class CodeBridge
         end
         puts "   --"
       end
+    elsif args['cmd'] == 'clear_cache'
+      TaxonConceptCacheClearing.clear(TaxonConcept.find(args['taxon_concept_id']))
     else
       puts "** ERROR: NO command responds to #{args['cmd']}"
     end

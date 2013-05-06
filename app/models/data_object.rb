@@ -1069,6 +1069,14 @@ class DataObject < ActiveRecord::Base
     data_object_taxa(:published).map(&:taxon_concept).map { |tc| tc.containing_collections.watch }.flatten
   end
 
+  def title_same_as_toc_label(toc_item, options = {})
+    options[:language] ||= Language.default
+    return true if toc_item.label(options[:language].iso_code).downcase == object_title.downcase
+    if options[:language] != Language.default
+      return true if toc_item.label(Language.default.iso_code).downcase == object_title.downcase
+    end
+  end
+
 private
 
   # This is relatively expensive... but accurate.

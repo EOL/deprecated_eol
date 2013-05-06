@@ -4370,10 +4370,16 @@ en:
   user_left_comment_on_date: "%{username} left a comment on %{date}."
   user_no_longer_has_manager_access_to_collection: "%{user} no longer has manager access to \"%{collection}\"."
   user_pending_notifications_assitive: '<span class="assistive">notifications</span>'
+  user_pending_notifications_with_count:
+    one: '%{count} notification'
+    other: '%{count} notifications'
   user_pending_notifications_with_count_assitive:
     one: '%{count}<span class="assistive"> notification</span>'
     other: '%{count}<span class="assistive"> notifications</span>'
   user_pending_notifications_comments_assistive: '<span class="assistive">comments</span>'
+  user_pending_notifications_comments_with_count:
+    one: '%{count} comment'
+    other: '%{count} comments'
   user_pending_notifications_comments_with_count_assistive:
     one: '%{count}<span class="assistive"> comment</span>'
     other: '%{count}<span class="assistive"> comments</span>'

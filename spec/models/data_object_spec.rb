@@ -636,5 +636,19 @@ describe DataObject do
     wav.sound_url.should =~ /#{ContentServer.cache_path(@big_int)}.wav/
   end
 
+  it 'should recognize when the title is the same as a toc label' do
+    d = DataObject.gen(:object_title => 'Some test title')
+    toc = TocItem.gen_if_not_exists(:label => d.object_title)
+    TranslatedTocItem.gen(:table_of_contents_id => toc.id, :language_id => Language.from_iso('ar').id, :label => "Arabic TOC label")
+    toc.reload
+
+    toc.label.should == d.object_title
+    toc.label("ar").should == 'Arabic TOC label'
+    d.title_same_as_toc_label(toc).should == true
+    d.title_same_as_toc_label(toc, :language => Language.english).should == true
+    # doesnt matter if the user is using a different language
+    d.title_same_as_toc_label(toc, :language => Language.from_iso('ar')).should == true
+  end
+
 end
 

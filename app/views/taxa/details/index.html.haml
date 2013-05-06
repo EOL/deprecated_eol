@@ -24,12 +24,12 @@
         - unless root_content.empty? && !@details.toc_items_under?(root)
           %h2{:id => category_anchor(root)}= root.label
           .section
-            = render :partial => 'category_content', :locals => { :content => root_content }
+            = render :partial => 'category_content', :locals => { :content => root_content, :toc_item => root }
             - if @details.toc_items_under?(root)
               - @details.each_nested_toc_item(root) do |child, child_content|
                 - unless child_content.empty?
                   %h3{:id => category_anchor(child)}= child.label
-                  = render :partial => 'category_content', :locals => { :content => child_content }
+                  = render :partial => 'category_content', :locals => { :content => child_content, :toc_item => child }
     - else
       .empty
         %p

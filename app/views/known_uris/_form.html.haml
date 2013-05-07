@@ -13,6 +13,12 @@
           %li
             = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, @known_uri.toc_items.include?(toc_item)
             = toc_item.label
+    %dt= f.label :has_unit_of_measure
+    %dd= f.text_field :has_unit_of_measure
+    %dt= f.label :is_unit_of_measure
+    %dd
+      = f.check_box :is_unit_of_measure
+      = I18n.t(:yes_answer)
 %fieldset.actions
   = f.submit I18n.t(:save)
   = link_to I18n.t(:cancel), known_uris_url

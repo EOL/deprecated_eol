@@ -32,12 +32,52 @@ module EOL
 
     def self.uri_to_readable_label(uri)
       if matches = uri.to_s.match(/(\/|#)([a-z0-9_-]{3,})$/i)
-        return matches[2].underscore.tr('_', ' ')
+        return matches[2].underscore.tr('_', ' ').capitalize_all_words
       end
     end
 
     def self.uri_in_eol_triplestore(uri)
       uri.to_s =~ /^http:\/\/(eol.org\/resources\/[0-9]+\/(taxa|occurrences|events)\/|anage\.org|adw\.org|iobis\.org|reeffish\.org)/
+    end
+
+    def self.get_unit_components_from_metadata(metadata)
+      if hash = metadata.detect{ |k,v| k == 'http://rs.tdwg.org/dwc/terms/measurementUnit' }
+        return components_of_unit_of_measure_label_for_uri(hash[1])
+      end
+    end
+
+    def self.components_of_unit_of_measure_label_for_uri(uri)
+      if measurement_uri = implied_unit_of_measure_for_uri(uri)
+        uri = measurement_uri
+      end
+      if lookup_uri = is_known_unit_of_measure_uri(uri)
+        return uri_components(lookup_uri)
+      end
+    end
+
+    def self.implied_unit_of_measure_for_uri(uri)
+      return uri.has_unit_of_measure if uri.is_a?(KnownUri) && !uri.is_unit_of_measure?
+      if known_uri = KnownUri.find_by_uri(uri.to_s)
+        return known_uri.has_unit_of_measure
+      end
+    end
+
+    def self.is_known_unit_of_measure_uri(uri)
+      return uri if uri.is_a?(KnownUri) && uri.is_unit_of_measure?
+      known_uri = KnownUri.find_by_uri(uri.to_s)
+      if known_uri && known_uri.is_unit_of_measure?
+        return known_uri
+      end
+    end
+
+    def self.uri_components(uri)
+      if uri.is_a?(KnownUri)
+        return { uri: uri.uri, label: uri.name }
+      elsif label = EOL::Sparql.uri_to_readable_label(uri)
+        return { uri: uri, label: label }
+      else
+        return { uri: uri, label: uri }
+      end
     end
 
     def self.is_uri?(string)

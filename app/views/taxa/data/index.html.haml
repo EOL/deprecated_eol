@@ -16,46 +16,42 @@
       - classes = row[:attribute].toc_items.map { |ti| "toc_#{ti.id}" } if row[:attribute].is_a?(KnownUri)
       - classes = ['toc_other'] if classes.blank?
       - classes << 'nested' if row[:attribute] == last_attribute
-      %tr{class: (classes + ['data']).join(' ')}
+      %tr{ class: (classes + ['data']).join(' ') }
         %th
-          - if row[:attribute] != last_attribute
-            - if row[:attribute].is_a?(KnownUri)
-              %span{title: row[:attribute].uri}= row[:attribute].name
-            - elsif label = EOL::Sparql.uri_to_readable_label(row[:attribute])
-              = label
-            - else
-              = row[:attribute]
+          - uri_components = EOL::Sparql.uri_components(row[:attribute])
+          %span{ title: uri_components[:uri] }= uri_components[:label]
         %td
+          - # displaying values
           - if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(row[:target_taxon_concept_id].to_s.split("/").last)
             = link_to raw(target_taxon_concept.title), taxon_data_path(target_taxon_concept)
             - unless target_taxon_concept.subtitle.blank?
               = "(" + target_taxon_concept.subtitle + ")"
-          - elsif row[:value].is_a?(KnownUri)
-            %span{title: row[:value].uri}= row[:value].name
-          - elsif label = EOL::Sparql.uri_to_readable_label(row[:value])
-            = label
           - else
-            = row[:value]
+            - uri_components = EOL::Sparql.uri_components(row[:value])
+            %span{ title: uri_components[:uri] }= uri_components[:label]
+
+          - # displaying unit of measure
+          - if uri_components = EOL::Sparql.components_of_unit_of_measure_label_for_uri(row[:attribute])
+            %span{ title: uri_components[:uri] }= uri_components[:label]
+          - elsif row[:metadata] && uri_components = EOL::Sparql.get_unit_components_from_metadata(row[:metadata])
+            %span{ title: uri_components[:uri] }= uri_components[:label]
+
+          - # displaying metadata
           - if row[:metadata]
             %table.meta
               - row[:metadata].each do |key, value|
                 - value = [ value ] unless value.class == Array
                 - value.each do |v|
                   %tr
-                    - if key.is_a?(KnownUri)
-                      %th{title: key.uri}= key.name
-                    - elsif label = EOL::Sparql.uri_to_readable_label(key)
-                      %th= label
-                    - else
-                      %th= key
+                    - uri_components = EOL::Sparql.uri_components(key)
+                    %th{ title: uri_components[:uri] }= uri_components[:label]
                     - if EOL::Sparql.uri_in_eol_triplestore(v)
                       %td= link_to v, ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(v.to_s)), :target => 'data'
-                    - elsif v.is_a?(KnownUri)
-                      %td{title: v.uri}= v.name
                     - else
-                      %td= v
-      %tr{class: (classes + ['actions']).join(' ')}
-        %td{colspan:2}
+                      - uri_components = EOL::Sparql.uri_components(v)
+                      %td{ title: uri_components[:uri] }= uri_components[:label]
+      %tr{ class: (classes + ['actions']).join(' ') }
+        %td{ colspan: 2 }
           %ul
             - if row.has_key?(:user)
               %li= raw I18n.t(:data_provided_by, user: link_to(row[:user].full_name, row[:user]))
@@ -80,5 +76,5 @@
       %h3= I18n.t('user_added_data.add_data_header')
     = render :partial => 'user_added_data/form'
     -# You can't have nested forms, so this is external. ...It will be handled by Ajax (only), anyway.
-    #suggestions{style: 'display:none;'}
+    #suggestions{ style: 'display:none;' }
       = render :partial => 'known_uris/categories'

@@ -319,7 +319,11 @@ en:
         request_publish: "Request publish"
       known_uri:
         uri: "URI"
+        name: "Name"
         toc_items: "Categories"
+        description: "Description"
+        has_unit_of_measure: "Has Unit Of Measure URI"
+        is_unit_of_measure: "Is A Unit Of Measure"
       open_authentication:
         created_at: "Created"
         guid: "GUID"

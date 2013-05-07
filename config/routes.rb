@@ -205,13 +205,14 @@ Eol::Application.routes.draw do
     resources :content_partner_agreements, :as => 'agreements', :except => [:index, :destroy],
       :controller => 'content_partners/content_partner_agreements'
     resource :statistics, :only => [:show], :controller => 'content_partners/statistics'
-    resources :resources, :only => [:index, :show, :edit, :new, :update, :create], :controller => 'content_partners/resources'do
+    resources :resources, :only => [:index, :show, :edit, :new, :update, :create],
+      :controller => 'content_partners/resources' do
       member do
         get 'force_harvest', :controller => 'content_partners/resources'
         post 'force_harvest', :controller => 'content_partners/resources'
       end
       resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/resources/harvest_events'
-      resources :hierarchies, :only => [:edit, :update] do
+      resources :hierarchies, controller: 'content_partners/resources/hierarchies', only: [:edit, :update]  do
         member do
           post 'request_publish', :controller => 'content_partners/resources/hierarchies'
         end

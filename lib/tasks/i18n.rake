@@ -523,7 +523,7 @@ namespace :i18n do
 
     def get_lang_id_by_lang_abbr(lang_abbr)
       results = ActiveRecord::Base.connection.execute("select id from languages where iso_639_1='" + lang_abbr + "'")
-      if (results.nil? || results.num_rows== 0)
+      if (results.nil? || results.size == 0)
         return 0
       else
         return results.first.first
@@ -556,7 +556,7 @@ namespace :i18n do
                   end
                 end
       query = ""
-      if (results.nil? || results.num_rows== 0)
+      if (results.nil? || results.size == 0)
         # new record
         query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + escape_new_line(clean_basic_injection(column_value)) + "')"
       else

@@ -89,27 +89,14 @@ $(function() {
       return false;
     });
 
-    function toggleImg(idx) {
-      var $image = $ss.find(".image:eq(" + idx + ")");
-      var $a = $image.find("> a").first();
-      var $img = $a.find("img");
-      $img.css("paddingTop", ($a.height() / 2 - $img.data("height") / 2) + "px");
-      $ss.find(".images").css("height", $image.height());
-    }
-
     if ("cycle" in $.fn) {
       $ss.find(".images").cycle({
         speed: 500,
         timeout: 0,
-        onPagerEvent: toggleImg,
         pagerAnchorBuilder: function(idx) {
           return $ss.selector + " .thumbnails a:eq(" + idx + ")";
         }
       });
-
-      if ($ss.find(".image").length > 1) {
-        toggleImg(0);
-      }
 
     }
 

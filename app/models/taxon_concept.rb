@@ -466,7 +466,7 @@ class TaxonConcept < ActiveRecord::Base
     @title = entry(hierarchy).italicized_name.firstcap
   end
   alias :summary_name :title
-  alias :italicized_attibuted_title :title
+  alias :italicized_attributed_title :title
 
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?

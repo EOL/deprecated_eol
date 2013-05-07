@@ -1,8 +1,9 @@
+- toc_item ||= nil
 - content.each do |dato|
   - link_object = dato.is_link?
   - item_status_class, item_status_label = status_class_and_label_for_data_object(dato)
   %div{:id => "data_object_#{dato.id}", :class => 'article'}
-    - unless dato.object_title.blank?
+    - unless dato.object_title.blank? || dato.title_same_as_toc_label(toc_item, :language => current_language)
       %h4= dato.object_title
     .meta.learn_more
       %p= link_to I18n.t("#{link_object ? 'link' : 'article'}_more_about"), data_object_path(dato)

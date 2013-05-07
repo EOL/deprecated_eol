@@ -1,11 +1,9 @@
 <% if @known_uris.empty? %>
-  <p><%= I18n.t(:known_uris_empty_sorry) %></p>
+  <li class="child"><%= I18n.t(:known_uris_empty_sorry) %></p>
 <% else %>
-  <ul>
-    <% @known_uris.each do |ku| %>
-      <li class="attribute">
-        <span title=<%=ku.uri%> class='name'><%= raw(ku.name) %></span>
-      </li>
-    <% end %>
-  </ul>
+  <% @known_uris.each do |ku| %>
+    <li class="child attribute">
+      <span title=<%=ku.uri%> class='name'><%= raw(ku.name) %></span>
+    </li>
+  <% end %>
 <% end %>

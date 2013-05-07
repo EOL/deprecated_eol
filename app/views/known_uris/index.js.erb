@@ -1,5 +1,16 @@
-$('div#suggestions .children').hide();
-$("#category_<%= @category.id %> .children").html('<%= escape_javascript render(:partial => 'index') %>').show();
+$('div#suggestions .child').hide();
+var $next = $("#category_<%= @category.id %>").next();
+while($next.hasClass('child')) {
+  var $that = $next;
+  $next = $next.next();
+  $that.remove();
+}
+$("#category_<%= @category.id %>").after('<%= escape_javascript render(:partial => 'index') %>');
+var $next = $("#category_<%= @category.id %>").next();
+while($next.hasClass('child')) {
+  $next.show();
+  $next = $next.next();
+}
 $('li.attribute').click(function() {
   $('#user_added_data_predicate').val($(this).find('.name').text());
   EOL.attribute_is_okay();

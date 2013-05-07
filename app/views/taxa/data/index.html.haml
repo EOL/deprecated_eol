@@ -1,26 +1,30 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-.main_container#taxon_data
-  -# TODO - hide this for accessibility.
-  %ul.categories
-    %li= link_to I18n.t(:all_categories), '#', class: 'all'
+-# TODO - hide this for accessibility.
+#tabs_sidebar.data
+  %ul.tabs.with_icons
+    %li.active= link_to I18n.t(:all_categories), '#', class: 'all'
     - @categories.each do |cat|
       %li= link_to cat.label, '#', 'data-toc-id' => cat.id
     %li= link_to I18n.t(:other_category), '#', class: 'other'
+.main_container#taxon_data
   %table.standard.data
+    - last_attribute = nil
     - @data.each do |row|
       - next if row[:attribute].blank?
       - classes = []
       - classes = row[:attribute].toc_items.map { |ti| "toc_#{ti.id}" } if row[:attribute].is_a?(KnownUri)
       - classes = ['toc_other'] if classes.blank?
+      - classes << 'nested' if row[:attribute] == last_attribute
       %tr{class: (classes + ['data']).join(' ')}
         %th
-          - if row[:attribute].is_a?(KnownUri)
-            %span{title: row[:attribute].uri}= row[:attribute].name
-          - elsif label = EOL::Sparql.uri_to_readable_label(row[:attribute])
-            = label
-          - else
-            = row[:attribute]
+          - if row[:attribute] != last_attribute
+            - if row[:attribute].is_a?(KnownUri)
+              %span{title: row[:attribute].uri}= row[:attribute].name
+            - elsif label = EOL::Sparql.uri_to_readable_label(row[:attribute])
+              = label
+            - else
+              = row[:attribute]
         %td
           - if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(row[:target_taxon_concept_id].to_s.split("/").last)
             = link_to raw(target_taxon_concept.title), taxon_data_path(target_taxon_concept)
@@ -69,6 +73,8 @@
               %li= raw "&bull;"
               -# TODO: i18n
               %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
+      - last_attribute = row[:attribute]
+.add_content
   .article
     .header
       %h3= I18n.t('user_added_data.add_data_header')

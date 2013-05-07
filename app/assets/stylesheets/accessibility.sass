@@ -1360,28 +1360,92 @@ ul.tabs
     font-size: 0.8em
 
 #new_user_added_data
-  height: 33em
   .suggestions
     clear: left
     font-weight: bold
   fieldset.actions
-    text-align: center
+    margin-top: 1em
+    clear: both
+    input
+      padding: 7px 12px
   .has_many
     margin: 0
-    .add
-      margin-left: 11em
 
-#taxon_data
+#content > .site_column > .add_content
+  margin: 3em 6em
+  form.user_added_data
+    fieldset.main
+      float: left
+      margin-right: 20px
+      margin-bottom: 1em
+      dl
+        dd input[type="text"]
+          width: 350px 
+        dd.new_field
+          float: left
+          input
+            width: 130px
+        dd.new_value
+          float: right
+          input
+            width: 200px
+    fieldset.metadata
+      background-color: #f6f8fa
+      padding: 1em
+      border: 1px solid $grayblue
+      dl dd input
+        background-image: none
+    dl dt
+      padding: 0
+      padding-bottom: 3px
   #new_uri_warning
+    width: 339px
     display: none
-    color: #880
-    background-color: #ffc
-    border: 1px solid #880
-    margin-left: 1em
+    color: #88924f
+    background-color: #f1f4dc
+    border: 1px solid #ccd399
     padding: 3pt 8pt
-    top: 146px
-    left: 252px
+  #suggestions
+    width: 360px
+    height: 24em
+    overflow: auto
+    margin: 0
+    border: 1px solid $darker_gray
+    color: #394651
+    background-color: #FFF
+    position: absolute
+    z-index: 2
+    h3
+      margin: 0
+      padding: 10px
+      background-color: #f6f8fa
+      border-bottom: 1px solid $grayblue
+      font-weight: normal
+    li
+      padding: 4pt
+      line-height: 150%
+    li:hover
+      background-color: #f1f4dc
+      cursor: hand
+      cursor: pointer
+    li.category
+      font-size: 1.2em
+    a
+      color: #394651
+      text-decoration: none
+    li.child
+      display: none
+      padding-left: 1.3em
+
+#tabs_sidebar.data
+  li a
+    padding: 5pt
+    font-size: 85%
+    font-weight: normal
+#taxon_data
   .metadata
+    background-color: #f6f8fa
+    border: 1px solid $grayblue
     width: 40em
     margin-left: 6em
     dd
@@ -1397,6 +1461,24 @@ ul.tabs
   input.problems
     +gradient-bg(#ffc, #fff)
   table.data
+    border-bottom: 1px solid $grayblue
+    tr
+      border: 0 /* Get rid of the default table borders */
+      border-top: 1px solid $grayblue
+      border-right: 1px solid $grayblue
+      border-left: 1px solid $grayblue
+    tr.nested
+      border-top: 0
+    tr.actions
+      background-color: #f6f8fa
+      font-weight: normal
+      font-size: 0.8em
+      border-bottom: 1px solid $grayblue
+      li
+        margin-left: 2pt
+        display: inline
+      td
+        font-weight: normal
     tr:hover
       border-color: #aab3bb
       cursor: hand
@@ -1411,8 +1493,8 @@ ul.tabs
       padding-top: 5pt
       vertical-align: top
     td
-      font-weight: bold
-      font-size: 1.2em
+      font-weight: 500
+      font-size: 1.3em
       color: $nearly_black
       vertical-align: top
       table
@@ -1421,57 +1503,3 @@ ul.tabs
         td
           font-size: 0.8em
           font-weight: normal
-    tr.actions
-      background-color: $light_blue
-      font-weight: normal
-      font-size: 0.8em
-      li
-        margin-left: 2pt
-        display: inline
-      td
-        font-weight: normal
-  #suggestions
-    width: 40em
-    height: 24em
-    overflow: auto
-    margin: 1px
-    padding: 13px
-    border: 1px solid $darker_gray
-    color: $darker_blue
-    background-color: #FFF
-    position: absolute
-    z-index: 2
-    h3
-      color: $nearly_black
-      font: 1.16em
-    li
-      margin: 4pt
-    li.category
-      font-size: 1.2em
-      font-weight: bold
-    li.attribute
-      margin: 0px
-      padding: 4px /* Change margin to padding to make highlight look right */
-      text-transform: uppercase
-      color: $darker_blue
-      border: 1px solid white  /* clears up spacing issues. */
-      font-size: 0.9em
-      font-weight: normal
-    li.attribute:hover
-      cursor: pointer
-      +gradient-bg($light_blue, #fff)
-      border: 1px solid $grayblue
-    a
-      color: $darker_blue
-    .children
-      display: none
-  ul.categories
-    margin-top: 10px
-    margin-bottom: 7px
-    li
-      border-top: 1px solid $grayblue
-      border-right: 1px solid $grayblue
-      border-left: 1px solid $grayblue
-      display: inline
-      padding: 7px
-      background-color: #f1f4f7

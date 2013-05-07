@@ -46,6 +46,7 @@ $(function() {
 
   $('.has_many').each(function() {
     var $subform = $(this).clone().appendTo($(this)).addClass('subform').hide();
+    $subform.find('.once').remove();
     $(this).append('<span class="add"><a href="#">'+$(this).attr('data-another')+'</a></span>');
     var other_fields = $(this).attr('data-other-fields');
     $(this).find('.add a').click(function() {
@@ -55,6 +56,8 @@ $(function() {
         $(this).attr('id', $(this).attr('id').replace(/\d+/, count));
         $(this).attr('name', $(this).attr('name').replace(/\d+/, count));
       });
+      var form_h = $('.has_many_expandable').height();
+      $('.has_many_expandable').height(form_h + $subform.height());
       EOL.add_has_default_behavior();
       return(false);
     });
@@ -110,8 +113,12 @@ $(function() {
   }).find('table').hide();
 
   $('#recently_used_category a').click(function() {
-    $('#suggestions').find('.children').hide();
-    $(this).parent().find('.children').show();
+    $('#suggestions').find('.child').hide();
+    var $next = $(this).parent().next();
+    while($next.hasClass('child')) {
+      $next.show();
+      $next = $next.next();
+    }
     return(false);
   });
 
@@ -120,18 +127,20 @@ $(function() {
     EOL.attribute_is_okay();
   });
 
-  $('ul.categories a').click(function() {
+  $('#tabs_sidebar.data ul a').click(function() {
     if($(this).hasClass('all')) { // Acts as a reset button/link
       $('table.data tr.actions').hide();
       $('table.data tr.data').show();
     } else if($(this).hasClass('other')) {
-      $('table.data tr').hide();
+      $('table.data > tbody > tr').hide();
       $('table.data tr.data.toc_other').show();
     } else {
       // TODO - this could be more efficient and only hide rows that DON'T have this id...
-      $('table.data tr').hide();
+      $('table.data > tbody > tr').hide();
       $('table.data tr.data.toc_' + $(this).attr('data-toc-id')).show();
     }
+    $(this).parent().parent().find('li').removeClass('active');
+    $(this).parent().addClass('active');
     return(false);
   });
 

@@ -43,8 +43,10 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.custom(name, language)
-    known_uri = KnownUri.create(uri: BASE + CGI.escape(name.gsub(/\s+/, '_').camelize))
-    translated_known_uri = TranslatedKnownUri.create(name: name, language: language, known_uri: known_uri)
+    known_uri = KnownUri.find_or_create_by_uri(BASE + CGI.escape(name.gsub(/\s+/, '_').camelize))
+    translated_known_uri =
+      TranslatedKnownUri.where(name: name, language_id: language.id, known_uri_id: known_uri.id).first
+    translated_known_uri ||= TranslatedKnownUri.create(name: name, language: language, known_uri: known_uri)
     known_uri
   end
 

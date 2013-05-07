@@ -93,7 +93,7 @@ class UserAddedDataController < ApplicationController
   end
 
   def convert_fields_to_uri
-    convert_field_to_uri(params[:user_added_data], :predicate)
+    add_uri_to_session(convert_field_to_uri(params[:user_added_data], :predicate))
     convert_field_to_uri(params[:user_added_data], :object)
     params[:user_added_data][:user_added_data_metadata_attributes].each do |index, meta|
       convert_field_to_uri(meta, :predicate)
@@ -111,6 +111,7 @@ class UserAddedDataController < ApplicationController
     else
       hash[key] = converted
     end
+    hash[key]
   end
 
   # NOTE that this only takes the first one it finds.
@@ -119,10 +120,13 @@ class UserAddedDataController < ApplicationController
     turi = TranslatedKnownUri.where(name: name, language_id: current_language.id).first
     return nil unless turi.known_uri && ! turi.known_uri.uri.blank?
     uri = turi.known_uri.uri
+    uri
+  end
+
+  def add_uri_to_session(uri)
     session[:rec_uris] ||= []
     session[:rec_uris].unshift(uri)
     session[:rec_uris] = session[:rec_uris].uniq[0..7]
-    uri
   end
 
 end

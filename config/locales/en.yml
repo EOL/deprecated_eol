@@ -1741,6 +1741,7 @@ en:
       unsubscribe_notifications_failed: "Sorry, an error occurred, user could not be unsubscribed to notifications."
   user_added_data:
     add_data_header: "Contribute your own data"
+    additional_fields: "Additional Fields"
     edit_data_header: "Edit your data"
     add_metadata_header: "Additional Information"
     edit_metadata_header: "Edit the metadata"
@@ -1750,6 +1751,7 @@ en:
     new_field: 'New Field...'
     new_value: 'Value'
     source_field_helper: "Add literature reference or URL to online data resource."
+    submit_data: "submit data value"
     update_successful: "Data was successfully updated"
     update_failed: "Unable to update your data: %{errors}"
   # end of views scope
@@ -2320,7 +2322,7 @@ en:
   add_a_new_topic_area: "Add a new topic area"
   add_a_new_user: "Add a new user"
   add_a_taxon_association_label: "Add a taxon association"
-  add_another_for_has_many: "Add another"
+  add_another_for_has_many: "Add new field"
   add_article_instead: "add an article instead"
   add_article_to_page_button: "Add an article"
   add_association_submit_button: "add association"

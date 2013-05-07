@@ -30,6 +30,16 @@ module EOL
       convert(str.downcase.tr(' ','_'))
     end
 
+    def self.uri_to_readable_label(uri)
+      if matches = uri.to_s.match(/(\/|#)([a-z0-9_-]{3,})$/i)
+        return matches[2].underscore.tr('_', ' ')
+      end
+    end
+
+    def self.uri_in_eol_triplestore(uri)
+      uri.to_s =~ /^http:\/\/(eol.org\/resources\/[0-9]+\/(taxa|occurrences|events)\/|anage\.org|adw\.org|iobis\.org|reeffish\.org)/
+    end
+
     def self.is_uri?(string)
       return true if string =~ BASIC_URI_REGEX
       return true if string =~ ENCLOSED_URI_REGEX

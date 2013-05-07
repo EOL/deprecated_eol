@@ -3,6 +3,11 @@
 # version.)  I think this will be fixed in later versions (it works for PL), but for now, this seems to work.
 class TaxonData < TaxonUserClassificationFilter
 
+  def self.graph_name_to_resource(graph_name)
+    resource_id = graph_name.to_s.split("/").last
+    Resource::find(resource_id)
+  end
+
   # TODO - break down into friendlier syntax. :)
   def get_data
     rows = data
@@ -25,52 +30,71 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def data
-    group_data_by_graph_and_uri(single_point_data + dataset_data) + flat_data
+    group_data_by_graph_and_uri(single_point_data + dataset_data + associations_data)
   end
 
-  # NOTE - I changed the order of the two GRAPH clauses because the Q wasn't working for me as written. At all.
-  # Syntax error.
-  def flat_data
+  def single_point_data
     EOL::Sparql.connection.query("
-      SELECT DISTINCT ?graph ?taxon_uri ?attribute ?value
+      SELECT DISTINCT ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object ?occurrence_predicate ?occurrence_object ?event_predicate ?event_object
       WHERE {
-        GRAPH ?graph {
-          ?taxon_uri ?attribute ?value
-          FILTER (?graph != <http://eol.org/taxon_mappings/> AND ?graph != <#{UserAddedData::GRAPH_NAME}>)
-          FILTER ((?attribute != rdf:type) &&
-                  (?attribute != eol:canonical))
+        GRAPH ?resource_mappings_graph {
+          ?taxon_id dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}>
         } .
-        GRAPH <http://eol.org/taxon_mappings/> {
-          ?taxon_uri dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
+        GRAPH ?graph {
+          ?data_point_uri a dwc:MeasurementOrFact
+          { ?data_point_uri dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> }
+          UNION
+          { ?data_point_uri dwc:taxonID ?taxon_id } .
+          ?data_point_uri dwc:measurementType ?attribute .
+          ?data_point_uri dwc:measurementValue ?value .
+          OPTIONAL {
+            ?data_point_uri ?attribution_predicate ?attribution_object .
+            FILTER (?attribution_predicate NOT IN (dwc:taxonConceptID, dwc:taxonID, dwc:occurrenceID))
+          }
+          OPTIONAL {
+            ?data_point_uri dwc:occurrenceID ?occurrence .
+            ?occurrence ?occurrence_predicate ?occurrence_object .
+            FILTER (?occurrence_predicate NOT IN (rdf:type, dwc:taxonConceptID, dwc:taxonID, dwc:occurrenceID, dwc:eventID)) .
+            OPTIONAL {
+              ?occurrence dwc:eventID ?event .
+              ?event ?event_predicate ?event_object .
+              FILTER (?event_predicate NOT IN (rdf:type, dwc:taxonConceptID, dwc:taxonID, dwc:occurrenceID, dwc:eventID))
+            }
+          }
         }
       }
       ORDER BY ?attribute")
   end
 
-  # TODO - gah!  Don't commit this.  I had to remove these lines to get things to work locally, without the
-  # taxon_mappings data that PL has:
-        #GRAPH <http://eol.org/taxon_mappings/> {
-          #?taxon dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
-        #} .
-  def single_point_data
+  def associations_data
     EOL::Sparql.connection.query("
-      SELECT DISTINCT ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object
+      SELECT DISTINCT ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object ?target_taxon_concept_id ?inverse_attribute
       WHERE {
+        GRAPH ?resource_mappings_graph {
+          ?taxon_id dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
+          ?value dwc:taxonConceptID ?target_taxon_concept_id
+        } .
         GRAPH ?graph {
-          { ?data_point_uri dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> }
+          ?data_point_uri a eol:Association .
+          {
+            ?data_point_uri dwc:taxonID ?taxon_id .
+            ?data_point_uri <http://eol.org/schema/targetTaxonID> ?value .
+            ?data_point_uri <http://eol.org/schema/associationType> ?attribute
+          }
           UNION
-          { ?data_point_uri dwc:taxonID ?taxon } .
-          ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value .
-          OPTIONAL {
-            ?data_point_uri ?attribution_predicate ?attribution_object .
-            FILTER ((?attribution_predicate != rdf:type) &&
-                    (?attribution_predicate != dwc:taxonConceptID) &&
-                    (?attribution_predicate != dwc:measurementType) &&
-                    (?attribution_predicate != dwc:measurementValue))
+          {
+            ?data_point_uri dwc:taxonID ?value .
+            ?data_point_uri <http://eol.org/schema/targetTaxonID> ?taxon_id .
+            ?data_point_uri <http://eol.org/schema/associationType> ?inverse_attribute
           } .
-          FILTER (?graph != <http://eol.org/taxon_mappings/>)
-          FILTER (?attribute != rdf:type)
+          OPTIONAL {
+            ?data_point_uri ?attribution_predicate ?attribution_object
+          }
+        } .
+        OPTIONAL {
+          GRAPH ?mappings {
+            ?inverse_attribute owl:inverseOf ?attribute
+          }
         }
       }
       ORDER BY ?attribute")
@@ -80,29 +104,27 @@ class TaxonData < TaxonUserClassificationFilter
     EOL::Sparql.connection.query("
       SELECT DISTINCT ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object
       WHERE {
-        GRAPH <http://eol.org/taxon_mappings/> {
+        GRAPH ?resource_mappings_graph {
           ?taxon dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
         } .
         GRAPH ?graph {
           ?dataset a eol:DataSet .
-          { ?dataset dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> }
-          UNION
-          { ?dataset dwc:taxonID ?taxon } .
+          ?dataset dwc:taxonID ?taxon .
           OPTIONAL {
             ?dataset ?attribution_predicate ?attribution_object .
-            FILTER ((?attribution_predicate != rdf:type) &&
-                    (?attribution_predicate != dwc:taxonID))
+            FILTER (?attribution_predicate NOT IN (rdf:type, dwc:taxonID))
           } .
           ?data_point_uri a eol:DataPoint .
           ?data_point_uri eol:inDataSet ?dataset .
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value
+          FILTER (?attribute NOT IN (dwc:taxonID, dwc:eventID, dwc:occurrenceID))
         }
       }
       ORDER BY ?attribute")
   end
 
-  # ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object
+  # ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object ?occurrence_predicate ?occurrence_object
   def group_data_by_graph_and_uri(sparql_results)
     grouped_data = {}
     sparql_results.each do |result|
@@ -126,6 +148,28 @@ class TaxonData < TaxonUserClassificationFilter
           end
         else
           result_metadata[result[:attribution_predicate]] = result[:attribution_object]
+        end
+      end
+      if result[:occurrence_predicate] && result[:occurrence_object]
+        if current_value_of_predicate = result_metadata[result[:occurrence_predicate]]
+          if current_value_of_predicate.class == Array
+            result_metadata[result[:occurrence_predicate]] << result[:occurrence_object]
+          elsif current_value_of_predicate != result[:occurrence_object]
+            result_metadata[result[:occurrence_predicate]] = [ current_value_of_predicate, result[:occurrence_object] ]
+          end
+        else
+          result_metadata[result[:occurrence_predicate]] = result[:occurrence_object]
+        end
+      end
+      if result[:event_predicate] && result[:event_object]
+        if current_value_of_predicate = result_metadata[result[:event_predicate]]
+          if current_value_of_predicate.class == Array
+            result_metadata[result[:event_predicate]] << result[:event_object]
+          elsif current_value_of_predicate != result[:event_object]
+            result_metadata[result[:event_predicate]] = [ current_value_of_predicate, result[:event_object] ]
+          end
+        else
+          result_metadata[result[:event_predicate]] = result[:event_object]
         end
       end
     end

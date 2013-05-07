@@ -8,7 +8,7 @@ class Taxa::DataController < TaxaController
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
     @data = @taxon_page.data.get_data
     add_known_uris_to_data
-    @categories = @data.map { |d| d[:attribute] }.flat_map { |a| a.is_a?(KnownUri) ? a.toc_items : nil }.uniq
+    @categories = @data.map { |d| d[:attribute] }.flat_map { |a| a.is_a?(KnownUri) ? a.toc_items : nil }.uniq.compact
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -23,8 +23,8 @@ protected
   def add_known_uris_to_data
     known_uris = KnownUri.where(["uri in (?)", uris_in_data])
     @data.each do |row|
-      attr_uri = known_uris.select { |known_uri| known_uri.uri == row[:attribute] }.first
-      val_uri = known_uris.select { |known_uri| known_uri.uri == row[:value] }.first
+      attr_uri = known_uris.select { |known_uri| known_uri.uri.casecmp(row[:attribute].to_s) == 0 }.first
+      val_uri = known_uris.select { |known_uri| known_uri.uri.casecmp(row[:value].to_s) == 0 }.first
       row[:attribute] = attr_uri if attr_uri
       row[:value] = val_uri if val_uri
       # Don't modify something when you're iterating over it!
@@ -52,12 +52,11 @@ protected
   end
 
   def uris_in_data
-
     uris  = @data.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
     uris += @data.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
-    uris += @data.map { |row| row[:metadata].keys }.flatten.select { |attr| attr.is_a?(RDF::URI) }
-    uris += @data.map { |row| row[:metadata].values }.flatten.select { |attr| attr.is_a?(RDF::URI) }
-    uris.map(&:to_s)
+    uris += @data.map { |row| row[:metadata] ? row[:metadata].keys : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
+    uris += @data.map { |row| row[:metadata] ? row[:metadata].values : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
+    uris.map(&:to_s).uniq
   end
 
 end

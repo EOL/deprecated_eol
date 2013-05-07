@@ -95,7 +95,9 @@ $(function() {
     });
   });
 
-  $('table.data tr.actions').hide().prev().on('click', function() {
+  $('table.data tr.actions').hide().prev().on('click', function(e) {
+    // if the target of the click is a link, do not hide the metadata
+    if($(e.target).closest('a').length) return;
     var $next_row = $(this).next();
     var $table = $(this).find('table');
     if ($next_row.is(":visible")) {

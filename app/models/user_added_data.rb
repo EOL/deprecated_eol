@@ -17,7 +17,7 @@ class UserAddedData < ActiveRecord::Base
   after_create :update_triplestore
   after_update :update_triplestore
 
-  attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes
+  attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes, :deleted_at
 
   accepts_nested_attributes_for :user_added_data_metadata, :allow_destroy => true
 

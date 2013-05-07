@@ -11,7 +11,7 @@ module EOL
               :name => 'id',
               :type => Integer,
               :required => true,
-              :test_value => Hierarchy.default.id ),
+              :test_value => Hierarchy.col.id ),
             EOL::Api::DocumentationParameter.new(
               :name => 'cache_ttl',
               :type => Integer,

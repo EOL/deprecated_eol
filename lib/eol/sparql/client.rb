@@ -38,11 +38,13 @@ module EOL
         delete_graph_via_sparql_update(graph_name)
       end
 
-      def query(query)
+      def query(query, options = {})
+        query = append_namespaces_to_query(query)
+        query = options[:prefix] +" "+ query if options[:prefix]
         results = []
           puts "*" * 100
-          puts "** #{append_namespaces_to_query(query)}"
-        sparql_client.query(append_namespaces_to_query(query)).each_solution{ |s| results << s.to_hash }
+          puts "** #{query}"
+        sparql_client.query(query).each_solution{ |s| results << s.to_hash }
         results
       end
 

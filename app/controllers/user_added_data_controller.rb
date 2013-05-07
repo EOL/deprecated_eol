@@ -2,6 +2,8 @@ class UserAddedDataController < ApplicationController
 
   layout 'v2/basic'
 
+  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms, :only => :autocomplete_known_uri_uri
+
   # Doesn't seem to work unless it's here as WELL as taxon/data.
   autocomplete :known_uri, :uri
   autocomplete :translated_known_uri, :name
@@ -19,7 +21,6 @@ class UserAddedDataController < ApplicationController
     if @user_added_data.save
       flash[:notice] = I18n.t('user_added_data.create_successful')
     else
-      debugger
       # NOTE - we can't just use validation messages quite yet, since it's created in another controller. :\
       if @user_added_data.errors.any?
         flash[:error] = I18n.t('user_added_data.create_failed',

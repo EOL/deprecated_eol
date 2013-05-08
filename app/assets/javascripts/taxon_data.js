@@ -1,5 +1,7 @@
 if(!EOL) { var EOL = {}; }
 
+EOL.max_meta_rows = 10;
+
 EOL.enable_button = function($button) {
   if ($button.is(':disabled')) {
     $button.removeAttr('disabled').fadeTo(225, 1);
@@ -42,12 +44,21 @@ EOL.add_has_default_behavior = function() {
   });
 };
 
+
 function update_input_id_and_name(form, new_id) {
   form.find('input').each(function() {
     $(this).attr('id', $(this).attr('id').replace(/\d+/, new_id));
     $(this).attr('name', $(this).attr('name').replace(/\d+/, new_id));
   });
 }
+
+EOL.count_meta = function() {
+  // Count of metadata:
+  $('table.data tr.data > td').each(function() {
+    var count = $(this).find('table tr').length;
+    $(this).prepend('<span class="meta_count">['+count+']</span>');
+  });
+};
 
 $(function() {
 
@@ -104,6 +115,43 @@ $(function() {
     });
   });
 
+  $('a.show_meta_counts').click(function() {
+    EOL.count_meta();
+    return(false);
+  });
+
+  // More...
+  $('table.data tr.data').each(function() {
+    if ( ! $(this).hasClass('nested')) {
+      var $next = $(this).next().next(); // Skip a row because of actions
+      var count = 0;
+      while($next.hasClass('nested')) {
+        count++;
+        if (count > EOL.max_meta_rows) { $next.hide(); }
+        $next = $next.next().next(); // Again, skipping actions.
+      }
+      if (count == EOL.max_meta_rows+1) {
+        $next.prev().prev().show(); // Ooops, show it, since there's only one more.
+      } else if (count > EOL.max_meta_rows) {
+        // TODO - I18n (read "More..." off of a data attribute somewhere, prolly on the row).
+        $next.before('<tr class="data nested"><th></th><td><a href="#" class="more">Show '+(count-EOL.max_meta_rows)+' More...</a></td></tr>');
+        $next.prev().find('a.more').click(function() {
+          var $row = $(this).closest('tr');
+          var $next = $row.prev().prev();
+          $row.remove();
+          console.log($next);
+          // TODO - we need to replace all these while-next things with a method that takes a closure as an arg...
+          // (of course, this will have to be written to find the nearest non-nested, then iterate down. NBD.
+          while($next.hasClass('nested')) {
+            $next.show();
+            $next = $next.prev().prev(); // Yup, skipping actions.
+          }
+          return(false);
+        });
+      }
+    }
+  });
+
   $('table.data tr.actions').hide().prev().on('click', function(e) {
     // if the target of the click is a link, do not hide the metadata
     if($(e.target).closest('a').length) return;
@@ -131,6 +179,7 @@ $(function() {
   $('li.attribute').click(function() {
     $('#user_added_data_predicate').val($(this).find('.name').text());
     EOL.attribute_is_okay();
+    $('div#suggestions').hide();
   });
 
   $('#tabs_sidebar.data ul a').click(function() {
@@ -141,7 +190,6 @@ $(function() {
       $('table.data > tbody > tr').hide();
       $('table.data tr.data.toc_other').show();
     } else {
-      // TODO - this could be more efficient and only hide rows that DON'T have this id...
       $('table.data > tbody > tr').hide();
       $('table.data tr.data.toc_' + $(this).attr('data-toc-id')).show();
     }

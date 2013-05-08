@@ -14,4 +14,5 @@ while($next.hasClass('child')) {
 $('li.attribute').click(function() {
   $('#user_added_data_predicate').val($(this).find('.name').text());
   EOL.attribute_is_okay();
+  $('div#suggestions').hide();
 });

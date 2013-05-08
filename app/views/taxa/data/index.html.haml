@@ -71,6 +71,7 @@
               -# TODO: i18n
               %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
       - last_attribute = row[:attribute]
+  %p= link_to "Show meta counts", '#', class: 'show_meta_counts'
 .add_content
   .article
     .header

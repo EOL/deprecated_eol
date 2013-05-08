@@ -18,8 +18,9 @@
       - classes << 'nested' if row[:attribute] == last_attribute
       %tr{ class: (classes + ['data']).join(' ') }
         %th
-          - uri_components = EOL::Sparql.uri_components(row[:attribute])
-          %span{ title: uri_components[:uri] }= uri_components[:label]
+          - if row[:attribute] != last_attribute
+            - uri_components = EOL::Sparql.uri_components(row[:attribute])
+            %span{ title: uri_components[:uri] }= uri_components[:label]
         %td
           - # displaying values
           - if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(row[:target_taxon_concept_id].to_s.split("/").last)

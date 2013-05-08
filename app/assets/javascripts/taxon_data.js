@@ -42,20 +42,26 @@ EOL.add_has_default_behavior = function() {
   });
 };
 
+function update_input_id_and_name(form, new_id) {
+  form.find('input').each(function() {
+    $(this).attr('id', $(this).attr('id').replace(/\d+/, new_id));
+    $(this).attr('name', $(this).attr('name').replace(/\d+/, new_id));
+  });
+}
+
 $(function() {
 
   $('.has_many').each(function() {
-    var $subform = $(this).clone().appendTo($(this)).addClass('subform').hide();
+    var $subform = $(this).clone();
     $subform.find('.once').remove();
+    var last_input = $(this).closest('form').find('input[id^=user_added_data_user_added_data_metadata_attributes]').filter(':last');
+    var highest_field_id = parseInt(last_input.attr('id').match(/(\d+)/)[1]);
+    update_input_id_and_name($subform, highest_field_id += 1);
+    $subform.appendTo($(this)).addClass('subform').hide();
     $(this).append('<span class="add"><a href="#">'+$(this).attr('data-another')+'</a></span>');
-    var other_fields = $(this).attr('data-other-fields');
     $(this).find('.add a').click(function() {
-      $subform.clone().insertBefore($(this).parent()).show().find('input').each(function() {
-        var count = ($('.metadata').find('input[id^=user_added_data_user_added_data_metadata_attributes]').length -
-          other_fields) / 2;
-        $(this).attr('id', $(this).attr('id').replace(/\d+/, count));
-        $(this).attr('name', $(this).attr('name').replace(/\d+/, count));
-      });
+      $subform.clone().insertBefore($(this).parent()).show();
+      update_input_id_and_name($subform, highest_field_id += 1);
       var form_h = $('.has_many_expandable').height();
       $('.has_many_expandable').height(form_h + $subform.height());
       EOL.add_has_default_behavior();

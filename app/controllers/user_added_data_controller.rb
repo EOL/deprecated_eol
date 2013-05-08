@@ -104,6 +104,7 @@ class UserAddedDataController < ApplicationController
   # NOTE - just passing in the field wasn't working (thought it would be by ref, but I guess not), so we need the hash and the key:
   def convert_field_to_uri(hash, key)
     return unless hash[key]
+    return if EOL::Sparql.is_uri?(hash[key])
     converted = convert_to_uri(hash[key])
     # They want to create a new EOL-based URI:
     if converted.blank?

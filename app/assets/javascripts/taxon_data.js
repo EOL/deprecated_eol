@@ -134,7 +134,9 @@ $(function() {
         $next.prev().prev().show(); // Ooops, show it, since there's only one more.
       } else if (count > EOL.max_meta_rows) {
         // TODO - I18n (read "More..." off of a data attribute somewhere, prolly on the row).
-        $next.before('<tr class="data nested"><th></th><td><a href="#" class="more">Show '+(count-EOL.max_meta_rows)+' More...</a></td></tr>');
+        $next.before('<tr class="data nested"><th></th><td><a href="#" class="more">' +
+          $('table.data').attr('data-more').replace('NNN', (count-EOL.max_meta_rows)) +
+          '</a></td></tr>');
         $next.prev().find('a.more').click(function() {
           var $row = $(this).closest('tr');
           var $next = $row.prev().prev();

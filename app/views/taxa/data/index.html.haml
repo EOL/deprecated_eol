@@ -8,7 +8,7 @@
       %li= link_to cat.label, '#', 'data-toc-id' => cat.id
     %li= link_to I18n.t(:other_category), '#', class: 'other'
 .main_container#taxon_data
-  %table.standard.data
+  %table.standard.data{'data-more' => I18n.t(:data_show_n_more_rows)}
     - last_attribute = nil
     - @data.each do |row|
       - next if row[:attribute].blank?

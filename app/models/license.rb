@@ -59,11 +59,6 @@ class License < ActiveRecord::Base
     end
   end
 
-  def small_logo_url
-    return logo_url if logo_url =~ /_small/ # already there!
-    return logo_url.sub(/\.(\w\w\w)$/, "_small.\\1")
-  end
-
   def self.valid_for_user_content
     find_all_by_show_to_content_partners(1).collect {|c| [c.title, c.id] }
   end
@@ -91,8 +86,25 @@ class License < ActiveRecord::Base
     cached_find(:title, 'cc-by-sa 3.0')
   end
 
+  def self.cc_zero
+    cached_find(:title, 'cc-zero 1.0')
+  end
+
   def self.no_known_restrictions
     @@no_known_restrictions ||= cached_find(:title, 'no known copyright restrictions')
+  end
+
+  def self.na
+    cached_find(:title, 'not applicable')
+  end
+
+  def self.for_data
+    @@for_data ||= [License.no_known_restrictions, License.na, License.cc_zero, License.public_domain]
+  end
+
+  def small_logo_url
+    return logo_url if logo_url =~ /_small/ # already there!
+    return logo_url.sub(/\.(\w\w\w)$/, "_small.\\1")
   end
 
   # we have several different licenses with the title public domain

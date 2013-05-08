@@ -50,7 +50,7 @@
           %fieldset
             %dl
               %dt= I18n.t(:license)
-              %dd= m.select :object, options_from_collection_for_select(License.find_all_by_show_to_content_partners(1), :source_url, :title)
+              %dd= m.select :object, options_from_collection_for_select(License.for_data, :source_url, :title)
         = f.fields_for :user_added_data_metadata, UserAddedDataMetadata.default_source do |m|
           = m.hidden_field :predicate
           %fieldset

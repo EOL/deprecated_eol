@@ -11,6 +11,7 @@
 # Author: Erdemaslancan
 # Author: Erick mata
 # Author: Fitoschido
+# Author: Fortega
 # Author: Invadinado
 # Author: Jacobo
 # Author: Jgauthier
@@ -40,6 +41,9 @@ es:
     one: Ha sido encontrado %{count} término que coincide con sus criterios de búsqueda.
     other: Han sido encontrado un total de %{count} términs que coinciden con sus criterios de búsqueda.
   about_eol: Acerca de EOL
+  about_resources: Acerca de los recursos
+  about_resources_body: Te animamos a que proveas enlaces a terceros sitios relacionados con este organismo o grupo de organismos. Los ejemplos incluyen sitios que ofrecen claves de identificación, artículos, blogs, así como recursos educativos y de ciencia colectiva.
+  about_resources_title: Enlaces a recursos externos
   account_information: Información de la cuenta
   account_information_menu: Información de cuenta
   account_registered_but_not_ready_try_later: Su cuenta está registrada, pero no está lista para que tengas acceso. Por favor, inténtelo de nuevo dentro de cinco minutos.
@@ -2054,31 +2058,56 @@ es:
   forgot_password_form_username_or_email_blank_error: Por favor ingrese su nombre de usuario o dirección de correo electrónico para restablecer su contraseña.
   form_validation_errors_for_attribute_assistive: Hay un error de validación en este elemento
   forums: 
+    actions: Acciones
     administration: Administración
     buttons: 
       delete: eliminar
+      edit: editar
+      link: enlace
+      reply: responder
     categories: 
       create: Cree una categoría
+      create_failed: Ha ocurrido un error, la categoría no ha podido ser añadida
+      create_successful: La categoría ha sido creada con éxito
+      delete_failed_not_empty: La categoría no ha podido ser eliminada porque no está vacía
+      delete_successful: La categoría ha sido eliminada con éxcito
+      edit: Editar una categoría
+      move_failed: La categoría no ha podido ser movida
+      move_successful: La categoría ha sido movida con éxito
+      update_failed: Ha ocurrido un error, la categoría no ha podido ser actualizada
+      update_successful: La categoría ha sido actualizada con éxito
     create: Crear un foro
     create_failed: Lo sentimos, ha ocurrido un error, no se pudo generar un foro
     create_successful: El foro se ha creado correctamente
     delete_failed_not_empty: El foro no puede borrarse porque no está vacío
     delete_successful: El foro se ha borrado correctamente
+    edit: Editar un foro
     forums_heading: Foros EOL
     last_post: Último mensaje
     move_failed: No se puede mover el foro
+    move_successful: El foro se ha movido con éxito.
+    no_topics: No hay hilos de discusión en este foro
+    post_by_user_at_time: por %{user}, %{time}
     posts: 
       close_window: Cerrar
       create: Haga un nuevo artículo
       create_failed: Lo sentimos, se ha producido un error, la página no se pudo actualizar
+      create_successful: El mensaje ha sido creado con éxito
       delete_failed_topic_not_empty: el artículo no se puede eliminar, porque el hilo no está vacio
+      delete_successful: El mensaje ha sido eliminado con éxito
       deleted_subject: (eliminado)
       edit: Edite su artículo
       joined_date: Reunir %{date}
       no_subject: (sin asunto)
       permalink_to_this_post: Enlace estable a este artículo
       post_has_been_deleted: Este artículo ha sido eliminado
+      post_written_by_user: "%{user} escribió:"
+      posts_with_count: 
+        one: "%{count} mensaje"
+        other: "%{count} mensajes"
+      replying_to_post: "Respuesta para:"
       topic_and_post_delete_successful: Se eliminan artículo y hilo correctamente
+      update_failed: Ha ocurrido un error, el mensaje no ha podido ser actualizado
       update_successful: El artículo fue actualizado correctamente
     posts_heading: Publicaciones
     replies: Respuestas

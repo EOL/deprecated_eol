@@ -10,8 +10,8 @@ nb:
   a_taxon: et takson
   about_eol: Om EOL
   about_resources: Om ressurser
-  about_resources_body: <p>Vi mottar gjerne lenker til tredjeparters nettsider som omhandler denne organismen eller gruppe med organismer. Eksempler er blant annet nettsider med identifiseringsnøkler, nyhetsartikler, blogger, samt undervisnings- og borgerforskningsressurser.</p>
-  about_resources_notice: NB&mdash;alle lenker faller under EOLs bruksvilkår og granskning av kuratorer.<br />Hvis du har spørsmål rundt en ressurs som du vil lenke opp mot EOL, vennligst <a href='%{contact_us_link}'>kontakt oss</a>.</p>
+  about_resources_body: Vi mottar gjerne lenker til tredjeparters nettsider som omhandler denne organismen eller gruppe av organismer. Eksempler er blant annet nettsider med identifiseringsnøkler, nyhetsartikler, blogger, samt undervisnings- og borgerforskningsressurser.
+  about_resources_notice: NB&mdash;alle lenker faller under EOLs bruksvilkår og granskning av kuratorer.<br />Hvis du har spørsmål rundt en ressurs som du vil lenke opp mot EOL, vennligst <a href='%{contact_us_link}'>kontakt oss</a>.
   about_resources_title: Lenker til eksterne ressurser
   account_information: Kontoinformasjon
   account_information_menu: Kontoinformasjon
@@ -2464,7 +2464,7 @@ nb:
   profile: Profil
   profile_colon: "Profil:"
   profile_image_alt_text_curator: Profilbilde for kurator %{user_full_name}
-  profile_image_alt_text_member: Profilbilde for medlem %{user_full_name}
+  profile_image_alt_text_member: Profilbilde for medlem %{user_given_name} %{user_family_name}
   project: Prosjekt
   provider: Leverandør
   providers: Leverandører

@@ -156,8 +156,10 @@ nl:
         published_unreviewed_resources: Gepubliceerde ongecontroleerde bronnen
         redhotlist_pages: Rode populaire pagina's
         rich_hotlist_pages: Rijke populaire pagina's
+        rich_hotlist_pages_percentage: "% rijke populaire pagina's"
         rich_pages: Rijke pagina's
         rich_redhotlist_pages: Rijke, rode, populaire pagina's
+        rich_redhotlist_pages_percentage: "% rijke, rode, populaire pagina's"
         udo_published: Door gebruikers toegevoegde tekst
         udo_published_by_curators: Door conservator toegevoegde tekst
         udo_published_by_non_curators: Door niet-conservator toegevoegde tekst
@@ -4019,9 +4021,15 @@ nl:
   user_no_longer_has_manager_access_to_collection: "\"%{user}\" heeft niet langer beheertoegang tot \"%{collection}\"."
   user_pending_notifications_assitive: <span class="assistive">meldingen</span>
   user_pending_notifications_comments_assistive: <span class="assistive">reacties</span>
+  user_pending_notifications_comments_with_count: 
+    one: Eén opmerking
+    other: "%{count} opmerkingen"
   user_pending_notifications_comments_with_count_assistive: 
     one: één <span class="assistive">reactie</span>
     other: "%{count} <span class=\"assistive\">reacties</span>"
+  user_pending_notifications_with_count: 
+    one: Eén melding
+    other: "%{count} meldingen"
   user_pending_notifications_with_count_assitive: 
     one: één <span class="assistive">melding</span>
     other: "%{count} <span class=\"assistive\">meldingen</span>"

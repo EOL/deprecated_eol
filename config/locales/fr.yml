@@ -35,8 +35,8 @@ fr:
   a_taxon: un taxon
   about_eol: À propos de l’EdlV
   about_resources: À propos des ressources
-  about_resources_body: <p>Nous vous invitons à fournir des liens vers des sites tiers qui se rapportent à cet organisme ou à ce groupe d’organismes. Des exemples comprennent des sites web offrant des clés d’identification, des reportages, des blogs, ainsi que des ressources scientifiques d’éducation et citoyennes.</p>
-  about_resources_notice: Note&mdash;tous les liens sont soumis aux Conditions d’utilisation de EdlV et vérifiés par les conservateurs.<br />Si vous avez des questions à propos d’une ressource que vous aimeriez référencer dans EdlV, veuillez <a href='%{contact_us_link}'>nous contacter</a>.</p>
+  about_resources_body: Nous vous invitons à fournir des liens vers des sites tiers qui se rapportent à cet organisme ou à ce groupe d’organismes. Des exemples comprennent des sites web offrant des clés d’identification, des reportages, des blogs, ainsi que des ressources scientifiques d’éducation et citoyennes.
+  about_resources_notice: Note&mdash;tous les liens sont soumis aux Conditions d’utilisation de EdlV et vérifiés par les conservateurs.<br />Si vous avez des questions à propos d’une ressource que vous aimeriez référencer dans EdlV, veuillez <a href='%{contact_us_link}'>nous contacter</a>.
   about_resources_title: Liens vers des ressources externes
   account_information: Informations du compte
   account_information_menu: Informations du compte
@@ -2016,6 +2016,7 @@ fr:
   flash_notice_redirected_from_search_html_more_results: Vous êtes arrivé ici en recherchant <em>%{search_string}</em>. <a href="%{more_results_url}">Cliquer ici pour afficher d’autres résultats de recherche.</a>
   flash_video: Vidéo Flash
   flickr: Flickr
+  flipboard: Écran papier
   focus_collection_edit: Vous pouvez modifier les collections de cette communauté directement sur la page de modification de chaque collection.
   focus_list_newsfeed: Alimentation des nouvelles de la liste des sujets principaux
   for_example_for_the_taxon_element_for_a_node: Par exemple, pour l’élément taxon pour un nœud dans la hiérarchie ITIS, le dc:identifier sera le TSN ITIS. L’élément dwct:taxonId contient l’<i>identifiant EdlV</i> à utiliser dans l’IPA %{link}.
@@ -2444,6 +2445,7 @@ fr:
   image_objects_will_contain_two_mediaurl_elements: Les objets image contiennent deux éléments 'mediaURL' - le premier étant l’URL de l’image sur le site Web du fournisseur et le second l’URL de la version en cache du média hébergé sur un serveur EdlV. La version EdlV de l’image aura été redimensionnée (en conservant le rapport de dimension) si l’image d’origine est plus grande que 460 pixels de large ou 345 pixels de hauteur.
   image_of_taxon: Image de %{taxon_name}
   image_rating: Évaluation de l’image
+  image_title_with_taxa: Image de %{taxa}
   images: Images
   images_in_red_are_not_trusted: Les images en rouge ne sont pas fiables.
   images_in_yellow_are_not_reviewed: Les images en jaune n’ont pas été revues.

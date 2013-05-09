@@ -2,8 +2,8 @@ module EOL
   module Sparql
 
     BASIC_URI_REGEX = /^http:\/\/[^ ]+$/i
-    ENCLOSED_URI_REGEX = /^<http:\/\/[^ ]+>$/i
-    NAMESPACED_URI_REGEX = /^([a-z0-9_-]{1,30}):(.*)$/i
+    ENCLOSED_URI_REGEX = /^<(http:\/\/[^ ]+)>$/i
+    NAMESPACED_URI_REGEX = /^([a-z0-9_-]{1,30}):([a-z0-9_-]+)$/i
     # TODO - it would be handy if this read from a config file (or at least added things from a config file):
     NAMESPACES = {
         'dwc' => 'http://rs.tdwg.org/dwc/terms/',
@@ -27,11 +27,11 @@ module EOL
     end
 
     def self.to_underscore(str)
-      convert(str.downcase.tr(' ','_'))
+      convert(str.strip.downcase.gsub(/  /, ' ').tr(' ','_'))
     end
 
     def self.uri_to_readable_label(uri)
-      if matches = uri.to_s.match(/(\/|#)([a-z0-9_-]{3,})$/i)
+      if matches = uri.to_s.match(/(\/|#)([a-z0-9_-]{1,})$/i)
         return matches[2].underscore.tr('_', ' ').capitalize_all_words
       end
     end
@@ -98,10 +98,10 @@ module EOL
       value = input.to_s
       if value =~ BASIC_URI_REGEX                              # full URI
         return value
-      elsif value =~ ENCLOSED_URI_REGEX                        # full URI
-        return value
+      elsif matches = value.match(ENCLOSED_URI_REGEX)          # full URI
+        return matches[1]
       elsif matches = value.match(NAMESPACED_URI_REGEX)        # namespace
-        if full_uri = EOL::Sparql::NAMESPACES[matches[1]]
+        if full_uri = EOL::Sparql::NAMESPACES[matches[1].downcase]
           return full_uri + matches[2]
         else
           return false  # this is the failure - an unknown namespace was given

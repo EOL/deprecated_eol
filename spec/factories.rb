@@ -742,6 +742,12 @@ FactoryGirl.define do
     url         'http://www.biodiversitylibrary.org/page/ThisWontWork.JustTesting'
   end
 
+  factory :known_uri do
+    vetted        { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility    { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
+    uri           { "http://eol.org/known_uri/" + generate(:guid) }
+  end
+
   factory :language do
     source_form  ''
     iso_639_1    ''
@@ -1037,6 +1043,12 @@ FactoryGirl.define do
     association     :info_item
     language        { Language.english }
     label           { generate(:string) }
+  end
+
+  factory :translated_known_uri do
+    association     :known_uri
+    language        { Language.english }
+    name            { generate(:string) }
   end
 
   factory :translated_link_type do

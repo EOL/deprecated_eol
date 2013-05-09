@@ -9,7 +9,7 @@ describe 'Taxa data tab basic tests' do
     @resource = Resource.gen
     @user = User.gen
     @measurement = DataMeasurement.new(:subject => @taxon_concept, :predicate => 'http://eol.org/weight',
-      :object => '12345', :unit => 'http://eol.org/grams', :resource => @resource)
+      :object => '12345', :unit => 'http://eol.org/g', :resource => @resource)
     @association = DataAssociation.new(:subject => @taxon_concept, :object => @target_taxon_concept,
       :type => 'http://eol.org/preys_on', :resource => @resource)
     @user_added_data = UserAddedData.gen(:user => @user, :subject => @taxon_concept, :predicate => 'http://eol.org/length',
@@ -38,6 +38,8 @@ describe 'Taxa data tab basic tests' do
     body.should have_selector("table.meta td[title='http://eol.org/weight']", :text => 'Weight')
     body.should have_selector("table.meta th[title='http://rs.tdwg.org/dwc/terms/measurementValue']", :text => 'Measurement Value')
     body.should have_selector("table.meta td", :text => '12345')
+    body.should have_selector("table.meta th[title='http://rs.tdwg.org/dwc/terms/measurementUnit']", :text => 'Measurement Unit')
+    body.should have_selector("table.meta td", :text => @measurement.metadata['http://rs.tdwg.org/dwc/terms/measurementUnit'])
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
     body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@measurement.uri)}']", :text => @measurement.uri)
   end

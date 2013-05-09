@@ -17,6 +17,8 @@ class TaxonData < TaxonUserClassificationFilter
         row[:user_added_data] = user_added_data
       end
     end
+    add_known_uris_to_data(rows)
+    rows
   end
 
   private
@@ -182,4 +184,70 @@ class TaxonData < TaxonUserClassificationFilter
     end
     final_results
   end
+
+  def add_known_uris_to_data(rows)
+    known_uris = KnownUri.where(["uri in (?)", uris_in_data(rows)])
+    rows.each do |row|
+      replace_with_uri(row, :attribute, known_uris)
+      replace_with_uri(row, :value, known_uris)
+      add_known_uris_to_metadata(row, known_uris)
+    end
+  end
+
+  def add_known_uris_to_metadata(row, known_uris)
+    # Don't modify hashes when you're iterating over them!
+    delete_keys = []
+    new_keys = {}
+    row[:metadata].each do |key, val|
+      next if convert_license(key, val, new_keys, delete_keys)
+      key_uri = known_uris.find { |known_uri| known_uri.matches(key) }
+      val_uri = known_uris.find { |known_uri| known_uri.matches(val) }
+      row[:metadata][key] = val_uri if val_uri
+      if key_uri
+        new_keys[key_uri] = row[:metadata][key]
+        delete_keys << key
+      end
+    end
+    delete_keys.each { |k| row[:metadata].delete(k) }
+    row[:metadata].merge!(new_keys)
+  end
+
+  def replace_with_uri(hash, key, known_uris)
+    uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
+    hash[key] = uri if uri
+  end
+
+  # Licenses are special (NOTE we also cache them here on a per-page basis...):
+  # TODO - we might actually want to cache these across calls.
+  def convert_license(key, val, new_keys, delete_keys)
+    if key.to_s.downcase == UserAddedDataMetadata::LICENSE_URI.downcase
+      @encountered_licenses ||= {}
+      string = val.to_s
+      if @encountered_licenses.has_key?(string)
+        if @encountered_licenses[string] # Otherwise, it doesn't exist
+          new_keys[KnownUri.license] = @encountered_licenses[string]
+          delete_keys << key
+          return true
+        end
+      elsif License.exists?(source_url: string)
+        lic = License.find_by_source_url(string).title
+        new_keys[KnownUri.license] = lic
+        @encountered_licenses[string] = lic
+        delete_keys << key
+        return true
+      else
+        @encountered_licenses[string] = nil
+      end
+    end
+    false
+  end
+
+  def uris_in_data(rows)
+    uris  = rows.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
+    uris += rows.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
+    uris += rows.map { |row| row[:metadata] ? row[:metadata].keys : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
+    uris += rows.map { |row| row[:metadata] ? row[:metadata].values : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
+    uris.map(&:to_s).uniq
+  end
+
 end

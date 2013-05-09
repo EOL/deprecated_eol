@@ -1391,6 +1391,27 @@ en:
         meta_title: "Articles & Books about %{scientific_name}"
         meta_title_with_common_name: "Articles & Books about %{preferred_common_name} (%{scientific_name})"
         tweet_text: "Articles & Books on %{scientific_name}"
+    data:
+      index:
+        hierarchy_entry:
+          meta_description: "Pictures, video and audio of %{scientific_name} as classified by %{hierarchy_provider}. Find images, photos, movies and sounds of %{scientific_name} at the Encyclopedia of Life."
+          meta_description_no_data: "No computable data is available for %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. EOL invites you to contribute data for %{scientific_name}."
+          meta_description_with_common_name_with_topics: "What data have scientists collected for %{preferred_common_name} as classified by %{hierarchy_provider}? Computable data about %{scientific_name} including information about %{topics}."
+          meta_description_with_common_name_no_data: "No computable data is available for %{preferred_common_name} as classified by %{hierarchy_provider} also known as %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute data for %{preferred_common_name} (%{scientific_name})."
+          meta_keywords: "%{scientific_name} as classified by %{hierarchy_provider} computable data, information about %{scientific_name}"
+          meta_keywords_with_common_name: "%{preferred_common_name} as classified by %{hierarchy_provider} computable data"
+          meta_title: "Computable data for %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Computable data for %{preferred_common_name} as classified by %{hierarchy_provider} (%{scientific_name})"
+          tweet_text: "Computable data for %{scientific_name} as classified by %{hierarchy_provider}"
+        meta_description: "Pictures, video and audio of %{scientific_name}. Find images, photos, movies and sounds of %{scientific_name} at the Encyclopedia of Life."
+        meta_description_no_data: "No computable data is available for %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute data for %{scientific_name}."
+        meta_description_with_common_name_with_topics: "What data have scientists collected for %{preferred_common_name}? Computable data about %{scientific_name} including information about %{topics}."
+        meta_description_with_common_name_no_data: "No computable data is available for %{preferred_common_name} also known as %{scientific_name} in the Encyclopedia of Life. EOL invites you to contribute data for %{preferred_common_name} (%{scientific_name})."
+        meta_keywords: "%{scientific_name} computable data, information about %{scientific_name}"
+        meta_keywords_with_common_name: "%{preferred_common_name} computable data"
+        meta_title: "Computable data for %{scientific_name}"
+        meta_title_with_common_name: "Computable data for %{preferred_common_name} (%{scientific_name})"
+        tweet_text: "Computable data for %{scientific_name}"
     maps:
       show:
         hierarchy_entry:

@@ -1,6 +1,6 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
--# TODO - hide this for accessibility.
+-# TODO - These should actually be links to filtered versions of this page, for accessibility.
 #tabs_sidebar.data
   %ul.tabs.with_icons
     %li.active= link_to I18n.t(:all_categories), '#', class: 'all'

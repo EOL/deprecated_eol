@@ -14,11 +14,7 @@ class Taxa::DataController < TaxaController
 
 protected
 
-  # TODO...
-  def meta_description
-    @meta_description ||= "this is so meta"
-  end
-
+  # TODO - move this to TaxonData.
   def replace_licenses_with_mock_known_uris(data)
     data.each do |row|
       row[:metadata].each do |key, val|
@@ -31,37 +27,11 @@ protected
     data
   end
 
-  # TODO - move this to KnownUri (mostly)
-  def add_known_uris_to_data
-    known_uris = KnownUri.where(["uri in (?)", uris_in_data])
-    @data.each do |row|
-      attr_uri = known_uris.select { |known_uri| known_uri.uri.casecmp(row[:attribute].to_s) == 0 }.first
-      val_uri = known_uris.select { |known_uri| known_uri.uri.casecmp(row[:value].to_s) == 0 }.first
-      row[:attribute] = attr_uri if attr_uri
-      row[:value] = val_uri if val_uri
-      # Don't modify something when you're iterating over it!
-      delete_keys = []
-      new_keys = {}
-      row[:metadata].each do |key, val|
-        key_uri = known_uris.select { |known_uri| known_uri.uri == key }.first
-        val_uri = known_uris.select { |known_uri| known_uri.uri == val }.first
-        row[:metadata][key] = val_uri if val_uri
-        if key_uri
-          new_keys[key_uri] = row[:metadata][key]
-          delete_keys << key
-        end
-      end
-      delete_keys.each { |k| row[:metadata].delete(k) }
-      new_keys.each { |k,v| row[:metadata][k] = v }
-    end
-  end
-
-  def uris_in_data
-    uris  = @data.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
-    uris += @data.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
-    uris += @data.map { |row| row[:metadata] ? row[:metadata].keys : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
-    uris += @data.map { |row| row[:metadata] ? row[:metadata].values : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
-    uris.map(&:to_s).uniq
+  def meta_description
+    topics = @data.map { |d| d[:attribute] }.select { |a| a.is_a?(KnownUri) }.uniq.compact.map(&:name)
+    translation_vars = scoped_variables_for_translations.dup
+    translation_vars[:topics] = topics.join("; ") unless topics.empty?
+    I18n.t("meta_description#{translation_vars[:topics] ? '_with_topics' : '_no_data'}", translation_vars)
   end
 
 end

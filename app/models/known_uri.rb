@@ -63,6 +63,10 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def matches(other_uri)
+    uri.casecmp(other_uri.to_s) == 0
+  end
+
   private
 
   def default_values

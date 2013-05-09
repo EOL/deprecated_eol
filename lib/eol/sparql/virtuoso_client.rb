@@ -28,9 +28,9 @@ module EOL
           end
 
           # TODO - we should pass a logger into the constructor and log to that.
-          pp response
           if response.code.to_i != 201
             puts " ** SOME DATA FAILED TO LOAD IN VIRTUOSO **"
+            pp options
           end
         end
       end

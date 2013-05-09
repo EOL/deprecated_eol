@@ -75,7 +75,7 @@ class TaxonData < TaxonUserClassificationFilter
           ?value dwc:taxonConceptID ?target_taxon_concept_id
         } .
         GRAPH ?graph {
-          ?data_point_uri a eol:Association .
+          ?data_point_uri a <http://eol.org/schema/Association> .
           {
             ?data_point_uri dwc:taxonID ?taxon_id .
             ?data_point_uri <http://eol.org/schema/targetTaxonID> ?value .

@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe UserAddedData do
 
   before(:all) do
+    load_foundation_cache
     @test_user = User.gen
     @test_subject_concept = TaxonConcept.gen
     @test_predicate = 'http://somethinguseful.com/fake_ontology'
@@ -60,7 +61,7 @@ describe UserAddedData do
     @uad.send(:sparql).should_receive(:insert_data).with(data: ['whatever'],
                                                          graph_name: UserAddedData::GRAPH_NAME).and_return(true)
     @uad.add_to_triplestore
-  end 
+  end
 
   # NOTE - this does NOT expect an array for the data...
   it '#remove_from_triplestore should call SPARQL with its turtle in the proper namespace' do
@@ -68,6 +69,59 @@ describe UserAddedData do
     @uad.send(:sparql).should_receive(:delete_uri).with(uri: @uad.uri,
                                                         graph_name: UserAddedData::GRAPH_NAME).and_return(true)
     @uad.remove_from_triplestore
+  end
+
+  it 'should add fields to triplestore' do
+    drop_all_virtuoso_graphs
+    user_added_data = UserAddedData.gen
+    results = EOL::Sparql.connection.query("SELECT ?s ?p ?o FROM <" + UserAddedData::GRAPH_NAME + "> WHERE { ?s ?p ?o }")
+    normalized_results = results.collect{ |r| [ r[:s].to_s, r[:p].to_s, r[:o].to_s ] }
+    normalized_results.should include([ user_added_data.uri, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+      'http://rs.tdwg.org/dwc/terms/MeasurementOrFact'])
+    normalized_results.should include([ user_added_data.uri, 'http://rs.tdwg.org/dwc/terms/taxonConceptID',
+      UserAddedData::SUBJECT_PREFIX + user_added_data.subject.id.to_s ])
+    normalized_results.should include([ user_added_data.uri, 'http://rs.tdwg.org/dwc/terms/measurementType', user_added_data.predicate ])
+    normalized_results.should include([ user_added_data.uri, 'http://rs.tdwg.org/dwc/terms/measurementValue', user_added_data.object ])
+    normalized_results.length.should == 4
+  end
+
+  it 'should remove fields from triplestore when deleted' do
+    drop_all_virtuoso_graphs
+    user_added_data = UserAddedData.gen
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 4
+    user_added_data.update_attributes({ :deleted_at => Time.now })
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+  end
+
+  it 'should be able to drop the UserAddedData graph' do
+    drop_all_virtuoso_graphs
+    UserAddedData.gen
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 4
+    UserAddedData.delete_graph
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+  end
+
+  it 'should be able to interact with the triplestore' do
+    drop_all_virtuoso_graphs
+    d = UserAddedData.gen
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 4
+    d.remove_from_triplestore
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+    d.update_triplestore
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 4
+    d.update_triplestore
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 4
+  end
+
+  it 'should be able to recreate the UserAddedData graph' do
+    drop_all_virtuoso_graphs
+    UserAddedData.destroy_all
+    UserAddedData.gen
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 4
+    UserAddedData.delete_graph
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+    UserAddedData.recreate_triplestore_graph
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 4
   end
 
 end

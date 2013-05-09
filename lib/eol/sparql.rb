@@ -89,6 +89,7 @@ module EOL
 
     def self.enclose_value(value)
       return "<" + value + ">" if value =~ BASIC_URI_REGEX
+      return value if value =~ ENCLOSED_URI_REGEX || value =~ NAMESPACED_URI_REGEX
       "\"" + value + "\""
     end
 
@@ -119,6 +120,10 @@ module EOL
        str.gsub!("\n", "")
        str.gsub!("\r", "")
        str
+    end
+
+    def self.count_triples_in_graph(graph_name)
+      EOL::Sparql.connection.query("SELECT COUNT DISTINCT ?s ?p ?o FROM <" + graph_name + "> WHERE { ?s ?p ?o }").first.values.first.to_i
     end
 
   end

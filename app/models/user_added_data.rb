@@ -28,13 +28,14 @@ class UserAddedData < ActiveRecord::Base
     user == user_wanting_access || user_wanting_access.is_admin?
   end
 
-  def taxon_concept_id
-    return subject.id if subject.is_a?(TaxonConcept)
+  # TODO - this is just for testing. You really don't want to run this in production...
+  def self.delete_graph
+    EOL::Sparql.connection.delete_graph(GRAPH_NAME)
   end
 
   # TODO - this is just for testing. You really don't want to run this in production...
   def self.recreate_triplestore_graph
-    EOL::Sparql.connection.delete_graph(GRAPH_NAME)
+    delete_graph
     UserAddedData.where("deleted_at IS NULL").each do |uad|
       uad.add_to_triplestore
       uad.user_added_data_metadata.each do |meta|
@@ -59,6 +60,10 @@ class UserAddedData < ActiveRecord::Base
 
   def remove_from_triplestore
     sparql.delete_uri(graph_name: GRAPH_NAME, uri: uri)
+  end
+
+  def taxon_concept_id
+    return subject.id if subject.is_a?(TaxonConcept)
   end
 
   def uri

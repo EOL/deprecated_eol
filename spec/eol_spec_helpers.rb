@@ -1,4 +1,5 @@
 require 'eol_data'
+require 'structured_data_factories'
 require 'nokogiri'
 
 # TODO: Problem running eol:db:populate RAILS_ENV=development HTTP requests for SOLR were being prevented by WebMock,
@@ -81,6 +82,17 @@ module EOL
         # run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
         # conn.execute "TRUNCATE TABLE `#{table}`" if run_command
         conn.execute "TRUNCATE TABLE `#{table}`"
+      end
+
+      def drop_all_virtuoso_graphs
+        # print "dropping all virtuoso graphs ... "
+        EOL::Sparql.connection.query("SELECT DISTINCT ?graph WHERE { GRAPH ?graph { ?s ?p ?o } }").each do |result|
+          graph_name = result[:graph].to_s
+          if graph_name =~ /^http:\/\/eol\.org\//
+            EOL::Sparql.connection.delete_graph(graph_name)
+          end
+        end
+        # puts "done"
       end
 
       def build_data_object(type, desc, options = {})

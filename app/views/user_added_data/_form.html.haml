@@ -29,11 +29,11 @@
     %fieldset.metadata
       - if @user_added_data && !@user_added_data.user_added_data_metadata.empty?
         - @user_added_data.user_added_data_metadata.each do |metadata|
-          = validation_errors_for(metadata)
           = f.fields_for :user_added_data_metadata, metadata do |m|
             %fieldset
               %dl
-                %dt= m.text_field :predicate, :size => 25
+                %dt= m.label :predicate, :hide_errors => true
+                %dd= m.text_field :predicate, :size => 25
                 %dt= m.label :object, :hide_errors => true
                 %dd= m.text_field :object, :size => 100
                 %dt= m.label :_destroy, I18n.t(:delete)

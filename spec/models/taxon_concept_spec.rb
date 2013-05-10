@@ -71,7 +71,7 @@ describe TaxonConcept do
     @child2              = @testy[:child2]
     @sub_child           = @testy[:sub_child]
     
-    @taxon_concept_common_name_at_start = @taxon_concept.common_name # allows changes later if needed
+    @taxon_concept_common_name_at_start = @taxon_concept.preferred_common_name_in_language(Language.default) # allows changes later if needed
     @taxon_media_parameters = {}
     @taxon_media_parameters[:per_page] = 100
     @taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
@@ -89,7 +89,7 @@ describe TaxonConcept do
   end
 
   it 'should have a common name' do
-    @taxon_concept_common_name_at_start.should == @common_name
+    @taxon_concept_common_name_at_start.should == @common_name.capitalize_all_words
   end
 
   it 'should show the common name from the current users language' do
@@ -97,24 +97,7 @@ describe TaxonConcept do
     user = User.gen(:language => lang)
     str  = 'Frebblebup'
     @taxon_concept.add_common_name_synonym(str, :agent => user.agent, :language => lang)
-    @taxon_concept.current_user = user
-    @taxon_concept.common_name.should == str
-  end
-
-  it 'should let you get/set the current user' do
-    user = User.gen
-    @taxon_concept.current_user = user
-    @taxon_concept.current_user.should == user
-    @taxon_concept.current_user = nil
-  end
-
-  it 'should be able to list its ancestors' do
-    @testy[:species].ancestors.map(&:id).should == [@testy[:kingdom].taxon_concept_id, @testy[:phylum].taxon_concept_id, @testy[:order].taxon_concept_id]
-  end
-
-  it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
-    @taxon_concept.children.map(&:id).should only_include [@child1.id, @child2.id]
-    @taxon_concept.children.map(&:id).should_not include(@sub_child.id)
+    @taxon_concept.preferred_common_name_in_language(lang).should == str
   end
 
   it 'should find its GBIF map ID' do
@@ -264,7 +247,6 @@ describe TaxonConcept do
   
 
   it 'should sort the vetted images by data rating' do
-    @taxon_concept.current_user = @user
     ratings = @taxon_concept.images_from_solr(100).select { |item|
       item.vetted_by_taxon_concept(@taxon_concept) == Vetted.trusted
     }.map! {|d| DataObject.find(d).data_rating }
@@ -275,9 +257,9 @@ describe TaxonConcept do
     tc = @tc_with_no_starting_common_names
     agent = Agent.last
     tc.add_common_name_synonym('A name', :agent => agent, :language => Language.english)
-    tc.quick_common_name.should == "A name"
+    tc.preferred_common_name_in_language(Language.english).should == "A Name"
     tc.add_common_name_synonym("Another name", :agent => agent, :language => Language.english)
-    tc.quick_common_name.should == "A name"
+    tc.preferred_common_name_in_language(Language.english).should == "A Name"
   end
 
   it 'should include the LigerCat TocItem when the TaxonConcept has one'
@@ -432,7 +414,7 @@ describe TaxonConcept do
   it 'should untrust all synonyms and TCNs related to a TC when untrusted' do
     # Make them all "trusted" first:
     [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.trusted) }
-    @taxon_concept.vet_common_name(:vetted => Vetted.untrusted, :language_id => Language.english.id, :name_id => @name_obj.id)
+    @taxon_concept.vet_common_name(:vetted => Vetted.untrusted, :language_id => Language.english.id, :name_id => @name_obj.id, :user => @curator)
     @syn1.reload.vetted_id.should == Vetted.untrusted.id
     @syn2.reload.vetted_id.should == Vetted.untrusted.id
     @tcn1.reload.vetted_id.should == Vetted.untrusted.id
@@ -442,7 +424,7 @@ describe TaxonConcept do
   it 'should "unreview" all synonyms and TCNs related to a TC when unreviewed' do
     # Make them all "trusted" first:
     [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.trusted) }
-    @taxon_concept.vet_common_name(:vetted => Vetted.unknown, :language_id => Language.english.id, :name_id => @name_obj.id)
+    @taxon_concept.vet_common_name(:vetted => Vetted.unknown, :language_id => Language.english.id, :name_id => @name_obj.id, :user => @curator)
     @syn1.reload.vetted_id.should == Vetted.unknown.id
     @syn2.reload.vetted_id.should == Vetted.unknown.id
     @tcn1.reload.vetted_id.should == Vetted.unknown.id
@@ -452,7 +434,7 @@ describe TaxonConcept do
   it 'should trust all synonyms and TCNs related to a TC when trusted' do
     # Make them all "unknown" first:
     [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.unknown) }
-    @taxon_concept.vet_common_name(:vetted => Vetted.trusted, :language_id => Language.english.id, :name_id => @name_obj.id)
+    @taxon_concept.vet_common_name(:vetted => Vetted.trusted, :language_id => Language.english.id, :name_id => @name_obj.id, :user => @curator)
     @syn1.reload.vetted_id.should == Vetted.trusted.id
     @syn2.reload.vetted_id.should == Vetted.trusted.id
     @tcn1.reload.vetted_id.should == Vetted.trusted.id
@@ -462,7 +444,7 @@ describe TaxonConcept do
   it 'should inappropriate all synonyms and TCNs related to a TC when inappropriated' do
     # Make them all "unknown" first:
     [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.unknown) }
-    @taxon_concept.vet_common_name(:vetted => Vetted.inappropriate, :language_id => Language.english.id, :name_id => @name_obj.id)
+    @taxon_concept.vet_common_name(:vetted => Vetted.inappropriate, :language_id => Language.english.id, :name_id => @name_obj.id, :user => @curator)
     @syn1.reload.vetted_id.should == Vetted.inappropriate.id
     @syn2.reload.vetted_id.should == Vetted.inappropriate.id
     @tcn1.reload.vetted_id.should == Vetted.inappropriate.id

@@ -275,7 +275,7 @@ describe 'Taxa page' do
   # NOTE - I changed this, since it was failing. It doesn't look like we show the ital name on other pages...
   shared_examples_for 'taxon common name - hierarchy_entry page' do
     it 'should show the concepts preferred name in the heading' do
-      should match(/#{@taxon_concept.common_name}/i)
+      should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
     end
   end
 
@@ -496,9 +496,9 @@ describe 'Taxa page' do
     it 'should use supercedure to find taxon if user visits the other concept' do
       visit taxon_overview_path @testy[:superceded_taxon_concept]
       remove_classification_filter_if_used
-      body.should match(/#{@taxon_concept.common_name}/i)
+      body.should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
       visit taxon_details_path @testy[:superceded_taxon_concept]
-      body.should match(/#{@taxon_concept.common_name}/i)
+      body.should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
     end
   end
 

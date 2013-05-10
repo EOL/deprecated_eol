@@ -183,7 +183,6 @@ testy[:synonym] = tc.add_common_name_synonym(testy[:name_string], :agent => test
 testy[:name] = testy[:synonym].name
 testy[:tcn] = testy[:synonym].taxon_concept_name
 
-tc.current_user = testy[:curator]
 testy[:syn1] = tc.add_common_name_synonym('Some unused name', :agent => testy[:agent], :language => Language.english)
 testy[:tcn1] = TaxonConceptName.find_by_synonym_id(testy[:syn1].id)
 testy[:name_obj] ||= Name.last

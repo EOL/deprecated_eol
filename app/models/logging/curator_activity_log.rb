@@ -32,19 +32,6 @@ class CuratorActivityLog < LoggingModel
     :hierarchy_entry, :hierarchy_entry_id, :taxon_concept, :taxon_concept_id, :activity, :activity_id,
     :data_object, :data_object_id, :data_object_guid, :created_at
 
-  def self.find_all_by_data_objects_on_taxon_concept(tc)
-    dato_ids = tc.all_data_objects.map {|dato| dato.id}
-    return [] if dato_ids.empty?
-    # TODO - This needs to add dohes, cdohes, taxon_concept_names, and synonyms.  Have fun.  :|
-    CuratorActivityLog.find_by_sql("
-      SELECT *
-        FROM curator_activity_logs
-        WHERE
-          (curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id}
-            AND target_id IN (#{dato_ids.join(',')}))
-    ")
-  end
-
   def self.log_preferred_classification(classification, options = {})
     CuratorActivityLog.create(
       :user => options[:user],

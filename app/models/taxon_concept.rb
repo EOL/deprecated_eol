@@ -118,10 +118,6 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:facet_by_resource] ||= false  # this will add a facet parameter to the solr query
     return solr_query_parameters
   end
-  
-  def self.find_entry_in_hierarchy(taxon_concept_id, hierarchy_id)
-    return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
-  end
 
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
   def self.find_with_supercedure(*args)
@@ -138,11 +134,6 @@ class TaxonConcept < ActiveRecord::Base
     return concept
   end
   class << self; alias_method_chain :find, :supercedure ; end
-
-  # The common name will defaut to the current user's language.
-  def common_name(hierarchy = nil)
-    quick_common_name(hierarchy)
-  end
 
   def preferred_common_name_in_language(language)
     if preferred_common_names.loaded?
@@ -230,55 +221,9 @@ class TaxonConcept < ActiveRecord::Base
    return self.outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
   end
 
-  # Get a list of TaxonConcept models that are ancestors to this one.
-  #
-  # Note that TCs have no notion of ancestry in and of themselves, so they must defer to the hierarchy
-  # entries to find ancestors. And, of course, that yields HierarchyEntry values, so we need to convert
-  # them back.
-  #
-  # Also (IMPORTANT): there is another method called "ancestry", which, confusingly, returns HierarchyEntry
-  # models, not TaxonConcept models.  Hmmmn.
-  def ancestors
-    return [] unless entry
-    entry.ancestors.map { |a| a.taxon_concept }
-  end
-
-  # Get a list of TaxonConcept models that are children to this one.
-  #
-  # Same caveats as #ancestors (q.v.)
-  def children
-    return [] unless entry
-    entry.children.map(&:taxon_concept)
-  end
-
-  # Call this instead of @current_user, so that you will be given the appropriate (and DRY) defaults.
-  def current_user
-    @current_user ||= User.new
-  end
-
-  # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
-  def current_user=(who)
-    clear_instance_variables
-    @current_user = who
-  end
-
   # If *any* of the associated HEs are species or below, we consider this to be a species:
   def species_or_below?
     published_hierarchy_entries.detect { |he| he.species_or_below? }
-  end
-
-  def has_outlinks?
-    return TaxonConcept.count_by_sql("SELECT 1
-      FROM hierarchy_entries he
-      JOIN hierarchies h ON (he.hierarchy_id = h.id)
-      WHERE he.taxon_concept_id = #{self.id}
-      AND he.published = 1
-      AND he.visibility_id = #{Visibility.visible.id}
-      AND h.browsable = 1
-      AND (
-        (he.source_url != '' AND he.source_url IS NOT NULL)
-        OR (he.identifier != '' AND he.identifier IS NOT NULL AND h.outlink_uri != '' AND h.outlink_uri IS NOT NULL))
-      LIMIT 1") > 0
   end
 
   def outlinks
@@ -381,29 +326,6 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # TODO - this is only used privately.
-  def quick_common_name(language = nil, hierarchy = nil)
-    language ||= current_user.language || Language.default
-    hierarchy ||= Hierarchy.default
-    common_name_results = connection.execute(
-      "SELECT n.string name, he.hierarchy_id source_hierarchy_id
-        FROM taxon_concept_names tcn
-          JOIN names n ON (tcn.name_id = n.id)
-          LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id)
-        WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1"
-    )
-
-    final_name = ''
-
-    # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names
-    common_name_results.each do |result|
-      if final_name == '' || result[1].to_i == hierarchy.id
-        final_name = result[0].firstcap
-      end
-    end
-    return final_name
-  end
-
   # TODO - #title is much (!) faster.  Can we get rid of this entirely?
   def quick_scientific_name(type = :normal, hierarchy = nil)
     hierarchy_entry = entry(hierarchy)
@@ -488,15 +410,6 @@ class TaxonConcept < ActiveRecord::Base
 
   def to_s
     "TaxonConcept ##{id}: #{title}"
-  end
-
-  # TODO - move to TaxonPage.
-  def subtitle(hierarchy = nil)
-    return @subtitle unless @subtitle.nil?
-    hierarchy ||= Hierarchy.default
-    subtitle = quick_common_name(nil, hierarchy)
-    subtitle = '' if subtitle.upcase == "[DATA MISSING]"
-    @subtitle = subtitle
   end
 
   # TODO - make a Commentable mixin
@@ -966,25 +879,6 @@ class TaxonConcept < ActiveRecord::Base
     count ||= 0
     count
   end
-  
-  def all_data_objects
-    DataObject.find_by_sql(
-        "(SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
-          FROM data_objects_taxon_concepts dotc
-          JOIN data_objects do ON (dotc.data_object_id=do.id)
-            WHERE dotc.taxon_concept_id=#{id}
-            AND do.data_type_id=#{DataType.image.id})
-        UNION
-        (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
-          FROM top_concept_images tci
-          JOIN data_objects do ON (tci.data_object_id=do.id)
-            WHERE tci.taxon_concept_id=#{id})
-        UNION
-        (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
-          FROM #{UsersDataObject.full_table_name} udo
-          JOIN data_objects do ON (udo.data_object_id=do.id)
-            WHERE udo.taxon_concept_id=#{id})")
-  end
 
   def disallow_large_curations
     max_curatable_descendants = SiteConfigurationOption.max_curatable_descendants rescue 10000
@@ -1067,9 +961,10 @@ private
     raise "Missing :language_id" unless options[:language_id]
     raise "Missing :name_id" unless options[:name_id]
     raise "Missing :vetted" unless options[:vetted]
+    raise "Missing :user" unless options[:user]
 
     taxon_concept_names_by_lang_id_and_name_id(options[:language_id], options[:name_id]).each do |tcn|
-      tcn.vet(options[:vetted], current_user)
+      tcn.vet(options[:vetted], options[:user])
     end
   end
 

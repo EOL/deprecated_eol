@@ -71,6 +71,9 @@ module EOL
     end
 
     def self.uri_components(uri)
+      if !uri.is_a?(KnownUri) && known_uri = KnownUri.find_by_uri(uri.to_s)
+        uri = known_uri
+      end
       if uri.is_a?(KnownUri)
         return { uri: uri.uri, label: uri.name }
       elsif label = EOL::Sparql.uri_to_readable_label(uri)

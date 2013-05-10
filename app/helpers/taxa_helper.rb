@@ -147,6 +147,21 @@ module TaxaHelper
     !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(taxon_concept.id)
   end
 
+  def display_uri(uri, tag_type = :span)
+    uri_components = EOL::Sparql.uri_components(uri)
+    if uri_components[:uri] == uri_components[:label]
+      return uri if tag_type == :span
+      title = nil
+    else
+      title = uri_components[:uri]
+    end
+    capture_haml do
+      haml_tag tag_type, { :title => title } do
+        haml_concat uri_components[:label]
+      end
+    end
+  end
+
 # A *little* weird to have private methods in the helper, but these really help clean up the code for the methods
 # that are public, and, indeed, should never be called outside of this class.
 private

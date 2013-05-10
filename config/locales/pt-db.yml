@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: GoEThe
+# Author: Luckas
 pt: 
   translated_activities-name-activity_id-19: perfil
   translated_activities-name-activity_id-50: não confiável
@@ -67,7 +68,7 @@ pt:
   translated_contact_roles-label-contact_role_id-2: Contacto administrativo
   translated_contact_roles-label-contact_role_id-3: Contacto Técnico
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendente
-  translated_content_partner_statuses-label-content_partner_status_id-2: Activo
+  translated_content_partner_statuses-label-content_partner_status_id-2: Ativo
   translated_content_partner_statuses-label-content_partner_status_id-3: Arquivado
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactivo
   translated_content_tables-label-content_table_id-1: Detalhes
@@ -176,7 +177,7 @@ pt:
   translated_sort_styles-name-sort_style_id-5: Riqueza
   translated_sort_styles-name-sort_style_id-6: Avaliação
   translated_statuses-label-status_id-1: Inserido
-  translated_statuses-label-status_id-2: Actualizado
+  translated_statuses-label-status_id-2: Atualizado
   translated_statuses-label-status_id-3: Inalterado
   translated_statuses-label-status_id-4: Reutilizado
   translated_synonym_relations-label-synonym_relation_id-1: sinónimo
@@ -337,6 +338,9 @@ pt:
   translated_vetted-label-vetted_id-4: Não confiável
   translated_vetted-label-vetted_id-5: Confiável
   translated_vetted-label-vetted_id-6: Inadequado
+  translated_view_styles-name-view_style_id-1: Lista
+  translated_view_styles-name-view_style_id-2: Galeria
+  translated_view_styles-name-view_style_id-3: Anotado
   translated_visibilities-label-visibility_id-0: Invisível
   translated_visibilities-label-visibility_id-1: Visível
   translated_visibilities-label-visibility_id-2: Pré-Visualização

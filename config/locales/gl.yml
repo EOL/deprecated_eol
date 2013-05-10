@@ -21,8 +21,8 @@ gl:
     other: Atopáronse %{count} termos que coincidisen cos teus criterios de procura.
   about_eol: Acerca da EOL
   about_resources: Acerca dos recursos
-  about_resources_body: <p>Agradecemos que achegue ligazóns cara a sitios web de terceiros que estean relacionados con este organismo ou grupo de organismos. Por exemplo, páxinas web que ofrezan claves de identificación, reportaxes, blogues, así como recursos científicos educativos e cidadás.</p>
-  about_resources_notice: "Nota: Todas as ligazóns están suxeitas aos termos de uso da EOL e están revisadas polos conservadores.<br />Se tes algunha pregunta sobre un recurso co que queiras ligar na EOL, <a href='%{contact_us_link}'>ponte en contacto con nós</a>.</p>"
+  about_resources_body: Agradecemos que achegue ligazóns cara a sitios web de terceiros que estean relacionados con este organismo ou grupo de organismos. Por exemplo, páxinas web que ofrezan claves de identificación, reportaxes, blogues, así como recursos científicos educativos e cidadás.
+  about_resources_notice: "Nota: Todas as ligazóns están suxeitas aos termos de uso da EOL e están revisadas polos conservadores.<br />Se tes algunha pregunta sobre un recurso co que queiras ligar na EOL, <a href='%{contact_us_link}'>ponte en contacto con nós</a>."
   about_resources_title: Ligazóns cara a recursos externos
   account_information: Información sobre a conta
   account_information_menu: Información sobre a conta
@@ -1022,6 +1022,7 @@ gl:
   api_cache_time_to_live_parameter: o número de segundos que queres que pasen ata que a resposta estea na caché
   api_docs_collections_description: Dado o identificador dunha colección, esta API devolverá todos os metadatos sobre a colección e os elementos que contén. A lista de elementos pódese filtrar por tipo de elemeto e ordenar baixo os atributos listados. Algúns elementos conteñen un atributo "sort_field" opcional. O campo de ordenación é unha cadea achegada polo usuario que é unha anotación especial dun elemento da colección. Pode ser calquera cadea de caracteres, pero se é unha data, debe aterse ao formato AAAA-MM-DD. Os elementos do taxon conteñen un "richness_score". A riqueza é unha métrica representada por un número enteiro entre 0 e 100; canto máis grande sexa o número a páxina terá maior riqueza de contidos dunha ampla variedade de fontes. Podes atopar máis información sobre a riqueza dos taxons na lapela de actualizacións dunha páxina de taxon; por exemplo, %{richness_url}.
   api_refer_to_the_getting_started_page: Consulta a páxina dos <a href="%{link}">primeiros pasos</a> para ver exemplos do uso da API na EOL, os termos de uso e información sobre o rexistro para obter unha clave da API.
+  api_results_can_be_cached: A resposta de calquera chamada á API pode gardarse na memoria caché por un período de tempo determinado. Pódese proporcionar un parámetro "cache_ttl", cuxo valor é o número de segundos que se manterá a resposta na caché. Isto ha crear cabeceiras HTTP indicando que os navegadores web deben gardar na caché o resultado; adicionalmente, a resposta quedará na caché dos servidores da EOL durante o número de segundos especificado. Se se modifica o valor de "cache_ttl", a primeira solicitude co novo valor non quedará na caché, pero as seguintes solicitudes farán uso da nova resposta na caché.
   application_version_advisory_information: Versión da aplicación
   are_you_sure: Estás seguro?
   are_you_sure_this_action_cannot_be_undone: Estás seguro? Esta acción non se pode desfacer.
@@ -1831,7 +1832,7 @@ gl:
   donation_amount_other_label: Outra
   donation_confirmation: Confirmación da doazón
   donation_error_no_amount: Escolle a cantidade da doazón.
-  donation_error_only_numbers: Escriba a cantidade usando números unicamente.
+  donation_error_only_numbers: Escribe a cantidade usando números unicamente.
   donation_introduction_paragraph_one: A EOL medra día a día. Convidámoste a que explores a EOL e aproveites todo o que ofrece. Axúdanos a manter viva esta iniciativa mediante contribucións de contido, experiencia e apoio financeiro.
   donation_introduction_paragraph_two: O teu xeneroso agasallo á Enciclopedia da vida sostén o noso labor de ahegar acceso global ao coñecemento sobre a vida na Terra.
   donation_privacy_notice: <em>Nota sobre a protección de datos e seguridade:</em> Ten en conta que esta e a seguinte páxina de confirmación non recollen información persoal ningunha ou números de tarxeta de crédito e non están encriptadas. Despois de confirmar a cantidade que queiras doar, irás parar a unha páxina de seguridade para inserir a información do teu pagamento. Non se aplicarán cargos á túa tarxeta de crédito ata que envíes a páxina coa túa información persoal.
@@ -2050,6 +2051,7 @@ gl:
   flash_notice_redirected_from_search_html_more_results: Chegaches ata aquí procurando <em>%{search_string}</em>. <a href="%{more_results_url}">Preme aquí para ollar outros resultados.</a>
   flash_video: Vídeo Flash
   flickr: Flickr
+  flipboard: Flipboard
   focus_collection_edit: Podes editar as coleccións desta comunidade directamente en cada páxina de edición da colección
   focus_list_newsfeed: Fonte de novas da lista de asuntos principais
   for_example_for_the_taxon_element_for_a_node: Por exemplo, para o elemento de taxon dun nodo na xerarquía ITIS, o dc:identifier será o ITIS TSN. O elemento dwct:taxonID contén o <i>identificador da EOL</i> a utilizar na API %{link}.
@@ -2478,6 +2480,7 @@ gl:
   image_objects_will_contain_two_mediaurl_elements: Os obxectos de imaxe conterán dous elementos do tipo "mediaURL". O primeiro é o enderezo URL da imaxe no sitio web do provedor e o segundo é o enderezo URL da versión gardada na memoria caché do ficheiro multimedia aloxado nun dos servidores da EOL. A versión da imaxe presente na EOL será redimensionada (conservando as dimensións proporcionalmente) se a orixinal é maior que 460 píxeles de largo ou 345 píxeles de alto.
   image_of_taxon: Imaxe de %{taxon_name}
   image_rating: Avaliación da imaxe
+  image_title_with_taxa: Imaxe de %{taxa}
   images: Imaxes
   images_in_red_are_not_trusted: As imaxes que están en vermello non son de confianza.
   images_in_yellow_are_not_reviewed: As imaxes que están en amarelo non están revisadas.
@@ -3735,6 +3738,7 @@ gl:
   taxon_citizen_science_header: Ligazóns de ciencia cidadá
   taxon_citizen_science_link: Ligazóns de ciencia cidadá
   taxon_citizen_science_resources_empty: Polo de agora, ninguén achegou ligazóns de ciencia cidadá a esta páxina.
+  taxon_common_names_subtab_explanation: Moita xente coñece os organismos unicamente polos seus nomes comúns. A diferenza dos nomes científicos, os nomes comúns son case sempre diferentes para os falantes de diferentes linguas. Tamén poden variar rexionalmente nunha mesma lingua. Esta lapela mostra os nomes comúns achegados á EOL para este organismo por parte de varias fontes, incluídos os conservadores da EOL. Actualmente, só podemos establecer un nome común preferido por lingua en cada páxina da EOL, pero é posible buscar todos os nomes a través do motor de procuras.
   taxon_concept_stats: Estatísticas do concepto taxonómico
   taxon_details_empty: Polo de agora, ninguén achegou detalles a esta páxina.
   taxon_details_empty_in_this_language: Polo de agora, ninguén achegou detalles a esta páxina nesta lingua.
@@ -3761,9 +3765,11 @@ gl:
   taxon_partner_links_link: Ligazóns asociadas
   taxon_rating: Avaliación do taxon
   taxon_recognized_by: Taxon recoñecido por %{whom}
+  taxon_related_names_subtab_explanation: Os nomes desta lapela presentan unha vista xeral das relacións deste grupo con outros grupos na árbore da vida, en base ás xerarquías de clasificación achegadas polos socios de clasificacións da EOL. Os "pais" son grupos máis inclusivos un nivel por riba da xerarquía. As "dependencias" son subgrupos do grupo actual. Na lapela de clasificación, podes usar a ligazón "mostrar todas as clasificacións" para ollar a lista completa de todas as xerarquías achegadas polos nosos socios. Isto pode incluír nomes relacionados adicionais que non estean destacados aquí.
   taxon_related_organizations_link: Organizacións relacionadas
   taxon_selected_from_search_res: Taxon seleccionado dos resultados da procura
   taxon_suggested: Taxon suxerido
+  taxon_synonyms_subtab_explanation: Algúns taxonomistas crean novos nomes para grupos que xa teñen un nome. Poden facer isto porque descoñecen o nome orixinal ou porque pensan que o organismo que teñen diante pertence a un grupo diferente cando, en realidade, non é así. Se dous ou máis nomes semellan aplicarse a un mesmo grupo, considéranse sinónimos. Na maioría dos casos, o primeiro nome toma prioridade e considérase que é o nome válido ou aceptado. Porén, pode haber excepcións, e non sempre é doado determinar nunha serie de sinónimos cal debe considerarse válido ou aceptado. Aquí listamos os sinónimos achegados á EOL polos nosos socios de clasificacións. Tamén incluímos outras versións do nome que se refiren ao mesmo grupo, por exemplo, nomes con faltas de ortografía na literatura ou diferentes variacións da autoría asociada ao nome.
   taxonomic_summary_of_content: resumo taxonómico dos contidos
   technical_functions: Funcións técnicas
   term_cannot_be_left_blank: O termo non se pode deixar en branco

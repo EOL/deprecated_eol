@@ -2060,6 +2060,7 @@ de:
   flash_notice_redirected_from_search_html_more_results: Sie haben diese Seite aufgrund Ihrer Suche nach <em>%{search_string}</em> erreicht. <a href="%{more_results_url}">Klicken Sie hier, um weitere Suchergebnisse zu sehen.</a>
   flash_video: Flash-Video
   flickr: Flickr
+  flipboard: Flipboard
   focus_collection_edit: Sie können die Sammlungen dieser Gemeinschaft direkt auf der Bearbeitungsseite der jeweiligen Sammlung bearbeiten.
   focus_list_newsfeed: Nachrichtenfeed der Schwerpunktliste
   for_example_for_the_taxon_element_for_a_node: Beispielsweise wird der dc:identifier für das Taxonelement eines Knotenpunkts in der ITIS-Hierarchie die ITIS TSN sein. Das Element dwct:taxonID enthält den <i>EOL identifier</i>, der in der %{link} API verwendet werden kann.

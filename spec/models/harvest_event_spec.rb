@@ -14,7 +14,7 @@ describe HarvestEvent do
   end
 
   it 'should only allow publish to be set on unpublished and most recent harvest events' do
-    validation_message = 'is only allowed for the latest harvest event and only if that event is not already published'
+    validation_message = I18n.t 'activerecord.errors.models.harvest_event.attributes.publish.inclusion'
     @previous_unpublished_harvest_event.publish = true
     @previous_unpublished_harvest_event.should_not be_valid
     @previous_unpublished_harvest_event.errors[:publish].first.should eql(validation_message)

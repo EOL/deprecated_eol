@@ -149,8 +149,10 @@ gl:
         published_unreviewed_resources: Recursos publicados sen revisar
         redhotlist_pages: Páxinas vermellas do momento
         rich_hotlist_pages: Páxinas ricas do momento
+        rich_hotlist_pages_percentage: "% de páxinas ricas do momento"
         rich_pages: Páxinas ricas
         rich_redhotlist_pages: Páxinas ricas e vermellas do momento
+        rich_redhotlist_pages_percentage: "% de páxinas ricas e vermellas do momento"
         udo_published: Texto enviado polo usuario
         udo_published_by_curators: Texto enviado polo conservador
         udo_published_by_non_curators: Texto enviado polo non-conservador
@@ -4012,9 +4014,15 @@ gl:
   user_no_longer_has_manager_access_to_collection: "%{user} xa non ten acceso de administrador en \"%{collection}\"."
   user_pending_notifications_assitive: <span class="assistive">notificacións</span>
   user_pending_notifications_comments_assistive: <span class="assistive">comentarios</span>
+  user_pending_notifications_comments_with_count: 
+    one: "%{count} comentario"
+    other: "%{count} comentarios"
   user_pending_notifications_comments_with_count_assistive: 
     one: "%{count}<span class=\"assistive\"> comentario</span>"
     other: "%{count}<span class=\"assistive\"> comentarios</span>"
+  user_pending_notifications_with_count: 
+    one: "%{count} notificación"
+    other: "%{count} notificacións"
   user_pending_notifications_with_count_assitive: 
     one: "%{count}<span class=\"assistive\"> notificación</span>"
     other: "%{count}<span class=\"assistive\"> notificacións</span>"

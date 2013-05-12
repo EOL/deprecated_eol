@@ -2761,6 +2761,7 @@ sv:
           meta_title: Kuratorer för %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Experter på %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Kuratorer för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_description_with_common_name: experter på %{preferred_common_name} (även känd som experter på %{scientific_name}) som övervakar dess data i Encyclopedia of Life.
         meta_keywords: "%{scientific_name}-experter, %{scientific_name}-kuratorer"
         meta_keywords_with_common_name: "%{preferred_common_name}-experter, %{preferred_common_name}-kuratorer, %{scientific_name}-experter, %{scientific_name}-kuratorer"
         meta_title: Kuratorer för %{scientific_name}
@@ -2791,6 +2792,7 @@ sv:
         meta_description: Information om %{scientific_name} i Encyclopedia of Life
         meta_description_with_chapter_list: Fakta om %{scientific_name} i Encyclopedia of Life. Innehåller fakta om %{chapter_list}.
         meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life.
+        meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life. Inkluderar fakta på %{chapter_list}.
         meta_title: Fakta om %{scientific_name}
         meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name})
         tweet_text: Information om %{scientific_name}

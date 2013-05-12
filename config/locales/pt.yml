@@ -23,9 +23,9 @@ pt:
   about_eol: Sobre a EOL
   account_information: Informações sobre a conta
   account_registered_but_not_ready_try_later: A sua conta está registada, mas não está pronta para ser acedida. Por favor, tente novamente em cinco minutos.
-  action: Acção
+  action: Ação
   action_not_available_error: Lamentamos, mas esta acção não está disponível.
-  actions: Acções
+  actions: Ações
   active_colon: "Ativo:"
   activerecord: 
     attributes: 
@@ -1057,7 +1057,7 @@ pt:
         description_of_data_more: Por favor, forneça-nos uma descrição do tipo de informação que você tem, quantos itens estão disponíveis, a que organismos se referem e se eles foram conjugados ou verificados por peritos qualificados ou uma comunidade bem informada.
         display_name: Nome de exibição <small>(opcional)</small>
         display_name_more: Fornecer um nome publicamente visível alternativo para ser usado em vez do seu <em>nome de projeto</em>.
-        last_action: Última acção
+        last_action: Última ação
         latest_published_harvest_event: Publicado a última vez
         logo_current: "Logótipo actual:"
         logo_new: "Carregar um novo logótipo:"

@@ -20,7 +20,7 @@
         %th
           - if row[:attribute] != last_attribute
             = display_uri(row[:attribute])
-        %td
+        %td.val
           - # displaying values
           - if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(row[:target_taxon_concept_id].to_s.split("/").last)
             = link_to raw(target_taxon_concept.title), taxon_data_path(target_taxon_concept)
@@ -47,6 +47,7 @@
                       %td= link_to v, ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(v.to_s)), :target => 'data'
                     - else
                       = display_uri(v, :td)
+        %td.fold &nbsp;
       %tr{ class: (classes + ['actions']).join(' ') }
         %td{ colspan: 2 }
           %ul
@@ -66,6 +67,7 @@
               %li= raw "&bull;"
               -# TODO: i18n
               %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
+        %td.fold &nbsp;
       - last_attribute = row[:attribute]
   %p= link_to "Show meta counts", '#', class: 'show_meta_counts'
 .add_content

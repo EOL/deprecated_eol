@@ -138,7 +138,9 @@ class TaxonData < TaxonUserClassificationFilter
           result_data[key] = value
         end
       end
-
+      
+      # TODO - I don't have adequate ability to test this for refactoring, but someone who does: this looks like one
+      # method run three times.  :\
       grouped_data[result[:graph]][result[:data_point_uri]][:metadata] ||= {}
       result_metadata = grouped_data[result[:graph]][result[:data_point_uri]][:metadata]
       if result[:attribution_predicate] && result[:attribution_object]
@@ -190,6 +192,9 @@ class TaxonData < TaxonUserClassificationFilter
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
+      if taxon_id = KnownUri.taxon_concept_id(row[:value])
+        row[:target_taxon_concept_id] = taxon_id
+      end
       add_known_uris_to_metadata(row, known_uris)
     end
   end

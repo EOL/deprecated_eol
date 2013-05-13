@@ -4,6 +4,7 @@
 class KnownUri < ActiveRecord::Base
 
   BASE = 'http://eol.org/schema/terms/'
+  TAXON_RE = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.
 
   include EOL::CuratableAssociation
 
@@ -46,11 +47,20 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.custom(name, language)
-    known_uri = KnownUri.find_or_create_by_uri(BASE + CGI.escape(name.gsub(/\s+/, '_').camelize))
+    known_uri = KnownUri.find_or_create_by_uri(BASE + EOL::Sparql.to_underscore(name))
     translated_known_uri =
       TranslatedKnownUri.where(name: name, language_id: language.id, known_uri_id: known_uri.id).first
     translated_known_uri ||= TranslatedKnownUri.create(name: name, language: language, known_uri: known_uri)
     known_uri
+  end
+
+  def self.taxon_concept_id(val)
+    match = val.to_s.scan(TAXON_RE)
+    if match.empty?
+      false
+    else
+      match.first.second # Where the actual first matching group is stored.
+    end
   end
 
   def unknown?

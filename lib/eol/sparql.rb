@@ -26,6 +26,7 @@ module EOL
         :password => $VIRTUOSO_PW)
     end
 
+    # camelCase (with starting lower) seems to be more standard for these, but we prefer underscores, soooo...
     def self.to_underscore(str)
       convert(str.strip.downcase.gsub(/  /, ' ').tr(' ','_'))
     end
@@ -103,6 +104,7 @@ module EOL
       return value                                             # literal value
     end
 
+    # TODO - why not use CGI.escape here?  It's far more complete...
     def self.convert(str)
        str.gsub!("&", "&amp;")
        str.gsub!("<", "&lt;")

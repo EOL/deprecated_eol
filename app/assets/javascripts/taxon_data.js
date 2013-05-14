@@ -128,40 +128,6 @@ $(function() {
     return(false);
   });
 
-  // More...
-  $('table.data tr.data').each(function() {
-    if ( ! $(this).hasClass('nested')) {
-      var $next = $(this).next().next(); // Skip a row because of actions
-      var count = 0;
-      while($next.hasClass('nested')) {
-        count++;
-        if (count > EOL.max_meta_rows) { $next.hide(); }
-        $next = $next.next().next(); // Again, skipping actions.
-      }
-      if (count == EOL.max_meta_rows+1) {
-        $next.prev().prev().show(); // Ooops, show it, since there's only one more.
-      } else if (count > EOL.max_meta_rows) {
-        // TODO - I18n (read "More..." off of a data attribute somewhere, prolly on the row).
-        $next.before('<tr class="data nested"><th></th><td><a href="#" class="more">' +
-          $('table.data').attr('data-more').replace('NNN', (count-EOL.max_meta_rows)) +
-          '</a></td></tr>');
-        $next.prev().find('a.more').click(function() {
-          var $row = $(this).closest('tr');
-          var $next = $row.prev().prev();
-          $row.remove();
-          console.log($next);
-          // TODO - we need to replace all these while-next things with a method that takes a closure as an arg...
-          // (of course, this will have to be written to find the nearest non-nested, then iterate down. NBD.
-          while($next.hasClass('nested')) {
-            $next.show();
-            $next = $next.prev().prev(); // Yup, skipping actions.
-          }
-          return(false);
-        });
-      }
-    }
-  });
-
   $('table.data tr.actions').hide().prev().children('td.fold').html('<img src="/assets/arrow_down_gray.gif" />').parent().on('click',
     function(e) {
     // if the target of the click is a link, do not hide the metadata
@@ -213,5 +179,39 @@ $(function() {
   });
 
   EOL.add_has_default_behavior();
+
+  // More...
+  $('table.data tr.data').each(function() {
+    if ( ! $(this).hasClass('nested')) {
+      var $next = $(this).next().next(); // Skip a row because of actions
+      var count = 0;
+      while($next.hasClass('nested')) {
+        count++;
+        if (count > EOL.max_meta_rows) { $next.hide(); }
+        $next = $next.next().next(); // Again, skipping actions.
+      }
+      if (count == EOL.max_meta_rows+1) {
+        $next.prev().prev().show(); // Ooops, show it, since there's only one more.
+      } else if (count > EOL.max_meta_rows) {
+        // TODO - fix this; the insert isn't ... inserting.
+        $next.before('<tr class="data nested more"><th></th><td><a href="#" class="more">' +
+          $('table.data').attr('data-more').replace('NNN', (count-EOL.max_meta_rows)) +
+          '</a></td></tr>');
+        $next.prev().find('a.more').click(function() {
+          var $row = $(this).closest('tr');
+          var $next = $row.prev().prev();
+          $row.remove();
+          console.log($next);
+          // TODO - we need to replace all these while-next things with a method that takes a closure as an arg...
+          // (of course, this will have to be written to find the nearest non-nested, then iterate down. NBD.
+          while($next.hasClass('nested')) {
+            $next.show();
+            $next = $next.prev().prev(); // Yup, skipping actions.
+          }
+          return(false);
+        });
+      }
+    }
+  });
 
 });

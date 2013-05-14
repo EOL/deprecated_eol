@@ -1,24 +1,51 @@
-%fieldset
-  %dl
-    %dt= f.label :uri
-    %dd= f.text_field :uri
-    = f.fields_for :translated_known_uris, @translated_known_uri do |nested|
-      = nested.hidden_field :language_id
-      %dt= nested.label :name
-      %dd= nested.text_field :name
-    %dt= f.label :toc_items
-    %dd
-      %ul
-        - TocItem.for_uris(current_language).each do |toc_item|
-          %li
-            = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, @known_uri.toc_items.include?(toc_item)
-            = toc_item.label
-    %dt= f.label :has_unit_of_measure
-    %dd= f.text_field :has_unit_of_measure
-    %dt= f.label :is_unit_of_measure
-    %dd
-      = f.check_box :is_unit_of_measure
-      = I18n.t(:yes_answer)
-%fieldset.actions
-  = f.submit I18n.t(:save)
-  = link_to I18n.t(:cancel), known_uris_url
+= content_for :head do
+  = stylesheet_link_tag "known_uris"
+= form_for known_uri do |f|
+  = validation_errors_for(known_uri)
+  %fieldset
+    %dl
+      %dt= f.label :uri
+      %dd= f.text_field :uri
+      = f.fields_for :translated_known_uris, translated_known_uri do |nested|
+        = nested.hidden_field :language_id
+        %dt= nested.label :name
+        %dd= nested.text_field :name
+      %dt= f.label :toc_items
+      %dd
+        %ul
+          - TocItem.for_uris(current_language).each do |toc_item|
+            %li
+              = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, known_uri.toc_items.include?(toc_item)
+              = toc_item.label
+      %dt= f.label :is_unit_of_measure
+      %dd
+        = f.check_box :is_unit_of_measure
+        = I18n.t(:yes_answer)
+        %fieldset.actions
+          = f.submit I18n.t(:save)
+          = link_to I18n.t(:cancel), known_uris_url
+
+.fieldset_form
+  %label= I18n.t('known_uris.relationships')
+  - if known_uri.known_uri_relationships_as_subject.empty?
+    %ul
+      %li= I18n.t(:none)
+  - else known_uri.known_uri_relationships_as_subject.empty?
+    %ul
+      - known_uri.known_uri_relationships_as_subject.each_with_index do |relationship, index|
+        %li
+          %span.underline= relationship.relationship_label
+          = relationship.to_known_uri.uri
+          %div.actions= button_to raw(I18n.t(:delete)), relationship, :method => :delete, :data => { :confirm => I18n.t(:are_you_sure) }
+
+  = form_for KnownUriRelationship.new do |tr|
+    = tr.hidden_field :from_known_uri_id, :value => known_uri.id
+    %fieldset
+      %dl
+        %dt= I18n.t('known_uris.add_a_relationship')
+        %dd
+          = tr.select :relationship_uri, options_for_select(KnownUriRelationship.relationship_types)
+          = tr.hidden_field :to_known_uri_id
+          = autocomplete_field :autocomplete, 'to_known_uri', autocomplete_known_uri_uri_known_uris_path, :id_element => "#known_uri_relationship_to_known_uri_id",
+            :value => (tr.object.to_known_uri.uri rescue '')
+          = tr.submit I18n.t(:submit)

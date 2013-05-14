@@ -119,10 +119,9 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the predicate is associated with a unit, and that unit is a KnownURI
     body.should_not include("<td>\n50\n<span title=\"http://eol.org/hours\">\nhours")
-    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time', :has_unit_of_measure => 'http://eol.org/hours')
-    visit taxon_data_path(@taxon_concept.id)
-    body.should_not include("<td>\n50\n<span title=\"http://eol.org/hours\">\nhours")
-    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', :is_unit_of_measure => true)
+    time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
+    hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', :is_unit_of_measure => true)
+    KnownUriRelationship.gen_if_not_exists(:from_known_uri => time, :to_known_uri => hours, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
     visit taxon_data_path(@taxon_concept.id)
     body.should include("<td>\n50\n<span title=\"http://eol.org/hours\">\nhours")
   end

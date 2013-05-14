@@ -16,12 +16,14 @@ class KnownUri < ActiveRecord::Base
 
   has_many :translated_known_uris
   has_many :user_added_data
+  has_many :known_uri_relationships_as_subject, :class_name => KnownUriRelationship.name, :foreign_key => :from_known_uri_id
+  has_many :known_uri_relationships_as_target, :class_name => KnownUriRelationship.name, :foreign_key => :to_known_uri_id
 
   has_and_belongs_to_many :toc_items
 
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
-    :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :has_unit_of_measure,
-    :is_unit_of_measure
+    :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :is_unit_of_measure,
+    :translations
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -53,6 +55,12 @@ class KnownUri < ActiveRecord::Base
 
   def unknown?
     name.blank?
+  end
+
+  def unit_of_measure
+    if unit_of_measure_relation = known_uri_relationships_as_subject.detect{ |r| r.relationship_uri == KnownUriRelationship::MEASUREMENT_URI }
+      unit_of_measure_relation.to_known_uri
+    end
   end
 
   private

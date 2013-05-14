@@ -322,8 +322,12 @@ en:
         name: "Name"
         toc_items: "Categories"
         description: "Description"
-        has_unit_of_measure: "Has Unit Of Measure URI"
         is_unit_of_measure: "Is A Unit Of Measure"
+      known_uri_relationship:
+        from_known_uri_id: "Subject URI"
+        to_known_uri_id: "Target URI"
+        to_known_uri: "Target URI"
+        relationship_uri: "Relationship URI"
       open_authentication:
         created_at: "Created"
         guid: "GUID"
@@ -502,6 +506,14 @@ en:
             subject:
               must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
+        known_uri_relationship:
+          attributes:
+            to_known_uri_id:
+              must_be_known_uri: "must be a Known URI"
+              must_be_measurement: "must be a unit measure"
+              must_be_different: "must be different than the Subject URI"
+            relationship_uri:
+              only_one_measurement: "not allowed - there can only be one unit of measure"
   helpers:
     label:
       collection:
@@ -1079,6 +1091,13 @@ en:
       create_failed: "Sorry, an error occurred, the thread could not be added"
       delete_successful: "Thread was successfully deleted"
       delete_failed_not_empty: "Thread could not be deleted because it is not empty"
+  known_uris:
+    relationships: "Relationships"
+    add_a_relationship: "Add A Relationship"
+  known_uri_relationships:
+    created: "Relationship was successfully created"
+    create_failed: "Sorry, an error occurred, the relationship could not be added."
+    deleted: "Relationship was successfully deleted"
   layouts:
     v2:
       application:

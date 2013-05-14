@@ -42,44 +42,34 @@ module EOL
 
     def self.get_unit_components_from_metadata(metadata)
       if hash = metadata.detect{ |k,v| k == 'http://rs.tdwg.org/dwc/terms/measurementUnit' }
-        return components_of_unit_of_measure_label_for_uri(hash[1])
+        return components_of_unit_of_measure_label_for_uri(hash[1]) if hash[1].is_a?(KnownUri)
       end
     end
 
-    def self.components_of_unit_of_measure_label_for_uri(uri)
-      if measurement_uri = implied_unit_of_measure_for_uri(uri)
-        uri = measurement_uri
+    def self.components_of_unit_of_measure_label_for_uri(known_uri_or_string)
+      if measurement = implied_unit_of_measure_for_uri(known_uri_or_string)
+        known_uri_or_string = measurement
       end
-      if lookup_uri = is_known_unit_of_measure_uri(uri)
-        return uri_components(lookup_uri)
-      end
-    end
-
-    def self.implied_unit_of_measure_for_uri(uri)
-      return uri.has_unit_of_measure if uri.is_a?(KnownUri) && !uri.is_unit_of_measure?
-      if known_uri = KnownUri.find_by_uri(uri.to_s)
-        return known_uri.has_unit_of_measure
+      if is_known_unit_of_measure_uri?(known_uri_or_string)
+        return uri_components(known_uri_or_string)
       end
     end
 
-    def self.is_known_unit_of_measure_uri(uri)
-      return uri if uri.is_a?(KnownUri) && uri.is_unit_of_measure?
-      known_uri = KnownUri.find_by_uri(uri.to_s)
-      if known_uri && known_uri.is_unit_of_measure?
-        return known_uri
-      end
+    def self.implied_unit_of_measure_for_uri(known_uri_or_string)
+      return known_uri_or_string.unit_of_measure if known_uri_or_string.is_a?(KnownUri) && !known_uri_or_string.is_unit_of_measure?
     end
 
-    def self.uri_components(uri)
-      if !uri.is_a?(KnownUri) && known_uri = KnownUri.find_by_uri(uri.to_s)
-        uri = known_uri
-      end
-      if uri.is_a?(KnownUri)
-        return { uri: uri.uri, label: uri.name }
-      elsif label = EOL::Sparql.uri_to_readable_label(uri)
-        return { uri: uri, label: label }
+    def self.is_known_unit_of_measure_uri?(known_uri_or_string)
+      return true if known_uri_or_string.is_a?(KnownUri) && known_uri_or_string.is_unit_of_measure?
+    end
+
+    def self.uri_components(known_uri_or_string)
+      if known_uri_or_string.is_a?(KnownUri)
+        return { uri: known_uri_or_string.uri, label: known_uri_or_string.name }
+      elsif label = EOL::Sparql.uri_to_readable_label(known_uri_or_string)
+        return { uri: known_uri_or_string, label: label }
       else
-        return { uri: uri, label: uri }
+        return { uri: known_uri_or_string, label: known_uri_or_string }
       end
     end
 

@@ -31,9 +31,9 @@
 
           - # displaying unit of measure
           - if uri_components = EOL::Sparql.components_of_unit_of_measure_label_for_uri(row[:attribute])
-            = display_uri(uri_components[:uri])
+            = display_uri(uri_components)
           - elsif row[:metadata] && uri_components = EOL::Sparql.get_unit_components_from_metadata(row[:metadata])
-            = display_uri(uri_components[:uri])
+            = display_uri(uri_components)
 
           - # displaying metadata
           - if row[:metadata]

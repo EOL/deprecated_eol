@@ -748,6 +748,12 @@ FactoryGirl.define do
     uri           { "http://eol.org/known_uri/" + generate(:guid) }
   end
 
+  factory :known_uri_relationship do
+    association :from_known_uri, :factory => :known_uri
+    association :to_known_uri, :factory => :known_uri
+    relationship_uri  { "http://eol.org/relationship_uri/" + generate(:guid) }
+  end
+
   factory :language do
     source_form  ''
     iso_639_1    ''

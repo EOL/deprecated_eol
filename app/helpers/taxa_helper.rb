@@ -148,7 +148,11 @@ module TaxaHelper
   end
 
   def display_uri(uri, tag_type = :span)
-    uri_components = EOL::Sparql.uri_components(uri)
+    if uri.class == Hash
+      uri_components = uri
+    else
+      uri_components = EOL::Sparql.uri_components(uri)
+    end
     if uri_components[:uri] == uri_components[:label]
       return uri if tag_type == :span
       title = nil

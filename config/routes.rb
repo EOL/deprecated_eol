@@ -341,11 +341,15 @@ Eol::Application.routes.draw do
   resources :known_uris do
     collection do
       get 'categories'
+      get 'autocomplete_known_uri_uri'
     end
     member do
       put 'unhide'
       put 'hide'
     end
+  end
+
+  resources :known_uri_relationships, :only => [ :create, :destroy ] do
   end
 
   resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do

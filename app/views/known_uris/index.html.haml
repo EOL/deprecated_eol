@@ -4,7 +4,6 @@
       %tr
         %th= I18n.t('activerecord.attributes.known_uri.uri')
         %th= I18n.t('activerecord.attributes.known_uri.name')
-        %th= I18n.t('activerecord.attributes.known_uri.has_unit_of_measure')
         %th= I18n.t('activerecord.attributes.known_uri.is_unit_of_measure')
         %th= I18n.t('activerecord.attributes.known_uri.toc_items')
         - if current_user.is_admin?
@@ -16,7 +15,6 @@
         %tr{ class: klass }
           %td= known_uri.uri
           %td= known_uri.name
-          %td= known_uri.has_unit_of_measure
           %td= known_uri.is_unit_of_measure ? I18n.t(:yes_answer) : I18n.t(:no_answer)
           %td
             - cats = known_uri.toc_items.map(&:label).join('<br />')

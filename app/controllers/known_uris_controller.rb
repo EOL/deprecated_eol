@@ -1,9 +1,12 @@
 class KnownUrisController < ApplicationController
 
-  before_filter :set_page_title
-  before_filter :restrict_to_admins, :except => :index
+  before_filter :set_page_title, :except => :autocomplete_known_uri_uri
+  before_filter :restrict_to_admins, :except => [ :index, :autocomplete_known_uri_uri ]
+  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms, :only => :autocomplete_known_uri_uri
 
   layout 'v2/basic'
+
+  autocomplete :known_uri, :uri, :full => true
 
   def index
     @known_uris = params[:category_id] ?
@@ -46,7 +49,7 @@ class KnownUrisController < ApplicationController
   end
 
   def edit
-    @known_uri = KnownUri.find(params[:id])
+    @known_uri = KnownUri.find(params[:id], :include => [ :toc_items, :known_uri_relationships_as_subject ] )
     if @known_uri.name.blank?
       @known_uri.translated_known_uris << [TranslatedKnownUri.new(language: current_language)]
     end
@@ -82,6 +85,12 @@ class KnownUrisController < ApplicationController
     @known_uri = KnownUri.find(params[:id])
     @known_uri.destroy
     redirect_to known_uris_path
+  end
+
+  def autocomplete_known_uri_uri
+    @known_uris = KnownUri.where([ "uri LIKE ?", "%#{params[:term]}%" ]) +
+      TranslatedKnownUri.where([ "name LIKE ?", "%#{params[:term]}%" ]).collect(&:known_uri)
+    render :json => @known_uris.compact.uniq.collect{ |k| { :id => k.id, :value => k.uri, :label => k.uri }}.to_json
   end
 
   private

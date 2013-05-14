@@ -6,7 +6,7 @@ class Taxa::DataController < TaxaController
   def index
     @assistive_section_header = "ASdfsfasdfasdfasdaf" # TODO
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
-    @data = @taxon_page.data.get_data
+    @data = replace_licenses_with_mock_known_uris(@taxon_page.data.get_data)
     add_known_uris_to_data
     @categories = @data.map { |d| d[:attribute] }.flat_map { |a| a.is_a?(KnownUri) ? a.toc_items : nil }.uniq.compact
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)
@@ -17,6 +17,18 @@ protected
   # TODO...
   def meta_description
     @meta_description ||= "this is so meta"
+  end
+
+  def replace_licenses_with_mock_known_uris(data)
+    data.each do |row|
+      row[:metadata].each do |key, val|
+        if key == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(val.to_s)
+          row[:metadata][key] = KnownUri.new(:uri => val,
+            :translations => [ TranslatedKnownUri.new(:name => license.title, :language => current_language) ])
+        end
+      end
+    end
+    data
   end
 
   # TODO - move this to KnownUri (mostly)
@@ -31,13 +43,6 @@ protected
       delete_keys = []
       new_keys = {}
       row[:metadata].each do |key, val|
-        # Licenses are special:
-        if key == UserAddedDataMetadata::LICENSE_URI.downcase &&
-           License.exists?(source_url: row[:metadata][key].to_s)
-          new_keys[KnownUri.license] = License.find_by_source_url(row[:metadata][key].to_s).title
-          delete_keys << key
-          next
-        end
         key_uri = known_uris.select { |known_uri| known_uri.uri == key }.first
         val_uri = known_uris.select { |known_uri| known_uri.uri == val }.first
         row[:metadata][key] = val_uri if val_uri

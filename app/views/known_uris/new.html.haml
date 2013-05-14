@@ -1,6 +1,4 @@
 #content
   #known_uris.site_column
-    = form_for @known_uri do |f|
-      = validation_errors_for(@known_uri)
-      = render partial: 'form', locals: { f: f }
+    = render partial: 'form', locals: { known_uri: @known_uri, translated_known_uri: @translated_known_uri }
 

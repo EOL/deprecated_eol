@@ -51,6 +51,61 @@ describe 'Taxa page basic tests' do
     visit taxon_overview_path(tc.id)
     body.should_not include(community.name)
   end
+
+  it 'should not show a structured data summary when there is none' do
+    drop_all_virtuoso_graphs
+    tc = build_taxon_concept
+    visit taxon_overview_path(tc.id)
+    body.should_not have_selector("#data_summary table")
+  end
+
+  it 'should show a structured data summary when there is user added data' do
+    drop_all_virtuoso_graphs
+    tc = build_taxon_concept
+    @user_added_data = UserAddedData.gen(:subject => tc)
+    visit taxon_overview_path(tc.id)
+    body.should have_selector("#data_summary table")
+  end
+
+  it 'should show a structured data summary when there are measurements' do
+    drop_all_virtuoso_graphs
+    tc = build_taxon_concept
+    @measurement = DataMeasurement.new(:subject => tc, :resource => Resource.gen,
+      :predicate => 'http://eol.org/weight', :object => '12345')
+    @measurement.update_triplestore
+    visit taxon_overview_path(tc.id)
+    body.should have_selector("#data_summary table")
+  end
+
+  it 'should show a structured data summary when there are associations' do
+    drop_all_virtuoso_graphs
+    subject_tc = build_taxon_concept
+    target_tc = build_taxon_concept
+    @association = DataAssociation.new(:subject => subject_tc, :resource => Resource.gen,
+      :object => target_tc, :type => 'http://eol.org/preys_on')
+    @association.update_triplestore
+    visit taxon_overview_path(subject_tc.id)
+    body.should have_selector("#data_summary table")
+    # target will not have data until an inverse relationship is added
+    visit taxon_overview_path(target_tc.id)
+    body.should_not have_selector("#data_summary table")
+  end
+
+  it 'should show units in the data summary when defined' do
+    drop_all_virtuoso_graphs
+    tc = build_taxon_concept
+    @measurement = DataMeasurement.new(:subject => tc, :resource => Resource.gen,
+      :predicate => 'http://eol.org/weight', :object => '12345', :unit => 'http://eol.org/kg')
+    @measurement.update_triplestore
+    visit taxon_overview_path(tc.id)
+    body.should have_selector("#data_summary table")
+    body.should include("<td>\n12345")
+    body.should_not include("<td>\n12345\n<span title=\"http://eol.org/kg\">\nkilograms\n")
+    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :is_unit_of_measure => true)
+    visit taxon_overview_path(tc.id)
+    body.should include("<td>\n12345\n<span title=\"http://eol.org/kg\">\nkilograms\n")
+  end
+
 end
 
 describe 'Taxa page' do

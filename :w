@@ -48,13 +48,16 @@
                     - else
                       = display_uri(v, :td)
         %td.source
-          = truncate(row[:source].name, length: 12)
         %td.fold &nbsp;
       %tr{ class: (classes + ['actions']).join(' ') }
-        %td{ colspan: 3 }
+        %td{ colspan: 2 }
           %ul
             - if row[:source]
-              %li= raw I18n.t("data_provided_by_#{row[:source].class.name.underscore.downcase}", whom: link_to(row[:source].name, row[:source]))
+              %li= raw I18n.t(:data_provided_by, user: link_to(row[:user].full_name, row[:user]))
+            - else
+              - resource = TaxonData.graph_name_to_resource(row[:graph])
+              -# TODO: i18n
+              %li= raw "Source: " + link_to(resource.content_partner.name, resource.content_partner)
             - if row.has_key?(:data_point_uri)
               %li= raw "&bull;"
               %li= link_to row[:data_point_uri], ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(row[:data_point_uri].to_s)), :target => 'data'

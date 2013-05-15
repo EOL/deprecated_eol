@@ -7,7 +7,6 @@ class Taxa::DataController < TaxaController
     @assistive_section_header = "ASdfsfasdfasdfasdaf" # TODO
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
     @data = replace_licenses_with_mock_known_uris(@taxon_page.data.get_data)
-    add_known_uris_to_data
     @categories = @data.map { |d| d[:attribute] }.flat_map { |a| a.is_a?(KnownUri) ? a.toc_items : nil }.uniq.compact
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)
   end

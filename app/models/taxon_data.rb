@@ -15,6 +15,9 @@ class TaxonData < TaxonUserClassificationFilter
       if user_added_data = get_user_added_data(row[:data_point_uri])
         row[:user] = user_added_data.user
         row[:user_added_data] = user_added_data
+        row[:source] = row[:user]
+      elsif row[:graph]
+        row[:source] = TaxonData.graph_name_to_resource(row[:graph]).content_partner
       end
     end
     add_known_uris_to_data(rows)
@@ -224,6 +227,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
   # TODO - we might actually want to cache these across calls.
+  # TODO - PL wrote some code in the controller that seems to do something else with these; merge?
   def convert_license(key, val, new_keys, delete_keys)
     if key.to_s.downcase == UserAddedDataMetadata::LICENSE_URI.downcase
       @encountered_licenses ||= {}

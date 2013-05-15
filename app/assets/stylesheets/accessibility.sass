@@ -1462,34 +1462,37 @@ ul.tabs
         +input(100px)
   table.data
     border-bottom: 1px solid $grayblue
+    border-top: 1px solid $grayblue
+    border-right: 1px solid $grayblue
+    border-left: 1px solid $grayblue
     tr
-      border: 0 /* Get rid of the default table borders */
-      border-top: 1px solid $grayblue
-      border-right: 1px solid $grayblue
-      border-left: 1px solid $grayblue
-    tr.nested
-      border-top: 0
+      border: 0
     tr.actions
       background-color: #f6f8fa
       font-weight: normal
       font-size: 0.8em
-      border-bottom: 1px solid $grayblue
+      border: 1px solid $grayblue
       li
         margin-left: 2pt
         display: inline
       td
         font-weight: normal
-    tr:hover
-      border-color: #aab3bb
+    tr.data:hover
       cursor: hand
       cursor: pointer
+      background-color: #f6f8fa
+    tr.open
+      border-top: 1px solid $grayblue
+      background: #fbfdff
+    tr.open:hover
+      cursor: auto
       background: #fbfdff
     th
       text-transform: uppercase
       color: $darker_blue
       font-weight: normal
       text-align: right
-      width: 30%
+      width: 24%
       padding-top: 5pt
       vertical-align: top
     td
@@ -1506,6 +1509,14 @@ ul.tabs
         td
           font-size: 0.8em
           font-weight: normal
+    td.source
+      width: 8em /* Technically, this can be 12 chrs, but... prolly not MMMMMMM. :) */
+      padding: 5px 0
+      font-size: 8pt
+      color: $grayblue
+    td.fold
+      width: 3%
+      padding: 5px 0
     .meta_count
       display: block
       float: right

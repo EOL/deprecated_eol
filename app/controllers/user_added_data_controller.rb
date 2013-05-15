@@ -109,7 +109,7 @@ class UserAddedDataController < ApplicationController
     converted = convert_to_uri(hash[key])
     if converted.blank?
       # They want to create a new EOL-based URI:
-      hash[key] = KnownUri.custom(hash[key], current_language).uri unless key != :object # Not for values.
+      hash[key] = KnownUri.custom(hash[key], current_language).uri unless key == :object # Not for values.
     else
       hash[key] = converted
     end
@@ -118,7 +118,6 @@ class UserAddedDataController < ApplicationController
 
   # NOTE that this only takes the first one it finds.
   def convert_to_uri(name)
-    # TODO - convert EOL pages to the appropriate value.
     return nil unless TranslatedKnownUri.exists?(name: name, language_id: current_language.id)
     turi = TranslatedKnownUri.where(name: name, language_id: current_language.id).first
     return nil unless turi.known_uri && ! turi.known_uri.uri.blank?

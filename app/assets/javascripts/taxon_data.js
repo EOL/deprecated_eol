@@ -167,7 +167,7 @@ $(function() {
     return(false);
   });
 
-  $('table.data tr.actions').hide().prev().children('td.fold').html('<img src="/assets/arrow_down_gray.gif" />').parent().on('click',
+  $('table.data tr.actions').hide().prev().children('td.fold').html('<img src="/assets/arrow_fold_right.png" />').parent().on('click',
     function(e) {
     // if the target of the click is a link, do not hide the metadata
     if($(e.target).closest('a').length) return;
@@ -175,12 +175,12 @@ $(function() {
     var $next_row = $(this).next();
     var $table = $(this).find('table');
     if ($next_row.is(":visible")) {
-      $folder.html('<img src="/assets/arrow_down_gray.gif" />');
+      $folder.html('<img src="/assets/arrow_fold_right.png" />');
       $next_row.hide();
       $table.hide();
       $(this).removeClass('open');
     } else {
-      $folder.html('<img src="/assets/arrow_up_gray.gif" />');
+      $folder.html('<img src="/assets/arrow_fold_down.png" />');
       $next_row.show();
       $table.show();
       $(this).addClass('open');
@@ -216,7 +216,9 @@ $(function() {
     }
     $(this).parent().parent().find('li').removeClass('active');
     $(this).parent().addClass('active');
+    // Reset other aspects of the table:
     $('table.data tr.open').removeClass('open');
+    $('table.data td.fold').html('<img src="/assets/arrow_fold_right.png" />');
     $('table.meta').hide();
     EOL.limit_data_rows();
     return(false);

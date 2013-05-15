@@ -20,6 +20,7 @@
         %th
           - if row[:attribute] != last_attribute
             = display_uri(row[:attribute])
+        %td.fold &nbsp;
         %td.val
           - # displaying values
           - if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(row[:target_taxon_concept_id].to_s.split("/").last)
@@ -47,9 +48,8 @@
                       = display_uri(v, :td)
         %td.source
           = truncate(row[:source].name, length: 12)
-        %td.fold &nbsp;
       %tr{ class: (classes + ['actions']).join(' ') }
-        %td{ colspan: 3 }
+        %td{ colspan: 4 }
           %ul
             - if row[:source]
               %li= raw I18n.t("data_provided_by_#{row[:source].class.name.underscore.downcase}", whom: link_to(row[:source].name, row[:source]))
@@ -63,7 +63,6 @@
               %li= raw "&bull;"
               -# TODO: i18n
               %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
-        %td.fold &nbsp;
       - last_attribute = row[:attribute]
   %p= link_to "Show meta counts", '#', class: 'show_meta_counts'
 .add_content

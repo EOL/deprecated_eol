@@ -50,7 +50,7 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
     body.should have_selector("table.data th span[title='http://eol.org/preys_on']", :text => 'Preys On')
-    body.should have_selector("table.data td a[href='/pages/#{@target_taxon_concept.id}/data']", :text => @target_taxon_concept.subtitle)
+    body.should have_selector("table.data td a[href='/pages/#{@target_taxon_concept.id}/data']", :text => @target_taxon_concept.title_canonical)
     body.should have_selector("table.data td table.meta")
     body.should have_selector("table.meta th[title='http://www.w3.org/1999/02/22-rdf-syntax-ns#type']", :text => 'Type')
     body.should have_selector("table.meta td[title='http://eol.org/schema/Association']", :text => 'Association')
@@ -107,10 +107,10 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the unit is a KnownURI
-    body.should_not include("<td>\n50\n<span title=\"http://eol.org/kg\">\nkilograms")
+    body.should_not include("<td class=\"val\">\n50\n<span title=\"http://eol.org/kg\">\nkilograms")
     KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :is_unit_of_measure => true)
     visit taxon_data_path(@taxon_concept.id)
-    body.should include("<td>\n50\n<span title=\"http://eol.org/kg\">\nkilograms")
+    body.should include("<td class=\"val\""">\n50\n<span title=\"http://eol.org/kg\">\nkilograms")
   end
 
   it 'should display units of measure when implied by measurement type' do
@@ -118,12 +118,12 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the predicate is associated with a unit, and that unit is a KnownURI
-    body.should_not include("<td>\n50\n<span title=\"http://eol.org/hours\">\nhours")
+    body.should_not include("<td class=\"val\">\n50\n<span title=\"http://eol.org/hours\">\nhours")
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
     hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', :is_unit_of_measure => true)
     KnownUriRelationship.gen_if_not_exists(:from_known_uri => time, :to_known_uri => hours, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
     visit taxon_data_path(@taxon_concept.id)
-    body.should include("<td>\n50\n<span title=\"http://eol.org/hours\">\nhours")
+    body.should include("<td class=\"val\">\n50\n<span title=\"http://eol.org/hours\">\nhours")
   end
 
 end

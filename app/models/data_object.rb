@@ -462,11 +462,11 @@ class DataObject < ActiveRecord::Base
       # content server and needs to generate URLS with a different host for image crops
       is_crop = false
       if Rails.env.staging? || Rails.env.staging_dev?
-        is_crop = all_image_crops.detect{ |c| c.new_object_cache_url == object_cache_url }
+        is_crop = all_image_crops.detect{ |c| c.new_object_cache_url == object_cache_url && c.created_at > User.a_somewhat_recent_user.created_at }
       end
       return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
     else
-      return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
+      return '_missing_image_' # Really, this is an error, but we want to handle it pseudo-gracefully.
     end
   end
 

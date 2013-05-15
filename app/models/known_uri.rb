@@ -5,6 +5,7 @@ class KnownUri < ActiveRecord::Base
 
   BASE = 'http://eol.org/schema/terms/'
   TAXON_RE = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.
+  GRAPH_NAME = 'http://eol.org/known_uris'
 
   include EOL::CuratableAssociation
 
@@ -75,6 +76,57 @@ class KnownUri < ActiveRecord::Base
 
   def matches(other_uri)
     uri.casecmp(other_uri.to_s) == 0
+  end
+
+  # TODO - this is just for testing. You really don't want to run this in production...
+  # there is also a lot of duplicate with this user added data, and the data factories
+  def self.delete_graph
+    EOL::Sparql.connection.delete_graph(KnownUri::GRAPH_NAME)
+  end
+
+  # TODO - this is just for testing. You really don't want to run this in production...
+  def self.recreate_triplestore_graph
+    delete_graph
+    KnownUri.all.each do |k|
+      k.add_to_triplestore
+    end
+  end
+
+  def add_to_triplestore
+    if known_uri_relationships_as_subject
+      EOL::Sparql.connection.insert_data(data: [ turtle ], graph_name: KnownUri::GRAPH_NAME)
+    end
+  end
+
+  def remove_from_triplestore
+    EOL::Sparql.connection.delete_uri(graph_name: KnownUri::GRAPH_NAME, uri: uri)
+    EOL::Sparql.connection.query("
+      DELETE FROM <#{KnownUri::GRAPH_NAME}>
+      { ?s <#{KnownUriRelationship::INVERSE_URI}> <#{uri}> }
+      WHERE
+      { ?s <#{KnownUriRelationship::INVERSE_URI}> <#{uri}> }")
+  end
+
+  def update_triplestore
+    remove_from_triplestore
+    add_to_triplestore
+  end
+
+  def turtle
+    statements = []
+    turtle = known_uri_relationships_as_subject.each do |r|
+      statements << "<#{uri}> <#{r.relationship_uri}> <#{r.to_known_uri.uri}>"
+      if r.relationship_uri == KnownUriRelationship::INVERSE_URI
+        statements << "<#{r.to_known_uri.uri}> <#{r.relationship_uri}> <#{uri}>"
+      end
+    end
+    turtle = known_uri_relationships_as_target.each do |r|
+      if r.relationship_uri == KnownUriRelationship::INVERSE_URI
+        statements << "<#{uri}> <#{r.relationship_uri}> <#{r.from_known_uri.uri}>"
+        statements << "<#{r.from_known_uri.uri}> <#{r.relationship_uri}> <#{uri}>"
+      end
+    end
+    statements.join(" . ")
   end
 
   private

@@ -14,6 +14,9 @@ class KnownUriRelationship < ActiveRecord::Base
   validate :subject_and_target_are_different
   validate :only_one_measurement_allowed
 
+  after_save :update_triplestore
+  after_destroy :update_triplestore
+
   def self.relationship_types
     { 'is inverse of' => KnownUriRelationship::INVERSE_URI,
       'has unit of measure' => KnownUriRelationship::MEASUREMENT_URI }
@@ -23,6 +26,11 @@ class KnownUriRelationship < ActiveRecord::Base
     if type = KnownUriRelationship.relationship_types.detect{ |k,v| v == relationship_uri }
       return type[0]
     end
+  end
+
+  def update_triplestore
+    from_known_uri.update_triplestore if from_known_uri
+    to_known_uri.update_triplestore if to_known_uri
   end
 
   private

@@ -1,0 +1,22 @@
+.data_div
+  %table.standard.data
+    - last_attribute = nil
+    - data.each_with_index do |row, index|
+      - next if row[:attribute].blank?
+      - row_class = nil
+      - row_class = 'last' if data[index + 1] && row[:attribute] != data[index + 1][:attribute]
+      %tr{ :class => row_class }
+        - if row[:attribute] != last_attribute
+          %th{ :rowspan => data.select{ |k,v| k[:attribute] == row[:attribute] }.length }
+            = display_uri(row[:attribute])
+        %td
+          - if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(row[:target_taxon_concept_id].to_s.split("/").last)
+            = link_to raw(target_taxon_concept.title_canonical), taxon_overview_path(target_taxon_concept)
+          - else
+            = display_uri(row[:value])
+          - # displaying unit of measure
+          - if row[:metadata] && uri_components = EOL::Sparql.get_unit_components_from_metadata(row[:metadata])
+            = display_uri(uri_components)
+          - elsif uri_components = EOL::Sparql.components_of_unit_of_measure_label_for_uri(row[:attribute])
+            = display_uri(uri_components)
+      - last_attribute = row[:attribute]

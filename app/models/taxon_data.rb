@@ -20,8 +20,9 @@ class TaxonData < TaxonUserClassificationFilter
         row[:source] = TaxonData.graph_name_to_resource(row[:graph]).content_partner
       end
     end
-    add_known_uris_to_data(rows)
-    rows
+    rows.delete_if{ |k,v| k[:attribute].blank? }
+    rows = replace_licenses_with_mock_known_uris(rows)
+    rows = add_known_uris_to_data(rows)
   end
 
   private
@@ -207,7 +208,6 @@ class TaxonData < TaxonUserClassificationFilter
     delete_keys = []
     new_keys = {}
     row[:metadata].each do |key, val|
-      next if convert_license(key, val, new_keys, delete_keys)
       key_uri = known_uris.find { |known_uri| known_uri.matches(key) }
       val_uri = known_uris.find { |known_uri| known_uri.matches(val) }
       row[:metadata][key] = val_uri if val_uri
@@ -226,29 +226,16 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
-  # TODO - we might actually want to cache these across calls.
-  # TODO - PL wrote some code in the controller that seems to do something else with these; merge?
-  def convert_license(key, val, new_keys, delete_keys)
-    if key.to_s.downcase == UserAddedDataMetadata::LICENSE_URI.downcase
-      @encountered_licenses ||= {}
-      string = val.to_s
-      if @encountered_licenses.has_key?(string)
-        if @encountered_licenses[string] # Otherwise, it doesn't exist
-          new_keys[KnownUri.license] = @encountered_licenses[string]
-          delete_keys << key
-          return true
+  def replace_licenses_with_mock_known_uris(rows)
+    rows.each do |row|
+      row[:metadata].each do |key, val|
+        if key == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(val.to_s)
+          row[:metadata][key] = KnownUri.new(:uri => val,
+            :translations => [ TranslatedKnownUri.new(:name => license.title, :language => user.language) ])
         end
-      elsif License.exists?(source_url: string)
-        lic = License.find_by_source_url(string).title
-        new_keys[KnownUri.license] = lic
-        @encountered_licenses[string] = lic
-        delete_keys << key
-        return true
-      else
-        @encountered_licenses[string] = nil
       end
     end
-    false
+    rows
   end
 
   def uris_in_data(rows)

@@ -3114,6 +3114,7 @@ en:
   darwin_core: "Darwin Core"
   dashboard: "Dashboard"
   data: "Data"
+  data_summary_header: "Facts and associations"
   data_database_colon: "Data:"
   data_logging_active: "Data Logging Active"
   data_master_database_colon: "Data Master:"
@@ -4073,6 +4074,10 @@ en:
   see_all_communities_with_count_html:
     one: "See the <span class=\"assistive\">%{count} community that features this page.</span>"
     other: "See all <span class=\"assistive\">%{count} communities that feature this page.</span>"
+  see_all_data_with_count_html:
+    zero: "View the data tab<span class=\"assistive\">for this taxon.</span>"
+    one: "See the <span class=\"assistive\">%{count} fact for this taxon.</span>"
+    other: "See all <span class=\"assistive\">%{count} facts for this taxon.</span>"
   see_all_featured_collections_with_count:
     one: "See the %{count} featured collection."
     other: "See all %{count} featured collections."
@@ -4228,6 +4233,7 @@ en:
   taxon_citizen_science_resources_empty: "No one has contributed any citizen science links to this page yet."
   taxon_common_names_subtab_explanation: "Many people know organisms only by the common names, or \"vernacular\" names. Unlike scientific names, common names are almost always different for speakers of different languages. They may also vary regionally within a language. This tab shows all the common names provided to EOL for this organism from a variety of providers, including EOL curators. Currently we can only set one preferred common name per language on a given EOL page, but all the names should be searchable."
   taxon_concept_stats: "Taxon Concept Stats"
+  taxon_data_empty: "No one has contributed any facts for this page yet."
   taxon_details_empty: "No one has contributed any details to this page yet."
   taxon_details_empty_in_this_language: "No one has contributed any details to this page in this language."
   taxon_education_empty: "No one has contributed any education resources to this page yet."

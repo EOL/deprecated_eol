@@ -216,6 +216,8 @@ $(function() {
     }
     $(this).parent().parent().find('li').removeClass('active');
     $(this).parent().addClass('active');
+    $('table.data tr.open').removeClass('open');
+    $('table.meta').hide();
     EOL.limit_data_rows();
     return(false);
   });

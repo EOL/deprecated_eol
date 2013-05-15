@@ -207,6 +207,11 @@ class User < ActiveRecord::Base
     User.find(id, :include => :agent)
   end
 
+  # Note: this is only for Staging to help determine how to show cropped images
+  def self.a_somewhat_recent_user
+    @@a_somewhat_recent_user ||= User.find(:all, :order => 'id desc', :limit => 30).last
+  end
+
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
   # you KNOW you have an exception.
   def full_name(options={})

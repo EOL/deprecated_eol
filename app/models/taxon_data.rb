@@ -142,44 +142,12 @@ class TaxonData < TaxonUserClassificationFilter
           result_data[key] = value
         end
       end
-      
-      # TODO - I don't have adequate ability to test this for refactoring, but someone who does: this looks like one
-      # method run three times.  :\
+
       grouped_data[result[:graph]][result[:data_point_uri]][:metadata] ||= {}
       result_metadata = grouped_data[result[:graph]][result[:data_point_uri]][:metadata]
-      if result[:attribution_predicate] && result[:attribution_object]
-        if current_value_of_predicate = result_metadata[result[:attribution_predicate]]
-          if current_value_of_predicate.class == Array
-            result_metadata[result[:attribution_predicate]] << result[:attribution_object]
-          elsif current_value_of_predicate != result[:attribution_object]
-            result_metadata[result[:attribution_predicate]] = [ current_value_of_predicate, result[:attribution_object] ]
-          end
-        else
-          result_metadata[result[:attribution_predicate]] = result[:attribution_object]
-        end
-      end
-      if result[:occurrence_predicate] && result[:occurrence_object]
-        if current_value_of_predicate = result_metadata[result[:occurrence_predicate]]
-          if current_value_of_predicate.class == Array
-            result_metadata[result[:occurrence_predicate]] << result[:occurrence_object]
-          elsif current_value_of_predicate != result[:occurrence_object]
-            result_metadata[result[:occurrence_predicate]] = [ current_value_of_predicate, result[:occurrence_object] ]
-          end
-        else
-          result_metadata[result[:occurrence_predicate]] = result[:occurrence_object]
-        end
-      end
-      if result[:event_predicate] && result[:event_object]
-        if current_value_of_predicate = result_metadata[result[:event_predicate]]
-          if current_value_of_predicate.class == Array
-            result_metadata[result[:event_predicate]] << result[:event_object]
-          elsif current_value_of_predicate != result[:event_object]
-            result_metadata[result[:event_predicate]] = [ current_value_of_predicate, result[:event_object] ]
-          end
-        else
-          result_metadata[result[:event_predicate]] = result[:event_object]
-        end
-      end
+      group_metadata_for('attribution', result, result_metadata)
+      group_metadata_for('occurrence', result, result_metadata)
+      group_metadata_for('event', result, result_metadata)
     end
 
     final_results = []
@@ -189,6 +157,22 @@ class TaxonData < TaxonUserClassificationFilter
       end
     end
     final_results
+  end
+
+  def group_metadata_for(prefix, result, result_metadata)
+    predicate_key = (prefix + "_predicate").to_sym
+    object_key = (prefix + "_object").to_sym
+    if result[predicate_key] && result[object_key]
+      if current_value_of_predicate = result_metadata[result[predicate_key]]
+        if current_value_of_predicate.class == Array
+          result_metadata[result[predicate_key]] << result[object_key]
+        elsif current_value_of_predicate != result[object_key]
+          result_metadata[result[predicate_key]] = [ current_value_of_predicate, result[object_key] ]
+        end
+      else
+        result_metadata[result[predicate_key]] = result[object_key]
+      end
+    end
   end
 
   def add_known_uris_to_data(rows)

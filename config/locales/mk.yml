@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Bjankuloski06
 # Author: Rancher
+# Author: Shirayuki
 mk: 
   0_1_or_2: 0, 1 или 2
   0_or_1: 0 или 1
@@ -149,8 +150,10 @@ mk:
         published_unreviewed_resources: Објавени непроверени ресурси
         redhotlist_pages: Врвни предводници
         rich_hotlist_pages: Предводници по содржајност
+        rich_hotlist_pages_percentage: Предводници по содржајност %
         rich_pages: Содржајни страници
         rich_redhotlist_pages: Врвни предводници по содржајност
+        rich_redhotlist_pages_percentage: Врвни предводници по содржајност %
         udo_published: Текст поднесен од корисници
         udo_published_by_curators: Текст поднесен од кустоси
         udo_published_by_non_curators: Текст поднесен од некустоси
@@ -1358,7 +1361,9 @@ mk:
     one: "%{count} раководител на заедницата"
     other: "%{count} раководители на заедницата"
   community_members: Членови на заедницата
-  community_members_with_count: "{PLURAL|one=%{count} член на заедницата|%{count} членови на заедницата}}"
+  community_members_with_count: 
+    one: "%{count} член на заедницата"
+    other: "%{count} членови на заедницата"
   community_name_label: Име на заедницата
   community_newsfeed: Канал на заедницата
   community_no_longer_has_manager_access_to_collection: „%{community}“ повеќе нема раководителски пристап до збирката „%{collection}“.
@@ -4010,9 +4015,15 @@ mk:
   user_no_longer_has_manager_access_to_collection: "%{user} повеќе нема раководителски пристап до „%{collection}“."
   user_pending_notifications_assitive: <span class="assistive">известувања</span>
   user_pending_notifications_comments_assistive: <span class="assistive">коментари</span>
+  user_pending_notifications_comments_with_count: 
+    one: "%{count} коментар"
+    other: "%{count} коментари"
   user_pending_notifications_comments_with_count_assistive: 
     one: "%{count}<span class=\"assistive\"> коментар</span>"
     other: "%{count}<span class=\"assistive\"> коментари</span>"
+  user_pending_notifications_with_count: 
+    one: "%{count} известување"
+    other: "%{count} известувања"
   user_pending_notifications_with_count_assitive: 
     one: "%{count}<span class=\"assistive\"> известување</span>"
     other: "%{count}<span class=\"assistive\"> известувања</span>"

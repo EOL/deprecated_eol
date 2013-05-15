@@ -270,7 +270,7 @@ class SolrAPI
       this_object_hash[:created_at] = data_object.created_at.solr_timestamp
       if concept = data_object.linked_taxon_concept
         this_object_hash[:taxon_concept_id] = [concept.id]
-        this_object_hash[:ancestor_id] = concept.ancestors.map {|a| a.id}
+        this_object_hash[:ancestor_id] = concept.entry.ancestors.map { |a| a.taxon_concept.id } if concept.entry
       end
       if harvest_events = data_object.harvest_events
         unless harvest_events.blank?

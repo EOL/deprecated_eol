@@ -14,7 +14,6 @@ class TaxonUserClassificationFilter
   def initialize(taxon_concept, user, hierarchy_entry = nil) 
     @taxon_concept = taxon_concept
     @user = user
-    @taxon_concept.current_user = user # TODO - do we need this anymore?
     @_hierarchy_entry = hierarchy_entry
     after_initialize
   end

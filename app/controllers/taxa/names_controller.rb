@@ -126,8 +126,7 @@ class Taxa::NamesController < TaxaController
     language_id = params[:language_id].to_i
     name_id = params[:id].to_i
     vetted = Vetted.find(params[:vetted_id])
-    @taxon_concept.current_user = current_user
-    @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
+    @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted, :user => current_user)
     current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
 
     synonym = Synonym.find_by_name_id(name_id);

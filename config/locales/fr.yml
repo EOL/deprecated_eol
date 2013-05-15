@@ -163,8 +163,10 @@ fr:
         published_unreviewed_resources: Ressources publiées mais non révisées
         redhotlist_pages: Pages très favorites
         rich_hotlist_pages: Pages favorites riches
+        rich_hotlist_pages_percentage: Pages favorites riches %
         rich_pages: Pages riches
         rich_redhotlist_pages: Pages riches très favorites
+        rich_redhotlist_pages_percentage: Pages favorites rouges riches %
         udo_published: Texte soumis par l’utilisateur
         udo_published_by_curators: Texte soumis par un conservateur
         udo_published_by_non_curators: Texte soumis par un non-conservateur
@@ -3975,9 +3977,15 @@ fr:
   user_no_longer_has_manager_access_to_collection: "%{user} n’a plus d’accès gestionnaire à \"%{collection}\"."
   user_pending_notifications_assitive: <span class="assistive">notifications</span>
   user_pending_notifications_comments_assistive: <span class="assistive">commentaires</span>
+  user_pending_notifications_comments_with_count: 
+    one: "%{count} commentaire"
+    other: "%{count} commentaires"
   user_pending_notifications_comments_with_count_assistive: 
     one: "%{count}<span class=\"assistive\"> commentaire</span>"
     other: "%{count}<span class=\"assistive\"> commentaires</span>"
+  user_pending_notifications_with_count: 
+    one: "%{count} notification"
+    other: "%{count} notifications"
   user_pending_notifications_with_count_assitive: 
     one: "%{count}<span class=\"assistive\"> notification</span>"
     other: "%{count}<span class=\"assistive\"> notifications</span>"

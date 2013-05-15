@@ -128,7 +128,6 @@ private
       end
     end
 
-    @taxon_concept.current_user = current_user # TODO - taxon_page takes care of this, remove when it's safe...
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id] || params[:entry_id]
     if @selected_hierarchy_entry_id.nil? && entry_id_is_in_param_id?
       @selected_hierarchy_entry_id = params[:id]

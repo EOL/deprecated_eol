@@ -159,8 +159,10 @@ de:
         published_unreviewed_resources: Veröffentlichte ungeprüfte Quellen
         redhotlist_pages: Beliebte rote Seiten
         rich_hotlist_pages: Beliebte reichhaltige Seiten
+        rich_hotlist_pages_percentage: Beliebte reichhaltige Seiten %
         rich_pages: Reichhaltige Seiten
         rich_redhotlist_pages: Beliebte rote und reichhaltige Seiten
+        rich_redhotlist_pages_percentage: Beliebte rote und reichhaltige Seiten %
         udo_published: Von Nutzern verfasste Texte
         udo_published_by_curators: Von Kuratoren verfasste Texte
         udo_published_by_non_curators: Nicht von Kuratoren verfasste Texte
@@ -4021,9 +4023,15 @@ de:
   user_no_longer_has_manager_access_to_collection: Der Nutzer „%{user}“ kann die Sammlung „%{collection}“ nicht länger verwalten.
   user_pending_notifications_assitive: <span class="assistive">Benachrichtigungen</span>
   user_pending_notifications_comments_assistive: <span class="assistive">Kommentare</span>
+  user_pending_notifications_comments_with_count: 
+    one: Ein Kommentar
+    other: "%{count} Kommentare"
   user_pending_notifications_comments_with_count_assistive: 
     one: "%{count} <span class=\"assistive\">Kommentar</span>"
     other: "%{count}<span class=\"assistive\">Kommentare</span>"
+  user_pending_notifications_with_count: 
+    one: Eine Benachrichtigung
+    other: "%{count} Benachrichtigungen"
   user_pending_notifications_with_count_assitive: 
     one: "%{count} <span class=\"assistive\">Benachrichtigung</span>"
     other: "%{count} <span class=\"assistive\">Benachrichtigungen</span>"

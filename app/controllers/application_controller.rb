@@ -687,6 +687,8 @@ protected
       user_url(item, options)
     when TaxonConcept
       taxon_url(item, options)
+    when UserAddedData
+      taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end

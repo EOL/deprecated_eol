@@ -6,6 +6,8 @@ class UserAddedData < ActiveRecord::Base
 
   belongs_to :subject, :polymorphic => true
   belongs_to :user
+
+  has_many :comments, :as => :parent
   has_many :user_added_data_metadata, :class_name => "UserAddedDataMetadata"
 
   validates_presence_of :user_id, :subject, :predicate, :object
@@ -62,6 +64,10 @@ class UserAddedData < ActiveRecord::Base
     sparql.delete_uri(graph_name: GRAPH_NAME, uri: uri)
   end
 
+  def taxon_concept
+    return subject if subject.is_a?(TaxonConcept)
+  end
+
   def taxon_concept_id
     return subject.id if subject.is_a?(TaxonConcept)
   end
@@ -76,6 +82,12 @@ class UserAddedData < ActiveRecord::Base
     "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject.id.to_s + ">" +
     "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +
     "; dwc:measurementValue " + EOL::Sparql.enclose_value(object)
+  end
+
+  # Needed when commentable:
+  def summary_name
+    # TODO ... something useful here
+    "TODO - a useful name for user added data"
   end
 
   private

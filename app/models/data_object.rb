@@ -335,6 +335,7 @@ class DataObject < ActiveRecord::Base
     end
   end
 
+  # TODO - make a Commentable mixin
   # Add a comment to this data object
   def comment(user, body)
     comment = comments.create :user_id => user.id, :body => body

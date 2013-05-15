@@ -67,6 +67,10 @@ class Comment < ActiveRecord::Base
     return(parent.is_a?(DataObject) and parent.text?)
   end
 
+  def annotation?
+    return parent.is_a?(UserAddedDatum)
+  end
+
   # the image url being commented on, if it's an image
   def parent_image_url
     return_url = case self.parent_type
@@ -232,9 +236,11 @@ private
 
   def add_recipient_collections_containing_object_getting_commented_on(recipients)
     # news feed of collections which contain the thing commented on
-    self.parent.containing_collections.each do |c|
-      next if c.blank?
-      recipients << c
+    if parent.respond_to?(:containing_collections)
+      parent.containing_collections.each do |c|
+        next if c.blank?
+        recipients << c
+      end
     end
   end
 

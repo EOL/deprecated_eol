@@ -19,6 +19,7 @@ class CommentsController < ApplicationController
     current_user_is_curator = current_user.is_curator?
     @comment.from_curator = current_user_is_curator.blank? ? false : true
 
+    return_to ||= link_to_item(@comment.parent) rescue nil
     store_location(return_to)
 
     if @comment.same_as_last?

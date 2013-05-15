@@ -2506,6 +2506,8 @@ en:
   alternative_common_name_colon: "Alternative common name:"
   amount: "Amount"
   an_unknown_user: "An unknown user"
+  annotation_submit: "post annotation"
+  annotation_body_default: "add a question or comment ..."
   anonymous_user_full_name: 'Anonymous User'
   anonymous_user_given_name: 'Anonymous'
   anonymous_user_tag_line: 'Not Logged In'
@@ -4695,6 +4697,9 @@ en:
   allowed_html_tags: "Allowed HTML: %{comma_separated_tags}"
   references_cabs_colon: "References:"
   annotation_cabs_colon: "Annotation:"
+  annotations_with_count:
+    one: "%{count} annotation"
+    other: "%{count} annotations"
   translation_log: "I18n key frequency histogram"
   will_paginate:
     previous_label: "Previous"

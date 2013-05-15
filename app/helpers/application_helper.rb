@@ -418,6 +418,8 @@ module ApplicationHelper
       user_url(item, options)
     when TaxonConcept
       taxon_url(item, options)
+    when UserAddedData
+      taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end
@@ -438,6 +440,8 @@ module ApplicationHelper
       else
         taxon_url(item, options)
       end
+    when UserAddedData
+      taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end

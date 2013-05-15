@@ -1467,6 +1467,8 @@ ul.tabs
     border-left: 1px solid $grayblue
     tr
       border: 0
+      span.comments
+        float: right
     tr.actions
       background-color: #f6f8fa
       font-weight: normal
@@ -1477,6 +1479,25 @@ ul.tabs
         display: inline
       td
         font-weight: normal
+      .comments
+        font-size: 0.9em
+        margin-top: 6px
+        .comment
+          color: #4e5c68
+          background-color: #f1f4dc
+          border: 1px solid #ccd399
+          margin: 3px 0
+          padding: 5px 7px
+          line-height: 1.6em
+        input[type="text"]
+          +input(660px)
+          padding: 3px 7px
+        input[type="submit"]
+          +button
+          float: right
+          margin-top: 3px
+          padding: 5px 18px
+          font-weight: normal
     tr.data:hover
       cursor: hand
       cursor: pointer
@@ -1492,7 +1513,7 @@ ul.tabs
       color: $darker_blue
       font-weight: normal
       text-align: right
-      width: 24%
+      width: 165px
       padding-top: 5pt
       padding-right: 16px
       vertical-align: top

@@ -52,14 +52,6 @@ function update_input_id_and_name(form, new_id) {
   });
 }
 
-EOL.count_meta = function() {
-  // Count of metadata:
-  $('table.data tr.data > td.val').each(function() {
-    var count = $(this).find('table tr').length;
-    $(this).prepend('<span class="meta_count">['+count+']</span>');
-  });
-};
-
 EOL.limit_data_rows = function() {
   $('table.data tr.more').remove();
   $('table.data tr.data:visible').each(function() {
@@ -154,19 +146,6 @@ $(function() {
     });
   });
 
-  $('a.show_meta_counts').click(function() {
-    if ($('.meta_count').length == 0) {
-      EOL.count_meta();
-      $(this).html('Hide meta counts');
-      $('.fold').hide();
-    } else {
-      $('.meta_count').remove();
-      $(this).html('Show meta counts');
-      $('.fold').show();
-    }
-    return(false);
-  });
-
   $('table.data tr.actions').hide().prev().children('td.fold').html('<img src="/assets/arrow_fold_right.png" />').parent().on('click',
     function(e) {
     // if the target of the click is a link, do not hide the metadata
@@ -227,5 +206,13 @@ $(function() {
   EOL.limit_data_rows();
 
   EOL.add_has_default_behavior();
+
+  if(location.hash != "") {
+    var name  = location.hash.replace(/\?.*$/, '');
+    var $row = $(name);
+    $row.click();
+    var new_top = $row.offset().top - 200;
+    $("html, body").animate({ scrollTop: new_top });
+  }
 
 });

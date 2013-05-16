@@ -31,7 +31,17 @@ class CommentsController < ApplicationController
       flash[:error] = I18n.t(:comment_not_added_error)
       flash[:error] << " #{@comment.errors.full_messages.join('; ')}." if @comment.errors.any?
     end
-    redirect_back_or_default
+
+    respond_to do |format|
+      format.html do
+        redirect_back_or_default
+      end
+      format.js do
+        # NOTE - At the moment, this is ONLY being done on the data tab!  The JS will have to be re-written if we do it
+        # elsewhere...
+        convert_flash_messages_for_ajax
+      end
+    end
   end
 
   # GET /comments/:id/edit

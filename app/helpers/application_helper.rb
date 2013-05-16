@@ -419,6 +419,10 @@ module ApplicationHelper
     when TaxonConcept
       taxon_url(item, options)
     when UserAddedData
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
+    when DataPointUri
+      options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound
@@ -441,6 +445,10 @@ module ApplicationHelper
         taxon_url(item, options)
       end
     when UserAddedData
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
+    when DataPointUri
+      options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound

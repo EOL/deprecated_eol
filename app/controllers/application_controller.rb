@@ -688,6 +688,10 @@ protected
     when TaxonConcept
       taxon_url(item, options)
     when UserAddedData
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
+    when DataPointUri
+      options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound
@@ -709,6 +713,12 @@ protected
       else
         taxon_url(item, options)
       end
+    when UserAddedData
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
+    when DataPointUri
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end

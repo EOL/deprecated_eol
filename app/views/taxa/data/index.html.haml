@@ -16,10 +16,19 @@
       - classes = row[:attribute].toc_items.map { |ti| "toc_#{ti.id}" } if row[:attribute].is_a?(KnownUri)
       - classes = ['toc_other'] if classes.blank?
       - classes << 'nested' if row[:attribute] == last_attribute
-      - comments = 0
+      - comments = []
+      - data_point_uri = nil
+      - row_id = nil
       - if row.has_key?(:user_added_data) 
-        - comments = row[:user_added_data].comments.count
-      %tr{ class: (classes + ['data']).join(' ') }
+        - row_id =  row[:user_added_data].anchor
+        - comments = row[:user_added_data].comments
+      - elsif row.has_key?(:data_point_uri)
+        -# NOTE - this is /slightly/ scary, as it generates new URIs on the fly, and (TODO) this doesn't belong in
+        -# the view:
+        - data_point_uri = DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept_id, row[:data_point_uri])
+        - row_id = data_point_uri.anchor
+        - comments = data_point_uri.comments
+      %tr{ id: row_id, class: (classes + ['data']).join(' ') }
         %th
           - if row[:attribute] != last_attribute
             = display_uri(row[:attribute])
@@ -37,7 +46,7 @@
           - elsif uri_components = EOL::Sparql.components_of_unit_of_measure_label_for_uri(row[:attribute])
             = display_uri(uri_components)
 
-          - if comments > 0
+          - unless comments.empty?
             %span.comments= image_tag('comment_indicator.png')
 
           - # displaying metadata
@@ -70,28 +79,32 @@
                 %li= raw "&bull;"
                 -# TODO: i18n
                 %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
-              - if comments > 0
-                %li= raw "&bull;"
-                = link_to I18n.t(:annotations_with_count, count: comments),
-                  user_added_datum_comments_path(row[:user_added_data])
+            - unless comments.empty?
+              %li= raw "&bull;"
+              - annotations_link = nil
+              - if row.has_key?(:user_added_data)
+                - annotations_link = user_added_datum_comments_path(row[:user_added_data])
+              - elsif data_point_uri
+                - annotations_link = data_point_uri_comments_path(data_point_uri)
+              - if annotations_link
+                %li.annotations= link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
           .comments
-            - if row.has_key?(:user_added_data) && comments > 0
-              - row[:user_added_data].comments.each do |comment|
+            - unless comments.empty?
+              - comments.each do |comment|
                 .comment
-                  = comment.body
+                  = sanitize comment.body.balance_tags.add_missing_hyperlinks
                   &ndash;
                   = link_to comment.user.full_name, comment.user
-            = form_for Comment.new(user: current_user, parent: row[:user_added_data]) do |f|
-              %fieldset
-                = f.hidden_field :user_id
-                = f.hidden_field :parent_type
-                = f.hidden_field :parent_id
-              %fieldset
-                = f.text_field :body, class: 'has_default', 'data-default' => I18n.t(:annotation_body_default)
-              %fieldset
-                = submit_tag I18n.t(:annotation_submit)
+          = form_for(Comment.new(user: current_user, parent: data_point_uri || row[:user_added_data]), remote: true) do |f|
+            %fieldset
+              = f.hidden_field :user_id
+              = f.hidden_field :parent_type
+              = f.hidden_field :parent_id
+            %fieldset
+              = f.text_field :body, class: 'has_default', 'data-default' => I18n.t(:annotation_body_default)
+            %fieldset
+              = submit_tag I18n.t(:annotation_submit)
       - last_attribute = row[:attribute]
-  %p= link_to "Show meta counts", '#', class: 'show_meta_counts'
 .add_content
   .article
     .header

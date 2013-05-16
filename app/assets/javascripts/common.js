@@ -36,6 +36,12 @@ $(document).on('mouseover', '#social_sharing .facebook', function() {
   }
 });
 
+EOL.prep_flashes = function() {
+  if($('#flashes')[0] == undefined) {
+    $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
+  }
+}
+
 EOL.check_siblings = function(of, val) {
   try { $($(of).siblings()).prop('checked', val); }
   catch(err) { /* Don't care if this fails. */ }
@@ -253,17 +259,13 @@ $(function() {
           $('.collection_name_error').show();
           return(false);
         }
-        if($('#flashes')[0] == undefined) {
-          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
-        }
+        EOL.prep_flashes();
         EOL.ajax_submit($(this), { update: $('#flashes') });
         $('#choose_collections a.close').click();
         return(false);
       });
       $('form#new_collection_item :submit').click(function() {
-        if($('#flashes')[0] == undefined) {
-          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
-        }
+        EOL.prep_flashes();
         EOL.ajax_submit($(this), { update: $('#flashes') });
         $('#choose_collections a.close').click();
         return(false);
@@ -279,9 +281,7 @@ $(function() {
   $('a.reindex').click(function() {
     var $reindex = $('a.reindex')
     $reindex.fadeTo(225, 0.3);
-    if($('#flashes')[0] == undefined) {
-      $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
-    }
+    EOL.prep_flashes();
     EOL.ajax_submit($(this), { url: $reindex.attr('href'), data: {}, update: $('#flashes') });
     return(false);
   });

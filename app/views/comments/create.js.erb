@@ -1,0 +1,31 @@
+var $row = $('#<%= @comment.parent.anchor %>');
+$row.next().find('div.comments').append(
+    '<div class="comment"><%= escape_javascript(sanitize(@comment.body.balance_tags.add_missing_hyperlinks)) %> &ndash; <%= escape_javascript(link_to(@comment.user.full_name, @comment.user)) %></div>'
+).parent().find('input#comment_body').val('').blur();
+if ($row.find('span.comments').length == 0) {
+  $row.find('td.val span, td.val > a').append('<span class="comments"><%= image_tag('comment_indicator.png') %></span>');
+}
+
+<% target = nil %>
+<% if @comment.parent.is_a?(UserAddedData) %>
+  <% target = user_added_datum_comments_path(@comment.parent) %>
+<% elsif @comment.parent.is_a?(DataPointUri) %>
+  <% target = data_point_uri_comments_path(@comment.parent) %>
+<% end %>
+<% if target %>
+  var $annot_li = $row.next().find('li.annotations');
+  if ($annot_li.length == 0) {
+    $annot_li = $row.next().find('td > ul').append('<li>&bull;</li><li class="annotations"></li>').find('li.annotations');
+  } 
+  $annot_li.html(
+    '<%= escape_javascript(link_to(I18n.t(:annotations_with_count, count: @comment.parent.comments.count), target)) %>'
+  );
+<% end %>
+
+EOL.prep_flashes();
+<% # NOTE - using #html instead of #append because I don't want a bajillion of them building up. %>
+<% if flash.now[:notice] %>
+  $('#flashes').html('<p class="status notice"><%= flash.now[:notice] %></p>');
+<% elsif flash.now[:error] %>
+  $('#flashes').html('<p class="status error"><%= flash.now[:error] %></p>');
+<% end %>

@@ -90,6 +90,10 @@ class UserAddedData < ActiveRecord::Base
     "TODO - a useful name for user added data"
   end
 
+  def anchor
+    "user_added_data_#{id}"
+  end
+
   private
 
   def convert_known_uris

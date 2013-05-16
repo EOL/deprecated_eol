@@ -32,8 +32,8 @@
         %th
           - if row[:attribute] != last_attribute
             = display_uri(row[:attribute])
-        %td.fold &nbsp;
         %td.val
+          %span.fold &nbsp;
           - # displaying values
           - if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(row[:target_taxon_concept_id].to_s.split("/").last)
             = link_to raw(target_taxon_concept.title), taxon_data_path(target_taxon_concept)
@@ -46,10 +46,13 @@
           - elsif uri_components = EOL::Sparql.components_of_unit_of_measure_label_for_uri(row[:attribute])
             = display_uri(uri_components)
 
+          %span.source
+            = truncate(row[:source].name, length: 12)
+
           - unless comments.empty?
             %span.comments= image_tag('comment_indicator.png')
 
-          - # displaying metadata
+          -# displaying metadata
           - if row[:metadata]
             %table.meta
               - row[:metadata].each do |key, value|
@@ -61,10 +64,8 @@
                       %td= link_to v, ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(v.to_s)), :target => 'data'
                     - else
                       = display_uri(v, :td)
-        %td.source
-          = truncate(row[:source].name, length: 12)
       %tr{ class: (classes + ['actions']).join(' ') }
-        %td{ colspan: 4 }
+        %td{ colspan: 2 }
           %ul
             - if row[:source]
               %li= raw I18n.t("data_provided_by_#{row[:source].class.name.underscore.downcase}", whom: link_to(row[:source].name, row[:source]))

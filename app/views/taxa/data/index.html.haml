@@ -25,7 +25,7 @@
       - elsif row.has_key?(:data_point_uri)
         -# NOTE - this is /slightly/ scary, as it generates new URIs on the fly, and (TODO) this doesn't belong in
         -# the view:
-        - data_point_uri = DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept_id, row[:data_point_uri])
+        - data_point_uri = DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, row[:data_point_uri].to_s)
         - row_id = data_point_uri.anchor
         - comments = data_point_uri.comments
       %tr{ id: row_id, class: (classes + ['data']).join(' ') }
@@ -89,22 +89,8 @@
                 - annotations_link = data_point_uri_comments_path(data_point_uri)
               - if annotations_link
                 %li.annotations= link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
-          .comments
-            - unless comments.empty?
-              - comments.each do |comment|
-                .comment
-                  = sanitize comment.body.balance_tags.add_missing_hyperlinks
-                  &ndash;
-                  = link_to comment.user.full_name, comment.user
-          = form_for(Comment.new(user: current_user, parent: data_point_uri || row[:user_added_data]), remote: true) do |f|
-            %fieldset
-              = f.hidden_field :user_id
-              = f.hidden_field :parent_type
-              = f.hidden_field :parent_id
-            %fieldset
-              = f.text_field :body, class: 'has_default', 'data-default' => I18n.t(:annotation_body_default)
-            %fieldset
-              = submit_tag I18n.t(:annotation_submit)
+          = render partial: 'comments/for_data', locals: { comments: comments,
+            parent: data_point_uri || row[:user_added_data] }
       - last_attribute = row[:attribute]
 .add_content
   .article

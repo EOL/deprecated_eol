@@ -4,6 +4,14 @@ class CommentsController < ApplicationController
   before_filter :allow_login_then_submit, :only => [:create]
   before_filter :allow_modify_comments, :only => [:edit, :update, :destroy]
 
+  # NOTE - this was written, sadly, for data only. If you want this to do more, you'll need to re-write it.
+  def index
+    @parent = params.has_key?(:data_point_uri_id) ?
+      DataPointUri.find(params[:data_point_uri_id]) :
+      UserAddedData.find(params[:user_added_datum_id])
+    @page_title = I18n.t(:comments_page_title, parent: @parent.summary_name)
+  end
+
   # POST /comments
   def create
     comment_data = params[:comment] unless params[:comment].blank?
@@ -126,6 +134,8 @@ private
     case action_name
     when 'update', 'edit'
       'v2/basic'
+    when 'index'
+      'v2/data_comments'
     end
   end
 

@@ -2770,6 +2770,7 @@ en:
   comments_filter: "Comments"
   comments_moderated: "Comments Moderated"
   comments_on: "Comments On"
+  comments_page_title: "Comments on %{parent}"
   comments_with_count:
     one: "%{count} Comment"
     other: "%{count} Comments"

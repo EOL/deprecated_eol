@@ -355,7 +355,11 @@ Eol::Application.routes.draw do
   resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do
     get :autocomplete_known_uri_uri, :on => :collection
     get :autocomplete_translated_known_uri_name, :on => :collection
-    resources :comments, :only => [ :index, :new ]
+    resources :comments, :only => [ :index ]
+  end
+
+  resources :data_point_uris, :only => [ :show ] do
+    resources :comments, :only => [ :index ]
   end
 
   # Old V1 admin search logs:

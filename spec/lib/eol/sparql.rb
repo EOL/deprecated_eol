@@ -32,12 +32,12 @@ describe EOL::Sparql do
     EOL::Sparql.uri_to_readable_label('http://example.com#just-1-more').should == 'Just 1 More'
   end
 
-  it 'should get_unit_components_from_metadata' do
+  it 'should explicit_measurement_uri_components' do
     # when there is a unit in the metadata, there must be a matching KnownURI
-    EOL::Sparql.get_unit_components_from_metadata({ 'http://rs.tdwg.org/dwc/terms/measurementUnit' =>
+    EOL::Sparql.explicit_measurement_uri_components({ 'http://rs.tdwg.org/dwc/terms/measurementUnit' =>
       'http://example.com/grams' }).should == nil
     grams = KnownUri.gen_if_not_exists(:uri => 'http://example.com/grams', :name => 'grams', :is_unit_of_measure => true)
-    EOL::Sparql.get_unit_components_from_metadata({ 'http://rs.tdwg.org/dwc/terms/measurementUnit' => grams }).
+    EOL::Sparql.explicit_measurement_uri_components({ 'http://rs.tdwg.org/dwc/terms/measurementUnit' => grams }).
       should == { :uri => "http://example.com/grams", :label => "grams" }
   end
 

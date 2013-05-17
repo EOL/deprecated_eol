@@ -3675,6 +3675,7 @@ en:
   method: "Method"
   methods: "Methods"
   monthly: "Monthly"
+  more: "more"
   more_children_with_count:
     one: "%{count} more..."
     other: "%{count} more..."
@@ -4093,6 +4094,7 @@ en:
     one: "See the %{count} manager"
     other: "See all %{count} managers"
   see_notes: "see notes"
+  see_more_on_the_data_tab: "see more on the data tab"
   select_a_hierarchy_around_whic: "Select a hierarchy around which to organize content summaries:"
   select_an_item_from_the_menu: "Select an Item from the Menu"
   select_tool_and_go: "Select a tool and click 'Go':"

@@ -29,22 +29,15 @@
         - row_id = data_point_uri.anchor
         - comments = data_point_uri.comments
       %tr{ id: row_id, class: (classes + ['data']).join(' ') }
-        %th
+        - th_id = nil
+        - if row[:attribute] != last_attribute
+          - th_id = row[:attribute].is_a?(KnownUri) ? row[:attribute].uri : row[:attribute]
+        %th{ id: th_id }
           - if row[:attribute] != last_attribute
             = display_uri(row[:attribute])
         %td.val
           %span.fold &nbsp;
-          - # displaying values
-          - if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(row[:target_taxon_concept_id].to_s.split("/").last)
-            = link_to raw(target_taxon_concept.title), taxon_data_path(target_taxon_concept)
-          - else
-            = display_uri(row[:value])
-
-          - # displaying unit of measure
-          - if row[:metadata] && uri_components = EOL::Sparql.get_unit_components_from_metadata(row[:metadata])
-            = display_uri(uri_components)
-          - elsif uri_components = EOL::Sparql.components_of_unit_of_measure_label_for_uri(row[:attribute])
-            = display_uri(uri_components)
+          = raw display_text_for_structured_data_row(row)
 
           %span.source
             = truncate(row[:source].name, length: 12)

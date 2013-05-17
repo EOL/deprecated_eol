@@ -3018,11 +3018,9 @@ ul#permissions
 #data_summary
   .data_div
     border: 1px solid $grayblue
-    background: $fieldset_light_blue
+    +gradient-bg($fieldset_light_blue, #fefeff)
     padding: 10px 5px 10px
-    margin: 0px -10px
   table
-    background-color: $fieldset_light_blue
     margin: 0px
     tr
       border: 0px
@@ -3031,10 +3029,12 @@ ul#permissions
       vertical-align: top
       th
         width: 40%
+        text-align: right
       td
-        padding: 1px 0px 3px 12px
+        padding: 1px 0px 15px 12px
       &.last
         td
-          padding: 1px 0px 15px 12px
-    th
-      text-align: right
+          padding: 1px 0px 3px 12px
+  div.see_more
+    colspan: 2
+    text-align: center

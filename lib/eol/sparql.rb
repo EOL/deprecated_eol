@@ -41,27 +41,26 @@ module EOL
       uri.to_s =~ /^http:\/\/(eol.org\/resources\/[0-9]+\/(taxa|occurrences|events)\/|anage\.org|adw\.org|iobis\.org|reeffish\.org)/
     end
 
-    def self.get_unit_components_from_metadata(metadata)
-      if hash = metadata.detect{ |k,v| k == 'http://rs.tdwg.org/dwc/terms/measurementUnit' }
-        return components_of_unit_of_measure_label_for_uri(hash[1]) if hash[1].is_a?(KnownUri)
-      end
+    def self.explicit_measurement_uri_components(unit_of_measure_uri)
+      return uri_components(unit_of_measure_uri) if is_known_unit_of_measure_uri?(unit_of_measure_uri)
     end
 
-    def self.components_of_unit_of_measure_label_for_uri(known_uri_or_string)
-      if measurement = implied_unit_of_measure_for_uri(known_uri_or_string)
-        known_uri_or_string = measurement
-      end
-      if is_known_unit_of_measure_uri?(known_uri_or_string)
-        return uri_components(known_uri_or_string)
+    def self.implicit_measurement_uri_components(attribute_uri)
+      if measurement_uri = implied_unit_of_measure_for_uri(attribute_uri)
+        return uri_components(measurement_uri)
       end
     end
 
     def self.implied_unit_of_measure_for_uri(known_uri_or_string)
-      return known_uri_or_string.unit_of_measure if known_uri_or_string.is_a?(KnownUri) && !known_uri_or_string.is_unit_of_measure?
+      if known_uri_or_string.is_a?(KnownUri) && !known_uri_or_string.is_unit_of_measure?
+        return known_uri_or_string.unit_of_measure
+      end
     end
 
     def self.is_known_unit_of_measure_uri?(known_uri_or_string)
-      return true if known_uri_or_string.is_a?(KnownUri) && known_uri_or_string.is_unit_of_measure?
+      if known_uri_or_string.is_a?(KnownUri) && known_uri_or_string.is_unit_of_measure?
+        return true
+      end
     end
 
     def self.uri_components(known_uri_or_string)

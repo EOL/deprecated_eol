@@ -148,11 +148,7 @@ module TaxaHelper
   end
 
   def display_uri(uri, tag_type = :span)
-    if uri.class == Hash
-      uri_components = uri
-    else
-      uri_components = EOL::Sparql.uri_components(uri)
-    end
+    uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
     if uri_components[:uri] == uri_components[:label]
       return uri if tag_type == :span
       title = nil
@@ -166,15 +162,23 @@ module TaxaHelper
     end
   end
 
-# A *little* weird to have private methods in the helper, but these really help clean up the code for the methods
-# that are public, and, indeed, should never be called outside of this class.
-private
-
-  def search_by_page_href(link_page)
-    lparams = params.clone
-    lparams["page"] = link_page
-    lparams.delete("action")
-    "/search/?#{lparams.to_query}"
+  def display_text_for_structured_data_row(row)
+    text_for_row_value = ''
+    if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(KnownUri.taxon_concept_id(row[:target_taxon_concept_id]))
+      if c = target_taxon_concept.preferred_common_name_in_language(current_language)
+        text_for_row_value += link_to c, taxon_overview_path(target_taxon_concept)
+      else
+        text_for_row_value += link_to raw(target_taxon_concept.title_canonical), taxon_overview_path(target_taxon_concept)
+      end
+    else
+      text_for_row_value += display_uri(row[:value]).to_s
+    end
+    # displaying unit of measure
+    if row[:unit_of_measure_uri] && uri_components = EOL::Sparql.explicit_measurement_uri_components(row[:unit_of_measure_uri])
+      text_for_row_value += display_uri(uri_components)
+    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(row[:attribute])
+      text_for_row_value += display_uri(uri_components)
+    end
+    text_for_row_value.gsub(/\n/, '')
   end
-
 end

@@ -23,6 +23,21 @@ class TaxonData < TaxonUserClassificationFilter
     rows.delete_if{ |k,v| k[:attribute].blank? }
     rows = replace_licenses_with_mock_known_uris(rows)
     rows = add_known_uris_to_data(rows)
+    rows.sort_by do |h|
+      c = EOL::Sparql.uri_components(h[:attribute])
+      c[:label].downcase
+    end
+  end
+
+  def get_data_for_overview
+    options = { :metadata => false }
+    rows = association_data(options) + measurement_data(options)
+    rows.delete_if{ |k,v| k[:attribute].blank? }
+    rows = add_known_uris_to_data(rows)
+    rows.sort_by do |h|
+      c = EOL::Sparql.uri_components(h[:attribute])
+      c[:label].downcase
+    end
   end
 
   private
@@ -36,23 +51,33 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def data
-    group_data_by_graph_and_uri(single_point_data + dataset_data + associations_data)
+    group_data_by_graph_and_uri(measurement_data + association_data)
   end
 
-  def single_point_data
-    EOL::Sparql.connection.query("
-      SELECT DISTINCT ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object ?occurrence_predicate ?occurrence_object ?event_predicate ?event_object
+  def measurement_data(options = {})
+    options.reverse_merge!({ :metadata => true })
+    selects = "?attribute ?value ?unit_of_measure_uri"
+    if options[:metadata]
+      selects += "?data_point_uri ?graph ?attribution_predicate ?attribution_object ?occurrence_predicate ?occurrence_object ?event_predicate ?event_object"
+    end
+    query = "
+      SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?resource_mappings_graph {
-          ?taxon_id dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}>
+          ?taxon_id dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>
         } .
         GRAPH ?graph {
           ?data_point_uri a dwc:MeasurementOrFact
-          { ?data_point_uri dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> }
+          { ?data_point_uri dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> }
           UNION
           { ?data_point_uri dwc:taxonID ?taxon_id } .
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value .
+          OPTIONAL {
+            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri .
+          }"
+    if options[:metadata]
+      query += ".
           OPTIONAL {
             ?data_point_uri ?attribution_predicate ?attribution_object .
             FILTER (?attribution_predicate NOT IN (dwc:taxonConceptID, dwc:taxonID, dwc:occurrenceID))
@@ -66,18 +91,25 @@ class TaxonData < TaxonUserClassificationFilter
               ?event ?event_predicate ?event_object .
               FILTER (?event_predicate NOT IN (rdf:type, dwc:taxonConceptID, dwc:taxonID, dwc:occurrenceID, dwc:eventID))
             }
-          }
+          }"
+    end
+    query += "
         }
-      }
-      ORDER BY ?attribute")
+      }"
+    EOL::Sparql.connection.query(query)
   end
 
-  def associations_data
-    EOL::Sparql.connection.query("
-      SELECT DISTINCT ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object ?target_taxon_concept_id ?inverse_attribute
+  def association_data(options = {})
+    options.reverse_merge!({ :metadata => true })
+    selects = "?attribute ?target_taxon_concept_id ?inverse_attribute"
+    if options[:metadata]
+      selects += "?data_point_uri ?value ?graph ?attribution_predicate ?attribution_object"
+    end
+    query = "
+      SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?resource_mappings_graph {
-          ?taxon_id dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
+          ?taxon_id dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
           ?value dwc:taxonConceptID ?target_taxon_concept_id
         } .
         GRAPH ?graph {
@@ -92,42 +124,22 @@ class TaxonData < TaxonUserClassificationFilter
             ?data_point_uri dwc:taxonID ?value .
             ?data_point_uri <http://eol.org/schema/targetTaxonID> ?taxon_id .
             ?data_point_uri <http://eol.org/schema/associationType> ?inverse_attribute
-          } .
+          }"
+    if options[:metadata]
+      query += ".
           OPTIONAL {
             ?data_point_uri ?attribution_predicate ?attribution_object
-          }
+          }"
+    end
+    query += "
         } .
         OPTIONAL {
           GRAPH ?mappings {
             ?inverse_attribute owl:inverseOf ?attribute
           }
         }
-      }
-      ORDER BY ?attribute")
-  end
-
-  def dataset_data
-    EOL::Sparql.connection.query("
-      SELECT DISTINCT ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object
-      WHERE {
-        GRAPH ?resource_mappings_graph {
-          ?taxon dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
-        } .
-        GRAPH ?graph {
-          ?dataset a eol:DataSet .
-          ?dataset dwc:taxonID ?taxon .
-          OPTIONAL {
-            ?dataset ?attribution_predicate ?attribution_object .
-            FILTER (?attribution_predicate NOT IN (rdf:type, dwc:taxonID))
-          } .
-          ?data_point_uri a eol:DataPoint .
-          ?data_point_uri eol:inDataSet ?dataset .
-          ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value
-          FILTER (?attribute NOT IN (dwc:taxonID, dwc:eventID, dwc:occurrenceID))
-        }
-      }
-      ORDER BY ?attribute")
+      }"
+    EOL::Sparql.connection.query(query)
   end
 
   # ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object ?occurrence_predicate ?occurrence_object
@@ -180,10 +192,11 @@ class TaxonData < TaxonUserClassificationFilter
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
+      replace_with_uri(row, :unit_of_measure_uri, known_uris)
       if taxon_id = KnownUri.taxon_concept_id(row[:value])
         row[:target_taxon_concept_id] = taxon_id
       end
-      add_known_uris_to_metadata(row, known_uris)
+      add_known_uris_to_metadata(row, known_uris) if row[:metadata]
     end
   end
 
@@ -225,6 +238,7 @@ class TaxonData < TaxonUserClassificationFilter
   def uris_in_data(rows)
     uris  = rows.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
+    uris += rows.map { |row| row[:unit_of_measure_uri] }.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:metadata] ? row[:metadata].keys : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:metadata] ? row[:metadata].values : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
     uris.map(&:to_s).uniq

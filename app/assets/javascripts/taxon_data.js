@@ -54,39 +54,22 @@ function update_input_id_and_name(form, new_id) {
 
 EOL.limit_data_rows = function() {
   $('table.data tr.more').remove();
-  $('table.data tr.data:visible').each(function() {
-    if ( ! $(this).hasClass('nested')) {
-      var $row = $(this).next().next(); // Skip a row because of actions
-      var count = 0;
-      while($row.hasClass('nested')) {
-        count++;
-        if (count > EOL.max_meta_rows) { $row.hide(); }
-        $row = $row.next().next(); // Again, skipping actions.
-      }
-      if ($row.length == 0) {
-        // We fell off the edge of the table!;
-        $row = $('table.data tr:last').prev();
-      }
-      if (count == EOL.max_meta_rows+1) {
-        $row.prev().prev().show(); // Ooops, show it, since there's only one more.
-      } else if (count > EOL.max_meta_rows) {
-        $row.next().after('<tr class="data nested more"><th></th><td><a href="#" class="more">' +
-          $('table.data').attr('data-more').replace('NNN', (count-EOL.max_meta_rows)) +
-          '</a></td></tr>');
-        $('tr.more a.more').click(function() {
-          var $parent_row = $(this).closest('tr');
-          var $next = $parent_row.prev().prev();
-          $parent_row.remove();
-          console.log($next);
-          // TODO - we need to replace all these while-next things with a method that takes a closure as an arg...
-          // (of course, this will have to be written to find the nearest non-nested, then iterate down. NBD.
-          while($next.hasClass('nested')) {
-            $next.show();
-            $next = $next.prev().prev(); // Yup, skipping actions.
-          }
-          return(false);
-        });
-      }
+  $('table.data tr.data.first_of_type:visible').each(function() {
+    var type = $(this).attr('data-type');
+    var $nested_set = $('table.data tr.' + type + ':visible');
+    if ($nested_set.length > EOL.max_meta_rows) {
+      var $index = 1;
+      $nested_set.each(function() { if ($index > EOL.max_meta_rows) $(this).hide(); $index++; });
+      $nested_set.filter(':last').after(
+        '<tr data-type="' + type + '" class="data nested more"><th></th><td><a href="#" class="more">' +
+        $('table.data').attr('data-more').replace('NNN', ($nested_set.length-EOL.max_meta_rows)) +
+        '</a></td></tr>');
+      $('tr.more a.more').unbind('click').click(function() {
+        var $parent_row = $(this).closest('tr');
+        $('tr.nested.data.' + $parent_row.attr('data-type')).show();
+        $parent_row.remove();
+        return(false);
+      });
     }
   });
 };

@@ -9,12 +9,18 @@
     %li= link_to I18n.t(:other_category), '#', class: 'other'
 .main_container#taxon_data
   %table.standard.data{'data-more' => I18n.t(:data_show_n_more_rows)}
+    - type_index = 0
     - last_attribute = nil
     - @data.each do |row|
       - next if row[:attribute].blank?
       - classes = []
       - classes = row[:attribute].toc_items.map { |ti| "toc_#{ti.id}" } if row[:attribute].is_a?(KnownUri)
+      - first_of_type = row[:attribute] != last_attribute
+      - if first_of_type
+        - type_index += 1
       - classes = ['toc_other'] if classes.blank?
+      - classes << "type_#{type_index}"
+      - classes << ['first_of_type'] if first_of_type
       - classes << 'nested' if row[:attribute] == last_attribute
       - comments = []
       - data_point_uri = nil
@@ -28,12 +34,14 @@
         - data_point_uri = DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, row[:data_point_uri].to_s)
         - row_id = data_point_uri.anchor
         - comments = data_point_uri.comments
-      %tr{ id: row_id, class: (classes + ['data']).join(' ') }
+      %tr{ id: row_id, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}" }
         - th_id = nil
         - if row[:attribute] != last_attribute
-          - th_id = row[:attribute].is_a?(KnownUri) ? row[:attribute].uri : row[:attribute]
+          - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
         %th{ id: th_id }
           - if row[:attribute] != last_attribute
+          - if first_of_type
+            - last_attribute = row[:attribute]
             = display_uri(row[:attribute])
         %td.val
           %span.fold &nbsp;
@@ -84,7 +92,6 @@
                 %li.annotations= link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
           = render partial: 'comments/for_data', locals: { comments: comments,
             parent: data_point_uri || row[:user_added_data] }
-      - last_attribute = row[:attribute]
 .add_content
   .article
     .header

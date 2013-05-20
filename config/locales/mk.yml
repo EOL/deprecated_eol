@@ -468,24 +468,24 @@ mk:
         an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Непознат корисник додаде непознато тривијално име на %{language} во непозната страница.
         an_unknown_user_added_an_unknown_name_in_language_to_it: Непознат корисник додаде непознато тривијално име на %{language}.
         an_unknown_user_added_an_unknown_name_in_language_to_taxon: Непознат корисник додаде непознато тривијално име на %{language} во „%{taxon}“.
-        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Непознат корисник го додаде тривијалното име „%{name}“ на непознат јазик во непозната страница.
-        an_unknown_user_added_name_in_an_unknown_language_to_it: Непознат корисник го додаде тривијалното име „%{name}“ на непознат јазик.
-        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Непознат корисник го додаде тривијалното име „%{name}“ на непознат јазик во „%{taxon}“.
-        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Непознат корисник го додаде тривијалното име „%{name}“ на %{language} во непозната страница.
-        an_unknown_user_added_name_in_language_to_it: Непознат корисник го додаде тривијалното име „%{name}“ на %{language}.
-        an_unknown_user_added_name_in_language_to_taxon: Непознат корисник го додаде тривијалното име „%{name}“ на %{language} во „%{taxon}“.
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Непознат корисник го додаде народното име „%{name}“ на непознат јазик во непозната страница.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Непознат корисник го додаде народното име „%{name}“ на непознат јазик.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Непознат корисник го додаде народното име „%{name}“ на непознат јазик во „%{taxon}“.
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Непознат корисник го додаде народното име „%{name}“ на %{language} во непозната страница.
+        an_unknown_user_added_name_in_language_to_it: Непознат корисник го додаде народното име „%{name}“ на %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: Непознат корисник го додаде народното име „%{name}“ на %{language} во „%{taxon}“.
         user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> додаде непознато тривијално име на непознат јазик во непозната страница.
         user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> додаде непознато тривијално име на непознат јазик.
         user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> додаде непознато тривијално име на непознат јазик во „%{taxon}“.
         user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> додаде непознато тривијално име на  %{language} во непозната страница.
         user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> додаде непознато тривијално име на %{language}.
         user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> додаде непознато тривијално име на %{language} во „%{taxon}“.
-        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ на непознат јазик во непозната страница.
-        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> го додаде тривијалното име на „%{name}“ на непознат јазик.
-        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ на непознат јазик во „%{taxon}“.
-        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ на %{language} во непозната страница.
-        user_added_name_in_language_to_it: <strong>%{user}</strong> го додаде тривијалното име на „%{name}“ на %{language}.
-        user_added_name_in_language_to_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ на %{language} во „%{taxon}“.
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> го додаде народното име „%{name}“ на непознат јазик во непозната страница.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> го додаде народното име на „%{name}“ на непознат јазик.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> го додаде народното име „%{name}“ на непознат јазик во „%{taxon}“.
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> го додаде народното име „%{name}“ на %{language} во непозната страница.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> го додаде народното име на „%{name}“ на %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> го додаде народното име „%{name}“ на %{language} во „%{taxon}“.
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Непознат корисник укажа постара верзија на „%{data_object}“ како пример во Прегледот за непозната страница.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Непознат корисник го укажа „%{data_object}“ како пример во Прегледот на „%{taxon}“.
@@ -677,24 +677,24 @@ mk:
         an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на %{language} од непозната страница како доверливо.
         an_unknown_user_trusted_an_unknown_name_in_language_on_it: Непознат корисник означи непознато тривијално име на %{language} како доверливо.
         an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Непознат корисник означи непознато тривијално име на %{language} од „%{taxon}“ како доверливо.
-        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име на „%{name}“ на непознат јазик од непозната страница како доверливо.
-        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик како доверливо.
-        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како доверливо.
-        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од непозната страница како доверливо.
-        an_unknown_user_trusted_name_in_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на %{language} како доверливо.
-        an_unknown_user_trusted_name_in_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како доверливо.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи народното име на „%{name}“ на непознат јазик од непозната страница како доверливо.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Непознат корисник го означи народното име „%{name}“ на непознат јазик како доверливо.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Непознат корисник го означи народното име „%{name}“ на непознат јазик од „%{taxon}“ како доверливо.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Непознат корисник го означи народното име „%{name}“ на %{language} од непозната страница како доверливо.
+        an_unknown_user_trusted_name_in_language_on_it: Непознат корисник го означи народното име „%{name}“ на %{language} како доверливо.
+        an_unknown_user_trusted_name_in_language_on_taxon: Непознат корисник го означи народното име „%{name}“ на %{language} од „%{taxon}“ како доверливо.
         user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од непозната страница како доверливо.
         user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик како доверливо.
         user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од „%{taxon}“ како доверливо.
         user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од непозната страница како доверливо.
         user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на %{language} како доверливо.
         user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од „%{taxon}“ како доверливо.
-        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од непозната страница како доверливо.
-        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик како доверливо.
-        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како доверливо.
-        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од непозната страница како доверливо.
-        user_trusted_name_in_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} како доверливо.
-        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како доверливо.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик од непозната страница како доверливо.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик како доверливо.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик од „%{taxon}“ како доверливо.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} од непозната страница како доверливо.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} како доверливо.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} од „%{taxon}“ како доверливо.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како доверлива во непознат контекст.
         an_unknown_user_trusted_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како доверлива на страницата „%{association}“.
@@ -739,24 +739,24 @@ mk:
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на %{language} од непозната страница како непроверено.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Непознат корисник означи непознато тривијално име на %{language} како непроверено.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Непознат корисник означи непознато тривијално име на %{language} од „%{taxon}“ како непроверено.
-        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име на „%{name}“ на непознат јазик од непозната страница како непроверено.
-        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик како непроверено.
-        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како непроверено.
-        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од непозната страница како непроверено.
-        an_unknown_user_unreviewed_name_in_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на %{language} како непроверено.
-        an_unknown_user_unreviewed_name_in_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како непроверено.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи народното име на „%{name}“ на непознат јазик од непозната страница како непроверено.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Непознат корисник го означи народното име „%{name}“ на непознат јазик како непроверено.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Непознат корисник го означи народното име „%{name}“ на непознат јазик од „%{taxon}“ како непроверено.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Непознат корисник го означи народното име „%{name}“ на %{language} од непозната страница како непроверено.
+        an_unknown_user_unreviewed_name_in_language_on_it: Непознат корисник го означи народното име „%{name}“ на %{language} како непроверено.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Непознат корисник го означи народното име „%{name}“ на %{language} од „%{taxon}“ како непроверено.
         user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од непозната страница како непроверено.
         user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик како непроверено.
         user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од „%{taxon}“ како непроверено.
         user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од непозната страница како непроверено.
         user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на %{language} како непроверено.
         user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од „%{taxon}“ како непроверено.
-        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од непозната страница како непроверено.
-        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик како непроверено.
-        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како непроверено.
-        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од непозната страница како непроверено.
-        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} како непроверено.
-        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како непроверено.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик од непозната страница како непроверено.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик како непроверено.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик од „%{taxon}“ како непроверено.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} од непозната страница како непроверено.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} како непроверено.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} од „%{taxon}“ како непроверено.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како непроверена во непознат контекст.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како непроверена на страницата „%{association}“.
@@ -781,24 +781,24 @@ mk:
         an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на %{language} од непозната страница како недоверливо.
         an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Непознат корисник означи непознато тривијално име на %{language} како недоверливо.
         an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Непознат корисник означи непознато тривијално име на %{language} од „%{taxon}“ како недоверливо.
-        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име на „%{name}“ на непознат јазик од непозната страница како недоверливо.
-        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик како недоверливо.
-        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како недоверливо.
-        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од непозната страница како недоверливо.
-        an_unknown_user_untrusted_name_in_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на %{language} како недоверливо.
-        an_unknown_user_untrusted_name_in_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како недоверливо.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи народното име на „%{name}“ на непознат јазик од непозната страница како недоверливо.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Непознат корисник го означи народното име „%{name}“ на непознат јазик како недоверливо.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Непознат корисник го означи народното име „%{name}“ на непознат јазик од „%{taxon}“ како недоверливо.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Непознат корисник го означи народното име „%{name}“ на %{language} од непозната страница како недоверливо.
+        an_unknown_user_untrusted_name_in_language_on_it: Непознат корисник го означи народното име „%{name}“ на %{language} како недоверливо.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Непознат корисник го означи народното име „%{name}“ на %{language} од „%{taxon}“ како недоверливо.
         user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од непозната страница како недоверливо.
         user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик како недоверливо.
         user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од „%{taxon}“ како недоверливо.
         user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од непозната страница како недоверливо.
         user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на %{language} како недоверливо.
         user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од „%{taxon}“ како недоверливо.
-        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од непозната страница како недоверливо.
-        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик како недоверливо.
-        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како недоверливо.
-        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од непозната страница како недоверливо.
-        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} како недоверливо.
-        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како недоверливо.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик од непозната страница како недоверливо.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик како недоверливо.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на непознат јазик од „%{taxon}“ како недоверливо.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} од непозната страница како недоверливо.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} како недоверливо.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> го означи народното име „%{name}“ на %{language} од „%{taxon}“ како недоверливо.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како недоверлива во непознат контекст.
         an_unknown_user_untrusted_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како недоверлива на страницата „%{association}“.
@@ -1052,7 +1052,7 @@ mk:
   assistive_maps_header: Карти
   assistive_media_header: Медиуми
   assistive_names_classifications_header: Класификации
-  assistive_names_common_header: Тривијални имиња
+  assistive_names_common_header: Народни имиња
   assistive_names_related_header: Поврзани имиња
   assistive_names_synonyms_header: Синоними
   assistive_overview_header: Преглед
@@ -1311,10 +1311,10 @@ mk:
   common_activities_by_logged_in: Вообичаени активности на најавените корисници.
   common_name: Тривијално име
   common_name_avg: Тривијално име (прос.)
-  common_name_exists: Тривијалното име <em>%{name_string}</em> веќе постои
+  common_name_exists: Народното име <em>%{name_string}</em> веќе постои
   common_names_with_count: 
-    one: "%{count} тривијално име"
-    other: "%{count} тривијални имиња"
+    one: "%{count} народно име"
+    other: "%{count} народни имиња"
   common_user_activity_page_title: Вообичаени кориснички активности
   communities: 
     collections: 
@@ -2154,7 +2154,7 @@ mk:
   get_help_choosing_a_subject: Помош со одбирањето на наслов
   get_more_tasks: уште задачи
   given_name_colon: "Име:"
-  given_the_vast_number: Земајќи го предвид огромниот број на научни и тривијални имиња (речиси 20 милиони), не е лесно секому да му се обезбеди точниот вид што го бара. Пример за тоа е англискиот поим Robin. Постојат неколку птици со такво име (American Robin, Alpine Robin, Smoky Robin) неколку вида риби Robin, како и таксоном со презиме Robin кој има именувано дузини видови. Во пребарувањето имаме и параметар „точно“ за добивање на резултати што целосно се совпаѓаат со бараното, но сепак не можеме да гарантираме дека добиениот таксон е токму оној што го барате. Постојано правиме напори да ја подобриме релевантноста на резултатите од пребарувањата, па затоа очекувајте подобрувања во подредувањето на резултатите во блиска иднина.
+  given_the_vast_number: Земајќи го предвид огромниот број на научни и народни имиња (речиси 20 милиони), не е лесно секому да му се обезбеди точниот вид што го бара. Пример за тоа е англискиот поим Robin. Постојат неколку птици со такво име (American Robin, Alpine Robin, Smoky Robin) неколку вида риби Robin, како и таксоном со презиме Robin кој има именувано дузини видови. Во пребарувањето имаме и параметар „точно“ за добивање на резултати што целосно се совпаѓаат со бараното, но сепак не можеме да гарантираме дека добиениот таксон е токму оној што го барате. Постојано правиме напори да ја подобриме релевантноста на резултатите од пребарувањата, па затоа очекувајте подобрувања во подредувањето на резултатите во блиска иднина.
   gives_access_to_a_single_hierarchy_indexed_by_eol: дава пристап до една хиерархија индексирана од EOL и нејзините внатрешни заемни односи
   global_access_tagline: Глобален пристап до знаењето за живиот свет на Земјата
   global_navigation: Општа навигација
@@ -2507,7 +2507,7 @@ mk:
   information_for_any_audience: Информации за секого
   information_intended_for_beginners: Информации за почетници
   information_intended_for_experts: Информации наменети за стручњаци
-  insufficient_privileges_to_add_common_names: Нажалост, немате доволно привилегии за да додавате тривијални имиња.
+  insufficient_privileges_to_add_common_names: Нажалост, немате доволно привилегии за да додавате народни имиња.
   insufficient_privileges_to_curate_names: Нажалост, немате доволно привилегии за да згрижувате имиња.
   internal_ip_address: внатрешна IP-адреса
   inverse_sort: Подреди обратно
@@ -2839,11 +2839,11 @@ mk:
   name_preferred_taxonomically_for_source_yes: Претпочитано
   names: Имиња
   names_children_column_header: Поттаксони
-  names_common_empty: Досега нема тривијални имиња поврзани со овој таксон
-  names_common_list_by_language_assistive_header: Тривијални имиња наведени по јазици
+  names_common_empty: Досега нема народни имиња поврзани со овој таксон
+  names_common_list_by_language_assistive_header: Народни имиња наведени по јазици
   names_curation_column_header: Згрижувате
   names_et_al: "%{names} и др."
-  names_explanation: Научниците се стремат да опишат единствено „дрво на животот“ што ќе ги одразува заемните еволутивни односи помеѓу живите суштества. Меѓутоа, еволутивните односи постојано зависат од новите откритија, а постојат и разидувања во ставовите за начинот на групирање и именување на живите сушстества. EOL ги зема предвид овие разлики во приодот, поддржувајќи неколку различни научни „класификации“. Некои видови се именувани повеќе пати. Ваквите дупликати се наведени како синоними. EOL исто така ги поддржува разните тривијални имиња на разни јазици што се користат во разни подрачја во светот.
+  names_explanation: Научниците се стремат да опишат единствено „дрво на животот“ што ќе ги одразува заемните еволутивни односи помеѓу живите суштества. Меѓутоа, еволутивните односи постојано зависат од новите откритија, а постојат и разидувања во ставовите за начинот на групирање и именување на живите сушстества. EOL ги зема предвид овие разлики во приодот, поддржувајќи неколку различни научни „класификации“. Некои видови се именувани повеќе пати. Ваквите дупликати се наведени како синоними. EOL исто така ги поддржува разните народни имиња на разни јазици што се користат во разни подрачја во светот.
   names_filter: Имиња
   names_name_column_header: Име
   names_parents_column_header: Матични
@@ -3052,7 +3052,7 @@ mk:
   overview: Преглед
   page: Страница
   page_linked_to: Страницата е сврзана со
-  page_method_description: Овој метод зема назнака на страница на EOL и го дава научното име за таа страница. По желба дава и информации за тривијалните имиња, медиумите (текст, слики и видеоснимки) и упатува на хиерархиите што го признаваат таксонот опишан на страницата.
+  page_method_description: Овој метод зема назнака на страница на EOL и го дава научното име за таа страница. По желба дава и информации за народните имиња, медиумите (текст, слики и видеоснимки) и упатува на хиерархиите што го признаваат таксонот опишан на страницата.
   page_name: Име на страницата
   page_navigation: Навигација по страницата
   page_not_found: Страницата не е пронајдена
@@ -3065,7 +3065,7 @@ mk:
   page_views_th: Посети
   pages_admin_section_link: Администратори
   pages_curator_section_link: Кустоси
-  pages_method_description: зема назнака на страница на EOL и го дава научното име за таа страница. По желба дава и информации за тривијалните имиња, медиумите (текст, слики и видеоснимки) и упатува на хиерархиите што го признаваат таксонот опишан на страницата
+  pages_method_description: зема назнака на страница на EOL и го дава научното име за таа страница. По желба дава и информации за народните имиња, медиумите (текст, слики и видеоснимки) и упатува на хиерархиите што го признаваат таксонот опишан на страницата
   pages_title: Страници
   pages_with_count: 
     one: "%{count} страница"
@@ -3253,9 +3253,9 @@ mk:
   results_offset: Резултати %{from} - %{to} од вкупно %{total} за <em>%{for}</em>
   results_per_page: "Резултати по страница:"
   return: дај
-  return_all_common_names_for_this_taxon: дај ги сите тривијални имиња на таксонов
+  return_all_common_names_for_this_taxon: дај ги сите народни имиња на таксонов
   return_all_synonyms_for_this_taxon: дај ги сите синоними за таксонов
-  return_common_names_for_the_page_taxon: дај ги сите тривијални имиња за таксонот на страницата
+  return_common_names_for_the_page_taxon: дај ги сите народни имиња за таксонот на страницата
   return_content_by_vettedness: Ако на „проверено“ му се зададе вредност 1, тогаш ќе добивате само доверливи содржни. Ако „проверено“ е 2 тогаш ќе добивате само доверливи и непроверени содржини (нема да добивате недоверливи содржини). По основно се добиваат сите содржини.
   return_references_for_the_page_taxon: дај ги сите наводи за таксонот на страницата
   returns_all_metadata_about_a_particular_collection: ги дава сите метаподатоци за дадена збирка и објектите што ги содржи индексирани од EOL
@@ -3289,7 +3289,7 @@ mk:
   search_for_messages_containing: "Пребарај пораки што содржат:"
   search_for_terms_containing: "Пребарај поими што содржат:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Пребарај корисници што го содржат ова во корисничкото име, името или е-поштата.
-  search_input_advisory_information: Внесете го тривијалното или научното име на некое живо суштество што ве интересира. Можете и да пребарувате по членовите, збирките и заедниците на EOL.
+  search_input_advisory_information: Внесете го народното или научното име на некое живо суштество што ве интересира. Можете и да пребарувате по членовите, збирките и заедниците на EOL.
   search_log_report_intro: Во овој дел се наведени најчесто пребаруваните поими, колку пати е пребаран секој од нив и некои информации за бројот на добиените резултати. Стиснете на колоните за да го подредите приказот според секоја од нив. Стиснете на поимот за да видите на кој резултат стиснале корисниците (ако има таков) по пребарувањето.
   search_method_description: ако иам зададена вредност за конкретен елемент (на пр. научно име=Homo sapiens), дава список со страници на EOL што го содржат пребараниот поим
   search_next_label: Следно
@@ -3614,14 +3614,14 @@ mk:
           meta_keywords_with_common_name: Научно име на %{preferred_common_name}, народни имиња на %{scientific_name}
           meta_title: Народни имиња на %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Народни имиња на %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
-          tweet_text: Тривијални имиња на %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Тривијални имиња за %{scientific_name}.
+          tweet_text: Народни имиња на %{scientific_name} според класификацијата на %{hierarchy_provider}
+        meta_description: Народни имиња на %{scientific_name}.
         meta_description_with_common_name: Научното име за %{preferred_common_name} е %{scientific_name}. Дознајте кои се народните имиња на %{scientific_name}.
-        meta_keywords: Тривијални имиња за %{scientific_name}
-        meta_keywords_with_common_name: Тривијални имиња на %{scientific_name}, научно име на %{preferred_common_name}
-        meta_title: Тривијални имиња за %{scientific_name}
-        meta_title_with_common_name: Тривијални имиња на %{preferred_common_name} (%{scientific_name})
-        tweet_text: Тривијални имиња на %{scientific_name}
+        meta_keywords: Народни имиња на %{scientific_name}
+        meta_keywords_with_common_name: Народни имиња на %{scientific_name}, научно име на %{preferred_common_name}
+        meta_title: Народни имиња на %{scientific_name}
+        meta_title_with_common_name: Народни имиња на %{preferred_common_name} (%{scientific_name})
+        tweet_text: Народни имиња на %{scientific_name}
       index: 
         hierarchy_entry: 
           meta_description: Таксономии и научни имиња за %{scientific_name} според класификацијата на %{hierarchy_provider}.
@@ -3741,7 +3741,7 @@ mk:
   taxon_citizen_science_header: Врски за граѓанска наука
   taxon_citizen_science_link: Врски за граѓанска наука
   taxon_citizen_science_resources_empty: Досега никој нема ставено врски за граѓанска наука.
-  taxon_common_names_subtab_explanation: Многумина ги познаваат организмите само по нивните тривијални (народни) имиња. За разлика од научното, тривијалното име се разликува во речиси секој јазик, па дури и да има различни варијанти во различни делови од земјата. Во јазичево се наведени сите тривијални имиња на овој организам што ни се доставени на EOL од најразлични добавувачи, вклучувајќи ги нашите кустоси. Засега на поединечните страници можеме да зададеме само по едно претпочитано тривијално име за секој јазик, но можете да пребарувате по сите имиња.
+  taxon_common_names_subtab_explanation: Многумина ги познаваат организмите само по нивните народни (тривијални) имиња. За разлика од научното, народното име се разликува во речиси секој јазик, па дури и да има различни варијанти во различни делови од земјата. Во јазичево се наведени сите народни имиња на овој организам што ни се доставени на EOL од најразлични добавувачи, вклучувајќи ги нашите кустоси. Засега на поединечните страници можеме да зададеме само по едно претпочитано народно име за секој јазик, но можете да пребарувате по сите имиња.
   taxon_concept_stats: Статистики за таксонски концепти
   taxon_details_empty: Сè уште никој нема внесено податоци за овој таксон.
   taxon_details_empty_in_this_language: Досега никој нема внесено податоци на страницава на овој јазик.
@@ -3961,14 +3961,14 @@ mk:
     one: "%{count} поднесен коментар"
     other: "%{count} поднесени коментари"
   user_activity_stats_common_names_added: 
-    one: Додадено %{count} тривијално име
-    other: Додадени %{count} тривијални имиња
+    one: Додадено %{count} народнo име
+    other: Додадени %{count} народни имиња
   user_activity_stats_common_names_curated: 
-    one: Згрижено %{count} тривијално име
-    other: Згрижени %{count} тривијални имиња
+    one: Згрижено %{count} народнo име
+    other: Згрижени %{count} народни имиња
   user_activity_stats_common_names_removed: 
-    one: Отстрането %{count} тривијално име
-    other: Отсатранети %{count} тривијални имиња
+    one: Отстрането %{count} народно име
+    other: Отсатранети %{count} народни имиња
   user_activity_stats_header: Активности
   user_activity_stats_objects_curated: 
     one: "%{count} згрижен објект"
@@ -4283,7 +4283,7 @@ mk:
   wikipedia_queue_new_instructions_step_two: Отворете го менито „Алатник“ и во него ќе најдете ставка „Постојана врска“.
   wikipedia_queue_new_intro: Поднесете ревизија на статија од Википедија за вметнување (преземање) во EOL како проверен текстуален објект.
   wikipedia_queue_new_page_title: Барање за увоз на статија од Википедија
-  will_find_taxon_pages_matching_the_search_term: ќе најде страници од таксонот ако пребараното точно се совпаѓа со претпочитаното име, некој од синонимите или тривијалното име
+  will_find_taxon_pages_matching_the_search_term: ќе најде страници од таксонот ако пребараното точно се совпаѓа со претпочитаното име, некој од синонимите или народното име
   will_paginate: 
     next_label: Следна &#8594;
     previous_label: "&#8592; Претходна"

@@ -935,7 +935,7 @@ nb:
   all_videos: Alle videoer
   allow_user_logins: Tillat brukerpålogginger
   allowed_html_tags: "Tillatt HTML: %{comma_separated_tags}"
-  already_a_member_question: Allerede et medlem?
+  already_a_member_question: Allerede medlem?
   already_member_of_community: Du er allerede et medlem av dette brukersamfunnet.
   alternate_classification: Alternativ klassifisering
   alternative_common_name_colon: "Alternativt populærnavn:"
@@ -2570,8 +2570,8 @@ nb:
   search_term: Søkeord
   search_the_site: Søk nettstedet
   see_all_classifications_with_count_html: 
-    one: Se den <span class="assistive">%{count} godkjente klassifiseringen som denne taksonen opptrer i.</span>
-    other: Se alle de <span ="assistive">%{count} godkjente klassifiseringene som denne taksonen opptrer i.</span>
+    one: Se den <span class="assistive">godkjente klassifiseringen (%{count}) som inneholder dette taksonet.</span>
+    other: Se alle <span ="assistive">%{count} godkjente klassifiseringer som inneholder dette taksonet.</span>
   see_all_collections_with_count_html: 
     one: Se den <span class="assistive">%{count} samlingen som denne taksonen opptrer i.</span>
     other: Se alle de <span class="assistive">%{count} samlingene som denne taksonen opptrer i.</span>

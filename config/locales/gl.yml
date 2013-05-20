@@ -4284,8 +4284,8 @@ gl:
   wikipedia_queue_new_page_title: Solicitar a importación dun artigo da Wikipedia
   will_find_taxon_pages_matching_the_search_term: atopará as páxinas de taxon se o nome preferido ou calquera sinónimo ou nome común coincide exactamente co termo de procura
   will_paginate: 
-    next_label: Seguinte &#8594;
-    previous_label: "&#8592; Anterior"
+    next_label: Seguinte
+    previous_label: Anterior
   worklist: Lista de traballo
   would_you_like_to_become_a_curator_notice: Queres converterte nun conservador? Podes solicitar acceso na <a href='%{url}'>páxina do teu perfil</a>.
   xml_response: Resposta XML

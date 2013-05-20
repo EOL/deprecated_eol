@@ -202,9 +202,10 @@ sv:
         user_id: Användar-ID
         verified_at: Senast kontrollerad
       resource: 
-        accesspoint_url: Datasetsadress
+        accesspoint_url: Datamängdsadress
         auto_publish: Auto-publicera
         bibliographic_citation: Bibliografiskt citat
+        dataset: Datamängdsfil
         description: Resursbeskrivning
         dwc_archive_url: Darwin Core Archive-adress
         hierarchy: Hierarki
@@ -301,7 +302,7 @@ sv:
               inaccessible: är otillgänglig, webbadressen måste vara tillgänglig för allmänheten
               invalid: är ogiltig. Den bör peka på en XML, XML.GZIP, XML.GZ eller ZIP-fil
             dataset: 
-              blank: kan inte vara tomt såvida du inte anger en datasetsadress istället
+              blank: kan inte vara tomt såvida du inte anger en datamängdsadress istället
               wrong_type: är fel typ, det bör vara en GZIP, TAR, ZIP eller XML-fil
             dwc_archive_url: 
               inaccessible: är otillgänglig, webbadressen måste vara tillgänglig för allmänheten
@@ -447,14 +448,20 @@ sv:
         user_added_name_in_language_to_it: <strong>%{user}</strong> lade till det vanliga namnet "%{name}" på %{language}.
         user_added_name_in_language_to_taxon: <strong>%{user}</strong> lade till det vanliga namnet "%{name}" på %{language} till "%{taxon}".
       choose_exemplar_image: 
-        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: En okänd användare markerade en äldre version av "%{data_object}" som ett exemplar på en okänd sida.
-        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: En okänd användare markerade ett okänt dataobjekt som ett exemplar på "%{taxon}".
-        an_unknown_user_chose_exemplar_data_object_on_taxon: En okänd användare markerade "%{data_object}" som ett exemplar på "%{taxon}".
-        an_unknown_user_chose_exemplar_it_on_taxon: En okänd användare markerade det som ett exemplar på "%{taxon}".
-        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" som ett exemplar på en okänd sida.
-        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> markerade ett okänt dataobjekt som ett exemplar på "%{taxon}".
-        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> markerade "%{data_object}" som ett exemplar på "%{taxon}".
-        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> markerade det som ett exemplar på "%{taxon}".
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: En okänd användare angav en äldre version av "%{data_object}" som ett exemplar på en okänd sida.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: En okänd användare angav "%{data_object}" som ett exemplar på "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: En okänd användare angav en okänd exemplarbild.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: En okänd användare angav ett okänt dataobjekt som ett exemplar på "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_taxon: En okänd användare angav "%{data_object}" som ett exemplar på "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: En okänd användare angav det som ett exemplar på en okänd sida.
+        an_unknown_user_chose_exemplar_it_on_taxon: En okänd användare angav det som ett exemplar på "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> angav en äldre version av "%{data_object}" som ett exemplar på en okänd sida.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> angav en äldre version av "%{data_object}" som ett exemplar på "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> angav en okänd exemplarbild.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> angav ett okänt dataobjekt som ett exemplar på "%{taxon}".
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> angav "%{data_object}" som ett exemplar på "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> angav det som ett exemplar på en okänd sida.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> angav det som ett exemplar på "%{taxon}".
       crop: 
         an_unknown_user_cropped_an_older_data_object: En okänd användare ändrade miniatyrbilden för "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: En okänd användare ändrade ändrade miniatyrbilden för en okänd bild.
@@ -910,6 +917,7 @@ sv:
   classification_preferred_for_taxon: Föredragen
   classification_summary_section_header: Klassificering
   classification_tree_header: Klassificering
+  classifications_exemplar_column_header: Exemplar
   classifications_hierarchy_column_header: Klassificering
   classifications_rank_column_header: Rankning
   classifications_recognized_by_column_header: Känns igen av
@@ -951,6 +959,8 @@ sv:
     inaturalists: 
       show: 
         add_observations: Lägg till observationer
+        meta_keywords: "%{collection_name} iNaturalist-observationer"
+        meta_title: "%{collection_name} iNaturalist-observationer"
         no_observations_added_to_this_project_yet: Inga observationer har lagts till detta projekt ännu.
         observation_date: "Datum: %{observed_on}"
         observation_place: "Plats: %{place}"
@@ -960,6 +970,8 @@ sv:
         taxa_observed: 
           one: "%{count} taxon observerad"
           other: "%{count} taxa observerade"
+        top_contributors: Topp iNaturalist-bidragsgivare
+        tweet_text: "%{collection_name} iNaturalist-observationer"
         view_all_observations_on_inaturalist: Visa alla observationer från %{project_title} på iNaturalist
         view_more_observations_on_inaturalist: Visa fler observationer från %{project_title} på iNaturalist
         view_project_on_inaturalist: Visa %{project_title} på iNaturalist
@@ -1142,7 +1154,7 @@ sv:
   content_partner_resource_auto_publish_true: Ja
   content_partner_resource_collections_header: Samlingar
   content_partner_resource_create_unsuccessful_error: Tyvärr, ett fel uppstod. Resursen lades inte till.
-  content_partner_resource_dataset_details_header: Dataset
+  content_partner_resource_dataset_details_header: Datamängd
   content_partner_resource_edit_link: Redigera
   content_partner_resource_edit_subheader: Redigera resurs
   content_partner_resource_edit_with_type_link: Redigera resurs
@@ -1749,9 +1761,9 @@ sv:
         connect: Lägg till
         connected: Ansluten
       resource: 
-        accesspoint_url: Datasetsadress
+        accesspoint_url: Datamängdsadress
         administration_settings: Administrationsinställningar <small>(endast synliga för EOL-administratörer)</small>
-        dataset: Dataset
+        dataset: Datamängd
         dataset_existing_remove: Filen <em>%{file_name}</em> associeras för tillfället med denna resurs. Ange en URL om du vill ersätta den existerande filen <em>%{file_name}</em> och läsa in resursen från en URL istället (rekommenderas).
         dataset_existing_replace: Filen <em>%{file_name}</em> associeras för tillfället med denna resurs. Ladda upp en ny fil för att ersätta den existerande filen <em>%{file_name}</em>.
         hierarchy: Hierarki
@@ -2330,6 +2342,7 @@ sv:
     user_message: 
       subject: Ett meddelande från Encyclopedia of Life
     user_recover_account: 
+      message: "Encyclopedia of Life (http://eol.org) fick en begäran om att återställa ditt konto. Om denna begäran inte kommer från dig, var god ignorera detta e-postmeddelande.\n\nFöljande länk ger dig en engångsinloggning för att du ska få ändra ditt lösenord, eller föt att lägga till et nytt anslutet konto som du kan använda för att logga in med i framtiden:\n\n%{temporary_login_url}\n\nOBS: Denna länk förfaller efter 24 timmar, efter det kan du besöka %{recover_account_url} för att begära en ny temporär inloggningslänk om du fortfarande har problem med att komma åt ditt konto."
       subject: Återställ ditt Encyclopedia of Life-konto
     user_updated_email_preferences: 
       message: "Detta är en automatiskt systemmeddelande från EOL. Användaren %{user_full_name} (%{user_profile_url}) uppdaterade sin e-postadress eller inställningarna för e-postlistan.\n\nFöregående inställningar:\nE-post: %{previous_email}\nE-postlistans inställningar: %{previous_mailing_list_preference}\n\nUppdaterades till:\nE-post: %{updated_email}\nE-postlistans inställningar: %{updated_mailing_list_preference}\nUppdaterades: %{updated_at}"
@@ -2649,7 +2662,7 @@ sv:
       problems_signing_in_with_connected_accounts: Problem med att logga in med dina anslutna konton?
       problems_signing_in_with_eol_authentication: Glömt lösenordet?
       tip: Är du som en användare? Anslut ditt EOL-konto med Facebook, Google och fler i dina profilinställningar. När dina konton är anslutna kan du använda dem att logga in på EOL.
-  set_as_exemplar: Ange som förebild
+  set_as_exemplar: Ange som exemplar
   share_a_collection: Dela en samling
   show: Visa
   show_all_other_classifications_with_count: 
@@ -2786,6 +2799,9 @@ sv:
       index: 
         hierarchy_entry: 
           meta_description: Fakta om %{scientific_name} som klassificeras som %{hierarchy_provider} i Encyclopedia of Life
+          meta_description_with_chapter_list: Fakta om %{scientific_name} som klassificeras av %{hierarchy_provider} i Encyclopedia of Life. Innehåller information från %{chapter_list} om %{scientific_name}.
+          meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} som är klassificerad som %{hierarchy_provider} i Encyclopedia of Life.
+          meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} som är klassificerad som %{hierarchy_provider} i Encyclopedia of Life. Inkluderar fakta på %{chapter_list}.
           meta_title: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
@@ -2809,6 +2825,8 @@ sv:
           meta_title: Litteratur om %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Böcker om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Litteratur om %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_keywords: Artiklar om %{scientific_name}, böcker om %{scientific_name}, bibliografier om %{scientific_name}, litteratur om %{scientific_name}
+        meta_keywords_with_common_name: Artiklar om %{preferred_common_name}, böcker om %{preferred_common_name}, litteratur om %{preferred_common_name}, artiklar om %{scientific_name}, böcker om %{scientific_name}, bibliografier om %{scientific_name}, litteratur om %{scientific_name}
         meta_title: Artiklar och böcker om %{scientific_name}
         meta_title_with_common_name: Artiklar och böcker om %{preferred_common_name} (%{scientific_name})
         tweet_text: Artiklar och böcker om %{scientific_name}
@@ -2823,6 +2841,8 @@ sv:
         meta_description: Geografisk information om %{scientific_name}. Platser där de bor i världen.
         meta_description_no_data: Ingen geografisk information finns tillgänglig för %{scientific_name} i Encyclopedia of Life. EOL välkomnar dig till att bidra kartor för %{scientific_name}.
         meta_description_with_common_name: Var kan %{preferred_common_name} hittas och var bor de? Geografisk information om %{scientific_name}. Platser där de bor i världen.
+        meta_keywords: habitat för %{scientific_name}, var bor %{scientific_name}
+        meta_keywords_with_common_name: habitat för %{preferred_common_name}, var bor %{preferred_common_name}
         meta_title: Karta för %{scientific_name}
         meta_title_with_common_name: Kartor för %{preferred_common_name} (%{scientific_name})
         tweet_text: Kartor för %{scientific_name}
@@ -2830,6 +2850,7 @@ sv:
       index: 
         hierarchy_entry: 
           meta_description: Bilder och videoklipp om %{scientific_name} som är klassificerad av %{hierarchy_provider}.
+          meta_description_with_common_name: Fotografier, film och ljud för %{preferred_common_name} även känd som %{scientific_name} som klassificeras av %{hierarchy_provider}.
           meta_keywords: fotografier av %{scientific_name}, filmer av %{scientific_name}, ljud av %{scientific_name}, ljud av %{scientific_name}
           meta_keywords_with_common_name: fotografier av %{preferred_common_name}, filmer av %{preferred_common_name}, ljud av %{preferred_common_name}, ljud av %{preferred_common_name}, fotografier av %{scientific_name}, filmar av %{scientific_name}, ljud av %{scientific_name}, ljud av %{scientific_name}
           meta_title: Ljud, film och fotografier om %{scientific_name} som är klassificerad av %{hierarchy_provider}
@@ -2846,7 +2867,10 @@ sv:
         tweet_text: Bilder, videoklipp och ljud om %{scientific_name}
     names: 
       common_names: 
+        hierarchy_entry: 
+          tweet_text: Vanliga namn för %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Vanliga namn för %{scientific_name}.
+        meta_description_with_common_name: Det vetenskapliga namnet för %{preferred_common_name} är %{scientific_name}. Ta reda på vad de andra vanliga namnen för %{scientific_name} är.
         meta_keywords: Vanliga namn för %{scientific_name}.
         meta_keywords_with_common_name: Vanliga namn för %{scientific_name}, vetenskapliga namnet för %{preferred_common_name}
         meta_title: Vanliga namn för %{scientific_name}.
@@ -2865,6 +2889,7 @@ sv:
           meta_keywords: "%{scientific_name}-synonymer"
           meta_keywords_with_common_name: "%{preferred_common_name}-synonymer, %{scientific_name}-synonymerer"
           meta_title: "%{scientific_name} Synonymer som är klassificerade av %{hierarchy_provider}"
+          meta_title_with_common_name: Synonymer till %{preferred_common_name} (%{scientific_name} som klassificeras av %{hierarchy_provider})
           tweet_text: Synonym för %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Synonym för %{scientific_name}.
         meta_description_with_common_name: Synonymer för %{preferred_common_name}, vetenskapligt känd som %{scientific_name}
@@ -2878,6 +2903,7 @@ sv:
         meta_description: En sammanfattning av information om %{scientific_name} som känns igen av %{hierarchy_provider} i Encyclopedia of Life.
         meta_description_with_common_name: En sammanfattning av information om %{preferred_common_name}, även känd som %{scientific_name} som känns igen av %{hierarchy_provider} i Encyclopedia of Life.
         meta_keywords: "%{scientific_name} känns igen av %{hierarchy_provider}, {scientific_name} som klassificeras av %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} känns igen av %{hierarchy_provider}, %{scientific_name} klassificerad av %{hierarchy_provider}"
         meta_title: "%{scientific_name} Klassificerad av %{hierarchy_provider}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Klassificerad av %{hierarchy_provider})"
         tweet_text: Översikt över %{scientific_name} som klassificeras av %{hierarchy_provider}
@@ -2914,6 +2940,7 @@ sv:
         tweet_text: Nukleotidsekvenser för %{scientific_name}
       show: 
         hierarchy_entry: 
+          meta_description: Lista över leverantörer och källdata för %{scientific_name} som är klassificerad av %{hierarchy_provider}.
           meta_keywords: "%{scientific_name}-dataleverantörer, %{scientific_name}-källdata"
         meta_title: Innehållsresurser för %{scientific_name}
         meta_title_with_common_name: Innehållsresurser för %{preferred_common_name} (%{scientific_name})
@@ -3087,7 +3114,7 @@ sv:
   us_dollars_100: US $100
   us_dollars_35: US $35
   us_dollars_50: US $50
-  use_as_examplar_button: använd som exempel
+  use_as_examplar_button: använd som exemplar
   user: Användare
   user_activation_successful_notice: Välkommen och tack för att du gick med i Encyclopedia Of Life-gruppen. Ditt konto med användarnamnet <em>%{username}</em> är nu aktivt. Var god logga in.
   user_activity_click_on_the_numbers: Klicka på siffrorna för att se respektive aktivitetsflöde.
@@ -3113,6 +3140,9 @@ sv:
     one: "%{count} kurerat objekt"
     other: "%{count} kurerade objekt"
   user_activity_stats_objects_curated_dropdown: Kurerade objekt
+  user_activity_stats_set_exemplar: 
+    one: "%{count} bild angiven som exemplar"
+    other: "%{count} bilder angivna som exemplar"
   user_activity_stats_taxa_commented: 
     one: "%{count} kommentar på taxon"
     other: "%{count} kommentarer på taxa"
@@ -3232,6 +3262,8 @@ sv:
         page_title: Anslutna konton
         return_link: Gå tillbaka till att redigera profilen.
       twitter: Twitter
+      warnings: 
+        no_way_to_login: Du har inte längre några anslutna konton, du kommer inte att kunna logga in på EOL såvida inte du lägger till ett anslutet konto eller lägger till ett användarnamn och lösenord till EOL.
       yahoo: Yahoo!
     pending: 
       header: Tack för din registrering!

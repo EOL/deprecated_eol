@@ -710,8 +710,6 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
   
-  # TODO - there may have been changes to #has_details_text_for_user? ...I need to check that and change the
-  # TaxonPage class, if so.
   # TODO - this belongs in the same class as #overview_text_for_user.
   def text_for_user(the_user = nil, options = {})
     the_user ||= EOL::AnonymousUser.new(Language.default)

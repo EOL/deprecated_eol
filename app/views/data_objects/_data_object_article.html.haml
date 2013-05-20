@@ -4,11 +4,7 @@
 -# and link it to the previous version with a GUID... so the "raw" ID will always always be the same.  This is also
 -# true of user-submitted text.  memcached should handle deleting the keys that don't get used, as part of its own GC
 -# routines.  ...So we're going to try this out for articles for a while... it should speed up some of the common
--# text-heavy details tabs and overviews.  That said, there is one caveat:
--# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
--# To manually expire an article run: ActionController::Base.new.expire_fragment("article/#{I18n.locale}/#{data_object.id}")
--# NOTE - The above wasn't working for JRice on app1 on 2013-03-11. PL, however, says it had been working for him in
--# previous weeks. I'm not sure what the difference is, but be aware of it.
+-# text-heavy details tabs and overviews.
 - cache "article/#{I18n.locale}/#{data_object.id}" do
   - if data_object.content_partner && data_object.content_partner == ContentPartner.wikipedia
     = stylesheet_link_tag("wikipedia")
@@ -21,8 +17,9 @@
       - if link_object
         %p= auto_link(data_object.source_url)
       - if data_object.added_by_user?
-        -# Submitted text is now being sanitized before being saved. 
-        -# And once the migration to sanitize/balance_tags existing UDO is done then we don't need to run Sanitize/balance_tags here anymore
+        -# NOTE - Submitted text is now being sanitized before being saved. 
+        -# TODO - Once we make/run a migration to sanitize/balance_tags existing UDO is done then we don't need to run
+        -# Sanitize/balance_tags here anymore
         -# We will only need: data_object.description.fix_old_user_added_text_linebreaks instead.
         = raw(Sanitize.clean(auto_link(data_object.description).balance_tags, Sanitize::Config::RELAXED).fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true))
       - else

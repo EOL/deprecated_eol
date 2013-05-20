@@ -3027,6 +3027,9 @@ en:
   data_object_reference: "Data object reference"
   data_object_ignore: "ignore this item"
   data_object_undo_ignore: "remove from ignore list"
+  data_object_toc_items_list:
+    one: "Appears under: %{quoted_toc_titles}" 
+    other: "Appears under: %{quoted_toc_titles}"
   data_usage_reports: "Data Usage Reports"
   date_caps: "Date"
   date_uploaded: "Date uploaded"

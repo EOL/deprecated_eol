@@ -1,5 +1,4 @@
 require 'eol_data'
-require 'structured_data_factories'
 require 'nokogiri'
 
 # TODO: Problem running eol:db:populate RAILS_ENV=development HTTP requests for SOLR were being prevented by WebMock,

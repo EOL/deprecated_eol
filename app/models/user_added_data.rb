@@ -48,16 +48,21 @@ class UserAddedData < ActiveRecord::Base
 
   def add_to_triplestore
     unless deleted_at
-      sparql.insert_data(data: [turtle], graph_name: GRAPH_NAME)
-      user_added_data_metadata.each do |metadata|
-        sparql.insert_data(data: [metadata.turtle], graph_name: GRAPH_NAME)
+      if target = is_taxon_uri?(object)
+        DataAssociation.new(metadata: user_added_data_metadata, subject: subject,
+                            graph_name: GRAPH_NAME, object: target).add_to_triplestore
+      else
+        sparql.insert_data(data: [turtle], graph_name: GRAPH_NAME)
+        user_added_data_metadata.each do |metadata|
+          sparql.insert_data(data: [metadata.turtle], graph_name: GRAPH_NAME)
+        end
       end
     end
   end
 
   def update_triplestore
     remove_from_triplestore
-    add_to_triplestore unless deleted_at
+    add_to_triplestore
   end
 
   def remove_from_triplestore
@@ -95,6 +100,10 @@ class UserAddedData < ActiveRecord::Base
   end
 
   private
+
+  def is_taxon_uri?(uri)
+    KnownUri.taxon_concept_id(uri)
+  end
 
   def convert_known_uris
     self.predicate = convert_known_uri(self.predicate) unless EOL::Sparql.is_uri?(self.predicate)

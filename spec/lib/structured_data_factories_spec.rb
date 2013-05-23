@@ -61,7 +61,7 @@ describe 'Structured Data Factories' do
       a.object.should == @target_taxon_concept
     end
 
-    it 'should create a turle form' do
+    it 'should create a turtle form' do
       a = DataAssociation.new(@default_options)
       a.turtle.should include('a <http://eol.org/schema/Association>')
       a.turtle.should include('dwc:taxonID ')

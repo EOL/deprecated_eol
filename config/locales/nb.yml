@@ -138,8 +138,10 @@ nb:
         published_unreviewed_resources: Publiserte uvurderte ressurser
         redhotlist_pages: Sider om topprioriterte organismer
         rich_hotlist_pages: Innholdsrike sider om prioriterte organismer
+        rich_hotlist_pages_percentage: Innholdsrike sider om prioriterte organismer %
         rich_pages: Innholdsrike sider
         rich_redhotlist_pages: Innholdsrike sider om topprioriterte organismer
+        rich_redhotlist_pages_percentage: Innholdsrike sider om topprioriterte organismer %
         udo_published: Bruker-sendt tekst
         udo_published_by_curators: Kurator-sendt tekst
         udo_published_by_non_curators: Ikke-kurator-sendt tekst
@@ -183,7 +185,7 @@ nb:
         eol_newsletter: Send meg det kvartalvise EOL-nyhetsbrevet
         i_am_being_watched: Du ble lagt til et annet medlems overvåkningsliste
         invitation_to_community: Invitasjon til å bli med i et brukersamfunn
-        made_me_a_manager: Du har blitt administrator for en samling eller brukersamfunn
+        made_me_a_manager: Du har blitt gjort til administrator for en samling eller brukersamfunn
         member_joined_my_community: Et brukersamfunn du administrerer har fått et nytt medlem
         member_joined_my_watched_community: Nye medlemmer har blitt med i et brukersamfunn du er medlem av
         member_left_my_community: Medlemmer har meldt seg ut av et brukersammfunn du administrerer
@@ -706,7 +708,7 @@ nb:
         move_of_it_unlocked: Flyttingen av klassifiseringen du nylig har forespurt på denne siden er fullført.
         move_of_taxon_unlocked: Flyttingen av klassifiseringen du nylig har forespurt for "%{taxon}" er fullført.
         split_of_an_unknown_taxon_unlocked: Splittelsen av klassifiseringen du nylig har forespurt er fullført, men siden kan ikke bli funnet.
-        split_of_it_unlocked: Splittelsen av klassifiseringen du nylig har forespurt på denne siden er fullført og klassifiseringene har blitt flyttet til <a href='%{to}'>en egen side</a>.
+        split_of_it_unlocked: Splittelsen av klassifiseringen du nylig har forespurt på denne siden er fullført og klassifiseringene er flyttet til <a href='%{to}'>en egen side</a>.
         split_of_taxon_unlocked: Splittelsen av klassifiseringen du nylig har forespurt for "%{taxon}" er fullført og klassifiseringene har blitt flyttet til <a href='%{to}'>en egen side</a>.
       unlock_with_error: 
         merge_of_an_unknown_taxon_unlocked_with_error: "Sidesammenslåingen du nylig har forespurt <strong>mislyktes</strong>: %{error}. I tillegg kan den aktuelle siden ikke bli funnet."
@@ -820,9 +822,10 @@ nb:
   add_a_taxon_association_label: Legg til en tilknytning til et takson
   add_article_instead: legg til en artikkel istedenfor
   add_article_to_page_button: Legg til en artikkel
-  add_association_submit_button: lege til tilknytning
+  add_association_submit_button: legg til tilknytning
   add_brief_summary_to_page_link_button: Legg til en kort oppsummering til denne siden
-  add_citizen_science_resources_to_page_link_button: Legg til en borgerforskningslenke til denne siden
+  add_citizen_science_resources_to_page_link_button: Legg til en «citizen science»-lenke til denne siden
+  add_classifications: legg til valgte klassifiseringer for flytting
   add_collection_to_a_new_community: Legg til "%{collection}" til et nytt brukersamfunn
   add_collection_to_community: Legg til samling til brukersamfunn
   add_education_resources_to_page_link_button: Legg til undervisningsressurser til denne siden
@@ -832,6 +835,7 @@ nb:
   add_link_instead: legg til en lenke istedenfor
   add_link_to_page_button: Legg til en lenke
   add_new_association_link: Legg til ny tilknytning
+  add_new_tag_suggestion: Legg til nytt taggforslag
   add_page: Legg til side
   add_sub_chapter: Legg til underkapittel
   add_to_a_community: Legg til i et brukersamfunn
@@ -860,7 +864,7 @@ nb:
   admin_page_title: "Administrering: Oversikt"
   admin_statistics_link: Statistikker
   admin_translated_content_page_create_unsuccessful_error: Beklager, det oppstod en feil, oversettelsen kunne ikke legges til.
-  admin_translated_content_page_delete_successful_notice: "%{language} oversettelse av siden <em>%{page_name}</em> har blitt slettet."
+  admin_translated_content_page_delete_successful_notice: "%{language} oversettelse av siden <em>%{page_name}</em> er slettet."
   admin_translated_content_page_edit_subheader: Rediger %{language} oversettelse av <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Tittel og innhold er %{required_icon} påkrevd.
   admin_translated_content_page_new_header: Velg språk og legg til innhold
@@ -870,7 +874,7 @@ nb:
   admin_translated_content_page_update_unsuccessful_error: Beklager, det oppstod en feil, oversettelsen kunne ikke oppdateres.
   admin_translated_news_item_active: Publisert
   admin_translated_news_item_create_unsuccessful_error: Beklager, det oppstod en feil, oversettelsen kunne ikke legges til.
-  admin_translated_news_item_delete_successful_notice: "%{language} oversettelse av nyhetssaken <em>%{page_name}</em> har blitt slettet."
+  admin_translated_news_item_delete_successful_notice: "%{language} oversettelse av nyhetssaken <em>%{page_name}</em> er slettet."
   admin_translated_news_item_edit_subheader: Rediger %{language} oversettelse av <em>%{page_name}</em>
   admin_translated_news_item_edit_tip: Tittel og innhold er %{required_icon} påkrevd.
   admin_translated_news_item_new_header: Velg språk og legg til innhold
@@ -878,6 +882,7 @@ nb:
   admin_translated_news_item_new_subheader: Legg til oversettelse for <em>%{page_name}</em>
   admin_translated_news_item_new_tip: Språk, tittel og innhold er %{required_icon} påkrevd.
   admin_translated_news_item_not_active: Upublisert
+  admin_translated_news_item_update_successful_notice: Oversettelsen på %{language} av <a href="#%{anchor}"><em>%{page_name}</em></a> er oppdatert.
   admin_translated_news_item_update_unsuccessful_error: Beklager, det oppstod en feil, oversettelsen kunne ikke oppdateres.
   admin_user_delete_successful_notice: Brukeren har blitt slettet
   admins: 
@@ -920,6 +925,7 @@ nb:
   all_articles: Alle artikler
   all_changes: Alle endringer
   all_collections: Alle samlinger
+  all_comments_entered_by_users: Alle kommentarer fra brukere på nettsiden vises nedenfor, sortert fra nyeste til eldste.
   all_communities: Alle brukersamfunn
   all_count: Alle (%{count})
   all_filter: alle
@@ -1001,6 +1007,7 @@ nb:
   back_to_profile: Tilbake til profil
   began: Begynte
   bhl_publication: BHL-publikasjon
+  biodiversity_heritage_library: Biodiversity Heritage Library
   body: "Innhold:"
   browsable: Kan blas gjennom
   by_caps: Av
@@ -1111,6 +1118,7 @@ nb:
   comment_delete_confirm: Er du sikker på at du vil slette denne kommentaren?
   comment_new_title: Legg til en ny kommentar
   comments: Kommentarer
+  comments_and_tags: Kommentarer og tagger
   comments_filter: Kommentarer
   comments_moderated: Modererte kommentarer
   comments_on: Kommentarer på
@@ -1180,7 +1188,7 @@ nb:
     new: 
       page_title: Vennligst skriv inn din tilbakemelding.
     notices: 
-      message_sent: Takk for din tilbakemelding, din melding har blitt sendt til riktig gruppe.
+      message_sent: Takk for din tilbakemelding, din melding er sendt til den aktuelle gruppen.
   containing_value: inneholder %{value}.
   content: 
     index: 
@@ -1280,6 +1288,7 @@ nb:
   content_partner_resource_vetted_true: Ja
   content_partner_resource_view_link: Vis
   content_partner_resources_header: Ressurser
+  content_partner_resources_link: Ressurser &amp; kontakter
   content_partner_statistics_column_header_taxa_page_page_views: Sidevisninger
   content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Tid på siden (sekunder)
   content_partner_statistics_column_header_taxa_page_unique_page_views: Unike sidevisninger
@@ -1327,10 +1336,12 @@ nb:
   contribute: Bidra
   copy: Kopier
   copy_of_name: Kopi av %{name}
+  copyright: "OPPHAVSRETT:"
   could_not_find_user: Du er ikke et medlem av dette brukersamfunnet.
   count: Antall
   create_a_collection: Opprett en samling
   create_a_community: Opprett et brukersamfunn
+  create_a_new_collection: Opprett en ny samling
   create_account: opprett en konto
   create_child_page: Opprett underordnet side
   create_collection_button: Opprett samling
@@ -1526,6 +1537,7 @@ nb:
   edit_news_items: rediger nyhetssaker
   edit_page_contents: rediger sideinnhold
   edit_table_of_contents: rediger innholdstabell
+  edit_tag_suggestions: rediger taggforslag
   edit_username: Rediger %{username}
   edit_web_users: rediger nettbrukere
   edited_colon: "redigert:"
@@ -1630,6 +1642,7 @@ nb:
   filter_by_type_taxa_comment_option: Taksakommentarer
   filter_by_type_taxon_concept_option: Taksa
   filter_by_type_text_option: Artikler
+  filter_by_type_user_option: Folk
   filter_by_type_video_option: Videoer
   filter_media: filtrer media
   filter_newsfeed_option_all: Alle
@@ -1652,6 +1665,8 @@ nb:
       delete: slett
       edit: rediger
       link: lenke
+      move_down: "&darr;"
+      move_up: "&uarr;"
       reply: svar
     categories: 
       create: Opprett en kategori
@@ -1718,6 +1733,7 @@ nb:
   friendly_url: Brukervennlig URL
   from_community: fra brukersamfunnet %{community}
   gbif_map: GBIF-kart
+  given_name_colon: "Fornavn:"
   global_access_tagline: Global tilgang til kunnskap om livet på jorden.
   global_navigation: Global navigasjon
   glossary_is_empty: (ordlisten er tom)
@@ -1861,14 +1877,14 @@ nb:
         active_translation_more: Publiserte oversettelser vil være offentlig synlige, med mindre selve siden er upublisert. Fjern markeringen <em>publisert</em> hvis du vil unngå at generelle brukere skal kunne se denne versjonen av siden.
         language_id: Språk
         left_content_more: "(Valgfritt) Legg til en usortert list av navigasjonslenker. Bruk class-navnet <code>active</code> for å markere lenken til den nåværende siden, f.eks. <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> hvor <code>:id</code> er ID'en eller det unike navnet til den nåværende siden og <code>:title</code> er den beskrivende tittelen til siden (<strong>NB: alle lenker til EOL CMS må begynne med en skråstrek: <code>/info/:id</code></strong>). For å gjøre disse endringer må du endre HTML-kildekoden direkte, velg <em>Kilde</em> i redigeringsmenyen for å gjøre dette."
-        main_content_more: "Oppgi hovedsidens innhold i innholdsområdet. Bruk <em>Format</em> rullegardinlisten for å velge de riktige semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for sidens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
+        main_content_more: "Oppgi hovedsidens innhold i innholdsområdet. Bruk <em>Format</em> rullegardinlisten for å velge de aktuelle semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for sidens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
         meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av sidens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner både for å sjekke relevans og for å danne lister over søkereslutater.
         meta_keywords_more: Sett inn en kommaseparert liste med ord og korte fraser som best gjenspeiler sidens innhold. Disse nøkkelordene og -fraser blir av og til brukt av søkemotorer for å bedømme sidens relevans i henhold til søkeord.
         title_more: Tittelen av dette innholdet vil vises i toppteksten til siden. Tittelen skal inneholde de mest relevante nøkkelord for innholdet.
       translated_news_item: 
         active_translation: Publisert
         active_translation_more: Publiserte oversettelser vil være offentlig synlige, med mindre selve nyhetssaken er upublisert. Fjern markeringen <em>publisert</em> hvis du vil unngå at generelle brukere skal kunne se denne versjonen av nyhetssaken.
-        body_more: "Oppgi nyhetssakens innhold i innholdsområdet. Bruk <em>Format</em>-rullegardinlisten for å velge de riktige semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for nyhetssakens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
+        body_more: "Oppgi nyhetssakens innhold i innholdsområdet. Bruk <em>Format</em>-rullegardinlisten for å velge de aktuelle semantiske tekstelementer, velg f.eks. <em>Heading 2</em> for en undertittel. NB: <em>Heading 1</em> er reservert til bruk for nyhetssakens tittel, så titler i innholdsområdet starter på <em>Heading 2</em>. Velg <em>Kilde</em> for å bytte til HTML-kildekodevisning der du kan legge til og redigere HTML manuelt."
         language_id: Språk
         meta_description_more: Gi en kort beskrivelse som oppsummerer nøkkelkonseptene av nyhetssakens innhold. Denne beskrivelsen blir av og til brukt av søkemaskiner både for å sjekke relevans og for å danne lister over søkereslutater.
         meta_keywords_more: Sett inn en kommaseparert liste med ord og korte fraser som best gjenspeiler nyhetssakens innhold. Disse nøkkelordene og -fraser blir av og til brukt av søkemotorer for å bedømme nyhetssakens relevans i henhold til søkeord.
@@ -1907,7 +1923,7 @@ nb:
         open_authentications_more: Administrer koblinger mot tredjepartskontoer du kan bruke for å logge inn på EOL. <a href="%{open_authentications_url}">Rediger koblede kontoer</a>.
         requested_curator_level: Din forespørsel om å bli %{curator_level_with_indefinite_article} avventer behandling.
         requested_curator_level_id_more: Velg <em>Assistentkurator</em> hvis du ikke har noen akkrediteringer ennå. Velg <em>Fullstendig kurator</em> hvis du er professionel vitenskaper eller master- eller PhD-student med akkrediteringer. Velg <em>Mesterkurator</em> hvis du er en erfaren EOL-kurator og vil påta deg større ansvar.
-        tag_line: "Slagord eller tittel <small>eksempel: \"Fugleentusiast\"</small>"
+        tag_line: "Motto eller tittel <small>eksempel: \"Fugleentusiast\"</small>"
         user_identities: Jeg er
         username: Brukernavn <small>(4 - 32 tegn)</small>
         username_or_email: Brukernavn eller e-postadresse
@@ -2026,6 +2042,7 @@ nb:
   image_object: Bildeobjekt
   image_of_taxon: Bilde av %{taxon_name}
   image_rating: Bildevurdering
+  image_title_with_taxa: Bilde av %{taxa}
   images: Bilder
   images_with_count: 
     one: "%{count} bilde"
@@ -2033,10 +2050,12 @@ nb:
   import_once: Importer en gang
   in_collection: i samling
   in_this_data_type: "i denne %{data_type}:"
+  inappropriate: Upassende
   inaturalist_tab_label: iNaturalist-observasjoner
   indexed: Indeksert
   internal_ip_address: intern IP-adresse
   inverse_sort: Omvendt sortering
+  invite_members_label: Inviter medlemmer
   ip: IP
   ip_address: IP-adresse
   item_not_added_already_in_collection: Dette objektet er allerede lagt inn i samlingen.
@@ -2197,6 +2216,7 @@ nb:
   map_not_associated_with_any_published_entries: Dette kartet er ikke knyttet til noen publiserte taksa.
   map_of_taxon: Kart over %{taxon_name}
   map_rating: Kartvurdering
+  maps_image_maps_header: Media tagget som "kart"
   maps_with_count: 
     one: "%{count} Kart"
     other: "%{count} Kart"
@@ -2277,6 +2297,7 @@ nb:
   names: Navn
   names_children_column_header: Underordnede objekter
   names_common_list_by_language_assistive_header: Populærnavn oppført etter språk
+  names_curation_column_header: Kuratering
   names_et_al: "%{names}, et al."
   names_filter: Navn
   names_name_column_header: Navn
@@ -2305,6 +2326,8 @@ nb:
   none: ingen
   not_evaluated: Ikke vurdert
   not_published_yet: ikke publisert ennå
+  note: "NB:"
+  note_that_you_can_reference_im: Vær oppmerksom på at du kan referere til bilder med html taggen &lt;img&gt;, men disse må finnes på adressen, som på det opprinnelige nettstedet eller en side som Flickr. Det er ikke fasilitetet til å laste opp bilder til bruk i nyhetssaken direkte.
   notes: Notater
   notification_frequency_never: Aldri
   notification_frequency_send_immediately: Send umiddelbart
@@ -2465,6 +2488,7 @@ nb:
   profile_colon: "Profil:"
   profile_image_alt_text_curator: Profilbilde for kurator %{user_full_name}
   profile_image_alt_text_member: Profilbilde for medlem %{user_given_name} %{user_family_name}
+  profile_picture: Profilbilde
   project: Prosjekt
   provider: Leverandør
   providers: Leverandører
@@ -2553,6 +2577,9 @@ nb:
   rights_holder: Rettighetsinnehaver
   rights_statement: Rettighetserklæring
   save: Lagre
+  save_comment_lowercase: lagre kommentar
+  save_curated_association_submit_button: lagre tilknytning
+  save_email_settings: lagre e-postinstillinger
   scientific_name: Vitenskapelig navn
   search: Søk
   search_by_term_page_title: "Søk: %{term}"
@@ -2562,6 +2589,9 @@ nb:
   search_field_preferred_scientific: Foretrukket vitenskapelig navn
   search_field_surrogate: Surrogat
   search_field_synonym: Synonym
+  search_for_messages_containing: "Søk etter meldinger som inneholder:"
+  search_for_terms_containing: "Søk etter begrep som inneholder:"
+  search_for_users_containing_this_in_their_username_name_or_email_address: Søk etter brukere som har dette i brukernavnet, navnet eller e-postadressen.
   search_input_advisory_information: Skriv inn et populærnavn eller vitenskapelig navn på et levende organisme du vil vite mer om. Du kan også søke etter EOL-medlemmer, samlinger og brukersamfunn.
   search_next_label: Neste
   search_placeholder: Søk EOL ...
@@ -2589,6 +2619,7 @@ nb:
   selected_language_advisory_information: Dette er det valgte språket.
   send: Send
   send_contact_email: Send kontakt e-post
+  send_email_colon: "Send e-post:"
   server_ip_address: Server IP-adresse
   sessions: 
     new: 
@@ -2652,12 +2683,16 @@ nb:
   source_colon: "Kilde:"
   source_information_header: Kildeinformasjon
   source_url: Kilde-URL
+  special_collection: Spesialsamling
   species: Arter
   started: Påbegynt
+  stat: Stat
+  stats: Statistikker
   sub_heading: Underoverskrift
   subject: emne
   submit: Send inn
   submit_term: Send inn begrep
+  summary_thumbnail_title: "Sammendrag:"
   supplier: Leverandør
   supplier_allcaps: "LEVERANDØR:"
   supplier_colon: "Leverandør:"
@@ -2926,6 +2961,8 @@ nb:
     other: "%{count} taksoner"
   taxon: takson
   taxon_biomedical_terms_link: Biomedisinske termer
+  taxon_citizen_science_header: «Citizen science»-lenker
+  taxon_citizen_science_resources_empty: Ingen har bidratt med «citizen science»-lenker til denne siden ennå.
   taxon_group: Taksongruppe
   taxon_id: Takson-ID
   taxon_multimedia_links_link: Multimedialenker
@@ -2943,6 +2980,7 @@ nb:
   text_summary_empty_header: Kort sammendrag
   text_summary_more_link: Les hele oppføringen
   text_with_count: "{PLURAL|one=%{count} Artikkel|%{count} Artikler}}"
+  thank_you: Takk
   the_file_was_uploaded: Filen ble lastet opp.
   there_are_currently_no_members_in_this_community: Det er for øyeblikket ingen medlemmer i dette brukersamfunnet.
   this_article_cannot_be_curated_because_unpublished: Denne artikkelen kan ikke kurateres fordi den er upublisert.
@@ -2971,7 +3009,9 @@ nb:
   translation_saved: Oversettelsen ble lagret
   truncated_comment_omission_linkless: ...
   trusted: Klarert
+  tumblr: Tumblr
   twitter: Twitter
+  type: Type
   unknown: Ukjent
   unknown_type_not_associated_with_any_published_entries: Denne informasjonen er ikke knyttet til noen publiserte taksa.
   unreviewed: Uvurdert
@@ -2980,13 +3020,21 @@ nb:
   updated: Oppdatert
   updated_colon: "Oppdatert:"
   updated_community: Brukersamfunnet ble oppdatert.
+  updates: Oppdateringer
   upload: Last opp
   url: URL
   user: Bruker
+  user_activity_page_title: Brukeraktivitet
   user_activity_stats_articles_added_dropdown: Artikler lagt til
+  user_activity_stats_header: Aktivitet
   user_already_active_notice: Din konto er allerede aktiv, vennligst logg inn.
   user_comment: Brukerkommentar
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> har kommentert på en eldre versjon av \"%{what}\":"
+  user_commented_on_something_colon: "<strong>%{user}</strong> har kommentert på \"%{what}\":"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> har kommentert på <a href='%{link}'>%{username} sin nyhetsfeed</a>:"
   user_comments: Brukerkommentarer
+  user_full_name_with_curator: "%{user} (%{curator_level})"
+  user_id: Bruker-id
   user_no_longer_active_message: Denne brukeren er ikke lenger aktiv
   user_pending_notifications_comments_assistive: <span class="assistive">kommentarer</span>
   user_says_colon: "%{users_name} sier:"
@@ -3105,16 +3153,16 @@ nb:
         return_link: Tilbake til rediger profil.
       notices: 
         facebook: 
-          new_authentication_added: Facebook-innlogging har blitt lagt til din konto.
+          new_authentication_added: Facebook-innlogging er lagt til din konto.
           removed_connection: Vi har fjernet EOL-tilkoblingen til din Facebook-konto. For å fullstendig fjerne autoriseringen på fremtidig kommunikasjon mellom din Facebook-konto og EOL må du gå til Facebook og redigere kontoinnstillingene dine.
         google: 
-          new_authentication_added: Google-innlogging har blitt lagt til din konto.
+          new_authentication_added: Google-innlogging er lagt til din konto.
           removed_connection: Vi har fjernet EOL-tilkoblingen til din Google-konto. For å fullstendig fjerne autoriseringen på fremtidig kommunikasjon mellom din Google-konto og EOL må du gå til Google og redigere kontoinnstillingene dine.
         twitter: 
-          new_authentication_added: Twitter-innlogging har blitt lagt til din konto.
+          new_authentication_added: Twitter-innlogging er lagt til din konto.
           removed_connection: Vi har fjernet EOL-tilkoblingen til din Twitter-konto. For å fullstendig fjerne autoriseringen på fremtidig kommunikasjon mellom din Twitter-konto og EOL må du gå til Twitter og redigere kontoinnstillingene dine.
         yahoo: 
-          new_authentication_added: Yahoo!-innlogging har blitt lagt til din konto.
+          new_authentication_added: Yahoo!-innlogging er lagt til din konto.
           removed_connection: Vi har fjernet EOL-tilkoblingen til din Yahoo!-konto. For å fullstendig fjerne autoriseringen på fremtidig kommunikasjon mellom din Yahoo!-konto og EOL må du gå til Yahoo! og redigere kontoinnstillingene dine.
       twitter: Twitter
       warnings: 
@@ -3159,6 +3207,7 @@ nb:
   value_default: (standard)
   value_empty: (tom)
   values: Verdier
+  versions_colon: "Versjoner:"
   vetted: Gransket
   video_alt_text: Denne %{vetted_status} videoen er av %{taxon_name}
   video_from: video fra
@@ -3188,10 +3237,13 @@ nb:
   view_verb: Vis
   view_video_source: Vis videokilde
   view_your_curator_profile: Vis din kuratorprofil
+  vimeo: Vimeo
   visible_title: Synlig
   visitors: Besøkende
   vivisimo: Vivisimo
   wants_colon: "Ønsker:"
+  watch_list: Overvåkningsliste
+  watch_list_newsfeed: Overvåkningsliste nyhetsfeed
   weekly: Ukentlig
   welcome: Velkommen
   what_do_these_numbers_mean: Wha betyr disse tallene?

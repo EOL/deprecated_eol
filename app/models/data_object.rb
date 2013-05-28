@@ -456,7 +456,8 @@ class DataObject < ActiveRecord::Base
 
   def has_thumb?
     return false if text?
-    return true is_video? || is_sound?
+    return true if is_video? 
+    return true if is_sound?
     return has_object_cache_url?
   end
 

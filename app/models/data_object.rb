@@ -454,6 +454,12 @@ class DataObject < ActiveRecord::Base
     ((is_video? || is_sound?) && thumbnail_cache_url?) || (is_image? && object_cache_url?)
   end
 
+  def has_thumb?
+    return false if text?
+    return true is_video? || is_sound?
+    return has_object_cache_url?
+  end
+
   def thumb_or_object(size = '580_360', options={})
     if self.is_video? || self.is_sound?
       return DataObject.image_cache_path(thumbnail_cache_url, size, options)
@@ -466,7 +472,7 @@ class DataObject < ActiveRecord::Base
       end
       return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
     else
-      return '_missing_image_' # Really, this is an error, but we want to handle it pseudo-gracefully.
+      raise "No image"
     end
   end
 

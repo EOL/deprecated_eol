@@ -2172,8 +2172,8 @@ zh-Hans:
           an_unknown_user_split_classifications_from_taxon: "一个未知用户把%{classifications}中的类群从%{taxon}物种页抽取到<a href='%{to}'>自己的页面。"
           an_unknown_user_split_classifications_from_it: "一个未知用户将%{classifications}的分类信息抽取到<a href='%{to}'>它们自己的页面</a>。"
           user_split_classifications_from_an_unknown_taxon: "<strong>%{user}</strong>将%{classifications}的分类信息从未知页抽取到<a href='%{to}'>它们自己的页面</a>。"
-          user_split_classifications_from_taxon: "用户<strong>%{user}</strong>将%{classifications}提供的分类系统从%{taxon}抽取到<a href='%{to}'>他们自己的页面</a>。"
-          user_split_classifications_from_taxon: "用户<strong>%{user}</strong>将%{classifications}提供的分类系统从%{taxon}抽取到<a href='%{to}'>他们自己的页面</a>。"
+          user_split_classifications_from_taxon: "用户<strong>%{user}</strong>抽取了%{classifications}提供的分类系统到<a href='%{to}'>自己的页面</a>。"
+          user_split_classifications_from_taxon: "用户<strong>%{user}</strong>抽取了%{classifications}提供的分类系统到<a href='%{to}'>自己的页面</a>。"
         merge:
           an_unknown_user_merged_to_an_unknown_taxon: "一个未知用户合并了两个未知页。"
           an_unknown_user_merged_to_taxon: "一个未知用户合并另一个页面到%{target}。"
@@ -3027,6 +3027,9 @@ zh-Hans:
   data_object_reference: "数据项文献"
   data_object_ignore: "忽略本条目"
   data_object_undo_ignore: "从忽略列表中删除"
+  data_object_toc_items_list:
+    one: "出现在: %{quoted_toc_titles}"
+    other: "出现在: %{quoted_toc_titles}"
   data_usage_reports: "数据使用报告"
   date_caps: "日期"
   date_uploaded: "上传日期"
@@ -4370,10 +4373,16 @@ zh-Hans:
   user_left_comment_on_date: "%{username}在%{date}做了评论。"
   user_no_longer_has_manager_access_to_collection: "%{user} 不再拥有对 \"%{collection}\"的管理权限。"
   user_pending_notifications_assitive: "<span class=\"assistive\">提示</span>"
+  user_pending_notifications_with_count:
+    one: '%{count} notification'
+    other: '%{count} notifications'
   user_pending_notifications_with_count_assitive:
     one: "%{count}<span class=\"assistive\"> 条提示</span>"
     other: "%{count}<span class=\"assistive\"> 条提示</span>"
   user_pending_notifications_comments_assistive: "<span class=\"assistive\">评论</span>"
+  user_pending_notifications_comments_with_count:
+    one: '%{count} comment'
+    other: '%{count} comments'
   user_pending_notifications_comments_with_count_assistive:
     one: "%{count}<span class=\"assistive\">条评论</span>"
     other: "%{count}<span class=\"assistive\">条评论</span>"

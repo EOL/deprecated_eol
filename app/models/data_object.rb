@@ -455,6 +455,12 @@ class DataObject < ActiveRecord::Base
   end
   alias :has_thumb? :has_thumbnail?
 
+  def has_thumb?
+    return false if text?
+    return true is_video? || is_sound?
+    return has_object_cache_url?
+  end
+
   def thumb_or_object(size = '580_360', options={})
     if self.is_video? || self.is_sound?
       return DataObject.image_cache_path(thumbnail_cache_url, size, options)
@@ -467,7 +473,7 @@ class DataObject < ActiveRecord::Base
       end
       return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
     else
-      return nil # No image to show. You might want to alter your code to avoid this by using #has_thumbnail?
+      raise "No image"
     end
   end
 

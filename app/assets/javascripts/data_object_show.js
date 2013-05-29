@@ -12,10 +12,3 @@
 //
 //= require jplayer/js/jquery.jplayer.min
 //= require permalink
-
-$(document).ready(function() {
-  var $act = $('form.review_status .actions');
-  if ($act.length > 0) {
-    $('p.toc_items').insertBefore($act);
-  }
-});

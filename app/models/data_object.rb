@@ -467,7 +467,7 @@ class DataObject < ActiveRecord::Base
       end
       return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
     else
-      raise "No image"
+      return nil # No image to show. You might want to alter your code to avoid this by using #has_thumbnail?
     end
   end
 

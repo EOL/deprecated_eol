@@ -375,7 +375,7 @@ protected
   end
 
   def meta_open_graph_image_url
-    @meta_open_graph_image_url ||= @data_object ?
+    @meta_open_graph_image_url ||= @data_object && @data_object.has_thumbnail? ?
       @data_object.thumb_or_object('260_190', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 

@@ -14,5 +14,8 @@
 //= require permalink
 
 $(document).ready(function() {
-  $('p.toc_items').insertBefore($('form.review_status .actions'));
+  var $act = $('form.review_status .actions');
+  if ($act.length > 0) {
+    $('p.toc_items').insertBefore($act);
+  }
 });

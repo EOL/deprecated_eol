@@ -453,13 +453,7 @@ class DataObject < ActiveRecord::Base
   def has_thumbnail?
     ((is_video? || is_sound?) && thumbnail_cache_url?) || (is_image? && object_cache_url?)
   end
-
-  def has_thumb?
-    return false if text?
-    return true if is_video? 
-    return true if is_sound?
-    return has_object_cache_url?
-  end
+  alias :has_thumb? :has_thumbnail?
 
   def thumb_or_object(size = '580_360', options={})
     if self.is_video? || self.is_sound?

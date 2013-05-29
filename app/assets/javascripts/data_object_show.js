@@ -14,4 +14,9 @@
 //= require permalink
 
 // The TOC Items shows up in an ugly place, but I don't want to move it in the view, since it would be inelegant:
-$('p.toc_items').insertBefore($('form.review_status fieldset.actions'));
+$(document).ready(function() {
+  var $act = $('form.review_status .actions');
+  if ($act.length > 0) {
+    $('p.toc_items').insertBefore($act);
+  }
+});

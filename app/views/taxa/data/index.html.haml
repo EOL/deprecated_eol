@@ -39,7 +39,6 @@
         - if row[:attribute] != last_attribute
           - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
         %th{ id: th_id }
-          - if row[:attribute] != last_attribute
           - if first_of_type
             - last_attribute = row[:attribute]
             = display_uri(row[:attribute])

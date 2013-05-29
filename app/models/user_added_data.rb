@@ -48,7 +48,10 @@ class UserAddedData < ActiveRecord::Base
 
   def add_to_triplestore
     unless deleted_at
-      if target = is_taxon_uri?(object)
+      target = is_taxon_uri?(object)
+      if target && TaxonConcept.exists?(target.to_i)
+        target = TaxonConcept.find(target.to_i)
+        debugger
         DataAssociation.new(metadata: user_added_data_metadata, subject: subject,
                             graph_name: GRAPH_NAME, object: target).add_to_triplestore
       else

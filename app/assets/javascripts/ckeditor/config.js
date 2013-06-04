@@ -40,6 +40,11 @@ CKEDITOR.editorConfig = function( config )
         [ 'Bold', 'Italic', 'Subscript', 'Superscript', '-', 'Link', 'Unlink', 'Anchor' ], [ 'Source', '-', 'ShowBlocks', '-', 'Preview' ]
     ] ;
 
+  config.toolbar_UserEdit =
+    [
+        [ 'Bold', 'Italic', 'Subscript', 'Superscript', '-', 'Link', 'Unlink', '-', 'Source' ]
+    ] ;
+
   config.toolbar_ForumPost =
     [
         [ 'Format', 'NumberedList', 'BulletedList', 'Blockquote', 'Bold', 'Italic', 'Subscript', 'Superscript',

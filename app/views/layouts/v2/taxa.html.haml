@@ -9,7 +9,7 @@
             %span.assistive= " &mdash; #{@assistive_section_header}"
         - unless @preferred_common_name.blank?
           %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
-            = @preferred_common_name
+            = raw @preferred_common_name
             %small= link_to I18n.t(:learn_more_about_names_for_this_taxon),
               taxon_names_path(@taxon_page)
         - else

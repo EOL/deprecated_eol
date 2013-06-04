@@ -248,8 +248,8 @@ class DataObjectsController < ApplicationController
   def save_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     cdohe = @data_object.add_curated_association(current_user, he)
-    @data_object.update_solr_index
     clear_cached_media_count_and_exemplar(he)
+    @data_object.update_solr_index
     log_action(cdohe, :add_association)
     redirect_to data_object_path(@data_object), :status => :moved_permanently
   end

@@ -48,9 +48,9 @@ zh-CN:
       comment: 
         body: 评论
       community: 
-        description: 社区描述
+        description: 小组描述
         logo: 上传一个logo
-        name: 社区名称
+        name: 小组名称
       contact: 
         comments: 信息
         email: 电邮地址

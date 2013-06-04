@@ -468,13 +468,6 @@ class TaxonConcept < ActiveRecord::Base
     vet_synonyms(options)
   end
 
-  # NOTE - this is only used by the old API.
-  def curated_hierarchy_entries
-    published_hierarchy_entries.select do |he|
-      he.hierarchy.browsable == 1 && he.published == 1 && he.visibility_id == Visibility.visible.id
-    end
-  end
-
   def communities
     @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c|
       c.communities.select{ |com| com.published? } }.flatten.compact.uniq
@@ -710,8 +703,6 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
   
-  # TODO - there may have been changes to #has_details_text_for_user? ...I need to check that and change the
-  # TaxonPage class, if so.
   # TODO - this belongs in the same class as #overview_text_for_user.
   def text_for_user(the_user = nil, options = {})
     the_user ||= EOL::AnonymousUser.new(Language.default)
@@ -771,6 +762,13 @@ class TaxonConcept < ActiveRecord::Base
   # Since the normal deep_published_hierarchy_entries association won't be sorted or pre-loaded:
   def deep_published_sorted_hierarchy_entries
     sort_and_preload_deeply_browsable_entries(cached_deep_published_hierarchy_entries)
+  end
+
+  # NOTE - this is only used by the API
+  def published_sorted_hierarchy_entries_for_api
+    entries = hierarchy_entries.where(:hierarchy_id => Hierarchy.available_via_api.collect(&:id))
+    HierarchyEntry.preload_associations(entries, [ :hierarchy, { :name => :canonical_form }, :rank ])
+    sort_and_preload_deeply_browsable_entries(entries)
   end
 
   # TODO - the next two methods call he.hierarchy.browsable ...is this loaded efficiently?

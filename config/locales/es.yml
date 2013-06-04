@@ -14,6 +14,7 @@
 # Author: Fortega
 # Author: Invadinado
 # Author: Jacobo
+# Author: Jcfidy
 # Author: Jgauthier
 # Author: Larjona
 # Author: McDutchie
@@ -43,6 +44,7 @@ es:
   about_eol: Acerca de EOL
   about_resources: Acerca de los recursos
   about_resources_body: Te animamos a que proveas enlaces a terceros sitios relacionados con este organismo o grupo de organismos. Los ejemplos incluyen sitios que ofrecen claves de identificación, artículos, blogs, así como recursos educativos y de ciencia colectiva.
+  about_resources_notice: "Nota: todos los enlaces están sujetos a los Términos de Uso de EOL y a la revisión por parte de los revisores.<br />Si tiene alguna pregunta acerca de un recurso que desee enlazar a EOL, por favor <a href='%{contact_us_link}'>contáctenos</a>."
   about_resources_title: Enlaces a recursos externos
   account_information: Información de la cuenta
   account_information_menu: Información de cuenta
@@ -112,7 +114,7 @@ es:
         rights_statement: Declaración de los derechos
         source_url: URL de origen
       eol_statistic: 
-        active_curators: Conservadores activos
+        active_curators: Supervisores activos
         base_pages: Páginas de base
         collections_count: Colecciones
         communities_count: Comunidades
@@ -120,11 +122,11 @@ es:
         content_partners_with_published_resources: Con recursos publicados
         content_partners_with_published_trusted_resources: Con recursos fiables publicados
         created_at: Creado en
-        curator_actions_in_the_last_30_days: Acciones de un conservador en los últimos 30 días
-        curators: Conservadores
-        curators_assistant: Conservadores adjuntos
+        curator_actions_in_the_last_30_days: Acciones de un supervisor en los últimos 30 días
+        curators: supervisores
+        curators_assistant: Supervisores adjuntos
         curators_full: Conservadores con todas las funciones
-        curators_master: Conservadores maestros
+        curators_master: Supervisores maestros
         data_objects: Objetos de datos
         data_objects_images: Objetos de imagen
         data_objects_maps: Objetos de mapa
@@ -146,7 +148,7 @@ es:
         newly_published_resources_in_the_last_30_days: Recién publicado en el último mes
         objects_curated_in_the_last_30_days: Objetos supervisados en los últimos 30 días
         pages_count: Total de páginas
-        pages_curated_by_active_curators: Páginas supervisadas por conservadores activos
+        pages_curated_by_active_curators: Páginas supervisadas por supervisores activos
         pages_with_BHL_links: Páginas con enlaces BHL
         pages_with_BHL_links_no_text: Páginas con enlaces BHL pero sin texto
         pages_with_BHL_links_only: Páginas sólo con enlaces BHL
@@ -168,8 +170,9 @@ es:
         published_trusted_resources: Recursos fiables publicados
         published_unreviewed_resources: Recursos no revisados publicados
         redhotlist_pages: Páginas Rojas más demandadas
-        rich_hotlist_pages: Páginas ricas más demandadas
-        rich_pages: Páginas ricas
+        rich_hotlist_pages: Páginas populares más demandadas
+        rich_hotlist_pages_percentage: Lista de páginas más demandadas%
+        rich_pages: Páginas populares
         rich_redhotlist_pages: Páginas ricas rojas más demandadas
         udo_published: Texto enviado por el usuario
         udo_published_by_curators: Texto enviado por el responsable de mantenimiento
@@ -206,9 +209,9 @@ es:
         changes_to_my_watched_collection: Cambios a colecciones de su lista de seguimiento
         changes_to_my_watched_community: Cambios en comunidades de su lista de seguimiento
         comment_on_my_collection: Un comentario en una colección que administra
-        comment_on_my_community: Un comentario en una de las comunidades de la que eres miembro
+        comment_on_my_community: Un comentario en una de las comunidades de la que es miembro
         comment_on_my_contribution: Un comentario y/o una acción de supervisión en una de sus aportaciones
-        comment_on_my_profile: Un comentario en tu perfil
+        comment_on_my_profile: Un comentario en su perfil
         comment_on_my_watched_item: Comentarios sobre objetos, taxones, colecciones o comunidades en su lista de seguimiento
         curation_on_my_watched_item: Acciones de supervisión en objetos, taxones, colecciones o comunidades de su lista de seguimiento
         eol_newsletter: Envienme el boletín trimestral de EOL
@@ -266,18 +269,18 @@ es:
         bio: Biografía
         credentials: Credenciales
         curator_level: Nivel de supervisor
-        curator_scope: Alcance del curación
+        curator_scope: Alcance del supervisor
         disable_email_notifications: No enviarme NINGUNA actualización por correo electrónico
         email: Dirección de correo electrónico
         email_confirmation: Escriba de nuevo la dirección de correo electrónico <small>(para confirmar)</small>
         entered_password: Contraseña
-        entered_password_confirmation: Contraseña otra ves <small>(a confirmar)</small>
+        entered_password_confirmation: Contraseña otra vez <small>(a confirmar)</small>
         family_name: Apellido
         full_name: Nombre completo
         given_name: "Nombre:"
         language_abbr: Idioma preferido
         permissions: Permisos
-        requested_curator_level_id: Nivel deseado para curación
+        requested_curator_level_id: Nivel deseado para supervisor
         tag_line: Lema
         username: Nombre de usuario
     errors: 
@@ -285,10 +288,10 @@ es:
       full_messages: 
         format: "%{attribute} %{message}"
       messages: 
-        accepted: Obligatoria aceptación
-        blank: No puede dejar blanco
+        accepted: Aceptación bligatoria
+        blank: No lo puede dejar en blanco
         confirmation: no coincide con la confirmación
-        empty: no puede dejar vacío
+        empty: no lo puede dejar vacío
         equal_to: necesita ser igual a% {count}
         even: necesita ser par
         exclusion: está reservado
@@ -325,7 +328,7 @@ es:
         harvest_event: 
           attributes: 
             publish: 
-              inclusion: sólo permitido para el último evento de recogida y sólo si ese evento ya no está publicado
+              inclusion: sólo está permitido para el último evento de recogida y sólo si ese evento ya no está publicado
         inaccessible: No se pudo guardar el registro porque no era válido. Comprueba errores de validación y vuelve a enviarlo.
         open_authentications: 
           guid_provider_must_be_unique: la cuenta externa ya está conectada con una cuenta de EOL
@@ -991,9 +994,9 @@ es:
         page_header: Cobertura marina en EOL
         page_title: "Administración: Estadísticas marinas"
       page_richness: 
-        menu_link: Páginas ricas
-        page_header: Estadísticas de páginas ricas
-        page_title: "Administración: Estadísticas de las páginas ricas"
+        menu_link: Páginas populares
+        page_header: Estadísticas de las páginas populares
+        page_title: "Administración: Estadísticas de las páginas populares"
       users_data_objects: 
         menu_link: Texto enviado por el usuario
         page_header: Estadísticas de texto enviado por el usuario
@@ -1039,7 +1042,9 @@ es:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Haga clic aquí</a> para acceder a la prueba beta de los nuevos foros EOL. Sus comentarios son bienvenidos.
+  api_cache_time_to_live_parameter: el número de segundos que desea tener guardada la respuesta
   api_docs_collections_description: Dado el identificador de una colección, esta API devolverá todos los metadatos sobre la colección y los elementos que contiene. La lista de elementos puede ser filtrada por tipo de elemento, y ordenada por los atributos listados arriba.
+  api_refer_to_the_getting_started_page: Vea la <a href="%{link}">introducción</a> de la página para ver ejemplos sobre el uso de la API de EOL , condiciones de uso e información sobre cómo registrarse para una clave de API.
   application_version_advisory_information: Versión de la aplicación
   are_you_sure: ¿Está usted seguro?
   are_you_sure_this_action_cannot_be_undone: ¿Estás seguro?  No se puede deshacer esta acción.
@@ -1183,6 +1188,7 @@ es:
   classifications_rank_column_header: Posición
   classifications_recognized_by_column_header: Reconocido por
   classifications_split_column_header: Separar / Trasladar
+  classifications_split_one_classification_only: Por favor seleccione sólo una clasificación para dividir. Las otras clasificaciones se pueden mover a la nueva página después de que se haya creado
   classifications_summary_header_with_count: 
     one: "Encontrado en %{count} clasificación "
     other: Encontrado en %{count} clasificaciones
@@ -1204,6 +1210,7 @@ es:
   collect_item: Recoger el artículo
   collect_items: Recoger elementos
   collection_api_sort_field_notes: Si está incluido un parámetro sort_field, sólo serán devueltos los elementos de la colección cuyo campo de ordenación coincida exactamente con la cadena especificada
+  collection_copy_choose_all_items_target_title: "Copiar todos los elementos de \"%{collection}\" a:"
   collection_created_notice: Colección <em>%{collection_name}</em> creado correctamente.
   collection_created_with_count_notice: 
     one: Colección <em>%{collection_name}</em> creado correctamente con %{count} elemento de la colección.
@@ -1216,6 +1223,7 @@ es:
   collection_item_edit_by_javascript_not_authorized_error: No tiene permiso para modificar este elemento de la colección. Si usted es propietario o editor de la colección, por favor, vuelva a cargar la página y compruebe que ha iniciado sesión.
   collection_item_edit_page_title: Editar elemento de la colección <em>%{collection_name}</em>
   collection_item_not_found_error: No se encontró ese elemento de la colección.
+  collection_move_choose_all_items_target_title: "Mover todos los elementos de \"%{collection}\" a:"
   collection_name_cannot_be_blank: El nombre de la colección no puede estar vacío
   collection_name_label: Nombre de la colección
   collection_newsfeed: Newsfeed de Colección
@@ -1224,6 +1232,7 @@ es:
   collection_not_found_error: Lo sentimos, no se pudo encontrar esa colección.
   collection_not_updated_error: Lo sentimos, ha ocurrido un error, la colección no se pudo actualizar.
   collection_rating: Evaluación de la colección
+  collection_redindexed: La colección re-indexada.
   collection_updated_notice: Colección <em>%{collection_name}</em> actualizado correctamente.
   collection_was_added_to_community: "\"%{collection}\" se agregó a esta comunidad."
   collection_was_removed_by_owner: Esta colección fue retirada por su propietario.
@@ -1389,7 +1398,7 @@ es:
       header_news: Noticias de EOL
       meta_description: La Encyclopedia of Life es un esfuerzo sin precedentes para recopilar conocimientos científicos acerca de toda la vida animal y vegetal donde están disponibles fotos, información, datos y más datos sobre todos los seres vivos de nuestros reinos vegetal y animal.
       meta_keywords: Animales, Fotos de animales, Información de animales, Plantas, Vida vegetal, Fotografías de plantas, Información de plantas, Flora, Fauna
-      meta_title: Animales - Plantes - Imágenes e Información
+      meta_title: Animales - Plantas - Imágenes e Información
       see_all_eol_news: Ver más <span class="assistive">noticias de EOL</span>
       see_all_recent_activites: Ver más <span class="assistive">actividades de la última semana</span>
       see_all_statistics: Ver más <span class="assistive">estadísticas de EOL</span>
@@ -1616,6 +1625,7 @@ es:
   create_a_collection: Crear una colección
   create_a_community: Crear una comunidad
   create_a_community_login_advisory: Se le pedirá que inicie sesión antes de crear su comunidad
+  create_a_new_collection: Crear una nueva colección
   create_account: crear una cuenta
   create_child_page: Crear página secundaria
   create_collection_button: Crear colección
@@ -1648,8 +1658,8 @@ es:
   curation_error_untrust_reasons_invalid: Las razones para no confiar en %{association} no eran válidas
   curation_error_vetted_invalid: No puedes conservar %{association} a '%{vetted}'
   curation_error_visibility_invalid: No puedes conservar %{association} a '%{visibility}'
-  curation_privileges_page_description: Seleccionar el nivel de curación, asistente, total o curador principal. Aplicaciones curador y maestro completo debe incluir el alcance y las credenciales, se le notificará por correo electrónico una vez que sus datos han sido revisados ​​y aceptados. Aplicaciones del asistente curador no son moderados, y serán aprobados al instante. Aprenda más acerca de <a href="%{curators_url}">convertirse en un conservador</a> .
-  curation_privileges_page_title: Convertirse en un curador
+  curation_privileges_page_description: Seleccionar el nivel de revisor, asistente, total o revisor principal. Las aplicaciones de revisor y maestro completo debe incluir el alcance y las credenciales, se le notificará por correo electrónico una vez que sus datos hayan sido revisados ​​y aceptados. Las aplicaciones del asistente revisor no son moderadas, y serán aprobados al instante. Aprenda más acerca de <a href="%{curators_url}">convertirse en un supervisor</a> .
+  curation_privileges_page_title: Convertirse en un revisor
   curation_reason_placeholder: detalles adicionales (opcional)
   curation_scope: Alcance de supervisión
   curator: supervisor
@@ -1658,19 +1668,19 @@ es:
   curator_level: Nivel de curador
   curator_level_application_pending_notice: Gracias por solicitar convertirse en un curador. Le notificaremos por correo electrónico cuando hayamos revisado la aplicación.
   curator_level_assistant_approved_notice: ¡Felicidades! Usted es ahora un <em>Supervisor adjunto de EOL.</em> <a href="%{more_url}">Aprenda más sobre el puesto de supervisor adjunto</a> .
-  curator_level_assistant_curator: Curador Asistente
-  curator_level_full_curator: Curador Pleno
+  curator_level_assistant_curator: Revisor Asistente
+  curator_level_full_curator: Revisor Pleno
   curator_level_full_pending_notice: Gracias por solicitor ser un <em>curador pleno</em>. Le notificaremos por correo electrónico cuando hayamos revisado su solicitud.
-  curator_level_master_curator: Curador Master
+  curator_level_master_curator: Revisor Experto
   curator_level_master_pending_notice: Gracias por solicitor ser un <em>curador master</em>. Le notificaremos por correo electrónico cuando hayamos revisado su solicitud.
-  curator_level_with_indefinite_article_assistant_curator: un <strong>curador asistente</strong>
+  curator_level_with_indefinite_article_assistant_curator: un <strong>revisor asistente</strong>
   curator_level_with_indefinite_article_full_curator: un <strong>curador pleno</strong>
   curator_level_with_indefinite_article_master_curator: un <strong>curador master</strong>
-  curator_profile: Perfil de curador
+  curator_profile: Perfil del revisor
   curator_profile_menu: Perfil de supervisor
   curator_profile_of: perfil de supervisor de %{name}
   curator_question: ¿Supervisor?
-  curator_scope_colon: "Alcance de curador:"
+  curator_scope_colon: "Alcance del revisor:"
   curator_signup_message: Para solicitar privilegios de supervisor debe indicar el alcance de sus credenciales a continuación.  Se le notificará por correo electrónico si se acepta su solicitud de privilegios de supervisor.
   curator_status_changed_by: Estado de curador cambiado por %{user} en fecha %{date}
   curators: Curadores
@@ -1799,7 +1809,7 @@ es:
   dato_update_users_text_not_owner_exception: Sólo el autor original de este objeto de texto puede editarlo.
   default: "%Y-%m-%d"
   default_focus_collection_name_from_community: "%{name}'s enfoque"
-  default_watch_collection_name: "%{username}'s lista de vigilancia"
+  default_watch_collection_name: lista de vigilancia de %{username}
   definition: Definición
   delete: borra
   delete_community: Borrar esta comunidad
@@ -1906,8 +1916,8 @@ es:
       page_header: Estadísticas de socios de contenido
       page_title: Estadísticas
     curators: 
-      menu_link: Estadísticas de conservador
-      page_header: Estadísticas de conservador
+      menu_link: Estadísticas del revisor
+      page_header: Estadísticas del revisor
       page_title: Estadísticas
     data_objects: 
       menu_link: Objetos de datos
@@ -1926,8 +1936,8 @@ es:
       page_header: Cobertura marina en EOL
       page_title: Estadísticas
     page_richness: 
-      menu_link: Páginas ricas
-      page_header: Estadísticas de páginas ricas
+      menu_link: Páginas populeres
+      page_header: Estadísticas de las páginas populares
       page_title: Estadísticas
     users_data_objects: 
       menu_link: Texto enviado por el usuario
@@ -2106,7 +2116,7 @@ es:
         one: "%{count} mensaje"
         other: "%{count} mensajes"
       replying_to_post: "Respuesta para:"
-      topic_and_post_delete_successful: Se eliminan artículo y hilo correctamente
+      topic_and_post_delete_successful: Se eliminó el post y el hilo correctamente
       update_failed: Ha ocurrido un error, el mensaje no ha podido ser actualizado
       update_successful: El artículo fue actualizado correctamente
     posts_heading: Publicaciones
@@ -2187,7 +2197,7 @@ es:
         name: Tu nombre
       content_page: 
         active: Publicado
-        active_more: Páginas publicadas será visible para el público. Desmarque <em>published</em> si desea evitar que los usuarios en general puedan ver las versiones de esta página en cualquier idioma.
+        active_more: Las páginas publicadas serás visibles para el público. Desmarque <em>published</em> si desea evitar que los usuarios en general puedan ver las versiones de esta página en cualquier idioma.
         page_name: Nombre único <small>(en minúsculas ISO caracteres básicos América alfanuméricos y subrayados)</small>
         page_name_more: Introduzca un único identificador de auto descriptivo y significativo y persistente para esta página. El nombre que introduzca aquí se utiliza para generar el URL de esta página, por ejemplo, el <em>terms_of_use</em> nombre único se convierte en el <em>http://www.eol.org/info/terms_of_use</em> URL.
         parent_content_page_id: Padre
@@ -2196,7 +2206,7 @@ es:
         created_at: Registrado
         current_agreement: Acuerdo actual
         description_of_data: Descripción de datos <small>(privada)</small>
-        description_of_data_more: Por favor nos proporcione una descripción del tipo de información que tiene, cuántos elementos están disponibles, qual organismos se refieren a y si han sido montado o verificado por expertos cualificados o por una comunidad bien informada.
+        description_of_data_more: Por favor proporcionenos una descripción del tipo de información que tiene, cuántos elementos están disponibles, a que organismos se refieren y si han sido montado o verificado por expertos cualificados o por una comunidad bien informada.
         display_name: Nombre mostrado <small>(opcional)</small>
         display_name_more: Proporcionar un nombre alternativo visible públicamente para usar en lugar de su <em>nombre del proyecto</em>.
         last_action: Última acción
@@ -2205,7 +2215,7 @@ es:
         logo_new: "Subir un nuevo logotipo:"
         notes: Notas del proyecto <small>(privados)</small>
         oldest_published_harvest_event: Primera publicación
-        public_more: Los perfiles de los socios de contenido público son visibles para todos y lainformación de los asociados se incluye en los listados de socios. Anule la selección para excluir detalles de contenido de los socios de los listados y restrinja el acceso al perfil del usuario solo al socio que creó ell contenido y a los administradores de EOL.
+        public_more: Los perfiles de los socios de contenido público son visibles para todos y la información de los asociados se incluye en los listados de socios. Anule la selección para excluir detalles del contenido de los socios de los listados y restrinja el acceso al perfil de usuario solo al socio que creó el contenido y a los administradores de EOL.
         user_id: Detalles de Socio Contenido administrados por
       content_partner_agreement: 
         mou_url: Dirección URL del fichero del acuerdo <small>(alternativa opcional)</small>
@@ -2215,7 +2225,7 @@ es:
       data_object: 
         bibliographic_citation: Cita bibliográfica
         bibliographic_citation_more: Se recomienda una cita para estos datos en forma de referencia bibliográfica, incluye suficientes detalles para identificar los datos con la menor ambigüedad posible.
-        description: Texto <small>(algunas marcas se permite código HTML)</small>
+        description: Texto <small>(se permite algún código HTML)</small>
         license_id: Licencia
         license_id_more: Lea la <a href="%{policy_url}">licencia política de EOL</a>
         object_title: Título
@@ -2312,13 +2322,13 @@ es:
         credentials_more_academic: Facultad, personal o estudiante graduado en un departamento pertinente de Universidad o colegio.
         credentials_more_author: La autoría de una publicación revisados (proporcionar referencia).
         credentials_more_professional: Miembro de una sociedad profesional.
-        credentials_more_referral: Referencia del curador actual.
-        credentials_more_successful_assistant_curator: Historia de éxito como un curador asistente.
-        curation_application: Convertirse en un conservador
-        curation_application_more: Si desea modificar sus privilegios de curación, sólo presente una solicitud y vamos a revisar su elegibilidad.
+        credentials_more_referral: Referencia del revisor actual.
+        credentials_more_successful_assistant_curator: Historial de éxito como revisor asistente.
+        curation_application: Convertirse en revisor
+        curation_application_more: Si desea modificar sus privilegios de revisor, tan sólo presente una solicitud y vamos a revisar su elegibilidad.
         curation_priveleges_credentials: Credenciales <small>(sólo para conservadores de máximo rango & maestros conservadores)</small>
         curator_level: Actualmente estás %{curator_level_with_indefinite_article}.
-        curator_scope: Alcance de Curación
+        curator_scope: Alcance de la revisión
         curator_scope_more: "Por favor, indique el alcance de su experiencia. Por ejemplo: \"Los roedores de Borneo\", \"Tri-tróficos interacciones\", o \"Problemas de conservación de los peces\". Esto no limitará su capacidad de cura, sino que informar a la comunidad EOL."
         email: Dirección de correo electrónico
         email_reports_frequency_hours: ¿Con qué frecuencia desea recibir alertas por correo electrónico acerca de la actividad de sus contribuciones?
@@ -2333,11 +2343,11 @@ es:
         notification_settings: Configuración de notificaciones
         notification_settings_more: Configure las opciones de notificación.
         open_authentications: Cuentas conectadas
-        open_authentications_connected_accounts: Tus cuentas conectadas
-        open_authentications_more: Administrar conexiones a cuentas externas que se pueden utilizar para iniciar sesión en EOL. <a href="%{open_authentications_url}">Editar cuentas conectadas</a>.
+        open_authentications_connected_accounts: Sus cuentas conectadas
+        open_authentications_more: Administre las conexiones a cuentas externas que se pueden utilizar para iniciar sesión en EOL. <a href="%{open_authentications_url}">Editar cuentas conectadas</a>.
         requested_curator_level: Su solicitud para convertirse en %{curator_level_with_indefinite_article} está pendiente.
-        requested_curator_level_id_more: Seleccione <em>Curador Asistente</em> si usted todavía no tiene credenciales.  Seleccione <em>Curador Pleno</em> si un científico professional o estudiante de postgrado con credenciales. Seleccione <em>Curador Master</em> si usted es un curador experimentado y quiere asumir más responsabilidades.
-        tag_line: "Lema o título <small>ejemplo: \"Entusiasta de ave\"</small>"
+        requested_curator_level_id_more: Seleccione <em>Revisor Asistente</em> si usted todavía no tiene credenciales.  Seleccione <em>Revisor Pleno</em> si es un científico professional o un estudiante de postgrado con credenciales. Seleccione <em>Revisor Experto</em> si usted es un revisor experimentado y quiere asumir más responsabilidades.
+        tag_line: "Lema o título <small>ejemplo: \"Entusiasta de las aves\"</small>"
         user_identities: Soy
         username: Nombre de usuario <small>(4-32 caracteres)</small>
         username_or_email: Nombre de usuario o dirección de correo electrónico
@@ -2469,6 +2479,7 @@ es:
   image_objects_will_contain_two_mediaurl_elements: Los objetos de imagen tendrán dos elementos tipo 'mediaURL' - el primero es la dirección URL de la imagen en el sitio web del proveedor, y el segundo, la dirección URL de la versión guardada en caché del fichero alojado en un servidor de EOL. La versión de la imagen guardada en EOL estará escalada proporcionalmente si la imagen original tiene un tamaño superior a 460 pixeles de ancho por 345 pixeles de alto.
   image_of_taxon: Imagen de %{taxon_name}
   image_rating: Evaluación de la imagen
+  image_title_with_taxa: Imagen de los %{taxones}
   images: Imágenes
   images_in_red_are_not_trusted: Las imágenes en color rojo no son de confianza.
   images_in_yellow_are_not_reviewed: Las imágenes que están en amarillo no están revisadas.
@@ -2946,7 +2957,7 @@ es:
       message: Este es un recordatorio de correo electrónico automatizado de Encyclopedia of Life. Las estadísticas de uso de la Web para los datos facilitados a EOL por %{partner_full_name} durante %{month} %{year} están ahora disponibles en %{partner_statistics_url}.
       subject: Recordatorio de Estadísticas de uso de The Encyclopedia of Life para el socio %{partner_full_name}, en %{month} de %{year}
     curator_approved: 
-      message: "Gracias por solicitar privilegios de conservador %{curator_level}. Su solicitud ha sido aprobada.\nPara obtener más información sobre conservación y qué funciones están disponibles para usted, visite http://www.eol.org/curators."
+      message: "Gracias por solicitar privilegios de revisor %{curator_level}. Su solicitud ha sido aprobada.\nPara obtener más información sobre la revisión y qué funciones hay disponibles para usted, visite http://www.eol.org/curators."
       subject: Se ha aprobado su solicitud de privilegios de conservador %{curator_level} de Encyclopedia of Life
     greeting_dear_name_with_comma: Querido %{name},
     signature_basic: El Equipo de The Encyclopedia of Life
@@ -3085,6 +3096,9 @@ es:
   permission_granted: Permiso concedido
   permission_revoked: Se revocó el permiso.
   permissions_list_header: Permisos en EOL
+  permissions_users_count: 
+    one: "%{count} miembro;"
+    other: "%{count} miembros"
   person_rating: Evaluación de la persona
   personal_profile_menu: Perfil personal
   personal_space: Espacio personal
@@ -3410,7 +3424,7 @@ es:
   source_information_header: Información de fuente
   source_url: URL de origen
   special_collection: Colección especial
-  special_collections_cannot_be_destroyed: Esta colección es especial y no puede ser destruida.
+  special_collections_cannot_be_destroyed: Esta colección es la única colección asociada a su comunidad y no puede ser eliminada.
   species: Especie
   species_curated: Especie curada
   species_profile_model: Modelo de Perfil de Especies (SPM)
@@ -3434,6 +3448,7 @@ es:
   submit_term: Enviar término
   suggested_result_page_id: "Identificador de la página de resultados sugeridos:"
   suggested_results_avg: Media de los resultados sugeridos
+  summary_thumbnail_title: "Resumen:"
   supplier: Proveedor
   supplier_allcaps: "PROVEEDOR:"
   supplier_colon: "Proveedor:"
@@ -3512,7 +3527,7 @@ es:
           meta_title_with_common_name: Información sobre %{preferred_common_name} (%{scientific_name} tal como fue clasificado por %{hierarchy_provider})
           tweet_text: Información acerca de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
         meta_description: Información acerca de %{scientific_name} en la Encyclopedia of Life
-        meta_description_no_data: "!No hay datos disponibles para %{scientific_name} en la Encyclopedia of Life. EOL te invita a aportar datos sobre %{scientific_name} como conservación, distribución, ecología, hábitat, morfología y otros."
+        meta_description_no_data: No hay datos disponibles para %{scientific_name} en la Encyclopedia of Life. EOL te invita a aportar datos sobre %{scientific_name} como conservación, distribución, ecología, hábitat, morfología y otros.
         meta_description_with_chapter_list: Información acerca de %{scientific_name} en la Encyclopedia of Life. Incluye información sobre %{chapter_list}.
         meta_description_with_common_name: Información sobre %{preferred_common_name}, conocido científicamente como %{scientific_name} en la Encyclopedia of Life.
         meta_description_with_common_name_no_data: No hay datos disponibles sobre %{preferred_common_name} también conocido como %{scientific_name} en la Encyclopedia of Life. EOL te invita a aportar datos de % {preferred_common_name} (% {scientific_name}) sobre conservación, distribución, ecología, hábitat, morfología y otros.
@@ -3717,6 +3732,7 @@ es:
   taxon_citizen_science_resources_empty: Nadie ha contribuido aún con un enlace de ciencia ciudadana a esta página.
   taxon_concept_stats: Estadísticas de concepto taxonómico
   taxon_details_empty: Nadie ha contribuido aún con algún detalle sobre este taxón.
+  taxon_details_empty_in_this_language: Nadie ha contribuido aún con algún detalle sobre este taxón.
   taxon_education_empty: Nadie ha contribuido aún con un recurso educativo para esta página.
   taxon_education_header: Recursos educativos
   taxon_education_link: Recursos educativos
@@ -3977,6 +3993,9 @@ es:
   user_no_longer_has_manager_access_to_collection: "%{user} ya no tiene acceso de administrador en \"%{collection}\"."
   user_pending_notifications_assitive: <span class="assistive">notificaciones</span>
   user_pending_notifications_comments_assistive: <span class="assistive">Comentarios</span>
+  user_pending_notifications_comments_with_count: 
+    one: "%{count} Comentario"
+    other: "%{count} Comentarios"
   user_pending_notifications_comments_with_count_assistive: 
     one: "%{count}<span class=\"assistive\"> comentario</span>"
     other: "%{count}<span class=\"assistive\"> comentarios</span>"
@@ -4153,9 +4172,9 @@ es:
   users_content_partners_with_count: 
     one: "%{count} Socio de contenido "
     other: "%{count} Socios de contenido"
-  users_curation_header: Cualidades del curador
+  users_curation_header: Cualidades del revisor
   users_form_account_header: Su cuenta
-  users_form_curation_header: Cualidades del curador
+  users_form_curation_header: Cualidades del revisor
   users_form_profile_info_header: Información pública del perfil
   users_form_tip: Nombre de usuario es obligatorio para todos los usuarios, otros elementos marcados como requeridos %{required_icon} son opcionales para los usuarios generales pero obligatorios para los curadores.
   users_member_of_count_communities: 
@@ -4215,6 +4234,7 @@ es:
   vivisimo: Vivisimo
   wants_colon: "Quiere:"
   warning_you_are_editing_as_admin: "AVISO: solo estás autorizado a editar esta página porque eres administrador."
+  watch_collections_cannot_be_destroyed: Esta colección es la única asociada a su comunidad y no puede ser eliminada.
   watch_list: Lista de Vigilancia
   watch_list_newsfeed: Suministro de Noticias de la Lista de Vigilancia
   web_service_base_url: URL base del servicio Web

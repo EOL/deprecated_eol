@@ -37,6 +37,8 @@ ia:
         annotation: Annotation
         refs: Referentias
         sort_field: Ordinar per
+      collection_job: 
+        overwrite: Reimplaciar duplicatos
       comment: 
         body: Commento
       community: 
@@ -126,7 +128,7 @@ ia:
         pages_with_image: Paginas con imagine
         pages_with_image_no_text: Paginas con imagine ma sin texto
         pages_with_map: Paginas con carta
-        pages_with_score_10_to_39: Paginas con score 10-39
+        pages_with_score_10_to_39: Paginas con score 10-40
         pages_with_score_less_than_10: Paginas con score inferior a 10
         pages_with_sound: Paginas con audio
         pages_with_text: Paginas con texto
@@ -144,6 +146,19 @@ ia:
         udo_published: Texto submittite per usator
         udo_published_by_curators: Texto submittite per conservator
         udo_published_by_non_curators: Texto non submittite per conservator
+      forum: 
+        description: Description <small>(optional)</small>
+        forum_category_id: Categoria
+        name: Nomine del foro
+      forum_category: 
+        description: Description <small>(optional)</small>
+        title: Nomine del categoria
+      forum_post: 
+        subject: Subjecto
+        text: Texto
+      forum_topic: 
+        subject: Subjecto
+        text: Texto
       harvest_event: 
         resource: Ressource
       hierarchy: 
@@ -155,6 +170,10 @@ ia:
         request_publish: Requestar publication
       name: 
         string: Nomine
+      news_item: 
+        active: Publicate
+        page_name: Nomine unic
+        sort_order: Ordine de classification
       notification: 
         changes_to_my_watched_collection: Cambiamentos in collectiones in tu observatorio
         changes_to_my_watched_community: Cambiamentos in communitates in tu observatorio
@@ -207,6 +226,12 @@ ia:
         meta_description: Description de metadatos
         meta_keywords: Parolas-clave de metadatos
         title: Titulo
+      translated_news_item: 
+        active_translation: Publicate
+        body: Texto
+        meta_description: Description de metadatos
+        meta_keywords: Parolas-clave de metadatos
+        title: Titulo
       user: 
         agreed_with_terms: Accordo con le conditiones de uso
         api_key: Clave API
@@ -223,6 +248,7 @@ ia:
         full_name: Nomine complete
         given_name: Prenomine
         language_abbr: Lingua preferite
+        permissions: Permissiones
         requested_curator_level_id: Nivello desirate de curation
         tag_line: Motto
         username: Nomine de usator
@@ -272,6 +298,7 @@ ia:
           attributes: 
             publish: 
               inclusion: es solmente permittite pro le ultime evento de recolta e solmente si iste evento non es jam publicate
+        inaccessible: Le registro non pote esser salveguardate perque illo es invalide. Corrige le errores de validation e resubmitte lo.
         open_authentications: 
           guid_provider_must_be_unique: le conto externe es jam connectite con un conto EOL
           provider_user_id_must_be_unique: solmente un conto de cata fornitor externe pote esser connectite a un conto EOL
@@ -280,10 +307,10 @@ ia:
             accesspoint_url: 
               blank: non pote esser vacue, a minus que tu incarga un file de ressource in su loco
               inaccessible: es inaccessibile; le URL debe esser accessibile al publico
-              invalid: es invalide; debe punctar a un file XML, XML.GZIP o XML.GZ.
+              invalid: es invalide; debe punctar a un file XML, XML.GZIP, XML.GZ o ZIP.
             dataset: 
               blank: non pote esser vacue a minus que tu specifica le URL de un insimul de datos in su loco
-              wrong_type: es del typo incorrecte; debe esser un file GZIP, TAR o XML
+              wrong_type: es del typo incorrecte; debe esser un file GZIP, TAR, ZIP o XML
             dwc_archive_url: 
               inaccessible: es inaccessibile; le URL debe esser accessibile al publico
               invalid: es invalide; debe punctar a un file TAR.GZIP, TAR.GZ o TGZ.
@@ -950,7 +977,14 @@ ia:
         rights_statement_more: Declaration de derectos de uso secundo le requisitos del licentias Creative Commons Attribution (CC-BY). Per favor declara le attribution <q cite="http://creativecommons.org/licenses/by/3.0">del maniera specificate per le autor o licentiator</q>.
         source_url: URL verso le objecto de datos original
         toc_item: Subcapitulo
+      data_object_link: 
+        description: Description <small>(alcun marcation HTML es permittite)</small>
+        link_type: Categoria
+        source_url: URL pro ligamine
+        toc_item: Subjecto
       eol_statistic: 
+        date_one: Data
+        date_two: Data
         download_all: totes <small>(includer registros de tote le paginas)</small>
       google_analytics_partner_summaries: 
         page_views: Visitas de paginas <small>(numeros de visitas a paginas)</small>
@@ -972,6 +1006,11 @@ ia:
         complete_more: "Un hierarchia curate assume que cata elemento es intendite pro esser unic, i.e. nomines correspondente essera tractate como homonymos. <strong>ATTENTION: Non cambia iste attributo a minus que tu es certe del stato de homonymos in le hierarchia. Facer isto poterea mitter in periculo le integritate del datos.</strong>"
         request_publish: Publication requestate
         request_publish_more: Indica si il ha un requesta pendente a promover iste hierarchia pro devenir un del primari hierarchias navigabile in EOL.
+      news_item: 
+        active: Publicate
+        active_more: Le paginas publicate essera visibile al publico a partir del data e hora seligite. Dismarca <em>publicate</em> si tu non vole que le usatores in general pote vider versiones de iste articulo de novas in omne lingua.
+        page_name: Nomine unic <small>(characteres alphanumeric latin basic de ISO in minusculas e tractos de sublineamento solmente)</small>
+        page_name_more: Specifica un identificator unic, auto-descriptive, significative e persistente pro iste articulo de novas, p.ex. le nomine unic <em>nove_version_de_eol</em> es convertite al URL <em>http://eol.org/news/nove_version_de_eol</em>.
       open_authentication: 
         connect: Adder
         connected: Connectite
@@ -1007,6 +1046,14 @@ ia:
         meta_description_more: Forni un curte description que summarisa le conceptos clave del contento del pagina. Iste description es usate a vices per le motores de recerca Web pro verificar le relevantia e pro esser includite in le resultatos del recercas.
         meta_keywords_more: Entra un lista, separate per commas, de parolas e curte phrases que reflecte le plus ben le contento del pagina. Iste parolas e phrases clave es usate a vices per le motores de recerca Web pro evalutar le relevantia del un pagina contra le criterios del recerca.
         title_more: Le titulo de iste contento apparera in le area de titulo del pagina. Le titulo debe includer le parolas-clave le plus relevante al contento.
+      translated_news_item: 
+        active_translation: Publicate
+        active_translation_more: Le traductiones publicate essera visibile al publico, a minus que le articulo de novas mesme non es publicate. Dismarca <em>publicate</em> si tu vole que le usatores in general non vide iste version del articulo de novas.
+        body_more: "Entra le contento del articulo de novas in le area de texto. Usa le menu disrolante <em>Formato</em> pro seliger le appropriate elementos de texto semantic, per exemplo, selige <em>Titulo 2</em> pro un titulo del secunde nivello. Nota ben: <em>Titulo 1</em> es reservate pro le titulo del pagina, dunque, le titulos in le area de texto comencia con <em>Titulo 2</em>. Selige <em>Fonte</em> pro cambiar al vista de codice fonte HTML le qual permitte inserer e modificar HTML manualmente."
+        language_id: Lingua
+        meta_description_more: Forni un curte description que summarisa le conceptos clave del contento del articulo de novas. Iste description es usate a vices per le motores de recerca Web pro verificar le relevantia e pro esser includite in le resultatos del recercas.
+        meta_keywords_more: Entra un lista, separate per commas, de parolas e curte phrases que reflecte le plus ben le contento del articulo de novas. Iste parolas e phrases clave es usate a vices per le motores de recerca Web pro evalutar le relevantia del articulo de novas contra le criterios del recerca.
+        title_more: Le titulo de iste articulo de novas apparera in le area de titulo del pagina. Le titulo debe includer le parolas-clave le plus relevante al contento.
       user: 
         agreed_with_terms: Io accepta le <a href="%{terms_url}">conditiones de uso</a>
         api_key_more: Lege plus a proposito de <a href="%{api_docs_url}">adder un clave a tu appellos al API</a>.

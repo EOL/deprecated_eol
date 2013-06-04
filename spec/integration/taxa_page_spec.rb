@@ -37,6 +37,16 @@ describe 'Taxa page basic tests' do
     body.should_not include('Tom &amp;amp; Jerry')
   end
 
+  it 'should not convert ampersands in preferred common names' do
+    tc = build_taxon_concept
+    curator = build_curator(tc)
+    tc.add_common_name_synonym("Tom&#39;s Jerry", :agent => curator.agent, :language => Language.english,
+                               :vetted => Vetted.trusted, :preferred => true)
+    visit taxon_overview_path(tc.id)
+    body.should include("Tom's Jerry")
+    body.should_not include('Tom&#39;s Jerry')
+  end
+
   it 'should not show deleted communities in overview' do
     tc = build_taxon_concept
     collection = Collection.gen

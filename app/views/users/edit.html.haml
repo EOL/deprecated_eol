@@ -1,3 +1,4 @@
+= javascript_include_tag "ckeditor/init"
 - translation_vars = {:required_icon => image_tag('v2/icon_required.png', :alt => '')}
 #profile_edit.article
   = form_for @user, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |user_form|
@@ -43,22 +44,6 @@
                     %label
                       = check_box_tag "user[user_identity_ids][]", identity.id, @user.user_identities.include?(identity), :id => "user_user_identity_ids_#{identity.id}"
                       = identity.label
-      - if @user.is_curator? || @user.is_pending_curator?
-        %fieldset.curation
-          .header
-            %h3= I18n.t(:users_form_curation_header)
-          %p.tip= raw(t(".form_tip_curation", translation_vars.dup))
-          %dl
-            %dt
-              = user_form.label :credentials
-            %dd
-              = user_form.text_area :credentials
-              %p= user_form.allowed_html_help_tip
-            %dt
-              = user_form.label :curator_scope
-            %dd
-              = user_form.text_area :curator_scope
-              %p= user_form.allowed_html_help_tip
     .fieldsets
       %fieldset.account
         .header
@@ -141,6 +126,22 @@
               = content_tag :button , :name => :commit_generate_api_key, :type => :submit do
                 = I18n.t('helpers.submit.user.generate_api_key')
 
+    - if @user.is_curator? || @user.is_pending_curator?
+      %fieldset.curation_credentials
+        .header
+          %h3= I18n.t(:users_form_curation_header)
+        %p.tip= raw(t(".form_tip_curation", translation_vars.dup))
+        %dl
+          %dt
+            = user_form.label :credentials
+          %dd
+            = user_form.cktext_area(:credentials, :toolbar => 'UserEdit', :height => 200, :width => 518)
+            %p= user_form.allowed_html_help_tip
+          %dt
+            = user_form.label :curator_scope
+          %dd
+            = user_form.text_area :curator_scope
+            %p= user_form.allowed_html_help_tip
     %fieldset.actions
       = user_form.submit I18n.t('helpers.submit.user.update')
       = link_to I18n.t('helpers.submit.cancel'), @user

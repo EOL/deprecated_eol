@@ -190,6 +190,7 @@ TocItem.gen_if_not_exists(:label => 'Biomedical Terms',       :view_order => 66,
 TocItem.gen_if_not_exists(:label => 'Search the Web',         :view_order => 67, :parent_id => ref_and_info.id)
 education = TocItem.gen_if_not_exists(:label => 'Education',  :view_order => 68)
 TocItem.gen_if_not_exists(:label => 'Education Links',        :view_order => 69, :parent_id => education.id)
+TocItem.gen_if_not_exists(:label => 'Education Resources',    :view_order => 70, :parent_id => education.id)
 
 # Ensure all of the FOR_URIs are there:
 order = 75

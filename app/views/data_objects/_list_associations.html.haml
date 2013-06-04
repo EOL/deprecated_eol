@@ -25,5 +25,8 @@
     - unless @latest_published_revision.nil?
       = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision) unless for_worklist
 
+  - if toc_count = data_object.toc_items.count > 0
+    %p.toc_items= I18n.t(:data_object_toc_items_list, quoted_toc_titles: data_object.toc_items.map { |ti| %("#{ti.label}") }.to_sentence, count: toc_count)
+
   - if for_worklist
     = render :partial => 'data_objects/ignore', :locals => { :data_object => @data_object }

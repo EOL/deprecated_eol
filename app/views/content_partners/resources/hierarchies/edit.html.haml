@@ -27,11 +27,11 @@
         %dd
           = hierarchy_form.text_area :description
     %fieldset.checkboxes
-      - hierarchy_form.label :browsable do
+      = hierarchy_form.label :browsable do
         = hierarchy_form.check_box :browsable
         = I18n.t('activerecord.attributes.hierarchy.browsable')
         %p= I18n.t('helpers.label.hierarchy.browsable_more')
-      - hierarchy_form.label :request_publish do
+      = hierarchy_form.label :request_publish do
         = hierarchy_form.check_box :request_publish
         = I18n.t('helpers.label.hierarchy.request_publish')
         %p= I18n.t('helpers.label.hierarchy.request_publish_more')

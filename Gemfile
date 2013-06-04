@@ -22,6 +22,7 @@ end
 
 group :staging do
   gem 'debugger'
+  gem 'hipchat'
 end
 
 group :development, :staging_dev, :staging_dev_cache, :test_dev do

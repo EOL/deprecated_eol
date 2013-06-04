@@ -1071,6 +1071,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def title_same_as_toc_label(toc_item, options = {})
+    return false unless toc_item
     options[:language] ||= Language.default
     return true if toc_item.label(options[:language].iso_code).downcase == object_title.downcase
     if options[:language] != Language.default

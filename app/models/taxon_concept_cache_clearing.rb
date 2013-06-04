@@ -9,6 +9,10 @@ class TaxonConceptCacheClearing
     TaxonConceptCacheClearing.new(taxon_concept).clear
   end
 
+  def self.clear_collections(taxon_concept)
+    TaxonConceptCacheClearing.new(taxon_concept).clear_collections
+  end
+
   # TODO - this should really be for an association, not a combo of these two:
   def self.clear_for_data_object(taxon_concept, data_object)
     TaxonConceptCacheClearing.new(taxon_concept).clear_for_data_object(data_object)
@@ -23,6 +27,13 @@ class TaxonConceptCacheClearing
     clear_exemplars
     clear_media_counts
     clear_images
+  end
+
+  # This could be really painful. Be careful.
+  def clear_collections
+    taxon_concept.containing_collections.each do |collection|
+      EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
+    end
   end
 
   # TODO - test

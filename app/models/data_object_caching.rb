@@ -33,12 +33,10 @@ class DataObjectCaching
   end
 
   def clear
-    reg = registered[data_object.id]
-    if reg
-      registered[data_object.id].each do |name|
-        Rails.cache.delete(name)
-      end
+    registered.each do |name|
+      Rails.cache.delete(name)
     end
+    clear_registered
   end
 
   def title(language)
@@ -77,7 +75,7 @@ class DataObjectCaching
         assocs.group_by { |el| el.source.class }.each do |k,v|
           hash[k] = v.map(&:source).map(&:id)
         end
-        hash # Store the hash,
+        hash # Store the hash
       end
     end
     assocs # Return the associations.
@@ -104,22 +102,25 @@ class DataObjectCaching
 
   def register(what)
     reg = registered.dup
-    reg[data_object.id] ||= []
-    unless reg[data_object.id].include?(what)
-      reg[data_object.id] << what
-      Rails.cache.write(DataObject.cached_name_for('register'), reg)
+    unless reg.include?(what)
+      reg << what
+      Rails.cache.write(register_name, reg)
     end
   end
 
   def registered
-    reg = Rails.cache.read(DataObject.cached_name_for('register'))
-    return reg if reg
-    clear_register
-    return {}
+    reg = Rails.cache.read(register_name)
+    return reg if reg.is_a?(Array)
+    clear_registered
+    return []
   end
 
-  def clear_register
-    Rails.cache.write(DataObject.cached_name_for('register'), {})
+  def register_name
+    DataObject.cached_name_for("register_#{data_object.id}")
+  end
+
+  def clear_registered
+    Rails.cache.write(register_name, [])
   end
 
 end

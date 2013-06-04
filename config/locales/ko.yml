@@ -18,6 +18,8 @@ ko:
     one: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
     other: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
   about_eol: EOL 소개
+  about_resources: 자료 정보
+  about_resources_title: 바깥 자료의 링크
   account_information: 계정 정보
   account_information_menu: 계정 정보
   account_registered_but_not_ready_try_later: 계정은 등록했지만 접근할 준비가 되지 않았습니다. 5분 후에 다시 시도하세요.
@@ -143,8 +145,10 @@ ko:
         published_unreviewed_resources: 게시한 검토하지 않는 자료
         redhotlist_pages: 빨간 인기 목록 문서
         rich_hotlist_pages: 풍부한 인기 목록 문서
+        rich_hotlist_pages_percentage: 풍부한 인기 목록 문서 %
         rich_pages: 풍부한 문서
         rich_redhotlist_pages: 풍부한 빨간 인기 목록 문서
+        rich_redhotlist_pages_percentage: 풍부한 빨간 인기 목록 문서 %
         udo_published: 사용자가 제출한 텍스트
         udo_published_by_curators: 큐레이터가 제출한 텍스트
         udo_published_by_non_curators: 큐레이터가 아닌 사용자가 제출한 텍스트
@@ -1088,6 +1092,7 @@ ko:
   by_caps: 사용자
   by_scientific_name_table_header: 과확적인 이름
   cache_store: 캐시 저장소
+  caching_results: 캐싱 결과
   calculate_averages_slow: 평균 계산 (느림)
   call_api: API 호출
   cancel: 취소
@@ -1955,6 +1960,7 @@ ko:
   flash_notice_redirected_from_search_html_more_results: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">다른 찾기 결과를 보려면 여기를 클릭하세요.</a>
   flash_video: 플래시 동영상
   flickr: Flickr
+  flipboard: 플립보드
   focus_collection_edit: 각 모음집의 편집 문서에서 직접 이 공동테의 모음집을 편집할 수 있습니다.
   focus_list_newsfeed: 뉴스 피드 집중 목록
   for_images_to_reference_parens: (그림 참고용)
@@ -2364,6 +2370,7 @@ ko:
   image_object: 그림 개체
   image_of_taxon: "%{taxon_name}의 그림"
   image_rating: 그림 평가
+  image_title_with_taxa: "%{taxa}의 그림"
   images: 그림
   images_in_red_are_not_trusted: 빨간 그림은 신뢰하지 않았습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
@@ -2679,6 +2686,8 @@ ko:
     one: "%{name}에서 항목 %{count}개를 옮겼습니다."
     other: "%{name}에서 항목 %{count}개를 옮겼습니다."
   multimedia_links: 멀티미디어 링크
+  must_be_checked_in_to_show: "- 사용자에게 보려주려면 확인해야 합니다"
+  must_be_checked_in_to_view: "- 보려면 확인해야 합니다"
   must_be_less_than_128_characters_long: 글자 128개 미만이어야합니다.
   must_be_logged_in: 이 행동을 수행하려면 로그인해야 합니다.
   must_provide_search_term_error: 검색어를 입력해야 합니다.
@@ -2822,6 +2831,8 @@ ko:
       subject: 생명의 백과사전 계정에 대한 요청 확인
   nucleotide_sequences: 염기 서열
   nucleotide_sequences_proteins_link: NCBI에서 단백질과 염기 서열 보기
+  num_content_partners: 콘텐츠 파트너의 No.
+  num_data_objects: 데이터 개체의 No.
   number_of_taxa_at_this_entry: "이 항목에서 분류의 #"
   number_of_trusted_images_at_this_entry: "이 항목에 신뢰하는 그림의 #"
   number_of_trusted_text_objects_at_this_entry: "이 항목에 신뢰하는 텍스트 개체의 #"

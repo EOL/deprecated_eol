@@ -1713,6 +1713,9 @@ nl:
   data_object_ignore: dit item negeren
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld aan een hiërarchie.
   data_object_reference: Gegevensobjectkoppeling
+  data_object_toc_items_list: 
+    one: "Verschijnt onder: %{quoted_toc_titles}"
+    other: "Verschijnt onder: %{quoted_toc_titles}"
   data_object_undo_ignore: uit de negeerlijst verwijderen
   data_objects: 
     show: 

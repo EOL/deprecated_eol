@@ -84,6 +84,11 @@ module EOL
               :test_value => true,
               :notes => I18n.t('return_common_names_for_the_page_taxon') ),
             EOL::Api::DocumentationParameter.new(
+              :name => 'synonyms',
+              :type => 'Boolean',
+              :test_value => true,
+              :notes => I18n.t('return_synonyms_for_the_page_taxon') ),
+            EOL::Api::DocumentationParameter.new(
               :name => 'references',
               :type => 'Boolean',
               :test_value => true,
@@ -104,7 +109,7 @@ module EOL
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
           begin
-            taxon_concept = TaxonConcept.find(params[:id], :include => { :published_hierarchy_entries => [ :hierarchy, :name, :rank ] })
+            taxon_concept = TaxonConcept.find(params[:id])
           rescue
             raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
           end
@@ -154,7 +159,7 @@ module EOL
           end
 
           return_hash['taxonConcepts'] = []
-          taxon_concept.curated_hierarchy_entries.each do |entry|
+          taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
             entry_hash = {
               'identifier'      => entry.id,
               'scientificName'  => entry.name.string,

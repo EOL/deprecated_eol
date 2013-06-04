@@ -1,3 +1,4 @@
+= javascript_include_tag "ckeditor/init"
 #content
   #profile_curator_info.site_column
     .article.copy
@@ -44,7 +45,7 @@
                 %li= I18n.t('helpers.label.user.credentials_more_successful_assistant_curator')
                 %li= I18n.t('helpers.label.user.credentials_more_referral')
             %dd
-              = f.text_area :credentials
+              = f.cktext_area(:credentials, :toolbar => 'Article', :height => 250, :width => 614)
           %fieldset.actions
             = f.submit I18n.t('helpers.submit.user.curation_privileges'), :name => :commit_curation_privileges_put
             = link_to I18n.t(:cancel), edit_user_path(@user)

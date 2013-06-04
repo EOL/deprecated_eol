@@ -3127,8 +3127,8 @@ en:
   data_object_ignore: "ignore this item"
   data_object_undo_ignore: "remove from ignore list"
   data_object_toc_items_list:
-    one: "Appears under: %{quoted_toc_titles}"
-    other: "Appears under: %{quoted_toc_titles}"
+    one: "Appears under %{quoted_toc_titles}"
+    other: "Appears under %{quoted_toc_titles}"
   data_provided_by_user: "provided by %{whom}"
   data_provided_by_content_partner: "Source: %{whom}"
   data_show_n_more_rows: "Show NNN more..."

@@ -2487,7 +2487,7 @@ nb:
   profile: Profil
   profile_colon: "Profil:"
   profile_image_alt_text_curator: Profilbilde for kurator %{user_full_name}
-  profile_image_alt_text_member: Profilbilde for medlem %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: Profilbilde for medlem %{user_full_name}
   profile_picture: Profilbilde
   project: Prosjekt
   provider: Leverandør

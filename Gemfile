@@ -23,6 +23,7 @@ end
 group :staging, :bocce_demo do
   gem 'debugger'
   gem 'hipchat'
+  gem 'sparql-client'
 end
 
 group :development, :staging_dev, :staging_dev_cache, :test_dev do

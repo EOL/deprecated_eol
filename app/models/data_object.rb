@@ -453,6 +453,7 @@ class DataObject < ActiveRecord::Base
   def has_thumbnail?
     ((is_video? || is_sound?) && thumbnail_cache_url?) || (is_image? && object_cache_url?)
   end
+  alias :has_thumb? :has_thumbnail?
 
   def thumb_or_object(size = '580_360', options={})
     if self.is_video? || self.is_sound?
@@ -466,7 +467,7 @@ class DataObject < ActiveRecord::Base
       end
       return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
     else
-      return '_missing_image_' # Really, this is an error, but we want to handle it pseudo-gracefully.
+      return nil # No image to show. You might want to alter your code to avoid this by using #has_thumbnail?
     end
   end
 

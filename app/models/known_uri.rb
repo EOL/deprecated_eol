@@ -64,20 +64,6 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
-  def unknown?
-    name.blank?
-  end
-
-  def unit_of_measure
-    if unit_of_measure_relation = known_uri_relationships_as_subject.detect{ |r| r.relationship_uri == KnownUriRelationship::MEASUREMENT_URI }
-      unit_of_measure_relation.to_known_uri
-    end
-  end
-
-  def matches(other_uri)
-    uri.casecmp(other_uri.to_s) == 0
-  end
-
   # TODO - this is just for testing. You really don't want to run this in production...
   # there is also a lot of duplicate with this user added data, and the data factories
   def self.delete_graph
@@ -90,6 +76,106 @@ class KnownUri < ActiveRecord::Base
     KnownUri.all.each do |k|
       k.add_to_triplestore
     end
+  end
+
+  def self.unknown_uris_from_array(uris_with_counts)
+    unknown_uris_with_counts = uris_with_counts
+    known_uris = KnownUri.find_all_by_uri(unknown_uris_with_counts.collect{ |uri,count| uri })
+    known_uris.each do |known_uri|
+      unknown_uris_with_counts.delete_if{ |uri, count| known_uri.matches(uri) }
+    end
+    unknown_uris_with_counts
+  end
+
+  def self.group_counts_by_uri(result)
+    uris_with_counts = {}
+    result.each do |r|
+      uri = r[:uri].to_s
+      next if uri.blank?
+      uris_with_counts[uri] = r[:count].to_i
+    end
+    uris_with_counts
+  end
+
+  def self.counts_of_all_measurement_unit_uris
+    result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+      WHERE {
+        ?measurement dwc:measurementUnit ?uri .
+        FILTER (isURI(?uri))
+      }
+      GROUP BY ?uri
+      ORDER BY DESC(?count)
+    ")
+    group_counts_by_uri(result)
+  end
+
+  def self.counts_of_all_measurement_type_uris
+    result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+      WHERE {
+        ?measurement a dwc:MeasurementOrFact .
+        ?measurement dwc:measurementType ?uri .
+        FILTER (isURI(?uri))
+      }
+      GROUP BY ?uri
+      ORDER BY DESC(?count)
+    ")
+    group_counts_by_uri(result)
+  end
+
+  def self.counts_of_all_measurement_value_uris
+    result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+      WHERE {
+        ?measurement a <#{DataMeasurement::CLASS_URI}> .
+        ?measurement dwc:measurementValue ?uri .
+        FILTER (isURI(?uri))
+      }
+      GROUP BY ?uri
+      ORDER BY DESC(?count)
+    ")
+    group_counts_by_uri(result)
+  end
+
+  def self.counts_of_all_association_type_uris
+    result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+      WHERE {
+        ?association a <#{DataAssociation::CLASS_URI}> .
+        ?association <http://eol.org/schema/associationType> ?uri .
+        FILTER (isURI(?uri))
+      }
+      GROUP BY ?uri
+      ORDER BY DESC(?count)
+    ")
+    group_counts_by_uri(result)
+  end
+
+  def self.unknown_measurement_unit_uris
+    unknown_uris_from_array(counts_of_all_measurement_unit_uris)
+  end
+
+  def self.unknown_measurement_type_uris
+    unknown_uris_from_array(counts_of_all_measurement_type_uris)
+  end
+
+  def self.unknown_measurement_value_uris
+    unknown_uris_from_array(counts_of_all_measurement_value_uris)
+  end
+
+  def self.unknown_association_type_uris
+    unknown_uris_from_array(counts_of_all_association_type_uris)
+  end
+
+  def unknown?
+    name.blank?
+  end
+
+  def unit_of_measure
+    if unit_of_measure_relation = known_uri_relationships_as_subject.detect{ |r| r.relationship_uri == KnownUriRelationship::MEASUREMENT_URI }
+      unit_of_measure_relation.to_known_uri
+    end
+  end
+
+  def matches(other_uri)
+    uri.casecmp(other_uri.to_s) == 0
   end
 
   def add_to_triplestore

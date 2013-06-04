@@ -1094,6 +1094,13 @@ en:
   known_uris:
     relationships: "Relationships"
     add_a_relationship: "Add A Relationship"
+    please_select_from_the_menu: "Please select from the menu above"
+    no_results: "There are no results for the selected statistic"
+    select_a_category_to_view_stats: "Select a category to view stats:"
+    unrecognized_measurement_types: "Unrecognized Measurement Type URIs"
+    unrecognized_measurement_values: "Unrecognized Measurement Value URIs"
+    unrecognized_measurement_units: "Unrecognized Measurement Unit URIs"
+    unrecognized_association_types: "Unrecognized Association Type URIs"
   known_uri_relationships:
     created: "Relationship was successfully created"
     create_failed: "Sorry, an error occurred, the relationship could not be added."
@@ -3200,6 +3207,7 @@ en:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: "Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)"
   do_you_want_to_be_a_curator: "Do you want to be a curator"
   download_wav_file: "Download WAV file"
+  download_data: "Download Data"
   dublin_core: "Dublin Core"
   duplicate_comment_warning: "Comment not saved: it appears you have already posted this comment. ...Did you click the 'post comment' button twice?"
   duplicate_items_were_ignored: "Duplicate items were ignored."

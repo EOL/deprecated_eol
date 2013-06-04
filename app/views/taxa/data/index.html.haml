@@ -8,89 +8,93 @@
       %li= link_to cat.label, '#', 'data-toc-id' => cat.id
     %li= link_to I18n.t(:other_category), '#', class: 'other'
 .main_container#taxon_data
-  %table.standard.data{'data-more' => I18n.t(:data_show_n_more_rows)}
-    - type_index = 0
-    - last_attribute = nil
-    - @data.each do |row|
-      - next if row[:attribute].blank?
-      - classes = []
-      - classes = row[:attribute].toc_items.map { |ti| "toc_#{ti.id}" } if row[:attribute].is_a?(KnownUri)
-      - first_of_type = row[:attribute] != last_attribute
-      - if first_of_type
-        - type_index += 1
-      - classes = ['toc_other'] if classes.blank?
-      - classes << "type_#{type_index}"
-      - classes << ['first_of_type'] if first_of_type
-      - classes << 'nested' if row[:attribute] == last_attribute
-      - comments = []
-      - data_point_uri = nil
-      - row_id = nil
-      - if row.has_key?(:user_added_data) 
-        - row_id =  row[:user_added_data].anchor
-        - comments = row[:user_added_data].comments
-      - elsif row.has_key?(:data_point_uri)
-        -# NOTE - this is /slightly/ scary, as it generates new URIs on the fly, and (TODO) this doesn't belong in
-        -# the view:
-        - data_point_uri = DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, row[:data_point_uri].to_s)
-        - row_id = data_point_uri.anchor
-        - comments = data_point_uri.comments
-      %tr{ id: row_id, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}" }
-        - th_id = nil
-        - if row[:attribute] != last_attribute
-          - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
-        %th{ id: th_id }
-          - if first_of_type
-            - last_attribute = row[:attribute]
-            = display_uri(row[:attribute])
-        %td.val
-          %span.fold &nbsp;
-          = raw display_text_for_structured_data_row(row)
+  - if @data.blank?
+    .empty
+      %p= I18n.t(:taxon_data_empty)
+  - else
+    %table.standard.data{'data-more' => I18n.t(:data_show_n_more_rows)}
+      - type_index = 0
+      - last_attribute = nil
+      - @data.each do |row|
+        - next if row[:attribute].blank?
+        - classes = []
+        - classes = row[:attribute].toc_items.map { |ti| "toc_#{ti.id}" } if row[:attribute].is_a?(KnownUri)
+        - first_of_type = row[:attribute] != last_attribute
+        - if first_of_type
+          - type_index += 1
+        - classes = ['toc_other'] if classes.blank?
+        - classes << "type_#{type_index}"
+        - classes << ['first_of_type'] if first_of_type
+        - classes << 'nested' if row[:attribute] == last_attribute
+        - comments = []
+        - data_point_uri = nil
+        - row_id = nil
+        - if row.has_key?(:user_added_data)
+          - row_id =  row[:user_added_data].anchor
+          - comments = row[:user_added_data].comments
+        - elsif row.has_key?(:data_point_uri)
+          -# NOTE - this is /slightly/ scary, as it generates new URIs on the fly, and (TODO) this doesn't belong in
+          -# the view:
+          - data_point_uri = DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, row[:data_point_uri].to_s)
+          - row_id = data_point_uri.anchor
+          - comments = data_point_uri.comments
+        %tr{ id: row_id, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}" }
+          - th_id = nil
+          - if row[:attribute] != last_attribute
+            - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
+          %th{ id: th_id }
+            - if first_of_type
+              - last_attribute = row[:attribute]
+              = display_uri(row[:attribute])
+          %td.val
+            %span.fold &nbsp;
+            = raw display_text_for_structured_data_row(row)
 
-          %span.source
-            = truncate(row[:source].name, length: 12)
+            %span.source
+              = truncate(row[:source].name, length: 12)
 
-          - unless comments.empty?
-            %span.comments= image_tag('comment_indicator.png')
-
-          -# displaying metadata
-          - if row[:metadata]
-            %table.meta
-              - row[:metadata].each do |key, value|
-                - value = [ value ] unless value.class == Array
-                - value.each do |v|
-                  %tr
-                    = display_uri(key, :th)
-                    - if EOL::Sparql.uri_in_eol_triplestore(v)
-                      %td= link_to v, ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(v.to_s)), :target => 'data'
-                    - else
-                      = display_uri(v, :td)
-      %tr{ class: (classes + ['actions']).join(' ') }
-        %td{ colspan: 2 }
-          %ul
-            - if row[:source]
-              %li= raw I18n.t("data_provided_by_#{row[:source].class.name.underscore.downcase}", whom: link_to(row[:source].name, row[:source]))
-            - if row.has_key?(:data_point_uri)
-              %li= raw "&bull;"
-              %li= link_to row[:data_point_uri], ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(row[:data_point_uri].to_s)), :target => 'data'
-            - if row.has_key?(:user_added_data) 
-              - if current_user.can_update?(row[:user_added_data])
-                %li= raw "&bull;"
-                -# TODO: i18n
-                %li= link_to "edit", edit_user_added_datum_path(row[:user_added_data]), :method => :get
-                %li= raw "&bull;"
-                -# TODO: i18n
-                %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
             - unless comments.empty?
-              %li= raw "&bull;"
-              - annotations_link = nil
+              %span.comments= image_tag('comment_indicator.png')
+
+            -# displaying metadata
+            - if row[:metadata]
+              %table.meta
+                - row[:metadata].each do |key, value|
+                  - value = [ value ] unless value.class == Array
+                  - value.each do |v|
+                    %tr
+                      = display_uri(key, :th)
+                      - if EOL::Sparql.uri_in_eol_triplestore(v)
+                        %td= link_to v, ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(v.to_s)), :target => 'data'
+                      - else
+                        = display_uri(v, :td)
+        %tr{ class: (classes + ['actions']).join(' ') }
+          %td{ colspan: 2 }
+            %ul
+              - if row[:source]
+                %li= raw I18n.t("data_provided_by_#{row[:source].class.name.underscore.downcase}", whom: link_to(row[:source].name, row[:source]))
+              - if row.has_key?(:data_point_uri)
+                %li= raw "&bull;"
+                %li= link_to row[:data_point_uri], ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(row[:data_point_uri].to_s)), :target => 'data'
               - if row.has_key?(:user_added_data)
-                - annotations_link = user_added_datum_comments_path(row[:user_added_data])
-              - elsif data_point_uri
-                - annotations_link = data_point_uri_comments_path(data_point_uri)
-              - if annotations_link
-                %li.annotations= link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
-          = render partial: 'comments/for_data', locals: { comments: comments,
-            parent: data_point_uri || row[:user_added_data] }
+                - if current_user.can_update?(row[:user_added_data])
+                  %li= raw "&bull;"
+                  -# TODO: i18n
+                  %li= link_to "edit", edit_user_added_datum_path(row[:user_added_data]), :method => :get
+                  %li= raw "&bull;"
+                  -# TODO: i18n
+                  %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
+              - unless comments.empty?
+                %li= raw "&bull;"
+                - annotations_link = nil
+                - if row.has_key?(:user_added_data)
+                  - annotations_link = user_added_datum_comments_path(row[:user_added_data])
+                - elsif data_point_uri
+                  - annotations_link = data_point_uri_comments_path(data_point_uri)
+                - if annotations_link
+                  %li.annotations= link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
+            = render partial: 'comments/for_data', locals: { comments: comments,
+              parent: data_point_uri || row[:user_added_data] }
 .add_content
   .article
     .header

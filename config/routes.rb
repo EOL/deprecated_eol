@@ -342,6 +342,7 @@ Eol::Application.routes.draw do
     collection do
       get 'categories'
       get 'autocomplete_known_uri_uri'
+      get 'show_stats'
     end
     member do
       put 'unhide'

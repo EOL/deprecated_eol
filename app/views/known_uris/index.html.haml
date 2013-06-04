@@ -1,3 +1,6 @@
+= content_for :head do
+  = stylesheet_link_tag "known_uris"
+  = javascript_include_tag "known_uris"
 #content
   #known_uris.site_column
     %table.standard
@@ -33,3 +36,13 @@
                 = link_to I18n.t(:suggested_vocab_add).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
     - if current_user.is_admin?
       %p= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')
+      %br
+      %br
+      %hr
+      %form#stats_form.select_submit{ action: show_stats_known_uris_path }
+        = I18n.t('known_uris.select_a_category_to_view_stats')
+        = select_tag :stats_filter, options_for_select([[ '--select--', nil]] + @stats_filter_options, @stats_filter_selected_option)
+        .actions
+          = submit_tag I18n.t(:filter_button)
+      #stats_report
+        = render :partial => 'stats_report'

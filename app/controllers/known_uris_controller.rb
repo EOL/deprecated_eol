@@ -2,6 +2,7 @@ class KnownUrisController < ApplicationController
 
   before_filter :set_page_title, :except => :autocomplete_known_uri_uri
   before_filter :restrict_to_admins, :except => [ :index, :autocomplete_known_uri_uri ]
+  before_filter :set_stats_filter_options, :only => [ :index, :show_stats ]
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms, :only => :autocomplete_known_uri_uri
 
   layout 'v2/basic'
@@ -18,6 +19,16 @@ class KnownUrisController < ApplicationController
     respond_to do |format|
       format.html { }
       format.js { @category = TocItem.find(params[:category_id]) }
+    end
+  end
+
+  def show_stats
+    if params[:ajax].blank?
+      redirect_to known_uris_path(stats_filter: params[:stats_filter])
+    else
+      params.delete(:ajax)
+      render(:partial => 'stats_report')
+      return
     end
   end
 
@@ -97,6 +108,28 @@ class KnownUrisController < ApplicationController
 
   def set_page_title
     @page_title = I18n.t(:known_uris_page_title)
+  end
+
+  def set_stats_filter_options
+    @stats_filter_options = [
+      [I18n.t('known_uris.unrecognized_measurement_types'), 'measurement_types'],
+      [I18n.t('known_uris.unrecognized_measurement_values'), 'measurement_values'],
+      [I18n.t('known_uris.unrecognized_measurement_units'), 'measurement_units'],
+      [I18n.t('known_uris.unrecognized_association_types'), 'association_types'] ]
+    @stats_filter_selected_option = params[:stats_filter]
+    case @stats_filter_selected_option
+    when 'measurement_types'
+      @uri_stats = KnownUri.unknown_measurement_type_uris
+    when 'measurement_values'
+      @uri_stats = KnownUri.unknown_measurement_value_uris
+    when 'measurement_units'
+      @uri_stats = KnownUri.unknown_measurement_unit_uris
+    when 'association_types'
+      @uri_stats = KnownUri.unknown_association_type_uris
+    else
+      @stats_filter_selected_option = nil
+      @uri_stats = nil
+    end
   end
 
 end

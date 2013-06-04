@@ -1,0 +1,15 @@
+- if @stats_filter_selected_option.nil?
+  .empty
+    %p= I18n.t('known_uris.please_select_from_the_menu')
+- elsif @uri_stats.blank?
+  .empty
+    %p= I18n.t('known_uris.no_results')
+- else
+  %table.standard
+    %tr
+      %th= I18n.t('activerecord.attributes.known_uri.uri')
+      %th= I18n.t('count')
+    - @uri_stats.each do |uri, count|
+      %tr
+        %td= uri
+        %td= count

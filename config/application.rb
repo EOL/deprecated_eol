@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 if defined?(Bundler)
-  assets = %w(development test staging)
+  assets = %w(development test staging bocce_demo)
   assets << 'production' if Rails.env.production?
   Bundler.require(*Rails.groups(:assets => assets))
 end

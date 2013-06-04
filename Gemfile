@@ -20,7 +20,7 @@ group :development, :test, :staging_dev, :test_dev do
   gem 'nokogiri', '1.5.5' # Yeah, I know this has given us grief in the past.  :\ Trying things out, is all.
 end
 
-group :staging do
+group :staging, :bocce_demo do
   gem 'debugger'
   gem 'hipchat'
 end

@@ -3,6 +3,7 @@ class UserAddedDataController < ApplicationController
   layout 'v2/basic'
 
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms, :only => :autocomplete_known_uri_uri
+  before_filter :check_authentication, :only => [ :create, :edit, :update, :destroy ]
 
   # Doesn't seem to work unless it's here as WELL as taxon/data.
   autocomplete :known_uri, :uri

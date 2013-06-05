@@ -175,9 +175,9 @@ module TaxaHelper
     end
     # displaying unit of measure
     if row[:unit_of_measure_uri] && uri_components = EOL::Sparql.explicit_measurement_uri_components(row[:unit_of_measure_uri])
-      text_for_row_value += display_uri(uri_components)
+      text_for_row_value += " " + display_uri(uri_components)
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(row[:attribute])
-      text_for_row_value += display_uri(uri_components)
+      text_for_row_value += " " + display_uri(uri_components)
     end
     text_for_row_value.gsub(/\n/, '')
   end

@@ -131,16 +131,16 @@
             = raw(I18n.t(:classification_from_agent_chosen_by_curator, :agent => hierarchy_display_title(@overview.classification), :curator => link_to(@overview.classification_chosen_by.full_name, user_path(@overview.classification_chosen_by.id))))
       #classification_browser.browsable.classifications
         = render(:partial => 'navigation/node', :locals => { :hierarchy_entry => @overview.hierarchy_entry, :link_to_taxa => true, :show_siblings => true, :show_hierarchy_label => !@overview.classification_curated? })
+  #data_summary.article
+    .header
+      %h3= I18n.t(:data_summary_header)
+      = link_to(raw(I18n.t(:see_all_data_with_count_html, :count => @data.count)), taxon_data_path)
+    - if @data.blank?
+      .empty
+        %p= I18n.t(:taxon_data_empty)
+    - else
+      = render(:partial => 'taxa/data/overview_summary', :locals => { :data => @data })
   - cache("taxon_overview_curators_#{@overview.taxon_concept.id}_#{current_language.iso_639_1}") do
-    #data_summary.article
-      .header
-        %h3= I18n.t(:data_summary_header)
-        = link_to(raw(I18n.t(:see_all_data_with_count_html, :count => @data.count)), taxon_data_path)
-      - if @data.blank?
-        .empty
-          %p= I18n.t(:taxon_data_empty)
-      - else
-        = render(:partial => 'taxa/data/overview_summary', :locals => { :data => @data })
     #curators_summary.article.list
       .header
         %h3= I18n.t(:curators_summary_header_with_count, :count => @overview.curators_count)

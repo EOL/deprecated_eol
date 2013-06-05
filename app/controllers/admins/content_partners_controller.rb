@@ -77,7 +77,7 @@ class Admins::ContentPartnersController < AdminsController
                   :conditions => [ conditions.join(' AND '), conditions_replacements],
                   :group => "content_partners.id",
                   :order => order,
-                  :joins => "JOIN resources r ON (content_partners.id=r.content_partner_id)
+                  :joins => "LEFT JOIN resources r ON (content_partners.id=r.content_partner_id)
                     LEFT JOIN hierarchies h ON (r.hierarchy_id=h.id)")
     set_filter_options
     set_sort_options

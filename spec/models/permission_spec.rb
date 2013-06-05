@@ -4,7 +4,7 @@ describe Permission do
   
   # NOTE - this is a tricky test. It actually also tests that symbols are stringified as expected, that translations
   # work, and of course, that all of the specific defaults we expect to see are really there:
-  it 'shoud create defaults' do
+  it 'should create defaults' do
     TranslatedPermission.delete_all
     Permission.delete_all
     Permission.create_defaults

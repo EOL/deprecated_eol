@@ -166,9 +166,9 @@ module TaxaHelper
     text_for_row_value = ''
     if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(KnownUri.taxon_concept_id(row[:target_taxon_concept_id]))
       if c = target_taxon_concept.preferred_common_name_in_language(current_language)
-        text_for_row_value += link_to c, taxon_overview_path(target_taxon_concept)
+        text_for_row_value += link_to c, taxon_data_path(target_taxon_concept)
       else
-        text_for_row_value += link_to raw(target_taxon_concept.title_canonical), taxon_overview_path(target_taxon_concept)
+        text_for_row_value += link_to raw(target_taxon_concept.title_canonical), taxon_data_path(target_taxon_concept)
       end
     else
       text_for_row_value += display_uri(row[:value]).to_s

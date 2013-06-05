@@ -27,7 +27,7 @@
           = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision)
 #sidebar
   = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
-  - if current_user.is_curator? && @latest_published_revision && @latest_published_revision.id == @data_object.id
+  - if (current_user.is_curator? || current_user.is_admin?) && @latest_published_revision && @latest_published_revision.id == @data_object.id
     = render :partial => '/data_objects/image_cropper', :locals => { :data_object => @data_object }
   .article.source
     .header

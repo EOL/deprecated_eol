@@ -5,7 +5,7 @@
         = sanitize comment.body.balance_tags.add_missing_hyperlinks
         &ndash;
         = link_to comment.user.full_name, comment.user
-= form_for(Comment.new(user: current_user, parent: parent), remote: true) do |f|
+= form_for(Comment.new(parent: parent), remote: true) do |f|
   %fieldset
     = f.hidden_field :user_id
     = f.hidden_field :parent_type

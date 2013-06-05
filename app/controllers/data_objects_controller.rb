@@ -7,7 +7,7 @@ class DataObjectsController < ApplicationController
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit] # update handled separately
   before_filter :allow_login_then_submit, :only => [:rate]
   before_filter :curators_and_owners_only, :only => [:add_association, :remove_association]
-  before_filter :restrict_to_curators, :only => :crop
+  before_filter :restrict_to_admins_and_curators, :only => :crop
 
   # GET /pages/:taxon_id/data_objects/new
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route

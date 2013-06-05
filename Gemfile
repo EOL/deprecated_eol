@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-group :development, :test, :staging_dev, :test_dev do
+group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem 'capistrano', '2.13.5'
   gem 'capistrano-unicorn-pleary', '=0.1.6.1'
   gem 'rvm-capistrano', '1.2.7'
@@ -26,7 +26,7 @@ group :staging, :bocce_demo do
   gem 'sparql-client'
 end
 
-group :development, :staging_dev, :staging_dev_cache, :test_dev do
+group :development, :staging_dev, :staging_dev_cache, :bocce_demo_dev, :test_dev do
   gem 'webrick', '1.3.1'
 end
 

@@ -9,7 +9,7 @@
         %th= display_uri(attribute)
         %td
           - rows_for_this_attribute = data.select{ |r| r[:attribute] == attribute }
-          - text_for_rows = rows_for_this_attribute.collect{ |r| display_text_for_structured_data_row(r) }
+          - text_for_rows = rows_for_this_attribute.collect{ |r| display_text_for_structured_data_row(r, :link_to_overview => true) }
           - if text_for_rows.length > values_to_show_per_row
             - text_for_rows = text_for_rows[0...values_to_show_per_row]
             - text_for_rows << link_to(I18n.t(:more), taxon_data_path(:anchor => attribute.is_a?(KnownUri) ? attribute.uri : attribute))

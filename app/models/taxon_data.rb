@@ -3,9 +3,8 @@
 # version.)  I think this will be fixed in later versions (it works for PL), but for now, this seems to work.
 class TaxonData < TaxonUserClassificationFilter
 
-  def self.graph_name_to_resource(graph_name)
-    resource_id = graph_name.to_s.split("/").last
-    Resource::find(resource_id)
+  def self.graph_name_to_resource_id(graph_name)
+    graph_name.to_s.split("/").last
   end
 
   # TODO - break down into friendlier syntax. :)
@@ -17,9 +16,19 @@ class TaxonData < TaxonUserClassificationFilter
         row[:user_added_data] = user_added_data
         row[:source] = row[:user]
       elsif row[:graph]
-        row[:source] = TaxonData.graph_name_to_resource(row[:graph]).content_partner
+        row[:resource_id] = TaxonData.graph_name_to_resource_id(row[:graph])
       end
     end
+    # bulk preloading of resources/content partners
+    resources = Resource.find_all_by_id(rows.collect{ |r| r[:resource_id] }.compact.uniq, :include => :content_partner)
+    rows.each do |row|
+      if resource_id = row[:resource_id]
+        if resource = resources.detect{ |r| r.id.to_s == resource_id }
+          row[:source] = resource.content_partner
+        end
+      end
+    end
+
     rows.delete_if{ |k,v| k[:attribute].blank? }
     rows = replace_licenses_with_mock_known_uris(rows)
     rows = add_known_uris_to_data(rows)

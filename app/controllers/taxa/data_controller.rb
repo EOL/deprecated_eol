@@ -7,6 +7,12 @@ class Taxa::DataController < TaxaController
     @assistive_section_header = "ASdfsfasdfasdfasdaf" # TODO
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
     @data = @taxon_page.data.get_data
+    partner_data = @data.select{ |d| d.has_key?(:data_point_uri) }
+    partner_data.each do |d|
+      d[:data_point_instance] = DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, d[:data_point_uri].to_s)
+    end
+    DataPointUri.preload_associations(partner_data.collect{ |d| d[:data_point_instance] }, :all_comments)
+
     @show_download_data_button = true unless @data.blank?
     @categories = @data.map { |d| d[:attribute] }.flat_map { |a| a.is_a?(KnownUri) ? a.toc_items : nil }.uniq.compact
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)

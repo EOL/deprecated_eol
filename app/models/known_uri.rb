@@ -114,7 +114,7 @@ class KnownUri < ActiveRecord::Base
       WHERE {
         ?measurement a dwc:MeasurementOrFact .
         ?measurement dwc:measurementType ?uri .
-        FILTER (isURI(?uri))
+        FILTER (CONTAINS(str(?uri), '://'))
       }
       GROUP BY ?uri
       ORDER BY DESC(?count)
@@ -127,7 +127,7 @@ class KnownUri < ActiveRecord::Base
       WHERE {
         ?measurement a <#{DataMeasurement::CLASS_URI}> .
         ?measurement dwc:measurementValue ?uri .
-        FILTER (isURI(?uri))
+        FILTER (CONTAINS(str(?uri), '://'))
       }
       GROUP BY ?uri
       ORDER BY DESC(?count)
@@ -140,7 +140,7 @@ class KnownUri < ActiveRecord::Base
       WHERE {
         ?association a <#{DataAssociation::CLASS_URI}> .
         ?association <http://eol.org/schema/associationType> ?uri .
-        FILTER (isURI(?uri))
+        FILTER (CONTAINS(str(?uri), '://'))
       }
       GROUP BY ?uri
       ORDER BY DESC(?count)

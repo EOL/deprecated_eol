@@ -32,7 +32,7 @@ module EOL
     end
 
     def self.uri_to_readable_label(uri)
-      if matches = uri.to_s.match(/(\/|#)([a-z0-9_-]{1,})$/i)
+      if matches = uri.to_s.match(/(\/|#)([a-z0-9,_-]{1,})$/i)
         return matches[2].underscore.tr('_', ' ').capitalize_all_words
       end
     end

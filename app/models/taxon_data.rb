@@ -32,6 +32,7 @@ class TaxonData < TaxonUserClassificationFilter
     rows.delete_if{ |k,v| k[:attribute].blank? }
     rows = replace_licenses_with_mock_known_uris(rows)
     rows = add_known_uris_to_data(rows)
+    rows = replace_target_taxon_concept_ids(rows)
     rows.sort_by do |h|
       c = EOL::Sparql.uri_components(h[:attribute])
       c[:label].downcase
@@ -43,6 +44,7 @@ class TaxonData < TaxonUserClassificationFilter
     rows = association_data(options) + measurement_data(options)
     rows.delete_if{ |k,v| k[:attribute].blank? }
     rows = add_known_uris_to_data(rows)
+    rows = replace_target_taxon_concept_ids(rows)
     rows.sort_by do |h|
       c = EOL::Sparql.uri_components(h[:attribute])
       c[:label].downcase
@@ -239,6 +241,15 @@ class TaxonData < TaxonUserClassificationFilter
           row[:metadata][key] = KnownUri.new(:uri => val,
             :translations => [ TranslatedKnownUri.new(:name => license.title, :language => user.language) ])
         end
+      end
+    end
+    rows
+  end
+
+  def replace_target_taxon_concept_ids(rows)
+    rows.each do |r|
+      if r.has_key?(:target_taxon_concept_id)
+        r[:target_taxon_concept_id] = KnownUri.taxon_concept_id(r[:target_taxon_concept_id]);
       end
     end
     rows

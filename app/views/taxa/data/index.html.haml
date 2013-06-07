@@ -33,8 +33,6 @@
           - row_id =  row[:user_added_data].anchor
           - comments = row[:user_added_data].comments
         - elsif row.has_key?(:data_point_uri)
-          -# NOTE - this is /slightly/ scary, as it generates new URIs on the fly, and (TODO) this doesn't belong in
-          -# the view:
           - data_point_uri = row[:data_point_instance]
           - row_id = data_point_uri.anchor
           - comments = data_point_uri.all_comments

@@ -164,7 +164,11 @@ module TaxaHelper
 
   def display_text_for_structured_data_row(row, options={})
     text_for_row_value = ''
-    if row[:target_taxon_concept_id] && target_taxon_concept = TaxonConcept.find(KnownUri.taxon_concept_id(row[:target_taxon_concept_id]))
+    target_taxon_concept = nil
+    if row[:target_taxon_concept_id]
+      target_taxon_concept = row[:target_taxon_concept] || TaxonConcept.find(row[:target_taxon_concept_id])
+    end
+    if target_taxon_concept
       taxon_link = options[:link_to_overview] ? taxon_overview_path(target_taxon_concept) : taxon_data_path(target_taxon_concept)
       if c = target_taxon_concept.preferred_common_name_in_language(current_language)
         text_for_row_value += link_to c, taxon_link

@@ -32,7 +32,6 @@ Eol::Application.routes.draw do
   match '/info/xrayvision' => redirect("/collections/14770")
   match '/info/brian-skerry' => redirect("/collections/29285")
   match '/info/naturesbest2011' => redirect("/collections/19338")
-  match '/naturesbest2012' => redirect("/collections/54659")
   match '/info/naturesbest2012' => redirect("/collections/54659")
   match '/voc/table_of_contents' => redirect("/schema/eol_info_items.xml")
   match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")

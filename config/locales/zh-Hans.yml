@@ -3028,8 +3028,8 @@ zh-Hans:
   data_object_ignore: "忽略本条目"
   data_object_undo_ignore: "从忽略列表中删除"
   data_object_toc_items_list:
-    one: "出现在: %{quoted_toc_titles}"
-    other: "出现在: %{quoted_toc_titles}"
+    one: "在%{quoted_toc_titles}下出现"
+    other: "在%{quoted_toc_titles}下出现"
   data_usage_reports: "数据使用报告"
   date_caps: "日期"
   date_uploaded: "上传日期"

@@ -3,13 +3,16 @@
 # Export driver: syck-pecl
 # Author: Adata80
 # Author: Aygulka
+# Author: CM3X
 # Author: CoderSI
 # Author: DCamer
 # Author: Dr&mx
 # Author: Eleferen
 # Author: Express2000
 # Author: Iluvatar
+# Author: Lunacy1911
 # Author: Lvova
+# Author: Nemo bis
 # Author: Sprinter
 # Author: Александр Сигачёв
 ru: 
@@ -32,6 +35,8 @@ ru:
         annotation: Аннотация
         refs: Ссылки
         sort_field: Сортировать по
+      collection_job: 
+        overwrite: Заменить повторяющиеся
       comment: 
         body: Комментарий
       community: 
@@ -140,13 +145,18 @@ ru:
         udo_published_by_curators: Текст, предоставленный куратором
         udo_published_by_non_curators: Текст, предоставленный не-куратором
       forum: 
+        description: Описание <small>(необязательно)</small>
         forum_category_id: Категория
+        name: Имя на форуме
       forum_category: 
         description: Описание <small>(необязательно)</small>
         title: "Название категории:"
       forum_post: 
         subject: Тема
         text: Текст
+      forum_topic: 
+        subject: Тема
+        text: Текст сообщения
       harvest_event: 
         resource: Ресурс
       hierarchy: 
@@ -464,6 +474,9 @@ ru:
   anonymous_user_given_name: Аноним
   anonymous_user_tag_line: Не выполнен вход
   any_integer: любое целое число
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Кликните здесь</a>, чтобы получить доступ к бета-тестированию нового форумов EOL. Ваши замечания приветствуются.
   api_docs_collections_description: Если вы укажите идентификатор для коллекции, API возвратит все метаданные о коллекции и элементах, которые он содержит. Список элементов можно фильтровать по типу элемента и сортировать по выше перечисленным атрибутам.
   application_version_advisory_information: Версия приложения
   are_you_sure: Вы уверены?
@@ -826,15 +839,49 @@ ru:
   explore: Ознакомление
   external_link_header: Внешняя ссылка
   forums: 
+    actions: Действия
+    administration: Администрация
+    buttons: 
+      delete: удалить
+      edit: править
+      link: ссылка
+      reply: ответить
     categories: 
       create: Создать категорию
+      create_failed: Извините, произошла ошибка, категория не может быть добавлена
+      create_successful: Категория была успешно создана.
+      edit: Редактировать категорию
+      update_successful: Категория была успешно обновлена.
     create: Создать форум
+    create_failed: Извините, произошла ошибка, форум не может быть добавлен.
+    create_successful: Форум был успешно создан
+    delete_failed_not_empty: Форум не может быть удален, поскольку он не является пустым
+    delete_successful: Форум был успешно удален
     edit: Редактировать форум
+    forums_heading: Форумы EOL
     last_post: Последнее сообщение
+    move_failed: Форум не может быть перемещен
+    move_successful: Форум был успешно перемещен
+    no_topics: В этом форуме нет веток
+    post_by_user_at_time: от %{user}, %{time}
     posts: 
+      close_window: закрыть
+      deleted_subject: (удалено)
       edit: Редактировать сообщение
+      no_subject: (без темы)
+      permalink_to_this_post: "Постоянная ссылка на эту публикацию:"
+      post_has_been_deleted: Эта публикация была удалена.
     posts_heading: Сообщения
     replies: Ответы
+    topics: 
+      create_failed: Извините, произошла ошибка, тема не может быть добавлена
+      create_successful: Тема создана успешно
+      delete_failed_not_empty: Тема не может быть удалена, поскольку содержит информацию
+      delete_successful: Тема успешно удалена
+    topics_heading: Ветки
+    update_failed: Извините, произошла ошибка, форум не может быть добавлен.
+    update_successful: Форум успешно обновлен.
+    views: Просмотров
   global_navigation: Общая навигация
   help: Помощь
   helpers: 
@@ -1286,6 +1333,7 @@ ru:
     signature_with_contact_us_link: "Если у вас возникли какие-либо проблемы, пожалуйста, свяжитесь с нами по адресу %{url}.\n\nКоманда энциклопедии жизни"
     signature_with_species_pages_group_contact: "Если у вас есть какие-либо вопросы, пожалуйста, свяжитесь с нами по адресу %{species_pages_group_email}.\n\nКоманда энциклопедии жизни"
     unsubscribed_to_notifications: 
+      message: "Вы успешно отписались от получения уведомлений из \"Энциклопедии жизни\". Вы можете изменить настройки вашей электронной почты или подписаться на уведомления по ссылке <a href='%{email_prefs_url}'>your notification preferences page</a>.\n\nЧтобы узнать больше о том, как использовать \"Энциклопедию жизни\", создавать в ней коллекции, участвовать в Сообществе \"Энциклопедии жизни\" и добавлять информацию, пожалуйста, зайдите на страницу службы поддержки по ссылке http://eol.org/help."
       subject: Жаль, что вы улетаете...
     user_activated: 
       subject: Ваш аккаунт в Энциклопедии Жизни (EOL) был активирован

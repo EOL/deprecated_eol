@@ -1714,8 +1714,8 @@ nl:
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld aan een hiërarchie.
   data_object_reference: Gegevensobjectkoppeling
   data_object_toc_items_list: 
-    one: "Verschijnt onder: %{quoted_toc_titles}"
-    other: "Verschijnt onder: %{quoted_toc_titles}"
+    one: Verschijnt onder %{quoted_toc_titles}
+    other: Verschijnt onder %{quoted_toc_titles}
   data_object_undo_ignore: uit de negeerlijst verwijderen
   data_objects: 
     show: 
@@ -3267,6 +3267,7 @@ nl:
   return_common_names_for_the_page_taxon: alle gewone namen voor het taxon van de pagina weergeven
   return_content_by_vettedness: Als "gecontroleerd" de waarde "1" heeft, dan wordt alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft, dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
   return_references_for_the_page_taxon: alle referenties voor het taxon van de pagina teruggeven
+  return_synonyms_for_the_page_taxon: alle synoniemen voor het taxon van de pagina teruggeven
   returns_all_metadata_about_a_particular_collection: geeft alle metadata van een bepaalde collectie terug en de items die erin zijn opgenomen en zijn geïndexeerd door EOL
   returns_all_metadata_about_a_particular_data_object: geeft alle metadata van een bepaald gegevensobject (tekst, afbeelding, video) dat is geïndexeerd door EOL
   returns_either_a_positive_or_negative_response: geeft een bevestigend antwoord (dat aangeeft dat de API's functioneel zijn) of geeft een negatief antwoord of helemaal geen antwoord (dat aangeeft dat de API's niet functioneel zijn op dat moment)
@@ -3409,6 +3410,7 @@ nl:
   sort_by: Sorteren op
   sort_by_alphabetical_option: Alfabetisch
   sort_by_button: Sorteren
+  sort_by_hierarchy_publish_request_option: Verzoek voor het publiceren van hiërarchie
   sort_by_label: Sorteren op
   sort_by_newest_option: Nieuwste
   sort_by_oldest_option: Oudste

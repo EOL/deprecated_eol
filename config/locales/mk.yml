@@ -1140,7 +1140,7 @@ mk:
   check_this_to_browse_eol_by_the_hierarchy: (Ако кутивчево е штиклирано, класификацијата ќе се прикажува во јазичето за имиња без да треба да се избере „Прикажи ги сите класификации“.)
   choose_collection_header: Одберете збирка
   citation: Наведување
-  citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, достапно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Проверено на 15 јануари 2009.
+  citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, достапно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. консултирано на 15 јануари 2009.
   citing_link: Наведување
   classification_already_preferred: "ГРЕШКА: Оваа класификација е веќе означена како претпочитана."
   classification_button_help: Подолу изберете класификација што најдобро ја претставува постоечката страница, па стиснете на соодветното копче „користи како пример“. Ако сакате целосно да ја откажете постапката, стиснете на „откажи“.
@@ -1707,6 +1707,9 @@ mk:
   data_object_ignore: занемари го експонатов
   data_object_not_associated_with_any_hierarchies: Овој податочен објект не е поврзан со ниедна хиерархија.
   data_object_reference: Навод на подат. објект
+  data_object_toc_items_list: 
+    one: "Се води под: %{quoted_toc_titles}"
+    other: "Се води под: %{quoted_toc_titles}"
   data_object_undo_ignore: отстрани од занемарени
   data_objects: 
     show: 
@@ -3056,7 +3059,7 @@ mk:
   page_name: Име на страницата
   page_navigation: Навигација по страницата
   page_not_found: Страницата не е пронајдена
-  page_reference: „%{title}“. Енциклопедија на живиот свет, достапно на "<a href="http://%{domain_or_ip}%{this_url}" target="_blank">http://%{domain_or_ip}%{this_url}</a>". проверено на %{date}
+  page_reference: „%{title}“. Енциклопедија на живиот свет, достапно на "<a href="http://%{domain_or_ip}%{this_url}" target="_blank">http://%{domain_or_ip}%{this_url}</a>". консултирано на %{date}
   page_results_avg: Резултати на страницата (прос.)
   page_statistics: Статистики за страници
   page_statistics_and_tools: статистики за страниците и алатки

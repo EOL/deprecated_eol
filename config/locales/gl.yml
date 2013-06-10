@@ -1706,6 +1706,9 @@ gl:
   data_object_ignore: ignorar este elemento
   data_object_not_associated_with_any_hierarchies: Este obxecto de datos non está asociado con ningunha xerarquía.
   data_object_reference: Referencia do obxecto de datos
+  data_object_toc_items_list: 
+    one: "Aparece baixo: %{quoted_toc_titles}"
+    other: "Aparece baixo: %{quoted_toc_titles}"
   data_object_undo_ignore: eliminar da lista de ignorados
   data_objects: 
     show: 

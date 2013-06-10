@@ -10,6 +10,15 @@ sv:
   0_1_or_2: 0, 1 eller 2
   0_or_1: 0 eller 1
   a_taxon: ett taxon
+  a_total_of_comment_were_found_matching_your_criteria: 
+    one: Totalt %{count} kommentar som stämmer överens med dina kriterier hittades.
+    other: Totalt %{count} kommentarer som stämmer överens med dina kriterier hittades.
+  a_total_of_items_were_found_matching_your_criteria: 
+    one: Totalt %{count} objekt som stämmer överens med dina kriterier hittades.
+    other: Totalt %{count} objekt som stämmer överens med dina kriterier hittades.
+  a_total_of_terms_were_found_matching_your: 
+    one: Totalt %{count} term som stämmer överens med dina kriterier hittades.
+    other: Totalt %{count} termer som stämmer överens med dina kriterier hittades.
   about_eol: Om EOL
   about_resources: Om resurser
   about_resources_body: Du är välkommen att ge länkar till webbplatser av tredje part som relaterar till denna organism eller grupp av organismer. Några exempel är webbplatser som erbjuder identifieringsnycklar, nyheter, bloggar samt utbildning och medborgarvetenskapliga resurser.
@@ -420,12 +429,16 @@ sv:
         user_modified_community: <strong>%{user}</strong> ändrade gemenskapen "%{community}".
     curator_activity_log: 
       add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: En okänd användare lade till en association mellan en äldre version av "%{data_object}" och en okänd sida.
         an_unknown_user_associated_an_older_data_object_to_association: En okänd användare lade till en association mellan en äldre version av "%{data_object}" och "%{association}".
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: En okänd användare lade till en okänd association.
         an_unknown_user_associated_an_unknown_data_object_to_association: En okänd användare lade till en association mellan ett okänt dataobjekt och "%{association}".
+        an_unknown_user_associated_data_object_to_an_unknown_association: En okänd användare lade till en association mellan "%{data_object}" och en okänd sida.
         an_unknown_user_associated_data_object_to_association: En okänd användare lade till en association mellan "%{data_object}" och "%{association}".
         an_unknown_user_associated_it_to_an_unknown_association: En okänd användare lade till en association till en okänd sida.
         an_unknown_user_associated_it_to_association: En okänd användare lade till en association till "%{association}".
         user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> lade till en association mellan en äldre version av "%{data_object}" och en okänd sida.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> lade till en association mellan en äldre version av "%{data_object}" och "%{association}".
         user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> lade till en okänd association.
         user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> lade till en association mellan ett okänt dataobjekt och "%{association}".
         user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> lade till en association mellan "%{data_object}" och en okänd sida.
@@ -457,6 +470,23 @@ sv:
         user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> lade till det vanliga namnet "%{name}" på %{language} till en okänd sida.
         user_added_name_in_language_to_it: <strong>%{user}</strong> lade till det vanliga namnet "%{name}" på %{language}.
         user_added_name_in_language_to_taxon: <strong>%{user}</strong> lade till det vanliga namnet "%{name}" på %{language} till "%{taxon}".
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: En okänd användare valde en äldre version av "%{data_object}" att visas i översikten på en okänd sida.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: En okänd användare valde "%{data_object}" att visas i översikten på "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: En okänd användare valde en okänd artikel att visas i översikten på en okänd sida.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: En okänd användare valde en okänd artikel att visas i översikten på "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: En okänd användare valde "%{data_object}" att visas i översikten på en okänd sida.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: En okänd användare valde "%{data_object}" att visas i översikten på "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: En okänd användare valde den att visas i översikten på en okänd sida.
+        an_unknown_user_chose_exemplar_it_on_taxon: En okänd användare valde den att visas i översikten på "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> valde en äldre version av "%{data_object}" att visas i översikten på en okänd sida.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> markerade en äldre version av "%{data_object}" att visas i översikten på "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> valde en okänd artikel att visas i översikten på en okänd sida.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> valde ett okänt dataobjekt att visas i översikten på "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> valde "%{data_object}" att visas i översikten på en okänd sida.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> valde "%{data_object}" att visas i översikten på "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> valde den att visas i översikten på en okänd sida.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> valde den att visas i översikten på "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: En okänd användare angav en äldre version av "%{data_object}" som ett exemplar på en okänd sida.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: En okänd användare angav "%{data_object}" som ett exemplar på "%{taxon}".
@@ -475,6 +505,12 @@ sv:
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> angav det som ett exemplar på en okänd sida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> angav det som ett exemplar på "%{taxon}".
       classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: En okänd användare slog samman två okända sidor.
+          an_unknown_user_merged_to_it: En okänd användare slog samman en annan sida med denna.
+          an_unknown_user_merged_to_taxon: En okänd användare slog samman en annan sida till %{target}.
+          user_merged_to_it: <strong>%{user}</strong> slog samman en annan sida med denna.
+          user_merged_to_taxon: <strong>%{user}</strong> slog samman en annan sida med %{target}.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: En okänd användare flyttade klassificeringarna av %{classifications} från en okänd sida till en annan okänd sida.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: En okänd användare flyttade klassificeringarna av %{classifications} från en okänd sida till %{target}.
@@ -488,6 +524,12 @@ sv:
           user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> flyttade klassificeringarna av %{classifications} till %{target}.
           user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> flyttade klassificeringarna av %{classifications} från %{taxon} till en annan okänd sida.
           user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> flyttade klassificeringarna av %{classifications} från %{taxon} till %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: En okänd användare delade upp klassificeringarna av %{classifications} från en okänd sida till <a href='%{to}'>sin egen sida</a>.
+          an_unknown_user_split_classifications_from_it: En okänd användare delade upp klassificeringarna av %{classifications} till <a href='%{to}'>deras egna sida</a>.
+          an_unknown_user_split_classifications_from_taxon: En okänd användare delade upp klassificeringarna av %{classifications} från %{taxon} till <a href='%{to}'>sin egen sida</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> delade upp klassificeringarna av %{classifications} från en okänd sida till <a href='%{to}'>sin egen sida</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> delade upp klassificeringarna av %{classifications} till <a href='%{to}'>sin egen sida</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: En okänd användare ändrade miniatyrbilden för "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: En okänd användare ändrade ändrade miniatyrbilden för en okänd bild.
@@ -518,7 +560,7 @@ sv:
         an_unknown_user_merged_entry_to_an_unknown_taxon: En okänd användare flyttade klassificeringen av "%{provider}" till ett okänt taxon.
         an_unknown_user_merged_entry_to_it: En okänd användare flyttade klassificeringen av "%{provider}".
         an_unknown_user_merged_entry_to_taxon: En okänd användare flyttade klassificeringen av "%{provider}" till "%{taxon}".
-        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: En okänd användare flyttade en okänd klassificering till en okänd taxon.
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: En okänd användare flyttade en okänt klassificering till ett okänt taxon.
         an_unknown_user_merged_unknown_entry_to_it: En okänd användare lade till en okänd klassificering.
         an_unknown_user_merged_unknown_entry_to_taxon: En okänd användare flyttade en okänd klassificering till "%{taxon}".
         user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> flyttade klassificeringen av "%{provider}" till ett okänt taxon.
@@ -597,10 +639,18 @@ sv:
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> markerade den som synlig i en okänd kontext.
         user_showed_it_on_association: <strong>%{user}</strong> markerade den som synlig på sidan "%{association}".
       split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: En okänd användare delade upp klassificeringen av "%{provider}" från ett okänt taxon.
         an_unknown_user_split_entry_from_it: En okänd användare separerade den okända klassificeringen av "%{provider}".
+        an_unknown_user_split_entry_from_taxon: En okänd användare delade upp klassificeringen av "%{provider}" från "%{taxon}".
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: En okänd användare flyttade en okänd klassificering från ett okänt taxon.
         an_unknown_user_split_unknown_entry_from_it: En okänd användare separerade en okänd klassificering.
+        an_unknown_user_split_unknown_entry_from_taxon: En okänd användare delade upp en okänd klassificering från "%{taxon}".
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> delade upp klassificeringen av "%{provider}" från ett okänt taxon.
         user_split_entry_from_it: <strong>%{user}</strong> separerade klassificeringen av "%{provider}".
+        user_split_entry_from_taxon: <strong>%{user}</strong> delade upp klassificeringen av "%{provider}" från "%{taxon}".
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> delade upp en okänd klassificering från ett okänt taxon.
         user_split_unknown_entry_from_it: <strong>%{user}</strong> separerade en okänd klassificering.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> delade upp en okänd klassificering från "%{taxon}".
       trust_common_name: 
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: En okänd användare markerade ett okänt vanligt namn på ett okänt språk från en okänd sida som pålitlig.
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: En okänd användare markerade ett okänt vanligt namn på ett okänt språk som pålitlig.
@@ -643,6 +693,13 @@ sv:
         user_trusted_data_object_on_association: <strong>%{user}</strong> markerade "%{data_object}" som pålitlig på sidan "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> markerade den som pålitlig i en okänd kontext.
         user_trusted_it_on_association: <strong>%{user}</strong> markerade den som pålitlig på sidan "%{association}".
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: Sidsammanslagningen du nyss begärde har slutförts, men sidan kan inte hittas.
+        merge_of_it_unlocked: Sidsammanslagningen du nyss begärde på denna sida har slutförts.
+        merge_of_taxon_unlocked: Sidsammanslagningen du nyss begärde för "%{taxon}" har slutförts.
+      unlock_with_error: 
+        merge_of_it_unlocked_with_error: "Sammanslagningen du nyss begärde på denna sida <strong>misslyckades</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "Sidsammanslagningen du nyss begärde för \"%{taxon}\" har <strong>misslyckades</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: En okänd användare markerade ett okänt vanligt namn på ett okänt språk från en okänd sida som ogranskad.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: En okänd användare markerade ett okänt vanligt namn på ett okänt språk som ogranskad.
@@ -747,6 +804,8 @@ sv:
   add_article_to_page_button: Lägg till en artikel
   add_association_submit_button: lägg till association
   add_brief_summary_to_page_link_button: Lägg till en kort sammanfattning till denna sida
+  add_citizen_science_resources_to_page_link_button: Lägg till en medborgarvetenskaplig länk till denna sida
+  add_classifications: lägg till valda klassificeringar för flyttning
   add_collection_to_a_new_community: Lägg till "%{collection}" i en ny gemenskap
   add_collection_to_community: Lägg till samling i gemenskapen
   add_education_resources_to_page_link_button: Lägg till utbildningsresurser till denna sida
@@ -778,11 +837,16 @@ sv:
   admin_content_page_update_successful_notice: Sidan <a href="#%{anchor}"><em>%{page_name}</em></a> uppdaterades.
   admin_content_page_update_unsuccessful_error: Tyvärr, ett fel uppstod. Sidan kunde inte uppdateras.
   admin_content_pages_empty: Inget innehållssidor hittas.
+  admin_content_pages_link: Innehållshantering
+  admin_content_pages_page_title: "Administration: Innehållshantering"
   admin_content_partners_index_header: Innehållspartners
   admin_content_partners_link: Innehållspartners
   admin_content_partners_notifications_link: Meddelanden
+  admin_content_partners_notifications_page_title: "Administration: Meddelanden för innehållspartners"
   admin_content_partners_notifications_sent_to_recipients_header: "Meddelanden skickades till:"
+  admin_content_partners_notifications_statistics_reminder_header: Påminnelse för webbanvändningsstatistik
   admin_content_partners_notifications_statistics_reminder_send_submit: Skicka påminnelse
+  admin_content_partners_page_title: "Administration: Hantera innehållspartners"
   admin_content_partners_statistics_date_from_label: Från
   admin_content_partners_statistics_date_to_label: Till
   admin_content_partners_statistics_first_published_download_csv_submit: Ladda ned som CSV.
@@ -791,11 +855,14 @@ sv:
   admin_information: Detta är den nya administrationen konsolen för EOL V2. Vi håller på att överföra administrationsfunktionalitet från V1. Om administrationsavsnittet du söker inte finns, besök <a href="/administrator">V1 Administrationskonsolen</a> .
   admin_link: Administrationskonsol
   admin_news_item_active: Publicerad
+  admin_news_item_create_successful_notice: Nyhetsobjektet <a href="#%{anchor}"><em>%{page_name}</em></a> har skapats.
   admin_news_item_create_unsuccessful_error: Tyvärr, ett fel uppstod. Nyhetsobjektet skapades inte.
   admin_news_item_delete_confirmation: Är du säker på att du vill radera "%{page_name}" och alla översättningar? Raderade sidor kan inte återställas.
   admin_news_item_delete_successful_notice: Nyhetsobjektet %{page_name} och associerade översättningar har tagits bort.
+  admin_news_item_edit_header: Uppdatera grundläggande nyhetsobjektsinformation för <em>%{page_name}</em>
   admin_news_item_new_header: Skapa ett nytt nyhetsobjekt
   admin_news_item_new_link: Skapa nyhetsobjekt
+  admin_news_item_new_tip: Skriv in grundläggande information om denna sida. Unikt namn är %{required_icon} nödvändigt.
   admin_news_item_not_active: Ej publicerad
   admin_news_item_update_successful_notice: Nyhetsobjektet <a href="#%{anchor}"><em>%{page_name}</em></a> uppdaterades.
   admin_news_item_update_unsuccessful_error: Tyvärr, ett fel uppstod. Nyhetsobjektet kunde inte uppdateras.
@@ -886,6 +953,7 @@ sv:
   all_sources: Alla källor
   all_taxa: Alla taxa
   all_title: Alla
+  all_user_submitted_texts_on_the_website: Alla inskickad text av användare på webbsidan visas nedan, omvänt sorterade efter tiden de skapades.
   all_videos: Alla videor
   allow_user_logins: Tillåt användarinloggningar
   allowed_html_tags: "Tillåten HTML: %{comma_separated_tags}"
@@ -922,6 +990,9 @@ sv:
   articles_with_count: 
     one: "%{count} artikel"
     other: "%{count} artiklar"
+  as_of_time_there_were_unique_visitors: 
+    one: Från och med %{time} var det %{count} unik besökare
+    other: Från och med %{time} var det %{count} unika besökare
   assistive_details_header: Detaljer
   assistive_literature_header: Litteratur
   assistive_maps_header: Kartor
@@ -968,14 +1039,18 @@ sv:
   average_rating_value_of_total: "Genomsnittligt betyg: %{rating} av %{total}"
   back: Tillbaka
   back_to_profile: Tillbaka till profil
+  began: Började
   belongs_in_count_communities: 
     one: Tillhör %{count} gemenskap
     other: Tillhör %{count} gemenskaper
+  bhl_publication: BHL-publikation
+  bi_monthly: Varannan månad
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedicinska termer
   body: "Innehåll:"
   build_communities: Bygg gemenskaper
   by_caps: Av
+  by_scientific_name_table_header: efter vetenskapligt namn
   cache_store: Cachelagring
   calculate_averages_slow: Beräkna medelvärden (långsam)
   call_api: Anropa API
@@ -985,6 +1060,7 @@ sv:
   cannot_be_empty: kan inte vara tom.
   cannot_create_collection_item_from_class_error: Jag kan inte skapa ett samlingsobjekt från en %{klass}
   cannot_create_community_from_watch_collection_error: Du kan inte skapa en gemenskap från en bevakningslista.
+  cannot_expand_children: kan inte expandera underordnade objekt
   cannot_find_member: Kan inte hitta en medlem med detta ID.
   cannot_index_collection_item_type_error: Jag kan inte indexera ett samlingsobjekt från en %{type}
   change: Ändra
@@ -997,6 +1073,7 @@ sv:
   citation: Citation
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, tillgänglig från <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Läst 15 Jan 2009.
   citing_link: Citera
+  classification_already_preferred: "Fel: Denna klassificering har redan markerats som föredragen."
   classification_from_agent: Klassificering från %{agent}.
   classification_from_agent_chosen_by_curator: Klassificering från %{agent} valda av %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Klassificering från %{agent} valda av %{curator} - <a href="%{more_link}">se mer</a>.

@@ -1016,11 +1016,11 @@ ko:
   article_of_taxon: "%{taxon_name}의 문서"
   article_rating: 문서 평가
   articles_in_languages_with_count: 
-    one: "이 문서에 대한 문서를 언어 %{count}개로 읽을 수 있습니다:"
-    other: "이 문서에 대한 문서를 언어 %{count}개로 읽을 수 있습니다:"
+    one: "이 문서에 대한 문서를 %{count}개 언어로 읽을 수 있습니다:"
+    other: "이 문서에 대한 문서를 %{count}개 언어로 읽을 수 있습니다:"
   articles_in_other_languages_with_count: 
-    one: "이 문서에 대한 문서를 다른 언어 %{count}개로 읽을 수 있습니다:"
-    other: "이 문서에 대한 문서를 다른 언어 %{count}개로 읽을 수 있습니다:"
+    one: "이 문서에 대한 문서를 다른 %{count}개 언어로 읽을 수 있습니다:"
+    other: "이 문서에 대한 문서를 다른 %{count}개 언어로 읽을 수 있습니다:"
   articles_with_count: 
     one: 문서 %{count}개
     other: 문서 %{count}개
@@ -1636,7 +1636,7 @@ ko:
   data_master_database_colon: "데이터 마스터:"
   data_object: 데이터 개체
   data_object_ignore: 이 항목 무시
-  data_object_not_associated_with_any_hierarchies: 이 데이터 개체는 어떠한 계층과 연결되어 있지 않습니다.
+  data_object_not_associated_with_any_hierarchies: 이 데이터 개체는 어떠한 계층과도 연결되어 있지 않습니다.
   data_object_reference: 데이터 개체 참고
   data_object_undo_ignore: 무시 목록에서 제거
   data_objects: 
@@ -2586,7 +2586,7 @@ ko:
   map_not_associated_with_any_published_entries: 이 지도는 모든 게시한 분류와 관련되지 않습니다.
   map_of_taxon: "%{taxon_name}의 지도"
   map_rating: 지도 평가
-  maps_empty: 아직 이 문서에 어떠한 지도를 기여하지 않았습니다.
+  maps_empty: 아직 이 문서에 어떠한 지도도 기여하지 않았습니다.
   maps_empty_contribute_instructions: EOL에 지도를 기여하는 방법을 알아보세요.
   maps_image_maps_header: "'지도'로 태그한 미디어"
   maps_with_count: 
@@ -2597,10 +2597,10 @@ ko:
     other: 기준과 일치하는 사용자 총 %{count}명을 찾았습니다.
   max_collection_items_error: 죄송합니다, 요청은 모음집 항목 %{max}개의 제한을 초과합니다.
   media: 미디어
-  media_list_empty: 아직 이 문서에 어떠한 미디어를 기여하지 않았습니다.
+  media_list_empty: 아직 이 문서에 어떠한 미디어도 기여하지 않았습니다.
   media_list_empty_contribute_instructions: EOL에 미디어를 기여하는 방법을 알아보세요.
   media_list_empty_search: 찾기 조건과 일치하는 미디어를 사용할 수 없습니다.
-  media_summary_empty: 아직 이 문서에 어떠한 그림을 기여하지 않았습니다.
+  media_summary_empty: 아직 이 문서에 어떠한 그림도 기여하지 않았습니다.
   media_summary_empty_contribute_instructions: EOL에 그림을 기여하는 방법을 알아보세요.
   media_with_count: 
     one: 미디어 %{count}개
@@ -3540,15 +3540,15 @@ ko:
   taxon_biomedical_terms_link: 생명 공학 용어
   taxon_citizen_science_header: 시민 과학 링크
   taxon_citizen_science_link: 시민 과학 링크
-  taxon_citizen_science_resources_empty: 아직 이 문서에 어떠한 시민 과학 링크을 기여하지 않았습니다.
+  taxon_citizen_science_resources_empty: 아직 이 문서에 어떠한 시민 과학 링크도 기여하지 않았습니다.
   taxon_concept_stats: 분류 개념 통계
-  taxon_details_empty: 아직 이 문서에 어떠한 자세한 사항을 기여하지 않았습니다.
-  taxon_education_empty: 아직 이 문서에 어떠한 교육 자료를 기여하지 않았습니다.
+  taxon_details_empty: 아직 이 문서에 어떠한 자세한 사항도 기여하지 않았습니다.
+  taxon_education_empty: 아직 이 문서에 어떠한 교육 자료도 기여하지 않았습니다.
   taxon_education_header: 교육 자료
   taxon_education_link: 교육 자료
   taxon_group: 분류 그룹
   taxon_id: 분류 ID
-  taxon_identification_resources_empty: 아직 이 문서에 어떠한 식별 자료를 기여하지 않았습니다.
+  taxon_identification_resources_empty: 아직 이 문서에 어떠한 식별 자료도 기여하지 않았습니다.
   taxon_identification_resources_header: 식별 리소스
   taxon_identification_resources_link: 식별 리소스
   taxon_multimedia_links_link: 멀티미디어 링크

@@ -9,7 +9,7 @@ pt:
   translated_activities-name-activity_id-51: mostrar
   translated_activities-name-activity_id-52: criar
   translated_activities-name-activity_id-53: esconder
-  translated_activities-name-activity_id-54: actualizar
+  translated_activities-name-activity_id-54: atualizar
   translated_activities-name-activity_id-55: inadequado
   translated_activities-name-activity_id-56: eliminar
   translated_activities-name-activity_id-57: taxa
@@ -67,6 +67,18 @@ pt:
   translated_contact_roles-label-contact_role_id-1: Contacto Principal
   translated_contact_roles-label-contact_role_id-2: Contacto administrativo
   translated_contact_roles-label-contact_role_id-3: Contacto Técnico
+  translated_contact_subjects-title-contact_subject_id-24: Filiação e inscrição
+  translated_contact_subjects-title-contact_subject_id-25: Termos de uso e licenciamento
+  translated_contact_subjects-title-contact_subject_id-26: Aprendizagem e educação
+  translated_contact_subjects-title-contact_subject_id-27: Tornar-se um parceiro de conteúdo
+  translated_contact_subjects-title-contact_subject_id-28: Apoio do parceiro de conteúdo
+  translated_contact_subjects-title-contact_subject_id-29: Apoio de curador
+  translated_contact_subjects-title-contact_subject_id-30: Faça uma correcção (ortografia e gramática, imagens, informação)
+  translated_contact_subjects-title-contact_subject_id-31: Contribua com imagens, vídeos ou sons
+  translated_contact_subjects-title-contact_subject_id-32: Solicitação dos média (entrevistas, questões da imprensa, pedidos de logótipo)
+  translated_contact_subjects-title-contact_subject_id-33: Faça uma doação monetária
+  translated_contact_subjects-title-contact_subject_id-34: Questões técnicas (problemas com busca, funcionalidade do site)
+  translated_contact_subjects-title-contact_subject_id-35: Comentários gerais
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendente
   translated_content_partner_statuses-label-content_partner_status_id-2: Ativo
   translated_content_partner_statuses-label-content_partner_status_id-3: Arquivado
@@ -240,6 +252,11 @@ pt:
   translated_synonym_relations-label-synonym_relation_id-61: sinónimo objectivo
   translated_synonym_relations-label-synonym_relation_id-62: sinónimo sénior
   translated_synonym_relations-label-synonym_relation_id-63: não aceite
+  translated_synonym_relations-label-synonym_relation_id-64: inválido
+  translated_synonym_relations-label-synonym_relation_id-65: sinónimo do género
+  translated_synonym_relations-label-synonym_relation_id-66: representação alternativa
+  translated_synonym_relations-label-synonym_relation_id-67: espécie inquirenda
+  translated_synonym_relations-label-synonym_relation_id-68: hortícola
   translated_synonym_relations-label-synonym_relation_id-7: acrónimo do GenBank
   translated_synonym_relations-label-synonym_relation_id-8: anamorfo do genbank
   translated_synonym_relations-label-synonym_relation_id-9: nome comum genbank

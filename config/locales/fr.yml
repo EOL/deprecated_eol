@@ -1683,6 +1683,9 @@ fr:
   data_object_ignore: ignorer cet élément
   data_object_not_associated_with_any_hierarchies: Cet objet de données n’est associé à aucune hiérarchie.
   data_object_reference: Référence de l’objet de données
+  data_object_toc_items_list: 
+    one: "Apparaît sous : %{quoted_toc_titles}"
+    other: "Apparaissent sous : %{quoted_toc_titles}"
   data_object_undo_ignore: retirer de la liste à ignorer
   data_objects: 
     show: 

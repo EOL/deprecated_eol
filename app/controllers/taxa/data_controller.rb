@@ -13,6 +13,8 @@ class Taxa::DataController < TaxaController
     preload_associations
 
     @show_download_data_button = true unless @data.blank?
+    known_uris = @data.select{ |d| d[:attribute].is_a?(KnownUri) }.collect{ |d| d[:attribute] }
+    KnownUri.preload_associations(known_uris, [ { :toc_items => :translations }, { :known_uri_relationships_as_subject => :to_known_uri }, { :known_uri_relationships_as_target => :from_known_uri } ] )
     @categories = @data.map { |d| d[:attribute] }.flat_map { |a| a.is_a?(KnownUri) ? a.toc_items : nil }.uniq.compact
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)
   end

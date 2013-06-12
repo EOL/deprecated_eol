@@ -45,13 +45,33 @@ class TaxonData < TaxonUserClassificationFilter
     rows.delete_if{ |k,v| k[:attribute].blank? }
     rows = add_known_uris_to_data(rows)
     rows = replace_target_taxon_concept_ids(rows)
+    # TODO: remove this after the demo - to be replaced by exemplar data
+    rows = remove_data_for_demo(rows)
     rows.sort_by do |h|
       c = EOL::Sparql.uri_components(h[:attribute])
-      c[:label].downcase
+      [ c[:label].downcase, c[:value].to_s.downcase ]
     end
   end
 
   private
+
+  # TODO: remove this after the demo - to be replaced by exemplar data
+  def remove_data_for_demo(rows)
+    uris_to_remove = [
+      'http://iobis.org/maxaou',
+      'http://iobis.org/minaou',
+      'http://iobis.org/maxdate',
+      'http://iobis.org/mindate'
+    ]
+    rows.delete_if do |r|
+      if r[:attribute].is_a?(KnownUri)
+        uris_to_remove.detect{ |uri| r[:attribute].matches(uri) }
+      else
+        uris_to_remove.detect{ |uri| r[:attribute].to_s == uri }
+      end
+    end
+    rows
+  end
 
   def get_user_added_data(value)
     if value && matches = value.to_s.match(UserAddedData::URI_REGEX)

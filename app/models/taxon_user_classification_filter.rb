@@ -25,11 +25,11 @@ class TaxonUserClassificationFilter
   end
 
   def details
-    TaxonDetails.new(taxon_concept, user, _hierarchy_entry)
+    @details ||= TaxonDetails.new(taxon_concept, user, _hierarchy_entry)
   end
 
   def data
-    TaxonData.new(taxon_concept, user, _hierarchy_entry)
+    @data ||= TaxonData.new(taxon_concept, user, _hierarchy_entry)
   end
 
   # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When

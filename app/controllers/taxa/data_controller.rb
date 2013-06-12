@@ -6,7 +6,8 @@ class Taxa::DataController < TaxaController
   def index
     @assistive_section_header = "ASdfsfasdfasdfasdaf" # TODO
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
-    @data = @taxon_page.data.get_data
+    @taxon_data = @taxon_page.data
+    @data = @taxon_data.get_data
     @toc_id = params[:toc_id]
     # bulk preloading of resources/content partners
     preload_data_point_uris

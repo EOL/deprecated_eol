@@ -37,6 +37,9 @@ class TaxonData < TaxonUserClassificationFilter
       c = EOL::Sparql.uri_components(h[:attribute])
       c[:label].downcase
     end
+    @categories = rows.map { |d| d[:attribute] }.flat_map { |a| a.is_a?(KnownUri) ? a.toc_items : nil }
+    @categories = @categories.uniq.compact.sort_by(&:view_order)
+    rows
   end
 
   def get_data_for_overview
@@ -51,6 +54,11 @@ class TaxonData < TaxonUserClassificationFilter
       c = EOL::Sparql.uri_components(h[:attribute])
       c[:label].downcase
     end
+  end
+
+  def categories
+    get_data unless @categories
+    @categories
   end
 
   private

@@ -13,7 +13,7 @@ class TocItem < ActiveRecord::Base
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
 
   FOR_URIS = [
-    'Overview',
+    'Distribution',
     'Physical Description',
     'Ecology',
     'Life History and Behavior',
@@ -262,7 +262,7 @@ class TocItem < ActiveRecord::Base
       @for_uris ||= {}
       @for_uris[lang] ||= FOR_URIS.map do
         |label| TocItem.cached_find_translated(:label, label, lang)
-      end.compact.sort_by(&:label)
+      end.compact
     end
 
   end

@@ -49,7 +49,7 @@ class TaxonData < TaxonUserClassificationFilter
     rows = remove_data_for_demo(rows)
     rows.sort_by do |h|
       c = EOL::Sparql.uri_components(h[:attribute])
-      [ c[:label].downcase, c[:value].to_s.downcase ]
+      c[:label].downcase
     end
   end
 

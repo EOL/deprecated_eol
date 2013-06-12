@@ -3,10 +3,10 @@
 -# TODO - These should actually be links to filtered versions of this page, for accessibility.
 #tabs_sidebar.data
   %ul.tabs.with_icons
-    %li.active= link_to I18n.t(:all_categories), '#', class: 'all'
+    %li{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(:toc_id => nil)), class: 'all'
     - @categories.each do |cat|
-      %li= link_to cat.label, '#', 'data-toc-id' => cat.id
-    %li= link_to I18n.t(:other_category), '#', class: 'other'
+      %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, url_for(params.merge(:toc_id => cat.id)), 'data-toc-id' => cat.id
+    %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), url_for(params.merge(:toc_id => 'other')), class: 'other'
 .main_container#taxon_data
   - if @data.blank?
     .empty
@@ -36,7 +36,15 @@
           - data_point_uri = row[:data_point_instance]
           - row_id = data_point_uri.anchor
           - comments = data_point_uri.all_comments
-        %tr{ id: row_id, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}" }
+
+        - show_row = true
+        - if @toc_id == 'other'
+          - show_row = false if row[:attribute].is_a?(KnownUri) && !row[:attribute].toc_items.empty?
+        - elsif row[:attribute].is_a?(KnownUri)
+          - show_row = false if @toc_id && row[:attribute].toc_items.detect{ |toc| toc.id.to_s == @toc_id }.nil?
+        - else
+          - show_row = false if @toc_id
+        %tr{ id: row_id, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}", style: show_row ? '' : 'display: none;' }
           - th_id = nil
           - if row[:attribute] != last_attribute
             - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
@@ -66,7 +74,7 @@
                         %td= link_to v, ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(v.to_s)), :target => 'data'
                       - else
                         = display_uri(v, :td)
-        %tr{ class: (classes + ['actions']).join(' ') }
+        %tr{ class: (classes + ['actions']).join(' '), style: show_row ? '' : 'display: none;' }
           %td{ colspan: 2 }
             %ul
               - if row[:source]

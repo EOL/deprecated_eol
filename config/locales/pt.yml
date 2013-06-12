@@ -40,6 +40,8 @@ pt:
         annotation: Anotação
         refs: Referências
         sort_field: Ordenar por
+      collection_job: 
+        overwrite: Substituir duplicados
       comment: 
         body: Comentar
       community: 
@@ -85,28 +87,70 @@ pt:
         rights_statement: Declaração dos direitos
         source_url: URL de origem
       eol_statistic: 
+        active_curators: Curadores activos
         base_pages: Páginas de base
         collections_count: Colecções
         communities_count: Comunidades
+        content_partners: Parceiros de conteúdo
+        content_partners_with_published_resources: Com recursos publicados
+        content_partners_with_published_trusted_resources: Com recursos publicados confiáveis
         created_at: Criado em
+        curator_actions_in_the_last_30_days: Acções do curador nos últimos 30 dias
+        curators: Curadores
+        curators_assistant: Curadores Assistentes
+        curators_full: Curadores Plenos
+        curators_master: Curadores Mor
         data_objects: Objectos de Dados
         data_objects_images: Objectos de Imagem
+        data_objects_maps: Objectos de mapa
+        data_objects_sounds: Objectos de áudio
         data_objects_texts: Objectos de texto
+        data_objects_trusted: Objectos de dados confiáveis
+        data_objects_trusted_or_unreviewed_but_hidden: Confiável ou não revisto mas escondido
+        data_objects_unreviewed: Objectos de dados não revistos
+        data_objects_untrusted: Objectos de dados não confiáveis
+        data_objects_videos: Objectos de vídeo
+        hotlist_pages: Páginas na Hotlist
+        lifedesk_data_objects: Objetos de dados de LifeDesks
+        lifedesk_taxa: Taxa de LifeDesks
+        marine_pages: Páginas marinhas
+        marine_pages_in_col: Páginas marinhas encontradas em CoL
+        marine_pages_with_objects: Páginas marinhas com objectos de dados
+        marine_pages_with_objects_vetted: Páginas marinhas com objectos de dados confiáveis
         members_count: Membros
+        newly_published_resources_in_the_last_30_days: Recém publicado no último mês
+        objects_curated_in_the_last_30_days: Objectos curados nos últimos 30 dias
         pages_count: Número total de páginas
+        pages_curated_by_active_curators: Páginas com curadoria de curadores activos
         pages_with_BHL_links: Páginas com ligações à BHL
         pages_with_BHL_links_no_text: Páginas sem texto com ligações à BHL
+        pages_with_BHL_links_only: Páginas com ligações à BHL apenas
+        pages_with_at_least_a_curatorial_action: Páginas com acção curatorial
         pages_with_at_least_a_trusted_object: Páginas com objecto de confiança
         pages_with_content: Páginas com conteúdo
         pages_with_image: Páginas com imagens
         pages_with_image_no_text: Páginas com imagens, mas sem texto
         pages_with_map: Páginas com mapa
+        pages_with_score_10_to_39: Páginas com pontuação 10-40
+        pages_with_score_less_than_10: Páginas com pontuação inferior a 10
         pages_with_sound: Páginas com áudio
         pages_with_text: Páginas com texto
         pages_with_text_no_image: Páginas com texto mas nenhuma imagem
         pages_with_video: Páginas com vídeo
         pages_without_image: Páginas sem imagem
         pages_without_text: Páginas sem texto
+        published_resources: Recursos publicados
+        published_trusted_resources: Recursos publicados confiáveis
+        published_unreviewed_resources: Recursos publicados não revistos
+        redhotlist_pages: Páginas na Hotlist Vermelha
+        rich_hotlist_pages: Páginas Ricas na Hotlist
+        rich_hotlist_pages_percentage: "% de páginas Ricas na Hotlist"
+        rich_pages: Páginas ricas
+        rich_redhotlist_pages: Páginas Ricas na Hotlist Vermelha
+        rich_redhotlist_pages_percentage: "% de páginas Ricas na Hotlist Vermelha"
+        udo_published: Texto enviado por utilizador
+        udo_published_by_curators: Texto enviado por curador
+        udo_published_by_non_curators: Texto enviado por não-curador
       forum: 
         description: Descrição <small>(opcional)</small>
         forum_category_id: Categoria
@@ -116,8 +160,10 @@ pt:
         title: Nome da categoria
       forum_post: 
         subject: Assunto
+        text: Conteúdo
       forum_topic: 
         subject: Assunto
+        text: Conteúdo
       harvest_event: 
         resource: Recurso
       hierarchy: 
@@ -129,10 +175,22 @@ pt:
         request_publish: Solicitar publicação
       name: 
         string: Nome
+      news_item: 
+        active: Publicado
+        page_name: Nome único
+        sort_order: Ordem de classificação
       notification: 
+        comment_on_my_profile: Um comentário no seu perfil
         invitation_to_community: Convite para participar numa comunidade
+        reply_to_comment: Uma resposta a um comentário seu
       open_authentication: 
         created_at: Criado
+        guid: Identificador Global Único
+        provider: Outro provedor
+        secret: Secreto
+        updated_at: Última actualização
+        user_id: Identificador do utilizador
+        verified_at: Última verificação
       resource: 
         accesspoint_url: URL do conjunto de dados
         auto_publish: Auto-publicar
@@ -261,7 +319,7 @@ pt:
   admin_content_page_create_unsuccessful_error: Desculpe, ocorreu um erro, a página não foi criada.
   admin_content_page_delete_confirmation: Tem a certeza de que deseja eliminar "%{page_name}" e todas as traduções? Acções de eliminação não podem ser desfeitas.
   admin_content_page_delete_successful_notice: A página %{page_name} e traduções associadas foram eliminadas.
-  admin_content_page_edit_header: Actualizar as informações básicas sobre a página para <em>%{page_name}</em>
+  admin_content_page_edit_header: Atualizar as informações básicas sobre a página para <em>%{page_name}</em>
   admin_content_page_edit_tip: Recomenda-se que não edite o nome único desta página a não ser que esteja plenamente consciente das consequências, incluindo o impacto das ligações para esta página, ou a rotas nomeadas. É %{required_icon} necessário um nome único.
   admin_content_page_new_header: Criar uma nova página de conteúdo
   admin_content_page_new_link: Criar uma página nova
@@ -528,7 +586,7 @@ pt:
   community_tab_curators_description: Curadores são utilizadores da EOL com perícia biológica que dispensam o seu tempo a rever conteúdo na EOL, assegurando que o que vê está correcto e é de boa qualidade.
   confirm_delete_community: Tem a certeza que quer eliminar esta comunidade? Os membros restantes ainda poderão a vê-la e as notícias serão mantidas, mas não aparecerá em procuras ou em páginas de taxon, e não poderá mais ser editada.
   confirm_leave: Tem a certeza de que deseja deixar esta comunidade?
-  confirm_password_colon: "Confirme senha:"
+  confirm_password_colon: "Confirmar senha:"
   contact_us_functions: Funções para nos contactar
   contact_us_link: Contactos
   contacts: 
@@ -1184,18 +1242,18 @@ pt:
         create: Criar página
         edit: Editar
         preview: Antevisão
-        update: Actualizar página
+        update: Atualizar página
       content_partner: 
         create: Criar parceiro de conteúdo
         update: Salvar informações do parceiro de conteúdo
       content_partner_agreement: 
         agree: Concordar com os termos de parceiros de conteúdo
         create: Criar novo acordo
-        update: Actualizar acordo
+        update: Atualizar acordo
       content_partner_contact: 
         create: Adicionar contacto
         destroy: Eliminar contacto
-        update: Actualizar contacto
+        update: Atualizar contato
       create: Crie %{model}
       data_object: 
         create: Adicionar artigo
@@ -1208,10 +1266,10 @@ pt:
         publish: Publicar
       hierarchy: 
         request_publish: Solicitar promoção de hierarquia
-        update: Actualizar hierarquia
+        update: Atualizar hierarquia
       name: 
         create: Adicionar nome
-        update: Actualizar nome
+        update: Atualizar nome
       news_item: 
         edit: Editar
       open_authentication: 
@@ -1221,8 +1279,8 @@ pt:
       resource: 
         create: Adicionar recurso
         force_harvest: Pedir colheita forçada
-        update: Actualizar o recurso
-        update_settings: Actualizar configurações
+        update: Atualizar o recurso
+        update_settings: Atualizar configurações
       session: 
         create: Iniciar sessão
         sign_in_with_facebook: Entrar com Facebook
@@ -1233,7 +1291,7 @@ pt:
       translated_content_page: 
         create: Adicionar tradução
         update: Guardar alterações à tradução
-      update: Actualizar %{model}
+      update: Atualizar %{model}
       user: 
         create: Criar conta
         curation_application: Concorra agora
@@ -1691,8 +1749,8 @@ pt:
   untrusted: Não é de confiança
   update: Atualizar
   update_collection_submit_button: Atualizar detalhes da coleção
-  update_language: Actualizar língua
-  update_page: Actualizar página
+  update_language: Atualizar língua
+  update_page: Atualizar página
   update_user_successful_notice: Conta actualizada com êxito.
   updated: Atualizado
   updated_colon: "Atualizado:"

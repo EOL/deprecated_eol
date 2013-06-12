@@ -1,7 +1,9 @@
 # Messages for Norwegian Bokmål (norsk bokmål)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Danmichaelo
 # Author: Nghtwlkr
+# Author: Simen47
 # Author: Wouterkoch
 nb: 
   0_1_or_2: 0, 1 eller 2
@@ -842,6 +844,9 @@ nb:
   add_to_my_collection_button: Legg til i en samling
   admin_content_page_active: Publisert
   admin_content_page_child_new_link: Opprett underordnet side
+  admin_content_page_create_unsuccessful_error: Beklager, en feil oppstod, siden ble ikke opprettet.
+  admin_content_page_delete_confirmation: Er du sikker på at du vil slette «%{page_name}» og alle oversettelsene? Slettede sider kan ikke bli gjenopprettet.
+  admin_content_page_delete_successful_notice: Siden %{page_name} og alle tilknyttede oversettelser har blitt slettet.
   admin_content_page_new_link: Opprett ny side
   admin_content_page_not_active: Upublisert
   admin_content_pages_link: Innholdsforvaltning
@@ -2095,6 +2100,7 @@ nb:
   key: Nøkkel
   label: Etikett
   language: "Språk:"
+  language_selector_advisory_information: Følgende er en liste over språk som sidens innhold er tilgjengelig på, velg et alternativt språk fra denne listen for å endre det gjeldende språket.
   language_with_count: "%{language} (%{count})"
   languages: Språk
   last_updated: Sist oppdatert
@@ -2327,8 +2333,10 @@ nb:
   not_evaluated: Ikke vurdert
   not_published_yet: ikke publisert ennå
   note: "NB:"
+  note_all_times_utc: Merk at alle klokkeslett er UTC (Greenwich Mean Time)
   note_that_you_can_reference_im: Vær oppmerksom på at du kan referere til bilder med html taggen &lt;img&gt;, men disse må finnes på adressen, som på det opprinnelige nettstedet eller en side som Flickr. Det er ikke fasilitetet til å laste opp bilder til bruk i nyhetssaken direkte.
   notes: Notater
+  notes_not_shown_to_user: "Notater (vises ikke til brukeren):"
   notification_frequency_never: Aldri
   notification_frequency_send_immediately: Send umiddelbart
   notification_frequency_weekly: Ukentlig

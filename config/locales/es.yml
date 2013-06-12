@@ -2479,7 +2479,7 @@ es:
   image_objects_will_contain_two_mediaurl_elements: Los objetos de imagen tendrán dos elementos tipo 'mediaURL' - el primero es la dirección URL de la imagen en el sitio web del proveedor, y el segundo, la dirección URL de la versión guardada en caché del fichero alojado en un servidor de EOL. La versión de la imagen guardada en EOL estará escalada proporcionalmente si la imagen original tiene un tamaño superior a 460 pixeles de ancho por 345 pixeles de alto.
   image_of_taxon: Imagen de %{taxon_name}
   image_rating: Evaluación de la imagen
-  image_title_with_taxa: Imagen de los %{taxones}
+  image_title_with_taxa: Imagen de los %{taxa}
   images: Imágenes
   images_in_red_are_not_trusted: Las imágenes en color rojo no son de confianza.
   images_in_yellow_are_not_reviewed: Las imágenes que están en amarillo no están revisadas.

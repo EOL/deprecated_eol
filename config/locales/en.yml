@@ -3124,7 +3124,7 @@ en:
   darwin_core: "Darwin Core"
   dashboard: "Dashboard"
   data: "Data"
-  data_summary_header: "Facts and associations"
+  data_summary_header: "Quick facts"
   data_database_colon: "Data:"
   data_logging_active: "Data Logging Active"
   data_master_database_colon: "Data Master:"

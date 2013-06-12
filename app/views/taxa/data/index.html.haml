@@ -3,10 +3,10 @@
 -# TODO - These should actually be links to filtered versions of this page, for accessibility.
 #tabs_sidebar.data
   %ul.tabs.with_icons
-    %li{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(:toc_id => nil)), class: 'all'
     - @categories.each do |cat|
       %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, url_for(params.merge(:toc_id => cat.id)), 'data-toc-id' => cat.id
     %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), url_for(params.merge(:toc_id => 'other')), class: 'other'
+    %li{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(:toc_id => nil)), class: 'all'
 .main_container#taxon_data
   - if @data.blank?
     .empty

@@ -3124,7 +3124,7 @@ en:
   darwin_core: "Darwin Core"
   dashboard: "Dashboard"
   data: "Data"
-  data_summary_header: "Facts and associations"
+  data_summary_header: "Quick facts"
   data_database_colon: "Data:"
   data_logging_active: "Data Logging Active"
   data_master_database_colon: "Data Master:"
@@ -3136,6 +3136,7 @@ en:
   data_object_toc_items_list:
     one: "Appears under %{quoted_toc_titles}"
     other: "Appears under %{quoted_toc_titles}"
+  data_point_uri_summary_name: "data on %{taxon}"
   data_provided_by_user: "provided by %{whom}"
   data_provided_by_content_partner: "Source: %{whom}"
   data_show_n_more_rows: "Show NNN more..."

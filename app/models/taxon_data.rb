@@ -37,8 +37,12 @@ class TaxonData < TaxonUserClassificationFilter
       c = EOL::Sparql.uri_components(h[:attribute])
       c[:label].downcase
     end
-    @categories = rows.map { |d| d[:attribute] }.flat_map { |a| a.is_a?(KnownUri) ? a.toc_items : nil }
-    @categories = @categories.uniq.compact.sort_by(&:view_order)
+    known_uris = rows.select { |d| d[:attribute].is_a?(KnownUri) }.map { |d| d[:attribute] }
+    KnownUri.preload_associations(known_uris,
+                                  [ { :toc_items => :translations },
+                                    { :known_uri_relationships_as_subject => :to_known_uri },
+                                    { :known_uri_relationships_as_target => :from_known_uri } ] )
+    @categories = known_uris.flat_map(&:toc_items).uniq.compact
     rows
   end
 

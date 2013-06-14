@@ -650,5 +650,21 @@ describe DataObject do
     d.title_same_as_toc_label(toc, :language => Language.from_iso('ar')).should == true
   end
 
+  it 'should add rights, citation and location information to SiteSearch Solr core' do
+    solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+    fields_for_searching = [ :object_title, :description, :rights_statement, :rights_holder,
+      :bibliographic_citation, :location ]
+    # removing underscores as Solr will use them to separate search terms
+    d = DataObject.gen(Hash[ fields_for_searching.map{ |att| [ att, att.to_s.delete('_') + 'x' ] } ])
+    EOL::Solr::SiteSearchCoreRebuilder.obliterate
+    fields_for_searching.each do |att|
+      solr_api.get_results("resource_type:DataObject AND keyword_type:#{att} AND keyword:#{att.to_s.delete('_')}x")['numFound'].should == 0
+    end
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    fields_for_searching.each do |att|
+      solr_api.get_results("resource_type:DataObject AND keyword_type:#{att} AND keyword:#{att.to_s.delete('_')}x")['numFound'].should == 1
+    end
+  end
+
 end
 

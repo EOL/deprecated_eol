@@ -121,20 +121,20 @@ describe 'Solr API' do
     it 'should rebuild the core' do
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       # names for preferred name, synonym, surrogate and common names
-      @solr.get_results("*:*")['numFound'].should == 29
-      @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
-      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
-      @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
+      @solr.get_results("*:*")['numFound'].should == 53
+      @solr.get_results("resource_type:TaxonConcept AND resource_id:#{@test_taxon_concept.id}")['numFound'].should == 3
+      @solr.get_results("keyword:#{@scientific_name}")['numFound'].should == 2
+      @solr.get_results("keyword:#{@common_name}")['numFound'].should == 1
       @solr.get_results("resource_type:ContentPage")['numFound'].should == 2
     end
     
     it 'should reindex given model' do
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       EOL::Solr::SiteSearchCoreRebuilder.reindex_model(TaxonConcept, @solr)
-      @solr.get_results("*:*")['numFound'].should == 29
-      @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
-      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
-      @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
+      @solr.get_results("*:*")['numFound'].should == 53
+      @solr.get_results("resource_type:TaxonConcept AND resource_id:#{@test_taxon_concept.id}")['numFound'].should == 3
+      @solr.get_results("keyword:#{@scientific_name}")['numFound'].should == 2
+      @solr.get_results("keyword:#{@common_name}")['numFound'].should == 1
       EOL::Solr::SiteSearchCoreRebuilder.reindex_model(ContentPage, @solr)
       @solr.get_results("resource_type:ContentPage")['numFound'].should == 2
     end

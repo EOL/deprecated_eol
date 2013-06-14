@@ -81,7 +81,8 @@ class DataObject < ActiveRecord::Base
   before_validation :default_values
   after_create :clean_values
 
-  index_with_solr :keywords => [ :object_title ], :fulltexts => [ :description ]
+  index_with_solr :keywords => [ :object_title, :rights_statement, :rights_holder,
+    :location, :bibliographic_citation, :agents_for_solr ], :fulltexts => [ :description ]
 
   def self.maximum_rating
     @@maximum_rating
@@ -1077,6 +1078,12 @@ class DataObject < ActiveRecord::Base
     if options[:language] != Language.default
       return true if toc_item.label(Language.default.iso_code).downcase == object_title.downcase
     end
+  end
+
+  def agents_for_solr
+    agent_names = agents_data_objects.collect{ |ado| ado.agent.full_name }.uniq.compact
+    return if agent_names.empty?
+    { keyword_type: 'agent', keywords: agent_names }
   end
 
 private

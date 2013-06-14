@@ -33,10 +33,7 @@ class TaxonData < TaxonUserClassificationFilter
     rows = replace_licenses_with_mock_known_uris(rows)
     rows = add_known_uris_to_data(rows)
     rows = replace_target_taxon_concept_ids(rows)
-    rows.sort_by do |h|
-      c = EOL::Sparql.uri_components(h[:attribute])
-      c[:label].downcase
-    end
+    rows = TaxonData.sort_rows_by_attribute_and_value(rows)
     known_uris = rows.select { |d| d[:attribute].is_a?(KnownUri) }.map { |d| d[:attribute] }
     KnownUri.preload_associations(known_uris,
                                   [ { :toc_items => :translations },
@@ -54,10 +51,7 @@ class TaxonData < TaxonUserClassificationFilter
     rows = replace_target_taxon_concept_ids(rows)
     # TODO: remove this after the demo - to be replaced by exemplar data
     rows = remove_data_for_demo(rows)
-    rows.sort_by do |h|
-      c = EOL::Sparql.uri_components(h[:attribute])
-      c[:label].downcase
-    end
+    rows = TaxonData.sort_rows_by_attribute_and_value(rows)
   end
 
   def categories
@@ -66,6 +60,15 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   private
+
+  def self.sort_rows_by_attribute_and_value(rows)
+    rows.sort_by do |row|
+      attribute_label = EOL::Sparql.uri_components(row[:attribute])[:label]
+      value_label = EOL::Sparql.uri_components(row[:value])[:label]
+      value_label = value_label.to_s.downcase if value_label.class == RDF::Literal
+      [ attribute_label.downcase, value_label.downcase ]
+    end
+  end
 
   # TODO: remove this after the demo - to be replaced by exemplar data
   def remove_data_for_demo(rows)
@@ -144,9 +147,9 @@ class TaxonData < TaxonUserClassificationFilter
 
   def association_data(options = {})
     options.reverse_merge!({ :metadata => true })
-    selects = "?attribute ?target_taxon_concept_id ?inverse_attribute"
+    selects = "?attribute ?value ?target_taxon_concept_id ?inverse_attribute"
     if options[:metadata]
-      selects += "?data_point_uri ?value ?graph ?attribution_predicate ?attribution_object"
+      selects += "?data_point_uri ?graph ?attribution_predicate ?attribution_object"
     end
     query = "
       SELECT DISTINCT #{selects}

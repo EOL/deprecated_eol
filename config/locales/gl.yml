@@ -1707,8 +1707,8 @@ gl:
   data_object_not_associated_with_any_hierarchies: Este obxecto de datos non está asociado con ningunha xerarquía.
   data_object_reference: Referencia do obxecto de datos
   data_object_toc_items_list: 
-    one: "Aparece baixo: %{quoted_toc_titles}"
-    other: "Aparece baixo: %{quoted_toc_titles}"
+    one: Aparece baixo %{quoted_toc_titles}
+    other: Aparece baixo %{quoted_toc_titles}
   data_object_undo_ignore: eliminar da lista de ignorados
   data_objects: 
     show: 
@@ -3260,6 +3260,7 @@ gl:
   return_common_names_for_the_page_taxon: devolver todos os nomes comúns do taxon da páxina
   return_content_by_vettedness: Se "vetted" ten o valor "1", entón unicamente se devolverá contido de confianza. Se "vetted" é "2", entón unicamente se devolverá contido de confianza e non revisado (deixando sen mostrar aqueles contidos que non sexan de confianza). A opción predeterminada é devolver todo o contido.
   return_references_for_the_page_taxon: devolver todas as referencias do taxon da páxina
+  return_synonyms_for_the_page_taxon: devolver todos os sinónimos do taxon da páxina
   returns_all_metadata_about_a_particular_collection: devolve todos os metadatos acerca dunha colección particular e os elementos que contén indexados pola EOL
   returns_all_metadata_about_a_particular_data_object: devolve todos os metadatos acerca dun obxecto de datos particular (texto, imaxe ou vídeo) indexado pola EOL
   returns_either_a_positive_or_negative_response: devolve ou ben unha resposta positiva (indicando que as API están funcionais) ou ben unha resposta negativa ou ben nada (indicando que as API non están funcionais).
@@ -3402,6 +3403,7 @@ gl:
   sort_by: Ordenar por
   sort_by_alphabetical_option: Alfabética
   sort_by_button: Ordenar
+  sort_by_hierarchy_publish_request_option: Solicitude de publicación de xerarquías
   sort_by_label: Ordenar por
   sort_by_newest_option: Os máis novos
   sort_by_oldest_option: Os máis vellos

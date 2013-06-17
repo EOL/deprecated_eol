@@ -1248,7 +1248,7 @@ ko:
   comment: 덧글
   comment_added_notice: 덧글을 성공적으로 추가했습니다.
   comment_body_label: 내 덧글
-  comment_created_at: 만든 때
+  comment_created_at: 만든 날짜
   comment_delete_confirm: 덧글을 삭제하겠습니까?
   comment_edit_by_javascript_not_authorized_error: 죄송합니다, 이 덧글을 편집할 수 있는 권한이 없습니다. 이 덧글 작성자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
   comment_new_posters_image_advisory_info: 프로필 사진과 이름이 목록에 덧글 옆에 나타납니다.

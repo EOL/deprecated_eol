@@ -13,6 +13,7 @@
 # Author: Lunacy1911
 # Author: Lvova
 # Author: Nemo bis
+# Author: Orsa
 # Author: Sprinter
 # Author: Александр Сигачёв
 ru: 
@@ -851,6 +852,7 @@ ru:
       create_failed: Извините, произошла ошибка, категория не может быть добавлена
       create_successful: Категория была успешно создана.
       edit: Редактировать категорию
+      update_failed: Извините произошла ошибка, категория не может быть обновлен
       update_successful: Категория была успешно обновлена.
     create: Создать форум
     create_failed: Извините, произошла ошибка, форум не может быть добавлен.

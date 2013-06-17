@@ -180,8 +180,14 @@ pt:
         page_name: Nome único
         sort_order: Ordem de classificação
       notification: 
+        comment_on_my_collection: Um comentário sobre uma colecção que você gere
+        comment_on_my_community: Um comentário em uma das comunidades de que é membro
+        comment_on_my_contribution: Um comentário e/ou acção curatorial em um contributo seu
         comment_on_my_profile: Um comentário no seu perfil
+        comment_on_my_watched_item: Comentários sobre objectos, taxa, colecções ou comunidades na sua lista de páginas vigiadas
         invitation_to_community: Convite para participar numa comunidade
+        made_me_a_manager: Fizeram de si um gerente de uma colecção ou comunidade
+        member_joined_my_community: Uma comunidade que gere tem um novo membro
         reply_to_comment: Uma resposta a um comentário seu
       open_authentication: 
         created_at: Criado

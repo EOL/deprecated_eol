@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Beta16
+# Author: Damiano Martino
 # Author: Darth Kule
 # Author: EdoDodo
 # Author: Eleonora negri
@@ -11,6 +12,7 @@
 # Author: Luigipiccoli
 # Author: Mishatk
 # Author: Nemo bis
+# Author: Ontsed
 # Author: Raoli
 # Author: Ribez
 # Author: Rippitippi
@@ -54,6 +56,8 @@ it:
         annotation: Annotazione
         refs: Riferimenti
         sort_field: Ordina per
+      collection_job: 
+        overwrite: Sostituisci i duplicati
       comment: 
         body: Commento
       community: 
@@ -170,6 +174,7 @@ it:
         text: Corpo
       forum_topic: 
         subject: Soggetto
+        text: Corpo del messaggio
       harvest_event: 
         resource: Fonte
       hierarchy: 
@@ -255,7 +260,7 @@ it:
         family_name: Cognome
         full_name: Nome completo
         given_name: Nome
-        language_abbr: Lingua preferita.
+        language_abbr: Lingua preferita
         permissions: Permessi
         requested_curator_level_id: Livello curatore desiderato
         tag_line: Tagline
@@ -696,9 +701,12 @@ it:
   admin_user_hide_successful_notice: L'utente è stato nascosto
   admins: 
     eol_statistics: 
+      content_partners: 
+        menu_link: Partner dei contenuti
       curators: 
         menu_link: Statistiche curatore
         page_header: Statistiche curatore
+        page_title: "Amministrazione: Statistiche del Curatore"
       data_objects: 
         menu_link: Oggetti dati
         page_header: Statistiche oggetti dati
@@ -707,6 +715,10 @@ it:
         menu_link: Statistiche globali
         page_header: Statistiche globali
         page_title: "Amministrazione: statistiche globali"
+      page_richness: 
+        menu_link: Pagine ricche
+        page_header: Statistiche delle Pagine Ricche
+        page_title: "Amministrazione: Statistiche delle Pagine Ricche"
       users_data_objects: 
         menu_link: Testo inviato dall'utente
         page_header: Statistiche di testo inviate da utenti
@@ -966,6 +978,7 @@ it:
       message_sent: Grazie per il tuo feedback, il tuo messaggio è stato inviato al gruppo appropriato.
   content: 
     index: 
+      header_news: EOL News
       meta_description: La Encyclopedia of Life è uno sforzo senza precedenti per raccogliere le conoscenze scientifiche di tutta la vita animale e vegetale con immagini, informazioni, fatti disponibili ed altro ancora per tutte le cose viventi nei regni animali e vegetali.
       meta_keywords: Animali, immagini di animali, informazioni sugli animali, piante, vita delle piante, immagini di piante, informazioni sulle piante, flora, fauna
       meta_title: Animali - piante - immagini e informazioni
@@ -1264,6 +1277,8 @@ it:
       menu_link: Testo inviato da utenti
       page_header: Statistiche testi inviati da utenti
       page_title: Statistiche
+    warnings: 
+      stats_unavailable_for_date: Siamo spiacenti, le statistiche di %{date} non sono disponibili. Si prega di selezionare un'altra data.
   error_401_description: Siamo spiacenti, non sei autorizzato ad accedere a questa URL
   error_401_page_title: Non autorizzato
   error_403_description: Siamo spiacenti, non sei autorizzato ad accedere a questa URL
@@ -1334,6 +1349,8 @@ it:
   forgot_password_form_header: Reimposta la tua password
   forgot_password_form_username_or_email_blank_error: Inserisci il tuo nome utente o il tuo indirizzo email per resettare la tua password
   forums: 
+    actions: Azioni
+    administration: Amministrazione
     buttons: 
       delete: cancella
       edit: modifica
@@ -1341,13 +1358,42 @@ it:
       reply: rispondi
     categories: 
       create: Crea categoria
+      create_failed: Siamo spiacenti, si è verificato un errore, la categoria non è stata aggiunta
       create_successful: Categoria creata correttamente
       delete_failed_not_empty: Impossibile eliminare la categoria perché non è vuota
       delete_successful: Categoria eliminata correttamente
       edit: Modifica categoria
+      move_failed: La categoria non è stata spostata
+      move_successful: La categoria è stata spostata con successo
+      update_failed: Siamo spiacenti, si è verificato un errore, la categoria non è stato aggiornata
       update_successful: Categoria aggiornata correttamente
+    create: Crea un forum
+    create_failed: Siamo spiacenti, si è verificato un errore, Il forum non è stato aggiunto
     create_successful: Il Forum è stato creato con successo
+    delete_failed_not_empty: Il forum non può essere cancellato perché non è vuoto.
+    delete_successful: Il Forum è stato cancellato con successo
+    edit: Modifica il forum
+    forums_heading: EOL Forum
+    last_post: Ultimo messaggio
     move_failed: Impossibile spostare il forum.
+    move_successful: Il forum è stato trasferito con successo
+    no_topics: Nessuna discussione presente in questo forum
+    post_by_user_at_time: da %{user}, %{time}
+    posts: 
+      create: Crea un nuovo post
+      create_failed: Siamo spiacenti, si è verificato un errore, il post non è stato aggiunto
+      create_successful: Il post è stato creato con successo
+      delete_successful: Il post è stato cancellato con successo
+      edit: Modifica post
+      joined_date: Iscritto dal %{date}
+      post_written_by_user: "%{user} ha scritto:"
+      replying_to_post: "Risposta a:"
+      update_failed: Siamo spiacenti, si è verificato un errore, Il post non è stato aggiornato
+      update_successful: Il post è stato aggiornato con successo
+    posts_heading: Messaggi
+    replies: Risposte
+    topics_heading: Thread
+    update_failed: Siamo spiacenti, si è verificato un errore, Il forum non è stato aggiornato
     update_successful: Il forum è stato aggiornato con successo.
     views: Visualizzazioni
   frequency: Frequenza
@@ -1453,6 +1499,7 @@ it:
         administration_settings: Impostazioni di amministrazione <small>(visibile solo agli amministratori EOL)</small>
         dataset: Gruppo di dati
         hierarchy: Gerarchia
+        latest_harvest_event: Ultima raccolta
         latest_published_harvest_event: Pubblicato l'ultima volta
         oldest_published_harvest_event: Pubblicato la prima volta
         refresh_period_hours: Frequenza

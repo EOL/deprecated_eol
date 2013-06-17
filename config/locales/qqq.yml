@@ -67,6 +67,12 @@ qqq:
     attributes:
       eol_statistic:
         rich_pages: "'Rich' in this case refers to 'high quality'... ie: pages with lots of text and images."
+        hotlist_pages: "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_hotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_hotlist_pages_percentage:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        redhotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_redhotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_redhotlist_pages_percentage:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
       resource:
         harvest_events: "A 'Harvest Event' is the record of when data was imported for a resource (which is a collection of species information), so the term is meant to capture the sense of data being 'harvested' in a single 'event' in time."
     errors:

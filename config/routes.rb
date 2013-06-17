@@ -45,10 +45,14 @@ Eol::Application.routes.draw do
     resources :media, :only => [:show], :controller => 'taxa/media'
     resources :details, :except => [:show], :controller => 'taxa/details'
     resource :worklist, :only => [:show], :controller => 'taxa/worklist'
-    resources :data, :only => [:index], :controller => 'taxa/data'
     resources :data_objects, :only => [:create, :new]
     resource :taxon_concept_reindexing, :as => 'reindexing', :only => [:create],
       :controller => 'taxa/taxon_concept_reindexing'
+    resources :data, :only => [:index], :controller => 'taxa/data' do
+      collection do
+        get 'about'
+      end
+    end
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
       member do
         put 'switch'
@@ -58,7 +62,11 @@ Eol::Application.routes.draw do
       resources :maps, :only => [:index], :controller => 'taxa/maps'
       resources :media, :only => [:index], :controller => 'taxa/media'
       resources :details, :only => [:index], :controller => 'taxa/details'
-      resources :data, :only => [:index], :controller => 'taxa/data'
+      resources :data, :only => [:index], :controller => 'taxa/data' do
+        collection do
+          get 'about'
+        end
+      end
       resources :communities, :only => [:index], :controller => 'taxa/communities' do
         collection do
           get 'collections'

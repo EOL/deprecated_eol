@@ -4,7 +4,7 @@ class Taxa::DataController < TaxaController
   before_filter :add_page_view_log_entry
 
   def index
-    @assistive_section_header = "ASdfsfasdfasdfasdaf" # TODO
+    @assistive_section_header = "ASdfsfasdfasdfasdaf" # TODO (see :assistive_overview_header for an example)
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
     @taxon_data = @taxon_page.data
     @data = @taxon_data.get_data
@@ -14,10 +14,22 @@ class Taxa::DataController < TaxaController
     # bulk preloading of associated taxa
     preload_associations
 
-    @show_download_data_button = true unless @data.blank?
+    @show_download_data_button = ! @data.blank?
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)
+  end
+
+  def about
+    # Sad that we need to load all of this, but TODO - we can cache this, later:
+    @taxon_data = @taxon_page.data
+    @data = @taxon_data.get_data
+    @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
+    @show_download_data_button = ! @categories.empty?
+    respond_to do |format|
+      format.html { }
+      format.js { }
+    end
   end
 
 protected

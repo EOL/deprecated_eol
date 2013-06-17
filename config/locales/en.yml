@@ -3124,6 +3124,7 @@ en:
   darwin_core: "Darwin Core"
   dashboard: "Dashboard"
   data: "Data"
+  data_about_subtab: "About"
   data_summary_header: "Quick facts"
   data_database_colon: "Data:"
   data_logging_active: "Data Logging Active"

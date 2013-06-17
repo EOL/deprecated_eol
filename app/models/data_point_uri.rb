@@ -2,9 +2,13 @@
 # generated/stored in via SparQL.
 class DataPointUri < ActiveRecord::Base
 
+  include EOL::CuratableAssociation
+
   attr_accessible :string
 
   belongs_to :taxon_concept
+  belongs_to :vetted
+  belongs_to :visibility
 
   has_many :comments, :as => :parent
   has_many :all_versions, :class_name => DataPointUri.to_s, :foreign_key => :uri, :primary_key => :uri

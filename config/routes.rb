@@ -368,6 +368,8 @@ Eol::Application.routes.draw do
   end
 
   resources :data_point_uris, :only => [ :show ] do
+    put 'hide'
+    put 'unhide'
     resources :comments, :only => [ :index ]
   end
 

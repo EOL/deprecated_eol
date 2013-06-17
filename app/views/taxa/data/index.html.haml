@@ -102,9 +102,16 @@
                   - annotations_link = data_point_uri_comments_path(data_point_uri)
                 - if annotations_link
                   %li.annotations= link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
-            - if logged_in?
-              = render partial: 'comments/for_data', locals: { comments: comments,
-                parent: data_point_uri || row[:user_added_data] }
+            = render partial: 'comments/for_data', locals: { comments: comments,
+              parent: data_point_uri || row[:user_added_data] }
+            - if data_point_uri && current_user.min_curator_level?(:full)
+              .additional_commands
+                - if data_point_uri.visible?
+                  = link_to I18n.t(:data_row_hide_button), data_point_uri_hide_path(data_point_uri), method: :put
+                - elsif data_point_uri.invisible?
+                  = link_to I18n.t(:data_row_unhide_button), data_point_uri_unhide_path(data_point_uri), method: :put
+                - else
+                  = "Errr... #{data_point_uri.id} is #{data_point_uri.visibility.id} and #{data_point_uri.vetted.id}"
 - if logged_in?
   .add_content
     .article

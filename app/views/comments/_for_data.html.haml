@@ -5,12 +5,13 @@
         = sanitize comment.body.balance_tags.add_missing_hyperlinks
         &ndash;
         = link_to comment.user.full_name, comment.user
-= form_for(Comment.new(parent: parent), remote: true) do |f|
-  %fieldset
-    = f.hidden_field :user_id
-    = f.hidden_field :parent_type
-    = f.hidden_field :parent_id
-  %fieldset
-    = f.text_field :body, class: 'has_default', 'data-default' => I18n.t(:annotation_body_default)
-  %fieldset
-    = submit_tag I18n.t(:annotation_submit)
+- if logged_in?
+  = form_for(Comment.new(parent: parent), remote: true) do |f|
+    %fieldset
+      = f.hidden_field :user_id
+      = f.hidden_field :parent_type
+      = f.hidden_field :parent_id
+    %fieldset
+      = f.text_field :body, class: 'has_default', 'data-default' => I18n.t(:annotation_body_default)
+    %fieldset
+      = submit_tag I18n.t(:annotation_submit)

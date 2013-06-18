@@ -47,6 +47,11 @@
           - show_row = false if @toc_id && row[:attribute].toc_items.detect{ |toc| toc.id.to_s == @toc_id }.nil?
         - else
           - show_row = false if @toc_id
+        - if data_point_uri && data_point_uri.hidden?
+          - if current_user.is_curator?
+            - classes << 'hidden'
+          - else
+            - show_row = false
         %tr{ id: row_id, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}", style: show_row ? '' : 'display: none;' }
           - th_id = nil
           - if row[:attribute] != last_attribute
@@ -107,9 +112,10 @@
             - if data_point_uri && current_user.min_curator_level?(:full)
               .additional_commands
                 - if data_point_uri.visible?
-                  = link_to I18n.t(:data_row_hide_button), data_point_uri_hide_path(data_point_uri), method: :put
+                  = link_to I18n.t(:data_row_hide_button), data_point_uri_hide_path(data_point_uri), method: :put,
+                    class: :button
                 - elsif data_point_uri.invisible?
-                  = link_to I18n.t(:data_row_unhide_button), data_point_uri_unhide_path(data_point_uri), method: :put
+                  = link_to I18n.t(:data_row_unhide_button), data_point_uri_unhide_path(data_point_uri), method: :put, class: :button
                 - else
                   = "Errr... #{data_point_uri.id} is #{data_point_uri.visibility.id} and #{data_point_uri.vetted.id}"
 - if logged_in?

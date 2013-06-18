@@ -4,7 +4,7 @@ class DataPointUri < ActiveRecord::Base
 
   include EOL::CuratableAssociation
 
-  attr_accessible :string
+  attr_accessible :string, :vetted_id, :visibility_id, :vetted, :visibility
 
   belongs_to :taxon_concept
   belongs_to :vetted

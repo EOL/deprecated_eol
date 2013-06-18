@@ -206,4 +206,7 @@ $(function() {
     $("html, body").animate({ scrollTop: new_top });
   }
 
+  // Move additional command buttons back onto the form proceeding them (saves a lot of ugliness in views):
+  $('.additional_commands').each(function() { $(this).appendTo($(this).prev().find(":last-child")) });
+
 });

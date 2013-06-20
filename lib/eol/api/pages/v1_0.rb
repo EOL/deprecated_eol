@@ -16,7 +16,7 @@ module EOL
             :linka => view_context.link_to(I18n.t('dublin_core'), 'http://dublincore.org/documents/dcmi-type-vocabulary/'),
             :linkb => view_context.link_to(I18n.t('eol_accepted_subjects'), '/info/toc_subjects')) +  '</p><p>' +
           I18n.t('if_multiple_media_objects_are_returned')
-		          }
+        }
         PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(

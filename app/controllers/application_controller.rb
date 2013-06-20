@@ -527,6 +527,10 @@ protected
       response_code = :not_found
     end
     render_exception_response(exception, response_code, status_code)
+    if $STATSD
+      $STATSD.increment 'errors'
+      $STATSD.increment "errors.#{exception.class.name.gsub(/[^A-Za-z0-9]+/, '_')}"
+    end
     # Log to database
     if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
       ErrorLog.create(

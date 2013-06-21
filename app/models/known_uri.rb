@@ -112,7 +112,7 @@ class KnownUri < ActiveRecord::Base
   def self.counts_of_all_measurement_type_uris
     result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
       WHERE {
-        ?measurement a dwc:MeasurementOrFact .
+        ?measurement a <#{DataMeasurement::CLASS_URI}> .
         ?measurement dwc:measurementType ?uri .
         FILTER (CONTAINS(str(?uri), '://'))
       }
@@ -120,6 +120,12 @@ class KnownUri < ActiveRecord::Base
       ORDER BY DESC(?count)
     ")
     group_counts_by_uri(result)
+  end
+
+  def self.all_measurement_type_uris
+    @@all_measurement_type_uris = Rails.cache.fetch("known_uri/all_measurement_type_urisss", :expires_in => 1.day) do
+      counts_of_all_measurement_type_uris.collect{ |k,v| k }
+    end
   end
 
   def self.counts_of_all_measurement_value_uris

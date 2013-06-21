@@ -85,7 +85,7 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def turtle
-    "<#{uri}> a dwc:MeasurementOrFact" +
+    "<#{uri}> a <#{DataMeasurement::CLASS_URI}>" +
       # TODO - if this is really polymorphic, this needs to be dynamic:
     "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject.id.to_s + ">" +
     "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +

@@ -23,7 +23,7 @@ describe 'Structured Data Factories' do
 
     it 'should create a turle form' do
       s = DataMeasurement.new(@default_options.merge(:predicate => "eol:weight", :object => "14"))
-      s.turtle.should include('a <http://rs.tdwg.org/dwc/terms/MeasurementOrFact>')
+      s.turtle.should include("a <#{DataMeasurement::CLASS_URI}>")
       s.turtle.should include('dwc:taxonID ')
       s.turtle.should include('dwc:measurementType ' + EOL::Sparql.enclose_value('eol:weight'))
       s.turtle.should include('dwc:measurementValue ' + EOL::Sparql.enclose_value('14'))

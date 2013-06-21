@@ -3793,7 +3793,7 @@ en:
   num_data_objects: "No. of data objects"
   no_record_found_matching_your_criteria: "No record found matching your criteria."
   no_related_names: "No names have been related to this taxon yet."
-  no_results_for: "no results for"
+  no_results_for_search_term: "No results for \"%{search_term}\""
   no_search_suggestions_are_avai: "No search suggestions are available matching your search criteria."
   no_tasks_found: "No tasks found"
   no_survey_responses_are_availa: "No survey responses are available."

@@ -1,0 +1,19 @@
+.taxon_summary
+  - view_style ||= 'default'
+  - search_result = nil unless defined?(search_result)
+  - if image = item.exemplar_or_best_image_from_solr
+    - if thumb = image.thumb_or_object('88_88')
+      %span.icon
+        = link_to image_tag(thumb), taxon_overview_path(item)
+  - else
+    = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), taxon_overview_path(item), :class => 'icon'
+  - if item.entry and item.entry.respond_to?(:preferred_classification_summary)
+    %small= link_to item.entry.preferred_classification_summary, taxon_overview_path(item)
+  %h4
+    = link_to raw(truncate(item.collected_name, :length => 64)), taxon_overview_path(item)
+  - subtitle = item.preferred_common_name_in_language(current_language)
+  - unless subtitle.blank?
+    = link_to subtitle.firstcap, taxon_overview_path(item)
+.data_summary
+  %span.attribute= raw display_uri(result_row[:attribute]) + ":"
+  %span.value= raw display_text_for_structured_data_row(result_row)

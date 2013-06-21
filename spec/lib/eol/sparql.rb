@@ -37,18 +37,18 @@ describe EOL::Sparql do
     EOL::Sparql.explicit_measurement_uri_components({ 'http://rs.tdwg.org/dwc/terms/measurementUnit' =>
       'http://example.com/grams' }).should == nil
     grams = KnownUri.gen_if_not_exists(:uri => 'http://example.com/grams', :name => 'grams', :is_unit_of_measure => true)
-    EOL::Sparql.explicit_measurement_uri_components({ 'http://rs.tdwg.org/dwc/terms/measurementUnit' => grams }).
+    EOL::Sparql.explicit_measurement_uri_components(grams).
       should == { :uri => "http://example.com/grams", :label => "grams" }
   end
 
-  it 'should components_of_unit_of_measure_label_for_uri' do
+  it 'should implicit_measurement_uri_components' do
     length = KnownUri.gen_if_not_exists(:uri => 'http://example.com/length', :name => 'length')
-    EOL::Sparql.components_of_unit_of_measure_label_for_uri(length).should == nil
+    EOL::Sparql.implicit_measurement_uri_components(length).should == nil
     meters = KnownUri.gen_if_not_exists(:uri => 'http://example.com/meters', :name => 'meters', :is_unit_of_measure => true)
-    EOL::Sparql.components_of_unit_of_measure_label_for_uri(length).should == nil
+    EOL::Sparql.implicit_measurement_uri_components(length).should == nil
     KnownUriRelationship.gen_if_not_exists(:from_known_uri => length, :to_known_uri => meters, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
     length.reload
-    EOL::Sparql.components_of_unit_of_measure_label_for_uri(length)
+    EOL::Sparql.implicit_measurement_uri_components(length)
       .should == { :uri => "http://example.com/meters", :label => "meters" }
   end
 

@@ -373,6 +373,13 @@ Eol::Application.routes.draw do
     resources :comments, :only => [ :index ]
   end
 
+  resource :data_search, :only => [:index], :controller => 'data_search' do
+    collection do
+      get 'index'
+    end
+  end
+
+
   # Old V1 admin search logs:
   resources :search_logs, :controller => 'administrator/search_logs'
 

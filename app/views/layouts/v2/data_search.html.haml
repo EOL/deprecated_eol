@@ -1,0 +1,26 @@
+- content_for :main do
+  #page_heading
+    .site_column
+      .hgroup
+        %h1= @results ? I18n.t(:search_results) : I18n.t(:must_provide_search_term_error)
+        %h2= @results ? raw(I18n.t(:count_results_for_search_term, :count => @results.total_entries, :search_term => h(@querystring))) : ''
+  #content
+    .site_column
+      #search_results
+        #sidebar.filters
+          = form_tag data_search_path, :method => 'get' do
+            %fieldset
+              %dl
+                %dt
+                  %label= I18n.t(:search_field_label)
+                %dd
+                  %ul
+                    - select_options = { "-- " + I18n.t(:filter_by_type_all_option) + " --" => nil }.
+                    -   merge(Hash[[nil, nil] + KnownUri.all_measurement_type_uris.collect{ |uri| [ EOL::Sparql.uri_to_readable_label(uri), uri ] }.sort_by{ |k,v| k } ] )
+                    %li= select_tag(:attribute, options_for_select(select_options))
+                    %li= search_field_tag(:q, '')
+                    %li= submit_tag I18n.t(:search) unless @wildcard_search
+        #main
+          = yield
+
+= render :file => 'layouts/v2/application'

@@ -77,7 +77,7 @@ describe UserAddedData do
     results = EOL::Sparql.connection.query("SELECT ?s ?p ?o FROM <" + UserAddedData::GRAPH_NAME + "> WHERE { ?s ?p ?o }")
     normalized_results = results.collect{ |r| [ r[:s].to_s, r[:p].to_s, r[:o].to_s ] }
     normalized_results.should include([ user_added_data.uri, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
-      'http://rs.tdwg.org/dwc/terms/MeasurementOrFact'])
+      DataMeasurement::CLASS_URI])
     normalized_results.should include([ user_added_data.uri, 'http://rs.tdwg.org/dwc/terms/taxonConceptID',
       UserAddedData::SUBJECT_PREFIX + user_added_data.subject.id.to_s ])
     normalized_results.should include([ user_added_data.uri, 'http://rs.tdwg.org/dwc/terms/measurementType', user_added_data.predicate ])

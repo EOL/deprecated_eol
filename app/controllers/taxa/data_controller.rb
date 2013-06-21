@@ -12,7 +12,7 @@ class Taxa::DataController < TaxaController
     # bulk preloading of resources/content partners
     preload_data_point_uris
     # bulk preloading of associated taxa
-    preload_associations
+    @data = TaxonData.preload_target_taxon_concepts(@data)
 
     @show_download_data_button = ! @data.blank?
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
@@ -55,16 +55,6 @@ protected
       d[:data_point_instance] ||= DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, d[:data_point_uri].to_s)
     end
     DataPointUri.preload_associations(partner_data.collect{ |d| d[:data_point_instance] }, :all_comments)
-  end
-
-  def preload_associations
-    associations_data = @data.select{ |d| d.has_key?(:target_taxon_concept_id) }
-    taxon_concepts = TaxonConcept.find_all_by_id(associations_data.collect{ |d| d[:target_taxon_concept_id] }.compact.uniq, :include => { :preferred_common_names => :name })
-    associations_data.each do |d|
-      if taxon_concept = taxon_concepts.detect{ |tc| tc.id.to_s == d[:target_taxon_concept_id] }
-        d[:target_taxon_concept] = taxon_concept
-      end
-    end
   end
 
 end

@@ -7,11 +7,55 @@ class TaxonData < TaxonUserClassificationFilter
     graph_name.to_s.split("/").last
   end
 
+  def self.search(options={})
+    return nil if options[:querystring].blank?
+    options[:per_page] = 30
+    total_results = EOL::Sparql.connection.query(prepare_search_query(options.merge(:only_count => true))).first[:count].to_i
+    results = EOL::Sparql.connection.query(prepare_search_query(options))
+    TaxonData.add_known_uris_to_data(results)
+    WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
+       pager.replace(results)
+    end
+  end
+
+  def self.prepare_search_query(options={})
+    if options[:only_count]
+      query = "SELECT COUNT(*) as ?count"
+    else
+      query = "SELECT ?data_point_uri, ?attribute, ?value, ?taxon_concept_id, ?unit_of_measure_uri"
+    end
+    query += " WHERE {
+        ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
+        ?data_point_uri dwc:taxonID ?taxon_id .
+        ?taxon_id dwc:taxonConceptID ?taxon_concept_id .
+        ?data_point_uri dwc:measurementType ?attribute .
+        ?data_point_uri dwc:measurementValue ?value .
+        OPTIONAL {
+          ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri .
+        } . "
+    if options[:from] && options[:to]
+      query += "FILTER(xsd:float(?value) >= #{options[:from]} AND xsd:float(?value) <= #{options[:to]}) . "
+    elsif options[:querystring].is_numeric?
+      query += "FILTER(xsd:float(?value) = #{options[:querystring]}) . "
+    else
+      query += "FILTER(REGEX(?value, '#{options[:querystring]}', 'i')) . "
+    end
+    if options[:attribute]
+      query += "?data_point_uri dwc:measurementType <#{options[:attribute]}> . "
+    end
+    query += "}"
+    unless options[:only_count]
+      query += " LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
+    end
+    puts query
+    return query
+  end
+
   # TODO - break down into friendlier syntax. :)
   def get_data
     rows = data
     rows.each do |row|
-      if user_added_data = get_user_added_data(row[:data_point_uri])
+      if user_added_data = TaxonData.get_user_added_data(row[:data_point_uri])
         row[:user] = user_added_data.user
         row[:user_added_data] = user_added_data
         row[:source] = row[:user]
@@ -30,9 +74,9 @@ class TaxonData < TaxonUserClassificationFilter
     end
 
     rows.delete_if{ |k,v| k[:attribute].blank? }
-    rows = replace_licenses_with_mock_known_uris(rows)
-    rows = add_known_uris_to_data(rows)
-    rows = replace_target_taxon_concept_ids(rows)
+    rows = TaxonData.replace_licenses_with_mock_known_uris(rows)
+    rows = TaxonData.add_known_uris_to_data(rows)
+    rows = TaxonData.replace_taxon_concept_uris(rows, :target_taxon_concept_id)
     rows = TaxonData.sort_rows_by_attribute_and_value(rows)
     known_uris = rows.select { |d| d[:attribute].is_a?(KnownUri) }.map { |d| d[:attribute] }
     KnownUri.preload_associations(known_uris,
@@ -47,10 +91,10 @@ class TaxonData < TaxonUserClassificationFilter
     options = { :metadata => false }
     rows = association_data(options) + measurement_data(options)
     rows.delete_if{ |k,v| k[:attribute].blank? }
-    rows = add_known_uris_to_data(rows)
-    rows = replace_target_taxon_concept_ids(rows)
+    rows = TaxonData.add_known_uris_to_data(rows)
+    rows = TaxonData.replace_taxon_concept_uris(rows, :target_taxon_concept_id)
     # TODO: remove this after the demo - to be replaced by exemplar data
-    rows = remove_data_for_demo(rows)
+    rows = TaxonData.remove_data_for_demo(rows)
     rows = TaxonData.sort_rows_by_attribute_and_value(rows)
   end
 
@@ -71,7 +115,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   # TODO: remove this after the demo - to be replaced by exemplar data
-  def remove_data_for_demo(rows)
+  def self.remove_data_for_demo(rows)
     uris_to_remove = [
       'http://iobis.org/maxaou',
       'http://iobis.org/minaou',
@@ -88,7 +132,7 @@ class TaxonData < TaxonUserClassificationFilter
     rows
   end
 
-  def get_user_added_data(value)
+  def self.get_user_added_data(value)
     if value && matches = value.to_s.match(UserAddedData::URI_REGEX)
       uad = UserAddedData.find(matches[1])
       return uad if uad
@@ -97,7 +141,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def data
-    group_data_by_graph_and_uri(measurement_data + association_data)
+    TaxonData.group_data_by_graph_and_uri(measurement_data + association_data)
   end
 
   def measurement_data(options = {})
@@ -113,7 +157,7 @@ class TaxonData < TaxonUserClassificationFilter
           ?taxon_id dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>
         } .
         GRAPH ?graph {
-          ?data_point_uri a dwc:MeasurementOrFact
+          ?data_point_uri a <#{DataMeasurement::CLASS_URI}>
           { ?data_point_uri dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> }
           UNION
           { ?data_point_uri dwc:taxonID ?taxon_id } .
@@ -189,7 +233,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   # ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object ?occurrence_predicate ?occurrence_object
-  def group_data_by_graph_and_uri(sparql_results)
+  def self.group_data_by_graph_and_uri(sparql_results)
     grouped_data = {}
     sparql_results.each do |result|
       grouped_data[result[:graph]] ||= {}
@@ -217,7 +261,7 @@ class TaxonData < TaxonUserClassificationFilter
     final_results
   end
 
-  def group_metadata_for(prefix, result, result_metadata)
+  def self.group_metadata_for(prefix, result, result_metadata)
     predicate_key = (prefix + "_predicate").to_sym
     object_key = (prefix + "_object").to_sym
     if result[predicate_key] && result[object_key]
@@ -233,7 +277,7 @@ class TaxonData < TaxonUserClassificationFilter
     end
   end
 
-  def add_known_uris_to_data(rows)
+  def self.add_known_uris_to_data(rows)
     known_uris = KnownUri.where(["uri in (?)", uris_in_data(rows)])
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
@@ -246,7 +290,7 @@ class TaxonData < TaxonUserClassificationFilter
     end
   end
 
-  def add_known_uris_to_metadata(row, known_uris)
+  def self.add_known_uris_to_metadata(row, known_uris)
     # Don't modify hashes when you're iterating over them!
     delete_keys = []
     new_keys = {}
@@ -263,13 +307,13 @@ class TaxonData < TaxonUserClassificationFilter
     row[:metadata].merge!(new_keys)
   end
 
-  def replace_with_uri(hash, key, known_uris)
+  def self.replace_with_uri(hash, key, known_uris)
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
   end
 
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
-  def replace_licenses_with_mock_known_uris(rows)
+  def self.replace_licenses_with_mock_known_uris(rows)
     rows.each do |row|
       row[:metadata].each do |key, val|
         if key == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(val.to_s)
@@ -281,22 +325,36 @@ class TaxonData < TaxonUserClassificationFilter
     rows
   end
 
-  def replace_target_taxon_concept_ids(rows)
+  def self.replace_taxon_concept_uris(rows, taxon_concept_uri_key)
     rows.each do |r|
-      if r.has_key?(:target_taxon_concept_id)
-        r[:target_taxon_concept_id] = KnownUri.taxon_concept_id(r[:target_taxon_concept_id]);
+      if r.has_key?(taxon_concept_uri_key)
+        r[taxon_concept_uri_key] = KnownUri.taxon_concept_id(r[taxon_concept_uri_key])
       end
     end
     rows
   end
 
-  def uris_in_data(rows)
+  def self.uris_in_data(rows)
     uris  = rows.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:unit_of_measure_uri] }.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:metadata] ? row[:metadata].keys : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:metadata] ? row[:metadata].values : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
     uris.map(&:to_s).uniq
+  end
+
+  def self.preload_target_taxon_concepts(rows)
+    rows_with_taxon_data = rows.select{ |row| row.has_key?(:target_taxon_concept_id) }
+    # bulk lookup all concepts for every row that has one
+    taxon_concepts = TaxonConcept.find_all_by_id(rows_with_taxon_data.collect{ |row| row[:target_taxon_concept_id] }.
+      compact.uniq, :include => { :preferred_common_names => :name })
+    # now distribute the taxon concept instances to the appropriate rows
+    rows_with_taxon_data.each do |row|
+      if taxon_concept = taxon_concepts.detect{ |tc| tc.id.to_s == row[:target_taxon_concept_id] }
+        row[:target_taxon_concept] = taxon_concept
+      end
+    end
+    rows
   end
 
 end

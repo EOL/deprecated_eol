@@ -112,9 +112,6 @@ class ForumsController < ApplicationController
     if current_user.blank?
       raise EOL::Exceptions::SecurityViolation,
         "Must be logged in and sufficient priveleges to access to Forum"
-    elsif !current_user.can?(:beta_test)
-      raise EOL::Exceptions::SecurityViolation,
-        "User with ID=#{current_user.id} does not have access to Forum"
     end
   end
 end

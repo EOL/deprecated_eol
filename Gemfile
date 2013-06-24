@@ -14,11 +14,13 @@ group :development, :test, :staging_dev do
   gem 'rspec-rails', '2.11.4'
   gem 'ruby-prof', '0.11.2'
   gem 'spin', '0.5.3'
+  gem 'statsd-ruby', '1.2.1'
 end
 
 group :staging do
   gem 'debugger'
   gem 'hipchat'
+  gem 'statsd-ruby', '1.2.1'
 end
 
 group :development, :staging_dev, :staging_dev_cache do

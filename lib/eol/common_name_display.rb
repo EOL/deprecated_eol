@@ -17,7 +17,7 @@ module EOL
 
     # NOTE - this uses TaxonConceptNames, and Synonyms.  TCN is a denormlized version of Synonyms.
     def self.find_by_taxon_concept_id(tc_id, hierarchy_entry_id = nil, options = {})
-      inc = [ :name, :language, :vetted, { :synonym => [ :agents, { :hierarchy => :agent } ] }, { :source_hierarchy_entry => :agents } ]
+      inc = [ :name, :language, :vetted, { :synonym => [ :agents, { :hierarchy => [ :resource, :agent ] } ] }, { :source_hierarchy_entry => :agents } ]
       sel = { :taxon_concept_names => [ :preferred, :vetted_id, :name_id, :language_id, :vetted_id, :synonym_id ],
               :synonyms => [ :id, :hierarchy_id ],
               :hierarchies => [ :id, :agent_id ],
@@ -30,12 +30,13 @@ module EOL
       if options[:name_id] && options[:language_id]
         conditions = "taxon_concept_names.name_id = #{options[:name_id]} AND taxon_concept_names.language_id = #{options[:language_id]}"
       end
+      # the following find_alls join with :name to ensure a name instance exists, a fix for WEB-4480
       unless hierarchy_entry_id.blank?
         taxon_concept_names = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(hierarchy_entry_id, 1,
-          :conditions => conditions)
+          :conditions => conditions, :joins => :name, :include => :name)
       else
         taxon_concept_names = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(tc_id, 1,
-          :conditions => conditions)
+          :conditions => conditions, :joins => :name, :include => :name)
       end
       TaxonConceptName.preload_associations(taxon_concept_names, inc, :select => sel)
       display_names = taxon_concept_names.map do |tcn|
@@ -66,7 +67,7 @@ module EOL
       @duplicate              = false
       @duplicate_with_curator = false
     end
-    
+
     def self.group_by_name(names)
       new_names = []
       previous = nil

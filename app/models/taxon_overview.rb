@@ -178,7 +178,7 @@ private
   end
 
   def curator_chosen_classification
-    CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(taxon_concept.id) 
+    CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
   end
 
   def iucn

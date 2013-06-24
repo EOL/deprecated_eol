@@ -52,7 +52,6 @@ class TaxonConcept < ActiveRecord::Base
   has_one :taxon_concept_exemplar_image
   has_one :taxon_concept_exemplar_article
   has_one :preferred_entry, :class_name => 'TaxonConceptPreferredEntry'
-  has_one :curator_preferred_entry, :class_name => 'CuratedTaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
 
@@ -743,7 +742,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def uses_preferred_entry?(he)
     if preferred_entry.blank?
-      ctcpe = CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(id)
+      ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(self)
       if ctcpe
         create_preferred_entry(ctcpe.hierarchy_entry)
       else
@@ -751,7 +750,7 @@ class TaxonConcept < ActiveRecord::Base
       end
     end
     preferred_entry.hierarchy_entry_id == he.id &&
-      CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
+      CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id)
   end
 
   # Avoid re-loading the deep_published_hierarchy_entries from the DB:
@@ -871,11 +870,8 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def count_of_viewable_synonyms
-    count = published_browsable_visible_hierarchy_entries.collect do |he|
-      he.synonyms.where("synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
-    end.inject(:+)
-    count ||= 0
-    count
+    Synonym.where(:hierarchy_entry_id => published_browsable_visible_hierarchy_entries.collect(&:id)).where(
+      "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
   end
 
   def disallow_large_curations

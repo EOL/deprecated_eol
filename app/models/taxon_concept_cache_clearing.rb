@@ -73,7 +73,7 @@ private
     end
     Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
     TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: taxon_concept.id)
-    ctcpe = CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(taxon_concept.id)
+    ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
     taxon_concept.create_preferred_entry(ctcpe.hierarchy_entry) if ctcpe
   end
 

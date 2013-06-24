@@ -74,7 +74,7 @@ class TaxonData < TaxonUserClassificationFilter
     end
 
     rows.delete_if{ |k,v| k[:attribute].blank? }
-    rows = TaxonData.replace_licenses_with_mock_known_uris(rows)
+    rows = replace_licenses_with_mock_known_uris(rows)
     rows = TaxonData.add_known_uris_to_data(rows)
     rows = TaxonData.replace_taxon_concept_uris(rows, :target_taxon_concept_id)
     rows = TaxonData.sort_rows_by_attribute_and_value(rows)
@@ -313,7 +313,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
-  def self.replace_licenses_with_mock_known_uris(rows)
+  def replace_licenses_with_mock_known_uris(rows)
     rows.each do |row|
       row[:metadata].each do |key, val|
         if key == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(val.to_s)

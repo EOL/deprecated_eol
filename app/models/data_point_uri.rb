@@ -13,6 +13,7 @@ class DataPointUri < ActiveRecord::Base
   has_many :comments, :as => :parent
   has_many :all_versions, :class_name => DataPointUri.to_s, :foreign_key => :uri, :primary_key => :uri
   has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :primary_key => :uri, :source => :comments
+  has_many :taxon_data_exemplars, as: :parent
 
   # Required for commentable items. NOTE - This requires four queries from the DB, unless you preload the
   # information.  TODO - preload these:

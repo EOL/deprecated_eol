@@ -9,8 +9,7 @@ class Taxa::DataController < TaxaController
     @taxon_data = @taxon_page.data
     @data = @taxon_data.get_data
     @toc_id = params[:toc_id]
-    # bulk preloading of resources/content partners
-    preload_data_point_uris
+    # TODO - move this to the model as part of get_data, yeah?  :|
     # bulk preloading of associated taxa
     @data = TaxonData.preload_target_taxon_concepts(@data)
 
@@ -39,22 +38,6 @@ protected
     translation_vars = scoped_variables_for_translations.dup
     translation_vars[:topics] = topics.join("; ") unless topics.empty?
     I18n.t("meta_description#{translation_vars[:topics] ? '_with_topics' : '_no_data'}", translation_vars)
-  end
-
-  def preload_data_point_uris
-    partner_data = @data.select{ |d| d.has_key?(:data_point_uri) }
-    data_point_uris = DataPointUri.find_all_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
-    partner_data.each do |d|
-      if data_point_uri = data_point_uris.detect{ |dp| dp.uri == d[:data_point_uri].to_s }
-        d[:data_point_instance] = data_point_uri
-      end
-    end
-
-    # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
-    partner_data.each do |d|
-      d[:data_point_instance] ||= DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, d[:data_point_uri].to_s)
-    end
-    DataPointUri.preload_associations(partner_data.collect{ |d| d[:data_point_instance] }, :all_comments)
   end
 
 end

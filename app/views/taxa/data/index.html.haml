@@ -31,15 +31,8 @@
         - classes << 'nested' if row[:attribute] == last_attribute
         - comments = []
         - data_point_uri = nil
-        - row_id = nil
-        - if row.has_key?(:user_added_data)
-          - row_id =  row[:user_added_data].anchor
-          - comments = row[:user_added_data].comments
-        - elsif row.has_key?(:data_point_uri)
-          - data_point_uri = row[:data_point_instance]
-          - row_id = data_point_uri.anchor
-          - comments = data_point_uri.all_comments
-
+        - comments = row[:parent].all_comments # Need to use #all_comments because it might involve multiple instances.
+        -# TODO - move this to the "model" (except the class-setting logic)
         - show_row = true
         - if @toc_id == 'other'
           - show_row = false if row[:attribute].is_a?(KnownUri) && !row[:attribute].toc_items.empty?
@@ -47,16 +40,17 @@
           - show_row = false if @toc_id && row[:attribute].toc_items.detect{ |toc| toc.id.to_s == @toc_id }.nil?
         - else
           - show_row = false if @toc_id
-        - if data_point_uri && data_point_uri.hidden?
+        - unless row[:parent].visible?
           - if current_user.is_curator?
             - classes << 'hidden'
           - else
             - show_row = false
-        %tr{ id: row_id, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}", style: show_row ? '' : 'display: none;' }
+        %tr{ id: row[:parent].anchor, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}", style: show_row ? '' : 'display: none;' }
           - th_id = nil
           - if row[:attribute] != last_attribute
             - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
-          %th{ id: th_id }
+          - exemplar = row[:parent].taxon_data_exemplars.any?
+          %th{ id: th_id, class: exemplar ? 'exemplar' : nil }
             - if first_of_type
               - last_attribute = row[:attribute]
               = display_uri(row[:attribute])
@@ -107,17 +101,24 @@
                   - annotations_link = data_point_uri_comments_path(data_point_uri)
                 - if annotations_link
                   %li.annotations= link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
-            = render partial: 'comments/for_data', locals: { comments: comments,
-              parent: data_point_uri || row[:user_added_data] }
-            - if data_point_uri && current_user.min_curator_level?(:full)
+            = render partial: 'comments/for_data', locals: { comments: comments, parent: row[:parent] }
+            -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
+            - if current_user.min_curator_level?(:full)
               .additional_commands
-                - if data_point_uri.visible?
-                  = link_to I18n.t(:data_row_hide_button), data_point_uri_hide_path(data_point_uri), method: :put,
-                    class: :button
-                - elsif data_point_uri.invisible?
-                  = link_to I18n.t(:data_row_unhide_button), data_point_uri_unhide_path(data_point_uri), method: :put, class: :button
+                - if row[:parent].visible?
+                  - if row[:parent].is_a? DataPointUri
+                    = link_to I18n.t(:data_row_hide_button), data_point_uri_hide_path(row[:parent]), method: :put, class: :button
+                  - else
+                    = link_to I18n.t(:data_row_hide_button), user_added_datum_hide_path(row[:parent]), method: :put, class: :button
+                - elsif row[:parent].invisible?
+                  - if row[:parent].is_a? DataPointUri
+                    = link_to I18n.t(:data_row_unhide_button), data_point_uri_unhide_path(row[:parent]), method: :put, class: :button
+                  - else
+                    = link_to I18n.t(:data_row_unhide_button), user_added_datum_unhide_path(row[:parent]), method: :put, class: :button
+                - if exemplar
+                  = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplar_path(id: row[:parent].id, type: row[:parent].class.name, taxon_concept_id: @taxon_data.taxon_concept.id), method: :delete, class: :button
                 - else
-                  = "Errr... #{data_point_uri.id} is #{data_point_uri.visibility.id} and #{data_point_uri.vetted.id}"
+                  = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: row[:parent].id, type: row[:parent].class.name, taxon_concept_id: @taxon_data.taxon_concept.id), method: :post, class: :button
 - if logged_in?
   .add_content
     .article

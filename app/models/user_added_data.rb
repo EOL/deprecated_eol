@@ -4,11 +4,17 @@ class UserAddedData < ActiveRecord::Base
   GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
   URI_REGEX = /#{GRAPH_NAME.sub('/', '\\/')}(\d+)$/
 
+  include EOL::CuratableAssociation
+
   belongs_to :subject, :polymorphic => true
   belongs_to :user
-
+  belongs_to :vetted
+  belongs_to :visibility
+  
   has_many :comments, :as => :parent
+  has_many :all_comments, :as => :parent, :class_name => 'Comment'
   has_many :user_added_data_metadata, :class_name => "UserAddedDataMetadata"
+  has_many :taxon_data_exemplars, as: :parent
 
   validates_presence_of :user_id, :subject, :predicate, :object
   validate :predicate_must_be_uri
@@ -19,7 +25,8 @@ class UserAddedData < ActiveRecord::Base
   after_create :update_triplestore
   after_update :update_triplestore
 
-  attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes, :deleted_at
+  attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes, :deleted_at,
+    :visibility, :visibility_id, :vetted, :vetted_id
 
   accepts_nested_attributes_for :user_added_data_metadata, :allow_destroy => true
 

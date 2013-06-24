@@ -3125,6 +3125,8 @@ en:
   dashboard: "Dashboard"
   data: "Data"
   data_about_subtab: "About"
+  data_row_add_exemplar_button: "add quick fact"
+  data_row_remove_exemplar_button: "remove quick fact"
   data_row_hide_button: "Hide Row"
   data_row_unhide_button: "Hidden: Show Row"
   data_summary_header: "Quick facts"

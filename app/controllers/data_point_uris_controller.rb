@@ -6,6 +6,7 @@ class DataPointUrisController < ApplicationController
 
   def hide
     @data_point_uri.hide(current_user)
+    TaxonDataExemplar.remove(@data_point_uri)
     # TODO - log activity
     redirect_to taxon_data_path(@data_point_uri.taxon_concept)
   end

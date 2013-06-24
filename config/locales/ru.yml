@@ -315,7 +315,7 @@ ru:
           one: найдена %{count} ошибка проверки
           other: найдено %{count} ошибок проверки
     models: 
-      user: Аккаунт
+      user: Учетная запись
   add: Добавить
   add_a_collection_to_a_community: Добавить "%{collection}" в сообщество
   add_a_comment: Добавьте комментарий.
@@ -851,7 +851,11 @@ ru:
       create: Создать категорию
       create_failed: Извините, произошла ошибка, категория не может быть добавлена
       create_successful: Категория была успешно создана.
+      delete_failed_not_empty: Категория не может быть удалена, поскольку она не пустая
+      delete_successful: Категория была успешно удалена.
       edit: Редактировать категорию
+      move_failed: Категория не может быть перемещена
+      move_successful: Категория была успешно перемещена
       update_failed: Извините произошла ошибка, категория не может быть обновлен
       update_successful: Категория была успешно обновлена.
     create: Создать форум
@@ -868,18 +872,31 @@ ru:
     post_by_user_at_time: от %{user}, %{time}
     posts: 
       close_window: закрыть
+      create: Создать новое сообщение
+      create_failed: Извините, произошла ошибка, сообщение не может быть добавлено.
+      create_successful: Сообщение было успешно создано
+      delete_failed_topic_not_empty: Запись не может быть удалена, так как тема не пустая
+      delete_successful: Запись успешно удалена
       deleted_subject: (удалено)
       edit: Редактировать сообщение
+      joined_date: Присоединился %{date}
       no_subject: (без темы)
       permalink_to_this_post: "Постоянная ссылка на эту публикацию:"
       post_has_been_deleted: Эта публикация была удалена.
+      post_written_by_user: "%{user} писал:"
+      replying_to_post: "Отвечая:"
+      topic_and_post_delete_successful: Запись и тема были успешно удалены
+      update_failed: Извините, произошла ошибка, запись не может быть обновлена
+      update_successful: Запись успешно обновлена
     posts_heading: Сообщения
     replies: Ответы
     topics: 
+      create: Создать новую тему
       create_failed: Извините, произошла ошибка, тема не может быть добавлена
       create_successful: Тема создана успешно
       delete_failed_not_empty: Тема не может быть удалена, поскольку содержит информацию
       delete_successful: Тема успешно удалена
+      no_posts: Нет сообщений в этой теме
     topics_heading: Ветки
     update_failed: Извините, произошла ошибка, форум не может быть добавлен.
     update_successful: Форум успешно обновлен.
@@ -1338,10 +1355,22 @@ ru:
       message: "Вы успешно отписались от получения уведомлений из \"Энциклопедии жизни\". Вы можете изменить настройки вашей электронной почты или подписаться на уведомления по ссылке <a href='%{email_prefs_url}'>your notification preferences page</a>.\n\nЧтобы узнать больше о том, как использовать \"Энциклопедию жизни\", создавать в ней коллекции, участвовать в Сообществе \"Энциклопедии жизни\" и добавлять информацию, пожалуйста, зайдите на страницу службы поддержки по ссылке http://eol.org/help."
       subject: Жаль, что вы улетаете...
     user_activated: 
+      message: "Добро пожаловать в Энциклопедию Жизни (ЭЖ) и благодарим за регистрацию! Пожалуйста, обратите внимание, Ваше имя пользователя  %{username}, сслыка на Ваш профиль - %{profile_url}. Вы можете зайти в свою учетную запись по ссылке http://eol.org/login.\n\nЧтобы узнать больше о том, как пользоваться ЭЖ, включая способы создания Коллекций ЭЖ, учавствовать в сообществах ЭЖ и создавать контент, посетите страницу помощи: http://eol.org/help."
       subject: Ваш аккаунт в Энциклопедии Жизни (EOL) был активирован
     user_activated_with_open_authentication: 
+      message: "Добро пожаловать в Энциклопедии Жизни (ЭЖ) и благодарим Вас за регистрацию! Обратите внимание, что вы вошли с помощью %{oauth_provider}, давая ЭЖ разрешение на доступ к базовой информации для нужд проверки подлинности. URL вашего профиля на EOL - %{profile_url}. Вы можете войти в свой аккаунт ЭЖ через %{oauth_provider} на странице http://eol.org/login.\n\nЧтобы узнать больше о том, как пользоваться ЭЖ, включая способы создания коллекций ЭЖ, участие в сообществах ЭЖ и создание контента, пожалуйста, посетите наши страницы справки на http://eol.org/help."
       subject: Ваш аккаунт в Энциклопедии Жизни (EOL) был активирован
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) прокомментировал:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
+    user_message: 
+      subject: Сообщение от Энциклопедии Жизни
+    user_recover_account: 
+      message: "Энциклопедия Жизни (http://eol.org) получила запрос для восстановления Вашей учетной записи. Если этот запрос делали не Вы, проигнорируйте это сообщение.\n\nСсылка ниже дает одноразовую возможность сменить пароль или добавить связь с другими аккаунтами, которые Вы можете использовать для авторизации в будущем:\n\n %{temporary_login_url}\n\nПожалуйста, обратите внимание, что срок действия этой ссылки истекает через 24 часа, по истечении этого времени Вы можете посетить %{recover_account_url} для запроса новой ссылки восстановления учетной записи на случай если трудности с авторизацией сохранились."
+      subject: Восстановить аккаунт Энциклопедии Жизни
+    user_updated_email_preferences: 
+      subject: пользователь ЭЖ  %{user_full_name} изменил свой адрес электронной почты или настройки списка рассылки
+    user_verification: 
+      message: "Спасибо за регистрацию в Энциклопедии Жизни.Перейдите по следующей ссылке, чтобы завершить регистрацию и активировать Вашу учетную запись:\n\n%{verification_url}\n\nПосле активации вашей учетной записи вы получите сообщение электронной почты с подтверждением."
+      subject: Пожалуйста, подтвердите ваш запрос на регистрацию в Энциклопедии Жизни
   nucleotide_sequences: Нуклеотидные последовательности
   object_type_text_option: Текст
   pages_admin_section_link: Администраторы
@@ -1369,11 +1398,26 @@ ru:
     bulk_curation_with_count: 
       one: Кураторы сделали улучшение в %{to}
       other: Кураторы сделали %{count} улучшений в %{to}
+    collection_activity_log_title: "%{who} изменил коллекцию"
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> наблюдает за Вами.
+    comment_body_brief: "%{body} - %{author}"
     comment_link: Просмотр комментариев на EOL
+    comment_title: "%{who} прокомментировал %{what}"
+    comment_title_your_newsfeed: "%{who} оставил комментарий в Вашей новостной ленте"
+    community_activity_log_title: "%{who} изменил сообщество"
+    community_activity_user_joined: Пользователь <b>%{user_name}</b> присоединился к сообществу <b>%{community_name}</b>.
+    community_activity_user_left: Пользователю <b>%{user_name}</b> покинул сообщество <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: Пользователь <b>%{user_name}</b> сделал <b>%{member_name}</b> руководителем сообщества <b>%{community_name}</b>.
     contact_us_link: Если вы испытываете какие-либо проблемы, пожалуйста, <a href='http://eol.org/contact_us' style='color:#195184'>свяжитесь с нами</a>.
+    curator_activity_log_title: "%{who} откурировал кое-что"
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> добавил статью %{dato_title} к <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: "%{who} добавил новый контент в ЭЖ"
     default_subject: Последние данные по активности на EOL
+    intro: Вот Ваш дайджест активности ЭЖ за %{time}
     intro_immediately: Привет, %{name} —
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Просмотреть всю активность на <a href='%{activity_url}' style='color:#195184'>странице новостей пользователя</a>.
+    someone_commented_on_something: <b>%{who}</b> прокомментировал <b>%{what}</b>.
     unsubscribe: Войти в систему и изменить настройки электронной почты на <a href='%{email_prefs_url}' style='color:#195184'>странице настройки уведомлений</a> или <a href='%{unsubscribe_url}' style='color:#195184'>отказаться от всех автоматических уведомлений EOL без входа в систему</a>.
   references_cabs_colon: "Примечания:"
   rights: Права
@@ -1398,6 +1442,14 @@ ru:
   skip_to_content: Перейти к данным
   source_url: URL источника
   supplier: Поставщик
+  taxa: 
+    communities: 
+      index: 
+        hierarchy_entry: 
+          meta_keywords: "%{scientific_name} сообщество, %{hierarchy_provider}"
+          meta_title: Люди, интересующиеся %{scientific_name} отсортированные по %{hierarchy_provider}
+        meta_description: Заинтересованы в %{scientific_name}? Присоединяйтесь к экспертам %{scientific_name} и делитесь собственными наблюдениями относительно %{scientific_name} в Энциклопедии Жизни.
+        meta_keywords: сообщество %{scientific_name}
   taxon_education_header: Образование
   taxon_education_link: Образование
   taxon_page_content_disclaimer_header: Отказ от ответственности

@@ -1716,8 +1716,8 @@ de:
   data_object_not_associated_with_any_hierarchies: Dieses Datenobjekt ist keiner Hierarchien zugeordnet.
   data_object_reference: Datenobjektquelle
   data_object_toc_items_list: 
-    one: "Erscheint unter: %{quoted_toc_titles}"
-    other: "Erscheint unter: %{quoted_toc_titles}"
+    one: Erscheint unter %{quoted_toc_titles}
+    other: Erscheint unter %{quoted_toc_titles}
   data_object_undo_ignore: Von der Liste der zu ignorierenden Objekte entfernen
   data_objects: 
     show: 
@@ -3269,6 +3269,7 @@ de:
   return_common_names_for_the_page_taxon: Alle Trivialnamen für das Taxon auf dieser Seite ausgeben
   return_content_by_vettedness: Sofern „geprüft“ der Wert „1“ zugewiesen wird, werden nur vertrauenswürdige Inhalte ausgegeben. Sofern „geprüft“ der Wert „2“ zugewiesen wird, werden nur vertrauenswürdige und nicht geprüfte Inhalte ausgeben. Nicht vertrauenswürdige Inhalte werden dabei nicht ausgegeben. Die Standardeinstellung gibt alle Inhalte ungeachtet des Status aus.
   return_references_for_the_page_taxon: Alle Quellen für das Seitentaxon ausgeben
+  return_synonyms_for_the_page_taxon: Alle Synonyme für das Seitentaxon ausgeben
   returns_all_metadata_about_a_particular_collection: gibt alle Metadaten zu einer bestimmten Sammlung sowie den in ihr enthaltenen und von EOL indexierten Elemente zurück
   returns_all_metadata_about_a_particular_data_object: gibt alle Metadaten eines bestimmten, bei EOL indizierten, Datenobjekts (Text, Bild oder Video) zurück
   returns_either_a_positive_or_negative_response: gibt entweder eine positive (alle API funktionieren) oder aber eine negative bzw. gar keine Antwort (alle API funktionieren momentan nicht) zurück
@@ -3411,6 +3412,7 @@ de:
   sort_by: Sortieren nach
   sort_by_alphabetical_option: Alphabetisch
   sort_by_button: Sortieren
+  sort_by_hierarchy_publish_request_option: Hierarchieveröffentlichungsanfrage
   sort_by_label: Sortieren nach
   sort_by_newest_option: Neueste
   sort_by_oldest_option: Älteste

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Fader
+# Author: Jopparn
 # Author: Liftarn
 # Author: Lokal Profil
 # Author: Per
@@ -9,6 +10,7 @@
 sv: 
   0_1_or_2: 0, 1 eller 2
   0_or_1: 0 eller 1
+  a_maximum_of_30_results_are_returned: högst 30 resultat returneras per sida. Denna parameter låter dig hämta fler resultatsidor om det finns mer än 30 matchningar
   a_taxon: ett taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Totalt %{count} kommentar som stämmer överens med dina kriterier hittades.
@@ -699,7 +701,7 @@ sv:
         merge_of_taxon_unlocked: Sidsammanslagningen du nyss begärde för "%{taxon}" har slutförts.
       unlock_with_error: 
         merge_of_it_unlocked_with_error: "Sammanslagningen du nyss begärde på denna sida <strong>misslyckades</strong>: %{error}."
-        merge_of_taxon_unlocked_with_error: "Sidsammanslagningen du nyss begärde för \"%{taxon}\" har <strong>misslyckades</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "Sidsammanslagningen du nyss begärde för \"%{taxon}\" har <strong>misslyckats</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: En okänd användare markerade ett okänt vanligt namn på ett okänt språk från en okänd sida som ogranskad.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: En okänd användare markerade ett okänt vanligt namn på ett okänt språk som ogranskad.
@@ -927,6 +929,7 @@ sv:
         page_title: "Administration: LifeDesks-statistik"
       marine: 
         menu_link: Marinstatistiker
+        page_header: Marintäckning i EOL
         page_title: "Administration: Marinstatistik"
       page_richness: 
         menu_link: Innehållsrika sidor
@@ -1048,10 +1051,15 @@ sv:
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedicinska termer
   body: "Innehåll:"
+  browsable: Bläddringsbar
+  browsable_hierarchies: Bläddringsbara hierarkier
+  browse_hierarchy: bläddra hierarki
+  browsing_branch_colon: "Bläddrar förgrening:"
   build_communities: Bygg gemenskaper
   by_caps: Av
   by_scientific_name_table_header: efter vetenskapligt namn
   cache_store: Cachelagring
+  caching_results: Cachar resultat
   calculate_averages_slow: Beräkna medelvärden (långsam)
   call_api: Anropa API
   cancel: Avbryt
@@ -1295,6 +1303,7 @@ sv:
   content_has_been_updated: Innehåll har uppdaterats.
   content_partner: Innehållspartner
   content_partner_about_header: Om %{partner_name}
+  content_partner_administration_settings_header: Administrationsinställningar
   content_partner_agreement_cancel_edit_agreement_link: Avbryt
   content_partner_agreement_cancel_new_agreement_link: Avbryt
   content_partner_agreement_cancel_sign_agreement_link: Avbryt
@@ -1309,8 +1318,10 @@ sv:
   content_partner_contact_new_edit_form_tip: Förnamn, efternamn och e-post är %{required_icon} nödvändigt.
   content_partner_contact_new_link: Lägg till ny kontakt
   content_partner_contact_new_page_subheader: Lägg till en kontakt
+  content_partner_contact_update_successful_notice: Kontakten uppdaterades.
   content_partner_contact_update_unsuccessful_error: Tyvärr, ett fel uppstod. Kontakten uppdaterades inte.
   content_partner_contacts_header: Kontakter
+  content_partner_create_successful_notice: Innehållspartnern har skapats.
   content_partner_create_unsuccessful_error: Tyvärr, ett fel uppstod. Innehållspartnern skapades inte.
   content_partner_current_agreement_create_link: Skapa ny
   content_partner_current_agreement_edit_link: Redigera
@@ -1349,6 +1360,8 @@ sv:
   content_partner_resource_about_header: Om resurs
   content_partner_resource_auto_publish_false: Nej
   content_partner_resource_auto_publish_true: Ja
+  content_partner_resource_collection_header: Publicerad samling
+  content_partner_resource_collection_show_link: Visa publicerad samling
   content_partner_resource_collections_header: Samlingar
   content_partner_resource_create_unsuccessful_error: Tyvärr, ett fel uppstod. Resursen lades inte till.
   content_partner_resource_dataset_details_header: Datamängd
@@ -1357,6 +1370,7 @@ sv:
   content_partner_resource_edit_subheader: Redigera resurs
   content_partner_resource_edit_with_type_link: Redigera resurs
   content_partner_resource_harvest_event_not_published: Inte publicerad
+  content_partner_resource_hierarchy_browsable: Bläddringsbar
   content_partner_resource_hierarchy_confirm_request_publish: Är du säker på att du vill lägga in en begäran om att befrämja din hierarki att bli bläddringsbar på EOL?
   content_partner_resource_hierarchy_edit_link: Redigera
   content_partner_resource_hierarchy_unknown: Okänd
@@ -1365,12 +1379,17 @@ sv:
   content_partner_resource_new_subheader: Lägg till en ny resurs
   content_partner_resource_preview_collection_header: Förhandsgranska samling
   content_partner_resource_resource_status_new: Skapad
+  content_partner_resource_show_link_back_to: gå tillbaka till resurs
   content_partner_resource_show_subheader: Detaljer för resursen <em>%{resource_title}</em>
+  content_partner_resource_status_update_illegal_transition_error: Tyvärr, den aktuella statusen för resursen %{resource_title} är %{current_resource_status} och kan inte ändras till %{requested_resource_status}.
+  content_partner_resource_status_update_successful_notice: Status för resursen %{resource_title} har uppdaterats till %{resource_status}.
+  content_partner_resource_status_update_unsuccessful_error: Tyvärr, ett fel uppstod. Status för resursen %{resource_title} kunde inte uppdateras till %{resource_status}.
   content_partner_resource_update_unsuccessful_error: Tyvärr, ett fel uppstod. Resursdetaljerna uppdaterades inte.
   content_partner_resource_vetted_false: Nej
   content_partner_resource_vetted_true: Ja
   content_partner_resource_view_link: Visa
   content_partner_resources_header: Resurser
+  content_partner_resources_link: Resurser &amp; kontakter
   content_partner_statistics_column_header_provider_count: Sidor med leverantörsinnehåll
   content_partner_statistics_column_header_provider_proportion: Leverantörsprocent
   content_partner_statistics_column_header_statistic: Statistik mätning för månaden %{month_name}, %{year}
@@ -1421,6 +1440,7 @@ sv:
   content_summary_table_type_unreviewed_text_row: Antal ogranskade textobjekt
   content_type: Innehållstyp
   content_upload_restrictions_note: (måste vara mindre än 10 MB i storlek, filen kommer att sparas när den laddas upp, t.ex. bilderna kommer inte storleksändras)
+  content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Bidra
   copied_all_items_from_collection_with_count: 
     one: Kopierade %{count} objekt från %{from} till denna samling.
@@ -1462,6 +1482,8 @@ sv:
   created_colon: "Skapades:"
   created_community: Gemenskapen skapades.
   creative_commons: Creative Commons
+  credentials: Autentiseringsuppgifter
+  credentials_colon: "Autentiseringsuppgifter:"
   crop_image: beskär bild
   crop_image_thumbnails: Beskär bildminiatyrer
   curated: Kurerad
@@ -1469,6 +1491,8 @@ sv:
   curated_objects_of: "%{name}s kurerade objekt"
   curated_species_of: "%{name}s kurerade arter"
   curation_comment: Kureringskommentar
+  curation_error_vetted_invalid: Du kan inte kurera %{association} till '%{vetted}'
+  curation_error_visibility_invalid: Du kan inte kurera %{association} till '%{visibility}'
   curation_privileges_page_title: Bli en kurator
   curation_reason_placeholder: ytterligare detaljer (valfritt)
   curation_scope: Kureringsområde
@@ -1490,6 +1514,7 @@ sv:
   curator_profile_of: kuratorprofil för %{name}
   curator_question: Kurator?
   curator_scope_colon: "Kurateringsområde:"
+  curator_status_changed_by: Kuratorsstatus ändrades av %{user} den %{date}
   curators: Kuratorer
   curators_empty: Våra kuratorer inte har bidragit information till detta taxon ännu.
   curators_summary_header_with_count: 
@@ -1507,6 +1532,9 @@ sv:
   data_object: Dataobjekt
   data_object_ignore: ignorera detta objekt
   data_object_reference: Dataobjektsreferens
+  data_object_toc_items_list: 
+    one: Förekommer under %{quoted_toc_titles}
+    other: Förekommer under %{quoted_toc_titles}
   data_object_undo_ignore: ta bort från ignoreringslistan
   data_objects: 
     show: 
@@ -1526,6 +1554,7 @@ sv:
       meta_supplier_default: en bidragsgivare
       meta_title: "%{dato_title} från %{supplier}"
       tweet_text: "%{dato_title} från %{supplier}"
+  data_usage_reports: Användningsrapporter för data
   date_caps: Datum
   date_uploaded: Uppladdningsdatum
   datepicker: 
@@ -1608,7 +1637,7 @@ sv:
   deleted_colon: "raderad:"
   description: Beskrivning
   description_of: Beskrivning av
-  descriptive_label: Beskrivningsetikett
+  descriptive_label: Beskrivande etikett
   destination_inappropriate_for_logged_in_users: Du är inloggad.
   destroy: Förstör
   detail: Detalj
@@ -1645,7 +1674,7 @@ sv:
   edit_my_profile: Redigera min profil
   edit_news_items: redigera nyhetsobjekt
   edit_page_contents: redigera sidinnehåll
-  edit_permission_header: "Redigerar tillstånd: %{permission}"
+  edit_permission_header: "Redigeringstillstånd: %{permission}"
   edit_search_suggestion: Redigera sökförslag
   edit_search_suggestions: redigera sökförslag
   edit_table_of_contents: redigera innehållsförteckningen
@@ -1708,6 +1737,7 @@ sv:
       page_title: Statistiker
     marine: 
       menu_link: Marinstatistiker
+      page_header: Marintäckning i EOL
       page_title: Statistik
     page_richness: 
       menu_link: Innehållsrika sidor
@@ -1733,6 +1763,7 @@ sv:
   error_log: Fellogg
   error_log_detail: Fellogg detalj
   error_logging_active: Felloggning aktiv
+  error_watch_collections_cannot_be_shared: Bevakade samlingar kan inte delas
   example_colon: "Exempel:"
   exception: Undantag
   exceptions: 
@@ -1895,15 +1926,22 @@ sv:
   global_access_tagline: Global tillgång till kunskap om livet på jorden.
   global_navigation: Global navigation
   glossary_is_empty: (ordlistan är tom)
+  glossary_term: term
   glossary_terms: Ordlistetermer
   go: Gå
   go_back: Gå tillbaka
   google: Google
+  google_analytic_results: Google Analytics-resultat
+  google_analytics_active: Google Analytics aktiv
+  google_analytics_google_account_and_access_required: Google Analytics (Google-konto och tillgång krävs)
   google_images: Google Bilder
+  google_scholar: Google Scholar
   has_already_been_taken: har redan tagits.
   has_colon: "Har:"
   has_curated_your_image: har kurerat din bild
   has_hidden_your_image: har dolt din bilden
+  has_trusted_your_image: litar på din bild
+  has_untrusted_your_image: litar inte på din bild
   hello_user: Hej %{user}
   help: Hjälp
   helpers: 
@@ -2138,13 +2176,15 @@ sv:
   hierarchies_title: Hierarkier
   hierarchy: Hierarki
   hierarchy_node_missing: Tyvärr, data för denna nod saknas.
+  hierarchy_roots_colon: "Hierarkirötter:"
+  hierarchy_updated: Hierarki uppdaterad
   home: Hem
   home_page_cache_last_cleared_on: Hemsidans cache rensades senast den %{date}
   home_page_link_advisory_information: Denna länk tar dig till startsidan för Encyclopedia Of Life
   html_format: (HTML-format)
   id: ID
   image: Bild
-  image_alt_text: Denna %{vetted_status} bild kommer från %{taxon_name}
+  image_alt_text: Denna %{vetted_status} bild är av %{taxon_name}
   image_crop_failed_error: Tyvärr, ett fel uppstod. Bilden kunde inte beskäras.
   image_cropped_notice: Bilden beskärdes utan problem.
   image_from_supplier: Bild från %{whom}
@@ -2172,6 +2212,10 @@ sv:
   in_this_data_type: "i denna %{data_type}:"
   inappropriate: Olämplig
   indexed: Indexerad
+  info_item: Infobojekt
+  info_items_col_header: Infoobjekt
+  information_intended_for_beginners: Information avsedd för nybörjare
+  information_intended_for_experts: Information avsedd för experter
   internal_ip_address: intern IP-adress
   inverse_sort: Omvänd sortering
   invite_members_help_text: Lägg till några EOL-användare här och de kommer att få en inbjudan till din nya gemenskap!
@@ -2391,6 +2435,8 @@ sv:
   members_with_count_semi_colon: 
     one: "%{count} medlem;"
     other: "%{count} medlemmar;"
+  merge_concepts: slå ihop koncept
+  merge_data: slå ihop klassifikationer
   message_colon: "Meddelande:"
   message_will_disappear: (detta meddelande kommer att försvinna inom kort)
   meta_description_colon: "Meta-beskrivning:"
@@ -2452,6 +2498,8 @@ sv:
     other: Flyttade %{count} objekt från %{name}.
   multimedia_links: Multimedialänkar
   must_be_associated_with_either_a_user_or_a_community: Måste vara associerad med antingen en användare eller en gemenskap
+  must_be_checked_in_to_show: "- måste vara markerad för att visas till användare"
+  must_be_checked_in_to_view: "- måste vara markerade för att visas"
   must_be_less_than_128_characters_long: måste vara mindre än 128 tecken.
   must_be_logged_in: Du måste vara inloggad för att utföra denna åtgärd.
   must_provide_search_term_error: Du måste ange ett sökord.
@@ -2613,10 +2661,14 @@ sv:
   objects_curated: Kurerade objekt
   older_version_of_latest_published_data_object_title_link: Äldre version av %{link}
   on_time_col_header: kl
+  only_show_authoritative_conten: "Visa endast auktoritativ innehåll:"
+  only_show_unapproved_curators: Visa endast icke-godkända kuratorer
   option_please_select: Var god välj
   or_add_it_to_an_existing_collection: eller lägg till det i en befintlig samling
   or_add_it_to_an_existing_community: eller lägg till det i en befintlig gemenskap
   or_copy_them_to_existing_collection: eller kopiera dem till en befintlig samling
+  or_email_education: Eller e-posta ditt förslag till %{link}.
+  or_move_them_to_existing_collection: eller flytta dem till en befintlig samling
   original: "ORIGINAL:"
   original_object: Originalobjekt
   other_collection_items_with_count: 
@@ -2630,6 +2682,7 @@ sv:
     other: "%{count} andra taxa"
   other_us_dollars_amount: "Annat: US$"
   other_version_links: "Andra versioner: %{version_links}"
+  outlink: Extern länk
   overview: Översikt
   page: Sida
   page_linked_to: Sida som länkar till
@@ -2673,6 +2726,8 @@ sv:
   percentage_of_descendants_with_images: procentandel av underordnade med bilder
   percentage_of_descendants_with_text: procentandel av underordnade med text
   permalink: Permanent länk
+  permission_granted: Behörighet beviljad.
+  permission_revoked: Behörighet återkallad.
   permissions_list_header: Behörigheter på EOL
   permissions_users_count: 
     one: "%{count} användare"
@@ -2680,6 +2735,7 @@ sv:
   person_rating: Personbetyg
   personal_profile_menu: Personlig profil
   personal_space: Personliga utrymme
+  pinterest: Pinterest
   please_confirm_your_donation_details: Var god bekräfta din donationsdetaljer
   please_indicate_curation_reason: "Var god välj en anledning och/eller alternativ lämna en kuratorkommentar:"
   please_publish_this_resource_notice: "*** <strong>OBSERVERA:</strong> Var god <strong>%{publish_link}</strong> denna resurs här ***"
@@ -2879,10 +2935,12 @@ sv:
   selected_items: Markerade objekt
   selected_language_advisory_information: Detta är det valda språket.
   send: Skicka
+  send_contact_email: Skicka kontakt-e-post
   send_email_colon: "Skicka e-post:"
   sent_invitations_to_users: 
     one: En inbjudning skickades till %{users}.
     other: Inbjudningar skickades till %{users}.
+  sep_emails_with_commas_note: (separera flera e-postadresser med kommatecken)
   server_ip_address: Serverns IP-adress
   sessions: 
     new: 
@@ -2911,10 +2969,13 @@ sv:
   showing_all_error_logs: Visar <b>alla fel</b>
   showing_error_logs_from_date: Visar fel från <b>%{date}</b>
   shown_to_the_user_parens: (visas för användaren)
+  shown_to_user_as_the_title_of_page: visas för användare som sidans titel
   sign_in: Logga in
+  sign_in_remember_me_disallowed_for_admins_notice: Av säkerhetsskäl kan administratörer inte använda funktionen "Kom ihåg mig".
   sign_in_successful_notice: Inloggning lyckades.
   sign_in_unsuccessful_error: Inloggning misslyckades. Ogiltigt användarnamn, e-postadress eller lösenord.
   sign_out: Logga ut
+  site_cms: Sidans CMS
   site_information: Sidinformation
   site_language: Webbplatsspråk
   site_settings_menu: Sidinställningar
@@ -2943,7 +3004,7 @@ sv:
   sort_collection_by_label: Sortera samling efter
   sort_field: "Sortera fält:"
   sort_order: Sorteringsordning
-  sound_alt_text: Denna %{vetted_status} ljudinspelning kommer från %{taxon_name}
+  sound_alt_text: Denna %{vetted_status} ljudinspelning är av %{taxon_name}
   sound_file: Ljudfil
   sound_from: ljud från
   sound_from_supplier: Ljud från %{whom}
@@ -2962,11 +3023,13 @@ sv:
   special_collection: Specialsamling
   special_collections_cannot_be_destroyed: Denna samling är den enda samlingen som är associerad med dess gemenskap och kan inte raderas.
   species: Arter
+  split_into_new_concept: dela upp till en ny sida
   stars_with_count: 
     one: "%{count} stjärna"
     other: "%{count} stjärnor"
   started: Startad
   stats: Statistik
+  stored_classifications: Var god observera att du har <a href='%{anchor}'>lagrade klassifikationer nedan</a>.
   subject: ämne
   submit: Skicka
   supplier: Leverantör
@@ -3259,6 +3322,7 @@ sv:
   taxon_recognized_by: Taxon känns igen av %{whom}
   taxon_suggested: Taxon föreslagen
   technical_functions: Tekniska funktioner
+  term_for_search_admin_ui: Term
   term_is_already_def_error: "'%{term}' definieras redan"
   terms_agreement_form_fallback: Var god läs igenom och godkänn <a href="%{terms_url}">användarvillkoren</a> innan du loggar in på ditt konto.
   terms_agreement_form_header: Användarvillkor
@@ -3378,6 +3442,7 @@ sv:
   uploaded_content: Uppladdade innehåll
   uploaded_on: Uppladdad den
   url: URL
+  url_not_accessible: Denna URL är inte tillgänglig
   us_dolars_75: US $75
   us_dollars_100: US $100
   us_dollars_35: US $35
@@ -3527,7 +3592,7 @@ sv:
         google: 
           add_connection_failed_account_already_connected: Tyvärr, vi kan inte ansluta ditt Google-konto till ditt EOL-konto, ditt Google-konto redan är ansluten till ett <a href="%{existing_eol_account_url}">EOL-konto</a>.
           missing_attributes: Tyvärr, det uppstod ett problem när dina Google-detaljer skulle hämtas.
-          new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta till ditt Google-konto.
+          new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta ditt Google-konto.
           not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta till ditt Google-konto.
           not_authorized_to_login: Tyvärr, vi har inte behörighet till att logga in dig på EOL med ditt Google-konto.
           not_authorized_to_signup: Tyvärr, vi har inte behörighet att registrera dig på EOL med ditt Google-konto.
@@ -3540,12 +3605,12 @@ sv:
           add_connection_failed_account_already_connected: Tyvärr, vi kan inte ansluta ditt Twitter-konto till ditt EOL-konto, ditt Twitter-konto redan är ansluten till ett <a href="%{existing_eol_account_url}">EOL-konto</a>.
           missing_attributes: Tyvärr, det uppstod ett problem när dina Twitter-detaljer skulle hämtas.
           new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta till ditt Twitter-konto.
-          not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta till ditt Twitter-konto.
+          not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta ditt Twitter-konto.
           not_authorized_to_login: Tyvärr, vi har inte behörighet till att logga in dig på EOL med ditt Twitter-konto.
           not_authorized_to_signup: Tyvärr, vi har inte behörighet att registrera dig på EOL med ditt Twitter-konto.
           signup_failed_account_already_connected: Tyvärr, vi kan inte registrera dig för ett EOL-konto med ditt Twitter-konto, eftersom det är redan anslutet till ett <a href="%{existing_eol_account_url}">användarkonto på EOL</a>. Ville du <a href="%{login_url}">logga in</a> istället?
         yahoo: 
-          add_connection_failed_account_already_connected: Tyvärr, vi kan inte ansluta ditt Yahoo!-konto till ditt EOL-konto, ditt Yahoo!-konto redan är ansluten till ett <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          add_connection_failed_account_already_connected: Tyvärr, vi kan inte ansluta ditt Yahoo!-konto till ditt EOL-konto, ditt Yahoo!-konto redan är anslutet till ett <a href="%{existing_eol_account_url}">EOL-konto</a>.
           missing_attributes: Tyvärr, det uppstod ett problem när dina Yahoo!-detaljer skulle hämtas.
           new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta till ditt konto på Yahoo!.
           not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta till ditt Yahoo!-konto.
@@ -3558,7 +3623,7 @@ sv:
         connected_last_verified: Ansluten; Senast verifierad %{time_passed} sedan;
         connected_unverified: Ansluten; Inte verifierad;
         not_connected: Inte ansluten;
-        page_description: Hantera anslutningar till tredje parts-konton som du kan använda för att logga in på EOL.
+        page_description: Hantera anslutningar till tredjeparts-konton som du kan använda för att logga in på EOL.
         page_title: Anslutna konton
         return_link: Gå tillbaka till att redigera profilen.
       notices: 
@@ -3597,7 +3662,7 @@ sv:
     unsubscribe_notifications: 
       already_unsubscribed: Du är redan avslutat prenumerationen för meddelanden.
       unsubscribe_notifications_failed: Tyvärr, ett fel uppstod, användaren kunde inte avsluta prenumerationen för meddelanden.
-      unsubscribed_notifications_successfully: Du är avslutat prenumerationen för meddelanden.
+      unsubscribed_notifications_successfully: Du har framgångsrikt avslutat prenumerationen av meddelanden.
   users_about_me_header: Om mig
   users_content_partners_header: Innehållspartners
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.

@@ -28,7 +28,7 @@ describe 'Application' do
   it 'should be able to get titles from compressed pages' do
     response = get_as_json(fetch_external_page_title_path(:lang => 'en', :url => 'eol.org')) # our homepage is gzipped
     response.class.should == Hash
-    response['message'].should == "Encyclopedia of Life - Animals - Plants - Pictures &amp; Information"
+    response['message'].should == "Encyclopedia of Life - Animals - Plants - Pictures & Information"
     response['exception'].should == false
   end
 

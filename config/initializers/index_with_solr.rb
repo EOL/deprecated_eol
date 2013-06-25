@@ -70,17 +70,24 @@ module ActiveRecord
                 keywords_to_send_to_solr << params.merge({ :keyword => return_value, :keyword_type => field_or_method })
               elsif return_value.class == Hash
                 keyword_type = return_value[:keyword_type] || field_or_method
-                keywords_to_send_to_solr << params.merge({ :keyword => return_value[:keywords], :keyword_type => keyword_type,
-                   :language => return_value[:language], :ancestor_taxon_concept_id => return_value[:ancestor_taxon_concept_id] })
+                additional_params = {
+                  :keyword => return_value[:keywords],
+                  :keyword_type => keyword_type,
+                  :language => return_value[:language] }
+                if return_value.include?(:ancestor_taxon_concept_id)
+                  additional_params[:ancestor_taxon_concept_id] = return_value[:ancestor_taxon_concept_id]
+                end
+                keywords_to_send_to_solr << params.merge(additional_params)
               elsif return_value.class == Array
                 return_value.each do |rv|
                   keyword_type = 
                   additional_params = {
                     :keyword => rv[:keywords],
                     :keyword_type => rv[:keyword_type] || field_or_method,
-                    :language => rv[:language],
-                    :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] }
-                  additional_params.delete(:ancestor_taxon_concept_id) unless rv.include?(:ancestor_taxon_concept_id)
+                    :language => rv[:language] }
+                  if rv.include?(:ancestor_taxon_concept_id)
+                    additional_params[:ancestor_taxon_concept_id] = rv[:ancestor_taxon_concept_id]
+                  end
                   keywords_to_send_to_solr << params.merge(additional_params)
                 end
               end

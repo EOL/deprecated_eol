@@ -317,14 +317,14 @@ mk:
           attributes: 
             accesspoint_url: 
               blank: не може да стои празно, освен ако наместо ова не подигнете ресурсна податотека
-              inaccessible: е непристапно - URL-адресата мора да е јавно достапна
+              inaccessible: е непристапно — URL-адресата мора да е јавно достапна
               invalid: е неважечко - треба да води кон податотека од типот XML, XML.GZIP, XML.GZ или ZIP
             dataset: 
               blank: не може да стои празно, освен ако наместо ова не наведете URL за податочниот збир
-              wrong_type: е од погрешен тип - треба да биде податотека од типот GZIP, TAR, ZIP или XML
+              wrong_type: е од погрешен тип — треба да биде податотека од типот GZIP, TAR, ZIP или XML
             dwc_archive_url: 
-              inaccessible: е непристапно - URL-адресата мора да е јавно достапна
-              invalid: е неважечко - треба да води кон податотека од типот TAR.GZIP, TAR.GZ, TGZ или ZIP
+              inaccessible: е непристапно — URL-адресата мора да е јавно достапна
+              invalid: е неважечко — треба да води кон податотека од типот TAR.GZIP, TAR.GZ, TGZ или ZIP
       template: 
         body: "Заверката не успеа во следниве полиња:"
         header: 
@@ -1708,8 +1708,8 @@ mk:
   data_object_not_associated_with_any_hierarchies: Овој податочен објект не е поврзан со ниедна хиерархија.
   data_object_reference: Навод на подат. објект
   data_object_toc_items_list: 
-    one: "Се води под: %{quoted_toc_titles}"
-    other: "Се води под: %{quoted_toc_titles}"
+    one: Се води под %{quoted_toc_titles}
+    other: Се води под %{quoted_toc_titles}
   data_object_undo_ignore: отстрани од занемарени
   data_objects: 
     show: 
@@ -3261,6 +3261,7 @@ mk:
   return_common_names_for_the_page_taxon: дај ги сите народни имиња за таксонот на страницата
   return_content_by_vettedness: Ако на „проверено“ му се зададе вредност 1, тогаш ќе добивате само доверливи содржни. Ако „проверено“ е 2 тогаш ќе добивате само доверливи и непроверени содржини (нема да добивате недоверливи содржини). По основно се добиваат сите содржини.
   return_references_for_the_page_taxon: дај ги сите наводи за таксонот на страницата
+  return_synonyms_for_the_page_taxon: дај ги сите синоними за таксонот на страницата
   returns_all_metadata_about_a_particular_collection: ги дава сите метаподатоци за дадена збирка и објектите што ги содржи индексирани од EOL
   returns_all_metadata_about_a_particular_data_object: ги дава сите метаподатоци за даден податочен објект (текст, слика или видеоснимка) што е индексиран од EOL
   returns_either_a_positive_or_negative_response: дава или позитивен одговор (означувајќи дека API-прилозите се функционални) или негативен одговор, или пак ништо (означувајќи дека API-прилозите моментално не се функционални).
@@ -3403,6 +3404,7 @@ mk:
   sort_by: Подреди по
   sort_by_alphabetical_option: Азбучно
   sort_by_button: Подреди
+  sort_by_hierarchy_publish_request_option: Барање за објавување на хиерархија
   sort_by_label: Подреди по
   sort_by_newest_option: Најнови
   sort_by_oldest_option: Најстари

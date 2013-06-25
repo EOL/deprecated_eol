@@ -8,7 +8,7 @@ module EOL
       end
 
       def basic_info
-        @basic_info ||= get_data("https://api.twitter.com/1/account/verify_credentials.json")
+        @basic_info ||= get_data("https://api.twitter.com/1.1/account/verify_credentials.json")
       end
 
       def user_attributes

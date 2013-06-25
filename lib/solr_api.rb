@@ -130,7 +130,7 @@ class SolrAPI
   end
 
   def get_results(q)
-    res = query(q)
+    res = query(URI.encode(q))
     res = JSON.load res.body
     res['response']
   end

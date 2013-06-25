@@ -1684,8 +1684,8 @@ fr:
   data_object_not_associated_with_any_hierarchies: Cet objet de données n’est associé à aucune hiérarchie.
   data_object_reference: Référence de l’objet de données
   data_object_toc_items_list: 
-    one: "Apparaît sous : %{quoted_toc_titles}"
-    other: "Apparaissent sous : %{quoted_toc_titles}"
+    one: Apparaît sous %{quoted_toc_titles}
+    other: Apparaissent sous %{quoted_toc_titles}
   data_object_undo_ignore: retirer de la liste à ignorer
   data_objects: 
     show: 
@@ -3223,6 +3223,7 @@ fr:
   return_common_names_for_the_page_taxon: retourne tous les noms vulgaires pour le taxon de la page
   return_content_by_vettedness: Si 'vetted' vaut 1, alors seul le contenu fiable sera renvoyé. Si 'vetted' vaut 2, alors seul le contenu fiable et non relu est renvoyé (le contenu non fiable n’est pas renvoyé). La valeur par défaut est de retourner tout le contenu.
   return_references_for_the_page_taxon: renvoie toutes les références du taxon de la page
+  return_synonyms_for_the_page_taxon: renvoie tous les synonymes pour le taxon de la page
   returns_all_metadata_about_a_particular_collection: renvoie toutes les métadonnées relatives à une collection particulière et les éléments qu’elle contient, indexés par l’EdlV
   returns_all_metadata_about_a_particular_data_object: renvoie toutes les métadonnées sur un objet de données particulier (texte, image ou vidéo) indexé par l’EdlV
   returns_either_a_positive_or_negative_response: renvoie soit une réponse positive (indiquant les IPAs qui sont fonctionnelles), soit une réponse négative, ou rien du tout (indiquant que les IPAs ne sont pas fonctionnelles pour le moment).
@@ -3365,6 +3366,7 @@ fr:
   sort_by: Trier par
   sort_by_alphabetical_option: Alphabétique
   sort_by_button: Trier
+  sort_by_hierarchy_publish_request_option: Demande de publication de hiérarchie
   sort_by_label: Trier par
   sort_by_newest_option: Plus récent
   sort_by_oldest_option: Plus ancien

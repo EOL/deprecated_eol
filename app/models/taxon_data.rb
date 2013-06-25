@@ -410,21 +410,4 @@ class TaxonData < TaxonUserClassificationFilter
     h.values
   end
 
-# TODO - PL changed some of this stuff, figure our what.  :\
-  def preload_data_point_uris
-    partner_data = @data.select{ |d| d.has_key?(:data_point_uri) }
-    data_point_uris = DataPointUri.find_all_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
-    partner_data.each do |d|
-      if data_point_uri = data_point_uris.detect{ |dp| dp.uri == d[:data_point_uri].to_s }
-        d[:data_point_instance] = data_point_uri
-      end
-    end
-
-    # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
-    partner_data.each do |d|
-      d[:data_point_instance] ||= DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_page.taxon_concept.id, d[:data_point_uri].to_s)
-    end
-    DataPointUri.preload_associations(partner_data.collect{ |d| d[:data_point_instance] }, :all_comments)
-  end
-
 end

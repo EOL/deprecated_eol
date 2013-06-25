@@ -117,7 +117,7 @@
                     = link_to I18n.t(:data_row_unhide_button), user_added_datum_unhide_path(row[:parent]), method: :put, class: :button
                 - if exemplar
                   = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplar_path(id: row[:parent].id, type: row[:parent].class.name, taxon_concept_id: @taxon_data.taxon_concept.id), method: :delete, class: :button
-                - else
+                - elsif row[:parent].visible?
                   = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: row[:parent].id, type: row[:parent].class.name, taxon_concept_id: @taxon_data.taxon_concept.id), method: :post, class: :button
 - if logged_in?
   .add_content

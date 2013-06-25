@@ -26,7 +26,7 @@
   - if item.synonym.nil? || item.synonym.language.nil?
     - language_type = 'an_unknown_language'
   - else
-    - translation_vars[:language] = item.synonym.language.label
+    - translation_vars[:language] = item.synonym.language.label # TODO - this should be translated.
 - association_type = 'association'
 - if item.unknown_association?
   - association_type = 'an_unknown_association'

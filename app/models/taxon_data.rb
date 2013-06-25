@@ -139,7 +139,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   # TODO: remove this after the demo - to be replaced by exemplar data
-  def self.remove_data_for_demo(rows)
+  def remove_data_for_demo(rows)
     uris_to_remove = [
       'http://iobis.org/maxaou',
       'http://iobis.org/minaou',

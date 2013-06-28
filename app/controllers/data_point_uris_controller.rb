@@ -6,16 +6,26 @@ class DataPointUrisController < ApplicationController
 
   def hide
     @data_point_uri.hide(current_user)
-    TaxonDataExemplar.remove(@data_point_uri)
+    # TaxonDataExemplar.remove(@data_point_uri)
     # TODO - log activity
-    redirect_to taxon_data_path(@data_point_uri.taxon_concept)
+    respond_to do |format|
+      format.html do
+        redirect_to taxon_data_path(@data_point_uri.taxon_concept)
+      end
+      format.js { }
+    end
   end
 
   # Again, 'unhide' to avoid clash with 'show'... not that we need #show, here, but it's conventional.
   def unhide
     @data_point_uri.show(current_user)
     # TODO - log activity
-    redirect_to taxon_data_path(@data_point_uri.taxon_concept)
+    respond_to do |format|
+      format.html do
+        redirect_to taxon_data_path(@data_point_uri.taxon_concept)
+      end
+      format.js { }
+    end
   end
 
 private

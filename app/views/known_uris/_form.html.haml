@@ -21,9 +21,13 @@
       %dd
         = f.check_box :is_unit_of_measure
         = I18n.t(:yes_answer)
-        %fieldset.actions
-          = f.submit I18n.t(:save)
-          = link_to I18n.t(:cancel), known_uris_url
+      %dt= f.label :exclude_from_exemplars
+      %dd
+        = f.check_box :exclude_from_exemplars
+        = I18n.t(:yes_answer)
+      %fieldset.actions
+        = f.submit I18n.t(:save)
+        = link_to I18n.t(:cancel), known_uris_url
 
 .fieldset_form
   %label= I18n.t('known_uris.relationships')

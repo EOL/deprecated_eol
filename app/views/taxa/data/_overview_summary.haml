@@ -2,19 +2,23 @@
 - rows_to_show = 10
 .data_div
   %table.standard.data
-    - unique_attributes = data.collect{ |r| r[:attribute] }.uniq
+    -# TODO - this logic should be in the "model" (even if the model is a hash/array):
+    - unique_attributes = data.map { |r| r[:attribute] }.uniq
     - unique_attributes.each_with_index do |attribute, index|
       - row_class = (index == unique_attributes.length - 1) ? 'last' : nil
       %tr{ :class => row_class }
         %th= display_uri(attribute)
         %td
           - rows_for_this_attribute = data.select{ |r| r[:attribute] == attribute }
-          - text_for_rows = rows_for_this_attribute.collect{ |r| display_text_for_structured_data_row(r, :link_to_overview => true) }
+          - text_for_rows = rows_for_this_attribute.map do |r|
+            - display_text_for_structured_data_row(r, :taxon_concept => @taxon_concept, :link_to_overview => true)
+          -# TODO - This should REALLY be in the model: we don't want the *view* hiding things, since we want curators to specify them!
           - if text_for_rows.length > values_to_show_per_row
             - text_for_rows = text_for_rows.sort[0...values_to_show_per_row]
-            - text_for_rows << link_to(I18n.t(:more), taxon_data_path(:toc_id => (attribute.is_a?(KnownUri) && attribute.toc_items.length > 0) ? attribute.toc_items.first.id : nil,
+            - text_for_rows << link_to(I18n.t(:more),
+              taxon_data_path(:toc_id => (attribute.is_a?(KnownUri) && attribute.toc_items.length > 0) ?  attribute.toc_items.first.id : nil,
               :anchor => attribute.is_a?(KnownUri) ? attribute.uri : attribute))
-          = raw text_for_rows.join(", ")
+          = raw text_for_rows.join(", ").gsub(/<\/span>, /, ", </span>") # Clean up commas...
       - if index >= rows_to_show - 1
         - break
   - if unique_attributes.length > rows_to_show

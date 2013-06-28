@@ -9,10 +9,6 @@ class Taxa::DataController < TaxaController
     @taxon_data = @taxon_page.data
     @data = @taxon_data.get_data
     @toc_id = params[:toc_id]
-    # TODO - move this to the model as part of get_data, yeah?  :|
-    # bulk preloading of associated taxa
-    @data = TaxonData.preload_target_taxon_concepts(@data)
-
     @show_download_data_button = ! @data.blank?
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }

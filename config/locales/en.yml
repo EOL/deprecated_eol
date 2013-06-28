@@ -323,6 +323,7 @@ en:
         toc_items: "Categories"
         description: "Description"
         is_unit_of_measure: "Is A Unit Of Measure"
+        exclude_from_exemplars: "Exclude from Quick Facts"
       known_uri_relationship:
         from_known_uri_id: "Subject URI"
         to_known_uri_id: "Target URI"
@@ -3127,6 +3128,7 @@ en:
   data_about_subtab: "About"
   data_row_exemplar_added: "Quick fact added."
   data_row_exemplar_removed: "Quick fact removed."
+  data_row_excluded_from_overview_notice: "Note: this row has been excluded from the quick facts."
   data_row_add_exemplar_button: "add quick fact"
   data_row_remove_exemplar_button: "remove quick fact"
   data_row_hide_button: "Hide Row"
@@ -4729,3 +4731,4 @@ en:
     previous_label: "Previous"
     next_label: "Next"
   classification_curation_pending: "Curation pending. This classification may move to another page in the near future."
+  excluded_icon_tip: "Rows marked with the exlcuded icon %{excluded_icon} will never be shown on taxon overview pages."

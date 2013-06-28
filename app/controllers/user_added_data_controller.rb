@@ -70,18 +70,28 @@ class UserAddedDataController < ApplicationController
   end
 
   def hide
-    user_added_data = UserAddedData.find(params[:user_added_datum_id])
-    user_added_data.hide(current_user)
-    TaxonDataExemplar.remove(user_added_data)
+    @user_added_data = UserAddedData.find(params[:user_added_datum_id])
+    @user_added_data.hide(current_user)
+    # TaxonDataExemplar.remove(@user_added_data)
     # TODO - log activity
-    redirect_to taxon_data_path(user_added_data.taxon_concept)
+    respond_to do |format|
+      format.html do
+        redirect_to taxon_data_path(@user_added_data.taxon_concept)
+      end
+      format.js { }
+    end
   end
 
   def unhide
-    user_added_data = UserAddedData.find(params[:user_added_datum_id])
-    user_added_data.show(current_user)
+    @user_added_data = UserAddedData.find(params[:user_added_datum_id])
+    @user_added_data.show(current_user)
     # TODO - log activity
-    redirect_to taxon_data_path(user_added_data.taxon_concept)
+    respond_to do |format|
+      format.html do
+        redirect_to taxon_data_path(@user_added_data.taxon_concept)
+      end
+      format.js { }
+    end
   end
 
   private

@@ -395,7 +395,7 @@ p.status
       max-width: 540px
       width: expression(this.width > 540 ? "540px" : true)
 /** I say we standardise form tips everywhere **/
-form
+form, #content .site_column
   p.tip
     background: $fieldset_light_blue
     border: 1px solid $grayblue
@@ -1318,6 +1318,8 @@ table.classifications
     color: #855
     a
       color: #979
+  td.excluded
+    background: url(image-path("v2/icon_excluded.png")) 7px 1.8em no-repeat
 
 .ui-menu
   list-style: none
@@ -1492,6 +1494,8 @@ ul.tabs
           width: 203px
           vertical-align: top
           padding-top: 4pt
+        th.excluded
+          background: url(image-path("v2/icon_excluded.png")) 7px 1em no-repeat
         th.exemplar
           background: url(image-path("v2/icon_required.png")) 7px 1em no-repeat
         td
@@ -1584,3 +1588,12 @@ ul.tabs
         margin-right: 6px
         float: right
 
+#data_summary
+  span.remove
+    border: 1px solid #d4dce2
+    cursor: pointer
+    margin-left: 3px
+    padding: 1px 3px 1px 0px
+    background-color: white
+    &:hover
+      background-color: $fieldset_light_blue

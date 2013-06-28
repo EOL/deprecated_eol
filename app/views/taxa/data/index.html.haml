@@ -49,8 +49,12 @@
           - th_id = nil
           - if row[:attribute] != last_attribute
             - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
-          - exemplar = row[:parent].taxon_data_exemplars.any?
-          %th{ id: th_id, class: exemplar ? 'exemplar' : nil }
+          - exemplar = row[:parent].taxon_data_exemplars.included.any?
+          - excluded = row[:parent].taxon_data_exemplars.excluded.any?
+          - th_classes = []
+          - th_classes << 'exemplar' if exemplar
+          - th_classes << 'excluded' if excluded
+          %th{ id: th_id, class: th_classes.join(' ') }
             - if first_of_type
               - last_attribute = row[:attribute]
               = display_uri(row[:attribute])
@@ -106,19 +110,23 @@
             - if current_user.min_curator_level?(:full)
               .additional_commands
                 - if row[:parent].visible?
-                  - if row[:parent].is_a? DataPointUri
-                    = link_to I18n.t(:data_row_hide_button), data_point_uri_hide_path(row[:parent]), method: :put, class: :button
+                  - hide_link = if row[:parent].is_a?(DataPointUri)
+                    - data_point_uri_hide_path(row[:parent])
                   - else
-                    = link_to I18n.t(:data_row_hide_button), user_added_datum_hide_path(row[:parent]), method: :put, class: :button
+                    - user_added_datum_hide_path(row[:parent])
+                  = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
                 - elsif row[:parent].invisible?
-                  - if row[:parent].is_a? DataPointUri
-                    = link_to I18n.t(:data_row_unhide_button), data_point_uri_unhide_path(row[:parent]), method: :put, class: :button
+                  - show_link = if row[:parent].is_a?(DataPointUri)
+                    - data_point_uri_unhide_path(row[:parent])
                   - else
-                    = link_to I18n.t(:data_row_unhide_button), user_added_datum_unhide_path(row[:parent]), method: :put, class: :button
-                - if exemplar
-                  = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplar_path(id: row[:parent].id, type: row[:parent].class.name, taxon_concept_id: @taxon_data.taxon_concept.id), method: :delete, class: :button
-                - elsif row[:parent].visible?
-                  = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: row[:parent].id, type: row[:parent].class.name, taxon_concept_id: @taxon_data.taxon_concept.id), method: :post, class: :button
+                    - user_added_datum_unhide_path(row[:parent])
+                  = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
+                - unless excluded
+                  = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: row[:parent].id, type: row[:parent].class.name, taxon_concept_id: @taxon_data.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{row[:parent].visible? ? '' : ' hidden'}", remote: true
+                - unless exemplar
+                  = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: row[:parent].id, type: row[:parent].class.name, taxon_concept_id: @taxon_data.taxon_concept.id), method: :post, class: "add_exemplar button#{row[:parent].visible? ? '' : ' hidden'}", remote: true
+                - if excluded
+                  %span.note= I18n.t(:data_row_excluded_from_overview_notice)
 - if logged_in?
   .add_content
     .article

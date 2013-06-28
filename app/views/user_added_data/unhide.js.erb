@@ -1,0 +1,10 @@
+var $add_cmd = $('tr#<%= @user_added_data.anchor %>').removeClass('hidden').next().find('div.additional_commands');
+$add_cmd.find('a.remove_exemplar').show();
+$add_cmd.find('a.add_exemplar').show();
+var $hide = $add_cmd.find('a.hide.button');
+if($hide.length > 0) {
+  $hide.show();
+} else {
+  $add_cmd.append("<%= escape_javascript link_to(I18n.t(:data_row_hide_button), user_added_datum_hide_path(@user_added_data), method: :put, class: 'hide button', remote: true) %>");
+}
+$add_cmd.find('a.unhide.button').hide();

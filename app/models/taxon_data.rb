@@ -3,8 +3,6 @@
 # version.)  I think this will be fixed in later versions (it works for PL), but for now, this seems to work.
 class TaxonData < TaxonUserClassificationFilter
 
-  MAX_EXEMPLAR_DATA = 5 # TODO - pick a number, move this to the DB or something.
-
   def self.graph_name_to_resource_id(graph_name)
     graph_name.to_s.split("/").last
   end
@@ -56,7 +54,7 @@ class TaxonData < TaxonUserClassificationFilter
   # TODO - break down into friendlier syntax. :)
   def get_data
     return @rows if @rows
-    rows = data
+    rows = TaxonDataSet.new(data, taxon_concept_id: taxon_concept.id, language: user.language)
     rows.each do |row|
       if user_added_data = TaxonData.get_user_added_data(row[:data_point_uri])
         row[:user] = user_added_data.user
@@ -67,7 +65,7 @@ class TaxonData < TaxonUserClassificationFilter
         row[:resource_id] = TaxonData.graph_name_to_resource_id(row[:graph])
       end
     end
-    add_parents(rows)
+    rows.add_parents
     # bulk preloading of resources/content partners
     resources = Resource.find_all_by_id(rows.collect{ |r| r[:resource_id] }.compact.uniq, :include => :content_partner)
     rows.each do |row|
@@ -79,10 +77,10 @@ class TaxonData < TaxonUserClassificationFilter
     end
 
     rows.delete_if{ |k,v| k[:attribute].blank? }
-    rows = replace_licenses_with_mock_known_uris(rows)
-    rows = TaxonData.add_known_uris_to_data(rows)
-    rows = TaxonData.replace_taxon_concept_uris(rows, :target_taxon_concept_id)
-    rows = TaxonData.sort_rows_by_attribute_and_value(rows)
+    rows.replace_licenses_with_mock_known_uris
+    TaxonData.add_known_uris_to_data(rows)
+    TaxonData.replace_taxon_concept_uris(rows, :target_taxon_concept_id)
+    rows.sort
     known_uris = rows.select { |d| d[:attribute].is_a?(KnownUri) }.map { |d| d[:attribute] }
     KnownUri.preload_associations(known_uris,
                                   [ { :toc_items => :translations },
@@ -92,35 +90,18 @@ class TaxonData < TaxonUserClassificationFilter
     @rows = rows
   end
 
-  # This might actually want to move to another module, since it really belongs in TaxonOverview... of course, the
-  # two would have to share the data-mining code, which is mostly what this module *does*, so... perhaps that's not a
-  # keen idea. We'll leave it here until a clear parth forward presents itself:
   def get_data_for_overview
-    if TaxonDataExemplar.exists?(taxon_concept_id: taxon_concept.id)
-      return TaxonDataExemplar.rows_for_taxon_page(self)
-    else
-      rows = remove_data_for_demo(get_all_rows)
-      rows = TaxonData.sort_rows_by_attribute_and_value(rows)[0..MAX_EXEMPLAR_DATA]
-      add_parents(rows)
-      rows.each do |row|
-        TaxonDataExemplar.create(taxon_concept: taxon_concept, parent: row[:parent])
-      end
-      rows
-    end
+    picker = TaxonDataExemplarPicker.new(self)
+    picker.pick(get_data)
   end
 
-  def get_all_rows
-    # TODO - I added metadata back in because I needed to know whether things were user-added or partner-provided;
-    # ideally we'll want to just pull enough additional info to make that distinction (should be simple enough)
-    # rows = association_data(metadata: false) + measurement_data(metadata: false)
-    # rows = get_data # (This is the line I replaced the code with)
-    # rows.delete_if{ |k,v| k[:attribute].blank? }
-    # rows = add_known_uris_to_data(rows)
-    # rows = replace_target_taxon_concept_ids(rows)
-    rows = get_data
-    rows.delete_if { |k,v| k[:attribute].blank? }
-    uniq_pairs(rows)
-  end
+  # TODO - I added metadata back in because I needed to know whether things were user-added or partner-provided;
+  # ideally we'll want to just pull enough additional info to make that distinction (should be simple enough)
+  # OLD:
+  # rows = association_data(metadata: false) + measurement_data(metadata: false)
+  # rows.delete_if{ |k,v| k[:attribute].blank? }
+  # rows = add_known_uris_to_data(rows)
+  # rows = replace_target_taxon_concept_ids(rows)
 
   def categories
     get_data unless @categories
@@ -128,33 +109,6 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   private
-
-  def self.sort_rows_by_attribute_and_value(rows)
-    rows.sort_by do |row|
-      attribute_label = EOL::Sparql.uri_components(row[:attribute])[:label]
-      value_label = EOL::Sparql.uri_components(row[:value])[:label]
-      value_label = value_label.to_s.downcase if value_label.class == RDF::Literal
-      [ attribute_label.downcase, value_label.downcase ]
-    end
-  end
-
-  # TODO: remove this after the demo - to be replaced by exemplar data
-  def remove_data_for_demo(rows)
-    uris_to_remove = [
-      'http://iobis.org/maxaou',
-      'http://iobis.org/minaou',
-      'http://iobis.org/maxdate',
-      'http://iobis.org/mindate'
-    ]
-    rows.delete_if do |r|
-      if r[:attribute].is_a?(KnownUri)
-        uris_to_remove.detect{ |uri| r[:attribute].matches(uri) }
-      else
-        uris_to_remove.detect{ |uri| r[:attribute].to_s == uri }
-      end
-    end
-    rows
-  end
 
   def self.get_user_added_data(value)
     if value && matches = value.to_s.match(UserAddedData::URI_REGEX)
@@ -336,26 +290,12 @@ class TaxonData < TaxonUserClassificationFilter
     hash[key] = uri if uri
   end
 
-  # Licenses are special (NOTE we also cache them here on a per-page basis...):
-  def replace_licenses_with_mock_known_uris(rows)
-    rows.each do |row|
-      row[:metadata].each do |key, val|
-        if key == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(val.to_s)
-          row[:metadata][key] = KnownUri.new(:uri => val,
-            :translations => [ TranslatedKnownUri.new(:name => license.title, :language => user.language) ])
-        end
-      end
-    end
-    rows
-  end
-
   def self.replace_taxon_concept_uris(rows, taxon_concept_uri_key)
     rows.each do |r|
       if r.has_key?(taxon_concept_uri_key)
         r[taxon_concept_uri_key] = KnownUri.taxon_concept_id(r[taxon_concept_uri_key])
       end
     end
-    rows
   end
 
   def self.uris_in_data(rows)
@@ -379,35 +319,6 @@ class TaxonData < TaxonUserClassificationFilter
       end
     end
     rows
-  end
-
-  def add_parents(rows)
-    preload_data_point_uris(rows)
-    rows.each { |row| row[:parent] = row[:user] ? row[:user_added_data] : row[:data_point_instance] }
-  end
-
-  def preload_data_point_uris(rows)
-    partner_data = rows.select{ |d| d.has_key?(:data_point_uri) }
-    data_point_uris = DataPointUri.find_all_by_taxon_concept_id_and_uri(taxon_concept.id, partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
-    partner_data.each do |d|
-      if data_point_uri = data_point_uris.detect{ |dp| dp.uri == d[:data_point_uri].to_s }
-        d[:data_point_instance] = data_point_uri
-      end
-    end
-
-    # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
-    partner_data.each do |d|
-      d[:data_point_instance] ||= DataPointUri.find_or_create_by_taxon_concept_id_and_uri(taxon_concept.id, d[:data_point_uri].to_s)
-    end
-    DataPointUri.preload_associations(partner_data.collect{ |d| d[:data_point_instance] }, :all_comments)
-  end
-
-  # TODO - in my sample data (which had a single duplicate value for 'weight'), running this then caused the "more"
-  # to go away.  :\  We may not care about such cases, though.
-  def uniq_pairs(rows)
-    h = {}
-    rows.each { |r| h["#{r[:attribute]}:#{r[:value]}"] = r }
-    h.values
   end
 
 end

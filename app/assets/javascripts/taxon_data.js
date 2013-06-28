@@ -209,4 +209,13 @@ $(function() {
   // Move additional command buttons back onto the form proceeding them (saves a lot of ugliness in views):
   $('.additional_commands').each(function() { $(this).appendTo($(this).prev().find(":last-child")) });
 
+  // Remove links on the overview should be hidden until you hover:
+  $('#data_summary table').hover(function() {
+    $('span.remove').show();
+  }, function () {
+    $('span.remove').hide();
+  }).find('span.remove').hide();
+
+  $('a.button.hidden').hide();
+
 });

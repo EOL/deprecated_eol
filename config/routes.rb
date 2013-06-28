@@ -369,7 +369,7 @@ Eol::Application.routes.draw do
     resources :comments, :only => [ :index ]
   end
 
-  resources :taxon_data_exemplars, :only => [ :create, :destroy ]
+  resources :taxon_data_exemplars, :only => [ :create ]
 
   resources :data_point_uris, :only => [ :show ] do
     put 'hide'

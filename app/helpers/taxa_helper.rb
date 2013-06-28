@@ -163,7 +163,7 @@ module TaxaHelper
   end
 
   def display_text_for_structured_data_row(row, options={})
-    text_for_row_value = ''
+    text_for_row_value = "<span id='#{row[:parent].anchor}'>"
     target_taxon_concept = nil
     if row[:target_taxon_concept_id]
       target_taxon_concept = row[:target_taxon_concept] || TaxonConcept.find(row[:target_taxon_concept_id])
@@ -184,6 +184,17 @@ module TaxaHelper
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(row[:attribute])
       text_for_row_value += " " + display_uri(uri_components)
     end
+    # Curators get to remove the data:
+    if options[:taxon_concept] && current_user.min_curator_level?(:full)
+      remove_link =
+      text_for_row_value << "<span class='remove'> " +
+        link_to(image_tag("v2/icon_remove.png"),
+                taxon_data_exemplars_path(id: row[:parent].id, type: row[:parent].class.name,
+                                          taxon_concept_id: options[:taxon_concept].id, :exclude => true),
+                                          method: :post, alt: I18n.t(:remove), confirm: I18n.t(:are_you_sure), remote: true) +
+        "</span>"
+    end
     text_for_row_value.gsub(/\n/, '')
+    text_for_row_value += "</span>"
   end
 end

@@ -26,7 +26,9 @@ module EOL
 
       def self.unique_toc_ids(taxon_concept_id, options = {})
         options[:get_unique_toc_ids] = 1
-        facets = get_special_facet_counts(taxon_concept_id, options, 'toc_id')
+        # filtering by subtype but not specifying a value. This will only return things
+        # with NO subtype (i.e. text objects, not links)
+        facets = get_special_facet_counts(taxon_concept_id, options.merge(:filter_by_subtype => true), 'toc_id')
         return facets.keys
       end
       

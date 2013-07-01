@@ -12,12 +12,14 @@
         %meta{ :property => property, :content => content }
 
   #social_sharing
+    .reddit
+      = link_to image_tag('v2/icon_reddit.gif'), 'http://www.reddit.com/submit',
+        :alt => I18n.t(:social_sharing_reddit_button), :title => I18n.t(:social_sharing_reddit_button),
+        "data-title" => meta_data[:title]
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
       .twitter
         - tweet_data[:text] = h(raw(strip_tags(tweet_data[:text])))
-        %a{:href => "https://twitter.com/share", :class => "twitter-share-button", :rel => "nofollow",
-          :data => tweet_data}
-          = I18n.t(:social_sharing_twitter_tweet_button)
+        %a{:href => "https://twitter.com/share", :class => "twitter-share-button", :rel => "nofollow", :data => tweet_data}
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
       -# TODO: this is a temporary fix to put facebook over the image cropping tool
       #fb-root.facebook

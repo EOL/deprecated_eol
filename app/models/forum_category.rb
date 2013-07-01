@@ -15,7 +15,7 @@ class ForumCategory < ActiveRecord::Base
   end
 
   def self.with_forums
-    ForumCategory.joins(:forums).select('DISTINCT forum_categories.*').order(:view_order)
+    ForumCategory.joins(:forums).uniq.order(:view_order)
   end
 
   private

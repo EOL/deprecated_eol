@@ -43,7 +43,7 @@ class ForumTopic < ActiveRecord::Base
   private
 
   def update_forum
-    forum.update_attributes(:number_of_topics => forum.open_topics.count)
+    forum.update_attributes(:number_of_topics => forum.open_topics.uniq.count)
   end
 
 end

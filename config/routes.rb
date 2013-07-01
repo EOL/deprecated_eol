@@ -399,7 +399,8 @@ Eol::Application.routes.draw do
 
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
-  match '/search/:q' => 'search#index'
+  # having this as :q instead of :id was interfering with WillPaginate. See #WEB-4508
+  match '/search/:id' => 'search#index'
   match '/found/:id' => 'taxa#show', :as => 'found'
 
   # Named session routes (see also resources):

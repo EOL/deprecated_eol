@@ -38,6 +38,9 @@ module EOL
         delete_graph_via_sparql_update(graph_name)
       end
 
+      # NOTE: if you get an error: Invalid port number: "8890/DAV/xx/yy", then go to:
+      # http://localhost:8890/ => LinkedData => Graphs and check to see if there is a graph named
+      # http://localhost:8890%2FDAV%2Fxx%2Fyy . If so, delete it and try again
       def query(query, options = {})
         query = append_namespaces_to_query(query)
         query = options[:prefix] +" "+ query if options[:prefix]

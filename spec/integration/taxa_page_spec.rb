@@ -109,11 +109,11 @@ describe 'Taxa page basic tests' do
     @measurement.update_triplestore
     visit taxon_overview_path(tc.id)
     body.should have_selector("#data_summary table")
-    body.should include("<td>\n12345")
-    body.should_not include("12345 <span title=\"http://eol.org/kg\">kilograms")
+    body.should include("12345")
+    body.should_not include("12345 <span title=\"http://eol.org/kg\">\nkilograms")
     KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :is_unit_of_measure => true)
     visit taxon_overview_path(tc.id)
-    body.should include("12345 <span title=\"http://eol.org/kg\">kilograms")
+    body.should include("12345 <span title=\"http://eol.org/kg\">\nkilograms")
   end
 
 end

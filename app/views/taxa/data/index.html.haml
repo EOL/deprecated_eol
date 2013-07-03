@@ -86,18 +86,20 @@
               - if row[:source]
                 %li= raw I18n.t("data_provided_by_#{row[:source].class.name.underscore.downcase}", whom: link_to(row[:source].name, row[:source]))
               - if row.has_key?(:data_point_uri)
-                %li= raw "&bull;"
+                %li
+                  &bull;
                 %li= link_to row[:data_point_uri], ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(row[:data_point_uri].to_s)), :target => 'data'
               - if row.has_key?(:user_added_data)
                 - if current_user.can_update?(row[:user_added_data])
-                  %li= raw "&bull;"
-                  -# TODO: i18n
-                  %li= link_to "edit", edit_user_added_datum_path(row[:user_added_data]), :method => :get
-                  %li= raw "&bull;"
-                  -# TODO: i18n
-                  %li= link_to "delete", user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
+                  %li
+                    &bull;
+                  %li= link_to I18n.t(:edit), edit_user_added_datum_path(row[:user_added_data]), :method => :get
+                  %li
+                    &bull;
+                  %li= link_to I18n.t(:delete), user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
               - unless comments.empty?
-                %li= raw "&bull;"
+                %li
+                  &bull;
                 - annotations_link = nil
                 - if row.has_key?(:user_added_data)
                   - annotations_link = user_added_datum_comments_path(row[:user_added_data])

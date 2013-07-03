@@ -4,7 +4,7 @@ class Taxa::DataController < TaxaController
   before_filter :add_page_view_log_entry
 
   def index
-    @assistive_section_header = "ASdfsfasdfasdfasdaf" # TODO (see :assistive_overview_header for an example)
+    @assistive_section_header = I18n.t(:assistive_data_header)
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
     @taxon_data = @taxon_page.data
     @data = @taxon_data.get_data

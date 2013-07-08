@@ -9,6 +9,8 @@ class KnownUri < ActiveRecord::Base
 
   include EOL::CuratableAssociation
 
+  acts_as_list
+
   uses_translations
 
   self.per_page = 100

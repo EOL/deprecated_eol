@@ -2218,6 +2218,7 @@ ms:
   sort_by_newest_option: Terbaru
   sort_by_oldest_option: Terlama
   sort_by_rating_option: Penilaian
+  sort_by_richness_option: Kekayaan
   sort_by_status_option: Status
   sort_by_title_ascending: Tajuk Tertib Menaik
   sort_by_title_descending: Tajuk Tertib Menurun
@@ -2309,6 +2310,204 @@ ms:
       index: 
         hierarchy_entry: 
           meta_description: Fakta-fakta tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} dalam Encyclopedia of Life
+          meta_description_no_data: Tidak terdapat fakta untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} di Encyclopedia of Life. EOL mengalu-alukan anda untuk menyumbangkan fakta-fakta tentang %{scientific_name} seperti Pemuliharaan, Taburan, Ekologi, Habitat, Morfologi dan banyak lagi.
+          meta_description_with_chapter_list: Fakta-fakta tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} di Encyclopedia of Life, termasuk keterangan mengenai %{chapter_list} untuk %{scientific_name}.
+          meta_description_with_common_name: Fakta-fakta tentang %{preferred_common_name}% atau nama saintifiknya %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} di Encyclopedia of Life.
+          meta_description_with_common_name_no_data: Tidak terdapat fakta untuk %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} di Encyclopedia of Life. EOL mengalu-alukan anda untuk menyumbangkan fakta-fakta tentang %{scientific_name} seperti Pemuliharaan, Taburan, Ekologi, Habitat, Morfologi dan banyak lagi.
+          meta_description_with_common_name_with_chapter_list: Fakta-fakta tentang %{preferred_common_name}% atau nama saintifiknya %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} di Encyclopedia of Life, termasuk fakta-fakta mengenai %{chapter_list}.
+          meta_title: Fakta tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Fakta tentang %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Fakta tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+        meta_description: Fakta tentang %{scientific_name} di Encyclopedia of Life
+        meta_description_no_data: Tidak terdapat fakta untuk %{scientific_name} di Encyclopedia of Life. EOL mengalu-alukan anda untuk menyumbangkan fakta-fakta tentang %{scientific_name} seperti Pemuliharaan, Taburan, Ekologi, Habitat, Morfologi dan banyak lagi.
+        meta_description_with_chapter_list: Fakta-fakta tentang %{scientific_name} di Encyclopedia of Life, termasuk fakta-fakta mengenai %{chapter_list}.
+        meta_description_with_common_name: Fakta-fakta tentang %{preferred_common_name} atau nama saintifiknya %{scientific_name} di Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Tidak terdapat fakta untuk %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} di Encyclopedia of Life. EOL mengalu-alukan anda untuk menyumbangkan fakta-fakta tentang %{scientific_name} seperti Pemuliharaan, Taburan, Ekologi, Habitat, Morfologi dan banyak lagi.
+        meta_description_with_common_name_with_chapter_list: Fakta-fakta tentang %{preferred_common_name} atau nama saintifiknya %{scientific_name} di Encyclopedia of Life, termasuk fakta-fakta mengenai %{chapter_list}.
+        meta_title: Fakta tentang %{scientific_name}
+        meta_title_with_common_name: Fakta tentang %{preferred_common_name} (%{scientific_name})
+        tweet_text: Fakta tentang %{scientific_name}
+    literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: Kepustakaan dan maklumat BHL tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} di Encyclopedia of Life. Baca rencana-rencana dari Biodiversity Heritage Library (BHL) tentang %{scientific_name} di Encyclopedia of Life.
+          meta_description_with_common_name: Kesusasteraan dan maklumat BHL tentang %{preferred_common_name} atau nama saintifiknya %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} di Encyclopedia of Life. Baca rencana-rencana dari Biodiversity Heritage Library (BHL) tentang %{preferred_common_name} di Encyclopedia of Life.
+          meta_title: Kepustakaan BHL tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Kesusasteraan BHL tentang %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: "Kepustakaan dr #BHL ttg %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}"
+        meta_title: Petikan BHL untuk %{scientific_name}
+        meta_title_with_common_name: Rujukan BHL untuk %{preferred_common_name} (%{scientific_name})
+        tweet_text: "Kepustakaan dr #BHL ttg %{scientific_name}"
+      show: 
+        hierarchy_entry: 
+          meta_title: Kesusasteraan tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Kepustakaan tentang %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Kepustakaan ttg %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}
+        meta_description: Buku-buku, rencana-rencana dan bibliografi tentang %{scientific_name} di Encyclopedia of Life. Baca kepustakaan mengenai %{scientific_name} di Encyclopedia of Life.
+        meta_description_with_common_name: Buku-buku, rencana-rencana dan bibliografi tentang %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} di Encyclopedia of Life. Baca kepustakaan mengenai %{preferred_common_name} di Encyclopedia of Life.
+        meta_keywords: rencana %{scientific_name},buku %{scientific_name},bibliografi %{scientific_name},sumber %{scientific_name}
+        meta_keywords_with_common_name: rencana %{preferred_common_name},buku %{preferred_common_name},sumber %{preferred_common_name},rencana %{scientific_name},buku %{scientific_name}, sumber %{scientific_name}
+        meta_title: Rencana & Buku tentang %{scientific_name}
+        meta_title_with_common_name: Rencana & Buku tentang %{preferred_common_name} (%{scientific_name})
+        tweet_text: Rencana & Buku tentang %{scientific_name}
+    maps: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Maklumat geografi tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} mengenai di mana tempat tinggalnya dan di mana tempat asalnya di dunia.
+          meta_description_with_common_name: Di manakah %{preferred_common_name} ditemui dan di manakah ia tinggal? Maklumat geografi tentang %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider} mengenai di mana tempat tinggalnya dan di mana tempat asalnya di dunia.
+          meta_title: Peta %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Peta %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Peta untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+        meta_description: Maklumat geografi tentang %{scientific_name}, iaitu tempat-tempat tinggal hidupan ini di dunia.
+        meta_description_no_data: Tidak terdapat maklumat geografi untuk %{scientific_name} di Encyclopedia of Life. EOL mengalu-alukan anda untuk menyumbangkan peta untuk %{scientific_name}.
+        meta_description_with_common_name: Di manakah %{preferred_common_name} ditemui dan di manakah ia tinggal? Maklumat geografi tentang %{scientific_name}, iaitu tempat-tempat tinggal hidupan ini di dunia.
+        meta_description_with_common_name_no_data: Tidak terdapat maklumat geografi untuk %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} di Encyclopedia of Life. EOL mengalu-alukan anda untuk menyumbangkan peta untuk %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: habitat %{scientific_name}, tempat tinggal %{scientific_name}
+        meta_keywords_with_common_name: habitat %{preferred_common_name}, tempat tinggal %{preferred_common_name}
+        meta_title: Peta untuk %{scientific_name}
+        meta_title_with_common_name: Peta untuk %{preferred_common_name} (%{scientific_name})
+        tweet_text: Peta untuk %{scientific_name}
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Gambar-gambar dan video-video %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}.
+          meta_description_with_common_name: Gambar-gambar foto, filem dan audio  %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}.
+          meta_keywords: foto %{scientific_name}, filem %{scientific_name}, bunyi %{scientific_name}, audio %{scientific_name}
+          meta_keywords_with_common_name: foto %{preferred_common_name}, filem %{preferred_common_name}, bunyi %{preferred_common_name}, audio %{preferred_common_name}, foto %{scientific_name}, filem %{scientific_name}, bunyi %{scientific_name}, audio %{scientific_name}
+          meta_title: Audio, Filem & Gambar %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Audio, Filem & Gambar %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Media %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+        meta_description: Gambar-gambar, bahan-bahan video dan audio %{scientific_name}. Cari gambar, foto, filem dan bunyi %{scientific_name} di Encyclopedia of Life.
+        meta_description_no_data: Tidak terdapat bahan multimedia untuk %{scientific_name} di Encyclopedia of Life. EOL mengalu-alukan anda untuk menyumbangkan gambar, video, atau audio untuk %{scientific_name}.
+        meta_description_with_common_name: Gambar-gambar, bahan-bahan video dan audio %{preferred_common_name} atau juga dikenali sebagai %{scientific_name}. Cari gambar, foto, filem dan bunyi %{preferred_common_name} di Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Tidak terdapat bahan multimedia untuk %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} di Encyclopedia of Life. EOL mengalu-alukan anda untuk menyumbangkan gambar, video, atau audio untuk %{preferred_common_name}.
+        meta_keywords: gambar %{scientific_name}, video %{scientific_name}, imej %{scientific_name}, media %{scientific_name}
+        meta_keywords_with_common_name: gambar %{preferred_common_name}, video %{preferred_common_name}, imej %{preferred_common_name}, media %{preferred_common_name}
+        meta_title: Gambar, Video & Audio %{scientific_name} - Imej, Foto, Filem & Bunyi %{scientific_name}
+        meta_title_with_common_name: Gambar, Video & Audio %{preferred_common_name} (%{scientific_name}) - Imej, Foto, Filem & Bunyi %{preferred_common_name} (%{scientific_name})
+        tweet_text: Gambar, video dan audio %{scientific_name}
+    names: 
+      common_names: 
+        hierarchy_entry: 
+          meta_description: Nama-nama jati yang dikaitkan dengan %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}.
+          meta_description_with_common_name: Salah satu nama jati untuk %{scientific_name} ialah %{preferred_common_name}. Ketahui nama-nama jati lain yang dikaitkan dengan %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}.
+          meta_keywords: Nama-Nama Jati %{scientific_name}
+          meta_keywords_with_common_name: Nama Saintifik %{preferred_common_name}, Nama-Nama Jati %{scientific_name}
+          meta_title: Nama-Nama Jati %{scientific_name} Seperti yang Dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Nama-Nama Jati %{preferred_common_name} (%{scientific_name}) Seperti yang Dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Nama2 umum %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}
+        meta_description: Nama-nama umum bagi %{scientific_name}.
+        meta_description_with_common_name: Nama saintifik %{preferred_common_name} adalah %{scientific_name}. Ketahui nama-nama umum lain bagi %{scientific_name}.
+        meta_keywords: Nama-Nama Umum %{scientific_name}
+        meta_keywords_with_common_name: Nama-Nama Umum %{scientific_name}, Nama Saintifik %{preferred_common_name}
+        meta_title: Nama-Nama Umum %{scientific_name}
+        meta_title_with_common_name: Nama-Nama Umum %{preferred_common_name} (%{scientific_name})
+        tweet_text: Nama-Nama Umum %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Rampai taksonomi dan nama-nama saintifik %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}.
+          meta_description_with_common_name: Rampai taksonomi dan nama-nama saintifik %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}.
+          tweet_text: Nama-nama yang dikaitkan dengan %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+        meta_description: Rampai taksonomi dan nama-nama saintifik untuk %{scientific_name}. Rampai pengelasan biologi dan nama-nama yang berkaitan dengan %{scientific_name}.
+        meta_description_with_common_name: Rampai taksonomi dan nama-nama saintifik untuk %{preferred_common_name} atau juga dikenali sebagai %{scientific_name}. Rampai pengelasan biologi dan nama-nama yang berkaitan dengan %{scientific_name}.
+        meta_title: Maklumat Taksonomi untuk %{scientific_name} - Pengelasan & Nama-Nama Biologi
+        meta_title_with_common_name: Maklumat Taksonomi untuk %{preferred_common_name} (%{scientific_name}) - Pengelasan & Nama-Nama Biologi
+        tweet_text: Maklumat Taksonomi untuk %{scientific_name}
+      synonyms: 
+        hierarchy_entry: 
+          meta_description: Sinonim-sinonim yang dikaitkan dengan %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}.
+          meta_description_with_common_name: Sinonim-sinonim yang dikaitkan dengan %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}, umum dikenali sebagai %{preferred_common_name}.
+          meta_keywords: Sinonim %{scientific_name}
+          meta_keywords_with_common_name: Sinonim %{preferred_common_name}, Sinonim %{scientific_name}
+          meta_title: Sinonim-Sinonim %{scientific_name} Seperti yang Dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Sinonim-Sinonim %{preferred_common_name} ((%{scientific_name}) Seperti yang Dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Sinonim2 %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}
+        meta_description: Sinonim-Sinonim %{scientific_name}.
+        meta_description_with_common_name: Sinonim-Sinonim %{preferred_common_name} atau nama saintifiknya %{scientific_name}.
+        meta_keywords: Sinonim %{scientific_name}
+        meta_keywords_with_common_name: Sinonim %{preferred_common_name}, Sinonim %{scientific_name}
+        meta_title: Sinonim %{scientific_name}
+        meta_title_with_common_name: Sinonim-sinonim %{preferred_common_name} (%{scientific_name})
+        tweet_text: Sinonim-Sinonim %{scientific_name}
+    overview: 
+      hierarchy_entry: 
+        meta_description: Ringkasan maklumat tentang %{scientific_name} sebagaimana yang diakui oleh %{hierarchy_provider} di Encyclopedia of Life.
+        meta_description_with_common_name: Ringkasan maklumat tentang %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} sebagaimana yang diakui oleh %{hierarchy_provider} di Encyclopedia of Life.
+        meta_keywords: "%{scientific_name} yang diakui oleh %{hierarchy_provider}, %{scientific_name} yang dikelaskan oleh %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} yang diakui oleh %{hierarchy_provider}, %{scientific_name} yang dikelaskan oleh %{hierarchy_provider}"
+        meta_title: "%{scientific_name} yang Dikelaskan oleh %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} yang Dikelaskan oleh %{hierarchy_provider})"
+        tweet_text: "%{scientific_name} yg Dikelaskan oleh %{hierarchy_provider}"
+      meta_description: Maklumat tentang %{scientific_name} di Encyclopedia of Life.
+      meta_description_with_common_name: Maklumat tentang %{preferred_common_name} atau nama saintifiknya %{scientific_name} di Encyclopedia of Life.
+      meta_keywords: info %{scientific_name}, maklumat %{scientific_name}
+      meta_keywords_with_common_name: info %{scientific_name}, info %{preferred_common_name}, fakta  %{scientific_name}, maklumat %{preferred_common_name}
+      meta_title: "%{scientific_name} - Maklumat tentang %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Maklumat tentang %{preferred_common_name}"
+      tweet_text: Maklumat ttg %{scientific_name}
+    resources: 
+      biomedical_terms: 
+        hierarchy_entry: 
+          tweet_text: Istilah-istilah bioperubatan untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+        meta_title: Istilah-istilah bioperubatan untuk %{scientific_name}
+        meta_title_with_common_name: Istilah-istilah bioperubatan untuk %{preferred_common_name} (%{scientific_name})
+        tweet_text: Istilah bioperubatan utk %{scientific_name}
+      education: 
+        hierarchy_entry: 
+          meta_title: Peralatan pembelajaran untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Peralatan pembelajaran untuk %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Alat2 pembelajaran utk %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}
+        meta_title: Sumber pendidikan untuk %{scientific_name}
+        meta_title_with_common_name: Sumber pendidikan untuk %{preferred_common_name} (%{scientific_name})
+        tweet_text: Sumber pendidikan utk %{scientific_name}
+      identification_resources: 
+        hierarchy_entry: 
+          tweet_text: Sumber pengenalpastian untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+        meta_title: Sumber pengenalpastian untuk %{scientific_name}
+        meta_title_with_common_name: Sumber pengenalpastian untuk %{preferred_common_name} (%{scientific_name})
+        tweet_text: Sumber pengenalpastian utk %{scientific_name}
+      nucleotide_sequences: 
+        hierarchy_entry: 
+          tweet_text: Urutan nukleotida untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+        meta_title: Urutan nukleotida untuk %{scientific_name}
+        meta_title_with_common_name: Urutan nukleotida untuk %{preferred_common_name} (%{scientific_name})
+        tweet_text: Urutan nukleotida %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: Senarai pembekal dan data sumber untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}.
+          meta_description_with_common_name: Senarai pembekal dan data sumber untuk %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}.
+          meta_keywords: pembekal data %{scientific_name}, sumber data %{scientific_name}
+          meta_keywords_with_common_name: pembekal data %{preferred_common_name}, data sumber %{preferred_common_name}, pembekal data %{scientific_name}, data sumber %{scientific_name}
+          meta_title: Pembekal data %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Pembekal data %{preferred_common_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Pembekal data %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}
+        meta_description: Sumber-sumber rujukan dan rampai petikan rakan kongsi untuk %{scientific_name}.
+        meta_description_with_common_name: Sumber-sumber rujukan %{preferred_common_name} dan rampai petikan rakan kongsi untuk %{scientific_name}.
+        meta_keywords: sumber %{scientific_name}, pembekal kandungan %{scientific_name}
+        meta_keywords_with_common_name: sumber %{preferred_common_name}, pembekal kandungan %{preferred_common_name}, sumber %{scientific_name}, pembekal kandungan %{scientific_name}
+        meta_title: Sumber kandungan untuk %{scientific_name}
+        meta_title_with_common_name: Sumber kandungan untuk %{preferred_common_name} (%{scientific_name})
+        tweet_text: Sumber kandungan utk %{scientific_name}
+    updates: 
+      show: 
+        hierarchy_entry: 
+          meta_title: Kemas kini untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Kemas kini untuk %{preferred_common_name} (%{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Kemas kini untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+        meta_description: Berita dan maklumat terkini mengenai %{scientific_name}.
+        meta_description_with_common_name: Berita mengenai %{preferred_common_name} dan maklumat terkini mengenai %{scientific_name}.
+        meta_keywords: berita %{scientific_name}, terbaru %{scientific_name}
+        meta_keywords_with_common_name: berita %{preferred_common_name}, terbaru %{preferred_common_name}, berita %{scientific_name}
+        meta_title: Komen-komen untuk %{scientific_name}
+        meta_title_with_common_name: Komen-komen untuk %{preferred_common_name} (%{scientific_name})
+        tweet_text: Komen-komen untuk %{scientific_name}
+      statistics: 
+        hierarchy_entry: 
+          meta_title: Statistik untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+          meta_title_with_common_name: Statistik untuk %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}
+          tweet_text: Markah kekayaan utk %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}
+        meta_title: Kekayaan %{scientific_name}
+        tweet_text: Markah kekayaan utk %{scientific_name}
   taxa_with_count: "%{count} takson"
   taxon: takson
   taxon_biomedical_terms_link: Istilah bioperubatan

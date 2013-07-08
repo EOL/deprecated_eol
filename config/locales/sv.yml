@@ -3130,15 +3130,19 @@ sv:
       index: 
         hierarchy_entry: 
           meta_description: Fakta om %{scientific_name} som klassificeras som %{hierarchy_provider} i Encyclopedia of Life
+          meta_description_no_data: Inga fakta finns tillgänglig för %{scientific_name} som klassificeras av %{hierarchy_provider} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{scientific_name} som bevarande, fördelning, ekologi, habitat, morfologi och mer.
           meta_description_with_chapter_list: Fakta om %{scientific_name} som klassificeras av %{hierarchy_provider} i Encyclopedia of Life. Innehåller information från %{chapter_list} om %{scientific_name}.
           meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} som är klassificerad som %{hierarchy_provider} i Encyclopedia of Life.
+          meta_description_with_common_name_no_data: Inga fakta finns tillgänglig för %{preferred_common_name} även känd som %{scientific_name} som klassificeras av %{hierarchy_provider} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{preferred_common_name} (%{scientific_name}) som bevarande, fördelning, ekologi, habitat, morfologi och mer.
           meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} som är klassificerad som %{hierarchy_provider} i Encyclopedia of Life. Inkluderar fakta på %{chapter_list}.
           meta_title: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Information om %{scientific_name} i Encyclopedia of Life
+        meta_description_no_data: Inga fakta finns tillgänglig för %{scientific_name} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{scientific_name} som bevarande, fördelning, ekologi, habitat, morfologi och mer.
         meta_description_with_chapter_list: Fakta om %{scientific_name} i Encyclopedia of Life. Innehåller fakta om %{chapter_list}.
         meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Inga fakta finns tillgänglig för %{preferred_common_name} även känd som %{scientific_name} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{preferred_common_name} (%{scientific_name}) som bevarande, fördelning, ekologi, habitat, morfologi och mer.
         meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life. Inkluderar fakta på %{chapter_list}.
         meta_title: Fakta om %{scientific_name}
         meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name})

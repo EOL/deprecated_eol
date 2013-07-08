@@ -2686,7 +2686,7 @@ nl:
   listing_collections: Verzamelingen weergeven
   lists_the_identifiers_for_all_hierarchies: geeft de aanduidingen weer voor alle hiërarchieën die door contentpartners zijn geleverd
   literature: Literatuur
-  literature_bhl_information: De volgende bibliografie is aangemaakt door een automatische dienst. BHL gebruikt taxonomische intelligentiehulpmiddelen om wetenschappelijke namen die in de tekst van iedere gedigitaliseerde pagina van de digitale collectie van BHL voorkomen te lokaliseren, controleren en vast te leggen.
+  literature_bhl_information: De volgende bibliografie is aangemaakt door een automatische dienst. BHL gebruikt taxonomische intelligentiehulpmiddelen om wetenschappelijke namen die in de tekst van iedere gedigitaliseerde pagina van de digitale verzameling van BHL voorkomen te lokaliseren, controleren en vast te leggen.
   literature_bhl_link: Bibliografie in BHL bekijken
   literature_empty: Geen referenties gevonden.
   literature_header: Referenties
@@ -3268,7 +3268,7 @@ nl:
   return_content_by_vettedness: Als "gecontroleerd" de waarde "1" heeft, dan wordt alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft, dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
   return_references_for_the_page_taxon: alle referenties voor het taxon van de pagina teruggeven
   return_synonyms_for_the_page_taxon: alle synoniemen voor het taxon van de pagina teruggeven
-  returns_all_metadata_about_a_particular_collection: geeft alle metadata van een bepaalde collectie terug en de items die erin zijn opgenomen en zijn geïndexeerd door EOL
+  returns_all_metadata_about_a_particular_collection: geeft alle metadata van een bepaalde verzameling terug en de items die erin zijn opgenomen en zijn geïndexeerd door EOL
   returns_all_metadata_about_a_particular_data_object: geeft alle metadata van een bepaald gegevensobject (tekst, afbeelding, video) dat is geïndexeerd door EOL
   returns_either_a_positive_or_negative_response: geeft een bevestigend antwoord (dat aangeeft dat de API's functioneel zijn) of geeft een negatief antwoord of helemaal geen antwoord (dat aangeeft dat de API's niet functioneel zijn op dat moment)
   revisions: Versies
@@ -3402,11 +3402,12 @@ nl:
   skip_to_content: Doorgaan naar inhoud
   skip_to_navigation: Naar navigatie gaan
   skip_to_table_of_contents: Naar inhoudsopgave gaan
+  social_sharing_reddit_button: indienen voor reddit
   social_sharing_twitter_follow_eol_button: "@eol volgen"
   social_sharing_twitter_tweet_button: Tweet
   some_required_fields_were_not_entered: Sommige verplichte velden zijn niet ingevuld (u moet een titel en inhoud invoeren of een URL).
   sorry_no_collections_are_available_to_share: Er zijn helaas geen collecties beschikbaar om te delen met deze gemeenschap.
-  sorry_no_communities_are_available_to_share: Er zijn helaas geen gemeenschappen beschikbaar om deze collectie mee te delen.
+  sorry_no_communities_are_available_to_share: Er zijn helaas geen gemeenschappen beschikbaar om deze verameling mee te delen.
   sort_by: Sorteren op
   sort_by_alphabetical_option: Alfabetisch
   sort_by_button: Sorteren

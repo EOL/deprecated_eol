@@ -2051,6 +2051,8 @@ ko:
   full_content_url: 전체 내용 URL
   gbif_map: GBIF 지도
   general_site_admin: 일반 사이트 관리자
+  get_help_choosing_a_subchapter: 하위 절 선택하기 도움말 얻기
+  get_help_choosing_a_subject: 주제 선택하기 도움말 얻기
   get_more_tasks: 더 많은 작업 갖기
   given_name_colon: "주어진 이름:"
   global_access_tagline: 지구상의 생명에 관한 지식에 대한 전세계적 접근
@@ -2357,6 +2359,8 @@ ko:
   id: ID
   image: 그림
   image_alt_text: "%{taxon_name}의 이 %{vetted_status} 그림입니다."
+  image_crop_failed_error: 죄송합니다, 오류가 발생해 그림을 자를 수 없습니다.
+  image_cropped_notice: 그림을 성공적으로 잘랐습니다.
   image_from_supplier: "%{whom}에서 그림"
   image_is_no_longer_available: 그림을 더 이상 사용할 수 없습니다
   image_map_alt_text: "%{taxon_name}의 이 %{vetted_status} 지도입니다."

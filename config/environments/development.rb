@@ -39,6 +39,11 @@ Eol::Application.configure do
   config.after_initialize do
     $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
   end
+
+  $STAGING_CONTENT_SERVER = 'http://localhost/eol_php_code/applications/content_server/'
+
+  config.logger = Logger.new(STDOUT)
+
 end
 
 # TODO - Where do these go, now?  :S

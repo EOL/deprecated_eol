@@ -15,7 +15,7 @@
     .reddit
       = link_to image_tag('v2/icon_reddit.gif'), 'http://www.reddit.com/submit',
         :alt => I18n.t(:social_sharing_reddit_button), :title => I18n.t(:social_sharing_reddit_button),
-        "data-title" => meta_data[:title]
+        "data-title" => strip_tags(meta_data[:title])
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
       .twitter
         - tweet_data[:text] = h(raw(strip_tags(tweet_data[:text])))

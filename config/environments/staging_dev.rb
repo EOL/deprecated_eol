@@ -34,5 +34,7 @@ Eol::Application.configure do
 
   config.action_mailer.asset_host = "http://staging.eol.org"
 
+  config.logger = Logger.new(STDOUT)
+
   require "ruby-debug"
 end

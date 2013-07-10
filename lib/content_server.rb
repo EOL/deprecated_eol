@@ -33,7 +33,7 @@ class ContentServer
   end
 
   def self.cache_path(cache_url, options={})
-    if (Rails.env.staging? || Rails.env.staging_dev?) && options[:is_crop] && $STAGING_CONTENT_SERVER
+    if (Rails.env.staging? || Rails.env.staging_dev? || Rails.env.development?) && options[:is_crop] && $STAGING_CONTENT_SERVER
       options[:specified_content_host] = $STAGING_CONTENT_SERVER
     end
     if options[:specified_content_host]

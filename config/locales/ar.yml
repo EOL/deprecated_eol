@@ -29,6 +29,7 @@ ar:
   a_total_of_items_were_found_matching_your_criteria: وجدنا %{count} عنصر متماشيًا مع معاييرك.
   a_total_of_terms_were_found_matching_your: وجدنا %{count} مصطلحًا متماشيًا مع معاييرك.
   about_eol: عن موسوعة الحياة
+  about_resources: حول الموارد
   account_information: بيانات الحساب
   account_information_menu: المعلومات الخاصة بالحساب
   account_registered_but_not_ready_try_later: تم تسجيل الحساب ولكنه غير جاهز لتسجيل الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق.
@@ -999,6 +1000,7 @@ ar:
   already_a_member_question: هل أنت عضو؟
   already_member_of_community: أنت عضو في هذا المجتمع
   alternate_classification: تصنيف بديل
+  alternative_name_colon: "الاسم البديل:"
   amount: كمية
   an_unknown_user: مستخدم غير معروف
   and: و
@@ -1008,6 +1010,7 @@ ar:
   anonymous_user_given_name: مجهول الاسم
   anonymous_user_tag_line: غير مسجل الدخول
   any_integer: أي عدد صحيح
+  any_string: أي سلسلة
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">انقر هنا</a> للوصول إلى اختبار بيتا من المنتديات EOL الجديدة. تعليقاتك موضع ترحيب.
@@ -1069,6 +1072,7 @@ ar:
   author_of_peer_reviewed_publication_credential_option: ملكية مادة منشورة محققة (أضف المرجع)
   authoritative_information: معلومات معتمدة
   available: متوفر
+  average_rating: متوسط التقييم
   average_rating_value_of_total: "متوسط التقييم: %{rating} من %{total}"
   back: للوراء
   back_to_profile: الرجوع إلى الصفحة الشخصية
@@ -1585,6 +1589,7 @@ ar:
   created_community: تم إنشاء المجتمع بنجاح
   creative_commons: المشاع الإبداعي
   credentials: الاعتمادات
+  credentials_colon: "الاعتمادات:"
   curated: تم تقييمه
   curated_association_update_button: حفظ التغييرات
   curated_objects_of: عناصر تم الإشراف عليها خاصة بـ %{name}
@@ -1920,6 +1925,7 @@ ar:
   failed_login_attempts_with_count: 
     one: "(%{count} محاولة تسجيل دخول فاشلة - يجب وضع العلامة حتى يتمكن المستخدم من الدخول "
     other: (%{count} failed login attempts)- must be checked for user to log in
+  false_label: خطأ
   family_name_colon: "اسم العائلة:"
   feedback: التعليقات
   file: ملف
@@ -1999,6 +2005,9 @@ ar:
       delete: حذف
       edit: تحرير
       reply: رد
+    categories: 
+      create: أنشئ تصنيفا
+      edit: عدّل التصنيف
     create: إنشاء منتدى
     create_failed: عذراً، حدث خطأ، لم يمكن إضافة المنتدى
     create_successful: تم إنشاء المنتدى بنجاح
@@ -2011,6 +2020,10 @@ ar:
     move_successful: تم بنجاح نقل المنتدى
     no_topics: ليس  هناك مواضيع في هذا المنتدى
     post_by_user_at_time: "% {المستخدم}، {وقت} %"
+    posts: 
+      close_window: أغلق
+      deleted_subject: (حذف)
+      edit: عدّل الرسالة
     posts_heading: إرسال
     replies: الردود
     topics_heading: خيوط المناقشات
@@ -2370,6 +2383,7 @@ ar:
     other: "%{count} صورة"
   import_once: ضف مرة واحدة
   in_collection: في المجموعة
+  in_community: في المجتمع
   in_providing_its_content_to_eo: في تقديمها لمحتواها، تقوم موسوعة الحياة
   in_this_data_type: "في ذلك %{data_type}:"
   inappropriate: غير لائق
@@ -3085,6 +3099,7 @@ ar:
   reply: الرد
   request: طلب
   request_mailing_list_colon: "هذا المستخدم لا يريد استقبال البريد الإلكتروني:"
+  required: مطلوب
   required_form_element: مطلوب
   reset_password_enter_new_password_notice: تسجيل الدخول لمرة واحدة، يرجى أدخال كلمة سر جديدة للمتابعة
   reset_password_instructions_sent_to_user_notice: تم إرسال إرشادات إعادة ضبط كلمة السر الخاصة بحسابك <em>%{username}</em> إلى بريدك الإلكتروني.

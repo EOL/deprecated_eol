@@ -13,6 +13,7 @@ ka:
   translated_activities-name-activity_id-56: წაშლა
   translated_activities-name-activity_id-57: სიხშირე
   translated_activities-name-activity_id-58: საიმედო
+  translated_activities-name-activity_id-59: უნახავი
   translated_activities-name-activity_id-63: შეგროვება
   translated_activities-name-activity_id-64: წაშლა
   translated_agent_roles-label-agent_role_id-1: ანიმატორი
@@ -22,8 +23,13 @@ ka:
   translated_agent_roles-label-agent_role_id-13: წყარო
   translated_agent_roles-label-agent_role_id-14: წყაროს მონაცემთა ბაზა
   translated_agent_roles-label-agent_role_id-15: საკონტაქტო პირი
+  translated_agent_roles-label-agent_role_id-16: ავტორი
   translated_agent_roles-label-agent_role_id-2: ავტორი
+  translated_agent_roles-label-agent_role_id-21: მომწოდებელი
   translated_agent_roles-label-agent_role_id-22: მთარგმნელი
+  translated_agent_roles-label-agent_role_id-23: სამეცნიერო მიმომხილველი
+  translated_agent_roles-label-agent_role_id-24: ლინგვისტური მიმომხილველი
+  translated_agent_roles-label-agent_role_id-3: შემდგენელი
   translated_agent_roles-label-agent_role_id-4: კომპოზიტორი
   translated_agent_roles-label-agent_role_id-5: შემქმნელი
   translated_agent_roles-label-agent_role_id-6: დირექტორი
@@ -38,9 +44,13 @@ ka:
   translated_collection_types-label-collection_type_id-11: ბმულები
   translated_collection_types-label-collection_type_id-12: ლიტერატურა
   translated_collection_types-label-collection_type_id-13: ტაქსონომია
+  translated_collection_types-label-collection_type_id-14: მოლეკულური შტრიხ-კოდები
   translated_collection_types-label-collection_type_id-15: აღწერა
   translated_collection_types-label-collection_type_id-16: სურათები
+  translated_collection_types-label-collection_type_id-17: გავრცელება
   translated_collection_types-label-collection_type_id-18: დაცვის სტატუსი
+  translated_collection_types-label-collection_type_id-19: სახელის ინფორმაცია
+  translated_collection_types-label-collection_type_id-2: მოლეკულური შტრიხ-კოდები
   translated_collection_types-label-collection_type_id-20: მოლეკულური მონაცემი
   translated_collection_types-label-collection_type_id-21: ნომენკლატურა
   translated_collection_types-label-collection_type_id-22: ხმები
@@ -48,10 +58,20 @@ ka:
   translated_collection_types-label-collection_type_id-24: ლიტერატურა
   translated_collection_types-label-collection_type_id-3: აღწერა
   translated_collection_types-label-collection_type_id-4: სურათები
+  translated_collection_types-label-collection_type_id-5: გავრცელება
   translated_collection_types-label-collection_type_id-6: დაცვის სტატუსი
+  translated_collection_types-label-collection_type_id-7: სახელის ინფორმაცია
   translated_collection_types-label-collection_type_id-8: მოლეკულური მონაცემი
   translated_collection_types-label-collection_type_id-9: ნომენკლატურა
   translated_contact_roles-label-contact_role_id-1: მთავარი საკონტაქტო პირი
+  translated_contact_roles-label-contact_role_id-2: კავშირი ადმინისტრაციასთან
+  translated_contact_roles-label-contact_role_id-3: ტექნიკური დახმარების კონტაქტი
+  translated_contact_subjects-title-contact_subject_id-24: წევრობა და რეგისტრაცია
+  translated_contact_subjects-title-contact_subject_id-25: გამოყენების წესები და ლიცენზირება
+  translated_contact_subjects-title-contact_subject_id-26: სწავლა და განათლება
+  translated_contact_subjects-title-contact_subject_id-27: საინფორმაციო პარტნიორად გახდომა
+  translated_contact_subjects-title-contact_subject_id-28: საინფორმაციო პარტნიორის მხარდაჭერა
+  translated_contact_subjects-title-contact_subject_id-29: კურატორების მხარდაჭერა
   translated_contact_subjects-title-contact_subject_id-35: მთავარი შეფასება
   translated_content_partner_statuses-label-content_partner_status_id-1: განიხილება
   translated_content_partner_statuses-label-content_partner_status_id-2: აქტიური

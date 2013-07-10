@@ -972,6 +972,8 @@ sv:
   anonymous_user_full_name: Anonym användare
   anonymous_user_given_name: Anonym
   anonymous_user_tag_line: Inte inloggad
+  any_integer: alla heltal
+  any_string: alla strängar
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Klicka här</a> för att få tillgång till betatestet av EOL:s nya forum. Feedback är välkommen.
@@ -1120,6 +1122,7 @@ sv:
   collection_destroyed: Samlingen har tagits bort.
   collection_image: Samlingsbild
   collection_is_empty: Denna samling är för närvarande tom.
+  collection_item_edit_by_javascript_not_authorized_error: Tyvärr, har du inte behörighet att redigera detta samlingsobjekt. Om du är samlingens ägare eller redigerare, var god uppdatera sidan och kontrollera att du är inloggad.
   collection_item_not_found_error: Samlingsobjektet kunde inte hittas.
   collection_items_count: 
     one: "%{count} objekt"
@@ -1134,6 +1137,7 @@ sv:
     other: Flyttade totalt %{count} objekt från %{from} till %{to}.
   collection_name_cannot_be_blank: Samlingsnamnet kan inte vara blankt
   collection_name_label: Samlingsnamn
+  collection_newsfeed: Nyhetsflöde för samling
   collection_not_created_error: Tyvärr, ett fel uppstod. Samlingen <em>%{collection_name}</em> kunde inte skapas.
   collection_not_destroyed_error: Tyvärr, samlingen raderades inte.
   collection_not_found_error: Tyvärr, den samlingen kunde inte hittas.
@@ -1271,6 +1275,7 @@ sv:
     one: "%{count} gemenskapsmedlem"
     other: "%{count} gemenskapsmedlemmar"
   community_name_label: Gemenskapsnamn
+  community_newsfeed: Nyhetsflöde för gemenskap
   community_no_longer_has_manager_access_to_collection: "\"%{community}\" har inte längre hanteringsbehörighet till \"%{collection}\"."
   community_not_destroyed_error: Tyvärr, det uppstod ett problem och gemenskapen togs inte bort.
   community_rating: Gemenskapsbetyg
@@ -1283,7 +1288,9 @@ sv:
   contact_information: Kontaktinformation
   contact_updated: Kontakt uppdaterad
   contact_us: kontakta oss
+  contact_us_functions: Kontakta oss-funktioner
   contact_us_link: Kontakta oss
+  contact_us_topics: Kontakta oss-ämnen
   contacts: 
     errors: 
       message_not_sent: Tyvärr, ett fel uppstod, ditt meddelande har inte skickats.
@@ -1301,6 +1308,7 @@ sv:
       see_all_recent_activites: se mer <span class="assistive">aktivitet från den senaste veckan</span>
       see_all_statistics: se mer <span class="assistive">EOL-statistik</span>
   content_has_been_updated: Innehåll har uppdaterats.
+  content_notes_not_shown_to_us: "Innehållsanteckningar (visas inte för användare):"
   content_partner: Innehållspartner
   content_partner_about_header: Om %{partner_name}
   content_partner_administration_settings_header: Administrationsinställningar
@@ -1351,12 +1359,15 @@ sv:
   content_partner_new_page_subheader: Lägg till en ny innehållspartner
   content_partner_notes_header: Projektanteckningar
   content_partner_oldest_published_harvest_event_time_ago: Först publicerad på EOL %{time_passed} sedan;
+  content_partner_overview_agreement_header: Partneravtal
   content_partner_overview_agreement_link: Visa aktuellt avtal
   content_partner_overview_link: Partneröversikt
   content_partner_overview_link_back_to: gå tillbaka till partneröversikt
+  content_partner_profile_menu: Profil för innehållspartner
   content_partner_public_false: Privat
   content_partner_public_true: Offentlig
   content_partner_registered_time_ago: Registrerades %{time_passed} sedan;
+  content_partner_reports: Rapporter för innehållspartner
   content_partner_resource_about_header: Om resurs
   content_partner_resource_auto_publish_false: Nej
   content_partner_resource_auto_publish_true: Ja
@@ -1370,11 +1381,14 @@ sv:
   content_partner_resource_edit_subheader: Redigera resurs
   content_partner_resource_edit_with_type_link: Redigera resurs
   content_partner_resource_harvest_event_not_published: Inte publicerad
+  content_partner_resource_harvest_event_publish_pending: Publicering pågår
   content_partner_resource_hierarchy_browsable: Bläddringsbar
   content_partner_resource_hierarchy_confirm_request_publish: Är du säker på att du vill lägga in en begäran om att befrämja din hierarki att bli bläddringsbar på EOL?
   content_partner_resource_hierarchy_edit_link: Redigera
+  content_partner_resource_hierarchy_not_browsable: Inte bläddringsbar
   content_partner_resource_hierarchy_unknown: Okänd
   content_partner_resource_hierarchy_update_unsuccessful_error: Tyvärr, ett fel uppstod. Hierarkin uppdaterades inte.
+  content_partner_resource_licensing_details_header: Rättigheter &amp; tilldelning
   content_partner_resource_new_link: Lägg till en ny resurs
   content_partner_resource_new_subheader: Lägg till en ny resurs
   content_partner_resource_preview_collection_header: Förhandsgranska samling
@@ -1390,6 +1404,7 @@ sv:
   content_partner_resource_view_link: Visa
   content_partner_resources_header: Resurser
   content_partner_resources_link: Resurser &amp; kontakter
+  content_partner_resources_link_back_to: gå tillbaka till resurser &amp; kontakter
   content_partner_statistics_column_header_provider_count: Sidor med leverantörsinnehåll
   content_partner_statistics_column_header_provider_proportion: Leverantörsprocent
   content_partner_statistics_column_header_statistic: Statistik mätning för månaden %{month_name}, %{year}
@@ -1428,6 +1443,8 @@ sv:
   content_partners_with_count: 
     one: "%{count} innehållspartner"
     other: "%{count} innehållspartners"
+  content_servers: Innehållsservrar
+  content_setting_colon: "Innehållsinställning:"
   content_summary_introduction_html: Följande värden motsvarar summan av olika typer av innehåll för detta taxon och alla dess taxonomiska ättlingar. %{glossary_term_trusted} innehåll har antingen godkänts av en EOL-kurator eller kommer från en pålitlig leverantör. %{glossary_term_unreviewed} innehåll har ännu inte bedömts av en EOL-kurator. Varje taxonomisk hierarki är unik, så varje bläddringsbar hierarki visas för jämförelse.
   content_summary_table_caption: En sammanfattning av innehållet som är förknippad med %{taxon_name} och dess ättlingar i %{hierarchy_label}
   content_summary_table_count_column_header: Antal
@@ -1475,6 +1492,7 @@ sv:
   create_community_about_heading: Om att skapa en gemenskap
   create_community_around_this_collection_header: Skapa en gemenskap runt denna samling
   create_community_button: Skapa gemenskap
+  create_community_unsuccessful_error: Tyvärr, ett fel uppstod. Ditt gemenskap skapades inte. Var god försäkra dig om att alla fält är korrekt ifyllda.
   create_user_unsuccessful_error: Tyvärr, ett fel uppstod. Ditt nya konto skapades inte. Var god försäkra dig om att alla fält är korrekt ifyllda.
   created: Skapad
   created_at: Skapades den
@@ -1531,6 +1549,7 @@ sv:
   data_database_colon: "Data:"
   data_object: Dataobjekt
   data_object_ignore: ignorera detta objekt
+  data_object_not_associated_with_any_hierarchies: Detta dataobjekt är inte associerat med några hierarkier.
   data_object_reference: Dataobjektsreferens
   data_object_toc_items_list: 
     one: Förekommer under %{quoted_toc_titles}
@@ -1620,6 +1639,7 @@ sv:
   dato_edit_link_title: Redigera länk
   dato_edit_text_button: Redigera denna artikel
   dato_edit_text_title: Redigera artikel
+  dato_location_created: "Plats skapad: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Artikelinnehåll
   dato_new_edit_user_text_fieldset_information_header: Artikelinformation
   dato_new_edit_user_text_form_tip: Din slutförda artikel kommer att läggas upp på taxonsidan. Om du inte är en kurator kommer den bli markerad som "ogranskad" tills en kurator granskar den. Underkapitel, text språk och licens krävs (%{required_icon}), alla andra fält är valfria. Om du väljer licensen CC-BY (Attribution), var god inkludera en rättighetshållare eller lämna tomt för att använda ditt hela namn. Allmän egendom-licenser kräver inte en rättighetshållare. För mer hjälp, läs <a href="%{add_article_help_url}">hjälp om att lägga till artiklar</a>.
@@ -1627,6 +1647,7 @@ sv:
   dato_new_text_for_taxon_page_title: Lägg en artikel till <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Lägg en länk till <i>%{taxon}</i>
   dato_update_user_text_error: Tyvärr, ett fel uppstod. Artikeln kunde inte uppdateras.
+  dato_update_users_text_not_owner_exception: Endast den ursprungliga författaren av denna textobjekt kan redigera det.
   default: Standard
   default_focus_collection_name_from_community: "%{name}s fokus"
   default_watch_collection_name: "%{username}s samling"
@@ -1662,8 +1683,10 @@ sv:
   donation_sponsorship_infrastructure_title: Kärninfrastruktur
   donation_sponsorship_preamble: "Om du vill veta mer om specifika program som är tillgängliga för sponsring, eller skulle vilja göra en återkommande gåva, kontakta Encyclopedia of Life:s sekretariat via <a href=\"mailto:%{email_address}\">e-post</a> eller telefon på 1 (202) 633-8730 (i USA). Möjligheter för inriktade gåvor inkluderar:"
   done_already: Redan klart
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Visa inte okända registreringsdatum (V1-användare, alla före den 5 januari 2009)
   download_wav_file: Ladda ned WAV-fil
   duplicate_comment_warning: "Kommentaren sparades inte: Det verkar som du redan har skickat denna kommentar. ...Klickade du på knappen 'Skicka kommentar' två gånger?"
+  duplicate_items_were_ignored: Dubbletter av objekt ignorerades.
   edit: Redigera
   edit_collection_details: Redigera samlingsdetaljer
   edit_collection_details_header: Redigera samlingsdetaljer
@@ -1687,6 +1710,7 @@ sv:
   editors_tab_label: Hanterare
   email: E-post
   email_colon: "E-post:"
+  email_recipients: E-postmottagare
   email_updates_for_eol_addicts: Uppdateringar för hängivna EOL-medlemmar.
   email_updates_for_eol_members: Uppdateringar som de flesta EOL-medlemmarna vill få.
   encyclopedia_of_life: Encyclopedia of Life
@@ -1896,6 +1920,9 @@ sv:
       permalink_to_this_post: "Permanent länk till detta inlägg:"
       post_has_been_deleted: Detta inlägg har raderats
       post_written_by_user: "%{user} skrev:"
+      posts_with_count: 
+        one: "%{count} inlägg"
+        other: "%{count} inlägg"
       replying_to_post: "Svarar på:"
       topic_and_post_delete_successful: Inlägget och tråden har tagits bort
       update_failed: Tyvärr, ett fel uppstod. Inlägget kunde inte uppdateras
@@ -1936,6 +1963,9 @@ sv:
   google_analytics_google_account_and_access_required: Google Analytics (Google-konto och tillgång krävs)
   google_images: Google Bilder
   google_scholar: Google Scholar
+  grant_full_curator_link: Bevilja
+  grant_manager_link: Bevilja hanterarroll
+  grant_permission: bevilja
   has_already_been_taken: har redan tagits.
   has_colon: "Har:"
   has_curated_your_image: har kurerat din bild
@@ -2200,6 +2230,7 @@ sv:
   image_object: Bildobjekt
   image_of_taxon: Bild för %{taxon_name}
   image_rating: Bildbetyg
+  image_title_with_taxa: Bild av %{taxa}
   images: Bilder
   images_in_red_are_not_trusted: Bilder i rött är inte pålitliga.
   images_in_yellow_are_not_reviewed: Bilder i gult är inte granskade.
@@ -2870,6 +2901,7 @@ sv:
   revisions: Versioner
   revoke_full_curator_link: Återkalla
   revoke_manager_link: Återkalla ledarroll
+  richness_score: Rikhetspoäng
   rights: Rättigheter
   rights_holder: Rättighetsinnehavare
   save: Spara
@@ -3032,6 +3064,7 @@ sv:
   stored_classifications: Var god observera att du har <a href='%{anchor}'>lagrade klassifikationer nedan</a>.
   subject: ämne
   submit: Skicka
+  summary_thumbnail_title: "Sammanfattning:"
   supplier: Leverantör
   supplier_allcaps: "LEVERANTÖR:"
   supplier_colon: "Leverantör:"
@@ -3097,15 +3130,19 @@ sv:
       index: 
         hierarchy_entry: 
           meta_description: Fakta om %{scientific_name} som klassificeras som %{hierarchy_provider} i Encyclopedia of Life
+          meta_description_no_data: Inga fakta finns tillgänglig för %{scientific_name} som klassificeras av %{hierarchy_provider} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{scientific_name} som bevarande, fördelning, ekologi, habitat, morfologi och mer.
           meta_description_with_chapter_list: Fakta om %{scientific_name} som klassificeras av %{hierarchy_provider} i Encyclopedia of Life. Innehåller information från %{chapter_list} om %{scientific_name}.
           meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} som är klassificerad som %{hierarchy_provider} i Encyclopedia of Life.
+          meta_description_with_common_name_no_data: Inga fakta finns tillgänglig för %{preferred_common_name} även känd som %{scientific_name} som klassificeras av %{hierarchy_provider} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{preferred_common_name} (%{scientific_name}) som bevarande, fördelning, ekologi, habitat, morfologi och mer.
           meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} som är klassificerad som %{hierarchy_provider} i Encyclopedia of Life. Inkluderar fakta på %{chapter_list}.
           meta_title: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Information om %{scientific_name} i Encyclopedia of Life
+        meta_description_no_data: Inga fakta finns tillgänglig för %{scientific_name} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{scientific_name} som bevarande, fördelning, ekologi, habitat, morfologi och mer.
         meta_description_with_chapter_list: Fakta om %{scientific_name} i Encyclopedia of Life. Innehåller fakta om %{chapter_list}.
         meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Inga fakta finns tillgänglig för %{preferred_common_name} även känd som %{scientific_name} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{preferred_common_name} (%{scientific_name}) som bevarande, fördelning, ekologi, habitat, morfologi och mer.
         meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life. Inkluderar fakta på %{chapter_list}.
         meta_title: Fakta om %{scientific_name}
         meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name})
@@ -3310,6 +3347,7 @@ sv:
   taxon_identification_resources_link: Identifikationsresurser
   taxon_multimedia_links_link: Multimedialänkar
   taxon_news_and_event_links_link: Nyheter- och händelselänkar
+  taxon_newsfeed: Nyhetsflöde för taxon
   taxon_not_found_error: "\"%{taxon}\" hittades inte"
   taxon_nucleotide_sequences_link: Nukleotidsekvenser
   taxon_page_content_disclaimer: Innehåll på EOL samlas automatiskt från många olika innehållsleverantörer. Till slut kan du ibland hitta sidor på EOL som är förvirrande.
@@ -3320,6 +3358,7 @@ sv:
   taxon_partner_links_link: Partnerlänkar
   taxon_rating: Taxonbetyg
   taxon_recognized_by: Taxon känns igen av %{whom}
+  taxon_related_organizations_link: Relaterade organisationer
   taxon_suggested: Taxon föreslagen
   technical_functions: Tekniska funktioner
   term_for_search_admin_ui: Term
@@ -3397,6 +3436,7 @@ sv:
   total_items_with_count: 
     one: "%{count} objekt"
     other: totalt %{count} objekt
+  total_searches: "Totala sökningar:"
   translation_deleted: Översättning har tagits bort
   translation_information_header: Översättningsinformation
   translation_log: Frekvenshistogram för i18n-nyckel
@@ -3419,6 +3459,9 @@ sv:
   unknown_hierarchy: Okänd hierarki
   unknown_type_not_associated_with_any_published_entries: Denna data är inte associerad med någon publicerad taxa.
   unpublished: Ej publicerad
+  unpublished_collections_with_count: 
+    one: "%{count} dold samling"
+    other: "%{count} dolda samlingar"
   unreviewed: Ogranskad
   unreviewed_images: Ogranskade bilder
   unreviewed_maps: Ogranskade kartor

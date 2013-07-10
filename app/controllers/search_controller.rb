@@ -13,6 +13,8 @@ class SearchController < ApplicationController
     @params_type = ['all'] if @params_type.include?('all')
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
+    params[:id] = nil
+    params[:q] = @querystring
 
     if request.format == Mime::XML
       return redirect_to :controller => "api", :action => "search", :id => @querystring

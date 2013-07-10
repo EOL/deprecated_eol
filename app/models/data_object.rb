@@ -464,7 +464,7 @@ class DataObject < ActiveRecord::Base
       # this is just for Staging and can be removed for production. Staging uses a different
       # content server and needs to generate URLS with a different host for image crops
       is_crop = false
-      if Rails.env.staging? || Rails.env.staging_dev?
+      if Rails.env.staging? || Rails.env.staging_dev? || Rails.env.development?
         is_crop = all_image_crops.detect{ |c| c.new_object_cache_url == object_cache_url && c.created_at > User.a_somewhat_recent_user.created_at }
       end
       return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))

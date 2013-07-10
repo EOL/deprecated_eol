@@ -4163,6 +4163,7 @@ en:
   skip_to_content: "Skip to content"
   skip_to_navigation: "Skip to navigation"
   skip_to_table_of_contents: "Skip to table of contents"
+  social_sharing_reddit_button: "submit to reddit"
   social_sharing_twitter_tweet_button: "Tweet"
   social_sharing_twitter_follow_eol_button: "Follow @eol"
   some_required_fields_were_not_entered: "Some required fields were not entered (you must enter a title, and content OR a URL)."

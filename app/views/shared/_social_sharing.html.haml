@@ -15,9 +15,7 @@
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
       .twitter
         - tweet_data[:text] = h(raw(strip_tags(tweet_data[:text])))
-        %a{:href => "https://twitter.com/share", :class => "twitter-share-button", :rel => "nofollow",
-          :data => tweet_data}
-          = I18n.t(:social_sharing_twitter_tweet_button)
+        %a{:href => "https://twitter.com/share", :class => "twitter-share-button", :rel => "nofollow", :data => tweet_data}
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
       -# TODO: this is a temporary fix to put facebook over the image cropping tool
       #fb-root.facebook

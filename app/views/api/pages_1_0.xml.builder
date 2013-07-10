@@ -10,7 +10,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
 
   xml.taxonConcept do
     xml.taxonConceptID @json_response['identifier']
-    xml.dwc :ScientificName, @json_response['scientificName']
+    xml.dwc :scientificName, @json_response['scientificName']
 
     @json_response['synonyms'].each do |synonym|
       xml.synonym synonym['synonym'], :relationship => synonym['relationship']

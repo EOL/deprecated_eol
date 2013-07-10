@@ -532,11 +532,6 @@ $(function() {
     }
   });
 
-  $('#social_sharing .reddit a').on('click', function() {
-    window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(window.location) + '&title=' + $(this).attr('data-title'), '_blank');
-    return false;
-  });
-
 });
 
 (function($) {

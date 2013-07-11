@@ -66,6 +66,20 @@ class KnownUrisController < ApplicationController
     end
   end
 
+  # TODO - this seems a bit much, but this is a controller that will see a lot of use for a month, and then almost none... so I don't care much right now.
+  # Still, this could be made efficient. I'm just going off of http://quickworx.info/using-jquery-drag-and-drop-to-order-div-based-tables-in-rails/ for
+  # now...
+  def sort
+    @known_uris = KnownUri.all # Yes, really.
+    @known_uris.each do |uri|
+      uri.position = params['known_uri'].index(uri.id.to_s) + 1
+      uri.save
+    end
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
   def unhide # awful name because 'show' is--DUH--reserved for Rails.
     @known_uri = KnownUri.find(params[:id])
     if current_user.is_admin?

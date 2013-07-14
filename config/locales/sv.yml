@@ -575,9 +575,11 @@ sv:
         an_unknown_user_curated_an_older_data_object: En okänd användare kurerade en äldre version av "%{data_object}".
         an_unknown_user_curated_an_unknown_data_object: En okänd användare kurerade ett okänt dataobjekt.
         an_unknown_user_curated_data_object: En okänd användare kurerade "%{data_object}".
+        an_unknown_user_curated_it: En okänd användare kurerade den, men den exakta åtgärden tappades bort.
         user_curated_an_older_data_object: <strong>%{user}</strong> kurerade en äldre version av "%{data_object}".
         user_curated_an_unknown_data_object: <strong>%{user}</strong> kurerade ett okänt dataobjekt.
         user_curated_data_object: <strong>%{user}</strong> kurerade "%{data_object}".
+        user_curated_it: <strong>%{user}</strong> kurerade den, men den exakta åtgärden tappades bort.
       preferred_classification: 
         an_unknown_user_preferred_classification_on_an_unknown_taxon: En okänd användare markerade klassificeringen från "%{provider}" som föredragen för ett okänt taxon.
         an_unknown_user_preferred_classification_on_it: En okänd användare markerade klassificeringen från "%{provider}" som föredragen.
@@ -852,6 +854,7 @@ sv:
   admin_content_partners_statistics_date_from_label: Från
   admin_content_partners_statistics_date_to_label: Till
   admin_content_partners_statistics_first_published_download_csv_submit: Ladda ned som CSV.
+  admin_content_partners_statistics_first_published_header: Resurser som publicerades först
   admin_content_partners_statistics_link: Statistiker
   admin_home: admin-hem
   admin_information: Detta är den nya administrationen konsolen för EOL V2. Vi håller på att överföra administrationsfunktionalitet från V1. Om administrationsavsnittet du söker inte finns, besök <a href="/administrator">V1 Administrationskonsolen</a> .

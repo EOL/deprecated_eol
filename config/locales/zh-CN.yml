@@ -6,6 +6,7 @@
 # Author: Hydra
 # Author: Liangent
 # Author: Linforest
+# Author: Qiyue2001
 # Author: Shandongfx
 # Author: Shizhao
 # Author: Wjn99wjn
@@ -684,6 +685,9 @@ zh-CN:
         menu_link: 海洋生物统计
         page_header: 在生物百科的海洋覆盖面
         page_title: 管理：海洋生物统计
+      users_data_objects: 
+        menu_link: 用户提交的文本
+        page_header: 用户提交的文本统计
   agent: 代理
   all: 所有
   all_apis_return_by_default_an_xml_response: 所有API默认返回XML的响应。调用API方法时，有无扩展名都可获得一致的响应：
@@ -1316,21 +1320,21 @@ zh-CN:
       - 星期五
       - 星期六
     day_names_min: 
-      - 星期日
-      - 星期一
-      - 星期二
-      - 星期三
-      - 星期四
-      - 星期五
-      - 星期六
+      - 日
+      - 一
+      - 二
+      - 三
+      - 四
+      - 五
+      - 六
     day_names_short: 
-      - 星期日
-      - 星期一
-      - 星期二
-      - 星期三
-      - 星期四
-      - 星期五
-      - 星期六
+      - 周日
+      - 周一
+      - 周二
+      - 周三
+      - 周四
+      - 周五
+      - 周六
     month_names: 
       - 一月
       - 二月
@@ -1345,18 +1349,18 @@ zh-CN:
       - 十一月
       - 十二月
     month_names_short: 
-      - 一月
-      - 二月
-      - 三月
-      - 四月
-      - 五月
-      - 六月
-      - 七月
-      - 八月
-      - 九月
-      - 十月
-      - 十一月
-      - 十二月
+      - 1月
+      - 2月
+      - 3月
+      - 4月
+      - 5月
+      - 6月
+      - 7月
+      - 8月
+      - 9月
+      - 10月
+      - 11月
+      - 12月
     next: 下一页
     previous: 上一页
   dato_create_cancel: 取消
@@ -1479,18 +1483,28 @@ zh-CN:
       page_header: 策展人统计
       page_title: 统计
     data_objects: 
+      menu_link: 数据对象
+      page_header: 数据对象统计
       page_title: 统计
     index: 
       menu_link: 全体统计
       page_header: 全体统计
       page_title: 统计
     lifedesks: 
+      menu_link: LifeDesks
+      page_header: LifeDesks 统计
       page_title: 统计
     marine: 
+      menu_link: 海洋生物统计
+      page_header: 在生物百科的海洋覆盖面
       page_title: 统计
     page_richness: 
+      menu_link: 高质量页面
+      page_header: 高质量页面统计
       page_title: 统计
     users_data_objects: 
+      menu_link: 用户提交的文本
+      page_header: 用户提交的文本统计
       page_title: 统计
   error_401_description: 抱歉，您没有权限访问这个URL。
   error_401_page_title: 未授权
@@ -1600,6 +1614,32 @@ zh-CN:
   forgot_password_form_helper: "\"注意重设密码邮件 <em>经常</em> 会被邮箱过滤器标记为垃圾邮件,如果您1小时内还未收到邮件,请检查垃圾邮件箱。\""
   forgot_password_form_username_or_email_blank_error: 输入用户名和邮箱地址以重新设置密码。
   form_validation_errors_for_attribute_assistive: 该元素校验出错
+  forums: 
+    buttons: 
+      delete: 删除
+      edit: 编辑
+      link: 链接
+      reply: 回复
+    categories: 
+      create: 创建一个分类
+      create_failed: 抱歉，发生了一个错误，此分类不能被添加。
+      create_successful: 已成功创建分类
+      delete_failed_not_empty: 无法删除分类，因为它不是空的
+      delete_successful: 已成功删除分类
+      edit: 编辑分类
+      move_failed: 无法移动分类
+      move_successful: 已成功移动分类
+      update_failed: 抱歉，出现了一个错误，分类无法更新。
+      update_successful: 已成功更新分类
+    create: 创建一个论坛
+    create_failed: 抱歉，发生了一个错误，无法添加论坛
+    create_successful: 已成功创建论坛
+    forums_heading: 生物百科论坛
+    posts: 
+      close_window: 关闭
+    replies: 答复
+    topics_heading: 帖子
+    update_successful: 已成功更新论坛
   fragment_caching_enabled: 碎片缓存已启用
   frequency: 频率
   frequency_daily: 每日
@@ -2014,19 +2054,19 @@ zh-CN:
   layouts: 
     v2: 
       application: 
-        about_link_contact_us: 联络我们
+        about_link_contact_us: 联系我们
         about_link_discover: 发现
-        about_link_donate: 捐赠至生物百科
-        about_link_eol_blog: 生物百科的博客
+        about_link_donate: 资助EOL
+        about_link_eol_blog: EOL博客
         about_link_glossary: 术语表
         about_link_help: 帮助
         about_link_podcasts: 播客
         about_link_statistics: 统计
         about_link_terms_of_use: 使用条款
-        about_link_what_is_eol: 什么是 EOL ？
-        header_about: 关于 EOL
-        header_learn_more: 了解更多关于
-        header_questions: 了解更多
+        about_link_what_is_eol: EOL是什么？
+        header_about: 关于EOL
+        header_learn_more: 了解更多
+        header_questions: 告诉我更多
         learn_more_link_amphibians: 两栖类
         learn_more_link_animals: 动物
         learn_more_link_archaea: 古生菌
@@ -2049,7 +2089,7 @@ zh-CN:
         learn_more_link_trees: 树木
         learn_more_link_viruses: 病毒
         learn_more_link_worms: 虫
-        questions_link_biodiversity: 什么是生物多样性？
+        questions_link_biodiversity: 生物多样性是什么？
   learn_about_collections: 如何创建一个收藏？
   learn_about_communities: 如何参与到社区活动？
   learn_about_content_partners: 如何成为内容合作伙伴？
@@ -2265,8 +2305,9 @@ zh-CN:
   news_item_title: 新闻项
   news_items: 
     index: 
-      meta_title: 生物百科新闻
-      page_title: 生物百科新闻
+      meta_keywords: EOL新闻，生命百科新闻
+      meta_title: EOL新闻
+      page_title: EOL新闻
   newsfeed: 新闻订阅
   newsfeed_help_for_collection: "\"这个EOL收藏的动态收集了与属于它的与它有关的条目的更新,包括它的所有者的活动和来自EOL用户的评论。\""
   newsfeed_help_for_community: "\"这个EOL社区的动态收集了与属于它管理的收藏的条目有关的更新,包括它的成员活动和来自EOL用户的评论。\""
@@ -2332,7 +2373,7 @@ zh-CN:
     comments_empty: 没有近期评论。
     contact_us_auto_response: 
       message: "感谢联系网络生命大百科项目。您的评论已发送到相关的工作组。\n\n我们非常感谢您的反馈。"
-      subject: 感谢联系网络生命大百科
+      subject: 感谢你联系生命百科
     contact_us_message: 
       message: "下面的信息是通过联系我们表单提交到EOL的信息\n发件人: %{from_name}\n电子邮件: %{from_email}\n主题: %{subject}\n\n%{message}"
       subject: "发送给EOL一条消息: %{title}"
@@ -2354,9 +2395,10 @@ zh-CN:
     curator_approved: 
       message: "感谢您申请管理权 %{curator_level}。您的请求已经获得批准。\n\n希望了解更多管理及您可用的功能有关的信息，请访问http://eol.org/curators。"
       subject: 您提出的网络生命大百科管理员权限%{curator_level}的请求已经获得批准
-    greeting_dear_name_with_comma: 尊敬的 %{name}
-    signature_basic: 网络生命大百科团队
-    signature_with_species_pages_group_contact: "如果您有任何问题，请联系 %{species_pages_group_email}。\n\n网络生命大百科团队"
+    greeting_dear_name_with_comma: 亲爱的%{name}：
+    signature_basic: 生命百科团队
+    signature_with_contact_us_link: "如果您遇到任何问题，请与我们联系%{url}。\n\n生命百科团队"
+    signature_with_species_pages_group_contact: "如果您有任何疑问，请与我们联系%{species_pages_group_email}。\n\n生命百科团队"
     unsubscribed_to_notifications: 
       subject: 很可惜您要离开⋯
     user_activated: 
@@ -2533,7 +2575,7 @@ zh-CN:
   recent_activities: 
     index: 
       list_header: 最近7天
-      meta_keywords: EOL社区活动，EOL最近的活动，网络生命大百科活动
+      meta_keywords: EOL小组活动，EOL最近活动，生命百科活动
       meta_title: EOL小组活动
       page_title: EOL小组活动
   recent_activity: 
@@ -2895,7 +2937,7 @@ zh-CN:
         meta_keywords_with_common_name: "%{preferred_common_name} 原始生存地的生境 \\"
         meta_title: " %{scientific_name}的生境"
         meta_title_with_common_name: "%{preferred_common_name}(%{scientific_name})的生境 \\"
-        tweet_text: "%{scientific_name}的地图，"
+        tweet_text: "%{scientific_name}的地图"
     media: 
       index: 
         hierarchy_entry: 

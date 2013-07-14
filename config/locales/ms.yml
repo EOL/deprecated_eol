@@ -2506,7 +2506,12 @@ ms:
           meta_title: Statistik untuk %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
           meta_title_with_common_name: Statistik untuk %{preferred_common_name} (%{scientific_name}) seperti yang dikelaskan oleh %{hierarchy_provider}
           tweet_text: Markah kekayaan utk %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}
+        meta_description: Statistik dan data untuk %{scientific_name} di Encyclopedia of Life.
+        meta_description_with_common_name: Statistik dan data untuk %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} di Encyclopedia of Life.
+        meta_keywords: stat %{scientific_name}, statistik %{scientific_name}, data %{scientific_name}
+        meta_keywords_with_common_name: stat %{preferred_common_name}, statistik %{preferred_common_name}, data %{preferred_common_name}
         meta_title: Kekayaan %{scientific_name}
+        meta_title_with_common_name: Kekayaan %{preferred_common_name} (%{scientific_name})
         tweet_text: Markah kekayaan utk %{scientific_name}
   taxa_with_count: "%{count} takson"
   taxon: takson
@@ -2641,6 +2646,24 @@ ms:
   username_colon: "Nama pengguna:"
   username_taken: "%{name} sudah diambil"
   users: 
+    activities: 
+      show: 
+        meta_description: Kegiatan kurasi dan komen-komen oleh %{user_full_name}
+        meta_title: Aktiviti %{user_full_name}
+        tweet_text: Aktiviti %{user_full_name}
+    collections: 
+      index: 
+        meta_description: Koleksi-koleksi yang diurus oleh %{user_full_name}.
+        meta_title: Koleksi %{user_full_name}
+        tweet_text: Koleksi %{user_full_name}
+    communities: 
+      index: 
+        meta_description: Komuniti-komuniti yang dianggotai oleh %{user_full_name}.
+        meta_title: Komuniti %{user_full_name}
+        tweet_text: Komuniti %{user_full_name}
+    content_partners: 
+      index: 
+        meta_description: Persekutuan rakan kongsi %{user_full_name}.
     new: 
       create_user_header: Buka akaun <abbr title="Encyclopedia of Life">EOL</abbr> baru
   users_about_me_header: Perihal saya

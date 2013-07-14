@@ -161,10 +161,10 @@ ko:
         title: 분류 이름
       forum_post: 
         subject: 제목
-        text: 내용
+        text: 본문
       forum_topic: 
         subject: 제목
-        text: 내용
+        text: 본문
       harvest_event: 
         resource: 자료
       hierarchy: 
@@ -982,7 +982,7 @@ ko:
   all_news: 모든 뉴스
   all_people: 모든 사람
   all_sounds: 모든 소리
-  all_sources: 모든 자료
+  all_sources: 모든 원본
   all_taxa: 모든 분류
   all_title: 모두
   all_videos: 모든 동영상
@@ -3211,7 +3211,7 @@ ko:
   sort_by_button: 정렬
   sort_by_label: 정렬 기준
   sort_by_newest_option: 최신
-  sort_by_oldest_option: 가장 오래됨
+  sort_by_oldest_option: 오래됨
   sort_by_rating_option: 평가
   sort_by_recently_added_option: 최근 추가됨
   sort_by_reverse_alphabetical_option: 알파벳 역순
@@ -3977,7 +3977,7 @@ ko:
     one: 동영상 %{count}개
     other: 동영상 %{count}개
   view_added_text: 추가된 텍스트 보기
-  view_article_source: 문서 자료 보기
+  view_article_source: 문서 원본 보기
   view_as_button: 바뀜 보기
   view_as_label: 보기 방식
   view_common_activities: 공통 활동 보기
@@ -3987,18 +3987,18 @@ ko:
   view_error_log: 오류 기록 보기
   view_full_size_image: 전체 크기 그림 보기
   view_harvesting_log: 수확 기록 보기
-  view_image_map_source: 지도 자료 보기
-  view_image_source: 그림 자료 보기
+  view_image_map_source: 지도 원본 보기
+  view_image_source: 그림 원본 보기
   view_in_classification: 분류 보기
-  view_map_source: 지도 자료 보기
-  view_sound_source: 소리 자료 보기
-  view_source: 자료 보기
+  view_map_source: 지도 원본 보기
+  view_sound_source: 소리 원본 보기
+  view_source: 원본 보기
   view_this_hierarchy: 이 계층 보기
   view_translation_source_link: 번역 원본 보기
   view_user_activity: 사용자 활동 보기
   view_user_comments: 사용자 덧글 보기
   view_verb: 보기
-  view_video_source: 동영상 자료 보기
+  view_video_source: 동영상 원본 보기
   view_your_curator_profile: 내 큐레이터 프로필 보기
   visible_title: 보임
   visitors: 방문자

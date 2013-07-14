@@ -5,6 +5,7 @@
 # Author: Hzy980512
 # Author: Linforest
 # Author: Liqiang.ji
+# Author: Qiyue2001
 # Author: Shandongfx
 # Author: Shizhao
 # Author: Yfdyh000
@@ -148,6 +149,7 @@ zh-CN:
   translated_ranks-label-rank_id-399: 亚目
   translated_ranks-label-rank_id-401: 亚门
   translated_ranks-label-rank_id-408: 亚组
+  translated_ranks-label-rank_id-411: 亚系
   translated_ranks-label-rank_id-413: 亚种
   translated_ranks-label-rank_id-414: 亚种
   translated_ranks-label-rank_id-415: 亚种
@@ -159,6 +161,7 @@ zh-CN:
   translated_ranks-label-rank_id-51: 纲
   translated_ranks-label-rank_id-512: 变种
   translated_ranks-label-rank_id-513: 变种
+  translated_ranks-label-rank_id-517: 变种
   translated_ranks-label-rank_id-518: 变种
   translated_ranks-label-rank_id-562: 杂交属
   translated_ranks-label-rank_id-563: 杂交种

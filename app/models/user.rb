@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_and_belongs_to_many :collections, :conditions => 'collections.published = 1'
   has_and_belongs_to_many :collections_including_unpublished, :class_name => Collection.to_s
-  has_and_belongs_to_many :permissions
+  has_many :permissions_users
+  has_many :permissions, through: :permissions_users
   has_many :communities, :through => :members
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
@@ -858,9 +859,9 @@ public
     self.update_attributes(:curator_verdict_by => nil,
                            :curator_verdict_at => nil,
                            :requested_curator_level_id => nil,
-                           :credentials => nil,
-                           :curator_scope => nil,
-                           :curator_approved => nil)
+                           :credentials => '', # Cannot be nil in the DB.
+                           :curator_scope => '', # Ditto.
+                           :curator_approved => false)
   end
   alias revoke_curatorship revoke_curator
 

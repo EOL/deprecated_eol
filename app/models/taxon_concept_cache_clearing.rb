@@ -49,16 +49,23 @@ class TaxonConceptCacheClearing
     end
   end
 
-  # TODO - refactor and test. Not in that order. I did only the most obvious cleanup, here.
+  # Pseudo-alias to allow one or many:
   def clear_for_data_object(data_object)
-    if data_object.data_type.label == 'Image'
-      TaxonConceptExemplarImage.delete_all(:taxon_concept_id => @taxon_concept.id, :data_object_id => data_object.id)
-      clear_media_counts
-      clear_if_guid_matches("best_image_id_#{@taxon_concept.id}", data_object)
-      @taxon_concept.published_browsable_hierarchy_entries.each do |pbhe|
-        clear_if_guid_matches("best_image_id_#{@taxon_concept.id}_#{pbhe.id}", data_object)
+    clear_for_data_objects([data_object])
+  end
+
+  # TODO - refactor and test. Not in that order. I did only the most obvious cleanup, here. And it clearly needs more.  :|
+  def clear_for_data_objects(data_objects)
+    data_objects.flatten.each do |data_object|
+      if data_object.data_type.label == 'Image'
+        TaxonConceptExemplarImage.delete_all(:taxon_concept_id => @taxon_concept.id, :data_object_id => data_object.id)
+        clear_if_guid_matches("best_image_id_#{@taxon_concept.id}", data_object)
+        @taxon_concept.published_browsable_hierarchy_entries.each do |pbhe|
+          clear_if_guid_matches("best_image_id_#{@taxon_concept.id}_#{pbhe.id}", data_object)
+        end
       end
     end
+    clear_media_counts
   end
 
 private

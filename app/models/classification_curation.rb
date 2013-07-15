@@ -76,7 +76,6 @@ end
 class ClassificationCuration < ActiveRecord::Base
 
   # For convenience, these are the non-relationship fields:
-  # :created_at   => When the curator made the request
   # :completed_at => When it was finished PROCESSING. This does NOT mean it worked! (Check #failed? for that.)
   # :forced       => boolean. ...Whether the move was (had to be) forced due to conflicts in CP assertions.
   # :error        => merges don't have hierarchy_entry_moves, so the errors cannot be stored there. Here it is!
@@ -212,7 +211,6 @@ private
                                           ChangeableObjectType.classification_curation.id,
                                        :target_id => options[:comment] ? comment.id : id,
                                        :activity => activity,
-                                       :created_at => 0.seconds.from_now,
                                        :taxon_concept_id => parent.id)
     rescue => e
       logger.error "** ERROR: Could not create CuratorActivityLog for #{self}: #{e.message}"

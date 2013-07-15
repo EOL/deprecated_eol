@@ -2,7 +2,8 @@ class Permission < ActiveRecord::Base
 
   uses_translations
 
-  has_and_belongs_to_many :users
+  has_many :permissions_users
+  has_many :users, through: :permissions_users
 
   KNOWN_PERMISSIONS = [:edit_permissions, :beta_test]
 

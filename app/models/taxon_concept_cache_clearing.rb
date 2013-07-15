@@ -56,7 +56,10 @@ class TaxonConceptCacheClearing
 
   # TODO - refactor and test. Not in that order. I did only the most obvious cleanup, here. And it clearly needs more.  :|
   def clear_for_data_objects(data_objects)
-    data_objects.flatten.each do |data_object|
+    data_objects.compact.each do |data_object|
+      # Allows more things to be passed in, like TaxonConceptExemplarImage:
+      data_object = data_object.data_object if data_object.respond_to?(:data_object)
+      next if data_object.nil? # Strange to do this twice, but we have to because of the previous line. :\
       if data_object.data_type.label == 'Image'
         TaxonConceptExemplarImage.delete_all(:taxon_concept_id => @taxon_concept.id, :data_object_id => data_object.id)
         clear_if_guid_matches("best_image_id_#{@taxon_concept.id}", data_object)

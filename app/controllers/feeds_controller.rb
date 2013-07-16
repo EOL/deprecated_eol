@@ -19,7 +19,7 @@ class FeedsController < ApplicationController
       when 'TaxonConcept'
         redirect_to add_hash_to_path(taxon_updates_path(parent, :page => page), 'Comment', params[:id])
       when 'DataObject'
-        redirect_to add_hash_to_path(data_object_path(DataObject.latest_published_version_of(parent.id), :page => page), 'Comment', params[:id])
+        redirect_to add_hash_to_path(data_object_path(parent.latest_published_version_in_same_language, :page => page), 'Comment', params[:id])
       when 'Community'
         redirect_to add_hash_to_path(community_newsfeed_path(parent, :page => page), 'Comment', params[:id])
       when 'Collection'
@@ -54,7 +54,7 @@ class FeedsController < ApplicationController
       # This one is somewhat questionable: do we want to go to the user's page or to the taxon concpet page where it
       # was added?  Or to the data object itself?  I suppose that last one makes the most sense, soooo:
       udo = UsersDataObject.find(params[:id])
-      source = DataObject.latest_published_version_of(udo.data_object_id)
+      source = udo.data_object.latest_published_version_in_same_language
       page = find_index(source, 'UsersDataObject', params[:id], 20)
       redirect_to add_hash_to_path(data_object_path(source, :page => page), 'UsersDataObject', params[:id])
     else

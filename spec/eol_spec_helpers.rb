@@ -281,7 +281,7 @@ module EOL
                     to_return(:status => 200,
                               :headers => {},
                               :body => "oauth_token=key&oauth_token_secret=secret")
-        stub_request(:get, "https://api.twitter.com/1/account/verify_credentials.json").
+        stub_request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json").
                     to_return(:status => 200,
                               :headers => {},
                               :body => '{ "id": "twitteruserguid",

@@ -86,11 +86,11 @@ mileage may, of course, vary:
 
 Things you need:
 
-  1. Ruby 1.9     ...EOL won't work with 1.8.
-  2. Rails 3.2.7  ...No other version will do.
-  3. MySQL Server
-  4. Memcached
-  5. Java         ...to run Solr.
+  1. The version of Ruby specified in .ruby-version
+  2. The version of Rails specified in Gemfile
+  3. MySQL Server (latest stable version of 5)
+  4. Memcached (latest stable version)
+  5. Java (latest stable version of 1.6; others may still work)
 
 === SOLR
 

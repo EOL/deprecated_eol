@@ -30,7 +30,6 @@
         - classes << ['first_of_type'] if first_of_type
         - classes << 'nested' if row[:attribute] == last_attribute
         - comments = []
-        - data_point_uri = nil
         - comments = row[:data_point_instance].all_comments # Need to use #all_comments because it might involve multiple instances.
         -# TODO - move this to the "model" (except the class-setting logic)
         - show_row = true
@@ -88,11 +87,7 @@
               - unless comments.empty?
                 %li
                   &bull;
-                - annotations_link = nil
-                - if row.has_key?(:user_added_data)
-                  - annotations_link = user_added_datum_comments_path(row[:user_added_data])
-                - elsif data_point_uri
-                  - annotations_link = data_point_uri_comments_path(data_point_uri)
+                - annotations_link = data_point_uri_comments_path(row[:data_point_instance])
                 - if annotations_link
                   %li.annotations= link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
             = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: row[:data_point_instance] }

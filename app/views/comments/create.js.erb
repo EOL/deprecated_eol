@@ -7,9 +7,7 @@ if ($row.find('span.comments').length == 0) {
 }
 
 <% target = nil %>
-<% if @comment.parent.is_a?(UserAddedData) %>
-  <% target = user_added_datum_comments_path(@comment.parent) %>
-<% elsif @comment.parent.is_a?(DataPointUri) %>
+<% if @comment.parent.is_a?(DataPointUri) %>
   <% target = data_point_uri_comments_path(@comment.parent) %>
 <% end %>
 <% if target %>

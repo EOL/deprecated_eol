@@ -6,9 +6,7 @@ class CommentsController < ApplicationController
 
   # NOTE - this was written, sadly, for data only. If you want this to do more, you'll need to re-write it.
   def index
-    @parent = params.has_key?(:data_point_uri_id) ?
-      DataPointUri.find(params[:data_point_uri_id]) :
-      UserAddedData.find(params[:user_added_datum_id])
+    @parent = DataPointUri.find(params[:data_point_uri_id])
     @page_title = I18n.t(:comments_page_title, parent: @parent.summary_name)
   end
 

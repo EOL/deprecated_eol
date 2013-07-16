@@ -1,16 +1,15 @@
 class TaxonDataExemplar < ActiveRecord::Base
 
   belongs_to :taxon_concept
-  belongs_to :parent, :polymorphic => true
+  belongs_to :data_point_uri
 
-  attr_accessible :taxon_concept, :taxon_concept_id, :parent, :parent_type, :parent_id, :exclude
+  attr_accessible :taxon_concept, :taxon_concept_id,  :data_point_uri, :data_point_uri_id, :exclude
 
   scope :excluded, -> { where(exclude: true) }
   scope :included, -> { where(exclude: false) }
 
   def self.remove(what)
-    TaxonDataExemplar.delete_all(parent_id: what.id,
-                                 parent_type: what.class.name,
+    TaxonDataExemplar.delete_all(data_point_uri_id: what.id,
                                  taxon_concept_id: what.taxon_concept_id)
   end
 

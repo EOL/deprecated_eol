@@ -40,7 +40,7 @@ class TaxonDataExemplarPicker
     # TODO - (Possibly) cache this.
     exemplars_to_reject = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).excluded
     rows.delete_if do |row|
-      exemplars_to_reject.any? { |ex| row[:data_point_instance].id == ex.parent_id }
+      exemplars_to_reject.any? { |ex| row[:data_point_instance].id == ex.data_point_uri.id }
     end
     rows
   end
@@ -55,7 +55,7 @@ class TaxonDataExemplarPicker
   def pick_exemplars(rows)
     return rows if rows.count <= TaxonDataExemplarPicker.max_rows # No need to load anything, otherise...
     # TODO - this should have an #include in it, but I'm being lazy:
-    curated_exemplars = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).map(&:parent).delete_if {|p| p.hidden? }
+    curated_exemplars = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
     # NOTE the following clause assumes that exemplars will be deleted when rows are deleted:
     return rows.select { |r| curated_exemplars.include?(r[:data_point_instance]) } if curated_exemplars.count >= TaxonDataExemplarPicker.max_rows
     # If we're still here, we have too many.

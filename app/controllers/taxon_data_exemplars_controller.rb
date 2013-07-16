@@ -6,9 +6,9 @@ class TaxonDataExemplarsController < ApplicationController
     data_point_uri = DataPointUri.find(params[:id])
     raise "Couldn't find a DataPointUri with ID #{params[:id]}" if data_point_uri.nil?
     # Simply to avoid using #update (thus cleaner code, though a bit less RESTful), we'll just delete anything that already exists:
-    TaxonDataExemplar.delete_all(taxon_concept_id: params[:taxon_concept_id], parent_id: data_point_uri.id, parent_type: data_point_uri.class.name)
+    TaxonDataExemplar.delete_all(taxon_concept_id: params[:taxon_concept_id], data_point_uri_id: data_point_uri.id)
     exclude = params.has_key?(:exclude) && params[:exclude] # Argh! For whatever reason, nils are stored as nil in the DB and that breaks scopes.
-    @taxon_data_exemplar = TaxonDataExemplar.create(taxon_concept_id: params[:taxon_concept_id], parent: data_point_uri, exclude: exclude )
+    @taxon_data_exemplar = TaxonDataExemplar.create(taxon_concept_id: params[:taxon_concept_id], data_point_uri: data_point_uri, exclude: exclude )
     # TODO - if there are too many exemplars (more than are allowed), we need to give them a warning or something.  Sadly, that is expensive to
     # calculate...  Hmmmn...
     respond_to do |format|

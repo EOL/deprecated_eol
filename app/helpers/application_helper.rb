@@ -406,6 +406,8 @@ module ApplicationHelper
     end
   end
 
+  # NOTE - these two methods are TOTALLY DUPLICATED in application_controller....
+  # Until we fix that, best to keep them perfectly in-sync
   def link_to_item(item, options = {})
     case item
     when Collection

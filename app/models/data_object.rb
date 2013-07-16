@@ -183,12 +183,6 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  def self.latest_published_version_of(data_object_id)
-    obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
-    return nil if obj.blank?
-    return obj[0]
-  end
-
   def self.latest_published_version_of_guid(guid, options={})
     options[:return_only_id] ||= false
     select = (options[:return_only_id]) ? 'id' : '*'

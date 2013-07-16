@@ -238,4 +238,11 @@ $(function() {
 
   $('a.button.hidden').hide();
 
+  $('#sortable').sortable({
+    placeholder: "placeholder", items: "tr:not(.headers)", helper: 'clone', tolerance: 'pointer',
+    update: function() {
+      $.post("/known_uris/sort", { known_uris: $("#sortable").sortable('toArray') })
+    }
+  }).disableSelection();
+
 });

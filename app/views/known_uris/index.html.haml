@@ -4,8 +4,8 @@
 #content
   #known_uris.site_column
     %p.tip= raw(I18n.t(:excluded_icon_tip, :excluded_icon => image_tag('v2/icon_excluded.png', :alt => '')))
-    %table.standard
-      %tr
+    %table#sortable.standard
+      %tr.headers
         %th= I18n.t('activerecord.attributes.known_uri.uri')
         %th= I18n.t('activerecord.attributes.known_uri.name')
         %th= I18n.t('activerecord.attributes.known_uri.is_unit_of_measure')
@@ -16,7 +16,7 @@
         - klass = nil
         - klass = 'hidden' if known_uri.hidden?
         - klass = 'unknown' if known_uri.unknown?
-        %tr{ class: klass }
+        %tr{ id: "known_uri_#{known_uri.id}", class: klass }
           %td{class: known_uri.exclude_from_exemplars? ? 'excluded' : nil }= known_uri.uri
           %td= known_uri.name
           %td= known_uri.is_unit_of_measure ? I18n.t(:yes_answer) : I18n.t(:no_answer)

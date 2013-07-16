@@ -14,8 +14,8 @@ class KnownUrisController < ApplicationController
       KnownUri.
         includes([:toc_items, :translated_known_uris]).
         where(translated_known_uris: { language_id: current_language.id }, known_uris_toc_items: { toc_item_id: params[:category_id] }).
-        order('translated_known_uris.name') :
-      KnownUri.paginate(page: params[:page], order: 'uri')
+        order('position') :
+      KnownUri.paginate(page: params[:page], order: 'position')
     respond_to do |format|
       format.html { }
       format.js { @category = TocItem.find(params[:category_id]) }
@@ -72,7 +72,7 @@ class KnownUrisController < ApplicationController
   def sort
     @known_uris = KnownUri.all # Yes, really.
     @known_uris.each do |uri|
-      uri.position = params['known_uri'].index(uri.id.to_s) + 1
+      uri.position = params['known_uris'].index("known_uri_#{uri.id}") + 1
       uri.save
     end
     respond_to do |format|

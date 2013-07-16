@@ -9,7 +9,7 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
     @partner = ContentPartner.find(params[:content_partner_id], :include => :content_partner_agreements)
     access_denied unless current_user.can_update?(@partner)
     @current_agreement = @partner.agreement
-    new_agreement_params = { :created_at => Time.now }
+    new_agreement_params = { :created_at => 0.seconds.from_now }
     # Content of new agreement is copied from the current agreement, if it exists, otherwise the template is used
     new_agreement_params[:body] = @current_agreement.body unless @current_agreement.blank?
     @agreement = @partner.content_partner_agreements.build(new_agreement_params)

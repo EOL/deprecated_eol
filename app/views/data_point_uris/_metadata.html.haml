@@ -1,0 +1,5 @@
+%table.meta
+  - @metadata.each do |d|
+    %tr
+      = display_uri(d[:attribute], :th)
+      %td= raw display_text_for_structured_data_row(d)

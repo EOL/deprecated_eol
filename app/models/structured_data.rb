@@ -19,6 +19,7 @@ class StructuredData
     @mappings_graph_name = "#{@graph_name}/mappings"
     @unique_id = Digest::MD5.hexdigest(self.inspect)
     @taxon_uri = taxon_uri_for(@subject)
+    @occurrence_uri = occurrence_uri_for(@subject)
     @metadata = {}
     # You may pass in an array of UserAddedDataMetadata instances as "metadata:"
     user_added_metadata = options.delete(:metadata) || []
@@ -41,7 +42,12 @@ class StructuredData
   def remove_from_triplestore
     sparql.delete_uri(graph_name: @graph_name, uri: @uri)
     sparql.delete_uri(graph_name: @mappings_graph_name, uri: @taxon_uri)
+    sparql.delete_uri(graph_name: @graph_name, uri: @occurrence_uri)
     sparql.delete_uri(graph_name: @mappings_graph_name, uri: @target_taxon_uri) if @target_taxon_uri
+    if @target_occurrence_uri
+      sparql.delete_uri(graph_name: @graph_name, uri: @target_occurrence_uri)
+      sparql.delete_uri(graph_name: @mappings_graph_name, uri: @target_occurrence_uri)
+    end
   end
 
   def add_to_triplestore
@@ -68,4 +74,9 @@ class StructuredData
   def taxon_uri_for(taxon_concept)
     @graph_name + "/taxa/" + Digest::MD5.hexdigest(taxon_concept.inspect)
   end
+
+  def occurrence_uri_for(taxon_concept)
+    @graph_name + "/occurrences/" + Digest::MD5.hexdigest(taxon_concept.inspect)
+  end
+
 end

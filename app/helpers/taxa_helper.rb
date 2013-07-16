@@ -163,7 +163,7 @@ module TaxaHelper
   end
 
   def display_text_for_structured_data_row(row, options={})
-    text_for_row_value = "<span id='#{row[:parent].anchor}'>"
+    text_for_row_value = row[:data_point_instance] ? "<span id='#{row[:data_point_instance].anchor}'>" : ''
     target_taxon_concept = nil
     if row[:target_taxon_concept_id]
       target_taxon_concept = row[:target_taxon_concept] || TaxonConcept.find(row[:target_taxon_concept_id])
@@ -185,11 +185,11 @@ module TaxaHelper
       text_for_row_value += " " + display_uri(uri_components)
     end
     # Curators get to remove the data:
-    if options[:taxon_concept] && current_user.min_curator_level?(:full)
+    if row[:data_point_instance] && options[:taxon_concept] && current_user.min_curator_level?(:full)
       remove_link =
       text_for_row_value << "<span class='remove'> " +
         link_to(image_tag("v2/icon_remove.png"),
-                taxon_data_exemplars_path(id: row[:parent].id, type: row[:parent].class.name,
+                taxon_data_exemplars_path(id: row[:data_point_instance].id,
                                           taxon_concept_id: options[:taxon_concept].id, :exclude => true),
                                           method: :post, alt: I18n.t(:remove), confirm: I18n.t(:are_you_sure), remote: true) +
         "</span>"

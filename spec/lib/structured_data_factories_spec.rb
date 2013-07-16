@@ -34,16 +34,16 @@ describe 'Structured Data Factories' do
       EOL::Sparql.count_triples_in_graph(s.graph_name).should == 0
       EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 0
       s.add_to_triplestore
-      EOL::Sparql.count_triples_in_graph(s.graph_name).should == 4
+      EOL::Sparql.count_triples_in_graph(s.graph_name).should == 7
       EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 1
       s.remove_from_triplestore
       EOL::Sparql.count_triples_in_graph(s.graph_name).should == 0
       EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 0
       s.update_triplestore
-      EOL::Sparql.count_triples_in_graph(s.graph_name).should == 4
+      EOL::Sparql.count_triples_in_graph(s.graph_name).should == 7
       EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 1
       s.update_triplestore
-      EOL::Sparql.count_triples_in_graph(s.graph_name).should == 4
+      EOL::Sparql.count_triples_in_graph(s.graph_name).should == 7
       EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 1
       s.remove_from_triplestore
     end
@@ -65,7 +65,7 @@ describe 'Structured Data Factories' do
       a = DataAssociation.new(@default_options)
       a.turtle.should include('a <http://eol.org/schema/Association>')
       a.turtle.should include('dwc:taxonID ')
-      a.turtle.should include('<http://eol.org/schema/targetTaxonID> ')
+      a.turtle.should include('<http://eol.org/schema/targetOccurrenceID> ')
     end
 
     it 'should be able to interact with the triplestore' do
@@ -73,16 +73,16 @@ describe 'Structured Data Factories' do
       EOL::Sparql.count_triples_in_graph(a.graph_name).should == 0
       EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 0
       a.add_to_triplestore
-      EOL::Sparql.count_triples_in_graph(a.graph_name).should == 3
+      EOL::Sparql.count_triples_in_graph(a.graph_name).should == 7
       EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 2
       a.remove_from_triplestore
       EOL::Sparql.count_triples_in_graph(a.graph_name).should == 0
       EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 0
       a.update_triplestore
-      EOL::Sparql.count_triples_in_graph(a.graph_name).should == 3
+      EOL::Sparql.count_triples_in_graph(a.graph_name).should == 7
       EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 2
       a.update_triplestore
-      EOL::Sparql.count_triples_in_graph(a.graph_name).should == 3
+      EOL::Sparql.count_triples_in_graph(a.graph_name).should == 7
       EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 2
       a.remove_from_triplestore
     end

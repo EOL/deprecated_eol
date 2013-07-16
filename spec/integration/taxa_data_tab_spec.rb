@@ -32,15 +32,6 @@ describe 'Taxa data tab basic tests' do
     body.should have_selector("table.data tr")
     body.should have_selector("table.data th span[title='http://eol.org/weight']", :text => 'Weight')
     body.should have_selector("table.data td", :text => '12345')
-    body.should have_selector("table.data td table.meta")
-    body.should have_selector("table.meta th[title='http://www.w3.org/1999/02/22-rdf-syntax-ns#type']", :text => 'Type')
-    body.should have_selector("table.meta td[title='http://rs.tdwg.org/dwc/terms/MeasurementOrFact']", :text => 'Measurement Or Fact')
-    body.should have_selector("table.meta th[title='http://rs.tdwg.org/dwc/terms/measurementType']", :text => 'Measurement Type')
-    body.should have_selector("table.meta td[title='http://eol.org/weight']", :text => 'Weight')
-    body.should have_selector("table.meta th[title='http://rs.tdwg.org/dwc/terms/measurementValue']", :text => 'Measurement Value')
-    body.should have_selector("table.meta td", :text => '12345')
-    body.should have_selector("table.meta th[title='http://rs.tdwg.org/dwc/terms/measurementUnit']", :text => 'Measurement Unit')
-    body.should have_selector("table.meta td", :text => @measurement.metadata['http://rs.tdwg.org/dwc/terms/measurementUnit'])
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
     body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@measurement.uri)}']", :text => @measurement.uri)
   end
@@ -51,18 +42,6 @@ describe 'Taxa data tab basic tests' do
     body.should have_selector("table.data tr")
     body.should have_selector("table.data th span[title='http://eol.org/preys_on']", :text => 'Preys On')
     body.should have_selector("table.data td a[href='/pages/#{@target_taxon_concept.id}/data']", :text => @target_taxon_concept.title_canonical)
-    body.should have_selector("table.data td table.meta")
-    body.should have_selector("table.meta th[title='http://www.w3.org/1999/02/22-rdf-syntax-ns#type']", :text => 'Type')
-    body.should have_selector("table.meta td[title='http://eol.org/schema/Association']", :text => 'Association')
-    body.should have_selector("table.meta th[title='http://rs.tdwg.org/dwc/terms/taxonID']", :text => 'Taxon Id')
-    body.should have_selector("table.meta td a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@association.taxon_uri)}']",
-      :text => @association.taxon_uri)
-    body.should have_selector("table.meta th[title='http://eol.org/schema/targetTaxonID']", :text => 'Target Taxon Id')
-    body.should have_selector("table.meta td a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@association.target_taxon_uri)}']",
-      :text => @association.target_taxon_uri)
-    body.should have_selector("table.meta th[title='http://eol.org/schema/associationType']", :text => 'Association Type')
-    body.should have_selector("table.meta td", :text =>
-      EOL::Sparql.uri_to_readable_label(@measurement.metadata['http://eol.org/schema/associationType']))
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
     body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@association.uri)}']", :text => @association.uri)
   end
@@ -73,13 +52,6 @@ describe 'Taxa data tab basic tests' do
     body.should have_selector("table.data tr")
     body.should have_selector("table.data th span[title='http://eol.org/length']", :text => 'Length')
     body.should have_selector("table.data td", :text => '9999')
-    body.should have_selector("table.data td table.meta")
-    body.should have_selector("table.meta th[title='http://www.w3.org/1999/02/22-rdf-syntax-ns#type']", :text => 'Type')
-    body.should have_selector("table.meta td[title='http://rs.tdwg.org/dwc/terms/MeasurementOrFact']", :text => 'Measurement Or Fact')
-    body.should have_selector("table.meta th[title='http://rs.tdwg.org/dwc/terms/measurementType']", :text => 'Measurement Type')
-    body.should have_selector("table.meta td[title='http://eol.org/length']", :text => 'Length')
-    body.should have_selector("table.meta th[title='http://rs.tdwg.org/dwc/terms/measurementValue']", :text => 'Measurement Value')
-    body.should have_selector("table.meta td", :text => '9999')
     body.should include("provided by <a href=\"/users/#{@user.id}\">#{@user.full_name}</a>")
     body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@user_added_data.uri)}']", :text => @user_added_data.uri)
   end

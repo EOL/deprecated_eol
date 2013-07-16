@@ -27,7 +27,7 @@ EOL.attribute_is_okay = function() {
 };
 
 EOL.add_has_default_behavior = function() {
-  $('input.has_default').each(function() { 
+  $('input.has_default').each(function() {
     if ($(this).val() == '') {
       $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
     }
@@ -135,6 +135,8 @@ $(function() {
     if($(e.target).closest('a').length) return;
     var $folder = $(this).find('.fold img');
     var $next_row = $(this).next();
+    var $this_data = $(this).children('td');
+    var $next_row_data = $next_row.children('td');
     var $table = $(this).find('table');
     if ($next_row.is(":visible")) {
       $folder.attr('src', "/assets/arrow_fold_right.png");
@@ -142,10 +144,28 @@ $(function() {
       $table.hide();
       $(this).removeClass('open');
     } else {
-      $folder.attr('src', "/assets/arrow_fold_down.png");
-      $next_row.show();
-      $table.show();
-      $(this).addClass('open');
+      var data_point_id = $(this).attr('id');
+      // the metadata table hasn't been loaded yet, so load it dynamically
+      if ($table.length == 0) {
+        $.ajax({
+          url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
+          dataType: 'html',
+          success: function(response) { $this_data.append(response); },
+          error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
+          complete: function() {
+            $folder.attr('src', "/assets/arrow_fold_down.png");
+            $next_row.show();
+            $table.show();
+            $(this).addClass('open');
+          }
+        });
+      } else
+      {
+        $folder.attr('src', "/assets/arrow_fold_down.png");
+        $next_row.show();
+        $table.show();
+        $(this).addClass('open');
+      }
     }
   }).find('table').hide();
 

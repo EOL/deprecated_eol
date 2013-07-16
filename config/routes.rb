@@ -374,6 +374,7 @@ Eol::Application.routes.draw do
   resources :data_point_uris, :only => [ :show ] do
     put 'hide'
     put 'unhide'
+    get 'show_metadata'
     resources :comments, :only => [ :index ]
   end
 
@@ -382,7 +383,6 @@ Eol::Application.routes.draw do
       get 'index'
     end
   end
-
 
   # Old V1 admin search logs:
   resources :search_logs, :controller => 'administrator/search_logs'

@@ -47,7 +47,6 @@ class TaxonData < TaxonUserClassificationFilter
     unless options[:only_count]
       query += " LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
     end
-    puts query
     return query
   end
 
@@ -65,7 +64,6 @@ class TaxonData < TaxonUserClassificationFilter
         row[:resource_id] = TaxonData.graph_name_to_resource_id(row[:graph])
       end
     end
-    rows.add_parents
     # bulk preloading of resources/content partners
     resources = Resource.find_all_by_id(rows.collect{ |r| r[:resource_id] }.compact.uniq, :include => :content_partner)
     rows.each do |row|
@@ -76,10 +74,9 @@ class TaxonData < TaxonUserClassificationFilter
       end
     end
 
-    rows.delete_if{ |k,v| k[:attribute].blank? }
-    rows.replace_licenses_with_mock_known_uris
     TaxonData.add_known_uris_to_data(rows)
     TaxonData.replace_taxon_concept_uris(rows, :target_taxon_concept_id)
+    TaxonData.preload_target_taxon_concepts(rows)
     rows.sort
     known_uris = rows.select { |d| d[:attribute].is_a?(KnownUri) }.map { |d| d[:attribute] }
     KnownUri.preload_associations(known_uris,
@@ -119,87 +116,59 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def data
-    TaxonData.group_data_by_graph_and_uri(measurement_data + association_data)
+    (measurement_data + association_data).delete_if{ |k,v| k[:attribute].blank? }
   end
 
   def measurement_data(options = {})
-    options.reverse_merge!({ :metadata => true })
-    selects = "?attribute ?value ?unit_of_measure_uri"
-    if options[:metadata]
-      selects += "?data_point_uri ?graph ?attribution_predicate ?attribution_object ?occurrence_predicate ?occurrence_object ?event_predicate ?event_object"
-    end
+    selects = "?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph"
     query = "
       SELECT DISTINCT #{selects}
       WHERE {
-        GRAPH ?resource_mappings_graph {
-          ?taxon_id dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>
-        } .
         GRAPH ?graph {
-          ?data_point_uri a <#{DataMeasurement::CLASS_URI}>
-          { ?data_point_uri dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> }
-          UNION
-          { ?data_point_uri dwc:taxonID ?taxon_id } .
+          ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value .
           OPTIONAL {
-            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri .
-          }"
-    if options[:metadata]
-      query += ".
-          OPTIONAL {
-            ?data_point_uri ?attribution_predicate ?attribution_object .
-            FILTER (?attribution_predicate NOT IN (dwc:taxonConceptID, dwc:taxonID, dwc:occurrenceID))
+            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
           }
-          OPTIONAL {
-            ?data_point_uri dwc:occurrenceID ?occurrence .
-            ?occurrence ?occurrence_predicate ?occurrence_object .
-            FILTER (?occurrence_predicate NOT IN (rdf:type, dwc:taxonConceptID, dwc:taxonID, dwc:occurrenceID, dwc:eventID)) .
-            OPTIONAL {
-              ?occurrence dwc:eventID ?event .
-              ?event ?event_predicate ?event_object .
-              FILTER (?event_predicate NOT IN (rdf:type, dwc:taxonConceptID, dwc:taxonID, dwc:occurrenceID, dwc:eventID))
-            }
-          }"
-    end
-    query += "
+        } .
+        {  ?data_point_uri dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> }
+        UNION {
+          ?data_point_uri dwc:occurrenceID ?occurrence .
+          ?occurrence dwc:taxonID ?taxon .
+          ?data_point_uri <http://eol.org/schema/measurementOfTaxon> 'true' .
+          GRAPH ?resource_mappings_graph {
+            ?taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>
+          }
         }
       }"
     EOL::Sparql.connection.query(query)
   end
 
   def association_data(options = {})
-    options.reverse_merge!({ :metadata => true })
-    selects = "?attribute ?value ?target_taxon_concept_id ?inverse_attribute"
-    if options[:metadata]
-      selects += "?data_point_uri ?graph ?attribution_predicate ?attribution_object"
-    end
+    selects = "?attribute ?value ?target_taxon_concept_id ?inverse_attribute ?data_point_uri ?graph"
     query = "
       SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?resource_mappings_graph {
-          ?taxon_id dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
           ?value dwc:taxonConceptID ?target_taxon_concept_id
         } .
         GRAPH ?graph {
-          ?data_point_uri a <http://eol.org/schema/Association> .
+          ?occurrence dwc:taxonID ?taxon .
+          ?target_occurrence dwc:taxonID ?value .
+          ?data_point_uri a <#{DataAssociation::CLASS_URI}> .
           {
-            ?data_point_uri dwc:taxonID ?taxon_id .
-            ?data_point_uri <http://eol.org/schema/targetTaxonID> ?value .
+            ?data_point_uri dwc:occurrenceID ?occurrence .
+            ?data_point_uri <http://eol.org/schema/targetOccurrenceID> ?target_occurrence .
             ?data_point_uri <http://eol.org/schema/associationType> ?attribute
           }
           UNION
           {
-            ?data_point_uri dwc:taxonID ?value .
-            ?data_point_uri <http://eol.org/schema/targetTaxonID> ?taxon_id .
+            ?data_point_uri dwc:occurrenceID ?target_occurrence .
+            ?data_point_uri <http://eol.org/schema/targetOccurrenceID> ?occurrence .
             ?data_point_uri <http://eol.org/schema/associationType> ?inverse_attribute
-          }"
-    if options[:metadata]
-      query += ".
-          OPTIONAL {
-            ?data_point_uri ?attribution_predicate ?attribution_object
-          }"
-    end
-    query += "
+          }
         } .
         OPTIONAL {
           GRAPH ?mappings {
@@ -208,51 +177,6 @@ class TaxonData < TaxonUserClassificationFilter
         }
       }"
     EOL::Sparql.connection.query(query)
-  end
-
-  # ?graph ?data_point_uri ?attribute ?value ?attribution_predicate ?attribution_object ?occurrence_predicate ?occurrence_object
-  def self.group_data_by_graph_and_uri(sparql_results)
-    grouped_data = {}
-    sparql_results.each do |result|
-      grouped_data[result[:graph]] ||= {}
-      grouped_data[result[:graph]][result[:data_point_uri]] ||= {}
-      result_data = grouped_data[result[:graph]][result[:data_point_uri]]
-      result.each do |key, value|
-        unless [ :attribution_predicate, :attribution_object ].include?(key)
-          result_data[key] = value
-        end
-      end
-
-      grouped_data[result[:graph]][result[:data_point_uri]][:metadata] ||= {}
-      result_metadata = grouped_data[result[:graph]][result[:data_point_uri]][:metadata]
-      group_metadata_for('attribution', result, result_metadata)
-      group_metadata_for('occurrence', result, result_metadata)
-      group_metadata_for('event', result, result_metadata)
-    end
-
-    final_results = []
-    grouped_data.each do |graph, graph_data|
-      graph_data.each do |data_point_uri, data|
-        final_results << { :graph => graph, :data_point_uri => data_point_uri }.merge(data)
-      end
-    end
-    final_results
-  end
-
-  def self.group_metadata_for(prefix, result, result_metadata)
-    predicate_key = (prefix + "_predicate").to_sym
-    object_key = (prefix + "_object").to_sym
-    if result[predicate_key] && result[object_key]
-      if current_value_of_predicate = result_metadata[result[predicate_key]]
-        if current_value_of_predicate.class == Array
-          result_metadata[result[predicate_key]] << result[object_key]
-        elsif current_value_of_predicate != result[object_key]
-          result_metadata[result[predicate_key]] = [ current_value_of_predicate, result[object_key] ]
-        end
-      else
-        result_metadata[result[predicate_key]] = result[object_key]
-      end
-    end
   end
 
   def self.add_known_uris_to_data(rows)
@@ -264,25 +188,7 @@ class TaxonData < TaxonUserClassificationFilter
       if taxon_id = KnownUri.taxon_concept_id(row[:value])
         row[:target_taxon_concept_id] = taxon_id
       end
-      add_known_uris_to_metadata(row, known_uris) if row[:metadata]
     end
-  end
-
-  def self.add_known_uris_to_metadata(row, known_uris)
-    # Don't modify hashes when you're iterating over them!
-    delete_keys = []
-    new_keys = {}
-    row[:metadata].each do |key, val|
-      key_uri = known_uris.find { |known_uri| known_uri.matches(key) }
-      val_uri = known_uris.find { |known_uri| known_uri.matches(val) }
-      row[:metadata][key] = val_uri if val_uri
-      if key_uri
-        new_keys[key_uri] = row[:metadata][key]
-        delete_keys << key
-      end
-    end
-    delete_keys.each { |k| row[:metadata].delete(k) }
-    row[:metadata].merge!(new_keys)
   end
 
   def self.replace_with_uri(hash, key, known_uris)
@@ -302,8 +208,6 @@ class TaxonData < TaxonUserClassificationFilter
     uris  = rows.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
     uris += rows.map { |row| row[:unit_of_measure_uri] }.select { |attr| attr.is_a?(RDF::URI) }
-    uris += rows.map { |row| row[:metadata] ? row[:metadata].keys : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
-    uris += rows.map { |row| row[:metadata] ? row[:metadata].values : nil }.flatten.compact.select { |attr| attr.is_a?(RDF::URI) }
     uris.map(&:to_s).uniq
   end
 
@@ -311,7 +215,8 @@ class TaxonData < TaxonUserClassificationFilter
     rows_with_taxon_data = rows.select{ |row| row.has_key?(:target_taxon_concept_id) }
     # bulk lookup all concepts for every row that has one
     taxon_concepts = TaxonConcept.find_all_by_id(rows_with_taxon_data.collect{ |row| row[:target_taxon_concept_id] }.
-      compact.uniq, :include => { :preferred_common_names => :name })
+      compact.uniq, :include => [ { :preferred_common_names => :name },
+                                  { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ] )
     # now distribute the taxon concept instances to the appropriate rows
     rows_with_taxon_data.each do |row|
       if taxon_concept = taxon_concepts.detect{ |tc| tc.id.to_s == row[:target_taxon_concept_id] }

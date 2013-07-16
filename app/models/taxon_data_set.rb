@@ -7,6 +7,7 @@ class TaxonDataSet
     @rows = rows
     @taxon_concept_id = options[:taxon_concept_id]
     @language = options[:language] || Language.default
+    preload_data_point_uris
   end
 
   def each
@@ -27,11 +28,6 @@ class TaxonDataSet
     @rows.delete_if { |row| yield(row) }
   end
 
-  def add_parents
-    preload_data_point_uris
-    @rows.each { |row| row[:parent] = row[:user] ? row[:user_added_data] : row[:data_point_instance] }
-  end
-
   # TODO - in my sample data (which had a single duplicate value for 'weight'), running this then caused the "more"
   # to go away.  :\  We may not care about such cases, though.
   def uniq
@@ -39,18 +35,6 @@ class TaxonDataSet
     @rows.each { |r| h["#{r[:attribute]}:#{r[:value]}"] = r }
     @rows = h.values
     self # Need to return self in order to get chains to work.  :\
-  end
-
-  # Licenses are special (NOTE we also cache them here on a per-page basis...):
-  def replace_licenses_with_mock_known_uris
-    @rows.each do |row|
-      row[:metadata].each do |key, val|
-        if key == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(val.to_s)
-          row[:metadata][key] = KnownUri.new(:uri => val,
-            :translations => [ TranslatedKnownUri.new(:name => license.title, :language => @language) ])
-        end
-      end
-    end
   end
 
   private
@@ -68,7 +52,7 @@ class TaxonDataSet
     partner_data.each do |d|
       d[:data_point_instance] ||= DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_concept_id, d[:data_point_uri].to_s)
     end
-    DataPointUri.preload_associations(partner_data.collect{ |d| d[:data_point_instance] }, :all_comments)
+    DataPointUri.preload_associations(partner_data.collect{ |d| d[:data_point_instance] }, [ :all_comments, :taxon_data_exemplars ] )
   end
 
 end

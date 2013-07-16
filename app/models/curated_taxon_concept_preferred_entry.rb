@@ -35,6 +35,8 @@ class CuratedTaxonConceptPreferredEntry < ActiveRecord::Base
                                where("hierarchies.hierarchy_group_id = #{entry.hierarchy.hierarchy_group_id}").
                                order("identifier=#{entry.identifier} DESC").limit(1).first
           curated_preferred_entry.hierarchy_entry = he
+        else
+          return nil
         end
       else
         return nil

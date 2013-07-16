@@ -45,10 +45,11 @@ module EOL
         query = append_namespaces_to_query(query)
         query = options[:prefix] +" "+ query if options[:prefix]
         results = []
+        # start_time = Time.now
         # puts "\n\n\n\n\n\n*********************"
         # puts query
         sparql_client.query(query).each_solution{ |s| results << s.to_hash }
-        # puts "done"
+        # puts "done in #{Time.now - start_time} seconds"
         results
       end
 

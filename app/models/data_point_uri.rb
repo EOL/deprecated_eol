@@ -32,4 +32,26 @@ class DataPointUri < ActiveRecord::Base
     "data_point_#{id}"
   end
 
+  def get_metadata(options = {})
+    query = "
+      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
+      WHERE {
+        GRAPH ?graph {
+          <#{uri}> a <#{DataMeasurement::CLASS_URI}> .
+          <#{uri}> dwc:occurrenceID ?occurrence .
+          ?measurement a <#{DataMeasurement::CLASS_URI}> .
+          ?measurement dwc:occurrenceID ?occurrence .
+          ?measurement dwc:measurementType ?attribute .
+          ?measurement dwc:measurementValue ?value .
+          OPTIONAL {
+            ?measurement dwc:measurementUnit ?unit_of_measure_uri
+          }
+        }
+      }"
+    response = EOL::Sparql.connection.query(query)
+    # if there is only one response, then it is the original measurement
+    return [] if response.length == 1
+    response
+  end
+
 end

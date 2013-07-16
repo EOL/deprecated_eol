@@ -67,10 +67,6 @@ class Comment < ActiveRecord::Base
     return(parent.is_a?(DataObject) and parent.text?)
   end
 
-  def annotation?
-    return parent.is_a?(UserAddedDatum)
-  end
-
   # the image url being commented on, if it's an image
   def parent_image_url
     return_url = case self.parent_type

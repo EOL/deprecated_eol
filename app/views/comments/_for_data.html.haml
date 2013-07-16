@@ -6,7 +6,7 @@
         &ndash;
         = link_to comment.user.full_name, comment.user
 - if logged_in?
-  = form_for(Comment.new(parent: parent), remote: true) do |f|
+  = form_for(Comment.new(parent: data_point_instance), remote: true) do |f|
     %fieldset
       = f.hidden_field :user_id
       = f.hidden_field :parent_type

@@ -17,10 +17,10 @@ class TaxonDataSet
   # NOTE - this is 'destructive', since we don't ever need it to not be. If that changes, make the corresponding method and add a bang to this one.
   def sort
     @rows.sort_by! do |row|
-      attribute_label = EOL::Sparql.uri_components(row[:attribute])[:label]
+      attribute_label = EOL::Sparql.uri_components(row[:attribute].to_s)[:label]
       last = KnownUri.count + 2
       attribute_pos = row[:attribute].is_a?(KnownUri) ? row[:attribute].position : last
-      value_label = EOL::Sparql.uri_components(row[:value])[:label]
+      value_label = EOL::Sparql.uri_components(row[:value].to_s)[:label]
       value_label = value_label.to_s.downcase if value_label.class == RDF::Literal
       [ attribute_pos, attribute_label.downcase, value_label.downcase ]
     end

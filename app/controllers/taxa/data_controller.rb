@@ -9,6 +9,7 @@ class Taxa::DataController < TaxaController
     @taxon_data = @taxon_page.data
     @data = @taxon_data.get_data
     @toc_id = params[:toc_id]
+    @selected_data_point_uri_id = params.delete(:data_point_uri_id)
     @show_download_data_button = ! @data.blank?
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }

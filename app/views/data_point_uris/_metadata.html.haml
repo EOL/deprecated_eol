@@ -1,5 +1,18 @@
-%table.meta
-  - @metadata.each do |d|
+- data_point_uri ||= @data_point_uri
+- if metadata = data_point_uri.get_metadata(current_language)
+  %table.meta
     %tr
-      = display_uri(d[:attribute], :th)
-      %td= raw display_text_for_structured_data_row(d)
+      %th.title{ colspan: 2 }= I18n.t(:metadata)
+    - metadata.each do |d|
+      %tr
+        = display_uri(d[:attribute], :th)
+        %td= raw display_text_for_structured_data_row(d)
+
+- if other_measurements = data_point_uri.get_other_occurrence_measurements(current_language)
+  %table.meta
+    %tr
+      %th.title{ colspan: 2 }= I18n.t(:measurements_from_this_occurrence)
+    - other_measurements.each do |d|
+      %tr
+        = display_uri(d[:attribute], :th)
+        %td= raw display_text_for_structured_data_row(d)

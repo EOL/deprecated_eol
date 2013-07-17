@@ -29,8 +29,6 @@ class DataPointUrisController < ApplicationController
   end
 
   def show_metadata
-    @metadata = @data_point_uri.get_metadata
-    @metadata = TaxonData.add_known_uris_to_data(@metadata)
     render(:partial => 'metadata')
   end
 

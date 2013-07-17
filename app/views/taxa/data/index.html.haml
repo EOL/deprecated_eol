@@ -44,12 +44,14 @@
             - classes << 'hidden'
           - else
             - show_row = false
+        - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == row[:data_point_instance].id)
         %tr{ id: row[:data_point_instance].anchor, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}", style: show_row ? '' : 'display: none;' }
           - th_id = nil
           - if row[:attribute] != last_attribute
             - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
-          - exemplar = row[:data_point_instance].taxon_data_exemplars.included.any?
-          - excluded = row[:data_point_instance].taxon_data_exemplars.excluded.any?
+          -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
+          - exemplar = row[:data_point_instance].taxon_data_exemplars.select{ |ex| ex.included }.any?
+          - excluded = row[:data_point_instance].taxon_data_exemplars.select{ |ex| ex.excluded }.any?
           - th_classes = []
           - th_classes << 'exemplar' if exemplar
           - th_classes << 'excluded' if excluded
@@ -58,7 +60,8 @@
               - last_attribute = row[:attribute]
               = display_uri(row[:attribute])
           %td.val
-            %span.fold &nbsp;
+            %span.fold
+              = link_to(image_tag('arrow_fold_right.png'), taxon_data_path(@taxon_page, :data_point_uri_id => row[:data_point_instance].id, :anchor => row[:data_point_instance].anchor))
             = raw display_text_for_structured_data_row(row)
 
             %span.source
@@ -67,7 +70,9 @@
             - unless comments.empty?
               %span.comments= image_tag('comment_indicator.png')
 
-        %tr{ class: (classes + ['actions']).join(' '), style: show_row ? '' : 'display: none;' }
+            - if row_is_selected
+              = render partial: 'data_point_uris/metadata', locals: { data_point_uri: row[:data_point_instance] }
+        %tr{ class: (classes + ['actions']).join(' '), style: row_is_selected ? '' : 'display: none;' }
           %td{ colspan: 2 }
             %ul
               - if row[:source]

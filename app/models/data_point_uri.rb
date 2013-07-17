@@ -32,26 +32,77 @@ class DataPointUri < ActiveRecord::Base
     "data_point_#{id}"
   end
 
-  def get_metadata(options = {})
+  def get_metadata(language)
+    query = "
+      SELECT DISTINCT ?attribute ?value
+      WHERE {
+        GRAPH ?graph {
+          {
+            <#{uri}> ?attribute ?value .
+          } UNION {
+            <#{uri}> dwc:occurrenceID ?occurrence .
+            ?occurrence ?attribute ?value .
+          } UNION {
+            <#{uri}> dwc:occurrenceID ?occurrence .
+            ?measurement a <#{DataMeasurement::CLASS_URI}> .
+            ?measurement dwc:occurrenceID ?occurrence .
+            ?measurement dwc:measurementType ?attribute .
+            ?measurement dwc:measurementValue ?value .
+            OPTIONAL { ?measurement <http://eol.org/schema/measurementOfTaxon> ?measurementOfTaxon } .
+            FILTER (?measurementOfTaxon != 'true')
+          } UNION {
+            <#{uri}> dwc:occurrenceID ?occurrence .
+            ?occurrence dwc:eventID ?event .
+            ?event ?attribute ?value .
+          }
+          FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
+                                     dwc:measurementID, <http://eol.org/schema/reference/referenceID>,
+                                     <http://eol.org/schema/targetOccurrenceID>, dwc:taxonID, dwc:eventID,
+                                     <http://eol.org/schema/associationType>,
+                                     dwc:measurementUnit, dwc:occurrenceID, <http://eol.org/schema/measurementOfTaxon>))
+        }
+      }"
+    metadata_rows = EOL::Sparql.connection.query(query)
+    metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)
+    TaxonData.add_known_uris_to_data(metadata_rows)
+    return nil if metadata_rows.empty?
+    metadata_rows
+  end
+
+  def get_other_occurrence_measurements(language)
     query = "
       SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
       WHERE {
         GRAPH ?graph {
-          <#{uri}> a <#{DataMeasurement::CLASS_URI}> .
-          <#{uri}> dwc:occurrenceID ?occurrence .
-          ?measurement a <#{DataMeasurement::CLASS_URI}> .
-          ?measurement dwc:occurrenceID ?occurrence .
-          ?measurement dwc:measurementType ?attribute .
-          ?measurement dwc:measurementValue ?value .
-          OPTIONAL {
-            ?measurement dwc:measurementUnit ?unit_of_measure_uri
+          {
+            <#{uri}> dwc:occurrenceID ?occurrence .
+            ?measurement a <#{DataMeasurement::CLASS_URI}> .
+            ?measurement dwc:occurrenceID ?occurrence .
+            ?measurement dwc:measurementType ?attribute .
+            ?measurement dwc:measurementValue ?value .
+            ?measurement <http://eol.org/schema/measurementOfTaxon> 'true' .
+            OPTIONAL {
+              ?measurement dwc:measurementUnit ?unit_of_measure_uri
+            }
           }
         }
       }"
-    response = EOL::Sparql.connection.query(query)
+    occurrence_measurement_rows = EOL::Sparql.connection.query(query)
     # if there is only one response, then it is the original measurement
-    return [] if response.length == 1
-    response
+    return nil if occurrence_measurement_rows.length <= 1
+    TaxonData.add_known_uris_to_data(occurrence_measurement_rows)
+    occurrence_measurement_rows
+  end
+
+  # Licenses are special (NOTE we also cache them here on a per-page basis...):
+  def self.replace_licenses_with_mock_known_uris(metadata_rows, language)
+    metadata_rows.each do |row|
+      if row[:attribute] == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(row[:value].to_s)
+        row[:value] = KnownUri.new(:uri => row[:value],
+          :translations => [ TranslatedKnownUri.new(:name => license.title, :language => language) ])
+      end
+    end
+    metadata_rows
   end
 
 end

@@ -42,46 +42,6 @@ Note that many of these steps require root access on your machine.  You have bee
 them as "sudo" on a Mac/Linux or as an administrator on Windows (there, I acknowledged the existence of
 Windows).
 
-=== CHEATING ON OS X
-
-The following set of commands is *pretty* much all I needed to do to get up and running on OS X (10.7.5).  Your
-mileage may, of course, vary:
-
-  1. Most of the following was taken from:
-     http://www.frederico-araujo.com/2011/07/30/installing-rails-on-os-x-lion-with-homebrew-rvm-and-mysql/
-  2. /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
-  3. Install XCode. ...this is never a simple (or fast) process. Sorry.
-  4. Add /Applications/Xcode.app/Contents/Developer/usr/bin to your path.
-  5. mkdir -p /usr/local/Cellar
-  6. bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
-  7. Add this to your bash profile:
-  
-     echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-  8. brew install git wget curl redis memcached libmemcached libxml2 libxslt readline
-  9. cp /usr/local/Cellar/memcached/1.4.13/homebrew.mxcl.memcached.plist ~/Library/LaunchAgents/
-  10. launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.memcached.plist
-  11. brew install mysql
-  12. unset TMPDIR
-  13. mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql
-      --tmpdir=/tmp
-  14. cp /usr/local/Cellar/mysql/5.5.19/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
-  15. launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-  16. rvm install ruby-1.9.3-p194
-  17. gem install bundler
-  18. git clone git://github.com/EOL/eol.git ; Restart your console, bundler may not work properly until you do.
-  19. cd to your new copy of the eol git repository, then: bundle install
-  20. vim config/database.yml ; You will need to edit this yourself, with appropriate settings. You may choose to use
-      config/database.sample.yml as a starting point.
-  21. rake solr:start ; This should work, now.  :)
-  22. rake eol:db:rebuild ; rake eol:db:recreate RAILS_ENV=test ; rake eol:db:recreate RAILS_ENV=test_master
-  23. rake truncate; rake scenarios:load NAME=bootstrap
-  24. sudo apt-get install redis-server
-  25. in its own console: rake resque:work QUEUE='*'
-  26. to debug: resque-web -F
-  27. launchctl stop homebrew.mxcl.redis
-  28. launchctl start homebrew.mxcl.redis
-
 === FIRST THINGS FIRST
 
 Things you need:
@@ -91,6 +51,10 @@ Things you need:
   3. MySQL Server
   4. Memcached
   5. Java         ...to run Solr.
+  6. Virtuoso     ...For the "data tab".
+
+You may try http://scottyv.me/2012/06/Setting-up-a-mac-as-a-dev-machine/ for setting up your machine, for the most
+part. (Note that as of July 2013, I didn't need XQuartz, so I skipped that step.)
 
 === SOLR
 

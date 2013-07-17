@@ -18,9 +18,11 @@ class TaxonDataSet
   def sort
     @rows.sort_by! do |row|
       attribute_label = EOL::Sparql.uri_components(row[:attribute])[:label]
+      last = KnownUri.count + 2
+      attribute_pos = row[:attribute].is_a?(KnownUri) ? row[:attribute].position : last
       value_label = EOL::Sparql.uri_components(row[:value])[:label]
       value_label = value_label.to_s.downcase if value_label.class == RDF::Literal
-      [ attribute_label.downcase, value_label.downcase ]
+      [ attribute_pos, attribute_label.downcase, value_label.downcase ]
     end
   end
 

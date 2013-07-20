@@ -320,6 +320,7 @@ FactoryGirl.define do
   sequence(:email)  {|n| "bob#{n}@smith.com" }
   sequence(:title)  {|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
   sequence(:int)    {|n| n }
+  sequence(:uri)    {|n| "http://eol.org/user_data/#{n}" }
 
   #### Factories
 
@@ -619,6 +620,13 @@ FactoryGirl.define do
   factory :data_objects_taxon_concept do
     association :taxon_concept
     association :data_object
+  end
+
+  factory :data_point_uri do
+    association :taxon_concept
+    vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+    uri         { FactoryGirl.generate(:uri) }
   end
 
   factory :data_type do
@@ -1060,13 +1068,13 @@ FactoryGirl.define do
   factory :translated_link_type do
     association     :link_type
     language        { Language.english }
-    label           { Factory.next(:string) }
+    label           { FactoryGirl.generate(:string) }
   end
 
   factory :translated_mime_type do
     association     :mime_type
     language        { Language.english }
-    label           { Factory.next(:string) }
+    label           { FactoryGirl.generate(:string) }
   end
 
   factory :translated_language do

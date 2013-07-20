@@ -21,9 +21,15 @@ class TaxonDataSet
       last = KnownUri.count + 2
       attribute_pos = row[:attribute].is_a?(KnownUri) ? row[:attribute].position : last
       value_label = EOL::Sparql.uri_components(row[:value].to_s)[:label]
-      value_label = value_label.to_s.downcase if value_label.class == RDF::Literal
-      [ attribute_pos, attribute_label.downcase, value_label.downcase ]
+      attribute_label = safe_downcase(attribute_label)
+      value_label = safe_downcase(value_label)
+      [ attribute_pos, attribute_label, value_label ]
     end
+  end
+
+  def safe_downcase(what)
+    what = what.to_s if what.respond_to?(:to_s)
+    what.downcase if what.respond_to?(:downcase)
   end
 
   def delete_if(&block)

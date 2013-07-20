@@ -3,13 +3,15 @@
 # version.)  I think this will be fixed in later versions (it works for PL), but for now, this seems to work.
 class TaxonData < TaxonUserClassificationFilter
 
+  DEFAULT_PAGE_SIZE = 30
+
   def self.graph_name_to_resource_id(graph_name)
     graph_name.to_s.split("/").last
   end
 
   def self.search(options={})
     return nil if options[:querystring].blank?
-    options[:per_page] = 30
+    options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
     total_results = EOL::Sparql.connection.query(prepare_search_query(options.merge(:only_count => true))).first[:count].to_i
     results = EOL::Sparql.connection.query(prepare_search_query(options))
     TaxonData.add_known_uris_to_data(results)
@@ -19,6 +21,8 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def self.prepare_search_query(options={})
+    options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
+    options[:page] ||= 1
     if options[:only_count]
       query = "SELECT COUNT(*) as ?count"
     else
@@ -67,8 +71,8 @@ class TaxonData < TaxonUserClassificationFilter
     # bulk preloading of resources/content partners
     resources = Resource.find_all_by_id(rows.collect{ |r| r[:resource_id] }.compact.uniq, :include => :content_partner)
     rows.each do |row|
-      if resource_id = row[:resource_id]
-        if resource = resources.detect{ |r| r.id.to_s == resource_id }
+      if resource_id = row[:resource_id].to_i
+        if resource = resources.detect{ |r| r.id == resource_id }
           row[:source] = resource.content_partner
         end
       end
@@ -91,14 +95,6 @@ class TaxonData < TaxonUserClassificationFilter
     picker = TaxonDataExemplarPicker.new(self)
     picker.pick(get_data)
   end
-
-  # TODO - I added metadata back in because I needed to know whether things were user-added or partner-provided;
-  # ideally we'll want to just pull enough additional info to make that distinction (should be simple enough)
-  # OLD:
-  # rows = association_data(metadata: false) + measurement_data(metadata: false)
-  # rows.delete_if{ |k,v| k[:attribute].blank? }
-  # rows = add_known_uris_to_data(rows)
-  # rows = replace_target_taxon_concept_ids(rows)
 
   def categories
     get_data unless @categories

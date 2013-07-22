@@ -27,7 +27,7 @@ class KnownUri < ActiveRecord::Base
 
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
     :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :is_unit_of_measure,
-    :translations, :exclude_from_exemplars
+    :translations, :exclude_from_exemplars, :name
 
   accepts_nested_attributes_for :translated_known_uris
 

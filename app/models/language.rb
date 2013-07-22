@@ -46,6 +46,14 @@ class Language < ActiveRecord::Base
     end
   end
 
+  def self.find_closest_by_iso(iso)
+    if l = from_iso(iso)
+      return l
+    elsif matches = iso.match(/^([a-z]{2,})-([a-z]{2,})/i)
+      return from_iso(matches[1])
+    end
+  end
+
   # Migrations make it possible that the 'en' will either be in the languages table or its translated table.  This
   # ensures we grab it from whichever place is currently appropriate. This method will also create English is it does
   # not already exist

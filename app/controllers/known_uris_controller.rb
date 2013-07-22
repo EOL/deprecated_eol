@@ -15,7 +15,7 @@ class KnownUrisController < ApplicationController
         includes([:toc_items, :translated_known_uris]).
         where(translated_known_uris: { language_id: current_language.id }, known_uris_toc_items: { toc_item_id: params[:category_id] }).
         order('position') :
-      KnownUri.paginate(page: params[:page], order: 'position')
+      KnownUri.includes(:toc_items).paginate(page: params[:page], order: 'position', :per_page => 500)
     respond_to do |format|
       format.html { }
       format.js { @category = TocItem.find(params[:category_id]) }
@@ -29,6 +29,41 @@ class KnownUrisController < ApplicationController
       params.delete(:ajax)
       render(:partial => 'stats_report')
       return
+    end
+  end
+
+  def import_ontology
+    @ontology_uri = params[:ontology_uri]
+    if @ontology_uri.blank?
+      redirect_to known_uris_path
+    else
+      @terms = SchemaTermParser.parse_terms_from(@ontology_uri)
+      @ingested_terms = []
+      @existing_known_uris = KnownUri.where(uri: @terms.collect{ |uri, metadata| uri }).includes({ :translations => :language })
+      if params[:importing]
+        attribute_types_selected = {}
+        attribute_mappings = { 'rdfs:label' => 'name' }
+        SchemaTermParser.attribute_uris.each do |uri|
+          if params.has_key?(uri.to_s)
+            if params[uri.to_s].blank?
+              flash[:error] = I18n.t('known_uris.please_select_field_types')
+            elsif attribute_types_selected[params[uri.to_s]]
+              flash[:error] = I18n.t('known_uris.more_than_one_field_mapped_to_type', :type => params[uri.to_s])
+            elsif params[uri.to_s] != 'none'
+              attribute_types_selected[params[uri.to_s]] = uri
+              attribute_mappings[uri] = params[uri.to_s]
+            end
+          end
+        end
+        if params[:selected_uris].blank?
+          flash[:error] = I18n.t('known_uris.please_select_uris_to_import')
+        end
+        if !flash[:error]
+          import_terms_from_ontology(attribute_mappings)
+          flash[:notice] = I18n.t('known_uris.import_successful')
+          redirect_to known_uris_path
+        end
+      end
     end
   end
 
@@ -61,9 +96,7 @@ class KnownUrisController < ApplicationController
 
   def edit
     @known_uri = KnownUri.find(params[:id], :include => [ :toc_items, :known_uri_relationships_as_subject ] )
-    if @known_uri.name.blank?
-      @known_uri.translated_known_uris << [TranslatedKnownUri.new(language: current_language)]
-    end
+    @translated_known_uri = @known_uri.translations.detect{ |t| t.language == current_language } || @known_uri.translated_known_uris.build(language: current_language)
   end
 
   # TODO - this seems a bit much, but this is a controller that will see a lot of use for a month, and then almost none... so I don't care much right now.
@@ -143,6 +176,33 @@ class KnownUrisController < ApplicationController
     else
       @stats_filter_selected_option = nil
       @uri_stats = nil
+    end
+  end
+
+  def import_terms_from_ontology(uri_to_field_name_mappings)
+    params[:selected_uris].each do |uri|
+      if term_metadata = @terms[uri]
+        attributes_by_language = {}
+        term_metadata.each do |term_uri, attributes_from_ontology|
+          if field_name = uri_to_field_name_mappings[term_uri]
+            attributes_from_ontology.each do |attribute_metadata|
+              language_iso = attribute_metadata[:language] || 'en'
+              if language = Language::find_closest_by_iso(language_iso)
+                attributes_by_language[language] ||= {}
+                attributes_by_language[language][field_name] = attribute_metadata[:text]
+              end
+            end
+          end
+        end
+        # find or create the KnownURI
+        known_uri = KnownUri.find_or_create_by_uri(uri)
+        # delete any existing definitions as they will be replaced
+        known_uri.translations.destroy_all
+        # add in the definitions for each defined language
+        attributes_by_language.each do |language, translation_fields|
+          TranslatedKnownUri.create(translation_fields.merge(:known_uri => known_uri, :language => language))
+        end
+      end
     end
   end
 

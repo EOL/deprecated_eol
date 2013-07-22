@@ -10,6 +10,10 @@
         = nested.hidden_field :language_id
         %dt= nested.label :name
         %dd= nested.text_field :name
+        %dt= nested.label :definition
+        %dd= nested.text_area :definition, :rows => 3
+        %dt= nested.label :comment
+        %dd= nested.text_area :comment, :rows => 3
       %dt= f.label :toc_items
       %dd
         %ul

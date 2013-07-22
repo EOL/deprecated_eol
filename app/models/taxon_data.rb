@@ -137,7 +137,8 @@ class TaxonData < TaxonUserClassificationFilter
             ?taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>
           }
         }
-      }"
+      }
+      LIMIT 800"
     EOL::Sparql.connection.query(query)
   end
 
@@ -171,7 +172,8 @@ class TaxonData < TaxonUserClassificationFilter
             ?inverse_attribute owl:inverseOf ?attribute
           }
         }
-      }"
+      }
+      LIMIT 800"
     EOL::Sparql.connection.query(query)
   end
 

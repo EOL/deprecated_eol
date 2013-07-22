@@ -27,10 +27,11 @@
             - else
               = raw cats
           - if current_user.is_admin?
-            %td
+            %td.actions
               = link_to I18n.t(:edit).i18n_downcase, edit_known_uri_url(known_uri)
+              &bull;
               = link_to I18n.t(:delete).i18n_downcase, known_uri, data: { confirm: I18n.t(:are_you_sure) }, method: :delete
-              %br
+              &bull;
               - if known_uri.visible?
                 = link_to I18n.t(:suggested_vocab_remove).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put
               - elsif known_uri.hidden?
@@ -38,6 +39,14 @@
     - if current_user.is_admin?
       %p= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')
       %br
+      %hr
+      #import_ontology
+        = form_for KnownUri.new, :url => import_ontology_known_uris_path do |f|
+          %dl
+            %dt= I18n.t(:submit)
+            %dd= submit_tag I18n.t(:import_ontology), class: 'button'
+            %dt= I18n.t(:ontology_uri)
+            %dd= text_field_tag :ontology_uri
       %br
       %hr
       %form#stats_form.select_submit{ action: show_stats_known_uris_path }

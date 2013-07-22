@@ -6,6 +6,7 @@
   %ul.subtabs.tabs.with_icons
     - @categories.each do |cat|
       %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, url_for(params.merge(:toc_id => cat.id)), 'data-toc-id' => cat.id
+    -# TODO - when everything has a category, Other shows up but it is empty
     %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), url_for(params.merge(:toc_id => 'other')), class: 'other'
     %li{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(:toc_id => nil)), class: 'all'
     %li{ class: 'about' }= link_to I18n.t(:data_about_subtab), about_taxon_data_path(@taxon_page), remote: true

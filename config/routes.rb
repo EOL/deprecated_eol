@@ -351,6 +351,7 @@ Eol::Application.routes.draw do
       get 'categories'
       get 'autocomplete_known_uri_uri'
       get 'show_stats'
+      post 'import_ontology'
       post 'sort'
     end
     member do

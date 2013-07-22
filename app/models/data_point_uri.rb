@@ -51,6 +51,11 @@ class DataPointUri < ActiveRecord::Base
             OPTIONAL { ?measurement <http://eol.org/schema/measurementOfTaxon> ?measurementOfTaxon } .
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
+            ?measurement a <#{DataMeasurement::CLASS_URI}> .
+            ?measurement <http://eol.org/schema/associationID> <#{uri}> .
+            ?measurement dwc:measurementType ?attribute .
+            ?measurement dwc:measurementValue ?value .
+          } UNION {
             <#{uri}> dwc:occurrenceID ?occurrence .
             ?occurrence dwc:eventID ?event .
             ?event ?attribute ?value .

@@ -337,6 +337,13 @@ sv:
         user_of_an_unknown_collection: <strong>%{user}</strong> lades till som en hanterare av en okänd samling.
         user_of_collection: <strong>%{user}</strong> lades till som en hanterare av samlingen "%{collection}".
         user_of_it: <strong>%{user}</strong> lade till som användare.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: En okänd användare lade till flera objekt till en okänd samling.
+        an_unknown_user_added_bulk_items_to_collection: En okänd användare lade till flera objekt till samlingen "%{collection}".
+        an_unknown_user_added_bulk_items_to_it: En okänd användare lade till flera objekt.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> lade till flera objekt till en okänd samling.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> lade till flera objekt till samlingen "%{collection}".
+        user_of_it: <strong>%{user}</strong> lade till flera objekt.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En okänd användare lade till ett okänt objekt till en okänd samling.
         an_unknown_user_added_an_unknown_item_to_collection: En okänd användare lade till ett okänt objekt till samlingen "%{collection}".
@@ -511,6 +518,7 @@ sv:
           an_unknown_user_merged_to_an_unknown_taxon: En okänd användare slog samman två okända sidor.
           an_unknown_user_merged_to_it: En okänd användare slog samman en annan sida med denna.
           an_unknown_user_merged_to_taxon: En okänd användare slog samman en annan sida till %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> slog samman två okända sidor.
           user_merged_to_it: <strong>%{user}</strong> slog samman en annan sida med denna.
           user_merged_to_taxon: <strong>%{user}</strong> slog samman en annan sida med %{target}.
         move: 
@@ -1650,7 +1658,7 @@ sv:
   dato_new_text_for_taxon_page_title: Lägg en artikel till <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Lägg en länk till <i>%{taxon}</i>
   dato_update_user_text_error: Tyvärr, ett fel uppstod. Artikeln kunde inte uppdateras.
-  dato_update_users_text_not_owner_exception: Endast den ursprungliga författaren av denna textobjekt kan redigera det.
+  dato_update_users_text_not_owner_exception: Endast den ursprungliga författaren av detta textobjekt kan redigera det.
   default: Standard
   default_focus_collection_name_from_community: "%{name}s fokus"
   default_watch_collection_name: "%{username}s samling"
@@ -3699,6 +3707,8 @@ sv:
       form_tip: För att återställa ditt EOL-konto, skriv in e-postadressen som är associerad med det kontot. Var god kontrollera din spammapp om du inte har fått ett meddelande inom en timme.
       meta_title: Återställ konto
     recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Tyvärr, ett fel uppstod och e-postmeddelandet skickades inte. Var god välj kontot du vill återställa tillgång till och försök igen.
       form_header: Återställ konto
       form_tip: Det finns flera konton som är registrerade med e-postadressen <em>%{email}</em>. Var god välj det konto som lösenordet ska återställas för.
       legend_choose_account: Välj ett konto

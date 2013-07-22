@@ -238,7 +238,7 @@ ia:
         bio: Bio
         credentials: Datos de authentication
         curator_level: Nivello de curator
-        curator_scope: Sphera de curation
+        curator_scope: Sphera de conservation
         disable_email_notifications: NON inviar me actualitates per e-mail
         email: Adresse de e-mail
         email_confirmation: Repete adresse de e-mail <small>(pro confirmation)</small>
@@ -473,6 +473,41 @@ ia:
   admin_translated_content_page_new_tip: Lingua, titulo e texto es %{required_icon} obligatori.
   admin_translated_content_page_update_successful_notice: Le traduction in %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> ha essite actualisate.
   admin_translated_content_page_update_unsuccessful_error: Un error ha occurrite, e le traduction non poteva esser actualisate.
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Partners de contento
+        page_header: Statisticas de partner de contento
+        page_title: "Administration: statisticas de partner de contento"
+      curators: 
+        menu_link: Statisticas de conservator
+        page_header: Statisticas de conservator
+        page_title: "Administration: Statisticas de conservator"
+      data_objects: 
+        menu_link: Objectos de datos
+        page_header: Statisticas de objecto de datos
+        page_title: "Administration: statisticas de objecto de datos"
+      index: 
+        menu_link: Statisticas general
+        page_header: Statisticas general
+        page_title: "Administration: Statisticas general"
+        table_caption: Statisticas general del sito generate a %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: Statisticas de LifeDesks
+        page_title: "Administration: Statisticas de LifeDesks"
+      marine: 
+        menu_link: Statisticas marin
+        page_header: Copertura marin in EOL
+        page_title: "Administration: Statisticas marin"
+      page_richness: 
+        menu_link: Paginas ric
+        page_header: Statisticas de paginas ric
+        page_title: "Administration: Statisticas de paginas ric"
+      users_data_objects: 
+        menu_link: Texto submittite per usator
+        page_header: Statisticas de texto submittite per usator
+        page_title: "Administration: Statisticas de texto submittite per usator"
   agent: Agente
   all: totes
   all_apis_return_by_default_an_xml_response: "Tote le APIs retorna normalmente un responsa in XML. Le methodos de un API pote esser appellate sin extension de formato pro obtener le responsa in XML, e le addition de un extension XML resulta in un responsa identic:"
@@ -502,6 +537,9 @@ ia:
   and: e
   and_between_form_items: e
   any_integer: un numero integre
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Clicca hic</a> pro acceder al test beta del nove foros de EOL. Vostre commentario es benvenite.
   api_docs_collections_description: Date le identificator de un collection, iste API retorna tote le metadatos sur le collection e le elementos que illo contine. Le lista de elementos pote esser filtrate per typo de elemento, e ordinate per le attributos listate hic supra.
   application_version_advisory_information: Version del application
   are_you_sure: Es tu secur?
@@ -641,6 +679,18 @@ ia:
         meta_keywords: Gerentes de %{collection_name}
         meta_title: Gerentes de %{collection_name}
         tweet_text: Gerentes de %{collection_name}
+    inaturalists: 
+      show: 
+        add_observations: Adder observationes
+        meta_description: Observationes de iNaturalist pro le collection de Encyclopedia of Life %{collection_name}.
+        meta_keywords: Observationes de iNaturalist pro %{collection_name}
+        meta_title: Observationes de iNaturalist pro %{collection_name}
+        no_observations_added_to_this_project_yet: Nulle observation ha ancora essite addite a iste projecto.
+        observation_date: "Data: %{observed_on}"
+        observation_place: "Loco: %{place}"
+        observer_with_link: "Observator: %{observer_link}"
+        recent_observations: Observationes recente
+        some_taxon: Qualcosa
     newsfeeds: 
       show: 
         meta_description: Novas, commentos e activitate communitari pro le collection %{collection_name} del Encyclopedia del Vita.
@@ -648,6 +698,9 @@ ia:
         meta_title: Novas sur %{collection_name}
         tweet_text: Novas sur %{collection_name}
     show: 
+      meta_description_default: Un collection de Encyclopedia of Life con titulo %{collection_name}.
+      meta_description_default_focus_collection: Un collection specialisate de Encyclopedia of Life con titulo %{collection_name}.
+      meta_description_default_watch_collection: "Un observatorio de Encyclopedia of Life: %{collection_name}."
       meta_keywords: "%{collection_name}, Collection Encyclopedia del Vita"
   collections_summary_empty: Iste pagina non face ancora parte de alcun collection.
   collections_summary_header_with_count: 
@@ -746,6 +799,13 @@ ia:
   contact_us_link: Contactar nos
   contact_us_submissions: Submissiones pro contactar nos
   contact_us_topics: Topicos pro contactar nos
+  contacts: 
+    errors: 
+      message_not_sent: Un error ha occurrite. Le message non ha essite inviate.
+    new: 
+      page_title: Per favor lassa tu commentario
+    notices: 
+      message_sent: Gratis pro le commentario. Le message ha essite inviate al gruppo appropriate.
   containing_value: continente %{value}.
   content: 
     index: 
@@ -886,6 +946,51 @@ ia:
     show: 
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
+  datepicker: 
+    close: Clauder
+    current: Hodie
+    day_names: 
+      0: Dominica
+      1: Lunedi
+      2: Martedi
+      3: Mercuridi
+      4: Jovedi
+      6: Sabbato
+    day_names_short: 
+      0: dom
+      2: mar
+      3: mer
+      4: jov
+      5: ven
+      6: sab
+    month_names: 
+      - Januario
+      - Februario
+      - Martio
+      - April
+      - Maio
+      - Junio
+      - Julio
+      - Augusto
+      - Septembre
+      - Octobre
+      - Novembre
+      - Decembre
+    month_names_short: 
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - Mai
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    next: Sequente
+    previous: Precedente
   delete_community: Deler iste communitate
   detail: Detalio
   development_version_name: V2 VERSION IN DISVELOPPAMENTO - non pro uso public
@@ -1070,6 +1175,7 @@ ia:
         curator_level: Tu es actualmente %{curator_level_with_indefinite_article}.
         curator_scope: Sphera de curation
         curator_scope_more: "Per favor indica le dominio de tu expertise. Per exemplo: \"Roditores de Borneo\", \"Interactiones tri-trophic\" o \"Problemas de conservation in pisces\". Isto non limitara tu capacitate de curation, ma informara le communitate de EOL."
+        email: Adresse de e-mail
         email_reports_frequency_hours: Con que frequentia vole tu reciper alertas de e-mail sur le activitate concernente tu contributiones?
         email_settings_submit: configuration de e-mail
         entered_password: Contrasigno <small>(4 - 16 characteres)</small>
@@ -1078,8 +1184,11 @@ ia:
         logo: Incargar un nove photo
         new_password: Nove contrasigno <small>(4 - 16 characteres)</small>
         new_password_confirmation: Nove contrasigno <small>(pro confirmar)</small>
+        news_in_preferred_language: monstrar notitias in lingua preferite
         notification_settings: Configuration de notificationes
         notification_settings_more: Configurar le optiones de notification.
+        open_authentications: Contos connectite
+        open_authentications_more: Gerer connexiones a altere contos que tu pote usar pro aperir session in EOL. <a href="%{open_authentications_url}">Modificar contos connectite</a>.
         requested_curator_level: Tu requesta de devenir %{curator_level_with_indefinite_article} es pendente.
         requested_curator_level_id_more: Selige <em>curator assistente</em> si tu non ancora possede qualificationes.  Selige <em>curator plen</em> si tu es un scientista professional o un studente graduate con qualificationes.  Selige <em>maestro curator</em> si tu es un curator experte de EOL e vole assumer plus responsabilitates.
         tag_line: "Slogan o titulo <small>exemplo: \"Enthusiasta de aves\"</small>"
@@ -1092,8 +1201,11 @@ ia:
     select: 
       prompt: Per favor selige
     submit: 
+      cancel: Cancellar
       collection_item: 
         update: Salveguardar
+      contact: 
+        new: Inviar commentario
       content_page: 
         create: Crear pagina
         edit: Modificar
@@ -1115,7 +1227,11 @@ ia:
         create: Adder articulo
         create_text: Adder articulo
         update: Salveguardar articulo
+      data_object_link: 
+        create: Adder ligamine
+        update: Salveguardar ligamine
       eol_statistic: 
+        change_date: Obtener statisticas pro datas
         download_csv: Discargar como CSV
       filter_sort: Filtrar e ordinar
       harvest_event: 
@@ -1126,6 +1242,14 @@ ia:
       name: 
         create: Adder nomine
         update: Actualisar nomine
+      news_item: 
+        create: Crear notitia
+        edit: Modificar
+        preview: Previsualisar
+        update: Actualisar notitia
+      open_authentication: 
+        create: Connecter
+        destroy: Disconnecter
       resource: 
         create: Adder ressource
         force_harvest: Requestar recolta fortiate
@@ -1133,8 +1257,14 @@ ia:
         update_settings: Actualisar configurationes
       session: 
         create: Aperir session
+        sign_in_with_facebook: Aperir session con Facebook
+        sign_in_with_google: Aperir session con Google
+        sign_in_with_yahoo: Aperir session con Yahoo
       submit: Salveguardar %{model}
       translated_content_page: 
+        create: Adder traduction
+        update: Salveguardar cambiamentos in traduction
+      translated_news_item: 
         create: Adder traduction
         update: Salveguardar cambiamentos in traduction
       update: Actualisar %{model}
@@ -1144,6 +1274,11 @@ ia:
         curation_privileges: Submitter requesta
         generate_api_key: Generar un clave
         notification_settings: Configuration de notificationes
+        recover_account: Inviar e-mail
+        sign_up_with_facebook: Crear conto con Facebook
+        sign_up_with_google: Crear conto con Google
+        sign_up_with_twitter: Crear conto con Twitter
+        sign_up_with_yahoo: Crear conto con Yahoo
         update: Salveguardar information de profilo
       wikipedia_queue: 
         create: Submitter requesta

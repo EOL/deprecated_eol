@@ -61,14 +61,14 @@ pt:
         acronym: Abreviatura do projeto
         admin_notes: Notas de administração
         auto_publish: Auto-publicar
-        content_partner_status: Estado do projecto
+        content_partner_status: Estado do projeto
         created_at: Criado
-        description: Descrição do projecto
+        description: Descrição do projeto
         display_name: Nome apresentado
-        full_name: Nome do projecto
-        homepage: URL do projecto
+        full_name: Nome do projeto
+        homepage: URL do projeto
         id: ID
-        notes: Notas do projecto
+        notes: Notas do projeto
         public: Público
         resources: Recursos
         user_id: Administrado por
@@ -194,7 +194,7 @@ pt:
         guid: Identificador Global Único
         provider: Outro provedor
         secret: Secreto
-        updated_at: Última actualização
+        updated_at: Ultima atualização
         user_id: Identificador do utilizador
         verified_at: Última verificação
       resource: 
@@ -298,7 +298,7 @@ pt:
     models: 
       user: conta
   activity: Actividade
-  activity_log_empty: Ninguém forneceu actualizações ainda.
+  activity_log_empty: Ninguém forneceu atualizações ainda.
   activity_log_empty_learn_more_link: Saiba como contribuir
   activity_user_created_text: <strong>%{user}</strong> adicionou texto a "%{object_name}" em "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> actualizou o texto de "%{object_name}" em "%{taxon_concept}".
@@ -334,8 +334,8 @@ pt:
   admin_content_page_parent_option_root: Sem página superior
   admin_content_page_root: Raiz
   admin_content_page_sort_order_updated: A ordem das página foi mudada.
-  admin_content_page_update_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a>  actualizada com sucesso.
-  admin_content_page_update_unsuccessful_error: Desculpe, ocorreu um erro, a página não foi actualizada.
+  admin_content_page_update_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a> atualizada com sucesso.
+  admin_content_page_update_unsuccessful_error: Desculpe, ocorreu um erro, a página não foi atualizada.
   admin_content_pages_empty: Não foram encontradas páginas de conteúdo.
   admin_content_pages_index_information: A lista seguinte inclui todas as páginas estáticas actualmente disponívels no site EOL. Cada página tem uma ou mais traduções. Quando criar uma página nova será pedido que adicione uma tradução. Traduções publicadas são acessíveis publicamente.
   admin_content_pages_link: Administração de Conteúdo
@@ -369,8 +369,8 @@ pt:
   admin_translated_content_page_new_link: Adicionar tradução
   admin_translated_content_page_new_subheader: Adicionar tradução para <em>%{page_name}</em>
   admin_translated_content_page_new_tip: Língua, título e corpo são %{required_icon} necessários.
-  admin_translated_content_page_update_successful_notice: A tradução em %{language} para <a href="#%{anchor}"><em>%{page_name}</em></a> foi actualizada.
-  admin_translated_content_page_update_unsuccessful_error: Desculpe, ocorreu um erro, a tradução não pôde ser actualizada.
+  admin_translated_content_page_update_successful_notice: A tradução em %{language} para <a href="#%{anchor}"><em>%{page_name}</em></a> foi atualizada.
+  admin_translated_content_page_update_unsuccessful_error: Desculpe, ocorreu um erro, a tradução não pôde ser atualizada.
   admin_translated_news_item_active: Publicado
   admin_translated_news_item_new_link: Adicionar tradução
   admins: 
@@ -425,7 +425,7 @@ pt:
   assistive_names_synonyms_header: Sinónimos
   assistive_overview_header: Visão geral
   assistive_taxon_community_header: Comunidade
-  assistive_updates_header: Actualizações
+  assistive_updates_header: Atualizações
   associated_submit_button: associado
   associated_with_article_header: Associado com
   associated_with_header: Associado com
@@ -623,8 +623,8 @@ pt:
   content_partner_contact_new_edit_form_tip: Primeiro e último nome e e-mail são %{required_icon} requeridos.
   content_partner_contact_new_link: Adicionar novo contacto
   content_partner_contact_new_page_subheader: Adicionar um contacto.
-  content_partner_contact_update_successful_notice: Contacto actualizado com sucesso.
-  content_partner_contact_update_unsuccessful_error: Desculpe, ocorreu um erro, o contacto não foi actualizado.
+  content_partner_contact_update_successful_notice: Contato atualizado com sucesso.
+  content_partner_contact_update_unsuccessful_error: Desculpe, ocorreu um erro, o contato não foi atualizado.
   content_partner_contacts_header: Contactos
   content_partner_create_successful_notice: Parceiro de conteúdo criado com sucesso.
   content_partner_create_unsuccessful_error: Desculpe, ocorreu um erro, o parceiro de conteúdo não foi criado.
@@ -646,7 +646,7 @@ pt:
   content_partner_new_link: Adicionar novo parceiro de conteúdo
   content_partner_new_page_subheader: Adicionar um novo parceiro de conteúdo
   content_partner_notes_empty: Não existem notas adicionais para este projecto.
-  content_partner_notes_header: Notas do projecto
+  content_partner_notes_header: Notas do projeto
   content_partner_overview_agreement_header: Acordo de parceria
   content_partner_overview_agreement_link: Ver acordo actual
   content_partner_overview_link: Visão geral do parceiro
@@ -680,9 +680,9 @@ pt:
   content_partner_resource_preview_collection_header: Pré-visualizar colecção
   content_partner_resource_resource_status_new: Criado
   content_partner_resource_show_subheader: Detalhes para o recurso <em>%{resource_title}</em>
-  content_partner_resource_update_successful_notice: "Detalhes do recurso de parceiro de conteúdo actualizados com sucesso. Estado actual do recurso de dados: %{resource_status}."
-  content_partner_resource_update_unsuccessful_error: Desculpe, ocorreu um erro, o recurso não foi actualizado.
-  content_partner_resource_upload_unsuccessful_error: "Desculpe, ocorreu um erro, os detalhes do recurso foram actualizados mas o recurso em si não foi carregado: %{resource_status}."
+  content_partner_resource_update_successful_notice: "Detalhes do recurso de parceiro de conteúdo atualizados com sucesso. Estado atual do recurso de dados: %{resource_status}."
+  content_partner_resource_update_unsuccessful_error: Desculpe, ocorreu um erro, o recurso não foi atualizado.
+  content_partner_resource_upload_unsuccessful_error: "Desculpe, ocorreu um erro, os detalhes do recurso foram atualizados mas o recurso em si não foi carregado: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: URL do conjunto de dados ou ficheiro por recurso, não ambos. Por favor decida se quer fornecer uma URL ou carregar um ficheiro para o recurso descrito. Recursos adicionais podem ser adicionados mais tarde.
   content_partner_resource_vetted_false: Não
   content_partner_resource_vetted_true: Sim
@@ -706,8 +706,8 @@ pt:
   content_partner_statistics_taxa_page_caption: Estatísticas de uso detalhadas para páginas de taxon contendo conteúdo fornecido por %{partner_name}.
   content_partner_statistics_year_label: Ano
   content_partner_status_empty: Estado desconhecido
-  content_partner_update_successful_notice: Detalhes do parceiro actualizados com sucesso.
-  content_partner_update_unsuccessful_error: Desculpe, ocorreu um erro, os detalhes do parceiro não foram actualizados.
+  content_partner_update_successful_notice: Detalhes do parceiro atualizados com sucesso.
+  content_partner_update_unsuccessful_error: Desculpe, ocorreu um erro, os detalhes do parceiro não foram atualizados.
   content_partners: 
     edit: 
       meta_title: Editar %{partner_name}
@@ -878,7 +878,7 @@ pt:
   dato_new_edit_user_text_form_tip: O seu artigo será marcado como "por rever" até que um curador o reveja. Se for um curador, o seu artigo pode ser publicado directamente à página do taxon. O campo do Texto marcado com um ponto (%{required_icon}) é obrigatório.
   dato_new_text_for_taxon_page_title: Adicionar um artigo a <i>%{taxon}</i>
   dato_new_text_page_description: Obrigado por contribuir para a EOL. O seu artigo será adicionado à sua Lista de Vigilância para que possa acompanhar qualquer conversa relacionada a ele e verificar o seu estado de curadoria.
-  dato_update_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser actualizado.
+  dato_update_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser atualizado.
   dato_update_users_text_not_owner_exception: Não é possível actualizar o texto DataObject de que o utilizador actual não seja dono
   default: Por defeito
   default_focus_collection_name_from_community: Foco de %{name}
@@ -1125,7 +1125,7 @@ pt:
         latest_published_harvest_event: Publicado a última vez
         logo_current: "Logótipo actual:"
         logo_new: "Carregar um novo logótipo:"
-        notes: Notas de projecto <small>(privado)</small>
+        notes: Notas do projeto <small>(privado)</small>
         oldest_published_harvest_event: Publicado pela primeira vez
         user_id: Detalhes do parceiro de conteúdo gerido por
       content_partner_agreement: 
@@ -1313,10 +1313,10 @@ pt:
   hierarchies_description: A Encyclopedia of Life não tem uma hierarquia taxonómica única sobre a qual cria as suas páginas. Ao invés, a EOL indexa muitas hierarquias e compara-as umas com as outras. Esta API lista metadados sobre uma hierarquia tais como o nome do fornecedor e URL da fonte, assim como listas de todos os taxa que são a raiz da árvore taxonómica
   hierarchies_title: Hierarquias
   hierarchy: Hierarquia
-  hierarchy_entry_switch_missing_id_error: Desculpe, a página de entrada da hierarquia seleccionada não foi encontrada devido à falta de um identificador.
+  hierarchy_entry_switch_missing_id_error: Desculpe, a página de entrada da hierarquia selecionada não foi encontrada devido à falta de um identificador.
   hierarchy_roots_colon: "Raízes da Hierarquia:"
   hierarchy_selector_drop_down_list_label: Este é a etiqueta que será exibida no menu suspenso seleccionador de hierarquia
-  hierarchy_updated: Hierarquia actualizada
+  hierarchy_updated: Hierarquia atualizada
   home: Início
   home_page_link_advisory_information: Este link vai levá-lo à página inicial da Enciclopédia da Vida
   id: ID
@@ -1343,9 +1343,9 @@ pt:
   item_added_to_watch_collection_notice: "\"%{item_name}\" foi adicionado a %{collection_name}."
   item_details_missing: Desculpe, ocorreu um erro, não foi possível recuperar detalhes do item.
   item_not_added_already_in_collection: Este item já esteve adicionado à colecção.
-  item_not_added_to_collection_error: Desculpe, ocorreu um erro, o item seleccionado não pôde ser adicionado à colecção.
+  item_not_added_to_collection_error: Desculpe, ocorreu um erro, o item selecionado não pôde ser adicionado à coleção.
   item_not_added_to_itself_notice: Desculpe, não pode adicionar <em>%{collection_name}</em> a si mesmo.
-  item_not_updated_in_collection_error: Desculpe, ocorreu um erro, o item da colecção não pôde ser actualizado.
+  item_not_updated_in_collection_error: Desculpe, ocorreu um erro, o item da coleção não pôde ser atualizado.
   item_type_article: Artigo
   item_type_article_assistive: Este item é um artigo
   item_type_collection: Coleção
@@ -1384,7 +1384,7 @@ pt:
   language_with_count: "%{language} (%{count})"
   languages: Línguas
   last_updated: Ultima atualização
-  last_updated_time_ago: Última actualização há %{time_passed}
+  last_updated_time_ago: Última atualização há %{time_passed}
   layouts: 
     v2: 
       application: 
@@ -1757,12 +1757,12 @@ pt:
   update_collection_submit_button: Atualizar detalhes da coleção
   update_language: Atualizar língua
   update_page: Atualizar página
-  update_user_successful_notice: Conta actualizada com êxito.
+  update_user_successful_notice: Conta atualizada com êxito.
   updated: Atualizado
   updated_colon: "Atualizado:"
-  updated_community: A comunidade foi actualizada com sucesso.
+  updated_community: A comunidade foi atualizada com sucesso.
   updated_member: Membro foi atualizado com sucesso.
-  updates: Actualizações
+  updates: Atualizações
   upload_content: carregar conteúdo
   us_dolars_75: 75$ US
   us_dollars_100: 100$ US

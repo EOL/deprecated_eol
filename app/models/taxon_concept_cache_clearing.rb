@@ -13,7 +13,7 @@ class TaxonConceptCacheClearing
     TaxonConceptCacheClearing.new(taxon_concept).clear_collections
   end
 
-  # TODO - this should really be for an association, not a combo of these two:
+  # TODO - this should really be for an Association, not a combo of these two:
   def self.clear_for_data_object(taxon_concept, data_object)
     TaxonConceptCacheClearing.new(taxon_concept).clear_for_data_object(data_object)
   end 
@@ -24,7 +24,7 @@ class TaxonConceptCacheClearing
 
   # TODO - do we want a more generic name for methods, here? :call, :invoke, :run, :go ? ...I'll decide later.
   def clear
-    clear_exemplars
+    clear_preferred_entry
     clear_media_counts
     clear_images
   end
@@ -61,7 +61,6 @@ class TaxonConceptCacheClearing
       data_object = data_object.data_object if data_object.respond_to?(:data_object)
       next if data_object.nil? # Strange to do this twice, but we have to because of the previous line. :\
       if data_object.data_type.label == 'Image'
-        TaxonConceptExemplarImage.delete_all(:taxon_concept_id => @taxon_concept.id, :data_object_id => data_object.id)
         clear_if_guid_matches("best_image_id_#{@taxon_concept.id}", data_object)
         @taxon_concept.published_browsable_hierarchy_entries.each do |pbhe|
           clear_if_guid_matches("best_image_id_#{@taxon_concept.id}_#{pbhe.id}", data_object)
@@ -77,7 +76,7 @@ private
     taxon_concept.hierarchy_entries
   end
 
-  def clear_exemplars
+  def clear_preferred_entry
     Language.find_active.each do |lang|
       Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{taxon_concept.id}_#{lang.id}"))
     end

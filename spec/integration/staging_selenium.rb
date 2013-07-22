@@ -2,6 +2,11 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'capybara'
 include ActionController::Caching::Fragments
+# NOTE - this requires you install chromedriver.  Do it!  DO IT NOW!  brew install chromedriver
+Capybara.register_driver :chrome do |app|
+  Capybara::RackTest::Driver.new(app, :browser => :chrome)
+end
+Capybara.javascript_driver = :chrome
 
 # NOTE - *Important* ... you should enter a curator username/password for the curator specs to work correctly.
 # Remember to delete the information if/when you save this file for committing! ...We *could* create a fake curator
@@ -14,7 +19,7 @@ class CuratorLogin
   PASS = ''
 end
 
-describe 'Home page', :js => true do
+describe 'Home page', :type => :javascript do
 
   describe 'Languages' do
     after(:all) do
@@ -35,7 +40,7 @@ describe 'Home page', :js => true do
 
   end
 
-  it 'should load', :js => true do
+  it 'should load' do
     visit 'http://staging.eol.org/set_language?language=en&return_to=http%3A%2F%2Fstaging.eol.org'
     page.should have_content('EOL News')
   end

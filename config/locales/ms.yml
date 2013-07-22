@@ -49,6 +49,7 @@ ms:
         name: Nama komuniti
       contact: 
         comments: Pesanan
+        contact_subject_id: Perkara
         email: E-mel
         name: Nama
       content_page: 
@@ -477,6 +478,7 @@ ms:
   article_from: rencana dari
   article_from_supplier: Rencana daripada %{whom}
   article_more_about: Ketahui lebih lanjut mengenai rencana ini
+  article_of_taxon: Rencana %{taxon_name}
   article_rating: Penilaian rencana
   articles_in_languages_with_count: "Rencana-rencana di halaman ini terdapat dalam %{count} bahasa:"
   articles_in_other_languages_with_count: "Rencana-rencana di halaman ini terdapat dalam %{count} bahasa lain:"
@@ -928,6 +930,7 @@ ms:
   curator_profile_menu: Profil Kurator
   curator_question: Kurator?
   curator_scope_colon: "Skop kurator:"
+  curator_signup_message: Untuk memohon keistimewaan kurator, anda mesti menyatakan skop kelayakan anda di bawah. Anda akan diberitahu melalui e-mel jika permohonan anda untuk keistimewaan kurator diterima.
   curator_status_changed_by: Status kurator diubah oleh %{user} pada %{date}
   curators: "Kurator:"
   curators_empty: Kurator kami belum menyumbangkan maklumat kepada takson ini.
@@ -1587,10 +1590,12 @@ ms:
   image_map_alt_text: Peta %{vetted_status} ini mengenai %{taxon_name}
   image_map_from: peta dari
   image_map_from_supplier: Peta daripada %{whom}
+  image_map_of_taxon: Peta %{taxon_name}
   image_map_rating: Penilaian peta
   image_not_found: Gambar tidak dijumpai
   image_object: Objek gambar
   image_objects_will_contain_two_mediaurl_elements: Objek gambar akan mengandungi dua unsur 'mediaURL'; yang pertama ialah URL gambar dalam tapak web pembekal, dan yang kedua ialah URL versi ter-<i>cache</i> bagi bahantara tersebut yang dihoskan dalam pelayan EOL. Versi EOL gambar itu tentu diubah saiznya (tetapi dikekalkan nisbah bidangnya) jika gambar asal melebihi lebar 460 piksel atau panjang 345 piksel.
+  image_of_taxon: Gambar %{taxon_name}
   image_rating: Penilaian gambar
   images: Gambar
   images_in_red_are_not_trusted: Gambar bertanda merah tidak dipercayai.
@@ -1769,6 +1774,7 @@ ms:
   map_alt_text: Peta %{vetted_status} ini mengenai %{taxon_name}
   map_from: peta dari
   map_from_supplier: Peta daripada %{whom}
+  map_of_taxon: Peta %{taxon_name}
   map_rating: Penilaian peta
   maps_empty: Halaman ini belum mendapat sebarang peta.
   maps_empty_contribute_instructions: Pelajari cara menyumbangkan peta kepada EOL.
@@ -2026,6 +2032,7 @@ ms:
   please_indicate_curation_reason: "Sila pilih satu sebab dan/atau tinggalkan komen kurasi (pilihan):"
   please_refresh: Sila muatkan semula pelayar anda untuk melihat versi terbaru tapak sesawang EOL
   please_return_to_eol_homepage: Sila kembali ke halaman utama EOL
+  please_state_one_credential: "Sila nyatakan sekurang-kurangnya satu bukti kelayakan yang khusus daripada senarai ini:"
   please_wait: Sila tunggu...
   post_comment: Hantar Komen
   preferred_common_name_advisory_information: Nama am yang diutamakan untuk takson ini.
@@ -2228,6 +2235,7 @@ ms:
   sound_alt_text: Rakaman audio %{vetted_status} ini mengenai %{taxon_name}
   sound_from_supplier: Bunyi daripada %{whom}
   sound_of: Bunyi
+  sound_of_taxon: Audio %{taxon_name}
   sound_rating: Penilaian bunyi
   sounds_with_count: "%{count} Bunyi"
   source_and_additional_information: Sumber dan Maklumat Tambahan
@@ -2664,8 +2672,61 @@ ms:
     content_partners: 
       index: 
         meta_description: Persekutuan rakan kongsi %{user_full_name}.
+        meta_title: Rakan Kongsi Kandungan %{user_full_name}
+        tweet_text: Rakan kongsi kandungan %{user_full_name}
+    edit: 
+      form_tip_account: Untuk mendaftar masuk ke EOL, anda memerlukan nama pengguna EOL dengan kata laluan, ataupun anda boleh menyambungkan akaun pihak ketiga. Nama pengguna dan kata laluan diperlukan jika anda tiada akaun yang bersambung, tetapi jika anda ingin menukar kata laluan, hanya taipkan kata laluan baru di sini. Semua pengguna dikehendaki menyatakan alamat e-mel dan bahasa keutamaan  (%{required_icon}).
+      form_tip_account_oauth: Semua pengguna dikehendaki menyatakan alamat e-mel dan bahasa keutamaan  (%{required_icon}).
+      form_tip_curation: Bukti kelayakan dan skop kurasi adalah tidak wajib untuk Pembantu Kurator tetapi wajib untuk %{required_icon} Kurator Penuh dan Pakar
+      form_tip_profile: Perkara-perkara yang ditandai sebagai wajib %{required_icon} adalah wajib untuk kurator, tetapi tidak wajib untuk pengguna umum.
+      form_tip_profile_oauth: Nama pertama itu diwajibkan untuk semua. Perkara-perkara lain yang ditandai sebagai wajib %{required_icon} adalah wajib untuk kurator, tetapi tidak wajib untuk pengguna umum.
     new: 
+      complete_registration_header: Lengkapkan pendaftaran EOL anda
       create_user_header: Buka akaun <abbr title="Encyclopedia of Life">EOL</abbr> baru
+      create_user_with_eol_authentication_header: "Ataupun berikan bukti kelayakan baru:"
+      meta_title: Sertai EOL
+      sign_up_with_facebook_assistive: Daftar untuk EOL dengan menggunakan akaun Facebook anda.
+      sign_up_with_google_assistive: Daftar untuk EOL dengan menggunakan akaun Google anda.
+      sign_up_with_twitter_assistive: Daftar untuk EOL dengan menggunakan akaun Twitter anda.
+      sign_up_with_yahoo_assistive: Daftar untuk EOL dengan menggunakan akaun Yahoo anda.
+    newsfeeds: 
+      activity: 
+        meta_title: Suapan Kegiatan %{user_full_name}
+        tweet_text: kegiatan %{user_full_name}
+      activity_link: kegiatan
+      comments: 
+        meta_description: Suapan komen untuk %{user_full_name}.
+        meta_title: Suapan Komen %{user_full_name}
+        tweet_text: komen2 %{user_full_name}
+      comments_link: komen
+      newsfeed_link: berita
+      show: 
+        meta_description: Berita, kemaskini kegiatan dan komen untuk %{user_full_name}.
+        meta_title: Suapan Berita %{user_full_name}
+        tweet_text: Berita %{user_full_name}
+    notifications: 
+      edit: 
+        page_description: Semua pengemaskinian yang berikut (kecuali Buletin EOL) disediakan untuk anda di <a href="%{user_newsfeed_link}">suapan berit EOL</a> anda, tetapi ramai juga yang ingin menerima pesanan e-mel tentang jenis-jenis kegiatan tertentu yang amat menarik perhatian mereka. Anda boleh menggunakan butang-buang di bawah untuk melaras kekerapan e-mel EOL untuk disesuaikan dengan cita rasa anda
+        page_title: Tetapan pemberitahuan
+      update: 
+        notification_settings_successfully_updated: Tetapan pemberitahuan berjaya dikemaskinikan.
+        sorry_notification_settings_could_not_be_updated: Maaf, tetapan pemberitahuan tidak dapat dikemaskinikan.
+    open_authentications: 
+      errors: 
+        facebook: 
+          login_failed_not_connected: Maaf, kami tidak dapat menjumpai sambungan antara akaun Facebook anda dengan EOL. Jika anda sudah pun ada akaun EOL, sila <a href="%{login_url}">log masuk ke dalam EOL</a> dengan akaun lain, kemudian sambungkan akaun Facebook anda dalam tetapan profil EOL anda. Jika anda belum ada akaun EOL, sila <a href="%{register_url}">lengkapkan pendaftaran EOL anda</a> untuk membuka akaun.
+        google: 
+          login_failed_not_connected: Maaf, kami tidak dapat menjumpai sambungan antara akaun Google anda dengan EOL. Jika anda sudah pun ada akaun EOL, sila <a href="%{login_url}">log masuk ke dalam EOL</a> dengan akaun lain, kemudian sambungkan akaun Google anda dalam tetapan profil EOL anda. Jika anda belum ada akaun EOL, sila <a href="%{register_url}">lengkapkan pendaftaran EOL anda</a> untuk membuka akaun.
+        missing_attributes: Maaf, berlakunya masalah ketika mengakses butiran akaun pihak ketiga anda.
+        not_authorized_to_add_authentication: Maaf, kami tidak dibenarkan untuk menyambungkan akaun itu.
+        not_authorized_to_login: Maaf, kami tidak dibenarkan untuk melogmasukkan anda ke EOL dengan akaun itu.
+        remove_connection_failed: Maaf, berlakunya ralat, kami tidak dapat memutuskan sambungan itu.
+        twitter: 
+          login_failed_not_connected: Maaf, kami tidak dapat menjumpai sambungan antara akaun Twitter anda dengan EOL. Jika anda sudah pun ada akaun EOL, sila <a href="%{login_url}">log masuk ke dalam EOL</a> dengan akaun lain, kemudian sambungkan akaun Twitter anda dalam tetapan profil EOL anda. Jika anda belum ada akaun EOL, sila <a href="%{register_url}">lengkapkan pendaftaran EOL anda</a> untuk membuka akaun.
+        yahoo: 
+          login_failed_not_connected: Maaf, kami tidak dapat menjumpai sambungan antara akaun Yahoo! anda dengan EOL. Jika anda sudah pun ada akaun EOL, sila <a href="%{login_url}">log masuk ke dalam EOL</a> dengan akaun lain, kemudian sambungkan akaun Yahoo! anda dalam tetapan profil EOL anda. Jika anda belum ada akaun EOL, sila <a href="%{register_url}">lengkapkan pendaftaran EOL anda</a> untuk membuka akaun.
+      facebook: Facebook
+      google: Google
   users_about_me_header: Perihal saya
   users_content_partners_header: Rakan kongsi kandungan
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.
@@ -2690,6 +2751,7 @@ ms:
   vetted: Disemak
   video_alt_text: Video %{vetted_status} ini mengenai %{taxon_name}
   video_from_supplier: Video daripada %{whom}
+  video_of_taxon: Video %{taxon_name}
   video_rating: Penilaian video
   video_title_not_available_in_language: Tajuk tidak terdapat dalam %{language}
   videos_with_count: "%{count} video"

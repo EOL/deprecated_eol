@@ -40,8 +40,8 @@
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type_id == DataType.image.id && @taxon_page.can_set_exemplars?
                 .overlay
-                = form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
-                  :html => {:class => 'taxon_concept_exemplar_image'} do |f|
+                = form_for @taxon_page.taxon_concept_exemplar_image, :html => {:class => 'taxon_concept_exemplar_image'} do |f|
+                  = f.hidden_field :taxon_concept_id
                   %label
                     = f.radio_button :data_object_id, item.id, { :checked => (!@taxon_page.image.blank? && @taxon_page.image.id == item.id) }
                     = I18n.t(:set_as_exemplar)

@@ -57,30 +57,8 @@ class Taxa::MediaController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
 
-  def set_as_exemplar
-    unless current_user && current_user.min_curator_level?(:assistant)
-      raise EOL::Exceptions::SecurityViolation, "User does not have set_as_exemplar privileges"
-      return
-    end
-    taxon_concept_id = params[:taxon_id] || params[:taxon_concept_exemplar_image][:taxon_concept_id]
-    taxon_concept = TaxonConcept.find(taxon_concept_id.to_i) rescue nil
-
-    unless params[:taxon_concept_exemplar_image].nil? || params[:taxon_concept_exemplar_image][:data_object_id].blank?
-      data_object_id = params[:taxon_concept_exemplar_image][:data_object_id]
-    end
-
-    unless taxon_concept_id.blank? || data_object_id.blank?
-      TaxonConceptExemplarImage.set_exemplar(taxon_concept, data_object_id)
-    end
-
-    @data_object = DataObject.find_by_id(data_object_id)
-    log_action(@taxon_concept, @data_object, :choose_exemplar_image)
-
-    store_location(params[:return_to] || request.referer)
-    redirect_back_or_default taxon_media_path(taxon_concept_id)
-  end
-
 protected
+
   def meta_description
     @meta_description ||= t(".meta_description#{scoped_variables_for_translations[:preferred_common_name] ? '_with_common_name' : ''}#{@media.blank? ? '_no_data' : ''}", scoped_variables_for_translations.dup)
   end

@@ -102,12 +102,7 @@ Eol::Application.routes.draw do
         end
       end
     end
-    resources :media, :only => [:index], :controller => 'taxa/media' do
-      collection do
-        get 'set_as_exemplar'
-        post 'set_as_exemplar'
-      end
-    end
+    resources :media, :only => [:index], :controller => 'taxa/media'
     resources :names, :only => [:index, :create, :update], :controller => 'taxa/names' do
       collection do
         get 'common_names'
@@ -358,6 +353,8 @@ Eol::Application.routes.draw do
       get 'send_monthly_partner_stats_notification'
     end
   end
+
+  resource :taxon_concept_exemplar_image, only: :update
 
   # Putting these after the complex resources because they are less common.
   resources :tasks, :task_states, :task_names, :random_images

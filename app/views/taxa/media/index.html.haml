@@ -43,10 +43,10 @@
                 = form_for(TaxonConceptExemplarImage.new(taxon_concept: @taxon_page.taxon_concept), url: taxon_concept_exemplar_image_path, html: { class: 'taxon_concept_exemplar_image' }) do |f|
                   = f.hidden_field :taxon_concept_id
                   %label
-                    = f.radio_button :data_object_id, item.id, { :checked => (!@taxon_page.image.blank? && @taxon_page.image.id == item.id) }
+                    = radio_button_tag :data_object_id, item.id, { :checked => (!@taxon_page.image.blank? && @taxon_page.image.id == item.id) }
                     = I18n.t(:set_as_exemplar)
                   %fieldset.actions
-                    = f.submit I18n.t(:set_as_exemplar)
+                    = submit_tag I18n.t(:set_as_exemplar)
             = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
             %p.flag{:class => item_status_class}= item_status_label
             - vetted = item.vetted_by_taxon_concept(@taxon_concept)

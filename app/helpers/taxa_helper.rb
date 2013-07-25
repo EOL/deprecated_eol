@@ -155,6 +155,7 @@ module TaxaHelper
     else
       title = uri_components[:uri]
       if uri_components.has_key?(:description) && ! uri_components[:description].blank?
+        # TODO - when you work on this for accessability, you should break these up and then re-build it like this via JS:
         title = "<dt>#{title}</dt><dd>#{uri_components[:description]}</dd>"
       end
     end

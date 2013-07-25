@@ -173,11 +173,6 @@ class TaxonUserClassificationFilter
     @media_count ||= taxon_concept.media_count(user, _hierarchy_entry)
   end
 
-  # TODO - this belongs on a TaxonMedia object, when we make one...
-  def taxon_concept_exemplar_image
-    taxon_concept.taxon_concept_exemplar_image
-  end
-
   def image
     @image ||= taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end

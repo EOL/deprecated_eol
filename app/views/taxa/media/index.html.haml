@@ -40,13 +40,13 @@
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type_id == DataType.image.id && @taxon_page.can_set_exemplars?
                 .overlay
-                = form_for @taxon_page.taxon_concept_exemplar_image || TaxonConceptExemplarImage.new(taxon_concept: @taxon_page.taxon_concept), :html => {:class => 'taxon_concept_exemplar_image'} do |f|
-                  = f.hidden_field :taxon_concept_id
+                = form_tag(taxon_concept_exemplar_image_path, html: { class: 'taxon_concept_exemplar_image' }) do |f|
+                  = hidden_field_tag :taxon_concept_id, @taxon_page.taxon_concept.id
                   %label
-                    = f.radio_button :data_object_id, item.id, { :checked => (!@taxon_page.image.blank? && @taxon_page.image.id == item.id) }
+                    = radio_button_tag :data_object_id, item.id, { :checked => (!@taxon_page.image.blank? && @taxon_page.image.id == item.id) }
                     = I18n.t(:set_as_exemplar)
                   %fieldset.actions
-                    = f.submit I18n.t(:set_as_exemplar)
+                    = submit_tag I18n.t(:set_as_exemplar)
             = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
             %p.flag{:class => item_status_class}= item_status_label
             - vetted = item.vetted_by_taxon_concept(@taxon_concept)

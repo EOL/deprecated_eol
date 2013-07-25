@@ -245,4 +245,7 @@ $(function() {
     }
   }).disableSelection();
 
+  $(document).tooltip({content: function() { return $(this).prop('title'); } }); // A lot of work just to get HTML, but hey.
+
+
 });

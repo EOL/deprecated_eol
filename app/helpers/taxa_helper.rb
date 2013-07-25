@@ -154,6 +154,9 @@ module TaxaHelper
       title = nil
     else
       title = uri_components[:uri]
+      if uri_components.has_key?(:description) && ! uri_components[:description].blank?
+        title = "<dt>#{title}</dt><dd>#{uri_components[:description]}</dd>"
+      end
     end
     capture_haml do
       haml_tag tag_type, { :title => title } do

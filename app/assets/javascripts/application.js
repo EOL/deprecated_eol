@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery-ui-1.10.3.custom.min
 //= require autocomplete-rails
 //= require common
 //= require taxon_data

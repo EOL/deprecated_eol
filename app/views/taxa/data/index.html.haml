@@ -11,6 +11,7 @@
     %li{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(:toc_id => nil)), class: 'all'
     %li{ class: 'about' }= link_to I18n.t(:data_about_subtab), about_taxon_data_path(@taxon_page), remote: true
 .main_container#taxon_data
+  %h3.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
   - if @data.blank?
     .empty
       %p= I18n.t(:taxon_data_empty)

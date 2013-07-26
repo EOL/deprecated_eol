@@ -4279,6 +4279,7 @@ en:
   taxon_common_names_subtab_explanation: "Many people know organisms only by the common names, or \"vernacular\" names. Unlike scientific names, common names are almost always different for speakers of different languages. They may also vary regionally within a language. This tab shows all the common names provided to EOL for this organism from a variety of providers, including EOL curators. Currently we can only set one preferred common name per language on a given EOL page, but all the names should be searchable."
   taxon_concept_stats: "Taxon Concept Stats"
   taxon_data_empty: "No one has contributed any facts for this page yet."
+  taxon_data_header: "Data about %{taxon}"
   taxon_details_empty: "No one has contributed any details to this page yet."
   taxon_details_empty_in_this_language: "No one has contributed any details to this page in this language."
   taxon_education_empty: "No one has contributed any education resources to this page yet."

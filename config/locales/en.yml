@@ -3153,6 +3153,7 @@ en:
   data_object_toc_items_list:
     one: "Appears under %{quoted_toc_titles}"
     other: "Appears under %{quoted_toc_titles}"
+  data_overview_table_caption: "Quick facts"
   data_point_uri_summary_name: "data on %{taxon}"
   data_provided_by_user: "provided by %{whom}"
   data_provided_by_content_partner: "Source: %{whom}"

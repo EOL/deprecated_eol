@@ -265,3 +265,4 @@ qqq:
   image_title_with_taxa: "The 'taxa' variable here will be a list of taxa concatenated using the language-specific 'to_sentence' constructor' (though in 99% of cases it will only be one taxon). For example, 'Bola bola, Canis lupus, and Procyon lotor'. This translation is used as the title on image pages where the content provider didn't give us a better image title."
   data_show_n_more_rows: "'NNN' here will be replaced by JavaScript with a number, always over 10. I know this is not an optimal way to do a translation, but since it's being done by JS in a Rails system, it's not simple to improve this, so please do the best you can with this, here. It won't happen often.  :)"
   data_about_subtab: "Label used on the data page for the sub-tab describing what taxon data is and how EOL uses and displays it."
+  data_overview_table_caption: "Screen-reader only; this won't show up on the website for others. Identifies the table of data on the overview tab."

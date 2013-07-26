@@ -2,7 +2,7 @@
 - rows_to_show = 10
 .data_div
   %table.standard.data
-    %caption= I18n.t(:data_overview_table_caption)
+    %caption.assistive= I18n.t(:data_overview_table_caption)
     -# TODO - this logic should be in the "model" (even if the model is a hash/array):
     - unique_attributes = data.map { |r| r[:attribute] }.uniq
     - unique_attributes.each_with_index do |attribute, index|

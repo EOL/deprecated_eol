@@ -245,7 +245,6 @@ $(function() {
     }
   }).disableSelection();
 
-  $(document).tooltip({content: function() { return $(this).prop('title'); } }); // A lot of work just to get HTML, but hey.
-
+  $('[data-definition]').tooltip({items: '[data-definition]', content: function() { return $(this).attr('data-definition'); } }); // fn needed to get HTML formatting
 
 });

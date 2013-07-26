@@ -149,18 +149,17 @@ module TaxaHelper
 
   def display_uri(uri, tag_type = :span)
     uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
+    definition = nil
     if uri_components[:uri] == uri_components[:label]
       return uri if tag_type == :span
-      title = nil
     else
-      title = uri_components[:uri]
+      definition = "<strong>#{uri_components[:uri]}</strong>"
       if uri_components.has_key?(:description) && ! uri_components[:description].blank?
-        # TODO - when you work on this for accessability, you should break these up and then re-build it like this via JS:
-        title = "<dt>#{title}</dt><dd>#{uri_components[:description]}</dd>"
+        definition = "<dt>#{definition}</dt><dd>#{uri_components[:description]}</dd>"
       end
     end
     capture_haml do
-      haml_tag tag_type, { :title => title } do
+      haml_tag tag_type, { "data-definition" => definition } do
         haml_concat uri_components[:label]
       end
     end

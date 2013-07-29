@@ -4,6 +4,9 @@ require 'nokogiri'
 # WARNING: Regarding use of subject in this spec, if you are using with_tag you must specify body.should
 # due to bug @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
 
+# NOTE - I hate this spec. It's really, really hard to debug when something goes wrong. ...if anything is actually wrong.  In fact, I wonder if
+# this spec is effectively useless.
+
 class TaxonConcept
   def self.missing_id
     missing_id = TaxonConcept.last.id + 1

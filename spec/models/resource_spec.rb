@@ -10,6 +10,7 @@ describe Resource do
     @iucn_resource2 = Resource.gen(:content_partner => iucn_content_partner)
     content_partner = ContentPartner.gen(:user => User.gen)
     @resource = Resource.gen(:content_partner => content_partner)
+    HarvestEvent.delete_all
     @oldest_published_harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => 3.hours.ago)
     @latest_published_harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => 2.hours.ago)
     @latest_unpublished_harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => nil)
@@ -28,6 +29,7 @@ describe Resource do
   it "should return the resource's latest harvest event" do # NOTE - ordered by id, so...
     unless @resource.latest_harvest_event == @latest_unpublished_harvest_event
       puts "** Weird problem, not always reproducible: this usually works. Why didn't it work this time?"
+      puts "** If you are seeing this, remove the HarvestEvent.delete_all at the top of the file; that didn't do it."
       debugger
     end
     @resource.latest_harvest_event.should == @latest_unpublished_harvest_event

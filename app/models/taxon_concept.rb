@@ -444,14 +444,17 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def add_common_name_synonym(name_string, options = {})
-    agent     = options[:agent]
-    preferred = !!options[:preferred]
-    language  = options[:language] || Language.unknown
-    vetted    = options[:vetted] || Vetted.unknown
-    relation  = SynonymRelation.find_by_translated(:label, 'common name')
-    name_obj  = Name.create_common_name(name_string)
-    Synonym.generate_from_name(name_obj, :agent => agent, :preferred => preferred, :language => language,
-                               :entry => entry, :relation => relation, :vetted => vetted)
+    TaxonConcept.with_master do
+      agent     = options[:agent]
+      preferred = !!options[:preferred]
+      language  = options[:language] || Language.unknown
+      vetted    = options[:vetted] || Vetted.unknown
+      relation  = SynonymRelation.find_by_translated(:label, 'common name')
+      name_obj  = Name.create_common_name(name_string)
+      raise "Common name not created" unless name_obj
+      Synonym.generate_from_name(name_obj, :agent => agent, :preferred => preferred, :language => language,
+                                 :entry => entry, :relation => relation, :vetted => vetted)
+    end
   end
 
   def delete_common_name(taxon_concept_name)

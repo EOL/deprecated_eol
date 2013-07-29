@@ -1313,15 +1313,15 @@ zh-Hans:
           meta_description: "网络生命大百科中，有关由%{hierarchy_provider}提供分类的%{scientific_name}的BHL文献和信息。在网络生命大百科中阅读来自生物多样性遗产图书馆(BHL)的有关%{scientific_name}的文献。"
           meta_description_with_common_name: "网络生命大百科中，有关由%{hierarchy_provider}提供分类的%{preferred_common_name}，也称为%{scientific_name}的BHL文献和信息。在网络生命大百科中阅读来自生物多样性遗产图书馆(BHL)的有关%{preferred_common_name}的文献。"
           meta_keywords: ""
-          meta_title: "生物多样性遗传图书馆中%{scientific_name}的引用的文献（学名由%{scientific_nam}提供）"
-          meta_title_with_common_name: "生物多样性遗传图书馆中%{preferred_common_name}（%{scientific_name}）的引用的文献（学名由%{scientific_nam}提供）"
+          meta_title: "生物多样性遗传图书馆中%{scientific_name}的引用的文献（学名由%{scientific_name}提供）"
+          meta_title_with_common_name: "生物多样性遗传图书馆中%{preferred_common_name}（%{scientific_name}）的引用的文献（学名由%{scientific_name}提供）"
           tweet_text: "来自于#BHL 的关于%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供"
         meta_description: "网络生命大百科中，有关%{scientific_name}的BHL文献和信息。在网络生命大百科中阅读来自生物多样性遗产图书馆(BHL)的有关%{scientific_name}的文献。"
         meta_description_with_common_name: "网络生命大百科中，有关%{preferred_common_name}，也称为%{scientific_name}的BHL文献和信息。在网络生命大百科中阅读来自生物多样性遗产图书馆(BHL)的有关%{preferred_common_name}的文献。"
         meta_keywords: ""
         meta_keywords_with_common_name: ""
         meta_title: "生物多样性遗传图书馆中%{scientific_name}的引用"
-        meta_title_with_common_name: "BHL中关于%{preferred_common_name}的参考文献（%{scientific_nam}）"
+        meta_title_with_common_name: "BHL中关于%{preferred_common_name}的参考文献（%{scientific_name}）"
         tweet_text: "来自于#BHL 的关于%{scientific_name}的文献"
       show:
         hierarchy_entry:

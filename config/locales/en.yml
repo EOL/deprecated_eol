@@ -2173,7 +2173,7 @@ en:
           an_unknown_user_split_classifications_from_it: "An unknown user split the classifications by %{classifications} to <a href='%{to}'>their own page</a>."
           user_split_classifications_from_an_unknown_taxon: "<strong>%{user}</strong> split the classifications by %{classifications} from an unknown page to <a href='%{to}'>their own page</a>."
           user_split_classifications_from_taxon: "<strong>%{user}</strong> split the classifications by %{classifications} from %{taxon} to <a href='%{to}'>their own page</a>."
-          user_split_classifications_from_taxon: "<strong>%{user}</strong> split the classifications by %{classifications} to <a href='%{to}'>their own page</a>."
+          user_split_classifications_from_it: "<strong>%{user}</strong> split the classifications by %{classifications} to <a href='%{to}'>their own page</a>."
         merge:
           an_unknown_user_merged_to_an_unknown_taxon: "An unknown user merged two unknown pages."
           an_unknown_user_merged_to_taxon: "An unknown user merged another page to %{target}."

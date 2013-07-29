@@ -43,7 +43,7 @@ class Taxa::NamesController < TaxaController
     common_names_count
   end
 
-  # POST /pages/:taxon_id/names currently only used to add common_names
+  # POST /pages/:taxon_id/names NOTE - this is currently only used to add common_names
   def create
     if params[:commit_add_common_name]
       agent = current_user.agent

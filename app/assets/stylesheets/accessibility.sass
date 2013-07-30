@@ -1492,11 +1492,11 @@ ul.tabs
       input[type="text"]
         +input(100px)
   table.data
-    border-bottom: 1px solid $grayblue
-    border-top: 1px solid $grayblue
-    border-right: 1px solid $grayblue
-    border-left: 1px solid $grayblue
     tbody
+      border-bottom: 1px solid $grayblue
+      border-top: 1px solid $grayblue
+      border-right: 1px solid $grayblue
+      border-left: 1px solid $grayblue
       tr
         border: 0
         span.comments
@@ -1605,19 +1605,20 @@ ul.tabs
         float: right
   table.meta
     line-height: 90%
+    padding: 0px 0px 15px
     td
       padding: 0px 5px !important
     th
       width: 35% !important
       padding: 0px !important
-      &.title
-        text-align: center !important
-        font-weight: bold
-        text-transform: none
-        font-size: .8em
-        letter-spacing: 1px
-        text-decoration: underline
-    padding: 0px 0px 15px
+    caption
+      text-align: center !important
+      font-weight: bold
+      text-transform: none
+      font-size: .8em
+      letter-spacing: 1px
+      margin-bottom: 0.4em
+      border-bottom: 1px solid $grayblue
 
 #data_summary
   span.remove

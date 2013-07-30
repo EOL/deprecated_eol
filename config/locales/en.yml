@@ -3139,6 +3139,7 @@ en:
   data_row_excluded_from_overview_notice: "Note: this row has been excluded from the quick facts."
   data_row_add_exemplar_button: "add to Quick Facts"
   data_row_remove_exemplar_button: "remove from Quick Facts"
+  data_row_arrow_alt: "Switch between showing and hiding the additional details about this fact, if you have javascript enabled."
   data_row_hide_button: "Hide Row"
   data_row_unhide_button: "Unhide Row"
   data_summary_header: "Quick Facts"

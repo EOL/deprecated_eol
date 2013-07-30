@@ -129,7 +129,9 @@ $(function() {
     });
   });
 
-  $('table.data tr.actions').hide().prev().find('.fold').html('<img src="/assets/arrow_fold_right.png" />').closest('tr').on('click',
+  $('table.data .fold a').click(function() { $(this).closest('tr').click(); return(false); }); // These links just click the row, with JS.
+
+  $('table.data tr.actions').hide().prev().find('.fold img').attr('src', "/assets/arrow_fold_right.png").closest('tr').on('click',
     function(e) {
     // if the target of the click is a link, do not hide the metadata
     if($(e.target).closest('a').length) return;

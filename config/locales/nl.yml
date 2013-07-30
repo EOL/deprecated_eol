@@ -552,7 +552,8 @@ nl:
           an_unknown_user_split_classifications_from_it: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
           an_unknown_user_split_classifications_from_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van %{taxon} naar <a href='%{to}'>de eigen pagina</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplits naar <a href='%{to}'>hun eigen pagina</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} van %{taxon} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: Een onbekende gebruiker heeft de miniatuurafbeelding gewijzigd van "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: Een onbekende gebruiker heeft de miniatuurafbeelding gewijzigd van een onbekende afbeelding.
@@ -2225,7 +2226,7 @@ nl:
         last_action: Laatste handeling
         latest_published_harvest_event: Laatst gepubliceerd
         logo_current: "Huidige logo:"
-        logo_new: "Een nieuwe logo uploaden:"
+        logo_new: "Een nieuw logo uploaden:"
         notes: Projectnotities <small>(beperkt zichtbaar)</small>
         oldest_published_harvest_event: Voor het eerst gepubliceerd
         public_more: De profielen van publieke contentpartners zijn zichtbaar voor iedereen en partnergegevens bijgesloten in contentpartnerlijsten. Deselecteer om de partnergegevens uit te sluiten van lijsten en toegang tot profielen te beperken tot de gebruiker die de content heeft aangemaakt en EOL-beheerders.

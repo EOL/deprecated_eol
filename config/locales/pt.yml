@@ -24,7 +24,7 @@ pt:
   account_information: Informações sobre a conta
   account_registered_but_not_ready_try_later: A sua conta está registada, mas não está pronta para ser acedida. Por favor, tente novamente em cinco minutos.
   action: Ação
-  action_not_available_error: Lamentamos, mas esta acção não está disponível.
+  action_not_available_error: Lamentamos, mas esta ação não está disponível.
   actions: Ações
   active_colon: "Ativo:"
   activerecord: 
@@ -35,7 +35,7 @@ pt:
         logo: Imagem principal da coleção
         name: Nome da coleção
         show_references: Referências (texto ou URL)
-        sort_style_id: Direcção de ordenação por defeito
+        sort_style_id: Direção de ordenação por defeito
       collection_item: 
         annotation: Anotação
         refs: Referências
@@ -87,7 +87,7 @@ pt:
         rights_statement: Declaração dos direitos
         source_url: URL de origem
       eol_statistic: 
-        active_curators: Curadores activos
+        active_curators: Curadores ativos
         base_pages: Páginas de base
         collections_count: Colecções
         communities_count: Comunidades
@@ -95,21 +95,21 @@ pt:
         content_partners_with_published_resources: Com recursos publicados
         content_partners_with_published_trusted_resources: Com recursos publicados confiáveis
         created_at: Criado em
-        curator_actions_in_the_last_30_days: Acções do curador nos últimos 30 dias
+        curator_actions_in_the_last_30_days: Ações do curador nos últimos 30 dias
         curators: Curadores
         curators_assistant: Curadores Assistentes
         curators_full: Curadores Plenos
         curators_master: Curadores Mor
-        data_objects: Objectos de Dados
-        data_objects_images: Objectos de Imagem
-        data_objects_maps: Objectos de mapa
-        data_objects_sounds: Objectos de áudio
-        data_objects_texts: Objectos de texto
-        data_objects_trusted: Objectos de dados confiáveis
+        data_objects: Objetos de dados
+        data_objects_images: Objetos de imagem
+        data_objects_maps: Objetos de mapa
+        data_objects_sounds: Objetos de áudio
+        data_objects_texts: Objetos de texto
+        data_objects_trusted: Objetos de dados confiáveis
         data_objects_trusted_or_unreviewed_but_hidden: Confiável ou não revisto mas escondido
-        data_objects_unreviewed: Objectos de dados não revistos
-        data_objects_untrusted: Objectos de dados não confiáveis
-        data_objects_videos: Objectos de vídeo
+        data_objects_unreviewed: Objetos de dados não revistos
+        data_objects_untrusted: Objetos de dados não confiáveis
+        data_objects_videos: Objetos de vídeo
         hotlist_pages: Páginas na Hotlist
         lifedesk_data_objects: Objetos de dados de LifeDesks
         lifedesk_taxa: Taxa de LifeDesks
@@ -121,12 +121,12 @@ pt:
         newly_published_resources_in_the_last_30_days: Recém publicado no último mês
         objects_curated_in_the_last_30_days: Objectos curados nos últimos 30 dias
         pages_count: Número total de páginas
-        pages_curated_by_active_curators: Páginas com curadoria de curadores activos
+        pages_curated_by_active_curators: Páginas com curadoria de curadores ativos
         pages_with_BHL_links: Páginas com ligações à BHL
         pages_with_BHL_links_no_text: Páginas sem texto com ligações à BHL
         pages_with_BHL_links_only: Páginas com ligações à BHL apenas
-        pages_with_at_least_a_curatorial_action: Páginas com acção curatorial
-        pages_with_at_least_a_trusted_object: Páginas com objecto de confiança
+        pages_with_at_least_a_curatorial_action: Páginas com ação curatorial
+        pages_with_at_least_a_trusted_object: Páginas com objeto de confiança
         pages_with_content: Páginas com conteúdo
         pages_with_image: Páginas com imagens
         pages_with_image_no_text: Páginas com imagens, mas sem texto
@@ -182,7 +182,7 @@ pt:
       notification: 
         comment_on_my_collection: Um comentário sobre uma colecção que você gere
         comment_on_my_community: Um comentário em uma das comunidades de que é membro
-        comment_on_my_contribution: Um comentário e/ou acção curatorial em um contributo seu
+        comment_on_my_contribution: Um comentário e/ou ação curatorial em uma contribuição sua
         comment_on_my_profile: Um comentário no seu perfil
         comment_on_my_watched_item: Comentários sobre objectos, taxa, colecções ou comunidades na sua lista de páginas vigiadas
         invitation_to_community: Convite para participar numa comunidade
@@ -291,13 +291,13 @@ pt:
               inaccessible: é inacessível, o URL deve ser acessível ao público
               invalid: é inválido, deve apontar para um ficheiro TAR.GZ, TGZ ou ZIP file
       template: 
-        body: Os campos seguintes não foram validados correctamente
+        body: "Os campos seguintes não foram validados corretamente:"
         header: 
           one: "%{count} erro de validação encontrado"
           other: "%{count} erros de validação encontrados"
     models: 
       user: conta
-  activity: Actividade
+  activity: Atividade
   activity_log_empty: Ninguém forneceu atualizações ainda.
   activity_log_empty_learn_more_link: Saiba como contribuir
   activity_user_created_text: <strong>%{user}</strong> adicionou texto a "%{object_name}" em "%{taxon_concept}".
@@ -323,7 +323,7 @@ pt:
   admin_content_page_child_new_link: Criar página secundária
   admin_content_page_create_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a>  criada com sucesso.
   admin_content_page_create_unsuccessful_error: Desculpe, ocorreu um erro, a página não foi criada.
-  admin_content_page_delete_confirmation: Tem a certeza de que deseja eliminar "%{page_name}" e todas as traduções? Acções de eliminação não podem ser desfeitas.
+  admin_content_page_delete_confirmation: Tem a certeza de que deseja eliminar "%{page_name}" e todas as traduções? As páginas eliminadas não podem ser recuperadas.
   admin_content_page_delete_successful_notice: A página %{page_name} e traduções associadas foram eliminadas.
   admin_content_page_edit_header: Atualizar as informações básicas sobre a página para <em>%{page_name}</em>
   admin_content_page_edit_tip: Recomenda-se que não edite o nome único desta página a não ser que esteja plenamente consciente das consequências, incluindo o impacto das ligações para esta página, ou a rotas nomeadas. É %{required_icon} necessário um nome único.
@@ -337,7 +337,7 @@ pt:
   admin_content_page_update_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a> atualizada com sucesso.
   admin_content_page_update_unsuccessful_error: Desculpe, ocorreu um erro, a página não foi atualizada.
   admin_content_pages_empty: Não foram encontradas páginas de conteúdo.
-  admin_content_pages_index_information: A lista seguinte inclui todas as páginas estáticas actualmente disponívels no site EOL. Cada página tem uma ou mais traduções. Quando criar uma página nova será pedido que adicione uma tradução. Traduções publicadas são acessíveis publicamente.
+  admin_content_pages_index_information: A lista seguinte inclui todas as páginas estáticas atualmente disponíveis no site EOL. Cada página tem uma ou mais traduções. Quando criar uma página nova será pedido que adicione uma tradução. Traduções publicadas são acessíveis publicamente.
   admin_content_pages_link: Administração de Conteúdo
   admin_content_pages_page_title: "Administração: Gestão de Conteúdos"
   admin_content_partners_index_header: Parceiros de conteúdo
@@ -354,14 +354,14 @@ pt:
   admin_content_partners_statistics_first_published_download_csv_submit: Download no formato CSV
   admin_content_partners_statistics_link: Estatísticas
   admin_home: início admin
-  admin_information: Este é a nova consola de administração para o EOL V2. Estamos no processo de transferência de funcionalidade administrativa de V1. Se não aparece a secção de administração de que está à procura, visite a <a href="/administrator">V1 Consola de Administração</a>.
+  admin_information: Este é a nova consola de administração para o EOL V2. Estamos no processo de transferência de funcionalidade administrativa de V1. Se não aparece a seção de administração de que está à procura, visite a <a href="/administrator">V1 Consola de Administração</a>.
   admin_link: Visão geral
   admin_notes_not_visible_to_user: "Notas de admin (não visíveis a utilizadores):"
   admin_page_title: "Administração: visão geral"
   admin_statistics_link: Estatísticas
   admin_translated_content_page_create_successful_notice: Foi adicionada uma tradução a <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Desculpe, ocorreu um erro, a tradução não pôde ser adicionada.
-  admin_translated_content_page_delete_confirmation: Tem a certeza de que deseja excluir a versão em %{language} de "%{page_name}". Uma acção de eliminação não pode ser desfeita.
+  admin_translated_content_page_delete_confirmation: Tem a certeza de que deseja excluir a versão em %{language} de "%{page_name}". As páginas eliminadas não podem ser recuperadas.
   admin_translated_content_page_delete_successful_notice: A traducão da página <em>%{page_name}</em> em %{language} foi eliminada.
   admin_translated_content_page_edit_subheader: Editar a tradução em %{language} de <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Um título e corpo são %{required_icon} necessários.
@@ -434,11 +434,11 @@ pt:
   associated_with_video_header: Neste vídeo
   associations_more_link: mais <span class="assistive">associações de taxon</span>
   attribute: Atributo
-  audio_current_time_assistive: Com Javascript habilitado, isto indicará a actual posição de reprodução do ficheiro de áudio em minutos e segundos.
+  audio_current_time_assistive: Com JavaScript habilitado, isto indicará a atual posição de reprodução do ficheiro de áudio em minutos e segundos.
   audio_duration_assistive: Com Javascript habilitado, isto indicará o tamanho do ficheiro de áudio em minutos e segundos. Dependendo do tamanho do ficheiro pode demorar um pouco para o Javascript calcular o tamanho do ficheiro e exibir um valor aqui.
   audio_mute: sem som
   audio_pause: pausa
-  audio_pause_assistive: Com Javascript activado este link permitirá que pause um ficheiro de áudio adjacente que esteja a tocar, caso contrário, por favor, ignore este link.
+  audio_pause_assistive: Com Javascript ativado este link permitirá que pause um ficheiro de áudio adjacente que esteja a tocar, caso contrário, por favor, ignore este link.
   audio_play: reproduzir
   audio_stop: parar
   audio_stop_assistive: Com Javascript habilitado este link permitirá que você interrompa um ficheiro de áudio adjacente que esteja a tocar, caso contrário, por favor, ignore este link.
@@ -456,7 +456,7 @@ pt:
   biodiversity_heritage_library: Biblioteca de Património de Biodiversidade
   biomedical_terms: Termos biomédicos
   biomedical_terms_clouds_provided_by: "'Cloudes' fornecidas pelo projecto de MBL denominado <a href=\"%{supplier_url}\">Biology of Aging project</a>."
-  biomedical_terms_introduction: Estes termos são obtidos buscando na bases de dados de literatura biomédica, <a href="%{pubmed_url}">PubMed</a> pelo nome <em>%{scientific_name}</em> Os resultados são analizados com a ferramenta <a href="%{ligercat_url}">LigerCat</a>, que constrói a nuvem a partir dos <a href="%{mesh_url}">Medical Subject Headings (MESH)</a> mais relevante. O tamanho relativo de cada termo indica o número de vezes que aparece nos resultados de busca do PubMed. Clique num termo para aceder à nuvem LigerCat completa, com capacidade de busca directa no PubMed.
+  biomedical_terms_introduction: Estes termos são obtidos buscando na bases de dados de literatura biomédica, <a href="%{pubmed_url}">PubMed</a> pelo nome <em>%{scientific_name}</em> Os resultados são analisados com a ferramenta <a href="%{ligercat_url}">LigerCat</a>, que constrói a nuvem a partir dos <a href="%{mesh_url}">Medical Subject Headings (MESH)</a> mais relevante. O tamanho relativo de cada termo indica o número de vezes que aparece nos resultados de busca do PubMed. Clique num termo para aceder à nuvem LigerCat completa, com capacidade de busca direta no PubMed.
   biomedical_terms_provided_by: Termos fornecidos pelo <a href="%{supplier_url}">PubMed</a>.
   browsable: Navegável
   browse_hierarchy: navegar pela hierarquia
@@ -495,7 +495,7 @@ pt:
     one: "Encontrado em %{count} classificação "
     other: Encontrado em %{count} classificações
   click_on_a_user_to_view_the_users_detailed_profile: Clique em um utilizador para ver o perfil detalhado de um utilizador, clique numa espécie para ver a página onde o texto existe (use o botão Voltar do seu navegador para voltar aqui).
-  click_on_a_username_to_view_the_users_detailed_profile: Clique em um nome de utilizador para ver o perfil detalhado de um utilizador, clique no tipo de dados para ver o objecto que foi comentado (use o botão Voltar do seu navegador para voltar aqui), clique em "editar" para editar o comentário ou clique em "apagar" para eliminar permanentemente o comentário.
+  click_on_a_username_to_view_the_users_detailed_profile: Clique em um nome de utilizador para ver o perfil detalhado de um utilizador, clique no tipo de dados para ver o objeto que foi comentado (use o botão Voltar do seu navegador para voltar aqui), clique em "editar" para editar o comentário ou clique em "apagar" para eliminar permanentemente o comentário.
   close_this_window_to_return_to_edit_window: FECHE ESTA JANELA PARA VOLTAR À JANELA DE EDIÇÃO
   cms_available_in_languages: "Esta página está disponível em:"
   cms_missing_content_message: Pedimos desculpa, mas esta página não está disponível nesta língua.
@@ -552,8 +552,8 @@ pt:
     one: "%{count} nome comum"
     other: "%{count} nomes comuns"
   communities_filter: Comunidades
-  communities_index_empty: Não há nenhuma comunidade activa.
-  communities_index_header: Comunidades activas
+  communities_index_empty: Não há comunidades ativas.
+  communities_index_header: Comunidades ativas
   communities_link: Comunidades
   communities_page_title: Comunidades
   communities_summary_empty: Este taxon ainda não foi destacado em nenhuma comunidade.
@@ -564,7 +564,7 @@ pt:
     one: "%{count} Comunidade"
     other: "%{count} Comunidades"
   community: Comunidade
-  community_activity: Actividade comunitária
+  community_activity: Atividade da comunidade
   community_contributions_with_count: 
     one: "%{count} Contribuição"
     other: "%{count} Contribuições"
@@ -589,7 +589,7 @@ pt:
   community_tab_collections_description: Coleções são criadas por utilizadores EOL para reunir espécies, multimédia, artigos, ou mesmo membros que tenham algo em comum, como geografia, ecologia ou um significado pessoal.  As Comunidades podem "destacar" colecções que são de especial interesse e valor para eles.
   community_tab_collections_header: Coleções
   community_tab_communities_description: Comunidades são grupos de membros da EOL que se juntam para partilhar os seus interesses e experiências. As comunidades da EOL são organizadas à volta de uma ou mais  colecções EOL, e oferecem aos seus membros uma maneira de se focarem em tópicos de interesse comum. Mais informação sobre comunidades EOL, incluindo instruções para criar a sua própria, está disponível na <a href='/info/communities'>página de ajuda</a>.
-  community_tab_curators_description: Curadores são utilizadores da EOL com perícia biológica que dispensam o seu tempo a rever conteúdo na EOL, assegurando que o que vê está correcto e é de boa qualidade.
+  community_tab_curators_description: Curadores são utilizadores da EOL com perícia biológica que dispensam o seu tempo a rever conteúdo na EOL, assegurando que o que vê está correto e é de boa qualidade.
   confirm_delete_community: Tem a certeza que quer eliminar esta comunidade? Os membros restantes ainda poderão a vê-la e as notícias serão mantidas, mas não aparecerá em procuras ou em páginas de taxon, e não poderá mais ser editada.
   confirm_leave: Tem a certeza de que deseja deixar esta comunidade?
   confirm_password_colon: "Confirmar senha:"
@@ -642,13 +642,13 @@ pt:
   content_partner_logo_alt_text: Logótipo do parceiro de conteúdo %{partner_name}
   content_partner_managed_by_header: Gerido por
   content_partner_new_edit_form_profile_header: Informações de perfil do parceiro de conteúdo
-  content_partner_new_edit_form_tip: Algumas das informações que inserir aqui ficarão publicamente visíveis. Descrição e nome do projecto são %{required_icon} obrigatórios.
+  content_partner_new_edit_form_tip: Algumas das informações que inserir aqui ficarão publicamente visíveis. Descrição e nome do projeto são %{required_icon} obrigatórios.
   content_partner_new_link: Adicionar novo parceiro de conteúdo
   content_partner_new_page_subheader: Adicionar um novo parceiro de conteúdo
-  content_partner_notes_empty: Não existem notas adicionais para este projecto.
+  content_partner_notes_empty: Não existem notas adicionais para este projeto.
   content_partner_notes_header: Notas do projeto
   content_partner_overview_agreement_header: Acordo de parceria
-  content_partner_overview_agreement_link: Ver acordo actual
+  content_partner_overview_agreement_link: Ver acordo atual
   content_partner_overview_link: Visão geral do parceiro
   content_partner_overview_link_back_to: voltar à visão geral do parceiro
   content_partner_public_false: Privado
@@ -688,7 +688,7 @@ pt:
   content_partner_resource_vetted_true: Sim
   content_partner_resource_view_link: Ver
   content_partner_resources_header: Recursos
-  content_partner_resources_information: Recursos são conjuntos de dados que estão disponíveis para ser recolhidos pela EOL. Dados recolhidos são integrados na base de dados da EOL e servidos ao público através do site e API da EOL. Ficheiros de recursos podem ser quer carregados directamente na EOL ou, se disponibilizar o ficheiro de recurso num servidor Web público, a EOL pode automaticamente extrair os dados a intervalos regulares que pode definir. Cada ficheiro de recurso deve estar no formato <a href="%{eol_transfer_schema_url}">EOL Transfer Schema</a>
+  content_partner_resources_information: Recursos são conjuntos de dados que estão disponíveis para ser recolhidos pela EOL. Dados recolhidos são integrados na base de dados da EOL e servidos ao público através do site e API da EOL. Ficheiros de recursos podem ser quer carregados diretamente na EOL ou, se disponibilizar o ficheiro de recurso num servidor Web público, a EOL pode automaticamente extrair os dados a intervalos regulares que pode definir. Cada ficheiro de recurso deve estar no formato <a href="%{eol_transfer_schema_url}">EOL Transfer Schema</a>
   content_partner_resources_link: Recursos &amp; Contactos
   content_partner_resources_link_back_to: voltar para recursos &amp; contactos
   content_partner_resources_policy_information: Antes de adicionar os recursos de dados por favor reveja e aceite os seguintes termos do acordo de uso para parceiros de conteúdo.
@@ -750,8 +750,8 @@ pt:
   create_community_about_text: Está prestes a criar uma comunidade em torno do conteúdo de "%{collection_name}".  Todos os utilizadores serão capazes de se juntar à sua Comunidade, mas somente os membros a quem conceder o estatuto de "gestor" terão permissão para editar a própria comunidade ou a colecção associada com a sua comunidade.
   create_community_around_this_collection_header: Criar uma comunidade em torno desta coleção
   create_community_button: Criar comunidade
-  create_community_unsuccessful_error: Desculpe, ocorreu um erro, a sua comunidade não foi criada. Certifique-se que todos os campos estão preenchidos correctamente.
-  create_user_unsuccessful_error: Desculpe, ocorreu um erro, a sua nova conta não foi criada. Por favor, certifique-se que todos os campos estão preenchidos correctamente.
+  create_community_unsuccessful_error: Desculpe, ocorreu um erro, a sua comunidade não foi criada. Certifique-se que todos os campos estão preenchidos corretamente.
+  create_user_unsuccessful_error: Desculpe, ocorreu um erro, a sua nova conta não foi criada. Por favor, certifique-se que todos os campos estão preenchidos corretamente.
   created: Criado
   created_at: Criado Em
   created_by: Criado por
@@ -783,7 +783,7 @@ pt:
   curator_scope_colon: "Âmbito de curadoria:"
   curator_status_changed_by: Status do curador mudado por %{user} em %{date}
   curators: Curadores
-  curators_empty: Os nossos curadores ainda não tomaram qualquer acção nesta página.
+  curators_empty: Os nossos curadores ainda não tomaram qualquer ação nesta página.
   curators_summary_header_with_count: 
     one: Revisto por %{count} curador
     other: Revisto por %{count} curadores
@@ -792,13 +792,13 @@ pt:
     one: "%{count} Curador"
     other: "%{count} Curadores"
   current_language: "Língua: %{iso_code}"
-  currently_in_eol: Actualmente na Enciclopédia da Vida
+  currently_in_eol: Atualmente na Enciclopédia da Vida
   daily: Diariamente
   darwin_core: Darwin Core
   dashboard: Painel de controlo
   data_database_colon: "Dados:"
   data_object_ignore: ignorar este item
-  data_object_not_associated_with_any_hierarchies: Este objecto de dados não está associado com nenhuma hierarquia.
+  data_object_not_associated_with_any_hierarchies: Este objeto de dados não está associado com nenhuma hierarquia.
   data_object_undo_ignore: remover da lista de ignorados
   data_objects: 
     show: 
@@ -1047,7 +1047,7 @@ pt:
   focus_list_newsfeed: Newsfeed da Lista de Foco
   forgot_password: Esqueceu a senha
   forgot_password_form_cancel: Cancelar
-  forgot_password_form_choose_username_blank_error: Por favor, seleccione a conta para a qual deseja redefinir a senha.
+  forgot_password_form_choose_username_blank_error: Por favor, selecione a conta para a qual deseja redefinir a senha.
   forgot_password_form_choose_username_legend: Escolha uma conta
   forgot_password_form_header: Redefinir a sua senha
   forgot_password_form_username_or_email_blank_error: Por favor, insira o seu nome de utilizador ou endereço de e-mail para redefinir a sua senha.
@@ -1116,7 +1116,7 @@ pt:
         parent_content_page_id_more: Opcionalmente, seleccione um tópico de raíz onde esta página deve estar incluída.
       content_partner: 
         created_at: Registado
-        current_agreement: Acordo actual
+        current_agreement: Acordo atual
         description_of_data: Descrição de dados <small>(privado)</small>
         description_of_data_more: Por favor, forneça-nos uma descrição do tipo de informação que você tem, quantos itens estão disponíveis, a que organismos se referem e se eles foram conjugados ou verificados por peritos qualificados ou uma comunidade bem informada.
         display_name: Nome de exibição <small>(opcional)</small>
@@ -1139,7 +1139,7 @@ pt:
         refs: Referências <small>(colocar cada referência em uma nova linha)</small>
         rights_holder: Detentor dos direitos
         rights_statement: Declaração de direitos
-        source_url: URL para o objecto de dados original
+        source_url: URL para o objeto de dados original
         toc_item: Sub-capítulo
       data_object_link: 
         link_type: Categoria
@@ -1170,11 +1170,11 @@ pt:
         connected: Conectado
       resource: 
         accesspoint_url: URL do conjunto de dados
-        accesspoint_url_existing_remove: Este recurso está actualmente a ser carregado da URL terminada em <em>%{accesspoint_url}</em>. Carregar um ficheiro se gostaria de remover a URL existente e carregar o recurso de um ficheiro em vez disso (não recomendado).
+        accesspoint_url_existing_remove: Este recurso está atualmente a ser carregado da URL terminada em <em>%{accesspoint_url}</em>. Carregar um ficheiro se gostaria de remover a URL existente e carregar o recurso de um ficheiro em vez disso (não recomendado).
         administration_settings: Configurações de administração <small>(visível apenas para administradores EOL)</small>
         dataset: Conjunto de dados
-        dataset_existing_remove: O ficheiro <em>%{file_name}</em> está actualmente associado com este recurso. Digite um URL se você gostaria de substituir o ficheiro <em>%{file_name}</em> existente e carregar o recurso de um URL em vez (recomendado).
-        dataset_existing_replace: O ficheiro <em>%{file_name}</em> está actualmente associado com este recurso. Carregar um ficheiro novo para substituir o ficheiro <em>%{file_name}</em> existente.
+        dataset_existing_remove: O ficheiro <em>%{file_name}</em> está atualmente associado com este recurso. Digite um URL se você gostaria de substituir o ficheiro <em>%{file_name}</em> existente e carregar o recurso de um URL em vez (recomendado).
+        dataset_existing_replace: O ficheiro <em>%{file_name}</em> está atualmente associado com este recurso. Carregar um ficheiro novo para substituir o ficheiro <em>%{file_name}</em> existente.
         dwc_archive_url: "Se há um Ficheiro Darwin Core associado com este recurso, entre a URL aqui <small>(apenas TAR.GZIP, TAR.GZ or TGZ)</small>:"
         hierarchy: Hierarquia
         latest_harvest_event: Última colheita
@@ -1212,11 +1212,11 @@ pt:
         credentials_more_academic: Corpo docente, funcionários ou estudante de pós-graduação em uma universidade ou departamento de faculdade relevante.
         credentials_more_author: Autoria de uma publicação revista por pares (fornecer referência).
         credentials_more_professional: Membro de uma sociedade profissional.
-        credentials_more_referral: Referência do curador actual.
+        credentials_more_referral: Referência do curador atual.
         credentials_more_successful_assistant_curator: História de sucesso como curador assistente.
         curation_application: Torne-se um curador
         curation_application_more: Se gostaria de modificar os seus privilégios de curadoria, basta apresentar um pedido e reveremos a sua elegibilidade.
-        curator_level: É actualmente %{curator_level_with_indefinite_article}.
+        curator_level: Você atualmente é %{curator_level_with_indefinite_article}.
         curator_scope: Âmbito de curadoria
         curator_scope_more: "Por favor indique o âmbito da sua competência. Por exemplo: \"Roedores de Bornéu\", \"Interacções tri-tróficas\" ou \"Problemas de conservação nos peixes\". Isto não irá limitar a sua capacidade de curadoria, mas será informativo para a comunidade EOL."
         email_reports_frequency_hours: Com que frequência deseja receber alertas de e-mail sobre actividade nas suas contribuições?
@@ -1237,7 +1237,7 @@ pt:
         revision_url: Revisão URL <small>(por exemplo, http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Ao inserir um URL de revisão da Wikipédia você está a pedir que a EOL ingira essa revisão em especial como controlada. Ela irá substituir a versão actual do mesmo artigo na EOL se já o tivermos.
     select: 
-      prompt: Por favor seleccione
+      prompt: Por favor selecione
     submit: 
       cancel: Cancelar
       collection_item: 
@@ -1380,7 +1380,7 @@ pt:
   key: Chave
   label: Etiqueta
   language: "Língua:"
-  language_selector_advisory_information: Esta é uma lista de línguas em que o conteúdo do site está disponível. Para mudar a língua actual, seleccione uma língua alternativa a partir desta lista.
+  language_selector_advisory_information: Esta é uma lista de línguas em que o conteúdo do site está disponível. Para mudar a língua atual, selecione uma língua alternativa a partir desta lista.
   language_with_count: "%{language} (%{count})"
   languages: Línguas
   last_updated: Ultima atualização
@@ -1519,14 +1519,14 @@ pt:
   more_children_with_count: 
     one: mais %{count} ...
     other: mais %{count} ...
-  most_active_members: Membros mais activos
+  most_active_members: Membros mais ativos
   move: Mover
   move_down: Mover abaixo
   move_up: Mover acima
   must_be_associated_with_either_a_user_or_a_community: Deve estar associado com um utilizador ou uma comunidade
   must_be_less_than_128_characters_long: deve ter menos de 128 caracteres.
   must_be_logged_in: Tem de estar autenticado para realizar esta operação.
-  my_activity: Minha actividade
+  my_activity: Minha atividade
   my_info: A minha informação
   name: Nome
   name_colon: "Nome:"
@@ -1546,7 +1546,7 @@ pt:
   names_status_column_header: Estado
   never: Nunca
   new_collection: Nova coleção
-  no_active_members: Não houve ainda actividade suficiente.
+  no_active_members: Não houve ainda atividade suficiente.
   no_answer: Não
   no_tasks_found: Não foram encontradas tarefas
   none: nenhum
@@ -1561,11 +1561,11 @@ pt:
   notification_frequency_weekly: Semanalmente
   notifications_tab_name: Notificações
   notifier: 
-    activity_log_empty: Nenhuma acção recente pelos curadores.
+    activity_log_empty: Nenhuma ação recente pelos curadores.
     activity_on_content_partner_content: 
-      subject: Resumo da actividade recente no conteúdo fornecido para a Enciclopédia da Vida pelo parceiro de conteúdo %{partner_full_name}
+      subject: Resumo da atividade recente no conteúdo fornecido para a Enciclopédia da Vida pelo parceiro de conteúdo %{partner_full_name}
     activity_on_user_content: 
-      subject: Resumo da actividade recente sobre o conteúdo que adicionou à Enciclopédia da Vida
+      subject: Resumo da atividade recente sobre o conteúdo que adicionou à Enciclopédia da Vida
     activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) marcou como inapropiado:\n%{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) marcou como de confiança:\n%{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})\n%{action_date}."
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) marcou como não confiável:\n%{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})\n%{action_date}."
@@ -1582,20 +1582,20 @@ pt:
     signature_basic: A Equipa da Enciclopédia da Vida
     signature_with_species_pages_group_contact: "Se você tiver alguma questão, entre em contacto conosco em %{species_pages_group_email}.\n\nA Equipa da Enciclopédia da Vida"
     user_activated: 
-      subject: A sua conta na Encyclopedia of Life foi activada
+      subject: A sua conta na Encyclopedia of Life foi ativada
     user_commented_on_something_date_body: "%{users_name} (%{users_url}) comentou sobre:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Uma mensagem da Encyclopedia of Life
   nucleotide_sequences: Sequências de Nucleótidos
   nucleotide_sequences_proteins_link: Ver sequências de proteínas e nucleótidos no NCBI
-  object: Objecto
-  object_curation: Curadoria de objecto
-  object_status: Estado do objecto
+  object: Objeto
+  object_curation: Curadoria de objeto
+  object_status: Estado do objeto
   object_status_all_option: Tudo
   object_status_trusted_option: De confiança
   object_status_unreviewed_option: Não revisto
   object_status_untrusted_option: Não é de confiança
-  object_type: Tipo de objecto
+  object_type: Tipo de objeto
   object_type_all_option: Tudo
   object_type_collection_option: Coleção
   object_type_community_option: Comunidade
@@ -1605,13 +1605,13 @@ pt:
   object_type_text_option: Texto
   object_type_user_option: Usuário
   object_type_video_option: Vídeo
-  object_visibility: Visibilidade do objecto
+  object_visibility: Visibilidade do objeto
   object_visibility_all_option: Tudo
   object_visibility_invisible_option: Oculto
   object_visibility_visible_option: Visível
   objects_curated: Objectos Curados
   older_version_of_latest_published_data_object_title_link: Versão mais antiga de %{link}
-  option_please_select: Por favor seleccione
+  option_please_select: Por favor selecione
   or_add_it_to_an_existing_collection: ou adicione-o a uma colecção existente
   or_copy_them_to_existing_collection: ou copie-os para uma colecção existente
   or_email_education: Ou, envie sua sugestão para %{link}.
@@ -1657,7 +1657,7 @@ pt:
   personal_space: Espaço pessoal
   please_confirm_your_donation_details: Por favor confirme os detalhes da doação
   please_indicate_curation_reason: "Por favor selecione um motivo e/ou, opcionalmente, deixe um comentário de curadoria:"
-  please_refresh: Por favor, actualize seu navegador para ver a versão mais recente do site EOL
+  please_refresh: Por favor, atualize seu navegador para ver a versão mais recente do site EOL
   please_return_to_eol_homepage: Por favor, volte à página inicial da EOL
   please_wait: Aguarde, por favor …
   post_comment: Publicar comentário
@@ -1719,7 +1719,7 @@ pt:
   taxon_not_found_error: "\"%{taxon}\" não encontrado"
   text: texto
   text_capital: Texto
-  this_cannot_be_undone_are_you_sure: Esta acção não pode ser desfeita; tem a certeza?
+  this_cannot_be_undone_are_you_sure: Esta ação não pode ser desfeita; tem a certeza?
   this_community_has_no_focus_list: Esta comunidade não tem uma lista de foco.
   this_community_was_deleted: Esta coleção foi eliminada pelo seu proprietário.
   this_is_a_flat_list_of_10_million_strings: Esta é uma lista simples de 10 milhões de caracteres - não o vamos deixar navegar por ela
@@ -1771,7 +1771,7 @@ pt:
   user: Utilizador
   user_activity_stats_articles_added: Artigos adicionados
   user_activity_stats_articles_added_dropdown: Artigos adicionados
-  user_activity_stats_header: Actividade
+  user_activity_stats_header: Atividade
   user_activity_stats_objects_curated: Objectos curados
   user_activity_stats_taxa_curated: Taxa curados
   users: 
@@ -1804,16 +1804,16 @@ pt:
   year: Ano
   yes_answer: Sim
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Você é um administrador. Tem permissão para ver a mensagem de erro:"
-  you_are_not_authorized_to_perform_this_action: Não está autorizado a executar esta acção.
+  you_are_not_authorized_to_perform_this_action: Não está autorizado a executar esta ação.
   you_are_viewing_this_rank_as_classified_by: "Está a ver este %{rank} tal como classificado por:"
   you_can_identify_yourself_to_eol: "Pode identificar-se à EOL adicionando a sua chave API aos seus pedidos (login e gere a sua chave na sua página de preferências) :"
   you_joined_community: Ingressou nesta comunidade.
-  your_current_rating_0_of_5: "A sua classificação actual: 0 de 5"
-  your_current_rating_1_of_5: "A sua classificação actual: 1 de 5"
-  your_current_rating_2_of_5: "A sua classificação actual: 2 de 5"
-  your_current_rating_3_of_5: "A sua classificação actual: 3 de 5"
-  your_current_rating_4_of_5: "A sua classificação actual: 4 de 5"
-  your_current_rating_5_of_5: "A sua classificação actual: 5 de 5"
+  your_current_rating_0_of_5: "A sua classificação atual: 0 de 5"
+  your_current_rating_1_of_5: "A sua classificação atual: 1 de 5"
+  your_current_rating_2_of_5: "A sua classificação atual: 2 de 5"
+  your_current_rating_3_of_5: "A sua classificação atual: 3 de 5"
+  your_current_rating_4_of_5: "A sua classificação atual: 4 de 5"
+  your_current_rating_5_of_5: "A sua classificação atual: 5 de 5"
   your_preferences: Preferências
   your_rating: A sua classificação
   your_watch_collection: a sua lista de páginas vigiadas

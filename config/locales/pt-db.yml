@@ -82,7 +82,7 @@ pt:
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendente
   translated_content_partner_statuses-label-content_partner_status_id-2: Ativo
   translated_content_partner_statuses-label-content_partner_status_id-3: Arquivado
-  translated_content_partner_statuses-label-content_partner_status_id-4: Inactivo
+  translated_content_partner_statuses-label-content_partner_status_id-4: Inativo
   translated_content_tables-label-content_table_id-1: Detalhes
   translated_data_types-label-data_type_id-1: Imagem
   translated_data_types-label-data_type_id-10: Mapa
@@ -220,7 +220,7 @@ pt:
   translated_synonym_relations-label-synonym_relation_id-32: nome/combinação subsequente
   translated_synonym_relations-label-synonym_relation_id-33: indisponível, erro ortográfico na literatura
   translated_synonym_relations-label-synonym_relation_id-34: nome/combinação original
-  translated_synonym_relations-label-synonym_relation_id-35: não disponível, ortografia original incorrecta
+  translated_synonym_relations-label-synonym_relation_id-35: não disponível, ortografia original incorreta
   translated_synonym_relations-label-synonym_relation_id-36: homónimo júnior
   translated_synonym_relations-label-synonym_relation_id-37: homónimo e sinónimo júnior
   translated_synonym_relations-label-synonym_relation_id-38: indisponível, suprimida por decisão
@@ -242,8 +242,8 @@ pt:
   translated_synonym_relations-label-synonym_relation_id-52: autoridade
   translated_synonym_relations-label-synonym_relation_id-53: nome inédito
   translated_synonym_relations-label-synonym_relation_id-54: sinónimo subjectivo
-  translated_synonym_relations-label-synonym_relation_id-55: informações incorrectas de autoridade
-  translated_synonym_relations-label-synonym_relation_id-56: ortografia incorrecta
+  translated_synonym_relations-label-synonym_relation_id-55: informações incorretas de autoridade
+  translated_synonym_relations-label-synonym_relation_id-56: ortografia incorreta
   translated_synonym_relations-label-synonym_relation_id-57: grafia alternativa
   translated_synonym_relations-label-synonym_relation_id-58: variante lexical
   translated_synonym_relations-label-synonym_relation_id-59: sinónimo (objectivo = homotípico)
@@ -342,7 +342,7 @@ pt:
   translated_table_of_contents-label-table_of_contents_id-7: Referências e Mais Informações
   translated_table_of_contents-label-table_of_contents_id-8: Conservação
   translated_untrust_reasons-label-untrust_reason_id-1: mal identificado
-  translated_untrust_reasons-label-untrust_reason_id-2: incorrecto/enganoso
+  translated_untrust_reasons-label-untrust_reason_id-2: incorreto/enganoso
   translated_untrust_reasons-label-untrust_reason_id-3: baixa qualidade
   translated_untrust_reasons-label-untrust_reason_id-4: duplicado
   translated_untrust_reasons-label-untrust_reason_id-5: Outro

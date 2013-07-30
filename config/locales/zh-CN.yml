@@ -26,6 +26,8 @@ zh-CN:
   a_total_of_terms_were_found_matching_your: 
     other: 总共 %{count}条术语与您的标准匹配。
   about_eol: 关于EOL
+  about_resources: 关于资源
+  about_resources_title: 外部资源的链接
   account_information: 帐户信息
   account_information_menu: 帐户信息
   account_registered_but_not_ready_try_later: 您的帐户已注册但尚未准备好供您访问。请五分钟后再试。
@@ -340,6 +342,8 @@ zh-CN:
         user_of_an_unknown_collection: <strong>%{user}</strong> 被添加为未知收藏的管理员。
         user_of_collection: <strong>%{user}</strong> 被添加为“%{collection}”收藏的管理员。
         user_of_it: <strong>%{user}</strong> 被添加为管理员。
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_it: 未知的用户批量添加项目。
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: 一个未知用户为未知收藏添加了一个未知项。
         an_unknown_user_added_an_unknown_item_to_collection: 一个未知用户为“%{collection}”收藏添加了一个未知项。
@@ -2119,7 +2123,14 @@ zh-CN:
         learn_more_link_viruses: 病毒
         learn_more_link_worms: 虫
         questions_link_biodiversity: 生物多样性是什么？
+        questions_link_biological_classification: 生物分类是什么？
         questions_link_contributing_to_research: 我可以为研究做什么？
+        questions_link_discovering_species: 物种是如何发现的？
+        questions_link_indicator_species: 指标物种是什么？
+        questions_link_invasive_species: 外来物种是什么？
+        questions_link_model_organism: 模式物种是什么？
+        questions_link_naming_species: 物种是如何命名的？
+        questions_link_species: 物种是什么？
   learn_about_collections: 如何创建一个收藏？
   learn_about_communities: 如何参与到社区活动？
   learn_about_content_partners: 如何成为内容合作伙伴？
@@ -2166,6 +2177,7 @@ zh-CN:
   limits_the_number_of_returned_text_objects: 限定返回的文字数量
   limits_the_number_of_returned_video_objects: 限定返回的视频对量
   link_name: 链接名称
+  link_rating: 链接评分
   list_newsletter_emails: 新闻订阅者邮件清单
   list_of_activity_combinations: 已持续活跃5分钟的用户列表
   listing_collections: 列出收藏

@@ -12,6 +12,7 @@
 # Author: Wjn99wjn
 # Author: Xiaomingyan
 # Author: 乌拉跨氪
+# Author: 아라
 zh-CN: 
   0_1_or_2: 0、 1 或 2
   0_or_1: 0 或 1
@@ -25,6 +26,8 @@ zh-CN:
   a_total_of_terms_were_found_matching_your: 
     other: 总共 %{count}条术语与您的标准匹配。
   about_eol: 关于EOL
+  about_resources: 关于资源
+  about_resources_title: 外部资源的链接
   account_information: 帐户信息
   account_information_menu: 帐户信息
   account_registered_but_not_ready_try_later: 您的帐户已注册但尚未准备好供您访问。请五分钟后再试。
@@ -339,6 +342,8 @@ zh-CN:
         user_of_an_unknown_collection: <strong>%{user}</strong> 被添加为未知收藏的管理员。
         user_of_collection: <strong>%{user}</strong> 被添加为“%{collection}”收藏的管理员。
         user_of_it: <strong>%{user}</strong> 被添加为管理员。
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_it: 未知的用户批量添加项目。
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: 一个未知用户为未知收藏添加了一个未知项。
         an_unknown_user_added_an_unknown_item_to_collection: 一个未知用户为“%{collection}”收藏添加了一个未知项。
@@ -665,6 +670,9 @@ zh-CN:
   admin_user_unhide_successful_notice: 用户已显示
   admins: 
     eol_statistics: 
+      content_partners: 
+        menu_link: 内容合作伙伴
+        page_header: 内容合作伙伴统计
       curators: 
         menu_link: 策展人统计
         page_header: 策展人统计
@@ -677,6 +685,7 @@ zh-CN:
         menu_link: 全体统计
         page_header: 全体统计
         page_title: 管理：全体统计
+        table_caption: 整体网站统计创建于%{created_at_time}
       lifedesks: 
         menu_link: LifeDesks
         page_header: LifeDesks 统计
@@ -685,6 +694,9 @@ zh-CN:
         menu_link: 海洋生物统计
         page_header: 在生物百科的海洋覆盖面
         page_title: 管理：海洋生物统计
+      page_richness: 
+        menu_link: 高质量页面
+        page_header: 高质量页面统计
       users_data_objects: 
         menu_link: 用户提交的文本
         page_header: 用户提交的文本统计
@@ -723,6 +735,9 @@ zh-CN:
   anonymous_user_given_name: 匿名
   anonymous_user_tag_line: 未登录
   any_integer: 任何整数
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">单击此处</a>访问正在测试的新版生物百科论坛。您的反馈意见是值得欢迎的。
   api_docs_collections_description: 给收藏一个标识符，此API将返回所有关于收藏和它包含的条目的元数据。条目列表可按条目类型筛选，并按上面列出的属性排序。
   application_version_advisory_information: 应用程序版本
   are_you_sure: 您确定吗？
@@ -1615,6 +1630,8 @@ zh-CN:
   forgot_password_form_username_or_email_blank_error: 输入用户名和邮箱地址以重新设置密码。
   form_validation_errors_for_attribute_assistive: 该元素校验出错
   forums: 
+    actions: 操作
+    administration: 管理
     buttons: 
       delete: 删除
       edit: 编辑
@@ -1634,9 +1651,24 @@ zh-CN:
     create: 创建一个论坛
     create_failed: 抱歉，发生了一个错误，无法添加论坛
     create_successful: 已成功创建论坛
+    edit: 编辑论坛
     forums_heading: 生物百科论坛
+    last_post: 最后发布
+    no_topics: 这个论坛没有帖子
+    post_by_user_at_time: 由%{user}，于%{time}
     posts: 
       close_window: 关闭
+      create: 发表新的帖子
+      create_failed: 抱歉，发生了一个错误，无法添加帖子
+      create_successful: 已成功创建帖子
+      deleted_subject: （已删除）
+      edit: 编辑帖子
+      joined_date: 于%{date}加入
+      no_subject: （没有主题）
+      permalink_to_this_post: 这篇文章的固定链接：
+      post_written_by_user: "%{user}写道："
+      posts_with_count: "%{count}条帖子"
+      replying_to_post: 回复：
     replies: 答复
     topics_heading: 帖子
     update_successful: 已成功更新论坛
@@ -1836,6 +1868,7 @@ zh-CN:
         logo: 上传一张新照片
         new_password: 新密码<small>(4-16 个字符)</small>
         new_password_confirmation: 新密码确认
+        news_in_preferred_language: 显示所有首选语言的新闻
         notification_settings: 通知设置
         notification_settings_more: 配置您的提醒设置。
         open_authentications: 已连接的账号
@@ -2090,6 +2123,14 @@ zh-CN:
         learn_more_link_viruses: 病毒
         learn_more_link_worms: 虫
         questions_link_biodiversity: 生物多样性是什么？
+        questions_link_biological_classification: 生物分类是什么？
+        questions_link_contributing_to_research: 我可以为研究做什么？
+        questions_link_discovering_species: 物种是如何发现的？
+        questions_link_indicator_species: 指标物种是什么？
+        questions_link_invasive_species: 外来物种是什么？
+        questions_link_model_organism: 模式物种是什么？
+        questions_link_naming_species: 物种是如何命名的？
+        questions_link_species: 物种是什么？
   learn_about_collections: 如何创建一个收藏？
   learn_about_communities: 如何参与到社区活动？
   learn_about_content_partners: 如何成为内容合作伙伴？
@@ -2136,6 +2177,7 @@ zh-CN:
   limits_the_number_of_returned_text_objects: 限定返回的文字数量
   limits_the_number_of_returned_video_objects: 限定返回的视频对量
   link_name: 链接名称
+  link_rating: 链接评分
   list_newsletter_emails: 新闻订阅者邮件清单
   list_of_activity_combinations: 已持续活跃5分钟的用户列表
   listing_collections: 列出收藏
@@ -2182,6 +2224,7 @@ zh-CN:
   maps_image_maps_header: 标记为“地图”的媒体文件
   maps_with_count: 
     other: "%{count} 幅地图"
+  march_of_life_thumbnail_title: 性生活过程：
   matching_users_found_with_count: 
     other: 总共 %{count}个用户与您的标准匹配。
   max_collection_items_error: 抱歉，您的请求超出了%{max}个收藏条目的最大限制。
@@ -3169,6 +3212,7 @@ zh-CN:
   this_is_a_focus_collection_for_community: 这是 %{community}关注的焦点。
   this_is_the_breakdown_of_chapt: 这是对章节、子章节及相应的物种介绍模块目录的细分。
   this_is_the_label_that_will_be_used_for_attribution: 这是用作属性的标签
+  this_link_is_unpublished: 此链接尚未发布。
   this_map_cannot_be_curated_because_unpublished: 本地图不能被管理，因为它尚未发布。
   this_map_is_unpublished: 该地图尚未发布。
   this_method_takes_an_integer_or_string: 此方法接受来自提供者数据库中分类单元的整数或字符串唯一标识符，及表示提供者的hierarchy_id并返回分类单元的EOL页面ID。例如使用%{link_provider}API，我可以获得ITIS的EOL分类系统ID是%{itis_id}。之后我可以通过调用%{link_url}在EOL中搜索ITIS中180542的分类序列号（TSN），<i>Ursus maritimus</i>

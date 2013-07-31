@@ -276,7 +276,7 @@ describe 'API:pages' do
     all_images = @taxon_concept.images_from_solr
     next_exemplar = all_images.last
     first_image.guid.should_not == next_exemplar.guid
-    TaxonConceptExemplarImage.set_exemplar(@taxon_concept, next_exemplar.id)
+    TaxonConceptExemplarImage.set_exemplar(TaxonConceptExemplarImage.new(taxon_concept: @taxon_concept, data_object: next_exemplar))
 
     @taxon_concept.reload
     @taxon_concept.taxon_concept_exemplar_image.data_object.guid.should == next_exemplar.guid

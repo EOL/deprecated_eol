@@ -2466,6 +2466,7 @@ gl:
   html_format_with_left_col: (FORMATO HTML, a inserir unicamente se queres ter unha columna á esquerda na páxina; en caso contrario, déixao en branco)
   id: ID
   if_checked_and_user_is_saved: En caso de estar marcado e o usuario rexistrado, as súas credenciais, alcance, aprobación e clado seleccionados elimínanse e o usuario deixa de ser conservador. Deberías engadir unha nota a continuación indicando o motivo. Non se envía información ao usuario.
+  if_multiple_media_objects_are_returned: "En caso de devolver múltiples obxectos multimedia, a lista ha ordenarse por tipo de obxecto. Dentro de cada tipo, os elementos ordénanse por estado de aprobación (\"De confianza\" > \"Sen revisar\" > \"Non é de confianza\") e, logo, por valoración de datos. Con todo, dentro de certos tipos de datos, hai elementos específicos aos que se lles dá a prioridade máxima: en caso de recibir de volta un deses elementos, aparecerá primeiro na lista. Para as imaxes, as imaxes exemplares teñen a prioridade máxima. Nos tipos de texto, o texto da vista xeral ten a prioridade máxima."
   if_the_details_parameter_is_not_set: Se o parámetro de detalles non está configurado, entón unicamente se devolverá o identificador de obxecto de datos, o tipo de datos e, no caso de artigos, o tema. O tipo de datos ha ser un valor do vocabulario do tipo de recurso %{linka}. O tema do texto ha ser un dos %{linkb}.
   image: Imaxe
   image_alt_text: Esta imaxe %{vetted_status} pertence a %{taxon_name}

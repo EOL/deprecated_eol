@@ -3230,8 +3230,10 @@ nb:
   view_article_source: Vis artikkelkilde
   view_as_button: Endre visning
   view_as_label: Vis som
+  view_common_activities_link: Vis liste over de mest vanlige aktiviteter.
   view_curators: vis kuratorer
   view_current_version_link: Vis nåværende versjon
+  view_full_size_image: Vis bilde i full størrelse
   view_harvesting_log: Vis datahøstingslogg
   view_image_map_source: Vis kartkilde
   view_image_source: Vi bildekilde
@@ -3239,6 +3241,7 @@ nb:
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Vis kun sider med minst et bilde eller et stykke tekst
   view_sound_source: Vis audiokilde
   view_source: Vis kilde
+  view_this_hierarchy: vis dette hierarkiet
   view_translation_source_link: Vis oversetningskilde
   view_user_activity: vis brukeraktivitet
   view_user_comments: vis brukerkommentarer
@@ -3250,10 +3253,15 @@ nb:
   visitors: Besøkende
   vivisimo: Vivisimo
   wants_colon: "Ønsker:"
+  warning_you_are_editing_as_admin: "Advarsel: du får bare redigere denne siden fordi du er en administrator."
+  watch_collections_cannot_be_destroyed: Denne samlingen er den eneste samlingen knyttet til dens brukersamfunn og kan ikke slettes.
   watch_list: Overvåkningsliste
   watch_list_newsfeed: Overvåkningsliste nyhetsfeed
+  web_service_base_url: Basis-url til webtjeneste
+  web_users: Nettbrukere
   weekly: Ukentlig
   welcome: Velkommen
+  welcome_and_you_were_logged_out: Velkommen til den nye EOL! Det var et problem med din gamle pålogging, så vi har logget deg ut. Din gamle påloggingsinformasjon skal imidlertid fungere igjen. Beklager!
   what_do_these_numbers_mean: Wha betyr disse tallene?
   what_is_eol: Hva er EOL?
   what_is_this_question: Hva er dette?
@@ -3263,14 +3271,20 @@ nb:
     previous_label: "&#8592; Forrige"
   worklist: Arbeidsliste
   would_you_like_to_become_a_curator_notice: Ønsker du å bli en kurator? Du kan be om tilgang på <a href='%{url}'>din profilside</a>.
+  xml_response: XML svar
   yahoo: Yahoo
   yahoo_images: Yahoo Bilder
   year: År
   yes_answer: Ja
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Du er en admin.  Så jeg vil vise deg at feilen var:"
   you_are_not_authorized_to_perform_this_action: Du har ikke tillatelse til å utføre denne handligen.
+  you_can_edit_those_later_if_ne: Du kan redigere disse senere etter behov.
+  you_can_identify_yourself_to_eol: "Du kan identifisere deg selv hos EOL ved å legge til din API-nøkkel til dine forespørsler (logg på og generer din nøkkel i dine instillinger):"
+  you_have_been_logged_in_as_username: Du er logget på som %{username}
+  you_have_been_logged_out: Du er logget ut.
   you_joined_community: Du har blitt med i dette brukersamfunnet.
   you_left_community: Du har meldt deg ut av dette brukersamfunnet.
+  your_browser_does_not_support: Din nettleser støtter ikke HTML5-video.
   your_current_rating_0_of_5: "Din nåværende vurdering: 0 av 5"
   your_current_rating_1_of_5: "Din nåværende vurdering: 1 av 5"
   your_current_rating_2_of_5: "Din nåværende vurdering: 2 av 5"

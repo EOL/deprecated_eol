@@ -56,6 +56,7 @@ class DataObjectsController < ApplicationController
       @selected_toc_item_id = toc_id
       create_failed && return
     else
+      @taxon_concept.reload # Clears caches, too!
       add_references(@data_object)
       current_user.log_activity(:created_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @taxon_concept.id)

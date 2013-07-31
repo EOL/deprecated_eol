@@ -337,6 +337,13 @@ sv:
         user_of_an_unknown_collection: <strong>%{user}</strong> lades till som en hanterare av en okänd samling.
         user_of_collection: <strong>%{user}</strong> lades till som en hanterare av samlingen "%{collection}".
         user_of_it: <strong>%{user}</strong> lade till som användare.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: En okänd användare lade till flera objekt till en okänd samling.
+        an_unknown_user_added_bulk_items_to_collection: En okänd användare lade till flera objekt till samlingen "%{collection}".
+        an_unknown_user_added_bulk_items_to_it: En okänd användare lade till flera objekt.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> lade till flera objekt till en okänd samling.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> lade till flera objekt till samlingen "%{collection}".
+        user_of_it: <strong>%{user}</strong> lade till flera objekt.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En okänd användare lade till ett okänt objekt till en okänd samling.
         an_unknown_user_added_an_unknown_item_to_collection: En okänd användare lade till ett okänt objekt till samlingen "%{collection}".
@@ -511,6 +518,7 @@ sv:
           an_unknown_user_merged_to_an_unknown_taxon: En okänd användare slog samman två okända sidor.
           an_unknown_user_merged_to_it: En okänd användare slog samman en annan sida med denna.
           an_unknown_user_merged_to_taxon: En okänd användare slog samman en annan sida till %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> slog samman två okända sidor.
           user_merged_to_it: <strong>%{user}</strong> slog samman en annan sida med denna.
           user_merged_to_taxon: <strong>%{user}</strong> slog samman en annan sida med %{target}.
         move: 
@@ -841,6 +849,7 @@ sv:
   admin_content_page_update_successful_notice: Sidan <a href="#%{anchor}"><em>%{page_name}</em></a> uppdaterades.
   admin_content_page_update_unsuccessful_error: Tyvärr, ett fel uppstod. Sidan kunde inte uppdateras.
   admin_content_pages_empty: Inget innehållssidor hittas.
+  admin_content_pages_index_information: Följande lista innehåller alla statiska sidor som för närvarande finns tillgängliga på EOL:s webbplats. Varje sida har en eller flera översättningar. När du skapar en ny sida kommer du bli ombedd att lägga till en översättning. Publicerade översättningar är offentligt tillgängliga.
   admin_content_pages_link: Innehållshantering
   admin_content_pages_page_title: "Administration: Innehållshantering"
   admin_content_partners_index_header: Innehållspartners
@@ -859,6 +868,7 @@ sv:
   admin_home: admin-hem
   admin_information: Detta är den nya administrationen konsolen för EOL V2. Vi håller på att överföra administrationsfunktionalitet från V1. Om administrationsavsnittet du söker inte finns, besök <a href="/administrator">V1 Administrationskonsolen</a> .
   admin_link: Administrationskonsol
+  admin_login_confirmation: Vill du verkligen logga in på registret för innehållspartners som %{name}? Om du gör detta, kommer du att loggas ut från webbplatsen som en administratör.
   admin_news_item_active: Publicerad
   admin_news_item_create_successful_notice: Nyhetsobjektet <a href="#%{anchor}"><em>%{page_name}</em></a> har skapats.
   admin_news_item_create_unsuccessful_error: Tyvärr, ett fel uppstod. Nyhetsobjektet skapades inte.
@@ -980,6 +990,7 @@ sv:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Klicka här</a> för att få tillgång till betatestet av EOL:s nya forum. Feedback är välkommen.
+  api_refer_to_the_getting_started_page: Se sidan <a href="%{link}">Komma igång</a> för exempel på användning av EOL API, användarvillkor och information om registrering för en API-nyckel.
   application_version_advisory_information: Programversion
   are_you_sure: Är du säker?
   are_you_sure_this_action_cannot_be_undone: Är du säker?  Den här åtgärden kan inte ångras.
@@ -1055,6 +1066,7 @@ sv:
   bi_monthly: Varannan månad
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedicinska termer
+  biomedical_terms_clouds_provided_by: Moln tillhandahålls av MBL <a rel="nofollow" href="%{supplier_url}">Biology of Aging-projektet</a>.
   body: "Innehåll:"
   browsable: Bläddringsbar
   browsable_hierarchies: Bläddringsbara hierarkier
@@ -1121,11 +1133,16 @@ sv:
     one: Kopierade %{count} objekt från %{from} till %{to}.
     other: Kopierade totalt %{count} objekt från %{from} till %{to}.
   collection_created_notice: Samlingen <em>%{collection_name}</em> skapdes.
+  collection_created_with_count_notice: 
+    one: Samlingen <em>%{collection_name}</em> skapades med %{count} samlingsobjekt.
+    other: Samlingen <em>%{collection_name}</em> skapades med %{count} samlingsobjekt.
   collection_delete_link: Radera denna samling permanent
   collection_destroyed: Samlingen har tagits bort.
+  collection_error_no_items_selected: "Fel: Inga objekt valda, inga åtgärder vidtogs"
   collection_image: Samlingsbild
   collection_is_empty: Denna samling är för närvarande tom.
   collection_item_edit_by_javascript_not_authorized_error: Tyvärr, har du inte behörighet att redigera detta samlingsobjekt. Om du är samlingens ägare eller redigerare, var god uppdatera sidan och kontrollera att du är inloggad.
+  collection_item_edit_page_title: Redigera objekt i samlingen <em>%{collection_name}</em>
   collection_item_not_found_error: Samlingsobjektet kunde inte hittas.
   collection_items_count: 
     one: "%{count} objekt"
@@ -1146,6 +1163,7 @@ sv:
   collection_not_found_error: Tyvärr, den samlingen kunde inte hittas.
   collection_not_updated_error: Tyvärr, ett fel uppstod. Samlingen kunde inte uppdateras.
   collection_rating: Samlingsbetyg
+  collection_redindexed: Samling omindexerad.
   collection_remove_complete_with_count: 
     one: Tog bort %{count} objekt från %{from}.
     other: Tog bort %{count} objekt från %{from}.
@@ -1229,6 +1247,7 @@ sv:
   common_names_with_count: 
     one: "%{count} vanligt namn"
     other: "%{count} vanliga namn"
+  common_user_activity_page_title: Vanlig användaraktivitet
   communities: 
     collections: 
       index: 
@@ -1374,6 +1393,7 @@ sv:
   content_partner_resource_about_header: Om resurs
   content_partner_resource_auto_publish_false: Nej
   content_partner_resource_auto_publish_true: Ja
+  content_partner_resource_collection_empty: En samling har inte genererats för denna resurs.
   content_partner_resource_collection_header: Publicerad samling
   content_partner_resource_collection_show_link: Visa publicerad samling
   content_partner_resource_collections_header: Samlingar
@@ -1388,6 +1408,7 @@ sv:
   content_partner_resource_hierarchy_browsable: Bläddringsbar
   content_partner_resource_hierarchy_confirm_request_publish: Är du säker på att du vill lägga in en begäran om att befrämja din hierarki att bli bläddringsbar på EOL?
   content_partner_resource_hierarchy_edit_link: Redigera
+  content_partner_resource_hierarchy_edit_subheader: Redigera hierarki för resursen <em>%{resource_title}</em>
   content_partner_resource_hierarchy_not_browsable: Inte bläddringsbar
   content_partner_resource_hierarchy_unknown: Okänd
   content_partner_resource_hierarchy_update_unsuccessful_error: Tyvärr, ett fel uppstod. Hierarkin uppdaterades inte.
@@ -1395,6 +1416,7 @@ sv:
   content_partner_resource_new_link: Lägg till en ny resurs
   content_partner_resource_new_subheader: Lägg till en ny resurs
   content_partner_resource_preview_collection_header: Förhandsgranska samling
+  content_partner_resource_preview_collection_show_link: Visa förhandsvisningssamling
   content_partner_resource_resource_status_new: Skapad
   content_partner_resource_show_link_back_to: gå tillbaka till resurs
   content_partner_resource_show_subheader: Detaljer för resursen <em>%{resource_title}</em>
@@ -1422,6 +1444,8 @@ sv:
   content_partner_statistics_taxa_page_caption: Detaljerad användningsstatistik för taxonsidor med tillhandahållet innehåll från %{partner_name}.
   content_partner_statistics_year_label: År
   content_partner_status_empty: Okänd status
+  content_partner_update_successful_notice: Partnerdetaljer uppdaterades.
+  content_partner_update_unsuccessful_error: Tyvärr, ett fel uppstod. Partnerdetaljer uppdaterades inte.
   content_partner_vetted_false: Ogranskad
   content_partner_vetted_true: Granskad
   content_partners: 
@@ -1650,7 +1674,7 @@ sv:
   dato_new_text_for_taxon_page_title: Lägg en artikel till <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Lägg en länk till <i>%{taxon}</i>
   dato_update_user_text_error: Tyvärr, ett fel uppstod. Artikeln kunde inte uppdateras.
-  dato_update_users_text_not_owner_exception: Endast den ursprungliga författaren av denna textobjekt kan redigera det.
+  dato_update_users_text_not_owner_exception: Endast den ursprungliga författaren av detta textobjekt kan redigera det.
   default: Standard
   default_focus_collection_name_from_community: "%{name}s fokus"
   default_watch_collection_name: "%{username}s samling"
@@ -1784,6 +1808,9 @@ sv:
   error_404_page_title: Hittades inte
   error_500_description: Vi beklagar, vi har stött på ett problem. Om problemet uppstår, var god skicka ett e-postmeddelande till <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Internt serverfel
+  error_classifications_locked_cannot_reindex: Tyvärr, denna sida kan inte omindexeras för tillfället. Klassificeringarna är låsta.
+  error_couldnt_find_collection_by_id: Kunde inte hitta en samling som du kan hantera med id %{id}.
+  error_couldnt_find_community_by_id: Kunde inte hitta en gemenskap som du kan hantera med id %{id}.
   error_default_description: Vi beklagar, vi har stött på ett problem. Om problemet uppstår, var god skicka ett e-postmeddelande till <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Hoppsan.
   error_homepage_or_search_option: "Du kan antingen gå tillbaka till <a href=\"/\">hemsidan</a> eller använda vårt sökverktyg:"
@@ -2245,6 +2272,7 @@ sv:
   in_community: i gemenskap
   in_this_data_type: "i denna %{data_type}:"
   inappropriate: Olämplig
+  include_all_metadata: inkludera all metadata för dataobjekt
   indexed: Indexerad
   info_item: Infobojekt
   info_items_col_header: Infoobjekt
@@ -2258,7 +2286,9 @@ sv:
   ip_address: IP-adress
   item_added_to_collection_notice: Objektet lades till i samlingen <em>%{collection_name}</em>
   item_added_to_watch_collection_notice: "\"%{item_name}\" lade till i %{collection_name}."
+  item_details_missing: Tyvärr, ett fel uppstod. Objektsdetaljer kunde inte hämtas.
   item_not_added_already_in_collection: Detta objekt har redan lagts till i samlingen.
+  item_not_added_to_collection_error: Tyvärr, ett fel uppstod. Det valda objektet kunde inte läggas till i samlingen.
   item_not_added_to_itself_notice: Tyvärr, du kan inte lägga till samlingen <em>%{collection_name}</em> till sig själv.
   item_not_updated_in_collection_error: Tyvärr, ett fel uppstod. Samlingsobjektet kunde inte uppdateras.
   item_type_article: Artikel
@@ -2442,15 +2472,18 @@ sv:
   matching_users_found_with_count: 
     one: Totalt %{count} användare hittades som stämmer överens med dina söktermer.
     other: Totalt %{count} användare hittades som stämmer överens med dina söktermer.
+  max_collection_items_error: Tyvärr, din begäran överskrider gränsen för %{max} objekt i samlingen.
   media: Media
   media_list_empty: Ingen har bidragit med media till denna sida ännu.
   media_list_empty_contribute_instructions: Lär dig hur du bidrar media till EOL.
+  media_list_empty_search: Det finns ingen media som motsvarar dina sökkriterier.
   media_summary_empty: Ingen har ännu bidragit några bilder till denna sida ännu.
   media_summary_empty_contribute_instructions: Lär dig hur du bidrar bilder till EOL.
   media_with_count: 
     one: "%{count} media"
     other: "%{count} media"
   member_of: medlem i
+  member_of_professional_society_credential_option: medlem av ett professionellt sällskap
   members: 
     index: 
       meta_description: Medlemmar av %{community_name}, en gemenskap i Encyclopedia of Life.
@@ -2566,6 +2599,7 @@ sv:
   new_upload: Ny uppladdning
   new_user: Ny användare
   news_and_event_links: Nyheter- och händelselänkar
+  news_archive_page: nyhetsarkivsida
   news_available_in_languages: "Denna sida finns tillgänglig på:"
   news_date: Nyhetsdatum
   news_item: nyhetsobjekt
@@ -2586,10 +2620,12 @@ sv:
   no_comments_are_available_for_subject: Inga kommentarer är tillgängliga för %{subject}
   no_comments_have_been_left_yet: Inga kommentarer har lämnats ännu.
   no_errors_are_available: Det finns inga fel.
+  no_items_were_copied_to_collections_error: "Inga objekt kopierades till samlingar: %{names}."
   no_news_items_for_month_and_year: Inga nyheter för %{month_and_year}
   no_record_found_matching_your_criteria: Ingen post hittades som matchade dina kriterier.
   no_related_names: Inga namn har blivit relaterade till detta taxon ännu.
   no_results_for: inga resultat för
+  no_search_suggestions_are_avai: Det finns inga sökresultat som motsvarar dina sökkriterier.
   no_tasks_found: Inga uppgifter hittades
   no_uploaded_content_is_available: Inget uppladdade innehåll finns tillgängligt.
   none: ingen
@@ -2695,6 +2731,8 @@ sv:
   objects_curated: Kurerade objekt
   older_version_of_latest_published_data_object_title_link: Äldre version av %{link}
   on_time_col_header: kl
+  only_alphanum_with_no_spaces: kan bara bli alfanumerisk utan mellanslag
+  only_multi_search_suggestions: (endast om flera förslag är för samma sökterm, sorteringen är låg-->hög)
   only_show_authoritative_conten: "Visa endast auktoritativ innehåll:"
   only_show_unapproved_curators: Visa endast icke-godkända kuratorer
   option_please_select: Var god välj
@@ -2877,6 +2915,7 @@ sv:
   recognized_by_from_source_as_a_rank: "%{recognized_by} i %{source} som en %{taxon_rank}"
   record_not_found: "[post hittades inte]"
   references_cabs_colon: "Referenser:"
+  reindex_page_button: Omindexera sida
   related_names_with_count: 
     one: "%{count} relaterat namn"
     other: "%{count} relaterade namn"
@@ -2897,6 +2936,8 @@ sv:
   reset_password_token_expired_error: Tyvärr, ditt lösenord har inte blivit återställt. Den bifogade länken har upphört att gälla. Var god fyll i och skicka formuläret för glömt lösenord igen för att få en ny länk.
   resource: Resurs
   resources: Resurser
+  response: Svar
+  response_formats: Svarformat
   results: Resultat
   results_offset: Resultat %{from} - %{to} av %{total} för <em>%{for}</em>
   results_per_page: "Resultat per sida:"
@@ -3017,6 +3058,7 @@ sv:
   skip_to_content: Hoppa till innehåll
   skip_to_navigation: Hoppa till navigering
   skip_to_table_of_contents: Hoppa till innehållsförteckningen
+  social_sharing_reddit_button: skicka till reddit
   social_sharing_twitter_follow_eol_button: Följ @eol
   social_sharing_twitter_tweet_button: Tweeta
   sorry_no_collections_are_available_to_share: Tyvärr, inga samlingar är tillgängliga att dela med denna gemenskap.
@@ -3136,13 +3178,13 @@ sv:
           meta_description_no_data: Inga fakta finns tillgänglig för %{scientific_name} som klassificeras av %{hierarchy_provider} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{scientific_name} som bevarande, fördelning, ekologi, habitat, morfologi och mer.
           meta_description_with_chapter_list: Fakta om %{scientific_name} som klassificeras av %{hierarchy_provider} i Encyclopedia of Life. Innehåller information från %{chapter_list} om %{scientific_name}.
           meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} som är klassificerad som %{hierarchy_provider} i Encyclopedia of Life.
-          meta_description_with_common_name_no_data: Inga fakta finns tillgänglig för %{preferred_common_name} även känd som %{scientific_name} som klassificeras av %{hierarchy_provider} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{preferred_common_name} (%{scientific_name}) som bevarande, fördelning, ekologi, habitat, morfologi och mer.
+          meta_description_with_common_name_no_data: Inga fakta finns tillgänglig för %{preferred_common_name}, även känd som %{scientific_name} som klassificerats av %{hierarchy_provider} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{preferred_common_name} (%{scientific_name}) som bevarande, fördelning, ekologi, habitat, morfologi och mer.
           meta_description_with_common_name_with_chapter_list: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} som är klassificerad som %{hierarchy_provider} i Encyclopedia of Life. Inkluderar fakta på %{chapter_list}.
           meta_title: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
           tweet_text: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Information om %{scientific_name} i Encyclopedia of Life
-        meta_description_no_data: Inga fakta finns tillgänglig för %{scientific_name} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{scientific_name} som bevarande, fördelning, ekologi, habitat, morfologi och mer.
+        meta_description_no_data: Inga fakta finns tillgänglig för %{scientific_name} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{scientific_name} såsom bevarande, fördelning, ekologi, habitat, morfologi och mer.
         meta_description_with_chapter_list: Fakta om %{scientific_name} i Encyclopedia of Life. Innehåller fakta om %{chapter_list}.
         meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life.
         meta_description_with_common_name_no_data: Inga fakta finns tillgänglig för %{preferred_common_name} även känd som %{scientific_name} på Encyclopedia of Life. EOL uppmanar dig att bidra med fakta om %{preferred_common_name} (%{scientific_name}) som bevarande, fördelning, ekologi, habitat, morfologi och mer.
@@ -3338,6 +3380,7 @@ sv:
     one: "%{count} taxon"
     other: "%{count} taxa"
   taxon: taxon
+  taxon_biomedical_terms_link: Biomedicinska termer
   taxon_common_names_subtab_explanation: Många människor känner igen organismer endast från dess vanliga namn eller "inhemska" namn. Till skillnad från vetenskapliga namn är vanliga namn nästan alltid olika för talare av olika språk. De kan också variera regionalt inom ett språk. Den här fliken visar alla vanliga namn som tillhandahålls till EOL för denna organism från olika leverantörer, inklusive kuratorer på EOL. För närvarande kan vi bara ange ett rekommenderat vanligt namn per språk på en viss EOL-sida, men alla namn ska vara sökbara.
   taxon_details_empty: Ingen har ännu bidragit några detaljer om detta taxon ännu.
   taxon_education_empty: Ingen har bidragit någon utbildningsresurs till denna sida ännu.
@@ -3456,6 +3499,11 @@ sv:
   tumblr: Tumblr
   twitter: Twitter
   type: Typ
+  unable_to_copy_items_to_collection_error: Tyvärr, vi kunde inte kopiera samlingsobjekten till %{name}.
+  unable_to_determine_title: Det går inte att avgöra titeln på denna webbsida
+  unable_to_invite_users_to_community_with_count: 
+    one: Inbjudan kunde inte skickas till %{list}.
+    other: Inbjudningarna kunde inte skickas till %{list}.
   unique_page_views_th: Unika sidvisningar
   unknown: Okänd
   unknown_data_object_title: Okänt dataobjekt
@@ -3494,6 +3542,7 @@ sv:
   us_dollars_35: US $35
   us_dollars_50: US $50
   use_as_examplar_button: använd som exemplar
+  use_as_examplar_note_preferred: "OBS: Denna klassificering är föredragen. Du vill förmodligen använda den här."
   user: Användare
   user_activation_successful_notice: Välkommen och tack för att du gick med i Encyclopedia Of Life-gruppen. Ditt konto med användarnamnet <em>%{username}</em> är nu aktivt. Var god logga in.
   user_activity_click_on_the_numbers: Klicka på siffrorna för att se respektive aktivitetsflöde.
@@ -3558,13 +3607,22 @@ sv:
   user_no_longer_has_manager_access_to_collection: "%{user} har inte längre hanteringsbehörighet till \"%{collection}\"."
   user_pending_notifications_assitive: <span class="assistive">meddelanden</span>
   user_pending_notifications_comments_assistive: <span class="assistive">kommentarer</span>
+  user_pending_notifications_comments_with_count: 
+    one: "%{count} kommentar"
+    other: "%{count} kommentarer"
   user_pending_notifications_comments_with_count_assistive: 
     one: "%{count}<span class=\"assistive\"> kommentar</span>"
     other: "%{count}<span class=\"assistive\"> kommentarer</span>"
+  user_pending_notifications_with_count: 
+    one: "%{count} meddelande"
+    other: "%{count} meddelanden"
   user_pending_notifications_with_count_assitive: 
     one: "%{count}<span class=\"assistive\"> meddelande</span>"
     other: "%{count}<span class=\"assistive\"> meddelanden</span>"
+  user_response: Användarsvar
   user_says_colon: "%{users_name} säjer:"
+  user_submitted_text: Användarinlämnad text
+  user_submitted_text_found: "Användarinlämnad text hittades:"
   user_system_down: Vi ber om ursäkt, men systemet för användarregistrering är inte tillgänglig. Var god försök igen senare.
   user_was_added_as_editor_of_collection: Denna användare lades till som en hanterare för "%{collection}".
   username: Användarnamn
@@ -3699,6 +3757,8 @@ sv:
       form_tip: För att återställa ditt EOL-konto, skriv in e-postadressen som är associerad med det kontot. Var god kontrollera din spammapp om du inte har fått ett meddelande inom en timme.
       meta_title: Återställ konto
     recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Tyvärr, ett fel uppstod och e-postmeddelandet skickades inte. Var god välj kontot du vill återställa tillgång till och försök igen.
       form_header: Återställ konto
       form_tip: Det finns flera konton som är registrerade med e-postadressen <em>%{email}</em>. Var god välj det konto som lösenordet ska återställas för.
       legend_choose_account: Välj ett konto
@@ -3747,6 +3807,7 @@ sv:
   view_article_source: Visa artikelkälla
   view_as_button: Ändra vy
   view_as_label: Visa som
+  view_common_activities: visa vanliga aktiviteter
   view_common_activities_link: Visa lista med de vanligaste aktiviteterna.
   view_curators: visa kuratorer
   view_current_version_link: Visa aktuell version
@@ -3766,11 +3827,14 @@ sv:
   view_verb: Visa
   view_video_source: Visa videokälla
   view_your_curator_profile: Visa din kuratorprofil
+  vimeo: Vimeo
   visible_title: Synlig
   visitors: Besökare
+  vivisimo: Vivisimo
   wants_colon: "Vill ha:"
   warning_you_are_editing_as_admin: "VARNING: Du är endast tillåten att redigera denna sida eftersom du är en administratör."
   watch_list: Bevakningslista
+  watch_list_newsfeed: Nyhetsflöde för bevakningslista
   web_users: Webbanvändare
   weekly: Varje vecka
   welcome: Välkommen

@@ -552,7 +552,8 @@ nl:
           an_unknown_user_split_classifications_from_it: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
           an_unknown_user_split_classifications_from_taxon: Een onbekende gebruiker heeft de classificaties van %{classifications} gesplitst van %{taxon} naar <a href='%{to}'>de eigen pagina</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst van een onbekende pagina naar <a href='%{to}'>de eigen pagina</a>.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> heeft de classificaties van %{classifications} gesplits naar <a href='%{to}'>hun eigen pagina</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> heeft de classificaties van %{classifications} van %{taxon} gesplitst naar <a href='%{to}'>de eigen pagina</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: Een onbekende gebruiker heeft de miniatuurafbeelding gewijzigd van "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: Een onbekende gebruiker heeft de miniatuurafbeelding gewijzigd van een onbekende afbeelding.
@@ -2225,14 +2226,14 @@ nl:
         last_action: Laatste handeling
         latest_published_harvest_event: Laatst gepubliceerd
         logo_current: "Huidige logo:"
-        logo_new: "Een nieuwe logo uploaden:"
+        logo_new: "Een nieuw logo uploaden:"
         notes: Projectnotities <small>(beperkt zichtbaar)</small>
         oldest_published_harvest_event: Voor het eerst gepubliceerd
         public_more: De profielen van publieke contentpartners zijn zichtbaar voor iedereen en partnergegevens bijgesloten in contentpartnerlijsten. Deselecteer om de partnergegevens uit te sluiten van lijsten en toegang tot profielen te beperken tot de gebruiker die de content heeft aangemaakt en EOL-beheerders.
         user_id: Gegevens contentpartner worden beheerd door
       content_partner_agreement: 
         mou_url: URL van het overeenkomstbestand <small>(optioneel alternatief)</small>
-        mou_url_more: Voer optioneel een URL in naar het bestand dat de partnerovereenkomst bevat. Dit bestand overschrijft iedere andere tekst voor de overeenkomst. Als u het bestand wilt opnemen op de servers van EOL (bijvoorbeeld een PDF-bestand), <a href="%{upload_content_url}">upload het bestand dan eerst</a> om de URL te verkrijgen.
+        mou_url_more: Voer optioneel een URL in naar het bestand dat de partnerovereenkomst bevat. Dit bestand overschrijft iedere andere tekst voor de overeenkomst. Als u het bestand wilt opnemen op de servers van EOL (bijvoorbeeld een pdfbestand), <a href="%{upload_content_url}">upload het bestand dan eerst</a> om de URL te verkrijgen.
       content_partner_contact: 
         email_reports_frequency_hours_more: E-mailrapporten worden alleen verzonden als er opmerkingen geplaatst zijn bij  of conserveringshandelingen zijn uitgevoerd op uw gegevens of op taxonpagina's die relevant zijn voor uw gegevens.
       data_object: 
@@ -2473,6 +2474,7 @@ nl:
   html_format_with_left_col: "{HTML-opmaak; alleen invoeren als u een linkerkolom op de pagina wilt hebben; anders leeg laten)"
   id: ID
   if_checked_and_user_is_saved: Als aangevinkt en de gebruiker is opgeslagen, dan worden referenties, scope, goedkeuring en geselecteerde claden allemaal verwijderd en wordt de gebruiker niet langer weergegeven als conservator. U hoort een opmerkingen toe te voegen met de reden. De gebruiker ontvangt hierover geen melding.
+  if_multiple_media_objects_are_returned: "Als er meerdere mediaobjecten worden teruggegeven, wordt de lijst gesorteerd op objecttype. Binnen elk type worden items gesorteerd op basis van de controlestatus (\"Vertrouwd\" > \"Ongecontroleerd\" > \"Onbetrouwbaar\"), en vervolgens op de gegevensrating. Binnen bepaalde gegevenstypen krijgen specifieke items echter krijgen de hoogste prioriteit: als een van deze items wordt teruggegeven, wordt dit bovenaan weergegeven. Voor afbeeldingen hebben exemplarische afbeeldingen de hoogste prioriteit. Voor teksttypen heeft de overzichtstekst de hoogste prioriteit."
   if_the_details_parameter_is_not_set: Als de parameter "details" niet is ingesteld, dan worden alleen de velden dataobject-ID, gegevenstype en in het geval van artikelen, onderwerp, teruggegeven. Het gegevenstype is een waarde uit het vocabulaire of het brontype %{linka}. Het tekstonderwerp is een van de %{linkb}.
   image: Afbeelding
   image_alt_text: "Deze afbeelding hoort bij %{taxon_name} (status: %{vetted_status})"

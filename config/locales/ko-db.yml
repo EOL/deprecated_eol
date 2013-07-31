@@ -5,7 +5,7 @@
 # Author: 아라
 ko: 
   translated_activities-name-activity_id-19: 프로필
-  translated_activities-name-activity_id-50: 신뢰하지 않음
+  translated_activities-name-activity_id-50: 신뢰할 수 없음
   translated_activities-name-activity_id-51: 보이기
   translated_activities-name-activity_id-52: 만들기
   translated_activities-name-activity_id-53: 숨기기
@@ -13,7 +13,7 @@ ko:
   translated_activities-name-activity_id-55: 부적절
   translated_activities-name-activity_id-56: 삭제
   translated_activities-name-activity_id-57: 평가
-  translated_activities-name-activity_id-58: 신뢰함
+  translated_activities-name-activity_id-58: 신뢰할 수 있음
   translated_activities-name-activity_id-59: 검토하지 않음
   translated_activities-name-activity_id-63: 수집
   translated_activities-name-activity_id-64: 제거
@@ -39,7 +39,7 @@ ko:
   translated_agent_roles-label-agent_role_id-9: 사진 작가
   translated_audiences-label-audience_id-1: 전문가
   translated_audiences-label-audience_id-2: 일반 대중
-  translated_audiences-label-audience_id-3: 어린이
+  translated_audiences-label-audience_id-3: 자식
   translated_collection_types-label-collection_type_id-1: 분류
   translated_collection_types-label-collection_type_id-10: 소리
   translated_collection_types-label-collection_type_id-11: 링크
@@ -352,8 +352,8 @@ ko:
   translated_user_identities-label-user_identity_id-4: 시민 과학자
   translated_user_identities-label-user_identity_id-5: 전문 과학자
   translated_vetted-label-vetted_id-0: 알 수 없음
-  translated_vetted-label-vetted_id-4: 신뢰하지 않음
-  translated_vetted-label-vetted_id-5: 신뢰함
+  translated_vetted-label-vetted_id-4: 신뢰할 수 없음
+  translated_vetted-label-vetted_id-5: 신뢰할 수 있음
   translated_vetted-label-vetted_id-6: 부적절
   translated_view_styles-name-view_style_id-1: 목록
   translated_view_styles-name-view_style_id-2: 갤러리

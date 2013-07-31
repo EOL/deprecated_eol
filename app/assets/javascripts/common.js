@@ -401,8 +401,9 @@ $(function() {
       $q.css('color', '#aa0000').val($(this).attr('data_error')).click(function() { $(this).val('').css('color', 'black').unbind('click'); });
       return(false);
     } else if ($q.val() == $(this).attr('data_error')) {
-      var blinkspeed = 160;
-      $q.css('color', '#aa0000').fadeOut(blinkspeed).fadeIn(blinkspeed).fadeOut(blinkspeed).fadeIn(blinkspeed).fadeOut(blinkspeed).fadeIn(blinkspeed);
+      var blinkIn = 20;
+      var blinkOut = 350;
+      $q.css('color', '#aa0000').fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn);
       return(false);
     }
   });

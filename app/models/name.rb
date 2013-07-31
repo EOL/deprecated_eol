@@ -32,7 +32,7 @@ class Name < ActiveRecord::Base
   attr_accessor :is_common_name
 
   def taxon_concepts
-    return taxon_concept_names.collect {|tc_name| tc_name.taxon_concept}.flatten
+    return TaxonConcept.find(taxon_concept_names.map(&:taxon_concept_id).uniq)
   end
 
   def italicized_canonical
@@ -75,25 +75,19 @@ class Name < ActiveRecord::Base
     name_string = name_string.strip.gsub(/\s+/,' ') if name_string.class == String
     return nil if name_string.blank?
 
-    common_name = Name.find_by_string(name_string, :is_common_name => true)
-    if !common_name.blank?
-      common_name_to_edit = common_name unless name_string == common_name.string
-      common_name.update_attributes(:string => name_string) unless common_name_to_edit.blank?
-      return common_name
+    Name.with_master do
+      common_name = Name.find_by_string(name_string, :is_common_name => true)
+      if common_name
+        common_name.update_attributes(:string => name_string) unless name_string == common_name.string
+        return common_name
+      end
+      attributes = {string: name_string, namebank_id: 0, is_common_name: true}
+      unless given_canonical_form.blank?
+        attributes[:canonical_form_id] = CanonicalForm.find_or_create_by_string(given_canonical_form).id
+        attributes[:canonical_verified] = 1
+      end
+      return Name.create!(attributes)
     end
-
-    common_name = Name.new
-    common_name.string = name_string
-    common_name.namebank_id = 0
-    common_name.is_common_name = true
-
-    if !given_canonical_form.blank?
-      common_name.canonical_form_id = CanonicalForm.find_or_create_by_string(given_canonical_form).id
-      common_name.canonical_verified = 1
-    end
-
-    common_name.save!
-    return common_name
   end
 
   def self.find_or_create_by_string(string)

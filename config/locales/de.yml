@@ -555,7 +555,8 @@ de:
           an_unknown_user_split_classifications_from_it: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
           an_unknown_user_split_classifications_from_taxon: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} von der Seite zu %{taxon} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} von einer unbekannten Seite und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} von %{taxon} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: Ein unbekannter Nutzer änderte das Vorschaubild von „%{data_object}“.
         an_unknown_user_cropped_an_unknown_data_object: Ein unbekannter Nutzer änderte das Vorschaubild eines unbekannten Bildes.
@@ -2475,6 +2476,7 @@ de:
   html_format_with_left_col: (HTML-Format. Nur eingeben, sofern Sie eine Spalte auf der linken Seite haben möchten. Ansonsten bitte frei lassen.)
   id: Kennung
   if_checked_and_user_is_saved: Sofern diese Option ausgewählt und der Nutzer gespeichert wird, werden die Referenzen, der Kompetenzbereich, die Genehmigung sowie die ausgewählte Gruppe entfernt. Der Nutzer wird danach nicht länger als Kurator angezeigt. Bitte geben Sie eine hinweisende Anmerkung zur Begründung an. Der Nutzer erhält darüber keine Informationen.
+  if_multiple_media_objects_are_returned: "Falls mehrere Medienobjekte zurückgegeben werden, wird die Liste nach dem Objekttyp sortiert. Innerhalb jedes Typs werden die Einträge nach dem untersuchten Status sortiert („Vertrauenswürdig“ > „Ungeprüft“ > „Nicht vertrauenswürdig“), anschließend nach der Datenbewertung. Innerhalb bestimmter Datentypen geben spezielle Elemente die höchste Priorität an: Falls eines dieser Elemente zurückgegeben wird, wird es zuerst gelistet. Bei Bildern haben Musterbilder und bei Texttypen der Übersichtstext die höchste Priorität."
   if_the_details_parameter_is_not_set: Sofern der Parameter zu den Informationen nicht festgelegt ist, werden nur die Kennung des Datenobjekts, der Datentyp, sowie im Fall eines Artikels das Thema zurückgegeben. Der Datentyp wird ein Wert des Quellenartenvokabulars %{linka} sein. Das Textthema wird eines der %{linkb} sein.
   image: Bild
   image_alt_text: Dieses Bild mit Status %{vetted_status} ist von %{taxon_name}

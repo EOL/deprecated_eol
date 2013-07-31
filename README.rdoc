@@ -46,12 +46,12 @@ Windows).
 
 Things you need:
 
-  1. Ruby 1.9     ...EOL won't work with 1.8.
-  2. Rails 3.2.7  ...No other version will do.
-  3. MySQL Server
-  4. Memcached
-  5. Java         ...to run Solr.
-  6. Virtuoso     ...For the "data tab".
+  1. The version of Ruby specified in .ruby-version
+  2. The version of Rails specified in Gemfile
+  3. MySQL Server (latest stable version of 5)
+  4. Memcached (latest stable version)
+  5. Java (latest stable version of 1.6; others may still work)
+  6. Virtuoso (https://github.com/openlink/virtuoso-opensource/tree/399d46ebce7a5991db3bacdd4c2efdc6948fa9fe)
 
 You may try http://scottyv.me/2012/06/Setting-up-a-mac-as-a-dev-machine/ for setting up your machine, for the most
 part. (Note that as of July 2013, I didn't need XQuartz, so I skipped that step.)

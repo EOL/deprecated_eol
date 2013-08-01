@@ -474,7 +474,7 @@ private
 
   def log_action(object, action, options={})
     if $STATSD
-      $STATSD.increment 'curations'
+      $STATSD.increment 'all_curations'
       $STATSD.increment "curations.#{action}"
       if @data_object.curator_activity_logs.count == 0
         $STATSD.timing 'time_to_first_curation', Time.now.utc - @data_object.created_at

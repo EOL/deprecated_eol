@@ -46,7 +46,7 @@ class SearchController < ApplicationController
     else
       search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page }))
       if $STATSD
-        $STATSD.increment 'searches'
+        $STATSD.increment 'all_searches'
         $STATSD.increment "searches.#{@querystring}"
       end
       @all_results = search_response[:results]

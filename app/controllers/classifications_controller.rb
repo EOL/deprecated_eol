@@ -111,7 +111,7 @@ private
     auto_collect(@taxon_concept) # SPG asks for all curation to add the item to their watchlist.
     CuratorActivityLog.log_preferred_classification(preferred_entry, :user => current_user)
     if $STATSD
-      $STATSD.increment 'curations'
+      $STATSD.increment 'all_curations'
       $STATSD.increment "curations.preferred_classification"
     end
   end

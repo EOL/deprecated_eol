@@ -198,7 +198,7 @@ private
       :taxon_concept_id => tc.id
     )
     if $STATSD
-      $STATSD.increment 'curations'
+      $STATSD.increment 'all_curations'
       $STATSD.increment "curations.#{method}"
     end
   end

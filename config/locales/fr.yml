@@ -25,6 +25,7 @@
 # Author: Tititou36
 # Author: Urhixidur
 # Author: Verdy p
+# Author: Wyz
 # Author: Zcqsc06
 fr: 
   0_1_or_2: 0, 1 ou 2
@@ -545,7 +546,8 @@ fr:
           an_unknown_user_split_classifications_from_it: Un utilisateur inconnu a divisé les classifications par %{classifications} vers <a href='%{to}'>leur propre page</a>.
           an_unknown_user_split_classifications_from_taxon: Un utilisateur inconnu a divisé les classifications par %{classifications} depuis %{taxon} vers <a href='%{to}'>leur propre page</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> a divisé les classifications par %{classifications} depuis une page inconnue vers <a href='%{to}'>leur propre page</a>.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> a divisé les classifications par %{classifications} vers <a href='%{to}'>leur propre page</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> a divisé la classification par %{classifications} vers <a href='%{to}'>leur propre page</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> a divisé les classifications par %{classifications} depuis %{taxon} vers <a href='%{to}'>leur propre page</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: Un utilisateur inconnu a modifié la vignette de l’image de "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: Un utilisateur inconnu a modifié la vignette d’une image inconnue.
@@ -2431,6 +2433,7 @@ fr:
   html_format_with_left_col: (FORMAT HTML, à saisir seulement si vous souhaitez avoir une colonne à gauche sur la page, sinon à laisser blanc)
   id: Identifiant
   if_checked_and_user_is_saved: Si vous cochez et que l’utilisateur est enregistré, alors ses informations d’identification, d’étendue, de certification et d’embranchement sélectionné sont supprimés et l’utilisateur n’apparaîtra plus comme conservateur. Vous devriez ajouter une note ci-dessous pour en indiquer la raison. Aucune information n’est envoyée à l’utilisateur.
+  if_multiple_media_objects_are_returned: "Si plusieurs objets média sont renvoyés, la liste sera triée par type d’objet. Pour chaque type, les éléments seront triés par état d’approbation ('Fiable' > 'Non relu' > 'Non fiable'), puis par note de la donnée. Toutefois, pour certains types de données, des éléments particuliers ont une priorité supérieure : si l’un de ces éléments est renvoyé, il sera affiché en premier. Pour les images, les images modèle ont la plus haute priorité. Avec les types texte, le texte d’ensemble a la  plus haute priorité."
   if_the_details_parameter_is_not_set: Si le paramètre détails n’est pas positionné, alors seul l’identifiant de l’objet de données, le type de la donnée et, dans le cas d’articles, le sujet, seront renvoyés. Le type de donnée sera une valeur du vocabulaire de type de ressource %{linka}. Le texte du sujet sera un des %{linkb}.
   image: Image
   image_alt_text: "Cette image %{vetted_status} porte sur : %{taxon_name}"
@@ -3358,7 +3361,7 @@ fr:
   skip_to_content: Saut au contenu
   skip_to_navigation: Sauter à la navigation
   skip_to_table_of_contents: Sauter à la table des matières
-  social_sharing_reddit_button: soumettre pour une nouvelle modification
+  social_sharing_reddit_button: soumettre à reddit
   social_sharing_twitter_follow_eol_button: Suivre @eol
   social_sharing_twitter_tweet_button: Tweet
   some_required_fields_were_not_entered: Certains champs obligatoires n’ont pas été entrés (vous devez entrer un titre, et un contenu ou une URL).

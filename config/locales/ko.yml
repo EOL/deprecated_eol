@@ -976,7 +976,7 @@ ko:
   all_articles: 모든 문서
   all_changes: 모든 바뀜
   all_collections: 모든 모음집
-  all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 덧글은 아래에 보여지며, 만들어진 시간 역순으로 정렬됩니다.
+  all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 덧글은 만들어진 시간 역순으로 정렬되어 아래에 보여집니다.
   all_communities: 모든 공동체
   all_count: 모든 (%{count})
   all_filter: 모두
@@ -989,7 +989,7 @@ ko:
   all_sources: 모든 원본
   all_taxa: 모든 분류
   all_title: 모두
-  all_user_submitted_texts_on_the_website: 웹사이트에 모든 사용자가 제출한 텍스트는 아래에 보여지며, 만들어진 시간 역순으로 정렬됩니다.
+  all_user_submitted_texts_on_the_website: 웹사이트에 모든 사용자가 제출한 텍스트는 만들어진 시간 역순으로 정렬되어 아래에 보여집니다.
   all_videos: 모든 동영상
   allow_user_logins: 사용자 로그인 허용
   allowed_html_tags: "허용된 HTML: %{comma_separated_tags}"
@@ -1012,7 +1012,7 @@ ko:
     docs: 
       forum_beta_test_text: 새 EOL 포럼의 베타 테스트에 접근하려면 <a href="%{forums_link}">여기를 클릭하세요</a>. 의견을 환영합니다.
   api_cache_time_to_live_parameter: 응답을 캐시하도록 할 초 수
-  api_refer_to_the_getting_started_page: EOL API의 사용 예와 이용 약관, API 키에 대한 등록 정보에 대해서는 <a href="%{link}">시작하기</a>를 참고하세요.
+  api_refer_to_the_getting_started_page: EOL API의 사용 예와 이용 약관, API 키의 등록에 대한 정보에 대해서는 <a href="%{link}">시작하기</a>를 참고하세요.
   application_version_advisory_information: 애플리케이션 버전
   are_you_sure: 확실합니까?
   are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 행동은 되돌릴 수 없습니다.
@@ -1143,7 +1143,7 @@ ko:
   classifications_rank_column_header: 순위
   classifications_recognized_by_column_header: 인정한 콘텐츠 파트너
   classifications_split_column_header: 나누기 / 이동
-  classifications_split_one_classification_only: 분할하려면 분류 하나만 선택하세요. 다른 분류는 분류를 만들고 나서 새 문서로 옮길 수 있습니다
+  classifications_split_one_classification_only: 분할하려면 분류 하나만 선택하세요. 분할하려는 분류를 만들고 나서 다른 분류는 새 문서로 옮길 수 있습니다
   classifications_summary_header_with_count: 
     one: 분류 %{count}개 찾음
     other: 분류 %{count}개 찾음
@@ -1273,7 +1273,7 @@ ko:
   comments: 덧글
   comments_and_tags: 덧글과 태그
   comments_filter: 덧글
-  comments_moderated: 덧글 검토함
+  comments_moderated: 덧글 검토됨
   comments_on: 덧글 남긴 곳
   comments_with_count: 
     one: 덧글 %{count}개
@@ -2415,6 +2415,9 @@ ko:
   indexed: 색인함
   info_item: 정보 항목
   info_items_col_header: 정보 항목
+  information_for_any_audience: 모든 청자에 대한 정보
+  information_intended_for_beginners: 초보자를 위한 정보
+  information_intended_for_experts: 전문가를 위한 정보
   insufficient_privileges_to_add_common_names: 죄송합니다, 공통 이름을 추가할 권한이 충분하지 않습니다.
   insufficient_privileges_to_curate_names: 죄송합니다, 이름을 큐레이트할 권한이 충분하지 않습니다.
   internal_ip_address: 내부 IP 주소
@@ -2577,8 +2580,9 @@ ko:
     one: 링크 %{count}개
     other: 링크 %{count}개
   list_newsletter_emails: 목록 뉴스 레터 이메일
-  list_of_activity_combinations: 5분 동안 활동 조합의 목록입니다.
+  list_of_activity_combinations: 5분 동안 활동 조합의 목록입니다
   listing_collections: 목록 모음집
+  lists_the_identifiers_for_all_hierarchies: 콘텐츠 파트너가 제공하는 모든 계층에 대한 식별자를 나타냅니다
   literature: 문헌
   literature_bhl_link: BHL에서 발견한 참고 문헌 보기
   literature_empty: 참고을 찾을 수 없습니다.
@@ -2748,6 +2752,7 @@ ko:
   names_relationship_column_header: 관계
   names_sources_column_header: 출처
   names_status_column_header: 상태
+  names_synonyms_empty: 아직 이 분류와 연관된 동의어가 없습니다.
   never: 없음
   new_collection: 새 모음집
   new_contact_us_topic: 새 주제 문의하기
@@ -2775,6 +2780,7 @@ ko:
   no_active_members: 아직 충분한 활동이 없습니다.
   no_answer: 아니오
   no_classificaitons_selected: 선택한 분류가 없습니다. 아무것도 이동하지 않습니다.
+  no_collections_apply: 관리자가 추가할 수 없는 모음집을 접근할 수 있습니다.
   no_comments_are_available_for_subject: "%{subject}에 대해 사용할 수 있는 덧글이 없습니다."
   no_comments_have_been_left_yet: 아직 남긴 덧글이 없습니다.
   no_errors_are_available: 존재하는 오류가 없습니다.
@@ -3119,9 +3125,9 @@ ko:
   return_all_synonyms_for_this_taxon: 이 분류에 대한 모든 동의어로 돌아가기
   return_common_names_for_the_page_taxon: 문서의 분류에 대한 모든 공통 이름으로 돌아가기
   revisions: 판
-  revoke_full_curator_link: 철회
-  revoke_manager_link: 관리자 역활 철회
-  revoke_permission: 철회
+  revoke_full_curator_link: 해제
+  revoke_manager_link: 관리자 역활 해제
+  revoke_permission: 해제
   richness_score: 풍부한 점수
   rights: 권한
   rights_holder: 권한 소유자
@@ -3149,7 +3155,7 @@ ko:
   search_placeholder: EOL 찾기 ...
   search_previous_label: 이전
   search_results: 찾기 결과
-  search_suggestion_created: 찾기 제안을 성공적으로 만들었습니다
+  search_suggestion_created: 찾기 제안을 성공적으로 만들었습니다.
   search_suggestion_updated: 찾기 제안을 성공적으로 업데이트했습니다.
   search_suggestions: 찾기 제안
   search_term: 용어 찾기

@@ -32,6 +32,12 @@ class TaxonUserClassificationFilter
     @data ||= TaxonData.new(taxon_concept, user, _hierarchy_entry)
   end
 
+  # Options include: page, per_page, sort_by, type, and status)
+  def media(options)
+    options[:hierarchy_entry] = _hierarchy_entry
+    @media ||= TaxonMedia.new(taxon_concept, user, options)
+  end
+
   # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
   # you see "hierarchy_entry" (no leading underscore) it means "do the right thing".
   def hierarchy_entry
@@ -69,18 +75,6 @@ class TaxonUserClassificationFilter
 
   def map_taxon_concept
     @map_taxon_concept ||= classification_filter? ? _hierarchy_entry.taxon_concept : taxon_concept
-  end
-
-  # NOTE - Once you call this (with options), those options are preserved and you cannot call this with different
-  # options. Be careful. (In practice, this never matters.)
-  def media(options = {})
-    @media ||= taxon_concept.data_objects_from_solr(options.merge(
-      :ignore_translations => true,
-      :return_hierarchically_aggregated_objects => true,
-      :skip_preload => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
-                                              :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
-    ))
   end
 
   def hierarchy
@@ -177,39 +171,13 @@ class TaxonUserClassificationFilter
     @media_count ||= taxon_concept.media_count(user, _hierarchy_entry)
   end
 
+  # Almost all derived classes want to know what it looks like, so this is universal:
   def image
     @image ||= taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end
 
   def text(options = {})
     taxon_concept.text_for_user(user, options)
-  end
-
-  # TODO - clearly this belongs in TaxonDetails...
-  # NOTE - this assumes you have already called #media with whatever options you care to use.
-  def preload_details
-    # There should not be an older revision of exemplar image on the media tab. But recently there were few cases
-    # found. Replace older revision of the exemplar image from media with the latest published revision.
-    if image # If there's no exemplar image, don't bother...
-      @media.map! { |m| (m.guid == image.guid && m.id != image.id) ? image : m }
-    end
-    DataObject.replace_with_latest_versions!(@media, :language_id => user.language_id)
-    includes = [ {
-      :data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
-      }, :vetted, :visibility ]
-    } ]
-    includes << {
-      :all_curated_data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
-      }, :vetted, :visibility, :user ]
-    }
-    DataObject.preload_associations(@media, includes)
-    DataObject.preload_associations(@media, :users_data_object)
-    DataObject.preload_associations(@media, :language)
-    DataObject.preload_associations(@media, :mime_type)
-    DataObject.preload_associations(@media, :translations,
-                                    :conditions => "data_object_translations.language_id = #{user.language_id}")
   end
 
 private

@@ -15,7 +15,7 @@
       %dd
         %ul
           - [:all, :image, :video, :sound].each do |opt|
-            - count = @facets[opt.to_s] || 0
+            - count = @taxon_media.facets[opt.to_s] || 0
             - item_class = (opt == :all || count > 0) ? nil : 'no_results'
             %li{ :class => item_class }
               %label

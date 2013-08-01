@@ -6,6 +6,7 @@
 - en_type ||= en_type(data_object)
 - total = 5
 - average_rating = data_object.safe_rating
+-# TODO - refactor this. Use duck-typing, at least.
 - if @current_user_ratings.nil?
   - if rating_from_user = data_object.rating_from_user(current_user)
     - user_rating = rating_from_user.rating

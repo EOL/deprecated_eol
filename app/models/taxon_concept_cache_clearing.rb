@@ -39,12 +39,8 @@ class TaxonConceptCacheClearing
   # TODO - test
   # NOTE - this can take a long time if there are many media!
   def self.clear_media(taxon_concept)
-    # NOTE - user doesn't actually get used here, yet.  Once we have TaxonMedia, it will, so...
-    # TODO - update this to TaxonMedia when available.
-    page = TaxonPage.new(taxon_concept, User.first)
-    page.media(:data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
-               :vetted_types => ['trusted', 'unreviewed', 'untrusted'],
-               :visibility_types => ['visible', 'invisible']).each do |dato|
+    # NOTE - needs to pass in a curator (any type will do); nothing is logged as being from that user, so this is okay:
+    media = TaxonMedia.new(taxon_concept, User.curator.first, per_page: 1000).each do |dato|
       DataObject.find(dato).update_solr_index # Find needed because it doesn't have all attributes otherwise.
     end
   end

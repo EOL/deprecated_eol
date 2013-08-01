@@ -17,6 +17,11 @@ module EOL
       0
     end
 
+    # They have never rated anything!
+    def rating_for_object_guids(*args)
+      {}
+    end
+
     # This can actually be dynamic:
     def language
       @lang_object ||= @lang.is_a?(Language) ? @lang : Language.find_by_iso_639_1(@lang)

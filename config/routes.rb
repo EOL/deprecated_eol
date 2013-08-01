@@ -508,6 +508,10 @@ Eol::Application.routes.draw do
     end
   end
 
+  resource :curator_activity_logs, :only => 'index' do
+    get 'last_ten_minutes'
+  end
+
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation
   match 'api/docs' => 'api/docs#index' # Default is actually the documenation

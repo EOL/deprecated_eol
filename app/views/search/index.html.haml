@@ -21,7 +21,8 @@
             = render :partial => "shared/item_summary_media", :locals => { :item => result_instance,
               :en_type => en_type, :search_result => result }
           - elsif ! en_type.blank?
-            = render :partial => "shared/item_summary_#{en_type}", :locals => { :item => result_instance, :search_result => result }
+            = render :partial => "shared/item_summary_#{en_type}", :locals => { :item => result_instance,
+              :search_result => result }
   .footer
     = will_paginate @all_results, |
     :previous_label => previous_label, |

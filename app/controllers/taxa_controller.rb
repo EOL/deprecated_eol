@@ -197,6 +197,10 @@ private
       :activity => Activity.send(method),
       :taxon_concept_id => tc.id
     )
+    if $STATSD
+      $STATSD.increment 'curations'
+      $STATSD.increment "curations.#{method}"
+    end
   end
 
   def entry_id_is_in_param_id?

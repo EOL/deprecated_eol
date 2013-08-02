@@ -85,6 +85,7 @@ module EOL
 
       def drop_all_virtuoso_graphs
         # print "dropping all virtuoso graphs ... "
+        # NOTE - for some reason (?) this keeps throwing "invalid port" errors.
         EOL::Sparql.connection.query("SELECT DISTINCT ?graph WHERE { GRAPH ?graph { ?s ?p ?o } }").each do |result|
           graph_name = result[:graph].to_s
           if graph_name =~ /^http:\/\/eol\.org\//

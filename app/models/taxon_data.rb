@@ -5,6 +5,8 @@ class TaxonData < TaxonUserClassificationFilter
 
   DEFAULT_PAGE_SIZE = 30
 
+  include Enumerable
+
   def self.graph_name_to_resource_id(graph_name)
     graph_name.to_s.split("/").last
   end
@@ -54,6 +56,27 @@ class TaxonData < TaxonUserClassificationFilter
     return query
   end
 
+  def downloadable?
+    ! empty?
+  end
+
+  def empty?
+    get_data.blank?
+  end
+
+  def each(&block)
+    get_data.each { |row| yield(row) }
+  end
+
+  def topics
+    @topics ||= get_data.map { |d| d[:attribute] }.select { |a| a.is_a?(KnownUri) }.uniq.compact.map(&:name)
+  end
+
+  def categories
+    get_data unless @categories
+    @categories
+  end
+
   # TODO - break down into friendlier syntax. :)
   def get_data
     return @rows if @rows
@@ -94,11 +117,6 @@ class TaxonData < TaxonUserClassificationFilter
   def get_data_for_overview
     picker = TaxonDataExemplarPicker.new(self)
     picker.pick(get_data)
-  end
-
-  def categories
-    get_data unless @categories
-    @categories
   end
 
   private

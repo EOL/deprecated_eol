@@ -154,8 +154,8 @@ module TaxaHelper
       return uri if tag_type == :span
     else
       definition = "<strong>#{uri_components[:uri]}</strong>"
-      if uri_components.has_key?(:description) && ! uri_components[:description].blank?
-        definition = "<dt>#{definition}</dt><dd>#{uri_components[:description]}</dd>"
+      if uri_components.has_key?(:definition) && ! uri_components[:definition].blank?
+        definition = "<dt>#{definition}</dt><dd>#{uri_components[:definition]}</dd>"
       end
     end
     capture_haml do

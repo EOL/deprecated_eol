@@ -66,7 +66,7 @@ module EOL
     # TODO - this could be solved with duck-typing.
     def self.uri_components(known_uri_or_string)
       if known_uri_or_string.is_a?(KnownUri)
-        return { uri: known_uri_or_string.uri, label: known_uri_or_string.name, description: known_uri_or_string.description }
+        return { uri: known_uri_or_string.uri, label: known_uri_or_string.name, definition: known_uri_or_string.definition }
       elsif label = EOL::Sparql.uri_to_readable_label(known_uri_or_string)
         return { uri: known_uri_or_string, label: label }
       else

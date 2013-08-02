@@ -1501,9 +1501,9 @@ ul.tabs
         border: 0
         span.comments
           float: right
-          padding-right: 4px
+          width: 11px
+          padding-left: 4px
         th
-          text-transform: uppercase
           color: $darker_blue
           font-weight: normal
           text-align: right
@@ -1528,11 +1528,15 @@ ul.tabs
               font-size: 0.8em
               font-weight: normal
           span.source
-            text-align: center
+            text-align: right
             float: right
-            width: 80px
+            width: 12em
             font-size: 0.75em
-            color: $grayblue
+            height: 1.5em
+            white-space: nowrap
+            overflow: auto
+            text-overflow: ellipsis
+            color: $darker_blue
           span.fold
             float: left
             padding-right: 5pt
@@ -1619,16 +1623,6 @@ ul.tabs
       letter-spacing: 1px
       margin-bottom: 0.4em
       border-bottom: 1px solid $grayblue
-
-#data_summary
-  span.remove
-    border: 1px solid #d4dce2
-    cursor: pointer
-    margin-left: 3px
-    padding: 1px 3px 1px 0px
-    background-color: white
-    &:hover
-      background-color: $fieldset_light_blue
 
 .ui-tooltip
   border: 1px solid $grayblue

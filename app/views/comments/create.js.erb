@@ -2,9 +2,7 @@ var $row = $('#<%= @comment.parent.anchor %>');
 $row.next().find('div.comments').append(
     '<div class="comment"><%= escape_javascript(sanitize(@comment.body.balance_tags.add_missing_hyperlinks)) %> &ndash; <%= escape_javascript(link_to(@comment.user.full_name, @comment.user)) %></div>'
 ).parent().find('input#comment_body').val('').blur();
-if ($row.find('span.comments').length == 0) {
-  $row.find('td.val span.source').after('<span class="comments"><%= image_tag('comment_indicator.png') %></span>');
-}
+$row.find('span.comments').html('<%= image_tag('comment_indicator.png') %>');
 
 <% target = nil %>
 <% if @comment.parent.is_a?(DataPointUri) %>

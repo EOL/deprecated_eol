@@ -149,17 +149,11 @@ module TaxaHelper
 
   def display_uri(uri, tag_type = :span)
     uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
-    definition = nil
     if uri_components[:uri] == uri_components[:label]
       return uri if tag_type == :span
-    else
-      definition = "<strong>#{uri_components[:uri]}</strong>"
-      if uri_components.has_key?(:definition) && ! uri_components[:definition].blank?
-        definition = "<dt>#{definition}</dt><dd>#{uri_components[:definition]}</dd>"
-      end
     end
     capture_haml do
-      haml_tag tag_type, { "data-definition" => definition } do
+      haml_tag tag_type do
         haml_concat uri_components[:label]
       end
     end
@@ -191,10 +185,10 @@ module TaxaHelper
     if row[:data_point_instance] && options[:taxon_concept] && current_user.min_curator_level?(:full)
       remove_link =
       text_for_row_value << "<span class='remove'> " +
-        link_to(image_tag("v2/icon_remove.png"),
+        link_to(I18n.t(:remove),
                 taxon_data_exemplars_path(id: row[:data_point_instance].id,
                                           taxon_concept_id: options[:taxon_concept].id, :exclude => true),
-                                          method: :post, alt: I18n.t(:remove), confirm: I18n.t(:are_you_sure), remote: true) +
+                                          method: :post, confirm: I18n.t(:are_you_sure), remote: true) +
         "</span>"
     end
     text_for_row_value.gsub(/\n/, '')

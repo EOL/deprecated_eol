@@ -67,11 +67,14 @@
               = link_to(image_tag('arrow_fold_down.png', alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(@taxon_page, :data_point_uri_id => row[:data_point_instance].id, :anchor => row[:data_point_instance].anchor))
             = raw display_text_for_structured_data_row(row)
 
-            %span.source
-              = truncate(row[:source].name, length: 12)
+            %span.comments
+              - if comments.empty?
+                &nbsp;
+              - else
+                = image_tag('comment_indicator.png')
 
-            - unless comments.empty?
-              %span.comments= image_tag('comment_indicator.png')
+            %span.source
+              = row[:source].name
 
             - if row_is_selected
               = render partial: 'data_point_uris/metadata', locals: { data_point_uri: row[:data_point_instance] }

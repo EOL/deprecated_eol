@@ -1,5 +1,7 @@
 if(!EOL) { var EOL = {}; }
 
+var _TOOLTIP_OPEN = false;
+
 EOL.max_meta_rows = 10;
 
 EOL.enable_button = function($button) {
@@ -133,8 +135,7 @@ $(function() {
 
   $('table.data tr.actions').hide().prev().find('.fold img').attr('src', "/assets/arrow_fold_right.png").closest('tr').on('click',
     function(e) {
-    // if the target of the click is a link, do not hide the metadata
-    if($(e.target).closest('a').length) return;
+    if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
     var $folder = $(this).find('.fold img');
     var $next_row = $(this).next();
     var $this_data = $(this).children('td');
@@ -247,6 +248,30 @@ $(function() {
     }
   }).disableSelection();
 
-  $('[data-definition]').tooltip({items: '[data-definition]', content: function() { return $(this).attr('data-definition'); } }); // fn needed to get HTML formatting
+  // Definitions of attributes:
+  $('div.info').each(function() {
+    // We replace the raw definition (for non-JS users) with a link we'll use as a clickable tooltip:
+    $(this).before('<a class="definition hidden" title="'+$(this).html().replace('"', '&quot;')+'"></a>').html('<a href="#"><img src="/assets/v2/icon_info_tabs.png" height=14 width=14 style="padding-top:3px"/></a>');
+  }).find('a').on('click', function() { // Here's where we transform the tooltip to be opened on click instead of hover:
+    $('a.definition.hidden').tooltip('close');
+    var tip = $(this).parent().prev();
+    var nearest = tip.closest('tr').attr('id'); // We need to remember which one is open; click again and it closes.
+    if (_TOOLTIP_OPEN == nearest) {
+      _TOOLTIP_OPEN = false;
+    } else {
+      _TOOLTIP_OPEN = nearest;
+      tip.tooltip('open');
+    }
+    return(false);
+  });
+
+  // We need to use the content function here to enable HTML:
+  $('a.definition.hidden').tooltip({
+    items: 'a.definition.hidden',
+    show: { effect: 'slideDown', duration: 200 },
+    hide: { effect: 'fade', duration: 100 },
+    position: { my: "left top", at: "left-170 bottom-5", collision: "flipfit" },
+    content: function() { return $(this).attr('title'); }
+  });
 
 });

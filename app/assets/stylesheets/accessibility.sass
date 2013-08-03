@@ -1510,6 +1510,13 @@ ul.tabs
           width: 203px
           vertical-align: top
           padding-top: 4pt
+          .info
+            float: left
+            min-width: 24px
+            dt
+              font-weight: bold
+            dd
+              margin-top: 1em
         th.excluded
           background: url(image-path("v2/icon_excluded.png")) 7px 1em no-repeat
         th.exemplar
@@ -1627,9 +1634,10 @@ ul.tabs
 .ui-tooltip
   border: 1px solid $grayblue
   background: white
-  color: $nearly_black 
+  color: $nearly_black
   z-index: 1000
   width: 580px
+  overflow: auto
   padding: 1em
   text-align: left
   +box-shadow(3px 3px 6px -2px rgba(0,0,0,0.5))

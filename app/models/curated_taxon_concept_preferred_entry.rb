@@ -27,13 +27,13 @@ class CuratedTaxonConceptPreferredEntry < ActiveRecord::Base
       # see if there is a published entry in the same hierarchy
       # order each result giving priority to entries with the same :identifier
       if he = HierarchyEntry.where(taxon_concept_id: taxon_concept.id, hierarchy_id: entry.hierarchy_id, published: 1).
-                             order("identifier=#{entry.identifier} DESC").limit(1).first
+                             order("identifier='#{entry.identifier}' DESC").limit(1).first
         curated_preferred_entry.hierarchy_entry = he
       elsif entry.hierarchy.hierarchy_group_id > 0
         # see if there is a published entry in the same hierarchy group (e.g. COL 2010, 2011, 2012...)
         if he = HierarchyEntry.where(taxon_concept_id: taxon_concept.id, published: 1).joins(:hierarchy).
                                where("hierarchies.hierarchy_group_id = #{entry.hierarchy.hierarchy_group_id}").
-                               order("identifier=#{entry.identifier} DESC").limit(1).first
+                               order("identifier='#{entry.identifier}' DESC").limit(1).first
           curated_preferred_entry.hierarchy_entry = he
         else
           return nil

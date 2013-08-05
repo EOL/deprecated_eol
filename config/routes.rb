@@ -378,6 +378,15 @@ Eol::Application.routes.draw do
     end
   end
 
+  resource :virtuoso, :controller => 'virtuoso' do
+    collection do
+      get 'data_tab'
+      get 'overview_tab'
+      get 'search'
+      get 'insert_and_delete'
+    end
+  end
+
   # Old V1 admin search logs:
   resources :search_logs, :controller => 'administrator/search_logs'
 

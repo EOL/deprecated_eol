@@ -92,7 +92,6 @@ module EOL
             EOL::Sparql.connection.delete_graph(graph_name)
           end
         end
-        # puts "done"
       end
 
       def build_data_object(type, desc, options = {})

@@ -24,6 +24,7 @@ class UserAddedData < ActiveRecord::Base
 
   after_create :update_triplestore
   after_update :update_triplestore
+  before_destroy :remove_from_triplestore
 
   attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes, :deleted_at,
     :visibility, :visibility_id, :vetted, :vetted_id

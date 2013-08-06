@@ -68,7 +68,7 @@
                   %dt= row[:attribute].uri
                   %dd= row[:attribute].definition
                 - else
-                  %strong= row[:attribute].uri
+                  .uri= row[:attribute].uri
           %td.val{headers: th_id}
             %span.fold
               = link_to(image_tag('arrow_fold_down.png', alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(@taxon_page, :data_point_uri_id => row[:data_point_instance].id, :anchor => row[:data_point_instance].anchor))

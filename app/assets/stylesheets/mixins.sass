@@ -5,6 +5,7 @@ $logo_size_tertiary: 35
 $global_nav_height: 2.7em !default
 $nearly_black: #394651
 $darker_gray: #93a4b0
+$lightest_blue: #f0f4f7
 $light_blue: #e2e9ef
 $grayblue: #cad3db
 $darker_blue: #616e7a
@@ -80,13 +81,13 @@ $fieldset_light_blue: #f3f7fa
   padding: 2px 5px
   font: normal 1em Helvetica, Arial, sans-serif
   border: 1px solid $grayblue
-  +gradient-bg(#f0f4f7, white)
+  +gradient-bg($lightest_blue, white)
 = textarea
   padding: 8px
   font: normal 1em Helvetica, Arial, sans-serif
   color: $nearly_black
   border: 1px solid $grayblue
-  +gradient-bg(#f0f4f7, white)
+  +gradient-bg($lightest_blue, white)
 = underline-on-hover
   text-decoration: none
   &:hover

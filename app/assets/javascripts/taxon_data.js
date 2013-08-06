@@ -66,7 +66,7 @@ EOL.limit_data_rows = function() {
         '<tr data-type="' + type + '" class="data nested more"><th></th><td><a href="#" class="more">' +
         $('table.data').attr('data-more').replace('NNN', ($nested_set.length-EOL.max_meta_rows)) +
         '</a></td></tr>');
-      $('tr.more a.more').unbind('click').click(function() {
+      $('tr.more a.more').unbind('click').on('click', function() {
         var $parent_row = $(this).closest('tr');
         $('tr.nested.data.' + $parent_row.attr('data-type')).show();
         $parent_row.remove();
@@ -86,7 +86,7 @@ $(function() {
     update_input_id_and_name($subform, highest_field_id += 1);
     $subform.appendTo($(this)).addClass('subform').hide();
     $(this).append('<span class="add"><a href="#">'+$(this).attr('data-another')+'</a></span>');
-    $(this).find('.add a').click(function() {
+    $(this).find('.add a').on('click', function() {
       $subform.clone().insertBefore($(this).parent()).show();
       update_input_id_and_name($subform, highest_field_id += 1);
       var form_h = $('.has_many_expandable').height();
@@ -131,7 +131,7 @@ $(function() {
     });
   });
 
-  $('table.data .fold a').click(function() { $(this).closest('tr').click(); return(false); }); // These links just click the row, with JS.
+  $('table.data .fold a').on('click', function() { $(this).closest('tr').click(); return(false); }); // These links just click the row, with JS.
 
   $('table.data tr.actions').hide().prev().find('.fold img').attr('src', "/assets/arrow_fold_right.png").closest('tr').on('click',
     function(e) {
@@ -172,7 +172,7 @@ $(function() {
     }
   }).find('table').hide();
 
-  $('#recently_used_category a').click(function() {
+  $('#recently_used_category a').on('click', function() {
     $('#suggestions').find('.child').hide();
     var $next = $(this).parent().next();
     while($next.hasClass('child')) {
@@ -182,13 +182,13 @@ $(function() {
     return(false);
   });
 
-  $('li.attribute').click(function() {
+  $('li.attribute').on('click', function() {
     $('#user_added_data_predicate').val($(this).find('.name').text());
     EOL.attribute_is_okay();
     $('div#suggestions').hide();
   });
 
-  $('#tabs_sidebar.data ul.subtabs a').click(function() {
+  $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
     $('p.about').hide();
     if($(this).parent().hasClass('about')) {
       $('table.data > tbody > tr').hide();
@@ -279,5 +279,32 @@ $(function() {
   */
 
   // Definitions of Attributes are dialogs if JS is enabled:
+  $('div.info').each(function() {
+    var nearest = $(this).closest('tr').attr('id'); // We need to remember which one is open; click again and it closes.
+    var name = $(this).prev().html();
+    $(this)
+      .attr('id', "info_"+nearest)
+      .before('<a class="info_icon" data-info="'+nearest+'">&nbsp;</a>')
+      .addClass('tip')
+      .prepend('<h3>'+name+'</h3>')
+      .prepend('<a href="#" class="close">&nbsp;</a>');
+    $(this).appendTo(document.body);
+  });
+ $('a.info_icon') 
+    .on('click', function() {
+      $('.site_column').unbind('click');
+      var $link = $(this);
+      var $info = $('#info_'+$(this).attr('data-info'));
+      if ($info.is(':visible')) {
+        $info.hide();
+      } else {
+        var pos = $(this).offset();
+        $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
+        $info.show().find('a.close').on('click', function() { $('div.info').hide(); return(false) } );
+        setTimeout(function() {
+          $('.site_column').click(function() { $('div.info').hide(); $('.site_column').unbind('click'); });
+        }, 500);
+      }
+    });
 
 });

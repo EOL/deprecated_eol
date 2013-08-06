@@ -59,9 +59,6 @@
           - th_classes << 'exemplar' if exemplar
           - th_classes << 'excluded' if excluded
           %th{ id: th_id, class: th_classes.join(' ') }
-            - if first_of_type
-              - last_attribute = row[:attribute]
-              = display_uri(row[:attribute])
             - if row[:attribute].respond_to?(:uri) # Really, they all should, yeah?
               %div.info
                 - if row[:attribute].respond_to?(:definition) && ! row[:attribute].definition.blank?
@@ -69,6 +66,9 @@
                   %dd= row[:attribute].definition
                 - else
                   .uri= row[:attribute].uri
+            - if first_of_type
+              - last_attribute = row[:attribute]
+              = display_uri(row[:attribute])
           %td.val{headers: th_id}
             %span.fold
               = link_to(image_tag('arrow_fold_down.png', alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(@taxon_page, :data_point_uri_id => row[:data_point_instance].id, :anchor => row[:data_point_instance].anchor))

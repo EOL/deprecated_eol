@@ -281,7 +281,7 @@ $(function() {
   // Definitions of Attributes are dialogs if JS is enabled:
   $('div.info').each(function() {
     var nearest = $(this).closest('tr').attr('id'); // We need to remember which one is open; click again and it closes.
-    var name = $(this).prev().html();
+    var name = $(this).next().html();
     $(this)
       .attr('id', "info_"+nearest)
       .before('<a class="info_icon" data-info="'+nearest+'">&nbsp;</a>')

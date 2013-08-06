@@ -1,7 +1,7 @@
 - data_point_uri ||= @data_point_uri
 - if metadata = data_point_uri.get_metadata(current_language)
   %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
-    %caption.title{ colspan: 2 }= I18n.t(:metadata)
+    %caption.title{ colspan: 2 }= I18n.t(:data_about_this_record)
     - metadata.each do |d|
       %tr
         = display_uri(d[:attribute], :th)
@@ -9,7 +9,7 @@
 
 - if other_measurements = data_point_uri.get_other_occurrence_measurements(current_language)
   %table.meta{ summary: I18n.t(:data_measurement_subtable_summary) }
-    %caption.title{ colspan: 2 }= I18n.t(:measurements_from_this_occurrence)
+    %caption.title{ colspan: 2 }= I18n.t(:other_measurements_from_this_record)
     - other_measurements.each do |d|
       %tr
         = display_uri(d[:attribute], :th)

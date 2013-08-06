@@ -6,7 +6,7 @@
       %dd
         - sort_options = {}
         - [:newest, :rating, :status].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
-        = select_tag :sort_by, options_for_select(sort_options, @sort_by.to_sym)
+        = select_tag :sort_by, options_for_select(sort_options, @taxon_media.sort_by.to_sym)
 
   %fieldset
     %dl
@@ -19,7 +19,7 @@
             - item_class = (opt == :all || count > 0) ? nil : 'no_results'
             %li{ :class => item_class }
               %label
-                = check_box_tag "type[]", opt, @type.include?(opt.to_s),
+                = check_box_tag "type[]", opt, @taxon_media.type.include?(opt.to_s),
                   { :name => "type[]", :id => "type_#{opt.to_s}"}
                 - if count == 0
                   = I18n.t("filter_by_type_#{opt}_option")
@@ -36,7 +36,7 @@
           - statuses.each do |opt|
             %li
               %label
-                = check_box_tag "status[]", opt, @status.include?(opt.to_s),
+                = check_box_tag "status[]", opt, @taxon_media.status.include?(opt.to_s),
                   { :name => "status[]", :id => "status_#{opt.to_s}" }
                 = I18n.t("filter_by_status_#{opt}_option")
 

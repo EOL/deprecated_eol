@@ -5,6 +5,8 @@
 # Presenter objects, when appropriate.
 class TaxonMedia < TaxonUserClassificationFilter
 
+  attr_reader :type, :status, :per_page, :sort_by
+
   IMAGES_PER_PAGE  = $MAX_IMAGES_PER_PAGE # NOTE - misnomer. TODO - s/b IMAGES_PER_PAGE.
   MAXIMUM_IMAGES_PER_PAGE = 100 
 

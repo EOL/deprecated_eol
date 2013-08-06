@@ -248,10 +248,12 @@ $(function() {
     }
   }).disableSelection();
 
+  /* - TODO - remove this. This is the old version of using ToolTips to handle the definition of URIs.
+
   // Definitions of attributes:
   $('div.info').each(function() {
     // We replace the raw definition (for non-JS users) with a link we'll use as a clickable tooltip:
-    $(this).before('<a class="definition hidden" title="'+$(this).html().replace('"', '&quot;')+'"></a>').html('<a href="#"><img src="/assets/v2/icon_info_tabs.png" height=14 width=14 style="padding-top:3px"/></a>');
+    $(this).before('<a class="definition hidden" title="'+$(this).html().addClass('icon').replace('"', '&quot;')+'"></a>').html('<a href="#"><img src="/assets/v2/icon_info_tabs.png" height=14 width=14 style="padding-top:3px"/></a>');
   }).find('a').on('click', function() { // Here's where we transform the tooltip to be opened on click instead of hover:
     $('a.definition.hidden').tooltip('close');
     var tip = $(this).parent().prev();
@@ -273,5 +275,9 @@ $(function() {
     position: { my: "left top", at: "left-170 bottom-5", collision: "flipfit" },
     content: function() { return $(this).attr('title'); }
   });
+
+  */
+
+  // Definitions of Attributes are dialogs if JS is enabled:
 
 });

@@ -7,7 +7,7 @@
     - @categories.each do |cat|
       %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, url_for(params.merge(:toc_id => cat.id)), 'data-toc-id' => cat.id
     -# TODO - when everything has a category, Other shows up but it is empty
-    %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), url_for(params.merge(:toc_id => 'other')), class: 'other'
+    %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), url_for(params.merge(:toc_id => 'other')), 'data-toc-id' => 'other'
     %li{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(:toc_id => nil)), class: 'all'
     %li{ class: 'about' }= link_to I18n.t(:data_about_subtab), about_taxon_data_path(@taxon_page), remote: true
 .main_container#taxon_data
@@ -17,113 +17,113 @@
       %p= I18n.t(:taxon_data_empty)
   - else
     = render(partial: 'about')
-    %table.standard.data{'data-more' => I18n.t(:data_show_n_more_rows), :summary => I18n.t(:data_table_summary, taxon: @taxon_page.scientific_name) }
-      %caption.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
-      - type_index = 0
-      - last_attribute = nil
-      - @taxon_data.each do |row|
-        - next if row[:attribute].blank?
-        - classes = []
-        - classes = row[:attribute].toc_items.map { |ti| "toc_#{ti.id}" } if row[:attribute].is_a?(KnownUri)
-        - first_of_type = row[:attribute] != last_attribute
-        - if first_of_type
-          - type_index += 1
-        - classes = ['toc_other'] if classes.blank?
-        - classes << "type_#{type_index}"
-        - classes << ['first_of_type'] if first_of_type
-        - classes << 'nested' if row[:attribute] == last_attribute
-        - comments = []
-        - comments = row[:data_point_instance].all_comments # Need to use #all_comments because it might involve multiple instances.
-        -# TODO - move this to the "model" (except the class-setting logic)
-        - show_row = true
-        - if @toc_id == 'other'
-          - show_row = false if row[:attribute].is_a?(KnownUri) && !row[:attribute].toc_items.empty?
-        - elsif row[:attribute].is_a?(KnownUri)
-          - show_row = false if @toc_id && row[:attribute].toc_items.detect{ |toc| toc.id.to_s == @toc_id }.nil?
-        - else
-          - show_row = false if @toc_id
-        - unless row[:data_point_instance].visible?
-          - if current_user.is_curator?
-            - classes << 'hidden'
-          - else
-            - show_row = false
-        - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == row[:data_point_instance].id)
-        %tr{ id: row[:data_point_instance].anchor, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}", style: show_row ? '' : 'display: none;' }
-          - th_id = nil
-          - if row[:attribute] != last_attribute
-            - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
-          -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
-          - exemplar = row[:data_point_instance].taxon_data_exemplars.select{ |ex| ex.included }.any?
-          - excluded = row[:data_point_instance].taxon_data_exemplars.select{ |ex| ex.excluded }.any?
-          - th_classes = []
-          - th_classes << 'exemplar' if exemplar
-          - th_classes << 'excluded' if excluded
-          %th{ id: th_id, class: th_classes.join(' ') }
-            - if row[:attribute].respond_to?(:uri) # Really, they all should, yeah?
-              %div.info
-                - if row[:attribute].respond_to?(:definition) && ! row[:attribute].definition.blank?
-                  %dt= row[:attribute].uri
-                  %dd= row[:attribute].definition
+    -# adding nil here to represent no TOC, i.e. the 'other' cagtegory
+    - category_toc_items = @taxon_data.collect{ |r| r[:attribute].is_a?(KnownUri) ? r[:attribute].toc_items : nil }.flatten.compact.uniq.sort_by(&:view_order) << nil
+    - category_toc_items.each do |category_toc_item|
+      -# TODO - move this to the "model" (except the class-setting logic)
+      - show_table = true
+      - if @toc_id
+        - show_table = category_toc_item.nil? ? (@toc_id == 'other') : (@toc_id == category_toc_item.id.to_s)
+      .header_underlined{ style: show_table ? nil : 'display: none;' }
+        %h3= category_toc_item.nil? ? I18n.t(:other_category) : category_toc_item.label
+      %table.standard.data{'data-more' => I18n.t(:data_show_n_more_rows), :summary => I18n.t(:data_table_summary, taxon: @taxon_page.scientific_name),
+        'data-toc_id' => category_toc_item.nil? ? 'other' : category_toc_item.id, style: show_table ? nil : 'display: none;' }
+        %caption.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
+        - type_index = 0
+        - last_attribute = nil
+        - data_for_this_category = category_toc_item.nil? ? @taxon_data.select{ |r| !r[:attribute].is_a?(KnownUri) } : @taxon_data.select{ |r| r[:attribute].is_a?(KnownUri) && r[:attribute].toc_items.include?(category_toc_item) }
+        - data_for_this_category.each do |row|
+          - next if row[:attribute].blank?
+          - classes = []
+          - first_of_type = row[:attribute] != last_attribute
+          - if first_of_type
+            - type_index += 1
+          - classes << ['first_of_type'] if first_of_type
+          - comments = []
+          - comments = row[:data_point_instance].all_comments # Need to use #all_comments because it might involve multiple instances.
+          - unless row[:data_point_instance].visible?
+            - if current_user.is_curator?
+              - classes << 'hidden'
+            - else
+              - next
+          - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == row[:data_point_instance].id)
+          %tr{ id: row[:data_point_instance].anchor, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}" }
+            - th_id = nil
+            - if row[:attribute] != last_attribute
+              - th_id = row[:attribute].respond_to?(:uri) ? row[:attribute].uri : row[:attribute]
+            -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
+            - exemplar = row[:data_point_instance].taxon_data_exemplars.select{ |ex| ex.included }.any?
+            - excluded = row[:data_point_instance].taxon_data_exemplars.select{ |ex| ex.excluded }.any?
+            - th_classes = []
+            - th_classes << 'exemplar' if exemplar
+            - th_classes << 'excluded' if excluded
+            %th{ id: th_id, class: th_classes.join(' ') }
+              - if row[:attribute].respond_to?(:uri) # Really, they all should, yeah?
+                %div.info{ style: 'display: none' }
+                  - if row[:attribute].respond_to?(:definition) && ! row[:attribute].definition.blank?
+                    %dt= row[:attribute].uri
+                    %dd= row[:attribute].definition
+                  - else
+                    .uri= row[:attribute].uri
+              - if first_of_type
+                - last_attribute = row[:attribute]
+                = display_uri(row[:attribute])
+            %td.val{headers: th_id}
+              %span.fold
+                - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
+                = link_to(image_tag(arrow_file_name, alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(@taxon_page, :data_point_uri_id => row[:data_point_instance].id, :anchor => row[:data_point_instance].anchor))
+              = raw display_text_for_structured_data_row(row)
+
+              %span.comments
+                - if comments.empty?
+                  &nbsp;
                 - else
-                  .uri= row[:attribute].uri
-            - if first_of_type
-              - last_attribute = row[:attribute]
-              = display_uri(row[:attribute])
-          %td.val{headers: th_id}
-            %span.fold
-              = link_to(image_tag('arrow_fold_down.png', alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(@taxon_page, :data_point_uri_id => row[:data_point_instance].id, :anchor => row[:data_point_instance].anchor))
-            = raw display_text_for_structured_data_row(row)
+                  = image_tag('comment_indicator.png')
 
-            %span.comments
-              - if comments.empty?
-                &nbsp;
-              - else
-                = image_tag('comment_indicator.png')
+              %span.source
+                = row[:source].name
 
-            %span.source
-              = row[:source].name
-
-            - if row_is_selected
-              = render partial: 'data_point_uris/metadata', locals: { data_point_uri: row[:data_point_instance] }
-        %tr{ class: (classes + ['actions']).join(' '), style: row_is_selected ? '' : 'display: none;' }
-          %td{ colspan: 2 }
-            %ul
-              - if row[:source]
-                %li= raw I18n.t("data_provided_by_#{row[:source].class.name.underscore.downcase}", whom: link_to(row[:source].name, row[:source]))
-              - if row.has_key?(:data_point_uri)
-                %li
-                  &bull;&ensp;
-                  = link_to row[:data_point_uri], ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(row[:data_point_uri].to_s)), :target => 'data'
-              - if row.has_key?(:user_added_data)
-                - if current_user.can_update?(row[:user_added_data])
+              - if row_is_selected
+                = render partial: 'data_point_uris/metadata', locals: { data_point_uri: row[:data_point_instance] }
+          %tr{ class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
+            %td{ colspan: 2 }
+              %ul
+                - if row[:source]
+                  %li= raw I18n.t("data_provided_by_#{row[:source].class.name.underscore.downcase}", whom: link_to(row[:source].name, row[:source]))
+                - if row.has_key?(:data_point_uri)
                   %li
                     &bull;&ensp;
-                    = link_to I18n.t(:edit), edit_user_added_datum_path(row[:user_added_data]), :method => :get
-                  %li
-                    &bull;&ensp;
-                    = link_to I18n.t(:delete), user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
-              - unless comments.empty?
-                - annotations_link = data_point_uri_comments_path(row[:data_point_instance])
-                - if annotations_link
-                  %li.annotations
-                    &bull;&ensp;
-                    = link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
-            = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: row[:data_point_instance] }
-            -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
-            - if current_user.min_curator_level?(:full)
-              .additional_commands
-                - if row[:data_point_instance].visible?
-                  - hide_link =  data_point_uri_hide_path(row[:data_point_instance])
-                  = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
-                - elsif row[:data_point_instance].invisible?
-                  - show_link = data_point_uri_unhide_path(row[:data_point_instance])
-                  = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
-                - unless excluded
-                  = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: row[:data_point_instance].id, taxon_concept_id: @taxon_data.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{row[:data_point_instance].visible? ? '' : ' hidden'}", remote: true
-                - unless exemplar
-                  = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: row[:data_point_instance].id, taxon_concept_id: @taxon_data.taxon_concept.id), method: :post, class: "add_exemplar button#{row[:data_point_instance].visible? ? '' : ' hidden'}", remote: true
-                - if excluded
-                  %span.note= I18n.t(:data_row_excluded_from_overview_notice)
+                    = link_to row[:data_point_uri], ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(row[:data_point_uri].to_s)), :target => 'data'
+                - if row.has_key?(:user_added_data)
+                  - if current_user.can_update?(row[:user_added_data])
+                    %li
+                      &bull;&ensp;
+                      = link_to I18n.t(:edit), edit_user_added_datum_path(row[:user_added_data]), :method => :get
+                    %li
+                      &bull;&ensp;
+                      = link_to I18n.t(:delete), user_added_datum_path(row[:user_added_data]), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
+                - unless comments.empty?
+                  - annotations_link = data_point_uri_comments_path(row[:data_point_instance])
+                  - if annotations_link
+                    %li.annotations
+                      &bull;&ensp;
+                      = link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
+              = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: row[:data_point_instance] }
+              -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
+              - if current_user.min_curator_level?(:full)
+                .additional_commands
+                  - if row[:data_point_instance].visible?
+                    - hide_link =  data_point_uri_hide_path(row[:data_point_instance])
+                    = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
+                  - elsif row[:data_point_instance].invisible?
+                    - show_link = data_point_uri_unhide_path(row[:data_point_instance])
+                    = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
+                  - unless excluded
+                    = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: row[:data_point_instance].id, taxon_concept_id: @taxon_data.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{row[:data_point_instance].visible? ? nil : ' hidden'}", remote: true
+                  - unless exemplar
+                    = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: row[:data_point_instance].id, taxon_concept_id: @taxon_data.taxon_concept.id), method: :post, class: "add_exemplar button#{row[:data_point_instance].visible? ? nil : ' hidden'}", remote: true
+                  - if excluded
+                    %span.note= I18n.t(:data_row_excluded_from_overview_notice)
 - if logged_in?
   .add_content
     .article

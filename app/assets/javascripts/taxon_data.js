@@ -46,6 +46,18 @@ EOL.add_has_default_behavior = function() {
   });
 };
 
+EOL.hide_data_tables = function(tables) {
+  tables.hide();
+  tables.prev('div.header_underlined').hide();
+};
+
+EOL.show_data_tables = function(tables) {
+  tables.show();
+  tables.prev('div.header_underlined').show();
+  tables.find('tr.data').show();
+  tables.find('tr.actions').hide();
+};
+
 
 function update_input_id_and_name(form, new_id) {
   form.find('input').each(function() {
@@ -58,7 +70,7 @@ EOL.limit_data_rows = function() {
   $('table.data tr.more').remove();
   $('table.data tr.data.first_of_type:visible').each(function() {
     var type = $(this).attr('data-type');
-    var $nested_set = $('table.data tr.' + type + ':visible');
+    var $nested_set = $(this).closest('table').find('tr[data-type="' + type + '"]:visible');
     if ($nested_set.length > EOL.max_meta_rows) {
       var $index = 1;
       $nested_set.each(function() { if ($index > EOL.max_meta_rows) $(this).hide(); $index++; });
@@ -68,7 +80,7 @@ EOL.limit_data_rows = function() {
         '</a></td></tr>');
       $('tr.more a.more').unbind('click').on('click', function() {
         var $parent_row = $(this).closest('tr');
-        $('tr.nested.data.' + $parent_row.attr('data-type')).show();
+        $('tr.data[data-type="' + $parent_row.attr('data-type') +'"]').show();
         $parent_row.remove();
         return(false);
       });
@@ -191,17 +203,13 @@ $(function() {
   $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
     $('p.about').hide();
     if($(this).parent().hasClass('about')) {
-      $('table.data > tbody > tr').hide();
+      EOL.hide_data_tables($('table.data'));
       $('p.about').show()
     } else if($(this).hasClass('all')) { // Acts as a reset button/link
-      $('table.data tr.actions').hide();
-      $('table.data tr.data').show();
-    } else if($(this).hasClass('other')) {
-      $('table.data > tbody > tr').hide();
-      $('table.data tr.data.toc_other').show();
+      EOL.show_data_tables($('table.data'));
     } else {
-      $('table.data > tbody > tr').hide();
-      $('table.data tr.data.toc_' + $(this).attr('data-toc-id')).show();
+      EOL.hide_data_tables($('table.data'));
+      EOL.show_data_tables($('table.data[data-toc_id="' + $(this).attr('data-toc-id') + '"]'));
     }
     $(this).parent().parent().find('li').removeClass('active');
     $(this).parent().addClass('active');
@@ -210,11 +218,7 @@ $(function() {
     $('table.data .fold img').attr('src', "/assets/arrow_fold_right.png");
     $('table.meta').hide();
     EOL.limit_data_rows();
-    if ($(this).parent().hasClass('about')) {
-      return(true);
-    } else {
-      return(false);
-    }
+    return(false);
   });
 
   EOL.limit_data_rows();
@@ -252,6 +256,7 @@ $(function() {
 
   // Definitions of attributes:
   $('div.info').each(function() {
+    $(this).show();
     // We replace the raw definition (for non-JS users) with a link we'll use as a clickable tooltip:
     $(this).before('<a class="definition hidden" title="'+$(this).html().addClass('icon').replace('"', '&quot;')+'"></a>').html('<a href="#"><img src="/assets/v2/icon_info_tabs.png" height=14 width=14 style="padding-top:3px"/></a>');
   }).find('a').on('click', function() { // Here's where we transform the tooltip to be opened on click instead of hover:

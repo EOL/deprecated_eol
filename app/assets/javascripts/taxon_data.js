@@ -296,14 +296,15 @@ $(function() {
       var $link = $(this);
       var $info = $('#info_'+$(this).attr('data-info'));
       if ($info.is(':visible')) {
-        $info.hide();
+        $info.hide('fast');
       } else {
         var pos = $(this).offset();
         $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
-        $info.show().find('a.close').on('click', function() { $('div.info').hide(); return(false) } );
-        setTimeout(function() {
-          $('.site_column').click(function() { $('div.info').hide(); $('.site_column').unbind('click'); });
-        }, 500);
+        $info.show('fast',
+          function() {
+            $('.site_column').click(function() { $('div.info').hide('fast'); $('.site_column').unbind('click'); });
+          }
+        ).find('a.close').on('click', function() { $('div.info').hide('fast'); return(false) } );
       }
     });
 

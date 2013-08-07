@@ -14,6 +14,10 @@ class TaxonDataSet
     @rows.each { |row| yield(row) }
   end
 
+  def empty?
+    @rows.nil? || @rows.empty?
+  end
+
   # NOTE - this is 'destructive', since we don't ever need it to not be. If that changes, make the corresponding method and add a bang to this one.
   def sort
     last = KnownUri.count + 2

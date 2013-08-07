@@ -48,7 +48,18 @@ module EOL
         # start_time = Time.now
         # puts "\n\n\n\n\n\n*********************"
         # puts query
-        sparql_client.query(query).each_solution{ |s| results << s.to_hash }
+        begin
+          sparql_client.query(query).each_solution{ |s| results << s.to_hash }
+        rescue ArgumentError => e
+          if e.message =~ /Invalid port number/
+            puts "We found a graph that cannot be removed programmatically."
+            puts "Please go to http://localhost:8890/ => Conductor => LinkedData => Graphs and check to see"
+            puts "if there is a graph named http://localhost:8890%2FDAV%2Fxx%2Fyy ...if so, delete it and"
+            puts "try again. Sorry!"
+          end
+          raise e
+        end
+
         # puts "done in #{Time.now - start_time} seconds"
         results
       end

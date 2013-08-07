@@ -20,7 +20,7 @@ describe EOL::Sparql do
     EOL::Sparql.to_underscore('Some thing').should == 'some_thing'
     EOL::Sparql.to_underscore('SomeThing').should == 'something'
     EOL::Sparql.to_underscore('Some  Thing').should == 'some_thing'
-    EOL::Sparql.to_underscore('   Some  Thing  ').should == 'some_thing'
+    EOL::Sparql.to_underscore(' 	  Some  Thing  ').should == 'some_thing'
   end
 
   it 'should uri_to_readable_label' do
@@ -38,7 +38,7 @@ describe EOL::Sparql do
       'http://example.com/grams' }).should == nil
     grams = KnownUri.gen_if_not_exists(:uri => 'http://example.com/grams', :name => 'grams', :is_unit_of_measure => true)
     EOL::Sparql.explicit_measurement_uri_components(grams).
-      should == { :uri => "http://example.com/grams", :label => "grams" }
+      should == { uri: "http://example.com/grams", label: "grams", definition: nil }
   end
 
   it 'should implicit_measurement_uri_components' do
@@ -49,7 +49,7 @@ describe EOL::Sparql do
     KnownUriRelationship.gen_if_not_exists(:from_known_uri => length, :to_known_uri => meters, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
     length.reload
     EOL::Sparql.implicit_measurement_uri_components(length)
-      .should == { :uri => "http://example.com/meters", :label => "meters" }
+      .should == { uri: "http://example.com/meters", label: "meters", definition: nil }
   end
 
   it 'should implied_unit_of_measure_for_uri' do
@@ -73,7 +73,7 @@ describe EOL::Sparql do
   it 'should uri_components' do
     EOL::Sparql.uri_components('http://example.com/potatoes').should == { :uri => 'http://example.com/potatoes', :label => 'Potatoes' }
     known = KnownUri.gen_if_not_exists(:uri => 'http://example.com/potatoes', :name => 'Potatoes')
-    EOL::Sparql.uri_components(known).should == { :uri => 'http://example.com/potatoes', :label => 'Potatoes' }
+    EOL::Sparql.uri_components(known).should == { uri: 'http://example.com/potatoes', label: 'Potatoes', definition: nil }
     EOL::Sparql.uri_components('nonsense').should == { :uri => 'nonsense', :label => 'nonsense' }
   end
 

@@ -4,7 +4,6 @@ module EOL
     BASIC_URI_REGEX = /^http:\/\/[^ ]+$/i
     ENCLOSED_URI_REGEX = /^<(http:\/\/[^ ]+)>$/i
     NAMESPACED_URI_REGEX = /^([a-z0-9_-]{1,30}):([a-z0-9_-]+)$/i
-    # TODO - it would be handy if this read from a config file (or at least added things from a config file):
     NAMESPACES = {
         'dwc' => 'http://rs.tdwg.org/dwc/terms/',
         'dwct' => 'http://rs.tdwg.org/dwc/dwctype/',
@@ -28,17 +27,13 @@ module EOL
 
     # camelCase (with starting lower) seems to be more standard for these, but we prefer underscores, soooo...
     def self.to_underscore(str)
-      convert(str.strip.downcase.gsub(/  /, ' ').tr(' ','_'))
+      convert(str.strip.downcase.gsub(/\s+/, '_'))
     end
 
     def self.uri_to_readable_label(uri)
       if matches = uri.to_s.match(/(\/|#)([a-z0-9,_-]{1,})$/i)
         return matches[2].underscore.tr('_', ' ').capitalize_all_words
       end
-    end
-
-    def self.uri_in_eol_triplestore(uri)
-      uri.to_s =~ /^http:\/\/(eol.org\/resources\/[0-9]+\/(taxa|occurrences|events)\/|anage\.org|adw\.org|iobis\.org|reeffish\.org)/
     end
 
     def self.explicit_measurement_uri_components(unit_of_measure_uri)
@@ -52,7 +47,7 @@ module EOL
     end
 
     def self.implied_unit_of_measure_for_uri(known_uri_or_string)
-      if known_uri_or_string.is_a?(KnownUri) && !known_uri_or_string.is_unit_of_measure?
+      if known_uri_or_string.is_a?(KnownUri) && ! known_uri_or_string.is_unit_of_measure?
         return known_uri_or_string.unit_of_measure
       end
     end
@@ -63,7 +58,7 @@ module EOL
       end
     end
 
-    # TODO - this could be solved with duck-typing.
+    # TODO - this could be solved with duck-typing. Unfortunately, that's a lot of work.  :|
     def self.uri_components(known_uri_or_string)
       if known_uri_or_string.is_a?(KnownUri)
         return { uri: known_uri_or_string.uri, label: known_uri_or_string.name, definition: known_uri_or_string.definition }
@@ -104,13 +99,9 @@ module EOL
       return value                                             # literal value
     end
 
-    # TODO - why not use CGI.escape here?  It's far more complete...
-    def self.convert(str)
-       str.gsub!("&", "&amp;")
-       str.gsub!("<", "&lt;")
-       str.gsub!(">", "&gt;")
+    def self.convert(input)
+       str = CGI.escape_html(input) # This doesn't convert everything we want it to, sadly:
        str.gsub!("'", "&apos;")
-       str.gsub!("\"", "&quot;")
        str.gsub!("\\", "")
        str.gsub!("\n", "")
        str.gsub!("\r", "")

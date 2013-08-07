@@ -34,7 +34,9 @@
         %caption.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
         - type_index = 0
         - last_attribute = nil
-        - data_for_this_category = category_toc_item.nil? ? @taxon_data.select{ |r| !r[:attribute].is_a?(KnownUri) } : @taxon_data.select{ |r| r[:attribute].is_a?(KnownUri) && r[:attribute].toc_items.include?(category_toc_item) }
+        - data_for_this_category = category_toc_item.nil? ?
+        -   @taxon_data.select{ |r| !r[:attribute].is_a?(KnownUri) || r[:attribute].toc_items.blank? } :
+        -   @taxon_data.select{ |r| r[:attribute].is_a?(KnownUri) && r[:attribute].toc_items.include?(category_toc_item) }
         - data_for_this_category.each do |row|
           - next if row[:attribute].blank?
           - classes = []

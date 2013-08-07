@@ -43,6 +43,11 @@ class DataPointUri < ActiveRecord::Base
             <#{uri}> dwc:occurrenceID ?occurrence .
             ?occurrence ?attribute ?value .
           } UNION {
+            ?measurement a <#{DataMeasurement::CLASS_URI}> .
+            ?measurement <http://eol.org/schema/parentMeasurementID> <#{uri}> .
+            ?measurement dwc:measurementType ?attribute .
+            ?measurement dwc:measurementValue ?value .
+          } UNION {
             <#{uri}> dwc:occurrenceID ?occurrence .
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement dwc:occurrenceID ?occurrence .
@@ -97,6 +102,41 @@ class DataPointUri < ActiveRecord::Base
     return nil if occurrence_measurement_rows.length <= 1
     TaxonData.add_known_uris_to_data(occurrence_measurement_rows)
     occurrence_measurement_rows
+  end
+
+  def get_references(language)
+    query = "
+      SELECT DISTINCT ?identifier ?publicationType ?full_reference ?primaryTitle ?title ?pages ?pageStart ?pageEnd
+         ?volume ?edition ?publisher ?authorList ?editorList ?created ?language ?uri ?doi ?localityName
+      WHERE {
+        GRAPH ?graph {
+          {
+            <#{uri}> <http://eol.org/schema/reference/referenceID> ?reference .
+            ?reference a <http://eol.org/schema/reference/Reference>
+            OPTIONAL { ?reference <http://purl.org/dc/terms/identifier> ?identifier } .
+            OPTIONAL { ?reference <http://eol.org/schema/reference/publicationType> ?publicationType } .
+            OPTIONAL { ?reference <http://eol.org/schema/reference/full_reference> ?full_reference } .
+            OPTIONAL { ?reference <http://eol.org/schema/reference/primaryTitle> ?primaryTitle } .
+            OPTIONAL { ?reference <http://purl.org/dc/terms/title> ?title } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/pages> ?pages } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/pageStart> ?pageStart } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/pageEnd> ?pageEnd } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/volume> ?volume } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/edition> ?edition } .
+            OPTIONAL { ?reference <http://purl.org/dc/terms/publisher> ?publisher } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/authorList> ?authorList } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/editorList> ?editorList } .
+            OPTIONAL { ?reference <http://purl.org/dc/terms/created> ?created } .
+            OPTIONAL { ?reference <http://purl.org/dc/terms/language> ?language } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/uri> ?uri } .
+            OPTIONAL { ?reference <http://purl.org/ontology/bibo/doi> ?doi } .
+            OPTIONAL { ?reference <http://schemas.talis.com/2005/address/schema#localityName> ?localityName } .
+          }
+        }
+      }"
+    reference_rows = EOL::Sparql.connection.query(query)
+    return nil if reference_rows.empty?
+    reference_rows
   end
 
   # Licenses are special (NOTE we also cache them here on a per-page basis...):

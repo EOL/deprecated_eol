@@ -149,8 +149,8 @@ module TaxaHelper
 
   def display_uri(uri, tag_type = :span)
     uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
-    if uri_components[:uri] == uri_components[:label]
-      return uri if tag_type == :span
+    if uri_components[:uri] == uri_components[:label] && tag_type == :span
+      return uri.to_s.add_missing_hyperlinks
     end
     capture_haml do
       haml_tag tag_type do

@@ -14,7 +14,7 @@ class Taxa::MediaController < TaxaController
     # TODO - current_user_ratings is unnecessary. We could handle this easily with duck-typing, but I don't want to do that right now:
     @current_user_ratings = @taxon_media.applied_ratings
     @assistive_section_header = I18n.t(:assistive_media_header)
-    set_canonical_urls(:for => @taxon_page, :paginated => @media, :url_method => :taxon_media_url)
+    set_canonical_urls(:for => @taxon_page, :paginated => @taxon_media.paginated, :url_method => :taxon_media_url)
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
 

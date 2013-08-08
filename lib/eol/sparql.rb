@@ -1,3 +1,5 @@
+# TODO - there is a lot of logic here that has more to do with URIs than with Sparql. Extract a class, pass instances of that around instead of
+# a string.
 module EOL
   module Sparql
 
@@ -17,6 +19,8 @@ module EOL
         'anage' => 'http://anage.org/schema/terms/'
       }
 
+    # NOTE - yes, this appears to be rebuilding the connection every time, but when I benchmarked it, it was very, very fast, so I'm not
+    # worried about that.
     def self.connection
       EOL::Sparql::VirtuosoClient.new(
         :endpoint_uri => $VIRTUOSO_SPARQL_ENDPOINT_URI,

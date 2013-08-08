@@ -30,7 +30,7 @@ module EOL
       end
 
       def update(query)
-        sparql_client.query(append_namespaces_to_query(query))
+        sparql_client.query("#{namespaces_prefixes} #{query}")
       end
 
       def delete_graph(graph_name)
@@ -42,15 +42,12 @@ module EOL
       # http://localhost:8890/ => LinkedData => Graphs and check to see if there is a graph named
       # http://localhost:8890%2FDAV%2Fxx%2Fyy . If so, delete it and try again
       def query(query, options = {})
-        query = append_namespaces_to_query(query)
-        query = options[:prefix] +" "+ query if options[:prefix]
         results = []
-        # start_time = Time.now
-        # puts "\n\n\n\n\n\n*********************"
-        # puts query
         begin
-          sparql_client.query(query).each_solution{ |s| results << s.to_hash }
+          sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
         rescue ArgumentError => e
+          # NOTE - this catch is caused by going through the demo for setting up the DAV user/directory. You've got to manually delete that
+          # later!
           if e.message =~ /Invalid port number/
             puts "We found a graph that cannot be removed programmatically."
             puts "Please go to http://localhost:8890/ => Conductor => LinkedData => Graphs and check to see"
@@ -59,12 +56,10 @@ module EOL
           end
           raise e
         end
-
-        # puts "done in #{Time.now - start_time} seconds"
         results
       end
 
-      private
+    private
 
       def delete_graph_via_sparql_update(graph_name)
         return unless graph_name
@@ -72,9 +67,10 @@ module EOL
         update("DROP SILENT GRAPH <#{graph_name}>")
       end
 
-      def append_namespaces_to_query(query)
-        namespaces.collect{ |key,value| "PREFIX #{key}: <#{value}>"}.join(" ") + " " + query
+      def namespaces_prefixes
+        namespaces.collect{ |key,value| "PREFIX #{key}: <#{value}>"}.join(" ")
       end
+
     end
   end
 end

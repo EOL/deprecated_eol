@@ -95,7 +95,6 @@ describe 'Taxa data tab basic tests' do
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
     hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', :is_unit_of_measure => true)
     KnownUriRelationship.gen_if_not_exists(:from_known_uri => time, :to_known_uri => hours, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
-    # TODO - this is faling - the units don't show up. :\
     visit taxon_data_path(@taxon_concept.id)
     body.should include("50 <span>\nhours")
   end

@@ -67,7 +67,7 @@
                 %div.info{ style: 'display: none' }
                   - if row[:attribute].respond_to?(:definition) && ! row[:attribute].definition.blank?
                     %dt= row[:attribute].uri
-                    %dd= row[:attribute].definition
+                    %dd= raw row[:attribute].definition.add_missing_hyperlinks
                   - else
                     .uri= row[:attribute].uri
               - if first_of_type

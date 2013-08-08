@@ -90,7 +90,8 @@ class DataPointUri < ActiveRecord::Base
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
-            ?measurement <http://eol.org/schema/measurementOfTaxon> 'true' .
+            ?measurement <http://eol.org/schema/measurementOfTaxon> ?measurementOfTaxon .
+            FILTER ( ?measurementOfTaxon = 'true' ) .
             OPTIONAL {
               ?measurement dwc:measurementUnit ?unit_of_measure_uri
             }

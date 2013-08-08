@@ -27,6 +27,8 @@ Eol::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  config.assets.cache_store = :dalli_store
+
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 

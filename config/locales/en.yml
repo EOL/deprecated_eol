@@ -3138,7 +3138,7 @@ en:
   data_table_summary: "Computable data for %{taxon}. Each row of data is a separate fact, provided by a content partner or user. Each value might include a nested table summarizing metadata about the fact: where it was collected, what the rights to the data are, and the like. Click on the row to show this metadata. Click again to hide it. Showing metadata also shows annotations and allows users to add their own annotations as needed. Curators have additional functions when showing metadata."
   data_metadata_subtable_summary: "Additional data about this fact."
   data_measurement_subtable_summary: "Additional data about the measurement of this fact."
-  data_reference_subtable_summary: "Additional references about the measurement of this fact."
+  data_reference_subtable_summary: "Additional references about this fact."
   data_row_exemplar_added: "Quick fact added."
   data_row_exemplar_removed: "Quick fact removed."
   data_row_excluded_from_overview_notice: "Note: this row has been excluded from the quick facts."

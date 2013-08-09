@@ -58,31 +58,32 @@ describe "Core Extensions" do
 
   describe 'add_missing_hyperlinks' do
     it 'should link http URLs' do
-      "Some http://eol.org link".add_missing_hyperlinks.should == 'Some <a href="http://eol.org">http://eol.org</a> link'
-      "Some http://eol.org/ link".add_missing_hyperlinks.should == 'Some <a href="http://eol.org/">http://eol.org/</a> link'
-      "Some http://eol.org/info link".add_missing_hyperlinks.should == 'Some <a href="http://eol.org/info">http://eol.org/info</a> link'
-      "Some http://eol.org/info.html link".add_missing_hyperlinks.should == 'Some <a href="http://eol.org/info.html">http://eol.org/info.html</a> link'
+      'Some http://eol.org link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org">http://eol.org</a> link'
+      'Some ("http://eol.org") link'.add_missing_hyperlinks.should == 'Some ("<a href="http://eol.org">http://eol.org</a>") link'
+      'Some http://eol.org/ link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org/">http://eol.org/</a> link'
+      'Some http://eol.org/info link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org/info">http://eol.org/info</a> link'
+      'Some http://eol.org/info.html link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org/info.html">http://eol.org/info.html</a> link'
     end
 
     it 'should link https URLs' do
-      "Some https://eol.org link".add_missing_hyperlinks.should == 'Some <a href="https://eol.org">https://eol.org</a> link'
-      "Some https://eol.org/ link".add_missing_hyperlinks.should == 'Some <a href="https://eol.org/">https://eol.org/</a> link'
-      "Some https://eol.org/info link".add_missing_hyperlinks.should == 'Some <a href="https://eol.org/info">https://eol.org/info</a> link'
-      "Some https://eol.org/info.html link".add_missing_hyperlinks.should == 'Some <a href="https://eol.org/info.html">https://eol.org/info.html</a> link'
+      'Some https://eol.org link'.add_missing_hyperlinks.should == 'Some <a href="https://eol.org">https://eol.org</a> link'
+      'Some https://eol.org/ link'.add_missing_hyperlinks.should == 'Some <a href="https://eol.org/">https://eol.org/</a> link'
+      'Some https://eol.org/info link'.add_missing_hyperlinks.should == 'Some <a href="https://eol.org/info">https://eol.org/info</a> link'
+      'Some https://eol.org/info.html link'.add_missing_hyperlinks.should == 'Some <a href="https://eol.org/info.html">https://eol.org/info.html</a> link'
     end
 
     it 'should link www URLs' do
-      "Some www.eol.org link".add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org">www.eol.org</a> link'
-      "Some www.eol.org/ link".add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/">www.eol.org/</a> link'
-      "Some www.eol.org/info link".add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/info">www.eol.org/info</a> link'
-      "Some www.eol.org/info.html link".add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/info.html">www.eol.org/info.html</a> link'
+      'Some www.eol.org link'.add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org">www.eol.org</a> link'
+      'Some www.eol.org/ link'.add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/">www.eol.org/</a> link'
+      'Some www.eol.org/info link'.add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/info">www.eol.org/info</a> link'
+      'Some www.eol.org/info.html link'.add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/info.html">www.eol.org/info.html</a> link'
     end
 
     it 'should link DOIs' do
-      "Some doi:10.4319/lo.2013.58.1.0254 DOI".add_missing_hyperlinks.should ==
+      'Some doi:10.4319/lo.2013.58.1.0254 DOI'.add_missing_hyperlinks.should ==
         'Some <a href="http://dx.doi.org/doi:10.4319/lo.2013.58.1.0254">doi:10.4319/lo.2013.58.1.0254</a> DOI'
-      "Some doi:10.5194/essdd-5-147-2012, DOI".add_missing_hyperlinks.should ==
-        'Some <a href="http://dx.doi.org/doi:10.5194/essdd-5-147-2012">doi:10.5194/essdd-5-147-2012</a>, DOI'
+      'Some ("doi:10.4319/lo.2013.58.1.0254") DOI'.add_missing_hyperlinks.should ==
+        'Some ("<a href="http://dx.doi.org/doi:10.4319/lo.2013.58.1.0254">doi:10.4319/lo.2013.58.1.0254</a>") DOI'
     end
   end
 

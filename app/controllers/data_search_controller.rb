@@ -18,7 +18,7 @@ class DataSearchController < ApplicationController
       end
       @results = TaxonData.search(:querystring => @querystring, :attribute => @attribute, :from => @from, :to => @to,
         :page => @page, :per_page => 30)
-      @results = TaxonData.replace_taxon_concept_uris(@results, :taxon_concept_id)
+      @results = KnownUri.replace_taxon_concept_uris(@results)
       taxon_concepts = TaxonConcept.find_all_by_id(@results.collect{ |d| d[:taxon_concept_id] }.compact.uniq, :include => [
         { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } },
         { :preferred_common_names => :name } ])

@@ -74,7 +74,7 @@ class DataPointUri < ActiveRecord::Base
       }"
     metadata_rows = EOL::Sparql.connection.query(query)
     metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)
-    TaxonData.add_known_uris_to_data(metadata_rows)
+    KnownUri.add_to_data(metadata_rows)
     return nil if metadata_rows.empty?
     metadata_rows
   end
@@ -101,7 +101,7 @@ class DataPointUri < ActiveRecord::Base
     occurrence_measurement_rows = EOL::Sparql.connection.query(query)
     # if there is only one response, then it is the original measurement
     return nil if occurrence_measurement_rows.length <= 1
-    TaxonData.add_known_uris_to_data(occurrence_measurement_rows)
+    KnownUri.add_to_data(occurrence_measurement_rows)
     occurrence_measurement_rows
   end
 

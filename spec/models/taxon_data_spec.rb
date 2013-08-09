@@ -7,18 +7,14 @@ describe TaxonData do
     @taxon_concept = TaxonConcept.gen
     @user = User.gen
     @prep_string = TaxonData.prepare_search_query(querystring: 'foo')
-    @data_point_uri = DataPointUri.gen
+    @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
     @resource = Resource.gen
-    @user_added_data = UserAddedData.gen
+    @user_added_data = UserAddedData.gen(subject: @taxon_concept)
   end
 
   before(:each) do
     @mock_row = {data_point_uri: @data_point_uri}
     @taxon_data = TaxonData.new(@taxon_concept, @user)
-  end
-
-  it 'should grab the last part of a URI for its resource id' do
-    TaxonData.graph_name_to_resource_id('foo/bar/baz').should == 'baz'
   end
 
   it 'should NOT run any queries on blank search' do
@@ -66,8 +62,8 @@ describe TaxonData do
   end
 
   it 'should add data to the row for user-added data' do
-    TaxonDataSet.should_receive(:new).and_return([@mock_row])
-    TaxonData.should_receive(:get_user_added_data).and_return(@user_added_data)
+    @taxon_data.should_receive(:data).and_return([@mock_row])
+    UserAddedData.should_receive(:from_value).and_return(@user_added_data)
     user = User.gen
     @user_added_data.should_receive(:user).and_return(user)
     @taxon_data.get_data
@@ -77,27 +73,26 @@ describe TaxonData do
   end
 
   it 'should add a resource id to rows if graphed' do
-    TaxonDataSet.should_receive(:new).and_return([@mock_row])
-    @mock_row[:graph] = 'graph'
-    TaxonData.should_receive(:graph_name_to_resource_id).with('graph').and_return('hiya')
+    @taxon_data.should_receive(:data).and_return([@mock_row])
+    @mock_row[:graph] = 'blah/blah/graph/hiya'
     @taxon_data.get_data
     @mock_row[:resource_id].should == 'hiya'
   end
 
   it 'should populate sources from resources' do
     @mock_row[:resource_id] = @resource.id
-    TaxonDataSet.should_receive(:new).and_return([@mock_row])
+    @taxon_data.should_receive(:data).and_return([@mock_row])
     @taxon_data.get_data
     @mock_row[:source].should == @resource.content_partner
   end
 
   it 'should add known uris to the rows' do
-    TaxonData.should_receive(:add_known_uris_to_data)
+    KnownUri.should_receive(:add_to_data)
     @taxon_data.get_data
   end
 
   it 'should replace taxon concept uris' do
-    TaxonData.should_receive(:replace_taxon_concept_uris)
+    KnownUri.should_receive(:replace_taxon_concept_uris)
     @taxon_data.get_data
   end
 
@@ -108,7 +103,7 @@ describe TaxonData do
 
   it 'should sort the rows' do
     rows = [@mock_row]
-    TaxonDataSet.should_receive(:new).and_return(rows)
+    @taxon_data.should_receive(:data).and_return(rows)
     rows.should_receive(:sort) 
     @taxon_data.get_data
   end

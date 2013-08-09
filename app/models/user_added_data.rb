@@ -1,6 +1,6 @@
 class UserAddedData < ActiveRecord::Base
 
-  SUBJECT_PREFIX = "http://eol.org/pages/" # TODO - this should probably be configurable.
+  SUBJECT_PREFIX = "http://eol.org/pages/" # TODO - this should probably be configurable. ...And polymorphic, so a hash. :|
   GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
   URI_REGEX = /#{GRAPH_NAME.sub('/', '\\/')}(\d+)$/
 
@@ -30,27 +30,19 @@ class UserAddedData < ActiveRecord::Base
 
   accepts_nested_attributes_for :user_added_data_metadata, :allow_destroy => true
 
+  def self.from_value(value)
+    if value && matches = value.to_s.match(URI_REGEX)
+      uad = UserAddedData.find(matches[1])
+      return uad if uad
+    end
+    nil
+  end
+
   def can_be_updated_by?(user_wanting_access)
     user == user_wanting_access || user_wanting_access.is_admin?
   end
   def can_be_deleted_by?(user_wanting_access)
     user == user_wanting_access || user_wanting_access.is_admin?
-  end
-
-  # TODO - this is just for testing. You really don't want to run this in production...
-  def self.delete_graph
-    EOL::Sparql.connection.delete_graph(GRAPH_NAME)
-  end
-
-  # TODO - this is just for testing. You really don't want to run this in production...
-  def self.recreate_triplestore_graph
-    delete_graph
-    UserAddedData.where("deleted_at IS NULL").each do |uad|
-      uad.add_to_triplestore
-      uad.user_added_data_metadata.each do |meta|
-        meta.add_to_triplestore
-      end
-    end
   end
 
   def add_to_triplestore
@@ -91,8 +83,9 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def turtle
+    raise NotImlementedError unless subject.is_a?(TaxonConcept)
     "<#{uri}> a <#{DataMeasurement::CLASS_URI}>" +
-      # TODO - if this is really polymorphic, this needs to be dynamic:
+      # TODO - this needs to be dynamic:
     "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject.id.to_s + ">" +
     "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +
     "; dwc:measurementValue " + EOL::Sparql.enclose_value(object)
@@ -101,7 +94,7 @@ class UserAddedData < ActiveRecord::Base
   # Needed when commentable:
   def summary_name
     # TODO ... something useful here
-    "TODO - a useful name for user added data"
+    "#{predicate} => #{value} for #{subject_type} #{subject_id}"
   end
 
   def anchor

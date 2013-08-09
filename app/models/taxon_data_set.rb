@@ -8,6 +8,13 @@ class TaxonDataSet
     @taxon_concept_id = options[:taxon_concept_id]
     @language = options[:language] || Language.default
     preload_data_point_uris
+    add_user_added_data
+    add_resource_ids
+    preload_resources
+    KnownUri.add_to_data(@rows)
+    KnownUri.replace_taxon_concept_uris(@rows)
+    TaxonData.preload_target_taxon_concepts(@rows)
+    @rows.sort
   end
 
   def each
@@ -50,6 +57,33 @@ class TaxonDataSet
   end
 
   private
+
+  def preload_resources
+    resources = Resource.find_all_by_id(@rows.collect{ |r| r[:resource_id] }.compact.uniq, :include => :content_partner)
+    @rows.each do |row|
+      if resource_id = row[:resource_id].to_i
+        if resource = resources.detect{ |r| r.id == resource_id }
+          row[:source] = resource.content_partner
+        end
+      end
+    end
+  end
+
+  def add_user_added_data
+    @rows.each do |row|
+      if user_added_data = UserAddedData.from_value(row[:data_point_uri])
+        row[:user] = user_added_data.user
+        row[:user_added_data] = user_added_data
+        row[:source] = row[:user]
+      end
+    end
+  end
+
+  def add_resource_ids
+    @rows.each do |row|
+      row[:resource_id] = row[:graph].to_s.split("/").last if row[:graph]
+    end
+  end
 
   def preload_data_point_uris
     partner_data = @rows.select{ |d| d.has_key?(:data_point_uri) }

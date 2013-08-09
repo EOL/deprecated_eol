@@ -68,20 +68,6 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
-  # TODO - this is just for testing. You really don't want to run this in production...
-  # there is also a lot of duplicate with this user added data, and the data factories
-  def self.delete_graph
-    EOL::Sparql.connection.delete_graph(KnownUri::GRAPH_NAME)
-  end
-
-  # TODO - this is just for testing. You really don't want to run this in production...
-  def self.recreate_triplestore_graph
-    delete_graph
-    KnownUri.all.each do |k|
-      k.add_to_triplestore
-    end
-  end
-
   def self.unknown_uris_from_array(uris_with_counts)
     unknown_uris_with_counts = uris_with_counts
     known_uris = KnownUri.find_all_by_uri(unknown_uris_with_counts.collect{ |uri,count| uri })
@@ -172,6 +158,39 @@ class KnownUri < ActiveRecord::Base
 
   def self.unknown_association_type_uris
     unknown_uris_from_array(counts_of_all_association_type_uris)
+  end
+
+  def self.add_to_data(rows)
+    known_uris = where(["uri in (?)", uris_in_data(rows)])
+    preload_associations(known_uris, [ { :known_uri_relationships_as_subject => :to_known_uri }, { :known_uri_relationships_as_target => :from_known_uri } ])
+    rows.each do |row|
+      replace_with_uri(row, :attribute, known_uris)
+      replace_with_uri(row, :value, known_uris)
+      replace_with_uri(row, :unit_of_measure_uri, known_uris)
+      if taxon_id = taxon_concept_id(row[:value])
+        row[:target_taxon_concept_id] = taxon_id
+      end
+    end
+  end
+
+  def self.uris_in_data(rows)
+    uris  = rows.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
+    uris += rows.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
+    uris += rows.map { |row| row[:unit_of_measure_uri] }.select { |attr| attr.is_a?(RDF::URI) }
+    uris.map(&:to_s).uniq
+  end
+
+  def self.replace_with_uri(hash, key, known_uris)
+    uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
+    hash[key] = uri if uri
+  end
+
+  def self.replace_taxon_concept_uris(rows)
+    rows.each do |r|
+      [:target_taxon_concept_id, :taxon_concept_id].each do |taxon_concept_uri_key|
+        r[taxon_concept_uri_key] = KnownUri.taxon_concept_id(r[taxon_concept_uri_key]) if r.has_key?(taxon_concept_uri_key)
+      end
+    end
   end
 
   def unknown?

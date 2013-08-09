@@ -101,13 +101,6 @@ describe TaxonData do
     @taxon_data.get_data
   end
 
-  it 'should sort the rows' do
-    rows = [@mock_row]
-    @taxon_data.should_receive(:data).and_return(rows)
-    rows.should_receive(:sort) 
-    @taxon_data.get_data
-  end
-
   it 'should preload known_uris'
 
   it 'should populate categories on #get_data'

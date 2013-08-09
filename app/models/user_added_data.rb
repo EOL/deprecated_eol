@@ -32,6 +32,7 @@ class UserAddedData < ActiveRecord::Base
 
   def self.from_value(value)
     if value && matches = value.to_s.match(URI_REGEX)
+      return nil unless UserAddedData.exists?(matches[1])
       uad = UserAddedData.find(matches[1])
       return uad if uad
     end

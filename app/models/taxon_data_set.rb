@@ -14,7 +14,7 @@ class TaxonDataSet
     KnownUri.add_to_data(@rows)
     KnownUri.replace_taxon_concept_uris(@rows)
     TaxonData.preload_target_taxon_concepts(@rows)
-    @rows.sort
+    sort
   end
 
   def each

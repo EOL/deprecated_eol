@@ -433,8 +433,12 @@ DataObject.class_eval do
 end
 
 UserAddedData.class_eval do
+  def self.delete_graph
+    EOL::Sparql.connection.delete_graph(UserAddedData::GRAPH_NAME)
+  end
+
   def self.recreate_triplestore_graph
-    EOL::Sparql.connection.delete_graph(GRAPH_NAME)
+    delete_graph
     UserAddedData.where("deleted_at IS NULL").each do |uad|
       uad.add_to_triplestore
       uad.user_added_data_metadata.each do |meta|

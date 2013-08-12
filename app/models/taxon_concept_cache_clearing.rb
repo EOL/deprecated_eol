@@ -13,6 +13,10 @@ class TaxonConceptCacheClearing
     TaxonConceptCacheClearing.new(taxon_concept).clear_collections
   end
 
+  def self.clear_exemplar_image(taxon_concept)
+    TaxonConceptCacheClearing.new(taxon_concept).clear_exemplar_image
+  end
+
   # TODO - this should really be for an Association, not a combo of these two:
   def self.clear_for_data_object(taxon_concept, data_object)
     TaxonConceptCacheClearing.new(taxon_concept).clear_for_data_object(data_object)
@@ -76,10 +80,14 @@ private
     Language.find_active.each do |lang|
       Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{taxon_concept.id}_#{lang.id}"))
     end
-    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
+    clear_exemplar_image
     TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: taxon_concept.id)
     ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
     taxon_concept.create_preferred_entry(ctcpe.hierarchy_entry) if ctcpe
+  end
+
+  def clear_exemplar_image
+    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
   end
 
   def clear_media_counts

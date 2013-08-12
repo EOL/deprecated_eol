@@ -23,7 +23,8 @@ class TocItem < ActiveRecord::Base
     'Conservation',
     'Relevance to Humans and Ecosystems',
     'Notes',
-    'Names and Taxonomy'
+    'Names and Taxonomy',
+    'Database and Repository Coverage'
   ]
 
 
@@ -39,6 +40,7 @@ class TocItem < ActiveRecord::Base
       end
     end
 
+    # This is downright evil. ...But at least we cache it.  :|
     def count_objects
       counts = []
       count_hash = TocItem.connection.select_rows("select toc.id, count(*) from table_of_contents toc
@@ -234,9 +236,8 @@ class TocItem < ActiveRecord::Base
       return if new_label.blank?
       max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents")[0].to_i
       next_view_order = max_view_order + 1
-      TocItem.create(:parent_id => 0, :view_order => next_view_order)
-      new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
-      TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
+      new_toc_item_id = TocItem.create(:parent_id => 0, :view_order => next_view_order)
+      TranslatedTocItem.create(:table_of_contents_id => new_toc_item.id, :language_id => Language.english.id, :label => new_label)
     end
 
     # this just gets the TOCitems and their parents for the text given, sorted by view_order

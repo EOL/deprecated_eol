@@ -31,7 +31,7 @@ class TocItem < ActiveRecord::Base
   class << self 
 
     def exclude_editable
-      ['Barcode', 'Wikipedia', 'Education', 'Nucleotide Sequences']
+      ['Barcode', 'Wikipedia', 'Education', 'Nucleotide Sequences', 'Database and Repository Coverage']
     end
 
     def toc_object_counts

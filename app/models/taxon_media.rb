@@ -72,6 +72,7 @@ class TaxonMedia < TaxonUserClassificationFilter
                                                 :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
     )
     preload_media
+    correct_bogus_exemplar_image
   end
 
   def set_statuses

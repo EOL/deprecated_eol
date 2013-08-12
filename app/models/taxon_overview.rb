@@ -64,7 +64,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   end
 
   def image
-    taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
+    @image ||= taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
   end
 
   def collections
@@ -155,6 +155,7 @@ private
                                     :conditions => "data_object_translations.language_id=#{user.language_id}")
     @summary = loadables.pop
     @media = loadables
+    correct_bogus_exemplar_image
   end
 
   def load_media
@@ -171,6 +172,13 @@ private
 
   def load_summary
     taxon_concept.overview_text_for_user(user)
+  end
+
+  def correct_bogus_exemplar_image
+    if image.nil? && ! @media.empty? && ! @media.first.map? 
+      TaxonConceptCacheClearing.clear_exemplar_image(taxon_concept)
+      @image = nil # Reload it the next time you need it.
+    end
   end
 
   def all_collections

@@ -177,6 +177,15 @@ class TaxonUserClassificationFilter
     @image ||= taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end
 
+  # NOTE - this ONLY works on overview and media.
+  # TODO - move this to a mixin, which we can then call on those two.
+  def correct_bogus_exemplar_image
+    if image.nil? && ! @media.empty? && ! @media.first.map? 
+      TaxonConceptCacheClearing.clear_exemplar_image(taxon_concept)
+      @image = nil # Reload it the next time you need it.
+    end
+  end
+
   def text(options = {})
     taxon_concept.text_for_user(user, options)
   end

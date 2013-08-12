@@ -41,6 +41,47 @@ class ContentPartner < ActiveRecord::Base
   validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
     :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
 
+  def self.with_published_data
+    published_partner_ids = connection.select_values("SELECT r.content_partner_id
+    FROM resources r
+    JOIN harvest_events he ON (r.id = he.resource_id)
+    WHERE he.published_at IS NOT NULL")
+    ContentPartner.find_all_by_id(published_partner_ids, :order => "full_name")
+  end
+
+  def self.boa
+    cached_find(:full_name, 'Biology of Aging')
+  end
+
+  def self.wikipedia
+    @@wikipedia ||= cached_find(:full_name, 'Wikipedia')
+  end
+
+  def self.partners_published_in_month(year, month)
+    start_time = Time.mktime(year, month)
+    end_time = Time.mktime(year, month) + 1.month
+
+    previously_published_partner_ids = connection.select_values("SELECT r.content_partner_id
+      FROM resources r
+      JOIN harvest_events he ON (r.id = he.resource_id)
+      WHERE he.published_at < '#{start_time.mysql_timestamp}'")
+
+    published_partner_ids = connection.select_values("SELECT r.content_partner_id
+      FROM resources r
+      JOIN harvest_events he ON (r.id = he.resource_id)
+      WHERE he.published_at BETWEEN '#{start_time.mysql_timestamp}' AND '#{end_time.mysql_timestamp}'")
+    ContentPartner.find_all_by_id(published_partner_ids - previously_published_partner_ids)
+  end
+
+  def self.resources_harvest_events(content_partner_id, page)
+    query = "SELECT r.id resource_id, he.id AS harvest_id, r.title, he.began_at, he.completed_at, he.published_at
+    FROM content_partners cp
+    JOIN resources r ON cp.id = r.content_partner_id
+    JOIN harvest_events he ON he.resource_id = r.id
+    WHERE cp.id = #{content_partner_id}
+    ORDER BY r.id desc, he.id desc"
+    self.paginate_by_sql [query, content_partner_id], :page => page, :per_page => 30
+  end
 
   def can_be_read_by?(user_wanting_access)
     public || (user_wanting_access.id == user_id || user_wanting_access.is_admin?)
@@ -63,22 +104,6 @@ class ContentPartner < ActiveRecord::Base
     return !has_resources.empty?
   end
 
-  def self.with_published_data
-    published_partner_ids = connection.select_values("SELECT r.content_partner_id
-    FROM resources r
-    JOIN harvest_events he ON (r.id = he.resource_id)
-    WHERE he.published_at IS NOT NULL")
-    ContentPartner.find_all_by_id(published_partner_ids, :order => "full_name")
-  end
-
-  def self.boa
-    cached_find(:full_name, 'Biology of Aging')
-  end
-
-  def self.wikipedia
-    @@wikipedia ||= cached_find(:full_name, 'Wikipedia')
-  end
-
   def all_harvest_events
     all_harvest_events = []
     resources.each do |r|
@@ -94,22 +119,6 @@ class ContentPartner < ActiveRecord::Base
 
   def oldest_published_harvest_events
     resources.collect(&:oldest_published_harvest_event).compact.sort_by{|he| he.published_at}
-  end
-
-  def self.partners_published_in_month(year, month)
-    start_time = Time.mktime(year, month)
-    end_time = Time.mktime(year, month) + 1.month
-
-    previously_published_partner_ids = connection.select_values("SELECT r.content_partner_id
-      FROM resources r
-      JOIN harvest_events he ON (r.id = he.resource_id)
-      WHERE he.published_at < '#{start_time.mysql_timestamp}'")
-
-    published_partner_ids = connection.select_values("SELECT r.content_partner_id
-      FROM resources r
-      JOIN harvest_events he ON (r.id = he.resource_id)
-      WHERE he.published_at BETWEEN '#{start_time.mysql_timestamp}' AND '#{end_time.mysql_timestamp}'")
-    ContentPartner.find_all_by_id(published_partner_ids - previously_published_partner_ids)
   end
 
   def has_unpublished_content?
@@ -163,16 +172,6 @@ class ContentPartner < ActiveRecord::Base
   def name
     return display_name unless display_name.blank?
     full_name
-  end
-
-  def self.resources_harvest_events(content_partner_id, page)
-    query = "SELECT r.id resource_id, he.id AS harvest_id, r.title, he.began_at, he.completed_at, he.published_at
-    FROM content_partners cp
-    JOIN resources r ON cp.id = r.content_partner_id
-    JOIN harvest_events he ON he.resource_id = r.id
-    WHERE cp.id = #{content_partner_id}
-    ORDER BY r.id desc, he.id desc"
-    self.paginate_by_sql [query, content_partner_id], :page => page, :per_page => 30
   end
 
 private

@@ -19,7 +19,10 @@
             = form_tag("/data_objects/#{data_object.id}/save_association/#{he.id}",  :method => "post") do
               = submit_tag I18n.t(:add_association_submit_button), :class => "button"
           - if he.hierarchy.agent.homepage.blank?
-            = he.hierarchy.agent.full_name
+            - if he.hierarchy.content_partner.homepage.blank?
+              = he.hierarchy.content_partner.name
+            - else
+              = link_to he.hierarchy.content_partner.name, he.hierarchy.content_partner.homepage
           - else
             = link_to he.hierarchy.agent.full_name, he.hierarchy.agent.homepage
           - classification_summary = item.entry.preferred_classification_summary

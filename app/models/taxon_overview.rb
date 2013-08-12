@@ -63,10 +63,6 @@ class TaxonOverview < TaxonUserClassificationFilter
     !@summary.blank?
   end
 
-  def image
-    @image ||= taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
-  end
-
   def collections
     # NOTE - -relevance was faster than either #reverse or rel * -1.
     @collections ||= all_collections.sort_by { |c| [ -c.relevance ] }[0..COLLECTIONS_TO_SHOW-1]
@@ -172,13 +168,6 @@ private
 
   def load_summary
     taxon_concept.overview_text_for_user(user)
-  end
-
-  def correct_bogus_exemplar_image
-    if image.nil? && ! @media.empty? && ! @media.first.map? 
-      TaxonConceptCacheClearing.clear_exemplar_image(taxon_concept)
-      @image = nil # Reload it the next time you need it.
-    end
   end
 
   def all_collections

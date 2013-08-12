@@ -2511,6 +2511,8 @@ en:
   belongs_in_count_communities:
     one: "Belongs to %{count} Community"
     other: "Belongs to %{count} Communities"
+  bhl: "Biodiversity Heritage Library"
+  bhl_partner_footer: "Visit the Biodiversity Heritage Library"
   bhl_publication: "BHL publication"
   bi_monthly: "Bi-Monthly"
   biodiversity_heritage_library: "Biodiversity Heritage Library"

@@ -3673,6 +3673,7 @@ en:
   manager_endorse_collections_suggestion: "To feature a collection on this community's page, add the featured collection to any of the community's managed collections."
   manager_parens: "(manager)"
   map_from: "map from"
+  master_curators_may_add_data: "Master curators may add data:"
   image_map_from: "map from"
   maps_with_count:
     one: "%{count} Map"

@@ -315,4 +315,17 @@ $(function() {
       }
     });
 
+  $('.add_content .article').hide();
+  $('.add_content .add_data a').on('click', function() {
+    var $article = $('.add_content .article')
+    if ($article.is(':visible')) {
+      $(this).removeClass('open');
+      $('.add_content .article').hide();
+    } else {
+      $(this).addClass('open');
+      $('.add_content .article').show();
+    }
+    return(false);
+  });
+
 });

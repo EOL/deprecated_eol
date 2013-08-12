@@ -129,8 +129,9 @@
                     = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: row[:data_point_instance].id, taxon_concept_id: @taxon_data.taxon_concept.id), method: :post, class: "add_exemplar button#{row[:data_point_instance].visible? ? nil : ' hidden'}", remote: true
                   - if excluded
                     %span.note= I18n.t(:data_row_excluded_from_overview_notice)
-- if logged_in?
+- if current_user.min_curator_level?(:master)
   .add_content
+    %p.add_data= link_to I18n.t(:master_curators_may_add_data), '#' # Ideally, that would be a link to the user_added_data/new path...
     .article
       .header
         %h3= I18n.t('user_added_data.add_data_header')

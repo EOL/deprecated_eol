@@ -11,7 +11,7 @@ var $row = $('tr#<%= @taxon_data_exemplar.data_point_uri.anchor %>');
 if($row.length > 0) {
   var $additional = $row.next().find('div.additional_commands');
   <% if @taxon_data_exemplar.exclude? %>
-    $row.find('> th').removeClass('exemplar').addClass('excluded');
+    $row.find('> th span').removeClass('exemplar').addClass('excluded');
     $additional.find('a.remove_exemplar').hide();
     var $add = $additional.find('a.add_exemplar');
     if($add.length > 0) {
@@ -22,7 +22,7 @@ if($row.length > 0) {
     $additional.find('span.note').show(); // Won't always work, but might as well do it when it's low-hanging fruit.
     $('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:data_row_exemplar_removed) %></p>");
   <% else %>
-    $row.find('> th').removeClass('excluded').addClass('exemplar');
+    $row.find('> th span').removeClass('excluded').addClass('exemplar');
     $additional.find('a.add_exemplar').hide()
     var $remove = $additional.find('a.remove_exemplar');
     if($remove.length > 0) {

@@ -147,11 +147,12 @@ module TaxaHelper
     !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(taxon_concept.id)
   end
 
-  def display_uri(uri, tag_type = :span)
+  def display_uri(uri, tag_type = :span, options = {})
     uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
     if uri_components[:uri] == uri_components[:label] && tag_type == :span
       return uri.to_s.add_missing_hyperlinks
     end
+    tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
     capture_haml do
       haml_tag tag_type do
         haml_concat uri_components[:label]

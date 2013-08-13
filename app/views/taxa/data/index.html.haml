@@ -59,10 +59,7 @@
             -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
             - exemplar = row[:data_point_instance].taxon_data_exemplars.select{ |ex| ex.included }.any?
             - excluded = row[:data_point_instance].taxon_data_exemplars.select{ |ex| ex.excluded }.any?
-            - th_classes = []
-            - th_classes << 'exemplar' if exemplar
-            - th_classes << 'excluded' if excluded
-            %th{ id: th_id, class: th_classes.join(' ') }
+            %th{ id: th_id }
               - if row[:attribute].respond_to?(:uri) # Really, they all should, yeah?
                 %div.info{ style: 'display: none' }
                   - if row[:attribute].respond_to?(:definition) && ! row[:attribute].definition.blank?
@@ -72,7 +69,7 @@
                     .uri= row[:attribute].uri
               - if first_of_type
                 - last_attribute = row[:attribute]
-                = display_uri(row[:attribute])
+                = display_uri(row[:attribute], :span, class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil))
             %td.val{headers: th_id}
               %span.fold
                 - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'

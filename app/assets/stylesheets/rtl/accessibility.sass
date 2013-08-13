@@ -1263,8 +1263,22 @@ li table.classifications
     margin-bottom: 1em
 
 #known_uris
+  .ui-sortable-helper
+    margin-top: 3em
+    background-color: #eee
+    padding: 6px
+    border: 1px dashed #aaa
+  .placeholder
+    height: 5em
+    line-height: 1.2em
+    background-color: #ffe
+    border: 1px dashed #eea
+  .headers
+    height: 1.5em !important
   th
     background: $light_blue
+    text-align: right
+    padding-right: 1.6em
   tr.hidden
     background-color: #eee
     color: #777
@@ -1277,6 +1291,8 @@ li table.classifications
       color: #979
   td.excluded
     background: url(image-path("v2/icon_excluded.png")) 7px 1.8em no-repeat
+  td.untranslated
+    color: #8b0000
 
 .ui-menu
   list-style: none
@@ -1415,6 +1431,58 @@ ul.tabs
 #data_comments
   width: 704px
 
+#data_summary
+  span.remove
+    border: 1px solid #d4dce2
+    cursor: pointer
+    margin-right: 3px
+    padding: 1px 0px 1px 3px
+    background-color: white
+    &:hover
+      background-color: $fieldset_light_blue
+  .data_div
+    border: 1px solid $grayblue
+    +gradient-bg($fieldset_light_blue, #fefeff)
+    padding: 10px 0 10px 5px
+  table
+    margin: 0px
+    tr
+      border: 0px
+      line-height: 100%
+      font-size: 1.0em
+      vertical-align: top
+      th
+        width: 40%
+        text-align: left
+      td
+        padding: 1px 12px 15px 0px
+      &.last
+        td
+          padding: 1px 12px 3px 0px
+  div.see_more
+    colspan: 2
+    text-align: center
+
+#search_results
+  .taxon_summary
+    width: 55%
+    float: right
+    a.icon
+      color: #cad3db
+  .data_summary
+    float: left
+    padding-top: 15px
+    text-align: left
+    width: 300px
+    .attribute
+      text-transform: uppercase
+      color: $darker_blue
+      font-weight: normal
+    .value
+      font-weight: 500
+      font-size: 1.3em
+      color: $nearly_black
+
 #taxon_data, #data_comments
   p.about
     height: 12em
@@ -1435,28 +1503,58 @@ ul.tabs
       input[type="text"]
         +input(100px)
   table.data
-    border-bottom: 1px solid $grayblue
-    border-top: 1px solid $grayblue
-    border-left: 1px solid $grayblue
-    border-right: 1px solid $grayblue
+    margin: 0px 0px 30px 0px
     tbody
+      border-bottom: 1px solid $grayblue
+      border-top: 1px solid $grayblue
+      border-left: 1px solid $grayblue
+      border-right: 1px solid $grayblue
       tr
         border: 0
         span.comments
           float: left
+          width: 11px
           padding-right: 4px
         th
-          text-transform: uppercase
           color: $darker_blue
           font-weight: normal
           text-align: left
           width: 203px
           vertical-align: top
           padding-top: 4pt
-        th.excluded
-          background: url(image-path("v2/icon_excluded.png")) 185px 1em no-repeat
-        th.exemplar
-          background: url(image-path("v2/icon_required.png")) 185px 1em no-repeat
+          .info_icon
+            float: right
+            min-width: 24px
+            background: url(image-path("v2/icon_info_tabs.png")) 6px 2px no-repeat
+            background-size: 14px 14px
+          .info
+            .close
+              float: left
+              height: 13px
+              width: 13px
+              text-decoration: none
+              background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+              border: 1px solid $light_blue
+              &:hover
+                background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+            .uri
+              font-size: 0.75em
+              text-align: left
+              margin: 0.5em
+            dt
+              font-size: 0.75em
+              margin: 0.5em
+              font-weight: bold
+            dd
+              font-size: 0.75em
+              margin: 0.75em 0.5em
+              line-height: 1.5em
+        span.excluded
+          padding-left: 10px
+          background: url(image-path("v2/icon_excluded.png")) 0px 3px no-repeat
+        span.exemplar
+          padding-left: 10px
+          background: url(image-path("v2/icon_required.png")) 0px 3px no-repeat
         td
           padding: 5px 10px
           width: 500px
@@ -1471,18 +1569,22 @@ ul.tabs
               font-size: 0.8em
               font-weight: normal
           span.source
-            text-align: center
+            text-align: left
             float: left
-            width: 80px
-            font-size: 8pt
-            color: $grayblue
+            width: 12em
+            font-size: 0.75em
+            height: 1.5em
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            color: $darker_blue
           span.fold
             float: right
             padding-left: 5pt
             line-height: 15px
           a.more
             padding-right: 13px
-            font-size: 85%
+            font-size: 0.83em
     tr.actions, tr.comments
       background-color: #f6f8fa
       font-weight: normal
@@ -1546,55 +1648,74 @@ ul.tabs
         margin-top: 3px
         margin-left: 6px
         float: left
+  table.meta
+    line-height: 90%
+    padding: 0px 0px 15px
+    td
+      padding: 0px 5px !important
+    th
+      width: 35% !important
+      padding: 0px !important
+    caption
+      text-align: center !important
+      font-weight: bold
+      text-transform: none
+      font-size: .8em
+      letter-spacing: 1px
+      margin-bottom: 0.4em
+      border-bottom: 1px solid $grayblue
 
-#data_summary
-  span.remove
-    border: 1px solid #d4dce2
-    cursor: pointer
-    margin-right: 3px
-    padding: 1px 0px 1px 3px
-    background-color: white
-    &:hover
-      background-color: $fieldset_light_blue
-  .data_div
-    border: 1px solid $grayblue
-    +gradient-bg($fieldset_light_blue, #fefeff)
-    padding: 10px 0 10px 5px
-  table
-    margin: 0px
-    tr
-      border: 0px
-      line-height: 100%
-      font-size: 1.0em
-      vertical-align: top
-      th
-        width: 40%
-        text-align: left
-      td
-        padding: 1px 12px 15px 0px
-      &.last
-        td
-          padding: 1px 12px 3px 0px
-  div.see_more
-    colspan: 2
-    text-align: center
-
-#search_results
-  .taxon_summary
-    width: 55%
-    float: right
-    a.icon
-      color: #cad3db
-  .data_summary
-    float: left
-    padding-top: 15px
-    text-align: left
-    width: 300px
-    .attribute
-      text-transform: uppercase
-      color: $darker_blue
-      font-weight: normal
-    .value
-      font-weight: 500
-      font-size: 1.3em
-      color: $nearly_black
+.tip
+  display: none
+  position: absolute
+  top: 20px
+  right: 35px
+  outline: 0
+  border: 1px solid $grayblue
+  background: white
+  color: $nearly_black
+  z-index: 1000
+  max-width: 580px
+  overflow: auto
+  padding: 0.4em
+  text-align: right
+  +box-shadow(3px 3px 6px -2px rgba(0,0,0,0.5))
+  h3
+    color: $darker_blue
+    font-weight: normal
+    font-size: 1.2em
+    margin: 0.5em
+    vertical-align: top
+    padding-top: 4pt
+  dt
+    font-weight: bold
+  dd
+    margin-top: 1em
+  &.info
+    .close
+      float: left
+      height: 13px
+      width: 13px
+      text-decoration: none
+      background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+      border: 1px solid $light_blue
+      &:hover
+        background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+    .uri
+      font-weight: bold
+      text-align: right
+      margin: 1em 0.5em
+    dt
+      margin: 0.5em
+      font-weight: bold
+    dd
+      margin: 0.75em 0.5em
+.add_content
+  .add_data
+    margin-bottom: 1.2em
+    a
+      padding-left: 11px
+      background: #fff url(image-path("arrow_fold_left.png")) 0px 4px no-repeat
+    a.open
+      padding-left: 11px
+      background: #fff url(image-path("arrow_fold_down.png")) 0px 4px no-repeat

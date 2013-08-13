@@ -10,12 +10,10 @@ class KnownUrisController < ApplicationController
   autocomplete :known_uri, :uri, :full => true
 
   def index
-    @known_uris = params[:category_id] ?
-      KnownUri.
-        includes([:toc_items, :translated_known_uris]).
-        where(translated_known_uris: { language_id: current_language.id }, known_uris_toc_items: { toc_item_id: params[:category_id] }).
-        order('position') :
-      KnownUri.includes(:toc_items).paginate(page: params[:page], order: 'position', :per_page => 500)
+    wheres = { translated_known_uris: { language_id: [current_language.id, Language.default.id] } }
+    wheres[:known_uris_toc_items] = { toc_item_id: params[:category_id] } if params[:category_id]
+    @known_uris = KnownUri.includes([:toc_items, :translated_known_uris]).where(wheres).
+      paginate(page: params[:page], order: 'position', :per_page => 500)
     respond_to do |format|
       format.html { }
       format.js { @category = TocItem.find(params[:category_id]) }

@@ -25,10 +25,7 @@ describe TaxonMedia do
     TaxonMedia.new(@taxon_concept, EOL::AnonymousUser.new('en')).applied_ratings.should == {}
   end
 
-  it "should know if it's empty" do
-    build_media
-    @media.empty?.should be_true
-  end
+  it "should know if it's empty" # This is not simple to test; juice wasn't worth the squeeze and I didn't want to keep bad code. :\
 
   it 'should have an array of media to pass to will_paginate' do
     a = [DataObject.gen]

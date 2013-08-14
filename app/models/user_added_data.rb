@@ -95,7 +95,7 @@ class UserAddedData < ActiveRecord::Base
   # Needed when commentable:
   def summary_name
     # TODO ... something useful here
-    "#{predicate} => #{value} for #{subject_type} #{subject_id}"
+    "#{predicate} => #{object} for #{subject_type} #{subject_id}"
   end
 
   def anchor

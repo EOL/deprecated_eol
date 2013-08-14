@@ -31,21 +31,11 @@ class ApplicationController < ActionController::Base
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they miss this message.  So what?
+  # NOTE - you can clear this quickly with SiteConfigurationOption.clear_global_site_warning
   def global_warning
-    # using SiteConfigutation over an environment constant DOES require a query for EVERY REQUEST
-    # but the table is tiny (<5 rows right now) and the coloumn is indexed. But it also gives us the flexibility
-    # to display or remove a message within seconds which I think is worth it
     # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
-    # NOTE: if there is no row for global_site_warning, or the value is nil, we will cache the integer 1 so prevent
-    # future lookups (when we check the cache and find a value of nil, it makes it look like the lookup was not cached)
-    warning = Rails.cache.fetch("application/global_site_warning", :expires_in => 10.minutes) do
-      sco = SiteConfigurationOption.find_by_parameter('global_site_warning')
-      (sco && sco.value) ? sco.value : 1
-    end
-
-    if warning && warning.class == String
-      flash.now[:error] = warning
-    end
+    warning = SiteConfigurationOption.global_site_warning
+    flash.now[:error] = warning if warning
   end
 
   def set_locale
@@ -737,6 +727,11 @@ protected
       raise EOL::Exceptions::ObjectNotFound
     end
   end
+
+  def show_data?
+    current_user.can?(:see_data) || SiteConfigurationOption.all_users_can_see_data
+  end
+  helper_method :show_data?
 
 private
 

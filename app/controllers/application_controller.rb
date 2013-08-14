@@ -335,6 +335,13 @@ class ApplicationController < ActionController::Base
       "min_assistant_curators_only") unless current_user.is_admin? || current_user.min_curator_level?(:assistant)
   end
 
+  def restrict_to_admins_and_master_curators
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL master curators and above, and was disallowed.",
+      "min_assistant_curators_only") unless current_user.is_admin? || current_user.min_curator_level?(:master)
+  end
+
   def restrict_to_master_curators
     restrict_to_curators_of_level(:master)
   end

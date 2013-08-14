@@ -55,11 +55,9 @@
               %li= link_to t('learn_more_link_archaea', :scope => t_scope), cms_page_path('archaea')
             %ul
               %li= link_to t('learn_more_link_viruses', :scope => t_scope), cms_page_path('viruses')
-        .version
-          %h3= link_to I18n.t(:encyclopedia_of_life), root_url
-          %p{ :title => I18n.t(:application_version_advisory_information) }
-            = "v. #{EOL_CODEBASE_MASTER_VERSION}"
-        %h3.assistive= I18n.t(:social_sharing_header)
+        .partners
+          %h6= link_to I18n.t(:bhl), 'http://www.biodiversitylibrary.org/'
+          %p= I18n.t(:bhl_partner_footer)
         %ul.social_media
           %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter", :rel => :nofollow
           %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook", :rel => :nofollow

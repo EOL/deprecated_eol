@@ -218,11 +218,14 @@ en:
         email_reports_frequency_hours: "Frequency of email reports"
       data_object:
         bibliographic_citation: "Bibliographic citation"
-        description: "Description"
+        description: "Text"
         object_title: "Title"
         rights_holder: "Rights holder"
         rights_statement: "Rights statement"
         source_url: "Source URL"
+      data_object_link:
+        description: "Description"
+        source_url: "Link URL"
       eol_statistic:
         created_at: "Created at"
         # overall stats
@@ -2621,6 +2624,8 @@ en:
   belongs_in_count_communities:
     one: "Belongs to %{count} Community"
     other: "Belongs to %{count} Communities"
+  bhl: "Biodiversity Heritage Library"
+  bhl_partner_footer: "Visit the Biodiversity Heritage Library"
   bhl_publication: "BHL publication"
   bi_monthly: "Bi-Monthly"
   biodiversity_heritage_library: "Biodiversity Heritage Library"

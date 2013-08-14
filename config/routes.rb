@@ -400,7 +400,7 @@ Eol::Application.routes.draw do
     end
   end
 
-  resource :taxon_concept_exemplar_image, only: :update
+  resource :taxon_concept_exemplar_image, only: :create
 
   # Putting these after the complex resources because they are less common.
   resources :tasks, :task_states, :task_names, :random_images

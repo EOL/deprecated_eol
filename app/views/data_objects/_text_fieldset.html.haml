@@ -1,6 +1,10 @@
 - link_object ||= false
 = f.hidden_field :data_type_id
-= validation_errors_for(@data_object)
+- if @data_object.is_link? && @data_object.errors.any?
+  -# Eww. Have to use different strings here, for links:
+  = validation_errors_for(@data_object).sub(I18n.t('activerecord.attributes.data_object.description'), I18n.t('activerecord.attributes.data_object_link.description')).html_safe
+- else
+  = validation_errors_for(@data_object)
 %fieldset.content
   %h3= I18n.t("dato_new_edit_user_text#{'_link' if link_object}_fieldset_content_header")
   %p.tip= raw(I18n.t("dato_new_edit_user_text#{'_link' if link_object}_form_tip", :required_icon => image_tag('v2/icon_required.png', :alt => ''),
@@ -31,7 +35,7 @@
         = f.label :language_id
       %dd
         = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
-    %dt{:class => "#{link_object ? '' : 'required'}"}
+    %dt{:class => 'required'}
       = label_tag 'data_object[description]', raw(I18n.t("helpers.label.data_object#{'_link' if link_object}.description"))
     %dd
       = f.cktext_area(:description, :toolbar => 'Article', :height => 250, :width => 580)

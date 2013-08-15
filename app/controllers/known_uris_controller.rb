@@ -178,27 +178,29 @@ class KnownUrisController < ApplicationController
   end
 
   def import_terms_from_ontology(uri_to_field_name_mappings)
-    params[:selected_uris].each do |uri|
-      if term_metadata = @terms[uri]
-        attributes_by_language = {}
-        term_metadata.each do |term_uri, attributes_from_ontology|
-          if field_name = uri_to_field_name_mappings[term_uri]
-            attributes_from_ontology.each do |attribute_metadata|
-              language_iso = attribute_metadata[:language] || 'en'
-              if language = Language::find_closest_by_iso(language_iso)
-                attributes_by_language[language] ||= {}
-                attributes_by_language[language][field_name] = attribute_metadata[:text]
+    ActiveRecord::Base.transaction do
+      params[:selected_uris].each do |uri|
+        if term_metadata = @terms[uri]
+          attributes_by_language = {}
+          term_metadata.each do |term_uri, attributes_from_ontology|
+            if field_name = uri_to_field_name_mappings[term_uri]
+              attributes_from_ontology.each do |attribute_metadata|
+                language_iso = attribute_metadata[:language] || 'en'
+                if language = Language::find_closest_by_iso(language_iso)
+                  attributes_by_language[language] ||= {}
+                  attributes_by_language[language][field_name] = attribute_metadata[:text]
+                end
               end
             end
           end
-        end
-        # find or create the KnownURI
-        known_uri = KnownUri.find_or_create_by_uri(uri)
-        # delete any existing definitions as they will be replaced
-        known_uri.translations.destroy_all
-        # add in the definitions for each defined language
-        attributes_by_language.each do |language, translation_fields|
-          TranslatedKnownUri.create(translation_fields.merge(:known_uri => known_uri, :language => language))
+          # find or create the KnownURI
+          known_uri = KnownUri.find_or_create_by_uri(uri)
+          # delete any existing definitions as they will be replaced
+          known_uri.translations.destroy_all
+          # add in the definitions for each defined language
+          attributes_by_language.each do |language, translation_fields|
+            TranslatedKnownUri.create(translation_fields.merge(:known_uri => known_uri, :language => language))
+          end
         end
       end
     end

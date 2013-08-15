@@ -11,6 +11,8 @@
         - unless @page_description.blank?
           %p= @page_description
       = render :partial => 'shared/flash_messages'
+      .page_actions
+        &nbsp;
       - if display_admins_navigation?
         %ul.nav
           %li{:class => resource_is_active('admins/show')}= link_to I18n.t(:admin_link), admin_path

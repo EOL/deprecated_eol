@@ -16,7 +16,7 @@ describe Resource do
     @latest_unpublished_harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => nil)
   end
 
-  before(:each) { @resource = Resource.find(@resource) } # Reload, for some reason, wasn't cutting the mustard.
+  before(:each) { Rails.cache.clear ; @resource.reload }
 
   it "should return the resource's oldest published harvest event" do
     @resource.oldest_published_harvest_event.should == @oldest_published_harvest_event
@@ -27,25 +27,6 @@ describe Resource do
   end
 
   it "should return the resource's latest harvest event" do # NOTE - ordered by id, so...
-    unless @resource.latest_harvest_event == @latest_unpublished_harvest_event
-      puts "** Weird problem, not always reproducible: this usually works. Why didn't it work this time?"
-      puts "** UPDATE: still not sure. See, I can call the same code that's in the method:"
-
-      # (rdb:1) p @resource.latest_harvest_event
-      # #<HarvestEvent id: 3, resource_id: 5, began_at: "2013-08-15 08:26:52", completed_at: "2013-08-15 09:26:52", published_at: "2013-08-15
-      # 11:26:52", publish: false>
-      # (rdb:1) p HarvestEvent.where(resource_id: 5).last || 0
-      # #<HarvestEvent id: 4, resource_id: 5, began_at: "2013-08-15 08:26:52", completed_at: "2013-08-15 09:26:52", published_at: nil, publish: false>
-
-      # ...And it's not cache, either: I rand Rails.cache.clear before this. (though, also interesting: after running the method, the cache key
-      # doesn't actually appear to exist: 
-      # (rdb:1) p Rails.cache.read "test/resources/latest_harvest_event_for_resource_5"
-      # nil
-
-      puts "** If you are seeing this, change the { @resource = Resource.find(@resource) } to  { @resource.reload } , because it didn't work."
-
-      debugger
-    end
     @resource.latest_harvest_event.should == @latest_unpublished_harvest_event
   end
 

@@ -514,6 +514,36 @@ FactoryGirl.define do
     attachment_extension '.jpg'
   end
 
+  factory :curator, class: User do
+    admin                     false
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          true
+    curator_verdict_by_id     1
+    curator_verdict_at        { Time.now }
+    credentials               'Good stuff'
+    curator_scope             'Something important'
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          { CuratorLevel.full.id }
+    logo_cache_url            { generate(:user_logo) }
+  end
+
   factory :curator_activity do
     code { generate(:string) }
   end
@@ -784,6 +814,36 @@ FactoryGirl.define do
   end
 
   factory :link_type do
+  end
+
+  factory :master_curator, class: User do
+    admin                     false
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          true
+    curator_verdict_by_id     1
+    curator_verdict_at        { Time.now }
+    credentials               'Good stuff'
+    curator_scope             'Something important'
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          { CuratorLevel.master.id }
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :member do

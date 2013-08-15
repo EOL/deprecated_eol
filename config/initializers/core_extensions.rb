@@ -101,7 +101,7 @@ module ActiveRecord
             return v
           else
             Rails.cache.delete(name) if Rails.cache.exist?(name)
-            Rails.cache.fetch(name) do
+            Rails.cache.fetch(name, options) do
               yield
             end
           end

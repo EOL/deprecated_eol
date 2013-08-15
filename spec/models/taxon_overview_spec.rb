@@ -54,9 +54,8 @@ describe TaxonOverview do
   end
 
   it "#image should delegate to taxon_concept#exemplar_or_best_image_from_solr without entry if missing" do
-    $FOO = 1
     img = DataObject.gen
-    @taxon_concept.should_receive(:exemplar_or_best_image_from_solr).with(@native_entry).and_return img
+    @taxon_concept.should_receive(:exemplar_or_best_image_from_solr).with(nil).and_return img
     @overview.image.should == img
   end
 

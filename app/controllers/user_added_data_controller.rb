@@ -4,6 +4,7 @@ class UserAddedDataController < ApplicationController
 
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms, :only => :autocomplete_known_uri_uri
   before_filter :check_authentication, :only => [ :create, :edit, :update, :destroy ]
+  before_filter :restrict_to_admins_and_master_curators # NOTE - this restriction should be removed when we release this feature, of course.
 
   # Doesn't seem to work unless it's here as WELL as taxon/data.
   autocomplete :known_uri, :uri

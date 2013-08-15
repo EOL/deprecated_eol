@@ -72,6 +72,15 @@ describe 'Taxa page basic tests' do
     body.should_not have_selector("#data_summary table")
   end
 
+  it 'should NOT show a structured data summary when there is user added data but the users lacks access' do
+    SiteConfigurationOption.should_receive(:all_users_can_see_data).at_least(1).times.and_return(false)
+    drop_all_virtuoso_graphs
+    tc = build_taxon_concept
+    @user_added_data = UserAddedData.gen(:subject => tc)
+    visit taxon_overview_path(tc.id)
+    body.should_not have_selector("#data_summary table")
+  end
+
   it 'should show a structured data summary when there is user added data' do
     drop_all_virtuoso_graphs
     tc = build_taxon_concept

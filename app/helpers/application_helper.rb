@@ -46,7 +46,7 @@ module ApplicationHelper
       return I18n.t(:allowed_html_tags, :comma_separated_tags => tags)
     end
 
-    private
+  private
 
     def errors_on?(method)
       @object.respond_to?(:errors) && @object.errors.respond_to?(:messages) && ! @object.errors.messages[method.to_sym].blank?

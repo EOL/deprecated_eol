@@ -4,6 +4,7 @@
 #content
   #known_uris.site_column
     %p.tip= raw(I18n.t(:excluded_icon_tip, :excluded_icon => image_tag('v2/icon_excluded.png', :alt => '')))
+    = will_paginate @known_uris
     %table#sortable.standard
       %tr.headers
         %th= I18n.t('activerecord.attributes.known_uri.uri')
@@ -40,6 +41,7 @@
                 = link_to I18n.t(:suggested_vocab_remove).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put
               - elsif known_uri.hidden?
                 = link_to I18n.t(:suggested_vocab_add).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
+    = will_paginate @known_uris
     - if current_user.is_admin?
       %p= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')
       %br

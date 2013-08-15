@@ -53,13 +53,16 @@ class SiteConfigurationOption < ActiveRecord::Base
     # The regex here keeps us from going into a wild loop, because cached_find called find_by_[param], which is found
     # via method_missing in the rails code!
     if name !~ /^find/ && SiteConfigurationOption.exists?(:parameter => name)
-      if param = cached_find(:parameter, name, expires_in: REFRESH_TIME)
-        return false if param.value == 'false'
-        return nil if param.value == ''
-        param.value
-      else
-        super
+      eigenclass = class << self; self; end
+      eigenclass.class_eval do
+        define_method(name) do # Keeps us from using method_missing next time...
+          param = cached_find(:parameter, name, expires_in: REFRESH_TIME)
+          return false if param.value == 'false'
+          return nil if param.value == ''
+          param.value
+        end
       end
+      send(name)
     else
       super
     end

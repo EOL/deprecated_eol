@@ -63,10 +63,6 @@ class TaxonOverview < TaxonUserClassificationFilter
     !@summary.blank?
   end
 
-  def image
-    taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
-  end
-
   def collections
     # NOTE - -relevance was faster than either #reverse or rel * -1.
     @collections ||= all_collections.sort_by { |c| [ -c.relevance ] }[0..COLLECTIONS_TO_SHOW-1]
@@ -155,6 +151,7 @@ private
                                     :conditions => "data_object_translations.language_id=#{user.language_id}")
     @summary = loadables.pop
     @media = loadables
+    correct_bogus_exemplar_image
   end
 
   def load_media

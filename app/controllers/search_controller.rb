@@ -47,7 +47,7 @@ class SearchController < ApplicationController
       search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page }))
       if $STATSD
         $STATSD.increment 'all_searches'
-        $STATSD.increment "searches.#{@querystring}"
+        # $STATSD.increment "searches.#{@querystring}"
       end
       @all_results = search_response[:results]
       @facets = (@wildcard_search) ? {} : EOL::Solr::SiteSearch.get_facet_counts(@querystring)

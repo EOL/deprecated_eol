@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 group :development, :test, :staging_dev do
   gem 'capistrano', '2.13.5'
   gem 'capistrano-unicorn-pleary', '=0.1.6.1'
-  gem 'curb'
+  # gem 'curb'
   gem 'rvm-capistrano', '1.2.7'
   gem 'capybara', '1.1.3'
   gem 'daemons', '1.1.9'

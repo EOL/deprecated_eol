@@ -1,7 +1,7 @@
 class CuratorActivityLogsController < ApplicationController
 
   def index
-    # Do nithing, fir niw.
+    # Do nothing, for now.
   end
 
   def last_ten_minutes

@@ -31,23 +31,17 @@ class ApplicationController < ActionController::Base
   end
 
   def send_to_statsd
-    ActiveRecord::Base.transaction do
-      begin
-        if $STATSD
-          if logged_in?
-            $STATSD.increment("logged_in")
-          else
-            $STATSD.increment("not_logged_in")
-          end
-          $STATSD.time("page_load_time.#{params[:controller]}.#{params[:action]}") do
-            yield
-          end
-        else
-          yield
-        end
-      ensure
-        raise ActiveRecord::Rollback
+    if $STATSD
+      if logged_in?
+        $STATSD.increment("logged_in")
+      else
+        $STATSD.increment("not_logged_in")
       end
+      $STATSD.time("page_load_time.#{params[:controller]}.#{params[:action]}") do
+        yield
+      end
+    else
+      yield
     end
   end
 

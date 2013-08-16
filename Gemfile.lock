@@ -72,7 +72,6 @@ GEM
     composite_primary_keys (5.0.10)
       activerecord (~> 3.2.0, >= 3.2.9)
     crack (0.3.1)
-    curb (0.8.4)
     daemons (1.1.9)
     dalli (2.3.0)
     debugger (1.5.0)
@@ -292,7 +291,6 @@ DEPENDENCIES
   ckeditor (= 3.7.3)
   coffee-rails (= 3.2.2)
   composite_primary_keys
-  curb
   daemons (= 1.1.9)
   dalli (= 2.3.0)
   debugger

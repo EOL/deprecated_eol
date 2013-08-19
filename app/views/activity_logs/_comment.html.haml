@@ -6,7 +6,7 @@
 - cols ||= 60
 - actual_date ||= false
 - display_curator ||= false
-- parent_newsfeed = link_to_newsfeed(item.parent)
+- parent_newsfeed = item.parent ? link_to_newsfeed(item.parent) : nil
 - if item.user.nil?
   = image_tag(User.new.logo_url(:small), :class => 'no_user')
 - else
@@ -40,6 +40,8 @@
               = raw I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => item.parent.summary_name)
             - else
               = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
+          - elsif item.parent_type == "DataPointUri"
+            = raw I18n.t(:user_commented_on_removed_data, :user => name_with_link)
           - else
             = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
     - if item.deleted?

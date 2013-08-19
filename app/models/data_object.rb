@@ -1084,9 +1084,16 @@ private
 
   # This is relatively expensive... but accurate.
   def image_title_with_taxa
-    @image_title_with_taxa ||= I18n.t(:image_title_with_taxa,
-                                      taxa: data_object_taxa(:published).
+    return @image_title_with_taxa if @image_title_with_taxa
+    all_data_object_taxa = data_object_taxa(:published)
+    visible_data_object_taxa = all_data_object_taxa.select{ |dot| dot.vetted != Vetted.untrusted }
+    if visible_data_object_taxa.empty?
+      @image_title_with_taxa ||= I18n.t(:image_title_without_taxa)
+    else
+      @image_title_with_taxa ||= I18n.t(:image_title_with_taxa,
+                                        taxa: visible_data_object_taxa.
                                             map(&:italicized_unattributed_title).to_sentence)
+    end
   end
 
   # TODO - this is quite lame. Best to re-think this. Perhaps a class that handles and cleans the DatoParams?

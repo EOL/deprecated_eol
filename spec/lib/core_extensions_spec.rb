@@ -7,7 +7,7 @@ describe "Core Extensions" do
   describe "#capitalize_all_words_if_language_safe" do
 
     before(:all) do
-      @locale = I18n.locale 
+      @locale = I18n.locale
       @lower = "this is some string"
       @upper = "This Is Some String"
     end
@@ -55,4 +55,41 @@ describe "Core Extensions" do
       "This is\n<p>text".fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true).should == "This is\n<p>text"
     end
   end
+
+  describe 'add_missing_hyperlinks' do
+    it 'should link http URLs' do
+      'Some http://eol.org link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org">http://eol.org</a> link'
+      'Some ("http://eol.org") link'.add_missing_hyperlinks.should == 'Some ("<a href="http://eol.org">http://eol.org</a>") link'
+      'Some http://eol.org/ link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org/">http://eol.org/</a> link'
+      'Some http://eol.org/info link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org/info">http://eol.org/info</a> link'
+      'Some http://eol.org/info.html link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org/info.html">http://eol.org/info.html</a> link'
+    end
+
+    it 'should link https URLs' do
+      'Some https://eol.org link'.add_missing_hyperlinks.should == 'Some <a href="https://eol.org">https://eol.org</a> link'
+      'Some https://eol.org/ link'.add_missing_hyperlinks.should == 'Some <a href="https://eol.org/">https://eol.org/</a> link'
+      'Some https://eol.org/info link'.add_missing_hyperlinks.should == 'Some <a href="https://eol.org/info">https://eol.org/info</a> link'
+      'Some https://eol.org/info.html link'.add_missing_hyperlinks.should == 'Some <a href="https://eol.org/info.html">https://eol.org/info.html</a> link'
+    end
+
+    it 'should link www URLs' do
+      'Some www.eol.org link'.add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org">www.eol.org</a> link'
+      'Some www.eol.org/ link'.add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/">www.eol.org/</a> link'
+      'Some www.eol.org/info link'.add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/info">www.eol.org/info</a> link'
+      'Some www.eol.org/info.html link'.add_missing_hyperlinks.should == 'Some <a href="http://www.eol.org/info.html">www.eol.org/info.html</a> link'
+    end
+
+    it 'should link DOIs' do
+      'Some doi:10.4319/lo.2013.58.1.0254 DOI'.add_missing_hyperlinks.should ==
+        'Some <a href="http://dx.doi.org/doi:10.4319/lo.2013.58.1.0254">doi:10.4319/lo.2013.58.1.0254</a> DOI'
+      'Some ("doi:10.4319/lo.2013.58.1.0254") DOI'.add_missing_hyperlinks.should ==
+        'Some ("<a href="http://dx.doi.org/doi:10.4319/lo.2013.58.1.0254">doi:10.4319/lo.2013.58.1.0254</a>") DOI'
+    end
+
+    it 'should not link already linked URLs' do
+      'Some <a href="http://eol.org>http://eol.org</a> link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org>http://eol.org</a> link'
+    end
+
+  end
+
 end

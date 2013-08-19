@@ -74,6 +74,10 @@ class TaxonConceptCacheClearing
     clear_media_counts
   end
 
+  def clear_exemplar_image
+    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
+  end
+
 private
 
   def associated_entries
@@ -88,10 +92,6 @@ private
     TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: taxon_concept.id)
     ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
     taxon_concept.create_preferred_entry(ctcpe.hierarchy_entry) if ctcpe
-  end
-
-  def clear_exemplar_image
-    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
   end
 
   def clear_media_counts

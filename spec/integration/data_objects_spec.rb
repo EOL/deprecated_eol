@@ -527,6 +527,27 @@ describe 'Data Object Page' do
     body.should have_tag("h3", :text => 'Description' )
   end
 
+  it 'should show references and identifiers' do
+    d = DataObject.gen(:data_type => DataType.text)
+    r = Ref.gen(:full_reference => 'This is the full reference')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.url, :identifier => 'http://si.edu/someref')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.doi, :identifier => 'doi:10.1006/some.ref')
+    DataObjectsRef.gen(:data_object => d, :ref => r)
+    visit(data_object_path(d))
+    body.should have_tag("a[href='http://si.edu/someref']")
+    body.should have_tag("a[href='http://dx.doi.org/10.1006/some.ref']")
+
+    # slightly different formatting for the RefIdentifiers. The view shoudl auto-complete the URLs
+    d = DataObject.gen(:data_type => DataType.text)
+    r = Ref.gen(:full_reference => 'This is the full reference')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.url, :identifier => 'si.edu/someref')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.doi, :identifier => '10.1006/some.ref')
+    DataObjectsRef.gen(:data_object => d, :ref => r)
+    visit(data_object_path(d))
+    body.should have_tag("a[href='http://si.edu/someref']")
+    body.should have_tag("a[href='http://dx.doi.org/10.1006/some.ref']")
+  end
+
   it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'
   it 'should change vetted to trusted and visibility to visible when self added article is edited by full/master curator or admin'
 

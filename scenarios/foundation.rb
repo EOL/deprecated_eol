@@ -147,6 +147,7 @@ end
 ChangeableObjectType.create_defaults
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
+RefIdentifierType.gen_if_not_exists(:label => 'doi')
 
 iucn_hierarchy = Hierarchy.gen_if_not_exists(:label => 'IUCN')
 iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter, :acesspoint_url => "http://eol.org/api/ping.xml")

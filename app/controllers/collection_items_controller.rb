@@ -10,7 +10,7 @@ class CollectionItemsController < ApplicationController
     @collection = @collection_item.collection # For layout
     @references = ''
     @collection_item.refs.each do |ref|
-      @references = @references + "\n" unless @references==''
+      @references = @references + "\n" unless @references == ''
       @references = @references + ref.full_reference
     end
     respond_to do |format|

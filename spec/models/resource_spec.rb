@@ -16,7 +16,7 @@ describe Resource do
     @latest_unpublished_harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => nil)
   end
 
-  before(:each) { @resource.reload }
+  before(:each) { Rails.cache.clear ; @resource.reload }
 
   it "should return the resource's oldest published harvest event" do
     @resource.oldest_published_harvest_event.should == @oldest_published_harvest_event
@@ -27,11 +27,6 @@ describe Resource do
   end
 
   it "should return the resource's latest harvest event" do # NOTE - ordered by id, so...
-    unless @resource.latest_harvest_event == @latest_unpublished_harvest_event
-      puts "** Weird problem, not always reproducible: this usually works. Why didn't it work this time?"
-      puts "** If you are seeing this, remove the HarvestEvent.delete_all at the top of the file; that didn't do it."
-      debugger
-    end
     @resource.latest_harvest_event.should == @latest_unpublished_harvest_event
   end
 

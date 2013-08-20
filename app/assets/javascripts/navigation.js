@@ -55,14 +55,18 @@ function update_browser_stats(hierarchy_entry_id, expand) {
   });
 }
 
-// Expand the mini-tree on the taxon overview:
-$(document).ready(function() {
+EOL.show_tree_behviour = function() {
   $('.browsable.classifications a.show_tree').unbind('click').click(function() {
     var $update = $(this).closest('.browsable.classifications');
     var data = "lang=" + $('html').attr('lang');
     EOL.ajax_submit($(this), {update: $update, type: 'GET', data: data});
     return(false);
   });
+}
+
+// Expand the mini-tree on the taxon overview:
+$(document).ready(function() {
+  EOL.show_tree_behviour();
   EOL.expand_clade_behavior();
 });
 

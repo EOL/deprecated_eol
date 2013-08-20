@@ -41,39 +41,34 @@ EOL.check_siblings = function(of, val) {
   catch(err) { /* Don't care if this fails. */ }
 };
 
-$(function() {
-
-  $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
-    .change(function() {
-      $(this).closest("form").submit();
-    });
-
-  // Taxon overview media summary behaviours.
+EOL.overview_thumbnails_behaviours = function() {
   (function($ss) {
     var placeholder = "<li class=\"placeholder\"></li>";
 
     $ss.each(function() {
       var $gallery = $(this),
           thumbs = [];
-      // Insert ul.thumbnails, and for every large image use data-thumb to create thumbnail src.
-      $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
-      $gallery.find(".image > a > img").each(function() {
-        var $e = $(this),
-            li;
-        if ($e.is("[data-thumb]")) {
-          li = "<li><a href=\"#\"><img src=\"" +
-                    $e.attr("data-thumb") + "\" alt=\"" + $e.attr("alt") +
-                    "\" /></a></li>";
+      if ($gallery.find('ul.thumbnails').length == 0) {
+        // Insert ul.thumbnails, and for every large image use data-thumb to create thumbnail src.
+        $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
+        $gallery.find(".image > a > img").each(function() {
+          var $e = $(this),
+              li;
+          if ($e.is("[data-thumb]")) {
+            li = "<li><a href=\"#\"><img src=\"" +
+                      $e.attr("data-thumb") + "\" alt=\"" + $e.attr("alt") +
+                      "\" /></a></li>";
+          }
+          else { li = placeholder; }
+          thumbs.push(li);
+        });
+        // Insert placeholder list items up to max 4 items if < 4 large images.
+        for (var i = 1, len = 4 - thumbs.length; i <= len; i++) {
+          thumbs.push(placeholder);
         }
-        else { li = placeholder; }
-        thumbs.push(li);
-      });
-      // Insert placeholder list items up to max 4 items if < 4 large images.
-      for (var i = 1, len = 4 - thumbs.length; i <= len; i++) {
-        thumbs.push(placeholder);
+        $gallery.find(".thumbnails").html(thumbs.join(""));
+        $gallery.find(".thumbnails li").not(".placeholder").eq(0).addClass("active");
       }
-      $gallery.find(".thumbnails").html(thumbs.join(""));
-      $gallery.find(".thumbnails li").not(".placeholder").eq(0).addClass("active");
     });
 
     $ss.find(".image > a img").each(function() {
@@ -101,13 +96,38 @@ $(function() {
     }
 
   })($(".gallery"));
+};
 
+EOL.add_behaviours = function(which) {
+  if (which == 'overview') {
+    EOL.overview_thumbnails_behaviours();
+    EOL.show_tree_behviour();
+  } else if (which == 'details') {
+    // Nothing to do...
+  } else if (which == 'media') {
+    EOL.media_list_open_images_behaviour();
+  }
+};
+
+EOL.media_list_open_images_behaviour = function() {
   (function($media_list) {
     $media_list.find("li .overlay").click(function() {
       window.location = $(this).parent().find("a").attr("href");
       return false;
     });
   })($("#media_list"));
+}
+
+$(function() {
+
+  // Use the 'select_submit' class to automatically submit forms that have a drop-down menu:
+  $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
+    .change(function() {
+      $(this).closest("form").submit();
+    });
+
+  EOL.overview_thumbnails_behaviours();
+  EOL.media_list_open_images_behaviour();
 
   (function($language) {
     $language.find("p a").accessibleClick(function() {

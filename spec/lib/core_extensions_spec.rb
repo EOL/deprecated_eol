@@ -82,6 +82,8 @@ describe "Core Extensions" do
     it 'should link DOIs' do
       'Some doi:10.4319/lo.2013.58.1.0254 DOI'.add_missing_hyperlinks.should ==
         'Some <a href="http://dx.doi.org/doi:10.4319/lo.2013.58.1.0254">doi:10.4319/lo.2013.58.1.0254</a> DOI'
+      'Some 10.4319/lo.2013.58.1.0254 DOI'.add_missing_hyperlinks.should ==
+        'Some <a href="http://dx.doi.org/10.4319/lo.2013.58.1.0254">10.4319/lo.2013.58.1.0254</a> DOI'
       'Some ("doi:10.4319/lo.2013.58.1.0254") DOI'.add_missing_hyperlinks.should ==
         'Some ("<a href="http://dx.doi.org/doi:10.4319/lo.2013.58.1.0254">doi:10.4319/lo.2013.58.1.0254</a>") DOI'
     end

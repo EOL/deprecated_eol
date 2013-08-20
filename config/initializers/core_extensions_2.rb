@@ -256,6 +256,7 @@ class String
     self.split.map do |w|
       w.gsub(/^([\(\["]*)(https?[^,;]+[^\.,;\(\)\"])/i, '\1<a href="\2">\2</a>').
         gsub(/^(www\.[a-z-]+\.[^,;\(\)\"]+[^\.,;\(\)\"])/i, '<a href="http://\1">\1</a>').
+        gsub(/^([\(\["]*)(10\.[0-9]{4,}\/[a-z0-9\/\.-]+)/i, '\1<a href="http://dx.doi.org/\2">\2</a>').
         gsub(/^([\(\["]*)(doi:10\.[a-z0-9\/\.-]*)/i, '\1<a href="http://dx.doi.org/\2">\2</a>')
     end.join(' ')
   end

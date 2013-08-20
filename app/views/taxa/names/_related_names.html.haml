@@ -1,0 +1,17 @@
+- if @related_names['parents'].blank? && @related_names['children'].blank?
+  .empty
+    %p= I18n.t(:no_related_names)
+- else
+  - ['parents', 'children'].each do |type|
+    - unless @related_names[type].blank?
+      %table.standard.related_names
+        %thead
+          %tr
+            %th= I18n.t("names_#{type}_column_header")
+            %th= I18n.t(:names_sources_column_header)
+        %tbody
+          - @related_names[type].each do |key, related_name|
+            %tr
+              %td= link_to related_name['name_string'], taxon_entry_overview_path(related_name['taxon_concept_id'], related_name['hierarchy_entry_id'])
+              %td
+                = raw(related_name['sources'].join('<br/>'))

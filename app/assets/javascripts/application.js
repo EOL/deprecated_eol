@@ -13,6 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require common
+//= require collections
+//= require march_of_life
+//= require search
+//= require statistics
 //= require jquery.cycle.all.min
 //= require jquery.modal
 //= require comments

@@ -27,9 +27,14 @@ class Taxa::NamesController < TaxaController
 
     @pending_moves = HierarchyEntryMove.pending.find_all_by_hierarchy_entry_id(@hierarchy_entries)
 
-    @assistive_section_header = I18n.t(:assistive_names_classifications_header)
-    common_names_count
-    render :action => 'classifications'
+    respond_to do |format|
+      format.html do
+        @assistive_section_header = I18n.t(:assistive_names_classifications_header)
+        common_names_count
+        render :action => 'classifications'
+      end
+      format.js { }
+    end
 
   end
 
@@ -40,7 +45,12 @@ class Taxa::NamesController < TaxaController
     @rel_canonical_href = taxon_names_url(@taxon_page)
     @assistive_section_header = I18n.t(:assistive_names_related_header)
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
-    common_names_count
+    respond_to do |format|
+      format.html do
+        common_names_count
+      end
+      format.js {}
+    end
   end
 
   # POST /pages/:taxon_id/names NOTE - this is currently only used to add common_names

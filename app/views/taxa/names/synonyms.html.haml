@@ -6,30 +6,4 @@
       %p= I18n.t(:taxon_synonyms_subtab_explanation)
   = render :partial => 'menu'
   .main_container
-    - if @taxon_page.synonyms?
-      %p.help_text
-        = raw(I18n.t(:name_preferred_taxonomically_for_source_help_tip,
-          :icon => image_tag("v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
-      - @taxon_page.hierarchy_entries.each do |he|
-        - unless he.scientific_synonyms.blank?
-          %h4= hierarchy_display_title(he.hierarchy, :show_link => false)
-          %table.standard.synonyms
-            %thead
-              %tr
-                %th= I18n.t(:names_name_column_header)
-                %th= I18n.t(:names_relationship_column_header)
-            %tbody
-              %tr
-                %td.preferred
-                  = he.name.string
-                %td
-                  = I18n.t(:name_preferred_taxonomically_for_source_yes)
-              - he.scientific_synonyms.each do |s|
-                %tr
-                  %td
-                    = s.name.string
-                  %td
-                    = s.synonym_relation ? s.synonym_relation.label.capitalize! : I18n.t(:synonym)
-    - else # no synonyms...  :(
-      .empty
-        %p= I18n.t(:names_synonyms_empty)
+    = render :partial => 'synonyms'

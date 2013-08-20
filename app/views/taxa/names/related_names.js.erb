@@ -1,0 +1,4 @@
+$('ul.tabs li').removeClass('active');
+$('ul.tabs li[data-name=related]').addClass('active');
+$('.main_container').html("<%= escape_javascript(render('related_names')) %>").fadeTo(100, 1);
+EOL.fade_names_intro("<%= escape_javascript(I18n.t(:taxon_related_names_subtab_explanation)) %>");

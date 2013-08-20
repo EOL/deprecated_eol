@@ -102,10 +102,14 @@ EOL.add_behaviours = function(which) {
   if (which == 'overview') {
     EOL.overview_thumbnails_behaviours();
     EOL.show_tree_behviour();
-  } else if (which == 'details') {
-    // Nothing to do...
+    EOL.feed_behaviour();
   } else if (which == 'media') {
     EOL.media_list_open_images_behaviour();
+    EOL.media_list_filter_behaviours();
+    EOL.media_video_behaviour();
+    EOL.media_prefer_behaviour();
+  } else if (which == 'names') {
+    EOL.names_behaviours();
   }
 };
 
@@ -116,39 +120,41 @@ EOL.media_list_open_images_behaviour = function() {
       return false;
     });
   })($("#media_list"));
-}
+};
 
-$(function() {
+EOL.media_list_filter_behaviours = function() {
+  // uncheck media list filter All when other options are selected
+  $("#media_list #sidebar input[type=checkbox][value!='all']").click(function() {
+    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
+  });
+  // uncheck all other media list filter options when All is selected
+  $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
+    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
+  });
+  // disable the checkboxes for filter categories with no results
+  $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
+};
 
-  // Use the 'select_submit' class to automatically submit forms that have a drop-down menu:
-  $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
-    .change(function() {
-      $(this).closest("form").submit();
-    });
+EOL.media_video_behaviour = function() {
+  $('#main .media video embed').each(function() {
+    var test_video = document.createElement('video');
+    cant_play_video = (!test_video.canPlayType || !test_video.canPlayType('video/mp4'));
+    if (cant_play_video) {
+      var video = $(this).parent();
+      video.parent().html(video.html());
+    }
+  });
+};
 
-  EOL.overview_thumbnails_behaviours();
-  EOL.media_list_open_images_behaviour();
 
-  (function($language) {
-    $language.find("p a").accessibleClick(function() {
-      var $e = $(this),
-          $ul = $e.closest($language.selector).find("ul");
-      if ($ul.is(":visible")) {
-        $ul.hide();
-        return false;
-      }
-      $ul.show();
-      $(document).click(function(e) {
-        if (!$(e.target).closest($language.selector).length) {
-          $language.find("ul").hide();
-          $(this).unbind(e);
-        }
-      });
-      return false;
-    });
+EOL.media_prefer_behaviour = function() {
+  $('td.preferred_entry_selector input[type="radio"]:not(:checked)').click(function() {
+    var form = $(this).closest('form');
+    form.submit();
+  });
+};
 
-  })($(".language"));
-
+EOL.feed_behaviour = function() {
   (function($feed){
     $feed.children().each(function() {
       var $li = $(this);
@@ -175,7 +181,57 @@ $(function() {
       });
     });
   })($("ul.feed"));
+};
 
+EOL.names_behaviours = function() {
+  $('ul.tabs a').on('click', function() {
+    $('.main_container').fadeTo(225, 0.3);
+    history.replaceState({}, document.title, $(this).attr('href')); // TODO - this should prolly be a pushState, but we would need to implement
+                                                                    // the back button, and I don't see that as worthwhile, here.
+  })
+};
+
+EOL.fade_names_intro = function(new_text) {
+  $('.article .copy p').fadeTo(125, 0).html(new_text).fadeTo(400, 1);
+};
+
+$(function() {
+
+  // Use the 'select_submit' class to automatically submit forms that have a drop-down menu:
+  $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
+    .change(function() {
+      $(this).closest("form").submit();
+    });
+
+  EOL.overview_thumbnails_behaviours();
+  EOL.media_list_open_images_behaviour();
+  EOL.media_list_filter_behaviours();
+  EOL.media_video_behaviour();
+  EOL.media_prefer_behaviour();
+  EOL.feed_behaviour();
+  EOL.enableRatings();
+  EOL.names_behaviours();
+
+  (function($language) {
+    $language.find("p a").accessibleClick(function() {
+      var $e = $(this),
+          $ul = $e.closest($language.selector).find("ul");
+      if ($ul.is(":visible")) {
+        $ul.hide();
+        return false;
+      }
+      $ul.show();
+      $(document).click(function(e) {
+        if (!$(e.target).closest($language.selector).length) {
+          $language.find("ul").hide();
+          $(this).unbind(e);
+        }
+      });
+      return false;
+    });
+  })($(".language"));
+
+  // Get the remote page title (given a URL by the user); used on the "add link" form
   (function($dato_source_url) {
     $dato_source_url.focusout(function() {
       if ($("#data_object_object_title").val() == "") {
@@ -202,69 +258,7 @@ $(function() {
     });
   })($(".link_object #data_object_source_url"));
 
-  (function($collection) {
-    var zi = 1000;
-    $collection.find("ul.collection_gallery").children().each(function() {
-      var $li = $(this);
-      if ($.browser.msie) {
-        $li.css('z-index', zi);
-        zi -= 1;
-      }
-      if (!$li.find(".checkbox input[type=checkbox]").is(':checked')) {
-        $li.find(".checkbox").hide();
-      }
-      $li.find("h4").hide();
-      $li.accessibleHover(
-        function() {
-          $(this).find(".checkbox").show();
-          $(this).find("h4").addClass('balloon').show();
-        },
-        function() {
-          if (!$(this).find(".checkbox input[type=checkbox]").is(':checked')) {
-            $(this).find(".checkbox").hide();
-          }
-          $(this).find("h4").hide().removeClass('balloon');
-      });
-    });
-
-    $collection.find('#sort_by').change(function() {
-      $(this).closest('form').find('input[name="commit_sort"]').click();
-    });
-    $collection.find('input[name="commit_sort"]').hide();
-    $collection.find('#view_as').change(function() {
-      $(this).closest('form').find('input[name="commit_view_as"]').click();
-    });
-    $collection.find('input[name="commit_view_as"]').hide();
-    $collection.find('input[name="commit_filter"]').hide();
-  })($("#collection"));
-
-  $("input[placeholder]").each(function() {
-    var $e = $(this),
-        placeholder = $e.attr("placeholder");
-    $e.removeAttr("placeholder").val(placeholder);
-    $e.bind("focus blur", function(e) {
-      if (e.type === "focus" && $e.val() === placeholder) { $e.val(""); }
-      else { if (!$e.val()) { $e.val(placeholder); } }
-    });
-  });
-
-  // TODO - generalize this with the other modals...
-  $('#collection_items .editable .edit a').modal({
-    beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
-    beforeShow: function() {
-      $('form.edit_collection_item :submit').click(function() {
-        EOL.ajax_submit($(this), { update: $('li#collection_item_'+$(this).attr('data-id')+' div.editable') });
-        $('#collection_items_edit a.close').click();
-        return(false);
-      });
-    },
-    afterClose: function() {
-      $('#collection_items .editable a').delay(25).fadeTo(100, 1, function() {$('#collection_items .editable a').css({filter:''}); });
-    },
-    duration: 200
-  });
-
-  // Collecting happens through a modal dialog box:
+  // Collecting happens through a modal dialog box (which is on many pages):
   $('a.collect').modal({
     beforeSend: function() { $('a.collect').fadeTo(225, 0.3); },
     beforeShow: function() {
@@ -296,6 +290,19 @@ $(function() {
     duration: 200
   });
 
+  // Allows placeholder text in form fields, which will disappear when the user enters the field and replace itself when the user leaves the
+  // field:
+  $("input[placeholder]").each(function() {
+    var $e = $(this),
+        placeholder = $e.attr("placeholder");
+    $e.removeAttr("placeholder").val(placeholder);
+    $e.bind("focus blur", function(e) {
+      if (e.type === "focus" && $e.val() === placeholder) { $e.val(""); }
+      else { if (!$e.val()) { $e.val(placeholder); } }
+    });
+  });
+
+  // The reindex button on some pages doesn't actually submit, it's just a small Ajax call:
   $('a.reindex').click(function() {
     var $reindex = $('a.reindex')
     $reindex.fadeTo(225, 0.3);
@@ -306,171 +313,10 @@ $(function() {
     return(false);
   });
 
-  EOL.enableRatings();
-
-  // initiates march of life on homepage
-  $('.thumbnails ul li').each(function() {
-    var number_of_slides = $('.thumbnails ul li').length;
-    var index = $(this).index();
-    var random = new Array(-3, 1, 0, -2, -4, -1);
-    var display_time = 5000;
-    var transition_time = 1800;
-    $(this).cycle({
-      fx: 'fade',
-      timeout: number_of_slides * display_time,
-      delay: random[index] * display_time,
-      speed: transition_time,
-      before: loadMoreMarchOfLife
-    });
-    var random_index = Math.floor(Math.random() * 6) + 1;
-    initiate_alt_text_for_march_of_life($(".thumbnails li:nth-child(" + random_index + ") img:first"));
-  });
-
-  // this method is used to grab more images for the march of life before callback
-  function loadMoreMarchOfLife(curr, next, opts) {
-    // on the first pass, addSlide is undefined (plugin hasn't yet created the fn); 
-    // when we're finshed adding slides we'll null it out again 
-    if (!opts.addSlide) return;
-
-    cycle_list_item = $(this).closest('li');
-    number_of_images_in_li = cycle_list_item.find('img').size();
-    if(number_of_images_in_li < 10) {
-      // call to get more images
-      $.getJSON('content/random_homepage_images?count=5', function(data) {
-        // make sure there were no errors, 
-        if(!data['error']) {
-          for(i = 0 ; i < data.length ; i++) {
-            image_data = data[i];
-            // make sure this image isn't already featured on this page
-            if($("img[src='" + image_data['image_url'] + "']").size() == 0) {
-              // add the HTML for the new image
-              scientific_name = image_data['taxon_scientific_name'];
-              common_name = image_data['taxon_common_name'];
-              if(common_name == null) {
-                common_name = '';
-              }
-              alt_text = scientific_name;
-              opts.addSlide('<a href="'+ image_data['taxon_page_path'] + '"><img src="' +
-                image_data['image_url'] +
-                '" alt="' + alt_text + 
-                '" data-scientific_name="' + scientific_name + 
-                '" data-common_name="' + common_name + 
-                '" width="130" height="130"/></a>');
-              // since we had to add a slide we need to change the index of the next slide
-              opts.nextSlide = opts.currSlide + 1;
-              enable_mouseover_alt_text_for_march_of_life();
-            }
-          }
-        }
-      });
-      if(cycle_list_item.hasClass("hover")) {
-        initiate_alt_text_for_march_of_life($(next).find("img"));
-      }
-    }
-  };
-
-  function enable_mouseover_alt_text_for_march_of_life() {
-    // properly shows the march of life name on mouseover
-    $(".thumbnails li img").unbind().mouseover(function() { 
-      initiate_alt_text_for_march_of_life($(this));
-    });
-  }
-  
-  function initiate_alt_text_for_march_of_life(img) {
-    var $e = img.parent().parent();
-    if ($e.length > 0) {
-      $thumbs = $e.closest(".thumbnails");
-      var term_p = $thumbs.find(".term p");
-      var left_pos = $e.position().left - 100 + 5;
-      var right_pos = term_p.outerWidth(true) - $e.position().left - $e.outerWidth(true) - 100;
-      if($e.is($(".thumbnails li:last"))) {
-        right_pos = right_pos - 15;
-      }
-      var line_height = 'inherit';
-      if(img.attr("data-common_name") == null || img.attr("data-common_name") == '') {
-        line_height = $thumbs.find(".term .site_column").css("height");
-      }
-      var name_html = '<span class="scientific">' + img.attr("data-scientific_name") + '</span>';
-      if(img.attr("data-common_name") != null && img.attr("data-common_name") != '') {
-        name_html += '<span class="common">' + img.attr("data-common_name") + '</span>';
-      }
-      term_p.css({
-        textAlign: 'center'
-      }).css("margin-left", left_pos+"px").css("margin-right", right_pos+"px").css("line-height", line_height).html(name_html);
-      $(".thumbnails li").removeClass("hover");
-      $e.addClass("hover");
-    }
-  }
-  enable_mouseover_alt_text_for_march_of_life();
-
-  // uncheck search filter All when other options are selected
-  $("#main_search_type_filter input[type=checkbox][value!='all']").click(function() {
-    $("#main_search_type_filter input[type=checkbox][value='all']").prop("checked", false);
-  });
-  // uncheck all other search filter options when All is selected
-  $("#main_search_type_filter input[type=checkbox][value='all']").click(function() {
-    $("#main_search_type_filter input[type=checkbox][value!='all']").prop("checked", false);
-  });
-  // disable the checkboxes for filter categories with no results
-  $("#main_search_type_filter li.no_results input[type=checkbox]").attr("disabled", true);
-
-  // Search should not allow you to search without a term:
-  $("#simple_search :submit").click(function() {
-    var $q = $("#simple_search :submit").closest('form').find('#q');
-    if ($q.val() == $(this).attr('data_unchanged')) {
-      $q.css('color', '#aa0000').val($(this).attr('data_error')).click(function() { $(this).val('').css('color', 'black').unbind('click'); });
-      return(false);
-    } else if ($q.val() == $(this).attr('data_error')) {
-      var blinkIn = 20;
-      var blinkOut = 350;
-      $q.css('color', '#aa0000').fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn);
-      return(false);
-    }
-  });
-
-  // uncheck media list filter All when other options are selected
-  $("#media_list #sidebar input[type=checkbox][value!='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
-  });
-  // uncheck all other media list filter options when All is selected
-  $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
-  });
-  // disable the checkboxes for filter categories with no results
-  $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
-
+  // Simple confirms (for I18n), currently only used for community-delete... TODO - why not just regular confirm?
   $('.button.confirm').click(function() {
     if(confirm($(this).attr('data_confirm'))) { return true; } else { return false; }
   });
-
-  // When you select all items, hide the checkboxes (and vice-versa) on collection items:
-  $('form.new_collection_job #scope').change(function() {
-    if ($('form.new_collection_job #scope').val() == 'all_items') {
-      $('#collection_items :checkbox').parent().hide();
-    } else {
-      $('#collection_items :checkbox').parent().show();
-    }
-  });
-  
-  
-  $('#main .media video embed').each(function() {
-    var test_video = document.createElement('video');
-    cant_play_video = (!test_video.canPlayType || !test_video.canPlayType('video/mp4'));
-    if (cant_play_video) {
-      var video = $(this).parent();
-      video.parent().html(video.html());
-    }
-  });
-  
-  
-  (function($inat_link) {
-    $inat_link.attr('href', function() { 
-      auth_provider = $('.inat_observations_header a.button').attr('href').split("&")[1];
-      if (typeof auth_provider != "undefined") {
-        return this.href + '?' + auth_provider;
-      }
-    });
-  })($(".inat_top_contributors a"));
 
   (function($content_partner_resources) {
     var $radios = $content_partner_resources.find("dl.resources :radio");
@@ -482,76 +328,6 @@ $(function() {
       });
     }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
-
-  // This may warrant its own JS, but it's tiny, so it was easy enough to stick here:
-  $('td.preferred_entry_selector input[type="radio"]:not(:checked)').click(function() {
-    var form = $(this).closest('form');
-    form.submit();
-  });
-
-  // EOL Statistics initialise date picker
-  (function($statistics) {
-    var $date_form = $statistics.find('form');
-
-    var $datepicker_opts = $.extend(
-      $date_form.data('datepicker_opts'),
-      { isRTL: ($('body').css('direction') == 'rtl') ? true : false,
-        showOn: "button",
-        buttonImage: "/assets/v2/icon_calendar.png",
-        buttonImageOnly: true,
-        minDate: new Date(2012, 2 - 1, 17),
-        maxDate: new Date() }
-    );
-
-    $date_form.addClass('with_picker');
-    $date_form.find('label').each(function() {
-      var $label = $(this);
-      $label.append('<input type="hidden"/>');
-      $label.find('input[type="hidden"]').datepicker($.extend($datepicker_opts, {
-        defaultDate: new Date($label.find('select:eq(2)').val(),
-                              $label.find('select:eq(1)').val() - 1,
-                              $label.find('select:eq(0)').val()),
-        onSelect: function(dateText, inst) {
-          $label.find('option:selected').removeAttr('selected');
-          $label.find('select:eq(0) option[value="' + inst.selectedDay + '"]').attr('selected', 'selected');
-          $label.find('select:eq(1) option[value="' + (inst.selectedMonth + 1) + '"]').attr('selected', 'selected');
-          $label.find('select:eq(2) option[value="' + inst.selectedYear + '"]').attr('selected', 'selected');
-          $label.closest('form').submit();
-        }
-      }));
-    });
-  })($("#statistics"));
-  
-  (function($flash_div) {
-    $flash_div.delay('5000').fadeOut('slow');
-  })($("#flash-bad, #flash-good"));
-
-  $('input.clear_on_focus').each(function() { $(this).val($(this).attr('data-default')); });
-  $('input.clear_on_focus').siblings().each(function() { $(this).on('click', function() {
-    if ($(this).prop('checked')) {
-      $(this).siblings().focus()
-    }
-  })});
-  $('input.clear_on_focus').on('focus', function() {
-    if ($(this).val() == $(this).attr('data-default')) {
-      $(this).val('');
-      EOL.check_siblings(this, true);
-    }
-  });
-  $('input.clear_on_focus').on('blur', function() {
-    if ($(this).val() == '' || $(this).val() == $(this).attr('data-default')) {
-      $(this).val($(this).attr('data-default'));
-      EOL.check_siblings(this, false);
-    }
-  });
-
-  $('input#collection_job_overwrite').on('click', function() {
-    if ($(this).prop('checked')) {
-      $('form#new_collection_job li.collected input').prop('checked', false).attr("disabled", false);
-    } else {
-      $('form#new_collection_job li.collected input').prop('checked', true).attr("disabled", true);
-    }
-  });
 
 });
 

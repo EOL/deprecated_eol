@@ -1412,6 +1412,13 @@ FactoryGirl.define do
     marine_pages_with_objects                         { rand(100000) }
     marine_pages_with_objects_vetted                  { rand(100000) }
     created_at                                        { 5.days.ago }
+    total_triples                                     { rand(100000) }
+    total_occurrences                                 { rand(100000) }
+    total_measurements                                { rand(100000) }
+    total_associations                                { rand(100000) }
+    total_measurement_types                           { rand(100000) }
+    total_association_types                           { rand(100000) }
+    total_taxa_with_data                              { rand(100000) }
   end
 
 end

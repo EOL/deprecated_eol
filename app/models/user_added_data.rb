@@ -23,6 +23,7 @@ class UserAddedData < ActiveRecord::Base
   before_validation :convert_known_uris
 
   after_create :update_triplestore
+  after_create :log_activity_in_solr
   after_update :update_triplestore
 
   attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes, :deleted_at,
@@ -102,6 +103,10 @@ class UserAddedData < ActiveRecord::Base
     "user_added_data_#{id}"
   end
 
+  def predicate_label
+    EOL::Sparql.uri_components(predicate)[:label]
+  end
+
   private
 
   def is_taxon_uri?(uri)
@@ -144,4 +149,53 @@ class UserAddedData < ActiveRecord::Base
     @already_expanded = true
   end
 
+  def log_activity_in_solr
+    DataObject.with_master do
+      base_index_hash = {
+        'activity_log_unique_key' => "UserAddedData_#{id}",
+        'activity_log_type' => 'UserAddedData',
+        'activity_log_id' => id,
+        'action_keyword' => 'create',
+        'date_created' => self.updated_at.solr_timestamp || self.created_at.solr_timestamp,
+        'user_id' => user.id }
+      EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
+      queue_notifications
+    end
+  end
+
+  def notification_recipient_objects()
+    return @notification_recipients if @notification_recipients
+    @notification_recipients = []
+    add_recipient_user_making_object_modification(@notification_recipients)
+    add_recipient_pages_affected(@notification_recipients)
+    add_recipient_users_watching(@notification_recipients)
+    @notification_recipients
+  end
+
+  def queue_notifications
+    Notification.queue_notifications(notification_recipient_objects, self)
+  end
+
+  def add_recipient_user_making_object_modification(recipients)
+    recipients << { :user => user, :notification_type => :i_created_something,
+                    :frequency => NotificationFrequency.never }
+    recipients << user.watch_collection if user.watch_collection
+  end
+
+  def add_recipient_pages_affected(recipients)
+    if taxon_concept
+      recipients << taxon_concept
+      recipients << { :ancestor_ids => taxon_concept.flattened_ancestor_ids }
+    end
+  end
+
+  def add_recipient_users_watching(recipients)
+    if taxon_concept
+      taxon_concept.containing_collections.watch.each do |collection|
+        collection.users.each do |user|
+          user.add_as_recipient_if_listening_to(:new_data_on_my_watched_item, recipients)
+        end
+      end
+    end
+  end
 end

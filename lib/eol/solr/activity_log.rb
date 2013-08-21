@@ -209,6 +209,8 @@ module EOL
           })
         EOL::Solr.add_standard_instance_to_docs!(CommunityActivityLog,
           docs.select{ |d| d['activity_log_type'] == 'CommunityActivityLog' }, 'activity_log_id')
+        EOL::Solr.add_standard_instance_to_docs!(UserAddedData,
+          docs.select{ |d| d['activity_log_type'] == 'UserAddedData' }, 'activity_log_id')
         EOL::Solr.add_standard_instance_to_docs!(UsersDataObject,
           docs.select{ |d| d['activity_log_type'] == 'UsersDataObject' }, 'activity_log_id',
           :includes => [

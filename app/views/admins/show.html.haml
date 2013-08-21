@@ -4,5 +4,5 @@
     %p= raw(I18n.t(:admin_information))
   .actions
     %p.data
-      = check_box_tag('site_configuration_option', 'all_users_can_see_data', SiteConfigurationOption.all_users_can_see_data, 'data-href' => change_site_configuration_options_path(parameter: 'all_users_can_see_data'))
+      = check_box_tag('site_configuration_option', 'all_users_can_see_data', (SiteConfigurationOption.all_users_can_see_data rescue false), 'data-href' => change_site_configuration_options_path(parameter: 'all_users_can_see_data'))
       = I18n.t(:admin_option_all_users_can_see_data)

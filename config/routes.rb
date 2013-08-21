@@ -277,6 +277,7 @@ Eol::Application.routes.draw do
       get 'marine'
       get 'page_richness'
       get 'users_data_objects'
+      get 'data'
     end
   end
 

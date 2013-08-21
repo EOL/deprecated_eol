@@ -298,6 +298,14 @@ en:
         # lifedesk stats
         lifedesk_taxa: "LifeDesks taxa"
         lifedesk_data_objects: "LifeDesks data objects"
+        # data stats
+        total_taxa_with_data: "Pages with data"
+        total_triples: "Triples"
+        total_occurrences: "Occurrences"
+        total_measurements: "Measurements"
+        total_associations: "Associations"
+        total_measurement_types: "Measurement Types"
+        total_association_types: "Association Types"
       forum:
         forum_category_id: "Category"
         name: "Forum name"
@@ -1030,6 +1038,10 @@ en:
     users_data_objects:
       menu_link: "User-submitted text"
       page_header: "User-Submitted Text Statistics"
+      page_title: "Statistics"
+    data:
+      menu_link: "Data"
+      page_header: "Data Statistics"
       page_title: "Statistics"
   forums:
     forums_heading: "EOL Forums"
@@ -2368,6 +2380,7 @@ en:
   a_maximum_of_30_results_are_returned: "a maximum of 30 results are returned per page. This parameter allows you to fetch more pages of results if there are more than 30 matches"
   activity_log_empty: "No one has provided updates yet."
   activity_log_empty_learn_more_link: "Learn how to contribute"
+  activity_user_created_data: "<strong>%{user}</strong> added data about \"%{object_name}\" to \"%{taxon_concept}\"."
   activity_user_created_link: "<strong>%{user}</strong> added a link to \"%{object_name}\" on \"%{taxon_concept}\"."
   activity_user_created_text: "<strong>%{user}</strong> added text to \"%{object_name}\" on \"%{taxon_concept}\"."
   activity_user_updated_link: "<strong>%{user}</strong> updated \"%{object_name}\" link on \"%{taxon_concept}\"."
@@ -4505,6 +4518,10 @@ en:
   user_activity_stats_common_names_removed:
     one: "%{count} common name removed"
     other: "%{count} common names removed"
+  user_activity_stats_data_added:
+    one: "%{count} data record added"
+    other: "%{count} data records added"
+  user_activity_stats_data_added_dropdown: "Data added"
   user_activity_stats_header: "Activity"
   user_activity_stats_objects_curated:
     one: "%{count} object curated"

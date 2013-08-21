@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
   has_many :pending_notifications
   has_many :open_authentications, :dependent => :destroy
   has_many :forum_posts
+  has_many :user_added_data, :class_name => UserAddedData.to_s
 
   has_many :content_partners
   has_one :user_info
@@ -306,6 +307,11 @@ class User < ActiveRecord::Base
 
   def total_comment_submitted
     return comments.count
+  end
+
+  def total_data_submitted
+    return user_added_data.where(visibility_id: Visibility.visible.id, vetted_id: [Vetted.trusted.id, Vetted.unknown.id],
+      deleted_at: nil).count
   end
 
   def total_wikipedia_nominated

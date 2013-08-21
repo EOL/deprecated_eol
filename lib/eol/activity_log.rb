@@ -95,6 +95,8 @@ module EOL
           query = "activity_log_type:CollectionActivityLog AND user_id:#{source.id}"
         elsif options[:filter] == 'communities'
           query = "activity_log_type:CommunityActivityLog AND user_id:#{source.id}"
+        elsif options[:filter] == 'added_data'
+          query = "activity_log_type:UserAddedData AND user_id:#{source.id}"
         end
       end
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)

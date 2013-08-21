@@ -527,6 +527,43 @@ describe 'Data Object Page' do
     body.should have_tag("h3", :text => 'Description' )
   end
 
+  it 'should show references and identifiers' do
+    d = DataObject.gen(:data_type => DataType.text)
+    r = Ref.gen(:full_reference => 'This is the full reference')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.url, :identifier => 'http://si.edu/someref')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.doi, :identifier => 'doi:10.1006/some.ref')
+    DataObjectsRef.gen(:data_object => d, :ref => r)
+    visit(data_object_path(d))
+    body.should have_tag("a[href='http://si.edu/someref']")
+    body.should have_tag("a[href='http://dx.doi.org/10.1006/some.ref']")
+
+    # slightly different formatting for the RefIdentifiers. The view shoudl auto-complete the URLs
+    d = DataObject.gen(:data_type => DataType.text)
+    r = Ref.gen(:full_reference => 'This is the full reference')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.url, :identifier => 'si.edu/someref')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.doi, :identifier => '10.1006/some.ref')
+    DataObjectsRef.gen(:data_object => d, :ref => r)
+    visit(data_object_path(d))
+    body.should have_tag("a[href='http://si.edu/someref']")
+    body.should have_tag("a[href='http://dx.doi.org/10.1006/some.ref']")
+  end
+
+  it 'should not show names from untrusted associations, unless thats is all ther there is' do
+    d = DataObject.gen(:data_type => DataType.image, :object_title => nil)
+    d.add_curated_association(@full_curator, @extra_he)
+    d.add_curated_association(@full_curator, @singular_he)
+    visit(data_object_path(d))
+    body.should include("<h1>Image of <i>#{@extra_he.name.canonical_form.string}</i> and <i>#{@singular_he.name.canonical_form.string}</i>")
+    # untrusting the first name so only the second will show up
+    d.vet_by_taxon_concept(@extra_he.taxon_concept, Vetted.untrusted)
+    visit(data_object_path(d))
+    body.should include("<h1>Image of <i>#{@singular_he.name.canonical_form.string}</i>")
+    # now that they are both untrusted, it will say unknown taxon
+    d.vet_by_taxon_concept(@singular_he.taxon_concept, Vetted.untrusted)
+    visit(data_object_path(d))
+    body.should include("<h1>Image of an unknown taxon")
+  end
+
   it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'
   it 'should change vetted to trusted and visibility to visible when self added article is edited by full/master curator or admin'
 

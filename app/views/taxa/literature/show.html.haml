@@ -12,5 +12,5 @@
           %p= I18n.t(:literature_empty)
       - else
         %ul.ref_list
-          - @references.each do |r|
-            %li= raw(r.full_reference)
+          - @references.each do |ref|
+            = render :partial => "refs/show_as_list_item", :locals => { :ref => ref }

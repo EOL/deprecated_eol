@@ -7,7 +7,7 @@ describe "Core Extensions" do
   describe "#capitalize_all_words_if_language_safe" do
 
     before(:all) do
-      @locale = I18n.locale 
+      @locale = I18n.locale
       @lower = "this is some string"
       @upper = "This Is Some String"
     end
@@ -82,9 +82,16 @@ describe "Core Extensions" do
     it 'should link DOIs' do
       'Some doi:10.4319/lo.2013.58.1.0254 DOI'.add_missing_hyperlinks.should ==
         'Some <a href="http://dx.doi.org/doi:10.4319/lo.2013.58.1.0254">doi:10.4319/lo.2013.58.1.0254</a> DOI'
+      'Some 10.4319/lo.2013.58.1.0254 DOI'.add_missing_hyperlinks.should ==
+        'Some <a href="http://dx.doi.org/10.4319/lo.2013.58.1.0254">10.4319/lo.2013.58.1.0254</a> DOI'
       'Some ("doi:10.4319/lo.2013.58.1.0254") DOI'.add_missing_hyperlinks.should ==
         'Some ("<a href="http://dx.doi.org/doi:10.4319/lo.2013.58.1.0254">doi:10.4319/lo.2013.58.1.0254</a>") DOI'
     end
+
+    it 'should not link already linked URLs' do
+      'Some <a href="http://eol.org>http://eol.org</a> link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org>http://eol.org</a> link'
+    end
+
   end
 
 end

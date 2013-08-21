@@ -1,13 +1,12 @@
 class RefIdentifierType < ActiveRecord::Base
   has_many :ref_identifiers
 
+  def self.url
+    @@url ||= cached_find(:label, 'url')
+  end
+
+  def self.doi
+    @@doi ||= cached_find(:label, 'doi')
+  end
+
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: ref_identifier_types
-#
-#  id    :integer(2)      not null, primary key
-#  label :string(50)      not null
-

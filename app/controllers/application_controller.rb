@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_filter :clear_any_logged_in_session, :except => [ :fetch_external_page_title ] unless $ALLOW_USER_LOGINS
   before_filter :check_user_agreed_with_terms, :except => [ :fetch_external_page_title, :error ]
   before_filter :set_locale, :except => [ :fetch_external_page_title ]
+  around_filter :send_to_statsd
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :keep_home_page_fresh
@@ -26,6 +27,21 @@ class ApplicationController < ActionController::Base
   unless $ENABLE_RECAPTCHA
     def verify_recaptcha
       true
+    end
+  end
+
+  def send_to_statsd
+    if $STATSD
+      if logged_in?
+        $STATSD.increment("logged_in")
+      else
+        $STATSD.increment("not_logged_in")
+      end
+      $STATSD.time("page_load_time.#{params[:controller]}.#{params[:action]}") do
+        yield
+      end
+    else
+      yield
     end
   end
 
@@ -502,6 +518,10 @@ protected
       response_code = :not_found
     end
     render_exception_response(exception, response_code, status_code)
+    if $STATSD
+      $STATSD.increment 'all_errors'
+      $STATSD.increment "errors.#{exception.class.name.gsub(/[^A-Za-z0-9]+/, '_')}"
+    end
     # Log to database
     if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
       ErrorLog.create(

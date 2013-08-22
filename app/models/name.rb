@@ -137,7 +137,7 @@ class Name < ActiveRecord::Base
 private
 
   def clean_name_must_be_unique
-    found_name = Name.find_by_string(self.string, :is_common_name => is_common_name)
+    found_name = Name.find_by_string(self.string, :is_common_name => self.is_common_name)
     errors[:base] << "Name string must be unique" unless found_name.nil?
   end
 

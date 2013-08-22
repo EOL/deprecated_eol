@@ -1,7 +1,7 @@
 class KnownUriRelationship < ActiveRecord::Base
 
-  INVERSE_URI = 'http://www.w3.org/2002/07/owl#inverseOf'
-  MEASUREMENT_URI = 'http://eol.org/schema/uses_measurement'
+  INVERSE_URI = Rails.configuration.uri_inverse
+  MEASUREMENT_URI = Rails.configuration.uri_uses_measurement
 
   belongs_to :from_known_uri, :class_name => KnownUri.name, :foreign_key => :from_known_uri_id
   belongs_to :to_known_uri, :class_name => KnownUri.name, :foreign_key => :to_known_uri_id

@@ -113,7 +113,7 @@ class TaxonData < TaxonUserClassificationFilter
         UNION {
           ?data_point_uri dwc:occurrenceID ?occurrence .
           ?occurrence dwc:taxonID ?taxon .
-          ?data_point_uri <http://eol.org/schema/measurementOfTaxon> 'true' .
+          ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> 'true' .
           GRAPH ?resource_mappings_graph {
             ?taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>
           }
@@ -138,14 +138,14 @@ class TaxonData < TaxonUserClassificationFilter
           ?data_point_uri a <#{DataAssociation::CLASS_URI}> .
           {
             ?data_point_uri dwc:occurrenceID ?occurrence .
-            ?data_point_uri <http://eol.org/schema/targetOccurrenceID> ?target_occurrence .
-            ?data_point_uri <http://eol.org/schema/associationType> ?attribute
+            ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?target_occurrence .
+            ?data_point_uri <#{Rails.configuration.uri_association_type}> ?attribute
           }
           UNION
           {
             ?data_point_uri dwc:occurrenceID ?target_occurrence .
-            ?data_point_uri <http://eol.org/schema/targetOccurrenceID> ?occurrence .
-            ?data_point_uri <http://eol.org/schema/associationType> ?inverse_attribute
+            ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?occurrence .
+            ?data_point_uri <#{Rails.configuration.uri_association_type}> ?inverse_attribute
           }
         } .
         OPTIONAL {

@@ -1,7 +1,7 @@
 class UserAddedData < ActiveRecord::Base
 
-  SUBJECT_PREFIX = "http://eol.org/pages/" # TODO - this should probably be configurable. ...And polymorphic, so a hash. :|
-  GRAPH_NAME = "http://eol.org/user_data/" # TODO - this too. :)
+  SUBJECT_PREFIX = Rails.configuration.uri_prefix_user_added_data
+  GRAPH_NAME = Rails.configuration.user_added_data_graph
   URI_REGEX = /#{GRAPH_NAME.sub('/', '\\/')}(\d+)$/
 
   include EOL::CuratableAssociation

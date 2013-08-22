@@ -3,9 +3,9 @@
 # this easier than splitting up that class.
 class KnownUri < ActiveRecord::Base
 
-  BASE = 'http://eol.org/schema/terms/'
-  TAXON_RE = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.
-  GRAPH_NAME = 'http://eol.org/known_uris'
+  BASE = Rails.configuration.uri_term_prefix
+  TAXON_RE = Rails.configuration.known_taxon_uri_re
+  GRAPH_NAME = Rails.configuration.known_uri_graph
 
   include EOL::CuratableAssociation
 
@@ -135,7 +135,7 @@ class KnownUri < ActiveRecord::Base
     result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
       WHERE {
         ?association a <#{DataAssociation::CLASS_URI}> .
-        ?association <http://eol.org/schema/associationType> ?uri .
+        ?association <#{Rails.configuration.uri_association_type}> ?uri .
         FILTER (CONTAINS(str(?uri), '://'))
       }
       GROUP BY ?uri

@@ -10,9 +10,9 @@ class UserAddedDataMetadata < ActiveRecord::Base
   validate :predicate_must_be_uri
   validate :expand_and_validate_namespaces # Without this, the validation on namespaces doesn't run.
 
-  SUPPLIER_URI = 'http://eol.org/schema/terms/supplier' # TODO - change this.  :)
-  LICENSE_URI = 'http://eol.org/schema/terms/license' # TODO - change this.  :)
-  SOURCE_URI = 'http://eol.org/schema/terms/source' # TODO - change this.  :)
+  SUPPLIER_URI = Rails.configuration.uri_supplier
+  LICENSE_URI = Rails.configuration.uri_license
+  SOURCE_URI = Rails.configuration.uri_source
 
   def self.default_supplier(user)
     UserAddedDataMetadata.new(predicate: SUPPLIER_URI, object: user.full_name)

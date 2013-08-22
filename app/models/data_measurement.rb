@@ -1,6 +1,6 @@
 class DataMeasurement < StructuredData
 
-  CLASS_URI = 'http://rs.tdwg.org/dwc/terms/MeasurementOrFact'
+  CLASS_URI = Rails.configuration.uri_data_measurement
 
   def initialize(options={})
     raise 'Predicate must be a URI' unless EOL::Sparql.is_uri?(options[:predicate])

@@ -44,7 +44,7 @@ class DataPointUri < ActiveRecord::Base
             ?occurrence ?attribute ?value .
           } UNION {
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
-            ?measurement <http://eol.org/schema/parentMeasurementID> <#{uri}> .
+            ?measurement <#{Rails.configuration.uri_parent_measurement_id}> <#{uri}> .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
           } UNION {
@@ -53,11 +53,11 @@ class DataPointUri < ActiveRecord::Base
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
-            OPTIONAL { ?measurement <http://eol.org/schema/measurementOfTaxon> ?measurementOfTaxon } .
+            OPTIONAL { ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon } .
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
-            ?measurement <http://eol.org/schema/associationID> <#{uri}> .
+            ?measurement <#{Rails.configuration.uri_association_id}> <#{uri}> .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
           } UNION {
@@ -66,10 +66,10 @@ class DataPointUri < ActiveRecord::Base
             ?event ?attribute ?value .
           }
           FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
-                                     dwc:measurementID, <http://eol.org/schema/reference/referenceID>,
-                                     <http://eol.org/schema/targetOccurrenceID>, dwc:taxonID, dwc:eventID,
-                                     <http://eol.org/schema/associationType>,
-                                     dwc:measurementUnit, dwc:occurrenceID, <http://eol.org/schema/measurementOfTaxon>))
+                                     dwc:measurementID, <#{Rails.configuration.uri_reference_id}>,
+                                     <#{Rails.configuration.uri_target_occurence}>, dwc:taxonID, dwc:eventID,
+                                     <#{Rails.configuration.uri_association_type}>,
+                                     dwc:measurementUnit, dwc:occurrenceID, <#{Rails.configuration.uri_measurement_of_taxon}>))
         }
       }"
     metadata_rows = EOL::Sparql.connection.query(query)
@@ -90,7 +90,7 @@ class DataPointUri < ActiveRecord::Base
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
-            ?measurement <http://eol.org/schema/measurementOfTaxon> ?measurementOfTaxon .
+            ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
             FILTER ( ?measurementOfTaxon = 'true' ) .
             OPTIONAL {
               ?measurement dwc:measurementUnit ?unit_of_measure_uri
@@ -106,32 +106,18 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def get_references(language)
+    options = []
+    Rails.configuration.optional_reference_uris.each do |var, url|
+      options << "OPTIONAL { ?reference <#{url}> ?#{var} } ."
     query = "
       SELECT DISTINCT ?identifier ?publicationType ?full_reference ?primaryTitle ?title ?pages ?pageStart ?pageEnd
          ?volume ?edition ?publisher ?authorList ?editorList ?created ?language ?uri ?doi ?localityName
       WHERE {
         GRAPH ?graph {
           {
-            <#{uri}> <http://eol.org/schema/reference/referenceID> ?reference .
-            ?reference a <http://eol.org/schema/reference/Reference>
-            OPTIONAL { ?reference <http://purl.org/dc/terms/identifier> ?identifier } .
-            OPTIONAL { ?reference <http://eol.org/schema/reference/publicationType> ?publicationType } .
-            OPTIONAL { ?reference <http://eol.org/schema/reference/full_reference> ?full_reference } .
-            OPTIONAL { ?reference <http://eol.org/schema/reference/primaryTitle> ?primaryTitle } .
-            OPTIONAL { ?reference <http://purl.org/dc/terms/title> ?title } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/pages> ?pages } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/pageStart> ?pageStart } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/pageEnd> ?pageEnd } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/volume> ?volume } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/edition> ?edition } .
-            OPTIONAL { ?reference <http://purl.org/dc/terms/publisher> ?publisher } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/authorList> ?authorList } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/editorList> ?editorList } .
-            OPTIONAL { ?reference <http://purl.org/dc/terms/created> ?created } .
-            OPTIONAL { ?reference <http://purl.org/dc/terms/language> ?language } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/uri> ?uri } .
-            OPTIONAL { ?reference <http://purl.org/ontology/bibo/doi> ?doi } .
-            OPTIONAL { ?reference <http://schemas.talis.com/2005/address/schema#localityName> ?localityName } .
+            <#{uri}> <#{Rails.configuration.uri_reference_id}> ?reference .
+            ?reference a <#{Rails.configuration.uri_reference}>
+            #{options.join("\n")}
           }
         }
       }"

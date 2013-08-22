@@ -107,8 +107,10 @@ class DataPointUri < ActiveRecord::Base
 
   def get_references(language)
     options = []
+    # TODO - no need to keep rebuilding this, put it in a class variable.
     Rails.configuration.optional_reference_uris.each do |var, url|
       options << "OPTIONAL { ?reference <#{url}> ?#{var} } ."
+    end
     query = "
       SELECT DISTINCT ?identifier ?publicationType ?full_reference ?primaryTitle ?title ?pages ?pageStart ?pageEnd
          ?volume ?edition ?publisher ?authorList ?editorList ?created ?language ?uri ?doi ?localityName

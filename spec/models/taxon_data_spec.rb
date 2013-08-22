@@ -4,6 +4,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe TaxonData do
 
   before(:all) do
+    SpecialCollection.create_all
     @taxon_concept = TaxonConcept.gen
     @user = User.gen
     @prep_string = TaxonData.prepare_search_query(querystring: 'foo')

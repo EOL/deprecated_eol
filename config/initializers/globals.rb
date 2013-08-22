@@ -25,7 +25,7 @@ Rails.configuration.uri_measurement_of_taxon = "#{Rails.configuration.uri_prefix
 Rails.configuration.uri_parent_measurement_id = "#{Rails.configuration.uri_prefix}/parentMeasurementID"
 Rails.configuration.uri_prefix_user_added_data = "http://eol.org/pages/" # TODO - this should be a polymorphic hash, ie:
                                 # { taxon_concept: "http://eol.org/pages/", data_object: "http://eol.org/data_objects/" } ...etc...
-Rails.configuration.uri_prefix_association = '#{Rails.configuration.uri_prefix}/Association'
+Rails.configuration.uri_prefix_association = "#{Rails.configuration.uri_prefix}/Association"
 Rails.configuration.user_added_data_graph = "http://eol.org/user_data/"
 Rails.configuration.known_uri_graph = "http://eol.org/known_uris"
 Rails.configuration.known_taxon_uri_re = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.

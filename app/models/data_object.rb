@@ -217,7 +217,7 @@ class DataObject < ActiveRecord::Base
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
-    params[:source_url] = add_http_if_missing if object_is_a_link
+    params[:source_url] = add_http_if_missing(params[:source_url]) if object_is_a_link
     dato = DataObject.new(params.reverse_merge!({:published => true}))
     if dato.save
       begin
@@ -242,7 +242,7 @@ class DataObject < ActiveRecord::Base
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
-    params[:source_url] = add_http_if_missing if object_is_a_link
+    params[:source_url] = add_http_if_missing(params[:source_url]) if object_is_a_link
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
       begin
@@ -267,7 +267,7 @@ class DataObject < ActiveRecord::Base
     new_dato
   end
 
-  def add_http_if_missing(source_url)
+  def self.add_http_if_missing(source_url)
     return "http://#{source_url}" unless source_url =~ /^[a-z]{3,5}:\/\//i
     source_url
   end

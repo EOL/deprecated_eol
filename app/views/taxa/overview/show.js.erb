@@ -35,7 +35,8 @@ EOL.set_previous_active = function() {
   });
 }
 $('#content .site_column').children().addClass(previous_name).hide(transitions);
-$('#content .site_column').prepend("<div class='overview'><%= escape_javascript(render('show')) %></div>");
+$('#content .site_column').prepend("<div class='overview' style='display: none'><%= escape_javascript(render('show')) %></div>");
+$('.overview').show(transitions);
 EOL.set_overview_active();
 $('.disclaimer').show(transitions);
 $previous_tab.find('a').on('click', function() {

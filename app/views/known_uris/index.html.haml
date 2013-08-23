@@ -9,7 +9,7 @@
       %tr.headers
         %th= I18n.t('activerecord.attributes.known_uri.uri')
         %th= I18n.t('activerecord.attributes.known_uri.name')
-        %th= I18n.t('activerecord.attributes.known_uri.is_unit_of_measure')
+        %th= I18n.t('activerecord.attributes.known_uri.uri_type')
         %th= I18n.t('activerecord.attributes.known_uri.toc_items')
         - if current_user.is_admin?
           %th= I18n.t(:actions)
@@ -24,7 +24,7 @@
             %td= known_uri.name
           - else
             %td.untranslated= I18n.t(:known_uri_missing_translation)
-          %td= known_uri.is_unit_of_measure ? I18n.t(:yes_answer) : I18n.t(:no_answer)
+          %td= known_uri.uri_type.name
           %td
             - cats = known_uri.toc_items.map(&:label).join('<br />')
             - if cats.blank?

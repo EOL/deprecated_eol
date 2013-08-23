@@ -243,6 +243,7 @@ SynonymRelation.gen_if_not_exists(:label => "genbank common name")
 
 Visibility.create_defaults
 
+UriType.create_defaults
 ContentTable.create_details
 NotificationFrequency.create_defaults
 Permission.create_defaults

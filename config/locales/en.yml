@@ -333,7 +333,7 @@ en:
         name: "Name"
         toc_items: "Categories"
         description: "Description"
-        is_unit_of_measure: "Is A Unit Of Measure"
+        uri_type: "Type of URI"
         exclude_from_exemplars: "Exclude from Quick Facts"
       known_uri_relationship:
         from_known_uri_id: "Subject URI"

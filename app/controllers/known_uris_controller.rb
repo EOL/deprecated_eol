@@ -12,7 +12,7 @@ class KnownUrisController < ApplicationController
   def index
     wheres = { translated_known_uris: { language_id: [current_language.id, Language.default.id] } }
     wheres[:known_uris_toc_items] = { toc_item_id: params[:category_id] } if params[:category_id]
-    @known_uris = KnownUri.includes([:toc_items, :translated_known_uris]).where(wheres).
+    @known_uris = KnownUri.includes([:uri_type, :toc_items, :translated_known_uris]).where(wheres).
       paginate(page: params[:page], order: 'position', :per_page => 500)
     respond_to do |format|
       format.html { }

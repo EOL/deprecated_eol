@@ -123,7 +123,7 @@ describe 'Taxa page basic tests' do
     body.should have_selector("#data_summary table")
     body.should include("12345")
     body.should_not include("12345 <span>\nkilograms")
-    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :is_unit_of_measure => true)
+    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :uri_type => UriType.unit_of_measure)
     visit taxon_overview_path(tc.id)
     body.should include("12345 <span>\nkilograms")
   end

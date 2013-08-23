@@ -51,13 +51,13 @@ module EOL
     end
 
     def self.implied_unit_of_measure_for_uri(known_uri_or_string)
-      if known_uri_or_string.is_a?(KnownUri) && ! known_uri_or_string.is_unit_of_measure?
+      if known_uri_or_string.is_a?(KnownUri) && ! known_uri_or_string.unit_of_measure?
         return known_uri_or_string.unit_of_measure
       end
     end
 
     def self.is_known_unit_of_measure_uri?(known_uri_or_string)
-      if known_uri_or_string.is_a?(KnownUri) && known_uri_or_string.is_unit_of_measure?
+      if known_uri_or_string.is_a?(KnownUri) && known_uri_or_string.unit_of_measure?
         return true
       end
     end

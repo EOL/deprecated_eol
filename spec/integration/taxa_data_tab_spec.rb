@@ -80,7 +80,7 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the unit is a KnownURI
     body.should_not include("50 <span>\nkilograms")
-    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :is_unit_of_measure => true)
+    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :uri_type => UriType.unit_of_measure)
     visit taxon_data_path(@taxon_concept.id)
     body.should include("50 <span>\nkilograms")
   end
@@ -93,7 +93,7 @@ describe 'Taxa data tab basic tests' do
     body.should have_selector("table.data td[headers='http://eol.org/time'] span", :text => '50')
     body.should_not include("50 <span>\nhours")
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
-    hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', :is_unit_of_measure => true)
+    hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', :uri_type => UriType.unit_of_measure)
     KnownUriRelationship.gen_if_not_exists(:from_known_uri => time, :to_known_uri => hours, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
     visit taxon_data_path(@taxon_concept.id)
     body.should include("50 <span>\nhours")

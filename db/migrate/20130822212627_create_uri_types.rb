@@ -11,12 +11,19 @@ class CreateUriTypes < ActiveRecord::Migration
     end
     UriType.create_defaults
     add_column :known_uris, :uri_type_id, :integer, null: false, default: UriType.measurement.id
+    KnownUri.where(:is_unit_of_measure => true).each do |uri|
+      uri.update_attributes(:uri_type => UriType.unit_of_measure)
+    end
+    remove_column :known_uris, :is_unit_of_measure
   end
 
   def down
-    drop_table :uri_types
-    drop_table :translated_uri_types
+    add_column :known_uris, :is_unit_of_measure, :boolean, default: false
+    # NOTE - using raw SQL here because it's not in the "mass-assignable" whitelist.  :|
+    KnownUri.connection.execute("UPDATE known_uris SET is_unit_of_measure = 1 WHERE uri_type_id = #{UriType.unit_of_measure.id}")
     remove_column :known_uris, :uri_type_id
+    drop_table :translated_uri_types
+    drop_table :uri_types
   end
 
 end

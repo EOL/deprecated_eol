@@ -21,10 +21,9 @@
             %li
               = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, known_uri.toc_items.include?(toc_item)
               = toc_item.label
-      %dt= f.label :is_unit_of_measure
+      %dt= f.label :uri_type
       %dd
-        = f.check_box :is_unit_of_measure
-        = I18n.t(:yes_answer)
+        = f.select :uri_type_id, options_from_collection_for_select(UriType.all, :id, :name)
       %dt= f.label :exclude_from_exemplars
       %dd
         = f.check_box :exclude_from_exemplars

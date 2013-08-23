@@ -42,7 +42,7 @@ class KnownUriRelationship < ActiveRecord::Base
 
   def target_should_be_measurement
     if relationship_uri == KnownUriRelationship::MEASUREMENT_URI
-      errors.add('to_known_uri_id', :must_be_measurement) unless to_known_uri.is_unit_of_measure?
+      errors.add('to_known_uri_id', :must_be_measurement) unless to_known_uri.unit_of_measure?
     end
   end
 

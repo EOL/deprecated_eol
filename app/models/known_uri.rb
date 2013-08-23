@@ -27,7 +27,7 @@ class KnownUri < ActiveRecord::Base
   has_and_belongs_to_many :toc_items
 
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
-    :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :is_unit_of_measure,
+    :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :uri_type, :uri_type_id,
     :translations, :exclude_from_exemplars, :name
 
   accepts_nested_attributes_for :translated_known_uris
@@ -248,6 +248,10 @@ class KnownUri < ActiveRecord::Base
       end
     end
     statements.join(" . ")
+  end
+
+  def unit_of_measure?
+    uri_type == UriType.unit_of_measure
   end
 
   private

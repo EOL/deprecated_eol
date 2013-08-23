@@ -4,9 +4,9 @@ class ViewStyle < ActiveRecord::Base
 
   def self.create_defaults
     ['List', 'Gallery', 'Annotated'].each do |name|
-      unless TranslatedViewStyle.exists?(:language_id => Language.english.id, :name => name)
+      unless TranslatedViewStyle.exists?(:language_id => Language.default.id, :name => name)
         vstyle = ViewStyle.create
-        TranslatedViewStyle.create(:name => name, :view_style_id => vstyle.id, :language_id => Language.english.id)
+        TranslatedViewStyle.create(:name => name, :view_style_id => vstyle.id, :language_id => Language.default.id)
       end
     end
   end

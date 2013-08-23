@@ -17,6 +17,7 @@ class KnownUri < ActiveRecord::Base
 
   belongs_to :vetted
   belongs_to :visibility
+  belongs_to :uri_type
 
   has_many :translated_known_uris
   has_many :user_added_data

@@ -41,6 +41,13 @@ EOL.check_siblings = function(of, val) {
   catch(err) { /* Don't care if this fails. */ }
 };
 
+EOL.restorable_tabs_behaviour = function() {
+  $('a.restore').unbind('click').on('click', function() {
+    EOL.restore_tab($(this).parent().attr('data-behaviour'), $(this).attr('href'));
+    return(false);
+  });
+}
+
 EOL.overview_thumbnails_behaviours = function() {
   (function($ss) {
     var placeholder = "<li class=\"placeholder\"></li>";
@@ -98,6 +105,33 @@ EOL.overview_thumbnails_behaviours = function() {
   })($(".gallery"));
 };
 
+EOL.transitions = {easing: 'swing'};
+
+EOL.restore_tab = function(name, href, options) {
+  var $previous_tab = $('ul.nav .active');
+  var previous_name = $previous_tab.attr('data-behaviour');
+  $previous_tab.removeClass('active').find('a').addClass('restore');
+  var $contents = $('#content .site_column').children().not('.disclaimer');
+  $contents.not('.restored').addClass(previous_name+' restored');
+  $contents.hide(EOL.transitions);
+  $('ul.nav li[data-behaviour='+name+']').addClass('active').find('a').addClass('restore');
+  $('#content .site_column .'+name).show(EOL.transitions);
+  if ( ! options || ! options['skip_push']) {
+    history.pushState(name, name, href);
+  }
+  if (name == 'details' || name == 'resources') {
+    $('.page_actions .links').show(EOL.transitions);
+  } else {
+    $('.page_actions .links').hide(EOL.transitions);
+  }
+  EOL.add_behaviours(name);
+  $(window).unbind('popstate').bind('popstate', function(event) {
+    if(history.state) {
+      EOL.restore_tab(history.state, document.referrer, {skip_push: true});
+    }
+  });
+};
+
 EOL.add_behaviours = function(which) {
   if (which == 'overview') {
     EOL.overview_thumbnails_behaviours();
@@ -111,6 +145,7 @@ EOL.add_behaviours = function(which) {
   } else if (which == 'names') {
     EOL.names_behaviours();
   }
+  EOL.restorable_tabs_behaviour();
 };
 
 EOL.media_list_open_images_behaviour = function() {

@@ -55,6 +55,10 @@ class Taxa::MediaController < TaxaController
     @assistive_section_header = I18n.t(:assistive_media_header)
     set_canonical_urls(:for => @taxon_page, :paginated => @media, :url_method => :taxon_media_url)
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 
 protected

@@ -18,7 +18,7 @@ class UriType < ActiveRecord::Base
   KNOWN_TYPES.each do |type|
     eigenclass = class << self; self; end
     eigenclass.class_eval do
-      define_method(type) { cached_find_translated(:name, type) }
+      define_method(type.parameterize.underscore) { cached_find_translated(:name, type) }
     end
   end
 

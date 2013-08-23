@@ -88,6 +88,7 @@ class KnownUri < ActiveRecord::Base
     uris_with_counts
   end
 
+  # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_unit_uris
     result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
       WHERE {
@@ -100,6 +101,7 @@ class KnownUri < ActiveRecord::Base
     group_counts_by_uri(result)
   end
 
+  # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_type_uris
     result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
       WHERE {
@@ -113,12 +115,14 @@ class KnownUri < ActiveRecord::Base
     group_counts_by_uri(result)
   end
 
+  # TODO - move this to Virtuoso lib.
   def self.all_measurement_type_uris
     @@all_measurement_type_uris = Rails.cache.fetch("known_uri/all_measurement_type_urisss", :expires_in => 1.day) do
       counts_of_all_measurement_type_uris.collect{ |k,v| k }
     end
   end
 
+  # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_value_uris
     result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
       WHERE {
@@ -132,6 +136,7 @@ class KnownUri < ActiveRecord::Base
     group_counts_by_uri(result)
   end
 
+  # TODO - move this to Virtuoso lib.
   def self.counts_of_all_association_type_uris
     result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
       WHERE {

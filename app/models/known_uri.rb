@@ -23,6 +23,8 @@ class KnownUri < ActiveRecord::Base
   has_many :user_added_data
   has_many :known_uri_relationships_as_subject, :class_name => KnownUriRelationship.name, :foreign_key => :from_known_uri_id
   has_many :known_uri_relationships_as_target, :class_name => KnownUriRelationship.name, :foreign_key => :to_known_uri_id
+  # If this is an attribute, it may have a list of allowed attributes (which may or may not be exclusive):
+  has_many :allowed_values, class_name: KnownUri.name, through: :known_uri_relationships_as_subject, source: :from_known_uri
 
   has_and_belongs_to_many :toc_items
 

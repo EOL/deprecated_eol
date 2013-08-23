@@ -2,37 +2,52 @@ var transitions = {easing: 'swing'};
 var $previous_tab = $('ul.nav .active');
 var previous_name = $previous_tab.attr('data-behaviour');
 var old_title = $(document).find("title").text();
+var old_href = document.baseURI;
 var $overview_tab = $('ul.nav li[data-behaviour=overview]')
 EOL.no_active_tab = function() {
   $('ul.nav .active').removeClass('active');
 };
-EOL.set_overview_active = function() {
+EOL.set_active = function() {
+  var current = history.state;
+  console.log("set_active");
+  console.log("current: "+current);
+  if (current == null) {
+    EOL.set_previous_active({skip_push: true});
+  } else if (current == 'overview') {
+    EOL.set_overview_active({skip_push: true});
+  } else if (current == 'previous') {
+    EOL.set_previous_active({skip_push: true});
+  }
+}
+EOL.set_overview_active = function(options) {
+  console.log("set_overview_active");
   EOL.no_active_tab();
   $overview_tab.addClass('active');
-  history.pushState(null, "<%= @page_title %>", "<%= taxon_overview_path(@taxon_concept) %>");
+  console.log("pushing overview");
+  if ( ! options || ! options['skip_push']) {
+    history.pushState('overview', "<%= @page_title %>", "<%= taxon_overview_path(@taxon_concept) %>");
+  }
   $('#content .site_column .overview').show(transitions);
   $('#content .site_column > .'+previous_name).hide(transitions);
-  window.addEventListener('popstate', function(event) {
-    EOL.set_previous_active();
-  });
   $('.page_actions .links').hide(transitions);
   EOL.add_behaviours('overview');
 };
-EOL.set_previous_active = function() {
+EOL.set_previous_active = function(options) {
+  console.log("set_previous_active");
   EOL.no_active_tab();
   $previous_tab.addClass('active');
+  if ( ! options || ! options['skip_push']) {
+    console.log("pushing previous");
+    history.pushState('previous', old_title, old_href);
+  }
   $('#content .site_column .overview').hide(transitions);
   $('#content .site_column .'+previous_name).show(transitions);
-  history.pushState(null, old_title, $(this).attr('href'));
-  $overview_tab.find('a').on('click', function() {
+  $overview_tab.find('a').unbind('click').on('click', function() {
     EOL.set_overview_active();
     return(false);
   });
   $('.page_actions .links').show(transitions);
   EOL.add_behaviours($(this).parent().attr('data-behaviour'));
-  window.addEventListener('popstate', function(event) {
-    EOL.set_overview_active();
-  });
 }
 $('#content .site_column').children().addClass(previous_name).hide(transitions);
 $('#content .site_column').prepend("<div class='overview' style='display: none'><%= escape_javascript(render('show')) %></div>");
@@ -43,4 +58,7 @@ $previous_tab.find('a').on('click', function() {
   EOL.set_previous_active();
   return(false);
 });
-
+$(window).bind('popstate', function(event) {
+  console.log("popstate");
+  EOL.set_active();
+});

@@ -749,7 +749,7 @@ protected
   end
 
   def show_data?
-    current_user.can?(:see_data) || (SiteConfigurationOption.all_users_can_see_data rescue false)
+    current_user.is_admin? || current_user.can?(:see_data) || (SiteConfigurationOption.all_users_can_see_data rescue false)
   end
   helper_method :show_data?
 

@@ -3154,7 +3154,7 @@ en:
   darwin_core: "Darwin Core"
   dashboard: "Dashboard"
   data: "Data"
-  data_about_subtab: "About"
+  data_about_subtab_content: "<p>Data and metadata are gathered from multiple sources into a single, fully-referenced and semantically accessible taxon-centric view. To see additional details on any data value, click on the data value. Click on the  symbol for a definition of the data type. You must be logged in to EOL to leave a comment, input data, provenance, URIs and other data directly to EOL. Visit here to register for a free EOL account. If you would like to recommend a data set for inclusion in EOL, or if you have data sets you would like to share through EOL, please contact us at <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Funding for the development of EOL computable data functionality provided by the Alfred P. Sloan Foundation, the John D. and Catherine T.  MacArthur Foundation, and from EOL users around the world. To learn more about the TraitBank™ project, please contact <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>"
   data_about_this_record: "Data about this record"
   data_table_summary: "Computable data for %{taxon}. Each row of data is a separate fact, provided by a content partner or user. Each value might include a nested table summarizing metadata about the fact: where it was collected, what the rights to the data are, and the like. Click on the row to show this metadata. Click again to hide it. Showing metadata also shows annotations and allows users to add their own annotations as needed. Curators have additional functions when showing metadata."
   data_metadata_subtable_summary: "Additional data about this fact."

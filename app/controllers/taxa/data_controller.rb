@@ -11,6 +11,7 @@ class Taxa::DataController < TaxaController
     @selected_data_point_uri_id = params.delete(:data_point_uri_id)
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
+    @supress_disclaimer = true
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)
   end
 

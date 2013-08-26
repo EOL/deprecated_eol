@@ -489,7 +489,7 @@ class TaxonConcept < ActiveRecord::Base
         surrogates << he.name.string
       else
         preferred_names << he.name.string
-        preferred_names << he.name.canonical_form.string if he.name.canonical_form
+        preferred_names << he.title_canonical
       end
 
       he.scientific_synonyms.each do |s|

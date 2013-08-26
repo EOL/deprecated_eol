@@ -2436,6 +2436,10 @@ en:
   are_you_sure_this_action_cannot_be_undone: "Are you sure? This action cannot be undone."
   admin_login_confirmation: "Are you sure you want to log into the content partner registry as %{name}? If you do this, you will be logged out of the website as an administrator."
   article_from: "article from"
+  article_secondary_description_with_others_count:
+    zero: "Description of %{taxon}"
+    one: "Description of %{taxon} and %{count} other taxon"
+    other: "Description of %{taxon} and %{count} other taxa"
   article_more_about: "Learn more about this article"
   articles_with_count:
     one: "%{count} article"

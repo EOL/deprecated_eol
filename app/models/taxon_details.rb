@@ -5,6 +5,8 @@
 # Presenter objects, when appropriate.
 class TaxonDetails < TaxonUserClassificationFilter
 
+  TEXT_OBJECT_LIMIT = 600 # NOTE - artificial limit of text objects here to increase the default 30
+
   def articles_in_other_languages?
     !count_by_language.blank?
   end
@@ -97,11 +99,11 @@ private
 
   def details_text
     text_objects = taxon_concept.text_for_user(user,
-      :language_ids => [ user.language_id ],
+      :language_ids => [ user.language.all_ids ],
       :filter_by_subtype => true,
       :allow_nil_languages => user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => 600 # NOTE - artificial limit of text objects here to increase the default 30
+      :toc_ids_to_ignore => TocItem.exclude_from_details.map(&:id)
+      :per_page => TEXT_OBJECT_LIMIT
     )
     selects = {
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -152,9 +154,11 @@ private
     @details_in_all_other_languages = taxon_concept.text_for_user(user,
         :language_ids_to_ignore => user.language.all_ids << 0,
         :allow_nil_languages => false,
+        # TODO - why are we specifying preload_select when we're skipping preload?  Please explain.  Or rename one of them.
         :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder ] },
         :skip_preload => true,
-        :toc_ids_to_ignore => TocItem.exclude_from_details.map { |toc_item| toc_item.id }
+        :toc_ids_to_ignore => TocItem.exclude_from_details.map(&:id),
+        :per_page => TEXT_OBJECT_LIMIT
     )
     DataObject.preload_associations(@details_in_all_other_languages, :language)
     @details_in_all_other_languages ||= []
@@ -175,7 +179,7 @@ private
       :vetted_types => user.vetted_types,
       :visibility_types => user.visibility_types,
       :filter_by_subtype => false,
-      :language_ids => [ user.language_id ]
+      :language_ids => [ user.language.all_ids ]
     )
   end
 

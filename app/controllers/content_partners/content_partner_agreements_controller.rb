@@ -36,7 +36,6 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
         flash.now[:error] = I18n.t(:content_partner_agreement_create_unsuccessful_error)
       end
     end
-
   end
 
   # GET /content_partners/:content_partner_id/agreements/:id/edit

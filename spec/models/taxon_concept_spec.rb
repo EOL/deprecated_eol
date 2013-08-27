@@ -646,6 +646,45 @@ describe TaxonConcept do
     TaxonConceptExemplarArticle.destroy_all
   end
 
+  it 'should generate proper outlinks when there are multiple entries for a hierarchy' do
+    tc = build_taxon_concept
+    tc.hierarchy_entries.destroy_all
+    tc.outlinks.count.should == 0
+    h1 = Hierarchy.gen
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => '')
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => 'http://eol.org/')
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => '')
+    tc.outlinks.count.should == 1
+    tc.outlinks.detect{ |o| o[:outlink_url] == 'http://eol.org/' }.should_not be_nil
+  end
+
+  it 'should use the outlink from the most recent entry from a hierarchy' do
+    tc = build_taxon_concept
+    tc.hierarchy_entries.destroy_all
+    tc.outlinks.count.should == 0
+    h1 = Hierarchy.gen
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => '')
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => 'http://eol.org/')
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => 'http://google.com/')
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => '')
+    tc.outlinks.count.should == 1
+    tc.outlinks.detect{ |o| o[:outlink_url] == 'http://google.com/' }.should_not be_nil
+  end
+
+  it 'should not use untrusted taxa for outlinks' do
+    tc = build_taxon_concept
+    tc.hierarchy_entries.destroy_all
+    tc.outlinks.count.should == 0
+    h1 = Hierarchy.gen
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => '')
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => 'http://eol.org/')
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => 'http://google.com/', :vetted_id => Vetted.untrusted.id)
+    HierarchyEntry.gen(:taxon_concept => tc, :hierarchy => h1, :source_url => '')
+    tc.outlinks.count.should == 1
+    tc.outlinks.detect{ |o| o[:outlink_url] == 'http://eol.org/' }.should_not be_nil
+  end
+
+
   describe '#split_classifications' do
 
     before(:all) do

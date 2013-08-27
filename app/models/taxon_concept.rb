@@ -227,7 +227,6 @@ class TaxonConcept < ActiveRecord::Base
 
   def outlinks
     all_outlinks = []
-    used_hierarchies = []
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
       :select => {
         :hierarchy_entries => [ :published, :visibility_id, :identifier, :source_url, :hierarchy_id ],
@@ -238,27 +237,24 @@ class TaxonConcept < ActiveRecord::Base
         :collection_types => '*',
         :translated_collection_types => '*' },
       :include => { :hierarchy => [ { :resource => :content_partner }, :agent, { :collection_types => :translations }]},
-      :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}",
-      :group => :hierarchy_id
+      :conditions => "published = 1 AND visibility_id = #{Visibility.visible.id} AND vetted_id != #{Vetted.untrusted.id}",
+      :order => 'id DESC'
     )
     entries_for_this_concept.each do |he|
-      next if used_hierarchies.include?(he.hierarchy)
+      next if all_outlinks.detect{ |o| o[:hierarchy] == he.hierarchy }
       next if he.published != 1 && he.visibility_id != Visibility.visible.id
       if !he.source_url.blank?
-        all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.source_url }
-        used_hierarchies << he.hierarchy
+        all_outlinks << { :hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.source_url }
       elsif he.hierarchy && !he.hierarchy.outlink_uri.blank?
         # if the hierarchy outlink_uri expects an ID
         if matches = he.hierarchy.outlink_uri.match(/%%ID%%/)
           # .. and the ID exists
           unless he.identifier.blank?
-            all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.hierarchy.outlink_uri.gsub(/%%ID%%/, he.identifier) }
-            used_hierarchies << he.hierarchy
+            all_outlinks << { :hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.hierarchy.outlink_uri.gsub(/%%ID%%/, he.identifier) }
           end
         else
           # there was no %%ID%% pattern in the outlink_uri, but its not blank so its a generic URL for all entries
-          all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.hierarchy.outlink_uri }
-          used_hierarchies << he.hierarchy
+          all_outlinks << { :hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.hierarchy.outlink_uri }
         end
       end
     end

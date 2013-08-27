@@ -102,7 +102,7 @@ private
       :language_ids => [ user.language.all_ids ],
       :filter_by_subtype => true,
       :allow_nil_languages => user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.map(&:id)
+      :toc_ids_to_ignore => TocItem.exclude_from_details.map(&:id),
       :per_page => TEXT_OBJECT_LIMIT
     )
     selects = {

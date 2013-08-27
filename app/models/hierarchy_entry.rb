@@ -97,8 +97,10 @@ class HierarchyEntry < ActiveRecord::Base
     elsif name.canonical_form && !name.canonical_form.string.blank?
       @title_canonical = name.canonical_form.string.firstcap
     # finally just the name string
-    else
+    elsif name
       @title_canonical = name.string.firstcap
+    else
+      ""
     end
     @title_canonical
   end

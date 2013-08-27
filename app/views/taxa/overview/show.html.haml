@@ -159,7 +159,7 @@
           %p= I18n.t(:curators_empty)
   - unless @overview.classification_filter?
     .article.list.updates
-      - cache("activity_#{@overview.cache_id}") do
+      - cache("activity_#{@overview.cache_id}", expires_in: 4.hours) do
         .header
           %h3= I18n.t(:recent_updates)
           - if @overview.activity_log.total_entries > 0

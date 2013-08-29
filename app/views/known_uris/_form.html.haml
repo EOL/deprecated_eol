@@ -14,6 +14,16 @@
         %dd= nested.text_area :definition, :rows => 3
         %dt= nested.label :comment
         %dd= nested.text_area :comment, :rows => 3
+      -# TODO - we should actually monitor the uri type with JS and remove the associations if they change the value (and put them back if they change it back...)
+      - if known_uri.uri_type == UriType.measurement
+        %dt.associations= f.label I18n.t(:measurement_allowed_values)
+        %dd.associations
+          %ul
+            - KnownUri.values.each do |val|
+              %li
+                = check_box_tag :allowed_values, val.id, known_uri.allowed_values.include?(val),
+                  name: 'known_uri[allowed_value_ids][]'
+                = I18n.t(:known_uri_name_and_uri, name: val.name, uri: val.uri)
       %dt= f.label :toc_items
       %dd
         %ul
@@ -23,7 +33,7 @@
               = toc_item.label
       %dt= f.label :uri_type
       %dd
-        = f.select :uri_type_id, options_from_collection_for_select(UriType.all, :id, :name)
+        = f.select :uri_type_id, options_from_collection_for_select(UriType.all, :id, :name, known_uri.uri_type_id)
       %dt= f.label :exclude_from_exemplars
       %dd
         = f.check_box :exclude_from_exemplars

@@ -30,7 +30,7 @@ class KnownUri < ActiveRecord::Base
 
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
     :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :uri_type, :uri_type_id,
-    :translations, :exclude_from_exemplars, :name
+    :translations, :exclude_from_exemplars, :name, :allowed_value_ids
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -41,6 +41,10 @@ class KnownUri < ActiveRecord::Base
   before_validation :default_values
 
   scope :excluded_from_exemplars, -> { where(exclude_from_exemplars: true) }
+  scope :measurements, -> { where(uri_type_id: UriType.measurement) }
+  scope :values, -> { where(uri_type_id: UriType.measurement_value) }
+  scope :associations, -> { where(uri_type_id: UriType.associations) }
+  scope :units, -> { where(uri_type_id: UriType.unit_of_measurement) }
 
   def self.default_values
     @@default_values ||=

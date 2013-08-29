@@ -266,3 +266,4 @@ qqq:
   data_show_n_more_rows: "'NNN' here will be replaced by JavaScript with a number, always over 10. I know this is not an optimal way to do a translation, but since it's being done by JS in a Rails system, it's not simple to improve this, so please do the best you can with this, here. It won't happen often.  :)"
   data_about_subtab: "Label used on the data page for the sub-tab describing what taxon data is and how EOL uses and displays it."
   data_overview_table_caption: "Screen-reader only; this won't show up on the website for others. Identifies the table of data on the overview tab."
+  known_uri_name_and_uri: "A known URI will have a name (human-readable), and a (pretty ugly, often long) URI, and we want to show both; the latter in parenthesis (or whatever subordinate punctuation is suitable in your language)."

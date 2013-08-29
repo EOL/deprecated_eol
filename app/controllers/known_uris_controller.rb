@@ -11,12 +11,20 @@ class KnownUrisController < ApplicationController
 
   def index
     wheres = { translated_known_uris: { language_id: [current_language.id, Language.default.id] } }
-    wheres[:known_uris_toc_items] = { toc_item_id: params[:category_id] } if params[:category_id]
+    if params[:category_id]
+      wheres[:known_uris_toc_items] = { toc_item_id: params[:category_id] } if params[:category_id]
+    else
+      @uri_type ||= params.has_key?(:uri_type_id) ? UriType.find(params[:uri_type_id]) : UriType.measurement
+      wheres[:uri_type_id] = @uri_type.id
+    end
     @known_uris = KnownUri.includes([:uri_type, :toc_items, :translated_known_uris]).where(wheres).
       paginate(page: params[:page], order: 'position', :per_page => 500)
     respond_to do |format|
-      format.html { }
-      format.js { @category = TocItem.find(params[:category_id]) }
+      format.html do
+      end
+      format.js do
+        @category = TocItem.find(params[:category_id])
+      end
     end
   end
 

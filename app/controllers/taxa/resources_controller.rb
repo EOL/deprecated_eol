@@ -38,7 +38,7 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
     respond_to do |format|
       format.html { }
-      format.js { render 'subtab', locals: { tab_name: 'partner_links' } }
+      format.js { render 'subtab', locals: { tab_name: 'identification_resources' } }
     end
   end
 
@@ -51,7 +51,7 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_citizen_science, :taxon_concept_id => @taxon_concept.id)
     respond_to do |format|
       format.html { }
-      format.js { render 'subtab', locals: { tab_name: 'partner_links' } }
+      format.js { render 'subtab', locals: { tab_name: 'citizen_science' } }
     end
   end
 
@@ -64,7 +64,7 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
     respond_to do |format|
       format.html { }
-      format.js { render 'subtab', locals: { tab_name: 'partner_links' } }
+      format.js { render 'subtab', locals: { tab_name: 'education' } }
     end
   end
 
@@ -79,7 +79,7 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_biomedical_terms, :taxon_concept_id => @taxon_concept.id)
     respond_to do |format|
       format.html { }
-      format.js { render 'subtab', locals: { tab_name: 'partner_links' } }
+      format.js { render 'subtab', locals: { tab_name: 'biomedical_terms' } }
     end
   end
 
@@ -94,7 +94,7 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_nucleotide_sequences, :taxon_concept_id => @taxon_concept.id)
     respond_to do |format|
       format.html { }
-      format.js { render 'subtab', locals: { tab_name: 'partner_links' } }
+      format.js { render 'subtab', locals: { tab_name: 'nucleotide_sequences' } }
     end
   end
 
@@ -107,7 +107,7 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_news_and_event_links, :taxon_concept_id => @taxon_concept.id)
     respond_to do |format|
       format.html { }
-      format.js { render 'subtab', locals: { tab_name: 'partner_links' } }
+      format.js { render 'subtab', locals: { tab_name: 'news_and_event_links' } }
     end
   end
 
@@ -120,7 +120,7 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_related_organizations, :taxon_concept_id => @taxon_concept.id)
     respond_to do |format|
       format.html { }
-      format.js { render 'subtab', locals: { tab_name: 'partner_links' } }
+      format.js { render 'subtab', locals: { tab_name: 'related_organizations' } }
     end
   end
 
@@ -133,7 +133,7 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_multimedia_links, :taxon_concept_id => @taxon_concept.id)
     respond_to do |format|
       format.html { }
-      format.js { render 'subtab', locals: { tab_name: 'partner_links' } }
+      format.js { render 'subtab', locals: { tab_name: 'multimedia_links' } }
     end
   end
 

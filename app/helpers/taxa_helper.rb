@@ -149,50 +149,48 @@ module TaxaHelper
 
   def display_uri(uri, tag_type = :span, options = {})
     uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
-    if uri_components[:uri] == uri_components[:label] && tag_type == :span
-      return uri.to_s.add_missing_hyperlinks
-    end
     tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
     capture_haml do
       haml_tag tag_type do
-        haml_concat uri_components[:label]
+        haml_concat uri_components[:label].to_s.add_missing_hyperlinks
       end
     end
   end
 
-  def display_text_for_structured_data_row(row, options={})
-    text_for_row_value = row[:data_point_instance] ? "<span id='#{row[:data_point_instance].anchor}'>" : ''
-    target_taxon_concept = nil
-    if row[:target_taxon_concept_id]
-      target_taxon_concept = row[:target_taxon_concept] || TaxonConcept.find(row[:target_taxon_concept_id])
-    end
-    if target_taxon_concept
-      taxon_link = options[:link_to_overview] ? taxon_overview_path(target_taxon_concept) : taxon_data_path(target_taxon_concept)
-      if c = target_taxon_concept.preferred_common_name_in_language(current_language)
+  def display_text_for_data_point_uri(data_point_uri, options = {})
+    # metadata rows do not have DataPointUris that are saved in the DB - they are new records
+    text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{data_point_uri.anchor}'>"
+    if data_point_uri.association?
+      taxon_link = options[:link_to_overview] ?
+        taxon_overview_path(data_point_uri.target_taxon_concept) :
+        taxon_data_path(data_point_uri.target_taxon_concept)
+      if c = data_point_uri.target_taxon_concept.preferred_common_name_in_language(current_language)
         text_for_row_value += link_to c, taxon_link
       else
-        text_for_row_value += link_to raw(target_taxon_concept.title_canonical), taxon_link
+        text_for_row_value += link_to raw(data_point_uri.target_taxon_concept.title_canonical), taxon_link
       end
     else
-      text_for_row_value += display_uri(row[:value]).to_s
+      text_for_row_value += display_uri(data_point_uri.object_uri).to_s
     end
     # displaying unit of measure
-    if row[:unit_of_measure_uri] && uri_components = EOL::Sparql.explicit_measurement_uri_components(row[:unit_of_measure_uri])
+    if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)
       text_for_row_value += " " + display_uri(uri_components)
-    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(row[:attribute])
+    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
       text_for_row_value += " " + display_uri(uri_components)
     end
     # Curators get to remove the data:
-    if row[:data_point_instance] && options[:taxon_concept] && current_user.min_curator_level?(:full)
+    if options[:link_to_overview] && !data_point_uri.new_record? && data_point_uri.taxon_concept_id && current_user.min_curator_level?(:full)
       remove_link =
       text_for_row_value << "<span class='remove'> " +
         link_to(I18n.t(:remove),
-                taxon_data_exemplars_path(id: row[:data_point_instance].id,
-                                          taxon_concept_id: options[:taxon_concept].id, :exclude => true),
+                taxon_data_exemplars_path(id: data_point_uri.id,
+                                          taxon_concept_id: data_point_uri.taxon_concept_id, :exclude => true),
                                           method: :post, confirm: I18n.t(:are_you_sure), remote: true) +
         "</span>"
     end
     text_for_row_value.gsub(/\n/, '')
-    text_for_row_value += "</span>"
+    text_for_row_value += "</span>" unless data_point_uri.new_record?
+    text_for_row_value
   end
+
 end

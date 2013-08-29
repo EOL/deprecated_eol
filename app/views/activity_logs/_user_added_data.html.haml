@@ -10,6 +10,6 @@
 %blockquote{:cite => h(item.user.full_name)}
   %p
     = "Its"
-    = display_uri(item.predicate)
+    = display_uri(item.data_point_uri.predicate_uri)
     = "is"
-    = display_uri(item.object)
+    = display_uri(item.data_point_uri.object_uri)

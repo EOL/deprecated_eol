@@ -4,34 +4,36 @@ class TaxonDataSet
   include Enumerable
 
   def initialize(rows, options = {})
-    @rows = rows
+    @virtuoso_results = rows
     @taxon_concept_id = options[:taxon_concept_id]
     @language = options[:language] || Language.default
+    KnownUri.add_to_data(@virtuoso_results)
     preload_data_point_uris
-    add_user_added_data
-    add_resource_ids
-    preload_resources
-    KnownUri.add_to_data(@rows)
-    KnownUri.replace_taxon_concept_uris(@rows)
-    TaxonData.preload_target_taxon_concepts(@rows)
+    @data_point_uris = @virtuoso_results.collect{ |r| r[:data_point_instance] }
+    DataPointUri.preload_associations(@data_point_uris, [ :comments, :taxon_data_exemplars, { :resource => :content_partner },
+      :predicate_known_uri, :object_known_uri, :unit_of_measure_known_uri ])
+    DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, :target_taxon_concept =>
+      [ { :preferred_common_names => :name },
+        { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
     sort
+    @data_point_uris
   end
 
   def each
-    @rows.each { |row| yield(row) }
+    @data_point_uris.each { |data_point_uri| yield(data_point_uri) }
   end
 
   def empty?
-    @rows.nil? || @rows.empty?
+    @data_point_uris.nil? || @data_point_uris.empty?
   end
 
   # NOTE - this is 'destructive', since we don't ever need it to not be. If that changes, make the corresponding method and add a bang to this one.
   def sort
     last = KnownUri.count + 2
-    @rows.sort_by! do |row|
-      attribute_label = EOL::Sparql.uri_components(row[:attribute].to_s)[:label]
-      attribute_pos = row[:attribute].is_a?(KnownUri) ? row[:attribute].position : last
-      value_label = EOL::Sparql.uri_components(row[:value].to_s)[:label]
+    @data_point_uris.sort_by! do |data_point_uri|
+      attribute_label = EOL::Sparql.uri_components(data_point_uri.predicate)[:label]
+      attribute_pos = data_point_uri.predicate_known_uri ? data_point_uri.predicate_known_uri.position : last
+      value_label = EOL::Sparql.uri_components(data_point_uri.object)[:label]
       attribute_label = safe_downcase(attribute_label)
       value_label = safe_downcase(value_label)
       [ attribute_pos, attribute_label, value_label ]
@@ -44,61 +46,37 @@ class TaxonDataSet
   end
 
   def delete_if(&block)
-    @rows.delete_if { |row| yield(row) }
+    @data_point_uris.delete_if { |data_point_uri| yield(data_point_uri) }
   end
 
   # TODO - in my sample data (which had a single duplicate value for 'weight'), running this then caused the "more"
   # to go away.  :\  We may not care about such cases, though.
   def uniq
     h = {}
-    @rows.each { |r| h["#{r[:attribute]}:#{r[:value]}"] = r }
-    @rows = h.values
+    @data_point_uris.each { |data_point_uri| h["#{data_point_uri.predicate}:#{data_point_uri.object}"] = data_point_uri }
+    @data_point_uris = h.values
     self # Need to return self in order to get chains to work.  :\
+  end
+
+  def data_point_uris
+    @data_point_uris.dup
   end
 
   private
 
-  def preload_resources
-    resources = Resource.find_all_by_id(@rows.collect{ |r| r[:resource_id] }.compact.uniq, :include => :content_partner)
-    @rows.each do |row|
-      if resource_id = row[:resource_id].to_i
-        if resource = resources.detect{ |r| r.id == resource_id }
-          row[:source] = resource.content_partner
-        end
-      end
-    end
-  end
-
-  def add_user_added_data
-    @rows.each do |row|
-      if user_added_data = UserAddedData.from_value(row[:data_point_uri])
-        row[:user] = user_added_data.user
-        row[:user_added_data] = user_added_data
-        row[:source] = row[:user]
-      end
-    end
-  end
-
-  def add_resource_ids
-    @rows.each do |row|
-      row[:resource_id] = row[:graph].to_s.split("/").last if row[:graph]
-    end
-  end
-
   def preload_data_point_uris
-    partner_data = @rows.select{ |d| d.has_key?(:data_point_uri) }
-    data_point_uris = DataPointUri.find_all_by_taxon_concept_id_and_uri(@taxon_concept_id, partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
-    partner_data.each do |d|
-      if data_point_uri = data_point_uris.detect{ |dp| dp.uri == d[:data_point_uri].to_s }
-        d[:data_point_instance] = data_point_uri
-      end
-    end
-
+    partner_data = @virtuoso_results.select{ |d| d.has_key?(:data_point_uri) }
+    data_point_uris = DataPointUri.find_all_by_uri(partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
     # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
-    partner_data.each do |d|
-      d[:data_point_instance] ||= DataPointUri.find_or_create_by_taxon_concept_id_and_uri(@taxon_concept_id, d[:data_point_uri].to_s)
+    partner_data.each do |row|
+      if data_point_uri = data_point_uris.detect{ |dp| dp.uri == row[:data_point_uri].to_s }
+        row[:data_point_instance] = data_point_uri
+      end
+      # setting the taxon_concept_id since it is not in the Virtuoso response
+      row[:taxon_concept_id] ||= @taxon_concept_id
+      row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
+      row[:data_point_instance].update_with_virtuoso_response(row)
     end
-    DataPointUri.preload_associations(partner_data.collect{ |d| d[:data_point_instance] }, [ :all_comments, :taxon_data_exemplars ] )
   end
 
 end

@@ -7,6 +7,7 @@ class Taxa::DataController < TaxaController
     @assistive_section_header = I18n.t(:assistive_data_header)
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
     @taxon_data = @taxon_page.data
+    @data_point_uris = @taxon_page.data.get_data
     @toc_id = params[:toc_id]
     @selected_data_point_uri_id = params.delete(:data_point_uri_id)
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }

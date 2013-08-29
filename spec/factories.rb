@@ -654,6 +654,8 @@ FactoryGirl.define do
 
   factory :data_point_uri do
     association :taxon_concept
+    association :resource
+    association :user_added_data
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
     visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
     uri         { FactoryGirl.generate(:uri) }
@@ -1276,6 +1278,8 @@ FactoryGirl.define do
     predicate "http://somethinguseful.com/fake_ontology"
     object    { generate(:string) }
     association :user
+    vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
   end
 
   factory :user_added_data_metadata do

@@ -10,7 +10,9 @@ class UserAddedData < ActiveRecord::Base
   belongs_to :user
   belongs_to :vetted
   belongs_to :visibility
-  
+
+  has_one :data_point_uri
+
   has_many :comments, :as => :parent
   has_many :all_comments, :as => :parent, :class_name => 'Comment'
   has_many :user_added_data_metadata, :class_name => "UserAddedDataMetadata"
@@ -24,6 +26,8 @@ class UserAddedData < ActiveRecord::Base
 
   after_create :update_triplestore
   after_create :log_activity_in_solr
+  after_create :create_data_point_uri
+  after_update :update_data_point_uri
   after_update :update_triplestore
 
   attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes, :deleted_at,
@@ -90,7 +94,8 @@ class UserAddedData < ActiveRecord::Base
       # TODO - this needs to be dynamic:
     "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject.id.to_s + ">" +
     "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +
-    "; dwc:measurementValue " + EOL::Sparql.enclose_value(object)
+    "; dwc:measurementValue " + EOL::Sparql.enclose_value(object) +
+    "; <#{Rails.configuration.uri_measurement_of_taxon}> " + EOL::Sparql.enclose_value('true')
   end
 
   # Needed when commentable:
@@ -149,6 +154,31 @@ class UserAddedData < ActiveRecord::Base
     @already_expanded = true
   end
 
+  def create_data_point_uri
+    # TODO: set unit_of_measure
+    DataPointUri.create(
+      uri: uri,
+      taxon_concept_id: taxon_concept_id,
+      class_type: 'MeasurementOrFact',
+      user_added_data_id: id,
+      vetted_id: vetted_id,
+      visibility_id: visibility_id,
+      predicate: predicate,
+      object: object,
+      unit_of_measure: nil )
+  end
+
+  def update_data_point_uri
+    # TODO: set unit_of_measure
+    data_point_uri.vetted_id = vetted_id
+    data_point_uri.visibility_id = visibility_id
+    data_point_uri.predicate = predicate
+    data_point_uri.object = object
+    data_point_uri.unit_of_measure = nil
+    data_point_uri.save
+  end
+
+
   def log_activity_in_solr
     DataObject.with_master do
       base_index_hash = {
@@ -166,7 +196,7 @@ class UserAddedData < ActiveRecord::Base
   def notification_recipient_objects()
     return @notification_recipients if @notification_recipients
     @notification_recipients = []
-    add_recipient_user_making_object_modification(@notification_recipients)
+    add_recipient_user(@notification_recipients)
     add_recipient_pages_affected(@notification_recipients)
     add_recipient_users_watching(@notification_recipients)
     @notification_recipients
@@ -176,7 +206,7 @@ class UserAddedData < ActiveRecord::Base
     Notification.queue_notifications(notification_recipient_objects, self)
   end
 
-  def add_recipient_user_making_object_modification(recipients)
+  def add_recipient_user(recipients)
     recipients << { :user => user, :notification_type => :i_created_something,
                     :frequency => NotificationFrequency.never }
     recipients << user.watch_collection if user.watch_collection

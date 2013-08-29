@@ -119,7 +119,7 @@ class KnownUri < ActiveRecord::Base
 
   # TODO - move this to Virtuoso lib.
   def self.all_measurement_type_uris
-    @@all_measurement_type_uris = Rails.cache.fetch("known_uri/all_measurement_type_urisss", :expires_in => 1.day) do
+    @@all_measurement_type_uris = Rails.cache.fetch("known_uri/all_measurement_type_uris", :expires_in => 1.day) do
       counts_of_all_measurement_type_uris.collect{ |k,v| k }
     end
   end
@@ -191,14 +191,6 @@ class KnownUri < ActiveRecord::Base
   def self.replace_with_uri(hash, key, known_uris)
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
-  end
-
-  def self.replace_taxon_concept_uris(rows)
-    rows.each do |r|
-      [:target_taxon_concept_id, :taxon_concept_id].each do |taxon_concept_uri_key|
-        r[taxon_concept_uri_key] = KnownUri.taxon_concept_id(r[taxon_concept_uri_key]) if r.has_key?(taxon_concept_uri_key)
-      end
-    end
   end
 
   def unknown?

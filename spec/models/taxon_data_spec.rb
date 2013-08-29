@@ -8,13 +8,13 @@ describe TaxonData do
     @taxon_concept = TaxonConcept.gen
     @user = User.gen
     @prep_string = TaxonData.prepare_search_query(querystring: 'foo')
-    @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
     @resource = Resource.gen
     @user_added_data = UserAddedData.gen(subject: @taxon_concept)
+    @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
   end
 
   before(:each) do
-    @mock_row = {data_point_uri: @data_point_uri}
+    @mock_row = { data_point_uri: @data_point_uri.uri }
     @taxon_data = TaxonData.new(@taxon_concept, @user)
   end
 
@@ -43,8 +43,9 @@ describe TaxonData do
   it 'should select where some default stuff is expected' do
     [
       "?data_point_uri a <#{DataMeasurement::CLASS_URI}> .",
-      "?data_point_uri dwc:taxonID ?taxon_id .",
-      "?taxon_id dwc:taxonConceptID ?taxon_concept_id .",
+      "?data_point_uri dwc:occurrenceID ?occurrence_id .",
+      "?occurrence_id dwc:taxonID ?taxon_id .",
+      "?taxon_id dwc:taxonConceptID ?taxon_concept_id",
       "?data_point_uri dwc:measurementType ?attribute .",
       "?data_point_uri dwc:measurementValue ?value .",
       "?data_point_uri dwc:measurementUnit ?unit_of_measure_uri ."
@@ -62,43 +63,27 @@ describe TaxonData do
     @taxon_data.get_data
   end
 
-  it 'should add data to the row for user-added data' do
-    @taxon_data.should_receive(:data).and_return([@mock_row])
-    UserAddedData.should_receive(:from_value).and_return(@user_added_data)
-    user = User.gen
-    @user_added_data.should_receive(:user).and_return(user)
-    @taxon_data.get_data
-    @mock_row[:user].should == user
-    @mock_row[:source].should == user
-    @mock_row[:user_added_data].should == @user_added_data
-  end
-
-  it 'should add a resource id to rows if graphed' do
-    @taxon_data.should_receive(:data).and_return([@mock_row])
-    @mock_row[:graph] = 'blah/blah/graph/hiya'
-    @taxon_data.get_data
-    @mock_row[:resource_id].should == 'hiya'
-  end
-
   it 'should populate sources from resources' do
-    @mock_row[:resource_id] = @resource.id
+    resource_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, :resource_id => @resource.id,
+      :uri => 'http://resource_data/', :user_added_data_id => nil)
+    @mock_row[:data_point_uri] = resource_data_point_uri.uri
+    @mock_row[:graph] = "http://eol.org/resources/#{@resource.id}"
     @taxon_data.should_receive(:data).and_return([@mock_row])
-    @taxon_data.get_data
-    @mock_row[:source].should == @resource.content_partner
+    taxon_data_set = @taxon_data.get_data
+    taxon_data_set.first.source.should == @resource.content_partner
+  end
+
+  it 'should populate sources from user_added_data' do
+    user_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, :user_added_data_id => @user_added_data.id,
+      :uri => @user_added_data.uri, :resource_id => nil)
+    @mock_row[:data_point_uri] = user_data_point_uri.uri
+    @taxon_data.should_receive(:data).and_return([@mock_row])
+    taxon_data_set = @taxon_data.get_data
+    taxon_data_set.first.source.should == @user_added_data.user
   end
 
   it 'should add known uris to the rows' do
     KnownUri.should_receive(:add_to_data)
-    @taxon_data.get_data
-  end
-
-  it 'should replace taxon concept uris' do
-    KnownUri.should_receive(:replace_taxon_concept_uris)
-    @taxon_data.get_data
-  end
-
-  it 'should preload taxon concepts' do
-    TaxonData.should_receive(:preload_target_taxon_concepts)
     @taxon_data.get_data
   end
 

@@ -15,4 +15,4 @@
   %ul.object_list
     - @results.each do |r|
       %li.taxon
-        = render :partial => "shared/item_summary_taxon_data_search", :locals => { :item => r[:taxon_concept], :result_row => r  }
+        = render :partial => "shared/item_summary_taxon_data_search", :locals => { :data_point_uri => r }

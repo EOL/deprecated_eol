@@ -1,0 +1,4 @@
+%h3= I18n.t(:related_organizations)
+.section
+  - unless @related_organizations_contents.blank?
+    = render :partial => 'link_objects', :locals => { :content => @related_organizations_contents }

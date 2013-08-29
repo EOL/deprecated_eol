@@ -1,10 +1,8 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#taxon_resources
-  = render :partial => 'menu'
-  #taxon_detail
-    #main.main_container
-      %h3= I18n.t(:multimedia_links)
-      .section
-        - unless @multimedia_links_contents.blank?
-          = render :partial => 'link_objects', :locals => { :content => @multimedia_links_contents }
+.site_column
+  #taxon_resources
+    = render :partial => 'menu'
+    #taxon_detail
+      #main.main_container
+        = render 'multimedia_links'

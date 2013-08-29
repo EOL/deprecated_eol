@@ -143,7 +143,11 @@ EOL.add_behaviours = function(which) {
     EOL.media_video_behaviour();
     EOL.media_prefer_behaviour();
   } else if (which == 'names') {
-    EOL.names_behaviours();
+    EOL.subtabby_behaviours('names');
+  } else if (which == 'resources') {
+    EOL.subtabby_behaviours('resources');
+  } else if (which == 'communities') {
+    EOL.subtabby_behaviours('communities');
   }
   EOL.restorable_tabs_behaviour();
 };
@@ -218,9 +222,9 @@ EOL.feed_behaviour = function() {
   })($("ul.feed"));
 };
 
-EOL.names_behaviours = function() {
-  $('ul.tabs a').on('click', function() {
-    $('.main_container').fadeTo(225, 0.3);
+EOL.subtabby_behaviours = function(which) {
+  $('#taxon_'+which+' ul.tabs a').on('click', function() {
+    $('#taxon_'+which+' .main_container').fadeTo(225, 0.3);
     history.replaceState({}, document.title, $(this).attr('href')); // TODO - this should prolly be a pushState, but we would need to implement
                                                                     // the back button, and I don't see that as worthwhile, here.
   })
@@ -245,7 +249,10 @@ $(function() {
   EOL.media_prefer_behaviour();
   EOL.feed_behaviour();
   EOL.enableRatings();
-  EOL.names_behaviours();
+  EOL.subtabby_behaviours();
+  EOL.subtabby_behaviours();
+  EOL.subtabby_behaviours();
+  EOL.communities_behaviours();
 
   (function($language) {
     $language.find("p a").accessibleClick(function() {

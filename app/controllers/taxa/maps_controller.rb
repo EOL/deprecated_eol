@@ -3,8 +3,6 @@ class Taxa::MapsController < TaxaController
   before_filter :add_page_view_log_entry
 
   def index
-    # TODO - On next line @curator is defined and doesn't seem to be used anywhere for maps tab. Remove it if not really needed.
-    @curator = current_user.min_curator_level?(:full)
     @assistive_section_header = I18n.t(:assistive_maps_header)
     
     @maps = @taxon_concept.data_objects_from_solr({
@@ -20,6 +18,10 @@ class Taxa::MapsController < TaxaController
       [ :hierarchy_entry, :vetted, :visibility ] } ] )
     @rel_canonical_href = taxon_maps_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_maps, :taxon_concept_id => @taxon_concept.id)
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 
 protected

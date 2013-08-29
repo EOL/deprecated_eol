@@ -1,0 +1,3 @@
+$('#content .site_column').prepend("<div class='resources restored' style='display: none'><%= escape_javascript(render('index')) %></div>");
+EOL.restore_tab('resources', '<%= taxon_resources_path(@taxon_concept) %>');
+

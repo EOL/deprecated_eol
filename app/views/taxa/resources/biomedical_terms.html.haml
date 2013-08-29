@@ -1,18 +1,7 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#taxon_resources
-  = render :partial => 'menu'
-  #biomedical_terms.main_container
-    .copy
-      %h3= I18n.t(:biomedical_terms)
-      %p
-        = raw(I18n.t(:biomedical_terms_introduction, :pubmed_url => 'http://pubmed.gov',
-          :scientific_name => @taxon_concept.quick_scientific_name,
-          :ligercat_url => 'http://ligercat.ubio.org',
-          :mesh_url => 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=mesh'))
-    = render :partial => '/shared/embed_external_page', :locals  => {:height => '200', :width => '100%', :url => "http://ligercat.ubio.org/eol/#{@taxon_concept.id}.cloud"}
-    .attribution.copy
-      %h4= I18n.t(:source_and_additional_information)
-      %p
-        = raw(I18n.t(:biomedical_terms_provided_by, :supplier_url => 'http://www.ncbi.nlm.nih.gov/pubmed/'))
-        = raw(I18n.t(:biomedical_terms_clouds_provided_by, :supplier_url => 'http://aging.ubio.org'))
+.site_column
+  #taxon_resources
+    = render :partial => 'menu'
+    #biomedical_terms.main_container
+      = render 'biomedical_terms'

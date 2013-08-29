@@ -1,8 +1,8 @@
 #tabs_sidebar
   %ul.tabs
-    %li{:class => resource_is_active('index')}
-      = link_to I18n.t(:communities_link), taxon_communities_path(@taxon_page)
-    %li{:class => resource_is_active('collections')}
-      = link_to I18n.t(:collections_link), collections_taxon_communities_path(@taxon_page)
-    %li{:class => resource_is_active('curators')}
-      = link_to I18n.t(:curators), curators_taxon_communities_path(@taxon_page)
+    %li{data: { name: 'communities' }, :class => resource_is_active('index')}
+      = link_to I18n.t(:communities_link), taxon_communities_path(@taxon_page, subtab: 1), remote: true
+    %li{data: { name: 'collections' }, :class => resource_is_active('collections')}
+      = link_to I18n.t(:collections_link), collections_taxon_communities_path(@taxon_page), remote: true
+    %li{data: { name: 'curators' }, :class => resource_is_active('curators')}
+      = link_to I18n.t(:curators), curators_taxon_communities_path(@taxon_page), remote: true

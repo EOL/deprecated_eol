@@ -1,0 +1,3 @@
+$('#taxon_community ul.tabs li').removeClass('active');
+$('#taxon_community ul.tabs li[data-name=collections]').addClass('active');
+$('#taxon_community .main_container').html("<%= escape_javascript(render('collections_subtab')) %>").fadeTo(100, 1);

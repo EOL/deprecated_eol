@@ -27,13 +27,14 @@ class Taxa::NamesController < TaxaController
 
     @pending_moves = HierarchyEntryMove.pending.find_all_by_hierarchy_entry_id(@hierarchy_entries)
 
+    common_names_count
+
     respond_to do |format|
       format.html do
         @assistive_section_header = I18n.t(:assistive_names_classifications_header)
-        common_names_count
         render :action => 'classifications'
       end
-      format.js { }
+      format.js { render params[:subtab] ? 'index' : 'classifications' }
     end
 
   end

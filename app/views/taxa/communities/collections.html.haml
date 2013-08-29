@@ -3,17 +3,4 @@
 #taxon_community
   = render :partial => 'community_menu'
   .main_container
-    .copy
-      %h3= I18n.t(:community_tab_collections_header)
-      %p= I18n.t(:community_tab_collections_description)
-    .article.list
-      .header
-        %h4= I18n.t(:collections_summary_header_with_count, :count => @collections.count)
-      %ul
-        - @collections.each do |collection|
-          %li
-            = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)
-            .details
-              %h4= link_to(collection.name, collection_path(collection))
-              - count = collection.cached_count - 1
-              %p= I18n.t(:other_collection_items_with_count, :count => count)
+    = render :partial => 'collections_subtab'

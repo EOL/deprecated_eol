@@ -1,0 +1,15 @@
+.copy
+  %h3= I18n.t(:communities_page_title)
+  %p= raw(I18n.t(:community_tab_communities_description))
+.article.list
+  .header
+    %h4= I18n.t(:belongs_in_count_communities, :count => @communities.count)
+  %ul
+    - @communities.each do |community|
+      %li
+        = link_to image_tag(community.logo_url(:small), :alt => ''), community_path(community)
+        .details
+          %h4= link_to(community.name, community_path(community))
+          %p
+            = I18n.t(:members_with_count, :count => community.cached_count_members) + I18n.t(:punctuation_comma)
+            = "#{I18n.t(:community_focus_items_with_count, :count => community.collections.map {|c| c.cached_count }.reduce(:+))}"

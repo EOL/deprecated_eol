@@ -1,0 +1,65 @@
+- # NOTE = reload the JS here to get events on the AJAX loaded content ... just using a JS include WILL NOT WORK, don't do it.  You need to trigger an event.
+#worklist
+  .filters
+    = form_tag({:action => 'show'}, :method => 'get') do
+      %fieldset
+        %dl
+          %dt
+            %label{:for => 'object_type'}= I18n.t(:object_type)
+          %dd
+            - object_type_options = {}
+            - [:all, :image, :video, :sound, :text, :link].each{|opt| object_type_options[I18n.t("object_type_#{opt}_option")] = opt }
+            = select_tag :object_type, options_for_select(object_type_options, @object_type.to_sym)
+        %dl
+          %dt
+            %label{:for => 'object_status'}= I18n.t(:object_status)
+          %dd
+            - object_status_options = {}
+            - [:unreviewed, :trusted, :untrusted, :all].each{|opt| object_status_options[I18n.t("object_status_#{opt}_option")] = opt }
+            = select_tag :object_status, options_for_select(object_status_options, @object_status.to_sym)
+        %dl
+          %dt
+            %label{:for => 'object_visibility'}= I18n.t(:object_visibility)
+          %dd
+            - object_visibility_options = {}
+            - [:visible, :invisible, :all].each{|opt| object_visibility_options[I18n.t("object_visibility_#{opt}_option")] = opt }
+            = select_tag :object_visibility, options_for_select(object_visibility_options, @object_visibility.to_sym)
+        %dl
+          %dt
+            %label{:for => 'task_status'}= I18n.t(:task_status)
+          %dd
+            - task_status_options = {}
+            - [:active, :ignored, :curated].each{|opt| task_status_options[I18n.t("task_status_#{opt}_option")] = opt }
+            = select_tag :task_status, options_for_select(task_status_options, @task_status.to_sym)
+        %dl
+          %dt
+            %label{:for => 'sort_by'}= I18n.t(:sort_by)
+          %dd
+            - sort_options = {}
+            - [:newest, :oldest, :rating].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
+            = select_tag :sort_by, options_for_select(sort_options, @sort_by.to_sym)
+        %dl
+          %dt
+            %label{:for => 'resource_id'}= I18n.t(:resource)
+          %dd
+            - sort_options = [[ I18n.t('object_type_all_option'), nil ]]
+            - @resource_counts.each do |rc|
+              - option_label = rc[:resource].title
+              - option_label = option_label[0...29] + "..." if option_label.length > 30
+              - option_label += " (" + rc[:count].to_s + ")"
+              - sort_options << [ option_label, rc[:resource].id.to_s ]
+            = select_tag :resource_id, options_for_select(sort_options, @resource_id)
+      %fieldset.actions
+        %input(type="submit" value="#{I18n.t(:show_tasks)}")
+        %label
+          - unless @data_objects.blank?
+            = I18n.t(:tasks_with_count, :count => @data_objects.total_entries)
+          - else
+            = I18n.t(:no_tasks_found)
+  #worklist_main_content
+    - unless @data_objects.blank?
+      = will_paginate @data_objects, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+        :inner_window => 2, :outer_window => 2
+      = render :partial => "tasks"
+      .article#task
+        = render :partial => "curation_content"

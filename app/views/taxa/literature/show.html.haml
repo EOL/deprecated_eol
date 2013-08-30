@@ -1,16 +1,4 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#taxon_literature
-  = render :partial => 'literature_menu'
-  .main_container
-    .copy
-      - unless @references.blank?
-        %p.help_text= I18n.t(:the_following_bibliography)
-      %h3= I18n.t(:literature_header)
-      - if @references.blank?
-        .empty
-          %p= I18n.t(:literature_empty)
-      - else
-        %ul.ref_list
-          - @references.each do |ref|
-            = render :partial => "refs/show_as_list_item", :locals => { :ref => ref }
+.site_column
+  = render 'show'

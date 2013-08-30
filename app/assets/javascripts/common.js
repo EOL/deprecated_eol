@@ -148,6 +148,12 @@ EOL.add_behaviours = function(which) {
     EOL.subtabby_behaviours('resources');
   } else if (which == 'communities') {
     EOL.subtabby_behaviours('communities');
+  } else if (which == 'literature') {
+    EOL.subtabby_behaviours('literature');
+  } else if (which == 'resources') {
+    EOL.subtabby_behaviours('resources');
+  } else if (which == 'updates') {
+    EOL.subtabby_behaviours('updates');
   }
   EOL.restorable_tabs_behaviour();
 };
@@ -249,10 +255,11 @@ $(function() {
   EOL.media_prefer_behaviour();
   EOL.feed_behaviour();
   EOL.enableRatings();
-  EOL.subtabby_behaviours();
-  EOL.subtabby_behaviours();
-  EOL.subtabby_behaviours();
-  EOL.communities_behaviours();
+  EOL.subtabby_behaviours('names');
+  EOL.subtabby_behaviours('resources');
+  EOL.subtabby_behaviours('communities');
+  EOL.subtabby_behaviours('literature');
+  EOL.subtabby_behaviours('updates');
 
   (function($language) {
     $language.find("p a").accessibleClick(function() {

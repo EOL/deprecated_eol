@@ -8,6 +8,12 @@ class Taxa::UpdatesController < TaxaController
     @taxon_activity_log = @taxon_concept.activity_log(:per_page => 10, :page => @page)
     set_canonical_urls(:for => @taxon_page, :paginated => @taxon_activity_log, :url_method => :taxon_updates_url)
     current_user.log_activity(:viewed_taxon_concept_updates, :taxon_concept_id => @taxon_concept.id)
+    respond_to do |format|
+      format.html { }
+      format.js do
+        render params[:subtab] ? 'subtab' : 'index', locals: { tab_name: 'newsfeed' }
+      end
+    end
   end
 
   def statistics
@@ -16,6 +22,10 @@ class Taxa::UpdatesController < TaxaController
     @metrics = @taxon_concept.taxon_concept_metric
     @media_facets = @taxon_concept.media_facet_counts
     @rel_canonical_href = statistics_taxon_updates_url(@taxon_page)
+    respond_to do |format|
+      format.html { }
+      format.js { render 'subtab', locals: { tab_name: 'statistics' } }
+    end
   end
 
 end

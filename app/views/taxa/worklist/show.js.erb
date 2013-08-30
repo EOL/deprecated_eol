@@ -1,0 +1,3 @@
+$('#content .site_column').prepend("<div class='worklist restored' style='display: none'><%= escape_javascript(render('show')) %></div>");
+EOL.restore_tab('worklist', '<%= taxon_worklist_path(@taxon_concept) %>');
+

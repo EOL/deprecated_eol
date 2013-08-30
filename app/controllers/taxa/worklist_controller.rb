@@ -83,6 +83,10 @@ class Taxa::WorklistController < TaxaController
       render(:partial => 'main_content')
       return
     end
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 
   def data_objects

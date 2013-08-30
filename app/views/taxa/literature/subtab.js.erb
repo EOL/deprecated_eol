@@ -1,0 +1,3 @@
+$('#taxon_literature ul.tabs li').removeClass('active');
+$('#taxon_literature ul.tabs li[data-name=<%= tab_name %>]').addClass('active');
+$('#taxon_literature .main_container').html("<%= escape_javascript(render(tab_name)) %>").fadeTo(100, 1);

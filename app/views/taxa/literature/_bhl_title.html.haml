@@ -1,0 +1,30 @@
+.copy
+  = render :partial => 'bhl_header'
+  - if @bhl_title_results && @bhl_title_results[:total] > 0
+    %table.standard
+      %thead
+        %tr
+          %th= I18n.t(:title)
+          %th= I18n.t(:year)
+          %th= I18n.t(:details_title)
+          %th= I18n.t(:pages_title)
+      %tbody
+        %tr
+          %td
+            - first_result = @bhl_title_results[:results].first
+            = external_link_to([first_result['publication_title'], first_result['volume_info']].join(' ; '), "http://www.biodiversitylibrary.org/item/#{first_result['title_item_id']}", :rel => :nofollow)
+          %td
+            = first_result['year']
+          %td
+            = first_result['details']
+          %td.nowrap
+            = I18n.t(:pages_with_count, :count => @bhl_title_results[:total])
+        - @bhl_title_results[:results].each do |r|
+          %tr
+            %td
+              - link_text = [r['prefix'], r['number']].join(' ')
+              - link_text = I18n.t(:text_capital) if link_text.strip.blank?
+              = external_link_to(link_text, "http://www.biodiversitylibrary.org/page/#{r['id']}", :rel => :nofollow)
+            %td
+            %td
+            %td

@@ -1,0 +1,2 @@
+$('#content .site_column').prepend("<div class='updates restored' style='display: none'><%= escape_javascript(render('index')) %></div>");
+EOL.restore_tab('updates', '<%= taxon_updates_path(@taxon_concept) %>');

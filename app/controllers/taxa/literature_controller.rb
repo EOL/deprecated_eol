@@ -8,6 +8,12 @@ class Taxa::LiteratureController < TaxaController
     @assistive_section_header = I18n.t(:assistive_literature_header)
     @rel_canonical_href = taxon_literature_url(@taxon_page)
     current_user.log_activity(:viewed_taxon_concept_literature, :taxon_concept_id => @taxon_concept.id)
+    respond_to do |format|
+      format.html { }
+      format.js do
+        render params[:subtab] ? 'subtab' : 'show', locals: { tab_name: 'literature' }
+      end
+    end
   end
 
   def bhl
@@ -21,6 +27,10 @@ class Taxa::LiteratureController < TaxaController
                        :url_method => :bhl_taxon_literature_url)
 
     current_user.log_activity(:viewed_taxon_concept_literature, :taxon_concept_id => @taxon_concept.id)
+    respond_to do |format|
+      format.html { }
+      format.js { render 'subtab', locals: { tab_name: 'bhl' } }
+    end
   end
 
   def bhl_title
@@ -33,6 +43,10 @@ class Taxa::LiteratureController < TaxaController
     # TODO: user natural sort to sort numerically, also romain numerals... not by string
     @rel_canonical_href = bhl_title_url(@taxon_page, @title_item_id)
     current_user.log_activity(:viewed_taxon_concept_bhl_title, :taxon_concept_id => @taxon_concept.id)
+    respond_to do |format|
+      format.html { }
+      format.js { render 'subtab', locals: { tab_name: 'bhl_title' } }
+    end
   end
 
   def literature_links
@@ -41,8 +55,14 @@ class Taxa::LiteratureController < TaxaController
     @add_link_type_id = LinkType.paper ? LinkType.paper.id : nil
     @show_add_link_buttons = @add_link_type_id
     @rel_canonical_href = literature_links_taxon_literature_url(@taxon_page)
+    respond_to do |format|
+      format.html { }
+      format.js { render 'subtab', locals: { tab_name: 'literature_links' } }
+    end
   end
-  
+
+private
+
   def literature_links_contents
     @literature_links_contents ||= @taxon_page.text(
       :language_ids => [ current_language.id ],

@@ -1,6 +1,6 @@
 #tabs_sidebar
   %ul.tabs
-    %li{:class => resource_is_active('index')}
-      = link_to I18n.t(:taxon_newsfeed), taxon_updates_path(@taxon_page)
-    %li{:class => resource_is_active('statistics')}
-      = link_to I18n.t(:page_statistics), statistics_taxon_updates_path(@taxon_page)
+    %li{data: { name: 'newsfeed' }, :class => resource_is_active('index')}
+      = link_to I18n.t(:taxon_newsfeed), taxon_updates_path(@taxon_page, subtab: 1), remote: true
+    %li{data: { name: 'statistics' }, :class => resource_is_active('statistics')}
+      = link_to I18n.t(:page_statistics), statistics_taxon_updates_path(@taxon_page), remote: true

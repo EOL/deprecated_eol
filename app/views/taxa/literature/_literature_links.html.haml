@@ -1,0 +1,4 @@
+%h3= I18n.t(:literature_links)
+.section
+  - unless @literature_links_contents.blank?
+    = render :partial => 'taxa/resources/link_objects', :locals => { :content => @literature_links_contents }

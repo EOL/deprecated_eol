@@ -200,12 +200,14 @@ $(function() {
     $('div#suggestions').hide();
   });
 
+  // Hide the about text first:
+  $('.about_subtab').hide();
   $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
-    $('p.about').hide();
+    $('.about_subtab').hide();
     if($(this).parent().hasClass('about')) {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
-      $('p.about').show()
+      $('.about_subtab').show()
     } else if($(this).hasClass('all')) { // Acts as a reset button/link
       $('#taxon_data .empty').show();
       EOL.show_data_tables($('table.data'));

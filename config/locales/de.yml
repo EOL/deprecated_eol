@@ -96,11 +96,14 @@ de:
         email_reports_frequency_hours: Häufigkeit der E-Mail-Berichte
       data_object: 
         bibliographic_citation: Bibliographische Zitierung
-        description: Beschreibung
+        description: Text
         object_title: Titel
         rights_holder: Rechteinhaber
         rights_statement: Urheberrechtserklärung
         source_url: Quell-URL
+      data_object_link: 
+        description: Beschreibung
+        source_url: Link-URL
       eol_statistic: 
         active_curators: Aktive Kuratoren
         base_pages: Basisseiten
@@ -1045,6 +1048,10 @@ de:
   article_not_associated_with_any_published_entries: Dieser Artikel ist keinen veröffentlichten Taxa zugeordnet.
   article_of_taxon: Artikel zu %{taxon_name}
   article_rating: Artikelbewertung
+  article_secondary_description_with_others_count: 
+    one: Beschreibung von %{taxon} und eines anderen Taxons
+    other: Beschreibung von %{taxon} und %{count} andere Taxa
+    zero: Beschreibung von %{taxon}
   articles_in_languages_with_count: 
     one: "Die Artikel auf dieser Seite sind in folgender Sprache vorhanden:"
     other: "Die Artikel auf dieser Seite sind in den folgenden %{count} Sprachen vorhanden:"
@@ -1111,6 +1118,8 @@ de:
   belongs_in_count_communities: 
     one: Gehört zu einer Gemeinschaft
     other: Gehört zu %{count} Gemeinschaften
+  bhl: Biodiversity Heritage Library
+  bhl_partner_footer: Die Biodiversity Heritage Library besuchen
   bhl_publication: BHL-Veröffentlichung
   bi_monthly: Zweimal im Monat
   biodiversity_heritage_library: Biodiversity Heritage Library
@@ -2476,7 +2485,7 @@ de:
   html_format_with_left_col: (HTML-Format. Nur eingeben, sofern Sie eine Spalte auf der linken Seite haben möchten. Ansonsten bitte frei lassen.)
   id: Kennung
   if_checked_and_user_is_saved: Sofern diese Option ausgewählt und der Nutzer gespeichert wird, werden die Referenzen, der Kompetenzbereich, die Genehmigung sowie die ausgewählte Gruppe entfernt. Der Nutzer wird danach nicht länger als Kurator angezeigt. Bitte geben Sie eine hinweisende Anmerkung zur Begründung an. Der Nutzer erhält darüber keine Informationen.
-  if_multiple_media_objects_are_returned: "Falls mehrere Medienobjekte zurückgegeben werden, wird die Liste nach dem Objekttyp sortiert. Innerhalb jedes Typs werden die Einträge nach dem untersuchten Status sortiert („Vertrauenswürdig“ > „Ungeprüft“ > „Nicht vertrauenswürdig“), anschließend nach der Datenbewertung. Innerhalb bestimmter Datentypen geben spezielle Elemente die höchste Priorität an: Falls eines dieser Elemente zurückgegeben wird, wird es zuerst gelistet. Bei Bildern haben Musterbilder und bei Texttypen der Übersichtstext die höchste Priorität."
+  if_multiple_media_objects_are_returned: "Falls mehrere Medienobjekte zurückgegeben werden, wird die Liste nach dem Objekttyp sortiert. Innerhalb jedes Typs werden die Einträge nach dem untersuchten Status sortiert („Vertrauenswürdig“ &gt; „Ungeprüft“ &gt; „Nicht vertrauenswürdig“), anschließend nach der Datenbewertung. Innerhalb bestimmter Datentypen geben spezielle Elemente die höchste Priorität an: Falls eines dieser Elemente zurückgegeben wird, wird es zuerst gelistet. Bei Bildern haben Musterbilder und bei Texttypen der Übersichtstext die höchste Priorität."
   if_the_details_parameter_is_not_set: Sofern der Parameter zu den Informationen nicht festgelegt ist, werden nur die Kennung des Datenobjekts, der Datentyp, sowie im Fall eines Artikels das Thema zurückgegeben. Der Datentyp wird ein Wert des Quellenartenvokabulars %{linka} sein. Das Textthema wird eines der %{linkb} sein.
   image: Bild
   image_alt_text: Dieses Bild mit Status %{vetted_status} ist von %{taxon_name}
@@ -2497,6 +2506,7 @@ de:
   image_of_taxon: Bild zu %{taxon_name}
   image_rating: Bildbewertung
   image_title_with_taxa: Bild von %{taxa}
+  image_title_without_taxa: Bild eines unbekannten Taxons
   images: Bilder
   images_in_red_are_not_trusted: Rot gekennzeichneten Bildern wird nicht vertraut.
   images_in_yellow_are_not_reviewed: Gelb gekennzeichnete Bilder wurden noch nicht überprüft.

@@ -6,6 +6,7 @@
 # Author: Hydra
 # Author: Liangent
 # Author: Linforest
+# Author: Liuxinyu970226
 # Author: Qiyue2001
 # Author: Shandongfx
 # Author: Shizhao
@@ -1669,9 +1670,11 @@ zh-CN:
       post_written_by_user: "%{user}写道："
       posts_with_count: "%{count}条帖子"
       replying_to_post: 回复：
+    posts_heading: 帖子
     replies: 答复
     topics_heading: 帖子
     update_successful: 已成功更新论坛
+    views: 浏览次数
   fragment_caching_enabled: 碎片缓存已启用
   frequency: 频率
   frequency_daily: 每日
@@ -2087,6 +2090,7 @@ zh-CN:
   layouts: 
     v2: 
       application: 
+        about_link_citing: 停滞指引
         about_link_contact_us: 联系我们
         about_link_discover: 发现
         about_link_donate: 资助EOL
@@ -2656,6 +2660,7 @@ zh-CN:
     intro: 这是您于%{time}在EOL的活动信息摘要
     intro_immediately: 您好，%{name} —
     intro_weekly: 这是您于%{ending}之前一周在EOL的活动信息摘要
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: 在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。
     someone_commented_on_something: <b>%{who}</b>评论了 <b>%{what}</b>。
     unsubscribe: 在<a href='%{email_prefs_url}' style='color:#195184'>您的提醒参数页面</a>更改email设置或者退订。

@@ -93,11 +93,14 @@ nl:
         email_reports_frequency_hours: Frequentie van e-mailrapporten
       data_object: 
         bibliographic_citation: Bibliografische bronvermelding
-        description: Beschrijving
+        description: Tekst
         object_title: Naam
         rights_holder: Rechtenhouder
         rights_statement: Verklaring van de rechten
         source_url: Bron-URL
+      data_object_link: 
+        description: Beschrijving
+        source_url: Koppelings-URL
       eol_statistic: 
         active_curators: Actieve conservatoren
         base_pages: Basispagina's
@@ -1042,6 +1045,10 @@ nl:
   article_not_associated_with_any_published_entries: Dit artikel is niet gekoppeld met gepubliceerde taxa.
   article_of_taxon: Artikel over %{taxon_name}
   article_rating: Artikelwaardering
+  article_secondary_description_with_others_count: 
+    one: Beschrijving van %{taxon} en 1 ander taxon
+    other: Beschrijving van %{taxon} en %{count} andere taxa
+    zero: Beschrijving van %{taxon}
   articles_in_languages_with_count: 
     one: "Artikelen op deze pagina zijn beschikbaar in één taal:"
     other: "Artikelen op deze pagina zijn beschikbaar in %{count} talen:"
@@ -1109,6 +1116,8 @@ nl:
   belongs_in_count_communities: 
     one: Hoort bij één gemeenschap
     other: Hoort bij %{count} gemeenschappen
+  bhl: Biodiversity Heritage Library
+  bhl_partner_footer: Bezoek de Biodiversity Heritage Library
   bhl_publication: BHL-publicatie
   bi_monthly: Twee keer per maand
   biodiversity_heritage_library: Biodiversity Heritage Library
@@ -2474,7 +2483,7 @@ nl:
   html_format_with_left_col: "{HTML-opmaak; alleen invoeren als u een linkerkolom op de pagina wilt hebben; anders leeg laten)"
   id: ID
   if_checked_and_user_is_saved: Als aangevinkt en de gebruiker is opgeslagen, dan worden referenties, scope, goedkeuring en geselecteerde claden allemaal verwijderd en wordt de gebruiker niet langer weergegeven als conservator. U hoort een opmerkingen toe te voegen met de reden. De gebruiker ontvangt hierover geen melding.
-  if_multiple_media_objects_are_returned: "Als er meerdere mediaobjecten worden teruggegeven, wordt de lijst gesorteerd op objecttype. Binnen elk type worden items gesorteerd op basis van de controlestatus (\"Vertrouwd\" > \"Ongecontroleerd\" > \"Onbetrouwbaar\"), en vervolgens op de gegevensrating. Binnen bepaalde gegevenstypen krijgen specifieke items echter krijgen de hoogste prioriteit: als een van deze items wordt teruggegeven, wordt dit bovenaan weergegeven. Voor afbeeldingen hebben exemplarische afbeeldingen de hoogste prioriteit. Voor teksttypen heeft de overzichtstekst de hoogste prioriteit."
+  if_multiple_media_objects_are_returned: "Als er meerdere mediaobjecten worden teruggegeven, wordt de lijst gesorteerd op objecttype. Binnen elk type worden items gesorteerd op basis van de controlestatus (\"Vertrouwd\"&gt; \"Ongecontroleerd\" &gt; \"Onbetrouwbaar\"), en vervolgens op de gegevensrating. Binnen bepaalde gegevenstypen krijgen specifieke items echter krijgen de hoogste prioriteit: als een van deze items wordt teruggegeven, wordt dit bovenaan weergegeven. Voor afbeeldingen hebben exemplarische afbeeldingen de hoogste prioriteit. Voor teksttypen heeft de overzichtstekst de hoogste prioriteit."
   if_the_details_parameter_is_not_set: Als de parameter "details" niet is ingesteld, dan worden alleen de velden dataobject-ID, gegevenstype en in het geval van artikelen, onderwerp, teruggegeven. Het gegevenstype is een waarde uit het vocabulaire of het brontype %{linka}. Het tekstonderwerp is een van de %{linkb}.
   image: Afbeelding
   image_alt_text: "Deze afbeelding hoort bij %{taxon_name} (status: %{vetted_status})"
@@ -2495,6 +2504,7 @@ nl:
   image_of_taxon: Afbeelding van %{taxon_name}
   image_rating: Afbeeldingswaardering
   image_title_with_taxa: Afbeelding van %{taxa}
+  image_title_without_taxa: Afbeelding van een onbekend taxon
   images: Afbeeldingen
   images_in_red_are_not_trusted: Afbeeldingen in het rood worden niet vertrouwd.
   images_in_yellow_are_not_reviewed: Afbeeldingen in het geel zijn niet gecontroleerd.

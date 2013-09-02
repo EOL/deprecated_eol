@@ -14,7 +14,7 @@ ko:
   translated_activities-name-activity_id-56: 삭제
   translated_activities-name-activity_id-57: 평가
   translated_activities-name-activity_id-58: 신뢰할 수 있음
-  translated_activities-name-activity_id-59: 검토하지 않음
+  translated_activities-name-activity_id-59: 검토되지 않음
   translated_activities-name-activity_id-63: 수집
   translated_activities-name-activity_id-64: 제거
   translated_agent_roles-label-agent_role_id-1: 애니메이터
@@ -36,7 +36,7 @@ ko:
   translated_agent_roles-label-agent_role_id-6: 감독자
   translated_agent_roles-label-agent_role_id-7: 편집자
   translated_agent_roles-label-agent_role_id-8: 삽화가
-  translated_agent_roles-label-agent_role_id-9: 사진 작가
+  translated_agent_roles-label-agent_role_id-9: 촬영자
   translated_audiences-label-audience_id-1: 전문가
   translated_audiences-label-audience_id-2: 일반 대중
   translated_audiences-label-audience_id-3: 자식
@@ -221,8 +221,8 @@ ko:
   translated_synonym_relations-label-synonym_relation_id-33: 사용할 수 없는 잘못된 문헌 철자
   translated_synonym_relations-label-synonym_relation_id-34: 원래 이름/조합
   translated_synonym_relations-label-synonym_relation_id-35: 사용할 수 없는 잘못된 원래 철자
-  translated_synonym_relations-label-synonym_relation_id-36: 연소 동명이인
-  translated_synonym_relations-label-synonym_relation_id-37: 동명이인 & 연소 동의어
+  translated_synonym_relations-label-synonym_relation_id-36: 연소 동음이의어
+  translated_synonym_relations-label-synonym_relation_id-37: 동음이의어 & 연소 동의어
   translated_synonym_relations-label-synonym_relation_id-38: 사용할 수 없는 판결에 의한 억압
   translated_synonym_relations-label-synonym_relation_id-39: 정당한 교정
   translated_synonym_relations-label-synonym_relation_id-4: 아나모프 (anamorph)
@@ -237,7 +237,7 @@ ko:
   translated_synonym_relations-label-synonym_relation_id-48: 사용할 수 없는 이름
   translated_synonym_relations-label-synonym_relation_id-49: 올바른 이름
   translated_synonym_relations-label-synonym_relation_id-5: 블래스트 이름
-  translated_synonym_relations-label-synonym_relation_id-50: 유효
+  translated_synonym_relations-label-synonym_relation_id-50: 올바름
   translated_synonym_relations-label-synonym_relation_id-51: 승인함
   translated_synonym_relations-label-synonym_relation_id-52: 권위
   translated_synonym_relations-label-synonym_relation_id-53: 게시하지 않는 이름

@@ -208,7 +208,7 @@ sv:
         guid: GUID
         provider: Tredjepartsleverantör
         secret: Hemlighet
-        token: Symbol
+        token: Nyckel
         updated_at: Senaste uppdaterad
         user_id: Användar-ID
         verified_at: Senast kontrollerad
@@ -242,7 +242,7 @@ sv:
         meta_keywords: Metadata-nyckelord
         title: Titel
       user: 
-        agreed_with_terms: Användarvilkor
+        agreed_with_terms: Användarvillkor
         api_key: API-nyckel
         bio: Bio
         credentials: Autentiseringsuppgifter
@@ -539,7 +539,8 @@ sv:
           an_unknown_user_split_classifications_from_it: En okänd användare delade upp klassificeringarna av %{classifications} till <a href='%{to}'>deras egna sida</a>.
           an_unknown_user_split_classifications_from_taxon: En okänd användare delade upp klassificeringarna av %{classifications} från %{taxon} till <a href='%{to}'>sin egen sida</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> delade upp klassificeringarna av %{classifications} från en okänd sida till <a href='%{to}'>sin egen sida</a>.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> delade upp klassificeringarna av %{classifications} till <a href='%{to}'>sin egen sida</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> delade upp klassificeringarna av %{classifications} till <a href='%{to}'>sin egen sida</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> delade upp klassificeringarna av %{classifications} från %{taxon} till <a href='%{to}'>sin egen sida</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: En okänd användare ändrade miniatyrbilden för "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: En okänd användare ändrade ändrade miniatyrbilden för en okänd bild.
@@ -709,6 +710,10 @@ sv:
         merge_of_an_unknown_taxon_unlocked: Sidsammanslagningen du nyss begärde har slutförts, men sidan kan inte hittas.
         merge_of_it_unlocked: Sidsammanslagningen du nyss begärde på denna sida har slutförts.
         merge_of_taxon_unlocked: Sidsammanslagningen du nyss begärde för "%{taxon}" har slutförts.
+        move_of_an_unknown_taxon_unlocked: Klassificeringsflyttningen du nyss begärde har slutförts, men sidan kan inte hittas.
+        move_of_it_unlocked: Klassificeringsflyttningen du nyss begärde på denna sida har slutförts.
+        move_of_taxon_unlocked: Klassificeringsflyttningen du nyss begärde för "%{taxon}" har slutförts.
+        split_of_an_unknown_taxon_unlocked: Klassificeringsflyttningen du nyss begärde har slutförts, men sidan kan inte hittas.
       unlock_with_error: 
         merge_of_it_unlocked_with_error: "Sammanslagningen du nyss begärde på denna sida <strong>misslyckades</strong>: %{error}."
         merge_of_taxon_unlocked_with_error: "Sidsammanslagningen du nyss begärde för \"%{taxon}\" har <strong>misslyckats</strong>: %{error}."
@@ -1067,6 +1072,7 @@ sv:
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedicinska termer
   biomedical_terms_clouds_provided_by: Moln tillhandahålls av MBL <a rel="nofollow" href="%{supplier_url}">Biology of Aging-projektet</a>.
+  biomedical_terms_provided_by: Termer tillhandahållna av <a rel="nofollow" href="%{supplier_url}">PubMed</a>.
   body: "Innehåll:"
   browsable: Bläddringsbar
   browsable_hierarchies: Bläddringsbara hierarkier
@@ -1099,6 +1105,9 @@ sv:
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, tillgänglig från <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Läst 15 Jan 2009.
   citing_link: Citera
   classification_already_preferred: "Fel: Denna klassificering har redan markerats som föredragen."
+  classification_curation_split_comment_with_count: 
+    one: "%{count} klassifikation från denna sida har <a href='%{url}'>delats upp till en egen sida</a>."
+    other: "%{count} klassifikationer från denna sida har <a href='%{url}'>delats upp till egna sidor</a>."
   classification_from_agent: Klassificering från %{agent}.
   classification_from_agent_chosen_by_curator: Klassificering från %{agent} valda av %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Klassificering från %{agent} valda av %{curator} - <a href="%{more_link}">se mer</a>.
@@ -1106,8 +1115,11 @@ sv:
   classification_preferred_for_taxon_help_tip: "%{icon} markerar föredragna klassificeringar för detta taxon."
   classification_summary_section_header: Klassificering
   classification_tree_header: Klassificering
+  classifications_edit_cancelled_merge_to_self: Ditt källa och mål är samma sida; det finns ingenting att flytta.
   classifications_exemplar_column_header: Exemplar
   classifications_hierarchy_column_header: Klassificering
+  classifications_merge_additional_confirm_required: För att slå samman dessa klassificeringar krävs ytterligare bekräftelse.
+  classifications_merge_providers_match_confirm: Jag bekräftar att jag vill åsidosätta denna innehållspartners påstående att dessa data bör vara separata.
   classifications_preferred_column_header: Föredragen
   classifications_rank_column_header: Rankning
   classifications_recognized_by_column_header: Känns igen av
@@ -1118,13 +1130,18 @@ sv:
   classifications_with_count: 
     one: "%{count} klassificering"
     other: "%{count} klassificeringar"
+  clear_all_non_species_pages: Rensa alla icke-artsidor
+  clear_entire_cache_store: Rensa hela cachelagringen
+  clear_species_page: Rensa artsidor
   click: Klick
+  click_on_an_activity_to_see_th: Klicka på en aktivitet för att se alla andra aktiviteter inom en tidsperiod på fem minuter.
   close_this_window_to_return_to_edit_window: STÄNG DETTA FÖNSTER FÖR ATT ÅTERVÄNDA TILL REDIGERINGSFÖNSRET
   cms_available_in_languages: "Denna sida finns tillgänglig på:"
   cms_missing_content_message: Tyvärr, denna sida är inte är tillgänglig för det valda språket %{selected_language}.
   cms_missing_content_title: Saknar översättning
   collect_item: Samla in objekt
   collect_items: Samla in objekt
+  collection_api_sort_field_notes: Om parametern sort_field inkluderas kommer endast samlingsobjekt, vars sorteringsfält är identisk med den angivna strängen, att returneras.
   collection_copy_choose_all_items_target_title: "Kopiera alla objekt från \"%{collection}\" till:"
   collection_copy_choose_target_title_with_count: 
     one: "Kopiera %{count} objekt från \"%{collection}\" till:"
@@ -1304,6 +1321,7 @@ sv:
   community_removed_by_owner: Denna gemenskap har tagits bort av sin ägare.
   community_tab_collections_header: Samlingar
   completed: Färdig
+  confirm_delete_community: Vill du verkligen radera denna gemenskap? Återstående medlemmar kommer fortfarande att kunna se den och nyhetsflödet kommer att bevaras, men det kommer inte att visas i sökningar eller på taxonsidor och kommer inte längre att kunna redigeras.
   confirm_leave: Är du säker på att du vill lämna denna gemenskap?
   confirm_password_colon: "Bekräfta lösenord:"
   contact: Kontakt
@@ -1333,10 +1351,15 @@ sv:
   content_notes_not_shown_to_us: "Innehållsanteckningar (visas inte för användare):"
   content_partner: Innehållspartner
   content_partner_about_header: Om %{partner_name}
+  content_partner_administration_notes_empty: Det finns inga administrationsanteckningar.
+  content_partner_administration_notes_header: Administrationsanteckningar
   content_partner_administration_settings_header: Administrationsinställningar
   content_partner_agreement_cancel_edit_agreement_link: Avbryt
   content_partner_agreement_cancel_new_agreement_link: Avbryt
   content_partner_agreement_cancel_sign_agreement_link: Avbryt
+  content_partner_agreement_create_unsuccessful_error: Tyvärr, ett fel uppstod. Villkorsavtalet för innehållspartnern skapades inte.
+  content_partner_agreement_signed_successful_notice: Du har accepterat villkoren för innehållspartner och kan nu lägga till dataresurser.
+  content_partner_agreement_subheader: Innehållspartneravtal
   content_partner_column_header_partner: Partner
   content_partner_contact_create_successful_notice: Kontakt har lagts till.
   content_partner_contact_create_unsuccessful_error: Tyvärr, ett fel uppstod. Kontakten lades inte till.
@@ -1377,6 +1400,7 @@ sv:
   content_partner_latest_published_harvest_event_time_ago: Senast uppdaterad %{time_passed} sedan;
   content_partner_logo_alt_text: Logotyp för innehållspartner %{partner_name}
   content_partner_managed_by_header: Hanterad av
+  content_partner_new_edit_form_profile_header: Profilinformation för innehållspartner
   content_partner_new_link: Lägg till ny innehållspartner
   content_partner_new_page_subheader: Lägg till en ny innehållspartner
   content_partner_notes_header: Projektanteckningar
@@ -1404,13 +1428,16 @@ sv:
   content_partner_resource_edit_subheader: Redigera resurs
   content_partner_resource_edit_with_type_link: Redigera resurs
   content_partner_resource_harvest_event_not_published: Inte publicerad
+  content_partner_resource_harvest_event_previously_published: Tidigare publicerat
   content_partner_resource_harvest_event_publish_pending: Publicering pågår
   content_partner_resource_hierarchy_browsable: Bläddringsbar
   content_partner_resource_hierarchy_confirm_request_publish: Är du säker på att du vill lägga in en begäran om att befrämja din hierarki att bli bläddringsbar på EOL?
   content_partner_resource_hierarchy_edit_link: Redigera
   content_partner_resource_hierarchy_edit_subheader: Redigera hierarki för resursen <em>%{resource_title}</em>
   content_partner_resource_hierarchy_not_browsable: Inte bläddringsbar
+  content_partner_resource_hierarchy_request_publish: Begäran väntande
   content_partner_resource_hierarchy_unknown: Okänd
+  content_partner_resource_hierarchy_update_successful_notice: Hierarki har uppdaterats.
   content_partner_resource_hierarchy_update_unsuccessful_error: Tyvärr, ett fel uppstod. Hierarkin uppdaterades inte.
   content_partner_resource_licensing_details_header: Rättigheter &amp; tilldelning
   content_partner_resource_new_link: Lägg till en ny resurs
@@ -1424,6 +1451,7 @@ sv:
   content_partner_resource_status_update_successful_notice: Status för resursen %{resource_title} har uppdaterats till %{resource_status}.
   content_partner_resource_status_update_unsuccessful_error: Tyvärr, ett fel uppstod. Status för resursen %{resource_title} kunde inte uppdateras till %{resource_status}.
   content_partner_resource_update_unsuccessful_error: Tyvärr, ett fel uppstod. Resursdetaljerna uppdaterades inte.
+  content_partner_resource_validation_unsuccessful_error: Tyvärr. Resursdetaljerna uppdaterades, men resursen misslyckades att valideras. Se behandlingsanteckningarna nedan.
   content_partner_resource_vetted_false: Nej
   content_partner_resource_vetted_true: Ja
   content_partner_resource_view_link: Visa
@@ -1705,7 +1733,9 @@ sv:
   donation_error_only_numbers: Ange ett belopp med enbart siffror.
   donation_introduction_paragraph_one: EOL växer varje dag. Vi uppmuntrar dig att utforska EOL och dra nytta av allt som finns att erbjuda. Vi ber dig hjälpa till att behålla det initiativa växandet med ditt bidrag av innehåll, expertis och ekonomiskt stöd.
   donation_introduction_paragraph_two: Din generösa gåva till Encyclopedia of Life stöder vårt arbete för att tillhandahålla global tillgång till kunskap om livet på jorden.
+  donation_sponsorship_content_description: Donatorer som är intresserade av särskilda grenar ur livets träd kan sponsra med insatser för att hitta och erhålla nytt innehåll för EOL. Gåvor kan omfatta skapandet av samlingar med artsidor som omfattar alla däggdjur i Nordamerika eller fåglar i Brasilien, eller så specifikt som sjölejon i San Francisco Bay eller "New World Foods".
   donation_sponsorship_content_title: Innehållssponsring
+  donation_sponsorship_fellowships_description: Att dela kunskap med globala lärande gemenskaper är kärnan i EOL. Encyclopedia of Life söker donatorer som är intresserade av att stödja stipendier som kommer att ge möjligheter till att införa viktig och aktuell vetenskaplig forskning i EOL.
   donation_sponsorship_fellowships_title: Stipendier
   donation_sponsorship_infrastructure_title: Kärninfrastruktur
   donation_sponsorship_preamble: "Om du vill veta mer om specifika program som är tillgängliga för sponsring, eller skulle vilja göra en återkommande gåva, kontakta Encyclopedia of Life:s sekretariat via <a href=\"mailto:%{email_address}\">e-post</a> eller telefon på 1 (202) 633-8730 (i USA). Möjligheter för inriktade gåvor inkluderar:"
@@ -1720,6 +1750,8 @@ sv:
   edit_comment: Redigera kommentar
   edit_comment_lowercase: redigera kommentar
   edit_community: Redigera gemenskap
+  edit_eol_glossary: Redigera EOL-ordlista
+  edit_glossary_term: Redigera ordlisteterm
   edit_hierarchy: redigera hierarki
   edit_my_profile: Redigera min profil
   edit_news_items: redigera nyhetsobjekt
@@ -1978,6 +2010,7 @@ sv:
   friendly_url: Vänlig URL
   from_communities: "från gemenskaper: %{communities}"
   from_community: från gemenskapen %{community}.
+  gbif_map: GBIF-karta
   gbif_occurrence_learn_more_link: Kom åt dessa data genom GBIF-portalen.
   given_name_colon: "Förnamn:"
   global_access_tagline: Global tillgång till kunskap om livet på jorden.
@@ -2022,6 +2055,7 @@ sv:
         name: Ditt namn
       content_page: 
         active: Publicerad
+        active_more: Publicerade sidor kommer att visas offentligt. Avmarkera <em>publicerad</em> om du vill förhindra att vanliga användare från att se versioner av denna sida på alla språk.
         page_name: Unikt namn<small>(endast gemena ISO-baserade latinska bokstäver och understreck)</small>
         parent_content_page_id: Överordnad
       content_partner: 
@@ -2036,6 +2070,11 @@ sv:
         notes: Projektanteckningar <small>(privat)</small>
         oldest_published_harvest_event: Först publicerad
         user_id: Information om innehållpartner hanteras av
+      content_partner_agreement: 
+        mou_url: Webbadress till avtalsfilen <small>(valfri möjlighet)</small>
+        mou_url_more: Ange en webbadress till filen som innehåller avtalet för denna partner. Denna fil kommer att åsidosätta all annan avtalstext. Om du vill lagra filen (t.ex. en PDF-fil) på EOL:s innehållsservrar, <a href="%{upload_content_url}">ladda upp filen</a> för att sedan få webbadressen.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: E-postrapporter skickas endast om det finns kommentarer eller kuratorsåtgärder på din data eller taxonsidor som är relevanta till din data.
       data_object: 
         bibliographic_citation: Bibliografiskt citat
         description: Text <small>(vissa HTML-koder är tillåtet)</small>
@@ -2242,6 +2281,7 @@ sv:
   home_page_cache_last_cleared_on: Hemsidans cache rensades senast den %{date}
   home_page_link_advisory_information: Denna länk tar dig till startsidan för Encyclopedia Of Life
   html_format: (HTML-format)
+  html_format_with_left_col: (HTML-FORMAT, ange endast om du vill ha en vänsterkolumn på sidan, lämna den tom annars)
   id: ID
   image: Bild
   image_alt_text: Denna %{vetted_status} bild är av %{taxon_name}
@@ -2264,6 +2304,9 @@ sv:
   images: Bilder
   images_in_red_are_not_trusted: Bilder i rött är inte pålitliga.
   images_in_yellow_are_not_reviewed: Bilder i gult är inte granskade.
+  images_sort_worklist_note: 
+    one: Bilder sorteras efter importeringsdatumet på EOL, och de nyaste objekten visas först. Det finns %{count} bild i denna verklista.
+    other: Bilder sorteras efter importeringsdatumet på EOL, och de nyaste objekten visas först. Det finns %{count} bilder i denna verklista.
   images_with_count: 
     one: "%{count} bild"
     other: "%{count} bilder"
@@ -2276,8 +2319,11 @@ sv:
   indexed: Indexerad
   info_item: Infobojekt
   info_items_col_header: Infoobjekt
+  information_for_any_audience: Information för alla åldrar
   information_intended_for_beginners: Information avsedd för nybörjare
   information_intended_for_experts: Information avsedd för experter
+  insufficient_privileges_to_add_common_names: Tyvärr, du har inte tillräckliga privilegier för att lägga till vanliga namn.
+  insufficient_privileges_to_curate_names: Tyvärr, du har inte tillräckliga privilegier för att kurera namn.
   internal_ip_address: intern IP-adress
   inverse_sort: Omvänd sortering
   invite_members_help_text: Lägg till några EOL-användare här och de kommer att få en inbjudan till din nya gemenskap!
@@ -2321,7 +2367,9 @@ sv:
   join_community_button: Bli medlem i denna gemenskap
   join_eol_button_html: Bli medlem i <abbr title="Encyclopedia of Life">EOL</abbr> nu
   join_eol_community_html: Bli en del av <abbr title="Encyclopedia of Life">EOL</abbr>-gemenskapen!
+  joined_mailing_list: Endast de som har gått med i sändlistaan.
   joined_time_ago: Blev medlem %{time_passed} sedan
+  json_response: JSON-svar
   just_pages_with_pictures_and_text: Bara sidor med bilder och text
   key: Nyckel
   label: Etikett
@@ -2447,6 +2495,7 @@ sv:
   logo_header: Logotyp
   logout: Logga ut
   looking_up_url: Kollar upp URL...
+  main_content_area: "Område för huvudinnehåll:"
   main_database_colon: "Huvud:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; artsida>>"
   maintained_by: underhålls av
@@ -2629,6 +2678,7 @@ sv:
   no_tasks_found: Inga uppgifter hittades
   no_uploaded_content_is_available: Inget uppladdade innehåll finns tillgängligt.
   none: ingen
+  not_applicable: ej tillämpbar
   not_evaluated: Inte utvärderad
   not_published_yet: inte publicerad ännu
   not_yet_implemented_error: Tyvärr, den där funktionen har inte implementerats ännu.
@@ -2645,8 +2695,10 @@ sv:
   notifier: 
     activity_log_empty: Inga nyliga åtgärder av kuratorer.
     activity_on_content_partner_content: 
+      message: "Detta är ett automatiskt e-postmeddelande från Encyclopedia of Life (EOL) som sammanfattar de senaste kommentarerna och kuratorsåtgärderna på innehåll som tillhandahålls på EOL av innehållspartnern %{partner_full_name} (%{partner_profile_url}). Du får denna sammanfattning eftersom du är listad som en kontakt till %{partner_full_name}.\n\nOm har du några frågor eller behöver hjälp att komma åt ditt medlemskonto på EOL, var god kontakta %{species_pages_group_email}.\n\n\nKuratorsåtgärder:\n%{curator_activity_log}\n\nKommentarer på dataobjekt:\n%{data_object_comments}\n\nKommentarer på sidor som är associerade med din data:\n%{page_comments}"
       subject: Sammandrag av senaste aktiviteten om innehåll på Encyclopedia of Life av innehållspartnern %{partner_full_name}
     activity_on_user_content: 
+      message: "Detta är ett automatiskt e-postmeddelande från Encyclopedia of Life (EOL) som sammanfattar de senaste kommentarerna och kuratorsåtgärderna på innehåll som du har lagt till i EOL via ditt medlemskonto med användarnamnet %{members_username}.\n\nOm du har några frågor eller behöver hjälp med att komma åt ditt medlemskonto på EOL, var god kontakta %{species_pages_group_email}.\n\n\nKuratorsåtgärder:\n%{curator_activity_log}\n\nKommentarer på dataobjekt:\n%{data_object_comments}\n\nKommentarer på sidor som är associerade med din data:\n%{page_comments}"
       subject: Sammandrag av senaste aktivitet om innehåll som du har lagt till på Encyclopedia of Life
     activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) lade till association:\n%{taxon_name} (%{taxon_url}) för %{object_name} (%{object_url})\n%{action_date}."
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) lade till okänd association för %{object_name} (%{object_url})\n%{action_date}."
@@ -2795,6 +2847,8 @@ sv:
   people_with_count: 
     one: "%{count} person"
     other: "%{count} personer"
+  percentage_of_children_with_images: "% underordnade med bilder"
+  percentage_of_children_with_text: "% underordnade med text"
   percentage_of_descendants_with_images: procentandel av underordnade med bilder
   percentage_of_descendants_with_text: procentandel av underordnade med text
   permalink: Permanent länk
@@ -2945,6 +2999,7 @@ sv:
   revisions: Versioner
   revoke_full_curator_link: Återkalla
   revoke_manager_link: Återkalla ledarroll
+  revoke_permission: återkalla
   richness_score: Rikhetspoäng
   rights: Rättigheter
   rights_holder: Rättighetsinnehavare
@@ -3687,6 +3742,7 @@ sv:
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: Tyvärr, vi kan inte ansluta ditt Facebook-konto till ditt EOL-konto, ditt Facebook-konto redan är ansluten till ett <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          login_failed_not_connected: Tyvärr, vi kunde inte hitta en anslutning mellan ditt Facebook-konto och EOL. Om du redan har ett EOL-konto, var god <a href="%{login_url}">logga in på EOL</a> med din inloggningsuppgifter och anslut sedan ditt Facebook-konto i EOL:s profilinställningar. Om du inte redan har ett EOL-konto, var god <a href="%{register_url}">slutför din EOL-registrering</a> för att skapa ett.
           missing_attributes: Tyvärr, det uppstod ett problem när dina Facebook-detaljer skulle hämtas.
           new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta ditt Facebook-konto.
           not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta till ditt Facebook-konto.
@@ -3695,6 +3751,7 @@ sv:
           signup_failed_account_already_connected: Tyvärr, vi kan inte registrera dig för ett EOL-konto med ditt Facebook-konto, eftersom det är redan anslutet till ett <a href="%{existing_eol_account_url}">användarkonto på EOL</a>. Ville du <a href="%{login_url}">logga in</a> istället?
         google: 
           add_connection_failed_account_already_connected: Tyvärr, vi kan inte ansluta ditt Google-konto till ditt EOL-konto, ditt Google-konto redan är ansluten till ett <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          login_failed_not_connected: Tyvärr, vi kunde inte hitta en anslutning mellan ditt Google-konto och EOL. Om du redan har ett EOL-konto, var god <a href="%{login_url}">logga in på EOL</a> med din inloggningsuppgifter och anslut sedan ditt Google-konto i EOL:s profilinställningar. Om du inte redan har ett EOL-konto, var god <a href="%{register_url}">slutför din EOL-registrering</a> för att skapa ett.
           missing_attributes: Tyvärr, det uppstod ett problem när dina Google-detaljer skulle hämtas.
           new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta ditt Google-konto.
           not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta till ditt Google-konto.
@@ -3707,6 +3764,7 @@ sv:
         remove_connection_failed: Tyvärr, ett fel uppstod. Vi kunde inte ta bort anslutningen.
         twitter: 
           add_connection_failed_account_already_connected: Tyvärr, vi kan inte ansluta ditt Twitter-konto till ditt EOL-konto, ditt Twitter-konto redan är ansluten till ett <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          login_failed_not_connected: Tyvärr, vi kunde inte hitta en anslutning mellan ditt Twitter-konto och EOL. Om du redan har ett EOL-konto, var god <a href="%{login_url}">logga in på EOL</a> med din inloggningsuppgifter och anslut sedan ditt Twitter-konto i EOL:s profilinställningar. Om du inte redan har ett EOL-konto, var god <a href="%{register_url}">slutför din EOL-registrering</a> för att skapa ett.
           missing_attributes: Tyvärr, det uppstod ett problem när dina Twitter-detaljer skulle hämtas.
           new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta till ditt Twitter-konto.
           not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta ditt Twitter-konto.
@@ -3715,6 +3773,7 @@ sv:
           signup_failed_account_already_connected: Tyvärr, vi kan inte registrera dig för ett EOL-konto med ditt Twitter-konto, eftersom det är redan anslutet till ett <a href="%{existing_eol_account_url}">användarkonto på EOL</a>. Ville du <a href="%{login_url}">logga in</a> istället?
         yahoo: 
           add_connection_failed_account_already_connected: Tyvärr, vi kan inte ansluta ditt Yahoo!-konto till ditt EOL-konto, ditt Yahoo!-konto redan är anslutet till ett <a href="%{existing_eol_account_url}">EOL-konto</a>.
+          login_failed_not_connected: Tyvärr, vi kunde inte hitta en anslutning mellan ditt Yahoo!-konto och EOL. Om du redan har ett EOL-konto, var god <a href="%{login_url}">logga in på EOL</a> med din inloggningsuppgifter och anslut sedan ditt Yahoo!-konto i EOL:s profilinställningar. Om du inte redan har ett EOL-konto, var god <a href="%{register_url}">slutför din EOL-registrering</a> för att skapa ett.
           missing_attributes: Tyvärr, det uppstod ett problem när dina Yahoo!-detaljer skulle hämtas.
           new_authentication_not_added: Tyvärr, ett fel uppstod. Vi kunde inte ansluta till ditt konto på Yahoo!.
           not_authorized_to_add_authentication: Tyvärr, vi inte har tillstånd att ansluta till ditt Yahoo!-konto.
@@ -3756,6 +3815,9 @@ sv:
       form_header: Återställ konto
       form_tip: För att återställa ditt EOL-konto, skriv in e-postadressen som är associerad med det kontot. Var god kontrollera din spammapp om du inte har fått ett meddelande inom en timme.
       meta_title: Återställ konto
+      notices: 
+        recovery_email_sent: Kontoåterställning har skickats via e-post med vidare instruktioner. Var god lägg till %{from_address} i din lista över betrodda avsändare och kontrollera ditt spamfilter om du inte får e-postmeddelandet inom en timme.
+        temporarily_logged_in_update_authentication_details: Du är tillfälligt inloggad för att återställa kontot, var god ändra ditt lösenord eller uppdatera dina anslutna konton för att se till att du kan logga in.
     recover_account_choose_account: 
       errors: 
         user_not_found_choose_again: Tyvärr, ett fel uppstod och e-postmeddelandet skickades inte. Var god välj kontot du vill återställa tillgång till och försök igen.

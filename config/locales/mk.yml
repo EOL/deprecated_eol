@@ -546,7 +546,8 @@ mk:
           an_unknown_user_split_classifications_from_it: Непознат корисник ги одвои класификациите на %{classifications} во <a href='%{to}'>неговата лична страница</a>.
           an_unknown_user_split_classifications_from_taxon: Непознат корисник ги одвои класификациите од %{classifications} од %{taxon} во <a href='%{to}'>неговата лична страница</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} од непозната страница во <a href='%{to}'>неговата лична страница</a>.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} во <a href='%{to}'>неговата лична страница</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> ги одвои класификациите од %{classifications} во <a href='%{to}'>неговата лична страница</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} од %{taxon} во <a href='%{to}'>неговата лична страница</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: Непознат корисник ја смени минијатурата на „%{data_object}“.
         an_unknown_user_cropped_an_unknown_data_object: Непознат корисник ја смени минијатурата на непозната слика.

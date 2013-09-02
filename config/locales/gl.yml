@@ -545,7 +545,8 @@ gl:
           an_unknown_user_split_classifications_from_it: Un usuario descoñecido separou as clasificacións por %{classifications} á súa <a href='%{to}'>propia páxina</a>.
           an_unknown_user_split_classifications_from_taxon: Un usuario descoñecido separou as clasificacións por %{classifications} desde "%{taxon}" á súa <a href='%{to}'>propia páxina</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> separou as clasificacións por %{classifications} desde unha páxina descoñecida á súa <a href='%{to}'>propia páxina</a>.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> separou as clasificacións por %{classifications} á súa <a href='%{to}'>propia páxina</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> separou as clasificacións por %{classifications} á <a href='%{to}'>súa propia páxina</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> separou as clasificacións por %{classifications} de %{taxon} á <a href='%{to}'>súa propia páxina</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: Un usuario descoñecido modificou a miniatura de "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: Un usuario descoñecido modificou a miniatura dunha imaxe descoñecida.

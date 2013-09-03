@@ -137,6 +137,7 @@ class KnownUrisController < ApplicationController
 
   def update
     @known_uri = KnownUri.find(params[:id])
+    debugger
     if @known_uri.update_attributes(params[:known_uri])
       flash[:notice] = I18n.t(:known_uri_updated)
       redirect_back_or_default(known_uris_path)

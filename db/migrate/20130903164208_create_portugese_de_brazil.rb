@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CreatePortugeseDeBrazil < ActiveRecord::Migration
   def up
     unless Language.exists?(iso_639_1: 'pt-BR')

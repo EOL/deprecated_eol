@@ -1,4 +1,6 @@
-.about_subtab
+- hidden = false unless hidden == true
+- style = hidden ? 'display: none' : nil
+.about_subtab{ style: style }
   %h3= I18n.t(:data_about_subtab_header)
   .explain
     = raw I18n.t(:data_about_subtab_content, img: image_tag('v2/icon_info_tabs.png', size: '14x14'))

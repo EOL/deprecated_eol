@@ -2,19 +2,19 @@
   .section
     .article.news
       %h3
-        = I18n.t(:eol_news)
+        = raw I18n.t(:eol_news)
         %small= link_to raw(t('.see_all_eol_news')), news_items_path
       - cache(:action => 'index', :action_suffix => "news_#{current_language.iso_639_1}") do
         = render :partial => 'news_items/homepage_index', :locals => { :translated_news_items => NewsItem.homepage_news_for_user(current_user, current_language), :for_homepage => true }
     .article.community
       %h3
-        = I18n.t(:community_activity)
+        = raw I18n.t(:community_activity)
         %small= link_to raw(t('.see_all_recent_activites')), recent_activities_path
       - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}") do
         = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE), :hide_pagination => true, :truncate_comments => true, :editable => false }
     .article.stats
       %h3
-        = I18n.t(:currently_in_eol)
+        = raw I18n.t(:currently_in_eol)
         %small= link_to raw(t('.see_all_statistics')), statistics_path
       %ul
         %li.taxon

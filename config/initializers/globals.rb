@@ -184,7 +184,7 @@ $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
 $HOMEPAGE_NEWS_CACHE_TIME = 10  # minutes
 $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
-APPROVED_LANGUAGES = ['ar', 'de', 'en', 'es', 'fr', 'gl', 'ko', 'mk', 'ms', 'nl', 'nb', 'sr', 'sr-Latn', 'sv', 'tl', 'zh-Hans']
+APPROVED_LANGUAGES = ['ar', 'de', 'en', 'es', 'fr', 'gl', 'ko', 'mk', 'ms', 'nl', 'nb', 'oc', 'pt-br', 'sr', 'sr-Latn', 'sv', 'tl', 'zh-Hans']
 
 $ENABLE_TRANSLATION_LOGS = false # This is expensive; DON'T do it by default!
 

@@ -222,6 +222,8 @@ pt:
         meta_keywords: Palavras-chave de metadados
         title: Título
       translated_news_item: 
+        active_translation: Publicado
+        body: Corpo
         title: Título
       user: 
         agreed_with_terms: Termos de uso
@@ -1297,6 +1299,8 @@ pt:
       translated_content_page: 
         create: Adicionar tradução
         update: Guardar alterações à tradução
+      translated_news_item: 
+        create: Adicionar tradução
       update: Atualizar %{model}
       user: 
         create: Criar conta
@@ -1389,8 +1393,10 @@ pt:
     v2: 
       application: 
         about_link_glossary: Glossário
+        about_link_help: Ajuda
         about_link_podcasts: Podcasts
         about_link_statistics: Estatísticas
+        about_link_terms_of_use: Termos de uso
         learn_more_link_amphibians: Anfíbios
         learn_more_link_animals: Animais
         learn_more_link_bacteria: Bactérias
@@ -1626,6 +1632,7 @@ pt:
     one: "%{count} outro taxon"
     other: "%{count} outros taxa"
   other_us_dollars_amount: "Outros: US$"
+  other_version_links: "Outras versões: %{version_links}"
   overview: Vista geral
   page: Página
   page_not_found: Página não encontrada
@@ -1705,6 +1712,7 @@ pt:
   select_colon: "Selecionar:"
   send: Enviar
   sort_by_richness_option: Riqueza
+  source_colon: "Fonte:"
   species: Espécie
   stat: Estatísticas
   stats: Estatísticas
@@ -1774,6 +1782,8 @@ pt:
   user_activity_stats_header: Atividade
   user_activity_stats_objects_curated: Objectos curados
   user_activity_stats_taxa_curated: Taxa curados
+  username: Nome de usuário
+  username_colon: "Nome de usuário:"
   users: 
     new: 
       create_user_header: Criar uma nova conta <abbr title="Encyclopedia of Life">EOL</abbr>

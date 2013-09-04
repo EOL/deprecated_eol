@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Danmichaelo
+# Author: Event
 # Author: Nghtwlkr
 # Author: Simen47
 # Author: Wouterkoch
@@ -199,7 +200,7 @@ nb:
         guid: GUID
         provider: Tredjepartsleverandør
         secret: Hemmelighet
-        token: Token
+        token: Nøkkel
         updated_at: Sist oppdatert
         user_id: Bruker-ID
         verified_at: Siste verifisert

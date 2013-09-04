@@ -18,6 +18,8 @@ ms:
     one: "%{count} perkara didapati sepadan dengan kriteria anda."
     other: Sejumlah %{count} perkara didapati sepadan dengan kriteria anda.
   about_eol: Perihal EOL
+  about_resources: Mengenai Sumber
+  about_resources_title: Pautan Kepada Sumber Luaran
   account_information: Maklumat Akaun
   account_information_menu: Maklumat Akaun
   account_registered_but_not_ready_try_later: Akaun anda berdaftar tetapi belum sedia untuk diakses. Sila cuba lagi selepas lima minit.
@@ -478,6 +480,7 @@ ms:
   article_from: rencana dari
   article_from_supplier: Rencana daripada %{whom}
   article_more_about: Ketahui lebih lanjut mengenai rencana ini
+  article_not_associated_with_any_published_entries: Rencana ini tidak dikaitkan dengan sebarang takson yang diterbitkan.
   article_of_taxon: Rencana %{taxon_name}
   article_rating: Penilaian rencana
   articles_in_languages_with_count: "Rencana-rencana di halaman ini terdapat dalam %{count} bahasa:"
@@ -1590,8 +1593,10 @@ ms:
   image_map_alt_text: Peta %{vetted_status} ini mengenai %{taxon_name}
   image_map_from: peta dari
   image_map_from_supplier: Peta daripada %{whom}
+  image_map_not_associated_with_any_published_entries: Peta ini tidak dikaitkan dengan sebarang takson yang diterbitkan.
   image_map_of_taxon: Peta %{taxon_name}
   image_map_rating: Penilaian peta
+  image_not_associated_with_any_published_entries: Gambar ini tidak dikaitkan dengan sebarang takson yang diterbitkan.
   image_not_found: Gambar tidak dijumpai
   image_object: Objek gambar
   image_objects_will_contain_two_mediaurl_elements: Objek gambar akan mengandungi dua unsur 'mediaURL'; yang pertama ialah URL gambar dalam tapak web pembekal, dan yang kedua ialah URL versi ter-<i>cache</i> bagi bahantara tersebut yang dihoskan dalam pelayan EOL. Versi EOL gambar itu tentu diubah saiznya (tetapi dikekalkan nisbah bidangnya) jika gambar asal melebihi lebar 460 piksel atau panjang 345 piksel.
@@ -1747,6 +1752,7 @@ ms:
   limits_the_number_of_returned_image_objects: menghehadkan bilangan objek gambar yang dipulangkan
   limits_the_number_of_returned_text_objects: menghehadkan bilangan objek teks yang dipulangkan
   limits_the_number_of_returned_video_objects: menghehadkan bilangan objek video yang dipulangkan
+  link_not_associated_with_any_published_entries: Pautan ini tidak dikaitkan dengan sebarang takson yang diterbitkan.
   listing_collections: Senarai koleksi
   lists_the_identifiers_for_all_hierarchies: menyenaraikan pengenal pasti untuk semua hierarki yang dibekalkan oleh rakan kongsi kandungan
   literature: Kepustakaan
@@ -1774,6 +1780,7 @@ ms:
   map_alt_text: Peta %{vetted_status} ini mengenai %{taxon_name}
   map_from: peta dari
   map_from_supplier: Peta daripada %{whom}
+  map_not_associated_with_any_published_entries: Peta ini tidak dikaitkan dengan sebarang takson yang diterbitkan.
   map_of_taxon: Peta %{taxon_name}
   map_rating: Penilaian peta
   maps_empty: Halaman ini belum mendapat sebarang peta.
@@ -2234,6 +2241,7 @@ ms:
   sort_collection_by_label: Isih koleksi mengikut
   sound_alt_text: Rakaman audio %{vetted_status} ini mengenai %{taxon_name}
   sound_from_supplier: Bunyi daripada %{whom}
+  sound_not_associated_with_any_published_entries: Audio ini tidak dikaitkan dengan sebarang takson yang diterbitkan.
   sound_of: Bunyi
   sound_of_taxon: Audio %{taxon_name}
   sound_rating: Penilaian bunyi
@@ -2572,19 +2580,27 @@ ms:
   there_are_currently_no_members_in_this_community: Komuniti ini tiada ahli sekarang.
   there_is_no_singular_eol: Tiadanya hierarki taksonomi EOL yang tunggal, sebaliknya EOL mengindekskan banyak hierarki lalu membanding-bandingkan sesamanya untuk meneka nod-nod mana yang merujuki takson yang sama. Unsur-unsur takson ini mewakili nod-nod hierarki ini, oleh sebab itulah terdapat beberapa nod untuk sesuatu halaman EOL. Rujuk dokumentasi di API %{link} untuk maklumat lanjut.
   this_article_cannot_be_curated_because_unpublished: Rencana ini tidak boleh dikurasi kerana belum diterbitkan.
+  this_article_is_unpublished: Rencana ini belum diterbitkan.
   this_cannot_be_undone_are_you_sure: Ini tidak boleh dibuat asal, anda pasti?
   this_community_has_no_endorsed_collections: Komuniti ini belum menampilkan sebarang koleksi.
   this_community_has_no_focus_list: Komuniti ini tiada senarai tumpuan.
   this_community_was_deleted: Komuniti ini telah dihapuskan oleh pemiliknya.
   this_image_cannot_be_curated_because_unpublished: Gambar ini tidak boleh dikurasi kerana belum diterbitkan.
+  this_image_is_unpublished: Gambar ini belum diterbitkan.
   this_image_map_cannot_be_curated_because_unpublished: Peta ini tidak boleh dikurasi kerana belum diterbitkan.
+  this_image_map_is_unpublished: Peta ini belum diterbitkan.
   this_is_a_flat_list_of_10_million_strings: Ini ialah senarai tak tertib 10 juta rentetan - bukan untuk disemak imbas
   this_is_a_focus_collection_for_community: Inilah fokus "%{community}".
   this_is_the_label_that_will_be_used_for_attribution: Inilah label yang akan digunakan untuk atribusi
+  this_link_cannot_be_curated_because_unpublished: Pautan ini tidak boleh dikurasi kerana belum diterbitkan.
+  this_link_is_unpublished: Pautan ini belum diterbitkan.
   this_map_cannot_be_curated_because_unpublished: Peta ini tidak boleh dikurasi kerana belum diterbitkan.
+  this_map_is_unpublished: Peta ini belum diterbitkan.
   this_method_takes_an_integer_or_string: Kaedah ini mengambil integer atau rentetan yang merupakan pengenal pasti unik untuk sesuatu takson dari suatu pangkalan data pembekal, dan hierarchy_id yang mewakili pembekal dan memulangkan ID halaman EOL untuk takson itu. Misalnya, dengan menggunakan API %{link_provider}, boleh diketahui bahawa hierarchy_id EOL untuk Sistem Maklumat Taksonomi Bersepadu (ITIS) ialah %{itis_id}, kemudian bolehlah mencari Nombor Bersiri Taksonomi (TSN) ITIS 180542,<i>Ursus maritimus</i> di EOL dengan memanggil %{link_url}
   this_sound_cannot_be_curated_because_unpublished: Bunyi ini tidak boleh dikurasi kerana belum diterbitkan.
+  this_sound_is_unpublished: Audio ini belum diterbitkan.
   this_video_cannot_be_curated_because_unpublished: Video ini tidak boleh dikurasi kerana belum diterbitkan.
+  this_video_is_unpublished: Video ini belum diterbitkan.
   threat_status_header_colon: "Status ancaman <abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>:"
   time_ago: "%{time_passed} lalu"
   title: Tajuk
@@ -2609,6 +2625,7 @@ ms:
   type: Jenis
   unable_to_copy_items_to_collection_error: Maaf, kami tidak dapat menyalin perkara-perkara koleksi ini kepada %{name}.
   unknown: Tidak diketahui
+  unknown_type_not_associated_with_any_published_entries: Data ini tidak dikaitkan dengan sebarang takson yang diterbitkan.
   unpublished: Tidak diterbitkan
   unreviewed: Belum diperiksa
   unreviewed_images: Gambar yang belum diulas
@@ -2714,19 +2731,100 @@ ms:
     open_authentications: 
       errors: 
         facebook: 
+          add_connection_failed_account_already_connected: Maaf, kami tidak dapat menyambungkan akaun Facebook anda dengan akaun EOL anda kerana akaun Facebook anda sudah bersambung dengan <a href="%{existing_eol_account_url}">akaun EOL</a> yang sedia ada.
           login_failed_not_connected: Maaf, kami tidak dapat menjumpai sambungan antara akaun Facebook anda dengan EOL. Jika anda sudah pun ada akaun EOL, sila <a href="%{login_url}">log masuk ke dalam EOL</a> dengan akaun lain, kemudian sambungkan akaun Facebook anda dalam tetapan profil EOL anda. Jika anda belum ada akaun EOL, sila <a href="%{register_url}">lengkapkan pendaftaran EOL anda</a> untuk membuka akaun.
+          missing_attributes: Maaf, masalah timbul ketika mengakses butiran Facebook anda.
+          new_authentication_not_added: Maaf, berlakunya ralat maka kami tidak dapat menyambungkan akaun Facebook anda.
+          not_authorized_to_add_authentication: Maaf, kami tidak dibenarkan untuk menyambungkan akaun Facebook anda.
+          not_authorized_to_login: Maaf, kami tidak dibenarkan untuk melogmasukkan anda ke EOL dengan akaun Facebook anda.
+          not_authorized_to_signup: Maaf, kami tidak dibenarkan untuk mendaftarkan anda ke dalam EOL dengan menggunakan akaun Facebook anda.
+          signup_failed_account_already_connected: Maaf, kami tidak dapat mendaftarkan anda untuk akaun EOL yang baru dengan akaun Facebook anda kerana ianya sudah bersambung dengan <a href="%{existing_eol_account_url}">akaun seorang pengguna EOL</a> yang lain. Adakah anda ingin <a href="%{login_url}">log masuk</a> sebenarnya?
         google: 
+          add_connection_failed_account_already_connected: Maaf, kami tidak dapat mendaftarkan anda untuk akaun EOL yang baru dengan akaun Google anda kerana ianya sudah bersambung dengan <a href="%{existing_eol_account_url}">akaun seorang pengguna EOL</a> yang lain.
           login_failed_not_connected: Maaf, kami tidak dapat menjumpai sambungan antara akaun Google anda dengan EOL. Jika anda sudah pun ada akaun EOL, sila <a href="%{login_url}">log masuk ke dalam EOL</a> dengan akaun lain, kemudian sambungkan akaun Google anda dalam tetapan profil EOL anda. Jika anda belum ada akaun EOL, sila <a href="%{register_url}">lengkapkan pendaftaran EOL anda</a> untuk membuka akaun.
+          missing_attributes: Maaf, masalah timbul ketika mengakses butiran Google anda.
+          new_authentication_not_added: Maaf, berlakunya ralat maka kami tidak dapat menyambungkan akaun Google anda.
+          not_authorized_to_add_authentication: Maaf, kami tidak dibenarkan untuk menyambungkan akaun Google anda.
+          not_authorized_to_login: Maaf, kami tidak dibenarkan untuk melogmasukkan anda ke EOL dengan akaun Google anda.
+          not_authorized_to_signup: Maaf, kami tidak dibenarkan untuk mendaftarkan anda ke dalam EOL dengan menggunakan akaun Google anda.
+          signup_failed_account_already_connected: Maaf, kami tidak dapat mendaftarkan anda untuk akaun EOL yang baru dengan akaun Google anda kerana ianya sudah bersambung dengan <a href="%{existing_eol_account_url}">akaun seorang pengguna EOL</a> yang lain. Adakah anda ingin <a href="%{login_url}">log masuk</a> sebenarnya?
         missing_attributes: Maaf, berlakunya masalah ketika mengakses butiran akaun pihak ketiga anda.
         not_authorized_to_add_authentication: Maaf, kami tidak dibenarkan untuk menyambungkan akaun itu.
         not_authorized_to_login: Maaf, kami tidak dibenarkan untuk melogmasukkan anda ke EOL dengan akaun itu.
         remove_connection_failed: Maaf, berlakunya ralat, kami tidak dapat memutuskan sambungan itu.
         twitter: 
+          add_connection_failed_account_already_connected: Maaf, kami tidak dapat menyambungkan akaun Twitter anda dengan akaun EOL anda kerana akaun Twitter anda sudah bersambung dengan <a href="%{existing_eol_account_url}">akaun EOL</a> yang sedia ada.
           login_failed_not_connected: Maaf, kami tidak dapat menjumpai sambungan antara akaun Twitter anda dengan EOL. Jika anda sudah pun ada akaun EOL, sila <a href="%{login_url}">log masuk ke dalam EOL</a> dengan akaun lain, kemudian sambungkan akaun Twitter anda dalam tetapan profil EOL anda. Jika anda belum ada akaun EOL, sila <a href="%{register_url}">lengkapkan pendaftaran EOL anda</a> untuk membuka akaun.
+          missing_attributes: Maaf, masalah timbul ketika mengakses butiran Twitter anda.
+          new_authentication_not_added: Maaf, berlakunya ralat maka kami tidak dapat menyambungkan akaun Twitter anda.
+          not_authorized_to_add_authentication: Maaf, kami tidak dibenarkan untuk menyambungkan akaun Twitter anda.
+          not_authorized_to_login: Maaf, kami tidak dibenarkan untuk melogmasukkan anda ke EOL dengan akaun Twitter anda.
+          not_authorized_to_signup: Maaf, kami tidak dibenarkan untuk mendaftarkan anda ke dalam EOL dengan menggunakan akaun Twitter anda.
+          signup_failed_account_already_connected: Maaf, kami tidak dapat mendaftarkan anda untuk akaun EOL yang baru dengan akaun Twitter anda kerana ianya sudah bersambung dengan <a href="%{existing_eol_account_url}">akaun seorang pengguna EOL</a> yang lain. Adakah anda ingin <a href="%{login_url}">log masuk</a> sebenarnya?
         yahoo: 
+          add_connection_failed_account_already_connected: Maaf, kami tidak dapat menyambungkan akaun Yahoo! anda dengan akaun EOL anda kerana akaun Yahoo! anda sudah bersambung dengan <a href="%{existing_eol_account_url}">akaun EOL</a> yang sedia ada.
           login_failed_not_connected: Maaf, kami tidak dapat menjumpai sambungan antara akaun Yahoo! anda dengan EOL. Jika anda sudah pun ada akaun EOL, sila <a href="%{login_url}">log masuk ke dalam EOL</a> dengan akaun lain, kemudian sambungkan akaun Yahoo! anda dalam tetapan profil EOL anda. Jika anda belum ada akaun EOL, sila <a href="%{register_url}">lengkapkan pendaftaran EOL anda</a> untuk membuka akaun.
+          missing_attributes: Maaf, masalah timbul ketika mengakses butiran Yahoo! anda.
+          new_authentication_not_added: Maaf, berlakunya ralat maka kami tidak dapat menyambungkan akaun Yahoo! anda.
+          not_authorized_to_add_authentication: Maaf, kami tidak dibenarkan untuk menyambungkan akaun Yahoo! anda.
+          not_authorized_to_login: Maaf, kami tidak dibenarkan untuk melogmasukkan anda ke EOL dengan akaun Yahoo! anda.
+          not_authorized_to_signup: Maaf, kami tidak dibenarkan untuk mendaftarkan anda ke dalam EOL dengan menggunakan akaun Yahoo! anda.
+          signup_failed_account_already_connected: Maaf, kami tidak dapat mendaftarkan anda untuk akaun EOL yang baru dengan akaun Yahoo! anda kerana ianya sudah bersambung dengan <a href="%{existing_eol_account_url}">akaun seorang pengguna EOL</a> yang lain. Adakah anda ingin <a href="%{login_url}">log masuk</a> sebenarnya?
       facebook: Facebook
       google: Google
+      index: 
+        connected_last_verified: Bersambung; Kali terakhir ditentusahkan %{time_passed} yang lalu;
+        connected_unverified: Bersambung; Belum ditentusahkan;
+        not_connected: Tidak bersambung;
+        page_description: Uruskan sambungan kepada akaun pihak ketiga yang boleh anda gunakan untuk log masuk ke dalam EOL.
+        page_title: Akaun tersambung
+        return_link: Kembali untuk menyunting profil.
+      notices: 
+        facebook: 
+          new_authentication_added: Penentusahan Facebook telah ditambahkan kepada akaun anda.
+          removed_connection: Kami telah berjaya menggugurkan sambungan EOL kepada akaun Facebook anda. Untuk melarang semua interaksi anrara akaun Facebook anda dengan EOL pada masa depan, anda mesti pergi ke Facebook untuk mengubah tetapan akaun anda.
+        google: 
+          new_authentication_added: Penentusahan Google telah ditambahkan kepada akaun anda.
+          removed_connection: Kami telah berjaya menggugurkan sambungan EOL kepada akaun Google anda. Untuk melarang semua interaksi anrara akaun Google anda dengan EOL pada masa depan, anda mesti pergi ke Google untuk mengubah tetapan akaun anda.
+        twitter: 
+          new_authentication_added: Penentusahan Twitter telah ditambahkan kepada akaun anda.
+          removed_connection: Kami telah berjaya menggugurkan sambungan EOL kepada akaun Twitter anda. Untuk melarang semua interaksi anrara akaun Twitter anda dengan EOL pada masa depan, anda mesti pergi ke Twitter untuk mengubah tetapan akaun anda.
+        yahoo: 
+          new_authentication_added: Penentusahan Yahoo! telah ditambahkan kepada akaun anda.
+          removed_connection: Kami telah berjaya menggugurkan sambungan EOL kepada akaun Yahoo! anda. Untuk melarang semua interaksi anrara akaun Yahoo! anda dengan EOL pada masa depan, anda mesti pergi ke Yahoo! untuk mengubah tetapan akaun anda.
+      twitter: Twitter
+      warnings: 
+        no_way_to_login: Anda tidak lagi mempunyai sebarang akaun yang tersambung, maka anda tidak akan boleh log kembali ke dalam EOL melainkan anda menambahkan akaun untuk disambungkan atau menambahkan satu nama pengguna dan kata laluan EOL.
+      yahoo: Yahoo!
+    pending: 
+      header: Terima kasih kerana mendaftar!
+      verify_email_instructions: <strong>Sila sahkan alamat e-mel anda</strong>. Sepucuk pesanan pengesahan telah dihantar kepada alamat e-mel yang anda berikan. Untuk melengkapkan proses pendaftaran dan menjadi ahli EOL, sila klik pada pautan yang disertakan dalam e-mel itu. Terima kasih!
+      verify_email_tip: Sila ingat bahawa e-mel pengaktifan akan <em>sering</em> ditandai sebagai 'Spam' (atau surat layang) oleh penapis e-mel. Sila semak folder spam anda jika anda belum menerima e-mel anda dalam masa satu jam.
+    recover_account: 
+      errors: 
+        temporary_login_user_not_found: Maaf, akaun EOL yang anda cuba pulihkan itu tidak dapat dijumpai. Sila mohon e-mel yang baru untuk memulihkan akaun anda.
+        token_expired_or_invalid: Maaf, pautan log masuk sementara adalah tidak sah atau telah luput. Sila mohon e-mel yang baru untuk memulihkan akaun anda.
+        unable_to_update_token: Maaf, e-mel tidak dapat dihantar disebabkan ralat. Sila cuba lagi.
+        user_not_found_by_email_address: Akaun EOL dengan alamat e-mel itu tidak dapat dijumpai.
+      form_header: Pulihkan akaun
+      form_tip: Untuk memulihkan akaun EOL, taipkan alamat e-mel yang dikaitkan dengan akaun berkenaan. Sila semak folder spam jika anda belum menerima e-mel pemulihan akaun dalam masa satu jam.
+      meta_title: Pulihkan akaun
+      notices: 
+        recovery_email_sent: E-mel pemulihan akaun telah dihantar dengan arahan selanjutnya. Sila tambahkan %{from_address} kepada senarai pengirim selamat (safe senders) anda dan semak penapis spam anda jika anda tidak menerima e-mel ini dalam masa satu jam.
+        temporarily_logged_in_update_authentication_details: Anda dilogmasukkan buat sementara untuk membolehkan pemulihan akaun. Sila tukar kata laluan anda atau kemaskinikan akaun-akaun tersambung anda untuk memastikan agar anda boleh log masuk dengan lancar.
+    recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Maaf, e-mel tidak dapat dihantar disebabkan ralat. Sila pilih akaun yang mana anda ingin memulihkan akses dan cuba lagi.
+      form_header: Pulihkan akaun
+      form_tip: Terdapat beberapa akaun yang didaftarkan dengan alamat e-mel <em>%{email}</em>. Sila pilih akaun mana yang ingin anda pulihkan akses.
+      legend_choose_account: Pilih akaun
+    show: 
+      meta_description: Profil ahli untuk %{user_full_name} di Encyclopedia of Life.
+      meta_description_curator: Profil ahli untuk %{curator_level} %{user_full_name} di Encyclopedia of Life.
+    unsubscribe_notifications: 
+      already_unsubscribed: Anda sudah berhenti melanggan pemberitahuan.
+      unsubscribe_notifications_failed: Maaf, pengguna tidak dapat dihentikan langganan kepada pemberitahuan disebabkan ralat.
+      unsubscribed_notifications_successfully: Anda telah berjaya menghentikan langganan kepada pemberitahuan.
   users_about_me_header: Perihal saya
   users_content_partners_header: Rakan kongsi kandungan
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.
@@ -2751,6 +2849,7 @@ ms:
   vetted: Disemak
   video_alt_text: Video %{vetted_status} ini mengenai %{taxon_name}
   video_from_supplier: Video daripada %{whom}
+  video_not_associated_with_any_published_entries: Video ini tidak dikaitkan dengan sebarang takson yang diterbitkan.
   video_of_taxon: Video %{taxon_name}
   video_rating: Penilaian video
   video_title_not_available_in_language: Tajuk tidak terdapat dalam %{language}

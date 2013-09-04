@@ -19,6 +19,7 @@ class Taxa::DataController < TaxaController
   def about
     # Sad that we need to load all of this, but TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
+    @data_point_uris = @taxon_page.data.get_data
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     respond_to do |format|
       format.html { }

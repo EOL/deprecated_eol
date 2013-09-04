@@ -8,10 +8,9 @@ class TaxonDataSet
     @taxon_concept_id = options[:taxon_concept_id]
     @language = options[:language] || Language.default
     KnownUri.add_to_data(@virtuoso_results)
-    preload_data_point_uris
+    DataPointUri.preload_data_point_uris!(@virtuoso_results)
     @data_point_uris = @virtuoso_results.collect{ |r| r[:data_point_instance] }
-    DataPointUri.preload_associations(@data_point_uris, [ :comments, :taxon_data_exemplars, { :resource => :content_partner },
-      :predicate_known_uri, :object_known_uri, :unit_of_measure_known_uri ])
+    DataPointUri.preload_associations(@data_point_uris, [ :comments, :taxon_data_exemplars, { :resource => :content_partner } ])
     DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, :target_taxon_concept =>
       [ { :preferred_common_names => :name },
         { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
@@ -60,23 +59,6 @@ class TaxonDataSet
 
   def data_point_uris
     @data_point_uris.dup
-  end
-
-  private
-
-  def preload_data_point_uris
-    partner_data = @virtuoso_results.select{ |d| d.has_key?(:data_point_uri) }
-    data_point_uris = DataPointUri.find_all_by_uri(partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
-    # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
-    partner_data.each do |row|
-      if data_point_uri = data_point_uris.detect{ |dp| dp.uri == row[:data_point_uri].to_s }
-        row[:data_point_instance] = data_point_uri
-      end
-      # setting the taxon_concept_id since it is not in the Virtuoso response
-      row[:taxon_concept_id] ||= @taxon_concept_id
-      row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
-      row[:data_point_instance].update_with_virtuoso_response(row)
-    end
   end
 
 end

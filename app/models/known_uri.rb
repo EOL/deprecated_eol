@@ -170,7 +170,7 @@ class KnownUri < ActiveRecord::Base
 
   def self.add_to_data(rows)
     known_uris = where(["uri in (?)", uris_in_data(rows)])
-    preload_associations(known_uris, [ { :known_uri_relationships_as_subject => :to_known_uri }, { :known_uri_relationships_as_target => :from_known_uri } ])
+    preload_associations(known_uris, [ :uri_type, { :known_uri_relationships_as_subject => :to_known_uri }, { :known_uri_relationships_as_target => :from_known_uri } ])
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)

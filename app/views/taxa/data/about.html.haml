@@ -1,12 +1,14 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 -# TODO - These should actually be links to filtered versions of this page, for accessibility.
+- include_other_category = !@data_point_uris.empty? && (@data_point_uris.detect{ |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? })
 #tabs_sidebar.data
   %ul.tabs.with_icons
     - @categories.each do |cat|
       %li= link_to cat.label, taxon_data_path(@taxon_data, :toc_id => cat.id)
-    %li= link_to I18n.t(:other_category), taxon_data_path(@taxon_data, :toc_id => 'other')
+    - if include_other_category
+      %li= link_to I18n.t(:other_category), taxon_data_path(@taxon_data, :toc_id => 'other')
     %li= link_to I18n.t(:all_categories), taxon_data_path(@taxon_data)
-    %li{ class: 'active about' }= link_to I18n.t(:data_about_subtab), '#'
+    %li{ class: 'active about' }= link_to I18n.t(:data_subtab_about), '#'
 .main_container#taxon_data
   = render :partial => 'about'

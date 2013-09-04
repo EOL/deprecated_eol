@@ -200,8 +200,6 @@ $(function() {
     $('div#suggestions').hide();
   });
 
-  // Hide the about text first:
-  $('.about_subtab').hide();
   $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
     $('.about_subtab').hide();
     if($(this).parent().hasClass('about')) {

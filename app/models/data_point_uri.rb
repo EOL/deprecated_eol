@@ -6,7 +6,8 @@ class DataPointUri < ActiveRecord::Base
 
   attr_accessible :string, :vetted_id, :visibility_id, :vetted, :visibility, :uri, :taxon_concept_id,
     :class_type, :predicate, :object, :unit_of_measure, :user_added_data_id, :resource_id,
-    :predicate_known_uri_id, :object_known_uri_id, :unit_of_measure_known_uri_id
+    :predicate_known_uri_id, :object_known_uri_id, :unit_of_measure_known_uri_id,
+    :predicate_known_uri, :object_known_uri, :unit_of_measure_known_uri
 
   belongs_to :taxon_concept
   belongs_to :vetted
@@ -115,28 +116,35 @@ class DataPointUri < ActiveRecord::Base
 
   def get_other_occurrence_measurements(language)
     query = "
-      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
+      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph
       WHERE {
         GRAPH ?graph {
           {
             <#{uri}> dwc:occurrenceID ?occurrence .
-            ?measurement a <#{DataMeasurement::CLASS_URI}> .
-            ?measurement dwc:occurrenceID ?occurrence .
-            ?measurement dwc:measurementType ?attribute .
-            ?measurement dwc:measurementValue ?value .
-            ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+            ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
+            ?data_point_uri dwc:occurrenceID ?occurrence .
+            ?data_point_uri dwc:measurementType ?attribute .
+            ?data_point_uri dwc:measurementValue ?value .
+            ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+            ?occurrence dwc:taxonID ?taxon_id .
             FILTER ( ?measurementOfTaxon = 'true' ) .
             OPTIONAL {
-              ?measurement dwc:measurementUnit ?unit_of_measure_uri
+              ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
             }
           }
         }
+        ?taxon_id dwc:taxonConceptID ?taxon_concept_id
       }"
     occurrence_measurement_rows = EOL::Sparql.connection.query(query)
     # if there is only one response, then it is the original measurement
     return nil if occurrence_measurement_rows.length <= 1
     KnownUri.add_to_data(occurrence_measurement_rows)
-    occurrence_measurement_rows.map{ |row| DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row)) }
+    # Creating instance of DataPointUris for each associated measurement. Since these are from the same
+    # occurrence, these DataPointUris should always have been created when the page loaded. Mostly
+    # this is about getting the DataPointUri instance for the view and doing some preloading
+    DataPointUri.preload_data_point_uris!(occurrence_measurement_rows)
+    data_point_uris = occurrence_measurement_rows.collect{ |r| r[:data_point_instance] }
+    data_point_uris
   end
 
   def get_references(language)
@@ -160,6 +168,25 @@ class DataPointUri < ActiveRecord::Base
     reference_rows = EOL::Sparql.connection.query(query)
     return nil if reference_rows.empty?
     reference_rows
+  end
+
+  def self.preload_data_point_uris!(results)
+    # There are potentially hundreds or thousands of DataPointUri inserts happening here.
+    # The transaction makes the inserts much faster - no committing after each insert
+    transaction do
+      partner_data = results.select{ |d| d.has_key?(:data_point_uri) }
+      data_point_uris = DataPointUri.find_all_by_uri(partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
+      # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
+      partner_data.each do |row|
+        if data_point_uri = data_point_uris.detect{ |dp| dp.uri == row[:data_point_uri].to_s }
+          row[:data_point_instance] = data_point_uri
+        end
+        # setting the taxon_concept_id since it is not in the Virtuoso response
+        row[:taxon_concept_id] ||= @taxon_concept_id
+        row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
+        row[:data_point_instance].update_with_virtuoso_response(row)
+      end
+    end
   end
 
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
@@ -212,6 +239,8 @@ class DataPointUri < ActiveRecord::Base
         attributes[data_point_uri_key] = row[virtuoso_response_key].uri
         # each of these attributes has a corresponging known_uri_id (e.g. predicate_known_uri_id)
         attributes[(data_point_uri_key.to_s + "_known_uri_id").to_sym] = row[virtuoso_response_key].id
+        # setting the instance as well to take advantage of preloaded associations on KnownUri
+        attributes[(data_point_uri_key.to_s + "_known_uri").to_sym] = row[virtuoso_response_key]
       else
         attributes[data_point_uri_key] = row[virtuoso_response_key].to_s
       end

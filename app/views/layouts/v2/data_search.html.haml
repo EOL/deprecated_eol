@@ -2,8 +2,9 @@
   #page_heading
     .site_column
       .hgroup
-        %h1= @results ? I18n.t(:search_results) : I18n.t(:must_provide_search_term_error)
-        %h2= @results ? raw(I18n.t(:count_results_for_search_term, :count => @results.total_entries, :search_term => h(@querystring))) : ''
+        %h1= @results ? I18n.t(:search_results) : I18n.t(:must_provide_attribute_for_search_error)
+        - search_term_to_show = [ @attribute, @querystring ].delete_if{ |t| t.blank? }.join(' : ')
+        %h2= @results ? raw(I18n.t(:count_results_for_search_term, :count => @results.total_entries, :search_term => h(search_term_to_show))) : ''
   #content
     .site_column
       #search_results
@@ -15,10 +16,12 @@
                   %label= I18n.t(:search_field_label)
                 %dd
                   %ul
-                    - select_options = { "-- " + I18n.t(:filter_by_type_all_option) + " --" => nil }.
-                    -   merge(Hash[[nil, nil] + KnownUri.all_measurement_type_uris.collect{ |uri| [ EOL::Sparql.uri_to_readable_label(uri), uri ] }.sort_by{ |k,v| k } ] )
-                    %li= select_tag(:attribute, options_for_select(select_options))
-                    %li= search_field_tag(:q, '')
+                    - select_options = { "-- " + I18n.t('activerecord.attributes.user_added_data.predicate') + " --" => nil }.
+                    -   merge(Hash[[nil, nil] + KnownUri.all_measurement_type_uris.collect{ |uri| [ truncate(EOL::Sparql.uri_to_readable_label(uri), :length => 25), uri ] }.sort_by{ |k,v| k } ] )
+                    %li= select_tag(:attribute, options_for_select(select_options, @attribute))
+                    %li= search_field_tag(:q, @querystring)
+                    - sort_options = { "-- " + I18n.t(:sort_by) + " --" => nil, I18n.t(:sort_by_value_ascending) => 'asc', I18n.t(:sort_by_value_descending) => 'desc' }
+                    %li= select_tag(:sort, options_for_select(sort_options, @sort))
                     %li= submit_tag I18n.t(:search) unless @wildcard_search
         #main
           = yield

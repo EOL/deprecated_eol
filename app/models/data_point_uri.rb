@@ -69,7 +69,7 @@ class DataPointUri < ActiveRecord::Base
 
   def get_metadata(language)
     query = "
-      SELECT DISTINCT ?attribute ?value
+      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
       WHERE {
         GRAPH ?graph {
           {
@@ -82,6 +82,7 @@ class DataPointUri < ActiveRecord::Base
             ?measurement <#{Rails.configuration.uri_parent_measurement_id}> <#{uri}> .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
+            OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
           } UNION {
             <#{uri}> dwc:occurrenceID ?occurrence .
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
@@ -89,12 +90,14 @@ class DataPointUri < ActiveRecord::Base
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon } .
+            OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement <#{Rails.configuration.uri_association_id}> <#{uri}> .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
+            OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
           } UNION {
             <#{uri}> dwc:occurrenceID ?occurrence .
             ?occurrence dwc:eventID ?event .
@@ -116,7 +119,7 @@ class DataPointUri < ActiveRecord::Base
 
   def get_other_occurrence_measurements(language)
     query = "
-      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph
+      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id
       WHERE {
         GRAPH ?graph {
           {
@@ -170,7 +173,7 @@ class DataPointUri < ActiveRecord::Base
     reference_rows
   end
 
-  def self.preload_data_point_uris!(results)
+  def self.preload_data_point_uris!(results, taxon_concept_id = nil)
     # There are potentially hundreds or thousands of DataPointUri inserts happening here.
     # The transaction makes the inserts much faster - no committing after each insert
     transaction do
@@ -182,7 +185,7 @@ class DataPointUri < ActiveRecord::Base
           row[:data_point_instance] = data_point_uri
         end
         # setting the taxon_concept_id since it is not in the Virtuoso response
-        row[:taxon_concept_id] ||= @taxon_concept_id
+        row[:taxon_concept_id] ||= taxon_concept_id
         row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
         row[:data_point_instance].update_with_virtuoso_response(row)
       end

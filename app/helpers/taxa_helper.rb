@@ -152,7 +152,14 @@ module TaxaHelper
     tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
     capture_haml do
       haml_tag tag_type do
-        haml_concat uri_components[:label].to_s.add_missing_hyperlinks
+        label = uri_components[:label].to_s
+        if label.is_numeric?
+          # numeric values can be rounded off to 3 decimal places
+          haml_concat label.to_f.round(3)
+        else
+          # other values may have links embedded in them (references, citations, etc.)
+          haml_concat label.add_missing_hyperlinks
+        end
       end
     end
   end

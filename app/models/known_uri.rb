@@ -42,6 +42,52 @@ class KnownUri < ActiveRecord::Base
 
   scope :excluded_from_exemplars, -> { where(exclude_from_exemplars: true) }
 
+  def self.default_values
+    @@default_values ||=
+      [ { uri: 'http://purl.obolibrary.org/obo/UO_0000022', name: 'milligrams', uri_type: UriType.unit_of_measure },
+        { uri: 'http://purl.obolibrary.org/obo/UO_0000021', name: 'grams', uri_type: UriType.unit_of_measure },
+        { uri: 'http://purl.obolibrary.org/obo/UO_0000009', name: 'kilograms', uri_type: UriType.unit_of_measure },
+        { uri: 'http://purl.obolibrary.org/obo/UO_0000016', name: 'millimeters', uri_type: UriType.unit_of_measure },
+        { uri: 'http://purl.obolibrary.org/obo/UO_0000081', name: 'centimeters', uri_type: UriType.unit_of_measure },
+        { uri: 'http://purl.obolibrary.org/obo/UO_0000008', name: 'meters', uri_type: UriType.unit_of_measure },
+        { uri: 'http://purl.obolibrary.org/obo/UO_0000012', name: 'kelvin', uri_type: UriType.unit_of_measure },
+        { uri: 'http://purl.obolibrary.org/obo/UO_0000027', name: 'degrees Celsius', uri_type: UriType.unit_of_measure } ]
+  end
+
+  def self.create_defaults
+    default_values.each do |info|
+      unless KnownUri.exists?(uri: info[:uri])
+        known_uri = KnownUri.create(uri: info[:uri], uri_type: info[:uri_type])
+        TranslatedKnownUri.create(known_uri: known_uri, name: info[:name], language: Language.default)
+      end
+    end
+  end
+
+  def self.milligrams
+    @@milligrams ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'milligrams' }[:uri])
+  end
+  def self.grams
+    @@grams ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'grams' }[:uri])
+  end
+  def self.kilograms
+    @@kilograms ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'kilograms' }[:uri])
+  end
+  def self.millimeters
+    @@millimeters ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'millimeters' }[:uri])
+  end
+  def self.centimeters
+    @@centimeters ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'centimeters' }[:uri])
+  end
+  def self.meters
+    @@meters ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'meters' }[:uri])
+  end
+  def self.kelvin
+    @@kelvin ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'kelvin' }[:uri])
+  end
+  def self.celsius
+    @@celsius ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'degrees Celsius' }[:uri])
+  end
+
   def self.create_for_language(options = {})
     uri = KnownUri.create(uri: options.delete(:uri))
     if intent.valid?
@@ -109,6 +155,8 @@ class KnownUri < ActiveRecord::Base
       WHERE {
         ?measurement a <#{DataMeasurement::CLASS_URI}> .
         ?measurement dwc:measurementType ?uri .
+        ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+        FILTER ( ?measurementOfTaxon = 'true' ) .
         FILTER (CONTAINS(str(?uri), '://'))
       }
       GROUP BY ?uri

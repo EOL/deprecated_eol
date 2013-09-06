@@ -42,6 +42,10 @@
           - first_of_type = data_point_uri.predicate != last_attribute
           - if first_of_type
             - type_index += 1
+            - header_id = data_point_uri.predicate
+            - last_attribute = data_point_uri.predicate
+          - else
+            - header_id = nil
           - classes << ['first_of_type'] if first_of_type
           - comments = []
           - comments = data_point_uri.comments # Need to use #all_comments because it might involve multiple instances.
@@ -51,78 +55,13 @@
             - else
               - next
           - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
-          %tr{ id: data_point_uri.anchor, class: (classes + ['data']).join(' '), 'data-type' => "type_#{type_index}" }
-            - th_id = nil
-            - if data_point_uri.predicate != last_attribute
-              - th_id = data_point_uri.predicate
-            -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
-            - exemplar = data_point_uri.taxon_data_exemplars.select{ |ex| ex.included }.any?
-            - excluded = data_point_uri.taxon_data_exemplars.select{ |ex| ex.excluded }.any?
-            %th{ id: th_id }
-              - if data_point_uri.predicate_known_uri
-                %div.info{ style: 'display: none' }
-                  - if !data_point_uri.predicate_known_uri.definition.blank?
-                    %dt= data_point_uri.predicate
-                    %dd= raw data_point_uri.predicate_known_uri.definition.add_missing_hyperlinks
-                  - else
-                    .uri= data_point_uri.predicate
-              - if first_of_type
-                - last_attribute = data_point_uri.predicate
-                = display_uri(data_point_uri.predicate_uri, :span, class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil))
-              - elsif exemplar || excluded
-                %span{ class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil) }
-            %td.val{ headers: th_id }
-              %span.fold
-                - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
-                = link_to(image_tag(arrow_file_name, alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(@taxon_page, :data_point_uri_id => data_point_uri.id, :anchor => data_point_uri.anchor))
-              = raw display_text_for_data_point_uri(data_point_uri)
-
-              %span.comments
-                - if comments.empty?
-                  &nbsp;
-                - else
-                  = image_tag('comment_indicator.png')
-              %span.source= data_point_uri.source.name
-
-              - if row_is_selected
-                = render partial: 'data_point_uris/metadata', locals: { data_point_uri: data_point_uri }
-          %tr{ class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
-            %td{ colspan: 2 }
-              %ul
-                %li= raw I18n.t("data_provided_by_#{data_point_uri.source.class.name.underscore.downcase}", whom: link_to(data_point_uri.source.name, data_point_uri.source))
-                %li
-                  &bull;&ensp;
-                  = link_to data_point_uri.uri, ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), :target => 'data'
-                - if data_point_uri.user_added_data
-                  - if current_user.can_update?(data_point_uri.user_added_data)
-                    %li
-                      &bull;&ensp;
-                      = link_to I18n.t(:edit), edit_user_added_datum_path(data_point_uri.user_added_data), :method => :get
-                    %li
-                      &bull;&ensp;
-                      = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
-                - unless comments.empty?
-                  - annotations_link = data_point_uri_comments_path(data_point_uri)
-                  - if annotations_link
-                    %li.annotations
-                      &bull;&ensp;
-                      = link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
-              = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: data_point_uri }
-              -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
-              - if current_user.min_curator_level?(:full)
-                .additional_commands
-                  - if data_point_uri.visible?
-                    - hide_link =  data_point_uri_hide_path(data_point_uri)
-                    = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
-                  - elsif data_point_uri.invisible?
-                    - show_link = data_point_uri_unhide_path(data_point_uri)
-                    = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
-                  - unless excluded
-                    = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: @taxon_data.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
-                  - unless exemplar
-                    = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: @taxon_data.taxon_concept.id), method: :post, class: "add_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
-                  - if excluded
-                    %span.note= I18n.t(:data_row_excluded_from_overview_notice)
+          -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
+          - exemplar = data_point_uri.taxon_data_exemplars.select{ |ex| ex.included }.any?
+          - excluded = data_point_uri.taxon_data_exemplars.select{ |ex| ex.excluded }.any?
+          = render :partial => 'data_point_uris/display_rows', :locals => {    |
+            :data_point_uri => data_point_uri, :type_index => type_index,      |
+            :classes => classes, :exemplar => exemplar, :excluded => excluded, |
+            :row_is_selected => row_is_selected, :header_id => header_id }     |
 - if current_user.min_curator_level?(:master)
   .add_content
     %p.add_data= link_to I18n.t(:master_curators_may_add_data), '#' # Ideally, that would be a link to the user_added_data/new path...

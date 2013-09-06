@@ -28,7 +28,7 @@ describe TaxonData do
     EOL::Sparql.should_receive(:connection).at_least(2).times.and_return(foo)
     foo.should_receive(:query).at_least(2).times.and_return([])
     WillPaginate::Collection.should_receive(:create).and_return([])
-    foo = TaxonData.search(querystring: 'whatever')
+    foo = TaxonData.search(querystring: 'whatever', attribute: 'anything')
   end
 
   it 'should create a count query' do

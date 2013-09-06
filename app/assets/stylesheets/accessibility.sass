@@ -923,7 +923,7 @@ form
   fieldset.actions
     padding: 0
 .new_collection_job
-  #sidebar 
+  #sidebar
     border-left: 1px solid $darker_gray
     margin-left: 10px
 table.standard
@@ -1082,7 +1082,7 @@ a.other_actions
   width: 260px
   #toc
     margin: 0px 20px
-#media_list 
+#media_list
   #sidebar
     padding: 0
     padding-bottom: 20px
@@ -1408,7 +1408,7 @@ ul.tabs
       margin-bottom: 1em
       dl
         dd input[type="text"]
-          width: 350px 
+          width: 350px
         dd.new_field
           float: left
           input
@@ -1549,8 +1549,7 @@ ul.tabs
           padding-left: 10px
           background: url(image-path("v2/icon_required.png")) 0px 3px no-repeat
         td
-          padding: 5px 10px
-          width: 500px
+          padding: 5px 7px
           font-weight: 500
           font-size: 1.3em
           color: $nearly_black
@@ -1578,6 +1577,8 @@ ul.tabs
           a.more
             padding-left: 13px
             font-size: 0.83em
+          &.val
+            min-width: 300px
     tr.actions, tr.comments
       background-color: #f6f8fa
       font-weight: normal
@@ -1589,13 +1590,10 @@ ul.tabs
       td
         font-weight: normal
         ul
-          margin: 1px 8px
         .comments
           margin: 7px 10px
-          width: 662px
           font-size: 0.9em
           .comment
-            width: 643px
             color: #4e5c68
             background-color: #f1f4dc
             border: 1px solid #ccd399
@@ -1605,11 +1603,10 @@ ul.tabs
         form#new_comment
           margin-bottom: 3pt
           fieldset
-            width: 659px
             margin: 0 10px
             input[type="text"]
               padding: 3px 5px
-              +input(647px)
+              +input(98%)
             input[type="submit"]
               +button
               float: right
@@ -1630,7 +1627,6 @@ ul.tabs
       td
         color: #aaa
     tr.open
-      border-top: 1px solid $grayblue
       background: #fbfdff
     tr.open:hover
       cursor: auto
@@ -1641,13 +1637,43 @@ ul.tabs
         margin-top: 3px
         margin-right: 6px
         float: right
+    td.taxon
+      font-size: 1em
+      width: 250px
+      h4
+        margin: 3px 0px 5px
+        font-size: 1.2em
+        a
+          color: #28323a
+          text-decoration: none
+          &:hover
+            text-decoration: underline
+      div.icon
+        width: 50px
+        height: 50px
+        float: left
+        margin-right: 10px
+        background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat
+        border: 1px solid $grayblue
+        img
+          width: 50px
+          height: 50px
+      div.names
+        margin-left: 10px
+        line-height: 120%
+  table.data.search
+    th
+      width: auto
+      min-width: 75px
+    span.source
+      width: 8em
   table.meta
     line-height: 90%
+    width: 100%
     padding: 0px 0px 15px
     td
       padding: 0px 5px !important
     th
-      width: 35% !important
       padding: 0px !important
     caption
       text-align: center !important
@@ -1716,3 +1742,5 @@ ul.tabs
 #header
   .language > p
     min-width: 10em
+div.info
+  display: none

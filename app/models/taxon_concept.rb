@@ -134,6 +134,16 @@ class TaxonConcept < ActiveRecord::Base
   end
   class << self; alias_method_chain :find, :supercedure ; end
 
+  # this method is helpful when using preloaded taxon_concepts as preloading
+  # will not use the above find_with_supercedure to get the latest version
+  def latest_version
+    if supercedure_id && supercedure_id != 0
+      # using find will properly follow supercedureIDs
+      return TaxonConcept.find(id).latest
+    end
+    self
+  end
+
   def preferred_common_name_in_language(language)
     if preferred_common_names.loaded?
       # sometimes we preload preferred names in all languages for lots of taxa

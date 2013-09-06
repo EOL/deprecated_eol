@@ -150,14 +150,13 @@ $(function() {
     if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
     var $folder = $(this).find('.fold img');
     var $next_row = $(this).next();
-    var $this_data = $(this).children('td');
+    var $this_data = $(this).children('td.val');
     var $next_row_data = $next_row.children('td');
     var $table = $(this).find('table');
     if ($next_row.is(":visible")) {
       $folder.attr('src', "/assets/arrow_fold_right.png");
       $next_row.hide();
       $table.hide();
-      $(this).removeClass('open');
     } else {
       var data_point_id = $(this).attr('id');
       // the metadata table hasn't been loaded yet, so load it dynamically
@@ -171,7 +170,6 @@ $(function() {
             $folder.attr('src', "/assets/arrow_fold_down.png");
             $next_row.show();
             $table.show();
-            $(this).addClass('open');
           }
         });
       } else
@@ -179,7 +177,6 @@ $(function() {
         $folder.attr('src', "/assets/arrow_fold_down.png");
         $next_row.show();
         $table.show();
-        $(this).addClass('open');
       }
     }
   }).find('table').hide();
@@ -255,7 +252,7 @@ $(function() {
   }).disableSelection();
 
   // Definitions of Attributes are dialogs if JS is enabled:
-  $('tr.first_of_type div.info').each(function() {
+  $('table.data tr.first_of_type div.info, table.data.search tr div.info').each(function() {
     var nearest = $(this).closest('tr').attr('id'); // We need to remember which one is open; click again and it closes.
     var name = $(this).next().html();
     $(this)
@@ -266,7 +263,7 @@ $(function() {
       .prepend('<a href="#" class="close">&nbsp;</a>');
     $(this).appendTo(document.body);
   });
- $('a.info_icon') 
+  $('a.info_icon')
     .on('click', function() {
       $('.site_column').unbind('click');
       var $link = $(this);

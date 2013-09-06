@@ -1,6 +1,6 @@
 - if @results.blank?
   .empty
-    %p= @querystring ? I18n.t(:no_results_for_search_term, :search_term => @querystring) : I18n.t(:must_provide_search_term_error)
+    %p= @attribute ? I18n.t(:no_results_for_search_term, :search_term => @querystring) : "You must select an attribute to search on"
 - else
   - previous_label = (@results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @results.per_page)
   - next_label = (@results.current_page == @results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @results.per_page)
@@ -12,7 +12,7 @@
       :previous_label => previous_label, |
       :next_label => next_label, |
       :page_links=>false
-  %ul.object_list
-    - @results.each do |r|
-      %li.taxon
-        = render :partial => "shared/item_summary_taxon_data_search", :locals => { :data_point_uri => r }
+  #taxon_data
+    %table.standard.data.search
+      - @results.each do |data_point_uri|
+        = render :partial => 'data_point_uris/display_rows', :locals => { :data_point_uri => data_point_uri, :for_search => true }

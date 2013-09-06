@@ -117,15 +117,16 @@ describe 'Taxa page basic tests' do
     drop_all_virtuoso_graphs
     tc = build_taxon_concept
     @measurement = DataMeasurement.new(:subject => tc, :resource => Resource.gen,
-      :predicate => 'http://eol.org/weight', :object => '12345', :unit => 'http://eol.org/kg')
+      :predicate => 'http://eol.org/weight', :object => '12345.0', :unit => 'http://eol.org/kg')
     @measurement.update_triplestore
     visit taxon_overview_path(tc.id)
     body.should have_selector("#data_summary table")
-    body.should include("12345")
-    body.should_not include("12345\n</span>\n <span>\nkilograms")
+    body.should include("12345.0")
+    pattern = "12345.0\n</span>\n <span>\nkilograms"
+    body.should_not include(pattern)
     KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :uri_type => UriType.unit_of_measure)
     visit taxon_overview_path(tc.id)
-    body.should include("12345\n</span>\n <span>\nkilograms")
+    body.should include(pattern)
   end
 
 end

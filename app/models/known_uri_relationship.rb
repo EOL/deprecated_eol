@@ -2,11 +2,13 @@ class KnownUriRelationship < ActiveRecord::Base
 
   INVERSE_URI = Rails.configuration.uri_inverse
   MEASUREMENT_URI = Rails.configuration.uri_uses_measurement
+  ALLOWED_VALUE_URI = Rails.configuration.uri_allowed_val
+  ALLOWED_UNIT_URI = Rails.configuration.uri_allowed_unit
 
   belongs_to :from_known_uri, :class_name => KnownUri.name, :foreign_key => :from_known_uri_id
   belongs_to :to_known_uri, :class_name => KnownUri.name, :foreign_key => :to_known_uri_id
 
-  attr_accessible :from_known_uri_id, :to_known_uri_id, :relationship_uri
+  attr_accessible :from_known_uri, :from_known_uri_id, :to_known_uri, :to_known_uri_id, :relationship_uri
 
   validates_uniqueness_of :to_known_uri_id, :scope => [ :from_known_uri_id, :relationship_uri ]
   validate :known_uris_should_be_known
@@ -17,14 +19,29 @@ class KnownUriRelationship < ActiveRecord::Base
   after_save :update_triplestore
   after_destroy :update_triplestore
 
+  scope :inverses, -> { where(relationship_uri: KnownUriRelationship::INVERSE_URI) }
+  scope :allowed_values, -> { where(relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI) }
+  scope :allowed_units, -> { where(relationship_uri: KnownUriRelationship::ALLOWED_UNIT_URI) }
+
+  # NOTE - The keys here are I18n keys and need translations.
+  @relationship_types =
+    { :known_uri_label_inverse => KnownUriRelationship::INVERSE_URI,
+      :known_uri_label_allowed_val => KnownUriRelationship::ALLOWED_VALUE_URI,
+      :known_uri_label_allowed_unit => KnownUriRelationship::ALLOWED_UNIT_URI,
+      :known_uri_label_unit => KnownUriRelationship::MEASUREMENT_URI }
+
   def self.relationship_types
-    { 'is inverse of' => KnownUriRelationship::INVERSE_URI,
-      'has unit of measure' => KnownUriRelationship::MEASUREMENT_URI }
+    @relationship_types
+  end
+
+  def self.translated_relationship_types
+    translations = @relationship_types.dup
+    Hash[translations.map {|k, v| [I18n.t(k), v] }]
   end
 
   def relationship_label
-    if type = KnownUriRelationship.relationship_types.detect{ |k,v| v == relationship_uri }
-      return type[0]
+    if type = KnownUriRelationship.relationship_types.detect { |k,v| v == relationship_uri }
+      return I18n.t(type[0])
     end
   end
 

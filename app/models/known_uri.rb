@@ -23,14 +23,12 @@ class KnownUri < ActiveRecord::Base
   has_many :user_added_data
   has_many :known_uri_relationships_as_subject, :class_name => KnownUriRelationship.name, :foreign_key => :from_known_uri_id
   has_many :known_uri_relationships_as_target, :class_name => KnownUriRelationship.name, :foreign_key => :to_known_uri_id
-  # If this is an attribute, it may have a list of allowed attributes (which may or may not be exclusive):
-  has_many :allowed_values, class_name: KnownUri.name, through: :known_uri_relationships_as_subject, source: :from_known_uri
 
   has_and_belongs_to_many :toc_items
 
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
     :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :uri_type, :uri_type_id,
-    :translations, :exclude_from_exemplars, :name, :allowed_value_ids
+    :translations, :exclude_from_exemplars, :name, :known_uri_relationships_as_subject
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -44,7 +42,7 @@ class KnownUri < ActiveRecord::Base
   scope :measurements, -> { where(uri_type_id: UriType.measurement) }
   scope :values, -> { where(uri_type_id: UriType.measurement_value) }
   scope :associations, -> { where(uri_type_id: UriType.associations) }
-  scope :units, -> { where(uri_type_id: UriType.unit_of_measurement) }
+  scope :units, -> { where(uri_type_id: UriType.unit_of_measure) }
 
   def self.default_values
     @@default_values ||=
@@ -98,6 +96,14 @@ class KnownUri < ActiveRecord::Base
       trans = TranslatedKnownUri.create(options.merge(known_uri: uri))
     end
     uri
+  end
+
+  def allowed_values
+    known_uri_relationships_as_subject.allowed_values.map(&:to_known_uri)
+  end
+
+  def allowed_units
+    known_uri_relationships_as_subject.allowed_units.map(&:to_known_uri)
   end
 
   def self.license

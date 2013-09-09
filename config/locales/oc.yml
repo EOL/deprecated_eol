@@ -6,6 +6,8 @@ oc:
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
   a_maximum_of_30_results_are_returned: un maximum de 30 resultats es renviat per pagina. Aqueste paramètre vos permet de tornar mai de paginas de resultats se n'i a mai de 30
+  a_pipe_delimited_list_of_licenses: una lista de licéncias separadas per de traches verticals « | » o « all » per obténer los objèctes provesits jos quina licéncia que siá. Las licéncias abreujadas amb cc- son totas de licéncias %{creative_commons_link}. Visitatz lor site per mai d’informacions sus las diferentas licéncias qu’ofrisson.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "'supervisat' per renviar lo tèxte supervisat (s'existís), una lista separada per de pipas | de noms de subjècte de la lista dels %{subjects_text} (per ex. TaxonBiology, FossilHistory), o 'totes' per obténer lo tèxte de quin subjècte que siá. Renvia totjorn un tèxte de supervision coma primièr resultat (se n'existís un dins lo contèxte donat)."
   a_taxon: un taxon
   about_eol: A prepaus de l’EdlV
   about_resources: A prepaus de las ressorsas
@@ -74,11 +76,14 @@ oc:
         email_reports_frequency_hours: Frequéncia dels rapòrts per corrièl
       data_object: 
         bibliographic_citation: Citacion bibliografica
-        description: Descripcion
+        description: Tèxte
         object_title: Títol
         rights_holder: Detentor dels dreches
         rights_statement: Declaracion de dreches
         source_url: URL font
+      data_object_link: 
+        description: Descripcion
+        source_url: Ligam URL
       eol_statistic: 
         active_curators: Conservators actius
         base_pages: Paginas de basa
@@ -868,6 +873,7 @@ oc:
   admin_home: acuèlh d’administracion
   admin_information: Aquò's la novèla consòla d’administracion de l’EdlV v2. Sèm a transferir las foncionalitats de la version 1. Se la seccion d’administracion que cercatz s’i tròba pas, rendètz-vos sus la <a href="/administrator">consòla d’administracion v1</a>.
   admin_link: Vista d'ensemble
+  admin_login_confirmation: Sètz segur que vos volètz identificar sul registre del partenari de contengut en tant que %{name} ? Se o fasètz, seretz desconnectat del site web en tant qu’administrator.
   admin_news_item_active: Publicat
   admin_news_item_create_successful_notice: L’element d’informacion <a href="#%{anchor}"><em>%{page_name}</em></a> es estat creat corrèctament.
   admin_news_item_create_unsuccessful_error: O planhèm, una error s'es producha, l'element d'informacion es pas estat creat.
@@ -995,6 +1001,9 @@ oc:
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Clicatz aicí</a> per accedir al bètatèst dels novèls forums de EdlV. Vòstre vejaire serà lo benvengut.
   api_cache_time_to_live_parameter: lo nombre de segondas pendent lo qual volètz que la responsa siá mesa en escondedor
+  api_docs_collections_description: Donat l’identificant d’una colleccion, aquesta API tornarà totas las metadonadas a prepaus de la colleccion e d'elements que conten. La lista dels elements pòt èsser filtrada per tipe d’element e triada segon los atributs listats. d'unes elements contenon un atribut opcional 'sort_field'. Es una cadena provesida per l'utilizaire qu'es una anotacion particulara d’un element colleccion. Aquò pòt èsser quina cadena de caractèrs que siá, mai se aquò's una data, deu respectar lo format AAAA-MM-JJ. Los elements de taxon contendràn un 'richness_score'. La riquesa es una metrica representada per un entièr entre 0 e 100, un grand nombre denòta una pagina amb un contengut ric d’una ampla varietat de fonts. Legissètz-ne mai sus la riquesa dels taxons suls onglets meses a jorn d’una pagina de taxon, per ex. %{richness_url}.
+  api_refer_to_the_getting_started_page: Veire la pagina <a href="%{link}">Primièrs passes</a> per d'exemples d’utilizacion de l’API de EdlV, sas condicions d’utilizacion e d'informacions sus l’enregistrament per obténer una clau de l’API.
+  api_results_can_be_cached: La responsa de quin apèl d’API que siá pòt èsser mesa en escondedor per una durada determinada. Un paramètre "cache_ttl" pòt èsser provesit, que la valor n'es lo nombre de segondas pendent lo qual la responsa serà en escondedor. Aquò crearà las entèstas HTTP qu'indican que lo resultat deuriá èsser mes en escondedor pels navigadors web, e amai, la responsa serà mesa en escondedor dins los servidors de EdlV pendent lo nombre de segondas indicat. Se la valor de "cache_ttl" es modificada, la primièra requèsta amb la novèla valor atenharà pas l'escondor, mas las requèstas seguentas profiecharàn de la responsa mesa en escondedor recentament.
   application_version_advisory_information: Version de l'aplicacion
   are_you_sure: Sètz segur ?
   are_you_sure_this_action_cannot_be_undone: Sètz segur ? Aquesta accion es irreversibla.
@@ -1004,9 +1013,19 @@ oc:
   article_not_associated_with_any_published_entries: Aqueste article es pas associat a cap de las taxinomias publicadas.
   article_of_taxon: Article sus %{taxon_name}
   article_rating: Evaluacion de l’article
+  article_secondary_description_with_others_count: 
+    one: Descripcion de %{taxon} e d'un %{count} autre taxon
+    other: Descripcion de %{taxon} e de %{count} autres taxons
+    zero: Descripcion de %{taxon}
+  articles_in_languages_with_count: 
+    one: "Los articles sus aquesta pagina son disponibles en %{count} lenga :"
+    other: "Los articles sus aquesta pagina son disponibles en %{count} lengas :"
   articles_with_count: 
     one: "%{count} article"
     other: "%{count} articles"
+  as_of_time_there_were_unique_visitors: 
+    one: A %{time}, i aviá %{count} visitor unic
+    other: A %{time}, i aviá %{count} visitors unics
   assistive_details_header: Detalhs
   assistive_literature_header: Literatura
   assistive_maps_header: Mapas
@@ -1042,10 +1061,14 @@ oc:
     other: "Pas fisables per :"
   associations_more_link: mai d’<span class="assistive">associacions al taxon</span>
   attribute: Atribut
+  audio_current_time_assistive: Quand JavaScript es activat, aquò indicarà la posicion actuala de lectura del fichièr sonòr en minutas e segondas.
+  audio_duration_assistive: Quand JavaScript es activat, aquò indicarà la durada totala del fichièr sonòr en minutas e segondas. Segon la talha del fichièr, aquò poiriá prene un pauc de temps al JavaScript per calcular la durada del fichièr e afichar una valor aicí.
   audio_mute: mut
   audio_pause: pausa
+  audio_pause_assistive: Quand JavaScript es activat, aqueste ligam vos permetrà de metre en pausa un fichièr sonòr adjacent en cors de lectura, siquenon, ignoratz aqueste ligam.
   audio_play: lectura
   audio_stop: arrèst
+  audio_stop_assistive: Quand JavaScript es activat, aqueste ligam vos permetrà darrestar un fichièr sonòr adjacent en cors de lectura, siquenon, ignoratz aqueste ligam.
   audio_unmute: pas mut
   author_of_peer_reviewed_publication_credential_option: Paternitat d’una publicacion supervisada per un par (provesir la referéncia).
   authoritative_information: Informacions que fan autoritat
@@ -1058,6 +1081,8 @@ oc:
   belongs_in_count_communities: 
     one: Aparten a %{count} Comunautat
     other: Aparten a %{count} Comunautats
+  bhl: "''Biodiversity Heritage Library''"
+  bhl_partner_footer: Visitatz la Biodiversity Heritage Library
   bhl_publication: Publicacion de ''BHL''
   bi_monthly: Bimesadièr
   biodiversity_heritage_library: "''Biodiversity Heritage Library''"
@@ -1095,8 +1120,10 @@ oc:
   change_rating_to_5_of_5: Cambiar la quòta d’evaluacion a 5 sus 5
   choose_collection_header: Causir una colleccion
   citation: Citacion
+  citation_example: Fisher, Brian. « Pogonomyrmex anergismus Cole, 1954. » Enciclopèdia de la vida, disponible sus <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accedit lo 15 de genièr de 2009.
   citing_link: Citacion
   classification_already_preferred: "Error : Aquesta classificacion es ja estada marcada coma preferida."
+  classification_button_help: Seleccionatz la classificacion que representa lo melhor la pagina existenta çaijós, e clicatz sul boton "utilizar coma modèl" correspondent. Per anullar tota l’operacion, clicatz sus "anullar".
   classification_curation_pending: Conservacion en espèra. Aquesta classificacion poiriá èsser desplaçada cap a una autra pagina dins un avenidor pròche.
   classification_curation_split_comment_with_count: 
     one: "%{count} classificacion dempuèi aquesta pagina es estada <a href='%{url}'>devesida sus sa pròpria pagina</a>."
@@ -1111,22 +1138,41 @@ oc:
   classification_split_warning: <b>Prenètz un moment per vos assegurar qu'avètz seleccionat <i>totas</i> las classificacions que correspondon a la pagina cibla.</b> Per exemple, se devesissètz o desplaçatz una classificacion de las amanitas dempuèi una pagina de raton lavaire, vos cal seleccionar totas las classificacions de las amanitas per aquesta operacion. Se ne doblidatz una, corregir aquò mai tard poiriá èsser dificile.
   classification_summary_section_header: Classificacion
   classification_tree_header: Classificacion
+  classifications_edit_cancelled_busy: O plenhèm, vòstra requèsta per modificar las classificacions pòt pas èsser executada pel moment; una o mai d'una de las paginas de taxon son varrolhadas. Una requèsta existenta per modificar aquelas classificacions es en cors d’execucion.
   classifications_edit_cancelled_merge_to_self: Vòstra font e vòstra cibla son la meteissa pagina; pas res a desplaçar.
   classifications_exemplar_column_header: Modèl
   classifications_hierarchy_column_header: Classificacion
+  classifications_locked: Las classificacions d'aquesta pagina pòdon pas èsser modificadas pel moment. Una autra demanda per modificar aquelas classificacions es en cors d’execucion.
+  classifications_merge_additional_confirm_required: Per fusionar aquelas classificacions, una confirmacion suplementària es necessària.
+  classifications_merge_providers_match_confirm: Confirmi que vòli espotir l’afirmacion d'aqueste partenari de contengut qu'aquelas donadas ne deurián èsser separadas.
+  classifications_merge_providers_match_warning: Sètz a mand de fusionar doas paginas ont %{provider} a afirmat que las donadas deurián èsser separadas. Confirmatz que volètz <i>espotir</i> aquesta afirmacion e metre aquelas donadas sus la meteissa pagina.
   classifications_preferred_column_header: Preferit
   classifications_rank_column_header: Reng
   classifications_recognized_by_column_header: Reconegut per
   classifications_split_column_header: Separar / Desplaçar
+  classifications_split_one_classification_only: Seleccionatz una sola classificacion de devesir. Las autras classificacions pòdon èsser desplaçadas cap a la novèla pagina aprèp sa creacion
+  classifications_summary_header_with_count: 
+    one: Trobat dins %{count} classificacion
+    other: Trobat dins %{count} classificacions
+    zero: Classificacion normalament pas visibla dins l’EdlV
+  classifications_with_count: 
+    one: "%{count} classificacion"
+    other: "%{count} classificacions"
   clear_all_non_species_pages: Escafar totas las paginas non relativas a las espècias
   clear_entire_cache_store: Escafar l'emmagazinatge entièr de l'escondedor
   clear_species_page: Escafar la pagina de las espècias
   click: Clicar
+  click_on_a_user_to_view_the_users_detailed_profile: Clicatz sus un nom d’utilizaire per visualizar lo perfil detalhat de l’utilizaire, clicatz sus las espècias per visualizar la pagina ont lo tèxte es present (utilizatz lo boton de retorn en arrièr de vòstre navigador per tornar aicí).
+  click_on_a_username_to_view_the_users_detailed_profile: Clicatz sus un nom d’utilizaire per visualizar lo perfil detalhat de l’utilizaire, clicatz sul tipe de donadas per visualizar l’objècte comentat (utilizatz lo boton de retorn en arrièr de vòstre navigador per tornar aicí), clicatz sus « modificar » per modificar lo comentari o clicatz sus « suprimir » per suprimir definitivament lo comentari.
+  click_on_an_activity_to_see_th: Clicatz sus una activitat per visualizar totas las autras activitats que se son produchas dins un interval de 5 minutas.
   clicked_time: Ora de clic
+  close_this_window_to_return_to_edit_window: TAMPATZ AQUESTA FENÈSTRA PER TORNAR A LA FENÈSTRA DE MODIFICACION
   cms_available_in_languages: "Aquesta pagina es disponibla en :"
+  cms_missing_content_message: O planhèm, aquesta pagina es pas disponibla per la lenga seleccionada %{selected_language}.
   cms_missing_content_title: Traduccion mancanta
   collect_item: element de collècta
   collect_items: elements de collècta
+  collection_api_sort_field_notes: Se un paramètre sort_field es inclús, sols los elements de la colleccion que lo camp de triada correspond exactament a la cadena provesida seràn renviats
   collection_copy_choose_all_items_target_title: "Copiar totes los elements de « %{collection} » dins :"
   collection_copy_choose_target_title_with_count: 
     one: "Copiar %{count} element de « %{collection} » a :"
@@ -1137,8 +1183,10 @@ oc:
   collection_created_notice: La colleccion <em>%{collection_name}</em> es estada creada amb succès.
   collection_delete_link: Suprimir definitivament aquesta colleccion.
   collection_destroyed: La colleccion es estada suprimida.
+  collection_error_no_items_selected: "Error : Cap d'element pas seleccionat, cap d'accion serà pas efectuada."
   collection_image: Imatge de la colleccion
   collection_is_empty: Aquesta colleccion es actualament voida.
+  collection_item_edit_by_javascript_not_authorized_error: O planhèm, sètz pas autorizat a modificar aqueste element de colleccion. Se sètz lo proprietari de la colleccion o son modificador, recargatz la pagina e verificatz que sètz encara identificat.
   collection_item_edit_page_title: Modificar l’element dins la colleccion <em>%{collection_name}</em>
   collection_item_not_found_error: Impossible de trobar aqueste element de la colleccion.
   collection_items_count: 
@@ -1158,6 +1206,7 @@ oc:
   collection_not_created_error: Una error s’es producha. La colleccion <em>%{collection_name}</em> a pas pogut èsser creada.
   collection_not_destroyed_error: La colleccion a pas pogut èsser suprimida.
   collection_not_found_error: O planhèm, impossible de trobar aquesta colleccion.
+  collection_not_updated_error: O planhèm, una error s'es producha, la colleccion a pas pogut èsser mesa a jorn.
   collection_rating: Evaluacion de la colleccion
   collection_redindexed: Colleccion reïndexada.
   collection_remove_complete_with_count: 
@@ -1219,6 +1268,8 @@ oc:
   comment_body_label: Vòstre comentari
   comment_created_at: Creat lo
   comment_delete_confirm: Sètz segur que volètz suprimir aqueste comentari ?
+  comment_edit_by_javascript_not_authorized_error: O planhèm, sètz pas autorizat a modificar aqueste element de comentari. Se sètz l'autor del comentari, recargatz la pagina e verificatz que sètz connectat.
+  comment_new_posters_image_advisory_info: Vòstre imatge de perfil e vòstre nom apareisseràn al costat de vòstre comentari sus las listas.
   comment_new_posters_image_alt: Vòstre imatge de perfil, se n'avètz provesit un.
   comment_new_title: Apondre un comentari novèl
   comment_not_added_error: O planhèm, una error s'es producha, lo comentari a pas pogut èsser apondut.
@@ -1226,6 +1277,7 @@ oc:
   comment_not_updated_error: O planhèm, una error s'es producha, lo comentari a pas pogut èsser mes a jorn.
   comment_or_rate_on_this_article: Comentar o notar aqueste article
   comment_or_rate_on_this_link: comentar o notar aqueste ligam
+  comment_show_posters_image_alt: Imatge de perfil de %{posters_name}, qu'a apondut aqueste comentari.
   comments: Comentaris
   comments_and_tags: Comentaris e balisas
   comments_filter: Comentaris
@@ -1260,6 +1312,7 @@ oc:
   communities_index_header: Comunautats activas.
   communities_link: Comunautats
   communities_page_title: Comunautats
+  communities_summary_empty: Aqueste taxon es pas encara estat aprovat per cap de comunautat.
   communities_summary_header_with_count: 
     one: Aparten a %{count} Comunautat
     other: Aparten a %{count} Comunautats
@@ -1274,6 +1327,7 @@ oc:
     one: "%{count} contribucion"
     other: "%{count} contribucions"
   community_description_default: Una comunautat de l’Enciclopèdia de la Vida.
+  community_destroyed: Avètz suprimit aquesta comunautat. Apareisserà pas mai dins las paginas de taxon ni dins los resultats de recèrcas.
   community_empty_notice: Aquesta comunautat a pas cap de membre.
   community_focus: Colleccions geridas
   community_focus_items_with_count: 
@@ -1284,10 +1338,16 @@ oc:
   community_members: Membres de la comunautat
   community_name_label: Nom de la comunautat
   community_newsfeed: Fial d’actualitats de la comunautat
+  community_no_longer_has_manager_access_to_collection: La comunautat «  %{community} » a pas mai accès a la colleccion « %{collection}  » en tant que gestionari.
+  community_not_destroyed_error: O planhèm, un problèma s'es produch ; la comunautat a pas pogut èsser suprimida.
   community_rating: Evaluacion per la comunautat
   community_removed_by_owner: Aquesta colleccion es estada levada per son proprietari.
+  community_tab_collections_description: Las colleccions son creadas pels utilizaires de l’EdlV per acampar d'espècias, de documents multimèdia, d'articles o quitament de donadas numericas qu'an quicòm en comun, tal coma la geografia, l’ecologia o una significacion personala. Las comunautats pòdon « sosténer » de colleccions que lor son de valor o d’interès particular.
   community_tab_collections_header: Colleccions
+  community_tab_communities_description: Las comunautats son de gropes d’utilizaires de l’EdlV que s'acampan per partejar lors interèsses e lor expertisa. Las comunautats EdlV s’organizan a l'entorn d’una o de mai d'una colleccion EdlV e ofrisson a lors membres un mejan de se concentrar sus de subjèctes de preocupacion comuna. Mai d’informacions sus las comunautats EdlV, inclusas las instruccions per crear la vòstra, son disponiblas sus la <a href='/info/communities'>pagina d’ajuda</a>.
+  community_tab_curators_description: Los conservators son d'utilizaires de l’EdlV qu'an una expertisa en biologia e que consacran una part de lor temps per supervisar los contenguts de l’EdlV per tal de s’assegurar que çò que vesètz siá exacte e de nauta qualitat.
   completed: Acabat
+  confirm_delete_community: Sètz segur que volètz suprimir aquesta comunautat ? Los membres que demòran la poiràn totjorn veire e lo flux de novetats serà mantengut, mas s’aficharà pas dins las recèrcas o sus las paginas de taxinomia, e serà pas mai modificabla.
   confirm_leave: Sètz segur que volètz quitar aquesta comunautat ?
   confirm_password_colon: "Confirmatz lo senhal :"
   contact: Contacte
@@ -1323,27 +1383,43 @@ oc:
   content_partner_administration_notes_empty: I a pas cap de nòta d’administracion.
   content_partner_administration_notes_header: Nòtas d’administracion
   content_partner_administration_settings_header: Paramètres d’administracion
+  content_partner_administration_settings_introduction: Los camps d’administracion seguents son visibles e editables unicament pels administrators de l’EdlV.
   content_partner_agreement_cancel_edit_agreement_link: Anullar
   content_partner_agreement_cancel_new_agreement_link: Anullar
   content_partner_agreement_cancel_sign_agreement_link: Anullar
+  content_partner_agreement_create_successful_notice: Avètz acceptat las condicions del partenari de contengut. Ara, podètz apondre de donadas.
+  content_partner_agreement_create_unsuccessful_error: Una error s’es producha. Sembla que l’acòrd amb lo partenari de contengut a un problèma tecnic. Ensajatz tornarmai. Se lo problèma contunha, senhalatz-lo a l’EdlV.
+  content_partner_agreement_signed_successful_notice: Avètz acceptat amb succès las condicions de l’acòrd de partenari, ara podètz apondre de ressorsas de donadas.
+  content_partner_agreement_signed_unsuccessful_error: O planhèm, una error s'es producha ; sembla qu'i a un problèma tecnic amb los acòrds de partenaris de contenguts. Ensajatz tornarmai ; se lo problèma contunha, avisatz l’EdlV.
   content_partner_agreement_subheader: Acòrd de partenari de contengut
+  content_partner_agreement_update_successful_notice: L’acòrd suls tèrmes de partenariat de contengut es estat mes a jorn amb succès.
+  content_partner_agreement_update_unsuccessful_error: O planhèm, una error s’es producha, l’acòrd suls tèrmes del partenariat de contengut es pas estat mes a jorn.
+  content_partner_collections_empty: Las colleccions d’un partenari de contengut fan la lista de las donadas que lo partenari a provesit dempuèi sas ressorsas. Cap de colleccion publicada es pas estada trobada pel moment.
   content_partner_column_header_partner: Partenari
   content_partner_contact_create_successful_notice: Lo contacte es estat apondut.
+  content_partner_contact_create_unsuccessful_error: O planhèm, una error s'es producha, lo contacte es pas estat apondut.
   content_partner_contact_delete_successful_notice: Lo contacte es estat suprimit.
+  content_partner_contact_delete_unsuccessful_error: Una error s'es producha, lo contacte es pas estat escafat.
   content_partner_contact_edit_link: Modificar lo contacte
   content_partner_contact_edit_page_subheader: Modificar lo contacte
   content_partner_contact_new_edit_form_header: Informacions de contacte del partenari
+  content_partner_contact_new_edit_form_tip: Lo prenom, lo nom e l’adreça de corrièr electronic son %{required_icon} obligatòris.
   content_partner_contact_new_link: Apondre un contacte novèl
   content_partner_contact_new_page_subheader: Apondre un contacte
   content_partner_contact_update_successful_notice: Lo contacte es estat mes a jorn corrèctament
+  content_partner_contact_update_unsuccessful_error: Una error s'es producha, lo contacte es pas estat mes a jorn.
   content_partner_contacts_header: Contactes
+  content_partner_create_successful_notice: Lo partenari de contengut es estat creat amb succès.
+  content_partner_create_unsuccessful_error: Una error s'es producha, lo partenari es pas estat creat.
   content_partner_current_agreement_create_link: Crear un novèl
   content_partner_current_agreement_edit_link: Modificar
   content_partner_current_agreement_empty: Pas cap d'acòrd
   content_partner_current_agreement_not_accepted: Pas encara acceptat
   content_partner_current_agreement_signed_on_with_date: Signat lo %{date}
   content_partner_current_agreement_view_link: Afichar
+  content_partner_data_description_empty: Degun a pas apondut cap de descripcion a las donadas provesidas.
   content_partner_data_description_header: Descripcion de las donadas
+  content_partner_default_description: Un partenari de contengut de l’Enciclopèdia de la Vida.
   content_partner_edit_link: Modificar lo partenari de contengut
   content_partner_filter_option_published_latest_harvest_not_published: Pas publicats los mai recents
   content_partner_filter_option_published_latest_harvest_pending_publish: Darrièra publicacion en espèra
@@ -1361,6 +1437,7 @@ oc:
   content_partner_logo_alt_text: Lògo del partenari de contengut %{partner_name}
   content_partner_managed_by_header: Gerit per
   content_partner_new_edit_form_profile_header: Informacions de perfil del partenari
+  content_partner_new_edit_form_tip: Certanas de las informacions que sometètz aicí seràn visiblas publicament. Lo nom e la descripcion del projècte son %{required_icon} requesits.
   content_partner_new_link: Apondre un novèl partenari de contengut
   content_partner_new_page_subheader: Apondre un novèl partenari de contengut
   content_partner_notes_empty: I a pas cap de remarcas annèxas per aqueste projècte.
@@ -1378,26 +1455,41 @@ oc:
   content_partner_resource_about_header: A prepaus de la ressorsa
   content_partner_resource_auto_publish_false: Non
   content_partner_resource_auto_publish_true: Òc
+  content_partner_resource_collection_empty: Cap de colleccion es pas generada per aquesta ressorsa.
   content_partner_resource_collection_header: Colleccion publicada
   content_partner_resource_collection_show_link: Afichar la colleccion publicada
   content_partner_resource_collections_header: Colleccions
+  content_partner_resource_confirm_force_harvest: Sètz forçar la recòlta de las ressorsas %{resource_title}?
+  content_partner_resource_create_successful_notice: "Las informacions sus la ressorsa del partenari son estadas apondudas. Estatut actual de la ressorsa : %{resource_status}"
+  content_partner_resource_create_unsuccessful_error: O planhèm, una error s'es producha, la ressorsa es pas estada aponduda.
   content_partner_resource_dataset_details_header: Jòc de donadas
+  content_partner_resource_description_empty: Cap de descripcion es pas estada provesida per aquesta ressorsa.
   content_partner_resource_edit_link: Modificar
   content_partner_resource_edit_subheader: Modificar la ressorsa
   content_partner_resource_edit_with_type_link: Modificar la ressorsa
+  content_partner_resource_harvest_event_confirm_publish: Sètz segur que volètz publicar l'eveniment de recòlta %{completed_at} per la ressorsa %{resource_title}? Prenètz nòta que quand confirmaretz la publicacion, vòstra requèsta serà mesa dins una coa de tractament e qu'aquò pòt prene fins a 24 oras abans que siá tractada.
   content_partner_resource_harvest_event_current_published: Publicat actualament
   content_partner_resource_harvest_event_not_published: Pas publicat
   content_partner_resource_harvest_event_previously_published: Publicat precedentament
   content_partner_resource_harvest_event_publish_pending: Publicacion en espèra
+  content_partner_resource_harvest_event_update_successful_notice: Eveniment de recòlta per %{resource_title} mes a jorn amb succès.
+  content_partner_resource_harvest_event_update_unsuccessful_error: O planhèm, una error s’es producha, l'eveniment de recòlta per %{resource_title} es pas estat mes a jorn.
   content_partner_resource_harvest_events_empty: Cap d'eveniment de recòlta es pas estat trobat.
+  content_partner_resource_harvest_events_for_resource_subheader: Eveniments de recòlta per la ressorsa %{resource_title}
   content_partner_resource_harvest_events_see_all_link: Veire totes los <span class="assistive">eveniments de recòlta</span>
   content_partner_resource_hierarchy_browsable: Navigable
+  content_partner_resource_hierarchy_complete_false: Aquesta ierarquia es pas definida coma supervisada. Las entradas correspondentas pòdon èsser tractadas coma un meteis concèpte.
+  content_partner_resource_hierarchy_complete_true: Aquesta ierarquia es definida coma <strong>organizada</strong>. Una ierarquia supervisada supausa que cada entrada es destinada a èsser unica, es a dire que las cadenas de noms correspondentas seràn tractadas coma dels omonims.
+  content_partner_resource_hierarchy_confirm_request_publish: Sètz segur que volètz depausar una demanda per promòure vòstra ierarquia per tal que siá consultabla sus EdlV ?
   content_partner_resource_hierarchy_edit_link: Modificar
+  content_partner_resource_hierarchy_edit_subheader: Modificar la ierarquia per la ressorsa <em>%{resource_title}</em>
   content_partner_resource_hierarchy_not_browsable: Pas navigable
   content_partner_resource_hierarchy_request_publish: Demanda en espèra
   content_partner_resource_hierarchy_unknown: Desconegut
   content_partner_resource_hierarchy_update_successful_notice: Ierarquia mesa a jorn amb succès.
+  content_partner_resource_hierarchy_update_unsuccessful_error: Una error s'es producha, la ierarquia es pas estada mese a jorn.
   content_partner_resource_licensing_details_header: Dreches e atribucions
+  content_partner_resource_new_edit_form_tip: Entratz las informacions a prepaus de vòstra ressorsa. Asseguratz-vos de provesir un nom a la ressorsa, e d’indicar l’adreça URL publica de vòstre fichièr o de lo mandar al format GZIP, TAR o XML. Se indicatz una adreça URL, podètz precisar a quina frequéncia volètz que vòstras donadas sián reculhidas per l’EdlV. Mercé de vos assegurar que vòstre fichièr siá dins un format compatible amb l’EdlV. <a href="%{more_url}">Ne saber mai sus la compatibilitat dels formats.</a>.
   content_partner_resource_new_link: Apondre una ressorsa novèla
   content_partner_resource_new_subheader: Apondre una ressorsa novèla
   content_partner_resource_preview_collection_header: Previsualizar la colleccion
@@ -1406,6 +1498,14 @@ oc:
   content_partner_resource_resource_status_new: Creat
   content_partner_resource_show_link_back_to: tornar a la ressorsa
   content_partner_resource_show_subheader: Detalhs de la ressorsa <em>%{resource_title}</em>
+  content_partner_resource_status_update_illegal_transition_error: L'estatut de la ressorsa %{resource_title} es %{current_resource_status} e pòt pas èsser modificat en %{requested_resource_status}.
+  content_partner_resource_status_update_successful_notice: L'estatut de la ressorsa %{resource_title} es estat modificat en %{resource_status}.
+  content_partner_resource_status_update_unsuccessful_error: Una error s’es producha. L'estatut de la ressorsa %{resource_title} a pas pogut èsser modificat en %{resource_status}.
+  content_partner_resource_update_successful_notice: "Las informacions sus la ressorsa del partenari son estadas apondudas. Estatut actual de la ressorsa : %{resource_status}"
+  content_partner_resource_update_unsuccessful_error: Una error s’es producha. Las informacions sus la ressorsa son pas estadas mesas a jorn.
+  content_partner_resource_upload_unsuccessful_error: "Una error s’es producha. Las informacions de la ressorsa son estadas mesas a jorn mas la ressorsa ela-meteissa es pas estada telecargada : %{resource_status}."
+  content_partner_resource_url_or_dataset_not_both_error: URL de DataSet o fichièr per ressorsa, mas pas los dos. Decidissètz se volètz provesir una URL o telecargar un fichièr per descriure aquesta ressorsa. De ressorsas suplementàrias pòdon èsser apondudas pus tard.
+  content_partner_resource_validation_unsuccessful_error: O planhèm, los detalhs de la ressorsa son estats meses a jorn, mas la ressorsa a pas pogut èsser validada. Vejatz las nòtas d’execucion çaijós.
   content_partner_resource_vetted_false: Non
   content_partner_resource_vetted_true: Òc
   content_partner_resource_view_link: Afichar
@@ -1414,15 +1514,19 @@ oc:
   content_partner_resources_link_back_to: tornar a ressorsas &amp; contactes
   content_partner_statistics_column_header_provider_count: Paginas que contenon lo contengut del provesidor
   content_partner_statistics_column_header_provider_proportion: Percentatge del provesidor
+  content_partner_statistics_column_header_statistic: Estatisticas pel mes de %{month_name} %{year}
   content_partner_statistics_column_header_taxa_page_page_views: Paginas vistas
   content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Temps passat sus la pagina en segondas
   content_partner_statistics_column_header_taxa_page_unique_page_views: Nombre de paginas unicas vistas
   content_partner_statistics_column_header_total_count: Totas las paginas
+  content_partner_statistics_empty: Cap d'estatistica pas trobada pel mes de  %{month_name} %{year}.
   content_partner_statistics_link: Estatisticas d'utilizacion
   content_partner_statistics_month_label: Mes
+  content_partner_statistics_taxa_page_caption: Estatisticas d’utilizacion detalhadas per las paginas de taxinomia qu'incluisson de contenguts provesits per %{partner_name}.
   content_partner_statistics_year_label: Annada
   content_partner_status_empty: Estat desconegut
   content_partner_update_successful_notice: Las informacions sul partenari son estadas mesas a jorn.
+  content_partner_update_unsuccessful_error: Una error s’es producha. Las informacions sul partenari son pas estadas mesas a jorn.
   content_partner_vetted_false: Pas supervisat
   content_partner_vetted_true: Aprovat
   content_partners: 
@@ -1448,6 +1552,7 @@ oc:
   content_servers: Servidors de contengut
   content_setting_colon: "Paramètres de contengut :"
   content_summary_table_count_column_header: Nombre
+  content_summary_table_summary: Aqueste tablèu conten los descomptes dels diferents tipes de contenguts separats segon lor estat.
   content_summary_table_type_descendants_row: Nombre de descendents
   content_summary_table_type_status_column_header: Tipe de contengut e estat
   content_summary_table_type_trusted_images_row: Nombre d’imatges fisables
@@ -1457,19 +1562,31 @@ oc:
   content_type: Tipe de contengut
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Contribuir
+  copied_all_items_from_collection_with_count: 
+    one: Un element copiat de %{from} cap a aquesta colleccion.
+    other: Totes los %{count} elements copiats de %{from} cap a aquesta colleccion.
+  copied_all_items_to_collections: 
+    one: Un element copiat de %{name} cap a %{count} colleccion.
+    other: Totes los elements copiats de  de %{name} cap a %{count} colleccions.
   copy: Copiar
   copy_of_name: Còpia de %{name}
   copyright: "COPYRIGHT (dreches d’autor) :"
+  correct_donation_message_with_link: Se aquesta informacion es pas corrècta, <a href='%{link}'>tornatz en arrièr</a> per far las modificacions.
+  could_not_find_collection_error: O planhèm, impossible de trobar aquesta colleccion.
+  could_not_find_user: Sètz pas un membre d'aquesta comunautat.
   count: Quantitat
   create_a_collection: Crear una colleccion
   create_a_community: Crear una comunautat
+  create_a_community_login_advisory: Vos demandarem de vos identificar abans de crear vòstra comunautat
   create_a_new_collection: Crear una colleccion
   create_account: crear un compte
   create_child_page: Crear una sospagina
   create_collection_button: Crear una colleccion
   create_community: Crear una comunautat
   create_community_about_heading: A prepaus de la creacion d’una comunautat
+  create_community_around_this_collection_header: Crear una comunautat a l'entorn d'aquesta colleccion
   create_community_button: Crear una comunautat
+  create_community_unsuccessful_error: O planhèm, una error s'es producha ; vòstra comunautat es pas estada creada. Asseguratz-vos que totes los camps son completats corrèctament.
   created: Creat
   created_at: Creat a
   created_by: Creat per
@@ -1485,12 +1602,16 @@ oc:
   curated_objects_of: objèctes conservats de %{name}
   curated_species_of: espècias conservadas de %{name}
   curation_comment: Comentari de conservacion
+  curation_error_hide_reasons_invalid: Las rasons d'amagatge per %{association} èran pas validas
+  curation_error_object_in_preview_state_cannot_be_curated: Aqueste objècte es estat previsualizat per l’impòrt e pòt pas èsser conservat
+  curation_error_untrust_reasons_invalid: Las rasons de non-fisabilitat per %{association} èran pas validas
   curation_error_vetted_invalid: Podètz pas conservar %{association} a '%{vetted}'
   curation_error_visibility_invalid: Podètz pas conservar %{association} a '%{visibility}'
   curation_privileges_page_title: Venir un conservator
   curation_reason_placeholder: detalhs suplementaris (facultatius)
   curation_scope: Espandida de conservacion
   curator: conservator
+  curator_admin_index_help: Clicar un nom d’utilizaire per visualizar lo perfil detalhat de l’utilizaire. Podètz cambiar las autorizacions de supervision al nivèl clad sus las paginas de perfils d’utilizaires. Se de certificats son troncats, clicatz dessús per espandir e afichar los certificats complets.
   curator_colon: "Conservator :"
   curator_level: Nivèl de supervision
   curator_level_assistant_curator: Conservator adjunt
@@ -1506,6 +1627,10 @@ oc:
   curator_scope_colon: "Espandida de conservacion :"
   curator_status_changed_by: Estatut de conservator modificat per %{user} lo %{date}
   curators: Conservators
+  curators_empty: Nòstres conservators an pas encara pres cap d'accion a prepaus d'aquesta pagina.
+  curators_summary_header_with_count: 
+    one: Supervisat per %{count} conservator
+    other: Supervisat per %{count} conservators
   curators_summary_learn_more_link: Aprenètz cossí conservar
   curators_with_count: 
     one: "%{count} Conservator"
@@ -1521,7 +1646,11 @@ oc:
   data_master_database_colon: "Donadas mèstras :"
   data_object: Objèctes de donadas
   data_object_ignore: ignorar aqueste element
+  data_object_not_associated_with_any_hierarchies: Aqueste objècte de donadas es pas associat a cap de ierarquia.
   data_object_reference: Referéncia de l’objècte de donadas
+  data_object_toc_items_list: 
+    one: Apareis jos %{quoted_toc_titles}
+    other: Apareisson jos %{quoted_toc_titles}
   data_object_undo_ignore: levar de la lista d'ignorar
   data_objects: 
     show: 
@@ -1602,6 +1731,9 @@ oc:
   dato_create_cancel: Anullar
   dato_create_user_link_error: O planhèm, una error s'es producha, lo ligam a pas pogut èsser apondut.
   dato_create_user_text_error: O planhèm, una error s'es producha, l'article a pas pogut èsser apondut.
+  dato_create_user_text_missing_taxon_id_exception: Impossible de construsir un objècte de donadas textualas o d'utilizaire se l’identificant de taxon es nul.
+  dato_create_user_text_missing_user_exception: Impossible de construsir un objècte de donadas textualas o d'utilizaire se l’identificant de taxon es nul.
+  dato_create_user_text_validation_error: Asseguratz-vos qu’avètz completat lo formulari corrèctament.
   dato_edit_cancel: Anullar
   dato_edit_link_button: Modificar aqueste ligam
   dato_edit_link_title: Modificar lo ligam
@@ -1613,6 +1745,8 @@ oc:
   dato_new_edit_user_text_link_fieldset_content_header: Donadas del ligam
   dato_new_text_for_taxon_page_title: Apondre un article a <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Apondre un ligam cap a <i>%{taxon}</i>
+  dato_update_user_text_error: O planhèm, una error s'es producha, l'article a pas pogut èsser mes a jorn.
+  dato_update_users_text_not_owner_exception: Sol l’autor d’origina d'aqueste objècte de tèxte lo pòt modificar.
   default: Per defaut
   default_focus_collection_name_from_community: Domeni d’interès de %{name}
   default_watch_collection_name: Lista de seguiment de %{username}
@@ -1633,15 +1767,20 @@ oc:
   did_you_mean: "Voliatz dire : %{suggestions} ?"
   disabled_for_now: DESACTIVAT PEL MOMENT
   discover_link: Descobrir
+  displaying_numerical_range: Afichatge de %{start_number} a %{end_number} sus %{total}
   do_you_want_to_be_a_curator: Volètz èsser un conservator ?
   donate: Far un don
+  donation_amount_legend: Causissètz lo montant que voldriatz donar
   donation_amount_other_label: Autre
   donation_confirmation: Confirmacion de don
   donation_error_no_amount: Seleccionar un montant de don.
+  donation_error_only_numbers: Entratz un montant en utilizant pas que de chifras.
+  donation_privacy_notice: <em>Notícia sus la vida privada e la seguretat :</em> notatz qu'aquesta pagina e la pagina seguenta de confirmacion reculhisson pas cap d'entresenha personala o numèro de carta de crèdit e doncas son pas chifradas. Aprèp aver confirmat lo montant que volètz donar, seretz dirigit cap a una pagina securizada per picar vòstras informacions de pagament. Cap de frais serà pas portat a vòstra carta bancària o de crèdit tant que sometretz pas la pagina securizada que compòrta vòstras informacions personalas.
   donation_sponsorship_content_title: Pairinatge de contengut
   donation_sponsorship_fellowships_title: Borsas
   donation_sponsorship_infrastructure_title: Infrastructuras de basa
   done_already: Ja efectuat
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Afichar pas las datas d’inscripcion desconegudas (utilizaires V1, totes abans lo 5 de genièr de 2009)
   download_wav_file: Telecargar lo fichièr WAV
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Los elements en doble son estats ignorats.
@@ -1674,6 +1813,7 @@ oc:
   email_colon: "Adreça de corrièr electronic :"
   email_recipients: Destinataris del corrièr electronic
   email_updates_for_eol_addicts: Mesas a jorn pels afogats d'EdlV.
+  email_updates_for_eol_members: Mesas a jorn que la màger part dels membres d’EdlV voldràn recebre.
   encyclopedia_of_life: Enciclopèdia de la Vida
   endorsed_by: Presentat per
   endorsed_collections: Colleccions a la una
@@ -1738,17 +1878,29 @@ oc:
   error_404_description: O planhèm, impossible de trobar una pagina a aquesta URL.
   error_404_page_title: Pas trobat
   error_500_page_title: Ops !
+  error_classifications_locked_cannot_reindex: O planhèm, aquesta pagina pòt pas èsser reïndexada pel moment. Las classificacions son varrolhadas.
+  error_couldnt_find_collection_by_id: Impossible de trobar una colleccion que podètz gerir amb l’id %{id}.
+  error_couldnt_find_community_by_id: Impossible de trobar una comunautat que podètz gerir amb l’id %{id}.
   error_default_page_title: Ops !
+  error_homepage_or_search_option: "Podètz siá tornar a la <a href=\"/\">pagina d’acuèlh</a>, siá utilizar nòstra aisina de recèrca :"
   error_log: Jornal d’errors
   error_log_detail: Detalhs del jornal d’errors
   error_logging_active: Jornalizacion de las errors activa
+  error_updating_user: I a agut una error en metent a jorn l’enregistrament d'aqueste utilizaire
   error_watch_collections_cannot_be_shared: Las colleccions de seguiment pòdon pas èsser partejadas.
+  every_method_can_also_return_json_response: Cada metòde pòt tanben tornar una responsa JSON en apondent una extension .json
   example_colon: "Exemple :"
   exception: Excepcion
   exceptions: 
     security_violations: 
+      administrators_only: O planhèm, l’accès es limitat als administrators de EdlV.
       default: Accès refusat.
       hidden_user_login: O planhèm, la connexion es desactivada per aqueste compte.
+      hidden_user_recover_account: O planhèm, la recuperacion del compte es desactivada per aqueste compte.
+      hidden_user_temporary_login: O planhèm, la recuperacion del compte e la connexion son desactivadas per aqueste compte.
+      min_assistant_curators_only: O planhèm, l’accès es restrench als conservators de EdlV amb un nivèl de conservacion minimal d’assistent.
+      min_full_curators_only: O planhèm, l’accès es limitat als Conservators EdlV amb un nivèl de conservacion minimal de Total.
+      min_master_curators_only: O planhèm, l’accès es limitat als Conservators EdlV amb un nivèl de conservacion minimal de mèstre.
   expand_all_children: Desvolopar totes los enfants
   explore: a descobrir
   explore_what_we_know_about_taxon: Descobrissètz çò que l’EdlV sap de %{taxon}.
@@ -1805,17 +1957,23 @@ oc:
   filter_newsfeed_option_watchlist: Lista de seguiment
   filtered_information: Informacions filtradas
   find_taxa_submit_button: trobar de taxons
+  flash_notice_redirected_from_search_html: Sètz arribat aicí en recercant <em>%{search_string}</em>. <a href="%{more_results_url}">Clicar aicí per tornar a la pagina de recèrca.</a>
+  flash_notice_redirected_from_search_html_more_results: Sètz arribat aicí en recercant <em>%{search_string}</em>. <a href="%{more_results_url}">Clicar aicí per afichar d’autres resultats de recèrca.</a>
   flash_video: Vidèo Flash
   flickr: Flickr
   flipboard: Ecran papièr
+  focus_collection_edit: Podètz modificar las colleccions d'aquesta comunautat dirèctament sus la pagina de modificacion de cada colleccion.
   focus_list_newsfeed: Alimentacion de las novèlas de la lista dels subjèctes principals
   for_images_to_reference_parens: (pels imatges de referenciar)
   for_pdfs_and_docs_parens: (pels PDF e documents)
   for_terms_or_definitions_conta: "pels tèrmes o definicions que contenon :"
   forgot_password: Ai doblidat mon senhal
   forgot_password_form_cancel: Anullar
+  forgot_password_form_choose_username_blank_error: Seleccionatz lo compte que ne volètz reïnicializar lo senhal.
   forgot_password_form_choose_username_legend: Causir un compte
   forgot_password_form_header: Reïnicializar lo senhal
+  forgot_password_form_helper: Notatz plan que los corrièrs electronics de reïnicializacion de senhals son <em>sovent</em> marcats coma 'Spam' pels filtres de corrièr electronic. Verificatz vòstre dorsièr de spams s'avètz pas recebut vòstre corrièr d'aicí una ora.
+  forgot_password_form_username_or_email_blank_error: Entratz vòstre nom d’utilizaire e email per reïnicializar vòstre senhal.
   form_validation_errors_for_attribute_assistive: I a una error de validacion sus aqueste element.
   forums: 
     actions: Accions
@@ -1893,11 +2051,13 @@ oc:
   from_community: "de la comunautat : %{community}"
   full_content_url: URL del contengut complet
   gbif_map: Mapa GBIF
+  gbif_occurrence_disclaimer: Aquesta carta es basada suls enregistraments d’ocurréncia disponibles dins la <a href='http://www.gbif.org/'>ret GBIF</a> e representa pas la reparticion de l’ensemble.
   general_site_admin: administracion generala del site
   get_help_choosing_a_subchapter: Obténer d’ajuda per causir un soscapítol
   get_help_choosing_a_subject: Obténer d’ajuda per causir un subjècte
   get_more_tasks: obténer mai de prètzfaches
   given_name_colon: "Pichon nom :"
+  gives_access_to_a_single_hierarchy_indexed_by_eol: balha accès a una sola ierarquia indexada per l’EdlV e a sas relacions intèrnas
   global_access_tagline: Accès global a la coneissença sus la vida sus Tèrra.
   global_navigation: Navigacion globala
   glossary_is_empty: (lo glossari es void)
@@ -2196,10 +2356,14 @@ oc:
   hierarchy_roots_colon: "Raices de la ierarquia :"
   hierarchy_updated: Ierarquia mesa a jorn
   home: Acuèlh
+  home_page_cache_last_cleared_on: Escondedor de la pagina d’acuèlh escafat lo còp passat a %{date}
+  home_page_link_advisory_information: Aqueste ligam vos menarà a la pagina d’acuèlh del site de l’Enciclopèdia de la vida
   html_format: (format HTML)
+  html_format_with_left_col: (FORMAT HTML, de picar solament se volètz aver una colomna a esquèrra sus la pagina, siquenon de daissar blanc)
   id: Identificant
   image: Imatge
   image_alt_text: "Aqueste imatge %{vetted_status} pòrta sus : %{taxon_name}"
+  image_crop_failed_error: O planhèm, una error s'es producha, l'imatge a pas pogut èsser rosegat.
   image_cropped_notice: L’imatge es estat rosegat corrèctament.
   image_from_supplier: Imatge provesit per %{whom}
   image_is_no_longer_available: L’imatge es pas mai disponible
@@ -2215,6 +2379,7 @@ oc:
   image_of_taxon: Imatge de %{taxon_name}
   image_rating: Evaluacion de l'imatge
   image_title_with_taxa: Imatge de %{taxa}
+  image_title_without_taxa: Imatge d'un taxon desconegut
   images: Imatges
   images_in_red_are_not_trusted: Los imatges en roge son pas fisables.
   images_in_yellow_are_not_reviewed: Los imatges en jaune son pas estats revistes.
@@ -2228,14 +2393,18 @@ oc:
   in_this_data_type: "dins aqueste %{data_type} :"
   inappropriate: Inapropriat
   inaturalist_tab_label: Observacions iNaturalist
+  include_all_metadata: inclutz totas las metadonadas pels objèctes de donadas
   indexed: Indexat
   info_item: Element d’informacion
   info_items_col_header: Elements d’informacion
   information_for_any_audience: Informacions per tot public
   information_intended_for_beginners: Informacions destinadas als debutants
   information_intended_for_experts: Informacions destinadas als expèrts
+  insufficient_privileges_to_add_common_names: O planhèm, avètz pas los privilègis sufisents per apondre de noms usuals.
+  insufficient_privileges_to_curate_names: O planhèm, avètz pas los privilègis sufisents per conservar de noms.
   internal_ip_address: adreça IP intèrna
   inverse_sort: Triada inversada
+  invite_members_help_text: Apondètz qualques utilizaires de l’EdlV aicí e recebràn un convit a vòstra novèla comunautat !
   invite_members_label: Convidar de membres
   ip: IP
   ip_address: Adreça IP
@@ -2394,6 +2563,7 @@ oc:
   list_newsletter_emails: lista dels corrièrs electronics de bulletin
   list_of_activity_combinations: Lista de las combinasons d’activitat pendent una durada de 5 min.
   listing_collections: Lista de las colleccions
+  lists_the_identifiers_for_all_hierarchies: fa la lista dels identificants per totas las ierarquias provesidas pels partenaris de contengut
   literature: Literatura
   literature_bhl_link: Consultar la bibliografia eissida de BHL
   literature_empty: Cap de referéncia pas trobat.
@@ -2443,7 +2613,11 @@ oc:
   matching_users_found_with_count: 
     one: Un total de %{count} utilizaire correspond a vòstres critèris.
     other: Un total de %{count} utilizaires correspond a vòstres critèris.
+  max_collection_items_error: O planhèm, vòstra demanda depassa lo limit de %{max} elements de la colleccion.
   media: Mèdia
+  media_list_empty: Degun a pas encara contribuit a cap de supòrt sus aquesta pagina.
+  media_list_empty_contribute_instructions: Aprenètz cossí contribuir als mèdias de l’EdlV.
+  media_list_empty_search: Cap de supòrt disponible correspond pas a vòstres critèris de recèrca.
   media_summary_empty: Degun a pas encara contribuit a cap d'imatge sus aquesta pagina.
   media_summary_empty_contribute_instructions: Aprenètz cossí contribuir als imatges de l’EdlV.
   media_with_count: 
@@ -2513,27 +2687,35 @@ oc:
   most_active_members: Membres los mai actius
   move: Desplaçar
   move_down: Far davalar
+  move_items_to_a_new_collection_with_count: 
+    one: Desplaçar %{count} element cap a una novèla colleccion
+    other: Desplaçar %{count} elements cap a una novèla colleccion
   move_to_bottom: desplaçar en bas
   move_to_top: desplaçar en naut
   move_up: Far remontar
   multimedia_links: Ligams multimèdia
+  must_be_associated_with_either_a_user_or_a_community: Deu èsser associat a un utilizaire o una comunautat
   must_be_checked_in_to_show: "- deu èsser verificat per èsser mostrat a l’utilizaire"
   must_be_checked_in_to_view: "- deu èsser verificat per èsser visualizat"
   must_be_less_than_128_characters_long: deu èsser inferior a 128 caractèrs.
+  must_be_logged_in: Vos cal èsser connectat per efectuar aquesta accion.
   must_provide_search_term_error: Vos cal entrar un critèri de recèrca.
   my_activity: Mon activitat
   my_info: Mas informacions
   name: Nom
   name_colon: "Nom :"
+  name_not_in_select_an_alternate: Lo nom es pas dins %{hierarchy}. Seleccionatz una autra ierarquia dins la lista çaisús
   name_preferred_for_language_help_tip: "%{icon} marca lo nom preferit dins cada lenga."
   name_preferred_for_language_yes: Preferit
   name_preferred_taxonomically_for_source_help_tip: "%{icon} marca lo nom preferit dins cada font."
   name_preferred_taxonomically_for_source_yes: Preferit
   names: Noms
   names_children_column_header: Enfants
+  names_common_empty: Cap de nom vulgar es pas encara estat associat a aqueste taxon
   names_common_list_by_language_assistive_header: Noms vulgars listats per lenga
   names_curation_column_header: Conservacion
   names_et_al: "%{names}, e companhiá"
+  names_explanation: Los scientifics an per tòca de descriure un unic « arbre de vida » que reflècte las relacions d’evolucion entre èssers vivents. Pasmens, las relacions d’evolucion son una matèria totjorn en cors de descoberta, e i a d'opinions diferentas sus cossí regropar e nomenar los èssers vivents. L’EdlV reflècta aquelas diferéncias en prenent en carga mantuna 'classificacion' scientificas diferentas. D'unas espècias son estadas nomenadas mai d’un còp. Aqueles doblons son repertoriats coma sinonims. L’EdlV pren tanben en carga los noms vulgars que pòdon variar segon las regions e las lengas.
   names_filter: Noms
   names_name_column_header: Nom
   names_parents_column_header: Parents
@@ -2541,6 +2723,7 @@ oc:
   names_relationship_column_header: Relacions
   names_sources_column_header: Fonts
   names_status_column_header: Estatut
+  names_synonyms_empty: Cap de sinonim es pas encara estat associat a aqueste taxon
   never: Pas jamai
   new_collection: Colleccion novèla
   new_contact_us_topic: Novèl subjècte Contactatz-nos
@@ -2553,30 +2736,42 @@ oc:
   news_available_in_languages: "Aquesta pagina es disponibla en :"
   news_date: Data de l'actualitat
   news_item: element novèlas
+  news_item_is_visible_on_website_after_this_time: "L’element Actualitats es visible sul site web aprèp aqueste relambi :"
   news_item_title: Element novèlas
   news_items: 
     index: 
       meta_keywords: actualitats de EOL, actualitats de l’enciclopèdia de la vida
       meta_title: Actualitats de EdlV
       page_title: Actualitats de EdlV
+  news_missing_content_message: O planhèm, aquesta pagina es pas disponibla per la lenga seleccionada %{selected_language}.
   news_missing_content_title: Traduccion mancanta
   newsfeed: Fial de novèlas
+  newsfeed_help_for_taxon: Lo fial de novèlas per aquesta pagina de taxon de l’EdlV regropa las mesas a jorn associadas als elements qu'i son afichats, incluses las accions de conservacion e los comentaris dels utilizaires de l’EdlV.
   next: Seguent
   no_active_members: L’activitat es pas encara sufisenta.
   no_answer: Non
+  no_classificaitons_selected: Cap de classificacion pas seleccionada. I a pas res a desplaçar.
   no_comments_are_available_for_subject: Cap de comentari es pas disponible sus %{subject}
   no_comments_have_been_left_yet: Pas cap de comentari.
   no_errors_are_available: Cap d'error es pas disponibla.
   no_harvesting_logs_for_this_da: Pas cap de jornal de collècta per aquesta data.
   no_items_were_copied_to_collections_error: "Cap d'element es pas estat copiat dins las colleccions : %{names}."
   no_news_items_for_month_and_year: Pas cap d'actualitat per %{month_and_year}
+  no_record_found_matching_your_criteria: Cap d'enregistrament pas trobat que corresponda a vòstres critèris.
+  no_related_names: Cap de nom es pas ligat a aqueste taxon pel moment.
   no_results_for: pas cap de resultat per
+  no_survey_responses_are_availa: Cap de responsa a un sondatge es pas disponibla.
   no_tasks_found: Cap de prètfach pas trobat
+  no_uploaded_content_is_available: Cap de contengut telecargat es pas disponible.
+  no_users_matched_search: Cap d'utilizaire disponible correspond pas a vòstres critèris de recèrca.
   none: pas cap
   not_applicable: pas aplicable
   not_evaluated: Pas evaluat
   not_published_yet: pas encara publicat
+  not_recognized_by_available_hierarchies: Pas reconegut per una de las classificacions disponiblas
+  not_yet_implemented_error: O planhèm, aquesta foncionalitat es pas encara estada realizada.
   note: "Nòta :"
+  note_all_times_utc: Remarcatz que totas las oras son en UTC (Orari median de Greenwich)
   notes: Nòtas
   notes_not_shown_to_user: "Nòtas (invisiblas a l’utilizaire):"
   notification_frequency_daily_digest: Jornalièr
@@ -2652,6 +2847,7 @@ oc:
       message: "Mercé per vòstra inscripcion a l’Enciclopèdia de la Vida (EdlV). Lo ligam seguent permetrà de verificar que volètz completar vòstra inscripcion e activar vòstre compte :\n\n%{verification_url}\n\nUn còp que vòstre compte sera estat activat, recebretz un corrièr electronic de confirmacion."
       subject: Verificatz vòstra demanda de compte sus l’Enciclopèdia de la Vida (EdlV)
   nucleotide_sequences: Sequéncias de nucleotids
+  nucleotide_sequences_proteins_link: Veire las sequéncias de nucleotids e de proteïnas dins NCBI
   num_content_partners: No. dels partenaris de contengut
   num_data_objects: No. dels objèctes de donadas
   number_of_taxa_at_this_entry: "# de taxons d'aquesta entrada"
@@ -2685,7 +2881,16 @@ oc:
   objects_curated: Objèctes conservats
   older_version_of_latest_published_data_object_title_link: Anciana version de %{link}
   on_time_col_header: activat
+  only_alphanum_with_no_spaces: alfanumeric solament, sens espacis
+  only_multi_search_suggestions: (unicament se i a mantuna suggestion pel meteis critèri de recèrca, la triada es creissenta)
+  only_show_authoritative_conten: "Afichar pas que lo contengut que fa autoritat :"
+  only_show_unapproved_curators: Afichar pas que los conservators pas omologats
   option_please_select: Seleccionatz
+  or_add_it_to_an_existing_collection: o l’apondre a una colleccion existenta
+  or_add_it_to_an_existing_community: o l’apondre a una comunautat existenta
+  or_copy_them_to_existing_collection: o los copar dins una colleccion existenta
+  or_email_education: O mandatz vòstra suggestion per corrièr electronic a %{link}.
+  or_move_them_to_existing_collection: o los desplaçar dins una colleccion existenta
   original: "ORIGINA :"
   original_object: Objècte d’origina
   other_collection_items_with_count: 
@@ -2709,6 +2914,7 @@ oc:
   page_reference: "\"%{title}\". Encyclopèdia de la Vida, disponibla sus \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\". Accedit lo %{date}"
   page_results_avg: mejana dels resultats de pagina
   page_statistics: Estatisticas de la pagina
+  page_statistics_and_tools: estatisticas de la pagina e aisinas
   page_urls: "URL(s) de la pagina :"
   page_views_th: Paginas vistas
   pages_admin_section_link: Administrators
@@ -2734,6 +2940,7 @@ oc:
   partner_page: pagina de partenari
   partner_web_site_colon: "Site web del partenari :"
   password_colon: "Senhal :"
+  password_must_be_4to16_characters: La longor del senhal deu èsser compresa entre 4 e 16 caractèrs.
   pause: pausa
   people_with_count: 
     one: "%{count} persona"
@@ -2753,6 +2960,9 @@ oc:
   personal_profile_menu: Perfil personal
   personal_space: Espaci personal
   pinterest: Pinterest
+  please_confirm_your_donation_details: Confirmatz los detalhs de vòstre don
+  please_return_to_eol_homepage: Tornatz a la pagina d’acuèlh de l’EdlV
+  please_state_one_credential: "Indicatz al mens un certificat especific d'aquesta lista :"
   please_wait: Pacientatz...
   post_comment: Mandar un comentari
   posts_from_year: Messatges de %{year}
@@ -2771,6 +2981,7 @@ oc:
   profile_newsfeed: Mon fial de novèlas
   profile_picture: Fòto del perfil
   project: Projècte
+  provide_a_concept_id: a partir d’un ID de pagina de EdlV, los resultats de la recèrca seràn limitats als membres d'aqueste grop taxonomic
   provider: Provesidor
   providers: Provesidors
   public: Public
@@ -2795,6 +3006,8 @@ oc:
   rating_added_notice: L'evaluacion es estada aponduda amb succès.
   rating_learn_more_link: Ne saber mai sus la notacion
   rating_not_added_error: O planhèm, una error s'es producha, l'evaluacion a pas pogut èsser aponduda.
+  recaptcha: Picatz los dos mots que vesètz çaijós
+  recaptcha_incorrect_error_with_anchor: Los <a href="#%{recaptcha_anchor}">caractèrs del reCaptcha</a> correspondon pas, ensajatz tornarmai.
   recent_activities: 
     index: 
       list_header: Los 7 darrièrs jorns
@@ -2864,11 +3077,15 @@ oc:
   remove_curatorship_colon: "Suprimir la conservacion :"
   remove_data_object_association: Suprimir l’associacion
   remove_membership: Suprimir l’adesion
+  removed_count_items_from_collection_notice: 
+    one: "%{count} element es estat suprimit d'aquesta colleccion."
+    other: "%{count} elements son estat suprimits d'aquesta colleccion."
   reply: Respondre
   request: Demanda
   request_mailing_list_colon: "L’utilizaire vòl pas recebre de Corrièr electronic :"
   required: Obligatòri
   required_form_element: Obligatòri
+  reset_password_enter_new_password_notice: S’agís d’una connexion unitària ; picatz un senhal novèl per contunhar.
   resource: Ressorsa
   resources: Ressorsas
   response: Responsa
@@ -2877,7 +3094,11 @@ oc:
   results_offset: Resultats %{from} - %{to} sus %{total} per <em>%{for}</em>
   results_per_page: "Resultats per pagina :"
   return: retorn
+  return_all_common_names_for_this_taxon: renvia totes los noms vulgars per aqueste taxon
   return_all_synonyms_for_this_taxon: renvia totes los sinonims per aqueste taxon
+  return_common_names_for_the_page_taxon: renvia totes los noms vulgars pel taxon de la pagina
+  return_references_for_the_page_taxon: renvia totas las referéncias del taxon de la pagina
+  return_synonyms_for_the_page_taxon: renvia totes los sinonims pel taxon de la pagina
   revisions: Revisions
   revoke_full_curator_link: Revocar
   revoke_manager_link: Revocar lo ròtle de gestionari
@@ -2908,13 +3129,23 @@ oc:
   search_placeholder: Recèrca sus l’EdlV…
   search_previous_label: Precedent
   search_results: Resultats de la recèrca
+  search_suggestion_created: La suggestion de recèrca es estada creada amb succès.
+  search_suggestion_updated: La suggestion de recèrca es estada mesa a jorn amb succès.
   search_suggestions: Suggestions de recèrca
   search_term: Critèri de recèrca
+  search_term_detail_report: Rapòrt de detalh suls critèris de recèrca
+  search_term_reports: Rapòrt suls critèris de recèrca
+  search_term_reports_title: Rapòrt suls critèris de recèrca
   search_the_site: Recercar sul site
+  see_all_activity_combinations: Veire totas las combinasons d’activitat dempuèi 5 minutas
   see_all_maps_link: Veire totas las mapas
   see_all_media_link: Veire totes los mèdias
+  see_all_of_your_collections: Veire totas vòstras colleccions
+  see_all_of_your_communities: Veire totas vòstras comunautats
   see_notes: veire las nòtas
+  select_an_item_from_the_menu: Seleccionatz un element dins lo menú
   select_colon: "Seleccionatz :"
+  select_tool_and_go: "Seleccionatz una aisina puèi clicatz sus 'Go':"
   select_topic: Causissètz un subjècte
   selected_items: Elements seleccionats
   selected_language_advisory_information: Es la lenga actualament seleccionada.
@@ -2936,9 +3167,14 @@ oc:
   set_as_exemplar: Definir coma modèl
   share_a_collection: Partejar una colleccion
   show: Afichar
+  show_all_other_classifications_with_count: 
+    one: Afichar %{count} autra classificacion non-navegabla
+    other: Afichar %{count} autras classificacions non-navegablas
   show_data_from_all_content_partners: Suprimir lo filtre de classificacion
+  show_email_message_area: "[afichar la zòna de messatge de corrièr electronic]"
   show_full_tree: arbre complet
   show_in_overview: afichar coma apercebut
+  show_status_message: Far veire lo messatge d'estatut
   show_tasks: prètzfaches
   show_warning_message: Afichar lo messatge d’avertiment
   showing_all_error_logs: Afichar <b>totas las errors</b>
@@ -2946,6 +3182,7 @@ oc:
   showing_error_logs_from_date: Afichar las errors dempuèi <b>%{date}</b>
   showing_harvest_logs_from_date: Afichar las collèctas dempuèi <b>%{date}</b>
   shown_to_the_user_parens: (afichat a l’utilizaire)
+  shown_to_user_as_the_title_of_page: afichat a l’utilizaire coma títol de la pagina
   sign_in: S’identificar
   sign_in_successful_notice: Connexion capitada.
   sign_out: Desconnexion
@@ -3298,6 +3535,9 @@ oc:
   taxon_biomedical_terms_link: Tèrmes biomedicals
   taxon_citizen_science_header: Ligams Scientifics Personals
   taxon_citizen_science_link: Ligams scientifics personals
+  taxon_concept_stats: Estatisticas del concèpte de taxon
+  taxon_details_empty: Degun a pas encara contribuit a cap de detalh sus aquesta pagina.
+  taxon_details_empty_in_this_language: Degun a pas encara contribuit sus cap de detalh sus aquesta pagina dins aquesta lenga.
   taxon_education_header: Ressorsas pedagogicas
   taxon_education_link: Ressorsas pedagogicas
   taxon_group: Grop de taxon
@@ -3309,7 +3549,9 @@ oc:
   taxon_newsfeed: Fial de novèlas del taxon
   taxon_not_found_error: "\"%{taxon}\" pas trobat"
   taxon_nucleotide_sequences_link: Sequéncias de nucleotids
+  taxon_page_content_disclaimer: Lo contengut de l’EdlV es acumulat automaticament dempuèi fòrça provesidors de contengut diferents. Per consequéncia, de temps en temps, podètz trobar de paginas sus l’EdlV que son font de confusion.
   taxon_page_content_disclaimer_header: Desistiment
+  taxon_partner_links_empty_learn_more_link: Descobrissètz cossí venir un partenari de contengut
   taxon_partner_links_header: Ligams cap a un partenari
   taxon_partner_links_link: Ligams cap a un partenari
   taxon_rating: Evaluacion del taxon
@@ -3330,6 +3572,7 @@ oc:
   text: tèxte
   text_capital: Tèxte
   text_object: Objèctes tèxte
+  text_summary_empty: Degun a pas encara contribuit a cap de resumit brèu sus aquesta pagina.
   text_summary_empty_header: Resumit brèu
   text_summary_more_link: Legir l’entrada completa
   text_with_count: 
@@ -3338,16 +3581,25 @@ oc:
   thank_you: Mercé
   thank_you_for_your_generous_support: Mercé per vòstre sosten generós !
   thanks_for_your_time: Mercé per vòstre temps,
+  the_amount_entered_was: "Lo montant indicat èra : %{number} $US"
+  the_comment_was_successfully_deleted: Lo comentari es estat suprimit amb succès.
+  the_comment_was_successfully_updated: Lo comentari es estat mes a jorn amb succès.
+  the_content_could_not_be_displ: Impossible d’afichar lo contengut.
   the_content_was_updated: Lo contengut es estat mes a jorn.
   the_file_was_uploaded: Lo fichièr es estat mandat.
+  the_glossary_term_was_successf: Lo tèrme del glossari es estat mes a jorn amb succès.
+  the_image_from_this_source_is_not_trusted: L’imatge d'aquesta font es pas fisable.
+  the_info_highlighted_is_reviewed: L’informacion mesa en evidéncia en roge çaijós es estada revisada per un conservator e es marcada coma pas fisabla.
   the_message_was_sent: Lo messatge es estat mandat.
   the_new_topic_was_created: La novèla rubrica es estada creada.
+  the_new_user_was_created: Lo novèl utilizaire es estat creat.
   the_query_string: la cadena de requèsta
   the_suggested_page_to_direct_users_to_link: la pagina suggerida cap a la quala cal dirigir los utilizaires
   the_topic_was_updated: Lo subjècte es estat mes a jorn.
   the_user_was_updated: L'utilizaire es estat mes a jorn.
   this_article_cannot_be_curated_because_unpublished: Aqueste article pòt pas èsser supervisat perque es pas publicat.
   this_article_is_unpublished: Aqueste article es pas publicat.
+  this_cannot_be_undone_are_you_sure: Anullacion impossibla ; sètz segur ?
   this_collection_has_no_managers: Aquesta colleccion a pas cap de gestionari.
   this_comment_was_deleted: Aqueste comentari es estat suprimit.
   this_image_cannot_be_curated_because_unpublished: Aqueste imatge pòt pas èsser supervisat perque es pas publicat.
@@ -3359,6 +3611,7 @@ oc:
   this_link_is_unpublished: Aqueste ligam es pas publicat.
   this_map_cannot_be_curated_because_unpublished: Aquesta mapa pòt pas èsser supervisada perque es pas publicada.
   this_map_is_unpublished: Aquesta mapa es pas publicada.
+  this_page_shows_information_ab: Aquesta pagina aficha las informacions sus un critèri de recèrca especific e sus quins resultats an clicat los utilizaires aprèp aver executat la recèrca.
   this_sound_cannot_be_curated_because_unpublished: Aqueste son pòt pas èsser supervisat perque es pas publicat.
   this_sound_is_unpublished: Aqueste son es pas publicat.
   this_video_cannot_be_curated_because_unpublished: Aquesta vidèo pòt pas èsser supervisada perque es pas publicada.
@@ -3392,21 +3645,30 @@ oc:
   tumblr: Tumblr
   twitter: Twitter
   type: Tipe
+  unable_to_determine_title: Impossible de determinar lo títol d'aquesta pagina web
   unique_page_views_th: Nombre de paginas unicas vistas
   unknown: Desconegut
+  unknown_data_object_title: Objècte de donada desconegut
   unknown_hierarchy: Ierarquia desconeguda
   unknown_type_not_associated_with_any_published_entries: Aquestas donadas son pas associadas a cap de las taxinomias publicadas.
   unpublished: Pas publicat
+  unpublished_collections_with_count: 
+    one: "%{count} colleccion amagada"
+    other: "%{count} colleccions amagadas"
   unreviewed: Pas verificat
   unreviewed_images: Imatges pas revistes
   unreviewed_maps: Mapas pas revistas
   unreviewed_text_objects: Articles pas revistes
   untrusted: Pas fisable
   update: Metre a jorn
+  update_collection_submit_button: Metre a jorn los detalhs de la colleccion
   update_language: Metre a jorn la lenga
   update_page: Metre a jorn la pagina
+  update_user_successful_notice: Lo contacte es estat mes a jorn amb succès.
   updated: Mes a jorn
   updated_colon: "Mesa a jorn :"
+  updated_community: La comunautat es estada mesa a jorn amb succès.
+  updated_member: Lo membre es estat mes a jorn amb succès.
   updates: Mesas a jorn
   upload: Cargar
   upload_content: mandar lo contengut
@@ -3414,6 +3676,7 @@ oc:
   uploaded_content: Contengut mandat
   uploaded_on: Mandat sus
   url: URL
+  url_not_accessible: Aquesta URL es pas accessibla
   us_dolars_75: 75 US$
   us_dollars_100: 100 US$
   us_dollars_35: 35 US$
@@ -3425,24 +3688,60 @@ oc:
     one: "%{count} article apondut"
     other: "%{count} articles aponduts"
   user_activity_stats_articles_added_dropdown: Articles aponduts
+  user_activity_stats_comment_submitted: 
+    one: "%{count} comentari mandat"
+    other: "%{count} comentaris mandats"
+  user_activity_stats_common_names_added: 
+    one: "%{count} nom vulgar apondut"
+    other: "%{count} noms vulgars aponduts"
+  user_activity_stats_common_names_curated: 
+    one: "%{count} nom vulgar conservat"
+    other: "%{count} noms vulgars conservats"
+  user_activity_stats_common_names_removed: 
+    one: "%{count} nom vulgar suprimit"
+    other: "%{count} noms vulgars suprimits"
   user_activity_stats_header: Activitat
+  user_activity_stats_objects_curated: 
+    one: "%{count} objècte conservat"
+    other: "%{count} objèctes conservats"
   user_activity_stats_objects_curated_dropdown: Objèctes conservats
+  user_activity_stats_taxa_comments: 
+    one: "%{count} comentari de taxon"
+    other: "%{count} comentaris de taxon"
   user_activity_stats_taxa_comments_dropdown: Comentaris dels taxons
+  user_activity_stats_taxa_curated: 
+    one: "%{count} taxon conservat"
+    other: "%{count} taxons conservats"
+  user_activity_stats_wikipedia_nominated: 
+    one: "%{count} article de Wikipèdia nomenat"
+    other: "%{count} articles de Wikipèdia nomenats"
   user_agent: Agent d'utilizaire
+  user_already_active_notice: Vòstre compte es ja actiu, connectatz-vos.
   user_comment: Comentari de l'utilizaire
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> a comentat una anciana version de %{what} :"
   user_commented_on_something_colon: "<strong>%{user}</strong> a fach un comentari sus « %{what} » :"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> a fach un comentari sul <a href='%{link}'>fial d’informacions de %{username}</a> :"
   user_comments: Comentaris de l'utilizaire
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Identificant de l’utilizaire
+  user_joined_community_on_date: "%{username} a rejunt aquesta comunautat lo %{date}."
   user_joined_when: "\"%{user}\" a rejunt %{when}"
   user_left_comment_on_date: "%{username} a daissat un comentari lo %{date}."
   user_no_longer_active_message: Aqueste utilizaire es pas mai actiu
+  user_no_longer_has_manager_access_to_collection: "%{user} a pas mai d’accès de gestionari a \"%{collection}\"."
+  user_pending_notifications_assitive: <span class="assistive">notificacions</span>
   user_pending_notifications_comments_assistive: <span class="assistive">comentaris</span>
   user_pending_notifications_comments_with_count: 
     one: "%{count} comentari"
     other: "%{count} comentaris"
+  user_pending_notifications_with_count: 
+    one: "%{count} notificacion"
+    other: "%{count} notificacions"
   user_response: Responsa de l’utilizaire
   user_says_colon: "%{users_name} ditz :"
+  user_submitted_text: Tèxte somés per l’utilizaire
+  user_submitted_text_found: "Tèxte somés per l’utilizaire trobat :"
+  user_was_added_as_editor_of_collection: Aqueste utilizaire es estat apondut coma gestionari de "%{collection}".
   username: Nom d'utilizaire
   username_colon: "Nom de l'utilizaire :"
   username_taken: "%{name} es ja pres"
@@ -3606,11 +3905,16 @@ oc:
   users_curation_header: Qualificacions de conservator
   users_form_account_header: Vòstre compte
   users_form_curation_header: Diplòmas de supervisor
+  users_form_profile_info_header: Informacions del perfil public
   users_my_info_header: Mas informacions
+  users_that_can_edit_this_collection: Urilizaires que pòdon gerir aquesta colleccion
+  using_the_site: Utilizacion del site
+  validation_error: Error de validacion
   value: Valor
   value_default: (per defaut)
   value_empty: (void)
   values: Valors
+  version_1_0_uses_fields_from_the_latest_version: la version 1.0 utiliza de camps de la darrièra version de l'esquèma %{link}
   versions_colon: "Versions :"
   vetted: Aprovat
   video_alt_text: "Aquesta vidèo %{vetted_status} pòrta sus : %{taxon_name}"
@@ -3620,6 +3924,10 @@ oc:
   video_object: Objècte vidèo
   video_of_taxon: Vidèo de %{taxon_name}
   video_rating: Evaluacion de la vidèo
+  video_title_not_available_in_language: Títol indisponible dins %{language}
+  videos_with_count: 
+    one: "%{count} vidèo"
+    other: "%{count} vidèos"
   view_added_text: veire lo tèxte apondut
   view_article_source: Veire la font de l’article
   view_as_button: Cambiar de vista
@@ -3656,11 +3964,13 @@ oc:
   web_users: Utilizaires del web
   weekly: Setmanièr
   welcome: Benvenguda
+  what_do_these_numbers_mean: Qué significan aquestas chifras ?
   what_is_eol: Qu’es aquò l’EdlV ?
   what_is_this_question: Qu’es aquò ?
   who_registered_before: cap a
   who_registered_from: qual s’es inscrich dempuèi
   wikipedia_queue_create_successful_notice: La modificacion %{rev} de l’article %{article} de Wikipèdia es estada mesa en espèra per l’importacion.
+  wikipedia_queue_new_page_title: Demandar l’importacion d’un article de Wikipèdia
   will_paginate: 
     next_label: Seguent →
     previous_label: ← Precedent

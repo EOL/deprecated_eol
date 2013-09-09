@@ -402,7 +402,7 @@ $(function() {
       return(false);
     } else if ($q.val() == $(this).attr('data_error')) {
       var blinkIn = 20;
-      var blinkOut = 350;
+      var blinkOut = 240;
       $q.css('color', '#aa0000').fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn);
       return(false);
     }

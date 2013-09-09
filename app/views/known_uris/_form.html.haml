@@ -23,7 +23,7 @@
               = toc_item.label
       %dt= f.label :uri_type
       %dd
-        = f.select :uri_type_id, options_from_collection_for_select(UriType.all, :id, :name)
+        = f.select :uri_type_id, options_from_collection_for_select(UriType.all, :id, :name, known_uri.uri_type_id)
       %dt= f.label :exclude_from_exemplars
       %dd
         = f.check_box :exclude_from_exemplars

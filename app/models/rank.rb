@@ -2,46 +2,46 @@
 class Rank < ActiveRecord::Base
   uses_translations
   has_many :hierarchy_entries
-  has_many :group_members, :class_name => 'Rank', :primary_key => 'rank_group_id', :foreign_key => 'rank_group_id', :conditions => 'rank_group_id!=0'
+  has_many :group_members, :class_name => 'Rank', :primary_key => 'rank_group_id', :foreign_key => 'rank_group_id', :conditions => 'group_members_ranks.rank_group_id!=0'
   
   def self.kingdom
-    cached_find_translated(:label, 'kingdom')
+    cached_find_translated(:label, 'kingdom', :include => :group_members)
   end
   
   def self.phylum
-    cached_find_translated(:label, 'phylum')
+    cached_find_translated(:label, 'phylum', :include => :group_members)
   end
   
   def self.class_rank
-    cached_find_translated(:label, 'class')
+    cached_find_translated(:label, 'class', :include => :group_members)
   end
   
   def self.order
-    cached_find_translated(:label, 'order')
+    cached_find_translated(:label, 'order', :include => :group_members)
   end
   
   def self.family
-    cached_find_translated(:label, 'family')
+    cached_find_translated(:label, 'family', :include => :group_members)
   end
   
   def self.genus
-    cached_find_translated(:label, 'genus')
+    cached_find_translated(:label, 'genus', :include => :group_members)
   end
   
   def self.species
-    cached_find_translated(:label, 'species')
+    cached_find_translated(:label, 'species', :include => :group_members)
   end
   
   def self.subspecies
-    cached_find_translated(:label, 'subspecies')
+    cached_find_translated(:label, 'subspecies', :include => :group_members)
   end
   
   def self.variety
-    cached_find_translated(:label, 'variety')
+    cached_find_translated(:label, 'variety', :include => :group_members)
   end
   
   def self.infraspecies
-    cached_find_translated(:label, 'infraspecies')
+    cached_find_translated(:label, 'infraspecies', :include => :group_members)
   end
   
   

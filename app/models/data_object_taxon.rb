@@ -12,6 +12,16 @@ class DataObjectTaxon
                 :data_object, :user, :hierarchy_entry_id, :vetted_id, :visibility_id, :user_id, :taxon_concept_id,
                 :data_object_id, :user_id
 
+  def self.default_sort(data_object_taxa)
+    data_object_taxa.sort_by do |dot|
+      vetted_view_order = dot.vetted.blank? ? 0 : dot.vetted.view_order
+      visibility_view_order = dot.visibility.blank? ? 0 : dot.visibility.view_order
+      [ (dot.published * -1),
+        visibility_view_order,
+        vetted_view_order ]
+    end
+  end
+
   def italicized_attributed_title
     taxon_concept.italicized_attributed_title
   end

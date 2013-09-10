@@ -548,7 +548,7 @@ describe 'Data Object Page' do
     body.should have_tag("a[href='http://dx.doi.org/10.1006/some.ref']")
   end
 
-  it 'should not show names from untrusted associations, unless thats is all ther there is' do
+  it 'should not show names from untrusted associations, unless thats is all there is' do
     d = DataObject.gen(:data_type => DataType.image, :object_title => nil)
     d.add_curated_association(@full_curator, @extra_he)
     d.add_curated_association(@full_curator, @singular_he)

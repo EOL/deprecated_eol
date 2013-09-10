@@ -22,8 +22,8 @@ class DataObjectCaching
       DataObjectCaching.new(data_object).title(language)
     end
 
-    def associations(data_object, filter = nil)
-      DataObjectCaching.new(data_object).associations(filter)
+    def associations(data_object, options = {})
+      DataObjectCaching.new(data_object).associations(options)
     end
 
   end
@@ -47,8 +47,9 @@ class DataObjectCaching
 
   # The only filter allowed right now is :published.
   # Some association lists are just too big, so we have to store a hash of the classes and ids used to build them.
-  def associations(filter = nil)
-    name = "associations_#{data_object.id}_#{filter}"
+  def associations(options = nil)
+    cache_key = Marshal.dump(options)
+    name = "associations_#{data_object.id}_#{cache_key}"
     assocs = []
     if exists?(name)
       assoc_hash = read(name) # Read the hash,
@@ -69,9 +70,9 @@ class DataObjectCaching
         end
       end
     else
-      store_value("associations_#{data_object.id}_#{filter}") do
+      store_value("associations_#{data_object.id}_#{cache_key}") do
         hash = {}
-        assocs = data_object.uncached_data_object_taxa(filter)
+        assocs = data_object.uncached_data_object_taxa(options)
         assocs.group_by { |el| el.source.class }.each do |k,v|
           hash[k] = v.map(&:source).map(&:id)
         end

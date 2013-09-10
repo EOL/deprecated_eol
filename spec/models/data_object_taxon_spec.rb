@@ -158,5 +158,39 @@ describe DataObjectTaxon do
     @dohe_dot.can_be_deleted_by?(@master).should_not be_true
     @udo_dot.can_be_deleted_by?(@master).should_not be_true
   end
+
+  it 'should default_sort properly' do
+    # published first
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(hierarchy_entry: HierarchyEntry.gen(published: 1))),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(hierarchy_entry: HierarchyEntry.gen(published: 0))),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(hierarchy_entry: HierarchyEntry.gen(published: 1)))
+      ]).should == [ a, c, b ]
+    # trusted, unknown, untrusted
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.unknown)),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.untrusted)),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted))
+      ]).should == [ c, a, b ]
+    # visible, invisible, preview
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(visibility: Visibility.invisible)),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(visibility: Visibility.preview)),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(visibility: Visibility.visible))
+      ]).should == [ c, a, b ]
+    # favor visibility over vetted
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted, visibility: Visibility.invisible)),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.unknown, visibility: Visibility.preview)),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.untrusted, visibility: Visibility.visible))
+      ]).should == [ c, a, b ]
+    # favor published over vetted
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted, visibility: Visibility.invisible)),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.unknown, visibility: Visibility.preview)),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.untrusted, visibility: Visibility.visible,
+            hierarchy_entry: HierarchyEntry.gen(published: 0)))
+      ]).should == [ a, b, c ]
+  end
   
 end

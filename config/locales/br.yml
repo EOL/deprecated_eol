@@ -72,11 +72,14 @@ br:
         email_reports_frequency_hours: Stankter  an danevelloù dre bostel
       data_object: 
         bibliographic_citation: Arroud levrlennadurel
-        description: Deskrivadur
+        description: Testenn
         object_title: Titl
         rights_holder: Perc'henn ar gwirioù
         rights_statement: Disklêriadur ar gwirioù
         source_url: URL orin
+      data_object_link: 
+        description: Deskrivadur
+        source_url: URL al liamm
       eol_statistic: 
         active_curators: Mirourien oberiant
         base_pages: Pajennoù diazez
@@ -133,8 +136,12 @@ br:
         published_resources: Danvezioù embannet
         published_trusted_resources: Danvezioù fizius embannet
         published_unreviewed_resources: Danvezioù embannet met nint ket bet adwlet
+        redhotlist_pages: Pajennoù pennroll ruz
         rich_hotlist_pages: Pajennoù pennroll pinvidik
+        rich_hotlist_pages_percentage: Pajennoù pennroll pinvidik
         rich_pages: Pajennoù pinvidik
+        rich_redhotlist_pages: Pajennoù pennroll ruz pinvidik
+        rich_redhotlist_pages_percentage: Pajennoù pennroll ruz pinvidik
         udo_published: Testenn pourchaset gant an implijer
         udo_published_by_curators: Testenn pourchaset gant ur mirour
         udo_published_by_non_curators: Testenn pourchaset gant un den n'eo ket mirour
@@ -181,6 +188,7 @@ br:
         member_joined_my_community: Un ezel nevez zo deuet gant  ur gumuniezh zo meret ganeoc'h
         member_joined_my_watched_community: Izili nevez o deus lakaket o anv en ur gumuniezh oc'h ezel anezhi
         member_left_my_community: Izili o deus kuitaet ur gumuniezh zo meret ganeoc'h.
+        new_data_on_my_watched_item: Degasadennoù nevez da daksonoù en ho roll heuliañ
         new_manager_in_my_community: Un ezel all zo deuet da vezañ merour eus ur gumuniezh zo meret ganeoc'h
         reply_to_comment: Ur respont d'un evezhiadenn ho peus graet
       open_authentication: 
@@ -1390,10 +1398,13 @@ br:
         object_title: Titl
         refs: Daveennoù <small>(lakaat pep daveenn war ul linenn nevez)</small>
         rights_holder: Perc'henn ar gwirioù
+        rights_holder_more: Spisaat un den pe un aozadur a berc'henn pe a ver ar gwirioù war ar roadennoù-se. Ma lezit ar vaezienn c'houllo e c'hourlakaomp oc'h piaouer ar gwirioù evit an holl aotreoù nemet Domani Foran. N'o deus ket aotreoù an domani foran ezhomm da gaout un dalc'her gwirioù.
         rights_statement: Disklêriadur ar gwirioù
+        rights_statement_more: Disklêriadur ar gwirioù implijout evel ma'z eo bet reketet gant an aotreoù Creative Commons Attribution (CC-BY); merkit, mar plij, an debarzhad<q cite="http://creativecommons.org/licenses/by/3.0"> eus an doare spisaet gant an aozer pa an aotreeg</pq>.
         source_url: URL war-zu an draezenn roadennoù orin
         toc_item: Is-rann
       data_object_link: 
+        description: Deskrivadur <small>(balizennoù HTML zo zo aotreet)</small>
         link_type: Rummad
         source_url: URL al liamm
         toc_item: Danvez
@@ -1421,11 +1432,13 @@ br:
         request_publish: Embann goulennet
       news_item: 
         active: Embannet
+        page_name: Anv dibar<small>(sifroù pe lizherennoù ISO latin diazez hag islinennet hepken)</small>
       open_authentication: 
         connect: Ouzhpennañ
         connected: Kevreet
       resource: 
         accesspoint_url: URL ar strobad roadennoù
+        administration_settings: Arventennoù merañ <small(a vez gwelet gant merourien KarV hepken)</small>
         dataset: Hollad roadennoù
         hierarchy: Urzhaz
         latest_harvest_event: Eostad diwezhañ
@@ -1644,6 +1657,7 @@ br:
         about_link_eol_blog: Blog KAB
         about_link_glossary: Geriaoueg
         about_link_help: Skoazell
+        about_link_podcasts: Podskignadoù
         about_link_statistics: Stadegoù
         about_link_terms_of_use: Termenoù implijout
         about_link_what_is_eol: Petra eo KAB ?
@@ -1672,9 +1686,12 @@ br:
         learn_more_link_trees: Gwez
         learn_more_link_viruses: Viruzoù
         learn_more_link_worms: Preñved
+        questions_link_binomial_nomenclature: Petra eo an nomenkladur biominel?
         questions_link_biodiversity: Petra eo ar vevliesseurted ?
+        questions_link_biological_classification: Petra eo ur renkadur biologel?
         questions_link_contributing_to_research: Penaos e c'hallan kemer perzh en enklask ?
         questions_link_discovering_species: Penaos eo bet dizoloet ar spesadgoù ?
+        questions_link_invasive_species: Petra eo ur spesad aloubus?
         questions_link_model_organism: Petra eo un organeg patrom ?
         questions_link_naming_species: Penaos eo bet anvet ar spesadoù?
         questions_link_species: Petra eo ur spesad ?
@@ -1841,13 +1858,16 @@ br:
     activity_log_empty: ober nevez ebet gant ar vriourien
     comments_empty: Displegadenn nevez ebet
     contact_us_auto_response: 
+      message: "Ho trugarekaat a reomp da vezañ darempredet ar raktres Buhez ar C'helc'hgeriadur (KarB). Kaset eo bet hoc'h evezhiadennoù d'ar strollad a zere.\n\nPlijet-kaer omp gant hoc'h ali."
       subject: Trugarez deoc'h evit dont e darempred gant Kelc'hgeriadur ar Vuhez
     contact_us_message: 
       subject: "Ur gemennadenn da EOL: %{title}"
+    content_partner_created: 
+      subject: Implijet Karb %{user_full_name}en deus ensrivet keveler an dalc'had %{partner_full_name}
     greeting_dear_name_with_comma: "%{name} ker,"
     signature_basic: Skipailh Hollouezhiadur ar vuhez
     signature_with_contact_us_link: "M'ho pez diaesterioù, deuit e darempred ganimp en %{url}.\n\nSkipailh Kelc'hgeriadur ar Vuhez"
-    signature_with_species_pages_group_contact: Skipailh Kelc'hgeriadur ar Vuhez
+    signature_with_species_pages_group_contact: "M'ho peus goulennoù e c'hallit dont e darempred ganeomp er chomlec'h-mañ :  %{species_pages_group_email}.\n\nSkipailh Kelc'hgeriadur ar Vuhez"
     user_activated: 
       subject: Gweredekaet eo bet ho kont Kelc'hgeriadur ar Vuhez
     user_activated_with_open_authentication: 
@@ -1856,6 +1876,11 @@ br:
       subject: Ur gemenadenn digant Kelc'hgeriadur ar Vuhez
     user_recover_account: 
       subject: Adtapit ho kont evit Kelc'hgeriadur ar Vuhez
+    user_updated_email_preferences: 
+      subject: Implijer KarB %{user_full_name} en deus kemmet e chomlec'h postel pe e zibaboù gwellañ evit ar rolloù skignañ
+    user_verification: 
+      message: "Trugarez da vezañ lakaet hoc'h anv e Kelc'hgeriadur ar Vuhez (KarB). Gant al liamm da-heul e c'hallimp gwiriañ ho peus c'hoant da glokaat hoc'h enskrivadur ha gweredekaat ho kont :\n\n%{verification_url}\n\nUr wech ma vo bet gweredekaet ho kont e resevot ur postel kadarnaat."
+      subject: Gwiriit, mar plij, ho koulenn kont e Kel'hgeriadur ar Vuhez (KarB)
   object: Traezenn
   object_status_all_option: An holl
   object_status_trusted_option: Asur
@@ -1926,16 +1951,44 @@ br:
   recent_activities: 
     index: 
       list_header: Ar 7 devezh ziwezhañ
+      meta_keywords: obererezh kumuniezh KarB, obererezh nevez KarB, obererezh Kelc'hegeriadur ar Vuhez
       meta_title: Obererezh Kumuniezh KaV
       page_title: Obererezh Kumuniezh KaV
   recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: un hivizadur zo bet e %{to}
+      other: "%{count} hizivadurioù zo bet e %{to}"
+    bulk_comments_on_you_with_count: 
+      one: un evezhiadenn nevez en <a href='%{url}' style='color:#195184'>ho profil</a>
+      other: "%{count} evezhiadennoù nevez en <a href='%{url}' style='color:#195184'>ho profil</a>"
+    bulk_comments_with_count: 
+      one: un evezhiadenn nevez zo e %{on}
+      other: "%{count} evezhiadennoù nevez zo e %{on}"
+    bulk_community_activity_with_count: 
+      one: un hivizadur zo bet e %{to}
+      other: "%{count} hizivadurioù zo bet e %{to}"
+    bulk_community_joins_with_count: 
+      one: Un ezel nevez zo en em gavet e %{community}
+      other: "%{count} izili nevez zo en em gavet e %{community}"
+    bulk_curation_with_count: 
+      one: Ar virerien o deus degasetur welladenn e %{to}
+      other: Ar virerien o deus degaset%{count} gwelladennoù e %{to}
     collection_activity_log_title: "%{who} en deus kemmet un dastumad"
+    collection_activity_user_added_item: "<b>%{user_name}</b> en deus ouzhpennet %{collected_item_type} #%{collected_item_id} e <b>%{collection_name}</b>."
     collection_activity_user_watching_recipient: <b>%{user_name}</b> zo o sellet ouzhoc'h.
     comment_body_brief: "%{body} - %{author}"
+    comment_link: Gwelet an evezhiadennoù war KarB
+    comment_title: "%{who} en deus displeget %{what}"
     community_activity_log_title: "%{who} en deus kemmet ur gumuniezh"
+    community_activity_user_left: An implijer <b>%{user_name}</b> en deus kuitaet ar gumuniezh<b>%{community_name}</b>.
     contact_us_link: Ma vezit gant kudenn pe gudenn, <a href='http://eol.org/contact_us' style='color:#195184'>deuit e darempred ganimp</a>, mar plij.
+    curator_activity_log_title: "%{who} en deus aozet un dra bennak"
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> en deus ouzhpennet ur pennad anvet %{dato_title} e <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: "%{who} en deus ouzhpennet un dalc'had da gKarB"
     intro_immediately: Demat, %{name} —
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
+    see_all_activity: Gwelit ho holl oberoù kent %{activity_url} war ho pajenn implijer <a href='%{activity_url}' style='color:#195184'></a>
+    someone_commented_on_something: <b>%{who}</b> en deus displeget <b>%{what}</b>.
   recent_updates: Hizivadennoù diwezhañ
   recently_visited: Gweladennet nevez zo
   references_cabs_colon: "Daveennoù :"
@@ -1983,9 +2036,15 @@ br:
   server_ip_address: Chomlec'h IP ar servijer
   sessions: 
     new: 
+      login_with_eol_authentication_header: "Pelec'h kevreañ gant ho titouroù-anaout KarB :"
+      login_with_facebook_assistive: Kevreañ ouzh KarB en ur implijout ho titouroù-anaout Facebook.
+      login_with_google_assistive: Kevreañ ouzh KarB en ur implijout ho titouroù-anaout Google.
+      login_with_twitter_assistive: Kevreañ ouzh KarB en ur implijout ho titouroù-anaout Twitter.
+      login_with_yahoo_assistive: Kevreañ ouzh KarB en ur implijout ho titouroù-anaout Yahoo.
       meta_title: Kevreañ
       problems_signing_in_with_connected_accounts: Kudennoù kevreañ gant hol kontoù kevreet
       problems_signing_in_with_eol_authentication: Ankouaet ho ker-tremen ganeoc'h ?
+      tip: Implijer oc'h dija ? Kevreit ho kont KarB gant Facebook, Google ha muioc'h en arventennoù eus ho profil. Ur wech kevreet ho kontoù e c'hallit implijout anezho evit kevreañ ouzh KarB.
   set_as_exemplar: Lakaat da batrom
   share_a_collection: Rannañ un dastumad
   show: Diskouez
@@ -2038,9 +2097,15 @@ br:
     communities: 
       collections: 
         hierarchy_entry: 
+          meta_description: Dastumadoù enno %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}.
+          meta_description_with_common_name: Dastumadoù enno %{preferred_common_name} (%{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
+          meta_keywords: Dastumadoù %{scientific_name}, Evezhiadennoù war %{scientific_name}, Dastumadoù %{hierarchy_provider}, Evezhiadennoù war %{hierarchy_provider}, Standilhonoù eus %{hierarchy_provider}
           meta_title: Dastumadoù eus %{scientific_name} evel m'int bet urzhiet gant %{hierarchy_provider}
+          meta_title_with_common_name: Dastumadoù eus %{preferred_common_name}(%{scientific_name} evel ma vezon rummet gant %{hierarchy_provider})
+          tweet_text: Dastumadoù eus %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
         meta_description: Dastumoù zo %{scientific_name} enno.
         meta_description_with_common_name: Dastumoù zo %{preferred_common_name} (%{scientific_name}) enno.
+        meta_keywords: Dastumadoù eus %{scientific_name}, Evezhiadennoù  war %{scientific_name}
         meta_title: Dastumoù %{scientific_name}
         meta_title_with_common_name: Dastumoù %{preferred_common_name} (%{scientific_name})
         tweet_text: Dastumoù %{scientific_name}
@@ -2048,7 +2113,14 @@ br:
         meta_title_with_common_name: Mailhed war %{preferred_common_name} (%{scientific_name})
       index: 
         hierarchy_entry: 
+          meta_description: Rannañ an titouroù hag ar prizachañ e %{scientific_name}, %{hierarchy_provider} evel ma vezont rummet gant %{hierarchy_provider}.
+          meta_description_with_common_name: Rannañ an titouroù hag ar prizachañ e %{preferred_common_name}, %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}.
           meta_keywords: "↓\nKumuniezh %{scientific_name}, %{hierarchy_provider}"
+          meta_title: An dud dedennet gant %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
+          meta_title_with_common_name: Tud dedennet gant %{preferred_common_name} (%{scientific_name}evel ma vezont rummet gant %{hierarchy_provider}
+          tweet_text: Tud dedennet gant %{preferred_common_name} %{preferred_common_name}evel ma vezont rummet gant %{hierarchy_provider}
+        meta_description: Dedennet gant %{scientific_name}?En em gavit gant prizachourien %{scientific_name} ha rannit hoc'h evezhiadennoù deoc'h war %{scientific_name} e Kelc'hgeriadur ar Vuhez.
+        meta_description_with_common_name: Dedennet gant %{scientific_name}? En em gavit gant prizachourien %{scientific_name} ha rannit hoc'h evezhiadennoù deoc'h war %{preferred_common_name} e Kelc'hgeriadur ar Vuhez.
         meta_keywords: Kumuniezh %{scientific_name}
         meta_keywords_with_common_name: kumuniezh %{preferred_common_name}, kumuniezh %{scientific_name}
         meta_title: Tud dedennet gant %{scientific_name}
@@ -2061,28 +2133,48 @@ br:
         meta_title_with_common_name: Fedoù diwar-benn %{preferred_common_name} (%{scientific_name})
         tweet_text: Fedoù diwar-benn %{scientific_name}
     literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: Lennegezh ha titouroù BHL a denn da %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider} e Kelc'hgeriadur ar Vuhez. Lennit ar pennadoù BHL a denn da %{scientific_name} e Kelc'hgeriadur ar Vuhez.
+          meta_description_with_common_name: Lennegezh ha titouroù BHL a denn da %{preferred_common_name}, anvet ivez %{scientific_name} evel ma vezont rummet gant  %{hierarchy_provider} e Kelc'hgeriadur ar Vuhez. Lennit ar pennadoù BHL a denn da %{preferred_common_name}e Kelc'hgeriadur ar Vuhez.
+          meta_title: Lennegezh BHL e %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
+          meta_title_with_common_name: Lennegezh BHL e %{preferred_common_name} evel ma vezont rummet gant %{hierarchy_provider}
+          tweet_text: "Lennegezh eus #BHL e %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}"
+        meta_title: Arroudoù BHL evit %{scientific_name}
       show: 
+        hierarchy_entry: 
+          meta_title: Lennegezh e %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
+        meta_description: Levrioù, pennadoù ha buhezskridoù a denn da %{scientific_name} e Kelc'hgeriadur ar Vuhez. Lenn al lennegezh a denn da %{scientific_name} e Kelc'hgeriadur ar vuhez.
+        meta_description_with_common_name: Levrioù, pennadoù ha buhezskridoù a denn da  %{preferred_common_name} e Kelc'hgeriadur ar Vuhez. Lenn al lennegezh a denn da %{preferred_common_name} e Kelc'hgeriadur ar vuhez.
         meta_title: Pennadoù & Levrioù diwar-benn %{scientific_name}
+        meta_title_with_common_name: Pennaoù ha levrioù %{preferred_common_name} %{scientific_name}
         tweet_text: Pennadoù & Levrioù diwar-benn %{scientific_name}
     maps: 
       show: 
+        hierarchy_entry: 
+          meta_title: Kartennoù eus %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
+          meta_title_with_common_name: Kartennoù eus %{preferred_common_name} %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
         meta_description: Titouroù douaroniel diwar-benn %{scientific_name}. Lec'hioù a vevont enno er bed.
         meta_title: Kartennoù evit %{scientific_name}
+        meta_title_with_common_name: Kartennoù evit %{preferred_common_name} (%{scientific_name})
         tweet_text: Kartenn evit %{scientific_name}
     media: 
       index: 
+        hierarchy_entry: 
+          meta_description: Skeudennoù ha videoioù eus %{scientific_name}  evel ma vezont rummet e %{hierarchy_provider}.
         tweet_text: Skeudennoù, videoioù ha sonioù eus %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
           meta_keywords: Anvioù lec'hel evit %{scientific_name}
-          meta_keywords_with_common_name: Anvioù skiantel evit %{preferred_common_name), anvioù poblek  evit %{scientific_name}
+          meta_keywords_with_common_name: Anv skiantel evit %{preferred_common_name), anvioù lec'hel evit %{scientific_name}
           meta_title: Anvioù pobek eus %{scientific_name} rummet gant %{hierarchy_provider}
           meta_title_with_common_name: Anvioù poblek eus %{preferred_common_name} (%{scientific_name} rummet gant %{hierarchy_provider})
           tweet_text: "\nAnvioù pobek eus %{scientific_name} rummet gant %{hierarchy_provider}"
         meta_description: Anvioù poblek eus  %{scientific_name}.
         meta_description_with_common_name: "%{scientific_name} eo anv skiantel  ar %{preferred_common_name}. Dizoleiet e anvioù poblek all."
         meta_keywords: Anvioù poblek evit %{scientific_name}.
+        meta_keywords_with_common_name: Anvioù boutin %{hierarchy_provider, anv skiantel %{preferred_common_name}
       synonyms: 
         hierarchy_entry: 
           tweet_text: Heñvelsterioù da  %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
@@ -2098,6 +2190,11 @@ br:
       meta_title: "%{scientific_name} - Titouroù diwar-benn %{scientific_name}"
       tweet_text: Titouroù diwar-benn %{scientific_name}
     resources: 
+      biomedical_terms: 
+        tweet_text: Termenoù bevvezegel evit %{scientific_name}
+      identification_resources: 
+        meta_title_with_common_name: Danvezioùt-anaout evit %{preferred_common_name} (%{scientific_name})
+        tweet_text: danvezioù-anaout evit %{scientific_name}
       show: 
         hierarchy_entry: 
           meta_description: Roll ar bourchaserien hag ar roadennoù tarzh evit %{scientific_name} evel ma'z int rummet gant %{hierarchy_provider}.

@@ -363,6 +363,38 @@ describe DataObject do
     DataObject.find(@user_submitted_text).data_object_taxa.count.should == data_object_taxa_count_for_udo + 1
   end
 
+  it '#uncached_data_object_taxa should filter on published, vetted, visibility' do
+    second_taxon_concept = build_taxon_concept
+    d = DataObject.gen
+    d.should_receive(:curated_hierarchy_entries).at_least(1).times.and_return([
+      DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted, visibility: Visibility.invisible)),
+      DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.unknown, visibility: Visibility.preview)),
+      DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.untrusted, visibility: Visibility.visible,
+        hierarchy_entry: HierarchyEntry.gen(published: 0)))
+      ])
+    d.uncached_data_object_taxa.length.should == 3
+    d.uncached_data_object_taxa(
+      published: true).length.should == 2
+    d.uncached_data_object_taxa(
+      vetted_id: Vetted.trusted.id).length.should == 1
+    d.uncached_data_object_taxa(
+      vetted_id: [ Vetted.trusted.id, Vetted.unknown.id ]).length.should == 2
+    d.uncached_data_object_taxa(
+      vetted_id: [ Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id ]).length.should == 3
+    d.uncached_data_object_taxa(
+      visibility_id: Visibility.visible.id).length.should == 1
+    d.uncached_data_object_taxa(
+      visibility_id: [ Visibility.visible.id, Visibility.preview.id ]).length.should == 2
+    d.uncached_data_object_taxa(
+      visibility_id: [ Visibility.visible.id, Visibility.preview.id, Visibility.invisible.id ]).length.should == 3
+    d.uncached_data_object_taxa(
+      visibility_id: Visibility.visible.id, vetted_id: Vetted.trusted.id).length.should == 0
+    d.uncached_data_object_taxa(
+      visibility_id: Visibility.visible.id, vetted_id: Vetted.untrusted.id).length.should == 1
+    d.uncached_data_object_taxa(published: true,
+      visibility_id: Visibility.visible.id, vetted_id: Vetted.untrusted.id).length.should == 0
+  end
+
   it '#safe_rating should NOT re-calculate ratings that are in the normal range.' do
     dato = DataObject.gen(:data_rating => 1.2)
     dato.safe_rating.should == 1.2

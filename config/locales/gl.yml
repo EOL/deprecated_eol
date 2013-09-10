@@ -86,11 +86,14 @@ gl:
         email_reports_frequency_hours: Frecuencia dos informes por correo
       data_object: 
         bibliographic_citation: Cita bibliográfica
-        description: Descrición
+        description: Texto
         object_title: Título
         rights_holder: Titular dos dereitos
         rights_statement: Declaración dos dereitos
         source_url: URL de orixe
+      data_object_link: 
+        description: Descrición
+        source_url: URL da ligazón
       eol_statistic: 
         active_curators: Conservadores activos
         base_pages: Páxinas de base
@@ -1035,6 +1038,10 @@ gl:
   article_not_associated_with_any_published_entries: Este artigo non está asociado a ningún taxon publicado.
   article_of_taxon: Artigo de %{taxon_name}
   article_rating: Avaliación do artigo
+  article_secondary_description_with_others_count: 
+    one: Descrición de %{taxon} e outro taxon
+    other: Descrición de %{taxon} e outros %{count} taxons
+    zero: Descrición de %{taxon}
   articles_in_languages_with_count: 
     one: "Os artigos desta páxina están dispoñibles en %{count} lingua:"
     other: "Os artigos desta páxina están dispoñibles en %{count} linguas:"
@@ -1102,6 +1109,8 @@ gl:
   belongs_in_count_communities: 
     one: Pertence a %{count} comunidade
     other: Pertence a %{count} comunidades
+  bhl: Biodiversity Heritage Library
+  bhl_partner_footer: Visitar a Biodiversity Heritage Library
   bhl_publication: Publicación BHL
   bi_monthly: Bimensual
   biodiversity_heritage_library: Biodiversity Heritage Library
@@ -1185,7 +1194,7 @@ gl:
   click_on_a_username_to_view_the_users_detailed_profile: Preme nun nome de usuario para ollar o seu perfil detallado; preme no tipo de datos para ver o obxecto comentado (volve aquí co botón de retroceso do navegador); preme en "editar" para modificar o comentario ou en "borrar" para eliminar de xeito permanante o comentario.
   click_on_an_activity_to_see_th: Preme nunha actividade para ollar calquera outra actividade que ocorrese nun intervalo de cinco minutos.
   clicked_time: Hora do clic
-  close_this_window_to_return_to_edit_window: PECHE ESTA XANELA PARA VOLVER Á VENTÁ DE EDICIÓN
+  close_this_window_to_return_to_edit_window: PECHA ESTA XANELA PARA VOLVER Á VENTÁ DE EDICIÓN
   cms_available_in_languages: "Esta páxina está dispoñible en:"
   cms_missing_content_message: Sentímolo, esta páxina non está dispoñible en %{selected_language}.
   cms_missing_content_title: Falta a tradución
@@ -2467,7 +2476,7 @@ gl:
   html_format_with_left_col: (FORMATO HTML, a inserir unicamente se queres ter unha columna á esquerda na páxina; en caso contrario, déixao en branco)
   id: ID
   if_checked_and_user_is_saved: En caso de estar marcado e o usuario rexistrado, as súas credenciais, alcance, aprobación e clado seleccionados elimínanse e o usuario deixa de ser conservador. Deberías engadir unha nota a continuación indicando o motivo. Non se envía información ao usuario.
-  if_multiple_media_objects_are_returned: "En caso de devolver múltiples obxectos multimedia, a lista ha ordenarse por tipo de obxecto. Dentro de cada tipo, os elementos ordénanse por estado de aprobación (\"De confianza\" > \"Sen revisar\" > \"Non é de confianza\") e, logo, por valoración de datos. Con todo, dentro de certos tipos de datos, hai elementos específicos aos que se lles dá a prioridade máxima: en caso de recibir de volta un deses elementos, aparecerá primeiro na lista. Para as imaxes, as imaxes exemplares teñen a prioridade máxima. Nos tipos de texto, o texto da vista xeral ten a prioridade máxima."
+  if_multiple_media_objects_are_returned: "En caso de devolver múltiples obxectos multimedia, a lista ha ordenarse por tipo de obxecto. Dentro de cada tipo, os elementos ordénanse por estado de aprobación (\"De confianza\" &gt; \"Sen revisar\" &gt; \"Non é de confianza\") e, logo, por valoración de datos. Con todo, dentro de certos tipos de datos, hai elementos específicos aos que se lles dá a prioridade máxima: en caso de recibir de volta un deses elementos, aparecerá primeiro na lista. Para as imaxes, as imaxes exemplares teñen a prioridade máxima. Nos tipos de texto, o texto da vista xeral ten a prioridade máxima."
   if_the_details_parameter_is_not_set: Se o parámetro de detalles non está configurado, entón unicamente se devolverá o identificador de obxecto de datos, o tipo de datos e, no caso de artigos, o tema. O tipo de datos ha ser un valor do vocabulario do tipo de recurso %{linka}. O tema do texto ha ser un dos %{linkb}.
   image: Imaxe
   image_alt_text: Esta imaxe %{vetted_status} pertence a %{taxon_name}
@@ -2488,6 +2497,7 @@ gl:
   image_of_taxon: Imaxe de %{taxon_name}
   image_rating: Avaliación da imaxe
   image_title_with_taxa: Imaxe de %{taxa}
+  image_title_without_taxa: Imaxe dun taxon descoñecido
   images: Imaxes
   images_in_red_are_not_trusted: As imaxes que están en vermello non son de confianza.
   images_in_yellow_are_not_reviewed: As imaxes que están en amarelo non están revisadas.
@@ -3387,7 +3397,7 @@ gl:
   shown_to_user_as_the_title_of_page: móstrase ao usuario como título da páxina
   sign_in: Acceder
   sign_in_remember_me_disallowed_for_admins_notice: Por motivos de seguridade, os administradores non poden utilizar a función de recordatorio.
-  sign_in_successful_notice: Acceso exitoso.
+  sign_in_successful_notice: Accedeu correctamente.
   sign_in_unsuccessful_error: Fallou o rexistro. O nome de usuario, o enderezo de correo electrónico ou o contrasinal non é correcto.
   sign_out: Saír
   site_cms: Sitio CMS
@@ -4221,7 +4231,7 @@ gl:
   value_default: (por omisión)
   value_empty: (baleiro)
   values: Valores
-  version_1_0_uses_fields_from_the_latest_version: a versión 1.0 utilizar campos da última versión do esquema %{link}
+  version_1_0_uses_fields_from_the_latest_version: a versión 1.0 utiliza campos da última versión do esquema %{link}
   versions_colon: "Versións:"
   vetted: Aprobado
   video_alt_text: Este vídeo %{vetted_status} pertence a %{taxon_name}
@@ -4308,8 +4318,8 @@ gl:
   you_can_identify_yourself_to_eol: "Podes identificarte na EOL engadindo a túa clave API nas túas solicitudes (accede ao sistema e xera a clave na túa páxina de preferencias):"
   you_have_been_logged_in_as_username: Accediches ao sistema como %{username}
   you_have_been_logged_out: Saíches ao anonimato.
-  you_joined_community: Uniuse a esta comunidade sen problemas.
-  you_left_community: Deixou esta comunidade sen problemas.
+  you_joined_community: Unícheste a esta comunidade sen problemas.
+  you_left_community: Deixaches esta comunidade sen problemas.
   you_may_upload_static_files_fo: Podes cargar ficheiros estáticos para usalos no CMS (por exemplo, ficheiros en PDF, documentos de Word, imaxes etc.). Non debes empregar isto para cargar contidos para as páxinas de especies; isto é unicamente para usalo nas outras páxinas (como nos anuncios de emprego, nos boletíns de novas, nos acordos MOU etc.). Para os ficheiros en PDF como os acordos MOU e os boletíns de novas, podes ligar co "URL amigable" se queres (que redirixirá automaticamente cara ao "URL completo"). Para as imaxes incorporadas nunha páxina e referenciadas cunha etiqueta &lt;img&gt;, debes usar o "URL completo". O "URL completo" pode presentar un número de servidor de contido diferente cada vez que refresques a páxina (por exemplo, "content2.eol.org", "content3.eol.org" etc.). Isto é algo normal e pódese utilizar calquera cando crees as túas ligazóns, dado que son todos equivalentes.
   you_must_be_comfortable: Debes ter coñecementos de HTML se queres crear hiperligazóns ou dar formato aos textos.
   you_removed_the_member_from_the_community: Eliminaches correctamente o membro da comunidade.

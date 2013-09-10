@@ -175,4 +175,31 @@ describe 'API:synonyms' do
     visit("/api/data_objects/#{@object.guid}?common_names=1")
     source.should include '<commonName'
   end
+
+  it 'should ' do
+    curator = build_curator(@taxon_concept, :level => :full)
+    second_taxon_concept = build_taxon_concept
+    d = DataObject.gen
+    d.add_curated_association(curator, @taxon_concept.entry)
+    d.add_curated_association(curator, second_taxon_concept.entry)
+    # checking initial state
+    response = get_as_json("/api/data_objects/#{d.guid}.json")
+    response['identifier'].should == @taxon_concept.id
+    # cfirst taxon is invisible, so second taxon is chosen
+    d.curated_data_objects_hierarchy_entries.first.update_column(:visibility_id, Visibility.invisible.id)
+    response = get_as_json("/api/data_objects/#{d.guid}.json")
+    response['identifier'].should == second_taxon_concept.id
+    # checking initial state is restored
+    d.curated_data_objects_hierarchy_entries.first.update_column(:visibility_id, Visibility.visible.id)
+    response = get_as_json("/api/data_objects/#{d.guid}.json")
+    response['identifier'].should == @taxon_concept.id
+    # first taxon is untrusted, so second taxon is chosen
+    d.curated_data_objects_hierarchy_entries.first.update_column(:vetted_id, Vetted.untrusted.id)
+    response = get_as_json("/api/data_objects/#{d.guid}.json")
+    response['identifier'].should == second_taxon_concept.id
+    # one taxon is untrusted, the other invisible, so we will get none back
+    d.curated_data_objects_hierarchy_entries[1].update_column(:visibility_id, Visibility.invisible.id)
+    response = get_as_json("/api/data_objects/#{d.guid}.json")
+    response['identifier'].should == nil
+  end
 end

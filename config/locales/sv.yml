@@ -88,11 +88,14 @@ sv:
         email_reports_frequency_hours: Frekvens av rapporter via e-post
       data_object: 
         bibliographic_citation: Bibliografiskt citat
-        description: Beskrivning
+        description: Text
         object_title: Titel
         rights_holder: Rättighetsinnehavare
         rights_statement: Rättighetsuttalande
         source_url: Käll-URL
+      data_object_link: 
+        description: Beskrivning
+        source_url: "Länkadress:"
       eol_statistic: 
         active_curators: Aktiva kuratorer
         base_pages: Grundläggande sidor
@@ -1005,6 +1008,10 @@ sv:
   article_not_associated_with_any_published_entries: Denna artikel är inte associerad med någon publicerad taxa.
   article_of_taxon: Artikel för %{taxon_name}
   article_rating: Artikelbetyg
+  article_secondary_description_with_others_count: 
+    one: Beskrivning av %{taxon} och %{count} annan taxon
+    other: Beskrivning av %{taxon} och %{count} andra taxa
+    zero: Beskrivning av %{taxon}
   articles_in_languages_with_count: 
     one: "Artiklarna på denna sida finns tillgängligt på %{count} språk:"
     other: "Artiklarna på denna sida finns tillgängliga på %{count} språk:"
@@ -1052,10 +1059,14 @@ sv:
     other: "Opålitliga för:"
   associations_more_link: fler <span class="assistive">taxonassociationer</span>
   attribute: Attribut
+  audio_current_time_assistive: Med JavaScript aktiverat kommer den aktuella positionen för uppspelning av ljudfilen visas i minuter och sekunder.
+  audio_duration_assistive: Med JavaScript aktiverat kommer ljudfilens längd visas i minuter och sekunder. Beroende på filens storlek kan det ta ett tag för JavaScript att beräkna filens längd och visa ett värde här.
   audio_mute: ljud av
   audio_pause: pausa
+  audio_pause_assistive: Med JavaScript aktiverat kommer denna länk låta dig pausa en intilliggande ljudfil som spelas, annars var god ignorera denna länk.
   audio_play: spela upp
   audio_stop: stoppa
+  audio_stop_assistive: Med JavaScript aktiverat kommer denna länk låta dig stoppa en intilliggande ljudfil som spelas, annars var god ignorera denna länk.
   audio_unmute: ljud på
   authoritative_information: auktoritativ information
   available: tillgänglig
@@ -2300,7 +2311,7 @@ sv:
   image_object: Bildobjekt
   image_of_taxon: Bild för %{taxon_name}
   image_rating: Bildbetyg
-  image_title_with_taxa: Bild av %{taxa}
+  image_title_with_taxa: Bild på %{taxa}
   images: Bilder
   images_in_red_are_not_trusted: Bilder i rött är inte pålitliga.
   images_in_yellow_are_not_reviewed: Bilder i gult är inte granskade.
@@ -2346,7 +2357,7 @@ sv:
   item_type_image: Bild
   item_type_image_assistive: Detta objekt är en bild
   item_type_image_map: Karta
-  item_type_image_map_assistive: Detta objekt är en bild av en karta
+  item_type_image_map_assistive: Detta objekt är en bild på en karta
   item_type_link: Länk
   item_type_link_assistive: Detta objekt en länk
   item_type_map: Karta

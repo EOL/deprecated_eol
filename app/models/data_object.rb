@@ -100,9 +100,7 @@ class DataObject < ActiveRecord::Base
       type_order = obj.data_type_id
       toc_view_order = (!obj.is_text? || obj.toc_items.blank?) ? 0 : obj.toc_items[0].view_order
       vetted_view_order = obj_vetted.blank? ? 0 : obj_vetted.view_order
-      visibility_view_order = 2
-      visibility_view_order = 1 if obj_visibility && obj_visibility.id == Visibility.preview.id
-      visibility_view_order = 0 if obj_visibility.blank?
+      visibility_view_order = obj_visibility.blank? ? 0 : obj_visibility.view_order
       inverted_rating = obj.data_rating * -1 # Is this throwing an ArgumentError?  Restart your worker(s)!
       inverted_id = obj.id * -1
       sort = []
@@ -124,7 +122,7 @@ class DataObject < ActiveRecord::Base
       created_at
     end
   end
-  
+
   def self.sort_by_language_view_order_and_label(data_objects)
     data_objects.sort_by do |obj|
       obj.language ? [ obj.language.sort_order, obj.language.source_form ] : [ 0, 0 ]
@@ -190,7 +188,7 @@ class DataObject < ActiveRecord::Base
     return nil if obj.blank?
     return obj[0]
   end
-  
+
   def previous_revision
     DataObject.find_by_guid_and_language_id(self.guid, self.language_id, :conditions => "id < #{self.id}", :order=> 'id desc', :limit => 1)
   end
@@ -590,7 +588,7 @@ class DataObject < ActiveRecord::Base
   def latest_version_in_same_language(params = {})
     latest_version_in_language(language_id, params)
   end
-  
+
   def latest_version_in_language(chosen_language_id, params = {})
     return self if id.nil?
     chosen_language_id ||= language.id
@@ -638,7 +636,7 @@ class DataObject < ActiveRecord::Base
   def latest_published_version_in_same_language
     @latest_published_version_in_same_language ||= latest_version_in_same_language(:check_only_published => true)
   end
-  
+
   # NOTE - You probably shouldn't be using these. It isn't really true that a data object has *one* visibility... it
   # has several. This is currently here only because the old API made that (false) assumption.
   def visibility
@@ -659,7 +657,7 @@ class DataObject < ActiveRecord::Base
     a = association_with_taxon_or_best_vetted(taxon_concept)
     return a ? a.visibility : a
   end
-  
+
   def vetted_by_taxon_concept(taxon_concept)
     a = association_with_taxon_or_best_vetted(taxon_concept)
     return a ? a.vetted : a
@@ -697,20 +695,28 @@ class DataObject < ActiveRecord::Base
   # The only filter allowed right now is :published.
   # This is obnoxiously expensive, so we cache it by default. See #uncached_data_object_taxa if you need it, but
   # consider clearing the cache instead...
-  def data_object_taxa(filter = nil)
-    DataObjectCaching.associations(self, filter)
+  def data_object_taxa(options = {})
+    DataObjectCaching.associations(self, options)
   end
-  alias :associations :data_object_taxa 
+  alias :associations :data_object_taxa
 
   # The only filter allowed right now is :published.
-  def uncached_data_object_taxa(filter = nil)
+  def uncached_data_object_taxa(options = {})
     @data_object_taxa ||= {}
-    return @data_object_taxa[filter] if @data_object_taxa.has_key?(filter)
-    assocs = filter == :published ? 
-      published_entries :
-      curated_hierarchy_entries
+    cache_key = Marshal.dump(options)
+    return @data_object_taxa[cache_key] if @data_object_taxa.has_key?(cache_key)
+    assocs = (options[:published] == true) ?
+      published_entries.clone :
+      curated_hierarchy_entries.clone
     assocs << DataObjectTaxon.new(latest_published_users_data_object) if latest_published_users_data_object
-    @data_object_taxa[filter] = assocs || []
+    [ :vetted_id, :visibility_id ].each do |param|
+      if options[param]
+        values = options[param]
+        values = [ values ] if values.class == Fixnum
+        assocs.delete_if{ |a| ! values.include?(a.send(param)) }
+      end
+    end
+    @data_object_taxa[cache_key] = assocs || []
   end
 
   # TODO - The only place this is used is app/controllers/feeds_controller.rb ...which doesn't actually seem
@@ -984,7 +990,7 @@ class DataObject < ActiveRecord::Base
   def reindex
     reload
     update_solr_index
-    data_object_taxa(:published).map(&:taxon_concept).each { |tc| tc.reindex if tc }
+    data_object_taxa(published: true).map(&:taxon_concept).each { |tc| tc.reindex if tc }
   end
 
   def can_be_deleted_by?(requestor)
@@ -1064,7 +1070,7 @@ class DataObject < ActiveRecord::Base
 
   # Used for notifications only. Expensive.
   def watch_collections_for_associated_taxa
-    data_object_taxa(:published).map(&:taxon_concept).map { |tc| tc.containing_collections.watch }.flatten
+    data_object_taxa(published: true).map(&:taxon_concept).map { |tc| tc.containing_collections.watch }.flatten
   end
 
   def title_same_as_toc_label(toc_item, options = {})
@@ -1087,7 +1093,7 @@ private
   # This is relatively expensive... but accurate.
   def image_title_with_taxa
     return @image_title_with_taxa if @image_title_with_taxa
-    all_data_object_taxa = data_object_taxa(:published)
+    all_data_object_taxa = data_object_taxa(published: true)
     visible_data_object_taxa = all_data_object_taxa.select{ |dot| dot.vetted != Vetted.untrusted }
     if visible_data_object_taxa.empty?
       @image_title_with_taxa ||= I18n.t(:image_title_without_taxa)
@@ -1104,14 +1110,14 @@ private
   def self.populate_rights_holder_or_data_subtype(params, options)
     return if options[:link_object]
     license = License.find(params[:license_id]) rescue nil
-    needs_rights = license && license.show_rights_holder? 
+    needs_rights = license && license.show_rights_holder?
     params[:rights_holder] = options[:user].full_name if needs_rights && params[:rights_holder].blank?
   end
 
   def self.set_subtype_if_link_object(params, options)
     params[:data_subtype_id] = DataType.link.id if options[:link_object]
   end
-  
+
   # NOTE - do NOT rename this "association", that appears to be a reserved Rails name.
   def raw_association(options = {})
     raw_associations(options).first
@@ -1189,7 +1195,7 @@ private
   end
 
   def is_subtype?(type)
-    reload unless self.has_attribute?(:data_subtype_id) 
+    reload unless self.has_attribute?(:data_subtype_id)
     DataType.send("#{type}_type_ids".to_sym).include?(data_subtype_id)
   end
 
@@ -1222,7 +1228,7 @@ private
       recipients << options[:user].watch_collection if options[:user].watch_collection
     end
   end
-  
+
   def add_recipient_pages_affected(recipients, options = {})
     if options[:taxon_concept]
       recipients << options[:taxon_concept]
@@ -1234,7 +1240,7 @@ private
       end
     end
   end
-  
+
   def add_recipient_users_watching(recipients, options = {})
     if options[:taxon_concept]
       options[:taxon_concept].containing_collections.watch.each do |collection|
@@ -1278,7 +1284,7 @@ private
     self.bibliographic_citation = ERB::Util.h(self.bibliographic_citation)
     self.source_url             = ERB::Util.h(self.source_url)
   end
-  
+
   def rights_required?
     license.show_rights_holder?
   end

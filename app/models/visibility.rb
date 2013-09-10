@@ -73,4 +73,15 @@ class Visibility < ActiveRecord::Base
     end
   end
 
+  def view_order
+    case id
+    when Visibility.visible.id
+      1
+    when Visibility.invisible.id
+      2
+    else
+      3
+    end
+  end
+
 end

@@ -120,57 +120,59 @@ module EOL
 
         def self.prepare_hash(taxon_concept, params={})
           return_hash = {}
-          return_hash['identifier'] = taxon_concept.id
-          return_hash['scientificName'] = taxon_concept.entry.name.string
-          return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
+          unless taxon_concept.nil?
+            return_hash['identifier'] = taxon_concept.id
+            return_hash['scientificName'] = taxon_concept.entry.name.string
+            return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
 
-          return_hash['synonyms'] = []
-          if params[:synonyms]
-            taxon_concept.scientific_synonyms.each do |syn|
-              relation = syn.synonym_relation ? syn.synonym_relation.label : ''
-              return_hash['synonyms'] << {
-                'synonym' => syn.name.string,
-                'relationship' => relation
+            return_hash['synonyms'] = []
+            if params[:synonyms]
+              taxon_concept.scientific_synonyms.each do |syn|
+                relation = syn.synonym_relation ? syn.synonym_relation.label : ''
+                return_hash['synonyms'] << {
+                  'synonym' => syn.name.string,
+                  'relationship' => relation
+                }
+              end
+            end
+
+            return_hash['vernacularNames'] = []
+            if params[:common_names]
+              taxon_concept.common_names.each do |tcn|
+                lang = tcn.language ? tcn.language.iso_639_1 : ''
+                common_name_hash = {
+                  'vernacularName' => tcn.name.string,
+                  'language'       => lang
+                }
+                preferred = (tcn.preferred == 1) ? true : nil
+                common_name_hash['eol_preferred'] = preferred unless preferred.blank?
+                return_hash['vernacularNames'] << common_name_hash
+              end
+            end
+
+            return_hash['references'] = []
+            if params[:references]
+              references = Ref.find_refs_for(taxon_concept.id)
+              references = Ref.sort_by_full_reference(references)
+              references.each do |r|
+                return_hash['references'] << r.full_reference
+              end
+              return_hash['references'].uniq!
+            end
+
+            return_hash['taxonConcepts'] = []
+            taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
+              entry_hash = {
+                'identifier'      => entry.id,
+                'scientificName'  => entry.name.string,
+                'nameAccordingTo' => entry.hierarchy.label,
+                'canonicalForm'   => (entry.name.canonical_form.string rescue '')
               }
+              entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
+              entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
+              entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
+              return_hash['taxonConcepts'] << entry_hash
             end
-          end
-
-          return_hash['vernacularNames'] = []
-          if params[:common_names]
-            taxon_concept.common_names.each do |tcn|
-              lang = tcn.language ? tcn.language.iso_639_1 : ''
-              common_name_hash = {
-                'vernacularName' => tcn.name.string,
-                'language'       => lang
-              }
-              preferred = (tcn.preferred == 1) ? true : nil
-              common_name_hash['eol_preferred'] = preferred unless preferred.blank?
-              return_hash['vernacularNames'] << common_name_hash
-            end
-          end
-
-          return_hash['references'] = []
-          if params[:references]
-            references = Ref.find_refs_for(taxon_concept.id)
-            references = Ref.sort_by_full_reference(references)
-            references.each do |r|
-              return_hash['references'] << r.full_reference
-            end
-            return_hash['references'].uniq!
-          end
-
-          return_hash['taxonConcepts'] = []
-          taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
-            entry_hash = {
-              'identifier'      => entry.id,
-              'scientificName'  => entry.name.string,
-              'nameAccordingTo' => entry.hierarchy.label,
-              'canonicalForm'   => (entry.name.canonical_form.string rescue '')
-            }
-            entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
-            entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
-            entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
-            return_hash['taxonConcepts'] << entry_hash
           end
 
           return_hash['dataObjects'] = []

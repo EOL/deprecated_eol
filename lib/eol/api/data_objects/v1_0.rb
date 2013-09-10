@@ -39,7 +39,10 @@ module EOL
             data_object = DataObject.find_by_id(latest_version.id)
           end
 
-          taxon_concept = data_object.data_object_taxa.first.taxon_concept
+          all_visible_published_taxa = data_object.uncached_data_object_taxa(published: true,
+            visibility_id: Visibility.visible.id, vetted_id: [ Vetted.trusted.id, Vetted.unknown.id ])
+          taxon_concept = all_visible_published_taxa.empty? ?
+            nil : DataObjectTaxon.default_sort(all_visible_published_taxa).first.taxon_concept
           EOL::Api::Pages::V1_0.prepare_hash(taxon_concept, params.merge({ :data_object => data_object, :details => true }))
         end
 

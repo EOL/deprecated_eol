@@ -101,11 +101,14 @@ fr:
         email_reports_frequency_hours: Fréquence des rapports par courriel
       data_object: 
         bibliographic_citation: Citation bibliographique
-        description: Description
+        description: Texte
         object_title: Titre
         rights_holder: Détenteur des droits
         rights_statement: Déclaration de droits
         source_url: URL source
+      data_object_link: 
+        description: Description
+        source_url: URL du lien
       eol_statistic: 
         active_curators: Conservateurs actifs
         base_pages: Pages de base
@@ -1100,6 +1103,8 @@ fr:
   belongs_in_count_communities: 
     one: Appartient à %{count} Communauté
     other: Appartient à %{count} Communautés
+  bhl: "''Biodiversity Heritage Library''"
+  bhl_partner_footer: Visitez la ''Biodiversity Heritage Library''
   bhl_publication: Publication de ''BHL''
   bi_monthly: Bimensuel
   biodiversity_heritage_library: "''Biodiversity Heritage Library''"
@@ -2454,6 +2459,7 @@ fr:
   image_of_taxon: Image de %{taxon_name}
   image_rating: Évaluation de l’image
   image_title_with_taxa: Image de %{taxa}
+  image_title_without_taxa: Image d’un taxon inconnu
   images: Images
   images_in_red_are_not_trusted: Les images en rouge ne sont pas fiables.
   images_in_yellow_are_not_reviewed: Les images en jaune n’ont pas été revues.

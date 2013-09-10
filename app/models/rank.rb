@@ -2,7 +2,9 @@
 class Rank < ActiveRecord::Base
   uses_translations
   has_many :hierarchy_entries
-  has_many :group_members, :class_name => 'Rank', :primary_key => 'rank_group_id', :foreign_key => 'rank_group_id', :conditions => 'group_members_ranks.rank_group_id!=0'
+  has_many :group_members, conditions: {rank_group_id: "!= 0"}, class_name: 'Rank',
+    primary_key: 'rank_group_id', foreign_key: 'rank_group_id'
+  belongs_to :rank_group, class_name: 'Rank', foreign_key: 'rank_group_id'
   
   def self.kingdom
     cached_find_translated(:label, 'kingdom', :include => :group_members)

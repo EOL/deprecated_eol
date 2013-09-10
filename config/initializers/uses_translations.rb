@@ -79,17 +79,21 @@ module ActiveRecord
                 options_language_iso = args[0]
               end
               options_hash = args.select{ |a| a && a.class == Hash && !a.blank? }.shift
-              options_include = options_hash[:include] unless options_hash.blank?
-              find_all = options_hash[:find_all] unless options_hash.blank?
+              options_include = options_hash ? Array(options_hash[:include]).compact : []
+              options_include << :translations # NOTE - you would think the default include applies, but it doesn't appear to be. :|
+              find_all = options_hash ? options_hash[:find_all] : false
               search_language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
               language_id = Language.id_from_iso(search_language_iso)
               return nil if language_id.nil?
-
               table = self::TRANSLATION_CLASS.table_name
               # find the record where the translated field is * and language is *
-              found = send("find", ((find_all === true) ? :all : :first), :joins => :translations,
+              found = find(find_all ? :all : :first, :joins => :translations,
                 :conditions => "`#{table}`.`#{field}` = '#{value}' AND `#{table}`.`language_id` = #{language_id}",
                 :include => options_include)
+              return nil if found.blank?
+              ids = found.is_a?(Array) ? found.map(&:id) : found.id
+              found = where(id: ids).includes(options_include)
+              return ids.is_a?(Array) ? found : found.first # Because the #where always returns an array...
             rescue => e
               # Language may not be defined yet
               puts e.message
@@ -103,10 +107,10 @@ module ActiveRecord
               options_language_iso = args[0]
             end
             options_hash = args.select{ |a| a && a.class == Hash && !a.blank? }.shift
-            find_all = options_hash[:find_all] unless options_hash.blank?
+            find_all = options_hash ? options_hash[:find_all] : false
             language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
             cache_key = "#{field}/#{value}/#{language_iso}"
-            cache_key += "/all" if find_all === true
+            cache_key += "/all" if find_all
             cached(cache_key) do
               find_by_translated(field, value, language_iso, options_hash)
             end

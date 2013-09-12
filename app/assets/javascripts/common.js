@@ -146,7 +146,7 @@ EOL.reveal_tab = function(name, href, options) {
   console.log('restore tab');
   EOL.add_behaviours(name);
   EOL.back_button_behaviour();
-  $('#page_heading .status, #flashes').fadeTo(2000, 0.1, function() { $(this).hide(400).remove(); });
+  $('#page_heading .status, #flashes').slowRemove();
 };
 
 EOL.add_behaviours = function(which) {
@@ -366,6 +366,10 @@ $(function() {
 
   $.fn.hasAttr = function(attr) {
     return this.is("[" + attr + "]");
+  };
+
+  $.fn.slowRemove = function() {
+    $(this).fadeTo(2000, 0.1, function() { $(this).hide(400, function() { $(this).remove(); }); });
   };
 })(jQuery);
 

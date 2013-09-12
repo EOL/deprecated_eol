@@ -143,23 +143,27 @@ EOL.restore_tab = function(name, href, options) {
   } else {
     $('.page_actions .links').hide(EOL.transitions);
   }
+  console.log('restore tab');
   EOL.add_behaviours(name);
-  EOL.enableRatings();
   EOL.back_button_behaviour();
 };
 
 EOL.add_behaviours = function(which) {
+  console.log('add_behaviours');
   if (which == 'overview') {
     EOL.overview_thumbnails_behaviours();
     EOL.show_tree_behviour();
     EOL.feed_behaviour();
   } else if (which == 'media') {
+    EOL.init_image_collection_behaviors(); // TODO - centralize these.  Jeez.
     EOL.media_list_open_images_behaviour();
+    EOL.media_list_associations_behaviours();
     EOL.media_list_switch_entry_behaviours();
     EOL.media_list_filter_behaviours();
     EOL.media_video_behaviour();
     EOL.media_prefer_behaviour();
     EOL.media_exemplar_behaviour();
+    EOL.enableRatings();
   } else if (which == 'names') {
     EOL.subtabby_behaviours('names');
   } else if (which == 'resources') {
@@ -174,92 +178,6 @@ EOL.add_behaviours = function(which) {
     EOL.subtabby_behaviours('updates');
   }
   EOL.restorable_tabs_behaviour();
-};
-
-EOL.media_list_open_images_behaviour = function() {
-  (function($media_list) {
-    $media_list.find("li .overlay").click(function() {
-      window.location = $(this).parent().find("a").attr("href");
-      return false;
-    });
-  })($("#media_list"));
-};
-
-EOL.media_list_switch_entry_behaviours = function() {
-  (function($switch_hierarchy_entry) {
-    if ($("#switch_hierarchy_entry").length > 0) {
-      $(".taxon_concept_exemplar_image").hide();
-    }
-  })($("#switch_hierarchy_entry"));
-};
-
-EOL.media_list_filter_behaviours = function() {
-  // uncheck media list filter All when other options are selected
-  $("#media_list #sidebar input[type=checkbox][value!='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
-  });
-  // uncheck all other media list filter options when All is selected
-  $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
-  });
-  // disable the checkboxes for filter categories with no results
-  $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
-};
-
-EOL.media_video_behaviour = function() {
-  $('#main .media video embed').each(function() {
-    var test_video = document.createElement('video');
-    cant_play_video = (!test_video.canPlayType || !test_video.canPlayType('video/mp4'));
-    if (cant_play_video) {
-      var video = $(this).parent();
-      video.parent().html(video.html());
-    }
-  });
-};
-
-
-EOL.media_prefer_behaviour = function() {
-  $('td.preferred_entry_selector input[type="radio"]:not(:checked)').click(function() {
-    var form = $(this).closest('form');
-    form.submit();
-  });
-};
-
-EOL.media_exemplar_behaviour = function() {
-  $('#media_list form.taxon_concept_exemplar_image').each(function() {
-    $(this).find(":submit").hide().end().find('label, input[type="radio"]').accessibleClick(function() {
-      $(this).addClass('busy').parent().find('input[type="radio"]').attr('checked', true).closest('form').submit();
-    });
-  });
-}
-
-EOL.feed_behaviour = function() {
-  (function($feed){
-    $feed.children().each(function() {
-      var $li = $(this);
-      $li.delegate("ul.actions a.edit_comment", "click keydown", function( event ) {
-        event.preventDefault();
-        $(this).closest("ul.actions").hide();
-        $(this).closest(".details").after('<div class="comment_edit_form"></div>');
-        var $update = $(this).closest(".details").next(".comment_edit_form");
-        EOL.ajax_get($(this), {update: $update, type: 'GET'});
-      });
-      $li.delegate(".comment_edit_form a", "click keydown", function( event ) {
-        event.preventDefault();
-        $(this).closest(".comment_edit_form").hide().prev('.details').find("ul.actions").show().end().end().remove();
-      });
-      $li.delegate(".comment_edit_form input[type='submit']", "click keydown", function( event ) {
-        event.preventDefault();
-        EOL.ajax_submit($(this));
-      });
-      $li.delegate("form.delete_comment input[type='submit']", "click keydown", function( event ) {
-        event.preventDefault();
-        if (confirm($(this).data('confirmation'))) {
-          EOL.ajax_submit($(this));
-        }
-      });
-    });
-  })($("ul.feed"));
 };
 
 EOL.subtabby_behaviours = function(which) {
@@ -289,8 +207,8 @@ $(function() {
 
   // TODO - we should probably just load the behaviors for the active tab (if any), yeah?
   EOL.add_behaviours('overview');
+  console.log('common');
   EOL.add_behaviours('media');
-  EOL.enableRatings();
   EOL.subtabby_behaviours('names');
   EOL.subtabby_behaviours('resources');
   EOL.subtabby_behaviours('communities');
@@ -514,15 +432,6 @@ EOL.ajax_get = function(el, args) {
     }
   });
   return(false); // stop event... there's a better way to do this?
-};
-
-EOL.enableRatings = function() {
-  // Wouldn't it be nice if ratings were Ajaxified?
-  $('.media .ratings .rating ul > li > a').unbind('click').click(function() {
-    var $update = $(this).closest('div.ratings');
-    EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET'});
-    return(false);
-  });
 };
 
 // Third party scripts for social plugins

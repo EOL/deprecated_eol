@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require media_list
 //= require common
 //= require collections
 //= require march_of_life

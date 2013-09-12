@@ -2,12 +2,6 @@
 
 $(function() {
 
-  (function($switch_hierarchy_entry) {
-    if ($("#switch_hierarchy_entry").length > 0) {
-      $(".taxon_concept_exemplar_image").hide();
-    }
-  })($("#switch_hierarchy_entry"));
-
   (function($media_list) {
     $media_list.find("a.play").each(function() {
       switch($(this).attr('data-mime_type')) {

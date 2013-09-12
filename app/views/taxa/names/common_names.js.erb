@@ -1,5 +1,5 @@
 $('#taxon_names ul.tabs li').removeClass('active');
 $('#taxon_names ul.tabs li[data-name=common]').addClass('active');
-$('#taxon_names .main_container').html("<%= escape_javascript(render('common_names')) %>").fadeTo(100, 1);
+$('#taxon_names .main_container').html("<%= escape_javascript(render('common_names')) %>").fadeTo(30, 1);
 EOL.fade_names_intro("<%= escape_javascript(I18n.t(:taxon_common_names_subtab_explanation)) %>");
 

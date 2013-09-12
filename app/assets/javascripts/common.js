@@ -29,7 +29,7 @@ $("html :not(.thumbnails ul li)").bind("ajaxStart", function(){
 }).bind("ajaxStop", function(){
   $(this).removeClass('busy');
 });
-
+    
 $(document).on('mouseover', '#social_sharing .facebook', function() {
   if($('.jcrop-holder').length > 0) {
     $('#social_sharing .facebook').css('z-index', parseInt($('.jcrop-holder > div:first').css('z-index')) + 1);
@@ -105,17 +105,36 @@ EOL.overview_thumbnails_behaviours = function() {
   })($(".gallery"));
 };
 
-EOL.transitions = {easing: 'swing'};
+EOL.transitions = {duration: 150, easing: 'swing'};
+
+EOL.back_button_behaviour = function() {
+  $(window).unbind('popstate').bind('popstate', function(event) {
+    if(history.state) {
+      var hasSlash = /([^\/]+)\/([^\/]+)/;
+      var match = hasSlash.exec(history.state)
+      if (match === null) {
+        EOL.restore_tab(history.state, document.referrer, {skip_push: true});
+      } else {
+        EOL.restore_tab(match[1], document.referrer, {skip_push: true});
+        $('li[data-name='+match[2]+'] a').click();
+      }
+    }
+  });
+};
 
 EOL.restore_tab = function(name, href, options) {
   var $previous_tab = $('ul.nav .active');
   var previous_name = $previous_tab.attr('data-behaviour');
-  $previous_tab.removeClass('active').find('a').addClass('restore');
   var $contents = $('#content .site_column').children().not('.disclaimer');
-  $contents.not('.restored').addClass(previous_name+' restored');
-  $contents.hide(EOL.transitions);
+  if (previous_name != name) {
+    $previous_tab.removeClass('active').find('a').addClass('restore');
+    $contents.hide(EOL.transitions);
+  }
   $('ul.nav li[data-behaviour='+name+']').addClass('active').find('a').addClass('restore');
-  $('#content .site_column .'+name).show(EOL.transitions);
+  $contents.not('.restored').addClass(previous_name+' restored');
+  if (previous_name != name) {
+    $('#content .site_column .'+name).show(EOL.transitions);
+  }
   if ( ! options || ! options['skip_push']) {
     history.pushState(name, name, href);
   }
@@ -125,11 +144,8 @@ EOL.restore_tab = function(name, href, options) {
     $('.page_actions .links').hide(EOL.transitions);
   }
   EOL.add_behaviours(name);
-  $(window).unbind('popstate').bind('popstate', function(event) {
-    if(history.state) {
-      EOL.restore_tab(history.state, document.referrer, {skip_push: true});
-    }
-  });
+  EOL.enableRatings();
+  EOL.back_button_behaviour();
 };
 
 EOL.add_behaviours = function(which) {
@@ -139,9 +155,11 @@ EOL.add_behaviours = function(which) {
     EOL.feed_behaviour();
   } else if (which == 'media') {
     EOL.media_list_open_images_behaviour();
+    EOL.media_list_switch_entry_behaviours();
     EOL.media_list_filter_behaviours();
     EOL.media_video_behaviour();
     EOL.media_prefer_behaviour();
+    EOL.media_exemplar_behaviour();
   } else if (which == 'names') {
     EOL.subtabby_behaviours('names');
   } else if (which == 'resources') {
@@ -165,6 +183,14 @@ EOL.media_list_open_images_behaviour = function() {
       return false;
     });
   })($("#media_list"));
+};
+
+EOL.media_list_switch_entry_behaviours = function() {
+  (function($switch_hierarchy_entry) {
+    if ($("#switch_hierarchy_entry").length > 0) {
+      $(".taxon_concept_exemplar_image").hide();
+    }
+  })($("#switch_hierarchy_entry"));
 };
 
 EOL.media_list_filter_behaviours = function() {
@@ -199,6 +225,14 @@ EOL.media_prefer_behaviour = function() {
   });
 };
 
+EOL.media_exemplar_behaviour = function() {
+  $('#media_list form.taxon_concept_exemplar_image').each(function() {
+    $(this).find(":submit").hide().end().find('label, input[type="radio"]').accessibleClick(function() {
+      $(this).addClass('busy').parent().find('input[type="radio"]').attr('checked', true).closest('form').submit();
+    });
+  });
+}
+
 EOL.feed_behaviour = function() {
   (function($feed){
     $feed.children().each(function() {
@@ -231,8 +265,13 @@ EOL.feed_behaviour = function() {
 EOL.subtabby_behaviours = function(which) {
   $('#taxon_'+which+' ul.tabs a').on('click', function() {
     $('#taxon_'+which+' .main_container').fadeTo(225, 0.3);
-    history.replaceState({}, document.title, $(this).attr('href')); // TODO - this should prolly be a pushState, but we would need to implement
-                                                                    // the back button, and I don't see that as worthwhile, here.
+    // Remembers the (main) tab we're on and the subtab that's open.
+    var subtab_name = $(this).parent().attr('data-name');
+    var state_name  = $('ul.nav .active').attr('data-behaviour')+"/"+subtab_name;
+    if (history.state != state_name) { // Don't push it on if it's already there...
+      history.pushState(state_name, subtab_name, $(this).attr('href'));
+    }
+    EOL.back_button_behaviour();
   })
 };
 
@@ -248,12 +287,9 @@ $(function() {
       $(this).closest("form").submit();
     });
 
-  EOL.overview_thumbnails_behaviours();
-  EOL.media_list_open_images_behaviour();
-  EOL.media_list_filter_behaviours();
-  EOL.media_video_behaviour();
-  EOL.media_prefer_behaviour();
-  EOL.feed_behaviour();
+  // TODO - we should probably just load the behaviors for the active tab (if any), yeah?
+  EOL.add_behaviours('overview');
+  EOL.add_behaviours('media');
   EOL.enableRatings();
   EOL.subtabby_behaviours('names');
   EOL.subtabby_behaviours('resources');
@@ -377,6 +413,14 @@ $(function() {
       });
     }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
+
+  $('ul.nav a[data-remote=true]').on('ajax:before', function(){
+    $("#content .site_column > div:visible").fadeTo(150, 0.2);
+  })
+
+  $('ul.nav a[data-remote=true]').on('ajax:complete', function(){
+    $("#content .site_column > div:visible").fadeTo(150, 1);
+  })
 
 });
 

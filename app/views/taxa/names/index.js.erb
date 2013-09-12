@@ -1,4 +1,4 @@
 $('#taxon_names ul.tabs li').removeClass('active');
 $('#taxon_names ul.tabs li[data-name=classifications]').addClass('active');
-$('#taxon_names .main_container').html("<%= escape_javascript(render('classifications')) %>").fadeTo(100, 1);
+$('#taxon_names .main_container').html("<%= escape_javascript(render('classifications')) %>").fadeTo(30, 1);
 EOL.fade_names_intro("<%= escape_javascript(I18n.t(:names_explanation)) %>");

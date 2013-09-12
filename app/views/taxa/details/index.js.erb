@@ -2,4 +2,4 @@ $('#content .site_column').prepend("<div class='details restored' style='display
 if ($('.page_actions li.links').length == 0) {
   $('.page_actions ul').append("<%= escape_javascript(render('shared/add_link_buttons')) %>");
 }
-EOL.restore_tab('details', '<%= taxon_details_path(@taxon_concept) %>');
+EOL.reveal_tab('details', '<%= taxon_details_path(@taxon_concept) %>');

@@ -43,7 +43,7 @@ EOL.check_siblings = function(of, val) {
 
 EOL.restorable_tabs_behaviour = function() {
   $('a.restore').unbind('click').on('click', function() {
-    EOL.restore_tab($(this).parent().attr('data-behaviour'), $(this).attr('href'));
+    EOL.reveal_tab($(this).parent().attr('data-behaviour'), $(this).attr('href'));
     return(false);
   });
 }
@@ -113,16 +113,16 @@ EOL.back_button_behaviour = function() {
       var hasSlash = /([^\/]+)\/([^\/]+)/;
       var match = hasSlash.exec(history.state)
       if (match === null) {
-        EOL.restore_tab(history.state, document.referrer, {skip_push: true});
+        EOL.reveal_tab(history.state, document.referrer, {skip_push: true});
       } else {
-        EOL.restore_tab(match[1], document.referrer, {skip_push: true});
+        EOL.reveal_tab(match[1], document.referrer, {skip_push: true});
         $('li[data-name='+match[2]+'] a').click();
       }
     }
   });
 };
 
-EOL.restore_tab = function(name, href, options) {
+EOL.reveal_tab = function(name, href, options) {
   var $previous_tab = $('ul.nav .active');
   var previous_name = $previous_tab.attr('data-behaviour');
   var $contents = $('#content .site_column').children().not('.disclaimer');
@@ -146,6 +146,7 @@ EOL.restore_tab = function(name, href, options) {
   console.log('restore tab');
   EOL.add_behaviours(name);
   EOL.back_button_behaviour();
+  $('#page_heading .status, #flashes').fadeTo(2000, 0.1, function() { $(this).hide(400).remove(); });
 };
 
 EOL.add_behaviours = function(which) {

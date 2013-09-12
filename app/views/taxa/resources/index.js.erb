@@ -2,5 +2,5 @@ $('#content .site_column').prepend("<div class='resources restored' style='displ
 if ($('.page_actions li.links').length == 0) {
   $('.page_actions ul').append("<%= escape_javascript(render('shared/add_link_buttons')) %>");
 }
-EOL.restore_tab('resources', '<%= taxon_resources_path(@taxon_concept) %>');
+EOL.reveal_tab('resources', '<%= taxon_resources_path(@taxon_concept) %>');
 

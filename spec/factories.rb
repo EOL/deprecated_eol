@@ -1,7 +1,7 @@
 # REMINDER: default model factories, eg. :user, should *only* generate required fields
 #
 # If you want a model loaded up with all kinds of goodies, make a different generator,
-# eg. :admin_user
+# eg. :admin (which is a user)
 
 require 'factory_girl_rails'
 require 'faker'
@@ -325,6 +325,35 @@ FactoryGirl.define do
   #### Factories
 
   factory :activity do
+  end
+
+  factory :admin, class: User do
+    admin                     true
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          false
+    curator_verdict_by_id     nil
+    curator_verdict_at        nil
+    curator_scope             ''
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          nil
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :agent do
@@ -786,6 +815,39 @@ FactoryGirl.define do
     vetted        { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
     visibility    { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
     uri           { "http://eol.org/known_uri/" + generate(:guid) }
+  end
+
+  factory :known_uri_allowed_unit, class: KnownUriRelationship do
+    association :from_known_uri, :factory => :known_uri_measurement
+    association :to_known_uri, :factory => :known_uri_unit
+    relationship_uri { KnownUriRelationship::ALLOWED_UNIT_URI }
+  end
+
+  factory :known_uri_allowed_value, class: KnownUriRelationship do
+    association :from_known_uri, :factory => :known_uri_measurement
+    association :to_known_uri, :factory => :known_uri_value
+    relationship_uri { KnownUriRelationship::ALLOWED_VALUE_URI }
+  end
+
+  factory :known_uri_measurement, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.measurement }
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
+  factory :known_uri_value, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.measurement_value }
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
+  factory :known_uri_unit, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.unit_of_measure }
+    uri { "http://example.com/#{generate(:string)}" }
   end
 
   factory :known_uri_relationship do

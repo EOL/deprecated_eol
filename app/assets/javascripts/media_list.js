@@ -204,8 +204,6 @@ EOL.init_image_collection_behaviors = function() {
     });
     return false;
   });
-  // Show warnings for unvetted thumbnails:
-  $("#image-collection img[title]").tooltip();
   // clicking the large image shows its attribution
   $('img.main-image').click(function() {
     $('#large-image-attribution-button-popup-link').click(); // "click" the PopupLink

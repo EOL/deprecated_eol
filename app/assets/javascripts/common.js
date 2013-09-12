@@ -154,8 +154,8 @@ EOL.add_behaviours = function(which) {
     EOL.overview_thumbnails_behaviours();
     EOL.show_tree_behviour();
     EOL.feed_behaviour();
-  } else if (which == 'media') {
-    EOL.init_image_collection_behaviors(); // TODO - centralize these.  Jeez.
+  } else if (which == 'media') { // These are all in the media_list file.
+    EOL.init_image_collection_behaviors();
     EOL.media_list_open_images_behaviour();
     EOL.media_list_associations_behaviours();
     EOL.media_list_switch_entry_behaviours();

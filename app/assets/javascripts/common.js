@@ -341,6 +341,14 @@ $(function() {
     $("#content .site_column > div:visible").fadeTo(150, 1);
   })
 
+  // NOTE / TODO - this is not I18n'zed.  We could store the string as an attribute on the body or something.
+  $('ul.nav a[data-remote=true]').on('ajax:error', function(){
+    if ($('#ajax_error').length == 0) {
+      $('ul.nav .active').removeClass('active');
+      $("#content .site_column > div:visible").not('.disclaimer').html("<div id='ajax_error' class='empty'><p>Sorry, an error has occurred.</p></div>");
+    }
+  })
+
 });
 
 (function($) {

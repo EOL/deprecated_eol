@@ -1,6 +1,9 @@
 # A curated, translated relationship between a URI and a "human-readable" string describing the intent of the URI.
 # I'm going to use Curatable for now, even though vetted probably won't ever be used. ...It might be, and it makes
 # this easier than splitting up that class.
+#
+# TODO - this class has gotten too large. Break it up. In particular, I notice there are a LOT of class methods. Perhaps that logic belongs
+# elsewhere.
 class KnownUri < ActiveRecord::Base
 
   BASE = Rails.configuration.uri_term_prefix
@@ -65,6 +68,7 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  # TODO - generalize these.  :\
   def self.milligrams
     @@milligrams ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'milligrams' }[:uri])
   end
@@ -96,14 +100,6 @@ class KnownUri < ActiveRecord::Base
       trans = TranslatedKnownUri.create(options.merge(known_uri: uri))
     end
     uri
-  end
-
-  def allowed_values
-    known_uri_relationships_as_subject.allowed_values.map(&:to_known_uri)
-  end
-
-  def allowed_units
-    known_uri_relationships_as_subject.allowed_units.map(&:to_known_uri)
   end
 
   def self.license
@@ -249,6 +245,14 @@ class KnownUri < ActiveRecord::Base
   def self.replace_with_uri(hash, key, known_uris)
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
+  end
+
+  def allowed_values
+    known_uri_relationships_as_subject.allowed_values.map(&:to_known_uri)
+  end
+
+  def allowed_units
+    known_uri_relationships_as_subject.allowed_units.map(&:to_known_uri)
   end
 
   def unknown?

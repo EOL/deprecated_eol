@@ -848,6 +848,39 @@ FactoryGirl.define do
     logo_cache_url            { generate(:user_logo) }
   end
 
+  factory :known_uri_allowed_unit, class: KnownUriRelationship do
+    association :from_known_uri, :factory => :known_uri_measurement
+    association :to_known_uri, :factory => :known_uri_unit
+    relationship_uri { KnownUriRelationship::ALLOWED_UNIT_URI }
+  end
+
+  factory :known_uri_allowed_value, class: KnownUriRelationship do
+    association :from_known_uri, :factory => :known_uri_measurement
+    association :to_known_uri, :factory => :known_uri_value
+    relationship_uri { KnownUriRelationship::ALLOWED_VALUE_URI }
+  end
+
+  factory :known_uri_measurement, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.measurement }
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
+  factory :known_uri_value, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.measurement_value }
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
+  factory :known_uri_unit, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.unit_of_measure }
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
   factory :member do
     association :user
     association :community

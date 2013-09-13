@@ -334,12 +334,17 @@ $(function() {
   })($("#content_partner_resources"));
 
   $('ul.nav a[data-remote=true]').on('ajax:before', function(){
-    $("#content .site_column > div:visible").fadeTo(150, 0.2);
-  })
+    $('#content').prepend('<div id="loading_container"><div id="loading_bar">&nbsp;</div></div>');
+    $('#loading_bar').animate( {width: '250px'}, 500,
+      function() {$(this).animate({width: '600px'}, 5000); }
+    );
+    // $("#content .site_column > div:visible").fadeTo(150, 0.2);
+  });
 
   $('ul.nav a[data-remote=true]').on('ajax:complete', function(){
-    $("#content .site_column > div:visible").fadeTo(150, 1);
-  })
+    $('#loading_bar').remove(); // TODO ... really, it should expand all the way, first.
+    // $("#content .site_column > div:visible").fadeTo(150, 1);
+  });
 
   // NOTE / TODO - this is not I18n'zed.  We could store the string as an attribute on the body or something.
   $('ul.nav a[data-remote=true]').on('ajax:error', function(){

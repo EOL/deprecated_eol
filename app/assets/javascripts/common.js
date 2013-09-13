@@ -342,7 +342,7 @@ $(function() {
   });
 
   $('ul.nav a[data-remote=true]').on('ajax:complete', function(){
-    $('#loading_bar').remove(); // TODO ... really, it should expand all the way, first.
+    $('#loading_bar').stop().animate({width: '940px'}, 200, function() { $(this).fadeOut(150, function() {$(this).remove();}); });
     // $("#content .site_column > div:visible").fadeTo(150, 1);
   });
 

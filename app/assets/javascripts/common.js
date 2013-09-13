@@ -334,7 +334,10 @@ $(function() {
   })($("#content_partner_resources"));
 
   $('ul.nav a[data-remote=true]').on('ajax:before', function(){
-    $('#content').prepend('<div id="loading_container"><div id="loading_bar">&nbsp;</div></div>');
+    if ($("#loading_container").length == 0) {
+      $('#content').prepend('<div id="loading_container"></div>').css({padding: "17px 0"});
+    }
+    $('#loading_container').html('<div id="loading_bar">&nbsp;</div>');
     $('#loading_bar').animate( {width: '250px'}, 500,
       function() {$(this).animate({width: '600px'}, 5000); }
     );
@@ -348,6 +351,7 @@ $(function() {
 
   // NOTE / TODO - this is not I18n'zed.  We could store the string as an attribute on the body or something.
   $('ul.nav a[data-remote=true]').on('ajax:error', function(){
+    $('#loading_bar').remove();
     if ($('#ajax_error').length == 0) {
       $('ul.nav .active').removeClass('active');
       $("#content .site_column > div:visible").not('.disclaimer').html("<div id='ajax_error' class='empty'><p>Sorry, an error has occurred.</p></div>");

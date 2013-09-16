@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require media_list
 //= require common
+//= require social_sharing
 //= require collections
 //= require march_of_life
 //= require search

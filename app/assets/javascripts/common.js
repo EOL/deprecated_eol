@@ -111,7 +111,7 @@ EOL.back_button_behaviour = function() {
   $(window).unbind('popstate').bind('popstate', function(event) {
     if(history.state) {
       var hasSlash = /([^\/]+)\/([^\/]+)/;
-      var match = hasSlash.exec(history.state)
+      var match = hasSlash.exec(history.state);
       if (match === null) {
         EOL.reveal_tab(history.state, document.referrer, {skip_push: true});
       } else {
@@ -123,14 +123,23 @@ EOL.back_button_behaviour = function() {
 };
 
 EOL.reveal_tab = function(name, href, options) {
-  var $previous_tab = $('ul.nav .active');
-  var previous_name = $previous_tab.attr('data-behaviour');
-  var $contents = $('#content .site_column').children().not('.disclaimer');
+  EOL.reveal($('.with_nav'), 'nav', 'behaviour', $('#content .site_column').children().not('.disclaimer'),
+                  name, href, options);
+}
+
+EOL.reveal_subtab = function(name, href, options) {
+  EOL.reveal($('ul.nav .active'), 'tabs', 'name', $('.not_sure'),
+                  name, href, options);
+};
+
+EOL.reveal = function($context, tab_class, name_data, $contents, name, href, options) {
+  var $previous_tab = $context.find('ul.'+tab_class+' .active');
+  var previous_name = $previous_tab.attr('data-'+name_data);
   if (previous_name != name) {
     $previous_tab.removeClass('active').find('a').addClass('restore');
     $contents.hide(EOL.transitions);
   }
-  $('ul.nav li[data-behaviour='+name+']').addClass('active').find('a').addClass('restore');
+  $('ul.'+tab_class+' li[data-'+name_data+'='+name+']').addClass('active').find('a').addClass('restore');
   $contents.not('.restored').addClass(previous_name+' restored');
   if (previous_name != name) {
     $('#content .site_column .'+name).show(EOL.transitions);
@@ -143,14 +152,12 @@ EOL.reveal_tab = function(name, href, options) {
   } else {
     $('.page_actions .links').hide(EOL.transitions);
   }
-  console.log('restore tab');
   EOL.add_behaviours(name);
   EOL.back_button_behaviour();
   $('#page_heading .status, #flashes').slowRemove();
 };
 
 EOL.add_behaviours = function(which) {
-  console.log('add_behaviours');
   if (which == 'overview') {
     EOL.overview_thumbnails_behaviours();
     EOL.show_tree_behviour();
@@ -191,7 +198,7 @@ EOL.subtabby_behaviours = function(which) {
       history.pushState(state_name, subtab_name, $(this).attr('href'));
     }
     EOL.back_button_behaviour();
-  })
+  });
 };
 
 EOL.fade_names_intro = function(new_text) {
@@ -208,7 +215,6 @@ $(function() {
 
   // TODO - we should probably just load the behaviors for the active tab (if any), yeah?
   EOL.add_behaviours('overview');
-  console.log('common');
   EOL.add_behaviours('media');
   EOL.subtabby_behaviours('names');
   EOL.subtabby_behaviours('resources');
@@ -308,7 +314,7 @@ $(function() {
 
   // The reindex button on some pages doesn't actually submit, it's just a small Ajax call:
   $('a.reindex').click(function() {
-    var $reindex = $('a.reindex')
+    var $reindex = $('a.reindex');
     $reindex.fadeTo(225, 0.3);
     if($('#flashes')[0] == undefined) {
       $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
@@ -341,22 +347,21 @@ $(function() {
     $('#loading_bar').animate( {width: '250px'}, 500,
       function() {$(this).animate({width: '600px'}, 5000); }
     );
-    // $("#content .site_column > div:visible").fadeTo(150, 0.2);
-  });
-
-  $('ul.nav a[data-remote=true]').on('ajax:complete', function(){
+  }).on('ajax:complete', function(){
+    if (typeof _gaq !== 'undefined') {
+      _gaq.push(['_trackPageview', ($(this).attr('href'))]);
+    }
+    // Reload FB and twitter:
+    try { twttr.widgets.load(); } catch(e) {} // Don't care; probably not there.
+    try { FB.XFBML.parse(); } catch(e) {} // Don't care; probably not there.
     $('#loading_bar').stop().animate({width: '940px'}, 200, function() { $(this).fadeOut(150, function() {$(this).remove();}); });
-    // $("#content .site_column > div:visible").fadeTo(150, 1);
-  });
-
-  // NOTE / TODO - this is not I18n'zed.  We could store the string as an attribute on the body or something.
-  $('ul.nav a[data-remote=true]').on('ajax:error', function(){
+  }).on('ajax:error', function(){
     $('#loading_bar').remove();
     if ($('#ajax_error').length == 0) {
       $('ul.nav .active').removeClass('active');
-      $("#content .site_column > div:visible").not('.disclaimer').html("<div id='ajax_error' class='empty'><p>Sorry, an error has occurred.</p></div>");
+      $("#content .site_column > div:visible").not('.disclaimer').html("<div id='ajax_error' class='empty'><p>"+$('body').attr('data-error')+"</p></div>");
     }
-  })
+  });
 
 });
 
@@ -454,45 +459,6 @@ EOL.ajax_get = function(el, args) {
     }
   });
   return(false); // stop event... there's a better way to do this?
-};
-
-// Third party scripts for social plugins
-EOL.loadTwitter = function() {
-  if($(".twitter-share-button").length > 0){
-    if (typeof (twttr) !== 'undefined') {
-      twttr.widgets.load();
-      EOL.initTwitter();
-    } else {
-      $.getScript("http://platform.twitter.com/widgets.js", function() { EOL.initTwitter(); });
-    }
-  }
-};
-EOL.initTwitter = function() {
-  if (typeof(_ga) !== 'undefined') {
-    _ga.trackTwitter();
-  }
-};
-EOL.loadFacebook = function(app_id, channel_url) {
-  if ($("#fb-root").length > 0) {
-    if (typeof (FB) !== 'undefined') {
-      EOL.initFacebook();
-    } else {
-      $.getScript("http://connect.facebook.net/en_US/all.js", function() { EOL.initFacebook(app_id, channel_url); });
-    }
-  }
-};
-EOL.initFacebook = function(app_id, channel_url) {
-  FB.init({
-    appId      : app_id,
-    channelUrl : channel_url,
-    logging    : true,
-    status     : true,
-    cookie     : true,
-    xfbml      : true
-  });
-  if (typeof(_ga) !== 'undefined') {
-    _ga.trackFacebook();
-  }
 };
 
 // Use this function to load the javascript after the page is rendered.

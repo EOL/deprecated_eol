@@ -2389,6 +2389,7 @@ en:
   admin_translated_news_item_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
   admin_translated_news_item_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
   agent: "Agent"
+  ajax_error_message: "Sorry, an error has occurred. Please try again later."
   all: "all"
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
   all_articles: All articles

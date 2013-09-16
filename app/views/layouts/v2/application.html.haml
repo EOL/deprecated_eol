@@ -50,7 +50,7 @@
     = csrf_meta_tags
 
     = yield :head
-  %body{:class => @home_page ? 'home' : nil}
+  %body{data: {error: I18n.t(:ajax_error_message)}, :class => @home_page ? 'home' : nil}
     - unless @home_page
       - # For accessibility and SEO on pages other than home page we want content to appear first in the markup.
       #central

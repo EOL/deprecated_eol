@@ -10,10 +10,12 @@ class TaxonDataSet
     KnownUri.add_to_data(@virtuoso_results)
     DataPointUri.preload_data_point_uris!(@virtuoso_results, @taxon_concept_id)
     @data_point_uris = @virtuoso_results.collect{ |r| r[:data_point_instance] }
-    DataPointUri.preload_associations(@data_point_uris, [ :comments, :taxon_data_exemplars, { :resource => :content_partner } ])
-    DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, :target_taxon_concept =>
-      [ { :preferred_common_names => :name },
-        { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
+    unless options[:preload] == false
+      DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { :resource => :content_partner } ])
+      DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, :target_taxon_concept =>
+        [ { :preferred_common_names => :name },
+          { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
+    end
     convert_units
     @data_point_uris
   end
@@ -63,40 +65,7 @@ class TaxonDataSet
 
   def convert_units
     @data_point_uris.each do |data_point_uri|
-      if data_point_uri.unit_of_measure_known_uri && data_point_uri.object.is_numeric?
-        value = data_point_uri.object.to_f
-        unit = data_point_uri.unit_of_measure_known_uri
-        if unit.name(:en) == 'milligrams' && (value / 1000.0) >= 1.0
-          data_point_uri.object = value = value / 1000
-          data_point_uri.unit_of_measure = KnownUri.grams.uri
-          data_point_uri.unit_of_measure_known_uri = unit = KnownUri.grams
-        end
-        if unit.name(:en) == 'grams' && (value / 1000.0) >= 1.0
-          data_point_uri.object = value = value / 1000
-          data_point_uri.unit_of_measure = KnownUri.kilograms.uri
-          data_point_uri.unit_of_measure_known_uri = unit = KnownUri.kilograms
-        end
-        if unit.name(:en) == 'millimeters' && (value / 10.0) >= 1.0
-          data_point_uri.object = value = value / 10
-          data_point_uri.unit_of_measure = KnownUri.centimeters.uri
-          data_point_uri.unit_of_measure_known_uri = unit = KnownUri.centimeters
-        end
-        if unit.name(:en) == 'centimeters' && (value / 100.0) >= 1.0
-          data_point_uri.object = value = value / 100
-          data_point_uri.unit_of_measure = KnownUri.meters.uri
-          data_point_uri.unit_of_measure_known_uri = unit = KnownUri.meters
-        end
-        if unit.name(:en) == 'meters' && (value / 1000.0) >= 1.0
-          data_point_uri.object = value = value / 1000
-          data_point_uri.unit_of_measure = KnownUri.kilometers.uri
-          data_point_uri.unit_of_measure_known_uri = unit = KnownUri.kilometers
-        end
-        if unit.name(:en) == 'kelvin'
-          data_point_uri.object = value = value - 273.15
-          data_point_uri.unit_of_measure = KnownUri.celsius.uri
-          data_point_uri.unit_of_measure_known_uri = unit = KnownUri.celsius
-        end
-      end
+      data_point_uri.convert_units
     end
   end
 

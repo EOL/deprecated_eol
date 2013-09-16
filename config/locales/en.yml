@@ -3629,6 +3629,7 @@ en:
   known_uri_updated: "URI updated."
   known_uri_label_inverse: "is inverse of"
   known_uri_label_allowed_val: "allows a value of"
+  known_uri_label_allowed_unit: "has a unit of measure"
   known_uri_label_unit: "has a unit of measure"
   known_uris_empty_sorry: "Sorry, there are no suggested URIs for this category, yet."
   known_uris_none: "No one has added URIs of this type."  

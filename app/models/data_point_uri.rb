@@ -111,10 +111,14 @@ class DataPointUri < ActiveRecord::Base
         }
       }"
     metadata_rows = EOL::Sparql.connection.query(query)
+    # not using TaxonDataSet here since we don't want to make real DataPointURI
+    # records in MySQL for all these metadata rows
     metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)
     KnownUri.add_to_data(metadata_rows)
     return nil if metadata_rows.empty?
-    metadata_rows.map{ |row| DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row)) }
+    data_point_uris = metadata_rows.map{ |row| DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row)) }
+    data_point_uris.each{ |dp| dp.convert_units }
+    data_point_uris
   end
 
   def get_other_occurrence_measurements(language)
@@ -141,13 +145,7 @@ class DataPointUri < ActiveRecord::Base
     occurrence_measurement_rows = EOL::Sparql.connection.query(query)
     # if there is only one response, then it is the original measurement
     return nil if occurrence_measurement_rows.length <= 1
-    KnownUri.add_to_data(occurrence_measurement_rows)
-    # Creating instance of DataPointUris for each associated measurement. Since these are from the same
-    # occurrence, these DataPointUris should always have been created when the page loaded. Mostly
-    # this is about getting the DataPointUri instance for the view and doing some preloading
-    DataPointUri.preload_data_point_uris!(occurrence_measurement_rows)
-    data_point_uris = occurrence_measurement_rows.collect{ |r| r[:data_point_instance] }
-    data_point_uris
+    TaxonDataSet.new(occurrence_measurement_rows, preload: false)
   end
 
   def get_references(language)
@@ -273,4 +271,39 @@ class DataPointUri < ActiveRecord::Base
     attributes
   end
 
+  def convert_units
+    if self.unit_of_measure_known_uri && self.object.is_numeric?
+      original_value = self.object
+      self.object = self.object.to_f
+      unit = self.unit_of_measure_known_uri
+      if self.unit_of_measure_known_uri.name(:en) == 'milligrams' && (self.object / 1000.0) >= 1.0
+        self.object = self.object / 1000.0
+        self.unit_of_measure = KnownUri.grams.uri
+        self.unit_of_measure_known_uri = KnownUri.grams
+      end
+      if self.unit_of_measure_known_uri.name(:en) == 'grams' && (self.object / 1000.0) >= 1.0
+        self.object = self.object / 1000.0
+        self.unit_of_measure = KnownUri.kilograms.uri
+        self.unit_of_measure_known_uri = KnownUri.kilograms
+      end
+      if self.unit_of_measure_known_uri.name(:en) == 'millimeters' && (self.object / 10.0) >= 1.0
+        self.object = self.object / 10.0
+        self.unit_of_measure = KnownUri.centimeters.uri
+        self.unit_of_measure_known_uri = KnownUri.centimeters
+      end
+      if self.unit_of_measure_known_uri.name(:en) == 'centimeters' && (self.object / 100.0) >= 1.0
+        self.object = self.object / 100.0
+        self.unit_of_measure = KnownUri.meters.uri
+        self.unit_of_measure_known_uri = KnownUri.meters
+      end
+      if self.unit_of_measure_known_uri.name(:en) == 'kelvin'
+        self.object = self.object - 273.15
+        self.unit_of_measure = KnownUri.celsius.uri
+        self.unit_of_measure_known_uri = KnownUri.celsius
+      end
+      if ! original_value.is_float?
+        self.object = self.object.to_i
+      end
+    end
+  end
 end

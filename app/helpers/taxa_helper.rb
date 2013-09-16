@@ -155,7 +155,11 @@ module TaxaHelper
         label = uri_components[:label].to_s
         if label.is_numeric?
           # numeric values can be rounded off to 3 decimal places
-          haml_concat label.to_f.round(3)
+          if label.is_float?
+            haml_concat label.to_f.round(3)
+          else
+            haml_concat label
+          end
         else
           # other values may have links embedded in them (references, citations, etc.)
           haml_concat label.add_missing_hyperlinks

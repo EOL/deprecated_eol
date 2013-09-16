@@ -157,6 +157,8 @@ describe 'Users' do
       body.should have_selector("option[value=collections][selected=selected]")
       visit(user_activity_path(@user, :filter => "communities"))
       body.should have_selector("option[value=communities][selected=selected]")
+      visit(user_activity_path(@user, :filter => "added_data"))
+      body.should have_selector("option[value=added_data][selected=selected]")
     end
   end
 

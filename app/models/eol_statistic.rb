@@ -46,7 +46,7 @@ class EolStatistic < ActiveRecord::Base
   scope :data, lambda {
     { :select => [:total_triples, :total_occurrences, :total_measurements, :total_associations,
                   :total_measurement_types, :total_association_types, :total_taxa_with_data,
-                  :created_at].join(', ') } }
+                  :total_user_added_data, :created_at].join(', ') } }
 
   # Retrieves stats for specific dates (i.e. stats reported within the 24 hours from midnight
   # to 23:59:59 of the day represented by each date, in other words not a range of 'from to' dates).
@@ -114,6 +114,9 @@ class EolStatistic < ActiveRecord::Base
       [:data_objects, :data_objects_texts, :data_objects_images, :data_objects_videos,
        :data_objects_sounds, :data_objects_maps, :data_objects_trusted,
        :data_objects_unreviewed, :data_objects_untrusted, :data_objects_trusted_or_unreviewed_but_hidden, :created_at]
+    when :data
+      [:total_triples, :total_occurrences, :total_measurements, :total_associations,:total_measurement_types,
+       :total_association_types, :total_taxa_with_data,:total_user_added_data, :created_at]
     end
   end
 

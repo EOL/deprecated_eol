@@ -192,6 +192,16 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
+  def show(user)
+    set_visibility(user, Visibility.visible.id)
+    user_added_data.show(user) if user_added_data
+  end
+
+  def hide(user)
+    set_visibility(user, Visibility.invisible.id)
+    user_added_data.hide(user) if user_added_data
+  end
+
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
   def self.replace_licenses_with_mock_known_uris(metadata_rows, language)
     metadata_rows.each do |row|

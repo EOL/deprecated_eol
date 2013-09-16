@@ -103,7 +103,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   end
 
   def activity_log
-    @log ||= taxon_concept.activity_log(:per_page => 5)
+    @log ||= taxon_concept.activity_log(:per_page => 5, :user => user)
   end
 
   def map

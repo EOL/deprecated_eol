@@ -15,6 +15,7 @@ describe 'Taxa data tab basic tests' do
       :type => 'http://eol.org/preys_on'))
     @user_added_data = UserAddedData.gen(:user => @user, :subject => @taxon_concept, :predicate => 'http://eol.org/length',
       :object => '9999.0')
+    @master_curator = build_curator(@taxon_concept, :level => :master)
   end
 
   before(:each) do
@@ -99,6 +100,24 @@ describe 'Taxa data tab basic tests' do
     KnownUriRelationship.gen_if_not_exists(:from_known_uri => time, :to_known_uri => hours, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
     visit taxon_data_path(@taxon_concept.id)
     body.should include(pattern)
+  end
+
+  it 'should allow master curators to add data' do
+    login_as @master_curator
+    visit(taxon_data_path(@taxon_concept))
+    body.should_not have_tag("table.data")
+    body.should have_tag("form#new_user_added_data")
+    body.should have_tag("form#new_user_added_data input[@type='submit']", :value => "submit data value")
+    within(:xpath, '//form[@id="new_user_added_data"]') do
+      fill_in 'user_added_data_predicate', :with => 'http://eol.org/schema/terms/testingadddata'
+      fill_in 'user_added_data_object', :with => 'testingadddata_value'
+      click_button "submit data value"
+    end
+    visit(taxon_data_path(@taxon_concept))
+    body.should have_tag("table.data")
+    body.should include("testingadddata")
+    body.should include("testingadddata_value")
+    visit('/logout')
   end
 
 end

@@ -22,6 +22,7 @@ class UserAddedDataController < ApplicationController
                                                                                 subject: subject))
     if @user_added_data.save
       flash[:notice] = I18n.t('user_added_data.create_successful')
+      log_action(:create)
     else
       # NOTE - we can't just use validation messages quite yet, since it's created in another controller. :\
       if @user_added_data.errors.any?
@@ -51,6 +52,7 @@ class UserAddedDataController < ApplicationController
     end
     if @user_added_data.update_attributes(params[:user_added_data])
       flash[:notice] = I18n.t('user_added_data.update_successful')
+      log_action(:update) unless @user_added_data.visibility_id == Visibility.invisible.id
     else
       flash[:error] = I18n.t('user_added_data.update_failed',
                              errors: @user_added_data.errors.full_messages.to_sentence)
@@ -82,7 +84,7 @@ class UserAddedDataController < ApplicationController
         when UserAddedDataMetadata::SUPPLIER_URI
           v[:object] == current_user.full_name # No need to add this; it's in the DB already.
         when UserAddedDataMetadata::SOURCE_URI
-          v[:object] == I18n.t('user_added_data.source_field_helper')
+          v[:object].blank? || v[:object] == I18n.t('user_added_data.source_field_helper')
         when UserAddedDataMetadata::LICENSE_URI
           v[:object] == I18n.t(:license_none)
         when I18n.t('user_added_data.new_field')
@@ -131,6 +133,16 @@ class UserAddedDataController < ApplicationController
     session[:rec_uris] ||= []
     session[:rec_uris].unshift(uri)
     session[:rec_uris] = session[:rec_uris].uniq[0..7]
+  end
+
+  def log_action(method)
+    CuratorActivityLog.create(
+      :user_id => current_user.id,
+      :changeable_object_type => ChangeableObjectType.user_added_data,
+      :target_id => @user_added_data.id,
+      :activity => Activity.send(method),
+      :taxon_concept_id => @user_added_data.taxon_concept_id
+    )
   end
 
 end

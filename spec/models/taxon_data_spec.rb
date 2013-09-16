@@ -4,6 +4,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe TaxonData do
 
   before(:all) do
+    truncate_all_tables
+    drop_all_virtuoso_graphs
     SpecialCollection.create_all
     @taxon_concept = TaxonConcept.gen
     @user = User.gen

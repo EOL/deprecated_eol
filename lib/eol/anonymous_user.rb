@@ -53,6 +53,7 @@ module EOL
           :can_delete? => false,
           :can_edit_collection? => false,
           :can_manage_community? => false,
+          :can_see_data? => false,
           :can_update? => false,
           :content_page_cache_str => 'anonymous',
           :credentials => '',

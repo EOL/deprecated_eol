@@ -340,6 +340,12 @@ class User < ActiveRecord::Base
     resource.can_be_deleted_by?(self)
   end
 
+  def can_see_data?
+    return true if can?(:see_data)
+    return true if (SiteConfigurationOption.all_users_can_see_data rescue false)
+    false
+  end
+
   def can_manage_community?(community)
     if member = member_of(community) # Not a community she's even in.
       return true if community && member.manager? # She's a manager
@@ -712,15 +718,17 @@ class User < ActiveRecord::Base
   # WARNING: Before you go and try to make notification_count and message_count use the same query and then filter
   # the results to count each type, rcognize (!) that they each use their own :after clause.  So be careful.
   def notification_count
-    self.activity_log(:news => true, :filter => 'all',
+    activity_log(:news => true, :filter => 'all',
       :after => self.last_notification_at,
-      :skip_loading_instances => true).count
+      :skip_loading_instances => true,
+      :user => self).count
   end
 
   def message_count
-    self.activity_log(:news => true, :filter => 'messages',
+    activity_log(:news => true, :filter => 'messages',
       :after => self.last_message_at,
-      :skip_loading_instances => true).count
+      :skip_loading_instances => true,
+      :user => self).count
   end
 
   def add_as_recipient_if_listening_to(notification_type, recipients)

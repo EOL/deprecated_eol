@@ -11,15 +11,28 @@ class TaxonDataExemplarsController < ApplicationController
     @taxon_data_exemplar = TaxonDataExemplar.create(taxon_concept_id: params[:taxon_concept_id], data_point_uri: data_point_uri, exclude: exclude )
     # TODO - if there are too many exemplars (more than are allowed), we need to give them a warning or something.  Sadly, that is expensive to
     # calculate...  Hmmmn...
+    log_action(params[:taxon_concept_id], data_point_uri, :set_exemplar_data) unless exclude
     respond_to do |format|
       format.html do
         if @taxon_data_exemplar
-          flash[:notice] = params[:exclude] ? I18n.t(:data_row_exemplar_removed) : flash[:notice] = I18n.t(:data_row_exemplar_added)
+          flash[:notice] = exclude ? I18n.t(:data_row_exemplar_removed) : flash[:notice] = I18n.t(:data_row_exemplar_added)
         end
         redirect_to taxon_data_path(params[:taxon_concept_id])
       end
       format.js { }
     end
+  end
+
+  private
+
+  def log_action(taxon_concept_id, data_point_uri, method)
+    CuratorActivityLog.create(
+      :user_id => current_user.id,
+      :changeable_object_type => ChangeableObjectType.data_point_uri,
+      :target_id => data_point_uri.id,
+      :activity => Activity.send(method),
+      :taxon_concept_id => taxon_concept_id
+    )
   end
 
 end

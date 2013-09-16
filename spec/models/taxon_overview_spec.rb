@@ -163,7 +163,7 @@ describe TaxonOverview do
   end
 
   it 'should know the last five activities from the activity_log' do
-    @taxon_concept.should_receive(:activity_log).with(:per_page => 5).and_return('hi from activity')
+    @taxon_concept.should_receive(:activity_log).with(:per_page => 5, :user => @user).and_return('hi from activity')
     @overview.activity_log.should == 'hi from activity'
   end
 

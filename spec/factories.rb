@@ -1456,6 +1456,7 @@ FactoryGirl.define do
     total_measurement_types                           { rand(100000) }
     total_association_types                           { rand(100000) }
     total_taxa_with_data                              { rand(100000) }
+    total_user_added_data                             { rand(100000) }
   end
 
 end

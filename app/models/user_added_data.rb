@@ -25,7 +25,6 @@ class UserAddedData < ActiveRecord::Base
   before_validation :convert_known_uris
 
   after_create :update_triplestore
-  after_create :log_activity_in_solr
   after_create :create_data_point_uri
   after_update :update_data_point_uri
   after_update :update_triplestore
@@ -176,21 +175,6 @@ class UserAddedData < ActiveRecord::Base
     data_point_uri.object = object
     data_point_uri.unit_of_measure = nil
     data_point_uri.save
-  end
-
-
-  def log_activity_in_solr
-    DataObject.with_master do
-      base_index_hash = {
-        'activity_log_unique_key' => "UserAddedData_#{id}",
-        'activity_log_type' => 'UserAddedData',
-        'activity_log_id' => id,
-        'action_keyword' => 'create',
-        'date_created' => self.updated_at.solr_timestamp || self.created_at.solr_timestamp,
-        'user_id' => user.id }
-      EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
-      queue_notifications
-    end
   end
 
   def notification_recipient_objects()

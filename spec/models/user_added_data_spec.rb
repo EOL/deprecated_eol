@@ -138,8 +138,9 @@ describe UserAddedData do
     d.data_point_uri.unit_of_measure.should == nil
   end
 
-  it 'should create a update its DataPointURI' do
+  it 'should update its DataPointURI' do
     d = UserAddedData.gen(:object => 'hello')
+    d.data_point_uri.class.should == DataPointUri
     d.data_point_uri.object.should == 'hello'
     d.object = 'goodbye'
     d.save

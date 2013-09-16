@@ -28,6 +28,9 @@ end
 describe 'Taxa page basic tests' do
   before(:all) do
     load_foundation_cache
+    SiteConfigurationOption.destroy_all
+    @user_can_see_data = User.gen
+    @user_can_see_data.grant_permission(:see_data)
   end
 
   it 'should not convert ampersands in preferred common names' do
@@ -68,6 +71,7 @@ describe 'Taxa page basic tests' do
   it 'should not show a structured data summary when there is none' do
     drop_all_virtuoso_graphs
     tc = build_taxon_concept
+    login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
     body.should_not have_selector("#data_summary table")
   end
@@ -77,6 +81,7 @@ describe 'Taxa page basic tests' do
     drop_all_virtuoso_graphs
     tc = build_taxon_concept
     @user_added_data = UserAddedData.gen(:subject => tc)
+    login_as User.gen
     visit taxon_overview_path(tc.id)
     body.should_not have_selector("#data_summary table")
   end
@@ -85,6 +90,7 @@ describe 'Taxa page basic tests' do
     drop_all_virtuoso_graphs
     tc = build_taxon_concept
     @user_added_data = UserAddedData.gen(:subject => tc)
+    login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
     body.should have_selector("#data_summary table")
   end
@@ -95,6 +101,7 @@ describe 'Taxa page basic tests' do
     @measurement = DataMeasurement.new(:subject => tc, :resource => Resource.gen,
       :predicate => 'http://eol.org/weight', :object => '12345')
     @measurement.update_triplestore
+    login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
     body.should have_selector("#data_summary table")
   end
@@ -106,6 +113,7 @@ describe 'Taxa page basic tests' do
     @association = DataAssociation.new(:subject => subject_tc, :resource => Resource.gen,
       :object => target_tc, :type => 'http://eol.org/preys_on')
     @association.update_triplestore
+    login_as @user_can_see_data
     visit taxon_overview_path(subject_tc.id)
     body.should have_selector("#data_summary table")
     # target will not have data until an inverse relationship is added
@@ -119,6 +127,7 @@ describe 'Taxa page basic tests' do
     @measurement = DataMeasurement.new(:subject => tc, :resource => Resource.gen,
       :predicate => 'http://eol.org/weight', :object => '12345.0', :unit => 'http://eol.org/kg')
     @measurement.update_triplestore
+    login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
     body.should have_selector("#data_summary table")
     body.should include("12345.0")

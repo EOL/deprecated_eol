@@ -5,10 +5,15 @@ class ChangeableObjectType < ActiveRecord::Base
   validates_presence_of   :ch_object_type
   validates_uniqueness_of :ch_object_type
 
-  def self.create_defaults
+  def self.default_values
     %w(comment data_object synonym taxon_concept_name tag users_data_object hierarchy_entry
        curated_data_objects_hierarchy_entry data_objects_hierarchy_entry users_submitted_text
-       curated_taxon_concept_preferred_entry taxon_concept classification_curation).each do |type|
+       curated_taxon_concept_preferred_entry taxon_concept classification_curation data_point_uri
+       user_added_data)
+  end
+
+  def self.create_defaults
+    default_values.each do |type|
       ChangeableObjectType.create(:ch_object_type => type)
     end
 
@@ -50,6 +55,9 @@ class ChangeableObjectType < ActiveRecord::Base
   def self.users_data_object
     @@users_data_object ||= cached_find(:ch_object_type, 'users_submitted_text') || cached_find(:ch_object_type, 'users_data_object')
   end
+  class << self
+    alias_method :users_submitted_text, :users_data_object
+  end
 
   def self.hierarchy_entry
     @@hierarchy_entry ||= cached_find(:ch_object_type, 'hierarchy_entry')
@@ -69,6 +77,14 @@ class ChangeableObjectType < ActiveRecord::Base
 
   def self.classification_curation
     @@classification_curation ||= cached_find(:ch_object_type, 'classification_curation')
+  end
+
+  def self.data_point_uri
+    @@data_point_uri ||= cached_find(:ch_object_type, 'data_point_uri')
+  end
+
+  def self.user_added_data
+    @@user_added_data ||= cached_find(:ch_object_type, 'user_added_data')
   end
 
   def self.data_object_scope

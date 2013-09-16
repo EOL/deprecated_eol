@@ -748,11 +748,6 @@ protected
     end
   end
 
-  def show_data?
-    current_user.is_admin? || current_user.can?(:see_data) || (SiteConfigurationOption.all_users_can_see_data rescue false)
-  end
-  helper_method :show_data?
-
 private
 
   # NOTE - levels allowed are :assistant, :full and :master. (You may need this for the i18n YAML.)

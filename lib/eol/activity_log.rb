@@ -13,9 +13,9 @@ module EOL
       find_activities(klass, source, options)
     end
 
-    def self.global(max = 0)
+    def self.global(max = 0, options = {})
       max = $ACTIVITIES_ON_HOME_PAGE if max <= 0
-      return find(nil, :per_page => max)
+      return find(nil, options.merge(:per_page => max))
     end
 
   private

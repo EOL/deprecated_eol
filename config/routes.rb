@@ -345,7 +345,11 @@ Eol::Application.routes.draw do
   resources :known_uris do
     collection do
       get 'categories'
-      get 'autocomplete_known_uri_uri'
+      get 'autocomplete_known_uri_search'
+      get 'autocomplete_known_uri_units'
+      get 'autocomplete_known_uri_metadata'
+      get 'autocomplete_known_uri_predicates'
+      get 'autocomplete_known_uri_values'
       get 'show_stats'
       post 'import_ontology'
       post 'sort'
@@ -360,8 +364,6 @@ Eol::Application.routes.draw do
   end
 
   resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do
-    get :autocomplete_known_uri_uri, :on => :collection
-    get :autocomplete_translated_known_uri_name, :on => :collection
   end
 
   resources :taxon_data_exemplars, :only => [ :create ]

@@ -7,27 +7,36 @@ Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
 
 # TAXON DATA configuration settings:
 
-Rails.configuration.uri_prefix = 'http://eol.org/schema'
+Rails.configuration.uri_prefix = 'http://eol.org/schema/'
 Rails.configuration.uri_inverse = 'http://www.w3.org/2002/07/owl#inverseOf'
-Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}/resources"
-Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}/uses_measurement"
-Rails.configuration.uri_allowed_val = "#{Rails.configuration.uri_prefix}/allowedValue"
-Rails.configuration.uri_allowed_unit = "#{Rails.configuration.uri_prefix}/allowedUnit"
-Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}/terms/"
-Rails.configuration.uri_supplier = "#{Rails.configuration.uri_term_prefix}/supplier"
-Rails.configuration.uri_license = "#{Rails.configuration.uri_term_prefix}/license"
-Rails.configuration.uri_source = "#{Rails.configuration.uri_term_prefix}/source"
-Rails.configuration.uri_target_occurence = "#{Rails.configuration.uri_prefix}/targetOccurrenceID"
-Rails.configuration.uri_data_measurement = "http://rs.tdwg.org/dwc/terms/MeasurementOrFact"
-Rails.configuration.uri_reference = "#{Rails.configuration.uri_prefix}/reference/Reference"
-Rails.configuration.uri_reference_id = "#{Rails.configuration.uri_prefix}/reference/referenceID"
-Rails.configuration.uri_association_id = "#{Rails.configuration.uri_prefix}/associationID"
-Rails.configuration.uri_association_type = "#{Rails.configuration.uri_prefix}/associationType"
-Rails.configuration.uri_measurement_of_taxon = "#{Rails.configuration.uri_prefix}/measurementOfTaxon"
-Rails.configuration.uri_parent_measurement_id = "#{Rails.configuration.uri_prefix}/parentMeasurementID"
+Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources"
+Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"
+Rails.configuration.uri_allowed_val = "#{Rails.configuration.uri_prefix}allowedValue"
+Rails.configuration.uri_allowed_unit = "#{Rails.configuration.uri_prefix}allowedUnit"
+Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}terms/"
+Rails.configuration.uri_supplier = "#{Rails.configuration.uri_term_prefix}supplier"
+Rails.configuration.uri_target_occurence = "#{Rails.configuration.uri_prefix}targetOccurrenceID"
+Rails.configuration.uri_reference = "#{Rails.configuration.uri_prefix}reference/Reference"
+Rails.configuration.uri_reference_id = "#{Rails.configuration.uri_prefix}reference/referenceID"
+Rails.configuration.uri_association_id = "#{Rails.configuration.uri_prefix}associationID"
+Rails.configuration.uri_association_type = "#{Rails.configuration.uri_prefix}associationType"
+Rails.configuration.uri_measurement_of_taxon = "#{Rails.configuration.uri_prefix}measurementOfTaxon"
+Rails.configuration.uri_parent_measurement_id = "#{Rails.configuration.uri_prefix}parentMeasurementID"
+# DarwinCore
+Rails.configuration.uri_dwc = "http://rs.tdwg.org/dwc/terms/"
+Rails.configuration.uri_data_measurement = "#{Rails.configuration.uri_dwc}MeasurementOrFact"
+Rails.configuration.uri_measurement_unit = "#{Rails.configuration.uri_dwc}measurementUnit"
+# OBO
+Rails.configuration.uri_obo = "http://purl.obolibrary.org/obo/"
+# Dublin Core
+Rails.configuration.uri_dc = "http://purl.org/dc/terms/"
+Rails.configuration.uri_license = "#{Rails.configuration.uri_dc}license"
+Rails.configuration.uri_source = "#{Rails.configuration.uri_dc}source"
+Rails.configuration.uri_citation = "#{Rails.configuration.uri_dc}bibliographicCitation"
+
 Rails.configuration.uri_prefix_user_added_data = "http://eol.org/pages/" # TODO - this should be a polymorphic hash, ie:
                                 # { taxon_concept: "http://eol.org/pages/", data_object: "http://eol.org/data_objects/" } ...etc...
-Rails.configuration.uri_prefix_association = "#{Rails.configuration.uri_prefix}/Association"
+Rails.configuration.uri_prefix_association = "#{Rails.configuration.uri_prefix}Association"
 Rails.configuration.user_added_data_graph = "http://eol.org/user_data/"
 Rails.configuration.known_uri_graph = "http://eol.org/known_uris"
 Rails.configuration.known_taxon_uri_re = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.

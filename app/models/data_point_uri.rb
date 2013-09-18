@@ -272,7 +272,7 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def convert_units
-    if self.unit_of_measure_known_uri && self.object.is_numeric?
+    if self.unit_of_measure_known_uri && (self.object.is_a?(Float) || self.object.is_numeric?)
       original_value = self.object
       self.object = self.object.to_f
       unit = self.unit_of_measure_known_uri

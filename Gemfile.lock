@@ -7,6 +7,13 @@ GIT
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.0)
 
+GIT
+  remote: git://github.com/pleary/rails3-jquery-autocomplete.git
+  revision: bb7b9e1c7dce0c87db383438e47e2ee6754f1d72
+  specs:
+    rails3-jquery-autocomplete (1.0.11)
+      rails (~> 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -194,8 +201,6 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails3-jquery-autocomplete (1.0.11)
-      rails (~> 3.0)
     rails_autolink (1.0.9)
       rails (~> 3.1)
     railties (3.2.13)
@@ -340,7 +345,7 @@ DEPENDENCIES
   optiflag (= 0.7)
   paperclip (= 3.3.1)
   rails (= 3.2.13)
-  rails3-jquery-autocomplete (= 1.0.11)
+  rails3-jquery-autocomplete (= 1.0.11)!
   rails_autolink (= 1.0.9)
   rdoc (= 3.12)
   recaptcha (= 0.3.4)

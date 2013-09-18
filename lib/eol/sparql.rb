@@ -52,7 +52,7 @@ module EOL
 
     def self.implied_unit_of_measure_for_uri(known_uri_or_string)
       if known_uri_or_string.is_a?(KnownUri) && ! known_uri_or_string.unit_of_measure?
-        return known_uri_or_string.unit_of_measure
+        return known_uri_or_string.implied_unit_of_measure
       end
     end
 

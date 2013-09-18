@@ -42,56 +42,29 @@ class KnownUri < ActiveRecord::Base
   before_validation :default_values
 
   scope :excluded_from_exemplars, -> { where(exclude_from_exemplars: true) }
-  scope :measurements, -> { where(uri_type_id: UriType.measurement) }
-  scope :values, -> { where(uri_type_id: UriType.measurement_value) }
-  scope :associations, -> { where(uri_type_id: UriType.associations) }
-  scope :units, -> { where(uri_type_id: UriType.unit_of_measure) }
+  scope :measurements, -> { where(uri_type_id: UriType.measurement.id) }
+  scope :values, -> { where(uri_type_id: UriType.value.id) }
+  scope :associations, -> { where(uri_type_id: UriType.association.id) }
+  scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
 
-  def self.default_values
-    @@default_values ||=
-      [ { uri: 'http://purl.obolibrary.org/obo/UO_0000022', name: 'milligrams', uri_type: UriType.unit_of_measure },
-        { uri: 'http://purl.obolibrary.org/obo/UO_0000021', name: 'grams', uri_type: UriType.unit_of_measure },
-        { uri: 'http://purl.obolibrary.org/obo/UO_0000009', name: 'kilograms', uri_type: UriType.unit_of_measure },
-        { uri: 'http://purl.obolibrary.org/obo/UO_0000016', name: 'millimeters', uri_type: UriType.unit_of_measure },
-        { uri: 'http://purl.obolibrary.org/obo/UO_0000081', name: 'centimeters', uri_type: UriType.unit_of_measure },
-        { uri: 'http://purl.obolibrary.org/obo/UO_0000008', name: 'meters', uri_type: UriType.unit_of_measure },
-        { uri: 'http://purl.obolibrary.org/obo/UO_0000012', name: 'kelvin', uri_type: UriType.unit_of_measure },
-        { uri: 'http://purl.obolibrary.org/obo/UO_0000027', name: 'degrees Celsius', uri_type: UriType.unit_of_measure } ]
-  end
+  COMMON_URIS = [ { uri: Rails.configuration.uri_measurement_unit, name: 'unit_of_measure' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000009', name: 'kilograms' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000016', name: 'millimeters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000081', name: 'centimeters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000008', name: 'meters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000012', name: 'kelvin' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' }]
 
-  def self.create_defaults
-    default_values.each do |info|
-      unless KnownUri.exists?(uri: info[:uri])
-        known_uri = KnownUri.create(uri: info[:uri], uri_type: info[:uri_type])
-        TranslatedKnownUri.create(known_uri: known_uri, name: info[:name], language: Language.default)
+  COMMON_URIS.each do |info|
+    eigenclass = class << self; self; end
+    eigenclass.class_eval do
+      define_method(info[:name]) do
+        return class_variable_get("@@#{info[:name]}".to_sym) if class_variable_defined?("@@#{info[:name]}".to_sym)
+        class_variable_set("@@#{info[:name]}".to_sym, cached_find(:uri, info[:uri]))
       end
     end
-  end
-
-  # TODO - generalize these.  :\
-  def self.milligrams
-    @@milligrams ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'milligrams' }[:uri])
-  end
-  def self.grams
-    @@grams ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'grams' }[:uri])
-  end
-  def self.kilograms
-    @@kilograms ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'kilograms' }[:uri])
-  end
-  def self.millimeters
-    @@millimeters ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'millimeters' }[:uri])
-  end
-  def self.centimeters
-    @@centimeters ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'centimeters' }[:uri])
-  end
-  def self.meters
-    @@meters ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'meters' }[:uri])
-  end
-  def self.kelvin
-    @@kelvin ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'kelvin' }[:uri])
-  end
-  def self.celsius
-    @@celsius ||= KnownUri.find_by_uri(default_values.detect{ |dv| dv[:name] == 'degrees Celsius' }[:uri])
   end
 
   def self.create_for_language(options = {})
@@ -224,7 +197,8 @@ class KnownUri < ActiveRecord::Base
 
   def self.add_to_data(rows)
     known_uris = where(["uri in (?)", uris_in_data(rows)])
-    preload_associations(known_uris, [ :uri_type, { :known_uri_relationships_as_subject => :to_known_uri }, { :known_uri_relationships_as_target => :from_known_uri } ])
+    preload_associations(known_uris, [ :uri_type, { :known_uri_relationships_as_subject => :to_known_uri },
+      { :known_uri_relationships_as_target => :from_known_uri } ])
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
@@ -248,18 +222,50 @@ class KnownUri < ActiveRecord::Base
   end
 
   def allowed_values
-    known_uri_relationships_as_subject.allowed_values.map(&:to_known_uri)
+    # using .select here instead of the scope .allowed_values as the scope does not work on preloaded relationships
+    @allowed_values ||= known_uri_relationships_as_subject.select{ |r|
+      r.relationship_uri == KnownUriRelationship::ALLOWED_VALUE_URI }.map(&:to_known_uri)
   end
 
   def allowed_units
-    known_uri_relationships_as_subject.allowed_units.map(&:to_known_uri)
+    @allowed_units ||= known_uri_relationships_as_subject.select{ |r|
+      r.relationship_uri == KnownUriRelationship::ALLOWED_UNIT_URI }.map(&:to_known_uri)
+  end
+
+  def has_values?
+    ! allowed_values.empty?
+  end
+
+  def has_units?
+    ! allowed_units.empty?
+  end
+
+  # these 3 methods may only be used in specs
+  def add_value(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
+      :relationship_uri => KnownUriRelationship::ALLOWED_VALUE_URI)
+    # adding a new value for KnownUri.unit_of_measure requires we clear its cached instance
+    KnownUri.remove_class_variable('@@unit_of_measure') if(self == KnownUri.unit_of_measure)
+  end
+
+  def add_unit(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
+      :relationship_uri => KnownUriRelationship::ALLOWED_UNIT_URI)
+  end
+
+  def add_implied_unit(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
+      :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
   end
 
   def unknown?
     name.blank?
   end
 
-  def unit_of_measure
+  def implied_unit_of_measure
     if unit_of_measure_relation = known_uri_relationships_as_subject.detect{ |r| r.relationship_uri == KnownUriRelationship::MEASUREMENT_URI }
       unit_of_measure_relation.to_known_uri
     end
@@ -307,7 +313,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def unit_of_measure?
-    uri_type == UriType.unit_of_measure
+    KnownUri.unit_of_measure.allowed_values.include?(self)
   end
 
   private

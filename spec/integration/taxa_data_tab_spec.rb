@@ -76,13 +76,14 @@ describe 'Taxa data tab basic tests' do
 
   it 'should display units of measure when explicitly declared' do
     @measurement = DataMeasurement.new(@default_data_options.merge(:predicate => 'http://eol.org/mass',
-      :object => '50', :unit => 'http://eol.org/kg'))
+      :object => '50', :unit => 'http://eol.org/lbs'))
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the unit is a KnownURI
-    pattern = "50.0\n</span>\n <span>\nkilograms"
+    pattern = "50\n</span>\n <span>\npounds"
     body.should_not include(pattern)
-    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/kg', :name => 'kilograms', :uri_type => UriType.unit_of_measure)
+    pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds')
+    KnownUri.unit_of_measure.add_value(pounds)
     visit taxon_data_path(@taxon_concept.id)
     body.should include(pattern)
   end
@@ -93,11 +94,12 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the predicate is associated with a unit, and that unit is a KnownURI
     body.should have_selector("table.data td[headers='http://eol.org/time'] span", :text => '50')
-    pattern = "50.0\n</span>\n <span>\nhours"
+    pattern = "50\n</span>\n <span>\nhours"
     body.should_not include(pattern)
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
-    hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', :uri_type => UriType.unit_of_measure)
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => time, :to_known_uri => hours, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
+    hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours')
+    KnownUri.unit_of_measure.add_value(hours)
+    time.add_implied_unit(hours);
     visit taxon_data_path(@taxon_concept.id)
     body.should include(pattern)
   end

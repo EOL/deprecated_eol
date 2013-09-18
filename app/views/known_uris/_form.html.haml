@@ -16,18 +16,10 @@
         %dd= nested.text_area :comment, :rows => 3
       -# TODO - we should actually monitor the uri type with JS and remove the associations if they change the value (and put them back if they change it back...)
       - if known_uri.uri_type == UriType.measurement
-        %dt.associations= f.label I18n.t(:measurement_allowed_values)
-        %dd.associations
-          %ul
-            - KnownUri.values.each do |val|
-              %li
-                = check_box_tag :allowed_values, val.id, known_uri.allowed_values.include?(val),
-                  name: 'known_uri[allowed_values_target_ids][]'
-                = I18n.t(:known_uri_name_and_uri, name: val.name, uri: val.uri)
         %dt.units= f.label I18n.t(:measurement_allowed_units)
         %dd.units
           %ul
-            - KnownUri.units.each do |unit|
+            - KnownUri.unit_of_measure.allowed_values.each do |unit|
               %li
                 = check_box_tag :allowed_units, unit.id, known_uri.allowed_units.include?(unit),
                   name: 'known_uri[allowed_units_target_ids][]'
@@ -71,6 +63,6 @@
         %dd
           = tr.select :relationship_uri, options_for_select(KnownUriRelationship.translated_relationship_types)
           = tr.hidden_field :to_known_uri_id
-          = autocomplete_field :autocomplete, 'to_known_uri', autocomplete_known_uri_uri_known_uris_path, :id_element => "#known_uri_relationship_to_known_uri_id",
+          = autocomplete_field :autocomplete, 'to_known_uri', autocomplete_known_uri_search_known_uris_path, :id_element => "#known_uri_relationship_to_known_uri_id",
             :value => (tr.object.to_known_uri.uri rescue '')
           = tr.submit I18n.t(:submit)

@@ -11,8 +11,3 @@ while($next.hasClass('child')) {
   $next.show();
   $next = $next.next();
 }
-$('li.attribute').click(function() {
-  $('#user_added_data_predicate').val($(this).find('.name').text());
-  EOL.attribute_is_okay();
-  $('div#suggestions').hide();
-});

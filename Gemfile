@@ -73,7 +73,7 @@ gem 'oauth', '0.4.7'
 gem 'oauth2', '0.8.0'
 gem 'paperclip', '3.3.1'
 gem 'rails_autolink', '1.0.9'
-gem 'rails3-jquery-autocomplete', '1.0.11'
+gem 'rails3-jquery-autocomplete', '1.0.11', :git => "git://github.com/pleary/rails3-jquery-autocomplete.git"
 gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails'
 gem 'resque', '1.23.0', :require => 'resque/server'
 gem 'sanitize', '2.0.3'

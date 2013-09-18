@@ -3,7 +3,8 @@
 <% else %>
   <% @known_uris.each do |ku| %>
     <li class="child attribute">
-      <span title=<%=ku.uri%> class='name'><%= raw(ku.name) %></span>
+      <span title=<%=ku.uri%> class='name' data-id=<%=ku.id%> data-uri_type='<%= ku.allowed_units.empty? ? nil : "measurement"
+        %>' data-has_values='<%= ku.has_values? ? "1" : nil%>'><%= raw(ku.name) %></span>
     </li>
   <% end %>
 <% end %>

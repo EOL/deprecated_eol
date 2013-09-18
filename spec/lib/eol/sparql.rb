@@ -4,12 +4,16 @@ describe EOL::Sparql do
 
   before(:all) do
     truncate_all_tables
+    UriType.create_defaults
   end
 
   before(:each) do
     KnownUri.destroy_all
     TranslatedKnownUri.destroy_all
     KnownUriRelationship.destroy_all
+    KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_measurement_unit, name: 'unit_of_measure')
+    # clear the cached version of KnownUri.unit_of_measure before each spec
+    KnownUri.remove_class_variable('@@unit_of_measure') if KnownUri.class_variable_defined?('@@unit_of_measure')
   end
 
   it 'should create a connection' do
@@ -34,9 +38,10 @@ describe EOL::Sparql do
 
   it 'should explicit_measurement_uri_components' do
     # when there is a unit in the metadata, there must be a matching KnownURI
-    EOL::Sparql.explicit_measurement_uri_components({ 'http://rs.tdwg.org/dwc/terms/measurementUnit' =>
+    EOL::Sparql.explicit_measurement_uri_components({ Rails.configuration.uri_measurement_unit =>
       'http://example.com/grams' }).should == nil
-    grams = KnownUri.gen_if_not_exists(:uri => 'http://example.com/grams', :name => 'grams', :uri_type => UriType.unit_of_measure)
+    grams = KnownUri.gen_if_not_exists(:uri => 'http://example.com/grams', :name => 'grams')
+    KnownUri.unit_of_measure.add_value(grams)
     EOL::Sparql.explicit_measurement_uri_components(grams).
       should == { uri: "http://example.com/grams", label: "grams", definition: nil }
   end
@@ -44,29 +49,32 @@ describe EOL::Sparql do
   it 'should implicit_measurement_uri_components' do
     length = KnownUri.gen_if_not_exists(:uri => 'http://example.com/length', :name => 'length')
     EOL::Sparql.implicit_measurement_uri_components(length).should == nil
-    meters = KnownUri.gen_if_not_exists(:uri => 'http://example.com/meters', :name => 'meters', :uri_type => UriType.unit_of_measure)
+    meters = KnownUri.gen_if_not_exists(:uri => 'http://example.com/meters', :name => 'meters', :uri_type => UriType.value)
     EOL::Sparql.implicit_measurement_uri_components(length).should == nil
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => length, :to_known_uri => meters, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
+    KnownUri.unit_of_measure.add_value(meters)
+    length.add_implied_unit(meters)
     length.reload
     EOL::Sparql.implicit_measurement_uri_components(length)
       .should == { uri: "http://example.com/meters", label: "meters", definition: nil }
   end
 
   it 'should implied_unit_of_measure_for_uri' do
+    KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_measurement_unit, name: 'unit_of_measure')
     height = KnownUri.gen_if_not_exists(:uri => 'http://example.com/height', :name => 'length')
     EOL::Sparql.implied_unit_of_measure_for_uri(height).should == nil
-    meters = KnownUri.gen_if_not_exists(:uri => 'http://example.com/meters', :name => 'meters', :uri_type => UriType.unit_of_measure)
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => height, :to_known_uri => meters, :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
+    meters = KnownUri.gen_if_not_exists(:uri => 'http://example.com/meters', :name => 'meters', :uri_type => UriType.value)
+    KnownUri.unit_of_measure.add_value(meters)
+    height.add_implied_unit(meters)
     height.reload
     EOL::Sparql.implied_unit_of_measure_for_uri(height).should == meters
-
     random_known_uri = KnownUri.gen_if_not_exists(:uri => 'http://example.com/width', :name => 'width')
     EOL::Sparql.implied_unit_of_measure_for_uri(random_known_uri).should == nil
   end
 
   it 'should is_known_unit_of_measure_uri?' do
     EOL::Sparql.is_known_unit_of_measure_uri?('http://example.com/gallons').should == nil
-    gallons = KnownUri.gen_if_not_exists(:uri => 'http://example.com/gallons', :name => 'gallons', :uri_type => UriType.unit_of_measure)
+    gallons = KnownUri.gen_if_not_exists(:uri => 'http://example.com/gallons', :name => 'gallons', :uri_type => UriType.value)
+    KnownUri.unit_of_measure.add_value(gallons)
     EOL::Sparql.is_known_unit_of_measure_uri?(gallons).should == true
   end
 
@@ -126,7 +134,7 @@ describe EOL::Sparql do
     EOL::Sparql.count_triples_in_graph("fictional_graph").should == 0
     EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
     UserAddedData.gen
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 4
+    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
   end
 end
 

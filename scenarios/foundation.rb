@@ -245,10 +245,44 @@ SynonymRelation.gen_if_not_exists(:label => "genbank common name")
 Visibility.create_defaults
 
 UriType.create_defaults
-KnownUri.create_defaults
 ContentTable.create_details
 NotificationFrequency.create_defaults
 Permission.create_defaults
+
+def create_known_uri(params)
+  new_instance = KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id],
+    vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+  TranslatedKnownUri.create(known_uri: new_instance, name: params[:name], language: Language.english)
+  new_instance
+end
+
+default_known_uris =
+    [ { parent: { uri: Rails.configuration.uri_measurement_unit, name: 'Unit of Measure', uri_type_id: UriType.metadata.id },
+        values: [ { uri: 'http://purl.obolibrary.org/obo/UO_0000022', name: 'milligrams' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000021', name: 'grams' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000009', name: 'kilograms' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000016', name: 'millimeters' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000081', name: 'centimeters' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000008', name: 'meters' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000012', name: 'kelvin' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000027', name: 'degrees Celsius' } ] },
+      { parent: { uri: Rails.configuration.uri_dwc + 'sex', name: 'Sex', uri_type_id: UriType.metadata.id },
+        values: [ { uri: Rails.configuration.uri_term_prefix + 'male', name: 'male' },
+                    { uri: Rails.configuration.uri_term_prefix + 'female', name: 'female' } ] },
+      { parent: { uri: Rails.configuration.uri_dc + 'source', name: 'Source', uri_type_id: UriType.metadata.id } },
+      { parent: { uri: Rails.configuration.uri_dc + 'license', name: 'License', uri_type_id: UriType.metadata.id } },
+      { parent: { uri: Rails.configuration.uri_dc + 'bibliographicCitation', name: 'Reference', uri_type_id: UriType.metadata.id } }
+    ]
+default_known_uris.each do |info|
+  parent = create_known_uri(info[:parent])
+  info[:values].each do |value|
+    value = create_known_uri(value.merge(uri_type_id: UriType.value.id))
+    KnownUriRelationship.gen(from_known_uri: parent, to_known_uri: value,
+      relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI)
+  end if info[:values]
+end
+
+
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

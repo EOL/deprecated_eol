@@ -1,4 +1,4 @@
-if(!EOL) { var EOL = {}; }
+if (!EOL) { var EOL = {}; }
 
 var _TOOLTIP_OPEN = false;
 
@@ -19,28 +19,32 @@ EOL.disable_button = function($button) {
 EOL.attribute_is_not_okay = function() {
   $('input#user_added_data_predicate').addClass('problems');
   $('#new_uri_warning').show();
-  // EOL.disable_button($('#new_user_added_data').find('input:submit'));
+  EOL.disable_measurement_input();
 };
 
 EOL.attribute_is_okay = function() {
   $('input#user_added_data_predicate').removeClass('problems');
   $('#new_uri_warning').hide();
-  // EOL.enable_button($('#new_user_added_data').find('input:submit'));
+  if ($('#predicate_uri_type').val() == 'measurement' && $('#user_added_data_predicate').val() != '') {
+    $('fieldset.unit_of_measure').fadeIn(100);
+  } else {
+    EOL.disable_measurement_input();
+  }
 };
+
+EOL.disable_measurement_input = function() {
+  $('fieldset.unit_of_measure').fadeOut(100);
+  $('fieldset.unit_of_measure input').val('');
+}
 
 EOL.add_has_default_behavior = function() {
   $('input.has_default').each(function() {
     if ($(this).val() == '') {
-      $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
+      $(this).val($(this).attr('data-default')).fadeTo(0, 0.6);
     }
-    $(this).unbind('focus').unbind('blur');
-    $(this).on('focus', function() {
-      if ($(this).val() == $(this).attr('data-default')) {
-        $(this).val('').fadeTo(150, 1);
-      }
-    }).on('blur', function() {
+    $(this).on('blur', function() {
       if ($(this).val() == '') {
-        $(this).val($(this).attr('data-default')).fadeTo(225, 0.6);
+        $(this).val($(this).attr('data-default')).fadeTo(0, 0.6);
       }
     });
   });
@@ -58,11 +62,34 @@ EOL.show_data_tables = function(tables) {
   tables.find('tr.actions').hide();
 };
 
+EOL.enable_suggestions_hover = function() {
+  $('input#user_added_data_predicate').parent().hover(function() {
+    if (!$('ul.ui-autocomplete').is(':visible') && $('input#user_added_data_predicate').val() == '') {
+      $('div#suggestions').show();
+    } else $('div#suggestions').hide();
+  }, function () {
+    $('div#suggestions').hide();
+  });
+}
+
+EOL.disable_suggestions_hover = function() {
+  $('input#user_added_data_predicate').parent().unbind('hover');
+}
 
 function update_input_id_and_name(form, new_id) {
   form.find('input').each(function() {
     $(this).attr('id', $(this).attr('id').replace(/\d+/, new_id));
     $(this).attr('name', $(this).attr('name').replace(/\d+/, new_id));
+    // these 3 fields are used in autocompleting of metadata
+    if ($(this).attr('data-id-element')) {
+      $(this).attr('data-id-element', $(this).attr('data-id-element').replace(/\d+/, new_id));
+    }
+    if ($(this).attr('data-include-predicate_known_uri_id')) {
+      $(this).attr('data-include-predicate_known_uri_id', $(this).attr('data-include-predicate_known_uri_id').replace(/\d+/, new_id));
+    }
+    if ($(this).attr('data-update-elements')) {
+      $(this).attr('data-update-elements', $(this).attr('data-update-elements').replace(/\d+/, new_id));
+    }
   });
 }
 
@@ -108,40 +135,33 @@ $(function() {
     });
   });
 
-  $('input#user_added_data_predicate').keyup(function() {
+  $('div#suggestions').appendTo($('input#user_added_data_predicate').parent());
+
+  $('input#user_added_data_predicate').keyup(function(e) {
+    var key = e.keyCode || e.which;
+    // it was the return key that was pressed, likely the user
+    // choosing an autocomplete value from the list, so do nothing
+    if (key === 13) return;
     var $field = $(this)
-    if($field.val() != '') {
+    if ($field.val() != '') {
       $('div#suggestions').hide();
     }
-    if ($field.val().match(/^ht/i)) {
-      EOL.attribute_is_okay();
-      $field.attr('data-autocomplete', $field.attr('data-http'));
-    } else {
-      $field.attr('data-autocomplete', $field.attr('data-orig'));
+    if ($('#user_added_data_predicate_known_uri_id').val() != '') {
+      $('#user_added_data_predicate_known_uri_id').val('');
       EOL.attribute_is_not_okay();
-      if($field.val() == '') {
-        EOL.attribute_is_okay();
-      } else {
-        $('ul.ui-autocomplete').find('li').each(function(i, el) {
-          if($(el).text() == $field.val()) {
-            EOL.attribute_is_okay();
-          }
-        });
-      }
     }
+    if ($field.val() == '' || $('#user_added_data_predicate_known_uri_id').val() != '') {
+      EOL.attribute_is_okay();
+    } else EOL.attribute_is_not_okay();
   }).focus(function() {
-    $('div#suggestions').appendTo($(this).parent());
     if ($(this).val() == '') {
       $('div#suggestions').show();
     }
-    $(this).parent().hover(function() {
-      if (!$('ul.ui-autocomplete').is(':visible') && $(this).val() == '') {
-        $('div#suggestions').show();
-      }
-    }, function () {
-      $('div#suggestions').hide();
-    });
   });
+
+  EOL.enable_suggestions_hover();
+
+  $('fieldset.unit_of_measure').hide();
 
   $('table.data .fold a').on('click', function() { $(this).closest('tr').click(); return(false); }); // These links just click the row, with JS.
 
@@ -191,19 +211,63 @@ $(function() {
     return(false);
   });
 
-  $('li.attribute').on('click', function() {
-    $('#user_added_data_predicate').val($(this).find('.name').text());
+  $('li.attribute').live('click', function() {
+    var span = $(this).find('.name');
+    $('#user_added_data_predicate').val(span.text());
+    $('#user_added_data_predicate_known_uri_id').val(span.data('id'));
+    $('#predicate_uri_type').val(span.data('uri_type'));
+    $('#user_added_data_has_values').val(span.data('has_values'));
     EOL.attribute_is_okay();
     $('div#suggestions').hide();
   });
 
+  // any chosen autocomplete value is legitimate
+  $('#user_added_data_predicate').bind('railsAutocomplete.select', function(event, data){
+    EOL.attribute_is_okay();
+  });
+
+  $('input[data-autocomplete]').live('focus', function() {
+    // if the field is a value autocomplete, check the hidden *_has_values
+    // field to see if we should disable autocomplete or not
+    if ($(this).data('autocomplete').match(/known_uri_values/)) {
+      var value_toggle = $(this).closest('div').find('input[id*="has_values"]:first');
+      if (value_toggle.length > 0) {
+        if (value_toggle.val() == '1') $(this).autocomplete('enable');
+        else $(this).autocomplete('disable');
+      }
+    }
+    if ($(this).val() == $(this).attr('data-default')) {
+      $(this).val('');
+      $(this).fadeTo(225, 1);
+    }
+
+    // for the primary measurement, always autocomplete with the value in the text input. The other
+    // autocomplete fields will search on ' ' to show always show the pick-list on focus. The primary
+    // measurment field will show the custom selector when the field is empty
+    if ($(this).attr('id') == 'user_added_data_predicate') {
+      $(this).autocomplete("search", $(this).val());
+    } else $(this).autocomplete("search", ' ');
+  });
+
+  // this helps show default pick-lists when the fields are empty
+  $('input[data-autocomplete]').keyup(function(e) {
+    var key = e.keyCode || e.which;
+    // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
+    if (key === 37 || key === 38 || key === 39 || key === 40) return;
+    if ($(this).val() == '') {
+      if ($(this).attr('id') == 'user_added_data_predicate') {
+        $('div#suggestions').show();
+      } else $(this).autocomplete("search", ' ');
+    }
+  });
+
   $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
     $('.about_subtab').hide();
-    if($(this).parent().hasClass('about')) {
+    if ($(this).parent().hasClass('about')) {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.about_subtab').show()
-    } else if($(this).hasClass('all')) { // Acts as a reset button/link
+    } else if ($(this).hasClass('all')) { // Acts as a reset button/link
       $('#taxon_data .empty').show();
       EOL.show_data_tables($('table.data'));
     } else {
@@ -224,7 +288,7 @@ $(function() {
 
   EOL.add_has_default_behavior();
 
-  if(location.hash != "") {
+  if (location.hash != "") {
     var name  = location.hash.replace(/\?.*$/, '');
     var $row = $(name);
     $row.click();
@@ -246,8 +310,8 @@ $(function() {
 
   $('#sortable').sortable({
     placeholder: "placeholder", items: "tr:not(.headers)", helper: 'clone', tolerance: 'pointer',
-    update: function() {
-      $.post("/known_uris/sort", { known_uris: $("#sortable").sortable('toArray') })
+    update: function(e, ui) {
+      $.post("/known_uris/sort", { known_uris: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') })
     }
   }).disableSelection();
 
@@ -294,5 +358,4 @@ $(function() {
     }
     return(false);
   });
-
 });

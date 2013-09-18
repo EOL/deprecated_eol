@@ -1,13 +1,17 @@
 class KnownUrisController < ApplicationController
 
-  before_filter :set_page_title, :except => :autocomplete_known_uri_uri
-  before_filter :restrict_to_admins_and_master_curators, :except => [ :autocomplete_known_uri_uri ]
+  before_filter :set_page_title,
+    :except => [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
+                 :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
+  before_filter :restrict_to_admins_and_master_curators,
+    :except => [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
+                 :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
   before_filter :set_stats_filter_options, :only => [ :index, :show_stats ]
-  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms, :only => :autocomplete_known_uri_uri
+  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
+    :only => [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
+               :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
 
   layout 'v2/basic'
-
-  autocomplete :known_uri, :uri, :full => true
 
   def index
     wheres = { translated_known_uris: { language_id: [current_language.id, Language.default.id] } }
@@ -94,12 +98,14 @@ class KnownUrisController < ApplicationController
     allowed_units_target_ids = params[:known_uri].delete(:allowed_units_target_ids)
     @known_uri = KnownUri.new(params[:known_uri])
     if @known_uri.save
-      allowed_units_target_ids.each do |target_known_uri_id|
-        KnownUriRelationship.create(to_known_uri: KnownUri.find(target_known_uri_id), from_known_uri: @known_uri,
-                                    relationship_uri: KnownUriRelationship::ALLOWED_UNIT_URI)
+      if allowed_units_target_ids
+        allowed_units_target_ids.each do |target_known_uri_id|
+          KnownUriRelationship.create(to_known_uri: KnownUri.find(target_known_uri_id), from_known_uri: @known_uri,
+                                      relationship_uri: KnownUriRelationship::ALLOWED_UNIT_URI)
+        end
       end
       flash[:notice] = I18n.t(:known_uri_created)
-      redirect_back_or_default(known_uris_path)
+      redirect_back_or_default(known_uris_path(uri_type_id: @known_uri.uri_type_id))
     else
       render action: 'new'
     end
@@ -110,14 +116,24 @@ class KnownUrisController < ApplicationController
     @translated_known_uri = @known_uri.translations.detect{ |t| t.language == current_language } || @known_uri.translated_known_uris.build(language: current_language)
   end
 
-  # TODO - this seems a bit much, but this is a controller that will see a lot of use for a month, and then almost none... so I don't care much right now.
-  # Still, this could be made efficient. I'm just going off of http://quickworx.info/using-jquery-drag-and-drop-to-order-div-based-tables-in-rails/ for
-  # now...
   def sort
-    @known_uris = KnownUri.all # Yes, really.
-    @known_uris.each do |uri|
-      uri.position = params['known_uris'].index("known_uri_#{uri.id}") + 1
-      uri.save
+    last_position = nil
+    moved_known_uri = KnownUri.find(params['moved_id'].sub('known_uri_', ''))
+    position_in_results = params['known_uris'].index(params['moved_id'])
+    if position_in_results == params['known_uris'].length - 1
+      # the URI was moved to the last position. It will be 1 higher than the previous last,
+      # and we update anything with a position higher than that (could be a URI from a different page or type)
+      previous_element = KnownUri.find(params['known_uris'][-2].sub('known_uri_', ''))
+      moved_known_uri.position = previous_element.position + 1
+      KnownUri.update_all('position = position + 1', "position >= #{previous_element.position + 1}")
+      moved_known_uri.save
+    else
+      # the URI was moved to something other than last place. It will assume the position of the
+      # URI just below it, and anything with a position higher than that is increased by 1
+      next_element = KnownUri.find(params['known_uris'][position_in_results + 1].sub('known_uri_', ''))
+      moved_known_uri.position = next_element.position
+      KnownUri.update_all('position = position + 1', "position >= #{next_element.position}")
+      moved_known_uri.save
     end
     respond_to do |format|
       format.js { }
@@ -129,7 +145,7 @@ class KnownUrisController < ApplicationController
     if current_user.is_admin?
       @known_uri.show(current_user)
     end
-    redirect_to action: 'index'
+    redirect_to action: 'index', uri_type_id: @known_uri.uri_type_id
   end
 
   def hide 
@@ -137,7 +153,7 @@ class KnownUrisController < ApplicationController
     if current_user.is_admin?
       @known_uri.hide(current_user)
     end
-    redirect_to action: 'index'
+    redirect_to action: 'index', uri_type_id: @known_uri.uri_type_id
   end
 
   def update
@@ -145,7 +161,7 @@ class KnownUrisController < ApplicationController
     convert_allowed_value_and_unit_ids_to_relationships # Because they don't work without more information...
     if @known_uri.update_attributes(params[:known_uri])
       flash[:notice] = I18n.t(:known_uri_updated)
-      redirect_back_or_default(known_uris_path)
+      redirect_back_or_default(known_uris_path(uri_type_id: @known_uri.uri_type_id))
     else
       render :action => "edit"
     end
@@ -157,13 +173,85 @@ class KnownUrisController < ApplicationController
     redirect_to known_uris_path
   end
 
-  def autocomplete_known_uri_uri
-    @known_uris = KnownUri.where([ "uri LIKE ?", "%#{params[:term]}%" ]) +
-      TranslatedKnownUri.where([ "name LIKE ?", "%#{params[:term]}%" ]).collect(&:known_uri)
-    render :json => @known_uris.compact.uniq.collect{ |k| { :id => k.id, :value => k.uri, :label => k.uri }}.to_json
+  # search for any URI by name or URI
+  def autocomplete_known_uri_search
+    @known_uris = search_known_uris_by_name_or_uri(params[:term])
+    render_autocomplete_results
+  end
+
+  # search for primary measurement predicates. This won't be called unless there
+  # is a term, so do a basic search and filter on measurement type
+  def autocomplete_known_uri_predicates
+    @known_uris = search_known_uris_by_name_or_uri(params[:term])
+    @known_uris.delete_if{ |ku| ku.uri_type_id != UriType.measurement.id }
+    render_autocomplete_results
+  end
+
+  # search for unit URIs. If the term is empty and given a predicate, use the
+  # visible specified units as a pick list. If given a term, search for any
+  # KnownUri which is a unit of measure value URI
+  def autocomplete_known_uri_units
+    lookup_predicate
+    if params[:term].strip.blank?
+      if @predicate && @predicate.has_units?
+        @known_uris = @predicate.allowed_units.select{ |ku| ku.visible? }
+      end
+    else
+      @known_uris = search_known_uris_by_name_or_uri(params[:term])
+      allowed_values = KnownUri.unit_of_measure.allowed_values
+      @known_uris.delete_if{ |ku| ! allowed_values.include?(ku) }
+    end
+    render_autocomplete_results
+  end
+
+  # search for metadata URIs. If the term is empty then use all visible metadata URIs
+  # as a pick list. The :predicate_known_uri_id parameter here refers to the primary measurement.
+  # If that primary measurement has specified units, then remove UnitOfMeasure from the pick
+  # list as it should already be shown as a separate field
+  def autocomplete_known_uri_metadata
+    lookup_predicate
+    if params[:term].strip.blank?
+      @known_uris = KnownUri.metadata.select{ |ku| ku.visible? }
+    else
+      @known_uris = search_known_uris_by_name_or_uri(params[:term])
+      @known_uris.delete_if{ |ku| ku.uri_type_id != UriType.metadata.id }
+    end
+    if @predicate && @predicate.has_units?
+      @known_uris.delete(KnownUri.unit_of_measure)
+    end
+    render_autocomplete_results
+  end
+
+  # search for value URIs, but only given a predicate. If the term is empty then use all visible
+  # specified values as a pick list. Only autocomplete within values specified for the predicate
+  def autocomplete_known_uri_values
+    lookup_predicate
+    if @predicate
+      if params[:term].strip.blank?
+        if @predicate && @predicate.has_values?
+          @known_uris = @predicate.allowed_values.select{ |ku| ku.visible? }
+        else
+          @known_uris = []
+        end
+      else
+        @known_uris = search_known_uris_by_name_or_uri(params[:term])
+        @known_uris.delete_if{ |ku| ! @predicate.allowed_values.include?(ku) }
+      end
+    end
+    render_autocomplete_results
   end
 
   private
+
+  def render_autocomplete_results
+    @known_uris ||= []
+    KnownUri.preload_associations(@known_uris, [ :uri_type, { :known_uri_relationships_as_subject => :to_known_uri } ])
+    @known_uris.uniq!
+    @known_uris.sort_by!(&:position)
+    render :json => @known_uris.compact.uniq.collect{ |k| { :id => k.id, :value => k.name,
+      :label => "#{k.name} (#{k.uri})", :uri_type => k.has_units? ? 'measurement' : nil,
+      :has_values => k.has_values? ? '1' : nil }}.to_json
+  end
 
   def set_page_title
     @page_title = I18n.t(:known_uris_page_title)
@@ -246,6 +334,16 @@ class KnownUrisController < ApplicationController
     else
       params[:known_uri][:known_uri_relationships_as_subject] ||= []
     end
+  end
+
+  def search_known_uris_by_name_or_uri(term)
+    @known_uris = KnownUri.where([ "uri LIKE ?", "%#{term}%" ]) +
+      TranslatedKnownUri.where([ "name LIKE ?", "%#{params[:term]}%" ]).includes(:known_uri).collect(&:known_uri)
+  end
+
+  def lookup_predicate
+    @predicate = !params[:predicate_known_uri_id].blank? ? KnownUri.find_by_id(params[:predicate_known_uri_id]) : nil
+    KnownUri.preload_associations(@predicate, { :known_uri_relationships_as_subject => :to_known_uri })
   end
 
 end

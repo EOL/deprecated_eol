@@ -30,7 +30,11 @@ class UserAddedData < ActiveRecord::Base
   after_update :update_triplestore
 
   attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes, :deleted_at,
-    :visibility, :visibility_id, :vetted, :vetted_id
+    :visibility, :visibility_id, :vetted, :vetted_id, :predicate_known_uri_id, :object_known_uri_id, :has_values
+
+  attr_accessor :predicate_known_uri_id
+  attr_accessor :object_known_uri_id
+  attr_accessor :has_values
 
   accepts_nested_attributes_for :user_added_data_metadata, :allow_destroy => true
 
@@ -88,7 +92,7 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def turtle
-    raise NotImlementedError unless subject.is_a?(TaxonConcept)
+    raise NotImplementedError unless subject.is_a?(TaxonConcept)
     "<#{uri}> a <#{DataMeasurement::CLASS_URI}>" +
       # TODO - this needs to be dynamic:
     "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject.id.to_s + ">" +
@@ -118,8 +122,16 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def convert_known_uris
-    self.predicate = convert_known_uri(self.predicate) unless EOL::Sparql.is_uri?(self.predicate)
-    self.object = convert_known_uri(self.object) unless EOL::Sparql.is_uri?(self.predicate)
+    if self.predicate_known_uri_id && known_uri = KnownUri.find_by_id(self.predicate_known_uri_id)
+      self.predicate = known_uri.uri
+    else
+      self.predicate = convert_known_uri(self.predicate) unless EOL::Sparql.is_uri?(self.predicate)
+    end
+    if self.object_known_uri_id && known_uri = KnownUri.find_by_id(self.object_known_uri_id)
+      self.object = known_uri.uri
+    else
+      self.object = convert_known_uri(self.object) unless EOL::Sparql.is_uri?(self.predicate)
+    end
   end
 
   def convert_known_uri(which)

@@ -12,11 +12,11 @@ describe KnownUri do
     @value_2 = FactoryGirl.create(:known_uri_value)
     FactoryGirl.create(:known_uri_allowed_value, from_known_uri: @measurement, to_known_uri: @value_2)
     @value_3 = FactoryGirl.create(:known_uri_value) # not related
-    @unit_1 = FactoryGirl.create(:known_uri_unit)
+    @unit_1 = FactoryGirl.create(:known_uri_value)
     FactoryGirl.create(:known_uri_allowed_unit, from_known_uri: @measurement, to_known_uri: @unit_1)
-    @unit_2 = FactoryGirl.create(:known_uri_unit)
+    @unit_2 = FactoryGirl.create(:known_uri_value)
     FactoryGirl.create(:known_uri_allowed_unit, from_known_uri: @measurement, to_known_uri: @unit_2)
-    @unit_3 = FactoryGirl.create(:known_uri_unit)
+    @unit_3 = FactoryGirl.create(:known_uri_value)
     @measurement.reload
   end
 
@@ -27,11 +27,21 @@ describe KnownUri do
     @measurement.allowed_values.should_not include(@unit_1)
   end
 
+  it 'should response to has_values?' do
+    FactoryGirl.create(:known_uri_measurement).has_values?.should == false
+    @measurement.has_values?.should == true
+  end
+
   it 'should know about its allowed units' do
     @measurement.allowed_units.should include(@unit_1)
     @measurement.allowed_units.should include(@unit_2)
     @measurement.allowed_units.should_not include(@unit_3)
     @measurement.allowed_units.should_not include(@value_1)
+  end
+
+  it 'should response to has_units?' do
+    FactoryGirl.create(:known_uri_measurement).has_units?.should == false
+    @measurement.has_units?.should == true
   end
 
 end

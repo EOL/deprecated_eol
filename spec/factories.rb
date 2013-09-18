@@ -870,14 +870,7 @@ FactoryGirl.define do
   factory :known_uri_value, class: KnownUri do
     vetted { Vetted.trusted }
     visibility { Visibility.visible }
-    uri_type { UriType.measurement_value }
-    uri { "http://example.com/#{generate(:string)}" }
-  end
-
-  factory :known_uri_unit, class: KnownUri do
-    vetted { Vetted.trusted }
-    visibility { Visibility.visible }
-    uri_type { UriType.unit_of_measure }
+    uri_type { UriType.value }
     uri { "http://example.com/#{generate(:string)}" }
   end
 

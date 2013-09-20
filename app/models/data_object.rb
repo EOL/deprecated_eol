@@ -954,6 +954,7 @@ class DataObject < ActiveRecord::Base
         dato
       else
         latest = dato.latest_version_in_language(options[:language_id] || dato.language_id, options.reverse_merge(check_only_published: false))
+        latest = dato if latest.nil?
         latest.is_the_latest_published_revision = true
         latest
       end

@@ -27,7 +27,7 @@ class SearchController < ApplicationController
 
     if @querystring == '*' || @querystring == '%'
       @wildcard_search = true
-      if params[:type].size != 1 || !EOL::Solr::SiteSearch.types_to_show_all.include?(params[:type].first)
+      if params[:type].size != 1 || !EOL::Solr::SiteSearch.types_to_show_all.include?(params[:type].first, :user => current_user)
         bad_query = true
       end
     end
@@ -44,7 +44,7 @@ class SearchController < ApplicationController
       @all_results = empty_paginated_set
       @facets = {}
     else
-      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page }))
+      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page, :user => current_user }))
       if $STATSD
         $STATSD.increment 'all_searches'
         # $STATSD.increment "searches.#{@querystring}"

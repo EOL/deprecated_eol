@@ -98,7 +98,7 @@ module EOL
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = TaxonConcept.find_all_by_id(ids)
-        TaxonConcept.preload_for_shared_summary(instances)
+        TaxonConcept.preload_for_shared_summary(instances, :user => options[:user])
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end

@@ -118,7 +118,7 @@ class TaxonConcept < ActiveRecord::Base
     return solr_query_parameters
   end
 
-  def self.preload_for_shared_summary(taxon_concepts)
+  def self.preload_for_shared_summary(taxon_concepts, options)
     includes = [
       :preferred_common_names,
       { :preferred_entry =>
@@ -127,8 +127,14 @@ class TaxonConcept < ActiveRecord::Base
         { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted, :visibility ] } } } ]
     TaxonConcept.preload_associations(taxon_concepts, includes)
     preferred_entries = taxon_concepts.collect{ |tc| tc.preferred_entry ? tc.preferred_entry.hierarchy_entry : nil }.compact
-    TaxonConcept.preload_associations(preferred_entries, { :flattened_ancestors => :ancestor },
+    # loading these separately to get fewer fields for Entries (there will be lots more rows here)
+    HierarchyEntry.preload_associations(preferred_entries, { :flattened_ancestors => :ancestor },
       :select => { :hierarchy_entries => [ :id, :name_id, :rank_id, :lft, :rgt ] } )
+    if options[:user] && options[:user]
+      # loading the names for the preferred common names in the user's language
+      TaxonConceptName.preload_associations(taxon_concepts.collect{ |tc|
+        tc.preferred_common_names.detect { |c| c.language_id == options[:user].language.id } }.compact, :name)
+    end
   end
 
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):

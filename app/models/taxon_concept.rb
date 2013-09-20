@@ -118,6 +118,19 @@ class TaxonConcept < ActiveRecord::Base
     return solr_query_parameters
   end
 
+  def self.preload_for_shared_summary(taxon_concepts)
+    includes = [
+      :preferred_common_names,
+      { :preferred_entry =>
+        { :hierarchy_entry => [ { :name => :ranked_canonical_form }, :hierarchy ] } },
+      { :taxon_concept_exemplar_image => { :data_object =>
+        { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted, :visibility ] } } } ]
+    TaxonConcept.preload_associations(taxon_concepts, includes)
+    preferred_entries = taxon_concepts.collect{ |tc| tc.preferred_entry ? tc.preferred_entry.hierarchy_entry : nil }.compact
+    TaxonConcept.preload_associations(preferred_entries, { :flattened_ancestors => :ancestor },
+      :select => { :hierarchy_entries => [ :id, :name_id, :rank_id, :lft, :rgt ] } )
+  end
+
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
   def self.find_with_supercedure(*args)
     concept = TaxonConcept.find_without_supercedure(*args)
@@ -611,6 +624,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
+    return @exemplar_or_best_image_from_solr if @exemplar_or_best_image_from_solr
     cache_key = "best_image_id_#{self.id}"
     if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
       cache_key += "_#{selected_hierarchy_entry.id}"
@@ -640,9 +654,13 @@ class TaxonConcept < ActiveRecord::Base
       end
     end
     return nil if best_image_id == 'none'
-    best_image = DataObject.find(best_image_id)
+    if @published_exemplar_image_calculated && @published_exemplar_image
+      best_image = @published_exemplar_image
+    else
+      best_image = DataObject.fetch(best_image_id)
+    end
     return nil unless best_image.published?
-    best_image
+    @exemplar_or_best_image_from_solr = best_image
   end
 
   # NOTE - If you call #images_from_solr with two different sets of options, you will get the same
@@ -860,16 +878,11 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def published_browsable_hierarchy_entries
-    hierarchy_entries.joins(:hierarchy).where('hierarchy_entries.published=1 AND hierarchies.browsable=1')
-  end
-  
-  def published_browsable_visible_hierarchy_entries
-    hierarchy_entries.joins(:hierarchy).
-      where("hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id} AND hierarchies.browsable=1")
+    published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
   end
   
   def count_of_viewable_synonyms
-    Synonym.where(:hierarchy_entry_id => published_browsable_visible_hierarchy_entries.collect(&:id)).where(
+    Synonym.where(:hierarchy_entry_id => published_browsable_hierarchy_entries.collect(&:id)).where(
       "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
   end
 

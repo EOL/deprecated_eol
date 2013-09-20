@@ -48,7 +48,7 @@ class Taxa::MediaController < TaxaController
       :vetted_types => search_statuses,
       :visibility_types => visibility_statuses
     )
-    @taxon_page.preload_details
+    @taxon_page.preload_media_details
 
     @facets = @taxon_page.facets
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}

@@ -121,4 +121,9 @@ class Language < ActiveRecord::Base
     return self if language_group.blank?
     return language_group.representative_language
   end
+
+  def known_language?
+    !(iso_639_1.blank? && iso_639_2.blank?)
+  end
+
 end

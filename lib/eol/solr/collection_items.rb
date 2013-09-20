@@ -4,8 +4,8 @@ module EOL
     class CollectionItems
       def self.search_with_pagination(collection_id, options = {})
         options[:page]        ||= 1
-        options[:per_page]    ||= 50
-        options[:per_page]      = 50 if options[:per_page] == 0
+        options[:per_page]    ||= 40
+        options[:per_page]      = 40 if options[:per_page] == 0
 
         response = solr_search(collection_id, options)
         total_results = response['response']['numFound']
@@ -80,33 +80,17 @@ module EOL
 
       def self.add_taxon_concept!(docs, options = {})
         return if docs.empty?
-        includes = [ { :preferred_entry => 
-          { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } },
-          :taxon_concept_metric ]
-        selects = {
-          :taxon_concepts => '*',
-          :taxon_concept_preferred_entries => '*',
-          :taxon_concept_exemplar_images => '*',
-          :taxon_concept_metrics => [ :taxon_concept_id, :richness_score ],
-          :hierarchy_entries => [ :id, :rank_id, :name_id, :identifier, :hierarchy_id, :parent_id, :published, :vetted_id, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-          :names => [ :id, :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
-          :canonical_forms => [ :id, :string ],
-          :hierarchies => [ :id, :agent_id, :browsable, :outlink_uri, :label ],
-          :vetted => [ :id, :view_order ],
-          :hierarchy_entries_flattened => '*',
-          :ranks => '*',
-          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid, :published, :language_id ]
-        }
-        if options[:view_style] == ViewStyle.annotated
-          includes << { :preferred_common_names => [ :name, :language ] }
-          includes << { :preferred_entry => 
-            { :hierarchy_entry => [
-              { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } }
-          includes << { :taxon_concept_exemplar_image => :data_object }
-        end
         ids = docs.map{ |d| d['object_id'] }
         instances = TaxonConcept.find(ids)
-        TaxonConcept.preload_associations(instances, includes, :select => selects)
+        if options[:view_style] == ViewStyle.list
+          includes = 
+          { :preferred_entry =>
+            { :hierarchy_entry => [ { :name => :ranked_canonical_form } ] } }
+          TaxonConcept.preload_associations(instances, includes)
+        else
+          TaxonConcept.preload_for_shared_summary(instances)
+        end
+        TaxonConcept.preload_associations(instances, :taxon_concept_metric, :select => [ :taxon_concept_id, :richness_score ])
         docs.each do |d|
           if d['instance']
             d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }

@@ -100,7 +100,7 @@ class Taxa::NamesController < TaxaController
 
   # GET for collection synonyms /pages/:taxon_id/synonyms
   def synonyms
-    associations = { :published_hierarchy_entries => [ :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] }
+    associations = { :published_hierarchy_entries => [ :hierarchy, :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] }
     options = { :select => { :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ],
                            :names => [ :id, :string ],
                            :synonym_relations => [ :id ] } }
@@ -168,7 +168,7 @@ private
   end
 
   def common_names_count
-    @common_names_count = get_common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count if @common_names_count.nil?
+    @common_names_count ||= @taxon_page.common_names_count
   end
 
   def set_vet_options

@@ -95,24 +95,20 @@ module EOL
       end
 
       def self.add_taxon_concept!(docs, options)
-        includes = [
-          { :preferred_entry => 
-            { :hierarchy_entry => { :name => :ranked_canonical_form } } }, 
-          :preferred_common_names ]
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = TaxonConcept.find_all_by_id(ids)
-        TaxonConcept.preload_associations(instances, includes)
+        TaxonConcept.preload_for_shared_summary(instances)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
 
       def self.add_data_object!(docs, options)
-        # TODO: do some preloading
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = DataObject.find_all_by_id(ids)
+        TaxonUserClassificationFilter.preload_details(instances)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end

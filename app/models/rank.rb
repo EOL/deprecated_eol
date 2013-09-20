@@ -27,23 +27,23 @@ class Rank < ActiveRecord::Base
   end
   
   def self.genus
-    cached_find_translated(:label, 'genus', :include => :group_members)
+    @@genus ||= cached_find_translated(:label, 'genus', :include => :group_members)
   end
   
   def self.species
-    cached_find_translated(:label, 'species', :include => :group_members)
+    @@species ||= cached_find_translated(:label, 'species', :include => :group_members)
   end
   
   def self.subspecies
-    cached_find_translated(:label, 'subspecies', :include => :group_members)
+    @@subspecies ||= cached_find_translated(:label, 'subspecies', :include => :group_members)
   end
   
   def self.variety
-    cached_find_translated(:label, 'variety', :include => :group_members)
+    @@variety ||= cached_find_translated(:label, 'variety', :include => :group_members)
   end
   
   def self.infraspecies
-    cached_find_translated(:label, 'infraspecies', :include => :group_members)
+    @@infraspecies ||= cached_find_translated(:label, 'infraspecies', :include => :group_members)
   end
   
   

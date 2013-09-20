@@ -682,7 +682,7 @@ private
       if !(r['sort_field'].blank? && r['instance'].sort_field.blank?) && r['sort_field'] != r['instance'].sort_field
         collection_item_ids_to_reindex << r['instance'].id
       elsif r['object_type'] == 'TaxonConcept'
-        title = r['instance'].collected_item.entry.title_canonical rescue nil
+        title = r['instance'].collected_item.entry.name.string
         if title && r['title'] != title
           collection_item_ids_to_reindex << r['instance'].id
         elsif r['instance'].collected_item.taxon_concept_metric && r['richness_score'] != r['instance'].collected_item.taxon_concept_metric.richness_score

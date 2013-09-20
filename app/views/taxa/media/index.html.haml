@@ -52,7 +52,9 @@
             - vetted = item.vetted_by_taxon_concept(@taxon_concept)
             .associations
               - associated_with_taxa_names = []
-              - item.data_object_taxa.each do |association|
+              -# we can use the uncached version here since the data we need will have been preloaded,
+              -# and the data from DataObjectCaching will need to get loaded, so this will be faster
+              - item.uncached_data_object_taxa.each do |association|
                 - if association.vetted == vetted && association_belongs_to_taxon_concept?(association, @taxon_concept)
                   - associated_with_taxa_names << association.italicized_name
               -# TODO: What should we do when this IS blank?

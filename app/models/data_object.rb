@@ -14,6 +14,7 @@ class DataObject < ActiveRecord::Base
 
   include ModelQueryHelper
   include EOL::ActivityLoggable
+  include IdentityCache
 
   belongs_to :data_type
   belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id
@@ -455,9 +456,6 @@ class DataObject < ActiveRecord::Base
       # this is just for Staging and can be removed for production. Staging uses a different
       # content server and needs to generate URLS with a different host for image crops
       is_crop = false
-      if Rails.env.staging? || Rails.env.staging_dev? || Rails.env.development?
-        is_crop = all_image_crops.detect{ |c| c.new_object_cache_url == object_cache_url && c.created_at > User.a_somewhat_recent_user.created_at }
-      end
       return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
     else
       return nil # No image to show. You might want to alter your code to avoid this by using #has_thumbnail?
@@ -615,9 +613,9 @@ class DataObject < ActiveRecord::Base
     else
       latest_version = DataObject.sort_by_created_date(versions_to_look_at_in_language).reverse.first
     end
-    latest_version = DataObject.find(latest_version.id)
     return nil if params[:check_only_published] && !latest_version.published?
-    latest_version
+    return self if latest_version == self
+    DataObject.find(latest_version.id)
   end
 
   def is_latest_published_version_in_same_language?
@@ -687,7 +685,7 @@ class DataObject < ActiveRecord::Base
     good_ids = [Visibility.visible.id]
     good_ids << Visibility.preview.id unless which[:preview] == false
     good_ids << Visibility.invisible.id if which[:invisible]
-    data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
+    uncached_data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
   end
 
   # The only filter allowed right now is :published.
@@ -738,7 +736,7 @@ class DataObject < ActiveRecord::Base
   # NOTE - if you plan on calling this, you are behooved by adding object_title and data_type_id to your selects.
   def best_title
     return safe_object_title.html_safe unless safe_object_title.blank?
-    return toc_items.first.label.html_safe unless toc_items.blank? || toc_items.first.label.nil?
+    return toc_items.first.label.html_safe unless ! text? || toc_items.blank? || toc_items.first.label.nil?
     return image_title_with_taxa.html_safe if image?
     return safe_data_type.simple_type.html_safe if safe_data_type
     return I18n.t(:unknown_data_object_title).html_safe
@@ -956,7 +954,7 @@ class DataObject < ActiveRecord::Base
       if dato.blank? || !dato.is_a?(DataObject)
         dato
       else
-        latest = dato.latest_version_in_language(options[:language_id] || dato.language_id, :check_only_published => false)
+        latest = dato.latest_version_in_language(options[:language_id] || dato.language_id, options.reverse_merge(check_only_published: false))
         latest.is_the_latest_published_revision = true
         latest
       end
@@ -1173,10 +1171,12 @@ private
     @curated_hierarchy_entries = []
     if latest_revision
       @curated_hierarchy_entries += latest_revision.data_objects_hierarchy_entries.compact.map do |dohe|
+        dohe.data_object = self
         DataObjectTaxon.new(dohe)
       end
     end
     @curated_hierarchy_entries += all_curated_data_objects_hierarchy_entries.compact.map do |cdohe|
+      cdohe.data_object = self
       DataObjectTaxon.new(cdohe)
     end
     @curated_hierarchy_entries.compact!

@@ -15,6 +15,7 @@ describe User do
   end
 
   before(:all) do
+    I18n.locale = 'en'
     @password = 'dragonmaster'
     load_foundation_cache
     @user = User.gen :username => 'KungFuPanda', :password => @password

@@ -549,24 +549,11 @@ class TaxonConcept < ActiveRecord::Base
     return keywords
   end
 
+  # TODO - This should move to TaxonUserClassificationFilter, because it requires that information.
   def media_count(user, selected_hierarchy_entry = nil)
-    cache_key = "media_count_#{self.id}"
-    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    if user && user.is_curator?
-      cache_key += "_curator"
-    end
-    @media_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
-      best_images = self.data_objects_from_solr({
-        :per_page => 1,
-        :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
-        :vetted_types => user.vetted_types,
-        :visibility_types => user.visibility_types,
-        :ignore_translations => true,
-        :return_hierarchically_aggregated_objects => true
-      }).total_entries
-    end
+    @media_count ||= update_media_count(user: user, entry: selected_hierarchy_entry)
   end
-
+  
   def maps_count()
     # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
     # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be 
@@ -906,6 +893,32 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConceptPreferredEntry.with_master do
       TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
       TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+    end
+  end
+
+  # Public method, because we can do this from TaxonMedia:
+  # TODO - This should move to TaxonUserClassificationFilter, because it requires that information.
+  def update_media_count(options = {})
+    selected_hierarchy_entry = options[:entry]
+    cache_key = "media_count_#{self.id}"
+    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    if options[:user] && options[:user].is_curator?
+      cache_key += "_curator"
+    end
+    Rails.cache.delete(TaxonConcept.cached_name_for(cache_key)) if options[:with_count]
+    Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+      if options[:with_count]
+        options[:with_count]
+      else
+        best_images = self.data_objects_from_solr({
+          :per_page => 1,
+          :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
+          :vetted_types => options[:user].vetted_types,
+          :visibility_types => options[:user].visibility_types,
+          :ignore_translations => true,
+          :return_hierarchically_aggregated_objects => true
+        }).total_entries
+      end
     end
   end
 

@@ -24,6 +24,7 @@ class TaxonMedia < TaxonUserClassificationFilter
     @status = @status.values if @status.is_a?(Hash) # TODO - explain when/why this might happen.
     super(taxon_concept, user, options[:hierarchy_entry])
     get_media
+    repair_bad_counts
   end
 
   def applied_ratings
@@ -73,6 +74,11 @@ class TaxonMedia < TaxonUserClassificationFilter
     )
     preload_media
     correct_bogus_exemplar_image
+  end
+
+  def repair_bad_counts
+    # NOTE: using #_hierarchy_entry because the value passed here should be nil when it's not specified.
+    @taxon_concept.update_media_count(user: user, entry: _hierarchy_entry, with_count: @media.total_entries)
   end
 
   def set_statuses

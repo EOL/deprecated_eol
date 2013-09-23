@@ -135,7 +135,7 @@ private
 
   def after_initialize
     loadables = load_media.push(load_summary)
-    loadables = TaxonUserClassificationFilter.preload_details(loadables, user)
+    TaxonUserClassificationFilter.preload_details(loadables, user)
     DataObject.preload_associations(loadables, { :agents_data_objects => [ { :agent => :user }, :agent_role ] })
     @summary = loadables.pop
     @media = loadables

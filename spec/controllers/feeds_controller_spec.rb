@@ -6,7 +6,7 @@ describe FeedsController do
   end
 
   it 'find Comment should redirect correctly with translations' do
-    original = DataObject.gen(:created_at => 10.minutes.ago, :language => Language.from_iso('en'))
+    original = DataObject.gen(:created_at => 10.minutes.ago, :language => Language.from_iso('en'), :published => false)
     update = DataObject.gen(:created_at => 5.minutes.ago, :guid => original.guid, :language => Language.from_iso('en'))
     translation = DataObject.gen(:created_at => Time.now, :guid => original.guid, :language => Language.from_iso('ar'))
     comment_on_original = Comment.gen(:parent => original)
@@ -20,7 +20,7 @@ describe FeedsController do
   end
 
   it 'find UsersDataObject should redirect correctly with translations' do
-    original = DataObject.gen(:created_at => 10.minutes.ago, :language => Language.from_iso('en'))
+    original = DataObject.gen(:created_at => 10.minutes.ago, :language => Language.from_iso('en'), :published => false)
     original_udo = UsersDataObject.gen(:data_object => original)
     update = DataObject.gen(:created_at => 5.minutes.ago, :guid => original.guid, :language => Language.from_iso('en'))
     update_udo = UsersDataObject.gen(:data_object => update)

@@ -88,7 +88,7 @@ module EOL
             { :hierarchy_entry => [ { :name => :ranked_canonical_form } ] } }
           TaxonConcept.preload_associations(instances, includes)
         else
-          TaxonConcept.preload_for_shared_summary(instances, :user => options[:user])
+          TaxonConcept.preload_for_shared_summary(instances, :language_id => options[:language_id])
         end
         TaxonConcept.preload_associations(instances, :taxon_concept_metric, :select => [ :taxon_concept_id, :richness_score ])
         docs.each do |d|
@@ -102,21 +102,12 @@ module EOL
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
         instances = DataObject.find(ids)
-        DataObject.preload_associations(instances, [ :language, :all_published_versions ] )
-        instances_that_are_used = []
         docs.each do |d|
-          if i = instances.detect{ |i| i.id == d['object_id'].to_i }
-            if d['instance'] 
-              if latest_version = i.latest_published_version_in_same_language
-                d['instance'].collected_item = latest_version
-              else
-                d['instance'].collected_item = i
-              end
-              d['instance'].collected_item.is_the_latest_published_revision = true
-              instances_that_are_used << d['instance'].collected_item
-            end
+          if d['instance']
+            d['instance_guid'] = instances.detect{ |i| i.id == d['object_id'].to_i }.guid
           end
         end
+        DataObject.replace_with_latest_versions!(instances, language_id: options[:language_id], check_only_published: true)
         
         includes = [ { :toc_items => :translations }, :data_type ]
         selects = {
@@ -136,14 +127,22 @@ module EOL
         }
         
         if options[:view_style] == ViewStyle.annotated
-          includes << { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] },
+          includes << { :data_objects_hierarchy_entries => [ { :hierarchy_entry =>
+            [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :taxon_concept, :hierarchy ] },
             :vetted, :visibility ] }
-          includes << { :curated_data_objects_hierarchy_entries => [ :user, { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] } ] }
-          includes << { :all_curated_data_objects_hierarchy_entries => [ :user, { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] } ] }
+          includes << :users_data_object
+          includes << { :all_curated_data_objects_hierarchy_entries =>
+            [ :user, { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] },
+            :vetted, :visibility ] }
         end
-        DataObject.preload_associations(instances_that_are_used, includes, :select => selects)
+        DataObject.preload_associations(instances, includes, :select => selects)
         if options[:view_style] == ViewStyle.annotated
-          HierarchyEntry.preload_associations(instances_that_are_used.collect{ |d| d.first_hierarchy_entry }, [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] )
+          HierarchyEntry.preload_associations(instances.collect{ |d| d.first_hierarchy_entry }, [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] )
+        end
+        docs.each do |d|
+          if d['instance_guid']
+            d['instance'].collected_item = instances.detect{ |i| i.guid == d['instance_guid'] }
+          end
         end
       end
 

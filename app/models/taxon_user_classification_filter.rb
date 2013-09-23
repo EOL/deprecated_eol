@@ -73,9 +73,9 @@ class TaxonUserClassificationFilter
     @media ||= taxon_concept.data_objects_from_solr(options.merge(
       :ignore_translations => true,
       :return_hierarchically_aggregated_objects => true,
-      :skip_preload => true,
       :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
-                                              :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
+                                              :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
+                                              :published ] }
     ))
   end
 
@@ -221,7 +221,8 @@ class TaxonUserClassificationFilter
         :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
       }, :vetted, :visibility, :user ]
     }
-    DataObject.preload_associations(media, includes)
+    DataObject.preload_associations(media, includes, :select => { :content_partners => [ :id, :user_id, :full_name, :display_name, :homepage,
+      :public ]})
     DataObject.preload_associations(media, :users_data_object)
     DataObject.preload_associations(media, :license)
     DataObject.preload_associations(media, :language)

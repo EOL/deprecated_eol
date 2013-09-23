@@ -55,7 +55,7 @@ class DataObject < ActiveRecord::Base
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded
-  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id, created_at'
+  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id, created_at, published'
   has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :conditions => 'published = 1'
   has_many :image_crops
   has_many :all_image_crops, :class_name => ImageCrop.to_s, :through => :all_versions, :primary_key => :guid, :source => :image_crops
@@ -580,6 +580,12 @@ class DataObject < ActiveRecord::Base
     "[DataObject id:#{id}]"
   end
 
+  def in_language?(comparison_language_id)
+    comparison_language_id = Language.default.id if comparison_language_id.blank? || comparison_language_id == 0
+    this_language_id = (language_id.blank? || language_id == 0) ? Language.default.id : language_id
+    this_language_id == comparison_language_id
+  end
+
   def latest_version_in_same_language(params = {})
     latest_version_in_language(language_id, params)
   end
@@ -590,11 +596,15 @@ class DataObject < ActiveRecord::Base
     chosen_language_id = Language.english.id unless chosen_language_id && chosen_language_id != 0
     params[:check_only_published] = true unless params.has_key?(:check_only_published)
     if params[:check_only_published]
+      return self if published? && in_language?(chosen_language_id)
       # sometimes all_published_versions, but if not I anted to set a default set of select fields. Rails AREL
       # will attempt to load the versions again if the select fields are not the same as already
       # loaded in all_published_versions. This is verbose, but its potentially saving loading all descriptions from all
       # versions so I think it is worth it. But there may be an easier way
-      versions_to_look_at_in_language = (all_published_versions.loaded?) ? all_published_versions : all_published_versions.select('id, guid, language_id, data_type_id, created_at')
+      unless all_published_versions.loaded?
+        DataObject.preload_associations(self, :all_published_versions, :select => 'id, guid, language_id, data_type_id, created_at, published')
+      end
+      versions_to_look_at_in_language = all_published_versions
     else
       versions_to_look_at_in_language = all_versions
     end
@@ -941,11 +951,17 @@ class DataObject < ActiveRecord::Base
     default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url,
       :data_rating, :object_title, :rights_holder, :source_url, :license_id, :mime_type_id, :object_url,
       :thumbnail_cache_url, :created_at ]
-    DataObject.preload_associations(data_objects, [ :language, :all_published_versions ],
+    DataObject.preload_associations(data_objects, :language)
+    if options[:check_only_published]
+      # TODO: problem with reference - data_objects not getting updated
+      objects_for_preloading = data_objects.compact.select{ |d| ! (d.published? && d.in_language?(options[:language_id]))}
+    else
+      objects_for_preloading = data_objects
+    end
+    DataObject.preload_associations(objects_for_preloading, :all_published_versions,
       :select => {
-        :languages => '*',
         :data_objects => default_selects | options[:select] } )
-    DataObject.replace_with_latest_versions_no_preload(data_objects, options)
+    DataObject.replace_with_latest_versions_no_preload(objects_for_preloading, options)
   end
 
   def self.replace_with_latest_versions_no_preload(data_objects, options = {})

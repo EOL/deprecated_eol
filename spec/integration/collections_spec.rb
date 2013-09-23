@@ -343,7 +343,8 @@ describe "Collections" do
       body.should have_tag("ul.object_list li a[href='#{data_object_path(collectable_data_object)}']")
 
       # the image will unpublished, but there are no newer versions, so it will still show up
-      collectable_data_object.update_column(:published, 0)
+      collectable_data_object.published = 0
+      collectable_data_object.save
       # TODO - legitimate failure. I'm guessing this is also due to Solr returning unexpected results...
       # ...in any case I'm going to take it out because I don't REALLY care if an unpublished dato ISN'T showing
       # up...

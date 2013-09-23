@@ -103,7 +103,6 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
     solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
     solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
-    solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
     
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
@@ -130,10 +129,10 @@ class TaxonConcept < ActiveRecord::Base
     # loading these separately to get fewer fields for Entries (there will be lots more rows here)
     HierarchyEntry.preload_associations(preferred_entries, { :flattened_ancestors => :ancestor },
       :select => { :hierarchy_entries => [ :id, :name_id, :rank_id, :lft, :rgt ] } )
-    if options[:user] && options[:user]
+    if options[:language_id]
       # loading the names for the preferred common names in the user's language
       TaxonConceptName.preload_associations(taxon_concepts.collect{ |tc|
-        tc.preferred_common_names.detect { |c| c.language_id == options[:user].language.id } }.compact, :name)
+        tc.preferred_common_names.detect { |c| c.language_id == options[:language_id] } }.compact, :name)
     end
   end
 
@@ -597,7 +596,6 @@ class TaxonConcept < ActiveRecord::Base
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => ['visible'],
       :ignore_translations => true,
-      :skip_preload => true
     )
   end
 
@@ -647,7 +645,6 @@ class TaxonConcept < ActiveRecord::Base
           :vetted_types => ['trusted', 'unreviewed'],
           :visibility_types => ['visible'],
           :published => true,
-          :skip_preload => true,
           :return_hierarchically_aggregated_objects => true
         })
         # if for some reason we get back unpublished objects (Solr out of date), try to get the latest published versions
@@ -672,10 +669,6 @@ class TaxonConcept < ActiveRecord::Base
   # NOTE - If you call #images_from_solr with two different sets of options, you will get the same
   # results on the second as with the first, so you only get one shot!
   def images_from_solr(limit = 4, options = {})
-    unless options[:skip_preload] == false
-      options[:skip_preload] == true
-      options[:preload_select] == { :data_objects => [ :id, :guid, :language_id, :data_type_id ] }
-    end
     @images_from_solr ||= data_objects_from_solr({
       :per_page => limit,
       :sort_by => 'status',
@@ -683,9 +676,7 @@ class TaxonConcept < ActiveRecord::Base
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
       :ignore_translations => options[:ignore_translations] || false,
-      :return_hierarchically_aggregated_objects => true,
-      :skip_preload => options[:skip_preload],
-      :preload_select => options[:preload_select]
+      :return_hierarchically_aggregated_objects => true
     })
   end
 

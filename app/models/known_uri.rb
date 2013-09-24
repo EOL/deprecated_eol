@@ -67,9 +67,15 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def self.create_defaults
+    COMMON_URIS.each do |info|
+      KnownUri.create_for_language(uri: info[:uri], language: Language.default, name: info[:name])
+    end
+  end
+
   def self.create_for_language(options = {})
     uri = KnownUri.create(uri: options.delete(:uri))
-    if intent.valid?
+    if uri.valid?
       trans = TranslatedKnownUri.create(options.merge(known_uri: uri))
     end
     uri

@@ -84,6 +84,7 @@ describe KnownUrisController do
     end
 
     it 'should allow searches within measurements' do
+      debugger if KnownUri.unit_of_measure.allowed_values.length == 9 # What's the extra one and how should we clear it out?
       KnownUri.unit_of_measure.allowed_values.length.should == 8
       get :autocomplete_known_uri_predicates, :term => 'mass'
       assigns[:known_uris].should == [ @mass ]

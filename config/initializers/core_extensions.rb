@@ -101,8 +101,12 @@ module ActiveRecord
             return v
           else
             Rails.cache.delete(name) if Rails.cache.exist?(name)
-            Rails.cache.fetch(name, options) do
-              yield
+            Rails.cache.fetch(name) do
+              data_to_cache = yield
+              if data_to_cache.is_a?(ActiveRecord::Relation)
+                data_to_cache = data_to_cache.all
+              end
+              data_to_cache
             end
           end
         else

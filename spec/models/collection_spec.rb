@@ -189,6 +189,17 @@ describe Collection do
     collection.inaturalist_project_info
   end
 
+  it 'should give a unique list of maintained_by' do
+    collection = Collection.gen
+    user = User.gen
+    community = Community.gen
+    2.times { collection.users << user }
+    2.times { collection.communities << community }
+    collection.maintained_by.length.should == 2
+    collection.maintained_by.should include(user)
+    collection.maintained_by.should include(community)
+  end
+
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'
   # should know when it is "special" TODO - do we need this anymore?  I don't think so...
   # should know when it is a resource collection.

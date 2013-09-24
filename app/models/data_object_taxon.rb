@@ -44,6 +44,14 @@ class DataObjectTaxon
     source.is_a? UsersDataObject
   end
 
+  def data_objects_hierarchy_entry?
+    source.is_a? DataObjectsHierarchyEntry
+  end
+
+  def curated_data_objects_hierarchy_entry?
+    source.is_a? CuratedDataObjectsHierarchyEntry
+  end
+
   def published
     users_data_object? ? taxon_concept.published : hierarchy_entry.published
   end

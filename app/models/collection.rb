@@ -134,7 +134,7 @@ class Collection < ActiveRecord::Base
   end
 
   def maintained_by
-    (users + communities).compact
+    (users + communities).compact.uniq
   end
 
   # This will return users.

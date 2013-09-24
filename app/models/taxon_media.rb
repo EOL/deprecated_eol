@@ -71,7 +71,7 @@ class TaxonMedia < TaxonUserClassificationFilter
       :preload_select   => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
                                                 :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
     )
-    repair_bad_counts(@media.total_entries) # Note you MUST do this before #preload_media, 'cause it'll change.
+    repair_bad_counts(@media.total_entries) # Doing this before preload in the off chance that that method alters counts.
     preload_media
     correct_bogus_exemplar_image
   end

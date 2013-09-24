@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'user recover account' do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
     @user_token = Digest::SHA1.hexdigest('123')

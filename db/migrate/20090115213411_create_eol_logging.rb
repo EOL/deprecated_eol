@@ -6,7 +6,7 @@ class CreateEolLogging < EOL::LoggingMigration
     # Basically, I want to throw an error if we're not using MySQL, while at the same time providing the framework
     # for adding other DB support in the future...
     if ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::Mysql2Adapter ||
-        ActiveRecord::Base.connection.class == ActiveReload::ConnectionProxy  # could be using ActiveReload (Masochism) as we are now in testing
+        ActiveRecord::Base.connection.class == Octopus::Proxy  # could be using ActiveReload (Masochism) as we are now in testing
       # I was having trouble running the whole thing at once, so I'll break it up by command:
       # Note that this assumes that the file has been DOS-ified.
       IO.read(Rails.root.join('db', "eol_logging.sql")).to_s.split(/;\s*[\r\n]+/).each do |cmd|

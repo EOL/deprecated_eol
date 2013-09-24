@@ -1,8 +1,8 @@
 - data_object ||= @data_object
 - show_curation_submit = false
 - unless data_object.blank?
-  - entries = data_object.filtered_associations(:invisible => current_user.is_admin? || current_user.is_curator?)
-  - if entries.blank?
+  - dots = data_object.data_object_taxa_by_visibility(:invisible => current_user.is_admin? || current_user.is_curator?)
+  - if dots.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else
     = form_tag(curate_associations_data_object_path(data_object), :method => :put, :class => 'review_status') do
@@ -12,62 +12,55 @@
         = hidden_field_tag :return_to, params[:worklist_return_to]
       - else
         = hidden_field_tag :return_to, current_url
-      - entries.each do |entry|
+      - dots.each do |data_object_taxon|
         %fieldset
-          - if entry.visibility_id == Visibility.preview.id
+          - if data_object_taxon.preview?
             %legend= raw(I18n.t(:cannot_curate_association_in_preview_mode,
-              :name => link_to(raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id))))
+              :name => link_to(raw(data_object_taxon.italicized_name), taxon_overview_path(data_object_taxon.taxon_concept_id))))
           - else
             - show_curation_submit = true
-            %legend= link_to raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id)
-            - if entry.can_be_deleted_by?(current_user)
+            %legend= link_to raw(data_object_taxon.italicized_name), taxon_overview_path(data_object_taxon.taxon_concept_id)
+            - if data_object_taxon.can_be_deleted_by?(current_user)
               .remove_association
                 = link_to I18n.t(:remove_data_object_association),
-                  remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id),
-                  :id => "remove_association_#{entry.id}", :data => { :confirm => I18n.t(:are_you_sure) }
-            - vetted_selected = entry.vetted_id.to_i
-            = select_tag "vetted_id_#{entry.id}", options_for_select(Vetted.for_curating_selects, vetted_selected)
+                  remove_association_path(:id => data_object.id, :hierarchy_entry_id => data_object_taxon.id),
+                  :id => "remove_association_#{data_object_taxon.id}", :data => { :confirm => I18n.t(:are_you_sure) }
+            = select_tag "vetted_id_#{data_object_taxon.id}", options_for_select(Vetted.for_curating_selects, data_object_taxon.vetted_id)
             = I18n.t(:and_between_form_items)
-            - visibility_selected = entry.visibility_id.to_i
-            = select_tag "visibility_id_#{entry.id}", options_for_select(Visibility.for_curating_selects, visibility_selected)
-          - if entry.class == HierarchyEntry && entry.by_curated_association? && entry.associated_by_curator
-            - supplied_by_user = entry.associated_by_curator
-            - unless supplied_by_user.blank?
-              = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => supplied_by_user, 
-                                                                        :data_object => data_object }
-          - untrusted_reasons =[]
-          - if vetted_selected == Vetted.untrusted.id.to_i
-            - dato_untrust_reasons = data_object.untrust_reasons(entry)
-            - untrusted_reasons = dato_untrust_reasons.blank? ? [] : dato_untrust_reasons
-          - else
-            - if visibility_selected == Visibility.invisible.id.to_i
-              - dato_hide_reasons = data_object.hide_reasons(entry)
-              - untrusted_reasons = dato_hide_reasons.blank? ? [] : dato_hide_reasons
-          - unless entry.visibility_id == Visibility.preview.id
+            = select_tag "visibility_id_#{data_object_taxon.id}", options_for_select(Visibility.for_curating_selects, data_object_taxon.visibility_id)
+          - if data_object_taxon.by_curated_association?
+            = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => data_object_taxon.associated_by_curator, :data_object => data_object }
+          - reasons = [] # TODO - Ummmn... why did we combine reasons?!? Explain or fix.
+          - if data_object_taxon.untrusted?
+            - reasons = data_object_taxon.untrust_reason_ids
+          - elsif data_object_taxon.invisible?
+            - reasons = data_object_taxon.hide_reason_ids
+          - unless data_object_taxon.preview?
+            -# TODO - clean this up. A helper could make this pretty minimal; not sure if all these #to_s calls are needed, etc.
             %ul.untrusted
               %li
-                = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.misidentified.id.to_s, untrusted_reasons.include?(UntrustReason.misidentified.id), {:id => "#{entry.id}_untrust_reason_misidentified"}
-                %label{ :for => "#{entry.id}_untrust_reason_misidentified" }
+                = check_box_tag "untrust_reasons_#{data_object_taxon.id}[]", UntrustReason.misidentified.id.to_s, reasons.include?(UntrustReason.misidentified.id), {:id => "#{data_object_taxon.id}_untrust_reason_misidentified"}
+                %label{ :for => "#{data_object_taxon.id}_untrust_reason_misidentified" }
                   = UntrustReason.misidentified.label
-                = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.incorrect.id.to_s, untrusted_reasons.include?(UntrustReason.incorrect.id), {:id => "#{entry.id}_untrust_reason_incorrect"}
-                %label{ :for => "#{entry.id}_untrust_reason_incorrect" }
+                = check_box_tag "untrust_reasons_#{data_object_taxon.id}[]", UntrustReason.incorrect.id.to_s, reasons.include?(UntrustReason.incorrect.id), {:id => "#{data_object_taxon.id}_untrust_reason_incorrect"}
+                %label{ :for => "#{data_object_taxon.id}_untrust_reason_incorrect" }
                   = UntrustReason.incorrect.label
             %ul.hidden
               %li
-                = check_box_tag "hide_reasons_#{entry.id}[]", UntrustReason.duplicate.id.to_s, untrusted_reasons.include?(UntrustReason.duplicate.id), {:id => "#{entry.id}_untrust_reason_duplicate"}
-                %label{ :for => "#{entry.id}_untrust_reason_duplicate" }
+                = check_box_tag "hide_reasons_#{data_object_taxon.id}[]", UntrustReason.duplicate.id.to_s, reasons.include?(UntrustReason.duplicate.id), {:id => "#{data_object_taxon.id}_untrust_reason_duplicate"}
+                %label{ :for => "#{data_object_taxon.id}_untrust_reason_duplicate" }
                   = UntrustReason.duplicate.label
               %li
-                = check_box_tag "hide_reasons_#{entry.id}[]", UntrustReason.poor.id.to_s, untrusted_reasons.include?(UntrustReason.poor.id), {:id => "#{entry.id}_untrust_reason_poor"}
-                %label{ :for => "#{entry.id}_untrust_reason_poor" }
+                = check_box_tag "hide_reasons_#{data_object_taxon.id}[]", UntrustReason.poor.id.to_s, reasons.include?(UntrustReason.poor.id), {:id => "#{data_object_taxon.id}_untrust_reason_poor"}
+                %label{ :for => "#{data_object_taxon.id}_untrust_reason_poor" }
                   = UntrustReason.poor.label
             -# Note: this curation comment box is always available in the interface even if the data object is being
             -# curated as trusted/unreviewed and visible
             %dl
               %dt
-                %label.assistive{:for => "curation_comment_#{entry.id}"}= I18n.t(:curation_comment)
+                %label.assistive{:for => "curation_comment_#{data_object_taxon.id}"}= I18n.t(:curation_comment)
               %dd
-                = text_area_tag "curation_comment_#{entry.id}", nil, :rows => 4, :cols => 60, :placeholder => I18n.t(:curation_reason_placeholder)
+                = text_area_tag "curation_comment_#{data_object_taxon.id}", nil, :rows => 4, :cols => 60, :placeholder => I18n.t(:curation_reason_placeholder)
       - if show_curation_submit
         %fieldset.actions
           = submit_tag I18n.t(:curated_association_update_button)

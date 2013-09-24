@@ -54,7 +54,8 @@
               - if hierarchy.request_to_publish_can_be_made?
                 = button_to I18n.t('helpers.submit.hierarchy.request_publish'),
                   request_publish_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy),
-                  :data => { :confirm => I18n.t(:content_partner_resource_hierarchy_confirm_request_publish, :hierarchy_label => h(hierarchy.label)) }
+                  :data => { :confirm => I18n.t(:content_partner_resource_hierarchy_confirm_request_publish,
+                  :hierarchy_label => h(hierarchy.label)) }
 
           %dt= I18n.t('activerecord.attributes.resource.language_id')
           %dd
@@ -97,7 +98,7 @@
             - if @resource.notes.blank?
               = I18n.t(:value_empty)
             - else
-              = truncate(@resource.notes, :length => 100000)
+              = raw(truncate(@resource.notes, :length => 100000))
           %dt
             = I18n.t('helpers.label.resource.refresh_period_hours')
           %dd

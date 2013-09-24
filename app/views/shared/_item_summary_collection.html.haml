@@ -3,7 +3,7 @@
   = link_to image_tag(item.logo_url(:small)), collection_path(item)
 - unless ['gallery','list'].include?(view_style)
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_collection_assistive)}), collection_path(item)
-- truncated_name = h(truncate(item.name, :length => 64))
+- truncated_name = h(truncate(item.collected_name, :length => 64))
 %h4
   = link_to(truncated_name, collection_path(item), :alt => item.name == truncated_name ? nil : item.name)
   - if view_style == 'list' && @filter.nil?

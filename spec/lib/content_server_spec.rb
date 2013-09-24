@@ -47,7 +47,7 @@ describe ContentServer do
     
     it 'should allow a content host to be specified' do
       ContentServer.should_receive(:cache_url_to_path).with('url').and_return('nice_path')
-      ContentServer.cache_path('url', 'http://someotherhost.com/').should =~ /http:\/\/someotherhost\.com\/#{$CONTENT_SERVER_CONTENT_PATH}nice_path/
+      ContentServer.cache_path('url', :specified_content_host => 'http://someotherhost.com/').should =~ /http:\/\/someotherhost\.com\/#{$CONTENT_SERVER_CONTENT_PATH}nice_path/
     end
 
   end
@@ -80,8 +80,7 @@ describe ContentServer do
     end
 
     it 'should start with the next server' do
-      ContentServer.should_receive(:next).and_return('nextone')
-      ContentServer.uploaded_content_url('whatever', '.ext').should =~ /^nextone/
+      ContentServer.uploaded_content_url('whatever', '.ext').should =~ /^#{$SINGLE_DOMAIN_CONTENT_SERVER}/
     end
 
     it 'should include the CONTENT_SERVER_CONTENT_PATH' do

@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Admins::ContentPartnersController do
   describe 'GET index' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       @admin = User.gen(:username => 'admins_controllers_specs', :password => "password", :admin => true)
       @non_admin = User.find_by_admin(false)
@@ -67,7 +66,6 @@ describe Admins::ContentPartnersController do
 
   describe 'GET notifications' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       @admin = User.gen(:username => 'admins_controllers_specs', :password => "password", :admin => true)
       @non_admin = User.find_by_admin(false)
@@ -86,7 +84,6 @@ describe Admins::ContentPartnersController do
 
   describe 'POST notifications' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       @admin = User.gen(:username => 'admins_controllers_specs', :password => "password", :admin => true)
       @non_admin = User.find_by_admin(false)
@@ -112,7 +109,6 @@ describe Admins::ContentPartnersController do
 
   describe 'GET statistics' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       @admin = User.gen(:username => 'admins_controllers_specs', :password => "password", :admin => true)
       @non_admin = User.find_by_admin(false)

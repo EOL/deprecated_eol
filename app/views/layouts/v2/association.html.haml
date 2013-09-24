@@ -9,7 +9,7 @@
       %ul.object_list
         - en_type = en_type(@data_object)
         %li{:class => en_type}
-          - thumb = @data_object.thumb_or_object('88_88')
+          - thumb = @data_object.has_thumb? && @data_object.thumb_or_object('88_88')
           - if thumb && thumb != '#'
             = link_to image_tag(thumb , :alt => alternative_text(@data_object, en_type)), data_object_path(@data_object)
           %span.icon{:title => en_type.blank? ? nil : I18n.t("item_type_#{en_type}_assistive")}

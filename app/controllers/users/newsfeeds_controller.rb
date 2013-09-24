@@ -23,9 +23,7 @@ class Users::NewsfeedsController < UsersController
         # QUESTION: what if they only see page 1 of their latest notifications?
         user.update_column(:last_notification_at, Time.now) if user.id == current_user.id
         # Uses log results to calculate page numbering for rel link tags
-        @rel_canonical_href = user_newsfeed_url(@user, :page => rel_canonical_href_page_number(@user_activity_log))
-        @rel_prev_href = rel_prev_href_params(@user_activity_log) ? user_newsfeed_url(@rel_prev_href_params) : nil
-        @rel_next_href = rel_next_href_params(@user_activity_log) ? user_newsfeed_url(@rel_next_href_params) : nil
+        set_canonical_urls(:for => @user, :paginated => @user_activity_log, :url_method => :user_newsfeed_url)
       }
       format.js do # link is called with AJAX to get pending count for session summary
         render :text => I18n.t(:user_pending_notifications_with_count_assitive, :count => user.message_count)
@@ -41,9 +39,7 @@ class Users::NewsfeedsController < UsersController
         @user_activity_log = user.activity_log(:news => true, :filter => 'messages', :page => params[:page] || 1)
         # reset last-seen dates:
         user.update_column(:last_message_at, Time.now) if user.id == current_user.id
-        @rel_canonical_href = user_newsfeed_url(user)
-        @rel_prev_href = rel_prev_href_params(@user_activity_log) ? comments_user_newsfeed_url(@rel_prev_href_params) : nil
-        @rel_next_href = rel_next_href_params(@user_activity_log) ? comments_user_newsfeed_url(@rel_next_href_params) : nil
+        set_canonical_urls(:for => user, :paginated => @user_activity_log, :url_method => :comments_user_newsfeed_url)
       }
       format.js do # link is called with AJAX to get pending count for session summary
         render :text => I18n.t(:user_pending_notifications_comments_with_count_assistive, :count => user.message_count)

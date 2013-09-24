@@ -30,7 +30,12 @@ module EOL
       # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...
       # TODO - this is not a nice abstract way of getting the list of connections we have.  We should generalize.
       def all_connections
-        EOL::DB.all_connections
+        begin
+          EOL::DB.all_connections
+        rescue => e
+          load 'lib/eol_data.rb' # Weird that this happens (in the middle of specs, no less), but it does.
+          EOL::DB.all_connections
+        end
       end
 
       # call truncate_all_tables but make sure it only
@@ -57,15 +62,14 @@ module EOL
         all_connections.uniq.each do |conn|
           count = 0
           conn.tables.each do |table|
-            unless table == 'schema_migrations'
-              count += 1
-              if conn.respond_to? :with_master
-                conn.with_master do
-                  truncate_table(conn, table, options[:skip_empty_tables])
-                end
-              else
+            next if table == 'schema_migrations'
+            count += 1
+            if conn.respond_to? :with_master
+              conn.with_master do
                 truncate_table(conn, table, options[:skip_empty_tables])
               end
+            else
+              truncate_table(conn, table, options[:skip_empty_tables])
             end
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
@@ -113,7 +117,6 @@ module EOL
                                 :vetted_id       => options[:vetted_id] || Vetted.trusted.id,
                                 :taxon_concept => tc,
                                 :name          => name)
-        HierarchyEntryStat.gen(:hierarchy_entry => he)
         # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as partner roles
         return he
       end
@@ -121,6 +124,17 @@ module EOL
       def build_taxon_concept(options = {})
         tc_builder = EOL::TaxonConceptBuilder.new(options)
         return tc_builder.tc
+      end
+
+      # A dumbed-down version of #build_curator
+      def gen_curator(options = {})
+        options = {
+          curator_level:    options[:curator_level] || CuratorLevel.full,
+          curator_approved: true,
+          curator_scope:    'scope',
+          credentials:      'Curator'
+        }.merge(options)
+        curator = User.gen(options)
       end
 
       # Curators are tricky... not just a plain model, but require some activity before they are "active":
@@ -152,7 +166,7 @@ module EOL
 
         cot = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept')
         CuratorActivityLog.gen(:user => curator, :taxon_concept => tc, :changeable_object_type => cot,
-                               :object_id => tc.id)
+                               :target_id => tc.id)
 
         return curator
       end
@@ -267,7 +281,7 @@ module EOL
                     to_return(:status => 200,
                               :headers => {},
                               :body => "oauth_token=key&oauth_token_secret=secret")
-        stub_request(:get, "https://api.twitter.com/1/account/verify_credentials.json").
+        stub_request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json").
                     to_return(:status => 200,
                               :headers => {},
                               :body => '{ "id": "twitteruserguid",
@@ -306,6 +320,26 @@ module EOL
                               :body => "access_token=key")
       end
 
+      def get_as_xml(path)
+        visit(path)
+        Nokogiri.XML(source)
+      end
+
+      def get_as_json(path)
+        visit(path)
+        JSON.parse(source)
+      end
+
+      def check_api_key(url, user)
+        visit(url)
+        log = ApiLog.last
+        url.split(/[\?&]/).each do |url_part|
+          log.request_uri.should match(url_part)
+        end
+        log.key.should_not be_nil
+        log.key.should == user.api_key
+        log.user_id.should == user.id
+      end
     end
   end
 end
@@ -446,7 +480,6 @@ TaxonConcept.class_eval do
     DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
     dato.save!
     DataObjectsHierarchyEntry.gen(:data_object => dato, :hierarchy_entry => hierarchy_entries.first)
-    FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
 
@@ -457,7 +490,6 @@ TaxonConcept.class_eval do
       dato.save!
     end
     DataObjectsHierarchyEntry.gen(:data_object => dato, :hierarchy_entry => hierarchy_entries.first)
-    FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
 

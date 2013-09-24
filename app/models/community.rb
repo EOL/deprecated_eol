@@ -8,7 +8,7 @@ class Community < ActiveRecord::Base
 
   has_many :members
   has_many :users, :through => :members
-  has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
+  has_many :collection_items, :as => :collected_item # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 
@@ -47,6 +47,7 @@ class Community < ActiveRecord::Base
 
   alias :focuses :collections
   alias_attribute :summary_name, :name
+  alias_attribute :collected_name, :name
 
   # Don't get dizzy.  This is all of the collections this community has collected.  This is the same thing as
   # "featured" collections or "endorsed" collections... that is the way it's done, now: you simply add the collection
@@ -57,7 +58,7 @@ class Community < ActiveRecord::Base
   def featured_collections
     return [] unless self.collections && !self.collections.blank?
     collections.collect do |c|
-      c.collection_items.where("object_type = 'Collection'")
+      c.collection_items.where("collected_item_type = 'Collection'")
     end.flatten.compact.uniq
   end
 
@@ -99,9 +100,9 @@ class Community < ActiveRecord::Base
     if logo_cache_url.blank?
       return "v2/logos/community_default.png"
     elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '88_88', :specified_content_host => specified_content_host)
     else
-      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '130_130', :specified_content_host => specified_content_host)
     end
   end
 
@@ -111,6 +112,12 @@ class Community < ActiveRecord::Base
     }.compact.sort.uniq.map {|uid|
       Member.find_by_community_id_and_user_id(id, uid)
     }.compact[0..3]
+  end
+
+  # TODO - errr... I'm guessing this is expensive.  Fix.
+  # the .reduce(:+) adds all the values of the array, thus counting all the items in all collections
+  def all_items_in_all_collections_count
+    @all_items_count ||= collections.map { |c| c.cached_count }.reduce(:+)
   end
   
   def cached_count_members

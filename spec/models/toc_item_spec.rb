@@ -10,4 +10,7 @@ describe TocItem do
     toc_item = TocItem.gen
     toc_item.allow_user_text?.should be_false
   end
+
+  it 'should be able to show a table of contents'
+
 end

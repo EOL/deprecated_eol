@@ -29,7 +29,7 @@ describe ClassificationsController do
     cal = CuratorActivityLog.last
     cal.user.should == @curator
     cal.changeable_object_type.should == ChangeableObjectType.curated_taxon_concept_preferred_entry
-    cal.object_id.should == ctcpe.id
+    cal.target_id.should == ctcpe.id
     cal.hierarchy_entry.should == @hierarchy_entry
     cal.taxon_concept.should == @taxon_concept
     cal.activity.should == Activity.preferred_classification

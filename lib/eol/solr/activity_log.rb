@@ -39,7 +39,7 @@ module EOL
         # we might get less than 6 non-watch list activities grouped by user, so continue paging through
         # activity logs until we have the result set we want, or until there are no more results
         while docs_to_return.length < 6
-          response = solr_search('*:*', options)
+          response = solr_search('*:* NOT action_keyword:unlock', options)
           total_results = response['grouped'][options[:group_field]]['ngroups']
           break if total_results == 0
           results = []
@@ -53,6 +53,12 @@ module EOL
             :includes => [ { :collection => [ :users ] } ],
             :selects => { :collection_activity_logs => [:id, :collection_id], :collections => [:special_collection_id], :users => [:id] }) # TODO - I don't think I did the user join correctly to work below...
           results.delete_if{ |d| d['instance'] && d['instance'].collection && d['instance'].collection.watch_collection? }
+
+          # looking up Comments so we can remove deleted Comments
+          EOL::Solr.add_standard_instance_to_docs!(Comment,
+            results.select{ |d| d['activity_log_type'] == 'Comment' }, 'activity_log_id',
+            :selects => { :comments => [ :id, :deleted, :parent_type ] })
+          results.delete_if{ |d| d['instance'] && d['instance'].is_a?(Comment) && d['instance'].deleted? }
 
           # creating a list unique by user
           results.each do |r|

@@ -7,20 +7,30 @@ class Vetted < ActiveRecord::Base
   has_many :curated_data_objects_hierarchy_entries
   has_many :users_data_objects
 
+  def self.create_defaults
+    %w(Trusted Unknown Untrusted Inappropriate).each_with_index do |lbl, order|
+      vis = Vetted.create(:view_order => order + 1 )
+      trans = TranslatedVetted.create(vetted_id: vis.id,
+                                      language_id: Language.default.id,
+                                      label: lbl,
+                                      phonetic_label: nil)
+    end
+  end
+
   def self.inappropriate
-    cached_find_translated(:label, 'Inappropriate')
+    @@inappropriate ||= cached_find_translated(:label, 'Inappropriate')
   end
 
   def self.untrusted
-    cached_find_translated(:label, 'Untrusted')
+    @@untrusted ||= cached_find_translated(:label, 'Untrusted')
   end
 
   def self.trusted
-    cached_find_translated(:label, 'Trusted')
+    @@trusted ||= cached_find_translated(:label, 'Trusted')
   end
 
   def self.unknown
-    cached_find_translated(:label, 'Unknown')
+    @@unknown ||= cached_find_translated(:label, 'Unknown')
   end
 
   def self.trusted_ids
@@ -36,7 +46,9 @@ class Vetted < ActiveRecord::Base
     return(@@for_curating_selects[I18n.locale]) if @@for_curating_selects[I18n.locale]
     @@for_curating_selects ||= {}
     @@for_curating_selects[I18n.locale] =
-      [Vetted.trusted, Vetted.unknown, Vetted.untrusted].map {|v| [v.curation_label, v.id] }.compact.sort
+      [Vetted.trusted, Vetted.unknown, Vetted.untrusted].map do |v|
+        [v.curation_label, v.id, { :class => v.to_action }]
+      end.compact.sort
   end
 
   def curation_label
@@ -49,10 +61,35 @@ class Vetted < ActiveRecord::Base
   end
 
   def to_action
-    return 'inappropriate' if id == Vetted.inappropriate.id
-    return 'unreviewed' if id == Vetted.unknown.id
-    return 'untrusted' if id == Vetted.untrusted.id
-    return 'trusted' if id == Vetted.trusted.id
+    case id
+    when Vetted.inappropriate.id
+      'inappropriate'
+    when Vetted.unknown.id
+      'unreviewed'
+    when Vetted.untrusted.id
+      'untrusted'
+    when Vetted.trusted.id
+      'trusted'
+    else
+      nil
+    end
+  end
+
+  def can_apply?
+    [Vetted.trusted.id, Vetted.untrusted.id, Vetted.unknown.id].include? id
+  end
+
+  # curate an object, without the curating code needing to know anything about the methods used to do so.
+  def apply_to(object, user)
+    raise 'invalid vetted type' unless can_apply?
+    case id
+    when Vetted.untrusted.id
+      object.untrust(user)
+    when Vetted.trusted.id
+      object.trust(user)
+    when Vetted.unknown.id
+      object.unreviewed(user)
+    end
   end
 
 private

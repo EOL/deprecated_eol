@@ -229,42 +229,6 @@ class UsersController < ApplicationController
     render :text => usernames.to_json
   end
 
-  def fetch_external_page_title
-    data = {}
-    success = nil
-    response_title = nil
-    begin
-      response = Net::HTTP.get_response(URI.parse(params[:url]))
-      if (response.code == "301" || response.code == "302") && response.kind_of?(Net::HTTPRedirection)
-        response = Net::HTTP.get_response(URI.parse(response['location']))
-      end
-      if response.code == "200"
-        response_body = response.body
-        if response['Content-Encoding'] == "gzip"
-          response_body = ActiveSupport::Gzip.decompress(response.body)
-        end
-        success = true
-        if matches = response_body.match(/<title>(.*?)<\/title>/ims)
-          response_title = matches[1].strip
-        end
-      end
-    rescue Exception => e
-    end
-    if success
-      if response_title
-        data['exception'] = false
-        data['message'] = response_title
-      else
-        data['exception'] = true
-        data['message'] = I18n.t(:unable_to_determine_title)
-      end
-    else
-      data['exception'] = true
-      data['message'] = I18n.t(:url_not_accessible)
-    end
-    render :text => data.to_json
-  end
-
   def pending_notifications
     Periodically::Immediately.prepare_notifications
     Periodically::Immediately.send_notifications
@@ -383,6 +347,36 @@ class UsersController < ApplicationController
       end
     end
     redirect_to recover_account_users_path
+  end
+
+  def grant_permission
+    user = User.find(params[:id])
+    @permission = Permission.find(params[:permission_id])
+    raise EOL::Exceptions::ObjectNotFound unless @permission
+    raise EOL::Exceptions::SecurityViolation unless current_user.can?(:edit_permissions)
+    user.grant_permission(@permission)
+    respond_to do |format|
+      format.html do
+        redirect_to user, :status => :moved_permanently
+        flash[:notice] = I18n.t(:permission_granted)
+      end
+      format.js { }
+    end
+  end
+
+  def revoke_permission
+    @user = User.find(params[:id])
+    @permission = Permission.find(params[:permission_id])
+    raise EOL::Exceptions::ObjectNotFound unless @permission
+    raise EOL::Exceptions::SecurityViolation unless current_user.can?(:edit_permissions)
+    @user.revoke_permission(@permission)
+    respond_to do |format|
+      format.html do
+        redirect_to @user, :status => :moved_permanently
+        flash[:notice] = I18n.t(:permission_revoked)
+      end
+      format.js { }
+    end
   end
 
 protected

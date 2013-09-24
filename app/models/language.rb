@@ -1,10 +1,11 @@
 class Language < ActiveRecord::Base
   uses_translations(:foreign_key => 'original_language_id')
+  belongs_to :language_group, :foreign_key => :language_group_id
   has_many :data_objects
   has_many :users
   has_many :taxon_concept_names
 
-  attr_accessible :iso_639_1, :iso_639_2, :iso_639_3, :source_form, :sort_order, :activated_on
+  attr_accessible :iso_639_1, :iso_639_2, :iso_639_3, :source_form, :sort_order, :activated_on, :language_group_id
 
   def to_s
     iso_639_1
@@ -18,7 +19,7 @@ class Language < ActiveRecord::Base
 
   def self.approved_languages
     approved_language_iso_codes = APPROVED_LANGUAGES rescue ['en', 'es', 'ar']
-    cached("approved_languages") do
+    @@approved_languages ||= cached("approved_languages") do
       self.find_all_by_iso_639_1(approved_language_iso_codes,
                                  :order => 'sort_order ASC, source_form ASC')
     end
@@ -34,8 +35,9 @@ class Language < ActiveRecord::Base
     end
   end
 
-  def self.from_iso(iso, params={})
-    cached_find(:iso_639_1, iso)
+  def self.from_iso(iso)
+    @@from_iso ||= {}
+    @@from_iso[iso] ||= cached_find(:iso_639_1, iso)
   end
 
   def self.find_by_iso_exclusive_scope(iso)
@@ -68,7 +70,7 @@ class Language < ActiveRecord::Base
   end
 
   def self.default
-    cached('default') do
+    @@default ||= cached('default') do
       self.english_for_migrations # Slightly weird, but... as it implies... needed for migrations.
     end
   end
@@ -79,7 +81,7 @@ class Language < ActiveRecord::Base
   def self.unknown
     @@unknown_language ||= cached_find_translated(:label, "Unknown")
   end
-  
+
   def self.all_unknowns
     @@all_unknown_languages ||= cached("unknown_languages") do
       unknown_languages = []
@@ -91,8 +93,7 @@ class Language < ActiveRecord::Base
       unknown_languages
     end
   end
-  
-  
+
   def self.common_name
     cached_find_translated(:label, "Common name")
   end
@@ -109,5 +110,15 @@ class Language < ActiveRecord::Base
 
   def iso_code
     iso_639_1
+  end
+
+  def all_ids
+    return [ self.id ] if language_group.blank?
+    return language_group.languages.collect{ |l| l.id }
+  end
+
+  def representative_language
+    return self if language_group.blank?
+    return language_group.representative_language
   end
 end

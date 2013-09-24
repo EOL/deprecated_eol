@@ -36,7 +36,12 @@ private
     debug '#split'
     # They may have (and often have) selected more to move...
     add_entries_to_session if params[:split_hierarchy_entry_id]
-    @target_params[:confirm] = 'split' # hard-coded string, no need to translate.
+    if session[:split_hierarchy_entry_id].length > 1
+      clear_entries_from_session
+      flash[:error] = I18n.t(:classifications_split_one_classification_only)
+    else
+      @target_params[:confirm] = 'split' # hard-coded string, no need to translate.
+    end
   end
 
   # They have a list of classifications they want to merge into this taxon concept.
@@ -101,8 +106,14 @@ private
       CuratedTaxonConceptPreferredEntry.best_classification(:taxon_concept_id => @taxon_concept.id,
                                                             :hierarchy_entry_id => params[:hierarchy_entry_id],
                                                             :user_id => current_user.id)
+    # This at least clears out the caches for the titles of all images that might use the scientific name:
+    @taxon_concept.images_from_solr.each { |img| DataObjectCaching.clear(img) }
     auto_collect(@taxon_concept) # SPG asks for all curation to add the item to their watchlist.
     CuratorActivityLog.log_preferred_classification(preferred_entry, :user => current_user)
+    if $STATSD
+      $STATSD.increment 'all_curations'
+      $STATSD.increment "curations.preferred_classification"
+    end
   end
 
   def params_exemplar

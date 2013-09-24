@@ -6,8 +6,8 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
   # GET /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id/edit
   def edit
     @hierarchy = Hierarchy.find(params[:id], :include => { :resource => :content_partner } )
-    @partner = @hierarchy.resource.content_partner
-    @resource = @hierarchy.resource
+    @resource = @hierarchy.resource || @hierarchy.dwc_resource
+    @partner = @resource.content_partner
     access_denied unless current_user.is_admin? && @resource.id == params[:resource_id].to_i &&
                          @partner.id == params[:content_partner_id].to_i
     @page_subheader = I18n.t(:content_partner_resource_hierarchy_edit_subheader, :resource_title => @resource.title)
@@ -17,8 +17,8 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
   # PUT /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id
   def update
     @hierarchy = Hierarchy.find(params[:id], :include => { :resource => :content_partner } )
-    @partner = @hierarchy.resource.content_partner
-    @resource = @hierarchy.resource
+    @resource = @hierarchy.resource || @hierarchy.dwc_resource
+    @partner = @resource.content_partner
     access_denied unless current_user.is_admin? && @resource.id == params[:resource_id].to_i &&
                          @partner.id == params[:content_partner_id].to_i
     if @hierarchy.update_attributes(params[:hierarchy])
@@ -37,8 +37,8 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
   # POST /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id/request_publish
   def request_publish
     @hierarchy = Hierarchy.find(params[:id], :include => { :resource => :content_partner } )
-    @partner = @hierarchy.resource.content_partner
-    @resource = @hierarchy.resource
+    @resource = @hierarchy.resource || @hierarchy.dwc_resource
+    @partner = @resource.content_partner
     access_denied unless @resource.id == params[:resource_id].to_i && current_user.can_update?(@resource) &&
                          @partner.id == params[:content_partner_id].to_i && request.post?
     if @hierarchy.request_to_publish_can_be_made? && @hierarchy.update_attributes(:request_publish => true)

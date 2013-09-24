@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Configuration' do
 
   before :all do
-    truncate_all_tables
     load_foundation_cache
     @tiger_name = 'Tiger'
     @taxon_concept = build_taxon_concept(:common_names => [@tiger_name])

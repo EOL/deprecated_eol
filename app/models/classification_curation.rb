@@ -1,7 +1,81 @@
+# provides the ability to bridge ClassificationCurations to PHP
+class ClassificurationBridge
+
+  attr_accessor :curation
+  attr_reader   :bridger
+
+  delegate :bridge, :to => :bridger
+
+  def self.bridge(curation)
+    c = ClassificurationBridge.new(curation)
+    c.bridge
+    c
+  end
+
+  def initialize(curation)
+    @curation = curation
+    @bridger  = BridgeFactory.for(curation)
+  end
+
+end
+
+# Builds the correct strategy for bridging classification curations to PHP
+class BridgeFactory
+  def self.for(curation)
+    if curation.split?
+      BridgeSplit.new(curation)
+    elsif curation.merge?
+      BridgeMerge.new(curation)
+    elsif curation.move?
+      BridgeMove.new(curation)
+    end
+  end
+end
+
+# Classic Stratgey Pattern for bridging classification curations to PHP
+class Bridge
+
+  attr_accessor :curation
+
+  def initialize(curation)
+    @curation = curation
+  end
+
+  def bridge
+    raise "Unimplemented abstract method called"
+  end
+
+end
+
+class BridgeSplit < Bridge
+  def bridge
+    curation.hierarchy_entries.each do |he|
+      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => curation.exemplar_id,
+                             :notify => curation.user_id, :classification_curation_id => curation.id)
+    end
+  end
+end
+
+class BridgeMerge < Bridge
+  def bridge
+    CodeBridge.merge_taxa(curation.source_id, curation.target_id, :notify => curation.user_id,
+                          :classification_curation_id => curation.id)
+  end
+end
+
+class BridgeMove < Bridge
+  def bridge
+    curation.hierarchy_entries.each do |he|
+      CodeBridge.move_entry(:from_taxon_concept_id => curation.source_id, :to_taxon_concept_id => curation.target_id,
+                            :hierarchy_entry_id => he.id, :exemplar_id => curation.exemplar_id,
+                            :notify => curation.user_id, :classification_curation_id => curation.id)
+    end
+  end
+end
+
 class ClassificationCuration < ActiveRecord::Base
 
   # For convenience, these are the non-relationship fields:
-  # :created_at   => When the curator made the request
   # :completed_at => When it was finished PROCESSING. This does NOT mean it worked! (Check #failed? for that.)
   # :forced       => boolean. ...Whether the move was (had to be) forced due to conflicts in CP assertions.
   # :error        => merges don't have hierarchy_entry_moves, so the errors cannot be stored there. Here it is!
@@ -20,18 +94,8 @@ class ClassificationCuration < ActiveRecord::Base
 
   after_create :bridge
 
-  def moved_to
-    self[:target_id].nil? ? nil : TaxonConcept.find(self[:target_id])
-  end
-
   def bridge
-    if split?
-      bridge_split
-    elsif merge?
-      bridge_merge
-    else
-      bridge_move
-    end
+    ClassificurationBridge.bridge(self)
   end
 
   def split?
@@ -42,28 +106,8 @@ class ClassificationCuration < ActiveRecord::Base
     exemplar.nil?
   end
 
-  # This is not used anywhere (in practice, use split? / merge? / else), but is here for principle of least surprise:
   def move?
-    !split? && !merge?
-  end
-
-  def bridge_split
-    hierarchy_entries.each do |he|
-      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
-                             :classification_curation_id => id)
-    end
-  end
-
-  def bridge_merge
-    CodeBridge.merge_taxa(source_id, target_id, :notify => user_id, :classification_curation_id => id)
-  end
-
-  def bridge_move
-    hierarchy_entries.each do |he|
-      CodeBridge.move_entry(:from_taxon_concept_id => source_id, :to_taxon_concept_id => target_id,
-                            :hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
-                            :classification_curation_id => id)
-    end
+    moved_to && exemplar
   end
 
   def check_status_and_notify
@@ -72,13 +116,28 @@ class ClassificationCuration < ActiveRecord::Base
       if failed?
         compile_errors_into_log
       else
-        # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
-        TaxonConceptReindexing.reindex(moved_from, :flatten => split?, :allow_large_tree => true) if source_id
-        TaxonConceptReindexing.reindex(moved_to,   :flatten => split?, :allow_large_tree => true) if target_id
-        log_activity_on(moved_from || moved_to)
-        log_unlock_and_notify(Activity.unlock)
+        reindex_taxa
+        log_completion
       end
     end
+  end
+
+  def reindex_taxa
+    # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
+    TaxonConceptReindexing.reindex(moved_from, :allow_large_tree => true) if source_id
+    if target_id
+      TaxonConceptReindexing.reindex(moved_to, :allow_large_tree => true)
+    elsif hierarchy_entry_moves
+      taxon_concepts = hierarchy_entry_moves.collect{ |m| m.hierarchy_entry.taxon_concept }.compact.uniq
+      taxon_concepts.each do |taxon_concept|
+        TaxonConceptReindexing.reindex(taxon_concept, :allow_large_tree => true)
+      end
+    end
+  end
+  
+  def log_completion
+    log_activity_on(moved_from || moved_to)
+    log_unlock_and_notify(Activity.unlock)
   end
 
   def already_complete?
@@ -87,16 +146,28 @@ class ClassificationCuration < ActiveRecord::Base
 
   def ready_to_complete?
     if merge?
-      moved_from == moved_to # This is slightly expensive... but not THAT bad... and running in the background.
+      # This is slightly expensive... but not THAT bad... and running in the background. The "magic" is NOT using the
+      # direct association, but using #find, so that supercedure is followed.
+      TaxonConcept.find(moved_from) == TaxonConcept.find(moved_to)
     else
       hierarchy_entry_moves.all? {|move| move.complete?}
     end
   end
-  alias :complete? :ready_to_complete? # Try not to use this one, though... it's confusing.
 
   def failed?
     !(error.blank? && hierarchy_entry_moves.all? {|move| move.error.blank? })
   end
+
+  def to_s
+    "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
+  end
+
+  # A split doesn't specify a target (it creates one), so we look to see where it went (for logging):
+  def split_to
+    hierarchy_entry_moves.first.hierarchy_entry.taxon_concept
+  end
+
+private
 
   def compile_errors_into_log
     # Yes, english. This is a comment and cannot be internationalized:
@@ -138,9 +209,8 @@ class ClassificationCuration < ActiveRecord::Base
                                        :changeable_object_type_id => comment ?
                                           ChangeableObjectType.comment.id :
                                           ChangeableObjectType.classification_curation.id,
-                                       :object_id => options[:comment] ? comment.id : id,
-                                       :activity_id => activity.id,
-                                       :created_at => 0.seconds.from_now,
+                                       :target_id => options[:comment] ? comment.id : id,
+                                       :activity => activity,
                                        :taxon_concept_id => parent.id)
     rescue => e
       logger.error "** ERROR: Could not create CuratorActivityLog for #{self}: #{e.message}"
@@ -165,14 +235,9 @@ class ClassificationCuration < ActiveRecord::Base
       :user => user,
       :taxon_concept => taxon_concept,
       :changeable_object_type => ChangeableObjectType.classification_curation,
-      :object_id => id,
-      :activity_id => Activity.curate_classifications.id,
-      :created_at => 0.seconds.from_now
+      :target_id => id,
+      :activity => Activity.curate_classifications
     )
-  end
-
-  def to_s
-    "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
   end
 
   # This method makes sure we don't process a ClassificationCuration twice, and makes sure that classifications don't
@@ -182,10 +247,6 @@ class ClassificationCuration < ActiveRecord::Base
       move.update_column(:completed_at, Time.now)
     end
     update_column(:completed_at, Time.now)
-  end
-
-  def split_to_id
-    hierarchy_entry_moves.first.hierarchy_entry.taxon_concept_id
   end
 
 end

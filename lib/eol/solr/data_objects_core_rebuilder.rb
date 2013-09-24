@@ -116,42 +116,35 @@ module EOL
           hash['curated_by_user_id'] << cal.user_id
         end
         # add concepts and ancestors
-        (data_object.curated_hierarchy_entries + [data_object.latest_published_users_data_object]).compact.each do |he|
+        data_object.data_object_taxa.each do |assoc|
           field_prefixes = []
-          if he.vetted
-            vetted_label = he.vetted.label('en').downcase rescue nil
+          if assoc.vetted
+            vetted_label = assoc.vetted.label('en').downcase rescue nil
             vetted_label = 'unreviewed' if vetted_label == 'unknown'
             field_prefixes << vetted_label if ['trusted', 'unreviewed', 'untrusted', 'inappropriate'].include?(vetted_label)
           end
-          if he.visibility
-            visibility_label = he.visibility.label('en').downcase rescue nil
+          if assoc.visibility
+            visibility_label = assoc.visibility.label('en').downcase rescue nil
             field_prefixes << visibility_label if ['invisible', 'visible', 'preview'].include?(visibility_label)
           end
           hash['taxon_concept_id'] ||= []
-          hash['taxon_concept_id'] << he.taxon_concept_id
+          hash['taxon_concept_id'] << assoc.taxon_concept_id
           hash['ancestor_id'] ||= []
-          hash['ancestor_id'] << he.taxon_concept_id
-          if he.class == UsersDataObject
-            hash['added_by_user_id'] = he.user_id
-          else
-            hash['hierarchy_entry_id'] ||= []
-            hash['hierarchy_entry_id'] << he.id
+          hash['ancestor_id'] << assoc.taxon_concept_id
+          if assoc.users_data_object?
+            hash['added_by_user_id'] = assoc.user_id
           end
           field_prefixes.each do |prefix|
             hash[prefix + '_taxon_concept_id'] ||= []
-            hash[prefix + '_taxon_concept_id'] << he.taxon_concept_id
+            hash[prefix + '_taxon_concept_id'] << assoc.taxon_concept_id
             hash[prefix + '_ancestor_id'] ||= []
-            hash[prefix + '_ancestor_id'] << he.taxon_concept_id
+            hash[prefix + '_ancestor_id'] << assoc.taxon_concept_id
           end
           
           # TC ancestors
-          if he.taxon_concept # sometimes in specs there isn't a concept for an entry...
+          if assoc.taxon_concept # sometimes in specs there isn't a concept for an entry...
             ancestor_tc_ids = []
-            ancestor_he_ids = []
-            ancestor_tc_ids += he.taxon_concept.flattened_ancestors.collect(&:ancestor_id)
-            ancestor_he_ids += he.taxon_concept.published_hierarchy_entries.collect(&:id)
-            HierarchyEntry.preload_associations(he.taxon_concept.published_hierarchy_entries, :flattened_ancestors)
-            ancestor_he_ids += he.taxon_concept.published_hierarchy_entries.collect{ |he| he.flattened_ancestors.collect(&:ancestor_id) }.flatten
+            ancestor_tc_ids += assoc.taxon_concept.flattened_ancestors.collect(&:ancestor_id)
             
             ancestor_tc_ids.uniq.each do |tc_id|
               hash['ancestor_id'] ||= []
@@ -159,14 +152,6 @@ module EOL
               field_prefixes.each do |prefix|
                 hash[prefix + '_ancestor_id'] ||= []
                 hash[prefix + '_ancestor_id'] << tc_id
-              end
-            end
-            ancestor_he_ids.uniq.each do |he_id|
-              hash['ancestor_he_id'] ||= []
-              hash['ancestor_he_id'] << he_id
-              field_prefixes.each do |prefix|
-                hash[prefix + '_ancestor_he_id'] ||= []
-                hash[prefix + '_ancestor_he_id'] << he_id
               end
             end
           end

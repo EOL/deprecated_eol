@@ -1,7 +1,0 @@
-.header
-  %h3= I18n.t(:collections_summary_header_with_count, :count => 0)
-.empty
-  %p
-    = I18n.t(:collections_summary_empty)
-    %fieldset.actions
-      = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => @watch_collection }

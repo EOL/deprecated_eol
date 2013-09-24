@@ -903,9 +903,7 @@ tl:
   all_comments_entered_by_users: Ipinakikita sa ibaba ang lahat ng mga tekstong ipinasok ng mga tagagamit sa pook ng sangkasaputan, na inayos nang pabaligtad ayon sa oras ng pagkakalikha.
   all_communities: Lahat ng mga pamayanan
   all_count: Lahat (%{count})
-  all_errors: LAHAT ng mga kamalian
   all_filter: lahat
-  all_harvesting_logs: LAHAT ng mga talaan ng pag-ani
   all_images: Lahat ng mga larawan
   all_information: Lahat ng kabatiran
   all_items: Lahat ng mga bagay
@@ -1046,7 +1044,6 @@ tl:
   classification_tree_header: Klasipikasyon
   classifications_edit_cancelled_busy: Paumanhin, ang kahilingan mo na baguhin ang mga klasipikasyon ay hindi mapuproseso sa oras na ito; nakakandado ang isa o mas marami pang mga pahina ng takson. Pinuproseso ang isang umiiral na kahilingan upang baguhin ang mga klasipikasyong ito.
   classifications_edit_cancelled_merge_to_self: Iisang pahina lamang ang iyong pinagmulan at ang iyong puntirya; walang ililipat.
-  classifications_empty: Ang pahinang ito ay hindi kasama sa anuman sa mga klasipikasyon na matitingnan-tingnan sa loob ng EOL.
   classifications_exemplar_column_header: Halimbawa
   classifications_hierarchy_column_header: Klasipikasyon
   classifications_locked: Hindi mababago sa mga oras na ito ang mga klasipikasyong nasa pahinang ito. Pinupruseso na ang isa pang kahilingan upang mapatnugutan ang mga klasipikasyong ito.
@@ -1477,7 +1474,6 @@ tl:
     other: Kopyahin ang %{count} mga bagay papunta sa isang bagong kalipunan
   copy_of_name: Kopya ng %{name}
   copyright: "KARAPATANG MAGPALATHALA:"
-  correct_donation_message: Kung hindi tama ang kabatirang ito, paki %{go_back_link} upang makagawa ng mga pagbabago
   could_not_find_collection_error: Paumanhin, hindi matagpuan ang kalipunang iyan.
   could_not_find_user: Hindi ka isang kasapi sa pamayanang ito.
   count: Bilang
@@ -1818,7 +1814,6 @@ tl:
   expand_all_children: palawigin ang lahat ng mga anak
   explore: Galugarin
   explore_what_we_know_about_taxon: Galugarin kung ano ang nalalaman ng EOL patungkol sa %{taxon}.
-  export_all_of_the_entries_as_a: iluwas ang lahat ng mga lahok bilang isang talaksang CSV
   export_curator_csv_link: "[iluwas ang lahat ng mga kurador bilang CSV]"
   export_this_list_as_csv: Iluwas ang listahang ito bilang CSV
   external_link_header: Kawing Panlabas
@@ -2217,7 +2212,6 @@ tl:
   home_page_link_advisory_information: Ang kawing na ito ay magdadala sa iyo papunta sa bahay-pahina ng Pook-sapot ng Ensiklopedya ng Buhay
   html_format: (anyo ng HTML)
   html_format_with_left_col: (ANYO NG HTML, ipasok lamang kung nais mong magkaroon ng isang haliging nasa kaliwa sa ibabaw ng pahina. kung hindi iwanang walang laman)
-  icon_near_the_table_of_content: kinatawang larawan na malapit sa talaan ng mga nilalaman na nasa kaliwang gilid ng pahina. Tuwiran ka ring makapagpapasa ng <a href=''>mga puna</a> patungkol sa espesyeng ito roon sa pook ng EOL na ginagamit ang laylayang "Mga Puna" na malapit sa mga imahe.
   id: ID
   if_checked_and_user_is_saved: Kapag may tsek at nasagip ang tagagamit, kung gayon ang mga kredensiyal, ang nasasakupan, ang pagpayag at ang napiling klado ay tinatanggal na lahat at ang tagagamit ay hindi na lumilitaw bilang isang katiwala. Dapat kang magdagdag ng isang paunawa sa ibaba upang ipahiwatig ang dahilan. Walang kabatiran na ipapadala sa tagagamit.
   if_the_details_parameter_is_not_set: Kung ang parametro ng mga detalye ay hindi nakatakda, kung gayon tanging ang pangkilala ng bagay na pangdato, uri ng dato, at sa kaso ng mga artikulo, paksa lamang ang mga maibabalik. Ang uri ng dato ay magiging isang halaga mula sa %{linka} talasalitaan ng uri ng pinagkunan. Ang paksa ng teksto ay magiging isang halaga magmula sa %{linkb} ontolohiya ng mga bagay na pangkabatiran.
@@ -2813,7 +2807,6 @@ tl:
   partner_information: Kabatiran sa kawaksi
   partner_page: pahina ng kawaksi
   partner_web_site_colon: "Pook sa Sangkasaputan ng Kawaksi:"
-  partnering_steps: MGA HAKBANG SA PAGIGING KAWAKSI
   password_colon: "Hudyat:"
   password_must_be_4to16_characters: Ang haba ng hudya ay dapat na nasa pagitan ng 4 at 16 mga panitik.
   pause: huminto saglit
@@ -2829,7 +2822,6 @@ tl:
   personal_profile_menu: Personal na Balangkas ng Katangian
   personal_space: Pansariling Puwang
   ping_method_description: Ang pamamaraang ito ay maaaring mabigo (na sa ganitong kaso, ang pahina ng pagkakamali ng EOL ay mas malamang na ibalik) o kaya ay magbalik ng isang mensahe ng Tagumpay. Wala nang iba pang maaaring maging mga mensahe
-  please: Paki
   please_ask_big_before_changing_toc: Paki sumangguni sa isang kasapi sa pangkat ng Biodiversity Informatics o Impormatika ng Biyodibersidad bago baguhin ang talahanayan ng mga nilalaman. Ilan sa mga pangalan ng kabanata ay hindi maaaring baguhin dahil sa ang kodigo ay naghahanap sa pamamagitan ng katatakan. Hindi maimamapa ang Mga Bagay na Pangkabatiran sa loob ng ugnayang-mukhang ito - dapat iyang gawin nang kinakamay sa loob ng kalipunan ng dato.
   please_confirm_your_donation_details: Paki tiyakin ang mga detalye ng donasyon mo
   please_indicate_curation_reason: "Paki pumili ng isang dahilan, at/o mag-iwan o huwag kayang mag-iwan ng isang puna na  pampangangasiwa:"
@@ -3082,9 +3074,6 @@ tl:
   show_status_message: Ipakita ang mensahe ng katayuan
   show_tasks: ipakita ang mga gawain
   show_warning_message: Ipakita ang mensahe ng babala
-  showing: Ipinapakita ang
-  showing_errors_the_error_log_f: "Ipinapakita ang mga kamaliang naitala noong:"
-  showing_procs_from: "Ipinapakita ang mga proseso magmula sa:"
   shown_to_the_user_parens: (ipinapakita sa tagagamit)
   shown_to_user_as_the_title_of_page: ipinapakita sa tagagamit bilang pamagat ng pahina
   sign_in: Lumagdang papasok
@@ -3351,22 +3340,6 @@ tl:
         meta_title: Mga singkahulugan ng %{scientific_name}
         meta_title_with_common_name: Mga singkahulugan ng %{preferred_common_name} (%{scientific_name})
         tweet_text: Mga singkahulugan ng %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Isang kabuuran ng kabatiran na patungkol sa %{scientific_name} ayon sa pagkilala ni %{hierarchy_provider} sa loob ng Ensiklopedya ng Buhay.
-          meta_description_with_common_name: Isang buod ng kabatiran na patungkol sa %{preferred_common_name}, na nakikilala rin bilang %{scientific_name} ayon sa pagkilala ni %{hierarchy_provider} sa loob ng Ensiklopedya ng Buhay.
-          meta_keywords: Ang %{scientific_name} na kinilala ni %{hierarchy_provider}, ang %{scientific_name} na ayon sa pagkakauri ni %{hierarchy_provider}
-          meta_keywords_with_common_name: Ang %{scientific_name} na kinikilala ni %{hierarchy_provider}, ang %{scientific_name} na ayon sa pagkakauri ni %{hierarchy_provider}
-          meta_title: Ang %{scientific_name} na Iniuri ni %{hierarchy_provider}
-          meta_title_with_common_name: Ang %{preferred_common_name} (%{scientific_name} na Iniuri ni %{hierarchy_provider})
-          tweet_text: Malawakang pagtanaw ng %{scientific_name} ayon sa pagkakauri ni %{hierarchy_provider}
-        meta_description: Mga kabatiran hinggil sa %{scientific_name} na nasa loob ng Ensiklopedya ng Buhay.
-        meta_description_with_common_name: Mga kabatiran hinggil sa %{preferred_common_name}, na nakikilala sa agham bilang %{scientific_name} sa loob ng Ensiklopedya ng Buhay.
-        meta_keywords: kabatiran hinggil sa %{scientific_name}, kabatiran sa %{scientific_name}
-        meta_keywords_with_common_name: kabatiran hinggil sa %{scientific_name},kabatiran hinggil sa %{preferred_common_name},kabatiran at mga katotohanan sa %{scientific_name},kabatiran sa %{preferred_common_name}
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Kabatiran hinggil sa %{preferred_common_name}"
-        tweet_text: Kabatiran ukol sa %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3543,7 +3516,6 @@ tl:
   this_method_takes_an_integer_or_string: Ang pamamaraang ito ay kumukuha ng isang buumbilang o bagting na siyang namumukod-tanging pampakilala para sa isang takson mula sa kalipunan ng dato ng ilang tagapagbigay, at ng isang hierarchy_id na kumakatawan sa tagapagbigay at nagbabalik ng ID ng pahina ng EOL para sa taksong iyon. Bilang halimbawa, sa paggamit ng API ng %{link_provider}, matutuklasan ko na ang hierarchy_id ng EOL para sa Integrated Taxonomic Information System (ITIS) ay %{itis_id}. Makapaghahanap na ngayon ako sa EOL ng Taxonomic Serial Number (TSN) ng ITIS ng 180542,<i>Ursus maritimus</i>, sa pamamagitan ng pagtawag sa %{link_url}
   this_page_shows_information_ab: Ang pahinang ito ay nagpapakita ng kabatiran patungkol sa isang tiyak na katagang panghanap at kung anong mga resulta ang pinindot ng mga tagagamit pagkaraang patakbuhin ang paghahanap.
   this_resource_unpublished_notice: Sa ngayon, ang pinagkunang ito ay hindi nakatakda bilang nalathala na ng tagapangasiwa.
-  this_section_is_used_to_create: Ang seksiyong ito ay ginagagamit upang lumikha ng mga bagay na pambalita. Ang mga bagay na pambalita ay ipinapakita sa kanang bahagi ng tahanang pahina, pati na rin sa loob ng isang %{rss_link} at sa pahina ng %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Hindi mapapangasiwaan ang tunog na ito sapagkat hindi ito nakalathala.
   this_sound_is_unpublished: Hindi nakalathala ang tunog na ito.
   this_video_cannot_be_curated_because_unpublished: Hindi mapapangasiwaan ang bidyong ito sapagkat hindi ito nakalathala.
@@ -3554,10 +3526,8 @@ tl:
   title: Pamagat
   to_process_your_donation_please_proceed: Upang maproseso ang donasyon mo mangyaring magpatuloy
   to_remedy_this: Upang maremedyuhan ito, isasara namin ang hindi masisiglang mga akawnt na ito at hinihiling namin na dalawin mo ang eol.org upang lumikha ng isang bagong akawnt. Kapag natanggap mo na ang e-liham ng paniniyak, paki pindutin ang kawing upang mapatunayan ang akawnt mo.
-  to_see_all_activity_combinatio: upang makita ang lahat ng mga kumbinasyon ng gawain sa loob ng tagal na 5 mga minuto (3-4 mga minuto).
   to_send_email_enter_text: Upang mapadalhan ang tagagamit na ito ng isang e-liham, ipasok ang tekstong nasa ibaba at pindutin ang 'Ipadala'.
   to_submit_a_species_photograph_for: Upang makapagpasa ng isang litrato ng espesye para sa %{taxon}, paki ipadala ang mga litrato sa %{flickr_link} at sundin ang ipinapakitang mga panuto roon sa tahanang pahina ng pangkat na iyan.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Upang ipasa ang nilalaman ng teksto para sa %{taxon}, paki tiyakin na ikaw ay nakalagda sa EOL at pagkaraan ay pindutin ang
   toc: Talaan ng Nilalaman (TNN)
   toc_entry_col_header: Lahok sa Talaan ng Nilalaman
   toc_no_longer_available: Hindi na makukuha ang kabatiran ng Talaan ng Nilalaman
@@ -3591,7 +3561,6 @@ tl:
   twitter: Twitter
   type: Uri
   unable_to_copy_items_to_collection_error: Paumanhin, hindi namin nagawang kopyahin ang mga bagay ng kalipunan papunta sa %{name}.
-  unable_to_invite_users_to_community_error: Hindi maipapadala ang mga paanyaya papunta sa %{users}.
   unique_page_views_th: Natatanging mga Pagtingin sa Pahina
   unknown: Hindi nalalaman
   unknown_hierarchy: Hindi Nalalamang Hirarkiya
@@ -3627,7 +3596,6 @@ tl:
   use_as_examplar_button: gamitin bilang uliran
   use_as_examplar_note_preferred: "paunawa: mas ninanais ang klasipikasyong ito. Marahil ay nanaisin mong gamitin ang isang ito."
   used_for_friendly_url_note: (ginagamit upang lumikha ng isang palakaibigang kawing para sa mga tagagamit, hindi maaaring maglaman ng mga puwang o natatanging mga panitik)
-  used_for_urls_note: ginagamit para sa mga URL - dapat na namumukod-tangi (maliban sa mga pahinang naisalinwika); kung hindi, ang mga URL sa pahina ay dapat na gumamit ng ID ng pahina
   user: Tagagamit
   user_activation_failed_resent_validation_email_error: Paumanhin, naganap ang isang kamalian, hindi mapatotohanan ang akawnt mo. Karaniwan itong nangyayari kapag ang kawing sa pagpapatunay na ipinasok mo o napili ay hindi nakilala. Muling ipinadala ang mga tagubilin sa pagbuhay papunta sa tirahan ng elektronikong liham na ipinarehistro mo, paki tiyakin na tumutugma ang gagamitin mong kawing ng pagpapatotoo sa isang ibinigay sa loob ng e-liham na pambuhay.
   user_activation_failed_user_not_found_error: Paumanhin, naganap ang isang pagkakamali, hindi matagpuan ang akawnt na tinatangka mong patunayan. Paki tiyakin na ang kawing ng pagpapatotoo na gagamitin mo ay tutugma sa isang ibinigay na nasa loob ng e-liham na pambuhay na matatanggap mo pagkaraan ng pagpaparehistro.

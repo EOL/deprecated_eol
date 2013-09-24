@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Member do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     @user = User.gen
     @community = Community.gen

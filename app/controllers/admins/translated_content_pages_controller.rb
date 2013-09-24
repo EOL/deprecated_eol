@@ -53,7 +53,7 @@ class Admins::TranslatedContentPagesController < AdminsController
 
   # DELETE /admin/content_pages/:content_page_id/translations/:id
   def destroy
-    return redirect_to :action => 'index', :status => :moved_permanently unless request.method == :delete
+    return redirect_to :action => 'index', :status => :moved_permanently unless request.delete?
     content_page = ContentPage.find(params[:content_page_id])
     page_name = content_page.page_name
     translated_content_page = TranslatedContentPage.find(params[:id], :include => :language)

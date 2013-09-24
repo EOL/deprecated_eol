@@ -106,7 +106,7 @@ module ApplicationHelper
   # Used to provide a stable English type label for CSS and I18n keys
   def self.en_type(object)
     if object.class == CollectionItem
-      en_type(object.object)
+      en_type(object.collected_item)
     elsif object.class == DataObject
       return 'image_map' if object.is_image_map? # NOTE: this must appear before is_image? here
       return 'map' if object.is_map?
@@ -248,10 +248,6 @@ module ApplicationHelper
       options[:header_message] = I18n.t(:validation_error)  unless options.include?(:header_message)
       options[:message] ||=  I18n.t(:validation_following_fields)  unless options.include?(:message)
 
-      # <custom>
-      # Invert the default error messages so we can look them up easily for translation
-      default_error_messages_inverted = ActiveRecord::Errors.default_error_messages.invert
-
       # Translate error messages
       error_messages = objects.map do |obj|
         obj.errors.map do |field, error|
@@ -267,29 +263,21 @@ module ApplicationHelper
           error_attributes = error.scan(/\d+/)
           error_default = error.gsub(/\d+/,"%d")
           error_translate = error.gsub(/\d+/,"{n}") #
-          error_index = default_error_messages_inverted[error_default]
-
-          # TODO: Gibberish translation which doesn't work anymore
-          # error = error_translate["validation_#{error_index}".to_sym, *error_attributes]
 
           if error =~ /^\^/
             error_display = error[1..-1]
           else
             error_display =  "#{field == 'Base' ? '' : field} #{error}"
           end
-
-          content_tag(:li,error_display)
+          content_tag(:li, error_display)
         end
       end
-
-      # </custom>
 
       contents = ''
       contents << content_tag(options[:header_tag] || :h2, options[:header_message]) unless options[:header_message].blank?
       contents << content_tag(:p, options[:message]) unless options[:message].blank?
-      contents << content_tag(:ul, error_messages)
-
-      content_tag(:div, contents, html)
+      contents << content_tag(:ul, raw(error_messages.flatten.join))
+      content_tag(:div, raw(contents), html)
     else
       ''
     end
@@ -329,7 +317,7 @@ module ApplicationHelper
     html_options[:class] += ' external_link'
     html_options[:class] += ' external_link_popup' if $USE_EXTERNAL_LINK_POPUPS
     # TODO - use of target=_blank is bad for accessibility are we sure we want this? target was deprecated for xhtml but is back in html5
-    html_options[:target] = '_blank' # YOU WERE HERE ... make sure this works.
+    html_options[:target] = '_blank'
     html_options[:title] ||= I18n.t(:target_blank_advisory_information)
 
     if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true
@@ -459,8 +447,8 @@ module ApplicationHelper
     return hierarchy_entry.italicized_name.firstcap if options[:current]
     options = options.select{ |k, v| [ :link_to_taxa,  :show_siblings, :show_hierarchy_label ].include?(k) }
     link = options[:link_to_taxa] ?
-      overview_taxon_path(hierarchy_entry.taxon_concept_id) :
-      overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+      taxon_overview_path(hierarchy_entry.taxon_concept_id) :
+      taxon_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
     node = link_to(raw(hierarchy_entry.italicized_name.firstcap), link)
     node << ' '
     node << navigation_show_descendants_link(hierarchy_entry, options.reverse_merge(:link => link))
@@ -471,8 +459,8 @@ module ApplicationHelper
       options.delete(:link)
     else
       options[:link_to_taxa] ?
-        overview_taxon_path(hierarchy_entry.taxon_concept_id) :
-        overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+        taxon_overview_path(hierarchy_entry.taxon_concept_id) :
+        taxon_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
     end
     if hierarchy_entry.number_of_descendants == 0
       ''
@@ -487,21 +475,20 @@ module ApplicationHelper
   end
 
   def show_full_tree(hierarchy_entry, options={})
-    capture_haml do
-      ancestors = hierarchy_entry.ancestors
-      if ancestor = ancestors.shift
-        haml_tag :ul, :class => 'branch' do
-          haml_tag :li do
-            haml_concat navigation_node(ancestor, options)
-            haml_concat show_full_tree(hierarchy_entry, options)
-          end
-        end
-      else
-        haml_concat show_nodes([ hierarchy_entry ], options.merge(:current => true))
-        if options[:show_siblings]
-          haml_concat show_nodes(options[:siblings], options.merge(:parent => hierarchy_entry.parent))
-        end
+    ancestors = hierarchy_entry.ancestors
+    if ancestor = ancestors.shift
+      # using strings here instead of haml.concat because it saves up to 30% of the processing time
+      html = "<ul class='branch'><li>" +
+        navigation_node(ancestor, options) +
+        show_full_tree(hierarchy_entry, options) +
+        "</li></ul>"
+      html
+    else
+      html = show_nodes([ hierarchy_entry ], options.merge(:current => true))
+      if options[:show_siblings]
+        html += show_nodes(options[:siblings], options.merge(:parent => hierarchy_entry.parent))
       end
+      html
     end
   end
 
@@ -536,8 +523,8 @@ module ApplicationHelper
               haml_tag :li, :class => 'show_tree_count' do
                 haml_concat I18n.t(:more_children_with_count, :count => potential_entries_to_show - options[:max_children])
                 full_link = options[:link_to_taxa] ?
-                  overview_taxon_path(parent.taxon_concept_id, :full => true) :
-                  overview_taxon_entry_path(parent.taxon_concept_id, parent, :full => true)
+                  taxon_overview_path(parent.taxon_concept_id, :full => true) :
+                  taxon_entry_overview_path(parent.taxon_concept_id, parent, :full => true)
                 full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa],
                   :show_siblings => options[:show_siblings], :show_hierarchy_label => options[:show_hierarchy_label])
                 haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
@@ -547,6 +534,33 @@ module ApplicationHelper
         end
       end
     end
+  end
+
+  # will return the class name and label used to generate the colored box showing
+  # this object's curation status: Green/Trusted, Gray/Unreviewed, Red/Untrusted, Red/Hidden
+  # or if none available: nil, nil
+  # NOTE - this assumes you have loaded either @taxon_page (preferred) or @taxon_concept.
+  def status_class_and_label_for_data_object(data_object)
+    vis = data_object.visibility_by_taxon_concept(@taxon_page || @taxon_concept)
+    vet = data_object.vetted_by_taxon_concept(@taxon_page || @taxon_concept)
+    if vis == Visibility.invisible
+      return 'untrusted', I18n.t(:hidden)
+    else
+      # Well, shoot. We can't use #label here, because #label is translated.
+      status_class = case vet
+        when Vetted.unknown       then 'unknown'
+        when Vetted.untrusted     then 'untrusted'
+        when Vetted.trusted       then 'trusted'
+        when Vetted.inappropriate then 'inappropriate'
+        else nil
+      end
+      status_label = case vet
+        when Vetted.unknown then I18n.t(:unreviewed)
+        else vet.label
+      end
+      return status_class, status_label
+    end
+    return nil, nil
   end
 
 end

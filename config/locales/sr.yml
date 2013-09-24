@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Arabesque46
+# Author: Milicevic01
 # Author: Rancher
 sr: 
   0_1_or_2: 0, 1 или 2
@@ -356,8 +357,6 @@ sr:
   all_comments_entered_by_users: Доле су приказани сви коментари корисника на сајту, поређани по обрнутом хронолошком реду.
   all_communities: Све заједнице
   all_count: Све (%{count})
-  all_errors: СВЕ грешке
-  all_harvesting_logs: СВИ дневници преузимања
   all_images: Све слике
   all_information: Сви подаци
   all_items: Све ставке
@@ -478,7 +477,6 @@ sr:
   citation_example: Брајан Фишер. „Pogonomyrmex anergismus Cole, 1954.“ Енциклопедија живота, доступно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Проверено 15. јануара 2009.
   citing_link: Навођење
   classification_tree_header: Класификација
-  classifications_empty: Ова страница није укључена ни у једну класификацију која се може погледати на EOL-у.
   classifications_summary_header_with_count: 
     one: Пронађено у %{count} класификацији
     other: Пронађено у %{count} класификације
@@ -853,13 +851,12 @@ sr:
   copied_items_from_collection_with_count_notice: 
     one: Умножена је %{count} ставка из %{name}.
     other: Умножене су %{count} ставке из %{name}.
-  copy: Умножи
+  copy: Копирај
   copy_items_to_a_new_collection_with_count: 
     one: Премести %{count} ставку у нову збирку
     other: Премести %{count} ставке у нову збирку
   copy_of_name: Примерак %{name}
   copyright: "Ауторска права:"
-  correct_donation_message: Ако овај податак није тачан, онда %{go_back_link} да направите измене
   could_not_find_collection_error: Нажалост, не могу да пронађем тражену збирку.
   could_not_find_user: Не могу да пронађем члана за овог корисника
   count: Број
@@ -1083,7 +1080,6 @@ sr:
   expand_all_children: отвори све подтаксоне
   explore: Истражи
   explore_what_we_know_about_taxon: Истражите шта EOL зна о таксону %{taxon}.
-  export_all_of_the_entries_as_a: извези све уносе као CVS
   export_curator_csv_link: "[извези све кустосе као CSV]"
   export_this_list_as_csv: Извези списак као CSV
   external_link_header: Спољна веза
@@ -1410,7 +1406,6 @@ sr:
   home_page_link_advisory_information: Ова веза одвешће вас до почетне странице Енциклопедије живота
   html_format: (формат HTML)
   html_format_with_left_col: (ФОРМАТ HTML – унесите само ако желите да имате колону у левом делу странице; у супротном, оставите празно)
-  icon_near_the_table_of_content: икона близу прегледа садржаја у левом делу странице. Можете да пошаљете и <a href=''>коментаре</a> о овим врстама непосредно на EOL користећи језичак „Коментари“ близу слике.
   id: Назнака
   if_checked_and_user_is_saved: Ако је означено и корисник је сачуван, онда се сва уверења, опсег, одобрења и изабране кладе уклањају и корисник престаје да буде кустос. Доле можете написати белешку у којој дајете образложење за то. Подаци се не шаљу кориснику.
   if_the_details_parameter_is_not_set: Ако параметар за детаље није постављен, онда ће само објекат података, врста података, а у случају чланака, натпис бити приказан. Врста података ће бити вредност из речника ресурса (%{linka}), а текст натписа вредност из онтологије ставки (%{linkb}).
@@ -1485,9 +1480,9 @@ sr:
   item_type_video: Видео
   item_type_video_assistive: Ова ставка је видео-снимак
   item_updated_in_collection_notice: Ставка је ажурирана у збирци <em>%{collection_name}</em>.
-  items_no_copy_none_selected_warning: Умножавање није спроведено јер ставке нису изабране. Ако желите да умножите ставке на другу збирку, прво означите одговарајућу кућицу поред жељене ставке.
-  items_no_move_none_selected_warning: Премештање није спроведено јер ставке нису изабране. Ако желите да преместите ставке на другу збирку, прво означите одговарајућу кућицу поред жељене ставке.
-  items_no_remove_none_selected_warning: Уклањање није спроведено јер ставке нису изабране. Ако желите да уклоните ставке из збирке, прво означите одговарајућу кућицу поред жељене ставке.
+  items_no_copy_none_selected_warning: Не могу да копирам ставке јер нисте изабрали ниједну. Да бисте копирали ставке у другу збирку, прво означите кућицу до жељене ставке у списку.
+  items_no_move_none_selected_warning: Не могу да преместим ставке јер нисте изабрали ниједну. Да бисте преместили ставке у другу збирку, прво означите кућицу до жељене ставке у списку.
+  items_no_remove_none_selected_warning: Не могу да уклоним ставке јер нисте изабрали ниједну. Да бисте уклонили ставке из збирке, прво означите кућицу до жељене ставке у списку.
   items_with_count_semi_colon: 
     one: "%{count} ставка;"
     other: "%{count} ставке;"
@@ -1565,7 +1560,7 @@ sr:
   login: пријава
   login_header: Пријавите се на свој налог на <abbr title="Енциклопедија живота">EOL-у</abbr>
   login_hidden_user_message: Налог %{given_name} више није активан
-  login_or_create_account: Пријава/упис
+  login_or_create_account: Пријава/регистрација
   login_required_button: Потребна је пријава
   login_to_the_website_as: Пријавите се као %{username}
   logo_header: Логотип
@@ -1814,7 +1809,7 @@ sr:
       message: "Ово је системско самообавештење. %{user_full_name} (%{user_profile_url}) промени своју е-адресу или поставке за дописну листу.\n\nПретходне поставке:\nЕ-адреса: %{previous_email}\nПоставка дописне листе: %{previous_mailing_list_preference}\n\nАжуриране поставке:\nЕ-адреса: %{updated_email}\nПоставка дописне листе: %{updated_mailing_list_preference}\nАжурирано: %{updated_at}"
       subject: "%{user_full_name} промени своју е-адресу или поставке за дописну листу"
     user_verification: 
-      message: "Хвала вам што сте отворили налог на Енциклопедији живота. Следећа веза служи да бисте потврдили упис:\n\n%{verification_url}\n\nПратите ову везу (кликните на њу или је умножите у навигациону траку на свом прегледачу) да бисте активирали налог. Потом ћете добити потврдну поруку да је ваш налог заиста активиран."
+      message: "Хвала вам што сте отворили налог на Енциклопедији живота. Следећом везом ћете потврдити регистрацију и активирати налог:\n\n%{verification_url}\n\nДобићете потврдну поруку чим ваш налог буде активиран."
       subject: Потврдите ваш захтев за налог на Енциклопедији живота
   nucleotide_sequences: Нуклеотидне секвенце
   nucleotide_sequences_ncbi_database: База <a href="%{ncbi_taxonomy_link}">таксономије NCBI-ја</a> садржи називе свих организама који су заступљени у генетској бази с најмање једном нуклеотидном или протеинском секвенцом.
@@ -1857,7 +1852,7 @@ sr:
   option_please_select: Изаберите
   or_add_it_to_an_existing_collection: или је додајте у постојећу збирку
   or_add_it_to_an_existing_community: или је додајте у постојећу заједницу
-  or_copy_them_to_existing_collection: или их умножите у постојећу збирку
+  or_copy_them_to_existing_collection: или их копирајте у постојећу збирку
   or_email_education: Или пошаљите предлог на %{link}.
   or_move_them_to_existing_collection: или их преместите у постојећу збирку
   original: "Изворно:"
@@ -1909,7 +1904,6 @@ sr:
   partner: Партнер
   partner_information: Подаци о партнеру
   partner_page: страница партнера
-  partnering_steps: Кораци за партнерство
   password_colon: "Лозинка:"
   password_must_be_4to16_characters: Лозинка мора да има од 4 до 16 знакова.
   pause: паузирај
@@ -1925,8 +1919,7 @@ sr:
   personal_profile_menu: Лични профил
   personal_space: Лични простор
   ping_method_description: Ова метода или неће успети или ће пријавити поруку да је све прошло како треба. Не постоје друге могуће поруке
-  please: Молимо
-  please_ask_big_before_changing_toc: Консултујте се с чланом групе Биоразноврсна информатика пре уређивања прегледа садржаја. Неки називи поглавља не могу да се мењају будући да су повезани са самим кодом. Инфообјекти не могу да се пресликају на ово сучеље – то мора да се уради ручно у бази.
+  please_ask_big_before_changing_toc: Консултујте се с чланом групе Биоразноврсна информатика пре уређивања прегледа садржаја. Неки називи поглавља не могу да се мењају будући да су повезани са самим кодом. Инфообјекти не могу да се пресликају на ово окружење – то мора да се уради ручно у бази.
   please_confirm_your_donation_details: Потврдите податке о прилогу
   please_indicate_curation_reason: "Изаберите разлог или напишите кустоски коментар:"
   please_note_that_some_of_these: Неке од ових алатки су у бета фази и зато се могу изменити током времена, а могу садржати и грешке.
@@ -2105,9 +2098,6 @@ sr:
   show_status_message: Прикажи статусну поруку
   show_tasks: прикажи задатке
   show_warning_message: Прикажи упозорење
-  showing: Приказ
-  showing_errors_the_error_log_f: "Приказ грешака из дневника за:"
-  showing_procs_from: "Приказ поступака из:"
   shown_to_the_user_parens: (приказује се кориснику)
   shown_to_user_as_the_title_of_page: приказује се кориснику као наслов странице
   sign_in: Пријава
@@ -2404,7 +2394,6 @@ sr:
   this_method_takes_an_integer_or_string: Ова метода узима цео број или ниску која је јединствена назнака таксона из базе једног добављача, као и hierarchy_id који представља добављача и приказује назнаку странице на EOL-у тог таксона. На пример, користећи АПИ %{link_provider}, можете сазнати да је hierarchy_id за Интегрисани таксономски систем информација (ITIS) %{itis_id}. Потом можете претражити EOL за таксономски серијски број на ITIS-у (TSN) 180542,<i>Ursus maritimus</i>, позивајући %{link_url}
   this_page_shows_information_ab: На овој страници су приказани подаци о датом појму за претрагу и наведени су резултати претраге који су кликнули корисници.
   this_resource_unpublished_notice: Овај ресурс тренутно није означен као објављен од стране администратора.
-  this_section_is_used_to_create: Овај одељак служи за стварање нових ставки. Новости су приказане у десном делу почетне странице, као и у %{rss_link} и страници %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Овај звучни снимак не може да се кустосира јер је уклоњен из објава.
   this_sound_is_unpublished: Овај звучни снимак је необјављен.
   this_video_cannot_be_curated_because_unpublished: Овај видео-снимак не може да се кустосира јер је уклоњен из објава.
@@ -2415,10 +2404,8 @@ sr:
   title: Наслов
   to_process_your_donation_please_proceed: Ако желите да дате новчани прилог, наставите
   to_remedy_this: С циљем да исправимо проблем, затворићемо ове неактивне налоге. Посетите www.eol.org да отворите нови налог. Када примите потврдну поруку, кликните на наведену везу да оверите налог.
-  to_see_all_activity_combinatio: да бисте видели све комбинације активности у трајању од пет минута {3-4 мин.}.
   to_send_email_enter_text: Да бисте послали поруку овом кориснику, унесите текст испод и кликните на „Пошаљи“.
   to_submit_a_species_photograph_for: Да бисте послали слику за %{taxon}, пошаљите слике на %{flickr_link} и пратите упутства приказана на почетној страници те групе.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Да бисте послали текстуални садржај за %{taxon}, проверите да ли сте пријављени на EOL, па кликните на
   toc: Садржај
   toc_entry_col_header: Ставка у садржају
   toc_no_longer_available: Садржај више није доступан
@@ -2448,7 +2435,6 @@ sr:
   twitter: Твитер
   type: Врста
   unable_to_copy_items_to_collection_error: Нажалост, не могу да умножим ставке %{name}.
-  unable_to_invite_users_to_community_error: Не могу да пошаљем позивнице за %{users}.
   unique_page_views_th: Засебне посете
   unknown: Непознато
   unknown_type_not_associated_with_any_published_entries: Ови подаци нису повезани ни с једним објављеним таксоном.
@@ -2480,7 +2466,6 @@ sr:
   us_dollars_35: US $35
   us_dollars_50: US $50
   used_for_friendly_url_note: (користи се за стварање згодних веза за кориснике; не сме да садржи размаке или посебне знакове)
-  used_for_urls_note: користи се адресе и треба да буде јединствена (осим у преведеним страницама); ако не може, адресе морају да користе назнаку странице
   user: Корисник
   user_activation_failed_resent_validation_email_error: Нажалост, дошло је до грешке. Не могу да проверим ваш налог. Ово се обично дешава када унета потврдна веза не може да се препозна. Упутства за активирање налога су послата на вашу е-адресу с којом сте се уписали. Проверите да ли се потврдна веза поклапа с оном из е-поруке.
   user_activation_failed_user_not_found_error: Нажалост, дошло је до грешке. Не могу да пронађем налог који желите да проверим. Проверите да ли се потврдна веза поклапа с оном из е-поруке коју сте примили након уписа.
@@ -2632,7 +2617,7 @@ sr:
   wikipedia_queue_create_successful_notice: Чланак %{article} измена %{rev} из Википедије је стављена у ред за увоз.
   wikipedia_queue_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ставим Википедијин чланак у ред за увоз.<br/>Адреса измене се мора поклапати са http://en.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
   wikipedia_queue_new_instructions_intro: "Да бисте добили адресу измене Википедијиног чланка:"
-  wikipedia_queue_new_instructions_step_four: "Умножите адресу измене из прегледача и убаците је у образац за увоз на Википедији. Адреса измене треба да буде у следећем облику: <a href=\"http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931\">http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931</a>"
+  wikipedia_queue_new_instructions_step_four: "Копирајте адресу измене из прегледача у приказани образац за увоз из Википедије. Адреса измене треба да буде у следећем облику: <a href=\"http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931\">http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931</a>"
   wikipedia_queue_new_instructions_step_one: Идите на страницу Википедије, нпр. <a href="http://sr.wikipedia.org/w/index.php?title=Пингвин">http://sr.wikipedia.org/w/index.php?title=Пингвин</a>
   wikipedia_queue_new_instructions_step_three: Кликните на ставку „Трајна веза“. Ово је адреса текуће измене чланка, где можете прегледати и претходна издања.
   wikipedia_queue_new_instructions_step_two: Отворите мени „Алатке“ и тамо ћете видети ставку „Трајна веза“.

@@ -19,10 +19,10 @@ class NewsItemsController < ApplicationController
     end
     if current_user.news_in_preferred_language
       @translated_news_items = TranslatedNewsItem.find(
-        :conditions= >[ 'translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?
+        :conditions =>[ 'translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?
           and MONTH(news_items.display_date) = ? and YEAR(news_items.display_date) = ?', Language.from_iso(current_language.iso_639_1), DateTime.now.utc, @month, @year],
         :joins => "inner join news_items on news_items.id = translated_news_items.news_item_id",
-        :order=>'news_items.display_date desc')
+        :order => 'news_items.display_date desc')
     else
       news_items = NewsItem.find(:all, :conditions=>['news_items.active=1 and news_items.activated_on<=?
         and MONTH(news_items.display_date) = ? and YEAR(news_items.display_date) = ?', DateTime.now.utc, @month, @year],

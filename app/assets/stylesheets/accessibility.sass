@@ -39,6 +39,12 @@ html.busy, html.busy *, .busy
       textarea
         width: 282px
         height: 120px
+    &.curation_credentials
+      clear: both
+      width: 940px
+      textarea
+        width: 500px
+        height: 120px
 
 /** Content partner various **/
 #profile_content_connections
@@ -99,12 +105,11 @@ form
         margin-left: -10px
 /** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
 form
-  dt
-    &.required
-      label
-        background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
-        padding-left: 10px
-        margin-left: -10px
+  dt.required
+    label
+      background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+      padding-left: 10px
+      margin-left: -10px
 
   fieldset
     &#errors
@@ -362,6 +367,8 @@ p.status
     .remove_association
       a
         font-size: .92em
+    .toc_items
+      font-size: .92em
     ul.review_status
       p
         &.unknown /*should match unreviewed*/
@@ -523,6 +530,8 @@ p.flag, span.flag
             line-height: 200%
         > .copy
           padding-bottom: 15px
+          &.link
+            padding-bottom: 0px
   .rating
     h5
       float: left
@@ -588,7 +597,7 @@ p.flag, span.flag
     border-color: #f2d2cc
     background: #ffeae6
     a
-      #E84226
+      color: #E84226
 
 /** Hierarchy Entry classification browser does not have styles from HR
   * HR assumes a list of classifications, where each top level list item is the container
@@ -868,6 +877,12 @@ p.flag, span.flag
             margin: 0
           img
             margin-top: -1px
+          &.license_string
+            span.license
+              position: relative
+              line-height: 120%
+              padding-right: 15px
+              float: left
 #media_list
   #main
     ul
@@ -907,6 +922,10 @@ form
     max-width: 135px
   fieldset.actions
     padding: 0
+.new_collection_job
+  #sidebar 
+    border-left: 1px solid $darker_gray
+    margin-left: 10px
 table.standard
   td.nowrap
     white-space: nowrap
@@ -1219,3 +1238,88 @@ li table.classifications
 table.classifications
   tr.pending
     background-color: #fee
+
+#collection_item_edit
+  img
+    float: left
+    margin-right: 10px
+    margin-bottom: 1em
+  h4
+    font-size: 1.5em
+    margin-bottom: 1em
+  form
+    margin-top: 2em
+  fieldset
+    clear: both
+    margin-left: 8em
+    textarea, input[type=text]
+      width: 400px
+
+// Note the plural, collection item*S*:
+#collection_items_edit
+  width: auto
+  margin: 10px 45px
+  h2
+    margin: 0 0 20px 0
+    font-size: 1.3em
+    color: $lighter_text_color
+  input[type="text"]
+    +input(488px)
+  label
+    color: $lighter_text_color
+    font-weight: bold
+    font-size: 1.1em
+  textarea
+    +input(488px)
+    margin: 4px 0 2em 0
+    width: 482px
+    height: 60px
+  fieldset.actions
+    padding: 10px 0 0 0
+    input[type="submit"]
+      margin: 4px 0 2em 0
+      padding: 7px 10px
+      font-size: 1em
+  .close
+    margin-left: 2em
+
+#new_collection_job
+  ul.object_list, ul#collection_items
+    width: 515px
+  ul#collections
+    height: 320px
+  #sidebar
+    width: 170px
+  .pagination
+    clear: left
+    margin-top: 10px
+  #overwrite
+    margin: 0 1.6em
+    label
+      font-size: 0.9em
+      font-weight: bold
+
+// Squeeze a few more pixels out of collections:
+#collection.main_container
+  padding: 0 0 0 17px
+  border-right: 0
+  border-left: 1px solid $darker_gray
+
+ul.tabs
+  .end_section
+    margin-bottom: 20px
+
+.main_container .empty.about
+  text-align: left
+  div.button
+    padding-top: 1em
+    text-align: center
+  .notice
+    text-align: center
+    margin-top: 1em
+    font-size: 0.8em
+
+// Sick and tired of the language drop-down being too narrow for some languages:
+#header
+  .language > p
+    min-width: 10em

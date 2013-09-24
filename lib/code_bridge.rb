@@ -19,6 +19,12 @@ class CodeBridge
         end
         puts "   --"
       end
+    elsif args['cmd'] == 'clear_cache'
+      tc = TaxonConcept.find(args['taxon_concept_id'])
+      if tc
+        TaxonConceptCacheClearing.clear(tc)
+        TaxonConceptCacheClearing.clear_collections(tc)
+      end
     else
       puts "** ERROR: NO command responds to #{args['cmd']}"
     end
@@ -45,18 +51,15 @@ class CodeBridge
   end
 
   def self.merge_taxa(id1, id2, options = {})
-    Resque.enqueue(CodeBridge, {'cmd'       => 'merge',
-                                'id1'       => id1,
-                                'id2'       => id2,
-                                'classification_curation_id'   => options[:classification_curation_id],
-                                'confirmed' => 'confirmed'}) # No need for "force" on merge.
+    Resque.enqueue(CodeBridge, {'cmd'                         => 'merge',
+                                'id1'                         => id1,
+                                'id2'                         => id2,
+                                'classification_curation_id'  => options[:classification_curation_id],
+                                'confirmed'                   => 'confirmed'}) # No need for "force" on merge.
   end
 
-  def self.reindex_taxon_concept(taxon_concept_id, options = {})
+  def self.reindex_taxon_concept(taxon_concept_id)
     args = {'cmd' => 'reindex_taxon_concept', 'taxon_concept_id' => taxon_concept_id}
-    if options[:flatten]
-      args['flatten'] = true
-    end
     Resque.enqueue(CodeBridge, args)
   end
 

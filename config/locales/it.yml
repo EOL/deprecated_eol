@@ -2,14 +2,22 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Beta16
+# Author: Damiano Martino
 # Author: Darth Kule
 # Author: EdoDodo
+# Author: Eleonora negri
 # Author: F. Cosoleto
 # Author: Gianfranco
 # Author: Inskatolata
+# Author: Luigipiccoli
+# Author: Mishatk
+# Author: Nemo bis
+# Author: Ontsed
 # Author: Raoli
 # Author: Ribez
 # Author: Rippitippi
+# Author: Semiramide
+# Author: Viscontino
 # Author: Ximo17
 it: 
   0_1_or_2: 0, 1 o 2
@@ -48,6 +56,8 @@ it:
         annotation: Annotazione
         refs: Riferimenti
         sort_field: Ordina per
+      collection_job: 
+        overwrite: Sostituisci i duplicati
       comment: 
         body: Commento
       community: 
@@ -116,6 +126,11 @@ it:
         data_objects_unreviewed: Oggetti dati non revisionati
         data_objects_untrusted: Oggetti dati non attendibili
         data_objects_videos: Oggetti video
+        hotlist_pages: Pagine preferite
+        marine_pages: Pagine marine
+        marine_pages_in_col: Pagine marine trovate in CoL
+        marine_pages_with_objects: Pagine marine con elementi di dati
+        marine_pages_with_objects_vetted: Pagine marine con elementi di dati attendibili
         members_count: Membri
         newly_published_resources_in_the_last_30_days: Recenti (pubblicate nell'ultimo mese)
         objects_curated_in_the_last_30_days: Oggetti curati negli ultimi 30 giorni
@@ -141,10 +156,25 @@ it:
         published_resources: Risorse pubblicate
         published_trusted_resources: Risorse pubblicate ed attendibili
         published_unreviewed_resources: Risorse pubblicate non revisionate
+        redhotlist_pages: Pagine altamente preferite
+        rich_hotlist_pages: Pagine preferite più ricche
         rich_pages: Pagine ricche di contenuti
+        rich_redhotlist_pages: Pagine altamente preferite più ricche
         udo_published: Testo inviato da utenti
         udo_published_by_curators: Testo inviato da curatori
         udo_published_by_non_curators: Testo inviato non da curatori
+      forum: 
+        description: Descrizione <small>(facoltativa)</small>
+        forum_category_id: Categoria
+        name: Nome del forum
+      forum_category: 
+        title: Nome della categoria
+      forum_post: 
+        subject: Soggetto
+        text: Corpo
+      forum_topic: 
+        subject: Soggetto
+        text: Corpo del messaggio
       harvest_event: 
         resource: Fonte
       hierarchy: 
@@ -158,6 +188,7 @@ it:
         string: Nome
       news_item: 
         active: Pubblicato
+        page_name: Nome univoco
         sort_order: Ordinamento
       notification: 
         changes_to_my_watched_collection: Modifiche alle collezioni nei tuoi osservati speciali
@@ -171,6 +202,7 @@ it:
         eol_newsletter: Inviami la newsletter trimestrale EOL
         i_am_being_watched: Sei stati aggiunto agli osservati speciali di un altro membro
         invitation_to_community: Invito per unirsi ad una comunità
+        made_me_a_manager: Sei stato nominato direttore di una collezione o comunità
         member_joined_my_community: Un nuovo membro si è unito ad una comunità che gestisci
         member_joined_my_watched_community: Nuovi membri che si sono uniti a comunità di cui sei membro
         member_left_my_community: Membri che hanno lasciato una comunità che gestisci
@@ -190,9 +222,11 @@ it:
         auto_publish: Auto-pubblica
         bibliographic_citation: Citazione bibliografica
         description: Descrizione delle risorse
+        harvest_events: Raccolta di eventi
         hierarchy: Gerarchia
         language_id: Lingua predefinita
         license_id: Licenza predefinita
+        notes: Elaborazione di note
         resource_status_id: Stato delle risorse
         rights_holder: Detentore dei diritti predefinito
         rights_statement: Dichiarazione dei diritti predefinita
@@ -203,9 +237,13 @@ it:
         left_content: Navigazione
         main_content: Corpo
         meta_description: Descrizione del metadato
+        meta_keywords: Parole chiavi dei metadati
         title: Titolo
       translated_news_item: 
         active_translation: Pubblicato
+        body: Corpo
+        meta_description: Descrizione dei metadati
+        meta_keywords: Parole chiavi dei metadati
         title: Titolo
       user: 
         agreed_with_terms: Termini del contratto di utilizzo
@@ -222,8 +260,10 @@ it:
         family_name: Cognome
         full_name: Nome completo
         given_name: Nome
-        language_abbr: Lingua preferita.
+        language_abbr: Lingua preferita
+        permissions: Permessi
         requested_curator_level_id: Livello curatore desiderato
+        tag_line: Tagline
         username: Nome utente
     errors: 
       format: "%{attribute} %{message}"
@@ -267,6 +307,11 @@ it:
             rights_holder: 
               blank: non può essere vuoto per una licenza CC-BY
               inclusion: deve essere vuoto per una licenza di pubblico dominio
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: è permesso solo per l'ultimo evento del raccolto, e solo se questo evento non è già stato pubblicato
+        inaccessible: Il record potrebbe non salvarsi perchè non valido. Controllare gli errori di validazione e inviare nuovamente.
         open_authentications: 
           guid_provider_must_be_unique: l'account di terze parti è già connesso con un account EOL
           provider_user_id_must_be_unique: solo un account da ciascun fornitore di terze parti può essere connesso ad un account EOL
@@ -277,6 +322,7 @@ it:
               inaccessible: è inaccessibile, l'URL deve essere accessibile al pubblico
               invalid: non è valido, deve puntare ad un file XML, XML.GZIP, XML.GZ o ZIP
             dataset: 
+              blank: non può essere vuoto se non fornendo altrimenti l'URL di un dataset
               wrong_type: è di tipo errato, deve essere un file GZIP, TAR, ZIP o XML
             dwc_archive_url: 
               inaccessible: è inaccessibile, l'URL deve essere accessibile al pubblico
@@ -631,6 +677,7 @@ it:
   admin_information: Questa è la nuova console di amministrazione per EOL V2. Stiamo trasferendo le funzionalità di amministrazione da V1. Se la sezione di amministrazione che stai cercando non è elencata qui visita la <a href="/administrator">console di amministrazione V1</a>.
   admin_link: Panoramica
   admin_login_confirmation: Sei sicuro di voler accedere al registro dei fornitori di contenuti come %{name}? Se si esegue questa operazione, l'accesso verrà registrato dal sito web come un amministratore.
+  admin_news_item_not_active: Inedito
   admin_notes_not_visible_to_user: "Note amministratore (non visibili all'utente):"
   admin_page_title: "Amministrazione: panoramica"
   admin_spam_delete: Cancella spam
@@ -647,14 +694,19 @@ it:
   admin_translated_content_page_new_tip: Lingua, titolo e corpo sono %{required_icon} obbligatori.
   admin_translated_content_page_update_successful_notice: La traduzione %{language} per <a href="#%{anchor}"><em>%{page_name}</em></a> è stata aggiornata.
   admin_translated_content_page_update_unsuccessful_error: Spiacenti, si è verificato un errore, la traduzione non è stata aggiornata.
+  admin_translated_news_item_active: Pubblicato
   admin_translated_news_item_new_link: Aggiungi traduzione
+  admin_translated_news_item_not_active: Inedito
   admin_user_delete_successful_notice: L'utente è stato cancellato
   admin_user_hide_successful_notice: L'utente è stato nascosto
   admins: 
     eol_statistics: 
+      content_partners: 
+        menu_link: Partner dei contenuti
       curators: 
         menu_link: Statistiche curatore
         page_header: Statistiche curatore
+        page_title: "Amministrazione: Statistiche del Curatore"
       data_objects: 
         menu_link: Oggetti dati
         page_header: Statistiche oggetti dati
@@ -663,7 +715,12 @@ it:
         menu_link: Statistiche globali
         page_header: Statistiche globali
         page_title: "Amministrazione: statistiche globali"
+      page_richness: 
+        menu_link: Pagine ricche
+        page_header: Statistiche delle Pagine Ricche
+        page_title: "Amministrazione: Statistiche delle Pagine Ricche"
       users_data_objects: 
+        menu_link: Testo inviato dall'utente
         page_header: Statistiche di testo inviate da utenti
   agent: Agente
   all: tutto
@@ -674,7 +731,6 @@ it:
   all_comments_entered_by_users: Tutti i commenti inseriti dagli utenti sul sito web sono mostrati qui sotto, ordinati inversamente per ora di creazione.
   all_communities: Tutte le comunità
   all_count: Tutti (%{count})
-  all_errors: Tutti gli errori
   all_filter: tutti
   all_images: Tutte le immagini
   all_information: Tutte le informazioni
@@ -759,6 +815,7 @@ it:
   average_rating_value_of_total: "Media voto: %{rating} su %{total} voti"
   back: Indietro
   back_to_profile: Torna al profilo
+  bhl_publication: Pubblicazione BHL
   bi_monthly: Due volte al mese
   biomedical_terms: Termini biomedici
   biomedical_terms_provided_by: Termini forniti da <a rel="nofollow" href="%{supplier_url}">PubMed</a>.
@@ -906,7 +963,7 @@ it:
   community_tab_collections_header: Collezioni
   completed: Completato
   confirm_leave: Sei sicuro di voler lasciare questa comunità?
-  confirm_password_colon: "Conferma Password:"
+  confirm_password_colon: "Conferma password:"
   contact: Contatto
   contact_information: Informazioni contatto
   contact_updated: Contatto aggiornato
@@ -921,6 +978,7 @@ it:
       message_sent: Grazie per il tuo feedback, il tuo messaggio è stato inviato al gruppo appropriato.
   content: 
     index: 
+      header_news: EOL News
       meta_description: La Encyclopedia of Life è uno sforzo senza precedenti per raccogliere le conoscenze scientifiche di tutta la vita animale e vegetale con immagini, informazioni, fatti disponibili ed altro ancora per tutte le cose viventi nei regni animali e vegetali.
       meta_keywords: Animali, immagini di animali, informazioni sugli animali, piante, vita delle piante, immagini di piante, informazioni sulle piante, flora, fauna
       meta_title: Animali - piante - immagini e informazioni
@@ -1219,10 +1277,17 @@ it:
       menu_link: Testo inviato da utenti
       page_header: Statistiche testi inviati da utenti
       page_title: Statistiche
+    warnings: 
+      stats_unavailable_for_date: Siamo spiacenti, le statistiche di %{date} non sono disponibili. Si prega di selezionare un'altra data.
+  error_401_description: Siamo spiacenti, non sei autorizzato ad accedere a questa URL
   error_401_page_title: Non autorizzato
+  error_403_description: Siamo spiacenti, non sei autorizzato ad accedere a questa URL
   error_403_page_title: Proibito
+  error_404_description: Siamo spiacenti, nessuna pagina corrispondente a questa URL è stata trovata
   error_404_page_title: Non trovato
+  error_500_description: Siamo spiacenti, abbiamo riscontrato un problema. Se il problema persiste, si prega di inviare una e-mail a <a href="mailto:<span class=" notranslate"="">% {email_address}? subject = % {errore} "&gt; % {email_address}</a>
   error_500_page_title: Oops.
+  error_default_description: Siamo spiacenti, abbiamo riscontrato un problema. Se il problema persiste, si prega di inviare una e-mail a <a href="mailto:<span class=" notranslate"="">% {email_address}? subject = % {errore} "&gt; % {email_address}</a>
   error_default_page_title: Oops.
   error_log: Registro degli errori
   error_log_detail: Dettagli registro degli errori
@@ -1283,6 +1348,54 @@ it:
   forgot_password_form_choose_username_legend: Scegli un profilo
   forgot_password_form_header: Reimposta la tua password
   forgot_password_form_username_or_email_blank_error: Inserisci il tuo nome utente o il tuo indirizzo email per resettare la tua password
+  forums: 
+    actions: Azioni
+    administration: Amministrazione
+    buttons: 
+      delete: cancella
+      edit: modifica
+      link: collegamento
+      reply: rispondi
+    categories: 
+      create: Crea categoria
+      create_failed: Siamo spiacenti, si è verificato un errore, la categoria non è stata aggiunta
+      create_successful: Categoria creata correttamente
+      delete_failed_not_empty: Impossibile eliminare la categoria perché non è vuota
+      delete_successful: Categoria eliminata correttamente
+      edit: Modifica categoria
+      move_failed: La categoria non è stata spostata
+      move_successful: La categoria è stata spostata con successo
+      update_failed: Siamo spiacenti, si è verificato un errore, la categoria non è stato aggiornata
+      update_successful: Categoria aggiornata correttamente
+    create: Crea un forum
+    create_failed: Siamo spiacenti, si è verificato un errore, Il forum non è stato aggiunto
+    create_successful: Il Forum è stato creato con successo
+    delete_failed_not_empty: Il forum non può essere cancellato perché non è vuoto.
+    delete_successful: Il Forum è stato cancellato con successo
+    edit: Modifica il forum
+    forums_heading: EOL Forum
+    last_post: Ultimo messaggio
+    move_failed: Impossibile spostare il forum.
+    move_successful: Il forum è stato trasferito con successo
+    no_topics: Nessuna discussione presente in questo forum
+    post_by_user_at_time: da %{user}, %{time}
+    posts: 
+      create: Crea un nuovo post
+      create_failed: Siamo spiacenti, si è verificato un errore, il post non è stato aggiunto
+      create_successful: Il post è stato creato con successo
+      delete_successful: Il post è stato cancellato con successo
+      edit: Modifica post
+      joined_date: Iscritto dal %{date}
+      post_written_by_user: "%{user} ha scritto:"
+      replying_to_post: "Risposta a:"
+      update_failed: Siamo spiacenti, si è verificato un errore, Il post non è stato aggiornato
+      update_successful: Il post è stato aggiornato con successo
+    posts_heading: Messaggi
+    replies: Risposte
+    topics_heading: Thread
+    update_failed: Siamo spiacenti, si è verificato un errore, Il forum non è stato aggiornato
+    update_successful: Il forum è stato aggiornato con successo.
+    views: Visualizzazioni
   frequency: Frequenza
   frequency_daily: Giornaliera
   frequency_monthly: Mensile
@@ -1320,6 +1433,8 @@ it:
         active_more: Le pagine pubblicate saranno visibili da tutti. Deseleziona <em>pubblicato</em> se non vuoi che lo siano
         page_name: Nome univoco <small>(minuscolo, solo caratteri alfanumerici latini ISO di base e trattino basso)</small>
         page_name_more: Inserisci un identificatore univoco, autodescrittivo, significativo e persistente per questa pagina. Il nome che scriverai qui verrà utilizzato per generare l'URL di questa pagina, ad esempio il nome univoco <em>terms_of_use</em> verrà convertito nell'URL <em>http://eol.org/info/terms_of_use</em>.
+        parent_content_page_id: Genitore
+        parent_content_page_id_more: Facoltativamente, selezionare un genitore sotto il quale questa pagina dovrebbe essere nidificata.
       content_partner: 
         created_at: Registrato
         current_agreement: Accordo attuale
@@ -1333,6 +1448,7 @@ it:
         logo_new: "Carica un nuovo logo:"
         notes: Note di progetto <small>(private)</small>
         oldest_published_harvest_event: Pubblicato la prima volta
+        user_id: Dettagli sui contenuti dei partner sono gestiti da
       data_object: 
         bibliographic_citation: Citazione bibliografica
         description: Testo <small>(alcuni tag HTML sono consentiti)</small>
@@ -1341,11 +1457,15 @@ it:
         object_title: Titolo
         refs: Riferimenti <small>(mettere ogni riferimento su una nuova riga)</small>
         rights_holder: Detentore dei diritti
+        rights_holder_more: Specificare una persona o un'organizzazione che sia proprietaria o che gestisca i diritti di questi dati. Se si lascia vuoto questo campo, assumeremo che tu sei il titolare dei diritti per tutte le licenze, eccetto il Dominio Pubblico. Il Dominio Pubblico non richiede un titolare dei diritti.
         rights_statement: Dichiarazione dei diritti
         source_url: URL all'oggetto dati originale
         toc_item: Sottocapitolo
       data_object_link: 
+        description: Descrizione <small>(alcuni tag HTML sono consentiti)</small>
         link_type: Categoria
+        source_url: Collegamento URL
+        toc_item: Oggetto
       eol_statistic: 
         date_one: Data
         date_two: Data
@@ -1360,12 +1480,16 @@ it:
         began_at: Iniziato
         completed_at: Completato
         first_published_at: Pubblicato la prima volta
+        publish_more: Le bandiere raccolgono l'evento per la pubblicazione, il contenuto non sarà reso pubblico immediatamente.
         published_at: Pubblicato
         published_status: Stato
       hierarchy: 
+        browsable_more: Controllare la navigabilità per promuovere questa gerarchia a diventare una delle gerarchie navigabili principali su EOL
         browsable_status_with_colon: "Stato esplorabile:"
         complete: A cura
+        complete_more: "Per un'accurata gerarchia si assume che ogni voce sia univoca, quindi la corrispondenza del nome delle stringhe saranno trattati come omonimi. <strong>Attenzione: non modificare questo attributo a meno che non si è certi dello stato degli omonimi nella gerarchia, facendo ciò potrebbe compromettere l'integrità dei dati.</strong>"
         request_publish: Pubblicazione richiesta
+        request_publish_more: Indica se c'è una richiesta in sospeso per promuovere questa gerarchia a diventare una delle gerarchie navigabili principali su EOL.
       news_item: 
         active: Pubblicato
       open_authentication: 
@@ -1373,7 +1497,9 @@ it:
         connected: Connesso
       resource: 
         administration_settings: Impostazioni di amministrazione <small>(visibile solo agli amministratori EOL)</small>
+        dataset: Gruppo di dati
         hierarchy: Gerarchia
+        latest_harvest_event: Ultima raccolta
         latest_published_harvest_event: Pubblicato l'ultima volta
         oldest_published_harvest_event: Pubblicato la prima volta
         refresh_period_hours: Frequenza
@@ -1390,10 +1516,12 @@ it:
       translated_content_page: 
         active_translation: Pubblicato
         language_id: Lingua
+        meta_description_more: Fornire una breve descrizione, riassumendo i concetti chiave del contenuto della pagina. Questa descrizione è a volte utilizzata dai motori di ricerca Web sia per controllare la rilevanza che per includere i risultati nei motori di ricerca.
       translated_news_item: 
         active_translation: Pubblicato
         language_id: Lingua
         meta_description_more: Fornisci una breve descrizione, riassumendo i concetti chiave del contenuto di ciascuna notizia. Questa descrizione è talvolta utilizzata dai motori di ricerca Web sia per controllare la rilevanza, che per l'inclusione nei risultati della ricerca.
+        title_more: Il titolo di questo nuovo oggetto apparirà nella parte superiore della pagina. Il titolo dovrebbe includere le parole chiavi più attinenti al contenuto.
       user: 
         agreed_with_terms: Accetto le <a href="%{terms_url}">condizioni d'uso</a>
         bio: Informazioni su di me
@@ -1466,8 +1594,10 @@ it:
         create: Aggiungi nome
         update: Aggiorna nome
       news_item: 
+        create: Crea un nuovo oggetto
         edit: Modifica
         preview: Anteprima
+        update: Aggiorna le informazioni dell'oggetto
       open_authentication: 
         create: Connetti
         destroy: Disconnetti
@@ -1591,7 +1721,7 @@ it:
         learn_more_link_bacteria: Batteri
         learn_more_link_birds: Uccelli
         learn_more_link_crustaceans: Crostacei
-        learn_more_link_fish: Pesce
+        learn_more_link_fish: Pesci
         learn_more_link_flowering_plants: Piante da fiore
         learn_more_link_fungi: Funghi
         learn_more_link_insects: Insetti
@@ -1834,7 +1964,6 @@ it:
   person_rating: Valutazione persona
   personal_profile_menu: Profilo personale
   personal_space: Pagina personale
-  please: Per favore
   please_wait: Attendi per favore...
   post_comment: Lascia un commento
   preferred_common_name_advisory_information: Nome comune preferito per questo taxon.
@@ -2145,22 +2274,6 @@ it:
         meta_title: Sinonimi di %{scientific_name}
         meta_title_with_common_name: Sinonimi di %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinonimi di %{scientific_name}
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: Un sommario delle informazioni su %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life
-          meta_description_with_common_name: Un sommario delle informazioni su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life.
-          meta_keywords: "%{scientific_name} riconosciuto da %{hierarchy_provider}, %{scientific_name} classificato da %{hierarchy_provider}"
-          meta_keywords_with_common_name: "%{scientific_name} riconosciuto da %{hierarchy_provider}, %{scientific_name} classificato da %{hierarchy_provider}"
-          meta_title: "%{scientific_name} classificato da %{hierarchy_provider}"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classificato da %{hierarchy_provider})"
-          tweet_text: Panoramica di %{scientific_name} classificato da %{hierarchy_provider}
-        meta_description: Informazioni su %{scientific_name} in Encyclopedia of Life.
-        meta_description_with_common_name: Informazioni su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} in Encyclopedia of Life.
-        meta_keywords: informazioni su %{scientific_name}
-        meta_keywords_with_common_name: informazioni e fatti su %{scientific_name}, informazioni e fatti su %{preferred_common_name}
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informazioni su %{preferred_common_name}"
-        tweet_text: Informazioni su %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -2250,7 +2363,7 @@ it:
     one: "%{count} articolo"
     other: "%{count} articoli"
   thank_you: Grazie
-  thank_you_for_your_generous_support: Grazie per il generoso sostegno
+  thank_you_for_your_generous_support: Grazie per il tuo generoso sostegno
   thanks_for_your_time: Grazie per il vostro tempo,
   the_comment_was_successfully_deleted: Il commento è stato cancellato
   the_message_was_sent: Il messaggio è stato inviato.

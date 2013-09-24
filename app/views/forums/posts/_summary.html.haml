@@ -1,0 +1,9 @@
+- display_title ||= :post
+- if post
+  .subject
+    - link_text = (display_title == :topic) ? post.forum_topic.title : post.display_subject
+    = link_to link_text, forum_topic_post_path(post.forum_topic.forum, post.forum_topic, post)
+  .author
+    = raw I18n.t('forums.post_by_user_at_time', :user => link_to(post.user.username || post.user.full_name, post.user), :time => I18n.l(post.created_at, :format => :forum))
+- else
+  = ' --- '

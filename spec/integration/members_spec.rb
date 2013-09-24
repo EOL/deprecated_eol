@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe "Members controller (within a community)" do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
     @community = Community.gen

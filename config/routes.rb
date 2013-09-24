@@ -1,6 +1,9 @@
 # first created -> highest priority.
 Eol::Application.routes.draw do
 
+  resources :collection_jobs
+
+
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
@@ -13,6 +16,12 @@ Eol::Application.routes.draw do
   match '/pages/:taxon_id/entries/:entry_id/overview' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/overview")
   match '/pages/:taxon_id/entries/:entry_id/details' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/details")
   match '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")
+  match '/pages/:taxon_id/community' => redirect("/pages/%{taxon_id}/communities")
+  match '/pages/:taxon_id/community/collections' => redirect("/pages/%{taxon_id}/communities/collections")
+  match '/pages/:taxon_id/community/curators' => redirect("/pages/%{taxon_id}/communities/curators")
+  match '/pages/:taxon_id/hierarchy_entries/:entry_id/community' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities")
+  match '/pages/:taxon_id/hierarchy_entries/:entry_id/community/collections' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities/collections")
+  match '/pages/:taxon_id/hierarchy_entries/:entry_id/community/curators' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities/curators")
   match '/taxa/content/:taxon_id' => redirect("/pages/%{taxon_id}/details")
   match '/taxa/images/:taxon_id' => redirect("/pages/%{taxon_id}/media")
   match '/taxa/maps/:taxon_id' => redirect("/pages/%{taxon_id}/maps")
@@ -22,16 +31,18 @@ Eol::Application.routes.draw do
   match '/users/:user_id/reset_password/:recover_account_token' => redirect("/users/recover_account")
   match '/info/xrayvision' => redirect("/collections/14770")
   match '/info/brian-skerry' => redirect("/collections/29285")
-  match '/info/naturesbest2011' =>  redirect("/collections/19338")
+  match '/info/naturesbest2011' => redirect("/collections/19338")
+  match '/info/naturesbest2012' => redirect("/collections/54659")
+  match '/voc/table_of_contents' => redirect("/schema/eol_info_items.xml")
+  match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
+  match '/forum' => redirect('/forums'), :as => 'forum_redirect'
 
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do
-    member do
-      get 'overview'
-    end
+    resource :overview, :only => [:show], :controller => 'taxa/overview'
     resource :tree, :only => [:show], :controller => 'taxa/trees'
     resources :maps, :only => [:index], :controller => 'taxa/maps'
     resources :media, :only => [:show], :controller => 'taxa/media'
@@ -43,8 +54,8 @@ Eol::Application.routes.draw do
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
       member do
         put 'switch'
-        get 'overview', :controller => 'taxa'
       end
+      resource :overview, :only => [:show], :controller => 'taxa/overview'
       resource :tree, :only => [:show], :controller => 'taxa/trees'
       resources :maps, :only => [:index], :controller => 'taxa/maps'
       resources :media, :only => [:index], :controller => 'taxa/media'
@@ -60,6 +71,7 @@ Eol::Application.routes.draw do
           get 'common_names'
           get 'related_names'
           get 'synonyms'
+          get 'delete'
         end
         member do
           get 'vet_common_name'
@@ -73,6 +85,7 @@ Eol::Application.routes.draw do
       end
       resources :resources, :only => [:index], :controller => 'taxa/resources' do
         collection do
+          get 'partner_links'
           get 'identification_resources'
           get 'education'
           get 'nucleotide_sequences'
@@ -89,12 +102,7 @@ Eol::Application.routes.draw do
         end
       end
     end
-    resources :media, :only => [:index], :controller => 'taxa/media' do
-      collection do
-        get 'set_as_exemplar'
-        post 'set_as_exemplar'
-      end
-    end
+    resources :media, :only => [:index], :controller => 'taxa/media'
     resources :names, :only => [:index, :create, :update], :controller => 'taxa/names' do
       collection do
         get 'common_names'
@@ -114,6 +122,7 @@ Eol::Application.routes.draw do
     end
     resources :resources, :controller => 'taxa/resources', :only => [:index] do
       collection do
+        get 'partner_links'
         get 'identification_resources'
         get 'education'
         get 'nucleotide_sequences'
@@ -165,6 +174,7 @@ Eol::Application.routes.draw do
   resources :collections do
     member do
       get 'choose'
+      get 'reindex'
     end
     collection do
       get 'cache_inaturalist_projects'
@@ -189,15 +199,16 @@ Eol::Application.routes.draw do
     resources :content_partner_agreements, :as => 'agreements', :except => [:index, :destroy],
       :controller => 'content_partners/content_partner_agreements'
     resource :statistics, :only => [:show], :controller => 'content_partners/statistics'
-    resources :resources, :only => [:index, :show, :edit, :new, :update, :create], :controller => 'content_partners/resources'do
+    resources :resources, :only => [:index, :show, :edit, :new, :update, :create],
+      :controller => 'content_partners/resources' do
       member do
         get 'force_harvest', :controller => 'content_partners/resources'
         post 'force_harvest', :controller => 'content_partners/resources'
       end
       resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/resources/harvest_events'
-      resources :hierarchies, :only => [:edit, :update] do
+      resources :hierarchies, controller: 'content_partners/resources/hierarchies', only: [:edit, :update]  do
         member do
-          post 'request_publish', :controller => 'content_partners/hierarchies'
+          post 'request_publish', :controller => 'content_partners/resources/hierarchies'
         end
       end
     end
@@ -211,6 +222,8 @@ Eol::Application.routes.draw do
       get 'activated'
       get 'curation_privileges'
       put 'make_editor'
+      get 'grant_permission'
+      get 'revoke_permission'
       get 'revoke_editor'
       get 'pending_notifications'
       get 'unsubscribe_notifications/:key', :action => 'unsubscribe_notifications',
@@ -221,7 +234,6 @@ Eol::Application.routes.draw do
       get 'recover_account'
       post 'recover_account'
       get 'verify_open_authentication'
-      get 'fetch_external_page_title'
     end
     resource :newsfeed, :only => [:show], :controller => 'users/newsfeeds' do
       collection do
@@ -242,6 +254,7 @@ Eol::Application.routes.draw do
       get 'curation'
       get 'attribution'
       get 'rate'
+      get 'crop'
     end
     resources :comments
   end
@@ -288,10 +301,35 @@ Eol::Application.routes.draw do
       end
     end
     resources :news_items, :controller => 'admins/news_items' do
-      resources :translated_news_items, :as => :translations, :except => [:show, :index],
+      resources :translated_news_items, :as => :translations, :except => [ :show, :index ],
         :controller => 'admins/translated_news_items'
     end
-    
+  end
+
+  resources :forum_categories, :controller => 'forums/categories', :only => [ :new, :create, :edit, :update, :destroy ] do
+    member do
+      post 'move_up'
+      post 'move_down'
+    end
+  end
+
+  # when adding these items when not logged in, the user will get redirected to login
+  # then redirected to create via GET. We need to define the abilty to send GET to create
+  get '/forums/create' => 'forums#create', :as => 'forums_create'
+  get '/forums/:forum_id/topics/create' => 'forums/topics#create', :as => 'forum_topics_create'
+  get '/forums/:forum_id/topics/:topic_id/posts/create' => 'forums/posts#create', :as => 'forum_posts_create'
+  resources :forums, :only => [ :index, :show, :new, :create, :edit, :update, :destroy ] do
+    member do
+      post 'move_up'
+      post 'move_down'
+    end
+    resources :topics, :controller => 'forums/topics', :only => [ :show, :create, :destroy ] do
+      resources :posts, :controller => 'forums/posts', :only => [ :show, :new, :create, :edit, :update, :destroy ] do
+        member do
+          get 'reply'
+        end
+      end
+    end
   end
 
   # Old V1 admin search logs:
@@ -308,18 +346,29 @@ Eol::Application.routes.draw do
     resources :translated_news_items, :as => :translations, :except => [:show, :index]
   end
 
+  resource :content_cron_tasks do
+    member do
+      get 'submit_flickr_comments'
+      get 'submit_flickr_curator_actions'
+      get 'send_monthly_partner_stats_notification'
+    end
+  end
+
+  resource :taxon_concept_exemplar_image, only: :create
+
   # Putting these after the complex resources because they are less common.
-  resources :tasks, :task_states, :task_names, :feed_items, :random_images
+  resources :tasks, :task_states, :task_names, :random_images
   resources :recent_activities, :only => [:index]
   resources :classifications, :only => [:create]
   resources :contacts, :only => [:index, :create, :new]
-  resources :collection_items, :only => [:create, :edit, :update]
+  resources :collection_items, :only => [:create, :show, :edit, :update]
   resources :comments, :only => [:create, :edit, :update, :destroy]
   # when adding a commenting and not logged in, user will get redirected to login
   # then redirected to create via GET. We need to define the abilty to send GET to create
   get '/comments/create' => 'comments#create'
   resources :sessions, :only => [:new, :create, :destroy]
   resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
+  resources :permissions, :only => [:index, :show]
 
   # Miscellaneous named routes:
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'
@@ -333,6 +382,7 @@ Eol::Application.routes.draw do
   # Named application routes:
   match '/set_language' => 'application#set_language', :as => 'set_language'
   match '/external_link' => 'application#external_link', :as => 'external_link'
+  match '/fetch_external_page_title' => 'application#fetch_external_page_title', :as => 'fetch_external_page_title'
 
   # Named content routes:
   match '/preview' => 'content#preview', :as => 'preview'
@@ -346,7 +396,8 @@ Eol::Application.routes.draw do
 
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
-  match '/search/:q' => 'search#index'
+  # having this as :q instead of :id was interfering with WillPaginate. See #WEB-4508
+  match '/search/:id' => 'search#index'
   match '/found/:id' => 'taxa#show', :as => 'found'
 
   # Named session routes (see also resources):
@@ -437,23 +488,28 @@ Eol::Application.routes.draw do
         get 'hide'
       end
     end
+    resources :content_upload, :controller => 'administrator/content_upload'
     resources :translation_log, :controller => 'administrator/translation_log'
     resources :user_data_object, :controller => 'administrator/user_data_object'
     resources :error_log, :only => [:index, :show], :controller => 'administrator/error_log'
     resources :table_of_contents, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/table_of_contents'
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end
-  
+
   resource :navigation, :controller => 'navigation' do
     member do
       get 'browse_stats'
     end
   end
-  
+
   resource :wysiwyg, :controller => 'wysiwyg' do
-    collection do
+    member do
       post 'upload_image'
     end
+  end
+
+  resource :curator_activity_logs, :only => 'index' do
+    get 'last_ten_minutes'
   end
 
   # Named API Routes:
@@ -461,18 +517,20 @@ Eol::Application.routes.draw do
   match 'api/docs' => 'api/docs#index' # Default is actually the documenation
   # not sure why this didn't work in some places - but this is for documentation
   match 'api/docs/:action' => 'api/docs'
+  match 'api/docs/:action/:version' => 'api/docs', :version => /\d\.\d/
   # ping is a bit of an exception - it doesn't get versioned and takes no ID
-  match 'api/:action' => 'api', :defaults => { :format => 'xml' }
-  match 'api/:action/:version' => 'api', :version => /[0-1]\.[0-9]/, :defaults => { :format => 'xml' }
+  match 'api/:action' => 'api'
+  match 'api/:action/:version' => 'api', :version =>  /\d\.\d/
   # if version is left out we'll set the default to the latest version in the controller
-  match 'api/:action/:id' => 'api', :defaults => { :format => 'xml' }
+  match 'api/:action/:id' => 'api'
   # looks for version, ID
-  match 'api/:action/:version/:id' => 'api', :version => /[0-1]\.[0-9]/, :defaults => { :format => 'xml' }
-  
+  match 'api/:action/:version/:id' => 'api', :version =>  /\d\.\d/
+
   match 'content/random_homepage_images' => 'content#random_homepage_images'
   match 'content/donate_complete' => 'content#donate_complete'
+  match 'content/file/:id' => 'content#file'
   match '/maintenance' => 'content#maintenance', :as => 'maintenance'
-  
+
 
   # These are expensive and broad and should be kept at the bottom of the file:
   match '/:id' => redirect("/pages/%{id}/overview"), :id => /\d+/

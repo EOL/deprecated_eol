@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe EOL::CommonNameDisplay do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     Language.gen_if_not_exists(:iso_639_1 => 'en')
     Language.gen_if_not_exists(:label => 'Unknown')

@@ -4,6 +4,7 @@
 # Author: Cyklopas
 # Author: Eitvys200
 # Author: Ignas693
+# Author: Mantak111
 lt: 
   translated_activities-name-activity_id-19: profilis
   translated_activities-name-activity_id-50: nepatikimas
@@ -11,6 +12,7 @@ lt:
   translated_activities-name-activity_id-52: kurti
   translated_activities-name-activity_id-53: slėpti
   translated_activities-name-activity_id-54: atnaujinti
+  translated_activities-name-activity_id-55: Netinkamas
   translated_activities-name-activity_id-56: trinti
   translated_activities-name-activity_id-57: vertinti
   translated_activities-name-activity_id-58: patikimas
@@ -26,7 +28,10 @@ lt:
   translated_agent_roles-label-agent_role_id-15: Kontaktinis Asmuo
   translated_agent_roles-label-agent_role_id-16: Autorius
   translated_agent_roles-label-agent_role_id-2: Autorius
+  translated_agent_roles-label-agent_role_id-21: teikėjas
   translated_agent_roles-label-agent_role_id-22: Vertėjas
+  translated_agent_roles-label-agent_role_id-3: Kompiliatorius
+  translated_agent_roles-label-agent_role_id-4: Kompozitorius
   translated_agent_roles-label-agent_role_id-5: Autorius
   translated_agent_roles-label-agent_role_id-6: Direktorius
   translated_agent_roles-label-agent_role_id-7: Redaktorius
@@ -35,9 +40,11 @@ lt:
   translated_audiences-label-audience_id-1: Patyrę vartotojai
   translated_audiences-label-audience_id-2: Plačiajai visuomenei
   translated_audiences-label-audience_id-3: Vaikai
+  translated_collection_types-label-collection_type_id-1: Taksonomija
   translated_collection_types-label-collection_type_id-10: Garsai
   translated_collection_types-label-collection_type_id-11: Nuorodos
   translated_collection_types-label-collection_type_id-12: Literatūra
+  translated_collection_types-label-collection_type_id-13: Taksonomija
   translated_collection_types-label-collection_type_id-15: Aprašymas
   translated_collection_types-label-collection_type_id-16: Paveikslėliai
   translated_collection_types-label-collection_type_id-19: Vardo informacija

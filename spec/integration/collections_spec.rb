@@ -28,7 +28,7 @@ def continue_collect(user, url)
   # TODO
   # current_url.should match /#{url}/
   # body.should include('added to collection')
-  # user.watch_collection.items.map {|li| li.object }.include?(collectable_item).should be_true
+  # user.watch_collection.items.map {|li| li.collected_item }.include?(collectable_item).should be_true
 end
 
 def it_should_create_and_collect_item(collectable_item_path, collectable_item)
@@ -107,16 +107,8 @@ describe "Collections" do
       body.should_not match(@collection.name)
     end
 
-    it 'should show resource preview collections on the user profile page to the owner' do
-      @collection.update_column(:published, false)
-      @collection.update_column(:view_style_id, nil)
-      @resource = Resource.gen
-      @resource.preview_collection = @collection
-      @resource.save
-      login_as @collection.users.first
-      visit user_collections_path(@collection.users.first)
-      body.should match(@collection.name)
-    end
+    # See 9853360275ad5f3b673c4ba86379397d32efa805 if you want this back:
+    # it 'should show resource preview collections on the user profile page to the owner'
 
     it 'should allow EOL administrators and owners to view unpublished collections' do
       @collection.update_column(:published, false)
@@ -138,12 +130,12 @@ describe "Collections" do
       login_as admin
       visit collection_path(@collection)
       body.should have_tag('h1', :text => @collection.name)
-      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.object)}']")
+      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.collected_item)}']")
 
       login_as @collection.users.first
       visit collection_path(@collection)
       body.should have_tag('h1', :text => @collection.name)
-      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.object)}']")
+      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.collected_item)}']")
     end
 
   end
@@ -154,7 +146,7 @@ describe "Collections" do
       it 'should be able to view a collection and its items' do
         visit collection_path(@collection)
         body.should have_tag('h1', :text => @collection.name)
-        body.should have_tag('ul.object_list li', :text => @collection.collection_items.first.object.best_title)
+        body.should have_tag('ul.object_list li', :text => @collection.collection_items.first.collected_item.best_title)
       end
 
       it "should be able to sort a collection's items" do
@@ -164,6 +156,7 @@ describe "Collections" do
 
       it "should be able to change the view of a collection" do
         visit collection_path(@collection)
+        col = Collection.find(@collection.id) rescue debugger # WHAT HAPPENED?!
         body.should have_tag('#view_as')
       end
 
@@ -172,7 +165,7 @@ describe "Collections" do
     shared_examples_for 'collecting all users' do
       describe "should be able to collect" do
         it 'taxa' do
-          it_should_collect_item(overview_taxon_path(@taxon), @taxon)
+          it_should_collect_item(taxon_overview_path(@taxon), @taxon)
         end
         it 'data objects' do
           latest_revision_of_dato = @taxon.data_objects.first.latest_published_version_in_same_language
@@ -199,7 +192,7 @@ describe "Collections" do
     shared_examples_for 'creating collection and collecting all users' do
       describe "should be able to create collection and collect" do
         it 'taxa' do
-          it_should_create_and_collect_item(overview_taxon_path(@taxon_to_collect), @taxon_to_collect)
+          it_should_create_and_collect_item(taxon_overview_path(@taxon_to_collect), @taxon_to_collect)
         end
         it 'data objects' do
           latest_revision_of_dato = @taxon_to_collect.data_objects.first.latest_published_version_in_same_language
@@ -377,14 +370,14 @@ describe "Collections" do
       visit data_object_path(newer_version_collected_data_object)
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
-      body.should have_tag("li a", :content => I18n.t(:in_collection))
+      body.should have_tag("li a", :text => I18n.t(:in_collection))
 
       # and deleting the first version from the collection will allow the new one to be added
       @anon_user.watch_collection.collection_items[0].destroy
       visit data_object_path(newer_version_collected_data_object)
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
-      body.should have_tag("li a", :content => I18n.t(:in_collection))
+      body.should_not have_tag("li a", :text => I18n.t(:in_collection))
 
 
       newer_version_collected_data_object.destroy

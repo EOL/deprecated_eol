@@ -29,6 +29,7 @@
           =I18n.t("description")
     %tbody
       - @latest_curator_actions.each do |ah|
+        -# NOTE - not changing the object_id reference, here, since it's from Solr.
         - dato = @curated_datos.find{|items| items.id == ah[:object_id]}
         - row_class = cycle('odd','even')
         %tr

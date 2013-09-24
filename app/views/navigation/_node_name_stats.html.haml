@@ -7,12 +7,3 @@
 -elsif hierarchy_entry.number_of_descendants > 0
   %a{:href => '', :onclick => "javascript:update_browser_stats(#{hierarchy_entry.id}, 1); return false;"}
     = image_tag('arrow_down.gif', :alt => I18n.t("expand_all_children"), :title => I18n.t("expand_all_children"))
-- unless hierarchy_entry.hierarchy_entry_stat.blank?
-  %small
-    = hierarchy_entry.hierarchy_entry_stat.pecent_with_images
-    = "%"
-    = image_tag('image.png', :alt => I18n.t("percentage_of_descendants_with_images"), :title => I18n.t("percentage_of_descendants_with_images"))
-    &nbsp;&nbsp;
-    = hierarchy_entry.hierarchy_entry_stat.pecent_with_text
-    = "%"
-    = image_tag('text.png', :alt => I18n.t("percentage_of_descendants_with_text"), :title => I18n.t("percentage_of_descendants_with_text"))

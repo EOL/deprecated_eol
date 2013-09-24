@@ -59,7 +59,8 @@ function update_browser_stats(hierarchy_entry_id, expand) {
 $(document).ready(function() {
   $('.browsable.classifications a.show_tree').unbind('click').click(function() {
     var $update = $(this).closest('.browsable.classifications');
-    EOL.ajax_submit($(this), {update: $update, type: 'GET', data: ''}); // 'data' required to avoid reading nearst form
+    var data = "lang=" + $('html').attr('lang');
+    EOL.ajax_submit($(this), {update: $update, type: 'GET', data: data});
     return(false);
   });
   EOL.expand_clade_behavior();

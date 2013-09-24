@@ -15,9 +15,9 @@ module TaxaHelper
   def collect_names_and_status(entries)
     return entries.collect do |entry|
       unless entry.class == UsersDataObject
-        taxon_link = link_to raw(entry.title_canonical_italicized), overview_taxon_path(entry.taxon_concept)
+        taxon_link = link_to raw(entry.title_canonical_italicized), taxon_overview_path(entry.taxon_concept)
       else
-        taxon_link = link_to raw(entry.taxon_concept.entry.title_canonical_italicized), overview_taxon_path(entry.taxon_concept)
+        taxon_link = link_to raw(entry.taxon_concept.entry.title_canonical_italicized), taxon_overview_path(entry.taxon_concept)
       end
       "#{taxon_link} <span class='flag #{vetted_id_class(entry.vetted_id)}'>#{entry.vetted.curation_label}</span>"
     end
@@ -27,7 +27,7 @@ module TaxaHelper
   def category_anchor(toc_entry)
     # TODO: This probably only works if set and then used in the same page since labels on TocEntry's
     # will vary depending on language, would be better if we had machine names on TocItems instead
-    toc_entry.label.gsub(/[^0-9a-z]/i, '_').strip.downcase
+    toc_entry.label.gsub(/[^0-9a-z]/i, '_').strip.downcase if toc_entry.label
   end
 
   # used in v2 taxa overview
@@ -74,11 +74,13 @@ module TaxaHelper
     if hierarchy_entry.has_source_database?
       recognized_by = hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
       if options[:show_rank_first]
-        return I18n.t(:rank_recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title, :rank => hierarchy_entry.rank_label)
+        return I18n.t(:rank_recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title,
+                      :rank => hierarchy_entry.rank_label)
       elsif options[:show_rank] == false
         return I18n.t(:recognized_by_from_source, :recognized_by => recognized_by, :source => hierarchy_title)
       else
-        return I18n.t(:recognized_by_from_source_as_a_rank, :recognized_by => recognized_by, :source => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
+        return I18n.t(:recognized_by_from_source_as_a_rank, :recognized_by => recognized_by,
+                      :source => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
       end
     else
       if options[:show_rank_first]
@@ -86,7 +88,8 @@ module TaxaHelper
       elsif options[:show_rank] == false
         return hierarchy_title
       else
-        return I18n.t(:recognized_by_as_a_rank, :recognized_by => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
+        return I18n.t(:recognized_by_as_a_rank, :recognized_by => hierarchy_title,
+                      :taxon_rank => hierarchy_entry.rank_label)
       end
     end
   end

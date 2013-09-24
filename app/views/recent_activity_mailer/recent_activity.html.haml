@@ -9,7 +9,7 @@
         - if note.parent == @user
           = I18n.t('recent_activity.comment_title_your_newsfeed', :who => who)
         - else
-          = t("recent_activity.comment_title", :who => who, :what => note.parent.summary_name)
+          = raw t("recent_activity.comment_title", :who => who, :what => note.parent.summary_name)
       - else
         = t("recent_activity.#{note.class.name.underscore}_title", :who => who)
   - else
@@ -96,8 +96,9 @@
       - if association.class.name == 'TaxonConcept' or association.class.name == 'DataObject'
         - dato = association.class.name == 'DataObject' ? DataObject.load_for_title_only(association) : nil
         - taxon = association.class.name == 'TaxonConcept' ? TaxonConcept.load_for_title_only(association) : nil
-        %h2= raw I18n.t("recent_activity.bulk_curation_with_count", :count => items.count,
-          :to => link_to((taxon || dato).summary_name, link_to_item(taxon || dato), :style => 'color:#195184'))
+        %h2= raw(I18n.t("recent_activity.bulk_curation_with_count", :count => items.count,
+          :to => link_to((taxon || dato).summary_name.html_safe, link_to_item(taxon || dato),
+          :style => 'color:#195184')))
         - items.each do |item|
           = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
             :action => render(:partial => 'activity_logs/curator_activity_log',

@@ -3,7 +3,7 @@ class HierarchyEntriesController < ApplicationController
   # GET /pages/:taxon_id/entries/:id/
   def show
     hierarchy_entry_id = params[:id]
-    redirect_to overview_taxon_entry_path(params[:taxon_id], hierarchy_entry_id)
+    redirect_to taxon_entry_overview_path(params[:taxon_id], hierarchy_entry_id)
   end
 
   # POST /pages/:taxon_id/entries/:id/switch
@@ -18,7 +18,7 @@ class HierarchyEntriesController < ApplicationController
       return_to_params[:hierarchy_entry_id] = hierarchy_entry_id
       store_location url_for(return_to_params)
     end
-    redirect_back_or_default overview_taxon_entry_path(params[:taxon_id], hierarchy_entry_id)
+    redirect_to taxon_entry_overview_path(params[:taxon_id], hierarchy_entry_id)
   end
 
 end

@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe ContentPartner do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
 
     @user = User.gen(:username => 'quentin', :password => 'test')

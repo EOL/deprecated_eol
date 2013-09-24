@@ -1,14 +1,19 @@
 # Messages for Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Anthony Fok
 # Author: Chenxiaoqino
 # Author: Hydra
 # Author: Liangent
 # Author: Linforest
+# Author: Liuxinyu970226
+# Author: Qiyue2001
 # Author: Shandongfx
 # Author: Shizhao
 # Author: Wjn99wjn
 # Author: Xiaomingyan
+# Author: 乌拉跨氪
+# Author: 아라
 zh-CN: 
   0_1_or_2: 0、 1 或 2
   0_or_1: 0 或 1
@@ -22,6 +27,8 @@ zh-CN:
   a_total_of_terms_were_found_matching_your: 
     other: 总共 %{count}条术语与您的标准匹配。
   about_eol: 关于EOL
+  about_resources: 关于资源
+  about_resources_title: 外部资源的链接
   account_information: 帐户信息
   account_information_menu: 帐户信息
   account_registered_but_not_ready_try_later: 您的帐户已注册但尚未准备好供您访问。请五分钟后再试。
@@ -33,29 +40,36 @@ zh-CN:
   activerecord: 
     attributes: 
       collection: 
-        additional_annotation_fields: 附加标注字段
+        additional_annotation_fields: 附加注释字段
         description: 收藏描述
-        logo: 首选的收藏logo图像
+        logo: 主要收藏图像
         name: 收藏名称
-        show_references: 参考文献 (文字或链接地址)
+        show_references: 参考资料（文本或URL）
         sort_style_id: 默认排序方向
       collection_item: 
         annotation: 注释
-        refs: 参考文献
-        sort_field: 排序项
+        refs: 参考资料
+        sort_field: 排序方式
+      collection_job: 
+        overwrite: 替换重复
       comment: 
         body: 评论
       community: 
-        description: 社区描述
-        logo: 上传一个logo
-        name: 社区名称
+        description: 小组描述
+        logo: 上传logo
+        name: 小组名称
+      contact: 
+        comments: 信息
+        contact_subject_id: 联系主题
+        email: 电子邮件
+        name: 名称
       content_page: 
         active: 已发布
-        page_name: 唯一的名字
-        sort_order: 排序
+        page_name: 独特名称
+        sort_order: 排序顺序
       content_partner: 
         acronym: 项目缩写
-        admin_notes: 管理说明
+        admin_notes: 管理注释
         auto_publish: 自动发布
         content_partner_status: 项目状态
         created_at: 已创建
@@ -64,87 +78,102 @@ zh-CN:
         full_name: 项目名称
         homepage: 项目URL
         id: ID
-        notes: 项目说明
-        public: 公开的
+        notes: 项目注释
+        public: 公开
         resources: 资源
-        user_id: 管理员
+        user_id: 管理
         vetted: 已审核
       content_partner_agreement: 
         created_at: 创建于
-        signed_by: 签署人
-        signed_on_date: 签署日期
+        signed_by: 署名
+        signed_on_date: 署名日期
       content_partner_contact: 
-        email_reports_frequency_hours: 电子邮件报告频率
+        email_reports_frequency_hours: 电子邮件报告的频率
       data_object: 
         bibliographic_citation: 书目引用
         description: 描述
         object_title: 标题
         rights_holder: 权利持有人
-        rights_statement: 版权声明
-        source_url: 来源网址
+        rights_statement: 权利声明
+        source_url: 来源URL
       eol_statistic: 
-        active_curators: 活跃的管理员
-        base_pages: 只含名称的物种页
+        active_curators: 活跃管理员
+        base_pages: 基础页面
         collections_count: 收藏
-        communities_count: 社区
+        communities_count: 小组
         content_partners: 内容合作伙伴
-        content_partners_with_published_resources: 含有已发布的资源
-        content_partners_with_published_trusted_resources: 含有已发布的可信的资源
+        content_partners_with_published_resources: 有已发布的资源
+        content_partners_with_published_trusted_resources: 有已发布的可信资源
         created_at: 创建于
-        curator_actions_in_the_last_30_days: 过去30天管理员的操作
+        curator_actions_in_the_last_30_days: 最近30天的管理员操作
         curators: 管理员
         curators_assistant: 助理管理员
-        curators_full: 专业管理员
+        curators_full: 全职管理员
         curators_master: 高级管理员
-        data_objects: 数据项
-        data_objects_images: 图像
-        data_objects_maps: 地图
-        data_objects_sounds: 音频
+        data_objects: 数据对象
+        data_objects_images: 图像对象
+        data_objects_maps: 地图对象
+        data_objects_sounds: 声音对象
         data_objects_texts: 文本对象
-        data_objects_trusted: 可信的数据
-        data_objects_trusted_or_unreviewed_but_hidden: 可信的或没有审核但隐藏的
-        data_objects_unreviewed: 未审核的数据信息
-        data_objects_untrusted: 不可信的数据信息
-        data_objects_videos: 视频数据
-        hotlist_pages: 热门页面
-        lifedesk_data_objects: LifeDesk的数据
-        lifedesk_taxa: LifeDesk的类群
-        marine_pages: 海洋物种页面
-        marine_pages_in_col: CoL中包括的海洋物种
-        marine_pages_with_objects: 有数据项的海洋物种页面
-        marine_pages_with_objects_vetted: 有可信数据项的海洋物种页面
-        members_count: 会员
-        newly_published_resources_in_the_last_30_days: 上个月刚发布的资源
-        objects_curated_in_the_last_30_days: 过去30天管理过的数据项
-        pages_count: 全部物种页
+        data_objects_trusted: 可信数据对象
+        data_objects_trusted_or_unreviewed_but_hidden: 可信或未审核但隐藏的
+        data_objects_unreviewed: 未审核数据对象
+        data_objects_untrusted: 不可信数据对象
+        data_objects_videos: 视频对象
+        hotlist_pages: 关注页面
+        lifedesk_data_objects: LifeDesks数据对象
+        lifedesk_taxa: LifeDesks分类
+        marine_pages: 海洋生物页面
+        marine_pages_in_col: CoL海洋生物页面
+        marine_pages_with_objects: 有数据对象的海洋生物页面
+        marine_pages_with_objects_vetted: 有可信数据对象的海洋生物页面
+        members_count: 成员
+        newly_published_resources_in_the_last_30_days: 上个月的新发布
+        objects_curated_in_the_last_30_days: 最近30天管理的对象
+        pages_count: 总页面数
         pages_curated_by_active_curators: 活跃管理员管理的页面
         pages_with_BHL_links: 有BHL链接的页面
-        pages_with_BHL_links_no_text: 有BHL链接但是没有文字描述的页面
+        pages_with_BHL_links_no_text: 有BHL链接但是无文本的页面
         pages_with_BHL_links_only: 只有BHL链接的页面
-        pages_with_at_least_a_curatorial_action: 有管理活动的页面
-        pages_with_at_least_a_trusted_object: 有可信数据的页面
+        pages_with_at_least_a_curatorial_action: 有管理操作的页面
+        pages_with_at_least_a_trusted_object: 有可信对象的页面
         pages_with_content: 有内容的页面
         pages_with_image: 有图像的页面
-        pages_with_image_no_text: 有图像但是没有文字描述的页面
+        pages_with_image_no_text: 有图像但是无文本的页面
         pages_with_map: 有地图的页面
-        pages_with_score_10_to_39: 评分在10-39的页面
-        pages_with_score_less_than_10: 评分低于10的页面
+        pages_with_score_10_to_39: 得分为10-40的页面
+        pages_with_score_less_than_10: 得分低于10的页面
         pages_with_sound: 有声音的页面
-        pages_with_text: 有文字描述的页面
-        pages_with_text_no_image: 有文字描述但是没有图像的页面
+        pages_with_text: 有文本的页面
+        pages_with_text_no_image: 有文本但是无图像的页面
         pages_with_video: 有视频的页面
-        pages_without_image: 没有图像的页面
-        pages_without_text: 没有文字描述的页面
+        pages_without_image: 无图像的页面
+        pages_without_text: 无文本的页面
         published_resources: 已发布的资源
         published_trusted_resources: 已发布的可信资源
-        published_unreviewed_resources: 已发布但未审核的资源
-        redhotlist_pages: 热点物种
-        rich_hotlist_pages: 信息丰富的热门页面
-        rich_pages: 信息丰富的页面
-        rich_redhotlist_pages: 资料丰富的热点物种
-        udo_published: 用户提交文本
-        udo_published_by_curators: 管理员提交的文字
-        udo_published_by_non_curators: 非管理员提交的文字
+        published_unreviewed_resources: 已发布的未审核资源
+        redhotlist_pages: 红色关注页面
+        rich_hotlist_pages: 高质量关注页面
+        rich_hotlist_pages_percentage: 高质量关注页面百分比
+        rich_pages: 高质量页面
+        rich_redhotlist_pages: 高质量红色关注页面
+        rich_redhotlist_pages_percentage: 高质量红色关注页面百分比
+        udo_published: 用户提交的文本
+        udo_published_by_curators: 管理员提交的文本
+        udo_published_by_non_curators: 非管理员提交的文本
+      forum: 
+        description: 描述<small>（选填）</small>
+        forum_category_id: 类别
+        name: 论坛名称
+      forum_category: 
+        description: 描述<small>（选填）</small>
+        title: 类别名称
+      forum_post: 
+        subject: 主题
+        text: 正文
+      forum_topic: 
+        subject: 主题
+        text: 正文
       harvest_event: 
         resource: 资源
       hierarchy: 
@@ -156,46 +185,50 @@ zh-CN:
         request_publish: 请求发布
       name: 
         string: 名称
+      news_item: 
+        active: 已发布
+        page_name: 独特名称
+        sort_order: 排序顺序
       notification: 
-        changes_to_my_watched_collection: 您关注列表中的收藏更新
-        changes_to_my_watched_community: 您关注列表中的社区更新
-        comment_on_my_collection: 对您所管理收藏的一条评论
-        comment_on_my_community: 对您参与社区的一条评论
-        comment_on_my_contribution: 对您所做贡献的评论和/或管理活动
-        comment_on_my_profile: 对您个人信息的评论
-        comment_on_my_watched_item: 关注列表中数据、类群、收藏或社区的评论
-        curation_on_my_watched_item: 管理员针对您关注列表中的数据、类群、收藏或社区所进行的操作
-        eol_newsletter: 获取EOL季度新闻通讯
-        i_am_being_watched: 您已经被添加到另一个会员的关注列表
-        invitation_to_community: 邀请加入社区
-        made_me_a_manager: 您已成为收藏或社区管理员
-        member_joined_my_community: 有一位新会员加入了您所管理的社区
-        member_joined_my_watched_community: 有新会员加入您所在的社区
-        member_left_my_community: 会员已经离开您管理的社区
-        new_data_on_my_watched_item: 您关注列表中的类群的新内容
-        new_manager_in_my_community: 您管理的社区有新的管理员
-        reply_to_comment: 一条对您评论的回复
+        changes_to_my_watched_collection: 你的监视列表中的收藏的更改
+        changes_to_my_watched_community: 你的监视列表中的小组的更改
+        comment_on_my_collection: 关于你管理的收藏的评论
+        comment_on_my_community: 关于你加入的小组的评论
+        comment_on_my_contribution: 关于你的贡献的评论和/或管理操作
+        comment_on_my_profile: 关于你的简介的评论
+        comment_on_my_watched_item: 关于你的监视列表中的对象、分类、收藏或小组的评论
+        curation_on_my_watched_item: 关于你的监视列表中的对象、分类、收藏或小组的管理操作
+        eol_newsletter: 给我发送EOL季度通讯
+        i_am_being_watched: 你已经被添加至其他成员的监视列表
+        invitation_to_community: 加入小组的邀请
+        made_me_a_manager: 你已经是收藏或小组的管理者
+        member_joined_my_community: 一名新成员加入了你管理的小组
+        member_joined_my_watched_community: 有新成员已经加入你加入的小组
+        member_left_my_community: 有成员已经离开你管理的小组
+        new_data_on_my_watched_item: 你的监视列表中的分类的新贡献
+        new_manager_in_my_community: 有其他成员已经成为你管理的社区的管理者
+        reply_to_comment: 你的评论的回复
       open_authentication: 
         created_at: 已创建
-        guid: 全球唯一标识符
+        guid: GUID
         provider: 第三方提供者
-        secret: 保密的
-        token: 标识符
+        secret: 秘密
+        token: 令牌
         updated_at: 最后更新
         user_id: 用户ID
-        verified_at: 最后审核
+        verified_at: 最后核查
       resource: 
         accesspoint_url: 数据集URL
         auto_publish: 自动发布
         bibliographic_citation: 书目引用
         dataset: 数据集文件
         description: 资源描述
-        dwc_archive_url: 达尔文核心档案的URL
-        harvest_events: 采集事件
-        hierarchy: 分类系统
+        dwc_archive_url: 达尔文核心档案URL
+        harvest_events: 收获事件
+        hierarchy: 等级制度
         language_id: 默认语言
         license_id: 默认许可协议
-        notes: 任务说明
+        notes: 处理说明
         resource_status_id: 资源状态
         rights_holder: 默认权利持有人
         rights_statement: 默认权利声明
@@ -204,92 +237,100 @@ zh-CN:
       translated_content_page: 
         active_translation: 已发布
         left_content: 导航
-        main_content: 内容页主体
+        main_content: 正文
+        meta_description: 元数据描述
+        meta_keywords: 元数据关键词
+        title: 标题
+      translated_news_item: 
+        active_translation: 已发布
+        body: 正文
         meta_description: 元数据描述
         meta_keywords: 元数据关键词
         title: 标题
       user: 
         agreed_with_terms: 使用协议条款
-        api_key: API 密钥
+        api_key: API密钥
         bio: 个人简介
         credentials: 资历
         curator_level: 管理员级别
         curator_scope: 管理范围
-        disable_email_notifications: 不要给我发送任何更新信息的邮件
-        email: 邮件地址
-        email_confirmation: 再次输入邮件地址<small>(确认)</small>
+        disable_email_notifications: 不要给我发送任何更新邮件
+        email: 电子邮件地址
+        email_confirmation: 电子邮件地址确认
         entered_password: 密码
-        entered_password_confirmation: 请再次输入密码 <small>(以便确认)</small>
-        family_name: 姓氏
+        entered_password_confirmation: 密码确认
+        family_name: 姓
         full_name: 全名
-        given_name: 名字
+        given_name: 名
         language_abbr: 首选语言
-        requested_curator_level_id: 所需管理级别
-        tag_line: 标签
+        permissions: 权限
+        requested_curator_level_id: 需要的管理级别
+        tag_line: 口号
         username: 用户名
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
         format: "%{attribute} %{message}"
       messages: 
-        accepted: 必须被接受
+        accepted: 必须接受
         blank: 不能为空
-        confirmation: 不符合确认信息
+        confirmation: 与确认不匹配
         empty: 不能为空
-        equal_to: 必须等于 %{count}
-        even: 必须是偶数
-        exclusion: 已保留
+        equal_to: 必需等于%{count}
+        even: 必需是偶数
+        exclusion: 保留
         greater_than: 
-          other: "必须大于 %{count}  "
-        greater_than_or_equal_to: 必须大于或等于 %{count}
+          other: 必需大于%{count}
+        greater_than_or_equal_to: 必需大于或等于%{count}
         inaccessible: 无法访问
-        inclusion: 未包括在该列表之中
-        invalid: 是无效的
+        inclusion: 未包括在该列表中
+        invalid: 无效
         less_than: 
-          other: "必须小于 %{count} "
-        less_than_or_equal_to: 必须小于或等于 %{count}
+          other: 必需小于%{count}
+        less_than_or_equal_to: 必需小于或等于%{count}
         not_a_number: 不是一个数字
-        not_an_integer: 必须为整数
-        odd: 必须为奇数
-        record_invalid: "验证失败: %{errors}"
-        taken: 早已被保存。
+        not_an_integer: 必需是整数
+        odd: 必需是奇数
+        record_invalid: 验证失败：%{errors}
+        taken: 已被使用
         too_long: 
-          other: 过长 (最多 %{count} 个字符)
+          other: 过长（最多%{count}个字符）
         too_short: 
-          other: 太短 (最少 %{count} 个字符)
-        wrong_length: 长度错误 (应当为 %{count} 个字符)
-        wrong_type: 是错误的类型
+          other: 过短（最少%{count}个字符）
+        wrong_length: 长度错误（应为%{count}个字符）
+        wrong_type: 类型错误
       models: 
         data_object: 
           attributes: 
             rights_holder: 
-              blank: CC-BY协议不能为空
-              inclusion: 公用领域的协议必须为空
+              blank: CC-BY许可协议不能为空
+              inclusion: 公共领域授权协议必需为空
         harvest_event: 
           attributes: 
             publish: 
-              inclusion: 只允许为最新的采集事件，且该事件尚未发布的情况下
+              inclusion: 只允许最近的收获事件，且只当那个事件尚未发布
+        inaccessible: 记录无效，无法保存。请检查验证错误并重新提交。
         open_authentications: 
-          guid_provider_must_be_unique: 第三方账号已经和EOL账号建立了链接
-          provider_user_id_must_be_unique: 每个第三方提供者只能有一个账号与EOL账号相关联。
+          guid_provider_must_be_unique: 该第三方账户已经连接至一个EOL账户
+          provider_user_id_must_be_unique: 一个EOL账户只能连接每个第三方提供者的一个账户
         resource: 
           attributes: 
             accesspoint_url: 
-              blank: 不能为空，除非您上传一个资源文件
-              inaccessible: 无法访问，该 URL 必须可公开访问
-              invalid: 是无效的，它应指向 XML、XML.GZIP 或 XML.GZ 文件
+              blank: 不能为空，除非你上传一个资源文件
+              inaccessible: 无法访问，该URL必需可以公开访问
+              invalid: 无效，它应指向一个XML、XML.GZIP、XML.GZ或ZIP文件
             dataset: 
-              blank: 不能为空，除非您提供一个数据集URL
-              wrong_type: 是错误的类型，它应该是一个 GZIP、TAR或 XML 文件
+              blank: 不能为空，除非你提供一个数据集URL
+              wrong_type: 类型错误，它应该是一个GZIP、TAR、ZIP或XML文件
             dwc_archive_url: 
-              inaccessible: 无法访问，该 URL 必须可公开访问
-              invalid: 是无效的，它应指向一个TAR.GZIP、TAR.GZ 或 TGZ 文件
+              inaccessible: 无法访问，该URL必需可以公开访问
+              invalid: 无效，它应指向一个TAR.GZIP、TAR.GZ、TGZ或ZIP文件
       template: 
-        body: 下列字段验证失败：
+        body: 以下字段验证失败：
         header: 
-          other: 发现%{count} 次验证错误
+          other: 发现%{count}个验证错误
     models: 
-      user: 帐户
+      user: 账户
   activity: 活动
   activity_log_empty: 暂无人提供更新。
   activity_log_empty_learn_more_link: 了解如作些贡献
@@ -302,6 +343,8 @@ zh-CN:
         user_of_an_unknown_collection: <strong>%{user}</strong> 被添加为未知收藏的管理员。
         user_of_collection: <strong>%{user}</strong> 被添加为“%{collection}”收藏的管理员。
         user_of_it: <strong>%{user}</strong> 被添加为管理员。
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_it: 未知的用户批量添加项目。
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: 一个未知用户为未知收藏添加了一个未知项。
         an_unknown_user_added_an_unknown_item_to_collection: 一个未知用户为“%{collection}”收藏添加了一个未知项。
@@ -429,6 +472,9 @@ zh-CN:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong>将“%{data_object}”设为“%{taxon}”的范例。
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 将其设为一个未知页面上的范例。
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 将其设为“%{taxon}”上的一个范例。
+      crop: 
+        an_unknown_user_cropped_an_unknown_data_object: 一位未知用户修改了一个未知图像的缩略图。
+        an_unknown_user_cropped_it: 一位未知用户修改了一个未知图像的缩略图。
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据项 “%{data_object}” 标为隐藏状态。
         an_unknown_user_hid_an_older_data_object_on_association: 一个未知用户在 “%{association}” 页面将旧版本的数据项 “%{data_object}” 标为隐藏状态。
@@ -623,6 +669,38 @@ zh-CN:
   admin_user_delete_successful_notice: 用户已删除
   admin_user_hide_successful_notice: 用户已隐藏
   admin_user_unhide_successful_notice: 用户已显示
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: 内容合作伙伴
+        page_header: 内容合作伙伴统计
+      curators: 
+        menu_link: 策展人统计
+        page_header: 策展人统计
+        page_title: 管理：策展人统计
+      data_objects: 
+        menu_link: 数据项目
+        page_header: 数据项目统计
+        page_title: 管理：数据项目统计
+      index: 
+        menu_link: 全体统计
+        page_header: 全体统计
+        page_title: 管理：全体统计
+        table_caption: 整体网站统计创建于%{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: LifeDesks 统计
+        page_title: 管理：LifeDesks 统计
+      marine: 
+        menu_link: 海洋生物统计
+        page_header: 在生物百科的海洋覆盖面
+        page_title: 管理：海洋生物统计
+      page_richness: 
+        menu_link: 高质量页面
+        page_header: 高质量页面统计
+      users_data_objects: 
+        menu_link: 用户提交的文本
+        page_header: 用户提交的文本统计
   agent: 代理
   all: 所有
   all_apis_return_by_default_an_xml_response: 所有API默认返回XML的响应。调用API方法时，有无扩展名都可获得一致的响应：
@@ -632,9 +710,7 @@ zh-CN:
   all_comments_entered_by_users: 用户输入的所有评论都按创建时间反序排列在下面。
   all_communities: 所有社区
   all_count: 所有(%{count})
-  all_errors: 所有错误
   all_filter: 所有
-  all_harvesting_logs: 所有采集日志
   all_images: 所有图像
   all_information: 所有信息
   all_items: 所有条目
@@ -660,6 +736,9 @@ zh-CN:
   anonymous_user_given_name: 匿名
   anonymous_user_tag_line: 未登录
   any_integer: 任何整数
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">单击此处</a>访问正在测试的新版生物百科论坛。您的反馈意见是值得欢迎的。
   api_docs_collections_description: 给收藏一个标识符，此API将返回所有关于收藏和它包含的条目的元数据。条目列表可按条目类型筛选，并按上面列出的属性排序。
   application_version_advisory_information: 应用程序版本
   are_you_sure: 您确定吗？
@@ -686,7 +765,7 @@ zh-CN:
   assistive_names_related_header: 相关名称
   assistive_names_synonyms_header: 异名
   assistive_overview_header: 概述
-  assistive_taxon_community_header: 社区
+  assistive_taxon_community_header: 小组
   assistive_updates_header: 更新
   assistive_updates_statistics_header: 页面统计
   associated_submit_button: 关联
@@ -711,6 +790,7 @@ zh-CN:
   author_of_peer_reviewed_publication_credential_option: 同行评审的出版物的著作权（提供参考）
   authoritative_information: 权威信息
   available: 可用的
+  average_rating: 平均评级
   average_rating_value_of_total: 平均评分： %{rating} (满分%{total})
   back: 返回
   back_to_profile: 返回到信息页
@@ -752,7 +832,7 @@ zh-CN:
   check_this_to_browse_eol_by_the_hierarchy: "\"如果此勾选框已选,用户则可以使用分类系统浏览EOL\""
   choose_collection_header: 选择收藏
   citation: 引用
-  citation_example: "\"Fisher, Brian. Pogonomyrmex anergismus Cole, 1954. 网络生命大百科, 来自<a href=\"\"http://eol.org/pages/460427\"\" target=\"\"_blank\"\">http://eol.org/pages/460427</a>。 2009年1月15日。\""
+  citation_example: 费舍尔，布莱恩. "Pogonomyrmex anergismus Cole, 1954." 生命百科，<a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. 2009年1月15日.
   citing_link: 引用
   classification_already_preferred: 错误：该分类系统已被标为首选系统。
   classification_from_agent_chosen_by_curator: 由%{curator}选择的%{agent}提供的分类
@@ -760,7 +840,6 @@ zh-CN:
   classification_preferred_for_taxon_help_tip: "%{icon} 表示该类群的首选分类系统。"
   classification_summary_section_header: 分类
   classification_tree_header: 分类
-  classifications_empty: 该页面不包括在任何EOL中可浏览的分类系统。
   classifications_hierarchy_column_header: 分类
   classifications_preferred_column_header: 首选
   classifications_rank_column_header: 等级
@@ -885,19 +964,19 @@ zh-CN:
     show: 
       meta_description: 生命百科小组 %{community_name}被它的建立者删除
       meta_title: "%{community_name}被管理者删除"
-  communities_filter: 社区
+  communities_filter: 小组
   communities_index_empty: 没有活跃的社区。
   communities_index_header: 活跃的社区
-  communities_link: 社区
-  communities_page_title: 社区
+  communities_link: 小组
+  communities_page_title: 小组
   communities_summary_empty: 这个类群还没有在任何社区成为特色。
   communities_summary_header_with_count: 
     other: 属于 %{count}个社区
   communities_that_can_edit_this_collection: 可以管理该收藏的社区
   communities_with_count: 
     other: "%{count} 个社区"
-  community: 社区
-  community_activity: 社区活动
+  community: 小组
+  community_activity: 小组活动
   community_can_now_manage_this_collection: 现在“%{community}” 有权管理这个收藏。
   community_contributions_with_count: 
     other: "%{count}个贡献"
@@ -936,9 +1015,17 @@ zh-CN:
   contact_us_link: 联系我们
   contact_us_submissions: 联系提交
   contact_us_topics: 联系的主题
+  contacts: 
+    errors: 
+      message_not_sent: 很抱歉，出现了错误，您的消息尚未发送。
+    new: 
+      page_title: 请留下您的反馈
+    notices: 
+      message_sent: 感谢您的反馈意见，您的消息已被发送至相关的组合。
   containing_value: 包括%{value}。
   content: 
     index: 
+      header_news: 生物百科新闻
       meta_description: 网络生命大百科是一个致力于收集所有动物和植物生命科学知识的史无前例的努力。动物界和植物界的所有生物的图片，信息，事实及更多资料在这里可以得到。
       meta_keywords: 动物，动物图片，动物信息，植物，植物物种，植物图片，植物信息，植物志，动物志
       meta_title: 动物-植物-图片和信息
@@ -1144,7 +1231,6 @@ zh-CN:
     other: " 拷贝%{count}项到一个新的收藏中"
   copy_of_name: "%{name}的副本"
   copyright: 版权所有：
-  correct_donation_message: 如果此信息不正确，请点击%{go_back_link}修改
   could_not_find_collection_error: 抱歉，找不到该收藏。
   could_not_find_user: 您不是这个社区的会员。
   count: 数目
@@ -1170,6 +1256,8 @@ zh-CN:
   created_community: 社区已成功创建。
   creative_commons: 知识共享
   credentials: 资历
+  crop_image: 裁剪图像
+  crop_image_thumbnails: 裁剪图像的缩略图
   curated: 已管理
   curated_association_update_button: 保存更改
   curated_objects_of: 已管理的%{name}的数据项
@@ -1224,11 +1312,73 @@ zh-CN:
   data_object_undo_ignore: 从忽略列表中删除
   data_objects: 
     show: 
+      meta_description_article: 文章 - %{dato_description}
+      meta_description_image: 图片 - %{dato_description}
+      meta_description_image_map: 地图 - %{dato_description}
+      meta_description_map: 地图 - %{dato_description}
+      meta_description_sound: 声音 - %{dato_description}
+      meta_description_video: 视频 - %{dato_description}
+      meta_supplier_default: 一个贡献者
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
   data_usage_reports: 数据使用报告
   date_caps: 日期
   date_uploaded: 上传日期
+  datepicker: 
+    close: 关闭
+    current: 今天
+    day_names: 
+      - 星期日
+      - 星期一
+      - 星期二
+      - 星期三
+      - 星期四
+      - 星期五
+      - 星期六
+    day_names_min: 
+      - 日
+      - 一
+      - 二
+      - 三
+      - 四
+      - 五
+      - 六
+    day_names_short: 
+      - 周日
+      - 周一
+      - 周二
+      - 周三
+      - 周四
+      - 周五
+      - 周六
+    month_names: 
+      - 一月
+      - 二月
+      - 三月
+      - 四月
+      - 五月
+      - 六月
+      - 七月
+      - 八月
+      - 九月
+      - 十月
+      - 十一月
+      - 十二月
+    month_names_short: 
+      - 1月
+      - 2月
+      - 3月
+      - 4月
+      - 5月
+      - 6月
+      - 7月
+      - 8月
+      - 9月
+      - 10月
+      - 11月
+      - 12月
+    next: 下一页
+    previous: 上一页
   dato_create_cancel: 取消
   dato_create_user_text_error: 抱歉，发生了一个错误，此文章不能被添加。
   dato_create_user_text_missing_taxon_id_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
@@ -1315,7 +1465,7 @@ zh-CN:
   email_recipients: 邮件收件人
   email_updates_for_eol_addicts: 对EOL粉丝的补充更新。
   email_updates_for_eol_members: 对大多数EOL会员想获取的补充更新。
-  encyclopedia_of_life: 网络生命大百科
+  encyclopedia_of_life: 生命百科
   endorsed_by: 认同者
   endorsed_collections: 特色的收藏
   endorsed_collections_with_count: 
@@ -1339,6 +1489,39 @@ zh-CN:
   eol_glossary: EOL术语表
   eol_news: EOL新闻
   eol_pages: 页面
+  eol_statistics: 
+    content_partners: 
+      menu_link: 内容合作伙伴
+      page_header: 内容合作伙伴统计
+      page_title: 统计
+    curators: 
+      menu_link: 策展人统计
+      page_header: 策展人统计
+      page_title: 统计
+    data_objects: 
+      menu_link: 数据对象
+      page_header: 数据对象统计
+      page_title: 统计
+    index: 
+      menu_link: 全体统计
+      page_header: 全体统计
+      page_title: 统计
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: LifeDesks 统计
+      page_title: 统计
+    marine: 
+      menu_link: 海洋生物统计
+      page_header: 在生物百科的海洋覆盖面
+      page_title: 统计
+    page_richness: 
+      menu_link: 高质量页面
+      page_header: 高质量页面统计
+      page_title: 统计
+    users_data_objects: 
+      menu_link: 用户提交的文本
+      page_header: 用户提交的文本统计
+      page_title: 统计
   error_401_description: 抱歉，您没有权限访问这个URL。
   error_401_page_title: 未授权
   error_403_description: 抱歉，您没有权限访问这个URL。
@@ -1370,7 +1553,6 @@ zh-CN:
   expand_all_children: 展开所有子节点
   explore: 探索
   explore_what_we_know_about_taxon: 搜索EOL了解的%{taxon}。
-  export_all_of_the_entries_as_a: 导出所有条目到CSV文件
   export_curator_csv_link: "[导出全部管理员到CSV文件]"
   export_this_list_as_csv: 导出该列表到CSV文件
   external_link_header: 外部链接
@@ -1401,7 +1583,7 @@ zh-CN:
     other: 共 (%{count})类型
   filter_by_type_collection_option: 收藏
   filter_by_type_comment_option: 评论
-  filter_by_type_community_option: 社区
+  filter_by_type_community_option: 小组
   filter_by_type_content_page_option: 关于EOL
   filter_by_type_image_option: 图像
   filter_by_type_image_option_with_count: 
@@ -1422,7 +1604,7 @@ zh-CN:
   filter_media: 筛选多媒体记录
   filter_newsfeed_option_all: 所有
   filter_newsfeed_option_collections: 收藏
-  filter_newsfeed_option_community: 社区
+  filter_newsfeed_option_community: 小组
   filter_newsfeed_option_curation: 管理
   filter_newsfeed_option_messages: 评论
   filter_newsfeed_option_watchlist: 关注列表
@@ -1448,6 +1630,51 @@ zh-CN:
   forgot_password_form_helper: "\"注意重设密码邮件 <em>经常</em> 会被邮箱过滤器标记为垃圾邮件,如果您1小时内还未收到邮件,请检查垃圾邮件箱。\""
   forgot_password_form_username_or_email_blank_error: 输入用户名和邮箱地址以重新设置密码。
   form_validation_errors_for_attribute_assistive: 该元素校验出错
+  forums: 
+    actions: 操作
+    administration: 管理
+    buttons: 
+      delete: 删除
+      edit: 编辑
+      link: 链接
+      reply: 回复
+    categories: 
+      create: 创建一个分类
+      create_failed: 抱歉，发生了一个错误，此分类不能被添加。
+      create_successful: 已成功创建分类
+      delete_failed_not_empty: 无法删除分类，因为它不是空的
+      delete_successful: 已成功删除分类
+      edit: 编辑分类
+      move_failed: 无法移动分类
+      move_successful: 已成功移动分类
+      update_failed: 抱歉，出现了一个错误，分类无法更新。
+      update_successful: 已成功更新分类
+    create: 创建一个论坛
+    create_failed: 抱歉，发生了一个错误，无法添加论坛
+    create_successful: 已成功创建论坛
+    edit: 编辑论坛
+    forums_heading: 生物百科论坛
+    last_post: 最后发布
+    no_topics: 这个论坛没有帖子
+    post_by_user_at_time: 由%{user}，于%{time}
+    posts: 
+      close_window: 关闭
+      create: 发表新的帖子
+      create_failed: 抱歉，发生了一个错误，无法添加帖子
+      create_successful: 已成功创建帖子
+      deleted_subject: （已删除）
+      edit: 编辑帖子
+      joined_date: 于%{date}加入
+      no_subject: （没有主题）
+      permalink_to_this_post: 这篇文章的固定链接：
+      post_written_by_user: "%{user}写道："
+      posts_with_count: "%{count}条帖子"
+      replying_to_post: 回复：
+    posts_heading: 帖子
+    replies: 答复
+    topics_heading: 帖子
+    update_successful: 已成功更新论坛
+    views: 浏览次数
   fragment_caching_enabled: 碎片缓存已启用
   frequency: 频率
   frequency_daily: 每日
@@ -1456,7 +1683,7 @@ zh-CN:
   frequency_weekly: 每周
   friendly_url: 友好的URL
   from_communities: "社区来源: %{communities}"
-  from_community: 来自%{community}社区
+  from_community: 来自%{community}小组
   full_content_url: 含全部内容的URL
   gbif_map: GBIF地图
   gbif_occurrence_disclaimer: 该地图基于<a rel='nofollow' href='http://www.gbif.org/' >GBIF网络</a>可用的发现记录，可能并不表示整个分布。
@@ -1499,60 +1726,72 @@ zh-CN:
         view_style_id: 默认视图
       collection_item: 
         annotation: 注释
-        refs: 参考文献 <small>(每个参考文献另起一行开始)</small>
-        sort_field: 按<small>(日期 YYYY.MM.DD、数字或文本)</small>排序
+        refs: 参考资料<small>（每个参考资料一行）</small>
+        sort_field: 排序方式<small>（日期YYYY.MM.DD、数字或文本）</small>
         sort_field_show: 对值进行排序：
       comment: 
         body_edit: 编辑评论
+      contact: 
+        comments: 你的信息
+        contact_subject_id: 主题
+        email: 你的电子邮件地址
+        name: 你的名字
       content_page: 
         active: 已发布
-        active_more: 已发布的网页将公开可见。如果要防止一般用户查看此页的任何一种语言版本，取消选中<em>已发布</em>。
-        page_name: 唯一的名字 <small>(仅小写的ISO基本拉丁字母和下划线)</small>
-        page_name_more: 请为该页面输入唯一的、可自我描述的、有意义并且连续的标识符。您所输入的名称会被用来生成该页面URL。例如：唯一名称<em>terms_of_use</em>可转化为URL<em>http://eol.org/info/terms_of_use</em>
-        parent_content_page_id: 父节点
+        active_more: 已发布页面将公开可见。如果你想要阻止普通用户查看该页面任何语言的版本，请取消选中<em>已发布</em>。
+        page_name: 独特名称<small>（仅小写ISO基本拉丁文字数字字符和下划线）</small>
+        page_name_more: 请为该页面输入一个独特的自我描述性有意义的持续性标识符。你输入的名称会用于生成该页面的URL，例如独特名称<em>terms_of_use</em>转化为URL<em>http://eol.org/info/terms_of_use</em>。
+        parent_content_page_id: 父
         parent_content_page_id_more: 选择一个父页面使本页面嵌入其中，可选项
       content_partner: 
         created_at: 已注册
-        current_agreement: 当前的协议
-        description_of_data: 数据的描述<small>(私有)</small>
-        description_of_data_more: 请提供您所拥有信息的类型描述，有多少条目？与什么生物有关？是否是被有资历的专家或专业社区的整理或审核过？
-        display_name: 显示名称<small>(可选)</small>
-        display_name_more: 请提供一个用于显示给公众的名称，而不用您的<em>项目名称</em>。
-        last_action: 最近的活动
-        latest_published_harvest_event: 最近发布的
-        logo_current: 当前logo：
-        logo_new: 上传一个新的logo：
-        notes: 项目说明<small>(私人的)</small>
+        current_agreement: 当前协议
+        description_of_data: 数据描述<small>（非公开）</small>
+        description_of_data_more: 请提供给我们关于你拥有的信息的类型、项目的数量、相关生物和它们是否经有资格的专家或专业社区收集或审查的描述。
+        display_name: 显示名称<small>（选填）</small>
+        display_name_more: 请提供一个公开可见的替代名称，而不是你的<em>项目名称</em>。
+        last_action: 最近操作
+        latest_published_harvest_event: 最近发布
+        logo_current: 当前标志：
+        logo_new: 上传新标志：
+        notes: 项目注释<small>（非公开）</small>
         oldest_published_harvest_event: 首次发布
         public_more: 公开的内容合作伙伴的信息对每个人都是公开的，这些信息已包含在合作伙伴列表中。若不选，内容合作伙伴的详细信息则不会在列表中显示，并且此信息将只对内容合作伙伴创建者和EOL管理员可见。
-        user_id: 内容合作伙伴详细信息管理者为
+        user_id: 内容合作伙伴信息管理
       content_partner_agreement: 
-        mou_url: 合作协议的链接地址<small>(可选的)</small>
+        mou_url: 协议文件URL<small>（可选替代）</small>
         mou_url_more: "\"可选择填写包括合作伙伴协议的文件地址。这份文件将会覆盖其他协议文件。如果您希望将此文件（例如一个PDF文件）存储在EOL内容服务器上，请首先<a href=\"\"%{upload_content_url}\"\">上次该文件</a>以获得它的URL。\""
       content_partner_contact: 
         email_reports_frequency_hours_more: 仅当出现针对您的数据或者与您数据相关的类群页面的评论或者管理操作时，会向您发送邮件报告。
       data_object: 
         bibliographic_citation: 书目引用
         bibliographic_citation_more: 关于该数据的推荐参考信息应以参考书目的形式给出，并应尽可能清晰以识别该数据。
-        description: 文本 <small>(允许一些HTML标记)</small>
+        description: 文本<small>（允许某些HTML标记）</small>
         license_id: 授权协议
-        license_id_more: "\"查看 <a href=\"\"%{policy_url}\"\">EOL许可政策</a>\""
+        license_id_more: 请阅读<a href="%{policy_url}">EOL授权政策</a>
         object_title: 标题
-        refs: 参考文献 <small>(每个参考文献另起一行开始)</small>
+        refs: 参考资料<small>（每个参考资料一行）</small>
         rights_holder: 权利持有人
         rights_holder_more: 为这个数据指定一个拥有或管理权限的个人或组织。如果不填写此项，我们将认为您是除了公共域外的所有授权的权利所有者。公共域的许可不需要权利所有者。
-        rights_statement: 版权声明
+        rights_statement: 权利声明
         rights_statement_more: 根据知识共享署名协议(CC-By)的版权使用说明，请<q cite=http://creativecommons.org/licenses/by/3.0>按照作者或版权所有者指定的规则</q>声明版权归属。
-        source_url: 原始数据对象的链接
+        source_url: 原始数据对象的URL
         toc_item: 子章节
+      data_object_link: 
+        description: 描述<small>（允许某些HTML标记）</small>
+        link_type: 类别
+        source_url: 链接URL：
+        toc_item: 主题
       eol_statistic: 
-        download_all: 所有 <small>(包括所有页面的记录)</small>
+        date_one: 日期
+        date_two: 日期
+        download_all: 所有<small>（包括所有页面的记录）</small>
       google_analytics_partner_summaries: 
-        page_views: 页面访问量 <small>(页面浏览次数)</small>
-        taxa_pages: 页面 <small>(页数)</small>
-        taxa_pages_viewed: 页面访问量 <small>(页面浏览次数)</small>
-        time_on_page: 页面停留总时间<small>(小时)</small>
-        unique_page_views: 唯一页面视图<small>(浏览页面的访问者的数目)</small>
+        page_views: 页面查看<small>（页面访问次数）</small>
+        taxa_pages: 页面<small>（页面数）</small>
+        taxa_pages_viewed: 被查看页面<small>（访客浏览过的页面的数量）</small>
+        time_on_page: 总页面停留时间<small>（小时）</small>
+        unique_page_views: 独特页面查看<small>（访问者查看页面的数量）</small>
       harvest_event: 
         began_at: 已开始
         completed_at: 已完成
@@ -1565,8 +1804,10 @@ zh-CN:
         browsable_status_with_colon: 可浏览状态：
         complete: 已管理
         complete_more: "已审核的分类树假定每一个分类节点都是唯一的，例如：名称字符串相同的物种会被认为是异物同名。<strong>警告: 请不要更改这个属性，除非您已确认分类树中的异物同名状态，这么做会破坏数据的完整性。</strong>"
-        request_publish: 已请求发布
+        request_publish: 发布已请求
         request_publish_more: 表明是否有待定的请求，申请将此分类树设置为EOL中的可浏览的基本分类系统。
+      news_item: 
+        active: 已发布
       open_authentication: 
         connect: 添加
         connected: 已连接
@@ -1591,7 +1832,7 @@ zh-CN:
         title: 资源名称
       session: 
         password: 密码
-        remember_me: 在2个星期内保持我的登录状态
+        remember_me: 记住我的登录状态2个星期
         username_or_email: 用户名或电子邮件地址
       translated_content_page: 
         active_translation: 已发布
@@ -1602,6 +1843,9 @@ zh-CN:
         meta_description_more: 提供一个简短的描述，用以概括本页内容的关键概念。该描述有时会被搜索引擎用于检查相关性和直接列于搜索结果中。
         meta_keywords_more: 输入能最好反应该页内容的关键词或者短语，以逗号间隔。搜索引擎有时候使用这些关键词和短语来评估页面与搜素条目的相关性。
         title_more: 内容的标题会显示在页面的标题区域。标题应该包括一些与内容最相关的关键词。
+      translated_news_item: 
+        active_translation: 已出版
+        language_id: 语言
       user: 
         agreed_with_terms: "\"我同意<a href=\"\"%{terms_url}\"\">使用条款</a>\""
         api_key_more: "\"查看更多<a href=\"\"%{api_docs_url}\"\">给API调用添加密钥</a>的详细信息。\""
@@ -1626,7 +1870,8 @@ zh-CN:
         generate_api_key_more: "\"如果您对使用EOL的API感兴趣，您可以为自己的应用程序生成一个API密匙。查看更多关于<a href=\"\"%{api_docs_url}\"\">为您的API请求添加密匙</a>。\""
         logo: 上传一张新照片
         new_password: 新密码<small>(4-16 个字符)</small>
-        new_password_confirmation: 新密码<small>（请再次输入用于确认)</small>
+        new_password_confirmation: 新密码确认
+        news_in_preferred_language: 显示所有首选语言的新闻
         notification_settings: 通知设置
         notification_settings_more: 配置您的提醒设置。
         open_authentications: 已连接的账号
@@ -1647,6 +1892,8 @@ zh-CN:
       cancel: 取消
       collection_item: 
         update: 保存
+      contact: 
+        new: 发送反馈
       content_page: 
         create: 创建页面
         edit: 编辑
@@ -1668,7 +1915,11 @@ zh-CN:
         create: 添加文章
         create_text: 添加文章
         update: 保存文章
+      data_object_link: 
+        create: 添加链接
+        update: 保存链接
       eol_statistic: 
+        change_date: 获取日期的统计信息
         download_csv: 以CSV格式下载
       filter_sort: 筛选和排序
       harvest_event: 
@@ -1679,6 +1930,11 @@ zh-CN:
       name: 
         create: 添加名称
         update: 更新名称
+      news_item: 
+        create: 创建新闻项目
+        edit: 编辑
+        preview: 预览
+        update: 更新新闻项目
       open_authentication: 
         create: 连接
         destroy: 断线
@@ -1691,11 +1947,14 @@ zh-CN:
       session: 
         create: 登录
         sign_in_with_facebook: 使用Facebook账号登录
-        sign_in_with_google: 使用Google账号登录
+        sign_in_with_google: 使用Google帐户登录
         sign_in_with_twitter: 使用Twitter账号登录
-        sign_in_with_yahoo: 使用Yahoo账号登录
+        sign_in_with_yahoo: 使用雅虎帐号登录
       submit: 保存%{model}
       translated_content_page: 
+        create: 添加翻译
+        update: 保存对翻译的更改
+      translated_news_item: 
         create: 添加翻译
         update: 保存对翻译的更改
       update: 更新%{model}
@@ -1709,7 +1968,7 @@ zh-CN:
         sign_up_with_facebook: 使用Facebook账号登录
         sign_up_with_google: 使用Google帐户登录
         sign_up_with_twitter: 使用Twitter账号登录
-        sign_up_with_yahoo: 使用雅虎帐号登录
+        sign_up_with_yahoo: 使用雅虎帐号注册
         update: 保存简介信息
       wikipedia_queue: 
         create: 提交请求
@@ -1730,12 +1989,13 @@ zh-CN:
   home_page_link_advisory_information: 此链接将带您到网络生命大百科网站的首页
   html_format: (HTML格式)
   html_format_with_left_col: "\"(HTML格式, 如果希望页面有一左边栏则输入,否则请留空)\""
-  icon_near_the_table_of_content: 网页左侧内容表旁的图标。您可以直接使用图像旁边的“评论”按钮来提交关于该物种的<a href=''>评论</a>。
   id: ID
   if_checked_and_user_is_saved: 如果用户选择此项并保存，则相关的资历认证、专业范围、审批和已选项都将被移除，并且用户不显示为管理员。您应给出与此有关的说明。没有信息反馈给此用户。
   if_the_details_parameter_is_not_set: 如果没有设置详细参数，则只返回数据项标识符和数据类型，以文章为例，将只返回主题。数据类型可以是%{linka}资源类型词汇。文本主题可以是%{linkb}本体项。
   image: 图像
   image_alt_text: 这个 %{vetted_status} 的图像是%{taxon_name}的
+  image_crop_failed_error: 抱歉，出现了一个错误，无法裁剪图像。
+  image_cropped_notice: 图片裁剪完成
   image_from_supplier: 来自于%{whom}的图像
   image_is_no_longer_available: 图像不再可用
   image_map_alt_text: 这个 %{vetted_status} 的地图是%{taxon_name}的
@@ -1789,7 +2049,7 @@ zh-CN:
   item_type_article_assistive: 此项是一篇文章
   item_type_collection: 收藏
   item_type_collection_assistive: 此项是一件藏品
-  item_type_community: 社区
+  item_type_community: 小组
   item_type_community_assistive: 此项是一片社区
   item_type_image: 图像
   item_type_image_assistive: 此项是一幅图片
@@ -1827,6 +2087,54 @@ zh-CN:
   languages: 语言
   last_updated: 最后更新
   last_updated_time_ago: 最后一次更新于%{time_passed}之前
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: 停滞指引
+        about_link_contact_us: 联系我们
+        about_link_discover: 发现
+        about_link_donate: 资助EOL
+        about_link_eol_blog: EOL博客
+        about_link_glossary: 术语表
+        about_link_help: 帮助
+        about_link_podcasts: 播客
+        about_link_statistics: 统计
+        about_link_terms_of_use: 使用条款
+        about_link_what_is_eol: EOL是什么？
+        header_about: 关于EOL
+        header_learn_more: 了解更多
+        header_questions: 告诉我更多
+        learn_more_link_amphibians: 两栖类
+        learn_more_link_animals: 动物
+        learn_more_link_archaea: 古生菌
+        learn_more_link_bacteria: 细菌
+        learn_more_link_birds: 鸟类
+        learn_more_link_crustaceans: 甲壳类动物
+        learn_more_link_fish: 鱼类
+        learn_more_link_flowering_plants: 开花植物
+        learn_more_link_fungi: 真菌
+        learn_more_link_insects: 昆虫
+        learn_more_link_invertebrates: 无脊椎动物
+        learn_more_link_mammals: 哺乳动物
+        learn_more_link_molds: 模具
+        learn_more_link_mollusks: 软体动物
+        learn_more_link_mushrooms: 蘑菇
+        learn_more_link_plants: 植物
+        learn_more_link_protists: 生物体
+        learn_more_link_reptiles: 爬虫类动物
+        learn_more_link_spiders: 蜘蛛
+        learn_more_link_trees: 树木
+        learn_more_link_viruses: 病毒
+        learn_more_link_worms: 虫
+        questions_link_biodiversity: 生物多样性是什么？
+        questions_link_biological_classification: 生物分类是什么？
+        questions_link_contributing_to_research: 我可以为研究做什么？
+        questions_link_discovering_species: 物种是如何发现的？
+        questions_link_indicator_species: 指标物种是什么？
+        questions_link_invasive_species: 外来物种是什么？
+        questions_link_model_organism: 模式物种是什么？
+        questions_link_naming_species: 物种是如何命名的？
+        questions_link_species: 物种是什么？
   learn_about_collections: 如何创建一个收藏？
   learn_about_communities: 如何参与到社区活动？
   learn_about_content_partners: 如何成为内容合作伙伴？
@@ -1873,6 +2181,7 @@ zh-CN:
   limits_the_number_of_returned_text_objects: 限定返回的文字数量
   limits_the_number_of_returned_video_objects: 限定返回的视频对量
   link_name: 链接名称
+  link_rating: 链接评分
   list_newsletter_emails: 新闻订阅者邮件清单
   list_of_activity_combinations: 已持续活跃5分钟的用户列表
   listing_collections: 列出收藏
@@ -1919,6 +2228,7 @@ zh-CN:
   maps_image_maps_header: 标记为“地图”的媒体文件
   maps_with_count: 
     other: "%{count} 幅地图"
+  march_of_life_thumbnail_title: 性生活过程：
   matching_users_found_with_count: 
     other: 总共 %{count}个用户与您的标准匹配。
   max_collection_items_error: 抱歉，您的请求超出了%{max}个收藏条目的最大限制。
@@ -1952,7 +2262,7 @@ zh-CN:
   message_colon: "消息:"
   meta_description_colon: 元描述：
   meta_keywords_colon: 元关键词：
-  meta_title_site_name: 网络生命大百科
+  meta_title_site_name: 生命百科
   method: 方法
   method_to_get_metadata_about_the_hierarchy: 如果给出分类系统的标识符，本方法可以获取所有关于本分类系统和所列根阶元的元数据
   methods: 方法
@@ -1968,7 +2278,7 @@ zh-CN:
       results: 结果
       suggestions: 建议
     taxa: 
-      community: 社区
+      community: 小组
       details: 详细信息
       images: 图像
       literature: 文献
@@ -2040,6 +2350,11 @@ zh-CN:
   news_item: 新闻项
   news_item_date_as_shown_to_user: 对用户显示的新闻项时间(仅在Rss订阅中显示时间)：
   news_item_title: 新闻项
+  news_items: 
+    index: 
+      meta_keywords: EOL新闻，生命百科新闻
+      meta_title: EOL新闻
+      page_title: EOL新闻
   newsfeed: 新闻订阅
   newsfeed_help_for_collection: "\"这个EOL收藏的动态收集了与属于它的与它有关的条目的更新,包括它的所有者的活动和来自EOL用户的评论。\""
   newsfeed_help_for_community: "\"这个EOL社区的动态收集了与属于它管理的收藏的条目有关的更新,包括它的成员活动和来自EOL用户的评论。\""
@@ -2105,7 +2420,7 @@ zh-CN:
     comments_empty: 没有近期评论。
     contact_us_auto_response: 
       message: "感谢联系网络生命大百科项目。您的评论已发送到相关的工作组。\n\n我们非常感谢您的反馈。"
-      subject: 感谢联系网络生命大百科
+      subject: 感谢你联系生命百科
     contact_us_message: 
       message: "下面的信息是通过联系我们表单提交到EOL的信息\n发件人: %{from_name}\n电子邮件: %{from_email}\n主题: %{subject}\n\n%{message}"
       subject: "发送给EOL一条消息: %{title}"
@@ -2127,9 +2442,12 @@ zh-CN:
     curator_approved: 
       message: "感谢您申请管理权 %{curator_level}。您的请求已经获得批准。\n\n希望了解更多管理及您可用的功能有关的信息，请访问http://eol.org/curators。"
       subject: 您提出的网络生命大百科管理员权限%{curator_level}的请求已经获得批准
-    greeting_dear_name_with_comma: 尊敬的 %{name}
-    signature_basic: 网络生命大百科团队
-    signature_with_species_pages_group_contact: "如果您有任何问题，请联系 %{species_pages_group_email}。\n\n网络生命大百科团队"
+    greeting_dear_name_with_comma: 亲爱的%{name}：
+    signature_basic: 生命百科团队
+    signature_with_contact_us_link: "如果您遇到任何问题，请与我们联系%{url}。\n\n生命百科团队"
+    signature_with_species_pages_group_contact: "如果您有任何疑问，请与我们联系%{species_pages_group_email}。\n\n生命百科团队"
+    unsubscribed_to_notifications: 
+      subject: 很可惜您要离开⋯
     user_activated: 
       message: "欢迎来到网络生命大百科（EOL）并感谢您的注册。请注意，您的用户名是%{username}，有关您个人信息的网络地址是%{profile_url}。您可以从http://eol.org/login登录您的帐户。\n\n如果希望了解更多关于如何使用EOL，包括如何创建EOL收藏，参与EOL社区以及为EOL提供数据，请访问我们的帮助页面http://eol.org/help。"
       subject: 您的网络生命大百科账户已经激活
@@ -2169,7 +2487,7 @@ zh-CN:
   object_type: 数据项类型
   object_type_all_option: 所有
   object_type_collection_option: 收藏
-  object_type_community_option: 社区
+  object_type_community_option: 小组
   object_type_image_option: 图像
   object_type_sound_option: 音频
   object_type_taxon_concept_option: 分类概念
@@ -2209,7 +2527,7 @@ zh-CN:
   page_name: 页面名称
   page_navigation: 页面导航
   page_not_found: 页面未找到
-  page_reference: "\"“%{title}”. 网络生命大百科,  <a href=\"\"http://%{domain_or_ip}%{this_url}\"\" target=_blank>http://%{domain_or_ip}%{this_url}</a>链接有效。 访问日期 %{date}\""
+  page_reference: "\"%{title}\". 生命百科，\"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\". %{date}"
   page_results_avg: 页面结果平均
   page_statistics: 页面统计
   page_statistics_and_tools: 页面统计和工具
@@ -2235,7 +2553,6 @@ zh-CN:
   partner: 合作伙伴
   partner_information: 合作伙伴信息
   partner_page: 合作伙伴页面
-  partnering_steps: 合作步骤
   password_colon: 密码：
   password_must_be_4to16_characters: 密码长度必须介于4到16个字符之间。
   pause: 暂停
@@ -2250,7 +2567,6 @@ zh-CN:
   personal_profile_menu: 个人信息
   personal_space: 个人空间
   ping_method_description: 此方法失败（这种情况EOL错误页面极可能返回）或返回一个成功信息，没有其它可能信息。
-  please: 请
   please_ask_big_before_changing_toc: 在编辑内容之前，请与生物多样性信息学研究组的成员核对。 一些章节的名称不能被更改，因为程序会通过标签查找这些章节。不能在这个界面映射的信息项-必须在数据库中手动来完成。
   please_confirm_your_donation_details: 请确认您的捐赠细节
   please_indicate_curation_reason: 请选择一个理由，或者写出一个管理评论：
@@ -2299,15 +2615,16 @@ zh-CN:
   rated_by_count_people: 
     other: 来自%{count}个人
   rating_added_notice: 已成功添加评级。
+  rating_learn_more_link: 了解评级
   rating_not_added_error: "\"抱歉, 出现了一个错误, 评级无法添加。\""
   recaptcha: 输入下面您看到的两个单词
   recaptcha_incorrect_error_with_anchor: "\" <a href=\"\"#%{recaptcha_anchor}\"\">验证码</a> 不匹配, 请重试。\""
   recent_activities: 
     index: 
       list_header: 最近7天
-      meta_keywords: EOL社区活动，EOL最近的活动，网络生命大百科活动
-      meta_title: EOL社区活动
-      page_title: EOL社区活动
+      meta_keywords: EOL小组活动，EOL最近活动，生命百科活动
+      meta_title: EOL小组活动
+      page_title: EOL小组活动
   recent_activity: 
     bulk_collection_activity_with_count: 
       other: 有 %{count}条关于%{to}的更新
@@ -2343,6 +2660,7 @@ zh-CN:
     intro: 这是您于%{time}在EOL的活动信息摘要
     intro_immediately: 您好，%{name} —
     intro_weekly: 这是您于%{ending}之前一周在EOL的活动信息摘要
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: 在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。
     someone_commented_on_something: <b>%{who}</b>评论了 <b>%{what}</b>。
     unsubscribe: 在<a href='%{email_prefs_url}' style='color:#195184'>您的提醒参数页面</a>更改email设置或者退订。
@@ -2479,9 +2797,6 @@ zh-CN:
   show_status_message: 显示状态消息
   show_tasks: 显示任务
   show_warning_message: 显示警告消息
-  showing: 显示
-  showing_errors_the_error_log_f: 显示如下日期的错误日志：
-  showing_procs_from: 显示进程自：
   shown_to_the_user_parens: （显示给用户）
   shown_to_user_as_the_title_of_page: 作为页面标题展示给用户
   sign_in: 登录
@@ -2605,14 +2920,14 @@ zh-CN:
         hierarchy_entry: 
           meta_description: 分享您对%{scientific_name}的信息和专长，该分类由%{hierarchy_provider}提供
           meta_description_with_common_name: 分享您对%{preferred_common_name}(%{scientific_name})的信息和专长，该分类由%{hierarchy_provider}提供
-          meta_keywords: "\"%{scientific_name} 社区, %{hierarchy_provider}\""
+          meta_keywords: "%{scientific_name}小组，%{hierarchy_provider}"
           meta_title: 对 %{scientific_name}感兴趣的用户，该分类由%{hierarchy_provider}提供
           meta_title_with_common_name: 对 %{preferred_common_name} 感兴趣的用户，(%{scientific_name}分类由%{hierarchy_provider}提供
           tweet_text: 对 %{scientific_name}感兴趣的用户，该分类由%{hierarchy_provider}提供
         meta_description: 对%{scientific_name}感兴趣吗? 快来加入 %{scientific_name}专家的行列吧，并通过网络生命大百科分享您对%{scientific_name}的认识。
         meta_description_with_common_name: 对 %{preferred_common_name} (%{scientific_name})感兴趣吗? 快来加入 %{preferred_common_name}专家的行列吧，并通过网络生命大百科分享您对%{preferred_common_name}的认识。
-        meta_keywords: "%{scientific_name} 社区"
-        meta_keywords_with_common_name: "\"%{preferred_common_name} 社区, %{scientific_name} 社区\""
+        meta_keywords: "%{scientific_name}小组"
+        meta_keywords_with_common_name: "%{preferred_common_name}小组，%{scientific_name}小组"
         meta_title: 对%{scientific_name}感兴趣的用户
         meta_title_with_common_name: 对%{preferred_common_name} (%{scientific_name})感兴趣的用户
         tweet_text: 对%{scientific_name}感兴趣的用户
@@ -2670,7 +2985,7 @@ zh-CN:
         meta_keywords_with_common_name: "%{preferred_common_name} 原始生存地的生境 \\"
         meta_title: " %{scientific_name}的生境"
         meta_title_with_common_name: "%{preferred_common_name}(%{scientific_name})的生境 \\"
-        tweet_text: "%{scientific_name}的地图，"
+        tweet_text: "%{scientific_name}的地图"
     media: 
       index: 
         hierarchy_entry: 
@@ -2731,22 +3046,8 @@ zh-CN:
         meta_title: "%{scientific_name}的异名"
         meta_title_with_common_name: " %{preferred_common_name}的异名 (%{scientific_name})"
         tweet_text: "%{scientific_name}的异名"
-    overviews: 
-      show: 
-        hierarchy_entry: 
-          meta_description: "%{scientific_name}的概要信息，它在网络生命大百科中被 %{hierarchy_provider}确认。"
-          meta_description_with_common_name: "\"%{preferred_common_name}的概要信息,它同时也在网络生命大百科中被%{hierarchy_provider}确认为%{scientific_name}。\""
-          meta_keywords: "\"%{scientific_name} 由 %{hierarchy_provider}确定, %{scientific_name} 分类由 %{hierarchy_provider}确定\""
-          meta_keywords_with_common_name: "\"%{scientific_name} 由 %{hierarchy_provider}确定, %{scientific_name} 分类由 %{hierarchy_provider}提供\""
-          meta_title: "%{scientific_name} 分类由 %{hierarchy_provider}提供"
-          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} 由 %{hierarchy_provider}分类)"
-          tweet_text: "%{scientific_name}的概述，分类由%{hierarchy_provider}提供"
-        meta_description: 网络生命大百科里学名%{scientific_name}概要。
-        meta_description_with_common_name: "%{preferred_common_name}概要，学名在网络生命大百科里是 %{scientific_name}。"
-        meta_keywords: "%{scientific_name} 由 %{hierarchy_provider}确定"
-        meta_keywords_with_common_name: "%{scientific_name} 由 %{hierarchy_provider}确定"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: "%{scientific_name}的概述"
+    overview: 
+      tweet_text: 关于 %{scientific_name} 信息
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -2916,12 +3217,12 @@ zh-CN:
   this_is_a_focus_collection_for_community: 这是 %{community}关注的焦点。
   this_is_the_breakdown_of_chapt: 这是对章节、子章节及相应的物种介绍模块目录的细分。
   this_is_the_label_that_will_be_used_for_attribution: 这是用作属性的标签
+  this_link_is_unpublished: 此链接尚未发布。
   this_map_cannot_be_curated_because_unpublished: 本地图不能被管理，因为它尚未发布。
   this_map_is_unpublished: 该地图尚未发布。
   this_method_takes_an_integer_or_string: 此方法接受来自提供者数据库中分类单元的整数或字符串唯一标识符，及表示提供者的hierarchy_id并返回分类单元的EOL页面ID。例如使用%{link_provider}API，我可以获得ITIS的EOL分类系统ID是%{itis_id}。之后我可以通过调用%{link_url}在EOL中搜索ITIS中180542的分类序列号（TSN），<i>Ursus maritimus</i>
   this_page_shows_information_ab: 该页面显示关于一个特殊搜素词的信息，执行搜索后用户可以单击。
   this_resource_unpublished_notice: 该资源此时未被系统管理员设定为已发布。
-  this_section_is_used_to_create: 本部分用于创建新闻条目，创建的新闻条目将会在主页右侧部分、%{rss_link}以及%{news_archive}页面显示。
   this_sound_cannot_be_curated_because_unpublished: 本音频不能被管理，因为它尚未发表。
   this_sound_is_unpublished: 本音频尚未发表。
   this_video_cannot_be_curated_because_unpublished: 该视频不能被管理，因为它尚未发表。
@@ -2932,10 +3233,8 @@ zh-CN:
   title: 标题
   to_process_your_donation_please_proceed: 要处理您的捐赠，请继续
   to_remedy_this: 为了补救，我们将关闭这些不活动的账户并邀请您访问eol.org来创建一个新的帐户。当您收到确认邮件时请点击以激活您的帐户。
-  to_see_all_activity_combinatio: 要查看在5分钟内所有活动的集合。持续{3-4f分种}。
   to_send_email_enter_text: 要发送给该用户一封邮件，在下方输入文本并点击发送。
   to_submit_a_species_photograph_for: "\"为了给%{taxon}提交一张物种的照片，请将照片上传到%{flickr_link},然后按照群组的主页上的指示操作。\""
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: 为了提交%{taxon}的文本内容，请先确认您已经登录EOL在点击提交。
   toc: 目录
   toc_entry_col_header: 目录条目
   toc_no_longer_available: 目录信息不再可用
@@ -2966,7 +3265,6 @@ zh-CN:
   twitter: Twitter
   type: 类型
   unable_to_copy_items_to_collection_error: 抱歉，我们无法拷贝集合条目到%{name}。
-  unable_to_invite_users_to_community_error: 无法向%{users}发送邀请。
   unique_page_views_th: 唯一页面视图
   unknown: 未知
   unknown_hierarchy: 未知的分类系统
@@ -3000,7 +3298,6 @@ zh-CN:
   us_dollars_35: 35美元
   us_dollars_50: 50美元
   used_for_friendly_url_note: （用来产生一个用户友好的链接，不要包含空格和特殊字符）
-  used_for_urls_note: URLS的使用必须唯一（翻译的页面除外）；否则页面的URLs必须使用页面ID
   user: 用户
   user_activation_failed_resent_validation_email_error: 抱歉，出现了一个错误，您的帐户无法验证。原因可能是您使用的验证链接没有被识别。激活说明已发送到您注册时的邮箱，请确保使用的验证链接和激活邮件中的一致。
   user_activation_failed_user_not_found_error: 抱歉，发生了一个错误，您要验证的帐户不存在。请您确保使用注册后激活邮箱收到的验证链接。
@@ -3079,8 +3376,8 @@ zh-CN:
     communities: 
       index: 
         meta_description: "%{user_full_name}所在的社区。"
-        meta_title: "%{user_full_name} 社区"
-        tweet_text: "%{user_full_name} 社区"
+        meta_title: "%{user_full_name}小组"
+        tweet_text: "%{user_full_name}小组"
     content_partners: 
       index: 
         meta_description: "%{user_full_name}内容提供者的关联。"
@@ -3120,6 +3417,9 @@ zh-CN:
       edit: 
         page_description: "\"以下显示的所有更新（除了网络生命大百科通讯），在您的<a href=\"\"%{user_newsfeed_link}\"\">EOL个人消息页面</a>中都是可见的，但是许多用户喜欢通过邮件通知他们那些特别关注的某类动态。您可以通过下面的按钮选择EOL发送邮件的频率，以满足您的需求\""
         page_title: 通知设置
+      update: 
+        notification_settings_successfully_updated: 通知设置成功更新
+        sorry_notification_settings_could_not_be_updated: 抱歉，通知设置无法更新
     open_authentications: 
       errors: 
         facebook: 
@@ -3179,6 +3479,8 @@ zh-CN:
       warnings: 
         no_way_to_login: 您不再有任何关联的账号，您将不能登录EOL。如果您想登录EOL，您需要添加一个关联的账户，或增加一个EOL的帐户名和密码。
       yahoo: Yahoo!
+    pending: 
+      header: 感谢您注册 ！
     recover_account: 
       errors: 
         temporary_login_user_not_found: 抱歉，无法找到您要恢复的EOL帐户，请申请一个新的电子邮件来恢复您的帐户。

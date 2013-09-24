@@ -7,14 +7,13 @@ class Users::CollectionsController < UsersController
     @user = User.find(params[:user_id])
     redirect_if_user_is_inactive
     preload_user_associations
-    # TODO - why "featured" ?!
-    @featured_collections = @user.all_collections(current_user)
-    if params[:sort_by] && params[:sort_by].to_sym == :oldest
-      @featured_collections = @featured_collections.sort_by(&:created_at)
-    else
-      @featured_collections = @featured_collections.sort_by{|c| - c.created_at.to_i}
+    @published_collections = @user.published_collections(current_user)
+    sort_by = params[:sort_by] && params[:sort_by].to_sym
+    if sort_by == :oldest
+      @published_collections = @published_collections.sort_by(&:created_at)
+    elsif sort_by == :newest
+      @published_collections = @published_collections.sort_by { |c| - c.created_at.to_i }
     end
-    @featured_collections.delete_if{|c| c.id == @user.watch_collection.id}
     @rel_canonical_href = user_collections_url(@user)
   end
 

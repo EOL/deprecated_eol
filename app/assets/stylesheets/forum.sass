@@ -1,0 +1,168 @@
+@import "mixins"
+
+#page_heading
+  .hgroup
+    width: auto !important
+    h2
+      font-size: 1.5em
+      margin: 0px 0px 8px
+table.forum_category
+  thead
+    tr
+      th
+        &.title
+          width: 250px
+        &.number
+          width: 50px
+        &.actions
+          width: 200px
+          padding: 5px 0px 5px 10px
+  td
+    &.actions
+      padding: 5px 0px 5px 25px
+    .subject
+    .author
+      line-height: 90%
+      font-size: 0.9em
+.deleted
+  padding: 15px 15px 10px 15px
+  margin: 10px 0
+  text-align: center
+  border: 1px solid #cad3db
+  background: #F2F2F2
+  p
+    padding: 0 0 5px 0
+    font-size: 1.1em
+    font-style: italic
+.post
+  background: #e2e9ef
+  margin-bottom: 10px
+  padding: 10px
+  overflow: hidden
+  border: 1px solid #cad3db
+  .post_body
+    float: left
+    width: 76%
+    .title
+      font-weight: bold
+      font-size: 1.2em
+      padding-bottom: 2px
+      min-height: 15px
+    .author
+      padding-bottom: 3px
+      margin-bottom: 10px
+      font-size: 0.9em
+      border-bottom: 1px solid white
+    .actions
+      width: 240px
+      float: right
+      li
+        display: inline
+        float: right
+    .permalink
+      display: none
+      position: absolute
+      margin-top: 30px
+      margin-left: -70px
+      background: #dddddd
+      border: 1px solid black
+      p
+        margin: 15px 15px 5px
+      .close
+        float: right
+        margin: 7px 7px 0px
+        font-size: 0.9em
+      input
+        width: 280px
+        margin: 0px 15px 15px
+  .attribution
+    float: right
+    width: 22%
+    min-height: 80px
+    padding-left: 5px
+    img
+      +max_dimensions($logo_size_primary, $logo_size_primary)
+      min-height: 68px
+    .secondary_name
+      font-size: 0.9em
+    ul.stats
+      padding-top: 10px
+.post > .post_body > .text, .post_text
+  font-size: 110%
+  h1, h2, h3, h4, h5, h6, p, pre, address, blockquote
+    padding: 0px 0px 10px
+    margin: 0px
+  ul, ol
+    padding: 0px 0px 10px 40px
+    margin: 0px
+  h1
+    font-size: 1.5em
+  h2
+    font-size: 1.4em
+  h3
+    font-size: 1.3em
+  h4
+    font-size: 1.2em
+  h5
+    font-size: 1.1em
+  h6
+    font-size: 1.0em
+  address
+    font-style: italic
+  pre
+    font-size: 120%
+  ul
+    list-style: circle
+  ol
+    list-style: decimal
+  blockquote
+    margin: 10px 20px 20px
+    border: 1px solid #cad3db
+    padding: 15px 15px 5px
+    background: #f3f7fa
+  .reply_link
+    font-weight: normal
+    font-size: 0.8em
+.post_text
+  font-size: 80%
+  font-family: Helvetica,Arial,sans-serif
+
+.site_column
+  >h1
+    font-size: 1.5em
+    padding-bottom: 4px
+  >h2
+    font-size: 1.4em
+    padding-bottom: 4px
+  >h3
+    font-size: 1.3em
+    padding-bottom: 2px
+  >h4
+    font-size: 1.2em
+    padding-bottom: 2px
+  >h5
+    font-size: 1.1em
+    padding-bottom: 2px
+form.boxed
+  background: #F3F7FA
+  border: 1px solid #CAD3DB
+  margin: 0px 0px 40px 0px
+  padding: 15px 20px
+  h3
+    font-size: 1.3em
+    padding-bottom: 15px
+thead, .actions, td
+  .button_to, .button
+    float: left
+    margin: 0px
+    div
+      margin: 0px
+  .button
+    margin: 0 5px 0 0
+    font-size: .92em
+    padding: 3px 10px
+    &.image
+      padding: 3px 4px 0px
+      line-height: 100%
+#admin
+  padding-top: 40px

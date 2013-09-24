@@ -291,8 +291,6 @@ sr-Latn:
   all_comments_entered_by_users: Dole su prikazani svi komentari korisnika na sajtu, poređani po obrnutom hronološkom redu.
   all_communities: Sve zajednice
   all_count: Sve (%{count})
-  all_errors: SVE greške
-  all_harvesting_logs: SVI dnevnici preuzimanja
   all_images: Sve slike
   all_information: Svi podaci
   all_items: Sve stavke
@@ -411,7 +409,6 @@ sr-Latn:
   citation_example: Brajan Fišer. „Pogonomyrmex anergismus Cole, 1954.“ Enciklopedija života, dostupno na <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Provereno 15. januara 2009.
   citing_link: Navođenje
   classification_tree_header: Klasifikacija
-  classifications_empty: Ova stranica nije uključena ni u jednu klasifikaciju koja se može pogledati na EOL-u.
   classifications_summary_header_with_count: 
     one: Pronađeno u %{count} klasifikaciji
     other: Pronađeno u %{count} klasifikacije
@@ -737,7 +734,6 @@ sr-Latn:
     other: Premesti %{count} stavke u novu zbirku
   copy_of_name: Primerak %{name}
   copyright: "Autorska prava:"
-  correct_donation_message: Ako ovaj podatak nije tačan, onda %{go_back_link} da napravite izmene
   could_not_find_collection_error: Nažalost, ne mogu da pronađem traženu zbirku.
   could_not_find_user: Ne mogu da pronađem člana za ovog korisnika
   count: Broj
@@ -954,7 +950,6 @@ sr-Latn:
   expand_all_children: otvori sve podtaksone
   explore: Istraži
   explore_what_we_know_about_taxon: Istražite šta EOL zna o taksonu %{taxon}.
-  export_all_of_the_entries_as_a: izvezi sve unose kao CVS
   export_curator_csv_link: "[izvezi sve kustose kao CSV]"
   export_this_list_as_csv: Izvezi spisak kao CSV
   external_link_header: Spoljna veza
@@ -1268,7 +1263,6 @@ sr-Latn:
   home_page_link_advisory_information: Ova veza odvešće vas do početne stranice Enciklopedije života
   html_format: (format HTML)
   html_format_with_left_col: (FORMAT HTML – unesite samo ako želite da imate kolonu u levom delu stranice; u suprotnom, ostavite prazno)
-  icon_near_the_table_of_content: ikona blizu pregleda sadržaja u levom delu stranice. Možete da pošaljete i <a href=''>komentare</a> o ovim vrstama neposredno na EOL koristeći jezičak „Komentari“ blizu slike.
   id: Naznaka
   if_checked_and_user_is_saved: Ako je označeno i korisnik je sačuvan, onda se sva uverenja, opseg, odobrenja i izabrane klade uklanjaju i korisnik prestaje da bude kustos. Dole možete napisati belešku u kojoj dajete obrazloženje za to. Podaci se ne šalju korisniku.
   if_the_details_parameter_is_not_set: Ako parametar za detalje nije postavljen, onda će samo objekat podataka, vrsta podataka, a u slučaju članaka, natpis biti prikazan. Vrsta podataka će biti vrednost iz rečnika resursa (%{linka}), a tekst natpisa vrednost iz ontologije stavki (%{linkb}).
@@ -1749,7 +1743,6 @@ sr-Latn:
   partner: Partner
   partner_information: Podaci o partneru
   partner_page: stranica partnera
-  partnering_steps: Koraci za partnerstvo
   password_colon: "Lozinka:"
   password_must_be_4to16_characters: Lozinka mora da ima od 4 do 16 znakova.
   pause: pauziraj
@@ -1765,7 +1758,6 @@ sr-Latn:
   personal_profile_menu: Lični profil
   personal_space: Lični prostor
   ping_method_description: Ova metoda ili neće uspeti ili će prijaviti poruku da je sve prošlo kako treba. Ne postoje druge moguće poruke
-  please: Molimo
   please_ask_big_before_changing_toc: Konsultujte se s članom grupe Bioraznovrsna informatika pre uređivanja pregleda sadržaja. Neki nazivi poglavlja ne mogu da se menjaju budući da su povezani sa samim kodom. Infoobjekti ne mogu da se preslikaju na ovo sučelje – to mora da se uradi ručno u bazi.
   please_confirm_your_donation_details: Potvrdite podatke o prilogu
   please_indicate_curation_reason: "Izaberite razlog ili napišite kustoski komentar:"
@@ -1939,9 +1931,6 @@ sr-Latn:
   show_status_message: Prikaži statusnu poruku
   show_tasks: prikaži zadatke
   show_warning_message: Prikaži upozorenje
-  showing: Prikaz
-  showing_errors_the_error_log_f: "Prikaz grešaka iz dnevnika za:"
-  showing_procs_from: "Prikaz postupaka iz:"
   shown_to_the_user_parens: (prikazuje se korisniku)
   shown_to_user_as_the_title_of_page: prikazuje se korisniku kao naslov stranice
   sign_in: Prijava
@@ -2135,7 +2124,6 @@ sr-Latn:
   this_method_takes_an_integer_or_string: Ova metoda uzima ceo broj ili nisku koja je jedinstvena naznaka taksona iz baze jednog dobavljača, kao i hierarchy_id koji predstavlja dobavljača i prikazuje naznaku stranice na EOL-u tog taksona. Na primer, koristeći API %{link_provider}, možete saznati da je hierarchy_id za Integrisani taksonomski sistem informacija (ITIS) %{itis_id}. Potom možete pretražiti EOL za taksonomski serijski broj na ITIS-u (TSN) 180542,<i>Ursus maritimus</i>, pozivajući %{link_url}
   this_page_shows_information_ab: Na ovoj stranici su prikazani podaci o datom pojmu za pretragu i navedeni su rezultati pretrage koji su kliknuli korisnici.
   this_resource_unpublished_notice: Ovaj resurs trenutno nije označen kao objavljen od strane administratora.
-  this_section_is_used_to_create: Ovaj odeljak služi za stvaranje novih stavki. Novosti su prikazane u desnom delu početne stranice, kao i u %{rss_link} i stranici %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Ovaj zvučni snimak ne može da se kustosira jer je uklonjen iz objava.
   this_sound_is_unpublished: Ovaj zvučni snimak je neobjavljen.
   this_video_cannot_be_curated_because_unpublished: Ovaj video-snimak ne može da se kustosira jer je uklonjen iz objava.
@@ -2146,10 +2134,8 @@ sr-Latn:
   title: Naslov
   to_process_your_donation_please_proceed: Ako želite da date novčani prilog, nastavite
   to_remedy_this: S ciljem da ispravimo problem, zatvorićemo ove neaktivne naloge. Posetite www.eol.org da otvorite novi nalog. Kada primite potvrdnu poruku, kliknite na navedenu vezu da overite nalog.
-  to_see_all_activity_combinatio: da biste videli sve kombinacije aktivnosti u trajanju od pet minuta {3-4 min.}.
   to_send_email_enter_text: Da biste poslali poruku ovom korisniku, unesite tekst ispod i kliknite na „Pošalji“.
   to_submit_a_species_photograph_for: Da biste poslali sliku za %{taxon}, pošaljite slike na %{flickr_link} i pratite uputstva prikazana na početnoj stranici te grupe.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Da biste poslali tekstualni sadržaj za %{taxon}, proverite da li ste prijavljeni na EOL, pa kliknite na
   toc: Sadržaj
   toc_no_longer_available: "Sadržaj: više nije dostupan"
   topic: Tema
@@ -2178,7 +2164,6 @@ sr-Latn:
   twitter: Tviter
   type: Vrsta
   unable_to_copy_items_to_collection_error: Nažalost, ne mogu da umnožim stavke %{name}.
-  unable_to_invite_users_to_community_error: Ne mogu da pošaljem pozivnice za %{users}.
   unknown: Nepoznato
   unknown_type_not_associated_with_any_published_entries: Ovi podaci nisu povezani ni s jednim objavljenim taksonom.
   unpublished: Neobjavljeno
@@ -2209,7 +2194,6 @@ sr-Latn:
   us_dollars_35: US $35
   us_dollars_50: US $50
   used_for_friendly_url_note: (koristi se za stvaranje zgodnih veza za korisnike; ne sme da sadrži razmake ili posebne znakove)
-  used_for_urls_note: koristi se adrese i treba da bude jedinstvena (osim u prevedenim stranicama); ako ne može, adrese moraju da koriste naznaku stranice
   user: Korisnik
   user_activation_failed_resent_validation_email_error: Nažalost, došlo je do greške. Ne mogu da proverim vaš nalog. Ovo se obično dešava kada uneta potvrdna veza ne može da se prepozna. Uputstva za aktiviranje naloga su poslata na vašu e-adresu s kojom ste se upisali. Proverite da li se potvrdna veza poklapa s onom iz e-poruke.
   user_activation_failed_user_not_found_error: Nažalost, došlo je do greške. Ne mogu da pronađem nalog koji želite da proverim. Proverite da li se potvrdna veza poklapa s onom iz e-poruke koju ste primili nakon upisa.

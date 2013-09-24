@@ -402,12 +402,6 @@ class CheckConnection
     i.created_at if i
     i.updated_at if i
     a << 'ErrorLog' if i
-    i = FeedDataObject.first
-    i.taxon_concept_id if i
-    i.data_object_id if i
-    i.data_type_id if i
-    i.created_at if i
-    a << 'FeedDataObject' if i
     i = GbifIdentifiersWithMap.first
     i.gbif_taxon_id if i
     a << 'GbifIdentifiersWithMap' if i
@@ -531,22 +525,6 @@ class CheckConnection
     i.error if i
     i.completed_at if i
     a << 'HierarchyEntryMove' if i
-    i = HierarchyEntryStat.first
-    i.hierarchy_entry_id if i
-    i.text_trusted if i
-    i.text_untrusted if i
-    i.image_trusted if i
-    i.image_untrusted if i
-    i.bhl if i
-    i.all_text_trusted if i
-    i.all_text_untrusted if i
-    i.have_text if i
-    i.all_image_trusted if i
-    i.all_image_untrusted if i
-    i.have_images if i
-    i.all_bhl if i
-    i.total_children if i
-    a << 'HierarchyEntryStat' if i
     i = InfoItem.first
     i.id if i
     i.schema_value if i

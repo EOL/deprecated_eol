@@ -26,7 +26,9 @@ module EOL
 
       def self.unique_toc_ids(taxon_concept_id, options = {})
         options[:get_unique_toc_ids] = 1
-        facets = get_special_facet_counts(taxon_concept_id, options, 'toc_id')
+        # filtering by subtype but not specifying a value. This will only return things
+        # with NO subtype (i.e. text objects, not links)
+        facets = get_special_facet_counts(taxon_concept_id, options.merge(:filter_by_subtype => true), 'toc_id')
         return facets.keys
       end
       
@@ -81,20 +83,11 @@ module EOL
           url << CGI.escape(" AND (link_type_id:#{options[:link_type_ids].join(' OR link_type_id:')})")
         end
         
-        if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
-          field_suffix = "ancestor_he_id"
-          search_id = options[:filter_hierarchy_entry].id
-          url << CGI.escape(" AND ancestor_he_id:#{search_id}")
-          unless options[:return_hierarchically_aggregated_objects]
-            url << CGI.escape(" AND hierarchy_entry_id:#{search_id}")
-          end
-        else
-          field_suffix = "ancestor_id"
-          search_id = taxon_concept_id
-          unless options[:return_hierarchically_aggregated_objects]
-            field_suffix = "taxon_concept_id"
-            url << CGI.escape(" AND taxon_concept_id:#{search_id}")
-          end
+        field_suffix = "ancestor_id"
+        search_id = taxon_concept_id
+        unless options[:return_hierarchically_aggregated_objects]
+          field_suffix = "taxon_concept_id"
+          url << CGI.escape(" AND taxon_concept_id:#{search_id}")
         end
 
         if options[:vetted_types] && !options[:vetted_types].include?('all')
@@ -107,6 +100,7 @@ module EOL
           url << CGI.escape(Array(options[:visibility_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
           url << CGI.escape(")")
         end
+        url << CGI.escape(" NOT (preview_#{field_suffix}:#{search_id})")
 
         if options[:data_type_ids]
            # TODO: do we want to remove IUCN from this query?
@@ -210,14 +204,8 @@ module EOL
       def self.get_aggregated_media_facet_counts(taxon_concept_id, options = {})
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q='
         url << CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}")
-        if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
-          field_suffix = "ancestor_he_id"
-          search_id = options[:filter_hierarchy_entry].id
-          url << CGI.escape(" AND ancestor_he_id:#{options[:filter_hierarchy_entry].id}")
-        else
-          field_suffix = "ancestor_id"
-          search_id = taxon_concept_id
-        end
+        field_suffix = "ancestor_id"
+        search_id = taxon_concept_id
         
         options[:vetted_types] = ['trusted', 'unreviewed']
         options[:vetted_types] << 'untrusted' if options[:user] && options[:user].is_curator?

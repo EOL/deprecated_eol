@@ -1,5 +1,6 @@
 # This (should) just keep track of which external links have been clicked on and by whom.
 class ExternalLinkLog < LazyLoggingModel
+  establish_connection("#{Rails.env}_logging")
 
   validates_presence_of :external_url
 

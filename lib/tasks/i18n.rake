@@ -523,7 +523,7 @@ namespace :i18n do
 
     def get_lang_id_by_lang_abbr(lang_abbr)
       results = ActiveRecord::Base.connection.execute("select id from languages where iso_639_1='" + lang_abbr + "'")
-      if (results.nil? || results.num_rows== 0)
+      if (results.nil? || results.size == 0)
         return 0
       else
         return results.first.first
@@ -556,7 +556,7 @@ namespace :i18n do
                   end
                 end
       query = ""
-      if (results.nil? || results.num_rows== 0)
+      if (results.nil? || results.size == 0)
         # new record
         query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + escape_new_line(clean_basic_injection(column_value)) + "')"
       else
@@ -586,12 +586,16 @@ namespace :i18n do
       if (lang_id != 0)
         print "processing " + lang + " file"
         lang_keys = load_language_keys(lang)
-        puts " (#{lang_keys.keys.count})"
-        next if lang_keys.blank?
-        lang_keys.each do |pair|
-          (key, val) = pair
-          (table_name, column_name, identity_column_name, field_id) = key.split(db_field_delim)
-          insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, val)
+        if lang_keys.nil?
+          puts " (none)"
+        else
+          puts " (#{lang_keys.keys.count})"
+          next if lang_keys.blank?
+          lang_keys.each do |pair|
+            (key, val) = pair
+            (table_name, column_name, identity_column_name, field_id) = key.split(db_field_delim)
+            insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, val)
+          end
         end
       end
     end

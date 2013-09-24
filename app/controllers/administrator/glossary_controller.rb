@@ -49,7 +49,7 @@ class Administrator::GlossaryController < AdminController
   end
 
   def destroy
-    (redirect_to referred_url, :status => :moved_permanently;return) unless request.method == :delete
+    (redirect_to referred_url, :status => :moved_permanently;return) unless request.delete?
     term = GlossaryTerm.find(params[:id])
     term.destroy
     redirect_to referred_url, :status => :moved_permanently

@@ -12,3 +12,11 @@
 //
 //= require jplayer/js/jquery.jplayer.min
 //= require permalink
+
+// The TOC Items shows up in an ugly place, but I don't want to move it in the view, since it would be inelegant:
+$(document).ready(function() {
+  var $act = $('form.review_status .actions');
+  if ($act.length > 0) {
+    $('p.toc_items').insertBefore($act);
+  }
+});

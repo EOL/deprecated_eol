@@ -8,7 +8,6 @@ end
 describe 'Curation' do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
     commit_transactions # Curators are not recognized if transactions are being used, thanks to a lovely
@@ -48,10 +47,6 @@ describe 'Curation' do
       :preferred => false, :language => Language.english
   end
 
-  after(:all) do
-    truncate_all_tables
-  end
-
   after(:each) do
     visit logout_url
   end
@@ -77,19 +72,23 @@ describe 'Curation' do
     visit("/pages/#{@taxon_concept.id}/names/common_names")
     first_trusted_name =
       @taxon_concept.common_names.select {|n| n.vetted_id == Vetted.trusted.id}.map {|n| n.name.string}.sort[0]
-    page.should have_selector(".main_container .update_common_names")
-    page.should have_selector('.main_container .update_common_names td:nth-child(2)', :text => first_trusted_name.capitalize_all_words)
-    page.should have_selector('.main_container .update_common_names td:nth-child(2)', :text => @unreviewed_name.capitalize_all_words)
-    page.should have_selector('.main_container .update_common_names td:nth-child(2)', :text => @untrusted_name.capitalize_all_words)
+    page.should have_selector(".main_container .edit_common_names")
+    names = find(".main_container table.edit_common_names").all(:xpath, ".//tr").map do |r|
+      r.find(:xpath, ".//td[2]").text.strip rescue nil
+    end
+    [first_trusted_name, @unreviewed_name, @untrusted_name].each do |name|
+      names.should include(name.capitalize_all_words)
+    end
   end
   
   it 'should show vetting drop-down for common names either NOT added by this curator or added by a CP' do
     login_as(@cn_curator)
     visit("/pages/#{@taxon_concept.id}/names/common_names")
-    page.should have_selector(".main_container .update_common_names")
-    page.should have_selector(".main_container .update_common_names td:nth-child(4) option", :text => 'Trusted')
-    page.should have_selector(".main_container .update_common_names td:nth-child(4) option", :text => 'Unreviewed')
-    page.should have_selector(".main_container .update_common_names td:nth-child(4) option", :text => 'Untrusted')
+    page.should have_selector(".main_container .edit_common_names")
+    [Vetted.trusted, Vetted.unknown, Vetted.untrusted].each do |v|
+      find(".main_container table.edit_common_names").find(:xpath, ".//td/select/option[@value=#{v.id}]").text.should ==
+        v.curation_label
+    end
   end
   
   it 'should show delete link for common names added by this curator' do

@@ -5,7 +5,7 @@
 # Author: 아라
 ko: 
   translated_activities-name-activity_id-19: 프로필
-  translated_activities-name-activity_id-50: 신뢰하지 않음
+  translated_activities-name-activity_id-50: 신뢰할 수 없음
   translated_activities-name-activity_id-51: 보이기
   translated_activities-name-activity_id-52: 만들기
   translated_activities-name-activity_id-53: 숨기기
@@ -13,8 +13,8 @@ ko:
   translated_activities-name-activity_id-55: 부적절
   translated_activities-name-activity_id-56: 삭제
   translated_activities-name-activity_id-57: 평가
-  translated_activities-name-activity_id-58: 신뢰함
-  translated_activities-name-activity_id-59: 검토하지 않음
+  translated_activities-name-activity_id-58: 신뢰할 수 있음
+  translated_activities-name-activity_id-59: 검토되지 않음
   translated_activities-name-activity_id-63: 수집
   translated_activities-name-activity_id-64: 제거
   translated_agent_roles-label-agent_role_id-1: 애니메이터
@@ -36,10 +36,10 @@ ko:
   translated_agent_roles-label-agent_role_id-6: 감독자
   translated_agent_roles-label-agent_role_id-7: 편집자
   translated_agent_roles-label-agent_role_id-8: 삽화가
-  translated_agent_roles-label-agent_role_id-9: 사진 작가
+  translated_agent_roles-label-agent_role_id-9: 촬영자
   translated_audiences-label-audience_id-1: 전문가
   translated_audiences-label-audience_id-2: 일반 대중
-  translated_audiences-label-audience_id-3: 어린이
+  translated_audiences-label-audience_id-3: 자식
   translated_collection_types-label-collection_type_id-1: 분류
   translated_collection_types-label-collection_type_id-10: 소리
   translated_collection_types-label-collection_type_id-11: 링크
@@ -79,7 +79,7 @@ ko:
   translated_contact_subjects-title-contact_subject_id-33: 재정적 기부
   translated_contact_subjects-title-contact_subject_id-34: 기술적인 질문 (검색, 웹사이트 기능 문제)
   translated_contact_subjects-title-contact_subject_id-35: 일반적인 피드백
-  translated_content_partner_statuses-label-content_partner_status_id-1: 보류
+  translated_content_partner_statuses-label-content_partner_status_id-1: 보류 중
   translated_content_partner_statuses-label-content_partner_status_id-2: 활성
   translated_content_partner_statuses-label-content_partner_status_id-3: 보존
   translated_content_partner_statuses-label-content_partner_status_id-4: 비활성
@@ -183,12 +183,12 @@ ko:
   translated_service_types-label-service_type_id-1: EOL 전송 스키마
   translated_service_types-label-service_type_id-2: 기타
   translated_sort_styles-name-sort_style_id-1: 최근 추가됨
-  translated_sort_styles-name-sort_style_id-2: 가장 오래됨
+  translated_sort_styles-name-sort_style_id-2: 오래됨
   translated_sort_styles-name-sort_style_id-3: 알파벳순
   translated_sort_styles-name-sort_style_id-4: 알파벳 역순
   translated_sort_styles-name-sort_style_id-5: 풍부
   translated_sort_styles-name-sort_style_id-6: 평가
-  translated_statuses-label-status_id-1: 삽입함
+  translated_statuses-label-status_id-1: 넣음
   translated_statuses-label-status_id-2: 업데이트됨
   translated_statuses-label-status_id-3: 바뀌지 않음
   translated_statuses-label-status_id-4: 다시 사용함
@@ -221,8 +221,8 @@ ko:
   translated_synonym_relations-label-synonym_relation_id-33: 사용할 수 없는 잘못된 문헌 철자
   translated_synonym_relations-label-synonym_relation_id-34: 원래 이름/조합
   translated_synonym_relations-label-synonym_relation_id-35: 사용할 수 없는 잘못된 원래 철자
-  translated_synonym_relations-label-synonym_relation_id-36: 연소 동명이인
-  translated_synonym_relations-label-synonym_relation_id-37: 동명이인 & 연소 동의어
+  translated_synonym_relations-label-synonym_relation_id-36: 연소 동음이의어
+  translated_synonym_relations-label-synonym_relation_id-37: 동음이의어 & 연소 동의어
   translated_synonym_relations-label-synonym_relation_id-38: 사용할 수 없는 판결에 의한 억압
   translated_synonym_relations-label-synonym_relation_id-39: 정당한 교정
   translated_synonym_relations-label-synonym_relation_id-4: 아나모프 (anamorph)
@@ -236,8 +236,8 @@ ko:
   translated_synonym_relations-label-synonym_relation_id-47: 동형 동명어
   translated_synonym_relations-label-synonym_relation_id-48: 사용할 수 없는 이름
   translated_synonym_relations-label-synonym_relation_id-49: 올바른 이름
-  translated_synonym_relations-label-synonym_relation_id-5: 폭풍 이름
-  translated_synonym_relations-label-synonym_relation_id-50: 유효
+  translated_synonym_relations-label-synonym_relation_id-5: 블래스트 이름
+  translated_synonym_relations-label-synonym_relation_id-50: 올바름
   translated_synonym_relations-label-synonym_relation_id-51: 승인함
   translated_synonym_relations-label-synonym_relation_id-52: 권위
   translated_synonym_relations-label-synonym_relation_id-53: 게시하지 않는 이름
@@ -331,7 +331,7 @@ ko:
   translated_table_of_contents-label-table_of_contents_id-342: 시민 과학 링크
   translated_table_of_contents-label-table_of_contents_id-343: 생물 다양성 유산 도서관
   translated_table_of_contents-label-table_of_contents_id-344: 데이터
-  translated_table_of_contents-label-table_of_contents_id-345: 데이터 소스
+  translated_table_of_contents-label-table_of_contents_id-345: 데이터 원본
   translated_table_of_contents-label-table_of_contents_id-346: 생명 공학 용어
   translated_table_of_contents-label-table_of_contents_id-347: 분류
   translated_table_of_contents-label-table_of_contents_id-348: 종류 정보
@@ -352,8 +352,8 @@ ko:
   translated_user_identities-label-user_identity_id-4: 시민 과학자
   translated_user_identities-label-user_identity_id-5: 전문 과학자
   translated_vetted-label-vetted_id-0: 알 수 없음
-  translated_vetted-label-vetted_id-4: 신뢰하지 않음
-  translated_vetted-label-vetted_id-5: 신뢰함
+  translated_vetted-label-vetted_id-4: 신뢰할 수 없음
+  translated_vetted-label-vetted_id-5: 신뢰할 수 있음
   translated_vetted-label-vetted_id-6: 부적절
   translated_view_styles-name-view_style_id-1: 목록
   translated_view_styles-name-view_style_id-2: 갤러리

@@ -12,5 +12,6 @@ Disallow: /api/hierarchy_entries/
 Disallow: /api/provider_hierarchies/
 Disallow: /api/hierarchies/
 Disallow: /api/search_by_provider/
+Disallow: /search
 Disallow: /uploads/
 Disallow: /maintenance

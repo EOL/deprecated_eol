@@ -21,7 +21,7 @@
             = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :editable => editable, :actual_date => actual_date, :display_curator => display_curator}
         - else
           - if item.user.nil?
-            = raw I18n.t(:the_user_who_performed_this_action_was_removed)
+            = image_tag(User.new.logo_url(:small), :class => 'no_user')
           - else
             = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
               :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'

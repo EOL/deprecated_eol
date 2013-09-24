@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 def data_object_create_edit_variables_should_be_assigned
   assigns[:data_object].should be_a(DataObject)
+  assigns[:toc_items].should_not be_nil
   assigns[:toc_items].first.should be_a(TocItem)
   assigns[:toc_items].select{|ti| ti.id == assigns[:selected_toc_item_id]}.first.should be_a(TocItem)
   assigns[:languages].first.should be_a(Language)
@@ -12,7 +13,6 @@ end
 
 describe DataObjectsController do
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     @taxon_concept = TaxonConcept.gen
     @user = User.gen
@@ -51,13 +51,21 @@ describe DataObjectsController do
       data_object_create_edit_variables_should_be_assigned
       response.should render_template('data_objects/new')
     end
-    it 'should only create users data object of data type text' do
-      post :create, { :taxon_id => @taxon_concept.id,
-                      :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.image.id.to_s,
-                                        :object_title => "Test Article", :description => "Test text" } },
-                    { :user => @user, :user_id => @user.id }
-      data_object_create_edit_variables_should_be_assigned
-      response.should render_template('data_objects/new')
+    it 'should create Link objects and prefix URLs with http://' do
+      TocItem.gen_if_not_exists(:label => 'overview')
+      post :create, { :taxon_id => 1, :commit_link => true,
+                      :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
+                                        :link_types => { :id => LinkType.blog.id.to_s }, :source_url => 'eol.org',
+                                        :object_title => "Link to EOL", :language_id => Language.english.id.to_s,
+                                        :description => "Link text" } },
+                      { :user => @user, :user_id => @user.id }
+      DataObject.exists?(assigns[:data_object]).should == true
+      assigns[:data_object].link?.should == true
+      assigns[:data_object].data_type.should == DataType.text
+      assigns[:data_object].data_subtype.should == DataType.link
+      assigns[:data_object].link_type.should == LinkType.blog
+      assigns[:data_object].toc_items.should == [ TocItem.overview ]
+      assigns[:data_object].source_url.should == "http://eol.org"  # even though it was submitted as eol.org
     end
   end
 
@@ -88,5 +96,33 @@ describe DataObjectsController do
       response.should render_template('data_objects/edit')
     end
     it 'should create a new data object revision'
+  end
+
+  describe 'GET crop' do
+    before(:each) do
+      @image = DataObject.gen(:data_type_id => DataType.image.id, :object_cache_url => FactoryGirl.generate(:image))
+    end
+
+    it 'should not allow access to non-curators' do
+      get :crop, { :id => @image.id }
+      response.should redirect_to(login_url)
+
+      expect { get :crop, { :id => @image.id }, { :user => @user, :user_id => @user.id } }.
+        to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == "min_assistant_curators_only"}
+    end
+
+    it 'should allow access to curators' do
+      curator = build_curator(TaxonConcept.gen, :level => :assistant)
+      original_object_cache_url = @image.object_cache_url
+      new_object_cache_url = FactoryGirl.generate(:image)
+      new_object_cache_url.should_not == original_object_cache_url
+      @image.object_cache_url.should == original_object_cache_url
+      ContentServer.should_receive(:update_data_object_crop).and_return(new_object_cache_url)
+      get :crop, { :id => @image.id, :x => 0, :y => 0, :w => 1 }, { :user => curator, :user_id => curator.id }
+      @image.reload
+      @image.object_cache_url.should == new_object_cache_url
+      response.should redirect_to(data_object_path(@image))
+      flash[:notice].should == "Image was cropped successfully."
+    end
   end
 end

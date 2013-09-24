@@ -10,25 +10,24 @@ class RefIdentifier < ActiveRecord::Base
   # A method that takes the identifier attribute, cleans it up, and adds the protocol (if it's missing).
   # This only works for DOI and URL identifiers.  We return the identifier as-is if we don't know the type.
   def link_to_identifier
-    tmp_identifier = self.identifier
     if self.url?
-      tmp_identifier = "http://#{tmp_identifier}" unless tmp_identifier =~ /http/i
+      return "http://#{self.identifier}" unless self.identifier =~ /http/i
     elsif self.doi?
-      tmp_identifier.sub!(/^.*(10\.\d+\/\S*).*$/, "http://dx.doi.org/\\1")
+      return self.identifier.sub(/^.*(10\.\d+\/\S*).*$/, "http://dx.doi.org/\\1")
     end
-    return tmp_identifier
+    return self.identifier
   end
 
   def display?
-    return (self.url? or self.doi?)
+    return (self.url? || self.doi?)
   end
 
   def url?
-    return self.ref_identifier_type.label =~ /url/i 
+    return self.ref_identifier_type.label == 'url'
   end
 
   def doi?
-    return self.ref_identifier_type.label =~ /doi/i
+    return self.ref_identifier_type.label == 'doi'
   end
 
 end

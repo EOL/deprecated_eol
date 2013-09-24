@@ -8,7 +8,7 @@
   - action_text = I18n.t("has_hidden_your_image")
 - else
   - action_text = I18n.t("has_curated_your_image")
-- profile_link = user_url(curator_activity_log.user, :host => 'eol.org')
-- data_object_link = url_for(:controller => :data_objects, :action => curator_activity_log.data_object.id, :only_path => false, :host => 'eol.org')
+- profile_link = user_url(curator_activity_log.user, :host => 'eol.org', :port => nil)
+- data_object_link = data_object_url(curator_activity_log.data_object.id, :host => 'eol.org', :port => nil)
 - comment = curator_activity_log.comment.nil? ? "" : ":\n#{curator_activity_log.comment.body}"
-= I18n.t(:eol_curator_activity_email_message, :profile_url => profile_link, :curator_full_name => curator_activity_log.user.full_name, :action => action_text, :data_object_url => data_object_link, :comment => comment)
+= raw I18n.t(:eol_curator_activity_email_message, :profile_url => profile_link, :curator_full_name => curator_activity_log.user.full_name, :action => action_text, :data_object_url => data_object_link, :comment => comment)

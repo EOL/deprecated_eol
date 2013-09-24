@@ -5,12 +5,12 @@
     = link_to image_tag(thumb), data_object_path(item)
   = link_to content_tag(:span, '', {:class => 'icon', :title => en_type.blank? ? nil : I18n.t("item_type_#{en_type}_assistive")}), data_object_path(item)
 %h4
-  = link_to truncate(item.best_title, :length => 64).balance_tags, data_object_path(item)
+  = link_to item.collected_name.truncate_html(:length => 64), data_object_path(item)
   - if view_style == 'list' && !en_type.blank? && @filter.nil?
     %small= I18n.t("item_type_#{en_type}")
 - unless ['gallery','list'].include?(view_style)
   - if he = item.first_hierarchy_entry(:include_preview_entries => true)
     - secondary_title = he.title_canonical
-  - if item.published_entries.length > 1
-    - secondary_title = [secondary_title, I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)].to_sentence
+  - if item.data_object_taxa(published: true).length > 1
+    - secondary_title = [secondary_title, I18n.t(:other_taxa_with_count, :count => item.data_object_taxa(published: true).length - 1)].to_sentence
   = link_to I18n.t("#{en_type}_of_taxon", :taxon_name => secondary_title), data_object_path(item)

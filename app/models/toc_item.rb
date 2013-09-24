@@ -11,201 +11,238 @@ class TocItem < ActiveRecord::Base
 
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
 
-  def self.exclude_editable
-    ['Barcode', 'Wikipedia', 'Education', 'Nucleotide Sequences']
-  end
+  class << self 
 
-  def self.toc_object_counts
-    cached('toc_object_counts') do
-      TocItem.count_objects
+    def exclude_editable
+      ['Barcode', 'Wikipedia', 'Education', 'Nucleotide Sequences']
     end
-  end
 
-  def self.count_objects
-    counts = []
-    count_hash = TocItem.connection.select_rows("select toc.id, count(*) from table_of_contents toc
-      join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id)
-      join data_objects do on (dotoc.data_object_id=do.id)
-      join data_objects_hierarchy_entries dohe on do.id = dohe.data_object_id
-      where do.published=1 and dohe.visibility_id=#{Visibility.visible.id} group by toc.id")
-    count_hash.each do |id, count|
-      counts[id.to_i] = count.to_i
-    end
-    return counts
-  end
-
-  def self.bhl
-    # because TocItems are cached with info_items already loaded, we need to have the InfoItem class loaded
-    # before this block. The only way I could see was to just reference the model here, which removed those errors
-    InfoItem
-    cached_find_translated(:label, 'Biodiversity Heritage Library', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.content_partners
-    InfoItem
-    cached_find_translated(:label, 'Content Partners', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.name_and_taxonomy
-    InfoItem
-    cached_find_translated(:label, 'Names and Taxonomy', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.related_names
-    InfoItem
-    cached_find_translated(:label, 'Related Names', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.synonyms
-    InfoItem
-    cached('synonyms') do
-      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label('en') == 'Synonyms' }
-      r.blank? ? nil : r[0]
-    end
-  end
-  def self.common_names
-    InfoItem
-    cached('common_names') do
-      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label('en') == 'Common Names' }
-      r.blank? ? nil : r[0]
-    end
-  end
-  def self.page_statistics
-    InfoItem
-    cached_find_translated(:label, 'Page Statistics', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.content_summary
-    InfoItem
-    cached_find_translated(:label, 'Content Summary', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.overview
-    InfoItem
-    cached_find_translated(:label, 'Overview', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.possible_overview_ids
-    [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].map(&:id)
-  end
-  def self.education
-    InfoItem
-    cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.education_resources
-    InfoItem
-    cached_find_translated(:label, 'Education Resources', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.identification_resources
-    InfoItem
-    cached_find_translated(:label, 'Identification Resources', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.biomedical_terms
-    InfoItem
-    cached_find_translated(:label, 'Biomedical Terms', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.literature_references
-    InfoItem
-    cached_find_translated(:label, 'Literature References', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.nucleotide_sequences
-    InfoItem
-    cached_find_translated(:label, 'Nucleotide Sequences', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.citizen_science_links
-    InfoItem
-    cached_find_translated(:label, 'Citizen Science links', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.wikipedia
-    InfoItem
-    cached_find_translated(:label, 'Wikipedia', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.brief_summary
-    InfoItem
-    cached_find_translated(:label, 'Brief Summary', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.comprehensive_description
-    InfoItem
-    cached_find_translated(:label, 'Comprehensive Description', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.distribution
-    InfoItem
-    cached_find_translated(:label, 'Distribution', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.find_by_en_label(label)
-    InfoItem
-    cached_find_translated(:label, label, :include => [ :info_items, { :parent => :info_items } ])
-  end
-
-  def self.exclude_from_details
-    cached('exclude_from_details') do
-      temp = []
-      # Education:
-      temp = temp | ["Education", "Education Resources", "High School Lab Series"] # to Resource tab
-      # Physical Description:
-      temp = temp | ["Identification Resources"] # to Resource tab
-      # References and More Information:
-      temp = temp | ["Search the Web"] # to be removed
-      temp = temp | ["Literature References", "Biodiversity Heritage Library", "Bibliographies", "Bibliography"] # to Literature Tab
-      temp = temp | ["Biomedical Terms", "On the Web"] # to Resources tab
-      # Names and Taxonomy: ---> Names Tab
-      temp = temp | ["Related Names", "Synonyms", "Common Names"]
-      # Page Statistics:
-      temp = temp | ["Content Summary"] # to Updates tab
-      # Resources:
-      temp = temp | ["Content Partners"] # to Resource tab
-      # Citizen Science - to Resource tab
-      temp = temp | ["Citizen Science"]
-      temp = temp | ["Citizen Science links"]
-      temp.collect{ |label| TocItem.cached_find_translated(:label, label, 'en', :find_all => true) }.flatten.compact
-    end
-  end
-
-  def self.last_major_chapter
-    TocItem.find_all_by_parent_id(0, :order => 'view_order desc')[0]
-  end
-
-  def self.swap_enries(toc1, toc2)
-    return unless toc1.class==TocItem && toc2.class==TocItem
-    return if toc1.is_major? != toc2.is_major?
-
-    if toc1.is_sub?
-      swap_view_order = toc1.view_order
-      toc1.view_order = toc2.view_order
-      toc2.view_order = swap_view_order
-      toc1.save
-      toc2.save
-    else
-      # make sure toc1 is higher in the list
-      if toc1.view_order > toc2.view_order
-        toc1, toc2 = toc2, toc1
+    def toc_object_counts
+      cached('toc_object_counts') do
+        TocItem.count_objects
       end
-      to_subtract = toc1.chapter_length
-      TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{toc2.chapter_length} WHERE id=#{toc1.id} OR parent_id=#{toc1.id}")
-      TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{to_subtract} WHERE id=#{toc2.id} OR parent_id=#{toc2.id}")
     end
-  end
 
-  def self.selectable_toc
-    InfoItem
-    cached("selectable_toc/#{I18n.locale}") {
-      excluded = TocItem.exclude_editable
-      all = TocItem.find(:all, :include => :info_items).select {|toc|
-        toc.allow_user_text?
-      }.sort_by { |toc| toc.label.to_s }
-    }
-  end
+    def count_objects
+      counts = []
+      count_hash = TocItem.connection.select_rows("select toc.id, count(*) from table_of_contents toc
+        join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id)
+        join data_objects do on (dotoc.data_object_id=do.id)
+        join data_objects_hierarchy_entries dohe on do.id = dohe.data_object_id
+        where do.published=1 and dohe.visibility_id=#{Visibility.visible.id} group by toc.id")
+      count_hash.each do |id, count|
+        counts[id.to_i] = count.to_i
+      end
+      return counts
+    end
 
-  def self.roots
-    TocItem.find_all_by_parent_id(0, :order => 'view_order', :include => :info_items)
-  end
+    def bhl
+      # because TocItems are cached with info_items already loaded, we need to have the InfoItem class loaded
+      # before this block. The only way I could see was to just reference the model here, which removed those errors
+      InfoItem
+      cached_find_translated(:label, 'Biodiversity Heritage Library', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def content_partners
+      InfoItem
+      @@content_partners ||= cached_find_translated(:label, 'Content Partners', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def name_and_taxonomy
+      InfoItem
+      @@name_and_taxonomy ||= cached_find_translated(:label, 'Names and Taxonomy', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def related_names
+      InfoItem
+      @@related_names ||= cached_find_translated(:label, 'Related Names', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def synonyms
+      InfoItem
+      cached('synonyms') do
+        r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label('en') == 'Synonyms' }
+        r.blank? ? nil : r[0]
+      end
+    end
+    def common_names
+      InfoItem
+      cached('common_names') do
+        r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label('en') == 'Common Names' }
+        r.blank? ? nil : r[0]
+      end
+    end
+    def page_statistics
+      InfoItem
+      cached_find_translated(:label, 'Page Statistics', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def content_summary
+      InfoItem
+      cached_find_translated(:label, 'Content Summary', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def overview
+      InfoItem
+      cached_find_translated(:label, 'Overview', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def possible_overview_ids
+      [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].map(&:id)
+    end
+    # There are multiple education chapters - one is the parent of the others (but we don't care which is which, here)
+    def education_chapters
+      cached_find_translated(:label, 'Education', 'en', :find_all => true)
+    end
+    def education_root
+      @education_root ||= TocItem.education_chapters.detect{ |toc_item| toc_item.is_parent? }
+    end
+    def education_toc_ids
+      @education_toc_ids ||= TocItem.education_chapters.map(&:id)
+    end
+    def education
+      InfoItem
+      cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def education_resources
+      InfoItem
+      cached_find_translated(:label, 'Education Resources', :include => [ :info_items, { :parent => :info_items } ])
+    end
 
-  def self.whole_tree
-    TocItem.all(:order => 'view_order', :include => :info_items)
-  end
+    def identification_resources
+      InfoItem
+      @@identification_resources ||= cached_find_translated(:label, 'Identification Resources', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def biomedical_terms
+      InfoItem
+      cached_find_translated(:label, 'Biomedical Terms', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def literature_references
+      InfoItem
+      cached_find_translated(:label, 'Literature References', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def nucleotide_sequences
+      InfoItem
+      cached_find_translated(:label, 'Nucleotide Sequences', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def citizen_science
+      InfoItem
+      @@citizen_science ||= cached_find_translated(:label, 'Citizen Science', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def citizen_science_links
+      InfoItem
+      @@citizen_science_links ||= cached_find_translated(:label, 'Citizen Science links', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def wikipedia
+      InfoItem
+      cached_find_translated(:label, 'Wikipedia', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def brief_summary
+      InfoItem
+      cached_find_translated(:label, 'Brief Summary', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def comprehensive_description
+      InfoItem
+      cached_find_translated(:label, 'Comprehensive Description', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def distribution
+      InfoItem
+      cached_find_translated(:label, 'Distribution', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def find_by_en_label(label)
+      InfoItem
+      cached_find_translated(:label, label, :include => [ :info_items, { :parent => :info_items } ])
+    end
 
-  def self.add_major_chapter(new_label)
-    return if new_label.blank?
-    max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents")[0].to_i
-    next_view_order = max_view_order + 1
-    TocItem.create(:parent_id => 0, :view_order => next_view_order)
-    new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
-    TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
-  end
+    def exclude_from_details
+      @@exclude_from_details ||= cached('exclude_from_details') do
+        temp = []
+        # Education:
+        temp = temp | ["Education", "Education Resources", "High School Lab Series"] # to Resource tab
+        # Physical Description:
+        temp = temp | ["Identification Resources"] # to Resource tab
+        # References and More Information:
+        temp = temp | ["Search the Web"] # to be removed
+        temp = temp | ["Literature References", "Biodiversity Heritage Library", "Bibliographies", "Bibliography"] # to Literature Tab
+        temp = temp | ["Biomedical Terms", "On the Web"] # to Resources tab
+        # Names and Taxonomy: ---> Names Tab
+        temp = temp | ["Related Names", "Synonyms", "Common Names"]
+        # Page Statistics:
+        temp = temp | ["Content Summary"] # to Updates tab
+        # Resources:
+        temp = temp | ["Content Partners"] # to Resource tab
+        # Citizen Science - to Resource tab
+        temp = temp | ["Citizen Science"]
+        temp = temp | ["Citizen Science links"]
+        temp.collect{ |label| TocItem.cached_find_translated(:label, label, 'en', :find_all => true) }.flatten.compact
+      end
+    end
 
+    def last_major_chapter
+      TocItem.find_all_by_parent_id(0, :order => 'view_order desc')[0]
+    end
+
+    def swap_enries(toc1, toc2)
+      return unless toc1.class==TocItem && toc2.class==TocItem
+      return if toc1.is_major? != toc2.is_major?
+
+      if toc1.is_sub?
+        swap_view_order = toc1.view_order
+        toc1.view_order = toc2.view_order
+        toc2.view_order = swap_view_order
+        toc1.save
+        toc2.save
+      else
+        # make sure toc1 is higher in the list
+        if toc1.view_order > toc2.view_order
+          toc1, toc2 = toc2, toc1
+        end
+        to_subtract = toc1.chapter_length
+        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{toc2.chapter_length} WHERE id=#{toc1.id} OR parent_id=#{toc1.id}")
+        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{to_subtract} WHERE id=#{toc2.id} OR parent_id=#{toc2.id}")
+      end
+    end
+
+    def selectable_toc
+      InfoItem
+      cached("selectable_toc/#{I18n.locale}") {
+        excluded = TocItem.exclude_editable
+        all = TocItem.find(:all, :include => :info_items).select {|toc|
+          toc.allow_user_text?
+        }.sort_by { |toc| toc.label.to_s }
+      }
+    end
+
+    def roots
+      TocItem.find_all_by_parent_id(0, :order => 'view_order', :include => :info_items)
+    end
+
+    def whole_tree
+      TocItem.all(:order => 'view_order', :include => :info_items)
+    end
+
+    def add_major_chapter(new_label)
+      return if new_label.blank?
+      max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents")[0].to_i
+      next_view_order = max_view_order + 1
+      TocItem.create(:parent_id => 0, :view_order => next_view_order)
+      new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
+      TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
+    end
+
+    # this just gets the TOCitems and their parents for the text given, sorted by view_order
+    def table_of_contents_for_text(text_objects)
+      DataObject.preload_associations(text_objects, { :toc_items => :parent })
+      toc = []
+      text_objects.each do |obj|
+        next unless obj.toc_items
+        obj.toc_items.each do |toc_item|
+          toc << toc_item
+          if p = toc_item.parent
+            toc << p
+          end
+        end
+      end
+      toc.compact!
+      toc.uniq!
+      toc.sort_by(&:view_order)
+    end
+
+  end
+    
   def object_count
     counts = TocItem.toc_object_counts
     return counts[id] || 0
@@ -325,6 +362,14 @@ class TocItem < ActiveRecord::Base
 
   def first_of_type
     TocItem.find_all_by_parent_id(parent_id, :order => 'view_order asc')[0]
+  end
+
+  def citizen_science
+    TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
+  end
+
+  def citizen_science_links
+    TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
   end
 
   def chapter_length

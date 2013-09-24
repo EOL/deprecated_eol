@@ -10,6 +10,7 @@
       = render :partial => "/data_objects/data_object_article", :locals => { :link_object => true }
     - else
       = render :partial => "/data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
+    = link_to_full_size
   - unless @data_object.is_text? # NOTE - text description was already shown in partial above so we don't want to show it again.
     = render :partial => '/data_objects/description', :locals => { :data_object => @data_object }
   - unless for_worklist
@@ -26,15 +27,13 @@
           = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision)
 #sidebar
   = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
+  - if (current_user.is_curator? || current_user.is_admin?) && @latest_published_revision && @latest_published_revision.id == @data_object.id
+    = render :partial => '/data_objects/image_cropper', :locals => { :data_object => @data_object }
   .article.source
     .header
       %h3= I18n.t(:source_information_header)
     = render :partial => '/data_objects/attribution', :locals => { :supplier => true }
-    - if @data_object.is_image?
-      - if @data_object.access_image_from_remote_server?(:orig)
-        %p= link_to I18n.t(:view_full_size_image), @data_object.object_url
-      - else
-        %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
+    = link_to_full_size
   - if @data_object.translated_from
     .article.source
       .header

@@ -1,0 +1,44 @@
+%form#api_test_form{ :action => url_for(:controller => '/api', :action => @api_method.method_name, :version => @api_method::VERSION, :only_path => false) }
+  %table
+    %col.name
+    %col.required
+    %col.value
+    %thead
+      %tr
+        %th= I18n.t('name')
+        %th= I18n.t('required')
+        %th= I18n.t('value')
+    - required_label = I18n.t('yes_answer')
+    - unless @api_method.parameters.blank?
+      - @api_method.parameters.each do |p|
+        %tr
+          %td= p.name
+          %td= p.required ? required_label : ''
+          %td
+            - test_default = p.test_value || p.default
+            -# when there is an array of possible values, use a drop-down list
+            - if p.array?
+              %select{ :name => p.name }
+                - if test_default.blank?
+                  %option{ :value => '', :selected => true }= I18n.t('none')
+                - p.values.each do |value|
+                  %option{ :value => value, :selected => (value == test_default) }= value
+            - elsif p.boolean?
+              -# boolean values get a drop-down with True or False
+              %select{ :name => p.name }
+                %option{ :value => 'false' }= I18n.t('false_label')
+                %option{ :value => 'true', :selected => (test_default == true) }= I18n.t('true_label')
+            - else
+              -# integers get a shorter text field
+              - size = (p.integer?) ? 15 : 50
+              %input{ :name => p.name, :type => 'text', :size => size, :value => test_default }
+    %tr
+      %td= 'format'
+      %td= required_label
+      %td
+        %select{ :name => 'format' }
+          %option{ :value => 'json' }= 'JSON'
+          %option{ :value => 'xml' }= 'XML'
+    %tr
+      %td{ :colspan => 3 }
+        %input{ :type => 'submit', :value => I18n.t('call_api') }

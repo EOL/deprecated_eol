@@ -3,6 +3,29 @@ class DataType < ActiveRecord::Base
   has_many :data_objects
   @@full_attribution_order = nil
 
+  def self.create_defaults
+    [{:label => 'Image', :schema_value => 'http://purl.org/dc/dcmitype/StillImage'},
+     {:label => 'Sound', :schema_value => 'http://purl.org/dc/dcmitype/Sound'},
+     {:label => 'Text',  :schema_value => 'http://purl.org/dc/dcmitype/Text'},
+     {:label => 'Video', :schema_value => 'http://purl.org/dc/dcmitype/MovingImage'},
+     {:label => 'GBIF Image'},
+     {:label => 'IUCN'},
+     {:label => 'Flash'},
+     {:label => 'YouTube'},
+     {:label => 'Map'},
+     {:label => 'Link'}].each do |default|
+      trans = TranslatedDataType.find_by_label_and_language_id(default[:label], Language.default.id)
+      next if trans && trans.data_type # Already there.
+      dt = DataType.create(:schema_value => default[:schema_value] || default[:label])
+      if trans && ! trans.data_type
+        trans.data_type = dt
+        trans.save
+      else
+        TranslatedDataType.create(:label => default[:label], :data_type => dt, :language => Language.default)
+      end
+    end
+  end
+
   def to_s
     label
   end
@@ -21,41 +44,41 @@ class DataType < ActiveRecord::Base
   end
 
   def self.text
-    cached_find_translated(:label, 'Text')
+    @@text ||= cached_find_translated(:label, 'Text')
   end
 
   def self.image
-    cached_find_translated(:label, 'Image')
+    @@image ||= cached_find_translated(:label, 'Image')
   end
 
   def self.sound
-    cached_find_translated(:label, 'Sound')
+    @@sound ||= cached_find_translated(:label, 'Sound')
   end
 
   def self.video
-    cached_find_translated(:label, 'Video')
+    @@video ||= cached_find_translated(:label, 'Video')
   end
 
   # TODO -this is essentially "SWF" and could be handled as Video...
   def self.youtube
-    cached_find_translated(:label, 'YouTube')
+    @@youtube ||= cached_find_translated(:label, 'YouTube')
   end
 
   # TODO -this is essentially "SWF" and could be handled as Video...
   def self.flash
-    cached_find_translated(:label, 'Flash')
+    @@flash ||= cached_find_translated(:label, 'Flash')
   end
 
   def self.iucn
-    cached_find_translated(:label, 'IUCN')
+    @@iucn ||= cached_find_translated(:label, 'IUCN')
   end
   
   def self.map
-    cached_find_translated(:label, 'Map')
+    @@youtubmape ||= cached_find_translated(:label, 'Map')
   end
   
   def self.link
-    cached_find_translated(:label, 'Link')
+    @@link ||= cached_find_translated(:label, 'Link')
   end
 
   def self.sound_type_ids

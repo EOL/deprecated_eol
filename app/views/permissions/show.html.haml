@@ -1,0 +1,10 @@
+%table#permissions
+  %tr
+    %th= I18n.t(:user)
+    %th= I18n.t(:actions)
+  - @permission.users.all.sort_by(&:username).each do |user|
+    %tr{:id => "user_#{user.id}" }
+      %td
+        = link_to user.username, user
+      %td
+        = link_to(I18n.t(:revoke_permission), revoke_permission_user_path(user, :permission_id => @permission.id, 'data-type' => :json), :remote => true)

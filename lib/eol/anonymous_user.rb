@@ -43,6 +43,7 @@ module EOL
           :all_collections => [],
           :assistant_curator? => false,
           :blank? => true,
+          :can? => false,
           :can_create? => false,
           :can_delete? => false,
           :can_edit_collection? => false,
@@ -51,6 +52,7 @@ module EOL
           :content_page_cache_str => 'anonymous',
           :credentials => '',
           :curator_scope => '',
+          :default_language? => true,
           :email => '',
           :full_name => I18n.t(:anonymous_user_full_name),
           :given_name => I18n.t(:anonymous_user_given_name),
@@ -69,6 +71,8 @@ module EOL
           :tag_line => I18n.t(:anonymous_user_tag_line),
           :username => I18n.t(:anonymous_user_given_name),
           :vetted => false,
+          :visibility_types => ['visible'],
+          :vetted_types => ['trusted', 'unreviewed'],
           :news_in_preferred_language => false,
           :watch_collection => nil}
         end

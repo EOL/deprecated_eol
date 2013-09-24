@@ -35,6 +35,7 @@ RSpec.configure do |config|
 
   truncate_all_tables_once
 
+  # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
   config.after(:each) do
     Rails.cache.clear if Rails.cache
   end
@@ -47,7 +48,9 @@ RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
-  #     --seed 1234
+  #     --seed 1234        ( or --order rand:1234 )
+  # Or run in in the order they are declared in the file with
+  #     --order default
   config.order = "random"
 end
 

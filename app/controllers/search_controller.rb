@@ -13,6 +13,8 @@ class SearchController < ApplicationController
     @params_type = ['all'] if @params_type.include?('all')
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
+    params[:id] = nil
+    params[:q] = @querystring
 
     if request.format == Mime::XML
       return redirect_to :controller => "api", :action => "search", :id => @querystring
@@ -30,12 +32,23 @@ class SearchController < ApplicationController
       end
     end
 
+    params[:exact] = false
+    # if the querystring is a double-quoted string, then interpret this as an exact search
+    if @querystring =~ /^".*"$/
+      @querystring = @querystring[1...-1]
+      params[:exact] = true
+    end
+
     @page_title  = I18n.t(:search_by_term_page_title, :term => @querystring)
     if @querystring.blank? || bad_query
       @all_results = empty_paginated_set
       @facets = {}
     else
       search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page }))
+      if $STATSD
+        $STATSD.increment 'all_searches'
+        # $STATSD.increment "searches.#{@querystring}"
+      end
       @all_results = search_response[:results]
       @facets = (@wildcard_search) ? {} : EOL::Solr::SiteSearch.get_facet_counts(@querystring)
       @suggestions = search_response[:suggestions]
@@ -51,10 +64,8 @@ class SearchController < ApplicationController
     params.delete(:type) if params[:type] == ['all']
     params.delete(:sort_by) if params[:sort_by] == 'score'
 
-    @rel_canonical_href = search_url({:q => @querystring, :show_all => true,
-      :page => rel_canonical_href_page_number(@all_results)})
-    @rel_prev_href = rel_prev_href_params(@all_results) ? search_url(@rel_prev_href_params) : nil
-    @rel_next_href = rel_next_href_params(@all_results) ? search_url(@rel_next_href_params) : nil
+    set_canonical_urls(:for => {:q => @querystring, :show_all => true}, :paginated => @all_results,
+                       :url_method => :search_url)
   end
 
   # there are various object types which can be the only result. This method handles redirecting to all of them
@@ -79,7 +90,7 @@ class SearchController < ApplicationController
     elsif result_instance.class == User
       redirect_to user_path(result_instance.id)
     elsif result_instance.class == TaxonConcept
-      redirect_to overview_taxon_path(result_instance.id)
+      redirect_to taxon_overview_path(result_instance.id)
     elsif result_instance.class == ContentPage
       redirect_to cms_page_path(result_instance.id)
     end

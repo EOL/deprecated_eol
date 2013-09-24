@@ -5,6 +5,9 @@ require 'nokogiri'
 # WARNING: Regarding use of subject in this spec, if you are using with_tag you must specify body.should
 # due to bug @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
 
+# NOTE - I hate this spec. It's really, really hard to debug when something goes wrong. ...if anything is actually wrong.  In fact, I wonder if
+# this spec is effectively useless.
+
 class TaxonConcept
   def self.missing_id
     missing_id = TaxonConcept.last.id + 1
@@ -23,13 +26,55 @@ def remove_classification_filter_if_used
   end
 end
 
+describe 'Taxa page basic tests' do
+  before(:all) do
+    load_foundation_cache
+  end
+
+  it 'should not convert ampersands in preferred common names' do
+    tc = build_taxon_concept
+    curator = build_curator(tc)
+    tc.add_common_name_synonym("Tom & Jerry", :agent => curator.agent, :language => Language.english,
+                               :vetted => Vetted.trusted, :preferred => true)
+    visit taxon_overview_path(tc.id)
+    body.should include('Tom &amp; Jerry')
+    body.should_not include('Tom &amp;amp; Jerry')
+  end
+
+  it 'should not convert ampersands in preferred common names' do
+    tc = build_taxon_concept
+    curator = build_curator(tc)
+    tc.add_common_name_synonym("Tom&#39;s Jerry", :agent => curator.agent, :language => Language.english,
+                               :vetted => Vetted.trusted, :preferred => true)
+    visit taxon_overview_path(tc.id)
+    body.should include("Tom's Jerry")
+    body.should_not include('Tom&#39;s Jerry')
+  end
+
+  it 'should not show deleted communities in overview' do
+    tc = build_taxon_concept
+    collection = Collection.gen
+    collection.add(tc)
+    community = Community.gen(:name => "This is for testing")
+    collection.communities << community
+    # published communities will show
+    visit taxon_overview_path(tc.id)
+    body.should include(community.name)
+    # unpublished communities will not show
+    community.update_column(:published, false)
+    visit taxon_overview_path(tc.id)
+    body.should_not include(community.name)
+  end
+end
+
 describe 'Taxa page' do
 
   before(:all) do
     # so this part of the before :all runs only once
-    unless User.find_by_username('testy_scenario')
+    unless User.find_by_username('testy_taxa_page_spec')
       truncate_all_tables
       load_scenario_with_caching(:testy)
+      User.gen(:username => 'testy_taxa_page_spec')
     end
     @testy = EOL::TestInfo.load('testy')
     @taxon_concept = @testy[:taxon_concept]
@@ -54,10 +99,12 @@ describe 'Taxa page' do
     it 'should not show unpublished user data objects'
     it 'should only show the most recent revision of a user data object'
 
+    # NOTE - all of these strings come from the scenario loaded above...
     it 'should show text references' do
       should include('A published visible reference for testing.')
     end
     it 'should show doi identifiers for references' do
+      # TODO - this is failing in the full suite, and I want to know why.  Caching, prolly.
       should include('A published visible reference with a DOI identifier for testing.')
     end
     it 'should show url identifiers for references' do
@@ -95,13 +142,13 @@ describe 'Taxa page' do
     end
 
     it 'should show action to set article as an exemplar' do
-      should have_selector("div.actions p a", :content => I18n.t(:show_in_overview))
+      should have_selector("div.actions p a", :text => I18n.t(:show_in_overview))
     end
 
     it 'should show "Add an article or link to this page" button to the logged in users' do
-      should have_selector("#page_heading .page_actions li a", :content => "Add an article")
-      should have_selector("#page_heading .page_actions li a", :content => "Add a link")
-      should have_selector("#page_heading .page_actions li a", :content => "Add to a collection")
+      should have_selector("#page_heading .page_actions li a", :text => "Add an article")
+      should have_selector("#page_heading .page_actions li a", :text => "Add a link")
+      should have_selector("#page_heading .page_actions li a", :text => "Add to a collection")
     end
   end
 
@@ -116,8 +163,7 @@ describe 'Taxa page' do
     end
     it 'should have taxon links for the images in the gallery' do
       (0..3).each do |i|
-        taxon = @taxon_concept.images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.entry.canonical_form.string
-        should have_selector("a[href='#{overview_taxon_path(@taxon_concept)}']", :content => taxon)
+        should have_selector("a[href='#{taxon_overview_path(@taxon_concept)}']")
       end
     end
 
@@ -129,11 +175,11 @@ describe 'Taxa page' do
 
     it 'should show summary text' do
       # TODO: Test the summary text selection logic - as model spec rather than here (?)
-      should have_selector('div#text_summary', :content => @testy[:brief_summary_text])
+      should have_selector('div#text_summary', :text => @testy[:brief_summary_text])
     end
 
     it 'should show table of contents label when text object title does not exist' do
-      should have_selector('h3', :content => @testy[:brief_summary].label)
+      should have_selector('h3', :text => @testy[:brief_summary].label)
     end
 
     it 'should show classifications'
@@ -144,17 +190,11 @@ describe 'Taxa page' do
   end
 
   shared_examples_for 'taxon resources tab' do
-    it 'should include Identification Resources' do
-      should include('Identification resources')
-    end
-    it 'should include Education' do
-      should include('Education')
+    it 'should include About Resources' do
+      should include('About Resources')
     end
     it 'should include Partner Links' do
       should include('Partner links')
-    end
-    it 'should include Citizen science links' do
-      should include('Citizen science links')
     end
   end
 
@@ -175,8 +215,8 @@ describe 'Taxa page' do
       visit logout_url
       visit taxon_names_path(@taxon_concept)
       body.should have_selector('table.standard.classifications') do |tags|
-        tags.should have_selector("a[href='#{overview_taxon_entry_path(@taxon_concept, @taxon_concept.entry)}']")
-        tags.should have_selector('td', :content => 'Catalogue of Life')
+        tags.should have_selector("a[href='#{taxon_entry_overview_path(@taxon_concept, @taxon_concept.entry)}']")
+        tags.should have_selector('td', :text => 'Catalogue of Life')
       end
     end
 
@@ -196,7 +236,7 @@ describe 'Taxa page' do
       # TODO: Test that common names from other languages are present and that current language names appear
       # first after language is switched.
       # English by default
-      body.should have_selector('h4', :content => "English")
+      body.should have_selector('h4', :text => "English")
       body.should match /#{@common_names.first.name_string}/i
       body.should match /#{@common_names.first.agents.first.full_name}/i
       body.should match /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i
@@ -212,7 +252,7 @@ describe 'Taxa page' do
       new_name = FactoryGirl.generate(:string)
       fill_in 'Name', :with => new_name
       click_button 'Add name'
-      body.should have_selector('td', :content => new_name.capitalize_all_words)
+      body.should have_selector('td', :text => new_name.capitalize_all_words)
     end
 
     it 'should allow curators to choose a preferred common name for each language'
@@ -249,7 +289,7 @@ describe 'Taxa page' do
   # NOTE - I changed this, since it was failing. It doesn't look like we show the ital name on other pages...
   shared_examples_for 'taxon common name - hierarchy_entry page' do
     it 'should show the concepts preferred name in the heading' do
-      should match(/#{@taxon_concept.common_name}/i)
+      should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
     end
   end
 
@@ -266,7 +306,7 @@ describe 'Taxa page' do
   context 'overview when taxon has all expected data - taxon_concept' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      visit overview_taxon_path(@testy[:id])
+      visit taxon_overview_path(@testy[:id])
       @section = 'overview'
       @body = body
     end
@@ -277,13 +317,13 @@ describe 'Taxa page' do
     it 'should allow logged in users to post comment in "Latest Updates" section' do
       visit logout_url
       login_as @user
-      visit overview_taxon_path(@taxon_concept)
+      visit taxon_overview_path(@taxon_concept)
       comment = "Test comment by a logged in user. #{FactoryGirl.generate(:string)}"
       body.should have_selector(".updates .comment #comment_body")
       should have_selector(".updates .comment .actions input[value='Post Comment']")
       fill_in 'comment_body', :with => comment
       click_button "Post Comment"
-      current_url.should match /#{overview_taxon_path(@taxon_concept)}/
+      current_url.should match /#{taxon_overview_path(@taxon_concept)}/
       body.should include('Comment successfully added')
     end
   end
@@ -292,7 +332,7 @@ describe 'Taxa page' do
   context 'overview when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      visit overview_taxon_entry_path(@taxon_concept, @hierarchy_entry)
+      visit taxon_entry_overview_path(@taxon_concept, @hierarchy_entry)
       @section = 'overview'
       @body = body
       # NOTE - these specs *could* leave a classification filter applied when they should not... but seems okay.
@@ -332,6 +372,8 @@ describe 'Taxa page' do
   # details tab - taxon_concept
   context 'details when taxon has all expected data - taxon_concept' do
     before(:all) do
+      visit logout_url
+      login_as @testy[:curator]
       visit taxon_details_path(@taxon_concept)
       @section = 'details'
       @body = body
@@ -345,6 +387,8 @@ describe 'Taxa page' do
   # details tab - hierarchy_entry
   context 'details when taxon has all expected data - hierarchy_entry' do
     before(:all) do
+      visit logout_url
+      login_as @testy[:curator]
       visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry)
       @section = 'details'
       @body = body
@@ -420,22 +464,22 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
       visit(taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :content => "Communities")
+      body.should have_selector("h3", :text => "Communities")
     end
     it "should render communities - collections page" do
       visit(collections_taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :content => "Collections")
+      body.should have_selector("h3", :text => "Collections")
     end
     it "should render communities - curators page" do
       visit(curators_taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :content => "Curators")
+      body.should have_selector("h3", :text => "Curators")
     end
   end
 
 
   context 'when taxon does not have any common names' do
     before(:all) do
-      visit overview_taxon_path @testy[:taxon_concept_with_no_common_names]
+      visit taxon_overview_path @testy[:taxon_concept_with_no_common_names]
       @body = body
     end
     subject { @body }
@@ -464,11 +508,15 @@ describe 'Taxa page' do
 
   context 'when taxon supercedes another concept' do
     it 'should use supercedure to find taxon if user visits the other concept' do
-      visit overview_taxon_path @testy[:superceded_taxon_concept]
+      visit taxon_overview_path @testy[:superceded_taxon_concept]
+      current_url.should match /#{taxon_overview_path(@taxon_concept)}/
+      current_url.should_not match /#{taxon_overview_path(@testy[:superceded_taxon_concept])}/
       remove_classification_filter_if_used
-      body.should match(/#{@taxon_concept.common_name}/i)
+      body.should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
       visit taxon_details_path @testy[:superceded_taxon_concept]
-      body.should match(/#{@taxon_concept.common_name}/i)
+      current_url.should match /#{taxon_details_path(@taxon_concept)}/
+      current_url.should_not match /#{taxon_details_path(@testy[:superceded_taxon_concept])}/
+      body.should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
     end
   end
 

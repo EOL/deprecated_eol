@@ -1,15 +1,22 @@
-- # Partial rendered within collections page by 'collections/edit_collection_item' partial when JS enabled.
-= parent_form.fields_for :collection_items, collection_item do |item_form|
-  - # TODO: figure out why I18n is not getting the helpers label scope value automatically for item_form
-  %fieldset
-    = item_form.label :annotation
-    = item_form.text_area :annotation
-    %p= item_form.allowed_html_help_tip
-    - if @collection.show_references
-      = item_form.label :refs, raw(I18n.t('helpers.label.collection_item.refs'))
-      = text_area_tag 'references', @references
-    = item_form.label :sort_field, raw(I18n.t('helpers.label.collection_item.sort_field'))
-    = item_form.text_field :sort_field
-  %fieldset.actions
-    = submit_tag I18n.t(:save), :name => :commit_annotation
-    = link_to I18n.t(:cancel), '#'
+-# Okay, weeeeeeeeird, but: this form fixes a problem (?) in Chrome, at least, where the action gets replaced with the action on the page's other form (which is wrong).
+= raw %(<form> </form>)
+#collection_items_edit
+  %h2= @collection_item.collected_item.collected_name
+  = form_for(@collection_item) do |f|
+    %fieldset
+      %dl
+        = f.label :annotation
+      %dt
+        = f.text_area :annotation
+      - if @collection.show_references
+        %dl
+          = f.label :refs, raw(I18n.t('helpers.label.collection_item.refs'))
+        %dt
+          = text_area_tag 'references', @references
+      %dl
+        = f.label :sort_field, raw(I18n.t('helpers.label.collection_item.sort_field'))
+      %dt
+        = f.text_field :sort_field
+    %fieldset.actions
+      = submit_tag I18n.t(:save), data: { id: @collection_item.id }
+      = link_to I18n.t(:cancel), '#', class: 'close'

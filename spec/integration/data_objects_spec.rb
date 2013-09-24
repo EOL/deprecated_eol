@@ -40,6 +40,7 @@ end
 
 describe 'Data Object Page' do
 
+  # TODO - this is REALLY slow. Try to reduce the number of TCs, or fix that method.
   before(:all) do
     load_foundation_cache
     # Somewhat empty, to speed things up:
@@ -84,6 +85,7 @@ describe 'Data Object Page' do
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
   end
 
+  # TODO - this is slow. Find out why.
   before(:each) do
     @image.add_curated_association(@full_curator, @extra_he)
     @image.data_objects_hierarchy_entries.first.trust(@full_curator)
@@ -172,7 +174,7 @@ describe 'Data Object Page' do
   it 'should be able curate a DOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
-    taid = @image.all_associations.first.id
+    taid = @image.data_object_taxa.first.id
     review_status_should_be(taid, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{taid}"
     select "Hidden", :from => "visibility_id_#{taid}"
@@ -204,7 +206,7 @@ describe 'Data Object Page' do
   it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
-    assoc_id = @image.all_associations.first.id
+    assoc_id = @image.data_object_taxa.first.id
     review_status_should_be(assoc_id, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"
     select "Hidden", :from => "visibility_id_#{assoc_id}"
@@ -234,8 +236,9 @@ describe 'Data Object Page' do
 
   it 'should be able curate a UDO association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
+    # TODO - we occasionaly get failures here, so we should probably use a distinct data object.
     visit("/data_objects/#{@user_submitted_text.id}")
-    assoc_id = @user_submitted_text.all_associations.first.id
+    assoc_id = @user_submitted_text.data_object_taxa.first.id
     review_status_should_be(assoc_id, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"
     select "Hidden", :from => "visibility_id_#{assoc_id}"
@@ -292,14 +295,14 @@ describe 'Data Object Page' do
   it 'should allow logged in users to rate' do
     login_as @user
     visit data_object_path(@image)
-    body.should have_tag("#sidebar .ratings .rating") do
-      with_tag('h5', :text => "Your rating")
+    body.should have_tag("#sidebar .ratings") do
+      with_tag('dt', :text => "Your rating")
     end
     click_link('Change rating to 3 of 5')
     current_url.should match /#{data_object_path(@image)}/
     body.should include('Rating was added successfully')
-    body.should have_tag("#sidebar .ratings .rating") do
-      with_tag('h5', :text => "Your rating")
+    body.should have_tag("#sidebar .ratings") do
+      with_tag('dt', :text => "Your rating")
       with_tag('ul li', :text => "Your current rating: 3 of 5")
     end
     visit('/logout')
@@ -362,21 +365,22 @@ describe 'Data Object Page' do
     page.body.should_not have_tag('ul.review_status select')
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
     page.body.should have_tag("a[href='#{remove_association_path(@image.id, @assistants_entry.id)}']")
-    page.body.should have_tag('.review_status li a', :text => @extra_name)
+    page.body.should have_tag('.review_status a', :text => @extra_name)
     click_link "remove_association_#{@assistants_entry.id}"
     page.body.should_not have_tag("a[href='#{remove_association_path(@image.id, @assistants_entry.id)}']")
     visit('/logout')
   end
 
   it "should allow data object owners to add and/or remove associations, but not to curate them" do
-    user_submitted_text = @tc.add_user_submitted_text(:user => @user)
-    user_submitted_text.add_curated_association(@user, @extra_he)
-    login_as @user
+    user_submitted_text = @tc.add_user_submitted_text(:user => @full_curator)
+    user_submitted_text.add_curated_association(@full_curator, @extra_he)
+    user_submitted_text.reload # it's the responsibility of the controller to do this, so...
+    login_as @full_curator
     visit("/data_objects/#{user_submitted_text.id}")
     page.body.should_not have_tag('ul.review_status select')
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
-    page.body.should have_tag('.review_status li a', :text => 'Remove association')
-    page.body.should have_tag('.review_status li a', :text => @extra_name)
+    page.body.should have_tag('.remove_association a', :text => 'Remove association')
+    find('.review_status').all('a').map(&:text).should include(@extra_name)
     click_link "remove_association_#{@extra_he.id}"
     page.body.should_not have_tag('.review_status li a', :text => @extra_name)
     visit('/logout')
@@ -396,7 +400,6 @@ describe 'Data Object Page' do
     login_as @full_curator
     visit("/data_objects/#{@user_submitted_text.id}")
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
-    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     click_link("Add new association")
     fill_in 'name', :with => @extra_name
     click_button "find taxa"
@@ -416,6 +419,149 @@ describe 'Data Object Page' do
   it 'should link image on the image data object page to it\'s original version' do
     visit("/data_objects/#{@image.id}")
     page.body.should have_tag(".media a[href='#{@image.thumb_or_object(:orig)}']")
+  end
+
+  it 'should not show an image cropping tool to non-admins' do
+    login_as @mastger_curator
+    visit("/data_objects/#{@image.id}")
+    body.should_not have_tag('.crop_preview.width_130')
+    body.should_not have_tag('.crop_preview.width_88')
+    body.should_not have_tag('#crop_form')
+    visit('/logout')
+  end
+
+  it 'should show admins an image cropping tool' do
+    login_as @admin
+    visit("/data_objects/#{@image.id}")
+    body.should have_tag('.crop_preview.width_130')
+    body.should have_tag('.crop_preview.width_88')
+    body.should have_tag('#crop_form')
+    visit('/logout')
+  end
+
+  it 'should use the resource rights holder if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:rights_holder, '')
+    resource.update_column(:rights_holder, 'RESOURCE RIGHTS')
+    visit("/data_objects/#{data_object.id}")
+    body.should include('RESOURCE RIGHTS')
+    body.should_not include('OBJECT RIGHTS')
+
+    data_object.update_column(:rights_holder, 'OBJECT RIGHTS')
+    visit("/data_objects/#{data_object.id}")
+    body.should include('OBJECT RIGHTS')
+    body.should_not include('RESOURCE RIGHTS')
+  end
+
+  it 'should use the resource rights statement if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:rights_statement, '')
+    resource.update_column(:rights_statement, 'RESOURCE STATEMENT')
+    visit("/data_objects/#{data_object.id}")
+    body.should include('RESOURCE STATEMENT')
+    body.should_not include('OBJECT STATEMENT')
+
+    data_object.update_column(:rights_statement, 'OBJECT STATEMENT')
+    data_object.reload.rights_statement_for_display.should == 'OBJECT STATEMENT'
+    visit("/data_objects/#{data_object.id}")
+    body.should include('OBJECT STATEMENT')
+    body.should_not include('RESOURCE STATEMENT')
+  end
+
+  it 'should use the resource bibliographic citation if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:bibliographic_citation, '')
+    resource.update_column(:bibliographic_citation, 'RESOURCE CITATION')
+    visit("/data_objects/#{data_object.id}")
+    body.should include('RESOURCE CITATION')
+    body.should_not include('OBJECT CITATION')
+
+    data_object.update_column(:bibliographic_citation, 'OBJECT CITATION')
+    data_object.reload.bibliographic_citation_for_display.should == 'OBJECT CITATION'
+    visit("/data_objects/#{data_object.id}")
+    body.should include('OBJECT CITATION')
+    body.should_not include('RESOURCE CITATION')
+  end
+
+  it 'should preserve data rating when editing' do
+    user_submitted_text = @tc.add_user_submitted_text(:user => @user)
+    login_as @user
+    # Visit page and add a rating
+    visit("/data_objects/#{user_submitted_text.id}")
+    click_link('Change rating to 4 of 5')
+    current_url.should match "/data_objects/#{user_submitted_text.id}"
+    body.should include('Rating was added successfully')
+    body.should have_tag("#sidebar .ratings") do
+      with_tag('dt', :text => "Your rating")
+      with_tag('ul li', :text => "Your current rating: 4 of 5")
+    end
+    user_submitted_text.reload.data_rating.should == 4
+    user_submitted_text.latest_published_version_in_same_language.should == user_submitted_text
+
+    # edit article and check on latest version
+    click_link "Edit this article"
+    fill_in 'data_object_rights_holder', :with => "nonsense"
+    click_button "Save article"
+    user_submitted_text.reload.latest_published_version_in_same_language.should_not == user_submitted_text
+    user_submitted_text.latest_published_version_in_same_language.guid.should == user_submitted_text.guid
+    user_submitted_text.latest_published_version_in_same_language.id.should > user_submitted_text.id
+    user_submitted_text.latest_published_version_in_same_language.data_rating.should == 4
+  end
+
+  it 'should not show a description if there isnt one' do
+    d = DataObject.gen(:description => "", :data_type => DataType.image)
+    visit(data_object_path(d))
+    body.should_not have_tag("h3", :text => 'Description' )
+
+    d = DataObject.gen(:description => "anything", :data_type => DataType.image)
+    visit(data_object_path(d))
+    body.should have_tag("h3", :text => 'Description' )
+  end
+
+  it 'should show references and identifiers' do
+    d = DataObject.gen(:data_type => DataType.text)
+    r = Ref.gen(:full_reference => 'This is the full reference')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.url, :identifier => 'http://si.edu/someref')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.doi, :identifier => 'doi:10.1006/some.ref')
+    DataObjectsRef.gen(:data_object => d, :ref => r)
+    visit(data_object_path(d))
+    body.should have_tag("a[href='http://si.edu/someref']")
+    body.should have_tag("a[href='http://dx.doi.org/10.1006/some.ref']")
+
+    # slightly different formatting for the RefIdentifiers. The view shoudl auto-complete the URLs
+    d = DataObject.gen(:data_type => DataType.text)
+    r = Ref.gen(:full_reference => 'This is the full reference')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.url, :identifier => 'si.edu/someref')
+    RefIdentifier.gen(:ref => r, :ref_identifier_type => RefIdentifierType.doi, :identifier => '10.1006/some.ref')
+    DataObjectsRef.gen(:data_object => d, :ref => r)
+    visit(data_object_path(d))
+    body.should have_tag("a[href='http://si.edu/someref']")
+    body.should have_tag("a[href='http://dx.doi.org/10.1006/some.ref']")
+  end
+
+  it 'should not show names from untrusted associations, unless thats is all there is' do
+    d = DataObject.gen(:data_type => DataType.image, :object_title => nil)
+    d.add_curated_association(@full_curator, @extra_he)
+    d.add_curated_association(@full_curator, @singular_he)
+    visit(data_object_path(d))
+    body.should include("<h1>Image of <i>#{@extra_he.name.canonical_form.string}</i> and <i>#{@singular_he.name.canonical_form.string}</i>")
+    # untrusting the first name so only the second will show up
+    d.vet_by_taxon_concept(@extra_he.taxon_concept, Vetted.untrusted)
+    visit(data_object_path(d))
+    body.should include("<h1>Image of <i>#{@singular_he.name.canonical_form.string}</i>")
+    # now that they are both untrusted, it will say unknown taxon
+    d.vet_by_taxon_concept(@singular_he.taxon_concept, Vetted.untrusted)
+    visit(data_object_path(d))
+    body.should include("<h1>Image of an unknown taxon")
   end
 
   it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'

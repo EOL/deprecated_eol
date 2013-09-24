@@ -1,18 +1,20 @@
+# encoding: utf-8
 class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
   include ImageManipulation
-  unless Rails.env.test?
+  unless Rails.application.config.consider_all_requests_local
     rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, :with => :rescue_from_exception
+    rescue_from ActionView::MissingTemplate, :with => :rescue_from_exception
   end
 
-  before_filter :original_request_params # store unmodified copy of request params
-  before_filter :global_warning
-  before_filter :check_if_mobile if $ENABLE_MOBILE
-  before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
-  before_filter :check_user_agreed_with_terms, :except => :error
-  before_filter :set_locale
+  before_filter :original_request_params, :except => [ :fetch_external_page_title ] # store unmodified copy of request params
+  before_filter :global_warning, :except => [ :fetch_external_page_title ]
+  before_filter :clear_any_logged_in_session, :except => [ :fetch_external_page_title ] unless $ALLOW_USER_LOGINS
+  before_filter :check_user_agreed_with_terms, :except => [ :fetch_external_page_title, :error ]
+  before_filter :set_locale, :except => [ :fetch_external_page_title ]
+  around_filter :send_to_statsd
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :keep_home_page_fresh
@@ -25,6 +27,21 @@ class ApplicationController < ActionController::Base
   unless $ENABLE_RECAPTCHA
     def verify_recaptcha
       true
+    end
+  end
+
+  def send_to_statsd
+    if $STATSD
+      if logged_in?
+        $STATSD.increment("logged_in")
+      else
+        $STATSD.increment("not_logged_in")
+      end
+      $STATSD.time("page_load_time.#{params[:controller]}.#{params[:action]}") do
+        yield
+      end
+    else
+      yield
     end
   end
 
@@ -73,8 +90,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def must_be_logged_in
-    flash[:warning] =  I18n.t(:must_be_logged_in)
+  def must_be_logged_in(exception = nil)
+    flash[:warning] = I18n.t(:must_be_logged_in)
+    # NOTE - by default an exception (with no message) reports its class name as the message. We don't want that:
+    flash[:warning] += " #{exception.message}" if exception && exception.message != exception.class.name
     session[:return_to] = request.url if params[:return_to].nil?
     redirect_to(login_path, :return_to => params[:return_to])
   end
@@ -325,11 +344,23 @@ class ApplicationController < ActionController::Base
       :administrators_only) unless current_user.is_admin?
   end
 
-  def restrict_to_curators
+  def restrict_to_admins_and_curators
     raise EOL::Exceptions::SecurityViolation.new(
       "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
-      " that is restricted to EOL Full Curators and above, and was disallowed.",
-      :min_full_curators_only) unless current_user.min_curator_level?(:full)
+      " that is restricted to EOL assistant curators and above, and was disallowed.",
+      "min_assistant_curators_only") unless current_user.is_admin? || current_user.min_curator_level?(:assistant)
+  end
+
+  def restrict_to_master_curators
+    restrict_to_curators_of_level(:master)
+  end
+
+  def restrict_to_full_curators
+    restrict_to_curators_of_level(:full)
+  end
+
+  def restrict_to_curators
+    restrict_to_curators_of_level(:assistant)
   end
 
   # A user is not authorized for the particular controller/action:
@@ -344,7 +375,8 @@ class ApplicationController < ActionController::Base
     if logged_in?
       redirect_back_or_default
     else
-      redirect_back_or_default(login_url)
+      session[:return_to] = request.url if params[:return_to].nil?
+      redirect_to login_path
     end
   end
 
@@ -383,14 +415,15 @@ class ApplicationController < ActionController::Base
     return if what === current_user
     watchlist = current_user.watch_collection
     if what.class == DataObject
-      all_revision_ids = DataObject.find_all_by_guid_and_language_id(what.guid, what.language_id, :select => 'id').collect{ |d| d.id }
-      collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, all_revision_ids, what.class.name)
+      all_revision_ids = DataObject.find_all_by_guid_and_language_id(what.guid, what.language_id, :select => 'id').map { |d| d.id }
+      collection_item = CollectionItem.where(['collection_id = ? AND collected_item_id IN (?) AND collected_item_type = ?',
+                                             watchlist.id, all_revision_ids, what.class.name]).first
     else
-      collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id, what.class.name)
+      collection_item = CollectionItem.where(['collection_id = ? AND collected_item_id = ? AND collected_item_type = ?', watchlist.id, what.id, what.class.name])
     end
     if collection_item.nil?
       collection_item = begin # We do not care if this fails.
-        CollectionItem.create(:annotation => options[:annotation], :object => what, :collection_id => watchlist.id)
+        CollectionItem.create(:annotation => options[:annotation], :collected_item => what, :collection_id => watchlist.id)
       rescue => e
         Rails.logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"
         nil
@@ -428,6 +461,45 @@ class ApplicationController < ActionController::Base
     rescue_action_in_public(exception)
   end
 
+  def fetch_external_page_title
+    data = {}
+    success = nil
+    response_title = nil
+    I18n.locale = params['lang'] if params['lang']
+    begin
+      url = params[:url]
+      url = "http://" + url unless url =~ /^[a-z]{3,5}:\/\//i
+      response = Net::HTTP.get_response(URI.parse(url))
+      if (response.code == "301" || response.code == "302" || response.code == "303") && response.kind_of?(Net::HTTPRedirection)
+        response = Net::HTTP.get_response(URI.parse(response['location']))
+      end
+      if response.code == "200"
+        response_body = response.body.force_encoding('utf-8') # NOTE the force, here... regex fails on some pages w/o
+        if response['Content-Encoding'] == "gzip"
+          response_body = ActiveSupport::Gzip.decompress(response.body)
+        end
+        success = true
+        if matches = response_body.match(/<title>(.*?)<\/title>/ium)
+          response_title = matches[1].strip
+        end
+      end
+    rescue Exception => e
+    end
+    if success
+      if response_title
+        data['exception'] = false
+        data['message'] = response_title
+      else
+        data['exception'] = true
+        data['message'] = I18n.t(:unable_to_determine_title)
+      end
+    else
+      data['exception'] = true
+      data['message'] = I18n.t(:url_not_accessible)
+    end
+    render :text => data.to_json
+  end
+
 protected
 
   # Overrides ActionController::Rescue local_request? to allow custom configuration of which IP addresses
@@ -444,7 +516,15 @@ protected
   def rescue_action_in_public(exception)
     status_code     = ActionDispatch::ExceptionWrapper.new(env, exception).status_code
     response_code   = ActionDispatch::ExceptionWrapper.rescue_responses[exception.class.name]
+    if exception.class == ActionView::MissingTemplate
+      status_code = 404
+      response_code = :not_found
+    end
     render_exception_response(exception, response_code, status_code)
+    if $STATSD
+      $STATSD.increment 'all_errors'
+      $STATSD.increment "errors.#{exception.class.name.gsub(/[^A-Za-z0-9]+/, '_')}"
+    end
     # Log to database
     if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
       ErrorLog.create(
@@ -463,8 +543,8 @@ protected
   # custom method to render an appropriate response to an exception
   def render_exception_response(exception, response_code, status_code)
     case response_code
-    when :unauthorized
-      logged_in? ? access_denied : must_be_logged_in
+    when :unauthorized # This is caused by MustBeLoggedIn, actually...
+      logged_in? ? access_denied(exception) : must_be_logged_in(exception)
     when :forbidden
       access_denied(exception)
     when :not_implemented
@@ -561,14 +641,33 @@ protected
     @meta_open_graph_image_url ||= nil
   end
 
+  # You should pass in :for (the object page you're on), :paginated (a collection of WillPaginate results), and
+  # :url_method (to the object's page--don't use *_path, use *_url).
+  def set_canonical_urls(options = {})
+    page = rel_canonical_href_page_number(options[:paginated])
+    parameters = []
+    if options[:for].is_a? Hash
+      parameters << options[:for].merge(:page => page)
+    else
+      parameters << options[:for] if options[:for]
+      parameters << {:page => page}
+    end
+    @rel_canonical_href = self.send(options[:url_method], *parameters)
+    @rel_prev_href = rel_prev_href_params(options[:paginated]) ?
+      self.send(options[:url_method], @rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(options[:paginated]) ?
+      self.send(options[:url_method], @rel_next_href_params) : nil
+  end
+
   # rel canonical only cares about page param for paginated records with current_page greater than 1
   def rel_canonical_href_page_number(records)
     @rel_canonical_href_page_number ||= records.is_a?(WillPaginate::Collection) && records.current_page > 1 ?
       records.current_page : nil
   end
 
-  # rel prev href needs the current request params with current page number swapped out for the number of the previous page
-  # return nil if there is no previous page
+  # rel prev href needs the current request params with current page number swapped out for the number of the
+  # previous page; return nil if there is no previous page
+  # NOTE - original_params is *never* passed in.
   def rel_prev_href_params(records, original_params = original_request_params.clone)
     @rel_prev_href_params ||= records.is_a?(WillPaginate::Collection) && records.previous_page ?
       original_params.merge({ :page => records.previous_page }) : nil
@@ -641,6 +740,14 @@ protected
   end
 
 private
+
+  # NOTE - levels allowed are :assistant, :full and :master. (You may need this for the i18n YAML.)
+  def restrict_to_curators_of_level(level)
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL #{level} curators and above, and was disallowed.",
+      "min_#{level}_curators_only") unless current_user.min_curator_level?(level)
+  end
 
   # Currently only used by collections and content controllers to log in users coming from iNaturalist
   # TODO: Allow for all URLs except be sure not to interfere with EOL registration or login

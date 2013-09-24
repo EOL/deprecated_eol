@@ -57,7 +57,7 @@ class Admins::NewsItemsController < AdminsController
 
   # DELETE /admin/news_items/:id
   def destroy
-    return redirect_to :action => 'index', :status => :moved_permanently unless request.method == :delete
+    return redirect_to :action => 'index', :status => :moved_permanently unless request.delete?
     news_item = NewsItem.find(params[:id], :include => [:translations])
     page_name = news_item.page_name
     news_item.last_update_user_id = current_user.id

@@ -5,7 +5,8 @@ class NavigationController < ApplicationController
   def show_tree_view
     # set the users default hierarchy if they haven't done so already
     @selected_hierarchy_entry = HierarchyEntry.find_by_id(params[:selected_hierarchy_entry_id].to_i)
-    @session_hierarchy = @selected_hierarchy_entry.hierarchy
+    @taxon_page = TaxonPage.new(@taxon_concept, current_user, @selected_hierarchy_entry)
+    @session_hierarchy = @taxon_page.hierarchy
     load_taxon_for_tree_view
     render :layout => false, :partial => 'root_nodes'
   end
@@ -32,7 +33,6 @@ class NavigationController < ApplicationController
     if @hierarchy_entry.blank?
       return
     end
-    HierarchyEntry.preload_associations(@hierarchy_entry, :hierarchy_entry_stat)
     @hierarchy = @hierarchy_entry.hierarchy
     render :partial => 'browse_stats', :layout => false, :locals => { :expand => expand }
   end

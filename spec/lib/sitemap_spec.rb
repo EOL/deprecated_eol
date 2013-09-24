@@ -3,7 +3,6 @@ require "rake"
 
 describe 'Sitemaps' do
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
     
     License.destroy_all
@@ -35,6 +34,8 @@ describe 'Sitemaps' do
     
     @cc_license = License.gen(:title => 'cc-by-sa 1.0', :source_url => 'http://creativecommons.org/licenses/by-sa/1.0/')
     @non_cc_license = License.gen(:title => 'not applicable', :source_url => 'http://who.cares')
+    # Needed for #show_rights_holder?
+    License.gen(:title => 'no known copyright restrictions', :source_url => 'http://not.here.com')
     @published_image_cc_license = DataObject.gen(:data_type => DataType.image, :license => @cc_license, :published => 1, :object_cache_url => '201201190911111')
     @published_image_non_cc_license = DataObject.gen(:data_type => DataType.image, :license => @non_cc_license, :published => 1, :object_cache_url => '201201190922222')
     @unpublished_image = DataObject.gen(:data_type => DataType.image, :license => @cc_license, :published => 0, :object_cache_url => '201201190933333')
@@ -92,12 +93,12 @@ describe 'Sitemaps' do
     @rake['sitemap:build_images_xml'].execute
     sitemap_contents = Zlib::GzipReader.open(Rails.root.join('public', 'sitemap', 'images', 'sitemap_1.xml.gz')).read
     
-    sitemap_contents.should include(DataObject.image_cache_path(@published_image_cc_license.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER))
+    sitemap_contents.should include(DataObject.image_cache_path(@published_image_cc_license.object_cache_url, '580_360', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER))
     sitemap_contents.should include(@published_image_cc_license.license.source_url)
-    sitemap_contents.should include(DataObject.image_cache_path(@published_image_non_cc_license.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER))
+    sitemap_contents.should include(DataObject.image_cache_path(@published_image_non_cc_license.object_cache_url, '580_360', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER))
     
     sitemap_contents.should_not include(@published_image_non_cc_license.license.source_url)
-    sitemap_contents.should_not include(DataObject.image_cache_path(@unpublished_image.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER))
+    sitemap_contents.should_not include(DataObject.image_cache_path(@unpublished_image.object_cache_url, '580_360', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER))
   end
   
   it 'should be able to destroy image sitemaps' do
@@ -127,7 +128,7 @@ def urls_for_object(object)
   elsif object.class == ContentPartner
     urls << EOL::URLHelper.get_url('content_partner_url', object.id, :host => 'eol.org')
   elsif object.class == TaxonConcept
-    urls << EOL::URLHelper.get_url('overview_taxon_url', object.id, :host => 'eol.org')
+    urls << EOL::URLHelper.get_url('taxon_overview_url', object.id, :host => 'eol.org')
   elsif object.class == User
     urls << EOL::URLHelper.get_url('user_url', object.id, :host => 'eol.org')
     urls << EOL::URLHelper.get_url('user_newsfeed_url', object.id, :host => 'eol.org')

@@ -8,7 +8,7 @@ require 'eol/activity_loggable'
 # Also worth noting that #full_name (and the methods that count on it) need to know about
 # curators, so you will see references to curator methods, there. They didn't seem worth moving.
 class User < ActiveRecord::Base
-  octopus_establish_connection(Rails.env)
+  establish_connection(Rails.env)
 
   include EOL::ActivityLoggable
 
@@ -19,10 +19,12 @@ class User < ActiveRecord::Base
   has_many :members
   has_many :comments
   has_many :users_data_objects
-  has_many :collection_items, :as => :object
+  has_many :collection_items, :as => :collected_item
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_and_belongs_to_many :collections, :conditions => 'collections.published = 1'
   has_and_belongs_to_many :collections_including_unpublished, :class_name => Collection.to_s
+  has_many :permissions_users
+  has_many :permissions, through: :permissions_users
   has_many :communities, :through => :members
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
@@ -32,13 +34,14 @@ class User < ActiveRecord::Base
   has_many :worklist_ignored_data_objects
   has_many :pending_notifications
   has_many :open_authentications, :dependent => :destroy
+  has_many :forum_posts
 
   has_many :content_partners
   has_one :user_info
   has_one :notification
 
   scope :admins, :conditions => ['admin IS NOT NULL']
-  scope :curators, :conditions => ['curator_level_id IS NOT NULL']
+  scope :curators, :conditions => 'curator_level_id is not null'
 
   before_save :check_credentials
   before_save :encrypt_password
@@ -94,8 +97,6 @@ class User < ActiveRecord::Base
   validates_presence_of :curator_scope, :if => :curator_attributes_required?
 
   attr_accessor :curator_request
-
-  scope :curators, :conditions => 'curator_level_id is not null'
 
 # END CURATOR CLASS DECLARATIONS
 
@@ -207,6 +208,11 @@ class User < ActiveRecord::Base
     User.find(id, :include => :agent)
   end
 
+  # Note: this is only for Staging to help determine how to show cropped images
+  def self.a_somewhat_recent_user
+    @@a_somewhat_recent_user ||= User.find(:all, :order => 'id desc', :limit => 30).last
+  end
+
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
   # you KNOW you have an exception.
   def full_name(options={})
@@ -221,7 +227,8 @@ class User < ActiveRecord::Base
       return [given_name, family_name].join(' ').strip
     end
   end
-  alias summary_name full_name # This is for collection item duck-typing, you need not use this elsewhere.
+  alias :summary_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
+  alias :collected_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
 
   # Note that this can end up being expensive, but avoids errors.  Watch your qeries!
   def reload_all_values_if_missing(which)
@@ -252,14 +259,11 @@ class User < ActiveRecord::Base
       gsub(/__amp__/, '&')
   end
 
-  def can_be_updated_by?(user_wanting_access)
-    user_wanting_access.id == id || user_wanting_access.is_admin?
-  end
-
   def activate
     # Using update_column instead of updates_attributes to by pass validation errors.
-    self.update_column(:active, true)
-    self.update_column(:validation_code, nil)
+    update_column(:active, true)
+    update_column(:validation_code, nil)
+    add_to_index
     build_watch_collection
   end
 
@@ -280,27 +284,23 @@ class User < ActiveRecord::Base
   def taxa_commented
     return @taxa_commented unless @taxa_commented.nil?
     # list of taxa where user entered a comment
-    @taxa_commented = []
-    Comment.preload_associations(comments.select{ |c| c.parent_type == 'DataObject' },
+    set = Set.new
+    # DataObject needs a lot to find its TC, so we preload all of those:
+    Comment.preload_associations(comments.select { |c| c.parent_type == 'DataObject' },
       { :parent => [ { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { :users_data_object => :vetted } ] },
       :select => [ { :data_objects => :id } ])
     comments.each do |comment|
-      @taxa_commented << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
-      if comment.parent_type == 'DataObject'
-        object = comment.parent
-        if !object.blank?
-          best_association = object.association_with_best_vetted_status
-          if best_association.class.name == 'DataObjectsHierarchyEntry' || best_association.class.name == 'CuratedDataObjectsHierarchyEntry'
-            @taxa_commented << best_association.hierarchy_entry.taxon_concept_id rescue nil
-          elsif best_association.class.name == 'UsersDataObject'
-            @taxa_commented << best_association.taxon_concept_id
-          end
-        end
+      next unless comment.parent_id # Not worth checking...
+      # NOTE - We're avoiding instantiating the parent unless it's a DataObject, so if we add new Comment parent
+      # types, this code will need to be updated.
+      case comment.parent_type
+      when 'TaxonConcept'
+        set << comment.parent_id
+      when 'DataObject'
+        set << comment.parent.taxon_concept_id if comment.parent && comment.parent.taxon_concept_id
       end
     end
-    @taxa_commented.compact!
-    @taxa_commented.uniq!
-    @taxa_commented
+    @taxa_commented = set.to_a
   end
 
   def total_comment_submitted
@@ -309,6 +309,11 @@ class User < ActiveRecord::Base
 
   def total_wikipedia_nominated
     return WikipediaQueue.find_all_by_user_id(self.id).count
+  end
+
+  def can?(perm)
+    permission = perm.is_a?(Permission) ? perm : Permission.send(perm)
+    permissions.include?(permission)
   end
 
   def can_create?(resource)
@@ -328,8 +333,44 @@ class User < ActiveRecord::Base
     resource.can_be_deleted_by?(self)
   end
 
+  def can_manage_community?(community)
+    if member = member_of(community) # Not a community she's even in.
+      return true if community && member.manager? # She's a manager
+    end
+    return false
+  end
+
+  def can_edit_collection?(collection)
+    return false if collection.blank?
+    return true if collection.users.include?(self) # Her collection
+    collection.communities.each do |community|
+      return true if can_manage_community?(community)
+    end
+    false # She's not a manager
+  end
+
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.id == id || user_wanting_access.is_admin?
+  end
+
   def grant_admin
     self.update_attributes(:admin => true)
+  end
+
+  def grant_permission(perm)
+    unless can?(perm)
+      permission = perm.is_a?(Permission) ? perm : Permission.send(perm)
+      permissions << permission
+      permission.inc_user_count
+    end
+  end
+
+  def revoke_permission(perm)
+    if can?(perm)
+      permission = perm.is_a?(Permission) ? perm : Permission.send(perm)
+      permissions.delete permission
+      permission.dec_user_count
+    end
   end
 
   def clear_entered_password
@@ -374,28 +415,16 @@ class User < ActiveRecord::Base
     return language.nil? ? Language.english.iso_639_1 : language.iso_639_1
   end
 
+  def default_language?
+    language_id == Language.default.id
+  end
+
   def is_admin?
     self.admin.nil? ? false : self.admin # return false for anonymous users
   end
 
   def is_content_partner?
     content_partners.blank? ? false : true
-  end
-
-  def can_manage_community?(community)
-    if member = member_of(community) # Not a community she's even in.
-      return true if community && member.manager? # She's a manager
-    end
-    return false
-  end
-
-  def can_edit_collection?(collection)
-    return false if collection.blank?
-    return true if collection.users.include?(self) # Her collection
-    collection.communities.each do |community|
-      return true if can_manage_community?(community)
-    end
-    false # She's not a manager
   end
 
   # Returns an array of data objects submitted by this user.  NOT USED ANYWHERE.  This is a convenience method for
@@ -552,30 +581,46 @@ class User < ActiveRecord::Base
     if logo_cache_url.blank?
       return "v2/logos/user_default.png"
     elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '88_88', :specified_content_host => specified_content_host)
     else
-      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '130_130', :specified_content_host => specified_content_host)
     end
+  end
+
+  # NOTE - This REMOVES the watchlist (using #shift)!
+  def published_collections(as_user = nil)
+    @published_collections ||= all_collections(as_user).shift && all_collections(as_user).select { |c| c.published? }
+  end
+
+  def unpublished_collections(as_user = nil)
+    @unpublished_collections ||= all_collections(as_user).select { |c| ! c.published? }
   end
 
   # #collections is only a list of the collections the user *owns*.  This is a list that includes the collections the
   # user has access to through communities
   #
   # NOTE - this will ALWAYS put the watch collection first.
-  # NOTE - this will include unpublished (ie: deleted) collections... is that intended?
-  def all_collections(logged_in_as_user = nil)
-    editable_collections = collections_including_unpublished.reject {|c| c.watch_collection? }
-    # I changed this to m.manager? instead of using the named scope as I couldn't see
-    # how to preload named scopes, but members could be preloaded
-    # TODO - use scopes.  :|
-    editable_collections += members.select{ |m| m.manager? }.map {|m| m.community && m.community.collections }.flatten.compact
-    editable_collections = [watch_collection] + editable_collections.sort_by{ |c| c.name.downcase }.uniq
-    if logged_in_as_user && logged_in_as_user.class == User
-      editable_collections.delete_if{ |c| !logged_in_as_user.can_read?(c) }
+  def all_collections(as_user = nil)
+    @all_collections ||= {}
+    return @all_collections[as_user] if @all_collections.has_key?(as_user)
+    editable_collections = collections_including_unpublished.reject { |c| c.watch_collection? }
+    editable_collections += Collection.joins(:communities => :members).where(['user_id = ? AND manager = 1', id])
+    editable_collections = [watch_collection] + editable_collections.sort_by { |c| c.name.downcase }.uniq
+    if as_user.is_a?(User)
+      editable_collections.delete_if { |c| ! as_user.can_read?(c) }
     else
-      editable_collections.delete_if{ |c| !c.published? }
+      editable_collections.delete_if { |c| ! c.published? }
     end
-    editable_collections.compact
+    @all_collections[as_user] = editable_collections.compact
+  end
+
+  # NOTE - this method ASSUMES it's only being called for a user's own collections.
+  def all_non_resource_collections
+    return @all_non_resource_collections if defined?(@all_non_resource_collections)
+    collections = published_collections(self) || []
+    Collection.preload_associations(collections, [ :resource, :resource_preview ])
+    collections.delete_if { |c| c.is_resource_collection? }
+    @all_non_resource_collections = collections
   end
 
   def ignored_data_object?(data_object)
@@ -683,6 +728,23 @@ class User < ActiveRecord::Base
 
   def clear_cache
     Rails.cache.delete("users/#{self.id}") if $CACHE
+  end
+
+  def vetted_types
+    vetted_types = ['trusted', 'unreviewed']
+    vetted_types << 'untrusted' if is_curator?
+    vetted_types
+  end
+
+  def visibility_types
+    vetted_types = ['visible']
+    vetted_types << 'invisible' if is_curator?
+    vetted_types
+  end
+
+  # TODO - does this belong here?  Is it duplicated somewhere else?
+  def rating_weight
+    is_curator? ? curator_level.rating_weight : 1
   end
 
 private
@@ -797,9 +859,9 @@ public
     self.update_attributes(:curator_verdict_by => nil,
                            :curator_verdict_at => nil,
                            :requested_curator_level_id => nil,
-                           :credentials => nil,
-                           :curator_scope => nil,
-                           :curator_approved => nil)
+                           :credentials => '', # Cannot be nil in the DB.
+                           :curator_scope => '', # Ditto.
+                           :curator_approved => false)
   end
   alias revoke_curatorship revoke_curator
 
@@ -858,7 +920,7 @@ public
   end
 
   def assistant_curator?
-    self.curator_level_id == CuratorLevel.assistant.id
+    self.curator_level_id && CuratorLevel.assistant && self.curator_level_id == CuratorLevel.assistant.id
   end
 
   def is_pending_curator?
@@ -896,7 +958,7 @@ public
   end
 
   def wants_to_be_assistant_curator?
-    self.requested_curator_level_id == CuratorLevel.assistant_curator.id
+    self.requested_curator_level_id && CuratorLevel.assistant_curator && self.requested_curator_level_id == CuratorLevel.assistant_curator.id
   end
 
   def already_has_requested_curator_level?

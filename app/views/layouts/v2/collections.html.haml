@@ -11,8 +11,8 @@
             %p= sanitize @collection.description.balance_tags
         .page_actions
           %ul
-            - unless @watch_collection && @collection.id == @watch_collection.id || params[:action] == "edit"
-              %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => @watch_collection }
+            - unless current_user.watch_collection && @collection.id == current_user.watch_collection.id || params[:action] == "edit"
+              %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => current_user.watch_collection }
             = yield :additional_page_actions
         = render :partial => 'shared/flash_messages'
     #content

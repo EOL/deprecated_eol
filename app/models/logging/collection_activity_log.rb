@@ -1,6 +1,7 @@
 require 'eol/activity_log_item'
 
 class CollectionActivityLog < LoggingModel
+  establish_connection("#{Rails.env}_logging")
 
   include EOL::ActivityLogItem
 
@@ -18,7 +19,7 @@ class CollectionActivityLog < LoggingModel
   def log_activity_in_solr
     return nil if self.collection_item.blank? || self.collection_item.collection.blank?
     return if self.collection_item.collection.watch_collection?
-    keyword = self.collection_item.object_type rescue nil
+    keyword = self.collection_item.collected_item_type rescue nil
     base_index_hash = {
       'activity_log_unique_key' => "CollectionActivityLog_#{id}",
       'activity_log_type' => 'CollectionActivityLog',
@@ -80,12 +81,12 @@ private
 
   def add_recipient_users_getting_watched(recipients)
     if someone_is_being_watched?
-      collection_item.object.add_as_recipient_if_listening_to(:i_am_being_watched, recipients)
+      collection_item.collected_item.add_as_recipient_if_listening_to(:i_am_being_watched, recipients)
     end
   end
 
   def someone_is_being_watched?
-    activity.id == Activity.collect.id && collection_item.object_type == 'User'
+    activity.id == Activity.collect.id && collection_item.collected_item_type == 'User'
   end
 
 end

@@ -30,12 +30,14 @@ class ContentServer
     else
       "#{self.next}#{$CONTENT_SERVER_AGENT_LOGOS_PATH}#{url}#{logo_size}"
     end
-
   end
 
-  def self.cache_path(cache_url, specified_content_host = nil)
-    if specified_content_host
-      (specified_content_host + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+  def self.cache_path(cache_url, options={})
+    if (Rails.env.staging? || Rails.env.staging_dev? || Rails.env.development?) && options[:is_crop] && $STAGING_CONTENT_SERVER
+      options[:specified_content_host] = $STAGING_CONTENT_SERVER
+    end
+    if options[:specified_content_host]
+      (options[:specified_content_host] + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
     else
       (self.host_for(cache_url) + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
     end
@@ -51,7 +53,7 @@ class ContentServer
 
   def self.uploaded_content_url(url, ext)
     return self.blank if url.blank?
-    (self.next + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(url) + ext)
+    ($SINGLE_DOMAIN_CONTENT_SERVER + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(url) + ext)
   end
 
   # only uploading logos
@@ -112,5 +114,34 @@ class ContentServer
     [ResourceStatus.validation_failed, nil]
   end
 
+  def self.update_data_object_crop(data_object_id, x, y, w)
+    return nil if data_object_id.blank?
+    return nil if x.blank?
+    return nil if y.blank?
+    return nil if w.blank?
+    begin
+      env_name = Rails.env.to_s
+      env_name = 'staging' if env_name == 'staging_dev'
+      parameters = "function=crop_image&data_object_id=#{data_object_id}&x=#{x}&y=#{y}&w=#{w}&ENV_NAME=#{env_name}"
+      response = EOLWebService.call(:parameters => parameters)
+    rescue
+      ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name  => "data object crop service has an error") if $ERROR_LOGGING
+    end
+    if response.blank?
+      ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name  => "data object crop service failed") if $ERROR_LOGGING
+    else
+      response = Hash.from_xml(response)
+      if response["response"].class != Hash
+        error = "Bad response: #{response["response"]}"
+        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
+      elsif response["response"].key? "file_path"
+        return response["response"]["file_path"]
+      elsif response["response"].key? "error"
+        error = response["response"]["error"]
+        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
+      end
+    end
+    nil
+  end
 
 end

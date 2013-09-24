@@ -1,52 +1,32 @@
+-# TODO - why is this so inconsistent? We're checking instance variables and @taxon_page... why not just one?
 #tabs_sidebar
   %ul.tabs
-    - if @selected_hierarchy_entry
-      %li{:class => resource_is_active('index')}
-        = link_to I18n.t(:taxon_partner_links_link), taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
-      - unless @news_and_event_links_contents.blank?
-        %li{:class => resource_is_active('news_and_event_links')}
-          = link_to I18n.t(:taxon_news_and_event_links_link), news_and_event_links_taxon_resources_path(@taxon_concept)
+    %li{:class => resource_is_active('index')}
+      = link_to I18n.t(:about_resources), taxon_resources_path(@taxon_page)
+    %li{:class => "end_section #{resource_is_active('partner_links')}"}
+      = link_to I18n.t(:taxon_partner_links_link), partner_links_taxon_resources_path(@taxon_page)
+    - unless @news_and_event_links_contents.blank?
+      %li{:class => resource_is_active('news_and_event_links')}
+        = link_to I18n.t(:taxon_news_and_event_links_link), news_and_event_links_taxon_resources_path(@taxon_page)
+    - unless @education_contents.blank?
       %li{:class => resource_is_active('education')}
-        = link_to I18n.t(:taxon_education_link), education_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
-        - if Resource.ligercat.nil?
-          Ligercat resource missing.
+        = link_to I18n.t(:taxon_education_link), education_taxon_resources_path(@taxon_page)
+    - unless @citizen_science_contents.blank?
       %li{:class => resource_is_active('citizen_science')}
-        = link_to I18n.t(:taxon_citizen_science_link), citizen_science_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
-      - if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
-        %li{:class => resource_is_active('biomedical_terms')}
-          = link_to I18n.t(:taxon_biomedical_terms_link), biomedical_terms_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
+        = link_to I18n.t(:taxon_citizen_science_link), citizen_science_taxon_resources_path(@taxon_page)
+    - if @taxon_page.has_ligercat_entry?
+      %li{:class => resource_is_active('biomedical_terms')}
+        = link_to I18n.t(:taxon_biomedical_terms_link), biomedical_terms_taxon_resources_path(@taxon_page)
+    - unless @identification_contents.blank?
       %li{:class => resource_is_active('identification_resources')}
-        = link_to I18n.t(:taxon_identification_resources_link), identification_resources_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
-      - unless @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.blank?
-        %li{:class => resource_is_active('nucleotide_sequences')}
-          = link_to I18n.t(:taxon_nucleotide_sequences_link), nucleotide_sequences_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
-      - unless @related_organizations_contents.blank?
-        %li{:class => resource_is_active('related_organizations')}
-          = link_to I18n.t(:taxon_related_organizations_link), related_organizations_taxon_entry_resources_path(@taxon_concept)
-      - unless @multimedia_links_contents.blank?
-        %li{:class => resource_is_active('multimedia_links')}
-          = link_to I18n.t(:taxon_multimedia_links_link), multimedia_links_taxon_entry_resources_path(@taxon_concept)
-    - else
-      %li{:class => resource_is_active('index')}
-        = link_to I18n.t(:taxon_partner_links_link), taxon_resources_path(@taxon_concept)
-      - unless @news_and_event_links_contents.blank?
-        %li{:class => resource_is_active('news_and_event_links')}
-          = link_to I18n.t(:taxon_news_and_event_links_link), news_and_event_links_taxon_resources_path(@taxon_concept)
-      %li{:class => resource_is_active('education')}
-        = link_to I18n.t(:taxon_education_link), education_taxon_resources_path(@taxon_concept)
-      %li{:class => resource_is_active('citizen_science')}
-        = link_to I18n.t(:taxon_citizen_science_link), citizen_science_taxon_resources_path(@taxon_concept)
-      - if Resource.ligercat && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
-        %li{:class => resource_is_active('biomedical_terms')}
-          = link_to I18n.t(:taxon_biomedical_terms_link), biomedical_terms_taxon_resources_path(@taxon_concept)
-      %li{:class => resource_is_active('identification_resources')}
-        = link_to I18n.t(:taxon_identification_resources_link), identification_resources_taxon_resources_path(@taxon_concept)
-      - unless @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.blank?
-        %li{:class => resource_is_active('nucleotide_sequences')}
-          = link_to I18n.t(:taxon_nucleotide_sequences_link), nucleotide_sequences_taxon_resources_path(@taxon_concept)
-      - unless @related_organizations_contents.blank?
-        %li{:class => resource_is_active('related_organizations')}
-          = link_to I18n.t(:taxon_related_organizations_link), related_organizations_taxon_resources_path(@taxon_concept)
-      - unless @multimedia_links_contents.blank?
-        %li{:class => resource_is_active('multimedia_links')}
-          = link_to I18n.t(:taxon_multimedia_links_link), multimedia_links_taxon_resources_path(@taxon_concept)
+        = link_to I18n.t(:taxon_identification_resources_link),
+          identification_resources_taxon_resources_path(@taxon_page)
+    - unless @taxon_page.nucleotide_sequences_hierarchy_entry_for_taxon.blank?
+      %li{:class => resource_is_active('nucleotide_sequences')}
+        = link_to I18n.t(:taxon_nucleotide_sequences_link), nucleotide_sequences_taxon_resources_path(@taxon_page)
+    - unless @related_organizations_contents.blank?
+      %li{:class => resource_is_active('related_organizations')}
+        = link_to I18n.t(:taxon_related_organizations_link), related_organizations_taxon_resources_path(@taxon_page)
+    - unless @multimedia_links_contents.blank?
+      %li{:class => resource_is_active('multimedia_links')}
+        = link_to I18n.t(:taxon_multimedia_links_link), multimedia_links_taxon_resources_path(@taxon_page)

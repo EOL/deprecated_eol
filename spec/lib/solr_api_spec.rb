@@ -9,7 +9,6 @@ describe 'Solr API' do
 
   describe ': TaxonConcepts' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       Vetted.gen(:label => 'Trusted') unless Vetted.trusted
       trusted = Vetted.trusted
@@ -83,7 +82,6 @@ describe 'Solr API' do
   
   describe ': DataObjects' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
       @solr.delete_all_documents
@@ -99,7 +97,6 @@ describe 'Solr API' do
   
   describe ': SiteSearch' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       TaxonConcept.delete_all
       HierarchyEntry.delete_all
@@ -124,20 +121,20 @@ describe 'Solr API' do
     it 'should rebuild the core' do
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       # names for preferred name, synonym, surrogate and common names
-      @solr.get_results("*:*")['numFound'].should == 29
-      @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
-      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
-      @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
+      @solr.get_results("*:*")['numFound'].should == 53
+      @solr.get_results("resource_type:TaxonConcept AND resource_id:#{@test_taxon_concept.id}")['numFound'].should == 3
+      @solr.get_results("keyword:#{@scientific_name}")['numFound'].should == 2
+      @solr.get_results("keyword:#{@common_name}")['numFound'].should == 1
       @solr.get_results("resource_type:ContentPage")['numFound'].should == 2
     end
     
     it 'should reindex given model' do
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       EOL::Solr::SiteSearchCoreRebuilder.reindex_model(TaxonConcept, @solr)
-      @solr.get_results("*:*")['numFound'].should == 29
-      @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
-      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
-      @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
+      @solr.get_results("*:*")['numFound'].should == 53
+      @solr.get_results("resource_type:TaxonConcept AND resource_id:#{@test_taxon_concept.id}")['numFound'].should == 3
+      @solr.get_results("keyword:#{@scientific_name}")['numFound'].should == 2
+      @solr.get_results("keyword:#{@common_name}")['numFound'].should == 1
       EOL::Solr::SiteSearchCoreRebuilder.reindex_model(ContentPage, @solr)
       @solr.get_results("resource_type:ContentPage")['numFound'].should == 2
     end
@@ -146,7 +143,6 @@ describe 'Solr API' do
   
   describe ': BHL' do
     before(:all) do
-      truncate_all_tables
       load_foundation_cache
       PublicationTitle.delete_all
       TitleItem.delete_all

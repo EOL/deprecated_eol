@@ -18,6 +18,8 @@ class Hierarchy < ActiveRecord::Base
   has_one :resource
   has_one :dwc_resource, :class_name => Resource.to_s, :foreign_key => :dwc_hierarchy_id
   has_many :hierarchy_entries
+  has_many :kingdoms, :class_name => HierarchyEntry.to_s, :foreign_key => [ :hierarchy_id ], :primary_key => [ :id ],
+    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
 
   validates_presence_of :label
   validates_length_of :label, :maximum => 255
@@ -58,8 +60,14 @@ class Hierarchy < ActiveRecord::Base
     cached_find(:label, $DEFAULT_HIERARCHY_NAME)
   end
 
+  def self.col
+    @@col ||= cached('col') do
+      Hierarchy.where("label LIKE 'Species 2000 & ITIS Catalogue of Life%%'").includes(:agent).last
+    end
+  end
+
   def self.gbif
-    cached_find(:label, 'GBIF Nub Taxonomy')
+    @@gbif ||= cached_find(:label, 'GBIF Nub Taxonomy')
   end
 
   # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
@@ -68,7 +76,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.eol_contributors
-    cached('eol_contributors') do
+    @@eol_contributors ||= cached('eol_contributors') do
       Hierarchy.find_by_label("Encyclopedia of Life Contributors", :include => :agent)
     end
   end
@@ -78,13 +86,13 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.ncbi
-    cached('ncbi') do
+    @@ncbi ||= cached('ncbi') do
       Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
     end
   end
   
   def self.itis
-    cached('itis') do
+    @@itis ||= cached('itis') do
       Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', :order => 'id desc')
     end
   end
@@ -94,19 +102,29 @@ class Hierarchy < ActiveRecord::Base
       where(['hierarchies.browsable = 1 AND hierarchy_entries.taxon_concept_id = ?', taxon_concept.id])
   end
 
+  def self.available_via_api
+    available_hierarchies = Hierarchy.browsable
+    available_hierarchies << Hierarchy.gbif if Hierarchy.gbif
+    available_hierarchies.sort_by(&:id)
+  end
+
+  def sort_order
+    return 1 if self == Hierarchy.col
+    return 2 if self == Hierarchy.itis
+    return 3 if self.label == 'Avibase - IOC World Bird Names (2011)'
+    return 4 if self.label == 'WORMS Species Information (Marine Species)'
+    return 5 if self.label == 'FishBase (Fish Species)'
+    return 6 if self.label == 'IUCN Red List (Species Assessed for Global Conservation)'
+    return 7 if self.label == 'Index Fungorum'
+    return 8 if self.label == 'Paleobiology Database'
+    9999
+  end
+
   def form_label
     return descriptive_label unless descriptive_label.blank?
     return label
   end
 
-  def kingdoms(opts = {})
-    vis = [Visibility.visible.id, Visibility.preview.id]
-    k = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
-    HierarchyEntry.preload_associations(k, :name)
-    HierarchyEntry.preload_associations(k, :hierarchy_entry_stat) if opts[:include_stats]
-    k
-  end
-  
   def content_partner
     # the resource has a content partner
     if resource && resource.content_partner

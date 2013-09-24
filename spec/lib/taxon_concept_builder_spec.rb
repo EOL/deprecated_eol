@@ -16,12 +16,11 @@ describe 'build_taxon_concept (spec helper method)' do
     @taxon_concept_naked = build_taxon_concept(
       :images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => []
     )
-    @taxon_concept_naked.current_user = User.gen
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   it 'should not have a common name by defaut' do
-    @taxon_concept.common_name.blank?.should be_true
+    @taxon_concept.preferred_common_name_in_language(Language.default).blank?.should be_true
   end
 
   it 'should put all new hierarchy_entries under the default hierarchy if none supplied'  do

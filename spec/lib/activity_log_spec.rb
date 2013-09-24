@@ -57,7 +57,7 @@ describe EOL::ActivityLog do
 
   it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for TaxonConcept' do
     EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
-    EOL::ActivityLog.find(TaxonConcept.new)
+    EOL::ActivityLog.find(TaxonConcept.gen)
   end
 
   it '#find should delegate to ...#search_with_pagination with reasonable defaults for other classes' do
@@ -69,10 +69,9 @@ describe EOL::ActivityLog do
   it '#find should follow supercedure for TaxonConcepts' do
     # TODO - stub this method. I tried, it didn't work, didn't care enough to dig right now:
     EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
-    tc = TaxonConcept.new
+    tc = TaxonConcept.gen
     tc.stub(:id).and_return(1234)
-    tc.stub(:to_s).and_return('1234') # Weird.  Really weird.  But necessary; that 1234 seemed to cause this?
-    TaxonConcept.should_receive(:find_all_by_supercedure_id).with(1234).and_return([])
+    TaxonConcept.should_receive(:where).with("supercedure_id = 1234").and_return(TaxonConcept.scoped)
     EOL::ActivityLog.find(tc)
   end
 

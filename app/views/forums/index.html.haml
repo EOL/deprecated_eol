@@ -1,0 +1,37 @@
+- @forum_categories.each do |category|
+  %table.standard.forum_category
+    %thead
+      %tr
+        %th.title= category.title
+        %th.number= I18n.t('forums.topics_heading')
+        %th.number= I18n.t('forums.posts_heading')
+        %th.last_post= I18n.t('forums.last_post')
+        - if current_user.is_admin?
+          %th.actions
+            = button_to raw(I18n.t('forums.buttons.move_up')), move_up_forum_category_path(category)
+            = button_to raw(I18n.t('forums.buttons.move_down')), move_down_forum_category_path(category)
+            = link_to I18n.t('forums.buttons.edit'), edit_forum_category_path(category), :class => :button
+            = button_to I18n.t('forums.buttons.delete'), category, :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+    - category.forums.sort_by(&:view_order).each do |forum|
+      %tr
+        %td= link_to forum.name, forum_path(forum)
+        %td= forum.number_of_topics
+        %td= forum.number_of_posts
+        %td= render :partial => 'forums/posts/summary', :locals => { :post => forum.last_post, :display_title => :topic }
+        - if current_user.is_admin?
+          %td.actions
+            = button_to raw(I18n.t('forums.buttons.move_up')), move_up_forum_path(forum)
+            = button_to raw(I18n.t('forums.buttons.move_down')), move_down_forum_path(forum)
+            = link_to I18n.t('forums.buttons.edit'), edit_forum_path(forum), :class => :button
+            = button_to I18n.t('forums.buttons.delete'), forum, :method => :delete, :confirm =>  I18n.t('this_cannot_be_undone_are_you_sure')
+
+- if current_user.is_admin?
+  .article#admin
+    .header
+      %h3= I18n.t('forums.administration')
+    .copy
+      %ul
+        %li
+          = link_to I18n.t('forums.categories.create'), new_forum_category_path
+        %li
+          = link_to I18n.t('forums.create'), new_forum_path

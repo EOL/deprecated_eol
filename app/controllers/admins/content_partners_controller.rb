@@ -16,6 +16,10 @@ class Admins::ContentPartnersController < AdminsController
     order = case @sort_by
     when 'newest'
       'content_partners.created_at DESC'
+    when 'oldest'
+      'content_partners.created_at ASC'
+    when 'hierarchy_publish'
+      'h.request_publish DESC, h.browsable DESC, content_partners.full_name'
     else
       'content_partners.full_name'
     end
@@ -71,7 +75,10 @@ class Admins::ContentPartnersController < AdminsController
                   :per_page => 40,
                   :include => include,
                   :conditions => [ conditions.join(' AND '), conditions_replacements],
-                  :order => order)
+                  :group => "content_partners.id",
+                  :order => order,
+                  :joins => "LEFT JOIN resources r ON (content_partners.id=r.content_partner_id)
+                    LEFT JOIN hierarchies h ON (r.hierarchy_id=h.id)")
     set_filter_options
     set_sort_options
     set_resource_edit_options
@@ -174,6 +181,7 @@ private
 
   def set_sort_options
     @sort_by_options   = [[I18n.t(:content_partner_column_header_partner), 'partner'],
+                          [I18n.t(:sort_by_hierarchy_publish_request_option), 'hierarchy_publish'],
                           [I18n.t(:sort_by_newest_option), 'newest'],
                           [I18n.t(:sort_by_oldest_option), 'oldest']]
   end

@@ -4,6 +4,7 @@
 # Author: Masakiyamaguchi
 # Author: Schu
 # Author: Shirayuki
+# Author: 아라
 ja: 
   translated_activities-name-activity_id-19: プロフィール
   translated_activities-name-activity_id-50: 信頼できない
@@ -11,7 +12,7 @@ ja:
   translated_activities-name-activity_id-52: 作成
   translated_activities-name-activity_id-53: 非表示
   translated_activities-name-activity_id-54: 更新
-  translated_activities-name-activity_id-55: 不適切な
+  translated_activities-name-activity_id-55: 不適切
   translated_activities-name-activity_id-56: 削除
   translated_activities-name-activity_id-57: 評価
   translated_activities-name-activity_id-58: 信頼できる
@@ -37,7 +38,7 @@ ja:
   translated_agent_roles-label-agent_role_id-6: ディレクター
   translated_agent_roles-label-agent_role_id-7: 編集者
   translated_agent_roles-label-agent_role_id-8: イラストレーター
-  translated_agent_roles-label-agent_role_id-9: 写真家
+  translated_agent_roles-label-agent_role_id-9: 撮影者
   translated_audiences-label-audience_id-1: 熟練した利用者
   translated_audiences-label-audience_id-2: 一般公開
   translated_audiences-label-audience_id-3: 子
@@ -47,7 +48,7 @@ ja:
   translated_collection_types-label-collection_type_id-12: 文学
   translated_collection_types-label-collection_type_id-13: 分類
   translated_collection_types-label-collection_type_id-14: DNA バーコード
-  translated_collection_types-label-collection_type_id-15: 解説
+  translated_collection_types-label-collection_type_id-15: 説明
   translated_collection_types-label-collection_type_id-16: 画像
   translated_collection_types-label-collection_type_id-17: ディストリビューション
   translated_collection_types-label-collection_type_id-18: 保全の状況
@@ -143,7 +144,7 @@ ja:
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-99: 家族
-  translated_resource_statuses-label-resource_status_id-1: アップロード中...
+  translated_resource_statuses-label-resource_status_id-1: アップロード中
   translated_resource_statuses-label-resource_status_id-10: 公開済み
   translated_resource_statuses-label-resource_status_id-11: 公開保留
   translated_resource_statuses-label-resource_status_id-12: 非公開保留
@@ -152,7 +153,7 @@ ja:
   translated_resource_statuses-label-resource_status_id-4: コンテンツサーバに移動
   translated_resource_statuses-label-resource_status_id-5: 検証済
   translated_resource_statuses-label-resource_status_id-6: 検証に失敗しました
-  translated_resource_statuses-label-resource_status_id-7: 処理中...
+  translated_resource_statuses-label-resource_status_id-7: 処理中
   translated_resource_statuses-label-resource_status_id-8: 処理済み
   translated_resource_statuses-label-resource_status_id-9: 処理に失敗しました
   translated_service_types-label-service_type_id-1: EOL 転送スキーマ

@@ -158,7 +158,7 @@ module EOL
       batch_file_path
     end
     
-    ## This is a different version of the method commented out above. The above method uses XMLBuilder and this
+    ## This is a different version of the method above. The above method uses XMLBuilder and this
     ## one writes XML as strings. The SiteMap XML is very simple so we gain little from using XMLBuilder,
     ## so I've decided to use this method which is generally about 5 times faster than the above,
     ## saving more than an hour of processing time

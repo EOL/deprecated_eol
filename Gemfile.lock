@@ -1,39 +1,41 @@
 GIT
-  remote: git://github.com/tchandy/octopus.git
-  revision: 2b8a8d0c7dd2434cf8bb41c5e5099af1180bc935
+  remote: git://github.com/pleary/octopus.git
+  revision: 5409490a4e12ae425af8b05ced876cbf0accf0c6
+  branch: 0.4.0
   specs:
     ar-octopus (0.4.0)
       activerecord (>= 2.3.0)
+      activesupport (>= 2.3.0)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
-    actionmailer (3.2.7)
-      actionpack (= 3.2.7)
-      mail (~> 2.4.4)
-    actionpack (3.2.7)
-      activemodel (= 3.2.7)
-      activesupport (= 3.2.7)
+    actionmailer (3.2.13)
+      actionpack (= 3.2.13)
+      mail (~> 2.5.3)
+    actionpack (3.2.13)
+      activemodel (= 3.2.13)
+      activesupport (= 3.2.13)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
-      rack (~> 1.4.0)
+      rack (~> 1.4.5)
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
-      sprockets (~> 2.1.3)
-    activemodel (3.2.7)
-      activesupport (= 3.2.7)
+      sprockets (~> 2.2.1)
+    activemodel (3.2.13)
+      activesupport (= 3.2.13)
       builder (~> 3.0.0)
-    activerecord (3.2.7)
-      activemodel (= 3.2.7)
-      activesupport (= 3.2.7)
+    activerecord (3.2.13)
+      activemodel (= 3.2.13)
+      activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.7)
-      activemodel (= 3.2.7)
-      activesupport (= 3.2.7)
-    activesupport (3.2.7)
-      i18n (~> 0.6)
+    activeresource (3.2.13)
+      activemodel (= 3.2.13)
+      activesupport (= 3.2.13)
+    activesupport (3.2.13)
+      i18n (= 0.6.1)
       multi_json (~> 1.0)
     acts_as_tree_rails3 (0.1.0)
     addressable (2.3.2)
@@ -67,18 +69,17 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     columnize (0.3.6)
-    composite_primary_keys (5.0.8)
-      activerecord (~> 3.2.0)
+    composite_primary_keys (5.0.10)
+      activerecord (~> 3.2.0, >= 3.2.9)
     crack (0.3.1)
     daemons (1.1.9)
     dalli (2.3.0)
-    debugger (1.2.1)
+    debugger (1.5.0)
       columnize (>= 0.3.1)
-      debugger-linecache (~> 1.1.1)
-      debugger-ruby_core_source (~> 1.1.4)
-    debugger-linecache (1.1.2)
-      debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.1.4)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.0)
     diff-lcs (1.1.3)
     email_spec (1.4.0)
       launchy (~> 2.1)
@@ -98,17 +99,19 @@ GEM
     faraday (0.8.4)
       multipart-post (~> 1.1)
     ffi (1.1.5)
-    gelf (1.1.3)
-      json
-    graylog2_exceptions (1.3.0)
-      gelf (= 1.1.3)
     haml (3.1.7)
-    haml-i18n (0.0.4)
-      activesupport
-      haml
-      i18n
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     highline (1.6.15)
-    hike (1.2.1)
+    hike (1.2.2)
+    hipchat (0.8.0)
+      httparty
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.1)
     indifferent-variable-hash (0.1.0)
@@ -117,7 +120,7 @@ GEM
     jquery-rails (2.1.3)
       railties (>= 3.1.0, < 5.0)
       thor (~> 0.14)
-    json (1.7.5)
+    json (1.7.7)
     jwt (0.1.5)
       multi_json (>= 1.0)
     kgio (2.7.4)
@@ -128,12 +131,13 @@ GEM
       addressable
     macaddr (1.6.1)
       systemu (~> 2.5.0)
-    mail (2.4.4)
+    mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.19)
-    multi_json (1.3.7)
+    multi_json (1.7.2)
+    multi_xml (0.5.3)
     multipart-post (1.1.5)
     mysql2 (0.3.11)
     net-scp (1.0.4)
@@ -143,8 +147,9 @@ GEM
     net-ssh (2.6.1)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.5.0.1)
+    newrelic_rpm (3.5.3.25)
     nokogiri (1.5.5)
+    nunes (0.3.0)
     oauth (0.4.7)
     oauth2 (0.8.0)
       faraday (~> 0.8)
@@ -161,34 +166,34 @@ GEM
       cocaine (~> 0.4.0)
       mime-types
     polyglot (0.3.3)
-    rack (1.4.1)
+    rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-protection (1.2.0)
       rack
-    rack-ssl (1.3.2)
+    rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.7)
-      actionmailer (= 3.2.7)
-      actionpack (= 3.2.7)
-      activerecord (= 3.2.7)
-      activeresource (= 3.2.7)
-      activesupport (= 3.2.7)
+    rails (3.2.13)
+      actionmailer (= 3.2.13)
+      actionpack (= 3.2.13)
+      activerecord (= 3.2.13)
+      activeresource (= 3.2.13)
+      activesupport (= 3.2.13)
       bundler (~> 1.0)
-      railties (= 3.2.7)
+      railties (= 3.2.13)
     rails_autolink (1.0.9)
       rails (~> 3.1)
-    railties (3.2.7)
-      actionpack (= 3.2.7)
-      activesupport (= 3.2.7)
+    railties (3.2.13)
+      actionpack (= 3.2.13)
+      activesupport (= 3.2.13)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
-    rake (0.9.2.2)
+    rake (10.0.4)
     rdoc (3.12)
       json (~> 1.4)
     recaptcha (0.3.4)
@@ -236,22 +241,25 @@ GEM
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
-    sprockets (2.1.3)
+    spin (0.5.3)
+    sprockets (2.2.2)
       hike (~> 1.2)
+      multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    statsd-ruby (1.2.1)
     systemu (2.5.2)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
-    thor (0.16.0)
-    tilt (1.3.3)
+    thor (0.18.1)
+    tilt (1.4.0)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    turbo-sprockets-rails3 (0.2.12)
-      railties (>= 3.1.0, < 3.2.9)
+    turbo-sprockets-rails3 (0.3.4)
+      railties (> 3.2.8, < 4.0.0)
       sprockets (>= 2.0.0)
-    tzinfo (0.3.35)
+    tzinfo (0.3.37)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
@@ -267,7 +275,7 @@ GEM
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
     webrick (1.3.1)
-    will_paginate (3.0.3)
+    will_paginate (3.0.4)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -275,54 +283,57 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_tree_rails3
-  ar-octopus!
-  capistrano
+  acts_as_tree_rails3 (= 0.1.0)
+  ar-octopus (= 0.4.0)!
+  capistrano (= 2.13.5)
   capistrano-unicorn-pleary (= 0.1.6.1)
-  capybara
-  ckeditor
-  coffee-rails
+  capybara (= 1.1.3)
+  ckeditor (= 3.7.3)
+  coffee-rails (= 3.2.2)
   composite_primary_keys
-  daemons
-  dalli
+  daemons (= 1.1.9)
+  dalli (= 2.3.0)
   debugger
-  email_spec
-  escape
-  execjs
-  ezcrypto
-  factory_girl_rails
-  faker
-  graylog2_exceptions
-  haml
-  haml-i18n
-  indifferent-variable-hash
-  invert
-  jquery-rails
-  json
-  macaddr
-  mime-types
-  mysql2
-  newrelic_rpm
-  oauth
-  oauth2
-  optiflag
-  paperclip
-  rails (= 3.2.7)
-  rails_autolink
-  rdoc
-  recaptcha
-  resque
-  rspec-html-matchers
-  rspec-rails (~> 2.0)
-  ruby-prof
-  rvm-capistrano
-  sanitize
-  sass-rails
-  therubyracer
-  turbo-sprockets-rails3
-  uglifier
-  unicorn
-  uuid
-  webmock
-  webrick
-  will_paginate
+  email_spec (= 1.4.0)
+  escape (= 0.0.4)
+  execjs (= 1.4.0)
+  ezcrypto (= 0.7.2)
+  factory_girl_rails (= 4.1.0)
+  faker (= 1.1.2)
+  haml (= 3.1.7)
+  haml-rails
+  hipchat
+  indifferent-variable-hash (= 0.1.0)
+  invert (= 0.1.0)
+  jquery-rails (= 2.1.3)
+  json (= 1.7.7)
+  macaddr (= 1.6.1)
+  mime-types (= 1.19)
+  mysql2 (= 0.3.11)
+  newrelic_rpm (> 3.5.3)
+  nunes (= 0.3.0)
+  oauth (= 0.4.7)
+  oauth2 (= 0.8.0)
+  optiflag (= 0.7)
+  paperclip (= 3.3.1)
+  rails (= 3.2.13)
+  rails_autolink (= 1.0.9)
+  rdoc (= 3.12)
+  recaptcha (= 0.3.4)
+  resque (= 1.23.0)
+  rspec-html-matchers (= 0.3.5)
+  rspec-rails (= 2.11.4)
+  ruby-prof (= 0.11.2)
+  rvm-capistrano (= 1.2.7)
+  sanitize (= 2.0.3)
+  sass-rails (= 3.2.5)
+  spin (= 0.5.3)
+  statsd-ruby (= 1.2.1)
+  therubyracer (= 0.10.2)
+  turbo-sprockets-rails3 (= 0.3.4)
+  uglifier (= 1.3.0)
+  unicorn (= 4.4.0)
+  uuid (= 2.3.5)
+  webmock (= 1.8.11)
+  webrick (= 1.3.1)
+  will_paginate (= 3.0.4)

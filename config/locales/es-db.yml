@@ -3,11 +3,12 @@
 # Export driver: syck-pecl
 # Author: Armando-Martin
 # Author: Erick mata
+# Author: Fortega
 # Author: Maumau
 # Author: Sampalahnuk
 es: 
   translated_activities-name-activity_id-19: perfil
-  translated_activities-name-activity_id-50: Sin confianza
+  translated_activities-name-activity_id-50: no confiable
   translated_activities-name-activity_id-51: mostrar
   translated_activities-name-activity_id-52: crear
   translated_activities-name-activity_id-53: esconder
@@ -15,8 +16,8 @@ es:
   translated_activities-name-activity_id-55: inapropiado
   translated_activities-name-activity_id-56: borrar
   translated_activities-name-activity_id-57: califica
-  translated_activities-name-activity_id-58: De confianza
-  translated_activities-name-activity_id-59: Sin revisar
+  translated_activities-name-activity_id-58: confiable
+  translated_activities-name-activity_id-59: sin revisar
   translated_activities-name-activity_id-63: recopilar
   translated_activities-name-activity_id-64: quita
   translated_agent_roles-label-agent_role_id-1: Animador
@@ -24,14 +25,14 @@ es:
   translated_agent_roles-label-agent_role_id-11: Publicador
   translated_agent_roles-label-agent_role_id-12: Grabadora
   translated_agent_roles-label-agent_role_id-13: Fuente
-  translated_agent_roles-label-agent_role_id-14: Fuente Base de datos
+  translated_agent_roles-label-agent_role_id-14: Base de datos original
   translated_agent_roles-label-agent_role_id-15: Persona de contacto
   translated_agent_roles-label-agent_role_id-16: Contribuidor
   translated_agent_roles-label-agent_role_id-2: Autor
-  translated_agent_roles-label-agent_role_id-21: Proveedor
+  translated_agent_roles-label-agent_role_id-21: proveedor
   translated_agent_roles-label-agent_role_id-22: Traductor
   translated_agent_roles-label-agent_role_id-23: Revisor científico
-  translated_agent_roles-label-agent_role_id-24: Revisor liguistico
+  translated_agent_roles-label-agent_role_id-24: Revisor lingüístico
   translated_agent_roles-label-agent_role_id-3: Compilador
   translated_agent_roles-label-agent_role_id-4: Compositor
   translated_agent_roles-label-agent_role_id-5: Creador
@@ -68,7 +69,7 @@ es:
   translated_collection_types-label-collection_type_id-9: Nomenclatura
   translated_contact_roles-label-contact_role_id-1: Contacto principal
   translated_contact_roles-label-contact_role_id-2: Contacto administrativo
-  translated_contact_roles-label-contact_role_id-3: Contacto Técnico
+  translated_contact_roles-label-contact_role_id-3: Contacto técnico
   translated_contact_subjects-title-contact_subject_id-24: Adhesión e inscripción
   translated_contact_subjects-title-contact_subject_id-25: Condiciones de uso y licencias
   translated_contact_subjects-title-contact_subject_id-26: Aprendizaje y educación
@@ -77,7 +78,7 @@ es:
   translated_contact_subjects-title-contact_subject_id-29: Soporte para curadores
   translated_contact_subjects-title-contact_subject_id-30: Hacer una corrección (ortografía y gramática, imágenes, información)
   translated_contact_subjects-title-contact_subject_id-31: Contribuir con imágenes, vídeos o sonidos
-  translated_contact_subjects-title-contact_subject_id-32: Solicitudes de prensa (entrevistas, preguntas, solicitudes de logotipos)
+  translated_contact_subjects-title-contact_subject_id-32: Solicitudes de recursos (entrevistas, consultas de prensa, logotipos)
   translated_contact_subjects-title-contact_subject_id-33: Hacer una contribución financiera
   translated_contact_subjects-title-contact_subject_id-34: Cuestiones técnicas (problemas con las búsquedas, funcionalidad del sitio web)
   translated_contact_subjects-title-contact_subject_id-35: Comentarios generales
@@ -87,7 +88,7 @@ es:
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactivo
   translated_content_tables-label-content_table_id-1: Detalles
   translated_data_types-label-data_type_id-1: Imagen
-  translated_data_types-label-data_type_id-10: mapa
+  translated_data_types-label-data_type_id-10: Mapa
   translated_data_types-label-data_type_id-2: Sonido
   translated_data_types-label-data_type_id-3: Texto
   translated_data_types-label-data_type_id-4: Vídeo
@@ -138,7 +139,7 @@ es:
   translated_ranks-label-rank_id-370: subclase
   translated_ranks-label-rank_id-375: subdivisión
   translated_ranks-label-rank_id-383: subfamilia
-  translated_ranks-label-rank_id-390: subgénero
+  translated_ranks-label-rank_id-390: subgén
   translated_ranks-label-rank_id-391: Subgén.
   translated_ranks-label-rank_id-394: subgénero
   translated_ranks-label-rank_id-396: subreino
@@ -146,15 +147,15 @@ es:
   translated_ranks-label-rank_id-401: subfilo
   translated_ranks-label-rank_id-408: subsección
   translated_ranks-label-rank_id-411: subserie
-  translated_ranks-label-rank_id-413: subg
-  translated_ranks-label-rank_id-414: subg.
+  translated_ranks-label-rank_id-413: subes
+  translated_ranks-label-rank_id-414: subes.
   translated_ranks-label-rank_id-415: subespecie
   translated_ranks-label-rank_id-422: subtribu
   translated_ranks-label-rank_id-463: superfamilia
-  translated_ranks-label-rank_id-472: superphylum
+  translated_ranks-label-rank_id-472: superfilo
   translated_ranks-label-rank_id-494: tribu
-  translated_ranks-label-rank_id-503: Sin clasificar
-  translated_ranks-label-rank_id-51: Clase
+  translated_ranks-label-rank_id-503: sin clasificar
+  translated_ranks-label-rank_id-51: clase
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: variedades
@@ -169,19 +170,19 @@ es:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familia
-  translated_resource_statuses-label-resource_status_id-1: Subiendo
+  translated_resource_statuses-label-resource_status_id-1: Enviando
   translated_resource_statuses-label-resource_status_id-10: Publicado
-  translated_resource_statuses-label-resource_status_id-11: Pendiente de publicar
-  translated_resource_statuses-label-resource_status_id-12: Anular la publicación pendiente
+  translated_resource_statuses-label-resource_status_id-11: Publicación pendiente
+  translated_resource_statuses-label-resource_status_id-12: Anulación de publicación pendiente
   translated_resource_statuses-label-resource_status_id-13: Obligue cosecha
-  translated_resource_statuses-label-resource_status_id-2: Subido
-  translated_resource_statuses-label-resource_status_id-3: Error de subida
+  translated_resource_statuses-label-resource_status_id-2: Enviado
+  translated_resource_statuses-label-resource_status_id-3: Envío fallido
   translated_resource_statuses-label-resource_status_id-4: Movido al Servidor de Contenido
   translated_resource_statuses-label-resource_status_id-5: Validado
-  translated_resource_statuses-label-resource_status_id-6: Validación falló
+  translated_resource_statuses-label-resource_status_id-6: Validación fallida
   translated_resource_statuses-label-resource_status_id-7: Procesando
   translated_resource_statuses-label-resource_status_id-8: Procesado
-  translated_resource_statuses-label-resource_status_id-9: Proceso falló
+  translated_resource_statuses-label-resource_status_id-9: Proceso fallido
   translated_service_types-label-service_type_id-1: Esquema de Transferencia EOL
   translated_service_types-label-service_type_id-2: Otro
   translated_sort_styles-name-sort_style_id-1: Recientemente agregados
@@ -189,17 +190,17 @@ es:
   translated_sort_styles-name-sort_style_id-3: Alfabético
   translated_sort_styles-name-sort_style_id-4: Alfabético Inverso
   translated_sort_styles-name-sort_style_id-5: Riqueza
-  translated_sort_styles-name-sort_style_id-6: Puntaje
+  translated_sort_styles-name-sort_style_id-6: Valoración
   translated_statuses-label-status_id-1: Insertado
   translated_statuses-label-status_id-2: Actualizado
   translated_statuses-label-status_id-3: Sin cambio
   translated_statuses-label-status_id-4: Reutilizado
   translated_synonym_relations-label-synonym_relation_id-1: sinónimo
-  translated_synonym_relations-label-synonym_relation_id-10: genbank sinónimo
+  translated_synonym_relations-label-synonym_relation_id-10: sinónimo genbank
   translated_synonym_relations-label-synonym_relation_id-11: en parte
   translated_synonym_relations-label-synonym_relation_id-12: incluye
   translated_synonym_relations-label-synonym_relation_id-13: nombre equivocado
-  translated_synonym_relations-label-synonym_relation_id-14: falta ortografía
+  translated_synonym_relations-label-synonym_relation_id-14: falta ortográfica
   translated_synonym_relations-label-synonym_relation_id-15: teleomorfo
   translated_synonym_relations-label-synonym_relation_id-16: sinónimo ambiguo
   translated_synonym_relations-label-synonym_relation_id-17: nombre mal aplicado
@@ -207,7 +208,7 @@ es:
   translated_synonym_relations-label-synonym_relation_id-19: nombre aceptado
   translated_synonym_relations-label-synonym_relation_id-2: nombre común
   translated_synonym_relations-label-synonym_relation_id-20: artefacto de base de datos
-  translated_synonym_relations-label-synonym_relation_id-21: otro, véa los comentarios
+  translated_synonym_relations-label-synonym_relation_id-21: otro, ver los comentarios
   translated_synonym_relations-label-synonym_relation_id-22: variante ortográfica (error ortográfico)
   translated_synonym_relations-label-synonym_relation_id-23: mal aplicado
   translated_synonym_relations-label-synonym_relation_id-24: nombre rechazado

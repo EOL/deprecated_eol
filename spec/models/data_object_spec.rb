@@ -33,33 +33,32 @@ describe DataObject do
   end
 
   it 'should be able to replace wikipedia articles' do
+    $FOO = 1
     TocItem.gen_if_not_exists(:label => 'wikipedia')
 
     published_do = build_data_object('Text', 'This is a test wikipedia article content', :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => published_do.id)
     published_do.toc_items << TocItem.wikipedia
-    published_do_association = published_do.association_with_exact_or_best_vetted_status(@taxon_concept)
 
     preview_do = build_data_object('Text', 'This is a test wikipedia article content', :guid => published_do.guid,
                                    :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => preview_do.id)
     preview_do.toc_items << TocItem.wikipedia
-    preview_do_association = preview_do.association_with_exact_or_best_vetted_status(@taxon_concept)
 
     published_do.published.should be_true
     # ...This one is failing, but it's quite complicated, so I'm coming back to it:
-    preview_do_association.visibility.should == Visibility.preview
-    preview_do_association.vetted.should == Vetted.unknown
+    preview_do.visibility_by_taxon_concept(@taxon_concept).should == Visibility.preview
+    preview_do.vetted_by_taxon_concept(@taxon_concept).should == Vetted.unknown
 
     preview_do.publish_wikipedia_article(@taxon_concept)
-    published_do.reload
-    preview_do.reload
+    published_do.reindex
+    preview_do.reindex
 
     published_do.published.should_not be_true
     preview_do.published.should be_true
 
-    published_do_association.vetted.should == Vetted.trusted
-    published_do_association.visibility.should == Visibility.visible
+    published_do.vetted_by_taxon_concept(@taxon_concept).should == Vetted.trusted
+    published_do.visibility_by_taxon_concept(@taxon_concept).should == Visibility.visible
   end
 
  it 'ratings should have a default rating of 2.5' do
@@ -266,7 +265,7 @@ describe DataObject do
   end
 
   it 'should delegate #image_cache_path to ContentServer' do
-    ContentServer.should_receive(:cache_path).with(:foo, nil).and_return("worked")
+    ContentServer.should_receive(:cache_path).with(:foo, {}).and_return("worked")
     DataObject.image_cache_path(:foo, :large).should == "worked_large.#{$SPECIES_IMAGE_FORMAT}"
   end
 
@@ -351,60 +350,49 @@ describe DataObject do
     cdohe.should == nil
   end
 
-  it '#untrust_reasons should return the same untrust reasons for all versions of the data object' do
-    CuratedDataObjectsHierarchyEntry.delete_all
-    @image_dato = DataObject.find(@image_dato)
-    @image_dato.add_curated_association(@curator, @hierarchy_entry)
-    cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
-                                                                                           @image_dato.id)
-    cdohe.vetted_id = Vetted.untrusted.id
-    cdohe.visibility_id = Visibility.invisible.id
-    cal = CuratorActivityLog.gen(:object_id => @image_dato.id,
-                              :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
-                              :activity_id => Activity.untrusted.id,
-                              :hierarchy_entry_id => @hierarchy_entry.id,
-                              :data_object_guid => @image_dato.guid,
-                              :user_id => @curator.id,
-                              :created_at => 0.seconds.from_now)
-    CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.misidentified.id)
-    @image_dato = DataObject.find(@image_dato)
-    @image_dato.untrust_reasons(@image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
-    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
-    new_image_dato.untrust_reasons(new_image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
-  end
-  
-  it '#hide_reasons should return the same hide reasons for all versions of the data object' do
-    CuratedDataObjectsHierarchyEntry.delete_all
-    @image_dato = DataObject.find(@image_dato)
-    @image_dato.add_curated_association(@curator, @hierarchy_entry)
-    cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
-                                                                                           @image_dato.id)
-    cdohe.vetted_id = Vetted.unknown.id
-    cdohe.visibility_id = Visibility.invisible.id
-    cal = CuratorActivityLog.gen(:object_id => @image_dato.id,
-                              :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
-                              :activity_id => Activity.hide.id,
-                              :hierarchy_entry_id => @hierarchy_entry.id,
-                              :data_object_guid => @image_dato.guid,
-                              :user_id => @curator.id,
-                              :created_at => 0.seconds.from_now)
-    CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.poor.id)
-    @image_dato = DataObject.find(@image_dato)
-    @image_dato.hide_reasons(@image_dato.all_associations.last).should == [UntrustReason.poor.id]
-    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
-    new_image_dato.hide_reasons(new_image_dato.all_associations.last).should == [UntrustReason.poor.id]
-  end
-
   it '#published_entries should read data_objects_hierarchy_entries'
 
   it '#published_entries should have a user_id on hierarchy entries that were added by curators'
 
-  it '#all_associations should return all associations for the data object' do
-    all_associations_count_for_udo = @user_submitted_text.all_associations.count
+  it '#data_object_taxa should return all associations for the data object' do
+    data_object_taxa_count_for_udo = @user_submitted_text.data_object_taxa.count
+    @user_submitted_text.reload
     CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
         @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted,
         :visibility => Visibility.visible, :user => @curator)
-    DataObject.find(@user_submitted_text).all_associations.count.should == all_associations_count_for_udo + 1
+    DataObject.find(@user_submitted_text).data_object_taxa.count.should == data_object_taxa_count_for_udo + 1
+  end
+
+  it '#uncached_data_object_taxa should filter on published, vetted, visibility' do
+    second_taxon_concept = build_taxon_concept
+    d = DataObject.gen
+    d.should_receive(:curated_hierarchy_entries).at_least(1).times.and_return([
+      DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted, visibility: Visibility.invisible)),
+      DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.unknown, visibility: Visibility.preview)),
+      DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.untrusted, visibility: Visibility.visible,
+        hierarchy_entry: HierarchyEntry.gen(published: 0)))
+      ])
+    d.uncached_data_object_taxa.length.should == 3
+    d.uncached_data_object_taxa(
+      published: true).length.should == 2
+    d.uncached_data_object_taxa(
+      vetted_id: Vetted.trusted.id).length.should == 1
+    d.uncached_data_object_taxa(
+      vetted_id: [ Vetted.trusted.id, Vetted.unknown.id ]).length.should == 2
+    d.uncached_data_object_taxa(
+      vetted_id: [ Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id ]).length.should == 3
+    d.uncached_data_object_taxa(
+      visibility_id: Visibility.visible.id).length.should == 1
+    d.uncached_data_object_taxa(
+      visibility_id: [ Visibility.visible.id, Visibility.preview.id ]).length.should == 2
+    d.uncached_data_object_taxa(
+      visibility_id: [ Visibility.visible.id, Visibility.preview.id, Visibility.invisible.id ]).length.should == 3
+    d.uncached_data_object_taxa(
+      visibility_id: Visibility.visible.id, vetted_id: Vetted.trusted.id).length.should == 0
+    d.uncached_data_object_taxa(
+      visibility_id: Visibility.visible.id, vetted_id: Vetted.untrusted.id).length.should == 1
+    d.uncached_data_object_taxa(published: true,
+      visibility_id: Visibility.visible.id, vetted_id: Vetted.untrusted.id).length.should == 0
   end
 
   it '#safe_rating should NOT re-calculate ratings that are in the normal range.' do
@@ -446,9 +434,9 @@ describe DataObject do
                           :object_url => 'http://my.object.url',
                           :data_subtype_id => DataType.map.id)
     dohe = DataObjectsHarvestEvent.gen(:data_object_id => dato.id, :harvest_event_id => harvest.id)
-    dato.access_image_from_remote_server?('580_360').should == true
-    dato.access_image_from_remote_server?('260_190').should == false
-    dato.access_image_from_remote_server?(:orig).should == true
+    dato.access_image_from_remote_server?('580_360').should be_true
+    dato.access_image_from_remote_server?('260_190').should_not be_true
+    dato.access_image_from_remote_server?(:orig).should be_true
   end
 
   it '#create_user_text should add rights holder only if rights holder not provided, license is not public domain and if it is not a link object' do
@@ -496,7 +484,7 @@ describe DataObject do
     params[:license_id] = nil
     params[:rights_holder] = ''
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.rights_holder.should == ''
   end
 
@@ -519,27 +507,27 @@ describe DataObject do
                 :link_object => true }
     options[:user] = @user
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
-    dato.users_data_object.vetted_id.should == Vetted.untrusted.id
-    dato.users_data_object.visibility_id.should == Visibility.invisible.id
+    dato.link?.should be_true
+    dato.users_data_object.vetted_id.should == Vetted.unknown.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = assistant_curator
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.unknown.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = full_curator
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = master_curator
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = admin
     dato = DataObject.create_user_text(params, options)
-    dato.link?.should == true
+    dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
   end
@@ -561,6 +549,153 @@ describe DataObject do
       @taxon_concept.should_receive(:reload).and_return(true)
       DataObject.create_user_text(new_text_params, :user => @user, :taxon_concept => @taxon_concept)
     }.should raise_error
+  end
+
+  it '#latest_published_version_in_same_language should not return itself if the object is unpublished' do
+    d = DataObject.gen(:published => 1)
+    d.latest_published_version_in_same_language.should == d
+    d = DataObject.gen(:published => 0)
+    d.latest_published_version_in_same_language.should == nil
+  end
+
+  it 'should know when the rights holder s/b displayed' do
+    d = DataObject.gen(:license => License.public_domain, :rights_holder => '')
+    d.show_rights_holder?.should_not be_true
+    d.license = License.cc
+    d.show_rights_holder?.should be_true
+    d.license = License.no_known_restrictions
+    d.show_rights_holder?.should_not be_true
+  end
+
+  it 'should use the resource rights holder if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:rights_holder, '')
+    resource.update_column(:rights_holder, nil)
+    data_object.rights_holder_for_display.should == nil
+
+    resource.update_column(:rights_holder, 'RESOURCE RIGHTS')
+    data_object.reload.rights_holder_for_display.should == 'RESOURCE RIGHTS'
+
+    data_object.update_column(:rights_holder, 'OBJECT RIGHTS')
+    data_object.reload.rights_holder_for_display.should == 'OBJECT RIGHTS'
+  end
+
+  it 'should use the resource rights statement if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:rights_statement, '')
+    resource.update_column(:rights_statement, nil)
+    data_object.rights_statement_for_display.should == nil
+
+    resource.update_column(:rights_statement, 'RESOURCE STATEMENT')
+    data_object.reload.rights_statement_for_display.should == 'RESOURCE STATEMENT'
+
+    data_object.update_column(:rights_statement, 'OBJECT STATEMENT')
+    data_object.reload.rights_statement_for_display.should == 'OBJECT STATEMENT'
+  end
+
+  it 'should use the resource bibliographic citation if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    # creating a resource for this data object
+    Resource.destroy_all
+    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    data_object.update_column(:bibliographic_citation, '')
+    resource.update_column(:bibliographic_citation, nil)
+    data_object.bibliographic_citation_for_display.should == nil
+
+    resource.update_column(:bibliographic_citation, 'RESOURCE CITATION')
+    data_object.reload.bibliographic_citation_for_display.should == 'RESOURCE CITATION'
+
+    data_object.update_column(:bibliographic_citation, 'OBJECT CITATION')
+    data_object.reload.bibliographic_citation_for_display.should == 'OBJECT CITATION'
+    Resource.destroy(resource)
+  end
+
+  it 'should return proper values for can_be_made_overview_text_for_user' do
+    text = @taxon_concept.data_objects.select{ |d| d.text? && !d.added_by_user? }.last
+    text.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
+    text.update_column(:published, false)
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # unpublished
+    text.update_column(:published, true)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, text.id)
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # already exemplar
+    TaxonConceptExemplarArticle.destroy_all
+    @taxon_concept.reload
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.preview.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # preview
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.invisible.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # invisible
+    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.visible.id)
+    text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
+  end
+
+  it 'should replace objects with their latest versions with replace_with_latest_versions!' do
+    @image_dato = DataObject.find(@image_dato)
+    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    test_array = [ @image_dato ]
+    DataObject.replace_with_latest_versions!(test_array)
+    test_array.should_not == [ @image_dato ]
+    test_array.should == [ new_image_dato ]
+  end
+
+  it 'should replace objects with their latest versions with replace_with_latest_versions_no_preload' do
+    @image_dato = DataObject.find(@image_dato)
+    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    test_array = [ @image_dato ]
+    DataObject.replace_with_latest_versions_no_preload(test_array)
+    test_array.should_not == [ @image_dato ]
+    test_array.should == [ new_image_dato ]
+  end
+
+  it 'should create the right sound_url for MP3s with no extension in its object_url' do
+    mp3 = DataObject.gen(:data_type => DataType.sound, :mime_type => MimeType.mp3, :object_cache_url => @big_int,
+      :object_url => "http://api.soundcloud.com/tracks/72574158/download?client_id=ac6cdf58548a238e00b7892c031378ce")
+    mp3.sound_url.should =~ /#{ContentServer.cache_path(@big_int)}.mp3/
+  end
+
+  it 'should create the right sound_url for WAVs with no extension in its object_url' do
+    wav = DataObject.gen(:data_type => DataType.sound, :mime_type => MimeType.wav, :object_cache_url => @big_int,
+      :object_url => "http://api.soundcloud.com/tracks/50714448/download?client_id=ac6cdf58548a238e00b7892c031378ce")
+    wav.sound_url.should =~ /#{ContentServer.cache_path(@big_int)}.wav/
+  end
+
+  it 'should recognize when the title is the same as a toc label' do
+    d = DataObject.gen(:object_title => 'Some test title')
+    toc = TocItem.gen_if_not_exists(:label => d.object_title)
+    TranslatedTocItem.gen(:table_of_contents_id => toc.id, :language_id => Language.from_iso('ar').id, :label => "Arabic TOC label")
+    toc.reload
+
+    toc.label.should == d.object_title
+    toc.label("ar").should == 'Arabic TOC label'
+    d.title_same_as_toc_label(toc).should == true
+    d.title_same_as_toc_label(toc, :language => Language.english).should == true
+    # doesnt matter if the user is using a different language
+    d.title_same_as_toc_label(toc, :language => Language.from_iso('ar')).should == true
+  end
+
+  it 'should add rights, citation and location information to SiteSearch Solr core' do
+    solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+    fields_for_searching = [ :object_title, :description, :rights_statement, :rights_holder,
+      :bibliographic_citation, :location ]
+    # removing underscores as Solr will use them to separate search terms
+    d = DataObject.gen(Hash[ fields_for_searching.map{ |att| [ att, att.to_s.delete('_') + 'x' ] } ])
+    EOL::Solr::SiteSearchCoreRebuilder.obliterate
+    fields_for_searching.each do |att|
+      solr_api.get_results("resource_type:DataObject AND keyword_type:#{att} AND keyword:#{att.to_s.delete('_')}x")['numFound'].should == 0
+    end
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    fields_for_searching.each do |att|
+      solr_api.get_results("resource_type:DataObject AND keyword_type:#{att} AND keyword:#{att.to_s.delete('_')}x")['numFound'].should == 1
+    end
   end
 
 end

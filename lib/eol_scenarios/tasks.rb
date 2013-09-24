@@ -24,7 +24,10 @@ namespace :scenarios do
     puts "called scenarios:load" if EolScenario.verbose
     if ENV['NAME']
       names = ENV['NAME'].split(',')
-      EolScenario.load *names
+      names.each do |name|
+        loader = EOL::ScenarioLoader.new(name, EOL::DB.all_connections)
+        loader.load_with_caching
+      end
     else
       puts "you need to pass NAME=scenario_name to load a scenario"
     end
@@ -48,33 +51,3 @@ namespace :scenarios do
   end
 
 end
-
-=begin
-  if defined?RAILS_ENV
-    # rails-specific task
-
-    desc 'this will clear the database, load scenarios, & run the site'
-    task :run => :environment do
-      if RAILS_ENV == 'test'
-        if ENV['NAME']
-
-          puts "clearing database ..."
-          Rake::Task[:truncate].invoke # this isn't defined in scenarios!  need to not call this or include a :truncate task
-
-          puts "loading scenarios ..."
-          names = ENV['NAME'].split(',')
-          EolScenario.load *names
-
-          puts "running the site ..."
-          require 'commands/server'
-
-        else
-          puts "Usage: rake:run NAME=the_names,of_some,scenarios_to_load RAILS_ENV=test"
-        end
-      else
-        puts "sorry, i'm not comfortable doing this in any environment but 'test'"
-      end
-    end
-
-  end
-=end

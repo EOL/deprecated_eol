@@ -1,14 +1,18 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-def rebuild_convenience_method_data
-  @user = User.gen
-  @descriptions = ['these', 'do not really', 'matter much'].sort
-  @datos = @descriptions.map {|d| DataObject.gen(:description => d) }
-  @dato_ids = @datos.map{|d| d.id}.sort
-  @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id, :vetted => Vetted.trusted) }
-end
-
 describe User do
+
+  def rebuild_convenience_method_data
+    @user = User.gen
+    @descriptions = ['these', 'do not really', 'matter much'].sort
+    @datos = @descriptions.map {|d| DataObject.gen(:description => d) }
+    @dato_ids = @datos.map{|d| d.id}.sort
+    @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id, :vetted => Vetted.trusted) }
+  end
+
+  def expect_permission_count_to_be(perm, count)
+    Permission.send(perm).reload.users_count.should == count
+  end
 
   before(:all) do
     @password = 'dragonmaster'
@@ -249,6 +253,45 @@ describe User do
     user.is_admin?.should == true
     user.admin = nil                # anonymous user
     user.is_admin?.should == false
+  end
+
+  it 'should know when a user has a permission' do
+    # Silly but required because of uses_translations:
+    user = User.gen
+    user.permissions << Permission.edit_permissions
+    user.can?(:edit_permissions).should be_true
+    user.can?(:beta_test).should_not be_true
+  end
+
+  it 'should grant permissions' do
+    count = Permission.edit_permissions.reload.users_count
+    user = User.gen
+    user.permissions.length.should == 0
+    user.can?(:edit_permissions).should_not be_true
+    user.grant_permission(:edit_permissions)
+    user.permissions.length.should == 1
+    user.can?(:edit_permissions).should be_true
+    expect_permission_count_to_be(:edit_permissions, count + 1)
+    # Make sure doing it twice doesn't hurt:
+    user.grant_permission(:edit_permissions)
+    user.can?(:edit_permissions).should be_true
+    user.permissions.length.should == 1
+    expect_permission_count_to_be(:edit_permissions, count + 1)
+  end
+
+  it 'should revoke permissions' do
+    user = User.gen
+    user.grant_permission(:edit_permissions)
+    user.permissions.length.should == 1
+    user.can?(:edit_permissions).should be_true
+    count = Permission.edit_permissions.reload.users_count
+    user.revoke_permission(:edit_permissions)
+    expect_permission_count_to_be(:edit_permissions, count - 1)
+    user.permissions.length.should == 0
+    # Make sure doing it twice doesn't hurt:
+    user.revoke_permission(:edit_permissions)
+    expect_permission_count_to_be(:edit_permissions, count - 1)
+    user.permissions.length.should == 0
   end
 
 end

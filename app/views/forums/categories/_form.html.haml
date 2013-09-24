@@ -1,0 +1,21 @@
+= form_for @category || ForumCategory.new, :builder => ApplicationHelper::EolFormBuilder, :html => { :class => 'boxed' } do |f|
+  %h3
+    - if @category
+      = I18n.t('forums.categories.edit')
+    - else
+      = I18n.t('forums.categories.create')
+  %fieldset
+    %dl
+      %dt
+        = f.label :title
+      %dd
+        = f.text_field :title, :size => 50
+      %dt
+        = f.label :description, raw(t('activerecord.attributes.forum.description'))
+      %dd
+        = f.text_area :description, :rows => 5, :cols => 40
+  %fieldset.actions
+    - if @category
+      = submit_tag(I18n.t('save'))
+    - else
+      = submit_tag(I18n.t('submit'))

@@ -1,5 +1,5 @@
 - # TODO: Looks like V1 markup, remove if obsolete, or update
-- blind_outlink_parameter = URI.encode(sanitize(strip_tags(@taxon_concept.entry.name.canonical_form.string)))
+- blind_outlink_parameter = URI.encode(sanitize(strip_tags(@taxon_concept.entry.title_canonical)))
 - blind_outlink_parameter_scientific = URI.encode(sanitize(strip_tags(@taxon_concept.scientific_name)))
 - show_both=(blind_outlink_parameter == blind_outlink_parameter_scientific ? false : true)
 #search_the_web_wrapper.text_object

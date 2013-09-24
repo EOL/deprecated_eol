@@ -220,7 +220,11 @@ it:
   translated_synonym_relations-label-synonym_relation_id-30: non disponibile, oggetto del database
   translated_synonym_relations-label-synonym_relation_id-31: sostituzione non necessaria
   translated_synonym_relations-label-synonym_relation_id-33: non disponibile, errore ortografico in letteratura
+  translated_synonym_relations-label-synonym_relation_id-34: nome originale/combinazione
+  translated_synonym_relations-label-synonym_relation_id-35: non disponibile, ortografia originale non corretta
   translated_synonym_relations-label-synonym_relation_id-36: sinonimo minore
+  translated_synonym_relations-label-synonym_relation_id-37: omonimi & sinonimi minori
+  translated_synonym_relations-label-synonym_relation_id-38: non disponibile, eliminato a causa delle regole vigenti
   translated_synonym_relations-label-synonym_relation_id-4: anamorfo
   translated_synonym_relations-label-synonym_relation_id-40: non disponibile, altro
   translated_synonym_relations-label-synonym_relation_id-45: basionimo

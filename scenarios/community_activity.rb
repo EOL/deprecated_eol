@@ -111,8 +111,8 @@ end
 10.times do
   user = data[:users].sample(1).first
   community = data[:communities].sample(1).first
-  taxon = community.collections.first.collection_items.sample(1).first.object
-  body = "This is a comment from #{user.username} on #{taxon.common_name}"
+  taxon = community.collections.first.collection_items.sample(1).first.collected_item
+  body = "This is a comment from #{user.username} on #{taxon.preferred_common_name_in_language(Language.default)}"
   Comment.gen(:parent => taxon, :body => body, :user => user)
   data[:comments] << {:user_id => user.id, :target_class => 'TaxonConcept', :target_id => taxon.id, :body => body}
 end

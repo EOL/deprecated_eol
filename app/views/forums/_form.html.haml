@@ -1,0 +1,26 @@
+= form_for @forum || Forum.new, :builder => ApplicationHelper::EolFormBuilder, :html => { :class => 'boxed' } do |f|
+  %h3
+    - if @forum
+      = I18n.t('forums.edit')
+    - else
+      = I18n.t('forums.create')
+      = hidden_field_tag :submit_to, '/forums/create' unless logged_in?
+  %fieldset
+    %dl
+      %dt
+        = f.label :forum_category_id
+      %dd
+        = f.select :forum_category_id, options_from_collection_for_select(ForumCategory.order(:view_order), :id, :title, (@forum ? @forum.forum_category_id : nil))
+      %dt
+        = f.label :name
+      %dd
+        = f.text_field :name, :size => 50
+      %dt
+        = f.label :description, raw(t('activerecord.attributes.forum.description'))
+      %dd
+        = f.text_area :description, :rows => 5, :cols => 40
+  %fieldset.actions
+    - if @forum
+      = submit_tag(I18n.t('save'))
+    - else
+      = submit_tag(I18n.t('submit'))

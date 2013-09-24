@@ -1,0 +1,19 @@
+= content_for :head do
+  = javascript_include_tag "ckeditor/init"
+= form_for ForumTopic.new, :url => forum_topics_path(@forum), :builder => ApplicationHelper::EolFormBuilder, :html => { :class => 'boxed' } do |f|
+  %h3= I18n.t('forums.topics.create')
+  = hidden_field_tag :submit_to, forum_topics_create_path(:forum_id => @forum.id) unless logged_in?
+  = f.hidden_field :forum_id, :value => @forum.id
+  = f.fields_for :forum_posts, ForumPost.new do |p|
+    %fieldset
+      %dl
+        %dt
+          = p.label :subject
+        %dd
+          = p.text_field :subject, :size => 100
+        %dt
+          = p.label :text
+        %dd
+          = p.cktext_area(:text, :toolbar => 'ForumPost', :height => 200, :width => 750)
+  %fieldset.actions
+    = submit_tag(I18n.t('submit'))

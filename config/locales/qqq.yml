@@ -67,6 +67,12 @@ qqq:
     attributes:
       eol_statistic:
         rich_pages: "'Rich' in this case refers to 'high quality'... ie: pages with lots of text and images."
+        hotlist_pages: "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_hotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_hotlist_pages_percentage:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        redhotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_redhotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_redhotlist_pages_percentage:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
       resource:
         harvest_events: "A 'Harvest Event' is the record of when data was imported for a resource (which is a collection of species information), so the term is meant to capture the sense of data being 'harvested' in a single 'event' in time."
     errors:
@@ -75,6 +81,7 @@ qqq:
           attributes:
             publish:
               inclusion: "This error message will be displayed (after the name of the checkbox on the form) if an admin attempts to flag a harvest event for publishisng in one of the cases where it cannot be published (ie: it musn't already be published and there must not be a more recent model to be published)."
+        inaccessible: "This is VERY LOW PRIORITY for translation, please move on; it will only be seen by developers but its inclusion in translations is required for specs to pass."
   user_response: "This is a table column heading where the cells in the column represent the response provided by a user when answering a survey question."
   who_registered_from: "The value of this key is simply 'who registered from' because it is used in the context of a search date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
   who_registered_before: "The value of this key is simply 'to' because it is used in the context of a search date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
@@ -212,3 +219,43 @@ qqq:
   this_page_will_be_reindexed: "Notification message that a curator would see in a flash message after clicking a button requesting a reindexing of a page"
   error_classifications_locked_cannot_reindex: "This is a flash message that a curator would receive if they attempted to request reindexing of a page where the classifications are locked; locked classifications imply that the conent of the page are about to change, so reindexing would be premature... or that someone else has already requested a reindexing."
   filed_under_label_with_date: "Note that the date is in the :long format."
+  or_add_it_to_an_existing_collection: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new collection to add an item to, then given this message, followed by a list of her existing collections."
+  or_add_it_to_an_existing_community: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new community to add a collection to, then given this message, followed by a list of the communities she has access to."
+  or_email_education: "The user was presented with a button (see add_education_resources_to_page_link_button) allowing them to contribute information about educational resources related to a taxon. This 'sentence' appears after that button, allowing them to email EOL staff with their suggestion instead. The 'link' thus contains a clickable email address."
+  page_reference: "This is a citation (as one might find in a bibliography), and the format should follow standards for bibliographic citations of websites. You may need to do some research to find out what that format is in your language."
+  curation_error_no_hide_reasons_given: "A curator tried to hide a data object on the species page of 'association', but they did not give a reason for hiding it."
+  curation_error_no_untrust_reasons_given: "A curator tried to untrust (they decided it was improperly identified) a data object on the species page of 'association', but they did not give a reason for untrusting it."
+  curation_error_vetted_invalid: "This means an invalid parameter was passed in for curation. Very rare error."
+  curation_error_visibility_invalid: "This means an invalid parameter was passed in for curation. Very rare error."
+  curation_error_untrust_reasons_invalid: "A curator attempted to curate a data object on the page for 'association' but provided invalid reasons. A very rare error."
+  curation_error_hide_reasons_invalid: "A curator attempted to curate a data object on the page for 'association' but provided invalid reasons. A very rare error."
+  curation_error_object_in_preview_state_cannot_be_curated: "A curator attempted to curate a data object that hasn't finished being imported yet; this is not allowed."
+  split_into_new_concept: "Button text, seen only by curators, allowing them to move the selected classifications from this taxon page to an entirely new taxon page of their own."
+  showing_all_harvest_logs: "A 'harvest' is the import of content from one of EOL's content providers. Periodically (usually once a month) we check with the partner to see if any of their data has been updated: this is considered a harvest."
+  showing_harvest_logs_from_date: "A 'harvest' is the import of content from one of EOL's content providers. Periodically (usually once a month) we check with the partner to see if any of their data has been updated: this is considered a harvest."
+  please_ask_big_before_changing_toc: "This is a message only seen by admins. An InfoItem in this context is the low-level mapping that EOL uses for entries in the Table of Contents, and we're letting the admins know that these cannot be directly added or edited here."
+  sci_name_avg_table_head: "This is seen only by admins, on a page reporting on searches. This string is used as the heading of a column of data: each row represents a single search term (ie 'tiger') and the data for this column represents the average number of 'hits' for that term for the scientific name of a page. It's an average because the results can vary each time the search term is searched for--we get new names and we mark old names as invalid."
+  trigger_search_term_entered_by: "This is a column subheading, explaining the contents of the content in a table of search terms and the pages those terms should redirect to. In this case, the column contains the term users are expected to enter (other columns would then contain the pages we think they probably want from that term)."
+  unable_to_invite_users_to_community_with_count: "'list' is a list of usernames, created using #to_sentence (which is language-specific)."
+  taxon_selected_from_search_res: "This is a column header, seen only by admins. The contents of the column indicate which search result a user clicked on."
+  if_the_details_parameter_is_not_set: "'details' is a parameter passed to the API; do not translate it. 'linka' will
+  have the value of the 'dublin_core' translation, and 'linkb' will have the translation for 'eol_accepted_subjects'."
+  hierarchies_entries_description: "'taxonConceptID' is a parameter name and should not be translated."
+  the_darwin_core_taxon_elements: "'additionalInformation' is a parameter name and should not be translated."
+  link_rating: "In this context, a 'Link' is actually a user-submitted link. Users can add web resources to EOL
+  pages, and we call them 'Links'. So those links have ratings."
+  permissions_list_header: "Admins can see a list of permissions available to users on the site; this is the heading to the page that lists all of them."
+  edit_permission_header: "Admins can see a list of permissions available to users on the site; this is the heading to the page for editing a single permission."
+  permissions_users_count: "Admins can see a list of permissions available to users on the site. Each permission is shown with a count of how many users have that permission; this is that count."
+  march_of_life_thumbnail_title: "On data object pages for images, curators have the ability to crop images for two types of thumbnails. Each type has a preview. This is the title for the march of life thumbnail, which is only used for the so-called 'march of life' on the homepage."
+  summary_thumbnail_title: "On data object pages for images, curators have the ability to crop images for two types of thumbnails. Each type has a preview. This is the title for the preview of the 'summary thumbnail', which is used frequently throughout the site."
+  collection_copy_complete_with_count: "A notification message informing the user how many collection items were copied. \"from\" is the name of the source collection, \"to\" is the name of the target collection(s) (this can be a list of several collections), and when the number is more than one, there should be an indication that the count is a TOTAL number of items moved. For exampe, if a user copies 2 items from a collection to two collections, the count will be 4 (2 for each target collection)."
+  collection_move_complete_with_count: "A notification message informing the user how many collection items were moved. \"from\" is the name of the source collection, \"to\" is the name of the target collection(s) (this can be a list of several collections), and when the number is more than one, there should be an indication that the count is a TOTAL number of items moved. For exampe, if a user moves 2 items from a collection to two collections, the count will be 4 (2 for each target collection)."
+  forums:
+    post_by_user_at_time: "This is a small line of text that appears under each comment, showing authorship. It is not meant to be a 'complete' sentence, just to briefly summarize who posted the comment and when."
+    buttons:
+      link: "On the EOL forums, the 'link' button (this entry) is used to allow users to link to a specific comment.  Please keep this button label as short as possible."
+    posts:
+      close_window: "On the EOL forums, the 'close' button is used to close dialog windows. Please keep this button label as short as possible."
+  caching_results: "This is the title to a section of the API documentation that explains how and when to cache the results of API calls."
+  image_title_with_taxa: "The 'taxa' variable here will be a list of taxa concatenated using the language-specific 'to_sentence' constructor' (though in 99% of cases it will only be one taxon). For example, 'Bola bola, Canis lupus, and Procyon lotor'. This translation is used as the title on image pages where the content provider didn't give us a better image title."

@@ -6,7 +6,7 @@
   %head
     - @meta_data ||= meta_data
     %title<
-      = h strip_tags @meta_data[:title]
+      = h(raw(strip_tags(@meta_data[:title])))
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
@@ -16,11 +16,13 @@
     - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
     %meta{ :name => "app_version", :content => full_version }
     - unless @meta_data[:description].blank?
-      %meta{ :name => "description", :content => h(truncate(strip_tags(@meta_data[:description]), :length => 160)) }
+      %meta{ :name => "description", :content => h(raw(truncate(strip_tags(@meta_data[:description]), :length => 160))) }
     - unless @meta_data[:keywords].blank?
-      %meta{ :name => "keywords", :content => h(strip_tags(@meta_data[:keywords])) }
+      %meta{ :name => "keywords", :content => h(raw(strip_tags(@meta_data[:keywords]))) }
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
       %meta{ :property => "fb:app_id", :content => $FACEBOOK_APP_ID }
+    - if $PINTEREST_VERIFICATION_CODE
+      %meta{ :name => "p:domain_verify", :content => $PINTEREST_VERIFICATION_CODE }
 
     - if @no_cache
       %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }

@@ -4,7 +4,7 @@
 - unless ['gallery','list'].include?(view_style)
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_person_assistive)}), user_path(item)
 %h4
-  = link_to h(truncate(item.full_name, :length => 64)), user_path(item)
+  = link_to h(truncate(item.collected_name, :length => 64)), user_path(item)
   - if view_style == 'list' && @filter.nil?
     %small= I18n.t(:item_type_person)
 - unless ['gallery','list'].include?(view_style)

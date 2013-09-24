@@ -7,5 +7,5 @@
       - else
         = raw(@terms.main_content)
     %fieldset.actions
-      = f.submit I18n.t(:terms_agreement_form_submit), :name => :commit_agreed
+      = f.submit I18n.t(:terms_agreement_form_submit), :name => :commit_agreed, :class => 'override_lowercase'
       = link_to  I18n.t(:cancel) , logout_path

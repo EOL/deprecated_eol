@@ -1,5 +1,6 @@
-//= require permalink
-//= require jplayer/js/jquery.jplayer.min
+//= require 'worklist_curation'
+//= require 'permalink'
+//= require 'jplayer/js/jquery.jplayer.min'
 
 if(!EOL) { var EOL = {}; }
 

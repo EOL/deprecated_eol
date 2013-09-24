@@ -129,16 +129,18 @@ $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
 $HOMEPAGE_NEWS_CACHE_TIME = 10  # minutes
 $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
-APPROVED_LANGUAGES = ['ar', 'de', 'en', 'es', 'fr', 'gl', 'ko', 'mk', 'nl', 'sr', 'sr-Latn', 'tl', 'zh-Hans']       
+APPROVED_LANGUAGES = ['ar', 'de', 'en', 'es', 'fr', 'gl', 'ko', 'mk', 'ms', 'nl', 'nb', 'oc', 'pt-br', 'sr', 'sr-Latn', 'sv', 'tl', 'zh-Hans']
 
 $ENABLE_TRANSLATION_LOGS = false # This is expensive; DON'T do it by default!
 
 # Default values for some footer elements:
-$EOL_TWITTER_ACCOUNT  = "http://twitter.com/#!/EOL"
-$EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/encyclopediaoflife"
-$EOL_TUMBLR_ACCOUNT   = "http://blog.eol.org"
-$EOL_FLICKR_ACCOUNT   = "http://www.flickr.com/groups/encyclopedia_of_life/"
-$EOL_YOUTUBE_ACCOUNT  = "http://www.youtube.com/user/EncyclopediaOfLife/"
+$EOL_TWITTER_ACCOUNT    = "http://twitter.com/#!/EOL"
+$EOL_FACEBOOK_ACCOUNT   = "http://www.facebook.com/encyclopediaoflife"
+$EOL_FLICKR_ACCOUNT     = "http://www.flickr.com/groups/encyclopedia_of_life/"
+$EOL_YOUTUBE_ACCOUNT    = "http://www.youtube.com/user/EncyclopediaOfLife/"
+$EOL_PINTEREST_ACCOUNT  = "http://pinterest.com/eoflife/"
+$EOL_VIMEO_ACCOUNT      = "http://vimeo.com/groups/encyclopediaoflife"
+$EOL_FLIPBOARD_ACCOUNT  = "http://flip.it/eol"
 
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'

@@ -15,21 +15,19 @@ describe Users::CollectionsController do
 
   describe 'GET index' do
 
+    before(:each) { do_index }
+
     it "should instantiate the user through the users controller" do
-      do_index
       assigns[:user].should be_a(User)
     end
 
     it "should instantiate and sort user collections" do
-      do_index
-      assigns[:featured_collections].should be_a(Array)
-      assigns[:featured_collections].first.should be_a(Collection)
-      assigns[:featured_collections].first.id.should == @collections[:collection].id
-      assigns[:featured_collections].last.id.should == @collections[:collection_oldest].id
+      assigns[:published_collections].should be_a(Array)
+      assigns[:published_collections].first.should be_a(Collection)
+      assigns[:published_collections].should == assigns[:published_collections].sort_by(&:name)
 
       get :index, :user_id => @collections[:user].id.to_i, :sort_by => "oldest"
-      assigns[:featured_collections].first.id.should == @collections[:collection_oldest].id
-      assigns[:featured_collections].last.id.should == @collections[:collection].id
+      assigns[:published_collections].should == assigns[:published_collections].sort_by(&:created_at)
     end
 
     it "should count collection items"

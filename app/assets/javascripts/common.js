@@ -12,7 +12,6 @@ if(!EOL) { var EOL = {}; }
     $.event.props = res;
 }());
 
-
 // TODO - not all of these are required, if we know we won't use them:
 $.ajaxSetup({accepts: {
   '*': "text/javascript, */*",
@@ -23,7 +22,6 @@ $.ajaxSetup({accepts: {
   xml: "application/xml, text/xml"
 }});
 
-
 // Globally change cursor to busy when we're waiting on AJAX event to finish,
 // except for the homepage march of life
 $("html :not(.thumbnails ul li)").bind("ajaxStart", function(){
@@ -31,6 +29,17 @@ $("html :not(.thumbnails ul li)").bind("ajaxStart", function(){
 }).bind("ajaxStop", function(){
   $(this).removeClass('busy');
 });
+
+$(document).on('mouseover', '#social_sharing .facebook', function() {
+  if($('.jcrop-holder').length > 0) {
+    $('#social_sharing .facebook').css('z-index', parseInt($('.jcrop-holder > div:first').css('z-index')) + 1);
+  }
+});
+
+EOL.check_siblings = function(of, val) {
+  try { $($(of).siblings()).prop('checked', val); }
+  catch(err) { /* Don't care if this fails. */ }
+};
 
 $(function() {
 
@@ -80,27 +89,14 @@ $(function() {
       return false;
     });
 
-    function toggleImg(idx) {
-      var $image = $ss.find(".image:eq(" + idx + ")");
-      var $a = $image.find("> a").first();
-      var $img = $a.find("img");
-      $img.css("paddingTop", ($a.height() / 2 - $img.data("height") / 2) + "px");
-      $ss.find(".images").css("height", $image.height());
-    }
-
     if ("cycle" in $.fn) {
       $ss.find(".images").cycle({
         speed: 500,
         timeout: 0,
-        onPagerEvent: toggleImg,
         pagerAnchorBuilder: function(idx) {
           return $ss.selector + " .thumbnails a:eq(" + idx + ")";
         }
       });
-
-      if ($ss.find(".image").length > 1) {
-        toggleImg(0);
-      }
 
     }
 
@@ -163,9 +159,9 @@ $(function() {
   (function($dato_source_url) {
     $dato_source_url.focusout(function() {
       if ($("#data_object_object_title").val() == "") {
-        var data = "url=" + $dato_source_url.val();
+        var data = "url=" + $dato_source_url.val() + "&lang=" + $('html').attr('lang');
         $.ajax({
-          url: "/users/fetch_external_page_title",
+          url: "/fetch_external_page_title",
           data: data,
           dataType: 'json',
           beforeSend: function(xhr) {
@@ -211,29 +207,6 @@ $(function() {
       });
     });
 
-    $collection.find("ul.object_list").children().each(function() {
-      var $li = $(this);
-      $li.delegate("p.edit a", "click", function( event ) {
-        event.preventDefault();
-        $(this).parent().parent().hide().after('<div class="collection_item_form"></div>');
-        var $update = $(this).parent().parent().next('.collection_item_form');
-        EOL.ajax_get($(this), {update: $update, type: 'GET'});
-      });
-      $li.delegate(".collection_item_form a", "click", function( event ) {
-        event.preventDefault();
-        $(this).closest(".collection_item_form").hide().prev().show().end().html('');
-      });
-      $li.delegate(".collection_item_form input[type='submit']", "click", function( event ) {
-        event.preventDefault();
-        var $ci_form = $(this).closest(".collection_item_form");
-        EOL.ajax_submit($(this), {
-          data: "_method=put&commit_annotation=true&" +
-            $ci_form.find("input, textarea").serialize(),
-            update: $ci_form.prev(),
-            complete: function() { $ci_form.hide().remove(); }
-        });
-      });
-    });
     $collection.find('#sort_by').change(function() {
       $(this).closest('form').find('input[name="commit_sort"]').click();
     });
@@ -253,6 +226,22 @@ $(function() {
       if (e.type === "focus" && $e.val() === placeholder) { $e.val(""); }
       else { if (!$e.val()) { $e.val(placeholder); } }
     });
+  });
+
+  // TODO - generalize this with the other modals...
+  $('#collection_items .editable .edit a').modal({
+    beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
+    beforeShow: function() {
+      $('form.edit_collection_item :submit').click(function() {
+        EOL.ajax_submit($(this), { update: $('li#collection_item_'+$(this).attr('data-id')+' div.editable') });
+        $('#collection_items_edit a.close').click();
+        return(false);
+      });
+    },
+    afterClose: function() {
+      $('#collection_items .editable a').delay(25).fadeTo(100, 1, function() {$('#collection_items .editable a').css({filter:''}); });
+    },
+    duration: 200
   });
 
   // Collecting happens through a modal dialog box:
@@ -396,11 +385,11 @@ $(function() {
 
   // uncheck search filter All when other options are selected
   $("#main_search_type_filter input[type=checkbox][value!='all']").click(function() {
-    $("#main_search_type_filter input[type=checkbox][value='all']").removeAttr("checked");
+    $("#main_search_type_filter input[type=checkbox][value='all']").prop("checked", false);
   });
   // uncheck all other search filter options when All is selected
   $("#main_search_type_filter input[type=checkbox][value='all']").click(function() {
-    $("#main_search_type_filter input[type=checkbox][value!='all']").removeAttr("checked");
+    $("#main_search_type_filter input[type=checkbox][value!='all']").prop("checked", false);
   });
   // disable the checkboxes for filter categories with no results
   $("#main_search_type_filter li.no_results input[type=checkbox]").attr("disabled", true);
@@ -412,19 +401,20 @@ $(function() {
       $q.css('color', '#aa0000').val($(this).attr('data_error')).click(function() { $(this).val('').css('color', 'black').unbind('click'); });
       return(false);
     } else if ($q.val() == $(this).attr('data_error')) {
-      var blinkspeed = 160;
-      $q.css('color', '#aa0000').fadeOut(blinkspeed).fadeIn(blinkspeed).fadeOut(blinkspeed).fadeIn(blinkspeed).fadeOut(blinkspeed).fadeIn(blinkspeed);
+      var blinkIn = 20;
+      var blinkOut = 240;
+      $q.css('color', '#aa0000').fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn);
       return(false);
     }
   });
 
   // uncheck media list filter All when other options are selected
   $("#media_list #sidebar input[type=checkbox][value!='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
+    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
   });
   // uncheck all other media list filter options when All is selected
   $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
+    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
   });
   // disable the checkboxes for filter categories with no results
   $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
@@ -434,8 +424,8 @@ $(function() {
   });
 
   // When you select all items, hide the checkboxes (and vice-versa) on collection items:
-  $('form.edit_collection #scope').change(function() {
-    if ($('form.edit_collection #scope').val() == 'all_items') {
+  $('form.new_collection_job #scope').change(function() {
+    if ($('form.new_collection_job #scope').val() == 'all_items') {
       $('#collection_items :checkbox').parent().hide();
     } else {
       $('#collection_items :checkbox').parent().show();
@@ -516,6 +506,33 @@ $(function() {
     $flash_div.delay('5000').fadeOut('slow');
   })($("#flash-bad, #flash-good"));
 
+  $('input.clear_on_focus').each(function() { $(this).val($(this).attr('data-default')); });
+  $('input.clear_on_focus').siblings().each(function() { $(this).on('click', function() {
+    if ($(this).prop('checked')) {
+      $(this).siblings().focus()
+    }
+  })});
+  $('input.clear_on_focus').on('focus', function() {
+    if ($(this).val() == $(this).attr('data-default')) {
+      $(this).val('');
+      EOL.check_siblings(this, true);
+    }
+  });
+  $('input.clear_on_focus').on('blur', function() {
+    if ($(this).val() == '' || $(this).val() == $(this).attr('data-default')) {
+      $(this).val($(this).attr('data-default'));
+      EOL.check_siblings(this, false);
+    }
+  });
+
+  $('input#collection_job_overwrite').on('click', function() {
+    if ($(this).prop('checked')) {
+      $('form#new_collection_job li.collected input').prop('checked', false).attr("disabled", false);
+    } else {
+      $('form#new_collection_job li.collected input').prop('checked', true).attr("disabled", true);
+    }
+  });
+
 });
 
 (function($) {
@@ -554,7 +571,7 @@ $(function() {
 //   type: method to use.  Defaults to POST.
 EOL.ajax_submit = function(el, args) {
   args = typeof(args) != 'undefined' ? args : {};
-  var form = el.closest('form');
+  var form = (el == null) ? null : el.closest('form');
   var cell = '';
   if(typeof(args.update) != 'undefined') { cell = args.update; } else { cell = el.closest('.editable'); }
   var url  = '';
@@ -577,7 +594,7 @@ EOL.ajax_submit = function(el, args) {
     type: type,
     dataType: 'html',
     beforeSend: function(xhr) { cell.fadeTo(225, 0.3); },
-    success: function(response) { cell.html(response); },
+    success: function(response) { cell.html(jQuery.trim(response)); },
     error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
     complete: function() {
       cell.delay(25).fadeTo(100, 1, function() {cell.css({filter:''});});

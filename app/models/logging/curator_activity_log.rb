@@ -1,6 +1,7 @@
 require 'eol/activity_log_item'
 
 class CuratorActivityLog < LoggingModel
+  establish_connection("#{Rails.env}_logging")
 
   include EOL::ActivityLogItem
 
@@ -15,49 +16,80 @@ class CuratorActivityLog < LoggingModel
   has_many :untrust_reasons, :through => :curator_activity_logs_untrust_reasons
 
   # use these associations carefully. They don't check the changeable object type, so you might try to grab a comment
-  # when you should have grabbed an object and it won't fail.
-  belongs_to :data_object, :foreign_key => :object_id
-  belongs_to :synonym, :foreign_key => :object_id
-  belongs_to :classification_curation, :foreign_key => :object_id
-  belongs_to :affected_comment, :foreign_key => :object_id, :class_name => Comment.to_s
+  # when you should have grabbed a target and it won't fail.
+  belongs_to :data_object, :foreign_key => :target_id
+  belongs_to :synonym, :foreign_key => :target_id
+  belongs_to :classification_curation, :foreign_key => :target_id
+  belongs_to :affected_comment, :foreign_key => :target_id, :class_name => Comment.to_s
 
-  validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
+  validates_presence_of :user_id, :changeable_object_type_id, :activity_id
 
   after_create :log_activity_in_solr
   after_create :queue_notifications
 
   # I don't know why attribute-whitelisting still applies during tests, but they do.  Grr:
-  attr_accessible :user, :user_id, :changeable_object_type, :changeable_object_type_id, :object_id,
-    :hierarchy_entry_id, :taxon_concept_id, :activity, :created_at, :data_object, :data_object_guid,
-    :created_at
-
-  def self.find_all_by_data_objects_on_taxon_concept(tc)
-    dato_ids = tc.all_data_objects.map {|dato| dato.id}
-    return [] if dato_ids.empty?
-    # TODO - This needs to add dohes, cdohes, taxon_concept_names, and synonyms.  Have fun.  :|
-    CuratorActivityLog.find_by_sql("
-      SELECT *
-        FROM curator_activity_logs
-        WHERE
-          (curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id}
-            AND object_id IN (#{dato_ids.join(',')}))
-    ")
-  end
+  attr_accessible :user, :user_id, :changeable_object_type, :changeable_object_type_id, :target, :target_id,
+    :hierarchy_entry, :hierarchy_entry_id, :taxon_concept, :taxon_concept_id, :activity, :activity_id,
+    :data_object, :data_object_id, :data_object_guid, :created_at
 
   def self.log_preferred_classification(classification, options = {})
     CuratorActivityLog.create(
       :user => options[:user],
       :changeable_object_type => ChangeableObjectType.curated_taxon_concept_preferred_entry,
-      :object_id => classification.id,
+      :target_id => classification.id,
       :hierarchy_entry_id => classification.hierarchy_entry_id,
       :taxon_concept_id => classification.taxon_concept_id,
-      :activity => Activity.preferred_classification,
-      :created_at => 0.seconds.from_now
+      :activity => Activity.preferred_classification
     )
+  end
+
+  # TODO - Association (as noted elsewhere) needs to be a class, which will change this (and clean it up): clearly it
+  # should have a target attribute, a changeable_object_type attribute, and a hierarchy_entry. ...Also an optional
+  # taxon_concept.
+  # 
+  # You should be passing in :action, :association, :data_object, and :user.
+  def self.factory(options)
+    return unless options[:association]
+    target_id = options[:association].data_object_id if
+      options[:association].is_a?(DataObjectsHierarchyEntry) ||
+      options[:association].is_a?(CuratedDataObjectsHierarchyEntry) ||
+      options[:association].is_a?(UsersDataObject)
+    target_id ||= options[:association].id
+
+    he = if options[:association].is_a?(DataObjectsHierarchyEntry) || options[:association].is_a?(CuratedDataObjectsHierarchyEntry)
+      options[:association].hierarchy_entry
+    elsif options[:association].is_a?(HierarchyEntry)
+      options[:association]
+    else # UsersDataObject, notably... 
+      nil
+    end
+
+    changeable_object_type = if options[:action] == :add_association || options[:action] == :remove_association
+      ChangeableObjectType.curated_data_objects_hierarchy_entry
+    else
+      ChangeableObjectType.send(options[:association].class.name.underscore.to_sym)
+    end
+
+    create_options = {
+      :user_id => options[:user].id,
+      :changeable_object_type => changeable_object_type,
+      :target_id => target_id,
+      :activity => Activity.send(options[:action]),
+      :data_object_guid => options[:data_object].guid,
+      :hierarchy_entry => he
+    }
+    if options[:association].is_a?(UsersDataObject)
+      create_options.merge!(:taxon_concept_id => options[:association].taxon_concept_id)
+    end
+    CuratorActivityLog.create(create_options)
   end
 
   def is_for_synonym?
     changeable_object_type_id == ChangeableObjectType.synonym.id
+  end
+
+  def is_for_data_object?
+    changeable_object_type_id == ChangeableObjectType.data_object.id
   end
 
   # Needed for rendering links; we need to know which association to make the link to
@@ -74,6 +106,8 @@ class CuratorActivityLog < LoggingModel
       when ChangeableObjectType.taxon_concept.id
         taxon_concept
       when ChangeableObjectType.classification_curation.id
+        taxon_concept
+      when ChangeableObjectType.curated_taxon_concept_preferred_entry.id
         taxon_concept
       else
         data_object
@@ -105,6 +139,7 @@ class CuratorActivityLog < LoggingModel
     end
   end
 
+  # TODO - these all just call #id... so, evaluate whether it's worth making this #taxon_concept instead.
   def taxon_concept_id
     case changeable_object_type_id
       when ChangeableObjectType.data_object.id
@@ -123,7 +158,7 @@ class CuratorActivityLog < LoggingModel
         begin
           synonym.hierarchy_entry.taxon_concept_id
         rescue
-          puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{object_id} does not have a HierarchyEntry"
+          puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{target_id} does not have a HierarchyEntry"
         end
       when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.id
@@ -147,7 +182,7 @@ class CuratorActivityLog < LoggingModel
   end
 
   def comment_object
-    Comment.find(self['object_id'])
+    Comment.find(self['target_id']) # TODO ...why the archaeic syntax?
   end
 
   def comment_parent
@@ -159,15 +194,15 @@ class CuratorActivityLog < LoggingModel
   end
 
   def users_data_object
-    UsersDataObject.find(self['object_id'])
+    data_object.users_data_object
   end
 
   def udo_parent_text
-    DataObject.find(users_data_object.data_object_id)
+    DataObject.find(users_data_object.data_object_id) rescue nil
   end
 
   def udo_taxon_concept
-    TaxonConcept.find(users_data_object.taxon_concept_id)
+    TaxonConcept.find(users_data_object.taxon_concept_id) rescue nil
   end
 
   def log_activity_in_solr
@@ -176,7 +211,7 @@ class CuratorActivityLog < LoggingModel
     loggable_activities = {
       ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id,
                                                Activity.untrusted.id, Activity.choose_exemplar_image.id, 
-                                               Activity.choose_exemplar_article.id ],
+                                               Activity.choose_exemplar_article.id, Activity.crop.id ],
       ChangeableObjectType.synonym.id => [ Activity.add_common_name.id, Activity.remove_common_name.id,
                                            Activity.trust_common_name.id, Activity.unreview_common_name.id,
                                            Activity.untrust_common_name.id, Activity.inappropriate_common_name.id],
@@ -240,7 +275,7 @@ private
        self.changeable_object_type_id == ChangeableObjectType.curated_taxon_concept_preferred_entry.id ||
        self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
       add_taxon_concept_recipients(self.taxon_concept, recipients)
-      add_taxon_concept_recipients(TaxonConcept.find(self.object_id), recipients) if
+      add_taxon_concept_recipients(TaxonConcept.find(self.target_id), recipients) if
         self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
     end
     if self.changeable_object_type_id == ChangeableObjectType.classification_curation.id &&
@@ -256,7 +291,7 @@ private
       recipients << taxon_concept
       recipients << { :ancestor_ids => taxon_concept.flattened_ancestor_ids }
       # TODO: Synonym log??? this can maybe go away
-      # logs_affected['Synonym'] = [ self.object_id ]
+      # logs_affected['Synonym'] = [ self.target_id ]
       Collection.which_contain(taxon_concept).each do |c|
         recipients << c
       end
@@ -264,9 +299,9 @@ private
   end
 
   def add_recipient_affected_by_object_curation(recipients)
-    if object_is_data_object?
+    if target_is_a_data_object?
       recipients << self.data_object
-      self.data_object.all_published_associations.each do |assoc|
+      self.data_object.data_object_taxa(published: true).each do |assoc|
         recipients << assoc.taxon_concept
         recipients << { :ancestor_ids => assoc.taxon_concept.flattened_ancestor_ids }
       end
@@ -291,7 +326,7 @@ private
   end
 
   def add_recipient_author_of_curated_text(recipients)
-    if object_is_data_object?
+    if target_is_a_data_object?
       if u = self.data_object.contributing_user
         u.add_as_recipient_if_listening_to(:comment_on_my_contribution, recipients)
       end
@@ -300,10 +335,10 @@ private
 
   # All of these "types" are actually stored as a data_object, for reasons that escape me at the time of this
   # writing.  ...But if you care to find out why, I suggest you look at the data objects controller.
-  def object_is_data_object?
+  def target_is_a_data_object?
     [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
       ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id
-    ].include?(self.changeable_object_type_id)
+    ].include?(self.changeable_object_type_id) && data_object
   end
 
   def unlock?

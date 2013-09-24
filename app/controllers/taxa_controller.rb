@@ -4,58 +4,12 @@ class TaxaController < ApplicationController
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
 
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names, :only => 'overview'
-  before_filter :add_page_view_log_entry, :only => 'overview'
-
   def show
     if this_request_is_really_a_search
       do_the_search
       return
     end
-    return redirect_to overview_taxon_path(params[:id]), :status => :moved_permanently
-  end
-
-  def overview
-    TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
-    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
-    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank?
-    @browsable_hierarchy_entries.compact!
-    @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
-    
-    @summary_text = @taxon_concept.overview_text_for_user(current_user)
-    
-    map_results = @taxon_concept.data_objects_from_solr({
-      :page => 1,
-      :per_page => 1,
-      :data_type_ids => DataType.image_type_ids,
-      :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => ['trusted', 'unreviewed'],
-      :visibility_types => ['visible'],
-      :ignore_translations => true,
-      :skip_preload => true
-    })
-    @map = map_results.blank? ? nil : map_results.first
-    limit = @map.blank? ? 4 : 3
-    media = promote_exemplar_image(@taxon_concept.images_from_solr(limit, { :filter_hierarchy_entry => @selected_hierarchy_entry, :ignore_translations => true }))
-    @media = @map.blank? ? media : media[0..2] + [ @map ]
-    
-    @media << @summary_text if @summary_text
-    DataObject.replace_with_latest_versions!(@media, :select => [ :description ])
-    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ] }, :vetted, :visibility ] } ]
-    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
-    includes << :users_data_object
-    includes << :license
-    includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
-    DataObject.preload_associations(@media, includes)
-    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
-    @summary_text = @media.pop if @summary_text
-    
-    @watch_collection = logged_in? ? current_user.watch_collection : nil
-    @assistive_section_header = I18n.t(:assistive_overview_header)
-    @rel_canonical_href = @selected_hierarchy_entry ?
-      overview_taxon_entry_url(@taxon_concept, @selected_hierarchy_entry) :
-      overview_taxon_url(@taxon_concept)
-    current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
+    return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
   end
 
   ################
@@ -107,15 +61,19 @@ class TaxaController < ApplicationController
 
 protected
 
+  # Defines the scope of the controller and action method (i.e. view path) for using in i18n calls
+  # Used by meta tag helper methods (also see ApplicationController for #super)
   def controller_action_scope
     @controller_action_scope ||= @selected_hierarchy_entry ? super << :hierarchy_entry : super
   end
 
+  # Defines base variables for use in scoped i18n calls, used by meta tag helper methods (also see
+  # ApplicationController for #super)
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
       :preferred_common_name => @preferred_common_name.presence,
       :scientific_name => @scientific_name.presence,
-      :hierarchy_provider => @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label.presence : nil,
+      :hierarchy_provider => @taxon_page.hierarchy_provider,
     }).freeze
   end
 
@@ -150,12 +108,12 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= (@taxon_concept && dato = @taxon_concept.exemplar_or_best_image_from_solr) ?
-       dato.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
+       dato.thumb_or_object('260_190', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 
 private
 
-  def instantiate_taxon_concept
+  def instantiate_taxon_page
     tc_id = params[:taxon_concept_id] || params[:taxon_id] || params[:id]
     # we had cases of app servers not properly getting the page ID from parameters and throwing 404
     # errors instead of 500. This may cause site crawlers to think pages don't exist. So throw errors instead
@@ -170,42 +128,21 @@ private
       end
     end
 
-    @taxon_concept.current_user = current_user
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id] || params[:entry_id]
-    # making sure we know the HE_ID when browsing in entry mode
-    if @selected_hierarchy_entry_id.nil? && params[:taxon_id] && params[:id] && request.env['PATH_INFO'] =~ /^\/pages\/[0-9]+\/hierarchy_entries\/[0-9]+\//
+    if @selected_hierarchy_entry_id.nil? && entry_id_is_in_param_id?
       @selected_hierarchy_entry_id = params[:id]
     end
     unless @selected_hierarchy_entry_id.blank?
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
-      if @selected_hierarchy_entry && @selected_hierarchy_entry.hierarchy.browsable?
-        # TODO: Eager load hierarchy entry agents?
-        TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
-        @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
-      else
-        @selected_hierarchy_entry = nil
-      end
+      @selected_hierarchy_entry = nil unless @selected_hierarchy_entry &&
+        @selected_hierarchy_entry.hierarchy.browsable?
     end
+    @taxon_page = TaxonPage.new(@taxon_concept, current_user, @selected_hierarchy_entry)
   end
 
   def instantiate_preferred_names
-    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_language) : @taxon_concept.preferred_common_name_in_language(current_language)
-    @scientific_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.italicized_name : @taxon_concept.title_canonical_italicized
-  end
-
-  def promote_exemplar_image(data_objects)
-    # TODO: a comment may be needed. If the concept is blank, why would there be images to promote?
-    # we should just return
-    if @taxon_concept.blank? || @taxon_concept.published_exemplar_image.blank?
-      exemplar_image = data_objects[0] unless data_objects.blank?
-    else
-      exemplar_image = @taxon_concept.published_exemplar_image
-    end
-    unless exemplar_image.nil?
-      data_objects.delete_if{ |d| d.guid == exemplar_image.guid }
-      data_objects.unshift(exemplar_image)
-    end
-    data_objects
+    @preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_language)
+    @scientific_name = @taxon_page.scientific_name
   end
 
   def redirect_if_superceded
@@ -250,17 +187,24 @@ private
     end
   end
 
-  def log_action(tc, object, method)
+  def log_action(tc, target, method)
     auto_collect(tc) # SPG asks for all curation (including names) to add the item to their watchlist.
-    # NOTE - Don't pass :data_object into this; it will overwrite the value of :object_id.
+    # NOTE - Don't pass :data_object into this; it will overwrite the value of :target_id.
     CuratorActivityLog.create(
       :user_id => current_user.id,
-      :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
-      :object_id => object.id,
+      :changeable_object_type => ChangeableObjectType.send(target.class.name.underscore.to_sym),
+      :target_id => target.id,
       :activity => Activity.send(method),
-      :taxon_concept_id => tc.id,
-      :created_at => 0.seconds.from_now
+      :taxon_concept_id => tc.id
     )
+    if $STATSD
+      $STATSD.increment 'all_curations'
+      $STATSD.increment "curations.#{method}"
+    end
+  end
+
+  def entry_id_is_in_param_id?
+    params[:taxon_id] && params[:id] && request.env['PATH_INFO'] =~ /^\/pages\/[0-9]+\/hierarchy_entries\/[0-9]+\//
   end
 
 end

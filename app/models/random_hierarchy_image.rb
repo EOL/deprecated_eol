@@ -56,11 +56,11 @@ class RandomHierarchyImage < ActiveRecord::Base
     hierarchy_condition = hierarchy ? "AND hierarchy_id=#{hierarchy.id}" : ""
     random_image_result = if $HOMEPAGE_MARCH_RICHNESS_THRESHOLD
       RandomHierarchyImage.joins(:taxon_concept_metrics, :taxon_concept).
-        where(["random_hierarchy_images.id > ? AND richness_score > ? AND published = 1 #{hierarchy_condition}",
+        where(["random_hierarchy_images.id > ? AND richness_score > ? AND published = 1 #{hierarchy_condition} AND supercedure_id = 0",
               starting_id, $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).limit(limit * 2)
                           else
       RandomHierarchyImage.joins(:taxon_concept).
-        where(["random_hierarchy_images.id > ? AND published=1 #{hierarchy_condition}", starting_id]).limit(limit * 2)
+        where(["random_hierarchy_images.id > ? AND published=1 #{hierarchy_condition} AND supercedure_id = 0", starting_id]).limit(limit * 2)
                           end
 
     used_concepts = {}

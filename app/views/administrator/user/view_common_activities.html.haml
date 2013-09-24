@@ -3,9 +3,7 @@
 %br
 =I18n.t("click_on_an_activity_to_see_th")
 %br
-=I18n.t("click") 
-= link_to I18n.t("here"), {:controller => 'administrator/user', :action => 'view_common_combinations'}
-=I18n.t("to_see_all_activity_combinatio")
+= link_to I18n.t("see_all_activity_combinations"), {:controller => 'administrator/user', :action => 'view_common_combinations'}
 
 #comments    
   - if @activities.nil? == false && @activities.size > 0

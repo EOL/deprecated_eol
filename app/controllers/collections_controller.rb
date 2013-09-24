@@ -13,19 +13,27 @@ class CollectionsController < ApplicationController
   before_filter :configure_sorting_and_filtering_and_facet_counts, :only => [:show, :update]
   before_filter :build_collection_items, :only => [:show]
   before_filter :load_item, :only => [:choose_editor_target, :choose_collect_target, :create]
+  before_filter :restrict_to_admins, only: :reindex
 
   layout 'v2/collections'
 
   def show
+    # TODO - this line should be somewhere else:
     return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
+    @collection_job = CollectionJob.new(:collection => @collection)
     if @collection_results && @collection_results.is_a?(WillPaginate::Collection)
-      @rel_canonical_href = collection_url(@collection, :page => rel_canonical_href_page_number(@collection_results))
-      @rel_prev_href = rel_prev_href_params(@collection_results) ? collection_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@collection_results) ? collection_url(@rel_next_href_params) : nil
+      set_canonical_urls(:for => @collection, :paginated => @collection_results, :url_method => :collection_url)
+      # TODO - this is... expensive, yeah?  Should we REALLY be doing this every time we show a page of a collection?!
       reindex_items_if_necessary(@collection_results)
     else
       @rel_canonical_href = collection_url(@collection)
     end
+  end
+
+  def reindex
+    collection = Collection.find(params[:id])
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
+    redirect_to collection, notice: I18n.t(:collection_redindexed)
   end
 
   def new
@@ -62,13 +70,16 @@ class CollectionsController < ApplicationController
   end
 
   def update
+    # TODO - These next two lines shouldn't be handled with a POST, they should be GETs (to #show):
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_view_as]
     return redirect_to_choose(:copy) if params[:commit_copy]
+    # TODO - these should all go to collection_jobs_controller, now:
     return chosen if params[:scope] && params[:for] == 'copy'
     return remove_and_redirect if params[:commit_remove]
     return redirect_to_choose(:move) if params[:commit_move]
     
+    # TODO - annotations need their own controller.
     # some of the following methods need the list of items on the page... I think.
     # if not, we should remove this as it is very expensive
     build_collection_items unless params[:commit_annotation]
@@ -78,6 +89,7 @@ class CollectionsController < ApplicationController
     return annotate if params[:commit_annotation]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     
+    # TODO - This is really the only stuff that needs to stay here!
     name_change = params[:collection][:name] != @collection.name
     description_change = params[:collection][:description] != @collection.description
     if @collection.update_attributes(params[:collection])
@@ -95,12 +107,15 @@ class CollectionsController < ApplicationController
 
   def destroy
     if @collection.special? || @collection.communities.count == 1
-      flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
+      flash[:error] = @collection.watch_collection? ?
+        I18n.t(:watch_collections_cannot_be_destroyed) :
+        I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to collection_url(@collection)
     else
-      back = @collection.users.include?(current_user) ? user_collections_url(current_user) : collection_url(@collection.community)
-      if @collection.update_attributes(:published => false)
-        EOL::GlobalStatistics.decrement('collections')
+      back = @collection.communities.first ?
+        collection_url(@collection.communities.first) :
+        user_collections_url(current_user)
+      if @collection.unpublish
         flash[:notice] = I18n.t(:collection_destroyed)
       else
         flash[:error] = I18n.t(:collection_not_destroyed_error)
@@ -122,7 +137,7 @@ class CollectionsController < ApplicationController
     begin
       @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
       # Helps identify where ONE item is in other collections...
-      @item = CollectionItem.find(@items.first).object if
+      @item = CollectionItem.find(@items.first).collected_item if
         @items.length == 1
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
@@ -134,6 +149,7 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:choose_collection_header)
   end
 
+  # TODO - this should be its own controller (or possibly two with a shared view).
   # Either a user is passed in and we're making her a manager, or a community is passed in and we're "featuring" it.
   def choose_editor_target
     return must_be_logged_in unless logged_in?
@@ -146,16 +162,16 @@ class CollectionsController < ApplicationController
     raise EOL::Exceptions::NoCollectionsApply if @collections.blank?
     @page_title = I18n.t(:make_user_an_editor_title, :user => @item.summary_name)
     respond_to do |format|
-      format.html { render :partial => 'choose_editor_target', :layout => 'v2/users' }
+      format.html { render 'choose_editor_target', :layout => 'v2/users' }
       format.js   { render :partial => 'choose_editor_target' }
     end
   end
 
   def choose_collect_target
     return must_be_logged_in unless logged_in?
-    @collections = current_user.all_collections
+    @collections = current_user.all_collections || []
     Collection.preload_associations(@collections, [ :resource, :resource_preview ])
-    @collections.delete_if{ |c| c.is_resource_collection? }
+    @collections.delete_if { |c| c.is_resource_collection? }
     raise EOL::Exceptions::ObjectNotFound unless @item
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
@@ -223,15 +239,14 @@ private
       render :action => 'unpublished'
       return false
     end
-    @watch_collection = logged_in? ? current_user.watch_collection : nil
   end
 
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def configure_sorting_and_filtering_and_facet_counts
     set_view_as_options
-    @view_as = ViewStyle.find(params[:view_as].blank? ? @collection.default_view_style : params[:view_as])
+    @view_as = ViewStyle.find(params[:view_as].blank? ? @collection.view_style_or_default : params[:view_as])
     set_sort_options
-    @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.default_sort_style : params[:sort_by])
+    @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.sort_style_or_default : params[:sort_by])
     @filter = params[:filter]
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
@@ -247,7 +262,7 @@ private
       @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as)
     @collection_items = @collection_results.map { |i| i['instance'] }
     if params[:commit_select_all]
-      @selected_collection_items = @collection_items.map {|ci| ci.id.to_s }
+      @selected_collection_items = @collection_items.map { |ci| ci.id.to_s }
     end
   end
 
@@ -296,7 +311,7 @@ private
       @copied_to = []
       all_items = []
       Collection.preload_associations(destinations, :collection_items)
-      params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :object) if params[:collection_items]
+      params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :collected_item) if params[:collection_items]
       Collection.preload_associations(source, :users)
       destinations.each do |destination|
         begin
@@ -316,7 +331,7 @@ private
         if options[:move]
           # Not handling any weird errors here, to simplify flash notice handling.
           remove_items(:from => source, :items => all_items)
-          @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items && params['collection_items']
+          @collection_items.delete_if { |ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items && params['collection_items']
           if destinations.length == 1
             flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
                                     :name => link_to_name(source))
@@ -335,7 +350,7 @@ private
         end
         flash[:notice] = I18n.t(flash_i18n_name,
                                 :count => all_items.count,
-                                :names => copied.keys.map {|c| "#{c} (#{copied[c]})"}.to_sentence)
+                                :names => copied.keys.map { |c| "#{c} (#{copied[c]})"}.to_sentence)
         flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
         return redirect_to collection_path(source), :status => :moved_permanently
       elsif all_items.count == 0
@@ -354,8 +369,8 @@ private
     destinations.each do |destination|
       CollectionItem.connection.execute(
         "INSERT IGNORE INTO collection_items
-          (object_type, object_id, collection_id, created_at, updated_at, added_by_user_id)
-          (SELECT object_type, object_id, #{destination.id}, NOW(), NOW(), #{current_user.id}
+          (collected_item_type, collected_item_id, collection_id, created_at, updated_at, added_by_user_id)
+          (SELECT collected_item_type, collected_item_id, #{destination.id}, NOW(), NOW(), #{current_user.id}
             FROM collection_items WHERE collection_id = #{source.id})"
       )
       # TODO - we should actually count the items and store that in the collection activity log. Lots of work:
@@ -363,8 +378,8 @@ private
     end
     ids = CollectionItem.connection.execute(
       "SELECT id FROM collection_items
-       WHERE id > #{last_collection_item.id} AND collection_id IN (#{destinations.map {|d| d.id}.join(',')})"
-    ).map {|a| a.first }
+       WHERE id > #{last_collection_item.id} AND collection_id IN (#{destinations.map { |d| d.id}.join(',')})"
+    ).map { |a| a.first }
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(ids)
     # NOTE - this is pretty brutal. The older method preserves objects that didn't actually move (ie: if they were
     # duplicates), but I figure that's not entirely desirable, anyway...
@@ -396,9 +411,9 @@ private
     count = 0
     @duplicates = false
     collection_items = CollectionItem.find_all_by_id(collection_items)
-    CollectionItem.preload_associations(collection_items, [ :object, :collection ])
+    CollectionItem.preload_associations(collection_items, [ :collected_item, :collection ])
     collection_items.each do |collection_item|
-      if copy_to_collection.has_item?(collection_item.object)
+      if copy_to_collection.has_item?(collection_item.collected_item)
         @duplicates = true
       else
         old_collection_items << collection_item
@@ -407,8 +422,8 @@ private
         copiable = options[:from].editable_by?(current_user) ?
                      { :annotation => collection_item.annotation,
                        :sort_field => collection_item.sort_field } : {}
-        new_collection_items << { :object_id => collection_item.object.id,
-                                  :object_type => collection_item.object_type,
+        new_collection_items << { :collected_item_id => collection_item.collected_item.id,
+                                  :collected_item_type => collection_item.collected_item_type,
                                   :added_by_user_id => current_user.id }.merge!(copiable)
         count += 1
         # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:
@@ -448,7 +463,7 @@ private
     Collection.with_master do
       Collection.uncached do
         if @collection.update_attributes(params[:collection])
-          @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+          @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map { |i|
                 params[:collection][:collection_items_attributes][i][:id] }.first)
           if @collection.show_references
             @collection_item.refs.clear
@@ -651,13 +666,14 @@ private
     types = CollectionItem.types
     @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
     @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
-    @recently_visited_collections = Collection.find(recently_visited_collections(@collection.id)) if @collection
+    @recently_visited_collections = Collection.find_all_by_id(recently_visited_collections(@collection.id)) if @collection
   end
 
   def log_activity(options = {})
     CollectionActivityLog.create(options.reverse_merge(:collection => @collection, :user => current_user))
   end
-  
+
+  # NOTE - object_type and object_id not changed due yet; they are stale names in Solr.
   def reindex_items_if_necessary(collection_results)
     collection_item_ids_to_reindex = []
     collection_results.each do |r|
@@ -666,14 +682,14 @@ private
       if !(r['sort_field'].blank? && r['instance'].sort_field.blank?) && r['sort_field'] != r['instance'].sort_field
         collection_item_ids_to_reindex << r['instance'].id
       elsif r['object_type'] == 'TaxonConcept'
-        title = r['instance'].object.entry.name.canonical_form.string rescue nil
+        title = r['instance'].collected_item.entry.title_canonical rescue nil
         if title && r['title'] != title
           collection_item_ids_to_reindex << r['instance'].id
-        elsif r['instance'].object.taxon_concept_metric && r['richness_score'] != r['instance'].object.taxon_concept_metric.richness_score
+        elsif r['instance'].collected_item.taxon_concept_metric && r['richness_score'] != r['instance'].collected_item.taxon_concept_metric.richness_score
           collection_item_ids_to_reindex << r['instance'].id
         end
       elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link', 'Map'].include?(r['object_type'])
-        if r['data_rating'] != r['instance'].object.data_rating
+        if r['data_rating'] != r['instance'].collected_item.data_rating
           collection_item_ids_to_reindex << r['instance'].id
         end
       end

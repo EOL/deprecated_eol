@@ -2,5 +2,5 @@
 - if thumb = item.thumb_or_object('88_88')
   = image_tag(thumb)
 %p
-  = link_to raw(item.best_title), taxon_worklist_data_object_path(@taxon_concept, item, params.merge({ :current => item.id }))
+  = link_to item.best_title, taxon_worklist_data_object_path(@taxon_concept, item, params.merge({ :current => item.id }))
   = I18n.t("#{en_type}_from_supplier", :whom => item.data_supplier_agent.blank? ? I18n.t(:unknown) : item.data_supplier_agent.full_name )

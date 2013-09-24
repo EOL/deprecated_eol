@@ -147,6 +147,8 @@ sv:
   translated_ranks-label-rank_id-494: stam
   translated_ranks-label-rank_id-503: oklassificerad
   translated_ranks-label-rank_id-51: klass
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-91: fam
@@ -176,24 +178,37 @@ sv:
   translated_statuses-label-status_id-3: Oförändrad
   translated_statuses-label-status_id-4: Återanvänd
   translated_synonym_relations-label-synonym_relation_id-1: synonym
+  translated_synonym_relations-label-synonym_relation_id-11: delvis
   translated_synonym_relations-label-synonym_relation_id-12: inkluderar
+  translated_synonym_relations-label-synonym_relation_id-13: felbenämning
   translated_synonym_relations-label-synonym_relation_id-14: felstavning
   translated_synonym_relations-label-synonym_relation_id-15: teleomorf
+  translated_synonym_relations-label-synonym_relation_id-16: tvetydig synonym
+  translated_synonym_relations-label-synonym_relation_id-17: felaktigt namn
   translated_synonym_relations-label-synonym_relation_id-18: preliminärt godkänt namn
   translated_synonym_relations-label-synonym_relation_id-19: accepterat namn
   translated_synonym_relations-label-synonym_relation_id-2: vanligt namn
   translated_synonym_relations-label-synonym_relation_id-20: databasartefakt
   translated_synonym_relations-label-synonym_relation_id-21: andra, se kommentarer
   translated_synonym_relations-label-synonym_relation_id-22: ortografisk variant (felstavning)
+  translated_synonym_relations-label-synonym_relation_id-23: felaktigt
   translated_synonym_relations-label-synonym_relation_id-24: avvisat namn
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-29: juniorsynonym
   translated_synonym_relations-label-synonym_relation_id-3: akronym
   translated_synonym_relations-label-synonym_relation_id-30: otillgänglig, databasartefakt
   translated_synonym_relations-label-synonym_relation_id-31: 'onödig ersättning'
   translated_synonym_relations-label-synonym_relation_id-33: otillgänglig, felstavad litteratur
   translated_synonym_relations-label-synonym_relation_id-34: ursprungligt namn/kombination
   translated_synonym_relations-label-synonym_relation_id-35: otillgänglig, felaktig originalstavning
+  translated_synonym_relations-label-synonym_relation_id-36: juniorhomonym
+  translated_synonym_relations-label-synonym_relation_id-37: homonym & juniorsynonym
   translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-40: otillgänglig, annat
+  translated_synonym_relations-label-synonym_relation_id-41: otillgänglig, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-43: ogiltigt publicerad, andra
+  translated_synonym_relations-label-synonym_relation_id-44: ogiltigt publicerad, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-46: heterotypisk synonym
   translated_synonym_relations-label-synonym_relation_id-47: homotypisk synonym
   translated_synonym_relations-label-synonym_relation_id-48: otillgängligt namn
@@ -210,8 +225,10 @@ sv:
   translated_synonym_relations-label-synonym_relation_id-6: motsvarande namn
   translated_synonym_relations-label-synonym_relation_id-60: synonym (subjektiv = heterotypisk)
   translated_synonym_relations-label-synonym_relation_id-61: objektiv synonym
+  translated_synonym_relations-label-synonym_relation_id-62: seniorsynonym
   translated_synonym_relations-label-synonym_relation_id-63: inte accepterad
   translated_synonym_relations-label-synonym_relation_id-64: ogiltig
+  translated_synonym_relations-label-synonym_relation_id-65: genussynonym
   translated_table_of_contents-label-table_of_contents_id-1: Översikt
   translated_table_of_contents-label-table_of_contents_id-13: Vanliga namn
   translated_table_of_contents-label-table_of_contents_id-14: IUCN

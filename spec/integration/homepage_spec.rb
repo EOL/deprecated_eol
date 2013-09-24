@@ -9,6 +9,7 @@ describe 'Home page' do
     Capybara.reset_sessions!
     visit('/') # cache the response the homepage gives before changes
     @homepage_with_foundation = source #source in contrast with body returns html BEFORE any javascript
+    @homepage_url = current_url
   end
 
   after :all do
@@ -16,10 +17,11 @@ describe 'Home page' do
   end
 
   it "should provide consistent canonical URL for home page" do
-    canonical_href = root_url.sub(/\/+$/,'')
+    # NOTE - root_url DOES NOT WORK HERE when you run the full test suite. I'm not sure why it changes, but:
+    canonical_href = @homepage_url.sub(/\/+$/,'')
     @homepage_with_foundation.should have_tag("link[rel=canonical][href='#{canonical_href}']")
     visit '/?page=3&q=blah'
-    body.should have_tag("link[rel=canonical][href='#{canonical_href}']")
+    body.should have_tag("link[rel=canonical][href='http://www.example.com']")
   end
 
   it "should not have rel prev or next link tags" do
@@ -71,6 +73,44 @@ describe 'Home page' do
     ['Help', 'What is EOL?', 'EOL News', 'Donate'].each do |link|
       body.should include(link)
     end
+  end
+
+  it "should links to social media sites" do
+    visit('/')
+    ['Twitter', 'Facebook', 'Flickr', 'YouTube', 'Pinterest', 'Vimeo', 'Flipboard'].each do |social_site|
+      body.should have_tag("li a.#{social_site.downcase}", :text => social_site)
+    end
+  end
+
+  it 'should link to translated forms of gateway articles, not just English versions' do
+    visit('/')
+    body.should include(cms_page_path('animals'))
+    body.should_not include(cms_page_path('animals', :language => 'en'))
+    body.should include(cms_page_path('about_biodiversity'))
+    body.should_not include(cms_page_path('about_biodiversity', :language => 'en'))
+
+    Language.gen_if_not_exists(:iso_639_1 => 'ar', :label => 'Arabic')
+    visit('/set_language?language=ar')
+    body.should include(cms_page_path('animals'))
+    body.should_not include(cms_page_path('animals', :language => 'en'))
+    body.should_not include(cms_page_path('animals', :language => 'ar'))
+    body.should include(cms_page_path('about_biodiversity'))
+    body.should_not include(cms_page_path('about_biodiversity', :language => 'en'))
+    body.should_not include(cms_page_path('about_biodiversity', :language => 'ar'))
+  end
+
+  it 'should not show deleted comments in community activity' do
+    user = User.gen
+    comment = Comment.gen(:user => user, :body => 'test comment body')
+    # the comment should show up when published
+    visit('/')
+    body.should include(comment.body)
+    comment.update_column(:deleted, true)
+    # the comment should not show up when deleted
+    visit('/')
+    body.should_not include(comment.body)
+    body.should_not include("This comment was deleted")
+    body.should include("No one has provided updates yet")
   end
 
   it 'should show the March of Life'

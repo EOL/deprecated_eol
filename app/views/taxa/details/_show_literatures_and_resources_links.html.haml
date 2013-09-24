@@ -1,47 +1,35 @@
 .section
-  - unless @show_resources_links.blank?
-    %h4= link_to I18n.t(:resources),
-      @selected_hierarchy_entry ? taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : taxon_resources_path(@taxon_concept)
-    %ul
-      - @show_resources_links.each do |link|
-        - case link
-        - when 'partner_links'
-          %li= link_to(I18n.t(:taxon_partner_links_link),
-            @selected_hierarchy_entry ? taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : taxon_resources_path(@taxon_concept))
-        - when 'identification_resources'
-          %li= link_to(I18n.t(:taxon_identification_resources_link),
-            @selected_hierarchy_entry ? identification_resources_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : identification_resources_taxon_resources_path(@taxon_concept))
-        - when 'citizen_science'
-          %li= link_to(I18n.t(:taxon_citizen_science_link),
-            @selected_hierarchy_entry ? citizen_science_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : citizen_science_taxon_resources_path(@taxon_concept))
-        - when 'education'
-          %li= link_to(I18n.t(:taxon_education_link),
-            @selected_hierarchy_entry ? education_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : education_taxon_resources_path(@taxon_concept))
-        - when 'biomedical_terms'
-          %li= link_to(I18n.t(:taxon_biomedical_terms_link),
-            @selected_hierarchy_entry ? biomedical_terms_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : biomedical_terms_taxon_resources_path(@taxon_concept))
-        - when 'nucleotide_sequences'
-          %li= link_to(I18n.t(:taxon_nucleotide_sequences_link),
-            @selected_hierarchy_entry ? nucleotide_sequences_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : nucleotide_sequences_taxon_resources_path(@taxon_concept))
-        - when 'news_and_event_links'
-          %li= link_to(I18n.t(:news_and_event_links),
-            @selected_hierarchy_entry ? news_and_event_links_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : news_and_event_links_taxon_resources_path(@taxon_concept))
-        - when 'related_organizations'
-          %li= link_to(I18n.t(:related_organizations),
-            @selected_hierarchy_entry ? related_organizations_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : related_organizations_taxon_resources_path(@taxon_concept))
-        - when 'multimedia_links'
-          %li= link_to(I18n.t(:multimedia_links),
-            @selected_hierarchy_entry ? multimedia_links_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : multimedia_links_taxon_resources_path(@taxon_concept))
-  %h4= link_to I18n.t(:literature),
-    @selected_hierarchy_entry ? taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : taxon_literature_path(@taxon_concept.id)
+  %h4= link_to I18n.t(:resources), taxon_resources_path(@details)
   %ul
-    - @show_literature_references_links.each do |link|
+    - @details.resources_links.each do |link|
+      -# TODO - It seems possible to generalize this... at least with a Resources class to store the order and a
+        simple helper to auto-generate the appropriate link.
       - case link
-      - when 'literature_references'
-        %li= link_to(I18n.t(:literature_references),
-          @selected_hierarchy_entry ? taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : taxon_literature_path(@taxon_concept))
-      - when 'literature_links'
-        %li= link_to(I18n.t(:literature_links),
-          @selected_hierarchy_entry ? literature_links_taxon_hierarchy_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : literature_links_taxon_literature_path(@taxon_concept))
-    %li= link_to I18n.t(:biodiversity_heritage_library),
-      @selected_hierarchy_entry ? bhl_taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : bhl_taxon_literature_path(@taxon_concept)
+      - when :partner_links
+        %li= link_to(I18n.t(:taxon_partner_links_link), taxon_resources_path(@details))
+      - when :identification_resources
+        %li= link_to(I18n.t(:taxon_identification_resources_link),
+          identification_resources_taxon_resources_path(@details))
+      - when :citizen_science
+        %li= link_to(I18n.t(:taxon_citizen_science_link), citizen_science_taxon_resources_path(@details))
+      - when :education
+        %li= link_to(I18n.t(:taxon_education_link), education_taxon_resources_path(@details))
+      - when :biomedical_terms
+        %li= link_to(I18n.t(:taxon_biomedical_terms_link), biomedical_terms_taxon_resources_path(@details))
+      - when :nucleotide_sequences
+        %li= link_to(I18n.t(:taxon_nucleotide_sequences_link), nucleotide_sequences_taxon_resources_path(@details))
+      - when :news_and_event_links
+        %li= link_to(I18n.t(:news_and_event_links), news_and_event_links_taxon_resources_path(@details))
+      - when :related_organizations
+        %li= link_to(I18n.t(:related_organizations), related_organizations_taxon_resources_path(@details))
+      - when :multimedia_links
+        %li= link_to(I18n.t(:multimedia_links), multimedia_links_taxon_resources_path(@details))
+  %h4= link_to I18n.t(:literature), taxon_literature_path(@details)
+  %ul
+    - @details.literature_references_links.each do |link|
+      - case link
+      - when :literature_references
+        %li= link_to(I18n.t(:literature_references), taxon_literature_path(@details))
+      - when :literature_links
+        %li= link_to(I18n.t(:literature_links), literature_links_taxon_literature_path(@details))
+    %li= link_to I18n.t(:biodiversity_heritage_library), bhl_taxon_literature_path(@details)

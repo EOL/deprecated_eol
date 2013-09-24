@@ -1,5 +1,5 @@
-# Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and most
-# data links to these instances.
+# Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and
+# most data links to these instances.
 class HierarchyEntry < ActiveRecord::Base
 
   belongs_to :hierarchy
@@ -40,8 +40,6 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :siblings, :class_name => HierarchyEntry.to_s, :foreign_key => [:parent_id, :hierarchy_id], :primary_key => [:parent_id, :hierarchy_id],
     :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
 
-  has_one :hierarchy_entry_stat
-
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }
   end
@@ -54,6 +52,7 @@ class HierarchyEntry < ActiveRecord::Base
       [published,
        vetted_view_order,
        browsable,
+       he.hierarchy.sort_order,
        he.taxon_concept_id,
        he.id]
     end
@@ -71,6 +70,7 @@ class HierarchyEntry < ActiveRecord::Base
 
   # this method will return either the original name string, or if the rank of the taxon
   # is one to be italicized, the italicized form of the original name string
+  # This is essentially an italicized, attributed title for the entry.
   def italicized_name
     if name.is_surrogate_or_hybrid? || name.is_subgenus?
       name.string
@@ -85,6 +85,7 @@ class HierarchyEntry < ActiveRecord::Base
     return name.canonical_form
   end
 
+  # This is essentially a non-italicized, non-attributed title for the entry.
   def title_canonical
     return @title_canonical unless @title_canonical.nil?
     # used the ranked version first
@@ -96,8 +97,10 @@ class HierarchyEntry < ActiveRecord::Base
     elsif name.canonical_form && !name.canonical_form.string.blank?
       @title_canonical = name.canonical_form.string.firstcap
     # finally just the name string
-    else
+    elsif name
       @title_canonical = name.string.firstcap
+    else
+      ""
     end
     @title_canonical
   end
@@ -121,11 +124,11 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def rank_label
-    if rank.blank? || rank.label.blank?
-      I18n.t(:taxon).firstcap
-    else
-      rank.label.firstcap
-    end
+    @rank_label ||= if rank.blank? || rank.label.blank?
+        I18n.t(:taxon).firstcap
+      else
+        rank.label.firstcap
+      end
   end
 
   # wrapper function used in options_from_collection_for_select
@@ -133,22 +136,8 @@ class HierarchyEntry < ActiveRecord::Base
     hierarchy.label
   end
 
-  # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See
-  # DataObject.curated_hierarchy_entries
-  def by_curated_association?
-    @associated_by_curator
-  end
-
-  def associated_by_curator=(who)
-    @associated_by_curator = who
-  end
-
-  def associated_by_curator
-    @associated_by_curator
-  end
-
-  def can_be_deleted_by?(requestor)
-    return true if by_curated_association? && (requestor.master_curator? || associated_by_curator == requestor)
+  def hierarchy_provider
+    hierarchy_label.presence
   end
 
   def species_or_below?
@@ -251,8 +240,8 @@ class HierarchyEntry < ActiveRecord::Base
     Rails.cache.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
       HierarchyEntry.preload_associations(self, { :flattened_ancestors => :ancestor }, :select =>
         { :hierarchy_entries => [ :id, :name_id, :rank_id, :taxon_concept_id, :lft, :rgt ] })
-      return '' if flattened_ancestors.blank?
       root_ancestor, immediate_parent = kingdom_and_immediate_parent
+      return '' if root_ancestor.blank?
       str_to_return = root_ancestor.name.string
       str_to_return += " > " + immediate_parent.name.string if immediate_parent
       str_to_return
@@ -262,6 +251,8 @@ class HierarchyEntry < ActiveRecord::Base
   def kingdom_and_immediate_parent
     return [ nil, nil ] if flattened_ancestors.blank?
     sorted_ancestors = flattened_ancestors.sort{ |a,b| a.ancestor.lft <=> b.ancestor.lft }
+    sorted_ancestors.shift if hierarchy == Hierarchy.ncbi
+    return [ nil, nil ] if sorted_ancestors.blank?  # sorted ancestors might be blank now
     root_ancestor = sorted_ancestors.first.ancestor
     immediate_parent = sorted_ancestors.pop.ancestor
     while immediate_parent && immediate_parent != root_ancestor && [ Rank.genus.id, Rank.species.id, Rank.subspecies.id, Rank.variety.id, Rank.infraspecies.id ].include?(immediate_parent.rank_id)

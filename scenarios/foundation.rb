@@ -96,22 +96,9 @@ Audience.gen_if_not_exists(:label => 'Children')
 Audience.gen_if_not_exists(:label => 'Expert users')
 Audience.gen_if_not_exists(:label => 'General public')
 
-DataType.gen_if_not_exists(:label => 'Image',     :schema_value => 'http://purl.org/dc/dcmitype/StillImage')
-DataType.gen_if_not_exists(:label => 'Sound',     :schema_value => 'http://purl.org/dc/dcmitype/Sound')
-DataType.gen_if_not_exists(:label => 'Text',      :schema_value => 'http://purl.org/dc/dcmitype/Text')
-DataType.gen_if_not_exists(:label => 'Video',     :schema_value => 'http://purl.org/dc/dcmitype/MovingImage')
-DataType.gen_if_not_exists(:label => 'GBIF Image')
-DataType.gen_if_not_exists(:label => 'IUCN',      :schema_value => 'IUCN')
-DataType.gen_if_not_exists(:label => 'Flash',     :schema_value => 'Flash')
-DataType.gen_if_not_exists(:label => 'YouTube',   :schema_value => 'YouTube')
-DataType.gen_if_not_exists(:label => 'Map',       :schema_value => 'Map')
-DataType.gen_if_not_exists(:label => 'Link',      :schema_value => 'Link')
+DataType.create_defaults
 
-LinkType.gen_if_not_exists(:label => 'Blog')
-LinkType.gen_if_not_exists(:label => 'News')
-LinkType.gen_if_not_exists(:label => 'Organization')
-LinkType.gen_if_not_exists(:label => 'Paper')
-LinkType.gen_if_not_exists(:label => 'Multimedia')
+LinkType.create_defaults
 
 default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
 Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label =>  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :browsable => 0)
@@ -137,28 +124,7 @@ unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '', :so
 sci_name.update_attributes(:activated_on => nil)
 unknown.update_attributes(:activated_on => nil)
 
-License.gen_if_not_exists(:title => 'public domain',
-                          :description => 'No rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/publicdomain/')
-License.gen_if_not_exists(:title => 'all rights reserved',
-                          :description => '&#169; All rights reserved',
-                          :show_to_content_partners => 0)
-License.gen_if_not_exists(:title => 'cc-by-nc 3.0',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',
-                          :logo_url => 'cc_by_nc_small.png')
-License.gen_if_not_exists(:title => 'cc-by 3.0',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                          :logo_url => 'cc_by_small.png')
-License.gen_if_not_exists(:title => 'cc-by-sa 3.0',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/by-sa/3.0/',
-                          :logo_url => 'cc_by_sa_small.png')
-License.gen_if_not_exists(:title => 'cc-by-nc-sa 3.0',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/',
-                          :logo_url => 'cc_by_nc_sa_small.png')
+License.create_defaults
 
 MimeType.gen_if_not_exists(:label => 'image/jpeg')
 MimeType.gen_if_not_exists(:label => 'audio/mpeg')
@@ -166,6 +132,8 @@ MimeType.gen_if_not_exists(:label => 'text/html')
 MimeType.gen_if_not_exists(:label => 'text/plain')
 MimeType.gen_if_not_exists(:label => 'video/x-flv')
 MimeType.gen_if_not_exists(:label => 'video/quicktime')
+MimeType.gen_if_not_exists(:label => 'audio/mpeg')
+MimeType.gen_if_not_exists(:label => 'audio/x-wav')
 
 
 # create_if_not_exists These don't exist yet, but will in the future:
@@ -177,21 +145,10 @@ MimeType.gen_if_not_exists(:label => 'video/quicktime')
   Rank.gen_if_not_exists(:label => rank)
 end
 
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'comment')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_object')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'synonym')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept_name')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'tag')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_data_object')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'hierarchy_entry')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_data_objects_hierarchy_entry')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_objects_hierarchy_entry')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_taxon_concept_preferred_entry')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept')
-ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'classification_curation')
+ChangeableObjectType.create_defaults
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
+RefIdentifierType.gen_if_not_exists(:label => 'doi')
 
 iucn_hierarchy = Hierarchy.gen_if_not_exists(:label => 'IUCN')
 iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter, :acesspoint_url => "http://eol.org/api/ping.xml")
@@ -210,7 +167,7 @@ description = TocItem.gen_if_not_exists(:label => 'Description', :view_order => 
 TocItem.gen_if_not_exists(:label => 'Nucleotide Sequences', :view_order => 5, :parent_id => description.id)
 ecology_and_distribution = TocItem.gen_if_not_exists(:label => 'Ecology and Distribution', :view_order => 6)
 TocItem.gen_if_not_exists(:label => 'Distribution', :view_order => 7, :parent_id => ecology_and_distribution.id)
-TocItem.gen_if_not_exists(:label => 'Wikipedia', :view_order => 8)
+wikipedia = TocItem.gen_if_not_exists(:label => 'Wikipedia', :view_order => 8)
 TocItem.gen_if_not_exists(:label => 'Identification Resources', :view_order => 9, :parent_id => description.id)
 #--
 names_and_taxonomy = TocItem.gen_if_not_exists(:label => 'Names and Taxonomy', :view_order => 50)
@@ -235,6 +192,7 @@ TocItem.gen_if_not_exists(:label => 'Biomedical Terms',       :view_order => 66,
 TocItem.gen_if_not_exists(:label => 'Search the Web',         :view_order => 67, :parent_id => ref_and_info.id)
 education = TocItem.gen_if_not_exists(:label => 'Education',  :view_order => 68)
 TocItem.gen_if_not_exists(:label => 'Education Links',        :view_order => 69, :parent_id => education.id)
+TocItem.gen_if_not_exists(:label => 'Education Resources',    :view_order => 70, :parent_id => education.id)
 
 InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',
   :label => 'TaxonBiology', :toc_item => TocItem.overview)
@@ -254,6 +212,8 @@ InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_con
   :label => 'Education', :toc_item => education)
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#IdentificationResources',
   :label => 'IdentificationResources', :toc_item => description)
+InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#Wikipedia',
+  :label => 'Wikipedia', :toc_item => wikipedia)
 
 ServiceType.gen_if_not_exists(:label => 'EOL Transfer Schema')
 
@@ -266,23 +226,17 @@ UntrustReason.gen_if_not_exists(:label => 'incorrect/misleading', :class_name =>
 UntrustReason.gen_if_not_exists(:label => 'low quality', :class_name => 'poor')
 UntrustReason.gen_if_not_exists(:label => 'duplicate', :class_name => 'duplicate')
 
-Vetted.gen_if_not_exists(:label => 'Unknown', :view_order => 2)
-Vetted.gen_if_not_exists(:label => 'Untrusted', :view_order => 3)
-Vetted.gen_if_not_exists(:label => 'Inappropriate', :view_order => 4)
-Vetted.gen_if_not_exists(:label => 'Trusted', :view_order => 1)
+Vetted.create_defaults
 
 SynonymRelation.gen_if_not_exists(:label => "synonym")
 SynonymRelation.gen_if_not_exists(:label => "common name")
 SynonymRelation.gen_if_not_exists(:label => "genbank common name")
 
-
-Visibility.gen_if_not_exists(:label => 'Invisible')
-Visibility.gen_if_not_exists(:label => 'Visible')
-Visibility.gen_if_not_exists(:label => 'Preview')
+Visibility.create_defaults
 
 ContentTable.create_details
-
 NotificationFrequency.create_defaults
+Permission.create_defaults
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

@@ -61,31 +61,31 @@ describe Collection do
   it 'should be able to add TaxonConcept collection items' do
     collection = Collection.gen
     collection.add(@test_data[:taxon_concept_1])
-    collection.collection_items.last.object.should == @test_data[:taxon_concept_1]
+    collection.collection_items.last.collected_item.should == @test_data[:taxon_concept_1]
   end
 
   it 'should be able to add User collection items' do
     collection = Collection.gen
     collection.add(@test_data[:user])
-    collection.collection_items.last.object.should == @test_data[:user]
+    collection.collection_items.last.collected_item.should == @test_data[:user]
   end
 
   it 'should be able to add DataObject collection items' do
     collection = Collection.gen
     collection.add(@test_data[:data_object])
-    collection.collection_items.last.object.should == @test_data[:data_object]
+    collection.collection_items.last.collected_item.should == @test_data[:data_object]
   end
 
   it 'should be able to add Community collection items' do
     collection = Collection.gen
     collection.add(@test_data[:community])
-    collection.collection_items.last.object.should == @test_data[:community]
+    collection.collection_items.last.collected_item.should == @test_data[:community]
   end
 
   it 'should be able to add Collection collection items' do
     collection = Collection.gen
     collection.add(@test_data[:collection])
-    collection.collection_items.last.object.should == @test_data[:collection]
+    collection.collection_items.last.collected_item.should == @test_data[:collection]
   end
 
   it 'should NOT be able to add Agent items' do # Really, we don't care about Agents, per se, just "anything else".
@@ -169,19 +169,18 @@ describe Collection do
     taxa_counts[collections[2].id].should == 3
   end
 
-  it 'should be able to set relevance by calculation' do
+  it 'should be able to set relevance by background calculation' do
     col = Collection.gen
-    col.should_receive(:calculate_relevance).and_return(2)
+    Resque.should_receive(:enqueue).with(CollectionRelevanceCalculator, col.id)
     col.set_relevance
-    col.relevance.should == 2
   end
 
   it 'should know what its default view style is' do
     collection = Collection.gen
-    collection.default_view_style.should == ViewStyle.annotated
+    collection.view_style_or_default.should == ViewStyle.annotated
     collection.update_attributes(:view_style => ViewStyle.gallery)
     collection.reload
-    collection.default_view_style.should == ViewStyle.gallery
+    collection.view_style_or_default.should == ViewStyle.gallery
   end
 
   it '#inaturalist_project_info should call InaturalistProjectInfo' do

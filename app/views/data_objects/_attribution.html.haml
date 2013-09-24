@@ -1,17 +1,17 @@
 - data_object ||= @data_object
 - unless data_object.blank?
   - en_type ||= en_type(data_object)
-  = render :partial => 'data_objects/license', :locals => { :data_object => data_object } unless en_type == 'link'
-  = render :partial => 'data_objects/rights_statement', :locals => { :data_object => data_object }
-  = render :partial => 'data_objects/rights_holder', :locals => { :data_object => data_object }
+  = render(:partial => 'data_objects/license', :locals => { :data_object => data_object }) unless en_type == 'link'
+  = render(:partial => 'data_objects/rights_statement', :locals => { :data_object => data_object })
+  = render(:partial => 'data_objects/rights_holder', :locals => { :data_object => data_object }) if data_object.show_rights_holder?
   - if original_object = data_object.translated_from
     = render :partial => 'data_objects/supplier', :locals => { :data_object => original_object }
     = render :partial => 'data_objects/agents', :locals => { :data_object => original_object }
   - else
     = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }
     = render :partial => 'data_objects/agents', :locals => { :data_object => data_object }
-  - unless data_object.bibliographic_citation.blank?
-    %p= raw(data_object.bibliographic_citation)
+  - unless data_object.bibliographic_citation_for_display.blank?
+    %p= raw(data_object.bibliographic_citation_for_display.add_missing_hyperlinks)
   = render :partial => 'data_objects/location', :locals => { :data_object => data_object }
   - unless data_object.spatial_location.blank?
     %p= "#{I18n.t(:location_colon)} #{data_object.spatial_location}"

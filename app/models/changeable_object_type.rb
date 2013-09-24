@@ -5,6 +5,15 @@ class ChangeableObjectType < ActiveRecord::Base
   validates_presence_of   :ch_object_type
   validates_uniqueness_of :ch_object_type
 
+  def self.create_defaults
+    %w(comment data_object synonym taxon_concept_name tag users_data_object hierarchy_entry
+       curated_data_objects_hierarchy_entry data_objects_hierarchy_entry users_submitted_text
+       curated_taxon_concept_preferred_entry taxon_concept classification_curation).each do |type|
+      ChangeableObjectType.create(:ch_object_type => type)
+    end
+
+  end
+
   def self.raw_data_object_id
     cot = self.find_by_ch_object_type('data_object')
     return 2 if cot.nil? # THIS IS FOR TESTS.  Since we need this at compile-time, we are "guessing"
@@ -13,53 +22,53 @@ class ChangeableObjectType < ActiveRecord::Base
   end
 
   def self.taxon_concept
-    cached_find(:ch_object_type, 'taxon_concept')
+    @@taxon_concept ||= cached_find(:ch_object_type, 'taxon_concept')
   end
 
   def self.comment
-    cached_find(:ch_object_type, 'comment')
+    @@comment ||= cached_find(:ch_object_type, 'comment')
   end
 
   def self.data_object
-    cached_find(:ch_object_type, 'data_object')
+    @@data_object ||= cached_find(:ch_object_type, 'data_object')
   end
 
   # Adding common names:
   def self.synonym
-    cached_find(:ch_object_type, 'synonym')
+    @@synonym ||= cached_find(:ch_object_type, 'synonym')
   end
 
   def self.tag
-    cached_find(:ch_object_type, 'tag')
+    @@tag ||= cached_find(:ch_object_type, 'tag')
   end
 
   # Removing common names:
   def self.taxon_concept_name
-    cached_find(:ch_object_type, 'taxon_concept_name')
+    @@taxon_concept_name ||= cached_find(:ch_object_type, 'taxon_concept_name')
   end
 
   def self.users_data_object
-    cached_find(:ch_object_type, 'users_submitted_text') || cached_find(:ch_object_type, 'users_data_object')
+    @@users_data_object ||= cached_find(:ch_object_type, 'users_submitted_text') || cached_find(:ch_object_type, 'users_data_object')
   end
 
   def self.hierarchy_entry
-    cached_find(:ch_object_type, 'hierarchy_entry')
+    @@hierarchy_entry ||= cached_find(:ch_object_type, 'hierarchy_entry')
   end
 
   def self.data_objects_hierarchy_entry
-    cached_find(:ch_object_type, 'data_objects_hierarchy_entry')
+    @@data_objects_hierarchy_entry ||= cached_find(:ch_object_type, 'data_objects_hierarchy_entry')
   end
 
   def self.curated_data_objects_hierarchy_entry
-    cached_find(:ch_object_type, 'curated_data_objects_hierarchy_entry')
+    @@curated_data_objects_hierarchy_entry ||= cached_find(:ch_object_type, 'curated_data_objects_hierarchy_entry')
   end
 
   def self.curated_taxon_concept_preferred_entry
-    cached_find(:ch_object_type, 'curated_taxon_concept_preferred_entry')
+    @@curated_taxon_concept_preferred_entry ||= cached_find(:ch_object_type, 'curated_taxon_concept_preferred_entry')
   end
 
   def self.classification_curation
-    cached_find(:ch_object_type, 'classification_curation')
+    @@classification_curation ||= cached_find(:ch_object_type, 'classification_curation')
   end
 
   def self.data_object_scope

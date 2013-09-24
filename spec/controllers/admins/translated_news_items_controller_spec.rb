@@ -4,7 +4,6 @@ describe Admins::TranslatedNewsItemsController do
 
   before(:all) do
     unless @admin = User.find_by_username('admins_controller_specs')
-      truncate_all_tables
       load_foundation_cache
       @admin = User.gen(:username => 'admins_controllers_specs', :password => "password", :admin => true)
     end

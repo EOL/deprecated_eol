@@ -1,0 +1,8 @@
+- ref ||= nil
+- if ref && ref.is_a?(Ref)
+  %li{ :ref_id => ref.id }
+    = raw(ref.full_reference.balance_tags.add_missing_hyperlinks)
+    - ref.ref_identifiers.each do |identifier|
+      - next unless identifier.display?
+      &emsp;
+      = external_link_to(identifier.identifier, identifier.link_to_identifier)

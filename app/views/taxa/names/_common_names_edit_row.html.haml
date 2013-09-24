@@ -1,6 +1,6 @@
 - name ||= nil #scope
 -# This is STUPID.  But I don't have the time to make it all right... so this is using the same logic (basically) as
--# the _common_names_edit view to pull out the single name we actually want.  ARGH!
+-# the _common_names_edit view to pull out the single name we actually want.! - TODO (fix)
 - if defined?(common_names) && defined?(language) && defined?(name_id)
   - common_names_by_language(common_names, current_language.id).each do |language_names_pair|
     - next unless language_names_pair[0] == language
@@ -13,7 +13,7 @@
   = raw(common_name_display_attribution(name))
 %td{:class => 'vet_common_name'}
   - if synonym_id = name.synonym_id_for_user(current_user)
-    = link_to( I18n.t(:delete), delete_taxon_names_path(:taxon_id => @taxon_concept.id, :synonym_id => synonym_id, :hierarchy_entry_id => @selected_hierarchy_entry_id),
+    = link_to( I18n.t(:delete), delete_taxon_names_path(@taxon_page, :synonym_id => synonym_id),
       :data => { :confirm => I18n.t(:are_you_sure) })
   - else
     - name.vetted = Vetted.untrusted if name.vetted == Vetted.inappropriate

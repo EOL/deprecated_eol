@@ -88,6 +88,26 @@ class String
     return text
   end
 
+  # this method is only acting on text which does not current contain <br> or <p> tag.
+  # We used to not have a WYSIWYG editor for text and newlines were the way to break text into paragraphs.
+  # Some informed users would still put in HTML tags, and if they did then they were responsible for their
+  # own linebreaking. So this will prevent WYSIWYG text (which always has at least one <p>) and pre-tagged
+  # text from getting extra linebreaks. The 'wrap_in_paragraph' parameter will wrap this legacy text into
+  # a <p> tag so that the styles on the DataObject page are applied consistently
+  def fix_old_user_added_text_linebreaks(options={})
+    line_breaks = /[\r\n]/
+    unless self.match(/<(br|p)\s*[\/]?\s*>/)  # if there is a br or p tag, then don't do the conversion
+      text = self.gsub(line_breaks, '<br/>')
+      text.gsub!(/(<br\/>){2,}/, "<br/><br/>")
+      if options[:wrap_in_paragraph]
+        return "<p>#{text}</p>"
+      else
+        return text
+      end
+    end
+    return self
+  end
+
   def firstcap
     @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
     self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }
@@ -164,7 +184,7 @@ class String
       l = options[:length] - options[:omission].mb_chars.length
       chars = self.mb_chars
       if chars.length <= options[:length]
-        return self
+        return self.html_safe
       else
         trimmed_string = chars[0...l].to_s
         if matches = trimmed_string.match(/^(.*)<a (.*)/im)
@@ -180,7 +200,7 @@ class String
         # Clear off truncated tags:
         trimmed_string.sub!(/<[^>]+$/, '')
         
-        return (trimmed_string.strip + options[:omission]).balance_tags
+        return (trimmed_string.strip + options[:omission]).balance_tags.html_safe
       end
     end
   end
@@ -209,6 +229,14 @@ class String
     end
   end
 
+  def is_json?
+    begin
+      !!JSON.parse(self)
+    rescue
+      false
+    end
+  end
+
   def is_int?
     begin
       Integer(self)
@@ -226,7 +254,10 @@ class String
   def add_missing_hyperlinks
     # split on spaces, link any http which don't contain ,; and don't end in periods (end of sentences)
     self.split.map do |w|
-      w.gsub(/^(https?[^,;]+[^\.,;])/i, '<a href="\1">\1</a>').gsub(/^(www\.[a-z-]+\.[^,;]+[^\.,;])/i, '<a href="http://\1">\1</a>')
+      w.gsub(/^([\(\["]*)(https?[^,;]+[^\.,;\(\)\"])/i, '\1<a href="\2">\2</a>').
+        gsub(/^(www\.[a-z-]+\.[^,;\(\)\"]+[^\.,;\(\)\"])/i, '<a href="http://\1">\1</a>').
+        gsub(/^([\(\["]*)(10\.[0-9]{4,}\/[a-z0-9\/\.-]+)/i, '\1<a href="http://dx.doi.org/\2">\2</a>').
+        gsub(/^([\(\["]*)(doi:10\.[a-z0-9\/\.-]*)/i, '\1<a href="http://dx.doi.org/\2">\2</a>')
     end.join(' ')
   end
   

@@ -52,12 +52,13 @@ module EOL
     end
 
     def self.recent_activities(options = {})
-      query = "*:*"
+      query = "*:* NOT action_keyword:unlock"
       if options[:filter]
         # TODO - why are we using #include? here? it's an if/elsif clause, so we can't have multiple values...
         if options[:filter].include?('comments')
           query = "activity_log_type:Comment"
         elsif options[:filter].include?('data_object_curation')
+          # TODO - this doesn't include ClassificationCuration, and it should.
           query = "activity_log_type:CuratorActivityLog AND feed_type_affected:DataObject"
         elsif options[:filter].include?('names')
           query = "activity_log_type:CuratorActivityLog AND action_keyword:Synonym"
@@ -152,12 +153,11 @@ module EOL
 
     def self.taxon_concept_activities(source, options = {})
       tc_ids = [ source.id ]
-      # TODO - this only needs the id and could be better-written anyway (limit could be used), fix:
-      TaxonConcept.find_all_by_supercedure_id(source.id).each do |tc|
+      TaxonConcept.where("supercedure_id = #{source.id}").select(:id).limit(500).each do |tc|
         tc_ids << tc.id
       end
       # TODO - repeated logic with :data_object_activities above
-      id_clause = "(feed_type_primary_key:(" + tc_ids[0...500].join(" OR ") + "))"
+      id_clause = "(feed_type_primary_key:(" + tc_ids.join(" OR ") + "))"
       query = "(feed_type_affected:TaxonConcept OR feed_type_affected:AncestorTaxonConcept) AND (#{id_clause})"
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end

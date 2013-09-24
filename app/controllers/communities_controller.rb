@@ -5,7 +5,7 @@ class CommunitiesController < ApplicationController
   before_filter :allow_login_then_submit, :only => [:join]
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create, :choose, :make_editors]
   before_filter :load_collection, :only => [:new, :create]
-  before_filter :must_be_logged_in, :except => [:index, :show]
+  before_filter :_must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit, :only => [:edit, :update, :delete]
 
   # TODO: is this action being used, if not we should probably delete it along with it's view.
@@ -262,7 +262,7 @@ private
     raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end
 
-  def must_be_logged_in
+  def _must_be_logged_in
     raise EOL::Exceptions::MustBeLoggedIn unless logged_in?
   end
 
@@ -299,7 +299,8 @@ private
     end
     unless not_sent_to.empty?
       flash[:error] = flash[:error].nil? ? '' : "#{flash[:error]} " # NOTE - add space if needed
-      flash[:error] += I18n.t(:unable_to_invite_users_to_community_error, :users => not_sent_to.to_sentence)
+      flash[:error] += I18n.t(:unable_to_invite_users_to_community_with_count, :list => not_sent_to.to_sentence,
+                              :count => not_sent_to.count)
     end
     return sent_to
   end

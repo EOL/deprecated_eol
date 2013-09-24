@@ -1,7 +1,9 @@
-.article
-  .header
-    %h3= I18n.t(:description)
-  .copy
-    - data_object.description = data_object.description_linked unless data_object.description_linked.blank? rescue nil
-    = raw(data_object.description.balance_tags)
+- data_object.description = data_object.description_linked unless data_object.description_linked.blank? rescue nil
+- description = data_object.description.balance_tags
+- unless description.blank?
+  .article
+    .header
+      %h3= I18n.t(:description)
+    .copy
+      = raw(description)
 

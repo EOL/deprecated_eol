@@ -17,23 +17,58 @@
 - assistive_or_nil = minimal ? 'assistive' : nil
 - hide_user_rating ||= false
 .ratings
-  .average_rating
-    %h5{:class => assistive_or_nil}
-      = I18n.t("#{en_type}_rating")
-      - unless minimal
-        %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.length)
-    .rating
-      %p{:style => "width: #{average_rating * 20}%"}<
-        = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
-  - unless hide_user_rating
-    .rating
-      %h5{:class => assistive_or_nil}= I18n.t(:your_rating)
-      %ul
-        %li{:class => "current_rating_#{user_rating}"}<
-          = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
-        - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
-        - @rating_link_template = rate_data_object_path(data_object, :stars => '#RATINGINDEX', :return_to => link_url, :minimal => minimal.to_s)
-        - total.times do |i|
-          - rating = i + 1
-          %li
-            = link_to(I18n.t("change_rating_to_#{rating}_of_#{total}"), @rating_link_template.gsub('%23RATINGINDEX', rating.to_s), :class => "star_#{rating}")
+  - title = I18n.t("#{en_type}_rating")
+  - if minimal || hide_user_rating
+    .average_rating
+      %h5{:class => assistive_or_nil}
+        = title
+        - unless minimal
+          %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.length)
+      .rating
+        %p{:style => "width: #{average_rating * 20}%"}<
+          = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+    - unless hide_user_rating
+      .rating
+        %h5{:class => assistive_or_nil}= I18n.t(:your_rating)
+        %ul
+          %li{:class => "current_rating_#{user_rating}"}<
+            = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
+          - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
+          - @rating_link_template = rate_data_object_path(data_object, :stars => '#RATINGINDEX', :return_to => link_url, :minimal => minimal.to_s)
+          - total.times do |i|
+            - rating = i + 1
+            %li
+              = link_to(I18n.t("change_rating_to_#{rating}_of_#{total}"), @rating_link_template.gsub('%23RATINGINDEX', rating.to_s), :class => "star_#{rating}")
+  - else
+    .article.list
+      .header
+        %h3= title
+        = link_to I18n.t(:rating_learn_more_link), cms_page_path('curation_standards', :anchor => 'rating')
+      - rating_summary = data_object.rating_summary
+      %dl.rating_counts
+        - [ 5, 4, 3, 2, 1 ].each do |rating_score|
+          - votes_for_this_score = rating_summary[rating_score]
+          %dt= I18n.t('stars_with_count', :count => rating_score)
+          %dd
+            %span
+              - percentage_with_this_score = (votes_for_this_score / data_object.total_ratings.to_f) * 100
+              - if percentage_with_this_score > 0
+                %span{ :style => "width: #{percentage_with_this_score}%" }
+            = votes_for_this_score
+        %dt= I18n.t('average_rating')
+        %dd.average_rating
+          .rating
+            %p{:style => "width: #{average_rating * 20}%"}<
+              = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+        - unless hide_user_rating
+          %dt= I18n.t(:your_rating)
+          %dd.rating
+            %ul
+              %li{:class => "current_rating_#{user_rating}"}<
+                = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
+              - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
+              - @rating_link_template = rate_data_object_path(data_object, :stars => '#RATINGINDEX', :return_to => link_url, :minimal => minimal.to_s)
+              - total.times do |i|
+                - rating = i + 1
+                %li
+                  = link_to(I18n.t("change_rating_to_#{rating}_of_#{total}"), @rating_link_template.gsub('%23RATINGINDEX', rating.to_s), :class => "star_#{rating}")

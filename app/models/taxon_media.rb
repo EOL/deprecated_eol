@@ -24,7 +24,6 @@ class TaxonMedia < TaxonUserClassificationFilter
     @status = @status.values if @status.is_a?(Hash) # TODO - explain when/why this might happen.
     super(taxon_concept, user, options[:hierarchy_entry])
     get_media
-    repair_bad_counts
   end
 
   def applied_ratings
@@ -72,13 +71,14 @@ class TaxonMedia < TaxonUserClassificationFilter
       :preload_select   => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
                                                 :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
     )
+    repair_bad_counts(@media.total_entries) # Note you MUST do this before #preload_media, 'cause it'll change.
     preload_media
     correct_bogus_exemplar_image
   end
 
-  def repair_bad_counts
+  def repair_bad_counts(count)
     # NOTE: using #_hierarchy_entry because the value passed here should be nil when it's not specified.
-    @taxon_concept.update_media_count(user: user, entry: _hierarchy_entry, with_count: @media.total_entries)
+    @taxon_concept.update_media_count(user: user, entry: _hierarchy_entry, with_count: count)
   end
 
   def set_statuses

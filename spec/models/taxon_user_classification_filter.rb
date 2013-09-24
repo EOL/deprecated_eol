@@ -270,16 +270,6 @@ describe TaxonUserClassificationFilter do
     @taxon_page.media.should == "badda bing"
   end
 
-  it '#media_count should delegate to taxon_concept with user only, without entry' do
-    @taxon_concept.should_receive(:media_count).with(@user, nil).and_return("party time")
-    @taxon_page.media_count.should == "party time"
-  end
-
-  it '#media_count should delegate to taxon_concept with user and entry, if provided' do
-    @taxon_concept.should_receive(:media_count).with(@user, @entry).and_return("booya")
-    @taxon_page_with_entry.media_count.should == "booya"
-  end
-
   it "#text should delegate to taxon_concept#text_for_user and pass options" do
     @taxon_concept.should_receive(:text_for_user).with(@user, foo: 'bar').and_return "that worked"
     @taxon_page.text(foo: 'bar').should == "that worked"

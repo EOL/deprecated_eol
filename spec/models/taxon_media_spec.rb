@@ -28,7 +28,7 @@ describe TaxonMedia do
   it "should know if it's empty" # This is not simple to test; juice wasn't worth the squeeze and I didn't want to keep bad code. :\
 
   it 'should have an array of media to pass to will_paginate' do
-    a = [DataObject.gen]
+    a = [DataObject.gen].paginate
     # NOTE - data_objects_from_solr is called in other places (for example, to get the exemplar image), but we don't care:
     @taxon_concept.should_receive(:data_objects_from_solr).at_least(1).times.and_return a
     build_media
@@ -36,7 +36,7 @@ describe TaxonMedia do
   end
 
   it 'should implement #each_with_index over the media' do
-    array = [DataObject.gen, DataObject.gen, DataObject.gen]
+    array = [DataObject.gen, DataObject.gen, DataObject.gen].paginate
     # NOTE - data_objects_from_solr is called in other places (for example, to get the exemplar image), but we don't care:
     @taxon_concept.should_receive(:data_objects_from_solr).at_least(1).times.and_return array
     build_media
@@ -53,7 +53,7 @@ describe TaxonMedia do
   # Ouch. But, really, we *do* want to ensure we get all the arguments right, here. Still, TODO, this would be really nice to... improve.
   # Also, TODO, this is not exhaustive.  :\  We should pass in various arguments and see these change.
   it 'should pass arguments to taxon concept for getting media' do
-    array = [DataObject.gen]
+    array = [DataObject.gen].paginate
     @taxon_concept.should_receive(:data_objects_from_solr).with(
       :ignore_translations => true,
       :return_hierarchically_aggregated_objects => true,

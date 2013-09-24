@@ -54,6 +54,8 @@ class SearchController < ApplicationController
       @suggestions = search_response[:suggestions]
       log_search(request) unless params[:mobile_search]
       current_user.log_activity(:text_search_on, :value => params[:q])
+      # TODO - there is a weird, rare border case where total_entries == 1 and #length == 0. Not sure what causes it, but we should handle that
+      # case here, probably by re-submitting the search (because, at least in the case I saw, the next load of the page was fine).
       if params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results.first, :total_results => 1, :params => params)
       elsif params[:show_all].blank? && @params_type[0].downcase == 'all' && @all_results.total_entries > 1 && @all_results.length > 1 &&

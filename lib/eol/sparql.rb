@@ -63,6 +63,7 @@ module EOL
     end
 
     # TODO - this could be solved with duck-typing. Unfortunately, that's a lot of work.  :|
+    # ... but this really needs to be fixed.  :| :| :| :|
     def self.uri_components(known_uri_or_string)
       if known_uri_or_string.is_a?(KnownUri)
         return { uri: known_uri_or_string.uri, label: known_uri_or_string.name, definition: known_uri_or_string.definition }

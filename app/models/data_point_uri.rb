@@ -331,20 +331,46 @@ class DataPointUri < ActiveRecord::Base
       # Taxon Concept ID:
       taxon_concept.id,
       # Scientific Name:
-      taxon_concept.scientific_name,
+      taxon_concept.title_canonical,
       # Common Name:
       taxon_concept.preferred_common_name_in_language(language),
       # Name:
-      predicate_known_uri ? predicate_known_uri.name : predicate_uri,
+      EOL::Sparql.uri_components(predicate_uri)[:label],
       # Value:
-      # TODO - target_taxon_cocnept for associations? app/helpers/taxa_helper.rb line 181
-      # TODO - pass in a link to this row on the TC page.
-      object_known_uri ? object_known_uri.name : object_uri,
+      value_string(language),
       # Units:
-      'units TODO',
+      units_string,
       # Source:
       source.name
     ]
+  end
+
+  # TODO - this logic is duplicated in the taxa helper; remove it from there.
+  def units_string
+    if unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(unit_of_measure_uri)
+      uri_components[:label]
+    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(predicate_uri)
+      uri_components[:label]
+    end
+  end
+
+  # TODO - this logic is duplicated in the taxa helper; remove it from there.
+  def value_string(lang = Language.default)
+    if association?
+      common = target_taxon_concept.preferred_common_name_in_language(lang)
+      return target_taxon_concept.title_canonical if common.blank?
+      common
+    else
+      val = EOL::Sparql.uri_components(object_uri)[:label].to_s # TODO - see if we need that #to_s; seems redundant.
+      if val.is_numeric?
+        # numeric values can be rounded off to 3 decimal places
+        val = val.to_f.round(3) if val.is_float?
+      else
+        # other values may have links embedded in them (references, citations, etc.)
+        val.add_missing_hyperlinks
+      end
+      val
+    end
   end
 
 end

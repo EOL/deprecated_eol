@@ -107,25 +107,6 @@ class DataPointUri < ActiveRecord::Base
     attributes
   end
 
-  def self.csv_columns(lang = Language.default)
-    [
-      # Taxon Concept ID:
-      I18n.t(:data_column_tc_id),
-      # Scientific Name:
-      I18n.t(:data_column_sci_name),
-      # Common Name:
-      I18n.t(:data_column_common_name),
-      # Name:
-      I18n.t(:data_column_name),
-      # Value:
-      I18n.t(:data_column_val),
-      # Units:
-      I18n.t(:data_column_units),
-      # Source:
-      I18n.t(:data_column_source)
-    ]
-  end
-
   # Required for commentable items. NOTE - This requires four queries from the DB, unless you preload the
   # information.  TODO - preload these:
   # TaxonConcept Load (10.3ms)  SELECT `taxon_concepts`.* FROM `taxon_concepts` WHERE `taxon_concepts`.`id` = 17
@@ -326,23 +307,32 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
-  def csv_values(language = Language.default)
-    [
+  # TODO - passing in the language is indicative of a problem. That should be handled by the view.
+  def to_hash(language = Language.default)
+    hash = {
       # Taxon Concept ID:
-      taxon_concept.id,
+      I18n.t(:data_column_tc_id) => taxon_concept.id,
       # Scientific Name:
-      taxon_concept.title_canonical,
+      I18n.t(:data_column_sci_name) => taxon_concept.title_canonical,
       # Common Name:
-      taxon_concept.preferred_common_name_in_language(language),
+      I18n.t(:data_column_common_name) => taxon_concept.preferred_common_name_in_language(language),
       # Name:
-      EOL::Sparql.uri_components(predicate_uri)[:label],
+      I18n.t(:data_column_name) => EOL::Sparql.uri_components(predicate_uri)[:label],
       # Value:
-      value_string(language),
+      I18n.t(:data_column_val) => value_string(language),
       # Units:
-      units_string,
+      I18n.t(:data_column_units) => units_string,
       # Source:
-      source.name
-    ]
+      I18n.t(:data_column_source) => source.name
+    }
+    if metadata = get_metadata(language)
+      metadata.each do |data|
+        hash[EOL::Sparql.uri_components(data.predicate_uri)[:label]] = data.value_string(language)
+      end
+    end
+    # TODO - references... maybe?
+    # TODO - other measurements. ...I think.
+    hash
   end
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there.

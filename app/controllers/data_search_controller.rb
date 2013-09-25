@@ -18,23 +18,37 @@ class DataSearchController < ApplicationController
           @from, @to = [ from.to_f, to.to_f ].sort
         end
       end
-      @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-        page: @page, sort: @sort, per_page: 30)
     end
     respond_to do |format|
-      format.html {}
-      format.csv { render text: build_csv_from_results } # TODO - handle the case where results are empty.
+      format.html do
+        @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
+          page: @page, sort: @sort, per_page: 30)
+      end
+      format.csv do
+        # TODO - really, we shouldn't use pagination at all, here.
+        @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
+          sort: @sort, per_page: 30000) # TODO - if we KEEP pagination, make this value more sane (and put @page back in).
+        # TODO - handle the case where results are empty.
+        render text: build_csv_from_results
+      end
     end
   end
 
   private
 
-  # TODO - we don't actually want to do this when building CSV, since we have pagination and don't want it. This is just a test!
   def build_csv_from_results
+    rows = []
+    @results.each do |data_point_uri|
+      rows << data_point_uri.to_hash(current_language)
+    end
+    col_heads = Set.new
+    rows.each do |row|
+      col_heads.merge(row.keys)
+    end
     CSV.generate do |csv|
-      csv << DataPointUri.csv_columns(current_language)
-      @results.each do |data_point_uri|
-        csv << data_point_uri.csv_values(current_language)
+      csv << col_heads
+      rows.each do |row|
+        csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
       end
     end
   end

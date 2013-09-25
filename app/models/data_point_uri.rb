@@ -25,6 +25,107 @@ class DataPointUri < ActiveRecord::Base
   has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :primary_key => :uri, :source => :comments
   has_many :taxon_data_exemplars
 
+  def self.preload_data_point_uris!(results, taxon_concept_id = nil)
+    # There are potentially hundreds or thousands of DataPointUri inserts happening here.
+    # The transaction makes the inserts much faster - no committing after each insert
+    transaction do
+      partner_data = results.select{ |d| d.has_key?(:data_point_uri) }
+      data_point_uris = DataPointUri.find_all_by_uri(partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
+      # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
+      partner_data.each do |row|
+        if data_point_uri = data_point_uris.detect{ |dp| dp.uri == row[:data_point_uri].to_s }
+          row[:data_point_instance] = data_point_uri
+        end
+        # setting the taxon_concept_id since it is not in the Virtuoso response
+        row[:taxon_concept_id] ||= taxon_concept_id
+        row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
+        row[:data_point_instance].update_with_virtuoso_response(row)
+      end
+    end
+  end
+
+  # Licenses are special (NOTE we also cache them here on a per-page basis...):
+  def self.replace_licenses_with_mock_known_uris(metadata_rows, language)
+    metadata_rows.each do |row|
+      if row[:attribute] == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(row[:value].to_s)
+        row[:value] = KnownUri.new(:uri => row[:value],
+          :translations => [ TranslatedKnownUri.new(:name => license.title, :language => language) ])
+      end
+    end
+    metadata_rows
+  end
+
+  def self.create_from_virtuoso_response(row)
+    new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
+    if data_point_uri = DataPointUri.find_by_uri(new_attributes[:uri])
+      data_point_uri.update_with_virtuoso_response(row)
+    else
+      data_point_uri = DataPointUri.create(new_attributes)
+    end
+    data_point_uri
+  end
+
+  def self.attributes_from_virtuoso_response(row)
+    attributes = { uri: row[:data_point_uri].to_s }
+    # taxon_concept_id may come from solr as a URI, or set elsewhere as an Integer
+    if row[:taxon_concept_id]
+      if taxon_concept_id = KnownUri.taxon_concept_id(row[:taxon_concept_id])
+        attributes[:taxon_concept_id] = taxon_concept_id
+      elsif row[:taxon_concept_id].is_a?(Integer)
+        attributes[:taxon_concept_id] = row[:taxon_concept_id]
+      end
+    end
+    virtuoso_to_data_point_mapping = {
+      :attribute => :predicate,
+      :unit_of_measure_uri => :unit_of_measure,
+      :value => :object }
+    virtuoso_to_data_point_mapping.each do |virtuoso_response_key, data_point_uri_key|
+      next if row[virtuoso_response_key].blank?
+      # this requires that
+      if row[virtuoso_response_key].is_a?(KnownUri)
+        attributes[data_point_uri_key] = row[virtuoso_response_key].uri
+        # each of these attributes has a corresponging known_uri_id (e.g. predicate_known_uri_id)
+        attributes[(data_point_uri_key.to_s + "_known_uri_id").to_sym] = row[virtuoso_response_key].id
+        # setting the instance as well to take advantage of preloaded associations on KnownUri
+        attributes[(data_point_uri_key.to_s + "_known_uri").to_sym] = row[virtuoso_response_key]
+      else
+        attributes[data_point_uri_key] = row[virtuoso_response_key].to_s
+      end
+    end
+
+    if row[:target_taxon_concept_id]
+      attributes[:class_type] = 'Association'
+      attributes[:object] = row[:target_taxon_concept_id].to_s.split("/").last
+    else
+      attributes[:class_type] = 'MeasurementOrFact'
+    end
+    if row[:graph] == Rails.configuration.user_added_data_graph
+      attributes[:user_added_data_id] = row[:data_point_uri].to_s.split("/").last
+    else
+      attributes[:resource_id] = row[:graph].to_s.split("/").last
+    end
+    attributes
+  end
+
+  def self.csv_columns(lang = Language.default)
+    [
+      # Taxon Concept ID:
+      I18n.t(:data_column_tc_id),
+      # Scientific Name:
+      I18n.t(:data_column_sci_name),
+      # Common Name:
+      I18n.t(:data_column_common_name),
+      # Name:
+      I18n.t(:data_column_name),
+      # Value:
+      I18n.t(:data_column_val),
+      # Units:
+      I18n.t(:data_column_units),
+      # Source:
+      I18n.t(:data_column_source)
+    ]
+  end
+
   # Required for commentable items. NOTE - This requires four queries from the DB, unless you preload the
   # information.  TODO - preload these:
   # TaxonConcept Load (10.3ms)  SELECT `taxon_concepts`.* FROM `taxon_concepts` WHERE `taxon_concepts`.`id` = 17
@@ -171,25 +272,6 @@ class DataPointUri < ActiveRecord::Base
     reference_rows
   end
 
-  def self.preload_data_point_uris!(results, taxon_concept_id = nil)
-    # There are potentially hundreds or thousands of DataPointUri inserts happening here.
-    # The transaction makes the inserts much faster - no committing after each insert
-    transaction do
-      partner_data = results.select{ |d| d.has_key?(:data_point_uri) }
-      data_point_uris = DataPointUri.find_all_by_uri(partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
-      # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
-      partner_data.each do |row|
-        if data_point_uri = data_point_uris.detect{ |dp| dp.uri == row[:data_point_uri].to_s }
-          row[:data_point_instance] = data_point_uri
-        end
-        # setting the taxon_concept_id since it is not in the Virtuoso response
-        row[:taxon_concept_id] ||= taxon_concept_id
-        row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
-        row[:data_point_instance].update_with_virtuoso_response(row)
-      end
-    end
-  end
-
   def show(user)
     set_visibility(user, Visibility.visible.id)
     user_added_data.show(user) if user_added_data
@@ -200,75 +282,12 @@ class DataPointUri < ActiveRecord::Base
     user_added_data.hide(user) if user_added_data
   end
 
-  # Licenses are special (NOTE we also cache them here on a per-page basis...):
-  def self.replace_licenses_with_mock_known_uris(metadata_rows, language)
-    metadata_rows.each do |row|
-      if row[:attribute] == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(row[:value].to_s)
-        row[:value] = KnownUri.new(:uri => row[:value],
-          :translations => [ TranslatedKnownUri.new(:name => license.title, :language => language) ])
-      end
-    end
-    metadata_rows
-  end
-
   def update_with_virtuoso_response(row)
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     new_attributes.each do |k, v|
       send("#{k}=", v)
     end
     save if changed?
-  end
-
-  def self.create_from_virtuoso_response(row)
-    new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
-    if data_point_uri = DataPointUri.find_by_uri(new_attributes[:uri])
-      data_point_uri.update_with_virtuoso_response(row)
-    else
-      data_point_uri = DataPointUri.create(new_attributes)
-    end
-    data_point_uri
-  end
-
-  def self.attributes_from_virtuoso_response(row)
-    attributes = { uri: row[:data_point_uri].to_s }
-    # taxon_concept_id may come from solr as a URI, or set elsewhere as an Integer
-    if row[:taxon_concept_id]
-      if taxon_concept_id = KnownUri.taxon_concept_id(row[:taxon_concept_id])
-        attributes[:taxon_concept_id] = taxon_concept_id
-      elsif row[:taxon_concept_id].is_a?(Integer)
-        attributes[:taxon_concept_id] = row[:taxon_concept_id]
-      end
-    end
-    virtuoso_to_data_point_mapping = {
-      :attribute => :predicate,
-      :unit_of_measure_uri => :unit_of_measure,
-      :value => :object }
-    virtuoso_to_data_point_mapping.each do |virtuoso_response_key, data_point_uri_key|
-      next if row[virtuoso_response_key].blank?
-      # this requires that
-      if row[virtuoso_response_key].is_a?(KnownUri)
-        attributes[data_point_uri_key] = row[virtuoso_response_key].uri
-        # each of these attributes has a corresponging known_uri_id (e.g. predicate_known_uri_id)
-        attributes[(data_point_uri_key.to_s + "_known_uri_id").to_sym] = row[virtuoso_response_key].id
-        # setting the instance as well to take advantage of preloaded associations on KnownUri
-        attributes[(data_point_uri_key.to_s + "_known_uri").to_sym] = row[virtuoso_response_key]
-      else
-        attributes[data_point_uri_key] = row[virtuoso_response_key].to_s
-      end
-    end
-
-    if row[:target_taxon_concept_id]
-      attributes[:class_type] = 'Association'
-      attributes[:object] = row[:target_taxon_concept_id].to_s.split("/").last
-    else
-      attributes[:class_type] = 'MeasurementOrFact'
-    end
-    if row[:graph] == Rails.configuration.user_added_data_graph
-      attributes[:user_added_data_id] = row[:data_point_uri].to_s.split("/").last
-    else
-      attributes[:resource_id] = row[:graph].to_s.split("/").last
-    end
-    attributes
   end
 
   def convert_units
@@ -306,4 +325,26 @@ class DataPointUri < ActiveRecord::Base
       end
     end
   end
+
+  def csv_values(language = Language.default)
+    [
+      # Taxon Concept ID:
+      taxon_concept.id,
+      # Scientific Name:
+      taxon_concept.scientific_name,
+      # Common Name:
+      taxon_concept.preferred_common_name_in_language(language),
+      # Name:
+      predicate_known_uri ? predicate_known_uri.name : predicate_uri,
+      # Value:
+      # TODO - target_taxon_cocnept for associations? app/helpers/taxa_helper.rb line 181
+      # TODO - pass in a link to this row on the TC page.
+      object_known_uri ? object_known_uri.name : object_uri,
+      # Units:
+      'units TODO',
+      # Source:
+      source.name
+    ]
+  end
+
 end

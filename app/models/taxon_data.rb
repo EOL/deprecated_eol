@@ -1,6 +1,4 @@
 #encoding: utf-8
-# NOTE - I had to change a whole bunch of "NOT IN" clauses because they weren't working (SPARQL syntax error in my
-# version.)  I think this will be fixed in later versions (it works for PL), but for now, this seems to work.
 class TaxonData < TaxonUserClassificationFilter
 
   DEFAULT_PAGE_SIZE = 30
@@ -99,6 +97,13 @@ class TaxonData < TaxonUserClassificationFilter
   def get_data_for_overview
     picker = TaxonDataExemplarPicker.new(self)
     picker.pick(get_data)
+  end
+
+  def to_csv
+    CSV.generate do |csv|
+      csv << [I18n.t(:something)] # <-- TODO, clearly.
+      # TODO - I stopped here; realized we wanted to do the other one, first.  ;)  Moving on, moving on...
+    end
   end
 
   private

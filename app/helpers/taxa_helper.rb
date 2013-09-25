@@ -175,6 +175,7 @@ module TaxaHelper
     end
   end
 
+  # TODO - this has too much business logic; extract
   def display_text_for_data_point_uri(data_point_uri, options = {})
     # metadata rows do not have DataPointUris that are saved in the DB - they are new records
     text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{data_point_uri.anchor}'>"

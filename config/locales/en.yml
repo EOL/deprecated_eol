@@ -4095,6 +4095,7 @@ en:
   recognized_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
   record_not_found: "[record not found]"
+  reference: "Reference"
   related_names_with_count:
     one: "%{count} related name"
     other: "%{count} related names"

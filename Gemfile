@@ -19,14 +19,12 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem 'sparql-client'
   gem 'rdoc', '3.12'
   gem 'nokogiri', '1.5.5' # Yeah, I know this has given us grief in the past.  :\ Trying things out, is all.
-  gem 'statsd-ruby', '1.2.1'
 end
 
 group :staging, :bocce_demo do
   gem 'debugger'
   gem 'hipchat'
   gem 'sparql-client'
-  gem 'statsd-ruby', '1.2.1'
 end
 
 group :development, :staging_dev, :staging_dev_cache, :bocce_demo_dev, :test_dev do

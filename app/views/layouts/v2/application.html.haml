@@ -77,7 +77,7 @@
                     { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
         - if @home_page
           %h2= I18n.t(:global_access_tagline)
-        = render :partial => "/layouts/v2/search"
+        = render :partial => "/layouts/v2/search" unless @hide_global_search
         - if logged_in?
           = render :partial => 'sessions/session_summary'
         - elsif $ALLOW_USER_LOGINS

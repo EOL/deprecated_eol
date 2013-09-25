@@ -28,7 +28,7 @@
         - subtitle = taxon_concept.preferred_common_name_in_language(current_language)
         - unless subtitle.blank?
           = link_to subtitle.firstcap, taxon_link
-  %th{ id: header_id }
+  %th.predicate{ id: header_id }
     - if first_of_type
       = display_uri(data_point_uri.predicate_uri, :span, class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil), define: true)
     - elsif exemplar || excluded
@@ -44,42 +44,43 @@
       - else
         = image_tag('comment_indicator.png')
     %span.source= data_point_uri.source.name
-    - if row_is_selected
-      = render partial: 'data_point_uris/metadata', locals: { data_point_uri: data_point_uri }
 %tr{ class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
   %td{ colspan: (for_search ? 3 : 2) }
-    %ul
-      %li= raw I18n.t("data_provided_by_#{data_point_uri.source.class.name.underscore.downcase}", whom: link_to(data_point_uri.source.name, data_point_uri.source))
-      %li
-        &bull;&ensp;
-        = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), :target => 'data'
-      - if data_point_uri.user_added_data
-        - if current_user.can_update?(data_point_uri.user_added_data)
-          %li
-            &bull;&ensp;
-            = link_to I18n.t(:edit), edit_user_added_datum_path(data_point_uri.user_added_data), :method => :get
-          %li
-            &bull;&ensp;
-            = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
-      - unless comments.empty?
-        - annotations_link = data_point_uri_comments_path(data_point_uri)
-        - if annotations_link
-          %li.annotations
-            &bull;&ensp;
-            = link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
-    = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: data_point_uri }
-    -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
-    - if current_user.min_curator_level?(:full)
-      .additional_commands
-        - if data_point_uri.visible?
-          - hide_link =  data_point_uri_hide_path(data_point_uri)
-          = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
-        - elsif data_point_uri.invisible?
-          - show_link = data_point_uri_unhide_path(data_point_uri)
-          = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
-        - unless excluded || for_search
-          = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: data_point_uri.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
-        - unless exemplar || for_search
-          = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: data_point_uri.taxon_concept.id), method: :post, class: "add_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
-        - if excluded && ! for_search
-          %span.note= I18n.t(:data_row_excluded_from_overview_notice)
+    - if row_is_selected
+      = render partial: 'data_point_uris/metadata', locals: { data_point_uri: data_point_uri }
+    .actions
+      %ul
+        %li= raw I18n.t("data_provided_by_#{data_point_uri.source.class.name.underscore.downcase}", whom: link_to(data_point_uri.source.name, data_point_uri.source))
+        %li
+          &bull;&ensp;
+          = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), :target => 'data'
+        - if data_point_uri.user_added_data
+          - if current_user.can_update?(data_point_uri.user_added_data)
+            %li
+              &bull;&ensp;
+              = link_to I18n.t(:edit), edit_user_added_datum_path(data_point_uri.user_added_data), :method => :get
+            %li
+              &bull;&ensp;
+              = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
+        - unless comments.empty?
+          - annotations_link = data_point_uri_comments_path(data_point_uri)
+          - if annotations_link
+            %li.annotations
+              &bull;&ensp;
+              = link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
+      = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: data_point_uri }
+      -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
+      - if current_user.min_curator_level?(:full)
+        .additional_commands.clearfix
+          - if data_point_uri.visible?
+            - hide_link =  data_point_uri_hide_path(data_point_uri)
+            = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
+          - elsif data_point_uri.invisible?
+            - show_link = data_point_uri_unhide_path(data_point_uri)
+            = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
+          - unless excluded || for_search
+            = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: data_point_uri.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
+          - unless exemplar || for_search
+            = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: data_point_uri.taxon_concept.id), method: :post, class: "add_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
+          - if excluded && ! for_search
+            %span.note= I18n.t(:data_row_excluded_from_overview_notice)

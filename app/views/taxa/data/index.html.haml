@@ -31,7 +31,7 @@
       .header_underlined{ style: show_table ? nil : 'display: none;' }
         %h3= category_toc_item.nil? ? I18n.t(:other_category) : category_toc_item.label
       %table.standard.data{:summary => I18n.t(:data_table_summary, taxon: @taxon_page.scientific_name), style: show_table ? nil : 'display:none;',
-        data: { more: I18n.t(:data_show_n_more_rows), 'data-toc_id' => category_toc_item.nil? ? 'other' : category_toc_item.id} }
+        data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => category_toc_item.nil? ? 'other' : category_toc_item.id} }
         %caption.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
         - type_index = 0
         - last_attribute = nil
@@ -45,7 +45,8 @@
             - type_index += 1
             - header_id = data_point_uri.predicate
             - last_attribute = data_point_uri.predicate
-            - unless data_point_uri.predicate_known_uri.definition.blank?
+            - unless data_point_uri.predicate_known_uri.blank? || data_point_uri.predicate_known_uri.definition.blank?
+              - pp data_point_uri
               - glossary << data_point_uri
           - else
             - header_id = nil
@@ -65,17 +66,17 @@
             :data_point_uri => data_point_uri, :type_index => type_index,      |
             :classes => classes, :exemplar => exemplar, :excluded => excluded, |
             :row_is_selected => row_is_selected, :header_id => header_id }     |
-      .header_underlined{ style: show_table ? nil : 'display: none;' }
-        %h3= I18n.t(:glossary_subhead)
-      %ul.glossary
-        - glossary.sort_by { |t| t.predicate_known_uri.name }.each do |dpuri|
-          %li
-            %dt{id: dpuri.predicate_known_uri.anchor}
-              = dpuri.predicate_known_uri.name
-              = link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: dpuri.predicate, sort: 'desc')
-              %small= dpuri.predicate
-            %dd
-              = raw dpuri.predicate_known_uri.definition.add_missing_hyperlinks
+    .header_underlined
+      %h3= I18n.t(:glossary_subhead)
+    %ul.glossary
+      - glossary.sort_by { |t| t.predicate_known_uri.name }.each do |dpuri|
+        %li
+          %dt{id: dpuri.predicate_known_uri.anchor}
+            = dpuri.predicate_known_uri.name
+            = link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: dpuri.predicate, sort: 'desc')
+            %small= dpuri.predicate
+          %dd
+            = raw dpuri.predicate_known_uri.definition.add_missing_hyperlinks
 - if current_user.min_curator_level?(:master)
   .add_content
     %p.add_data= link_to I18n.t(:master_curators_may_add_data), '#' # Ideally, that would be a link to the user_added_data/new path...

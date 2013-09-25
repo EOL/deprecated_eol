@@ -159,7 +159,7 @@ module TaxaHelper
             haml_tag 'small.uri', uri.uri
           end
           unless uri.definition.blank?
-            haml_tag :dd, uri.definition.add_missing_hyperlinks
+            haml_tag :dd, raw(uri.definition.add_missing_hyperlinks)
           end
         end
       end
@@ -171,7 +171,7 @@ module TaxaHelper
         # other values may have links embedded in them (references, citations, etc.)
         label = label.add_missing_hyperlinks
       end
-      haml_tag "#{tag_type}.term", label, 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil
+      haml_tag "#{tag_type}.term", raw(label), 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil
     end
   end
 

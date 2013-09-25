@@ -1480,21 +1480,6 @@ ul.tabs
   p.about
     height: 12em
     display: none
-  .metadata
-    background-color: #f6f8fa
-    border: 1px solid $grayblue
-    width: 40em
-    margin-left: 6em
-    dd
-      margin-top: 5px
-    dt
-      line-height: 2em
-      margin-right: 1em
-      font-weight: bold
-      text-align: right
-      width: 110px
-      input[type="text"]
-        +input(100px)
   table.data
     margin: 0px 0px 30px 0px
     tbody
@@ -1542,6 +1527,11 @@ ul.tabs
               font-size: 0.75em
               margin: 0.75em 0.5em
               line-height: 1.5em
+        th.predicate
+          .info_icon
+            float: right
+          span
+            float: right
         span.excluded
           padding-left: 10px
           background: url(image-path("v2/icon_excluded.png")) 0px 3px no-repeat
@@ -1554,12 +1544,6 @@ ul.tabs
           font-size: 1.3em
           color: $nearly_black
           vertical-align: top
-          table
-            th
-              font-size: 0.7em
-            td
-              font-size: 0.8em
-              font-weight: normal
           span.source
             text-align: right
             float: right
@@ -1580,15 +1564,15 @@ ul.tabs
           &.val
             min-width: 300px
     tr.actions, tr.comments
-      background-color: #f6f8fa
       font-weight: normal
       font-size: 0.8em
-      border: 1px solid $grayblue
       li
         margin-left: 2pt
         display: inline
       td
         font-weight: normal
+        margin: 0px
+        padding: 0px
         ul
         .comments
           margin: 7px 10px
@@ -1601,19 +1585,15 @@ ul.tabs
             padding: 5px 7px
             line-height: 1.6em
         form#new_comment
-          margin-bottom: 3pt
           fieldset
             margin: 0 10px
             input[type="text"]
-              padding: 3px 5px
-              +input(98%)
+              +input(75%)
             input[type="submit"]
               +button
               float: right
-              margin-top: 3px
               font-weight: normal
     tr.data:hover
-      cursor: hand
       cursor: pointer
       background-color: #f6f8fa
     tr.data.hidden
@@ -1632,14 +1612,33 @@ ul.tabs
       cursor: auto
       background: #fbfdff
     .additional_commands
+      width: 100%
+      display: inline-block
       a.button
         font-weight: normal
         margin-top: 3px
         margin-right: 6px
         float: right
+    div.metadata
+      th, td
+        font-size: 0.9em
+        font-weight: normal
+        line-height: 1.2em
+    div.metadata:hover
+      cursor: pointer
+    div.actions
+      padding: 5px 10px
+      border-top: 1px solid $grayblue
+      border-bottom: 1px solid $grayblue
+      background-color: #f6f8fa
+  table.data.search
+    th
+      width: 150px
+    span.source
+      width: 8em
     td.taxon
       font-size: 1em
-      width: 250px
+      width: 300px
       h4
         margin: 3px 0px 5px
         font-size: 1.2em
@@ -1661,25 +1660,22 @@ ul.tabs
       div.names
         margin-left: 10px
         line-height: 120%
-  table.data.search
-    th
-      width: auto
-      min-width: 75px
-    span.source
-      width: 8em
+    td.val
+      min-width: 400px
   table.meta
     line-height: 90%
-    width: 100%
+    width: 80%
+    margin: 0px auto
     padding: 0px 0px 15px
     td
       padding: 0px 5px !important
+      width: 65%
     th
       padding: 0px !important
     caption
       text-align: center !important
       font-weight: bold
       text-transform: none
-      font-size: .8em
       letter-spacing: 1px
       margin-bottom: 0.4em
       border-bottom: 1px solid $grayblue

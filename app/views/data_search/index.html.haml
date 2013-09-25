@@ -1,12 +1,19 @@
+
 - if @results.blank?
   .empty
-    %p= @attribute ? I18n.t(:no_results_for_search_term, :search_term => @querystring) : "You must select an attribute to search on"
+    %p= @attribute ? I18n.t(:no_results_for_search_term, :search_term => @querystring) : I18n.t(:must_provide_attribute_for_search_error)
 - else
-  - previous_label = (@results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @results.per_page)
-  - next_label = (@results.current_page == @results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @results.per_page)
+  .definition
+    %dl
+      %dt= @attribute_known_uri.name.capitalize_all_words
+      %dd.uri= "URI: " + @attribute_known_uri.uri
+      - unless @attribute_known_uri.definition.blank?
+        %dd.definition= @attribute_known_uri.definition
   .header
     - start_number = (@results.current_page - 1) * @results.per_page + 1
     - end_number = [ (start_number + @results.per_page - 1), @results.total_entries ].min
+    - previous_label = (@results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @results.per_page)
+    - next_label = (@results.current_page == @results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @results.per_page)
     %h3= raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @results.total_entries))
     = will_paginate @results, |
       :previous_label => previous_label, |

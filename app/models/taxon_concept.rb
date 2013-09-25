@@ -139,7 +139,7 @@ class TaxonConcept < ActiveRecord::Base
   def latest_version
     if supercedure_id && supercedure_id != 0
       # using find will properly follow supercedureIDs
-      return TaxonConcept.find(id).latest
+      return TaxonConcept.find(id)
     end
     self
   end

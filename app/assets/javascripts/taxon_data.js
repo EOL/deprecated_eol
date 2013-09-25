@@ -37,19 +37,6 @@ EOL.disable_measurement_input = function() {
   $('fieldset.unit_of_measure input').val('');
 }
 
-EOL.add_has_default_behavior = function() {
-  $('input.has_default').each(function() {
-    if ($(this).val() == '') {
-      $(this).val($(this).attr('data-default')).fadeTo(0, 0.6);
-    }
-    $(this).on('blur', function() {
-      if ($(this).val() == '') {
-        $(this).val($(this).attr('data-default')).fadeTo(0, 0.6);
-      }
-    });
-  });
-};
-
 EOL.hide_data_tables = function(tables) {
   tables.hide();
   tables.prev('div.header_underlined').hide();
@@ -60,7 +47,49 @@ EOL.show_data_tables = function(tables) {
   tables.prev('div.header_underlined').show();
   tables.find('tr.data').show();
   tables.find('tr.actions').hide();
+  $('ul.glossary').show().prev().show();
 };
+
+EOL.toggle_actions_row = function(data_row) {
+  var $folder = data_row.find('.fold img');
+  var $next_row = data_row.next();
+  var $next_row_data = $next_row.children('td');
+  var $table = data_row.next().find('table.meta');
+  if ($next_row.is(":visible")) {
+    $folder.attr('src', "/assets/arrow_fold_right.png");
+    $next_row.hide();
+    $table.hide();
+  } else {
+    var data_point_id = data_row.attr('id');
+    // the metadata table hasn't been loaded yet, so load it dynamically
+    if ($table.length == 0) {
+      $.ajax({
+        url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
+        dataType: 'html',
+        success: function(response) {
+          $next_row_data.prepend(response).find('th.info').each(function() {
+            var html = $(this).html();
+            $(this).remove();
+            data_row.closest('table').next().next('ul.glossary').append('<li>'+html+'</li>');
+          });
+          EOL.info_hints();
+        },
+        error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
+        complete: function() {
+          $folder.attr('src', "/assets/arrow_fold_down.png");
+          $next_row.show();
+          EOL.yank_glossary_terms($next_row);
+          $table.show();
+        }
+      });
+    } else
+    {
+      $folder.attr('src', "/assets/arrow_fold_down.png");
+      $next_row.show();
+      $table.show();
+    }
+  }
+}
 
 EOL.enable_suggestions_hover = function() {
   $('input#user_added_data_predicate').parent().hover(function() {
@@ -151,7 +180,6 @@ $(function() {
       update_input_id_and_name($subform, highest_field_id += 1);
       var form_h = $('.has_many_expandable').height();
       $('.has_many_expandable').height(form_h + $subform.height());
-      EOL.add_has_default_behavior();
       return(false);
     });
   });
@@ -186,49 +214,19 @@ $(function() {
 
   $('table.data .fold a').on('click', function() { $(this).closest('tr').click(); return(false); }); // These links just click the row, with JS.
 
-  $('table.data tr.actions').hide().prev().find('.fold img').attr('src', "/assets/arrow_fold_right.png").closest('tr').on('click',
+  $('table.data tr.actions').hide().prev().find('.fold img').attr('src', "/assets/arrow_fold_right.png");
+
+  $('table.data tr.data').on('click',
     function(e) {
-    if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
-    var $folder = $(this).find('.fold img');
-    var $next_row = $(this).next();
-    var $this_data = $(this).children('td.val');
-    var $next_row_data = $next_row.children('td');
-    var $table = $(this).find('table');
-    if ($next_row.is(":visible")) {
-      $folder.attr('src', "/assets/arrow_fold_right.png");
-      $next_row.hide();
-      $table.hide();
-    } else {
-      var data_point_id = $(this).attr('id');
-      // the metadata table hasn't been loaded yet, so load it dynamically
-      if ($table.length == 0) {
-        $.ajax({
-          url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
-          dataType: 'html',
-          success: function(response) {
-            $this_data.append(response).find('th.info').each(function() {
-              var html = $(this).html();
-              $(this).remove();
-              $('ul.glossary').append('<li>'+html+'</li>');
-            });
-            EOL.info_hints();
-          },
-          error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
-          complete: function() {
-            $folder.attr('src', "/assets/arrow_fold_down.png");
-            $next_row.show();
-            EOL.yank_glossary_terms($next_row);
-            $table.show();
-          }
-        });
-      } else
-      {
-        $folder.attr('src', "/assets/arrow_fold_down.png");
-        $next_row.show();
-        $table.show();
-      }
-    }
-  }).find('table').hide();
+      if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
+      EOL.toggle_actions_row($(this));
+    });
+
+  $('table.data tr.actions td .metadata').live('click',
+    function(e) {
+      if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
+      EOL.toggle_actions_row($(this).closest('tr').prev());
+    });
 
   $('#recently_used_category a').on('click', function() {
     $('#suggestions').find('.child').hide();
@@ -265,10 +263,6 @@ $(function() {
         else $(this).autocomplete('disable');
       }
     }
-    if ($(this).val() == $(this).attr('data-default')) {
-      $(this).val('');
-      $(this).fadeTo(225, 1);
-    }
 
     // for the primary measurement, always autocomplete with the value in the text input. The other
     // autocomplete fields will search on ' ' to show always show the pick-list on focus. The primary
@@ -296,6 +290,7 @@ $(function() {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.about_subtab').show()
+      $('ul.glossary').hide().prev().hide();
     } else if ($(this).hasClass('all')) { // Acts as a reset button/link
       $('#taxon_data .empty').show();
       EOL.show_data_tables($('table.data'));
@@ -315,8 +310,6 @@ $(function() {
 
   EOL.limit_data_rows();
 
-  EOL.add_has_default_behavior();
-
   if (location.hash != "") {
     var name  = location.hash.replace(/\?.*$/, '');
     var $row = $(name);
@@ -326,9 +319,6 @@ $(function() {
       $("html, body").animate({ scrollTop: new_top });
     }
   }
-
-  // Move additional command buttons back onto the form proceeding them (saves a lot of ugliness in views):
-  $('.additional_commands').each(function() { $(this).appendTo($(this).prev().find(":last-child")) });
 
   // Remove links on the overview should be hidden until you hover:
   $('#data_summary table').hover(function() {

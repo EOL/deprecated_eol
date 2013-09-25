@@ -48,11 +48,11 @@
                 :id_element => '#user_added_data_user_added_data_metadata_attributes_1_predicate_known_uri_id',
                 :update_elements => { :has_values => '#user_added_data_user_added_data_metadata_attributes_1_has_values' },
                 'data-include-predicate_known_uri_id' => '#user_added_data_predicate_known_uri_id',
-                'min-length' => 0, size: 25, :class => 'has_default', 'data-default' => I18n.t('user_added_data.new_field')
+                'min-length' => 0, size: 25, :class => 'has_default', :placeholder => I18n.t('user_added_data.new_field')
               %dd.new_value= m.autocomplete_field :object, autocomplete_known_uri_values_known_uris_path,
                 :id_element => '#user_added_data_user_added_data_metadata_attributes_1_object_known_uri_id',
                 'data-include-predicate_known_uri_id' => '#user_added_data_user_added_data_metadata_attributes_1_predicate_known_uri_id',
-                'min-length' => 0, size: 100, :class => 'has_default', 'data-default' => I18n.t('user_added_data.new_value')
+                'min-length' => 0, size: 100, :class => 'has_default', :placeholder => I18n.t('user_added_data.new_value')
     %fieldset.metadata
       - if @user_added_data && !@user_added_data.user_added_data_metadata.empty?
         - @user_added_data.user_added_data_metadata.each do |metadata|
@@ -84,7 +84,7 @@
             %dl
               %dt= I18n.t(:source)
               %dd= m.text_field :object, :size => 100, :class => 'has_default',
-                'data-default' => I18n.t('user_added_data.source_field_helper')
+                :placeholder => I18n.t('user_added_data.source_field_helper')
     %fieldset.actions
       #new_uri_warning= I18n.t(:new_uri_warning)
       = submit_tag(I18n.t('user_added_data.submit_data'))

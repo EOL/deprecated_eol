@@ -2144,7 +2144,7 @@ ul.content_partner_contacts
               span
                 margin: 0 5px
 
-#worklist
+#worklist, #data_search
   .filters
     overflow: hidden
     padding: 15px 25px
@@ -2152,7 +2152,6 @@ ul.content_partner_contacts
     border-bottom: 1px solid #ccd399
     background: #f1f4dc
     fieldset
-      float: left
       dl
         float: left
         padding: 0 40px 0 0
@@ -2162,6 +2161,8 @@ ul.content_partner_contacts
             color: #667309
         dd
           padding: 0
+#worklist
+  .filters
     fieldset.actions
       margin: 10px 0 0 0
       input[type="submit"]
@@ -2427,8 +2428,6 @@ ul.content_partner_contacts
       clear: both
 #search_results
   #main
-    width: 700px
-    float: right
     .header
       position: relative
       padding: 10px 0
@@ -3068,3 +3067,19 @@ ul#permissions
       font-weight: 500
       font-size: 1.3em
       color: $nearly_black
+div.definition
+  padding: 15px
+  font-size: 1.16em
+  margin: 10px 0px
+  border: 1px solid $grayblue
+  background: $fieldset_light_blue
+  dl
+    dt
+      font-weight: bold
+      font-size: 1.2em
+      margin-bottom: 2px
+    dd.uri
+      font-size: .9em
+      color: $darker_blue
+    dd.definition
+      margin-top: 10px

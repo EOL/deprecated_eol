@@ -151,20 +151,27 @@ module TaxaHelper
     uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
     tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
     capture_haml do
-      haml_tag tag_type do
-        label = uri_components[:label].to_s
-        if label.is_numeric?
-          # numeric values can be rounded off to 3 decimal places
-          if label.is_float?
-            haml_concat label.to_f.round(3)
-          else
-            haml_concat label
+      if options[:define] && uri.is_a?(KnownUri)
+        haml_tag "#{tag_type}.info" do
+          haml_tag "dt##{uri.anchor}" do
+            haml_concat uri.name
+            haml_concat link_to(I18n.t(:more_taxa_with_attribute), data_search_path(:attribute => uri.uri, :sort => 'desc'))
+            haml_tag 'small.uri', uri.uri
           end
-        else
-          # other values may have links embedded in them (references, citations, etc.)
-          haml_concat label.add_missing_hyperlinks
+          unless uri.definition.blank?
+            haml_tag :dd, uri.definition.add_missing_hyperlinks
+          end
         end
       end
+      label = uri_components[:label].to_s
+      if label.is_numeric?
+        # numeric values can be rounded off to 3 decimal places
+        label = label.to_f.round(3) if label.is_float?
+      else
+        # other values may have links embedded in them (references, citations, etc.)
+        label = label.add_missing_hyperlinks
+      end
+      haml_tag "#{tag_type}.term", label, 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil
     end
   end
 

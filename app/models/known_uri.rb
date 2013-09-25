@@ -322,6 +322,10 @@ class KnownUri < ActiveRecord::Base
     KnownUri.unit_of_measure.allowed_values.include?(self)
   end
 
+  def anchor
+    uri.to_s.gsub(/[^A-Za-z0-9]/, '_')
+  end
+
   private
 
   def default_values

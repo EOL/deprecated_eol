@@ -29,16 +29,8 @@
         - unless subtitle.blank?
           = link_to subtitle.firstcap, taxon_link
   %th{ id: header_id }
-    - if data_point_uri.predicate_known_uri
-      %div.info
-        - if !data_point_uri.predicate_known_uri.definition.blank?
-          %dt= data_point_uri.predicate
-          %dd= raw data_point_uri.predicate_known_uri.definition.add_missing_hyperlinks
-        - else
-          .uri= data_point_uri.predicate
-        %dd= link_to I18n.t(:more_taxa_with_attribute), data_search_path(:attribute => data_point_uri.predicate, :sort => 'desc')
     - if first_of_type
-      = display_uri(data_point_uri.predicate_uri, :span, class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil))
+      = display_uri(data_point_uri.predicate_uri, :span, class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil), define: true)
     - elsif exemplar || excluded
       %span{ class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil) }
   %td.val{ headers: header_id }

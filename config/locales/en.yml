@@ -3489,6 +3489,7 @@ en:
   global_access_tagline: "Global access to knowledge about life on Earth"
   global_navigation: "Global Navigation"
   glossary_is_empty: "(glossary is empty)"
+  glossary_subhead: "Glossary"
   glossary_term: "term"
   glossary_terms: "Glossary Terms"
   go_back: "go back"
@@ -3779,7 +3780,7 @@ en:
   more_siblings_with_count:
     one: "%{count} more siblings..."
     other: "%{count} more siblings..."
-  more_taxa_with_attribute: "more taxa with this attribute"
+  more_taxa_with_attribute: "see all taxa with this attribute"
   most_active_members: "Most active members"
   move: "Move"
   move_down: "Move down"

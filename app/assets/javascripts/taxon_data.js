@@ -115,7 +115,27 @@ EOL.limit_data_rows = function() {
   });
 };
 
+EOL.yank_glossary_terms = function($row) {
+};
+
+EOL.info_hints = function() {
+  // Give hints about terms... TODO - this is lame; refactor.
+  $('.term').each(function() {
+    if ($('#'+$(this).attr('data-term')).length > 0) {
+      $(this).unbind('hover').hover(
+      function() {
+        $(this).append(" <small class='hint'><a href='#"+$(this).attr('data-term')+"'>learn more</a></small>");
+      }, function() {
+        $(this).find('small.hint').remove();
+      });
+    }
+  });
+};
+
+
 $(function() {
+
+  EOL.info_hints();
 
   $('.has_many').each(function() {
     var $subform = $(this).clone();
@@ -184,11 +204,19 @@ $(function() {
         $.ajax({
           url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
           dataType: 'html',
-          success: function(response) { $this_data.append(response); },
+          success: function(response) {
+            $this_data.append(response).find('th.info').each(function() {
+              var html = $(this).html();
+              $(this).remove();
+              $('ul.glossary').append('<li>'+html+'</li>');
+            });
+            EOL.info_hints();
+          },
           error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
           complete: function() {
             $folder.attr('src', "/assets/arrow_fold_down.png");
             $next_row.show();
+            EOL.yank_glossary_terms($next_row);
             $table.show();
           }
         });
@@ -292,8 +320,10 @@ $(function() {
     var name  = location.hash.replace(/\?.*$/, '');
     var $row = $(name);
     $row.click();
-    var new_top = $row.offset().top - 200;
-    $("html, body").animate({ scrollTop: new_top });
+    if ($row.offset() !== undefined) {
+      var new_top = $row.offset().top - 200;
+      $("html, body").animate({ scrollTop: new_top });
+    }
   }
 
   // Move additional command buttons back onto the form proceeding them (saves a lot of ugliness in views):
@@ -316,14 +346,12 @@ $(function() {
   }).disableSelection();
 
   // Definitions of Attributes are dialogs if JS is enabled:
-  $('table.data tr.first_of_type div.info, table.data.search tr div.info').each(function() {
+  $('table.data tr.first_of_type span.info, table.data.search tr span.info').each(function() {
     var nearest = $(this).closest('tr').attr('id'); // We need to remember which one is open; click again and it closes.
-    var name = $(this).next().html();
     $(this)
       .attr('id', "info_"+nearest)
       .before('<a class="info_icon" data-info="'+nearest+'">&nbsp;</a>')
       .addClass('tip')
-      .prepend('<h3>'+name+'</h3>')
       .prepend('<a href="#" class="close">&nbsp;</a>');
     $(this).appendTo(document.body);
   });
@@ -340,9 +368,9 @@ $(function() {
         $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
         $info.show('fast',
           function() {
-            $('.site_column').click(function() { $('div.info').hide('fast'); $('.site_column').unbind('click'); });
+            $('.site_column').click(function() { $('span.info').hide('fast'); $('.site_column').unbind('click'); });
           }
-        ).find('a.close').on('click', function() { $('div.info').hide('fast'); return(false) } );
+        ).find('a.close').on('click', function() { $('span.info').hide('fast'); return(false) } );
       }
     });
 

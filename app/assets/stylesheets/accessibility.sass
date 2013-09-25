@@ -1720,15 +1720,6 @@ ul.tabs
       border: 1px solid $light_blue
       &:hover
         background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
-    .uri
-      font-weight: bold
-      text-align: left
-      margin: 1em 0.5em
-    dt
-      margin: 0.5em
-      font-weight: bold
-    dd
-      margin: 0.75em 0.5em
 .add_content
   .add_data
     margin-bottom: 1.2em
@@ -1744,9 +1735,26 @@ ul.tabs
   .language > p
     min-width: 10em
 
-div.info
+span.info
   display: none
+  padding-left: 1em
+  min-width: 30em
 
 #content
   .empty
     clear: both
+.glossary li, .info.tip
+  dt
+    color: $darker_blue
+    font-weight: normal
+    font-size: 1.2em
+    margin: 1em 0
+    a
+      padding-left: 1em
+      font-size: 0.8em
+    small
+      font-size: 0.8em
+      display: block
+      color: $grayblue
+  dd
+    margin: 1em

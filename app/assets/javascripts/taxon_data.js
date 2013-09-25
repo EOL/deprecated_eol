@@ -122,11 +122,12 @@ EOL.info_hints = function() {
   // Give hints about terms... TODO - this is lame; refactor.
   $('.term').each(function() {
     if ($('#'+$(this).attr('data-term')).length > 0) {
-      $(this).unbind('hover').hover(
+      var $term = $(this);
+      $(this).parent().unbind('hover').hover(
       function() {
-        $(this).append(" <small class='hint'><a href='#"+$(this).attr('data-term')+"'>learn more</a></small>");
+        $term.append("<div class='hint'><br/><a href='#"+$term.attr('data-term')+"'>learn more</a></div>");
       }, function() {
-        $(this).find('small.hint').remove();
+        $term.find('div.hint').remove();
       });
     }
   });

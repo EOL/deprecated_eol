@@ -70,7 +70,7 @@
       %ul.glossary
         - glossary.sort_by { |t| t.predicate_known_uri.name }.each do |dpuri|
           %li
-            %dt
+            %dt{id: dpuri.predicate_known_uri.anchor}
               = dpuri.predicate_known_uri.name
               = link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: dpuri.predicate, sort: 'desc')
               %small= dpuri.predicate

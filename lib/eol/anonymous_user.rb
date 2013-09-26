@@ -39,6 +39,10 @@ module EOL
       object.respond_to?(:can_be_read_by?) ? object.can_be_read_by?(self) : false
     end
 
+    def can_see_data?
+      SiteConfigurationOption.all_users_can_see_data rescue false
+    end
+
     def defaults
       @defaults ||=
         Rails.cache.fetch("anonymous/#{@lang}") do
@@ -53,7 +57,6 @@ module EOL
           :can_delete? => false,
           :can_edit_collection? => false,
           :can_manage_community? => false,
-          :can_see_data? => false,
           :can_update? => false,
           :content_page_cache_str => 'anonymous',
           :credentials => '',

@@ -338,7 +338,7 @@ class KnownUrisController < ApplicationController
 
   def search_known_uris_by_name_or_uri(term)
     @known_uris = KnownUri.where([ "uri LIKE ?", "%#{term}%" ]) +
-      TranslatedKnownUri.where([ "name LIKE ?", "%#{params[:term]}%" ]).includes(:known_uri).collect(&:known_uri)
+      TranslatedKnownUri.where([ "name LIKE ?", "%#{params[:term]}%" ]).includes(:known_uri).collect(&:known_uri).compact
   end
 
   def lookup_predicate

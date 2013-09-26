@@ -150,7 +150,7 @@ EOL.yank_glossary_terms = function($row) {
 EOL.info_hints = function() {
   // Give hints about terms... TODO - this is lame; refactor.
   $('.term').each(function() {
-    if ($('#'+$(this).attr('data-term')).length > 0) {
+    if ($('.glossary #'+$(this).attr('data-term')).length > 0) {
       var $term = $(this);
       $(this).parent().unbind('hover').hover(
       function() {

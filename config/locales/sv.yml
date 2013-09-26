@@ -1078,6 +1078,7 @@ sv:
   belongs_in_count_communities: 
     one: Tillhör %{count} gemenskap
     other: Tillhör %{count} gemenskaper
+  bhl_partner_footer: Besök Biodiversity Heritage Library
   bhl_publication: BHL-publikation
   bi_monthly: Varannan månad
   biodiversity_heritage_library: Biodiversity Heritage Library
@@ -1370,7 +1371,9 @@ sv:
   content_partner_agreement_cancel_sign_agreement_link: Avbryt
   content_partner_agreement_create_unsuccessful_error: Tyvärr, ett fel uppstod. Villkorsavtalet för innehållspartnern skapades inte.
   content_partner_agreement_signed_successful_notice: Du har accepterat villkoren för innehållspartner och kan nu lägga till dataresurser.
+  content_partner_agreement_signed_unsuccessful_error: Tyvärr, ett fel uppstod. Det verkar vara ett tekniskt problem med innehållspartner avtal. Var god försök igen, om problemet kvarstår var god meddela EOL.
   content_partner_agreement_subheader: Innehållspartneravtal
+  content_partner_agreement_update_unsuccessful_error: Tyvärr, ett fel uppstod. Villkorsavtalet för innehållspartnern uppdaterades inte.
   content_partner_column_header_partner: Partner
   content_partner_contact_create_successful_notice: Kontakt har lagts till.
   content_partner_contact_create_unsuccessful_error: Tyvärr, ett fel uppstod. Kontakten lades inte till.

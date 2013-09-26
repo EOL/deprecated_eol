@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: B4bol4t
 # Author: GerardM
+# Author: HanV
 # Author: Inholland
 # Author: McDutchie
 # Author: Patio
@@ -1997,7 +1998,7 @@ nl:
       hidden_user_login: Aanmelden is uitgeschakeld voor deze gebruiker.
       hidden_user_recover_account: Gebruikersherstel is uitgeschakeld voor deze gebruiker.
       hidden_user_temporary_login: Gebruikersherstel en aanmelden zijn uitgeschakeld voor deze gebruiker.
-      inactive_user_login: Die gebruiker is nog niet actief. Als u geen bevestigingse-mail hebt ontvangen toen u lid bent geworden, volg dan de aanwijzingen voor gebruikersherstel om uw e-mailadres te bevestigen en uw gebruiker te activeren.
+      inactive_user_login: Deze gebruiker is nog niet actief. Als u geen bevestiging per e-mail hebt ontvangen toen u lid bent geworden, volg dan de aanwijzingen voor gebruikersherstel om uw e-mailadres te bevestigen en uw gebruiker te activeren.
       min_assistant_curators_only: Toegang is beperkt tot EOL-conservatoren met een minimaal conservatorniveau van assistent.
       min_full_curators_only: Toegang is beperkt tot conservatoren van EOL met een minimum conversatorniveau van "Volledig".
       min_master_curators_only: Toegang is alleen beschikbaar voor EOL-conservatoren met een minimaal conservatorniveau van Meester.
@@ -3887,7 +3888,7 @@ nl:
   time_ago: "%{time_passed} geleden"
   title: Titel
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
-  to_remedy_this: Om dit te verhelpen sluiten we inactieve gebruikers af en we vragen u op eol.org een nieuwe gebruiker aan te maken. Als u de bevestigingse-mail hebt ontvangen, klik dan op koppeling om uw gebruiker te bevestigen.
+  to_remedy_this: Om dit te verhelpen sluiten we inactieve gebruikers af en vragen we u op eol.org een nieuwe gebruiker aan te maken. Als u de bevestiging per e-mail hebt ontvangen, klik dan op koppeling om uw gebruiker te bevestigen.
   to_send_email_enter_text: Voer hieronder tekst in en klik op "Verzenden" om deze gebruiker een e-mail te sturen.
   to_submit_a_species_photograph_for: Om een foto voor %{taxon} toe te voegen, kunt u de foto's sturen naar %{flickr_link}  en de aanwijzingen volgen op de startpagina van die groep.
   toc: Inhoudsopgave
@@ -4189,7 +4190,7 @@ nl:
     pending: 
       header: Bedankt voor het registreren!
       verify_email_instructions: <strong>Bevestig uw e-mailadres</strong>. Er is een bevestigingsbericht verzonden aan het e-mailadres dat u hebt opgegeven. Klik op de koppeling in die e-mail om het inschrijvingsproces te voltooien en lid te worden van EOL. Dank u wel!
-      verify_email_tip: Denk eraan dat bevestigingse-mails <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer uw spammap als u binnen een uur geen e-mail ontvangt.
+      verify_email_tip: Denk eraan dat een e-mail ter bevestiging <em>vaak</em> als "spam" gemarkeerd wordt door een e-mailfilter. Controleer uw spammap als u binnen een uur geen e-mail ontvangt.
     recover_account: 
       errors: 
         temporary_login_user_not_found: De EOL-gebruiker waar u toegang toe probeert te krijgen is niet aangetroffen. Vraag een nieuwe e-mail voor een volgende poging om toegang te krijgen tot uw gebruiker.

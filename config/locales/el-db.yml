@@ -16,8 +16,10 @@ el:
   translated_activities-name-activity_id-56: διαγραφή
   translated_activities-name-activity_id-57: βαθμολόγηση
   translated_activities-name-activity_id-58: έμπιστο
+  translated_activities-name-activity_id-59: Μη επιθεωρημένα
   translated_activities-name-activity_id-63: συλλογή
   translated_activities-name-activity_id-64: κατάργηση
+  translated_agent_roles-label-agent_role_id-1: Εμψυχωτής
   translated_agent_roles-label-agent_role_id-10: Σχέδιο Εργασίας
   translated_agent_roles-label-agent_role_id-11: Εκδότης
   translated_agent_roles-label-agent_role_id-12: Μηχανή εγγραφής
@@ -64,10 +66,13 @@ el:
   translated_collection_types-label-collection_type_id-9: Ονοματολογία
   translated_contact_roles-label-contact_role_id-1: Κύρια Επικοινωνία
   translated_contact_roles-label-contact_role_id-2: Διαχειριστική Επικοινωνία
+  translated_contact_subjects-title-contact_subject_id-24: Συνδρομή και εγγραφή
   translated_contact_subjects-title-contact_subject_id-25: Όροι χρήσης και άδεια
   translated_contact_subjects-title-contact_subject_id-26: Μάθηση και εκπαίδευση
   translated_contact_subjects-title-contact_subject_id-27: Γίνετε συνεργάτης περιεχομένου
   translated_contact_subjects-title-contact_subject_id-28: Υποστήριξη συνεργατών περιεχομένου
+  translated_contact_subjects-title-contact_subject_id-29: Υποστήριξη επιμέλειας
+  translated_contact_subjects-title-contact_subject_id-31: Συνεισφορά σε εικόνες, βίντεο ή ήχο
   translated_contact_subjects-title-contact_subject_id-33: Κάνετε μια οικονομική δωρεά
   translated_contact_subjects-title-contact_subject_id-34: Τεχνικά θέματα (προβλήματα με την αναζήτηση, τη λειτουργία του ιστότοπου)
   translated_content_partner_statuses-label-content_partner_status_id-1: Σε εκκρεμότητα

@@ -1039,6 +1039,10 @@ fr:
   article_not_associated_with_any_published_entries: Cet article n’est associé à aucune des taxinomies publiées.
   article_of_taxon: Article sur %{taxon_name}
   article_rating: Évaluation de l’article
+  article_secondary_description_with_others_count: 
+    one: Description de %{taxon} et %{count} autre taxon
+    other: Description de %{taxon} et %{count} autres taxons
+    zero: Description de %{taxon}
   articles_in_languages_with_count: 
     one: "Les articles sur cette page sont disponibles en %{count} langue :"
     other: "Les articles sur cette page sont disponibles en %{count} langues :"
@@ -2438,7 +2442,7 @@ fr:
   html_format_with_left_col: (FORMAT HTML, à saisir seulement si vous souhaitez avoir une colonne à gauche sur la page, sinon à laisser blanc)
   id: Identifiant
   if_checked_and_user_is_saved: Si vous cochez et que l’utilisateur est enregistré, alors ses informations d’identification, d’étendue, de certification et d’embranchement sélectionné sont supprimés et l’utilisateur n’apparaîtra plus comme conservateur. Vous devriez ajouter une note ci-dessous pour en indiquer la raison. Aucune information n’est envoyée à l’utilisateur.
-  if_multiple_media_objects_are_returned: "Si plusieurs objets média sont renvoyés, la liste sera triée par type d’objet. Pour chaque type, les éléments seront triés par état d’approbation ('Fiable' > 'Non relu' > 'Non fiable'), puis par note de la donnée. Toutefois, pour certains types de données, des éléments particuliers ont une priorité supérieure : si l’un de ces éléments est renvoyé, il sera affiché en premier. Pour les images, les images modèle ont la plus haute priorité. Avec les types texte, le texte d’ensemble a la  plus haute priorité."
+  if_multiple_media_objects_are_returned: "Si plusieurs objets média sont renvoyés, la liste sera triée par type d’objet. Pour chaque type, les éléments seront triés par état d’approbation ('Fiable' &gt; 'Non relu' &gt; 'Non fiable'), puis par note de la donnée. Toutefois, pour certains types de données, des éléments particuliers ont une priorité supérieure : si l’un de ces éléments est renvoyé, il sera affiché en premier. Pour les images, les images modèle ont la plus haute priorité. Avec les types texte, le texte d’ensemble a la  plus haute priorité."
   if_the_details_parameter_is_not_set: Si le paramètre détails n’est pas positionné, alors seul l’identifiant de l’objet de données, le type de la donnée et, dans le cas d’articles, le sujet, seront renvoyés. Le type de donnée sera une valeur du vocabulaire de type de ressource %{linka}. Le texte du sujet sera un des %{linkb}.
   image: Image
   image_alt_text: "Cette image %{vetted_status} porte sur : %{taxon_name}"

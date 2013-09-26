@@ -8,6 +8,7 @@
 # Author: Crazymadlover
 # Author: Dalton2
 # Author: Eduardoescdel
+# Author: EmmanuelMessulam
 # Author: Erdemaslancan
 # Author: Erick mata
 # Author: Fitoschido
@@ -30,7 +31,7 @@ es:
   0_or_1: 0 o 1
   a_maximum_of_30_results_are_returned: se devuelven un máximo de 30 resultados por página. Este parámetro permite obtener más páginas de resultados si hay más de 30 resultados encontrados
   a_pipe_delimited_list_of_licenses: una lista de licencias delimitada por barras verticales | o bien, 'todo' para obtener objetos bajo cualquier licencia. Las licencias abreviadas cc- son todas licencias de %{creative_commons_link}. Visita su sitio para obtener más información sobre las licencias diferentes que ofrecen.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: un "overview" para volver al texto de introducción (si existe), una lista de nombres de elementos informativos SPM separados por barras verticales "|" o bien "all" para obtener el texto sobre cualquier tema. Siempre devuelve un texto de introducción como primer resultado (si existe en el contexto determinado).
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" para volver al texto de introducción (si existe), una pipe: I lista delimitada de nombres de objetos del la lista de %{subjects_text} (ej. TaxonBiology, FossilHistory), o bien \"all\" para obtener texto sobre cualquier tema. Siempre devuelve un texto de introducción como primer resultado (si existe en el contexto dado)."
   a_taxon: un taxón
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Un total de %{count} comentario que coincide con sus criterios ha sido encontrado.
@@ -73,7 +74,7 @@ es:
         body: Comentario
       community: 
         description: Descripción de la comunidad
-        logo: Subir un logotipo
+        logo: Subir un logo
         name: Nombre de la comunidad
       contact: 
         comments: Mensaje
@@ -85,7 +86,7 @@ es:
         page_name: Nombre único
         sort_order: Orden de clasificación
       content_partner: 
-        acronym: Abreviatura de proyecto
+        acronym: Abreviatura del proyecto
         admin_notes: Notas de la administración
         auto_publish: Publicar automáticamente
         content_partner_status: Estado del proyecto
@@ -96,7 +97,7 @@ es:
         homepage: URL del proyecto
         id: ID
         notes: Notas del proyecto
-        public: Públicas
+        public: Público
         resources: Recursos
         user_id: Administrado por
         vetted: Aprobados
@@ -107,12 +108,15 @@ es:
       content_partner_contact: 
         email_reports_frequency_hours: Frecuencia de los informes de correo electrónico
       data_object: 
-        bibliographic_citation: Cita bibliográfica
-        description: Descripción
+        bibliographic_citation: Citación bibliográfica
+        description: Texto
         object_title: Título
         rights_holder: Posesor de los derechos
         rights_statement: Declaración de los derechos
         source_url: URL de origen
+      data_object_link: 
+        description: Descripción
+        source_url: URL del enlace
       eol_statistic: 
         active_curators: Supervisores activos
         base_pages: Páginas de base
@@ -138,10 +142,10 @@ es:
         data_objects_untrusted: Objetos de datos no fiables
         data_objects_videos: Objetos de vídeo
         hotlist_pages: Páginas más demandadas
-        lifedesk_data_objects: Objetos de datos de LifeDesks
+        lifedesk_data_objects: Objetos de datos LifeDesks
         lifedesk_taxa: Taxones LifeDesks
         marine_pages: Páginas marinas
-        marine_pages_in_col: Páginas marinas encontradas en COL
+        marine_pages_in_col: Páginas marinas encontradas en CoL
         marine_pages_with_objects: Páginas marinas con objetos de datos
         marine_pages_with_objects_vetted: Páginas marinas con objetos de datos fiables
         members_count: Miembros
@@ -158,7 +162,7 @@ es:
         pages_with_image: Páginas con imagen
         pages_with_image_no_text: Páginas con imagen pero sin texto
         pages_with_map: Páginas con mapa
-        pages_with_score_10_to_39: Páginas con puntuación de 10 a 40
+        pages_with_score_10_to_39: Páginas con puntuación 10-40
         pages_with_score_less_than_10: Páginas con puntuación inferior a 10
         pages_with_sound: Páginas con audio
         pages_with_text: Páginas con texto
@@ -174,6 +178,7 @@ es:
         rich_hotlist_pages_percentage: Lista de páginas más demandadas%
         rich_pages: Páginas populares
         rich_redhotlist_pages: Páginas ricas rojas más demandadas
+        rich_redhotlist_pages_percentage: Paginas Rich Red Hotlist %
         udo_published: Texto enviado por el usuario
         udo_published_by_curators: Texto enviado por el responsable de mantenimiento
         udo_published_by_non_curators: Texto no enviado por responsable de mantenimiento
@@ -208,7 +213,7 @@ es:
       notification: 
         changes_to_my_watched_collection: Cambios a colecciones de su lista de seguimiento
         changes_to_my_watched_community: Cambios en comunidades de su lista de seguimiento
-        comment_on_my_collection: Un comentario en una colección que administra
+        comment_on_my_collection: Un comentario en una colección que administras
         comment_on_my_community: Un comentario en una de las comunidades de la que es miembro
         comment_on_my_contribution: Un comentario y/o una acción de supervisión en una de sus aportaciones
         comment_on_my_profile: Un comentario en su perfil
@@ -223,7 +228,7 @@ es:
         member_left_my_community: Miembros que han dejado una comunidad que usted administra
         new_data_on_my_watched_item: Nuevas contribuciones a taxones de su lista de seguimiento
         new_manager_in_my_community: Otro miembro se ha convertido en administrador de una comunidad que usted administra
-        reply_to_comment: Una respuesta a un comentario que hizo
+        reply_to_comment: Una respuesta a un comentario que hisiste
       open_authentication: 
         created_at: Creado
         guid: GUID
@@ -232,7 +237,7 @@ es:
         token: Símbolo (token)
         updated_at: Última actualización
         user_id: Identificador de usuario
-        verified_at: Última verificación
+        verified_at: Última vez verificado
       resource: 
         accesspoint_url: Conjunto de datos URL
         auto_publish: Publicar automáticamente
@@ -274,10 +279,10 @@ es:
         email: Dirección de correo electrónico
         email_confirmation: Escriba de nuevo la dirección de correo electrónico <small>(para confirmar)</small>
         entered_password: Contraseña
-        entered_password_confirmation: Contraseña otra vez <small>(a confirmar)</small>
+        entered_password_confirmation: Contraseña otra vez <small>(para confirmar)</small>
         family_name: Apellido
         full_name: Nombre completo
-        given_name: "Nombre:"
+        given_name: Nombre
         language_abbr: Idioma preferido
         permissions: Permisos
         requested_curator_level_id: Nivel deseado para supervisor
@@ -566,7 +571,8 @@ es:
           an_unknown_user_split_classifications_from_it: Un usuario desconocido ha dividido las clasificaciones por %{classifications} hasta <a href='%{to}'>su propia página</a>.
           an_unknown_user_split_classifications_from_taxon: Un usuario desconocido ha dividido las clasificaciones por %{classifications} desde el %{taxon} hasta <a href='%{to}'>su propia página</a>.
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} desde una página desconocida a <a href='%{to}'>su propia página</a>.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} hasta <a href='%{to}'>su propia página</a>.
+          user_split_classifications_from_it: "\n<strong>%{user}</strong> divide la clasificacion en %{classifications} a <a href='%{to}'>su propia pagina</a>."
+          user_split_classifications_from_taxon: <strong>%{user}</strong> divide las clasificaciones por %{classifications} desde %{taxon} hasta <a href='%{to}'>su propia página</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: Un usuario desconocido cambió la miniatura de "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: Un usuario desconocido cambió la miniatura de una imagen desconocida.
@@ -1043,8 +1049,9 @@ es:
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Haga clic aquí</a> para acceder a la prueba beta de los nuevos foros EOL. Sus comentarios son bienvenidos.
   api_cache_time_to_live_parameter: el número de segundos que desea tener guardada la respuesta
-  api_docs_collections_description: Dado el identificador de una colección, esta API devolverá todos los metadatos sobre la colección y los elementos que contiene. La lista de elementos puede ser filtrada por tipo de elemento, y ordenada por los atributos listados arriba.
+  api_docs_collections_description: Dado el identificador de una colección, esta API devolverá todos los metadatos sobre la colección y los elementos que contiene. La lista de elementos puede ser filtrada por tipo de elemento, y ordenada por los atributos listados. Algunos elementos contendrán un atributo 'sort_field' opcional. El campo de atributos, es una cadena suministrada por el usuario y es una anotación especial sobre un elemento de la colección. Pude ser cualquier cadena caracteres, pero si es una fecha, tiene que ajustarse al formato YYYY-MM-DD. Los elementos del taxón contendrán un 'richness_score'. Riqueza es una medida representada por un entero entre  0 y 100, con un numero mayor denotando a una pagina con contenido rico de una variedad de fuentes. Lee más sobre la riqueza de los taxónes en la pestaña de actualizaciones de la pagina de un taxón, ej. %{richness_url}.
   api_refer_to_the_getting_started_page: Vea la <a href="%{link}">introducción</a> de la página para ver ejemplos sobre el uso de la API de EOL , condiciones de uso e información sobre cómo registrarse para una clave de API.
+  api_results_can_be_cached: La respuesta de cualquier llamada a la API puede ser almacenada por un periodo de tiempo especificado. Un parámetro "cache_ttl" puede ser provisto cuyo valor es el numero de segundos que se almacenara la respuesta. Esto creará encabezados HTTP indicando que el resultado deberá ser almacenado por buscadores web, y adicionalmente la respuesta será almacenada en los servidores de EOL por el numero especificado de segundos. Si el valor de "cache_ttl" es cambiado, la primera petición con el nuevo valor no llegara a la cache,  pero subsecuentes solicitudes harán uso de la nueva repuesta almacenada.
   application_version_advisory_information: Versión de la aplicación
   are_you_sure: ¿Está usted seguro?
   are_you_sure_this_action_cannot_be_undone: ¿Estás seguro?  No se puede deshacer esta acción.
@@ -1121,6 +1128,8 @@ es:
   belongs_in_count_communities: 
     one: Pertenece a %{count} Comunidad
     other: Pertenece a %{count} Comunidades
+  bhl: Biodiversity Heritage Library
+  bhl_partner_footer: Visita la Biodiversity Heritage Library
   bhl_publication: Publicación BHL
   bi_monthly: Bimensual
   biodiversity_heritage_library: Biodiversity Heritage Library
@@ -1137,6 +1146,7 @@ es:
   by_caps: Por
   by_scientific_name_table_header: por nombre científico
   cache_store: Almacenamiento de la memoria caché
+  caching_results: Almacenado en cache de resultados
   calculate_averages_slow: Calcular las medias (lento)
   call_api: Llamada API
   cancel: Cancelar
@@ -1223,6 +1233,10 @@ es:
   collection_item_edit_by_javascript_not_authorized_error: No tiene permiso para modificar este elemento de la colección. Si usted es propietario o editor de la colección, por favor, vuelva a cargar la página y compruebe que ha iniciado sesión.
   collection_item_edit_page_title: Editar elemento de la colección <em>%{collection_name}</em>
   collection_item_not_found_error: No se encontró ese elemento de la colección.
+  collection_items_count: 
+    one: "%{count} item"
+    other: "%{count} items"
+    zero: Empty
   collection_move_choose_all_items_target_title: "Mover todos los elementos de \"%{collection}\" a:"
   collection_name_cannot_be_blank: El nombre de la colección no puede estar vacío
   collection_name_label: Nombre de la colección
@@ -1586,7 +1600,7 @@ es:
   content_server_full_url: Dirección URL completa del servidor de contenidos
   content_servers: Servidores de contenidos
   content_setting_colon: "Configuración de contenido:"
-  content_summary_introduction_html: Los siguientes valores representan la suma de diferentes tipos de contenido para este taxón y todos sus descendientes taxonómicas. contenido de %{glossary_term_trusted} ya ha sido aprobado por un curador EOL o proviene de un proveedor de confianza. %{glossary_term_unreviewed} contenido aún no ha sido evaluada por un curador EOL. Cada jerarquía taxonómica es único, por lo que cada jerarquía navegable está lista para la comparación.
+  content_summary_introduction_html: Los siguientes valores representan la suma de diferentes tipos de contenido para este taxón y todos sus descendientes taxonómicas. contenido de %{glossary_term_trusted} ya ha sido aprobado por un verificador EOL o proviene de un proveedor de confianza. %{glossary_term_unreviewed} contenido aún no ha sido evaluada por un verificador EOL. Cada jerarquía taxonómica es único, por lo que cada jerarquía navegable está lista para la comparación.
   content_summary_table_caption: Un resumen del contenido asociado a %{taxon_name} y sus descendientes en %{hierarchy_label}
   content_summary_table_count_column_header: Cantidad
   content_summary_table_summary: Esta tabla contiene recuentos de diferentes tipos de contenido separados por estado contenido.
@@ -1665,8 +1679,8 @@ es:
   curator: supervisor
   curator_admin_index_help: Haga clic en un nombre de usuario para ver el perfil detallado del usuario.  Puede cambiar los permisos de supervisor a nivel de clado en las páginas de perfil de usuario.  Si las credenciales están truncadas, haga clic para expandirlas y mostrar las credenciales completas.
   curator_colon: "Curador:"
-  curator_level: Nivel de curador
-  curator_level_application_pending_notice: Gracias por solicitar convertirse en un curador. Le notificaremos por correo electrónico cuando hayamos revisado la aplicación.
+  curator_level: Nivel de verificador
+  curator_level_application_pending_notice: Gracias por solicitar convertirse en un verificador. Le notificaremos por correo electrónico cuando hayamos revisado la aplicación.
   curator_level_assistant_approved_notice: ¡Felicidades! Usted es ahora un <em>Supervisor adjunto de EOL.</em> <a href="%{more_url}">Aprenda más sobre el puesto de supervisor adjunto</a> .
   curator_level_assistant_curator: Revisor Asistente
   curator_level_full_curator: Revisor Pleno
@@ -1674,8 +1688,8 @@ es:
   curator_level_master_curator: Revisor Experto
   curator_level_master_pending_notice: Gracias por solicitor ser un <em>curador master</em>. Le notificaremos por correo electrónico cuando hayamos revisado su solicitud.
   curator_level_with_indefinite_article_assistant_curator: un <strong>revisor asistente</strong>
-  curator_level_with_indefinite_article_full_curator: un <strong>curador pleno</strong>
-  curator_level_with_indefinite_article_master_curator: un <strong>curador master</strong>
+  curator_level_with_indefinite_article_full_curator: un <strong>verificador pleno</strong>
+  curator_level_with_indefinite_article_master_curator: un <strong>verificador master</strong>
   curator_profile: Perfil del revisor
   curator_profile_menu: Perfil de supervisor
   curator_profile_of: perfil de supervisor de %{name}
@@ -1866,6 +1880,7 @@ es:
   edit_my_profile: Editar mi perfil
   edit_news_items: editar artículos de noticias
   edit_page_contents: editar el contenido de la página
+  edit_permission_header: "Editando Permiso: %{permission}"
   edit_search_suggestion: Editar las sugerencias de búsqueda
   edit_search_suggestions: Editar sugerencias de búsqueda
   edit_table_of_contents: editar la tabla de contenidos
@@ -1963,6 +1978,7 @@ es:
   error_log: Registro de errores
   error_log_detail: Detalle del registro de error
   error_logging_active: Registro activo de errores
+  error_no_items_selected: Debes seleccionar los elementos de la colección, o seleccionar "Todos los elementos" del menú desplegable.
   error_updating_user: Hubo un error al actualizar el registro de este usuario
   error_watch_collections_cannot_be_shared: Ver las colecciones que no pueden ser compartidas
   every_method_can_also_return_json_response: Todo método puede devolver una respuesta JSON agregando la Exporte esta lista como CSV
@@ -2074,6 +2090,8 @@ es:
       delete: eliminar
       edit: editar
       link: enlace
+      move_down: "&darr;"
+      move_up: "&uarr;"
       reply: responder
     categories: 
       create: Cree una categoría
@@ -2460,7 +2478,8 @@ es:
   html_format_with_left_col: (FORMATO HTML, escriba sólo si desea tener una columna a la izquierda de la página, de lo contrario déjela en blanco)
   id: ID
   if_checked_and_user_is_saved: Si se marca y el usuario se guarda, a continuación, los credenciales, alcance, aprobación y clade seleccionados se borran y el usuario ya no aparece como curador.  Usted debería agregar una nota a continuación para indicar la razón.  No se envía información al usuario.
-  if_the_details_parameter_is_not_set: Si el parámetro de detalles no es establecido, entonces solamente el identificador de objeto de datos, tipo de datos, y, en el caso de artículos, el tema será retornado. EL tipo de datos será un valor del %{linka} vocabulario de tipo de datos. EL texto del tema será un valor de la %{linkb} ontología de elementos de información.
+  if_multiple_media_objects_are_returned: "Si múltiples objetos multimedia son devueltos, la lista se ordenara por tipo de objeto. Dentro de cada tipo, elementos son ordenados por su estado de investigación ('Confiado' &gt; 'No revisado' &gt; 'No es de confianza'), y después por clasificación de datos. Sin embargo, dentro de ciertos tipos de datos, les dan a elementos específicos la prioridad máxima: si uno de estos elementos es devuelto, estará listado primero. Para imágenes, imágenes ejemplares tienen la máxima prioridad. Con tipos de texto, el texto de introducción tiene la prioridad máxima."
+  if_the_details_parameter_is_not_set: Si el parámetro de 'detalles' no es establecido entonces solamente el identificador de objeto de datos, tipo de datos, y, en el caso de artículos, el tema será retornado. El tipo de datos será un valor del %{linka} vocabulario de tipo de recurso. El tema del texto será uno do los %{linkb}.
   image: Imagen
   image_alt_text: Esta imagen %{vetted_status} es de %{taxon_name}
   image_crop_failed_error: Lo sentimos, se ha producido un error, la imagen no se pudo recortar
@@ -2480,6 +2499,7 @@ es:
   image_of_taxon: Imagen de %{taxon_name}
   image_rating: Evaluación de la imagen
   image_title_with_taxa: Imagen de los %{taxa}
+  image_title_without_taxa: Imagen de un taxón desconocido
   images: Imágenes
   images_in_red_are_not_trusted: Las imágenes en color rojo no son de confianza.
   images_in_yellow_are_not_reviewed: Las imágenes que están en amarillo no están revisadas.
@@ -3061,7 +3081,7 @@ es:
   page_views_th: Vistas de página
   pages_admin_section_link: Administradores
   pages_curator_section_link: Curadores
-  pages_method_description: toma un identificador de página de EOL y retorna el nombre científico para esa página, y, opcionalmente, información sobre nombres comunes, medios (texto, imágenes y vídeos), y referencias a las jerarquías que reconocen el taxón descrito en el
+  pages_method_description: toma un identificador de página de EOL y retorna el nombre científico para esa página, y opcionalmente información sobre nombres comunes, medios (texto, imágenes y vídeos), y referencias a las jerarquías que reconocen el taxón descrito en la pagina
   pages_title: Referencias
   pages_with_count: 
     one: "%{count}}"
@@ -3254,6 +3274,7 @@ es:
   return_common_names_for_the_page_taxon: devolver todos los nombres comunes para taxón de la página
   return_content_by_vettedness: Si 'vetted' tiene el valor 1 entonces solo se devolverá contenido de confianza. Si 'vetted' es 2 entonces solo se devolverá contenido de confianza y no revisado (no se mostrarán contenidos no fiables). Por defecto, se retornará todo el contenido.
   return_references_for_the_page_taxon: Entregar todos los nombres vernáculos del taxon de la página
+  return_synonyms_for_the_page_taxon: devuelve todos los sinónimos de el taxón de la página
   returns_all_metadata_about_a_particular_collection: Devuelve todos los metadatos sobre una colección particular y los elementos que contiene indexados por EOL
   returns_all_metadata_about_a_particular_data_object: retorna todos los metadatos sobre un objeto de datos particuar (texto, imagen o vídeo) indexado por EOL
   returns_either_a_positive_or_negative_response: retorna una respuesta positiva (indicando que los API están funcionales), o una respuesta negativa, o del todo nada (indicando que en ese momento los APIs no están funcionales).
@@ -3370,6 +3391,10 @@ es:
   show_status_message: Mostrar mensaje de estado
   show_tasks: mostrar las tareas
   show_warning_message: Mostrar mensaje de advertencia
+  showing_all_error_logs: Mostrando <b>todos los errores</b>
+  showing_all_harvest_logs: Mostrando <b>todas las cosechas</b>
+  showing_error_logs_from_date: Mostrando errores de <b>%{date}</b>
+  showing_harvest_logs_from_date: Mostrando cosechas de <b>%{date}</b>
   shown_to_the_user_parens: (se muestra al usuario)
   shown_to_user_as_the_title_of_page: se muestra al usuario como título de la página
   sign_in: Iniciar sesión
@@ -3384,6 +3409,7 @@ es:
   skip_to_content: Saltar a contenido
   skip_to_navigation: Saltar a la navegación
   skip_to_table_of_contents: Saltar a la tabla de contenidos
+  social_sharing_reddit_button: enviar a reddit
   social_sharing_twitter_follow_eol_button: Seguir a @eol
   social_sharing_twitter_tweet_button: Publicar en Twitter
   some_required_fields_were_not_entered: Algunos campos obligatorios no se introdujeron (debe introducir un título y el contenido o una URL).
@@ -3392,6 +3418,7 @@ es:
   sort_by: Ordenar por
   sort_by_alphabetical_option: Alfabético
   sort_by_button: Ordenar
+  sort_by_hierarchy_publish_request_option: Hierarchy Publish Request
   sort_by_label: Ordenadas por
   sort_by_newest_option: Lo más nuevo
   sort_by_oldest_option: Más antiguo
@@ -3730,6 +3757,7 @@ es:
   taxon_citizen_science_header: Enlaces de Ciencia Ciudadana
   taxon_citizen_science_link: Enlaces de ciencia ciudadana
   taxon_citizen_science_resources_empty: Nadie ha contribuido aún con un enlace de ciencia ciudadana a esta página.
+  taxon_common_names_subtab_explanation: Mucha gente conoce organismos solo por los nombres comunes, o "lengua" local. A diferencia de los nombres científicos, nombres comunes son casi siempre diferentes para hablantes de diferentes idiomas. También pueden variar regionalmente dentro de un idioma. Esta pestaña muestra todos los nombres comunes, proporcionados desde una variedad de proveedores a EOL incluyendo curadores EOL, para este organismo. Actualmente solo podemos poner un nombre común por idioma en una determinada pagina EOL, pero todos los nombres deberia ser posible buscarlos.
   taxon_concept_stats: Estadísticas de concepto taxonómico
   taxon_details_empty: Nadie ha contribuido aún con algún detalle sobre este taxón.
   taxon_details_empty_in_this_language: Nadie ha contribuido aún con algún detalle sobre este taxón.
@@ -3752,7 +3780,7 @@ es:
   taxon_partner_links_empty: Los proveedores de contenido no han brindado vínculos a las fuentes para esta página aún.
   taxon_partner_links_empty_learn_more_link: Aprenda cómo convertirse en un socio de contenido
   taxon_partner_links_header: Vínculos a socios
-  taxon_partner_links_intro: Abajo aparece una lista de socios, incluidos socios de contenidos, con información sobre esta página. Donde sea posible, los vínculos lo llevarán al contenido correspondiente en el sitio web del socio. EL identificador único que usa cada socio para este taxón está empotrado en estos vínculos, y estos identificadores también están accesibles por medio de <a href="%{eol_api_link}">EOL API</a>
+  taxon_partner_links_intro: Abajo aparece una lista de socios, incluidos socios de contenidos, con información de esta página. Donde sea posible, los vínculos lo llevarán al contenido correspondiente en el sitio web del socio. EL identificador único que usa cada socio para este taxón está mebebido en estos vínculos, y estos identificadores también son accesibles a traves de <a href="%{eol_api_link}">EOL API</a>
   taxon_partner_links_link: Vínculos de socio
   taxon_rating: Evaluación del taxón
   taxon_recognized_by: Taxón reconocido por %{whom}
@@ -3835,6 +3863,7 @@ es:
   this_map_cannot_be_curated_because_unpublished: Este mapa no puede ser supervisado porque no ha sido publicado.
   this_map_is_unpublished: Este mapa no ha sido publicado.
   this_method_takes_an_integer_or_string: Este método toma un entero o hilera que es el identificador único para un taxón de una base de datos de un proveedor y y un identificador hierarchy_id que corresponde al proveedor y retorna el ID de página de EOL para ese taxón. Por ejemplo, si usa el API %{link_provider}, puede encontrar que el identificador de EOL, hierarchy_id, para el Integrated Taxonomic Information System (ITIS) es %{itis_id}. Entonces, después puede buscar en EOL el ITIS Taxonomic Serial Number (TSN) de 180542,<i>Ursus maritimus</i>, llamando a %{link_url}
+  this_older_version: Esta versión más vieja del método Pages API acepta los mismos parametros y devuelve mas o menos la misma información. De hecho la respuesta de JSON es idéntica a la versión 1.0, pero la respuesta XML tiene una estructura ligeramente diferente.
   this_page_shows_information_ab: Esta página muestra información sobre un término de búsqueda específica y los resultados a los que accedieron los usuarios haciendo clic sobre ellos después de ejecutar la búsqueda.
   this_page_will_be_reindexed: Esta página será reindexada en segundo plano, y pueden ser necesarias hasta 24 horas para completar el proceso.
   this_resource_unpublished_notice: Este recurso no está definido como publicado por el administrador, en este momento.

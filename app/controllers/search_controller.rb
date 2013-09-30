@@ -16,6 +16,9 @@ class SearchController < ApplicationController
     params[:id] = nil
     params[:q] = @querystring
 
+    # TODO - this is not currently indexed. If we keep doing this, it will need to be, to speed things up:
+    @attribute = TranslatedKnownUri.where(["name LIKE ?", "%#{@querystring.split.first}%"]).first
+
     if request.format == Mime::XML
       return redirect_to :controller => "api", :action => "search", :id => @querystring
     end

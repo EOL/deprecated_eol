@@ -1,19 +1,29 @@
 - unless @suggestions.blank?
   = raw(I18n.t(:did_you_mean, :suggestions => @suggestions[0..5].map{ |s| link_to s.firstcap, search_path(:q => s) }.join(", ")))
-- unless @all_results.blank?
-  - previous_label = (@all_results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @all_results.per_page)
-  - next_label = (@all_results.current_page == @all_results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @all_results.per_page)
+- previous_label = (@all_results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @all_results.per_page)
+- next_label = (@all_results.current_page == @all_results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @all_results.per_page)
+.filtered_search
   .header
     - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
     - end_number = [ (start_number + @all_results.per_page - 1), @all_results.total_entries ].min
-    %h3= raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries))
+    %h3
+      - if @all_results.blank? # TODO - we should redirect them automatically with a message explaining what happened...
+        = I18n.t(:no_results_for_search_term, search_term: @querystring)
+      - else
+        = raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries))
     = will_paginate @all_results, |
       :previous_label => previous_label, |
       :next_label => next_label, |
       :page_links=>false
   %ul.object_list
-    - @all_results.each do |result|
+    - if @all_results.blank? || @all_results.count < 4
+      %li{:class => 'data'}
+        = render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
+    - @all_results.each_with_index do |result, i|
       - result_instance = result['instance']
+      - if i == 3
+        %li{:class => 'data'}
+          = render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
       - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.
         - en_type = en_type(result_instance)
         %li{:class => en_type}

@@ -248,7 +248,6 @@ UriType.create_defaults
 ContentTable.create_details
 NotificationFrequency.create_defaults
 Permission.create_defaults
-KnownUri.create_defaults
 
 def create_known_uri(params)
   new_instance = KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id],

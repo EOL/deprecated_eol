@@ -46,7 +46,6 @@
             - header_id = data_point_uri.predicate
             - last_attribute = data_point_uri.predicate
             - unless data_point_uri.predicate_known_uri.blank? || data_point_uri.predicate_known_uri.definition.blank?
-              - pp data_point_uri
               - glossary << data_point_uri
           - else
             - header_id = nil

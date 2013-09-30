@@ -35,6 +35,7 @@ module EOL
     end
 
     def self.uri_to_readable_label(uri)
+      return if KnownUri.taxon_concept_id(uri)
       if is_uri?(uri) && matches = uri.to_s.match(/(\/|#)([a-z0-9,_-]{1,})$/i)
         return matches[2].underscore.tr('_', ' ').capitalize_all_words
       end

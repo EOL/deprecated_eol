@@ -67,12 +67,6 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
-  def self.create_defaults
-    COMMON_URIS.each do |info|
-      KnownUri.create_for_language(uri: info[:uri], language: Language.default, name: info[:name])
-    end
-  end
-
   def self.create_for_language(options = {})
     uri = KnownUri.create(uri: options.delete(:uri))
     if uri.valid?
@@ -209,7 +203,7 @@ class KnownUri < ActiveRecord::Base
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
       replace_with_uri(row, :unit_of_measure_uri, known_uris)
-      if taxon_id = taxon_concept_id(row[:value])
+      if row[:attribute].to_s == Rails.configuration.uri_association_type && taxon_id = taxon_concept_id(row[:value])
         row[:target_taxon_concept_id] = taxon_id
       end
     end

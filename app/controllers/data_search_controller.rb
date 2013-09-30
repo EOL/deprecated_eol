@@ -47,10 +47,12 @@ class DataSearchController < ApplicationController
     rows.each do |row|
       col_heads.merge(row.keys)
     end
-    CSV.generate do |csv|
-      csv << col_heads
-      rows.each do |row|
-        csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
+    Rails.cache.fetch("download_data/#{@querystring}/#{@attribute}/#{@from}-#{@to}/#{@sort}") do
+      CSV.generate do |csv|
+        csv << col_heads
+        rows.each do |row|
+          csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
+        end
       end
     end
   end

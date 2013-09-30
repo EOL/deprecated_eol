@@ -150,23 +150,30 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def get_metadata(language)
+    DataPointUri.get_metadata(uri, language)
+  end
+
+  # NOTE - this was a sloppy attempt at getting multiple data_point_uris from a single query. It's probably silly.
+  def self.get_metadata(q, language)
+    uri_clause = q.is_a?(Array) ? "?uri" : "<#{q}>"
+    uri_filter = q.is_a?(Array) ? "&& ?uri IN (#{q.join(',')})" : ''
     query = "
       SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
       WHERE {
         GRAPH ?graph {
           {
-            <#{uri}> ?attribute ?value .
+            #{uri_clause} ?attribute ?value .
           } UNION {
-            <#{uri}> dwc:occurrenceID ?occurrence .
+            #{uri_clause} dwc:occurrenceID ?occurrence .
             ?occurrence ?attribute ?value .
           } UNION {
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
-            ?measurement <#{Rails.configuration.uri_parent_measurement_id}> <#{uri}> .
+            ?measurement <#{Rails.configuration.uri_parent_measurement_id}> #{uri_clause} .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
           } UNION {
-            <#{uri}> dwc:occurrenceID ?occurrence .
+            #{uri_clause} dwc:occurrenceID ?occurrence .
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
@@ -176,12 +183,12 @@ class DataPointUri < ActiveRecord::Base
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
-            ?measurement <#{Rails.configuration.uri_association_id}> <#{uri}> .
+            ?measurement <#{Rails.configuration.uri_association_id}> #{uri_clause} .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
           } UNION {
-            <#{uri}> dwc:occurrenceID ?occurrence .
+            #{uri_clause} dwc:occurrenceID ?occurrence .
             ?occurrence dwc:eventID ?event .
             ?event ?attribute ?value .
           }
@@ -189,10 +196,15 @@ class DataPointUri < ActiveRecord::Base
                                      dwc:measurementID, <#{Rails.configuration.uri_reference_id}>,
                                      <#{Rails.configuration.uri_target_occurence}>, dwc:taxonID, dwc:eventID,
                                      <#{Rails.configuration.uri_association_type}>,
-                                     dwc:measurementUnit, dwc:occurrenceID, <#{Rails.configuration.uri_measurement_of_taxon}>))
+                                     dwc:measurementUnit, dwc:occurrenceID, <#{Rails.configuration.uri_measurement_of_taxon}>)
+                                     #{uri_filter}
+                  )
         }
       }"
-    metadata_rows = EOL::Sparql.connection.query(query)
+    cache_name = q.is_a?(Array) ? Digest::MD5.hexdigest(q.join('')) : q
+    metadata_rows = Rails.cache.fetch(DataPointUri.cached_name_for("metadata/#{cache_name}"), expires_in: 24.hours) do
+      EOL::Sparql.connection.query(query)
+    end
     # not using TaxonDataSet here since we don't want to make real DataPointURI
     # records in MySQL for all these metadata rows
     metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)

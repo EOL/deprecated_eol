@@ -1,0 +1,6 @@
+- view_style ||= 'default'
+- unless view_style == 'list'
+  = link_to image_tag("some_thumbnail"), data_search_path(query)
+  = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:data_search_link, term: query)}), data_search_path(query) # TODO - that I18n.
+%h4
+  = link_to I18n.t(:data_search_link, term: query), data_search_path(query)

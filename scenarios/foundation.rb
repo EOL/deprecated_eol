@@ -251,10 +251,21 @@ Permission.create_defaults
 KnownUri.create_defaults
 
 def create_known_uri(params)
-  new_instance = KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id],
-    vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
-  TranslatedKnownUri.create(known_uri: new_instance, name: params[:name], language: Language.english)
-  new_instance
+  old_instance = KnownUri.find_by_uri(params[:uri])
+  instance = if old_instance
+    old_instance.update_attributes(uri_type_id: params[:uri_type_id],
+                                   vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+    old_instance
+  else
+    KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id],
+      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+  end
+  begin
+    TranslatedKnownUri.create(known_uri: instance, name: params[:name], language: Language.english)
+  rescue ActiveRecord::RecordNotUnique => e
+    # Don't care; it's already there.
+  end
+  instance
 end
 
 default_known_uris =
@@ -282,8 +293,6 @@ default_known_uris.each do |info|
       relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI)
   end if info[:values]
 end
-
-
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

@@ -12,8 +12,14 @@
       :next_label => next_label, |
       :page_links=>false
   %ul.object_list
-    - @all_results.each do |result|
+    - if @all_results.blank?
+      %li{:class => 'data'}
+        = render partial: "shared/item_summary_data_teaser", locals: { query: @querystring }
+    - @all_results.each_with_index do |result, i|
       - result_instance = result['instance']
+      - if i == 3
+        %li{:class => 'data'}
+          = render partial: "shared/item_summary_data_teaser", locals: { query: @querystring }
       - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.
         - en_type = en_type(result_instance)
         %li{:class => en_type}

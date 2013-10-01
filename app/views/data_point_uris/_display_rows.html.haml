@@ -1,7 +1,7 @@
 - classes ||= [ ]
 - type_index ||= nil
-- exemplar = false unless exemplar == true
-- excluded = false unless excluded == true
+- exemplar = false if exemplar.nil?
+- excluded = false if excluded.nil?
 - row_is_selected = false unless row_is_selected == true
 - for_search = false unless for_search == true
 - if defined? header_id
@@ -30,11 +30,13 @@
         - unless subtitle.blank?
           = link_to subtitle.firstcap, taxon_link
   %th.predicate{ id: header_id }
+    - span_class = nil
+    - if current_user.min_curator_level?(:full)
+      - span_class = exemplar ? 'exemplar' : (excluded ? 'excluded' : nil)
     - if first_of_type
-      = display_uri(data_point_uri.predicate_uri, :span, class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil), define: true,
-        capitalize: true)
+      = display_uri(data_point_uri.predicate_uri, :span, class: span_class, define: true, capitalize: true)
     - elsif exemplar || excluded
-      %span{ class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil) }
+      %span{ class: span_class }
   %td.val{ headers: header_id }
     %span.fold
       - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'

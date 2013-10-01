@@ -59,8 +59,8 @@
               - next
           - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
           -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
-          - exemplar = data_point_uri.taxon_data_exemplars.select{ |ex| ex.included }.any?
-          - excluded = data_point_uri.taxon_data_exemplars.select{ |ex| ex.excluded }.any?
+          - exemplar = data_point_uri.taxon_data_exemplars.select(&:included).any?
+          - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded).any?
           = render :partial => 'data_point_uris/display_rows', :locals => {    |
             :data_point_uri => data_point_uri, :type_index => type_index,      |
             :classes => classes, :exemplar => exemplar, :excluded => excluded, |
@@ -70,6 +70,12 @@
     %ul.glossary
       - glossary.sort_by { |t| t.predicate_known_uri.name }.each do |dpuri|
         = render(partial: 'known_uris/definition', locals: { known_uri: dpuri.predicate_known_uri, show_top_link: true })
+    - if current_user.min_curator_level?(:full)
+      .copy
+        %p.help_text
+          = raw I18n.t(:data_tab_curator_key_exemplar, image: image_tag("v2/icon_required.png"))
+          %br
+          = raw I18n.t(:data_tab_curator_key_excluded, image: image_tag("v2/icon_excluded.png"))
 - if current_user.min_curator_level?(:master)
   .add_content
     %p.add_data= link_to I18n.t(:master_curators_may_add_data), '#' # Ideally, that would be a link to the user_added_data/new path...

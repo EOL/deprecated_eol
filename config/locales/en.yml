@@ -3223,6 +3223,8 @@ en:
   data_show_n_more_rows: "Show NNN more..."
   data_subtab_about: "About"
   data_summary_header: "Quick Facts"
+  data_tab_curator_key_exemplar: "%{image} denotes rows that curators have added to Quick Facts."
+  data_tab_curator_key_excluded: "%{image} denotes rows that curators have removed from Quick Facts."
   data_table_summary: "Computable data for %{taxon}. Each row of data is a separate fact, provided by a content partner or user. Each value might include a nested table summarizing metadata about the fact: where it was collected, what the rights to the data are, and the like. Click on the row to show this metadata. Click again to hide it. Showing metadata also shows annotations and allows users to add their own annotations as needed. Curators have additional functions when showing metadata."
   data_usage_reports: "Data Usage Reports"
   date_caps: "Date"

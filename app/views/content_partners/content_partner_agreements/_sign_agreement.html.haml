@@ -1,4 +1,4 @@
-= form_for(@agreement, url: content_partner_agreement_path(@partner, @agreement)) do |form|
+= form_for @agreement do |form|
   %fieldset
     = raw @agreement.body
     = form.hidden_field :body, :value => @agreement.body

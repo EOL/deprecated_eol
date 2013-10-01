@@ -36,12 +36,10 @@ class Collection < ActiveRecord::Base
 
   before_update :set_relevance_if_collection_items_changed
 
-  # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/assets/blank.gif",
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    :default_url => "/assets/blank.gif"
   
   validates_attachment_content_type :logo,
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
@@ -136,7 +134,7 @@ class Collection < ActiveRecord::Base
   end
 
   def maintained_by
-    (users + communities).compact
+    (users + communities).compact.uniq
   end
 
   # This will return users.

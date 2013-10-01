@@ -91,11 +91,13 @@ zh-CN:
         email_reports_frequency_hours: 电子邮件报告的频率
       data_object: 
         bibliographic_citation: 书目引用
-        description: 描述
+        description: 正文
         object_title: 标题
         rights_holder: 权利持有人
         rights_statement: 权利声明
         source_url: 来源URL
+      data_object_link: 
+        source_url: URL连接
       eol_statistic: 
         active_curators: 活跃管理员
         base_pages: 基础页面
@@ -797,6 +799,7 @@ zh-CN:
   began: 开始
   belongs_in_count_communities: 
     other: 属于 %{count}个社区
+  bhl: 生物多样性遗产图书馆
   bhl_publication: 网络生命大百科发布物
   bi_monthly: 双月的
   biodiversity_heritage_library: 生物多样性遗产图书馆

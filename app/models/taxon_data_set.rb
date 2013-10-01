@@ -17,7 +17,7 @@ class TaxonDataSet
           { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
     end
     convert_units
-    @data_point_uris
+    @data_point_uris # TODO - try removing this... #initialize doesn't really "return" anything anyway.
   end
 
   def each

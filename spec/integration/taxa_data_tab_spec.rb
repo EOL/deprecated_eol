@@ -80,12 +80,11 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the unit is a KnownURI
-    pattern = />50<.{,35}>pounds</m
-    body.should_not match(pattern)
+    body.should_not have_selector('span.term', text: '50 pounds')
     pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds')
     KnownUri.unit_of_measure.add_value(pounds)
     visit taxon_data_path(@taxon_concept.id)
-    body.should match(pattern)
+    body.should have_selector('span.term', text: 'pounds')
   end
 
   it 'should display units of measure when implied by measurement type' do
@@ -94,14 +93,13 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the predicate is associated with a unit, and that unit is a KnownURI
     body.should have_selector("table.data td[headers='http://eol.org/time'] span", :text => '50')
-    pattern = />50<.{,35}>hours</m
-    body.should_not match(pattern)
+    body.should_not have_selector('span.term', text: 'hours')
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
     hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours')
     KnownUri.unit_of_measure.add_value(hours)
     time.add_implied_unit(hours);
     visit taxon_data_path(@taxon_concept.id)
-    body.should match(pattern)
+    body.should have_selector('span.term', text: 'hours')
   end
 
   it 'should allow master curators to add data' do

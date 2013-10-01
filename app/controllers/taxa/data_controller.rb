@@ -14,6 +14,7 @@ class Taxa::DataController < TaxaController
     @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
     @supress_disclaimer = true
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)
+    debugger
     respond_to do |format|
       format.html {}
       format.csv { render @taxon_data.to_csv }

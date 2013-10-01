@@ -150,22 +150,26 @@ EOL.yank_glossary_terms = function($row) {
 EOL.info_hints = function() {
   // Give hints about terms... TODO - this is lame; refactor.
   $('.term').each(function() {
-    if ($('.glossary #'+$(this).attr('data-term')).length > 0) {
-      var $term = $(this);
+    if ($(this).parent().find('a.info_icon').length > 0) {
+      var $info_icon = $(this).parent().find('a.info_icon').first();
+      var bg = $info_icon.css('background-image');
+      if (bg != 'none') {
+        $info_icon.attr('data-bg', $info_icon.css('background-image'));
+        $info_icon.css('background-image', 'none');
+      }
       $(this).parent().unbind('hover').hover(
-      function() {
-        $term.append("<div class='hint'><br/><a href='#"+$term.attr('data-term')+"'>learn more</a></div>");
-      }, function() {
-        $term.find('div.hint').remove();
-      });
+        function() {
+          $info_icon.css('background-image', $info_icon.attr('data-bg'));
+        }, function() {
+          $info_icon.css('background-image', 'none');
+        }
+      );
     }
   });
 };
 
 
 $(function() {
-
-  EOL.info_hints();
 
   $('.has_many').each(function() {
     var $subform = $(this).clone();
@@ -377,4 +381,7 @@ $(function() {
     }
     return(false);
   });
+
+  EOL.info_hints(); // Note this needs to happen *after* the info icons are added.
+
 });

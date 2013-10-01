@@ -31,6 +31,10 @@ class DataSearchController < ApplicationController
         @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
           sort: @sort, per_page: 30000) # TODO - if we KEEP pagination, make this value more sane (and put @page back in).
         # TODO - handle the case where results are empty.
+        if @attribute_known_uri
+          headers["Content-Disposition"] = "attachment; filename=\"#{@attribute_known_uri.name}.csv\"" 
+          # TODO - handle other filename cases as needed
+        end
         render text: build_csv_from_results
       end
     end

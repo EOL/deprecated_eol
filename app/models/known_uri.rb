@@ -144,7 +144,6 @@ class KnownUri < ActiveRecord::Base
     group_counts_by_uri(result)
   end
 
-  # TODO - move this to Virtuoso lib.
   def self.all_measurement_type_uris
     @@all_measurement_type_uris = Rails.cache.fetch("known_uri/all_measurement_type_uris", :expires_in => 1.day) do
       counts_of_all_measurement_type_uris.collect{ |k,v| k }

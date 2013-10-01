@@ -11,6 +11,11 @@ class KnownUrisController < ApplicationController
     :only => [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
                :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
 
+  after_filter :clear_cache,
+    :except => [:index, :show_stats,
+                :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
+                :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
+
   layout 'v2/basic'
 
   def index
@@ -344,6 +349,10 @@ class KnownUrisController < ApplicationController
   def lookup_predicate
     @predicate = !params[:predicate_known_uri_id].blank? ? KnownUri.find_by_id(params[:predicate_known_uri_id]) : nil
     KnownUri.preload_associations(@predicate, { :known_uri_relationships_as_subject => :to_known_uri })
+  end
+
+  def clear_cache
+    Rails.cache.delete("known_uri/all_measurement_type_uris")
   end
 
 end

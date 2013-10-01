@@ -329,6 +329,10 @@ class DataPointUri < ActiveRecord::Base
       # Common Name:
       I18n.t(:data_column_common_name) => taxon_concept.preferred_common_name_in_language(language),
       # Name:
+      I18n.t(:data_column_name_uri) => predicate,
+      # Value:
+      I18n.t(:data_column_val_uri) => object,
+      # Name:
       I18n.t(:data_column_name) => EOL::Sparql.uri_components(predicate_uri)[:label],
       # Value:
       I18n.t(:data_column_val) => value_string(language),

@@ -77,35 +77,39 @@ describe DataPointUri do
 
   it 'should convert units' do
     # Grams
-    d = make_and_convert(object: '1000', unit_of_measure_known_uri: KnownUri.milligrams)
-    d.object.should == 1
+    d = make_and_convert(object: 1000, unit_of_measure_known_uri: KnownUri.milligrams)
+    d.object.should == 1.0
     d.unit_of_measure_known_uri.should == KnownUri.grams
-    d = make_and_convert(object: '2000', unit_of_measure_known_uri: KnownUri.grams)
-    d.object.should == 2
+    d = make_and_convert(object: 2000, unit_of_measure_known_uri: KnownUri.grams)
+    d.object.should == 2.0
     d.unit_of_measure_known_uri.should == KnownUri.kilograms
-    d = make_and_convert(object: '3000000', unit_of_measure_known_uri: KnownUri.milligrams)
-    d.object.should == 3
+    d = make_and_convert(object: 3000000, unit_of_measure_known_uri: KnownUri.milligrams)
+    d.object.should == 3.0
     d.unit_of_measure_known_uri.should == KnownUri.kilograms
     # Meters
-    d = make_and_convert(object: '40', unit_of_measure_known_uri: KnownUri.millimeters)
-    d.object.should == 4
+    d = make_and_convert(object: 40, unit_of_measure_known_uri: KnownUri.millimeters)
+    d.object.should == 4.0
     d.unit_of_measure_known_uri.should == KnownUri.centimeters
-    d = make_and_convert(object: '500', unit_of_measure_known_uri: KnownUri.centimeters)
-    d.object.should == 5
+    d = make_and_convert(object: 500, unit_of_measure_known_uri: KnownUri.centimeters)
+    d.object.should == 5.0
     d.unit_of_measure_known_uri.should == KnownUri.meters
-    d = make_and_convert(object: '6000', unit_of_measure_known_uri: KnownUri.millimeters)
-    d.object.should == 6
+    d = make_and_convert(object: 6000, unit_of_measure_known_uri: KnownUri.millimeters)
+    d.object.should == 6.0
     d.unit_of_measure_known_uri.should == KnownUri.meters
     # Kelvin
-    d = make_and_convert(object: '700.0', unit_of_measure_known_uri: KnownUri.kelvin)
+    d = make_and_convert(object: 700, unit_of_measure_known_uri: KnownUri.kelvin)
     d.object.should == 426.85
     d.unit_of_measure_known_uri.should == KnownUri.celsius
   end
 
-  it 'should preserve floats when converting' do
-    d = make_and_convert(object: '1000.0', unit_of_measure_known_uri: KnownUri.milligrams)
+  it 'should preserve accuracy when converting' do
+    d = make_and_convert(object: 10, unit_of_measure_known_uri: KnownUri.milligrams)
+    d.object.should == 10
+    d = make_and_convert(object: 1000.0, unit_of_measure_known_uri: KnownUri.milligrams)
     d.object.class.should == Float
-    d = make_and_convert(object: '1000', unit_of_measure_known_uri: KnownUri.milligrams)
-    d.object.class.should == Fixnum
+    d.object.should == 1.0
+    d = make_and_convert(object: 1000, unit_of_measure_known_uri: KnownUri.milligrams)
+    d.object.class.should == Float
+    d.object.should == 1.0
   end
 end

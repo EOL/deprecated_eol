@@ -5,11 +5,8 @@
 - else
   - if @attribute_known_uri
     .definition
-      %dl
-        %dt= @attribute_known_uri.name.capitalize_all_words
-        %dd.uri= "URI: " + @attribute_known_uri.uri
-        - unless @attribute_known_uri.definition.blank?
-          %dd.definition= @attribute_known_uri.definition
+      %ul.glossary
+        = render(partial: 'known_uris/definition', locals: { known_uri: @attribute_known_uri })
   .header
     - start_number = (@results.current_page - 1) * @results.per_page + 1
     - end_number = [ (start_number + @results.per_page - 1), @results.total_entries ].min

@@ -9,7 +9,7 @@
       - attribute, data_point_uris = arr
       - row_class = (index == grouped_attributes.length - 1) ? 'last' : nil
       %tr{ :class => row_class }
-        %th= display_uri(attribute)
+        %th= display_uri(attribute, :span, capitalize: true)
         %td
           - text_for_rows = data_point_uris.map do |data_point_uri|
             - display_text_for_data_point_uri(data_point_uri, :link_to_overview => true)

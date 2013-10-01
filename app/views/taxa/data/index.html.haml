@@ -69,13 +69,7 @@
       %h3= I18n.t(:glossary_subhead)
     %ul.glossary
       - glossary.sort_by { |t| t.predicate_known_uri.name }.each do |dpuri|
-        %li
-          %dt{id: dpuri.predicate_known_uri.anchor}
-            = dpuri.predicate_known_uri.name
-            = link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: dpuri.predicate, sort: 'desc')
-            %small= dpuri.predicate
-          %dd
-            = raw dpuri.predicate_known_uri.definition.add_missing_hyperlinks
+        = render(partial: 'known_uris/definition', locals: { known_uri: dpuri.predicate_known_uri, show_top_link: true })
 - if current_user.min_curator_level?(:master)
   .add_content
     %p.add_data= link_to I18n.t(:master_curators_may_add_data), '#' # Ideally, that would be a link to the user_added_data/new path...

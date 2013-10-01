@@ -130,13 +130,13 @@ describe 'Taxa page basic tests' do
     login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
     body.should have_selector("#data_summary table")
-    body.should include("12345.0")
-    pattern = "12345.0\n</span>\n <span>\npounds"
-    body.should_not include(pattern)
+    body.should include("12,345.0")
+    pattern = />12,345.0<.{,35}>pounds</m
+    body.should_not match(pattern)
     pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds', :uri_type => UriType.value)
     KnownUri.unit_of_measure.add_value(pounds)
     visit taxon_overview_path(tc.id)
-    body.should include(pattern)
+    body.should match(pattern)
   end
 
 end

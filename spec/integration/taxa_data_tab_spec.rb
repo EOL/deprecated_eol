@@ -32,7 +32,7 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
     body.should have_selector("table.data th span", :text => 'Weight')
-    body.should have_selector("table.data td", :text => '12345.0')
+    body.should have_selector("table.data td", :text => '12,345.0')
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
     body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@measurement.uri)}']", :text => "see this record in Virtuoso")
   end
@@ -52,7 +52,7 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
     body.should have_selector("table.data th span", :text => 'Length')
-    body.should have_selector("table.data td", :text => '9999.0')
+    body.should have_selector("table.data td", :text => '9,999.0')
     body.should include("provided by <a href=\"/users/#{@user.id}\">#{@user.full_name}</a>")
     body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@user_added_data.uri)}']", :text => "see this record in Virtuoso")
   end
@@ -80,12 +80,12 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the unit is a KnownURI
-    pattern = "50\n</span>\n <span>\npounds"
-    body.should_not include(pattern)
+    pattern = />50<.{,35}>pounds</m
+    body.should_not match(pattern)
     pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds')
     KnownUri.unit_of_measure.add_value(pounds)
     visit taxon_data_path(@taxon_concept.id)
-    body.should include(pattern)
+    body.should match(pattern)
   end
 
   it 'should display units of measure when implied by measurement type' do
@@ -94,14 +94,14 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the predicate is associated with a unit, and that unit is a KnownURI
     body.should have_selector("table.data td[headers='http://eol.org/time'] span", :text => '50')
-    pattern = "50\n</span>\n <span>\nhours"
-    body.should_not include(pattern)
+    pattern = />50<.{,35}>hours</m
+    body.should_not match(pattern)
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
     hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours')
     KnownUri.unit_of_measure.add_value(hours)
     time.add_implied_unit(hours);
     visit taxon_data_path(@taxon_concept.id)
-    body.should include(pattern)
+    body.should match(pattern)
   end
 
   it 'should allow master curators to add data' do

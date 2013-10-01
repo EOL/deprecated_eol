@@ -1,7 +1,7 @@
 - classes ||= [ ]
 - type_index ||= nil
 - exemplar = false unless exemplar == true
-- excluded = false unless exemplar == true
+- excluded = false unless excluded == true
 - row_is_selected = false unless row_is_selected == true
 - for_search = false unless for_search == true
 - if defined? header_id
@@ -12,7 +12,8 @@
 - comments = data_point_uri.comments
 - taxon_concept = data_point_uri.taxon_concept.latest_version
 - taxon_link = taxon_data_path(taxon_concept)
-
+- colspan = 4
+- colspan = 5 if for_search
 %tr{ id: data_point_uri.anchor, class: (classes + ['data']).join(' '), 'data-type' => type_index.nil? ? nil : "type_#{type_index}" }
   -# search results get the taxon image and taxon name
   - if for_search
@@ -30,7 +31,8 @@
           = link_to subtitle.firstcap, taxon_link
   %th.predicate{ id: header_id }
     - if first_of_type
-      = display_uri(data_point_uri.predicate_uri, :span, class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil), define: true)
+      = display_uri(data_point_uri.predicate_uri, :span, class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil), define: true,
+        capitalize: true)
     - elsif exemplar || excluded
       %span{ class: exemplar ? 'exemplar' : (excluded ? 'excluded' : nil) }
   %td.val{ headers: header_id }
@@ -38,14 +40,16 @@
       - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
       = link_to(image_tag(arrow_file_name, alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(data_point_uri.taxon_concept, :data_point_uri_id => data_point_uri.id, :anchor => data_point_uri.anchor))
     = raw display_text_for_data_point_uri(data_point_uri)
+  %td.source
+    %span.source= data_point_uri.source.name
+  %td.comment
     %span.comments
       - if comments.empty?
         &nbsp;
       - else
         = image_tag('comment_indicator.png')
-    %span.source= data_point_uri.source.name
 %tr{ class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
-  %td{ colspan: (for_search ? 3 : 2) }
+  %td{ colspan: colspan }
     - if row_is_selected
       = render partial: 'data_point_uris/metadata', locals: { data_point_uri: data_point_uri }
     .actions

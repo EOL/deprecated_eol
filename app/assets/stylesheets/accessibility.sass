@@ -1530,8 +1530,6 @@ ul.tabs
         th.predicate
           .info_icon
             float: right
-          span
-            float: right
         span.excluded
           padding-left: 10px
           background: url(image-path("v2/icon_excluded.png")) 0px 3px no-repeat
@@ -1544,9 +1542,13 @@ ul.tabs
           font-size: 1.3em
           color: $nearly_black
           vertical-align: top
+          &.source
+            width: 12em
+          &.comment
+            width: 1em
           span.source
-            text-align: right
-            float: right
+            padding: 0px
+            float: left
             width: 12em
             font-size: 0.75em
             height: 1.5em
@@ -1584,14 +1586,14 @@ ul.tabs
             margin: 3px 0
             padding: 5px 7px
             line-height: 1.6em
+            word-break: break-word
         form#new_comment
           fieldset
             margin: 0 10px
             input[type="text"]
-              +input(75%)
+              +input(79%)
             input[type="submit"]
               +button
-              float: right
               font-weight: normal
     tr.data:hover
       cursor: pointer
@@ -1616,12 +1618,12 @@ ul.tabs
       display: inline-block
       a.button
         font-weight: normal
-        margin-top: 3px
+        margin-top: 10px
         margin-right: 6px
         float: right
     div.metadata
       th, td
-        font-size: 0.9em
+        font-size: 1em
         font-weight: normal
         line-height: 1.2em
     div.metadata:hover
@@ -1669,7 +1671,7 @@ ul.tabs
     padding: 0px 0px 15px
     td
       padding: 0px 5px !important
-      width: 65%
+      width: 60%
     th
       padding: 0px !important
     caption
@@ -1739,22 +1741,53 @@ span.info
 #content
   .empty
     clear: both
+.glossary
+  h3
+    font-size: 1.6em
+    font-weight: normal
+    text-align: center
+  .chapter_marker
+    overflow: hidden
+    border-bottom: 1px solid $darker_blue
+    margin-bottom: 10px
+    h3
+      color: $darker_blue
+      float: left
+      margin-left: 10px
+      padding: 20px 0px 0px
+      font-size: 3em
+  span.top
+    float: right
+    font-size: .9em
+    a
+      color: $darker_gray
+      text-decoration: none
+    a:hover
+      text-decoration: underline
+  li
+    margin-bottom: 16px
+.glossary li+li
+  border-top: 1px dotted $light_blue
+  padding-top: 8px
 .glossary li, .info.tip
   dt
     color: $darker_blue
     font-weight: normal
-    font-size: 1.2em
-    margin: 1em 0
+    font-size: 1.4em
     a
       padding-left: 1em
       font-size: 0.8em
     small
-      font-size: 0.8em
+      font-size: 0.7em
       display: block
-      color: $grayblue
+      color: $darker_gray
   dd
-    margin: 1em
-
+    margin-top: 5px
+    font-size: 1.2em
+.term
+  .hint
+    font-size: 0.8em
+    line-height: 0.3em
 // Since the data search is full-width, the normal search needed this:
 .filtered_search
   width: 700px

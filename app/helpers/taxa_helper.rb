@@ -165,11 +165,13 @@ module TaxaHelper
       end
       label = uri_components[:label].to_s
       if label.is_numeric?
-        # numeric values can be rounded off to 3 decimal places
-        label = label.to_f.round(3) if label.is_float?
+        # float values can be rounded off to 2 decimal places
+        label = label.to_f.round(2) if label.is_float?
+        label = number_with_delimiter(label, :delimiter => ',')
       else
         # other values may have links embedded in them (references, citations, etc.)
         label = label.add_missing_hyperlinks
+        label = label.firstcap if options[:capitalize]
       end
       haml_tag "#{tag_type}.term", raw(label), 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil
     end

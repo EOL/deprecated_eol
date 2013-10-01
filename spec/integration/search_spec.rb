@@ -117,11 +117,11 @@ describe 'Search' do
   it 'should sort by newest and oldest' do
     visit("/search?q=#{@name_for_all_types}&sort_by=newest")
     newest_results = []
-    page.find(:xpath, "//div[@id='main']").all(:xpath, './/li').each{ |li| newest_results << li.text }
+    page.find(:xpath, "//div[@id='main']").all(:xpath, './/li').each{ |li| newest_results << li.text unless li.text.include?('Search scientific data on EOL') }
 
     visit("/search?q=#{@name_for_all_types}&sort_by=oldest")
     oldest_results = []
-    page.find(:xpath, "//div[@id='main']").all(:xpath, './/li').each{ |li| oldest_results << li.text }
+    page.find(:xpath, "//div[@id='main']").all(:xpath, './/li').each{ |li| oldest_results << li.text unless li.text.include?('Search scientific data on EOL') }
 
     newest_results.length.should == 8
     newest_results.length.should == oldest_results.length

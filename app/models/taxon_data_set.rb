@@ -32,11 +32,10 @@ class TaxonDataSet
   def sort
     last = KnownUri.count + 2
     @data_point_uris.sort_by! do |data_point_uri|
-      attribute_label = EOL::Sparql.uri_components(data_point_uri.predicate)[:label]
+      attribute_label = EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
       attribute_pos = data_point_uri.predicate_known_uri ? data_point_uri.predicate_known_uri.position : last
-      value_label = EOL::Sparql.uri_components(data_point_uri.object)[:label]
       attribute_label = safe_downcase(attribute_label)
-      value_label = safe_downcase(value_label)
+      value_label = safe_downcase(data_point_uri.value_string(@language))
       [ attribute_pos, attribute_label, value_label ]
     end
   end

@@ -1,0 +1,13 @@
+- known_uri ||= nil
+- show_top_link = false unless show_top_link == true
+%li{ id: known_uri.anchor }
+  %dt
+    = known_uri.name.firstcap
+    - if KnownUri.all_measurement_type_uris.include?(known_uri.uri)
+      = link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: known_uri.uri, sort: 'desc')
+    %small= known_uri.uri
+  - unless known_uri.definition.blank?
+    %dd
+      = raw known_uri.definition.add_missing_hyperlinks
+  - if show_top_link
+    %span.top= link_to("top", '#')

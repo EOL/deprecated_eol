@@ -138,7 +138,15 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def unit_of_measure_uri
-    unit_of_measure_known_uri || unit_of_measure
+    return unit_of_measure_known_uri if unit_of_measure_known_uri
+    return unit_of_measure if unit_of_measure
+    if implied_unit = implied_unit_of_measure_known_uri
+      implied_unit.uri
+    end
+  end
+
+  def implied_unit_of_measure_known_uri
+    predicate_known_uri.implied_unit_of_measure if predicate_known_uri
   end
 
   def measurement?
@@ -284,39 +292,41 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def convert_units
-    if self.unit_of_measure_known_uri && (self.object.is_a?(Float) || self.object.is_numeric?)
+    if (self.object.is_a?(Float) || self.object.to_s.is_numeric?)
       original_value = self.object
-      self.object = self.object.to_f
-      unit = self.unit_of_measure_known_uri
-      if self.unit_of_measure_known_uri.name(:en) == 'milligrams' && (self.object / 1000.0) >= 1.0
-        self.object = self.object / 1000.0
-        self.unit_of_measure = KnownUri.grams.uri
-        self.unit_of_measure_known_uri = KnownUri.grams
-      end
-      if self.unit_of_measure_known_uri.name(:en) == 'grams' && (self.object / 1000.0) >= 1.0
-        self.object = self.object / 1000.0
-        self.unit_of_measure = KnownUri.kilograms.uri
-        self.unit_of_measure_known_uri = KnownUri.kilograms
-      end
-      if self.unit_of_measure_known_uri.name(:en) == 'millimeters' && (self.object / 10.0) >= 1.0
-        self.object = self.object / 10.0
-        self.unit_of_measure = KnownUri.centimeters.uri
-        self.unit_of_measure_known_uri = KnownUri.centimeters
-      end
-      if self.unit_of_measure_known_uri.name(:en) == 'centimeters' && (self.object / 100.0) >= 1.0
-        self.object = self.object / 100.0
-        self.unit_of_measure = KnownUri.meters.uri
-        self.unit_of_measure_known_uri = KnownUri.meters
-      end
-      if self.unit_of_measure_known_uri.name(:en) == 'kelvin'
-        self.object = self.object - 273.15
-        self.unit_of_measure = KnownUri.celsius.uri
-        self.unit_of_measure_known_uri = KnownUri.celsius
-      end
-      if ! original_value.is_float?
-        self.object = self.object.to_i
+      while apply_unit_conversion
+        # wait while there are no more conversions performed
       end
     end
+  end
+
+  def apply_unit_conversion
+    conversions = [
+      { starting_unit: :milligrams, ending_unit: :grams, function: lambda { |v| v / 1000 }, required_minimum: 1.0 },
+      { starting_unit: :grams, ending_unit: :kilograms, function: lambda { |v| v / 1000 }, required_minimum: 1.0 },
+      { starting_unit: :millimeters, ending_unit: :centimeters, function: lambda { |v| v / 10 }, required_minimum: 1.0 },
+      { starting_unit: :centimeters, ending_unit: :meters, function: lambda { |v| v / 100 }, required_minimum: 1.0 },
+      { starting_unit: :kelvin, ending_unit: :celsius, function: lambda { |v| v - 273.15 } },
+      { starting_unit: :days, ending_unit: :years, function: lambda { |v| v / 365 }, required_minimum: 1.0 }
+    ]
+    # we can use either the unit in the medata, or the one implied by the predicate
+    if self.unit_of_measure_known_uri
+      unit_known_uri = self.unit_of_measure_known_uri
+    elsif implied_unit_of_measure_known_uri
+      unit_known_uri = implied_unit_of_measure_known_uri
+    else
+      # if we have no unit then there is no conversion to be done
+      return false
+    end
+    conversions.select{ |c| c[:starting_unit].to_s == unit_known_uri.name(:en) }.each do |c|
+      potential_new_value = c[:function].call(self.object.to_f)
+      next if c[:required_minimum] && potential_new_value < c[:required_minimum]
+      self.object = potential_new_value
+      self.unit_of_measure = KnownUri.send(c[:ending_unit]).uri
+      self.unit_of_measure_known_uri = KnownUri.send(c[:ending_unit])
+      return true
+    end
+    false
   end
 
   # TODO - passing in the language is indicative of a problem. That should be handled by the view.
@@ -369,8 +379,8 @@ class DataPointUri < ActiveRecord::Base
     else
       val = EOL::Sparql.uri_components(object_uri)[:label].to_s # TODO - see if we need that #to_s; seems redundant.
       if val.is_numeric?
-        # numeric values can be rounded off to 3 decimal places
-        val = val.to_f.round(3) if val.is_float?
+        # float values can be rounded off to 2 decimal places
+        val = val.to_f.round(2) if val.is_float?
       else
         # other values may have links embedded in them (references, citations, etc.)
         val.add_missing_hyperlinks

@@ -420,6 +420,7 @@ br:
           user_merged_to_it: <strong>%{user}</strong> en deus mesket ur bajenn all gant homañ.
           user_merged_to_taxon: <strong>%{user}</strong> en deus mesket ur bajenn all gant %{target}.
       merge: 
+        an_unknown_user_merged_unknown_entry_to_it: Un implijer dianav en deus ouzhpennet ur rummatadur dianav.
         user_merged_unknown_entry_to_it: <strong>%{user}</strong> en deus ouzhpennet ur rummatadur dianav.
       reasons_to_hide: "Abegoù evit kuzhat : %{reasons}"
       reasons_to_untrust: "Abegoù da zisfiziañ : %{reasons}"
@@ -511,6 +512,7 @@ br:
   admin_translated_news_item_active: Embannet
   admin_translated_news_item_create_successful_notice: Ouzhpennet ez eus bet un droidigezh da <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: Ho tigarez, c'hoarvezet ez eus ur fazi ha n'eus ket bet gallet ouzhpennañ an droidigezh.
+  admin_translated_news_item_new_header: Dibabit ur yezh hag ouzhpennit an endalc'h
   admin_translated_news_item_new_link: Ouzhpennañ un droidigezh
   admin_translated_news_item_new_subheader: Ouzhpennañ un droidigezh da <em>%{page_name}</em>
   admin_translated_news_item_new_tip: Ar yezh, an titl hag ar c'horf zo %{required_icon}&nbsp;rekis.
@@ -692,6 +694,7 @@ br:
   collection_created_notice: Krouet da vat eo bet an dastumad  <em>%{collection_name}</em
   collection_delete_link: Lemel da vat eus an dastumad-mañ
   collection_destroyed: Lamet eo bet an dastumad-mañ.
+  collection_error_no_items_selected: "Fazi : n'eus bet diuzet elfenn ebet, n'eus ket bet graet netra."
   collection_image: Skeudenn an dastumad
   collection_is_empty: Goullo eo an dastumad-mañ bremañ
   collection_item_edit_page_title: Kemmañ an elfenn en dastumad <em>%{collection_name}</em>
@@ -1299,7 +1302,9 @@ br:
     posts: 
       close_window: serriñ
       create: Ober ur gemenadenn nevez
+      create_failed: Digarezit, ur fazi zo bet, n'eus ket bet gallet ouzhpennañ ar gemennadenn.
       create_successful: Krouet eo bet ar gemennadenn
+      delete_failed_topic_not_empty: N'eus ket bet gallet dilemel ar gemennadenn rak n'eo ket goullo an neudennad
       delete_successful: Dilmaet eo bet ar gemennadenn
       deleted_subject: (dilamet)
       edit: Aozañ ar gemennadenn
@@ -1316,7 +1321,9 @@ br:
     replies: Respontoù
     topics: 
       create: Sevel ur gaoz nevez
+      create_failed: Digarezit, ur fazi zo bet, n'eus ket bet gallet ouzhpennañ an neudennad.
       create_successful: Krouet eo bet an neudennad
+      delete_failed_not_empty: N'eus ket bet gallet dilemel an neudennad rak n'eo ket goullo
       delete_successful: Dilamet eo bet an neudennad
       no_posts: N'eus kemennadenn ebet en neudennad-mañ
     topics_heading: Neudennadoù
@@ -1868,6 +1875,8 @@ br:
     signature_basic: Skipailh Hollouezhiadur ar vuhez
     signature_with_contact_us_link: "M'ho pez diaesterioù, deuit e darempred ganimp en %{url}.\n\nSkipailh Kelc'hgeriadur ar Vuhez"
     signature_with_species_pages_group_contact: "M'ho peus goulennoù e c'hallit dont e darempred ganeomp er chomlec'h-mañ :  %{species_pages_group_email}.\n\nSkipailh Kelc'hgeriadur ar Vuhez"
+    unsubscribed_to_notifications: 
+      subject: Glac'haret omp ouzh ho kwelet o vont kuit...
     user_activated: 
       subject: Gweredekaet eo bet ho kont Kelc'hgeriadur ar Vuhez
     user_activated_with_open_authentication: 
@@ -2118,7 +2127,7 @@ br:
           meta_keywords: "↓\nKumuniezh %{scientific_name}, %{hierarchy_provider}"
           meta_title: An dud dedennet gant %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
           meta_title_with_common_name: Tud dedennet gant %{preferred_common_name} (%{scientific_name}evel ma vezont rummet gant %{hierarchy_provider}
-          tweet_text: Tud dedennet gant %{preferred_common_name} %{preferred_common_name}evel ma vezont rummet gant %{hierarchy_provider}
+          tweet_text: Tud dedennet gant %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
         meta_description: Dedennet gant %{scientific_name}?En em gavit gant prizachourien %{scientific_name} ha rannit hoc'h evezhiadennoù deoc'h war %{scientific_name} e Kelc'hgeriadur ar Vuhez.
         meta_description_with_common_name: Dedennet gant %{scientific_name}? En em gavit gant prizachourien %{scientific_name} ha rannit hoc'h evezhiadennoù deoc'h war %{preferred_common_name} e Kelc'hgeriadur ar Vuhez.
         meta_keywords: Kumuniezh %{scientific_name}
@@ -2343,6 +2352,7 @@ br:
         not_authorized_to_add_authentication: Digarezit,n n'omp ket aotreet da gevreañ ar gont-se.
         not_authorized_to_login: Digarezit, n'omp ket aotreet d'ho kevreañ ouzh KAV gant ar gont-se.
         twitter: 
+          new_authentication_not_added: Digarezit, ur fazi a zo bet, n'omp ket bet evit kevreañ ouzh ho kont Twitter.
           not_authorized_to_add_authentication: Ho tigarezit, n'hon eus ket an aotre da gevreañ ouzh ho kont Twitter.
           not_authorized_to_login: Digarezit, n'omp ket aotreet d'ho kevreañ ouzh KAV oc'h implijout ho kont Twitter.
           not_authorized_to_signup: Digarezit, n'omp ket aotreet d'ho kevreañ ouzh KAV oc'h implijout ho kont Twitter.
@@ -2360,6 +2370,8 @@ br:
           new_authentication_added: Dilesadur Google zo bet ouzhpennet d'ho kont.
       twitter: Twitter
       yahoo: Yahoo!
+    pending: 
+      header: Trugarez deoc'h evit en em enskrivañ !
     recover_account: 
       errors: 
         unable_to_update_token: Digarezit, ur fazi zo bet ha n'eo ket bet kaset ar postel. Esaeit en-dro, mar plij.

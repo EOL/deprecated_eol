@@ -13,6 +13,7 @@
 # Author: Lunacy1911
 # Author: Lvova
 # Author: Nemo bis
+# Author: Okras
 # Author: Orsa
 # Author: Sprinter
 # Author: Александр Сигачёв
@@ -77,11 +78,14 @@ ru:
         email_reports_frequency_hours: Частота отчетов по электронной почте
       data_object: 
         bibliographic_citation: Библиографическая ссылка
-        description: Описание
+        description: Текст
         object_title: Заголовок
         rights_holder: Правообладатель
         rights_statement: Заявление о правах
         source_url: Исходный адрес
+      data_object_link: 
+        description: Описание
+        source_url: URL ссылки
       eol_statistic: 
         active_curators: Активные кураторы
         base_pages: Основные страницы
@@ -349,7 +353,7 @@ ru:
   admin_content_page_child_new_link: Создать дочернюю страницу
   admin_content_page_create_successful_notice: Страница <a href="#%{anchor}"><em>%{page_name}</em></a> успешно создана.
   admin_content_page_create_unsuccessful_error: Извините, произошла ошибка, страница не была создана.
-  admin_content_page_delete_confirmation: Вы уверены, что хотите удалить «%{page_name}» и все переводы. Удаление не может быть отменено.
+  admin_content_page_delete_confirmation: Вы уверены, что хотите удалить «%{page_name}» и все переводы? Удалённые страницы не смогут быть восстановлены.
   admin_content_page_delete_successful_notice: Страница %{page_name} и связанные с ней переводы были удалены.
   admin_content_page_edit_header: Обновить информацию о странице <em>%{page_name}</em>
   admin_content_page_edit_tip: Рекомендуется не редактировать уникальное имя этой страницы, если вы полностью осведомлены о последствиях, включая их влияние на ссылки на этой странице, или на маршруты имени. Уникальное имя %{required_icon} обязательно.
@@ -391,7 +395,7 @@ ru:
   admin_statistics_link: Статистика
   admin_translated_content_page_create_successful_notice: Был добавлен перевод для <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Извините, произошла ошибка, перевод не может быть добавлен.
-  admin_translated_content_page_delete_confirmation: "Вы уверены, что вы хотите удалить версию \"%{page_name}\" на следующем языке: %{language}. Это действие нельзя отменить."
+  admin_translated_content_page_delete_confirmation: "Вы уверены, что вы хотите удалить версию \"%{page_name}\" на следующем языке: %{language}? Удалённые страницы нельзя будет восстановить."
   admin_translated_content_page_delete_successful_notice: "%{language} перевод страницы<em>%{page_name}</em> был удален."
   admin_translated_content_page_edit_subheader: Изменить %{language} перевод для <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Заголовок и текст %{required_icon} обязателен.
@@ -1444,14 +1448,27 @@ ru:
   supplier: Поставщик
   taxa: 
     communities: 
+      curators: 
+        meta_title: Кураторы %{scientific_name}
+        meta_title_with_common_name: Эксперты по %{preferred_common_name} (%{scientific_name})
+        tweet_text: Кураторы %{scientific_name}
       index: 
         hierarchy_entry: 
           meta_keywords: "%{scientific_name} сообщество, %{hierarchy_provider}"
           meta_title: Люди, интересующиеся %{scientific_name} отсортированные по %{hierarchy_provider}
         meta_description: Заинтересованы в %{scientific_name}? Присоединяйтесь к экспертам %{scientific_name} и делитесь собственными наблюдениями относительно %{scientific_name} в Энциклопедии Жизни.
         meta_keywords: сообщество %{scientific_name}
-  taxon_education_header: Образование
-  taxon_education_link: Образование
+    details: 
+      index: 
+        meta_description: Факты о %{scientific_name} в Энциклопедии жизни
+        meta_title: Факты о %{scientific_name}
+        meta_title_with_common_name: Факты о %{preferred_common_name} (%{scientific_name})
+        tweet_text: Факты о %{scientific_name}
+    literature: 
+      show: 
+        meta_title: Статьи и книги о %{scientific_name}
+  taxon_education_header: Образовательные ресурсы
+  taxon_education_link: Образовательные ресурсы
   taxon_page_content_disclaimer_header: Отказ от ответственности
   terms_agreement_form_submit: Я согласен
   text_capital: Текст

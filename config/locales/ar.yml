@@ -17,6 +17,7 @@
 # Author: Shirayuki
 # Author: أحمد
 # Author: ترجمان05
+# Author: زكريا
 ar: 
   0_1_or_2: 0، 1 أو 2
   0_or_1: 0، أو 1
@@ -1728,7 +1729,7 @@ ar:
   dato_edit_cancel: إلغاء
   dato_edit_link_button: تعديل الرابط
   dato_edit_link_description: شكرًا لمشاركة خبراتك مع موسوعة الحياة. سوف يتم إضافة الرابط المراجع إلى قائمة المراقبة الخاصة بك لتتمكن من متايعة أي محادثات ذات صلة والتحقق من حالة الإشراف.
-  dato_edit_link_title: تعديل الرابط
+  dato_edit_link_title: عدل الوصلة
   dato_edit_text_button: تعديل المقال
   dato_edit_text_page_description: نشكرك على المساهمة في  موسوعة الحياة. ستضاف مساهمتك فى قائمة المشاهدة الخاصة بك حتى تتمكن من متابعة أي مداخلات متعلقة بها ووضعها من حيث اﻹشراف.
   dato_edit_text_title: تعديل المقالة

@@ -125,10 +125,6 @@ class TaxonConcept < ActiveRecord::Base
       { :taxon_concept_exemplar_image => { :data_object =>
         { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted, :visibility ] } } } ]
     TaxonConcept.preload_associations(taxon_concepts, includes)
-    preferred_entries = taxon_concepts.collect{ |tc| tc.preferred_entry ? tc.preferred_entry.hierarchy_entry : nil }.compact
-    # loading these separately to get fewer fields for Entries (there will be lots more rows here)
-    HierarchyEntry.preload_associations(preferred_entries, { :flattened_ancestors => :ancestor },
-      :select => { :hierarchy_entries => [ :id, :name_id, :rank_id, :lft, :rgt ] } )
     if options[:language_id]
       # loading the names for the preferred common names in the user's language
       TaxonConceptName.preload_associations(taxon_concepts.collect{ |tc|
@@ -575,7 +571,7 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def maps_count()
+  def maps_count
     # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
     # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be 
     # TaxonConceptCache, where we can handle both storing and clearing keys. That centralizes the logic,

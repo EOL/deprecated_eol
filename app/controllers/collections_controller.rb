@@ -259,8 +259,8 @@ private
   def build_collection_items
     @per_page = @view_as.max_items_per_page || 50
     @collection_results = @filter == 'editors' ?  [] :
-      @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page,
-        :view_style => @view_as, :user => current_user, :language_id => current_language.id)
+      @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by,
+        :per_page => @per_page,:view_style => @view_as, :language_id => current_language.id)
     @collection_items = @collection_results.map { |i| i['instance'] }
     if params[:commit_select_all]
       @selected_collection_items = @collection_items.map { |ci| ci.id.to_s }
@@ -683,6 +683,7 @@ private
       if !(r['sort_field'].blank? && r['instance'].sort_field.blank?) && r['sort_field'] != r['instance'].sort_field
         collection_item_ids_to_reindex << r['instance'].id
       elsif r['object_type'] == 'TaxonConcept'
+        # this is the same way we get names when indexing collection items, so be consistent
         title = r['instance'].collected_item.entry.name.string
         if title && r['title'] != title
           collection_item_ids_to_reindex << r['instance'].id

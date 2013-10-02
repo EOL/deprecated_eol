@@ -586,6 +586,10 @@ class DataObject < ActiveRecord::Base
     this_language_id == comparison_language_id
   end
 
+  def published_in_language?(comparison_language_id)
+    published? && in_language?(comparison_language_id)
+  end
+
   def latest_version_in_same_language(params = {})
     latest_version_in_language(language_id, params)
   end
@@ -596,7 +600,7 @@ class DataObject < ActiveRecord::Base
     chosen_language_id = Language.english.id unless chosen_language_id && chosen_language_id != 0
     params[:check_only_published] = true unless params.has_key?(:check_only_published)
     if params[:check_only_published]
-      return self if published? && in_language?(chosen_language_id)
+      return self if published_in_language?(chosen_language_id)
       # sometimes all_published_versions, but if not I anted to set a default set of select fields. Rails AREL
       # will attempt to load the versions again if the select fields are not the same as already
       # loaded in all_published_versions. This is verbose, but its potentially saving loading all descriptions from all
@@ -953,15 +957,18 @@ class DataObject < ActiveRecord::Base
       :thumbnail_cache_url, :created_at ]
     DataObject.preload_associations(data_objects, :language)
     if options[:check_only_published]
-      # TODO: problem with reference - data_objects not getting updated
-      objects_for_preloading = data_objects.compact.select{ |d| ! (d.published? && d.in_language?(options[:language_id]))}
+      # if we only want latest versions of published objects, then we should check to see if we
+      # have them already, and only preload the objects which are not already the latest versions in the language
+      objects_for_preloading = data_objects.compact.select{ |d| ! d.published_in_language?(options[:language_id])}
     else
       objects_for_preloading = data_objects
     end
     DataObject.preload_associations(objects_for_preloading, :all_published_versions,
       :select => {
         :data_objects => default_selects | options[:select] } )
-    DataObject.replace_with_latest_versions_no_preload(objects_for_preloading, options)
+    # sending data_objects and not objects_for_preloading as data_objects is the array which contains the instances
+    # that need the latest versions
+    DataObject.replace_with_latest_versions_no_preload(data_objects, options)
   end
 
   def self.replace_with_latest_versions_no_preload(data_objects, options = {})
@@ -1187,11 +1194,15 @@ private
     @curated_hierarchy_entries = []
     if latest_revision
       @curated_hierarchy_entries += latest_revision.data_objects_hierarchy_entries.compact.map do |dohe|
+        # this saves having to query for the data object later. I thought Rails would take
+        # care of this, but they it doesn't look like it does
         dohe.data_object = self
         DataObjectTaxon.new(dohe)
       end
     end
     @curated_hierarchy_entries += all_curated_data_objects_hierarchy_entries.compact.map do |cdohe|
+      # this saves having to query for the data object later. I thought Rails would take
+      # care of this, but they it doesn't look like it does
       cdohe.data_object = self
       DataObjectTaxon.new(cdohe)
     end

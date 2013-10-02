@@ -358,14 +358,6 @@ describe "Collections" do
       body.should have_tag("ul.object_list li a[href='#{data_object_path(newer_version_collected_data_object)}']")
       body.should_not have_tag("ul.object_list li a[href='#{data_object_path(collectable_data_object)}']")
 
-      # the original image is published again, but this time we still see the newest version as we
-      # always show the latest version of an object. This is a rare case where there are two published versions
-      # of the same object, which technically shouldn't happen in production
-      collectable_data_object.update_column(:published, 1)
-      visit collection_path(@anon_user.watch_collection)
-      body.should have_tag("ul.object_list li a[href='#{data_object_path(newer_version_collected_data_object)}']")
-      body.should_not have_tag("ul.object_list li a[href='#{data_object_path(collectable_data_object)}']")
-
       # finally, with each version published, we should not be able to add the latest version into our collection
       # as the collection already contains a version of this objects
       visit data_object_path(newer_version_collected_data_object)
@@ -379,7 +371,6 @@ describe "Collections" do
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
       body.should_not have_tag("li a", :text => I18n.t(:in_collection))
-
 
       newer_version_collected_data_object.destroy
       $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value

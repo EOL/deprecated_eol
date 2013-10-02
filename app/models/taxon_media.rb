@@ -66,13 +66,12 @@ class TaxonMedia < TaxonUserClassificationFilter
       :data_type_ids    => data_type_ids,
       :vetted_types     => @search_statuses,
       :visibility_types => @visibility_statuses,
-      :skip_preload     => true,
-      # TODO - Juuuuuuuust out of curiosity... why do we set this if skip_preload is true?!  Find out and explain.  Or remove.
-      :preload_select   => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
-                                                :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
+      :preload_select   => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
+                                              :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
+                                              :published ] }
     )
     repair_bad_counts(@media.total_entries) # Doing this before preload in the off chance that that method alters counts.
-    preload_media
+    preload_media_details
     correct_bogus_exemplar_image
   end
 
@@ -112,29 +111,13 @@ class TaxonMedia < TaxonUserClassificationFilter
     @data_type_ids
   end
 
-  def preload_media
+  def preload_media_details
     # There should not be an older revision of exemplar image on the media tab. But recently there were few cases
     # found. Replace older revision of the exemplar image from media with the latest published revision.
     if image # If there's no exemplar image, don't bother...
       @media.map! { |m| (m.guid == image.guid && m.id != image.id) ? image : m }
     end
-    DataObject.replace_with_latest_versions!(@media, :language_id => user.language_id)
-    includes = [ {
-      :data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
-      }, :vetted, :visibility ]
-    } ]
-    includes << {
-      :all_curated_data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
-      }, :vetted, :visibility, :user ]
-    }
-    DataObject.preload_associations(@media, includes)
-    DataObject.preload_associations(@media, :users_data_object)
-    DataObject.preload_associations(@media, :language)
-    DataObject.preload_associations(@media, :mime_type)
-    DataObject.preload_associations(@media, :translations,
-                                    :conditions => "data_object_translations.language_id = #{user.language_id}")
+    TaxonUserClassificationFilter.preload_details(@media, user)
   end
 
   # Used to get ratings... which is a little lame.  :|

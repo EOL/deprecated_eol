@@ -98,6 +98,7 @@ class TaxonUserClassificationFilter
   # NOTE - these are only *browsable* hierarchies!
   def hierarchy_entries
     return @hierarchy_entries if @hierarchy_entries
+    TaxonConcept.preload_associations(taxon_concept, { :published_hierarchy_entries => :hierarchy })
     @hierarchy_entries = taxon_concept.published_browsable_hierarchy_entries
     @hierarchy_entries = [_hierarchy_entry] if _hierarchy_entry && @hierarchy_entries.empty?
     HierarchyEntry.preload_associations(
@@ -151,12 +152,19 @@ class TaxonUserClassificationFilter
   def common_names(options = {})
     return @common_names if @common_names
     if _hierarchy_entry
-      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(hierarchy_entry.id, options)
+      @common_names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(hierarchy_entry.id, options)
     else
-      names = EOL::CommonNameDisplay.find_by_taxon_concept_id(taxon_concept.id, nil, options)
+      @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(taxon_concept.id, nil, options)
     end
-    @common_names = names.select {|name| name.known_language? }
-    @common_names
+  end
+
+  def common_names_count
+    return @common_name_count if @common_name_count
+    if _hierarchy_entry
+      @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(hierarchy_entry.id)
+    else
+      @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(taxon_concept.id, nil)
+    end
   end
 
   # TODO - This belongs in TaxonMedia or the like:
@@ -187,6 +195,32 @@ class TaxonUserClassificationFilter
 
   def text(options = {})
     taxon_concept.text_for_user(user, options)
+  end
+
+  # TODO - clearly this belongs in TaxonDetails...
+  # NOTE - this assumes you have already called #media with whatever options you care to use.
+  def self.preload_details(media, user = nil)
+    DataObject.replace_with_latest_versions!(media, language_id: user ? user.language_id : nil, check_only_published: true)
+    includes = [ {
+      :data_objects_hierarchy_entries => [ {
+        :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, { :taxon_concept => :flattened_ancestors } ]
+      }, :vetted, :visibility ]
+    } ]
+    includes << {
+      :all_curated_data_objects_hierarchy_entries => [ {
+        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
+      }, :vetted, :visibility, :user ]
+    }
+    DataObject.preload_associations(media, includes, :select => { :content_partners => [ :id, :user_id, :full_name, :display_name, :homepage,
+      :public ]})
+    DataObject.preload_associations(media, :users_data_object)
+    DataObject.preload_associations(media, :license)
+    DataObject.preload_associations(media, :language)
+    DataObject.preload_associations(media, :mime_type)
+    DataObject.preload_associations(media, :data_type)
+    DataObject.preload_associations(media, :translations,
+                                    :conditions => "data_object_translations.language_id = #{user.language_id}") if user
+    media
   end
 
 private

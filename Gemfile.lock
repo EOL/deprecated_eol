@@ -48,6 +48,8 @@ GEM
       activerecord (>= 3.0)
     acts_as_tree_rails3 (0.1.0)
     addressable (2.3.2)
+    ar_transaction_changes (0.0.1)
+      activerecord (>= 3.0.0)
     arel (3.0.2)
     biodiversity19 (1.1.3)
       parallel
@@ -129,6 +131,10 @@ GEM
       multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.1)
+    identity_cache (0.0.4)
+      activerecord (~> 3.2.12)
+      activesupport (~> 3.2.12)
+      ar_transaction_changes (= 0.0.1)
     indifferent-variable-hash (0.1.0)
     invert (0.1.0)
     journey (1.0.4)
@@ -330,6 +336,7 @@ DEPENDENCIES
   haml (= 3.1.7)
   haml-rails
   hipchat
+  identity_cache (= 0.0.4)
   indifferent-variable-hash (= 0.1.0)
   invert (= 0.1.0)
   jquery-rails (= 2.1.3)

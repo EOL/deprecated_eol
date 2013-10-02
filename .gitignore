@@ -39,6 +39,7 @@ config/environments/dev_cache_rails3.rb
 config/environments/test_dev.rb
 config/remi-deploy.rb
 config/resque.yml
+config/shards.yml
 config/systems/
 config/newrelic.yml
 config/shards.yml

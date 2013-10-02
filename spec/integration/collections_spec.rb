@@ -343,7 +343,8 @@ describe "Collections" do
       body.should have_tag("ul.object_list li a[href='#{data_object_path(collectable_data_object)}']")
 
       # the image will unpublished, but there are no newer versions, so it will still show up
-      collectable_data_object.update_column(:published, 0)
+      collectable_data_object.published = 0
+      collectable_data_object.save
       # TODO - legitimate failure. I'm guessing this is also due to Solr returning unexpected results...
       # ...in any case I'm going to take it out because I don't REALLY care if an unpublished dato ISN'T showing
       # up...
@@ -353,14 +354,6 @@ describe "Collections" do
       # the image is still unpublished, but there's a newer version. We should see the new version in the collection
       newer_version_collected_data_object = DataObject.gen(:guid => new_dato.guid,
         :object_title => "Latest published version", :published => true, :created_at => Time.now )
-      visit collection_path(@anon_user.watch_collection)
-      body.should have_tag("ul.object_list li a[href='#{data_object_path(newer_version_collected_data_object)}']")
-      body.should_not have_tag("ul.object_list li a[href='#{data_object_path(collectable_data_object)}']")
-
-      # the original image is published again, but this time we still see the newest version as we
-      # always show the latest version of an object. This is a rare case where there are two published versions
-      # of the same object, which technically shouldn't happen in production
-      collectable_data_object.update_column(:published, 1)
       visit collection_path(@anon_user.watch_collection)
       body.should have_tag("ul.object_list li a[href='#{data_object_path(newer_version_collected_data_object)}']")
       body.should_not have_tag("ul.object_list li a[href='#{data_object_path(collectable_data_object)}']")
@@ -378,7 +371,6 @@ describe "Collections" do
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
       body.should_not have_tag("li a", :text => I18n.t(:in_collection))
-
 
       newer_version_collected_data_object.destroy
       $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value

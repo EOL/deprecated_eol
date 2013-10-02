@@ -168,7 +168,7 @@ describe 'API:pages' do
     response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
     response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
 
-    images = @taxon_concept.images_from_solr(100, :skip_preload => false)
+    images = @taxon_concept.images_from_solr(100)
     # and they should still contain vetted and rating info
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
       inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept).label
@@ -237,7 +237,7 @@ describe 'API:pages' do
 
   it 'pages should show data object vetted status and rating by default' do
     response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}")
-    images = @taxon_concept.images_from_solr(100, :skip_preload => false)
+    images = @taxon_concept.images_from_solr(100)
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
       inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept).label
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').

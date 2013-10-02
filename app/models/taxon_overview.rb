@@ -135,20 +135,8 @@ private
 
   def after_initialize
     loadables = load_media.push(load_summary)
-    DataObject.replace_with_latest_versions_no_preload(loadables)
-    includes = [ {
-      :data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ]
-      }, :vetted, :visibility ]
-    } ]
-    includes << { :all_curated_data_objects_hierarchy_entries =>
-      [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
-    includes << :users_data_object
-    includes << :license
-    includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
-    DataObject.preload_associations(loadables, includes)
-    DataObject.preload_associations(loadables, :translations,
-                                    :conditions => "data_object_translations.language_id=#{user.language_id}")
+    TaxonUserClassificationFilter.preload_details(loadables, user)
+    DataObject.preload_associations(loadables, { :agents_data_objects => [ { :agent => :user }, :agent_role ] })
     @summary = loadables.pop
     @media = loadables
     correct_bogus_exemplar_image
@@ -187,7 +175,7 @@ private
   def promote_exemplar_image(data_objects)
     return data_objects unless taxon_concept.published_exemplar_image
     data_objects.delete_if { |d| d.guid == taxon_concept.published_exemplar_image.guid }
-    data_objects.unshift(taxon_concept.published_exemplar_image)
+    data_objects.unshift(DataObject.find(taxon_concept.published_exemplar_image))
     data_objects
   end
 

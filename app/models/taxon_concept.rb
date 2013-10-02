@@ -103,7 +103,6 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
     solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
     solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
-    solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
     
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
@@ -116,6 +115,21 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:user] ||= nil
     solr_query_parameters[:facet_by_resource] ||= false  # this will add a facet parameter to the solr query
     return solr_query_parameters
+  end
+
+  def self.preload_for_shared_summary(taxon_concepts, options)
+    includes = [
+      :preferred_common_names,
+      { :preferred_entry =>
+        { :hierarchy_entry => [ { :name => :ranked_canonical_form }, :hierarchy ] } },
+      { :taxon_concept_exemplar_image => { :data_object =>
+        { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted, :visibility ] } } } ]
+    TaxonConcept.preload_associations(taxon_concepts, includes)
+    if options[:language_id]
+      # loading the names for the preferred common names in the user's language
+      TaxonConceptName.preload_associations(taxon_concepts.collect{ |tc|
+        tc.preferred_common_names.detect { |c| c.language_id == options[:language_id] } }.compact, :name)
+    end
   end
 
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
@@ -553,8 +567,8 @@ class TaxonConcept < ActiveRecord::Base
   def media_count(user, selected_hierarchy_entry = nil)
     @media_count ||= update_media_count(user: user, entry: selected_hierarchy_entry)
   end
-  
-  def maps_count()
+
+  def maps_count
     # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
     # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be 
     # TaxonConceptCache, where we can handle both storing and clearing keys. That centralizes the logic,
@@ -575,7 +589,6 @@ class TaxonConcept < ActiveRecord::Base
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => ['visible'],
       :ignore_translations => true,
-      :skip_preload => true
     )
   end
 
@@ -608,6 +621,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
+    return @exemplar_or_best_image_from_solr if @exemplar_or_best_image_from_solr
     cache_key = "best_image_id_#{self.id}"
     if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
       cache_key += "_#{selected_hierarchy_entry.id}"
@@ -624,7 +638,6 @@ class TaxonConcept < ActiveRecord::Base
           :vetted_types => ['trusted', 'unreviewed'],
           :visibility_types => ['visible'],
           :published => true,
-          :skip_preload => true,
           :return_hierarchically_aggregated_objects => true
         })
         # if for some reason we get back unpublished objects (Solr out of date), try to get the latest published versions
@@ -637,18 +650,18 @@ class TaxonConcept < ActiveRecord::Base
       end
     end
     return nil if best_image_id == 'none'
-    best_image = DataObject.find(best_image_id)
+    if @published_exemplar_image_calculated && @published_exemplar_image
+      best_image = @published_exemplar_image
+    else
+      best_image = DataObject.fetch(best_image_id)
+    end
     return nil unless best_image.published?
-    best_image
+    @exemplar_or_best_image_from_solr = best_image
   end
 
   # NOTE - If you call #images_from_solr with two different sets of options, you will get the same
   # results on the second as with the first, so you only get one shot!
   def images_from_solr(limit = 4, options = {})
-    unless options[:skip_preload] == false
-      options[:skip_preload] == true
-      options[:preload_select] == { :data_objects => [ :id, :guid, :language_id, :data_type_id ] }
-    end
     @images_from_solr ||= data_objects_from_solr({
       :per_page => limit,
       :sort_by => 'status',
@@ -656,9 +669,7 @@ class TaxonConcept < ActiveRecord::Base
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
       :ignore_translations => options[:ignore_translations] || false,
-      :return_hierarchically_aggregated_objects => true,
-      :skip_preload => options[:skip_preload],
-      :preload_select => options[:preload_select]
+      :return_hierarchically_aggregated_objects => true
     })
   end
 
@@ -857,16 +868,11 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def published_browsable_hierarchy_entries
-    hierarchy_entries.joins(:hierarchy).where('hierarchy_entries.published=1 AND hierarchies.browsable=1')
-  end
-  
-  def published_browsable_visible_hierarchy_entries
-    hierarchy_entries.joins(:hierarchy).
-      where("hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id} AND hierarchies.browsable=1")
+    published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
   end
   
   def count_of_viewable_synonyms
-    Synonym.where(:hierarchy_entry_id => published_browsable_visible_hierarchy_entries.collect(&:id)).where(
+    Synonym.where(:hierarchy_entry_id => published_browsable_hierarchy_entries.collect(&:id)).where(
       "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
   end
 

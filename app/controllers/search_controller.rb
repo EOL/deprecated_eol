@@ -47,7 +47,7 @@ class SearchController < ApplicationController
       @all_results = empty_paginated_set
       @facets = {}
     else
-      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page }))
+      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page, :language_id => current_language.id }))
       if $STATSD
         $STATSD.increment 'all_searches'
         # $STATSD.increment "searches.#{@querystring}"

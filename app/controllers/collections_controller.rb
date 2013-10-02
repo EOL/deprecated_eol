@@ -244,9 +244,9 @@ private
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def configure_sorting_and_filtering_and_facet_counts
     set_view_as_options
-    @view_as = ViewStyle.find(params[:view_as].blank? ? @collection.view_style_or_default : params[:view_as])
+    @view_as = params[:view_as].blank? ? @collection.view_style_or_default : ViewStyle.find(params[:view_as])
     set_sort_options
-    @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.sort_style_or_default : params[:sort_by])
+    @sort_by = params[:sort_by].blank? ? @collection.sort_style_or_default : SortStyle.find(params[:sort_by])
     @filter = params[:filter]
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
@@ -259,7 +259,8 @@ private
   def build_collection_items
     @per_page = @view_as.max_items_per_page || 50
     @collection_results = @filter == 'editors' ?  [] :
-      @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as)
+      @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by,
+        :per_page => @per_page,:view_style => @view_as, :language_id => current_language.id)
     @collection_items = @collection_results.map { |i| i['instance'] }
     if params[:commit_select_all]
       @selected_collection_items = @collection_items.map { |ci| ci.id.to_s }
@@ -682,7 +683,8 @@ private
       if !(r['sort_field'].blank? && r['instance'].sort_field.blank?) && r['sort_field'] != r['instance'].sort_field
         collection_item_ids_to_reindex << r['instance'].id
       elsif r['object_type'] == 'TaxonConcept'
-        title = r['instance'].collected_item.entry.title_canonical rescue nil
+        # this is the same way we get names when indexing collection items, so be consistent
+        title = r['instance'].collected_item.entry.name.string
         if title && r['title'] != title
           collection_item_ids_to_reindex << r['instance'].id
         elsif r['instance'].collected_item.taxon_concept_metric && r['richness_score'] != r['instance'].collected_item.taxon_concept_metric.richness_score

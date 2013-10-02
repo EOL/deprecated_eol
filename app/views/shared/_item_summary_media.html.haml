@@ -11,6 +11,6 @@
 - unless ['gallery','list'].include?(view_style)
   - if he = item.first_hierarchy_entry(:include_preview_entries => true)
     - secondary_title = he.title_canonical
-  - if item.data_object_taxa(published: true).length > 1
+  - if item.uncached_data_object_taxa(published: true).length > 1
     - secondary_title = [secondary_title, I18n.t(:other_taxa_with_count, :count => item.data_object_taxa(published: true).length - 1)].to_sentence
   = link_to I18n.t("#{en_type}_of_taxon", :taxon_name => secondary_title), data_object_path(item)

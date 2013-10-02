@@ -188,7 +188,6 @@ module EOL
           solr_search_params = {}
           solr_search_params[:sort_by] = 'status'
           solr_search_params[:visibility_types] = ['visible']
-          solr_search_params[:skip_preload] = true
           if options[:vetted] == 1  # 1 = trusted
             solr_search_params[:vetted_types] = ['trusted']
           elsif options[:vetted] == 2  # 2 = everything except untrusted

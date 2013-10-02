@@ -63,12 +63,11 @@ describe TaxonMedia do
       :data_type_ids    => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
       :vetted_types     => ['trusted', 'unreviewed'],
       :visibility_types => ['visible'],
-      :skip_preload     => true,
       # NOTE - as noted in the class itself, I don't understand why we need this with skip_preload true.
-      :preload_select   => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
-                                                :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
+      :preload_select   => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
+                                                :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
+                                                :published ] }
     ).ordered.and_return array
-    @taxon_concept.should_receive(:data_objects_from_solr).ordered.and_return([])
     build_media
     @media.paginated.should == array
   end

@@ -340,6 +340,11 @@ $(function() {
     }
   }).disableSelection();
 
+  $('#sortable a.to_top').click(function() {
+    $.post("/known_uris/sort", { to: 'top', moved_id: ui.item.attr('id') })
+    return(false);
+  });
+
   // Definitions of Attributes are dialogs if JS is enabled:
   $('table.data tr.first_of_type span.info, table.data.search tr span.info').each(function() {
     var nearest = $(this).closest('tr').attr('id'); // We need to remember which one is open; click again and it closes.

@@ -29,7 +29,7 @@ class DataSearchController < ApplicationController
       format.csv do
         # TODO - really, we shouldn't use pagination at all, here.
         @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-          sort: @sort, per_page: 30000) # TODO - if we KEEP pagination, make this value more sane (and put @page back in).
+          sort: @sort, per_page: 2000, :for_download => true) # TODO - if we KEEP pagination, make this value more sane (and put @page back in).
         # TODO - handle the case where results are empty.
         if @attribute_known_uri
           headers["Content-Disposition"] = "attachment; filename=\"#{@attribute_known_uri.name}.csv\"" 
@@ -44,6 +44,7 @@ class DataSearchController < ApplicationController
 
   def build_csv_from_results
     rows = []
+    DataPointUri.assign_bulk_metadata(@results, current_language)
     @results.each do |data_point_uri|
       rows << data_point_uri.to_hash(current_language)
     end

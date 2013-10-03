@@ -2,16 +2,16 @@
   - data_point_uri ||= @data_point_uri
   - metadata = data_point_uri.get_metadata(current_language)
   - references = data_point_uri.get_references(current_language)
-  - if metadata || references
+  - unless data_point_uri.metadata.empty? && references.empty?
     %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
       %caption.title= I18n.t(:data_about_this_record)
-      - if metadata
+      - unless metadata.empty?
         - metadata.each do |d|
           %tr
             = display_uri(d.predicate_uri, :th, define: true)
             %td= raw display_text_for_data_point_uri(d)
       -# TODO: we need to factor in refereces which use separate fields instead of full_reference
-      - if references
+      - unless references.empty?
         - references.each do |d|
           %tr
             %th= I18n.t(:reference)

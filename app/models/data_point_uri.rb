@@ -25,6 +25,8 @@ class DataPointUri < ActiveRecord::Base
   has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :primary_key => :uri, :source => :comments
   has_many :taxon_data_exemplars
 
+  attr_accessor :metadata
+
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
     # There are potentially hundreds or thousands of DataPointUri inserts happening here.
     # The transaction makes the inserts much faster - no committing after each insert
@@ -158,30 +160,36 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def get_metadata(language)
-    DataPointUri.get_metadata(uri, language)
+    DataPointUri.assign_metadata(self, language)
+    metadata
+  end
+
+  def self.assign_bulk_metadata(data_point_uris, language)
+    data_point_uris.each_slice(1000){ |d| assign_metadata(d, language) }
   end
 
   # NOTE - this was a sloppy attempt at getting multiple data_point_uris from a single query. It's probably silly.
-  def self.get_metadata(q, language)
-    uri_clause = q.is_a?(Array) ? "?uri" : "<#{q}>"
-    uri_filter = q.is_a?(Array) ? "&& ?uri IN (#{q.join(',')})" : ''
+  def self.assign_metadata(data_point_uris, language)
+    data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
+    uris_to_lookup = data_point_uris.select{ |d| d.metadata.nil? }.collect(&:uri)
+    return if uris_to_lookup.empty?
     query = "
-      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
+      SELECT DISTINCT ?parent_uri ?attribute ?value ?unit_of_measure_uri
       WHERE {
         GRAPH ?graph {
           {
-            #{uri_clause} ?attribute ?value .
+            ?parent_uri ?attribute ?value .
           } UNION {
-            #{uri_clause} dwc:occurrenceID ?occurrence .
+            ?parent_uri dwc:occurrenceID ?occurrence .
             ?occurrence ?attribute ?value .
           } UNION {
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
-            ?measurement <#{Rails.configuration.uri_parent_measurement_id}> #{uri_clause} .
+            ?measurement <#{Rails.configuration.uri_parent_measurement_id}> ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
           } UNION {
-            #{uri_clause} dwc:occurrenceID ?occurrence .
+            ?parent_uri dwc:occurrenceID ?occurrence .
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
@@ -191,12 +199,12 @@ class DataPointUri < ActiveRecord::Base
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
             ?measurement a <#{DataMeasurement::CLASS_URI}> .
-            ?measurement <#{Rails.configuration.uri_association_id}> #{uri_clause} .
+            ?measurement <#{Rails.configuration.uri_association_id}> ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
           } UNION {
-            #{uri_clause} dwc:occurrenceID ?occurrence .
+            ?parent_uri dwc:occurrenceID ?occurrence .
             ?occurrence dwc:eventID ?event .
             ?event ?attribute ?value .
           }
@@ -205,22 +213,26 @@ class DataPointUri < ActiveRecord::Base
                                      <#{Rails.configuration.uri_target_occurence}>, dwc:taxonID, dwc:eventID,
                                      <#{Rails.configuration.uri_association_type}>,
                                      dwc:measurementUnit, dwc:occurrenceID, <#{Rails.configuration.uri_measurement_of_taxon}>)
-                                     #{uri_filter}
-                  )
+                  ) .
+          FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
         }
       }"
-    cache_name = q.is_a?(Array) ? Digest::MD5.hexdigest(q.join('')) : q
+    cache_name = Digest::MD5.hexdigest(uris_to_lookup.join(''))
     metadata_rows = Rails.cache.fetch(DataPointUri.cached_name_for("metadata/#{cache_name}"), expires_in: 24.hours) do
       EOL::Sparql.connection.query(query)
     end
-    # not using TaxonDataSet here since we don't want to make real DataPointURI
-    # records in MySQL for all these metadata rows
     metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)
     KnownUri.add_to_data(metadata_rows)
-    return nil if metadata_rows.empty?
-    data_point_uris = metadata_rows.map{ |row| DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row)) }
-    data_point_uris.each{ |dp| dp.convert_units }
-    data_point_uris
+    # not using TaxonDataSet here since that would create DataPointURI entries in the database, and we really
+    # don't have any need for tons of metadata in MySQL, just primary measurements and associations
+    metadata_rows.each do |row|
+      data_point_uri = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row))
+      data_point_uri.convert_units
+      row[:data_point_uri] = data_point_uri
+    end
+    data_point_uris.each do |d|
+      d.metadata = metadata_rows.select{ |row| row[:parent_uri] == d.uri }.collect{ |row| row[:data_point_uri] }
+    end
   end
 
   def get_other_occurrence_measurements(language)
@@ -268,9 +280,7 @@ class DataPointUri < ActiveRecord::Base
           }
         }
       }"
-    reference_rows = EOL::Sparql.connection.query(query)
-    return nil if reference_rows.empty?
-    reference_rows
+    EOL::Sparql.connection.query(query)
   end
 
   def show(user)

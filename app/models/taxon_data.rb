@@ -9,12 +9,24 @@ class TaxonData < TaxonUserClassificationFilter
     options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
     total_results = EOL::Sparql.connection.query(prepare_search_query(options.merge(:only_count => true))).first[:count].to_i
     results = EOL::Sparql.connection.query(prepare_search_query(options))
-    taxon_data_set = TaxonDataSet.new(results)
-    DataPointUri.preload_associations(taxon_data_set.data_point_uris, :taxon_concept =>
+    if options[:for_download]
+      # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
+      # for each DataPointUri, which is very expensive when downloading lots of rows
+      data_point_uris = results.collect do |row|
+        data_point_uri = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row))
+        data_point_uri.convert_units
+        data_point_uri
+      end
+    else
+      taxon_data_set = TaxonDataSet.new(results)
+      data_point_uris = taxon_data_set.data_point_uris
+    end
+    DataPointUri.preload_associations(data_point_uris, { :taxon_concept =>
       [ { :preferred_common_names => :name },
-        { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
+        { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ],
+      :resource => :content_partner } )
     WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
-       pager.replace(taxon_data_set.data_point_uris)
+       pager.replace(data_point_uris)
     end
   end
 

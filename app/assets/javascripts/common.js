@@ -38,7 +38,11 @@ $(document).on('mouseover', '#social_sharing .facebook', function() {
 
 EOL.prep_flashes = function() {
   if($('#flashes')[0] == undefined) {
-    $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
+    var $where = $('#page_heading .hgroup');
+    if ($('#page_heading div.page_actions').length > 0) {
+      $where = $('#page_heading div.page_actions');
+    }
+    $where.after('<div id="flashes" style="clear: both; width: 100%;"></div>');
   }
 }
 
@@ -504,10 +508,6 @@ $(function() {
     });
   })($("#statistics"));
   
-  (function($flash_div) {
-    $flash_div.delay('5000').fadeOut('slow');
-  })($("#flash-bad, #flash-good"));
-
   $('input.clear_on_focus').each(function() { $(this).val($(this).attr('data-default')); });
   $('input.clear_on_focus').siblings().each(function() { $(this).on('click', function() {
     if ($(this).prop('checked')) {

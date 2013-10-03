@@ -123,22 +123,32 @@ class KnownUrisController < ApplicationController
 
   def sort
     last_position = nil
-    moved_known_uri = KnownUri.find(params['moved_id'].sub('known_uri_', ''))
-    position_in_results = params['known_uris'].index(params['moved_id'])
-    if position_in_results == params['known_uris'].length - 1
-      # the URI was moved to the last position. It will be 1 higher than the previous last,
-      # and we update anything with a position higher than that (could be a URI from a different page or type)
-      previous_element = KnownUri.find(params['known_uris'][-2].sub('known_uri_', ''))
-      moved_known_uri.position = previous_element.position + 1
-      KnownUri.update_all('position = position + 1', "position >= #{previous_element.position + 1}")
-      moved_known_uri.save
+    @known_uri = KnownUri.find(params['moved_id'].sub('known_uri_', ''))
+    if params['known_uris'] 
+      position_in_results = params['known_uris'].index(params['moved_id'])
+      if position_in_results == params['known_uris'].length - 1
+        # the URI was moved to the last position. It will be 1 higher than the previous last,
+        # and we update anything with a position higher than that (could be a URI from a different page or type)
+        previous_element = KnownUri.find(params['known_uris'][-2].sub('known_uri_', ''))
+        @known_uri.position = previous_element.position + 1
+        KnownUri.update_all('position = position + 1', "position >= #{previous_element.position + 1}")
+        @known_uri.save
+      else
+        # the URI was moved to something other than last place. It will assume the position of the
+        # URI just below it, and anything with a position higher than that is increased by 1
+        next_element = KnownUri.find(params['known_uris'][position_in_results + 1].sub('known_uri_', ''))
+        @known_uri.position = next_element.position
+        KnownUri.update_all('position = position + 1', "position >= #{next_element.position}")
+        @known_uri.save
+      end
+    elsif params['to'] == 'top'
+      @to = :top
+      @known_uri.move_to_top
+    elsif params['to'] == 'bottom'
+      @to = :bottom
+      @known_uri.move_to_bottom
     else
-      # the URI was moved to something other than last place. It will assume the position of the
-      # URI just below it, and anything with a position higher than that is increased by 1
-      next_element = KnownUri.find(params['known_uris'][position_in_results + 1].sub('known_uri_', ''))
-      moved_known_uri.position = next_element.position
-      KnownUri.update_all('position = position + 1', "position >= #{next_element.position}")
-      moved_known_uri.save
+      raise(InvalidArgumentsError)
     end
     respond_to do |format|
       format.js { }

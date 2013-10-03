@@ -22,6 +22,8 @@
           %th= I18n.t('activerecord.attributes.known_uri.toc_items')
           - if current_user.is_admin?
             %th= I18n.t(:actions)
+            %th
+              &nbsp;
         - @known_uris.each do |known_uri|
           - klass = nil
           - klass = 'hidden' if known_uri.hidden?
@@ -50,6 +52,12 @@
                   = link_to I18n.t(:suggested_vocab_remove).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put
                 - elsif known_uri.hidden?
                   = link_to I18n.t(:suggested_vocab_add).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
+              -# TODO - TECHNICALLY, curators have to have JS, so we don't need a "real" route here, but it's not THAT hard, so:
+              %td.move
+                = link_to(image_tag('arrow_way_up.gif', :alt => I18n.t(:move_to_top), :title => I18n.t(:move_to_top)), '#',
+                  class: 'to_top')
+                = link_to(image_tag('arrow_way_down.gif', :alt => I18n.t(:move_to_bottom), :title => I18n.t(:move_to_bottom)),
+                  '#', class: 'to_bottom')
       = will_paginate @known_uris
     - if current_user.is_admin?
       %p.actions= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')

@@ -341,7 +341,12 @@ $(function() {
   }).disableSelection();
 
   $('#sortable a.to_top').click(function() {
-    $.post("/known_uris/sort", { to: 'top', moved_id: ui.item.attr('id') })
+    $.post("/known_uris/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') })
+    return(false);
+  });
+
+  $('#sortable a.to_bottom').click(function() {
+    $.post("/known_uris/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') })
     return(false);
   });
 

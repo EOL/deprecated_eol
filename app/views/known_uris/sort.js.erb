@@ -1,1 +1,9 @@
-$('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:known_uris_sorted) %></p>");
+<% if defined?(:to) %>
+  <% if @to == :top %>
+    $('tr#known_uri_<%= @known_uri.id %>').insertAfter('table#sortable tr.headers');
+  <% elsif @to == :bottom %>
+    $('tr#known_uri_<%= @known_uri.id %>').appendTo('table#sortable');
+  <% end %>
+<% end %>
+EOL.prep_flashes();
+$('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:known_uris_sorted) %></p>").find('p').delay('5000').fadeOut('slow');

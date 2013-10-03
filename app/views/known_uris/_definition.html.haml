@@ -1,5 +1,6 @@
 - known_uri ||= nil
-- show_top_link = false unless show_top_link == true
+- show_top_link = false unless defined?(show_top_link)
+- include_attribution = false unless defined?(include_attribution)
 %li{ id: known_uri.anchor }
   %dt
     = known_uri.name.firstcap
@@ -9,5 +10,8 @@
   - unless known_uri.definition.blank?
     %dd
       = raw known_uri.definition.add_missing_hyperlinks
+  - if include_attribution && ! known_uri.attribution.blank?
+    %dd.attribution
+      = raw known_uri.attribution.add_missing_hyperlinks
   - if show_top_link
     %span.top= link_to("top", '#')

@@ -1565,6 +1565,8 @@ ul.tabs
             font-size: 0.83em
           &.val
             min-width: 300px
+          &.taxon
+            padding-left: 5px
     tr.actions, tr.comments
       font-weight: normal
       font-size: 0.8em
@@ -1662,8 +1664,6 @@ ul.tabs
       div.names
         margin-left: 10px
         line-height: 120%
-    td.val
-      min-width: 400px
   table.meta
     line-height: 90%
     width: 80%
@@ -1736,6 +1736,7 @@ ul.tabs
 span.info
   display: none
   padding-left: 1em
+  padding-bottom: .8em
   min-width: 30em
 
 #content
@@ -1784,6 +1785,9 @@ span.info
   dd
     margin-top: 5px
     font-size: 1.2em
+    &.attribution
+      font-size: 1em
+      color: $darker_gray
 .term
   .hint
     font-size: 0.8em

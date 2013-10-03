@@ -6,6 +6,10 @@
     %dl
       %dt= f.label :uri
       %dd= f.text_field :uri
+      %dt= f.label :ontology_information_url
+      %dd= f.text_field :ontology_information_url
+      %dt= f.label :ontology_source_url
+      %dd= f.text_field :ontology_source_url
       = f.fields_for :translated_known_uris, translated_known_uri do |nested|
         = nested.hidden_field :language_id
         %dt= nested.label :name
@@ -14,6 +18,8 @@
         %dd= nested.text_area :definition, :rows => 3
         %dt= nested.label :comment
         %dd= nested.text_area :comment, :rows => 3
+        %dt= nested.label :attribution
+        %dd= nested.text_area :attribution, :rows => 3
       -# TODO - we should actually monitor the uri type with JS and remove the associations if they change the value (and put them back if they change it back...)
       - if known_uri.uri_type == UriType.measurement
         %dt.units= f.label I18n.t(:measurement_allowed_units)

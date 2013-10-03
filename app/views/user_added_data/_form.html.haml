@@ -72,12 +72,6 @@
             %dl
               %dt= I18n.t(:supplier)
               %dd= m.text_field :object, :size => 100
-        = f.fields_for :user_added_data_metadata, UserAddedDataMetadata.default_license do |m|
-          = m.hidden_field :predicate
-          %fieldset
-            %dl
-              %dt= I18n.t(:license)
-              %dd= m.select :object, options_from_collection_for_select(License.for_data, :source_url, :title)
         = f.fields_for :user_added_data_metadata, UserAddedDataMetadata.default_source do |m|
           = m.hidden_field :predicate
           %fieldset

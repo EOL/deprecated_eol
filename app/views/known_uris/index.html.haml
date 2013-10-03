@@ -22,7 +22,7 @@
           %th= I18n.t('activerecord.attributes.known_uri.toc_items')
           - if current_user.is_admin?
             %th= I18n.t(:actions)
-            %th
+            %th.move
               &nbsp;
         - @known_uris.each do |known_uri|
           - klass = nil

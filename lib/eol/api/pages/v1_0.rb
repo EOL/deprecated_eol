@@ -127,7 +127,7 @@ module EOL
 
             return_hash['synonyms'] = []
             if params[:synonyms]
-              taxon_concept.scientific_synonyms.each do |syn|
+              taxon_concept.scientific_synonyms.includes([ :name, :synonym_relation ]).each do |syn|
                 relation = syn.synonym_relation ? syn.synonym_relation.label : ''
                 return_hash['synonyms'] << {
                   'synonym' => syn.name.string,

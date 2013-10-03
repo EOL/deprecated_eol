@@ -121,13 +121,13 @@ class TaxonConcept < ActiveRecord::Base
 
   def self.preload_for_shared_summary(taxon_concepts, options)
     includes = [
-      :preferred_common_names,
       { :preferred_entry =>
         { :hierarchy_entry => [ { :name => :ranked_canonical_form }, :hierarchy ] } },
       { :taxon_concept_exemplar_image => { :data_object =>
         { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted, :visibility ] } } } ]
+    includes << :preferred_common_names unless options[:skip_common_names]
     TaxonConcept.preload_associations(taxon_concepts, includes)
-    if options[:language_id]
+    if options[:language_id] && ! options[:skip_common_names]
       # loading the names for the preferred common names in the user's language
       TaxonConceptName.preload_associations(taxon_concepts.collect{ |tc|
         tc.preferred_common_names.detect { |c| c.language_id == options[:language_id] } }.compact, :name)

@@ -88,7 +88,8 @@ module EOL
             { :hierarchy_entry => [ { :name => :ranked_canonical_form } ] } }
           TaxonConcept.preload_associations(instances, includes)
         else
-          TaxonConcept.preload_for_shared_summary(instances, :language_id => options[:language_id])
+          TaxonConcept.preload_for_shared_summary(instances, :language_id => options[:language_id],
+            :skip_common_names => (options[:view_style] == ViewStyle.gallery))
         end
         TaxonConcept.preload_associations(instances, :taxon_concept_metric, :select => [ :taxon_concept_id, :richness_score ])
         docs.each do |d|

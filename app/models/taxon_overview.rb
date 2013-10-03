@@ -163,9 +163,8 @@ private
   end
 
   def curator_chosen_classification
-    unless defined?(@curator_chosen_classification)
-      @curator_chosen_classification = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
-    end
+    return @curator_chosen_classification if defined?(@curator_chosen_classification)
+    @curator_chosen_classification = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
   end
 
   def iucn

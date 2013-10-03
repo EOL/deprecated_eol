@@ -275,8 +275,8 @@ class DataObject < ActiveRecord::Base
   end
 
   def user
-    @udo ||= UsersDataObject.find_by_data_object_id(id)
-    @udo_user ||= @udo.nil? ? nil : User.find(@udo.user_id)
+    @udo ||= users_data_object
+    @udo_user ||= @udo.nil? ? nil : users_data_object.user
   end
   def user_id
     user.id
@@ -961,7 +961,7 @@ class DataObject < ActiveRecord::Base
     if options[:check_only_published]
       # if we only want latest versions of published objects, then we should check to see if we
       # have them already, and only preload the objects which are not already the latest versions in the language
-      objects_for_preloading = data_objects.compact.select{ |d| ! d.published_in_language?(options[:language_id])}
+      objects_for_preloading = data_objects.compact.select{ |d| ! d.published_in_language?(options[:language_id]) }
     else
       objects_for_preloading = data_objects
     end
@@ -1114,14 +1114,14 @@ private
   # This is relatively expensive... but accurate.
   def image_title_with_taxa
     return @image_title_with_taxa if @image_title_with_taxa
-    all_data_object_taxa = data_object_taxa(published: true)
+    all_data_object_taxa = uncached_data_object_taxa(published: true)
     visible_data_object_taxa = all_data_object_taxa.select{ |dot| dot.vetted != Vetted.untrusted }
     if visible_data_object_taxa.empty?
       @image_title_with_taxa ||= I18n.t(:image_title_without_taxa)
     else
       @image_title_with_taxa ||= I18n.t(:image_title_with_taxa,
                                         taxa: visible_data_object_taxa.
-                                            map(&:italicized_unattributed_title).to_sentence)
+                                            map(&:title_canonical_italicized).to_sentence)
     end
   end
 

@@ -174,8 +174,9 @@ module EOL
           data_object_title = row[14]
           object_type = row_type.dup
 
-          if object_type == 'TaxonConcept' && title.blank?
-            title = (name_string.blank?) ? 'zzz' : name_string
+          if object_type == 'TaxonConcept'
+            title = name_string unless name_string.blank?
+            title = 'zzz' if title.blank?
           end
 
           if object_type == "DataObject"

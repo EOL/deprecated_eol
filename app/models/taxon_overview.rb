@@ -159,11 +159,12 @@ private
   end
 
   def all_collections
-    @all_collections ||= taxon_concept.collections.published.select{ |c| !c.watch_collection? }
+    @all_collections ||= published_containing_collections.select{ |c| !c.watch_collection? }
   end
 
   def curator_chosen_classification
-    CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
+    return @curator_chosen_classification if defined?(@curator_chosen_classification)
+    @curator_chosen_classification = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
   end
 
   def iucn

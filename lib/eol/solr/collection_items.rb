@@ -88,7 +88,8 @@ module EOL
             { :hierarchy_entry => [ { :name => :ranked_canonical_form } ] } }
           TaxonConcept.preload_associations(instances, includes)
         else
-          TaxonConcept.preload_for_shared_summary(instances, :language_id => options[:language_id])
+          TaxonConcept.preload_for_shared_summary(instances, :language_id => options[:language_id],
+            :skip_common_names => (options[:view_style] == ViewStyle.gallery))
         end
         TaxonConcept.preload_associations(instances, :taxon_concept_metric, :select => [ :taxon_concept_id, :richness_score ])
         docs.each do |d|
@@ -120,21 +121,19 @@ module EOL
           :users => '*',
           :vetted => '*',
           :visibilties => '*',
-          :hierarchy_entries => [ :id, :published, :vetted_id, :visibility_id, :taxon_concept_id, :name_id, :hierarchy_id ],
+          :hierarchy_entries => [ :id, :published, :vetted_id, :visibility_id, :taxon_concept_id, :name_id, :hierarchy_id, :rank_id ],
           :names => [ :id, :string, :canonical_form_id, :ranked_canonical_form_id ],
           :canonical_forms => [ :id, :string ],
           :languages => '*'
         }
         
-        if options[:view_style] == ViewStyle.annotated
-          includes << { :data_objects_hierarchy_entries => [ { :hierarchy_entry =>
-            [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :taxon_concept, :hierarchy ] },
-            :vetted, :visibility ] }
-          includes << :users_data_object
-          includes << { :all_curated_data_objects_hierarchy_entries =>
-            [ :user, { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] },
-            :vetted, :visibility ] }
-        end
+        includes << { :data_objects_hierarchy_entries => [ { :hierarchy_entry =>
+          [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :taxon_concept, :hierarchy ] },
+          :vetted, :visibility ] }
+        includes << :users_data_object
+        includes << { :all_curated_data_objects_hierarchy_entries =>
+          [ :user, { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] },
+          :vetted, :visibility ] }
         DataObject.preload_associations(instances, includes, :select => selects)
         if options[:view_style] == ViewStyle.annotated
           HierarchyEntry.preload_associations(instances.collect{ |d| d.first_hierarchy_entry }, [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :hierarchy ] )

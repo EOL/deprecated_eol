@@ -198,12 +198,13 @@ class TaxonUserClassificationFilter
   end
 
   # TODO - clearly this belongs in TaxonDetails...
-  # NOTE - this assumes you have already called #media with whatever options you care to use.
-  def self.preload_details(media, user = nil)
-    DataObject.replace_with_latest_versions!(media, language_id: user ? user.language_id : nil, check_only_published: true)
+  # 10/2/13 - this has been turned into a class method and is used in multiple places including the API
+  # where we need a generic catch-all preload of info to present DataObject
+  def self.preload_details(data_objects, user = nil)
+    DataObject.replace_with_latest_versions!(data_objects, language_id: user ? user.language_id : nil, check_only_published: true)
     includes = [ {
       :data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, { :taxon_concept => :flattened_ancestors } ]
+        :hierarchy_entry => [ { :name => :ranked_canonical_form }, { :hierarchy => { :resource => :content_partner } }, { :taxon_concept => :flattened_ancestors } ]
       }, :vetted, :visibility ]
     } ]
     includes << {
@@ -211,16 +212,16 @@ class TaxonUserClassificationFilter
         :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
       }, :vetted, :visibility, :user ]
     }
-    DataObject.preload_associations(media, includes, :select => { :content_partners => [ :id, :user_id, :full_name, :display_name, :homepage,
+    DataObject.preload_associations(data_objects, includes, :select => { :content_partners => [ :id, :user_id, :full_name, :display_name, :homepage,
       :public ]})
-    DataObject.preload_associations(media, :users_data_object)
-    DataObject.preload_associations(media, :license)
-    DataObject.preload_associations(media, :language)
-    DataObject.preload_associations(media, :mime_type)
-    DataObject.preload_associations(media, :data_type)
-    DataObject.preload_associations(media, :translations,
+    DataObject.preload_associations(data_objects, :users_data_object)
+    DataObject.preload_associations(data_objects, :license)
+    DataObject.preload_associations(data_objects, :language)
+    DataObject.preload_associations(data_objects, :mime_type)
+    DataObject.preload_associations(data_objects, :data_type)
+    DataObject.preload_associations(data_objects, :translations,
                                     :conditions => "data_object_translations.language_id = #{user.language_id}") if user
-    media
+    data_objects
   end
 
 private

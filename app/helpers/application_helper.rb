@@ -514,7 +514,7 @@ module ApplicationHelper
       unless hierarchy_entries.nil? || hierarchy_entries.length == 0
         haml_tag :ul, :class => 'branch' do
           # sort the array by name string
-          # TODO: we should really not get back ALL records from the DB then sort, see if sorting in the DB is faster
+          # TODO: we might test wether its faster to get back ALL records from the DB then sort, or sort directly in DB
           hierarchy_entries = HierarchyEntry.sort_by_name(hierarchy_entries)
           # limit the array to $max_children and iterate
           hierarchy_entries[0...options[:max_children]].each do |hierarchy_entry|

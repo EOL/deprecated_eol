@@ -40,6 +40,8 @@ class TaxonConcept < ActiveRecord::Base
   has_many :collections, :through => :collection_items
   # TODO: this is just an alias of the above so all collectable entities have this association
   has_many :containing_collections, :through => :collection_items, :source => :collection
+  has_many :published_containing_collections, :through => :collection_items, :source => :collection, :conditions => 'published = 1',
+    :select => 'collections.id, collections.name, special_collection_id, relevance, logo_cache_url', :include => :communities
   has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
   has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
@@ -481,7 +483,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def communities
-    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c|
+    @communities ||= published_containing_collections.collect{ |c|
       c.communities.select{ |com| com.published? } }.flatten.compact.uniq
   end
 
@@ -680,12 +682,7 @@ class TaxonConcept < ActiveRecord::Base
   # want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
-    # TODO - rewrite query ... move to new class, perhaps?
-    iucn_objects = DataObject.find(:all, :joins => :data_objects_taxon_concepts,
-      :conditions => "`data_objects_taxon_concepts`.`taxon_concept_id` = #{id}
-        AND `data_objects`.`data_type_id` = #{DataType.iucn.id} AND `data_objects`.`published` = 1",
-      :order => "`data_objects`.`id` DESC")
-    my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
+    my_iucn = data_objects.where(:data_type_id => DataType.iucn.id).order('id DESC').first
     @iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
   end
 

@@ -45,6 +45,6 @@ class AgentRole < ActiveRecord::Base
 
   # Find the Provider
   def self.provider
-    cached_find_translated(:label, 'provider')
+    @@provider ||= cached_find_translated(:label, 'provider')
   end
 end

@@ -210,6 +210,9 @@ module EOL
           map_objects = load_maps(taxon_concept, options, solr_search_params)
 
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
+          TaxonUserClassificationFilter.preload_details(all_data_objects)
+          sort_and_promote_text(taxon_concept, text_objects, options)
+
           if options[:iucn]
             # we create fake IUCN objects if there isn't a real one. Don't use those in the API
             iucn_object = taxon_concept.iucn
@@ -220,8 +223,7 @@ module EOL
           end
 
           # preload necessary associations for API response
-          DataObject.preload_associations(all_data_objects, [ { :data_objects_hierarchy_entries => [ :vetted, { :hierarchy_entry => { :hierarchy => :resource } } ] },
-            :curated_data_objects_hierarchy_entries, :data_type, :license, :language, :mime_type,
+          DataObject.preload_associations(all_data_objects, [
             :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs, :audiences ] )
           all_data_objects
         end
@@ -257,13 +259,16 @@ module EOL
               :data_type_ids => DataType.text_type_ids,
               :filter_by_subtype => false
             }))
-            DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
-            text_objects = DataObject.sort_by_rating(text_objects, taxon_concept)
-            user = User.new(:language => Language.default)
-            exemplar_text = taxon_concept.overview_text_for_user(user)
-            promote_exemplar!(exemplar_text, text_objects, options)
           end
           return text_objects
+        end
+
+        def self.sort_and_promote_text(taxon_concept, text_objects, options)
+          DataObject.preload_associations(text_objects, [ :toc_items, { :info_items => :translations } ] )
+          text_objects = DataObject.sort_by_rating(text_objects, taxon_concept)
+          user = User.new(:language => Language.default)
+          exemplar_text = taxon_concept.overview_text_for_user(user)
+          promote_exemplar!(exemplar_text, text_objects, options)
         end
 
         def self.load_images(taxon_concept, options, solr_search_params)

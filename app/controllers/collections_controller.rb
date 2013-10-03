@@ -685,7 +685,7 @@ private
       elsif r['object_type'] == 'TaxonConcept'
         # this is the same way we get names when indexing collection items, so be consistent
         title = r['instance'].collected_item.entry.name.string
-        if title && r['title'] != title
+        if title && r['title'] != SolrAPI.text_filter(title)
           collection_item_ids_to_reindex << r['instance'].id
         elsif r['instance'].collected_item.taxon_concept_metric && r['richness_score'] != r['instance'].collected_item.taxon_concept_metric.richness_score
           collection_item_ids_to_reindex << r['instance'].id

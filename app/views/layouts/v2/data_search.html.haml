@@ -9,7 +9,7 @@
         %ul
           - if @results && !@results.blank?
             %li
-              = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), :class => 'button'
+              = link_to I18n.t(:download_data), url_for(params: params.merge(format: "js")), :class => 'button', remote: true
   #content
     .site_column
       #data_search

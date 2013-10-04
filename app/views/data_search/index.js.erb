@@ -1,0 +1,2 @@
+EOL.prep_flashes()
+$('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:file_download_pending) %></p>").find('p').delay('10000').fadeOut('slow');

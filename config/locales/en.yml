@@ -3407,6 +3407,7 @@ en:
   family_name_colon: "Family Name:"
   feedback: "Feedback"
   file: "File"
+  file_download_pending: "Creating the download requires a little extra time. Please feel free to use EOL, and we will notify you when the job is finished, so you can download it."
   file_id: "File ID"
   file_size: "File Size"
   filed_under_label_with_date: "Filed under %{label} on %{date}"

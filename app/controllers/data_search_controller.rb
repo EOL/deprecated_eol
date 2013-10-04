@@ -2,6 +2,7 @@ class DataSearchController < ApplicationController
 
   layout 'v2/data_search'
 
+  # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL
   def index
     @hide_global_search = true
     @querystring = params[:q]
@@ -26,39 +27,13 @@ class DataSearchController < ApplicationController
         @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
           page: @page, sort: @sort, per_page: 30)
       end
-      format.csv do
-        # TODO - really, we shouldn't use pagination at all, here.
-        @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-          sort: @sort, per_page: 30000) # TODO - if we KEEP pagination, make this value more sane (and put @page back in).
-        # TODO - handle the case where results are empty.
-        if @attribute_known_uri
-          headers["Content-Disposition"] = "attachment; filename=\"#{@attribute_known_uri.name}.csv\"" 
-          # TODO - handle other filename cases as needed
-        end
-        render text: build_csv_from_results
+      format.js do
+        Resque.enqueue(DataFileMaker, querystring: @querystring, attribute: @attribute, from: @from, to: @to,
+                       known_uri_id: @attribute_known_uri.id, language_id: current_language.id)
       end
     end
   end
 
   private
-
-  def build_csv_from_results
-    rows = []
-    @results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(current_language)
-    end
-    col_heads = Set.new
-    rows.each do |row|
-      col_heads.merge(row.keys)
-    end
-    Rails.cache.fetch("download_data/#{@querystring}/#{@attribute}/#{@from}-#{@to}/#{@sort}") do
-      CSV.generate do |csv|
-        csv << col_heads
-        rows.each do |row|
-          csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
-        end
-      end
-    end
-  end
 
 end

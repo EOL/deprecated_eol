@@ -50,6 +50,7 @@ doc/app
 lang/tmp.yml
 log/*.txt
 public/feeds
+public/*csv
 public/files/solr_import_file_*.csv
 public/javascripts/*packaged.js
 public/opensearch.xml

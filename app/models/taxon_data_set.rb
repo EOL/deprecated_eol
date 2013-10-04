@@ -13,8 +13,8 @@ class TaxonDataSet
     unless options[:preload] == false
       DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { :resource => :content_partner } ])
       DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, :target_taxon_concept =>
-        [ { :preferred_common_names => :name },
-          { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
+        [ { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
+      TaxonConcept.load_common_names_in_bulk(@data_point_uris.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)
     end
     convert_units
     @data_point_uris # TODO - try removing this... #initialize doesn't really "return" anything anyway.

@@ -211,7 +211,9 @@ module EOL
 
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
           TaxonUserClassificationFilter.preload_details(all_data_objects)
-          sort_and_promote_text(taxon_concept, text_objects, options)
+          # sorting after the preloading has happened
+          text_objects = sort_and_promote_text(taxon_concept, text_objects, options)
+          all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
 
           if options[:iucn]
             # we create fake IUCN objects if there isn't a real one. Don't use those in the API
@@ -269,6 +271,7 @@ module EOL
           user = User.new(:language => Language.default)
           exemplar_text = taxon_concept.overview_text_for_user(user)
           promote_exemplar!(exemplar_text, text_objects, options)
+          text_objects
         end
 
         def self.load_images(taxon_concept, options, solr_search_params)

@@ -48,8 +48,7 @@ class KnownUri < ActiveRecord::Base
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
 
-  COMMON_URIS = [ { uri: Rails.configuration.uri_measurement_unit, name: 'unit_of_measure' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
+  COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000009', name: 'kilograms' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000016', name: 'millimeters' },
@@ -67,6 +66,12 @@ class KnownUri < ActiveRecord::Base
         return class_variable_get("@@#{info[:name]}".to_sym) if class_variable_defined?("@@#{info[:name]}".to_sym)
         class_variable_set("@@#{info[:name]}".to_sym, cached_find(:uri, info[:uri]))
       end
+    end
+  end
+
+  def self.unit_of_measure
+    @@unit_of_measure ||= cached('unit_of_measure') do
+      KnownUri.where(:uri => Rails.configuration.uri_measurement_unit).includes({ :known_uri_relationships_as_subject => :to_known_uri } ).first
     end
   end
 

@@ -57,9 +57,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_and_belongs_to_many :data_objects
 
-  attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
-
-  attr_reader :has_media, :length_of_images, :length_of_videos, :length_of_sounds
+  attr_accessor :common_names_in_language
 
   index_with_solr :keywords => [ :scientific_names_for_solr, :common_names_for_solr ]
 
@@ -125,12 +123,16 @@ class TaxonConcept < ActiveRecord::Base
         { :hierarchy_entry => [ { :name => :ranked_canonical_form }, :hierarchy ] } },
       { :taxon_concept_exemplar_image => { :data_object =>
         { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted, :visibility ] } } } ]
-    includes << :preferred_common_names unless options[:skip_common_names]
     TaxonConcept.preload_associations(taxon_concepts, includes)
+    he = taxon_concepts.collect do |tc|
+      if tc.preferred_entry && ! tc.preferred_entry.hierarchy_entry.preferred_classification_summary?
+        tc.preferred_entry.hierarchy_entry
+      end
+    end.flatten.compact
+    HierarchyEntry.preload_associations(he, { :flattened_ancestors => { :ancestor => :name } } )
     if options[:language_id] && ! options[:skip_common_names]
       # loading the names for the preferred common names in the user's language
-      TaxonConceptName.preload_associations(taxon_concepts.collect{ |tc|
-        tc.preferred_common_names.detect { |c| c.language_id == options[:language_id] } }.compact, :name)
+      TaxonConcept.load_common_names_in_bulk(taxon_concepts, options[:language_id])
     end
   end
 
@@ -160,16 +162,32 @@ class TaxonConcept < ActiveRecord::Base
     self
   end
 
+  def self.load_common_names_in_bulk(taxon_concepts, language_id)
+    taxon_concepts_to_load = taxon_concepts.select do |tc|
+      tc.common_names_in_language ||= {}
+      ! tc.common_names_in_language.has_key?(language_id)
+    end
+    names = Name.joins(:taxon_concept_names).
+      where('taxon_concept_names.taxon_concept_id' => taxon_concepts_to_load.collect(&:id)).
+      where("vern=1 AND preferred=1 AND language_id=#{language_id}").
+      select('names.*, taxon_concept_id')
+    taxon_concepts_to_load.each do |tc|
+      tc.common_names_in_language[language_id] = names.detect{ |n| n.taxon_concept_id == tc.id }
+    end
+  end
+
   def preferred_common_name_in_language(language)
-    if preferred_common_names.loaded?
+    if common_names_in_language && common_names_in_language.has_key?(language.id)
       # sometimes we preload preferred names in all languages for lots of taxa
-      best_name_in_language = preferred_common_names.detect { |c| c.language_id == language.id }
+      best_name_in_language = common_names_in_language[language.id]
     else
       # ...but if we don't, its faster to get only the one record in the current language
-      best_name_in_language = preferred_common_names.where("language_id = #{language.id}").first
+      if tcn = preferred_common_names.where("language_id = #{language.id}").first
+        best_name_in_language = tcn.name
+      end
     end
     if best_name_in_language
-      return best_name_in_language.name.string.capitalize_all_words_if_language_safe
+      return best_name_in_language.string.capitalize_all_words_if_language_safe
     end
   end
 

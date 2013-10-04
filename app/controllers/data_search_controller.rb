@@ -21,18 +21,19 @@ class DataSearchController < ApplicationController
         end
       end
     end
+    search_options = { querystring: @querystring, attribute: @attribute, from: @from, to: @to,
+      sort: @sort, language: current_language }
     respond_to do |format|
       format.html do
-        @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-          page: @page, sort: @sort, per_page: 30)
+        @results = TaxonData.search(search_options.merge(page: @page, per_page: 30))
       end
       format.csv do
         # TODO - really, we shouldn't use pagination at all, here.
-        @results = TaxonData.search(querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-          sort: @sort, per_page: 2000, :for_download => true) # TODO - if we KEEP pagination, make this value more sane (and put @page back in).
+        # TODO - if we KEEP pagination, make this value more sane (and put @page back in).
+        @results = TaxonData.search(search_options.merge(per_page: 500, :for_download => true))
         # TODO - handle the case where results are empty.
         if @attribute_known_uri
-          headers["Content-Disposition"] = "attachment; filename=\"#{@attribute_known_uri.name}.csv\"" 
+          headers["Content-Disposition"] = "attachment; filename=\"#{@attribute_known_uri.name}.csv\""
           # TODO - handle other filename cases as needed
         end
         render text: build_csv_from_results
@@ -44,15 +45,15 @@ class DataSearchController < ApplicationController
 
   def build_csv_from_results
     rows = []
-    DataPointUri.assign_bulk_metadata(@results, current_language)
-    @results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(current_language)
-    end
-    col_heads = Set.new
-    rows.each do |row|
-      col_heads.merge(row.keys)
-    end
     Rails.cache.fetch("download_data/#{@querystring}/#{@attribute}/#{@from}-#{@to}/#{@sort}") do
+      DataPointUri.assign_bulk_metadata(@results, current_language)
+      @results.each do |data_point_uri|
+        rows << data_point_uri.to_hash(current_language)
+      end
+      col_heads = Set.new
+      rows.each do |row|
+        col_heads.merge(row.keys)
+      end
       CSV.generate do |csv|
         csv << col_heads
         rows.each do |row|

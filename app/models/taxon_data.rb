@@ -7,24 +7,34 @@ class TaxonData < TaxonUserClassificationFilter
     # only attribute is required, querystring may be left blank to get all usages of an attribute
     return nil if options[:attribute].blank?
     options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
+    options[:language] ||= Language.default
     total_results = EOL::Sparql.connection.query(prepare_search_query(options.merge(:only_count => true))).first[:count].to_i
     results = EOL::Sparql.connection.query(prepare_search_query(options))
     if options[:for_download]
       # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
       # for each DataPointUri, which is very expensive when downloading lots of rows
+      KnownUri.add_to_data(results)
       data_point_uris = results.collect do |row|
         data_point_uri = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row))
         data_point_uri.convert_units
         data_point_uri
       end
+      DataPointUri.preload_associations(data_point_uris, { :taxon_concept =>
+          [ { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ],
+          :resource => :content_partner },
+        :select => {
+          :taxon_concepts => [ :id ],
+          :hierarchy_entries => [ :id, :taxon_concept_id, :name_id ],
+          :names => [ :id, :string, :ranked_canonical_form_id ],
+          :canonical_forms => [ :id, :string ] }
+        )
     else
       taxon_data_set = TaxonDataSet.new(results)
       data_point_uris = taxon_data_set.data_point_uris
+      DataPointUri.preload_associations(data_point_uris, :taxon_concept)
+      TaxonConcept.preload_for_shared_summary(data_point_uris.collect(&:taxon_concept), :language_id => options[:language].id)
     end
-    DataPointUri.preload_associations(data_point_uris, { :taxon_concept =>
-      [ { :preferred_common_names => :name },
-        { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ],
-      :resource => :content_partner } )
+    TaxonConcept.load_common_names_in_bulk(data_point_uris.collect(&:taxon_concept), options[:language].id)
     WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
        pager.replace(data_point_uris)
     end

@@ -230,16 +230,12 @@ class HierarchyEntry < ActiveRecord::Base
     return (rgt-lft == 1)
   end
 
-  def common_name_in_language(language)
-    preferred_in_language = taxon_concept.preferred_common_names.select{|tcn| tcn.language_id == language.id}
-    return name.string if preferred_in_language.blank?
-    preferred_in_language[0].name.string.firstcap
+  def preferred_classification_summary?
+    Rails.cache.exist?(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"))
   end
 
   def preferred_classification_summary
     Rails.cache.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
-      HierarchyEntry.preload_associations(self, { :flattened_ancestors => :ancestor }, :select =>
-        { :hierarchy_entries => [ :id, :name_id, :rank_id, :taxon_concept_id, :lft, :rgt ] })
       root_ancestor, immediate_parent = kingdom_and_immediate_parent
       return '' if root_ancestor.blank?
       str_to_return = root_ancestor.name.string
@@ -259,9 +255,7 @@ class HierarchyEntry < ActiveRecord::Base
       immediate_parent = sorted_ancestors.pop.ancestor
     end
     immediate_parent = nil if immediate_parent == root_ancestor
-    entries_to_return = [root_ancestor, immediate_parent]
-    HierarchyEntry.preload_associations(entries_to_return, :name)
-    entries_to_return
+    [ root_ancestor, immediate_parent ]
   end
 
 

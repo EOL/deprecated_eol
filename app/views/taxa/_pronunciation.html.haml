@@ -1,0 +1,8 @@
+- chinese_name ||= nil
+= content_for :footer do
+  <script language="javascript" type="text/javascript" src="http://chinese.biodinfo.org/audioplayer/swfobject.js"></script>
+  <script language="javascript" type="text/javascript" src="http://chinese.biodinfo.org/audioplayer/embswf.js"/></script>
+  <script type="text/javascript">var name=$("#flashContent").attr("name");setSwf(name);</script>
+- unless chinese_name.blank?
+  #flashPlayer{:style => 'height:18px;width:20px'}
+    #flashContent{name:chinese_name}

@@ -11,7 +11,9 @@
           %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
             = raw @preferred_common_name
             %small= link_to I18n.t(:learn_more_about_names_for_this_taxon),
-              taxon_names_path(@taxon_page)
+              @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry.id) : taxon_names_path(@taxon_concept)
+          - if current_language == Language.from_iso('zh-hans') && @preferred_common_name.contains_chinese?
+            = render :partial => 'taxa/pronunciation', :locals => { :chinese_name => @preferred_common_name }
         - else
           .copy
             %p= link_to I18n.t(:learn_more_about_names_for_this_taxon),

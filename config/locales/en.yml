@@ -3851,6 +3851,7 @@ en:
   profile_newsfeed: "My newsfeed"
   profile_picture: "Profile Picture"
   project: "Project"
+  pronounce_this_name: "Pronounce this name"
   provide_a_concept_id: "given an EOL page ID, search results will be limited to members of that taxonomic group"
   provide_a_hierarchy_entry_id: "given a Hierarchy Entry ID, search results will be limited to members of that taxonomic group"
   provide_a_search_string: "given a search term, an exact search will be made and that matching page will be used as the taxonomic group against which to filter search results"

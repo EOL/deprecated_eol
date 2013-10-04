@@ -11,7 +11,7 @@ module EOL
       res = open(query_url).read
       JSON.load res
     end
-    
+
     def self.add_standard_instance_to_docs!(klass, docs, primary_key_field_name, options = {})
       if docs.class == Hash
         ids = docs.map{ |k,d| d[primary_key_field_name] }.compact
@@ -35,5 +35,6 @@ module EOL
         end
       end
     end
+
   end
 end

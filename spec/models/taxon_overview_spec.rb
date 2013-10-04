@@ -125,12 +125,12 @@ describe TaxonOverview do
     three.stub(:relevance).and_return(3)
     four = Collection.gen
     four.stub(:relevance).and_return(6)
-    @taxon_concept.stub_chain(:collections, :published, :select).and_return([one, two, three, four])
+    @taxon_concept.stub_chain(:published_containing_collections, :select).and_return([one, two, three, four])
     @overview.collections.map(&:id).should == [four, two, three].map(&:id)
   end
 
   it 'should know how many collections are available' do
-    @taxon_concept.stub_chain(:collections, :published, :select).and_return([1,2,3,4,5,6])
+    @taxon_concept.stub_chain(:published_containing_collections, :select).and_return([1,2,3,4,5,6])
     @overview.collections_count.should == 6
   end
 
@@ -174,7 +174,7 @@ describe TaxonOverview do
 
   it 'should know iucn status' do
     iucn = DataObject.gen(:description => 'wunderbar')
-    DataObject.should_receive(:find).and_return([iucn])
+    @taxon_concept.stub_chain(:data_objects, :where, :order, :first).and_return(iucn)
     @overview.iucn_status.should == 'wunderbar'
   end
 
@@ -184,7 +184,7 @@ describe TaxonOverview do
 
   it 'should know iucn url' do
     iucn = DataObject.gen(:source_url => 'faked')
-    DataObject.should_receive(:find).and_return([iucn])
+    @taxon_concept.stub_chain(:data_objects, :where, :order, :first).and_return(iucn)
     @overview.iucn_url.should == 'faked'
   end
 

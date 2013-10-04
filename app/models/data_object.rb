@@ -14,6 +14,7 @@ class DataObject < ActiveRecord::Base
 
   include ModelQueryHelper
   include EOL::ActivityLoggable
+  include IdentityCache
 
   belongs_to :data_type
   belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id
@@ -54,9 +55,8 @@ class DataObject < ActiveRecord::Base
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded
-  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id, created_at'
-  has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc",
-    :conditions => 'published = 1'
+  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id, created_at, published'
+  has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :conditions => 'published = 1'
   has_many :image_crops
   has_many :all_image_crops, :class_name => ImageCrop.to_s, :through => :all_versions, :primary_key => :guid, :source => :image_crops
 
@@ -274,8 +274,8 @@ class DataObject < ActiveRecord::Base
   end
 
   def user
-    @udo ||= UsersDataObject.find_by_data_object_id(id)
-    @udo_user ||= @udo.nil? ? nil : User.find(@udo.user_id)
+    @udo ||= users_data_object
+    @udo_user ||= @udo.nil? ? nil : users_data_object.user
   end
   def user_id
     user.id
@@ -455,9 +455,6 @@ class DataObject < ActiveRecord::Base
       # this is just for Staging and can be removed for production. Staging uses a different
       # content server and needs to generate URLS with a different host for image crops
       is_crop = false
-      if Rails.env.staging? || Rails.env.staging_dev? || Rails.env.development?
-        is_crop = all_image_crops.detect{ |c| c.new_object_cache_url == object_cache_url && c.created_at > User.a_somewhat_recent_user.created_at }
-      end
       return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
     else
       return nil # No image to show. You might want to alter your code to avoid this by using #has_thumbnail?
@@ -583,6 +580,16 @@ class DataObject < ActiveRecord::Base
     "[DataObject id:#{id}]"
   end
 
+  def in_language?(comparison_language_id)
+    comparison_language_id = Language.default.id if comparison_language_id.blank? || comparison_language_id == 0
+    this_language_id = (language_id.blank? || language_id == 0) ? Language.default.id : language_id
+    this_language_id == comparison_language_id
+  end
+
+  def published_in_language?(comparison_language_id)
+    published? && in_language?(comparison_language_id)
+  end
+
   def latest_version_in_same_language(params = {})
     latest_version_in_language(language_id, params)
   end
@@ -593,11 +600,15 @@ class DataObject < ActiveRecord::Base
     chosen_language_id = Language.english.id unless chosen_language_id && chosen_language_id != 0
     params[:check_only_published] = true unless params.has_key?(:check_only_published)
     if params[:check_only_published]
+      return self if published_in_language?(chosen_language_id)
       # sometimes all_published_versions, but if not I anted to set a default set of select fields. Rails AREL
       # will attempt to load the versions again if the select fields are not the same as already
       # loaded in all_published_versions. This is verbose, but its potentially saving loading all descriptions from all
       # versions so I think it is worth it. But there may be an easier way
-      versions_to_look_at_in_language = (all_published_versions.loaded?) ? all_published_versions : all_published_versions.select('id, guid, language_id, data_type_id, created_at')
+      unless all_published_versions.loaded?
+        DataObject.preload_associations(self, :all_published_versions, :select => 'id, guid, language_id, data_type_id, created_at, published')
+      end
+      versions_to_look_at_in_language = all_published_versions
     else
       versions_to_look_at_in_language = all_versions
     end
@@ -615,9 +626,9 @@ class DataObject < ActiveRecord::Base
     else
       latest_version = DataObject.sort_by_created_date(versions_to_look_at_in_language).reverse.first
     end
-    latest_version = DataObject.find(latest_version.id)
     return nil if params[:check_only_published] && !latest_version.published?
-    latest_version
+    return self if latest_version == self
+    DataObject.find(latest_version.id)
   end
 
   def is_latest_published_version_in_same_language?
@@ -687,7 +698,7 @@ class DataObject < ActiveRecord::Base
     good_ids = [Visibility.visible.id]
     good_ids << Visibility.preview.id unless which[:preview] == false
     good_ids << Visibility.invisible.id if which[:invisible]
-    data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
+    uncached_data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
   end
 
   # The only filter allowed right now is :published.
@@ -738,7 +749,7 @@ class DataObject < ActiveRecord::Base
   # NOTE - if you plan on calling this, you are behooved by adding object_title and data_type_id to your selects.
   def best_title
     return safe_object_title.html_safe unless safe_object_title.blank?
-    return toc_items.first.label.html_safe unless toc_items.blank? || toc_items.first.label.nil?
+    return toc_items.first.label.html_safe unless ! text? || toc_items.blank? || toc_items.first.label.nil?
     return image_title_with_taxa.html_safe if image?
     return safe_data_type.simple_type.html_safe if safe_data_type
     return I18n.t(:unknown_data_object_title).html_safe
@@ -944,10 +955,19 @@ class DataObject < ActiveRecord::Base
     default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url,
       :data_rating, :object_title, :rights_holder, :source_url, :license_id, :mime_type_id, :object_url,
       :thumbnail_cache_url, :created_at ]
-    DataObject.preload_associations(data_objects, [ :language, :all_published_versions ],
+    DataObject.preload_associations(data_objects, :language)
+    if options[:check_only_published]
+      # if we only want latest versions of published objects, then we should check to see if we
+      # have them already, and only preload the objects which are not already the latest versions in the language
+      objects_for_preloading = data_objects.compact.select{ |d| ! d.published_in_language?(options[:language_id]) }
+    else
+      objects_for_preloading = data_objects
+    end
+    DataObject.preload_associations(objects_for_preloading, :all_published_versions,
       :select => {
-        :languages => '*',
         :data_objects => default_selects | options[:select] } )
+    # sending data_objects and not objects_for_preloading as data_objects is the array which contains the instances
+    # that need the latest versions
     DataObject.replace_with_latest_versions_no_preload(data_objects, options)
   end
 
@@ -956,7 +976,8 @@ class DataObject < ActiveRecord::Base
       if dato.blank? || !dato.is_a?(DataObject)
         dato
       else
-        latest = dato.latest_version_in_language(options[:language_id] || dato.language_id, :check_only_published => false)
+        latest = dato.latest_version_in_language(options[:language_id] || dato.language_id, options.reverse_merge(check_only_published: false))
+        latest = dato if latest.nil?
         latest.is_the_latest_published_revision = true
         latest
       end
@@ -1091,14 +1112,14 @@ private
   # This is relatively expensive... but accurate.
   def image_title_with_taxa
     return @image_title_with_taxa if @image_title_with_taxa
-    all_data_object_taxa = data_object_taxa(published: true)
+    all_data_object_taxa = uncached_data_object_taxa(published: true)
     visible_data_object_taxa = all_data_object_taxa.select{ |dot| dot.vetted != Vetted.untrusted }
     if visible_data_object_taxa.empty?
       @image_title_with_taxa ||= I18n.t(:image_title_without_taxa)
     else
       @image_title_with_taxa ||= I18n.t(:image_title_with_taxa,
                                         taxa: visible_data_object_taxa.
-                                            map(&:italicized_unattributed_title).to_sentence)
+                                            map(&:title_canonical_italicized).to_sentence)
     end
   end
 
@@ -1173,10 +1194,16 @@ private
     @curated_hierarchy_entries = []
     if latest_revision
       @curated_hierarchy_entries += latest_revision.data_objects_hierarchy_entries.compact.map do |dohe|
+        # this saves having to query for the data object later. I thought Rails would take
+        # care of this, but they it doesn't look like it does
+        dohe.data_object = self
         DataObjectTaxon.new(dohe)
       end
     end
     @curated_hierarchy_entries += all_curated_data_objects_hierarchy_entries.compact.map do |cdohe|
+      # this saves having to query for the data object later. I thought Rails would take
+      # care of this, but they it doesn't look like it does
+      cdohe.data_object = self
       DataObjectTaxon.new(cdohe)
     end
     @curated_hierarchy_entries.compact!

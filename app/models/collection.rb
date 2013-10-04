@@ -172,7 +172,7 @@ class Collection < ActiveRecord::Base
   end
 
   def items_from_solr(options={})
-    sort_by_style = SortStyle.find(options[:sort_by].blank? ? sort_style_or_default : options[:sort_by])
+    sort_by_style = options[:sort_by].blank? ? sort_style_or_default : SortStyle.find(options[:sort_by])
     items = begin
               EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
             rescue ActiveRecord::RecordNotFound

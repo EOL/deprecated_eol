@@ -49,15 +49,8 @@ module EOL
       end
 
       def self.add_resource_instances!(docs, options)
-        includes = []
         selects = options[:preload_select] || { :data_objects => '*' }
-        unless options[:skip_preload]
-          includes = [ :hierarchy_entries, :toc_items ]
-          selects[:hierarchy_entries] = '*'
-          selects[:table_of_contents] = '*'
-        end
         EOL::Solr.add_standard_instance_to_docs!(DataObject, docs, 'data_object_id',
-          :includes => includes,
           :selects => selects)
       end
       

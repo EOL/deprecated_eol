@@ -154,9 +154,7 @@ private
     @details_in_all_other_languages = taxon_concept.text_for_user(user,
         :language_ids_to_ignore => user.language.all_ids << 0,
         :allow_nil_languages => false,
-        # TODO - why are we specifying preload_select when we're skipping preload?  Please explain.  Or rename one of them.
-        :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder ] },
-        :skip_preload => true,
+        :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :rights_holder, :published ] },
         :toc_ids_to_ignore => TocItem.exclude_from_details.map(&:id),
         :per_page => TEXT_OBJECT_LIMIT
     )

@@ -18,6 +18,6 @@
     - he = item.first_hierarchy_entry(:include_preview_entries => true)
     - he ||= item.users_data_object && item.users_data_object.taxon_concept.entry
     - if he 
-      = link_to I18n.t(:article_secondary_description_with_others_count, taxon: he.title_canonical, count: item.data_object_taxa(published: true).length - 1), path
+      = link_to I18n.t(:article_secondary_description_with_others_count, taxon: he.title_canonical, count: item.uncached_data_object_taxa(published: true).length - 1), path
       %br
     = raw(item.description_teaser)

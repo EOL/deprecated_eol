@@ -70,7 +70,14 @@ class DataObjectTaxon
   def italicized_name
     users_data_object? ? taxon_concept.title : hierarchy_entry.italicized_name
   end
-  alias :title_canonical_italicized :italicized_name # TODO - I don't think we should use this, but we do.  :\
+
+  def title_canonical
+    users_data_object? ? taxon_concept.title_canonical : hierarchy_entry.title_canonical
+  end
+
+  def title_canonical_italicized
+    users_data_object? ? taxon_concept.title_canonical_italicized : hierarchy_entry.title_canonical_italicized
+  end
 
   # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See
   # DataObject.curated_hierarchy_entries

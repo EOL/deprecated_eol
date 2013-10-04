@@ -50,7 +50,7 @@ describe Comment do
   end
 
   it "should return dato description for DataObject comment" do
-    image = @tc.images_from_solr(1, :skip_preload => false)[0]
+    image = @tc.images_from_solr(1)[0]
     image.comments[0].parent_name.should == image.description
   end
 

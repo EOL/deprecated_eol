@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   establish_connection(Rails.env)
 
   include EOL::ActivityLoggable
+  include IdentityCache
 
   belongs_to :language
   belongs_to :agent
@@ -205,7 +206,7 @@ class User < ActiveRecord::Base
 
   def self.cached(id)
     # TODO: removing the cache for Rails 3 because it was causing problems
-    User.find(id, :include => :agent)
+    User.fetch(id)
   end
 
   # Note: this is only for Staging to help determine how to show cropped images

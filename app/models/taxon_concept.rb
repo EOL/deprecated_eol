@@ -40,6 +40,8 @@ class TaxonConcept < ActiveRecord::Base
   has_many :collections, :through => :collection_items
   # TODO: this is just an alias of the above so all collectable entities have this association
   has_many :containing_collections, :through => :collection_items, :source => :collection
+  has_many :published_containing_collections, :through => :collection_items, :source => :collection, :conditions => 'published = 1',
+    :select => 'collections.id, collections.name, special_collection_id, relevance, logo_cache_url', :include => :communities
   has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
   has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
@@ -55,9 +57,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_and_belongs_to_many :data_objects
 
-  attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
-
-  attr_reader :has_media, :length_of_images, :length_of_videos, :length_of_sounds
+  attr_accessor :common_names_in_language
 
   index_with_solr :keywords => [ :scientific_names_for_solr, :common_names_for_solr ]
 
@@ -103,7 +103,6 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
     solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
     solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
-    solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
     
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
@@ -116,6 +115,25 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:user] ||= nil
     solr_query_parameters[:facet_by_resource] ||= false  # this will add a facet parameter to the solr query
     return solr_query_parameters
+  end
+
+  def self.preload_for_shared_summary(taxon_concepts, options)
+    includes = [
+      { :preferred_entry =>
+        { :hierarchy_entry => [ { :name => :ranked_canonical_form }, :hierarchy ] } },
+      { :taxon_concept_exemplar_image => { :data_object =>
+        { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted, :visibility ] } } } ]
+    TaxonConcept.preload_associations(taxon_concepts, includes)
+    he = taxon_concepts.collect do |tc|
+      if tc.preferred_entry && ! tc.preferred_entry.hierarchy_entry.preferred_classification_summary?
+        tc.preferred_entry.hierarchy_entry
+      end
+    end.flatten.compact
+    HierarchyEntry.preload_associations(he, { :flattened_ancestors => { :ancestor => :name } } )
+    if options[:language_id] && ! options[:skip_common_names]
+      # loading the names for the preferred common names in the user's language
+      TaxonConcept.load_common_names_in_bulk(taxon_concepts, options[:language_id])
+    end
   end
 
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
@@ -134,16 +152,32 @@ class TaxonConcept < ActiveRecord::Base
   end
   class << self; alias_method_chain :find, :supercedure ; end
 
+  def self.load_common_names_in_bulk(taxon_concepts, language_id)
+    taxon_concepts_to_load = taxon_concepts.select do |tc|
+      tc.common_names_in_language ||= {}
+      ! tc.common_names_in_language.has_key?(language_id)
+    end
+    names = Name.joins(:taxon_concept_names).
+      where('taxon_concept_names.taxon_concept_id' => taxon_concepts_to_load.collect(&:id)).
+      where("vern=1 AND preferred=1 AND language_id=#{language_id}").
+      select('names.*, taxon_concept_id')
+    taxon_concepts_to_load.each do |tc|
+      tc.common_names_in_language[language_id] = names.detect{ |n| n.taxon_concept_id == tc.id }
+    end
+  end
+
   def preferred_common_name_in_language(language)
-    if preferred_common_names.loaded?
+    if common_names_in_language && common_names_in_language.has_key?(language.id)
       # sometimes we preload preferred names in all languages for lots of taxa
-      best_name_in_language = preferred_common_names.detect { |c| c.language_id == language.id }
+      best_name_in_language = common_names_in_language[language.id]
     else
       # ...but if we don't, its faster to get only the one record in the current language
-      best_name_in_language = preferred_common_names.where("language_id = #{language.id}").first
+      if tcn = preferred_common_names.where("language_id = #{language.id}").first
+        best_name_in_language = tcn.name
+      end
     end
     if best_name_in_language
-      return best_name_in_language.name.string.capitalize_all_words_if_language_safe
+      return best_name_in_language.string.capitalize_all_words_if_language_safe
     end
   end
 
@@ -467,7 +501,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def communities
-    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c|
+    @communities ||= published_containing_collections.collect{ |c|
       c.communities.select{ |com| com.published? } }.flatten.compact.uniq
   end
 
@@ -557,7 +591,7 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def maps_count()
+  def maps_count
     # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
     # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be 
     # TaxonConceptCache, where we can handle both storing and clearing keys. That centralizes the logic,
@@ -578,7 +612,6 @@ class TaxonConcept < ActiveRecord::Base
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => ['visible'],
       :ignore_translations => true,
-      :skip_preload => true
     )
   end
 
@@ -611,6 +644,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
+    return @exemplar_or_best_image_from_solr if @exemplar_or_best_image_from_solr
     cache_key = "best_image_id_#{self.id}"
     if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
       cache_key += "_#{selected_hierarchy_entry.id}"
@@ -627,7 +661,6 @@ class TaxonConcept < ActiveRecord::Base
           :vetted_types => ['trusted', 'unreviewed'],
           :visibility_types => ['visible'],
           :published => true,
-          :skip_preload => true,
           :return_hierarchically_aggregated_objects => true
         })
         # if for some reason we get back unpublished objects (Solr out of date), try to get the latest published versions
@@ -640,18 +673,18 @@ class TaxonConcept < ActiveRecord::Base
       end
     end
     return nil if best_image_id == 'none'
-    best_image = DataObject.find(best_image_id)
+    if @published_exemplar_image_calculated && @published_exemplar_image
+      best_image = @published_exemplar_image
+    else
+      best_image = DataObject.fetch(best_image_id)
+    end
     return nil unless best_image.published?
-    best_image
+    @exemplar_or_best_image_from_solr = best_image
   end
 
   # NOTE - If you call #images_from_solr with two different sets of options, you will get the same
   # results on the second as with the first, so you only get one shot!
   def images_from_solr(limit = 4, options = {})
-    unless options[:skip_preload] == false
-      options[:skip_preload] == true
-      options[:preload_select] == { :data_objects => [ :id, :guid, :language_id, :data_type_id ] }
-    end
     @images_from_solr ||= data_objects_from_solr({
       :per_page => limit,
       :sort_by => 'status',
@@ -659,9 +692,7 @@ class TaxonConcept < ActiveRecord::Base
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
       :ignore_translations => options[:ignore_translations] || false,
-      :return_hierarchically_aggregated_objects => true,
-      :skip_preload => options[:skip_preload],
-      :preload_select => options[:preload_select]
+      :return_hierarchically_aggregated_objects => true
     })
   end
 
@@ -669,12 +700,7 @@ class TaxonConcept < ActiveRecord::Base
   # want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
-    # TODO - rewrite query ... move to new class, perhaps?
-    iucn_objects = DataObject.find(:all, :joins => :data_objects_taxon_concepts,
-      :conditions => "`data_objects_taxon_concepts`.`taxon_concept_id` = #{id}
-        AND `data_objects`.`data_type_id` = #{DataType.iucn.id} AND `data_objects`.`published` = 1",
-      :order => "`data_objects`.`id` DESC")
-    my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
+    my_iucn = data_objects.where(:data_type_id => DataType.iucn.id).order('id DESC').first
     @iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
   end
 
@@ -860,16 +886,11 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def published_browsable_hierarchy_entries
-    hierarchy_entries.joins(:hierarchy).where('hierarchy_entries.published=1 AND hierarchies.browsable=1')
-  end
-  
-  def published_browsable_visible_hierarchy_entries
-    hierarchy_entries.joins(:hierarchy).
-      where("hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id} AND hierarchies.browsable=1")
+    published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
   end
   
   def count_of_viewable_synonyms
-    Synonym.where(:hierarchy_entry_id => published_browsable_visible_hierarchy_entries.collect(&:id)).where(
+    Synonym.where(:hierarchy_entry_id => published_browsable_hierarchy_entries.collect(&:id)).where(
       "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
   end
 

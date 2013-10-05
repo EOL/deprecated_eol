@@ -1,6 +1,7 @@
 # Messages for Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Cwlin0416
 # Author: Dream
 # Author: Taieol
 zh-TW: 
@@ -182,7 +183,7 @@ zh-TW:
   translated_resource_statuses-label-resource_status_id-9: 處理失敗
   translated_service_types-label-service_type_id-1: EOL資料傳輸綱要
   translated_service_types-label-service_type_id-2: 其他
-  translated_sort_styles-name-sort_style_id-1: 新近添加
+  translated_sort_styles-name-sort_style_id-1: 最新新增
   translated_sort_styles-name-sort_style_id-2: 最早
   translated_sort_styles-name-sort_style_id-3: 依字母順序
   translated_sort_styles-name-sort_style_id-4: 反字母順序

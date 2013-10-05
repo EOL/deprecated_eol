@@ -3654,7 +3654,7 @@ ko:
   terms_agreement_form_fallback: 계정에 접근하기 전에 <a href="%{terms_url}">이용 약관</a>을 검토하고 동의하세요.
   terms_agreement_form_header: 이용 약관
   terms_agreement_form_submit: 동의합니다
-  terms_of_use_link: 이용 및 개인정보 정책 약관
+  terms_of_use_link: 이용 약관 &amp; 개인 정보 정책
   test: 시험.
   test_it_out: 테스트
   text: 텍스트

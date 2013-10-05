@@ -20,6 +20,7 @@
 # Author: Larjona
 # Author: McDutchie
 # Author: Mor
+# Author: Ovruni
 # Author: Penarc
 # Author: Rbcastroc
 # Author: Sampalahnuk
@@ -1061,6 +1062,10 @@ es:
   article_not_associated_with_any_published_entries: Este artículo no está asociado con ninguno de los taxones publicados.
   article_of_taxon: Artículo de %{taxon_name}
   article_rating: Calificación del artículo
+  article_secondary_description_with_others_count: 
+    one: Descripción de %{taxon} y %{count} otro taxón
+    other: Descripción de %{taxon} y %{count} otros taxones
+    zero: Descripción de %{taxon}
   articles_in_languages_with_count: 
     one: "Los artículos en esta página están disponibles en%{count} lenguaje:"
     other: " Los artículos en esta página están disponibles en %{count} lenguajes:"
@@ -1221,6 +1226,12 @@ es:
   collect_items: Recoger elementos
   collection_api_sort_field_notes: Si está incluido un parámetro sort_field, sólo serán devueltos los elementos de la colección cuyo campo de ordenación coincida exactamente con la cadena especificada
   collection_copy_choose_all_items_target_title: "Copiar todos los elementos de \"%{collection}\" a:"
+  collection_copy_choose_target_title_with_count: 
+    one: "Copiar %{count} elemento de \"%{collection}\" to:"
+    other: "Copiar %{count} elementos de \"%{collection}\" a:"
+  collection_copy_complete_with_count: 
+    one: Copiado %{count} elemento de %{from} a %{to}.
+    other: Copiado un total de %{count} elementos de %{from} a %{to}.
   collection_created_notice: Colección <em>%{collection_name}</em> creado correctamente.
   collection_created_with_count_notice: 
     one: Colección <em>%{collection_name}</em> creado correctamente con %{count} elemento de la colección.
@@ -1238,6 +1249,12 @@ es:
     other: "%{count} items"
     zero: Empty
   collection_move_choose_all_items_target_title: "Mover todos los elementos de \"%{collection}\" a:"
+  collection_move_choose_target_title_with_count: 
+    one: "Mover %{count} elementos de \"%{collection}\" to:"
+    other: "Mover %{count} elementos de \"%{collection}\" a:"
+  collection_move_complete_with_count: 
+    one: Movido %{count} elemento de %{from} a %{to}.
+    other: Movido un total de %{count} elementos de %{from} a %{to}.
   collection_name_cannot_be_blank: El nombre de la colección no puede estar vacío
   collection_name_label: Nombre de la colección
   collection_newsfeed: Newsfeed de Colección
@@ -1247,6 +1264,9 @@ es:
   collection_not_updated_error: Lo sentimos, ha ocurrido un error, la colección no se pudo actualizar.
   collection_rating: Evaluación de la colección
   collection_redindexed: La colección re-indexada.
+  collection_remove_complete_with_count: 
+    one: Eliminado %{count} elemento de %{from}.
+    other: Eliminado %{count} elementos de %{from}.
   collection_updated_notice: Colección <em>%{collection_name}</em> actualizado correctamente.
   collection_was_added_to_community: "\"%{collection}\" se agregó a esta comunidad."
   collection_was_removed_by_owner: Esta colección fue retirada por su propietario.
@@ -1720,6 +1740,9 @@ es:
   data_object_ignore: ignorar este elemento
   data_object_not_associated_with_any_hierarchies: Este objeto de datos no está asociado con ninguna jerarquía.
   data_object_reference: Referencia de objeto de datos
+  data_object_toc_items_list: 
+    one: Aparece en la %{quoted_toc_titles}
+    other: Aparece en las %{quoted_toc_titles}
   data_object_undo_ignore: eliminar de la lista de ignorados
   data_objects: 
     show: 
@@ -2067,6 +2090,7 @@ es:
   flash_notice_redirected_from_search_html_more_results: Ha llegado aquí buscando <em>%{search_string}</em>. <a href="%{more_results_url}">Haga clic aquí para volver a la página de búsqueda.</a>
   flash_video: Vídeo Flash
   flickr: Flickr
+  flipboard: Flipboard
   focus_collection_edit: Puede editar las colecciones de esta comunidad directamente en la página de edición de cada colección.
   focus_list_newsfeed: Newsfeed de Lista Enfoque
   for_example_for_the_taxon_element_for_a_node: Por ejemplo, para el elemento de taxón de un nodo en la jerarquía de ITIS, el dc:identifier será el TSN de ITIS. El elemento dwct:taxonID contiene en <i>EOL identifier</i> que será usado en el %{link} API.
@@ -3465,6 +3489,9 @@ es:
   spm_category: Categoría SPM
   spm_category_objects_count: Categoría SPM - conteo de objetos
   spm_category_partner_count: Categoría SPM - conteo de socios
+  stars_with_count: 
+    one: "%{count} estrella"
+    other: "%{count} estrellas"
   started: Iniciado
   stat: Estadísticas
   stats: Estadísticas
@@ -3916,12 +3943,18 @@ es:
   type: Tipo
   unable_to_copy_items_to_collection_error: Lo siento, no se pudo copiar los elementos de la colección a %{name}.
   unable_to_determine_title: No se ha podido determinar el título de esta página web
+  unable_to_invite_users_to_community_with_count: 
+    one: La invitación no se pudo enviar a %{list}.
+    other: Las invitaciones no se pudieron enviar a %{list}.
   unique_page_views_th: Visitas únicas de página
   unknown: Desconocido
   unknown_data_object_title: Objeto de datos desconocido
   unknown_hierarchy: Jerarquía desconocida
   unknown_type_not_associated_with_any_published_entries: Estos datos no están asociados con ninguno de los taxones publicados.
   unpublished: Sin publicar
+  unpublished_collections_with_count: 
+    one: "%{count} ocultar colección"
+    other: "%{count} ocultar colecciones"
   unreviewed: Sin revisar
   unreviewed_images: Imágenes sin revisar
   unreviewed_maps: Mapas sin revisar
@@ -4028,6 +4061,9 @@ es:
   user_pending_notifications_comments_with_count_assistive: 
     one: "%{count}<span class=\"assistive\"> comentario</span>"
     other: "%{count}<span class=\"assistive\"> comentarios</span>"
+  user_pending_notifications_with_count: 
+    one: "%{count} notificación"
+    other: "%{count} notificaciones"
   user_pending_notifications_with_count_assitive: 
     one: "%{count}<span class=\"assistive\"> notificación</span>"
     other: "%{count}<span class=\"assistive\"> notificaciones</span>"
@@ -4258,6 +4294,7 @@ es:
   view_verb: Ver
   view_video_source: Ver el fuente de vídeo
   view_your_curator_profile: Ver tu perfil de supervisor
+  vimeo: Vimeo
   visible_title: Visible
   visitors: Visitantes
   vivisimo: Vivisimo

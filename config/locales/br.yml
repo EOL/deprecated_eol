@@ -489,6 +489,8 @@ br:
   admin_link: Brassell
   admin_news_item_active: Embannet
   admin_news_item_delete_confirmation: Ha sur oc'h ho peus c'hoant da lemel "%{page_name}" hag an holl droidigezhioù ? Ne c'haller ket nullañ an oberoù lemel.
+  admin_news_item_new_header: Krouiñ un elfenn titouriñ nevez
+  admin_news_item_new_link: Krouiñ un elfenn titouriñ
   admin_news_item_new_tip: Ebarzhit an titouroù diazez diwar-benn  ar bajenn-mañ.  Un anv hepken zo %{required_icon}&nbsp;rekis.
   admin_news_item_not_active: Diembann
   admin_news_items_page_title: "Melestradurezh : Keleier"
@@ -638,6 +640,8 @@ br:
   back: Distreiñ
   back_to_profile: Distreiñ d'ar profil
   began: en deus kroget
+  bhl: Biodiversity Heritage Library
+  bhl_partner_footer: Gweladennit ar "Biodiversity Heritage Library"
   bhl_publication: Embannadur BHL
   bi_monthly: Daouviziek
   biodiversity_heritage_library: "''Biodiversity Heritage Library''"
@@ -646,6 +650,7 @@ br:
   browsable: Merdeüs
   browsable_hierarchies: Urzhasoù merdeüs
   browse_hierarchy: Merdeiñ en urzhas
+  browsing_branch_colon: "O furchal ar skourr :"
   build_communities: Sevel kumuniezhioù
   by_caps: Gant
   by_scientific_name_table_header: dre anvioù skiantel
@@ -826,6 +831,7 @@ br:
       page_title: Roit ho soñj, mar plij.
     notices: 
       message_sent: Trugarez evit ho tisplegadennoù, kaset eo bet ho kemennadenn d'ar strollad a zere.
+  containing_value: gant %{value} ennañ.
   content: 
     index: 
       header_news: Keleier KAB
@@ -1102,6 +1108,7 @@ br:
   dato_location_created: "Lec'h krouet : %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Danvez ar pennad
   dato_new_edit_user_text_fieldset_information_header: Titouroù war ar pennad
+  dato_new_edit_user_text_link_fieldset_content_header: Roadennoù al liamm
   dato_new_text_for_taxon_page_title: Ouzhpennañ ur pennad da <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Ouzhoennañ ul liamm war-du <i>%{taxon}</i>
   dato_update_user_text_error: Ho tigarez, c'hoarvezet ez eus ur fazi ha n'eus ket bet gallet hizivaat ar pennad.
@@ -1130,6 +1137,7 @@ br:
   donation_confirmation: Kadarnaat an donezon
   donation_error_no_amount: Diuzit sammad an donezon, mar plij.
   donation_error_only_numbers: Ebarzhit ur sammad dre implijout niveroù hepken, mar plij.
+  donation_sponsorship_fellowships_title: Kenvreuriezhoù
   donation_sponsorship_infrastructure_title: Danframmoù diazez
   done_already: Bet graet dija
   download_wav_file: Pellgargañ ar restr WAV
@@ -1144,6 +1152,8 @@ br:
   edit_glossary_term: Aozañ un termen eus ar c'heriaoueg
   edit_hierarchy: aozañ an urzhaz
   edit_my_profile: Aozañ ma frofil
+  edit_page_contents: aozañ endalc'had ar bajenn
+  edit_permission_header: "Aozañ an aotre : %{permission}"
   edit_table_of_contents: Aozañ an daolenn
   edit_username: Aozañ %{username}
   edit_web_users: aozañ implijerien ar web
@@ -1218,6 +1228,7 @@ br:
       default: Moned nac'het.
   expand_all_children: dispakañ an holl ispajennoù
   explore: Ergerzhout
+  explore_what_we_know_about_taxon: Ergerzhir petra a oar KAV diwar-benn %{taxon}.
   external_link_header: Liamm diavaez
   external_link_icon_alt_text: Liamm diavaez.
   facebook: Facebook
@@ -1246,6 +1257,7 @@ br:
   filter_by_type_link_option: Liammoù
   filter_by_type_name_option: Anvioù
   filter_by_type_object_curated_option: Traezoù miret
+  filter_by_type_photosynth_option: Sintezennoù luc'hskeudennoù
   filter_by_type_sound_option: Sonioù
   filter_by_type_taxon_concept_option: Taksonoù
   filter_by_type_text_option: Pennadoù
@@ -1263,11 +1275,13 @@ br:
   flash_video: Video Flash
   flickr: Flickr
   flipboard: Skramm paper
+  for_pdfs_and_docs_parens: (evit an teulioù PDF & doc)
   forgot_password: Ankouaet em eus ma ger-tremen
   forgot_password_form_cancel: Nullañ
   forgot_password_form_choose_username_blank_error: Diuzit ar gont a fell deoc'h adderaouekaat ar ger-tremen anezhi, mar plij.
   forgot_password_form_choose_username_legend: Dibab ur gont
   forgot_password_form_header: Adderaouekaat ho ker-tremen
+  forgot_password_form_username_or_email_blank_error: Ebarzhit hoc'h anv implijer pe ho chomlec'h postel evit adderaouekaat ho ker-tremen, mar plij.
   forums: 
     actions: Oberoù
     administration: Merañ
@@ -1339,6 +1353,8 @@ br:
   from_community: eus ar gumuniezh %{community}
   gbif_map: Kartenn GBIF
   general_site_admin: pennmerour al lec'hienn
+  get_help_choosing_a_subchapter: Tapout sikour evit dibab un ispennad
+  get_help_choosing_a_subject: Tapout sikour evit dibab ur sujed
   given_name_colon: "Anv roet :"
   global_access_tagline: Moned hollek d'ar gouiziegezh war ar vuhez war an Douar.
   global_navigation: Merdeiñ hollek
@@ -1605,6 +1621,7 @@ br:
   image_of_taxon: Skeudenn eus %{taxon_name}
   image_rating: Priziadenn ar skeudenn
   image_title_with_taxa: Skeudenn eus %{taxa}
+  image_title_without_taxa: Skeudenn un takson dianav
   images: Skeudennoù
   images_with_count: 
     one: "%{count} skeudenn"
@@ -1709,6 +1726,7 @@ br:
   learn_about_eol: Penaos e c'hellañ implijout HAV
   learn_about_joining: Penaos e c'hallan kemer perzh ?
   learn_more_about_communities_link: Gouzout hiroc'h diwar-benn ar c'humuniezhoù
+  learn_more_link: (%{learn_more})
   learn_more_lowercase: gouzout hiroc'h.
   leave_a_comment: Lezel un evezhiadenn
   leave_community_button: Kuitaat ar gumuniezh-mañ
@@ -1738,12 +1756,20 @@ br:
   license_public_domain: Domani foran
   link_more_about: Gouzout hiroc'h diwar-benn al liamm-mañ
   link_name: Anv al liamm
+  links_with_count: 
+    one: "%{count} liamm"
+    other: "%{count} liamm"
+  list_newsletter_emails: roll posteloù al lizher kelaouiñ
+  listing_collections: Roll an dastumadoù
   literature: Lennegezh
   literature_empty: N'eus bet kavet dave ebet.
   literature_header: Daveennoù
+  literature_links: Liammoù lennegezh
+  literature_links_link: Liammoù lennegezh
   literature_references: Daveennoù el lennegezh
   location: Lec'hiadur
   location_colon: "Lec'hiadur :"
+  logging_database_colon: "Kevreañ :"
   login: kevreañ
   login_hidden_user_message: Ar gont %{given_name} n'eo ket oberiant ken
   login_or_create_account: Krouiñ ur gont pe kevreañ
@@ -1760,11 +1786,13 @@ br:
   map_from_supplier: Kartenn digant %{whom}
   map_of_taxon: Kartenn eus %{taxon_name}
   map_rating: Priziadenn ar gartenn
+  maps_empty_contribute_instructions: Deskit penaos kenlabourat war gartennoù KAV
   maps_with_count: 
     one: "%{count} Gartenn"
     other: "%{count} Kartenn"
   march_of_life_thumbnail_title: "Kerzh ar vuhez :"
   media: Media
+  media_list_empty_contribute_instructions: Deskit penaos pourchas mediaoù da KAV.
   media_with_count: 
     one: "%{count} Media"
     other: "%{count} Media"
@@ -1822,18 +1850,25 @@ br:
   monthly: Bep miz
   most_active_members: Izili oberiantañ
   move: Dilec'hiañ
+  move_down: Diskenn
+  move_to_bottom: Mont betek an traoñ
+  move_up: Pignat
   multimedia_links: Liammoù liesvedia
   must_be_checked_in_to_show: "- a rank bezañ gwiriet evit bezañ diskouezet d'an implijer"
+  must_be_checked_in_to_view: "- a rank bezañ gwiriet evit bezañ gwelet"
   must_be_less_than_128_characters_long: a rank bezañ berroc'h eget 128 arouezenn.
   must_provide_search_term_error: Ret eo deoc'h merkañ un termen da glask.
   my_activity: Ma obererezh
   my_info: Ma zitouroù
   name: Anv
   name_colon: "Anv :"
+  name_preferred_taxonomically_for_source_yes: Gwellañ-deuet
   names: Anvioù
   names_children_column_header: Bugale
+  names_et_al: "%{names}, ha kement zo."
   names_filter: Anvioù
   names_name_column_header: Anv
+  names_preferred_column_header: Gwellañ-deuet
   names_relationship_column_header: Darempredoù
   names_sources_column_header: Mammennoù
   names_status_column_header: Statud
@@ -1851,7 +1886,9 @@ br:
   next: War-lerc'h
   no_active_members: N'eus ket bet trawalc'h a obererezh c'hoazh.
   no_answer: Ket
+  no_results_for: disoc'h ebet evit
   none: hini ebet
+  not_evaluated: N'eo ket bet priziet
   not_published_yet: n'eo ket embannet c'hoazh
   note: "Notenn :"
   notes: Notennoù
@@ -1891,6 +1928,7 @@ br:
       message: "Trugarez da vezañ lakaet hoc'h anv e Kelc'hgeriadur ar Vuhez (KarB). Gant al liamm da-heul e c'hallimp gwiriañ ho peus c'hoant da glokaat hoc'h enskrivadur ha gweredekaat ho kont :\n\n%{verification_url}\n\nUr wech ma vo bet gweredekaet ho kont e resevot ur postel kadarnaat."
       subject: Gwiriit, mar plij, ho koulenn kont e Kel'hgeriadur ar Vuhez (KarB)
   object: Traezenn
+  object_status: Statud an draezenn
   object_status_all_option: An holl
   object_status_trusted_option: Asur
   object_status_unreviewed_option: Anwiriet
@@ -1911,6 +1949,9 @@ br:
   object_visibility_visible_option: Gwelus
   older_version_of_latest_published_data_object_title_link: Stumm kozh %{link}
   on_time_col_header: gweredekaet
+  option_please_select: Diuzañ, mar plij
+  or_move_them_to_existing_collection: pe o dilec'hiañ d'un dastumad zo anezhañ c'hoazh
+  original: "ORIN :"
   original_object: Traezhenn orin
   other_us_dollars_amount: "All : US$"
   outlink: Liamm diavaez
@@ -1945,6 +1986,7 @@ br:
   please_wait: Gortozit mar plij...
   preview: rakwelet
   preview_changes: Rakwelet ar c'hemmoù
+  previously_published: embannet dija
   profile: Profil
   profile_colon: "Profil :"
   project: Raktres
@@ -2000,6 +2042,7 @@ br:
     someone_commented_on_something: <b>%{who}</b> en deus displeget <b>%{what}</b>.
   recent_updates: Hizivadennoù diwezhañ
   recently_visited: Gweladennet nevez zo
+  recipients: Degemererien
   references_cabs_colon: "Daveennoù :"
   reindex_page_button: Advenegeriñ ar bajenn
   remove: Dilemel
@@ -2063,9 +2106,11 @@ br:
   sign_in: Kevreañ
   sign_out: Digevreañ
   site_cms: Lec'hienn CMS
+  site_information: Titouroù diwar-benn al lec'hienn
   site_language: Yezh al lec'hienn
   site_settings_menu: Arventennoù al lec'hienn
   skip_to_content: Mont d'an danvez
+  skip_to_navigation: Mont d'ar Merdeiñ
   social_sharing_twitter_follow_eol_button: Heuliañ @eol
   sort_by: Urzhiañ dre
   sort_by_alphabetical_option: Dre urzh al lizherenneg
@@ -2079,6 +2124,7 @@ br:
   sort_by_richness_option: Pinvidigezh
   sort_by_status_option: Statud
   sound_file: Restr son
+  sound_from: son eus
   sound_from_supplier: Son digant %{whom}
   sound_of: Son digant
   sound_rating: Priziadenn ar son
@@ -2365,9 +2411,14 @@ br:
         connected_unverified: Kevreet; n'eo ket gwiriet;
         not_connected: N'eo ket kevreet;
         page_title: Kontoù kevreet
+        return_link: Distreiñ da aozañ ar profil
       notices: 
+        facebook: 
+          new_authentication_added: Ouzhpennet eo bet an dilesadur Facebook d'ho kont.
         google: 
           new_authentication_added: Dilesadur Google zo bet ouzhpennet d'ho kont.
+        yahoo: 
+          new_authentication_added: Ouzhpennet eo bet an dilesadur Yahoo! d'ho kont.
       twitter: Twitter
       yahoo: Yahoo!
     pending: 

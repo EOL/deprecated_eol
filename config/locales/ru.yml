@@ -348,7 +348,7 @@ ru:
   add_sub_chapter: Добавить подраздел
   add_to_a_community: Добавить в сообщество
   add_to_my_collection_button: Добавить в коллекцию
-  added_classifications_ready: Данные из выбранной классификации готовы к перемещению на другую страницу. Для завершения процесса, выберите «разделить на новую страницу» или перейдите на вкладку «Имена», нужного объекта данных и затем выберите «объединить классификации» для завершения процесса.
+  added_classifications_ready: Данные из выбранной классификации готовы к перемещению на другую страницу. Для завершения процесса выберите «разделить на новую страницу» или перейдите на вкладку «Имена» у нужного объекта данных и затем выберите «объединить классификации».
   admin_content_page_active: Опубликовано
   admin_content_page_child_new_link: Создать дочернюю страницу
   admin_content_page_create_successful_notice: Страница <a href="#%{anchor}"><em>%{page_name}</em></a> успешно создана.
@@ -888,6 +888,9 @@ ru:
       permalink_to_this_post: "Постоянная ссылка на эту публикацию:"
       post_has_been_deleted: Эта публикация была удалена.
       post_written_by_user: "%{user} писал:"
+      posts_with_count: 
+        one: "%{count} сообщение"
+        other: "%{count} сообщения"
       replying_to_post: "Отвечая:"
       topic_and_post_delete_successful: Запись и тема были успешно удалены
       update_failed: Извините, произошла ошибка, запись не может быть обновлена
@@ -1467,6 +1470,27 @@ ru:
     literature: 
       show: 
         meta_title: Статьи и книги о %{scientific_name}
+    maps: 
+      show: 
+        meta_title: Карты для %{scientific_name}
+        tweet_text: Карты для %{scientific_name}
+    names: 
+      synonyms: 
+        hierarchy_entry: 
+          meta_keywords: Синонимы %{scientific_name}
+        meta_description: Синонимы %{scientific_name}.
+        meta_keywords: Синонимы %{scientific_name}
+        meta_title: Синонимы %{scientific_name}
+        tweet_text: Синонимы %{scientific_name}
+    resources: 
+      education: 
+        meta_title: Образовательные ресурсы на тему %{scientific_name}
+        tweet_text: Образовательные ресурсы на тему %{scientific_name}
+    updates: 
+      show: 
+        meta_title: Комментарии к %{scientific_name}
+        meta_title_with_common_name: Комментарии к %{preferred_common_name} (%{scientific_name})
+        tweet_text: Комментарии к %{scientific_name}
   taxon_education_header: Образовательные ресурсы
   taxon_education_link: Образовательные ресурсы
   taxon_page_content_disclaimer_header: Отказ от ответственности

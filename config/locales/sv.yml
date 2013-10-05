@@ -873,6 +873,7 @@ sv:
   admin_content_partners_statistics_first_published_download_csv_submit: Ladda ned som CSV.
   admin_content_partners_statistics_first_published_header: Resurser som publicerades först
   admin_content_partners_statistics_link: Statistiker
+  admin_content_partners_statistics_page_title: "Administration: Statistik för innehållspartner"
   admin_home: admin-hem
   admin_information: Detta är den nya administrationen konsolen för EOL V2. Vi håller på att överföra administrationsfunktionalitet från V1. Om administrationsavsnittet du söker inte finns, besök <a href="/administrator">V1 Administrationskonsolen</a> .
   admin_link: Administrationskonsol
@@ -1009,8 +1010,8 @@ sv:
   article_of_taxon: Artikel för %{taxon_name}
   article_rating: Artikelbetyg
   article_secondary_description_with_others_count: 
-    one: Beskrivning av %{taxon} och %{count} annan taxon
-    other: Beskrivning av %{taxon} och %{count} andra taxa
+    one: Beskrivning av %{taxon} och %{count} annan taxa
+    other: Beskrivning av %{taxon} och %{count} annan taxa
     zero: Beskrivning av %{taxon}
   articles_in_languages_with_count: 
     one: "Artiklarna på denna sida finns tillgängligt på %{count} språk:"
@@ -1465,6 +1466,7 @@ sv:
   content_partner_resource_status_update_successful_notice: Status för resursen %{resource_title} har uppdaterats till %{resource_status}.
   content_partner_resource_status_update_unsuccessful_error: Tyvärr, ett fel uppstod. Status för resursen %{resource_title} kunde inte uppdateras till %{resource_status}.
   content_partner_resource_update_unsuccessful_error: Tyvärr, ett fel uppstod. Resursdetaljerna uppdaterades inte.
+  content_partner_resource_upload_unsuccessful_error: "Tyvärr, ett fel uppstod. Resursdetaljerna uppdaterades, men själva resursen laddades inte upp: %{resource_status}."
   content_partner_resource_validation_unsuccessful_error: Tyvärr. Resursdetaljerna uppdaterades, men resursen misslyckades att valideras. Se behandlingsanteckningarna nedan.
   content_partner_resource_vetted_false: Nej
   content_partner_resource_vetted_true: Ja
@@ -1512,6 +1514,7 @@ sv:
   content_partners_with_count: 
     one: "%{count} innehållspartner"
     other: "%{count} innehållspartners"
+  content_server_full_url: Fullständig URL till innehållsserver
   content_servers: Innehållsservrar
   content_setting_colon: "Innehållsinställning:"
   content_summary_introduction_html: Följande värden motsvarar summan av olika typer av innehåll för detta taxon och alla dess taxonomiska ättlingar. %{glossary_term_trusted} innehåll har antingen godkänts av en EOL-kurator eller kommer från en pålitlig leverantör. %{glossary_term_unreviewed} innehåll har ännu inte bedömts av en EOL-kurator. Varje taxonomisk hierarki är unik, så varje bläddringsbar hierarki visas för jämförelse.
@@ -1613,9 +1616,11 @@ sv:
     other: "%{count} kuratorer"
   current_language: "Språk: %{iso_code}"
   currently_in_eol: Just nu i Encyclopedia of Life
+  currently_published: för närvarande publicerad
   daily: Dagligen
   dashboard: Instrumentpanel
   data_database_colon: "Data:"
+  data_logging_active: Dataloggning aktiv
   data_object: Dataobjekt
   data_object_ignore: ignorera detta objekt
   data_object_not_associated_with_any_hierarchies: Detta dataobjekt är inte associerat med några hierarkier.
@@ -2026,6 +2031,7 @@ sv:
   from_community: från gemenskapen %{community}.
   gbif_map: GBIF-karta
   gbif_occurrence_learn_more_link: Kom åt dessa data genom GBIF-portalen.
+  get_more_tasks: hämta fler uppgifter
   given_name_colon: "Förnamn:"
   global_access_tagline: Global tillgång till kunskap om livet på jorden.
   global_navigation: Global navigation
@@ -2172,6 +2178,7 @@ sv:
         credentials_more_author: Upphovsman i en publikation med peer-review (lämna referens).
         credentials_more_professional: Medlem av ett professionellt sällskap.
         credentials_more_referral: Återknytning från aktuell kurator.
+        credentials_more_successful_assistant_curator: Framgångshistorik som en assistentkurator.
         curation_application: Bli en kurator
         curation_priveleges_credentials: Referenser <small>(endast fullständiga och mästerkuratorer)</small>
         curator_level: Du är för närvarande %{curator_level_with_indefinite_article}.
@@ -2315,6 +2322,7 @@ sv:
   image_of_taxon: Bild för %{taxon_name}
   image_rating: Bildbetyg
   image_title_with_taxa: Bild på %{taxa}
+  image_title_without_taxa: Bild på en okänd taxon
   images: Bilder
   images_in_red_are_not_trusted: Bilder i rött är inte pålitliga.
   images_in_yellow_are_not_reviewed: Bilder i gult är inte granskade.
@@ -2329,6 +2337,7 @@ sv:
   in_community: i gemenskap
   in_this_data_type: "i denna %{data_type}:"
   inappropriate: Olämplig
+  inaturalist_tab_label: iNaturalist-observationer
   include_all_metadata: inkludera all metadata för dataobjekt
   indexed: Indexerad
   info_item: Infobojekt
@@ -2695,6 +2704,7 @@ sv:
   not_applicable: ej tillämpbar
   not_evaluated: Inte utvärderad
   not_published_yet: inte publicerad ännu
+  not_recognized_by_available_hierarchies: Känns inte igen av några tillgängliga klassifikationer
   not_yet_implemented_error: Tyvärr, den där funktionen har inte implementerats ännu.
   note: "OBS:"
   note_all_times_utc: Observera att alla tider är UTC (Greenwich Mean Time)
@@ -2987,6 +2997,7 @@ sv:
   related_names_with_count: 
     one: "%{count} relaterat namn"
     other: "%{count} relaterade namn"
+  related_organizations: Relaterade organisationer
   remove: Ta bort
   remove_curatorship_colon: "Ta bort kuratorskap:"
   remove_data_object_association: Ta bort association
@@ -3169,6 +3180,7 @@ sv:
   special_collection: Specialsamling
   special_collections_cannot_be_destroyed: Denna samling är den enda samlingen som är associerad med dess gemenskap och kan inte raderas.
   species: Arter
+  species_curated: Kurerade arter
   split_into_new_concept: dela upp till en ny sida
   stars_with_count: 
     one: "%{count} stjärna"
@@ -3178,6 +3190,7 @@ sv:
   stored_classifications: Var god observera att du har <a href='%{anchor}'>lagrade klassifikationer nedan</a>.
   subject: ämne
   submit: Skicka
+  submit_term: Skicka term
   summary_thumbnail_title: "Sammanfattning:"
   supplier: Leverantör
   supplier_allcaps: "LEVERANTÖR:"
@@ -3504,6 +3517,7 @@ sv:
   the_content_was_updated: Innehållet uppdaterades.
   the_file_was_uploaded: Filen har laddats upp.
   the_following_bibliography: Följande bibliografi har genererats genom att sammanföra alla referenser som tillhandahålls av våra innehållspartners. Det kan finnas dubbletter.
+  the_glossary_term_was_successf: Ordlistetermen uppdaterades.
   the_image_from_this_source_has_not_been_reviewed: Bilden från denna källa har inte granskats.
   the_image_from_this_source_is_not_trusted: Bilden från denna källa är inte pålitlg.
   the_information_highlighted_in: Information med gul markering nedan har inte granskats.

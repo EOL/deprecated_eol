@@ -194,7 +194,7 @@ TocItem.gen_if_not_exists(:label => 'Biomedical Terms',       :view_order => 66,
 TocItem.gen_if_not_exists(:label => 'Search the Web',         :view_order => 67, :parent_id => ref_and_info.id)
 education = TocItem.gen_if_not_exists(:label => 'Education',  :view_order => 68)
 TocItem.gen_if_not_exists(:label => 'Education Links',        :view_order => 69, :parent_id => education.id)
-TocItem.gen_if_not_exists(:label => 'Education Resources',    :view_order => 70, :parent_id => education.id)
+education_resources = TocItem.gen_if_not_exists(:label => 'Education Resources', :view_order => 70, :parent_id => education.id)
 
 # Ensure all of the FOR_URIs are there:
 order = 75
@@ -220,6 +220,8 @@ InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPM
   :label => 'Uses', :toc_item => description)
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#Education',
   :label => 'Education', :toc_item => education)
+InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#EducationResources',
+  :label => 'Education Resources', :toc_item => education_resources)
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#IdentificationResources',
   :label => 'IdentificationResources', :toc_item => description)
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#Wikipedia',

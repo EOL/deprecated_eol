@@ -4,6 +4,7 @@
 # Author: Anthony Fok
 # Author: Chenxiaoqino
 # Author: Hydra
+# Author: Hzy980512
 # Author: Liangent
 # Author: Linforest
 # Author: Liuxinyu970226
@@ -97,6 +98,7 @@ zh-CN:
         rights_statement: 权利声明
         source_url: 来源URL
       data_object_link: 
+        description: 描述
         source_url: URL连接
       eol_statistic: 
         active_curators: 活跃管理员
@@ -1670,6 +1672,7 @@ zh-CN:
       joined_date: 于%{date}加入
       no_subject: （没有主题）
       permalink_to_this_post: 这篇文章的固定链接：
+      post_has_been_deleted: 此文章已被删除
       post_written_by_user: "%{user}写道："
       posts_with_count: "%{count}条帖子"
       replying_to_post: 回复：

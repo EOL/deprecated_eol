@@ -4,6 +4,7 @@
 # Author: Chmee2
 # Author: Jachym
 # Author: Jezevec
+# Author: Kalerme
 # Author: Mormegil
 # Author: Paxt
 # Author: Reaperman
@@ -80,6 +81,9 @@ cs:
         rights_holder: Držitel práv
         rights_statement: Informace o právech
         source_url: Zdrojová URL
+      data_object_link: 
+        description: Popis
+        source_url: URL odkazu
       eol_statistic: 
         active_curators: Aktivní kurátoři
         base_pages: Základní stránky
@@ -105,6 +109,7 @@ cs:
         data_objects_untrusted: Nedůvěryhodné datové objekty
         data_objects_videos: Video objekty
         hotlist_pages: Frekventované stránky
+        lifedesk_data_objects: LifeDesks datové objekty
         marine_pages: Mořské stránky
         marine_pages_in_col: Mořské stránky v CoL (Katalog života)
         marine_pages_with_objects: Mořské stránky s datovými objekty
@@ -192,6 +197,8 @@ cs:
         created_at: Vytvořeno
         guid: GUID
         provider: Poskytovatel třetí strany
+        secret: Tajemství
+        token: Klíč
         updated_at: Poslední aktualizace
         user_id: ID uživatele
         verified_at: Poslední ověření
@@ -202,12 +209,14 @@ cs:
         dataset: Soubor dat
         description: Popis zdroje
         dwc_archive_url: URL Darwin Core archivu
+        harvest_events: Sklizeň události
         hierarchy: Hierarchie
         language_id: Výchozí jazyk
         license_id: Výchozí licence
         notes: Zpracovatelské poznámky
         resource_status_id: Stav zdrojů
         rights_holder: Výchozí držitel práv
+        rights_statement: Výchozí práva prohlášení
         title: Název zdroje
         vetted: Prohlédnuto
       translated_content_page: 
@@ -285,6 +294,10 @@ cs:
             rights_holder: 
               blank: nemůže být prázdné na licenci CC-BY
               inclusion: musí být prázdné pro Public Domain licence
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: je povoleno pouze pro poslední událost sklizně, a to pouze v případě, že tato událost není již zveřejněna
         inaccessible: Záznam nelze uložit, protože je neplatný. Zkontrolujte chyby ověření a uložte znovu.
         open_authentications: 
           guid_provider_must_be_unique: účet třetí strany je již propojen s účtem EOL
@@ -292,11 +305,15 @@ cs:
         resource: 
           attributes: 
             accesspoint_url: 
+              blank: nemůže zůstat prázdné, dokud míto toho nenahrajete soubor zdroje
               inaccessible: je nedostupné, URL musí být veřejně dostupná
-              invalid: je neplatné, mělo by odkazovat na soubor XML, XML.GZIP nebo XML.GZ
+              invalid: je neplatné, mělo by odkazovat na soubor XML, XML.GZIP, XML.GZ nebo ZIP
             dataset: 
               blank: nemůže být prádné pokud neposkytnete místo toho URL datasetu
               wrong_type: Chybný typ, musí to být GZIP, TAR, ZIP nebo XML soubor
+            dwc_archive_url: 
+              inaccessible: je nedostupné, URL musí být veřejně dostupná
+              invalid: je neplatná, měl by poukázat na TAR.GZIP, TAR.GZ, TGZ nebo ZIP soubor
       template: 
         body: "Následující pole neprošla kontrolou:"
         header: 
@@ -971,6 +988,8 @@ cs:
       collection_item: 
         annotation: Anotace
         refs: Odkazy <small>(dát každý odkaz na nový řádek)</small>
+        sort_field: Seřadit podle <small>(datum rrrr.MM.DD, číslo nebo text)</small>
+        sort_field_show: "Řazení hodnoty:"
       comment: 
         body_edit: Přidat komentář
       contact: 
@@ -980,6 +999,8 @@ cs:
         name: Vaše jméno
       content_page: 
         active: Publikováno
+        active_more: Publikované stránky budou veřejně viditelné. Pokud chcete zabránit běžným uživatelům v zobrazení verze této stránky v libovolném jazyce, zrušte zaškrtnutí políčka <em>publikoval</em> .
+        page_name_more: Zadejte jedinečný, popisný, smysluplný a trvalý identifikátor pro tuto stránku. Jméno, které zde zadáte, se použije ke generování URL této stránky, například jedinečný název <em>terms_of_use</em> je převeden na URL <em>http://eol.org/info/terms_of_use</em>.
       content_partner: 
         last_action: Poslední akce
         latest_published_harvest_event: Naposledy publikováno

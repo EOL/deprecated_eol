@@ -28,8 +28,13 @@ class DataSearchController < ApplicationController
           page: @page, sort: @sort, per_page: 30)
       end
       format.js do
-        Resque.enqueue(DataFileMaker, querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-                       known_uri_id: @attribute_known_uri.id, language_id: current_language.id)
+        args = {querystring: @querystring, attribute: @attribute, from: @from, to: @to,
+                known_uri_id: @attribute_known_uri.id}
+        if current_user.is_a?(EOL::AnonymousUser)
+          args[:language_id] = current_language.id
+          args[:user_id] = current_user
+        end
+        Resque.enqueue(DataFileMaker, args)
       end
     end
   end

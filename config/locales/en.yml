@@ -3408,6 +3408,7 @@ en:
   feedback: "Feedback"
   file: "File"
   file_download_pending: "Creating the download requires a little extra time. Please feel free to use EOL, and we will notify you when the job is finished, so you can download it."
+  file_download_ready: "EOL has finished creating a data search file for for your query of \"%{query}\". You may <a href='%{file}'>download it at any time in the next few days</a>."
   file_id: "File ID"
   file_size: "File Size"
   filed_under_label_with_date: "Filed under %{label} on %{date}"
@@ -4128,6 +4129,10 @@ en:
   resources: "Resources"
   response_formats: "Response Formats"
   response: "Response"
+  resque_status_header: "Resque status:"
+  resque_pending_job_count:
+    one: "There is %{count} pending job in the \"%{queue}\" queue."
+    other: "There are %{count} pending jobs in the \"%{queue}\" queue."
   results_per_page: "Results per page:"
   results: "Results"
   results_offset: "Results %{from} - %{to} of %{total} for <em>%{for}</em>"

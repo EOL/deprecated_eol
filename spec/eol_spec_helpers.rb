@@ -493,6 +493,14 @@ TaxonConcept.class_eval do
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
 
+  def add_object_as_subject(object, info_item_label)
+    object.info_items << InfoItem.gen_if_not_exists(label: info_item_label)
+    object.save!
+    add_data_object(object)
+    object.reload
+    object.update_solr_index
+  end
+
   # Add a synonym to this TC.
   def add_scientific_name_synonym(name_string, options = {})
     language  = Language.scientific # Note, this could be id 0

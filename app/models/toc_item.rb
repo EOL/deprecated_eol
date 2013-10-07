@@ -87,19 +87,12 @@ class TocItem < ActiveRecord::Base
     def education_chapters
       cached_find_translated(:label, 'Education', 'en', :find_all => true)
     end
-    def education_root
-      @education_root ||= TocItem.education_chapters.detect{ |toc_item| toc_item.is_parent? }
-    end
-    def education_toc_ids
-      @education_toc_ids ||= TocItem.education_chapters.map(&:id)
-    end
-    def education
-      InfoItem
-      cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
-    end
     def education_resources
       InfoItem
       cached_find_translated(:label, 'Education Resources', :include => [ :info_items, { :parent => :info_items } ])
+    end
+    def education_for_resources_tab
+      TocItem.education_chapters + [ TocItem.education_resources ]
     end
 
     def identification_resources

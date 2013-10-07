@@ -59,7 +59,7 @@ class TaxonDetails < TaxonUserClassificationFilter
     @resources_links << :identification_resources if toc_ids.include?(TocItem.identification_resources.id)
     # NOTE - & is array intersection
     @resources_links << :citizen_science unless (toc_ids & [TocItem.citizen_science.id, TocItem.citizen_science_links.id]).empty?
-    @resources_links << :education unless (toc_ids & TocItem.education_toc_ids).empty?
+    @resources_links << :education unless (toc_ids & TocItem.education_for_resources_tab.collect(&:id)).empty?
     # TODO - I feel like we can move #has_ligercat_entry? ...but it's also used by TaxonResources.
     @resources_links << :biomedical_terms if taxon_concept.has_ligercat_entry?
     @resources_links << :nucleotide_sequences if taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon

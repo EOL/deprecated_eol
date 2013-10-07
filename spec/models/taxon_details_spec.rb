@@ -178,7 +178,7 @@ describe TaxonDetails do
   end
 
   it '#resources_links should include education if toc includes them' do
-    should_get_sym_when_toc_includes(:education, :education_toc_ids)
+    should_get_sym_when_toc_includes(:education, :education_for_resources_tab)
   end
 
   it '#resources_links should include biomedical_terms if TC has a ligercat entry' do

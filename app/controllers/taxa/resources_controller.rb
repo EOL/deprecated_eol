@@ -42,7 +42,7 @@ class Taxa::ResourcesController < TaxaController
     @add_article_toc_id = TocItem.education_resources ? TocItem.education_resources.id : nil
     @rel_canonical_href = education_taxon_resources_url(@taxon_page)
     
-    @contents = @education_contents || get_toc_text(:education_resources)
+    @contents = @education_contents || get_toc_text(:education_for_resources_tab)
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -103,7 +103,7 @@ private
     @multimedia_links_contents ||= get_link_text(:multimedia)
     @citizen_science_contents = get_toc_text([:citizen_science, :citizen_science_links])
     @identification_contents = get_toc_text(:identification_resources)
-    @education_contents = get_toc_text(:education_resources)
+    @education_contents = get_toc_text(:education_for_resources_tab)
   end
 
   def get_link_text(which)

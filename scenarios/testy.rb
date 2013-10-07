@@ -85,7 +85,7 @@ testy[:comprehensive_description] = TocItem.comprehensive_description
 testy[:comprehensive_description_text] = 'This is a test comprehensive description.'
 testy[:distribution]    = TocItem.distribution
 testy[:distribution_text] = 'This is a test distribution text.'
-testy[:education]       = TocItem.education
+testy[:education]       = TocItem.education_resources
 testy[:education_text]  = 'This is a test education.'
 testy[:toc_item_2]      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
 testy[:toc_item_3]      = TocItem.gen_if_not_exists(:view_order => 3, :label => "test toc item 3")

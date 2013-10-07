@@ -47,7 +47,6 @@ EOL.show_data_tables = function(tables) {
   tables.prev('div.header_underlined').show();
   tables.find('tr.data').show();
   tables.find('tr.actions').hide();
-  $('ul.glossary').show().prev().show();
 };
 
 EOL.toggle_actions_row = function(data_row) {
@@ -69,9 +68,13 @@ EOL.toggle_actions_row = function(data_row) {
         success: function(response) {
           $next_row_data.prepend(response).find('th.info').each(function() {
             var html = $(this).html();
+            var uri = $(this).find('.uri').text();
             $(this).remove();
-            data_row.closest('table').next().next('ul.glossary').append('<li>'+html+'</li>');
+            // only add the term if it is not already in the glossary
+            $('ul.glossary:not(:contains("' + uri + '"))').append('<li>'+html+'</li>');
           });
+          // sort the glossary now that new items have been added to the end
+          $("ul.glossary li").sort(EOL.sort_glossary).appendTo('ul.glossary');
           EOL.info_hints();
         },
         error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
@@ -89,6 +92,10 @@ EOL.toggle_actions_row = function(data_row) {
       $table.show();
     }
   }
+}
+
+EOL.sort_glossary = function(a, b) {
+  return ($(b).find('dt').text()) < ($(a).find('dt').text()) ? 1 : -1;
 }
 
 EOL.enable_suggestions_hover = function() {
@@ -290,11 +297,17 @@ $(function() {
 
   $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
     $('.about_subtab').hide();
+    $('.glossary_subtab').hide();
     if ($(this).parent().hasClass('about')) {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
+      $('.glossary_subtab').hide();
       $('.about_subtab').show()
-      $('ul.glossary').hide().prev().hide();
+    } else if ($(this).parent().hasClass('glossary')) {
+      EOL.hide_data_tables($('table.data'));
+      $('#taxon_data .empty').hide();
+      $('.about_subtab').hide();
+      $('.glossary_subtab').show()
     } else if ($(this).hasClass('all')) { // Acts as a reset button/link
       $('#taxon_data .empty').show();
       EOL.show_data_tables($('table.data'));

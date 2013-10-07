@@ -51,6 +51,7 @@ Eol::Application.routes.draw do
     resources :data, :only => [:index], :controller => 'taxa/data' do
       collection do
         get 'about'
+        get 'glossary'
       end
     end
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
@@ -65,6 +66,7 @@ Eol::Application.routes.draw do
       resources :data, :only => [:index], :controller => 'taxa/data' do
         collection do
           get 'about'
+          get 'glossary'
         end
       end
       resources :communities, :only => [:index], :controller => 'taxa/communities' do
@@ -404,6 +406,8 @@ Eol::Application.routes.draw do
   end
 
   resource :taxon_concept_exemplar_image, only: :create
+
+  resource :glossary, :only => :show, :controller => 'glossary'
 
   # Putting these after the complex resources because they are less common.
   resources :tasks, :task_states, :task_names, :random_images

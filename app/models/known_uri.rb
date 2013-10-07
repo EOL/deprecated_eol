@@ -253,6 +253,7 @@ class KnownUri < ActiveRecord::Base
     KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
       :relationship_uri => KnownUriRelationship::ALLOWED_VALUE_URI)
     # adding a new value for KnownUri.unit_of_measure requires we clear its cached instance
+    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
     KnownUri.remove_class_variable('@@unit_of_measure') if(self == KnownUri.unit_of_measure)
   end
 

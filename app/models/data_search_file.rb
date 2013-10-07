@@ -1,22 +1,8 @@
-class DataFile # TODO - I think we should make this an ActiveRecord::Base model. That'll act as a log of the files we've created,
-  # and it's not too expensive.
+class DataSearchFile < ActiveRecord::Base
+
+  attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id
 
   LIMIT = 100
-
-  attr_reader :q, :uri, :from, :to, :sort, :user, :known_uri
-
-  def initialize(args)
-    @q = args[:q]
-    @uri = args[:uri]
-    @from = args[:from]
-    @to = args[:to]
-    @sort = args[:sort]
-    @user = args[:user]
-    @known_uri = args[:known_uri]
-    build_file
-  end
-
-  private
 
   def build_file
     puts "   #build_file"
@@ -25,7 +11,17 @@ class DataFile # TODO - I think we should make this an ActiveRecord::Base model.
     send_notification
   end
 
-  def file_name
+  def file_exists?
+    return File.exist?(path)
+  end
+
+  def download_path
+    'TODO'
+  end
+
+  private
+
+  def path
     return @filename if @filename
     path = "something.csv"
     if args[:known_uri]
@@ -33,17 +29,14 @@ class DataFile # TODO - I think we should make this an ActiveRecord::Base model.
       path += "_f#{@from}" unless @from.blank?
       path += "-#{@to}" unless @to.blank?
       path += "_by_#{@sort}" unless @sort.blank?
-      # TODO - handle other filename cases as needed
+    else
+      # TODO - handle other filename cases (ie: when there is no attribute known_uri) as needed. Right now, that's impossible.
     end
     @filename = Rails.root.join("public", path)
   end
 
-  def file_exists?
-    return false # TODO
-  end
-
   def get_data
-    # TODO - really, we shouldn't use pagination at all, here.
+    # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
     results = TaxonData.search(querystring: @q, attribute: @uri, from: @from, to: @to,
       sort: @sort, per_page: LIMIT) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
     puts "   results = #{results.count}"
@@ -67,7 +60,7 @@ class DataFile # TODO - I think we should make this an ActiveRecord::Base model.
 
   def write_file(rows)
     col_heads = get_headers(rows)
-    CSV.open(file_name) do |csv|
+    CSV.open(path) do |csv|
       csv << col_heads
       rows.each do |row|
         csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
@@ -82,7 +75,7 @@ class DataFile # TODO - I think we should make this an ActiveRecord::Base model.
       begin
         I18n.locale = @user.language.iso_639_1
         comment = Comment.create!(parent: @user,
-                                  body: I18n.t(:file_ready_for_download, file: 'TODO', query: @q),
+                                  body: I18n.t(:file_ready_for_download, file: download_path, query: @q),
                                   user: @user) # TODO - maybe this should be "from" someone specific?
         @user.comments << comment
         force_immediate_notification_of(comment)
@@ -90,7 +83,7 @@ class DataFile # TODO - I think we should make this an ActiveRecord::Base model.
         I18n.locale = old_locale
       end
     else
-      # TODO - not sure how we're going to do this. ...Again, storing this as ActiveRecord::Base w/b helpful.
+      # TODO - not sure how we're going to do this. Session cookie to look for it each time page loads?  Woof.
     end
   end
 

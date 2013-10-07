@@ -28,13 +28,17 @@ class DataSearchController < ApplicationController
           page: @page, sort: @sort, per_page: 30)
       end
       format.js do
-        args = {querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-                known_uri_id: @attribute_known_uri.id}
-        if current_user.is_a?(EOL::AnonymousUser)
-          args[:language_id] = current_language.id
-          args[:user_id] = current_user
-        end
-        Resque.enqueue(DataFileMaker, args)
+        df = DataSearchFile.create!(
+          q: @querystring, uri: @attribute, from: @from, to: @to,
+          sort: @sort, known_uri: @attribute_known_uri, language: current_language,
+          user: current_user.is_a?(EOL::AnonymousUser) ? nil : current_user
+        )
+        @message = if df.file_exists?
+                     I18n.t(:file_ready_for_download, file: df.download_path, query: @querystring)
+                   else
+                     I18n.t(:file_download_pending)
+                   end
+        Resque.enqueue(DataFileMaker, data_file_id: df.id)
       end
     end
   end

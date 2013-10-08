@@ -129,7 +129,9 @@ class TaxonConcept < ActiveRecord::Base
         tc.preferred_entry.hierarchy_entry
       end
     end.flatten.compact
-    HierarchyEntry.preload_associations(he, { :flattened_ancestors => { :ancestor => :name } } )
+    unless options[:skip_ancestry]
+      HierarchyEntry.preload_associations(he, { :flattened_ancestors => { :ancestor => :name } } )
+    end
     if options[:language_id] && ! options[:skip_common_names]
       # loading the names for the preferred common names in the user's language
       TaxonConcept.load_common_names_in_bulk(taxon_concepts, options[:language_id])

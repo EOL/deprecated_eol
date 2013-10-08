@@ -67,15 +67,18 @@ EOL.toggle_actions_row = function(data_row) {
         dataType: 'html',
         success: function(response) {
           $next_row_data.prepend(response).find('th.info').each(function() {
-            var html = $(this).html();
+            var html = $(this).find('ul.glossary > li').html();
             var uri = $(this).find('.uri').text();
             $(this).remove();
             // only add the term if it is not already in the glossary
-            $('ul.glossary:not(:contains("' + uri + '"))').append('<li>'+html+'</li>');
+            console.log(html);
+            console.log(uri);
+            $('.glossary_subtab ul.glossary:not(:contains("' + uri + '"))').append('<li>'+html+'</li>');
           });
           // sort the glossary now that new items have been added to the end
-          $("ul.glossary li").sort(EOL.sort_glossary).appendTo('ul.glossary');
+          $(".glossary_subtab ul.glossary > li").sort(EOL.sort_glossary).appendTo('.glossary_subtab ul.glossary');
           EOL.info_hints();
+          EOL.enable_hover_list_items();
         },
         error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
         complete: function() {
@@ -175,6 +178,15 @@ EOL.info_hints = function() {
   });
 };
 
+EOL.enable_hover_list_items = function() {
+  $('ul.glossary li').hover(
+    function() {
+      $(this).find('li.hover').show();
+    }, function() {
+      $(this).find('li.hover').hide();
+    }
+  );
+}
 
 $(function() {
 
@@ -406,5 +418,6 @@ $(function() {
   });
 
   EOL.info_hints(); // Note this needs to happen *after* the info icons are added.
+  EOL.enable_hover_list_items();
 
 });

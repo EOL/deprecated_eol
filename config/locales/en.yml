@@ -4212,6 +4212,7 @@ en:
   see_all_editors_with_count:
     one: "See the %{count} manager"
     other: "See all %{count} managers"
+  see_in_glossary: "see in glossary"
   see_notes: "see notes"
   see_more_on_the_data_tab: "see more on the data tab"
   see_this_record_in_virtuoso: "see this record in Virtuoso"
@@ -4480,6 +4481,7 @@ en:
   toc_entry_col_header: "TOC Entry"
   toc_no_longer_available: "TOC information no longer available"
   toc: "TOC"
+  top: "top"
   topic_area: "Topic Area"
   topic: "Topic"
   to_process_your_donation_please_proceed: "To process your donation please proceed"

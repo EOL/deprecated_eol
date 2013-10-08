@@ -1757,14 +1757,26 @@ span.info
       margin-left: 10px
       padding: 20px 0px 0px
       font-size: 3em
-  span.top
+  ul.helpers
     float: right
     font-size: .9em
+    width: 100%
     a
       color: $darker_gray
       text-decoration: none
     a:hover
       text-decoration: underline
+    li
+      margin: 0px
+      padding: 0px
+      float: right
+      &.hover
+        display: none
+    li + li
+      border: 0px
+      border-right: 1px solid $darker_gray
+      margin-right: 10px
+      padding-right: 10px
   li
     margin-bottom: 16px
 .glossary li+li

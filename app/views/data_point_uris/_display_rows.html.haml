@@ -34,7 +34,7 @@
     - if current_user.min_curator_level?(:full)
       - span_class = exemplar ? 'exemplar' : (excluded ? 'excluded' : nil)
     - if first_of_type
-      = display_uri(data_point_uri.predicate_uri, :span, class: span_class, define: true, capitalize: true)
+      = display_uri(data_point_uri.predicate_uri, :span, class: span_class, define: true, capitalize: true, search_link: (! for_search))
     - elsif exemplar || excluded
       %span{ class: span_class }
   %td.val{ headers: header_id }

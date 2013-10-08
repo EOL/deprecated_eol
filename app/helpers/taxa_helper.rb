@@ -148,18 +148,14 @@ module TaxaHelper
   end
 
   def display_uri(uri, tag_type = :span, options = {})
+    options[:search_link] = true unless options.has_key?(:search_link)
     uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
     tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
     capture_haml do
       if options[:define] && uri.is_a?(KnownUri)
         haml_tag "#{tag_type}.info" do
-          haml_tag "dt##{uri.anchor}" do
-            haml_concat uri.name
-            haml_concat link_to(I18n.t(:more_taxa_with_attribute), data_search_path(:attribute => uri.uri, :sort => 'desc'))
-            haml_tag 'small.uri', uri.uri
-          end
-          unless uri.definition.blank?
-            haml_tag :dd, raw(uri.definition.add_missing_hyperlinks)
+          haml_tag "ul.glossary" do
+            haml_concat render(partial: 'known_uris/definition', locals: { known_uri: uri, search_link: options[:search_link], glossary_link: true })
           end
         end
       end

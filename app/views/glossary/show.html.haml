@@ -12,4 +12,4 @@
         %ul.glossary
           - uris_for_this_chapter = @known_uris.select{ |ku| letter == '0' ? ( ! a_to_z.include?(ku.name.firstcap[0])) : ku.name.firstcap[0] == letter }
           - uris_for_this_chapter.sort_by { |ku| ku.name }.each do |ku|
-            = render(partial: 'known_uris/definition', locals: { known_uri: ku, show_top_link: true, include_attribution: true, include_search_link: true })
+            = render(partial: 'known_uris/definition', locals: { known_uri: ku, top_link: true, attribution: true, search_link: true })

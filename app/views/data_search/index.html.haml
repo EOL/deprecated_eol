@@ -6,7 +6,7 @@
   - if @attribute_known_uri
     .definition
       %ul.glossary
-        = render(partial: 'known_uris/definition', locals: { known_uri: @attribute_known_uri, include_attribution: true, show_glossary_link: true })
+        = render(partial: 'known_uris/definition', locals: { known_uri: @attribute_known_uri, attribution: true, glossary_link: true })
   .header
     - start_number = (@results.current_page - 1) * @results.per_page + 1
     - end_number = [ (start_number + @results.per_page - 1), @results.total_entries ].min

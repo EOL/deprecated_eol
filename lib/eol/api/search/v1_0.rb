@@ -67,7 +67,7 @@ module EOL
             :filter_by_taxon_concept_id => params[:filter_by_taxon_concept_id],
             :filter_by_hierarchy_entry_id => params[:filter_by_hierarchy_entry_id],
             :filter_by_string => params[:filter_by_string],
-            :skip_ancestry => true)
+            :skip_ancestry => true, :sort_by => 'score')
           solr_results = search_response[:results]
 
           results = []

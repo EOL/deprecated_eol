@@ -124,12 +124,12 @@ class TaxonConcept < ActiveRecord::Base
       { :taxon_concept_exemplar_image => { :data_object =>
         { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted, :visibility ] } } } ]
     TaxonConcept.preload_associations(taxon_concepts, includes)
-    he = taxon_concepts.collect do |tc|
-      if tc.preferred_entry && ! tc.preferred_entry.hierarchy_entry.preferred_classification_summary?
-        tc.preferred_entry.hierarchy_entry
-      end
-    end.flatten.compact
     unless options[:skip_ancestry]
+      he = taxon_concepts.collect do |tc|
+        if tc.preferred_entry && ! tc.preferred_entry.hierarchy_entry.preferred_classification_summary?
+          tc.preferred_entry.hierarchy_entry
+        end
+      end.flatten.compact
       HierarchyEntry.preload_associations(he, { :flattened_ancestors => { :ancestor => :name } } )
     end
     if options[:language_id] && ! options[:skip_common_names]

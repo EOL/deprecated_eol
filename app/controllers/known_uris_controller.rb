@@ -58,12 +58,13 @@ class KnownUrisController < ApplicationController
       if params[:importing]
         attribute_types_selected = {}
         attribute_mappings = { 'rdfs:label' => 'name' }
+        error = false
         SchemaTermParser.attribute_uris.each do |uri|
           if params.has_key?(uri.to_s)
             if params[uri.to_s].blank?
-              flash[:error] = I18n.t('known_uris.please_select_field_types')
+              error = flash[:error] = I18n.t('known_uris.please_select_field_types')
             elsif attribute_types_selected[params[uri.to_s]]
-              flash[:error] = I18n.t('known_uris.more_than_one_field_mapped_to_type', :type => params[uri.to_s])
+              error = flash[:error] = I18n.t('known_uris.more_than_one_field_mapped_to_type', :type => params[uri.to_s])
             elsif params[uri.to_s] != 'none'
               attribute_types_selected[params[uri.to_s]] = uri
               attribute_mappings[uri] = params[uri.to_s]
@@ -71,9 +72,9 @@ class KnownUrisController < ApplicationController
           end
         end
         if params[:selected_uris].blank?
-          flash[:error] = I18n.t('known_uris.please_select_uris_to_import')
+          error = flash[:error] = I18n.t('known_uris.please_select_uris_to_import')
         end
-        if !flash[:error]
+        if !error
           import_terms_from_ontology(attribute_mappings)
           flash[:notice] = I18n.t('known_uris.import_successful')
           redirect_to known_uris_path

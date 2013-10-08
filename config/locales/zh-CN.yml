@@ -678,6 +678,7 @@ zh-CN:
       content_partners: 
         menu_link: 内容合作伙伴
         page_header: 内容合作伙伴统计
+        page_title: 管理员：内容合作方统计
       curators: 
         menu_link: 策展人统计
         page_header: 策展人统计
@@ -702,9 +703,11 @@ zh-CN:
       page_richness: 
         menu_link: 高质量页面
         page_header: 高质量页面统计
+        page_title: 管理员：富媒体页面统计
       users_data_objects: 
         menu_link: 用户提交的文本
         page_header: 用户提交的文本统计
+        page_title: 管理员：用户提交内容统计
   agent: 代理
   all: 所有
   all_apis_return_by_default_an_xml_response: 所有API默认返回XML的响应。调用API方法时，有无扩展名都可获得一致的响应：
@@ -906,7 +909,8 @@ zh-CN:
         observer_with_link: "观测者: %{observer_link}"
         recent_observations: 最近的观测
         some_taxon: 未知的观测
-        taxa_observed: 观测到%{observed_taxa_count} 个类群
+        taxa_observed: 
+          other: "%{count}类事物已被观察"
         top_contributors: 热门iNaturalist贡献者
         tweet_text: "%{collection_name} iNaturalist观测"
         view_all_observations_on_inaturalist: 查看来自iNaturalist的%{project_title}的所有观测记录
@@ -1034,7 +1038,9 @@ zh-CN:
       meta_description: 网络生命大百科是一个致力于收集所有动物和植物生命科学知识的史无前例的努力。动物界和植物界的所有生物的图片，信息，事实及更多资料在这里可以得到。
       meta_keywords: 动物，动物图片，动物信息，植物，植物物种，植物图片，植物信息，植物志，动物志
       meta_title: 动物-植物-图片和信息
+      see_all_eol_news: 参见更多<span class="assistive">EOL新闻</span>
       see_all_recent_activites: 查看更多 <span class=assistive>上周的活动</span>
+      see_all_statistics: 参见更多<span class="assistive">EOL统计</span>
   content_has_been_updated: 内容已经更新。
   content_notes_not_shown_to_us: 内容说明(对用户不可见)：
   content_partner: 内容合作伙伴
@@ -1318,6 +1324,13 @@ zh-CN:
   data_objects: 
     show: 
       meta_description_article: 文章 - %{dato_description}
+      meta_description_default: 来自%{supplier}的%{dato_title}
+      meta_description_default_article: 文章——来自%{supplier}的%{dato_title}。
+      meta_description_default_image: 图片——来自%{supplier}的%{dato_title}。
+      meta_description_default_image_map: 地图——来自%{supplier}的%{dato_title}。
+      meta_description_default_map: 地图——来自%{supplier}的%{dato_title}。
+      meta_description_default_sound: 音频——来自%{supplier}的%{dato_title}。
+      meta_description_default_video: 视频——来自%{supplier}的%{dato_title}。
       meta_description_image: 图片 - %{dato_description}
       meta_description_image_map: 地图 - %{dato_description}
       meta_description_map: 地图 - %{dato_description}
@@ -1657,9 +1670,11 @@ zh-CN:
     create: 创建一个论坛
     create_failed: 抱歉，发生了一个错误，无法添加论坛
     create_successful: 已成功创建论坛
+    delete_successful: 论坛已成功删除
     edit: 编辑论坛
     forums_heading: 生物百科论坛
     last_post: 最后发布
+    move_successful: 论坛已成功移动
     no_topics: 这个论坛没有帖子
     post_by_user_at_time: 由%{user}，于%{time}
     posts: 

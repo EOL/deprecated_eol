@@ -1038,8 +1038,8 @@ zh-TW:
     one: 這個頁面上的文章有 %{count} 種其他語言版本：
     other: 這個頁面上的文章有 %{count} 種其他語言版本：
   articles_with_count: 
-    one: "{%{count} 篇文章"
-    other: "{%{count} 篇文章"
+    one: "%{count} 篇文章"
+    other: "%{count} 篇文章"
   as_of_time_there_were_unique_visitors: 
     one: 到 %{time} 為止，有 %{count} 位不重複訪客
     other: 到 %{time} 為止，有 %{count} 位不重複訪客
@@ -1172,8 +1172,8 @@ zh-TW:
     other: 在 %{count} 個分類找到
     zero: 此分類在EOL通常是不可見的
   classifications_with_count: 
-    one: "{%{count} 個分類"
-    other: "{%{count} 個分類"
+    one: "%{count} 個分類"
+    other: "%{count} 個分類"
   clear_all_non_species_pages: 清空所有的非物種頁面
   clear_entire_cache_store: 清空整個暫存資料夾
   clear_species_page: 清空物種頁面
@@ -1280,8 +1280,8 @@ zh-TW:
     one: 出現在 %{count} 個典藏中
     other: 出現在 %{count} 個典藏中
   collections_with_count: 
-    one: "{%{count} 個典藏"
-    other: "{%{count} 個典藏"
+    one: "%{count} 個典藏"
+    other: "%{count} 個典藏"
   comment: 評論
   comment_added_notice: 成功添加了評論。
   comment_body_label: 您的評論
@@ -1303,15 +1303,15 @@ zh-TW:
   comments_moderated: 清理後的評論
   comments_on: 評論
   comments_with_count: 
-    one: "{%{count} 筆評論"
-    other: "{%{count} 筆評論"
+    one: "%{count} 筆評論"
+    other: "%{count} 筆評論"
   common_activities_by_logged_in: 登入使用者的常見活動。
   common_name: 俗名
   common_name_avg: 俗名之平均值
   common_name_exists: 此俗名 <em>%{name_string}</em> 已存在
   common_names_with_count: 
-    one: "{%{count} 個俗名"
-    other: "{%{count} 個俗名"
+    one: "%{count} 個俗名"
+    other: "%{count} 個俗名"
   common_user_activity_page_title: 常見的使用者活動
   communities: 
     collections: 
@@ -1337,14 +1337,14 @@ zh-TW:
     other: 屬於 %{count} 個社群
   communities_that_can_edit_this_collection: 可以管理這個典藏的社群
   communities_with_count: 
-    one: "{%{count} 個社群"
-    other: "{%{count} 個社群"
+    one: "%{count} 個社群"
+    other: "%{count} 個社群"
   community: 社群
   community_activity: 社群活動
   community_can_now_manage_this_collection: "\"%{community}\" 目前已有管理這個典藏的許可。"
   community_contributions_with_count: 
-    one: "{%{count} 個貢獻"
-    other: "{%{count} 個貢獻"
+    one: "%{count} 個貢獻"
+    other: "%{count} 個貢獻"
   community_description_default: 一個生命大百科社群。
   community_destroyed: 您已經刪除了這個社群。它將不再出現在分類單元頁面或搜尋中。
   community_empty_notice: 這個社群沒有會員。
@@ -1359,8 +1359,8 @@ zh-TW:
     other: "%{count} 位社群管理者"
   community_members: 社群會員
   community_members_with_count: 
-    one: "{%{count} 位社群會員"
-    other: "{%{count} 位社群會員"
+    one: "%{count} 位社群會員"
+    other: "%{count} 位社群會員"
   community_name_label: 社群名稱
   community_newsfeed: 社群newsfeed
   community_no_longer_has_manager_access_to_collection: "\"%{community}\" 不再擁有對 \"%{collection}\" 的管理者使用權。"
@@ -1579,8 +1579,8 @@ zh-TW:
   content_partners_page_description: 生命大百科的內容合作夥伴在自己的網站或資料庫中擁有大量有關生物多樣性的資訊，他們同時也透過EOL頁面和大家分享這些資訊。我們非常感謝他們對EOL使命的重要貢獻，並鼓勵您對他們做更深入的瞭解。<a href="%{more_url}">對成為一個內容合作夥伴作更深入瞭解。</a>
   content_partners_page_title: 內容合作夥伴
   content_partners_with_count: 
-    one: "{%{count} 位內容合作夥伴"
-    other: "{%{count} 位內容合作夥伴"
+    one: "%{count} 位內容合作夥伴"
+    other: "%{count} 位內容合作夥伴"
   content_server_full_url: 內容伺服器Full URL
   content_servers: 內容伺服器
   content_setting_colon: 內容設定：
@@ -1886,8 +1886,8 @@ zh-TW:
   endorsed_by: 精選由
   endorsed_collections: 精選典藏
   endorsed_collections_with_count: 
-    one: "{%{count} 個精選典藏"
-    other: "{%{count} 個精選典藏"
+    one: "%{count} 個精選典藏"
+    other: "%{count} 個精選典藏"
   enter_in_a_search_term_users_a: 請輸入使用者正在搜尋的術語，然後是搜尋結果建議使用者該被轉到的分類單元/頁面ID；此分類單元/頁面ID可在您想要引導他們去的網頁網址中找到(例如：www.eol.org/pages/5 的分類單元/頁面ID是5)。若有的話，網頁名稱和第一張影像將被收集，並與搜尋結果一起儲存。
   eol_accepted_subjects: EOL接受之主題
   eol_administration_console: EOL管理主控台
@@ -2704,8 +2704,8 @@ zh-TW:
   manage_your_profile: 管理您的簡介
   managed_by: 管理者為
   managed_collections_with_count: 
-    one: "{%{count} 個被管理的典藏"
-    other: "{%{count} 個被管理的典藏"
+    one: "%{count} 個被管理的典藏"
+    other: "%{count} 個被管理的典藏"
   manager_endorse_collections_suggestion: 要在這個社群頁面上介紹一個典藏，請將此特色典藏新增至此社群所管理的任何典藏集。
   manager_parens: (管理者)
   map_alt_text: 這是 %{taxon_name} 的 %{vetted_status} 地圖
@@ -3176,8 +3176,8 @@ zh-TW:
       one: 有 1 筆對 %{to} 的更新
       other: 有 %{count} 筆對 %{to} 的更新
     bulk_community_joins_with_count: 
-      one: "{有 1 位新會員加入了 %{community}"
-      other: "{有 %{count} 位新會員加入了 %{community}"
+      one: 有 1 位新會員加入了 %{community}
+      other: 有 %{count} 位新會員加入了 %{community}
     bulk_curation_with_count: 
       one: 蒐藏經理對 %{to} 做了 1 項改進
       other: 蒐藏經理者對 %{to} 做了 %{count} 項改進

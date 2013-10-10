@@ -9,6 +9,7 @@ class CreateDataSearchFiles < ActiveRecord::Migration
       t.integer :user_id
       t.integer :known_uri_id, null: false # TODO - this might change.
       t.integer :language_id
+      t.datetime :completed_at
       t.timestamps
     end
     add_index :data_search_files, :user_id

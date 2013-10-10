@@ -1,6 +1,10 @@
 class DataSearchFile < ActiveRecord::Base
 
-  attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id
+  attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id, :completed_at
+
+  belongs_to :user
+  belongs_to :language
+  belongs_to :known_uri
 
   LIMIT = 100
 
@@ -9,6 +13,7 @@ class DataSearchFile < ActiveRecord::Base
     return send_notification if file_exists?
     write_file(get_data)
     send_notification
+    update_attributes(completed_at: Time.now.utc)
   end
 
   def file_exists?
@@ -19,16 +24,20 @@ class DataSearchFile < ActiveRecord::Base
     'TODO'
   end
 
+  def complete?
+    ! completed_at.nil?
+  end
+
   private
 
   def path
     return @filename if @filename
     path = "something.csv"
-    if args[:known_uri]
-      path = "#{args[:known_uri].name}.csv" 
-      path += "_f#{@from}" unless @from.blank?
-      path += "-#{@to}" unless @to.blank?
-      path += "_by_#{@sort}" unless @sort.blank?
+    if known_uri
+      path = "#{known_uri.name}.csv" 
+      path += "_f#{from}" unless from.blank?
+      path += "-#{to}" unless to.blank?
+      path += "_by_#{sort}" unless sort.blank?
     else
       # TODO - handle other filename cases (ie: when there is no attribute known_uri) as needed. Right now, that's impossible.
     end
@@ -37,13 +46,13 @@ class DataSearchFile < ActiveRecord::Base
 
   def get_data
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
-    results = TaxonData.search(querystring: @q, attribute: @uri, from: @from, to: @to,
-      sort: @sort, per_page: LIMIT) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
+    results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
+      sort: sort, per_page: LIMIT) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
     puts "   results = #{results.count}"
     # TODO - handle the case where results are empty.
     rows = []
     results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(@user.language)
+      rows << data_point_uri.to_hash(user.language)
     end
     puts "   .. got data"
     rows
@@ -60,7 +69,7 @@ class DataSearchFile < ActiveRecord::Base
 
   def write_file(rows)
     col_heads = get_headers(rows)
-    CSV.open(path) do |csv|
+    CSV.open(path, 'wb') do |csv|
       csv << col_heads
       rows.each do |row|
         csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
@@ -70,14 +79,14 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def send_notification
-    if @user
+    if user
       old_locale = I18n.locale
       begin
-        I18n.locale = @user.language.iso_639_1
-        comment = Comment.create!(parent: @user,
-                                  body: I18n.t(:file_ready_for_download, file: download_path, query: @q),
-                                  user: @user) # TODO - maybe this should be "from" someone specific?
-        @user.comments << comment
+        I18n.locale = user.language.iso_639_1
+        comment = Comment.create!(parent: user,
+                                  body: I18n.t(:file_ready_for_download, file: download_path, query: q),
+                                  user: user) # TODO - maybe this should be "from" someone specific?
+        user.comments << comment
         force_immediate_notification_of(comment)
       ensure
         I18n.locale = old_locale

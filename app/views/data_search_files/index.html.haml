@@ -1,0 +1,25 @@
+#content
+  #background_processes.site_column
+    - if defined?(Resque) && Resque && Resque.info
+      .article.copy
+        - if i = Resque.queues.index("data")
+          %p= I18n.t(:data_search_queue_pending, count: Resque.size(Resque.queues[i]))
+    -# TODO - pagination
+    %table.standard
+      %tr.headers
+        %th= I18n.t(:background_processes_query_head)
+        %th= I18n.t(:background_processes_attribute_head)
+        %th= I18n.t(:background_processes_created_head)
+        %th= I18n.t(:background_processes_complete_head)
+        %th= I18n.t(:background_processes_actions_head)
+      - @background_processes.each do |process|
+        %tr
+          %td= process.q.blank? ? I18n.t(:background_processes_query_empty) : process.q
+          %td= process.known_uri.name
+          %td= raw I18n.t(:time_ago, :time_passed => time_ago_in_words(process.created_at))
+          %td= process.complete? ? I18n.t(:background_processes_is_complete) : I18n.t(:background_processes_is_not_complete)
+          %td
+            = link_to(I18n.t(:delete), process, method: :delete, confirm: I18n.t(:are_you_sure))
+            - if process.complete?
+              &bull;
+              = link_to(I18n.t(:background_processes_download), process.download_path)

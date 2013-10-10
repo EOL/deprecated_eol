@@ -2,6 +2,7 @@ class DataSearchController < ApplicationController
 
   layout 'v2/data_search'
 
+  # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL
   def index
     @hide_global_search = true
     @querystring = params[:q]
@@ -27,40 +28,22 @@ class DataSearchController < ApplicationController
       format.html do
         @results = TaxonData.search(search_options.merge(page: @page, per_page: 30))
       end
-      format.csv do
-        # TODO - really, we shouldn't use pagination at all, here.
-        # TODO - if we KEEP pagination, make this value more sane (and put @page back in).
-        @results = TaxonData.search(search_options.merge(per_page: 500, :for_download => true))
-        # TODO - handle the case where results are empty.
-        if @attribute_known_uri
-          headers["Content-Disposition"] = "attachment; filename=\"#{@attribute_known_uri.name}.csv\""
-          # TODO - handle other filename cases as needed
-        end
-        render text: build_csv_from_results
+      format.js do
+        df = DataSearchFile.create!(
+          q: @querystring, uri: @attribute, from: @from, to: @to,
+          sort: @sort, known_uri: @attribute_known_uri, language: current_language,
+          user: current_user.is_a?(EOL::AnonymousUser) ? nil : current_user
+        )
+        @message = if df.file_exists?
+                     I18n.t(:file_ready_for_download, file: df.download_path, query: @querystring)
+                   else
+                     I18n.t(:file_download_pending)
+                   end
+        Resque.enqueue(DataFileMaker, data_file_id: df.id)
       end
     end
   end
 
   private
-
-  def build_csv_from_results
-    rows = []
-    Rails.cache.fetch("download_data/#{@querystring}/#{@attribute}/#{@from}-#{@to}/#{@sort}") do
-      DataPointUri.assign_bulk_metadata(@results, current_language)
-      @results.each do |data_point_uri|
-        rows << data_point_uri.to_hash(current_language)
-      end
-      col_heads = Set.new
-      rows.each do |row|
-        col_heads.merge(row.keys)
-      end
-      CSV.generate do |csv|
-        csv << col_heads
-        rows.each do |row|
-          csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
-        end
-      end
-    end
-  end
 
 end

@@ -369,6 +369,11 @@ Eol::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
   resources :permissions, :only => [:index, :show]
+  resource :feeds do
+    member do
+      get :partner_curation, :defaults => { :format => 'atom' }
+    end
+  end
 
   # Miscellaneous named routes:
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'

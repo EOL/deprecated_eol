@@ -17,8 +17,8 @@ describe 'Admin Pages' do
     @report_month = last_month.month.to_s
     @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
     @resource_user = User.gen(:agent => @agent)
-    @content_parnter = ContentPartner.gen(:user => @resource_user)
-    @resource = Resource.gen(:title => "FishBase Resource", :content_partner => @content_parnter)
+    @content_partner = ContentPartner.gen(:user => @resource_user)
+    @resource = Resource.gen(:title => "FishBase Resource", :content_partner => @content_partner)
     @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
 
     @data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted)

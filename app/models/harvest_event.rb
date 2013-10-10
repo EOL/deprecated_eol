@@ -63,20 +63,29 @@ class HarvestEvent < ActiveRecord::Base
     end
 
     curator_activity_logs = CuratorActivityLog.find(:all,
-      :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (curator_activity_logs.target_id=dohe.data_object_id)",
-      :conditions => "curator_activity_logs.activity_id IN (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.inappropriate.id}, #{Activity.delete.id}) AND curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id} AND dohe.harvest_event_id = 2 #{date_condition}",
+      :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (curator_activity_logs.data_object_guid=dohe.guid)",
+      :conditions => "curator_activity_logs.activity_id IN (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.hide.id}, #{Activity.show.id}) AND curator_activity_logs.changeable_object_type_id IN (#{ChangeableObjectType.data_object_scope.join(',')}) AND dohe.harvest_event_id = #{id} #{date_condition}",
       :select => 'id')
 
     curator_activity_logs = CuratorActivityLog.find_all_by_id(curator_activity_logs.collect{ |ah| ah.id },
-      :include => [ :user, :comment, :activity, :changeable_object_type,
-        { :data_object => { :hierarchy_entries => :name } } ],
+      :include => [ :user, :comment, :activity, :changeable_object_type, :data_object  ],
       :select => {
-        :curator_activity_logs => :updated_at,
-        :users => [ :given_name, :family_name ],
-        :comments => :body,
-        :data_objects => [:object_cache_url, :source_url, :data_type_id ],
-        :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
-        :names => :string })
+        :users => [ :id, :given_name, :family_name ],
+        :comments => [ :id, :user_id, :body ],
+        :data_objects => [ :id, :object_cache_url, :source_url, :data_type_id, :published, :created_at ] })
+
+    data_objects = curator_activity_logs.collect(&:data_object)
+    DataObject.replace_with_latest_versions!(data_objects, check_only_published: true, language_id: Language.english.id)
+    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility ] } ]
+    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
+    DataObject.preload_associations(data_objects, includes)
+    DataObject.preload_associations(data_objects, :users_data_object)
+    curator_activity_logs.each do |cal|
+      if d = data_objects.detect{ |o| cal.data_object.guid == o.guid }
+        cal.data_object = d
+      end
+    end
+
     curator_activity_logs.sort_by{ |ah| Invert(ah.id) }
   end
 

@@ -62,7 +62,7 @@ class FeedsController < ApplicationController
     end
   end
 
-  def partner_curation()
+  def partner_curation
     content_partner_id = params[:content_partner_id] || nil
     year = params[:year] || nil
     month = params[:month] || nil
@@ -73,7 +73,7 @@ class FeedsController < ApplicationController
     curator_activity_logs = latest_harvest_event.curated_data_objects(:year => year, :month => month)
 
     @feed_url = url_for(:controller => 'feeds', :action => 'partner_curation', :content_partner_id => content_partner_id, :month => month, :year => year)
-    @feed_link = "http://www.eol.org"
+    @feed_link = root_url
     @feed_title = content_partner.full_name + " curation activity"
 
     @feed_entries = []
@@ -92,27 +92,31 @@ private
   def partner_feed_entry(curator_activity_log)
     entry = { :id => '', :title => '', :link => '', :content => '', :updated => '' }
 
-    entry[:title] = curator_activity_log.data_object.first_concept_name
+    data_object = curator_activity_log.data_object
+    he = data_object.first_hierarchy_entry(:include_preview_entries => true)
+    he ||= data_object.users_data_object && data_object.users_data_object.taxon_concept.entry
+    entry[:title] = he.name.string
     entry[:updated] = curator_activity_log.updated_at
-    entry[:link] = url_for(:controller => :data_objects, :action => :show, :id => curator_activity_log.data_object.id, :only_path => false)
+    entry[:link] = url_for(:controller => :data_objects, :action => :show, :id => data_object.id, :only_path => false)
     entry[:id] = entry[:link]
 
     curator_link = url_for(:controller => :users, :action => :show, :id => curator_activity_log.user_id, :only_path => false)
     date_string = curator_activity_log.updated_at.strftime("%d-%b-%Y") + " at " + curator_activity_log.updated_at.strftime("%I:%M%p")
-    content = "#{curator_activity_log.activity.name.capitalize} by <a href='#{curator_link}'>#{curator_activity_log.user.full_name}</a> last #{date_string}<br/>"
+    content = "#{curator_activity_log.activity.name.capitalize}"
+    content += " by <a href='#{curator_link}'>#{curator_activity_log.user.full_name}</a> last #{date_string}<br/>" if curator_activity_log.user
     if curator_activity_log.comment
       content += "Comment: #{curator_activity_log.comment.body}<br/>"
     end
 
-    if curator_activity_log.data_object.is_image?
-      content = "<img src='#{DataObject.image_cache_path(curator_activity_log.data_object.object_cache_url, 'small')}'/><br/>" + content
+    if data_object.is_image?
+      content = "<img src='#{DataObject.image_cache_path(data_object.object_cache_url, 'small')}'/><br/>" + content
     end
 
     # Will insert a link to a Wikipedia article
     # TODO - looking for oldid in the link isn't robust enough to determine the object is a Wikipedia article
-    result = curator_activity_log.data_object.source_url.split(/oldid=\s?/)
+    result = data_object.source_url.split(/oldid=\s?/)
     if revision_id = result[1]
-      content += "Revision ID: <a target='wikipedia' href='#{curator_activity_log.data_object.source_url}'/>#{revision_id}</a>"
+      content += "Revision ID: <a target='wikipedia' href='#{data_object.source_url}'/>#{revision_id}</a>"
     end
 
     entry[:content] = content

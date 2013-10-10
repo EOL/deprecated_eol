@@ -728,13 +728,6 @@ class DataObject < ActiveRecord::Base
     @data_object_taxa[cache_key] = assocs || []
   end
 
-  # TODO - The only place this is used is app/controllers/feeds_controller.rb ...which doesn't actually seem
-  # terribly important (it's the partner feed). Can't we use the find-concept-by-hierarchy-entry using the
-  # partner's entry or something?
-  def first_concept_name
-    first_hierarchy_entry.name.string rescue nil
-  end
-
   def first_hierarchy_entry(options={})
     sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
     best_first_entry = sorted_entries[0] rescue nil

@@ -5,7 +5,7 @@ class Taxa::UpdatesController < TaxaController
   def index
     @assistive_section_header = I18n.t(:assistive_updates_header)
     @page = params[:page]
-    @taxon_activity_log = @taxon_concept.activity_log(:per_page => 10, :page => @page)
+    @taxon_activity_log = @taxon_concept.activity_log(:per_page => 10, :page => @page, :user => current_user)
     set_canonical_urls(:for => @taxon_page, :paginated => @taxon_activity_log, :url_method => :taxon_updates_url)
     current_user.log_activity(:viewed_taxon_concept_updates, :taxon_concept_id => @taxon_concept.id)
   end

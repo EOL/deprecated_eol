@@ -247,6 +247,10 @@ class String
     end
   end
 
+  def is_float?
+    is_numeric? && ! is_int?
+  end
+
   def cleanup_for_presentation
     self.gsub(/[_]{20,}/, ' ')
   end

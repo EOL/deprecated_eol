@@ -1,7 +1,7 @@
 # REMINDER: default model factories, eg. :user, should *only* generate required fields
 #
 # If you want a model loaded up with all kinds of goodies, make a different generator,
-# eg. :admin_user
+# eg. :admin (which is a user)
 
 require 'factory_girl_rails'
 require 'faker'
@@ -320,10 +320,40 @@ FactoryGirl.define do
   sequence(:email)  {|n| "bob#{n}@smith.com" }
   sequence(:title)  {|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
   sequence(:int)    {|n| n }
+  sequence(:uri)    {|n| "http://eol.org/user_data/#{n}" }
 
   #### Factories
 
   factory :activity do
+  end
+
+  factory :admin, class: User do
+    admin                     true
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          false
+    curator_verdict_by_id     nil
+    curator_verdict_at        nil
+    curator_scope             ''
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          nil
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :agent do
@@ -513,6 +543,36 @@ FactoryGirl.define do
     attachment_extension '.jpg'
   end
 
+  factory :curator, class: User do
+    admin                     false
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          true
+    curator_verdict_by_id     1
+    curator_verdict_at        { Time.now }
+    credentials               'Good stuff'
+    curator_scope             'Something important'
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          { CuratorLevel.full.id }
+    logo_cache_url            { generate(:user_logo) }
+  end
+
   factory :curator_activity do
     code { generate(:string) }
   end
@@ -619,6 +679,15 @@ FactoryGirl.define do
   factory :data_objects_taxon_concept do
     association :taxon_concept
     association :data_object
+  end
+
+  factory :data_point_uri do
+    association :taxon_concept
+    association :resource
+    association :user_added_data
+    vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+    uri         { FactoryGirl.generate(:uri) }
   end
 
   factory :data_type do
@@ -742,6 +811,44 @@ FactoryGirl.define do
     url         'http://www.biodiversitylibrary.org/page/ThisWontWork.JustTesting'
   end
 
+  factory :known_uri do
+    vetted        { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility    { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
+    uri           { "http://eol.org/known_uri/" + generate(:guid) }
+  end
+
+  factory :known_uri_allowed_unit, class: KnownUriRelationship do
+    association :from_known_uri, :factory => :known_uri_measurement
+    association :to_known_uri, :factory => :known_uri_unit
+    relationship_uri { KnownUriRelationship::ALLOWED_UNIT_URI }
+  end
+
+  factory :known_uri_allowed_value, class: KnownUriRelationship do
+    association :from_known_uri, :factory => :known_uri_measurement
+    association :to_known_uri, :factory => :known_uri_value
+    relationship_uri { KnownUriRelationship::ALLOWED_VALUE_URI }
+  end
+
+  factory :known_uri_measurement, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.measurement }
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
+  factory :known_uri_unit, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.unit_of_measure }
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
+  factory :known_uri_relationship do
+    association :from_known_uri, :factory => :known_uri
+    association :to_known_uri, :factory => :known_uri
+    relationship_uri  { "http://eol.org/relationship_uri/" + generate(:guid) }
+  end
+
   factory :language do
     source_form  ''
     iso_639_1    ''
@@ -764,6 +871,36 @@ FactoryGirl.define do
   end
 
   factory :link_type do
+  end
+
+  factory :master_curator, class: User do
+    admin                     false
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          true
+    curator_verdict_by_id     1
+    curator_verdict_at        { Time.now }
+    credentials               'Good stuff'
+    curator_scope             'Something important'
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          { CuratorLevel.master.id }
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :member do
@@ -867,7 +1004,7 @@ FactoryGirl.define do
                                           :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                           :logo_url => 'cc_by_small.png') }
     resource_status { ResourceStatus.processed || ResourceStatus.gen_if_not_exists(:label => 'Processed') }
-    accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
+    accesspoint_url 'http://eol.org/opensearchdescription.xml' # Won't work without a real, live URL for an XML file
     refresh_period_hours 0
     resource_created_at 48.hours.ago
     association :hierarchy
@@ -1039,16 +1176,22 @@ FactoryGirl.define do
     label           { generate(:string) }
   end
 
+  factory :translated_known_uri do
+    association     :known_uri
+    language        { Language.english }
+    name            { generate(:string) }
+  end
+
   factory :translated_link_type do
     association     :link_type
     language        { Language.english }
-    label           { Factory.next(:string) }
+    label           { FactoryGirl.generate(:string) }
   end
 
   factory :translated_mime_type do
     association     :mime_type
     language        { Language.english }
-    label           { Factory.next(:string) }
+    label           { FactoryGirl.generate(:string) }
   end
 
   factory :translated_language do
@@ -1185,6 +1328,21 @@ FactoryGirl.define do
     created_at { 12.hours.ago }
   end
 
+  factory :user_added_data do
+    association :subject, :factory => :taxon_concept
+    predicate "http://somethinguseful.com/fake_ontology"
+    object    { generate(:string) }
+    association :user
+    vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+  end
+
+  factory :user_added_data_metadata do
+    association  :user_added_data
+    predicate "http://somethinguseful.com/fake_ontology"
+    object    { generate(:string) }
+  end
+
   factory :users_data_object do
     association :data_object
     association :user
@@ -1313,6 +1471,14 @@ FactoryGirl.define do
     marine_pages_with_objects                         { rand(100000) }
     marine_pages_with_objects_vetted                  { rand(100000) }
     created_at                                        { 5.days.ago }
+    total_triples                                     { rand(100000) }
+    total_occurrences                                 { rand(100000) }
+    total_measurements                                { rand(100000) }
+    total_associations                                { rand(100000) }
+    total_measurement_types                           { rand(100000) }
+    total_association_types                           { rand(100000) }
+    total_taxa_with_data                              { rand(100000) }
+    total_user_added_data                             { rand(100000) }
   end
 
 end

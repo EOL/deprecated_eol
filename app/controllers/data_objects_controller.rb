@@ -216,7 +216,7 @@ class DataObjectsController < ApplicationController
     @image_source = get_image_source if @data_object.is_image?
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
     @page = params[:page]
-    @activity_log = @data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil)
+    @activity_log = @data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil, :user => current_user)
     set_canonical_urls(:for => @data_object, :paginated => @activity_log, :url_method => :data_object_url)
   end
 

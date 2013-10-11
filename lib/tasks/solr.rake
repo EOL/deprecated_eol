@@ -46,6 +46,7 @@ namespace :solr do
     FileUtils.cd($SOLR_DIR) do
       exec([Rails.root.join('bin', 'solr'), 'stop'].join(" "))
     end
+    File.delete(Rails.root.join('solr', 'solr', 'eol-solr.pid'))
   end
 
   desc 'Rebuild the data objects index'

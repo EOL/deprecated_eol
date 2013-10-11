@@ -1,0 +1,48 @@
+- content_for :main do
+  #page_heading
+    .site_column
+      .hgroup
+        %h1= @results ? I18n.t(:search_results) : I18n.t(:search)
+        - search_term_to_show = [ @attribute, @querystring ].delete_if{ |t| t.blank? }.join(' : ')
+        %h2= @results ? raw(I18n.t(:count_results_for_search_term, :count => @results.total_entries, :search_term => h(search_term_to_show))) : ''
+      .page_actions
+        %ul
+          - if @results && !@results.blank?
+            %li
+              - if false # set this to true if you wanna test background downloads.
+                = link_to I18n.t(:download_data), url_for(params: params.merge(format: "js")), :class => 'button', remote: true
+              - else
+                = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), :class => 'button'
+  #content
+    .site_column
+      #data_search
+        .filters
+          = form_tag data_search_path, :method => 'get' do
+            %fieldset
+              %dl
+                %dt
+                  %label= I18n.t(:search_field_label)
+                %dd
+                  = search_field_tag(:q, @querystring, :size => 40, :placeholder => 'e.g. 10 to 50')
+                  = submit_tag I18n.t(:search) unless @wildcard_search
+              %dl
+                %dt= raw '&nbsp;'
+                %dd
+              %dl
+                %dt
+                  %label= I18n.t('activerecord.attributes.user_added_data.predicate')
+                %dd
+                  - select_options = { "-- " + I18n.t('activerecord.attributes.user_added_data.predicate') + " --" => nil }.
+                  -   merge(Hash[[nil, nil] + KnownUri.all_measurement_type_uris.collect{ |uri| [ truncate(EOL::Sparql.uri_to_readable_label(uri), :length => 25), uri ] }.sort_by{ |k,v| k.nil? ? '' : k } ] )
+                  = select_tag(:attribute, options_for_select(select_options, @attribute))
+              %dl
+                %dt
+                  %label= I18n.t(:sort_by)
+                %dd
+                  - sort_options = { "-- " + I18n.t(:sort_by) + " --" => nil, I18n.t(:sort_by_value_ascending) => 'asc', I18n.t(:sort_by_value_descending) => 'desc' }
+                  = select_tag(:sort, options_for_select(sort_options, @sort))
+        #search_results
+          #main
+            = yield
+
+= render :file => 'layouts/v2/application'

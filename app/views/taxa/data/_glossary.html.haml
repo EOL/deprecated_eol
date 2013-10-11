@@ -1,0 +1,9 @@
+- hidden = false unless hidden == true
+- style = hidden ? 'display: none' : nil
+- glossary_terms = @glossary_terms || glossary_terms || []
+.glossary_subtab{ style: style }
+  .header_underlined
+    %h3= I18n.t(:glossary_subhead)
+  %ul.glossary
+    - glossary_terms.sort_by(&:name).each do |known_uri|
+      = render(partial: 'known_uris/definition', locals: { known_uri: known_uri, glossary_link: true, attribution: true, search_link: true })

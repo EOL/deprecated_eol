@@ -142,7 +142,7 @@ describe 'Users' do
       body.should have_selector "form.filter" do |tags|
         tags.should have_selector("select[name=filter]")
       end
-      ["All", "Comments", "Objects curated", "Articles added", "Collections", "Communities"].each_with_index do |filt,i|
+      ["All", "Comments", "Objects curated", "Articles added", "Data added", "Collections", "Communities"].each_with_index do |filt,i|
         find(:xpath, "//option[#{i+1}]").text.should == filt
       end
     end
@@ -157,6 +157,8 @@ describe 'Users' do
       body.should have_selector("option[value=collections][selected=selected]")
       visit(user_activity_path(@user, :filter => "communities"))
       body.should have_selector("option[value=communities][selected=selected]")
+      visit(user_activity_path(@user, :filter => "added_data"))
+      body.should have_selector("option[value=added_data][selected=selected]")
     end
   end
 

@@ -1,0 +1,2 @@
+module SiteConfigurationOptionHelper
+end

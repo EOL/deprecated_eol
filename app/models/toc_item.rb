@@ -8,13 +8,30 @@ class TocItem < ActiveRecord::Base
 
   has_and_belongs_to_many :data_objects, :join_table => 'data_objects_table_of_contents', :foreign_key => 'toc_id'
   has_and_belongs_to_many :content_tables, :join_table => 'content_table_items', :foreign_key => 'toc_id'
+  has_and_belongs_to_many :known_uris
 
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
+
+  FOR_URIS = [
+    'Distribution',
+    'Physical Description',
+    'Ecology',
+    'Life History and Behavior',
+    'Evolution and Systematics',
+    'Physiology and Cell Biology',
+    'Molecular Biology and Genetics',
+    'Conservation',
+    'Relevance to Humans and Ecosystems',
+    'Notes',
+    'Names and Taxonomy',
+    'Database and Repository Coverage'
+  ]
+
 
   class << self 
 
     def exclude_editable
-      ['Barcode', 'Wikipedia', 'Education', 'Nucleotide Sequences']
+      ['Barcode', 'Wikipedia', 'Education', 'Nucleotide Sequences', 'Database and Repository Coverage']
     end
 
     def toc_object_counts
@@ -23,6 +40,7 @@ class TocItem < ActiveRecord::Base
       end
     end
 
+    # This is downright evil. ...But at least we cache it.  :|
     def count_objects
       counts = []
       count_hash = TocItem.connection.select_rows("select toc.id, count(*) from table_of_contents toc
@@ -211,9 +229,8 @@ class TocItem < ActiveRecord::Base
       return if new_label.blank?
       max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents")[0].to_i
       next_view_order = max_view_order + 1
-      TocItem.create(:parent_id => 0, :view_order => next_view_order)
-      new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
-      TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
+      new_toc_item_id = TocItem.create(:parent_id => 0, :view_order => next_view_order)
+      TranslatedTocItem.create(:table_of_contents_id => new_toc_item.id, :language_id => Language.english.id, :label => new_label)
     end
 
     # this just gets the TOCitems and their parents for the text given, sorted by view_order
@@ -232,6 +249,14 @@ class TocItem < ActiveRecord::Base
       toc.compact!
       toc.uniq!
       toc.sort_by(&:view_order)
+    end
+
+    def for_uris(lang)
+      lang = lang.iso_code if lang.respond_to?(:iso_code)
+      @for_uris ||= {}
+      @for_uris[lang] ||= FOR_URIS.map do
+        |label| TocItem.cached_find_translated(:label, label, lang)
+      end.compact
     end
 
   end

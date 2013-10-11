@@ -1,9 +1,6 @@
 # first created -> highest priority.
 Eol::Application.routes.draw do
 
-  resources :collection_jobs
-
-
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
@@ -51,6 +48,12 @@ Eol::Application.routes.draw do
     resources :data_objects, :only => [:create, :new]
     resource :taxon_concept_reindexing, :as => 'reindexing', :only => [:create],
       :controller => 'taxa/taxon_concept_reindexing'
+    resources :data, :only => [:index], :controller => 'taxa/data' do
+      collection do
+        get 'about'
+        get 'glossary'
+      end
+    end
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
       member do
         put 'switch'
@@ -60,6 +63,12 @@ Eol::Application.routes.draw do
       resources :maps, :only => [:index], :controller => 'taxa/maps'
       resources :media, :only => [:index], :controller => 'taxa/media'
       resources :details, :only => [:index], :controller => 'taxa/details'
+      resources :data, :only => [:index], :controller => 'taxa/data' do
+        collection do
+          get 'about'
+          get 'glossary'
+        end
+      end
       resources :communities, :only => [:index], :controller => 'taxa/communities' do
         collection do
           get 'collections'
@@ -187,6 +196,8 @@ Eol::Application.routes.draw do
     resource :inaturalist, :only => [:show], :controller => 'collections/inaturalists'
   end
 
+  resources :collection_jobs, :only => [:create]
+
   resources :content_partners do
     member do
       post 'new'
@@ -268,6 +279,7 @@ Eol::Application.routes.draw do
       get 'marine'
       get 'page_richness'
       get 'users_data_objects'
+      get 'data'
     end
   end
 
@@ -332,6 +344,47 @@ Eol::Application.routes.draw do
     end
   end
 
+  resources :known_uris do
+    collection do
+      get 'categories'
+      get 'autocomplete_known_uri_search'
+      get 'autocomplete_known_uri_units'
+      get 'autocomplete_known_uri_metadata'
+      get 'autocomplete_known_uri_predicates'
+      get 'autocomplete_known_uri_values'
+      get 'show_stats'
+      post 'import_ontology'
+      post 'sort'
+    end
+    member do
+      put 'unhide'
+      put 'hide'
+    end
+  end
+
+  resources :known_uri_relationships, :only => [ :create, :destroy ] do
+  end
+
+  resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do
+  end
+
+  resources :taxon_data_exemplars, :only => [ :create ]
+
+  resources :data_point_uris, :only => [ :show ] do
+    put 'hide'
+    put 'unhide'
+    get 'show_metadata'
+    resources :comments, :only => [ :index ]
+  end
+
+  resource :data_search, :only => [:index], :controller => 'data_search' do
+    collection do
+      get 'index'
+    end
+  end
+
+  resources :data_search_files, only: [:index, :destroy]
+
   # Old V1 admin search logs:
   resources :search_logs, :controller => 'administrator/search_logs'
 
@@ -355,6 +408,8 @@ Eol::Application.routes.draw do
   end
 
   resource :taxon_concept_exemplar_image, only: :create
+
+  resource :glossary, :only => :show, :controller => 'glossary'
 
   # Putting these after the complex resources because they are less common.
   resources :tasks, :task_states, :task_names, :random_images
@@ -499,6 +554,12 @@ Eol::Application.routes.draw do
     resources :error_log, :only => [:index, :show], :controller => 'administrator/error_log'
     resources :table_of_contents, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/table_of_contents'
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
+  end
+
+  resources :site_configuration_options, only: :update do
+    collection do
+      get 'change'
+    end
   end
 
   resource :navigation, :controller => 'navigation' do

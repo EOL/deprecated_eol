@@ -91,7 +91,42 @@ describe "Core Extensions" do
     it 'should not link already linked URLs' do
       'Some <a href="http://eol.org>http://eol.org</a> link'.add_missing_hyperlinks.should == 'Some <a href="http://eol.org>http://eol.org</a> link'
     end
+  end
 
+  it 'should know when strings are numeric' do
+    '1'.is_numeric?.should == true
+    '-1'.is_numeric?.should == true
+    '0.1'.is_numeric?.should == true
+    '1.0'.is_numeric?.should == true
+    '-1.0'.is_numeric?.should == true
+    '3e+08'.is_numeric?.should == true # interpreted as 3.0 X 10^8
+    '3.1e+08'.is_numeric?.should == true # interpreted as 3.1 X 10^8
+    'one'.is_numeric?.should == false
+    '1.0a'.is_numeric?.should == false
+  end
+
+  it 'should know when strings are integers' do
+    '1'.is_int?.should == true
+    '-1'.is_int?.should == true
+    '0.1'.is_int?.should == false
+    '1.0'.is_int?.should == false
+    '-1.0'.is_int?.should == false
+    '3e+08'.is_int?.should == false
+    '3.1e+08'.is_int?.should == false
+    'one'.is_int?.should == false
+    '1.0a'.is_int?.should == false
+  end
+
+  it 'should know when strings are floats' do
+    '1'.is_float?.should == false
+    '-1'.is_float?.should == false
+    '0.1'.is_float?.should == true
+    '1.0'.is_float?.should == true
+    '-1.0'.is_float?.should == true
+    '3e+08'.is_float?.should == true
+    '3.1e+08'.is_float?.should == true
+    'one'.is_float?.should == false
+    '1.0a'.is_float?.should == false
   end
 
 end

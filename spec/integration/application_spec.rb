@@ -33,7 +33,7 @@ describe 'Application' do
   end
 
   it 'should fail on inaccessible URLs' do
-    response = get_as_json(fetch_external_page_title_path(:lang => 'en', :url => 'asgfqrwgqwfwf')) # redirects to www.cnn.com
+    response = get_as_json(fetch_external_page_title_path(:lang => 'en', :url => 'asgfqrwgqwfwf'))
     response.class.should == Hash
     response['message'].should == "This URL is not accessible"
     response['exception'].should == true

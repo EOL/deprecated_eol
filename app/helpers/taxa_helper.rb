@@ -147,15 +147,67 @@ module TaxaHelper
     !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(taxon_concept.id)
   end
 
-# A *little* weird to have private methods in the helper, but these really help clean up the code for the methods
-# that are public, and, indeed, should never be called outside of this class.
-private
+  def display_uri(uri, tag_type = :span, options = {})
+    options[:search_link] = true unless options.has_key?(:search_link)
+    uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
+    tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
+    capture_haml do
+      if options[:define] && uri.is_a?(KnownUri)
+        haml_tag "#{tag_type}.info" do
+          haml_tag "ul.glossary" do
+            haml_concat render(partial: 'known_uris/definition', locals: { known_uri: uri, search_link: options[:search_link], glossary_link: true })
+          end
+        end
+      end
+      label = uri_components[:label].to_s
+      if label.is_numeric?
+        # float values can be rounded off to 2 decimal places
+        label = label.to_f.round(2) if label.is_float?
+        label = number_with_delimiter(label, :delimiter => ',')
+      else
+        # other values may have links embedded in them (references, citations, etc.)
+        label = label.add_missing_hyperlinks
+        label = label.firstcap if options[:capitalize]
+      end
+      haml_tag "#{tag_type}.term", raw(label), 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil
+    end
+  end
 
-  def search_by_page_href(link_page)
-    lparams = params.clone
-    lparams["page"] = link_page
-    lparams.delete("action")
-    "/search/?#{lparams.to_query}"
+  # TODO - this has too much business logic; extract
+  def display_text_for_data_point_uri(data_point_uri, options = {})
+    # metadata rows do not have DataPointUris that are saved in the DB - they are new records
+    text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{data_point_uri.anchor}'>"
+    if data_point_uri.association?
+      taxon_link = options[:link_to_overview] ?
+        taxon_overview_path(data_point_uri.target_taxon_concept) :
+        taxon_data_path(data_point_uri.target_taxon_concept)
+      if c = data_point_uri.target_taxon_concept.preferred_common_name_in_language(current_language)
+        text_for_row_value += link_to c, taxon_link
+      else
+        text_for_row_value += link_to raw(data_point_uri.target_taxon_concept.title_canonical), taxon_link
+      end
+    else
+      text_for_row_value += display_uri(data_point_uri.object_uri).to_s
+    end
+    # displaying unit of measure
+    if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)
+      text_for_row_value += " " + display_uri(uri_components)
+    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
+      text_for_row_value += " " + display_uri(uri_components)
+    end
+    # Curators get to remove the data:
+    if options[:link_to_overview] && !data_point_uri.new_record? && data_point_uri.taxon_concept_id && current_user.min_curator_level?(:full)
+      remove_link =
+      text_for_row_value << "<span class='remove'> " +
+        link_to(I18n.t(:remove),
+                taxon_data_exemplars_path(id: data_point_uri.id,
+                                          taxon_concept_id: data_point_uri.taxon_concept_id, :exclude => true),
+                                          method: :post, confirm: I18n.t(:are_you_sure), remote: true) +
+        "</span>"
+    end
+    text_for_row_value.gsub(/\n/, '')
+    text_for_row_value += "</span>" unless data_point_uri.new_record?
+    text_for_row_value
   end
 
 end

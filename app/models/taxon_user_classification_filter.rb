@@ -25,7 +25,17 @@ class TaxonUserClassificationFilter
   end
 
   def details
-    TaxonDetails.new(taxon_concept, user, _hierarchy_entry)
+    @details ||= TaxonDetails.new(taxon_concept, user, _hierarchy_entry)
+  end
+
+  def data
+    @data ||= TaxonData.new(taxon_concept, user, _hierarchy_entry)
+  end
+
+  # Options include: page, per_page, sort_by, type, and status)
+  def media(options)
+    options[:hierarchy_entry] = _hierarchy_entry
+    @media ||= TaxonMedia.new(taxon_concept, user, options)
   end
 
   # NOTE - *THIS IS IMPORTANT* ... when you see "_hierarchy_entry", it means "the one specified by initialize." When
@@ -65,18 +75,6 @@ class TaxonUserClassificationFilter
 
   def map_taxon_concept
     @map_taxon_concept ||= classification_filter? ? _hierarchy_entry.taxon_concept : taxon_concept
-  end
-
-  # NOTE - Once you call this (with options), those options are preserved and you cannot call this with different
-  # options. Be careful. (In practice, this never matters.)
-  def media(options = {})
-    @media ||= taxon_concept.data_objects_from_solr(options.merge(
-      :ignore_translations => true,
-      :return_hierarchically_aggregated_objects => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
-                                              :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
-                                              :published ] }
-    ))
   end
 
   def hierarchy
@@ -181,6 +179,7 @@ class TaxonUserClassificationFilter
     @media_count ||= taxon_concept.media_count(user, _hierarchy_entry)
   end
 
+  # Almost all derived classes want to know what it looks like, so this is universal:
   def image
     @image ||= taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end
@@ -196,15 +195,6 @@ class TaxonUserClassificationFilter
 
   def text(options = {})
     taxon_concept.text_for_user(user, options)
-  end
-
-  def preload_media_details
-    # There should not be an older revision of exemplar image on the media tab. But recently there were few cases
-    # found. Replace older revision of the exemplar image from media with the latest published revision.
-    if image # If there's no exemplar image, don't bother...
-      @media.map! { |m| (m.guid == image.guid && m.id != image.id) ? image : m }
-    end
-    TaxonUserClassificationFilter.preload_details(@media, user)
   end
 
   # TODO - clearly this belongs in TaxonDetails...

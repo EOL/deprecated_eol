@@ -1,0 +1,24 @@
+- known_uri ||= nil
+- search_link = false unless defined?(search_link)
+- top_link = false unless defined?(top_link)
+- glossary_link = false unless defined?(glossary_link)
+- attribution = false unless defined?(attribution)
+%li{ id: known_uri.anchor }
+  %dt
+    = known_uri.name.firstcap
+    - if search_link && KnownUri.all_measurement_type_uris.include?(known_uri.uri)
+      = link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: known_uri.uri, sort: 'desc')
+  - unless known_uri.definition.blank?
+    %dd
+      = raw known_uri.definition.add_missing_hyperlinks
+  - if attribution && ! known_uri.attribution.blank?
+    %dd.attribution
+      = raw known_uri.attribution.add_missing_hyperlinks
+  %dd.uri= known_uri.uri
+  %ul.helpers
+    - if top_link
+      %li= link_to(I18n.t(:top), '#')
+    - elsif glossary_link
+      %li= link_to(I18n.t(:see_in_glossary), glossary_url(:anchor => known_uri.anchor))
+    - if current_user.is_admin?
+      %li.hover= link_to(I18n.t(:edit), edit_known_uri_path(known_uri))

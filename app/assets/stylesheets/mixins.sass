@@ -3,9 +3,15 @@ $logo_size_primary: 68
 $logo_size_secondary: 48
 $logo_size_tertiary: 35
 $global_nav_height: 2.7em !default
+$nearly_black: #394651
 $darker_gray: #93a4b0
+$lightest_blue: #f0f4f7
+$light_blue: #e2e9ef
+$grayblue: #cad3db
+$darker_blue: #616e7a
 $loafer_text_color: #828d33
 $lighter_text_color: #5f6c76
+$fieldset_light_blue: #f3f7fa
 = border-radius($radius)
   -moz-border-radius: $radius
   border-radius: $radius
@@ -43,7 +49,7 @@ $lighter_text_color: #5f6c76
   padding: 5px 10px 6px 10px
   overflow: visible
   font: bold 1.08em Helvetica, Arial, sans-serif
-  color: #394651
+  color: $nearly_black
   text-transform: lowercase
   text-decoration: none
   border: 1px solid $to - #111111
@@ -74,14 +80,14 @@ $lighter_text_color: #5f6c76
   height: 22px
   padding: 2px 5px
   font: normal 1em Helvetica, Arial, sans-serif
-  border: 1px solid #cad3db
-  +gradient-bg(#f0f4f7, white)
+  border: 1px solid $grayblue
+  +gradient-bg($lightest_blue, white)
 = textarea
   padding: 8px
   font: normal 1em Helvetica, Arial, sans-serif
-  color: #394651
-  border: 1px solid #cad3db
-  +gradient-bg(#f0f4f7, white)
+  color: $nearly_black
+  border: 1px solid $grayblue
+  +gradient-bg($lightest_blue, white)
 = underline-on-hover
   text-decoration: none
   &:hover

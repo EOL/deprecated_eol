@@ -21,6 +21,8 @@ class CuratorActivityLog < LoggingModel
   belongs_to :synonym, :foreign_key => :target_id
   belongs_to :classification_curation, :foreign_key => :target_id
   belongs_to :affected_comment, :foreign_key => :target_id, :class_name => Comment.to_s
+  belongs_to :data_point_uri, :foreign_key => :target_id
+  belongs_to :user_added_data, :foreign_key => :target_id
 
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id
 
@@ -84,15 +86,16 @@ class CuratorActivityLog < LoggingModel
     CuratorActivityLog.create(create_options)
   end
 
-  def is_for_synonym?
-    changeable_object_type_id == ChangeableObjectType.synonym.id
+  def is_for_type?(changeable_object_type_label)
+    if looked_up_type = ChangeableObjectType.send(changeable_object_type_label.to_sym)
+      return true if changeable_object_type_id == looked_up_type.id
+    else
+      raise "Don't know how to check for changeable object type of `#{changeable_object_type_label}`"
+    end
+    false
   end
 
-  def is_for_data_object?
-    changeable_object_type_id == ChangeableObjectType.data_object.id
-  end
-
-  # Needed for rendering links; we need to know which association to make the link to
+  # Needed for rendering "reply" links; we need to know which association to make the link to
   def link_to
     case changeable_object_type_id
       when ChangeableObjectType.comment.id
@@ -109,6 +112,10 @@ class CuratorActivityLog < LoggingModel
         taxon_concept
       when ChangeableObjectType.curated_taxon_concept_preferred_entry.id
         taxon_concept
+      when ChangeableObjectType.data_point_uri.id
+        data_point_uri
+      when ChangeableObjectType.user_added_data.id
+        user_added_data.data_point_uri
       else
         data_object
     end
@@ -168,6 +175,10 @@ class CuratorActivityLog < LoggingModel
         taxon_concept.id
       when ChangeableObjectType.classification_curation.id
         taxon_concept.id
+      when ChangeableObjectType.data_point_uri.id
+        taxon_concept.id
+      when ChangeableObjectType.user_added_data.id
+        taxon_concept.id
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"
     end
@@ -191,6 +202,10 @@ class CuratorActivityLog < LoggingModel
       when 'DataObject'   then DataObject.find(comment_object.parent_id)
       else raise "Cannot comment on #{comment_object.parent_type.to_s.pluralize}"
     end
+  end
+
+  def data_point_uri
+    DataPointUri.find(target_id) if changeable_object_type == ChangeableObjectType.data_point_uri
   end
 
   def users_data_object
@@ -223,7 +238,9 @@ class CuratorActivityLog < LoggingModel
       ChangeableObjectType.classification_curation.id => [Activity.unlock.id,
                                                           Activity.unlock_with_error.id,
                                                           Activity.curate_classifications.id],
-      ChangeableObjectType.taxon_concept.id => [Activity.split_classifications.id, Activity.merge_classifications.id]
+      ChangeableObjectType.taxon_concept.id => [Activity.split_classifications.id, Activity.merge_classifications.id],
+      ChangeableObjectType.data_point_uri.id => [Activity.set_exemplar_data.id, Activity.hide.id, Activity.unhide.id],
+      ChangeableObjectType.user_added_data.id => [Activity.create.id, Activity.update.id]
     }
     return unless self.activity
     return unless loggable_activities[self.changeable_object_type_id]
@@ -271,18 +288,22 @@ private
 
   # There are a few types of CuratorActivityLogs that only notify their taxon concepts:
   def add_recipient_taxon_concepts(recipients)
-    if self.changeable_object_type_id == ChangeableObjectType.synonym.id ||
-       self.changeable_object_type_id == ChangeableObjectType.curated_taxon_concept_preferred_entry.id ||
-       self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
+    if self.is_for_type?(:synonym) ||
+       self.is_for_type?(:curated_taxon_concept_preferred_entry) ||
+       self.is_for_type?(:taxon_concept)
       add_taxon_concept_recipients(self.taxon_concept, recipients)
       add_taxon_concept_recipients(TaxonConcept.find(self.target_id), recipients) if
-        self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
+        self.is_for_type?(:taxon_concept)
     end
-    if self.changeable_object_type_id == ChangeableObjectType.classification_curation.id &&
+    if self.is_for_type?(:classification_curation) &&
        self.activity_id == Activity.curate_classifications.id &&
        cc = self.classification_curation
       add_taxon_concept_recipients(cc.moved_from, recipients) if cc.moved_from
       add_taxon_concept_recipients(cc.moved_to, recipients) if cc.moved_to
+    end
+    if self.is_for_type?(:data_point_uri) ||
+       self.is_for_type?(:user_added_data)
+      add_taxon_concept_recipients(self.taxon_concept, recipients)
     end
   end
 
@@ -290,8 +311,6 @@ private
     unless taxon_concept.blank?
       recipients << taxon_concept
       recipients << { :ancestor_ids => taxon_concept.flattened_ancestor_ids }
-      # TODO: Synonym log??? this can maybe go away
-      # logs_affected['Synonym'] = [ self.target_id ]
       Collection.which_contain(taxon_concept).each do |c|
         recipients << c
       end
@@ -342,7 +361,7 @@ private
   end
 
   def unlock?
-    self.changeable_object_type_id == ChangeableObjectType.classification_curation.id &&
+    self.is_for_type?(:classification_curation) &&
       [Activity.unlock.id, Activity.unlock_with_error.id].include?(self.activity_id)
   end
 end

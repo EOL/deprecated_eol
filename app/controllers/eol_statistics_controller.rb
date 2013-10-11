@@ -42,6 +42,11 @@ class EolStatisticsController < ApplicationController
     get_stats(action_name)
   end
 
+  # GET /statistics/data
+  def data
+    get_stats(action_name)
+  end
+
   private
 
   def get_stats(report)

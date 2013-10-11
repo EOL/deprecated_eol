@@ -5,7 +5,7 @@ class EolStatistic < ActiveRecord::Base
                   :pages_count, :pages_with_content, :pages_with_text, :pages_with_image,
                   :pages_with_map, :pages_with_video, :pages_with_sound, :pages_without_text,
                   :pages_without_image, :pages_with_image_no_text, :pages_with_text_no_image,
-                  :base_pages, :pages_with_at_least_a_trusted_object,
+                  :base_pages, :pages_with_at_least_a_trusted_object, :total_taxa_with_data,
                   :pages_with_at_least_a_curatorial_action, :pages_with_BHL_links,
                   :pages_with_BHL_links_no_text, :pages_with_BHL_links_only, :created_at].join(', ') } }
 
@@ -42,6 +42,11 @@ class EolStatistic < ActiveRecord::Base
   scope :users_data_objects, lambda {
     { :select => [:data_objects_texts, :udo_published, :udo_published_by_curators,
                   :udo_published_by_non_curators, :created_at].join(', ') } }
+
+  scope :data, lambda {
+    { :select => [:total_triples, :total_occurrences, :total_measurements, :total_associations,
+                  :total_measurement_types, :total_association_types, :total_taxa_with_data,
+                  :total_user_added_data, :created_at].join(', ') } }
 
   # Retrieves stats for specific dates (i.e. stats reported within the 24 hours from midnight
   # to 23:59:59 of the day represented by each date, in other words not a range of 'from to' dates).
@@ -109,6 +114,9 @@ class EolStatistic < ActiveRecord::Base
       [:data_objects, :data_objects_texts, :data_objects_images, :data_objects_videos,
        :data_objects_sounds, :data_objects_maps, :data_objects_trusted,
        :data_objects_unreviewed, :data_objects_untrusted, :data_objects_trusted_or_unreviewed_but_hidden, :created_at]
+    when :data
+      [:total_triples, :total_occurrences, :total_measurements, :total_associations,:total_measurement_types,
+       :total_association_types, :total_taxa_with_data,:total_user_added_data, :created_at]
     end
   end
 

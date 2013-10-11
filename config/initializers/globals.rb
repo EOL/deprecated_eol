@@ -1,3 +1,69 @@
+# So, the new-fangled way to do configuration in Rails is Rails.configuration.WHATEVER.  ...So let's do that. It's better than friggin'
+# globals.  That said, we may want to adopt the simple, popular, SimpleConfig: https://github.com/lukeredpath/simpleconfig
+
+# Collection configu settings:
+
+Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
+
+# TAXON DATA configuration settings:
+
+Rails.configuration.uri_prefix = 'http://eol.org/schema/'
+Rails.configuration.uri_inverse = 'http://www.w3.org/2002/07/owl#inverseOf'
+Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources"
+Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"
+Rails.configuration.uri_allowed_val = "#{Rails.configuration.uri_prefix}allowedValue"
+Rails.configuration.uri_allowed_unit = "#{Rails.configuration.uri_prefix}allowedUnit"
+Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}terms/"
+Rails.configuration.uri_supplier = "#{Rails.configuration.uri_term_prefix}supplier"
+Rails.configuration.uri_target_occurence = "#{Rails.configuration.uri_prefix}targetOccurrenceID"
+Rails.configuration.uri_reference = "#{Rails.configuration.uri_prefix}reference/Reference"
+Rails.configuration.uri_reference_id = "#{Rails.configuration.uri_prefix}reference/referenceID"
+Rails.configuration.uri_association_id = "#{Rails.configuration.uri_prefix}associationID"
+Rails.configuration.uri_association_type = "#{Rails.configuration.uri_prefix}associationType"
+Rails.configuration.uri_measurement_of_taxon = "#{Rails.configuration.uri_prefix}measurementOfTaxon"
+Rails.configuration.uri_parent_measurement_id = "#{Rails.configuration.uri_prefix}parentMeasurementID"
+# DarwinCore
+Rails.configuration.uri_dwc = "http://rs.tdwg.org/dwc/terms/"
+Rails.configuration.uri_data_measurement = "#{Rails.configuration.uri_dwc}MeasurementOrFact"
+Rails.configuration.uri_measurement_unit = "#{Rails.configuration.uri_dwc}measurementUnit"
+# OBO
+Rails.configuration.uri_obo = "http://purl.obolibrary.org/obo/"
+# Dublin Core
+Rails.configuration.uri_dc = "http://purl.org/dc/terms/"
+Rails.configuration.uri_license = "#{Rails.configuration.uri_dc}license"
+Rails.configuration.uri_source = "#{Rails.configuration.uri_dc}source"
+Rails.configuration.uri_citation = "#{Rails.configuration.uri_dc}bibliographicCitation"
+
+Rails.configuration.uri_prefix_user_added_data = "http://eol.org/pages/" # TODO - this should be a polymorphic hash, ie:
+                                # { taxon_concept: "http://eol.org/pages/", data_object: "http://eol.org/data_objects/" } ...etc...
+Rails.configuration.uri_prefix_association = "#{Rails.configuration.uri_prefix}Association"
+Rails.configuration.user_added_data_graph = "http://eol.org/user_data/"
+Rails.configuration.known_uri_graph = "http://eol.org/known_uris"
+Rails.configuration.known_taxon_uri_re = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.
+Rails.configuration.optional_reference_uris = { # Be careful changing these...  :)
+  identifier: "http://purl.org/dc/terms/identifier",
+  publicationType: "http://eol.org/schema/reference/publicationType",
+  full_reference: "http://eol.org/schema/reference/full_reference",
+  primaryTitle: "http://eol.org/schema/reference/primaryTitle",
+  title: "http://purl.org/dc/terms/title",
+  pages: "http://purl.org/ontology/bibo/pages",
+  pageStart: "http://purl.org/ontology/bibo/pageStart",
+  pageEnd: "http://purl.org/ontology/bibo/pageEnd",
+  volume: "http://purl.org/ontology/bibo/volume",
+  edition: "http://purl.org/ontology/bibo/edition",
+  publisher: "http://purl.org/dc/terms/publisher",
+  authorList: "http://purl.org/ontology/bibo/authorList",
+  editorList: "http://purl.org/ontology/bibo/editorList",
+  created: "http://purl.org/dc/terms/created",
+  language: "http://purl.org/dc/terms/language",
+  uri: "http://purl.org/ontology/bibo/uri",
+  doi: "http://purl.org/ontology/bibo/doi",
+  localityName: "http://schemas.talis.com/2005/address/schema#localityName"
+}
+
+# -------------------------------------------------------------------------
+# OLD STUFF...          PLEASE DON'T DO THIS ANYMORE.  :|
+
 # Moving all the (stupid) globals we used to have in the environment.rb file here.  But, really, we should find an
 # even better solution than this.
 
@@ -144,6 +210,12 @@ $EOL_FLIPBOARD_ACCOUNT  = "http://flip.it/eol"
 
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
+
+$VIRTUOSO_USER = 'demo'
+$VIRTUOSO_PW = 'demo'
+$VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
+$VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/xx/yy'
+$VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
 
 # Recaptcha Keys
 ENV['RECAPTCHA_PUBLIC_KEY'] = ''

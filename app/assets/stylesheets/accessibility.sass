@@ -61,7 +61,7 @@ html.busy, html.busy *, .busy
     img
       float: left
       margin: 0 10px 0 0
-      border: 1px solid #394651
+      border: 1px solid $nearly_black
     h4
       a
         color: inherit
@@ -77,7 +77,7 @@ html.busy, html.busy *, .busy
       img
         float: left
         margin: 0 10px 0 0
-        border: 1px solid #394651
+        border: 1px solid $nearly_black
         +max_dimensions($logo_size_secondary, $logo_size_secondary)
       .details
         padding: 5px 0 0 0
@@ -86,8 +86,8 @@ form
   &.edit_hierarchy
     p
       &.browsable, &.not_browsable, &.request_publish
-        background: #F3F7FA
-        border: 1px solid #CAD3DB
+        background: $fieldset_light_blue
+        border: 1px solid $grayblue
         font-size: 1.33em
         font-weight: bold
         padding: 10px
@@ -189,7 +189,7 @@ form#switch_hierarchy_entry
 #content.cms_page,
 #content.news_page
   .header
-    border-bottom: 1px solid #394651
+    border-bottom: 1px solid $nearly_black
     text-align: center
   table
     border-collapse: collapse
@@ -198,7 +198,7 @@ form#switch_hierarchy_entry
     line-height: 170%
     thead
       tr
-        border: 1px solid #CAD3DB
+        border: 1px solid $grayblue
         th
           background: #EFF2F4
           padding: 5px 20px
@@ -206,7 +206,7 @@ form#switch_hierarchy_entry
           text-align: left
     tbody
       tr
-        border: 1px solid #CAD3DB
+        border: 1px solid $grayblue
         td
           padding: 5px 20px
   a
@@ -260,7 +260,7 @@ form#switch_hierarchy_entry
         overflow: hidden
         list-style-type: none
         clear: both
-        border-bottom: 1px solid #CAD3DB
+        border-bottom: 1px solid $grayblue
         padding: 10px
         img
           max-width: 88px
@@ -348,7 +348,7 @@ p.status
       font-size: 1.08em
       font-weight: bold
       text-align: center
-      color: #394651
+      color: $nearly_black
       border: 1px solid #C7D471
       background: #EDF6B2
     &.error
@@ -390,15 +390,15 @@ p.status
       margin: 0 auto
       .jp-interface
         background-color: #EEEEEE
-        border: 1px solid #CAD3DB
+        border: 1px solid $grayblue
     img
       max-width: 540px
       width: expression(this.width > 540 ? "540px" : true)
 /** I say we standardise form tips everywhere **/
-form
+form, #content .site_column
   p.tip
-    background: #F3F7FA
-    border: 1px solid #CAD3DB
+    background: $fieldset_light_blue
+    border: 1px solid $grayblue
     padding: 10px
     margin: 0 40px 20px 0
     line-height: 140%
@@ -441,10 +441,10 @@ form
               margin: 0 10px
       &.sound
         .figure
-          background: #394651 url(image-path("v2/icon_sound_tabs.png")) no-repeat 50% 20%
-          color: #e2e9ef
+          background: $nearly_black url(image-path("v2/icon_sound_tabs.png")) no-repeat 50% 20%
+          color: $light_blue
           a
-            color: #e2e9ef
+            color: $light_blue
           .player
             background-color: transparent !important
           .player_interface
@@ -471,7 +471,7 @@ form
       &.video
         .figure
           background: url(image-path("v2/icon_videos_tabs.png")) no-repeat 50% 20% transparent
-          border: 1px solid #CAD3DB
+          border: 1px solid $grayblue
           width: 158px
           height: 123px
           p
@@ -575,13 +575,13 @@ p.flag, span.flag
 
 /** IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. **/
 #iucn_status
-  border: 1px solid #cad3db
+  border: 1px solid $grayblue
   background: #f1f4f7
   text-align: center
   padding: 7px 10px
   font-size: 1.16em
   margin: 20px 0
-  color: #394651
+  color: $nearly_black
   h3, p, abbr
     display: inline-block
   abbr
@@ -635,8 +635,8 @@ p.flag, span.flag
         width: 50%
   form
     &#new_name
-      background: #F3F7FA
-      border: 1px solid #CAD3DB
+      background: $fieldset_light_blue
+      border: 1px solid $grayblue
       margin-bottom: 40px
       padding: 5px 20px
       .copy
@@ -688,11 +688,11 @@ p.flag, span.flag
           float: left
           padding: 0 10px 3px 10px
           font-size: 1.16em
-          border-bottom: 3px solid #394651
+          border-bottom: 3px solid $nearly_black
     .list
       img
         +max_dimensions($logo_size_primary, $logo_size_primary)
-#taxon_literature, #taxon_community, #taxon_resources
+#taxon_literature, #taxon_community, #taxon_resources, #taxon_data .about_subtab
   h3
     font-size: 2em
 #taxon_resources
@@ -822,7 +822,7 @@ p.flag, span.flag
             padding-bottom: 8px
             img
               margin: 0 10px 0 0
-              border: 1px solid #394651
+              border: 1px solid $nearly_black
               +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
             a
               float: left
@@ -923,7 +923,7 @@ form
   fieldset.actions
     padding: 0
 .new_collection_job
-  #sidebar 
+  #sidebar
     border-left: 1px solid $darker_gray
     margin-left: 10px
 table.standard
@@ -937,14 +937,14 @@ table.standard
   input[type="text"]
     // Sorry, not taking the time to find the right way to do this.
     background-color: white
-    background-image: -moz-linear-gradient(100% 100% 90deg, white, #F0F4F7)
-    border: 1px solid #CAD3DB
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, $lightest_blue)
+    border: 1px solid $grayblue
     font: 1em Helvetica,Arial,sans-serif
     height: 22px
     padding: 2px 5px
     width: 248px
   ul
-    border-top: 1px solid #394651
+    border-top: 1px solid $nearly_black
   li img
     float: left
     // ACK!  Sorry.  No time to fix the important thing.  TODO
@@ -994,7 +994,7 @@ h1.notice
     position: relative
     padding: 10px 0
     text-align: center
-    border-bottom: 1px solid #394651
+    border-bottom: 1px solid $nearly_black
     h3
       font-size: 1.33em
   .page_statistics
@@ -1019,8 +1019,8 @@ h1.notice
       float: left
       width: 380px
       margin-top: 30px
-      background: #f3f7fa
-      border: 1px solid #cad3db
+      background: $fieldset_light_blue
+      border: 1px solid $grayblue
       padding: 20px 20px 0 20px
 
 // Wanted to add a link to the modal collect dialogue:
@@ -1052,7 +1052,7 @@ a.other_actions
     font-size: 1.08em
     padding: 5px 10px 6px 10px
   ul
-    border: 1px solid #cad3db
+    border: 1px solid $grayblue
     height: 230px
     overflow-y: scroll
     margin: 0 0 20px 0
@@ -1068,11 +1068,11 @@ a.other_actions
       span
         font-size: .95em
       & + li
-        border-top: 1px solid #cad3db
+        border-top: 1px solid $grayblue
 
 .cms_page
   span.icon
-    background: #f3f7fa url(image-path("v2/icon_info_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue url(image-path("v2/icon_info_tabs.png")) 50% 50% no-repeat
 #taxon_maps #media_list
   padding: 0
 // Trying (again) to center and size the sidebar image (this time including markup changes, yuck.):
@@ -1082,7 +1082,7 @@ a.other_actions
   width: 260px
   #toc
     margin: 0px 20px
-#media_list 
+#media_list
   #sidebar
     padding: 0
     padding-bottom: 20px
@@ -1099,7 +1099,7 @@ a.other_actions
         margin: 15px 0
         padding: 3px
         width: 155px
-        background-color: #394651
+        background-color: $nearly_black
         background: rgba(57, 70, 81, 0.9)
         color: #fff
       fieldset
@@ -1140,7 +1140,7 @@ body#prelaunch
     font-size: 1.16em
     font-weight: bold
     text-align: center
-    color: #394651
+    color: $nearly_black
     border: 2px solid #c7d471
     background: #edf6b2
 
@@ -1158,7 +1158,7 @@ body#prelaunch #footer ul.social_media
   font-weight: bold
 
 .highlight
-  background-color: #F3F7FA
+  background-color: $fieldset_light_blue
 
 #taxon_names .main_container
   table.classifications
@@ -1305,6 +1305,74 @@ table.classifications
   border-right: 0
   border-left: 1px solid $darker_gray
 
+#known_uris
+  .ui-sortable-helper
+    margin-top: 3em
+    background-color: #eee
+    padding: 6px
+    border: 1px dashed #aaa
+  .placeholder
+    height: 5em
+    line-height: 1.2em
+    background-color: #ffe
+    border: 1px dashed #eea
+  .headers
+    height: 1.5em !important
+  th
+    background: $light_blue
+    text-align: left
+    padding-left: 1.6em
+  tr.hidden
+    background-color: #eee
+    color: #777
+    a
+      color: #7597B5
+  tr.unknown
+    background-color: #fcc
+    color: #855
+    a
+      color: #979
+  td.excluded
+    background: url(image-path("v2/icon_excluded.png")) 7px 1.8em no-repeat
+  td.untranslated
+    color: #8b0000
+  table.standard
+    margin: 0px 0px 5px 0px
+
+.ui-menu
+  list-style: none
+  padding: 2px
+  margin: 0
+  display: block
+  background-color: white
+  border: 1px solid $darker_gray
+  color: $darker_gray
+  width: 40em
+  .ui-menu
+    margin-top: -3px
+  .ui-menu-item
+    margin: 0
+    padding: 0
+    width: 100%
+  .ui-menu-item a
+    text-decoration: none
+    display: block
+    padding: .2em .4em
+    line-height: 1.5
+    font-weight: normal
+  .ui-menu-item a.ui-state-hover, .ui-menu-item a.ui-state-active
+    margin: -1px
+    font-weight: bold
+    color: black
+    background-color: $light_blue
+    border: 1px solid $grayblue
+  .ui-menu-divider
+    margin: 5px -2px 5px -2px
+    height: 0
+    font-size: 0
+    line-height: 0
+    border-width: 1px 0 0 0
+
 ul.tabs
   .end_section
     margin-bottom: 20px
@@ -1319,7 +1387,433 @@ ul.tabs
     margin-top: 1em
     font-size: 0.8em
 
+#new_user_added_data
+  .suggestions
+    clear: left
+    font-weight: bold
+  fieldset.actions
+    margin-top: 1em
+    clear: both
+    input
+      padding: 7px 12px
+  .has_many
+    margin: 0
+
+#content > .site_column > .add_content
+  margin: 3em 6em
+  form.user_added_data
+    fieldset.main
+      float: left
+      margin-right: 20px
+      margin-bottom: 1em
+      dl
+        dd input[type="text"]
+          width: 350px
+        dd.new_field
+          float: left
+          input
+            width: 130px
+        dd.new_value
+          float: right
+          input
+            width: 200px
+    fieldset.metadata
+      background-color: #f6f8fa
+      padding: 1em
+      border: 1px solid $grayblue
+      dl dd input
+        background-image: none
+    dl dt
+      padding: 0
+      padding-bottom: 3px
+    input.problems
+      +gradient-bg(#f1f4dc, #fff)
+  #new_uri_warning
+    width: 339px
+    display: none
+    color: #88924f
+    background-color: #f1f4dc
+    border: 1px solid #ccd399
+    padding: 3pt 8pt
+  #suggestions
+    width: 360px
+    height: 24em
+    overflow: auto
+    margin: 0
+    border: 1px solid $darker_gray
+    color: #394651
+    background-color: #FFF
+    position: absolute
+    z-index: 2
+    h3
+      margin: 0
+      padding: 10px
+      background-color: #f6f8fa
+      border-bottom: 1px solid $grayblue
+      font-weight: normal
+    li
+      padding: 4pt
+      line-height: 150%
+    li:hover
+      background-color: #f1f4dc
+      cursor: hand
+      cursor: pointer
+    li.category
+      font-size: 1.2em
+    a
+      color: #394651
+      text-decoration: none
+    li.child
+      display: none
+      padding-left: 1.3em
+
+#tabs_sidebar.data
+  li a
+    padding: 5pt
+    font-size: 0.83em
+    font-weight: normal
+
+#data_comments
+  width: 704px
+
+#taxon_data, #data_comments
+  p.about
+    height: 12em
+    display: none
+  table.data
+    margin: 0px 0px 30px 0px
+    tbody
+      border-bottom: 1px solid $grayblue
+      border-top: 1px solid $grayblue
+      border-right: 1px solid $grayblue
+      border-left: 1px solid $grayblue
+      tr
+        border: 0
+        span.comments
+          float: right
+          width: 11px
+          padding-left: 4px
+        th
+          color: $darker_blue
+          font-weight: normal
+          text-align: right
+          width: 203px
+          vertical-align: top
+          padding-top: 4pt
+          .info_icon
+            float: left
+            width: 18px
+            background: url(image-path("v2/icon_info_tabs.png")) 2px 3px no-repeat
+            background-size: 14px 14px
+          .info
+            .close
+              float: right
+              height: 13px
+              width: 13px
+              text-decoration: none
+              background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+              border: 1px solid $light_blue
+              &:hover
+                background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+            .uri
+              font-size: 0.75em
+              text-align: right
+              margin: 0.5em
+            dt
+              font-size: 0.75em
+              margin: 0.5em
+              font-weight: bold
+            dd
+              font-size: 0.75em
+              margin: 0.75em 0.5em
+              line-height: 1.5em
+        th.predicate
+          .info_icon
+            float: right
+        span.excluded
+          padding-left: 10px
+          background: url(image-path("v2/icon_excluded.png")) 0px 7px no-repeat
+        span.exemplar
+          padding-left: 10px
+          background: url(image-path("v2/icon_required.png")) 0px 7px no-repeat
+        td
+          padding: 5px 7px 5px 0
+          font-weight: 500
+          font-size: 1.3em
+          color: $nearly_black
+          vertical-align: top
+          &.source
+            width: 12em
+          &.comment
+            width: 1em
+          span.source
+            padding: 0px
+            float: left
+            width: 12em
+            font-size: 0.75em
+            height: 1.5em
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            color: $darker_blue
+          span.fold
+            float: left
+            padding-right: 5pt
+            line-height: 15px
+          a.more
+            padding-left: 13px
+            font-size: 0.83em
+          &.val
+            min-width: 300px
+          &.taxon
+            padding-left: 5px
+    tr.actions, tr.comments
+      font-weight: normal
+      font-size: 0.8em
+      li
+        margin-left: 2pt
+        display: inline
+      td
+        font-weight: normal
+        margin: 0px
+        padding: 0px
+        ul
+        .comments
+          margin: 7px 10px
+          font-size: 0.9em
+          .comment
+            color: #4e5c68
+            background-color: #f1f4dc
+            border: 1px solid #ccd399
+            margin: 3px 0
+            padding: 5px 7px
+            line-height: 1.6em
+            word-break: break-word
+        form#new_comment
+          fieldset
+            margin: 0 10px
+            input[type="text"]
+              +input(79%)
+            input[type="submit"]
+              +button
+              font-weight: normal
+    tr.data:hover
+      cursor: pointer
+      background-color: #f6f8fa
+    tr.data.hidden
+      background-color: #f8f8f8
+      td.val
+        color: #aaa
+    tr.data.hidden.open
+      background-color: #f8f8f8
+      th
+        color: #919eaa
+      td
+        color: #aaa
+    tr.open
+      background: #fbfdff
+    tr.open:hover
+      cursor: auto
+      background: #fbfdff
+    .additional_commands
+      width: 100%
+      display: inline-block
+      a.button
+        font-weight: normal
+        margin-top: 10px
+        margin-right: 6px
+        float: right
+    div.metadata
+      th, td
+        font-size: 1em
+        font-weight: normal
+        line-height: 1.2em
+    div.metadata:hover
+      cursor: pointer
+    div.actions
+      padding: 5px 10px
+      border-top: 1px solid $grayblue
+      border-bottom: 1px solid $grayblue
+      background-color: #f6f8fa
+  table.data.search
+    th
+      width: 150px
+    span.source
+      width: 8em
+    td.taxon
+      font-size: 1em
+      width: 300px
+      h4
+        margin: 3px 0px 5px
+        font-size: 1.2em
+        a
+          color: #28323a
+          text-decoration: none
+          &:hover
+            text-decoration: underline
+      div.icon
+        width: 50px
+        height: 50px
+        float: left
+        margin-right: 10px
+        background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat
+        border: 1px solid $grayblue
+        img
+          width: 50px
+          height: 50px
+      div.names
+        margin-left: 10px
+        line-height: 120%
+  table.meta
+    line-height: 90%
+    width: 80%
+    margin: 0px auto
+    padding: 0px 0px 15px
+    td
+      padding: 0px 5px !important
+      width: 60%
+    th
+      padding: 0px !important
+    caption
+      text-align: center !important
+      font-weight: bold
+      text-transform: none
+      letter-spacing: 1px
+      margin-bottom: 0.4em
+      border-bottom: 1px solid $grayblue
+
+.tip
+  display: none
+  position: absolute
+  top: 20px
+  left: 35px
+  outline: 0
+  border: 1px solid $grayblue
+  background: white
+  color: $nearly_black
+  z-index: 1000
+  max-width: 580px
+  overflow: auto
+  padding: 0.4em
+  text-align: left
+  +box-shadow(3px 3px 6px -2px rgba(0,0,0,0.5))
+  h3
+    color: $darker_blue
+    font-weight: normal
+    font-size: 1.2em
+    margin: 0.5em
+    vertical-align: top
+    padding-top: 4pt
+  dt
+    font-weight: bold
+  dd
+    margin-top: 1em
+  &.info
+    .close
+      float: right
+      height: 13px
+      width: 13px
+      text-decoration: none
+      background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+      border: 1px solid $light_blue
+      &:hover
+        background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+.add_content
+  .add_data
+    margin-bottom: 1.2em
+    a
+      padding-left: 11px
+      background: #fff url(image-path("arrow_fold_right.png")) 0px 4px no-repeat
+    a.open
+      padding-left: 11px
+      background: #fff url(image-path("arrow_fold_down.png")) 0px 4px no-repeat
+
 // Sick and tired of the language drop-down being too narrow for some languages:
 #header
   .language > p
     min-width: 10em
+
+span.info
+  display: none
+  padding-left: 1em
+  padding-bottom: .8em
+  min-width: 30em
+
+#content
+  .empty
+    clear: both
+.glossary
+  h3
+    font-size: 1.6em
+    font-weight: normal
+    text-align: center
+  .chapter_marker
+    overflow: hidden
+    border-bottom: 1px solid $darker_blue
+    margin-bottom: 10px
+    h3
+      color: $darker_blue
+      float: left
+      margin-left: 10px
+      padding: 20px 0px 0px
+      font-size: 3em
+  ul.helpers
+    float: right
+    font-size: .9em
+    width: 100%
+    a
+      color: $darker_gray
+      text-decoration: none
+    a:hover
+      text-decoration: underline
+    li
+      margin: 0px
+      padding: 0px
+      float: right
+      &.hover
+        display: none
+    li + li
+      border: 0px
+      border-right: 1px solid $darker_gray
+      margin-right: 10px
+      padding-right: 10px
+  li
+    margin-bottom: 16px
+.glossary li+li
+  border-top: 1px dotted $light_blue
+  padding-top: 8px
+.glossary li, .info.tip
+  dt
+    color: $darker_blue
+    font-weight: normal
+    font-size: 1.4em
+    a
+      padding-left: 1em
+      font-size: 0.8em
+    small
+      font-size: 0.7em
+      display: block
+      color: $darker_gray
+  dd
+    margin-top: 5px
+    font-size: 1.2em
+    &.attribution, &.uri
+      color: $darker_gray
+    &.attribution
+      font-size: 1em
+    &.uri
+      font-size: 1.1em
+.term
+  .hint
+    font-size: 0.8em
+    line-height: 0.3em
+
+// Since the data search is full-width, the normal search needed this:
+.filtered_search
+  width: 700px
+  float: right
+
+#sortable
+  .move
+    padding: 5px 5px
+    width: 32px

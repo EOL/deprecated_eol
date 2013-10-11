@@ -83,6 +83,18 @@ module EOL
         conn.execute "TRUNCATE TABLE `#{table}`"
       end
 
+      def drop_all_virtuoso_graphs
+        # print "dropping all virtuoso graphs ... "
+        # NOTE - for some reason (?) this keeps throwing "invalid port" errors.
+        EOL::Sparql.connection.query("SELECT DISTINCT ?graph WHERE { GRAPH ?graph { ?s ?p ?o } }").each do |result|
+          graph_name = result[:graph].to_s
+          if graph_name =~ /^http:\/\/eol\.org\//
+            EOL::Sparql.connection.delete_graph(graph_name)
+          end
+        end
+        # puts "done"
+      end
+
       def build_data_object(type, desc, options = {})
         dato_builder = EOL::DataObjectBuilder.new(type, desc, options)
         dato_builder.dato
@@ -413,6 +425,29 @@ end
 # Please *try* and KEEP THESE ALPHABETICAL for now.  When we have too many, we'll break them up into files, but that
 # will make loading much more complicated.
 
+DataObject.class_eval do
+  def add_ref(full_reference, published, visibility)
+    self.refs << ref = Ref.gen(:full_reference => full_reference, :published => published, :visibility => visibility)
+    ref
+  end
+end
+
+UserAddedData.class_eval do
+  def self.delete_graph
+    EOL::Sparql.connection.delete_graph(UserAddedData::GRAPH_NAME)
+  end
+
+  def self.recreate_triplestore_graph
+    delete_graph
+    UserAddedData.where("deleted_at IS NULL").each do |uad|
+      uad.add_to_triplestore
+      uad.user_added_data_metadata.each do |meta|
+        meta.add_to_triplestore
+      end
+    end
+  end
+end
+
 Ref.class_eval do
   def add_identifier(type, identifier)
     type = RefIdentifierType.find_by_label(type) || RefIdentifierType.gen_if_not_exists(:label => type)
@@ -518,12 +553,5 @@ TaxonConcept.class_eval do
     CanonicalForm.find(entry.name.canonical_form_id) # Yuck.  But true.
   end
 
-end
-
-DataObject.class_eval do
-  def add_ref(full_reference, published, visibility)
-    self.refs << ref = Ref.gen(:full_reference => full_reference, :published => published, :visibility => visibility)
-    ref
-  end
 end
 

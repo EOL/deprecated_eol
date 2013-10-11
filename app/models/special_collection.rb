@@ -2,7 +2,7 @@ class SpecialCollection < ActiveRecord::Base
 
   has_many :lists
 
-  def self.create_all
+  def self.create_defaults
     self.create(:name => 'Focus')
     self.create(:name => 'Watch')
   end

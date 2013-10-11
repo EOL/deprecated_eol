@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe SpecialCollection do
 
   before(:all) do
-    SpecialCollection.create_all
+    SpecialCollection.create_defaults
   end
 
   it 'should have a "focus" method' do

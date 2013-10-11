@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-group :development, :test, :staging_dev do
+group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem 'capistrano', '2.13.5'
   gem 'capistrano-unicorn-pleary', '=0.1.6.1'
   # gem 'curb'
@@ -15,16 +15,19 @@ group :development, :test, :staging_dev do
   gem 'rspec-rails', '2.11.4'
   gem 'ruby-prof', '0.11.2'
   gem 'spin', '0.5.3'
-  gem 'statsd-ruby', '1.2.1'
+  # These are only for the RDF-store tests:
+  gem 'sparql-client'
+  gem 'rdoc', '3.12'
+  gem 'nokogiri', '1.5.5' # Yeah, I know this has given us grief in the past.  :\ Trying things out, is all.
 end
 
-group :staging do
+group :staging, :bocce_demo do
   gem 'debugger'
   gem 'hipchat'
-  gem 'statsd-ruby', '1.2.1'
+  gem 'sparql-client'
 end
 
-group :development, :staging_dev, :staging_dev_cache do
+group :development, :staging_dev, :staging_dev_cache, :bocce_demo_dev, :test_dev do
   gem 'webrick', '1.3.1'
 end
 
@@ -44,7 +47,9 @@ end
 
 gem 'rails', '3.2.13'
 
+gem 'acts_as_list', '0.2.0'
 gem 'acts_as_tree_rails3', '0.1.0'
+gem 'biodiversity19'
 gem 'ckeditor', '3.7.3'
 gem 'coffee-rails', '3.2.2'
 gem 'composite_primary_keys'
@@ -67,9 +72,9 @@ gem 'oauth', '0.4.7'
 gem 'oauth2', '0.8.0'
 gem 'paperclip', '3.3.1'
 gem 'rails_autolink', '1.0.9'
+gem 'rails3-jquery-autocomplete', '1.0.11', :git => "git://github.com/pleary/rails3-jquery-autocomplete.git"
 gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails'
 gem 'resque', '1.23.0', :require => 'resque/server'
-gem 'rdoc', '3.12'
 gem 'sanitize', '2.0.3'
 gem 'sass-rails', '3.2.5'
 gem 'statsd-ruby', '1.2.1'

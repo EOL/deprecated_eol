@@ -1,0 +1,65 @@
+@import "common"
+
+div.fieldset_form
+  padding: 20px 20px 10px 20px
+  margin-top: 20px
+  background: $fieldset_light_blue
+  border: 1px solid $grayblue
+  label
+    font-size: 1.08em
+    font-weight: bold
+  ul
+    padding: 10px
+    li
+      line-height: 25px
+      div.actions
+        float: right
+        width: 100px
+        margin: 0px 0px 0px 20px
+        form
+          margin: 0px
+          div
+            margin: auto
+    .underline
+      text-decoration: underline
+  fieldset
+    dt
+      font-size: 1.08em
+      font-weight: bold
+#stats_report
+  table
+    margin: 10px 0px
+#sortable
+  td.actions
+    width: 180px
+#import_ontology
+  dt
+    display: none
+  dd
+    float: left
+    margin-right: 10px
+  margin: 30px 0px 70px
+table.ontology
+  tr
+    &.ignored
+      background-color: #eeeeee
+      color: #777777
+    &.selected
+      background-color: #BCF5A9
+    &.existing
+      background-color: #F5A9A9
+  th
+    padding: 5px 5px !important
+    &.rdfs\:label
+      min-width: 200px
+  td
+    padding: 5px 5px !important
+    vertical-align: top
+    &.checkbox
+  .uri
+    font-size: .8em
+  span.rdfs\:label
+    font-size: 1.3em
+  span.language
+    font-size: .7em
+    color: #777777

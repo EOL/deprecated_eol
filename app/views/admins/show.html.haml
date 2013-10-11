@@ -1,3 +1,13 @@
+= javascript_include_tag 'admin'
 #admin_overview.main_container
   .article.copy
     %p= raw(I18n.t(:admin_information))
+  .actions
+    %p.data
+      = check_box_tag('site_configuration_option', 'all_users_can_see_data', (SiteConfigurationOption.all_users_can_see_data rescue false), 'data-href' => change_site_configuration_options_path(parameter: 'all_users_can_see_data'))
+      = I18n.t(:admin_option_all_users_can_see_data)
+  - if defined?(Resque) && Resque && Resque.info
+    .article.copy
+      %h3= I18n.t(:resque_status_header)
+      - Resque.queues.each_with_index do |q,i|
+        %p= I18n.t(:resque_pending_job_count, count: Resque.size(Resque.queues[i]), queue: q)

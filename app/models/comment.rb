@@ -170,6 +170,7 @@ class Comment < ActiveRecord::Base
     @notification_recipients = []
     add_recipient_user_making_comment(@notification_recipients)
     add_recipient_object_getting_commented_on(@notification_recipients)
+    add_recipient_object_taxon_ancestors(@notification_recipients)
     add_recipient_collections_containing_object_getting_commented_on(@notification_recipients)
     add_recipient_replied_to_user(@notification_recipients)
     add_recipient_collection_managers(@notification_recipients)
@@ -216,7 +217,9 @@ private
       # news feed of other types
       recipients << self.parent
     end
-    
+  end
+
+  def add_recipient_object_taxon_ancestors(recipients)
     if self.parent.respond_to?(:flattened_ancestor_ids)
       # page's ancestors
       recipients << { :ancestor_ids => self.parent.flattened_ancestor_ids }
@@ -227,14 +230,21 @@ private
         recipients << { :ancestor_ids => association.taxon_concept.flattened_ancestor_ids } if
           association.taxon_concept.respond_to?(:flattened_ancestor_ids)
       end
+    elsif self.parent.is_a?(DataPointUri)
+      if self.parent.taxon_concept
+        recipients << self.parent.taxon_concept
+        recipients << { :ancestor_ids => self.parent.taxon_concept.flattened_ancestor_ids }
+      end
     end
   end
 
   def add_recipient_collections_containing_object_getting_commented_on(recipients)
     # news feed of collections which contain the thing commented on
-    self.parent.containing_collections.each do |c|
-      next if c.blank?
-      recipients << c
+    if parent.respond_to?(:containing_collections)
+      parent.containing_collections.each do |c|
+        next if c.blank?
+        recipients << c
+      end
     end
   end
 

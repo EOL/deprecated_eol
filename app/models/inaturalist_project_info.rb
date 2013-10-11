@@ -49,7 +49,7 @@ module InaturalistProjectInfo
     # NOTE: In the view, we also create a background JQuery call to cache the entire list.
     def get_directly(id)
       begin
-        InaturalistProjectInfo.get_inat_response(source:"http://eol.org/collections/#{id}").first
+        InaturalistProjectInfo.get_inat_response(source:"#{Rails.configuration.inat_project_prefix}#{id}").first
       rescue => e
         Rails.logger.warn "** Unable to get iNat info for collection #{id}: #{e.message}"
         nil

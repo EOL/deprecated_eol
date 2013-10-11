@@ -1,5 +1,5 @@
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
-# NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
+# NOTE this inherits from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
 
 require 'eol/activity_loggable'
@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   has_many :pending_notifications
   has_many :open_authentications, :dependent => :destroy
   has_many :forum_posts
+  has_many :user_added_data, :class_name => UserAddedData.to_s
 
   has_many :content_partners
   has_one :user_info
@@ -230,6 +231,7 @@ class User < ActiveRecord::Base
   end
   alias :summary_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
   alias :collected_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
+  alias :name :full_name # This is for data tab only (ATM), used to mimic ContentPartner#name in real-estate.
 
   # Note that this can end up being expensive, but avoids errors.  Watch your qeries!
   def reload_all_values_if_missing(which)
@@ -308,6 +310,11 @@ class User < ActiveRecord::Base
     return comments.count
   end
 
+  def total_data_submitted
+    return user_added_data.where(visibility_id: Visibility.visible.id, vetted_id: [Vetted.trusted.id, Vetted.unknown.id],
+      deleted_at: nil).count
+  end
+
   def total_wikipedia_nominated
     return WikipediaQueue.find_all_by_user_id(self.id).count
   end
@@ -332,6 +339,12 @@ class User < ActiveRecord::Base
   def can_delete?(resource)
     return false if resource.nil?
     resource.can_be_deleted_by?(self)
+  end
+
+  def can_see_data?
+    return true if can?(:see_data)
+    return true if (SiteConfigurationOption.all_users_can_see_data rescue false)
+    false
   end
 
   def can_manage_community?(community)
@@ -706,15 +719,17 @@ class User < ActiveRecord::Base
   # WARNING: Before you go and try to make notification_count and message_count use the same query and then filter
   # the results to count each type, rcognize (!) that they each use their own :after clause.  So be careful.
   def notification_count
-    self.activity_log(:news => true, :filter => 'all',
+    activity_log(:news => true, :filter => 'all',
       :after => self.last_notification_at,
-      :skip_loading_instances => true).count
+      :skip_loading_instances => true,
+      :user => self).count
   end
 
   def message_count
-    self.activity_log(:news => true, :filter => 'messages',
+    activity_log(:news => true, :filter => 'messages',
       :after => self.last_message_at,
-      :skip_loading_instances => true).count
+      :skip_loading_instances => true,
+      :user => self).count
   end
 
   def add_as_recipient_if_listening_to(notification_type, recipients)

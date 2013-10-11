@@ -16,7 +16,7 @@ class Users::ActivitiesController < UsersController
       # TODO: we should provide unique meta data (title etc) for this filter's page
       set_canonical_urls(:for => @user, :paginated => @curated_taxa_ids, :url_method => :user_activity_url)
     else
-      @user_activity_log = @user.activity_log(:page => @page, :filter => @filter)
+      @user_activity_log = @user.activity_log(:page => @page, :filter => @filter, :user => current_user)
       set_canonical_urls(:for => @user, :paginated => @user_activity_log, :url_method => :user_activity_url)
     end
 

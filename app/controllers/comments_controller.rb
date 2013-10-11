@@ -4,6 +4,12 @@ class CommentsController < ApplicationController
   before_filter :allow_login_then_submit, :only => [:create]
   before_filter :allow_modify_comments, :only => [:edit, :update, :destroy]
 
+  # NOTE - this was written, sadly, for data only. If you want this to do more, you'll need to re-write it.
+  def index
+    @parent = DataPointUri.find(params[:data_point_uri_id])
+    @page_title = I18n.t(:comments_page_title, parent: @parent.summary_name)
+  end
+
   # POST /comments
   def create
     comment_data = params[:comment] unless params[:comment].blank?
@@ -19,6 +25,7 @@ class CommentsController < ApplicationController
     current_user_is_curator = current_user.is_curator?
     @comment.from_curator = current_user_is_curator.blank? ? false : true
 
+    return_to ||= link_to_item(@comment.parent) rescue nil
     store_location(return_to)
 
     if @comment.same_as_last?
@@ -33,7 +40,17 @@ class CommentsController < ApplicationController
       flash[:error] = I18n.t(:comment_not_added_error)
       flash[:error] << " #{@comment.errors.full_messages.join('; ')}." if @comment.errors.any?
     end
-    redirect_back_or_default
+
+    respond_to do |format|
+      format.html do
+        redirect_back_or_default
+      end
+      format.js do
+        # NOTE - At the moment, this is ONLY being done on the data tab!  The JS will have to be re-written if we do it
+        # elsewhere...
+        convert_flash_messages_for_ajax
+      end
+    end
   end
 
   # GET /comments/:id/edit
@@ -118,6 +135,8 @@ private
     case action_name
     when 'update', 'edit'
       'v2/basic'
+    when 'index'
+      'v2/data_comments'
     end
   end
 

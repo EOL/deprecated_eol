@@ -154,6 +154,16 @@ class TaxonConcept < ActiveRecord::Base
   end
   class << self; alias_method_chain :find, :supercedure ; end
 
+  # this method is helpful when using preloaded taxon_concepts as preloading
+  # will not use the above find_with_supercedure to get the latest version
+  def latest_version
+    if supercedure_id && supercedure_id != 0
+      # using find will properly follow supercedureIDs
+      return TaxonConcept.find(id)
+    end
+    self
+  end
+
   def self.load_common_names_in_bulk(taxon_concepts, language_id)
     taxon_concepts_to_load = taxon_concepts.select do |tc|
       tc.common_names_in_language ||= {}
@@ -575,22 +585,9 @@ class TaxonConcept < ActiveRecord::Base
     return keywords
   end
 
+  # TODO - This should move to TaxonUserClassificationFilter, because it requires that information.
   def media_count(user, selected_hierarchy_entry = nil)
-    cache_key = "media_count_#{self.id}"
-    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    if user && user.is_curator?
-      cache_key += "_curator"
-    end
-    @media_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
-      best_images = self.data_objects_from_solr({
-        :per_page => 1,
-        :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
-        :vetted_types => user.vetted_types,
-        :visibility_types => user.visibility_types,
-        :ignore_translations => true,
-        :return_hierarchically_aggregated_objects => true
-      }).total_entries
-    end
+    @media_count ||= update_media_count(user: user, entry: selected_hierarchy_entry)
   end
 
   def maps_count
@@ -919,6 +916,32 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConceptPreferredEntry.with_master do
       TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
       TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+    end
+  end
+
+  # Public method, because we can do this from TaxonMedia:
+  # TODO - This should move to TaxonUserClassificationFilter, because it requires that information.
+  def update_media_count(options = {})
+    selected_hierarchy_entry = options[:entry]
+    cache_key = "media_count_#{self.id}"
+    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    if options[:user] && options[:user].is_curator?
+      cache_key += "_curator"
+    end
+    Rails.cache.delete(TaxonConcept.cached_name_for(cache_key)) if options[:with_count]
+    Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+      if options[:with_count]
+        options[:with_count]
+      else
+        best_images = self.data_objects_from_solr({
+          :per_page => 1,
+          :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
+          :vetted_types => options[:user].vetted_types,
+          :visibility_types => options[:user].visibility_types,
+          :ignore_translations => true,
+          :return_hierarchically_aggregated_objects => true
+        }).total_entries
+      end
     end
   end
 

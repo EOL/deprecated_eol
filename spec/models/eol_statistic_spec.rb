@@ -39,6 +39,10 @@ describe EolStatistic do
       stats = EolStatistic.data_objects
       EolStatistic.sorted_report_attributes(:data_objects).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
     end
+    it 'should select data stats' do
+      stats = EolStatistic.data
+      EolStatistic.sorted_report_attributes(:data).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
+    end
     it 'should select something from a week ago' do
       stats = EolStatistic.at_least_one_week_ago(1).first
       EolStatistic.sorted_report_attributes(:overall).map{|attribute| stats.has_attribute?(attribute).should be_true}

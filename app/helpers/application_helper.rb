@@ -25,7 +25,7 @@ module ApplicationHelper
     def label(method, content_or_options_with_block = nil, options = {}, &block)
       options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
       options.symbolize_keys!
-      if errors_on?(method)
+      if errors_on?(method) && !options[:hide_errors]
         (options[:class] = "#{options[:class].to_s} errors").strip!
         (options[:title] = "#{options[:title].to_s} #{I18n.t(:form_validation_errors_for_attribute_assistive)}").strip!
         errors = errors_for_method(@object, method)
@@ -46,7 +46,7 @@ module ApplicationHelper
       return I18n.t(:allowed_html_tags, :comma_separated_tags => tags)
     end
 
-    private
+  private
 
     def errors_on?(method)
       @object.respond_to?(:errors) && @object.errors.respond_to?(:messages) && ! @object.errors.messages[method.to_sym].blank?
@@ -75,7 +75,7 @@ module ApplicationHelper
           haml_tag :legend, message
           haml_tag :ul do
             resource.errors.full_messages.each do |error|
-              haml_tag :li, error
+              haml_tag :li, raw(error)
             end
           end
         end
@@ -406,6 +406,8 @@ module ApplicationHelper
     end
   end
 
+  # NOTE - these two methods are TOTALLY DUPLICATED in application_controller....
+  # Until we fix that, best to keep them perfectly in-sync
   def link_to_item(item, options = {})
     case item
     when Collection
@@ -418,6 +420,12 @@ module ApplicationHelper
       user_url(item, options)
     when TaxonConcept
       taxon_url(item, options)
+    when UserAddedData
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
+    when DataPointUri
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end
@@ -438,6 +446,12 @@ module ApplicationHelper
       else
         taxon_url(item, options)
       end
+    when UserAddedData
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
+    when DataPointUri
+      options.merge!(anchor: item.anchor)
+      taxon_data_url(item.taxon_concept, options)
     else
       raise EOL::Exceptions::ObjectNotFound
     end

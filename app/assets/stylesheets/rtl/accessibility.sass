@@ -80,7 +80,7 @@ form
   &.edit_hierarchy
     p
       &.browsable, &.not_browsable, &.request_publish
-        background: #F3F7FA
+        background: $fieldset_light_blue
         border: 1px solid #CAD3DB
         font-size: 1.33em
         font-weight: bold
@@ -390,7 +390,7 @@ p.status
 /** I say we standardise form tips everywhere **/
 form
   p.tip
-    background: #F3F7FA
+    background: $fieldset_light_blue
     border: 1px solid #CAD3DB
     padding: 10px
     margin: 0 0 20px 40px
@@ -630,7 +630,7 @@ p.flag, span.flag
         width: 50%
   form
     &#new_name
-      background: #F3F7FA
+      background: $fieldset_light_blue
       border: 1px solid #CAD3DB
       margin-bottom: 40px
       padding: 5px 20px
@@ -1014,7 +1014,7 @@ h1.notice
       float: right
       width: 380px
       margin-top: 30px
-      background: #f3f7fa
+      background: $fieldset_light_blue
       border: 1px solid #cad3db
       padding: 20px 20px 0 20px
 
@@ -1067,7 +1067,7 @@ a.other_actions
 
 .cms_page
   span.icon
-    background: #f3f7fa url(image-path("v2/icon_info_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue url(image-path("v2/icon_info_tabs.png")) 50% 50% no-repeat
 #taxon_maps #media_list
   padding: 0
 // Trying (again) to center and size the sidebar image (this time including markup changes, yuck.):
@@ -1185,12 +1185,12 @@ input[type="password"]
   font-weight: bold
 
 .highlight
-  background-color: #F3F7FA
+  background-color: $fieldset_light_blue
 
 #taxon_names .main_container
   table.classifications
     td.preferred
-      background: url(image-path("v2/icon_required.png")) 7px 1em no-repeat
+      background: url(image-path("v2/icon_required.png")) 185px 1em no-repeat
     td.preferred_entry_selector
       width: 8%
     td.rank
@@ -1262,6 +1262,463 @@ li table.classifications
   li
     margin-bottom: 1em
 
+#known_uris
+  .ui-sortable-helper
+    margin-top: 3em
+    background-color: #eee
+    padding: 6px
+    border: 1px dashed #aaa
+  .placeholder
+    height: 5em
+    line-height: 1.2em
+    background-color: #ffe
+    border: 1px dashed #eea
+  .headers
+    height: 1.5em !important
+  th
+    background: $light_blue
+    text-align: right
+    padding-right: 1.6em
+  tr.hidden
+    background-color: #eee
+    color: #777
+    a
+      color: #7597B5
+  tr.unknown
+    background-color: #fcc
+    color: #855
+    a
+      color: #979
+  td.excluded
+    background: url(image-path("v2/icon_excluded.png")) 7px 1.8em no-repeat
+  td.untranslated
+    color: #8b0000
+
+.ui-menu
+  list-style: none
+  padding: 2px
+  margin: 0
+  display: block
+  background-color: white
+  border: 1px solid $darker_gray
+  color: $darker_gray
+  width: 40em
+  .ui-menu
+    margin-top: -3px
+  .ui-menu-item
+    margin: 0
+    padding: 0
+    width: 100%
+  .ui-menu-item a
+    text-decoration: none
+    display: block
+    padding: .2em .4em
+    line-height: 1.5
+    font-weight: normal
+  .ui-menu-item a.ui-state-hover, .ui-menu-item a.ui-state-active
+    margin: -1px
+    font-weight: bold
+    color: black
+    background-color: $light_blue
+    border: 1px solid $grayblue
+  .ui-menu-divider
+    margin: 5px -2px
+    height: 0
+    font-size: 0
+    line-height: 0
+    border-width: 1px 0 0 0
+
+ul.tabs
+  .end_section
+    margin-bottom: 20px
+
+.main_container .empty.about
+  text-align: right
+  div.button
+    padding-top: 1em
+    text-align: center
+  .notice
+    text-align: center
+    margin-top: 1em
+    font-size: 0.8em
+
+#new_user_added_data
+  .suggestions
+    clear: right
+    font-weight: bold
+  fieldset.actions
+    margin-top: 1em
+    clear: both
+    input
+      padding: 7px 12px
+  .has_many
+    margin: 0
+
+#content > .site_column > .add_content
+  margin: 3em 6em
+  form.user_added_data
+    fieldset.main
+      float: right
+      margin-left: 20px
+      margin-bottom: 1em
+      dl
+        dd input[type="text"]
+          width: 350px 
+        dd.new_field
+          float: right
+          input
+            width: 130px
+        dd.new_value
+          float: left
+          input
+            width: 200px
+    fieldset.metadata
+      background-color: #f6f8fa
+      padding: 1em
+      border: 1px solid $grayblue
+      dl dd input
+        background-image: none
+    dl dt
+      padding: 0
+      padding-bottom: 3px
+    input.problems
+      +gradient-bg(#f1f4dc, #fff)
+  #new_uri_warning
+    width: 339px
+    display: none
+    color: #88924f
+    background-color: #f1f4dc
+    border: 1px solid #ccd399
+    padding: 3pt 8pt
+  #suggestions
+    width: 360px
+    height: 24em
+    overflow: auto
+    margin: 0
+    border: 1px solid $darker_gray
+    color: #394651
+    background-color: #FFF
+    position: absolute
+    z-index: 2
+    h3
+      margin: 0
+      padding: 10px
+      background-color: #f6f8fa
+      border-bottom: 1px solid $grayblue
+      font-weight: normal
+    li
+      padding: 4pt
+      line-height: 150%
+    li:hover
+      background-color: #f1f4dc
+      cursor: hand
+      cursor: pointer
+    li.category
+      font-size: 1.2em
+    a
+      color: #394651
+      text-decoration: none
+    li.child
+      display: none
+      padding-right: 1.3em
+
+#tabs_sidebar.data
+  li a
+    padding: 5pt
+    font-size: 85%
+    font-weight: normal
+
+#data_comments
+  width: 704px
+
+#data_summary
+  span.remove
+    border: 1px solid #d4dce2
+    cursor: pointer
+    margin-right: 3px
+    padding: 1px 0px 1px 3px
+    background-color: white
+    &:hover
+      background-color: $fieldset_light_blue
+  .data_div
+    border: 1px solid $grayblue
+    +gradient-bg($fieldset_light_blue, #fefeff)
+    padding: 10px 0 10px 5px
+  table
+    margin: 0px
+    tr
+      border: 0px
+      line-height: 100%
+      font-size: 1.0em
+      vertical-align: top
+      th
+        width: 40%
+        text-align: left
+      td
+        padding: 1px 12px 15px 0px
+      &.last
+        td
+          padding: 1px 12px 3px 0px
+  div.see_more
+    colspan: 2
+    text-align: center
+
+#search_results
+  .taxon_summary
+    width: 55%
+    float: right
+    a.icon
+      color: #cad3db
+  .data_summary
+    float: left
+    padding-top: 15px
+    text-align: left
+    width: 300px
+    .attribute
+      text-transform: uppercase
+      color: $darker_blue
+      font-weight: normal
+    .value
+      font-weight: 500
+      font-size: 1.3em
+      color: $nearly_black
+
+#taxon_data, #data_comments
+  p.about
+    height: 12em
+    display: none
+  .metadata
+    background-color: #f6f8fa
+    border: 1px solid $grayblue
+    width: 40em
+    margin-right: 6em
+    dd
+      margin-top: 5px
+    dt
+      line-height: 2em
+      margin-left: 1em
+      font-weight: bold
+      text-align: left
+      width: 110px
+      input[type="text"]
+        +input(100px)
+  table.data
+    margin: 0px 0px 30px 0px
+    tbody
+      border-bottom: 1px solid $grayblue
+      border-top: 1px solid $grayblue
+      border-left: 1px solid $grayblue
+      border-right: 1px solid $grayblue
+      tr
+        border: 0
+        span.comments
+          float: left
+          width: 11px
+          padding-right: 4px
+        th
+          color: $darker_blue
+          font-weight: normal
+          text-align: left
+          width: 203px
+          vertical-align: top
+          padding-top: 4pt
+          .info_icon
+            float: right
+            min-width: 24px
+            background: url(image-path("v2/icon_info_tabs.png")) 6px 2px no-repeat
+            background-size: 14px 14px
+          .info
+            .close
+              float: left
+              height: 13px
+              width: 13px
+              text-decoration: none
+              background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+              border: 1px solid $light_blue
+              &:hover
+                background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+            .uri
+              font-size: 0.75em
+              text-align: left
+              margin: 0.5em
+            dt
+              font-size: 0.75em
+              margin: 0.5em
+              font-weight: bold
+            dd
+              font-size: 0.75em
+              margin: 0.75em 0.5em
+              line-height: 1.5em
+        span.excluded
+          padding-left: 10px
+          background: url(image-path("v2/icon_excluded.png")) 0px 3px no-repeat
+        span.exemplar
+          padding-left: 10px
+          background: url(image-path("v2/icon_required.png")) 0px 3px no-repeat
+        td
+          padding: 5px 10px
+          width: 500px
+          font-weight: 500
+          font-size: 1.3em
+          color: $nearly_black
+          vertical-align: top
+          table
+            th
+              font-size: 0.7em
+            td
+              font-size: 0.8em
+              font-weight: normal
+          span.source
+            text-align: left
+            float: left
+            width: 12em
+            font-size: 0.75em
+            height: 1.5em
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            color: $darker_blue
+          span.fold
+            float: right
+            padding-left: 5pt
+            line-height: 15px
+          a.more
+            padding-right: 13px
+            font-size: 0.83em
+    tr.actions, tr.comments
+      background-color: #f6f8fa
+      font-weight: normal
+      font-size: 0.8em
+      border: 1px solid $grayblue
+      li
+        margin-right: 2pt
+        display: inline
+      td
+        font-weight: normal
+        ul
+          margin: 1px 8px
+        .comments
+          margin: 7px 10px
+          width: 662px
+          font-size: 0.9em
+          .comment
+            width: 643px
+            color: #4e5c68
+            background-color: #f1f4dc
+            border: 1px solid #ccd399
+            margin: 3px 0
+            padding: 5px 7px
+            line-height: 1.6em
+        form#new_comment
+          margin-bottom: 3pt
+          fieldset
+            width: 659px
+            margin: 0 10px
+            input[type="text"]
+              padding: 3px 5px
+              +input(647px)
+            input[type="submit"]
+              +button
+              float: left
+              margin-top: 3px
+              font-weight: normal
+    tr.data:hover
+      cursor: hand
+      cursor: pointer
+      background-color: #f6f8fa
+    tr.data.hidden
+      background-color: #f8f8f8
+      td.val
+        color: #aaa
+    tr.data.hidden.open
+      background-color: #f8f8f8
+      th
+        color: #919eaa
+      td
+        color: #aaa
+    tr.open
+      border-top: 1px solid $grayblue
+      background: #fbfdff
+    tr.open:hover
+      cursor: auto
+      background: #fbfdff
+    .additional_commands
+      a.button
+        font-weight: normal
+        margin-top: 3px
+        margin-left: 6px
+        float: left
+  table.meta
+    line-height: 90%
+    padding: 0px 0px 15px
+    td
+      padding: 0px 5px !important
+    th
+      width: 35% !important
+      padding: 0px !important
+    caption
+      text-align: center !important
+      font-weight: bold
+      text-transform: none
+      font-size: .8em
+      letter-spacing: 1px
+      margin-bottom: 0.4em
+      border-bottom: 1px solid $grayblue
+
+.tip
+  display: none
+  position: absolute
+  top: 20px
+  right: 35px
+  outline: 0
+  border: 1px solid $grayblue
+  background: white
+  color: $nearly_black
+  z-index: 1000
+  max-width: 580px
+  overflow: auto
+  padding: 0.4em
+  text-align: right
+  +box-shadow(3px 3px 6px -2px rgba(0,0,0,0.5))
+  h3
+    color: $darker_blue
+    font-weight: normal
+    font-size: 1.2em
+    margin: 0.5em
+    vertical-align: top
+    padding-top: 4pt
+  dt
+    font-weight: bold
+  dd
+    margin-top: 1em
+  &.info
+    .close
+      float: left
+      height: 13px
+      width: 13px
+      text-decoration: none
+      background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+      border: 1px solid $light_blue
+      &:hover
+        background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+    .uri
+      font-weight: bold
+      text-align: right
+      margin: 1em 0.5em
+    dt
+      margin: 0.5em
+      font-weight: bold
+    dd
+      margin: 0.75em 0.5em
+.add_content
+  .add_data
+    margin-bottom: 1.2em
+    a
+      padding-left: 11px
+      background: #fff url(image-path("arrow_fold_left.png")) 0px 4px no-repeat
+    a.open
+      padding-left: 11px
+      background: #fff url(image-path("arrow_fold_down.png")) 0px 4px no-repeat
 #discover_twocol #content
   float: right !important
   margin-right: 0 !important

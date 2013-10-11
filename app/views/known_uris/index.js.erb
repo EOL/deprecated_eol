@@ -1,0 +1,13 @@
+$('div#suggestions .child').hide();
+var $next = $("#category_<%= @category.id %>").next();
+while($next.hasClass('child')) {
+  var $that = $next;
+  $next = $next.next();
+  $that.remove();
+}
+$("#category_<%= @category.id %>").after('<%= escape_javascript render(:partial => 'index') %>');
+var $next = $("#category_<%= @category.id %>").next();
+while($next.hasClass('child')) {
+  $next.show();
+  $next = $next.next();
+}

@@ -1,0 +1,19 @@
+<% if defined?(:to) %>
+  <% if @to == :top %>
+    <%# This is a wee bit of a hack. It checks to see if pagination suggests we're on the first page or not: %>
+    if ($('a[rel*=start]').length == 0) {
+      $('tr#known_uri_<%= @known_uri.id %>').insertAfter('table#sortable tr.headers');
+    } else {
+      $('tr#known_uri_<%= @known_uri.id %>').remove();
+    }
+  <% elsif @to == :bottom %>
+    <%# This is a wee bit of a hack. It checks to see if pagination suggests we're on the last page or not: %>
+    if ($('a.next_page').length == 0) {
+      $('tr#known_uri_<%= @known_uri.id %>').appendTo('table#sortable');
+    } else {
+      $('tr#known_uri_<%= @known_uri.id %>').remove();
+    }
+  <% end %>
+<% end %>
+EOL.prep_flashes();
+$('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:known_uris_sorted) %></p>").find('p').delay('5000').fadeOut('slow');

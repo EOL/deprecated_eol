@@ -1,0 +1,81 @@
+= content_for :head do
+  = stylesheet_include_i18n_merged "known_uris"
+  = javascript_include_tag "known_uris"
+#content
+  #known_uris.site_column
+    - if @uri_type
+      %ul.nav
+        - UriType.all.each do |type|
+          %li{class: @uri_type == type ? 'active' : nil}
+            = link_to type.name.pluralize, known_uris_path(uri_type_id: type.id)
+    - if @known_uris.empty?
+      .empty.about
+        %p= I18n.t(:known_uris_none)
+    - else
+      %p.tip= raw(I18n.t(:excluded_icon_tip, :excluded_icon => image_tag('v2/icon_excluded.png', :alt => '')))
+      = will_paginate @known_uris
+      %table#sortable.standard
+        %tr.headers
+          %th= I18n.t('activerecord.attributes.known_uri.uri')
+          %th= I18n.t('activerecord.attributes.known_uri.name')
+          %th= I18n.t('activerecord.attributes.known_uri.uri_type')
+          %th= I18n.t('activerecord.attributes.known_uri.toc_items')
+          - if current_user.is_admin?
+            %th= I18n.t(:actions)
+            %th.move
+              &nbsp;
+        - @known_uris.each do |known_uri|
+          - klass = nil
+          - klass = 'hidden' if known_uri.hidden?
+          - klass = 'unknown' if known_uri.unknown?
+          %tr{ id: "known_uri_#{known_uri.id}", class: klass }
+            -# NOTE - the <wbr/> tags create optional line breaks. ...it makes this look much better with REALLY long URIs.
+            %td{class: known_uri.exclude_from_exemplars? ? 'excluded' : nil }= known_uri.uri.gsub('/', '/<wbr/>').html_safe
+            - if known_uri.translated_known_uris.map(&:language_id).include?(current_language.id)
+              %td= known_uri.name
+            - else
+              %td.untranslated= I18n.t(:known_uri_missing_translation)
+            %td= known_uri.uri_type.name
+            %td
+              - cats = known_uri.toc_items.map(&:label).join('<br />')
+              - if cats.blank?
+                = I18n.t(:none)
+              - else
+                = raw cats
+            - if current_user.is_admin?
+              %td.actions
+                = link_to I18n.t(:edit).i18n_downcase, edit_known_uri_url(known_uri)
+                &bull;
+                = link_to I18n.t(:delete).i18n_downcase, known_uri, data: { confirm: I18n.t(:are_you_sure) }, method: :delete
+                &bull;
+                - if known_uri.visible?
+                  = link_to I18n.t(:suggested_vocab_remove).i18n_downcase, hide_known_uri_path(known_uri), data: { confirm: I18n.t(:are_you_sure) }, method: :put
+                - elsif known_uri.hidden?
+                  = link_to I18n.t(:suggested_vocab_add).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
+              -# TODO - TECHNICALLY, curators have to have JS, so we don't need a "real" route here, but it's not THAT hard, so:
+              %td.move
+                = link_to(image_tag('arrow_way_up.gif', :alt => I18n.t(:move_to_top), :title => I18n.t(:move_to_top)), '#',
+                  class: 'to_top')
+                = link_to(image_tag('arrow_way_down.gif', :alt => I18n.t(:move_to_bottom), :title => I18n.t(:move_to_bottom)),
+                  '#', class: 'to_bottom')
+      = will_paginate @known_uris
+    - if current_user.is_admin?
+      %p.actions= link_to(I18n.t(:add_new_known_uri_link), new_known_uri_path, class: 'button')
+      %br
+      %hr
+      #import_ontology
+        = form_for KnownUri.new, :url => import_ontology_known_uris_path do |f|
+          %dl
+            %dt= I18n.t(:submit)
+            %dd= submit_tag I18n.t(:import_ontology), class: 'button'
+            %dt= I18n.t(:ontology_uri)
+            %dd= text_field_tag :ontology_uri
+      %br
+      %hr
+      %form#stats_form.select_submit{ action: show_stats_known_uris_path }
+        = I18n.t('known_uris.select_a_category_to_view_stats')
+        = select_tag :stats_filter, options_for_select([[ '--select--', nil]] + @stats_filter_options, @stats_filter_selected_option)
+        .actions
+          = submit_tag I18n.t(:filter_button)
+      #stats_report
+        = render :partial => 'stats_report'

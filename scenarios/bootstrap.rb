@@ -339,6 +339,7 @@ tc30 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
 
 tc30.add_common_name_synonym(FactoryGirl.generate(:common_name), :agent => agent_col, :language => Language.english)
 curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator')
+curator.grant_admin
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:
 overv = TocItem.find_by_translated(:label, 'Overview')

@@ -17,7 +17,7 @@ class Users::NewsfeedsController < UsersController
         end
         @page = params[:page] || 1
         @parent = @user # for new comment form
-        @user_activity_log = @user.activity_log(:news => true, :page => @page, :filter => @filter)
+        @user_activity_log = @user.activity_log(:news => true, :page => @page, :filter => @filter, :user => current_user)
         # reset last-seen dates:
         # QUESTION: if they see this all newsfeed, doesn't that mean they also see their new messages i.e. last_message_at should be updated too?
         # QUESTION: what if they only see page 1 of their latest notifications?
@@ -36,7 +36,7 @@ class Users::NewsfeedsController < UsersController
     respond_to do |format|
       format.html {
         @parent = user # for new comment form
-        @user_activity_log = user.activity_log(:news => true, :filter => 'messages', :page => params[:page] || 1)
+        @user_activity_log = user.activity_log(:news => true, :filter => 'messages', :page => params[:page] || 1, :user => current_user)
         # reset last-seen dates:
         user.update_column(:last_message_at, Time.now) if user.id == current_user.id
         set_canonical_urls(:for => user, :paginated => @user_activity_log, :url_method => :comments_user_newsfeed_url)

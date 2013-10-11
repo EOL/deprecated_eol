@@ -1,0 +1,47 @@
+= content_for :head do
+  = stylesheet_link_tag "known_uris"
+  = javascript_include_tag "known_uris"
+- metadata_attributes_populated = SchemaTermParser.attribute_uris.select{ |uri| @terms.detect{ |term_uri, metadata| metadata.has_key?(uri) } }
+#content
+  #known_uris.site_column
+    %p.tip
+      = raw I18n.t(:reading_from_ontology, :ontology_uri => @ontology_uri)
+    = form_for KnownUri.new, :url => import_ontology_known_uris_path do |f|
+      = hidden_field_tag :ontology_uri, @ontology_uri
+      %table.standard.ontology
+        %tr.header
+          %th= check_box_tag 'select_all', true
+          %th= I18n.t('activerecord.attributes.known_uri.uri')
+          - options = [ '--select--', nil], [ I18n.t('activerecord.attributes.translated_known_uri.definition'), 'definition' ],
+            [ I18n.t('activerecord.attributes.translated_known_uri.comment'), 'comment'], [ 'do not import', 'none']
+          - metadata_attributes_populated.each do |uri|
+            %th{ class: uri }
+              = uri
+              - unless uri == 'rdfs:label'
+                %br
+                = select_tag uri, options_for_select( options , params[uri])
+        - @terms.each do |uri, metadata|
+          - term_is_selected = (params[:selected_uris] && params[:selected_uris].include?(uri))
+          %tr{ :class => term_is_selected ? 'selected' : 'ignored' }
+            %td.checkbox
+              = check_box_tag 'selected_uris[]', uri, term_is_selected
+            %td.uri= uri
+            - metadata_attributes_populated.each do |att|
+              %td
+                - if metadata[att]
+                  = raw(metadata[att].collect{ |l| (l[:language] ? "<span class='language'>[#{l[:language]}]</span> " : "") |
+                    + "<span class='#{att}'>" + l[:text] + "</span>" }.join('<br/>'))                                       |
+          - if known_uri = @existing_known_uris.detect{ |k| k.matches(uri) }
+            %tr.existing
+              %td
+              %td.uri= known_uri.uri
+              %td
+                = raw(known_uri.translations.select{ |t| !t.name.blank? }.collect{ |t| "<span class='language'>[#{t.language.iso_code}]</span> <span class='rdfs:label'>#{t.name}</span>" }.join('<br/>'))
+              %td
+                = raw(known_uri.translations.select{ |t| !t.definition.blank? }.collect{ |t| "<span class='language'>[#{t.language.iso_code}]</span> #{t.definition}" }.join('<br/>'))
+              %td
+                = raw(known_uri.translations.select{ |t| !t.comment.blank? }.collect{ |t| "<span class='language'>[#{t.language.iso_code}]</span> #{t.comment}" }.join('<br/>'))
+              - (metadata_attributes_populated.length - 3).times do
+                %td
+      = hidden_field_tag :importing, true
+      = submit_tag I18n.t(:import_ontology), class: 'button'

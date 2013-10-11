@@ -52,15 +52,11 @@ class License < ActiveRecord::Base
        :logo_url => '',
        :show_to_content_partners => 0}].each do |default|
         desc = default.delete(:description)
+        default.reverse_merge(show_to_content_partners: 1)
         lic = License.find_by_title(default[:title])
         lic ||= License.create(default.reverse_merge(:version => 1))
         TranslatedLicense.find_or_create_by_description_and_language_id_and_license_id(desc, Language.default.id, lic.id)
     end
-  end
-
-  def small_logo_url
-    return logo_url if logo_url =~ /_small/ # already there!
-    return logo_url.sub(/\.(\w\w\w)$/, "_small.\\1")
   end
 
   def self.valid_for_user_content
@@ -90,8 +86,25 @@ class License < ActiveRecord::Base
     cached_find(:title, 'cc-by-sa 3.0')
   end
 
+  def self.cc_zero
+    cached_find(:title, 'cc-zero 1.0')
+  end
+
   def self.no_known_restrictions
     @@no_known_restrictions ||= cached_find(:title, 'no known copyright restrictions')
+  end
+
+  def self.na
+    cached_find(:title, 'not applicable')
+  end
+
+  def self.for_data
+    @@for_data ||= [License.no_known_restrictions, License.na, License.cc_zero, License.public_domain]
+  end
+
+  def small_logo_url
+    return logo_url if logo_url =~ /_small/ # already there!
+    return logo_url.sub(/\.(\w\w\w)$/, "_small.\\1")
   end
 
   # we have several different licenses with the title public domain

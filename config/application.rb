@@ -8,8 +8,11 @@ require "active_resource/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
+# Other Rails 1.9 libraries that needn't be gems:
+require 'csv'
+
 if defined?(Bundler)
-  assets = %w(development test staging)
+  assets = %w(development test staging bocce_demo)
   assets << 'production' if Rails.env.production?
   Bundler.require(*Rails.groups(:assets => assets))
 end

@@ -1,0 +1,17 @@
+- data_point_instance ||= @data_point_uri
+.comments
+  - unless comments.empty?
+    - comments.each do |comment|
+      .comment
+        = sanitize comment.body.balance_tags.add_missing_hyperlinks
+        &ndash;
+        = link_to comment.user.full_name, comment.user
+- if logged_in?
+  = form_for(Comment.new(parent: data_point_instance), remote: true) do |f|
+    %fieldset
+      = f.hidden_field :user_id
+      = f.hidden_field :parent_type
+      = f.hidden_field :parent_id
+    %fieldset
+      = f.text_field :body, class: 'has_default', :placeholder => I18n.t(:annotation_body_default)
+      = submit_tag I18n.t(:annotation_submit)

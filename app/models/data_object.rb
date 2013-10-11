@@ -210,13 +210,12 @@ class DataObject < ActiveRecord::Base
     DataObject.find(data_object_id, :select => 'published').published?
   end
 
+  # TODO - there is a lot of replication (ha!) here with #replicate below. Extract.
   def self.create_user_text(params, options)
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
-    if object_is_a_link
-      params[:source_url] = "http://" + params[:source_url] unless params[:source_url] =~ /^[a-z]{3,5}:\/\//i
-    end
+    params[:source_url] = add_http_if_missing(params[:source_url]) if object_is_a_link
     dato = DataObject.new(params.reverse_merge!({:published => true}))
     if dato.save
       begin
@@ -241,9 +240,7 @@ class DataObject < ActiveRecord::Base
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
-    if object_is_a_link
-      params[:source_url] = "http://" + params[:source_url] unless params[:source_url] =~ /^[a-z]{3,5}:\/\//i
-    end
+    params[:source_url] = add_http_if_missing(params[:source_url]) if object_is_a_link
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
       begin
@@ -268,6 +265,10 @@ class DataObject < ActiveRecord::Base
     new_dato
   end
 
+  def self.add_http_if_missing(source_url)
+    return "http://#{source_url}" unless source_url =~ /^[a-z]{3,5}:\/\//i
+    source_url
+  end
 
   def created_by_user?
     user != nil
@@ -328,6 +329,7 @@ class DataObject < ActiveRecord::Base
     end
   end
 
+  # TODO - make a Commentable mixin
   # Add a comment to this data object
   def comment(user, body)
     comment = comments.create :user_id => user.id, :body => body

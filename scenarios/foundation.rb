@@ -1,11 +1,14 @@
 # encoding: utf-8
 # sets up a basic foundation - enough data to run the application, but no content
 truncate_all_tables(:skip_empty_tables => false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
+drop_all_virtuoso_graphs
 
 Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.
 
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
+
+SiteConfigurationOption.create_defaults
 
 # Translated tables will not work without this:
 Language.create_english
@@ -47,7 +50,7 @@ ContactRole.gen_if_not_exists(:label => 'Administrative Contact')
 ContactRole.gen_if_not_exists(:label => 'Technical Contact')
 
 # Cannot create users without special collection:
-SpecialCollection.create_all
+SpecialCollection.create_defaults
 CuratorCommunity.build
 SortStyle.create_defaults # Need this to make communities.
 ViewStyle.create_defaults # Used by collections views
@@ -193,6 +196,14 @@ education = TocItem.gen_if_not_exists(:label => 'Education',  :view_order => 68)
 TocItem.gen_if_not_exists(:label => 'Education Links',        :view_order => 69, :parent_id => education.id)
 education_resources = TocItem.gen_if_not_exists(:label => 'Education Resources', :view_order => 70, :parent_id => education.id)
 
+# Ensure all of the FOR_URIs are there:
+order = 75
+TocItem::FOR_URIS.each do |label|
+  unless TranslatedTocItem.exists?(label: label, language_id: Language.default.id)
+    TocItem.gen_if_not_exists(label: label, view_order: order += 1)
+  end
+end
+
 InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',
   :label => 'TaxonBiology', :toc_item => TocItem.overview)
 InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription',
@@ -235,9 +246,54 @@ SynonymRelation.gen_if_not_exists(:label => "genbank common name")
 
 Visibility.create_defaults
 
+UriType.create_defaults
 ContentTable.create_details
 NotificationFrequency.create_defaults
 Permission.create_defaults
+
+def create_known_uri(params)
+  old_instance = KnownUri.find_by_uri(params[:uri])
+  instance = if old_instance
+    old_instance.update_attributes(uri_type_id: params[:uri_type_id],
+                                   vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+    old_instance
+  else
+    KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id],
+      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+  end
+  begin
+    TranslatedKnownUri.create(known_uri: instance, name: params[:name], language: Language.english)
+  rescue ActiveRecord::RecordNotUnique => e
+    # Don't care; it's already there.
+  end
+  instance
+end
+
+default_known_uris =
+    [ { parent: { uri: Rails.configuration.uri_measurement_unit, name: 'Unit of Measure', uri_type_id: UriType.metadata.id },
+        values: [ { uri: 'http://purl.obolibrary.org/obo/UO_0000022', name: 'milligrams' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000021', name: 'grams' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000009', name: 'kilograms' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000016', name: 'millimeters' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000081', name: 'centimeters' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000008', name: 'meters' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000012', name: 'kelvin' },
+                  { uri: 'http://purl.obolibrary.org/obo/UO_0000027', name: 'degrees Celsius' } ] },
+      { parent: { uri: Rails.configuration.uri_dwc + 'sex', name: 'Sex', uri_type_id: UriType.metadata.id },
+        values: [ { uri: Rails.configuration.uri_term_prefix + 'male', name: 'male' },
+                    { uri: Rails.configuration.uri_term_prefix + 'female', name: 'female' } ] },
+      { parent: { uri: Rails.configuration.uri_dc + 'source', name: 'Source', uri_type_id: UriType.metadata.id } },
+      { parent: { uri: Rails.configuration.uri_dc + 'license', name: 'License', uri_type_id: UriType.metadata.id } },
+      { parent: { uri: Rails.configuration.uri_dc + 'bibliographicCitation', name: 'Reference', uri_type_id: UriType.metadata.id } }
+    ]
+default_known_uris.each do |info|
+  parent = create_known_uri(info[:parent])
+  info[:values].each do |value|
+    value = create_known_uri(value.merge(uri_type_id: UriType.value.id))
+    KnownUriRelationship.gen(from_known_uri: parent, to_known_uri: value,
+      relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI)
+  end if info[:values]
+end
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

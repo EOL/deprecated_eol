@@ -17,6 +17,11 @@ module EOL
       0
     end
 
+    # They have never rated anything!
+    def rating_for_object_guids(*args)
+      {}
+    end
+
     # This can actually be dynamic:
     def language
       @lang_object ||= @lang.is_a?(Language) ? @lang : Language.find_by_iso_639_1(@lang)
@@ -32,6 +37,10 @@ module EOL
     # NOTE - returns self for convenience; objects can call things like #is_admin? on this object, but not on nil.
     def can_read?(object)
       object.respond_to?(:can_be_read_by?) ? object.can_be_read_by?(self) : false
+    end
+
+    def can_see_data?
+      SiteConfigurationOption.all_users_can_see_data rescue false
     end
 
     def defaults

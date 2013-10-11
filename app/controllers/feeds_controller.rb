@@ -32,7 +32,7 @@ class FeedsController < ApplicationController
     when "CuratorActivityLog"
       cal = CuratorActivityLog.find(params[:id])
       # There are only two kinds: taxon and dato...
-      if !cal.is_for_data_object? && source = cal.taxon_concept
+      if !cal.is_for_type?(:data_object) && source = cal.taxon_concept
         page = find_index(source, 'CuratorActivityLog', params[:id], 10)
         redirect_to add_hash_to_path(taxon_updates_path(cal.taxon_concept, :page => page), 'CuratorActivityLog', params[:id])
       else # Dato:
@@ -125,12 +125,12 @@ private
 
   def find_index(source, type, id, per_page)
     # Just check the first page, first:
-    log = source.activity_log(:per_page => per_page, :page => 1)
+    log = source.activity_log(:per_page => per_page, :page => 1, :user => current_user)
     return 1 unless log.select {|i| i['activity_log_type'] == type && i['activity_log_id'] == id.to_i}.blank?
     # Not there, keep going:
     page = 1
     while page < 100
-      log = source.activity_log(:per_page => 100, :page => page)
+      log = source.activity_log(:per_page => 100, :page => page, :user => current_user)
       if i = log.find_index {|i| i['activity_log_type'] == type && i['activity_log_id'] == id.to_i}
         return (((page - 1) * 100 + i + 1) / per_page.to_f).ceil
       end

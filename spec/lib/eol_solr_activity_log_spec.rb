@@ -36,20 +36,38 @@ describe EOL::Solr::ActivityLog do
     before(:all) do
       # it 'should query the SOLR_SERVER SOLR_ACTIVITY_LOGS_CORE'
       # it 'should get fields: activity_log_type,activity_log_id,user_id,date_created'
+      load_foundation_cache
+      SiteConfigurationOption.destroy_all
       @request_head = "#{$SOLR_SERVER}#{$SOLR_ACTIVITY_LOGS_CORE}/select/?wt=json&q=%7B%21lucene%7D"
+      @default_user_added_data_exclusion = "+NOT+action_keyword%3ADataPointUri+NOT+action_keyword%3AUserAddedData+NOT+activity_log_type%3AUserAddedData"
       @default_sort = "&sort=date_created+desc"
       @default_fields = "&fl=activity_log_type,activity_log_id,user_id,date_created"
-      @default_group = "&group=true&group.field=activity_log_unique_key&group.ngroups=true"
-      @default_pagination = "&start=0&rows=30"
-      @specific_time = "&fq=date_created:[NOW/DAY-7DAY+TO+NOW/DAY%2B1DAY]"
-      @default_tail = @default_sort + @default_fields + @default_group + @default_pagination
+      @default_group = "&group.field=activity_log_unique_key&group.ngroups=true&group=true"
+      @default_rows = "&rows=30"
+      @default_start = "&start=0"
+      @recent_days = "&fq=date_created:[NOW/DAY-7DAY+TO+NOW/DAY%2B1DAY]"
+      @default_tail = @default_fields + @default_group + @default_rows + @default_sort + @default_start
       @empty_response = '{"grouped":{"activity_log_unique_key":{"groups":[],"ngroups":0}}}'
     end
 
     it 'should have some reasonable default options' do
       stub_empty_response
-      EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{@default_tail}").and_return(@result)
+      EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{@default_user_added_data_exclusion +
+        @default_tail}").and_return(@result)
       call_arbitrary_query
+    end
+
+    it 'should not exclude user_added_data if the user can see it' do
+      stub_empty_response
+      user = User.gen
+      tail = @default_user_added_data_exclusion + @default_tail
+      EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{tail}").and_return(@result)
+      EOL::Solr::ActivityLog.search_with_pagination('foo', user: user)
+      # now grant the permission
+      user.grant_permission(:see_data)
+      tail = @default_tail
+      EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{tail}").and_return(@result)
+      EOL::Solr::ActivityLog.search_with_pagination('foo', user: user)
     end
 
     it 'should escape the query' do
@@ -60,23 +78,9 @@ describe EOL::Solr::ActivityLog do
 
     it 'should handle specific time ... whatever that means' do
       stub_empty_response
-      EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{@specific_time}#{@default_tail}").and_return(@result)
-      EOL::Solr::ActivityLog.search_with_pagination('foo', :specific_time => true)
-    end
-
-    it 'should pass sort_by option' do
-      stub_empty_response
-      tail = "&sort=mom" + @default_fields + @default_group + @default_pagination
-      EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{tail}").and_return(@result)
-      EOL::Solr::ActivityLog.search_with_pagination('foo', :sort_by => 'mom')
-    end
-
-    it 'should group using group_field' do
-      stub_response(@empty_response.sub(/activity_log_unique_key/, 'dad'))
-      tail = @default_sort + @default_fields + @default_group.sub(/activity_log_unique_key/, 'dad') +
-        @default_pagination
-      EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{tail}").and_return(@result)
-      EOL::Solr::ActivityLog.search_with_pagination('foo', :group_field => 'dad')
+      EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{@default_user_added_data_exclusion +
+        @default_fields + @recent_days + @default_group + @default_rows + @default_sort + @default_start}").and_return(@result)
+      EOL::Solr::ActivityLog.search_with_pagination('foo', :recent_days => 7)
     end
 
     it 'should set start offset'

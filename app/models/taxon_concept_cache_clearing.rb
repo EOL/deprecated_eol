@@ -9,10 +9,6 @@ class TaxonConceptCacheClearing
     TaxonConceptCacheClearing.new(taxon_concept).clear
   end
 
-  def self.clear_collections(taxon_concept)
-    TaxonConceptCacheClearing.new(taxon_concept).clear_collections
-  end
-
   def self.clear_exemplar_image(taxon_concept)
     TaxonConceptCacheClearing.new(taxon_concept).clear_exemplar_image
   end
@@ -31,13 +27,6 @@ class TaxonConceptCacheClearing
     clear_preferred_entry
     clear_media_counts
     clear_images
-  end
-
-  # This could be really painful. Be careful.
-  def clear_collections
-    taxon_concept.containing_collections.each do |collection|
-      EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
-    end
   end
 
   # TODO - test

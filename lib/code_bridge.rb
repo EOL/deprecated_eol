@@ -23,7 +23,6 @@ class CodeBridge
       tc = TaxonConcept.find(args['taxon_concept_id'])
       if tc
         TaxonConceptCacheClearing.clear(tc)
-        TaxonConceptCacheClearing.clear_collections(tc)
       end
     else
       puts "** ERROR: NO command responds to #{args['cmd']}"

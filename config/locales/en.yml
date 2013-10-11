@@ -3423,7 +3423,7 @@ en:
   family_name_colon: "Family Name:"
   feedback: "Feedback"
   file: "File"
-  file_download_pending: "Creating the download requires a little extra time. Please feel free to use EOL, and we will notify you when the job is finished, so you can download it."
+  file_download_pending: "Creating the download requires a little extra time, so we have started a background job for it. You may <a href='%{link}'>check on the status of your job</a> at any time."
   file_download_ready: "EOL has finished creating a data search file for for your query of \"%{query}\". You may <a href='%{file}'>download it at any time in the next few days</a>."
   file_id: "File ID"
   file_size: "File Size"

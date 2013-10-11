@@ -35,9 +35,9 @@ class DataSearchController < ApplicationController
           user: current_user.is_a?(EOL::AnonymousUser) ? nil : current_user
         )
         @message = if df.file_exists?
-                     I18n.t(:file_ready_for_download, file: df.download_path, query: @querystring)
+                     I18n.t(:file_download_ready, file: df.download_path, query: @querystring)
                    else
-                     I18n.t(:file_download_pending)
+                     I18n.t(:file_download_pending, link: data_search_files_path)
                    end
         Resque.enqueue(DataFileMaker, data_file_id: df.id)
       end

@@ -17,7 +17,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def file_exists?
-    return File.exist?(path)
+    return false # File.exist?(path)
   end
 
   def download_path

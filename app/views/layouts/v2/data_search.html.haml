@@ -9,7 +9,10 @@
         %ul
           - if @results && !@results.blank?
             %li
-              = link_to I18n.t(:download_data), url_for(params: params.merge(format: "js")), :class => 'button', remote: true
+              - if false # set this to true if you wanna test background downloads.
+                = link_to I18n.t(:download_data), url_for(params: params.merge(format: "js")), :class => 'button', remote: true
+              - else
+                = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), :class => 'button'
   #content
     .site_column
       #data_search

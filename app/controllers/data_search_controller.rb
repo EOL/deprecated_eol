@@ -28,12 +28,14 @@ class DataSearchController < ApplicationController
       format.html do
         @results = TaxonData.search(search_options.merge(page: @page, per_page: 30))
       end
-      format.js do
-        df = DataSearchFile.create!(
-          q: @querystring, uri: @attribute, from: @from, to: @to,
-          sort: @sort, known_uri: @attribute_known_uri, language: current_language,
-          user: current_user.is_a?(EOL::AnonymousUser) ? nil : current_user
-        )
+      format.csv do    # Direct download... (implies DataSearchFile might be misnamed...)
+        df = create_data_search_file
+        # TODO - handle the case where results are empty.
+        headers["Content-Disposition"] = "attachment; filename=\"#{df.filename}\""
+        render text: df.csv
+      end
+      format.js do   # Background download...
+        df = create_data_search_file
         @message = if df.file_exists?
                      I18n.t(:file_download_ready, file: df.download_path, query: @querystring)
                    else
@@ -45,5 +47,13 @@ class DataSearchController < ApplicationController
   end
 
   private
+
+  def create_data_search_file
+    DataSearchFile.create!(
+      q: @querystring, uri: @attribute, from: @from, to: @to,
+      sort: @sort, known_uri: @attribute_known_uri, language: current_language,
+      user: current_user.is_a?(EOL::AnonymousUser) ? nil : current_user
+    )
+  end
 
 end

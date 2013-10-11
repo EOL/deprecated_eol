@@ -6,14 +6,21 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :language
   belongs_to :known_uri
 
-  LIMIT = 100
+  LIMIT = 500
 
   def build_file
-    puts "   #build_file"
     return send_notification if file_exists?
     write_file(get_data)
     send_notification
     update_attributes(completed_at: Time.now.utc)
+  end
+
+  def csv
+    rows = get_data
+    col_heads = get_headers(rows)
+    CSV.generate do |csv|
+      csv_builder(csv, col_heads, rows)
+    end
   end
 
   def file_exists?
@@ -28,9 +35,7 @@ class DataSearchFile < ActiveRecord::Base
     ! completed_at.nil?
   end
 
-  private
-
-  def path
+  def filename
     return @filename if @filename
     path = "something.csv"
     if known_uri
@@ -41,20 +46,24 @@ class DataSearchFile < ActiveRecord::Base
     else
       # TODO - handle other filename cases (ie: when there is no attribute known_uri) as needed. Right now, that's impossible.
     end
-    @filename = Rails.root.join("public", path)
+    @filename = path
+  end
+
+  private
+
+  def path
+    Rails.root.join("public", filename)
   end
 
   def get_data
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
     results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
       sort: sort, per_page: LIMIT) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
-    puts "   results = #{results.count}"
     # TODO - handle the case where results are empty.
     rows = []
     results.each do |data_point_uri|
       rows << data_point_uri.to_hash(user.language)
     end
-    puts "   .. got data"
     rows
   end
 
@@ -63,19 +72,21 @@ class DataSearchFile < ActiveRecord::Base
     rows.each do |row|
       col_heads.merge(row.keys)
     end
-    puts "   .. made heads (#{col_heads.to_a.join(', ')})"
     col_heads
   end
 
   def write_file(rows)
     col_heads = get_headers(rows)
     CSV.open(path, 'wb') do |csv|
-      csv << col_heads
-      rows.each do |row|
-        csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
-      end
+      csv_builder(csv, col_heads, rows)
     end
-    puts "  .. file created."
+  end
+
+  def csv_builder(csv, col_heads, rows)
+    csv << col_heads
+    rows.each do |row|
+      csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
+    end
   end
 
   def send_notification
@@ -103,7 +114,6 @@ class DataSearchFile < ActiveRecord::Base
                                   :target => comment,
                                   :reason => 'auto_email_after_curation')
       Resque.enqueue(PrepareAndSendNotifications)
-      puts "  .. notification enqueued."
     rescue => e
       # Do nothing (for now)...
     end

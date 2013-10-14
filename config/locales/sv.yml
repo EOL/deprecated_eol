@@ -717,9 +717,18 @@ sv:
         move_of_it_unlocked: Klassificeringsflyttningen du nyss begärde på denna sida har slutförts.
         move_of_taxon_unlocked: Klassificeringsflyttningen du nyss begärde för "%{taxon}" har slutförts.
         split_of_an_unknown_taxon_unlocked: Klassificeringsflyttningen du nyss begärde har slutförts, men sidan kan inte hittas.
+        split_of_it_unlocked: Klassifikationsuppdelningen du nyss begärde har slutförts och klassifikationen har flyttats till <a href='%{to}'>en egen sida</a>.
+        split_of_taxon_unlocked: Klassifikationsuppdelningen du nyss begärde för "%{taxon}" har slutförts och klassifikationen har flyttats till <a href='%{to}'>en egen sida</a>.
       unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "Sidsammanslagningen du nyss begärde har <strong>misslyckats</strong>: %{error}. Dessutom kan inte den påverkade sidan hittas."
         merge_of_it_unlocked_with_error: "Sammanslagningen du nyss begärde på denna sida <strong>misslyckades</strong>: %{error}."
         merge_of_taxon_unlocked_with_error: "Sidsammanslagningen du nyss begärde för \"%{taxon}\" har <strong>misslyckats</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "Klassifikationsflyttningen du nyss begärde har <strong>misslyckats</strong>: %{error}. Dessutom kan inte den påverkade sidan hittas."
+        move_of_it_unlocked_with_error: "Klassifikationsflyttningen du nyss begärde på denna sida har <strong>misslyckats</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "Klassifikationsflyttningen du nyss begärde för \"%{taxon}\" har <strong>misslyckats</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "Klassifikationsuppdelningen du nyss begärde har <strong>misslyckats</strong>: %{error}. Dessutom kan inte den påverkade sidan hittas."
+        split_of_it_unlocked_with_error: "Klassifikationsuppdelningen du nyss begärde på denna sida har <strong>misslyckats</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "Klassifikationsuppdelningen du nyss begärde för \"%{taxon}\" har <strong>misslyckats</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: En okänd användare markerade ett okänt vanligt namn på ett okänt språk från en okänd sida som ogranskad.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: En okänd användare markerade ett okänt vanligt namn på ett okänt språk som ogranskad.
@@ -884,6 +893,7 @@ sv:
   admin_news_item_delete_confirmation: Är du säker på att du vill radera "%{page_name}" och alla översättningar? Raderade sidor kan inte återställas.
   admin_news_item_delete_successful_notice: Nyhetsobjektet %{page_name} och associerade översättningar har tagits bort.
   admin_news_item_edit_header: Uppdatera grundläggande nyhetsobjektsinformation för <em>%{page_name}</em>
+  admin_news_item_edit_tip: Det rekommenderas att du inte redigerar det unika namnet för detta nyhetsobjekt om du inte är fullt medveten om påföljderna, inklusive påverkan på länkar till denna sida, eller till namngivna rutter. Unikt namn %{required_icon} krävs.
   admin_news_item_new_header: Skapa ett nytt nyhetsobjekt
   admin_news_item_new_link: Skapa nyhetsobjekt
   admin_news_item_new_tip: Skriv in grundläggande information om denna sida. Unikt namn är %{required_icon} nödvändigt.
@@ -2646,6 +2656,7 @@ sv:
   my_info: Min info
   name: Namn
   name_colon: "Namn:"
+  name_not_in_select_an_alternate: Namn finns inte i %{hierarchy}. Välj en alternativ hierarki från listan ovan.
   name_preferred_for_language_help_tip: "%{icon} markerar det föredragna namnet för varje språk."
   name_preferred_for_language_yes: Föredragen
   name_preferred_taxonomically_for_source_help_tip: "%{icon} markerar det föredragna namnet för varje källa."
@@ -2675,6 +2686,8 @@ sv:
   news_available_in_languages: "Denna sida finns tillgänglig på:"
   news_date: Nyhetsdatum
   news_item: nyhetsobjekt
+  news_item_date_as_shown_to_user: "Datum för nyhetsobjekt som det visas för användare (tiden visas endast i RSS-flödet):"
+  news_item_is_visible_on_website_after_this_time: "Nyhetsobjekt är synliga på webbplatsen efter denna tid:"
   news_item_title: Nyhetsobjekt
   news_items: 
     index: 
@@ -2696,10 +2709,11 @@ sv:
   no_news_items_for_month_and_year: Inga nyheter för %{month_and_year}
   no_record_found_matching_your_criteria: Ingen post hittades som matchade dina kriterier.
   no_related_names: Inga namn har blivit relaterade till detta taxon ännu.
-  no_results_for: inga resultat för
   no_search_suggestions_are_avai: Det finns inga sökresultat som motsvarar dina sökkriterier.
   no_tasks_found: Inga uppgifter hittades
   no_uploaded_content_is_available: Inget uppladdade innehåll finns tillgängligt.
+  no_user_submitted_data_objects: Det finns inga användarinskickade dataobjekt som motsvarar dina sökkriterier.
+  no_users_matched_search: Det finns inga användare tillgängliga som motsvarar dina sökkriterier.
   none: ingen
   not_applicable: ej tillämpbar
   not_evaluated: Inte utvärderad
@@ -2715,6 +2729,7 @@ sv:
   notification_frequency_newsfeed_only: Endast nyhetsflöde
   notification_frequency_send_immediately: Skicka omedelbart
   notification_frequency_weekly: Varje vecka
+  notifications_and_messages_review_notice: Var god läs meddelandena som kommer att skickas till dig via e-post.
   notifications_tab_name: Meddelanden
   notifier: 
     activity_log_empty: Inga nyliga åtgärder av kuratorer.

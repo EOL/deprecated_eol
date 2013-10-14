@@ -945,6 +945,7 @@ ms:
   daily: Harian
   darwin_core: Darwin Core
   dashboard: Papan Pemuka
+  data: Data
   data_object_api_description: Dengan diberi pengenal pasti untuk suaut objek data, API ini akan memulangkan semua metadata mengenai objek itu seperti yang diserahkan kepada EOL oleh rakan kongsi kandungan yang menyumbang. Rakan kongsi kandungan itu dipetik dalam unsur ejen pertama dan memegang peranan 'rakan kongsi'.
   data_object_ignore: abaikan perkara ini
   data_object_not_associated_with_any_hierarchies: Objek data ini tidak berkaitan dengan sebarang hierarki.
@@ -1879,7 +1880,6 @@ ms:
   no_items_were_copied_to_collections_error: "Tiada perkara yang disalin ke dalam koleksi-koleksi: %{names}."
   no_record_found_matching_your_criteria: Tiada rekod yang sepadan dengan kriteria anda dijumpai.
   no_related_names: Belum ada nama yang dikaitkan dengan takson ini.
-  no_results_for: tiada hasil carian untuk
   no_tasks_found: Tiada tugas dijumpai
   no_uploaded_content_is_available: Tidak terdapat kandungan yang dimuat naik.
   no_user_submitted_data_objects: Tiada objek data serahan pengguna yang berpada dengan kriteria carian anda.

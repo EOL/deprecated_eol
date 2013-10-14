@@ -1716,6 +1716,7 @@ nl:
   daily: Dagelijks
   darwin_core: Darwin Core
   dashboard: Dashboard
+  data: Gegevens
   data_database_colon: "Gegevens:"
   data_logging_active: Er worden gegevens verzameld
   data_master_database_colon: "Gegevensmaster:"
@@ -2916,7 +2917,6 @@ nl:
   no_news_items_for_month_and_year: Er zijn geen nieuwsberichten voor %{month_and_year}
   no_record_found_matching_your_criteria: Er zijn geen records gevonden die aan uw criteria voldoen.
   no_related_names: Er zijn nog geen namen gekoppeld aan dit taxon.
-  no_results_for: geen resultaten voor
   no_search_suggestions_are_avai: Er zijn geen zoeksuggesties voor uw zoekcriteria.
   no_survey_responses_are_availa: Er zijn geen vragenlijstrespondenten beschikbaar.
   no_tasks_found: Geen taken gevonden
@@ -3852,7 +3852,7 @@ nl:
   the_xml_search_response_implements: De XML-zoekrespons implementeert de OpenSearchopmaak die Atom 1.0 gebruikt. Zie %{link} voor de volledige specificatie van OpenSearch
   there_are_currently_no_members_in_this_community: Er zijn momenteel geen leden in deze gemeenschap.
   there_is_no_singular_eol: Er is niet één enkele taxonomische hiërarchie, maar EOL indexeert veel hiërarchieën en vergelijkt ze met elkaar om uit te vinden welke nodes naar dezelfde taxa verwijzen. Deze taxonelementen stellen deze hiërarchienodes voor. Om deze reden zijn er potentieel meerdere voor een pagina in EOL. Raadpleeg de documentatie voor de  %{link}-API voor meer informatie.
-  this_area_shows_all_submission: In dit gebied worden alle berichten weergegeven die zijn binnengekomen via de contactformulieren. Selecteer een onderwerp of %{link} om berichten te bekijken.
+  this_area_shows_all_submission: In dit gebied worden alle berichten weergegeven die zijn binnengekomen via de contactformulieren. Selecteer een onderwerp of <a href=%{link}>exporteer alle items naar een CSV-bestand</a> om berichten te bekijken.
   this_article_cannot_be_curated_because_unpublished: Dit artikel kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_article_is_unpublished: Dit artikel is niet gepubliceerd.
   this_cannot_be_undone_are_you_sure: Dit kan niet ongedaan gemaakt worden. Weet u het zeker?

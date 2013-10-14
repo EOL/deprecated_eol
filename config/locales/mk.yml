@@ -820,6 +820,7 @@ mk:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како недоверлив на страницата „%{association}“.
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како недоверливо во непознат контекст.
         user_untrusted_it_on_association: <strong>%{user}</strong> го означи како недоверливо на страницата „%{association}“.
+  activity_user_created_data: <strong>%{user}</strong> додаде податоци за „%{object_name}“ во „%{taxon_concept}“.
   activity_user_created_link: <strong>%{user}</strong> додаде врска во „%{object_name}“ на „%{taxon_concept}“.
   activity_user_created_text: <strong>%{user}</strong> додаде текст во „%{object_name}“ на „%{taxon_concept}“.
   activity_user_updated_link: <strong>%{user}</strong> го измени текстот на врската „%{object_name}“ на „%{taxon_concept}“.
@@ -918,6 +919,9 @@ mk:
   admin_news_items_page_title: "Администрација: Новости"
   admin_news_link: Новости
   admin_notes_not_visible_to_user: "Администраторски белешки (невидливи за корисникот):"
+  admin_option_all_users_can_see_data: Податоците можат да ги гледаат сите корисници, а не само оние со дозвола.
+  admin_option_changed: Вредноста е изменета.
+  admin_options_warning: Може да треба 10 за промените да стапат на сила.
   admin_page_title: Административна конзола
   admin_spam_delete: Избриши спам
   admin_statistics_link: Статистики
@@ -1106,6 +1110,15 @@ mk:
   average_rating_value_of_total: "Просечна оценка: %{rating} од %{total}"
   back: Назад
   back_to_profile: Назад кон профилот
+  background_processes_actions_head: Дејства
+  background_processes_attribute_head: Атрибут
+  background_processes_complete_head: Завршивте?
+  background_processes_created_head: Создадено
+  background_processes_download: преземи
+  background_processes_is_complete: Да
+  background_processes_is_not_complete: Не
+  background_processes_page_title: Позадински процеси
+  background_processes_query_head: Барање
   began: Отпочна
   belongs_in_count_communities: 
     one: Припаѓа на %{count} заедница
@@ -1141,6 +1154,8 @@ mk:
   cannot_expand_children: не можам да ги отворам поттаксоните
   cannot_find_member: Не можам да најдам член со оваа назнака.
   cannot_index_collection_item_type_error: Не можам да индексирам експонат за збирката од %{type}
+  categories_title: "Одберете категорија, а потоа атрибут:"
+  category_suggestions: "Ако не сте сигурни кои URI-ја да ги користите за атрибутите или вредностите, на следниве врски ќе најдеет предлози од кустосите на EOL:"
   change: Смени
   change_rating_to_1_of_5: Смени ја оценката на 1 од 5
   change_rating_to_2_of_5: Смени ја оценката на 2 од 5
@@ -1709,6 +1724,7 @@ mk:
   daily: Дневно
   darwin_core: Darwin Core
   dashboard: Контролна табла
+  data: Податоци
   data_database_colon: "Податочна:"
   data_logging_active: Заведување на податоци е активно
   data_master_database_colon: "Податочна матична:"
@@ -1933,6 +1949,10 @@ mk:
     curators: 
       menu_link: Кустоски статистики
       page_header: Кустоски статистики
+      page_title: Статистики
+    data: 
+      menu_link: Податоци
+      page_header: Статистики за податоците
       page_title: Статистики
     data_objects: 
       menu_link: Податочни објекти
@@ -2171,7 +2191,9 @@ mk:
   gives_access_to_a_single_hierarchy_indexed_by_eol: дава пристап до една хиерархија индексирана од EOL и нејзините внатрешни заемни односи
   global_access_tagline: Глобален пристап до знаењето за живиот свет на Земјата
   global_navigation: Општа навигација
+  glossary: Поимник
   glossary_is_empty: (поимникот е празен)
+  glossary_subhead: Поимник
   glossary_term: поим
   glossary_terms: Поими во поимникот
   go: Оди
@@ -2909,7 +2931,6 @@ mk:
   no_news_items_for_month_and_year: Нема новости за %{month_and_year}
   no_record_found_matching_your_criteria: Не пронајдов ништо што се совпаѓа со критериумите.
   no_related_names: Досега нема имиња поврзани со овој таксон.
-  no_results_for: нема пронајдено резултати за
   no_search_suggestions_are_avai: Нема предлози што одговараат на бараното.
   no_survey_responses_are_availa: Нема анкетни одговори.
   no_tasks_found: Не пронајдов ниедна задача

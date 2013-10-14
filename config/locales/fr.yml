@@ -171,6 +171,14 @@ fr:
         rich_pages: Pages riches
         rich_redhotlist_pages: Pages riches très favorites
         rich_redhotlist_pages_percentage: Pages favorites rouges riches %
+        total_association_types: Types d’association
+        total_associations: Associations
+        total_measurement_types: Types de mesure
+        total_measurements: Mesures
+        total_occurrences: Occurrences
+        total_taxa_with_data: Pages avec données
+        total_triples: Triples
+        total_user_added_data: Données ajoutées par l’utilisateur
         udo_published: Texte soumis par l’utilisateur
         udo_published_by_curators: Texte soumis par un conservateur
         udo_published_by_non_curators: Texte soumis par un non-conservateur
@@ -196,6 +204,18 @@ fr:
         descriptive_label: Libellé descriptif
         label: Libellé
         request_publish: Demander une publication
+      known_uri: 
+        description: Description
+        exclude_from_exemplars: Exclure des Faits en bref
+        name: Nom
+        toc_items: Catégories
+        uri: URI
+        uri_type: Type d’URI
+      known_uri_relationship: 
+        from_known_uri_id: URI du sujet
+        relationship_uri: URI de la relation
+        to_known_uri: URI cible
+        to_known_uri_id: URI cible
       name: 
         string: Nom
       news_item: 
@@ -254,6 +274,9 @@ fr:
         meta_description: Description des métadonnées
         meta_keywords: Mots-clefs des métadonnées
         title: Titre
+      translated_known_uri: 
+        comment: Commentaire
+        definition: Définition
       translated_news_item: 
         active_translation: Publié
         body: Corps
@@ -280,6 +303,13 @@ fr:
         requested_curator_level_id: Niveau souhaité de supervision
         tag_line: Titre d’appel
         username: Nom d’utilisateur
+      user_added_data: 
+        object: Valeur
+        predicate: Attribut
+        user: Ajouté par
+      user_added_data_metadata: 
+        object: Valeur
+        predicate: Attribut
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -316,6 +346,18 @@ fr:
             publish: 
               inclusion: n’est autorisé que pour le dernier événement de récolte et seulement si cet événement n’est pas encore publié
         inaccessible: L'enregistrement n'a pas pu être sauvegardé car il n'était pas valide. Contrôlez les erreurs de validation et resoumettez-le.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: non autorisé — il ne peut y avoir qu’une unité de mesure
+            to_known_uri_id: 
+              must_be_different: doit être différent de l’URI du sujet
+              must_be_known_uri: doit être un URI connu
+              must_be_measurement: doit être une unité de mesure
         open_authentications: 
           guid_provider_must_be_unique: le compte tiers est déjà connecté avec un compte EdlV
           provider_user_id_must_be_unique: un seul compte de chaque fournisseur tiers peut être connecté à un compte EdlV
@@ -331,6 +373,22 @@ fr:
             dwc_archive_url: 
               inaccessible: est inaccessible, l’URL doit être accessible au public
               invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ, TGZ ou ZIP.
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              namespace: espace de noms utilisé non reconnu
+            subject: 
+              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              namespace: espace de noms utilisé non reconnu
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              namespace: espace de noms utilisé non reconnu
+            subject: 
+              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              namespace: espace de noms utilisé non reconnu
       template: 
         body: "Les champs suivants n’ont pas été validés :"
     models: 
@@ -1686,6 +1744,7 @@ fr:
   daily: Quotidien
   darwin_core: Darwin Core
   dashboard: Tableau de bord
+  data: Données
   data_database_colon: "Données :"
   data_logging_active: Journalisation des données active
   data_master_database_colon: "Données maîtresses :"
@@ -1907,6 +1966,10 @@ fr:
     curators: 
       menu_link: Statistiques des conservateurs
       page_header: Statistiques des conservateurs
+      page_title: Statistiques
+    data: 
+      menu_link: Données
+      page_header: Statistiques des données
       page_title: Statistiques
     data_objects: 
       menu_link: Objets de données
@@ -2542,6 +2605,23 @@ fr:
   just_pages_with_pictures_and_text: Seulement des pages avec les images et le texte
   keep_split_entry_from_this_entry: Garder séparé de cette entrée
   key: Clé
+  known_uri_relationships: 
+    create_failed: Désolé, une erreur s’est produite, la relation n’a pas pu être ajoutée.
+    created: La relation a bien été créée
+  known_uris: 
+    add_a_relationship: Ajouter une relation
+    import_successful: Termes d’ontologie bien importés
+    more_than_one_field_mapped_to_type: Plus d’un attribut correspond à « %{type} »
+    no_results: Il n’y a aucun résultat pour la statistique sélectionnée
+    please_select_field_types: Veuillez sélectionner une correspondance pour chaque attribut
+    please_select_from_the_menu: Veuillez sélectionner depuis le menu ci-dessus
+    please_select_uris_to_import: Veuillez sélectionner les URIs d’import
+    relationships: Relations
+    select_a_category_to_view_stats: "Sélectionner une catégorie pour afficher ses stats :"
+    unrecognized_association_types: URIs de type d’association non reconnus
+    unrecognized_measurement_types: URIs de type de mesure non reconnus
+    unrecognized_measurement_units: URIs d’unité de mesure non reconnus
+    unrecognized_measurement_values: URIs de valeur de mesure non reconnus
   label: Libellé
   language: "Langue :"
   language_selector_advisory_information: Ce qui suit est une liste des langues dans lesquelles le contenu du site est disponible; pour modifier le choix actuel de la langue, choisissez-en une autre dans cette liste.
@@ -2872,7 +2952,6 @@ fr:
   no_news_items_for_month_and_year: Aucune actualité pour %{month_and_year}
   no_record_found_matching_your_criteria: Aucun enregistrement trouvé correspondant à vos critères.
   no_related_names: Aucun nom n’est pour le moment lié à ce taxon.
-  no_results_for: aucun résultat pour
   no_search_suggestions_are_avai: Aucune suggestion de recherche disponible ne correspond à vos critères de recherche.
   no_survey_responses_are_availa: Aucune réponse à un sondage n’est disponible.
   no_tasks_found: Aucune tâche trouvée

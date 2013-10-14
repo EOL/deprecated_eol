@@ -10,6 +10,7 @@
 # Author: Liuxinyu970226
 # Author: Qiyue2001
 # Author: Shandongfx
+# Author: Shirayuki
 # Author: Shizhao
 # Author: Wjn99wjn
 # Author: Xiaomingyan
@@ -734,6 +735,7 @@ zh-CN:
   already_a_member_question: 已经是会员？
   already_member_of_community: 您已经是这个社区的一名会员。
   alternate_classification: 另一种分类系统
+  alternative_name_colon: 备用名称：
   amount: 数量
   an_unknown_user: 一个未知用户
   and: 和
@@ -2394,7 +2396,6 @@ zh-CN:
   no_items_were_copied_to_collections_error: "没有项被复制到此收藏: %{names}。"
   no_record_found_matching_your_criteria: 没有搜到符合您检索条件的记录
   no_related_names: 没有与此分类阶元相关的名字。
-  no_results_for: 无结果有关
   no_search_suggestions_are_avai: 没有符合您检索条件的建议
   no_survey_responses_are_availa: 没有可用的调查反馈。
   no_tasks_found: 未找到任务
@@ -3192,7 +3193,7 @@ zh-CN:
   thank_you_for_your_generous_support: 感谢您的大力支持
   thanks_for_donation: 感谢您对生命大百科的支持，您的信息已经被提交并将处理。
   thanks_for_your_time: 感谢您花费时间，
-  the_amount_entered_was: 登记的总量为： US %{number}
+  the_amount_entered_was: 输入的金额为：%{number}美元
   the_comment_was_successfully_deleted: 已成功删除评论。
   the_comment_was_successfully_updated: 已成功更新评论。
   the_content_could_not_be_displ: 内容无法显示。
@@ -3545,6 +3546,7 @@ zh-CN:
   value_empty: （空）
   values: 值
   version_1_0_uses_fields_from_the_latest_version: 版本1.0使用了 %{link} 结构模版最新版本中的元素
+  versions_colon: 版本：
   vetted: 已审核
   video_alt_text: 这个 %{vetted_status} 的视频是%{taxon_name}的
   video_from: 视频来自

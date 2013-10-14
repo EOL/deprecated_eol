@@ -166,6 +166,12 @@ de:
         rich_pages: Reichhaltige Seiten
         rich_redhotlist_pages: Beliebte rote und reichhaltige Seiten
         rich_redhotlist_pages_percentage: Beliebte rote und reichhaltige Seiten %
+        total_association_types: Verbindungstypen
+        total_associations: Verbindungen
+        total_measurements: Abmessungen
+        total_occurrences: Ereignisse
+        total_taxa_with_data: Seiten mit Daten
+        total_user_added_data: Von Nutzern hinzugefügte Daten
         udo_published: Von Nutzern verfasste Texte
         udo_published_by_curators: Von Kuratoren verfasste Texte
         udo_published_by_non_curators: Nicht von Kuratoren verfasste Texte
@@ -191,6 +197,16 @@ de:
         descriptive_label: Aussagekräftige Bezeichnung
         label: Bezeichnung
         request_publish: Veröffentlichung anfragen
+      known_uri: 
+        description: Beschreibung
+        name: Name
+        toc_items: Kategorien
+        uri: URI
+        uri_type: URI-Typ
+      known_uri_relationship: 
+        relationship_uri: Beziehungs-URI
+        to_known_uri: Ziel-URI
+        to_known_uri_id: Ziel-URI
       name: 
         string: Name
       news_item: 
@@ -249,6 +265,8 @@ de:
         meta_description: Metadatenbeschreibung
         meta_keywords: Metadatenschlüsselwörter
         title: Name
+      translated_known_uri: 
+        definition: Definition
       translated_news_item: 
         active_translation: Veröffentlicht
         body: Textkörper
@@ -275,6 +293,11 @@ de:
         requested_curator_level_id: Gewünschtes Kuratierungsniveau
         tag_line: Motto
         username: Nutzername
+      user_added_data: 
+        object: Wert
+        user: Hinzugefügt von
+      user_added_data_metadata: 
+        object: Wert
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -322,6 +345,16 @@ de:
             publish: 
               inclusion: ist nur für den letzten Datenabruf zulässig und auch nur, sofern dieser Datenabruf noch nicht veröffentlicht wurde
         inaccessible: Die Aufzeichnung konnte nicht gespeichert werden, da sie ungültig ist. Überprüfen Sie die Fehler und versuchen Sie es erneut.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: Nicht möglich. Es kann nur eine Maßeinheit geben.
+            to_known_uri_id: 
+              must_be_known_uri: muss eine bekannte URI sein
         open_authentications: 
           guid_provider_must_be_unique: das Drittanbieterkonto ist bereits mit einem EOL-Konto verbunden.
           provider_user_id_must_be_unique: es kann nur je ein Konto pro Drittanbieter mit dem EOL-Konto verbunden werden
@@ -337,6 +370,22 @@ de:
             dwc_archive_url: 
               inaccessible: ist unzugänglich. Die URL muss öffentlich aufrufbar sein.
               invalid: ist ungültig. Sie sollte auf eine TAR.GZIP-, TAR.GZ-, TGZ- oder ZIP-Datei verweisen.
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              namespace: einen Namensraum verwendet, der nicht erkannt wurde
+            subject: 
+              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              namespace: einen Namensraum verwendet, der nicht erkannt wurde
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              namespace: einen Namensraum verwendet, der nicht erkannt wurde
+            subject: 
+              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              namespace: einen Namensraum verwendet, der nicht erkannt wurde
       template: 
         body: "Die folgenden Felder konnten nicht geprüft werden:"
         header: 
@@ -569,6 +618,10 @@ de:
         user_cropped_an_unknown_data_object: <strong>%{user}</strong> änderte das Vorschaubild eines unbekannten Bildes.
         user_cropped_data_object: <strong>%{user}</strong> änderte das Vorschaubild von „%{data_object}“.
         user_cropped_it: <strong>%{user}</strong> änderte das Vorschaubild eines unbekannten Bildes.
+      data_point_uri: 
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> versteckte Daten auf einer unbekannten Seite.
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> zeigte Daten auf einer unbekannten Seite an.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> zeigte Daten auf „%{taxon}“ an.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
         an_unknown_user_hid_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
@@ -829,6 +882,13 @@ de:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
         user_untrusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht vertrauenswürdig.
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: Ein unbekannter Nutzer fügte Daten zu einer unbekannten Seite hinzu.
+        an_unknown_user_update_data_on_taxon: Ein unbekannter Nutzer aktualisierte Daten auf „%{taxon}“.
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> fügte Daten zu einer unbekannten Seite hinzu.
+        user_create_data_on_taxon: <strong>%{user}</strong> fügte Daten zu „%{taxon}“ hinzu.
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> aktualisierte Daten auf einer unbekannten Seite.
+        user_update_data_on_taxon: <strong>%{user}</strong> aktualisierte Daten auf „%{taxon}“.
   activity_user_created_link: <strong>%{user}</strong> fügte dem Objekt „%{object_name}“ bei „%{taxon_concept}“ einen Link hinzu.
   activity_user_created_text: <strong>%{user}</strong> fügte dem Objekt „%{object_name}“ bei „%{taxon_concept}“ Text hinzu.
   activity_user_updated_link: <strong>%{user}</strong> aktualisierte am Objekt „%{object_name}“ bei „%{taxon_concept}“ den Link.
@@ -845,6 +905,7 @@ de:
   add_a_new_topic_area: Einen neuen Themenbereich hinzufügen
   add_a_new_user: Fügen Sie einen neuen Nutzer hinzu
   add_a_taxon_association_label: Fügen Sie eine neue Zuordnung zu einem Taxon hinzu
+  add_another_metadata_field: Neues Metadatenfeld hinzufügen
   add_article_instead: stattdessen einen Artikel hinzufügen
   add_article_to_page_button: Einen Artikel hinzufügen
   add_association_submit_button: Zuordnung hinzufügen
@@ -860,6 +921,7 @@ de:
   add_link_instead: stattdessen einen Link hinzufügen
   add_link_to_page_button: Link hinzufügen
   add_new_association_link: Fügen Sie eine neue Zuordnung hinzu
+  add_new_known_uri_link: Eine neue URI hinzufügen
   add_new_tag_suggestion: Neuen Stichwortvorschlag hinzufügen
   add_page: Seite hinzufügen
   add_sub_chapter: Unterkapitel hinzufügen
@@ -927,6 +989,9 @@ de:
   admin_news_items_page_title: "Verwaltung: Nachrichten"
   admin_news_link: Nachrichten
   admin_notes_not_visible_to_user: "Anmerkungen für Administratoren (für Nutzer nicht sichtbar):"
+  admin_option_all_users_can_see_data: Alle Nutzer können Daten sehen, nicht nur solche mit Berechtigungen.
+  admin_option_changed: Wert geändert.
+  admin_options_warning: Es dauert 10 Minuten, bis die Änderungen wirksam werden.
   admin_page_title: "Verwaltung: Übersicht"
   admin_spam_delete: Spam löschen
   admin_statistics_link: Statistiken
@@ -998,6 +1063,7 @@ de:
   all: alle
   all_apis_return_by_default_an_xml_response: "Alle API-Aufrufe liefern standardmäßig eine XML-Antwort zurück. Die API-Methoden können auch ohne eine Formatangabe abgerufen werden, um eine XML-Antwort zu erhalten. Das Hinzufügen der Formatangabe XML führt also zu einer identischen Antwort:"
   all_articles: Alle Artikel
+  all_categories: Alle
   all_changes: Alle Änderungen
   all_collections: Alle Sammlungen
   all_comments_entered_by_users: Alle auf der Website von Nutzern hinterlassenen Kommentare werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
@@ -1026,7 +1092,12 @@ de:
   an_unknown_user: Ein unbekannter Nutzer
   and: und
   and_between_form_items: und
+  annotation_body_default: eine Frage oder einen Kommentar hinzufügen …
   annotation_cabs_colon: "Annotation:"
+  annotation_submit: Anmerkung speichern
+  annotations_with_count: 
+    one: Eine Anmerkung
+    other: "%{count} Anmerkungen"
   anonymous_user_full_name: Anonymer Nutzer
   anonymous_user_given_name: Anonymer
   anonymous_user_tag_line: Nicht angemeldet
@@ -1114,6 +1185,14 @@ de:
   average_rating_value_of_total: "Durchschnittliche Bewertung: %{rating} von %{total}"
   back: Zurück
   back_to_profile: Zurück zum Profil
+  background_processes_actions_head: Aktionen
+  background_processes_complete_head: Vollständig?
+  background_processes_created_head: Erstellt
+  background_processes_download: herunterladen
+  background_processes_is_complete: Ja
+  background_processes_is_not_complete: Nein
+  background_processes_page_title: Hintergrundprozesse
+  background_processes_query_head: Abfrage
   began: Anfang
   belongs_in_count_communities: 
     one: Gehört zu einer Gemeinschaft
@@ -1149,6 +1228,7 @@ de:
   cannot_expand_children: die untergeordnete Objekte können nicht expandiert werden
   cannot_find_member: Es kann kein Mitglied mit dieser Kennung gefunden werden.
   cannot_index_collection_item_type_error: Es kann keine Sammlung auf Basis eines %{type} indexiert werden.
+  categories_title: "Zuerst eine Kategorie, dann ein Attribut auswählen:"
   change: Ändern
   change_rating_to_1_of_5: Bewertung auf 1 von 5 ändern
   change_rating_to_2_of_5: Bewertung auf 2 von 5 ändern
@@ -1323,6 +1403,7 @@ de:
   comments_filter: Kommentare
   comments_moderated: Moderierte Kommentare
   comments_on: Kommentare zu
+  comments_page_title: Kommentare zu %{parent}
   comments_with_count: 
     one: "%{count} Kommentar"
     other: "%{count} Kommentare"
@@ -1717,6 +1798,15 @@ de:
   daily: Täglich
   darwin_core: Darwin Core
   dashboard: Übersichtsseite
+  data: Daten
+  data_about_subtab_header: Über Daten auf EOL
+  data_about_this_record: Daten über diese Aufzeichnung
+  data_column_common_name: Gebräuchlicher Name
+  data_column_name: Abmessung
+  data_column_sci_name: Wissenschaftlicher Name
+  data_column_source: Quelle
+  data_column_units: Einheiten
+  data_column_val: Wert
   data_database_colon: "Datenbanken (Daten):"
   data_logging_active: Datenprotokollierung aktiv
   data_master_database_colon: "Hauptdatenbanken (Daten):"
@@ -1747,6 +1837,15 @@ de:
       meta_supplier_default: ein Mitwirkender
       meta_title: "%{dato_title} von %{supplier}"
       tweet_text: "%{dato_title} von %{supplier}"
+  data_point_uri_summary_name: Daten über %{taxon}
+  data_provided_by_content_partner: "Quelle: %{whom}"
+  data_row_hide_button: Zeile ausblenden
+  data_row_unhide_button: Zeile einblenden
+  data_search_destroyed: Dieser Auftrag wird nicht mehr verarbeitet.
+  data_search_link: Wissenschaftliche Daten auf EOL suchen
+  data_show_n_more_rows: NNN weitere anzeigen …
+  data_subtab_about: Über
+  data_subtab_glossary: Glossar
   data_usage_reports: Datennutzungsbericht
   date_caps: Datum
   date_uploaded: Hochladedatum
@@ -1869,12 +1968,13 @@ de:
   donation_sponsorship_preamble: Sofern Sie mehr über verfügbare spezifischen Förderprogramme erfahren oder regelmäßig Spenden möchten, bitten wir Sie das Sekretariat der Enzyklopädie des Lebens (EOL) per <a href="mailto:%{email_address}">E-Mail</a> zu kontaktieren.
   done_already: Bereits erledigt
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Unbekannte Registrierungsdaten nicht anzeigen (v1.0-Nutzer, alle vor dem 5. Januar 2009)
+  download_data: Daten herunterladen
   download_wav_file: WAV-Datei herunterladen
   dublin_core: Dublin Core
   duplicate_comment_warning: Der Kommentar wurde nicht gespeichert. Es scheint, als ob Sie bereits diesen Kommentar veröffentlicht haben. … Haben Sie die Schaltfläche „Kommentieren“ zweimal angeklickt?
   duplicate_items_were_ignored: Dubletten wurden ignoriert.
   each_method_documentation_page_has_formatted_responses: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für, sowohl in XML, wie auch in JSON formatierte Antworten.
-  edit: Bearbeiten
+  edit: bearbeiten
   edit_collection_details: Informationen zur Sammlung bearbeiten
   edit_collection_details_header: Informationen zur Sammlung bearbeiten
   edit_comment: Kommentar bearbeiten
@@ -1942,6 +2042,10 @@ de:
       menu_link: Statistiken zu Kuratoren
       page_header: Statistiken zu Kuratoren
       page_title: Statistiken
+    data: 
+      menu_link: Daten
+      page_header: Datenstatistiken
+      page_title: Statistiken
     data_objects: 
       menu_link: Datenobjekte
       page_header: Statistiken zu Datenobjekten
@@ -2003,6 +2107,7 @@ de:
       min_assistant_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Prokuratoren sind.
       min_full_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Oberkuratoren sind.
       min_master_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Hauptkuratoren sind.
+  excluded_icon_tip: Zeilen, die mit dem Symbol %{excluded_icon} gekennzeichnet sind, werden nie auf Taxonübersichtsseiten angezeigt.
   expand_all_children: alle untergeordneten Objekte expandieren
   explore: Entdecken
   explore_what_we_know_about_taxon: Erkunden Sie was EOL zu %{taxon} verfügbar hat.
@@ -2179,7 +2284,9 @@ de:
   gives_access_to_a_single_hierarchy_indexed_by_eol: ermöglicht den Zugriff auf eine einzelne von EOL indizierte Hierarchie und seine internen Beziehungen
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
+  glossary: Glossar
   glossary_is_empty: (Glossar ist leer)
+  glossary_subhead: Glossar
   glossary_term: Begriff
   glossary_terms: Glossarbegriffe
   go: Los
@@ -2486,7 +2593,7 @@ de:
   id: Kennung
   if_checked_and_user_is_saved: Sofern diese Option ausgewählt und der Nutzer gespeichert wird, werden die Referenzen, der Kompetenzbereich, die Genehmigung sowie die ausgewählte Gruppe entfernt. Der Nutzer wird danach nicht länger als Kurator angezeigt. Bitte geben Sie eine hinweisende Anmerkung zur Begründung an. Der Nutzer erhält darüber keine Informationen.
   if_multiple_media_objects_are_returned: "Falls mehrere Medienobjekte zurückgegeben werden, wird die Liste nach dem Objekttyp sortiert. Innerhalb jedes Typs werden die Einträge nach dem untersuchten Status sortiert („Vertrauenswürdig“ &gt; „Ungeprüft“ &gt; „Nicht vertrauenswürdig“), anschließend nach der Datenbewertung. Innerhalb bestimmter Datentypen geben spezielle Elemente die höchste Priorität an: Falls eines dieser Elemente zurückgegeben wird, wird es zuerst gelistet. Bei Bildern haben Musterbilder und bei Texttypen der Übersichtstext die höchste Priorität."
-  if_the_details_parameter_is_not_set: Sofern der Parameter zu den Informationen nicht festgelegt ist, werden nur die Kennung des Datenobjekts, der Datentyp, sowie im Fall eines Artikels das Thema zurückgegeben. Der Datentyp wird ein Wert des Quellenartenvokabulars %{linka} sein. Das Textthema wird eines der %{linkb} sein.
+  if_the_details_parameter_is_not_set: Sofern der Parameter „details“ nicht festgelegt ist, werden nur die Kennung des Datenobjekts, der Datentyp, sowie im Fall eines Artikels das Thema zurückgegeben. Der Datentyp wird ein Wert des Quellenartenvokabulars %{linka} sein. Das Textthema wird eines der %{linkb} sein.
   image: Bild
   image_alt_text: Dieses Bild mit Status %{vetted_status} ist von %{taxon_name}
   image_crop_failed_error: Leider ist ein Fehler aufgetreten. Das Bild konnte nicht zugeschnitten werden.
@@ -2517,6 +2624,7 @@ de:
     one: "%{count} Bild"
     other: "%{count} Bilder"
   import_once: Einmal importieren
+  import_ontology: Ontologie importieren
   in_collection: in der Sammlung
   in_community: in Gemeinschaft
   in_providing_its_content_to_eo: Mit dem Zurverfügungstellen der Inhalte bei EOL,
@@ -2585,6 +2693,28 @@ de:
   just_pages_with_pictures_and_text: Nur Seiten mit Bildern und Texten
   keep_split_entry_from_this_entry: Von diesem Eintrag getrennt vorhalten
   key: Schlüssel
+  known_uri_category_header: Kategorien
+  known_uri_created: URI hinzugefügt.
+  known_uri_label_allowed_unit: hat eine Maßeinheit
+  known_uri_label_allowed_val: erlaubt einen Wert von
+  known_uri_label_unit: hat eine Maßeinheit
+  known_uri_missing_translation: Nicht übersetzt, bitte bearbeiten.
+  known_uri_name_and_uri: "%{name} (%{uri})"
+  known_uri_relationships: 
+    create_failed: Leider ist ein Fehler aufgetreten. Die Beziehung konnte nicht hinzugefügt werden.
+    created: Die Beziehung wurde erfolgreich erstellt
+    deleted: Die Beziehung wurde erfolgreich gelöscht
+  known_uri_updated: URI aktualisiert.
+  known_uris: 
+    add_a_relationship: Eine Beziehung hinzufügen
+    no_results: Für die ausgewählten Statistiken gibt es keine Ergebnisse
+    please_select_from_the_menu: Bitte vom Menü oben auswählen
+    please_select_uris_to_import: Bitte den Import mit den URIs auswählen
+    relationships: Beziehungen
+    select_a_category_to_view_stats: "Zum Ansehen von Statistiken eine Kategorie auswählen:"
+  known_uris_empty_sorry: Leider gibt es für diese Kategorie noch keine vorgeschlagenen URIs.
+  known_uris_page_title: URIs für Daten auf EOL
+  known_uris_sorted: Reihenfolge aktualisiert.
   label: Bezeichnung
   language: "Sprache:"
   language_selector_advisory_information: Nachstehend folgt eine Liste der Sprachen, in denen die Inhalte der Website verfügbar sind. Um die aktuell genutzte Sprache zu ändern, wählen Sie bitte eine andere Sprache aus dieser Liste.
@@ -2679,6 +2809,7 @@ de:
   license_gnu_fdl: GNU Lizenz für freie Dokumentation (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_no_known_copyright_restrictions: Keine bekannten Urheberrechtsbeschränkungen
+  license_none: Keine
   license_not_applicable: Lizenz nicht zutreffend
   license_public_domain: Gemeinfreiheit
   licensing: Lizenz
@@ -2820,12 +2951,14 @@ de:
       videos: Videos
   moderator_colon: "Moderator:"
   monthly: Monatlich
+  more: mehr
   more_children_with_count: 
     one: "%{count} mehr …"
     other: "%{count} mehr …"
   more_siblings_with_count: 
     one: "%{count} weiteres Geschwister …"
     other: "%{count} weitere Geschwister …"
+  more_taxa_with_attribute: Alle Taxa mit diesem Attribut ansehen
   most_active_members: Aktivste Mitglieder
   move: Verschieben
   move_down: Nach unten verschieben
@@ -2850,6 +2983,7 @@ de:
   must_be_checked_in_to_view: "- muss selektiert sein, um es sehen zu können"
   must_be_less_than_128_characters_long: muss weniger als 128 Zeichen lang sein.
   must_be_logged_in: Um diese Aktion ausführen zu können, muss man angemeldet sein.
+  must_provide_attribute_for_search_error: Sie müssen zum Suchen ein Attribut auswählen.
   must_provide_search_term_error: Sie müssen einen Suchbegriff eingeben.
   my_activity: Meine Aktivitäten
   my_info: Informationen zu mir
@@ -2917,7 +3051,7 @@ de:
   no_news_items_for_month_and_year: Keine Nachrichten für %{month_and_year}
   no_record_found_matching_your_criteria: Es wurde kein Datensatz gefunden, der Ihren Suchkriterien entspricht.
   no_related_names: Diesem Taxon wurden bislang noch keine Namen zugeordnet.
-  no_results_for: Keine Ergebnisse zu
+  no_results_for_search_term: Keine Ergebnisse für „%{search_term}“
   no_search_suggestions_are_avai: Es gibt keine Suchvorschläge, die Ihren Suchkriterien entsprechen.
   no_survey_responses_are_availa: Es gibt keine Antworten zur Umfrage.
   no_tasks_found: Es wurden keine Aufgaben gefunden
@@ -3052,6 +3186,7 @@ de:
   only_multi_search_suggestions: (nur sofern mehrere Suchvorschläge zum gleichen Suchbegriff vorhanden sind, Sortierung erfolgt von niedrig zu hoch)
   only_show_authoritative_conten: "Nur maßgebliche Inhalte anzeigen:"
   only_show_unapproved_curators: Nur, nicht akzeptierte Kuratoren anzeigen
+  ontology_uri: Ontologie-URI
   option_please_select: Bitte wählen Sie
   or_add_it_to_an_existing_collection: oder fügen Sie es einer vorhandenen Sammlung hinzu
   or_add_it_to_an_existing_community: oder fügen Sie es einer vorhandenen Gemeinschaft hinzu
@@ -3060,12 +3195,14 @@ de:
   or_move_them_to_existing_collection: oder verschieben Sie sie in eine vorhandene Sammlung
   original: "ORIGINAL:"
   original_object: Originalobjekt
+  other_category: Andere
   other_collection_items_with_count: 
     one: "%{count} weiteres Objekt"
     other: "%{count} weitere Objekte"
   other_community_items_with_count: 
     one: "%{count} weiteres Objekt"
     other: "%{count} weitere Objekte"
+  other_measurements_from_this_record: Andere Abmessungen von dieser Aufzeichnung
   other_taxa_with_count: 
     one: "%{count} weiteres Taxon"
     other: "%{count} weitere Taxa"
@@ -3186,6 +3323,7 @@ de:
   rating_added_notice: Die Bewertung wurde erfolgreich abgegeben.
   rating_learn_more_link: Mehr über Bewertungen erfahren
   rating_not_added_error: Es ist leider ein Fehler aufgetreten, so dass die Bewertung nicht hinzugefügt werden konnte.
+  reading_from_ontology: Lese von <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
   recaptcha: Geben Sie bitte die beiden Wörter ein, die Sie unten sehen.
   recaptcha_incorrect_error_with_anchor: Das eingegebene <a href="#%{recaptcha_anchor}">CAPTCHA</a> stimmte nicht mit der Vorgabe überein. Versuchen Sie es bitte noch einmal.
   recent_activities: 
@@ -3241,6 +3379,7 @@ de:
     someone_commented_on_something: <b>%{who}</b> hat <b>%{what}</b> kommentiert.
     unsubscribe: Melden Sie sich an und ändern Sie Ihre E-Mail-Einstellungen auf <a href='%{email_prefs_url}' style='color:#195184'>Ihrer Benachrichtigungsseite</a> oder <a href='%{unsubscribe_url}' style='color:#195184'>bestellen Sie alle automatischen EOL-Benachrichtigungen ab ohne sich anzumelden</a>.
   recent_updates: Letzte Aktualisierungen
+  recently_used_link: Kürzlich verwendet
   recently_visited: Kürzlich besucht
   recipients: Empfänger
   recognized_by_as_a_rank: von %{recognized_by} als %{taxon_rank} anerkannt
@@ -3272,6 +3411,9 @@ de:
   resources: Quellen
   response: Antwort
   response_formats: Antwortformate
+  resque_pending_job_count: 
+    one: Ein ausstehender Auftrag ist in der Warteschlange „%{queue}“.
+    other: "%{count} ausstehende Aufträge sind in der Warteschlange „%{queue}“."
   results: Ergebnisse
   results_offset: Ergebnisse von %{from} bis %{to} von insgesamt %{total} für <em>%{for}</em>
   results_per_page: "Ergebnisse pro Seite:"
@@ -3358,7 +3500,9 @@ de:
   see_all_updates_with_count_html: 
     one: Die <span class="assistive">Aktualisierung dieser Seite</span> ansehen.
     other: Alle <span class="assistive">%{count} Aktualisierungen dieser Seite</span> ansehen.
+  see_in_glossary: siehe Glossar
   see_notes: Anmerkungen ansehen
+  see_this_record_in_virtuoso: diese Aufzeichnung in Virtuoso ansehen
   select_a_hierarchy_around_whic: "Wählen Sie eine Hierarchie zu der Inhaltszusammenfassungen erstellt werden sollen:"
   select_an_item_from_the_menu: Wählen Sie ein Objekt aus dem Menü
   select_colon: "Auswählen:"
@@ -3416,6 +3560,7 @@ de:
   skip_to_content: Zum Inhalt
   skip_to_navigation: Direkt zur Navigation
   skip_to_table_of_contents: Direkt zum Inhaltsverzeichnis
+  social_sharing_header: EOL auf Social-Media-Websites
   social_sharing_reddit_button: an Reddit übermitteln
   social_sharing_twitter_follow_eol_button: Folgen Sie @eol
   social_sharing_twitter_tweet_button: Tweet
@@ -3436,6 +3581,8 @@ de:
   sort_by_status_option: Status
   sort_by_title_ascending: Titel aufsteigend
   sort_by_title_descending: Titel absteigend
+  sort_by_value_ascending: Wert aufsteigend
+  sort_by_value_descending: Wert absteigend
   sort_by_year_ascending: Jahr aufsteigend
   sort_by_year_descending: Jahr absteigend
   sort_collection_by_label: Sammlung sortieren nach
@@ -3453,6 +3600,7 @@ de:
   sounds_with_count: 
     one: "%{count} Tonaufnahme"
     other: "%{count} Tonaufnahmen"
+  source: Quelle
   source_and_additional_information: Quelle und weitere Informationen
   source_colon: "Quelle:"
   source_information_header: Informationen zur Quelle
@@ -3483,8 +3631,10 @@ de:
   subject: Betreff
   submit: Speichern
   submit_term: Begriff speichern
+  suggested_attributes: "Vorgeschlagene Attribute:"
   suggested_result_page_id: "Kennung der Seite mit den vorgeschlagenen Ergebnissen:"
   suggested_results_avg: Durchschnittlich vorgeschlagene Ergebnisse
+  suggested_vocab_remove: Empfehlung entfernen
   summary_thumbnail_title: "Zusammenfassung:"
   supplier: Datenlieferant
   supplier_allcaps: "BEREITSTELLER:"
@@ -3551,6 +3701,11 @@ de:
         meta_title: Menschen, die sich für %{scientific_name} interessieren
         meta_title_with_common_name: Menschen, die sich für %{preferred_common_name} (%{scientific_name}) interessieren
         tweet_text: Menschen, die sich für %{scientific_name} interessieren
+    data: 
+      index: 
+        meta_title: Kalkulierbare Daten für %{scientific_name}
+        meta_title_with_common_name: Kalkulierbare Daten für %{preferred_common_name} (%{scientific_name})
+        tweet_text: Kalkulierbare Daten für %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -3769,6 +3924,7 @@ de:
   taxon_citizen_science_resources_empty: Bislang wurden auf dieser Seite noch keine Links zu „Wissenschaft für Bürger“ hinzugefügt.
   taxon_common_names_subtab_explanation: Viele Menschen kennen Organismen nur unter ihrem Trivialnamen oder „umgangssprachlichen“ Namen. Anders als wissenschaftliche Namen sind Trivialnamen fast immer für Sprecher unterschiedlicher Sprachen unterschiedlich. Dies kann auch innerhalb einer Sprache regional variieren. Dieser Reiter zeigt alle Trivialnamen der EOL für diesen Organismus aus einer Vielzahl von Anbietern, einschließlich EOL-Kuratoren. Derzeit können wir nur einen Trivialnamen pro Sprache für eine EOL-Seite festlegen, jedoch sollten alle Namen auffindbar sein.
   taxon_concept_stats: Statistiken zum Taxonkonzept
+  taxon_data_header: Daten über %{taxon}
   taxon_details_empty: Bislang hat noch niemand Einzelheiten für diese Seite zur Verfügung gestellt.
   taxon_details_empty_in_this_language: Es hat niemand Einzelheiten für diese Seite in dieser Sprache beigetragen.
   taxon_education_empty: Bislang hat noch niemand Bildungsmittel für diese Seite zur Verfügung gestellt.
@@ -3823,7 +3979,7 @@ de:
   thank_you_for_your_generous_support: Vielen Dank für Ihre großzügige Unterstützung!
   thanks_for_donation: Vielen Dank, dass Sie die Enzyklopädie des Lebens (EOL) unterstützen. Ihre Informationen wurde übermittelt und werden nun bearbeitet.
   thanks_for_your_time: Vielen Dank für Ihre Zeit,
-  the_amount_entered_was: "Der eingegebene Betrag war: US$ %{number}"
+  the_amount_entered_was: "Der eingegebene Betrag war: %{number} USD"
   the_comment_was_successfully_deleted: Der Kommentar wurde erfolgreich aktualisiert.
   the_comment_was_successfully_updated: Der Kommentar wurde erfolgreich aktualisiert.
   the_content_could_not_be_displ: Der Inhalt konnte nicht angezeigt werden.
@@ -3853,7 +4009,7 @@ de:
   the_xml_search_response_implements: "Die XML-Antwort zur Suche nutzt das OpenSearch-Antwortformat unter Verwendung von Atom 1.0. Unter folgenden Link finden Sie die vollständige OpenSearch-Spezifikation: %{link}"
   there_are_currently_no_members_in_this_community: Diese Gemeinschaft hat momentan keine Mitglieder.
   there_is_no_singular_eol: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne taxonomische Hierarchie. Tatsächlich indexiert EOL viele Hierarchien und vergleicht sie miteinander, um zu ermitteln welche Knotenpunkte auf die selben Taxa verweisen. Diese Taxonelemente sind die Hierarchieknotenpunkte. Das ist der Grund warum möglicherweise mehrere von ihnen für eine bestimmte EOL-Seite vorhanden sind. Bitte lesen Sie die Dokumentation zur %{link}-API um mehr hierzu zu erfahren.
-  this_area_shows_all_submission: Dieser Bereich zeigt alle, über die Kontakt- oder Medienkontaktseite, eingegangenen Nachrichten an. Um die einzelnen Nachrichten anzusehen, müssen Sie ein unten angegebenes Thema oder %{link} auswählen.
+  this_area_shows_all_submission: Dieser Bereich zeigt alle, über die Kontakt- oder Medienkontaktseite, eingegangenen Nachrichten an. Um die einzelnen Nachrichten anzusehen, müssen Sie ein unten angegebenes Thema auswählen oder <a href=%{link}>alle Einträge als CSV-Datei exportieren</a>.
   this_article_cannot_be_curated_because_unpublished: Dieser Artikel kann nicht kuratiert werden, da er unveröffentlicht ist.
   this_article_is_unpublished: Dieser Artikel ist unveröffentlicht.
   this_cannot_be_undone_are_you_sure: Dies kann nicht rückgängig gemacht werden. Sind Sie sicher?
@@ -3898,6 +4054,7 @@ de:
   too_many_descendants_to_curate_with_count: 
     one: "FEHLER: Ihre Kuratierung konnte aufgrund des automatisierten Systems nicht verarbeitet werden. Es gibt ein untergeordnetes Objekt, das das erlaubte Maximum überschritten hat."
     other: "FEHLER: Ihre Kuratierung konnte aufgrund des automatisierten Systems nicht verarbeitet werden. Es gibt %{count} untergeordnete Objekte, die das erlaubte Maximum überschritten haben."
+  top: oben
   topic: Thema
   topic_area: Themenbereich
   topics_avilable_to_contact_us_info: Die folgenden Themengebiete sind über die Kontaktseite verfügbar. Sie können Themengebiete, sowie die entsprechenden E-Mail-Adressen, hinzufügen oder bearbeiten. Alle Änderungen werden sofort wirksam.
@@ -3933,6 +4090,7 @@ de:
     one: Die Einladung konnte nicht an %{list} versandt werden.
     other: Die Einladungen konnten nicht an %{list} versandt werden.
   unique_page_views_th: Eindeutige Seitenzugriffe
+  unit_of_measure: Maßeinheit
   unknown: Unbekannt
   unknown_data_object_title: Unbekanntes Datenobjekt
   unknown_hierarchy: Unbekannte Hierarchie
@@ -3963,6 +4121,7 @@ de:
   uploaded_by: Hochgeladen von
   uploaded_content: Hochgeladener Inhalt
   uploaded_on: Hochgeladen am
+  uri: URI
   url: URL
   url_not_accessible: Auf diese URL kann nicht zugegriffen werden.
   us_dolars_75: 75 USD
@@ -3995,6 +4154,10 @@ de:
   user_activity_stats_common_names_removed: 
     one: "%{count} Trivialnamen entfernt"
     other: "%{count} Trivialnamen entfernt"
+  user_activity_stats_data_added: 
+    one: Eine Datenaufzeichnung hinzugefügt
+    other: "%{count} Datenaufzeichnungen hinzugefügt"
+  user_activity_stats_data_added_dropdown: Daten hinzugefügt
   user_activity_stats_header: Meine Aktivitäten
   user_activity_stats_objects_curated: 
     one: "%{count} Objekt kuratiert"
@@ -4022,11 +4185,25 @@ de:
   user_activity_stats_wikipedia_nominated: 
     one: "%{count} Wikipedia-Artikel nominiert"
     other: "%{count} Wikipedia-Artikel nominiert"
+  user_added_data: 
+    add_metadata_header: Zusätzliche Informationen
+    additional_fields: Daten über diese Aufzeichnung
+    create_failed: "Ihre Daten konnten nicht hinzugefügt werden: %{errors}"
+    create_successful: Die Daten wurden erfolgreich hinzugefügt
+    delete_successful: Die Daten wurden erfolgreich gelöscht
+    edit_data_header: Deine Daten bearbeiten
+    edit_metadata_header: Die Metadaten bearbeiten
+    new_field: Neues Feld …
+    new_value: Wert
+    submit_data: Datenwert übermitteln
+    update_failed: "Ihre Daten konnten nicht aktualisiert werden: %{errors}"
+    update_successful: Die Daten wurden erfolgreich aktualisiert
   user_agent: Browser
   user_already_active_notice: Ihr Konto ist bereits aktiv. Bitte melden Sie sich an.
   user_comment: Nutzerkommentar
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> kommentierte die Seite eines gelöschten Nutzers:"
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> kommentierte eine ältere Version von %{what}:"
+  user_commented_on_removed_data: <strong>%{user}</strong> kommentierte zu Daten, die entfernt wurden.
   user_commented_on_something_colon: "<strong>%{user}</strong> kommentierte %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> kommentierte den <a href='%{link}'>Nachrichtenfeed von %{username}</a>:"
   user_commented_on_your_image: "<strong>%{user}</strong> kommentierte Ihr Bild auf der <a href='%{data_object_link}'>Website der Enzyklopädie des Lebens</a>:\n%{comment_body}"

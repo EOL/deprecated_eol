@@ -1636,6 +1636,7 @@ ar:
   daily: يوميًّا
   darwin_core: أرشيف داروين كور
   dashboard: لوحة البيانات
+  data: بيانات
   data_database_colon: "البيانات:"
   data_logging_active: تسجيل البيانات نشط
   data_master_database_colon: بيانات للمشرف الرئيسي
@@ -2771,7 +2772,6 @@ ar:
   no_items_were_copied_to_collections_error: "لم يتم نسخ أي عناصر إلى المجموعات: %{names}."
   no_record_found_matching_your_criteria: لا يوجد سجل مطابق لمعيار البحث
   no_related_names: لا يوجد أسماء موصولة بهذه اﻷصنوفة حتى اﻵن.
-  no_results_for: لا توجد نتائج لـ
   no_search_suggestions_are_avai: لا توجد اقتراحات بحث متوافقة مع معايير البحث الخاصة بك
   no_survey_responses_are_availa: لا توجد ردود على الاستقصاء
   no_tasks_found: لا يوجد مهمات

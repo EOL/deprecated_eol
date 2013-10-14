@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Csparr
 # Author: Cwt96
+# Author: Hym411
 # Author: 아라
 ko: 
   0_1_or_2: 0, 1 또는 2
@@ -1354,6 +1355,7 @@ ko:
   community_removed_by_owner: 이 공동체는 소유자에 의해 제거됐습니다.
   community_tab_collections_header: 모음집
   completed: 완료
+  confirm_delete_community: 정말로 이 커뮤니티를 삭제하겠습니까? 남은 회원들은 내용을 볼 수 있으며 뉴스피드는 관리되지만, 검색 결과와 taxon 페이지에서 나타나지 않을 것이며, 더이상 편집할 수 없습니다.
   confirm_leave: 이 공동체를 떠나겠습니까?
   confirm_password_colon: "비밀번호 확인:"
   contact: 연락하기
@@ -1599,6 +1601,7 @@ ko:
   create_community_about_text: "\"%{collection_name}\"의 내용 주위에 공동체를 만드려고 합니다. 모든 사용자는 공동체에 가입할 수 있지만 \"관리자\" 자격을 부여한 구성원만 공동체 자체나 공동체와 관련된 모음집을 편집할 수 있게 됩니다."
   create_community_around_this_collection_header: 이 모음집 주위의 공동체 만들기
   create_community_button: 공동체 만들기
+  create_community_unsuccessful_error: 죄송합니다,에러가 발생하여 당신의 커뮤니티가 생성되지 않았습니다. 모든 필드를 올바르게 작성했는지 확인하시기 바랍ㄴ디ㅏ.
   create_user_unsuccessful_error: 죄송합니다, 오류가 발생해 새 계정을 만들지 않았습니다. 모든 필드가 올바르게 채워졌는지 확인하세요.
   created: 만들어짐
   created_at: 만든 곳
@@ -2807,7 +2810,6 @@ ko:
   no_news_items_for_month_and_year: "%{month_and_year}에 대한 뉴스 항목이 없습니다"
   no_record_found_matching_your_criteria: 조건과 일치하는 기록을 찾을 수 없습니다.
   no_related_names: 아직 이 분류와 관련된 이름이 없습니다.
-  no_results_for: 결과가 없습니다
   no_search_suggestions_are_avai: 찾기 조건과 일치하는 찾기 제안을 사용할 수 없습니다.
   no_survey_responses_are_availa: 사용할 수 있는 설문 조사 응답이 없습니다.
   no_tasks_found: 작업을 찾을 수 없음

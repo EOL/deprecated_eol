@@ -805,6 +805,7 @@ sr-Latn:
   daily: Dnevno
   darwin_core: Darvinovo jezgro
   dashboard: Upravljačka tabla
+  data: Podaci
   data_logging_active: Zapisivanje podataka je aktivno
   data_object: Objekat podataka
   data_object_api_description: Kada navedete naznaku za objekat podataka, ovaj API će prijaviti sve metapodatke o objektu koje je poslao partner za sadržaj. Partner se navodi u prvom elementu agenta i ima ulogu „partnera“.
@@ -1576,7 +1577,6 @@ sr-Latn:
   no_items_were_copied_to_collections_error: "Nijedna stavka nije umnožena u zbirke: %{names}."
   no_record_found_matching_your_criteria: Ne mogu da pronađem ništa što se poklapa s kriterijumom.
   no_related_names: Nijedan naziv nije povezan s ovim taksonom.
-  no_results_for: nema rezultata za
   no_search_suggestions_are_avai: Nema predloga koji odgovaraju vašem zahtevu.
   no_survey_responses_are_availa: Nema anketnih odgovora.
   no_tasks_found: Ne mogu da pronađem zadatke

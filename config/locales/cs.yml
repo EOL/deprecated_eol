@@ -76,7 +76,7 @@ cs:
         email_reports_frequency_hours: Četnost zpráv e-mailem
       data_object: 
         bibliographic_citation: Bibliografická citace
-        description: Popis
+        description: Text
         object_title: Nadpis
         rights_holder: Držitel práv
         rights_statement: Informace o právech
@@ -110,6 +110,7 @@ cs:
         data_objects_videos: Video objekty
         hotlist_pages: Frekventované stránky
         lifedesk_data_objects: LifeDesks datové objekty
+        lifedesk_taxa: LifeDesks taxony
         marine_pages: Mořské stránky
         marine_pages_in_col: Mořské stránky v CoL (Katalog života)
         marine_pages_with_objects: Mořské stránky s datovými objekty
@@ -141,8 +142,10 @@ cs:
         published_unreviewed_resources: Publikované nezkontrolované zdroje
         redhotlist_pages: Nejoblíbenější stránky
         rich_hotlist_pages: Obsažné frekventované stránky
+        rich_hotlist_pages_percentage: Rich Hotlist stránky %
         rich_pages: Obsažné stránky
         rich_redhotlist_pages: Obsažné nejoblíbenější stránky
+        rich_redhotlist_pages_percentage: Rich Red Hotlist stránky %
         udo_published: Text vložený uživatelem
         udo_published_by_curators: Text vložený kurátorem
         udo_published_by_non_curators: Text od nekurátora
@@ -393,6 +396,10 @@ cs:
         page_header: Souhrnná statistika
         page_title: "Administrace: Souhrnná statistika"
         table_caption: Souhrnná statistika stránky vytvořena %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: LifeDesks statistiky
+        page_title: "Správa: LifeDesks statistiky"
       marine: 
         menu_link: Statistika mořského života
         page_header: Pokrytí mořského života v OEL
@@ -502,15 +509,16 @@ cs:
         meta_keywords: "%{collection_name} - pozorování iNaturalist"
         meta_title: Pozorování iNaturalist ke sbírce %{collection_name}
         no_observations_added_to_this_project_yet: K tomuto projektu dosud nebylo přidáno žádné pozorování.
-        observation_date: "Datum: % {observed_on}"
+        observation_date: "Datum: %{observed_on}"
         observation_place: "Místo: %{place}"
-        observer_with_link: "Pozorovatel: % {observer_link}"
+        observer_with_link: "Pozorovatel: %{observer_link}"
         recent_observations: Nedávná pozorování
         some_taxon: Něco
         taxa_observed: 
           one: "%{count} pozorovaný taxon"
           other: "%{count} pozorovaných taxonů"
         top_contributors: Nejlepší přispěvatelé z iNaturalist
+        tweet_text: "%{název_sbírky} - pozorování iNaturalist"
         view_all_observations_on_inaturalist: Prohlédnout všechna pozorování z %{project_title} na iNaturalist
         view_more_observations_on_inaturalist: Prohlédni další pozorování z %{project_title} na iNaturalist
         view_project_on_inaturalist: Zobrazit %{project_title} na iNaturalist
@@ -522,6 +530,7 @@ cs:
         tweet_text: "%{collection_name} - Zprávy"
     show: 
       meta_description_default: Sbírka Encyklopedie života nazvaná %{collection_name}.
+      meta_description_default_focus_collection: Zaměření sbírky Encyclopedie Života s názvem % {název_sbírky}.
       meta_description_default_watch_collection: "Sledovací seznam Encyklopedie života: %{collection_name}."
       meta_keywords: "%{collection_name}, sbírka Encyklopedie života"
   collections_summary_empty: Tato stránka ještě není v žádné sbírce.
@@ -545,7 +554,14 @@ cs:
     collections: 
       index: 
         meta_description: Komunitní sbírky sestavené %{community_name}, komunitou Encyklopedie života
+        meta_keywords: "%{community_name} sbírky"
+        meta_title: "%{community_name} sbírky"
+        tweet_text: "%{community_name} sbírky"
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, Encyclopedie Života Společenství, diskusní příspěvky %{community_name}, %{community_name} komentáře, %{community_name} aktivita"
     show: 
+      meta_description: Encyclopedie Života Společenství %{community_name} byl odstraněn svým majitelem
       meta_title: Komunita %{community_name} odstraněna zakladatelem
   communities_index_empty: Žádné aktivní komunity.
   communities_index_header: Aktivní komunity
@@ -643,6 +659,7 @@ cs:
     statistics: 
       show: 
         meta_description: Statistika využití údajů %{partner_name}.
+        meta_keywords: "%{partner_name} statistika, %{partner_name} použití webu"
         meta_title: Statistika k %{partner_name}
         tweet_text: statistika využití %{partner_name}
   content_summary_table_count_column_header: Počet
@@ -844,6 +861,8 @@ cs:
       page_header: Souhrnná statistika
       page_title: Statistika
     lifedesks: 
+      menu_link: LifeDesks
+      page_header: LifeDesks statistiky
       page_title: Statistika
     marine: 
       menu_link: Statistika mořského života
@@ -1000,15 +1019,32 @@ cs:
       content_page: 
         active: Publikováno
         active_more: Publikované stránky budou veřejně viditelné. Pokud chcete zabránit běžným uživatelům v zobrazení verze této stránky v libovolném jazyce, zrušte zaškrtnutí políčka <em>publikoval</em> .
+        page_name: Jedinečný název <small>(pouze malými ISO alfanumerickými znaky a podtržítky v základní latince)</small>
         page_name_more: Zadejte jedinečný, popisný, smysluplný a trvalý identifikátor pro tuto stránku. Jméno, které zde zadáte, se použije ke generování URL této stránky, například jedinečný název <em>terms_of_use</em> je převeden na URL <em>http://eol.org/info/terms_of_use</em>.
+        parent_content_page_id: Nadřazený
+        parent_content_page_id_more: Volitelně vyberte nadřazený název, pod kterým by měla být tato stránka vnořená.
       content_partner: 
+        created_at: "Registrováno:"
+        current_agreement: Současná dohoda
+        description_of_data: Popis dat <small>(soukromé)</small>
+        description_of_data_more: Poskytněte popis typu informací, které máte, kolik položek je k dispozici, ke kterým organismům se vztahují, a zda byly shromážděny nebo zkontrolovány kvalifikovanými odborníky nebo Společenstvím.
+        display_name: Zobrazit jméno <small>(volitelné)</small>
+        display_name_more: Poskytněte alternativní veřejně viditelný název, který bude použit namísto vašeho <em>názvu projektu</em>.
         last_action: Poslední akce
         latest_published_harvest_event: Naposledy publikováno
         logo_current: "Aktuální logo:"
         logo_new: "Nahrát nové logo:"
         notes: Poznámky k projektu <small>(soukromé)</small>
         oldest_published_harvest_event: Poprvé publikováno
+        public_more: Profily veřejného partnera obsahu jsou viditelné pro všechny uživatele a informace o partnerech je součástí seznamu partnera obsahu. Zrušte zaškrtnutí políčka pro vyloučení detailů o partnerovi obsahu ze seznamů a pro omezení přístupu k profilu správcům EOL a uživateli, který vytvořil partnera obsahu.
+        user_id: Podrobnosti o partnerovi obsahu spravuje
+      content_partner_agreement: 
+        mou_url: Dohoda souboru URL <small>(volitelná možnost)</small>
+        mou_url_more: Volitelně zadejte adresu URL k souboru, který obsahuje dohodu tohoto partnera. Tento soubor se přepíše jakýkoli jiný text dohody. Pokud chcete uložit soubor (například soubor PDF) na server obsahu EOL, pak nejdříve <a href="%{upload_content_url}">nahrajte soubor</a>, abyste obdrželi adresu URL.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: E-mailové zprávy jsou odesílány pouze v případě, že existují komentáře nebo úpravy správce provedené na vašich datech nebo na stránkách taxonu relevantních pro vaši sadu dat.
       data_object: 
+        bibliographic_citation: Bibliografická citace
         bibliographic_citation_more: Doporučená citace pro tato data ve formě bibliografického odkazu, včetně dostatečných podrobností k pokud možno jednoznačné identifikaci dat
         description: Text <small>(část kódu HTML je povolena)</small>
         license_id: Licence
@@ -1040,39 +1076,69 @@ cs:
         first_published_at: Poprvé publikováno
         published_at: Zveřejněno
         published_status: Stav
+      open_authentication: 
+        connect: Přidat
       resource: 
         accesspoint_url: URL Datasetu
+        accesspoint_url_existing_remove: Tento zdroj je v současnosti zaváděn z URL, která končí <em>% {accesspoint_url}</em>. Nahrajte soubor, pokud chcete odebrat existující adresu URL a místo toho načíst zdroj ze souboru (není doporučeno).
+        administration_settings: Správa nastavení <small>(viditelné pouze správcům EOL)</small>
         dataset: Dataset
+        dataset_existing_remove: Soubor <em>% {název_souboru}</em> je v současné době spojen s tímto zdrojem. Zadejte adresu URL, pokud chcete nahradit stávající <em>% {název_souboru}</em> soubor a místo toho načíst zdroj z adresy URL doporučeno).
+        dataset_existing_replace: Soubor <em>% {název_souboru}</em> je v současné době spojen s tímto zdrojem. Nahrajte nový soubor, abyste nahradili stávající soubor <em>% {název_souboru}</em> .
+        dwc_archive_url: "Pokud existuje archiv Darwin Core spojený s tímto zdrojem, zadejte adresu URL zde <small>(TAR.GZIP, TAR.GZ nebo pouze TGZ)</small>:"
         hierarchy: Hierarchie
+        latest_harvest_event: Poslední sklizně
         latest_published_harvest_event: Naposledy publikováno
         oldest_published_harvest_event: Poprvé publikováno
         refresh_period_hours: Frekvence
         resource_status: Stav
         resource_status_id: Stav
+        resource_url_or_file: Zdroj dat <small>(zvolte pro zadání adresy URL nebo pro nahrání souboru)</small>
         resource_url_or_file_upload: Nahrát soubor zdroje
         resource_url_or_file_url: Nahrát zdroj z URL
         title: Název zdroje
       session: 
         password: Heslo
+        remember_me: Zůstat přihlášen 2 týdny
         username_or_email: Uživatelské jméno nebo email
       translated_content_page: 
         active_translation: Publikováno
+        active_translation_more: Publikované překlady budou veřejně viditelné, pokud samotná stránka není neveřejná. Pokud chcete zabránit běžným uživatelům v zobrazení tuto verzi stránky, zrušte zaškrtnutí políčka <em>publikoval</em> .
         language_id: Jazyk
+        meta_description_more: Uveďte stručný popis, shrnující klíčové pojmy obsahu stránky. Tento popis je někdy používán webovými vyhledávači pro kontrolu relevance i pro zařazení do výsledků vyhledávání.
         meta_keywords_more: Zadejte seznam slov a krátkých vět oddělených čárkami, které nejlépe vystihují obsah stránky. Těchto klíčových slov a slovních spojení někdy používají vyhledávače k posouzení relevance stránek pro hledané termíny.
+        title_more: Název tohoto obsahu se zobrazí v oblasti záhlaví stránky. Název by měl obsahovat klíčová slova nejvíce relevantní k obsahu.
+      translated_news_item: 
+        active_translation: Publikováno
+        active_translation_more: Publikované překlady budou veřejně viditelné, pokud je nový příspěvek publikován. Odškrtněte políčko <em>publikováno</em>, pokud chcete běžným uživatelům zabránit, aby tuto verzi příspěvku viděli.
+        body_more: "Zadejte obsah položky zpráv v hlavní oblasti. Pomocí rozevíracího seznamu <em>Formát</em> vyberte odpovídající sémantické textové prvky, například vyberte <em>Nadpis 2</em> pro nadpisy druhé úrovně. Poznámka: <em>Nadpis 1</em> je vyhrazen pro název položky zprávy, takže nadpisy v hlavní oblasti začínají <em>Nadpis 2</em>. Vyberte <em>zdroj</em> pro přepnutí do zobrazení kódu zdroje HTML, který umožňuje ručně vložit a upravit kód HTML."
+        language_id: Jazyk
+        meta_description_more: Uveďte stručný popis, shrnující klíčové pojmy obsahu stránky. Tento popis je někdy používán webovými vyhledávači pro kontrolu relevance i pro zařazení do výsledků vyhledávání.
+        meta_keywords_more: Zadejte seznam slov a krátkých vět oddělených čárkami, které nejlépe vystihují obsah stránky. Těchto klíčových slov a slovních spojení někdy používají vyhledávače k posouzení relevance stránek pro hledané termíny.
+        title_more: Název této zprávy se zobrazí v oblasti záhlaví stránky. Název by měl obsahovat klíčová slova nejvíce relevantní k obsahu.
       user: 
+        agreed_with_terms: Souhlasím s <a href="%{terms_url}">podmínkami použití</a>
+        api_key_more: Přečtěte si více o <a href="%{api_docs_url}">přidáním klíče k volání v rozhraní API</a>.
         bio: O mně
         credentials: Pověření
+        credentials_more: "Uveďte alespoň jedno konkrétní pověření z tohoto seznamu:"
+        credentials_more_academic: Status fakulty, zaměstnanců nebo postgraduálních studentů v příslušném oddělení univerzity nebo vysoké školy.
+        credentials_more_author: Autorství recenzované publikace (uveďte odkaz).
         credentials_more_professional: Člen odborné společnosti.
         credentials_more_referral: Doporučení od aktuálního kurátora.
         credentials_more_successful_assistant_curator: Historie úspěchu jako pomocného kurátora.
         curation_application: Staňte se kurátorem
         curation_application_more: Pokud chcete upravit kurátorská oprávnění, podejte si žádost a ověříme vaši způsobilost.
         curation_priveleges_credentials: Pověření <small>(pouze plní a hlavní kurátoři)</small>
+        curator_level: Nacházíte se v současné době % {curator_level_with_indefinite_article}.
         curator_scope: Rozsah kuratury
+        curator_scope_more: "Uveďte rozsah svých znalostí. Například: \"Hlodavci Borneo\", \"Tri-trofické interakce\" nebo \"Problémy s konzervací ryb\". Toto neomezí vaši možnost vést projekty, ale informuje společenství EOL."
         email: E-mailová adresa
         email_reports_frequency_hours: Jak často chcete dostávat emailové oznámení o aktivitě u vašich příspěvků?
         email_settings_submit: konfigurace emailu
         entered_password: Heslo <small>(4-16 znaků)</small>
+        generate_api_key: Požadujte API klíč
+        generate_api_key_more: Pokud máte zájem o užívání EOL API, můžete vygenerovat API klíč k identifikaci aplikace. Přečtěte si více o <a href="%{api_docs_url}">přidávání klíče k volání v rozhraní API</a>.
         logo: Nahrát novou fotku
         new_password: Nové heslo <small>(4-16 znaků)</small>
         new_password_confirmation: Nové heslo <small>(pro potvrzení)</small>
@@ -1081,11 +1147,16 @@ cs:
         notification_settings_more: Nastavte si oznamování.
         open_authentications: Připojené účty
         open_authentications_connected_accounts: Vaše připojené účty
+        open_authentications_more: Správa připojení k cizím účtům, které používáte k přihlašování k EOL. <a href="%{open_authentications_url}">Edit připojené účty</a>.
         requested_curator_level: Vaše žádost o zařazení %{curator_level_with_indefinite_article} čeká na vyřízení.
         requested_curator_level_id_more: Pokud ještě nemáte žádnou kvalifikaci, zvolte <em>Pomocný kurátor</em> . Pokud jste profesionální vědec nebo postgraduální student s doloženou kvalifikací, zvolte <em>Plný kurátor</em>. Jestliže jste zkušený EOL kurátor a chcete převzít větší odpovědnost, zvolte <em>Hlavní kurátor</em>.
+        tag_line: "Doplňující text nebo titul <small>příklad: \"Ptačí nadšenec\"</small>"
         user_identities: Jsem
         username: Uživatelské jméno <small>(4 - 32 znaků)</small>
         username_or_email: Uživatelské jméno nebo email
+      wikipedia_queue: 
+        revision_url: Revize URL <small>(např. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url_more: Zadáním adresy URL revize na Wikipedii požadujete, aby EOL přijal tuto konkrétní revizi jako prověřenou. Pokud už ji máme, nahradí aktuální verzi tohoto článku v EOL.
     select: 
       prompt: Vyberte prosím
     submit: 
@@ -1099,22 +1170,51 @@ cs:
         edit: Upravit
         preview: Náhled
         update: Aktualizovat stránku
+      content_partner: 
+        create: Vytvoření partnera obsahu
+        update: Uložit informace o partnerovi obsahu
+      content_partner_agreement: 
+        agree: Souhlasit s podmínkami partnera obsahu
+        create: Vytvořit novou dohodu
+        update: Aktualizovat dohodu
       content_partner_contact: 
         create: Přidat kontakt
         destroy: Smazat kontakt
+        update: Aktualizovat kontakt
       create: Vytvořit %{model}
       data_object: 
         create: Přidat článek
         create_text: Přidat článek
         update: Uložit článek
+      data_object_link: 
+        create: Přidat odkaz
+        update: Uložit odkaz
+      eol_statistic: 
+        change_date: Získat statistiky pro data
+        download_csv: Stáhnout jako CSV
+      filter_sort: Filtrovat a seřadit
       harvest_event: 
         publish: Publikovat
+      hierarchy: 
+        request_publish: Požadavek na podporu hierarchie
+        update: Aktualizovat hierarchii
       name: 
         create: Přidat název
         update: Aktualizovat název
+      news_item: 
+        create: Vytvořit novou položku
+        edit: Editovat
+        preview: Náhled
+        update: Aktualizace položky
+      open_authentication: 
+        create: Připojit
+        destroy: Odpojit
+        update: Ověření připojení
       resource: 
         create: Přidat zdroj
+        force_harvest: Vynucení sklizně
         update: Aktualizovat zdroj
+        update_settings: Aktualizovat nastavení
       session: 
         create: Přihlásit se
         sign_in_with_facebook: Přihlásit se prostřednictvím Facebooku
@@ -1123,6 +1223,9 @@ cs:
         sign_in_with_yahoo: Přihlásit se prostřednictvím Yahoo
       submit: Uložit %{model}
       translated_content_page: 
+        create: Přidat překlad
+        update: Uložit změny v překladu
+      translated_news_item: 
         create: Přidat překlad
         update: Uložit změny v překladu
       update: Aktualizovat %{model}
@@ -1322,7 +1425,6 @@ cs:
   next: Další
   no_answer: Ne
   no_record_found_matching_your_criteria: Žádný záznam odpovídající vašim kriteriím.
-  no_results_for: žádné výsledky pro
   no_tasks_found: Žádné úkoly
   none: žádné
   not_applicable: není použitelné

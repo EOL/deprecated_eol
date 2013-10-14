@@ -928,6 +928,7 @@ sr:
   daily: Дневно
   darwin_core: Дарвиново језгро
   dashboard: Управљачка табла
+  data: Подаци
   data_database_colon: "Подаци:"
   data_logging_active: Записивање података је активно
   data_master_database_colon: "Матични подаци:"
@@ -1734,7 +1735,6 @@ sr:
   no_items_were_copied_to_collections_error: "Ниједна ставка није умножена у збирке: %{names}."
   no_record_found_matching_your_criteria: Не могу да пронађем ништа што се поклапа с критеријумом.
   no_related_names: Ниједан назив није повезан с овим таксоном.
-  no_results_for: нема резултата за
   no_search_suggestions_are_avai: Нема предлога који одговарају вашем захтеву.
   no_survey_responses_are_availa: Нема анкетних одговора.
   no_tasks_found: Не могу да пронађем задатке

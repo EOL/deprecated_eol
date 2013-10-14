@@ -1708,6 +1708,7 @@ gl:
   daily: Diariamente
   darwin_core: Darwin Core
   dashboard: Panel de control
+  data: Datos
   data_database_colon: "Datos:"
   data_logging_active: Rexistro activo dos datos
   data_master_database_colon: "Datos principais:"
@@ -2908,7 +2909,6 @@ gl:
   no_news_items_for_month_and_year: Non houbo ningunha nova en %{month_and_year}
   no_record_found_matching_your_criteria: Non se atopou ningún rexistro que coincidise cos teus criterios de procura.
   no_related_names: Este taxon aínda non ten relacionado ningún nome.
-  no_results_for: non se atopou ningún resultado para
   no_search_suggestions_are_avai: Non hai ningunha suxestión de procura dispoñible que coincida cos teus criterios de procura.
   no_survey_responses_are_availa: Non hai dispoñible ningunha resposta á enquisa.
   no_tasks_found: Non se atopou tarefa ningunha

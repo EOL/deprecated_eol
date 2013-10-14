@@ -2759,7 +2759,6 @@ oc:
   no_news_items_for_month_and_year: Pas cap d'actualitat per %{month_and_year}
   no_record_found_matching_your_criteria: Cap d'enregistrament pas trobat que corresponda a vòstres critèris.
   no_related_names: Cap de nom es pas ligat a aqueste taxon pel moment.
-  no_results_for: pas cap de resultat per
   no_survey_responses_are_availa: Cap de responsa a un sondatge es pas disponibla.
   no_tasks_found: Cap de prètfach pas trobat
   no_uploaded_content_is_available: Cap de contengut telecargat es pas disponible.

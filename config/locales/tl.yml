@@ -2618,7 +2618,6 @@ tl:
   no_items_were_copied_to_collections_error: "Walang mga bagay na nakopya papunta sa mga kalipunang: %{names}."
   no_record_found_matching_your_criteria: Walang natagpuang pagtatala na tumutugma sa saligan mo.
   no_related_names: Walang pang mga pangalang naiugnay sa takson na ito.
-  no_results_for: walang mga resulta para sa
   no_search_suggestions_are_avai: Walang makuhang mga mungkahi sa paghahanap na tumutugma sa iyong saligang panghanap.
   no_survey_responses_are_availa: Walang makuhang mga pagtugon sa pagtatanung-tanong.
   no_tasks_found: Walang natagpuang mga gawain

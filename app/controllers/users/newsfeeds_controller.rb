@@ -1,6 +1,7 @@
 class Users::NewsfeedsController < UsersController
 
   skip_before_filter :extend_for_open_authentication
+  before_filter :clear_session_partial
 
   # GET /users/:user_id/newsfeed
   def show
@@ -21,7 +22,10 @@ class Users::NewsfeedsController < UsersController
         # reset last-seen dates:
         # QUESTION: if they see this all newsfeed, doesn't that mean they also see their new messages i.e. last_message_at should be updated too?
         # QUESTION: what if they only see page 1 of their latest notifications?
-        user.update_column(:last_notification_at, Time.now) if user.id == current_user.id
+        if user.id == current_user.id
+          user.update_column(:last_notification_at, Time.now)
+          user.expire_primary_index
+        end
         # Uses log results to calculate page numbering for rel link tags
         set_canonical_urls(:for => @user, :paginated => @user_activity_log, :url_method => :user_newsfeed_url)
       }
@@ -38,7 +42,10 @@ class Users::NewsfeedsController < UsersController
         @parent = user # for new comment form
         @user_activity_log = user.activity_log(:news => true, :filter => 'messages', :page => params[:page] || 1, :user => current_user)
         # reset last-seen dates:
-        user.update_column(:last_message_at, Time.now) if user.id == current_user.id
+        if user.id == current_user.id
+          user.update_column(:last_message_at, Time.now)
+          user.expire_primary_index
+        end
         set_canonical_urls(:for => user, :paginated => @user_activity_log, :url_method => :comments_user_newsfeed_url)
       }
       format.js do # link is called with AJAX to get pending count for session summary
@@ -52,5 +59,11 @@ protected
     @user ||= User.find(params[:user_id])
   end
   helper_method :user
+
+  def clear_session_partial
+    if user && user == current_user
+      expire_fragment("sessions_#{current_user.id}")
+    end
+  end
 
 end

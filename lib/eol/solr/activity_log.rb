@@ -233,7 +233,7 @@ module EOL
         page = options[:page] ? options[:page].to_i : 1
         offset = (page - 1) * per_page
         parameters = options.dup
-        parameters[:sort] = 'date_created+desc'
+        parameters[:sort] = options[:sort_by] || 'date_created+desc'
         parameters[:fl] = 'activity_log_type,activity_log_id,user_id,date_created'
         parameters[:group] = 'true'
         parameters['group.field'] = 'activity_log_unique_key'

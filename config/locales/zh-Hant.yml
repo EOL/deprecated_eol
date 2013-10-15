@@ -4,7 +4,7 @@
 # Author: Dream
 # Author: Shangkuanlc
 # Author: Taieol
-zh-TW: 
+zh-Hant: 
   0_1_or_2: 0、1 或 2
   0_or_1: 0 或 1
   a_maximum_of_30_results_are_returned: 每頁最多可回報30個結果。這個參數讓您在相符合的結果超過30個的時候，能取得更多的結果頁面。

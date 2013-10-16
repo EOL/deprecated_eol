@@ -2,6 +2,7 @@
   = render :partial => 'shared/social_sharing'
 -# TODO - These should actually be links to filtered versions of this page, for accessibility.
 - include_other_category = !@data_point_uris.empty? && (@data_point_uris.detect{ |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? })
+= render 'shared/beta_warning'
 #tabs_sidebar.data
   -# NOTE - subtabs class adds behavior, tabs subclass adds style. We need both (q.v. about.html.haml)
   %ul.subtabs.tabs.with_icons

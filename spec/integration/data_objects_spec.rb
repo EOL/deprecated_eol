@@ -206,6 +206,7 @@ describe 'Data Object Page' do
   it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
+    # TODO - it's not there.  :|
     assoc_id = @image.data_object_taxa.first.id
     review_status_should_be(assoc_id, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"

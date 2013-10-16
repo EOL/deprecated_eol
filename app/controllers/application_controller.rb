@@ -206,7 +206,6 @@ class ApplicationController < ActionController::Base
   def clear_all_caches
     Rails.cache.clear
     remove_cached_feeds
-    remove_cached_list_of_taxon_concepts
     # The docs warn about doing this, TODO - should we remove it?
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear
@@ -810,11 +809,6 @@ private
 
   def remove_cached_feeds
     FileUtils.rm_rf(Dir.glob(Rails.root.join(Rails.public_path, 'feeds', '*')))
-  end
-
-  def remove_cached_list_of_taxon_concepts
-    FileUtils.rm_rf(Rails.root.join(Rails.public_path, 'content', 'tc_api', 'page'))
-    expire_page( :controller => 'content', :action => 'tc_api' )
   end
 
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values

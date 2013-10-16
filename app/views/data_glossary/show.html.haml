@@ -2,6 +2,8 @@
   #content
     #known_uris.site_column.glossary
       = render 'shared/beta_warning'
+      - @known_uris = KnownUri.all
+      - @known_uris.delete_if{ |ku| ku.name.blank? }
       - a_to_z = ('A'..'Z').to_a
       - a_to_zero = a_to_z + [ '0' ]
       %h3

@@ -3209,6 +3209,7 @@ en:
   data_column_units: "Units"
   data_column_source: "Source"
   data_database_colon: "Data:"
+  data_glossary: "Data Glossary"
   data_logging_active: "Data Logging Active"
   data_master_database_colon: "Data Master:"
   data_metadata_subtable_summary: "Additional data about this fact."
@@ -4241,7 +4242,7 @@ en:
   see_all_editors_with_count:
     one: "See the %{count} manager"
     other: "See all %{count} managers"
-  see_in_glossary: "see in glossary"
+  see_in_data_glossary: "see in data glossary"
   see_notes: "see notes"
   see_more_on_the_data_tab: "see more on the data tab"
   see_this_record_in_virtuoso: "see this record in Virtuoso"

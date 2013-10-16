@@ -164,6 +164,14 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def self.all_measurement_type_known_uris
+    @@all_measurement_type_known_uris = Rails.cache.fetch("known_uri/all_measurement_type_known_uris", :expires_in => 1.day) do
+      all_uris = all_measurement_type_uris
+      all_known_uris = KnownUri.find_all_by_uri(all_uris)
+      all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } || uri }
+    end
+  end
+
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_value_uris
     result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count

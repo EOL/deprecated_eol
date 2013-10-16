@@ -364,6 +364,7 @@ class KnownUrisController < ApplicationController
 
   def clear_cache
     Rails.cache.delete("known_uri/all_measurement_type_uris")
+    Rails.cache.delete("known_uri/all_measurement_type_known_uris")
   end
 
 end

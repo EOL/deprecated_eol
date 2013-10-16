@@ -217,10 +217,7 @@ class DataPointUri < ActiveRecord::Base
           FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
         }
       }"
-    cache_name = Digest::MD5.hexdigest(uris_to_lookup.join(''))
-    metadata_rows = Rails.cache.fetch(DataPointUri.cached_name_for("metadata/#{cache_name}"), expires_in: 24.hours) do
-      EOL::Sparql.connection.query(query)
-    end
+    metadata_rows = EOL::Sparql.connection.query(query)
     metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)
     KnownUri.add_to_data(metadata_rows)
     # not using TaxonDataSet here since that would create DataPointURI entries in the database, and we really

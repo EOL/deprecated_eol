@@ -1,6 +1,7 @@
 class DataSearchFile < ActiveRecord::Base
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id, :completed_at
+  attr_accessor :results
 
   belongs_to :user
   belongs_to :language
@@ -39,10 +40,11 @@ class DataSearchFile < ActiveRecord::Base
     return @filename if @filename
     path = "something.csv"
     if known_uri
-      path = "#{known_uri.name}.csv" 
+      path = "#{known_uri.name}"
       path += "_f#{from}" unless from.blank?
       path += "-#{to}" unless to.blank?
       path += "_by_#{sort}" unless sort.blank?
+      path += ".csv"
     else
       # TODO - handle other filename cases (ie: when there is no attribute known_uri) as needed. Right now, that's impossible.
     end
@@ -57,11 +59,12 @@ class DataSearchFile < ActiveRecord::Base
 
   def get_data
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
-    results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
-      sort: sort, per_page: LIMIT) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
+    @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
+      sort: sort, per_page: LIMIT, :for_download => true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
     # TODO - handle the case where results are empty.
     rows = []
-    results.each do |data_point_uri|
+    DataPointUri.assign_bulk_metadata(@results, user.language)
+    @results.each do |data_point_uri|
       rows << data_point_uri.to_hash(user.language)
     end
     rows
@@ -86,6 +89,9 @@ class DataSearchFile < ActiveRecord::Base
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
+    end
+    if @results.total_entries > LIMIT
+      csv << [ Sanitize.clean(I18n.t(:data_beta_search_limit, count: LIMIT)) ]
     end
   end
 

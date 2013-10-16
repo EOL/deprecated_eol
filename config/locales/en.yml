@@ -3242,6 +3242,7 @@ en:
   data_search_explanation: "Use EOL's data search to find items matching '%{term}' in observations,<br/>measurements and other scientific assertions."
   data_search_attribute: "Search EOL's data about \"%{attribute}\" in observations,<br/>measurements and other scientific assertions."
   data_search_destroyed: "This job will no longer be processed."
+  data_server_unavailable: "Data on EOL is temporarily unavailable. Please check back later. Sorry for any inconvenience."
   data_show_n_more_rows: "Show NNN more..."
   data_subtab_about: "About"
   data_subtab_glossary: "Glossary"

@@ -11,7 +11,9 @@ class TaxonDataExemplarPicker
     @taxon_concept_id = taxon_data.taxon_concept.id
   end
 
+  # Note - returns nil if the connection to the triplestore is bad.
   def pick(taxon_data_set)
+    return nil unless taxon_data_set # This occurs if the connection to the triplestore is broken or bad.
     # TODO - Might be wise here to grab exemplars first; if there are enough to fill the list, no need to load all the data.
     taxon_data_set = reject_bad_known_uris(taxon_data_set)
     taxon_data_set = reject_hidden(taxon_data_set)

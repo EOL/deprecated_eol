@@ -42,7 +42,7 @@ protected
   end
 
   def load_glossary
-    @glossary_terms = @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri).uniq
+    @glossary_terms = @data_point_uris && @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri).uniq
   end
 
 end

@@ -134,6 +134,9 @@ class KnownUri < ActiveRecord::Base
       ORDER BY DESC(?count)
     ")
     group_counts_by_uri(result)
+  rescue Net::HTTP::Persistent::Error
+    # TODO - remember that the connection is bad, somehow.
+    {}
   end
 
   # TODO - move this to Virtuoso lib.
@@ -150,6 +153,9 @@ class KnownUri < ActiveRecord::Base
       ORDER BY DESC(?count)
     ")
     group_counts_by_uri(result)
+  rescue Net::HTTP::Persistent::Error
+    # TODO - remember that the connection is bad, somehow.
+    {}
   end
 
   def self.all_measurement_type_uris
@@ -170,6 +176,9 @@ class KnownUri < ActiveRecord::Base
       ORDER BY DESC(?count)
     ")
     group_counts_by_uri(result)
+  rescue Net::HTTP::Persistent::Error
+    # TODO - remember that the connection is bad, somehow.
+    {}
   end
 
   # TODO - move this to Virtuoso lib.
@@ -184,6 +193,9 @@ class KnownUri < ActiveRecord::Base
       ORDER BY DESC(?count)
     ")
     group_counts_by_uri(result)
+  rescue Net::HTTP::Persistent::Error
+    # TODO - remember that the connection is bad, somehow.
+    {}
   end
 
   def self.unknown_measurement_unit_uris

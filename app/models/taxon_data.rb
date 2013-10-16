@@ -38,6 +38,9 @@ class TaxonData < TaxonUserClassificationFilter
     WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
        pager.replace(data_point_uris)
     end
+  rescue Net::HTTP::Persistent::Error
+    @bad_connection = true
+    nil
   end
 
   def self.prepare_search_query(options={})
@@ -91,19 +94,23 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def downloadable?
-    ! get_data.empty?
+    ! bad_connection? && ! get_data.empty? 
   end
 
   def topics
+    return [] if bad_connection?
     @topics ||= get_data.map { |d| d[:attribute] }.select { |a| a.is_a?(KnownUri) }.uniq.compact.map(&:name)
   end
 
   def categories
+    return [] if bad_connection?
     get_data unless @categories
     @categories
   end
 
+  # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
+    return nil if bad_connection?
     return @taxon_data_set if @taxon_data_set
     taxon_data_set = TaxonDataSet.new(data, taxon_concept_id: taxon_concept.id, language: user.language)
     taxon_data_set.sort
@@ -114,18 +121,20 @@ class TaxonData < TaxonUserClassificationFilter
                                     { :known_uri_relationships_as_target => :from_known_uri } ] )
     @categories = known_uris.flat_map(&:toc_items).uniq.compact
     @taxon_data_set = taxon_data_set
+  rescue Net::HTTP::Persistent::Error
+    @bad_connection = true
+    nil
   end
 
+  # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
   def get_data_for_overview
     picker = TaxonDataExemplarPicker.new(self)
     picker.pick(get_data)
   end
 
-  def to_csv
-    CSV.generate do |csv|
-      csv << [I18n.t(:something)] # <-- TODO, clearly.
-      # TODO - I stopped here; realized we wanted to do the other one, first.  ;)  Moving on, moving on...
-    end
+  # NOTE - this is ONLY true after you have TRIED something and it returned nil. We don't actively go check it. :\
+  def bad_connection?
+    @bad_connection
   end
 
   private

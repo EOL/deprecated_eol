@@ -1,4 +1,3 @@
-
 - if @results.blank?
   .empty
     %p= @attribute ? I18n.t(:no_results_for_search_term, :search_term => @querystring) : I18n.t(:must_provide_attribute_for_search_error)

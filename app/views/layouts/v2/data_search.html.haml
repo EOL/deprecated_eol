@@ -16,6 +16,7 @@
   #content
     .site_column
       #data_search
+        = render partial: 'shared/beta_warning', locals: { extra: I18n.t(:data_beta_search_limit) }
         .filters
           = form_tag data_search_path, :method => 'get' do
             %fieldset

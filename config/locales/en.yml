@@ -2677,6 +2677,9 @@ en:
   belongs_in_count_communities:
     one: "Belongs to %{count} Community"
     other: "Belongs to %{count} Communities"
+  beta_warning_header: "You are using a feature in beta."
+  beta_warning_body: "You have been given access to features of EOL that most users cannot see or use. Please note that performance and data may be unpredictable as the system is under ongoing development, but we invite you to explore. Please provide feedback when you have a chance! Thank you."
+  beta_warning_note_header: "Note:"
   bhl: "Biodiversity Heritage Library"
   bhl_partner_footer: "Visit the Biodiversity Heritage Library"
   bhl_publication: "BHL publication"
@@ -3193,6 +3196,7 @@ en:
   data: "Data"
   data_about_subtab_header: "About Data on EOL"
   data_about_subtab_content: "<p>Data and metadata are gathered from multiple sources into a single, fully-referenced and semantically accessible taxon-centric view.</p><p>To see additional details on any data value, click on the data value. Click on the %{img} symbol for a definition of the data type.</p><p>You must be logged in to EOL to leave a comment, input data, provenance, URIs and other data directly to EOL. You may need to <a href='/users/register'>register for a free EOL account,</a> first. If you would like to recommend a data set for inclusion in EOL, or if you have data sets you would like to share through EOL, please contact us at <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Funding for the development of EOL computable data functionality provided by the Alfred P. Sloan Foundation, the John D. and Catherine T.  MacArthur Foundation, and from EOL users around the world. To learn more about the TraitBank™ project, please contact <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>"
+  data_beta_search_limit: "Data search is <i>temporarily</i> limited to 500 results."
   data_about_this_record: "Data about this record"
   data_column_tc_id: "EOL page ID"
   data_column_sci_name: "Scientific Name"

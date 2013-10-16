@@ -4227,7 +4227,7 @@ en:
     other: "See all <span class=\"assistive\">%{count} communities that feature this page.</span>"
   see_all_data_with_count_html:
     zero: "View the data tab<span class=\"assistive\">for this taxon.</span>"
-    one: "See the <span class=\"assistive\">%{count} fact for this taxon.</span>"
+    one: "View <span class=\"assistive\">the %{count} fact for this taxon.</span>"
     other: "See all <span class=\"assistive\">%{count} facts for this taxon.</span>"
   see_all_featured_collections_with_count:
     one: "See the %{count} featured collection."

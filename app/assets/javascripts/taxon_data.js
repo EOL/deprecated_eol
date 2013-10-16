@@ -420,4 +420,8 @@ $(function() {
   EOL.info_hints(); // Note this needs to happen *after* the info icons are added.
   EOL.enable_hover_list_items();
 
+  $('.page_actions .data_download a').click(function() {
+    window.alert($(this).parent().attr('data-alert').replace(/<\/?[^>]+>/g, ''));
+  });
+
 });

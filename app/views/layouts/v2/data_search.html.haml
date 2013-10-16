@@ -8,7 +8,7 @@
       .page_actions
         %ul
           - if @results && !@results.blank?
-            %li
+            %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
               - if false # set this to true if you wanna test background downloads.
                 = link_to I18n.t(:download_data), url_for(params: params.merge(format: "js")), :class => 'button', remote: true
               - else
@@ -16,7 +16,7 @@
   #content
     .site_column
       #data_search
-        = render partial: 'shared/beta_warning', locals: { extra: I18n.t(:data_beta_search_limit) }
+        = render partial: 'shared/beta_warning', locals: { note: I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) }
         .filters
           = form_tag data_search_path, :method => 'get' do
             %fieldset

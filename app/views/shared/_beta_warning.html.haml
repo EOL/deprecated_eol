@@ -1,7 +1,7 @@
 .site_warning
   %h3= I18n.t(:beta_warning_header)
   %p= I18n.t(:beta_warning_body)
-  - if defined?(extra) && ! extra.blank?
+  - if defined?(note) && ! note.blank?
     %p.note
       = I18n.t(:beta_warning_note_header)
-      = extra.html_safe
+      = note.html_safe

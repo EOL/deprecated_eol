@@ -1,9 +1,15 @@
 class Language < ActiveRecord::Base
+
+  include IdentityCache
+
   uses_translations(:foreign_key => 'original_language_id')
   belongs_to :language_group, :foreign_key => :language_group_id
   has_many :data_objects
   has_many :users
   has_many :taxon_concept_names
+
+  #WAIT: has_many :translated_languages, foreign_key: 'original_language_id'
+  #WAIT: cache_has_many :translated_languages, embed: true
 
   attr_accessible :iso_639_1, :iso_639_2, :iso_639_3, :source_form, :sort_order, :activated_on, :language_group_id
 

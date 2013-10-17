@@ -1,18 +1,19 @@
-n = 10
+n = 1000
 
-@collection = Collection.find(2)
+all_data = DataObject.all.compact
+
+all_languages = Language.all
 
 Benchmark.bm do |x|
 
-  x.report("Solr size") do
+  x.report("All vetted labels") do
     n.times do
-      EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
-    end
-  end
-
-  x.report("Count") do
-    n.times do
-      @collection.collection_items.count
+      all_languages.each do |l|
+        I18n.locale = l.iso_639_1
+        all_data.each do |d|
+          d.vetted && d.vetted.label
+        end
+      end
     end
   end
 

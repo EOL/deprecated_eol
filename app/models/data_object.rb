@@ -651,10 +651,10 @@ class DataObject < ActiveRecord::Base
   # NOTE - You probably shouldn't be using these. It isn't really true that a data object has *one* visibility... it
   # has several. This is currently here only because the old API made that (false) assumption.
   def visibility
-    @visibility ||= raw_association.visibility
+    @visibility ||= raw_association && raw_association.visibility
   end
   def vetted
-    @vetted ||= raw_association.vetted
+    @vetted ||= raw_association && raw_association.vetted
   end
 
   # ATM, this is really only used by the User model to get the pages where the user commented...

@@ -7,13 +7,12 @@ class Vetted < ActiveRecord::Base
   has_many :curated_data_objects_hierarchy_entries
   has_many :users_data_objects
 
-  eigenclass = class << self; self; end
-
   include EnumDefaults
 
   set_defaults :label,
     %w(Trusted Unknown Untrusted Inappropriate),
-    translated: true
+    translated: true,
+    autoinc_field: 'view_order' # Creates this field IN ORDER OF DEFAULTS...
 
   def self.trusted_ids
     self.trusted.id.to_s

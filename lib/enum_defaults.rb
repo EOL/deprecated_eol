@@ -10,6 +10,7 @@ module EnumDefaults
       @enum_defaults = defaults
       @enum_default_params = options[:default_params] || {}
       @enum_default_translated_params = options[:default_translated_params] || {}
+      @enum_autoinc_field = options[:autoinc_field]
       @enum_translated = options[:translated]
       @enum_translated_class = Kernel.const_get("Translated#{self.name}") if @enum_translated
       @enum_foreign_key = self.name.foreign_key
@@ -47,9 +48,13 @@ module EnumDefaults
               params[@enum_autoinc_field] = order + 1
             end
             this = create(params)
-            trans = @enum_translated_class.send(:create, @enum_default_translated_params.merge(
-              @enum_foreign_key: this.id,
-              @enum_field => default
+            trans =
+              @enum_translated_class.send(:create,
+                                          @enum_default_translated_params.reverse_merge(
+                                              language_id: Language.default.id
+                                            ).merge(
+                                            @enum_foreign_key => this.id,
+                                            @enum_field => default
             ))
           end
         end

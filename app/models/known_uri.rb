@@ -10,6 +10,7 @@ class KnownUri < ActiveRecord::Base
   TAXON_RE = Rails.configuration.known_taxon_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
 
+  extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   include EOL::CuratableAssociation
 
   acts_as_list
@@ -125,37 +126,35 @@ class KnownUri < ActiveRecord::Base
 
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_unit_uris
-    result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
-      WHERE {
-        ?measurement dwc:measurementUnit ?uri .
-        FILTER (isURI(?uri))
-      }
-      GROUP BY ?uri
-      ORDER BY DESC(?count)
-    ")
-    group_counts_by_uri(result)
-  rescue Net::HTTP::Persistent::Error
-    # TODO - remember that the connection is bad, somehow.
-    {}
+    if_connection_fails_return({}) do
+      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+        WHERE {
+          ?measurement dwc:measurementUnit ?uri .
+          FILTER (isURI(?uri))
+        }
+        GROUP BY ?uri
+        ORDER BY DESC(?count)
+      ")
+      group_counts_by_uri(result)
+    end
   end
 
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_type_uris
-    result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
-      WHERE {
-        ?measurement a <#{DataMeasurement::CLASS_URI}> .
-        ?measurement dwc:measurementType ?uri .
-        ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
-        FILTER ( ?measurementOfTaxon = 'true' ) .
-        FILTER (CONTAINS(str(?uri), '://'))
-      }
-      GROUP BY ?uri
-      ORDER BY DESC(?count)
-    ")
-    group_counts_by_uri(result)
-  rescue Net::HTTP::Persistent::Error
-    # TODO - remember that the connection is bad, somehow.
-    {}
+    if_connection_fails_return({}) do
+      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+        WHERE {
+          ?measurement a <#{DataMeasurement::CLASS_URI}> .
+          ?measurement dwc:measurementType ?uri .
+          ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+          FILTER ( ?measurementOfTaxon = 'true' ) .
+          FILTER (CONTAINS(str(?uri), '://'))
+        }
+        GROUP BY ?uri
+        ORDER BY DESC(?count)
+      ")
+      group_counts_by_uri(result)
+    end
   end
 
   def self.all_measurement_type_uris
@@ -174,36 +173,34 @@ class KnownUri < ActiveRecord::Base
 
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_value_uris
-    result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
-      WHERE {
-        ?measurement a <#{DataMeasurement::CLASS_URI}> .
-        ?measurement dwc:measurementValue ?uri .
-        FILTER (CONTAINS(str(?uri), '://'))
-      }
-      GROUP BY ?uri
-      ORDER BY DESC(?count)
-    ")
-    group_counts_by_uri(result)
-  rescue Net::HTTP::Persistent::Error
-    # TODO - remember that the connection is bad, somehow.
-    {}
+    if_connection_fails_return({}) do
+      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+        WHERE {
+          ?measurement a <#{DataMeasurement::CLASS_URI}> .
+          ?measurement dwc:measurementValue ?uri .
+          FILTER (CONTAINS(str(?uri), '://'))
+        }
+        GROUP BY ?uri
+        ORDER BY DESC(?count)
+      ")
+      group_counts_by_uri(result)
+    end
   end
 
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_association_type_uris
-    result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
-      WHERE {
-        ?association a <#{DataAssociation::CLASS_URI}> .
-        ?association <#{Rails.configuration.uri_association_type}> ?uri .
-        FILTER (CONTAINS(str(?uri), '://'))
-      }
-      GROUP BY ?uri
-      ORDER BY DESC(?count)
-    ")
-    group_counts_by_uri(result)
-  rescue Net::HTTP::Persistent::Error
-    # TODO - remember that the connection is bad, somehow.
-    {}
+    if_connection_fails_return({}) do
+      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+        WHERE {
+          ?association a <#{DataAssociation::CLASS_URI}> .
+          ?association <#{Rails.configuration.uri_association_type}> ?uri .
+          FILTER (CONTAINS(str(?uri), '://'))
+        }
+        GROUP BY ?uri
+        ORDER BY DESC(?count)
+      ")
+      group_counts_by_uri(result)
+    end
   end
 
   def self.unknown_measurement_unit_uris

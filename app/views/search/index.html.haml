@@ -1,7 +1,10 @@
 - unless @suggestions.blank?
   = raw(I18n.t(:did_you_mean, :suggestions => @suggestions[0..5].map{ |s| link_to s.firstcap, search_path(:q => s) }.join(", ")))
-- previous_label = (@all_results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @all_results.per_page)
-- next_label = (@all_results.current_page == @all_results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @all_results.per_page)
+- unless @all_results.blank?
+  - previous_label = (@all_results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @all_results.per_page)
+  - next_label = (@all_results.current_page == @all_results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @all_results.per_page)
+-# previous_label = (@all_results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @all_results.per_page)
+-# next_label = (@all_results.current_page == @all_results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @all_results.per_page)
 .filtered_search
   .header
     - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
@@ -16,12 +19,12 @@
       :next_label => next_label, |
       :page_links=>false
   %ul.object_list
-    - if @all_results.blank? || @all_results.count < 4
-      %li{:class => 'data'}
-        = render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
+    - if @all_results.blank? # || @all_results.count < 4
+      -#%li{:class => 'data'}
+      -#=   render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
     - @all_results.each_with_index do |result, i|
       - result_instance = result['instance']
-      - if i == 3
+      - if false # i == 3
         %li{:class => 'data'}
           = render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
       - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.

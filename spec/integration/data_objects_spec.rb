@@ -174,7 +174,7 @@ describe 'Data Object Page' do
   it 'should be able curate a DOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
-    taid = @image.data_object_taxa.first.id
+    taid = @image.data_object_taxa_by_visibility(invisible: true).first.id
     review_status_should_be(taid, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{taid}"
     select "Hidden", :from => "visibility_id_#{taid}"
@@ -206,8 +206,8 @@ describe 'Data Object Page' do
   it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
-    # TODO - it's not there.  :|
-    assoc_id = @image.data_object_taxa.first.id
+    # TODO - it's not there.  :|  I wonder if maybe this is a cache thing?
+    assoc_id = @image.reload.data_object_taxa.first.id
     review_status_should_be(assoc_id, 'Trusted', 'Visible')
     select "Unreviewed", :from => "vetted_id_#{assoc_id}"
     select "Hidden", :from => "visibility_id_#{assoc_id}"

@@ -22,7 +22,7 @@ describe TaxonData do
 
   it 'should NOT run any queries on blank search' do
     EOL::Sparql.connection.should_not_receive(:query)
-    TaxonData.search(querystring: '').should be_nil
+    TaxonData.search(querystring: '').should == []
   end
 
   it 'should run queries on search and paginate results' do

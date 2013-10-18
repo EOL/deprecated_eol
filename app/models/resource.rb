@@ -1,16 +1,33 @@
+# A Resource is a dataset or compilation of media provided by a partner, harvested by EOL into data_objects and data_point_uris.
+# For example, a collection of images of butterflies.
+#
+# NOTES:
+#
+# The following fields store DEFAULT values for items IN the resource:
+#     license_id
+#     rights_holder 
+#     rights_statement
+# However, the resource ITSELF can be copyrightable in some jurisdictions, so the following apply to the resource as a whole:
+#     dataset_license_id
+#     dataset_rights_holder
+#     dataset_rights_statement
+#
+# accesspoint_url is THEIR hosted copy of the harvested resource.
+# dataset_source_url is the source of the data. ...Say... a paper.
+# dataset_hosted_url is OUR hosted copy of the resource.
+# dwc_archive_url is specific to LifeDesks, which refused to add taxonomy to their resource files
 class Resource < ActiveRecord::Base
-
-  # This class represents some notion of a set of data.  For example, a collection of images of butterflies.
 
   belongs_to :service_types
   belongs_to :license
+  belongs_to :dataset_license, class_name: 'License'
   belongs_to :language
   belongs_to :resource_status
   belongs_to :hierarchy
   belongs_to :content_partner
-  belongs_to :dwc_hierarchy, :foreign_key => 'dwc_hierarchy_id', :class_name => "Hierarchy"
+  belongs_to :dwc_hierarchy, class_name: 'Hierarchy'
   belongs_to :collection
-  belongs_to :preview_collection, :class_name => Collection.to_s, :foreign_key => :preview_collection_id
+  belongs_to :preview_collection, class_name: 'Collection'
 
   has_many :harvest_events
 

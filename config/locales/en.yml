@@ -2677,9 +2677,9 @@ en:
   belongs_in_count_communities:
     one: "Belongs to %{count} Community"
     other: "Belongs to %{count} Communities"
-  beta_warning_header: "You are using a feature in beta."
-  beta_warning_body: "You have been given access to features of EOL that most users cannot see or use. Please note that performance and data may be unpredictable as the system is under ongoing development, but we invite you to explore. Please provide feedback when you have a chance! Thank you."
-  beta_warning_small: "Please note that this feature is in beta and may be unpredictable."
+  beta_warning_header: "You are using a beta test feature"
+  beta_warning_body: "You have been given access to features of EOL that most users cannot see or use. Please note that performance and data may be unpredictable as the system is under development, but we invite you to explore. Please provide feedback when you have a chance! Thank you."
+  beta_warning_small: "Please note that this is a beta test feature and may be unpredictable."
   beta_warning_note_header: "Note:"
   bhl: "Biodiversity Heritage Library"
   bhl_partner_footer: "Visit the Biodiversity Heritage Library"

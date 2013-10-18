@@ -865,6 +865,10 @@ public
     object.unvet(self) if object and object.respond_to? :unvet and can_curate? object
   end
 
+  def revoke_admin
+    self.update_attributes(:admin => false)
+  end
+
   def revoke_curator
     # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and
     # add if-else loop to check if it successfully updated the attributes.

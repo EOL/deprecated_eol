@@ -66,12 +66,11 @@
             :classes => classes, :exemplar => exemplar, :excluded => excluded, |
             :row_is_selected => row_is_selected, :header_id => header_id }     |
   = render partial: 'glossary', locals: { hidden: true }
-  - if current_user.min_curator_level?(:full)
+  - if ! @data_point_uris.blank? && current_user.min_curator_level?(:full)
     .copy
-      %p.help_text
-        = raw I18n.t(:data_tab_curator_key_exemplar, image: image_tag("v2/icon_required.png"))
-        %br
-        = raw I18n.t(:data_tab_curator_key_excluded, image: image_tag("v2/icon_excluded.png"))
+      .help_text
+        .key= raw I18n.t(:data_tab_curator_key_exemplar, image: image_tag("v2/icon_required.png"), link: taxon_overview_path(@taxon_page))
+        .key= raw I18n.t(:data_tab_curator_key_excluded, image: image_tag("v2/icon_excluded.png"), link: taxon_overview_path(@taxon_page))
 - if current_user.min_curator_level?(:master)
   .add_content
     %p.add_data= link_to I18n.t(:master_curators_may_add_data), '#' # Ideally, that would be a link to the user_added_data/new path...

@@ -114,15 +114,13 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def force_immediate_notification_of(comment)
-    begin
-      PendingNotification.create!(:user_id => user_id,
-                                  :notification_frequency_id => NotificationFrequency.immediately.id,
-                                  :target => comment,
-                                  :reason => 'auto_email_after_curation')
-      Resque.enqueue(PrepareAndSendNotifications)
-    rescue => e
-      # Do nothing (for now)...
-    end
+    PendingNotification.create!(:user_id => user_id,
+                                :notification_frequency_id => NotificationFrequency.immediately.id,
+                                :target => comment,
+                                :reason => 'auto_email_after_curation')
+    Resque.enqueue(PrepareAndSendNotifications)
+  rescue => e
+    # Do nothing (for now)...
   end
 
 end

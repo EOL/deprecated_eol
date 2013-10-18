@@ -28,19 +28,17 @@ class ContentController < ApplicationController
   end
 
   def random_homepage_images
-    begin
-      number_of_images = (params[:count] && params[:count].is_numeric?) ? params[:count].to_i : 1
-      number_of_images = 1 if number_of_images < 1 || number_of_images > 10
-      random_images = RandomHierarchyImage.random_set(number_of_images).map do |random_image|
-        { :image_url => random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130'),
-          :taxon_scientific_name => random_image.taxon_concept.title_canonical,
-          :taxon_common_name => random_image.taxon_concept.preferred_common_name_in_language(current_language),
-          :taxon_page_path => taxon_overview_path(random_image.taxon_concept_id) }
-      end
-      render :json => random_images, :callback => params[:callback]
-    rescue
-      render :json => { :error => "Error retrieving random images" }
+    number_of_images = (params[:count] && params[:count].is_numeric?) ? params[:count].to_i : 1
+    number_of_images = 1 if number_of_images < 1 || number_of_images > 10
+    random_images = RandomHierarchyImage.random_set(number_of_images).map do |random_image|
+      { :image_url => random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130'),
+        :taxon_scientific_name => random_image.taxon_concept.title_canonical,
+        :taxon_common_name => random_image.taxon_concept.preferred_common_name_in_language(current_language),
+        :taxon_page_path => taxon_overview_path(random_image.taxon_concept_id) }
     end
+    render :json => random_images, :callback => params[:callback]
+  rescue
+    render :json => { :error => "Error retrieving random images" }
   end
 
   def replace_single_explore_taxa
@@ -350,11 +348,9 @@ private
   end
 
   def safely_shuffle(what)
-    begin
-      what.shuffle!
-    rescue TypeError => e # it's a frozen array, it's been cached somewhere.
-      what = (@explore_taxa.nil?) ? @explore_taxa : @explore_taxa.dup.shuffle!
-    end
+    what.shuffle!
+  rescue TypeError => e # it's a frozen array, it's been cached somewhere.
+    what = (@explore_taxa.nil?) ? @explore_taxa : @explore_taxa.dup.shuffle!
   end
 
   def language_dependent_collection_path

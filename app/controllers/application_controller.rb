@@ -55,11 +55,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    begin
-      I18n.locale = current_language.iso_639_1
-    rescue
-      I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
-    end
+    I18n.locale = current_language.iso_639_1
+  rescue
+    I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
   end
 
   def allow_login_then_submit

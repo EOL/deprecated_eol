@@ -102,7 +102,6 @@ class ContentPartners::ResourcesController < ContentPartnersController
                    :resources => [ :resource_status, :collection, :preview_collection, :license, :language, :harvest_events, :hierarchy, :dwc_hierarchy ]})
       @resource = @partner.resources.find(params[:id])
     end
-    access_denied unless current_user.can_read?(@resource)
     @page_subheader = I18n.t(:content_partner_resource_show_subheader, :resource_title => Sanitize.clean(@resource.title))
   end
 

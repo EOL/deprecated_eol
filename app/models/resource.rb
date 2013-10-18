@@ -70,7 +70,7 @@ class Resource < ActiveRecord::Base
   end
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_read_by?(user)
-    content_partner.user_id == user.id || user.is_admin?
+    true # NOTE - this was changed on 2013-10-18 in order to allow users to see resource pages and get (c) info on them.
   end
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_updated_by?(user)

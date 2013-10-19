@@ -163,6 +163,7 @@ zh-CN:
         rich_pages: 高质量页面
         rich_redhotlist_pages: 高质量红色关注页面
         rich_redhotlist_pages_percentage: 高质量红色关注页面百分比
+        total_triples: 三重
         udo_published: 用户提交的文本
         udo_published_by_curators: 管理员提交的文本
         udo_published_by_non_curators: 非管理员提交的文本
@@ -188,6 +189,10 @@ zh-CN:
         descriptive_label: 描述性标签
         label: 标签
         request_publish: 请求发布
+      known_uri: 
+        name: 名称
+        toc_items: 分类
+        uri: URI
       name: 
         string: 名称
       news_item: 
@@ -272,6 +277,11 @@ zh-CN:
         requested_curator_level_id: 需要的管理级别
         tag_line: 口号
         username: 用户名
+      user_added_data: 
+        object: 值
+        user: 加入自
+      user_added_data_metadata: 
+        object: 值
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -656,6 +666,7 @@ zh-CN:
   admin_link: 概述
   admin_login_confirmation: 您确定要以%{name}登录到内容合作伙伴注册表？如此，您的管理员登录状态将注销。
   admin_notes_not_visible_to_user: 管理员注释（对用户不可见）：
+  admin_option_changed: 值已更新。
   admin_page_title: 管理：概要
   admin_spam_delete: 删除垃圾
   admin_statistics_link: 统计
@@ -713,6 +724,7 @@ zh-CN:
   all: 所有
   all_apis_return_by_default_an_xml_response: 所有API默认返回XML的响应。调用API方法时，有无扩展名都可获得一致的响应：
   all_articles: 所有文章
+  all_categories: 所有
   all_changes: 所有变化
   all_collections: 所有收藏
   all_comments_entered_by_users: 用户输入的所有评论都按创建时间反序排列在下面。
@@ -803,6 +815,10 @@ zh-CN:
   average_rating_value_of_total: 平均评分： %{rating} (满分%{total})
   back: 返回
   back_to_profile: 返回到信息页
+  background_processes_created_head: 已创建
+  background_processes_download: 下载
+  background_processes_is_complete: 是
+  background_processes_is_not_complete: 否
   began: 开始
   belongs_in_count_communities: 
     other: 属于 %{count}个社区
@@ -1314,6 +1330,9 @@ zh-CN:
   daily: 每日
   darwin_core: 达尔文核心
   dashboard: 通告板
+  data_column_source: 来源
+  data_column_tc_id: EOL页面ID
+  data_column_val: 值
   data_database_colon: 数据：
   data_logging_active: 数据日志激活
   data_master_database_colon: 主数据库名：
@@ -1341,6 +1360,8 @@ zh-CN:
       meta_supplier_default: 一个贡献者
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
+  data_row_hide_button: 隐藏行
+  data_subtab_about: 关于
   data_usage_reports: 数据使用报告
   date_caps: 日期
   date_uploaded: 上传日期
@@ -1518,6 +1539,8 @@ zh-CN:
       menu_link: 策展人统计
       page_header: 策展人统计
       page_title: 统计
+    data: 
+      menu_link: 数据
     data_objects: 
       menu_link: 数据对象
       page_header: 数据对象统计
@@ -1720,6 +1743,7 @@ zh-CN:
   global_access_tagline: 为全球提供地球上生命的知识
   global_navigation: 全球导航
   glossary_is_empty: (术语表是空的)
+  glossary_subhead: 术语表
   glossary_term: 术语
   glossary_terms: 术语表
   go: 转到
@@ -2103,6 +2127,9 @@ zh-CN:
   json_response: JSON响应
   jsonp_by_adding_a_callback_parameter: …以及通过添加回调参数而成的JSONP
   just_pages_with_pictures_and_text: 仅包含图片和文本的页面
+  known_uri_category_header: 分类
+  known_uri_created: URI已加入。
+  known_uri_name_and_uri: "%{name}（%{uri}）"
   label: 标签
   language: 语言：
   language_selector_advisory_information: 以下是站点内容可用的语言列表，从该列表选择代替的语言替换当前语言。
@@ -2194,6 +2221,7 @@ zh-CN:
   license_cc_by_sa_3_0: 知识共享属名协议-相同方式共享3.0(CC BY-SA 3.0)
   license_gnu_fdl: GNU自由文档许可证(GNU FDL)
   license_gnu_gpl: GNU通用公共许可证(GNU GPL)
+  license_none: 无
   license_not_applicable: 不适用的授权协议
   license_public_domain: 公共领域
   licensing: 授权协议
@@ -2317,6 +2345,7 @@ zh-CN:
       videos: 视频
   moderator_colon: "版主:"
   monthly: 每月
+  more: 更多
   more_children_with_count: 
     other: 还有%{count}...
   more_siblings_with_count: 
@@ -2534,6 +2563,7 @@ zh-CN:
   or_move_them_to_existing_collection: 或者将其移动到一个已存在的收藏
   original: 原始：
   original_object: 原始项
+  other_category: 其他
   other_collection_items_with_count: 
     other: "%{count}个其它项"
   other_community_items_with_count: 
@@ -2867,6 +2897,7 @@ zh-CN:
   sound_rating: 声音评级
   sounds_with_count: 
     other: "%{count}个声音"
+  source: 来源
   source_and_additional_information: 来源和附属信息
   source_colon: 来源：
   source_information_header: 来源信息
@@ -3147,6 +3178,7 @@ zh-CN:
   taxon_citizen_science_link: 公众科学链接
   taxon_citizen_science_resources_empty: 本页暂无人提供公众科学链接。
   taxon_concept_stats: 分类概念状态
+  taxon_data_header: 关于%{taxon}的数据
   taxon_details_empty: 本页暂无人提供信息。
   taxon_education_empty: 本页暂无人提供教育资源。
   taxon_education_header: 教育资源
@@ -3260,6 +3292,7 @@ zh-CN:
   toc: 目录
   toc_entry_col_header: 目录条目
   toc_no_longer_available: 目录信息不再可用
+  top: 置顶
   topic: 主题
   topic_area: 主题区域
   topics_avilable_to_contact_us_info: 下面的主题区域可从联系我们的页面获得。您可以增加或者编辑主题区域以及相应的邮件地址。所有的更新都是即时的。
@@ -3314,6 +3347,7 @@ zh-CN:
   uploaded_by: 上传者
   uploaded_content: 上传的内容
   uploaded_on: 上传
+  uri: URI
   url: URL
   us_dolars_75: 75美元
   us_dollars_100: 100美元
@@ -3353,6 +3387,8 @@ zh-CN:
     other: "%{count}个分类单元被管理"
   user_activity_stats_wikipedia_nominated: 
     other: 提名了%{count}篇维基百科的文章
+  user_added_data: 
+    new_value: 值
   user_agent: 用户代理
   user_already_active_notice: 您的帐户已激活，请登录。
   user_comment: 用户评论

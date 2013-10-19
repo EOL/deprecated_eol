@@ -1773,7 +1773,7 @@ sv:
   download_wav_file: Ladda ned WAV-fil
   duplicate_comment_warning: "Kommentaren sparades inte: Det verkar som du redan har skickat denna kommentar. ...Klickade du på knappen 'Skicka kommentar' två gånger?"
   duplicate_items_were_ignored: Dubbletter av objekt ignorerades.
-  edit: Redigera
+  edit: redigera
   edit_collection_details: Redigera samlingsdetaljer
   edit_collection_details_header: Redigera samlingsdetaljer
   edit_comment: Redigera kommentar
@@ -3525,7 +3525,7 @@ sv:
   thank_you_for_your_generous_support: Tack för ditt generösa stöd!
   thanks_for_donation: Tack för att de stödjer Encyclopedia of Life. Din information har lämnats in och kommer att behandlas.
   thanks_for_your_time: Tack för din tid,
-  the_amount_entered_was: "Det angivna beloppet var: US %{number}"
+  the_amount_entered_was: "Det angivna beloppet var: %{number} USD"
   the_comment_was_successfully_deleted: Kommentaren har raderats.
   the_comment_was_successfully_updated: Kommentaren har uppdaterats.
   the_content_could_not_be_displ: Det gick inte att visa innehållet.

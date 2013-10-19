@@ -142,6 +142,8 @@ br:
         rich_pages: Pajennoù pinvidik
         rich_redhotlist_pages: Pajennoù pennroll ruz pinvidik
         rich_redhotlist_pages_percentage: Pajennoù pennroll ruz pinvidik
+        total_associations: Kevredigezhioù
+        total_taxa_with_data: Pajennoù gant roadennoù
         udo_published: Testenn pourchaset gant an implijer
         udo_published_by_curators: Testenn pourchaset gant ur mirour
         udo_published_by_non_curators: Testenn pourchaset gant un den n'eo ket mirour
@@ -167,6 +169,9 @@ br:
         descriptive_label: Tikedenn deskrivañ
         label: Tikedenn
         request_publish: Goulenn un embann
+      known_uri: 
+        name: Anv
+        toc_items: Rummadoù
       name: 
         string: Anv
       news_item: 
@@ -249,6 +254,8 @@ br:
         requested_curator_level_id: Live goursellet reketet
         tag_line: Lugan
         username: Anv implijer
+      user_added_data: 
+        object: Talvoudenn
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -639,6 +646,12 @@ br:
   average_rating_value_of_total: "Emdroadur keitat :  %{rating} sur %{total}"
   back: Distreiñ
   back_to_profile: Distreiñ d'ar profil
+  background_processes_attribute_head: Perzh
+  background_processes_complete_head: Echuiñ ?
+  background_processes_created_head: Krouet
+  background_processes_download: pellgargañ
+  background_processes_is_not_complete: Ket
+  background_processes_query_head: Reked
   began: en deus kroget
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Gweladennit ar "Biodiversity Heritage Library"
@@ -782,6 +795,7 @@ br:
   comments_filter: Evezhiadennoù
   comments_moderated: Displegadennoù evezhiet
   comments_on: "Displegadennoù diwar-benn :"
+  comments_page_title: Evezhiadennoù war %{parent}
   comments_with_count: 
     one: "%{count} evezhiadenn"
     other: "%{count} evezhiadenn"
@@ -1019,6 +1033,9 @@ br:
   currently_published: embannet evit bremañ
   daily: Bemdez
   dashboard: Taolenn-vourzh
+  data_column_common_name: Anv-boutin
+  data_column_sci_name: Anv skiantel
+  data_column_val: Talvoudenn
   data_database_colon: "Roadennoù :"
   data_master_database_colon: "Roadennoù pennañ :"
   data_object_ignore: ober vann deus an elfenn-mañ
@@ -1039,6 +1056,9 @@ br:
       meta_description_video: Video - %{dato_description}
       meta_title: "%{dato_title} eus %{supplier}"
       tweet_text: "%{dato_title} eus %{supplier}"
+  data_provided_by_content_partner: "Mammenn: %{whom}"
+  data_subtab_about: Diwar-benn
+  data_subtab_glossary: Geriaoueg
   date_caps: Deiziad
   date_uploaded: Deiziad enporzhiañ
   datepicker: 
@@ -1142,7 +1162,7 @@ br:
   done_already: Bet graet dija
   download_wav_file: Pellgargañ ar restr WAV
   dublin_core: Dublin Core
-  edit: Aozañ
+  edit: aozañ
   edit_collection_details: Aoazañ munudoù an dastumad
   edit_collection_details_header: Aozañ munudoù an dastumad
   edit_comment: Kemmañ an evezhiadenn
@@ -1186,6 +1206,8 @@ br:
     curators: 
       menu_link: Stategoù ar virourien
       page_header: "\nStategoù ar virourien"
+      page_title: Stadegoù
+    data: 
       page_title: Stadegoù
     data_objects: 
       menu_link: Traezoù roadennoù
@@ -1358,7 +1380,9 @@ br:
   given_name_colon: "Anv roet :"
   global_access_tagline: Moned hollek d'ar gouiziegezh war ar vuhez war an Douar.
   global_navigation: Merdeiñ hollek
+  glossary: Geriaoueg
   glossary_is_empty: (goullo eo ar c'heriaoueg)
+  glossary_subhead: Geriaoueg
   glossary_term: termen
   glossary_terms: Termenoù ar c'heriaoueg
   go: Mont
@@ -1665,6 +1689,8 @@ br:
   join_community_button: Mont er gumuniezh-mañ
   json_response: Respont JSON
   key: Alc'hwez
+  known_uri_category_header: Rummadoù
+  known_uri_name_and_uri: "%{name} (%{uri})"
   label: Label
   language: "Yezh :"
   language_with_count: "%{language} (%{count})"
@@ -1752,6 +1778,7 @@ br:
   license_cc_by_sa_3_0: Creative Commons Deroadenn Kenrannañ Heñvel 3.0 (CC BY-SA 3.0)
   license_gnu_fdl: Aotre-implijout Teuliaouiñ Frank GNU (GNU FDL)
   license_gnu_gpl: Aotre-implijout foran hollek GNU (GNU GPL)
+  license_none: Hini ebet
   license_not_applicable: Ne zegouezh ket an aotre-implijout
   license_public_domain: Domani foran
   link_more_about: Gouzout hiroc'h diwar-benn al liamm-mañ
@@ -1848,6 +1875,7 @@ br:
       videos: Videoioù
   moderator_colon: Habaskaer
   monthly: Bep miz
+  more: muioc'h
   most_active_members: Izili oberiantañ
   move: Dilec'hiañ
   move_down: Diskenn
@@ -1952,6 +1980,7 @@ br:
   or_move_them_to_existing_collection: pe o dilec'hiañ d'un dastumad zo anezhañ c'hoazh
   original: "ORIN :"
   original_object: Traezhenn orin
+  other_category: All
   other_us_dollars_amount: "All : US$"
   outlink: Liamm diavaez
   overview: Brassell
@@ -2042,6 +2071,7 @@ br:
   recent_updates: Hizivadennoù diwezhañ
   recently_visited: Gweladennet nevez zo
   recipients: Degemererien
+  reference: Daveenn
   references_cabs_colon: "Daveennoù :"
   reindex_page_button: Advenegeriñ ar bajenn
   remove: Dilemel
@@ -2127,6 +2157,7 @@ br:
   sound_from_supplier: Son digant %{whom}
   sound_of: Son digant
   sound_rating: Priziadenn ar son
+  source: Mammenn
   source_colon: "Mammenn :"
   source_url: Mammenn URL
   special_collection: Dastumad arbennik
@@ -2310,6 +2341,7 @@ br:
   this_video_is_unpublished: N'eo ket embannet ar video-mañ.
   title: Titl
   toc: TAOLENN
+  top: krec'h
   total: Hollad
   translation_deleted: Diverket eo bet an droidigezh
   translation_information_header: Titouroù treiñ
@@ -2342,6 +2374,8 @@ br:
   user: Implijer
   user_activity_stats_articles_added_dropdown: Pennadoù ouzhpennet
   user_activity_stats_header: Obererezh
+  user_added_data: 
+    new_value: Talvoud
   user_already_active_notice: Oberiant eo ho kont dija, kevreit, mar plij
   user_id: ID an implijer
   user_no_longer_active_message: An implijer-mañ n'eo ket oberiant ken

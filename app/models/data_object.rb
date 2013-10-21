@@ -215,7 +215,7 @@ class DataObject < ActiveRecord::Base
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
-    params[:source_url] = add_http_if_missing(params[:source_url]) if object_is_a_link
+    params[:source_url] = DataObject.add_http_if_missing(params[:source_url]) if object_is_a_link
     dato = DataObject.new(params.reverse_merge!({:published => true}))
     if dato.save
       begin

@@ -335,14 +335,14 @@ class ApplicationController < ActionController::Base
     raise EOL::Exceptions::SecurityViolation.new(
       "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
       " that is restricted to EOL assistant curators and above, and was disallowed.",
-      "min_assistant_curators_only") unless current_user.is_admin? || current_user.min_curator_level?(:assistant)
+      :min_assistant_curators_only) unless current_user.is_admin? || current_user.min_curator_level?(:assistant)
   end
 
   def restrict_to_admins_and_master_curators
     raise EOL::Exceptions::SecurityViolation.new(
       "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
       " that is restricted to EOL master curators and above, and was disallowed.",
-      "min_assistant_curators_only") unless current_user.is_admin? || current_user.min_curator_level?(:master)
+      :admin_or_master_curators_only) unless current_user.is_admin? || current_user.min_curator_level?(:master)
   end
 
   def restrict_to_master_curators
@@ -355,6 +355,13 @@ class ApplicationController < ActionController::Base
 
   def restrict_to_curators
     restrict_to_curators_of_level(:assistant)
+  end
+
+  def restrict_to_data_viewers
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to Data Viewers, and was disallowed.",
+      :no_access) unless current_user.can_see_data?
   end
 
   # A user is not authorized for the particular controller/action:

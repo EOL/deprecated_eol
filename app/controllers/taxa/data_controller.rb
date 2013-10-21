@@ -1,5 +1,6 @@
 class Taxa::DataController < TaxaController
 
+  before_filter :restrict_to_data_viewers
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :load_data
   before_filter :load_glossary

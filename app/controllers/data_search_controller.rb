@@ -1,5 +1,7 @@
 class DataSearchController < ApplicationController
 
+  before_filter :restrict_to_data_viewers
+
   layout 'v2/data_search'
 
   # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL

@@ -62,7 +62,9 @@ EOL.toggle_actions_row = function(data_row) {
   } else {
     var data_point_id = data_row.attr('id');
     // the metadata table hasn't been loaded yet, so load it dynamically
-    if ($table.length == 0) {
+    if (data_row.data('loading') != true && data_row.data('loaded') != true) {
+      $folder.attr('src', '/assets/indicator_arrows_black.gif');
+      data_row.data('loading', true);
       $.ajax({
         url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
         dataType: 'html',
@@ -87,9 +89,12 @@ EOL.toggle_actions_row = function(data_row) {
           $next_row.show();
           EOL.yank_glossary_terms($next_row);
           $table.show();
+          data_row.data('loading', false);
+          data_row.data('loaded', true);
+          $folder.attr('src', "/assets/arrow_fold_down.png");
         }
       });
-    } else
+    } else if(data_row.data('loading') != true)
     {
       $folder.attr('src', "/assets/arrow_fold_down.png");
       $next_row.show();

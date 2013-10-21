@@ -4,6 +4,7 @@ class UserAddedDataController < ApplicationController
 
   before_filter :check_authentication, :only => [ :create, :edit, :update, :destroy ]
   before_filter :restrict_to_admins_and_master_curators # NOTE - this restriction should be removed when we release this feature, of course.
+  before_filter :restrict_to_data_viewers
 
   # POST /user_added_data
   def create

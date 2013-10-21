@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   # GET /users/:id
   def show
     @user = User.find(params[:id])
+    clear_session_partial
     preload_user_associations
     redirect_if_user_is_inactive
     # TODO: User inactive versus user hidden is confusing.
@@ -399,6 +400,12 @@ protected
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @user ?
       view_context.image_tag(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+  end
+
+  def clear_session_partial
+    if @user && @user == current_user
+      expire_fragment("sessions_#{current_user.id}")
+    end
   end
 
 # NOTE - there are a few "protected" methods above, be careful.

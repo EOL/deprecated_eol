@@ -71,7 +71,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.unit_of_measure
-    @@unit_of_measure ||= cached('unit_of_measure') do
+    cached('unit_of_measure') do
       KnownUri.where(:uri => Rails.configuration.uri_measurement_unit).includes({ :known_uri_relationships_as_subject => :to_known_uri } ).first
     end
   end
@@ -158,13 +158,13 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.all_measurement_type_uris
-    @@all_measurement_type_uris = Rails.cache.fetch("known_uri/all_measurement_type_uris", :expires_in => 1.day) do
+    Rails.cache.fetch("known_uri/all_measurement_type_uris", :expires_in => 1.day) do
       counts_of_all_measurement_type_uris.collect{ |k,v| k }
     end
   end
 
   def self.all_measurement_type_known_uris
-    @@all_measurement_type_known_uris = Rails.cache.fetch("known_uri/all_measurement_type_known_uris", :expires_in => 1.day) do
+    Rails.cache.fetch("known_uri/all_measurement_type_known_uris", :expires_in => 1.day) do
       all_uris = all_measurement_type_uris
       all_known_uris = KnownUri.find_all_by_uri(all_uris)
       all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } || uri }

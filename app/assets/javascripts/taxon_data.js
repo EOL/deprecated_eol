@@ -47,6 +47,7 @@ EOL.show_data_tables = function(tables) {
   tables.prev('div.header_underlined').show();
   tables.find('tr.data').show();
   tables.find('tr.actions').hide();
+  $('.help_text').show();
 };
 
 EOL.toggle_actions_row = function(data_row) {
@@ -314,11 +315,13 @@ $(function() {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.glossary_subtab').hide();
+      $('.help_text').hide();
       $('.about_subtab').show()
     } else if ($(this).parent().hasClass('glossary')) {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.about_subtab').hide();
+      $('.help_text').hide();
       $('.glossary_subtab').show()
     } else if ($(this).hasClass('all')) { // Acts as a reset button/link
       $('#taxon_data .empty').show();

@@ -5,7 +5,7 @@
 - items_editable = editable && ! @collection.is_resource_collection?
 = content_for :additional_page_actions do
   = render :partial => 'collections/editable_actions', :locals => { :editable => editable }
-  - if current_user.is_admin?
+  - if current_user.is_admin? && @collection_results && @collection_results.is_a?(WillPaginate::Collection) && @collection_results.total_entries < Collection::REINDEX_LIMIT
     %li= link_to I18n.t(:reindex_page_button), reindex_collection_path(@collection), :class => 'button'
 - if @collection_items.blank?
   #sidebar

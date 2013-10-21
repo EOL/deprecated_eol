@@ -30,6 +30,9 @@ class CollectionsController < ApplicationController
     end
   end
 
+  # NOTE - I COULD check the collection size against Collection::REINDEX_LIMIT, but I'd actually like to (personally) be able to
+  # call the URL on large collections. Soooo... for me, it's enough that the link doesn't show up. That'll keep people from using
+  # it unless they want to "force" it by faking the URL (which is, admittedly, easy, but I think that's fair).
   def reindex
     collection = Collection.find(params[:id])
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)

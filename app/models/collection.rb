@@ -4,6 +4,8 @@ class Collection < ActiveRecord::Base
 
   include EOL::ActivityLoggable
 
+  REINDEX_LIMIT = 1000
+
   belongs_to :user # This is the OWNER.  Use #users rather than #user... this basically only gets set once.
   belongs_to :sort_style
   belongs_to :view_style

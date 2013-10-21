@@ -1,30 +1,23 @@
 class DataType < ActiveRecord::Base
+
   uses_translations
   has_many :data_objects
   @@full_attribution_order = nil
 
-  def self.create_defaults
-    [{:label => 'Image', :schema_value => 'http://purl.org/dc/dcmitype/StillImage'},
-     {:label => 'Sound', :schema_value => 'http://purl.org/dc/dcmitype/Sound'},
-     {:label => 'Text',  :schema_value => 'http://purl.org/dc/dcmitype/Text'},
-     {:label => 'Video', :schema_value => 'http://purl.org/dc/dcmitype/MovingImage'},
-     {:label => 'GBIF Image'},
-     {:label => 'IUCN'},
-     {:label => 'Flash'},
-     {:label => 'YouTube'},
-     {:label => 'Map'},
-     {:label => 'Link'}].each do |default|
-      trans = TranslatedDataType.find_by_label_and_language_id(default[:label], Language.default.id)
-      next if trans && trans.data_type # Already there.
-      dt = DataType.create(:schema_value => default[:schema_value] || default[:label])
-      if trans && ! trans.data_type
-        trans.data_type = dt
-        trans.save
-      else
-        TranslatedDataType.create(:label => default[:label], :data_type => dt, :language => Language.default)
-      end
-    end
-  end
+  include EnumDefaults
+
+  set_defaults :label,
+    [{label: 'Image',   schema_value: 'http://purl.org/dc/dcmitype/StillImage'},
+     {label: 'Sound',   schema_value: 'http://purl.org/dc/dcmitype/Sound'},
+     {label: 'Text',    schema_value: 'http://purl.org/dc/dcmitype/Text'},
+     {label: 'Video',   schema_value: 'http://purl.org/dc/dcmitype/MovingImage'},
+     {label: 'GBIF Image', schema_value: 'GBIF Image'}, # The rest of these schema values are only to avoid errors. :\
+     {label: 'IUCN',    schema_value: 'IUCN'},
+     {label: 'Flash',   schema_value: 'Flash'},
+     {label: 'YouTube', schema_value: 'YouTube', method_name: :youtube},
+     {label: 'Map',     schema_value: 'Map'},
+     {label: 'Link',    schema_value: 'Link'}],
+    translated: true
 
   def to_s
     label
@@ -43,44 +36,6 @@ class DataType < ActiveRecord::Base
     @@full_attribution_order = attribution_order + remaining_roles
   end
 
-  def self.text
-    @@text ||= cached_find_translated(:label, 'Text')
-  end
-
-  def self.image
-    @@image ||= cached_find_translated(:label, 'Image')
-  end
-
-  def self.sound
-    @@sound ||= cached_find_translated(:label, 'Sound')
-  end
-
-  def self.video
-    @@video ||= cached_find_translated(:label, 'Video')
-  end
-
-  # TODO -this is essentially "SWF" and could be handled as Video...
-  def self.youtube
-    @@youtube ||= cached_find_translated(:label, 'YouTube')
-  end
-
-  # TODO -this is essentially "SWF" and could be handled as Video...
-  def self.flash
-    @@flash ||= cached_find_translated(:label, 'Flash')
-  end
-
-  def self.iucn
-    @@iucn ||= cached_find_translated(:label, 'IUCN')
-  end
-  
-  def self.map
-    @@youtubmape ||= cached_find_translated(:label, 'Map')
-  end
-  
-  def self.link
-    @@link ||= cached_find_translated(:label, 'Link')
-  end
-
   def self.sound_type_ids
     @@sound_type_ids ||= [DataType.sound.id]
   end
@@ -97,6 +52,7 @@ class DataType < ActiveRecord::Base
     @@text_type_ids ||= [DataType.text.id]
   end
   
+  # TODO - why don't we include GBIF image in this?
   def self.map_type_ids
     @@map_type_ids ||= [DataType.map.id]
   end

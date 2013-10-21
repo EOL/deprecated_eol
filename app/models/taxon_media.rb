@@ -14,7 +14,7 @@ class TaxonMedia < TaxonUserClassificationFilter
 
   def initialize(taxon_concept, user, options = {})
     @page = options[:page] ||= 1
-    @per_page = options[:per_page] ||= TaxonMedia::IMAGES_PER_PAGE
+    @per_page = options[:per_page].to_i ||= TaxonMedia::IMAGES_PER_PAGE
     @per_page = TaxonMedia::MAXIMUM_IMAGES_PER_PAGE if @per_page.to_i > TaxonMedia::MAXIMUM_IMAGES_PER_PAGE
     @sort_by = options[:sort_by] ||= 'status'
     @type = options[:type] ||= ['all']

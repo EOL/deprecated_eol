@@ -211,6 +211,7 @@ class UsersController < ApplicationController
       " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
     if request.post? && params[:commit_agreed]
       @user.update_column(:agreed_with_terms, true) # saving without validation to avoid issues with invalid legacy users
+      @user.expire_primary_index
       # validation will more appropriately happen when user attempts to edit profile
       redirect_back_or_default(user_path(current_user))
     else
@@ -306,6 +307,7 @@ class UsersController < ApplicationController
       # Bypass validation errors on user model
       user.update_column(:recover_account_token, User.generate_key)
       user.update_column(:recover_account_token_expires_at, 24.hours.from_now)
+      user.expire_primary_index
       user.reload # Just to ensure everything is dandy in the database (TODO: will slave cause problems?)
       if user.recover_account_token =~ /^[a-f0-9]{40}$/ && !user.recover_account_token_expired?
         Notifier.user_recover_account(user, temporary_login_user_url(user, user.recover_account_token)).deliver
@@ -331,6 +333,7 @@ class UsersController < ApplicationController
       if user.recover_account_token_matches?(params[:recover_account_token]) && !user.recover_account_token_expired?
         user.update_column(:recover_account_token, nil)
         user.update_column(:recover_account_token_expires_at, nil)
+        user.expire_primary_index
         unless user.active?
           # Treat this as email verification for inactive users
           user.activate
@@ -343,6 +346,7 @@ class UsersController < ApplicationController
         if user.recover_account_token_expired?
           user.update_column(:recover_account_token, nil)
           user.update_column(:recover_account_token_expires_at, nil)
+          user.expire_primary_index
         end
         flash[:error] =  I18n.t('users.recover_account.errors.token_expired_or_invalid')
       end

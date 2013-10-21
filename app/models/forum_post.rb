@@ -91,5 +91,6 @@ class ForumPost < ActiveRecord::Base
 
   def update_user_posts_count
     user.update_column(:number_of_forum_posts, user.forum_posts.visible.count)
+    user.expire_primary_index
   end
 end

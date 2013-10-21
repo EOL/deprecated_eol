@@ -109,12 +109,12 @@ describe EOL::Sparql do
   end
 
   it 'should expand_namespaces' do
-    EOL::Sparql.expand_namespaces("eol:something").should == "http://eol.org/schema/terms/something"
-    EOL::Sparql.expand_namespaces("EOL:something").should == "http://eol.org/schema/terms/something"
+    EOL::Sparql.expand_namespaces("eol:something").should == Rails.configuration.schema_terms_prefix + "something"
+    EOL::Sparql.expand_namespaces("EOL:something").should == Rails.configuration.schema_terms_prefix + "something"
     EOL::Sparql.expand_namespaces("dwc:something").should == "http://rs.tdwg.org/dwc/terms/something"
     EOL::Sparql.expand_namespaces("DWC:SOMETHING").should == "http://rs.tdwg.org/dwc/terms/SOMETHING"
-    EOL::Sparql.expand_namespaces("http://eol.org/schema/terms/something").should == "http://eol.org/schema/terms/something"
-    EOL::Sparql.expand_namespaces("<http://eol.org/schema/terms/something>").should == "http://eol.org/schema/terms/something"
+    EOL::Sparql.expand_namespaces(Rails.configuration.schema_terms_prefix + "something").should == Rails.configuration.schema_terms_prefix + "something"
+    EOL::Sparql.expand_namespaces("<#{Rails.configuration.schema_terms_prefix}something>").should == Rails.configuration.schema_terms_prefix + "something"
     EOL::Sparql.expand_namespaces("this is a test").should == "this is a test"
     EOL::Sparql.expand_namespaces("unknown_namespace:something").should == false
     EOL::Sparql.expand_namespaces("eol::test").should == "eol::test"

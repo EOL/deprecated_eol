@@ -8,6 +8,7 @@ Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
 # TAXON DATA configuration settings:
 
 Rails.configuration.uri_prefix = 'http://eol.org/schema/'
+Rails.configuration.schema_terms_prefix = 'http://eol.org/schema/terms/'
 Rails.configuration.uri_inverse = 'http://www.w3.org/2002/07/owl#inverseOf'
 Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources"
 Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"

@@ -13,4 +13,12 @@ module ContentPartners::ResourcesHelper
       format_date_time(time, :format => :medium) || I18n.t(:value_empty)
     end
 
+    def link_to_url_or_empty(url)
+      if url.blank?
+        I18n.t(:value_empty)
+      else
+        link_to url.sub(/^.*\//, ''), url
+      end
+    end
+
 end

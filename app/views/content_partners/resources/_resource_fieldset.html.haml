@@ -7,6 +7,12 @@
     %dd
       = resource_form.text_field :title, :maxlength => 255
 
+  %dl
+    %dt
+      = resource_form.label :dataset_source_url
+      %small= I18n.t(:resource_hint_dataset_source_url)
+    %dd= resource_form.text_field :dataset_source_url, :maxlength => 255
+
   %fieldset.dataset
     %legend.required= raw(I18n.t('helpers.label.resource.resource_url_or_file'))
     %dl.resources
@@ -42,16 +48,34 @@
               %p= raw(I18n.t('helpers.label.resource.accesspoint_url_existing_remove', :accesspoint_url => @resource.accesspoint_url.sub(/^.*\//, '')))
             = resource_form.file_field :dataset
   %dl
+    %dt
+      = resource_form.label :dataset_license_id
+      %small= I18n.t(:resource_hint_dataset_rights).html_safe
+    %dd
+      = resource_form.select :dataset_license_id, options_from_collection_for_select(@licenses, :id, :title, @resource.dataset_license_id)
+    %dt
+      = resource_form.label :dataset_rights_holder
+      %small= I18n.t(:resource_hint_dataset_rights).html_safe
+    %dd
+      = resource_form.text_field :dataset_rights_holder
+    %dt
+      = resource_form.label :dataset_rights_statement
+      %small= I18n.t(:resource_hint_dataset_rights).html_safe
+    %dd
+      = resource_form.text_field :dataset_rights_statement, { :maxlength => 300 }
     %dt.required
       = resource_form.label :license_id
+      %small= I18n.t(:resource_hint_default_rights).html_safe
     %dd
       = resource_form.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @resource.license_id)
     %dt
       = resource_form.label :rights_holder
+      %small= I18n.t(:resource_hint_default_rights).html_safe
     %dd
       = resource_form.text_field :rights_holder
     %dt
       = resource_form.label :rights_statement
+      %small= I18n.t(:resource_hint_default_rights).html_safe
     %dd
       = resource_form.text_field :rights_statement, { :maxlength => 300 }
     %dt

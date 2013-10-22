@@ -73,6 +73,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       # we need to check the accesspoint URL before saving the updated resource
       upload_required = (@resource.accesspoint_url != params[:resource][:accesspoint_url] || !params[:resource][:dataset].blank?)
     end
+    debugger
     if @resource.update_attributes(params[:resource])
       if upload_required
         @resource.upload_resource_to_content_master!(request.port.to_s)

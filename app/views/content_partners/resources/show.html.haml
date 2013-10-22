@@ -31,12 +31,11 @@
             - else
               = link_to @resource.accesspoint_url.sub(/^.*\//, ''), @resource.accesspoint_url
           %dt= I18n.t('activerecord.attributes.resource.dwc_archive_url')
-          %dd
-            - if @resource.dwc_archive_url.blank?
-              = I18n.t(:value_empty)
-            - else
-              = link_to @resource.dwc_archive_url.sub(/^.*\//, ''), @resource.dwc_archive_url
-
+          %dd= link_to_url_or_empty(@resource.dwc_archive_url)
+          %dt= I18n.t('activerecord.attributes.resource.dataset_source_url')
+          %dd= link_to_url_or_empty(@resource.dataset_source_url)
+          %dt= I18n.t('activerecord.attributes.resource.dataset_hosted_url')
+          %dd= link_to_url_or_empty(@resource.dataset_hosted_url)
           %dt
             = I18n.t('activerecord.attributes.resource.hierarchy')
           %dd
@@ -75,7 +74,7 @@
           %dt= I18n.t('activerecord.attributes.resource.dataset_rights_holder')
           %dd= attribute_or_empty @resource.dataset_rights_holder
           %dt= I18n.t('activerecord.attributes.resource.dataset_rights_statement')
-          %dd= attribute_or_empty @resource.rights_statement
+          %dd= attribute_or_empty @resource.dataset_rights_statement
           - if current_user.can_update?(@resource)
             %dt= I18n.t('activerecord.attributes.resource.license_id')
             %dd= license_title_or_empty @resource.license

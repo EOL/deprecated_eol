@@ -59,6 +59,11 @@
         %dd
           = @partner.agreement.created_at.blank? ? I18n.t(:value_empty) : @partner.agreement.created_at
 
+    %h3= I18n.t(:content_partner_resources_header)
+    %ul.links
+      - @partner.resources.each do |resource|
+        %li= link_to resource.title, [@partner, resource]
+
     - if current_user.can_update?(@partner)
       %h3= I18n.t(:content_partner_data_description_header)
       - if @partner.description_of_data.blank?

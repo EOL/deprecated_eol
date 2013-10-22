@@ -82,8 +82,8 @@ module EnumDefaults
             pp exist_params
             puts "   RESULT: #{check_class.send(:exists?, exist_params)}"
             unless check_class.send(:exists?, exist_params)
-              this = create(params)
-              trans = @enum_translated_class.send(:create,
+              this = create!(params)
+              trans = @enum_translated_class.send(:create!,
                         @enum_default_translated_params.merge(
                           language_id: Language.default.id,
                           @enum_foreign_key => this.id,
@@ -107,7 +107,7 @@ module EnumDefaults
             puts "++ #{check_exists_by} exists? -> #{value} = #{exists?(check_exists_by => value)}"
             puts "params:"
             pp params
-            create(params) unless exists?(check_exists_by => value)
+            create!(params) unless exists?(check_exists_by => value)
           end
         end
       end

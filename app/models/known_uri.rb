@@ -127,7 +127,7 @@ class KnownUri < ActiveRecord::Base
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_unit_uris
     if_connection_fails_return({}) do
-      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
         WHERE {
           ?measurement dwc:measurementUnit ?uri .
           FILTER (isURI(?uri))
@@ -142,7 +142,7 @@ class KnownUri < ActiveRecord::Base
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_type_uris
     if_connection_fails_return({}) do
-      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
         WHERE {
           ?measurement a <#{DataMeasurement::CLASS_URI}> .
           ?measurement dwc:measurementType ?uri .
@@ -174,7 +174,7 @@ class KnownUri < ActiveRecord::Base
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_measurement_value_uris
     if_connection_fails_return({}) do
-      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
         WHERE {
           ?measurement a <#{DataMeasurement::CLASS_URI}> .
           ?measurement dwc:measurementValue ?uri .
@@ -190,7 +190,7 @@ class KnownUri < ActiveRecord::Base
   # TODO - move this to Virtuoso lib.
   def self.counts_of_all_association_type_uris
     if_connection_fails_return({}) do
-      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(*) as ?count
+      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(DISTINCT ?association) as ?count
         WHERE {
           ?association a <#{DataAssociation::CLASS_URI}> .
           ?association <#{Rails.configuration.uri_association_type}> ?uri .

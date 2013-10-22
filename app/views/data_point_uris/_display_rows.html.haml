@@ -43,7 +43,11 @@
       = link_to(image_tag(arrow_file_name, alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(data_point_uri.taxon_concept, :data_point_uri_id => data_point_uri.id, :anchor => data_point_uri.anchor))
     = raw display_text_for_data_point_uri(data_point_uri)
   %td.source
-    %span.source= data_point_uri.source.name
+    %span.source
+      - if data_point_uri.source
+        = data_point_uri.source.name
+      - else
+        = I18n.t(:data_point_uri_source_missing)
   %td.comment
     %span.comments
       - if comments.empty?
@@ -56,7 +60,11 @@
       = render partial: 'data_point_uris/metadata', locals: { data_point_uri: data_point_uri }
     .actions
       %ul
-        %li= raw I18n.t("data_provided_by_#{data_point_uri.source.class.name.underscore.downcase}", whom: link_to(data_point_uri.source.name, data_point_uri.source))
+        %li
+          - if data_point_uri.source
+            = raw I18n.t("data_provided_by_#{data_point_uri.source.class.name.underscore.downcase}", whom: link_to(data_point_uri.source.name, data_point_uri.source))
+          - else
+            = I18n.t(:data_point_uri_source_missing)
         / %li
         /   &bull;&ensp;
         /   = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), :target => 'data'

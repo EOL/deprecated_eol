@@ -1,5 +1,9 @@
-# So, the new-fangled way to do configuration in Rails is Rails.configuration.WHATEVER.  ...So let's do that. It's better than friggin'
-# globals.  That said, we may want to adopt the simple, popular, SimpleConfig: https://github.com/lukeredpath/simpleconfig
+# So, the new-fangled way to do configuration in Rails is Rails.configuration.WHATEVER.  ...So let's do that. It's better than
+# friggin' globals.  That said, we may want to adopt the simple, popular, SimpleConfig:
+# https://github.com/lukeredpath/simpleconfig
+
+# If you're testing a new feature, they will be asked to go here to provide feedback:
+Rails.configuration.beta_test_feedback_link = 'https://www.surveymonkey.com/s/9FDTDQP'
 
 # Collection configu settings:
 

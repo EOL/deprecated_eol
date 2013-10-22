@@ -148,6 +148,10 @@ $DATASET_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/datasets/:id.:extensio
 $CONTENT_UPLOAD_PATH = "/uploads/"  # directory to place uploaded content files, content server needs SFTP access to this folder
 $CONTENT_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/:id.:extension"  # directory to place uploaded content
 
+$DATA_SEARCH_FILE_DIRECTORY = "#{Rails.public_path}/uploads/data_search_files/:id.csv"
+$DATA_SEARCH_FILE_PATH = '/uploads/data_search_files/:id.csv'
+$HOSTED_DATASET_PATH = 'http://localhost/eol_php_code/applications/content_server/datasets/'
+
 # NEWS ITEMS ON HOME PAGE CONFIGURATION
 $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY = 5 # the maximum number of news items to show on the home page at any time
 $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS = 8 # the number of weeks before a news item automatically disappears from the home page (determined by the "display date")

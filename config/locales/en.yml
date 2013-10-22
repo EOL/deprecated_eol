@@ -1829,6 +1829,8 @@ en:
     submit_data: "submit data value"
     update_successful: "Data was successfully updated"
     update_failed: "Unable to update your data: %{errors}"
+  data_search_files:
+    file_ready_for_download: "The search you recently requested for \"%{known_uri_label}\" can now be downloaded at <a href='%{download_url}'>%{download_url}</a>."
   # end of views scope
   this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
   this_article_is_unpublished: "This article is unpublished."
@@ -2400,6 +2402,10 @@ en:
         user_curated_data_object: "<strong>%{user}</strong> curated \"%{data_object}\"."
         an_unknown_user_curated_it: "An unknown user curated it, but the exact action taken was lost."
         user_curated_it: "<strong>%{user}</strong> curated it, but the exact action taken was lost."
+      unlock:
+        merge_of_an_unknown_taxon_unlocked: "The page merge you recently requested has completed, but the page cannot be found."
+        merge_of_it_unlocked: "The merge you recently requested on this page has completed."
+        merge_of_taxon_unlocked: "The page merge you recently requested for \"%{taxon}\" has completed."
   a_maximum_of_30_results_are_returned: "a maximum of 30 results are returned per page. This parameter allows you to fetch more pages of results if there are more than 30 matches"
   activity_log_empty: "No one has provided updates yet."
   activity_log_empty_learn_more_link: "Learn how to contribute"

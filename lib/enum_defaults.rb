@@ -40,7 +40,6 @@ module EnumDefaults
         name = default.is_a?(Hash) ?
           default[:method_name] || default[@enum_field].to_s.gsub(/\s+/, '_').underscore :
           default.to_s.gsub(/\s+/, '_').underscore
-        puts "++ creating #{name} method"
         if @enum_translated
           define_singleton_method(name) do
             return class_variable_get("@@#{name}".to_sym) if class_variable_defined?("@@#{name}".to_sym)
@@ -78,9 +77,6 @@ module EnumDefaults
             exist_params = { check_exists_by => @enum_check_exists_by ? params[@enum_check_exists_by] : value }
             exist_params.merge!(language_id: Language.default.id) if check_class === @enum_translated_class
             # Now check:
-            puts "++ exists? #{check_class} #{check_exists_by} => #{value}, params:"
-            pp exist_params
-            puts "   RESULT: #{check_class.send(:exists?, exist_params)}"
             unless check_class.send(:exists?, exist_params)
               this = create!(params)
               trans = @enum_translated_class.send(:create!,
@@ -104,9 +100,6 @@ module EnumDefaults
             end
             check_exists_by = @enum_check_exists_by || @enum_field
             value = default.is_a?(Hash) ? default[check_exists_by] : default
-            puts "++ #{check_exists_by} exists? -> #{value} = #{exists?(check_exists_by => value)}"
-            puts "params:"
-            pp params
             create!(params) unless exists?(check_exists_by => value)
           end
         end

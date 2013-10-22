@@ -31,6 +31,28 @@ class Activity < LazyLoggingModel
     end
   end
 
+  # This is used for user activity logging, not for #create_defaults.
+  # TODO - perhaps find a better way?  :S
+  def self.find_or_create(key_sym)
+    key = key_sym.to_s
+    act = Activity.cached_find_translated(:name, key)
+    unless act
+      act = Activity.new()
+      act.save! # NOTE: #create wasn't working; the ID wasn't being set correctly.
+      if transact = TranslatedActivity.find_by_language_id_and_name(Language.english.id, key)
+        transact.update_attributes(:activity_id => act.id)
+      else
+        # Doing this with raw sql to override the LoggingModel's default of using INSERT DELAYED
+        TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(
+          ['INSERT INTO translated_activities (name, activity_id, language_id) VALUES (?, ?, ?)',
+            key, act.id, Language.english.id]
+        ))
+      end
+      act = Activity.cached_find_translated(:name, key)
+    end
+    act
+  end
+
   # Helper to provide consistent calculation of curator actions when using curator_activity_logs_on_data_objects
   # association
   def self.raw_curator_action_ids

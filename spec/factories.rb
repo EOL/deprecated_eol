@@ -690,6 +690,12 @@ FactoryGirl.define do
     uri         { FactoryGirl.generate(:uri) }
   end
 
+  factory :data_search_file do
+    association :known_uri
+    association :user
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
   factory :data_type do
     schema_value ''
   end

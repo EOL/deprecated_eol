@@ -8,6 +8,7 @@ describe 'Taxa data tab basic tests' do
     @target_taxon_concept = build_taxon_concept
     @resource = Resource.gen
     @user = User.gen
+    @user.grant_permission(:see_data)
     @default_data_options = { :subject => @taxon_concept, :resource => @resource }
     @measurement = DataMeasurement.new(@default_data_options.merge(:predicate => 'http://eol.org/weight',
       :object => '12345.0', :unit => 'http://eol.org/g'))
@@ -16,10 +17,12 @@ describe 'Taxa data tab basic tests' do
     @user_added_data = UserAddedData.gen(:user => @user, :subject => @taxon_concept, :predicate => 'http://eol.org/length',
       :object => '9999.0')
     @master_curator = build_curator(@taxon_concept, :level => :master)
+    @master_curator.grant_permission(:see_data)
   end
 
   before(:each) do
     drop_all_virtuoso_graphs
+    login_as @user
   end
 
   it 'should not show data with there is nothing in the triplestore' do

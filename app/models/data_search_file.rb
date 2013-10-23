@@ -51,15 +51,15 @@ class DataSearchFile < ActiveRecord::Base
     @filename
   end
 
+  def local_file_url
+    ip_with_port = $IP_ADDRESS_OF_SERVER.dup
+    "http://" + ip_with_port + $DATA_SEARCH_FILE_PATH.sub(/:id/, id.to_s)
+  end
+
   private
 
   def local_file_path
     $DATA_SEARCH_FILE_DIRECTORY.sub(/:id/, id.to_s)
-  end
-
-  def local_file_url
-    ip_with_port = $IP_ADDRESS_OF_SERVER.dup
-    "http://" + ip_with_port + $DATA_SEARCH_FILE_PATH.sub(/:id/, id.to_s)
   end
 
   def get_data

@@ -12,9 +12,13 @@ describe KnownUrisController do
   before(:all) do
     load_foundation_cache
     @user = User.gen
+    @user.grant_permission(:see_data)
     @full = FactoryGirl.create(:curator)
+    @full.grant_permission(:see_data)
     @master = FactoryGirl.create(:master_curator)
+    @master.grant_permission(:see_data)
     @admin = User.gen(:admin => true)
+    @admin.grant_permission(:see_data)
     # creating some allowed units for Mass
     @mass = KnownUri.gen_if_not_exists({ uri: Rails.configuration.uri_term_prefix + 'mass', name: 'Mass', uri_type_id: UriType.measurement.id })
     @length = KnownUri.gen_if_not_exists({ uri: Rails.configuration.uri_term_prefix + 'length', name: 'Length', uri_type_id: UriType.measurement.id })
@@ -28,22 +32,49 @@ describe KnownUrisController do
     end
   end
 
+  before(:each) do
+    session[:user_id] = @user.id
+  end
+
   describe 'GET index' do
     it 'should work for admins' do
-      get :index, {}, {:user => @admin, :user_id => @admin.id}
+      session[:user_id] = @admin.id
+      expect { get :index }.to_not raise_error(EOL::Exceptions::SecurityViolation)
     end
 
     it 'should work for master curators' do
-      get :index, {}, {:user => @master, :user_id => @master.id}
+      session[:user_id] = @master.id
+      expect { get :index }.to_not raise_error(EOL::Exceptions::SecurityViolation)
     end
 
     it 'should deny access for full curators' do
-      expect { get :index, {}, {:user => @full, :user_id => @full.id} }.to raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = @full.id
+      expect { get :index }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should deny access for users with data privilege' do
+      session[:user_id] = @user.id
+      expect { get :index }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should deny access to normal or non-logged-in users' do
+      session[:user_id] = User.gen.id
+      expect { get :index }.to raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = nil
+      expect { get :index }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
   end
 
   describe 'GET autocomplete_known_uri_search' do
-    it 'should allow access from anyone' do
+
+    it 'should deny access to normal or non-logged-in users' do
+      session[:user_id] = User.gen.id
+      expect { get :autocomplete_known_uri_search }.to raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = nil
+      expect { get :autocomplete_known_uri_search }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_search }.to_not raise_error(EOL::Exceptions::SecurityViolation)
     end
 
@@ -72,7 +103,15 @@ describe KnownUrisController do
   end
 
   describe 'GET autocomplete_known_uri_predicates' do
-    it 'should allow access from anyone' do
+
+    it 'should deny access to normal or non-logged-in users' do
+      session[:user_id] = User.gen.id
+      expect { get :autocomplete_known_uri_predicates }.to raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = nil
+      expect { get :autocomplete_known_uri_predicates }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_predicates }.to_not raise_error(EOL::Exceptions::SecurityViolation)
     end
 
@@ -94,7 +133,15 @@ describe KnownUrisController do
   end
 
   describe 'GET autocomplete_known_uri_units' do
-    it 'should allow access from anyone' do
+
+    it 'should deny access to normal or non-logged-in users' do
+      session[:user_id] = User.gen.id
+      expect { get :autocomplete_known_uri_units }.to raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = nil
+      expect { get :autocomplete_known_uri_units }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_units }.to_not raise_error(EOL::Exceptions::SecurityViolation)
     end
 
@@ -133,7 +180,15 @@ describe KnownUrisController do
   end
 
   describe 'GET autocomplete_known_uri_metadata' do
-    it 'should allow access from anyone' do
+
+    it 'should deny access to normal or non-logged-in users' do
+      session[:user_id] = User.gen.id
+      expect { get :autocomplete_known_uri_metadata }.to raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = nil
+      expect { get :autocomplete_known_uri_metadata }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_metadata }.to_not raise_error(EOL::Exceptions::SecurityViolation)
     end
 
@@ -175,7 +230,15 @@ describe KnownUrisController do
   end
 
   describe 'GET autocomplete_known_uri_values' do
-    it 'should allow access from anyone' do
+
+    it 'should deny access to normal or non-logged-in users' do
+      session[:user_id] = User.gen.id
+      expect { get :autocomplete_known_uri_values }.to raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = nil
+      expect { get :autocomplete_known_uri_values }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_values }.to_not raise_error(EOL::Exceptions::SecurityViolation)
     end
 

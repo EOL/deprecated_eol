@@ -1,20 +1,15 @@
 class KnownUrisController < ApplicationController
 
-  before_filter :set_page_title,
-    :except => [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
-                 :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
-  before_filter :restrict_to_admins_and_master_curators,
-    :except => [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
-                 :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
+  AUTOCOMPLETE_ACTIONS = [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
+                           :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
+
+  before_filter :set_page_title, :except => AUTOCOMPLETE_ACTIONS
+  before_filter :restrict_to_admins_and_master_curators, :except => AUTOCOMPLETE_ACTIONS
+  before_filter :restrict_to_data_viewers
   before_filter :set_stats_filter_options, :only => [ :index, :show_stats ]
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
-    :only => [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
-               :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
-
-  after_filter :clear_cache,
-    :except => [:index, :show_stats,
-                :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
-                :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
+    :only => AUTOCOMPLETE_ACTIONS
+  after_filter :clear_cache, :except => [ :index, :show_stats ] + AUTOCOMPLETE_ACTIONS
 
   layout 'v2/basic'
 
@@ -364,6 +359,8 @@ class KnownUrisController < ApplicationController
 
   def clear_cache
     Rails.cache.delete("known_uri/all_measurement_type_uris")
+    Rails.cache.delete("known_uri/all_measurement_type_known_uris")
+    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
   end
 
 end

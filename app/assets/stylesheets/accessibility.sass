@@ -1549,7 +1549,7 @@ ul.tabs
           span.source
             padding: 0px
             float: left
-            width: 12em
+            width: 15em
             font-size: 0.75em
             height: 1.5em
             white-space: nowrap
@@ -1560,6 +1560,9 @@ ul.tabs
             float: left
             padding-right: 5pt
             line-height: 15px
+            img
+              width: 6px
+              height: 6px
           a.more
             padding-left: 13px
             font-size: 0.83em
@@ -1681,6 +1684,14 @@ ul.tabs
       letter-spacing: 1px
       margin-bottom: 0.4em
       border-bottom: 1px solid $grayblue
+    tbody
+      border: 0px
+  .help_text
+    min-height: 1.8em
+    .key
+      text-align: center
+      width: 50%
+      float: left
 
 .tip
   display: none
@@ -1817,3 +1828,27 @@ span.info
   .move
     padding: 5px 5px
     width: 32px
+
+.site_warning
+  padding: 10px 70px
+  margin: 0 0 1.5em 0
+  line-height: 140%
+  font-size: 1.08em
+  text-align: center
+  color: $nearly_black
+  border: 1px solid #f2d2cc
+  background: #ffeae6
+  h3
+    font-size: 1.1em
+    font-weight: bold
+  .note
+    font-weight: bold
+.small_site_warning
+  font-style: italic
+  font-size: 0.87em
+  margin: 0 0 0.5em 0
+  color: $nearly_black
+
+textarea
+  resize: vertical
+

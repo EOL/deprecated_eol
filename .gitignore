@@ -56,6 +56,7 @@ public/javascripts/*packaged.js
 public/opensearch.xml
 public/search.xml
 public/stylesheets/*packaged.css
+public/uploads/data_search_files/*
 public/uploads/datasets/*
 public/uploads/Image/*
 public/uploads/images/collection_icons/*

@@ -68,6 +68,7 @@ describe TaxonMedia do
                                                 :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
                                                 :published ] }
     ).ordered.and_return array
+    # NOTE - this fails in the full test suite, occassionally.  Not sure why.  You might wanna check on that.
     build_media
     @media.paginated.should == array
   end

@@ -12,15 +12,13 @@ class RandomHierarchyImage < ActiveRecord::Base
   has_many :taxon_concept_metrics, :primary_key => 'taxon_concept_id', :foreign_key => 'taxon_concept_id'
 
   def self.random_set_cached
-    begin
-      RandomHierarchyImage.random_set_precache_class_loads
-      Rails.cache.fetch('homepage/random_images', :expires_in => 30.minutes) do
-        RandomHierarchyImage.random_set(12)
-      end
-    rescue TypeError => e
-      # TODO - FIXME  ... This appears to have to do with Rails.cache.fetch (obviously)... not sure why, though.
+    RandomHierarchyImage.random_set_precache_class_loads
+    Rails.cache.fetch('homepage/random_images', :expires_in => 30.minutes) do
       RandomHierarchyImage.random_set(12)
     end
+  rescue TypeError => e
+    # TODO - FIXME  ... This appears to have to do with Rails.cache.fetch (obviously)... not sure why, though.
+    RandomHierarchyImage.random_set(12)
   end
 
   # Classes that MUST be loaded before attempting to cache random images.

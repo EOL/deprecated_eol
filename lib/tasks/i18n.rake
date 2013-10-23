@@ -514,7 +514,7 @@ namespace :i18n do
 
       return_lang = Array.new
       files.each do |file|
-        lang_abbr = File.split(file)[-1].gsub("-db.yml", "").downcase
+        lang_abbr = File.split(file)[-1].gsub("-db.yml", "")
         return_lang << lang_abbr if lang_abbr != 'en'
       end
 

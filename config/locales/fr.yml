@@ -618,6 +618,19 @@ fr:
         user_cropped_an_unknown_data_object: <strong>%{user}</strong> a modifié la vignette d’une image inconnue.
         user_cropped_data_object: <strong>%{user}</strong> a modifié la vignette de l’image de "%{data_object}".
         user_cropped_it: <strong>%{user}</strong> a modifié la vignette d’une image inconnue.
+      data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: Un utilisateur inconnu a choisi de masquer des données sur une page inconnue.
+        an_unknown_user_hide_data_on_taxon: Un utilisateur inconnu a choisi de masquer des données sur « %{taxon} ».
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un utilisateur inconnu a mis des données comme exemple sur une page inconnue.
+        an_unknown_user_set_exemplar_data_on_taxon: Un utilisateur inconnu a mis des données comme exemple sur « %{taxon} ».
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Un utilisateur inconnu a choisi d’afficher des données sur une page inconnue.
+        an_unknown_user_unhide_data_on_taxon: Un utilisateur inconnu a choisi d’afficher des données sur « %{taxon} ».
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> a choisi de masquer des données sur une page inconnue.
+        user_hide_data_on_taxon: <strong>%{user}</strong> a choisi de masquer des données sur « %{taxon} ».
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> a mis des données comme exemple sur une page inconnue.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> a mis des données comme exemple sur « %{taxon} ».
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> a choisi d’afficher des données sur une page inconnue.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> a choisi d’afficher des données sur « %{taxon} ».
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masqué dans un contexte inconnu.
         an_unknown_user_hid_an_older_data_object_on_association: Un utilisateur inconnu a marqué une ancienne version de "%{data_object}" comme masquée sur la page "%{association}".
@@ -878,6 +891,16 @@ fr:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> a marqué "%{data_object}" comme non fiable sur la page "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> l'a marqué comme non fiable dans un contexte inconnu.
         user_untrusted_it_on_association: <strong>%{user}</strong> l'a marqué comme non fiable sur la page "%{association}".
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: Un utilisateur inconnu a ajouté des données à une page inconnue.
+        an_unknown_user_create_data_on_taxon: Un utilisateur inconnu a ajouté des données à « %{taxon} ».
+        an_unknown_user_update_data_on_an_unknown_taxon: Un utilisateur inconnu a mis à jour des données sur une page inconnue.
+        an_unknown_user_update_data_on_taxon: Un utilisateur inconnu a mis à jour des données sur « %{taxon} ».
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> a ajouté des données à une page inconnue.
+        user_create_data_on_taxon: <strong>%{user}</strong> a ajouté des données à « %{taxon} ».
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> a mis à jour des données sur une page inconnue.
+        user_update_data_on_taxon: <strong>%{user}</strong> a mis à jour des données sur « %{taxon} ».
+  activity_user_created_data: <strong>%{user}</strong> a ajouté des données concernant « %{object_name} » à « %{taxon_concept} ».
   activity_user_created_link: <strong>%{user}</strong> a ajouté un lien vers "%{object_name}" sur "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> a ajouté du texte à « %{object_name} » portant sur « %{taxon_concept} ».
   activity_user_updated_link: <strong>%{user}</strong> a mis à jour le lien de "%{object_name}" sur "%{taxon_concept}".
@@ -894,6 +917,7 @@ fr:
   add_a_new_topic_area: Ajouter une nouvelle thématique
   add_a_new_user: Ajouter un nouvel utilisateur
   add_a_taxon_association_label: Ajouter une association de taxon
+  add_another_metadata_field: Ajouter un nouveau champ de métadonnée
   add_article_instead: ajoutez plutôt un article
   add_article_to_page_button: Ajouter un article
   add_association_submit_button: ajouter l’association
@@ -909,6 +933,7 @@ fr:
   add_link_instead: ajouter plutôt un lien
   add_link_to_page_button: Ajouter un lien
   add_new_association_link: Ajouter une nouvelle association
+  add_new_known_uri_link: Ajouter un nouvel URI
   add_new_tag_suggestion: Ajouter une nouvelle suggestion d’étiquette
   add_page: Ajouter une page
   add_sub_chapter: Ajouter un sous-chapitre
@@ -976,6 +1001,9 @@ fr:
   admin_news_items_page_title: "Administration: Informations"
   admin_news_link: Actualités
   admin_notes_not_visible_to_user: "Notes d’administration (non visibles par l’utilisateur) :"
+  admin_option_all_users_can_see_data: Tous les utilisateurs peuvent voir les données, pas seulement ceux avec une autorisation
+  admin_option_changed: Valeur modifiée.
+  admin_options_warning: Les changements à cet endroit peuvent nécessiter jusqu’à dix minutes pour être effectifs.
   admin_page_title: "Administration : vue d’ensemble"
   admin_spam_delete: Supprimer les pourriels
   admin_statistics_link: Statistiques
@@ -1047,6 +1075,7 @@ fr:
   all: tout
   all_apis_return_by_default_an_xml_response: "Toutes les IPA de l’EdlV retournent par défaut une réponse XML. Les méthodes de l’IPA peuvent être appelées sans préciser une extension de format pour obtenir la réponse XML et l’ajout d’une extension XML produira une réponse identique :"
   all_articles: Tous les articles
+  all_categories: Tous
   all_changes: Toutes les modifications
   all_collections: Toutes les collections
   all_comments_entered_by_users: Tous les commentaires saisis sur le site par les utilisateurs sont affichés ci-dessous, triés dans l’ordre chronologique inversé de leur création.
@@ -1075,7 +1104,9 @@ fr:
   an_unknown_user: Un utilisateur inconnu
   and: et
   and_between_form_items: et
+  annotation_body_default: ajouter une question ou un commentaire…
   annotation_cabs_colon: "Annotation :"
+  annotation_submit: publier une annotation
   anonymous_user_full_name: Utilisateur anonyme
   anonymous_user_given_name: Anonyme
   anonymous_user_tag_line: Non Connecté
@@ -1110,6 +1141,7 @@ fr:
   as_of_time_there_were_unique_visitors: 
     one: À %{time}, il y avait %{count} visiteur unique
     other: À %{time}, il y avait %{count} visiteurs uniques
+  assistive_data_header: Faits & Informations
   assistive_details_header: Détails
   assistive_literature_header: Littérature
   assistive_maps_header: Cartes
@@ -1161,6 +1193,16 @@ fr:
   average_rating_value_of_total: "Évaluation moyenne : %{rating} sur %{total}"
   back: Arrière
   back_to_profile: Retour au profil
+  background_processes_actions_head: Actions
+  background_processes_attribute_head: Attribut
+  background_processes_complete_head: Terminer ?
+  background_processes_created_head: Créé
+  background_processes_download: télécharger
+  background_processes_is_complete: Oui
+  background_processes_is_not_complete: Non
+  background_processes_page_title: Processus en arrière-plan
+  background_processes_query_empty: (aucune chaîne de requête)
+  background_processes_query_head: Requête
   began: A commencé
   belongs_in_count_communities: 
     one: Appartient à %{count} Communauté
@@ -1196,6 +1238,8 @@ fr:
   cannot_expand_children: impossible d’étendre les enfants
   cannot_find_member: Impossible de trouver un membre avec cet identifiant.
   cannot_index_collection_item_type_error: Impossible d’indexer un élément de collection à partir d’un %{type}
+  categories_title: "Sélectionner une catégorie, puis un attribut :"
+  category_suggestions: "Si vous n’êtes pas certain de quels URIs utiliser pour les attributs ou les valeurs, les liens suivant vous suggéreront quelques URIs choisies par les conservateurs de EdlV :"
   change: Changer
   change_rating_to_1_of_5: Changer la cote d’évaluation à 1 sur 5
   change_rating_to_2_of_5: Changer la cote d’évaluation à 2 sur 5
@@ -1368,6 +1412,7 @@ fr:
   comments_filter: Commentaires
   comments_moderated: Commentaires modérés.
   comments_on: "Commentaires à propos de :"
+  comments_page_title: Commentaires sur %{parent}
   comments_with_count: 
     one: "%{count} commentaire"
     other: "%{count} commentaires"
@@ -1745,9 +1790,21 @@ fr:
   darwin_core: Darwin Core
   dashboard: Tableau de bord
   data: Données
+  data_about_subtab_content: <p>Les données et les métadonnées sont collectées depuis différentes sources dans une vue centrée sur les taxons unique, complètement référencée et accessible sémantiquement.</p><p>Pour voir des détails supplémentaires sur n’importe quelle valeur de donnée, cliquez que le symbole %{img} pour une définition du type de donnée.</p><p>Vous devez être connecté à EdlV pour laisser un commentaire, entrer des données d’information, de provenance, d’URIs ou autres, directement dans EdlV. Vous aurez besoin de <a href='/users/register'>vous isncrire pour un compte EdlV libre</a>, en premier lieu. Si vous aimeriez recommander un ensemble de données à inclure dans EdlV, ou si vous avez des ensemble des données que vous aimeriez partager via EdlV, veuillez nous contacter à <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Le financement pour le développement de la fonctionnalité de données calculables de EdlV provient de la fondation Alfred P. Sloan, de la fondation John D. et Catherine T. MacArthur, et des utilisateurs de EdlV dans le monde entier. Pour en savoir plus sur le projet TraitBank™, veuillez contacter <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
+  data_about_subtab_header: À propos des données de EdlV
+  data_about_this_record: Données sur cet enregistrement
+  data_column_common_name: Nom courant
+  data_column_name: Mesure
+  data_column_sci_name: Nom scientifique
+  data_column_source: Source
+  data_column_tc_id: ID de la page de EdlV
+  data_column_units: Unités
+  data_column_val: Valeur
   data_database_colon: "Données :"
   data_logging_active: Journalisation des données active
   data_master_database_colon: "Données maîtresses :"
+  data_measurement_subtable_summary: Données supplémentaires sur la mesure de ce fait.
+  data_metadata_subtable_summary: Données supplémentaire sur ce fait.
   data_object: Objet de données
   data_object_api_description: À partir de l’identifiant d’un objet de données, cette IPA renverra toutes les métadonnées sur l’objet tel que soumis à l’EdlV par le partenaire de contenu. Le partenaire de contenu est cité comme le premier élément des acteurs et a le rôle de 'partenaire'.
   data_object_ignore: ignorer cet élément
@@ -1775,6 +1832,33 @@ fr:
       meta_supplier_default: un contributeur
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
+  data_overview_table_caption: Faits en bref
+  data_point_uri_summary_name: données sur %{taxon}
+  data_provided_by_content_partner: "Source : %{whom}"
+  data_provided_by_user: fourni par %{whom}
+  data_reference_subtable_summary: Références supplémentaires sur ce fait.
+  data_row_add_exemplar_button: ajouter aux Faits en bref
+  data_row_arrow_alt: Basculer entre afficher et masquer les détails supplémentaires sur ce fait, si vous avez JavaScript activé.
+  data_row_excluded_from_overview_notice: "Note : cette ligne a été enlevée des faits en bref."
+  data_row_exemplar_added: Fait en bref ajouté.
+  data_row_exemplar_removed: Fait en bref supprimé.
+  data_row_hide_button: Masquer la ligne
+  data_row_remove_exemplar_button: enlever des Faits en bref
+  data_row_unhide_button: Ne plus masquer la ligne
+  data_search_attribute: Rechercher les données de EdlV concernant  « %{attribute} » dans les observations,<br/>les mesures et les autres assertions scientifiques.
+  data_search_destroyed: Cette tâche ne sera plus effectuée.
+  data_search_explanation: Utiliser la recherche de données de EdlV pour trouver des éléments correspondant à '%{term}' dans les observations,<br/>les mesures et les autres assertions scientifiques.
+  data_search_link: Chercher des données scientifiques dans EdlV
+  data_search_queue_pending: 
+    one: Il y a encore %{count} tâche en attente de traitement (elle peut être ou non à vous).
+    other: Il y a encore %{count} tâches en attente de traitement (elles peuvent être ou non à vous).
+    zero: Il n’y a aucune tâche en cours. Si votre tâche n’est pas terminée, quelque chose ne va pas. Veuillez réessayer.
+  data_show_n_more_rows: Afficher NNN de plus…
+  data_subtab_about: À propos de
+  data_subtab_glossary: Glossaire
+  data_summary_header: Faits en bref
+  data_tab_curator_key_excluded: "%{image} désigne des lignes que les conservateurs ont supprimées des Faits en bref."
+  data_tab_curator_key_exemplar: "%{image} désigne des lignes que les conservateurs ont ajoutées aux Faits en bref."
   data_usage_reports: Rapports d’utilisation des données
   date_caps: Date
   date_uploaded: Date de téléversement
@@ -2608,6 +2692,7 @@ fr:
   known_uri_relationships: 
     create_failed: Désolé, une erreur s’est produite, la relation n’a pas pu être ajoutée.
     created: La relation a bien été créée
+    deleted: La relation a bien été supprimée
   known_uris: 
     add_a_relationship: Ajouter une relation
     import_successful: Termes d’ontologie bien importés
@@ -3585,6 +3670,27 @@ fr:
         meta_title: Personnes intéressées par %{scientific_name}
         meta_title_with_common_name: Personnes intéressées par %{preferred_common_name} (%{scientific_name})
         tweet_text: Personnes intéressées par %{scientific_name}
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Les images, vidéos et fichiers audio de %{scientific_name} tel que classé selon %{hierarchy_provider}. Trouver des images, des photos, des films et des sons de %{scientific_name} dans l’Encyclopédie de la Vie.
+          meta_description_no_data: Aucune donnée calculable n’est disponible pour %{scientific_name} tel que classé selon %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données pour %{scientific_name}.
+          meta_description_with_common_name_no_data: Aucune donnée calculable n’est disponible pour %{preferred_common_name} selon la classification de %{hierarchy_provider}, appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données pour %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collecté pour %{preferred_common_name} tel que classé selon %{hierarchy_provider} ? Données calculables à propos de %{scientific_name} comprenant des informations sur %{topics}.
+          meta_keywords: données calculables de %{scientific_name} selon la classification de %{hierarchy_provider}, informations sur %{scientific_name}
+          meta_keywords_with_common_name: données calculables de %{preferred_common_name} selon la classification de %{hierarchy_provider}
+          meta_title: Données calcupables pour %{scientific_name} selon la classification de %{hierarchy_provider}
+          meta_title_with_common_name: Données calculables pour %{preferred_common_name} selon la classification de %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Données calculables pour %{scientific_name} selon la classification de %{hierarchy_provider}
+        meta_description: Images, vidéos et fichiers sons de %{scientific_name}. Trouver des images, des photos, des films et des sons de %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_description_no_data: Aucune données calculable n’est disponible pour %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des données pour %{scientific_name}.
+        meta_description_with_common_name_no_data: Aucune donnée calculable n’est disponible pour %{preferred_common_name} appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des données sur %{preferred_common_name} (%{scientific_name}).
+        meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collectées pour %{preferred_common_name} ? Données calculables sur %{scientific_name} comprenant des informations sur %{topics}.
+        meta_keywords: données calculables de %{scientific_name}, informations sur %{scientific_name}
+        meta_keywords_with_common_name: données calculables sur %{preferred_common_name}
+        meta_title: Données calculables pour %{scientific_name}
+        meta_title_with_common_name: Données calculables pour %{preferred_common_name} (%{scientific_name})
+        tweet_text: Données calculables pour %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -4056,6 +4162,21 @@ fr:
   user_activity_stats_wikipedia_nominated: 
     one: "%{count} article de Wikipédia nominé"
     other: "%{count} articles de Wikipédia nominés"
+  user_added_data: 
+    add_data_header: Fournir vos propres données
+    add_metadata_header: Informations supplémentaires
+    additional_fields: Données sur cet enregistrement
+    create_failed: "Impossible d’ajouter vos données : %{errors}"
+    create_successful: Les données ont bien été ajoutées
+    delete_successful: Les données ont bien été supprimées
+    edit_data_header: Modifier vos données
+    edit_metadata_header: Modifier les métadonnées
+    new_field: Nouveau champ…
+    new_value: Valeur
+    source_field_helper: Ajouter une référence de la littérature ou une URL aux ressources de données en ligne.
+    submit_data: envoyer une valeur de donnée
+    update_failed: "Impossible de mettre à jour vos données : %{errors}"
+    update_successful: Les données ont bien été mises à jour
   user_agent: Agent utilisateur
   user_already_active_notice: Votre compte est déjà actif, connectez-vous.
   user_comment: Commentaire d’utilisateur

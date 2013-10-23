@@ -47,6 +47,7 @@ EOL.show_data_tables = function(tables) {
   tables.prev('div.header_underlined').show();
   tables.find('tr.data').show();
   tables.find('tr.actions').hide();
+  $('.help_text').show();
 };
 
 EOL.toggle_actions_row = function(data_row) {
@@ -61,7 +62,9 @@ EOL.toggle_actions_row = function(data_row) {
   } else {
     var data_point_id = data_row.attr('id');
     // the metadata table hasn't been loaded yet, so load it dynamically
-    if ($table.length == 0) {
+    if (data_row.data('loading') != true && data_row.data('loaded') != true) {
+      $folder.attr('src', '/assets/indicator_arrows_black.gif');
+      data_row.data('loading', true);
       $.ajax({
         url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
         dataType: 'html',
@@ -86,9 +89,12 @@ EOL.toggle_actions_row = function(data_row) {
           $next_row.show();
           EOL.yank_glossary_terms($next_row);
           $table.show();
+          data_row.data('loading', false);
+          data_row.data('loaded', true);
+          $folder.attr('src', "/assets/arrow_fold_down.png");
         }
       });
-    } else
+    } else if(data_row.data('loading') != true)
     {
       $folder.attr('src', "/assets/arrow_fold_down.png");
       $next_row.show();
@@ -314,11 +320,13 @@ $(function() {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.glossary_subtab').hide();
+      $('.help_text').hide();
       $('.about_subtab').show()
     } else if ($(this).parent().hasClass('glossary')) {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.about_subtab').hide();
+      $('.help_text').hide();
       $('.glossary_subtab').show()
     } else if ($(this).hasClass('all')) { // Acts as a reset button/link
       $('#taxon_data .empty').show();
@@ -419,5 +427,9 @@ $(function() {
 
   EOL.info_hints(); // Note this needs to happen *after* the info icons are added.
   EOL.enable_hover_list_items();
+
+  $('.page_actions .data_download a').click(function() {
+    window.alert($(this).parent().attr('data-alert').replace(/<\/?[^>]+>/g, ''));
+  });
 
 });

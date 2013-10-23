@@ -29,17 +29,6 @@
         .hgroup
           %h1= @page_title || I18n.t(:communities_page_title)
       = render :partial => 'shared/flash_messages'
-    -# FIXME: convert this to proper community march of life with meaningful alt tags
-    -# .thumbnails
-    -#   %ul
-    -#     - demo_taxa_ids = { 2866150 => 'Amanita muscaria', 17924149 => 'Dinochelus ausubeli', 921737 => 'Haramonas dimorpha', 328607 => 'Canis lupus', 1061748 => 'Pinus strobus', 491753 => 'Anochetus mayri' }
-    -#     - demo_taxa_ids.each_with_index do |(id, name), i|
-    -#       - unless id == 17924149
-    -#         %li= link_to image_tag("v2/temporary_for_mockup/mol_#{id}.jpg", :alt => name), "/pages/#{id}"
-    -#     %li.last= link_to image_tag("v2/temporary_for_mockup/mol_17924149.jpg", :alt => demo_taxa_ids[17924149]), "/pages/17924149"
-    -#   .term
-    -#     .site_column
-    -#       %p
   #content
     .site_column
       - if @community && @community.published? && @community.id && controller.action_name != 'edit'

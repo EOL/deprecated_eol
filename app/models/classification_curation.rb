@@ -219,15 +219,13 @@ private
   end
 
   def force_immediate_notification_of(moved_to)
-    begin
-      PendingNotification.create!(:user_id => user_id,
-                                  :notification_frequency_id => NotificationFrequency.immediately.id,
-                                  :target => moved_to,
-                                  :reason => 'auto_email_after_curation')
-      Resque.enqueue(PrepareAndSendNotifications)
-    rescue => e
-      # Do nothing (for now)...
-    end
+    PendingNotification.create!(:user_id => user_id,
+                                :notification_frequency_id => NotificationFrequency.immediately.id,
+                                :target => moved_to,
+                                :reason => 'auto_email_after_curation')
+    Resque.enqueue(PrepareAndSendNotifications)
+  rescue => e
+    # Do nothing (for now)...
   end
 
   def log_activity_on(taxon_concept)

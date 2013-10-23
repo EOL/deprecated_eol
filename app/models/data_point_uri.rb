@@ -217,10 +217,7 @@ class DataPointUri < ActiveRecord::Base
           FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
         }
       }"
-    cache_name = Digest::MD5.hexdigest(uris_to_lookup.join(''))
-    metadata_rows = Rails.cache.fetch(DataPointUri.cached_name_for("metadata/#{cache_name}"), expires_in: 24.hours) do
-      EOL::Sparql.connection.query(query)
-    end
+    metadata_rows = EOL::Sparql.connection.query(query)
     metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)
     KnownUri.add_to_data(metadata_rows)
     # not using TaxonDataSet here since that would create DataPointURI entries in the database, and we really
@@ -348,14 +345,14 @@ class DataPointUri < ActiveRecord::Base
       I18n.t(:data_column_sci_name) => taxon_concept.title_canonical,
       # Common Name:
       I18n.t(:data_column_common_name) => taxon_concept.preferred_common_name_in_language(language),
-      # Name:
-      I18n.t(:data_column_name_uri) => predicate,
-      # Value:
-      I18n.t(:data_column_val_uri) => object,
-      # Name:
+      # Measurement Label:
       I18n.t(:data_column_name) => EOL::Sparql.uri_components(predicate_uri)[:label],
-      # Value:
+      # Measurement URI:
+      I18n.t(:data_column_name_uri) => predicate,
+      # Value Label:
       I18n.t(:data_column_val) => value_string(language),
+      # Value URI:
+      I18n.t(:data_column_val_uri) => (EOL::Sparql.is_uri?(object) ? object : ''),
       # Units:
       I18n.t(:data_column_units) => units_string,
       # Source:

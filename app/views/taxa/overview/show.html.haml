@@ -114,10 +114,11 @@
     #data_summary.article
       .header
         %h3= I18n.t(:data_summary_header)
-        = link_to(raw(I18n.t(:see_all_data_with_count_html, :count => @data_point_uris.count)), taxon_data_path)
+        - if @data_point_uris
+          = link_to(raw(I18n.t(:see_all_data_with_count_html, :count => @data_point_uris.count)), taxon_data_path)
       - if @data_point_uris.blank?
         .empty
-          %p= I18n.t(:taxon_data_empty)
+          %p= I18n.t(@data_point_uris ? :taxon_data_empty : :data_server_unavailable)
       - else
         = render(:partial => 'taxa/data/overview_summary', :locals => { :data_point_uris => @data_point_uris })
   -# TODO - It probably shouldn't be THAT different for a selected hierarchy entry view and a regular taxon view.

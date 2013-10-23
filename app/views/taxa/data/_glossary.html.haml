@@ -5,5 +5,5 @@
   .header_underlined
     %h3= I18n.t(:glossary_subhead)
   %ul.glossary
-    - glossary_terms.sort_by(&:name).each do |known_uri|
+    - glossary_terms.sort_by{ |kn| kn.name.downcase }.each do |known_uri|
       = render(partial: 'known_uris/definition', locals: { known_uri: known_uri, glossary_link: true, attribution: true, search_link: true })

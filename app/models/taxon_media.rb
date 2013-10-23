@@ -35,7 +35,7 @@ class TaxonMedia < TaxonUserClassificationFilter
   end
 
   def start
-    @start ||= (@page.to_i - 1) * @per_page + 1
+    @start ||= (@page.to_i - 1) * @per_page.to_i + 1
   end
 
   def end

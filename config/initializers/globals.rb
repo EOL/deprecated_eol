@@ -1,5 +1,9 @@
-# So, the new-fangled way to do configuration in Rails is Rails.configuration.WHATEVER.  ...So let's do that. It's better than friggin'
-# globals.  That said, we may want to adopt the simple, popular, SimpleConfig: https://github.com/lukeredpath/simpleconfig
+# So, the new-fangled way to do configuration in Rails is Rails.configuration.WHATEVER.  ...So let's do that. It's better than
+# friggin' globals.  That said, we may want to adopt the simple, popular, SimpleConfig:
+# https://github.com/lukeredpath/simpleconfig
+
+# If you're testing a new feature, they will be asked to go here to provide feedback:
+Rails.configuration.beta_test_feedback_link = 'https://www.surveymonkey.com/s/9FDTDQP'
 
 # Collection configu settings:
 
@@ -8,6 +12,7 @@ Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
 # TAXON DATA configuration settings:
 
 Rails.configuration.uri_prefix = 'http://eol.org/schema/'
+Rails.configuration.schema_terms_prefix = 'http://eol.org/schema/terms/'
 Rails.configuration.uri_inverse = 'http://www.w3.org/2002/07/owl#inverseOf'
 Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources"
 Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"
@@ -146,6 +151,10 @@ $DATASET_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/datasets/:id.:extensio
 
 $CONTENT_UPLOAD_PATH = "/uploads/"  # directory to place uploaded content files, content server needs SFTP access to this folder
 $CONTENT_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/:id.:extension"  # directory to place uploaded content
+
+$DATA_SEARCH_FILE_DIRECTORY = "#{Rails.public_path}/uploads/data_search_files/:id.csv"
+$DATA_SEARCH_FILE_PATH = '/uploads/data_search_files/:id.csv'
+$HOSTED_DATASET_PATH = 'http://localhost/eol_php_code/applications/content_server/datasets/'
 
 # NEWS ITEMS ON HOME PAGE CONFIGURATION
 $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY = 5 # the maximum number of news items to show on the home page at any time

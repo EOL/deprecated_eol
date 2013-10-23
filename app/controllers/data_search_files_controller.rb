@@ -1,5 +1,7 @@
 class DataSearchFilesController < ApplicationController
 
+  before_filter :restrict_to_data_viewers
+
   before_filter :set_page_title
 
   layout 'v2/basic'

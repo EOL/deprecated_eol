@@ -155,6 +155,9 @@ ko:
         rich_pages: 풍부한 문서
         rich_redhotlist_pages: 풍부한 빨간 인기 목록 문서
         rich_redhotlist_pages_percentage: 풍부한 빨간 인기 목록 문서 %
+        total_associations: 협회
+        total_taxa_with_data: 데이터가 있는 문서
+        total_user_added_data: 사용자가 추가한 데이터
         udo_published: 사용자가 제출한 텍스트
         udo_published_by_curators: 큐레이터가 제출한 텍스트
         udo_published_by_non_curators: 큐레이터가 아닌 사용자가 제출한 텍스트
@@ -180,6 +183,17 @@ ko:
         descriptive_label: 설명 레이블
         label: 레이블
         request_publish: 게시 요청
+      known_uri: 
+        description: 설명
+        name: 이름
+        toc_items: 분류
+        uri: URI
+        uri_type: URI 유형
+      known_uri_relationship: 
+        from_known_uri_id: 주제 URI
+        relationship_uri: 관계 URI
+        to_known_uri: 대상 URI
+        to_known_uri_id: 대상 URI
       name: 
         string: 이름
       news_item: 
@@ -238,6 +252,9 @@ ko:
         meta_description: 메타데이터 설명
         meta_keywords: 메타데이터 키워드
         title: 제목
+      translated_known_uri: 
+        comment: 덧글
+        definition: 정의
       translated_news_item: 
         active_translation: 게시함
         body: 본문
@@ -264,6 +281,13 @@ ko:
         requested_curator_level_id: 원하는 큐레이션 수준
         tag_line: 태그 라인
         username: 사용자 이름
+      user_added_data: 
+        object: 값
+        predicate: 특성
+        user: 추가됨
+      user_added_data_metadata: 
+        object: 값
+        predicate: 특성
     errors: 
       format: "%{attribute}(은)는 %{message}"
       full_messages: 
@@ -849,6 +873,7 @@ ko:
   add_link_instead: 대신 링크 추가
   add_link_to_page_button: 링크 추가
   add_new_association_link: 새 연관 추가
+  add_new_known_uri_link: 새 URI 추가
   add_new_tag_suggestion: 새 태그 제안 추가
   add_page: 문서 추가
   add_sub_chapter: 절 추가
@@ -908,6 +933,7 @@ ko:
   admin_news_items_page_title: "관리: 뉴스"
   admin_news_link: 뉴스
   admin_notes_not_visible_to_user: "관리자 참고 (사용자한테 보여지지 않음):"
+  admin_option_changed: 값이 변경되었습니다.
   admin_page_title: "관리: 둘러보기"
   admin_spam_delete: 스팸 삭제
   admin_statistics_link: 통계
@@ -1090,6 +1116,12 @@ ko:
   average_rating_value_of_total: "평균 평점: %{total} 중 %{rating}"
   back: 뒤로
   back_to_profile: 프로필로 돌아가기
+  background_processes_complete_head: 다 되었습니까?
+  background_processes_created_head: 생성됨
+  background_processes_is_complete: 예
+  background_processes_is_not_complete: 아니오
+  background_processes_page_title: 백그라운드 프로세스
+  background_processes_query_head: 쿼리
   began: 개시
   belongs_in_count_communities: 
     one: 공동체 %{count}개에 속함
@@ -1124,6 +1156,7 @@ ko:
   cannot_expand_children: 자식을 확장할 수 없습니다
   cannot_find_member: 이 id로 된 구성원을 찾을 수 없습니다.
   cannot_index_collection_item_type_error: "%{type}에서 모음집 항목을 색인할 수 없습니다."
+  categories_title: 분류를 선택하고 특성을 선택합니다
   change: 바꾸기
   change_rating_to_1_of_5: 5점 중 1점으로 평가 바꾸기
   change_rating_to_2_of_5: 5점 중 2점으로 평가 바꾸기
@@ -1288,6 +1321,7 @@ ko:
   comments_filter: 덧글
   comments_moderated: 덧글 검토됨
   comments_on: 덧글 남긴 곳
+  comments_page_title: "%{parent}에 대한 덧글"
   comments_with_count: 
     one: 덧글 %{count}개
     other: 덧글 %{count}개
@@ -1661,6 +1695,8 @@ ko:
   daily: 매일
   darwin_core: 다윈 코어
   dashboard: 데시보드
+  data_column_sci_name: 학명
+  data_column_source: 출처
   data_database_colon: "날짜:"
   data_logging_active: 데이터 기록 활동
   data_master_database_colon: "데이터 마스터:"
@@ -1690,6 +1726,7 @@ ko:
       meta_supplier_default: 기여자
       meta_title: "%{supplier}에서 %{dato_title}"
       tweet_text: "%{supplier}에서 %{dato_title}"
+  data_subtab_glossary: 용어집
   data_usage_reports: 데이터 사용 보고서
   date_caps: 날짜
   date_uploaded: 올린 날짜
@@ -1866,6 +1903,8 @@ ko:
       menu_link: 큐레이터 통계
       page_header: 큐레이터 통계
       page_title: 통계
+    data: 
+      menu_link: 데이터
     data_objects: 
       menu_link: 데이터 개체
       page_header: 데이터 개체 통계
@@ -2096,7 +2135,9 @@ ko:
   given_name_colon: "주어진 이름:"
   global_access_tagline: 지구상의 생명에 관한 지식에 대한 전세계적 접근
   global_navigation: 세계 항해
+  glossary: 용어집
   glossary_is_empty: (용어가 비어 있음)
+  glossary_subhead: 용어집
   glossary_term: 이용 약관
   glossary_terms: 용어 약관
   go: 찾기
@@ -2490,6 +2531,9 @@ ko:
   just_pages_with_pictures_and_text: 사진과 텍스트로 된 해당 문서
   keep_split_entry_from_this_entry: 이 항목에서 분리된 상태로 유지
   key: 키
+  known_uri_category_header: 분류
+  known_uri_missing_translation: 번역되지 않았습니다. 편집해 주세요.
+  known_uris_none: 아무도 이 종류에 대해 URI를 추가하지 않았습니다.
   label: 레이블
   language: "언어:"
   language_selector_advisory_information: 다음은 사이트의 내용으로 읽을 수 있는 언어의 목록이며, 현재 언어를 바꾸려면 이 목록에서 다른 언어를 선택하세요.
@@ -3118,6 +3162,7 @@ ko:
   recognized_by_from_source: "%{source}에서 %{recognized_by}"
   recognized_by_from_source_as_a_rank: "%{taxon_rank}로 %{source}에서 %{recognized_by}"
   record_not_found: "[기록을 찾을 수 없습니다]"
+  reference: 출처
   references_cabs_colon: "참고:"
   reindex_page_button: 재색인 문서
   related_names_with_count: 
@@ -3313,6 +3358,7 @@ ko:
   sounds_with_count: 
     one: 소리 %{count}개
     other: 소리 %{count}개
+  source: 출처
   source_and_additional_information: 출처와 추가 정보
   source_colon: "출처:"
   source_information_header: 출처 정보
@@ -3341,6 +3387,7 @@ ko:
   submit_term: 용어 제출
   suggested_result_page_id: "제안한 결과 문서 ID:"
   suggested_results_avg: 제안한 결과 평균
+  suggested_vocab_remove: 추천 삭제
   summary_thumbnail_title: "요약:"
   supplier: 공급자
   supplier_allcaps: "공급자:"
@@ -3724,6 +3771,7 @@ ko:
   too_many_descendants_to_curate_with_count: 
     one: "오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과 하는 하위 %{count}개가 있습니다."
     other: "오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과 하는 하위 %{count}개가 있습니다."
+  top: 맨 위로
   topic: 주제
   topic_area: 주제 영역
   total: 전체
@@ -3786,6 +3834,7 @@ ko:
   uploaded_by: 올린이
   uploaded_content: 올린 콘텐츠
   uploaded_on: 올린 곳
+  uri: URI
   url: URL
   url_not_accessible: 이 URL은 접근할 수 없습니다
   us_dolars_75: 미국 $75
@@ -3839,6 +3888,12 @@ ko:
   user_activity_stats_wikipedia_nominated: 
     one: 위키백과 문서 %{count}개를 추천했습니다
     other: 위키백과 문서 %{count}개를 추천했습니다
+  user_added_data: 
+    add_data_header: 자신이 가진 데이터를 기여
+    create_successful: 데이터가 성공적으로 추가 되었습니다
+    delete_successful: 데이터가 지워졌습니다
+    edit_data_header: 데이터 편집
+    new_value: 값
   user_agent: 유저 에이전트
   user_already_active_notice: 계정이 이미 활성화되어 있습니다, 로그인하세요.
   user_comment: 사용자 덧글

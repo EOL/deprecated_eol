@@ -146,6 +146,8 @@ ru:
         rich_hotlist_pages: Насыщенные популярные страницы
         rich_pages: Насыщенные страницы
         rich_redhotlist_pages: Насыщенные популярные страницы
+        total_associations: Ассоциации
+        total_taxa_with_data: Страницы с данными
         udo_published: Добавленный пользователем текст
         udo_published_by_curators: Текст, предоставленный куратором
         udo_published_by_non_curators: Текст, предоставленный не-куратором
@@ -171,6 +173,9 @@ ru:
         descriptive_label: Описательные метки
         label: Обозначение
         request_publish: Запрос публикации
+      known_uri: 
+        description: Описание
+        toc_items: Категории
       name: 
         string: Имя
       news_item: 
@@ -229,6 +234,9 @@ ru:
         meta_description: Описание метаданных
         meta_keywords: Метаданные
         title: Заголовок
+      translated_known_uri: 
+        comment: Комментарий
+        definition: Определение
       translated_news_item: 
         active_translation: Опубликовано
         body: Текст
@@ -255,6 +263,12 @@ ru:
         requested_curator_level_id: Желаемый уровень курирования
         tag_line: Слоган
         username: Имя пользователя
+      user_added_data: 
+        object: Значение
+        predicate: Атрибут
+      user_added_data_metadata: 
+        object: Значение
+        predicate: Атрибут
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -482,7 +496,7 @@ ru:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Кликните здесь</a>, чтобы получить доступ к бета-тестированию нового форумов EOL. Ваши замечания приветствуются.
-  api_docs_collections_description: Если вы укажите идентификатор для коллекции, API возвратит все метаданные о коллекции и элементах, которые он содержит. Список элементов можно фильтровать по типу элемента и сортировать по выше перечисленным атрибутам.
+  api_docs_collections_description: Если вы укажите идентификатор для коллекции, API возвратит все метаданные о коллекции и элементах, которые он содержит. Список элементов можно фильтровать по типу элемента и сортировать по перечисленным атрибутам. Некоторые элементы будут содержать необязательный атрибут «sort_field» («поле сортировки»). Поле сортировки является пользовательской строкой, которая является специальной аннотацией к элементу коллекции. Это может быть любая строка символов, но если это дата, она должна соответствовать формату ГГГГ-ММ-ДД. Элементы таксонов будут содержать «richness_score» («очки полноты»). Полнота представляет собой показатель, представленный как целое число между 0 и 100, где более высоким числом обозначают страницу с более полным содержанием и с большим количеством источников. Подробнее о таксоне полноты смотрите на вкладке обновления страницы таксонов, например %{richness_url}.
   application_version_advisory_information: Версия приложения
   are_you_sure: Вы уверены?
   are_you_sure_this_action_cannot_be_undone: Вы уверены? Это действие невозможно отменить.
@@ -802,7 +816,7 @@ ru:
   dato_create_cancel: Отмена
   delete: удалить
   donate: Внести пожертвование
-  edit: Редактировать
+  edit: редактировать
   encyclopedia_of_life: Энциклопедия жизни
   eol_news: Новости EOL
   eol_statistics: 
@@ -814,6 +828,9 @@ ru:
     curators: 
       menu_link: Статистика куратора
       page_header: Статистика куратора
+      page_title: Статистика
+    data: 
+      menu_link: Данные
       page_title: Статистика
     data_objects: 
       menu_link: Объекты данных
@@ -1175,6 +1192,11 @@ ru:
   indexed: Индексированные
   jsonp_by_adding_a_callback_parameter: ... и JSONP, добавив параметр обратного вызова
   just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
+  known_uri_relationships: 
+    created: Связь была успешно создана
+  known_uris: 
+    relationships: Связи
+    select_a_category_to_view_stats: "Выберите категорию, чтобы посмотреть статистику:"
   language: "Язык:"
   languages: Языки
   layouts: 

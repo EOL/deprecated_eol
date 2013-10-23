@@ -140,7 +140,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: 'http://eol.org/schema/terms/added_predicate',
+        attribute: Rails.configuration.schema_terms_prefix + 'added_predicate',
         value: 'Added Value')
       @added_data_activity_regex = /#{@user.full_name}.*added data to.*#{@taxon_concept.summary_name}.*Added Predicate.*Added Value/m
     end
@@ -152,7 +152,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: 'http://eol.org/schema/terms/data_to_hide',
+        attribute: Rails.configuration.schema_terms_prefix + 'data_to_hide',
         value: 'Tohide Value')
       hide_row
       @added_data_activity_regex = /#{@user.full_name}.*chose to hide data on.*#{@taxon_concept.summary_name}.*Data To Hide.*Tohide Value/m
@@ -165,7 +165,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: 'http://eol.org/schema/terms/data_to_unhide',
+        attribute: Rails.configuration.schema_terms_prefix + 'data_to_unhide',
         value: 'Tounhide Value')
       hide_row
       unhide_row
@@ -179,7 +179,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: 'http://eol.org/schema/terms/for_quick_facts',
+        attribute: Rails.configuration.schema_terms_prefix + 'for_quick_facts',
         value: 'Tofacts Value')
       add_to_quick_facts
       @added_data_activity_regex = /#{@user.full_name}.*set data as exemplar on.*#{@taxon_concept.summary_name}.*For Quick Facts.*Tofacts Value/m
@@ -192,7 +192,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: 'http://eol.org/schema/terms/for_comments',
+        attribute: Rails.configuration.schema_terms_prefix + 'for_comments',
         value: 'Tocomment Value')
       comment('testing annotations')
       @added_data_activity_regex = /#{@user.full_name}.*commented on.*data about.*#{@taxon_concept.summary_name}.*testing annotations/m

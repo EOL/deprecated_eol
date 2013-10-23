@@ -3,6 +3,7 @@
   = javascript_include_tag "known_uris"
 #content
   #known_uris.site_column
+    = render 'shared/beta_warning'
     - if @uri_type
       %ul.nav
         - UriType.all.each do |type|

@@ -55,11 +55,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    begin
-      I18n.locale = current_language.iso_639_1
-    rescue
-      I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
-    end
+    I18n.locale = current_language.iso_639_1
+  rescue
+    I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
   end
 
   def allow_login_then_submit
@@ -206,7 +204,6 @@ class ApplicationController < ActionController::Base
   def clear_all_caches
     Rails.cache.clear
     remove_cached_feeds
-    remove_cached_list_of_taxon_concepts
     # The docs warn about doing this, TODO - should we remove it?
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear
@@ -338,14 +335,14 @@ class ApplicationController < ActionController::Base
     raise EOL::Exceptions::SecurityViolation.new(
       "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
       " that is restricted to EOL assistant curators and above, and was disallowed.",
-      "min_assistant_curators_only") unless current_user.is_admin? || current_user.min_curator_level?(:assistant)
+      :min_assistant_curators_only) unless current_user.is_admin? || current_user.min_curator_level?(:assistant)
   end
 
   def restrict_to_admins_and_master_curators
     raise EOL::Exceptions::SecurityViolation.new(
       "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
       " that is restricted to EOL master curators and above, and was disallowed.",
-      "min_assistant_curators_only") unless current_user.is_admin? || current_user.min_curator_level?(:master)
+      :admin_or_master_curators_only) unless current_user.is_admin? || current_user.min_curator_level?(:master)
   end
 
   def restrict_to_master_curators
@@ -358,6 +355,13 @@ class ApplicationController < ActionController::Base
 
   def restrict_to_curators
     restrict_to_curators_of_level(:assistant)
+  end
+
+  def restrict_to_data_viewers
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to Data Viewers, and was disallowed.",
+      :no_access) unless current_user.can_see_data?
   end
 
   # A user is not authorized for the particular controller/action:
@@ -810,11 +814,6 @@ private
 
   def remove_cached_feeds
     FileUtils.rm_rf(Dir.glob(Rails.root.join(Rails.public_path, 'feeds', '*')))
-  end
-
-  def remove_cached_list_of_taxon_concepts
-    FileUtils.rm_rf(Rails.root.join(Rails.public_path, 'content', 'tc_api', 'page'))
-    expire_page( :controller => 'content', :action => 'tc_api' )
   end
 
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values

@@ -29,18 +29,16 @@ module InaturalistProjectInfo
     end
 
     def cache_all
-      begin
-        # by default expire iNat cache every day. We should work with them to come up with a more precise mechanism
-        Rails.cache.fetch(InaturalistProjectInfo.cache_key, :expires_in => 1.day) do
-          InaturalistProjectInfo.lock_caching
-          InaturalistProjectInfo.get_all
-        end
-      rescue => e
-        Rails.logger.warn "** Unable to get iNat info for ALL collections: #{e.message}"
-        nil
-      ensure
-        InaturalistProjectInfo.unlock_caching
+      # by default expire iNat cache every day. We should work with them to come up with a more precise mechanism
+      Rails.cache.fetch(InaturalistProjectInfo.cache_key, :expires_in => 1.day) do
+        InaturalistProjectInfo.lock_caching
+        InaturalistProjectInfo.get_all
       end
+    rescue => e
+      Rails.logger.warn "** Unable to get iNat info for ALL collections: #{e.message}"
+      nil
+    ensure
+      InaturalistProjectInfo.unlock_caching
     end
 
     # The following methods should be considered private... ish. You may call them, but that's not the intent. Your
@@ -48,12 +46,10 @@ module InaturalistProjectInfo
 
     # NOTE: In the view, we also create a background JQuery call to cache the entire list.
     def get_directly(id)
-      begin
-        InaturalistProjectInfo.get_inat_response(source:"#{Rails.configuration.inat_project_prefix}#{id}").first
-      rescue => e
-        Rails.logger.warn "** Unable to get iNat info for collection #{id}: #{e.message}"
-        nil
-      end
+      InaturalistProjectInfo.get_inat_response(source:"#{Rails.configuration.inat_project_prefix}#{id}").first
+    rescue => e
+      Rails.logger.warn "** Unable to get iNat info for collection #{id}: #{e.message}"
+      nil
     end
 
     def get_from_cache(id)

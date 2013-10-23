@@ -35,6 +35,7 @@ Eol::Application.routes.draw do
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
+  match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
 
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
@@ -409,7 +410,7 @@ Eol::Application.routes.draw do
 
   resource :taxon_concept_exemplar_image, only: :create
 
-  resource :glossary, :only => :show, :controller => 'glossary'
+  resource :data_glossary, :only => :show, :controller => 'data_glossary'
 
   # Putting these after the complex resources because they are less common.
   resources :tasks, :task_states, :task_names, :random_images

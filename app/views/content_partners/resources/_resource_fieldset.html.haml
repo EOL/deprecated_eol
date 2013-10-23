@@ -19,7 +19,7 @@
             = resource_form.label :accesspoint_url
           %dd
             - unless @resource.dataset_file_name.blank?
-              %p= I18n.t('helpers.label.resource.dataset_existing_remove', :file_name => @resource.dataset_file_name)
+              %p= raw(I18n.t('helpers.label.resource.dataset_existing_remove', :file_name => @resource.dataset_file_name))
             = resource_form.text_field :accesspoint_url, :maxlength => 255
           %dt.required
             = resource_form.label :refresh_period_hours

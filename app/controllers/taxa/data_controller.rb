@@ -1,5 +1,6 @@
 class Taxa::DataController < TaxaController
 
+  before_filter :restrict_to_data_viewers
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :load_data
   before_filter :load_glossary
@@ -42,7 +43,11 @@ protected
   end
 
   def load_glossary
-    @glossary_terms = @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri).uniq
+    @glossary_terms = @data_point_uris ?
+      ( @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri) +
+        @data_point_uris.select{ |dp| ! dp.object_known_uri.blank? }.collect(&:object_known_uri) +
+        @data_point_uris.select{ |dp| ! dp.unit_of_measure_known_uri.blank? }.collect(&:unit_of_measure_known_uri)).compact.uniq
+      : nil
   end
 
 end

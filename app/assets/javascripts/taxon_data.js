@@ -74,8 +74,6 @@ EOL.toggle_actions_row = function(data_row) {
             var uri = $(this).find('.uri').text();
             $(this).remove();
             // only add the term if it is not already in the glossary
-            console.log(html);
-            console.log(uri);
             $('.glossary_subtab ul.glossary:not(:contains("' + uri + '"))').append('<li>'+html+'</li>');
           });
           // sort the glossary now that new items have been added to the end

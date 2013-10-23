@@ -70,6 +70,7 @@
   - if ! @data_point_uris.blank? && current_user.min_curator_level?(:full)
     .copy
       .help_text
+        %h3= I18n.t(:legend)
         .key= raw I18n.t(:data_tab_curator_key_exemplar, image: image_tag("v2/icon_required.png"), link: taxon_overview_path(@taxon_page))
         .key= raw I18n.t(:data_tab_curator_key_excluded, image: image_tag("v2/icon_excluded.png"), link: taxon_overview_path(@taxon_page))
 - if current_user.min_curator_level?(:master)

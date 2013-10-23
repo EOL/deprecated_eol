@@ -3246,6 +3246,7 @@ en:
   data_row_hide_button: "Hide Row"
   data_row_unhide_button: "Unhide Row"
   data_search_link: "Search scientific data on EOL"
+  data_search_refine_field_label: "Refine data search"
   data_search_queue_pending:
     zero: "There are no jobs pending. If your job is not complete, something went wrong. Please try again."
     one: "There is still %{count} job waiting to be processed (it may or may not be yours)."
@@ -3709,6 +3710,7 @@ en:
   leave_a_comment: "Leave a comment"
   leave_reply: "Leave Reply"
   left_content_area: "Left content area"
+  legend: "Legend:"
   license: "License"
   license_none: "None"
   license_all_rights_reserved: "All rights reserved"

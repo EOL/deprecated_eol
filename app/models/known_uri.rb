@@ -337,7 +337,8 @@ class KnownUri < ActiveRecord::Base
   end
 
   def unit_of_measure?
-    KnownUri.unit_of_measure.allowed_values.include?(self)
+    # TODO - remove this first clause once unit_of_measure is added to default values.  :|
+    KnownUri.unit_of_measure && KnownUri.unit_of_measure.allowed_values.include?(self)
   end
 
   def anchor

@@ -69,9 +69,9 @@ class TaxonData < TaxonUserClassificationFilter
           ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri .
         } . "
     if options[:from] && options[:to]
-      query += "FILTER(xsd:float(?value) >= #{options[:from]} AND xsd:float(?value) <= #{options[:to]}) . "
+      query += "FILTER(xsd:float(?value) >= xsd:float(#{options[:from]}) AND xsd:float(?value) <= xsd:float(#{options[:to]})) . "
     elsif options[:querystring] && options[:querystring].is_numeric?
-      query += "FILTER(xsd:float(?value) = #{options[:querystring]}) . "
+      query += "FILTER(xsd:float(?value) = xsd:float(#{options[:querystring]})) . "
     elsif options[:querystring] && ! options[:querystring].strip.empty?
       query += "FILTER(REGEX(?value, '#{options[:querystring]}', 'i')) . "
     end

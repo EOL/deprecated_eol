@@ -61,7 +61,7 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_obo + 'UO_0000033', name: 'days' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' },
                   { uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
-                  { uri: Rails.configuration.schema_terms_prefix + 'log10gram', name: 'Log10 grams' } ]
+                  { uri: Rails.configuration.schema_terms_prefix + 'log10gram', name: 'log10 grams' } ]
 
   def self.convert_unit_name_to_class_variable_name(unit_name)
     return unit_name if unit_name.is_a?(Symbol)

@@ -316,7 +316,7 @@ class DataPointUri < ActiveRecord::Base
       { starting_unit: :centimeters, ending_unit: :meters, function: lambda { |v| v / 100 }, required_minimum: 1.0 },
       { starting_unit: :kelvin, ending_unit: :celsius, function: lambda { |v| v - 273.15 } },
       { starting_unit: :days, ending_unit: :years, function: lambda { |v| v / 365 }, required_minimum: 1.0 },
-      { starting_unit: "0.1°C", ending_unit: :celsius, function: lambda { |v| v * 10 } },
+      { starting_unit: "0.1°C", ending_unit: :celsius, function: lambda { |v| v / 10 } },
       { starting_unit: "log10 grams", ending_unit: :grams, function: lambda { |v| 10 ** v } }
     ]
     # we can use either the unit in the medata, or the one implied by the predicate

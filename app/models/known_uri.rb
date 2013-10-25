@@ -1,3 +1,4 @@
+# encoding: utf-8
 # A curated, translated relationship between a URI and a "human-readable" string describing the intent of the URI.
 # I'm going to use Curatable for now, even though vetted probably won't ever be used. ...It might be, and it makes
 # this easier than splitting up that class.
@@ -58,14 +59,23 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_obo + 'UO_0000012', name: 'kelvin' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000033', name: 'days' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' }]
+                  { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' },
+                  { uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
+                  { uri: Rails.configuration.schema_terms_prefix + 'log10gram', name: 'Log10 grams' } ]
+
+  def self.convert_unit_name_to_class_variable_name(unit_name)
+    return unit_name if unit_name.is_a?(Symbol)
+    converted = unit_name.tr('.° ', '_')
+    converted.sub(/^([0-9])/, "_\\1")
+  end
 
   COMMON_URIS.each do |info|
     eigenclass = class << self; self; end
     eigenclass.class_eval do
-      define_method(info[:name]) do
-        return class_variable_get("@@#{info[:name]}".to_sym) if class_variable_defined?("@@#{info[:name]}".to_sym)
-        class_variable_set("@@#{info[:name]}".to_sym, cached_find(:uri, info[:uri]))
+      variable_name = KnownUri.convert_unit_name_to_class_variable_name(info[:name])
+      define_method(variable_name) do
+        return class_variable_get("@@#{variable_name}".to_sym) if class_variable_defined?("@@#{variable_name}".to_sym)
+        class_variable_set("@@#{variable_name}".to_sym, cached_find(:uri, info[:uri]))
       end
     end
   end

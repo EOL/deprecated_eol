@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Very stupid modle that just gives us a DataPointUri stored in the DB, for linking comments to. These are otherwise
 # generated/stored in via SparQL.
 class DataPointUri < ActiveRecord::Base
@@ -314,7 +315,9 @@ class DataPointUri < ActiveRecord::Base
       { starting_unit: :millimeters, ending_unit: :centimeters, function: lambda { |v| v / 10 }, required_minimum: 1.0 },
       { starting_unit: :centimeters, ending_unit: :meters, function: lambda { |v| v / 100 }, required_minimum: 1.0 },
       { starting_unit: :kelvin, ending_unit: :celsius, function: lambda { |v| v - 273.15 } },
-      { starting_unit: :days, ending_unit: :years, function: lambda { |v| v / 365 }, required_minimum: 1.0 }
+      { starting_unit: :days, ending_unit: :years, function: lambda { |v| v / 365 }, required_minimum: 1.0 },
+      { starting_unit: "0.1°C", ending_unit: :celsius, function: lambda { |v| v * 10 } },
+      { starting_unit: "Log10 grams", ending_unit: :grams, function: lambda { |v| 10 ** v } }
     ]
     # we can use either the unit in the medata, or the one implied by the predicate
     if self.unit_of_measure_known_uri
@@ -329,8 +332,8 @@ class DataPointUri < ActiveRecord::Base
       potential_new_value = c[:function].call(self.object.to_f)
       next if c[:required_minimum] && potential_new_value < c[:required_minimum]
       self.object = potential_new_value
-      self.unit_of_measure = KnownUri.send(c[:ending_unit]).uri
-      self.unit_of_measure_known_uri = KnownUri.send(c[:ending_unit])
+      self.unit_of_measure = KnownUri.send(KnownUri.convert_unit_name_to_class_variable_name(c[:ending_unit])).uri
+      self.unit_of_measure_known_uri = KnownUri.send(KnownUri.convert_unit_name_to_class_variable_name(c[:ending_unit]))
       return true
     end
     false

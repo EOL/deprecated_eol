@@ -618,6 +618,19 @@ mk:
         user_cropped_an_unknown_data_object: <strong>%{user}</strong> ја смени минијатурата на непозната слика.
         user_cropped_data_object: <strong>%{user}</strong> ја смени минијатурата на „%{data_object}“.
         user_cropped_it: <strong>%{user}</strong> ја смени минијатурата на непозната слика.
+      data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: Непознат корисник реши да скрие податоци на непозната страница.
+        an_unknown_user_hide_data_on_taxon: Непознат корисник реши да скрие податоци на „%{taxon}“.
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Непознат корисник укажа податоци како урнек на непозната страница.
+        an_unknown_user_set_exemplar_data_on_taxon: Непознат корисник укажа податоци како урнек на „%{taxon}“.
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Непознат корисник реши да прикаже податоци на непозната страница.
+        an_unknown_user_unhide_data_on_taxon: Непознат корисник реши да прикаже податоци на „%{taxon}“.
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> реши да скрие податоци на непозната страница.
+        user_hide_data_on_taxon: <strong>%{user}</strong> реши да скрие податоци на „%{taxon}“.
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> укажа податоци како урнек на непозната страница.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> укажа податоци како урнек на „%{taxon}“.
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> реши да прикаже податоци на непозната страница.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> реши да прикаже податоци на „%{taxon}“.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена во непознат контекст.
         an_unknown_user_hid_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена на страницата „%{association}“.
@@ -878,6 +891,15 @@ mk:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како недоверлив на страницата „%{association}“.
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како недоверливо во непознат контекст.
         user_untrusted_it_on_association: <strong>%{user}</strong> го означи како недоверливо на страницата „%{association}“.
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: Непознат корисник додаде податоци на непозната страница.
+        an_unknown_user_create_data_on_taxon: Непознат корисник додаде податоци на „%{taxon}“.
+        an_unknown_user_update_data_on_an_unknown_taxon: Непознат корисник измени податоци на непозната страница.
+        an_unknown_user_update_data_on_taxon: Непознат корисник измени податоци на „%{taxon}“.
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> додаде податоци на непозната страница.
+        user_create_data_on_taxon: <strong>%{user}</strong> додаде податоци на „%{taxon}“.
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> измени податоци на непозната страница.
+        user_update_data_on_taxon: <strong>%{user}</strong> измени податоци на „%{taxon}“.
   activity_user_created_data: <strong>%{user}</strong> додаде податоци за „%{object_name}“ во „%{taxon_concept}“.
   activity_user_created_link: <strong>%{user}</strong> додаде врска во „%{object_name}“ на „%{taxon_concept}“.
   activity_user_created_text: <strong>%{user}</strong> додаде текст во „%{object_name}“ на „%{taxon_concept}“.
@@ -895,6 +917,7 @@ mk:
   add_a_new_topic_area: Додај нова тематска област
   add_a_new_user: Додај нов корисник
   add_a_taxon_association_label: Додај поврзаност на таксон
+  add_another_metadata_field: Додај друго поле за метаподатоци
   add_article_instead: наместо тоа, додајте статија
   add_article_to_page_button: Додај статија
   add_association_submit_button: додај поврзаност
@@ -910,6 +933,7 @@ mk:
   add_link_instead: наместо тоа, додајте врска
   add_link_to_page_button: Додај врска
   add_new_association_link: Додај нова поврзаност
+  add_new_known_uri_link: Додај ново URI
   add_new_tag_suggestion: Додај предлог за Нова ознака
   add_page: Додај страница
   add_sub_chapter: Додај подглава
@@ -1080,7 +1104,9 @@ mk:
   an_unknown_user: Непознат корисник
   and: и
   and_between_form_items: и
+  annotation_body_default: додај прашање или коментар ...
   annotation_cabs_colon: "Прибелешка:"
+  annotation_submit: поднеси прибелешка
   annotations_with_count: 
     one: "%{count} прибелешка"
     other: "%{count} прибелешки"
@@ -1187,6 +1213,10 @@ mk:
   belongs_in_count_communities: 
     one: Припаѓа на %{count} заедница
     other: Припаѓа на %{count} заедници
+  beta_warning_body: Највеќето корисници не можат да ја видат и користат оваа функција, која е во фаза на разработка. Може да работи непредвидливо, но добредојдени сте да ја истражите. Би го ценеле вашето <a href='%{link}'>мислење</a>.
+  beta_warning_header: Користите пробна бета-функција
+  beta_warning_note_header: "Напомена:"
+  beta_warning_small: Имајте предвид дека ова е пробна бета-функција и може да се однесува непредвидливо.
   bhl: Библиотека на биоразновидносно наследство
   bhl_partner_footer: Посетете ја Библиотеката на биоразновидносно наследство
   bhl_publication: Дело од BHL
@@ -1790,18 +1820,26 @@ mk:
   darwin_core: Darwin Core
   dashboard: Контролна табла
   data: Податоци
+  data_about_subtab_content: <p>Податоците и метаподатоците се добиваат од повеќе разни извори и се ставаат во единствен семантички пристапен таксонски преглед со сите потребни наводи.</p><p>За да погледате дополнителни подробности за секоја податочна вредност, стиснете на неа. Стиснете на симболот %{img} за да ја добиете определбата на податочниот тип.</p><p>Мора да сте најавени за да коментирате, внесувате податоци, потекло, URI-ја и други податоци непосредно во EOL. Може најпрвин да треба да се <a href='/users/register'>регистрирате на EOL,</a>. Доколку би сакале да предложите податочен збир за да се стави во EOL, или пак имате такви збирови кои сакате да ги споделите преку EOL, тогаш обратете ни се на <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Средствата за разработка на можноста за пресметливи податоци на EOL ги обезбедија фондациите „Алфред П. Слоун“ и „Џон Д. и Кетрин Т. Мекартур“, како и корисници на EOL ширум светот. За да дознаете повеќе за проектот TraitBank™, пишете на <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
   data_about_subtab_header: За податоците на EOL
   data_about_this_record: Податоци за овој запис
+  data_beta_search_limit: 
+    one: Пребарувањето на податоци е <i>привремено</i> ограничено на еден резултат.
+    other: Пребарувањето на податоци е <i>привремено</i> ограничено на %{count} резултати.
   data_column_common_name: Народно име
-  data_column_name: Мерење
+  data_column_name: Натпис на мерењето
+  data_column_name_uri: URI на марењето
   data_column_sci_name: Научно име
   data_column_source: Извор
   data_column_tc_id: Назнака на страницата на EOL
   data_column_units: Единици
   data_column_val: Вредност
+  data_column_val_uri: URI на вредноста
   data_database_colon: "Податочна:"
+  data_glossary: Поимник за податоци
   data_logging_active: Заведување на податоци е активно
   data_master_database_colon: "Податочна матична:"
+  data_measurement_subtable_summary: Дополнителни податоци за мерењето на овој факт.
   data_metadata_subtable_summary: Дополнителни податоци за овој факт.
   data_object: Податочен објект
   data_object_api_description: Кога ќе му се зададе назнака за податочниот објект, овој API ќе ги даде сите метаподатоци за објектот на EOL поднесен од соучесник. Соучесникот се наведува во првиот елемент за агент и ја има улогата „соучесник“.
@@ -1831,24 +1869,37 @@ mk:
       meta_title: "%{dato_title} од %{supplier}"
       tweet_text: "%{dato_title} од %{supplier}"
   data_overview_table_caption: Накратко
+  data_point_uri_source_missing: недостасува извор
   data_point_uri_summary_name: податоци за %{taxon}
   data_provided_by_content_partner: "Извор: %{whom}"
   data_provided_by_user: доставено од %{whom}
   data_reference_subtable_summary: Дополнителни наводи за овој факт.
   data_row_add_exemplar_button: додај во „Накратко“
+  data_row_arrow_alt: Префрлајте приказ или скривање на подробности за овој факт, доколку имате овозможено JavaScript.
   data_row_excluded_from_overview_notice: "Напомена: овој ред е изземен од „Накратко“."
   data_row_exemplar_added: Додаден факт во „Накратко“.
   data_row_exemplar_removed: Отстранет факт од „Накратко“.
   data_row_hide_button: Скриј ред
   data_row_remove_exemplar_button: отстрани од „Накратко“
   data_row_unhide_button: Прикажи ред
+  data_search_attribute: Пребарајте ги податоците на EOL што се однесуваат на „%{attribute}“ во набљудувањата,<br/>мерењата и други научни наоди
+  data_search_destroyed: Оваа задача повеќе нема да се обработува.
+  data_search_explanation: Послужете се со алатката за пребарување на податоци за да добиете ставки за „%{term}“ во набљудувањата,<br/>мерењата и други научни наоди.
+  data_search_files: 
+    file_ready_for_download: Пребарувањето што неодамна го побаравте за „%{known_uri_label}“ сега може да се преземе на <a href='%{download_url}'>%{download_url}</a>.
   data_search_link: Пребарајте научни податоци на EOL
+  data_search_queue_pending: 
+    one: Има уште една незавршена задача што чека на обработка (може да е ваша, а може и да не е).
+    other: Има уште %{count} незавршени задачи што чекаат на обработка (може да се ваши, а може и да не се).
+    zero: Нема незавршени задачи. Ако вашата задача е незавршена, тогаш нешто не е во ред. Обидете се повторно.
+  data_server_unavailable: Податоците на EOL се привремено недостапни. Навратата се подоцна. Се извинуваме за непријатноста.
   data_show_n_more_rows: Прикажи уште БББ...
   data_subtab_about: За нас
   data_subtab_glossary: Поимник
   data_summary_header: Накратко
-  data_tab_curator_key_excluded: "%{image} означува редови што кустосите ги отстраниле од „Накратко“."
-  data_tab_curator_key_exemplar: "%{image} означува редови што кустосите ги додале во „Накратко“."
+  data_tab_curator_key_excluded: "%{image} отстрането од <a href='%{link}'>„Накратко“</a>."
+  data_tab_curator_key_exemplar: "%{image} додадено во <a href='%{link}'>„Накратко“</a>."
+  data_table_summary: "Пресметливи податоци за %{taxon}. Секој ред податоци е посебен факт, доставен од соучесник во содржините или корисник. Секоја вредност може да содржи вметната табела со краток преглед на метаподатоците за тој факт: каде се добиени, кои се правата на нив и сл. Стиснете на редот за да ги видите тие метаподатоци. Можете да ги скриете ако повторно стиснете на редот. Тогаш се прикажувааат и прибелешките, со можност за додавање на свои, по потреба. Кустосите имаат дополнителни функции при приказ на метаподатоци."
   data_usage_reports: Извештаи за користење на податоци
   date_caps: Датум
   date_uploaded: Датум на подигање
@@ -1971,6 +2022,7 @@ mk:
   donation_sponsorship_preamble: "Ако сакате да дознаете повеќе за конкретните програми на кои им требаат покровители, или сакате да давате редовен прилог, обратете се на Секретаријатот на Енциклопедијата на живиот свет <a href=\"mailto:%{email_address}\">по е-пошта</a> или телефонски, на 1 (202) 633-8730 (во САД). Ова се можностите а наменски прилози:"
   done_already: Веќе сторено
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не прикажувај непознати регистрирани корисници (корисници на првата верзија, пред 5 јануари 2009)
+  download_data: Преземи податоци
   download_wav_file: Преземи WAV податотека
   dublin_core: Dublin Core
   duplicate_comment_warning: "Коментарот не е зачуван: веќе го имате објавено. ...Можеби двапати стиснавте на копчето „Објави коментар“?"
@@ -2100,6 +2152,7 @@ mk:
   exception: Исклучок
   exceptions: 
     security_violations: 
+      admin_or_master_curators_only: Нажалост, пристап имаат само администраторите и вишите кустоси.
       administrators_only: Нажалост, овде имаат пристап само администратори.
       default: Пристапот е одбиен.
       hidden_user_login: Нажалост, на таа сметка ѝ е оневозможено најавување.
@@ -2109,6 +2162,7 @@ mk:
       min_assistant_curators_only: Нажалост, пристапот е дозволен само на корисници со статус барем на помошник-кустос.
       min_full_curators_only: Нажалост, пристапот е ограничен само на полни Кустоси.
       min_master_curators_only: Нажалост, пристапот е дозволен само на корисници со статус барем на виш кустос.
+      no_access: Нажалост, пристапот е ограичен.
   excluded_icon_tip: Редовите означени за иконата за изземање %{excluded_icon} никогаш нема да се прикажуваат во прегледните страници на таксоните.
   expand_all_children: отвори ги сите поттаксони
   explore: Истражете
@@ -2128,6 +2182,8 @@ mk:
   family_name_colon: "Презиме:"
   feedback: Мислења
   file: Податотека
+  file_download_pending: Треба извесно време за да се создаде преземањето, па затоа го ставивме во позадина. Можете да го <a href='%{link}'>проверите статусот на задачата</a> во секое време.
+  file_download_ready: EOL заврши со создавање на пребарувачката податотека за барањето на „%{query}“. Можете да ја <a href='%{file}'>преземете во секое време во текот на следните неколку дена</a>.
   file_id: Назнака на податотеката
   file_size: Големина на податотеката
   filed_under_label_with_date: Заведено под %{label} на %{date}
@@ -2626,6 +2682,7 @@ mk:
     one: "%{count} слика"
     other: "%{count} слики"
   import_once: Увези еднаш
+  import_ontology: Увези онтологија
   in_collection: во збирката
   in_community: во заедницата
   in_providing_its_content_to_eo: Доставувајќи ја оваа содржина на EOL,
@@ -2695,10 +2752,12 @@ mk:
   keep_split_entry_from_this_entry: Одвој ја од овој запис
   key: Клуч
   known_uri_category_header: Категории
+  known_uri_created: Додадено URI.
   known_uri_label_allowed_unit: има мерна единица
   known_uri_label_allowed_val: ја допушта вредноста на
   known_uri_label_inverse: е обратно од
   known_uri_label_unit: има мерна единица
+  known_uri_missing_translation: Непреведено. Уредете го.
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
     create_failed: Нажалост, се појави грешка. Не можев да го додадам односот.
@@ -2719,6 +2778,9 @@ mk:
     unrecognized_measurement_types: Непрепознаени URI-ја на типови на мерења
     unrecognized_measurement_units: Непрепознаени URI-ја на мерни единици
     unrecognized_measurement_values: Непрепознаени URI-ја на вредности на мерења
+  known_uris_empty_sorry: Сè уште нема предложени URI-ја за оваа категорија.
+  known_uris_none: Никој нема додадено URI-ја за овој тип.
+  known_uris_page_title: URI-ја за податоци на EOL
   known_uris_sorted: Редоследот е изменет.
   label: Натпис
   language: "Јазик:"
@@ -3513,6 +3575,7 @@ mk:
   see_all_updates_with_count_html: 
     one: Погледајте ја оваа <span class="assistive">%{count} измена на страницава.</span>
     other: Погледајте ги сите <span class="assistive">%{count} измени на страницава.</span>
+  see_in_data_glossary: погледај во поимник за податоци
   see_more_on_the_data_tab: погледајте повеќе во јазичето за податоци
   see_notes: вид. белешки
   see_this_record_in_virtuoso: погледајте го овој запис во Virtuoso
@@ -4227,6 +4290,10 @@ mk:
     edit_metadata_header: Уреди метаподатоци
     new_field: Ново поле...
     new_value: Вредност
+    source_field_helper: Наведете литература или URL до извор на податоци.
+    submit_data: поднеси податочна вредност
+    update_failed: "Не можам да ги изменам податоците: %{errors}"
+    update_successful: Податоците се успешно изменети
   user_agent: Кориснички агент
   user_already_active_notice: Вашата сметка е веќе активна. Најавете се.
   user_comment: Кориснички коментар

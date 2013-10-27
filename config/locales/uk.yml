@@ -1,22 +1,2052 @@
-# Messages for Ukrainian (Українська)
+# Messages for Ukrainian (українська)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: A1
+# Author: Alex Khimich
+# Author: Andriykopanytsia
+# Author: Base
+# Author: Dim Grits
+# Author: Olvin
+# Author: Pig1995z
+# Author: SteveR
 # Author: Тест
 uk: 
+  0_1_or_2: 0, 1 або 2
+  0_or_1: 0 або 1
+  a_total_of_comment_were_found_matching_your_criteria: 
+    one: Всього знайдено %{count} коментар, який відповідає вашим умовам.
+    other: Всього знайдено %{count} коментарі, які відповідають вашим умовам.
+  a_total_of_terms_were_found_matching_your: 
+    one: Всього знайдено %{count} термін, який відповідає вашим умовам.
+    other: Всього знайдено %{count} терміни, які відповідають вашим умовам.
+  about_eol: Про Енциклопедію життя
+  about_resources: Про ресурси
+  about_resources_title: Посилання на зовнішні ресурси
   account_information: інформація користувача
-  all_pages: всі сторінки
+  account_information_menu: Інформація про профіль
+  account_registered_but_not_ready_try_later: Ваш обліковий запис зареєстрований, але не готовий. Будь ласка, спробуйте ще через п'ять хвилин.
+  action: Дія
+  action_not_available_error: Вибачте, що дія не може бути виконана.
+  actions: Дії
+  active: Активний
+  active_colon: Активні
+  activerecord: 
+    attributes: 
+      collection: 
+        additional_annotation_fields: Додаткові поля для анотацій
+        description: Опис колекції
+        logo: Основний малюнок колекції
+        name: Назва колекції
+        show_references: Посилання ("Текст" або "URL")
+        sort_style_id: Напрямок сортування за замовченням
+      collection_item: 
+        annotation: Анотація
+        refs: Посилання
+        sort_field: Сортувати за
+      collection_job: 
+        overwrite: Замінювати дублікати
+      comment: 
+        body: Коментар
+      community: 
+        description: Опис спільноти
+        logo: Завантажити логотип
+        name: Назва спільноти
+      contact: 
+        comments: Повідомлення
+        contact_subject_id: Контакт по питанню
+        email: Email
+        name: Ім’я
+      content_page: 
+        active: Опубліковано
+        page_name: Унікальне ім'я
+        sort_order: Порядок сортування
+      content_partner: 
+        acronym: Абревіатура проекту
+        admin_notes: Адміністративні примітки
+        auto_publish: Автоматична публікація
+        content_partner_status: Стан проекту
+        created_at: Створено
+        description: Опис проекту
+        display_name: "Показувати ім’я:"
+        full_name: Назва проекту
+        homepage: Проект URL
+        id: ID
+        notes: Нотатки проекту
+        public: Загальнодоступний
+        resources: Ресурси
+        user_id: Керується
+        vetted: Перевірені
+      content_partner_agreement: 
+        created_at: "Дата створення:"
+        signed_by: Підписано
+        signed_on_date: Підписано датою
+      content_partner_contact: 
+        email_reports_frequency_hours: Частота повідомлень електронної пошти
+      data_object: 
+        bibliographic_citation: Бібліографічні посилання
+        description: Текст
+        object_title: Заголовок
+        rights_holder: Правовласник
+        rights_statement: Оголошені права
+        source_url: URL-адреса
+      data_object_link: 
+        description: Опис
+        source_url: URL-адреса посилання
+      eol_statistic: 
+        active_curators: Активні куратори
+        base_pages: Основні сторінки
+        collections_count: Колекції
+        communities_count: Спільноти
+        content_partners: Партнери за змістом
+        content_partners_with_published_resources: З опублікованими ресурсами
+        content_partners_with_published_trusted_resources: З опублікованими надійними ресурсами
+        created_at: "Створено:"
+        curator_actions_in_the_last_30_days: Дії куратора протягом останніх 30 днів
+        curators: Куратори
+        curators_assistant: Помічник кураторів
+        curators_full: Повноправні куратори
+        curators_master: Куратори-майстри
+        data_objects: Об'єкти даних
+        data_objects_images: Об'єкти-зображення
+        data_objects_maps: Картографічні об'єкти
+        data_objects_sounds: Аудіооб'єкти
+        data_objects_texts: Текстові об'єкти
+        data_objects_trusted: Довірені об'єкти даних
+        data_objects_trusted_or_unreviewed_but_hidden: Надійні, або непереглянуті, але прихований
+        data_objects_unreviewed: Непереглянуті об'єкти даних
+        data_objects_untrusted: Недовірені об'єкти даних
+        data_objects_videos: Відеооб'єкти
+        hotlist_pages: Популярні високорейтингові сторінки
+        lifedesk_data_objects: Об'єкти даних LifeDesk
+        lifedesk_taxa: LifeDesks такса
+        marine_pages: Сторінки морської тематики
+        marine_pages_in_col: Сторінки з морською тематикою, знайдені в Каталозі Життя (CoL)
+        marine_pages_with_objects: Сторінки морської тематики з об'єктами даних
+        marine_pages_with_objects_vetted: Сторінки з морською тематикою з надійними об'єктами даних
+        members_count: Учасники
+        newly_published_resources_in_the_last_30_days: Нещодавно опубліковані за останній місяць
+        objects_curated_in_the_last_30_days: Об'єкти, під наглядом кураторів за останні 30 днів
+        pages_count: Усього сторінок
+        pages_curated_by_active_curators: Сторіноки, рецензовані активними кураторами
+        pages_with_BHL_links: Сторінки з посиланнями на Бібліотеку спадку біорозмаїття (BHL)
+        pages_with_BHL_links_no_text: Сторінки з посиланнями на Бібліотеку спадку біорозмаїття (BHL), але без тексту
+        pages_with_BHL_links_only: Сторінки з посиланнями лише на Бібліотеку спадку біорозмаїття (BHL)
+        pages_with_at_least_a_curatorial_action: Сторінки з кураторськими діями
+        pages_with_at_least_a_trusted_object: Сторінки з довіреними об'єктами
+        pages_with_content: Сторінки з вмістом
+        pages_with_image: Сторінки з зображеннями
+        pages_with_image_no_text: Сторінки з зображеннями, але без тексту
+        pages_with_map: Сторінки з картами
+        pages_with_score_10_to_39: Сторінки з оцінкою 10-40
+        pages_with_score_less_than_10: Сторінки з оцінкою менше 10
+        pages_with_sound: Сторінки з аудіо
+        pages_with_text: Сторінки з текстом
+        pages_with_text_no_image: Сторінки з текстом, але без зображень
+        pages_with_video: Сторінки з відео
+        pages_without_image: Сторінки без зображення
+        pages_without_text: Сторінки без тексту
+        published_resources: Опубліковані ресурси
+        published_trusted_resources: Опубліковані надійні ресурси
+        published_unreviewed_resources: Опубліковані непереглянуті ресурси
+        redhotlist_pages: Червоні високорейтингові списки
+        rich_hotlist_pages: Насичені високорейтингові сторінки
+        rich_hotlist_pages_percentage: Насичені високорейтингові сторінки %
+        rich_pages: Насичені сторінки
+        rich_redhotlist_pages: Насичені червоні високо-рейтингові списки
+        rich_redhotlist_pages_percentage: Насичені червоні високорейтингові сторінки %
+        total_association_types: Типи асоціацій
+        total_associations: Асоціації
+        total_measurement_types: Типи вимірювання
+        total_measurements: Вимірювання
+        total_occurrences: Входження
+        total_taxa_with_data: Сторінки з даними
+        total_triples: Трійки
+        total_user_added_data: Додані користувачем дані
+        udo_published: Текст, надісланий користувачем
+        udo_published_by_curators: Надісланий куратором текст
+        udo_published_by_non_curators: Текст наданий не куратором
+      forum: 
+        description: Опис <small>(не обов'язково)</small>
+        forum_category_id: Категорія
+        name: Назва форуму
+      forum_category: 
+        description: Опис <small>(не обов'язково)</small>
+        title: Назва категорії
+      forum_post: 
+        subject: Тема
+        text: Текст
+      forum_topic: 
+        subject: Тема
+        text: Текст
+      harvest_event: 
+        resource: Ресурс
+      hierarchy: 
+        browsable: Може переглядатися
+        complete: Завершити
+        description: Опис
+        descriptive_label: Описові позначення
+        label: Позначення
+        request_publish: Запит на публікацію
+      known_uri: 
+        description: Опис
+        exclude_from_exemplars: Вилучити з швидких фактів
+        name: Ім'я
+        toc_items: Категорії
+        uri: URI
+        uri_type: Тип URI
+      known_uri_relationship: 
+        from_known_uri_id: Тема URI
+        relationship_uri: Зв'язки URI
+        to_known_uri: Цільова URI
+        to_known_uri_id: Цільова URI
+      name: 
+        string: Ім'я
+      news_item: 
+        active: Опубліковано
+        page_name: Унікальне ім'я
+        sort_order: Порядок сортування
+      notification: 
+        changes_to_my_watched_collection: Зміни до колекцій, за якими ви спостерігаєте
+        changes_to_my_watched_community: Зміни в спільнотах, за якими Ви спостерігаєте
+        comment_on_my_collection: Коментар щодо колекції, якою ви керуєте
+        comment_on_my_community: Коментар в одній із спільнот, членом якої Ви є
+        comment_on_my_contribution: Коментар та/або кураторська оцінка на ваш внесок
+        comment_on_my_profile: Коментар у Вашому профілі
+        comment_on_my_watched_item: Коментарі до об'єктів, таксонів, колекцій або спільнот у вашому списку спостереження
+        curation_on_my_watched_item: Дії кураторів з об'єктами, таксонами, колекціями або спільнотами в вашому списку спостереження
+        eol_newsletter: Надсилати мені щоквартальні новини Енциклопедії Життя
+        i_am_being_watched: Вас було додано до списку спостереження іншим користувачем
+        invitation_to_community: Запрошення приєднатися до спільноти
+        made_me_a_manager: Вас призначено менеджером спільноти або колекції
+        member_joined_my_community: Новий користувач приєднався до спільноти, якою ви керуєте
+        member_joined_my_watched_community: Нові учасники приєдналися до спільноти, де ви також берете участь
+        member_left_my_community: Деякі учасники залишили спільноту, якою ви керуєте...
+        new_data_on_my_watched_item: Нові внески до таксонів у вашому списку спостереження
+        new_manager_in_my_community: Інший користувач також став керівником спільноти, якою керуєте Ви
+        reply_to_comment: Відповідь на Ваш коментар
+      open_authentication: 
+        created_at: Створено
+        guid: Глобальний ідентифікатор (GUID)
+        provider: Сторонній постачальник
+        secret: Шифр
+        token: Сеансовий ідентифікатор
+        updated_at: Останнє оновлення
+        user_id: "Ідентифікатор користувача:"
+        verified_at: Остання перевірка
+      resource: 
+        accesspoint_url: Набір даних URL
+        auto_publish: Автоматична публікація
+        bibliographic_citation: Бібліографічні посилання
+        dataset: Файл набору даних
+        description: Опис ресурсу
+        dwc_archive_url: Darwin Core Архів URL
+        harvest_events: Надходження нових даних
+        hierarchy: Ієрархія
+        language_id: Мова за замовчуванням
+        license_id: Стандартна ліцензія
+        notes: Зауваження при обробці
+        resource_status_id: Стан ресурсу
+        rights_holder: Правовласник за замовенням
+        rights_statement: Встановлені за замовчуванням права
+        title: Ім'я ресурсу
+        vetted: Перевірені
+      translated_content_page: 
+        active_translation: Опубліковано
+        left_content: Навігація
+        main_content: Текст
+        meta_description: Опис метаданих
+        meta_keywords: Метадані ключові слова
+        title: Заголовок
+      translated_known_uri: 
+        comment: Коментар
+        definition: Визначення
+      translated_news_item: 
+        active_translation: Опубліковано
+        body: Текст
+        meta_description: Опис метаданих
+        meta_keywords: Метадані ключові слова
+        title: Заголовок
+      user: 
+        agreed_with_terms: Угода про користування
+        api_key: Ключ API
+        bio: Про себе
+        credentials: Повноваження
+        curator_level: Рівень куратора
+        curator_scope: Обсяг нагляду
+        disable_email_notifications: Не надсилати мені ЖОДНИХ оновлень електронною поштою
+        email: Адреса електронної пошти
+        email_confirmation: Адреса електронної пошти повторно <small>(підтвердження)</small>
+        entered_password: Пароль
+        entered_password_confirmation: Наберіть пароль ще раз
+        family_name: Прізвище
+        full_name: Повне ім’я
+        given_name: Ім'я
+        language_abbr: Мова, якій надаєте перевагу
+        permissions: Дозволи
+        requested_curator_level_id: Бажаний рівень курації
+        tag_line: Підзаголовок
+        username: Ім'я користувача
+      user_added_data: 
+        object: Значення
+        predicate: Атрибут
+        user: Додано
+      user_added_data_metadata: 
+        object: Значення
+        predicate: Атрибут
+    errors: 
+      format: "%{attribute} %{message}"
+      full_messages: 
+        format: "%{attribute} %{message}"
+      messages: 
+        accepted: слід прийняти
+        blank: не може бути порожнім
+        confirmation: не підтверджується
+        empty: слід заповнити
+        equal_to: має дорівнювати %{count}
+        even: має бути парним
+        exclusion: зарезервовано
+        greater_than: 
+          one: має бути більше ніж %{count}
+          other: має бути більше ніж %{count}
+        greater_than_or_equal_to: має бути не менше ніж %{count}
+        inaccessible: недоступний
+        inclusion: не включено до списку
+        invalid: невірне
+        less_than: 
+          one: має бути менше ніж %{count}
+          other: має бути менше ніж %{count}
+        less_than_or_equal_to: має бути не більше ніж %{count}
+        not_a_number: не є числом
+        not_an_integer: має бути ціле число
+        odd: має бути непарним
+        record_invalid: "Перевірка виявила помилки: %{errors}"
+        taken: вже взято
+        too_long: 
+          one: занадто довге (максимум %{count} символ)
+          other: занадто довге (максимум %{count} символи)
+        too_short: 
+          one: закоротке (мінімум - %{count} character)
+          other: закоротке (мінімум - %{count} символів)
+        wrong_length: невірна довжина (має бути %{count} знаків)
+        wrong_type: невірний тип
+      models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: не може бути порожнім для CC-BY ліцензії
+              inclusion: має бути порожнім для ліцензії суспільного надбання
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: тільки для останніх подій, і тільки якщо ці події вже не опубліковані
+        inaccessible: Запис не може бути збережено, тому що вона була неправильною. Перевірте наявність помилок і повторіть.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: має бути правильно сформована <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: заборонено – може бути тільки одна одиниця вимірювання
+            to_known_uri_id: 
+              must_be_different: має відрізнятися від теми URI
+              must_be_known_uri: повинен бути відомий URI
+              must_be_measurement: повинна бути одиниця виміру
+        open_authentications: 
+          guid_provider_must_be_unique: сторонній обліковий запис вже пов'язаний з обліковим записом EOL
+          provider_user_id_must_be_unique: тільки один обліковий запис від кожного стороннього постачальника може бути підключений до облікового запису EOL
+        resource: 
+          attributes: 
+            accesspoint_url: 
+              blank: не може бути порожнім, якщо ви вивантажуєте не файл ресурсів
+              inaccessible: немає доступу, URL має бути доступним публічно
+              invalid: невірний, слід вказати XML, XML.GZIP, XML.GZ або ZIP файл
+            dataset: 
+              blank: слід заповнити якщо не вказується набір даних URL
+              wrong_type: невірний формат файлу, має бути GZIP, TAR, ZIP або XML
+            dwc_archive_url: 
+              inaccessible: немає доступу, URL має бути доступним публічно
+              invalid: невірний, слід вказати TAR.GZIP, TAR.GZ, TGZ або ZIP файл
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: має бути правильно сформована <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: використаний простір імен, який не розпізнаний
+            subject: 
+              must_be_uri: має бути правильно сформована <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: використаний простір імен, який не розпізнаний
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: має бути правильно сформована <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: використаний простір імен, який не розпізнаний
+            subject: 
+              must_be_uri: має бути правильно сформована <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: використаний простір імен, який не розпізнаний
+      template: 
+        body: "Деякі поля заповнені невірно:"
+        header: 
+          one: знайдено %{count} помилку перевірки
+          other: знайдено %{count} помилок перевірки
+    models: 
+      user: Акаунт
+  activity: Діяльність
+  activity_logs: 
+    collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: Невідомий користувач був доданий як менеджер невідомої збірки.
+        an_unknown_user_of_collection: Невідомий користувач був доданий як менеджер збірки "%{collection}".
+        an_unknown_user_of_it: Невідомий користувач був доданий в якості менеджера.
+        user_of_an_unknown_collection: <strong>%{user}</strong> був доданий як менеджер невідомої збірки.
+        user_of_it: <strong>%{user}</strong> був доданий в якості менеджера.
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Невідомий користувач додав невідомий елемент до невідомої збірки.
+        an_unknown_user_added_an_unknown_item_to_collection: Невідомий користувач додав невідомий елемент до збірки "%{collection}".
+        an_unknown_user_added_item_to_an_unknown_collection: Невідомий користувач додав "%{item}" до невідомої збірки.
+        an_unknown_user_added_item_to_collection: Невідомий користувач додав "%{item}" до збірки "%{collection}".
+      create: 
+        an_unknown_user_created_an_unknown_collection: Невідомий користувач створив невідому збірку.
+        an_unknown_user_created_collection: Невідомий користувач створив збірку "%{collection}".
+        an_unknown_user_created_it: Невідомий користувач створив це.
+        user_created_an_unknown_collection: <strong>%{user}</strong> створив невідому збірку.
+        user_created_collection: <strong>%{user}</strong> створив збірку "%{collection}".
+        user_created_it: <strong>%{user}</strong> створив це.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Невідомий користувач вилучив невідомий елемент з невідомої збірки.
+        an_unknown_user_removed_an_unknown_item_from_collection: Невідомий користувач вилучив невідомий елемент із збірки "%{collection}".
+        an_unknown_user_removed_an_unknown_item_from_it: Невідомий користувач видалив невідомий елемент.
+        an_unknown_user_removed_item_from_an_unknown_collection: Невідомий користувач вилучив "%{item}" з невідомої збірки.
+        an_unknown_user_removed_item_from_it: Невідомий користувач видалив "%{item}".
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> видалив невідомий елемент.
+        user_removed_item_from_it: <strong>%{user}</strong> видалив "%{item}".
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: Невідомий користувач вилучив усі елементи з невідомої збірки.
+        an_unknown_user_cleared_collection: Невідомий користувач вилучив усі елементи із збірки "%{collection}".
+        an_unknown_user_cleared_it: Невідомий користувач вилучив усі елементи.
+        user_cleared_it: <strong>%{user}</strong> вилучив усі елементи.
+    community_activity_log: 
+      other_actions: 
+        an_unknown_user_modified_an_unknown_community: Невідомий користувач змінив невідому спільноту.
+        an_unknown_user_modified_community: Невідомий користувач змінив спільноту "%{community}".
+        user_modified_an_unknown_community: <strong>%{user}</strong> змінив невідому спільноту.
+        user_modified_community: <strong>%{user}</strong> змінив спільноту "%{community}".
+    curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Невідомий користувач додав невідому асоціацію.
+        an_unknown_user_associated_it_to_an_unknown_association: Невідомий користувач додав асоціацію до невідомої сторінки.
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: Невідомий користувач об'єднав дві невідомі сторінки.
+          an_unknown_user_merged_to_it: Невідомий користувач об'єднав іншу сторінку з цим.
+          an_unknown_user_merged_to_taxon: Невідомий користувач об'єднав іншу сторінку до %{target}.
+      reasons_to_hide: "Причини приховання: %{reasons}"
+      reasons_to_untrust: "Причини недовіри: %{reasons}"
+  add: Додати
+  add_a_collection_to_a_community: Додати "%{collection}" до спільноти
+  add_a_comment: Додати коментар.
+  add_a_comment_colon: "Додати коментар:"
+  add_a_new_common_name: Додати нову загальноу назву
+  add_a_new_file_brackets: "[додати новий файл]"
+  add_a_new_role: Додати нову роль
+  add_a_new_search_suggestion: Додати нові пошукові пропозиції
+  add_a_new_term: Додати новий термін
+  add_a_new_topic_area: Додати нову тему
+  add_a_new_user: Додати нового користувача
+  add_a_taxon_association_label: Додати асоціацію таксона
+  add_another_metadata_field: Додати нове поле метаданих
+  add_article_instead: додати статтю замість
+  add_article_to_page_button: Додати статтю
+  add_association_submit_button: додати асоціацію
+  add_brief_summary_to_page_link_button: Додати короткий опис до цієї сторінки
+  add_citizen_science_resources_to_page_link_button: Додати наукове посилання на цю сторінку
+  add_classifications: додати класифікації для переміщення
+  add_collection_to_a_new_community: Додати "%{collection}" до нової спільноти
+  add_collection_to_community: Додати збірку до спільноти
+  add_education_resources_to_page_link_button: Додати освітні ресурси на цю сторінку
+  add_identification_resources_to_page_link_button: Додати ідентифікаційні ресурси на цій сторінці
+  add_item_to_new_collection: Додати "%{item}" до нової збірки
+  add_language: Додати мову
+  add_link_instead: додати посилання замість
+  add_link_to_page_button: Додати посилання
+  add_new_association_link: Додати нову асоціацію
+  add_new_known_uri_link: Додати новий URI
+  add_new_tag_suggestion: Додати новий тег пропозиції
+  add_page: Додати сторінку
+  add_sub_chapter: Додати підрозділ
+  add_to_a_community: Додати до спільноти
+  add_to_my_collection_button: Додати до колекції
+  admin_content_page_active: Опубліковано
+  admin_content_page_child_new_link: Створити дочірню сторінку
+  admin_content_page_create_unsuccessful_error: Вибачте, виникла помилка, сторінку не створено.
+  admin_content_page_delete_confirmation: Ви впевнені, що хочете видалити «%{page_name}» і всі перекази? Видалені сторінки не зможуть бути відновлені.
+  admin_content_page_delete_successful_notice: Сторінка %{page_name} і пов'язані переклади були видалені.
+  admin_content_page_edit_header: Оновити інформацію про сторінку <em>%{page_name}</em>
+  admin_content_page_edit_tip: Рекомендується не редагувати унікальне ім'я цієї сторінки, якщо ви повністю інформовані про наслідки, включаючи їх вплив на посилання на даній сторінці або на маршрути імені. Унікальне ім'я %{required_icon} обов'язкове.
+  admin_content_page_new_header: Створити новий вміст сторінки
+  admin_content_page_new_link: Створити нову сторінку
+  admin_content_page_new_tip: Введіть основні відомості про цю сторінку. Унікальне ім'я %{required_icon} обов'язкове.
+  admin_content_page_not_active: Неопубліковано
+  admin_content_page_parent_option_root: Немає батьків
+  admin_content_page_root: Корінь
+  admin_content_page_sort_order_updated: Було змінено порядок сторінок.
+  admin_content_page_update_successful_notice: Сторінка <a href="#%{anchor}"><em>%{page_name}</em></a> успішно оновлена.
+  admin_content_page_update_unsuccessful_error: Вибачте, сталася помилка, сторінка не може бути оновлена.
+  admin_content_pages_empty: Сторінки із вмістом не знайдено.
+  admin_content_pages_index_information: Нижче наведено всі статичні сторінки доступні на веб-сайті EOL. Кожна сторінка має один або більше переказів. Коли ви створюєте нову сторінку вам буде запропоновано додати переклад. Опубліковані переклади є публічно доступними.
+  admin_content_pages_link: Управління контентом
+  admin_content_pages_page_title: "Управління: Управління контентом"
+  admin_content_partners_index_header: Партнери за змістом
+  admin_content_partners_link: Партнери за змістом
+  admin_content_partners_notifications_link: Сповіщення
+  admin_content_partners_notifications_page_title: "Адміністрації: Сповіщення партнера вмісту"
+  admin_content_partners_notifications_sent_to_recipients_header: "Повідомлення були надіслані:"
+  admin_content_partners_notifications_statistics_reminder_description: "Надсилає повідомлення всім контактам контент-партнера, інформуючи їх про те, що вони тепер можуть перевіряти статистику використання їх даних в EOL за минулий місяць. Примітка: ручний виклик цього повідомлення є тимчасовим рішенням і має бути видалене після того, як з'явиться автоматизоване рішення."
+  admin_content_partners_notifications_statistics_reminder_header: Веб використання статистики нагадування
+  admin_content_partners_notifications_statistics_reminder_send_confirmation: Ви впевнені, що хочете відправити нагадування про статистику використання всіх контент-партнерам?
+  admin_content_partners_notifications_statistics_reminder_send_submit: Надсилати нагадування
+  admin_content_partners_page_title: "Управління: Керувати партнерами вмісту"
+  admin_content_partners_statistics_date_from_label: Від
+  admin_content_partners_statistics_date_to_label: До
+  admin_content_partners_statistics_first_published_caption: Асоційовані партнери з ресурсами вперше опубліковані між %{date_from} і %{date_to}.
+  admin_content_partners_statistics_first_published_download_csv_submit: Завантажити як CSV
+  admin_content_partners_statistics_first_published_header: Вперше надруковані ресурси
+  admin_content_partners_statistics_link: Статистика
+  admin_content_partners_statistics_page_title: "Адміністрація: статистика партнера за вмістом"
+  admin_home: адміністративна панель
+  admin_information: Це нова консоль адміністрування для EOL V2. Знаходиться в процесі передачі функцій адміністрування від V1. Якщо розділ адміністрації, який ви шукаєте, відсутній у списку, будь ласка, відвідайте <a href="/administrator">стару консоль адміністрування</a>.
+  admin_link: Огляд
+  admin_news_item_active: Опубліковано
+  admin_news_item_create_unsuccessful_error: Вибачте, виникла помилка, новини не створено.
+  admin_news_item_delete_confirmation: Ви впевнені, що хочете видалити «%{page_name}» і всі перекази? Видалені сторінки не зможуть бути відновлені.
+  admin_news_item_edit_tip: Рекомендується не редагувати унікальне ім'я цієї сторінки, якщо ви повністю інформовані про наслідки, включаючи їх вплив на посилання на даній сторінці або на маршрути імені. Унікальне ім'я %{required_icon} обов'язкове.
+  admin_news_item_new_header: Створити новий елемент новин
+  admin_news_item_new_link: Створити елемент новин
+  admin_news_item_new_tip: Введіть основні відомості про цю сторінку. Унікальне ім'я %{required_icon} обов'язкове.
+  admin_news_item_not_active: Неопубліковано
+  admin_news_item_update_unsuccessful_error: Вибачте, сталася помилка, елемент новин не може бути оновлено.
+  admin_news_items_empty: Новини елементів не знайдено.
+  admin_news_items_page_title: "Адміністрування: Новини"
+  admin_news_link: Новини
+  admin_notes_not_visible_to_user: "Нотатки адміністратора (не видно користувачеві):"
+  admin_option_all_users_can_see_data: Всі користувачі можуть бачити дані, не тільки користувачі з дозволом
+  admin_option_changed: Змінилося значення.
+  admin_options_warning: Зміни можуть вимагати 10 хвилин для набуття сили.
+  admin_page_title: "Адміністрування: огляд"
+  admin_spam_delete: Видалити спам
+  admin_statistics_link: Статистика
+  admin_translated_content_page_new_header: Оберіть мову і додайте зміст
+  admin_translated_content_page_new_link: Додати переклад
+  admin_translated_content_page_new_subheader: Додати переклад <em>%{page_name}</em>
+  admin_translated_content_page_new_tip: Мова, заголовок і текст %{required_icon} обов'язкові.
+  admin_translated_content_page_update_successful_notice: "%{language} переклад для <a href=\"#%{anchor}\"><em>%{page_name}</em></a> був оновлений."
+  admin_translated_content_page_update_unsuccessful_error: Вибачте, сталася помилка, переклад не може бути оновлено.
+  admin_translated_news_item_active: Опубліковано
+  admin_translated_news_item_create_unsuccessful_error: Вибачте, сталася помилка, переклад не може бути додано.
+  admin_translated_news_item_new_header: Оберіть мову і додайте зміст
+  admin_translated_news_item_new_link: Додати переклад
+  admin_translated_news_item_new_subheader: Додати переклад <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: Мова, заголовок і текст %{required_icon} обов'язкові.
+  admin_translated_news_item_not_active: Неопубліковано
+  admin_translated_news_item_update_successful_notice: "%{language} переклад для <a href=\"#%{anchor}\"><em>%{page_name}</em></a> був оновлений."
+  admin_translated_news_item_update_unsuccessful_error: Вибачте, сталася помилка, переклад не може бути оновлено.
+  admin_user_delete_successful_notice: Користувач був видалений
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Партнери за змістом
+        page_header: Статистика партнера за вмістом
+        page_title: "Адміністрація: статистика партнера за вмістом"
+      curators: 
+        menu_link: Статистика куратора
+        page_header: Статистика куратора
+        page_title: "Адміністрація: Статистика куратора"
+      data_objects: 
+        menu_link: Об'єкти даних
+        page_header: Статистика об'єкта даних
+        page_title: "Адміністрація: Статистика об'єкту даних"
+      index: 
+        menu_link: Загальна статистика
+        page_header: Загальна статистика
+        page_title: "Адміністрація: Загальна Статистика"
+        table_caption: Загальна статистика сайту створена %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: Статистика LifeDesks
+        page_title: "Адміністрація: Статистика LifeDesks"
+      marine: 
+        menu_link: Морська статистика
+        page_header: Морське охоплення у EOL
+        page_title: "Адміністрація: Морська Статистика"
+      page_richness: 
+        menu_link: Насичені сторінки
+        page_header: Статистика насичених сторінок
+        page_title: "Адміністрація: Статистика Насичених Сторінок"
+      users_data_objects: 
+        menu_link: Надісланий користувачем текст
+        page_header: Статистика надісланого користувачем тексту
+        page_title: "Адміністрація: Статистика надісланого користувачем тексту"
+  agent: Агент
+  all: усі
+  all_articles: Всі статті
+  all_categories: Усі
+  all_changes: Всі зміни
+  all_collections: Всі колекції
+  all_communities: Всі спільноти
+  all_count: Все (%{count})
+  all_filter: усі
+  all_images: Усі зображення
+  all_information: Уся інформація
+  all_items: Усі елементи
+  all_news: усі новини
+  all_people: Всі люди
+  all_sounds: Всі звуки
+  all_sources: Усі джерела
+  all_taxa: Усі таксони
+  all_title: Усі
+  all_videos: Усі відео
+  allow_user_logins: Дозволити вхід у систему
+  already_a_member_question: Вже зареєстровані?
+  already_member_of_community: Ви вже є членом цієї спільноти.
+  alternate_classification: Альтернативна класифікація
+  alternative_common_name_colon: "Альтернативне загальне ім'я:"
+  alternative_name_colon: "Альтернативна назва:"
+  amount: Сума
+  an_unknown_user: Невідомий користувач
+  and: та
+  and_between_form_items: та
+  annotation_body_default: додавати питання або коментарі...
+  annotation_cabs_colon: "Анотація:"
+  annotation_submit: розмістити анотацію
+  anonymous_user_full_name: Анонімний користувач
+  anonymous_user_given_name: Анонім
+  anonymous_user_tag_line: Не ввійшли в систему
+  any_integer: довільне ціле число
+  any_string: будь-який рядок
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Натисніть тут</a>, щоб отримати доступ до бета-тестування нових форумів EOL. Ваші зауваження вітаються.
+  application_version_advisory_information: Версія програми
+  are_you_sure: Ви впевнені?
+  are_you_sure_this_action_cannot_be_undone: Ви впевнені? Цю дію скасувати не можна.
+  article_from: стаття з
+  article_from_supplier: Стаття від %{whom}
+  article_more_about: Дізнатися більше про цю статтю
+  article_not_associated_with_any_published_entries: Ця стаття не пов'язана із жодними опублікованими таксонами.
+  article_of_taxon: Стаття %{taxon_name}
+  article_rating: Оцінка статті
+  articles_in_other_languages_with_count: 
+    one: "Статті з цієї сторінки доступні на %{count} іншій мові:"
+    other: "Статті з цієї сторінки доступні на %{count} інших мовах:"
+  articles_with_count: 
+    one: "%{count} стаття"
+    other: "%{count} статті"
+  assistive_data_header: Факти & інформація
+  assistive_details_header: Подробиці
+  assistive_literature_header: Література
+  assistive_maps_header: Карти
+  assistive_media_header: Медіа
+  assistive_names_classifications_header: Класифікації
+  assistive_names_common_header: Загальні назви
+  assistive_names_related_header: Відповідні імена
+  assistive_names_synonyms_header: Синоніми
+  assistive_overview_header: Огляд
+  assistive_taxon_community_header: Спільнота
+  assistive_updates_header: Оновлення
+  assistive_updates_statistics_header: Статистика сторінок
+  association_trusted_for_taxa: 
+    one: "Довірено для:"
+    other: "Довірено для:"
+  association_untrusted_for_taxa: 
+    one: "Недовірено для:"
+    other: "Недовірено для:"
+  belongs_in_count_communities: 
+    one: Належить до %{count} Спільноти
+    other: Належить до %{count} Спільнот
+  body: "Тіло:"
+  browsable: Для перегляду
+  browsable_hierarchies: Переглядач ієрархій
+  browse_hierarchy: переглянути ієрархію
+  browsing_branch_colon: "Перегляд вітки:"
+  build_communities: Побудова спільнот
+  by_caps: Від
+  cache_store: Кеш сховища
+  caching_results: Кешування результатів
+  calculate_averages_slow: Розрахувати середні (повільно)
+  call_api: Виклик API
   cancel: Скасувати
-  content_partners: Content Partners
+  cancel_split: Скасувати
+  cannot_be_associated_with_both_a_user_and_a_community: Не може бути пов'язано з користувачем і спільнотою
+  cannot_be_empty: не може бути порожнім.
+  cannot_create_community_from_watch_collection_error: Ви не можете створити спільноту зі списку спостереження.
+  cannot_expand_children: не вдалося розгорнути дітей
+  cannot_find_member: Не вдалося знайти члена з таким ідентифікатором.
+  categories_title: "Виберіть категорію, а потім атрибут:"
+  change: Змінити
+  change_rating_to_1_of_5: Змінити рейтинг до 1 з 5
+  change_rating_to_2_of_5: Змінити рейтинг до 2 з 5
+  change_rating_to_3_of_5: Змінити рейтинг на 3 з 5
+  change_rating_to_4_of_5: Змінити рейтинг на 4 з 5
+  change_rating_to_5_of_5: Змінити рейтинг до 5 з 5
+  choose_collection_header: Обрати колекцію
+  citation: Цитата
+  citing_link: Цитуючи
+  classification_already_preferred: "Помилка: Ця класифікація вже було позначена як краща."
+  classification_curation_split_comment_with_count: 
+    one: "%{count} класифікацію з цієї сторінки вже <a href='%{url}'>виділено на свою окрему сторінку</a>."
+    other: "%{count} класифікації з цієї сторінки вже <a href='%{url}'>виділені на свою окрему сторінку</a>."
+  classification_from_agent: Класифікація від %{agent}.
+  classification_preferred_for_taxon: Переважно
+  classification_summary_section_header: Класифікація
+  classification_tree_header: Класифікація
+  classifications_hierarchy_column_header: Класифікація
+  classifications_preferred_column_header: Переважна
+  classifications_rank_column_header: Ранг
+  classifications_split_column_header: Розділити / переміщення
+  clear_entire_cache_store: Очистити усе сховище кешу
+  click: Клік
+  cms_missing_content_title: Відсутній переклад
+  collection_name_cannot_be_blank: Ім'я колекції не може бути порожнім
+  collection_name_label: Назва колекції
+  collection_rating: Оцінка збірки
+  collections: 
+    editors: 
+      show: 
+        meta_description: Управителі збірки енциклопедії життя %{collection_name}.
+        meta_keywords: Управителі %{collection_name}
+        meta_title: Управителі %{collection_name}
+        tweet_text: Управителі %{collection_name}
+    inaturalists: 
+      show: 
+        add_observations: Додати спостереження
+        meta_description: Спостереження iNaturalist для збірки енциклопедії життя %{collection_name}.
+        meta_keywords: Спостереження iNaturalist для %{collection_name}
+        meta_title: Спостереження iNaturalist для %{collection_name}
+        no_observations_added_to_this_project_yet: Жодні спостереження поки що не додані в цей проект.
+        observation_date: "Дата: %{observed_on}"
+        observation_place: "Місце: %{place}"
+        observer_with_link: "Спостерігач: %{observer_link}"
+        recent_observations: Недавні Спостереження
+        some_taxon: Щось
+        taxa_observed: 
+          one: в спостереженні %{count} таксон
+          other: в спостереженні %{count} таксони
+        top_contributors: Найктивніші учасники iNaturalist
+        tweet_text: Спостереження iNaturalist для %{collection_name}
+        view_all_observations_on_inaturalist: Переглянути всі спостереження %{project_title} на iNaturalist
+        view_more_observations_on_inaturalist: Переглянути додаткові спостереження %{project_title} на iNaturalist
+        view_project_on_inaturalist: Переглянути %{project_title} на iNaturalist
+    newsfeeds: 
+      show: 
+        meta_description: Новини, коментарі та діяльність учасників у збірці енциклопедії життя %{collection_name}.
+        meta_keywords: Новини %{collection_name}
+        meta_title: Новини %{collection_name}
+        tweet_text: Новини %{collection_name}
+    show: 
+      meta_description_default: Збірка енциклопедії життя під назвою %{collection_name}.
+      meta_description_default_focus_collection: Збірка енциклопедії життя у центрі уваги під назвою %{collection_name}.
+      meta_description_default_watch_collection: "Список спостереження енциклопедії життя: %{collection_name}."
+      meta_keywords: "%{collection_name}, збірка енциклопедії життя"
+  collections_filter: Колекції
+  collections_link: Колекції
+  collections_page_title: Колекції
+  comment: Коментар
+  comment_added_notice: Коментар успішно доданий.
+  comment_body_label: Ваш коментар
+  comment_created_at: Створено в
+  comment_delete_confirm: Ви дійсно бажаєте вилучити цей коментар?
+  comment_new_title: Додати новий коментар
+  comment_not_added_error: Вибачте, сталася помилка, коментар не може бути доданий
+  comment_not_deleted_error: Вибачте, виникла помилка, коментар не вдалося видалити.
+  comment_not_updated_error: Вибачте, виникла помилка, коментар не вдалося оновити.
+  comment_or_rate_on_this_article: прокоментувати або оцінити цю статтю
+  comment_or_rate_on_this_link: прокоментувати або оцінити це посилання
+  comments: Коментарі
+  comments_and_tags: Коментарі та Теги
+  comments_filter: Коментарі
+  comments_moderated: Модерування коментаря
+  communities: 
+    collections: 
+      index: 
+        meta_description: Збірки спільноти зібрали разом усе співтовариство енциклопедії життя %{community_name}.
+        meta_keywords: Збірки %{community_name}
+        meta_title: Збірки %{community_name}
+        tweet_text: Збірки %{community_name}
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, Спільнота Енциклопедії Життя, %{community_name} стрічка новин, %{community_name} коментарів, %{community_name} активність"
+    show: 
+      meta_description: Спільнота Енциклопедії життя %{community_name} була вилучена її власником
+      meta_title: "%{community_name} видалена власником"
+  communities_filter: Громади
+  communities_index_empty: Там немає активних спільнот.
+  communities_index_header: Активні громади
+  communities_link: Громади
+  communities_page_title: Громади
+  community: Спільнота
+  community_activity: Діяльність співтовариства
+  community_members: Члени спільноти
+  community_name_label: Назва спільноти
+  community_newsfeed: Канал новин спільноти
+  community_not_destroyed_error: Вибачте, виникла проблема, і спільнота не була видалена.
+  community_rating: Оцінка спільноти
+  community_removed_by_owner: Це співтовариство було вилучено його власником.
+  community_tab_collections_header: Колекції
+  completed: Готово
+  contact: Контакт
+  contact_information: Контактна інформація
+  contacts: 
+    errors: 
+      message_not_sent: Вибачте, сталася помилка, ваше повідомлення невідправлено.
+    new: 
+      page_title: Будь ласка, залиште Ваш відгук
+    notices: 
+      message_sent: Дякуємо за ваш відгук, ваше повідомлення вже надіслано до відповідної групи.
+  content: 
+    index: 
+      header_news: EOL Новини
+      meta_description: Енциклопедія життя є безпрецедентним досягненням для збору наукових знань про життя тварин і рослин, де доступні фотографії, інформація, факти і багато іншого для всього, що живе в наших царствах рослинного і тваринного світу.
+      meta_keywords: Тварин, Фотографії, Інформація про Тварин, Рослини, Життя Рослин, Фотографії Рослин, Інформація Про Рослин, Флора, Фауна
+      meta_title: Тварини - Рослини - Зображення та Інформація
+      see_all_eol_news: див. докладніше <span class="assistive">EOL Новини</span>
+      see_all_recent_activites: див. докладніше <span class="assistive">діяльність за останній тиждень</span>
+      see_all_statistics: див. докладніше <span class="assistive">EOL статистика</span>
+  content_partner_agreement_cancel_edit_agreement_link: Скасувати
+  content_partner_agreement_cancel_new_agreement_link: Скасувати
+  content_partner_agreement_cancel_sign_agreement_link: Скасувати
+  content_partner_column_header_partner: Партнер
+  content_partner_contact_edit_link: Редагувати контакт
+  content_partner_contact_edit_page_subheader: Редагувати контакт
+  content_partner_contact_new_link: Додати новий контакт
+  content_partner_contact_new_page_subheader: Додати контакт
+  content_partner_contact_update_successful_notice: Контакт успішно оновлено.
+  content_partner_contact_update_unsuccessful_error: Вибачте, виникла помилка, контакт не оновлено.
+  content_partner_contacts_header: Контакти
+  content_partner_current_agreement_create_link: Створити новий
+  content_partner_current_agreement_edit_link: Змінити
+  content_partner_current_agreement_empty: Немає згоди
+  content_partner_current_agreement_not_accepted: Ще не прийнято
+  content_partner_current_agreement_view_link: Перегляд
+  content_partner_data_description_header: Опис даних
+  content_partner_filter_option_published_never_harvested: Ніколи не збирають
+  content_partner_filter_option_published_never_published: Ніколи не публікувалися
+  content_partner_filter_option_published_no_resources: Немає ресурсів
+  content_partner_filter_option_vetted_no: Ні
+  content_partner_filter_option_vetted_yes: Так
+  content_partner_filter_published: Опубліковано
+  content_partner_has_unpublished_content_true: Неопублікований вміст
+  content_partner_resource_auto_publish_false: Ні
+  content_partner_resource_auto_publish_true: Так
+  content_partner_resource_new_link: Додати новий ресурс
+  content_partner_resource_new_subheader: Додати новий ресурс
+  content_partner_resource_preview_collection_header: Попередній перегляд колекції
+  content_partner_resource_resource_status_new: Створено
+  content_partner_resource_vetted_false: Ні
+  content_partner_resource_vetted_true: Так
+  content_partner_resource_view_link: Перегляд
+  content_partner_resources_header: Ресурси
+  content_partner_resources_link: Ресурси &amp; контакти
+  content_partner_resources_link_back_to: повернутися до ресурсів та контактів
+  content_partner_statistics_column_header_taxa_page_page_views: Переглядів сторінок
+  content_partner_statistics_column_header_total_count: Усі сторінки
+  content_partner_statistics_link: Статистика використання
+  content_partner_statistics_month_label: Місяць
+  content_partner_statistics_year_label: Рік
+  content_partner_status_empty: Невідомий статус
+  content_partner_update_successful_notice: Відомості про партнерів успішно оновлено.
+  content_partner_update_unsuccessful_error: Вибачте, виникла помилка, відомості про партнерів не були оновлені.
+  content_partner_vetted_false: Неперевірені
+  content_partner_vetted_true: Перевірені
+  content_partners: 
+    edit: 
+      meta_title: Редагувати %{partner_name}
+    index: 
+      meta_description: Список постачальників даних Енциклопедії Життя і партнерів за вмістом.
+      meta_keywords: Партнери за вмістом Енциклопедії Життя, Постачальники даних Енциклопедії Життя
+      meta_title: Партнери за вмістом
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: Партнер за вмістом Енциклопедії Життя %{partner_name}
+    statistics: 
+      show: 
+        meta_description: Статистика використання даних для %{partner_name}.
+        meta_keywords: Статистика %{partner_name}, веб-використання %{partner_name}
+        meta_title: "%{partner_name} Статистика"
+        tweet_text: Статистика використання %{partner_name}
+  content_partners_link: Партнери за змістом
+  content_summary_table_type_descendants_row: Число нащадків
+  curator_level: Рівень куратора
+  data_objects: 
+    show: 
+      meta_description_article: Стаття - %{dato_description}
+      meta_description_default: "%{dato_title} від %{supplier}."
+      meta_description_default_article: Стаття - %{dato_title} від %{supplier}.
+      meta_description_default_image: Малюнок - %{dato_title} від %{supplier}.
+      meta_description_default_image_map: Карта - %{dato_title} від %{supplier}.
+      meta_description_default_map: Карта - %{dato_title} від %{supplier}.
+      meta_description_default_sound: Звук - %{dato_title} від %{supplier}.
+      meta_description_default_video: Відео - %{dato_title} від %{supplier}.
+      meta_description_image: Малюнок - %{dato_description}
+      meta_description_image_map: Карта - %{dato_description}
+      meta_description_map: Карта - %{dato_description}
+      meta_description_sound: Звук - %{dato_description}
+      meta_description_video: Відео - %{dato_description}
+      meta_supplier_default: учасник
+      meta_title: "%{dato_title} від %{supplier}"
+      tweet_text: "%{dato_title} від %{supplier}"
+  datepicker: 
+    close: Закрити
+    current: Сьогодні
+    day_names: 
+      - Неділя
+      - Понеділок
+      - Вівторок
+      - Середа
+      - Четвер
+      - П'ятниця
+      - Субота
+    day_names_min: 
+      - Нд
+      - Пн
+      - Вт
+      - Ср
+      - Чт
+      - Пт
+      - Сб
+    day_names_short: 
+      - Нд
+      - Пн
+      - Вт
+      - Ср
+      - Чт
+      - Пт
+      - Сб
+    month_names: 
+      - Січень
+      - Лютий
+      - Березень
+      - Квітень
+      - Травень
+      - Червень
+      - Липень
+      - Серпень
+      - Вересень
+      - Жовтень
+      - Листопад
+      - Грудень
+    month_names_short: 
+      - Січ
+      - Лют
+      - Бер
+      - Квіт
+      - Трав
+      - Чер
+      - Лип
+      - Сер
+      - Вер
+      - Жовт
+      - Лис
+      - Груд
+    next: Далі
+    previous: Назад
+  dato_create_cancel: Скасувати
+  dato_edit_cancel: Скасувати
   donate: зробити внесок
   encyclopedia_of_life: Енциклопедія життя
+  eol_statistics: 
+    comparing_dates: <span class="assistive">Порівняння</span> <span class="date_one">%{date_one}</span> <span class="assistive">і</span> <span class="date_two">%{date_two}</span>
+    content_partners: 
+      menu_link: Партнери за вмістом
+      page_header: Статистика партнерів за вмістом
+      page_title: Статистика
+    curators: 
+      menu_link: Статистика куратора
+      page_header: Статистика куратора
+      page_title: Статистика
+    data: 
+      menu_link: Дані
+      page_header: Дані статистики
+      page_title: Статистика
+    data_objects: 
+      menu_link: Об'єкти даних
+      page_header: Статистика об'єкта даних
+      page_title: Статистика
+    index: 
+      menu_link: Загальна статистика
+      page_header: Загальна статистика
+      page_title: Статистика
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: Статистика LifeDesks
+      page_title: Статистика
+    marine: 
+      menu_link: Морська статистика
+      page_header: Морське охоплення у EOL
+      page_title: Статистика
+    page_richness: 
+      menu_link: Насичені сторінки
+      page_header: Статистика насичених сторінок
+      page_title: Статистика
+    users_data_objects: 
+      menu_link: Надісланий користувачем текст
+      page_header: Статистика надісланого користувачем тексту
+      page_title: Статистика
+    warnings: 
+      stats_unavailable_for_date: На жаль, статистичні дані не доступні для %{date}. Будь ласка, виберіть іншу дату.
   explore: індекс
+  external_link_header: Зовнішнє посилання
+  filter_by_type_comment_option: Коментарі
+  filter_newsfeed_option_messages: Коментарі
+  forgot_password_form_cancel: Скасувати
+  forums: 
+    actions: Дії
+    administration: Адміністрація
+    buttons: 
+      delete: вилучити
+      edit: редагувати
+      link: посилання
+      reply: відповісти
+    categories: 
+      create: Створити категорію
+      create_failed: Вибачте, сталася помилка, категорія не може бути додана
+      create_successful: Категорію успішно створено
+      delete_failed_not_empty: Категорію не може бути видалено, бо вона непорожня
+      delete_successful: Категорію успішно видалено
+      edit: Редагувати категорію
+      move_failed: Категорія не може бути переміщена
+      move_successful: Категорію було успішно перенесено
+      update_failed: Вибачте, сталася помилка, категорія не може бути оновлена
+      update_successful: Категорію успішно оновлено
+    create: Створити форум
+    create_failed: Вибачте, сталася помилка, форум не може бути доданий
+    create_successful: Форум успішно створений
+    delete_failed_not_empty: Форум не може бути видалено, бо він непорожній
+    delete_successful: Форум було успішно видалено
+    edit: Редагувати форум
+    forums_heading: EOL Форуми
+    last_post: Останнє повідомлення
+    move_failed: Форум не може бути переміщений
+    move_successful: Форум було успішно перенесено
+    no_topics: Немає гілок у цьому форумі
+    post_by_user_at_time: від %{user}, %{time}
+    posts: 
+      close_window: закрити
+      create: Створити нове повідомлення
+      create_failed: Вибачте, сталася помилка, повідомлення не може бути додане
+      create_successful: Повідомлення було успішно створено
+      delete_failed_topic_not_empty: Повідомлення не може бути вилучене, бо гілка не порожня.
+      delete_successful: Повідомлення було успішно видалено
+      deleted_subject: (видалено)
+      edit: Редагувати повідомлення
+      joined_date: Приєднався %{date}
+      no_subject: (без теми)
+      permalink_to_this_post: "Постійне посилання на цю публікацію:"
+      post_has_been_deleted: Це повідомлення було видалено
+      post_written_by_user: "%{user} писав:"
+      posts_with_count: 
+        one: "%{count} публікація"
+        other: "%{count} публікації"
+      replying_to_post: "Відповідаючи на:"
+      topic_and_post_delete_successful: Повідомлення і гілка успішно вилучені
+      update_failed: Вибачте, сталася помилка, повідомлення не може бути оновлено
+      update_successful: Повідомлення було успішно оновлено
+    posts_heading: Повідомлення
+    replies: Відповіді
+    topics: 
+      create: Створити нову тему
+      create_failed: Вибачте, виникла помилка, гілку не вдалося додати
+      create_successful: Гілку успішно створено
+      delete_failed_not_empty: Гілку не може бути видалено, бо вона не порожня
+      delete_successful: Гілку успішно вилучено
+      no_posts: Немає публікацій у цій гілці
+    topics_heading: Вітки
+    update_failed: Вибачте, виникла помилка, форум не вдалося оновити
+    update_successful: Форум успішно оновлено
+    views: Переглядів
   global_navigation: загальне меню
   help: довідка
+  helpers: 
+    label: 
+      collection: 
+        view_style_id: Звичайний вигляд
+      collection_item: 
+        annotation: Анотація
+        refs: Посилання <small>(кожне посилання у новому рядку)</small>
+        sort_field: Сортувати за <small>(датою РРРР.ММ.ДД, номером або текстом)</small>
+        sort_field_show: "Сортувати:"
+      comment: 
+        body_edit: Редагувати коментар
+      contact: 
+        comments: Ваше повідомлення
+        contact_subject_id: Тема
+        email: Ваша адреса електронної пошти
+        name: Ваше ім'я
+      content_page: 
+        active: Опубліковано
+        active_more: Опубліковані сторінки доступні для публічного перегляду. Зніміть помітку <em>опубліковано</em> якщо ви не хочете дозволити користувачам бачити версії цієї сторінки жодною мовою.
+        page_name: Унікальне ім'я <small>(малі латинські літери, цифри та підкреслення)</small>
+        page_name_more: Введіть унікальний, самоописовий, змістовний і стійкий ідентифікатор для цієї сторінки. Введене тут ім'я буде використовуватися для створення URL-адреси для цієї сторінки, наприклад унікальне ім'я <em>terms_of_use</em> перетвориться в URL-адресу <em>http://eol.org/info/terms_of_use</em>.
+        parent_content_page_id: Батько
+        parent_content_page_id_more: При необхідності виберіть батьківську сторінку, яку ця сторінка повинна бути вкладена.
+      content_partner: 
+        created_at: Зареєстрований
+        current_agreement: Поточна угода
+        description_of_data: Опис даних <small>(приватно)</small>
+        description_of_data_more: Просимо надати опис типу інформації яку ви маєте, скільки елементів доступно, яких організмів вони стосуються, і чи були вони були перевірені кваліфікованими фахівцями.
+        display_name: Відображати ім'я <small>(не обов'язково)</small>
+        display_name_more: Вкажіть альтернативне публічно видиме ім'я для використання замість <em>імені проекту</em>.
+        last_action: Остання дія
+        latest_published_harvest_event: Остання публікація
+        logo_current: "Поточний логотип:"
+        logo_new: "Завантажити новий логотип:"
+        notes: Замітки про проект <small>(приватні)</small>
+        oldest_published_harvest_event: Перша публікація
+        public_more: Громадські профілі партнерів за вмістом є видимими для всіх та інформація про партнера включена в списки партнерів за вмістом. Зніміть цей прапорець, щоб виключити деталі списків і обмежити доступ до профілю для всіх, крім користувача, який створив партнера за вмістом та адміністраторів EOL.
+        user_id: Подробицями про партнера за вмістом управляє
+      content_partner_agreement: 
+        mou_url: URL файлу угоди <small>(альтернативний варіант)</small>
+        mou_url_more: Або введіть URL файлу партнерської угоди. Цей файл замінить будь-який інший текст угоди. Якщо ви хочете зберегти файл (наприклад, PDF-файл) на EOL контент-серверів, то спочатку <a href="%{upload_content_url}">завантажте файл</a>, щоб отримати  URL.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: Звіти по електронній пошті відправляються тільки якщо були коментарі або кураторські дії на ваших даних або таксонах належать до набору даних.
+      data_object: 
+        bibliographic_citation: Бібліографічне посилання
+        bibliographic_citation_more: Рекомендується цитувати ці дані у вигляді бібліографічних посилань, що включають в себе досить докладні дані для ідентифікації даних однозначно наскільки це можливо.
+        description: Текст <small>(деяка розмітка HTML дозволена)</small>
+        license_id: Ліцензія
+        license_id_more: Прочитайте <a href="%{policy_url}">політику ліцензування EOL</a>
+        object_title: Назва
+        refs: Посилання <small>(розміщуйте кожне посилання у новому рядку)</small>
+        rights_holder: Правовласник
+        rights_holder_more: Вкажіть особу або організацію, що володіє або управляє правами на ці дані. Якщо залишити це поле порожнім, ми припускаємо, що ви є власником прав для всіх ліцензій, за винятком суспільного надбання. Загальнодоступні ліцензії не вимагають прав власника.
+        rights_statement: Оголошення про права
+        rights_statement_more: Заява про права використання у відповідності з ліцензіями Creative Commons Attribution (CC-BY), вкажіть атрибуцію <q cite="http://creativecommons.org/licenses/by/3.0">у порядку, встановленому автором або ліцензіаром</q>.
+        source_url: URL-адреса вихідного об'єкту даних
+        toc_item: Підрозділ
+      data_object_link: 
+        description: Опис <small>(деяка розмітка HTML дозволена)</small>
+        link_type: Категорія
+        source_url: URL-адреса посилання
+        toc_item: Тема
+      eol_statistic: 
+        date_one: Дата
+        date_two: Дата
+        download_all: Усі <small>(включаючи записи з усіх сторінок)</small>
+      google_analytics_partner_summaries: 
+        page_views: Перегляди сторінок <small>(число відвідувань сторінок)</small>
+        taxa_pages: Сторінки <small>(число сторінок)</small>
+        taxa_pages_viewed: Переглянуто сторінок <small>(число сторінок, переглянутих відвідувачами)</small>
+        time_on_page: Загальний час, витрачений на сторінки <small>(годин)</small>
+        unique_page_views: Унікальні перегляди сторінок <small>(число відвідувачів, які переглядають сторінки)</small>
+      harvest_event: 
+        began_at: Почалося
+        completed_at: Готово
+        first_published_at: Вперше опубліковано
+        publish_more: Вміст зазначене урожаєм буде публікуватися не відразу.
+        published_at: Опубліковано
+        published_status: Статус
+      hierarchy: 
+        browsable_more: Відзначте "Переглядається" щоб посприяти тому, щоб ця ієрархія стала однією з основних для перегляду на EOL.
+        browsable_status_with_colon: "Статус \"Переглядається\":"
+        complete: Куровано
+        complete_more: "Курована ієрархія передбачає, що кожний запис унікальний, тобто відповідні рядки імені будуть розглядатися як омоніми. <strong>ПОПЕРЕДЖЕННЯ: Не змінюйте цей параметр, якщо ви не впевнені, що в ієрархії є омоніми, інакше це може поставити під загрозу цілісність даних.</strong>"
+        request_publish: Запитано публікацію
+        request_publish_more: Вказує, чи очікується запит на рекламу цієї ієрархії, аби стати однією з основних для перегляду ієрархій на EOL.
+      news_item: 
+        active: Опубліковано
+        active_more: Опубліковані новини будуть відображатись на обрану дату і час. Зніміть прапорець <em>опубліковано</em> якщо ви хочете запобігти перегляду цієї новини для звичайних користувачів на інших мовах.
+        page_name: Унікальне ім'я <small>(тільки малі латинські букви, цифри, символи і знак підкреслення)</small>
+        page_name_more: Введіть унікальний, самоописовий, змістовний і однозначний ідентифікатор цієї новини. Ім'я, яке ви тут введете, буде використовуватися для створення посилання на неї, наприклад унікальне ім'я <em>new_version_of_eol</em> перетвориться в URL <em>http://eol.org/news/new_version_of_eol</em>.
+      open_authentication: 
+        connect: Додати
+        connected: З'єднано
+      resource: 
+        accesspoint_url: URL-адреса набору даних
+        accesspoint_url_existing_remove: В даний час цей ресурс завантажується з URL-адреси<em>%{accesspoint_url}</em>. Завантажте файл, якщо ви хочете видалити наявну URL-адресу замість цього завантаження ресурсу з файлу (не рекомендується).
+        administration_settings: Параметри адміністрування <small>(видимі лише адміністраторам EOL)</small>
+        dataset: Набір даних
+        dataset_existing_remove: Файл <em>%{file_name}</em> пов'язаний з цим ресурсом. Введіть URL-адресу, якщо ви хочете замінити наявний файл <em>%{file_name}</em> і завантажити ресурс з URL-адреси (рекомендується).
+        dataset_existing_replace: Файл <em>%{file_name}</em> пов'язаний з цим ресурсом. Завантажте новий файл, щоб замінити наявний файл <em>%{file_name}</em>.
+        dwc_archive_url: "Якщо є архів Darwin Core, пов'язаний з цим ресурсом, введіть URL-адресу <small>(тільки TAR.GZIP, TAR.GZ або TGZ)</small>:"
+        hierarchy: Ієрархія
+        latest_harvest_event: Останній урожай
+        latest_published_harvest_event: Востаннє опубліковано
+        oldest_published_harvest_event: Вперше опубліковано
+        refresh_period_hours: Частота
+        resource_status: Статус
+        resource_status_id: Статус
+        resource_url_or_file: Ресурс даних <small>(введіть URL-адресу, або завантажте файл)</small>
+        resource_url_or_file_upload: Завантажити файл ресурсу
+        resource_url_or_file_url: Завантажити ресурс із URL
+        title: Назва ресурсу
+      session: 
+        password: Пароль
+        remember_me: Зберігати пароль 2 тижні
+        username_or_email: Ім'я користувача або адреса електронної пошти
+      translated_content_page: 
+        active_translation: Опубліковано
+        active_translation_more: Опубліковані переклади будуть видні публічно, тільки якщо сама сторінка не була опублікована. Якщо ви хочете заборонити загальний перегляд цієї версії сторінки, зніміть галочку <em>опубліковано</em> .
+        language_id: Мова
+        left_content_more: "(Необов'язково) Додайте ненумерований список посилань. Використовуйте ім'я класу <code>активний</code> для підсвічування посилання поточної сторінки, тобто <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>, де <code>:id</code> є ідентифікатором поточної сторінки або унікальне ім'я і де <code>title</code> це описова назва сторінки (<strong>Примітка: всі посилання на сторінки EOL CMS повинні починатися з косої риски: <code>/info/:id</code></strong>). Щоб зробити ці зміни необхідно безпосередньо відредагувати вихідний код HTML, зробіть це, натисніть <em>Джерело</em> на панелі інструментів редактора."
+        main_content_more: "Введіть вміст головної сторінки в області тексту. Використовуйте розкривний список <em>Формат</em>, щоб вибрати відповідні семантичні елементи, наприклад виберіть <em>Заголовок 2</em> для заголовку другого рівня. Примітка: <em>Заголовок 1</em> зарезервований для заголовку сторінки, тому заголовки в області тексту починаються з <em>Заголовка 2</em>. Виберіть <em>Вихідний код</em>, щоб перейти до подання вихідного коду HTML, який дозволяє вручну вставляти і редагувати HTML."
+        meta_description_more: Введіть короткий опис, який коротко описує основні поняття вмісту сторінки. Це опис іноді використовується пошуковими системами для перевірки релевантності і для включення в результати пошуку.
+        meta_keywords_more: Введіть розділений комами список слів і коротких фраз, які найкраще зображають вміст сторінки. Ці ключові слова або ключові фрази іноді використовуються пошуковими системами для оцінки релевантності сторінки умовам пошуку.
+        title_more: Назва цього вмісту буде відображатися в області верхнього колонтитула сторінки. Назва повинна включати ключові слова, найбільш релевантні змістом.
+      translated_news_item: 
+        active_translation: Опубліковано
+        active_translation_more: Опубліковані переклади будуть загальнодоступними, якщо сама новина опублікована. Зніміть прапорець <em>Опубліковано</em> якщо ви не хочете, щоб звичайні користувачі бачили цю версію новини.
+        body_more: "Введіть вміст елемента \"новина\" в область тіла повідомлення. Використовуйте розкривний список <em>Форматування</em>, щоб вибрати відповідний семантичний елемент, наприклад, <em>Заголовок 2</em> для заголовку другого рівня. Примітка: <em>Заголовок 1</em> зарезервовано для назви елемента новин, тому заголовки в області тіла починаються з <em>Заголовок 2</em>. Виберіть <em>Вихідний код</em> для перемикання в режим редагування HTML-коду."
+        language_id: Мова
+        meta_description_more: Введіть короткий опис, який узагальнює основні поняття вмісту елемента новин. Це опис іноді використовується пошуковими системами для перевірки релевантності і для включення в результати пошуку.
+        meta_keywords_more: Введіть розділений комами список слів і коротких фраз, які найкраще зображають зміст сторінки. Ці ключові слова або ключові фрази іноді використовуються пошуковими системами для оцінки релевантності сторінки умовам пошуку.
+        title_more: Назва цієї новини з'явиться в області заголовку сторінки. Заголовок повинен містити ключові слова, які найбільше відповідають вмісту.
+      user: 
+        agreed_with_terms: Я погоджуюсь з <a href="%{terms_url}">умовами використанн</a>
+        api_key_more: Докладніше про <a href="%{api_docs_url}">додавання ключа до API-викликів</a>.
+        bio: Про мене
+        credentials: Повноваження
+        credentials_more: "Вкажіть принаймні одне з конкретних повноважень з цього списку:"
+        credentials_more_academic: Статус професор, співробітник або аспірант у відповідному департаменті, університеті або коледжі.
+        credentials_more_author: Авторство публікації у фахових виданнях (надати посилання).
+        credentials_more_professional: Член професійного товариства.
+        credentials_more_referral: Реферал від нинішнього куратора.
+        credentials_more_successful_assistant_curator: Історія успіху як помічник куратора.
+        curation_application: Стати куратором
+        curation_application_more: Якщо ви хочете змінити ваші привілеї курування, просто подайте заявку і ми розглянемо ваше право.
+        curation_priveleges_credentials: Облікові дані <small>(тільки для повних і головних кураторів)</small>
+        curator_level: "Ваш рівень курування: %{curator_level_with_indefinite_article}."
+        curator_scope: Область курування
+        curator_scope_more: "Вкажіть область ваших знань. Наприклад: „Гризуни Борнео“, „Тритрофічні взаємодії“ або „Проблема збереження риби“. Це не обмежуватиме вашу можливість курування, а просто проінформує спільноту EOL."
+        email: Адреса електронної пошти
+        email_reports_frequency_hours: Як часто ви хочете отримувати оповіщення по електронній пошті про дії над вашим внеском?
+        email_settings_submit: налаштування електронної пошти
+        entered_password: Пароль <small>(4-16 символів)</small>
+        generate_api_key: Запит ключа API
+        generate_api_key_more: Якщо ви зацікавлені в використанні EOL API, то ви можете згенерувати ключ API для ідентифікації програми. Докладніше про <a href="%{api_docs_url}">додавання ключа до API-запитів</a>.
+        logo: Завантажити нове фото
+        new_password: Новий пароль <small>(4-16 символів)</small>
+        new_password_confirmation: Новий пароль <small>(для підтвердження)</small>
+        news_in_preferred_language: показувати новини бажаною мовою
+        notification_settings: Параметри сповіщень
+        notification_settings_more: Настроювання параметрів сповіщень.
+        open_authentications: Підключені облікові записи
+        open_authentications_connected_accounts: Ваші підключені облікові записи
+        open_authentications_more: Управління підключеннями до стороннім облікових записів, які можна використовувати для входу в EOL. <a href="%{open_authentications_url}">Відредагувати пов'язані облікові записи</a>.
+        requested_curator_level: Ваш запит, аби стати %{curator_level_with_indefinite_article} перебуває на розгляді.
+        requested_curator_level_id_more: Виберіть <em>Помічник куратора</em>, якщо у вас ще немає жодних повноважень. Виберіть <em>Повний куратор</em>, якщо ви є професійним ученим або аспірантом з повноваженнями. Виберіть <em>Майстер куратор</em>, якщо ви досвідчений куратор EOL і хочете взяти на себе велику відповідальність.
+        tag_line: "Додаткові відомості або назва <small>Приклад: \"Птах ентузіаст\"</small>"
+        user_identities: Я
+        username: Ім'я користувача <small>(4-32 символів)</small>
+        username_or_email: Ім’я користувача або електронна адреса
+      wikipedia_queue: 
+        revision_url: URL версії <small>(напр. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url_more: Ввівши URL редакції на Вікіпедії ви запитаєте імпорт цієї конкретної редакції, як перевіреного вмісту. Це замінить поточну версію цієї статті на EOL, якщо вона вже є.
+    select: 
+      prompt: Просимо обрати
+    submit: 
+      cancel: Скасувати
+      collection_item: 
+        update: Зберегти
+      contact: 
+        new: Надіслати відгук
+      content_page: 
+        create: Створити сторінку
+        edit: Редагувати
+        preview: Попередній перегляд
+        update: Оновити сторінку
+      content_partner: 
+        create: Створити партнера за вмістом
+        update: Зберегти інформацію про партнера за вмістом
+      content_partner_agreement: 
+        agree: Погодитись з умовами
+        create: Створити нову угоду
+        update: Оновити угоду
+      content_partner_contact: 
+        create: Додати контакт
+        destroy: Вилучити контакт
+        update: Оновити контакт
+      create: Створити %{model}
+      data_object: 
+        create: Додати статтю
+        create_text: Додати статтю
+        update: Зберегти статтю
+      data_object_link: 
+        create: Додати посилання
+        update: Зберегти посилання
+      eol_statistic: 
+        change_date: Отримати статистику для дат
+        download_csv: Завантажити як CSV
+      filter_sort: Фільтр і сортування
+      harvest_event: 
+        publish: Опублікувати
+      hierarchy: 
+        request_publish: Запит на розкрутку ієрархії
+        update: Оновити ієрархію
+      name: 
+        create: Додати ім'я
+        update: Оновити ім'я
+      news_item: 
+        create: Створити елемент новин
+        edit: Редагувати
+        preview: Попередній перегляд
+        update: Оновити новину
+      open_authentication: 
+        create: З'єднати
+        destroy: Від’єднати
+        update: Перевірити з'єднання
+      resource: 
+        create: Додати ресурс
+        force_harvest: Запитати урожай
+        update: Оновити ресурс
+        update_settings: Оновити налаштування
+      session: 
+        create: Увійти
+        sign_in_with_facebook: Увійти за допомогою Facebook
+        sign_in_with_google: Увійти за допомогою Google
+        sign_in_with_twitter: Увійти за допомогою Twitter
+        sign_in_with_yahoo: Увійти за допомогою Yahoo
+      submit: Зберегти %{model}
+      translated_content_page: 
+        create: Додати переклад
+        update: Зберегти зміни у перекладі
+      translated_news_item: 
+        create: Додати переклад
+        update: Зберегти зміни до перекладу
+      update: Оновити %{model}
+      user: 
+        create: Реєстрація
+        curation_application: Застосувати
+        curation_privileges: Надіслати запит
+        generate_api_key: Створити ключ
+        notification_settings: Налаштування сповіщення
+        recover_account: Надіслати повідомлення електронною поштою
+        sign_up_with_facebook: Зареєструватися через Facebook
+        sign_up_with_google: Зареєструватися через Google
+        sign_up_with_twitter: Зареєструватися через Twitter
+        sign_up_with_yahoo: Зареєструватися через Yahoo
+        update: Зберегти профіль
+      wikipedia_queue: 
+        create: Надіслати запит
+  image_from_supplier: Зображення від %{whom}
+  image_map_from_supplier: Мапа від %{whom}
+  image_map_not_associated_with_any_published_entries: Ця мапа не пов'язана із жодними опублікованими таксонами.
+  image_map_of_taxon: Мапа %{taxon_name}
+  image_map_rating: Оцінка мапи
+  image_not_associated_with_any_published_entries: Це зображення не пов'язане із жодними опублікованими таксонами.
+  image_of_taxon: Зображення %{taxon_name}
+  image_rating: Оцінка зображення
   images: зображення
+  ip: IP
+  ip_address: IP-адреса
+  item_type_article: Стаття
+  item_type_link: Посилання
+  jsonp_by_adding_a_callback_parameter: .. і JSONP шляхом додавання параметра зворотного виклику
   just_pages_with_pictures_and_text: лише сторінки з ілюстраціями та текстом
+  known_uri_relationships: 
+    create_failed: Вибачте, сталася помилка, зв'язок не можна додати
+    created: Успішно створено зв'язок
+    deleted: Успішно вилучено зв'язок
+  known_uris: 
+    add_a_relationship: Додати зв'язок
+    import_successful: Онтологічні терміни успішно імпортовано
+    more_than_one_field_mapped_to_type: Більше одного атрибута зіставлено "%{type}"
+    no_results: Немає результатів для вибраної статистики
+    please_select_field_types: Будь ласка, виберіть відображення для кожного атрибута
+    please_select_from_the_menu: Будь ласка, виберіть з меню вище
+    please_select_uris_to_import: Будь ласка, виберіть імпорт URI
+    relationships: Зв'язки
+    select_a_category_to_view_stats: "Виберіть категорію, щоб переглянути статистику:"
+    unrecognized_association_types: Нерозпізнаний тип асоціації URIs
+    unrecognized_measurement_types: Нерозпізаний тип вимірювання URIs
+    unrecognized_measurement_units: Нерозпізана одиниця вимірювання URIs
+    unrecognized_measurement_values: Нерозпізнане значення вимірювання URIs
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Цитування EOL
+        about_link_contact_us: Зв'яжіться з нами
+        about_link_discover: Пізнати
+        about_link_donate: Пожертвувати EOL
+        about_link_eol_blog: Блоґ EOL
+        about_link_glossary: Словник
+        about_link_help: Допомога
+        about_link_podcasts: Подкасти
+        about_link_statistics: Статистика
+        about_link_terms_of_use: Умови використання
+        about_link_what_is_eol: Що таке EOL?
+        header_about: Про EOL
+        header_learn_more: Дізнайтеся більше про
+        header_questions: Розкажіть мені більше
+        learn_more_link_amphibians: Земноводні
+        learn_more_link_animals: Тварини
+        learn_more_link_archaea: Археї
+        learn_more_link_bacteria: Бактерії
+        learn_more_link_birds: Птахи
+        learn_more_link_crustaceans: Ракоподібні
+        learn_more_link_fish: Риби
+        learn_more_link_flowering_plants: Квіткові рослини
+        learn_more_link_fungi: Гриби
+        learn_more_link_insects: Комахи
+        learn_more_link_invertebrates: Безхребетні
+        learn_more_link_mammals: Ссавці
+        learn_more_link_molds: Плісінь
+        learn_more_link_mollusks: Молюски
+        learn_more_link_mushrooms: Гриби
+        learn_more_link_plants: Рослини
+        learn_more_link_protists: Найпростіші
+        learn_more_link_reptiles: Рептилії
+        learn_more_link_spiders: Павуки
+        learn_more_link_trees: Дерева
+        learn_more_link_viruses: Віруси
+        learn_more_link_worms: Червяки
+        questions_link_binomial_nomenclature: Що таке біноміальна номенклатура?
+        questions_link_biodiversity: Що таке біорозмаїття?
+        questions_link_biological_classification: Що таке біологічна класифікація?
+        questions_link_contributing_to_research: Як я можу брати участь у дослідженнях?
+        questions_link_discovering_species: Як відкривають види?
+        questions_link_indicator_species: Що таке індикатор видів?
+        questions_link_invasive_species: Що таке інвазійний вид?
+        questions_link_model_organism: Що таке модельний організм?
+        questions_link_naming_species: Як називають види?
+        questions_link_species: Що таке вид?
   license: дозвіл (на використання)
-  minimal_page: мінімальна сторінка
+  license_all_rights_reserved: Всі права захищені
+  link_not_associated_with_any_published_entries: Це посилання не пов'язане із жодними опублікованими таксонами.
+  link_rating: Оцінка посилання
+  location: Місцезнаходження
+  logo_header: Логотип
+  map_from_supplier: Мапа від %{whom}
+  map_not_associated_with_any_published_entries: Ця мапа не пов'язана із жодними опублікованими таксонами.
+  map_of_taxon: Мапа %{taxon_name}
+  map_rating: Оцінка мапи
+  members: 
+    index: 
+      meta_description: Члени %{community_name}, спільноти Енциклопедії Життя.
+      meta_keywords: Члени %{community_name}
+      meta_title: Члени %{community_name}
+      tweet_text: Члени %{community_name}
+    show: 
+      meta_description: "%{member_name} є членом %{community_name}, спільноти Енциклопедії Життя."
+      meta_keywords: Член спільноти %{member_name}
+      meta_title: "%{member_name} член %{community_name}"
+      tweet_text: "%{member_name} член %{community_name}"
+  mobile: 
+    contents: 
+      home: Головна
+      species: Види
+    search: 
+      no_results_found: Нічого не знайдено
+      results: Результати
+      suggestions: Пропозиції
+    taxa: 
+      community: Спільнота
+      details: Деталі
+      images: Зображення
+      literature: Література
+      maps: Карти
+      nomenclature: Номенклатура
+      resources: Ресурси
+      sounds: Звуки
+      videos: Відео
+  news_items: 
+    index: 
+      meta_keywords: новини еж, новини енциклопедії життя
+      meta_title: EOL Новини
+      page_title: EOL Новини
+  no_answer: Ні
+  notifier: 
+    activity_log_empty: Жодних попередній дій кураторів
+    activity_on_content_partner_content: 
+      message: "Це автоматично згенерований лист від Енциклопедії Життя (EOL) з останніми коментарями і кураторськими діями у вмісті, наданому партнером %{partner_full_name} (%{partner_profile_url}). Ви отримуєте цей лист, тому що ви вказані в якості контакту для %{partner_full_name}.\n\nЯкщо у вас є які-небудь питання або потрібна допомога щодо доступу до свого облікового запису EOL, будь ласка, зв'яжіться з %{species_pages_group_email}.\n\n\nКураторські дії:\n%{curator_activity_log}\n\nКоментарі на об'єктах даних:\n%{data_object_comments}\n\nКоментарі на сторінках, з якими пов'язані ваші дані:\n%{page_comments}"
+      subject: Підсумок останньої діяльності у вмісті, наданому партнером за вмістом Енциклопедії Життя %{partner_full_name}
+    activity_on_user_content: 
+      message: "Це автоматично згенерований лист від Енциклопедії Життя  (EOL) з останніми коментарями і кураторськими діями у вмісті, доданому на EOL через ваш обліковий запис з ім'ям користувача %{members_username}.\n\nЯкщо у вас є які-небудь питання або потрібна допомога щодо доступу до свого облікового запису EOL, будь ласка, зв'яжіться з %{species_pages_group_email}.\n\n\nКураторські дії:\n%{curator_activity_log}\n\nКоментарі на об'єктах даних:\n%{data_object_comments}\n\nКоментарі на сторінках, з якими пов'язані ваші дані:\n%{page_comments}"
+      subject: Коротка інформація про діяльність у вмісті, який ви додали в Енциклопедію Життя
+    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) додав співставлення:\n%{taxon_name} (%{taxon_url}) для %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) додав невідоме співставлення для %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) позначив як неприйнятне:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) позначив як варте довіреного:\n%{object_name} (%{object_url}) для %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) позначив як не варте довіри:\n%{object_name} (%{object_url}) для %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url}) позначив як не варте довіри:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) вилучив співставлення:\n%{taxon_name} (%{taxon_url}) для %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) вилучив невідоме співставлення для %{object_name} (%{object_url})\n%{action_date}."
+    comments_empty: немає нещодавніх коментарів
+    contact_us_auto_response: 
+      message: "Дякуємо вам за звернення в рамках проекту Енциклопедія Життя. Ваші коментарі були відправлені у відповідну групу.\n\nМи цінуємо вашу думку."
+      subject: Дякуємо за звернення до Енциклопедія життя
+    contact_us_message: 
+      message: "Таке повідомлення було передане EOL через форму зв'язку з нами:\nВід: %{from_name}\nЕл. пошта: %{from_email}\nТема: %{subject}\n\n%{message}"
+      subject: "Повідомлення для EOL: %{title}"
+    content_partner_created: 
+      message: "Це повідомлення автоматизованої системи ЕЖ для групи \"Сторінки видів\". Користувач %{user_full_name} створив  партнера по вмісту %{partner_full_name}, подробиці нижче:\n\nКористувач: %{user_full_name}\nЕл. пошта: %{user_email}\nURL профілю: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nURL профілю партнера: %{partner_profile_url}\nСтворено: %{partner_created_at_date}"
+      subject: Користувач EOL %{user_full_name} створив партнера по вмісту %{partner_full_name}
+    content_partner_resource_created: 
+      message: "Це повідомлення автоматизованої системи ЕЖ для групи \"Сторінки видів\". Користувач %{user_full_name} додав новий ресурс %{resource_title} до партнера по вмісту %{partner_full_name}, подробиці нижче:\n\nКористувач: %{user_full_name}\nЕл.пошта: %{user_email}\nURL профілю: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nURL ресурсів партнера: %{partner_resources_url}\n\nРесурс: %{resource_title}\nURL ресурсів: %{resource_url}\nСтворено: %{resource_created_at_date}\nСтатус: %{resource_status}"
+      subject: Користувач ЕЖ %{user_full_name} додав новий ресурс %{resource_title} до партнера по вмісту %{partner_full_name}
+    content_partner_resource_force_harvest_request: 
+      message: "Це повідомлення автоматизованої системи ЕЖ для групи \"Сторінки видів\". Користувач %{user_full_name} подав запит на урожай для ресурсу %{resource_title}, який належить партнеру по вмісту %{partner_full_name}, подробиці нижче:\n\nКористувач: %{user_full_name}\nЕл.пошта: %{user_email}\nURL профілю: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nURL ресурсів партнера: %{partner_resources_url}\n\nРесурс: %{resource_title}\nURL ресурсів: %{resource_url}\nОновлено:  %{resource_updated_at_date} \nСтатус: %{resource_status}"
+      subject: Користувач %{user_full_name} запитав урожай для ресурсу  %{resource_title}, який належить партнеру по вмісту %{partner_full_name}
+    content_partner_resource_hierarchy_publish_request: 
+      message: "Це повідомлення автоматизованої системи ЕЖ для групи \"Сторінки видів\". Користувач %{user_full_name} подав запит, що ієрархія пов'язана з ресурсом %{resource_title}, який належить партнеру по вмісту %{partner_full_name}, може просуватися (опублікуватися) у оглядовій ієрархії на ЕЖ, подробиці нижче:\n\nКористувач: %{user_full_name}\nЕл.пошта: %{user_email}\nURL профілю: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nURL ресурсів партнера: %{partner_resources_url}\n\nРесурс: %{resource_title}\nURL ресурсів: %{resource_url}\nURL редагування ієрархії: %{hierarchy_edit_url}"
+      subject: Користувач ЕЖ %{user_full_name} подав запит на ієрархічне просування для ресурсу %{resource_title}, який належить партнеру по вмісту %{partner_full_name}
+    content_partner_statistics_reminder: 
+      message: Це автоматичне нагадування від Енциклопедії Життя. Веб-статистика використання даних, що поставляються в EOL від %{partner_full_name} %{month} %{year}, тепер доступна в %{partner_statistics_url}.
+      subject: Нагадування статистики використання Енциклопедії Життя для %{partner_full_name} %{month} %{year}
+    curator_approved: 
+      message: "Дякуємо вам за запит кураторських привілеїв %{curator_level}. Ваш запит схвалено.\n\nДля отримання додаткової інформації про курування і які функції доступні для вас, відвідайте http://eol.org/curators."
+      subject: Ваш запит на статус куратора %{curator_level} Енциклопедії Життя був схвалений
+    greeting_dear_name_with_comma: Шановний %{name},
+    signature_basic: Команда Енциклопедії Життя
+    signature_with_contact_us_link: "Якщо ви відчуваєте які-небудь проблеми, будь ласка, зв'яжіться з нами за адресою %{url}.\n\nКоманда Енциклопедії Життя"
+    signature_with_species_pages_group_contact: "Якщо у вас виникли питання, будь ласка, зв'яжіться з нами за %{species_pages_group_email}.\n\nКоманда Енциклопедії Життя"
+    unsubscribed_to_notifications: 
+      message: "Ви успішно відписалися від отримання повідомлень з \"Енциклопедії життя\". Ви можете змінити налаштування вашої електронної пошти або підписатися на повідомлення по посиланню <a href='%{email_prefs_url}'>your notification preferences page</a>.\n\nЩоб дізнатися більше про те, як використовувати \"Енциклопедію життя\", створювати в ній колекції, брати участь в Спільноті \"Енциклопедії життя\" і додавати інформацію, будь ласка, зайдіть на сторінку служби підтримки за посиланням http://eol.org/help."
+      subject: Шкода, що ви йдете...
+    user_activated: 
+      message: "Ласкаво просимо в Енциклопедію Життя (ЕЖ) і дякуємо за реєстрацію! Будь ласка, зверніть увагу, Ваше ім'я користувача %{username}, посилання на Ваш профіль - %{profile_url}. Ви можете зайти в свій обліковий запис за посиланням http://eol.org/login.\n\nЩоб дізнатися більше про те, як користуватися ЕЖ, включаючи способи створення збірок ЕЖ, як брати участь у спільнотах ЕЖ і створювати новий вміст, відвідайте сторінку допомоги: http://eol.org/help."
+      subject: Ваш обліковий запис у Енциклопедії Життя (EOL) активовано
+    user_activated_with_open_authentication: 
+      message: "Ласкаво просимо в Енциклопедію Життя (ЕЖ) і дякуємо за реєстрацію! Зверніть увагу, що ви увійшли з допомогою %{oauth_provider}, надаючи ЕЖ дозвіл на доступ до базової інформації для потреб автентифікації. URL вашого профілю на EOL - %{profile_url}. Ви можете увійти у свій профіль ЕЖ через %{oauth_provider} на сторінці http://eol.org/login.\n\nЩоб дізнатися більше про те, як користуватися ЕЖ, включаючи способи створення колекцій ЕЖ, як брати участь у спільнотах ЕЖ і створювати новий вміст, будь ласка, відвідайте наші сторінки довідки на http://eol.org/help."
+      subject: Ваш обліковий запис у Енциклопедії Життя (EOL) активовано
+    user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) прокоментував:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
+    user_message: 
+      subject: Повідомлення від Енциклопедії Життя
+    user_recover_account: 
+      message: "Енциклопедія Життя (http://eol.org) отримала запит для відновлення Вашого облікового запису. Якщо цей запит не робили Ви, проігноруйте це повідомлення.\n\nПосилання нижче дає одноразову можливість змінити пароль або додати зв'язок з іншими обліковими записами, які Ви можете використовувати для авторизації в майбутньому:\n\n%{temporary_login_url}\n\nБудь ласка, зверніть увагу, що термін дії цього посилання закінчується через 24 години, після закінчення цього часу Ви можете відвідати %{recover_account_url} для запиту нового посилання на відновлення облікового запису на випадок, якщо труднощі з авторизацією збереглися."
+      subject: Відновлення облікового запису Енциклопедії Життя
+    user_updated_email_preferences: 
+      message: "Це  повідомлення автоматизованої системою EOL. Користувач %{user_full_name} (%{user_profile_url}) оновив свою адресу електронної пошти або налаштування списку розсилки.\n\nПопередні параметри:\nЕл. пошта: %{previous_email}\nПараметри списку розсилки: %{previous_mailing_list_preference}\n\nОновлені:\nЕл. пошта: %{updated_email}\nПараметри списку розсилки: %{updated_mailing_list_preference}\nОновлено: %{updated_at}"
+      subject: користувач ЕЖ %{user_full_name} змінив свою адресу електронної пошти або налаштування списку розсилки
+    user_verification: 
+      message: "Дякуємо за реєстрацію в Енциклопедії Життя. Перейдіть за наступним посиланням, щоб завершити реєстрацію і активувати Ваш обліковий запис:\n\n%{verification_url}\n\nПісля активації вашого облікового запису, ви отримаєте повідомлення електронної пошти з підтвердженням."
+      subject: Будь ласка, підтвердіть ваш запит на реєстрацію в Енциклопедії Життя
   pages_with_pictures_and_text: сторінки з ілюстраціями та текстом
+  person_rating: Оцінка людини
+  recent_activities: 
+    index: 
+      list_header: Останні 7 днів
+      meta_keywords: діяльність спільноти eol, остання діяльність eol, діяльність енциклопедії життя
+      meta_title: Дільність спільноти ЕЖ
+      page_title: Дільність спільноти ЕЖ
+  recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Оновлення до %{to}
+      other: "%{count} оновлення до  %{to}"
+    bulk_comments_on_you_with_count: 
+      one: Новий коментар у <a href='%{url}' style='color:#195184'>вашому профілі</a>
+      other: "%{count} нові коментарі у <a href='%{url}' style='color:#195184'>вашому профілі</a>"
+    bulk_comments_with_count: 
+      one: Новий коментар на %{on}
+      other: "%{count} нові коментарі на %{on}}"
+    bulk_community_activity_with_count: 
+      one: Оновлення до %{to}
+      other: "%{count} оновлення до  %{to}"
+    bulk_community_joins_with_count: 
+      one: Новий член приєднався до %{community}
+      other: "%{count} нові члени приєдналися до %{community}"
+    bulk_curation_with_count: 
+      one: Куратори внесли поліпшення у %{to}
+      other: Куратори внесли %{count} поліпшення у %{to}
+    collection_activity_by_user: <b>%{user_name}</b> виконав %{activity_name} у збірці <b>%{collection_name}</b>.
+    collection_activity_log_title: "%{who} змінив збірку"
+    collection_activity_user_added_item: "<b>%{user_name}</b> додав %{collected_item_type} #%{collected_item_id} до <b>%{collection_name}</b>."
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> спостерігає за вами.
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: Перегляд коментарів на EOL
+    comment_title: "%{who} прокоментував %{what}"
+    comment_title_your_newsfeed: "%{who} вже прокоментував у вашій стрічці новин"
+    community_activity_by_user: <b>%{user_name}</b> виконав %{activity_name} у спільності <b>%{community_name}</b>.
+    community_activity_log_title: "%{who} змінив спільноту"
+    community_activity_user_joined: Користувач <b>%{user_name}</b> приєднався до спільноти <b>%{community_name}</b>.
+    community_activity_user_left: Користувач <b>%{user_name}</b> покинув спільноту <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: Користувач <b>%{user_name}</b> зробив <b>%{member_name}</b> керівником спільноти <b>%{community_name}</b>.
+    contact_us_link: Якщо у вас виникли будь-які проблеми, будь ласка, <a href='http://eol.org/contact_us' style='color:#195184'>зв'яжіться з нами</a>.
+    curator_activity_log_title: "%{who} вже курував щось"
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> виконав дію %{activity_name} на <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> виконав дію %{activity_name} на <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> додав статтю названу %{dato_title} до <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: "%{who} додав новий вміст для EOL"
+    default_subject: Останні дії на EOL
+    intro: Ось Ваш виклад активності ЕЖ за %{time}
+    intro_immediately: Привіт, %{name} —
+    intro_weekly: Ось виклад вашої діяльності на EOL за минулий тиждень %{ending}
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
+    see_all_activity: Переглянути усю попередню діяльність на <a href='%{activity_url}' style='color:#195184'>стрічці новин у вашій сторінці користувача</a>.
+    someone_commented_on_something: <b>%{who}</b> вже прокоментував на <b>%{what}</b>.
+    unsubscribe: Увійти в систему і змінити параметри електронної пошти на <a href='%{email_prefs_url}' style='color:#195184'>сторінці налаштування повідомлень</a> або <a href='%{unsubscribe_url}' style='color:#195184'>відмовитися від всіх автоматичних повідомлень EOL без входу в систему</a>.
+  references_cabs_colon: "Примітки:"
+  request: Запит
+  rights: Права
+  rights_holder: Правовласник
+  save: Зберегти
   select_topic: оберіть розділ
+  send: Надіслати
+  send_email_colon: Надіслати повідомлення електронною поштою
+  sessions: 
+    new: 
+      login_with_eol_authentication_header: "Або увійдіть за допомогою облікових даних Енциклопедії життя:"
+      login_with_facebook_assistive: Увійти в EOL за допомогою облікових даних Facebook.
+      login_with_google_assistive: Увійти в EOL за допомогою облікових даних Google.
+      login_with_twitter_assistive: Увійти в EOL за допомогою облікових даних Twitter.
+      login_with_yahoo_assistive: Увійти в EOL за допомогою облікових даних Yahoo.
+      meta_title: Вхід
+      problems_signing_in_with_connected_accounts: Проблеми із входом через підключені облікові записи?
+      problems_signing_in_with_eol_authentication: Забули пароль?
+      tip: Вже зареєструвалися? Зв'яжіть ваш обліковий запис EOL з Facebook, Google та іншими в налаштуваннях вашого профілю. Після підключення облікові записи можна використовувати для входу в EOL.
+  sign_in: Увійти
   skip_to_content: перейти до розділу
+  sound_from_supplier: Звук від %{whom}
+  sound_not_associated_with_any_published_entries: Цей звук не пов'язаний із жодними опублікованими таксонами.
+  sound_of_taxon: Аудіо %{taxon_name}
+  sound_rating: Оцінка звуку
+  supplier: Постачальник
+  taxa: 
+    communities: 
+      collections: 
+        hierarchy_entry: 
+          meta_description: Збірки, що містять %{scientific_name}, прокласифіковані %{hierarchy_provider}.
+          meta_description_with_common_name: Збірки, що містять %{preferred_common_name} (%{scientific_name} прокласифіковано %{hierarchy_provider})
+          meta_keywords: "%{scientific_name} Збірки, %{scientific_name} Спостереження, %{hierarchy_provider} Збірки, %{hierarchy_provider} Спостереження, %{hierarchy_provider} Зразки"
+          meta_title: Збірки %{scientific_name}, прокласифіковані %{hierarchy_provider}.
+          meta_title_with_common_name: Збірки %{preferred_common_name} (%{scientific_name} прокласифіковано %{hierarchy_provider})
+          tweet_text: Збірки %{scientific_name}, прокласифіковані %{hierarchy_provider}.
+        meta_description: Збірники, що містять %{scientific_name}.
+        meta_description_with_common_name: Збірки, що містять %{preferred_common_name} (%{scientific_name})
+        meta_keywords: "%{scientific_name} Збірки, %{scientific_name} Спостереження"
+        meta_keywords_with_common_name: "%{preferred_common_name} Збірки, %{preferred_common_name} Спостереження, %{scientific_name} Збірки, %{scientific_name} Спостереження"
+        meta_title: Збірки %{scientific_name}.
+        meta_title_with_common_name: Збірки %{preferred_common_name} (%{scientific_name})
+        tweet_text: Збірки %{scientific_name}.
+      curators: 
+        hierarchy_entry: 
+          meta_title: Куратори %{scientific_name}, прокласифіковано %{hierarchy_provider}.
+          meta_title_with_common_name: Експерти на %{preferred_common_name} (%{scientific_name} прокласифіковано %{hierarchy_provider})
+          tweet_text: Куратори %{scientific_name}, прокласифіковано %{hierarchy_provider}.
+        meta_description_with_common_name: Експерти %{preferred_common_name} (також відомі як експерти %{scientific_name}), які контролюють свої дані в Енциклопедії Життя.
+        meta_keywords: "%{scientific_name} Експерти, %{scientific_name} Куратори"
+        meta_keywords_with_common_name: "%{preferred_common_name} Експерти, %{preferred_common_name} Куратори, %{scientific_name} Експерти, %{scientific_name} Куратори"
+        meta_title: Куратори %{scientific_name}
+        meta_title_with_common_name: Експерти на %{preferred_common_name} (%{scientific_name})
+        tweet_text: Куратори %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Обмінюватися інформацією та досвідом на %{scientific_name} прокласифікованому %{hierarchy_provider}.
+          meta_description_with_common_name: Обмінюватися інформацією та досвідом на %{preferred_common_name} (%{scientific_name}) прокласифікованому %{hierarchy_provider}.
+          meta_keywords: "%{scientific_name} спільнота, %{hierarchy_provider}"
+          meta_title: Люди, зацікавлені у %{scientific_name}, прокласифіковані по %{hierarchy_provider}
+          meta_title_with_common_name: Люди, зацікавлені у %{preferred_common_name} (%{scientific_name} прокласифіковано %{hierarchy_provider})
+          tweet_text: Люди, зацікавлені у %{scientific_name} прокласифіковано %{hierarchy_provider}
+        meta_description: Зацікавлені в %{scientific_name}? Приєднуйтеся до експертів %{scientific_name} і поділіться з ними своїми спостереженнями %{scientific_name} на Енциклопедії Життя.
+        meta_description_with_common_name: Зацікавлені в %{preferred_common_name} (%{scientific_name})? Приєднуйтеся до експертів %{preferred_common_name} і поділіться з ними своїми спостереженнями %{preferred_common_name} на Енциклопедії Життя.
+        meta_keywords: спільнота %{scientific_name}
+        meta_keywords_with_common_name: "%{preferred_common_name} спільнота, %{scientific_name} спільнота"
+        meta_title: Люди, зацікавлені в %{scientific_name}
+        meta_title_with_common_name: Люди, зацікавлені в %{preferred_common_name} (%{scientific_name})
+        tweet_text: Люди, зацікавлені в %{scientific_name}
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Фотографії, відео і аудіо %{scientific_name} прокласифіковані за %{hierarchy_provider}. Знайдіть зображення, фотографії, фільми і звуки %{scientific_name} у "Енциклопедії Життя".
+          meta_description_no_data: Немає доступних обчислених даних для %{scientific_name} прокласифікованих за %{hierarchy_provider} в "Енциклопедії Життя". EOL запрошує вас внести дані для %{scientific_name}.
+          meta_description_with_common_name_no_data: Немає доступних обчислених даних для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести дані для %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name} прокласифікованого за %{hierarchy_provider}? Обчислювані дані про %{scientific_name}, включаючи інформацію про %{topics}.
+          meta_keywords: Обчислювані дані %{scientific_name} прокласифікованого за %{hierarchy_provider}, інформація про %{scientific_name}
+          meta_keywords_with_common_name: Обчислювані дані %{preferred_common_name} прокласифікованого за %{hierarchy_provider}
+          meta_title: Обчислювані дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+          meta_title_with_common_name: Обчислювані дані для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Обчислювані дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+        meta_description: Фотографії, відео і аудіо %{scientific_name}. Знайдіть зображення, фотографії, фільми і звуки %{scientific_name} у "Енциклопедії Життя".
+        meta_description_no_data: Немає доступних обчислених даних для %{scientific_name}  в "Енциклопедії Життя". EOL запрошує вас внести дані для %{scientific_name}.
+        meta_description_with_common_name_no_data: Немає доступних обчислених даних для %{preferred_common_name} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести дані для %{preferred_common_name} (%{scientific_name}).
+        meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name}? Обчислювані дані про %{scientific_name}, включаючи інформацію про %{topics}.
+        meta_keywords: обчислювані дані %{scientific_name}, інформація про %{scientific_name}
+        meta_keywords_with_common_name: обчислювані дані %{preferred_common_name}
+        meta_title: Обчислювані дані для %{scientific_name}
+        meta_title_with_common_name: Обчислювані дані для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Обчислювані дані для %{scientific_name}
+    details: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Факти %{scientific_name} прокласифіковано %{hierarchy_provider} у Енциклопедії Життя
+          meta_description_no_data: Немає фактів доступних для %{scientific_name} класифікованих за %{hierarchy_provider} у Енциклопедії Життя. ЕЖ запрошує вас вносити факти про %{scientific_name} зокрема такі як Збереження, Поширення, Екологія, Навколишнє середовище, Морфологія і інше.
+          meta_description_with_chapter_list: Факти про %{scientific_name} класифіковані %{hierarchy_provider} в "Енциклопедії Життя". Включає інформацію %{chapter_list} для %{scientific_name}.
+          meta_description_with_common_name: Факти про %{preferred_common_name}, відомого у науці як  %{scientific_name} та прокласифікованого за %{hierarchy_provider} у Енциклопедії Життя.
+          meta_description_with_common_name_no_data: Немає фактів доступних для %{preferred_common_name} також відомого як %{scientific_name} класифікованого за %{hierarchy_provider} у Енциклопедії Життя. ЕЖ запрошує вас вносити факти про %{preferred_common_name} (%{scientific_name}), зокрема такі, як Збереження, Поширення, Екологія, Навколишнє середовище, Морфологія і інше.
+          meta_description_with_common_name_with_chapter_list: Факти про %{preferred_common_name}, відомого у науці як  %{scientific_name} та прокласифікованого за %{hierarchy_provider} у Енциклопедії Життя. Включає в себе факти на %{chapter_list}.
+          meta_title: Факти про %{scientific_name} класифіковані %{hierarchy_provider}
+          meta_title_with_common_name: Факти про %{preferred_common_name} (%{scientific_name} прокласифіковано за %{hierarchy_provider})
+          tweet_text: Факти про %{scientific_name} класифіковані %{hierarchy_provider}
+        meta_description: Факти про %{scientific_name} в " Енциклопедії Життя"
+        meta_description_no_data: Немає фактів доступних для %{scientific_name} у Енциклопедії Життя. ЕЖ запрошує вас вносити факти про %{scientific_name} зокрема такі як Збереження, Поширення, Екологія, Навколишнє середовище, Морфологія і інше.
+        meta_description_with_chapter_list: Факти про %{scientific_name} у Енциклопедії життя. Включає в себе факти на %{chapter_list}.
+        meta_description_with_common_name: Факти про %{preferred_common_name}, відомого у науці як %{scientific_name} у Енциклопедія життя.
+        meta_description_with_common_name_no_data: Немає фактів доступних для %{preferred_common_name} також відомого як %{scientific_name} у Енциклопедії Життя. ЕЖ запрошує вас вносити факти про %{preferred_common_name} (%{scientific_name}), зокрема такі, як Збереження, Поширення, Екологія, Навколишнє середовище, Морфологія і інше.
+        meta_description_with_common_name_with_chapter_list: Факти про %{preferred_common_name}, відомого у науці як  %{scientific_name} у Енциклопедії Життя. Включає в себе факти на %{chapter_list}.
+        meta_title: Факти про %{scientific_name}
+        meta_title_with_common_name: Факти про %{preferred_common_name} (%{scientific_name})
+        tweet_text: Факти про %{scientific_name}
+    literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: Література БСБ та інформація про %{scientific_name} прокласифікованого за %{hierarchy_provider} у Енциклопедії життя. Читайте статті від Бібліотеки спадщини біорізноманіття (BHL) про %{scientific_name} у Енциклопедії життя.
+          meta_description_with_common_name: Література БСБ та інформація про %{preferred_common_name} також відомого як %{scientific_name}  прокласифікованого за %{hierarchy_provider} у Енциклопедії життя. Читайте статті від Бібліотеки спадщини біорізноманіття (BHL) про %{preferred_common_name} у Енциклопедії життя.
+          meta_title: BHL література з %{scientific_name} прокласифікованого за %{hierarchy_provider}
+          meta_title_with_common_name: Література БСБ про %{preferred_common_name} (%{scientific_name} прокласифікованого за %{hierarchy_provider})
+          tweet_text: "Література від #BHL (БСБ) про %{scientific_name} прокласифікованого за %{hierarchy_provider}"
+        meta_title: BHL бібліографічні посилання для %{scientific_name}
+        meta_title_with_common_name: Посилання БСБ для %{preferred_common_name} (%{scientific_name})
+        tweet_text: "Література від #BHL на %{scientific_name}"
+      show: 
+        hierarchy_entry: 
+          meta_title: Література %{scientific_name} прокласифікованого %{hierarchy_provider}
+          meta_title_with_common_name: Книги про %{preferred_common_name} (%{scientific_name} прокласифікований за %{hierarchy_provider})
+          tweet_text: Література %{scientific_name} прокласифікованого %{hierarchy_provider}
+        meta_description: Книги, статті та бібліографії про %{scientific_name} у Енциклопедії життя. Читайте літературу про %{scientific_name} у Енциклопедії життя.
+        meta_description_with_common_name: Книги, статті та бібліографії про %{preferred_common_name} також відомого як %{scientific_name} у Енциклопедії життя. Читайте літературу про %{preferred_common_name} у Енциклопедії життя.
+        meta_keywords: Статті %{scientific_name}, книги %{scientific_name}, бібліографії %{scientific_name}, література %{scientific_name}
+        meta_keywords_with_common_name: Статті %{preferred_common_name}, книги %{preferred_common_name}, література %{preferred_common_name}, статті %{scientific_name}, книги %{scientific_name}, бібліографії %{scientific_name}, література %{scientific_name}
+        meta_title: Статті і Книги про %{scientific_name}
+        meta_title_with_common_name: Статті і Книги про %{preferred_common_name} (%{scientific_name})
+        tweet_text: Статті і Книги по %{scientific_name}
+    maps: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Географічні відомості про %{scientific_name} прокласифікованого за %{hierarchy_provider}, де вони живуть і де їхня батьківщина у світі.
+          meta_description_with_common_name: Де %{preferred_common_name} виявлено і де вони живуть? Географічні відомості про %{scientific_name} прокласифікованого за %{hierarchy_provider}, де вони живуть і де їхня батьківщина у світі.
+          meta_title: Мапи %{scientific_name}, прокласифікованого за %{hierarchy_provider}.
+          meta_title_with_common_name: Мапи %{preferred_common_name} (%{scientific_name} прокласифікованого за %{hierarchy_provider})
+          tweet_text: Мапи для %{scientific_name}, прокласифікованого за %{hierarchy_provider}.
+        meta_description: Географічні відомості про %{scientific_name}. Місця, де вони живуть у світі.
+        meta_description_no_data: Немає доступної географічної інформації для %{scientific_name}  в "Енциклопедії Життя". EOL запрошує вас внести мапи для %{scientific_name}.
+        meta_description_with_common_name: Де %{preferred_common_name} виявлено і де вони живуть? Географічні відомості про %{scientific_name}. Місця, де вони живуть у світі.
+        meta_description_with_common_name_no_data: Немає доступної географічної інформації для %{preferred_common_name} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести мапи для %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: природне середовище %{scientific_name}, де %{scientific_name} живуть
+        meta_keywords_with_common_name: природне середовище %{preferred_common_name}, де %{preferred_common_name} живуть
+        meta_title: Карти для %{scientific_name}
+        meta_title_with_common_name: Карти для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Карти для %{scientific_name}
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Фотографії та відеоролики %{scientific_name} прокласифікованого за %{hierarchy_provider}.
+          meta_description_with_common_name: Фотографії, кіно і аудіо %{preferred_common_name} також знаного як %{scientific_name} прокласифікованого %{hierarchy_provider}.
+          meta_keywords: фотографії %{scientific_name}, фільми %{scientific_name}, звуки %{scientific_name}, аудіо %{scientific_name}
+          meta_keywords_with_common_name: фотографії %{preferred_common_name}, фільми %{preferred_common_name}, звуки %{preferred_common_name}, аудіо %{preferred_common_name}, фотографії %{scientific_name}, фільми %{scientific_name}, звуки %{scientific_name}, аудіо %{scientific_name}
+          meta_title: Аудіо, фільм і фотографії %{scientific_name}  прокласифікованого %{hierarchy_provider}
+          meta_title_with_common_name: Аудіо, фільм і зображення %{preferred_common_name} (%{scientific_name} прокласифікованого %{hierarchy_provider})
+          tweet_text: Мапи %{scientific_name}, прокласифікованого за %{hierarchy_provider}
+        meta_description: Фотографії, відео і аудіо %{scientific_name}. Знайдіть зображення, фотографії, фільми і звуки %{scientific_name} у "Енциклопедії Життя".
+        meta_description_no_data: Немає доступної мультимедії для %{scientific_name}  в "Енциклопедії Життя". ЕЖ запрошує вас внести зображення, відео чи звуки для %{scientific_name}.
+        meta_description_with_common_name: Фотографії, відео та аудіо %{preferred_common_name} також відомого як %{scientific_name}. Знайти зображення, фотографії, фільми та звуки %{preferred_common_name} (%{scientific_name}) у Енциклопедії життя.
+        meta_description_with_common_name_no_data: Немає доступної мультимедії для %{preferred_common_name} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести зображення, відео чи звуки для %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: малюнки %{scientific_name}, відео %{scientific_name}, фотографії %{scientific_name}, фільми %{scientific_name}, картинки %{scientific_name}, медіа
+        meta_keywords_with_common_name: фотографії %{preferred_common_name}, відео,% {preferred_common_name}, зображення %{preferred_common_name}, фільми %{preferred_common_name}, картинки %{preferred_common_name}, медіа
+        meta_title: Малюнки, відео і аудіо %{scientific_name} - зображення, фотографії, фільми і звуки %{scientific_name}
+        meta_title_with_common_name: Фотографії, відео і аудіо %{preferred_common_name} (%{scientific_name}) - зображення, фотографії, фільми і звуки %{preferred_common_name} (%{scientific_name})
+        tweet_text: Фотографії, відео та аудіо %{scientific_name}
+    names: 
+      common_names: 
+        hierarchy_entry: 
+          meta_description: Народні назви, пов'язані з %{scientific_name}  класифіковані %{hierarchy_provider}.
+          meta_description_with_common_name: В просторіччі %{scientific_name} звуть %{preferred_common_name}. Дізнайтеся, які інші народні назви асоціюються з %{scientific_name} прокласифікованого %{hierarchy_provider}.
+          meta_keywords: Народні назви для %{scientific_name}
+          meta_keywords_with_common_name: Наукова назва для %{preferred_common_name}, народні назви для %{scientific_name}
+          meta_title: Народні назви для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+          meta_title_with_common_name: Народні назви для %{preferred_common_name} (%{scientific_name} прокласифікованого за %{hierarchy_provider})
+          tweet_text: Загальновживані назви для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+        meta_description: Загальновживані назви для %{scientific_name}.
+        meta_description_with_common_name: Наукова назва для %{preferred_common_name} є %{scientific_name}. Дізнайтеся, які є інші загальновживані  назви для %{scientific_name}.
+        meta_keywords: Загальновживані Назви для %{scientific_name}
+        meta_keywords_with_common_name: Загальновживані Назви для %{scientific_name}, Наукова Назва %{preferred_common_name}
+        meta_title: Загальновживані Назви для %{scientific_name}
+        meta_title_with_common_name: Загальновживані Назви для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Загальновживані Назви для %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Таксономії і наукові назви %{scientific_name} прокласифікованого за %{hierarchy_provider}.
+          meta_description_with_common_name: Таксономії і наукових назв %{preferred_common_name}, також званого як %{scientific_name} прокласифікованого за  %{hierarchy_provider}.
+          tweet_text: Імена, пов'язані %{scientific_name} прокласифікованого %{hierarchy_provider}
+        meta_description: Таксономії і наукові назви для %{scientific_name}. Біологічної класифікації і назви, пов'язані з %{scientific_name}.
+        meta_description_with_common_name: Таксономії, біологічні класифікації та наукові назви %{preferred_common_name}, також званого %{scientific_name}. Біологічні класифікації і назви, пов'язані з %{preferred_common_name}.
+        meta_title: Таксономічна інформація для %{scientific_name} - біологічні класифікації і назви
+        meta_title_with_common_name: Таксономічна інформація для %{preferred_common_name}  (%{scientific_name}) - біологічні класифікації і назви
+        tweet_text: Таксономічна Інформація для %{scientific_name}
+      synonyms: 
+        hierarchy_entry: 
+          meta_description: Синоніми пов'язані з %{scientific_name}  класифіковані %{hierarchy_provider}.
+          meta_description_with_common_name: Синоніми пов'язані із %{scientific_name} прокласифікованого за %{hierarchy_provider}, широко відомого як %{preferred_common_name}.
+          meta_keywords: Синоніми %{scientific_name}
+          meta_keywords_with_common_name: Синоніми %{preferred_common_name}, Синоніми %{scientific_name}
+          meta_title: Синоніми %{scientific_name} прокласифікованого за %{hierarchy_provider}
+          meta_title_with_common_name: Синоніми %{preferred_common_name} (%{scientific_name} прокласифікованого за %{hierarchy_provider})
+          tweet_text: Синоніми %{scientific_name}, прокласифіковано %{hierarchy_provider}.
+        meta_description: Синоніми %{scientific_name}.
+        meta_description_with_common_name: Синоніми %{preferred_common_name}, відомого у науці як %{scientific_name}.
+        meta_keywords: Синоніми %{scientific_name}
+        meta_keywords_with_common_name: Синоніми %{preferred_common_name}, Синоніми %{scientific_name}
+        meta_title: Синоніми %{scientific_name}
+        meta_title_with_common_name: Синоніми %{preferred_common_name} (%{scientific_name})
+        tweet_text: Синоніми %{scientific_name}
+    overview: 
+      hierarchy_entry: 
+        meta_description: Короткий виклад інформації про %{scientific_name} визнаного %{hierarchy_provider} у Енциклопедії життя.
+        meta_description_with_common_name: Короткий виклад інформації про %{preferred_common_name}, також відомого як %{scientific_name} розпізнаного %{hierarchy_provider} у Енциклопедії життя.
+        meta_keywords: "%{scientific_name} визнаний %{hierarchy_provider} %{scientific_name} прокласифікований %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} визнаний %{hierarchy_provider} %{scientific_name} прокласифікований %{hierarchy_provider}"
+        meta_title: "%{scientific_name} прокласифікований %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} прокласифікований %{hierarchy_provider})"
+        tweet_text: Огляд %{scientific_name}, прокласифікованого за %{hierarchy_provider}
+      meta_description: Інформація на %{scientific_name} в "Енциклопедії Життя".
+      meta_description_with_common_name: Інформація про %{preferred_common_name}, відомого у науці як %{scientific_name} у Енциклопедії життя.
+      meta_keywords: інформація про  %{scientific_name}, інформація %{scientific_name}
+      meta_keywords_with_common_name: інформація про %{scientific_name}, інформація про  %{preferred_common_name}, інформація і факти %{scientific_name}, інформація %{preferred_common_name}
+      meta_title: "%{scientific_name} - Інформація на %{scientific_name}"
+      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Інформація на %{preferred_common_name}"
+      tweet_text: Інформація про %{scientific_name}
+    resources: 
+      biomedical_terms: 
+        hierarchy_entry: 
+          tweet_text: Біомедичні умови %{scientific_name} прокласифікованого за %{hierarchy_provider}
+        meta_title: Біомедичні умови для %{scientific_name}
+        meta_title_with_common_name: Біомедичні умови для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Біомедичні умови для %{scientific_name}
+      education: 
+        hierarchy_entry: 
+          meta_title: Засоби навчання для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+          meta_title_with_common_name: Засоби навчання для %{preferred_common_name} (%{scientific_name} прокласифікованого за %{hierarchy_provider})
+          tweet_text: Засоби навчання для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+        meta_title: Освітні ресурси для %{scientific_name}
+        meta_title_with_common_name: Освітні ресурси для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Освітні ресурси для %{scientific_name}
+      identification_resources: 
+        hierarchy_entry: 
+          tweet_text: Ідентифікаційні ресурси для %{scientific_name} прокласифікованого за  %{hierarchy_provider}
+        meta_title: Ідентифікаційні ресурси для %{scientific_name}
+        meta_title_with_common_name: Ідентифікаційні ресурси для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Ідентифікаційні ресурси для %{scientific_name}
+      nucleotide_sequences: 
+        hierarchy_entry: 
+          tweet_text: Нуклеотидні послідовності для %{scientific_name} прокласифікованого за  %{hierarchy_provider}
+        meta_title: Нуклеотидні послідовності для %{scientific_name}
+        meta_title_with_common_name: Нуклеотидні послідовності для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Нуклеотидні послідовності для %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: Перелік постачальників та вихідні дані для %{scientific_name} прокласифікованого %{hierarchy_provider}.
+          meta_description_with_common_name: Перелік постачальник та вихідних даних для %{preferred_common_name} (%{scientific_name} прокласифікованого за %{hierarchy_provider})
+          meta_keywords: постачальники даних %{scientific_name}, вихідні дані %{scientific_name}
+          meta_keywords_with_common_name: Постачальники даних %{preferred_common_name}, вихідні дані %{preferred_common_name}, постачальники даних %{scientific_name}, вихідні дані %{scientific_name}
+          meta_title: Постачальники даних для %{scientific_name} прокласифікованого за  %{hierarchy_provider}
+          meta_title_with_common_name: Постачальники даних для %{preferred_common_name} прокласифікованого %{hierarchy_provider}
+          tweet_text: Постачальники для %{scientific_name} прокласифікованого за  %{hierarchy_provider}
+        meta_description: Ресурси і цитати партнерів про %{scientific_name}.
+        meta_description_with_common_name: Ресурси %{preferred_common_name} і цитати партнерів для %{scientific_name}.
+        meta_keywords: ресурси %{scientific_name}, постачальники вмісту %{scientific_name}
+        meta_keywords_with_common_name: ресурси %{preferred_common_name}, контент-провайдери %{preferred_common_name}, ресурси %{scientific_name}, контент-провайдери %{scientific_name}
+        meta_title: Інформаційних ресурси для %{scientific_name}
+        meta_title_with_common_name: Інформаційні ресурси для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Інформаційні ресурси для %{scientific_name}
+    updates: 
+      show: 
+        hierarchy_entry: 
+          meta_title: Оновлення для %{scientific_name}, прокласифікованого за %{hierarchy_provider}.
+          meta_title_with_common_name: Оновлення для %{preferred_common_name} (%{scientific_name} прокласифіковано %{hierarchy_provider})
+          tweet_text: Оновлення для %{scientific_name}, прокласифікованого за %{hierarchy_provider}.
+        meta_description: Новини та оновлення про %{scientific_name}.
+        meta_description_with_common_name: Новини про %{preferred_common_name} і оновлення для %{scientific_name}.
+        meta_keywords: Новини %{scientific_name}, оновлення %{scientific_name}
+        meta_keywords_with_common_name: Новини %{preferred_common_name}, оновлення %{preferred_common_name}, оновлення %{scientific_name}
+        meta_title: Коментарі про %{scientific_name}
+        meta_title_with_common_name: Коментарі про %{preferred_common_name} (%{scientific_name})
+        tweet_text: Коментарі про %{scientific_name}
+      statistics: 
+        hierarchy_entry: 
+          meta_title: Статистика для %{scientific_name} прокласифікованого за  %{hierarchy_provider}
+          meta_title_with_common_name: Статистика для %{preferred_common_name} (%{scientific_name} прокласифіковано %{hierarchy_provider})
+          tweet_text: Оцінка цінності для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+        meta_description: Статистика та дані для %{scientific_name} у Енциклопедії життя.
+        meta_description_with_common_name: Статистика та дані для %{preferred_common_name} також відомого як %{scientific_name} у Енциклопедії життя.
+        meta_keywords: статистика на %{scientific_name}, статистичні дані на %{scientific_name}, дані для %{scientific_name}
+        meta_keywords_with_common_name: статистика на %{preferred_common_name}, статистичні дані на %{preferred_common_name}, дані для %{preferred_common_name}
+        meta_title: Цінність %{scientific_name}
+        meta_title_with_common_name: Цінність %{preferred_common_name} (%{scientific_name})
+        tweet_text: Оцінка цінності для %{scientific_name}
+  taxon_rating: Оцінка таксону
+  terms_agreement_form_submit: Я згоден
+  text: текст
+  text_capital: Текст
+  this_article_cannot_be_curated_because_unpublished: У цій статті немає куратора, тому що вона не опублікована.
+  this_article_is_unpublished: Ця стаття не опублікована.
+  this_image_cannot_be_curated_because_unpublished: У цього зображення немає куратора, тому що воно не опубліковано.
+  this_image_is_unpublished: Це зображення не опубліковане.
+  this_image_map_cannot_be_curated_because_unpublished: У цієї мапи немає куратора, тому що вона не опублікована.
+  this_image_map_is_unpublished: Ця мапа не опублікована.
+  this_link_cannot_be_curated_because_unpublished: У цього посилання немає куратора, тому що воно не опубліковано.
+  this_link_is_unpublished: Це посилання не опубліковане.
+  this_map_cannot_be_curated_because_unpublished: У цієї мапи немає куратора, тому що вона не опублікована.
+  this_map_is_unpublished: Ця мапа не опублікована.
+  this_video_cannot_be_curated_because_unpublished: У цього відео немає куратора, тому що воно не опубліковано.
+  this_video_is_unpublished: Це відео не опубліковане.
+  title: Заголовок
+  translation_deleted: Переклад був видалений
+  translation_saved: Переклад був збережений
+  tumblr: Tumblr
+  twitter: Twitter
+  type: Тип
+  unknown_type_not_associated_with_any_published_entries: Ці дані не пов'язані із жодними опублікованими таксонами.
+  update_language: Оновити мову
+  update_page: Оновити сторінку
+  upload: Завантажити
+  url: URL
+  user: Користувач
+  user_added_data: 
+    add_data_header: Внесіть ваші власні дані
+    add_metadata_header: Додаткова інформація
+    additional_fields: Дані про цей запис
+    create_failed: "Не вдалося додати дані: %{errors}"
+    create_successful: Дані успішно додано
+    delete_successful: Дані успішно видалено
+    edit_data_header: Змініть ваші дані
+    edit_metadata_header: Редагувати метадані
+    new_field: Нове поле...
+    new_value: Значення
+  user_no_longer_active_message: Цей користувач більше не активний
+  users: 
+    activities: 
+      show: 
+        meta_description: Курирування діяльності та коментарі %{user_full_name}
+        meta_title: Діяльність %{user_full_name}
+        tweet_text: діяльність %{user_full_name}
+    collections: 
+      index: 
+        meta_description: Збірки керовані %{user_full_name}.
+        meta_title: Збірки %{user_full_name}
+        tweet_text: Збірки %{user_full_name}
+    communities: 
+      index: 
+        meta_description: Громади, в яких %{user_full_name} є членом.
+        meta_title: Спільноти %{user_full_name}
+        tweet_text: спільноти %{user_full_name}
+    content_partners: 
+      index: 
+        meta_description: асоціації контент-партнера %{user_full_name}.
+        meta_title: Контент-партнери %{user_full_name}
+        tweet_text: контент-партнери %{user_full_name}
+    edit: 
+      form_tip_account: Для входу у ЕЖ вам потрібне ім'я користувача ЕЖ і пароль, або можна підключити обліковий запис сторонніх служб. Ім'я користувача та пароль потрібні, якщо у вас немає підключеного облікового запису, однак, досить лише ввести новий пароль тут, якщо ви б хотіли змінити існуючий. Адреса електронної пошти та бажана мова є необхідними (%{required_icon}) для всіх користувачів.
+      form_tip_account_oauth: Адреса електронної пошти і бажана мова потрібні %{required_icon} для всіх користувачів.
+      form_tip_curation: Облікові дані і курирування галузі є необов'язковими для асистентів куратора, але необхідні %{required_icon} для повних і майстерних кураторів
+      form_tip_profile: Об'єкти, позначені як обов'язкові %{required_icon}, є необов'язковими для звичайних користувачів, але необхідні для кураторів.
+      form_tip_profile_oauth: Ім'я - потрібне, а інші елементи, позначені як обов'язкові %{required_icon}, є необов'язковими для звичайних користувачів, але необхідні для кураторів.
+    new: 
+      complete_registration_header: Завершіть вашу реєстрацію на ЕЖ
+      create_user_header: Створіть новий обліковий запис на <abbr title="Енциклопедія Життя">EOL</abbr>
+      create_user_with_eol_authentication_header: "Або введіть нові облікові дані:"
+      meta_title: Приєднуйтесь до ЕЖ
+      sign_up_with_facebook_assistive: Зареєструйтеся на ЕЖ за допомогою облікових даних Facebook.
+      sign_up_with_google_assistive: Зареєструйтеся на ЕЖ за допомогою облікових даних Google.
+      sign_up_with_twitter_assistive: Зареєструйтеся на ЕЖ за допомогою облікових даних Twitter.
+      sign_up_with_yahoo_assistive: Зареєструйтеся на ЕЖ за допомогою облікових даних Yahoo.
+    newsfeeds: 
+      activity: 
+        meta_title: Стрічка діяльності %{user_full_name}
+        tweet_text: стрічка діяльності %{user_full_name}
+      activity_link: діяльність
+      comments: 
+        meta_description: Стрічка коментарів для %{user_full_name}
+        meta_title: Стрічка коментарів %{user_full_name}
+        tweet_text: стрічка коментарів %{user_full_name}
+      comments_link: коментарі
+      newsfeed_link: канал новин
+      show: 
+        meta_description: Новини, діяльність, доповнення та коментарі %{user_full_name}.
+        meta_title: "%{user_full_name} канал новин"
+        tweet_text: канал новин %{user_full_name}
+    notifications: 
+      edit: 
+        page_title: Налаштування сповіщення
+      update: 
+        notification_settings_successfully_updated: Налаштування сповіщень успішно оновлено.
+        sorry_notification_settings_could_not_be_updated: На жаль, не вдалося оновити налаштування сповіщень.
+    open_authentications: 
+      errors: 
+        facebook: 
+          missing_attributes: Вибачте, виникла проблема доступу до ваших даних Facebook.
+          new_authentication_not_added: Вибачте, сталася помилка, ми не могли підключити ваш обліковий запис Facebook.
+          not_authorized_to_add_authentication: На жаль, у нас немає дозволу на підключення вашого облікового запису Facebook.
+          not_authorized_to_login: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Facebook.
+          not_authorized_to_signup: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Facebook.
+        google: 
+          missing_attributes: Вибачте, виникла проблема доступу до ваших даних у Google.
+          new_authentication_not_added: Вибачте, сталася помилка, ми не змогли підключити ваш профіль на Google.
+          not_authorized_to_add_authentication: Вибачте, у нас немає дозволу на підключення вашого облікового запису на Google.
+          not_authorized_to_login: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Google.
+          not_authorized_to_signup: На жаль, ми не уповноважені зареєструвати вас у ЕЖ, використовуючи ваш обліковий запис Google.
+        missing_attributes: Вибачте, виникла проблема доступу до подробиць вашого стороннього профілю.
+        not_authorized_to_add_authentication: На жаль, у нас немає дозволу на підключення цього облікового запису.
+        not_authorized_to_login: На жаль, нами не дозволено вхід у Енциклопедію життя з цим обліковим записом.
+        remove_connection_failed: Вибачте, сталася помилка, ми не могли видалити з'єднання.
+        twitter: 
+          missing_attributes: Вибачте, виникла проблема доступу до ваших даних у Twitter.
+          new_authentication_not_added: Вибачте, сталася помилка, ми не змогли підключити ваш профіль на Твіттері.
+          not_authorized_to_add_authentication: Вибачте, у нас немає дозволу на підключення вашого облікового запису на Twitter.
+          not_authorized_to_login: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Twitter.
+          not_authorized_to_signup: На жаль, ми не уповноважені зареєструвати вас у ЕЖ, використовуючи ваш обліковий запис Twitter.
+        yahoo: 
+          missing_attributes: Вибачте, виникла проблема доступу до ваших даних у Yahoo!
+          new_authentication_not_added: Вибачте, виникла помилка, нам не вдалося підключитися до облікового запису Yahoo!.
+          not_authorized_to_add_authentication: На жаль, у нас немає дозволу на підключення облікового запису Yahoo!
+          not_authorized_to_login: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Yahoo!
+          not_authorized_to_signup: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Yahoo!
+      facebook: Facebook
+      google: Google
+      index: 
+        connected_last_verified: Підключено; Остання перевірка %{time_passed} тому;
+        connected_unverified: Підключено; Не вдалося перевірити;
+        not_connected: Не підключено;
+        page_description: Управління з'єднаннями для сторонніх облікових записів, які ви можете використовувати для входу в ЕЖ.
+        page_title: Підключені облікові записи
+        return_link: Повернутися, щоб змінити профіль.
+      notices: 
+        facebook: 
+          new_authentication_added: Авторизація Facebook була додана до вашого профілю.
+          removed_connection: Ми успішно видалили підключення ЕЖ до вашого облікового запису Facebook. Щоб повністю скасувати авторизацію майбутні взаємодії між обліковим записом Facebook і ЕЖ ви повинні зайти в Facebook і змінити налаштування облікового запису.
+        google: 
+          new_authentication_added: Авторизація Google була додана до вашого профілю.
+          removed_connection: Ми успішно видалили підключення ЕЖ до вашого облікового запису Google. Щоб повністю скасувати авторизацію майбутні взаємодії між обліковим записом Google і ЕЖ ви повинні зайти в Google і змінити налаштування облікового запису.
+        twitter: 
+          new_authentication_added: Авторизація Twitter була додана до вашого профілю.
+          removed_connection: Ми успішно видалили підключення ЕЖ до вашого облікового запису Twitter. Щоб повністю скасувати авторизацію майбутні взаємодії між обліковим записом Twitter і ЕЖ ви повинні зайти в Twitter і змінити налаштування облікового запису.
+        yahoo: 
+          new_authentication_added: Авторизація Yahoo! була додана до вашого профілю.
+          removed_connection: Ми успішно видалили підключення ЕЖ до вашого облікового запису Yahoo! Щоб повністю скасувати авторизацію майбутні взаємодії між обліковим записом Yahoo! і ЕЖ ви повинні зайти в Yahoo! і змінити налаштування облікового запису.
+      twitter: Twitter
+      warnings: 
+        no_way_to_login: У вас не лишилося жодних підключених облікових записів, тому ви не зможете увійти в ЕЖ, якщо не додасте підключений обліковий запис або додасте ім'я користувача ЕЖ і пароль.
+      yahoo: Yahoo!
+    pending: 
+      header: Дякуємо за реєстрацію!
+      verify_email_instructions: <strong>Будь ласка, перевірте вашу електронну пошту</strong>. Підтвердження вже відправлено на адресу, яку ви надали. Для завершення процесу реєстрації та набуття прав члена ЕЖ, будь ласка, клацніть по посиланню, вказаному в цьому листі. Спасибі!
+    recover_account: 
+      form_header: Відновити обліковий запис
+      meta_title: Відновити обліковий запис
+    recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Вибачте, сталася помилка і лист не було надіслано. Будь ласка, виберіть обліковий запис, до якого ви хотіли б відновити доступ і спробуйте знову.
+      form_header: Відновити обліковий запис
+      legend_choose_account: Виберіть обліковий запис
+    unsubscribe_notifications: 
+      already_unsubscribed: Ви вже відписані від сповіщень.
+      unsubscribed_notifications_successfully: Ви успішно відписалися від повідомлень.
+  video_from_supplier: Відео від %{whom}
+  video_not_associated_with_any_published_entries: Це відео не пов'язане із жодними опублікованими таксонами.
+  video_of_taxon: Відео %{taxon_name}
+  video_rating: Оцінка відео
+  will_paginate: 
+    next_label: Наступні &#8594;
+    previous_label: "&#8592; Попередній"
+  yahoo: Yahoo
+  year: Рік
+  yes_answer: Так
+  your_email_address: Ваша адреса електронної пошти
+  your_ip_address: Ваша IP-адреса
   your_preferences: ваші уподобання
+  youtube: YouTube

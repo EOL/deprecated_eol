@@ -1,6 +1,7 @@
 # Messages for Italian (italiano)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Ale.salmo
 # Author: Beta16
 # Author: Damiano Martino
 # Author: Darth Kule
@@ -102,6 +103,9 @@ it:
         rights_holder: Detentore dei diritti
         rights_statement: Dichiarazione dei diritti
         source_url: URL di origine
+      data_object_link: 
+        description: Descrizione
+        source_url: Collegamento URL
       eol_statistic: 
         active_curators: Curatori attivi
         base_pages: Pagine base
@@ -160,6 +164,11 @@ it:
         rich_hotlist_pages: Pagine preferite più ricche
         rich_pages: Pagine ricche di contenuti
         rich_redhotlist_pages: Pagine altamente preferite più ricche
+        total_association_types: Tipi di associazione
+        total_associations: Associazioni
+        total_measurements: Misurazioni
+        total_occurrences: Occorrenze
+        total_user_added_data: Dati aggiunti dall'utente
         udo_published: Testo inviato da utenti
         udo_published_by_curators: Testo inviato da curatori
         udo_published_by_non_curators: Testo inviato non da curatori
@@ -168,6 +177,7 @@ it:
         forum_category_id: Categoria
         name: Nome del forum
       forum_category: 
+        description: Descrizione <small>(facoltativa)</small>
         title: Nome della categoria
       forum_post: 
         subject: Soggetto
@@ -184,6 +194,12 @@ it:
         descriptive_label: Etichetta descrittiva
         label: Etichetta
         request_publish: Richiesta di pubblicazione
+      known_uri: 
+        description: Descrizione
+        name: Nome
+        toc_items: Categorie
+        uri: URI
+        uri_type: Tipo di URI
       name: 
         string: Nome
       news_item: 
@@ -239,6 +255,9 @@ it:
         meta_description: Descrizione del metadato
         meta_keywords: Parole chiavi dei metadati
         title: Titolo
+      translated_known_uri: 
+        comment: Commento
+        definition: Definizione
       translated_news_item: 
         active_translation: Pubblicato
         body: Corpo
@@ -265,6 +284,12 @@ it:
         requested_curator_level_id: Livello curatore desiderato
         tag_line: Tagline
         username: Nome utente
+      user_added_data: 
+        object: Valore
+        predicate: Attributo
+      user_added_data_metadata: 
+        object: Valore
+        predicate: Attributo
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 

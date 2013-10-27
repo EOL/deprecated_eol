@@ -4,6 +4,7 @@
 # Author: Chmee2
 # Author: Jachym
 # Author: Jezevec
+# Author: Juandev
 # Author: Kalerme
 # Author: Mormegil
 # Author: Paxt
@@ -146,6 +147,9 @@ cs:
         rich_pages: Obsažné stránky
         rich_redhotlist_pages: Obsažné nejoblíbenější stránky
         rich_redhotlist_pages_percentage: Rich Red Hotlist stránky %
+        total_associations: Asociace
+        total_taxa_with_data: Stránky s informacemi
+        total_user_added_data: Informace dodané uživatelem
         udo_published: Text vložený uživatelem
         udo_published_by_curators: Text vložený kurátorem
         udo_published_by_non_curators: Text od nekurátora
@@ -171,6 +175,15 @@ cs:
         descriptive_label: Popiska
         label: Štítek
         request_publish: Požádat o zveřejnění
+      known_uri: 
+        description: Popis
+        name: Jméno
+        toc_items: Kategorie
+        uri: URI
+        uri_type: Vložte URI
+      known_uri_relationship: 
+        to_known_uri: Cílové URI
+        to_known_uri_id: Cílové URI
       name: 
         string: Název
       news_item: 
@@ -229,6 +242,9 @@ cs:
         meta_description: Popis metadat
         meta_keywords: Klíčová slova metadat
         title: Nadpis
+      translated_known_uri: 
+        comment: Komentář
+        definition: Definice
       translated_news_item: 
         active_translation: Zveřejněno
         body: Tělo
@@ -255,6 +271,13 @@ cs:
         requested_curator_level_id: Požadované kurátorská úroveň
         tag_line: Doplňující text
         username: Uživatelské jméno
+      user_added_data: 
+        object: Hodnota
+        predicate: Vlastnost
+        user: Přidáno
+      user_added_data_metadata: 
+        object: Hodnota
+        predicate: Vlastnost
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 

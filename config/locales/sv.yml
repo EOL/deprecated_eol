@@ -156,6 +156,12 @@ sv:
         rich_hotlist_pages: Innehållsrika populära sidor
         rich_pages: Innehållsrika sidor
         rich_redhotlist_pages: Innehållsrika röda populära sidor
+        total_association_types: Associationstyper
+        total_associations: Associationer
+        total_measurement_types: Mätningstyper
+        total_measurements: Mätningar
+        total_occurrences: Förekomster
+        total_taxa_with_data: Sidor med data
         udo_published: Användarinlämnad text
         udo_published_by_curators: Kuratorinlämnad text
         udo_published_by_non_curators: Icke-kuratorinlämnad text
@@ -181,6 +187,13 @@ sv:
         descriptive_label: Beskrivande etikett
         label: Etikett
         request_publish: Begär publicering
+      known_uri: 
+        description: Beskrivning
+        exclude_from_exemplars: Uteslut från snabbfakta
+        name: Namn
+        toc_items: Kategorier
+        uri: URI
+        uri_type: URI-typ
       name: 
         string: Namn
       news_item: 
@@ -238,6 +251,9 @@ sv:
         meta_description: Metadata-beskrivning
         meta_keywords: Metadata-nyckelord
         title: Titel
+      translated_known_uri: 
+        comment: Kommentar
+        definition: Definition
       translated_news_item: 
         active_translation: Publicerad
         body: Innehåll
@@ -264,6 +280,13 @@ sv:
         requested_curator_level_id: Önskad kuratornivå
         tag_line: Motto
         username: Användarnamn
+      user_added_data: 
+        object: Värde
+        predicate: Attribut
+        user: Lades till av
+      user_added_data_metadata: 
+        object: Värde
+        predicate: Attribut
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -306,6 +329,16 @@ sv:
             rights_holder: 
               blank: kan inte vara tom för att CC-BY-licens
               inclusion: måste vara tomt för en licens i allmän egendom
+        inaccessible: Posten kunde inte sparas eftersom den var ogiltigt. Kontrollera valideringsfel och skicka igen.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+        known_uri_relationship: 
+          attributes: 
+            to_known_uri_id: 
+              must_be_known_uri: måste vara en känd URI
+              must_be_measurement: måste vara ett enhetsmått
         open_authentications: 
           guid_provider_must_be_unique: tredjepartskontot är redan anslutet med ett EOL-konto
           provider_user_id_must_be_unique: endast ett konto från varje tredjepartsleverantör kan anslutas till ett EOL-konto
@@ -321,6 +354,22 @@ sv:
             dwc_archive_url: 
               inaccessible: är otillgänglig, webbadressen måste vara tillgänglig för allmänheten
               invalid: är ogiltig. Den bör peka på en TAR.GZIP, TAR.GZ, TGZ eller ZIP-fil
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              namespace: använde en namnrymd som inte kändes igen
+            subject: 
+              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              namespace: använde en namnrymd som inte kändes igen
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              namespace: använde en namnrymd som inte kändes igen
+            subject: 
+              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              namespace: använde en namnrymd som inte kändes igen
       template: 
         body: "Följande fält kunde inte valideras:"
         header: 
@@ -553,6 +602,15 @@ sv:
         user_cropped_an_unknown_data_object: <strong>%{user}</strong> ändrade miniatyrbilden för en okänd bild.
         user_cropped_data_object: <strong>%{user}</strong> ändrade miniatyrbilden för "%{data_object}".
         user_cropped_it: <strong>%{user}</strong> ändrade miniatyrbilden för en okänd bild.
+      data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: En okänd användare valde att dölja data på en okänd sida.
+        an_unknown_user_hide_data_on_taxon: En okänd användare valde att dölja data på "%{taxon}".
+        an_unknown_user_unhide_data_on_an_unknown_taxon: En okänd användare valde att visa data på en okänd sida.
+        an_unknown_user_unhide_data_on_taxon: En okänd användare valde att visa data på "%{taxon}".
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> valde att dölja data på en okänd sida.
+        user_hide_data_on_taxon: <strong>%{user}</strong> valde att dölja data på "%{taxon}".
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> valde att visa data på en okänd sida.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> valde att visa data på "%{taxon}".
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: En okänd användare markerade en äldre version av "%{data_object}" som dold i en okänd kontext.
         an_unknown_user_hid_an_older_data_object_on_association: En okänd användare markerade en äldre version av "%{data_object}" som dold på sidan "%{association}".
@@ -813,6 +871,15 @@ sv:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> markerade "%{data_object}" som opålitlig på sidan "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> markerade den som opålitlig i en okänd kontext.
         user_untrusted_it_on_association: <strong>%{user}</strong> markerade den som opålitlig på sidan "%{association}".
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: En okänd användare lade till data på en okänd sida.
+        an_unknown_user_create_data_on_taxon: En okänd användare lade till data i "%{taxon}".
+        an_unknown_user_update_data_on_an_unknown_taxon: En okänd användare uppdaterade data på en okänd sida.
+        an_unknown_user_update_data_on_taxon: En okänd användare uppdaterade data i "%{taxon}".
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> lade till data på en okänd sida.
+        user_create_data_on_taxon: <strong>%{user}</strong> lade till data i "%{taxon}".
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> uppdaterade data på en okänd sida.
+        user_update_data_on_taxon: <strong>%{user}</strong> uppdaterade data i "%{taxon}".
   activity_user_created_link: <strong>%{user}</strong> lade till en länk till "%{object_name}" på "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> lade till text till "%{object_name}" på "%{taxon_concept}".
   activity_user_updated_link: <strong>%{user}</strong> uppdaterade länken "%{object_name}" på "%{taxon_concept}".
@@ -904,6 +971,9 @@ sv:
   admin_news_items_page_title: "Administration: Nyheter"
   admin_news_link: Nyheter
   admin_notes_not_visible_to_user: "Adminanteckningar (inte synliga för användare):"
+  admin_option_all_users_can_see_data: Alla användare kan se data, inte bara användare med behörighet
+  admin_option_changed: Värdet ändrades.
+  admin_options_warning: Ändringar här kan ta 10 minuter att träda i kraft.
   admin_page_title: Administrationskonsol
   admin_spam_delete: Radera spam
   admin_statistics_link: Statistik
@@ -974,6 +1044,7 @@ sv:
   agent: Agent
   all: alla
   all_articles: Alla artiklar
+  all_categories: Alla
   all_changes: Alla ändringar
   all_collections: Alla samlingar
   all_communities: Alla gemenskaper
@@ -1001,6 +1072,7 @@ sv:
   an_unknown_user: En okänd användare
   and: och
   and_between_form_items: och
+  annotation_body_default: lägg till en fråga eller kommentar...
   anonymous_user_full_name: Anonym användare
   anonymous_user_given_name: Anonym
   anonymous_user_tag_line: Inte inloggad
@@ -1035,6 +1107,7 @@ sv:
   as_of_time_there_were_unique_visitors: 
     one: Från och med %{time} var det %{count} unik besökare
     other: Från och med %{time} var det %{count} unika besökare
+  assistive_data_header: Fakta & information
   assistive_details_header: Detaljer
   assistive_literature_header: Litteratur
   assistive_maps_header: Kartor
@@ -1085,10 +1158,22 @@ sv:
   average_rating_value_of_total: "Genomsnittligt betyg: %{rating} av %{total}"
   back: Tillbaka
   back_to_profile: Tillbaka till profil
+  background_processes_actions_head: Åtgärder
+  background_processes_attribute_head: Attribut
+  background_processes_complete_head: Slutförd?
+  background_processes_created_head: Skapades
+  background_processes_download: ladda ned
+  background_processes_is_complete: Ja
+  background_processes_is_not_complete: Nej
+  background_processes_page_title: Bakgrundsprocesser
+  background_processes_query_empty: (ingen frågesträng)
+  background_processes_query_head: Fråga
   began: Började
   belongs_in_count_communities: 
     one: Tillhör %{count} gemenskap
     other: Tillhör %{count} gemenskaper
+  beta_warning_header: Du använder en testfunktion i betastadiet
+  beta_warning_note_header: "OBS:"
   bhl_partner_footer: Besök Biodiversity Heritage Library
   bhl_publication: BHL-publikation
   bi_monthly: Varannan månad
@@ -1278,6 +1363,7 @@ sv:
   comments_filter: Kommentarer
   comments_moderated: Modererade kommentarer
   comments_on: Kommentarer för
+  comments_page_title: Kommentarer på %{parent}
   comments_with_count: 
     one: "%{count} kommentar"
     other: "%{count} kommentarer"
@@ -1469,6 +1555,7 @@ sv:
   content_partner_resource_new_subheader: Lägg till en ny resurs
   content_partner_resource_preview_collection_header: Förhandsgranska samling
   content_partner_resource_preview_collection_show_link: Visa förhandsvisningssamling
+  content_partner_resource_processing_header: Behandlingsstatus & inställningar
   content_partner_resource_resource_status_new: Skapad
   content_partner_resource_show_link_back_to: gå tillbaka till resurs
   content_partner_resource_show_subheader: Detaljer för resursen <em>%{resource_title}</em>
@@ -1629,7 +1716,18 @@ sv:
   currently_published: för närvarande publicerad
   daily: Dagligen
   dashboard: Instrumentpanel
+  data: Data
+  data_about_subtab_header: Om data på EOL
+  data_about_this_record: Data om denna post
+  data_column_common_name: Vanligt namn
+  data_column_name: Mätning
+  data_column_sci_name: Vetenskapligt namn
+  data_column_source: Källa
+  data_column_tc_id: EOL sid-ID
+  data_column_units: Enheter
+  data_column_val: Värde
   data_database_colon: "Data:"
+  data_glossary: Dataordlista
   data_logging_active: Dataloggning aktiv
   data_object: Dataobjekt
   data_object_ignore: ignorera detta objekt
@@ -1657,6 +1755,23 @@ sv:
       meta_supplier_default: en bidragsgivare
       meta_title: "%{dato_title} från %{supplier}"
       tweet_text: "%{dato_title} från %{supplier}"
+  data_point_uri_summary_name: data om %{taxon}
+  data_provided_by_content_partner: "Källa: %{whom}"
+  data_provided_by_user: tillhandahållen av %{whom}
+  data_reference_subtable_summary: Ytterligare referenser om denna fakta.
+  data_row_add_exemplar_button: lägg till i snabbfakta
+  data_row_exemplar_added: Snabbfakta lades till.
+  data_row_exemplar_removed: Snabbfakta togs bort.
+  data_row_hide_button: Dölj rad
+  data_row_remove_exemplar_button: ta bort från snabbfakta
+  data_row_unhide_button: Visa rad
+  data_search_link: Sök vetenskaplig data på EOL
+  data_show_n_more_rows: Visa NNN fler...
+  data_subtab_about: Om
+  data_subtab_glossary: Ordlista
+  data_summary_header: Snabbfakta
+  data_tab_curator_key_excluded: "%{image} togs bort från <a href='%{link}'>snabbfakta</a>"
+  data_tab_curator_key_exemplar: "%{image} lade till i <a href='%{link}'>snabbfakta</a>"
   data_usage_reports: Användningsrapporter för data
   date_caps: Datum
   date_uploaded: Uppladdningsdatum
@@ -1770,6 +1885,7 @@ sv:
   donation_sponsorship_preamble: "Om du vill veta mer om specifika program som är tillgängliga för sponsring, eller skulle vilja göra en återkommande gåva, kontakta Encyclopedia of Life:s sekretariat via <a href=\"mailto:%{email_address}\">e-post</a> eller telefon på 1 (202) 633-8730 (i USA). Möjligheter för inriktade gåvor inkluderar:"
   done_already: Redan klart
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Visa inte okända registreringsdatum (V1-användare, alla före den 5 januari 2009)
+  download_data: Ladda ned data
   download_wav_file: Ladda ned WAV-fil
   duplicate_comment_warning: "Kommentaren sparades inte: Det verkar som du redan har skickat denna kommentar. ...Klickade du på knappen 'Skicka kommentar' två gånger?"
   duplicate_items_were_ignored: Dubbletter av objekt ignorerades.
@@ -1834,6 +1950,10 @@ sv:
     curators: 
       menu_link: Kuratorstatistiker
       page_header: Kuratorstatistik
+      page_title: Statistiker
+    data: 
+      menu_link: Data
+      page_header: Datastatistiker
       page_title: Statistiker
     data_objects: 
       menu_link: Dataobjekt
@@ -2092,6 +2212,7 @@ sv:
         created_at: Registrerad
         current_agreement: Nuvarande avtal
         description_of_data: Beskrivning av data <small>(privat)</small>
+        description_of_data_more: Var god ge oss med en beskrivning av vilken typ av information du har, hur många objekt som finns tillgängliga, vilka organismer som de relaterar till, och om de har satts samman eller kontrollerats av kvalificerade experter eller av en kunnig gemenskap.
         display_name: Visningsnamn <small>(valfritt)</small>
         last_action: Senaste åtgärd
         latest_published_harvest_event: Senast publicerad
@@ -2405,6 +2526,13 @@ sv:
   json_response: JSON-svar
   just_pages_with_pictures_and_text: Bara sidor med bilder och text
   key: Nyckel
+  known_uris: 
+    import_successful: Ontologitermer importerades
+    more_than_one_field_mapped_to_type: Mer än ett attribut är mappat till "%{type}"
+    no_results: Det finns inga resultat för den valda statistiken
+    please_select_field_types: Var god välj en mappning för varje attribut
+    please_select_from_the_menu: Var god välj från menyn ovan
+    select_a_category_to_view_stats: "Välj en kategori att visa statistik för:"
   label: Etikett
   language: "Språk:"
   language_selector_advisory_information: Följande är en lista över de språk som webbplatsens innehåll finns tillgängligt på. Välj ett språkalternativt från denna lista för att ändra det aktuella språket.
@@ -3688,6 +3816,21 @@ sv:
   user_activity_stats_wikipedia_nominated: 
     one: "%{count} nominerad Wikipedia-artikel"
     other: "%{count} nominerade Wikipedia-artiklar"
+  user_added_data: 
+    add_data_header: Bidra med din egen data
+    add_metadata_header: Ytterligare information
+    additional_fields: Data om denna post
+    create_failed: "Det gick inte att lägga till din data: %{errors}"
+    create_successful: Data lades till
+    delete_successful: Data raderades
+    edit_data_header: Redigera din data
+    edit_metadata_header: Redigera metadata
+    new_field: Nytt fält...
+    new_value: Värde
+    source_field_helper: Lägg till litteraturreferens eller URL till online-dataresursen.
+    submit_data: skicka datavärde
+    update_failed: "Det gick inte att uppdatera din data: %{errors}"
+    update_successful: Data uppdaterades
   user_agent: Användaragent
   user_already_active_notice: Ditt konto är redan aktivt, var god logga in.
   user_comment: Användarkommentar

@@ -1056,6 +1056,7 @@ br:
       meta_description_video: Video - %{dato_description}
       meta_title: "%{dato_title} eus %{supplier}"
       tweet_text: "%{dato_title} eus %{supplier}"
+  data_point_uri_source_missing: ar vammenn a vank
   data_provided_by_content_partner: "Mammenn: %{whom}"
   data_subtab_about: Diwar-benn
   data_subtab_glossary: Geriaoueg

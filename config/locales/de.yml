@@ -1221,6 +1221,10 @@ de:
   belongs_in_count_communities: 
     one: Gehört zu einer Gemeinschaft
     other: Gehört zu %{count} Gemeinschaften
+  beta_warning_body: Die meisten Nutzer können diese Funktion nicht sehen oder verwenden, da sie sich unter aktiver Entwicklung befindet. Die Leistung und Daten können unberechenbar sein, aber Sie sind zur Erkundung eingeladen. Wir bitten Sie um Ihre <a href='%{link}'>Rückmeldung</a>.
+  beta_warning_header: Sie verwenden eine Betatestfunktion
+  beta_warning_note_header: "Hinweis:"
+  beta_warning_small: Bitte beachten Sie, dass dies eine unberechenbare Betatestfunktion sein kann.
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Die Biodiversity Heritage Library besuchen
   bhl_publication: BHL-Veröffentlichung
@@ -1827,14 +1831,20 @@ de:
   data_about_subtab_content: <p>Daten und Metadaten werden von mehreren Quellen in eine einzelne, vollreferenzierte und semantisch zugängliche taxonzentrische Ansicht gesammelt.</p><p>Um zusätzliche Einzelheiten zu einem beliebigen Datenwert anzusehen, klicken Sie auf den Wert. Klicken Sie für eine Definition des Datentyps auf das Symbol %{img}.</p><p>Sie müssen bei EOL angemeldet sein, um einen Kommentar zu hinterlassen oder Daten, Quellen, URIs und andere Daten direkt in EOL einzugeben. Sie müssen sich <a href='/users/register'>zuerst kostenlos für ein EOL-Benutzerkonto registrieren</a>. Falls Sie einen Datensatz der EOL empfehlen oder Datensätze von EOL teilen wollen, kontaktieren Sie uns bitte unter <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Finanzierung der Funktionalitätsentwicklung für die kalkulierbaren EOL-Daten durch die Alfred P. Sloan Foundation, die John D. and Catherine T. MacArthur Foundation und EOL-Nutzer auf der ganzen Welt. Um mehr über das TraitBank™-Projekt zu erfahren, kontaktieren Sie uns bitte unter <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
   data_about_subtab_header: Über Daten auf EOL
   data_about_this_record: Daten über diese Aufzeichnung
+  data_beta_search_limit: 
+    one: Die Datensuche ist <i>vorübergehend</i> auf ein Ergebnis beschränkt.
+    other: Die Datensuche ist <i>vorübergehend</i> auf %{count} Ergebnisse beschränkt.
   data_column_common_name: Gebräuchlicher Name
-  data_column_name: Messung
+  data_column_name: Messungsbezeichnung
+  data_column_name_uri: Messungs-URI
   data_column_sci_name: Wissenschaftlicher Name
   data_column_source: Quelle
   data_column_tc_id: EOL-Seitenkennung
   data_column_units: Einheiten
   data_column_val: Wert
+  data_column_val_uri: Wert-URI
   data_database_colon: "Datenbanken (Daten):"
+  data_glossary: Datenglossar
   data_logging_active: Datenprotokollierung aktiv
   data_master_database_colon: "Hauptdatenbanken (Daten):"
   data_measurement_subtable_summary: Zusätzliche Daten über die Messung dieser Tatsache.
@@ -1867,6 +1877,7 @@ de:
       meta_title: "%{dato_title} von %{supplier}"
       tweet_text: "%{dato_title} von %{supplier}"
   data_overview_table_caption: Schnelle Tatsachen
+  data_point_uri_source_missing: Quelle fehlt
   data_point_uri_summary_name: Daten über %{taxon}
   data_provided_by_content_partner: "Quelle: %{whom}"
   data_provided_by_user: bereitgestellt von %{whom}
@@ -1882,17 +1893,20 @@ de:
   data_search_attribute: EOL-Daten nach „%{attribute}“ in Beobachtungen,<br/>Messungen und anderen wissenschaftlichen Behauptungen durchsuchen.
   data_search_destroyed: Dieser Auftrag wird nicht mehr verarbeitet.
   data_search_explanation: Die EOL-Datensuche verwenden zum Auffinden von Objekten mit der Übereinstimmung „%{term}“ in Beobachtungen,<br/>Messungen und anderen wissenschaftlichen Behauptungen.
+  data_search_files: 
+    file_ready_for_download: Die kürzlich angefragte Suche nach „%{known_uri_label}“ kann jetzt unter <a href='%{download_url}'>%{download_url}</a> heruntergeladen werden.
   data_search_link: Wissenschaftliche Daten auf EOL suchen
   data_search_queue_pending: 
     one: Ein Auftrag wartet noch auf die Verarbeitung (es kann Ihrer sein oder nicht).
     other: "%{count} Aufträge warten noch auf die Verarbeitung (es können Ihre sein oder nicht)."
     zero: Es gibt keine ausstehenden Aufträge. Falls Ihr Auftrag nicht vollständig ist, ist etwas schief gelaufen. Bitte erneut versuchen.
+  data_server_unavailable: Die Daten auf EOL sind vorübergehend nicht verfügbar. Bitte später erneut versuchen. Wir bitten um Verständnis für diese Unannehmlichkeit.
   data_show_n_more_rows: NNN weitere anzeigen …
   data_subtab_about: Über
   data_subtab_glossary: Glossar
   data_summary_header: Schnelle Tatsachen
-  data_tab_curator_key_excluded: "%{image} kennzeichnet Zeilen, die Kuratoren von den Schnellen Tatsachen entfernt haben."
-  data_tab_curator_key_exemplar: "%{image} kennzeichnet Zeilen, die Kuratoren zu den Schnellen Tatsachen hinzugefügt haben."
+  data_tab_curator_key_excluded: "%{image} von den <a href='%{link}'>Schnellen Tatsachen</a> entfernt"
+  data_tab_curator_key_exemplar: "%{image} zu den <a href='%{link}'>Schnellen Tatsachen</a> hinzugefügt"
   data_table_summary: "Kalkulierbare Daten für %{taxon}. Jede Datenzeile ist eine separate Tatsache, zur Verfügung gestellt durch einen Inhaltspartner oder Nutzer. Jeder Wert könnte eine verschachtelte Tabelle enthalten, die Metadaten über die Tatsache zusammenfasst: wo sie gesammelt wurden, was die Rechte für die Daten sind und ähnliches. Klicken Sie auf die Zeile, um diese Metadaten anzuzeigen. Zum Ausblenden erneut klicken. Angezeigte Metadaten zeigen auch Anmerkungen und ermöglichen es Nutzern, nach Bedarf ihre eigenen Anmerkungen hinzuzufügen. Kuratoren haben bei angezeigten Metadaten zusätzliche Funktionen."
   data_usage_reports: Datennutzungsbericht
   date_caps: Datum
@@ -2146,6 +2160,7 @@ de:
   exception: Ausnahme
   exceptions: 
     security_violations: 
+      admin_or_master_curators_only: Der Zugriff ist leider auf EOL-Administratoren und EOL-Kuratoren beschränkt, die mindestens Hauptkuratoren sind.
       administrators_only: Der Zugriff ist auf Administratoren bei der EOL beschränkt.
       default: Zugriff verweigert.
       hidden_user_login: Das Anmelden wurde für dieses Konto deaktiviert.
@@ -2155,6 +2170,7 @@ de:
       min_assistant_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Prokuratoren sind.
       min_full_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Oberkuratoren sind.
       min_master_curators_only: Der Zugriff ist leider auf Kuratoren bei der EOL beschränkt, die mindestens Hauptkuratoren sind.
+      no_access: Leider ist der Zugriff beschränkt.
   excluded_icon_tip: Zeilen, die mit dem Symbol %{excluded_icon} gekennzeichnet sind, werden nie auf Taxonübersichtsseiten angezeigt.
   expand_all_children: alle untergeordneten Objekte expandieren
   explore: Entdecken
@@ -3567,6 +3583,7 @@ de:
   see_all_updates_with_count_html: 
     one: Die <span class="assistive">Aktualisierung dieser Seite</span> ansehen.
     other: Alle <span class="assistive">%{count} Aktualisierungen dieser Seite</span> ansehen.
+  see_in_data_glossary: siehe Datenglossar
   see_more_on_the_data_tab: siehe mehr auf dem Datenreiter
   see_notes: Anmerkungen ansehen
   see_this_record_in_virtuoso: diese Aufzeichnung in Virtuoso ansehen

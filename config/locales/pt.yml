@@ -1311,7 +1311,7 @@ pt:
         curation_application: Concorra agora
         curation_privileges: Submeter pedido
         generate_api_key: Gerar uma chave
-        update: Salvar informações de perfil
+        update: Guardar informação do perfil
       wikipedia_queue: 
         create: Submeter pedido
   here: aqui
@@ -1705,7 +1705,7 @@ pt:
   return_all_synonyms_for_this_taxon: mostrar todos os sinónimos para este taxon
   revisions: Revisões
   richness_score: Pontuação de riqueza
-  save: Salvar
+  save: Gravar
   save_comment_lowercase: salvar comentário
   save_curated_association_submit_button: Salvar associação
   scientific_name: Nome científico
@@ -1787,7 +1787,7 @@ pt:
   user_activity_stats_objects_curated: Objectos curados
   user_activity_stats_taxa_curated: Taxa curados
   username: Nome de utilizador
-  username_colon: "Nome de usuário:"
+  username_colon: "Nome de utilizador:"
   users: 
     new: 
       create_user_header: Criar uma nova conta <abbr title="Encyclopedia of Life">EOL</abbr>

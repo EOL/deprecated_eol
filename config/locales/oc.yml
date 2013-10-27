@@ -146,6 +146,14 @@ oc:
         rich_pages: Paginas ricas
         rich_redhotlist_pages: Paginas ricas fòrça favoritas
         rich_redhotlist_pages_percentage: Paginas favoritas rojas ricas %
+        total_association_types: Tipes d’associacion
+        total_associations: Associacions
+        total_measurement_types: Tipes de mesura
+        total_measurements: Mesuras
+        total_occurrences: Ocuréncias
+        total_taxa_with_data: Paginas amb donadas
+        total_triples: Triples
+        total_user_added_data: Donadas apondudas per l’utilizaire
         udo_published: Tèxte somés per l’utilizaire
         udo_published_by_curators: Tèxte somés per un conservator
         udo_published_by_non_curators: Tèxte somés per un non-conservator
@@ -171,6 +179,18 @@ oc:
         descriptive_label: Libellat descriptiu
         label: Labellat
         request_publish: Demandar una publicacion
+      known_uri: 
+        description: Descripcion
+        exclude_from_exemplars: Exclure de Faches en brèu
+        name: Nom
+        toc_items: Categorias
+        uri: URI
+        uri_type: Tipe d’URI
+      known_uri_relationship: 
+        from_known_uri_id: URI del subjècte
+        relationship_uri: URI de la relacion
+        to_known_uri: URI cibla
+        to_known_uri_id: URI cibla
       name: 
         string: Nom
       news_item: 
@@ -229,6 +249,9 @@ oc:
         meta_description: Descripcion de las metadonadas
         meta_keywords: Mots claus de las metadonadas
         title: Títol
+      translated_known_uri: 
+        comment: Comentari
+        definition: Definicion
       translated_news_item: 
         active_translation: Publicat
         body: Còs
@@ -255,6 +278,13 @@ oc:
         requested_curator_level_id: Nivèl desirat de supervision
         tag_line: Títol d’apèl
         username: Nom d'utilizaire
+      user_added_data: 
+        object: Valor
+        predicate: Atribut
+        user: Apondut per
+      user_added_data_metadata: 
+        object: Valor
+        predicate: Atribut
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -291,6 +321,18 @@ oc:
             publish: 
               inclusion: es pas autorizat que pel darrièr eveniment de collècta e solament se aqueste eveniment es pas encara publicat
         inaccessible: L'enregistrament a pas pogut èsser salvat perque èra pas valid. Contrarotlatz las errors de validacion e resometètz-lo.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: pas autorizat — i pòt pas aver qu’una unitat de mesura
+            to_known_uri_id: 
+              must_be_different: deu èsser diferent de l’URI del subjècte
+              must_be_known_uri: deu èsser un URI conegut
+              must_be_measurement: deu èsser una unitat de mesura
         open_authentications: 
           guid_provider_must_be_unique: lo compte tèrç es ja connectat amb un compte EdlV
           provider_user_id_must_be_unique: un sol compte de cada provesidor tèrç pòt èsser connectat a un compte EdlV
@@ -306,6 +348,22 @@ oc:
             dwc_archive_url: 
               inaccessible: es inaccessible, l’URL deu èsser accessibla al public
               invalid: es invalid, deuriá puntar cap a un fichièr TAR.GZIP, TAR.GZ, TGZ o ZIP.
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              namespace: espaci de noms utilizat pas reconegut
+            subject: 
+              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              namespace: espaci de noms utilizat pas reconegut
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              namespace: espaci de noms utilizat pas reconegut
+            subject: 
+              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              namespace: espaci de noms utilizat pas reconegut
       template: 
         body: "Los camps seguents son pas estats validats :"
     models: 
@@ -1845,6 +1903,10 @@ oc:
       menu_link: Estatisticas dels conservators
       page_header: Estatisticas dels conservators
       page_title: Estatisticas
+    data: 
+      menu_link: Donadas
+      page_header: Estatisticas de las donadas
+      page_title: Estatisticas
     data_objects: 
       menu_link: Objèctes de donadas
       page_header: Estatisticas dels objèctes de donadas
@@ -2451,6 +2513,22 @@ oc:
   just_pages_with_pictures_and_text: Solament de paginas amb los imatges e lo tèxte
   keep_split_entry_from_this_entry: Gardar separat d'aquesta entrada
   key: Clau
+  known_uri_relationships: 
+    created: La relacion es estada creada corrèctament
+  known_uris: 
+    add_a_relationship: Apondre una relacion
+    import_successful: Tèrmes d’ontologia importats corrèctament
+    more_than_one_field_mapped_to_type: Mai d’un atribut correspond a « %{type} »
+    no_results: I a pas cap de resultat per l'estatistica seleccionada
+    please_select_field_types: Seleccionatz una correspondéncia per cada atribut
+    please_select_from_the_menu: Seleccionatz dempuèi lo menú çaisús
+    please_select_uris_to_import: Seleccionatz los URIs d’impòrt
+    relationships: Relacions
+    select_a_category_to_view_stats: "Seleccionar una categoria per afichar sas estats :"
+    unrecognized_association_types: URIs de tipe d’associacion pas reconeguts
+    unrecognized_measurement_types: URIs de tipe de mesura pas reconeguts
+    unrecognized_measurement_units: URIs d’unitat de mesura pas reconeguts
+    unrecognized_measurement_values: URIs de valor de mesura pas reconeguts
   label: Libellat
   language: "Lenga :"
   language_with_count: "%{language} (%{count})"
@@ -3714,6 +3792,9 @@ oc:
   user_activity_stats_wikipedia_nominated: 
     one: "%{count} article de Wikipèdia nomenat"
     other: "%{count} articles de Wikipèdia nomenats"
+  user_added_data: 
+    new_field: Camp novèl...
+    new_value: Valor
   user_agent: Agent d'utilizaire
   user_already_active_notice: Vòstre compte es ja actiu, connectatz-vos.
   user_comment: Comentari de l'utilizaire

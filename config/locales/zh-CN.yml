@@ -164,6 +164,7 @@ zh-CN:
         rich_redhotlist_pages: 高质量红色关注页面
         rich_redhotlist_pages_percentage: 高质量红色关注页面百分比
         total_triples: 三重
+        total_user_added_data: 用户加入的数据
         udo_published: 用户提交的文本
         udo_published_by_curators: 管理员提交的文本
         udo_published_by_non_curators: 非管理员提交的文本
@@ -617,6 +618,7 @@ zh-CN:
   add_item_to_new_collection: 将“%{item}” 添加到一个新的收藏
   add_language: 添加语言
   add_new_association_link: 添加新的关联
+  add_new_known_uri_link: 加入新的URI
   add_new_tag_suggestion: 添加新的标签建议
   add_page: 添加页面
   add_sub_chapter: 添加子章
@@ -815,13 +817,17 @@ zh-CN:
   average_rating_value_of_total: 平均评分： %{rating} (满分%{total})
   back: 返回
   back_to_profile: 返回到信息页
+  background_processes_actions_head: 动作
+  background_processes_complete_head: 完成？
   background_processes_created_head: 已创建
   background_processes_download: 下载
   background_processes_is_complete: 是
   background_processes_is_not_complete: 否
+  background_processes_query_head: 查询
   began: 开始
   belongs_in_count_communities: 
     other: 属于 %{count}个社区
+  beta_warning_note_header: 注：
   bhl: 生物多样性遗产图书馆
   bhl_publication: 网络生命大百科发布物
   bi_monthly: 双月的
@@ -1330,10 +1336,15 @@ zh-CN:
   daily: 每日
   darwin_core: 达尔文核心
   dashboard: 通告板
+  data_about_subtab_header: 关于EOL的数据
+  data_column_common_name: 原始名称
   data_column_source: 来源
   data_column_tc_id: EOL页面ID
+  data_column_units: 单位
   data_column_val: 值
+  data_column_val_uri: URI值
   data_database_colon: 数据：
+  data_glossary: 数据词汇表
   data_logging_active: 数据日志激活
   data_master_database_colon: 主数据库名：
   data_object: 数据项
@@ -1361,7 +1372,9 @@ zh-CN:
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
   data_row_hide_button: 隐藏行
+  data_show_n_more_rows: 展示NNN更多......
   data_subtab_about: 关于
+  data_subtab_glossary: 术语表
   data_usage_reports: 数据使用报告
   date_caps: 日期
   date_uploaded: 上传日期
@@ -1471,6 +1484,7 @@ zh-CN:
   donation_sponsorship_preamble: "\"如果您想了解更多有关赞助的项目，或想要再次赠送礼品，请通过<a href=\"\"mailto:%{email_address}\""
   done_already: 已完成
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 不显示未知的注册日期（V1版本用户，在2009年1月5日之前）
+  download_data: 下载数据
   download_wav_file: 下载WAV文件
   dublin_core: 都柏林核心
   duplicate_items_were_ignored: 重复的条目被忽略。
@@ -1593,6 +1607,7 @@ zh-CN:
       hidden_user_temporary_login: 抱歉，当前账户的恢复与登录都被禁用。
       inactive_user_login: 抱歉，当前账号尚未激活。如果您在注册时未收到验证邮件，请按照账户的恢复程序来验证您的邮箱地址并激活账户。
       min_full_curators_only: 抱歉，访问的最低权限是EOL管理员。
+      no_access: 抱歉，访问受到限制。
   expand_all_children: 展开所有子节点
   explore: 探索
   explore_what_we_know_about_taxon: 搜索EOL了解的%{taxon}。
@@ -1742,6 +1757,7 @@ zh-CN:
   gives_access_to_a_single_hierarchy_indexed_by_eol: 开放对EOL索引的单一分类系统及其内部关系的访问
   global_access_tagline: 为全球提供地球上生命的知识
   global_navigation: 全球导航
+  glossary: 术语表
   glossary_is_empty: (术语表是空的)
   glossary_subhead: 术语表
   glossary_term: 术语
@@ -2130,6 +2146,7 @@ zh-CN:
   known_uri_category_header: 分类
   known_uri_created: URI已加入。
   known_uri_name_and_uri: "%{name}（%{uri}）"
+  known_uris_page_title: EOL上有关数据的URI
   label: 标签
   language: 语言：
   language_selector_advisory_information: 以下是站点内容可用的语言列表，从该列表选择代替的语言替换当前语言。
@@ -2813,6 +2830,7 @@ zh-CN:
   see_all_of_your_communities: 查看您的所有社区
   see_all_updates_with_count_html: 
     other: 查看<span class=�assistive>该页面的所有%{count}个更新</span>
+  see_in_data_glossary: 在数据词汇表中查阅
   see_notes: 查看注释
   select_a_hierarchy_around_whic: 选择一个分类树用以组织内容概要：
   select_an_item_from_the_menu: 从菜单选择一项
@@ -3388,6 +3406,8 @@ zh-CN:
   user_activity_stats_wikipedia_nominated: 
     other: 提名了%{count}篇维基百科的文章
   user_added_data: 
+    edit_data_header: 编辑您的数据
+    edit_metadata_header: 编辑元数据
     new_value: 值
   user_agent: 用户代理
   user_already_active_notice: 您的帐户已激活，请登录。

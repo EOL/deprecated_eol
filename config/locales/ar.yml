@@ -18,6 +18,7 @@
 # Author: أحمد
 # Author: ترجمان05
 # Author: زكريا
+# Author: مشعل الحربي
 ar: 
   0_1_or_2: 0، 1 أو 2
   0_or_1: 0، أو 1
@@ -1081,6 +1082,7 @@ ar:
   belongs_in_count_communities: 
     one: "ينتمي إلى %{count} مجتمع "
     other: "ينتمي إلى %{count} مجتمع "
+  beta_warning_small: يرجى ملاحظة أن هذه الميزة في مرحلتها الاختبارية، وقد تتصرف بشكل غير متوقع.
   bhl_publication: إصدار لمكتبة التنوع الحيوي
   bi_monthly: نصف شهريًّا
   biodiversity_heritage_library: مكتبة تراث التنوع البيولوجي

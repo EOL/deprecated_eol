@@ -20,6 +20,16 @@ class TaxonDataSet
     @data_point_uris # TODO - try removing this... #initialize doesn't really "return" anything anyway.
   end
 
+  # NOTE - this is not provided by Enumerable
+  def [](which)
+    @data_point_uris[which]
+  end
+
+  # NOTE - not provided by Enumerable.
+  def delete_at(which)
+    @data_point_uris.delete_at(which)
+  end
+
   def each
     @data_point_uris.each { |data_point_uri| yield(data_point_uri) }
   end

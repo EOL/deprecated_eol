@@ -74,7 +74,7 @@ class TaxonDataExemplarPicker
   end
 
   def index_of_last_non_exemplar(taxon_data_set, curated_exemplars)
-    (TaxonDataExemplarPicker.max_rows-1).downto(0).each do |i|
+    (taxon_data_set.count - 1).downto(0).each do |i|
       next if curated_exemplars.include?(taxon_data_set[i])
       return i
     end

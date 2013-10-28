@@ -38,6 +38,7 @@ class TaxonDataSet
       value_label = safe_downcase(data_point_uri.value_string(@language))
       [ attribute_pos, attribute_label, value_label ]
     end
+    self
   end
 
   def safe_downcase(what)

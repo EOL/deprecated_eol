@@ -20,6 +20,16 @@ class TaxonDataSet
     @data_point_uris # TODO - try removing this... #initialize doesn't really "return" anything anyway.
   end
 
+  # NOTE - this is not provided by Enumerable
+  def [](which)
+    @data_point_uris[which]
+  end
+
+  # NOTE - not provided by Enumerable.
+  def delete_at(which)
+    @data_point_uris.delete_at(which)
+  end
+
   def each
     @data_point_uris.each { |data_point_uri| yield(data_point_uri) }
   end
@@ -38,6 +48,7 @@ class TaxonDataSet
       value_label = safe_downcase(data_point_uri.value_string(@language))
       [ attribute_pos, attribute_label, value_label ]
     end
+    self
   end
 
   def safe_downcase(what)
@@ -66,6 +77,11 @@ class TaxonDataSet
     @data_point_uris.each do |data_point_uri|
       data_point_uri.convert_units
     end
+  end
+
+  # Returns a HASH where the keys are KnownUris and the values are ARRAYS of DataPointUris.
+  def categorized
+    @data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
   end
 
 end

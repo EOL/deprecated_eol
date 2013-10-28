@@ -12,6 +12,7 @@ class TaxonDataExemplarPicker
   end
 
   # Note - returns nil if the connection to the triplestore is bad.
+  # TODO - why are we taking an argument, here? We HAVE the TaxonData, and thus the data set.
   def pick(taxon_data_set)
     return nil unless taxon_data_set # This occurs if the connection to the triplestore is broken or bad.
     # TODO - Might be wise here to grab exemplars first; if there are enough to fill the list, no need to load all the data.
@@ -54,8 +55,11 @@ class TaxonDataExemplarPicker
     taxon_data_set
   end
 
+  # TODO - this should really return the categorized set.
+  # TODO - this should also account for all the values in the categorized set... we only want some from each category.
+  # TODO - this seems to be modifying the actual set of data on the source object. Stop that.
   def pick_exemplars(taxon_data_set)
-    return taxon_data_set if taxon_data_set.count <= TaxonDataExemplarPicker.max_rows # No need to load anything, otherise...
+    return taxon_data_set if taxon_data_set.categorized.keys.count <= TaxonDataExemplarPicker.max_rows # No need to load anything, otherise...
     # TODO - this should have an #include in it, but I'm being lazy:
     curated_exemplars = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
     # NOTE the following clause assumes that exemplars will be deleted when rows are deleted:
@@ -63,14 +67,14 @@ class TaxonDataExemplarPicker
       return taxon_data_set.select { |data_point_uri| curated_exemplars.include?(data_point_uri) }
     end
     # If we're still here, we have too many.
-    while(taxon_data_set.count > TaxonDataExemplarPicker.max_rows) do
+    while(taxon_data_set.categorized.keys.count > TaxonDataExemplarPicker.max_rows) do
       taxon_data_set.delete_at(index_of_last_non_exemplar(taxon_data_set, curated_exemplars))
     end
     taxon_data_set
   end
 
   def index_of_last_non_exemplar(taxon_data_set, curated_exemplars)
-    (TaxonDataExemplarPicker.max_rows-1).downto(0).each do |i|
+    (taxon_data_set.count - 1).downto(0).each do |i|
       next if curated_exemplars.include?(taxon_data_set[i])
       return i
     end

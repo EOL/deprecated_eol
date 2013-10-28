@@ -133,6 +133,7 @@ class TaxonData < TaxonUserClassificationFilter
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
   def get_data_for_overview
     picker = TaxonDataExemplarPicker.new(self)
+    # TODO - why call/pass #get_data when we passed self above?
     picker.pick(get_data)
   end
 

@@ -56,6 +56,12 @@ class TaxonDataSet
     what.downcase if what.respond_to?(:downcase)
   end
 
+  # Yet another NOT provided by Enumerable... grrrr...
+  def select(&block)
+    @data_point_uris.select { |data_point_uri| yield(data_point_uri) }
+  end
+
+  # Yet another NOT provided by Enumerable... grrrr...
   def delete_if(&block)
     @data_point_uris.delete_if { |data_point_uri| yield(data_point_uri) }
   end

@@ -6,8 +6,7 @@
   %table.standard.data
     %caption.assistive= I18n.t(:data_overview_table_caption)
     -# TODO - this logic should be in the "model" (even if the model is a hash/array):
-    -# TODO - this rescue SHOULD only be a temp solution, not sure why it was needed for http://eol.org/pages/328583/overview
-    - grouped_attributes = data_point_uris.categorized rescue data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
+    - grouped_attributes = data_point_uris.categorized
     - grouped_attributes.each_with_index do |arr, index|
       - attribute, data_point_uris = arr
       - row_class = (index == grouped_attributes.keys.length - 1) ? 'last' : nil

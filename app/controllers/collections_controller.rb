@@ -28,6 +28,11 @@ class CollectionsController < ApplicationController
     else
       @rel_canonical_href = collection_url(@collection)
     end
+    respond_to do |format|
+      format.html {}
+      format.json { render json: @collection.as_json().merge(collection_items: @collection_items.map {|i|
+          i.collected_item.as_json.merge(type: i.class.name)} ) }
+    end
   end
 
   # NOTE - I COULD check the collection size against Collection::REINDEX_LIMIT, but I'd actually like to (personally) be able to

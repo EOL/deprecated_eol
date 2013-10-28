@@ -66,6 +66,9 @@ Rails.configuration.optional_reference_uris = { # Be careful changing these...  
   localityName: "http://schemas.talis.com/2005/address/schema#localityName"
 }
 
+Rails.configuration.data_search_file_rel_path = '/uploads/data_search_files/:id.csv'
+Rails.configuration.data_search_file_full_path = "#{Rails.public_path}#{Rails.configuration.data_search_file_rel_path}"
+
 # -------------------------------------------------------------------------
 # OLD STUFF...          PLEASE DON'T DO THIS ANYMORE.  :|
 
@@ -152,8 +155,6 @@ $DATASET_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/datasets/:id.:extensio
 $CONTENT_UPLOAD_PATH = "/uploads/"  # directory to place uploaded content files, content server needs SFTP access to this folder
 $CONTENT_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/:id.:extension"  # directory to place uploaded content
 
-$DATA_SEARCH_FILE_DIRECTORY = "#{Rails.public_path}/uploads/data_search_files/:id.csv"
-$DATA_SEARCH_FILE_PATH = '/uploads/data_search_files/:id.csv'
 $HOSTED_DATASET_PATH = 'http://localhost/eol_php_code/applications/content_server/datasets/'
 
 # NEWS ITEMS ON HOME PAGE CONFIGURATION

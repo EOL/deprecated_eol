@@ -1,7 +1,7 @@
 class DataSearchFile < ActiveRecord::Base
 
-  attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id, :completed_at,
-    :hosted_file_url
+  attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
+    :completed_at, :hosted_file_url
   attr_accessor :results
 
   belongs_to :user
@@ -43,7 +43,7 @@ class DataSearchFile < ActiveRecord::Base
       @filename = "#{known_uri.name}"
       @filename += "_f#{from}" unless from.blank?
       @filename += "-#{to}" unless to.blank?
-      @filename += "_by_#{sort}" unless sort.blank?
+      @filename += "_sort_#{sort}" unless sort.blank?
       @filename += ".csv"
     else
       # TODO - handle other filename cases (ie: when there is no attribute known_uri) as needed. Right now, that's impossible.
@@ -53,13 +53,13 @@ class DataSearchFile < ActiveRecord::Base
 
   def local_file_url
     ip_with_port = $IP_ADDRESS_OF_SERVER.dup
-    "http://" + ip_with_port + $DATA_SEARCH_FILE_PATH.sub(/:id/, id.to_s)
+    "http://" + ip_with_port + Rails.configuration.data_search_file_rel_path.sub(/:id/, id.to_s)
   end
 
   private
 
   def local_file_path
-    $DATA_SEARCH_FILE_DIRECTORY.sub(/:id/, id.to_s)
+    Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
 
   def get_data
@@ -70,7 +70,7 @@ class DataSearchFile < ActiveRecord::Base
     rows = []
     DataPointUri.assign_bulk_metadata(@results, user.language)
     @results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(user.language)
+      rows << data_point_uri.to_hash(user.language, measurement_as_header: true)
     end
     rows
   end

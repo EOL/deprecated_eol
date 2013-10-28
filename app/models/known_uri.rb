@@ -40,6 +40,8 @@ class KnownUri < ActiveRecord::Base
 
   accepts_nested_attributes_for :translated_known_uris
 
+  alias_attribute :label, :name
+
   validates_presence_of :uri
   validates_uniqueness_of :uri
   validate :uri_must_be_uri

@@ -178,7 +178,7 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def preferred_common_name_in_language(language)
+  def preferred_common_name_in_language(language = Language.default)
     if common_names_in_language && common_names_in_language.has_key?(language.id)
       # sometimes we preload preferred names in all languages for lots of taxa
       best_name_in_language = common_names_in_language[language.id]
@@ -943,6 +943,14 @@ class TaxonConcept < ActiveRecord::Base
         }).total_entries
       end
     end
+  end
+
+  def as_json(options = {})
+    super(options.merge(except: [:split_from, :supercedure_id, :vetted_id])).merge(
+      scientific_name: title,
+      common_name: preferred_common_name_in_language(Language.default),
+      thumbnail: exemplar_or_best_image_from_solr.thumb_or_object('88_88')
+    )
   end
 
 private

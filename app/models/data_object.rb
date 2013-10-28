@@ -1152,7 +1152,7 @@ private
     end
     assocs.compact!
     return [] if assocs.empty?
-    assocs.sort_by { |a| a.vetted.view_order }
+    assocs.sort_by { |a| a.vetted && a.vetted.view_order }
   end
 
   # To retrieve an exact association(if exists) for the given taxon concept,

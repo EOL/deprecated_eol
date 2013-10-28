@@ -80,4 +80,8 @@ class CollectionItem < ActiveRecord::Base
     end
   end
 
+  def as_json(options = {})
+    super(options.merge(include: :collected_item))
+  end
+
 end

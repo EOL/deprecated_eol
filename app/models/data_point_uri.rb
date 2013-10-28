@@ -343,28 +343,44 @@ class DataPointUri < ActiveRecord::Base
     false
   end
 
-  # TODO - passing in the language is indicative of a problem. That should be handled by the view.
-  def to_hash(language = Language.default)
+  def to_hash(language = Language.default, options = {})
     hash = {
       # Taxon Concept ID:
       I18n.t(:data_column_tc_id) => taxon_concept.id,
+      # Kingdom:
+      I18n.t(:data_column_kingdom) => taxon_concept.kingdom.title_canonical,
       # Scientific Name:
-      I18n.t(:data_column_sci_name) => taxon_concept.title_canonical,
+      I18n.t(:data_column_sci_name) => taxon_concept.family.title_canonical,
       # Common Name:
-      I18n.t(:data_column_common_name) => taxon_concept.preferred_common_name_in_language(language),
-      # Measurement Label:
-      I18n.t(:data_column_name) => EOL::Sparql.uri_components(predicate_uri)[:label],
-      # Measurement URI:
-      I18n.t(:data_column_name_uri) => predicate,
-      # Value Label:
-      I18n.t(:data_column_val) => value_string(language),
-      # Value URI:
-      I18n.t(:data_column_val_uri) => (EOL::Sparql.is_uri?(object) ? object : ''),
-      # Units:
-      I18n.t(:data_column_units) => units_string,
-      # Source:
-      I18n.t(:data_column_source) => source.name
+      I18n.t(:data_column_common_name) => taxon_concept.preferred_common_name_in_language(language)
     }
+    if options[:measurement_as_header]
+      # Nice measurement:
+      hash[predicate_uri.label] = value_string(language)
+      # URI measurement / value
+      hash[predicate] = value_uri_or_blank
+    else
+      # Measurement Label:
+      hash[I18n.t(:data_column_name)] = predicate_uri.label
+      # Measurement URI:
+      hash[I18n.t(:data_column_name_uri)] = predicate
+      # Value Label:
+      hash[I18n.t(:data_column_val)] = value_string(language)
+      # Value URI:
+      hash[I18n.t(:data_column_val_uri)] = value_uri_or_blank
+    end
+    # Units:
+    hash[I18n.t(:data_column_units)] = units_string
+    # Units URI:
+    hash[I18n.t(:data_column_units_uri)] = unit_of_measure_uri
+    # Raw value:
+    hash[I18n.t(:data_column_raw_value)] = DataValue.new(object_uri).label
+    # Raw Units:
+    hash[I18n.t(:data_column_raw_units)] = units_string
+    # Raw Units URI:
+    hash[I18n.t(:data_column_raw_units_uri)] = unit_of_measure_uri
+    # Source:
+    hash[I18n.t(:data_column_source)] = source.name
     if metadata = get_metadata(language)
       metadata.each do |data|
         hash[EOL::Sparql.uri_components(data.predicate_uri)[:label]] = data.value_string(language)
@@ -375,16 +391,19 @@ class DataPointUri < ActiveRecord::Base
     hash
   end
 
-  # TODO - this logic is duplicated in the taxa helper; remove it from there.
-  def units_string
-    if unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(unit_of_measure_uri)
-      uri_components[:label]
-    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(predicate_uri)
-      uri_components[:label]
-    end
+  def value_uri_or_blank
+    EOL::Sparql.is_uri?(object) ? object : ''
   end
 
-  # TODO - this logic is duplicated in the taxa helper; remove it from there.
+  def units_string
+    units && units.has_key?(:label) ? units[:label] : ''
+  end
+
+  def units_uri
+    units && units.has_key?(:uri) ? units[:uri] : ''
+  end
+
+  # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
   def value_string(lang = Language.default)
     if association?
       common = target_taxon_concept.preferred_common_name_in_language(lang)
@@ -400,6 +419,17 @@ class DataPointUri < ActiveRecord::Base
         val.add_missing_hyperlinks
       end
       val
+    end
+  end
+
+  private
+
+  # TODO - this logic is duplicated in the taxa helper; remove it from there. ...Actually, this belongs on DataValue, I think.
+  def units
+    if unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(unit_of_measure_uri)
+      uri_components
+    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(predicate_uri)
+      uri_components
     end
   end
 

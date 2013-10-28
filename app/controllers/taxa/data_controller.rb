@@ -9,8 +9,8 @@ class Taxa::DataController < TaxaController
   def index
     @assistive_section_header = I18n.t(:assistive_data_header)
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
-    @toc_id = params[:toc_id]
     @selected_data_point_uri_id = params.delete(:data_point_uri_id)
+    @toc_id = params[:toc_id]
     @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
     @supress_disclaimer = true
     current_user.log_activity(:viewed_taxon_concept_data, :taxon_concept_id => @taxon_concept.id)

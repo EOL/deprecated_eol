@@ -18,6 +18,8 @@ module EOL
       end
     end
 
+    # TODO - this won't work if the DB wasn't there before the task. That's why #recreate works (and it calls this), but #create
+    # doesn't, on it's own. It needs to find the name via the config, not via the models. rewite.
     def self.create
       arb_conf = ActiveRecord::Base.configurations[Rails.env.to_s]
       log_conf = LoggingModel.configurations["#{Rails.env}_logging"]

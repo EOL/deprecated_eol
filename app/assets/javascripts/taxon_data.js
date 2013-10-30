@@ -69,7 +69,7 @@ EOL.toggle_actions_row = function(data_row) {
         url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
         dataType: 'html',
         success: function(response) {
-          $next_row_data.prepend(response).find('th.info').each(function() {
+          $next_row_data.prepend(response).find('.info').each(function() {
             var html = $(this).find('ul.glossary > li').html();
             var uri = $(this).find('.uri').text();
             $(this).remove();

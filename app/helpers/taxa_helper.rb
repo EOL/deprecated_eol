@@ -187,7 +187,7 @@ module TaxaHelper
         text_for_row_value += link_to raw(data_point_uri.target_taxon_concept.title_canonical), taxon_link
       end
     else
-      text_for_row_value += display_uri(data_point_uri.object_uri).to_s
+      text_for_row_value += display_uri(data_point_uri.object_uri, nil, options).to_s
     end
     # displaying unit of measure
     if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)

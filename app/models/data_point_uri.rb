@@ -1,5 +1,5 @@
 # encoding: utf-8
-# Very stupid modle that just gives us a DataPointUri stored in the DB, for linking comments to. These are otherwise
+# Very stupid model that just gives us a DataPointUri stored in the DB, for linking comments to. These are otherwise
 # generated/stored in via SparQL.
 class DataPointUri < ActiveRecord::Base
 

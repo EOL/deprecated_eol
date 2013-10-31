@@ -4,6 +4,38 @@ var _TOOLTIP_OPEN = false;
 
 EOL.max_meta_rows = 10;
 
+EOL.create_info_dialog = function(match) {
+  var nearest = $(match).closest('[id]').attr('id'); // We need to remember which one is open; click again and it closes.
+  $(match)
+    .attr('id', "info_"+nearest)
+    .before('<a id="tip_'+nearest+'" class="info_icon" data-info="'+nearest+'">&emsp;&emsp;&emsp;&emsp;</a>') // Spaces 'cause width doesn't work. :\
+    .addClass('tip')
+    .prepend('<a href="#" class="close">&nbsp;</a>');
+  EOL.enable_info_dialogs($('#tip_'+nearest));
+  $(match).appendTo(document.body);
+};
+
+EOL.enable_info_dialogs = function(tip) {
+  tip
+    .on('click', function() {
+      $('.site_column').unbind('click');
+      var $link = $(this);
+      var $info = $('#info_'+$(this).attr('data-info'));
+      if ($info.is(':visible')) {
+        $info.hide('fast');
+      } else {
+        $('.info.tip').hide('fast');
+        var pos = $(this).offset();
+        $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
+        $info.show('fast',
+          function() {
+            $('.site_column').click(function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
+          }
+        ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false) } );
+      }
+    });
+};
+
 EOL.enable_button = function($button) {
   if ($button.is(':disabled')) {
     $button.removeAttr('disabled').fadeTo(225, 1);
@@ -72,13 +104,12 @@ EOL.toggle_actions_row = function(data_row) {
           $next_row_data.prepend(response).find('.info').each(function() {
             var html = $(this).find('ul.glossary > li').html();
             var uri = $(this).find('.uri').text();
-            $(this).remove();
+            EOL.create_info_dialog(this);
             // only add the term if it is not already in the glossary
             $('.glossary_subtab ul.glossary:not(:contains("' + uri + '"))').append('<li>'+html+'</li>');
           });
           // sort the glossary now that new items have been added to the end
           $(".glossary_subtab ul.glossary > li").sort(EOL.sort_glossary).appendTo('.glossary_subtab ul.glossary');
-          EOL.info_hints();
           EOL.enable_hover_list_items();
         },
         error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
@@ -159,27 +190,6 @@ EOL.limit_data_rows = function() {
 };
 
 EOL.yank_glossary_terms = function($row) {
-};
-
-EOL.info_hints = function() {
-  // Give hints about terms... TODO - this is lame; refactor.
-  $('.term').each(function() {
-    if ($(this).parent().find('a.info_icon').length > 0) {
-      var $info_icon = $(this).parent().find('a.info_icon').first();
-      var bg = $info_icon.css('background-image');
-      if (bg != 'none') {
-        $info_icon.attr('data-bg', $info_icon.css('background-image'));
-        $info_icon.css('background-image', 'none');
-      }
-      $(this).parent().unbind('hover').hover(
-        function() {
-          $info_icon.css('background-image', $info_icon.attr('data-bg'));
-        }, function() {
-          $info_icon.css('background-image', 'none');
-        }
-      );
-    }
-  });
 };
 
 EOL.enable_hover_list_items = function() {
@@ -382,33 +392,9 @@ $(function() {
   });
 
   // Definitions of Attributes are dialogs if JS is enabled:
-  $('table.data tr.first_of_type span.info, table.data.search tr span.info').each(function() {
-    var nearest = $(this).closest('tr').attr('id'); // We need to remember which one is open; click again and it closes.
-    $(this)
-      .attr('id', "info_"+nearest)
-      .before('<a class="info_icon" data-info="'+nearest+'">&nbsp;</a>')
-      .addClass('tip')
-      .prepend('<a href="#" class="close">&nbsp;</a>');
-    $(this).appendTo(document.body);
+  $('table.data tr .info, table.data.search tr .info').each(function() {
+    EOL.create_info_dialog(this);
   });
-  $('a.info_icon')
-    .on('click', function() {
-      $('.site_column').unbind('click');
-      var $link = $(this);
-      var $info = $('#info_'+$(this).attr('data-info'));
-      if ($info.is(':visible')) {
-        $info.hide('fast');
-      } else {
-        $('.info.tip').hide('fast');
-        var pos = $(this).offset();
-        $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
-        $info.show('fast',
-          function() {
-            $('.site_column').click(function() { $('span.info').hide('fast'); $('.site_column').unbind('click'); });
-          }
-        ).find('a.close').on('click', function() { $('span.info').hide('fast'); return(false) } );
-      }
-    });
 
   $('.add_content .article').hide();
   $('.add_content .add_data a').on('click', function() {
@@ -423,7 +409,6 @@ $(function() {
     return(false);
   });
 
-  EOL.info_hints(); // Note this needs to happen *after* the info icons are added.
   EOL.enable_hover_list_items();
 
   $('.page_actions .data_download a').click(function() {

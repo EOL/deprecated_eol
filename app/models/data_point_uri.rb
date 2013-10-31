@@ -123,6 +123,10 @@ class DataPointUri < ActiveRecord::Base
     I18n.t(:data_point_uri_summary_name, :taxon => taxon_concept.summary_name)
   end
 
+  def header_anchor
+    "predicate_#{predicate.gsub(/[^_A-Za-z0-9]/, '_')}"
+  end
+
   def anchor
     "data_point_#{id}"
   end

@@ -152,12 +152,8 @@ module TaxaHelper
     uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
     tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
     capture_haml do
-      if options[:define] && uri.is_a?(KnownUri)
-        haml_tag "#{tag_type}.info" do
-          haml_tag "ul.glossary" do
-            haml_concat render(partial: 'known_uris/definition', locals: { known_uri: uri, search_link: options[:search_link], glossary_link: true })
-          end
-        end
+      if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
+        define(tag_type, uri, options[:search_link])
       end
       label = uri_components[:label].to_s
       if label.is_numeric?
@@ -169,7 +165,12 @@ module TaxaHelper
         label = label.add_missing_hyperlinks
         label = label.firstcap if options[:capitalize]
       end
-      haml_tag "#{tag_type}.term", raw(label), 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil
+      haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
+        haml_concat raw(label)
+        if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
+          define(tag_type, uri, options[:search_link])
+        end
+      end
     end
   end
 
@@ -208,6 +209,14 @@ module TaxaHelper
     text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless data_point_uri.new_record?
     text_for_row_value
+  end
+
+  def define(tag_type, uri, search_link)
+    haml_tag "span.info" do
+      haml_tag "ul.glossary" do
+        haml_concat render(partial: 'known_uris/definition', locals: { known_uri: uri, search_link: search_link, glossary_link: true })
+      end
+    end
   end
 
 end

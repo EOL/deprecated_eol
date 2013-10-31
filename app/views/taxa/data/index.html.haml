@@ -46,7 +46,7 @@
           - first_of_type = data_point_uri.predicate != last_attribute
           - if first_of_type
             - type_index += 1
-            - header_id = data_point_uri.predicate
+            - header_id = data_point_uri.header_anchor
             - last_attribute = data_point_uri.predicate
           - else
             - header_id = nil

@@ -1500,36 +1500,46 @@ ul.tabs
           width: 203px
           vertical-align: top
           padding-top: 4pt
-          .info_icon
-            float: left
-            width: 18px
-            background: url(image-path("v2/icon_info_tabs.png")) 2px 3px no-repeat
-            background-size: 14px 14px
-          .info
-            .close
-              float: right
-              height: 13px
-              width: 13px
-              text-decoration: none
-              background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
-              border: 1px solid $light_blue
-              &:hover
-                background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
-            .uri
-              font-size: 0.75em
-              text-align: right
-              margin: 0.5em
-            dt
-              font-size: 0.75em
-              margin: 0.5em
-              font-weight: bold
-            dd
-              font-size: 0.75em
-              margin: 0.75em 0.5em
-              line-height: 1.5em
+        .info_icon
+          float: left
+          width: 18px
+          background: none
+        .info
+          .close
+            float: right
+            height: 13px
+            width: 13px
+            text-decoration: none
+            background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+            border: 1px solid $light_blue
+            &:hover
+              background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+          .uri
+            font-size: 0.75em
+            text-align: right
+            margin: 0.5em
+          dt
+            font-size: 0.75em
+            margin: 0.5em
+            font-weight: bold
+          dd
+            font-size: 0.75em
+            margin: 0.75em 0.5em
+            line-height: 1.5em
         th.predicate
           .info_icon
             float: right
+          &:hover
+            .info_icon
+              background: url(image-path("v2/icon_info_tabs.png")) 2px 3px no-repeat
+              background-size: 14px 14px
+        td.val
+          .info_icon
+            float: none
+          &:hover
+            .info_icon
+              background: url(image-path("v2/icon_info_tabs.png")) 2px 3px no-repeat
+              background-size: 14px 14px
         span.excluded
           padding-left: 10px
           background: url(image-path("v2/icon_excluded.png")) 0px 4px no-repeat
@@ -1667,7 +1677,7 @@ ul.tabs
       div.names
         margin-left: 10px
         line-height: 120%
-  table.meta
+  table.data table.meta
     line-height: 90%
     width: 80%
     margin: 0px auto
@@ -1675,8 +1685,18 @@ ul.tabs
     td
       padding: 0px 5px !important
       width: 60%
+      &:hover
+        .info_icon
+          background: url(image-path("v2/icon_info_tabs.png")) 2px 3px no-repeat
+          background-size: 12px 12px
     th
       padding: 0px !important
+      .info_icon
+        float: right
+      &:hover
+        .info_icon
+          background: url(image-path("v2/icon_info_tabs.png")) 2px 3px no-repeat
+          background-size: 12px 12px
     caption
       text-align: center !important
       font-weight: bold

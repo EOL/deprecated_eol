@@ -6,16 +6,18 @@
     %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
       %caption.title= I18n.t(:data_about_this_record)
       - unless metadata.empty?
-        - metadata.each do |d|
+        - metadata.each_with_index do |d, i|
+          - row_id = "#{data_point_uri.anchor}_meta_#{i}"
           %tr
-            = display_uri(d.predicate_uri, :th, define: true)
-            %td= raw display_text_for_data_point_uri(d)
+            %th{id: "#{row_id}_h"}= display_uri(d.predicate_uri, :span, define: true)
+            %td{id: "#{row_id}_d"}= raw display_text_for_data_point_uri(d)
       -# TODO: we need to factor in refereces which use separate fields instead of full_reference
       - unless references.empty?
-        - references.each do |d|
+        - references.each_with_index do |d, i|
+          - row_id = "#{data_point_uri.anchor}_ref_#{i}"
           %tr
-            %th= I18n.t(:reference)
-            %td= raw d[:full_reference].to_s.add_missing_hyperlinks
+            %th{id: "#{row_id}_h"}= I18n.t(:reference)
+            %td{id: "#{row_id}_d"}= raw d[:full_reference].to_s.add_missing_hyperlinks
 
   - if other_measurements = data_point_uri.get_other_occurrence_measurements(current_language)
     %table.meta{ summary: I18n.t(:data_measurement_subtable_summary) }

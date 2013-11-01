@@ -30,6 +30,13 @@ class TaxonDataSet
     @data_point_uris.delete_at(which)
   end
 
+  # NOTE - not provided by Enumerable.
+  def select(&block)
+    @data_point_uris.select do
+      yield
+    end
+  end
+
   def each
     @data_point_uris.each { |data_point_uri| yield(data_point_uri) }
   end

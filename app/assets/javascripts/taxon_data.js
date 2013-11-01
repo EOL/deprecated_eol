@@ -5,7 +5,8 @@ var _TOOLTIP_OPEN = false;
 EOL.max_meta_rows = 10;
 
 EOL.create_info_dialog = function(match) {
-  var nearest = $(match).closest('[id]').attr('id'); // We need to remember which one is open; click again and it closes.
+  var $has_id = $(match).closest('[id]');
+  var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
   $(match)
     .attr('id', "info_"+nearest)
     .before('<a id="tip_'+nearest+'" class="info_icon" data-info="'+nearest+'">&emsp;&emsp;&emsp;&emsp;</a>') // Spaces 'cause width doesn't work. :\
@@ -101,7 +102,8 @@ EOL.toggle_actions_row = function(data_row) {
         url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
         dataType: 'html',
         success: function(response) {
-          $next_row_data.prepend(response).find('.info').each(function() {
+          var $pasted = $next_row_data.prepend(response);
+          $pasted.find('.info').each(function() {
             var html = $(this).find('ul.glossary > li').html();
             var uri = $(this).find('.uri').text();
             EOL.create_info_dialog(this);

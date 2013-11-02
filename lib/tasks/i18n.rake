@@ -13,6 +13,15 @@ namespace :i18n do
     "translated_info_items", "translated_content_pages", "translated_content_page_archives", "translated_languages"]
   db_field_delim = '-' # Double-underscore does not work with TW.
 
+  desc "Load all translations into redis."
+  task :to_redis do
+    Dir.entries(lang_dir).grep(/yml$/).each do |file|
+      translations = YAML.load_file(File.join(lang_dir, file))
+      locale = translations.keys.first # There's only one.
+      puts "  ++ #{locale} -> #{file} (#{translations[locale].keys.count} keys)"
+      I18n.backend.store_translations(locale, translations[locale])
+    end
+  end
 
   desc 'convert old yml language files from Gibberish format to support i18n '
   task :convert_yml do

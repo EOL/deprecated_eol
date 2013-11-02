@@ -35,6 +35,10 @@ group :production do
   gem 'execjs', '1.4.0'
 end
 
+group :test, :development do
+  gem 'guard-rspec', require: false
+end
+
 group :test do
   gem 'webmock', '1.8.11'
   gem 'rspec-html-matchers', '0.3.5'

@@ -15,7 +15,7 @@ namespace :i18n do
   db_field_delim = '-' # Double-underscore does not work with TW.
 
   desc "Load all translations into redis."
-  task :to_redis => :environment do
+  task :to_redis do
     Dir.entries(lang_dir).grep(/yml$/).each do |file|
       translations = YAML.load_file(File.join(lang_dir, file))
       locale = translations.keys.first # There's only one.

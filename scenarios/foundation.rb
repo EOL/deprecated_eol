@@ -43,11 +43,9 @@ end
 
 Activity.create_defaults
 
-# create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
-# them.  create_if_not_exists Once we do, they should get added here.
-ContactRole.gen_if_not_exists(:label => 'Primary Contact')
-ContactRole.gen_if_not_exists(:label => 'Administrative Contact')
-ContactRole.gen_if_not_exists(:label => 'Technical Contact')
+# We don't technically *need* all three of these, but it's nice to have for the menu.  There are more,
+# but we don't currently use them.  Once we do, they should get added here.
+ContactRole.create_defaults
 
 # Cannot create users without special collection:
 SpecialCollection.create_defaults
@@ -85,22 +83,10 @@ lit   = CollectionType.gen_if_not_exists(:label => "Literature")
 CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => links)
 CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => lit)
 
-AgentRole.gen_if_not_exists(:label => 'Author')
-AgentRole.gen_if_not_exists(:label => 'Photographer')
-AgentRole.gen_if_not_exists(:label => 'Contributor')
-AgentRole.gen_if_not_exists(:label => 'Source')
-AgentRole.gen_if_not_exists(:label => 'Source Database')
-
-ContentPartnerStatus.gen_if_not_exists(:label => 'Active')
-ContentPartnerStatus.gen_if_not_exists(:label => 'Archived')
-ContentPartnerStatus.gen_if_not_exists(:label => 'Pending')
-
-Audience.gen_if_not_exists(:label => 'Children')
-Audience.gen_if_not_exists(:label => 'Expert users')
-Audience.gen_if_not_exists(:label => 'General public')
-
+AgentRole.create_defaults
+ContentPartnerStatus.create_defaults
+Audience.create_defaults
 DataType.create_defaults
-
 LinkType.create_defaults
 
 default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
@@ -127,30 +113,14 @@ sci_name.update_attributes(:activated_on => nil)
 unknown.update_attributes(:activated_on => nil)
 
 License.create_defaults
-
-MimeType.gen_if_not_exists(:label => 'image/jpeg')
-MimeType.gen_if_not_exists(:label => 'audio/mpeg')
-MimeType.gen_if_not_exists(:label => 'text/html')
-MimeType.gen_if_not_exists(:label => 'text/plain')
-MimeType.gen_if_not_exists(:label => 'video/x-flv')
-MimeType.gen_if_not_exists(:label => 'video/quicktime')
-MimeType.gen_if_not_exists(:label => 'audio/mpeg')
-MimeType.gen_if_not_exists(:label => 'audio/x-wav')
-
-
-# create_if_not_exists These don't exist yet, but will in the future:
-# create_if_not_exists NormalizedQualifier :label => 'Name'
-# create_if_not_exists NormalizedQualifier :label => 'Author'
-# create_if_not_exists NormalizedQualifier :label => 'Year'
+MimeType.create_defaults
+ChangeableObjectType.create_defaults
+RefIdentifierType.create_defaults
+ResourceStatus.create_defaults
 
 %w{kingdom phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
   Rank.gen_if_not_exists(:label => rank)
 end
-
-ChangeableObjectType.create_defaults
-
-RefIdentifierType.gen_if_not_exists(:label => 'url')
-RefIdentifierType.gen_if_not_exists(:label => 'doi')
 
 iucn_hierarchy = Hierarchy.gen_if_not_exists(:label => 'IUCN')
 iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter, :acesspoint_url => "http://eol.org/api/ping.xml")
@@ -229,46 +199,15 @@ InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_con
 
 ServiceType.gen_if_not_exists(:label => 'EOL Transfer Schema')
 
-Status.gen_if_not_exists(:label => 'Inserted')
-Status.gen_if_not_exists(:label => 'Unchanged')
-Status.gen_if_not_exists(:label => 'Updated')
-
-UntrustReason.gen_if_not_exists(:label => 'misidentified', :class_name => 'misidentified')
-UntrustReason.gen_if_not_exists(:label => 'incorrect/misleading', :class_name => 'incorrect')
-UntrustReason.gen_if_not_exists(:label => 'low quality', :class_name => 'poor')
-UntrustReason.gen_if_not_exists(:label => 'duplicate', :class_name => 'duplicate')
-
+Status.create_defaults
+UntrustReason.create_defaults
 Vetted.create_defaults
-
-SynonymRelation.gen_if_not_exists(:label => "synonym")
-SynonymRelation.gen_if_not_exists(:label => "common name")
-SynonymRelation.gen_if_not_exists(:label => "genbank common name")
-
+SynonymRelation.create_defaults
 Visibility.create_defaults
-
 UriType.create_defaults
 ContentTable.create_details
 NotificationFrequency.create_defaults
 Permission.create_defaults
-
-def create_known_uri(params)
-  old_instance = KnownUri.find_by_uri(params[:uri])
-  instance = if old_instance
-    old_instance.update_attributes(uri_type_id: params[:uri_type_id],
-                                   vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
-    old_instance
-  else
-    KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id],
-      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
-  end
-  begin
-    TranslatedKnownUri.create(known_uri: instance, name: params[:name], language: Language.english)
-  rescue ActiveRecord::RecordNotUnique => e
-    # Don't care; it's already there.
-  end
-  instance
-end
-
 KnownUri.create_defaults
 KnownUriRelationship.create_defaults
 
@@ -277,7 +216,8 @@ KnownUriRelationship.create_defaults
 RandomHierarchyImage.delete_all
 d = DataObject.gen
 he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
-DataObjectsHierarchyEntry.gen(:data_object => d, :hierarchy_entry => he, :vetted => Vetted.trusted, :visibility => Visibility.visible)
+DataObjectsHierarchyEntry.gen(:data_object => d, :hierarchy_entry => he, :vetted => Vetted.trusted,
+                              :visibility => Visibility.visible)
 5.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy, :hierarchy_entry => he, :data_object => d) }
 
 Rails.cache.clear # TODO - attempt removal; if tests still pass, leave it out. I think this is redundant.

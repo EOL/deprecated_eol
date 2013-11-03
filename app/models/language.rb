@@ -8,9 +8,6 @@ class Language < ActiveRecord::Base
   has_many :users
   has_many :taxon_concept_names
 
-  #WAIT: has_many :translated_languages, foreign_key: 'original_language_id'
-  #WAIT: cache_has_many :translated_languages, embed: true
-
   attr_accessible :iso_639_1, :iso_639_2, :iso_639_3, :source_form, :sort_order, :activated_on, :language_group_id
 
   def to_s

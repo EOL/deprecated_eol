@@ -4,26 +4,18 @@
 # displayed to the user.  The class name is used not only for lookup, but also for... uhhh... class names in CSS, as
 # well as the IDs on some HTML elements.
 class UntrustReason < ActiveRecord::Base
+
   uses_translations
   has_and_belongs_to_many :curator_activity_logs, :join_table => CuratorActivityLogsUntrustReason.full_table_name
 
-  def self.misidentified
-    cached_find(:class_name, 'misidentified')
-  end
+  include NamedDefaults
+  set_defaults :label, [
+    {label: 'misidentified', class_name: :misidentified},
+    {label: 'incorrect/misleading', class_name: :incorrect, method_name: :incorrect},
+    {label: 'low quality', class_name: :poor, method_name: :poor},
+    {label: 'duplicate', class_name: :duplicate},
+    {label: 'other', class_name: :other}
+  ],
+    check_exists_by: :class_name
 
-  def self.incorrect
-    cached_find(:class_name, 'incorrect')
-  end
-
-  def self.poor
-    cached_find(:class_name, 'poor')
-  end
-
-  def self.duplicate
-    cached_find(:class_name, 'duplicate')
-  end
-
-  def self.other
-    cached_find(:class_name, 'other')
-  end
 end

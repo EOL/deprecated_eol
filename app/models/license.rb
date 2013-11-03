@@ -62,8 +62,7 @@ class License < ActiveRecord::Base
        logo_url: '',
        show_to_content_partners: 0}],
     check_exists_by: :title,
-    default_params: {show_to_content_partners: 1, version: 1},
-    translated: true
+    default_params: {show_to_content_partners: 1, version: 1}
 
   class << self
     alias default public_domain

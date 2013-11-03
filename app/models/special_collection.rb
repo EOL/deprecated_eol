@@ -2,17 +2,9 @@ class SpecialCollection < ActiveRecord::Base
 
   has_many :lists
 
-  def self.create_defaults
-    self.create(:name => 'Focus')
-    self.create(:name => 'Watch')
-  end
+  include EnumDefaults
 
-  def self.focus # This is a community's focus collection
-    @@focus ||= cached_find(:name, 'Focus')
-  end
-
-  def self.watch
-    @@watch ||= cached_find(:name, 'Watch')
-  end
+  set_defaults :name,
+    %w{Focus Watch}
 
 end

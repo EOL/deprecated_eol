@@ -57,18 +57,18 @@ class KnownUri < ActiveRecord::Base
   include EnumDefaults
 
   set_defaults :uri,
-    { milligrams:  Rails.configuration.uri_obo + 'UO_0000022',
-      grams:       Rails.configuration.uri_obo + 'UO_0000021',
-      kilograms:   Rails.configuration.uri_obo + 'UO_0000009',
-      millimeters: Rails.configuration.uri_obo + 'UO_0000016',
-      centimeters: Rails.configuration.uri_obo + 'UO_0000081',
-      meters:      Rails.configuration.uri_obo + 'UO_0000008',
-      kelvin:      Rails.configuration.uri_obo + 'UO_0000012',
-      celsius:     Rails.configuration.uri_obo + 'UO_0000027',
-      days:        Rails.configuration.uri_obo + 'UO_0000033',
-      years:       Rails.configuration.uri_obo + 'UO_0000036',
-      '0.1°C' =>   Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius',
-      'log10 grams' => Rails.configuration.schema_terms_prefix + 'log10gram' }
+    [{method_name: :milligrams,  uri: Rails.configuration.uri_obo + 'UO_0000022'},
+     {method_name: :grams,       uri: Rails.configuration.uri_obo + 'UO_0000021'},
+     {method_name: :kilograms,   uri: Rails.configuration.uri_obo + 'UO_0000009'},
+     {method_name: :millimeters, uri: Rails.configuration.uri_obo + 'UO_0000016'},
+     {method_name: :centimeters, uri: Rails.configuration.uri_obo + 'UO_0000081'},
+     {method_name: :meters,      uri: Rails.configuration.uri_obo + 'UO_0000008'},
+     {method_name: :kelvin,      uri: Rails.configuration.uri_obo + 'UO_0000012'},
+     {method_name: :celsius,     uri: Rails.configuration.uri_obo + 'UO_0000027'},
+     {method_name: :days,        uri: Rails.configuration.uri_obo + 'UO_0000033'},
+     {method_name: :years,       uri: Rails.configuration.uri_obo + 'UO_0000036'},
+     {method_name: :tenth_C,     uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius'},
+     {method_name: :log10_grams, uri: Rails.configuration.schema_terms_prefix + 'log10gram'}]
 
   def self.unit_of_measure
     cached('unit_of_measure') do

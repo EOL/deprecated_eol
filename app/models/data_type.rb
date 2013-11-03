@@ -16,8 +16,8 @@ class DataType < ActiveRecord::Base
      {label: 'Flash',   schema_value: 'Flash'},
      {label: 'YouTube', schema_value: 'YouTube', method_name: :youtube},
      {label: 'Map',     schema_value: 'Map'},
-     {label: 'Link',    schema_value: 'Link'}],
-    translated: true
+     {label: 'Link',    schema_value: 'Link'}]
+    
 
   def to_s
     label

@@ -11,7 +11,6 @@ class Vetted < ActiveRecord::Base
 
   set_defaults :label,
     %w(Trusted Unknown Untrusted Inappropriate),
-    translated: true,
     autoinc_field: 'view_order' # Creates this field IN ORDER OF DEFAULTS...
 
   def self.trusted_ids

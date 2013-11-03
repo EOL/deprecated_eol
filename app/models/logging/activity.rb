@@ -21,8 +21,7 @@ class Activity < LazyLoggingModel
        preferred_classification curate_classifications split_classifications merge_classifications trust_common_name
        untrust_common_name inappropriate_common_name unreview_common_name unlock unlock_with_error crop add_editor
        bulk_add create collect remove remove_all create delete join leave add_collection change_description
-       change_name change_icon add_manager set_exemplar_data unhide),
-    translated: true
+       change_name change_icon add_manager set_exemplar_data unhide)
 
   def self.synonym_activity_ids
     @@synonym_activity_ids ||= cached("synonym_activity_ids") do

@@ -36,6 +36,7 @@ group :production do
 end
 
 group :test, :development do
+  gem 'terminal-notifier-guard'
   gem 'guard-rspec', require: false
 end
 

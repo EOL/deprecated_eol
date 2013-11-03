@@ -1,3 +1,31 @@
+# Creates a set of named and numbered defaults for a ActiveRecord::Base class, which is aware of translations, if any.
+# 
+# This provides three conveniences:
+#   • a (well-cached) set of methods to call each of these named defaults, and
+#   • a #create_defaults method which will (safely) ensure everything it expects to find is actually in the DB.
+#   • a #default_values method which allows you to get the full list of known defaults.
+#
+# To use, include NamedDefaults in your class, then call the class method #set_defaults, which takes two arguments:
+#   • the attribute which is "named and numbered", and
+#   • a list of defaults.
+#
+# The list of defaults passed to #set_defaults can either be ai simple array or an array of hashes.
+# If the array is simple, the values are understood to be populating the named attribute.
+# If the array is a hash, each hash is resembles the parameters passed to a #create method, with one additional (optional) key
+# called :method_name. :method_name is used to supply a unique name for the "named" method, if it's different from the value
+# of the "named and numbered attribute." For example, you might have an attribute of "label" and you may want the label to be
+# "an author", but you would like the method name to be :author, so you would use a hash of {label: 'an Author', method_name:
+# :author}.
+#
+# Options that can be passed to #set_defaults:
+#
+#   autoinc_field - this will "number" the defaults (ie: to make them sortable) by populating the specified field with an
+#                   incrementing integer. The first default will be '1', the second '2', and so on.
+#   check_exists_by - occasionally your "named and numbered" field isn't necessarily unique. Use this argument to tell
+#                     #set_defaults which attribute *is* unique. (Note that this attribute must then be specified for each
+#                     hash in the defaults array.)
+#   default_params - a hash of parameters which wll be passed to the created objects by default.
+#   default_translated_params - a hash of parameters which wll be passed to the created *translated* objects by default.
 module NamedDefaults
 
   def self.included(base)
@@ -22,7 +50,7 @@ module NamedDefaults
       add_create_defaults_method
     end
 
-    # Allows us to detect when a class uses enum_defaults (handy for specs):
+    # Allows us to detect when a class uses NamedDefaults (handy for specs):
     def is_enum?
       true
     end

@@ -54,21 +54,31 @@ class KnownUri < ActiveRecord::Base
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
 
-  include EnumDefaults
+  include NamedDefaults
 
-  set_defaults :uri,
-    [{method_name: :milligrams,  uri: Rails.configuration.uri_obo + 'UO_0000022'},
-     {method_name: :grams,       uri: Rails.configuration.uri_obo + 'UO_0000021'},
-     {method_name: :kilograms,   uri: Rails.configuration.uri_obo + 'UO_0000009'},
-     {method_name: :millimeters, uri: Rails.configuration.uri_obo + 'UO_0000016'},
-     {method_name: :centimeters, uri: Rails.configuration.uri_obo + 'UO_0000081'},
-     {method_name: :meters,      uri: Rails.configuration.uri_obo + 'UO_0000008'},
-     {method_name: :kelvin,      uri: Rails.configuration.uri_obo + 'UO_0000012'},
-     {method_name: :celsius,     uri: Rails.configuration.uri_obo + 'UO_0000027'},
-     {method_name: :days,        uri: Rails.configuration.uri_obo + 'UO_0000033'},
-     {method_name: :years,       uri: Rails.configuration.uri_obo + 'UO_0000036'},
-     {method_name: :tenth_C,     uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius'},
-     {method_name: :log10_grams, uri: Rails.configuration.schema_terms_prefix + 'log10gram'}]
+  set_defaults :name,
+    [{name: 'Unit of Measure', uri: Rails.configuration.uri_measurement_unit, uri_type: UriType.metadata},
+      # TODO - really, sex, male, and female are just for testing and should be in a scenario, not here.
+     {name: 'Sex',        uri: Rails.configuration.uri_dwc + 'sex', uri_type: UriType.metadata}, # TODO - why... metadata?!?
+     {name: :male,        uri: Rails.configuration.uri_term_prefix + 'male'},
+     {name: :female,      uri: Rails.configuration.uri_term_prefix + 'female'},
+     {name: 'Source',     uri: Rails.configuration.uri_dc + 'source', uri_type: UriType.metadata},
+     {name: 'License',    uri: Rails.configuration.uri_dc + 'license', uri_type: UriType.metadata},
+     {name: 'Reference',  uri: Rails.configuration.uri_dc + 'bibliographicCitation', uri_type: UriType.metadata},
+     {name: :milligrams,  uri: Rails.configuration.uri_obo + 'UO_0000022'},
+     {name: :grams,       uri: Rails.configuration.uri_obo + 'UO_0000021'},
+     {name: :kilograms,   uri: Rails.configuration.uri_obo + 'UO_0000009'},
+     {name: :millimeters, uri: Rails.configuration.uri_obo + 'UO_0000016'},
+     {name: :centimeters, uri: Rails.configuration.uri_obo + 'UO_0000081'},
+     {name: :meters,      uri: Rails.configuration.uri_obo + 'UO_0000008'},
+     {name: :kelvin,      uri: Rails.configuration.uri_obo + 'UO_0000012'},
+     {name: 'degrees Celsius', uri: Rails.configuration.uri_obo + 'UO_0000027', method_name: :celsius},
+     {name: :days,        uri: Rails.configuration.uri_obo + 'UO_0000033'},
+     {name: :years,       uri: Rails.configuration.uri_obo + 'UO_0000036'},
+     {name: '0.1°C',      uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius', method_name: :tenth_C},
+     {name: 'log10 grams',uri: Rails.configuration.schema_terms_prefix + 'log10gram', method_name: :log10_grams}],
+    check_exists_by: :uri,
+    default_values: {uri_type: UriType.value}
 
   def self.unit_of_measure
     cached('unit_of_measure') do
@@ -82,10 +92,6 @@ class KnownUri < ActiveRecord::Base
       trans = TranslatedKnownUri.create(options.merge(known_uri: uri))
     end
     uri
-  end
-
-  def self.license
-    cached_find_translated(:name, 'License')
   end
 
   def self.custom(name, language)

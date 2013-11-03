@@ -2,7 +2,7 @@ class NotificationFrequency < ActiveRecord::Base
 
   attr_accessible :frequency
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :frequency,
     [{frequency: 'never'},

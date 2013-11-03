@@ -10,7 +10,7 @@ class Activity < LazyLoggingModel
   has_many :curator_activity_logs
   has_many :translated_activities
 
-  include EnumDefaults
+  include NamedDefaults
 
   # NOTE - These are only activities THAT GET LOGGED.  ...for now.
   # TODO - many of these are not used yet.  Add them to the code in the appropriate place

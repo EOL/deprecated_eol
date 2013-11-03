@@ -2,7 +2,7 @@ class ViewStyle < ActiveRecord::Base
   uses_translations
   has_many :collections
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :name,
     ['List', 'Gallery', 'Annotated']

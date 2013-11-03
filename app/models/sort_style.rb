@@ -3,7 +3,7 @@ class SortStyle < ActiveRecord::Base
   uses_translations
   has_many :collections
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :name,
     [{name: 'Recently Added', method_name: :newest},

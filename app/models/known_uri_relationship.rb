@@ -30,6 +30,28 @@ class KnownUriRelationship < ActiveRecord::Base
       :known_uri_label_allowed_unit => KnownUriRelationship::ALLOWED_UNIT_URI,
       :known_uri_label_unit => KnownUriRelationship::MEASUREMENT_URI }
 
+  def self.create_defaults
+    { KnownUri.unit_of_measure =>
+      [ KnownUri.milligrams,
+        KnownUri.grams,
+        KnownUri.kilograms,
+        KnownUri.millimeters,
+        KnownUri.centimeters,
+        KnownUri.meters,
+        KnownUri.kelvin,
+        KnownUri.celsius,
+        KnownUri.days,
+        KnownUri.years,
+        KnownUri.tenth_C,
+        KnownUri.log10_grams],
+      KnownUri.sex => [ KnownUri.male, KnownUri.female ] # TODO - REALLY, this shouldn't be a default, but in a scenario.
+    }.each do |parent, values|
+      values.each do |value|
+        KnownUriRelationship.create(from_known_uri: parent, to_known_uri: value, relationship_uri: ALLOWED_VALUE_URI)
+      end
+    end
+  end
+
   def self.relationship_types
     @relationship_types
   end

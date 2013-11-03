@@ -4,7 +4,7 @@ class DataType < ActiveRecord::Base
   has_many :data_objects
   @@full_attribution_order = nil
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :label,
     [{label: 'Image',   schema_value: 'http://purl.org/dc/dcmitype/StillImage'},

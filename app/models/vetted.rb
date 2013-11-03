@@ -7,7 +7,7 @@ class Vetted < ActiveRecord::Base
   has_many :curated_data_objects_hierarchy_entries
   has_many :users_data_objects
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :label,
     %w(Trusted Unknown Untrusted Inappropriate),

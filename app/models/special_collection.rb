@@ -2,7 +2,7 @@ class SpecialCollection < ActiveRecord::Base
 
   has_many :lists
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :name,
     %w{Focus Watch}

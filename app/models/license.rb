@@ -12,7 +12,7 @@ class License < ActiveRecord::Base
 
   attr_accessible :title, :source_url, :version, :logo_url, :show_to_content_partners
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :description,
     [ {title: 'public domain',

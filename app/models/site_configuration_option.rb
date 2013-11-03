@@ -9,7 +9,7 @@ class SiteConfigurationOption < ActiveRecord::Base
   # How often you want these values to be re-checked. Shorter times mean quicker changes, but more time reading the DB instead of cache.
   REFRESH_TIME = 10.minutes
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :parameter,
     [ { parameter: :email_actions_to_curators },

@@ -5,7 +5,7 @@ class ChangeableObjectType < ActiveRecord::Base
   validates_presence_of   :ch_object_type
   validates_uniqueness_of :ch_object_type
 
-  include EnumDefaults
+  include NamedDefaults
 
   set_defaults :ch_object_type,
     %w(comment data_object synonym taxon_concept_name tag users_data_object hierarchy_entry

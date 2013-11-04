@@ -2,8 +2,6 @@
   #content
     #known_uris.site_column.glossary
       = render 'shared/beta_warning'
-      - @known_uris = KnownUri.all
-      - @known_uris.delete_if{ |ku| ku.name.blank? }
       - a_to_z = ('A'..'Z').to_a
       - a_to_zero = a_to_z + [ '0' ]
       %h3
@@ -14,5 +12,5 @@
           %h3= letter == '0' ? '#' : letter
         %ul.glossary
           - uris_for_this_chapter = @known_uris.select{ |ku| letter == '0' ? ( ! a_to_z.include?(ku.name.firstcap[0])) : ku.name.firstcap[0] == letter }
-          - uris_for_this_chapter.sort_by { |ku| ku.name }.each do |ku|
+          - uris_for_this_chapter.sort_by { |ku| ku.name.downcase }.each do |ku|
             = render(partial: 'known_uris/definition', locals: { known_uri: ku, top_link: true, attribution: true, search_link: true })

@@ -293,7 +293,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    session[:user_id]
+    session[:user_id] && current_user.active? # NOTE - the active check is to stop spammers from continuing to comment. Sigh.
   end
 
   def check_authentication

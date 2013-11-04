@@ -206,7 +206,6 @@ class User < ActiveRecord::Base
   end
 
   def self.cached(id)
-    # TODO: removing the cache for Rails 3 because it was causing problems
     User.fetch(id)
   end
 

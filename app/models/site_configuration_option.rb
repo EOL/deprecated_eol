@@ -5,10 +5,10 @@
 # No, really. Don't. ...unless you know what you're doing. There are, in fact, cases where you want to modify these models
 # directly, or query the table directly. But chances are good you're looking at this model simply because you want a
 # configuration value. Those should be retrieved via EOL::Config.  It's a shorter name, will cache its values (for
-# REFRESH_TIME), and will return intelligent values from defaults. ...Or it will return a MethodMissing if there's nothing in
-# the table, so you should use a "rescue [defaultvalue]" after you call it.  Like this:
+# REFRESH_TIME), and will return intelligent values from defaults. ...Or it will return nil if there's nothing in
+# the table, so you should use an "|| [defaultvalue]" after you call it (unless you're testing true/false).  Like this:
 #
-#   my_important_val = EOL::Config.whatever_the_parameter_is_named rescue :default_value
+#   my_important_val = EOL::Config.whatever_the_parameter_is_named || :default_value
 #
 # ...In case you really do want the direct value from the DB, you can still call
 # SiteConfigurationOption.whatever_the_parameter_is_named, but it's your gun and your foot for parsing the value. That's all.

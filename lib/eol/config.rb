@@ -5,6 +5,8 @@ module EOL
       Rails.cache.delete(cached_name_for('global_site_warning_clean'))
     end
 
+    # NOTE - because this never calls #super, strange things can happen. However, this class is ONLY used for fetching configs
+    # (and clearing them), so I'm not worried about this. ...just be aware and stay vigilant.
     def self.method_missing(name, *args, &block)
       # The regex here keeps us from going into a wild loop, because cached_find called find_by_[param], which is found
       # via method_missing in the rails code!
@@ -21,7 +23,7 @@ module EOL
         end
         send(name)
       else
-        super
+        return nil
       end
     end
   end

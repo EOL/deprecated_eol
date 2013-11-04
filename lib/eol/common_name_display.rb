@@ -69,6 +69,7 @@ module EOL
       @language           = tcn.language
       @language           = Language.unknown if @language.blank? || Language.all_unknowns.include?(@language)
       @language_label     = @language.label rescue 'Unknown'
+      @language_label   ||= @language.source_form # There's no TranslatedLanguage. ...which is bad, but... let's account for it.
       @synonyms           = [ tcn.synonym ]
       @preferred          = tcn.preferred?
       @vetted             = tcn.vetted

@@ -5,7 +5,7 @@
 
 require 'factory_girl_rails'
 require 'faker'
-require File.dirname(__FILE__) + '/eol_factory_girl'
+require Rails.root.join('spec', 'eol_factory_girl')
 
 #### Faker extensions
 

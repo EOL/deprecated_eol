@@ -1,3 +1,17 @@
+# NOTE - * IMPORTANT *
+#
+# Don't use this class.
+#
+# No, really. Don't. ...unless you know what you're doing. There are, in fact, cases where you want to modify these models
+# directly, or query the table directly. But chances are good you're looking at this model simply because you want a
+# configuration value. Those should be retrieved via EOL::Config.  It's a shorter name, will cache its values (for
+# REFRESH_TIME), and will return intelligent values from defaults. ...Or it will return a MethodMissing if there's nothing in
+# the table, so you should use a "rescue [defaultvalue]" after you call it.  Like this:
+#
+#   my_important_val = EOL::Config.whatever_the_parameter_is_named rescue :default_value
+#
+# ...In case you really do want the direct value from the DB, you can still call
+# SiteConfigurationOption.whatever_the_parameter_is_named, but it's your gun and your foot for parsing the value. That's all.
 class SiteConfigurationOption < ActiveRecord::Base
 
   after_create :clear_caches
@@ -41,30 +55,6 @@ class SiteConfigurationOption < ActiveRecord::Base
         Rails.cache.write(cache_name, EMPTY_WARNING, expires_in: REFRESH_TIME)
         return nil
       end
-    end
-  end
-
-  def self.clear_global_site_warning
-    SiteConfigurationOption.delete_all(parameter: 'global_site_warning')
-    Rails.cache.delete(cached_name_for('global_site_warning_clean'))
-  end
-
-  def self.method_missing(name, *args, &block)
-    # The regex here keeps us from going into a wild loop, because cached_find called find_by_[param], which is found
-    # via method_missing in the rails code!
-    if name !~ /^find/ && SiteConfigurationOption.exists?(:parameter => name)
-      eigenclass = class << self; self; end
-      eigenclass.class_eval do
-        define_method(name) do # Keeps us from using method_missing next time...
-          param = cached_find(:parameter, name, expires_in: REFRESH_TIME)
-          return false if param.value == 'false'
-          return nil if param.value == ''
-          param.value
-        end
-      end
-      send(name)
-    else
-      super
     end
   end
 

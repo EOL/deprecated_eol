@@ -53,9 +53,9 @@ class KnownUri < ActiveRecord::Base
   scope :values, -> { where(uri_type_id: UriType.value.id) }
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
+  scope :visible, -> { where(visibility_id: Visibility.visible.id) }
 
   include NamedDefaults
-
   set_defaults :name,
     [{name: 'Unit of Measure', uri: Rails.configuration.uri_measurement_unit, uri_type: UriType.metadata},
       # TODO - really, sex, male, and female are just for testing and should be in a scenario, not here.
@@ -79,6 +79,13 @@ class KnownUri < ActiveRecord::Base
      {name: 'log10 grams',uri: Rails.configuration.schema_terms_prefix + 'log10gram', method_name: :log10_grams}],
     check_exists_by: :uri,
     default_values: {uri_type: UriType.value}
+
+  # TODO - this is only used in DataPointUri#apply_unit_conversion ... and probably doesn't need to be. Refactor.
+  def self.convert_unit_name_to_class_variable_name(unit_name)
+    return unit_name if unit_name.is_a?(Symbol)
+    converted = unit_name.tr('.° ', '_')
+    converted.sub(/^([0-9])/, "_\\1")
+  end
 
   def self.unit_of_measure
     cached('unit_of_measure') do

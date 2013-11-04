@@ -250,6 +250,11 @@ de:
         auto_publish: Automatisch veröffentlichen
         bibliographic_citation: Bibliographische Zitierung
         dataset: Dataset-Datei
+        dataset_hosted_url: Quellendatensatz (lokale Kopie)
+        dataset_license_id: Lizenz
+        dataset_rights_holder: Rechteinhaber
+        dataset_rights_statement: Urheberrechtserklärung
+        dataset_source_url: Originaldatenquelle
         description: Quellenbeschreibung
         dwc_archive_url: URL des Darwin Core Archive
         harvest_events: Datenabrufe
@@ -1832,8 +1837,8 @@ de:
   data_about_subtab_header: Über Daten auf EOL
   data_about_this_record: Daten über diese Aufzeichnung
   data_beta_search_limit: 
-    one: Die Datensuche ist <i>vorübergehend</i> auf ein Ergebnis beschränkt.
-    other: Die Datensuche ist <i>vorübergehend</i> auf %{count} Ergebnisse beschränkt.
+    one: Die Datensuchdownloads sind <i>vorübergehend</i> auf ein Ergebnis beschränkt.
+    other: Die Datensuchdownloads sind <i>vorübergehend</i> auf %{count} Ergebnisse beschränkt.
   data_column_common_name: Gebräuchlicher Name
   data_column_name: Messungsbezeichnung
   data_column_name_uri: Messungs-URI
@@ -1900,6 +1905,7 @@ de:
     one: Ein Auftrag wartet noch auf die Verarbeitung (es kann Ihrer sein oder nicht).
     other: "%{count} Aufträge warten noch auf die Verarbeitung (es können Ihre sein oder nicht)."
     zero: Es gibt keine ausstehenden Aufträge. Falls Ihr Auftrag nicht vollständig ist, ist etwas schief gelaufen. Bitte erneut versuchen.
+  data_search_refine_field_label: Datensuche verfeinern
   data_server_unavailable: Die Daten auf EOL sind vorübergehend nicht verfügbar. Bitte später erneut versuchen. Wir bitten um Verständnis für diese Unannehmlichkeit.
   data_show_n_more_rows: NNN weitere anzeigen …
   data_subtab_about: Über
@@ -2860,6 +2866,7 @@ de:
   leave_community_button: Diese Gemeinschaft verlassen
   leave_reply: Eine Antwort hinterlassen
   left_content_area: Linker Inhaltsbereich
+  legend: "Legende:"
   license: Lizenz
   license_all_rights_reserved: Alle Rechte vorbehalten
   license_cc_by: Creative Commons „Namensnennung“ (CC BY)
@@ -3486,6 +3493,9 @@ de:
   reset_password_instructions_sent_to_user_notice: Eine Anleitung zum Zurücksetzen des Passwort für das Nutzerkonto <em>%{username}</em> wurde an die dort hinterlegte E-Mail-Adresse gesandt.
   reset_password_token_expired_error: Das Passwort wurde leider nicht zurückgesetzt. Die Gültigkeit des zugesandten Links ist leider abgelaufen. Bitte füllen Sie das Formular zum Zurücksetzen eines Passworts erneut aus, um einen neuen Link zu erhalten.
   resource: Quelle
+  resource_hint_dataset_rights: (gilt für den Datensatz <i>als Ganzes</i>; nicht in allen Rechtssystemen anwendbar)
+  resource_hint_dataset_source_url: (URL der Originaldatensatzquelle, wie ein Papier oder eine Studie)
+  resource_hint_default_rights: (gilt standardmäßig für Objekte <i>im</i> Datensatz)
   resources: Quellen
   response: Antwort
   response_formats: Antwortformate

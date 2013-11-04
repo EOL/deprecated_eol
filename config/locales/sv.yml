@@ -136,7 +136,7 @@ sv:
         pages_with_BHL_links_no_text: Sidor med BHL-länkar men ingen text
         pages_with_BHL_links_only: Sidor med bara BHL-länkar
         pages_with_at_least_a_curatorial_action: Sidor med kuratorhandlingar
-        pages_with_at_least_a_trusted_object: Sidor med betrodda objekt
+        pages_with_at_least_a_trusted_object: Sidor med pålitliga objekt
         pages_with_content: Sidor med innehåll
         pages_with_image: Sidor med bild
         pages_with_image_no_text: Sidor med bild, men ingen text
@@ -154,6 +154,7 @@ sv:
         published_unreviewed_resources: Publicerade ogranskade resurser
         redhotlist_pages: Röda populära sidor
         rich_hotlist_pages: Innehållsrika populära sidor
+        rich_hotlist_pages_percentage: Innehållsrika populära sidor i %
         rich_pages: Innehållsrika sidor
         rich_redhotlist_pages: Innehållsrika röda populära sidor
         total_association_types: Associationstyper
@@ -162,6 +163,7 @@ sv:
         total_measurements: Mätningar
         total_occurrences: Förekomster
         total_taxa_with_data: Sidor med data
+        total_user_added_data: Data tillagd av användare
         udo_published: Användarinlämnad text
         udo_published_by_curators: Kuratorinlämnad text
         udo_published_by_non_curators: Icke-kuratorinlämnad text
@@ -194,6 +196,11 @@ sv:
         toc_items: Kategorier
         uri: URI
         uri_type: URI-typ
+      known_uri_relationship: 
+        from_known_uri_id: Ämnes-URI
+        relationship_uri: Relations-URI
+        to_known_uri: Mål-URI
+        to_known_uri_id: Mål-URI
       name: 
         string: Namn
       news_item: 
@@ -233,6 +240,10 @@ sv:
         auto_publish: Auto-publicera
         bibliographic_citation: Bibliografiskt citat
         dataset: Datamängdsfil
+        dataset_license_id: Licens
+        dataset_rights_holder: Rättighetsinnehavare
+        dataset_rights_statement: Rättighetsuttalande
+        dataset_source_url: Ursprunglig datakälla
         description: Resursbeskrivning
         dwc_archive_url: Darwin Core Archive-adress
         hierarchy: Hierarki
@@ -336,7 +347,10 @@ sv:
               must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
         known_uri_relationship: 
           attributes: 
+            relationship_uri: 
+              only_one_measurement: tillåts inte - det kan bara finnas en mätningsenhet
             to_known_uri_id: 
+              must_be_different: måste vara annorlunda än ämnes-URI
               must_be_known_uri: måste vara en känd URI
               must_be_measurement: måste vara ett enhetsmått
         open_authentications: 
@@ -896,6 +910,7 @@ sv:
   add_a_new_topic_area: Lägg till ett nytt ämnesområde
   add_a_new_user: Lägg till ett nytt användare
   add_a_taxon_association_label: Lägg till en taxonassociation
+  add_another_metadata_field: Lägg till nytt metadatafält
   add_article_instead: lägg till en artikel i stället
   add_article_to_page_button: Lägg till en artikel
   add_association_submit_button: lägg till association
@@ -911,6 +926,7 @@ sv:
   add_link_instead: lägg till en länk i stället
   add_link_to_page_button: Lägg till en länk
   add_new_association_link: Lägg till ny association
+  add_new_known_uri_link: Lägg till en ny URI
   add_new_tag_suggestion: Lägg till nytt taggförslag
   add_page: Lägg till sida
   add_sub_chapter: Lägg till underkaptiel
@@ -1228,6 +1244,7 @@ sv:
   classifications_hierarchy_column_header: Klassificering
   classifications_merge_additional_confirm_required: För att slå samman dessa klassificeringar krävs ytterligare bekräftelse.
   classifications_merge_providers_match_confirm: Jag bekräftar att jag vill åsidosätta denna innehållspartners påstående att dessa data bör vara separata.
+  classifications_merge_providers_match_warning: Du håller på att slå ihop två sidor som %{provider} har hävdat att dessa data ska vara separata. Var god bekräfta att du vill <i>åsidosätta</i> deras påstående och lägga dessa data på samma sida.
   classifications_preferred_column_header: Föredragen
   classifications_rank_column_header: Rankning
   classifications_recognized_by_column_header: Känns igen av
@@ -1720,7 +1737,7 @@ sv:
   data_about_subtab_header: Om data på EOL
   data_about_this_record: Data om denna post
   data_column_common_name: Vanligt namn
-  data_column_name: Mätning
+  data_column_name: Mätningsetikett
   data_column_sci_name: Vetenskapligt namn
   data_column_source: Källa
   data_column_tc_id: EOL sid-ID
@@ -2163,6 +2180,7 @@ sv:
   gbif_occurrence_learn_more_link: Kom åt dessa data genom GBIF-portalen.
   get_more_tasks: hämta fler uppgifter
   given_name_colon: "Förnamn:"
+  gives_access_to_a_single_hierarchy_indexed_by_eol: ger tillgång till en enda hierarki som indexeras av EOL och dess interna relationer
   global_access_tagline: Global tillgång till kunskap om livet på jorden.
   global_navigation: Global navigation
   glossary_is_empty: (ordlistan är tom)
@@ -2526,12 +2544,18 @@ sv:
   json_response: JSON-svar
   just_pages_with_pictures_and_text: Bara sidor med bilder och text
   key: Nyckel
+  known_uri_relationships: 
+    create_failed: Tyvärr, ett fel uppstod. Relationen kunde inte läggas till.
+    created: Relationen skapades
+    deleted: Relationen raderades
   known_uris: 
+    add_a_relationship: Lägg till en relation
     import_successful: Ontologitermer importerades
     more_than_one_field_mapped_to_type: Mer än ett attribut är mappat till "%{type}"
     no_results: Det finns inga resultat för den valda statistiken
     please_select_field_types: Var god välj en mappning för varje attribut
     please_select_from_the_menu: Var god välj från menyn ovan
+    relationships: Relationer
     select_a_category_to_view_stats: "Välj en kategori att visa statistik för:"
   label: Etikett
   language: "Språk:"
@@ -2825,6 +2849,7 @@ sv:
   news_missing_content_message: Tyvärr, denna sida är inte är tillgänglig för det valda språket %{selected_language}.
   news_missing_content_title: Översättning saknas
   newsfeed: Nyhetsflöde
+  newsfeed_help_for_profile: EOL:s nyhetsflöde för profiler innehåller kommentarer som lämnats från andra medlemmar, inbjudningar till EOL-gemenskaper och samlar ihop uppdateringar för objekt i profilägarens bevakningslista.
   newsfeed_help_for_taxon: Nyhetsflödet för denna EOL Taxon-sida samlar uppdateringar som är associerade med objekt som visas på den, inklusive kuratoråtgärder och kommentarer från EOL-användare.
   next: Nästa
   no_active_members: Det har inte varit tillräckligt mycket aktivitet ännu.
@@ -3396,6 +3421,17 @@ sv:
         meta_title: Personer intresserade i %{scientific_name}
         meta_title_with_common_name: Personer intresserade i %{preferred_common_name} (%{scientific_name})
         tweet_text: Personer intresserade i %{scientific_name}
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_title: Beräkningsbar data för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_title_with_common_name: Beräkningsbar data för %{preferred_common_name} som är klassificerad av %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Beräkningsbar data för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_description: Bilder, videor och ljud om %{scientific_name}. Hitta bilder, foton, filmer och ljud om %{scientific_name} på Encyclopedia of Life.
+        meta_description_no_data: Ingen beräkningsbar data finns tillgänglig för %{scientific_name} i Encyclopedia of Life. EOL välkomnar dig till att bidra kartor för %{scientific_name}.
+        meta_title: Beräkningsbar data för %{scientific_name}
+        meta_title_with_common_name: Beräkningsbar data för %{preferred_common_name} (%{scientific_name})
+        tweet_text: Beräkningsbar data för %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 

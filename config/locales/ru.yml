@@ -215,6 +215,9 @@ ru:
         auto_publish: Авто-публикация
         bibliographic_citation: Библиографическая ссылка
         dataset: Файл набора данных
+        dataset_license_id: Лицензия
+        dataset_rights_holder: Правообладатель
+        dataset_rights_statement: Заявление о правах
         description: Описание ресурса
         dwc_archive_url: URL-адрес архива Darwin Core
         harvest_events: Урожай
@@ -1195,6 +1198,7 @@ ru:
   known_uri_relationships: 
     created: Связь была успешно создана
   known_uris: 
+    please_select_from_the_menu: Пожалуйста, выберите из меню выше
     relationships: Связи
     select_a_category_to_view_stats: "Выберите категорию, чтобы посмотреть статистику:"
   language: "Язык:"
@@ -1325,8 +1329,6 @@ ru:
   monthly: Ежемесячно
   more_children_with_count: еще %{count}
   more_siblings_with_count: 
-    few: "%{count} сиблинга"
-    many: "%{count} сиблингов"
     one: "%{count} сиблинг"
     other: "%{count} сиблингов"
   most_active_members: Наиболее активные участники
@@ -1483,6 +1485,8 @@ ru:
           meta_title: Люди, интересующиеся %{scientific_name} отсортированные по %{hierarchy_provider}
         meta_description: Заинтересованы в %{scientific_name}? Присоединяйтесь к экспертам %{scientific_name} и делитесь собственными наблюдениями относительно %{scientific_name} в Энциклопедии Жизни.
         meta_keywords: сообщество %{scientific_name}
+        meta_title: Люди, заинтересованные в %{scientific_name}
+        tweet_text: Люди, заинтересованные в %{scientific_name}
     details: 
       index: 
         meta_description: Факты о %{scientific_name} в Энциклопедии жизни
@@ -1492,10 +1496,15 @@ ru:
     literature: 
       show: 
         meta_title: Статьи и книги о %{scientific_name}
+        tweet_text: Статьи и книги о %{scientific_name}
     maps: 
       show: 
         meta_title: Карты для %{scientific_name}
+        meta_title_with_common_name: Карты для %{preferred_common_name} (%{scientific_name})
         tweet_text: Карты для %{scientific_name}
+    media: 
+      index: 
+        tweet_text: Фотографии, видео и аудио к %{scientific_name}
     names: 
       synonyms: 
         hierarchy_entry: 

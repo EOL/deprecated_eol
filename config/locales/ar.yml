@@ -5,6 +5,7 @@
 # Author: Ali1
 # Author: AwamerT
 # Author: Bachounda
+# Author: Claw eg
 # Author: DRIHEM
 # Author: Ghada.nabeel
 # Author: Malhargan
@@ -223,6 +224,10 @@ ar:
         auto_publish: انشر تلقائيا
         bibliographic_citation: الاقتباس الببليوغرافي
         dataset: ملف مجموعة بيانات
+        dataset_hosted_url: مصدر مجموعة البيانات (نسخة محلية)
+        dataset_license_id: ترخيص
+        dataset_rights_holder: صاحب حقوق الملكية
+        dataset_source_url: مصدر البيانات الأصلي
         description: وصف المصدر
         dwc_archive_url: مسار أرشيف Darwin Core
         harvest_events: عمليات تجميع البيانات
@@ -1666,6 +1671,7 @@ ar:
       meta_supplier_default: مساهم
       meta_title: "%{dato_title} من %{supplier}"
       tweet_text: "%{dato_title} من %{supplier}"
+  data_search_refine_field_label: تنقيح البحث في البيانات
   data_usage_reports: تقارير استخدام البيانات
   date_caps: التاريخ
   date_uploaded: تحميل التاريخ
@@ -3108,6 +3114,8 @@ ar:
   reset_password_instructions_sent_to_user_notice: تم إرسال إرشادات إعادة ضبط كلمة السر الخاصة بحسابك <em>%{username}</em> إلى بريدك الإلكتروني.
   reset_password_token_expired_error: عفوًا، لم يتم إعادة ضبط كلمة السر الخاصة بك. لقد انتهت صلاحية الرابط، يرجى ملء استمارة نسيان كلمة السر مرة أخرى لتلقي رابط جديد.
   resource: المورد
+  resource_hint_dataset_rights: (ينطبق على مجموعة البيانات <i>ككل</i>؛ لا ينطبق في جميع الهيئات)
+  resource_hint_default_rights: (يطبق بشكل افتراضي للعناصر الموجودة <i>في</i> مجموعة البيانات)
   resources: المراجع
   response: الرد
   response_formats: صيغ الاستجابة

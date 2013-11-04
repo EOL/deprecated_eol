@@ -241,6 +241,11 @@ mk:
         auto_publish: Автообјави
         bibliographic_citation: Библиографско наведување
         dataset: Податотека на збирот
+        dataset_hosted_url: Изворен податочен збир (локален примерок)
+        dataset_license_id: Лиценца
+        dataset_rights_holder: Сопственик на правата
+        dataset_rights_statement: Изјава за правата
+        dataset_source_url: Извор на податоците
         description: Опис на ресурсот
         dwc_archive_url: URL на архива на Darwin Core
         harvest_events: Преземања
@@ -1824,8 +1829,8 @@ mk:
   data_about_subtab_header: За податоците на EOL
   data_about_this_record: Податоци за овој запис
   data_beta_search_limit: 
-    one: Пребарувањето на податоци е <i>привремено</i> ограничено на еден резултат.
-    other: Пребарувањето на податоци е <i>привремено</i> ограничено на %{count} резултати.
+    one: Преземањето на пребарани податоци е <i>привремено</i> ограничено на еден резултат.
+    other: Преземањето на пребарани податоци е <i>привремено</i> ограничено на %{count} резултати.
   data_column_common_name: Народно име
   data_column_name: Натпис на мерењето
   data_column_name_uri: URI на марењето
@@ -1892,6 +1897,7 @@ mk:
     one: Има уште една незавршена задача што чека на обработка (може да е ваша, а може и да не е).
     other: Има уште %{count} незавршени задачи што чекаат на обработка (може да се ваши, а може и да не се).
     zero: Нема незавршени задачи. Ако вашата задача е незавршена, тогаш нешто не е во ред. Обидете се повторно.
+  data_search_refine_field_label: Уточнување на пребарувањето
   data_server_unavailable: Податоците на EOL се привремено недостапни. Навратата се подоцна. Се извинуваме за непријатноста.
   data_show_n_more_rows: Прикажи уште БББ...
   data_subtab_about: За нас
@@ -2852,6 +2858,7 @@ mk:
   leave_community_button: Напушти ја заедницава
   leave_reply: Напишете одговор
   left_content_area: Дел за содржина од левата страна
+  legend: "Легенда:"
   license: Лиценца
   license_all_rights_reserved: Сите права задржани
   license_cc_by: Криејтив комонс НаведиИзвор (CC BY)
@@ -3478,6 +3485,9 @@ mk:
   reset_password_instructions_sent_to_user_notice: Ви испративме напатствија за поставање на нова лозинка за вашата сметка <em>%{username}</em> по е-пошта.
   reset_password_token_expired_error: Нажалост, не можев да ја изменам лозинката. Наведената врска е истечена. Повторно пополнете го образецот за заборавена лозинка за да добиете нова врска.
   resource: Ресурс
+  resource_hint_dataset_rights: (се однесува на податочниотзбир <i>во целина</i>; не важи за сите земји)
+  resource_hint_dataset_source_url: (URL на изворот на податочниот збир, како труд или студија)
+  resource_hint_default_rights: (по основно се однесува на елементи <i>во</i> податочниот збир)
   resources: Извори
   response: Одговор
   response_formats: Формати на одговор

@@ -230,6 +230,11 @@ oc:
         auto_publish: Autopublicar
         bibliographic_citation: Citacion bibliografica
         dataset: Fichièr del jòc de donadas
+        dataset_hosted_url: Font de donadas (còpia locala)
+        dataset_license_id: Licéncia
+        dataset_rights_holder: Detenidor dels dreches
+        dataset_rights_statement: Declaracion dels dreches
+        dataset_source_url: Font de Donadas Originala
         description: Descripcion de la ressorsa
         dwc_archive_url: URL de l’archiu Darwin Core
         harvest_events: Collectar los eveniments
@@ -593,6 +598,16 @@ oc:
         user_cropped_an_unknown_data_object: <strong>%{user}</strong> a modificat la vinheta d’un imatge desconegut.
         user_cropped_data_object: <strong>%{user}</strong> a modificat la vinheta de l’imatge de "%{data_object}".
         user_cropped_it: <strong>%{user}</strong> a modificat la vinheta d’un imatge desconegut.
+      data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: Un utilizaire desconegut a causit d'amagar de donadas sus una pagina desconeguda.
+        an_unknown_user_hide_data_on_taxon: Un utilizaire desconegut a causit d'amagar de donadas sus « %{taxon} ».
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un utilizaire desconegut a mes de donadas coma exemple sus una pagina desconeguda.
+        an_unknown_user_set_exemplar_data_on_taxon: Un utilizaire desconegut a mes de donadas coma exemple sus « %{taxon} ».
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Un utilizaire desconegut a causit d’afichar de donadas sus una pagina desconeguda.
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> a causit d'amagar de donadas sus una pagina desconeguda.
+        user_hide_data_on_taxon: <strong>%{user}</strong> a causit d'amagar de donadas sus « %{taxon} ».
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> a mes de donadas coma exemple sus una pagina desconeguda.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> a mes de donadas coma exemple sus « %{taxon} ».
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un utilizaire desconegut a marcat una anciana version de "%{data_object}" coma amagada dins un contèxte desconegut.
         an_unknown_user_hid_an_older_data_object_on_association: Un utilizaire desconegut a marcat una anciana version de "%{data_object}" coma amagada sus la pagina "%{association}".
@@ -869,6 +884,7 @@ oc:
   add_a_new_topic_area: Apondre una tematica novèla
   add_a_new_user: Apondre un utilizaire novèl
   add_a_taxon_association_label: Apondre una associacion de taxon
+  add_another_metadata_field: Apondre un novèl camp de metadonada
   add_article_instead: apondètz puslèu un article
   add_article_to_page_button: Apondre un article
   add_association_submit_button: apondre l’associacion
@@ -884,6 +900,7 @@ oc:
   add_link_instead: apondre puslèu un ligam
   add_link_to_page_button: Apondre un ligam
   add_new_association_link: Apondre una associacion novèla
+  add_new_known_uri_link: Apondre un URI novèl
   add_new_tag_suggestion: Apondre una novèla suggestion d’etiqueta
   add_page: Apondre una pagina
   add_sub_chapter: Apondre un soscapítol
@@ -950,6 +967,7 @@ oc:
   admin_news_items_page_title: "Administracion : Informacions"
   admin_news_link: Actualitats
   admin_notes_not_visible_to_user: "Nòtas d’administracion (pas visiblas per l’utilizaire) :"
+  admin_option_changed: Valor modificada.
   admin_page_title: "Administracion : vista d’ensemble"
   admin_spam_delete: Suprimir los spams
   admin_statistics_link: Estatisticas
@@ -1021,6 +1039,7 @@ oc:
   all: tot
   all_apis_return_by_default_an_xml_response: "Totas las IPA de l’EdlV tòrnan per defaut una responsa XML. Los metòdes de l’IPA pòdon èsser apelats sens precisar una extension de format per obténer la responsa XML e l’apondon d’una extension XML produsirà una responsa identica :"
   all_articles: Totes los articles
+  all_categories: Totes
   all_changes: Totas las modificacions
   all_collections: Totas las colleccions
   all_comments_entered_by_users: Totes los comentaris picats sul site pels utilizaires son afichats çaijós, triats dins l’òrdre cronologic inversat de lor creacion.
@@ -1049,7 +1068,9 @@ oc:
   an_unknown_user: Un utilizaire desconegut
   and: e
   and_between_form_items: e
+  annotation_body_default: apondre una question o un comentari…
   annotation_cabs_colon: "Anotacion :"
+  annotation_submit: publicar una anotacion
   anonymous_user_full_name: Utilizaire anonim
   anonymous_user_given_name: Anonim
   anonymous_user_tag_line: Pas connectat
@@ -1084,6 +1105,7 @@ oc:
   as_of_time_there_were_unique_visitors: 
     one: A %{time}, i aviá %{count} visitor unic
     other: A %{time}, i aviá %{count} visitors unics
+  assistive_data_header: Faches & Informacions
   assistive_details_header: Detalhs
   assistive_literature_header: Literatura
   assistive_maps_header: Mapas
@@ -1135,10 +1157,21 @@ oc:
   average_rating_value_of_total: "Evaluacion mejana : %{rating} sus %{total}"
   back: Arrièr
   back_to_profile: Retorn al perfil
+  background_processes_actions_head: Accions
+  background_processes_attribute_head: Atribut
+  background_processes_complete_head: Acabar ?
+  background_processes_created_head: Creat
+  background_processes_download: telecargar
+  background_processes_is_complete: Òc
+  background_processes_is_not_complete: Non
+  background_processes_page_title: Processus en rèire plan
+  background_processes_query_empty: (pas cap de cadena de requèsta)
+  background_processes_query_head: Requèsta
   began: A començat
   belongs_in_count_communities: 
     one: Aparten a %{count} Comunautat
     other: Aparten a %{count} Comunautats
+  beta_warning_note_header: "Nòta :"
   bhl: "''Biodiversity Heritage Library''"
   bhl_partner_footer: Visitatz la Biodiversity Heritage Library
   bhl_publication: Publicacion de ''BHL''
@@ -1170,6 +1203,7 @@ oc:
   cannot_expand_children: impossible d’espandir los enfants
   cannot_find_member: Impossible de trobar un membre amb aqueste identificant.
   cannot_index_collection_item_type_error: Impossible d’indexar un element de colleccion a partir d’un %{type}
+  categories_title: "Seleccionar una categoria, puèi un atribut :"
   change: Cambiar
   change_rating_to_1_of_5: Cambiar la quòta d’evaluacion a 1 sus 5
   change_rating_to_2_of_5: Cambiar la quòta d’evaluacion a 2 sus 5
@@ -1341,6 +1375,7 @@ oc:
   comments_filter: Comentaris
   comments_moderated: Comentaris moderats.
   comments_on: "Comentaris a prepaus de :"
+  comments_page_title: Comentaris sus %{parent}
   comments_with_count: 
     one: "%{count} comentari"
     other: "%{count} comentaris"
@@ -1699,9 +1734,21 @@ oc:
   daily: Quotidian
   darwin_core: Darwin Core
   dashboard: Tablèu de bòrd
+  data: Donadas
+  data_about_subtab_header: A prepaus de las donadas de EdlV
+  data_about_this_record: Donadas sus aquesta enregistrament
+  data_column_common_name: Nom corrent
+  data_column_sci_name: Nom scientific
+  data_column_source: Font
+  data_column_tc_id: ID de la pagina d'EdlV
+  data_column_units: Unitats
+  data_column_val: Valor
+  data_column_val_uri: Valor URI
   data_database_colon: "Donadas :"
   data_logging_active: Jornalizacion de las donadas activa
   data_master_database_colon: "Donadas mèstras :"
+  data_measurement_subtable_summary: Donadas suplementàrias sus la mesura d'aqueste fach.
+  data_metadata_subtable_summary: Donadas suplementàrias sus aqueste fach.
   data_object: Objèctes de donadas
   data_object_ignore: ignorar aqueste element
   data_object_not_associated_with_any_hierarchies: Aqueste objècte de donadas es pas associat a cap de ierarquia.
@@ -1728,6 +1775,23 @@ oc:
       meta_supplier_default: un contributor
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
+  data_overview_table_caption: Faches en brèu
+  data_point_uri_source_missing: font mancanta
+  data_point_uri_summary_name: donadas sus %{taxon}
+  data_provided_by_content_partner: "Font : %{whom}"
+  data_provided_by_user: provesit per %{whom}
+  data_reference_subtable_summary: Referéncias suplementàrias sus aqueste fach.
+  data_row_add_exemplar_button: apondre als Faches en brèu
+  data_row_excluded_from_overview_notice: "Nòta : aquesta linha es estada levada dels faches en brèu."
+  data_row_exemplar_added: Fach en brèu apondut.
+  data_row_exemplar_removed: Fach en brèu suprimit.
+  data_row_remove_exemplar_button: levar de Faches en brèu
+  data_row_unhide_button: Amagar pas mai la linha
+  data_search_link: Cercar de donadas scientificas dins EdlV
+  data_show_n_more_rows: Afichar NNN de mai…
+  data_subtab_about: A prepaus de
+  data_subtab_glossary: Glossari
+  data_summary_header: Faches en brèu
   data_usage_reports: Rapòrts d’utilizacion de las donadas
   date_caps: Data
   date_uploaded: Data de cargament
@@ -1839,10 +1903,11 @@ oc:
   donation_sponsorship_infrastructure_title: Infrastructuras de basa
   done_already: Ja efectuat
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Afichar pas las datas d’inscripcion desconegudas (utilizaires V1, totes abans lo 5 de genièr de 2009)
+  download_data: Telecargar las donadas
   download_wav_file: Telecargar lo fichièr WAV
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Los elements en doble son estats ignorats.
-  edit: Modificar
+  edit: modificar
   edit_collection_details: modificar los detalhs de la colleccion
   edit_collection_details_header: Modificar los detalhs de la colleccion
   edit_comment: Modificar lo comentari
@@ -2122,7 +2187,9 @@ oc:
   gives_access_to_a_single_hierarchy_indexed_by_eol: balha accès a una sola ierarquia indexada per l’EdlV e a sas relacions intèrnas
   global_access_tagline: Accès global a la coneissença sus la vida sus Tèrra.
   global_navigation: Navigacion globala
+  glossary: Glossari
   glossary_is_empty: (lo glossari es void)
+  glossary_subhead: Glossari
   glossary_term: condicion
   glossary_terms: Tèrmes del glossari
   go: Anar
@@ -2513,8 +2580,12 @@ oc:
   just_pages_with_pictures_and_text: Solament de paginas amb los imatges e lo tèxte
   keep_split_entry_from_this_entry: Gardar separat d'aquesta entrada
   key: Clau
+  known_uri_category_header: Categorias
+  known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
+    create_failed: O planhèm, una error s'es producha, la relacion a pas pogut èsser aponduda.
     created: La relacion es estada creada corrèctament
+    deleted: La relacion es estada suprimida corrèctament
   known_uris: 
     add_a_relationship: Apondre una relacion
     import_successful: Tèrmes d’ontologia importats corrèctament
@@ -2598,6 +2669,7 @@ oc:
   leave_community_button: Quitar aquesta comunautat
   leave_reply: Quitar la responsa
   left_content_area: Zòna de contengut a esquèrra
+  legend: "Legenda :"
   license: Licéncia
   license_all_rights_reserved: Totes los dreches reservats
   license_cc_by: Creative Commons paternitat (CC BY)
@@ -2622,6 +2694,7 @@ oc:
   license_gnu_fdl: Licéncia de documentacion liura GNU (GNU FDL)
   license_gnu_gpl: Licéncia publica generala GNU (GNU GPL)
   license_no_known_copyright_restrictions: Cap de restriccion de dreches d’autor pas coneguda
+  license_none: Pas cap
   license_not_applicable: Licéncia inaplicabla
   license_public_domain: Domeni public
   licensing: Licéncia
@@ -2758,6 +2831,7 @@ oc:
       videos: Vidèos
   moderator_colon: "Moderator :"
   monthly: Mesadièr
+  more: mai
   more_children_with_count: "%{count} de mai…"
   more_siblings_with_count: 
     one: "%{count} fraire mai…"
@@ -2970,6 +3044,7 @@ oc:
   or_move_them_to_existing_collection: o los desplaçar dins una colleccion existenta
   original: "ORIGINA :"
   original_object: Objècte d’origina
+  other_category: Autres
   other_collection_items_with_count: 
     one: "%{count} autre element"
     other: "%{count} autres elements"
@@ -3304,6 +3379,7 @@ oc:
   sounds_with_count: 
     one: "%{count} son"
     other: "%{count} sons"
+  source: Font
   source_and_additional_information: Font e informacion suplementària
   source_colon: "Font :"
   source_information_header: Font d’informacion
@@ -3397,6 +3473,22 @@ oc:
         meta_title: Personas interessadas per %{scientific_name}
         meta_title_with_common_name: Personas interessadas per %{preferred_common_name} (%{scientific_name})
         tweet_text: Personas interessadas per %{scientific_name}
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Los imatges, vidèos e fichièrs àudio de %{scientific_name} tals coma classats segon %{hierarchy_provider}. Trobar d'imatges, de fòtos, de filmes e de sons de %{scientific_name} dins l’Enciclopèdia de la Vida.
+          meta_description_no_data: Cap de donada calculabla es pas disponibla per %{scientific_name} tal coma classat segon %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a las donadas per %{scientific_name}.
+          meta_description_with_common_name_no_data: Cap de donada calculabla es pas disponibla per %{preferred_common_name}, segon la classificacion de  %{hierarchy_provider}, apelat tanben %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a las donadas per %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Quinas donadas los scientifics an collectat per %{preferred_common_name} tal coma classat segon %{hierarchy_provider} ? Donadas calculablas a prepaus de %{scientific_name} que compren d'informacions sus %{topics}.
+          meta_keywords: donadas calculablas de %{scientific_name} segon la classificacion de %{hierarchy_provider}, informacions sus %{scientific_name}
+          meta_keywords_with_common_name: donadas calculablas de %{preferred_common_name} segon la classificacion de %{hierarchy_provider}
+          meta_title: Donadas calcupablas per %{scientific_name} segon la classificacion de %{hierarchy_provider}
+          meta_title_with_common_name: Donadas calculablas per %{preferred_common_name} segon la classificacion de %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Donadas calculablas per %{scientific_name} segon la classificacion de %{hierarchy_provider}
+        meta_keywords_with_common_name: donadas calculablas sus %{preferred_common_name}
+        meta_title: Donadas calculablas per %{scientific_name}
+        meta_title_with_common_name: Donadas calculablas per %{preferred_common_name} (%{scientific_name})
+        tweet_text: Donadas calculablas per %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -3658,7 +3750,7 @@ oc:
   thank_you: Mercé
   thank_you_for_your_generous_support: Mercé per vòstre sosten generós !
   thanks_for_your_time: Mercé per vòstre temps,
-  the_amount_entered_was: "Lo montant indicat èra : %{number} $US"
+  the_amount_entered_was: "Lo montant indicat èra : %{number} USD"
   the_comment_was_successfully_deleted: Lo comentari es estat suprimit amb succès.
   the_comment_was_successfully_updated: Lo comentari es estat mes a jorn amb succès.
   the_content_could_not_be_displ: Impossible d’afichar lo contengut.
@@ -3752,6 +3844,7 @@ oc:
   uploaded_by: Mandat per
   uploaded_content: Contengut mandat
   uploaded_on: Mandat sus
+  uri: URI
   url: URL
   url_not_accessible: Aquesta URL es pas accessibla
   us_dolars_75: 75 US$
@@ -3793,8 +3886,20 @@ oc:
     one: "%{count} article de Wikipèdia nomenat"
     other: "%{count} articles de Wikipèdia nomenats"
   user_added_data: 
+    add_data_header: Provesir vòstras pròprias donadas
+    add_metadata_header: Informacions complementàrias
+    additional_fields: Donadas sus aqueste enregistrament
+    create_failed: "Impossible d’apondre vòstras donadas : %{errors}"
+    create_successful: Las donadas son estadas apondudas corrèctament
+    delete_successful: Las donadas son estadas suprimidas corrèctament
+    edit_data_header: Modificar vòstras donadas
+    edit_metadata_header: Modificar las metadonadas
     new_field: Camp novèl...
     new_value: Valor
+    source_field_helper: Apondre una referéncia de la literatura o una URL a las ressorsas de donadas en linha.
+    submit_data: mandar una valor de donada
+    update_failed: "Impossible de metre a jorn vòstras donadas : %{errors}"
+    update_successful: Las donadas son estadas mesas a jorn corrèctament
   user_agent: Agent d'utilizaire
   user_already_active_notice: Vòstre compte es ja actiu, connectatz-vos.
   user_comment: Comentari de l'utilizaire

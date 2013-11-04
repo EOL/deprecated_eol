@@ -9,10 +9,12 @@
 # Author: Olvin
 # Author: Pig1995z
 # Author: SteveR
+# Author: Ua2004
 # Author: Тест
 uk: 
   0_1_or_2: 0, 1 або 2
   0_or_1: 0 або 1
+  a_taxon: таксон
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Всього знайдено %{count} коментар, який відповідає вашим умовам.
     other: Всього знайдено %{count} коментарі, які відповідають вашим умовам.
@@ -21,6 +23,7 @@ uk:
     other: Всього знайдено %{count} терміни, які відповідають вашим умовам.
   about_eol: Про Енциклопедію життя
   about_resources: Про ресурси
+  about_resources_body: Ми раді вітати вас з наданням посиланням на сторонні веб-сайти, які відносяться до цього організму або групи організмів. Приклади включають в себе веб-сайти, що пропонують визначники, новини, блоги, а також освітні і наукові ресурси.
   about_resources_title: Посилання на зовнішні ресурси
   account_information: інформація користувача
   account_information_menu: Інформація про профіль
@@ -238,6 +241,11 @@ uk:
         auto_publish: Автоматична публікація
         bibliographic_citation: Бібліографічні посилання
         dataset: Файл набору даних
+        dataset_hosted_url: Набір джерельних даних (локальна копія)
+        dataset_license_id: Ліцензія
+        dataset_rights_holder: Правовласник
+        dataset_rights_statement: Оголошення про права
+        dataset_source_url: Оригінальні джерела даних
         description: Опис ресурсу
         dwc_archive_url: Darwin Core Архів URL
         harvest_events: Надходження нових даних
@@ -391,6 +399,8 @@ uk:
     models: 
       user: Акаунт
   activity: Діяльність
+  activity_log_empty: Ніхто не надав оновлень.
+  activity_log_empty_learn_more_link: Дізнайтеся, як зробити свій внесок
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -398,12 +408,28 @@ uk:
         an_unknown_user_of_collection: Невідомий користувач був доданий як менеджер збірки "%{collection}".
         an_unknown_user_of_it: Невідомий користувач був доданий в якості менеджера.
         user_of_an_unknown_collection: <strong>%{user}</strong> був доданий як менеджер невідомої збірки.
+        user_of_collection: <strong>%{user}</strong> був доданий як менеджер збірки "%{collection}".
         user_of_it: <strong>%{user}</strong> був доданий в якості менеджера.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Невідомий користувач додав гуртом елементи до невідомої збірки.
+        an_unknown_user_added_bulk_items_to_collection: Невідомий користувач додав гуртом елементи до збірки "%{collection}".
+        an_unknown_user_added_bulk_items_to_it: Невідомий користувач додав елементи масово.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> додав гуртом елементи до невідомої колекції.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> додав гуртом елементи до колекції "%{collection}".
+        user_of_it: <strong>%{user}</strong> додав елементи навалом.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Невідомий користувач додав невідомий елемент до невідомої збірки.
         an_unknown_user_added_an_unknown_item_to_collection: Невідомий користувач додав невідомий елемент до збірки "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: Невідомий користувач додав невідомий елемент.
         an_unknown_user_added_item_to_an_unknown_collection: Невідомий користувач додав "%{item}" до невідомої збірки.
         an_unknown_user_added_item_to_collection: Невідомий користувач додав "%{item}" до збірки "%{collection}".
+        an_unknown_user_added_item_to_it: Невідомий користувач додав "%{item}".
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> додав невідомий елемент до невідомої колекції.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> додав невідомий елемент до колекції "%{collection}".
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> додав невідомий елемент.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> додав "%{item}" до невідомої колекції.
+        user_added_item_to_collection: <strong>%{user}</strong> видалив "%{item}" з колекції "%{collection}".
+        user_added_item_to_it: <strong>%{user}</strong> додав "%{item}".
       create: 
         an_unknown_user_created_an_unknown_collection: Невідомий користувач створив невідому збірку.
         an_unknown_user_created_collection: Невідомий користувач створив збірку "%{collection}".
@@ -411,20 +437,73 @@ uk:
         user_created_an_unknown_collection: <strong>%{user}</strong> створив невідому збірку.
         user_created_collection: <strong>%{user}</strong> створив збірку "%{collection}".
         user_created_it: <strong>%{user}</strong> створив це.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: Невідомий користувач змінив невідому спільноту.
+        an_unknown_user_modified_collection: Невідомий користувач створив збірку "%{collection}".
+        an_unknown_user_modified_it: Невідомий користувач змінив її і точна зміна була втрачена.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> змінив невідому збірку.
+        user_modified_collection: <strong>%{user}</strong> змінив збірку "%{collection}".
+        user_modified_it: <strong>%{user}</strong> змінив її, але точна зміна була втрачена.
       remove: 
         an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Невідомий користувач вилучив невідомий елемент з невідомої збірки.
         an_unknown_user_removed_an_unknown_item_from_collection: Невідомий користувач вилучив невідомий елемент із збірки "%{collection}".
         an_unknown_user_removed_an_unknown_item_from_it: Невідомий користувач видалив невідомий елемент.
         an_unknown_user_removed_item_from_an_unknown_collection: Невідомий користувач вилучив "%{item}" з невідомої збірки.
+        an_unknown_user_removed_item_from_collection: Невідомий користувач вилучив "%{item}" із збірки "%{collection}".
         an_unknown_user_removed_item_from_it: Невідомий користувач видалив "%{item}".
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> видалив невідомий елемент з невідомої колекції.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> видалив невідомий елемент з колекції "%{collection}".
         user_removed_an_unknown_item_from_it: <strong>%{user}</strong> видалив невідомий елемент.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> видалив "%{item}" з невідомої колекції.
+        user_removed_item_from_collection: <strong>%{user}</strong> видалив "%{item}" з колекції "%{collection}".
         user_removed_item_from_it: <strong>%{user}</strong> видалив "%{item}".
       remove_all: 
         an_unknown_user_cleared_an_unknown_collection: Невідомий користувач вилучив усі елементи з невідомої збірки.
         an_unknown_user_cleared_collection: Невідомий користувач вилучив усі елементи із збірки "%{collection}".
         an_unknown_user_cleared_it: Невідомий користувач вилучив усі елементи.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> видалив усі елементи з невідомої колекції.
+        user_cleared_collection: <strong>%{user}</strong> видалив усі елементи з колекції "%{collection}".
         user_cleared_it: <strong>%{user}</strong> вилучив усі елементи.
     community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: Невідомий користувач додав невідомого менеджера до невідомої спільноти.
+        an_unknown_user_added_an_unknown_manager_to_community: Невідомий користувач додав невідомого менеджера до спільноти "%{community}".
+        an_unknown_user_added_manager_to_an_unknown_community: Невідомий користувач додав "%{manager}" як менеджера до невідомої спільноти.
+        an_unknown_user_added_manager_to_community: Невідомий користувач додав "%{manager}" як менеджера до спільноти "%{community}".
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> додав невідомого менеджера до невідомої колекції.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> додав невідомого менеджера до спільноти "%{community}".
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> додав "%{manager}" до невідомої спільноти.
+        user_added_manager_to_community: <strong>%{user}</strong> додав "%{manager}" як менеджера до спільноти "%{community}".
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: Невідомий користувач змінив опис невідомої спільноти.
+        an_unknown_user_changed_the_description_of_community: Невідомий користувач змінив опис спільноти "%{community}".
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> змінив опис невідомої спільноти.
+        user_changed_the_description_of_community: <strong>%{user}</strong> змінив опис спільноти "%{community}".
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: Невідомий користувач змінив логотип невідомого співтовариства.
+        an_unknown_user_changed_the_icon_of_community: Невідомий користувач змінив логотип спільноти "%{community}".
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> змінив логотип невідомої спільноти.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> змінив логотип спільноти "%{community}".
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: Невідомий користувач змінив назву невідомої спільноти.
+        an_unknown_user_changed_the_name_of_community: Невідомий користувач змінив назву спільноти "%{community}".
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> змінив ім'я невідомого співтовариства.
+        user_changed_the_name_of_community: <strong>%{user}</strong> змінив назву спільноти "%{community}".
+      create: 
+        an_unknown_user_created_an_unknown_community: Невідомий користувач створив невідому спільноту.
+        an_unknown_user_created_community: Невідомий користувач створив спільноту "%{community}".
+        user_created_an_unknown_community: <strong>%{user}</strong> створив невідому спільноту.
+        user_created_community: <strong>%{user}</strong> створив спільноту "%{community}".
+      join: 
+        an_unknown_user_joined_an_unknown_community: Невідомий користувач приєднався до невідомої спільноти.
+        an_unknown_user_joined_community: Невідомий користувач приєднав спільноту "%{community}".
+        user_joined_an_unknown_community: <strong>%{user}</strong> приєднав невідому спільноту.
+        user_joined_community: <strong>%{user}</strong> приєднав спільноту "%{community}".
+      leave: 
+        an_unknown_user_left_an_unknown_community: Невідомий користувач залишив невідому спільноту.
+        an_unknown_user_left_community: Невідомий користувач залишив спільноту "%{community}".
+        user_left_an_unknown_community: <strong>%{user}</strong> залишив невідому спільноту.
+        user_left_community: <strong>%{user}</strong> залишив спільноту "%{community}".
       other_actions: 
         an_unknown_user_modified_an_unknown_community: Невідомий користувач змінив невідому спільноту.
         an_unknown_user_modified_community: Невідомий користувач змінив спільноту "%{community}".
@@ -432,15 +511,180 @@ uk:
         user_modified_community: <strong>%{user}</strong> змінив спільноту "%{community}".
     curator_activity_log: 
       add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: Невідомий користувач додав асоціацію між старішою версією "%{data_object}" та невідомою сторінкою.
+        an_unknown_user_associated_an_older_data_object_to_association: Невідомий користувач додав асоціацію між старішою версією "%{data_object}" та "%{association}".
         an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Невідомий користувач додав невідому асоціацію.
+        an_unknown_user_associated_an_unknown_data_object_to_association: Невідомий користувач додав асоціацію між невідомим об'єктом даних та "%{association}".
+        an_unknown_user_associated_data_object_to_an_unknown_association: Невідомий користувач додав асоціацію між "%{data_object}" та невідомою сторінкою.
+        an_unknown_user_associated_data_object_to_association: Невідомий користувач додав асоціацію між "%{data_object}" та "%{association}".
         an_unknown_user_associated_it_to_an_unknown_association: Невідомий користувач додав асоціацію до невідомої сторінки.
+        an_unknown_user_associated_it_to_association: Невідомий користувач додав асоціацію до "%{association}".
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> додав асоціацію між старішою версією "%{data_object}" та невідомою сторінкою.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> додав асоціацію між старішою версією "%{data_object}" та "%{association}".
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> додав невідому асоціацію.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> додав невідому асоціацію між невідомим об'єктом даних і "%{association}".
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> додав асоціацію між "%{data_object}" та невідомою сторінкою.
+        user_associated_data_object_to_association: <strong>%{user}</strong> додав асоціацію між "%{data_object}" та "%{association}".
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> додав асоціацію до невідомої сторінки.
+        user_associated_it_to_association: <strong>%{user}</strong> додав асоціацію до "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Невідомий користувач додав невідоме загальне ім'я невідомою мовою на невідому сторінку.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Невідомий користувач додав невідоме загальне ім'я невідомою мовою до "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Невідомий користувач додав невідоме загальне ім'я мовою %{language} на невідому сторінку.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Невідомий користувач додав невідоме загальне ім'я мовою %{language} до "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Невідомий користувач додав загальне ім'я  "%{name}" невідомою мовою на невідому сторінку.
+      choose_exemplar_image: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Невідомий користувач встановив стару версію "%{data_object}" як зразок на невідомій сторінці.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Невідомий користувач встановив "%{data_object}" як зразок на "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Невідомий користувач встановив невідомий зразок зображення.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Невідомий користувач встановив невідомий об'єкт даних як зразок на "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Невідомий користувач встановив "%{data_object}" як зразок на невідомій сторінці.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Невідомий користувач встановив "%{data_object}" як зразок на "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Невідомий користувач встановив це як зразок на невідомій сторінці.
+        an_unknown_user_chose_exemplar_it_on_taxon: Невідомий користувач встановив це як зразок на "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> встановив стару версію "%{data_object}" як зразок на невідомій сторінці.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> встановив стару версію "%{data_object}" як зразок на "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> встановив невідомий зразок зображення.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> встановив невідомий об'єкт даних як зразок на "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> встановив "%{data_object}" як зразок на невідомій сторінці.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> встановив "%{data_object}" як зразок на "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> встановив це як зразок на невідомій сторінці.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> встановив це як зразок на "%{taxon}".
       classification_curation: 
         merge: 
           an_unknown_user_merged_to_an_unknown_taxon: Невідомий користувач об'єднав дві невідомі сторінки.
           an_unknown_user_merged_to_it: Невідомий користувач об'єднав іншу сторінку з цим.
           an_unknown_user_merged_to_taxon: Невідомий користувач об'єднав іншу сторінку до %{target}.
+      data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: Невідомий користувач приховав дані на невідомій сторінці.
+        an_unknown_user_hide_data_on_taxon: Невідомий користувач вибрав приховати дані на "%{taxon}".
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Невідомий користувач встановив дані як зразок на невідомій сторінці.
+        an_unknown_user_set_exemplar_data_on_taxon: Невідомий користувач встановив дані як зразок на "%{taxon}".
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Невідомий користувач вибрав показати дані на невідомій сторінці.
+        an_unknown_user_unhide_data_on_taxon: Невідомий користувач вибрав показати дані на "%{taxon}".
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> вибрав приховати дані на невідомій сторінці.
+        user_hide_data_on_taxon: <strong>%{user}</strong> вибрав приховати дані на "%{taxon}".
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> встановив дані як зразок на невідомій сторінці.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> встановив дані як зразок на "%{taxon}".
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> вибрав показати дані на невідомій сторінці.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> вибрав показати дані на "%{taxon}".
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як приховану у невідомому контексті.
+        an_unknown_user_hid_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як приховану на сторінці "%{association}".
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: Невідомий користувач позначив невідомий об'єкт даних як прихований у невідомому контексті.
+        an_unknown_user_hid_an_unknown_data_object_on_association: Невідомий користувач позначив невідомий об'єкт даних як прихований на сторінці "%{association}".
+        an_unknown_user_hid_data_object_on_an_unknown_association: Невідомий користувач позначив"%{data_object}" як прихований у невідомому контексті.
+        an_unknown_user_hid_data_object_on_association: Невідомий користувач позначив "%{data_object}", як прихований на сторінці "%{association}".
+        an_unknown_user_hid_it_on_an_unknown_association: Невідомий користувач позначив це, як приховане у невідомому контексті.
+        an_unknown_user_hid_it_on_association: Невідомий користувач позначив це, як приховане на сторінці "%{association}".
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив стару версію "%{data_object}" як прихований у невідомому контексті.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> позначив стару версію "%{data_object}", як приховану на сторінці "%{association}".
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив невідомий об'єкт даних як прихований у невідомому контексті.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> позначив невідомий об'єкт даних, як прихований на сторінці "%{association}".
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив "%{data_object}" як прихований у невідомому контексті.
+        user_hid_data_object_on_association: <strong>%{user}</strong> позначив "%{data_object}", як прихований на сторінці "%{association}".
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> позначив це, як приховане у невідомому контексті.
+        user_hid_it_on_association: <strong>%{user}</strong> позначив це, як приховане на сторінці "%{association}".
       reasons_to_hide: "Причини приховання: %{reasons}"
       reasons_to_untrust: "Причини недовіри: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: Невідомий користувач вилучив асоціацію із старішої версії  "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_association: Невідомий користувач вилучив асоціацію між "%{data_object}" та "%{association}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: Невідомий користувач вилучив невідому асоціацію.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: Невідомий користувач вилучив асоціацію між невідомим об'єктом даних та "%{association}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: Невідомий користувач вилучив асоціацію між "%{data_object}" та невідомою сторінкою.
+        an_unknown_user_disassociated_data_object_from_association: Невідомий користувач вилучив асоціацію між "%{data_object}" та "%{association}".
+        an_unknown_user_disassociated_it_from_an_unknown_association: Невідомий користувач вилучив асоціацію до невідомої сторінки.
+        an_unknown_user_disassociated_it_from_association: Невідомий користувач вилучив асоціацію до "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> вилучив асоціацію між старішою версією "%{data_object}" та невідомою сторінкою.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> вилучив асоціацію між старішою версією "%{data_object}" та "%{association}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> вилучив невідому асоціацію.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> додав асоціацію між невідомим об'єктом даних і "%{association}".
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> вилучив асоціацію між "%{data_object}" та невідомою сторінкою.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> вилучив асоціацію між "%{data_object}" та "%{association}".
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> вилучив асоціацію до невідомої сторінки.
+        user_disassociated_it_from_association: <strong>%{user}</strong> вилучив асоціацію до "%{association}".
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як видиму у невідомому контексті.
+        an_unknown_user_showed_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як видиму на сторінці "%{association}".
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: Невідомий користувач позначив невідомий об'єкт даних як видимий у невідомому контексті.
+        an_unknown_user_showed_an_unknown_data_object_on_association: Невідомий користувач позначив невідомий об'єкт даних як видимий на сторінці "%{association}".
+        an_unknown_user_showed_data_object_on_an_unknown_association: Невідомий користувач позначив"%{data_object}" як видимий у невідомому контексті.
+        an_unknown_user_showed_data_object_on_association: Невідомий користувач позначив "%{data_object}", як видимий на сторінці "%{association}".
+        an_unknown_user_showed_it_on_an_unknown_association: Невідомий користувач позначив це, як видиме у невідомому контексті.
+        an_unknown_user_showed_it_on_association: Невідомий користувач позначив це, як видиме на сторінці "%{association}".
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив стару версію "%{data_object}" як видиму у невідомому контексті.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> позначив стару версію "%{data_object}", як видиму на сторінці "%{association}".
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив невідомий об'єкт даних як видимий у невідомому контексті.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> позначив невідомий об'єкт даних, як видимий на сторінці "%{association}".
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив "%{data_object}" як видимий у невідомому контексті.
+        user_showed_data_object_on_association: <strong>%{user}</strong> позначив "%{data_object}", як видимий на сторінці "%{association}".
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> позначив це, як видиме у невідомому контексті.
+        user_showed_it_on_association: <strong>%{user}</strong> позначив це, як видиме на сторінці "%{association}".
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як надійну у невідомому контексті.
+        an_unknown_user_trusted_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як надійну на сторінці "%{association}".
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: Невідомий користувач позначив невідомий об'єкт даних як надійний у невідомому контексті.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: Невідомий користувач позначив невідомий об'єкт даних як надійний на сторінці "%{association}".
+        an_unknown_user_trusted_data_object_on_an_unknown_association: Невідомий користувач позначив"%{data_object}" як надійний у невідомому контексті.
+        an_unknown_user_trusted_data_object_on_association: Невідомий користувач позначив "%{data_object}", як надійний на сторінці "%{association}".
+        an_unknown_user_trusted_it_on_an_unknown_association: Невідомий користувач позначив це, як надійне у невідомому контексті.
+        an_unknown_user_trusted_it_on_association: Невідомий користувач позначив це, як надійне на сторінці "%{association}".
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив стару версію "%{data_object}" як надійний у невідомому контексті.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> позначив стару версію "%{data_object}", як надійну на сторінці "%{association}".
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив невідомий об'єкт даних як надійний у невідомому контексті.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> позначив невідомий об'єкт даних, як надійний на сторінці "%{association}".
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив "%{data_object}" як надійний у невідомому контексті.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> позначив "%{data_object}", як надійний на сторінці "%{association}".
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> позначив це, як надійне у невідомому контексті.
+        user_trusted_it_on_association: <strong>%{user}</strong> позначив це, як надійне на сторінці "%{association}".
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як неперевірену у невідомому контексті.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як неперевірену на сторінці "%{association}".
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: Невідомий користувач позначив невідомий об'єкт даних як неперевірений у невідомому контексті.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: Невідомий користувач позначив невідомий об'єкт даних як неперевірений на сторінці "%{association}".
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: Невідомий користувач позначив"%{data_object}" як неперевірений у невідомому контексті.
+        an_unknown_user_unreviewed_data_object_on_association: Невідомий користувач позначив "%{data_object}", як неперевірений на сторінці "%{association}".
+        an_unknown_user_unreviewed_it_on_an_unknown_association: Невідомий користувач позначив це, як неперевірене у невідомому контексті.
+        an_unknown_user_unreviewed_it_on_association: Невідомий користувач позначив це, як неперевірене на сторінці "%{association}".
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив стару версію "%{data_object}" як неперевірену в невідомому контексті.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> позначив стару версію "%{data_object}", як неперевірену на сторінці "%{association}".
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив невідомий об'єкт даних як неперевірений у невідомому контексті.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> позначив невідомий об'єкт даних, як неперевірений на сторінці "%{association}".
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив "%{data_object}" як неперевірений у невідомому контексті.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> позначив "%{data_object}", як неперевірений на сторінці "%{association}".
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> позначив це, як неперевірене у невідомому контексті.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> позначив це, як неперевірене на сторінці "%{association}".
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як ненадійну у невідомому контексті.
+        an_unknown_user_untrusted_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як ненадійну на сторінці "%{association}".
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: Невідомий користувач позначив невідомий об'єкт даних як ненадійний у невідомому контексті.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: Невідомий користувач позначив невідомий об'єкт даних як ненадійний на сторінці "%{association}".
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: Невідомий користувач позначив"%{data_object}" як ненадійний у невідомому контексті.
+        an_unknown_user_untrusted_data_object_on_association: Невідомий користувач позначив "%{data_object}", як ненадійний на сторінці "%{association}".
+        an_unknown_user_untrusted_it_on_an_unknown_association: Невідомий користувач позначив це, як ненадійне у невідомому контексті.
+        an_unknown_user_untrusted_it_on_association: Невідомий користувач позначив це, як ненадійне на сторінці "%{association}".
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив стару версію "%{data_object}" як ненадійну в невідомому контексті.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> позначив стару версію "%{data_object}", як ненадійну на сторінці "%{association}".
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив невідомий об'єкт даних як ненадійний у невідомому контексті.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> позначив невідомий об'єкт даних, як ненадійний на сторінці "%{association}".
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> позначив "%{data_object}" як ненадійний у невідомому контексті.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> позначив "%{data_object}", як ненадійний на сторінці "%{association}".
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> позначив це, як ненадійне у невідомому контексті.
+        user_untrusted_it_on_association: <strong>%{user}</strong> позначив це, як ненадійне на сторінці "%{association}".
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: Невідомий користувач додав дані до невідомої сторінки.
+        an_unknown_user_create_data_on_taxon: Невідомий користувач додав дані до "%{taxon}".
+        an_unknown_user_update_data_on_an_unknown_taxon: Невідомий користувач оновив дані на невідомій сторінці.
+        an_unknown_user_update_data_on_taxon: Невідомий користувач оновив дані на "%{taxon}".
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> додав дані до невідомої сторінки.
+        user_create_data_on_taxon: <strong>%{user}</strong> додав дані до "%{taxon}".
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> оновив дані на невідомій сторінці.
+        user_update_data_on_taxon: <strong>%{user}</strong> оновив дані на "%{taxon}".
+  activity_user_created_data: <strong>%{user}</strong> додав дані про "%{object_name}" до "%{taxon_concept}".
+  activity_user_created_link: <strong>%{user}</strong> додав посилання "%{object_name}" на "%{taxon_concept}".
+  activity_user_created_text: <strong>%{user}</strong> додав текст до "%{object_name}" про "%{taxon_concept}".
+  activity_user_updated_link: <strong>%{user}</strong> оновив посилання "%{object_name}" на "%{taxon_concept}".
   add: Додати
   add_a_collection_to_a_community: Додати "%{collection}" до спільноти
   add_a_comment: Додати коментар.
@@ -653,15 +897,57 @@ uk:
   assistive_taxon_community_header: Спільнота
   assistive_updates_header: Оновлення
   assistive_updates_statistics_header: Статистика сторінок
+  associated_submit_button: пов'язані
+  associated_with_article_header: У останній статті
+  associated_with_header: Пов'язані з
+  associated_with_image_header: У останньому зображенні
+  associated_with_image_map_header: На останній карті
+  associated_with_link_header: На останньому посиланні
+  associated_with_map_header: На останній карті
+  associated_with_sound_header: У останньому аудіо
+  associated_with_video_header: У останньому відео
   association_trusted_for_taxa: 
     one: "Довірено для:"
     other: "Довірено для:"
   association_untrusted_for_taxa: 
     one: "Недовірено для:"
     other: "Недовірено для:"
+  associations_more_link: інші <span class="assistive">асоціації таксону</span>
+  attribute: Атрибут
+  audio_mute: вимкнути звук
+  audio_pause: пауза
+  audio_play: грати
+  audio_stop: зупинити
+  audio_unmute: увімкнути звук
+  authoritative_information: достовірна інформація
+  available: доступно
+  average_rating: середня оцінка
+  average_rating_value_of_total: "Середня оцінка:  %{rating} з %{total}"
+  back: Назад
+  back_to_profile: Назад до профілю
+  background_processes_actions_head: Дії
+  background_processes_attribute_head: Атрибут
+  background_processes_complete_head: Завершити?
+  background_processes_created_head: Створено
+  background_processes_download: завантажити
+  background_processes_is_complete: Так
+  background_processes_is_not_complete: Ні
+  background_processes_page_title: Фонові процеси
+  background_processes_query_empty: (немає рядку запиту)
+  background_processes_query_head: Запит
+  began: Початок
   belongs_in_count_communities: 
     one: Належить до %{count} Спільноти
     other: Належить до %{count} Спільнот
+  beta_warning_header: Ви використовуєте функцію бета-тестування
+  beta_warning_note_header: "Примітка:"
+  beta_warning_small: Будь ласка, зверніть увагу, що це бета-тестування функції і може бути непередбачуваним.
+  bhl: Бібліотека спадщини біорозмаїття
+  bhl_partner_footer: Відвідайте бібліотеку спадщини біорізноманіття
+  bhl_publication: Публікації BHL
+  bi_monthly: Двічі на місяць
+  biodiversity_heritage_library: Бібліотека спадщини біорозмаїття
+  biomedical_terms: Біомедичні терміни
   body: "Тіло:"
   browsable: Для перегляду
   browsable_hierarchies: Переглядач ієрархій
@@ -669,6 +955,7 @@ uk:
   browsing_branch_colon: "Перегляд вітки:"
   build_communities: Побудова спільнот
   by_caps: Від
+  by_scientific_name_table_header: за науковою назвою
   cache_store: Кеш сховища
   caching_results: Кешування результатів
   calculate_averages_slow: Розрахувати середні (повільно)
@@ -677,6 +964,7 @@ uk:
   cancel_split: Скасувати
   cannot_be_associated_with_both_a_user_and_a_community: Не може бути пов'язано з користувачем і спільнотою
   cannot_be_empty: не може бути порожнім.
+  cannot_create_collection_item_from_class_error: Ми не можемо створити елемент збірки із %{klass}
   cannot_create_community_from_watch_collection_error: Ви не можете створити спільноту зі списку спостереження.
   cannot_expand_children: не вдалося розгорнути дітей
   cannot_find_member: Не вдалося знайти члена з таким ідентифікатором.
@@ -698,16 +986,37 @@ uk:
   classification_preferred_for_taxon: Переважно
   classification_summary_section_header: Класифікація
   classification_tree_header: Класифікація
+  classifications_exemplar_column_header: Зразок
   classifications_hierarchy_column_header: Класифікація
+  classifications_merge_additional_confirm_required: Для злиття цих класифікацій потрібне додаткове підтвердження.
   classifications_preferred_column_header: Переважна
   classifications_rank_column_header: Ранг
+  classifications_recognized_by_column_header: Визнана
   classifications_split_column_header: Розділити / переміщення
   clear_entire_cache_store: Очистити усе сховище кешу
   click: Клік
+  close_this_window_to_return_to_edit_window: ЗАКРИЙТЕ ВІКНО, ЩОБ ПОВЕРНУТИСЯ У ВІКНО РЕДАГУВАННЯ
   cms_missing_content_title: Відсутній переклад
+  collection_copy_choose_all_items_target_title: "Копіювати всі елементи з \"%{collection}\" на:"
+  collection_created_notice: Збірка  <em>%{collection_name}</em> успішно створена.
+  collection_delete_link: Остаточно видалити цю збірку
+  collection_destroyed: Збірка була видалена.
+  collection_image: Зображення збірки
+  collection_is_empty: Ця збірка нині порожня.
+  collection_item_edit_page_title: Зміна елемента у збірці <em>%{collection_name}</em>
+  collection_item_not_found_error: Не вдалося знайти цей елемент збірки.
+  collection_move_choose_all_items_target_title: "Перемістити всі елементи з \"%{collection}\" на:"
   collection_name_cannot_be_blank: Ім'я колекції не може бути порожнім
   collection_name_label: Назва колекції
+  collection_newsfeed: Канал новин збірки
+  collection_not_created_error: Вибачте, виникла помилка, збірку <em>%{collection_name}</em> не вдалося створити.
+  collection_not_destroyed_error: На жаль, збірку не видалено.
+  collection_not_found_error: Вибачте, ця збірка не може бути знайдена.
   collection_rating: Оцінка збірки
+  collection_redindexed: Збірка переіндексована.
+  collection_updated_notice: Збірка  <em>%{collection_name}</em> успішно оновлена.
+  collection_was_added_to_community: "\"%{collection}\" була додана до цієї спільноти."
+  collection_was_removed_by_owner: Ця збірка була вилучено її власником.
   collections: 
     editors: 
       show: 
@@ -784,6 +1093,13 @@ uk:
   communities_page_title: Громади
   community: Спільнота
   community_activity: Діяльність співтовариства
+  community_can_now_manage_this_collection: "\"%{community}\" зараз має дозвіл на керування цією збіркою."
+  community_focus: Керовані колекції
+  community_focus_items_with_count: 
+    one: "%{count} елемент"
+    other: "%{count} елементи"
+  community_invitation_comment: Я хотів би запросити вас приєднатися до "%{community}".
+  community_logo_alt_text: Логотип для спільноти %{community_name}
   community_members: Члени спільноти
   community_name_label: Назва спільноти
   community_newsfeed: Канал новин спільноти
@@ -792,8 +1108,13 @@ uk:
   community_removed_by_owner: Це співтовариство було вилучено його власником.
   community_tab_collections_header: Колекції
   completed: Готово
+  confirm_leave: Ви впевнені, що хочете вийти з цієї громади?
+  confirm_password_colon: "Підтвердження пароля:"
   contact: Контакт
   contact_information: Контактна інформація
+  contact_updated: Контакт оновлений
+  contact_us: зв'язатися з нами
+  contact_us_link: Зв'язатися з нами
   contacts: 
     errors: 
       message_not_sent: Вибачте, сталася помилка, ваше повідомлення невідправлено.
@@ -814,6 +1135,10 @@ uk:
   content_partner_agreement_cancel_new_agreement_link: Скасувати
   content_partner_agreement_cancel_sign_agreement_link: Скасувати
   content_partner_column_header_partner: Партнер
+  content_partner_contact_create_successful_notice: Додано контакт.
+  content_partner_contact_create_unsuccessful_error: Вибачте, виникла помилка, контакт не був доданий.
+  content_partner_contact_delete_successful_notice: Контакт був видалений.
+  content_partner_contact_delete_unsuccessful_error: Вибачте, виникла помилка, контакт не був вилучений.
   content_partner_contact_edit_link: Редагувати контакт
   content_partner_contact_edit_page_subheader: Редагувати контакт
   content_partner_contact_new_link: Додати новий контакт
@@ -834,8 +1159,23 @@ uk:
   content_partner_filter_option_vetted_yes: Так
   content_partner_filter_published: Опубліковано
   content_partner_has_unpublished_content_true: Неопублікований вміст
+  content_partner_public_false: Приватний
+  content_partner_public_true: Публічний
+  content_partner_registered_time_ago: Зареєстровані %{time_passed} тому;
+  content_partner_resource_about_header: Про ресурс
   content_partner_resource_auto_publish_false: Ні
   content_partner_resource_auto_publish_true: Так
+  content_partner_resource_collection_header: Опубліковано збірку
+  content_partner_resource_collection_show_link: Переглянути опубліковану збірку
+  content_partner_resource_collections_header: Збірки
+  content_partner_resource_dataset_details_header: Набір даних
+  content_partner_resource_description_empty: Опис не наводиться для даного ресурсу.
+  content_partner_resource_edit_link: Редагувати
+  content_partner_resource_edit_subheader: Редагувати ресурс
+  content_partner_resource_edit_with_type_link: Редагувати ресурс
+  content_partner_resource_hierarchy_edit_link: Змінити
+  content_partner_resource_hierarchy_unknown: Невідомий
+  content_partner_resource_hierarchy_update_successful_notice: Ієрархія успішно оновлена.
   content_partner_resource_new_link: Додати новий ресурс
   content_partner_resource_new_subheader: Додати новий ресурс
   content_partner_resource_preview_collection_header: Попередній перегляд колекції
@@ -873,8 +1213,80 @@ uk:
         meta_title: "%{partner_name} Статистика"
         tweet_text: Статистика використання %{partner_name}
   content_partners_link: Партнери за змістом
+  content_summary_table_count_column_header: Кількість
   content_summary_table_type_descendants_row: Число нащадків
+  content_summary_table_type_status_column_header: Тип вмісту та статус
+  content_summary_table_type_trusted_images_row: Кількість надійних зображень
+  content_summary_table_type_trusted_text_row: Кількість надійних текстових елементів
+  content_summary_table_type_unreviewed_images_row: Кількість неперевірених зображень
+  content_summary_table_type_unreviewed_text_row: Кількість неперевірених текстових елементів
+  content_type: Тип вмісту
+  contribute: Внесок
+  copyright: "АВТОРСЬКІ ПРАВА:"
+  could_not_find_collection_error: Вибачте, ця збірка не може бути знайдена.
+  could_not_find_user: Ви вже не є членом цієї спільноти.
+  create_a_collection: Створити збірку
+  create_a_community: Створити спільноту
+  create_a_community_login_advisory: Вам буде запропоновано увійти перед створенням вашої спільноти
+  create_a_new_collection: Створити нову збірку
+  create_account: створити обліковий запис
+  create_collection_button: Створити збірку
+  create_community: Створити спільноту
+  create_community_about_heading: Про створення спільноти
+  create_community_around_this_collection_header: Створити спільноту навколо цієї збірки
+  create_community_button: Створити спільноту
+  create_community_unsuccessful_error: Вибачте, виникла помилка, ваше співтовариство не створено. Переконайтеся, що усі поля заповнені коректно.
+  created: Створено
+  created_at: Створено в
+  created_by: Створено
+  created_colon: "Створено:"
+  created_community: Спільнота успішно створена.
+  creative_commons: Creative Commons
+  credentials: Облікові дані
+  credentials_colon: "Облікові дані:"
+  crop_image: Обтинання зображення
+  curated_association_update_button: Зберегти зміни
+  curation_privileges_page_title: Стати куратором
+  curation_reason_placeholder: додаткові деталі (необов'язково)
+  curation_scope: Область курування
+  curator: куратор
   curator_level: Рівень куратора
+  curator_level_assistant_curator: Помічник куратора
+  curator_level_full_curator: Повний куратор
+  curator_level_with_indefinite_article_assistant_curator: <strong>помічник куратора</strong>
+  curator_level_with_indefinite_article_full_curator: <strong>повний куратор</strong>
+  curator_level_with_indefinite_article_master_curator: <strong>майстер куратор</strong>
+  curator_profile: профіль куратора
+  curator_profile_menu: Профіль куратора
+  curator_profile_of: профіль куратора %{name}
+  curator_question: Куратор?
+  curator_scope_colon: Область курування
+  curators: Куратори
+  curators_summary_learn_more_link: Дізнайтеся, як курувати
+  curators_with_count: 
+    one: "%{count} куратор"
+    other: "%{count} куратори"
+  current_language: "Мова: %{iso_code}"
+  daily: Щодня
+  darwin_core: Дарвін Core
+  dashboard: Панель інструментів
+  data: Дані
+  data_about_subtab_header: Про дані у ЕЖ
+  data_about_this_record: Дані про цей запис
+  data_column_common_name: Загальна назва
+  data_column_sci_name: Наукова назва
+  data_column_source: Джерело
+  data_column_units: Одиниці
+  data_column_val: Значення
+  data_column_val_uri: Значення URI
+  data_database_colon: "Дані:"
+  data_measurement_subtable_summary: Додаткові дані про вимірювання цього факту.
+  data_metadata_subtable_summary: Додаткові дані про цей факт.
+  data_object: Об'єкт даних
+  data_object_ignore: ігнорувати цей елемент
+  data_object_not_associated_with_any_hierarchies: Цей об'єкт даних не пов'язаний з якою-небудь ієрархією.
+  data_object_reference: Посилання на об'єкт даних
+  data_object_undo_ignore: видалити зі списку ігнорування
   data_objects: 
     show: 
       meta_description_article: Стаття - %{dato_description}
@@ -893,6 +1305,20 @@ uk:
       meta_supplier_default: учасник
       meta_title: "%{dato_title} від %{supplier}"
       tweet_text: "%{dato_title} від %{supplier}"
+  data_overview_table_caption: Швидкі факти
+  data_point_uri_source_missing: джерело відсутнє
+  data_point_uri_summary_name: дані про %{taxon}
+  data_provided_by_content_partner: "Джерело: %{whom}"
+  data_provided_by_user: надано %{whom}
+  data_row_hide_button: Приховати рядок
+  data_row_unhide_button: Відобразити рядок
+  data_search_link: Пошук наукових даних на ЕЖ
+  data_search_refine_field_label: Уточнити дані пошуку
+  data_subtab_about: Про
+  data_subtab_glossary: Глосарій
+  data_summary_header: Швидкі Факти
+  date_caps: Дата
+  date_uploaded: Дата завантаження
   datepicker: 
     close: Закрити
     current: Сьогодні
@@ -949,9 +1375,57 @@ uk:
     next: Далі
     previous: Назад
   dato_create_cancel: Скасувати
+  dato_create_user_link_error: Вибачте, сталася помилка, посилання не може бути додане.
+  dato_create_user_text_error: Вибачте, сталася помилка, стаття не може бути додана.
   dato_edit_cancel: Скасувати
+  dato_edit_link_button: Редагувати це посилання
+  dato_edit_link_title: Редагувати посилання
+  dato_edit_text_button: Змінити цю статтю
+  dato_edit_text_title: Змінити статтю
+  dato_location_created: "Місце створення: %{loc}"
+  dato_new_edit_user_text_fieldset_content_header: Зміст статті
+  dato_new_edit_user_text_link_fieldset_content_header: Зв'язати дані
+  dato_new_text_for_taxon_page_title: Додати статтю на <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Додати посилання на <i>%{taxon}</i>
+  dato_new_text_page_description: Дякую вам за внесок у EOL. Ваша стаття буде додана в ваш список спостереження, тому ви можете прослідковувати будь-які розмови, пов'язані з нею і перевірити її статус куратора.
+  dato_update_user_text_error: Вибачте, сталася помилка, стаття не може бути оновлена.
+  default: типово
+  definition: Визначення
+  delete: видалити
+  delete_community: Видалити цю спільноту
+  delete_firstcap: Видалити
+  deleted_colon: "видалено:"
+  description: Опис
+  description_of: Опис
+  descriptive_label: Описові позначення
+  destination_inappropriate_for_logged_in_users: Ви увійшли в систему.
+  destroy: Знищити
+  detail: Деталі
+  details: Деталі
+  details_title: Деталі
+  did_you_mean: "Ви мали на увазі: %{suggestions} ?"
+  disabled_for_now: ВИМКНЕНО
+  discover_link: Пізнати
+  do_you_want_to_be_a_curator: Ви хочете бути куратором
   donate: зробити внесок
+  donation_amount_other_label: Інша
+  donation_confirmation: Підтвердження пожертви
+  donation_error_no_amount: Будь ласка, виберіть суму пожертви.
+  donation_error_only_numbers: Будь ласка, введіть суму, використовуючи лише числа.
+  download_data: Завантажити дані
+  download_wav_file: Завантажити файл WAV
+  dublin_core: Dublin Core
+  edit: редагувати
+  edit_comment: Редагувати коментар
+  edit_comment_lowercase: редагувати коментар
+  edit_community: Редагувати спільноту
+  edited_colon: "відредаговано:"
+  editors_tab_label: Менеджери
+  email: Ел. пошта
+  email_colon: "Електронна пошта:"
+  email_recipients: Одержувачі електронної пошти
   encyclopedia_of_life: Енциклопедія життя
+  eol_pages: Сторінки
   eol_statistics: 
     comparing_dates: <span class="assistive">Порівняння</span> <span class="date_one">%{date_one}</span> <span class="assistive">і</span> <span class="date_two">%{date_two}</span>
     content_partners: 
@@ -992,11 +1466,63 @@ uk:
       page_title: Статистика
     warnings: 
       stats_unavailable_for_date: На жаль, статистичні дані не доступні для %{date}. Будь ласка, виберіть іншу дату.
+  error_403_description: На жаль, ви не маєте прав для доступу до цієї URL-адреси.
+  error_403_page_title: Заборонено
+  error_404_description: Ми шкодуємо, ми не могли знайти сторінку за цією URL-адресою.
+  error_404_page_title: Не знайдено
+  error_500_page_title: Йой!
+  error_default_page_title: Йой!
+  error_log: Журнал помилок
+  error_log_detail: Подробиці журналу помилок
+  example_colon: "Приклад:"
+  exception: Виняток
+  exceptions: 
+    security_violations: 
+      administrators_only: Вибачте, доступ обмежений EOL Адміністраторами.
+      default: Доступ заборонений.
+      no_access: На жаль, доступ обмежено.
   explore: індекс
   external_link_header: Зовнішнє посилання
+  facebook: Facebook
+  false_label: Хибність
+  family_name_colon: "Назва сім'ї:"
+  feedback: Зворотний зв'язок
+  file: Файл
+  filter_button: Фільтр
+  filter_by_day: Фільтрувати за днем
+  filter_by_status: Фільтр за станом
+  filter_by_status_all_option: Усі статуси
+  filter_by_status_inappropriate_option: Невідповідний
+  filter_by_status_trusted_option: Надійний
+  filter_by_status_unreviewed_option: Непереглянутий
+  filter_by_status_untrusted_option: Ненадійний
+  filter_by_type: Фільтр за типом
+  filter_by_type_all_option: Всі типи
+  filter_by_type_collection_option: Збірки
   filter_by_type_comment_option: Коментарі
+  filter_by_type_community_option: Громади
+  filter_by_type_content_page_option: Про EOL
+  filter_by_type_image_option: Зображення
+  filter_by_type_link_option: Посилання
+  filter_by_type_name_option: Назви
+  filter_by_type_sound_option: Звуки
+  filter_by_type_taxon_concept_option: Таксони
+  filter_by_type_text_option: Статті
+  filter_by_type_user_option: Люди
+  filter_by_type_video_option: Відео
+  filter_media: фільтр медіа
+  filter_newsfeed_option_all: Усі
+  filter_newsfeed_option_collections: Збірки
+  filter_newsfeed_option_community: Спільнота
+  filter_newsfeed_option_curation: Курування
   filter_newsfeed_option_messages: Коментарі
+  filter_newsfeed_option_watchlist: Список спостереження
+  filtered_information: Оброблена інформація
+  flickr: Flickr
+  flipboard: Flipboard
+  forgot_password: Забули пароль
   forgot_password_form_cancel: Скасувати
+  forgot_password_form_choose_username_legend: Виберіть обліковий запис
   forums: 
     actions: Дії
     administration: Адміністрація
@@ -1062,7 +1588,19 @@ uk:
     update_failed: Вибачте, виникла помилка, форум не вдалося оновити
     update_successful: Форум успішно оновлено
     views: Переглядів
+  frequency: Частота
+  frequency_daily: Щодня
+  frequency_monthly: Щомісяця
+  frequency_never: Ніколи
+  frequency_weekly: Щотижня
+  friendly_url: Дружні URL
+  from_communities: "від громад: %{communities}"
+  from_community: від спільноти  %{community}
   global_navigation: загальне меню
+  glossary: Глосарій
+  glossary_subhead: Глосарій
+  glossary_term: термін
+  google: Google
   help: довідка
   helpers: 
     label: 
@@ -1325,25 +1863,82 @@ uk:
         update: Зберегти профіль
       wikipedia_queue: 
         create: Надіслати запит
+  hidden: Приховано
+  hidden_comment: прихований коментар
+  hide: приховати
+  hierarchies_title: Ієрархії
+  hierarchy: Ієрархія
+  hierarchy_updated: Ієрархія оновлена
+  home: Головна
+  html_format: (Формат HTML)
+  id: ІД
+  image: Зображення
+  image_alt_text: Це %{vetted_status} є зображення %{taxon_name}
+  image_crop_failed_error: Вибачте, сталася помилка, сторінка не може бути обрізана.
+  image_cropped_notice: Зображення обрізане успішно.
   image_from_supplier: Зображення від %{whom}
+  image_is_no_longer_available: Зображення більше недоступне
+  image_map_alt_text: Це %{vetted_status} є мапа %{taxon_name}
   image_map_from_supplier: Мапа від %{whom}
   image_map_not_associated_with_any_published_entries: Ця мапа не пов'язана із жодними опублікованими таксонами.
   image_map_of_taxon: Мапа %{taxon_name}
   image_map_rating: Оцінка мапи
   image_not_associated_with_any_published_entries: Це зображення не пов'язане із жодними опублікованими таксонами.
+  image_not_found: Зображення не знайдено
+  image_object: Зображення об'єкта
   image_of_taxon: Зображення %{taxon_name}
   image_rating: Оцінка зображення
+  image_title_with_taxa: Зображення %{taxa}
+  image_title_without_taxa: Зображення невідомого таксону
   images: зображення
+  in_collection: у збірці
+  in_community: у спільноті
+  in_this_data_type: "у цьому %{data_type}:"
+  info_item: Відомості про елемент
+  info_items_col_header: Відомості про елементи
+  information_for_any_audience: Інформація для будь-якої аудиторії
+  information_intended_for_beginners: Інформація, призначена для початківців
+  information_intended_for_experts: Інформація, призначена для фахівців
+  insufficient_privileges_to_add_common_names: На жаль, ви не маєте достатніх прав на додавання загальних назв.
+  internal_ip_address: внутрішня IP-адреса
+  inverse_sort: Зворотне сортування
   ip: IP
   ip_address: IP-адреса
   item_type_article: Стаття
+  item_type_article_assistive: Цей елемент є статею
+  item_type_collection: Збірка
+  item_type_collection_assistive: Цей елемент є збіркою
+  item_type_community: Спільнота
+  item_type_community_assistive: Цей елемент є спільнотою
+  item_type_image: Зображення
+  item_type_image_assistive: Цей елемент є зображенням
+  item_type_image_map: Мапа
+  item_type_image_map_assistive: Цей елемент є зображенням мапи
   item_type_link: Посилання
+  item_type_link_assistive: Цей елемент є посиланням
+  item_type_map: Мапа
+  item_type_map_assistive: Цей елемент є мапою
+  item_type_person: Особа
+  item_type_person_assistive: Цей елемент є людиною
+  item_type_sound: Звук
+  item_type_sound_assistive: Цей елемент є звуком
+  item_type_taxon: Таксон
+  item_type_taxon_assistive: Цей елемент є таксоном
+  item_type_video: Відео
+  item_type_video_assistive: Цей елемент є відео
+  join_community_button: Приєднатися до цієї спільноти
   jsonp_by_adding_a_callback_parameter: .. і JSONP шляхом додавання параметра зворотного виклику
   just_pages_with_pictures_and_text: лише сторінки з ілюстраціями та текстом
+  key: Ключ
+  known_uri_category_header: Категорії
+  known_uri_created: URI додано.
+  known_uri_missing_translation: Неперекладено, будь ласка, відредагуйте
+  known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
     create_failed: Вибачте, сталася помилка, зв'язок не можна додати
     created: Успішно створено зв'язок
     deleted: Успішно вилучено зв'язок
+  known_uri_updated: URI оновлено.
   known_uris: 
     add_a_relationship: Додати зв'язок
     import_successful: Онтологічні терміни успішно імпортовано
@@ -1358,6 +1953,11 @@ uk:
     unrecognized_measurement_types: Нерозпізаний тип вимірювання URIs
     unrecognized_measurement_units: Нерозпізана одиниця вимірювання URIs
     unrecognized_measurement_values: Нерозпізнане значення вимірювання URIs
+  label: Позначка
+  language: "Мова:"
+  language_with_count: "%{language} (%{count})"
+  languages: Мови
+  last_updated: Останнє оновлення
   layouts: 
     v2: 
       application: 
@@ -1407,12 +2007,29 @@ uk:
         questions_link_model_organism: Що таке модельний організм?
         questions_link_naming_species: Як називають види?
         questions_link_species: Що таке вид?
+  learn_more_lowercase: Дізнатися більше
+  leave_a_comment: Залишити коментар
+  leave_community_button: Залишити цю спільноту
+  leave_reply: Залишити відповідь
+  legend: "Легенда:"
   license: дозвіл (на використання)
   license_all_rights_reserved: Всі права захищені
+  license_none: Немає
+  license_public_domain: Суспільне надбання (Public Domain)
+  licensing: Ліцензування
+  limits_the_number_of_returned_image_objects: обмежує число повернутих об'єктів зображення
+  limits_the_number_of_returned_map_objects: обмежує число повернутих об'єктів мапи
+  limits_the_number_of_returned_sound_objects: обмежує число повернутих звукових об'єкти
+  limits_the_number_of_returned_text_objects: обмежує число повернутих текстових об'єктів
+  limits_the_number_of_returned_video_objects: обмежує число повернутих об'єктів відео
+  link_more_about: Докладніше про це посилання
+  link_name: Назва посилання
   link_not_associated_with_any_published_entries: Це посилання не пов'язане із жодними опублікованими таксонами.
   link_rating: Оцінка посилання
+  literature: Література
   location: Місцезнаходження
   logo_header: Логотип
+  map_alt_text: Це %{vetted_status} є мапа %{taxon_name}
   map_from_supplier: Мапа від %{whom}
   map_not_associated_with_any_published_entries: Ця мапа не пов'язана із жодними опублікованими таксонами.
   map_of_taxon: Мапа %{taxon_name}
@@ -1534,7 +2151,7 @@ uk:
       one: Новий коментар у <a href='%{url}' style='color:#195184'>вашому профілі</a>
       other: "%{count} нові коментарі у <a href='%{url}' style='color:#195184'>вашому профілі</a>"
     bulk_comments_with_count: 
-      one: Новий коментар на %{on}
+      one: Новий коментар на %{on}}
       other: "%{count} нові коментарі на %{on}}"
     bulk_community_activity_with_count: 
       one: Оновлення до %{to}
@@ -1593,6 +2210,7 @@ uk:
       tip: Вже зареєструвалися? Зв'яжіть ваш обліковий запис EOL з Facebook, Google та іншими в налаштуваннях вашого профілю. Після підключення облікові записи можна використовувати для входу в EOL.
   sign_in: Увійти
   skip_to_content: перейти до розділу
+  sound_alt_text: Це %{vetted_status} є запис звуку %{taxon_name}
   sound_from_supplier: Звук від %{whom}
   sound_not_associated_with_any_published_entries: Цей звук не пов'язаний із жодними опублікованими таксонами.
   sound_of_taxon: Аудіо %{taxon_name}
@@ -1883,6 +2501,8 @@ uk:
   this_link_is_unpublished: Це посилання не опубліковане.
   this_map_cannot_be_curated_because_unpublished: У цієї мапи немає куратора, тому що вона не опублікована.
   this_map_is_unpublished: Ця мапа не опублікована.
+  this_sound_cannot_be_curated_because_unpublished: Цей звук не може бути курованим, тому що він не був опублікований.
+  this_sound_is_unpublished: Цей звук не був опублікований.
   this_video_cannot_be_curated_because_unpublished: У цього відео немає куратора, тому що воно не опубліковано.
   this_video_is_unpublished: Це відео не опубліковане.
   title: Заголовок
@@ -1908,6 +2528,10 @@ uk:
     edit_metadata_header: Редагувати метадані
     new_field: Нове поле...
     new_value: Значення
+    source_field_helper: Додавання довідкової літератури або URL на інформаційні ресурси в Інтернеті.
+    submit_data: відправити значення даних
+    update_failed: "Не вдалося оновити дані:  %{errors}"
+    update_successful: Дані успішно оновлено
   user_no_longer_active_message: Цей користувач більше не активний
   users: 
     activities: 
@@ -1962,6 +2586,7 @@ uk:
         tweet_text: канал новин %{user_full_name}
     notifications: 
       edit: 
+        page_description: Оновлень, що перелічені нижче (за винятком EOL бюлетень) всі доступні у вашому <a href="%{user_newsfeed_link}">EOL каналі новин</a>, але багато хто хотів би також бути попередженим по електронній пошті про певні види діяльності, які їм особливо цікаві. Встановіть частоту EOL листів відповідно до власних потреб за допомогою кнопок розташованих нижче
         page_title: Налаштування сповіщення
       update: 
         notification_settings_successfully_updated: Налаштування сповіщень успішно оновлено.
@@ -1969,6 +2594,7 @@ uk:
     open_authentications: 
       errors: 
         facebook: 
+          add_connection_failed_account_already_connected: На жаль, нам не вдається підключити обліковий запис Facebook до облікового запису EOL, ваш обліковий запис Facebook вже підключено до <a href="%{existing_eol_account_url}">EOL облікового запису</a>.
           missing_attributes: Вибачте, виникла проблема доступу до ваших даних Facebook.
           new_authentication_not_added: Вибачте, сталася помилка, ми не могли підключити ваш обліковий запис Facebook.
           not_authorized_to_add_authentication: На жаль, у нас немає дозволу на підключення вашого облікового запису Facebook.
@@ -2026,6 +2652,10 @@ uk:
       header: Дякуємо за реєстрацію!
       verify_email_instructions: <strong>Будь ласка, перевірте вашу електронну пошту</strong>. Підтвердження вже відправлено на адресу, яку ви надали. Для завершення процесу реєстрації та набуття прав члена ЕЖ, будь ласка, клацніть по посиланню, вказаному в цьому листі. Спасибі!
     recover_account: 
+      errors: 
+        token_expired_or_invalid: Вибачте, тимчасове посилання для входу закінчилося або недійсне, будь ласка, зробіть запит на новий лист для відновлення вашого облікового запису.
+        unable_to_update_token: Вибачте, сталася помилка, і лист не було надіслано, будь-ласка, спробуйте знову.
+        user_not_found_by_email_address: У EOL обліковий запис з такою адресою електронної пошти не можливо знайти.
       form_header: Відновити обліковий запис
       meta_title: Відновити обліковий запис
     recover_account_choose_account: 
@@ -2033,9 +2663,14 @@ uk:
         user_not_found_choose_again: Вибачте, сталася помилка і лист не було надіслано. Будь ласка, виберіть обліковий запис, до якого ви хотіли б відновити доступ і спробуйте знову.
       form_header: Відновити обліковий запис
       legend_choose_account: Виберіть обліковий запис
+    show: 
+      meta_description: Профіль користувача %{user_full_name} на Енциклопедії Життя.
+      meta_description_curator: Профіль користувача %{curator_level} %{user_full_name} на Енциклопедії Життя.
     unsubscribe_notifications: 
       already_unsubscribed: Ви вже відписані від сповіщень.
+      unsubscribe_notifications_failed: Вибачте, сталася помилка, користувач не може бути без підписки на повідомлення.
       unsubscribed_notifications_successfully: Ви успішно відписалися від повідомлень.
+  video_alt_text: Це %{vetted_status} є відео %{taxon_name}
   video_from_supplier: Відео від %{whom}
   video_not_associated_with_any_published_entries: Це відео не пов'язане із жодними опублікованими таксонами.
   video_of_taxon: Відео %{taxon_name}
@@ -2046,7 +2681,14 @@ uk:
   yahoo: Yahoo
   year: Рік
   yes_answer: Так
+  your_current_rating_0_of_5: "Ваш поточний рейтинг: 0 із 5"
+  your_current_rating_1_of_5: "Ваш поточний рейтинг: 1 із 5"
+  your_current_rating_2_of_5: "Ваш поточний рейтинг: 2 з 5"
+  your_current_rating_3_of_5: "Ваш поточний рейтинг: 3 з 5"
+  your_current_rating_4_of_5: "Ваш поточний рейтинг: 4 з 5"
+  your_current_rating_5_of_5: "Ваш поточний рейтинг: 5 із 5"
   your_email_address: Ваша адреса електронної пошти
   your_ip_address: Ваша IP-адреса
   your_preferences: ваші уподобання
+  your_watch_collection: ваш список спостереження
   youtube: YouTube

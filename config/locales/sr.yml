@@ -152,6 +152,8 @@ sr:
         descriptive_label: Описна ознака
         label: Ознака
         request_publish: Затражи објављивање
+      known_uri: 
+        toc_items: Категорије
       name: 
         string: Назив
       resource: 
@@ -159,6 +161,7 @@ sr:
         auto_publish: Самообјави
         bibliographic_citation: Библиографско навођење
         dataset: Скуп података
+        dataset_license_id: Лиценца
         description: Опис ресурса
         dwc_archive_url: Адреса архиве за Дарвиново језгро
         harvest_events: Преузимања
@@ -352,6 +355,7 @@ sr:
   all: све
   all_apis_return_by_default_an_xml_response: "Сви АПИ-ји по подразумеваном дају XML одговор. Методе АПИ-ја могу се позвати без наставка за формат да би се добио XML одговор, а ако наставак ипак додате, добићете исти одговор:"
   all_articles: Сви чланци
+  all_categories: Све
   all_changes: Све измене
   all_collections: Све збирке
   all_comments_entered_by_users: Доле су приказани сви коментари корисника на сајту, поређани по обрнутом хронолошком реду.
@@ -436,6 +440,8 @@ sr:
   average_rating_value_of_total: "Просечна оцена: %{rating} од %{total}"
   back: Назад
   back_to_profile: Назад на профил
+  background_processes_is_complete: Да
+  background_processes_is_not_complete: Не
   began: Почетак
   belongs_in_count_communities: 
     one: Припада %{count} заједници
@@ -1004,7 +1010,7 @@ sr:
   dublin_core: Даблинско језгро
   duplicate_items_were_ignored: Дуплиране ставке су занемарене.
   each_method_documentation_page_has_formatted_responses: Страница документације за сваки метод садржи два примера за одговоре у формату XML и JSON.
-  edit: Уреди
+  edit: уреди
   edit_collection_details: Уреди детаље о збирци
   edit_collection_details_header: Уређивање детаља о збирци
   edit_comment: Уреди коментар
@@ -1058,6 +1064,9 @@ sr:
   eol_glossary: Речник
   eol_news: Вести
   eol_pages: Странице
+  eol_statistics: 
+    data: 
+      page_title: Статистике
   error_401_description: Нажалост, немате овлашћења да приступите овој адреси.
   error_401_page_title: Нема овлашћења
   error_403_description: Нажалост, немате овлашћења да приступите овој адреси.

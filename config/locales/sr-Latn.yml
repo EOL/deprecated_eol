@@ -1,6 +1,7 @@
 # Messages for Serbian (Latin script) (srpski (latinica)‎)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Milicevic01
 # Author: Rancher
 sr-Latn: 
   0_1_or_2: 0, 1 ili 2
@@ -94,6 +95,7 @@ sr-Latn:
         auto_publish: Samoobjavi
         bibliographic_citation: Bibliografsko navođenje
         dataset: Skup podataka
+        dataset_license_id: Licenca
         description: Opis resursa
         dwc_archive_url: Adresa arhive za Darvinovo jezgro
         harvest_events: Preuzimanja
@@ -874,7 +876,7 @@ sr-Latn:
   dublin_core: Dablinsko jezgro
   duplicate_items_were_ignored: Duplirane stavke su zanemarene.
   each_method_documentation_page_has_formatted_responses: Stranica dokumentacije za svaki metod sadrži dva primera za odgovore u formatu XML i JSON.
-  edit: Uredi
+  edit: uredi
   edit_collection_details: Uredi detalje o zbirci
   edit_collection_details_header: Uređivanje detalja o zbirci
   edit_comment: Uredi komentar

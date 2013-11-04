@@ -163,6 +163,7 @@ zh-CN:
         rich_pages: 高质量页面
         rich_redhotlist_pages: 高质量红色关注页面
         rich_redhotlist_pages_percentage: 高质量红色关注页面百分比
+        total_taxa_with_data: 带数据页面
         total_triples: 三重
         total_user_added_data: 用户加入的数据
         udo_published: 用户提交的文本
@@ -194,6 +195,12 @@ zh-CN:
         name: 名称
         toc_items: 分类
         uri: URI
+        uri_type: URI形式
+      known_uri_relationship: 
+        from_known_uri_id: 主题URI
+        relationship_uri: 关系URI
+        to_known_uri: 目标URI
+        to_known_uri_id: 目标URI
       name: 
         string: 名称
       news_item: 
@@ -233,6 +240,9 @@ zh-CN:
         auto_publish: 自动发布
         bibliographic_citation: 书目引用
         dataset: 数据集文件
+        dataset_license_id: 授权协议
+        dataset_rights_holder: 权利持有人
+        dataset_source_url: 原始数据源
         description: 资源描述
         dwc_archive_url: 达尔文核心档案URL
         harvest_events: 收获事件
@@ -280,9 +290,11 @@ zh-CN:
         username: 用户名
       user_added_data: 
         object: 值
+        predicate: 属性
         user: 加入自
       user_added_data_metadata: 
         object: 值
+        predicate: 属性
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -326,6 +338,10 @@ zh-CN:
             publish: 
               inclusion: 只允许最近的收获事件，且只当那个事件尚未发布
         inaccessible: 记录无效，无法保存。请检查验证错误并重新提交。
+        known_uri_relationship: 
+          attributes: 
+            to_known_uri_id: 
+              must_be_known_uri: 必须是一个已知的URI
         open_authentications: 
           guid_provider_must_be_unique: 该第三方账户已经连接至一个EOL账户
           provider_user_id_must_be_unique: 一个EOL账户只能连接每个第三方提供者的一个账户
@@ -488,6 +504,14 @@ zh-CN:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong>将“%{data_object}”设为“%{taxon}”的范例。
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 将其设为一个未知页面上的范例。
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 将其设为“%{taxon}”上的一个范例。
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: 一个未知的用户合并了两个未知页面。
+          an_unknown_user_merged_to_it: 一个未知的用户合并了另一个页面至此页面。
+          an_unknown_user_merged_to_taxon: 一个未知的用户合并了另一个页面至%{target}。
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong>合并了两个未知页面。
+          user_merged_to_it: <strong>%{user}</strong>将另一个页面合并进此页面。
+          user_merged_to_taxon: <strong>%{user}</strong>合并了另一个页面至%{target}。
       crop: 
         an_unknown_user_cropped_an_unknown_data_object: 一位未知用户修改了一个未知图像的缩略图。
         an_unknown_user_cropped_it: 一位未知用户修改了一个未知图像的缩略图。
@@ -608,6 +632,7 @@ zh-CN:
   add_a_new_topic_area: 添加一个新的主题领域
   add_a_new_user: 添加一个新用户
   add_a_taxon_association_label: 添加一条分类关联
+  add_article_to_page_button: 加入一个条目
   add_association_submit_button: 添加关联
   add_brief_summary_to_page_link_button: 为此页添加简要说明
   add_citizen_science_resources_to_page_link_button: 将一条公民科学链接添加到此页
@@ -617,6 +642,7 @@ zh-CN:
   add_identification_resources_to_page_link_button: 为此页添加标识资源
   add_item_to_new_collection: 将“%{item}” 添加到一个新的收藏
   add_language: 添加语言
+  add_link_to_page_button: 加入一个连接
   add_new_association_link: 添加新的关联
   add_new_known_uri_link: 加入新的URI
   add_new_tag_suggestion: 添加新的标签建议
@@ -667,6 +693,13 @@ zh-CN:
   admin_information: "\"这是EOL V2新的管理控制台。我们正在从V1转移管理功能的过程中。如果您正在寻找的管理部分未列出，请访问<a href=\"\"/administrator\"\"> V1的管理控制台。\""
   admin_link: 概述
   admin_login_confirmation: 您确定要以%{name}登录到内容合作伙伴注册表？如此，您的管理员登录状态将注销。
+  admin_news_item_active: 已发布
+  admin_news_item_new_header: 创建一个新的新闻项
+  admin_news_item_new_link: 创建新闻项
+  admin_news_item_not_active: 未发布
+  admin_news_items_empty: 没有新闻项被发现。
+  admin_news_items_page_title: 管理：新闻
+  admin_news_link: 新闻
   admin_notes_not_visible_to_user: 管理员注释（对用户不可见）：
   admin_option_changed: 值已更新。
   admin_page_title: 管理：概要
@@ -684,6 +717,11 @@ zh-CN:
   admin_translated_content_page_new_tip: 语言，标题和正文是%{required_icon}必需的。
   admin_translated_content_page_update_successful_notice: "\"<a href=\"\"#%{anchor}\"\"><em>%{page_name}</em></a> 的%{language} 翻译已经更新。\""
   admin_translated_content_page_update_unsuccessful_error: 抱歉，出现了一个错误，翻译无法更新。
+  admin_translated_news_item_active: 已发布
+  admin_translated_news_item_new_header: 选择语言并添加内容
+  admin_translated_news_item_new_link: 加入翻译
+  admin_translated_news_item_new_subheader: 为<em>%{page_name}</em>加入翻译
+  admin_translated_news_item_not_active: 未发布
   admin_user_delete_successful_notice: 用户已删除
   admin_user_hide_successful_notice: 用户已隐藏
   admin_user_unhide_successful_notice: 用户已显示
@@ -792,13 +830,18 @@ zh-CN:
   assistive_updates_header: 更新
   assistive_updates_statistics_header: 页面统计
   associated_submit_button: 关联
-  associated_with_article_header: 在这篇文章中
+  associated_with_article_header: 在最近的文章中
   associated_with_header: 关联到
-  associated_with_image_header: 在这个图像中
-  associated_with_image_map_header: 在此地图上
-  associated_with_map_header: 在此地图上
-  associated_with_sound_header: 在这个音频中
-  associated_with_video_header: 在这个视频中
+  associated_with_image_header: 在最近的图像中
+  associated_with_image_map_header: 在最近的地图中
+  associated_with_link_header: 在最近的连接中
+  associated_with_map_header: 在最近的地图中
+  associated_with_sound_header: 在最近的音频中
+  associated_with_video_header: 在最近的视频中
+  association_hidden_for_taxa: 
+    other: 隐藏为：
+  association_trusted_for_taxa: 
+    other: 信任为：
   associations_more_link: 更多<span class=assistive>类群关联</span>
   attribute: 属性
   audio_current_time_assistive: 当JavaScript启用时，将以分秒的形式显示音频文件的当前播放位置。
@@ -823,6 +866,7 @@ zh-CN:
   background_processes_download: 下载
   background_processes_is_complete: 是
   background_processes_is_not_complete: 否
+  background_processes_page_title: 后台进程
   background_processes_query_head: 查询
   began: 开始
   belongs_in_count_communities: 
@@ -846,7 +890,9 @@ zh-CN:
   by_scientific_name_table_header: 通过学名
   cache_store: 缓存
   calculate_averages_slow: 计算平均值（慢）
+  call_api: 联络API
   cancel: 取消
+  cancel_split: 取消
   cannot_be_associated_with_both_a_user_and_a_community: 无法同时与用户和社区建立关联
   cannot_be_empty: 不能为空。
   cannot_create_collection_item_from_class_error: 我们不能从一个%{klass}创建一个收藏条目
@@ -876,6 +922,7 @@ zh-CN:
   classifications_preferred_column_header: 首选
   classifications_rank_column_header: 等级
   classifications_recognized_by_column_header: 确认机构
+  classifications_split_column_header: 拆分/移动
   classifications_summary_header_with_count: 
     other: "在 %{count}个分类系统中发现 "
   classifications_with_count: 
@@ -942,11 +989,12 @@ zh-CN:
         view_project_on_inaturalist: 查看来自iNaturalist的%{project_title}
     newsfeeds: 
       show: 
-        meta_description: 生命百科新闻，评论和相关活动。
+        meta_description: 生命百科在此聚合新闻，评论和相关活动——%{collection_name}。
         meta_keywords: "%{collection_name} 新闻"
         meta_title: "%{collection_name} 新闻"
         tweet_text: "%{collection_name} 新闻"
     show: 
+      meta_description_default_watch_collection: 一个生命百科的监视列表：%{collection_name}。
       meta_keywords: 生命百科收藏%{collection_name}
   collections_filter: 收藏
   collections_link: 收藏
@@ -1336,6 +1384,7 @@ zh-CN:
   daily: 每日
   darwin_core: 达尔文核心
   dashboard: 通告板
+  data: 数据
   data_about_subtab_header: 关于EOL的数据
   data_column_common_name: 原始名称
   data_column_source: 来源
@@ -1439,11 +1488,16 @@ zh-CN:
   dato_create_user_text_missing_user_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
   dato_create_user_text_validation_error: 请确认您是否正确填完了表格。
   dato_edit_cancel: 取消
+  dato_edit_link_button: 编辑此链接
+  dato_edit_link_title: 编辑连接
+  dato_edit_text_button: 编辑此文章
   dato_edit_text_title: 编辑文章
   dato_new_edit_user_text_fieldset_content_header: 文章内容
   dato_new_edit_user_text_fieldset_information_header: 文章信息
   dato_new_edit_user_text_form_tip: "\"您的整篇文章将被添加到物种页。如果您不是一个管理员，这篇文章在被管理员审核之前将被标记为“未审核”。章节、文字、语言和版权许可是必填项(%{required_icon})，其他都是选填项。如果您选择了CC-BY（属性）许可，请附上版权持有人或者留空以使用您的全名。公共领域的许可证不需要版权持有人。想进一步了解请阅读<a href=\"\"%{add_article_help_url}\"\">添加文章帮助</a>。\""
+  dato_new_edit_user_text_link_fieldset_content_header: 连接数据
   dato_new_text_for_taxon_page_title: 向<i>%{taxon}</i>添加一篇文章
+  dato_new_text_link_for_taxon_page_title: 加入链入<i>%{taxon}</i>的连接
   dato_update_user_text_error: 抱歉，发生了一个错误，此文章不能被更新。
   dato_update_users_text_not_owner_exception: 只有文字项的原始作者可以编辑它。
   default: 默认的
@@ -1503,6 +1557,7 @@ zh-CN:
   edit_my_profile: 编辑个人信息
   edit_news_items: 编辑新闻项
   edit_page_contents: 编辑页面内容
+  edit_permission_header: 编辑权限：%{permission}
   edit_search_suggestion: 编辑搜索建议
   edit_search_suggestions: 编辑搜索建议
   edit_table_of_contents: 编辑内容表
@@ -1555,6 +1610,8 @@ zh-CN:
       page_title: 统计
     data: 
       menu_link: 数据
+      page_header: 数据统计
+      page_title: 统计
     data_objects: 
       menu_link: 数据对象
       page_header: 数据对象统计
@@ -1621,6 +1678,7 @@ zh-CN:
   faculty_staff_or_grad_student_credential_option: 在相关学院或大学教研室的教师、 工作人员或研究生身份
   failed_login_attempts_with_count: 
     other: (%{count} 次登录失败)- 请检查用户登录信息
+  false_label: 失败
   family_name_colon: 科名：
   feedback: 反馈
   file: 文件
@@ -1646,6 +1704,7 @@ zh-CN:
   filter_by_type_image_option: 图像
   filter_by_type_image_option_with_count: 
     other: " 图像(%{count})"
+  filter_by_type_link_option: 连接
   filter_by_type_name_option: 名称
   filter_by_type_object_curated_option: 已管理的数据项
   filter_by_type_photosynth_option: 全景图
@@ -1714,6 +1773,7 @@ zh-CN:
     edit: 编辑论坛
     forums_heading: 生物百科论坛
     last_post: 最后发布
+    move_failed: 论坛无法移动
     move_successful: 论坛已成功移动
     no_topics: 这个论坛没有帖子
     post_by_user_at_time: 由%{user}，于%{time}
@@ -1733,7 +1793,11 @@ zh-CN:
       replying_to_post: 回复：
     posts_heading: 帖子
     replies: 答复
+    topics: 
+      create: 开启一个新话题
+      no_posts: 此话题中木有帖子
     topics_heading: 帖子
+    update_failed: 抱歉，发生了一个错误，论坛无法更新
     update_successful: 已成功更新论坛
     views: 浏览次数
   fragment_caching_enabled: 碎片缓存已启用
@@ -1901,7 +1965,7 @@ zh-CN:
         active_translation: 已发布
         active_translation_more: 已发布的网页将公开可见。如果要防止一般用户查看此页的本版本，取消选中<em>已发布</em>。
         language_id: 语言
-        left_content_more: 可选择添加一个无序的链接列表让本页拥有导航列。可以通过选择<em>资源</em>和编辑链接的HTML<em>href</em>属性来添加锚链接。例如，要为<em>正文</em>内容区域的<em>licensing_policy</em>添加锚连接，您的链接列表中的<em>href</em>属性值应该为#licensing_policy\
+        left_content_more: （可选）添加带导航链接的无序列表。使用类名称<code>active</code>以便高亮显示当前页面的链接，即当<code>:id</code>是当前页面ID或唯一名称以及<code>:title</code>是可以描述页面梗概的标题时使用<code>&lt;li class="active"&gt;&lt;a href="/info/:id"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>（<strong>注：所有连接EOL CMS页面的连接应以一个左斜线开头：<code>/info/:id</code></strong>）。要进行这些更改您将需要编辑HTML源代码，通过在编辑器中选择<em>Source</em>以执行此操作。
         main_content_more: 在正文区输入主要内容。使用<em>格式</em>下拉列表选择相应的语义文本元素，例如：选择<em>Heading 2</em>作为二级标题。注意：页面题目为一级标题，因此在正文区以<em>Heading 2</em>开始您的标题。
         meta_description_more: 提供一个简短的描述，用以概括本页内容的关键概念。该描述有时会被搜索引擎用于检查相关性和直接列于搜索结果中。
         meta_keywords_more: 输入能最好反应该页内容的关键词或者短语，以逗号间隔。搜索引擎有时候使用这些关键词和短语来评估页面与搜素条目的相关性。
@@ -2073,6 +2137,7 @@ zh-CN:
   image_objects_will_contain_two_mediaurl_elements: 图片对象将含有两个mediaURL元素 - 一个是原始数据提供者的网站的URL，另一个是保存EOL缓存版本媒体的服务器的URL。这些图像的EOL缓存版本经过调整以适于网站展示，尺寸被限制在460像素宽度和345像素高度以内。
   image_of_taxon: " %{taxon_name}的图片"
   image_rating: 图像评级
+  image_title_with_taxa: "%{taxa}的图像"
   images: 图像
   images_in_red_are_not_trusted: 红色标记图像是不可信的。
   images_in_yellow_are_not_reviewed: 黄色标记图像是未经审核的。
@@ -2082,6 +2147,7 @@ zh-CN:
     other: "%{count}张图像"
   import_once: 一次性导入
   in_collection: 已收藏
+  in_community: 在社群
   in_providing_its_content_to_eo: "\"正向EOL提供其内容,\""
   in_this_data_type: "在 %{data_type}中:"
   inappropriate: 不恰当
@@ -2118,6 +2184,7 @@ zh-CN:
   item_type_image_assistive: 此项是一幅图片
   item_type_image_map: 地图
   item_type_image_map_assistive: 此项是一幅地图图像
+  item_type_link: 连接
   item_type_map: 地图
   item_type_map_assistive: 此项是一幅地图
   item_type_person: 用户
@@ -2146,6 +2213,8 @@ zh-CN:
   known_uri_category_header: 分类
   known_uri_created: URI已加入。
   known_uri_name_and_uri: "%{name}（%{uri}）"
+  known_uris: 
+    relationships: 关联
   known_uris_page_title: EOL上有关数据的URI
   label: 标签
   language: 语言：
@@ -2216,6 +2285,7 @@ zh-CN:
   leave_community_button: 离开这个社区
   leave_reply: 留下回复
   left_content_area: 内容区域左侧
+  legend: 图例：
   license: 授权协议
   license_all_rights_reserved: 保留所有权利
   license_cc_by: 知识共享属名协议(CC BY)
@@ -2526,10 +2596,10 @@ zh-CN:
     user_message: 
       subject: 一条来自网络生命大百科的消息
     user_recover_account: 
-      message: "网络生命大百科系统(http://eol.org)收到一个要求恢复您账号的请求。如果您没有发送这个请求，请忽略这份邮件。\n\n下面的链接地址是一个允许您修改帐户密码或添加一个将来可能使用的新的关联帐户的一次性有效链接。请注意，这个链接将在24小时后过期，如果您登录帐户仍有问题，超过上述时间后您可以访问%{recover_account_url}请求一个新的临时登录链接。"
+      message: "网络生命大百科系统(http://eol.org)收到一个要求恢复您账号的请求。如果您没有发送这个请求，请忽略这份邮件。\n\n下面的链接地址是一个允许您修改帐户密码，或添加一个将来可能使用的新的关联帐户的一次性有效链接：\n\n%{temporary_login_url}\n\n请注意，这个链接将在24小时后过期，如果您登录帐户仍有问题，超过上述时间后您可以访问%{recover_account_url}请求一个新的临时登录链接。"
       subject: 恢复您的网络生命大百科账号
     user_updated_email_preferences: 
-      message: "这是EOL系统自动发送的通告。用户%{user_full_name} (%{user_profile_url})更新了他们的电子邮件地址或邮件列表设置。\n\n以前的设置:\nE-mail: %{previous_email}\n邮件列表设置:%{updated_mailing_list_preference}\n更新时间: %{updated_at}"
+      message: "这是EOL系统自动发送的通告。用户%{user_full_name}（%{user_profile_url}）更新了他们的电子邮件地址或邮件列表设置。\n\n以前的设置：\n电子邮件：%{previous_email}\n邮件列表设置：%{previous_mailing_list_preference}\n\n已更改为：\n电子邮件：%{updated_email}\n邮件列表设置：%{updated_mailing_list_preference}\n更新于：%{updated_at}"
       subject: EOL用户%{user_full_name}更改了电子邮件地址或邮件列表设置
     user_verification: 
       message: "感谢您注册网络生命大百科。下面的链接将确认您希望完成注册并激活您的账号:\n\n%{verification_url}\n\n一旦您的账号激活，您会收到一封确认邮件。"
@@ -2732,7 +2802,7 @@ zh-CN:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: 在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。
     someone_commented_on_something: <b>%{who}</b>评论了 <b>%{what}</b>。
-    unsubscribe: 在<a href='%{email_prefs_url}' style='color:#195184'>您的提醒参数页面</a>更改email设置或者退订。
+    unsubscribe: 登录并在<a href='%{email_prefs_url}' style='color:#195184'>您的通知首选项页面</a>或<a href='%{unsubscribe_url}' style='color:#195184'>更新您的电子邮件设置以退订从EOL的所有自动通知而无需登录</a>。
   recent_updates: 最近更新
   recently_visited: 最近访问
   recipients: 收件人
@@ -3039,9 +3109,9 @@ zh-CN:
         meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和信息。阅读在网络生命大百科中关于%{preferred_common_name}的文章。"
         meta_keywords: "%{scientific_name}的信息，%{scientific_name}的文献，%{scientific_name}的文章"
         meta_keywords_with_common_name: 关于%{preferred_common_name}的信息，%{preferred_common_name}的文献，%{preferred_common_name}的文章
-        meta_title: "%{scientific_name}的文献"
-        meta_title_with_common_name: 关于%{preferred_common_name}(%{scientific_name})的书籍
-        tweet_text: "%{scientific_name}的文献"
+        meta_title: 关于%{scientific_name}的文章和书籍
+        meta_title_with_common_name: 关于%{preferred_common_name}（%{scientific_name}）的文章和书籍
+        tweet_text: "%{scientific_name}的文章和书籍"
     maps: 
       show: 
         hierarchy_entry: 
@@ -3406,9 +3476,11 @@ zh-CN:
   user_activity_stats_wikipedia_nominated: 
     other: 提名了%{count}篇维基百科的文章
   user_added_data: 
+    add_data_header: 贡献您自己的数据
     edit_data_header: 编辑您的数据
     edit_metadata_header: 编辑元数据
     new_value: 值
+    update_failed: 无法更新您的数据：%{errors}
   user_agent: 用户代理
   user_already_active_notice: 您的帐户已激活，请登录。
   user_comment: 用户评论
@@ -3505,6 +3577,7 @@ zh-CN:
           missing_attributes: 抱歉，访问您Facebook帐户的详细信息时存在问题。
           new_authentication_not_added: 抱歉，出现了一个错误，我们无法连接您的Facebook账户。
           not_authorized_to_add_authentication: 抱歉，我们没有关联您Facebook帐户的授权。
+          not_authorized_to_login: 抱歉，我们没有授权您通过您的脸书账户登录EOL。
           not_authorized_to_signup: 抱歉，我们没有被授权使用您的 Facebook 账户登陆到EOL。
           signup_failed_account_already_connected: "\"抱歉，我们不能为您建立一个新的EOL帐户与您的Facebook帐户关联，它已经关联到一个<a href=\"\"%{existing_eol_account_url}\"\">EOL帐户</a>。您想<a href=\"\"%{login_url}\"\">登陆</a> 吗？\""
         google: 
@@ -3512,16 +3585,19 @@ zh-CN:
           missing_attributes: 抱歉，访问您Google帐户的详细信息时存在问题。
           new_authentication_not_added: 抱歉，出现了一个错误，我们无法连接您的Google账户。
           not_authorized_to_add_authentication: 抱歉，我们没有关联您Google帐户的授权。
+          not_authorized_to_login: 抱歉，我们没有授权您通过您的Google账户登录EOL。
           not_authorized_to_signup: 抱歉，我们没有被授权使用您的 Google 账户登陆到EOL。
           signup_failed_account_already_connected: "\"抱歉，我们不能为您建立一个新的EOL帐户与您的Google帐户关联，它已经关联到一个<a href=\"\"%{existing_eol_account_url}\"\">EOL帐户</a>。您想<a href=\"\"%{login_url}\"\">登陆</a> 吗？\""
         missing_attributes: 抱歉，访问您第三方帐户的详细信息时存在问题。
         not_authorized_to_add_authentication: 抱歉，我们没有关联该帐户的授权。
+        not_authorized_to_login: 抱歉，我们没有授权您通过那个账户登录EOL。
         remove_connection_failed: 抱歉，出现了一个错误，我们无法删除连接。
         twitter: 
           add_connection_failed_account_already_connected: "\"抱歉，我们不能关联您的Twitter帐户到您的EOL帐户，您的Twitter帐户已经被关联到<a href=\"\"%{existing_eol_account_url}\"\">一个EOL帐户</a>。\""
           missing_attributes: 抱歉，访问您Twitter帐户的详细信息时存在问题。
           new_authentication_not_added: 抱歉，出现了一个错误，我们无法连接您的Twitter 账户。
           not_authorized_to_add_authentication: 抱歉，我们没有关联您Twitter帐户的授权。
+          not_authorized_to_login: 抱歉，我们没有授权您通过您的推特账户登录EOL。
           not_authorized_to_signup: 抱歉，我们没有被授权使用您的 Twitter 账户登陆到EOL。
           signup_failed_account_already_connected: "\"抱歉，我们不能为您建立一个新的EOL帐户与您的Twitter帐户连接，它已经关联到一个<a href=\"\"%{existing_eol_account_url}\"\">EOL帐户</a>。您想替换 <a href=\"\"%{login_url}\"\">登陆</a> 吗？\""
         yahoo: 
@@ -3529,6 +3605,7 @@ zh-CN:
           missing_attributes: 抱歉，访问您Yahoo!帐户的详细信息时存在问题。
           new_authentication_not_added: 抱歉，出现了一个错误，我们无法连接您的Yahoo!账户。
           not_authorized_to_add_authentication: 抱歉，我们没有关联您Yahoo!帐户的授权。
+          not_authorized_to_login: 抱歉，我们没有授权您通过您的雅虎账户登录EOL。
           not_authorized_to_signup: 抱歉，我们没有被授权使用您的 Yahoo! 账户登陆到EOL。
           signup_failed_account_already_connected: "\"抱歉，我们不能为您建立一个新的EOL帐户与您的Yahoo!帐户关联，它已经关联到一个<a href=\"\"%{existing_eol_account_url}\"\">EOL帐户</a>。您想<a href=\"\"%{login_url}\"\">登陆</a> 吗？\""
       facebook: Facebook

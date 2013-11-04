@@ -10,6 +10,7 @@
 # Author: SPQRobin
 # Author: Saruman
 # Author: Siebrand
+# Author: Sjoerddebruin
 # Author: Wouterkoch
 nl: 
   0_1_or_2: 0, 1 of 2
@@ -2655,6 +2656,7 @@ nl:
   leave_community_button: Deze gemeenschap verlaten
   leave_reply: Antwoord achterlaten
   left_content_area: Contentgebied aan de linkerkant
+  legend: "Legenda:"
   license: Licentie
   license_all_rights_reserved: Alle rechten voorbehouden
   license_cc_by: Creative Commons Naamsvermelding (CC-BY)

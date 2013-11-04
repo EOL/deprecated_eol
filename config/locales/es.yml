@@ -26,6 +26,7 @@
 # Author: Sampalahnuk
 # Author: Shirayuki
 # Author: Toliño
+# Author: VegaDark
 # Author: Vivaelcelta
 es: 
   0_1_or_2: 0, 1 o 2
@@ -180,6 +181,14 @@ es:
         rich_pages: Páginas populares
         rich_redhotlist_pages: Páginas ricas rojas más demandadas
         rich_redhotlist_pages_percentage: Paginas Rich Red Hotlist %
+        total_association_types: Tipos de asociación
+        total_associations: Asociaciones
+        total_measurement_types: Tipos de medición
+        total_measurements: Mediciones
+        total_occurrences: Apariciones
+        total_taxa_with_data: Páginas con datos
+        total_triples: Triples
+        total_user_added_data: Datos agregados del usuario
         udo_published: Texto enviado por el usuario
         udo_published_by_curators: Texto enviado por el responsable de mantenimiento
         udo_published_by_non_curators: Texto no enviado por responsable de mantenimiento
@@ -205,6 +214,18 @@ es:
         descriptive_label: Etiqueta descriptiva
         label: Etiqueta
         request_publish: Solicitar la publicación
+      known_uri: 
+        description: Descripción
+        exclude_from_exemplars: Excluir de Datos Rápidos
+        name: Nombre
+        toc_items: Categorías
+        uri: URI
+        uri_type: Tipo de URI
+      known_uri_relationship: 
+        from_known_uri_id: Tema URI
+        relationship_uri: Relación de URI
+        to_known_uri: URI de destino
+        to_known_uri_id: URI de destino
       name: 
         string: Nombre
       news_item: 
@@ -244,6 +265,11 @@ es:
         auto_publish: Publicar automáticamente
         bibliographic_citation: Cita bibliográfica
         dataset: Archivo de conjunto de datos
+        dataset_hosted_url: Fuente de datos (copia local)
+        dataset_license_id: Licencia
+        dataset_rights_holder: Posesor de los derechos
+        dataset_rights_statement: Declaración de derechos
+        dataset_source_url: Fuente de Datos Original
         description: Descripción de recursos
         dwc_archive_url: Darwin Core Archivo URL
         harvest_events: Recoger eventos
@@ -263,6 +289,9 @@ es:
         meta_description: Descripción de metadatos
         meta_keywords: Palabras clave de metadatos
         title: Título
+      translated_known_uri: 
+        comment: Comentario
+        definition: Definición
       translated_news_item: 
         active_translation: Publicado
         body: Cuerpo
@@ -289,6 +318,13 @@ es:
         requested_curator_level_id: Nivel deseado para supervisor
         tag_line: Lema
         username: Nombre de usuario
+      user_added_data: 
+        object: Valor
+        predicate: Atributo
+        user: Añadido por
+      user_added_data_metadata: 
+        object: Valor
+        predicate: Atributo
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -336,6 +372,18 @@ es:
             publish: 
               inclusion: sólo está permitido para el último evento de recogida y sólo si ese evento ya no está publicado
         inaccessible: No se pudo guardar el registro porque no era válido. Comprueba errores de validación y vuelve a enviarlo.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: No se permite - sólo puede haber una unidad de medida
+            to_known_uri_id: 
+              must_be_different: debe ser diferente que el Tema URI
+              must_be_known_uri: debe ser un URI conocido
+              must_be_measurement: debe ser una unidad de medida
         open_authentications: 
           guid_provider_must_be_unique: la cuenta externa ya está conectada con una cuenta de EOL
           provider_user_id_must_be_unique: sólo puede conectarse una cuenta de cada proveedor externo a una cuenta de EOL
@@ -351,6 +399,22 @@ es:
             dwc_archive_url: 
               inaccessible: es inaccesible, la URL necesita ser accesible al público
               invalid: no es válido, debe apuntar a un archivo TAR.GZIP, TAR.GZ, TGZ o ZIP.
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              namespace: utilizó un espacio de nombres que no fue reconocido
+            subject: 
+              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              namespace: utilizó un espacio de nombres que no fue reconocido
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              namespace: utilizó un espacio de nombres que no fue reconocido
+            subject: 
+              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              namespace: utilizó un espacio de nombres que no fue reconocido
       template: 
         body: "Se encontraron problemas con los siguientes campos:"
         header: 
@@ -583,6 +647,19 @@ es:
         user_cropped_an_unknown_data_object: <strong>%{user}</strong> cambió la miniatura de una imagen desconocida.
         user_cropped_data_object: <strong>%{user}</strong> cambió la miniatura de la imagen de "%{data_object}".
         user_cropped_it: <strong>%{user}</strong> cambió la miniatura de una imagen desconocida.
+      data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: Un usuario desconocido eligió ocultar datos en una página desconocida.
+        an_unknown_user_hide_data_on_taxon: Un usuario desconocido eligió ocultar datos en "%{taxon}".
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un usuario desconocido define datos como ejemplar en una página desconocida.
+        an_unknown_user_set_exemplar_data_on_taxon: Un usuario desconocido define datos como ejemplar en "%{taxon}".
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Un usuario desconocido eligió mostrar los datos en una página desconocida.
+        an_unknown_user_unhide_data_on_taxon: Un usuario desconocido eligió mostrar los datos en "%{taxon}".
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> escogió ocultar datos en una página desconocida.
+        user_hide_data_on_taxon: <strong>%{user}</strong> eligió ocultar datos en "%{taxon}".
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> define datos como ejemplar en una página desconocida.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> define datos como ejemplar en "%{taxon}".
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> escogió mostrar datos en una página desconocida.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> eligió mostrar datos en "%{taxon}".
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como oculto en un contexto desconocido.
         an_unknown_user_hid_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como oculto en la página "%{association}".
@@ -843,6 +920,16 @@ es:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como no fiable en la página "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como no fiable en un contexto desconocido.
         user_untrusted_it_on_association: <strong>%{user}</strong> lo ha marcado como no fiable en la página "%{association}".
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: Un usuario desconocido agregó datos a una página desconocida.
+        an_unknown_user_create_data_on_taxon: Un usuario desconocido agregó datos a %{taxon}.
+        an_unknown_user_update_data_on_an_unknown_taxon: Un usuario desconocido actualizó datos en una página desconocida.
+        an_unknown_user_update_data_on_taxon: Un usuario desconocido actualizó datos en "%{taxon}".
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> agregó datos a una página desconocida.
+        user_create_data_on_taxon: <strong>%{user}</strong> agregó datos a "%{taxon}".
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> actualizó datos en una página desconocida.
+        user_update_data_on_taxon: <strong>%{user}</strong> actualizó datos en "%{taxon}".
+  activity_user_created_data: <strong>%{user}</strong> agregó datos acerca de "%{object_name}" a "%{taxon_concept}".
   activity_user_created_link: <strong>%{user}</strong> ha añadido un enlace a "%{object_name}" en "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> añado el texto a "%{object_name}" on "%{taxon_concept}".
   activity_user_updated_link: <strong>%{user}</strong> ha actualizado el enlace "%{object_name}" en "%{taxon_concept}".
@@ -859,6 +946,7 @@ es:
   add_a_new_topic_area: Agregar un nuevo tema
   add_a_new_user: Agregar un nuevo usuario
   add_a_taxon_association_label: Añadir una asociación de taxón
+  add_another_metadata_field: Agregar nuevo campo de metadatos
   add_article_instead: Añadir un artículo en su lugar
   add_article_to_page_button: "Añadir un artículo:"
   add_association_submit_button: añadir asociación
@@ -874,6 +962,7 @@ es:
   add_link_instead: Añadir un enlace en su lugar
   add_link_to_page_button: Añadir enlace
   add_new_association_link: Añadir nueva asociación
+  add_new_known_uri_link: Agregar un nuevo URI
   add_new_tag_suggestion: Agregar nueva sugerencia de etiqueta
   add_page: Añadir página
   add_sub_chapter: Añadir subcapítulo
@@ -941,6 +1030,9 @@ es:
   admin_news_items_page_title: "Administración: Noticias"
   admin_news_link: Noticias
   admin_notes_not_visible_to_user: "Notas de Admin (no visibles para el usuario):"
+  admin_option_all_users_can_see_data: Todos los usuarios pueden ver los datos, no sólo los usuarios con permiso
+  admin_option_changed: Valor cambiado.
+  admin_options_warning: Los cambios aquí pueden tomar 10 minutos en hacer efecto.
   admin_page_title: Consola de Administración
   admin_spam_delete: Eliminar Spam
   admin_statistics_link: Estadísticas
@@ -1012,6 +1104,7 @@ es:
   all: todos
   all_apis_return_by_default_an_xml_response: "Todas las API devuelven, por defecto, una respuesta en XML. Los métodos de un API pueden ser llamados sin una extensión de formao para obtener una respuesta en XML, y agregar una extensión en XML dará una respuesta idéntica:"
   all_articles: Todos los artículos
+  all_categories: Todo
   all_changes: Todos los cambios
   all_collections: Todas las colecciones
   all_comments_entered_by_users: Todos los comentarios ingresados por usuarios del sitio web se muestran abajo, en orden inverso al tiempo de creación.
@@ -1040,7 +1133,12 @@ es:
   an_unknown_user: Un usuario desconocido
   and: 'y'
   and_between_form_items: 'y'
+  annotation_body_default: añadir una pregunta o comentario ...
   annotation_cabs_colon: "Anotación:"
+  annotation_submit: post anotación
+  annotations_with_count: 
+    one: "%{count} anotación"
+    other: "%{count} anotaciones"
   anonymous_user_full_name: Usuario anónimo
   anonymous_user_given_name: Anónimo
   anonymous_user_tag_line: No ha iniciado sesión
@@ -1078,6 +1176,7 @@ es:
   as_of_time_there_were_unique_visitors: 
     one: Hasta las %{time} hubo %{count} único visitante
     other: Hasta las %{time} hubo %{count} visitantes únicos
+  assistive_data_header: Datos e Información
   assistive_details_header: Detalles
   assistive_literature_header: Literatura
   assistive_maps_header: Mapas
@@ -1129,10 +1228,24 @@ es:
   average_rating_value_of_total: Promedio de calificacio'n %{rating} of %{total}
   back: Volver
   back_to_profile: Regresar al perfil
+  background_processes_actions_head: Acciones
+  background_processes_attribute_head: Atributo
+  background_processes_complete_head: ¿Completo?
+  background_processes_created_head: Creado
+  background_processes_download: descargar
+  background_processes_is_complete: Sí
+  background_processes_is_not_complete: 'No'
+  background_processes_page_title: Procesos en segundo plano
+  background_processes_query_empty: (no hay cadena de consulta)
+  background_processes_query_head: Consulta
   began: Ha comenzado
   belongs_in_count_communities: 
     one: Pertenece a %{count} Comunidad
     other: Pertenece a %{count} Comunidades
+  beta_warning_body: La mayoría de los usuarios no pueden ver o utilizar esta función, que está bajo desarrollo activo. El rendimiento y los datos pueden ser impredecibles, pero le invitamos a explorar. Damos la bienvenida a sus <a href='%{link}'>comentarios</a>.
+  beta_warning_header: Está utilizando una versión beta de prueba
+  beta_warning_note_header: "Nota:"
+  beta_warning_small: Por favor, tenga en cuenta que esto es una prueba beta y puede ser impredecible.
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Visita la Biodiversity Heritage Library
   bhl_publication: Publicación BHL
@@ -1164,6 +1277,8 @@ es:
   cannot_expand_children: no se pueden expandir las dependencias
   cannot_find_member: No se puede encontrar un miembro con este identificador.
   cannot_index_collection_item_type_error: No se puede indexar un elemento de la colección de un %{type}
+  categories_title: "Seleccione una categoría, luego un atributo:"
+  category_suggestions: "Si no está seguro de cuáles URIs usar para los atributos o valores, los siguientes enlaces proporcionan algunas sugerencias de URIs elegidas por curadores de EOL:"
   change: Cambiar
   change_rating_to_1_of_5: Cambioa en la calificación a 1 de 5
   change_rating_to_2_of_5: Cambiar la calificación a 2 de 5
@@ -1338,6 +1453,7 @@ es:
   comments_filter: Comentarios
   comments_moderated: Comentarios se moderan
   comments_on: Comentarios sobre
+  comments_page_title: Comentarios en %{parent}
   comments_with_count: 
     one: "%{count} Comentario"
     other: "%{count} Comentarios"
@@ -1732,9 +1848,28 @@ es:
   daily: Diariamente
   darwin_core: Darwin Core
   dashboard: Tablero
+  data: Datos
+  data_about_subtab_content: <p>Los datos y metadatos se obtienen de múltiples fuentes en una sola vista taxonómica centrada totalmente referenciada y semánticamente accesible.</p><p>Para ver información adicional sobre cualquier valor de los datos, haga clic en el valor de los datos. Haga clic en el símbolo de %{img} para una definición del tipo de datos.</p><p>Debe estar conectado a EOL para dejar un comentario, datos de entrada, procedencia, URIs y otros datos directamente a EOL. Primero necesitará registrarse <a href='/users/register'>para una cuenta gratuita en EOL</a>. Si le gustaría recomendar un conjunto de datos para su inclusión en EOL, o si tiene conjuntos de datos que desea compartir a través de EOL, por favor contáctenos en <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>La financiación para el desarrollo de la funcionalidad EOL de datos computables proporcionada por la Fundación Alfred P. Sloan, John D. y Catherine T. MacArthur Foundation y de los usuarios de EOL alrededor del mundo. Para aprender más sobre el proyecto de TraitBank™, por favor póngase en contacto con <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
+  data_about_subtab_header: Acerca de los datos en EOL
+  data_about_this_record: Datos acerca de este documento
+  data_beta_search_limit: 
+    one: La búsqueda de descarga de datos está <i>temporalmente</i> limitada a %{count} resultado.
+    other: La búsqueda de descarga de datos está <i>temporalmente</i> limitada a %{count} resultados.
+  data_column_common_name: Nombre común
+  data_column_name: Etiqueta de medición
+  data_column_name_uri: Medición de URI
+  data_column_sci_name: Nombre científico
+  data_column_source: Fuente
+  data_column_tc_id: ID de página de EOL
+  data_column_units: Unidades
+  data_column_val: Valor
+  data_column_val_uri: Valor URI
   data_database_colon: "Datos:"
+  data_glossary: Glosario de datos
   data_logging_active: Registro activo de los datos
   data_master_database_colon: "Datos principales:"
+  data_measurement_subtable_summary: Datos adicionales sobre la medición de este hecho.
+  data_metadata_subtable_summary: Datos adicionales sobre este hecho.
   data_object: Objeto de datos
   data_object_api_description: Dado el identificador de un objeto de datos, este API retornará todos los metadatos sobre el objeto según fueron enviados a EOL por el socio de contenido. EL socio de contenido es citado en el primer elemento de agente y tiene el papel de 'socio'.
   data_object_ignore: ignorar este elemento
@@ -1762,6 +1897,39 @@ es:
       meta_supplier_default: un colaborador
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
+  data_overview_table_caption: Hechos rápidos
+  data_point_uri_source_missing: falta la fuente
+  data_point_uri_summary_name: datos acerca de %{taxon}
+  data_provided_by_content_partner: "Fuente: %{whom}"
+  data_provided_by_user: proporcionado por %{whom}
+  data_reference_subtable_summary: Referencias adicionales sobre este hecho.
+  data_row_add_exemplar_button: Agregar a hechos rápidos
+  data_row_arrow_alt: Alternar entre mostrar y ocultar los detalles adicionales sobre este hecho, si tiene javascript activado.
+  data_row_excluded_from_overview_notice: "Nota: esta fila ha sido excluida de los hechos rápidos."
+  data_row_exemplar_added: Hecho rápido agregado.
+  data_row_exemplar_removed: Hecho rápido eliminado.
+  data_row_hide_button: Ocultar fila
+  data_row_remove_exemplar_button: eliminar de Hechos Rápidos
+  data_row_unhide_button: Mostrar fila
+  data_search_attribute: Buscar datos de EOL sobre "%{attribute}" en observaciones,<br/>mediciones y otras afirmaciones científicas.
+  data_search_destroyed: Este trabajo ya no será procesado.
+  data_search_explanation: Utilice la búsqueda de datos de EOL para encontrar elementos que coincidan con '%{term}' en observaciones,<br/>mediciones y otras afirmaciones científicas.
+  data_search_files: 
+    file_ready_for_download: La búsqueda que recientemente solicitó para "%{known_uri_label}" ahora puede descargarse en <a href='%{download_url}'>%{download_url}</a>.
+  data_search_link: Búsqueda de datos científicos en EOL
+  data_search_queue_pending: 
+    one: Todavía hay %{count} trabajo pendiente esperando ser procesado (puede ser o no ser suyo).
+    other: Todavía hay %{count} trabajos pendientes esperando ser procesados (pueden ser o no ser suyos).
+    zero: No hay trabajos pendientes. Si su trabajo no está completado, algo salió mal. Por favor inténtelo de nuevo.
+  data_search_refine_field_label: Refinar búsqueda de datos
+  data_server_unavailable: Los datos en EOL no están disponibles. Por favor compruebe después más adelante. Disculpe las molestias.
+  data_show_n_more_rows: Mostrar NNN más...
+  data_subtab_about: Acerca de
+  data_subtab_glossary: Glosario
+  data_summary_header: Hechos Rápidos
+  data_tab_curator_key_excluded: "%{image} eliminada de <a href='%{link}'>Hechos Rápidos</a>"
+  data_tab_curator_key_exemplar: "%{image} agregada a <a href='%{link}'>Hechos Rápidos</a>"
+  data_table_summary: "Datos computables para %{taxon}. Cada fila de datos es un hecho separado, proporcionado por un socio de contenidos o usuario. Cada valor puede incluir una tabla anidada resumiendo metadatos acerca del hecho: dónde se recolectó, cuáles son los derechos de los datos y similares. Haga clic en la fila para mostrar estos metadatos. Haga clic de nuevo para ocultarlo. Mostrar metadatos también muestra las anotaciones y permite a los usuarios agregar sus propias anotaciones según sea necesario. Los curadores tienen funciones adicionales al mostrar metadatos."
   data_usage_reports: Informes de uso de datos
   date_caps: Fecha
   date_uploaded: Fecha de subida
@@ -1884,12 +2052,13 @@ es:
   donation_sponsorship_preamble: "Si quieres aprender obtener más información sobre los programas de patrocinio que hay disponibles o quieres hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">correo electrónico</a> o por teléfono al 1 (202) 633-8730 (en los Estados Unidos). Entre las oportunidades para donaciones específicas tenemos:"
   done_already: Ya lo ha hecho
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: No mostrar fechas registradas desconocidas (usuario de v1, todo anterior al 5 de enero, 2009)
+  download_data: Descargar datos
   download_wav_file: Descargar archivo WAV
   dublin_core: Dublin Core
   duplicate_comment_warning: "El comentario no ha sido guardado: parece que ya has publicado este comentario. ... ¿Has hecho clic en el botón \"publicar comentario\" dos veces?"
   duplicate_items_were_ignored: Elementos duplicados fueron ignoradas.
   each_method_documentation_page_has_formatted_responses: Cada página de documentación de un método tiene un ejemplo de respuesta forrajeada en XML y en JSON.
-  edit: Editar
+  edit: editar
   edit_collection_details: Editar detalles de colección
   edit_collection_details_header: Editar detalles de la colección
   edit_comment: Editar comentario
@@ -1957,6 +2126,10 @@ es:
       menu_link: Estadísticas del revisor
       page_header: Estadísticas del revisor
       page_title: Estadísticas
+    data: 
+      menu_link: Datos
+      page_header: Estadísticas de Datos
+      page_title: Estadísticas
     data_objects: 
       menu_link: Objetos de datos
       page_header: Estadísticas de los objetos de datos
@@ -2009,6 +2182,7 @@ es:
   exception: Excepción
   exceptions: 
     security_violations: 
+      admin_or_master_curators_only: Lo sentimos, el acceso está restringido a administradores y curadores de EOL con un nivel mínimo de Maestro.
       administrators_only: Lo sentimos, el acceso está restringido a los administradores de EOL.
       default: Acceso denegado.
       hidden_user_login: Lo sentimos, el inicio de sesión está deshabilitado para esa cuenta.
@@ -2018,6 +2192,8 @@ es:
       min_assistant_curators_only: Disculpas, el acceso se restringe a los curadores de EOL, con un bivel mínimo de asistente
       min_full_curators_only: El acceso está restringido a los supervisores de EOL con un nivel mínimo de supervisor "Full".
       min_master_curators_only: Lo sentimos, el acceso se restringe a los curadores de EOL, con un nivel de supervisor principal
+      no_access: Lo sentimos, el acceso está restringido.
+  excluded_icon_tip: Las filas marcadas con el ícono de excluido %{excluded_icon} nunca será mostrado en el taxón de descripción de páginas.
   expand_all_children: expandir todas las dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar qué sabe EOL de %{taxon}.
@@ -2036,6 +2212,8 @@ es:
   family_name_colon: "Apellido:"
   feedback: Realimentación
   file: Archivo
+  file_download_pending: La creación de la descarga requiere un poco de tiempo extra, por lo que hemos iniciado un trabajo en segundo plano para él. Puede <a href='%{link}'>comprobar el estado de su trabajo</a> en cualquier momento.
+  file_download_ready: EOL ha terminado de crear un archivo de búsqueda de datos para la consulta de "%{query}". Puede <a href='%{file}'>descargarlo en cualquier momento en los próximos días</a>.
   file_id: Identificador de archivo
   file_size: Tamaño de archivo
   filed_under_label_with_date: Archivado en %{label} el %{date}
@@ -2196,7 +2374,9 @@ es:
   gives_access_to_a_single_hierarchy_indexed_by_eol: da acceso a una jerarquía individual indexada por EOL y a sus relaciones internas
   global_access_tagline: Acceso global al conocimiento sobre la vida en la Tierra
   global_navigation: Navegación global
+  glossary: Glosario
   glossary_is_empty: (El glosario está vacío)
+  glossary_subhead: Glosario
   glossary_term: término
   glossary_terms: Términos del Glosario
   go: Ir
@@ -2487,7 +2667,7 @@ es:
   hidden_comment: comentario oculto
   hide: ocultar
   hierarchies_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Este API lista de metadatos sobre una jerarquía, tales como el nombre del proveedor y el URL de la fuente, así como todos los taxones que están en la raíz del árbol taxonómico
-  hierarchies_entries_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Como resultado, una página de EOL puede estar relacionada con varios nodos de varias jerarquías. Este API da acceso a una jerarquía individual y a sus relaciones internas. Vea la documentación el API páginas para ver cómo acceder a otras jerarquías que corresponden a una página de EOL. El campo taxonConceptID contiene el identificador de página de EOL que puede ser usado en el API páginas.
+  hierarchies_entries_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Como resultado, una página de EOL puede estar relacionada con varios nodos de varias jerarquías. Este API da acceso a una jerarquía individual y a sus relaciones internas. Vea la documentación el API páginas para ver cómo acceder a otras jerarquías que corresponden a una página de EOL. El campo 'taxonConceptID' contiene el identificador de página de EOL que puede ser usado en el API páginas.
   hierarchies_title: Jerarquías
   hierarchy: Jerarquía
   hierarchy_entry_switch_missing_id_error: Lo sentimos, la página de entrada de la jerarquía que ha seleccionado no se pudo encontrar debido a la falta de un identificador.
@@ -2534,6 +2714,7 @@ es:
     one: "%{count} Imagen"
     other: "%{count} Imágenes"
   import_once: Importar una vez
+  import_ontology: Importar Ontología
   in_collection: en la colección
   in_community: en la comunidad
   in_providing_its_content_to_eo: Proporciona su contenido a EOL,
@@ -2602,6 +2783,37 @@ es:
   just_pages_with_pictures_and_text: Sólo páginas con imágenes y texto
   keep_split_entry_from_this_entry: Mantener separada de esta entrada
   key: Clave
+  known_uri_category_header: Categorías
+  known_uri_created: URI añadido.
+  known_uri_label_allowed_unit: tiene una unidad de medida
+  known_uri_label_allowed_val: permite a un valor de
+  known_uri_label_inverse: es el inverso de
+  known_uri_label_unit: tiene una unidad de medida
+  known_uri_missing_translation: Sin traducir, por favor, edite
+  known_uri_name_and_uri: "%{name} (%{uri})"
+  known_uri_relationships: 
+    create_failed: Lo sentimos, se ha producido un error, la relación no se pudo agregar.
+    created: La relación se ha creado correctamente
+    deleted: La relación fue eliminada correctamente
+  known_uri_updated: URI actualizado.
+  known_uris: 
+    add_a_relationship: Agregar una Relación
+    import_successful: Términos de ontología importados con éxito
+    more_than_one_field_mapped_to_type: Más de un atributo está asignado a "%{type}"
+    no_results: No hay resultados para la estadística seleccionada
+    please_select_field_types: Por favor, seleccione una asignación para cada atributo
+    please_select_from_the_menu: Por favor, seleccione del menú de arriba
+    please_select_uris_to_import: Por favor seleccione la importación de URI
+    relationships: Relaciones
+    select_a_category_to_view_stats: "Seleccione una categoría para ver las estadísticas:"
+    unrecognized_association_types: No se reconoce el tipo de asociación de URIs
+    unrecognized_measurement_types: No se reconoce el tipo de medición de URIs
+    unrecognized_measurement_units: No se reconoce la unidad de medida de URIs
+    unrecognized_measurement_values: No se reconoce el valor de medición de URIs
+  known_uris_empty_sorry: Lo sentimos, no hay URIs sugerias para esta categoría todavía.
+  known_uris_none: Nadie ha agregado URIs de este tipo.
+  known_uris_page_title: URIs para datos en EOL
+  known_uris_sorted: Orden actualizada.
   label: Etiqueta
   language: "Idioma:"
   language_selector_advisory_information: La siguiente es una lista de idiomas en los que está disponible el contenido del sitio, para cambiar el idioma actual seleccione un idioma alternativo de esta lista.
@@ -2672,6 +2884,7 @@ es:
   leave_community_button: Dejar esta comunidad
   leave_reply: Dejar respuesta
   left_content_area: Área de contenidos a la izquierda
+  legend: "Leyenda:"
   license: Licencia
   license_all_rights_reserved: Reservados todos los derechos
   license_cc_by: Creative Commons Attribution (CC BY)
@@ -2696,6 +2909,7 @@ es:
   license_gnu_fdl: Licencia de documentación libre de GNU (GBU FDL)
   license_gnu_gpl: Licencia Pública General de GNU (GNU GPL)
   license_no_known_copyright_restrictions: Sin restricciones de derechos de autor
+  license_none: Ninguno
   license_not_applicable: Licencia no aplicable
   license_public_domain: Dominio Público
   licensing: Licencia
@@ -2764,6 +2978,7 @@ es:
     one: "%{count} Mapa"
     other: "%{count} Mapas"
   march_of_life_thumbnail_title: Transcurso de la vida.
+  master_curators_may_add_data: "Curadores maestros pueden añadir datos:"
   matching_users_found_with_count: 
     one: Ha sido encontrado %{count} usuario que coincide con sus criterios de búsqueda.
     other: Han sido encontrado un total de %{count} usuarios que coinciden con sus criterios de búsqueda.
@@ -2837,12 +3052,14 @@ es:
       videos: Vídeos
   moderator_colon: "Moderador:"
   monthly: Mensualmente
+  more: más
   more_children_with_count: 
     one: "%{count} más..."
     other: "%{count} más..."
   more_siblings_with_count: 
     one: "%{count} hermano más..."
     other: "%{count} hermanos más..."
+  more_taxa_with_attribute: Ver todos los taxones con este atributo
   most_active_members: Miembros más activos
   move: Trasladar
   move_down: Mover hacia abajo
@@ -2867,6 +3084,7 @@ es:
   must_be_checked_in_to_view: "- debe comprobarse para poder verlo"
   must_be_less_than_128_characters_long: debe tener menos de 128 caracteres.
   must_be_logged_in: Debe haber iniciado una sesión para realizar esta acción.
+  must_provide_attribute_for_search_error: Debe seleccionar un atributo para buscar.
   must_provide_search_term_error: Debe introducir un término de búsqueda.
   my_activity: Mi actividad
   my_info: Mi información
@@ -2898,6 +3116,7 @@ es:
   new_news_item: Nuevo elemento de noticias
   new_search_suggestion: Nueva sugerencia de búsqueda
   new_upload: Nueva carga
+  new_uri_warning: El término que está a punto de agregar no es un término EOL recomendado.
   new_user: Nuevo usuario
   news_and_event_links: Enlaces a Noticias & Eventos
   news_archive_page: página de archivo de noticias
@@ -2934,6 +3153,7 @@ es:
   no_news_items_for_month_and_year: No hubo ninguna noticia en %{month_and_year}
   no_record_found_matching_your_criteria: Ningún registro encontrado coincide con sus criterios.
   no_related_names: Ninguno de los nombres se ha relacionado con este taxón todavía.
+  no_results_for_search_term: Ningún resultado para "%{search_term}"
   no_search_suggestions_are_avai: No hay ninguna sugerencia de búsqueda disponible que coincida con sus criterios de búsqueda.
   no_survey_responses_are_availa: No hay disponible ninguna respuesta a la encuesta.
   no_tasks_found: No encontró tareas
@@ -3068,6 +3288,7 @@ es:
   only_multi_search_suggestions: (sólo si hay varias sugerencias de búsqueda para el mismo término, la ordenación es creciente)
   only_show_authoritative_conten: "Mostrar sólo contenido autorizado:"
   only_show_unapproved_curators: Mostrar sólo los supervisores no aprobados
+  ontology_uri: URI de Ontología
   option_please_select: Por favor seleccione
   or_add_it_to_an_existing_collection: o agregar a una colección existente
   or_add_it_to_an_existing_community: o añadirlo a una comunidad existente
@@ -3076,12 +3297,14 @@ es:
   or_move_them_to_existing_collection: o moverlos a una colección existente
   original: "ORIGINAL:"
   original_object: Objeto original
+  other_category: Otro
   other_collection_items_with_count: 
     one: "%{count} otro elemento"
     other: "%{count} otros elementos"
   other_community_items_with_count: 
     one: "%{count} otro elemento"
     other: "%{count} otros elementos"
+  other_measurements_from_this_record: Otras mediciones de este documento
   other_taxa_with_count: 
     one: "%{count} taxón"
     other: "%{count} taxones"
@@ -3202,6 +3425,7 @@ es:
   rating_added_notice: Puntaje se agregó exitosamente.
   rating_learn_more_link: Aprenda sobre valoración
   rating_not_added_error: Lo sentimos, ha ocurrido un error, el puntaje no se pudo agregar.
+  reading_from_ontology: Leyendo de <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
   recaptcha: Escriba las dos palabras que ve abajo
   recaptcha_incorrect_error_with_anchor: Los caracteres <a href="#%{recaptcha_anchor}"></a> no coinciden, por favor, vuelva a intentarlo.
   recent_activities: 
@@ -3257,12 +3481,14 @@ es:
     someone_commented_on_something: <b>%{who}</b> ha comentado sobre <b>%{what}</b>.
     unsubscribe: Inicia sesión y cambia tu configuración de correo electrónico en <a href='%{email_prefs_url}' style='color:#195184'>tu página de preferencias de notificaciones</a>. o <a href='%{unsubscribe_url}' style='color:#195184'>cancela la suscripción de todas las notificaciones automatizadas de EOL sin iniciar sesión</a>.
   recent_updates: Actualizaciones recientes
+  recently_used_link: Recientemente usado
   recently_visited: Visitados recientemente
   recipients: Destinatarios
   recognized_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} en %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
   record_not_found: "[no se encontró el registro]"
+  reference: Referencia
   references_cabs_colon: "Referencias:"
   reindex_page_button: Reindexar la página
   related_names_with_count: 
@@ -3285,9 +3511,15 @@ es:
   reset_password_instructions_sent_to_user_notice: Las instrucciones para restablecer la contraseña de su cuenta <em>%{username}</em> se han enviado a su dirección de correo electrónico.
   reset_password_token_expired_error: Lo sentimos, su contraseña no se ha restablecido. El enlace proporcionado ha expirado. Por favor, complete y envíe el formulario para contraseñas olvidadas otra vez para recibir un nuevo vínculo.
   resource: Recurso
+  resource_hint_dataset_rights: (se aplica para el conjunto de datos <i>como un todo</i>; no se aplica en todas las jurisdicciones)
+  resource_hint_dataset_source_url: (URL de la fuente original del conjunto de datos, como un papel o estudio)
+  resource_hint_default_rights: (se aplica por defecto a elementos <i>en</i> el conjunto de datos)
   resources: Recursos
   response: Respuesta
   response_formats: Formatos de Respuesta
+  resque_pending_job_count: 
+    one: Hay %{count} trabajo pendiente en la cola de  "%{queue}".
+    other: Hay %{count} trabajos pendientes en la cola de "%{queue}".
   results: Resultados
   results_offset: Resultados del %{from} al %{to} de un total de %{total} para la búsqueda <em>%{for}</em>
   results_per_page: "Resultados por página:"
@@ -3361,6 +3593,10 @@ es:
   see_all_communities_with_count_html: 
     one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
     other: Ver todas <span class="assistive">las %{count} comunidades que tienen como foco este taxón.</span>
+  see_all_data_with_count_html: 
+    one: Ver <span class="assistive">los %{count} hechos para este taxón.</span>
+    other: Ver todos los <span class="assistive">%{count} hechos para este taxón.</span>
+    zero: Ver la ficha de datos <span class="asistencial">para este taxón.</span>
   see_all_editors_with_count: 
     one: ver al administrador
     other: Ver a todos los %{count}administradores
@@ -3374,7 +3610,10 @@ es:
   see_all_updates_with_count_html: 
     one: Ver la <span class="assistive">%{count} actualización para esta página.</span>
     other: Ver todas <span class="assistive">las %{count} actualizaciones para esta página.</span>
+  see_in_data_glossary: ver en el glosario de datos
+  see_more_on_the_data_tab: ver más en la ficha de datos
   see_notes: ver notas
+  see_this_record_in_virtuoso: ver este registro en Virtuoso
   select_a_hierarchy_around_whic: "Seleccione una jerarquía para organizar los resúmenes de contenido:"
   select_an_item_from_the_menu: Seleccione un elemento del menú
   select_colon: Seleccionar
@@ -3432,6 +3671,7 @@ es:
   skip_to_content: Saltar a contenido
   skip_to_navigation: Saltar a la navegación
   skip_to_table_of_contents: Saltar a la tabla de contenidos
+  social_sharing_header: EOL en los sitios de medios sociales
   social_sharing_reddit_button: enviar a reddit
   social_sharing_twitter_follow_eol_button: Seguir a @eol
   social_sharing_twitter_tweet_button: Publicar en Twitter
@@ -3452,6 +3692,8 @@ es:
   sort_by_status_option: Estado
   sort_by_title_ascending: Título Ascendente
   sort_by_title_descending: Título Descendentemente
+  sort_by_value_ascending: Valor Ascendente
+  sort_by_value_descending: Valor Descendente
   sort_by_year_ascending: Año Ascendente
   sort_by_year_descending: Año Descendentemente
   sort_collection_by_label: Ordenar colección por
@@ -3469,6 +3711,7 @@ es:
   sounds_with_count: 
     one: "%{count} sonido"
     other: "%{count} sonidos"
+  source: Fuente
   source_and_additional_information: Fuente e Información Adicional
   source_colon: "Fuente:"
   source_information_header: Información de fuente
@@ -3499,8 +3742,11 @@ es:
   subject: subject
   submit: Enviar
   submit_term: Enviar término
+  suggested_attributes: "Atributos sugeridos:"
   suggested_result_page_id: "Identificador de la página de resultados sugeridos:"
   suggested_results_avg: Media de los resultados sugeridos
+  suggested_vocab_add: recomendar término
+  suggested_vocab_remove: eliminar recomendación
   summary_thumbnail_title: "Resumen:"
   supplier: Proveedor
   supplier_allcaps: "PROVEEDOR:"
@@ -3567,6 +3813,27 @@ es:
         meta_title: Personas interesadas en %{scientific_name}
         meta_title_with_common_name: Personas interesadas en %{preferred_common_name} (%{scientific_name})
         tweet_text: Personas interesadas en %{scientific_name}
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Las imágenes, videos y audios de %{scientific_name} según la clasificación de %{hierarchy_provider}. Encuentre imágenes, fotos, películas y sonidos de %{scientific_name} en la Enciclopedia de la vida.
+          meta_description_no_data: No hay datos computables disponibles para %{scientific_name} según la clasificación de %{hierarchy_provider} en la Enciclopedia de la vida. EOL le invita a aportar datos para %{scientific_name}.
+          meta_description_with_common_name_no_data: No hay datos computables disponibles para %{preferred_common_name} según la clasificación de %{hierarchy_provider} también conocido como %{scientific_name} en la Enciclopedia de la vida. EOL le invita a contribuir con información sobre %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: ¿Qué datos tienen recogidos los científicos para %{preferred_common_name} según la clasificación de %{hierarchy_provider}? Datos computables sobre %{scientific_name} incluyendo información sobre %{topics}..
+          meta_keywords: "%{scientific_name} según la clasificación de datos computables de %{hierarchy_provider}, información acerca de %{scientific_name}"
+          meta_keywords_with_common_name: "%{preferred_common_name} según la clasificación de datos computables de %{hierarchy_provider}"
+          meta_title: Datos computables para %{scientific_name} según la clasificación de %{hierarchy_provider}
+          meta_title_with_common_name: Datos computables para %{preferred_common_name} según la clasificación de %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Datos computables para %{scientific_name} según la clasificación de %{hierarchy_provider}
+        meta_description: Imágenes, video y audio de %{scientific_name}. Encuentre imágenes, fotos, películas y sonidos de %{scientific_name} en la Enciclopedia de la vida.
+        meta_description_no_data: No hay datos computables disponibles para %{scientific_name} en la Enciclopedia de la vida. EOL le invita a aportar datos para %{scientific_name}.
+        meta_description_with_common_name_no_data: No hay datos computables disponibles para %{preferred_common_name} también conocido como %{scientific_name} en la Enciclopedia de la vida. EOL le invita a aportar datos para %{preferred_common_name} (% {scientific_name}).
+        meta_description_with_common_name_with_topics: ¿Qué datos tienen recogidos los científicos para %{preferred_common_name}? Datos computable sobre %{scientific_name} incluyendo información sobre %{topics}.
+        meta_keywords: datos computables de %{scientific_name}, información acerca de %{scientific_name}
+        meta_keywords_with_common_name: datos computables de %{preferred_common_name}
+        meta_title: Datos computables para %{scientific_name}
+        meta_title_with_common_name: Datos computables para %{preferred_common_name} (%{scientific_name})
+        tweet_text: Datos computables para %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -3785,6 +4052,8 @@ es:
   taxon_citizen_science_resources_empty: Nadie ha contribuido aún con un enlace de ciencia ciudadana a esta página.
   taxon_common_names_subtab_explanation: Mucha gente conoce organismos solo por los nombres comunes, o "lengua" local. A diferencia de los nombres científicos, nombres comunes son casi siempre diferentes para hablantes de diferentes idiomas. También pueden variar regionalmente dentro de un idioma. Esta pestaña muestra todos los nombres comunes, proporcionados desde una variedad de proveedores a EOL incluyendo curadores EOL, para este organismo. Actualmente solo podemos poner un nombre común por idioma en una determinada pagina EOL, pero todos los nombres deberia ser posible buscarlos.
   taxon_concept_stats: Estadísticas de concepto taxonómico
+  taxon_data_empty: Nadie ha contribuido con algún hecho para esta página.
+  taxon_data_header: Datos acerca de %{taxon}
   taxon_details_empty: Nadie ha contribuido aún con algún detalle sobre este taxón.
   taxon_details_empty_in_this_language: Nadie ha contribuido aún con algún detalle sobre este taxón.
   taxon_education_empty: Nadie ha contribuido aún con un recurso educativo para esta página.
@@ -3810,9 +4079,11 @@ es:
   taxon_partner_links_link: Vínculos de socio
   taxon_rating: Evaluación del taxón
   taxon_recognized_by: Taxón reconocido por %{whom}
+  taxon_related_names_subtab_explanation: Los nombres en esta ficha presentan una visión general de las relaciones de este grupo con otros grupos en el árbol de la vida, basado en la clasificación de las jerarquías proporcionados por la clasificación de los socios de EOL. Los "padres" son grupos más inclusivos de un nivel más arriba en la jerarquía. Los "niños" son los subgrupos del grupo actual. En la clasificación de la ficha, puede utilizar el enlace "mostrar todas las clasificaciones" para ver una lista completa de todas las jerarquías proporcionadas por nuestros socios. Estas pueden incluir nombres adicionales relacionados que no figuran aquí.
   taxon_related_organizations_link: Organizaciones afines
   taxon_selected_from_search_res: Taxón seleccionado a partir de los resultados de búsqueda
   taxon_suggested: Taxón sugerido
+  taxon_synonyms_subtab_explanation: A veces, los taxonomistas crean nuevos nombres para los grupos que ya tienen un nombre. Pueden hacer esto porque ellos no son conscientes deel nombre original, o pueden pensar que el organismo antes de ellos pertenece a un grupo diferente, cuando en realidad no es así. Si dos o más nombres se encuentran para aplicar al mismo grupo, son considerados como sinónimos. En la mayoría de los casos, el primer nombre tiene prioridad y es considerado válido o nombre aceptado. Sin embargo, puede haber excepciones, y no siempre es fácil determinar cuál de una serie de sinónimos debería ser considerado como válido o aceptado. Aquí tenemos una lista de los sinónimos proporcionada por la clasificación de los socios de EOL. También se incluyen otras versiones del nombre que lo más probable es que se refieren a un mismo grupo, por ejemplo, las faltas de ortografía en la literatura o en diferentes variaciones de la autoría asociado con el nombre.
   taxonomic_summary_of_content: Resumen taxonómico de contenido
   technical_functions: Funciones Técnicas
   term_cannot_be_left_blank: El término no puede dejarse en blanco
@@ -3837,14 +4108,14 @@ es:
   thank_you_for_your_generous_support: ¡Gracias por su generoso apoyo!
   thanks_for_donation: Gracias por apoyar a la Enciclopedia de la Vida. Su información ha sido enviada y será procesada.
   thanks_for_your_time: Gracias por su tiempo,
-  the_amount_entered_was: "La cantidad entrada era : US %{number}"
+  the_amount_entered_was: "La cantidad ingresada fue: %{number} USD"
   the_comment_was_successfully_deleted: El comentario fue correctamente eliminado.
   the_comment_was_successfully_updated: El comentario ha sido actualizado con exito.
   the_content_could_not_be_displ: No se pudo mostrar el contenido.
   the_content_was_updated: El contenido fue actualizado.
   the_count_represents_the_total: El valor numérico representa el número de objetos de datos publicados bajo la respectiva categoría SPM del tema.
   the_cp_count_info: El valor numérico representa el número total de socios de contenidos con objetos de datos publicados bajo la categoría SPM respectiva del tema.
-  the_darwin_core_taxon_elements: Los "Darwin Core Taxon elements" (dwct:Taxon) bajo additionalInformation incluyen identificadores para nodos en jerarquía que EOL indexa. Ellos contienen un dc:identifier que es el ID único para el taxón <i>en la base de datos del proveedor.</i>
+  the_darwin_core_taxon_elements: Los "Darwin Core Taxon elements" (dwct:Taxon) bajo 'additionalInformation' incluyen identificadores para nodos en jerarquía que EOL indexa. Ellos contienen un dc:identifier que es el ID único para el taxón <i>en la base de datos del proveedor</i>.
   the_file_was_uploaded: Se actualizó el archivo
   the_following_bibliography: La siguiente bibliografía se ha generado al reunir todas las referencias proporcionadas por nuestros socios de contenidos. Es posible que haya duplicación de información.
   the_following_users_were_prese: "Los siguientes usuarios recibieron la ventana emergente de la encuesta y respondieron a la petición de realizarla, como se muestra a continuación:"
@@ -3866,7 +4137,7 @@ es:
   the_xml_search_response_implements: La respuesta a una búsqueda implementa el formato de respuesta OpenSearch usando Atom 1.0. Ver la especificación OpenSearch completa en %{link}
   there_are_currently_no_members_in_this_community: Actualmente no hay miembros en esta comunidad.
   there_is_no_singular_eol: No existe una jerarquía taxonómica única de EOL, más bien, EOL indexa muchas jerarquías y las compara para establecer cuáles nodos se refieren a los mismos taxones. Estos elementos de taxón representan nodos de la jerarquía, por lo cual podría haber varios para una página dada de EOL. Para más información, revise la documentación sobre el API en %{link}.
-  this_area_shows_all_submission: Esta zona muestra todos los envíos introducidos mediante las páginas de contacto. Para ver las entradas, seleccione el tema a continuación o %{link}
+  this_area_shows_all_submission: Esta zona muestra todos los envíos introducidos mediante las páginas de contacto. Para ver las entradas, seleccione el tema a continuación o <a href=%{link}>exportar todas las entradas como un archivo CSV</a>
   this_article_cannot_be_curated_because_unpublished: Este artículo no puede ser supervisado porque no ha sido publicado.
   this_article_is_unpublished: Este artículo no ha sido publicado.
   this_cannot_be_undone_are_you_sure: Está acción no puede deshacer; ¿está seguro?
@@ -3911,6 +4182,7 @@ es:
   too_many_descendants_to_curate_with_count: 
     one: "ERROR: No se puede procesar su conservación a través del sistema automatizado. Hay %{count} descendiente, lo que supera el máximo permitido."
     other: "ERROR: No se puede procesar su conservación a través del sistema automatizado. Hay %{count} descendientes, lo que supera el máximo permitido."
+  top: arriba
   topic: Tema
   topic_area: Área temática
   topics_avilable_to_contact_us_info: Las siguientes áreas temáticas están disponibles desde la página de contacto.  Puede agregar o editar áreas temáticas y sus correspondientes direcciones de correo electrónico.  Todos los cambios se realizan inmediatamente.
@@ -3946,6 +4218,7 @@ es:
     one: La invitación no se pudo enviar a %{list}.
     other: Las invitaciones no se pudieron enviar a %{list}.
   unique_page_views_th: Visitas únicas de página
+  unit_of_measure: Unidad de Medida
   unknown: Desconocido
   unknown_data_object_title: Objeto de datos desconocido
   unknown_hierarchy: Jerarquía desconocida
@@ -3976,6 +4249,7 @@ es:
   uploaded_by: Cargado por
   uploaded_content: Contenidos cargados
   uploaded_on: Cargado el
+  uri: URI
   url: URL
   url_not_accessible: Esta dirección URL no es accesible
   us_dolars_75: US $75
@@ -4008,6 +4282,10 @@ es:
   user_activity_stats_common_names_removed: 
     one: "%{count} nombre común eliminado"
     other: "%{count} nombres comunes eliminados"
+  user_activity_stats_data_added: 
+    one: "%{count} registro de datos agregado"
+    other: "%{count} registros de datos agregados"
+  user_activity_stats_data_added_dropdown: Datos agregados
   user_activity_stats_header: Actividad
   user_activity_stats_objects_curated: 
     one: "%{count} objeto supervisado"
@@ -4035,11 +4313,27 @@ es:
   user_activity_stats_wikipedia_nominated: 
     one: "%{count} artículo de Wikipedia nominado"
     other: "%{count} artículos de Wikipedia nominados"
+  user_added_data: 
+    add_data_header: Contribuir con sus propios datos
+    add_metadata_header: Información Adicional
+    additional_fields: Datos acerca de este documento
+    create_failed: "No se pueden agregar sus datos: %{errors}"
+    create_successful: Los datos fueron agregados con éxito
+    delete_successful: Los datos se eliminaron con éxito
+    edit_data_header: Edite sus datos
+    edit_metadata_header: Editar los metadatos
+    new_field: Nuevo campo...
+    new_value: Valor
+    source_field_helper: Añadir literatura de referencia o enlace a recursos de datos en línea.
+    submit_data: enviar valor de datos
+    update_failed: "No se pueden actualizar sus datos: %{errors}"
+    update_successful: Los datos se actualizaron correctamente
   user_agent: Agente de usuario
   user_already_active_notice: Su cuenta ya está activa, por favor, inicie sesión.
   user_comment: Comentarios de usuario
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong>, ha hecho comentarios en la página de un usuario que ha sido eliminado:"
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> ha comentado sobre una versión antigua de \"%{what}\":"
+  user_commented_on_removed_data: <strong>%{user}</strong> comentó sobre los datos que han sido eliminados.
   user_commented_on_something_colon: "<strong>%{user}</strong> comentó sobre %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> ha comentado sobre la <a href='%{link}'>fuente web de %{username}</a>:"
   user_commented_on_your_image: "<strong>%{user}</strong> ha comentado su imagen en el sitio de la <a href='%{data_object_link}'>Encyclopedia of Life</a>:\n%{comment_body}"

@@ -152,6 +152,14 @@ pt:
         rich_pages: Páginas ricas
         rich_redhotlist_pages: Páginas Ricas na Hotlist Vermelha
         rich_redhotlist_pages_percentage: "% de páginas Ricas na Hotlist Vermelha"
+        total_association_types: Tipos de associação
+        total_associations: Associações
+        total_measurement_types: Tipos de medição
+        total_measurements: Medições
+        total_occurrences: Ocorrências
+        total_taxa_with_data: Páginas com dados
+        total_triples: Triplos
+        total_user_added_data: Dados adicionados por utilizadores
         udo_published: Texto enviado por utilizador
         udo_published_by_curators: Texto enviado por curador
         udo_published_by_non_curators: Texto enviado por não-curador
@@ -177,6 +185,18 @@ pt:
         descriptive_label: Etiqueta descritiva
         label: Etiqueta
         request_publish: Solicitar publicação
+      known_uri: 
+        description: Descrição
+        exclude_from_exemplars: Excluir de Factos Rápidos
+        name: Nome
+        toc_items: Categorias
+        uri: URI
+        uri_type: Tipo de URI
+      known_uri_relationship: 
+        from_known_uri_id: URI de assunto
+        relationship_uri: URI de relação
+        to_known_uri: URI de destino
+        to_known_uri_id: URI de destino
       name: 
         string: Nome
       news_item: 
@@ -184,20 +204,30 @@ pt:
         page_name: Nome único
         sort_order: Ordem de classificação
       notification: 
+        changes_to_my_watched_collection: Alterações em colecções na sua lista de páginas vigiadas
+        changes_to_my_watched_community: Alterações em comunidades na sua lista de páginas vigiadas
         comment_on_my_collection: Um comentário sobre uma coleção que você gere
         comment_on_my_community: Um comentário em uma das comunidades de que é membro
         comment_on_my_contribution: Um comentário e/ou ação curatorial em uma contribuição sua
         comment_on_my_profile: Um comentário no seu perfil
         comment_on_my_watched_item: Comentários sobre objetos, taxa, coleções ou comunidades na sua lista de páginas vigiadas
+        curation_on_my_watched_item: Acções de curadores sobre objectos, taxa, colecções ou comunidades na sua lista de páginas vigiadas
+        eol_newsletter: Enviem-me a newsletter trimestral da EOL
+        i_am_being_watched: Foi adicionado à lista de páginas vigiadas de outro membro
         invitation_to_community: Convite para participar numa comunidade
         made_me_a_manager: Fizeram de si um gerente de uma coleção ou comunidade
         member_joined_my_community: Uma comunidade que gere tem um novo membro
+        member_joined_my_watched_community: Novos membros aderiram a uma comunidade onde é membro
+        member_left_my_community: Membros deixaram uma comunidade que está a gerir
+        new_data_on_my_watched_item: Novas contribuições para taxa na sua lista de páginas vigiadas
+        new_manager_in_my_community: Outro membro tornou-se gerente de uma comunidade que você gere
         reply_to_comment: Uma resposta a um comentário seu
       open_authentication: 
         created_at: Criado
         guid: Identificador Global Único
         provider: Outro provedor
         secret: Secreto
+        token: Chave
         updated_at: Ultima atualização
         user_id: Identificador do utilizador
         verified_at: Última verificação
@@ -206,6 +236,11 @@ pt:
         auto_publish: Auto-publicar
         bibliographic_citation: Citação bibliográfica
         dataset: Ficheiro do conjunto de dados
+        dataset_hosted_url: Origem do conjunto de dados (cópia local)
+        dataset_license_id: Licença
+        dataset_rights_holder: Detentor dos direitos
+        dataset_rights_statement: Declaração de direitos
+        dataset_source_url: Fonte de Dados Original
         description: Descrição dos recursos
         dwc_archive_url: Darwin Core Arquivo URL
         harvest_events: Recolher eventos
@@ -225,9 +260,14 @@ pt:
         meta_description: Descrição de metadados
         meta_keywords: Palavras-chave de metadados
         title: Título
+      translated_known_uri: 
+        comment: Comentário
+        definition: Definição
       translated_news_item: 
         active_translation: Publicado
         body: Corpo
+        meta_description: Descrição de metadados
+        meta_keywords: Palavras-chave de metadados
         title: Título
       user: 
         agreed_with_terms: Termos de uso
@@ -236,7 +276,9 @@ pt:
         credentials: Credenciais
         curator_level: Nível de curadoria
         curator_scope: Âmbito de curadoria
+        disable_email_notifications: Não me enviem QUAISQUER actualizações por e-mail
         email: Endereço de e-mail
+        email_confirmation: Endereço de e-mail novamente <small>(para confirmar)</small>
         entered_password: Palavra-passe
         entered_password_confirmation: Senha novamente <small>(a confirmar)</small>
         family_name: Sobrenome
@@ -247,6 +289,13 @@ pt:
         requested_curator_level_id: Nível desejado de curadoria
         tag_line: Lema
         username: Nome de usuário
+      user_added_data: 
+        object: Valor
+        predicate: Atributo
+        user: Adicionado por
+      user_added_data_metadata: 
+        object: Valor
+        predicate: Atributo
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -284,6 +333,31 @@ pt:
         wrong_length: tem o tamanho errado (deve ter %{count} caracteres)
         wrong_type: é do tipo errado
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: não pode estar em branco para uma licença CC-BY
+              inclusion: deve estar em branco para uma licença de Domínio Público
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: é apenas permitido para o mais recente evento de colheita e somente se esse evento não foi já publicado
+        inaccessible: O registo não pôde ser salvo porque era inválido. Verifique os erros de validação e reenvie.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: não permitido - só pode haver uma unidade de medida
+            to_known_uri_id: 
+              must_be_different: deve ser diferente do URI do Sujeito
+              must_be_known_uri: deve ser um URI Conhecido
+              must_be_measurement: deve ser uma unidade de medida
+        open_authentications: 
+          guid_provider_must_be_unique: a conta de terceiros já está ligada a uma conta EOL
+          provider_user_id_must_be_unique: apenas uma conta por cada provedor pode ser conectada a uma conta EOL
         resource: 
           attributes: 
             accesspoint_url: 
@@ -296,6 +370,22 @@ pt:
             dwc_archive_url: 
               inaccessible: é inacessível, o URL deve ser acessível ao público
               invalid: é inválido, deveria ser um TAR.GZIP, TAR.GZ, TGZ ou arquivo ZIP
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              namespace: usou um domínio que não foi reconhecido
+            subject: 
+              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              namespace: usou um domínio que não foi reconhecido
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              namespace: usou um domínio que não foi reconhecido
+            subject: 
+              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              namespace: usou um domínio que não foi reconhecido
       template: 
         body: "Os campos seguintes não foram validados corretamente:"
         header: 
@@ -383,6 +473,33 @@ pt:
     eol_statistics: 
       content_partners: 
         menu_link: Parceiros de conteúdo
+        page_header: Estatísticas de Parceiros de Conteúdo
+        page_title: "Administração: Estatísticas de Parceiros de Conteúdo"
+      curators: 
+        menu_link: Estatísticas de curador
+        page_header: Estatísticas de curador
+        page_title: "Administração: Estatísticas de curador"
+      data_objects: 
+        menu_link: Objectos de dados
+        page_header: Estatísticas de objectos de dados
+        page_title: "Administração: Estatísticas de objectos de dados"
+      index: 
+        menu_link: Estatísticas globais
+        page_header: Estatísticas globais
+        page_title: "Administração: Estatísticas globais"
+        table_caption: Estatísticas globais do site criadas em %{created_at_time}
+      marine: 
+        menu_link: Estatísticas marinhas
+        page_header: Cobertura Marinha na EOL
+        page_title: "Administração: Estatísticas Marinhas"
+      page_richness: 
+        menu_link: Páginas ricas
+        page_header: Estatísticas de Páginas Ricas
+        page_title: "Administração: Estatísticas de Páginas Ricas"
+      users_data_objects: 
+        menu_link: Texto enviado por utilizador
+        page_header: Estatísticas de Textos Enviados pelo Utilizador
+        page_title: "Administração: Estatísticas de Textos Enviados pelo Utilizador"
   agent: Agente
   all: todos
   all_apis_return_by_default_an_xml_response: "Por padrão, todas as APIs retornam uma resposta em XML. Os métodos de API podem ser chamados sem uma extensão de formato para obter a resposta XML; adicionar uma extensão XML dará uma resposta idêntica:"
@@ -407,6 +524,9 @@ pt:
   and_between_form_items: e
   annotation_cabs_colon: "Anotação:"
   any_integer: qualquer número inteiro
+  api: 
+    docs: 
+      forum_beta_test_text: <a href="%{forums_link}">Clique aqui</a> para acessar a versão beta dos novos fóruns EOL. O seu feedback é bem-vindo.
   api_docs_collections_description: Dado o identificador para uma colecção esta API retornará todos os metadados sobre a colecção e os itens que ele contém. A lista de itens pode ser filtrada por tipo de item e ordenada pelos atributos listados acima.
   application_version_advisory_information: Versão do aplicativo
   are_you_sure: Tem a certeza?
@@ -524,10 +644,40 @@ pt:
   collection_updated_notice: Coleção <em>%{collection_name}</em> atualizada com sucesso.
   collection_was_removed_by_owner: Esta coleção foi retirada pelo seu proprietário.
   collections: 
+    editors: 
+      show: 
+        meta_description: Gestores da colecção da Enciclopédia da Vida %{collection_name}.
+        meta_keywords: Gestores de %{collection_name}
+        meta_title: Gestores de %{collection_name}
+        tweet_text: Gestores de %{collection_name}
     inaturalists: 
       show: 
-        observation_date: "Data: % {observed_on}"
+        add_observations: Adicionar Observações
+        meta_description: Observações do iNaturalist para a colecção da Enciclopédia da Vida %{collection_name}.
+        meta_keywords: Observações iNaturalist de %{collection_name}.
+        meta_title: Observações iNaturalist de %{collection_name}.
+        no_observations_added_to_this_project_yet: Ainda não foram adicionadas observações a este projecto.
+        observation_date: "Data: %{observed_on}"
         observation_place: "Localização: %{place}"
+        observer_with_link: "Observador: %{observer_link}"
+        recent_observations: Observações recentes
+        some_taxon: Algo
+        top_contributors: Maiores Contribuidores iNaturalist
+        tweet_text: Observações iNaturalist de %{collection_name}.
+        view_all_observations_on_inaturalist: Ver todas as observações de %{project_title} em iNaturalist
+        view_more_observations_on_inaturalist: Ver mais observações de %{project_title} em iNaturalist
+        view_project_on_inaturalist: Ver %{project_title} em iNaturalist
+    newsfeeds: 
+      show: 
+        meta_description: Notícias, comentários e actividade de membros para a colecção da Enciclopédia da Vida %{collection_name}.
+        meta_keywords: Notícias de %{collection_name}
+        meta_title: Notícias de %{collection_name}
+        tweet_text: Notícias de %{collection_name}
+    show: 
+      meta_description_default: Uma colecção da Enciclopédia da Vida intitulada %{collection_name}.
+      meta_description_default_focus_collection: Uma colecção da Enciclopédia da Vida em foco intitulada %{collection_name}.
+      meta_description_default_watch_collection: Uma lista de páginas vigiadas da Enciclopédia da Vida intitulada %{collection_name}.
+      meta_keywords: "%{collection_name}, Colecção da Enciclopédia da Vida"
   collections_filter: Coleções
   collections_link: Coleções
   collections_page_title: Coleções
@@ -602,8 +752,12 @@ pt:
   contact_us_functions: Funções para Falar Conosco
   contact_us_link: Entre em contato conosco
   contacts: 
+    errors: 
+      message_not_sent: Desculpe, ocorreu um erro, a sua mensagem não foi enviada.
     new: 
       page_title: Por favor, dê-nos a sua opinião
+    notices: 
+      message_sent: Obrigado pelo seu comentário, a sua mensagem foi enviada para o grupo apropriado.
   content_has_been_updated: O conteúdo foi atualizado.
   content_partner: Parceiro de conteúdo
   content_partner_about_header: Sobre %{partner_name}
@@ -1103,9 +1257,13 @@ pt:
   help: Ajuda
   helpers: 
     label: 
+      collection: 
+        view_style_id: Vista padrão
       collection_item: 
         annotation: Anotação
+        refs: Referências <small>(colocar cada referência em uma nova linha)</small>
         sort_field: Ordenar por <small>(data AAAA.MM.DD, número ou texto)</small>
+        sort_field_show: "Valor de ordenação:"
       comment: 
         body_edit: Editar comentário
       contact: 
@@ -1148,11 +1306,14 @@ pt:
         source_url: URL para o objeto de dados original
         toc_item: Sub-capítulo
       data_object_link: 
+        description: Descrição <small>(alguma marcação HTML é permitida)</small>
         link_type: Categoria
+        source_url: URL do link
         toc_item: Assunto
       eol_statistic: 
         date_one: Data
         date_two: Data
+        download_all: Todos <small>(incluir registos de todas as páginas)</small>
       google_analytics_partner_summaries: 
         page_views: Visitas à página <small>(número de visitas a páginas)</small>
         taxa_pages: Páginas <small>(número de páginas)</small>
@@ -1162,6 +1323,8 @@ pt:
       harvest_event: 
         began_at: Iniciado
         completed_at: Concluído
+        first_published_at: Publicado pela primeira vez
+        publish_more: Assinala o evento de colheita para publicação, conteúdo não será feito público imediatamente.
         published_at: Publicado
         published_status: Estado
       hierarchy: 
@@ -1171,6 +1334,8 @@ pt:
         request_publish_more: Indica se há uma solicitação pendente para promover esta hierarquia para se tornar uma das hierarquias navegáveis primárias na EOL.
       news_item: 
         active: Publicado
+        page_name: Nome único <small>(caracteres em minúscula ISO alfanuméricos em Latim básico e traços inferiores apenas)</small>
+        page_name_more: Introduza um identificador único, auto descritivo, significativo e persistente para esta notícia. O nome que você digitar aqui será usado para gerar a URL para esta notícia, por exemplo, o nome único <em>nova_versão_da_eol</em> é convertido no URL <em>http://www.eol.org/info/nova_versão_da_eol</em>.
       open_authentication: 
         connect: Adicionar
         connected: Conectado
@@ -1208,7 +1373,11 @@ pt:
         title_more: O título deste conteúdo aparecerá na área de cabeçalho da página. O título deve incluir palavras-chave mais relevante para o conteúdo.
       translated_news_item: 
         active_translation: Publicado
+        active_translation_more: Traduções publicadas serão publicamente visíveis, a menos que a própria notícia seja inédita. Desmarque <em>publicado</em> se você quiser impedir que usuários em geral vejam esta versão da notícia.
         language_id: Língua
+        meta_description_more: Forneça uma breve descrição, resumindo os conceitos-chave do conteúdo da notícia. Esta descrição é por vezes utilizada pelos motores de busca da Web quer para verificar a relevância como para listar nos resultados de pesquisas.
+        meta_keywords_more: Escreva uma lista separada por vírgulas de palavras e frases curtas que melhor reflictam o conteúdo da notícia. Essas palavras-chave e conceitos-chave são por vezes usados por motores de busca da Web para avaliar a relevância da notícia em relação aos termos de pesquisa.
+        title_more: O título desta notícia aparecerá na área de cabeçalho da página. O título deve incluir palavras-chave mais relevante para o conteúdo.
       user: 
         agreed_with_terms: Concordo com os <a href="%{terms_url}">termos de uso</a>
         api_key_more: Leia mais sobre como <a href="%{api_docs_url}">adicionar uma chave para as suas chamadas de API</a>.
@@ -1222,17 +1391,25 @@ pt:
         credentials_more_successful_assistant_curator: História de sucesso como curador assistente.
         curation_application: Torne-se um curador
         curation_application_more: Se gostaria de modificar os seus privilégios de curadoria, basta apresentar um pedido e reveremos a sua elegibilidade.
+        curation_priveleges_credentials: Credenciais <small>(apenas curadores completos e mestres)</small>
         curator_level: Você atualmente é %{curator_level_with_indefinite_article}.
         curator_scope: Âmbito de curadoria
         curator_scope_more: "Por favor indique o âmbito da sua competência. Por exemplo: \"Roedores de Bornéu\", \"Interações tri-tróficas\" ou \"Problemas de conservação nos peixes\". Isto não irá limitar a sua capacidade de curadoria, mas será informativo para a comunidade EOL."
+        email: Endereço de e-mail
         email_reports_frequency_hours: Com que frequência deseja receber alertas de e-mail sobre atividade nas suas contribuições?
+        email_settings_submit: definições do correio electrónico
         entered_password: Senha <small>(4 - 16 caracteres)</small>
         generate_api_key: Solicite uma chave de API
         generate_api_key_more: Se estiver interessado em usar a API da EOL pode gerar uma chave de API para identificar a sua aplicação. Leia mais sobre como <a href="%{api_docs_url}">adicionar uma chave para as chamadas de API</a>.
         logo: Carregar uma foto nova
         new_password: Nova senha <small>(4 - 16 caracteres)</small>
         new_password_confirmation: Nova senha <small>(confirmar)</small>
+        news_in_preferred_language: mostrar notícias no idioma preferido
+        notification_settings: Configurações de Notificações
+        notification_settings_more: Defina as suas configurações de notificações.
         open_authentications: Contas conectadas
+        open_authentications_connected_accounts: As suas contas conectadas
+        open_authentications_more: Gerir ligações a contas de serviços de terceiros que podem ser usados para entrar no EOL. <a href="%{open_authentications_url}">Editar contas conectadas</a>.
         requested_curator_level: O seu pedido para se tornar %{curator_level_with_indefinite_article} está pendente.
         requested_curator_level_id_more: Escolha <em>Curador Assistente</em> se não tem ainda quaisquer credenciais.  Escolha <em>Curador Completo</em> se é um cientista profissional ou estudante de pós-graduação com credenciais. Escolha <em>Mestre Curador</em> se é um curador experiente EOL e quer assumir mais responsabilidades.
         tag_line: "Título ou subtítulo <small>exemplo: \"Entusiasta de aves\"</small>"
@@ -1271,7 +1448,11 @@ pt:
         create: Adicionar artigo
         create_text: Adicionar artigo
         update: Salvar artigo
+      data_object_link: 
+        create: Adicionar um link
+        update: Gravar link
       eol_statistic: 
+        change_date: Obter estatísticas para datas
         download_csv: Baixar como CSV
       filter_sort: Filtrar e classificar
       harvest_event: 
@@ -1283,7 +1464,10 @@ pt:
         create: Adicionar nome
         update: Atualizar nome
       news_item: 
+        create: Criar notícia
         edit: Editar
+        preview: Antevisão
+        update: Actualizar notícia
       open_authentication: 
         create: Conectar
         destroy: Desconectar
@@ -1305,12 +1489,19 @@ pt:
         update: Salve as alterações de tradução
       translated_news_item: 
         create: Adicionar tradução
+        update: Guarde alterações da tradução
       update: Atualizar %{model}
       user: 
         create: Criar conta
         curation_application: Concorra agora
         curation_privileges: Submeter pedido
         generate_api_key: Gerar uma chave
+        notification_settings: Configurações de notificações
+        recover_account: Enviar correio electrónico
+        sign_up_with_facebook: Registe-se pelo Facebook
+        sign_up_with_google: Registe-se com o Google
+        sign_up_with_twitter: Registe-se com o Twitter
+        sign_up_with_yahoo: Registe-se com o Yahoo
         update: Guardar informação do perfil
       wikipedia_queue: 
         create: Submeter pedido

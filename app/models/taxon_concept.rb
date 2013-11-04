@@ -703,8 +703,8 @@ class TaxonConcept < ActiveRecord::Base
     @iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
   end
 
-  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
-  # want to touch the API quite yet.
+  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview (though TaxonDetails needs access to the other
+  # method). ...But the API is using this and I don't want to touch the API quite yet.
   def overview_text_for_user(the_user)
     @overview_text_for_user ||= {}
     return @overview_text_for_user[the_user.id] if the_user && @overview_text_for_user[the_user.id]
@@ -726,7 +726,7 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
   
-  # TODO - this belongs in the same class as #overview_text_for_user.
+  # TODO - this belongs in the same class as #overview_text_for_user. ...But be aware this is also used in TaxonDetails.
   def text_for_user(the_user = nil, options = {})
     the_user ||= EOL::AnonymousUser.new(Language.default)
     options[:per_page] ||= 500

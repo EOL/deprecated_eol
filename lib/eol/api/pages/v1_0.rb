@@ -212,7 +212,7 @@ module EOL
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
           TaxonUserClassificationFilter.preload_details(all_data_objects)
           # sorting after the preloading has happened
-          text_objects = sort_and_promote_text(taxon_concept, text_objects, options)
+          text_objects = sort_and_promote_text(taxon_concept, text_objects, options) if options[:text] && options[:text] > 0
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
 
           if options[:iucn]

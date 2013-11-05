@@ -79,7 +79,7 @@ class DataObject < ActiveRecord::Base
   validates_inclusion_of :rights_holder, :in => '', :unless => :rights_required?
   validates_length_of :rights_statement, :maximum => 300
 
-  before_validation :default_values
+  before_validation :set_defaults
   after_create :clean_values
 
   index_with_solr :keywords => [ :object_title, :rights_statement, :rights_holder,
@@ -1273,7 +1273,7 @@ private
   end
 
   # NOTE - description required, and published will default to false from the DB, so you PROBABLLY want to specify it.
-  def default_values # Ideally, these would be in the DB, but I didn't want to take that step.  ...yet.
+  def set_defaults # Ideally, these would be in the DB, but I didn't want to take that step.  ...yet.
     if defined?(PhusionPassenger)
       UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
     end

@@ -19,6 +19,7 @@ require 'eol/activity_loggable'
 class TaxonConcept < ActiveRecord::Base
   include ModelQueryHelper
   include EOL::ActivityLoggable
+  include ClearInstanceVars
 
   belongs_to :vetted
 
@@ -960,13 +961,6 @@ class TaxonConcept < ActiveRecord::Base
   end
 
 private
-
-  def clear_instance_variables
-    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
-    (instance_variables - @@ar_instance_vars).each do |ivar|
-      remove_instance_variable(ivar)
-    end
-  end
 
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user

@@ -2,7 +2,7 @@ class CreateSortStyleReverseSortOrder < ActiveRecord::Migration
   def self.up
     reverse_sort_field = SortStyle.create()
     TranslatedSortStyle.create(:sort_style => reverse_sort_field, :name => 'Reverse Sort Field',
-      :language => Language.english_for_migrations)
+      :language => Language.default)
   end
 
   def self.down

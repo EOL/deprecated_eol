@@ -21,6 +21,7 @@ class License < ActiveRecord::Base
        source_url: 'http://creativecommons.org/licenses/publicdomain/',
        logo_url: ''},
       {title: 'all rights reserved',
+       method_name: :all_right_reserved,
        description: '&#169; All rights reserved',
        source_url: '',
        logo_url: '',
@@ -64,8 +65,8 @@ class License < ActiveRecord::Base
     check_exists_by: :title,
     default_params: {show_to_content_partners: 1, version: 1}
 
-  class << self
-    alias default public_domain
+  def default
+    License.public_domain
   end
 
   def self.valid_for_user_content

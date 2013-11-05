@@ -15,6 +15,7 @@ class DataObject < ActiveRecord::Base
   include ModelQueryHelper
   include EOL::ActivityLoggable
   include IdentityCache
+  include ClearInstanceVars
 
   belongs_to :data_type
   belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id
@@ -989,14 +990,9 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  # TODO - generalize the instance variable reset. It could just be a module that's included at the top of the class.
-  # (I'm actually kinda surprised rails doesn't actually do this by default. Hmmmn.)
+  # NOTE - (I'm actually kinda surprised rails doesn't actually do this by default. Hmmmn.)
   def reload
-    DataObjectCaching.clear(self)
-    @@ar_instance_vars ||= DataObject.new.instance_variables << :mock_proxy # For tests
-    (instance_variables - @@ar_instance_vars).each do |ivar|
-      remove_instance_variable(ivar)
-    end
+    clear_instance_variables
     super
   end
 

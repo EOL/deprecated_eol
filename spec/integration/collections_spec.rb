@@ -156,7 +156,7 @@ describe "Collections" do
 
       it "should be able to change the view of a collection" do
         visit collection_path(@collection)
-        col = Collection.find(@collection.id) rescue debugger # WHAT HAPPENED?!
+        col = Collection.find(@collection.id)
         body.should have_tag('#view_as')
       end
 

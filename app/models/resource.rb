@@ -18,6 +18,8 @@
 # dwc_archive_url is specific to LifeDesks, which refused to add taxonomy to their resource files
 class Resource < ActiveRecord::Base
 
+  include ClearInstanceVars
+
   belongs_to :service_types
   belongs_to :license
   belongs_to :dataset_license, class_name: 'License'
@@ -112,12 +114,8 @@ class Resource < ActiveRecord::Base
     end
   end
 
-  # TODO - generalize this instance-variable reset.
   def reload
-    @@ar_instance_vars ||= Resource.new.instance_variables << :mock_proxy # For tests
-    (instance_variables - @@ar_instance_vars).each do |ivar|
-      remove_instance_variable(ivar)
-    end
+    clear_instance_variables
     super
   end
 

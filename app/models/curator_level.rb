@@ -4,13 +4,10 @@ class CuratorLevel < ActiveRecord::Base
   include NamedDefaults
 
   set_defaults :label,
-    ['Master Curator', 'Assistant Curator', 'Full Curator']
-
-  class << self
-    alias :master :master_curator
-    alias :full :full_curator
-    alias :assistant :assistant_curator
-  end
+    [{method_name: :master, label: 'Master Curator'},
+     {method_name: :assistant, label: 'Assistant Curator'},
+     {method_name: :full, label: 'Full Curator'}
+    ]
 
   def translated_label
     I18n.t("curator_level_#{label.gsub(' ', '_').downcase}")

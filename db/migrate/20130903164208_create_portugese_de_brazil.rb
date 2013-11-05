@@ -1,7 +1,6 @@
 # encoding: utf-8
 class CreatePortugeseDeBrazil < ActiveRecord::Migration
   def up
-    Language.create_english # Ensure that we have our default language before inserting any...
     unless Language.exists?(iso_639_1: 'pt-BR')
       l = Language.create(iso_639_1: "pt-BR", iso_639_2: "", iso_639_3: "", source_form: "português do Brasil", sort_order: 1,
                           activated_on: Time.now)

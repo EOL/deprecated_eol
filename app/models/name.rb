@@ -24,7 +24,7 @@ class Name < ActiveRecord::Base
   validates_presence_of   :canonical_form
 
   validate :clean_name_must_be_unique
-  before_validation :set_default_values, :on => :create
+  before_validation :set_defaults, :on => :create
   before_validation :create_clean_name, :on => :create
   before_validation :create_canonical_form, :on => :create
   before_validation :create_italicized, :on => :create
@@ -141,7 +141,7 @@ private
     errors[:base] << "Name string must be unique" unless found_name.nil?
   end
 
-  def set_default_values
+  def set_defaults
     self.namebank_id = 0
   end
 

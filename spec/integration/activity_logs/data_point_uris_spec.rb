@@ -63,7 +63,8 @@ end
 describe 'DataPointUris' do
   before :all do
     load_foundation_cache
-    SiteConfigurationOption.destroy_all
+    SiteConfigurationOption.delete_all
+    SiteConfigurationOption.create(parameter: 'all_users_can_see_data', value: true) 
     @parent_taxon_concept = build_taxon_concept
     @taxon_concept = build_taxon_concept(:parent_hierarchy_entry_id => @parent_taxon_concept.entry.id)
     @user = build_curator(@taxon_concept, :level => :master)

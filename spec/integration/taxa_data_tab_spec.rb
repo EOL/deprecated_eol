@@ -72,7 +72,6 @@ describe 'Taxa data tab basic tests' do
     KnownUri.gen_if_not_exists(:uri => 'http://eol.org/massive', :name => 'Really Really Heavy')
     visit taxon_data_path(@taxon_concept.id)
     body.should_not have_selector("table.data td span", :text => 'Massive')
-    body.should_not have_selector("table.data td span", :text => 'http://eol.org/massive')
     # the label for the new KnownURI should get used
     body.should have_selector("table.data td span", :text => 'Really Really Heavy')
   end
@@ -95,7 +94,7 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the predicate is associated with a unit, and that unit is a KnownURI
-    body.should have_selector("table.data td[headers='http://eol.org/time'] span", :text => '50')
+    body.should have_selector("table.data td[headers='predicate_http___eol_org_time'] span", :text => '50')
     body.should_not have_selector('span.term', text: 'hours')
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
     hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours')

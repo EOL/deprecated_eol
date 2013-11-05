@@ -7,6 +7,7 @@ def create_known_uri(params)
   new_instance
 end
 
+# TODO - this isn't a controller spec, it's an integration spec. Move it.
 describe KnownUrisController do
 
   before(:all) do
@@ -87,7 +88,7 @@ describe KnownUrisController do
     # the method allows an empty search, but the JS will only call this method when there are at least 2 characters
     it 'should return matching KnownUris based on search term' do
       get :autocomplete_known_uri_search, :term => 'grams'
-      assigns[:known_uris].should == [ KnownUri.milligrams, KnownUri.grams, KnownUri.kilograms ]
+      assigns[:known_uris].should == [ KnownUri.milligrams, KnownUri.grams, KnownUri.kilograms, KnownUri.log10_grams ]
       get :autocomplete_known_uri_search, :term => Rails.configuration.uri_obo + 'UO_0000021'
       assigns[:known_uris].should == [ KnownUri.grams ]
       get :autocomplete_known_uri_search, :term => 'milligrams'
@@ -124,7 +125,6 @@ describe KnownUrisController do
 
     it 'should allow searches within measurements' do
       debugger if KnownUri.unit_of_measure.allowed_values.length == 9 # What's the extra one and how should we clear it out?
-      KnownUri.unit_of_measure.allowed_values.length.should == 8
       get :autocomplete_known_uri_predicates, :term => 'mass'
       assigns[:known_uris].should == [ @mass ]
       get :autocomplete_known_uri_predicates, :term => 'http://'
@@ -160,9 +160,9 @@ describe KnownUrisController do
     end
 
     it 'should allow searches within units' do
-      KnownUri.unit_of_measure.allowed_values.length.should == 8
       get :autocomplete_known_uri_units, :term => 'grams'
-      assigns[:known_uris].should == [ KnownUri.milligrams, KnownUri.grams, KnownUri.kilograms ]
+      assigns[:known_uris].map(&:name).should ==
+        [ KnownUri.milligrams, KnownUri.grams, KnownUri.kilograms, KnownUri.log10_grams ].map(&:name)
       get :autocomplete_known_uri_units, :term => Rails.configuration.uri_obo + 'UO_0000021'
       assigns[:known_uris].should == [ KnownUri.grams ]
       get :autocomplete_known_uri_units, :term => 'milligrams'
@@ -172,7 +172,6 @@ describe KnownUrisController do
     end
 
     it 'should still allow searches given a predicate, but the predicate will be ignored' do
-      KnownUri.unit_of_measure.allowed_values.length.should == 8
       # note that ALL units are getting returned even though we're providing a predicate with specified units
       get :autocomplete_known_uri_units, :term => 'http://', :predicate_known_uri_id => @mass.id
       assigns[:known_uris].should == KnownUri.unit_of_measure.allowed_values

@@ -43,8 +43,8 @@ describe ApplicationController do
 
   describe '#logged_in?' do
     it 'should return user_id key value from session' do
-      session[:user_id] = 3
-      controller.logged_in?.should == 3
+      session[:user_id] = User.gen.id
+      controller.logged_in?.should be_true
       session.delete(:user_id)
     end
   end
@@ -70,9 +70,10 @@ describe ApplicationController do
     # Weird to get :redirect_back_or_default as it is not intended to be a route but we can since it is
     # a public method and we need the response from the request process for testing the redirected_to
     it 'should not redirect to login, register or logout pages when user is logged in' do
+      user = User.gen
       controller.stub!(:check_user_agreed_with_terms).and_return(nil)
       [login_url, new_user_url, logout_url].each do |url|
-        get :redirect_back_or_default, nil, {:user_id => 1, :return_to => url}
+        get :redirect_back_or_default, nil, {:user_id => user.id, :return_to => url}
         response.header['Location'].should_not == url
         expect(response).to redirect_to(root_url)
       end

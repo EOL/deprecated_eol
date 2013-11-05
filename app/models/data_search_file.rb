@@ -20,8 +20,8 @@ class DataSearchFile < ActiveRecord::Base
     end
   end
 
-  def csv
-    rows = get_data
+  def csv(options = {})
+    rows = get_data(options)
     col_heads = get_headers(rows)
     CSV.generate do |csv|
       csv_builder(csv, col_heads, rows)
@@ -62,7 +62,7 @@ class DataSearchFile < ActiveRecord::Base
     Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
 
-  def get_data
+  def get_data(options = {})
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
     @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
       sort: sort, per_page: LIMIT, :for_download => true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
@@ -70,7 +70,7 @@ class DataSearchFile < ActiveRecord::Base
     rows = []
     DataPointUri.assign_bulk_metadata(@results, user.language)
     @results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(user.language, measurement_as_header: true)
+      rows << data_point_uri.to_hash(user.language, measurement_as_header: true, host: options[:host])
     end
     rows
   end
@@ -92,7 +92,7 @@ class DataSearchFile < ActiveRecord::Base
 
   def upload_file
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-      update_attributes(hosted_file_url: $HOSTED_DATASET_PATH + uploaded_file_url)
+      update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + uploaded_file_url)
     end
   end
 

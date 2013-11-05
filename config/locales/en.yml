@@ -3212,6 +3212,8 @@ en:
   data_column_tc_id: "EOL page ID"
   data_column_sci_name: "Scientific Name"
   data_column_common_name: "Common Name"
+  data_column_classification_summary: "Classification Summary"
+  data_column_resource: "Content Partner Resource URL"
   data_column_name: "Measurement Label"
   data_column_name_uri: "Measurement URI"
   data_column_val: "Value (normalized)"

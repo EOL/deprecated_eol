@@ -32,9 +32,11 @@ class DataSearchController < ApplicationController
       end
       format.csv do    # Direct download... (implies DataSearchFile might be misnamed...)
         df = create_data_search_file
-        # TODO - handle the case where results are empty.
+        # TODO - handle the case where results are empty. Also, 
+        # http://stackoverflow.com/questions/5844033/rails-3-format-csv-gives-no-template-error-but-format-json-needs-no-template
+        # ...would be a more elegant solution, if we wanna keep doing this.
         headers["Content-Disposition"] = "attachment; filename=\"#{df.filename}\""
-        render text: df.csv
+        render text: df.csv(host: request.host)
       end
       format.js do   # Background download...
         df = create_data_search_file

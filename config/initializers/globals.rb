@@ -69,6 +69,8 @@ Rails.configuration.optional_reference_uris = { # Be careful changing these...  
 Rails.configuration.data_search_file_rel_path = '/uploads/data_search_files/:id.csv'
 Rails.configuration.data_search_file_full_path = "#{Rails.public_path}#{Rails.configuration.data_search_file_rel_path}"
 
+Rails.configuration.hosted_dataset_path = 'http://localhost/eol_php_code/applications/content_server/datasets/'
+
 # -------------------------------------------------------------------------
 # OLD STUFF...          PLEASE DON'T DO THIS ANYMORE.  :|
 
@@ -154,8 +156,6 @@ $DATASET_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/datasets/:id.:extensio
 
 $CONTENT_UPLOAD_PATH = "/uploads/"  # directory to place uploaded content files, content server needs SFTP access to this folder
 $CONTENT_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/:id.:extension"  # directory to place uploaded content
-
-$HOSTED_DATASET_PATH = 'http://localhost/eol_php_code/applications/content_server/datasets/'
 
 # NEWS ITEMS ON HOME PAGE CONFIGURATION
 $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY = 5 # the maximum number of news items to show on the home page at any time

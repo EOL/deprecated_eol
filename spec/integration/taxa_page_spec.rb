@@ -131,12 +131,11 @@ describe 'Taxa page basic tests' do
     visit taxon_overview_path(tc.id)
     body.should have_selector("#data_summary table")
     body.should include("12,345.0")
-    pattern = />12,345.0<.{,35}>pounds</m
-    body.should_not match(pattern)
+    body.should_not have_tag('span', text: "pounds")
     pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds', :uri_type => UriType.value)
     KnownUri.unit_of_measure.add_value(pounds)
     visit taxon_overview_path(tc.id)
-    body.should match(pattern)
+    body.should have_tag('span', text: "pounds")
   end
 
 end

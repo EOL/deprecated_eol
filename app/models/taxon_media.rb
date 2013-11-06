@@ -13,9 +13,9 @@ class TaxonMedia < TaxonUserClassificationFilter
   include Enumerable
 
   def initialize(taxon_concept, user, options = {})
-    @page = options[:page].to_i ||= 1
-    @per_page = options[:per_page].to_i ||= TaxonMedia::IMAGES_PER_PAGE
-    @per_page = TaxonMedia::MAXIMUM_IMAGES_PER_PAGE if @per_page > TaxonMedia::MAXIMUM_IMAGES_PER_PAGE
+    @page = options[:page] ||= 1
+    @per_page = options[:per_page] ||= TaxonMedia::IMAGES_PER_PAGE
+    @per_page = TaxonMedia::MAXIMUM_IMAGES_PER_PAGE if @per_page.to_i > TaxonMedia::MAXIMUM_IMAGES_PER_PAGE
     @sort_by = options[:sort_by] ||= 'status'
     @type = options[:type] ||= ['all']
     @type = ['all'] if @type.include?('all')
@@ -35,11 +35,11 @@ class TaxonMedia < TaxonUserClassificationFilter
   end
 
   def start
-    @start ||= (@page - 1) * @per_page + 1
+    @start ||= (@page.to_i - 1) * @per_page.to_i + 1
   end
 
   def end
-    @end ||= [ (start + @per_page - 1), @media.total_entries ].min
+    @end ||= [ (start + @per_page.to_i - 1), @media.total_entries ].min
   end
 
   # You'll pass this to will_paginate.

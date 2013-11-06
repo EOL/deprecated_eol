@@ -63,9 +63,14 @@ class Language < ActiveRecord::Base
     unless eng_lang
       eng_lang = Language.create(:iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng',
         :source_form => 'English', :sort_order => 1)
+    end
+    unless TranslatedLanguage.exists?(label: 'English', original_language_id: eng_lang.id)
       TranslatedLanguage.create(:label => 'English', :original_language_id => eng_lang.id, :language_id => eng_lang.id)
     end
     eng_lang
+  end
+  class << self
+    alias :english_for_migrations :create_english
   end
 
   def self.id_from_iso(iso_code)
@@ -104,12 +109,6 @@ class Language < ActiveRecord::Base
 
   def self.common_name
     cached_find_translated(:label, "Common name")
-  end
-
-  # this is only to be used, and should only work, in the test environment
-  def self.create_english
-    e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
-    TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
   end
 
   def display_code

@@ -91,6 +91,9 @@ describe 'DataPointUris' do
     end
     it 'should show activity on the taxon ancestors overview page' do
       visit(taxon_overview_path(@parent_taxon_concept))
+      # Please figure out what the heck was happening here.  I suspect the SiteConfigurationOption is broken, but not sure.
+      # save_and_open_page  should help
+      debugger unless body =~ @added_data_activity_regex
       body.should match @added_data_activity_regex
     end
     it 'should show activity on the taxon updates page' do
@@ -129,6 +132,7 @@ describe 'DataPointUris' do
     end
     it 'should not show activity on the users activity page' do
       visit(user_activity_path(@user))
+      debugger if body =~ @added_data_activity_regex
       body.should_not match @added_data_activity_regex
     end
     it 'should not show activity in the newfeed of a containing collection' do

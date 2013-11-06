@@ -1,5 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+# TODO - it's entirely feasible to remove foundation from this MODEL spec.
+
 describe Comment do
 
   before(:all) do
@@ -8,7 +10,8 @@ describe Comment do
     @tc_comment = @tc.comments[0]
     @text_comment = @tc.data_objects.select { |d| d.is_text? && !d.comments.blank? }.first.comments.first
     # If this next line fails, something went wrong with Solr building data... Perhaps we should reindex, here?
-    @image_comment = @tc.data_objects.select { |d| d.is_image? && !d.comments.blank? }.first.comments.first
+    @image = @tc.data_objects.select { |d| d.is_image? && !d.comments.blank? }.first
+    @image_comment = @image.comments.first
     @invisible_comment = Comment.gen(:parent => DataObject.last, :visible_at => 4.days.from_now)
     @curator = User.find(@tc.curators[0])
     @non_curator = User.gen
@@ -50,12 +53,11 @@ describe Comment do
   end
 
   it "should return dato description for DataObject comment" do
-    image = @tc.images_from_solr(1)[0]
-    image.comments[0].parent_name.should == image.description
+    @image.comments[0].parent_name.should == image.description
   end
 
   it "should return parent type if comment is for object that is not TaxonConcept or DataObject" do
-    comment = Comment.gen(:parent => @tc.images_from_solr.first)
+    comment = Comment.gen(:parent => @image)
     comment.parent_type = 'Language'
     comment.save
     comment.reload.parent_name.should == 'Language'

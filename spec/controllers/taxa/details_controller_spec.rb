@@ -36,6 +36,7 @@ describe Taxa::DetailsController do
       education_object = DataObject.create(data_type: DataType.text, description: 'asd', published: 1)
       taxon_concept.add_object_as_subject(education_object, 'Education Resources')
       get :index, :taxon_id => taxon_concept.id
+      debugger unless assigns[:details].resources_links.include?(:education)
       assigns[:details].resources_links.include?(:education).should == true
     end
 

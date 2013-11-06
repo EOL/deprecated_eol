@@ -176,6 +176,7 @@ describe 'Data Object Page' do
     visit("/data_objects/#{@image.id}")
     taid = @image.data_object_taxa_by_visibility(invisible: true).first.id
     review_status_should_be(taid, 'Trusted', 'Visible')
+    debugger unless body =~ /vetted_id_#{taid}/
     select "Unreviewed", :from => "vetted_id_#{taid}"
     select "Hidden", :from => "visibility_id_#{taid}"
     click_button "Save changes"

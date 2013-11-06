@@ -92,6 +92,7 @@ describe 'Taxa page basic tests' do
     @user_added_data = UserAddedData.gen(:subject => tc)
     login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
+    debugger unless body =~ /data_summary/
     body.should have_selector("#data_summary table")
   end
 
@@ -181,6 +182,7 @@ describe 'Taxa page' do
       should include('A published visible reference with a DOI identifier for testing.')
     end
     it 'should show url identifiers for references' do
+      debugger unless body =~ /A published visible reference with a URL identifier for testing./
       should include('A published visible reference with a URL identifier for testing.')
     end
     it 'should not show invalid identifiers for references' do
@@ -215,6 +217,7 @@ describe 'Taxa page' do
     end
 
     it 'should show action to set article as an exemplar' do
+      debugger unless body =~ I18n.t(:show_in_overview)
       should have_selector("div.actions p a", :text => I18n.t(:show_in_overview))
     end
 

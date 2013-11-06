@@ -57,16 +57,17 @@ class TaxonDataExemplarPicker
 
   # TODO - this should really return the categorized set.
   # TODO - this should also account for all the values in the categorized set... we only want some from each category.
-  # TODO - this seems to be modifying the actual set of data on the source object. Stop that.
+  # TODO - this seems to be modifying the actual set of data on the source TaxonData object. Stop that.
   def pick_exemplars(taxon_data_set)
     return taxon_data_set if taxon_data_set.categorized.keys.count <= TaxonDataExemplarPicker.max_rows # No need to load anything, otherise...
     # TODO - this should have an #include in it, but I'm being lazy:
-    curated_exemplars = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
-    # NOTE the following clause assumes that exemplars will be deleted when rows are deleted:
+    curated_exemplars = TaxonDataExemplar.included.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
+    # Curators have selected so many "good" rows, we're just going to show them all. NOTE this can exeed the limit! (but, at
+    # the time of this writing, there is another check in the view that stops it from showing them all.).
     if curated_exemplars.count >= TaxonDataExemplarPicker.max_rows
-      return taxon_data_set.select { |data_point_uri| curated_exemplars.include?(data_point_uri) }
+      return taxon_data_set.delete_if { |data_point_uri| ! curated_exemplars.include?(data_point_uri) }
     end
-    # If we're still here, we have too many.
+    # If we're still here (and this is common), we have too many, can curators haven't selected enough to fill the allowed slots:
     while(taxon_data_set.categorized.keys.count > TaxonDataExemplarPicker.max_rows) do
       taxon_data_set.delete_at(index_of_last_non_exemplar(taxon_data_set, curated_exemplars))
     end

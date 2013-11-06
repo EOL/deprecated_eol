@@ -28,6 +28,7 @@ class TaxonDataSet
   # NOTE - not provided by Enumerable.
   def delete_at(which)
     @data_point_uris.delete_at(which)
+    self
   end
 
   # NOTE - not provided by Enumerable.
@@ -71,6 +72,7 @@ class TaxonDataSet
   # Yet another NOT provided by Enumerable... grrrr...
   def delete_if(&block)
     @data_point_uris.delete_if { |data_point_uri| yield(data_point_uri) }
+    self
   end
 
   # TODO - in my sample data (which had a single duplicate value for 'weight'), running this then caused the "more"

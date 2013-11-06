@@ -13,11 +13,11 @@ class TaxonDataExemplar < ActiveRecord::Base
                                  taxon_concept_id: what.taxon_concept_id)
   end
 
-  def excluded
+  def excluded?
     exclude == true
   end
 
-  def included
+  def included?
     exclude == false
   end
 

@@ -70,7 +70,7 @@ class Language < ActiveRecord::Base
     eng_lang
   end
   class << self
-    alias :english_for_migrations :create_english
+    alias :create_english :english_for_migrations
   end
 
   def self.id_from_iso(iso_code)

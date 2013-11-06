@@ -21,6 +21,7 @@ class CuratedTaxonConceptPreferredEntry < ActiveRecord::Base
     curated_preferred_entry = CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(taxon_concept.id)
     return nil unless curated_preferred_entry
     entry = curated_preferred_entry.hierarchy_entry
+    return nil unless entry
     # if the entry is not published, try to find a published replacement, or return nil. The
     # database record is not updated with the replacement at this point
     unless entry.published?

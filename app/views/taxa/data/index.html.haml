@@ -60,8 +60,8 @@
               - next
           - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
           -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
-          - exemplar = data_point_uri.taxon_data_exemplars.select(&:included).any?
-          - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded).any?
+          - exemplar = data_point_uri.taxon_data_exemplars.select(&:included?).any?
+          - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded?).any?
           = render :partial => 'data_point_uris/display_rows', :locals => {    |
             :data_point_uri => data_point_uri, :type_index => type_index,      |
             :classes => classes, :exemplar => exemplar, :excluded => excluded, |

@@ -714,7 +714,6 @@ class TaxonConcept < ActiveRecord::Base
     the_user ||= EOL::AnonymousUser.new(Language.default)
     TaxonConcept.prepare_cache_classes
     cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
-    puts "((((((((((((((((((((( #{cached_key}"
     best_article_id ||= Rails.cache.read(cached_key)
     return nil if best_article_id == 0 # Nothing's available, quickly move on...
     if best_article_id && DataObject.still_published?(best_article_id)

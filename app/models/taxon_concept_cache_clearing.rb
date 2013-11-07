@@ -21,7 +21,6 @@ class TaxonConceptCacheClearing
   def self.clear_overview_article_by_id(tc_id)
     Language.find_active.each do |lang|
       Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{tc_id}_#{lang.id}"))
-      puts "))))))))))))))))))) removed  #{TaxonConcept.cached_name_for("best_article_id_#{tc_id}_#{lang.id}")}"
     end
   end
 

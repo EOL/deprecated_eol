@@ -18,7 +18,7 @@ class Language < ActiveRecord::Base
   end
 
   def self.approved_languages
-    approved_language_iso_codes = APPROVED_LANGUAGES rescue ['en', 'es', 'ar']
+    approved_language_iso_codes = Rails.configuration.active_languages rescue ['en', 'es', 'ar']
     @@approved_languages ||= cached("approved_languages") do
       self.find_all_by_iso_639_1(approved_language_iso_codes,
                                  :order => 'sort_order ASC, source_form ASC')

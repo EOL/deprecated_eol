@@ -36,6 +36,8 @@ Eol::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
   
+  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{#{Rails.configuration.active_languages.join(',')}}.yml").to_s]
+
   config.after_initialize do
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
     $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil

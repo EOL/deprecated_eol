@@ -36,5 +36,7 @@ Eol::Application.configure do
 
   config.logger = Logger.new(STDOUT)
 
+  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+
   require "ruby-debug"
 end

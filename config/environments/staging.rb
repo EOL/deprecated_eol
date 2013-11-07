@@ -45,6 +45,7 @@ Eol::Application.configure do
 
   # TODO - consider this. If we want it, put it in. If we don't, remove this paragraph:
   # config.i18n.fallbacks = true
+  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
 
   config.action_mailer.asset_host = "http://staging.eol.org"
 

@@ -39,8 +39,13 @@ module Eol
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Eastern Time (US & Canada)'
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    # Languages that we allow through the UI (setting this early for other config files to use):
+    Rails.configuration.active_languages = ['ar', 'de', 'en', 'es', 'fr', 'gl', 'ko', 'mk', 'ms', 'nl', 'nb', 'oc', 'pt-br',
+      'sr', 'sr-Latn', 'sv', 'tl', 'zh-Hans', 'zh-Hant']
+
+    # We're only loading 'en.yml' by default, here. See the other environments for how to "turn on" all the other YML files.
+    # This makes startup times SO MUCH FASTER.
+    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', 'en.yml').to_s]
     # config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.

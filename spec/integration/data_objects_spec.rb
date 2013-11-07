@@ -87,6 +87,7 @@ describe 'Data Object Page' do
 
   # TODO - this is slow. Find out why.
   before(:each) do
+    DataObjectsHierarchyEntry.where(data_object_id: @image.id).update_all(visibility_id: Visibility.visible.id)
     @image.add_curated_association(@full_curator, @extra_he)
     @image.data_objects_hierarchy_entries.first.trust(@full_curator)
     @image.data_objects_hierarchy_entries.first.show(@full_curator)
@@ -176,6 +177,7 @@ describe 'Data Object Page' do
     visit("/data_objects/#{@image.id}")
     taid = @image.data_object_taxa_by_visibility(invisible: true).first.id
     review_status_should_be(taid, 'Trusted', 'Visible')
+    # AHHH! The problem is that @image is in a preview state.  :D  Fix.
     debugger unless body =~ /vetted_id_#{taid}/
     select "Unreviewed", :from => "vetted_id_#{taid}"
     select "Hidden", :from => "visibility_id_#{taid}"

@@ -947,10 +947,12 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def as_json(options = {})
+    exemplar = exemplar_or_best_image_from_solr
+    thumb = exemplar.nil? ? '' : exemplar.thumb_or_object('88_88')
     super(options.merge(except: [:split_from, :supercedure_id, :vetted_id])).merge(
       scientific_name: title,
       common_name: preferred_common_name_in_language(Language.default),
-      thumbnail: exemplar_or_best_image_from_solr.thumb_or_object('88_88')
+      thumbnail: thumb
     )
   end
 

@@ -45,7 +45,8 @@ Eol::Application.configure do
 
   # TODO - consider this. If we want it, put it in. If we don't, remove this paragraph:
   # config.i18n.fallbacks = true
-  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+  # Load all the active languages, and only the active languages:
+  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{#{Rails.configuration.active_languages.join(',')}}.yml").to_s]
 
   require "ruby-debug"
 end

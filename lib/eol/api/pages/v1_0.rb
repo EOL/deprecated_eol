@@ -212,6 +212,7 @@ module EOL
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
           TaxonUserClassificationFilter.preload_details(all_data_objects)
           # sorting after the preloading has happened
+          puts "++ adding text objects"
           text_objects = sort_and_promote_text(taxon_concept, text_objects, options) if options[:text] && options[:text] > 0
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
 
@@ -266,11 +267,17 @@ module EOL
         end
 
         def self.sort_and_promote_text(taxon_concept, text_objects, options)
+          puts "++ #sort_and_promote_text"
           DataObject.preload_associations(text_objects, [ :toc_items, { :info_items => :translations } ] )
           text_objects = DataObject.sort_by_rating(text_objects, taxon_concept)
+          puts "++ #sorted by rating: #{text_objects.map(&:guid).join(', ')}"
+          # TODO - the overview_text_for_user does a better job of handling anonymous users if you don't pass a user at all:
           user = User.new(:language => Language.default)
           exemplar_text = taxon_concept.overview_text_for_user(user)
+          debugger if $FOO
+          puts "++ Exemplar text: #{exemplar_text.guid}" if exemplar_text
           promote_exemplar!(exemplar_text, text_objects, options)
+          puts "++ About to return texts: #{text_objects.map(&:guid).join(', ')}"
           text_objects
         end
 
@@ -289,24 +296,31 @@ module EOL
         end
 
         def self.promote_exemplar!(exemplar_object, existing_objects_of_same_type, options={})
+          puts "++ #promote_exemplar"
+          puts "++ exit: no exemplar" unless exemplar_object
           return unless exemplar_object
           # confirm license
+          puts "++ exit: bad license" if options[:license_ids] && !options[:license_ids].include?(exemplar_object.license_id)
           return if options[:license_ids] && !options[:license_ids].include?(exemplar_object.license_id)
           # user array intersection (&) to confirm the subject of the examplar is within range
+          puts "++ exit: bad subject" if options[:text_subjects] && (options[:text_subjects] & exemplar_object.toc_items).blank?
           return if options[:text_subjects] && (options[:text_subjects] & exemplar_object.toc_items).blank?
 
+          puts "++ exit: no vetted state" unless exemplar_object.vetted
           # confirm vetted state
           return unless exemplar_object.vetted
           best_vetted_label = exemplar_object.vetted.label('en').downcase
           best_vetted_label = 'unreviewed' if best_vetted_label == 'unknown'
+          puts "++ exit: bad vetted state" if options[:vetted_types] && ! options[:vetted_types].include?(best_vetted_label)
           return if options[:vetted_types] && ! options[:vetted_types].include?(best_vetted_label)
 
           # now add in the exemplar, and remove one if the array is now too large
           original_length = existing_objects_of_same_type.length
           # remove the exemplar if it is already in the list
-          existing_objects_of_same_type.delete_if{ |d| d.guid == exemplar_object.guid }
-          # prepend the exemplar if it exists
+          existing_objects_of_same_type.delete_if { |d| d.guid == exemplar_object.guid }
+          # prepend the exemplar
           existing_objects_of_same_type.unshift(exemplar_object)
+          puts "++ removing one" if existing_objects_of_same_type.length > original_length && original_length != 0
           # if the exemplar increased the size of our image array, remove the last one
           existing_objects_of_same_type.pop if existing_objects_of_same_type.length > original_length && original_length != 0
         end

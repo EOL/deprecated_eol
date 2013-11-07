@@ -521,7 +521,12 @@ TaxonConcept.class_eval do
   # Add a specific toc item to this TC's toc:
   def add_data_object(dato, options = {})
     if dato.data_type_id == DataType.text.id
-      DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => dato.info_items[0].toc_item)
+      toc_item = dato.info_items[0] ? dato.info_items[0].toc_item : dato.toc_items.first
+      begin
+        DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
+      rescue ActiveRecord::RecordNotUnique
+        # do nothing
+      end
       dato.save!
     end
     DataObjectsHierarchyEntry.gen(:data_object => dato, :hierarchy_entry => hierarchy_entries.first)

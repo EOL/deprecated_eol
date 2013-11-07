@@ -18,9 +18,10 @@ describe 'taxa/overview/show' do
     view.extend(TaxaHelper)
     view.stub(:meta_open_graph_data).and_return([])
     view.stub(:tweet_data).and_return({})
-    @data = stub_model(TaxonDataSet)
-    assigns[:taxon_page] = stub_model(TaxonPage)
-    assigns[:overview] = stub_model(TaxonOverview)
+    @data = double(TaxonDataSet)
+    allow(@data).to receive(:categorize).and_return({})
+    assigns[:taxon_page] = double(TaxonPage)
+    assigns[:overview] = double(TaxonOverview)
     assigns[:data_point_uris] = @data
     assigns[:assistive_section_header] = 'assist my overview'
     assigns[:rel_canonical_href] = 'some canonical stuff'

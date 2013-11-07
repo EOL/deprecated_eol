@@ -13,7 +13,7 @@ class Language < ActiveRecord::Base
 
   def self.find_active
     cached("active_languages") do
-      self.find(:all, :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC, source_form ASC')
+      Language.where("activated_on < ?", Time.now).order('sort_order ASC, source_form ASC')
     end
   end
 
@@ -61,8 +61,8 @@ class Language < ActiveRecord::Base
     eng_lang = nil
     eng_lang = find_by_iso_exclusive_scope('en')
     unless eng_lang
-      eng_lang = Language.create(:iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng',
-        :source_form => 'English', :sort_order => 1)
+      eng_lang = Language.create(iso_639_1: 'en', iso_639_2: 'eng', iso_639_3: 'eng',
+                                 source_form: 'English', sort_order: 1, activated_on: 2.days.ago)
     end
     unless TranslatedLanguage.exists?(label: 'English', original_language_id: eng_lang.id)
       TranslatedLanguage.create(:label => 'English', :original_language_id => eng_lang.id, :language_id => eng_lang.id)

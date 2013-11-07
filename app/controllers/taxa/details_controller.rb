@@ -12,6 +12,7 @@ class Taxa::DetailsController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
   end
 
+  # TODO - this doesn't belong here.
   def set_article_as_exemplar
     unless current_user && current_user.min_curator_level?(:assistant)
       raise EOL::Exceptions::SecurityViolation, "User does not have set_article_as_exemplar privileges"

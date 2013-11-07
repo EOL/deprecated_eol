@@ -706,12 +706,15 @@ class TaxonConcept < ActiveRecord::Base
 
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview (though TaxonDetails needs access to the other
   # method). ...But the API is using this and I don't want to touch the API quite yet.
+  # TODO - stop passing in a user, just a language. See #best_article_for_user and you'll see it essentially ignores the user
+  # entirely anyway (with reason).
   def overview_text_for_user(the_user)
     @overview_text_for_user ||= {}
     return @overview_text_for_user[the_user.id] if the_user && @overview_text_for_user[the_user.id]
     the_user ||= EOL::AnonymousUser.new(Language.default)
     TaxonConcept.prepare_cache_classes
     cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
+    puts "((((((((((((((((((((( #{cached_key}"
     best_article_id ||= Rails.cache.read(cached_key)
     return nil if best_article_id == 0 # Nothing's available, quickly move on...
     if best_article_id && DataObject.still_published?(best_article_id)
@@ -968,6 +971,7 @@ private
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user
   def best_article_for_user(the_user)
+    debugger if $FOO
     if published_exemplar = published_visible_exemplar_article_in_language(the_user.language)
       published_exemplar
     else

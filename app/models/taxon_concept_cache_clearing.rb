@@ -18,6 +18,13 @@ class TaxonConceptCacheClearing
     TaxonConceptCacheClearing.new(taxon_concept).clear_for_data_object(data_object)
   end 
 
+  def self.clear_overview_article_by_id(tc_id)
+    Language.find_active.each do |lang|
+      Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{tc_id}_#{lang.id}"))
+      puts "))))))))))))))))))) removed  #{TaxonConcept.cached_name_for("best_article_id_#{tc_id}_#{lang.id}")}"
+    end
+  end
+
   def initialize(taxon_concept)
     @taxon_concept = taxon_concept
   end
@@ -70,9 +77,7 @@ private
   end
 
   def clear_preferred_entry
-    Language.find_active.each do |lang|
-      Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{taxon_concept.id}_#{lang.id}"))
-    end
+    TaxonConceptCacheClearing.clear_overview_article_by_id(taxon_concept.id)
     clear_exemplar_image
     TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: taxon_concept.id)
     ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)

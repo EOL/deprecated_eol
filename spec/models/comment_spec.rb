@@ -53,7 +53,7 @@ describe Comment do
   end
 
   it "should return dato description for DataObject comment" do
-    @image.comments[0].parent_name.should == image.description
+    @image.comments[0].parent_name.should == @image.description
   end
 
   it "should return parent type if comment is for object that is not TaxonConcept or DataObject" do

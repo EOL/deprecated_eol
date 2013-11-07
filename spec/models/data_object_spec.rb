@@ -626,6 +626,7 @@ describe DataObject do
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
     TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, text.id)
     @taxon_concept.reload
+    debugger unless text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept)
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # already exemplar
     TaxonConceptExemplarArticle.destroy_all
     @taxon_concept.reload

@@ -4,8 +4,18 @@ require 'nokogiri'
 # WARNING: Regarding use of subject in this spec, if you are using with_tag you must specify body.should
 # due to bug @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
 
-# NOTE - I hate this spec. It's really, really hard to debug when something goes wrong. ...if anything is actually wrong.  In fact, I wonder if
-# this spec is effectively useless.
+# NOTE - I hate this spec. It's really, really hard to debug when something goes wrong. ...if anything is actually wrong.  In
+# fact, I wonder if this spec is effectively useless.
+#
+# UPDATE: Yup, I'm going to say it again: I doubt that this spec proves much of anything. It's brittle, it doesn't show where
+# problems really are, it doesn't really help with debugging, and it doesn't show how anything should actually be used. It may
+# help *slightly* with confidence that things are working... but I'm not sure how or where. We need to re-write this... which
+# is awful.
+#
+# Moreover, the it.should syntax used below hides (AFAICT) the actual variables being tested. I appreciate the brevity, but
+# I'm not sure how to bug-test it. "p puts body" doesn't work, nor does "page.body", nor "@body" (which you would really
+# expect, since we're setting it), nor "save_and_open_page"... I'm at a loss. Nor can I find a guide online for how this type
+# of test came about.
 
 class TaxonConcept
   def self.missing_id
@@ -217,7 +227,7 @@ describe 'Taxa page' do
     end
 
     it 'should show action to set article as an exemplar' do
-      debugger unless body =~ I18n.t(:show_in_overview)
+      debugger unless body =~ /#{I18n.t(:show_in_overview)}/
       should have_selector("div.actions p a", :text => I18n.t(:show_in_overview))
     end
 
@@ -453,6 +463,7 @@ describe 'Taxa page' do
       visit taxon_details_path(@taxon_concept)
       @section = 'details'
       @body = body
+      debugger unless body =~ /#{@section}/ # Sometimes there is NO body other than the DOCTYPE... what happend?
     end
     subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
@@ -468,6 +479,7 @@ describe 'Taxa page' do
       visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry)
       @section = 'details'
       @body = body
+      debugger unless body =~ /#{@section}/ # Sometimes there is NO body other than the DOCTYPE... what happend?
     end
     subject { @body }
     it_should_behave_like 'taxon common name - hierarchy_entry page'

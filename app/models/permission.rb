@@ -5,7 +5,7 @@ class Permission < ActiveRecord::Base
   has_many :permissions_users
   has_many :users, through: :permissions_users
 
-  KNOWN_PERMISSIONS = [:edit_permissions, :beta_test, :see_data]
+  KNOWN_PERMISSIONS = [ :edit_permissions, :beta_test, :see_data, :edit_cms ]
 
   def self.create_defaults
     KNOWN_PERMISSIONS.each do |sym|

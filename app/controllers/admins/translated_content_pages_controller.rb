@@ -1,5 +1,8 @@
 class Admins::TranslatedContentPagesController < AdminsController
 
+  skip_before_filter :restrict_to_admins
+  before_filter :restrict_to_admins_and_cms_editors
+
   # GET /admin/content_pages/:content_page_id/translations/new
   def new
     @content_page = ContentPage.find(params[:content_page_id])

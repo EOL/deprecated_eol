@@ -14,12 +14,16 @@
       .page_actions
         &nbsp;
       - if display_admins_navigation?
-        %ul.nav
-          %li{:class => resource_is_active('admins/show')}= link_to I18n.t(:admin_link), admin_path
-          %li{:class => resource_is_active('content_pages')}= link_to I18n.t(:admin_content_pages_link), admin_content_pages_path
-          %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:admin_content_partners_link), admin_content_partners_path
-          %li{:class => resource_is_active('eol_statistics')}= link_to I18n.t(:admin_statistics_link), statistics_path
-          %li{:class => resource_is_active('news_items')}= link_to I18n.t(:admin_news_link), admin_news_items_path
+        - if current_user.is_admin?
+          %ul.nav
+            %li{:class => resource_is_active('admins/show')}= link_to I18n.t(:admin_link), admin_path
+            %li{:class => resource_is_active('content_pages')}= link_to I18n.t(:admin_content_pages_link), admin_content_pages_path
+            %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:admin_content_partners_link), admin_content_partners_path
+            %li{:class => resource_is_active('eol_statistics')}= link_to I18n.t(:admin_statistics_link), statistics_path
+            %li{:class => resource_is_active('news_items')}= link_to I18n.t(:admin_news_link), admin_news_items_path
+        - if current_user.can?(:edit_cms)
+          %ul.nav
+            %li{:class => resource_is_active('content_pages')}= link_to I18n.t(:admin_content_pages_link), admin_content_pages_path
 
   #content{:class => controller_name}
     .site_column

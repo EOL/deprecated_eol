@@ -357,6 +357,7 @@ class DataPointUri < ActiveRecord::Base
       # Taxon Concept ID:
       I18n.t(:data_column_tc_id) => taxon_concept.id,
       # Some classification context (stealing from search for now):
+      # TODO - this turned out to be super-expensive, we need to expand the includes for building this.
       I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
       # Scientific Name:
       I18n.t(:data_column_sci_name) => taxon_concept.title_canonical,
@@ -367,7 +368,7 @@ class DataPointUri < ActiveRecord::Base
       # Nice measurement:
       hash[predicate_uri.label] = value_string(language)
       # URI measurement / value
-      hash[predicate] = value_uri_or_blank # TODO - just check in: is this "raw source" enough to satisfy WEB-4702 ?
+      hash[predicate] = value_uri_or_blank # TODO - just check: is this "raw source" enough to satisfy WEB-4702 ?
     else
       # Measurement Label:
       hash[I18n.t(:data_column_name)] = predicate_uri.label
@@ -385,9 +386,9 @@ class DataPointUri < ActiveRecord::Base
     # Raw value:
     hash[I18n.t(:data_column_raw_value)] = DataValue.new(object_uri).label
     # Raw Units:
-    hash[I18n.t(:data_column_raw_units)] = units_string
+    hash[I18n.t(:data_column_raw_units)] = 1 # TODO - you need to re-calculate this
     # Raw Units URI:
-    hash[I18n.t(:data_column_raw_units_uri)] = unit_of_measure_uri
+    hash[I18n.t(:data_column_raw_units_uri)] = 1 # TODO - you need to re-calculate this
     # Source:
     hash[I18n.t(:data_column_source)] = source.name
     # Resource:

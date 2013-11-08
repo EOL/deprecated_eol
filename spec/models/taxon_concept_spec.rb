@@ -262,6 +262,14 @@ describe TaxonConcept do
     tc.preferred_common_name_in_language(Language.english).should == "A Name"
   end
 
+  it 'should capitalize the common name' do
+    taxon = TaxonConcept.gen
+    name = double(Name)
+    name.stub(:string) { 'funky downcase thang' }
+    taxon.should_receive(:common_names_in_language).at_least(1).times.and_return({Language.default.id => name})
+    taxon.preferred_common_name_in_language.should == 'Funky Downcase Thang'
+  end
+
   it 'should include the LigerCat TocItem when the TaxonConcept has one'
 
   it 'should NOT include the LigerCat TocItem when the TaxonConcept does NOT have one'

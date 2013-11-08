@@ -8,14 +8,12 @@ describe 'taxa/overview/show' do
 
   before(:each) do
     # TODO - generalize these extends for the other view specs.
-    view.extend(ApplicationHelper)
-    view.extend(TaxaHelper)
-    view.stub(:meta_open_graph_data).and_return([])
-    view.stub(:tweet_data).and_return({})
     taxon_concept = double(TaxonConcept)
     taxon_concept.stub(:id) { 1 }
     data = double(TaxonDataSet)
     data.stub(:categorize) { {} }
+    data.stub(:count) { 0 }
+    data.stub(:blank?) { true }
     overview = double(TaxonOverview)
     overview.stub(:taxon_concept) { taxon_concept }
     overview.stub(:media) { [] }
@@ -38,11 +36,13 @@ describe 'taxa/overview/show' do
     assign(:assistive_section_header, 'assist my overview')
     assign(:rel_canonical_href, 'some canonical stuff')
     assign(:overview, overview)
+    view.stub(:meta_open_graph_data).and_return([])
+    view.stub(:tweet_data).and_return({})
     view.stub(:current_language) { Language.default }
     view.stub(:current_url) { 'http://yes.we/really_have/this-helper.method' }
   end
 
-  context '(logged out)' do
+  context 'logged out' do
 
     before(:each) do
       user = EOL::AnonymousUser.new(Language.default)
@@ -50,9 +50,27 @@ describe 'taxa/overview/show' do
       view.stub(:logged_in?) { false }
     end
 
-    it 'should do something' do
+    it "should NOT show quick facts when the user doesn't have access (FOR NOW)" do
       render
-      expect(true).to be_true
+      expect(rendered).to_not match /#{I18n.t(:data_summary_header)}/
+    end
+
+  end
+
+  context 'logged with see_data permission' do
+
+    before(:each) do
+      user = double(User)
+      user.stub(:watch_collection) { nil }
+      user.stub(:can_see_data?) { true }
+      user.stub(:logo_url) { 'whatever' }
+      view.stub(:current_user) { user }
+      view.stub(:logged_in?) { false }
+    end
+
+    it "should show quick facts" do
+      render
+      expect(rendered).to match /#{I18n.t(:data_summary_header)}/
     end
 
   end

@@ -31,7 +31,12 @@ describe "layouts/v2/taxa" do
   it "should NOT convert ampresands or apostrophes in common names" do
     assign(:preferred_common_name, "Tom & Jerry's")
     render
-    expect(rendered).to have_content("Tom & Jerry's")
+    expect(rendered).to match /#{"Tom & Jerry's"}/
+  end
+
+  it 'should have a heading in the title' do
+    render
+    expect(rendered).to have_css('#page_heading h2')
   end
 
 end

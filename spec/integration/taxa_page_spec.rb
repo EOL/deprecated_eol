@@ -13,6 +13,11 @@ require 'nokogiri'
 # I'm not sure how to bug-test it. "p puts body" doesn't work, nor does "page.body", nor "@body" (which you would really
 # expect, since we're setting it), nor "save_and_open_page"... I'm at a loss. Nor can I find a guide online for how this type
 # of test came about.
+#
+# UPDATE 2: I've decided that, as someone said (not sure where): "feature specs..." (we call them integration specs) "...should
+# be about *behaviour*, not about *structure*."  ...Use view specs for structure; they are much, much faster (and easier to
+# write). I've taken this to heart and am moving the non-behaviour specs out of this file. ...which, I'm guessing, will be all of
+# them...  :\
 
 class TaxonConcept
   def self.missing_id
@@ -32,86 +37,6 @@ def remove_classification_filter_if_used
   end
 end
 
-describe 'Taxa page basic tests' do
-  before(:all) do
-    load_foundation_cache
-    SiteConfigurationOption.destroy_all
-    @user_can_see_data = User.gen
-    @user_can_see_data.grant_permission(:see_data)
-  end
-
-  it 'should not show a structured data summary when there is none' do
-    drop_all_virtuoso_graphs
-    tc = build_taxon_concept
-    login_as @user_can_see_data
-    visit taxon_overview_path(tc.id)
-    expect(page).to_not have_css("#data_summary table")
-  end
-
-  it 'should NOT show a structured data summary when there is user added data but the users lacks access' do
-    SiteConfigurationOption.should_receive(:all_users_can_see_data).at_least(1).times.and_return(false)
-    drop_all_virtuoso_graphs
-    tc = build_taxon_concept
-    @user_added_data = UserAddedData.gen(:subject => tc)
-    login_as User.gen
-    visit taxon_overview_path(tc.id)
-    expect(page).to_not have_css("#data_summary table")
-  end
-
-  it 'should show a structured data summary when there is user added data' do
-    drop_all_virtuoso_graphs
-    tc = build_taxon_concept
-    @user_added_data = UserAddedData.gen(:subject => tc)
-    login_as @user_can_see_data
-    visit taxon_overview_path(tc.id)
-    expect(page).to have_css("#data_summary table")
-  end
-
-  it 'should show a structured data summary when there are measurements' do
-    drop_all_virtuoso_graphs
-    tc = build_taxon_concept
-    @measurement = DataMeasurement.new(:subject => tc, :resource => Resource.gen,
-      :predicate => 'http://eol.org/weight', :object => '12345')
-    @measurement.update_triplestore
-    login_as @user_can_see_data
-    visit taxon_overview_path(tc.id)
-    expect(page).to have_css("#data_summary table")
-  end
-
-  it 'should show a structured data summary when there are associations' do
-    drop_all_virtuoso_graphs
-    subject_tc = build_taxon_concept
-    target_tc = build_taxon_concept
-    @association = DataAssociation.new(:subject => subject_tc, :resource => Resource.gen,
-      :object => target_tc, :type => 'http://eol.org/preys_on')
-    @association.update_triplestore
-    login_as @user_can_see_data
-    visit taxon_overview_path(subject_tc.id)
-    expect(page).to have_css("#data_summary table")
-    # target will not have data until an inverse relationship is added
-    visit taxon_overview_path(target_tc.id)
-    expect(page).to_not have_css("#data_summary table")
-  end
-
-  it 'should show units in the data summary when defined' do
-    drop_all_virtuoso_graphs
-    tc = build_taxon_concept
-    @measurement = DataMeasurement.new(:subject => tc, :resource => Resource.gen,
-      :predicate => 'http://eol.org/weight', :object => '12345.0', :unit => 'http://eol.org/lbs')
-    @measurement.update_triplestore
-    login_as @user_can_see_data
-    visit taxon_overview_path(tc.id)
-    expect(page).to have_css("#data_summary table")
-    expect(page).to have_content("12,345.0")
-    expect(page).to_not have_tag('span', text: "pounds")
-    pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds', :uri_type => UriType.value)
-    KnownUri.unit_of_measure.add_value(pounds)
-    visit taxon_overview_path(tc.id)
-    expect(page).to have_tag('span', text: "pounds")
-  end
-
-end
-
 describe 'Taxa page' do
 
   before(:all) do
@@ -127,17 +52,6 @@ describe 'Taxa page' do
     @user = @testy[:user]
     Capybara.reset_sessions!
     Activity.create_defaults
-  end
-
-  shared_examples_for 'taxon pages with all expected data' do
-    it 'should show the section name' do
-      expect(page).to have_tag('#page_heading h1')
-      expect(page).to have_css("##{@section}")
-    end
-    it 'should show the preferred common name titlized properly when site language is English' do
-      expect(page).to have_tag('#page_heading h2')
-      expect(page).to have_content(@testy[:common_name].capitalize_all_words)
-    end
   end
 
   shared_examples_for 'taxon details tab' do
@@ -352,10 +266,8 @@ describe 'Taxa page' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       visit taxon_overview_path(@testy[:id])
-      @section = 'overview'
     end
     it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
     it 'should allow logged in users to post comment in "Latest Updates" section' do
       visit logout_url
@@ -376,11 +288,9 @@ describe 'Taxa page' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       visit taxon_entry_overview_path(@taxon_concept, @hierarchy_entry)
-      @section = 'overview'
       # NOTE - these specs *could* leave a classification filter applied when they should not... but seems okay.
     end
     it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
   end
 
@@ -388,10 +298,8 @@ describe 'Taxa page' do
   context 'resources when taxon has all expected data - taxon_concept' do
     before(:all) do
       visit("/pages/#{@testy[:id]}/resources")
-      @section = 'resources'
     end
     it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
   end
 
@@ -399,10 +307,8 @@ describe 'Taxa page' do
   context 'resources when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       visit taxon_entry_resources_path(@taxon_concept, @hierarchy_entry)
-      @section = 'resources'
     end
     it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
   end
 
@@ -412,10 +318,8 @@ describe 'Taxa page' do
       visit logout_url
       login_as @testy[:curator]
       visit taxon_details_path(@taxon_concept)
-      @section = 'details'
     end
     it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
   end
 
@@ -425,10 +329,8 @@ describe 'Taxa page' do
       visit logout_url
       login_as @testy[:curator]
       visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry)
-      @section = 'details'
     end
     it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
   end
 
@@ -436,10 +338,8 @@ describe 'Taxa page' do
   context 'names when taxon has all expected data - taxon_concept' do
     before(:all) do
       visit taxon_names_path(@taxon_concept)
-      @section = 'names'
     end
     it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
   end
 
@@ -447,10 +347,8 @@ describe 'Taxa page' do
   context 'names when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       visit taxon_entry_names_path(@taxon_concept, @hierarchy_entry)
-      @section = 'names'
     end
     it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
   end
 
@@ -458,10 +356,8 @@ describe 'Taxa page' do
   context 'literature when taxon has all expected data - taxon_concept' do
     before(:all) do
       visit taxon_literature_path(@taxon_concept)
-      @section = 'literature'
     end
     it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon literature tab'
   end
 
@@ -469,10 +365,8 @@ describe 'Taxa page' do
   context 'literature when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       visit taxon_entry_literature_path(@taxon_concept, @hierarchy_entry)
-      @section = 'literature'
     end
     it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon literature tab'
   end
 
@@ -481,7 +375,6 @@ describe 'Taxa page' do
   context 'community tab' do
     before(:all) do
       visit(taxon_communities_path(@testy[:id]))
-      @section = 'community'
     end
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon community tab'
@@ -565,7 +458,6 @@ describe 'Taxa page' do
   context 'updates tab - taxon_concept' do
     before(:all) do
       visit(taxon_updates_path(@taxon_concept))
-      @section = 'updates'
     end
     it_should_behave_like 'taxon updates tab'
     it 'should allow logged in users to post comment' do
@@ -587,7 +479,6 @@ describe 'Taxa page' do
   context 'updates tab - hierarchy_entry' do
     before(:all) do
       visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)
-      @section = 'updates'
     end
     it_should_behave_like 'taxon updates tab'
     it 'should allow logged in users to post comment' do

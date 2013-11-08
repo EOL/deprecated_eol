@@ -513,6 +513,7 @@ class TaxonConcept < ActiveRecord::Base
     vet_synonyms(options)
   end
 
+  # TODO - this may belong on the TaxonOverview class (in modified form) and the TaxonCommunities class, if we create one...
   def communities
     @communities ||= published_containing_collections.collect{ |c|
       c.communities.select{ |com| com.published? } }.flatten.compact.uniq

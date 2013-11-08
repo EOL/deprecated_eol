@@ -613,6 +613,18 @@ describe TaxonConcept do
     tc.entry.should == col_entry
   end
 
+  it 'should know about communities as long as they are published' do
+    taxon_concept = TaxonConcept.gen
+    collection = Collection.gen
+    unpubs_collection = Collection.gen
+    collection.communities << Community.gen
+    unpubs_collection.communities << Community.gen(published: false)
+    taxon_concept.should_receive(:published_containing_collections).and_return([collection, unpubs_collection])
+    results = taxon_concept.communities
+    expect(results).to include(collection.communities.first)
+    expect(results).to_not include(unpubs_collection.communities.first)
+  end
+
   it 'should not list duplicate communities' do
     taxon_concept = TaxonConcept.gen
     community = Community.gen

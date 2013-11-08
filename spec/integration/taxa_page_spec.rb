@@ -1,9 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
-# WARNING: Regarding use of subject in this spec, if you are using with_tag you must specify body.should
-# due to bug @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
-
 # NOTE - I hate this spec. It's really, really hard to debug when something goes wrong. ...if anything is actually wrong.  In
 # fact, I wonder if this spec is effectively useless.
 #
@@ -43,47 +40,12 @@ describe 'Taxa page basic tests' do
     @user_can_see_data.grant_permission(:see_data)
   end
 
-  it 'should not convert ampersands in preferred common names' do
-    tc = build_taxon_concept
-    curator = build_curator(tc)
-    tc.add_common_name_synonym("Tom & Jerry", :agent => curator.agent, :language => Language.english,
-                               :vetted => Vetted.trusted, :preferred => true)
-    visit taxon_overview_path(tc.id)
-    body.should include('Tom &amp; Jerry')
-    body.should_not include('Tom &amp;amp; Jerry')
-  end
-
-  it 'should not convert ampersands in preferred common names' do
-    tc = build_taxon_concept
-    curator = build_curator(tc)
-    tc.add_common_name_synonym("Tom&#39;s Jerry", :agent => curator.agent, :language => Language.english,
-                               :vetted => Vetted.trusted, :preferred => true)
-    visit taxon_overview_path(tc.id)
-    body.should include("Tom's Jerry")
-    body.should_not include('Tom&#39;s Jerry')
-  end
-
-  it 'should not show deleted communities in overview' do
-    tc = build_taxon_concept
-    collection = Collection.gen
-    collection.add(tc)
-    community = Community.gen(:name => "This is for testing")
-    collection.communities << community
-    # published communities will show
-    visit taxon_overview_path(tc.id)
-    body.should include(community.name)
-    # unpublished communities will not show
-    community.update_column(:published, false)
-    visit taxon_overview_path(tc.id)
-    body.should_not include(community.name)
-  end
-
   it 'should not show a structured data summary when there is none' do
     drop_all_virtuoso_graphs
     tc = build_taxon_concept
     login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
-    body.should_not have_selector("#data_summary table")
+    expect(page).to_not have_css("#data_summary table")
   end
 
   it 'should NOT show a structured data summary when there is user added data but the users lacks access' do
@@ -93,7 +55,7 @@ describe 'Taxa page basic tests' do
     @user_added_data = UserAddedData.gen(:subject => tc)
     login_as User.gen
     visit taxon_overview_path(tc.id)
-    body.should_not have_selector("#data_summary table")
+    expect(page).to_not have_css("#data_summary table")
   end
 
   it 'should show a structured data summary when there is user added data' do
@@ -102,8 +64,7 @@ describe 'Taxa page basic tests' do
     @user_added_data = UserAddedData.gen(:subject => tc)
     login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
-    debugger unless body =~ /data_summary/
-    body.should have_selector("#data_summary table")
+    expect(page).to have_css("#data_summary table")
   end
 
   it 'should show a structured data summary when there are measurements' do
@@ -114,7 +75,7 @@ describe 'Taxa page basic tests' do
     @measurement.update_triplestore
     login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
-    body.should have_selector("#data_summary table")
+    expect(page).to have_css("#data_summary table")
   end
 
   it 'should show a structured data summary when there are associations' do
@@ -126,10 +87,10 @@ describe 'Taxa page basic tests' do
     @association.update_triplestore
     login_as @user_can_see_data
     visit taxon_overview_path(subject_tc.id)
-    body.should have_selector("#data_summary table")
+    expect(page).to have_css("#data_summary table")
     # target will not have data until an inverse relationship is added
     visit taxon_overview_path(target_tc.id)
-    body.should_not have_selector("#data_summary table")
+    expect(page).to_not have_css("#data_summary table")
   end
 
   it 'should show units in the data summary when defined' do
@@ -140,13 +101,13 @@ describe 'Taxa page basic tests' do
     @measurement.update_triplestore
     login_as @user_can_see_data
     visit taxon_overview_path(tc.id)
-    body.should have_selector("#data_summary table")
-    body.should include("12,345.0")
-    body.should_not have_tag('span', text: "pounds")
+    expect(page).to have_css("#data_summary table")
+    expect(page).to have_content("12,345.0")
+    expect(page).to_not have_tag('span', text: "pounds")
     pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds', :uri_type => UriType.value)
     KnownUri.unit_of_measure.add_value(pounds)
     visit taxon_overview_path(tc.id)
-    body.should have_tag('span', text: "pounds")
+    expect(page).to have_tag('span', text: "pounds")
   end
 
 end
@@ -170,12 +131,12 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon pages with all expected data' do
     it 'should show the section name' do
-      should have_tag('#page_heading h1')
-      should include(@section)
+      expect(page).to have_tag('#page_heading h1')
+      expect(page).to have_css("##{@section}")
     end
     it 'should show the preferred common name titlized properly when site language is English' do
-      should have_tag('#page_heading h2')
-      should include(@testy[:common_name].capitalize_all_words)
+      expect(page).to have_tag('#page_heading h2')
+      expect(page).to have_content(@testy[:common_name].capitalize_all_words)
     end
   end
 
@@ -185,87 +146,85 @@ describe 'Taxa page' do
 
     # NOTE - all of these strings come from the scenario loaded above...
     it 'should show text references' do
-      should include('A published visible reference for testing.')
+      expect(page).to have_content('A published visible reference for testing.')
     end
     it 'should show doi identifiers for references' do
       # TODO - this is failing in the full suite, and I want to know why.  Caching, prolly.
-      should include('A published visible reference with a DOI identifier for testing.')
+      expect(page).to have_content('A published visible reference with a DOI identifier for testing.')
     end
     it 'should show url identifiers for references' do
-      debugger unless body =~ /A published visible reference with a URL identifier for testing./
-      should include('A published visible reference with a URL identifier for testing.')
+      expect(page).to have_content('A published visible reference with a URL identifier for testing.')
     end
     it 'should not show invalid identifiers for references' do
-      should include('A published visible reference with an invalid identifier for testing.')
+      expect(page).to have_content('A published visible reference with an invalid identifier for testing.')
       # TODO - really, we'd like to test that the page DOESN'T have a link related to that reference... but I'm not
       # sure how to pull it off with the new (post-upgrade to Rails 3) capybara!
     end
     it 'should not show invisible references' do
-      should_not include('A published invisible reference for testing.')
+      expect(page).to_not have_content('A published invisible reference for testing.')
     end
     it 'should not show unpublished references' do
-      should_not include('An unpublished visible reference for testing.')
+      expect(page).to_not have_content('An unpublished visible reference for testing.')
     end
     it 'should show links to literature tab' do
-      should have_tag("#toc .section") do
-        with_tag("h4 a", :text => "Literature")
-        with_tag("ul li a", :text => "Biodiversity Heritage Library")
+      within("#toc .section") do
+        expect(page).to have_link("h4 a", :text => "Literature") # have_link?
+        expect(page).to have_link("ul li a", :text => "Biodiversity Heritage Library") # have_link?
       end
     end
     it 'should show links to resources tab' do
-      should have_tag("#toc .section") do
-        with_tag("h4 a", :text => "Resources")
-        with_tag("ul li a", :text => "Education resources")
+      within("#toc .section") do
+        expect(page).to have_link("h4 a", :text => "Resources") # have_link?
+        expect(page).to have_link("ul li a", :text => "Education resources") # have_link?
       end
     end
     it 'should not show references container if references do not exist' do
-      should_not have_selector('.section .article:nth-child(3) .references')
+      expect(page).to_not have_css('.section .article:nth-child(3) .references')
     end
 
     it 'should show actions for text objects' do
-      should have_selector('div.actions p')
+      expect(page).to have_css('div.actions p')
     end
 
     it 'should show action to set article as an exemplar' do
-      debugger unless body =~ /#{I18n.t(:show_in_overview)}/
-      should have_selector("div.actions p a", :text => I18n.t(:show_in_overview))
+      expect(page).to have_css("div.actions p a", :text => I18n.t(:show_in_overview))
     end
 
     it 'should show "Add an article or link to this page" button to the logged in users' do
-      should have_selector("#page_heading .page_actions li a", :text => "Add an article")
-      should have_selector("#page_heading .page_actions li a", :text => "Add a link")
-      should have_selector("#page_heading .page_actions li a", :text => "Add to a collection")
+      expect(page).to have_css("#page_heading .page_actions li a", :text => "Add an article")
+      expect(page).to have_css("#page_heading .page_actions li a", :text => "Add a link")
+      expect(page).to have_css("#page_heading .page_actions li a", :text => "Add to a collection")
     end
   end
 
   shared_examples_for 'taxon overview tab' do
     it 'should show a gallery of four images' do
-      should have_tag("div#media_summary") do
-        with_tag("img[src$='#{@taxon_concept.images_from_solr[0].thumb_or_object('580_360')[25..-1]}']")
-        with_tag("img[src$='#{@taxon_concept.images_from_solr[1].thumb_or_object('580_360')[25..-1]}']")
-        with_tag("img[src$='#{@taxon_concept.images_from_solr[2].thumb_or_object('580_360')[25..-1]}']")
-        with_tag("img[src$='#{@taxon_concept.images_from_solr[3].thumb_or_object('580_360')[25..-1]}']")
+      within("div#media_summary") do
+        expect(page).to have_css("img[src$='#{@taxon_concept.images_from_solr[0].thumb_or_object('580_360')[25..-1]}']")
+        expect(page).to have_css("img[src$='#{@taxon_concept.images_from_solr[1].thumb_or_object('580_360')[25..-1]}']")
+        expect(page).to have_css("img[src$='#{@taxon_concept.images_from_solr[2].thumb_or_object('580_360')[25..-1]}']")
+        expect(page).to have_css("img[src$='#{@taxon_concept.images_from_solr[3].thumb_or_object('580_360')[25..-1]}']")
       end
     end
     it 'should have taxon links for the images in the gallery' do
       (0..3).each do |i|
-        should have_selector("a[href='#{taxon_overview_path(@taxon_concept)}']")
+        expect(page).to have_css("a[href='#{taxon_overview_path(@taxon_concept)}']")
       end
     end
 
     it 'should have sanitized descriptive text alternatives for images in gallery'
 
     it 'should show IUCN Red List status' do
-      should have_tag('div#iucn_status a')
+      expect(page).to have_tag('div#iucn_status a')
     end
 
     it 'should show summary text' do
       # TODO: Test the summary text selection logic - as model spec rather than here (?)
-      should have_selector('div#text_summary', :text => @testy[:brief_summary_text])
+      expect(page).to have_css('div#text_summary', :text => @testy[:brief_summary_text])
     end
 
     it 'should show table of contents label when text object title does not exist' do
-      should have_selector('h3', :text => @testy[:brief_summary].label)
+      expect(page).to have_css('h3', :text => @testy[:brief_summary].label)
     end
 
     it 'should show classifications'
@@ -277,22 +236,22 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon resources tab' do
     it 'should include About Resources' do
-      should include('About Resources')
+      expect(page).to have_content('About Resources')
     end
     it 'should include Partner Links' do
-      should include('Partner links')
+      expect(page).to have_content('Partner links')
     end
   end
 
   shared_examples_for 'taxon community tab' do
     it 'should include Curators' do
-      should include('Curators')
+      expect(page).to have_content('Curators')
     end
     it 'should include Collections' do
-      should include('Collections')
+      expect(page).to have_content('Collections')
     end
     it 'should include Communities' do
-      should include('Communities')
+      expect(page).to have_content('Communities')
     end
   end
 
@@ -300,20 +259,20 @@ describe 'Taxa page' do
     it 'should list the classifications that recognise the taxon' do
       visit logout_url
       visit taxon_names_path(@taxon_concept)
-      body.should have_selector('table.standard.classifications') do |tags|
-        tags.should have_selector("a[href='#{taxon_entry_overview_path(@taxon_concept, @taxon_concept.entry)}']")
-        tags.should have_selector('td', :text => 'Catalogue of Life')
+      within('table.standard.classifications') do
+        expect(page).to have_css("a[href='#{taxon_entry_overview_path(@taxon_concept, @taxon_concept.entry)}']") # have_link?
+        expect(page).to have_css('td', :text => 'Catalogue of Life')
       end
     end
 
     it 'should show related names and their sources' do
       visit related_names_taxon_names_path(@taxon_concept)
       # parents
-      body.should include(@taxon_concept.hierarchy_entries.first.parent.name.string)
-      body.should include(CGI.escapeHTML(@taxon_concept.hierarchy_entries.first.hierarchy.label))
+      expect(page).to have_content(@taxon_concept.hierarchy_entries.first.parent.name.string)
+      expect(page).to have_content(CGI.escapeHTML(@taxon_concept.hierarchy_entries.first.hierarchy.label))
       # children
-      body.should include(@testy[:child1].hierarchy_entries.first.name.string)
-      body.should include(CGI.escapeHTML(@testy[:child1].hierarchy_entries.first.hierarchy.label))
+      expect(page).to have_content(@testy[:child1].hierarchy_entries.first.name.string)
+      expect(page).to have_content(CGI.escapeHTML(@testy[:child1].hierarchy_entries.first.hierarchy.label))
     end
 
     it 'should show common names grouped by language with preferred flagged and status indicator' do
@@ -322,23 +281,23 @@ describe 'Taxa page' do
       # TODO: Test that common names from other languages are present and that current language names appear
       # first after language is switched.
       # English by default
-      body.should have_selector('h4', :text => "English")
-      body.should match /#{@common_names.first.name_string}/i
-      body.should match /#{@common_names.first.agents.first.full_name}/i
-      body.should match /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i
+      expect(page).to have_css('h4', :text => "English")
+      expect(page).to match /#{@common_names.first.name_string}/i
+      expect(page).to match /#{@common_names.first.agents.first.full_name}/i
+      expect(page).to match /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i
     end
 
     it 'should allow curators to add common names' do
       visit logout_url
       visit common_names_taxon_names_path(@taxon_concept)
-      body.should_not have_selector('form#new_name')
+      expect(page).to_not have_css('form#new_name')
       login_as @testy[:curator]
       visit common_names_taxon_names_path(@taxon_concept)
-      body.should have_selector('form#new_name')
+      expect(page).to have_css('form#new_name')
       new_name = FactoryGirl.generate(:string)
       fill_in 'Name', :with => new_name
       click_button 'Add name'
-      body.should have_selector('td', :text => new_name.capitalize_all_words)
+      expect(page).to have_css('td', :text => new_name.capitalize_all_words)
     end
 
     it 'should allow curators to choose a preferred common name for each language'
@@ -348,19 +307,19 @@ describe 'Taxa page' do
       visit logout_url
       visit synonyms_taxon_names_path(@taxon_concept)
       @synonyms = @taxon_concept.published_hierarchy_entries.first.scientific_synonyms
-      body.should include(@taxon_concept.published_hierarchy_entries.first.hierarchy.display_title)
-      body.should include(@synonyms.first.name.string)
+      expect(page).to have_content(@taxon_concept.published_hierarchy_entries.first.hierarchy.display_title)
+      expect(page).to have_content(@synonyms.first.name.string)
     end
   end
 
   shared_examples_for 'taxon literature tab' do
     it 'should show some references' do
-      should have_selector('.ref_list li')
+      expect(page).to have_css('.ref_list li')
       @taxon_concept.data_objects.collect(&:refs).flatten.each do |ref|
         if ref.visibility_id == Visibility.invisible.id || ref.published != 1
-          should_not include(ref.full_reference)
+          expect(page).to_not have_content(ref.full_reference)
         else
-          should include(ref.full_reference)
+          expect(page).to have_content(ref.full_reference)
         end
       end
     end
@@ -368,23 +327,23 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon name - taxon_concept page' do
     it 'should show the concepts preferred name style and ' do
-      should include(@taxon_concept.entry.name.ranked_canonical_form.string)
+      expect(page).to have_content(@taxon_concept.entry.name.ranked_canonical_form.string)
     end
   end
 
   # NOTE - I changed this, since it was failing. It doesn't look like we show the ital name on other pages...
   shared_examples_for 'taxon common name - hierarchy_entry page' do
     it 'should show the concepts preferred name in the heading' do
-      should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
+      expect(page).to match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
     end
   end
 
   shared_examples_for 'taxon updates tab' do
     it 'should include Taxon newsfeed' do
-      should include('Taxon newsfeed')
+      expect(page).to have_content('Taxon newsfeed')
     end
     it 'should include Page statistics' do
-      should include('Page statistics')
+      expect(page).to have_content('Page statistics')
     end
   end
 
@@ -394,9 +353,7 @@ describe 'Taxa page' do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       visit taxon_overview_path(@testy[:id])
       @section = 'overview'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
@@ -405,12 +362,12 @@ describe 'Taxa page' do
       login_as @user
       visit taxon_overview_path(@taxon_concept)
       comment = "Test comment by a logged in user. #{FactoryGirl.generate(:string)}"
-      body.should have_selector(".updates .comment #comment_body")
-      should have_selector(".updates .comment .actions input[value='Post Comment']")
+      expect(page).to have_css(".updates .comment #comment_body")
+      expect(page).to have_css(".updates .comment .actions input[value='Post Comment']")
       fill_in 'comment_body', :with => comment
       click_button "Post Comment"
       current_url.should match /#{taxon_overview_path(@taxon_concept)}/
-      body.should include('Comment successfully added')
+      expect(page).to have_content('Comment successfully added')
     end
   end
 
@@ -420,10 +377,8 @@ describe 'Taxa page' do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       visit taxon_entry_overview_path(@taxon_concept, @hierarchy_entry)
       @section = 'overview'
-      @body = body
       # NOTE - these specs *could* leave a classification filter applied when they should not... but seems okay.
     end
-    subject { @body }
     it_should_behave_like 'taxon common name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
@@ -434,9 +389,7 @@ describe 'Taxa page' do
     before(:all) do
       visit("/pages/#{@testy[:id]}/resources")
       @section = 'resources'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
@@ -447,9 +400,7 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_resources_path(@taxon_concept, @hierarchy_entry)
       @section = 'resources'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon common name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
@@ -462,10 +413,7 @@ describe 'Taxa page' do
       login_as @testy[:curator]
       visit taxon_details_path(@taxon_concept)
       @section = 'details'
-      @body = body
-      debugger unless body =~ /#{@section}/ # Sometimes there is NO body other than the DOCTYPE... what happend?
     end
-    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
@@ -478,10 +426,7 @@ describe 'Taxa page' do
       login_as @testy[:curator]
       visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry)
       @section = 'details'
-      @body = body
-      debugger unless body =~ /#{@section}/ # Sometimes there is NO body other than the DOCTYPE... what happend?
     end
-    subject { @body }
     it_should_behave_like 'taxon common name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
@@ -492,9 +437,7 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_names_path(@taxon_concept)
       @section = 'names'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
@@ -505,9 +448,7 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_names_path(@taxon_concept, @hierarchy_entry)
       @section = 'names'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon common name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
@@ -518,9 +459,7 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_literature_path(@taxon_concept)
       @section = 'literature'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon literature tab'
@@ -531,9 +470,7 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_literature_path(@taxon_concept, @hierarchy_entry)
       @section = 'literature'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon common name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon literature tab'
@@ -545,22 +482,20 @@ describe 'Taxa page' do
     before(:all) do
       visit(taxon_communities_path(@testy[:id]))
       @section = 'community'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
       visit(taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :text => "Communities")
+      expect(page).to have_css("h3", :text => "Communities")
     end
     it "should render communities - collections page" do
       visit(collections_taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :text => "Collections")
+      expect(page).to have_css("h3", :text => "Collections")
     end
     it "should render communities - curators page" do
       visit(curators_taxon_communities_path(@taxon_concept))
-      body.should have_selector("h3", :text => "Curators")
+      expect(page).to have_css("h3", :text => "Curators")
     end
   end
 
@@ -568,11 +503,9 @@ describe 'Taxa page' do
   context 'when taxon does not have any common names' do
     before(:all) do
       visit taxon_overview_path @testy[:taxon_concept_with_no_common_names]
-      @body = body
     end
-    subject { @body }
     it 'should not show a common name' do
-      should_not have_selector('#page_heading h2')
+      expect(page).to_not have_css('#page_heading h2')
     end
   end
 
@@ -585,11 +518,11 @@ describe 'Taxa page' do
     it 'details should show empty text' do
       t = TaxonConcept.gen(:published => 1)
       visit taxon_details_path t
-      body.should have_selector('#taxon_detail #main .empty')
-      body.should match(/No one has contributed any details to this page yet/)
-      body.should have_selector("#toc .section") do |tags|
-        tags.should have_selector("h4 a[href='#{taxon_literature_path t}']")
-        tags.should have_selector("ul li a[href='#{bhl_taxon_literature_path t}']")
+      expect(page).to have_css('#taxon_detail #main .empty')
+      expect(page).to match(/No one has contributed any details to this page yet/)
+      expect(page).to have_css("#toc .section") do |tags|
+        tags.should have_css("h4 a[href='#{taxon_literature_path t}']") # have_link?
+        tags.should have_css("ul li a[href='#{bhl_taxon_literature_path t}']") # have_link?
       end
     end
   end
@@ -600,11 +533,11 @@ describe 'Taxa page' do
       current_url.should match /#{taxon_overview_path(@taxon_concept)}/
       current_url.should_not match /#{taxon_overview_path(@testy[:superceded_taxon_concept])}/
       remove_classification_filter_if_used
-      body.should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
+      expect(page).to match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
       visit taxon_details_path @testy[:superceded_taxon_concept]
       current_url.should match /#{taxon_details_path(@taxon_concept)}/
       current_url.should_not match /#{taxon_details_path(@testy[:superceded_taxon_concept])}/
-      body.should match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
+      expect(page).to match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
     end
   end
 
@@ -633,23 +566,21 @@ describe 'Taxa page' do
     before(:all) do
       visit(taxon_updates_path(@taxon_concept))
       @section = 'updates'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon updates tab'
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user
       visit taxon_updates_path(@taxon_concept)
       comment = "Test comment by a logged in user. #{FactoryGirl.generate(:string)}"
-      body.should have_selector("#main .comment #comment_body")
+      expect(page).to have_css("#main .comment #comment_body")
       fill_in 'comment_body', :with => comment
-      body.should have_selector("#main .comment .actions input[value='Post Comment']")
+      expect(page).to have_css("#main .comment .actions input[value='Post Comment']")
       click_button "Post Comment"
       current_url.should match /#{taxon_updates_path(@taxon_concept)}/
       last_comment = Comment.last
       last_comment.body.should == comment
-      body.should have_selector("li#Comment-#{last_comment.id}")
+      expect(page).to have_css("li#Comment-#{last_comment.id}")
     end
   end
 
@@ -657,21 +588,19 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)
       @section = 'updates'
-      @body = body
     end
-    subject { @body }
     it_should_behave_like 'taxon updates tab'
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user
       visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)
       comment = "Test comment by a logged in user #{FactoryGirl.generate(:string)}."
-      body.should have_selector("#main .comment #comment_body")
+      expect(page).to have_css("#main .comment #comment_body")
       fill_in 'comment_body', :with => comment
-      body.should have_selector("#main .comment .actions input[value='Post Comment']")
+      expect(page).to have_css("#main .comment .actions input[value='Post Comment']")
       click_button "Post Comment"
       current_url.should match /#{taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)}/
-      body.should include('Comment successfully added')
+      expect(page).to have_content('Comment successfully added')
     end
   end
 end

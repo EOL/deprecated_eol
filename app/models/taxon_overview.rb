@@ -72,8 +72,9 @@ class TaxonOverview < TaxonUserClassificationFilter
     all_collections.count
   end
 
-  # TODO - should we cache this?  Seems expensive for something that won't change often. It seems simple (to me) to at least denormalize the member count on the community
-  # model itself, which would save us the bigger query here. ...But that would be in addition to caching the results for this overview.
+  # TODO - should we cache this?  Seems expensive for something that won't change often. It seems simple (to me) to at least
+  # denormalize the member count on the community model itself, which would save us the bigger query here. ...But that would be
+  # in addition to caching the results for this overview.
   def communities
     # communities are sorted by the most number of members - descending order
     community_ids = taxon_concept.communities.map(&:id).compact
@@ -156,6 +157,10 @@ private
 
   def load_summary
     taxon_concept.overview_text_for_user(user)
+  end
+
+  def media # Note this replaces the #media method on TaxonUserClassificationFilter.
+    @media
   end
 
   def all_collections

@@ -116,18 +116,22 @@ describe 'DataPointUris' do
     end
     it 'should not show activity on the homepage' do
       visit('/')
+      debugger if body =~ @added_data_activity_regex
       body.should_not match @added_data_activity_regex
     end
     it 'should not show activity on the taxon overview page' do
       visit(taxon_overview_path(@taxon_concept))
+      debugger if body =~ @added_data_activity_regex
       body.should_not match @added_data_activity_regex
     end
     it 'should not show activity on the taxon ancestors overview page' do
       visit(taxon_overview_path(@parent_taxon_concept))
+      debugger if body =~ @added_data_activity_regex
       body.should_not match @added_data_activity_regex
     end
     it 'should not show activity on the taxon updates page' do
       visit(taxon_updates_path(@taxon_concept))
+      debugger if body =~ @added_data_activity_regex
       body.should_not match @added_data_activity_regex
     end
     it 'should not show activity on the users activity page' do
@@ -137,6 +141,7 @@ describe 'DataPointUris' do
     end
     it 'should not show activity in the newfeed of a containing collection' do
       visit(collection_newsfeed_path(@collection))
+      debugger if body =~ @added_data_activity_regex
       body.should_not match @added_data_activity_regex
     end
   end

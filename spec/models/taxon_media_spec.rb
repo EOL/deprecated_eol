@@ -69,7 +69,7 @@ describe TaxonMedia do
                                                 :published ] }
     ).ordered.and_return array
     # This second call is made in order to get a count of all media. I'm not sure this is what was intended.  # TODO
-    @taxon_concept.should_receive(:data_objects_from_solr).with(
+    @taxon_concept.stub(:data_objects_from_solr).with(
       :per_page => 1,
       :sort_by => 'status',
       :data_type_ids => DataType.image_type_ids,

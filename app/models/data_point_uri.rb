@@ -360,9 +360,9 @@ class DataPointUri < ActiveRecord::Base
       # TODO - this turned out to be super-expensive, we need to expand the includes for building this.
       I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
       # Scientific Name:
-      I18n.t(:data_column_sci_name) => taxon_concept.title_canonical,
+      I18n.t(:data_column_sci_name) => taxon_concept.nil? ? '' : taxon_concept.title_canonical,
       # Common Name:
-      I18n.t(:data_column_common_name) => taxon_concept.preferred_common_name_in_language(language)
+      I18n.t(:data_column_common_name) => taxon_concept.nil? ? '' : taxon_concept.preferred_common_name_in_language(language)
     }
     if options[:measurement_as_header]
       # Nice measurement:
@@ -422,7 +422,7 @@ class DataPointUri < ActiveRecord::Base
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
   def value_string(lang = Language.default)
-    if association?
+    if association? && target_taxon_concept
       common = target_taxon_concept.preferred_common_name_in_language(lang)
       return target_taxon_concept.title_canonical if common.blank?
       common

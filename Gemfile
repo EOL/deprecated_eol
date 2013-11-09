@@ -36,6 +36,8 @@ end
 
 group :test, :development do
   gem 'terminal-notifier-guard'
+  gem 'guard-zeus', require: false
+  gem 'guard-bundler', require: false
   gem 'guard-rspec', require: false
   gem 'launchy'
 end

@@ -23,6 +23,7 @@ describe 'Users' do
   after(:each) do
     @user.update_column(:language_id, Language.english.id)
     visit('/logout')
+    I18n.locale = :en
   end
 
   it 'should generate api key' do
@@ -41,11 +42,12 @@ describe 'Users' do
     body.should have_selector(".language p.en", :text => "English")
     visit edit_user_path(@user)
     select "Français", :from => "user_language_abbr"
-    click_button "Save profile information"
+    click_button I18n.t("helpers.submit.user.update")
     body.should have_selector(".language p.fr", :text => "Français")
     visit edit_user_path(@user)
     select "English", :from => "user_language_abbr"
-    click_button "Enregistrer les informations de profil"
+    I18n.locale = :fr
+    click_button I18n.t("helpers.submit.user.update")
     body.should have_selector(".language p.en", :text => "English")
   end
 

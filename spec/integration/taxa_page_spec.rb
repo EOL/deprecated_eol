@@ -59,7 +59,6 @@ describe 'Taxa page' do
     # NOTE - all of these strings come from the scenario loaded above...
     it 'should show links to literature tab' do
       within("#toc .section") do
-        puts page.body
         expect(page).to have_tag('a', text: "Literature")
         expect(page).to have_tag('a', text: "Biodiversity Heritage Library")
       end

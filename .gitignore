@@ -12,6 +12,9 @@
 /tmp
 .sass-cache/
 
+# Ignore guard (which is an auto-tester):
+Guardfile
+
 # Older stuff:
 *.bundle
 *.o

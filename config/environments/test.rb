@@ -37,7 +37,7 @@ Eol::Application.configure do
   config.active_support.deprecation = :stderr
   
   # This one only activates the few languages we use in testing:
-  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{en,es,fr,ar,ko}.yml").to_s]
+  # TEMP - I'm just looking for speed right now: config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{en,es,fr,ar,ko}.yml").to_s]
 
   config.after_initialize do
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = false

@@ -132,6 +132,10 @@ class TaxonOverview < TaxonUserClassificationFilter
     "taxon_overview_#{taxon_concept.id}_#{user.language_abbr}"
   end
 
+  def media # Note this replaces the #media method on TaxonUserClassificationFilter.
+    @media
+  end
+
 private
 
   def after_initialize
@@ -157,10 +161,6 @@ private
 
   def load_summary
     taxon_concept.overview_text_for_user(user)
-  end
-
-  def media # Note this replaces the #media method on TaxonUserClassificationFilter.
-    @media
   end
 
   def all_collections

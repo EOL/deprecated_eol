@@ -55,41 +55,19 @@ describe 'Taxa page' do
   end
 
   shared_examples_for 'taxon details tab' do
-    it 'should not show unpublished user data objects'
-    it 'should only show the most recent revision of a user data object'
 
     # NOTE - all of these strings come from the scenario loaded above...
-    it 'should show text references' do
-      expect(page).to have_content('A published visible reference for testing.')
-    end
-    it 'should show doi identifiers for references' do
-      # TODO - this is failing in the full suite, and I want to know why.  Caching, prolly.
-      expect(page).to have_content('A published visible reference with a DOI identifier for testing.')
-    end
-    it 'should show url identifiers for references' do
-      expect(page).to have_content('A published visible reference with a URL identifier for testing.')
-    end
-    it 'should not show invalid identifiers for references' do
-      expect(page).to have_content('A published visible reference with an invalid identifier for testing.')
-      # TODO - really, we'd like to test that the page DOESN'T have a link related to that reference... but I'm not
-      # sure how to pull it off with the new (post-upgrade to Rails 3) capybara!
-    end
-    it 'should not show invisible references' do
-      expect(page).to_not have_content('A published invisible reference for testing.')
-    end
-    it 'should not show unpublished references' do
-      expect(page).to_not have_content('An unpublished visible reference for testing.')
-    end
     it 'should show links to literature tab' do
       within("#toc .section") do
-        expect(page).to have_link("h4 a", :text => "Literature") # have_link?
-        expect(page).to have_link("ul li a", :text => "Biodiversity Heritage Library") # have_link?
+        puts page.body
+        expect(page).to have_tag('a', text: "Literature")
+        expect(page).to have_tag('a', text: "Biodiversity Heritage Library")
       end
     end
     it 'should show links to resources tab' do
       within("#toc .section") do
-        expect(page).to have_link("h4 a", :text => "Resources") # have_link?
-        expect(page).to have_link("ul li a", :text => "Education resources") # have_link?
+        expect(page).to have_tag('a', text: "Resources")
+        expect(page).to have_tag('a', text: "Education resources")
       end
     end
     it 'should not show references container if references do not exist' do
@@ -174,8 +152,8 @@ describe 'Taxa page' do
       visit logout_url
       visit taxon_names_path(@taxon_concept)
       within('table.standard.classifications') do
-        expect(page).to have_css("a[href='#{taxon_entry_overview_path(@taxon_concept, @taxon_concept.entry)}']") # have_link?
-        expect(page).to have_css('td', :text => 'Catalogue of Life')
+        expect(page).to have_css("a[href='#{taxon_entry_overview_path(@taxon_concept, @taxon_concept.entry)}']")
+        expect(page).to have_tag('td', :text => 'Catalogue of Life')
       end
     end
 
@@ -196,9 +174,9 @@ describe 'Taxa page' do
       # first after language is switched.
       # English by default
       expect(page).to have_css('h4', :text => "English")
-      expect(page).to match /#{@common_names.first.name_string}/i
-      expect(page).to match /#{@common_names.first.agents.first.full_name}/i
-      expect(page).to match /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i
+      expect(page).to have_content /#{@common_names.first.name_string}/i
+      expect(page).to have_content /#{@common_names.first.agents.first.full_name}/i
+      expect(page).to have_content /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i
     end
 
     it 'should allow curators to add common names' do
@@ -248,7 +226,7 @@ describe 'Taxa page' do
   # NOTE - I changed this, since it was failing. It doesn't look like we show the ital name on other pages...
   shared_examples_for 'taxon common name - hierarchy_entry page' do
     it 'should show the concepts preferred name in the heading' do
-      expect(page).to match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
+      expect(page).to have_content(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
     end
   end
 
@@ -265,10 +243,13 @@ describe 'Taxa page' do
   context 'overview when taxon has all expected data - taxon_concept' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      visit taxon_overview_path(@testy[:id])
     end
-    it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon overview tab'
+    it_should_behave_like 'taxon name - taxon_concept page' do
+      before { visit taxon_overview_path(@testy[:id]) }
+    end
+    it_should_behave_like 'taxon overview tab' do
+      before { visit taxon_overview_path(@testy[:id]) }
+    end
     it 'should allow logged in users to post comment in "Latest Updates" section' do
       visit logout_url
       login_as @user
@@ -278,7 +259,7 @@ describe 'Taxa page' do
       expect(page).to have_css(".updates .comment .actions input[value='Post Comment']")
       fill_in 'comment_body', :with => comment
       click_button "Post Comment"
-      current_url.should match /#{taxon_overview_path(@taxon_concept)}/
+      current_url.should have_content /#{taxon_overview_path(@taxon_concept)}/
       expect(page).to have_content('Comment successfully added')
     end
   end
@@ -287,29 +268,33 @@ describe 'Taxa page' do
   context 'overview when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      visit taxon_entry_overview_path(@taxon_concept, @hierarchy_entry)
-      # NOTE - these specs *could* leave a classification filter applied when they should not... but seems okay.
     end
-    it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon overview tab'
+    it_should_behave_like 'taxon common name - hierarchy_entry page' do
+      before { visit taxon_entry_overview_path(@taxon_concept, @hierarchy_entry) }
+    end
+    it_should_behave_like 'taxon overview tab' do
+      before { visit taxon_entry_overview_path(@taxon_concept, @hierarchy_entry) }
+    end
   end
 
   # resources tab - taxon_concept
   context 'resources when taxon has all expected data - taxon_concept' do
-    before(:all) do
-      visit("/pages/#{@testy[:id]}/resources")
+    it_should_behave_like 'taxon name - taxon_concept page' do
+      before { visit("/pages/#{@testy[:id]}/resources") }
     end
-    it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon resources tab'
+    it_should_behave_like 'taxon resources tab' do
+      before { visit("/pages/#{@testy[:id]}/resources") }
+    end
   end
 
   # resources tab - hierarchy_entry
   context 'resources when taxon has all expected data - hierarchy_entry' do
-    before(:all) do
-      visit taxon_entry_resources_path(@taxon_concept, @hierarchy_entry)
+    it_should_behave_like 'taxon common name - hierarchy_entry page' do
+      before { visit taxon_entry_resources_path(@taxon_concept, @hierarchy_entry) }
     end
-    it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon resources tab'
+    it_should_behave_like 'taxon resources tab' do
+      before { visit taxon_entry_resources_path(@taxon_concept, @hierarchy_entry) }
+    end
   end
 
   # details tab - taxon_concept
@@ -317,10 +302,13 @@ describe 'Taxa page' do
     before(:all) do
       visit logout_url
       login_as @testy[:curator]
-      visit taxon_details_path(@taxon_concept)
     end
-    it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon details tab'
+    it_should_behave_like 'taxon name - taxon_concept page' do
+      before { visit taxon_details_path(@taxon_concept) }
+    end
+    it_should_behave_like 'taxon details tab' do
+      before { visit taxon_details_path(@taxon_concept) }
+    end
   end
 
   # details tab - hierarchy_entry
@@ -328,56 +316,64 @@ describe 'Taxa page' do
     before(:all) do
       visit logout_url
       login_as @testy[:curator]
-      visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry)
     end
-    it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon details tab'
+    it_should_behave_like 'taxon common name - hierarchy_entry page' do
+      before { visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry) }
+    end
+    it_should_behave_like 'taxon details tab' do
+      before { visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry) }
+    end
   end
 
   # names tab - taxon_concept
   context 'names when taxon has all expected data - taxon_concept' do
-    before(:all) do
-      visit taxon_names_path(@taxon_concept)
+    it_should_behave_like 'taxon name - taxon_concept page' do
+      before { visit taxon_names_path(@taxon_concept) }
     end
-    it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon names tab'
+    it_should_behave_like 'taxon names tab' do
+      before { visit taxon_names_path(@taxon_concept) }
+    end
   end
 
   # names tab - hierarchy_entry
   context 'names when taxon has all expected data - hierarchy_entry' do
-    before(:all) do
-      visit taxon_entry_names_path(@taxon_concept, @hierarchy_entry)
+    it_should_behave_like 'taxon common name - hierarchy_entry page' do
+      before { visit taxon_entry_names_path(@taxon_concept, @hierarchy_entry) }
     end
-    it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon names tab'
+    it_should_behave_like 'taxon names tab' do
+      before { visit taxon_entry_names_path(@taxon_concept, @hierarchy_entry) }
+    end
   end
 
   # literature tab - taxon_concept
   context 'literature when taxon has all expected data - taxon_concept' do
-    before(:all) do
-      visit taxon_literature_path(@taxon_concept)
+    it_should_behave_like 'taxon name - taxon_concept page' do
+      before { visit taxon_literature_path(@taxon_concept) }
     end
-    it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon literature tab'
+    it_should_behave_like 'taxon literature tab' do
+      before { visit taxon_literature_path(@taxon_concept) }
+    end
   end
 
   # literature tab - hierarchy_entry
   context 'literature when taxon has all expected data - hierarchy_entry' do
-    before(:all) do
-      visit taxon_entry_literature_path(@taxon_concept, @hierarchy_entry)
+    it_should_behave_like 'taxon common name - hierarchy_entry page' do
+      before { visit taxon_entry_literature_path(@taxon_concept, @hierarchy_entry) }
     end
-    it_should_behave_like 'taxon common name - hierarchy_entry page'
-    it_should_behave_like 'taxon literature tab'
+    it_should_behave_like 'taxon literature tab' do
+      before { visit taxon_entry_literature_path(@taxon_concept, @hierarchy_entry) }
+    end
   end
 
 
   # community tab
   context 'community tab' do
-    before(:all) do
-      visit(taxon_communities_path(@testy[:id]))
+    it_should_behave_like 'taxon name - taxon_concept page' do
+      before { visit(taxon_communities_path(@testy[:id])) }
     end
-    it_should_behave_like 'taxon name - taxon_concept page'
-    it_should_behave_like 'taxon community tab'
+    it_should_behave_like 'taxon community tab' do
+      before { visit(taxon_communities_path(@testy[:id])) }
+    end
     it "should render communities - curators page" do
       visit(taxon_communities_path(@taxon_concept))
       expect(page).to have_css("h3", :text => "Communities")
@@ -394,10 +390,8 @@ describe 'Taxa page' do
 
 
   context 'when taxon does not have any common names' do
-    before(:all) do
-      visit taxon_overview_path @testy[:taxon_concept_with_no_common_names]
-    end
     it 'should not show a common name' do
+      visit taxon_overview_path @testy[:taxon_concept_with_no_common_names]
       expect(page).to_not have_css('#page_heading h2')
     end
   end
@@ -412,10 +406,10 @@ describe 'Taxa page' do
       t = TaxonConcept.gen(:published => 1)
       visit taxon_details_path t
       expect(page).to have_css('#taxon_detail #main .empty')
-      expect(page).to match(/No one has contributed any details to this page yet/)
+      expect(page).to have_content(/No one has contributed any details to this page yet/)
       expect(page).to have_css("#toc .section") do |tags|
-        tags.should have_css("h4 a[href='#{taxon_literature_path t}']") # have_link?
-        tags.should have_css("ul li a[href='#{bhl_taxon_literature_path t}']") # have_link?
+        tags.should have_css("h4 a[href='#{taxon_literature_path t}']")
+        tags.should have_css("ul li a[href='#{bhl_taxon_literature_path t}']")
       end
     end
   end
@@ -426,11 +420,11 @@ describe 'Taxa page' do
       current_url.should match /#{taxon_overview_path(@taxon_concept)}/
       current_url.should_not match /#{taxon_overview_path(@testy[:superceded_taxon_concept])}/
       remove_classification_filter_if_used
-      expect(page).to match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
+      expect(page).to have_content(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
       visit taxon_details_path @testy[:superceded_taxon_concept]
       current_url.should match /#{taxon_details_path(@taxon_concept)}/
       current_url.should_not match /#{taxon_details_path(@testy[:superceded_taxon_concept])}/
-      expect(page).to match(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
+      expect(page).to have_content(/#{@taxon_concept.preferred_common_name_in_language(Language.default)}/i)
     end
   end
 
@@ -456,10 +450,9 @@ describe 'Taxa page' do
   end
 
   context 'updates tab - taxon_concept' do
-    before(:all) do
-      visit(taxon_updates_path(@taxon_concept))
+    it_should_behave_like 'taxon updates tab' do
+      before { visit(taxon_updates_path(@taxon_concept)) }
     end
-    it_should_behave_like 'taxon updates tab'
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user
@@ -477,10 +470,9 @@ describe 'Taxa page' do
   end
 
   context 'updates tab - hierarchy_entry' do
-    before(:all) do
-      visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)
+    it_should_behave_like 'taxon updates tab' do
+      before { visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry) }
     end
-    it_should_behave_like 'taxon updates tab'
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user

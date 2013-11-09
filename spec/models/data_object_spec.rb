@@ -33,7 +33,6 @@ describe DataObject do
   end
 
   it 'should be able to replace wikipedia articles' do
-    $FOO = 1
     TocItem.gen_if_not_exists(:label => 'wikipedia')
 
     published_do = build_data_object('Text', 'This is a test wikipedia article content', :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
@@ -253,6 +252,30 @@ describe DataObject do
     dato_descr_after  = @dato.description.balance_tags
 
     dato_descr_after.should == 'That <b>description has unclosed <i>html tags</i></b>'
+  end
+
+  describe '#published_refs' do
+
+    let(:dato_with_refs) do
+      dato_with_refs = DataObject.gen
+      dato_with_refs.add_ref('published visible reference', 1, Visibility.visible)
+      dato_with_refs.add_ref('published invisible reference', 1, Visibility.invisible)
+      dato_with_refs.add_ref('unpublished visible reference', 0, Visibility.visible)
+      dato_with_refs
+    end
+
+    subject(:refs) { dato_with_refs.published_refs.map(&:full_reference) }
+
+    it 'should include published visible refs' do
+      refs.should include('published visible reference')
+    end
+    it 'should NOT show invisible references' do
+      refs.should_not include('published invisible reference')
+    end
+    it 'should NOT show unpublished references' do
+      refs.should_not include('unpublished visible reference')
+    end
+
   end
 
   it 'should close tags in references' do
@@ -626,7 +649,7 @@ describe DataObject do
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
     TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, text.id)
     @taxon_concept.reload
-    debugger unless text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept)
+    debugger if text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept)
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # already exemplar
     TaxonConceptExemplarArticle.destroy_all
     @taxon_concept.reload

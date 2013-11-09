@@ -971,7 +971,6 @@ private
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user
   def best_article_for_user(the_user)
-    debugger if $FOO
     if published_exemplar = published_visible_exemplar_article_in_language(the_user.language)
       published_exemplar
     else

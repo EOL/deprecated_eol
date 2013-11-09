@@ -302,6 +302,8 @@ describe 'Taxa page' do
   context 'details when taxon has all expected data - taxon_concept' do
     before(:all) do
       visit logout_url
+      # This doesn't happen often, and I would like to know why it does:
+      debugger unless TaxonDetails.new(@taxon_concept, @testy[:curator]).resources_links.include?(:education)
       login_as @testy[:curator]
     end
     it_should_behave_like 'taxon name - taxon_concept page' do

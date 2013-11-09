@@ -301,8 +301,10 @@ describe 'Taxa page' do
   # details tab - taxon_concept
   context 'details when taxon has all expected data - taxon_concept' do
     before(:all) do
+      [:partner_links]
       visit logout_url
       # This doesn't happen often, and I would like to know why it does:
+      # NOTE - sometimes this one fails, sometimes the next context fails.  Grrr.
       debugger unless TaxonDetails.new(@taxon_concept, @testy[:curator]).resources_links.include?(:education)
       login_as @testy[:curator]
     end
@@ -318,6 +320,9 @@ describe 'Taxa page' do
   context 'details when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       visit logout_url
+      # This doesn't happen often, and I would like to know why it does:
+      # NOTE - I think this is the one that fails, so it must (!?) be because of the HE filter. Look into it!
+      debugger unless TaxonDetails.new(@taxon_concept, @testy[:curator], @hierarchy_entry).resources_links.include?(:education)
       login_as @testy[:curator]
     end
     it_should_behave_like 'taxon common name - hierarchy_entry page' do

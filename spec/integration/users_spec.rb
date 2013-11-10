@@ -38,17 +38,18 @@ describe 'Users' do
   end
 
   it 'should change preferred language' do
+    last_lang = Language.find_active.last
     login_as @user
-    body.should have_selector(".language p.en", :text => "English")
+    body.should have_selector(".language p.#{Language.default.iso_639_1}", :text => Language.default.source_form)
     visit edit_user_path(@user)
-    select "Français", :from => "user_language_abbr"
+    select last_lang.source_form, :from => "user_language_abbr"
     click_button I18n.t("helpers.submit.user.update")
-    body.should have_selector(".language p.fr", :text => "Français")
+    body.should have_selector(".language p.#{last_lang.iso_639_1}", :text => last_lang.source_form)
     visit edit_user_path(@user)
-    select "English", :from => "user_language_abbr"
+    select Language.default.source_form, :from => "user_language_abbr"
     I18n.locale = :fr
     click_button I18n.t("helpers.submit.user.update")
-    body.should have_selector(".language p.en", :text => "English")
+    body.should have_selector(".language p.en", :text => Language.default.source_form)
   end
 
   # TODO - we appear to be missing this checkbox.  ...Meaning, really: it's not there. I don't know if this is

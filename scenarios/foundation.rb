@@ -8,7 +8,30 @@ Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn i
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 
+# It might be tempting to automate this block of default-creation by scanning AR::B models and selecting those that have
+# defaults. Don't do that; the order is (in some cases) important.
 SiteConfigurationOption.create_defaults
+Activity.create_defaults
+# We don't technically *need* all three of these, but it's nice to have for the menu.  There are more,
+# but we don't currently use them.  Once we do, they should get added here.
+ContactRole.create_defaults
+# Cannot create users without special collection:
+SpecialCollection.create_defaults
+CuratorCommunity.build
+SortStyle.create_defaults # Need this to make communities.
+ViewStyle.create_defaults # Used by collections views
+CuratorLevel.create_defaults
+UserIdentity.create_defaults
+AgentRole.create_defaults
+ContentPartnerStatus.create_defaults
+Audience.create_defaults
+DataType.create_defaults
+LinkType.create_defaults
+License.create_defaults
+MimeType.create_defaults
+ChangeableObjectType.create_defaults
+RefIdentifierType.create_defaults
+ResourceStatus.create_defaults
 
 ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home', :sort_order => 1)
 ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are', :sort_order => 2)
@@ -38,21 +61,6 @@ ContentPage.gen_if_not_exists(:page_name => 'terms_of_use', :title => 'Terms of 
   ContactSubject.gen_if_not_exists(:title => contact_subject_title, :recipients => "junk@example.com", :active => 1)
 end
 
-Activity.create_defaults
-
-# We don't technically *need* all three of these, but it's nice to have for the menu.  There are more,
-# but we don't currently use them.  Once we do, they should get added here.
-ContactRole.create_defaults
-
-# Cannot create users without special collection:
-SpecialCollection.create_defaults
-CuratorCommunity.build
-SortStyle.create_defaults # Need this to make communities.
-ViewStyle.create_defaults # Used by collections views
-
-CuratorLevel.create_defaults
-UserIdentity.create_defaults
-
 iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
 iucn_user = User.gen_if_not_exists(:given_name => 'IUCN', :agent => iucn_agent)
 iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user, :full_name => 'IUCN' )
@@ -80,12 +88,6 @@ lit   = CollectionType.gen_if_not_exists(:label => "Literature")
 CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => links)
 CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => lit)
 
-AgentRole.create_defaults
-ContentPartnerStatus.create_defaults
-Audience.create_defaults
-DataType.create_defaults
-LinkType.create_defaults
-
 default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
 Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label =>  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :browsable => 0)
 Hierarchy.gen_if_not_exists(:label => "Encyclopedia of Life Contributors")
@@ -107,12 +109,6 @@ unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '', :so
 
 sci_name.update_attributes(:activated_on => nil)
 unknown.update_attributes(:activated_on => nil)
-
-License.create_defaults
-MimeType.create_defaults
-ChangeableObjectType.create_defaults
-RefIdentifierType.create_defaults
-ResourceStatus.create_defaults
 
 %w{kingdom phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
   Rank.gen_if_not_exists(:label => rank)

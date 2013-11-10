@@ -3,17 +3,22 @@ require "rake"
 
 describe 'Sitemaps' do
   before(:all) do
-    load_foundation_cache
-    
-    License.destroy_all
-    ContentPage.destroy_all
-    Community.destroy_all
-    Collection.destroy_all
-    ContentPartner.destroy_all
-    User.destroy_all
-    TaxonConcept.destroy_all
-    DataObject.destroy_all
-    
+    License.create_defaults
+    Vetted.create_defaults
+    Visibility.create_defaults
+    MimeType.create_defaults
+    DataType.create_defaults
+    # TODO - I don't think we need these
+    ContentPage.delete_all
+    Community.delete_all
+    Collection.delete_all
+    ContentPartner.delete_all
+    User.delete_all
+    TaxonConcept.delete_all
+    DataObject.delete_all
+
+    # TODO - This should be re-written with Doubles, I think. Too much going on here, I think, for a relatively simple operation.
+
     @objects_to_include = []
     @objects_to_exclude = []
     @objects_to_include << ContentPage.gen(:page_name => 'test_page_active', :active => true)
@@ -32,10 +37,9 @@ describe 'Sitemaps' do
     @objects_to_exclude << TaxonConcept.gen(:published => false, :vetted_id => Vetted.trusted.id)
     @objects_to_exclude << TaxonConcept.gen(:supercedure_id => taxon_concept.id, :vetted_id => Vetted.trusted.id)
     
-    @cc_license = License.gen(:title => 'cc-by-sa 1.0', :source_url => 'http://creativecommons.org/licenses/by-sa/1.0/')
-    @non_cc_license = License.gen(:title => 'not applicable', :source_url => 'http://who.cares')
+    @cc_license = License.by_sa
+    @non_cc_license = License.gen(:title => 'exotic license', :source_url => 'http://who.cares')
     # Needed for #show_rights_holder?
-    License.gen(:title => 'no known copyright restrictions', :source_url => 'http://not.here.com')
     @published_image_cc_license = DataObject.gen(:data_type => DataType.image, :license => @cc_license, :published => 1, :object_cache_url => '201201190911111')
     @published_image_non_cc_license = DataObject.gen(:data_type => DataType.image, :license => @non_cc_license, :published => 1, :object_cache_url => '201201190922222')
     @unpublished_image = DataObject.gen(:data_type => DataType.image, :license => @cc_license, :published => 0, :object_cache_url => '201201190933333')

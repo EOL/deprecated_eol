@@ -542,7 +542,7 @@ bacteria.add_common_name_synonym("bacteria", :agent => agent_col, :language => e
 bacteria.add_common_name_synonym("bugs", :agent => agent_col, :language => english, :preferred => false)
 bacteria.add_common_name_synonym("grime", :agent => agent_col, :language => english, :preferred => false)
 bacteria.add_common_name_synonym("critters", :agent => agent_col, :language => english, :preferred => false)
-german  = Language.gen_if_not_exists(:label => 'German', :iso_639_1 => 'de')
+german  = Language.gen_if_not_exists(label: 'German', iso_639_1: 'de', source_form: 'Deutsch')
 bacteria.add_common_name_synonym("bakteria", :agent => agent_col, :language => german, :preferred => true)
 bacteria.add_common_name_synonym("die buggen", :agent => agent_col, :language => german, :preferred => false)
 bacteria.add_common_name_synonym("das greim", :agent => agent_col, :language => german, :preferred => false)

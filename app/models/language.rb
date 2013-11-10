@@ -63,7 +63,7 @@ class Language < ActiveRecord::Base
   # not already exist
   def self.create_english
     eng_lang = nil
-    eng_lang = find_by_iso_exclusive_scope('en')
+    eng_lang = Language.where(iso_639_1: 'en', source_form: 'English').first rescue nil
     unless eng_lang
       eng_lang = Language.create(iso_639_1: 'en', iso_639_2: 'eng', iso_639_3: 'eng',
                                  source_form: 'English', sort_order: 1, activated_on: 2.days.ago)
@@ -72,9 +72,6 @@ class Language < ActiveRecord::Base
       TranslatedLanguage.create(:label => 'English', :original_language_id => eng_lang.id, :language_id => eng_lang.id)
     end
     eng_lang
-  end
-  class << self
-    alias :create_english :english_for_migrations
   end
 
   def self.id_from_iso(iso_code)

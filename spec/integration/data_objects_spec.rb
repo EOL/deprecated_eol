@@ -341,17 +341,6 @@ describe 'Data Object Page' do
     body.should match('©')
   end
 
-  it 'should save owner as rights holder(if not specified) while editing an article' do
-    user_submitted_text = @tc.add_user_submitted_text(:user => @user)
-    login_as @user
-    visit("/data_objects/#{user_submitted_text.id}")
-    body.should_not have_tag(".article.list ul li a[href='/data_objects/#{user_submitted_text.id}']")
-    click_link "Edit this article"
-    fill_in 'data_object_rights_holder', :with => ""
-    click_button "Save article"
-    body.should have_tag(".article.list ul li a[href='/data_objects/#{user_submitted_text.id}']")
-  end
-
   it "should link agents to their homepage, and add http if the link does not include it" do
     agent = Agent.gen(:full_name => 'doesnt matter', :homepage => 'www.somesite.com')
     # TODO - this used to use create_without_callbacks, which is gone in Rails 3, and the reason for needing it was
@@ -514,11 +503,13 @@ describe 'Data Object Page' do
     # edit article and check on latest version
     click_link "Edit this article"
     fill_in 'data_object_rights_holder', :with => "nonsense"
+    select License.cc.title, from: 'License' # You CANNOT have public domain as the license with a rights holder! DUH.
     click_button "Save article"
-    user_submitted_text.reload.latest_published_version_in_same_language.should_not === user_submitted_text
-    user_submitted_text.latest_published_version_in_same_language.guid.should == user_submitted_text.guid
-    user_submitted_text.latest_published_version_in_same_language.id.should > user_submitted_text.id
-    user_submitted_text.latest_published_version_in_same_language.data_rating.should == 4
+    latest = DataObject.last # Cheating, but should be .
+    expect(latest.id).not_to eq(user_submitted_text.id)
+    expect(latest.guid).to eq(user_submitted_text.guid)
+    expect(latest.id).to be > user_submitted_text.id
+    expect(latest.data_rating).to eq(4)
   end
 
   it 'should not show a description if there isnt one' do

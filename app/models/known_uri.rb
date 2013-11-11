@@ -55,21 +55,20 @@ class KnownUri < ActiveRecord::Base
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
   scope :visible, -> { where(visibility_id: Visibility.visible.id) }
 
-  # YOU WERE HERE. I think the problem is that when you pass values like UriType.metadata *this* early, the DB might get
-  # truncated and you get the wrong ID.  ...So we need to be able to find these things dynamically.  Sigh.  Maybe lambdas?
+  # TODO - really, sex, male, and female are just for testing and should be in a scenario, not here.
+  # TODO - why... metadata for sex? Seems like an attribute to me.
   include NamedDefaults
   set_defaults :uri, -> { # Using a lambda because these need to be evaluated lazily.
-    [{method_name: :unit_of_measure, name: 'Unit of Measure', uri: Rails.configuration.uri_measurement_unit,
-      uri_type_id: UriType.metadata.id},
-      # TODO - really, sex, male, and female are just for testing and should be in a scenario, not here. # TODO - why... metadata?!?
-     {method_name: :sex,         name: 'Sex',        uri: Rails.configuration.uri_dwc + 'sex', uri_type_id: UriType.metadata.id},
+    # Sorry, but these MIGHT not be defined when this is evaluated (at first)...
+    meta_id = UriType.metadata.try(:id) || 4
+    [{method_name: :unit_of_measure, name: 'Unit of Measure', uri: Rails.configuration.uri_measurement_unit, uri_type_id: meta_id},
+     {method_name: :sex,         name: 'Sex',        uri: Rails.configuration.uri_dwc + 'sex', uri_type_id: meta_id},
      {method_name: :male,        name: :male,        uri: Rails.configuration.uri_term_prefix + 'male'},
      {method_name: :female,      name: :female,      uri: Rails.configuration.uri_term_prefix + 'female'},
-     {method_name: :source,      name: 'Source',     uri: Rails.configuration.uri_dc + 'source', uri_type_id: UriType.metadata.id},
-     {method_name: :license,     name: 'License',    uri: Rails.configuration.uri_dc + 'license',
-      uri_type_id: UriType.metadata.id},
+     {method_name: :source,      name: 'Source',     uri: Rails.configuration.uri_dc + 'source', uri_type_id: meta_id},
+     {method_name: :license,     name: 'License',    uri: Rails.configuration.uri_dc + 'license', uri_type_id: meta_id},
      {method_name: :reference,   name: 'Reference',  uri: Rails.configuration.uri_dc + 'bibliographicCitation',
-      uri_type_id: UriType.metadata.id},
+      uri_type_id: meta_id},
      {method_name: :milligrams,  name: :milligrams,  uri: Rails.configuration.uri_obo + 'UO_0000022'},
      {method_name: :grams,       name: :grams,       uri: Rails.configuration.uri_obo + 'UO_0000021'},
      {method_name: :kilograms,   name: :kilograms,   uri: Rails.configuration.uri_obo + 'UO_0000009'},
@@ -82,7 +81,12 @@ class KnownUri < ActiveRecord::Base
      {method_name: :years,       name: :years,       uri: Rails.configuration.uri_obo + 'UO_0000036'},
      {method_name: :tenth_C,     name: '0.1°C',      uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius'},
      {method_name: :log10_grams, name: 'log10 grams',uri: Rails.configuration.schema_terms_prefix + 'log10gram'}] },
-    default_params: -> {{uri_type_id: UriType.value.id, vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id}}
+    default_params: -> {
+      val_id = UriType.value.try(:id) || 3
+      trusted_id = Vetted.trusted.try(:id) || 1
+      visible_id = Visibility.visible.try(:id) || 2
+      {uri_type_id: val_id, vetted_id: trusted_id, visibility_id: visible_id}
+    }
 
   # TODO - this is only used in DataPointUri#apply_unit_conversion ... and probably doesn't need to be. Refactor.
   def self.convert_unit_name_to_class_variable_name(unit_name)

@@ -192,7 +192,6 @@ describe KnownUrisController do
     end
 
     it 'should return all visible metadata URIs when there is no term' do
-      debugger
       KnownUri.metadata.length.should == 5
       get :autocomplete_known_uri_metadata, :term => ''
       now_visible = KnownUri.metadata.visible

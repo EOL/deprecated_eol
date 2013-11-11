@@ -63,11 +63,13 @@ RSpec.configure do |config|
   end
   config.order = 'random'
 
-  # NOTE - errr... this doesn't appear to be working, which is a shame. It would be handy!
-  config.after(:each, :type => :feature) do
-    if example.exception
-      artifact = save_page
-      puts "\n\"#{example.description}\" failed. Page saved to #{artifact}"
+  if false
+    # NOTE - errr... this doesn't appear to be working, which is a shame. It would be handy!
+    config.after(:each, :type => :feature) do
+      if example.exception
+        artifact = save_page
+        puts "\n\"#{example.description}\" failed. Page saved to #{artifact}"
+      end
     end
   end
 

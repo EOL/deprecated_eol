@@ -23,9 +23,6 @@
 #
 #   autoinc_field - this will "number" the defaults (ie: to make them sortable) by populating the specified field with an
 #                   incrementing integer. The first default will be '1', the second '2', and so on.
-#   check_exists_by - occasionally your "named and numbered" field isn't necessarily unique. Use this argument to tell
-#                     #set_defaults which attribute *is* unique. (Note that this attribute must then be specified for each
-#                     hash in the defaults array.)
 #   default_params - a hash of parameters which wll be passed to the created objects by default. This may be a Proc.
 #   default_translated_params - a hash of parameters which wll be passed to the created *translated* objects by default. This
 #                               may be a Proc.
@@ -44,7 +41,6 @@ module NamedDefaults
       @enum_default_params = options[:default_params] || {}
       @enum_default_translated_params = options[:default_translated_params] || {}
       @enum_autoinc_field = options[:autoinc_field]
-      @enum_check_exists_by = options[:check_exists_by]
       @enum_translated = const_defined?(:USES_TRANSLATIONS)
       @enum_translated_class = Kernel.const_get("Translated#{self.name}") if @enum_translated
       @enum_foreign_key = self.name.foreign_key
@@ -136,9 +132,8 @@ module NamedDefaults
             if @enum_autoinc_field
               params[@enum_autoinc_field] = order + 1
             end
-            check_exists_by = @enum_check_exists_by || @enum_field
-            value = default.is_a?(Hash) ? default[check_exists_by] : default
-            create!(params) unless exists?(check_exists_by => value)
+            value = default.is_a?(Hash) ? default[@enum_field] : default
+            create!(params) unless exists?(@enum_field => value)
           end
         end
       end

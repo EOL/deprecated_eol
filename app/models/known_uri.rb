@@ -58,28 +58,28 @@ class KnownUri < ActiveRecord::Base
   # YOU WERE HERE. I think the problem is that when you pass values like UriType.metadata *this* early, the DB might get
   # truncated and you get the wrong ID.  ...So we need to be able to find these things dynamically.  Sigh.  Maybe lambdas?
   include NamedDefaults
-  set_defaults :name, -> { # Using a lambda because these need to be evaluated lazily.
-    [{name: 'Unit of Measure', uri: Rails.configuration.uri_measurement_unit, uri_type: UriType.metadata},
-      # TODO - really, sex, male, and female are just for testing and should be in a scenario, not here.
-     {name: 'Sex',        uri: Rails.configuration.uri_dwc + 'sex', uri_type: UriType.metadata}, # TODO - why... metadata?!?
-     {name: :male,        uri: Rails.configuration.uri_term_prefix + 'male'},
-     {name: :female,      uri: Rails.configuration.uri_term_prefix + 'female'},
-     {name: 'Source',     uri: Rails.configuration.uri_dc + 'source', uri_type: UriType.metadata},
-     {name: 'License',    uri: Rails.configuration.uri_dc + 'license', uri_type: UriType.metadata},
-     {name: 'Reference',  uri: Rails.configuration.uri_dc + 'bibliographicCitation', uri_type: UriType.metadata},
-     {name: :milligrams,  uri: Rails.configuration.uri_obo + 'UO_0000022'},
-     {name: :grams,       uri: Rails.configuration.uri_obo + 'UO_0000021'},
-     {name: :kilograms,   uri: Rails.configuration.uri_obo + 'UO_0000009'},
-     {name: :millimeters, uri: Rails.configuration.uri_obo + 'UO_0000016'},
-     {name: :centimeters, uri: Rails.configuration.uri_obo + 'UO_0000081'},
-     {name: :meters,      uri: Rails.configuration.uri_obo + 'UO_0000008'},
-     {name: :kelvin,      uri: Rails.configuration.uri_obo + 'UO_0000012'},
-     {name: 'degrees Celsius', uri: Rails.configuration.uri_obo + 'UO_0000027', method_name: :celsius},
-     {name: :days,        uri: Rails.configuration.uri_obo + 'UO_0000033'},
-     {name: :years,       uri: Rails.configuration.uri_obo + 'UO_0000036'},
-     {name: '0.1°C',      uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius', method_name: :tenth_C},
-     {name: 'log10 grams',uri: Rails.configuration.schema_terms_prefix + 'log10gram', method_name: :log10_grams}] },
-    check_exists_by: :uri,
+  set_defaults :uri, -> { # Using a lambda because these need to be evaluated lazily.
+    [{method_name: :unit_of_measure, name: 'Unit of Measure', uri: Rails.configuration.uri_measurement_unit, uri_type: UriType.metadata},
+      # TODO - really, sex, male, and female are just for testing and should be in a scenario, not here. # TODO - why... metadata?!?
+     {method_name: :sex,         name: 'Sex',        uri: Rails.configuration.uri_dwc + 'sex', uri_type: UriType.metadata},
+     {method_name: :male,        name: :male,        uri: Rails.configuration.uri_term_prefix + 'male'},
+     {method_name: :female,      name: :female,      uri: Rails.configuration.uri_term_prefix + 'female'},
+     {method_name: :source,      name: 'Source',     uri: Rails.configuration.uri_dc + 'source', uri_type: UriType.metadata},
+     {method_name: :license,     name: 'License',    uri: Rails.configuration.uri_dc + 'license', uri_type: UriType.metadata},
+     {method_name: :reference,   name: 'Reference',  uri: Rails.configuration.uri_dc + 'bibliographicCitation',
+      uri_type: UriType.metadata},
+     {method_name: :milligrams,  name: :milligrams,  uri: Rails.configuration.uri_obo + 'UO_0000022'},
+     {method_name: :grams,       name: :grams,       uri: Rails.configuration.uri_obo + 'UO_0000021'},
+     {method_name: :kilograms,   name: :kilograms,   uri: Rails.configuration.uri_obo + 'UO_0000009'},
+     {method_name: :millimeters, name: :millimeters, uri: Rails.configuration.uri_obo + 'UO_0000016'},
+     {method_name: :centimeters, name: :centimeters, uri: Rails.configuration.uri_obo + 'UO_0000081'},
+     {method_name: :meters,      name: :meters,      uri: Rails.configuration.uri_obo + 'UO_0000008'},
+     {method_name: :kelvin,      name: :kelvin,      uri: Rails.configuration.uri_obo + 'UO_0000012'},
+     {method_name: :celsius,     name: 'degrees Celsius', uri: Rails.configuration.uri_obo + 'UO_0000027'},
+     {method_name: :days,        name: :days,        uri: Rails.configuration.uri_obo + 'UO_0000033'},
+     {method_name: :years,       name: :years,       uri: Rails.configuration.uri_obo + 'UO_0000036'},
+     {method_name: :tenth_C,     name: '0.1°C',      uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius'},
+     {method_name: :log10_grams, name: 'log10 grams',uri: Rails.configuration.schema_terms_prefix + 'log10gram'}] },
     default_params: -> {{uri_type: UriType.value}}
 
   # TODO - this is only used in DataPointUri#apply_unit_conversion ... and probably doesn't need to be. Refactor.

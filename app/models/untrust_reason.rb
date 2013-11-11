@@ -9,13 +9,12 @@ class UntrustReason < ActiveRecord::Base
   has_and_belongs_to_many :curator_activity_logs, :join_table => CuratorActivityLogsUntrustReason.full_table_name
 
   include NamedDefaults
-  set_defaults :label, [
+  set_defaults :class_name, [
     {label: 'misidentified', class_name: :misidentified},
-    {label: 'incorrect/misleading', class_name: :incorrect, method_name: :incorrect},
-    {label: 'low quality', class_name: :poor, method_name: :poor},
+    {label: 'incorrect/misleading', class_name: :incorrect},
+    {label: 'low quality', class_name: :poor},
     {label: 'duplicate', class_name: :duplicate},
     {label: 'other', class_name: :other}
-  ],
-    check_exists_by: :class_name
+  ]
 
 end

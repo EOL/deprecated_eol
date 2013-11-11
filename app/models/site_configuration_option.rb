@@ -38,6 +38,7 @@ class SiteConfigurationOption < ActiveRecord::Base
     default_params: { value: '' }
 
   # This one is a little different, because we need to handle nils with a cache.
+  # TODO - let's move this to EOL::Config and use this as the default behavior for all of the config options (then we can keep all the rows in the DB).
   def self.global_site_warning
     cache_name = cached_name_for('global_site_warning_clean')
     if Rails.cache.exist?(cache_name)

@@ -48,7 +48,6 @@ module NamedDefaults
       @enum_translated = const_defined?(:USES_TRANSLATIONS)
       @enum_translated_class = Kernel.const_get("Translated#{self.name}") if @enum_translated
       @enum_foreign_key = self.name.foreign_key
-      @emum_methods_created = false
       default_methods
       add_create_defaults_method
     end
@@ -86,7 +85,7 @@ module NamedDefaults
         value = default.is_a?(Hash) ? default[@enum_field] : default
         name = build_default_name(default)
         classvar = "@@#{name}".to_sym
-        if @enum_translated
+        if @enum_translated && @enum_translated_class.send(:attribute_names).include?(@enum_field.to_s)
           define_singleton_method(name) do
             return class_variable_get(classvar) if class_variable_defined?(classvar) &&
               class_variable_get(classvar) # NOTE - nothing is cached if it's nil...
@@ -109,33 +108,22 @@ module NamedDefaults
             params = @enum_default_params.is_a?(Proc) ? @enum_default_params.call : @enum_default_params
             params = default.is_a?(Hash) ? params.merge(default) : params.merge(@enum_field => default)
             params.delete(:method_name)
-            params.delete(@enum_field) # Because that goes on the *translated* model...
             if @enum_autoinc_field
               params[@enum_autoinc_field] = order + 1
             end
-            # NOTE - Really, we should check enum_default_translated_params for a language_id, in case they want something
-            # specific... but that's never pragmatically a problem, so I'm not implementing that here.
             value = default.is_a?(Hash) ? default[@enum_field] : default
-            check_exists_by = @enum_check_exists_by || @enum_field
-            # They've asked us to check exists? on a specific field, but we don't know if it's on the translated class, so:
-            check_class = @enum_translated_class.send(:attribute_names).include?(check_exists_by.to_s) ?
-              @enum_translated_class : 
-              self
-            # Aaaaand, if that class is the translation class, we need to check on language ID, otherwise not:
-            exist_params = { check_exists_by => @enum_check_exists_by ? params[@enum_check_exists_by] : value }
-            exist_params.merge!(language_id: Language.default.id) if check_class === @enum_translated_class
-            # Now check:
-            unless check_class.send(:exists?, exist_params)
-              this = create!(params)
+            exist_params = { @enum_field => value, language_id: Language.english.id }
+            field_class = attribute_names.include?(@enum_field.to_s) ? self : @enum_translated_class
+            unless field_class.send(:exists?,
+                                    exist_params.select { |k,v| field_class.send(:attribute_names).include?(k.to_s) })
+              this = create!(params.select { |k,v| attribute_names.include?(k.to_s) })
               trans_params = @enum_default_translated_params.is_a?(Proc) ?
                 @enum_default_translated_params.call :
-                @enum_default_translated_params
-              trans_params.merge!(
-                          language_id: Language.default.id,
-                          @enum_foreign_key => this.id,
-                          @enum_field => value
-              )
-              trans = @enum_translated_class.send(:create!, trans_params)
+                @enum_default_translated_params.dup
+              trans_params.reverse_merge!(language_id: Language.english.id, @enum_foreign_key => this.id)
+              trans_params.merge!(params)
+              trans = @enum_translated_class.send(:create!,
+                trans_params.select { |k,v| @enum_translated_class.send(:attribute_names).include?(k.to_s) })
             end
           end
         end

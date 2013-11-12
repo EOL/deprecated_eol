@@ -111,11 +111,12 @@ describe 'DataPointUris' do
   end
 
   shared_examples_for 'activity_logs check without permission' do
-    before do
+    before :all do
       visit logout_url
     end
     it 'should not show activity on the homepage' do
       visit('/')
+      debugger if body =~ @added_data_activity_regex
       body.should_not match @added_data_activity_regex
     end
     it 'should not show activity on the taxon overview page' do

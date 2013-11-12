@@ -303,9 +303,9 @@ describe 'Taxa page' do
     before(:all) do
       [:partner_links]
       visit logout_url
-      # NOTE - sometimes this is a problem. Not sure why:
-      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild unless
-        TaxonDetails.new(@taxon_concept, @testy[:curator]).resources_links.include?(:education)
+      # This doesn't happen often, and I would like to know why it does:
+      # NOTE - sometimes this one fails, sometimes the next context fails.  Grrr.
+      debugger unless TaxonDetails.new(@taxon_concept, @testy[:curator]).resources_links.include?(:education)
       login_as @testy[:curator]
     end
     it_should_behave_like 'taxon name - taxon_concept page' do
@@ -321,9 +321,8 @@ describe 'Taxa page' do
     before(:all) do
       visit logout_url
       # This doesn't happen often, and I would like to know why it does:
-      # NOTE - sometimes this is a problem. Not sure why:
-      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild unless
-        TaxonDetails.new(@taxon_concept, @testy[:curator]).resources_links.include?(:education)
+      # NOTE - I think this is the one that fails, so it must (!?) be because of the HE filter. Look into it!
+      debugger unless TaxonDetails.new(@taxon_concept, @testy[:curator], @hierarchy_entry).resources_links.include?(:education)
       login_as @testy[:curator]
     end
     it_should_behave_like 'taxon common name - hierarchy_entry page' do

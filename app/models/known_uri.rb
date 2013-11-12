@@ -55,8 +55,8 @@ class KnownUri < ActiveRecord::Base
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
   scope :visible, -> { where(visibility_id: Visibility.visible.id) }
 
-  # TODO - really, sex, male, and female are just for testing and should be in a scenario, not here.
-  # TODO - why... metadata for sex? Seems like an attribute to me.
+  # YOU WERE HERE. I think the problem is that when you pass values like UriType.metadata *this* early, the DB might get
+  # truncated and you get the wrong ID.  ...So we need to be able to find these things dynamically.  Sigh.  Maybe lambdas?
   include NamedDefaults
   set_defaults :uri, -> { # Using a lambda because these need to be evaluated lazily.
     # Sorry, but these MIGHT not be defined when this is evaluated (at first)...

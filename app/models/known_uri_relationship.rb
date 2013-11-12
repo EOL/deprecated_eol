@@ -5,8 +5,8 @@ class KnownUriRelationship < ActiveRecord::Base
   ALLOWED_VALUE_URI = Rails.configuration.uri_allowed_val
   ALLOWED_UNIT_URI = Rails.configuration.uri_allowed_unit
 
-  belongs_to :from_known_uri, :class_name => 'KnownUri', :foreign_key => :from_known_uri_id
-  belongs_to :to_known_uri, :class_name => 'KnownUri', :foreign_key => :to_known_uri_id
+  belongs_to :from_known_uri, :class_name => KnownUri.name, :foreign_key => :from_known_uri_id
+  belongs_to :to_known_uri, :class_name => KnownUri.name, :foreign_key => :to_known_uri_id
 
   attr_accessible :from_known_uri, :from_known_uri_id, :to_known_uri, :to_known_uri_id, :relationship_uri
 

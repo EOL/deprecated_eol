@@ -10,6 +10,9 @@ $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 
 SiteConfigurationOption.create_defaults
 
+# Translated tables will not work without this:
+Language.create_english
+
 ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home', :sort_order => 1)
 ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are', :sort_order => 2)
 ContentPage.gen_if_not_exists(:page_name => 'Working Groups', :title => 'Working Groups',
@@ -69,11 +72,11 @@ Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Informa
 boa_agent = Agent.gen_if_not_exists(:full_name => 'Biology of Aging', :logo_cache_url => '318700')
 boa_user = User.gen_if_not_exists(:display_name => 'Biology of Aging', :logo_cache_url => '318700', :agent => boa_agent)
 boa_content_partner = ContentPartner.gen_if_not_exists(:user => boa_user, :full_name => "Biology of Aging")
-boa_hierarchy = Hierarchy.gen_if_not_exists(:label       => 'LigerCat',
-                                            :description => 'LigerCat Biomedical Terms Tag Cloud',
-                                            :outlink_uri => 'http://ligercat.ubio.org/eol/%%ID%%.cloud',
-                                            :url         => 'http://ligercat.ubio.org',
-                                            :agent_id    => boa_agent.id)
+boa_hierarchy = Hierarchy.gen_if_not_exists(:label => 'LigerCat',
+                                   :description    => 'LigerCat Biomedical Terms Tag Cloud',
+                                   :outlink_uri    => 'http://ligercat.ubio.org/eol/%%ID%%.cloud',
+                                   :url            => 'http://ligercat.ubio.org',
+                                   :agent_id => boa_agent.id)
 boa_resource = Resource.gen_if_not_exists(:title => 'LigerCat resource', :content_partner => boa_content_partner)
 links = CollectionType.gen_if_not_exists(:label => "Links")
 lit   = CollectionType.gen_if_not_exists(:label => "Literature")
@@ -99,6 +102,7 @@ second_ncbi.hierarchy_group_version = 2
 second_ncbi.save!
 Hierarchy.gen_if_not_exists(:agent => Agent.gen_if_not_exists(:full_name => 'GBIF'), :label => 'GBIF Nub Taxonomy', :browsable => 0)
 
+Language.gen_if_not_exists(:label => 'English', :iso_639_1 => 'en', :source_form => 'English')
 Language.gen_if_not_exists(:label => 'French', :iso_639_1 => 'fr', :iso_639_2 => 'fre', :source_form => 'Français') # Bootstrap uses this, tests i18n
 Language.gen_if_not_exists(:label => 'Spanish', :iso_639_1 => 'es', :iso_639_2 => 'spa', :source_form => 'Español')
 Language.gen_if_not_exists(:label => 'Arabic', :iso_639_1 => 'ar', :source_form => 'العربية') # For testing Arabic, obviously.

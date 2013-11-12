@@ -74,13 +74,6 @@ module EOL
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
-        # IMPORTANT - when you've truncated the tables, all of the class variables are now wrong. :|
-        ActiveRecord::Base.subclasses.map(&:name).select do |name|
-          klass = Kernel.const_get(name) rescue nil # Don't care about "wrong constant name Ckeditor::Asset"
-          if klass && klass.respond_to?(:clear_default_caches)
-            klass.clear_default_caches
-          end
-        end
         Rails.cache.clear if Rails.cache
       end
 

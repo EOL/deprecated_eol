@@ -44,8 +44,7 @@ class Language < ActiveRecord::Base
   end
 
   def self.find_by_iso_exclusive_scope(iso)
-    with_exclusive_scope do # Really?  Where are we using #with_scope?  ...I don't understand. Please comment. This smells of
-                            # an attempt to fix a problem that doesn't *actually* fix any problem...
+    with_exclusive_scope do
       find_by_iso_639_1(iso)
     end
   end
@@ -61,14 +60,14 @@ class Language < ActiveRecord::Base
   # Migrations make it possible that the 'en' will either be in the languages table or its translated table.  This
   # ensures we grab it from whichever place is currently appropriate. This method will also create English is it does
   # not already exist
-  def self.create_english
+  def self.english_for_migrations
     eng_lang = nil
     eng_lang = find_by_iso_exclusive_scope('en')
     unless eng_lang
       eng_lang = Language.create(iso_639_1: 'en', iso_639_2: 'eng', iso_639_3: 'eng',
                                  source_form: 'English', sort_order: 1, activated_on: 2.days.ago)
     end
-    unless TranslatedLanguage.exists?(label: 'English', original_language_id: eng_lang.id, language_id: eng_lang.id)
+    unless TranslatedLanguage.exists?(label: 'English', original_language_id: eng_lang.id)
       TranslatedLanguage.create(:label => 'English', :original_language_id => eng_lang.id, :language_id => eng_lang.id)
     end
     eng_lang
@@ -88,7 +87,7 @@ class Language < ActiveRecord::Base
 
   def self.default
     @@default ||= cached('default') do
-      self.create_english # Slightly weird, but it MUST exist, so create it if it's not already there.
+      self.english_for_migrations # Slightly weird, but... as it implies... needed for migrations.
     end
   end
   class << self

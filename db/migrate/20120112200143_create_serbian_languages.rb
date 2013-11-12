@@ -2,13 +2,14 @@
 class CreateSerbianLanguages < ActiveRecord::Migration
   def self.up
     Language.reset_column_information
+    Language.create_english # This ensures that we don't end up creating the following languages BEFORE having a default...
     serbian_cyrillic = Language.create(:iso_639_1 => 'sr-EC', :iso_639_2 => '', :iso_639_3 => '',
       :source_form => 'српски', :sort_order => 1, :activated_on => Time.now)
-    TranslatedLanguage.create(:original_language => serbian_cyrillic, :language => Language.english, :label => 'Serbian (Cyrillic)')
+    TranslatedLanguage.create(:original_language => serbian_cyrillic, :language => Language.english_for_migrations, :label => 'Serbian (Cyrillic)')
     
     serbian_latin = Language.create(:iso_639_1 => 'sr-el', :iso_639_2 => '', :iso_639_3 => '',
       :source_form => 'srpski', :sort_order => 1, :activated_on => Time.now)
-    TranslatedLanguage.create(:original_language => serbian_latin, :language => Language.english, :label => 'Serbian (Latin)')
+    TranslatedLanguage.create(:original_language => serbian_latin, :language => Language.english_for_migrations, :label => 'Serbian (Latin)')
   end
 
   def self.down

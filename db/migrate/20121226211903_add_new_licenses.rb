@@ -2,11 +2,11 @@ class AddNewLicenses < ActiveRecord::Migration
   def self.up
     cc_zero = License.create(:title => 'cc-zero 1.0', :source_url => 'http://creativecommons.org/publicdomain/zero/1.0/', :version => '1.0',
       :logo_url => 'cc_zero_small.png', :show_to_content_partners => 1)
-    TranslatedLicense.create(:license => cc_zero, :language => Language.default, :description => 'Public Domain')
+    TranslatedLicense.create(:license => cc_zero, :language => Language.english_for_migrations, :description => 'Public Domain')
 
     no_known_restrictions = License.create(:title => 'no known copyright restrictions', :logo_url => '', :source_url => 'http://www.flickr.com/commons/usage/',
       :version => '', :show_to_content_partners => 1)
-    TranslatedLicense.create(:license => no_known_restrictions, :language => Language.default, :description => 'No known copyright restrictions')
+    TranslatedLicense.create(:license => no_known_restrictions, :language => Language.english_for_migrations, :description => 'No known copyright restrictions')
   end
 
   def self.down

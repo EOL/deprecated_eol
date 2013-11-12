@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'yaml'
+require 'debugger'
 
 en = YAML::load(File.read('config/locales/en.yml'))["en"]
 files = Dir.glob(File.join('config', 'locales', "*"))

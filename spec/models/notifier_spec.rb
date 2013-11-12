@@ -86,7 +86,7 @@ describe Notifier do
 
   describe 'activity_on_content_partner_content' do
     before(:all) do
-      @curator = User.gen(:curator_level => CuratorLevel.full, :credentials => 'Blah', :curator_scope => 'More blah')
+      @curator = User.gen(:curator_level => CuratorLevel.full_curator, :credentials => 'Blah', :curator_scope => 'More blah')
       if @user.content_partners.blank?
         @content_partner = ContentPartner.gen(:user => @user)
       else

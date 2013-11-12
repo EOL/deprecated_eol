@@ -8,7 +8,8 @@ class RemovePublishingRelatedResourceStatuses < ActiveRecord::Migration
   end
 
   def self.down
-    if Language.english
+    english = Language.english_for_migrations
+    if english
       ['Publish Pending', 'Unpublish Pending'].each do |status_label|
         ResourceStatus.create(
           :translations => [TranslatedResourceStatus.new(:label => status_label, :language_id => english.id)]

@@ -186,7 +186,7 @@ describe UsersController do
       user = User.gen
       put :update, { :id => user.id, :commit_curation_privileges_put => 'Curation application',
                      :user => { :id => user.id, :username => user.username, :credentials => '',
-                                :requested_curator_level_id => CuratorLevel.master.id } },
+                                :requested_curator_level_id => CuratorLevel.master_curator.id } },
                    { :user => user, :user_id => user.id }
       response.should render_template('users/curation_privileges')
       assigns[:user].errors.any?.should be_true
@@ -198,10 +198,10 @@ describe UsersController do
       Community.find_or_create_by_description_and_name($CURATOR_COMMUNITY_DESC, $CURATOR_COMMUNITY_NAME)
       put :update, { :id => user.id, :commit_curation_privileges_put => 'Curation application',
                      :user => { :id => user.id, :username => user.username, :credentials => '',
-                                :requested_curator_level_id => CuratorLevel.assistant.id } },
+                                :requested_curator_level_id => CuratorLevel.assistant_curator.id } },
                    { :user => user, :user_id => user.id }
       assigns[:user].errors.any?.should be_false
-      assigns[:user].curator_level_id.should == CuratorLevel.assistant.id
+      assigns[:user].curator_level_id.should == CuratorLevel.assistant_curator.id
     end
   end
 

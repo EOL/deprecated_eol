@@ -54,21 +54,35 @@ class KnownUri < ActiveRecord::Base
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
 
-  include EnumDefaults
+  COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000009', name: 'kilograms' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000016', name: 'millimeters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000081', name: 'centimeters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000008', name: 'meters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000012', name: 'kelvin' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000033', name: 'days' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' },
+                  { uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
+                  { uri: Rails.configuration.schema_terms_prefix + 'log10gram', name: 'log10 grams' } ]
 
-  set_defaults :uri,
-    { milligrams:  Rails.configuration.uri_obo + 'UO_0000022',
-      grams:       Rails.configuration.uri_obo + 'UO_0000021',
-      kilograms:   Rails.configuration.uri_obo + 'UO_0000009',
-      millimeters: Rails.configuration.uri_obo + 'UO_0000016',
-      centimeters: Rails.configuration.uri_obo + 'UO_0000081',
-      meters:      Rails.configuration.uri_obo + 'UO_0000008',
-      kelvin:      Rails.configuration.uri_obo + 'UO_0000012',
-      celsius:     Rails.configuration.uri_obo + 'UO_0000027',
-      days:        Rails.configuration.uri_obo + 'UO_0000033',
-      years:       Rails.configuration.uri_obo + 'UO_0000036',
-      '0.1°C' =>   Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius',
-      'log10 grams' => Rails.configuration.schema_terms_prefix + 'log10gram' }
+  def self.convert_unit_name_to_class_variable_name(unit_name)
+    return unit_name if unit_name.is_a?(Symbol)
+    converted = unit_name.tr('.° ', '_')
+    converted.sub(/^([0-9])/, "_\\1")
+  end
+
+  COMMON_URIS.each do |info|
+    eigenclass = class << self; self; end
+    eigenclass.class_eval do
+      variable_name = KnownUri.convert_unit_name_to_class_variable_name(info[:name])
+      define_method(variable_name) do
+        return class_variable_get("@@#{variable_name}".to_sym) if class_variable_defined?("@@#{variable_name}".to_sym)
+        class_variable_set("@@#{variable_name}".to_sym, cached_find(:uri, info[:uri]))
+      end
+    end
+  end
 
   def self.unit_of_measure
     cached('unit_of_measure') do

@@ -14,17 +14,12 @@ module EnumDefaults
       @enum_default_translated_params = options[:default_translated_params] || {}
       @enum_autoinc_field = options[:autoinc_field]
       @enum_check_exists_by = options[:check_exists_by]
-      @enum_translated = const_defined?(:USES_TRANSLATIONS)
+      @enum_translated = options[:translated] # TODO - we could detect this pretty easily.
       @enum_translated_class = Kernel.const_get("Translated#{self.name}") if @enum_translated
       @enum_foreign_key = self.name.foreign_key
       default_methods(options)
       add_default_values_method
       add_create_defaults_method
-    end
-
-    # Allows us to detect when a class uses enum_defaults (handy for specs):
-    def is_enum?
-      true
     end
 
     # Allows for a class method to get the defaults.

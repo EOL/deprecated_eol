@@ -9,20 +9,20 @@ class SiteConfigurationOption < ActiveRecord::Base
   # How often you want these values to be re-checked. Shorter times mean quicker changes, but more time reading the DB instead of cache.
   REFRESH_TIME = 10.minutes
 
-  include EnumDefaults
-
-  set_defaults :parameter,
-    [ { parameter: :email_actions_to_curators },
-      { parameter: :email_actions_to_curators_address},
-      { parameter: :global_site_warning},
-      { parameter: :all_users_can_see_data, value: 'false'},
-      { parameter: :reference_parsing_enabled},
-      { parameter: :reference_parser_pid},
-      { parameter: :reference_parser_endpoint},
-      { parameter: :notification_error_user_id}
-    ],
-    default_params: { value: '' }
-
+  def self.create_defaults
+    admin_id = User.admins.first.id rescue ''
+    { email_actions_to_curators: '',
+      email_actions_to_curators_address: '',
+      global_site_warning: '',
+      all_users_can_see_data: 'false', # NOTE - this should probably be false, at least for a while, when we deploy to prod...
+      reference_parsing_enabled: '',
+      reference_parser_pid: '',
+      reference_parser_endpoint: '',
+      notification_error_user_id: admin_id }.each do |key, val|
+        SiteConfigurationOption.create(parameter: key, value: val) unless SiteConfigurationOption.exists?(parameter: key)
+      end
+  end
+  
   # This one is a little different, because we need to handle nils with a cache.
   def self.global_site_warning
     cache_name = cached_name_for('global_site_warning_clean')

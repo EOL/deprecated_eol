@@ -10,6 +10,7 @@ class Visibility < ActiveRecord::Base
 
   set_defaults :label,
     %w(Invisible Visible Preview),
+    translated: true,
     default_translated_params: { phonetic_label: nil }
 
   def self.all_ids

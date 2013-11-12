@@ -6,7 +6,8 @@ class LinkType < ActiveRecord::Base
   include EnumDefaults
 
   set_defaults :label,
-    ['Blog', 'News', 'Organization', 'Paper', 'Multimedia', 'Citizen Science']
+    ['Blog', 'News', 'Organization', 'Paper', 'Multimedia', 'Citizen Science'],
+    translated: true
 
   def to_s
     label

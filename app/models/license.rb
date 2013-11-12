@@ -14,7 +14,7 @@ class License < ActiveRecord::Base
 
   include NamedDefaults
 
-  set_defaults :title,
+  set_defaults :description,
     [ {title: 'public domain',
        method_name: :public_domain,
        description: 'No rights reserved',
@@ -62,6 +62,7 @@ class License < ActiveRecord::Base
        source_url: '',
        logo_url: '',
        show_to_content_partners: 0}],
+    check_exists_by: :title,
     default_params: {show_to_content_partners: 1, version: 1}
 
   def self.default

@@ -5,7 +5,7 @@ class Permission < ActiveRecord::Base
   has_many :permissions_users
   has_many :users, through: :permissions_users
 
-  include NamedDefaults
+  include EnumDefaults
 
   set_defaults :name,
     ["Edit Permissions", "Beta Test", "See Data", "Edit CMS"]

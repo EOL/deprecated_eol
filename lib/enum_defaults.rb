@@ -1,4 +1,4 @@
-module NamedDefaults
+module EnumDefaults
 
   def self.included(base)
     base.extend(ClassMethods)

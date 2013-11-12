@@ -6,7 +6,7 @@ class Visibility < ActiveRecord::Base
   has_many :curated_data_objects_hierarchy_entry
   has_many :users_data_objects
 
-  include NamedDefaults
+  include EnumDefaults
 
   set_defaults :label,
     %w(Invisible Visible Preview),

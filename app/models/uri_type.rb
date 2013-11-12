@@ -4,7 +4,7 @@ class UriType < ActiveRecord::Base
 
   has_many :known_uris
 
-  include NamedDefaults
+  include EnumDefaults
 
   set_defaults :name,
    [ 'measurement', 'association', 'value', 'metadata' ]

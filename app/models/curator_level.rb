@@ -1,7 +1,7 @@
 class CuratorLevel < ActiveRecord::Base
   has_many :users
 
-  include NamedDefaults
+  include EnumDefaults
 
   set_defaults :label,
     ['Master Curator', 'Assistant Curator', 'Full Curator']

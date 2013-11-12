@@ -5,7 +5,7 @@ class UserIdentity < ActiveRecord::Base
   has_many :users_user_identities
   has_many :users, :through => :users_user_identities
 
-  include NamedDefaults
+  include EnumDefaults
 
   set_defaults :label,
     [ "an enthusiast",

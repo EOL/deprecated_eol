@@ -3,7 +3,7 @@ class LinkType < ActiveRecord::Base
   has_many :data_objects_link_type
   has_many :data_objects, :through => :data_objects_link_type
 
-  include NamedDefaults
+  include EnumDefaults
 
   set_defaults :label,
     ['Blog', 'News', 'Organization', 'Paper', 'Multimedia', 'Citizen Science']

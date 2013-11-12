@@ -382,7 +382,7 @@ class DataPointUri < ActiveRecord::Base
     # Units:
     hash[I18n.t(:data_column_units)] = units_string
     # Units URI:
-    hash[I18n.t(:data_column_units_uri)] = unit_of_measure_uri
+    hash[I18n.t(:data_column_units_uri)] = unit_of_measure_uri.try(:uri)
     # Raw value:
     hash[I18n.t(:data_column_raw_value)] = DataValue.new(object_uri).label
     # Raw Units:

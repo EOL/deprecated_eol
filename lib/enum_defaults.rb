@@ -47,19 +47,15 @@ module EnumDefaults
             if @enum_autoinc_field
               params[@enum_autoinc_field] = order + 1
             end
-            # NOTE - Really, we should check enum_default_translated_params for a language_id, in case they want something
-            # specific... but that's never pragmatically a problem, so I'm not implementing that here.
-            unless @enum_translated_class.send(:exists?, @enum_field => default, language_id: Language.default.id)
-              this = create(params)
-              trans =
-                @enum_translated_class.send(:create,
-                                            @enum_default_translated_params.merge(
-                                              language_id: Language.default.id,
-                                              @enum_foreign_key => this.id,
-                                              @enum_field => default
-                                            )
-              )
-            end
+            this = create(params)
+            trans =
+              @enum_translated_class.send(:create,
+                                          @enum_default_translated_params.reverse_merge(
+                                              language_id: Language.default.id
+                                            ).merge(
+                                            @enum_foreign_key => this.id,
+                                            @enum_field => default
+            ))
           end
         end
       else
@@ -69,7 +65,7 @@ module EnumDefaults
             if @enum_autoinc_field
               params[@enum_autoinc_field] = order + 1
             end
-            create(params) unless exists?(@enum_field => default)
+            create(params)
           end
         end
       end

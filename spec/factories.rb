@@ -330,9 +330,9 @@ FactoryGirl.define do
   factory :admin, class: User do
     admin                     true
     remote_ip                 { "123.45.67.1#{rand(10)}" }
-    email                     { FactoryGirl.generate(:email) }
-    given_name                { FactoryGirl.generate(:first_name) }
-    family_name               { FactoryGirl.generate(:last_name) }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
     agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
     language                  { Language.english }
     username                  do
@@ -353,19 +353,19 @@ FactoryGirl.define do
     recover_account_token      nil
     recover_account_token_expires_at  nil
     curator_level_id          nil
-    logo_cache_url            { FactoryGirl.generate(:user_logo) }
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :agent do
     created_at      { 5.days.ago }
     homepage        ''
-    full_name       { FactoryGirl.generate(:first_name) << ' ' << FactoryGirl.generate(:last_name) }
+    full_name       { generate(:first_name) << ' ' << FactoryGirl.generate(:last_name) }
   end
   factory :content_partner_contact do
     association :content_partner
     association :contact_role
-    given_name  { FactoryGirl.generate(:string) }
-    family_name { FactoryGirl.generate(:string) }
+    given_name  { generate(:string) }
+    family_name { generate(:string) }
     full_name   { "#{given_name} #{family_name}" }
     email       { "#{given_name}.#{family_name}@example.com".downcase }
     homepage    'http://whatever.org'
@@ -411,11 +411,11 @@ FactoryGirl.define do
   end
 
   factory :canonical_form do
-    string { FactoryGirl.generate(:species) }
+    string { generate(:species) }
   end
 
   factory :collection do
-    name                  { (Faker::Lorem.words << FactoryGirl.generate(:string)).join(' ').titleize }
+    name                  { (Faker::Lorem.words << generate(:string)).join(' ').titleize }
     published             true
     special_collection_id nil
     association           :sort_style
@@ -464,7 +464,7 @@ FactoryGirl.define do
   end
 
   factory :community do
-    name        { (Faker::Lorem.words << FactoryGirl.generate(:string)).join(' ').titleize }
+    name        { (Faker::Lorem.words << generate(:string)).join(' ').titleize }
     description { Faker::Lorem.paragraph }
     published   true
     after(:create) { |c| c.collections << FactoryGirl.create(:collection) }
@@ -478,14 +478,14 @@ FactoryGirl.define do
   end
 
   factory :contact do
-    name            { FactoryGirl.generate(:string) }
-    email           { FactoryGirl.generate(:email) }
+    name            { generate(:string) }
+    email           { generate(:email) }
     contact_subject { ContactSubject.gen_if_not_exists(:title => 'Anything') }
     comments        %w( foo bar )
   end
 
   factory :contact_subject do
-    recipients { FactoryGirl.generate(:string) }
+    recipients { generate(:string) }
     active     true
     created_at { 48.hours.ago }
     updated_at { 48.hours.ago }
@@ -520,7 +520,7 @@ FactoryGirl.define do
   end
 
   factory :content_partner do
-    full_name                           { FactoryGirl.generate(:string) }
+    full_name                           { generate(:string) }
     association                         :user
     description                         'Our Testing Content Partner'
     description_of_data                 'Civil Protection!'
@@ -537,7 +537,7 @@ FactoryGirl.define do
 
   factory :content_upload do
     association :user
-    link_name { FactoryGirl.generate(:string).gsub(/\W/, '_') }
+    link_name { generate(:string).gsub(/\W/, '_') }
     description 'something cool.'
     attachment_file_name { link_name }
     attachment_extension '.jpg'
@@ -546,9 +546,9 @@ FactoryGirl.define do
   factory :curator, class: User do
     admin                     false
     remote_ip                 { "123.45.67.1#{rand(10)}" }
-    email                     { FactoryGirl.generate(:email) }
-    given_name                { FactoryGirl.generate(:first_name) }
-    family_name               { FactoryGirl.generate(:last_name) }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
     agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
     language                  { Language.english }
     username                  do
@@ -570,11 +570,11 @@ FactoryGirl.define do
     recover_account_token      nil
     recover_account_token_expires_at  nil
     curator_level_id          { CuratorLevel.full.id }
-    logo_cache_url            { FactoryGirl.generate(:user_logo) }
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :curator_activity do
-    code { FactoryGirl.generate(:string) }
+    code { generate(:string) }
   end
 
   factory :curator_activity_log do
@@ -595,17 +595,17 @@ FactoryGirl.define do
     association :hierarchy_entry
     association :data_object
     association :user
-    data_object_guid { FactoryGirl.generate(:guid) }
+    data_object_guid { generate(:guid) }
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
     visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
   end
 
   factory :curator_level do
-    label { FactoryGirl.generate(:string) }
+    label { generate(:string) }
   end
 
   factory :data_object do
-    guid                   { FactoryGirl.generate(:guid) }
+    guid                   { generate(:guid) }
     identifier             ''
     data_type              { DataType.gen_if_not_exists(:label => 'Image') }
     mime_type              { MimeType.gen_if_not_exists(:label => 'image/jpeg') }
@@ -637,8 +637,8 @@ FactoryGirl.define do
   end
 
   factory :data_object_tag do
-    key   { FactoryGirl.generate(:string) }
-    value { FactoryGirl.generate(:string) }
+    key   { generate(:string) }
+    value { generate(:string) }
   end
 
   factory :data_object_tags do
@@ -693,7 +693,7 @@ FactoryGirl.define do
   factory :data_search_file do
     association :known_uri
     association :user
-    uri { "http://example.com/#{FactoryGirl.generate(:string)}" }
+    uri { "http://example.com/#{generate(:string)}" }
   end
 
   factory :data_type do
@@ -768,7 +768,7 @@ FactoryGirl.define do
   end
 
   factory :hierarchy_entry do
-    guid           { FactoryGirl.generate(:guid) }
+    guid           { generate(:guid) }
     identifier     ''
     source_url     ''
     association    :name
@@ -801,7 +801,7 @@ FactoryGirl.define do
   end
 
   factory :ip_address do
-    number { FactoryGirl.generate(:int) }
+    number { generate(:int) }
     success false
     provider 'i have no idea what this is'
   end
@@ -820,7 +820,7 @@ FactoryGirl.define do
   factory :known_uri do
     vetted        { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
     visibility    { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
-    uri           { "http://eol.org/known_uri/" + FactoryGirl.generate(:guid) }
+    uri           { "http://eol.org/known_uri/" + generate(:guid) }
   end
 
   factory :known_uri_allowed_unit, class: KnownUriRelationship do
@@ -839,29 +839,29 @@ FactoryGirl.define do
     vetted { Vetted.trusted }
     visibility { Visibility.visible }
     uri_type { UriType.measurement }
-    uri { "http://example.com/#{FactoryGirl.generate(:string)}" }
+    uri { "http://example.com/#{generate(:string)}" }
   end
 
   factory :known_uri_unit, class: KnownUri do
     vetted { Vetted.trusted }
     visibility { Visibility.visible }
     uri_type { UriType.unit_of_measure }
-    uri { "http://example.com/#{FactoryGirl.generate(:string)}" }
+    uri { "http://example.com/#{generate(:string)}" }
   end
 
   factory :known_uri_relationship do
     association :from_known_uri, :factory => :known_uri
     association :to_known_uri, :factory => :known_uri
-    relationship_uri  { "http://eol.org/relationship_uri/" + FactoryGirl.generate(:guid) }
+    relationship_uri  { "http://eol.org/relationship_uri/" + generate(:guid) }
   end
 
   factory :language do
-    source_form  { FactoryGirl.generate(:string) }
-    iso_639_1    { FactoryGirl.generate(:string)[0..1].downcase }
-    iso_639_2    { iso_639_1 }
-    iso_639_3    { iso_639_1 }
+    source_form  ''
+    iso_639_1    ''
+    iso_639_2    ''
+    iso_639_3    ''
     activated_on { 24.hours.ago }
-    sort_order   { FactoryGirl.generate(:int) % 128 }
+    sort_order   { generate(:int) % 128 }
   end
 
   factory :language_group do
@@ -882,9 +882,9 @@ FactoryGirl.define do
   factory :master_curator, class: User do
     admin                     false
     remote_ip                 { "123.45.67.1#{rand(10)}" }
-    email                     { FactoryGirl.generate(:email) }
-    given_name                { FactoryGirl.generate(:first_name) }
-    family_name               { FactoryGirl.generate(:last_name) }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
     agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
     language                  { Language.english }
     username                  do
@@ -906,7 +906,7 @@ FactoryGirl.define do
     recover_account_token      nil
     recover_account_token_expires_at  nil
     curator_level_id          { CuratorLevel.master.id }
-    logo_cache_url            { FactoryGirl.generate(:user_logo) }
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :member do
@@ -919,7 +919,7 @@ FactoryGirl.define do
 
   factory :name do
     association         :canonical_form
-    string              { FactoryGirl.generate(:species) }
+    string              { generate(:species) }
     clean_name          { Name.prepare_clean_name(string) }
     canonical_verified  0 # I don't know that Rails ever uses this...
     italicized_verified 0 # I don't know that Rails ever uses this...
@@ -938,7 +938,7 @@ FactoryGirl.define do
   end
 
   factory :changeable_object_type do
-    ch_object_type { FactoryGirl.generate(:string) }
+    ch_object_type { generate(:string) }
   end
 
   factory :page_name do
@@ -967,7 +967,7 @@ FactoryGirl.define do
 
   factory :random_hierarchy_image do
     association   :data_object
-    name          { "<i>#{ FactoryGirl.generate(:species) }</i> Factory TestFramework" }
+    name          { "<i>#{ generate(:species) }</i> Factory TestFramework" }
     association   :taxon_concept
     association   :hierarchy_entry
     association   :hierarchy
@@ -979,7 +979,7 @@ FactoryGirl.define do
   end
 
   factory :ref do
-    full_reference  { FactoryGirl.generate(:string) }
+    full_reference  { generate(:string) }
     user_submitted  0
     visibility      { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
     published       1
@@ -991,13 +991,13 @@ FactoryGirl.define do
   end
 
   factory :ref_identifier do
-    identifier  { FactoryGirl.generate(:string) }
+    identifier  { generate(:string) }
     association :ref_identifier_type
     association :ref
   end
 
   factory :ref_identifier_type do
-    label { FactoryGirl.generate(:string) }
+    label { generate(:string) }
   end
 
   factory :resource do
@@ -1033,7 +1033,7 @@ FactoryGirl.define do
   end
 
   factory :site_configuration_option do
-    parameter       { FactoryGirl.generate(:string) }
+    parameter       { generate(:string) }
     value           { true }
   end
 
@@ -1041,7 +1041,7 @@ FactoryGirl.define do
   end
 
   factory :special_collection do
-    name { FactoryGirl.generate(:string) }
+    name { generate(:string) }
   end
 
   factory :status do
@@ -1095,7 +1095,7 @@ FactoryGirl.define do
 
   factory :toc_item do
     parent_id   0
-    view_order  { FactoryGirl.generate(:int) + 1 } # The plus-one keeps this away from Overview, which should always be 1.
+    view_order  { generate(:int) + 1 } # The plus-one keeps this away from Overview, which should always be 1.
   end
 
   factory :top_image do
@@ -1125,67 +1125,67 @@ FactoryGirl.define do
   factory :translated_activity do
     association :activity
     language    { Language.english }
-    name        { FactoryGirl.generate(:string) }
+    name        { generate(:string) }
   end
 
   factory :translated_contact_role do
     association     :contact_role
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_content_partner_data_type do
     association     :content_partner_data_type
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_agent_role do
     association     :agent_role
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_content_partner_status do
     association     :content_partner_status
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_audience do
     association     :audience
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_collection_type do
     association     :collection_type
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_contact_subject do
     association     :contact_subject
     language        { Language.english }
-    title           { FactoryGirl.generate(:string) }
+    title           { generate(:string) }
   end
 
   factory :translated_data_type do
     association     :data_type
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_info_item do
     association     :info_item
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_known_uri do
     association     :known_uri
     language        { Language.english }
-    name            { FactoryGirl.generate(:string) }
+    name            { generate(:string) }
   end
 
   factory :translated_link_type do
@@ -1201,7 +1201,7 @@ FactoryGirl.define do
   end
 
   factory :translated_language do
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
     original_language_id { Language.gen(:iso_639_1 => label[0..1].downcase).id }
     language        { Language.english }
   end
@@ -1209,13 +1209,13 @@ FactoryGirl.define do
   factory :translated_license do
     association     :license
     language        { Language.english }
-    description     { FactoryGirl.generate(:string) }
+    description     { generate(:string) }
   end
 
   factory :translated_permission do
     association :permission
     language    { Language.english }
-    name        { FactoryGirl.generate(:string) }
+    name        { generate(:string) }
   end
 
   factory :translated_news_item do
@@ -1228,81 +1228,81 @@ FactoryGirl.define do
   factory :translated_rank do
     association     :rank
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_resource_status do
     association     :resource_status
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_service_type do
     association     :service_type
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_sort_style do
     association :sort_style
     language    { Language.english }
-    name        { FactoryGirl.generate(:string) }
+    name        { generate(:string) }
   end
 
   factory :translated_status do
     association     :status
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_synonym_relation do
     association     :synonym_relation
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_toc_item do
     table_of_contents_id { TocItem.gen().id }
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_untrust_reason do
     association     :untrust_reason
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_user_identity do
     association     :user_identity
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_vetted do
     association     :vetted
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :translated_visibility do
     association     :visibility
     language        { Language.english }
-    label           { FactoryGirl.generate(:string) }
+    label           { generate(:string) }
   end
 
   factory :untrust_reason do
     updated_at Time.now
     created_at Time.now
-    class_name { FactoryGirl.generate(:string) }
+    class_name { generate(:string) }
   end
 
   factory :user do
     admin                     false
     remote_ip                 { "123.45.67.1#{rand(10)}" }
-    email                     { FactoryGirl.generate(:email) }
-    given_name                { FactoryGirl.generate(:first_name) }
-    family_name               { FactoryGirl.generate(:last_name) }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
     agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
     language                  { Language.english }
     username                  do
@@ -1323,21 +1323,21 @@ FactoryGirl.define do
     recover_account_token      nil
     recover_account_token_expires_at  nil
     curator_level_id          nil
-    logo_cache_url            { FactoryGirl.generate(:user_logo) }
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :user_activity_log do
     association :taxon_concept
     association :activity
     association :user
-    value { FactoryGirl.generate(:string) }
+    value { generate(:string) }
     created_at { 12.hours.ago }
   end
 
   factory :user_added_data do
     association :subject, :factory => :taxon_concept
     predicate "http://somethinguseful.com/fake_ontology"
-    object    { FactoryGirl.generate(:string) }
+    object    { generate(:string) }
     association :user
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
     visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
@@ -1346,7 +1346,7 @@ FactoryGirl.define do
   factory :user_added_data_metadata do
     association  :user_added_data
     predicate "http://somethinguseful.com/fake_ontology"
-    object    { FactoryGirl.generate(:string) }
+    object    { generate(:string) }
   end
 
   factory :users_data_object do
@@ -1370,8 +1370,8 @@ FactoryGirl.define do
   end
 
   factory :google_analytics_summary do
-    year { FactoryGirl.generate(:year) }
-    month { FactoryGirl.generate(:month) }
+    year { generate(:year) }
+    month { generate(:month) }
     visits { rand(1000) }
     visitors { rand(100) }
     pageviews { rand(10000) }
@@ -1388,8 +1388,8 @@ FactoryGirl.define do
   end
 
   factory :google_analytics_partner_summary do
-    year { FactoryGirl.generate(:year) }
-    month { FactoryGirl.generate(:month) }
+    year { generate(:year) }
+    month { generate(:month) }
     association :user
     taxa_pages { rand(1000) }
     taxa_pages_viewed { rand(100) }
@@ -1400,8 +1400,8 @@ FactoryGirl.define do
 
   factory :google_analytics_page_stat do
     association :taxon_concept
-    year { FactoryGirl.generate(:year) }
-    month { FactoryGirl.generate(:month) }
+    year { generate(:year) }
+    month { generate(:month) }
     page_views { rand(1000) }
     unique_page_views { rand(100) }
     time_on_page { "00:%02d:%02d" % [rand(60), rand(60)] }
@@ -1410,8 +1410,8 @@ FactoryGirl.define do
   factory :google_analytics_partner_taxon do
     association :taxon_concept
     association :user
-    year { FactoryGirl.generate(:year) }
-    month { FactoryGirl.generate(:month) }
+    year { generate(:year) }
+    month { generate(:month) }
   end
 
   factory :eol_statistic do

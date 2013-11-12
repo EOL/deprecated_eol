@@ -6,6 +6,7 @@ class UriType < ActiveRecord::Base
 
   include NamedDefaults
 
-  set_defaults :name, [ 'measurement', 'association', 'value', 'metadata', 'unit of measure' ]
+  set_defaults :name,
+   [ 'measurement', 'association', 'value', 'metadata' ]
 
 end

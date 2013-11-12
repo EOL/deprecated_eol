@@ -65,7 +65,7 @@ class License < ActiveRecord::Base
     check_exists_by: :title,
     default_params: {show_to_content_partners: 1, version: 1}
 
-  def self.default
+  def default
     License.public_domain
   end
 
@@ -89,6 +89,6 @@ class License < ActiveRecord::Base
   end
 
   def show_rights_holder?
-    !(is_public_domain? || self == License.no_known_restrictions)
+    !(is_public_domain? || self.id == License.no_known_restrictions.id)
   end
 end

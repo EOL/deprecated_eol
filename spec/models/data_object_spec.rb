@@ -32,16 +32,6 @@ describe DataObject do
     @user_submitted_text = @taxon_concept.add_user_submitted_text(:user => @user)
   end
 
-  context '#replicate' do
-
-    # I wanted to move this spec from /Users/jrice/eol/spec/integration/data_objects_spec.rb 6ef1bfbd2 ...but I didn't want to
-    # take the time to write all those tests right now ('cause there really are a lot, here).  Sigh.  Soon?  TODO
-    it 'should save owner as rights holder(if not specified) while editing an article' do
-      pending
-    end
-
-  end
-
   it 'should be able to replace wikipedia articles' do
     TocItem.gen_if_not_exists(:label => 'wikipedia')
 
@@ -388,22 +378,12 @@ describe DataObject do
   it '#published_entries should have a user_id on hierarchy entries that were added by curators'
 
   it '#data_object_taxa should return all associations for the data object' do
-    # Clear out any relationship that's identical to what we're creating later...
-    CuratedDataObjectsHierarchyEntry.where(hierarchy_entry_id: @hierarchy_entry.id,
-                                           data_object_id: @user_submitted_text.id,
-                                           data_object_guid: @user_submitted_text.guid).delete_all
-    # You do need to clear cache (memcached) *and* reload the object (clearing instnace vars):
-    DataObjectCaching.clear(@user_submitted_text)
-    old_count = @user_submitted_text.reload.data_object_taxa.count
-    CuratedDataObjectsHierarchyEntry.create(hierarchy_entry_id: @hierarchy_entry.id,
-                                            data_object_id: @user_submitted_text.id,
-                                            data_object_guid: @user_submitted_text.guid,
-                                            vetted: Vetted.trusted,
-                                            visibility: Visibility.visible,
-                                            user: @curator)
-    # You do need to clear cache (memcached) *and* reload the object (clearing instnace vars):
-    DataObjectCaching.clear(@user_submitted_text)
-    expect(@user_submitted_text.reload.data_object_taxa.count).to eq(old_count + 1)
+    data_object_taxa_count_for_udo = @user_submitted_text.data_object_taxa.count
+    @user_submitted_text.reload
+    CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
+        @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted,
+        :visibility => Visibility.visible, :user => @curator)
+    DataObject.find(@user_submitted_text).data_object_taxa.count.should == data_object_taxa_count_for_udo + 1
   end
 
   it '#uncached_data_object_taxa should filter on published, vetted, visibility' do

@@ -96,7 +96,7 @@ module EOL
         if v = db_config_hash[:host]
           mysql_params << "--host='#{v}'"
         end
-        if v = db_config_hash[:user]
+        if v = db_config_hash[:username]
           mysql_params << "--user='#{v}'"
         end
         if v = db_config_hash[:password]

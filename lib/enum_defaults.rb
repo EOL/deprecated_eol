@@ -13,7 +13,6 @@ module EnumDefaults
       @enum_default_params = options[:default_params] || {}
       @enum_default_translated_params = options[:default_translated_params] || {}
       @enum_autoinc_field = options[:autoinc_field]
-      @enum_check_exists_by = options[:check_exists_by]
       @enum_translated = options[:translated] # TODO - we could detect this pretty easily.
       @enum_translated_class = Kernel.const_get("Translated#{self.name}") if @enum_translated
       @enum_foreign_key = self.name.foreign_key
@@ -69,19 +68,8 @@ module EnumDefaults
             # NOTE - Really, we should check enum_default_translated_params for a language_id, in case they want something
             # specific... but that's never pragmatically a problem, so I'm not implementing that here.
             value = default.is_a?(Hash) ? default[@enum_field] : default
-            check_exists_by = @enum_check_exists_by || @enum_field
-            # They've asked us to check exists? on a specific field, but we don't know if it's on the translated class, so:
-            check_class = @enum_translated_class.send(:attribute_names).include?(check_exists_by.to_s) ?
-              @enum_translated_class : 
-              self
-            # Aaaaand, if that class is the translation class, we need to check on language ID, otherwise not:
-            exist_params = { check_exists_by => @enum_check_exists_by ? params[@enum_check_exists_by] : value }
-            exist_params.merge!(language_id: Language.default.id) if check_class === @enum_translated_class
-            # Now check:
-            puts "++ exists? #{check_class} #{check_exists_by} => #{value}, params:"
-            pp exist_params
-            puts "   RESULT: #{check_class.send(:exists?, exist_params)}"
-            unless check_class.send(:exists?, exist_params)
+            puts "++ exists? #{@enum_field} => #{value}, language => #{Language.default.id}"
+            unless @enum_translated_class.send(:exists?, @enum_field => value, language_id: Language.default.id)
               this = create(params)
               trans = @enum_translated_class.send(:create,
                         @enum_default_translated_params.merge(
@@ -102,12 +90,11 @@ module EnumDefaults
             if @enum_autoinc_field
               params[@enum_autoinc_field] = order + 1
             end
-            check_exists_by = @enum_check_exists_by || @enum_field
-            value = default.is_a?(Hash) ? default[check_exists_by] : default
-            puts "++ #{check_exists_by} exists? -> #{value} = #{exists?(check_exists_by => value)}"
+            value = default.is_a?(Hash) ? default[@enum_field] : default
+            puts "++ #{@enum_field} exists? -> #{value} = #{exists?(@enum_field => value)}"
             puts "params:"
             pp params
-            create(params) unless exists?(check_exists_by => value)
+            create(params) unless exists?(@enum_field => value)
           end
         end
       end

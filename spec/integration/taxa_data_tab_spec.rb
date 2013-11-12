@@ -94,7 +94,6 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the predicate is associated with a unit, and that unit is a KnownURI
-    # NOTE - the predicate_http___eol_org_time is what the DataPointUri.header_anchor method produces. Too much work to do it:
     body.should have_selector("table.data td[headers='predicate_http___eol_org_time'] span", :text => '50')
     body.should_not have_selector('span.term', text: 'hours')
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')

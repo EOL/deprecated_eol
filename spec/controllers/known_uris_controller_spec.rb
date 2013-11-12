@@ -35,7 +35,6 @@ describe KnownUrisController do
 
   before(:each) do
     session[:user_id] = @user.id
-    KnownUri.update_all(visibility_id: Visibility.visible.id)
   end
 
   describe 'GET index' do
@@ -125,6 +124,7 @@ describe KnownUrisController do
     end
 
     it 'should allow searches within measurements' do
+      debugger if KnownUri.unit_of_measure.allowed_values.length == 9 # What's the extra one and how should we clear it out?
       get :autocomplete_known_uri_predicates, :term => 'mass'
       assigns[:known_uris].should == [ @mass ]
       get :autocomplete_known_uri_predicates, :term => 'http://'
@@ -152,10 +152,10 @@ describe KnownUrisController do
 
     it 'should return a list of visible allowed units when given a predicate' do
       get :autocomplete_known_uri_units, :term => '', :predicate_known_uri_id => @mass.id
-      assigns[:known_uris].map(&:name).should == [ KnownUri.milligrams, KnownUri.grams, KnownUri.kilograms ].map(&:name)
+      assigns[:known_uris].should == [ KnownUri.milligrams, KnownUri.grams, KnownUri.kilograms ]
       KnownUri.milligrams.update_column(:visibility_id, Visibility.invisible.id)
       get :autocomplete_known_uri_units, :term => '', :predicate_known_uri_id => @mass.id
-      assigns[:known_uris].map(&:name).should == [ KnownUri.grams, KnownUri.kilograms ].map(&:name)
+      assigns[:known_uris].should == [ KnownUri.grams, KnownUri.kilograms ]
       KnownUri.milligrams.update_column(:visibility_id, Visibility.visible.id)
     end
 
@@ -194,11 +194,10 @@ describe KnownUrisController do
     it 'should return all visible metadata URIs when there is no term' do
       KnownUri.metadata.length.should == 5
       get :autocomplete_known_uri_metadata, :term => ''
-      now_visible = KnownUri.metadata.visible
-      assigns[:known_uris].should == now_visible
+      assigns[:known_uris].should == KnownUri.metadata
       KnownUri.metadata.last.update_column(:visibility_id, Visibility.invisible.id)
       get :autocomplete_known_uri_metadata, :term => ''
-      assigns[:known_uris].should == now_visible[0..-2]
+      assigns[:known_uris].should == KnownUri.metadata[0..-2]
       KnownUri.metadata.last.update_column(:visibility_id, Visibility.visible.id)
     end
 

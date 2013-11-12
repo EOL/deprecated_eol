@@ -47,10 +47,10 @@ class ApplicationController < ActionController::Base
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they miss this message.  So what?
-  # NOTE - you can clear this quickly with EOL::Config.clear_global_site_warning
+  # NOTE - you can clear this quickly with SiteConfigurationOption.clear_global_site_warning
   def global_warning
     # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
-    warning = EOL::Config.global_site_warning
+    warning = SiteConfigurationOption.global_site_warning
     flash.now[:error] = warning if warning
   end
 

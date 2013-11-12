@@ -10,7 +10,7 @@ class RecentActivityMailer < ActionMailer::Base
     @user = user
     @notes = notes.compact # NOTE - we would occasionally get notification failures due to nil notes...
     @frequency = fqz
-    supress_activity_email = EOL::Config.supress_activity_email rescue nil
+    supress_activity_email = SiteConfigurationOption.find_by_parameter('supress_activity_email').value rescue nil
     puts "++ ACTIVITY EMAIL SUPRESSED." if supress_activity_email
     puts "++ #{Time.now.strftime("%F %T")} - Sending #{notes.count} messages from #{$NO_REPLY_EMAIL_ADDRESS} to: #{supress_activity_email || user.email}"
     set_locale(user)
@@ -25,7 +25,7 @@ class RecentActivityMailer < ActionMailer::Base
   def notification_error(options = {})
     puts "!! NOTIFICATIONS FAILED."
     subject = "Notifications not sent due to error"
-    user_id = EOL::Config.notification_error_user_id rescue nil
+    user_id = SiteConfigurationOption.find_by_parameter('notification_error_user_id').value
     to = user_id ? User.find(user_id) : User.first
     @user = options[:user] || 'unknown'
     @note_ids = options[:note_ids] || ['unknown']

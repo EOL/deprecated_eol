@@ -1,6 +1,6 @@
 class TaxonDataExemplarPicker
 
-  @max_rows = EOL::Config.max_taxon_data_exemplars rescue 8
+  @max_rows = SiteConfigurationOption.max_taxon_data_exemplars rescue 8
 
   def self.max_rows
     @max_rows

@@ -13,9 +13,9 @@ describe Permission do
     Permission.delete_all
     Permission.create_defaults
     Permission.edit_permissions.should_not be_nil
-    Permission.edit_permissions.name.should == "Edit Permissions"
+    Permission.edit_permissions.name.should == "edit permissions"
     Permission.beta_test.should_not be_nil
-    Permission.beta_test.name.should == "Beta Test"
+    Permission.beta_test.name.should == "beta test"
   end
 
   it 'should count users properly' do

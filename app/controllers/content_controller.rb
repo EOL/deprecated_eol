@@ -184,7 +184,7 @@ class ContentController < ApplicationController
 
   def test_timeout
     restrict_to_admins
-    sco = EOL::Config.test_timeout
+    sco = SiteConfigurationOption.find_by_parameter('test_timeout')
     if sco
       render :text => "Already testing a timeout elsewhere. Please be patient."
     else
@@ -197,6 +197,11 @@ class ContentController < ApplicationController
 
   def boom
     raise "This is an exception." # I18n not req'd
+  end
+
+  def check_connection
+    require 'lib/check_connection'
+    render :text => CheckConnection.all_instantiable_models.join("<br/>")
   end
 
   def language

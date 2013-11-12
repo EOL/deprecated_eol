@@ -174,7 +174,7 @@ private
     # Override recipient if site is configured to send all reports to a single email address
     # TODO: Maybe change this config parameter name, why would we be emailing all reports to a curator?
     # TODO: Cache this parameter, so we don't get SQL call every time?
-    parameter = EOL::Config.email_actions_to_curators_address
+    parameter = SiteConfigurationOption.email_actions_to_curators_address
     if parameter
       parameter.value
     else

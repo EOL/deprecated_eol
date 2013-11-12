@@ -342,7 +342,7 @@ class User < ActiveRecord::Base
 
   def can_see_data?
     return true if can?(:see_data)
-    return true if EOL::Config.all_users_can_see_data
+    return true if (EOL::Config.all_users_can_see_data rescue false)
     false
   end
 
@@ -413,7 +413,7 @@ class User < ActiveRecord::Base
 
   def watch_collection
     return @watch_collection if @watch_collection
-    collection = Collection.watch.includes(:users).select(collection: [:id]).where(collections_users: {:user_id => id}).first
+    collection = Collection.find_by_sql("SELECT c.* FROM collections c JOIN collections_users cu ON (c.id = cu.collection_id) WHERE cu.user_id = #{self.id} AND c.special_collection_id = #{SpecialCollection.watch.id} LIMIT 1").first
     collection ||= build_watch_collection
     @watch_collection = collection
   end
@@ -807,7 +807,7 @@ private
   # Callback after_save
   def update_watch_collection_name
     collection = self.watch_collection rescue nil
-    if collection
+    unless collection.blank?
       collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
       collection.save!
     end

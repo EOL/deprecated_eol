@@ -40,7 +40,7 @@ module EOL
     end
 
     def can_see_data?
-      EOL::Config.all_users_can_see_data
+      EOL::Config.all_users_can_see_data rescue false
     end
 
     def defaults

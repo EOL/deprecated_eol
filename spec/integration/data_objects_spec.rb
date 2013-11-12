@@ -515,7 +515,7 @@ describe 'Data Object Page' do
     click_link "Edit this article"
     fill_in 'data_object_rights_holder', :with => "nonsense"
     click_button "Save article"
-    user_submitted_text.reload.latest_published_version_in_same_language.should_not === user_submitted_text
+    user_submitted_text.reload.latest_published_version_in_same_language.should_not == user_submitted_text
     user_submitted_text.latest_published_version_in_same_language.guid.should == user_submitted_text.guid
     user_submitted_text.latest_published_version_in_same_language.id.should > user_submitted_text.id
     user_submitted_text.latest_published_version_in_same_language.data_rating.should == 4

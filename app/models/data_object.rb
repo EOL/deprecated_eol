@@ -1102,10 +1102,6 @@ class DataObject < ActiveRecord::Base
     { keyword_type: 'agent', keywords: agent_names }
   end
 
-  def ===(other)
-    guid == other.guid
-  end
-
 private
 
   # This is relatively expensive... but accurate.

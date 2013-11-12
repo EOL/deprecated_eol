@@ -1831,14 +1831,20 @@ mk:
   data_beta_search_limit: 
     one: Преземањето на пребарани податоци е <i>привремено</i> ограничено на еден резултат.
     other: Преземањето на пребарани податоци е <i>привремено</i> ограничено на %{count} резултати.
+  data_column_classification_summary: Краток преглед на класификацијата
   data_column_common_name: Народно име
   data_column_name: Натпис на мерењето
   data_column_name_uri: URI на марењето
+  data_column_raw_units: Сирови единици (непосредно од изворот)
+  data_column_raw_units_uri: URI на сировите единици (нормализирано)
+  data_column_raw_value: Сирова вредност (непосредно од изворот)
+  data_column_resource: URL на соработникот во содржините
   data_column_sci_name: Научно име
   data_column_source: Извор
   data_column_tc_id: Назнака на страницата на EOL
-  data_column_units: Единици
-  data_column_val: Вредност
+  data_column_units: Единици (нормализирано)
+  data_column_units_uri: URI на единиците (нормализирано)
+  data_column_val: Вредност (нормализирано)
   data_column_val_uri: URI на вредноста
   data_database_colon: "Податочна:"
   data_glossary: Поимник за податоци

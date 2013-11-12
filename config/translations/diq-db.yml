@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Erdemaslancan
+# Author: Gorizon
 # Author: Mirzali
 diq: 
   translated_activities-name-activity_id-19: profile
@@ -116,7 +117,7 @@ diq:
   translated_sort_styles-name-sort_style_id-5: Dewlemendiye
   translated_sort_styles-name-sort_style_id-6: Nısbetkerden
   translated_statuses-label-status_id-1: Pırakerde
-  translated_statuses-label-status_id-2: Noroc resneya
+  translated_statuses-label-status_id-2: Rozeneya
   translated_statuses-label-status_id-3: Mevurne
   translated_statuses-label-status_id-4: Fına
   translated_synonym_relations-label-synonym_relation_id-1: hemmenayın
@@ -184,5 +185,5 @@ diq:
   translated_view_styles-name-view_style_id-2: Galeri
   translated_view_styles-name-view_style_id-3: Arezekerde
   translated_visibilities-label-visibility_id-0: Nêasaye
-  translated_visibilities-label-visibility_id-1: Mocnerey
+  translated_visibilities-label-visibility_id-1: Aseno
   translated_visibilities-label-visibility_id-2: Verqayt

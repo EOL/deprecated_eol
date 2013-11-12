@@ -1855,14 +1855,20 @@ es:
   data_beta_search_limit: 
     one: La búsqueda de descarga de datos está <i>temporalmente</i> limitada a %{count} resultado.
     other: La búsqueda de descarga de datos está <i>temporalmente</i> limitada a %{count} resultados.
+  data_column_classification_summary: Resumen de clasificación
   data_column_common_name: Nombre común
   data_column_name: Etiqueta de medición
   data_column_name_uri: Medición de URI
+  data_column_raw_units: Unidades en bruto (directo desde la fuente)
+  data_column_raw_units_uri: Unidades URI en bruto (normalizado)
+  data_column_raw_value: Valor bruto (directo desde la fuente)
+  data_column_resource: URL de contenido recursos para socios
   data_column_sci_name: Nombre científico
   data_column_source: Fuente
   data_column_tc_id: ID de página de EOL
-  data_column_units: Unidades
-  data_column_val: Valor
+  data_column_units: Unidades (normalizado)
+  data_column_units_uri: Unidades de URI (normalizado)
+  data_column_val: Valor (normalizado)
   data_column_val_uri: Valor URI
   data_database_colon: "Datos:"
   data_glossary: Glosario de datos

@@ -1741,8 +1741,8 @@ sv:
   data_column_sci_name: Vetenskapligt namn
   data_column_source: Källa
   data_column_tc_id: EOL sid-ID
-  data_column_units: Enheter
-  data_column_val: Värde
+  data_column_units: Enheter (normaliserat)
+  data_column_val: Värde (normaliserat)
   data_database_colon: "Data:"
   data_glossary: Dataordlista
   data_logging_active: Dataloggning aktiv

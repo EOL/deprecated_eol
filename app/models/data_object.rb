@@ -1103,7 +1103,6 @@ class DataObject < ActiveRecord::Base
   end
 
   def ===(other)
-    return false unless other.respond_to?(:guid) && other.is_a?(DataObject)
     guid == other.guid
   end
 

@@ -14,7 +14,7 @@ class TaxonDataExemplar < ActiveRecord::Base
   end
 
   def excluded?
-    exclude
+    exclude == true
   end
 
   def included?

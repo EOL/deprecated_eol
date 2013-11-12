@@ -3,6 +3,4 @@
 class Audience < ActiveRecord::Base
   uses_translations
   has_and_belongs_to_many :data_objects
-  include NamedDefaults
-  set_defaults :label, ['Children', 'Expert users', 'General public']
 end

@@ -1,21 +1,27 @@
 # Represents a system mime/type.  Used by DataObject.
 class MimeType < ActiveRecord::Base
-
   uses_translations
   has_many :data_objects
 
-  include NamedDefaults
-  set_defaults :label, [
-    {method_name: :jpg, label: 'image/jpeg'},
-    {method_name: :html, label: 'text/html'},
-    {method_name: :txt, label: 'text/plain'},
-    {method_name: :mp4, label: 'video/mp4'},
-    {method_name: :wmv, label: 'video/x-ms-wmv'},
-    {method_name: :mpeg, label: 'video/mpeg'},
-    {method_name: :mov, label: 'video/quicktime'},
-    {method_name: :flv, label: 'video/x-flv'},
-    {method_name: :mp3, label: 'audio/mpeg'},
-    {method_name: :wav, label: 'audio/x-wav'}
-  ]
-
+  def self.mp4
+    cached_find_translated(:label, 'video/mp4')
+  end
+  def self.wmv
+    cached_find_translated(:label, 'video/x-ms-wmv')
+  end
+  def self.mpeg
+    cached_find_translated(:label, 'video/mpeg')
+  end
+  def self.mov
+    cached_find_translated(:label, 'video/quicktime')
+  end
+  def self.flv
+    cached_find_translated(:label, 'video/x-flv')
+  end
+  def self.mp3
+    cached_find_translated(:label, 'audio/mpeg')
+  end
+  def self.wav
+    cached_find_translated(:label, 'audio/x-wav')
+  end
 end

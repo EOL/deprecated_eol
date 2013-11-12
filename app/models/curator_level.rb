@@ -1,15 +1,33 @@
 class CuratorLevel < ActiveRecord::Base
   has_many :users
 
-  include EnumDefaults
-
-  set_defaults :label,
-    ['Master Curator', 'Assistant Curator', 'Full Curator']
+  def self.create_defaults
+    if !self.master_curator
+      CuratorLevel.create(:label => 'Master Curator')
+    end
+    if !self.assistant_curator
+      CuratorLevel.create(:label => 'Assistant Curator')
+    end
+    if !self.full_curator
+      CuratorLevel.create(:label => 'Full Curator')
+    end
+  end
 
   class << self
-    alias :master :master_curator
-    alias :full :full_curator
-    alias :assistant :assistant_curator
+    def master
+      cached_find(:label, 'Master Curator')
+    end
+    alias :master_curator :master
+
+    def full
+      cached_find(:label, 'Full Curator')
+    end
+    alias :full_curator :full
+
+    def assistant
+      cached_find(:label, 'Assistant Curator')
+    end
+    alias :assistant_curator :assistant
   end
 
   def translated_label

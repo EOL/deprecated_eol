@@ -1,22 +1,35 @@
 class Visibility < ActiveRecord::Base
-
   uses_translations
-
   has_many :data_objects_hierarchy_entry
   has_many :curated_data_objects_hierarchy_entry
   has_many :users_data_objects
 
-  include EnumDefaults
-
-  set_defaults :label,
-    %w(Invisible Visible Preview),
-    translated: true,
-    default_translated_params: { phonetic_label: nil }
+  def self.create_defaults
+    %w(Invisible Visible Preview).each do |lbl|
+      vis = Visibility.create
+      trans = TranslatedVisibility.create(visibility_id: vis.id,
+                                          language_id: Language.default.id,
+                                          label: lbl,
+                                          phonetic_label: nil)
+    end
+  end
 
   def self.all_ids
     cached('all_ids') do
       Visibility.all.collect {|v| v.id}
     end
+  end
+
+  def self.visible
+    @@visible ||= cached_find_translated(:label, 'Visible')
+  end
+
+  def self.preview
+    @@preview ||= cached_find_translated(:label, 'Preview')
+  end
+  
+  def self.invisible
+    @@invisible ||= cached_find_translated(:label, 'Invisible')
   end
 
   def self.for_curating_selects

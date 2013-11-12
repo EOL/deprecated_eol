@@ -58,8 +58,7 @@ class KnownUri < ActiveRecord::Base
   # TODO - really, sex, male, and female are just for testing and should be in a scenario, not here.
   # TODO - why... metadata for sex? Seems like an attribute to me.
   include NamedDefaults
-  set_defaults :uri, -> {
-    # Using a lambda because these need to be evaluated lazily.
+  set_defaults :uri, -> { # Using a lambda because these need to be evaluated lazily.
     # Sorry, but these MIGHT not be defined when this is evaluated (at first)...
     meta_id = defined?(UriType) ? (UriType.metadata.try(:id) || 4) : 4
     [{ method_name: :unit_of_measure, name: 'Unit of Measure', uri: Rails.configuration.uri_measurement_unit, uri_type_id: meta_id},

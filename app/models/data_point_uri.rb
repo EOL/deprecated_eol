@@ -175,7 +175,6 @@ class DataPointUri < ActiveRecord::Base
     data_point_uris.each_slice(1000){ |d| assign_metadata(d, language) }
   end
 
-  # NOTE - this was a sloppy attempt at getting multiple data_point_uris from a single query. It's probably silly.
   def self.assign_metadata(data_point_uris, language)
     data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
     uris_to_lookup = data_point_uris.select{ |d| d.metadata.nil? }.collect(&:uri)

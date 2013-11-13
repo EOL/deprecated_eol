@@ -34,16 +34,22 @@ group :production do
   gem 'execjs', '1.4.0'
 end
 
+# NOT versioning these, since they really are for development (and test) only:
 group :test, :development do
+  gem 'guard-zeus', require: false # Auto-testing with zeus (IFF you have it installed)
+  gem 'guard-bundler', require: false # automatically install/update your gem bundle when needed
+  gem 'guard-rspec', require: false # Auto-testing
+  gem 'launchy' # Allows save_and_open_page in specs, very, very handy!
+  gem 'pry-rails' # rails console has additional commands: show-models, show-routes --grep use
+  gem 'pry-rescue', require: false
+  gem 'pry-stack_explorer', require: false
   gem 'terminal-notifier-guard'
-  gem 'guard-zeus', require: false
-  gem 'guard-bundler', require: false
-  gem 'guard-rspec', require: false
-  gem 'launchy'
+  gem 'binding_of_caller' # Used by Better Errors to give lots more information about errors in the browser.
+  gem 'better_errors' # NEVER EVER *EVER* run this in production. Ever. Don't.
 end
 
 group :test do
-  gem 'webmock', '1.8.11'
+  gem 'webmock', '1.8.11' # Mock calls to remote APIs, like Open Authentication.
   gem 'rspec-html-matchers', '0.3.5'
 end
 

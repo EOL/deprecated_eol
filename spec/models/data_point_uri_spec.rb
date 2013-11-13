@@ -55,12 +55,46 @@ describe DataPointUri do
     d.object_uri.should == known_uri
   end
 
-  it 'should unit_of_measure_uri' do
-    d = DataPointUri.gen(:unit_of_measure_known_uri => nil, :unit_of_measure => 'grams')
-    d.unit_of_measure_uri.should == 'grams'
-    known_uri = KnownUri.gen
-    d = DataPointUri.gen(:unit_of_measure_known_uri => known_uri, :unit_of_measure => 'grams')
-    d.unit_of_measure_uri.should == known_uri
+  context 'with grams as unit of measure' do
+
+    let(:with_grams) { DataPointUri.gen(:unit_of_measure_known_uri => nil, :unit_of_measure => 'grams') }
+
+    it 'should have "grams" as the unit of measure uri' do
+      with_grams.unit_of_measure_uri.should == 'grams'
+    end
+
+  end
+
+  context 'with grams as known_uri' do
+
+    let(:grammy) { DataPointUri.new(object: 70, unit_of_measure_known_uri: KnownUri.grams) }
+
+    it 'should unit_of_measure_uri' do
+      grammy.unit_of_measure_uri.should == KnownUri.grams
+    end
+
+    context '#to_hash' do
+
+      let(:hashed) { grammy.to_hash }
+
+      it 'should have the same units URI' do
+        expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.grams.uri)
+      end
+
+      it 'should have the same units label' do
+        expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.grams.label)
+      end
+
+      it 'should have the same original units URI' do
+        expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.grams.uri)
+      end
+
+      it 'should have the same original units label' do
+        expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.grams.label)
+      end
+
+    end
+
   end
 
   it 'should measurement?' do
@@ -96,17 +130,42 @@ describe DataPointUri do
     d = make_and_convert(object: 6000, unit_of_measure_known_uri: KnownUri.millimeters)
     d.object.should == 6.0
     d.unit_of_measure_known_uri.should == KnownUri.meters
-    # Kelvin
-    d = make_and_convert(object: 700, unit_of_measure_known_uri: KnownUri.kelvin)
-    d.object.should == 426.85
-    d.unit_of_measure_known_uri.should == KnownUri.celsius
-    # Original value should still be known:
-    expect(d.original_unit_of_measure_uri.name).to eq(KnownUri.kelvin.name)
-    # TODO - move this all to a before / let block:
-    # And the hash should have it:
-    hashed = d.to_hash
-    expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.kelvin.uri)
-    expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.kelvin.label)
+  end
+
+  context 'kelvin that should be celsius' do
+
+    let(:kelvin) do
+      kelvin = DataPointUri.new(object: 700, unit_of_measure_known_uri: KnownUri.kelvin)
+      kelvin.convert_units
+      kelvin
+    end
+
+    it 'should be worth converting' do
+      expect(kelvin.object).to be > 420 # Needs to be high enough to be worth converting...
+    end
+
+    it 'should convert to celsius' do
+      expect(kelvin.unit_of_measure_known_uri).to eq(KnownUri.celsius)
+    end
+
+    it 'should still know the original value' do
+      expect(kelvin.original_unit_of_measure_uri.name).to eq(KnownUri.kelvin.name)
+    end
+
+    context '#to_hash' do
+
+      let(:hashed) { kelvin.to_hash }
+
+      it 'should have the original units URI' do
+        expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.kelvin.uri)
+      end
+
+      it 'should have the original units label' do
+        expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.kelvin.label)
+      end
+
+    end
+
   end
 
   it 'should preserve accuracy when converting' do

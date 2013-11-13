@@ -396,9 +396,11 @@ class DataPointUri < ActiveRecord::Base
            end
     if options[:measurement_as_header]
       # Nice measurement:
-      hash[predicate_uri.label] = value_string(language)
+      hash[I18n.t(:data_column_measurement)] = predicate_uri.label
+      hash[I18n.t(:data_column_value)] = value_string(language)
       # URI measurement / value
-      hash[predicate] = value_uri_or_blank # TODO - just check: is this "raw source" enough to satisfy WEB-4702 ?
+      hash[I18n.t(:data_column_measurement_uri)] = predicate
+      hash[I18n.t(:data_column_value_uri)] = value_uri_or_blank
     else
       # Measurement Label:
       hash[I18n.t(:data_column_name)] = predicate_uri.try(:label) || ''

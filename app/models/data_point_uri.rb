@@ -147,8 +147,16 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def unit_of_measure_uri
-    return unit_of_measure_known_uri if unit_of_measure_known_uri
-    return unit_of_measure if unit_of_measure
+    _unit_of_measure_uri(unit_of_measure_known_uri, unit_of_measure)
+  end
+
+  def original_unit_of_measure_uri
+    _unit_of_measure_uri(original_unit_of_measure_known_uri, original_unit_of_measure)
+  end
+
+  def _unit_of_measure_uri(known, other)
+    return known if known
+    return other if other
     if implied_unit = implied_unit_of_measure_known_uri
       implied_unit.uri
     end
@@ -336,6 +344,8 @@ class DataPointUri < ActiveRecord::Base
     conversions.select{ |c| c[:starting_unit].to_s == unit_known_uri.name(:en) }.each do |c|
       potential_new_value = c[:function].call(self.object.to_f)
       next if c[:required_minimum] && potential_new_value < c[:required_minimum]
+      self.original_unit_of_measure = unit_of_measure
+      self.original_unit_of_measure_known_uri = unit_of_measure_known_uri
       self.object = potential_new_value
       self.unit_of_measure = KnownUri.send(KnownUri.convert_unit_name_to_class_variable_name(c[:ending_unit])).uri
       self.unit_of_measure_known_uri = KnownUri.send(KnownUri.convert_unit_name_to_class_variable_name(c[:ending_unit]))
@@ -343,6 +353,23 @@ class DataPointUri < ActiveRecord::Base
     end
     false
   end
+
+  def original_unit_of_measure=(val)
+    @original_unit_of_measure = val
+  end
+
+  def original_unit_of_measure
+    @original_unit_of_measure || unit_of_measure
+  end
+
+  def original_unit_of_measure_known_uri=(val)
+    @original_unit_of_measure_known_uri = val
+  end
+
+  def original_unit_of_measure_known_uri
+    @original_unit_of_measure_known_uri || unit_of_measure_known_uri
+  end
+
 
   # NOTE - I was going to change these to an object to represent both the URI and the label, but we're just not at all
   # consistent about calculating those things, and it was going to be too much of an effort.  ...So I'm skipping that.  thus,
@@ -352,7 +379,8 @@ class DataPointUri < ActiveRecord::Base
   # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
   # this model class.
   def to_hash(language = Language.default, options = {})
-    hash = {
+    hash = if taxon_concept
+             {
       # Taxon Concept ID:
       I18n.t(:data_column_tc_id) => taxon_concept.id,
       # Some classification context (stealing from search for now):
@@ -362,7 +390,10 @@ class DataPointUri < ActiveRecord::Base
       I18n.t(:data_column_sci_name) => taxon_concept.nil? ? '' : taxon_concept.title_canonical,
       # Common Name:
       I18n.t(:data_column_common_name) => taxon_concept.nil? ? '' : taxon_concept.preferred_common_name_in_language(language)
-    }
+             }
+           else
+             {}
+           end
     if options[:measurement_as_header]
       # Nice measurement:
       hash[predicate_uri.label] = value_string(language)
@@ -370,7 +401,7 @@ class DataPointUri < ActiveRecord::Base
       hash[predicate] = value_uri_or_blank # TODO - just check: is this "raw source" enough to satisfy WEB-4702 ?
     else
       # Measurement Label:
-      hash[I18n.t(:data_column_name)] = predicate_uri.label
+      hash[I18n.t(:data_column_name)] = predicate_uri.try(:label) || ''
       # Measurement URI:
       hash[I18n.t(:data_column_name_uri)] = predicate
       # Value Label:
@@ -379,17 +410,17 @@ class DataPointUri < ActiveRecord::Base
       hash[I18n.t(:data_column_val_uri)] = value_uri_or_blank
     end
     # Units:
-    hash[I18n.t(:data_column_units)] = units_string
+    hash[I18n.t(:data_column_units)] = units_safe(:label)
     # Units URI:
-    hash[I18n.t(:data_column_units_uri)] = unit_of_measure_uri.try(:uri)
+    hash[I18n.t(:data_column_units_uri)] = unit_of_measure_uri.try(:uri) || ''
     # Raw value:
     hash[I18n.t(:data_column_raw_value)] = DataValue.new(object_uri).label
     # Raw Units:
-    hash[I18n.t(:data_column_raw_units)] = 1 # TODO - you need to re-calculate this
+    hash[I18n.t(:data_column_raw_units)] = original_units_safe(:label)
     # Raw Units URI:
-    hash[I18n.t(:data_column_raw_units_uri)] = 1 # TODO - you need to re-calculate this
+    hash[I18n.t(:data_column_raw_units_uri)] = original_unit_of_measure_uri.try(:uri) || ''
     # Source:
-    hash[I18n.t(:data_column_source)] = source.name
+    hash[I18n.t(:data_column_source)] = source.try(:name) || ''
     # Resource:
     if resource
       hash[I18n.t(:data_column_resource)] =
@@ -411,12 +442,21 @@ class DataPointUri < ActiveRecord::Base
     EOL::Sparql.is_uri?(object) ? object : ''
   end
 
+  # TODO - a lot of this stuff should be extracted to a class to handle ... this kind of stuff.  :| (DataValue, perhaps)
   def units_string
-    units && units.has_key?(:label) ? units[:label] : ''
+    units_safe(:label)
   end
 
   def units_uri
-    units && units.has_key?(:uri) ? units[:uri] : ''
+    units_safe(:uri)
+  end
+
+  def units_safe(attr)
+    _units_safe(units, attr)
+  end
+
+  def original_units_safe(attr)
+    _units_safe(original_units, attr)
   end
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
@@ -440,13 +480,25 @@ class DataPointUri < ActiveRecord::Base
 
   private
 
-  # TODO - this logic is duplicated in the taxa helper; remove it from there. ...Actually, this belongs on DataValue, I think.
   def units
-    if unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(unit_of_measure_uri)
+    _units(unit_of_measure_uri)
+  end
+
+  def original_units
+    _units(original_unit_of_measure_uri)
+  end
+
+  # TODO - this logic is duplicated in the taxa helper; remove it from there. ...Actually, this belongs on DataValue, I think.
+  def _units(which)
+    if which && uri_components = EOL::Sparql.explicit_measurement_uri_components(which)
       uri_components
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(predicate_uri)
       uri_components
     end
+  end
+
+  def _units_safe(which, attr)
+    which && which.has_key?(attr) ? which[attr] : ''
   end
 
 end

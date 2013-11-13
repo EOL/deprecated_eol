@@ -100,6 +100,13 @@ describe DataPointUri do
     d = make_and_convert(object: 700, unit_of_measure_known_uri: KnownUri.kelvin)
     d.object.should == 426.85
     d.unit_of_measure_known_uri.should == KnownUri.celsius
+    # Original value should still be known:
+    expect(d.original_unit_of_measure_uri.name).to eq(KnownUri.kelvin.name)
+    # TODO - move this all to a before / let block:
+    # And the hash should have it:
+    hashed = d.to_hash
+    expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.kelvin.uri)
+    expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.kelvin.label)
   end
 
   it 'should preserve accuracy when converting' do

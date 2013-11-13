@@ -41,10 +41,15 @@ group :test, :development do
   gem 'guard-rspec', require: false # Auto-testing
   gem 'launchy' # Allows save_and_open_page in specs, very, very handy!
   gem 'pry-rails' # rails console has additional commands: show-models, show-routes --grep use
-  gem 'pry-rescue', require: false
+  gem 'pry-rescue' # Better debugging. Raise an error in pry console and use cd-cause to get to the error point, use edit
+    # to launch your editor, then try-again to ... uhh... try again. Use Ctrl-\ to break running code. run rescue rspec to
+    # get specs to pry errors automatically (but note try-again doesn't work from rspec). rescue rails server also uses pry.
   gem 'pry-stack_explorer', require: false
   gem 'terminal-notifier-guard'
   gem 'binding_of_caller' # Used by Better Errors to give lots more information about errors in the browser.
+end
+
+group :development do
   gem 'better_errors' # NEVER EVER *EVER* run this in production. Ever. Don't.
 end
 

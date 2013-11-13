@@ -75,12 +75,19 @@ module EOL
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
         Rails.cache.clear if Rails.cache
+        clear_class_variables
       end
 
       def truncate_table(conn, table, skip_if_empty)
         # run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
         # conn.execute "TRUNCATE TABLE `#{table}`" if run_command
         conn.execute "TRUNCATE TABLE `#{table}`"
+      end
+
+      def clear_class_variables
+        ActiveRecord::Base.subclasses.each do |model|
+          model.class_variables.each { |var| model.remove_class_variable(var) }
+        end
       end
 
       def drop_all_virtuoso_graphs

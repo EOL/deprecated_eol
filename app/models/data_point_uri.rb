@@ -383,9 +383,8 @@ class DataPointUri < ActiveRecord::Base
              {
       # Taxon Concept ID:
       I18n.t(:data_column_tc_id) => taxon_concept.id,
-      # Some classification context (stealing from search for now):
-      # TODO - this turned out to be super-expensive, we need to expand the includes for building this.
-      I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
+      # WAIT - # Some classification context (stealing from search for now):
+      # WAIT - I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
       # Scientific Name:
       I18n.t(:data_column_sci_name) => taxon_concept.nil? ? '' : taxon_concept.title_canonical,
       # Common Name:

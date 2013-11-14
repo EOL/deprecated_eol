@@ -380,7 +380,7 @@ class DataPointUri < ActiveRecord::Base
   # this model class.
   def to_hash(language = Language.default, options = {})
     tc = options[:taxa] && options[:taxa].map(&:id).include?(taxon_concept_id) ?
-      options[:taxa].select { |tc| tc.id == taxon_concept_id } : # Yay! They cached it for us.
+      options[:taxa].detect { |tc| tc.id == taxon_concept_id } : # Yay! They cached it for us.
       taxon_concept # Load it. This will be painful.
     hash = if taxon_concept
              {

@@ -1073,6 +1073,7 @@ a.other_actions
 .cms_page
   span.icon
     background: $fieldset_light_blue url(image-path("v2/icon_info_tabs.png")) 50% 50% no-repeat
+
 #taxon_maps #media_list
   padding: 0
 // Trying (again) to center and size the sidebar image (this time including markup changes, yuck.):
@@ -1650,6 +1651,17 @@ ul.tabs
       border-bottom: 1px solid $grayblue
       background-color: #f6f8fa
   table.data.search
+    tbody
+      tr
+        th
+          .info_icon
+            position: absolute
+            left: 475px
+      table.meta
+        tr th
+          .info_icon
+            position: absolute
+            left: 449px
     th
       width: 150px
     span.source

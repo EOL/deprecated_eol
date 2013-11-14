@@ -51,11 +51,12 @@ class TaxonData < TaxonUserClassificationFilter
     options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
     options[:page] ||= 1
     if options[:only_count]
-      query = "SELECT COUNT(*) as ?count"
+      query = "SELECT COUNT(*) as ?count WHERE { "
+      query += "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
     else
       # this is strange, but in order to properly do sorts, limits, and offsets there should be a subquery
       # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
-      query = "SELECT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id WHERE { "
+      query = "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id WHERE { "
       query += "SELECT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
     end
     query += " WHERE {
@@ -85,14 +86,24 @@ class TaxonData < TaxonUserClassificationFilter
         ?taxon_id dwc:taxonConceptID ?taxon_concept_id
       } UNION {
         ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
-      } }"
+      }"
+    if options[:taxon_concept]
+      query += " .
+        ?parent_taxon dwc:taxonConceptID <http://eol.org/pages/#{options[:taxon_concept].id}> .
+        ?t dwc:parentNameUsageID+ ?parent_taxon .
+        ?t dwc:taxonConceptID ?taxon_concept_id . ";
+    end
+    query += " }"
     unless options[:only_count]
       if options[:sort] == 'asc'
         query += " ORDER BY ASC(xsd:float(?value))"
       elsif options[:sort] == 'desc'
         query += " ORDER BY DESC(xsd:float(?value))"
       end
-      query += "} LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
+    end
+    query += "} "
+    unless options[:only_count]
+      query += " LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
     end
     return query
   end
@@ -206,6 +217,57 @@ class TaxonData < TaxonUserClassificationFilter
       }
       LIMIT 800"
     EOL::Sparql.connection.query(query)
+  end
+
+  def ranges_of_values(options = {})
+    Rails.cache.fetch("taxon_data/ranges_of_values_for/#{taxon_concept.id}") do
+      query = "
+        SELECT DISTINCT ?attribute, COUNT(DISTINCT ?descendant_concept_id) as ?count,
+          MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
+        WHERE {
+          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?t dwc:parentNameUsageID+ ?parent_taxon .
+          ?t dwc:taxonConceptID ?descendant_concept_id .
+          OPTIONAL {
+            ?occurrence dwc:taxonID ?taxon .
+            ?taxon dwc:taxonConceptID ?descendant_concept_id
+            {
+              ?data_point_uri dwc:occurrenceID ?occurrence .
+              ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
+              ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+              FILTER ( ?measurementOfTaxon = 'true' ) .
+              ?data_point_uri dwc:measurementType ?attribute .
+              ?data_point_uri dwc:measurementValue ?value .
+              OPTIONAL {
+                ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
+              }
+            } UNION {
+              ?data_point_uri dwc:occurrenceID ?occurrence .
+              ?data_point_uri a <#{DataAssociation::CLASS_URI}> .
+              ?data_point_uri <#{Rails.configuration.uri_association_type}> ?attribute .
+              ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?value
+            } UNION {
+              ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?occurrence .
+              ?data_point_uri <#{Rails.configuration.uri_association_type}> ?inverse_attribute .
+              ?data_point_uri dwc:occurrenceID ?value .
+              ?inverse_attribute owl:inverseOf ?attribute
+            }
+          }
+        }
+        GROUP BY ?attribute ?unit_of_measure_uri
+        ORDER BY DESC(?min)"
+      results = EOL::Sparql.connection.query(query)
+      KnownUri.add_to_data(results)
+      results.each do |r|
+        r[:min] = r[:min].value.to_f if r[:min].is_a?(RDF::Literal)
+        r[:min] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(r).merge(:object => r[:min]))
+        r[:min].convert_units
+        r[:max] = r[:max].value.to_f if r[:max].is_a?(RDF::Literal)
+        r[:max] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(r).merge(:object => r[:max]))
+        r[:max].convert_units
+      end
+      results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
+    end
   end
 
 end

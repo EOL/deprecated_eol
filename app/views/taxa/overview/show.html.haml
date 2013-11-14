@@ -122,6 +122,13 @@
           %p= I18n.t(@data_point_uris ? :taxon_data_empty : :data_server_unavailable)
       - else
         = render(:partial => 'taxa/data/overview_summary', :locals => { :data_point_uris => @data_point_uris })
+    - if @overview.number_of_descendants.between?(2,15000)
+      - range_data = @taxon_page.data.ranges_of_values
+      - unless range_data.empty?
+        #data_summary.article
+          .header
+            %h3= I18n.t(:data_summary_header)
+          = render(:partial => 'taxa/data/overview_ranges', :locals => { :ranges => range_data })
   -# TODO - It probably shouldn't be THAT different for a selected hierarchy entry view and a regular taxon view.
   -# Figure out why there's so much extra, here.
   - if @overview.classification_filter?

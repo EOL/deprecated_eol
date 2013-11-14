@@ -342,7 +342,8 @@ class DataPointUri < ActiveRecord::Base
       return false
     end
     conversions.select{ |c| c[:starting_unit].to_s == unit_known_uri.name(:en) }.each do |c|
-      potential_new_value = c[:function].call(self.object.to_f)
+      current_value = self.object.is_a?(RDF::Literal) ? self.object.value.to_f : self.object.to_f
+      potential_new_value = c[:function].call(current_value)
       next if c[:required_minimum] && potential_new_value < c[:required_minimum]
       self.original_unit_of_measure = unit_of_measure
       self.original_unit_of_measure_known_uri = unit_of_measure_known_uri

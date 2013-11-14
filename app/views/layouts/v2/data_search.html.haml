@@ -4,7 +4,11 @@
       .hgroup
         %h1= @results ? I18n.t(:search_results) : I18n.t(:search)
         - search_term_to_show = [ @attribute, @querystring ].delete_if{ |t| t.blank? }.join(' : ')
-        %h2= @results ? raw(I18n.t(:count_results_for_search_term, :count => @results.total_entries, :search_term => h(search_term_to_show))) : ''
+        %h2
+          = @results ? raw(I18n.t(:count_results_for_search_term, :count => @results.total_entries, :search_term => h(search_term_to_show))) : ''
+          - if @taxon_concept
+            = " within "
+            = link_to "#{@taxon_concept.title_canonical_italicized}", taxon_overview_url(@taxon_concept)
       .page_actions
         %ul
           - if @results && !@results.blank?
@@ -19,17 +23,13 @@
         = render partial: 'shared/beta_warning', locals: { note: I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) }
         .filters
           = form_tag data_search_path, :method => 'get' do
+            = hidden_field_tag :taxon_concept_id, @taxon_concept.id if @taxon_concept
             %fieldset
               %dl
                 %dt
                   %label= I18n.t('activerecord.attributes.user_added_data.predicate')
                 %dd
-                  - select_options = { "-- " + I18n.t('activerecord.attributes.user_added_data.predicate') + " --" => nil }.
-                  -   merge(Hash[[nil, nil] + KnownUri.all_measurement_type_known_uris.collect do |uri|
-                  -     label = uri.is_a?(KnownUri) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
-                  -     [ truncate(label.firstcap, :length => 35), uri.is_a?(KnownUri) ? uri.uri : uri ]
-                  -   end.sort_by{ |k,v| k.nil? ? '' : k } ] )
-                  = select_tag(:attribute, options_for_select(select_options, @attribute))
+                  = select_tag(:attribute, options_for_select(@select_options.collect{ |opt| [ truncate(opt[0], length: 35), opt[1] ]}, @attribute))
               %dl
                 %dt
                   %label= I18n.t(:data_search_refine_field_label)

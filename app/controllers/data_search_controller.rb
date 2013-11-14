@@ -11,6 +11,7 @@ class DataSearchController < ApplicationController
     @attribute = params[:attribute]
     @sort = params[:sort]
     @page = params[:page] || 1
+    @taxon_concept = TaxonConcept.find_by_id(params[:taxon_concept_id])
     @attribute = nil unless KnownUri.all_measurement_type_uris.include?(@attribute)
     @attribute_known_uri = KnownUri.find_by_uri(@attribute)
     @from, @to = nil, nil
@@ -24,8 +25,10 @@ class DataSearchController < ApplicationController
         end
       end
     end
+    prepare_attribute_select_options
+
     search_options = { querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-      sort: @sort, language: current_language }
+      sort: @sort, language: current_language, taxon_concept: @taxon_concept }
     respond_to do |format|
       format.html do
         @results = TaxonData.search(search_options.merge(page: @page, per_page: 30))
@@ -58,6 +61,19 @@ class DataSearchController < ApplicationController
       sort: @sort, known_uri: @attribute_known_uri, language: current_language,
       user: current_user.is_a?(EOL::AnonymousUser) ? nil : current_user
     )
+  end
+
+  def prepare_attribute_select_options
+    @select_options = { "-- " + I18n.t('activerecord.attributes.user_added_data.predicate') + " --" => nil }
+    if @taxon_concept
+      measurment_uris = TaxonData.new(@taxon_concept, current_user).ranges_of_values.collect{ |r| r[:attribute] }
+    else
+      measurment_uris = KnownUri.all_measurement_type_known_uris
+    end
+    @select_options = @select_options.merge(Hash[ measurment_uris.collect do |uri|
+      label = uri.is_a?(KnownUri) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
+      [ label.firstcap, uri.is_a?(KnownUri) ? uri.uri : uri ]
+    end.sort_by{ |k,v| k.nil? ? '' : k } ] )
   end
 
 end

@@ -20,17 +20,6 @@
         %dd= nested.text_area :comment, :rows => 3
         %dt= nested.label :attribution
         %dd= nested.text_area :attribution, :rows => 3
-      -# TODO - we should actually monitor the uri type with JS and remove the associations if they change the value (and put them back if they change it back...)
-      - if known_uri.uri_type == UriType.measurement
-        %dt.units= f.label I18n.t(:measurement_allowed_units)
-        %dd.units
-          %ul
-            -# TODO - why did I need a compact here?  ...We were getting a nil in prod.
-            - KnownUri.unit_of_measure.allowed_values.compact.each do |unit|
-              %li
-                = check_box_tag :allowed_units, unit.id, known_uri.allowed_units.include?(unit),
-                  name: 'known_uri[allowed_units_target_ids][]'
-                = I18n.t(:known_uri_name_and_uri, name: unit.name, uri: unit.uri)
       %dt= f.label :toc_items
       %dd
         %ul
@@ -55,12 +44,13 @@
     %ul
       %li= I18n.t(:none)
   - else known_uri.known_uri_relationships_as_subject.empty?
-    %ul
+    %ul.relations
       - known_uri.known_uri_relationships_as_subject.each_with_index do |relationship, index|
         %li
-          %span.underline= relationship.relationship_label
-          = relationship.to_known_uri.uri
-          %div.actions= button_to raw(I18n.t(:delete)), relationship, :method => :delete, :data => { :confirm => I18n.t(:are_you_sure) }
+          %span.relation= relationship.relationship_label
+          %span.label= relationship.to_known_uri.label
+          %span.uri= relationship.to_known_uri.uri
+          .actions= button_to raw(I18n.t(:delete)), relationship, :method => :delete, :data => { :confirm => I18n.t(:are_you_sure) }
 
   = form_for KnownUriRelationship.new do |tr|
     = tr.hidden_field :from_known_uri_id, :value => known_uri.id

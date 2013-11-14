@@ -379,37 +379,29 @@ class DataPointUri < ActiveRecord::Base
   # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
   # this model class.
   def to_hash(language = Language.default, options = {})
+    tc = options[:taxa] && options[:taxa].map(&:id).include?(taxon_concept_id) ?
+      options[:taxa].select { |tc| tc.id == taxon_concept_id } : # Yay! They cached it for us.
+      taxon_concept # Load it. This will be painful.
     hash = if taxon_concept
              {
       # Taxon Concept ID:
-      I18n.t(:data_column_tc_id) => taxon_concept.id,
+      I18n.t(:data_column_tc_id) => taxon_concept_id,
       # WAIT - # Some classification context (stealing from search for now):
       # WAIT - I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
       # Scientific Name:
-      I18n.t(:data_column_sci_name) => taxon_concept.nil? ? '' : taxon_concept.title_canonical,
+      I18n.t(:data_column_sci_name) => tc.nil? ? '' : tc.title_canonical,
       # Common Name:
-      I18n.t(:data_column_common_name) => taxon_concept.nil? ? '' : taxon_concept.preferred_common_name_in_language(language)
+      I18n.t(:data_column_common_name) => tc.nil? ? '' : tc.preferred_common_name_in_language(language)
              }
            else
              {}
            end
-    if options[:measurement_as_header]
-      # Nice measurement:
-      hash[I18n.t(:data_column_measurement)] = predicate_uri.label
-      hash[I18n.t(:data_column_value)] = value_string(language)
-      # URI measurement / value
-      hash[I18n.t(:data_column_measurement_uri)] = predicate
-      hash[I18n.t(:data_column_value_uri)] = value_uri_or_blank
-    else
-      # Measurement Label:
-      hash[I18n.t(:data_column_name)] = predicate_uri.try(:label) || ''
-      # Measurement URI:
-      hash[I18n.t(:data_column_name_uri)] = predicate
-      # Value Label:
-      hash[I18n.t(:data_column_val)] = value_string(language)
-      # Value URI:
-      hash[I18n.t(:data_column_val_uri)] = value_uri_or_blank
-    end
+    # Nice measurement:
+    hash[I18n.t(:data_column_measurement)] = predicate_uri.try(:label) || ''
+    hash[I18n.t(:data_column_value)] = value_string(language)
+    # URI measurement / value
+    hash[I18n.t(:data_column_measurement_uri)] = predicate
+    hash[I18n.t(:data_column_value_uri)] = value_uri_or_blank
     # Units:
     hash[I18n.t(:data_column_units)] = units_safe(:label)
     # Units URI:
@@ -430,8 +422,8 @@ class DataPointUri < ActiveRecord::Base
                                                                           host: options[:host])
     end
     if metadata = get_metadata(language)
-      metadata.each do |data|
-        hash[EOL::Sparql.uri_components(data.predicate_uri)[:label]] = data.value_string(language)
+      metadata.each do |datum|
+        hash[EOL::Sparql.uri_components(datum.predicate_uri)[:label]] = datum.value_string(language)
       end
     end
     # TODO - references... maybe?

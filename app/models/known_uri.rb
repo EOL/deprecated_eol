@@ -84,8 +84,9 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  # This gets called a LOT.  ...Like... a *lot* a lot. Keep it well cached:
   def self.unit_of_measure
-    cached('unit_of_measure') do
+    @@unit_of_measure ||= cached('unit_of_measure') do
       KnownUri.where(:uri => Rails.configuration.uri_measurement_unit).includes({ :known_uri_relationships_as_subject => :to_known_uri } ).first
     end
   end

@@ -64,6 +64,8 @@ class DataSearchFile < ActiveRecord::Base
 
   # TODO - when we get around to upping the LIMIT, we should probably break this up into chunks.
   def get_data(options = {})
+    # NOTE - for testing on staging:
+    # q = '' ; uri = 'http://iobis.org/minphosphate' ; from = nil ; to = nil ; sort = nil ; LIMIT = 12 ; options = {} ; user = User.first
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
     @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
       sort: sort, per_page: LIMIT, :for_download => true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
@@ -77,6 +79,7 @@ class DataSearchFile < ActiveRecord::Base
         hierarchy_entries: [ { name: [ :ranked_canonical_form, :canonical_form ] }, :hierarchy ],
         preferred_entry: { hierarchy_entry: [ { name: [ :ranked_canonical_form, :canonical_form ] }, :hierarchy ] }
                                      )
+    TaxonConcept.load_common_names_in_bulk(taxa, user.language_id)
     rows = []
     DataPointUri.assign_bulk_metadata(@results, user.language)
     @results.each do |data_point_uri|

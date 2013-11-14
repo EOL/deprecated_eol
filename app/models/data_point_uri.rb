@@ -382,7 +382,7 @@ class DataPointUri < ActiveRecord::Base
     tc = options[:taxa] && options[:taxa].map(&:id).include?(taxon_concept_id) ?
       options[:taxa].detect { |tc| tc.id == taxon_concept_id } : # Yay! They cached it for us.
       taxon_concept # Load it. This will be painful.
-    hash = if taxon_concept
+    hash = if tc
              {
       # Taxon Concept ID:
       I18n.t(:data_column_tc_id) => taxon_concept_id,

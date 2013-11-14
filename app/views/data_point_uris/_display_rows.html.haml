@@ -65,9 +65,10 @@
             = raw I18n.t("data_provided_by_#{data_point_uri.source.class.name.underscore.downcase}", whom: link_to(data_point_uri.source.name, data_point_uri.source))
           - else
             = I18n.t(:data_point_uri_source_missing)
-        / %li
-        /   &bull;&ensp;
-        /   = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), :target => 'data'
+        - if current_user.is_admin?
+          %li
+            &bull;&ensp;
+            = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), :target => 'data'
         - if data_point_uri.user_added_data
           - if current_user.can_update?(data_point_uri.user_added_data)
             %li

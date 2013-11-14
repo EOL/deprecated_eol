@@ -420,7 +420,7 @@ class DataPointUri < ActiveRecord::Base
     # Raw Units:
     hash[I18n.t(:data_column_raw_units)] = original_units_safe(:label)
     # Raw Units URI:
-    hash[I18n.t(:data_column_raw_units_uri)] = original_unit_of_measure_uri.try(:uri) || ''
+    hash[I18n.t(:data_column_raw_units_uri)] = original_units_uri
     # Source:
     hash[I18n.t(:data_column_source)] = source.try(:name) || ''
     # Resource:
@@ -444,13 +444,18 @@ class DataPointUri < ActiveRecord::Base
     EOL::Sparql.is_uri?(object) ? object : ''
   end
 
-  # TODO - a lot of this stuff should be extracted to a class to handle ... this kind of stuff.  :| (DataValue, perhaps)
+  # TODO - a lot of this stuff should be extracted to a class to handle ... this kind of stuff.  :| (DataValue, perhaps) It's
+  # really very simple, but there's enough of it that it seems quite complex.
   def units_string
     units_safe(:label)
   end
 
   def units_uri
     units_safe(:uri)
+  end
+
+  def original_units_uri
+    original_units_safe(:uri)
   end
 
   def units_safe(attr)

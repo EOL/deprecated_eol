@@ -74,10 +74,8 @@ class DataSearchFile < ActiveRecord::Base
     # DataPointUris and preloading fails on them.
     taxa = TaxonConcept.find(@results.map(&:taxon_concept_id).compact.uniq)
     TaxonConcept.preload_associations(taxa, 
-      taxon_concept: {
         hierarchy_entries: [ { name: [ :ranked_canonical_form, :canonical_form ] }, :hierarchy ],
         preferred_entry: { hierarchy_entry: [ { name: [ :ranked_canonical_form, :canonical_form ] }, :hierarchy ] }
-      }
                                      )
     rows = []
     DataPointUri.assign_bulk_metadata(@results, user.language)

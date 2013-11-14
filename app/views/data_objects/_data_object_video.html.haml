@@ -62,3 +62,7 @@
                :flashvars => "flickr_show_info_box=true",
                :bgcolor => "#000000",
                :width => "540"}
+
+  -# application/ogg
+  - if data_object.mime_type == MimeType.ogg_video
+    %video{ :src => data_object.video_url, :controls => true, :autoplay => true }

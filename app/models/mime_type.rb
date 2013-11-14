@@ -24,4 +24,7 @@ class MimeType < ActiveRecord::Base
   def self.wav
     cached_find_translated(:label, 'audio/x-wav')
   end
+  def self.ogg_video
+    cached_find_translated(:label, 'application/ogg')
+  end
 end

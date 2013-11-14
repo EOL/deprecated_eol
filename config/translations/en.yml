@@ -2769,6 +2769,7 @@ en:
   clear_all_non_species_pages: "Clear all non-species pages"
   clear_entire_cache_store: "Clear entire cache store"
   clear_species_page: "Clear species page"
+  cms_editor: "CMS Editor"
   curator_admin_index_help: "Click a username to view the user's detailed profile. You may change the clade level curator permissions on the user profile pages. If credentials are truncated, click to expand and show full credentials."
   curator_level: "Curator level"
   curator_level_with_indefinite_article_master_curator: "a <strong>master curator</strong>"

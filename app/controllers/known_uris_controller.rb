@@ -9,7 +9,7 @@ class KnownUrisController < ApplicationController
   before_filter :set_stats_filter_options, :only => [ :index, :show_stats ]
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
     :only => AUTOCOMPLETE_ACTIONS
-  after_filter :clear_cache, :except => [ :index, :show_stats ] + AUTOCOMPLETE_ACTIONS
+  after_filter :clear_cache, :only => [ :create, :update, :destroy ]
 
   layout 'v2/basic'
 
@@ -71,6 +71,7 @@ class KnownUrisController < ApplicationController
         end
         if !error
           import_terms_from_ontology(attribute_mappings)
+          clear_cache
           flash[:notice] = I18n.t('known_uris.import_successful')
           redirect_to known_uris_path
         end

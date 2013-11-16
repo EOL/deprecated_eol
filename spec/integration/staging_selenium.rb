@@ -16,7 +16,7 @@ I18n.load_path += Dir[Rails.root.join('lib', 'translations', "{#{ACCEPT_TEST_LAN
 # All kinds of special setup:
 #Capybara.current_driver = :mechanize
 Capybara.javascript_driver = :webkit
-Capybara.app_host = 'http://bocce.eol.org' # Where we'll be looking...
+Capybara.app_host = Rails.configuration.acceptance_host[:url]
 Capybara.run_server = false # Don't bother spinning up *our* server!
 
 # NOTE - *Important* ... you should enter a curator username/password for the curator specs to work correctly.
@@ -26,15 +26,16 @@ Capybara.run_server = false # Don't bother spinning up *our* server!
 # super-simple solution:
 
 class CuratorLogin
-  USER = 'jrice'
-  PASS = 'er5yuer5'
+  USER = Rails.configuration.acceptance_curator[:username]
+  PASS = Rails.configuration.acceptance_curator[:password]
 end
 
 describe 'Home page', js: true do
 
   def visit_with_auth(where)
     puts "++ Heading to #{where}"
-    page.driver.browser.authenticate('life', '@fungi')
+    page.driver.browser.authenticate(Rails.configuration.acceptance_host[:username],
+                                     Rails.configuration.acceptance_host[:password])
     visit where
     puts "   ... Done."
   end
@@ -75,12 +76,17 @@ describe 'Home page', js: true do
     page.should have_content("Displaying 26 – 50 of") # Still don't care how many.
     check "type_taxon_concept"
     click_button "Filter"
-    expect(page).to have_content /\d results for tiger/
+    within('#page_heading') do
+      expect(page).to have_tag('h2', text: /\d{3} results for tiger/)
+    end
   end
 
   it 'should find jrice' do
     visit_with_auth "/search?q=jrice"
-    expect(page).to have_content /\d results for jrice/
+    # <h2>6 results for <em>jrice</em></h2>
+    within('#page_heading') do
+      expect(page).to have_tag('em', text: /jrice/) # Not the best test, but was having trouble searching for /d results within...
+    end
     click_link "jrice"
     page.should have_content "Activity"
     page.should have_content "My info"

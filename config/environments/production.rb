@@ -30,10 +30,9 @@ Eol::Application.configure do
 
   config.log_level = :error
 
-  # # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # # the I18n.default_locale when a translation can not be found)
-  # config.i18n.fallbacks = true
-  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+  unless ENV.has_key?('LOCALE') # They already told us what to load.
+    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+  end
 
   # # Send deprecation notices to registered listeners
   # config.active_support.deprecation = :notify

@@ -1,6 +1,0 @@
-/* Correctly handle PNG transparency in Win IE 5.5 & 6.
- *  http://homepage.ntlworld.com/bobosola. Updated 18-Jan-2006.
- *
- *  NOTE: JRice updated this *slightly* to make it syntactically correct (it had no ;s and bad braces)
- */
-var arVersion=navigator.appVersion.split("MSIE"),version=parseFloat(arVersion[1]);if(version>=5.5&&document.body.filters)for(var i=0;i<document.images.length;i++){var img=document.images[i],imgName=img.src.toUpperCase();if(imgName.substring(imgName.length-3,imgName.length)=="PNG"){var imgID=img.id?"id='"+img.id+"' ":"",imgClass=img.className?"class='"+img.className+"' ":"",imgTitle=img.title?"title='"+img.title+"' ":"title='"+img.alt+"' ",imgStyle="display:inline-block;"+img.style.cssText;img.align=="left"&&(imgStyle="float:left;"+imgStyle),img.align=="right"&&(imgStyle="float:right;"+imgStyle),img.parentElement.href&&(imgStyle="cursor:hand;"+imgStyle);var strNewHTML="<span "+imgID+imgClass+imgTitle+' style="'+"width:"+img.width+"px; height:"+img.height+"px;"+imgStyle+";"+"filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"+"(src='"+img.src+"', sizingMethod='scale');\"></span>";img.outerHTML=strNewHTML,i-=1}};

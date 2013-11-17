@@ -1,4 +1,5 @@
 class Vetted < ActiveRecord::Base
+
   self.table_name = "vetted"
   uses_translations
   has_many :taxon_concepts
@@ -6,6 +7,14 @@ class Vetted < ActiveRecord::Base
   has_many :data_objects_hierarchy_entries
   has_many :curated_data_objects_hierarchy_entries
   has_many :users_data_objects
+
+  include Enumerated
+
+  enumerated :label, %w(Trusted Unknown Untrusted Inappropriate)
+
+  def self.create_enumerated
+    enumeration_creator defaults: { phonetic_label: nil }, autoinc: :view_order
+  end
 
   def self.create_defaults
     %w(Trusted Unknown Untrusted Inappropriate).each_with_index do |lbl, order|
@@ -15,22 +24,6 @@ class Vetted < ActiveRecord::Base
                                       label: lbl,
                                       phonetic_label: nil)
     end
-  end
-
-  def self.inappropriate
-    @@inappropriate ||= cached_find_translated(:label, 'Inappropriate')
-  end
-
-  def self.untrusted
-    @@untrusted ||= cached_find_translated(:label, 'Untrusted')
-  end
-
-  def self.trusted
-    @@trusted ||= cached_find_translated(:label, 'Trusted')
-  end
-
-  def self.unknown
-    @@unknown ||= cached_find_translated(:label, 'Unknown')
   end
 
   def self.trusted_ids

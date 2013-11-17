@@ -9,7 +9,6 @@ class Vetted < ActiveRecord::Base
   has_many :users_data_objects
 
   include Enumerated
-
   enumerated :label, %w(Trusted Unknown Untrusted Inappropriate)
 
   def self.create_enumerated

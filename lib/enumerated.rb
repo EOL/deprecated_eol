@@ -82,7 +82,8 @@ module Enumerated
     end
 
     # This is required during testing; we have to clear all these values out once tables are truncated:
-    def clear_default_caches
+    # TODO - this should also clear the Rails cache, using the cached_name_for method provided in core initializer.
+    def clear_enumerated
       unless class_variables.empty? # Nothing to clear; avoids some trouble in migrations and early operations.
         enumerations.keys.each do |method_name|
           name = "@@#{method_name}".to_sym

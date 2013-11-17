@@ -1,7 +1,12 @@
 class DataType < ActiveRecord::Base
+
   uses_translations
+
   has_many :data_objects
   @@full_attribution_order = nil
+
+  include Enumerated
+  enumerated :label, [ 'Text', 'Image', 'Sound', 'Video', 'GBIF Image', 'YouTube', 'Flash', 'IUCN', 'Map', 'Link' ]
 
   def self.create_defaults
     [{:label => 'Image', :schema_value => 'http://purl.org/dc/dcmitype/StillImage'},
@@ -41,44 +46,6 @@ class DataType < ActiveRecord::Base
     attribution_order = AgentRole.attribution_order
     remaining_roles = AgentRole.all - attribution_order
     @@full_attribution_order = attribution_order + remaining_roles
-  end
-
-  def self.text
-    @@text ||= cached_find_translated(:label, 'Text')
-  end
-
-  def self.image
-    @@image ||= cached_find_translated(:label, 'Image')
-  end
-
-  def self.sound
-    @@sound ||= cached_find_translated(:label, 'Sound')
-  end
-
-  def self.video
-    @@video ||= cached_find_translated(:label, 'Video')
-  end
-
-  # TODO -this is essentially "SWF" and could be handled as Video...
-  def self.youtube
-    @@youtube ||= cached_find_translated(:label, 'YouTube')
-  end
-
-  # TODO -this is essentially "SWF" and could be handled as Video...
-  def self.flash
-    @@flash ||= cached_find_translated(:label, 'Flash')
-  end
-
-  def self.iucn
-    @@iucn ||= cached_find_translated(:label, 'IUCN')
-  end
-  
-  def self.map
-    @@youtubmape ||= cached_find_translated(:label, 'Map')
-  end
-  
-  def self.link
-    @@link ||= cached_find_translated(:label, 'Link')
   end
 
   def self.sound_type_ids

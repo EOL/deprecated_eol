@@ -1,14 +1,34 @@
 class License < ActiveRecord::Base
+
   uses_translations
+
   # this is only used in testing. For some translted models we only want to create one instance for a particular
   # label in a language. For example we only want one English DataType.image or one Rank.species. But other
   # models like License is translating a description which isn't unique. We can have several Licences with
   # description 'all rights reserved'. We need to know this when creating test data
   TRANSLATIONS_ARE_UNIQUE = false
+
   has_many :data_objects
   has_many :resources
 
   attr_accessible :title, :source_url, :version, :logo_url, :show_to_content_partners
+
+  include Enumerated
+  enumerated :title, [
+    {public_domain: 'public domain'},
+    {all_right_reserved: 'all rights reserved'},
+    {cc: 'cc-by 3.0'},
+    {by_sa: 'cc-by-sa 3.0'},
+    {by_nc: 'cc-by-nc 3.0'},
+    {by_nc_sa: 'cc-by-nc-sa 3.0'},
+    {cc_zero: 'cc-zero 1.0'},
+    {no_known_restrictions: 'no known copyright restrictions'},
+    {na: 'not applicable'},
+  ]
+
+  class << self
+    alias default public_domain
+  end
 
   # NOTE - "Normally" I would look for translations that already exist, but in this case, the Translation is on description,
   # which needn't be unique, so I just create a translation for every one, whether or not it already exists.
@@ -63,41 +83,6 @@ class License < ActiveRecord::Base
     find_all_by_show_to_content_partners(1).collect {|c| [c.title, c.id] }
   end
 
-  def self.public_domain
-    cached_find(:title, 'public domain')
-  end
-  class << self
-    alias default public_domain
-  end
-
-  def self.cc
-    cached_find(:title, 'cc-by 3.0')
-  end
-
-  def self.by_nc
-    cached_find(:title, 'cc-by-nc 3.0')
-  end
-
-  def self.by_nc_sa
-    cached_find(:title, 'cc-by-nc-sa 3.0')
-  end
-
-  def self.by_sa
-    cached_find(:title, 'cc-by-sa 3.0')
-  end
-
-  def self.cc_zero
-    cached_find(:title, 'cc-zero 1.0')
-  end
-
-  def self.no_known_restrictions
-    @@no_known_restrictions ||= cached_find(:title, 'no known copyright restrictions')
-  end
-
-  def self.na
-    cached_find(:title, 'not applicable')
-  end
-
   def self.for_data
     @@for_data ||= [License.no_known_restrictions, License.na, License.cc_zero, License.public_domain]
   end
@@ -116,4 +101,5 @@ class License < ActiveRecord::Base
   def show_rights_holder?
     !(is_public_domain? || self.id == License.no_known_restrictions.id)
   end
+
 end

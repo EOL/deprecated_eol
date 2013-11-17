@@ -5,6 +5,9 @@ class Permission < ActiveRecord::Base
   has_many :permissions_users
   has_many :users, through: :permissions_users
 
+  include Enumerated
+  enumerated :name, ['edit permissions', 'beta test', 'see data', 'edit cms']
+
   KNOWN_PERMISSIONS = [ :edit_permissions, :beta_test, :see_data, :edit_cms ]
 
   def self.create_defaults
@@ -45,4 +48,5 @@ class Permission < ActiveRecord::Base
   def <=>(other)
     self.name <=> other.name
   end
+
 end

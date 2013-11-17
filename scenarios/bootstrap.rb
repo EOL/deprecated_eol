@@ -90,18 +90,6 @@ def make_toc_children(parent_id, labels, current_order)
 end
 
 def load_old_foundation_data
-  AgentRole.gen_if_not_exists(:label => 'Animator')
-  AgentRole.gen_if_not_exists(:label => 'Compiler')
-  AgentRole.gen_if_not_exists(:label => 'Composer')
-  AgentRole.gen_if_not_exists(:label => 'Creator')
-  AgentRole.gen_if_not_exists(:label => 'Director')
-  AgentRole.gen_if_not_exists(:label => 'Editor')
-  AgentRole.gen_if_not_exists(:label => 'Illustrator')
-  AgentRole.gen_if_not_exists(:label => 'Project')
-  AgentRole.gen_if_not_exists(:label => 'Publisher')
-  AgentRole.gen_if_not_exists(:label => 'Recorder')
-  AgentRole.gen_if_not_exists(:label => 'Source Database')
-  AgentRole.gen_if_not_exists(:label => 'Contact Person')
 
   InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations')
   InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour')

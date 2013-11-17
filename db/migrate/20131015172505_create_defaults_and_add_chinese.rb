@@ -1,7 +1,7 @@
 # encoding: utf-8
 class CreateDefaultsAndAddChinese < ActiveRecord::Migration
   def up
-    ChangeableObjectType.create_defaults
+    ChangeableObjectType.create_enumerated
     Activity.create_defaults
     Language.reset_column_information
     Language.create_english # Ensure that we have our default language before inserting any...

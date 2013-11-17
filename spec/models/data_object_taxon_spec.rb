@@ -12,7 +12,7 @@ describe DataObjectTaxon do
     Vetted.create_defaults
     Visibility.create_defaults
     Activity.create_defaults
-    ChangeableObjectType.create_defaults
+    ChangeableObjectType.create_enumerated
 
     @master = gen_curator(curator_level: CuratorLevel.master)
     @curator = gen_curator(curator_level: CuratorLevel.full)

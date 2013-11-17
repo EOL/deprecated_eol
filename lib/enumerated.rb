@@ -67,10 +67,8 @@ module Enumerated
       @enum_defaults.each do |enum|
         if enum.is_a?(Hash)
           raise "You MUST only have one key in an enum definition hash" if enum.keys.count > 1
-          puts "++ #{enumeration_xform(enum.keys.first)} = #{enum.values.first}"
           @enumerations[enumeration_xform(enum.keys.first)] = enum.values.first
         else
-          puts "++ #{enumeration_xform(enum)} = #{enum}"
           @enumerations[enumeration_xform(enum)] = enum
         end
       end
@@ -99,21 +97,16 @@ module Enumerated
     # The method name (unless you specified it in a hash) will be underscored (as one should expect).
     def add_enumerated_methods
       enumerations.each do |name, value|
-        puts "++ add_enumerated_methods: #{name} = #{value}"
         puts "** WARNING: named default method #{name} already exists, re-defined." if respond_to?(name)
         classvar = "@@#{name}".to_sym
         if @enum_translated && @enum_translated_class.send(:attribute_names).include?(@enum_field.to_s)
-          puts "++ defining #{name}"
           define_singleton_method(name) do
-            puts "++ defined..."
             # NOTE - nothing is cached if it's nil...
             return class_variable_get(classvar) if class_variable_defined?(classvar) && class_variable_get(classvar)
             class_variable_set(classvar, cached_find_translated(@enum_field, value))
           end
         else
-          puts "++ defining #{name}"
           define_singleton_method(name) do
-            puts "++ defined..."
             # NOTE - nothing is cached if it's nil...
             return class_variable_get(classvar) if class_variable_defined?(classvar) && class_variable_get(classvar)
             class_variable_set(classvar, cached_find(@enum_field, value))
@@ -159,11 +152,9 @@ module Enumerated
           field_class = attribute_names.include?(@enum_field.to_s) ? self : @enum_translated_class
           unless field_class.send(:exists?,
                                   exist_params.select { |k,v| field_class.send(:attribute_names).include?(k.to_s) } )
-            puts "++ This:"
             pp params.select { |k,v| field_class.send(:attribute_names).include?(k.to_s) }
             this = create!(params.select { |k,v| attribute_names.include?(k.to_s) } )
             trans_params = params.reverse_merge!(language_id: Language.english.id, @enum_foreign_key => this.id)
-            puts "++ Trans:"
             pp trans_params.select { |k,v| @enum_translated_class.send(:attribute_names).include?(k.to_s) }
             trans = @enum_translated_class.send(:create!,
               trans_params.select { |k,v| @enum_translated_class.send(:attribute_names).include?(k.to_s) } )

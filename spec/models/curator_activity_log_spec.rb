@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CuratorActivityLog do
   before(:all) do
-    ChangeableObjectType.create_defaults
+    ChangeableObjectType.create_enumerated
   end
 
   it 'should is_for_type?' do

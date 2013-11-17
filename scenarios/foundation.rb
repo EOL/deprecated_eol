@@ -85,11 +85,7 @@ lit   = CollectionType.gen_if_not_exists(:label => "Literature")
 CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => links)
 CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => lit)
 
-AgentRole.gen_if_not_exists(:label => 'Author')
-AgentRole.gen_if_not_exists(:label => 'Photographer')
-AgentRole.gen_if_not_exists(:label => 'Contributor')
-AgentRole.gen_if_not_exists(:label => 'Source')
-AgentRole.gen_if_not_exists(:label => 'Source Database')
+AgentRole.create_enumerated
 
 ContentPartnerStatus.gen_if_not_exists(:label => 'Active')
 ContentPartnerStatus.gen_if_not_exists(:label => 'Archived')
@@ -147,7 +143,7 @@ MimeType.gen_if_not_exists(:label => 'audio/x-wav')
   Rank.gen_if_not_exists(:label => rank)
 end
 
-ChangeableObjectType.create_defaults
+ChangeableObjectType.create_enumerated
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 RefIdentifierType.gen_if_not_exists(:label => 'doi')

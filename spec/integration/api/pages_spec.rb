@@ -71,11 +71,11 @@ describe 'API:pages' do
 
     AgentsDataObject.create(:data_object_id => @object.id,
                             :agent_id => Agent.gen(:full_name => 'agent one', :homepage => 'http://homepage.com/?agent=one&profile=1').id,
-                            :agent_role => AgentRole.gen_if_not_exists(:label => 'writer'),
+                            :agent_role => AgentRole.writer,
                             :view_order => 1)
     AgentsDataObject.create(:data_object_id => @object.id,
                             :agent => Agent.gen(:full_name => 'agent two'),
-                            :agent_role => AgentRole.gen_if_not_exists(:label => 'editor'),
+                            :agent_role => AgentRole.editor,
                             :view_order => 2)
     @object.refs << Ref.gen(:full_reference => 'first reference')
     @object.refs << Ref.gen(:full_reference => 'second reference')

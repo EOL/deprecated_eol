@@ -32,6 +32,7 @@ describe 'taxa/data/index' do
     user.stub(:watch_collection) { nil }
     user.stub(:can_see_data?) { true }
     user.stub(:can_update?) { false } # This user won't own anything.
+    user.stub(:is_admin?) { false }
     view.stub(:meta_open_graph_data).and_return([])
     view.stub(:tweet_data).and_return({})
     view.stub(:current_user) { user }

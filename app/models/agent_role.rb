@@ -7,7 +7,10 @@ class AgentRole < ActiveRecord::Base
   has_many :agents_synonyms
 
   include Enumerated
-  enumerated :label, ['Author', 'Source', 'Source Database', 'Contributor', 'Photographer', 'Editor', 'provider' ]
+  enumerated :label, ['Author', 'Source', 'Source Database', 'Contributor', 'Photographer', 'Editor', 'provider',
+    'Animator', 'Compiler', 'Composer', 'Creator', 'Director', 'Illustrator', 'Project', 'Publisher', 'Recorder',
+    'Contact Person', 'writer' ]
+
 
   def to_s
     label

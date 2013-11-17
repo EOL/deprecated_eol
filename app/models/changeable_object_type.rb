@@ -16,12 +16,7 @@ class ChangeableObjectType < ActiveRecord::Base
     alias_method :users_data_object, :users_submitted_text
   end
 
-  def self.default_values
-    %w(comment data_object synonym taxon_concept_name tag users_data_object hierarchy_entry
-       curated_data_objects_hierarchy_entry data_objects_hierarchy_entry users_submitted_text
-       curated_taxon_concept_preferred_entry taxon_concept classification_curation data_point_uri
-       user_added_data)
-  end
+
 
   def self.raw_data_object_id
     cot = self.find_by_ch_object_type('data_object')

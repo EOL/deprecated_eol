@@ -101,14 +101,12 @@ module Enumerated
         classvar = "@@#{name}".to_sym
         if @enum_translated && @enum_translated_class.send(:attribute_names).include?(@enum_field.to_s)
           define_singleton_method(name) do
-            puts "++ defined..."
             # NOTE - nothing is cached if it's nil...
             return class_variable_get(classvar) if class_variable_defined?(classvar) && class_variable_get(classvar)
             class_variable_set(classvar, cached_find_translated(@enum_field, value))
           end
         else
           define_singleton_method(name) do
-            puts "++ defined..."
             # NOTE - nothing is cached if it's nil...
             return class_variable_get(classvar) if class_variable_defined?(classvar) && class_variable_get(classvar)
             class_variable_set(classvar, cached_find(@enum_field, value))

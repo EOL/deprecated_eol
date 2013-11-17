@@ -67,23 +67,26 @@ ContentPartnerContact.gen_if_not_exists(:content_partner => col_content_partner,
 
 Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/')
 
-
 # Must have this before creating any resources:
 License.create_enumerated
 
-boa_agent = Agent.gen_if_not_exists(:full_name => 'Biology of Aging', :logo_cache_url => '318700')
-boa_user = User.gen_if_not_exists(:display_name => 'Biology of Aging', :logo_cache_url => '318700', :agent => boa_agent)
-boa_content_partner = ContentPartner.gen_if_not_exists(:user => boa_user, :full_name => "Biology of Aging")
-boa_hierarchy = Hierarchy.gen_if_not_exists(:label => 'LigerCat',
-                                   :description    => 'LigerCat Biomedical Terms Tag Cloud',
-                                   :outlink_uri    => 'http://ligercat.ubio.org/eol/%%ID%%.cloud',
-                                   :url            => 'http://ligercat.ubio.org',
-                                   :agent_id => boa_agent.id)
-boa_resource = Resource.gen_if_not_exists(:title => 'LigerCat resource', :content_partner => boa_content_partner)
-links = CollectionType.gen_if_not_exists(:label => "Links")
-lit   = CollectionType.gen_if_not_exists(:label => "Literature")
-CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => links)
-CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => lit)
+boa_agent = Agent.gen_if_not_exists(full_name: 'Biology of Aging', logo_cache_url: '318700')
+boa_user = User.gen_if_not_exists(display_name: 'Biology of Aging', logo_cache_url: '318700', agent: boa_agent)
+boa_content_partner = ContentPartner.gen_if_not_exists(user: boa_user, full_name: "Biology of Aging")
+boa_hierarchy = Hierarchy.gen_if_not_exists(label: 'LigerCat',
+                                   description:    'LigerCat Biomedical Terms Tag Cloud',
+                                   outlink_uri:    'http://ligercat.ubio.org/eol/%%ID%%.cloud',
+                                   url:            'http://ligercat.ubio.org',
+                                   agent_id: boa_agent.id)
+boa_resource = Resource.gen_if_not_exists(title: 'LigerCat resource', content_partner: boa_content_partner)
+links = CollectionType.gen_if_not_exists(label: "Links")
+lit   = CollectionType.gen_if_not_exists(label: "Literature")
+CollectionTypesHierarchy.gen(hierarchy: boa_hierarchy, collection_type: links)
+CollectionTypesHierarchy.gen(hierarchy: boa_hierarchy, collection_type: lit)
+
+# This might need to show up a few paragraphs earlier in this file, sorry. If you're reading this note, it didn't need to move;
+# delete this message, please.
+AgentRole.create_enumerated
 
 AgentRole.create_enumerated
 

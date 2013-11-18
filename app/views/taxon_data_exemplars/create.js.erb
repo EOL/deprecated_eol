@@ -10,6 +10,9 @@ if($summary.length > 0) {
 var $row = $('tr#<%= @taxon_data_exemplar.data_point_uri.anchor %>');
 if($row.length > 0) {
   var $additional = $row.next().find('div.additional_commands');
+  if ($row.find('> th span').length <= 0) {
+    $row.find('> th').append('<span>&nbsp;</span>');
+  }
   <% if @taxon_data_exemplar.exclude? %>
     $row.find('> th span').removeClass('exemplar').addClass('excluded');
     $additional.find('a.remove_exemplar').hide();

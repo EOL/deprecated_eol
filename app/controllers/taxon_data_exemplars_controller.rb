@@ -9,8 +9,8 @@ class TaxonDataExemplarsController < ApplicationController
     TaxonDataExemplar.delete_all(taxon_concept_id: params[:taxon_concept_id], data_point_uri_id: data_point_uri.id)
     exclude = params.has_key?(:exclude) && params[:exclude] # Argh! For whatever reason, nils are stored as nil in the DB and that breaks scopes.
     @taxon_data_exemplar = TaxonDataExemplar.create(taxon_concept_id: params[:taxon_concept_id], data_point_uri: data_point_uri, exclude: exclude )
-    # TODO - if there are too many exemplars (more than are allowed), we need to give them a warning or something.  Sadly, that is expensive to
-    # calculate...  Hmmmn...
+    # TODO - if there are too many exemplars (more than are allowed), we need to give them a warning or something.  Sadly, that
+    # is expensive to calculate...  Hmmmn...
     log_action(params[:taxon_concept_id], data_point_uri, :set_exemplar_data) unless exclude
     respond_to do |format|
       format.html do

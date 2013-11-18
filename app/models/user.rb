@@ -916,7 +916,7 @@ public
         self.curator_approved   = 1
       end
       self.save
-      Notifier.curator_approved(self).deliver unless $LOADING_BOOTSTRAP
+      Notifier.curator_approved(self).deliver unless $LOADING_BOOTSTRAP || Rails.env.development?
       join_curator_community_if_curator unless was_curator
     end
     self.update_attributes(:requested_curator_level_id => nil) # Not using validations; don't care if user is valid

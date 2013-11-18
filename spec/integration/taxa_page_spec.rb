@@ -160,6 +160,7 @@ describe 'Taxa page' do
 
     it 'should show related names and their sources' do
       visit related_names_taxon_names_path(@taxon_concept)
+      # TODO - these are failing because of newlines IN THE NAMES.  :|  It's just a regex thing. Fix?
       # parents
       expect(page).to have_content(@taxon_concept.hierarchy_entries.first.parent.name.string)
       expect(page).to have_content(@taxon_concept.hierarchy_entries.first.hierarchy.label)

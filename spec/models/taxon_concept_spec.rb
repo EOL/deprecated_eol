@@ -257,6 +257,8 @@ describe TaxonConcept do
     tc = @tc_with_no_starting_common_names
     agent = Agent.last
     tc.add_common_name_synonym('A name', :agent => agent, :language => Language.english)
+    # TODO - this test fails, and I think it's because the safe-language-capitalization thing isn't working. Investigate.
+    debugger unless tc.preferred_common_name_in_language(Language.english) == "A Name"
     tc.preferred_common_name_in_language(Language.english).should == "A Name"
     tc.add_common_name_synonym("Another name", :agent => agent, :language => Language.english)
     tc.preferred_common_name_in_language(Language.english).should == "A Name"

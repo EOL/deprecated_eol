@@ -476,14 +476,24 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
+  # NOTE - Sadly, when using scopes here, it loads each scope for each instance, separately. (WTF?) So I'm not using scopes, I'm
+  # using selects.
+  def included?
+    taxon_data_exemplars.select(&:included?).any?
+  end
+
+  def excluded?
+    taxon_data_exemplars.select(&:excluded?).any?
+  end
+
   def <=>(other)
-    if taxon_data_exemplars.included.any? && other.taxon_data_exemplars.included.empty?
+    if included? && ! other.included?
       -1
-    elsif taxon_data_exemplars.included.empty? && other.taxon_data_exemplars.included.any?
+    elsif other.included? && ! included?
       1
-    elsif taxon_data_exemplars.excluded.any? && other.taxon_data_exemplars.excluded.empty?
+    elsif excluded? && ! other.excluded?
       1
-    elsif taxon_data_exemplars.excluded.empty? && other.taxon_data_exemplars.excluded.any?
+    elsif other.excluded? && ! excluded?
       -1
     else
       # TODO - really, this should sort on the predicate first, value second. ...We never need that, but it still violates

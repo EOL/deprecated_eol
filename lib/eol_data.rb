@@ -46,7 +46,7 @@ module EOL
     end
 
     def self.rebuild
-      Rake::Task['solr:stop'].invoke
+      Rake::Task['solr:start'].invoke
       EOL::DB.recreate
       EOL::DB.clear_temp
       # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:

@@ -8,7 +8,7 @@ describe DataObjectTaxon do
     # Mini-foundation. Perhaps we should extract this as a method in the spec helper:
     DataType.create_defaults
     License.create_defaults
-    CuratorLevel.create_defaults
+    CuratorLevel.create_enumerated
     Vetted.create_defaults
     Visibility.create_defaults
     Activity.create_defaults

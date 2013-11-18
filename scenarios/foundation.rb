@@ -43,11 +43,8 @@ end
 
 Activity.create_defaults
 
-# create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
-# them.  create_if_not_exists Once we do, they should get added here.
-ContactRole.gen_if_not_exists(:label => 'Primary Contact')
-ContactRole.gen_if_not_exists(:label => 'Administrative Contact')
-ContactRole.gen_if_not_exists(:label => 'Technical Contact')
+ContactRole.create_enumerated
+ContentPartnerStatus.create_enumerated
 
 # Cannot create users without special collection:
 SpecialCollection.create_defaults
@@ -55,7 +52,7 @@ CuratorCommunity.build
 SortStyle.create_defaults # Need this to make communities.
 ViewStyle.create_defaults # Used by collections views
 
-CuratorLevel.create_defaults
+CuratorLevel.create_enumerated
 UserIdentity.create_defaults
 
 iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
@@ -87,13 +84,7 @@ CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => li
 
 AgentRole.create_enumerated
 
-ContentPartnerStatus.gen_if_not_exists(:label => 'Active')
-ContentPartnerStatus.gen_if_not_exists(:label => 'Archived')
-ContentPartnerStatus.gen_if_not_exists(:label => 'Pending')
-
-Audience.gen_if_not_exists(:label => 'Children')
-Audience.gen_if_not_exists(:label => 'Expert users')
-Audience.gen_if_not_exists(:label => 'General public')
+Audience.create_enumerated
 
 DataType.create_defaults
 

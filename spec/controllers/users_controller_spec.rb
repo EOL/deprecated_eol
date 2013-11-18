@@ -8,7 +8,7 @@ describe UsersController do
       truncate_all_tables
       Language.create_english
       SpecialCollection.gen(:name => 'Watch')
-      CuratorLevel.create_defaults
+      CuratorLevel.create_enumerated
       UserIdentity.create_defaults
       Activity.create_defaults
       @user = User.gen(:username => 'users_controller_spec')

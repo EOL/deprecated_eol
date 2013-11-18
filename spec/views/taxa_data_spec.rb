@@ -20,7 +20,7 @@ describe 'taxa/data/index' do
   before(:all) do
     Visibility.create_defaults
     Vetted.create_defaults
-    CuratorLevel.create_defaults
+    CuratorLevel.create_enumerated
     Language.create_english # :\
     @anonymous = EOL::AnonymousUser.new('en')
     @curator = FactoryGirl.create(:curator)

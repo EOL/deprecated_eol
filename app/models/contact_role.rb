@@ -6,6 +6,6 @@ class ContactRole < ActiveRecord::Base
   has_many :content_partner_contacts
 
   include Enumerated
-  enumerated :label, [{primary: 'Primary Contact'}]
+  enumerated :label, [{primary: 'Primary Contact'}, 'Administrative Contact', 'Technical Contact']
   
 end

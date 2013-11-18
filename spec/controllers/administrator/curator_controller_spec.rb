@@ -4,7 +4,7 @@ describe Administrator::CuratorController do
   before(:all) do
     truncate_all_tables
     Language.create_english
-    CuratorLevel.create_defaults
+    CuratorLevel.create_enumerated
     # create curator community if it doesn't exist
     Community.find_or_create_by_description_and_name($CURATOR_COMMUNITY_DESC, $CURATOR_COMMUNITY_NAME)
     @curator = User.gen(:curator_level => CuratorLevel.full_curator, :credentials => 'Blah', :curator_scope => 'More blah')

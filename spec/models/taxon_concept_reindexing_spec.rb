@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe TaxonConceptReindexing do
 
   before(:all) do
-    @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
+    DataType.create_enumerated 
+    @taxon_concept = TaxonConcept.gen
     @max_descendants = 10
   end
 

@@ -5,6 +5,6 @@ class ContentPartnerStatus < ActiveRecord::Base
   has_many :content_partners
 
   include Enumerated
-  enumerated :label, %w(Active Inactive)
+  enumerated :label, %w(Active Inactive Archived Pending)
 
 end

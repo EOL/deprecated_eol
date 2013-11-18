@@ -520,14 +520,13 @@ FactoryGirl.define do
   end
 
   factory :content_partner do
-    full_name                           { generate(:string) }
-    association                         :user
-    description                         'Our Testing Content Partner'
-    description_of_data                 'Civil Protection!'
-    created_at                          { 5.days.ago }
-    public                              true
-    content_partner_status              { ContentPartnerStatus.find_by_translated(:label, 'Active') ||
-                                             ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
+    full_name              { generate(:string) }
+    association            :user
+    description            'Our Testing Content Partner'
+    description_of_data    'Civil Protection!'
+    created_at             { 5.days.ago }
+    public                 true
+    content_partner_status { ContentPartnerStatus.active }
   end
 
   factory :content_partner_agreement do
@@ -1004,12 +1003,8 @@ FactoryGirl.define do
     auto_publish    false
     title           'Testing Resource'
     subject         'Test Resource Subject'
-    license         { License.find_by_title('cc-by 3.0') ||
-                        License.gen_if_not_exists(:title => 'cc-by 3.0',
-                                          :description => 'Some rights reserved',
-                                          :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                                          :logo_url => 'cc_by_small.png') }
-    resource_status { ResourceStatus.processed || ResourceStatus.gen_if_not_exists(:label => 'Processed') }
+    license         { License.cc }
+    resource_status { ResourceStatus.processed }
     accesspoint_url 'http://eol.org/opensearchdescription.xml' # Won't work without a real, live URL for an XML file
     refresh_period_hours 0
     resource_created_at 48.hours.ago

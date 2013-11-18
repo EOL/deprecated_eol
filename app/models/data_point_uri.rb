@@ -476,7 +476,23 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
-  private
+  def <=>(other)
+    if taxon_data_exemplars.included.any? && other.taxon_data_exemplars.included.empty?
+      -1
+    elsif taxon_data_exemplars.included.empty? && other.taxon_data_exemplars.included.any?
+      1
+    elsif taxon_data_exemplars.excluded.any? && other.taxon_data_exemplars.excluded.empty?
+      1
+    elsif taxon_data_exemplars.excluded.empty? && other.taxon_data_exemplars.excluded.any?
+      -1
+    else
+      # TODO - really, this should sort on the predicate first, value second. ...We never need that, but it still violates
+      # principle of least surprise:
+      value_uri_or_blank <=> other.value_uri_or_blank
+    end
+  end
+
+private
 
   def units
     _units(unit_of_measure_uri)

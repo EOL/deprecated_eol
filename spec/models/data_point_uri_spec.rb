@@ -13,7 +13,9 @@ describe DataPointUri do
 
   it 'should hide/show user_added_data when hidden/show' do
     d = DataPointUri.gen()
-    d.reload  # not exactly sure why the reload is necessary here, but it was failing without it
+    d.reload  # TODO - this shouldn't be needed; but #hide doesn't work without it. I couldn't figure out why, but was rushing.
+              # app/models/data_point_uri.rb - where #hide is defined
+              # lib/eol/curatable_association.rb - where the set_visibility is defined
     d.visibility_id.should == Visibility.visible.id
     d.user_added_data.visibility_id.should == Visibility.visible.id
     d.hide(User.last)
@@ -22,6 +24,22 @@ describe DataPointUri do
     d.show(User.last)
     d.visibility_id.should == Visibility.visible.id
     d.user_added_data.visibility_id.should == Visibility.visible.id
+  end
+
+  it 'should sort exemplars first' do
+    uris = FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1)
+    last = uris.last
+    expect(uris.sort.first).to_not eq(last)
+    last.taxon_data_exemplars << TaxonDataExemplar.new(data_point_uri: last, exclude: false, taxon_concept_id: 1)
+    expect(uris.sort.first).to eq(last)
+  end
+
+  it 'should sort excluded last' do
+    uris = FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1)
+    first = uris.first
+    expect(uris.sort.last).to_not eq(first)
+    first.taxon_data_exemplars << TaxonDataExemplar.new(data_point_uri: first, exclude: true, taxon_concept_id: 1)
+    expect(uris.sort.last).to eq(first)
   end
 
   it 'should create a proper anchor' do

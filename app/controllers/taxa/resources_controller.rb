@@ -100,7 +100,7 @@ private
   def link_objects_contents
     @news_and_event_links_contents ||= get_link_text([:news, :blog])
     @related_organizations_contents ||= get_link_text(:organization)
-    @multimedia_links_contents ||= get_link_text([:multimedia, :paper])
+    @multimedia_links_contents ||= get_link_text(:multimedia)
     @citizen_science_contents = get_toc_text([:citizen_science, :citizen_science_links])
     @identification_contents = get_toc_text(:identification_resources)
     @education_contents = get_toc_text(:education_for_resources_tab)

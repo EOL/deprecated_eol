@@ -7,7 +7,7 @@
     -# TODO - this logic should be in the "model" (even if the model is a hash/array):
     - grouped_attributes = data_point_uris.categorized
     - grouped_attributes.each_with_index do |(attribute, data_point_uris), index|
-      - row_class = (index == grouped_attributes.keys.length - 1) ? 'last' : nil
+      - row_class = (index == grouped_attributes.keys.length - 1) ? 'last' : nil # TODO - you never need 'last' as a class. Use CSS.
       %tr{ :class => row_class }
         %th= display_uri(attribute, :span, capitalize: true)
         %td
@@ -16,7 +16,7 @@
           -# TODO - this stops at three... really, it should stop at 3 OR when we no longer have exemplars. But first:
           -# TODO - This should REALLY be in the model: we don't want the *view* hiding things, since we want curators to specify them!
           - if text_for_rows.length > values_to_show_per_row
-            - text_for_rows = text_for_rows.sort[0...values_to_show_per_row]
+            - text_for_rows = text_for_rows[0...values_to_show_per_row]
             - text_for_rows << link_to(I18n.t(:more),
               taxon_data_path(:toc_id => (attribute.is_a?(KnownUri) && attribute.toc_items.length > 0) ?  attribute.toc_items.first.id : nil,
               :anchor => attribute.is_a?(KnownUri) ? attribute.uri : attribute))

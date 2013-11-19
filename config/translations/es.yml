@@ -1857,6 +1857,8 @@ es:
     other: La búsqueda de descarga de datos está <i>temporalmente</i> limitada a %{count} resultados.
   data_column_classification_summary: Resumen de clasificación
   data_column_common_name: Nombre común
+  data_column_measurement: Medición
+  data_column_measurement_uri: Medición de URI
   data_column_name: Etiqueta de medición
   data_column_name_uri: Medición de URI
   data_column_raw_units: Unidades en bruto (directo desde la fuente)
@@ -1870,6 +1872,8 @@ es:
   data_column_units_uri: Unidades de URI (normalizado)
   data_column_val: Valor (normalizado)
   data_column_val_uri: Valor URI
+  data_column_value: Valor
+  data_column_value_uri: Valor URI
   data_database_colon: "Datos:"
   data_glossary: Glosario de datos
   data_logging_active: Registro activo de los datos

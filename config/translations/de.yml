@@ -1842,6 +1842,8 @@ de:
     other: Die Datensuchdownloads sind <i>vorübergehend</i> auf %{count} Ergebnisse beschränkt.
   data_column_classification_summary: Klassifikationszusammenfassung
   data_column_common_name: Gebräuchlicher Name
+  data_column_measurement: Messung
+  data_column_measurement_uri: Messungs-URI
   data_column_name: Messungsbezeichnung
   data_column_name_uri: Messungs-URI
   data_column_raw_units: Roheinheiten (direkt von der Quelle)
@@ -1855,6 +1857,8 @@ de:
   data_column_units_uri: Einheiten-URI (normalisiert)
   data_column_val: Wert (normalisiert)
   data_column_val_uri: Wert-URI
+  data_column_value: Wert
+  data_column_value_uri: Wert-URI
   data_database_colon: "Datenbanken (Daten):"
   data_glossary: Datenglossar
   data_logging_active: Datenprotokollierung aktiv

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: B4bol4t
+# Author: Breghtje
 # Author: GerardM
 # Author: HanV
 # Author: Inholland
@@ -1718,6 +1719,9 @@ nl:
   darwin_core: Darwin Core
   dashboard: Dashboard
   data: Gegevens
+  data_column_measurement: Meting
+  data_column_value: Waarde
+  data_column_value_uri: Waarde URI
   data_database_colon: "Gegevens:"
   data_logging_active: Er worden gegevens verzameld
   data_master_database_colon: "Gegevensmaster:"

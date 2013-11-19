@@ -1810,6 +1810,8 @@ fr:
     other: Les téléchargements des recherches de données sont <i>temporairement</i> limités à %{count} résultats.
   data_column_classification_summary: Sommaire de la classification
   data_column_common_name: Nom courant
+  data_column_measurement: Mesure
+  data_column_measurement_uri: URI de mesure
   data_column_name: Libellé de la mesure
   data_column_name_uri: URI de la mesure
   data_column_raw_units: Unités brutes (directement depuis la source)
@@ -1823,6 +1825,8 @@ fr:
   data_column_units_uri: URi des unité (normalisées)
   data_column_val: Valeur (normalisée)
   data_column_val_uri: URI de la valeur
+  data_column_value: Valeur
+  data_column_value_uri: URI de valeur
   data_database_colon: "Données :"
   data_glossary: Glossaire des données
   data_logging_active: Journalisation des données active

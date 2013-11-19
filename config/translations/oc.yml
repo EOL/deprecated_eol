@@ -980,7 +980,9 @@ oc:
   admin_news_items_page_title: "Administracion : Informacions"
   admin_news_link: Actualitats
   admin_notes_not_visible_to_user: "Nòtas d’administracion (pas visiblas per l’utilizaire) :"
+  admin_option_all_users_can_see_data: Totes los utilizaires pòdon veire las donadas, pas solament los qu'an una autorizacion
   admin_option_changed: Valor modificada.
+  admin_options_warning: Los cambiaments a aqueste endrech pòdon necessitar fins a dètz minutas per èsser efectius.
   admin_page_title: "Administracion : vista d’ensemble"
   admin_spam_delete: Suprimir los spams
   admin_statistics_link: Estatisticas
@@ -1756,6 +1758,8 @@ oc:
   data_about_this_record: Donadas sus aquesta enregistrament
   data_column_classification_summary: Somari de la classificacion
   data_column_common_name: Nom corrent
+  data_column_measurement: Mesura
+  data_column_measurement_uri: URI de la mesura
   data_column_name: Libellat de la mesura
   data_column_name_uri: URI de la mesura
   data_column_raw_units: Unitats brutas (dirèctament dempuèi la font)
@@ -1769,6 +1773,8 @@ oc:
   data_column_units_uri: URi de las unitats (normalizadas)
   data_column_val: Valor (normalizada)
   data_column_val_uri: Valor URI
+  data_column_value: Valor
+  data_column_value_uri: Valor URI
   data_database_colon: "Donadas :"
   data_glossary: Glossari de las donadas
   data_logging_active: Jornalizacion de las donadas activa
@@ -2211,6 +2217,7 @@ oc:
   full_content_url: URL del contengut complet
   gbif_map: Mapa GBIF
   gbif_occurrence_disclaimer: Aquesta carta es basada suls enregistraments d’ocurréncia disponibles dins la <a href='http://www.gbif.org/'>ret GBIF</a> e representa pas la reparticion de l’ensemble.
+  gbif_occurrence_learn_more_link: Accedissètz a aquestas donadas via lo portal GBIF.
   general_site_admin: administracion generala del site
   get_help_choosing_a_subchapter: Obténer d’ajuda per causir un soscapítol
   get_help_choosing_a_subject: Obténer d’ajuda per causir un subjècte
@@ -2640,7 +2647,10 @@ oc:
     unrecognized_measurement_types: URIs de tipe de mesura pas reconeguts
     unrecognized_measurement_units: URIs d’unitat de mesura pas reconeguts
     unrecognized_measurement_values: URIs de valor de mesura pas reconeguts
+  known_uris_empty_sorry: O planhèm, i a pas encara cap d’URIs de suggerits per aquesta categoria.
+  known_uris_none: Degun a pas apondut cap d’URI d'aqueste tipe.
   known_uris_page_title: URIs per las donadas dins EdlV
+  known_uris_sorted: Òrdre mes a jorn.
   label: Libellat
   language: "Lenga :"
   language_with_count: "%{language} (%{count})"
@@ -3543,6 +3553,7 @@ oc:
           meta_title: Donadas calcupablas per %{scientific_name} segon la classificacion de %{hierarchy_provider}
           meta_title_with_common_name: Donadas calculablas per %{preferred_common_name} segon la classificacion de %{hierarchy_provider} (%{scientific_name})
           tweet_text: Donadas calculablas per %{scientific_name} segon la classificacion de %{hierarchy_provider}
+        meta_description: Imatges, vidèos e fichièrs de sons de %{scientific_name}. Trobar d'imatges, d'imatges, de fòtos, de filmes e de sons de %{scientific_name} dins l’Enciclopèdia de la vida.
         meta_keywords: donadas calculablas de %{scientific_name}, informacions sus %{scientific_name}
         meta_keywords_with_common_name: donadas calculablas sus %{preferred_common_name}
         meta_title: Donadas calculablas per %{scientific_name}
@@ -4168,6 +4179,9 @@ oc:
       unsubscribed_notifications_successfully: Vos sètz desabonnat corrèctament de las notificacions.
   users_about_me_header: A prepaus de ieu
   users_content_partners_header: Partenaris de contengut
+  users_content_partners_with_count: 
+    one: "%{count} partenari de contengut actual"
+    other: "%{count} partenaris de contengut actuals"
   users_curation_header: Qualificacions de conservator
   users_form_account_header: Vòstre compte
   users_form_curation_header: Diplòmas de supervisor
@@ -4246,6 +4260,13 @@ oc:
   yahoo_images: Imatges Yahoo
   year: Annada
   yes_answer: Òc
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "Sètz un administrator. Doncas, vos fau veire que l’error èra :"
+  you_are_not_authorized_to_perform_this_action: Sètz pas autorizat a efectuar aquesta accion.
+  you_are_viewing_this_rank_as_classified_by: "Visualizatz aqueste %{rank} tal coma es classat per :"
+  you_can_edit_those_later_if_ne: Los poiretz modificar pus tard se necessari.
+  you_have_been_logged_out: Sètz estat desconnectat.
+  you_joined_community: Avètz rejunt aquesta comunautat amb succès.
+  you_left_community: Avètz quitat aquesta comunautat amb succès.
   your_current_rating_0_of_5: "Vòstra quòta actuala : 0 sus 5"
   your_current_rating_1_of_5: "Vòstra quòta actuala : 1 sus 5"
   your_current_rating_2_of_5: "Vòstra quòta actuala : 2 sus 5"

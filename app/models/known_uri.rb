@@ -82,7 +82,7 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000009', name: 'kilograms' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000016', name: 'millimeters' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000081', name: 'centimeters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000015', name: 'centimeters' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000008', name: 'meters' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000012', name: 'kelvin' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },

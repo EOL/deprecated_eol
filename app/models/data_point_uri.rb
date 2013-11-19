@@ -322,16 +322,6 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def apply_unit_conversion
-    conversions = [
-      { starting_unit: :milligrams, ending_unit: :grams, function: lambda { |v| v / 1000 }, required_minimum: 1.0 },
-      { starting_unit: :grams, ending_unit: :kilograms, function: lambda { |v| v / 1000 }, required_minimum: 1.0 },
-      { starting_unit: :millimeters, ending_unit: :centimeters, function: lambda { |v| v / 10 }, required_minimum: 1.0 },
-      { starting_unit: :centimeters, ending_unit: :meters, function: lambda { |v| v / 100 }, required_minimum: 1.0 },
-      { starting_unit: :kelvin, ending_unit: :celsius, function: lambda { |v| v - 273.15 } },
-      { starting_unit: :days, ending_unit: :years, function: lambda { |v| v / 365 }, required_minimum: 1.0 },
-      { starting_unit: "0.1°C", ending_unit: :celsius, function: lambda { |v| v / 10 } },
-      { starting_unit: "log10 grams", ending_unit: :grams, function: lambda { |v| 10 ** v } }
-    ]
     # we can use either the unit in the medata, or the one implied by the predicate
     if self.unit_of_measure_known_uri
       unit_known_uri = self.unit_of_measure_known_uri
@@ -341,14 +331,16 @@ class DataPointUri < ActiveRecord::Base
       # if we have no unit then there is no conversion to be done
       return false
     end
-    conversions.select{ |c| c[:starting_unit].to_s == unit_known_uri.name(:en) }.each do |c|
+    DataPointUri.conversions.select{ |c| c[:starting_units].include?(unit_known_uri.uri) }.each do |c|
+      ending_unit = KnownUri.find_by_uri(c[:ending_unit])
+      next unless ending_unit && ending_unit.unit_of_measure?
       potential_new_value = c[:function].call(self.object.to_f)
       next if c[:required_minimum] && potential_new_value < c[:required_minimum]
       self.original_unit_of_measure = unit_of_measure
       self.original_unit_of_measure_known_uri = unit_of_measure_known_uri
       self.object = potential_new_value
-      self.unit_of_measure = KnownUri.send(KnownUri.convert_unit_name_to_class_variable_name(c[:ending_unit])).uri
-      self.unit_of_measure_known_uri = KnownUri.send(KnownUri.convert_unit_name_to_class_variable_name(c[:ending_unit]))
+      self.unit_of_measure = ending_unit.uri
+      self.unit_of_measure_known_uri = ending_unit
       return true
     end
     false
@@ -523,6 +515,60 @@ private
 
   def _units_safe(which, attr)
     which && which.has_key?(attr) ? which[attr] : ''
+  end
+
+  def self.conversions
+    # lots of raw URIs in here to convert some common and duplicate URIs
+    # We wouldn't want to, for example, use use create_defaults to have named methods
+    # in KnownURI for all these URIs
+    # TODO: replace this with a new table and an admin interface for setting unit conversions
+    @@conversions ||= [
+      { starting_units:   [ KnownUri.milligrams.uri ],
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v / 1000 },
+        required_minimum: 1.0 },
+      { starting_units:   [ KnownUri.grams.uri ],
+        ending_unit:      KnownUri.kilograms.uri,
+        function:         lambda { |v| v / 1000 },
+        required_minimum: 1.0 },
+      { starting_units:   [ KnownUri.millimeters.uri ],
+        ending_unit:      KnownUri.centimeters.uri,
+        function:         lambda { |v| v / 10 },
+        required_minimum: 1.0 },
+      { starting_units:   [ KnownUri.centimeters.uri ],
+        ending_unit:      KnownUri.meters.uri,
+        function:         lambda { |v| v / 100 },
+        required_minimum: 1.0 } ,
+      { starting_units:   [ KnownUri.kelvin.uri ],
+        ending_unit:      KnownUri.celsius.uri,
+        function:         lambda { |v| v - 273.15 } },
+      { starting_units:   [ KnownUri.days.uri ],
+        ending_unit:      KnownUri.years.uri,
+        function:         lambda { |v| v / 365 },
+        required_minimum: 1.0 },
+      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius' ],
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v / 10 } },
+      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'log10gram' ],
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| 10 ** v } },
+      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'squareMicrometer' ],
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000082',                   # square millimeter
+        function:         lambda { |v| v / 1000000 },
+        required_minimum: 1.0 },
+      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000082' ],               # square millimeter
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000081',                   # square centimeter
+        function:         lambda { |v| v / 100 },
+        required_minimum: 1.0 },
+      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000081' ],               # square centimeter
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000080',                   # square meter
+        function:         lambda { |v| v / 10000 },
+        required_minimum: 1.0 },
+      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000080' ],               # square meter
+        ending_unit:      Rails.configuration.schema_terms_prefix + 'squarekilometer',  # square kilometer
+        function:         lambda { |v| v / 1000000 },
+        required_minimum: 1.0 }
+    ]
   end
 
 end

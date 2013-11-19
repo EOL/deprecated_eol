@@ -148,6 +148,7 @@ ru:
         rich_redhotlist_pages: Насыщенные популярные страницы
         total_associations: Ассоциации
         total_taxa_with_data: Страницы с данными
+        total_user_added_data: Добавленные пользователем данные
         udo_published: Добавленный пользователем текст
         udo_published_by_curators: Текст, предоставленный куратором
         udo_published_by_non_curators: Текст, предоставленный не-куратором
@@ -269,6 +270,7 @@ ru:
       user_added_data: 
         object: Значение
         predicate: Атрибут
+        user: Добавил(а)
       user_added_data_metadata: 
         object: Значение
         predicate: Атрибут
@@ -834,6 +836,7 @@ ru:
       page_title: Статистика
     data: 
       menu_link: Данные
+      page_header: Статистика данных
       page_title: Статистика
     data_objects: 
       menu_link: Объекты данных
@@ -1197,6 +1200,7 @@ ru:
   just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
   known_uri_relationships: 
     created: Связь была успешно создана
+    deleted: Связь была успешно удалена
   known_uris: 
     please_select_from_the_menu: Пожалуйста, выберите из меню выше
     relationships: Связи

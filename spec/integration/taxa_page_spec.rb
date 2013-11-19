@@ -160,6 +160,7 @@ describe 'Taxa page' do
 
     it 'should show related names and their sources' do
       visit related_names_taxon_names_path(@taxon_concept)
+      # TODO - these are failing because of newlines IN THE NAMES.  :|  It's just a regex thing. Fix?
       # parents
       expect(page).to have_content(@taxon_concept.hierarchy_entries.first.parent.name.string)
       expect(page).to have_content(@taxon_concept.hierarchy_entries.first.hierarchy.label)
@@ -303,9 +304,8 @@ describe 'Taxa page' do
     before(:all) do
       [:partner_links]
       visit logout_url
-      # This doesn't happen often, and I would like to know why it does:
-      # NOTE - sometimes this one fails, sometimes the next context fails.  Grrr.
-      debugger unless TaxonDetails.new(@taxon_concept, @testy[:curator]).resources_links.include?(:education)
+      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild unless
+        TaxonDetails.new(@taxon_concept, @testy[:curator]).resources_links.include?(:education)
       login_as @testy[:curator]
     end
     it_should_behave_like 'taxon name - taxon_concept page' do
@@ -320,9 +320,8 @@ describe 'Taxa page' do
   context 'details when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       visit logout_url
-      # This doesn't happen often, and I would like to know why it does:
-      # NOTE - I think this is the one that fails, so it must (!?) be because of the HE filter. Look into it!
-      debugger unless TaxonDetails.new(@taxon_concept, @testy[:curator], @hierarchy_entry).resources_links.include?(:education)
+      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild unless
+        TaxonDetails.new(@taxon_concept, @testy[:curator], @hierarchy_entry).resources_links.include?(:education)
       login_as @testy[:curator]
     end
     it_should_behave_like 'taxon common name - hierarchy_entry page' do

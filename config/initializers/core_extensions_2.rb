@@ -447,6 +447,12 @@ class Float
   def floor_to(x)
     (self * 10**x).floor.to_f / 10**x
   end
+
+  def sigfig_to_s(digits)
+    f = sprintf("%.#{digits - 1}e", self).to_f
+    i = f.to_i
+    (i == f ? i : f).to_s
+  end
 end
 
 # We don't want the code poking around ifconfig (that's dangerous), and we don't mind terribly if this is random:

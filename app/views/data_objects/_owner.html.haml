@@ -1,4 +1,6 @@
 -# owner basically means choose someone responsible for this object
+- if orig = data_object.translated_from # Use the original owner.
+  - data_object = orig
 - if data_object.rights_holder_for_display.blank?
   - owner, user = data_object.owner
 - else

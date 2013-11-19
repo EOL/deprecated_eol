@@ -47,6 +47,14 @@ group :test, :development do
   gem 'pry-stack_explorer', require: false
   gem 'terminal-notifier-guard'
   gem 'binding_of_caller' # Used by Better Errors to give lots more information about errors in the browser.
+
+end
+
+# NOTE - if you are having trouble installing these, you can either:
+#        1) install qt (at the time of this writing, you must install the HEAD version: brew install qt --HEAD )
+#        2) don't bother with these gems (they are only needed for acceptance tests): bundle --without=acceptance
+group :acceptance do
+  gem 'capybara-webkit' # Used for "acceptance testing", includes javascript testing.
 end
 
 group :development do

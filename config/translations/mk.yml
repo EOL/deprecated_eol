@@ -1833,6 +1833,8 @@ mk:
     other: Преземањето на пребарани податоци е <i>привремено</i> ограничено на %{count} резултати.
   data_column_classification_summary: Краток преглед на класификацијата
   data_column_common_name: Народно име
+  data_column_measurement: Мерење
+  data_column_measurement_uri: URI на марењето
   data_column_name: Натпис на мерењето
   data_column_name_uri: URI на марењето
   data_column_raw_units: Сирови единици (непосредно од изворот)
@@ -1846,6 +1848,8 @@ mk:
   data_column_units_uri: URI на единиците (нормализирано)
   data_column_val: Вредност (нормализирано)
   data_column_val_uri: URI на вредноста
+  data_column_value: Вредност
+  data_column_value_uri: URI на вредноста
   data_database_colon: "Податочна:"
   data_glossary: Поимник за податоци
   data_logging_active: Заведување на податоци е активно

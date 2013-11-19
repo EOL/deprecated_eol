@@ -533,6 +533,26 @@ uk:
         an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Невідомий користувач додав невідоме загальне ім'я мовою %{language} на невідому сторінку.
         an_unknown_user_added_an_unknown_name_in_language_to_taxon: Невідомий користувач додав невідоме загальне ім'я мовою %{language} до "%{taxon}".
         an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Невідомий користувач додав загальне ім'я  "%{name}" невідомою мовою на невідому сторінку.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> додав загальну назву невідомою мовою.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> додав загальну назву мовою %{language}.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> додав загальну назву  "%{name}" невідомою мовою.
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Невідомий користувач вибрав старішу версію "%{data_object}" для показу у Огляді на невідомій сторінці.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Невідомий користувач вибрав "%{data_object}" для показу у Огляді на "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Невідомий користувач вибрав невідому статтю для показу у Огляді на невідомій сторінці.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Невідомий користувач вибрав невідому статтю для показу у Огляді на "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Невідомий користувач вибрав "%{data_object}" для показу у Огляді на невідомій сторінці.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Невідомий користувач вибрав "%{data_object}" для показу у Огляді на "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Невідомий користувач вибрав це для показу у Огляді на невідомій сторінці.
+        an_unknown_user_chose_exemplar_it_on_taxon: Невідомий користувач вибрав це для показу у Огляді на "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> вибрав старішу версію "%{data_object}" для показу у Огляді на невідомій сторінці.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> вибрав старішу версію "%{data_object}" для показу у Огляді на "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> вибрав невідому сторінку для показу у огляді на невідомій сторінці.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> вибрав невідомий об'єкт даних для показу у огляді на "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> вибрав "%{data_object}" для показу у Огляді на невідомій сторінці.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> вибрав "%{data_object}" для показу у Огляді на "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> вибрав це для показу у Огляді на невідомій сторінці.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> вибрав це для показу у Огляді на "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Невідомий користувач встановив стару версію "%{data_object}" як зразок на невідомій сторінці.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Невідомий користувач встановив "%{data_object}" як зразок на "%{taxon}".
@@ -635,10 +655,18 @@ uk:
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> вилучив асоціацію до невідомої сторінки.
         user_disassociated_it_from_association: <strong>%{user}</strong> вилучив асоціацію до "%{association}".
       remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Невідомий користувач вилучив загальну назву невідомою мовою з невідомої сторінки.
         an_unknown_user_removed_name_in_an_unknown_language_from_it: Невідомий користувач вилучив загальну назву невідомою мовою.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Невідомий користувач вилучив загальну назву невідомою мовою із "%{taxon}".
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Невідомий користувач вилучив загальну назву на мові %{language} з невідомої сторінки.
         an_unknown_user_removed_name_in_language_from_it: Невідомий користувач вилучив загальну назву на мові %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Невідомий користувач вилучив загальну назву на мові %{language} з "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> вилучив загальну назву невідомою мовою з невідомої сторінки.
         user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> вилучив загальну назву невідомою мовою.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> вилучив загальну назву невідомою мовою з "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> вилучив загальну назву на мові %{language} з невідомої сторінки.
         user_removed_name_in_language_from_it: <strong>%{user}</strong> вилучив загальне ім'я мовою %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> вилучив загальну назву на мові %{language} з "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як видиму у невідомому контексті.
         an_unknown_user_showed_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як видиму на сторінці "%{association}".
@@ -3153,33 +3181,44 @@ uk:
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: На жаль, нам не вдається підключити обліковий запис Facebook до облікового запису EOL, ваш обліковий запис Facebook вже підключено до <a href="%{existing_eol_account_url}">EOL облікового запису</a>.
+          login_failed_not_connected: На жаль, ми не зуміли знайти зв'язок між вашим профілем на  Facebook та ЕЖ. якщо ви вже маєте профіль на ЕЖ, то будь ласка <a href="%{login_url}">увійдіть у ЕЖ</a> за допомогою інших облікових даних, потім підключіть ваш профіль із Facebook у налаштуваннях вашого профілю на ЕЖ. Якщо ви ще не маєте профілю на ЕЖ, то, будь ласка, <a href="%{register_url}">завершіть вашу реєстрацію на ЕЖ</a>, щоб створити його.
           missing_attributes: Вибачте, виникла проблема доступу до ваших даних Facebook.
           new_authentication_not_added: Вибачте, сталася помилка, ми не могли підключити ваш обліковий запис Facebook.
           not_authorized_to_add_authentication: На жаль, у нас немає дозволу на підключення вашого облікового запису Facebook.
           not_authorized_to_login: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Facebook.
           not_authorized_to_signup: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Facebook.
+          signup_failed_account_already_connected: На жаль, ми не можемо зареєструвати новий обліковий запис ЕЖ з вашим профілем на Facebook. Він вже підключений до <a  href="%{existing_eol_account_url}">профілю користувача ЕЖ</a>. Може ви мали на увазі <a href="%{login_url}">вхід</a> замість реєстрації?
         google: 
+          add_connection_failed_account_already_connected: На жаль, нам не вдається підключити обліковий запис Google до облікового запису ЕЖ, ваш обліковий запис Google вже підключено до <a href="%{existing_eol_account_url}">EOL облікового запису</a>.
+          login_failed_not_connected: На жаль, ми не зуміли знайти зв'язок між вашим профілем на   Google та ЕЖ. якщо ви вже маєте профіль на ЕЖ, то будь ласка <a href="%{login_url}">увійдіть у ЕЖ</a> за допомогою інших облікових даних, потім підключіть ваш профіль із  Google у налаштуваннях вашого профілю на ЕЖ. Якщо ви ще не маєте профілю на ЕЖ, то, будь ласка, <a href="%{register_url}">завершіть вашу реєстрацію на ЕЖ</a>, щоб створити його.
           missing_attributes: Вибачте, виникла проблема доступу до ваших даних у Google.
           new_authentication_not_added: Вибачте, сталася помилка, ми не змогли підключити ваш профіль на Google.
           not_authorized_to_add_authentication: Вибачте, у нас немає дозволу на підключення вашого облікового запису на Google.
           not_authorized_to_login: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Google.
           not_authorized_to_signup: На жаль, ми не уповноважені зареєструвати вас у ЕЖ, використовуючи ваш обліковий запис Google.
+          signup_failed_account_already_connected: На жаль, ми не можемо зареєструвати новий обліковий запис ЕЖ з вашим профілем на Google. Він вже підключений до <a  href="%{existing_eol_account_url}">профілю користувача ЕЖ</a>. Може ви мали на увазі <a href="%{login_url}">вхід</a> замість реєстрації?
         missing_attributes: Вибачте, виникла проблема доступу до подробиць вашого стороннього профілю.
         not_authorized_to_add_authentication: На жаль, у нас немає дозволу на підключення цього облікового запису.
         not_authorized_to_login: На жаль, нами не дозволено вхід у Енциклопедію життя з цим обліковим записом.
         remove_connection_failed: Вибачте, сталася помилка, ми не могли видалити з'єднання.
         twitter: 
+          add_connection_failed_account_already_connected: На жаль, нам не вдається підключити обліковий запис  Twitter до облікового запису ЕЖ, ваш обліковий запис  Twitter вже підключено до <a href="%{existing_eol_account_url}">EOL облікового запису</a>.
+          login_failed_not_connected: На жаль, ми не зуміли знайти зв'язок між вашим профілем на   Twitter та ЕЖ. якщо ви вже маєте профіль на ЕЖ, то будь ласка <a href="%{login_url}">увійдіть у ЕЖ</a> за допомогою інших облікових даних, потім підключіть ваш профіль із Twitter у налаштуваннях вашого профілю на ЕЖ. Якщо ви ще не маєте профілю на ЕЖ, то, будь ласка, <a href="%{register_url}">завершіть вашу реєстрацію на ЕЖ</a>, щоб створити його.
           missing_attributes: Вибачте, виникла проблема доступу до ваших даних у Twitter.
           new_authentication_not_added: Вибачте, сталася помилка, ми не змогли підключити ваш профіль на Твіттері.
           not_authorized_to_add_authentication: Вибачте, у нас немає дозволу на підключення вашого облікового запису на Twitter.
           not_authorized_to_login: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Twitter.
           not_authorized_to_signup: На жаль, ми не уповноважені зареєструвати вас у ЕЖ, використовуючи ваш обліковий запис Twitter.
+          signup_failed_account_already_connected: На жаль, ми не можемо зареєструвати новий обліковий запис ЕЖ з вашим профілем на Twitter. Він вже підключений до <a  href="%{existing_eol_account_url}">профілю користувача ЕЖ</a>. Може ви мали на увазі <a href="%{login_url}">вхід</a> замість реєстрації?
         yahoo: 
+          add_connection_failed_account_already_connected: На жаль, нам не вдається підключити обліковий запис  Yahoo! до облікового запису ЕЖ, ваш обліковий запис  Yahoo! вже підключено до <a href="%{existing_eol_account_url}">облікового запису ЕЖ</a>.
+          login_failed_not_connected: На жаль, ми не зуміли знайти зв'язок між вашим профілем на   Yahoo! та ЕЖ. якщо ви вже маєте профіль на ЕЖ, то будь ласка <a href="%{login_url}">увійдіть у ЕЖ</a> за допомогою інших облікових даних, потім підключіть ваш профіль із Yahoo! у налаштуваннях вашого профілю на ЕЖ. Якщо ви ще не маєте профілю на ЕЖ, то, будь ласка, <a href="%{register_url}">завершіть вашу реєстрацію на ЕЖ</a>, щоб створити його.
           missing_attributes: Вибачте, виникла проблема доступу до ваших даних у Yahoo!
           new_authentication_not_added: Вибачте, виникла помилка, нам не вдалося підключитися до облікового запису Yahoo!.
           not_authorized_to_add_authentication: На жаль, у нас немає дозволу на підключення облікового запису Yahoo!
           not_authorized_to_login: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Yahoo!
           not_authorized_to_signup: На жаль, нам не дозволено вхід у Енциклопедію життя з  обліковим записом Yahoo!
+          signup_failed_account_already_connected: На жаль, ми не можемо зареєструвати новий обліковий запис ЕЖ з вашим профілем на Yahoo!. Він вже підключений до <a  href="%{existing_eol_account_url}">профілю користувача ЕЖ</a>. Може ви мали на увазі <a href="%{login_url}">вхід</a> замість реєстрації?
       facebook: Facebook
       google: Google
       index: 

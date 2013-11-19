@@ -60,7 +60,7 @@
                 = I18n.t("association_#{item_status_label.downcase}_for_taxa", :count => associated_with_taxa_names.count)
                 %ul
                   - associated_with_taxa_names.each do |assoc|
-                    %li= assoc
+                    %li= raw assoc
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => current_user.watch_collection }
       .footer
         = will_paginate @taxon_media.paginated, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),

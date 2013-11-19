@@ -4,7 +4,7 @@ class UriType < ActiveRecord::Base
 
   has_many :known_uris
 
-  KNOWN_TYPES = [ 'measurement', 'association', 'value', 'metadata', 'Unit of Measure' ]
+  KNOWN_TYPES = [ 'measurement', 'association', 'value', 'metadata' ]
 
   def self.create_defaults
     KNOWN_TYPES.each do |name|

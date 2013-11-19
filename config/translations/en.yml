@@ -2686,7 +2686,8 @@ en:
     other: "Belongs to %{count} Communities"
   beta_warning_header: "You are using a beta test feature"
   beta_warning_body: "Most users cannot see or use this feature, which is under active development. Performance and data may be
-  unpredictable but we invite you to explore. We welcome your <a href='%{link}'>feedback</a>."
+  unpredictable but we invite you to explore. Please fill out our <a href='https://www.surveymonkey.com/s/9FDTDQP'>survey</a>
+  after you have reviewed our data capabilities."
   beta_warning_small: "Please note that this is a beta test feature and may be unpredictable."
   beta_warning_note_header: "Note:"
   bhl: "Biodiversity Heritage Library"

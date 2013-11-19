@@ -74,6 +74,13 @@ describe 'DataPointUris' do
     flatten_hierarchies
   end
 
+  def expect_data_feed(options = {})
+    expect(page).to have_tag('strong', text: @user.full_name)
+    expect(page).to have_tag('a', text: @taxon_concept.summary_name) unless options[:skip_taxon_link]
+    expect(page).to have_tag('p', text: data_activity_re)
+    expect(page).to have_tag('blockquote', text: data_details_re)
+  end
+
   shared_examples_for 'activity_logs check with permission' do
     before :all do
       visit logout_url
@@ -83,30 +90,38 @@ describe 'DataPointUris' do
     end
     it 'should show activity on the homepage' do
       visit('/')
-      body.should match @added_data_activity_regex
+      expect_data_feed(skip_taxon_link: true) # Not entirely sure why we don't link to the taxon on the homepage, but...
     end
     it 'should show activity on the taxon overview page' do
       visit(taxon_overview_path(@taxon_concept))
-      body.should match @added_data_activity_regex
+      expect_data_feed
     end
     it 'should show activity on the taxon ancestors overview page' do
       visit(taxon_overview_path(@parent_taxon_concept))
-      # Please figure out what the heck was happening here.  I suspect the SiteConfigurationOption is broken, but not sure.
-      # save_and_open_page  should help
-      debugger unless body =~ @added_data_activity_regex
-      body.should match @added_data_activity_regex
+      expect_data_feed
     end
     it 'should show activity on the taxon updates page' do
       visit(taxon_updates_path(@taxon_concept))
-      body.should match @added_data_activity_regex
+      expect_data_feed
     end
     it 'should show activity on the users activity page' do
       visit(user_activity_path(@user))
-      body.should match @added_data_activity_regex
+      expect_data_feed
     end
     it 'should show activity in the newfeed of a containing collection' do
       visit(collection_newsfeed_path(@collection))
-      body.should match @added_data_activity_regex
+      expect_data_feed
+    end
+  end
+
+  def expect_no_data_feed
+    # Test passes if there's no activity at all:
+    unless page.body =~ /#{I18n.t(:activity_log_empty)}/ or
+           page.body =~ /#{I18n.t(:no_record_found_matching_your_criteria)}/
+      expect(page).to_not have_tag('strong', text: @user.full_name)
+      expect(page).to_not have_tag('a', text: @taxon_concept.summary_name)
+      expect(page).to_not have_tag('p', text: data_activity_re)
+      expect(page).to_not have_tag('blockquote', text: data_details_re)
     end
   end
 
@@ -116,33 +131,27 @@ describe 'DataPointUris' do
     end
     it 'should not show activity on the homepage' do
       visit('/')
-      debugger if body =~ @added_data_activity_regex
-      body.should_not match @added_data_activity_regex
+      expect_no_data_feed
     end
     it 'should not show activity on the taxon overview page' do
       visit(taxon_overview_path(@taxon_concept))
-      debugger if body =~ @added_data_activity_regex
-      body.should_not match @added_data_activity_regex
+      expect_no_data_feed
     end
     it 'should not show activity on the taxon ancestors overview page' do
       visit(taxon_overview_path(@parent_taxon_concept))
-      debugger if body =~ @added_data_activity_regex
-      body.should_not match @added_data_activity_regex
+      expect_no_data_feed
     end
     it 'should not show activity on the taxon updates page' do
       visit(taxon_updates_path(@taxon_concept))
-      debugger if body =~ @added_data_activity_regex
-      body.should_not match @added_data_activity_regex
+      expect_no_data_feed
     end
     it 'should not show activity on the users activity page' do
       visit(user_activity_path(@user))
-      debugger if body =~ @added_data_activity_regex
-      body.should_not match @added_data_activity_regex
+      expect_no_data_feed
     end
     it 'should not show activity in the newfeed of a containing collection' do
       visit(collection_newsfeed_path(@collection))
-      debugger if body =~ @added_data_activity_regex
-      body.should_not match @added_data_activity_regex
+      expect_no_data_feed
     end
   end
 
@@ -152,8 +161,9 @@ describe 'DataPointUris' do
       @user_added_data = add_data(
         attribute: Rails.configuration.schema_terms_prefix + 'added_predicate',
         value: 'Added Value')
-      @added_data_activity_regex = /#{@user.full_name}.*added data to.*#{@taxon_concept.summary_name}.*Added Predicate.*Added Value/m
     end
+    let(:data_activity_re) { /added data to/ }
+    let(:data_details_re) { /Added Predicate.*Added Value/m }
     it_should_behave_like 'activity_logs check with permission'
     it_should_behave_like 'activity_logs check without permission'
   end
@@ -165,8 +175,9 @@ describe 'DataPointUris' do
         attribute: Rails.configuration.schema_terms_prefix + 'data_to_hide',
         value: 'Tohide Value')
       hide_row
-      @added_data_activity_regex = /#{@user.full_name}.*chose to hide data on.*#{@taxon_concept.summary_name}.*Data To Hide.*Tohide Value/m
     end
+    let(:data_activity_re) { /chose to hide data on/ }
+    let(:data_details_re) { /Data To Hide.*Tohide Value/m }
     it_should_behave_like 'activity_logs check with permission'
     it_should_behave_like 'activity_logs check without permission'
   end
@@ -179,8 +190,9 @@ describe 'DataPointUris' do
         value: 'Tounhide Value')
       hide_row
       unhide_row
-      @added_data_activity_regex = /#{@user.full_name}.*chose to show data on.*#{@taxon_concept.summary_name}.*Data To Unhide.*Tounhide Value/m
     end
+    let(:data_activity_re) { /chose to show data on/ }
+    let(:data_details_re) { /Data To Unhide.*Tounhide Value/m }
     it_should_behave_like 'activity_logs check with permission'
     it_should_behave_like 'activity_logs check without permission'
   end
@@ -192,8 +204,9 @@ describe 'DataPointUris' do
         attribute: Rails.configuration.schema_terms_prefix + 'for_quick_facts',
         value: 'Tofacts Value')
       add_to_quick_facts
-      @added_data_activity_regex = /#{@user.full_name}.*set data as exemplar on.*#{@taxon_concept.summary_name}.*For Quick Facts.*Tofacts Value/m
     end
+    let(:data_activity_re) { /set data as exemplar on/ }
+    let(:data_details_re) { /For Quick Facts.*Tofacts Value/m }
     it_should_behave_like 'activity_logs check with permission'
     it_should_behave_like 'activity_logs check without permission'
   end
@@ -205,8 +218,9 @@ describe 'DataPointUris' do
         attribute: Rails.configuration.schema_terms_prefix + 'for_comments',
         value: 'Tocomment Value')
       comment('testing annotations')
-      @added_data_activity_regex = /#{@user.full_name}.*commented on.*data about.*#{@taxon_concept.summary_name}.*testing annotations/m
     end
+    let(:data_activity_re) { /commented on.*data about/ }
+    let(:data_details_re) { /testing annotations/ }
     it_should_behave_like 'activity_logs check with permission'
     it_should_behave_like 'activity_logs check without permission'
  end

@@ -35,6 +35,7 @@ class String
     if [:de, :en, :es, :fr, :nl].include?(I18n.locale.to_sym)
       capitalize_all_words
     else
+      debugger if Rails.env.test? # I don't think we should ever get here in test, want to check.
       self
     end
   end

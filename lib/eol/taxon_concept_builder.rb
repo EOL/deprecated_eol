@@ -108,6 +108,7 @@ module EOL
       vetted = Vetted.send(@vetted.to_sym)
       if vetted.nil?
         puts "** WARNING: You attempted to create a TaxonConcept with a vetted of ':#{@vetted}', and that failed."
+        puts "   (It's probable that you need to create defaults for Vetted before calling #gen_taxon_concept.)"
         vetted = Vetted.trusted
         raise "You haven't loaded the foundation scenario, and tried to build a TaxonConcept with no vetted id." if
           vetted.nil?

@@ -58,7 +58,7 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000009', name: 'kilograms' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000016', name: 'millimeters' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000081', name: 'centimeters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000015', name: 'centimeters' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000008', name: 'meters' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000012', name: 'kelvin' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },
@@ -84,9 +84,11 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
-  # This gets called a LOT.  ...Like... a *lot* a lot. Keep it well cached:
   def self.unit_of_measure
-    @@unit_of_measure ||= cached('unit_of_measure') do
+    # DO NOT make a class variable for this because we will need to flush the cache frequently as we
+    # add/remove accepted values for UnitOfMeasure. We need to keep it in a central cache, rather than
+    # in a class variable on each app server
+    cached('unit_of_measure') do
       KnownUri.where(:uri => Rails.configuration.uri_measurement_unit).includes({ :known_uri_relationships_as_subject => :to_known_uri } ).first
     end
   end

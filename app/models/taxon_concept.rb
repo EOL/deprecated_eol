@@ -918,6 +918,8 @@ class TaxonConcept < ActiveRecord::Base
   def create_preferred_entry(entry)
     return if entry.nil?
     TaxonConceptPreferredEntry.with_master do
+      # TODO - this *can* (and did, at least once) fail in a race condition. Perhaps it should be in a transaction. Also, I worry
+      # that it is called too often. ...seems to be every page after every harvest, virtually. We should check on it.
       TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
       TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
     end

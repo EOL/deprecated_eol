@@ -19,16 +19,6 @@ require 'nokogiri'
 # write). I've taken this to heart and am moving the non-behaviour specs out of this file. ...which, I'm guessing, will be all of
 # them...  :\
 
-class TaxonConcept
-  def self.missing_id
-    missing_id = TaxonConcept.last.id + 1
-    while(TaxonConcept.exists?(missing_id)) do
-      missing_id += 1
-    end
-    missing_id
-  end
-end
-
 def remove_classification_filter_if_used
   begin
     click_on 'Remove classification filter'
@@ -451,8 +441,10 @@ describe 'Taxa page' do
 
   context 'when taxon does not exist' do
     it 'should show a missing content error message' do
-      lambda { visit("/pages/#{TaxonConcept.missing_id}") }.should raise_error(ActiveRecord::RecordNotFound)
-      lambda { visit("/pages/#{TaxonConcept.missing_id}/details") }.should raise_error(ActiveRecord::RecordNotFound)
+      missing_id = TaxonConcept.last.id + 1
+      missing_id += 1 while(TaxonConcept.exists?(missing_id))
+      lambda { visit("/pages/#{missing_id}") }.should raise_error(ActiveRecord::RecordNotFound)
+      lambda { visit("/pages/#{missing_id}/details") }.should raise_error(ActiveRecord::RecordNotFound)
     end
   end
 

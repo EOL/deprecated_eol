@@ -73,6 +73,8 @@ describe EOL::Api::MethodVersion do
   it 'should return other versions' do
     stub_const("EOL::Api::Ping::VERSIONS", [ '1.0', '2.0', '3.0' ])
     stub_const("EOL::Api::Ping::V1_0::VERSION", '1.0')
+    debugger unless EOL::Api::Ping::V1_0.respond_to?(:other_versions) # Hmmmn... only happens VERY rarely and only (I think)
+                                                                      # immediately after making a scenario.
     EOL::Api::Ping::V1_0.other_versions.should == [ '2.0', '3.0' ]
   end
 

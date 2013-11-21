@@ -1242,7 +1242,7 @@ es:
   belongs_in_count_communities: 
     one: Pertenece a %{count} Comunidad
     other: Pertenece a %{count} Comunidades
-  beta_warning_body: La mayoría de los usuarios no pueden ver o utilizar esta función, que está bajo desarrollo activo. El rendimiento y los datos pueden ser impredecibles, pero le invitamos a explorar. Damos la bienvenida a sus <a href='%{link}'>comentarios</a>.
+  beta_warning_body: La mayoría de los usuarios no pueden ver o utilizar esta función, que está bajo desarrollo activo. El rendimiento y los datos pueden ser impredecibles, pero le invitamos a explorar. Por favor rellene nuestra <a href='https://www.surveymonkey.com/s/9FDTDQP'>encuesta</a> después de que haya revisado nuestras capacidades de datos.
   beta_warning_header: Está utilizando una versión beta de prueba
   beta_warning_note_header: "Nota:"
   beta_warning_small: Por favor, tenga en cuenta que esto es una prueba beta y puede ser impredecible.
@@ -1335,6 +1335,7 @@ es:
   clicked_time: Hora del clic
   close_this_window_to_return_to_edit_window: CIERRE ESTA VENTANA PARA VOLVER A LA VENTANA EDITAR
   cms_available_in_languages: "Esta página está disponible en:"
+  cms_editor: Editor CMS
   cms_missing_content_message: Lo sentimos, esta página no está disponible para el idioma seleccionado %{selected_language}.
   cms_missing_content_title: Falta la traducción
   collect_item: Recoger el artículo

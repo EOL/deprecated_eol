@@ -1227,7 +1227,7 @@ de:
   belongs_in_count_communities: 
     one: Gehört zu einer Gemeinschaft
     other: Gehört zu %{count} Gemeinschaften
-  beta_warning_body: Die meisten Nutzer können diese Funktion nicht sehen oder verwenden, da sie sich unter aktiver Entwicklung befindet. Die Leistung und Daten können unberechenbar sein, aber Sie sind zur Erkundung eingeladen. Wir bitten Sie um Ihre <a href='%{link}'>Rückmeldung</a>.
+  beta_warning_body: Die meisten Nutzer können diese Funktion nicht sehen oder verwenden, da sie sich unter aktiver Entwicklung befindet. Die Leistung und Daten können unberechenbar sein, aber Sie sind zur Erkundung eingeladen. Nachdem Sie unsere Datenfähigkeiten überprüft haben, bitten wir Sie, unsere <a href='https://www.surveymonkey.com/s/9FDTDQP'>Umfrage</a> auszufüllen.
   beta_warning_header: Sie verwenden eine Betatestfunktion
   beta_warning_note_header: "Hinweis:"
   beta_warning_small: Bitte beachten Sie, dass dies eine unberechenbare Betatestfunktion sein kann.
@@ -1320,6 +1320,7 @@ de:
   clicked_time: Anklickzeitpunkt
   close_this_window_to_return_to_edit_window: DIESES FENSTER SCHLIESSEN, UM ZUM BEARBEITUNGSFENSTER ZURÜCKZUKEHREN
   cms_available_in_languages: "Diese Seite ist verfügbar in:"
+  cms_editor: CMS-Editor
   cms_missing_content_message: Diese Seite ist leider nicht in der ausgewählten Sprache (%{selected_language}) vorhanden.
   cms_missing_content_title: Es ist noch keine Übersetzung vorhanden.
   collect_item: Objekt sammeln

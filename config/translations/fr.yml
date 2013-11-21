@@ -1215,7 +1215,7 @@ fr:
   belongs_in_count_communities: 
     one: Appartient à %{count} Communauté
     other: Appartient à %{count} Communautés
-  beta_warning_body: La plupart des utilisateurs ne peuvent pas voir ou utiliser cette fonctionnalité, qui est encore en développement. Les performances et les résultats peuvent être imprévisibles, mais nous vous invitons à la découvrir. Nous sommes intéressés par votre <a href='%{link}'>ressenti</a>.
+  beta_warning_body: La plupart des utilisateurs ne peuvent pas voir ou utiliser cette fonctionnalité, qui est encore en développement. Les performances et les résultats peuvent être imprévisibles, mais nous vous invitons à la découvrir. Veuillez remplir notre <a href='https://www.surveymonkey.com/s/9FDTDQP'>sondage</a> après avoir testé notre potentiel de données.
   beta_warning_header: Vous utilisez une fonctionnalité en bêta-test
   beta_warning_note_header: "Note :"
   beta_warning_small: Notez bien qu’il s’agit d’une fonctionnalité en bêta-test et qu’elle peut être imprévisible.
@@ -1309,6 +1309,7 @@ fr:
   clicked_time: Heure de clic
   close_this_window_to_return_to_edit_window: FERMEZ CETTE FENÊTRE POUR RETOURNER À LA FENÊTRE DE MODIFICATION
   cms_available_in_languages: "Cette page est disponible en :"
+  cms_editor: Éditeur CMS
   cms_missing_content_message: Désolé, cette page n’est pas disponible pour la langue sélectionnée %{selected_language}.
   cms_missing_content_title: Traduction manquante
   collect_item: élément de collecte

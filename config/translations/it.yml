@@ -98,7 +98,7 @@ it:
         email_reports_frequency_hours: Frequenza di rapporti email
       data_object: 
         bibliographic_citation: Citazione bibliografica
-        description: Descrizione
+        description: Testo
         object_title: Titolo
         rights_holder: Detentore dei diritti
         rights_statement: Dichiarazione dei diritti
@@ -663,7 +663,7 @@ it:
   admin_content_page_child_new_link: Crea pagina figlio
   admin_content_page_create_successful_notice: Pagina <a href="#%{anchor}"><em>%{page_name}</em></a> creata correttamente.
   admin_content_page_create_unsuccessful_error: Spiacenti, si è verificato un errore, la pagina non è stata creata.
-  admin_content_page_delete_confirmation: Sei sicuro di voler cancellare la pagina "%{page_name}" e tutte le sue traduzioni. Questa azione non può essere annullata.
+  admin_content_page_delete_confirmation: Sei sicuro di voler cancellare la pagina "%{page_name}" e tutte le sue traduzioni? Le pagine cancellate non possono essere recuperate.
   admin_content_page_delete_successful_notice: La pagina %{page_name} e le traduzioni associati sono state cancellate.
   admin_content_page_edit_header: Aggiorna le informazioni di base per la pagina <em>%{page_name}</em>
   admin_content_page_edit_tip: Si raccomanda di non modificare il nome univoco per questa pagina, a meno che non si è pienamente consapevole delle conseguenze, compreso l'impatto sui collegamenti a questa pagina, o sui percorsi dei nomi. Il nome univoco è %{required_icon} obbligatorio.
@@ -709,7 +709,7 @@ it:
   admin_statistics_link: Statistiche
   admin_translated_content_page_create_successful_notice: La traduzione è stata aggiunta a <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Spiacenti, si è verificato un errore, la traduzione non è stata aggiunta.
-  admin_translated_content_page_delete_confirmation: Sei sicuro di voler cancellare la versione %{language} di "%{page_name}". Questa azione non può essere annullata.
+  admin_translated_content_page_delete_confirmation: Sei sicuro di voler cancellare la versione %{language} di "%{page_name}"? Le pagine cancellate non possono essere recuperate.
   admin_translated_content_page_delete_successful_notice: La traduzione %{language} della pagina <em>%{page_name}</em> è stata cancellata.
   admin_translated_content_page_edit_subheader: Modifica la traduzione %{language} per <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Titolo e corpo sono %{required_icon} obbligatori.
@@ -1253,7 +1253,7 @@ it:
   donation_confirmation: Conferma donazione
   donation_error_no_amount: Seleziona l'importo della donazione.
   donation_error_only_numbers: Si prega di inserire una quantità utilizzando solo numeri.
-  edit: Modifica
+  edit: modifica
   edit_comment: Modifica commento
   edit_comment_lowercase: modifica commento
   edit_community: Modifica la comunità
@@ -1310,9 +1310,9 @@ it:
   error_403_page_title: Proibito
   error_404_description: Siamo spiacenti, nessuna pagina corrispondente a questa URL è stata trovata
   error_404_page_title: Non trovato
-  error_500_description: Siamo spiacenti, abbiamo riscontrato un problema. Se il problema persiste, si prega di inviare una e-mail a <a href="mailto:<span class=" notranslate"="">% {email_address}? subject = % {errore} "&gt; % {email_address}</a>
+  error_500_description: Siamo spiacenti, abbiamo riscontrato un problema. Se il problema persiste, si prega di inviare una email a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Oops.
-  error_default_description: Siamo spiacenti, abbiamo riscontrato un problema. Se il problema persiste, si prega di inviare una e-mail a <a href="mailto:<span class=" notranslate"="">% {email_address}? subject = % {errore} "&gt; % {email_address}</a>
+  error_default_description: Siamo spiacenti, abbiamo riscontrato un problema. Se il problema persiste, si prega di inviare una email a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Oops.
   error_log: Registro degli errori
   error_log_detail: Dettagli registro degli errori

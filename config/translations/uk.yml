@@ -533,8 +533,16 @@ uk:
         an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Невідомий користувач додав невідоме загальне ім'я мовою %{language} на невідому сторінку.
         an_unknown_user_added_an_unknown_name_in_language_to_taxon: Невідомий користувач додав невідоме загальне ім'я мовою %{language} до "%{taxon}".
         an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Невідомий користувач додав загальне ім'я  "%{name}" невідомою мовою на невідому сторінку.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Невідомий користувач додав загальну назву "%{name}" невідомою мовою до "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Невідомий користувач додав загальну назву "%{name}" мовою %{language} до невідомої сторінки.
+        an_unknown_user_added_name_in_language_to_taxon: Невідомий користувач додав загальну назву "%{name}" мовою %{language} до "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> додав загальну назву невідомою мовою до невідомої сторінки.
         user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> додав загальну назву невідомою мовою.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> додав невідому загальну назву невідомою мовою до "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> додав загальну назву на мові %{language} до невідомої сторінки.
         user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> додав загальну назву мовою %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> додав невідому загальну назву на мові %{language} до "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> додав загальну назву "%{name}"  невідомою мовою до невідомої сторінки.
         user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> додав загальну назву  "%{name}" невідомою мовою.
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Невідомий користувач вибрав старішу версію "%{data_object}" для показу у Огляді на невідомій сторінці.
@@ -1029,7 +1037,7 @@ uk:
   belongs_in_count_communities: 
     one: Належить до %{count} Спільноти
     other: Належить до %{count} Спільнот
-  beta_warning_body: Більшість користувачів не можуть бачити або використовувати цю функцію, яка знаходиться в стадії активного розвитку. Продуктивність і дані можуть бути непередбачуваними, але ми запрошуємо вас вивчити. Ми вітаємо ваш <a href='%{link}'>відгук</a>.
+  beta_warning_body: Більшість користувачів не можуть бачити або використовувати цю функцію, яка знаходиться в стадії активного розвитку. Продуктивність і дані можуть бути непередбачуваними, але ми запрошуємо вас вивчити. Будь ласка, заповніть наше <a href='https://www.surveymonkey.com/s/9FDTDQP'>опитування</a> після вивчення наших можливостей обробка даних.
   beta_warning_header: Ви використовуєте функцію бета-тестування
   beta_warning_note_header: "Примітка:"
   beta_warning_small: Будь ласка, зверніть увагу, що це бета-тестування функції і може бути непередбачуваним.

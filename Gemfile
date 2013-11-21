@@ -70,7 +70,7 @@ group :assets do
   gem 'turbo-sprockets-rails3', '0.3.4'
 end
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.15'
 
 gem 'acts_as_list', '0.2.0'
 gem 'acts_as_tree_rails3', '0.1.0'

@@ -44,7 +44,7 @@
 
   -# video/x-flv
   - if data_object.data_type == DataType.flash || data_object.data_type == DataType.youtube
-    - if File.extname(data_object.video_url) == ".flv"
+    - if File.extname(data_object.video_url).downcase == ".flv"
       %embed{:src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer",
              :type => "application/x-shockwave-flash", :height => "420",
              :flashvars => "file=#{data_object.video_url}&displayheight=420&usefullscreen=false&autostart=true&usecaptions=false",

@@ -9,7 +9,7 @@ class KnownUrisController < ApplicationController
   before_filter :set_stats_filter_options, :only => [ :index, :show_stats ]
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
     :only => AUTOCOMPLETE_ACTIONS
-  after_filter :clear_cache, :only => [ :create, :update, :destroy ]
+  after_filter :clear_cache, :only => [ :create, :update, :destroy, :import_ontology ]
 
   layout 'v2/basic'
 

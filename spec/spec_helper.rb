@@ -38,6 +38,7 @@ RSpec.configure do |config|
   # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
   config.after(:each) do
     Rails.cache.clear if Rails.cache
+    I18n.locale = :en
   end
 
   # If true, the base class of anonymous controllers will be inferred

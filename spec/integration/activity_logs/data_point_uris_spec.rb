@@ -114,35 +114,38 @@ describe 'DataPointUris' do
     end
   end
 
+  # NOTE - we don't check for the user/taxon values In the feed, because they might have been doing something else, elsewhere.
   def expect_no_data_feed
     # Test passes if there's no activity at all:
     unless page.body =~ /#{I18n.t(:activity_log_empty)}/ or
            page.body =~ /#{I18n.t(:no_record_found_matching_your_criteria)}/
-      expect(page).to_not have_tag('strong', text: @user.full_name)
-      expect(page).to_not have_tag('a', text: @taxon_concept.summary_name)
+      if page.body =~ data_activity_re
+        save_and_open_page
+        debugger # This happens VERY rarely, and I can't imagine what's gone wrong. Last time it was on the taxon_updates page.
+      end
       expect(page).to_not have_tag('p', text: data_activity_re)
       expect(page).to_not have_tag('blockquote', text: data_details_re)
     end
   end
 
+  # NOTE - visiting the logout_url before each visit was NOT working with seed=14397. (It's like the page was cached with the
+  # user's login... I wonder if it's failing to clear session data?) ...Anyway, re-writing it to # redirect after a logout worked
+  # fine.
   shared_examples_for 'activity_logs check without permission' do
-    before :all do
-      visit logout_url
-    end
     it 'should not show activity on the homepage' do
-      visit('/')
+      visit logout_url(return_to: '/')
       expect_no_data_feed
     end
     it 'should not show activity on the taxon overview page' do
-      visit(taxon_overview_path(@taxon_concept))
+      visit logout_url(return_to: taxon_overview_path(@taxon_concept))
       expect_no_data_feed
     end
     it 'should not show activity on the taxon ancestors overview page' do
-      visit(taxon_overview_path(@parent_taxon_concept))
+      visit logout_url(return_to: taxon_overview_path(@parent_taxon_concept))
       expect_no_data_feed
     end
     it 'should not show activity on the taxon updates page' do
-      visit(taxon_updates_path(@taxon_concept))
+      visit logout_url(return_to: taxon_updates_path(@taxon_concept))
       expect_no_data_feed
     end
     it 'should not show activity on the users activity page' do

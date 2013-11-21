@@ -522,7 +522,7 @@ private
     # in KnownURI for all these URIs
     # TODO: replace this with a new table and an admin interface for setting unit conversions
     return @@conversions if defined?(@@conversions)
-    @@conversions ||= [
+    @@conversions = [
       { starting_units:   [ KnownUri.milligrams.uri ],
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v / 1000 },

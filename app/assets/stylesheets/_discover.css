@@ -274,7 +274,7 @@
 	position: absolute;
 	top: 15px;
 	left: 15px;
-	background: transparent url(../images/discover/blue-bg.png);
+	background: transparent url(../assets/discover/blue-bg.png);
 	color: #fff;
 	padding: 20px 20px 0px 20px;
 	width: 160px;
@@ -301,7 +301,7 @@
 	left: 0px;
 	width: 41px;
 	height: 40px;
-	background: transparent url(../images/discover/icon-overlay.png) no-repeat;
+	background: transparent url(../assets/discover/icon-overlay.png) no-repeat;
 }
 
 .discover_copy .introduction {
@@ -440,7 +440,7 @@ h3.discover_highlight {
 	text-decoration: none;
 	margin-top: -15px;
 	margin-bottom: 20px;
-	background: transparent url(../images/discover/icon-slideshow.png) no-repeat;
+	background: transparent url(../assets/discover/icon-slideshow.png) no-repeat;
 }
 
 #discover_print {
@@ -452,7 +452,7 @@ h3.discover_highlight {
 	overflow: visible;
 	height: 28px;
 	font-size: 12px;
-	background: transparent url(../images/discover/icon-print.gif) no-repeat;
+	background: transparent url(../assets/discover/icon-print.gif) no-repeat;
 	padding: 3px 0px 3px 40px;
 	
 }
@@ -620,7 +620,7 @@ h3.discover_highlight {
 	padding: 15px 20px 0 50px;
 	line-height: 1.7em;
 	font-style: italic;
-	background: transparent url(../images/discover/icon-quote.png) no-repeat;
+	background: transparent url(../assets/discover/icon-quote.png) no-repeat;
 }
 
 .discover_afterQuote {
@@ -712,7 +712,7 @@ h3.discover_highlight {
 }
 
 .discover_boxEolBlue {
-	background: #98d0e2 url(../images/discover/eol-discover-home.jpg) no-repeat top right;
+	background: #98d0e2 url(../assets/discover/eol-discover-home.jpg) no-repeat top right;
 	min-height: 256px;
 }
 .discover_boxBlue {
@@ -727,11 +727,11 @@ h3.discover_highlight {
 	background: #cdd8e2;
 }
 .discover_home_blueGreen {
-	background: #d2dd87 url(../images/discover/discover-home-divider-blue-green.jpg) no-repeat top left;
+	background: #d2dd87 url(../assets/discover/discover-home-divider-blue-green.jpg) no-repeat top left;
 }
 
 .discover_home_greenNavy {
-	background: #cdd8e2 url(../images/discover/discover-home-divider-green-navy.jpg) no-repeat top left;
+	background: #cdd8e2 url(../assets/discover/discover-home-divider-green-navy.jpg) no-repeat top left;
 }
 
 .discover_home_divider {

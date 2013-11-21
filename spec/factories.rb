@@ -221,6 +221,7 @@ FactoryGirl.define do
     SecureRandom.uuid.gsub(/-/, '')
   end
 
+  # NOTE - if you want to "clean up" this block, please do NOT introduce newlines into the names. It mucks up regexes in tests.
   # Unique:
   sequence :scientific_name do |n|
     @seq_sci_name = ["Quibusdameli estculpaatus", "Estasperioreseli etquidemis", "Nesciunterox autrerumalis",
@@ -241,6 +242,7 @@ FactoryGirl.define do
     pick
   end
 
+  # NOTE - if you want to "clean up" this block, please do NOT introduce newlines into the names. It mucks up regexes in tests.
   # Unique:
   sequence :common_name do |n|
     @seq_common_name = ["pink quaist", "ravenous clover", "red suntus", "darning needle", "tiger", "frizzlebek",

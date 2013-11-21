@@ -42,8 +42,10 @@ describe EOL::Sparql do
       'http://example.com/grams' }).should == nil
     grams = KnownUri.gen_if_not_exists(:uri => 'http://example.com/grams', :name => 'grams')
     KnownUri.unit_of_measure.add_value(grams)
-    EOL::Sparql.explicit_measurement_uri_components(grams).
-      should == { uri: "http://example.com/grams", label: "grams", definition: nil }
+    data_value = EOL::Sparql.explicit_measurement_uri_components(grams)
+    expect(data_value.uri).to eq("http://example.com/grams")
+    expect(data_value.label).to eq("grams")
+    expect(data_value.definition).to be_nil
   end
 
   it 'should implicit_measurement_uri_components' do
@@ -54,8 +56,10 @@ describe EOL::Sparql do
     KnownUri.unit_of_measure.add_value(meters)
     length.add_implied_unit(meters)
     length.reload
-    EOL::Sparql.implicit_measurement_uri_components(length)
-      .should == { uri: "http://example.com/meters", label: "meters", definition: nil }
+    data_value = EOL::Sparql.implicit_measurement_uri_components(length)
+    expect(data_value.uri).to eq("http://example.com/meters")
+    expect(data_value.label).to eq("meters")
+    expect(data_value.definition).to be_nil
   end
 
   it 'should implied_unit_of_measure_for_uri' do
@@ -79,10 +83,17 @@ describe EOL::Sparql do
   end
 
   it 'should uri_components' do
-    EOL::Sparql.uri_components('http://example.com/potatoes').should == { :uri => 'http://example.com/potatoes', :label => 'Potatoes' }
+    data_value = EOL::Sparql.uri_components('http://example.com/potatoes')
+    expect(data_value.uri).to eq("http://example.com/potatoes")
+    expect(data_value.label).to eq("Potatoes")
     known = KnownUri.gen_if_not_exists(:uri => 'http://example.com/potatoes', :name => 'Potatoes')
-    EOL::Sparql.uri_components(known).should == { uri: 'http://example.com/potatoes', label: 'Potatoes', definition: nil }
-    EOL::Sparql.uri_components('nonsense').should == { :uri => 'nonsense', :label => 'nonsense' }
+    data_value = EOL::Sparql.uri_components(known)
+    expect(data_value.uri).to eq("http://example.com/potatoes")
+    expect(data_value.label).to eq("Potatoes")
+    expect(data_value.definition).to be_nil
+    data_value = EOL::Sparql.uri_components('nonsense')
+    expect(data_value.uri).to eq("nonsense")
+    expect(data_value.label).to eq("nonsense")
   end
 
   it 'should is_uri' do

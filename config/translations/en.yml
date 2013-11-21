@@ -336,6 +336,8 @@ en:
         description: "Description"
         uri_type: "Type of URI"
         exclude_from_exemplars: "Exclude from Quick Facts"
+        group_by_clade: "Use for Clade Ranges"
+        clade_exemplar: "Use as exemplar Clade Range"
       known_uri_relationship:
         from_known_uri_id: "Subject URI"
         to_known_uri_id: "Target URI"
@@ -3249,6 +3251,8 @@ en:
   data_point_uri_summary_name: "data about %{taxon}"
   data_provided_by_user: "provided by %{whom}"
   data_provided_by_content_partner: "Source: %{whom}"
+  data_ranges: "Data Ranges"
+  data_ranges_subheader: "Ranges for this Clade"
   data_reference_subtable_summary: "Additional references about this fact."
   data_row_exemplar_added: "Quick fact added."
   data_row_exemplar_removed: "Quick fact removed."
@@ -4135,6 +4139,7 @@ en:
   quarterly: "Quarterly"
   rails_databases: "Rails databases"
   rails_environment: "Rails environment"
+  range: "Range"
   rank_recognized_by_agent: "%{rank} recognized by %{agent}"
   rank_recognized_by_from_source: '%{rank} recognized by %{agent} in %{source}'
   rank_recognized_by_agent_colon: "<b>%{rank}</b> recognized by %{agent}:"
@@ -4154,6 +4159,7 @@ en:
   recognized_by_from_source: '%{recognized_by} in %{source}'
   recognized_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
+  record_count: "Record Count"
   record_not_found: "[record not found]"
   reference: "Reference"
   related_names_with_count:
@@ -4413,6 +4419,7 @@ en:
   tasks_with_count:
     one: "%{count} task found"
     other: "%{count} tasks found"
+  taxa_count: "Taxa Count"
   taxa_column_header: "Taxa"
   taxa_with_count:
     one: "%{count} taxon"

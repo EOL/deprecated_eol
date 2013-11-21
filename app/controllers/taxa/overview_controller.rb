@@ -11,6 +11,7 @@ class Taxa::OverviewController < TaxaController
     @overview = @taxon_page.overview
     if current_user.can_see_data?
       @data_point_uris = @taxon_page.data.get_data_for_overview
+      @range_data = @taxon_page.data.ranges_for_overview
     end
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = taxon_overview_url(@overview)

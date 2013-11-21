@@ -364,6 +364,11 @@ module EOL
         log.key.should == user.api_key
         log.user_id.should == user.id
       end
+
+      def clear_rank_caches
+        Rank.class_variable_set('@@italicized_rank_ids', nil)
+        Rails.cache.delete(Rank.cached_name_for('italicized'))
+      end
     end
   end
 end
@@ -441,6 +446,28 @@ DataObject.class_eval do
   def add_ref(full_reference, published, visibility)
     self.refs << ref = Ref.gen(:full_reference => full_reference, :published => published, :visibility => visibility)
     ref
+  end
+end
+
+KnownUri.class_eval do
+  def add_value(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    known_uri_relationships_as_subject <<
+      KnownUriRelationship.create(from_known_uri: self, to_known_uri: value_known_uri,
+                                  relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI)
+    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure')) if self == KnownUri.unit_of_measure
+  end
+
+  def add_unit(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
+      :relationship_uri => KnownUriRelationship::ALLOWED_UNIT_URI)
+  end
+
+  def add_implied_unit(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
+      :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
   end
 end
 

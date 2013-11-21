@@ -36,7 +36,7 @@ class KnownUri < ActiveRecord::Base
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
     :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :uri_type, :uri_type_id,
     :translations, :exclude_from_exemplars, :name, :known_uri_relationships_as_subject, :attribution,
-    :ontology_information_url, :ontology_source_url, :position
+    :ontology_information_url, :ontology_source_url, :position, :group_by_clade, :clade_exemplar
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -262,6 +262,18 @@ class KnownUri < ActiveRecord::Base
     hash[key] = uri if uri
   end
 
+  def self.uris_for_clade_aggregation
+    cached('uris_for_clade_aggregation') do
+      KnownUri.where(group_by_clade: true).collect(&:uri)
+    end
+  end
+
+  def self.uris_for_clade_exemplars
+    cached('uris_for_clade_exemplars') do
+      KnownUri.where(clade_exemplar: true).collect(&:uri)
+    end
+  end
+
   def allowed_values
     # using .select here instead of the scope .allowed_values as the scope does not work on preloaded relationships
     @allowed_values ||= known_uri_relationships_as_subject.select{ |r|
@@ -279,28 +291,6 @@ class KnownUri < ActiveRecord::Base
 
   def has_units?
     ! allowed_units.empty?
-  end
-
-  # these 3 methods may only be used in specs
-  # TODO - move these to a spec helper, then.  :|
-  def add_value(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    known_uri_relationships_as_subject <<
-      KnownUriRelationship.create(from_known_uri: self, to_known_uri: value_known_uri,
-                                  relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI)
-    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure')) if self == KnownUri.unit_of_measure
-  end
-
-  def add_unit(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
-      :relationship_uri => KnownUriRelationship::ALLOWED_UNIT_URI)
-  end
-
-  def add_implied_unit(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
-      :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
   end
 
   def unknown?

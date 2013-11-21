@@ -206,23 +206,6 @@ FactoryGirl.define do
 
   sequence :user_logo do |n|
     FactoryGirl.generate(:image)
-    # # these are actual user logos. Maybe this is a little too creepy...
-    # @seq_user_logos ||= [
-    #   201209032100996, 201206010619858, 201108301124564, 201209131123367, 201209201670559, 201204062153065, 201208220446503,
-    #   201206050056867, 201109080925888, 201109060991698, 201202061348792, 201205091084288, 201109051425304, 201109071892419,
-    #   201207202042916, 201202180525653, 201109211486632, 201207250116098, 201109211947314, 201110200031345, 201110121134028,
-    #   201110110809609, 201201051619294, 201109070846749, 201109121995803, 201111100647263, 201109122037575, 201212151949841,
-    #   201109280526796, 201109071246178, 201201100038536, 201110261071625, 201206292130304, 201210032187420, 201302021965739,
-    #   201111102372344, 201208021627266, 201111030627443, 201301170023521, 201108151320319, 201206231106735, 201301170032250,
-    #   201109090094110, 201109300911433, 201109041794830, 201109091119726, 201209120981750, 201204130339962, 201108301152394,
-    #   201108301186694, 201202151569372, 201205092234051, 201108301130568, 201206061075376, 201207141259676, 201202170000390,
-    #   201108301174985, 201109221699392, 201201141826490, 201301210078677, 201108311267007, 201109071021919, 201209120995493,
-    #   201207062182820, 201201130107310, 201205281442371, 201211092316177, 201201181243478, 201301111155012, 201109060795675,
-    #   201110102336716, 201112162115261, 201205291743629, 201110111243910, 201208140962489, 201201171779234, 201110130287281,
-    #   201111290603727, 201205081688332, 201201271214439, 201208141143866, 201109051925723, 201111111538633, 201207310031838,
-    #   201208270799555, 201110282322639, 201108301118876, 201109102195555, 201109121264656, 201212261694777, 201112212300913,
-    #   201109121983097, 201111302274114, 201201130237910, 201109062317795, 201212181650360, 201110121778128, 201110130809928 ]
-    # @seq_user_logos[n % @seq_user_logos.length]
   end
 
   sequence :year do |n|
@@ -243,16 +226,16 @@ FactoryGirl.define do
     @seq_sci_name = ["Quibusdameli estculpaatus", "Estasperioreseli etquidemis", "Nesciunterox autrerumalis",
       "Voluptasalius optioerus", "Remrerumeron auteterus", "Veritatises idofficiisiae", "Accusamusalis pariatura",
       "Voluptateseri doloremosyne", "Autrecusandaees repudiandaeica", "Nihileri voluptasus", "Dignissimosii inutes",
-      "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia", "Earumeles
-      beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae",
+      "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia",
+      "Earumeles beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae",
       "Autema officiaalius", "Autemalius utsimiliqueesi", "Etconsequaturelia autenimalia", "Quoautesi natuseri",
-      "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus", "Molestiaeus
-      rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron",
+      "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus",
+      "Molestiaeus rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron",
       "Adaliasii iurea", "Nonnumquamerus numquamerus", "Autvoluptatesus temporaalis", "Excepturialia omnisa",
       "Estveroalia nihilata", "Quiincidunta culpaelia", "Providentalia estquaeratens", "Placeatalia uteosensis",
       "Ipsaensis architectoalius", "Deserunterox facererox", "Suntalia estsitalius", "Aliasosyne quiadipisciatus",
-      "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox
-      eligendii", "Eteaiae nullais"]
+      "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox eligendii",
+      "Eteaiae nullais"]
     pick = @seq_sci_name[n % @seq_sci_name.length]
     (n / @seq_sci_name.length).times { pick.succ! }
     pick
@@ -261,12 +244,12 @@ FactoryGirl.define do
   # Unique:
   sequence :common_name do |n|
     @seq_common_name = ["pink quaist", "ravenous clover", "red suntus", "darning needle", "tiger", "frizzlebek",
-      "purple dust crab", "cloud swallow", "spiny possom", "common desert mouse", "fisher", "chartruse turtle", "horny
-      toad", "scarlet vermillion", "Mozart's nemesis", "quick brown fox", "painted horse", "thirsty aphid", "bloody
-      eel", "fruit bat", "giant ostrich", "common rat", "cursed doormouse", "great shrimp", "stream newt", "blessed
-      sparrow", "ravenous eagle", "common titmouse", "least ferret", "raccoon", "papa bear", "brown hornet", "urban
-      crocidile", "classical enthusiast", "grungebutter", "bripplefoam frond", "elf's cup", "agitated harmonium", "stone
-      dragon", "Werner's mite", "green anole", "killer bee", "thistle", "paramecium", "scorpion king", "tarantula",
+      "purple dust crab", "cloud swallow", "spiny possom", "common desert mouse", "fisher", "chartruse turtle",
+      "horny toad", "scarlet vermillion", "Mozart's nemesis", "quick brown fox", "painted horse", "thirsty aphid",
+      "bloody eel", "fruit bat", "giant ostrich", "common rat", "cursed doormouse", "great shrimp", "stream newt",
+      "blessed sparrow", "ravenous eagle", "common titmouse", "least ferret", "raccoon", "papa bear", "brown hornet",
+      "urban crocidile", "classical enthusiast", "grungebutter", "bripplefoam frond", "elf's cup", "agitated harmonium",
+      "stone dragon", "Werner's mite", "green anole", "killer bee", "thistle", "paramecium", "scorpion king", "tarantula",
       "cardinal", "moon fungus", "upbeat chickadee", "amoeba"]
     pick = @seq_common_name[n % @seq_common_name.length]
     (n / @seq_common_name.length).times { pick.succ! }
@@ -303,7 +286,9 @@ FactoryGirl.define do
 
   # Not Unique (obviously, given the repetition in the array):
   sequence :attribution do |n|
-    @seq_attr = ["L.", "Linn.", "Linnaeus", "G. D'Amore", "R. Bergstrom", "L.", "Linn", "R. Cartwright", "L.", "Linn.", "Linnaeus", "N. Upton", "L. Carroll", "M. Port", "S. Posford", "Posford & Ram", "L.", "Linnaeus", "", "P. Leary", "Padderson", "Linnaeus", "L.", "M. Mayer"]
+    @seq_attr = ["L.", "Linn.", "Linnaeus", "G. D'Amore", "R. Bergstrom", "L.", "Linn", "R. Cartwright", "L.", "Linn.",
+      "Linnaeus", "N. Upton", "L. Carroll", "M. Port", "S. Posford", "Posford & Ram", "L.", "Linnaeus", "", "P. Leary",
+      "Padderson", "Linnaeus", "L.", "M. Mayer"]
     @seq_attr[n % @seq_attr.length]
   end
 

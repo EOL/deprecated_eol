@@ -3,10 +3,11 @@
 - top_link = false unless defined?(top_link)
 - glossary_link = false unless defined?(glossary_link)
 - attribution = false unless defined?(attribution)
+- valid_measurement = false unless defined?(valid_measurement)
 %li{ id: known_uri.anchor }
   %dt
     = known_uri.name.firstcap
-    - if search_link && KnownUri.all_measurement_type_uris.include?(known_uri.uri)
+    - if search_link && valid_measurement
       = link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: known_uri.uri, sort: 'desc')
   - unless known_uri.definition.blank?
     %dd

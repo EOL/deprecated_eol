@@ -326,19 +326,16 @@ $(function() {
   $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
     $('.about_subtab').hide();
     $('.glossary_subtab').hide();
-    if ($(this).parent().hasClass('about')) {
+    $('.ranges_subtab').hide();
+    if ($(this).parent().hasClass('about') || $(this).parent().hasClass('glossary') || $(this).parent().hasClass('ranges')) {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.glossary_subtab').hide();
       $('.help_text').hide();
-      $('.about_subtab').show()
-    } else if ($(this).parent().hasClass('glossary')) {
-      EOL.hide_data_tables($('table.data'));
-      $('#taxon_data .empty').hide();
-      $('.about_subtab').hide();
-      $('.help_text').hide();
-      $('.glossary_subtab').show()
-    } else if ($(this).hasClass('all')) { // Acts as a reset button/link
+      if ($(this).parent().hasClass('about')) $('.about_subtab').show()
+      else if ($(this).parent().hasClass('glossary')) $('.glossary_subtab').show()
+      else if ($(this).parent().hasClass('ranges')) $('.ranges_subtab').show()
+    } else if ($(this).parent().hasClass('all')) { // Acts as a reset button/link
       $('#taxon_data .empty').show();
       EOL.show_data_tables($('table.data'));
     } else {

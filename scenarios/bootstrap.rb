@@ -430,7 +430,7 @@ img    = build_data_object('Image', "This should only be seen by ContentPartner 
 build_hierarchy_entry 0, tc, name, hierarchy: gbif_hierarchy, identifier: '13810203'
 
 # Generate a default admin user and then set them up:
-admin = User.gen username: 'admin', password: 'admin', given_name: 'Admin', family_name: 'User'
+admin = build_curator(@taxon_concept, username: 'admin', password: 'admin', given_name: 'Admin', family_name: 'User', level: :master)
 admin.grant_admin
 admin.grant_permission(:edit_permissions)
 admin.grant_permission(:see_data)

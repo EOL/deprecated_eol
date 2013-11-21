@@ -155,24 +155,7 @@ module TaxaHelper
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
         define(tag_type, uri, options[:search_link])
       end
-      label = uri_components[:label].to_s
-      if label.is_numeric?
-        if label.is_float?
-          if label.to_f < 0.1
-            # like 0.01234 need to round off to at least 2 significant digits
-            # getting 3 here allows for values like 1.23e-10
-            label = label.to_f.sigfig_to_s(3)
-          else
-            # float values can be rounded off to 2 decimal places
-            label = label.to_f.round(2)
-          end
-        end
-        label = number_with_delimiter(label, delimiter: ',')
-      else
-        # other values may have links embedded in them (references, citations, etc.)
-        label = label.add_missing_hyperlinks
-        label = label.firstcap if options[:capitalize]
-      end
+      label = format_data_value(uri_components[:label].to_s, options)
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat raw(label)
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
@@ -180,6 +163,27 @@ module TaxaHelper
         end
       end
     end
+  end
+
+  def format_data_value(value, options={})
+    if value.is_numeric?
+      if value.is_float?
+        if value.to_f < 0.1
+          # floats like 0.01234 need to round off to at least 2 significant digits
+          # getting 3 here allows for values like 1.23e-10
+          value = value.to_f.sigfig_to_s(3)
+        else
+          # float values can be rounded off to 2 decimal places
+          value = value.to_f.round(2)
+        end
+      end
+      value = number_with_delimiter(value, delimiter: ',')
+    else
+      # other values may have links embedded in them (references, citations, etc.)
+      value = value.add_missing_hyperlinks
+      value = value.firstcap if options[:capitalize]
+    end
+    value
   end
 
   # TODO - this has too much business logic; extract

@@ -53,6 +53,7 @@ Eol::Application.routes.draw do
       collection do
         get 'about'
         get 'glossary'
+        get 'ranges'
       end
     end
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
@@ -68,6 +69,7 @@ Eol::Application.routes.draw do
         collection do
           get 'about'
           get 'glossary'
+          get 'ranges'
         end
       end
       resources :communities, :only => [:index], :controller => 'taxa/communities' do

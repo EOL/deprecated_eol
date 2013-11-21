@@ -27,6 +27,8 @@ describe 'taxa/data/index' do
     assign(:categories, [])
     assign(:data_point_uris, [])
     assign(:glossary_terms, [])
+    assign(:range_data, [])
+    assign(:include_other_category, true)
     user = double(User)
     user.stub(:min_curator_level?) { false }
     user.stub(:watch_collection) { nil }

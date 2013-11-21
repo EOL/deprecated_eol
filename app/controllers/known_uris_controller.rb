@@ -9,7 +9,7 @@ class KnownUrisController < ApplicationController
   before_filter :set_stats_filter_options, :only => [ :index, :show_stats ]
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
     :only => AUTOCOMPLETE_ACTIONS
-  after_filter :clear_cache, :only => [ :create, :update, :destroy ]
+  after_filter :clear_cache, :only => [ :create, :update, :destroy, :import_ontology ]
 
   layout 'v2/basic'
 
@@ -333,6 +333,8 @@ class KnownUrisController < ApplicationController
     Rails.cache.delete("known_uri/all_measurement_type_uris")
     Rails.cache.delete("known_uri/all_measurement_type_known_uris")
     Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
+    Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
+    Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
   end
 
 end

@@ -332,15 +332,13 @@ class DataPointUri < ActiveRecord::Base
       return false
     end
     DataPointUri.conversions.select{ |c| c[:starting_units].include?(unit_known_uri.uri) }.each do |c|
-      ending_unit = KnownUri.find_by_uri(c[:ending_unit])
-      next unless ending_unit && ending_unit.unit_of_measure?
       potential_new_value = c[:function].call(self.object.to_f)
       next if c[:required_minimum] && potential_new_value < c[:required_minimum]
       self.original_unit_of_measure = unit_of_measure
       self.original_unit_of_measure_known_uri = unit_of_measure_known_uri
       self.object = potential_new_value
-      self.unit_of_measure = ending_unit.uri
-      self.unit_of_measure_known_uri = ending_unit
+      self.unit_of_measure = c[:ending_unit].uri
+      self.unit_of_measure_known_uri = c[:ending_unit]
       return true
     end
     false
@@ -522,16 +520,17 @@ private
     # We wouldn't want to, for example, use use create_defaults to have named methods
     # in KnownURI for all these URIs
     # TODO: replace this with a new table and an admin interface for setting unit conversions
-    @@conversions ||= [
+    return @@conversions if defined?(@@conversions)
+    @@conversions = [
       { starting_units:   [ KnownUri.milligrams.uri ],
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v / 1000 },
         required_minimum: 1.0 },
-      { starting_units:   [ KnownUri.grams.uri ],
+      { starting_units:   [ KnownUri.grams.uri, 'http://adw.org/g', 'http://anage.org/g' ],
         ending_unit:      KnownUri.kilograms.uri,
         function:         lambda { |v| v / 1000 },
         required_minimum: 1.0 },
-      { starting_units:   [ KnownUri.millimeters.uri ],
+      { starting_units:   [ KnownUri.millimeters.uri, 'http://adw.org/mm' ],
         ending_unit:      KnownUri.centimeters.uri,
         function:         lambda { |v| v / 10 },
         required_minimum: 1.0 },
@@ -539,10 +538,10 @@ private
         ending_unit:      KnownUri.meters.uri,
         function:         lambda { |v| v / 100 },
         required_minimum: 1.0 } ,
-      { starting_units:   [ KnownUri.kelvin.uri ],
+      { starting_units:   [ KnownUri.kelvin.uri, 'http://anage.org/k' ],
         ending_unit:      KnownUri.celsius.uri,
         function:         lambda { |v| v - 273.15 } },
-      { starting_units:   [ KnownUri.days.uri ],
+      { starting_units:   [ KnownUri.days.uri, 'http://anage.org/days', 'http://eol.org/schema/terms/day' ],
         ending_unit:      KnownUri.years.uri,
         function:         lambda { |v| v / 365 },
         required_minimum: 1.0 },
@@ -569,6 +568,13 @@ private
         function:         lambda { |v| v / 1000000 },
         required_minimum: 1.0 }
     ]
+    KnownUri.find_all_by_uri(@@conversions.collect{ |c| c[:ending_unit] }).each do |known_uri|
+      @@conversions.select{ |conversion| conversion[:ending_unit] == known_uri.uri }.each do |conversion|
+        conversion[:ending_unit] = known_uri
+      end
+    end
+    @@conversions.delete_if{ |conversion| ! conversion[:ending_unit].is_a?(KnownUri) || ! conversion[:ending_unit].unit_of_measure? }
+    @@conversions
   end
 
 end

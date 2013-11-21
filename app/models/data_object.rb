@@ -499,7 +499,7 @@ class DataObject < ActiveRecord::Base
 
   def video_url
     if !object_cache_url.blank? && !object_url.blank?
-      filename_extension = File.extname(object_url)
+      filename_extension = File.extname(object_url).downcase
       # we store video as ogg, not ogv
       filename_extension = '.ogg' if filename_extension == '.ogv'
       return ContentServer.cache_path(object_cache_url) + filename_extension

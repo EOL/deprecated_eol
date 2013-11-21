@@ -291,28 +291,6 @@ class KnownUri < ActiveRecord::Base
     ! allowed_units.empty?
   end
 
-  # these 3 methods may only be used in specs
-  # TODO - move these to a spec helper, then.  :|
-  def add_value(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    known_uri_relationships_as_subject <<
-      KnownUriRelationship.create(from_known_uri: self, to_known_uri: value_known_uri,
-                                  relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI)
-    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure')) if self == KnownUri.unit_of_measure
-  end
-
-  def add_unit(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
-      :relationship_uri => KnownUriRelationship::ALLOWED_UNIT_URI)
-  end
-
-  def add_implied_unit(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
-      :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
-  end
-
   def unknown?
     name.blank?
   end

@@ -32,6 +32,8 @@ describe 'API:search_by_provider' do
     our_result.length.should == 0
 
     response = get_as_json("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}")
+    debugger if response.length > 1 # I assume this is because something was changed in memory, but I lost the chance to peek at
+                                    # it, so I'm using this to catch it next time.
     response.length.should == 0
   end
 end

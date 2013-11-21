@@ -83,7 +83,7 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the unit is a KnownURI
     body.should_not have_selector('span.term', text: '50 pounds')
-    pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds')
+    pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds', uri_type: UriType.measurement)
     KnownUri.unit_of_measure.add_value(pounds)
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector('span.term', text: 'pounds')
@@ -97,7 +97,7 @@ describe 'Taxa data tab basic tests' do
     body.should have_selector("table.data td[headers='predicate_http___eol_org_time'] span", :text => '50')
     body.should_not have_selector('span.term', text: 'hours')
     time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
-    hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours')
+    hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', uri_type: UriType.measurement)
     KnownUri.unit_of_measure.add_value(hours)
     time.add_implied_unit(hours);
     visit taxon_data_path(@taxon_concept.id)

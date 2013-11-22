@@ -25,11 +25,11 @@ describe Admins::ContentPagesController do
     expect { get :index }.to raise_error(EOL::Exceptions::SecurityViolation)
   end
 
-  it 'should not raise SecurityViolation for admins or CMS viewers' do
+  it 'should not raise error for admins or CMS viewers' do
     session[:user_id] = @admin.id
-    expect { get :index }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+    expect { get :index }.not_to raise_error
     session[:user_id] = @cms_user.id
-    expect { get :index }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+    expect { get :index }.not_to raise_error
   end
 
 end

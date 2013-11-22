@@ -39,12 +39,12 @@ describe Users::OpenAuthenticationsController do
       expect(response).to redirect_to(user_open_authentications_url(@user.id))
     end
     it 'should only be accessible by self or admin' do
+      oauth = double(EOL::OpenAuth, access_denied?: false, authorized?: false, session_data: {}, authorize_uri: '')
+      EOL::OpenAuth.stub(:init) { oauth }
       controller.set_current_user = @user
-      expect { get :new, { :user_id => @user.id, :oauth_provider => 'provider'} }.
-        to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :new, { :user_id => @user.id, :oauth_provider => 'provider'} }.not_to raise_error
       controller.set_current_user = @admin
-      expect { get :new, { :user_id => @user.id, :oauth_provider => 'provider'} }.
-        to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :new, { :user_id => @user.id, :oauth_provider => 'provider'} }.not_to raise_error
       controller.set_current_user = nil
       expect { get :new, { :user_id => @user.id, :oauth_provider => 'provider'} }.
         to raise_error(EOL::Exceptions::SecurityViolation)

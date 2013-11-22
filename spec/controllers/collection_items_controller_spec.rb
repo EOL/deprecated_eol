@@ -24,6 +24,7 @@ describe CollectionItemsController do
         session[:user_id] = @collection_editor.id
         post :update, { :id => @collection_item.id, :collection_item => {:annotation => "New Annotation"} }
         @collection_item.reload
+        debugger unless @collection_item.annotation == "New Annotation" # What happened?  Seems rare... must be another error.
       }
       getter.should change(@collection_item, :annotation)
     end

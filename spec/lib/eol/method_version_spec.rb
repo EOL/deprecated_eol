@@ -4,13 +4,13 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe EOL::Api::MethodVersion do
 
   it "should thow errors when required parameters are missing" do
-    EOL::Api::Ping::V1_0.stub!(:parameters).and_return([ EOL::Api::DocumentationParameter.new(
+    EOL::Api::Ping::V1_0.stub(:parameters).and_return([ EOL::Api::DocumentationParameter.new(
       :name => 'id',
       :type => Integer,
       :required => true ) ] )
     lambda { EOL::Api::Ping::V1_0.validate_and_normalize_input_parameters!({ }) }.should raise_error(EOL::Exceptions::ApiException, 'Required parameter "id" was not included')
 
-    EOL::Api::Ping::V1_0.stub!(:parameters).and_return([ EOL::Api::DocumentationParameter.new(
+    EOL::Api::Ping::V1_0.stub(:parameters).and_return([ EOL::Api::DocumentationParameter.new(
         :name => 'text',
         :type => String,
         :required => true ) ] )
@@ -18,7 +18,7 @@ describe EOL::Api::MethodVersion do
   end
 
   it 'should limit input values to ranges' do
-    EOL::Api::Ping::V1_0.stub!(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
+    EOL::Api::Ping::V1_0.stub(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
         :name => 'ranged_integer',
         :type => Integer,
         :values => (50..100) ) ] )
@@ -27,7 +27,7 @@ describe EOL::Api::MethodVersion do
   end
 
   it 'should limit input values to arrays' do
-    EOL::Api::Ping::V1_0.stub!(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
+    EOL::Api::Ping::V1_0.stub(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
         :name => 'array_values',
         :type => String,
         :default => 'two',
@@ -38,7 +38,7 @@ describe EOL::Api::MethodVersion do
   end
 
   it 'should verify integers' do
-    EOL::Api::Ping::V1_0.stub!(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
+    EOL::Api::Ping::V1_0.stub(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
         :name => 'some_integer',
         :type => Integer,
         :default => 100 ) ] )
@@ -49,7 +49,7 @@ describe EOL::Api::MethodVersion do
   end
 
   it 'should verify booleans' do
-    EOL::Api::Ping::V1_0.stub!(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
+    EOL::Api::Ping::V1_0.stub(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
         :name => 'some_boolean',
         :type => 'Boolean' ) ] )
     EOL::Api::Ping::V1_0.validate_and_normalize_input_parameters!({ 'some_boolean' => 'false' })[:some_boolean].should == false
@@ -63,7 +63,7 @@ describe EOL::Api::MethodVersion do
   end
 
   it 'should default empty strings to nil' do
-    EOL::Api::Ping::V1_0.stub!(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
+    EOL::Api::Ping::V1_0.stub(:parameters).and_return([  EOL::Api::DocumentationParameter.new(
         :name => 'some_string',
         :type => String ) ] )
     EOL::Api::Ping::V1_0.validate_and_normalize_input_parameters!({ 'some_string' => 'anything' })[:some_string].should == 'anything'

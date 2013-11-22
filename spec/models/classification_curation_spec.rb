@@ -90,15 +90,15 @@ describe ClassificationCuration do
   end
 
   it '#check_status_and_notify should NOT reindex taxa and log completion if not ready' do
-    @split.should_not_receive(:reindex_taxa).and_return(nil)
-    @split.should_not_receive(:log_completion).and_return(nil)
+    @split.should_not_receive(:reindex_taxa)
+    @split.should_not_receive(:log_completion)
     @split.check_status_and_notify
   end
 
   it '#check_status_and_notify should reindex taxa and log completion ONCE' do
     @php_split.check_status_and_notify
-    @php_split.should_not_receive(:reindex_taxa).and_return(nil)
-    @php_split.should_not_receive(:log_completion).and_return(nil)
+    @php_split.should_not_receive(:reindex_taxa)
+    @php_split.should_not_receive(:log_completion)
     @php_split.check_status_and_notify
   end
 
@@ -109,9 +109,9 @@ describe ClassificationCuration do
   end
 
   it 'should know where a split ended up' do
-    move = mock_model(HierarchyEntryMove)
+    move = double(HierarchyEntryMove)
     @split.should_receive(:hierarchy_entry_moves).and_return([move])
-    entry = mock_model(HierarchyEntry)
+    entry = double(HierarchyEntry)
     move.should_receive(:hierarchy_entry).and_return(entry)
     entry.should_receive(:taxon_concept).and_return(:this)
     @split.split_to.should == :this

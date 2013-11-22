@@ -234,7 +234,7 @@ describe UsersController do
     end
     it 'should activate inactive user with valid verification code' do
       user = User.gen(:active => false, :validation_code => User.generate_key)
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:user_activated).once.with(user).and_return(mailer)
       get :verify, { :user_id => user.id, :validation_code => user.validation_code }
@@ -246,7 +246,7 @@ describe UsersController do
     it 'should not activate user with invalid verification code' do
       inactive_user = User.gen(:active => false, :validation_code => User.generate_key)
       Notifier.should_not_receive(:user_activated)
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:user_verification).once.with(inactive_user, verify_user_url(inactive_user.id, inactive_user.validation_code)).
         and_return(mailer)
@@ -390,7 +390,7 @@ describe UsersController do
       @recover_user.update_attributes(:hidden => false)
     end
     it 'should give user a new recover account token and send recover account email' do
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:user_recover_account).
         with(@recover_user, /users\/#{@recover_user.id}\/temporary_login\/[a-f0-9]{40}$/i).
@@ -410,7 +410,7 @@ describe UsersController do
       assigns[:users].size.should == 3
       assigns[:users].all?{|u| u.recover_account_token.blank? }.should be_true
       response.should render_template('users/recover_account_choose_account')
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:user_recover_account).
         with(user1, /users\/#{user1.id}\/temporary_login\/[a-f0-9]{40}$/).
@@ -425,7 +425,7 @@ describe UsersController do
     it 'should ignore validation errors on user model' do
       @recover_user.update_attributes(:agreed_with_terms => false)
       @recover_user.errors[:agreed_with_terms].should == ['must be accepted']
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:user_recover_account).
         with(@recover_user, /users\/#{@recover_user.id}\/temporary_login\/[a-f0-9]{40}$/i).

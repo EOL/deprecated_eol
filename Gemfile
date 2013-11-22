@@ -79,7 +79,7 @@ gem 'cityhash', '0.8.1'
 gem 'ckeditor', '3.7.3'
 gem 'coffee-rails', '3.2.2'
 gem 'composite_primary_keys', '5.0.13'
-gem 'dalli', '2.3.0'
+gem 'dalli', '2.6.4'
 gem 'ar-octopus', '0.4.0', :git => "git://github.com/pleary/octopus.git", :branch => "0.4.0", :require => "octopus"
 gem 'email_spec', '1.4.0'
 gem 'escape', '0.0.4'

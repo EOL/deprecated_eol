@@ -87,7 +87,7 @@ describe 'Login' do
     click_button 'Sign in'
     current_path.should == data_object_path(DataObject.last.id)
     body.should include('Comment successfully added.')
-    body.should have_tag("blockquote", :text => comment)
+    expect(page).to have_content comment
   end
 
   it 'should redirect user to return_to url if user successfully log in after a failed attempt' do
@@ -112,7 +112,7 @@ describe 'Login' do
     click_button 'Sign in'
     current_path.should == data_object_path(DataObject.last.id)
     body.should include('Comment successfully added.')
-    body.should have_tag("blockquote", :text => comment)
+    expect(page).to have_content comment
   end
 
 end

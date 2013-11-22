@@ -84,7 +84,7 @@ gem 'ar-octopus', '0.4.0', :git => "git://github.com/pleary/octopus.git", :branc
 gem 'email_spec', '1.4.0'
 gem 'escape', '0.0.4'
 gem 'ezcrypto', '0.7.2'
-gem 'haml', '3.1.7'
+gem 'haml', '4.0.4'
 gem 'identity_cache', '0.0.4'
 gem 'indifferent-variable-hash', '0.1.0'
 gem 'invert', '0.1.0'

@@ -145,7 +145,8 @@ GEM
     guard-zeus (0.0.1)
       guard
       zeus
-    haml (3.1.7)
+    haml (4.0.4)
+      tilt
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
       activesupport (>= 3.1, < 4.1)
@@ -397,7 +398,7 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-zeus
-  haml (= 3.1.7)
+  haml (= 4.0.4)
   haml-rails
   hipchat
   identity_cache (= 0.0.4)

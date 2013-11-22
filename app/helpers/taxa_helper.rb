@@ -208,16 +208,6 @@ module TaxaHelper
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
       text_for_row_value += " " + display_uri(uri_components)
     end
-    # Curators get to remove the data:
-    if options[:link_to_overview] && !data_point_uri.new_record? && data_point_uri.taxon_concept_id && current_user.min_curator_level?(:full)
-      remove_link =
-      text_for_row_value << "<span class='remove'> " +
-        link_to(I18n.t(:remove),
-                taxon_data_exemplars_path(id: data_point_uri.id,
-                                          taxon_concept_id: data_point_uri.taxon_concept_id, exclude: true),
-                                          method: :post, confirm: I18n.t(:are_you_sure), remote: true) +
-        "</span>"
-    end
     text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless data_point_uri.new_record?
     text_for_row_value

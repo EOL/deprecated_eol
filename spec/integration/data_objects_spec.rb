@@ -106,14 +106,12 @@ describe 'Data Object Page' do
 
   it "should show data object attribution" do
     visit("/data_objects/#{@image.id}")
-    # Note that the spacing here (ATM, space followed by a newline) is pretty fragile... but I don't know how to make
-    # it more robust without a regex.
-    body.should have_tag('.source p', :text => "Author: \n#{@image.authors.first.full_name}")
+    expect(body).to have_tag('.source p', text: /Author:.*#{@image.authors.first.full_name}/m)
   end
 
   it "should show image description for image objects" do
     visit("/data_objects/#{@image.id}")
-    body.should have_tag('.article .copy', :text => @image.description)
+    expect(page).to have_content @image.description
   end
 
   it "should not show comments section if there are no comments (obsolete?)" do
@@ -324,7 +322,7 @@ describe 'Data Object Page' do
       click_button "Post Comment"
     end
     visit("/data_objects/#{@image.id}")
-    body.should have_tag("blockquote", :text => comment)
+    expect(page).to have_content(comment)
     visit('/logout')
   end
 

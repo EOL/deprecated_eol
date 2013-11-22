@@ -57,7 +57,7 @@ end
 
 group :test do
   gem 'webmock', '1.8.11' # Mock calls to remote APIs, like Open Authentication.
-  gem 'rspec-html-matchers', '0.3.5' # Adds #with_tag for tests. Requires nokogiri.
+  gem 'rspec-html-matchers', '0.4.3' # Adds #with_tag for tests. Requires nokogiri.
 end
 
 group :assets do
@@ -66,7 +66,7 @@ end
 
 gem 'rails', '3.2.15'
 
-gem 'acts_as_list', '0.2.0' # Used for drag-and-drop reordering of KnownUri instances. ...We could be making wider use of this.
+gem 'acts_as_list', '0.3.0' # Used for drag-and-drop reordering of KnownUri instances. ...We could be making wider use of this.
 gem 'acts_as_tree_rails3', '0.1.0' # We use this for a few of our tree-like models, such as TocItem and CollectionType.
 gem 'biodiversity19', '1.1.3' # TODO - I don't think we use this. ...even if we do, it's deprecated, replace it.
 gem 'cityhash', '0.8.1' # Used by identity_cache to speed up the creation of hash keys.
@@ -77,30 +77,30 @@ gem 'dalli', '2.6.4' # Memcached handler. This is what handles ALL of our cachin
 # Octopus helps handle several databases at the same time, but we had to customize it for our needs:
 gem 'ar-octopus', '0.4.0', :git => "git://github.com/pleary/octopus.git", :branch => "0.4.0", :require => "octopus" 
 gem 'email_spec', '1.4.0' # For testing emails within RSpec.
-gem 'escape', '0.0.4' # provides several HTML/URI/shell escaping functions - TODO - I don't think we need this?
-gem 'ezcrypto', '0.7.2' # TODO - remove this, I don't think we use it.
+gem 'escape' # provides several HTML/URI/shell escaping functions - TODO - I don't think we need this?
+gem 'ezcrypto' # TODO - remove this, I don't think we use it.
 gem 'haml', '4.0.4' # This is how we handle ALL of our HTML, you need to learn this.
 gem 'identity_cache', '0.0.4' # Used to cache objects in a robust way.
 gem 'indifferent-variable-hash', '0.1.0' # TODO - remove this, Rails has something like this baked in. I forget what it's called.
-gem 'invert', '0.1.0'  # A quick way to array.sort.reverse.
+gem 'invert'  # A quick way to array.sort.reverse.
 gem 'jquery-rails', '2.1.3' # Of course, this helps almost all of our JS.
 gem 'json', '1.8.1' # For APIs that want to return JSON.
-gem 'macaddr', '1.6.1' # For creating UUIDs that are unique to the machine that makes them.
-gem 'mime-types', '1.19' # For handling the many differnt types of files to serve, such as videos.
+gem 'macaddr' # For creating UUIDs that are unique to the machine that makes them.
+gem 'mime-types', '1.25' # For handling the many differnt types of files to serve, such as videos.
 gem 'mysql2', '0.3.14' # This is our database. You might want this.
 gem 'newrelic_rpm', '>3.5.3' # For gathering tons of awesome stats about the site
 gem 'oauth', '0.4.7' # Logging in via Facebook and Twitter, older version.
 gem 'oauth2', '0.8.0' # Logging in via Facebook and Twitter
 gem 'paperclip', '3.3.1' # Uploading files, such as icons for users and collections.
-gem 'rails_autolink', '1.0.9' # Adding links to user-entered text.
+gem 'rails_autolink', '1.1.5' # Adding links to user-entered text.
 gem 'rails3-jquery-autocomplete', '1.0.11', :git => "git://github.com/pleary/rails3-jquery-autocomplete.git" # Autocomplete Ajax.
 gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails' # An empathy test to see if you're a human, when creating an account.
 gem 'resque', '1.23.0', :require => 'resque/server' # For background jobs, like email notifications and classification curation
 gem 'sanitize', '2.0.3' # To clean up user-enter HTML.
 gem 'sass-rails', '3.2.5' # To make CSS easier to write.
-gem 'sparql-client' # For the data tab
+gem 'sparql-client', '1.0.4.1' # For the data tab
 gem 'statsd-ruby', '1.2.1' # For recording various stats around the site.
-gem 'uglifier', '1.3.0' # For smaller JS when assets are compiled
+gem 'uglifier', '2.3.1' # For smaller JS when assets are compiled
 gem 'unicorn', '4.4.0' # This is our webserver
 gem 'uuid', '2.3.5' # Used when creating data objects
 gem 'will_paginate', '3.0.4' # Used ALL OVER THE SITE for pagination.

@@ -134,7 +134,7 @@ describe TaxonConcept do
       :target_id => @taxon_concept.data_objects.last.id,
       :taxon_concept => @taxon_concept,
       :activity => Activity.trusted)
-    lambda { @taxon_concept.data_object_curators }.should_not raise_error
+    expect { @taxon_concept.data_object_curators }.not_to raise_error
     @taxon_concept.data_object_curators.should == []
     l.destroy
   end
@@ -714,7 +714,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+      SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do
@@ -754,7 +754,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+      SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do

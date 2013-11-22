@@ -19,7 +19,7 @@ describe ForumCategory do
     lambda { post = ForumCategory.gen(:title => nil) }.should raise_error(ActiveRecord::RecordInvalid)
     lambda { post = ForumCategory.gen(:title => "") }.should raise_error(ActiveRecord::RecordInvalid)
     lambda { post = ForumCategory.gen(:title => "  ") }.should raise_error(ActiveRecord::RecordInvalid)
-    lambda { post = ForumCategory.gen(:title => "Title") }.should_not raise_error(ActiveRecord::RecordInvalid)
+    expect { post = ForumCategory.gen(:title => "Title") }.not_to raise_error
   end
 
 end

@@ -34,7 +34,7 @@ describe Forum do
     lambda { post = Forum.gen(:name => nil) }.should raise_error(ActiveRecord::RecordInvalid)
     lambda { post = Forum.gen(:name => "") }.should raise_error(ActiveRecord::RecordInvalid)
     lambda { post = Forum.gen(:name => "  ") }.should raise_error(ActiveRecord::RecordInvalid)
-    lambda { post = Forum.gen(:name => "Name") }.should_not raise_error(ActiveRecord::RecordInvalid)
+    expect { post = Forum.gen(:name => "Name") }.not_to raise_error
   end
 
 end

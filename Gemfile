@@ -11,7 +11,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem 'faker', '1.1.2'
   gem 'haml-rails' # Just for rails generators.
   gem 'optiflag', '0.7'
-  gem 'rspec-rails', '2.11.4'
+  gem 'rspec-rails', '2.14'
   gem 'ruby-prof', '0.11.2'
   gem 'spin', '0.5.3'
   # These are only for the RDF-store tests:

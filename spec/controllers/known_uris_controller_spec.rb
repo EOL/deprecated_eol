@@ -40,12 +40,12 @@ describe KnownUrisController do
   describe 'GET index' do
     it 'should work for admins' do
       session[:user_id] = @admin.id
-      expect { get :index }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :index }.not_to raise_error
     end
 
     it 'should work for master curators' do
       session[:user_id] = @master.id
-      expect { get :index }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :index }.not_to raise_error
     end
 
     it 'should deny access for full curators' do
@@ -76,7 +76,7 @@ describe KnownUrisController do
     end
 
     it 'should allow access to users with data privilege' do
-      expect { get :autocomplete_known_uri_search }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :autocomplete_known_uri_search }.not_to raise_error
     end
 
     # the method allows an empty search, but the JS will only call this method when there are at least 2 characters
@@ -113,7 +113,7 @@ describe KnownUrisController do
     end
 
     it 'should allow access to users with data privilege' do
-      expect { get :autocomplete_known_uri_predicates }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :autocomplete_known_uri_predicates }.not_to raise_error
     end
 
     # the method allows an empty search, but the JS will only call this method when there are at least 2 characters
@@ -142,7 +142,7 @@ describe KnownUrisController do
     end
 
     it 'should allow access to users with data privilege' do
-      expect { get :autocomplete_known_uri_units }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :autocomplete_known_uri_units, term: 'foo' }.not_to raise_error
     end
 
     it 'should return nothing when there is no term and no predicate' do
@@ -188,7 +188,7 @@ describe KnownUrisController do
     end
 
     it 'should allow access to users with data privilege' do
-      expect { get :autocomplete_known_uri_metadata }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :autocomplete_known_uri_metadata, term: 'foo' }.not_to raise_error
     end
 
     it 'should return all visible metadata URIs when there is no term' do
@@ -238,7 +238,7 @@ describe KnownUrisController do
     end
 
     it 'should allow access to users with data privilege' do
-      expect { get :autocomplete_known_uri_values }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :autocomplete_known_uri_values }.not_to raise_error
     end
 
     it 'should return nothing when there is no predicate' do

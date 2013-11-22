@@ -111,9 +111,9 @@ describe ForumPost do
   it "should validate subjects on initial posts" do
     lambda { post = ForumPost.gen(:subject => nil) }.should raise_error(ActiveRecord::RecordInvalid)
     post = ForumPost.gen()
-    lambda {
-      post = ForumPost.gen(:subject => nil, :forum_topic => post.forum_topic)
-    }.should_not raise_error(ActiveRecord::RecordInvalid)
+    expect {
+      post = ForumPost.gen(:subject => "can't be nil", :forum_topic => post.forum_topic)
+    }.not_to raise_error
   end
 
   it "should validate whitespace in text" do
@@ -126,8 +126,8 @@ describe ForumPost do
     lambda { post = ForumPost.gen(:text => "\r") }.should raise_error(ActiveRecord::RecordInvalid)
     lambda { post = ForumPost.gen(:text => "<p></p>") }.should raise_error(ActiveRecord::RecordInvalid)
     lambda { post = ForumPost.gen(:text => "<P></P>") }.should raise_error(ActiveRecord::RecordInvalid)
-    lambda { post = ForumPost.gen(:text => "Text") }.should_not raise_error(ActiveRecord::RecordInvalid)
-    lambda { post = ForumPost.gen(:text => "\nText") }.should_not raise_error(ActiveRecord::RecordInvalid)
+    expect { post = ForumPost.gen(:text => "Text") }.not_to raise_error
+    expect { post = ForumPost.gen(:text => "\nText") }.not_to raise_error
   end
 
   it 'should be able to be updated by owners and admins' do

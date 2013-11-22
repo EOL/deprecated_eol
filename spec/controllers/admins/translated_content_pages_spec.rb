@@ -10,6 +10,8 @@ describe Admins::TranslatedContentPagesController do
     @normal_user = User.gen
   end
 
+  let(:content_page) { ContentPage.gen }
+
   before(:each) do
     session[:user_id] = nil
   end
@@ -25,11 +27,11 @@ describe Admins::TranslatedContentPagesController do
     expect { get :new }.to raise_error(EOL::Exceptions::SecurityViolation)
   end
 
-  it 'should not raise SecurityViolation for admins or CMS viewers' do
+  it 'should not raise an error for admins or CMS viewers' do
     session[:user_id] = @admin.id
-    expect { get :new }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+    expect { get :new, content_page_id: content_page.id }.not_to raise_error
     session[:user_id] = @cms_user.id
-    expect { get :new }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+    expect { get :new, content_page_id: content_page.id }.not_to raise_error
   end
 
 end

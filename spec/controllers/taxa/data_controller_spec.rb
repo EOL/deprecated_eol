@@ -21,7 +21,7 @@ describe Taxa::DataController do
 
     it 'should grant access to users with data privilege' do
       session[:user_id] = @user.id
-      expect { get :index, :taxon_id => @taxon_concept.id }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :index, :taxon_id => @taxon_concept.id }.not_to raise_error
     end
 
     it 'should deny access to normal or non-logged-in users' do
@@ -36,9 +36,9 @@ describe Taxa::DataController do
       opt.value = 'true'
       opt.save
       session[:user_id] = User.gen.id
-      expect { get :index, :taxon_id => @taxon_concept.id }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :index, :taxon_id => @taxon_concept.id }.not_to raise_error
       session[:user_id] = nil
-      expect { get :index, :taxon_id => @taxon_concept.id }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :index, :taxon_id => @taxon_concept.id }.not_to raise_error
       opt.value = 'false'
       opt.save
     end

@@ -1,37 +1,31 @@
 source 'https://rubygems.org'
 
 group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
-  gem 'capistrano', '2.13.5'
-  gem 'capistrano-unicorn-pleary', '=0.1.6.1'
-  gem 'rvm-capistrano', '1.2.7'
-  gem 'capybara', '1.1.3'
-  gem 'daemons', '1.1.9'
-  gem 'debugger'
-  gem 'factory_girl_rails', '4.1.0'
-  gem 'faker', '1.1.2'
+  gem 'capistrano', '2.13.5' # For deploys.
+  gem 'capistrano-unicorn-pleary', '=0.1.6.1' # For deploys. Note we've customized it...
+  gem 'rvm-capistrano', '1.2.7' # For deploys.
+  gem 'capybara', '1.1.3' # We use this *extensively* in testing for user-like behavior. Learn this.
+  gem 'daemons', '1.1.9' # This allows tasks to run in the background, like Solr.
+  gem 'factory_girl_rails', '4.1.0' # We use this *extensively* in testing to create "real" models. Learn this.
+  gem 'faker', '1.1.2' # We use this for creating "realistic" names for testing / bootstrapping.
   gem 'haml-rails' # Just for rails generators.
-  gem 'optiflag', '0.7'
-  gem 'rspec-rails', '2.14'
-  gem 'ruby-prof', '0.11.2'
-  gem 'spin', '0.5.3'
-  # These are only for the RDF-store tests:
-  gem 'rdoc', '3.12'
+  gem 'optiflag', '0.7' # Handles command-line arguments. We currently only use this for Solr tasks.
+  gem 'rspec-rails', '2.14' # This is what we use for testing. Learn it.
+  gem 'ruby-prof', '0.11.2' # Used to measure performance.
   gem 'nokogiri', '1.5.5' # Yeah, I know this has given us grief in the past.  :\ Trying things out, is all.
 end
 
+# Essentially, this "group" is for everything except production:
+group :development, :test, :staging, :staging_dev, :test_dev, :bocce_demo, :bocce_demo_dev do
+  gem 'debugger' # Clearly, this is for debugging.  :)
+end
+
 group :staging, :bocce_demo do
-  gem 'debugger'
-  gem 'hipchat'
-  gem 'sparql-client'
+  gem 'hipchat' # We use this for deploy notifications.
 end
 
 group :development, :staging_dev, :staging_dev_cache, :bocce_demo_dev, :test_dev do
-  gem 'webrick', '1.3.1'
-end
-
-group :production do
-  gem 'therubyracer', '0.10.2'
-  gem 'execjs', '1.4.0'
+  gem 'webrick', '1.3.1' # TODO - do we still need this?  I doubt it.
 end
 
 # NOT versioning these, since they really are for development (and test) only:
@@ -45,7 +39,7 @@ group :test, :development do
     # to launch your editor, then try-again to ... uhh... try again. Use Ctrl-\ to break running code. run rescue rspec to
     # get specs to pry errors automatically (but note try-again doesn't work from rspec). rescue rails server also uses pry.
   gem 'pry-stack_explorer', require: false
-  gem 'terminal-notifier-guard'
+  gem 'terminal-notifier-guard' # Allows for OS X notifications about errors
   gem 'binding_of_caller' # Used by Better Errors to give lots more information about errors in the browser.
 
 end
@@ -58,21 +52,21 @@ group :acceptance do
 end
 
 group :development do
-  gem 'better_errors' # NEVER EVER *EVER* run this in production. Ever. Don't.
+  gem 'better_errors' # NEVER EVER *EVER* run this in production. Ever. Don't. It will be immediately obvious what it does in dev.
 end
 
 group :test do
   gem 'webmock', '1.8.11' # Mock calls to remote APIs, like Open Authentication.
-  gem 'rspec-html-matchers', '0.3.5'
+  gem 'rspec-html-matchers', '0.3.5' # Adds #with_tag for tests. Requires nokogiri.
 end
 
 group :assets do
-  gem 'turbo-sprockets-rails3', '0.3.4'
+  gem 'turbo-sprockets-rails3', '0.3.4' # This is supposed to minimize the re-building of assets. AFAICT, it isn't working for us.
 end
 
 gem 'rails', '3.2.15'
 
-gem 'acts_as_list', '0.2.0'
+gem 'acts_as_list', '0.2.0' # Used for drag-and-drop reordering of KnownUri instances. ...We could be making wider use of this.
 gem 'acts_as_tree_rails3', '0.1.0' # We use this for a few of our tree-like models, such as TocItem and CollectionType.
 gem 'biodiversity19', '1.1.3' # TODO - I don't think we use this. ...even if we do, it's deprecated, replace it.
 gem 'cityhash', '0.8.1' # Used by identity_cache to speed up the creation of hash keys.

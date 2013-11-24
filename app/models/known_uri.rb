@@ -27,7 +27,7 @@ class KnownUri < ActiveRecord::Base
     { grams:       Rails.configuration.uri_obo + 'UO_0000021'},
     { kilograms:   Rails.configuration.uri_obo + 'UO_0000009'},
     { millimeters: Rails.configuration.uri_obo + 'UO_0000016'},
-    { centimeters: Rails.configuration.uri_obo + 'UO_0000081'},
+    { centimeters: Rails.configuration.uri_obo + 'UO_0000015'}, # Is 15 correct?  Or 81?
     { meters:      Rails.configuration.uri_obo + 'UO_0000008'},
     { kelvin:      Rails.configuration.uri_obo + 'UO_0000012'},
     { celsius:     Rails.configuration.uri_obo + 'UO_0000027'},

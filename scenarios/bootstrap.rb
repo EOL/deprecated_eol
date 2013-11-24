@@ -5,10 +5,9 @@
 #   This description block can be viewed (as well as other information
 #   about this scenario) by running:
 #     $ rake scenarios:show NAME=bootstrap
-#
 #---
-#dependencies: [ :foundation ]
-#arbitrary_variable: arbitrary value
+load_foundation_cache
+puts "++ Loading bootstrap"
 
 $LOADING_BOOTSTRAP = true
 

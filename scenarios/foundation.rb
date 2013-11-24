@@ -60,15 +60,25 @@ iucn_user = User.gen_if_not_exists(:given_name => 'IUCN', :agent => iucn_agent)
 iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user, :full_name => 'IUCN' )
 ContentPartnerContact.gen_if_not_exists(:content_partner => iucn_content_parter, :contact_role => ContactRole.primary)
 
+<<<<<<< HEAD
 col_agent = Agent.gen_if_not_exists(:full_name => 'Catalogue of Life', :logo_cache_url => '219000', :homepage => 'http://www.catalogueoflife.org/')
 col_user = User.gen_if_not_exists(:display_name => 'Catalogue of Life', :agent => col_agent)
 col_content_partner = ContentPartner.gen_if_not_exists(:user => col_user, :full_name => 'Catalogue of Life')
 ContentPartnerContact.gen_if_not_exists(:content_partner => col_content_partner, :contact_role => ContactRole.primary)
+=======
+<<<<<<< HEAD
+iucn_agent = Agent.gen_if_not_exists(full_name: 'IUCN')
+iucn_user = User.gen_if_not_exists(given_name: 'IUCN', agent: iucn_agent)
+iucn_content_parter = ContentPartner.gen_if_not_exists(user: iucn_user, full_name: 'IUCN' )
+ContentPartnerContact.gen_if_not_exists(content_partner: iucn_content_parter, contact_role: ContactRole.primary)
+>>>>>>> Found the problem: licenses need to be created before resources.
 
 Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/')
 
 # Must have this before creating any resources:
 License.create_enumerated
+
+License.create_defaults
 
 boa_agent = Agent.gen_if_not_exists(full_name: 'Biology of Aging', logo_cache_url: '318700')
 boa_user = User.gen_if_not_exists(display_name: 'Biology of Aging', logo_cache_url: '318700', agent: boa_agent)

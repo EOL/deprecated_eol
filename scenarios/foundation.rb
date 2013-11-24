@@ -1,7 +1,6 @@
 # encoding: utf-8
 # sets up a basic foundation - enough data to run the application, but no content
 truncate_all_tables(skip_empty_tables: false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
-puts "++ Loading foundation"
 drop_all_virtuoso_graphs
 
 Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.

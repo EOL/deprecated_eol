@@ -7,6 +7,7 @@
 #     $ rake scenarios:show NAME=bootstrap
 #---
 load_foundation_cache
+debugger
 puts "++ Loading bootstrap"
 
 $LOADING_BOOTSTRAP = true

@@ -69,6 +69,9 @@ ContentPartnerContact.gen_if_not_exists(:content_partner => col_content_partner,
 Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/')
 
 
+# Must have this before creating any resources:
+License.create_defaults
+
 boa_agent = Agent.gen_if_not_exists(:full_name => 'Biology of Aging', :logo_cache_url => '318700')
 boa_user = User.gen_if_not_exists(:display_name => 'Biology of Aging', :logo_cache_url => '318700', :agent => boa_agent)
 boa_content_partner = ContentPartner.gen_if_not_exists(:user => boa_user, :full_name => "Biology of Aging")
@@ -113,8 +116,6 @@ unknown  = Language.gen_if_not_exists(label: 'Unknown', iso_639_1: '', source_fo
 
 sci_name.update_attributes(activated_on: nil)
 unknown.update_attributes(activated_on: nil)
-
-License.create_defaults
 
 MimeType.gen_if_not_exists(label: 'image/jpeg')
 MimeType.gen_if_not_exists(label: 'audio/mpeg')

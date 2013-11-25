@@ -516,9 +516,6 @@ private
   end
 
   def self.conversions
-    # lots of raw URIs in here to convert some common and duplicate URIs
-    # We wouldn't want to, for example, use use create_defaults to have named methods
-    # in KnownURI for all these URIs
     # TODO: replace this with a new table and an admin interface for setting unit conversions
     return @@conversions if defined?(@@conversions)
     @@conversions = [

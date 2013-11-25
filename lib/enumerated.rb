@@ -67,9 +67,9 @@ module Enumerated
       @enum_defaults.each do |enum|
         if enum.is_a?(Hash)
           raise "You MUST only have one key in an enum definition hash" if enum.keys.count > 1
-          @enumerations[enumeration_xform(enum.keys.first)] = enum.values.first
+          @enumerations[enumeration_xform(enum.keys.first).to_sym] = enum.values.first
         else
-          @enumerations[enumeration_xform(enum)] = enum
+          @enumerations[enumeration_xform(enum).to_sym] = enum
         end
       end
       @enumerations
@@ -140,12 +140,17 @@ module Enumerated
     end
 
     def enumeration_creator(hash)
+      #DEBUG: puts "++ #enumeration_creator"
       defaults = hash.has_key?(:defaults) ? hash.delete(:defaults) : {}
+      #DEBUG: puts "++ Defaults:"
+      #DEBUG: pp defaults
       autoinc_field = hash.delete(:autoinc)
       if @enum_translated
         enumerations.each_with_index do |(default, value), index|
+          #DEBUG: puts "++ #{default} -> #{value}"
           params = defaults.dup
           params.merge!(hash[default]) if hash[default]
+          #DEBUG: puts "++ #{default} -> #{value}"
           params[autoinc_field] = index + 1 if autoinc_field
           params.merge!(@enum_field => value) # Doing this last 'cause it *needs* to be the value...
           exist_params = { @enum_field => value, language_id: Language.english.id }

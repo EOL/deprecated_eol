@@ -6,8 +6,8 @@ describe DataObjectTaxon do
 
   before(:all) do
     # Mini-foundation. Perhaps we should extract this as a method in the spec helper:
-    DataType.create_defaults
-    License.create_defaults
+    DataType.create_enumerated
+    License.create_enumerated
     CuratorLevel.create_enumerated
     Vetted.create_enumerated
     Visibility.create_enumerated

@@ -7,6 +7,8 @@ describe 'taxa/data/index' do
     UriType.create_enumerated
     Vetted.create_enumerated
     Visibility.create_enumerated
+    License.create_enumerated
+    ContentPartnerStatus.create_enumerated
   end
 
   before(:each) do

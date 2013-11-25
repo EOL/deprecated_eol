@@ -13,7 +13,7 @@ describe ContentPartners::ResourcesController do
       Language.create_english
       CuratorLevel.create_enumerated
       ContentPartnerStatus.create_enumerated
-      License.create_defaults
+      License.create_enumerated
       UserIdentity.create_enumerated
       @user = User.gen(:username => 'partner_resources_controller')
     end

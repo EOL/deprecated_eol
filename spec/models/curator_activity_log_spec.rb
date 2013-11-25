@@ -7,7 +7,7 @@ describe CuratorActivityLog do
   before(:all) do
     ChangeableObjectType.create_enumerated
     ContentPartnerStatus.create_enumerated
-    License.create_defaults
+    License.create_enumerated
   end
 
   it 'should is_for_type?' do

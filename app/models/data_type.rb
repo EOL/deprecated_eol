@@ -8,27 +8,19 @@ class DataType < ActiveRecord::Base
   include Enumerated
   enumerated :label, [ 'Text', 'Image', 'Sound', 'Video', 'GBIF Image', 'YouTube', 'Flash', 'IUCN', 'Map', 'Link' ]
 
-  def self.create_defaults
-    [{:label => 'Image', :schema_value => 'http://purl.org/dc/dcmitype/StillImage'},
-     {:label => 'Sound', :schema_value => 'http://purl.org/dc/dcmitype/Sound'},
-     {:label => 'Text',  :schema_value => 'http://purl.org/dc/dcmitype/Text'},
-     {:label => 'Video', :schema_value => 'http://purl.org/dc/dcmitype/MovingImage'},
-     {:label => 'GBIF Image'},
-     {:label => 'IUCN'},
-     {:label => 'Flash'},
-     {:label => 'YouTube'},
-     {:label => 'Map'},
-     {:label => 'Link'}].each do |default|
-      trans = TranslatedDataType.find_by_label_and_language_id(default[:label], Language.default.id)
-      next if trans && trans.data_type # Already there.
-      dt = DataType.create(:schema_value => default[:schema_value] || default[:label])
-      if trans && ! trans.data_type
-        trans.data_type = dt
-        trans.save
-      else
-        TranslatedDataType.create(:label => default[:label], :data_type => dt, :language => Language.default)
-      end
-    end
+  def self.create_enumerated
+    enumeration_creator(
+      image:      { schema_value: 'http://purl.org/dc/dcmitype/StillImage' },
+      sound:      { schema_value: 'http://purl.org/dc/dcmitype/Sound' },
+      text:       { schema_value: 'http://purl.org/dc/dcmitype/Text' },
+      video:      { schema_value: 'http://purl.org/dc/dcmitype/MovingImage' },
+      gbif_image: { schema_value: 'GBIF Image' },
+      iucn:       { schema_value: 'IUCN' },
+      flash:      { schema_value: 'Flash' },
+      youtube:    { schema_value: 'YouTube' },
+      map:        { schema_value: 'Map' },
+      link:       { schema_value: 'Link' }
+    )
   end
 
   def to_s

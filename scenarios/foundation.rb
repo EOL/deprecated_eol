@@ -69,7 +69,7 @@ Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Informa
 
 
 # Must have this before creating any resources:
-License.create_defaults
+License.create_enumerated
 
 boa_agent = Agent.gen_if_not_exists(:full_name => 'Biology of Aging', :logo_cache_url => '318700')
 boa_user = User.gen_if_not_exists(:display_name => 'Biology of Aging', :logo_cache_url => '318700', :agent => boa_agent)
@@ -89,7 +89,7 @@ AgentRole.create_enumerated
 
 Audience.create_enumerated
 
-DataType.create_defaults
+DataType.create_enumerated
 
 LinkType.create_enumerated
 

@@ -6,7 +6,7 @@ describe TaxonData do
   before(:all) do
     truncate_all_tables
     drop_all_virtuoso_graphs
-    License.create_defaults
+    License.create_enumerated
     ResourceStatus.create_enumerated
     SpecialCollection.create_enumerated
     ContentPartnerStatus.create_enumerated

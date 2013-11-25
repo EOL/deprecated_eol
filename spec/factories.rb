@@ -614,10 +614,7 @@ FactoryGirl.define do
     mime_type              { MimeType.gen_if_not_exists(:label => 'image/jpeg') }
     object_title           ''
     language               { Language.english }
-    license                { License.gen_if_not_exists(:title => 'cc-by 3.0',
-                                          :description => 'Some rights reserved',
-                                          :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                                          :logo_url => 'cc_by_small.png') }
+    license                { License.cc }
     rights_statement       'Test rights statement'
     rights_holder          'Test rights holder'
     bibliographic_citation ''

@@ -16,8 +16,6 @@ class ChangeableObjectType < ActiveRecord::Base
     alias_method :users_data_object, :users_submitted_text
   end
 
-
-
   def self.raw_data_object_id
     cot = self.find_by_ch_object_type('data_object')
     return 2 if cot.nil? # THIS IS FOR TESTS.  Since we need this at compile-time, we are "guessing"

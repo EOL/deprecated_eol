@@ -68,6 +68,16 @@ describe TaxonMedia do
                                                 :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
                                                 :published ] }
     ).ordered.and_return array
+    # This second call is made in order to get a count of all media. I'm not sure this is what was intended.  # TODO
+    @taxon_concept.stub(:data_objects_from_solr).with(
+      :per_page => 1,
+      :sort_by => 'status',
+      :data_type_ids => DataType.image_type_ids,
+      :vetted_types => ['trusted', 'unreviewed'],
+      :visibility_types => ['visible'],
+      :published => true,
+      :return_hierarchically_aggregated_objects => true).ordered.and_return array
+
     # NOTE - this fails in the full test suite, occassionally.  Not sure why.  You might wanna check on that.
     build_media
     @media.paginated.should == array

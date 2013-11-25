@@ -6,23 +6,21 @@
     %caption.assistive= I18n.t(:data_overview_table_caption)
     -# TODO - this logic should be in the "model" (even if the model is a hash/array):
     - grouped_attributes = data_point_uris.categorized
-    - grouped_attributes.each_with_index do |arr, index|
-      - attribute, data_point_uris = arr
-      - row_class = (index == grouped_attributes.keys.length - 1) ? 'last' : nil
+    - grouped_attributes.each_with_index do |(attribute, data_point_uris), index|
+      - row_class = (index == grouped_attributes.keys.length - 1) ? 'last' : nil # TODO - you never need 'last' as a class. Use CSS.
       %tr{ :class => row_class }
         %th= display_uri(attribute, :span, capitalize: true)
         %td
-          - text_for_rows = data_point_uris.map do |data_point_uri|
+          - text_for_rows = data_point_uris.sort.map do |data_point_uri|
             - display_text_for_data_point_uri(data_point_uri, :link_to_overview => true)
+          -# TODO - this stops at three... really, it should stop at 3 OR when we no longer have exemplars. But first:
           -# TODO - This should REALLY be in the model: we don't want the *view* hiding things, since we want curators to specify them!
           - if text_for_rows.length > values_to_show_per_row
-            - text_for_rows = text_for_rows.sort[0...values_to_show_per_row]
+            - text_for_rows = text_for_rows[0...values_to_show_per_row]
             - text_for_rows << link_to(I18n.t(:more),
               taxon_data_path(:toc_id => (attribute.is_a?(KnownUri) && attribute.toc_items.length > 0) ?  attribute.toc_items.first.id : nil,
               :anchor => attribute.is_a?(KnownUri) ? attribute.uri : attribute))
           = raw text_for_rows.join(", ").gsub(/<\/span>, /, ", </span>") # Clean up commas...
-      - if index >= rows_to_show - 1 # TODO - remove this.
-        - break
   - if grouped_attributes.keys.length > rows_to_show # TODO - this should be data_point_uris.more?
     .see_more
       = link_to(I18n.t(:see_more_on_the_data_tab), taxon_data_path)

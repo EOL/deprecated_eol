@@ -1,5 +1,8 @@
 class Admins::ContentPagesController < AdminsController
 
+  skip_before_filter :restrict_to_admins
+  before_filter :restrict_to_admins_and_cms_editors
+
   # GET /admin/content_pages
   def index
     @content_pages = ContentPage.find_top_level

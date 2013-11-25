@@ -47,9 +47,9 @@ describe TaxonDetails do
   # This looks more complicated than it is. It's actually pretty simple, if you read through it.
   it 'should have a count by language of approved languages (only)' do
     english_article = DataObject.gen(:language => Language.first)
-    english_article.stub!(:approved_language?).and_return(true)
+    english_article.stub(:approved_language?).and_return(true)
     bad_article = DataObject.gen(:language => Language.last)
-    bad_article.stub!(:approved_language?).and_return(false)
+    bad_article.stub(:approved_language?).and_return(false)
     articles = [english_article, bad_article]
     @taxon_concept.should_receive(:text_for_user).and_return([english_article])
     DataObject.should_receive(:preload_associations).with([english_article], :language).and_return([english_article])

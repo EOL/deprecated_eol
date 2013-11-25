@@ -163,6 +163,7 @@ zh-CN:
         rich_pages: 高质量页面
         rich_redhotlist_pages: 高质量红色关注页面
         rich_redhotlist_pages_percentage: 高质量红色关注页面百分比
+        total_occurrences: 记录
         total_taxa_with_data: 带数据页面
         total_triples: 三重
         total_user_added_data: 用户加入的数据
@@ -262,6 +263,8 @@ zh-CN:
         meta_description: 元数据描述
         meta_keywords: 元数据关键词
         title: 标题
+      translated_known_uri: 
+        comment: 评论
       translated_news_item: 
         active_translation: 已发布
         body: 正文
@@ -2810,6 +2813,7 @@ zh-CN:
   recognized_by_from_source: "%{recognized_by}在 %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} 在 %{source} 作为 %{taxon_rank}"
   record_not_found: "[未找到记录]"
+  reference: 参考资料
   references_cabs_colon: 参考文献：
   related_names_with_count: 
     other: "%{count}个相关名称"
@@ -3107,7 +3111,7 @@ zh-CN:
           tweet_text: "%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供"
         meta_description: 网络生命大百科中关于%{scientific_name}的文献和信息。阅读在网络生命大百科中关于%{scientific_name} 的文章。
         meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和信息。阅读在网络生命大百科中关于%{preferred_common_name}的文章。"
-        meta_keywords: "%{scientific_name}的信息，%{scientific_name}的文献，%{scientific_name}的文章"
+        meta_keywords: "%{scientific_name}的条目、%{scientific_name}的图书、%{scientific_name}的书目、%{scientific_name}的作品"
         meta_keywords_with_common_name: 关于%{preferred_common_name}的信息，%{preferred_common_name}的文献，%{preferred_common_name}的文章
         meta_title: 关于%{scientific_name}的文章和书籍
         meta_title_with_common_name: 关于%{preferred_common_name}（%{scientific_name}）的文章和书籍

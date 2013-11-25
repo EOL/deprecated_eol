@@ -84,7 +84,7 @@ module ActiveRecord
               find_all = options_hash ? options_hash[:find_all] : false
               search_language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
               language_id = Language.id_from_iso(search_language_iso)
-              return nil if language_id.nil?
+              return nil if language_id.nil? # TODO - really, this should raise an exception. It means a whole language is missing.
               table = self::TRANSLATION_CLASS.table_name
               # find the record where the translated field is * and language is *
               found = find(find_all ? :all : :first, :joins => :translations,

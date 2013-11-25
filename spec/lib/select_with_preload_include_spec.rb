@@ -21,7 +21,7 @@ describe 'Select with Preload Include' do
     he.vetted_id.should == @last_hierarchy_entry.vetted_id         # we need to grab the foreign_key of :belongs_to
     he.created_at.should == @last_hierarchy_entry.created_at       # should have the field asked for
     lambda { he.updated_at }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_hierarchy_entry.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_hierarchy_entry.updated_at }.not_to raise_error
 
     he.vetted.class.should == Vetted
     he.vetted.label.should == @last_hierarchy_entry.vetted.label
@@ -36,7 +36,7 @@ describe 'Select with Preload Include' do
     he.vetted_id.should == @last_hierarchy_entry.vetted_id         # we need to grab the foreign_key of :belongs_to
     he.created_at.should == @last_hierarchy_entry.created_at       # should have the field asked for
     lambda { he.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_hierarchy_entry.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError)   # should have the field asked for
+    expect { @last_hierarchy_entry.updated_at }.not_to raise_error
 
     he.vetted.class.should == Vetted
     he.vetted.label.should == @last_hierarchy_entry.vetted.label
@@ -60,7 +60,7 @@ describe 'Select with Preload Include' do
     a.id.should == @last_agent.id                       # we grab the primary key any time there's an include
     a.created_at.should == @last_agent.created_at       # should have the field asked for
     lambda { a.updated_at }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_agent.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_agent.updated_at }.not_to raise_error
 
     a.user.class.should == User
     a.user.agent_id.should == @last_agent.id            # we need to grab the foreign_key of :has_one
@@ -81,7 +81,7 @@ describe 'Select with Preload Include' do
     he.vetted_id.should == @last_hierarchy_entry.vetted_id         # we need to grab the foreign_key of :belongs_to
     he.created_at.should == @last_hierarchy_entry.created_at       # should have the field asked for
     lambda { he.updated_at }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_hierarchy_entry.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_hierarchy_entry.updated_at }.not_to raise_error
 
     he.vetted.class.should == Vetted
     he.vetted.created_at.should == @last_hierarchy_entry.vetted.created_at
@@ -147,12 +147,12 @@ describe 'Select with Preload Include' do
     he.vetted_id.should == @last_hierarchy_entry.vetted_id         # we need to grab the foreign_key of :belongs_to
     he.created_at.should == @last_hierarchy_entry.created_at       # should have the field asked for
     lambda { he.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_hierarchy_entry.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_hierarchy_entry.updated_at }.not_to raise_error
 
     he.vetted.class.should == Vetted
     he.vetted.created_at.should == @last_hierarchy_entry.vetted.created_at
     lambda { he.vetted.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError)
-    lambda { @last_hierarchy_entry.vetted.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError)
+    expect { @last_hierarchy_entry.vetted.updated_at }.not_to raise_error
   end
 
   it 'should be able to select from a belongs_to => has_many association' do
@@ -165,12 +165,12 @@ describe 'Select with Preload Include' do
     he.vetted_id.should == @last_hierarchy_entry.vetted_id         # we need to grab the foreign_key of :belongs_to
     he.created_at.should == @last_hierarchy_entry.created_at       # should have the field asked for
     lambda { he.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_hierarchy_entry.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_hierarchy_entry.updated_at }.not_to raise_error
 
     he.vetted.class.should == Vetted
     he.vetted.created_at.should == @last_hierarchy_entry.vetted.created_at
     lambda { he.vetted.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError)
-    lambda { @last_hierarchy_entry.vetted.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError)
+    expect { @last_hierarchy_entry.vetted.updated_at }.not_to raise_error
 
     he.vetted.taxon_concepts.class.should == Array
     he.vetted.taxon_concepts[0].class.should == TaxonConcept
@@ -188,13 +188,13 @@ describe 'Select with Preload Include' do
     a.id.should == @last_agent.id                       # we grab the primary key any time there's an include
     a.created_at.should == @last_agent.created_at       # should have the field asked for
     lambda { a.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_agent.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_agent.updated_at }.not_to raise_error
 
     a.user.class.should == User
     a.user.agent_id.should == @last_agent.id            # we need to grab the foreign_key of :has_one
     a.user.created_at.should == @last_agent.user.created_at
     lambda { a.user.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError)
-    lambda { @last_agent.user.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError)
+    expect { @last_agent.user.updated_at }.not_to raise_error
   end
 
   it 'should be able to select from a has_one => belongs_to association' do
@@ -204,14 +204,14 @@ describe 'Select with Preload Include' do
     a.id.should == @last_agent.id                       # we grab the primary key any time there's an include
     a.created_at.should == @last_agent.created_at       # should have the field asked for
     lambda { a.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_agent.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_agent.updated_at }.not_to raise_error
 
     a.user.class.should == User
     a.user.agent_id.should == @last_agent.id                    # we need to grab the foreign_key of :has_one
     a.user.user_info.user_id.should == @last_agent.user.id
     a.user.created_at.should == @last_agent.user.created_at
     lambda { a.user.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError)
-    lambda { @last_agent.user.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError)
+    expect { @last_agent.user.updated_at }.not_to raise_error
   end
 
 
@@ -224,7 +224,7 @@ describe 'Select with Preload Include' do
     he.id.should == @last_hierarchy_entry.id                       # we grab the primary key any time there's an include
     he.created_at.should == @last_hierarchy_entry.created_at       # should have the field asked for
     lambda { he.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_hierarchy_entry.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_hierarchy_entry.updated_at }.not_to raise_error
 
     he.synonyms.class.should == Array
     he.synonyms[0].class.should == Synonym
@@ -242,7 +242,7 @@ describe 'Select with Preload Include' do
     d.id.should == @last_data_object.id                       # we grab the primary key any time there's an include
     d.created_at.should == @last_data_object.created_at       # should have the field asked for
     lambda { d.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_data_object.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_data_object.updated_at }.not_to raise_error
 
     d.harvest_events.class.should == Array
     d.harvest_events[0].class.should == HarvestEvent
@@ -270,7 +270,7 @@ describe 'Select with Preload Include' do
     d.id.should == @last_data_object.id                       # we grab the primary key any time there's an include
     d.created_at.should == @last_data_object.created_at       # should have the field asked for
     lambda { d.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_data_object.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_data_object.updated_at }.not_to raise_error
 
     d.hierarchy_entries.class.should == Array
     d.hierarchy_entries[0].class.should == HierarchyEntry
@@ -292,7 +292,7 @@ describe 'Select with Preload Include' do
     d.id.should == @last_data_object.id                       # we grab the primary key any time there's an include
     d.created_at.should == @last_data_object.created_at       # should have the field asked for
     lambda { d.updated_at.should }.should raise_error(ActiveModel::MissingAttributeError) # shouldn't have a field not asked for
-    lambda { @last_data_object.updated_at }.should_not raise_error(ActiveModel::MissingAttributeError) # should have the field asked for
+    expect { @last_data_object.updated_at }.not_to raise_error
 
     d.hierarchy_entries.class.should == Array
     d.hierarchy_entries[0].class.should == HierarchyEntry

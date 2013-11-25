@@ -45,7 +45,21 @@ module Eol
 
     # We're only loading 'en.yml' by default, here. See the other environments for how to "turn on" all the other YML files.
     # This makes startup times SO MUCH FASTER.
-    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', 'en.yml').to_s]
+    if ENV.has_key?('LOCALE')
+      case ENV['LOCALE']
+      when 'none'
+        # Do nothing. You will have no translations available. Deal with it.
+      when 'active'
+        config.i18n.load_path += Dir[Rails.root.join('config', 'translations',
+                                                     "{#{Rails.configuration.active_languages.join(',')}}.yml").to_s]
+      when 'all'
+        config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "*.yml").to_s]
+      else
+        config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "#{ENV['LOCALE']}.yml").to_s]
+      end
+    else
+      config.i18n.load_path += Dir[Rails.root.join('config', 'translations', 'en.yml').to_s]
+    end
     # config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.

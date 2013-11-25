@@ -12,6 +12,9 @@
 /tmp
 .sass-cache/
 
+# Ignore guard (which is an auto-tester):
+Guardfile
+
 # Older stuff:
 *.bundle
 *.o
@@ -31,13 +34,12 @@ config/deploy.rb
 config/environments/integration_local.rb
 config/environments/labs1.rb
 config/environments/staging_test.rb
-config/environments/local.*
 config/environments/staging_dev_private.rb
 config/environments/bocce_demo_dev.rb
 config/environments/dev_cache.rb
 config/environments/dev_cache_rails3.rb
 config/environments/test_dev.rb
-config/remi-deploy.rb
+config/environments/local.rb
 config/resque.yml
 config/shards.yml
 config/systems/

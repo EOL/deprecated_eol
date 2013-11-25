@@ -20,8 +20,19 @@ div.fieldset_form
           margin: 0px
           div
             margin: auto
-    .underline
-      text-decoration: underline
+    &.relations
+      span.relation, span.label, span.uri
+      span.relation
+        display: inline-block
+        width: 120px
+        text-decoration: underline
+      span.label
+        display: inline-block
+        width: 220px
+        font-weight: bold
+  div.actions
+    clear: right
+
   fieldset
     dt
       font-size: 1.08em

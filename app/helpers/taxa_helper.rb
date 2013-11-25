@@ -74,22 +74,22 @@ module TaxaHelper
     if hierarchy_entry.has_source_database?
       recognized_by = hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
       if options[:show_rank_first]
-        return I18n.t(:rank_recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title,
-                      :rank => hierarchy_entry.rank_label)
+        return I18n.t(:rank_recognized_by_from_source, agent: recognized_by, source: hierarchy_title,
+                      rank: hierarchy_entry.rank_label)
       elsif options[:show_rank] == false
-        return I18n.t(:recognized_by_from_source, :recognized_by => recognized_by, :source => hierarchy_title)
+        return I18n.t(:recognized_by_from_source, recognized_by: recognized_by, source: hierarchy_title)
       else
-        return I18n.t(:recognized_by_from_source_as_a_rank, :recognized_by => recognized_by,
-                      :source => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
+        return I18n.t(:recognized_by_from_source_as_a_rank, recognized_by: recognized_by,
+                      source: hierarchy_title, taxon_rank: hierarchy_entry.rank_label)
       end
     else
       if options[:show_rank_first]
-        return I18n.t(:rank_recognized_by_agent, :agent => hierarchy_title, :rank => hierarchy_entry.rank_label)
+        return I18n.t(:rank_recognized_by_agent, agent: hierarchy_title, rank: hierarchy_entry.rank_label)
       elsif options[:show_rank] == false
         return hierarchy_title
       else
-        return I18n.t(:recognized_by_as_a_rank, :recognized_by => hierarchy_title,
-                      :taxon_rank => hierarchy_entry.rank_label)
+        return I18n.t(:recognized_by_as_a_rank, recognized_by: hierarchy_title,
+                      taxon_rank: hierarchy_entry.rank_label)
       end
     end
   end
@@ -106,12 +106,12 @@ module TaxaHelper
   def common_name_display_attribution(common_name_display)
     agent_names = common_name_display.agents.map do |a|
       if a.user
-        link_to a.user.full_name(:ignore_empty_family_name => true), a.user
+        link_to a.user.full_name(ignore_empty_family_name: true), a.user
       else
         a.full_name
       end
     end
-    hierarchy_labels = common_name_display.hierarchies.map { |h| hierarchy_display_title(h, :show_link => false) }
+    hierarchy_labels = common_name_display.hierarchies.map { |h| hierarchy_display_title(h, show_link: false) }
     
     all_attribution = (agent_names + hierarchy_labels).compact.uniq.sort.join(', ')
     # This is *kind of* a hack.  Long, long ago, we kinda mangled our data by not having synonym IDs
@@ -155,16 +155,7 @@ module TaxaHelper
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
         define(tag_type, uri, options[:search_link])
       end
-      label = uri_components[:label].to_s
-      if label.is_numeric?
-        # float values can be rounded off to 2 decimal places
-        label = label.to_f.round(2) if label.is_float?
-        label = number_with_delimiter(label, :delimiter => ',')
-      else
-        # other values may have links embedded in them (references, citations, etc.)
-        label = label.add_missing_hyperlinks
-        label = label.firstcap if options[:capitalize]
-      end
+      label = format_data_value(uri_components[:label].to_s, options)
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat raw(label)
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
@@ -172,6 +163,27 @@ module TaxaHelper
         end
       end
     end
+  end
+
+  def format_data_value(value, options={})
+    if value.is_numeric?
+      if value.is_float?
+        if value.to_f < 0.1
+          # floats like 0.01234 need to round off to at least 2 significant digits
+          # getting 3 here allows for values like 1.23e-10
+          value = value.to_f.sigfig_to_s(3)
+        else
+          # float values can be rounded off to 2 decimal places
+          value = value.to_f.round(2)
+        end
+      end
+      value = number_with_delimiter(value, delimiter: ',')
+    else
+      # other values may have links embedded in them (references, citations, etc.)
+      value = value.add_missing_hyperlinks
+      value = value.firstcap if options[:capitalize]
+    end
+    value
   end
 
   # TODO - this has too much business logic; extract
@@ -202,7 +214,7 @@ module TaxaHelper
       text_for_row_value << "<span class='remove'> " +
         link_to(I18n.t(:remove),
                 taxon_data_exemplars_path(id: data_point_uri.id,
-                                          taxon_concept_id: data_point_uri.taxon_concept_id, :exclude => true),
+                                          taxon_concept_id: data_point_uri.taxon_concept_id, exclude: true),
                                           method: :post, confirm: I18n.t(:are_you_sure), remote: true) +
         "</span>"
     end

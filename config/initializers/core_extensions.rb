@@ -35,6 +35,7 @@ class String
     if [:de, :en, :es, :fr, :nl].include?(I18n.locale.to_sym)
       capitalize_all_words
     else
+      debugger if Rails.env.test? && I18n.locale != :ko # Tests shouldn't get here (except one for :ko)
       self
     end
   end

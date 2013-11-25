@@ -58,7 +58,7 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000009', name: 'kilograms' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000016', name: 'millimeters' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000081', name: 'centimeters' },
+                  { uri: Rails.configuration.uri_obo + 'UO_0000015', name: 'centimeters' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000008', name: 'meters' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000012', name: 'kelvin' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },
@@ -85,6 +85,9 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.unit_of_measure
+    # DO NOT make a class variable for this because we will need to flush the cache frequently as we
+    # add/remove accepted values for UnitOfMeasure. We need to keep it in a central cache, rather than
+    # in a class variable on each app server
     cached('unit_of_measure') do
       KnownUri.where(:uri => Rails.configuration.uri_measurement_unit).includes({ :known_uri_relationships_as_subject => :to_known_uri } ).first
     end
@@ -276,27 +279,6 @@ class KnownUri < ActiveRecord::Base
 
   def has_units?
     ! allowed_units.empty?
-  end
-
-  # these 3 methods may only be used in specs
-  def add_value(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
-      :relationship_uri => KnownUriRelationship::ALLOWED_VALUE_URI)
-    # adding a new value for KnownUri.unit_of_measure requires we clear its cached instance
-    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
-  end
-
-  def add_unit(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
-      :relationship_uri => KnownUriRelationship::ALLOWED_UNIT_URI)
-  end
-
-  def add_implied_unit(value_known_uri)
-    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
-    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
-      :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
   end
 
   def unknown?

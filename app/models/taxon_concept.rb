@@ -513,6 +513,7 @@ class TaxonConcept < ActiveRecord::Base
     vet_synonyms(options)
   end
 
+  # TODO - this may belong on the TaxonOverview class (in modified form) and the TaxonCommunities class, if we create one...
   def communities
     @communities ||= published_containing_collections.collect{ |c|
       c.communities.select{ |com| com.published? } }.flatten.compact.uniq
@@ -714,7 +715,6 @@ class TaxonConcept < ActiveRecord::Base
     the_user ||= EOL::AnonymousUser.new(Language.default)
     TaxonConcept.prepare_cache_classes
     cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
-    puts "((((((((((((((((((((( #{cached_key}"
     best_article_id ||= Rails.cache.read(cached_key)
     return nil if best_article_id == 0 # Nothing's available, quickly move on...
     if best_article_id && DataObject.still_published?(best_article_id)
@@ -918,6 +918,8 @@ class TaxonConcept < ActiveRecord::Base
   def create_preferred_entry(entry)
     return if entry.nil?
     TaxonConceptPreferredEntry.with_master do
+      # TODO - this *can* (and did, at least once) fail in a race condition. Perhaps it should be in a transaction. Also, I worry
+      # that it is called too often. ...seems to be every page after every harvest, virtually. We should check on it.
       TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
       TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
     end
@@ -971,7 +973,6 @@ private
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user
   def best_article_for_user(the_user)
-    debugger if $FOO
     if published_exemplar = published_visible_exemplar_article_in_language(the_user.language)
       published_exemplar
     else

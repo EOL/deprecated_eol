@@ -1242,7 +1242,7 @@ es:
   belongs_in_count_communities: 
     one: Pertenece a %{count} Comunidad
     other: Pertenece a %{count} Comunidades
-  beta_warning_body: La mayoría de los usuarios no pueden ver o utilizar esta función, que está bajo desarrollo activo. El rendimiento y los datos pueden ser impredecibles, pero le invitamos a explorar. Damos la bienvenida a sus <a href='%{link}'>comentarios</a>.
+  beta_warning_body: La mayoría de los usuarios no pueden ver o utilizar esta función, que está bajo desarrollo activo. El rendimiento y los datos pueden ser impredecibles, pero le invitamos a explorar. Por favor rellene nuestra <a href='https://www.surveymonkey.com/s/9FDTDQP'>encuesta</a> después de que haya revisado nuestras capacidades de datos.
   beta_warning_header: Está utilizando una versión beta de prueba
   beta_warning_note_header: "Nota:"
   beta_warning_small: Por favor, tenga en cuenta que esto es una prueba beta y puede ser impredecible.
@@ -1335,6 +1335,7 @@ es:
   clicked_time: Hora del clic
   close_this_window_to_return_to_edit_window: CIERRE ESTA VENTANA PARA VOLVER A LA VENTANA EDITAR
   cms_available_in_languages: "Esta página está disponible en:"
+  cms_editor: Editor CMS
   cms_missing_content_message: Lo sentimos, esta página no está disponible para el idioma seleccionado %{selected_language}.
   cms_missing_content_title: Falta la traducción
   collect_item: Recoger el artículo
@@ -1855,15 +1856,25 @@ es:
   data_beta_search_limit: 
     one: La búsqueda de descarga de datos está <i>temporalmente</i> limitada a %{count} resultado.
     other: La búsqueda de descarga de datos está <i>temporalmente</i> limitada a %{count} resultados.
+  data_column_classification_summary: Resumen de clasificación
   data_column_common_name: Nombre común
+  data_column_measurement: Medición
+  data_column_measurement_uri: Medición de URI
   data_column_name: Etiqueta de medición
   data_column_name_uri: Medición de URI
+  data_column_raw_units: Unidades en bruto (directo desde la fuente)
+  data_column_raw_units_uri: Unidades URI en bruto (normalizado)
+  data_column_raw_value: Valor bruto (directo desde la fuente)
+  data_column_resource: URL de contenido recursos para socios
   data_column_sci_name: Nombre científico
   data_column_source: Fuente
   data_column_tc_id: ID de página de EOL
-  data_column_units: Unidades
-  data_column_val: Valor
+  data_column_units: Unidades (normalizado)
+  data_column_units_uri: Unidades de URI (normalizado)
+  data_column_val: Valor (normalizado)
   data_column_val_uri: Valor URI
+  data_column_value: Valor
+  data_column_value_uri: Valor URI
   data_database_colon: "Datos:"
   data_glossary: Glosario de datos
   data_logging_active: Registro activo de los datos

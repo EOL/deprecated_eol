@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Permission do
 
+  before(:all) do
+    Language.create_english
+  end
+
   # NOTE - this is a tricky test. It actually also tests that symbols are stringified as expected, that translations
   # work, and of course, that all of the specific defaults we expect to see are really there:
   it 'should create defaults' do

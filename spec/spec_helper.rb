@@ -38,6 +38,7 @@ RSpec.configure do |config|
   # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
   config.after(:each) do
     Rails.cache.clear if Rails.cache
+    I18n.locale = :en
   end
 
   # If true, the base class of anonymous controllers will be inferred
@@ -45,13 +46,33 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
-  # Run specs in random order to surface order dependencies. If you find an
+  # First, run the "fast" specs (unit tests, view tests, etc), then run "slow"
+  # specs (integration or feature).
+  #
+  # Also run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234        ( or --order rand:1234 )
   # Or run in in the order they are declared in the file with
   #     --order default
-  config.order = "random"
+  if false # TODO - our version of RSpec doesn't allow this yet.  Upgrade.  :)
+    config.order_groups do |groups|
+      features, others = groups.partition { |g|
+        g.metadata[:type] == :integration || g.metadata[:type] == :feature
+      }
+      others.shuffle + features
+    end
+  end
+  config.order = 'random'
+
+  # NOTE - errr... this doesn't appear to be working, which is a shame. It would be handy!
+  config.after(:each, :type => :feature) do
+    if example.exception
+      artifact = save_page
+      puts "\n\"#{example.description}\" failed. Page saved to #{artifact}"
+    end
+  end
+
 end
 
 def wait_for_insert_delayed(&block)

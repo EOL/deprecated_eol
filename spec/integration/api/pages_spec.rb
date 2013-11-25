@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe 'API:pages' do
   before(:all) do
-    load_foundation_cache
+    load_foundation_cache # TODO -try removing this. I think we can go faster with just create_defaults as needed.
     Capybara.reset_sessions!
     @user = User.gen(:api_key => User.generate_key)
 
@@ -132,6 +132,9 @@ describe 'API:pages' do
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
   end
 
+  # TODO - these tests are slightly silly because they actually specify the correct number of text items to return...
+  # Might be better if it simply checked that the list of data Objects either had the expected subjects or included the expected
+  # items. ...But that's a but more work for me that I'm not keen on doing right now.
   it 'pages should be able to take a | delimited list of subjects' do
     label2 = @toc_label_2.gsub(/ /, '%20')
     label3 = @toc_label_3.gsub(/ /, '%20')
@@ -139,12 +142,12 @@ describe 'API:pages' do
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
 
     response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&subjects=#{label3}&details=1")
-    response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
+    response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
 
     # %7C == |
     response =
-    get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&subjects=#{label2}%7C#{label3}&details=1")
-    response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
+    get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=4&subjects=#{label2}%7C#{label3}&details=1")
+    response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
   end
 
   it 'pages should be able to return ALL subjects' do

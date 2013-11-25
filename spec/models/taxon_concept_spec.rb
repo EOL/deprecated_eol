@@ -134,7 +134,7 @@ describe TaxonConcept do
       :target_id => @taxon_concept.data_objects.last.id,
       :taxon_concept => @taxon_concept,
       :activity => Activity.trusted)
-    lambda { @taxon_concept.data_object_curators }.should_not raise_error
+    expect { @taxon_concept.data_object_curators }.not_to raise_error
     @taxon_concept.data_object_curators.should == []
     l.destroy
   end
@@ -257,9 +257,19 @@ describe TaxonConcept do
     tc = @tc_with_no_starting_common_names
     agent = Agent.last
     tc.add_common_name_synonym('A name', :agent => agent, :language => Language.english)
+    # TODO - this test fails, and I think it's because the safe-language-capitalization thing isn't working. Investigate.
+    debugger unless tc.preferred_common_name_in_language(Language.english) == "A Name"
     tc.preferred_common_name_in_language(Language.english).should == "A Name"
     tc.add_common_name_synonym("Another name", :agent => agent, :language => Language.english)
     tc.preferred_common_name_in_language(Language.english).should == "A Name"
+  end
+
+  it 'should capitalize the common name' do
+    taxon = TaxonConcept.gen
+    name = double(Name)
+    name.stub(:string) { 'funky downcase thang' }
+    taxon.should_receive(:common_names_in_language).at_least(1).times.and_return({Language.default.id => name})
+    taxon.preferred_common_name_in_language.should == 'Funky Downcase Thang'
   end
 
   it 'should include the LigerCat TocItem when the TaxonConcept has one'
@@ -613,6 +623,18 @@ describe TaxonConcept do
     tc.entry.should == col_entry
   end
 
+  it 'should know about communities as long as they are published' do
+    taxon_concept = TaxonConcept.gen
+    collection = Collection.gen
+    unpubs_collection = Collection.gen
+    collection.communities << Community.gen
+    unpubs_collection.communities << Community.gen(published: false)
+    taxon_concept.should_receive(:published_containing_collections).and_return([collection, unpubs_collection])
+    results = taxon_concept.communities
+    expect(results).to include(collection.communities.first)
+    expect(results).to_not include(unpubs_collection.communities.first)
+  end
+
   it 'should not list duplicate communities' do
     taxon_concept = TaxonConcept.gen
     community = Community.gen
@@ -692,7 +714,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+      SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do
@@ -732,7 +754,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+      SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do

@@ -604,10 +604,13 @@ oc:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un utilizaire desconegut a mes de donadas coma exemple sus una pagina desconeguda.
         an_unknown_user_set_exemplar_data_on_taxon: Un utilizaire desconegut a mes de donadas coma exemple sus « %{taxon} ».
         an_unknown_user_unhide_data_on_an_unknown_taxon: Un utilizaire desconegut a causit d’afichar de donadas sus una pagina desconeguda.
+        an_unknown_user_unhide_data_on_taxon: Un utilizaire desconegut a causit d'afichar de donadas sus « %{taxon} ».
         user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> a causit d'amagar de donadas sus una pagina desconeguda.
         user_hide_data_on_taxon: <strong>%{user}</strong> a causit d'amagar de donadas sus « %{taxon} ».
         user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> a mes de donadas coma exemple sus una pagina desconeguda.
         user_set_exemplar_data_on_taxon: <strong>%{user}</strong> a mes de donadas coma exemple sus « %{taxon} ».
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> a causit d'afichar de donadas sus una pagina desconeguda.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> a causit d'afichar de donadas sus « %{taxon} ».
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un utilizaire desconegut a marcat una anciana version de "%{data_object}" coma amagada dins un contèxte desconegut.
         an_unknown_user_hid_an_older_data_object_on_association: Un utilizaire desconegut a marcat una anciana version de "%{data_object}" coma amagada sus la pagina "%{association}".
@@ -868,6 +871,16 @@ oc:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> a marcat "%{data_object}" coma pas fisable sus la pagina "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> l'a marcat coma pas fisable dins un contèxte desconegut.
         user_untrusted_it_on_association: <strong>%{user}</strong> l'a marcat coma pas fisable sus la pagina "%{association}".
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: Un utilizaire desconegut a apondut de donadas a una pagina desconeguda
+        an_unknown_user_create_data_on_taxon: Un utilizaire desconegut a apondut de donadas a « %{taxon} ».
+        an_unknown_user_update_data_on_an_unknown_taxon: Un utilizaire desconegut a mes a jorn de donadas sus una pagina desconeguda.
+        an_unknown_user_update_data_on_taxon: Un utilizaire desconegut a mes a jorn de donadas sus « %{taxon} ».
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> a apondut de donadas a una pagina desconeguda.
+        user_create_data_on_taxon: <strong>%{user}</strong> a apondut de donadas a « %{taxon} ».
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> a mes a jorn de donadas sus una pagina desconeguda.
+        user_update_data_on_taxon: <strong>%{user}</strong> a mes a jorn de donadas sus « %{taxon} ».
+  activity_user_created_data: <strong>%{user}</strong> a apondut de donadas a prepaus de « %{object_name} » a « %{taxon_concept} ».
   activity_user_created_link: <strong>%{user}</strong> a apondut un ligam cap a "%{object_name}" sus "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> a apondut de tèxte a « %{object_name} » que pòrta sus « %{taxon_concept} ».
   activity_user_updated_link: <strong>%{user}</strong> a mes a jorn lo ligam de "%{object_name}" sus "%{taxon_concept}".
@@ -967,7 +980,9 @@ oc:
   admin_news_items_page_title: "Administracion : Informacions"
   admin_news_link: Actualitats
   admin_notes_not_visible_to_user: "Nòtas d’administracion (pas visiblas per l’utilizaire) :"
+  admin_option_all_users_can_see_data: Totes los utilizaires pòdon veire las donadas, pas solament los qu'an una autorizacion
   admin_option_changed: Valor modificada.
+  admin_options_warning: Los cambiaments a aqueste endrech pòdon necessitar fins a dètz minutas per èsser efectius.
   admin_page_title: "Administracion : vista d’ensemble"
   admin_spam_delete: Suprimir los spams
   admin_statistics_link: Estatisticas
@@ -1071,6 +1086,9 @@ oc:
   annotation_body_default: apondre una question o un comentari…
   annotation_cabs_colon: "Anotacion :"
   annotation_submit: publicar una anotacion
+  annotations_with_count: 
+    one: "%{count} anotacion"
+    other: "%{count} anotacions"
   anonymous_user_full_name: Utilizaire anonim
   anonymous_user_given_name: Anonim
   anonymous_user_tag_line: Pas connectat
@@ -1171,6 +1189,7 @@ oc:
   belongs_in_count_communities: 
     one: Aparten a %{count} Comunautat
     other: Aparten a %{count} Comunautats
+  beta_warning_header: Utilizatz una foncionalitat en bèta-tèst
   beta_warning_note_header: "Nòta :"
   bhl: "''Biodiversity Heritage Library''"
   bhl_partner_footer: Visitatz la Biodiversity Heritage Library
@@ -1737,14 +1756,27 @@ oc:
   data: Donadas
   data_about_subtab_header: A prepaus de las donadas de EdlV
   data_about_this_record: Donadas sus aquesta enregistrament
+  data_column_classification_summary: Somari de la classificacion
   data_column_common_name: Nom corrent
+  data_column_measurement: Mesura
+  data_column_measurement_uri: URI de la mesura
+  data_column_name: Libellat de la mesura
+  data_column_name_uri: URI de la mesura
+  data_column_raw_units: Unitats brutas (dirèctament dempuèi la font)
+  data_column_raw_units_uri: URI de las unitats brutas (normalizadas)
+  data_column_raw_value: Valor bruta (dirèctament dempuèi la font)
+  data_column_resource: URL de ressorsa del partenari de contengut
   data_column_sci_name: Nom scientific
   data_column_source: Font
   data_column_tc_id: ID de la pagina d'EdlV
-  data_column_units: Unitats
-  data_column_val: Valor
+  data_column_units: Unitats (normalizadas)
+  data_column_units_uri: URi de las unitats (normalizadas)
+  data_column_val: Valor (normalizada)
   data_column_val_uri: Valor URI
+  data_column_value: Valor
+  data_column_value_uri: Valor URI
   data_database_colon: "Donadas :"
+  data_glossary: Glossari de las donadas
   data_logging_active: Jornalizacion de las donadas activa
   data_master_database_colon: "Donadas mèstras :"
   data_measurement_subtable_summary: Donadas suplementàrias sus la mesura d'aqueste fach.
@@ -1785,13 +1817,18 @@ oc:
   data_row_excluded_from_overview_notice: "Nòta : aquesta linha es estada levada dels faches en brèu."
   data_row_exemplar_added: Fach en brèu apondut.
   data_row_exemplar_removed: Fach en brèu suprimit.
+  data_row_hide_button: Amagar la linha
   data_row_remove_exemplar_button: levar de Faches en brèu
   data_row_unhide_button: Amagar pas mai la linha
+  data_search_destroyed: Aqueste prètzfach serà pas mai efectuat.
   data_search_link: Cercar de donadas scientificas dins EdlV
+  data_search_refine_field_label: Afinar la recèrca de donadas
   data_show_n_more_rows: Afichar NNN de mai…
   data_subtab_about: A prepaus de
   data_subtab_glossary: Glossari
   data_summary_header: Faches en brèu
+  data_tab_curator_key_excluded: "%{image} suprimida dels <a href='%{link}'>Faches marcants</a>"
+  data_tab_curator_key_exemplar: "%{image} aponduda als <a href='%{link}'>Faches marcants</a>"
   data_usage_reports: Rapòrts d’utilizacion de las donadas
   date_caps: Data
   date_uploaded: Data de cargament
@@ -2028,6 +2065,7 @@ oc:
       min_assistant_curators_only: O planhèm, l’accès es restrench als conservators de EdlV amb un nivèl de conservacion minimal d’assistent.
       min_full_curators_only: O planhèm, l’accès es limitat als Conservators EdlV amb un nivèl de conservacion minimal de Total.
       min_master_curators_only: O planhèm, l’accès es limitat als Conservators EdlV amb un nivèl de conservacion minimal de mèstre.
+      no_access: O planhèm, l’accès es restrench.
   expand_all_children: Desvolopar totes los enfants
   explore: a descobrir
   explore_what_we_know_about_taxon: Descobrissètz çò que l’EdlV sap de %{taxon}.
@@ -2179,6 +2217,7 @@ oc:
   full_content_url: URL del contengut complet
   gbif_map: Mapa GBIF
   gbif_occurrence_disclaimer: Aquesta carta es basada suls enregistraments d’ocurréncia disponibles dins la <a href='http://www.gbif.org/'>ret GBIF</a> e representa pas la reparticion de l’ensemble.
+  gbif_occurrence_learn_more_link: Accedissètz a aquestas donadas via lo portal GBIF.
   general_site_admin: administracion generala del site
   get_help_choosing_a_subchapter: Obténer d’ajuda per causir un soscapítol
   get_help_choosing_a_subject: Obténer d’ajuda per causir un subjècte
@@ -2516,6 +2555,7 @@ oc:
     one: "%{count} imatge"
     other: "%{count} imatges"
   import_once: Importar un còp
+  import_ontology: Importar una ontologia
   in_collection: dins la colleccion
   in_community: dins la comunautat
   in_providing_its_content_to_eo: En provesissent son contengut a l’EdlV,
@@ -2581,11 +2621,18 @@ oc:
   keep_split_entry_from_this_entry: Gardar separat d'aquesta entrada
   key: Clau
   known_uri_category_header: Categorias
+  known_uri_created: URI apondut.
+  known_uri_label_allowed_unit: a una unitat de mesura
+  known_uri_label_allowed_val: permet una valor de
+  known_uri_label_inverse: es l’invèrse de
+  known_uri_label_unit: a una unitat de mesura
+  known_uri_missing_translation: Pas tradusit, modificatz-lo
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
     create_failed: O planhèm, una error s'es producha, la relacion a pas pogut èsser aponduda.
     created: La relacion es estada creada corrèctament
     deleted: La relacion es estada suprimida corrèctament
+  known_uri_updated: URI mes a jorn.
   known_uris: 
     add_a_relationship: Apondre una relacion
     import_successful: Tèrmes d’ontologia importats corrèctament
@@ -2600,6 +2647,10 @@ oc:
     unrecognized_measurement_types: URIs de tipe de mesura pas reconeguts
     unrecognized_measurement_units: URIs d’unitat de mesura pas reconeguts
     unrecognized_measurement_values: URIs de valor de mesura pas reconeguts
+  known_uris_empty_sorry: O planhèm, i a pas encara cap d’URIs de suggerits per aquesta categoria.
+  known_uris_none: Degun a pas apondut cap d’URI d'aqueste tipe.
+  known_uris_page_title: URIs per las donadas dins EdlV
+  known_uris_sorted: Òrdre mes a jorn.
   label: Libellat
   language: "Lenga :"
   language_with_count: "%{language} (%{count})"
@@ -2761,6 +2812,7 @@ oc:
     one: "%{count} mapa"
     other: "%{count} mapas"
   march_of_life_thumbnail_title: "Marcha de la vida :"
+  master_curators_may_add_data: "Los conservators mèstres pòdon apondre de donadas :"
   matching_users_found_with_count: 
     one: Un total de %{count} utilizaire correspond a vòstres critèris.
     other: Un total de %{count} utilizaires correspond a vòstres critèris.
@@ -2836,6 +2888,7 @@ oc:
   more_siblings_with_count: 
     one: "%{count} fraire mai…"
     other: "%{count} fraires mai…"
+  more_taxa_with_attribute: veire totes los taxons amb aqueste atribut
   most_active_members: Membres los mai actius
   move: Desplaçar
   move_down: Far davalar
@@ -2851,6 +2904,7 @@ oc:
   must_be_checked_in_to_view: "- deu èsser verificat per èsser visualizat"
   must_be_less_than_128_characters_long: deu èsser inferior a 128 caractèrs.
   must_be_logged_in: Vos cal èsser connectat per efectuar aquesta accion.
+  must_provide_attribute_for_search_error: Vos cal seleccionar un atribut de recercar.
   must_provide_search_term_error: Vos cal entrar un critèri de recèrca.
   my_activity: Mon activitat
   my_info: Mas informacions
@@ -2911,6 +2965,7 @@ oc:
   no_news_items_for_month_and_year: Pas cap d'actualitat per %{month_and_year}
   no_record_found_matching_your_criteria: Cap d'enregistrament pas trobat que corresponda a vòstres critèris.
   no_related_names: Cap de nom es pas ligat a aqueste taxon pel moment.
+  no_results_for_search_term: Pas cap de resultat per « %{search_term} »
   no_survey_responses_are_availa: Cap de responsa a un sondatge es pas disponibla.
   no_tasks_found: Cap de prètfach pas trobat
   no_uploaded_content_is_available: Cap de contengut telecargat es pas disponible.
@@ -3036,6 +3091,7 @@ oc:
   only_multi_search_suggestions: (unicament se i a mantuna suggestion pel meteis critèri de recèrca, la triada es creissenta)
   only_show_authoritative_conten: "Afichar pas que lo contengut que fa autoritat :"
   only_show_unapproved_curators: Afichar pas que los conservators pas omologats
+  ontology_uri: URI d’ontologia
   option_please_select: Seleccionatz
   or_add_it_to_an_existing_collection: o l’apondre a una colleccion existenta
   or_add_it_to_an_existing_community: o l’apondre a una comunautat existenta
@@ -3213,12 +3269,14 @@ oc:
     someone_commented_on_something: <b>%{who}</b> a comentat <b>%{what}</b>.
     unsubscribe: Connectatz-vos e modificatz vòstres paramètres de corrièr electronic dempuèi <a href='%{email_prefs_url}' style='color:#195184'>vòstra pagina de preferéncias de notificacion</a> o <a href='%{unsubscribe_url}' style='color:#195184'>desinscrivissètz-vos de TOTAS las notificacions de l’EdlV sens vos connectar</a>.
   recent_updates: Mesas a jorn recentas
+  recently_used_link: Utilizat recentament
   recently_visited: Visitat recentament
   recipients: Destinataris
   recognized_by_as_a_rank: "%{recognized_by} coma un %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} dins %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} dins %{source} coma un %{taxon_rank}"
   record_not_found: "[enregistrament pas trobat]"
+  reference: Referéncia
   references_cabs_colon: "Referéncias :"
   reindex_page_button: Reïndexar la pagina
   related_names_with_count: 
@@ -3242,6 +3300,7 @@ oc:
   resources: Ressorsas
   response: Responsa
   response_formats: Formats de responsa
+  resque_status_header: "Estat de Resque :"
   results: Resultats
   results_offset: Resultats %{from} - %{to} sus %{total} per <em>%{for}</em>
   results_per_page: "Resultats per pagina :"
@@ -3294,7 +3353,10 @@ oc:
   see_all_media_link: Veire totes los mèdias
   see_all_of_your_collections: Veire totas vòstras colleccions
   see_all_of_your_communities: Veire totas vòstras comunautats
+  see_in_data_glossary: veire dins lo glossari de las donadas
+  see_more_on_the_data_tab: ne veire mai dins l’onglet de donadas
   see_notes: veire las nòtas
+  see_this_record_in_virtuoso: afichar aqueste enregistrament dins Virtuoso
   select_an_item_from_the_menu: Seleccionatz un element dins lo menú
   select_colon: "Seleccionatz :"
   select_tool_and_go: "Seleccionatz una aisina puèi clicatz sus 'Go':"
@@ -3345,6 +3407,7 @@ oc:
   skip_to_content: Saut al contengut
   skip_to_navigation: Sautar a la navigacion
   skip_to_table_of_contents: Sautar a l'ensenhador
+  social_sharing_header: EdlV suls sites dels mèdias socials
   social_sharing_reddit_button: sometre a reddit
   social_sharing_twitter_follow_eol_button: Seguir @eol
   social_sharing_twitter_tweet_button: Tweet
@@ -3362,6 +3425,8 @@ oc:
   sort_by_status_option: Estatut
   sort_by_title_ascending: Títol creissent
   sort_by_title_descending: Títol descreissent
+  sort_by_value_ascending: Valor creissenta
+  sort_by_value_descending: Valor descreissenta
   sort_by_year_ascending: Annada creissenta
   sort_by_year_descending: Annada descreissenta
   sort_collection_by_label: Triar la colleccion per
@@ -3406,8 +3471,11 @@ oc:
   subject: Subjècte
   submit: Validar
   submit_term: Condicion de mandadís
+  suggested_attributes: "Atributs suggerits :"
   suggested_result_page_id: "Identificant de pagina de resultat suggerit :"
   suggested_results_avg: Mejana dels resultats suggerits
+  suggested_vocab_add: tèrme recomandat
+  suggested_vocab_remove: suprimir la recomandacion
   summary_thumbnail_title: "Resumit :"
   supplier: Provesidor
   supplier_allcaps: "PROVESIDOR :"
@@ -3485,6 +3553,8 @@ oc:
           meta_title: Donadas calcupablas per %{scientific_name} segon la classificacion de %{hierarchy_provider}
           meta_title_with_common_name: Donadas calculablas per %{preferred_common_name} segon la classificacion de %{hierarchy_provider} (%{scientific_name})
           tweet_text: Donadas calculablas per %{scientific_name} segon la classificacion de %{hierarchy_provider}
+        meta_description: Imatges, vidèos e fichièrs de sons de %{scientific_name}. Trobar d'imatges, d'imatges, de fòtos, de filmes e de sons de %{scientific_name} dins l’Enciclopèdia de la vida.
+        meta_keywords: donadas calculablas de %{scientific_name}, informacions sus %{scientific_name}
         meta_keywords_with_common_name: donadas calculablas sus %{preferred_common_name}
         meta_title: Donadas calculablas per %{scientific_name}
         meta_title_with_common_name: Donadas calculablas per %{preferred_common_name} (%{scientific_name})
@@ -3705,6 +3775,7 @@ oc:
   taxon_citizen_science_header: Ligams Scientifics Personals
   taxon_citizen_science_link: Ligams scientifics personals
   taxon_concept_stats: Estatisticas del concèpte de taxon
+  taxon_data_header: Donadas a prepaus de %{taxon}
   taxon_details_empty: Degun a pas encara contribuit a cap de detalh sus aquesta pagina.
   taxon_details_empty_in_this_language: Degun a pas encara contribuit sus cap de detalh sus aquesta pagina dins aquesta lenga.
   taxon_education_header: Ressorsas pedagogicas
@@ -3757,6 +3828,7 @@ oc:
   the_content_was_updated: Lo contengut es estat mes a jorn.
   the_file_was_uploaded: Lo fichièr es estat mandat.
   the_glossary_term_was_successf: Lo tèrme del glossari es estat mes a jorn amb succès.
+  the_image_from_this_source_has_not_been_reviewed: L’imatge d'aquesta font es pas estat examinat.
   the_image_from_this_source_is_not_trusted: L’imatge d'aquesta font es pas fisable.
   the_info_highlighted_is_reviewed: L’informacion mesa en evidéncia en roge çaijós es estada revisada per un conservator e es marcada coma pas fisabla.
   the_message_was_sent: Lo messatge es estat mandat.
@@ -3771,6 +3843,7 @@ oc:
   this_cannot_be_undone_are_you_sure: Anullacion impossibla ; sètz segur ?
   this_collection_has_no_managers: Aquesta colleccion a pas cap de gestionari.
   this_comment_was_deleted: Aqueste comentari es estat suprimit.
+  this_community_has_no_focus_list: Aquesta comunautat a pas cap de lista de discussion.
   this_image_cannot_be_curated_because_unpublished: Aqueste imatge pòt pas èsser supervisat perque es pas publicat.
   this_image_is_unpublished: Aqueste imatge es pas publicat.
   this_image_map_cannot_be_curated_because_unpublished: Aquesta mapa pòt pas èsser supervisada perque es pas publicada.
@@ -3788,8 +3861,10 @@ oc:
   thumbnail_page_colon: "pagina de vinheta :"
   time_ago: i a %{time_passed}
   title: Títol
+  to_process_your_donation_please_proceed: Per tractar vòstre don procedissètz
   toc: ENSENHADOR
   toc_entry_col_header: Entrada de l'ensenhador
+  top: naut
   topic: Rubrica
   topic_area: Subjècte
   total: Total
@@ -3816,6 +3891,7 @@ oc:
   type: Tipe
   unable_to_determine_title: Impossible de determinar lo títol d'aquesta pagina web
   unique_page_views_th: Nombre de paginas unicas vistas
+  unit_of_measure: Unitat de mesura
   unknown: Desconegut
   unknown_data_object_title: Objècte de donada desconegut
   unknown_hierarchy: Ierarquia desconeguda
@@ -3870,11 +3946,27 @@ oc:
   user_activity_stats_common_names_removed: 
     one: "%{count} nom vulgar suprimit"
     other: "%{count} noms vulgars suprimits"
+  user_activity_stats_data_added: 
+    one: "%{count} enregistrament de donadas apondut"
+    other: "%{count} enregistraments de donadas aponduts"
+  user_activity_stats_data_added_dropdown: Donadas apondudas
   user_activity_stats_header: Activitat
   user_activity_stats_objects_curated: 
     one: "%{count} objècte conservat"
     other: "%{count} objèctes conservats"
   user_activity_stats_objects_curated_dropdown: Objèctes conservats
+  user_activity_stats_preferred_classifications_selected: 
+    one: "%{count} classificacion preferida seleccionada"
+    other: "%{count} classificacions preferidas seleccionadas"
+  user_activity_stats_selected_articles_for_overview: 
+    one: "%{count} article seleccionat per apercebut"
+    other: "%{count} articles seleccionats per apercebut"
+  user_activity_stats_set_exemplar: 
+    one: "%{count} imatge definit coma modèl"
+    other: "%{count} imatges definits coma modèl"
+  user_activity_stats_taxa_commented: 
+    one: "%{count} taxon comentat"
+    other: "%{count} taxons comentats"
   user_activity_stats_taxa_comments: 
     one: "%{count} comentari de taxon"
     other: "%{count} comentaris de taxon"
@@ -4087,6 +4179,9 @@ oc:
       unsubscribed_notifications_successfully: Vos sètz desabonnat corrèctament de las notificacions.
   users_about_me_header: A prepaus de ieu
   users_content_partners_header: Partenaris de contengut
+  users_content_partners_with_count: 
+    one: "%{count} partenari de contengut actual"
+    other: "%{count} partenaris de contengut actuals"
   users_curation_header: Qualificacions de conservator
   users_form_account_header: Vòstre compte
   users_form_curation_header: Diplòmas de supervisor
@@ -4165,6 +4260,13 @@ oc:
   yahoo_images: Imatges Yahoo
   year: Annada
   yes_answer: Òc
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "Sètz un administrator. Doncas, vos fau veire que l’error èra :"
+  you_are_not_authorized_to_perform_this_action: Sètz pas autorizat a efectuar aquesta accion.
+  you_are_viewing_this_rank_as_classified_by: "Visualizatz aqueste %{rank} tal coma es classat per :"
+  you_can_edit_those_later_if_ne: Los poiretz modificar pus tard se necessari.
+  you_have_been_logged_out: Sètz estat desconnectat.
+  you_joined_community: Avètz rejunt aquesta comunautat amb succès.
+  you_left_community: Avètz quitat aquesta comunautat amb succès.
   your_current_rating_0_of_5: "Vòstra quòta actuala : 0 sus 5"
   your_current_rating_1_of_5: "Vòstra quòta actuala : 1 sus 5"
   your_current_rating_2_of_5: "Vòstra quòta actuala : 2 sus 5"

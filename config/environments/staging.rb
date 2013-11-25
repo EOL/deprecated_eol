@@ -43,9 +43,9 @@ Eol::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1
 
-  # TODO - consider this. If we want it, put it in. If we don't, remove this paragraph:
-  # config.i18n.fallbacks = true
-  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+  unless ENV.has_kay?('LOCALE') do
+    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+  end
 
   config.action_mailer.asset_host = "http://staging.eol.org"
 

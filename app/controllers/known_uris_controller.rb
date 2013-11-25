@@ -9,7 +9,7 @@ class KnownUrisController < ApplicationController
   before_filter :set_stats_filter_options, :only => [ :index, :show_stats ]
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
     :only => AUTOCOMPLETE_ACTIONS
-  after_filter :clear_cache, :except => [ :index, :show_stats ] + AUTOCOMPLETE_ACTIONS
+  after_filter :clear_cache, :only => [ :create, :update, :destroy, :import_ontology ]
 
   layout 'v2/basic'
 
@@ -71,6 +71,7 @@ class KnownUrisController < ApplicationController
         end
         if !error
           import_terms_from_ontology(attribute_mappings)
+          clear_cache
           flash[:notice] = I18n.t('known_uris.import_successful')
           redirect_to known_uris_path
         end
@@ -169,7 +170,6 @@ class KnownUrisController < ApplicationController
 
   def update
     @known_uri = KnownUri.find(params[:id])
-    convert_allowed_value_and_unit_ids_to_relationships # Because they don't work without more information...
     if @known_uri.update_attributes(params[:known_uri])
       flash[:notice] = I18n.t(:known_uri_updated)
       redirect_back_or_default(known_uris_path(uri_type_id: @known_uri.uri_type_id))
@@ -316,34 +316,6 @@ class KnownUrisController < ApplicationController
           end
         end
       end
-    end
-  end
-
-  # Allowed values cannot be added directly--the join model doesn't have the required URI...
-  def convert_allowed_value_and_unit_ids_to_relationships
-    # Okay, this is REALLY weird, but I couldn't find a way around it. When I was calling #known_uri_relationships_as_subject.clear, I was
-    # getting ActiveRecord::StatementInvalid because it was trying to update the record before destroying it. I don't know why and I didn't
-    # track it down. Instead, I use brute force:
-    @known_uri.known_uri_relationships_as_subject.map(&:destroy) # This actually deletes them, but...
-    @known_uri.known_uri_relationships_as_subject.clear          # ...this removes them from the "memory" on the model.
-    if params[:known_uri][:allowed_values_target_ids]
-      values = KnownUri.find(params[:known_uri].delete(:allowed_values_target_ids))
-      params[:known_uri][:known_uri_relationships_as_subject] = values.map do |id|
-        KnownUriRelationship.new(to_known_uri: KnownUri.find(id), from_known_uri: @known_uri,
-                                 relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI)
-      end
-    else
-      params[:known_uri][:known_uri_relationships_as_subject] = []
-    end
-    if params[:known_uri][:allowed_units_target_ids]
-      units = KnownUri.find(params[:known_uri].delete(:allowed_units_target_ids))
-      units.each do |id|
-        params[:known_uri][:known_uri_relationships_as_subject] << 
-          KnownUriRelationship.new(to_known_uri: KnownUri.find(id), from_known_uri: @known_uri,
-                                   relationship_uri: KnownUriRelationship::ALLOWED_UNIT_URI)
-      end
-    else
-      params[:known_uri][:known_uri_relationships_as_subject] ||= []
     end
   end
 

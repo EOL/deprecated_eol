@@ -345,6 +345,13 @@ class ApplicationController < ActionController::Base
       :admin_or_master_curators_only) unless current_user.is_admin? || current_user.min_curator_level?(:master)
   end
 
+  def restrict_to_admins_and_cms_editors
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL Administrators and CMS editors, and was disallowed.",
+      :administrators_only) unless current_user.is_admin? || current_user.can?(:edit_cms)
+  end
+
   def restrict_to_master_curators
     restrict_to_curators_of_level(:master)
   end

@@ -147,8 +147,16 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def unit_of_measure_uri
-    return unit_of_measure_known_uri if unit_of_measure_known_uri
-    return unit_of_measure if unit_of_measure
+    _unit_of_measure_uri(unit_of_measure_known_uri, unit_of_measure)
+  end
+
+  def original_unit_of_measure_uri
+    _unit_of_measure_uri(original_unit_of_measure_known_uri, original_unit_of_measure)
+  end
+
+  def _unit_of_measure_uri(known, other)
+    return known if known
+    return other if other
     if implied_unit = implied_unit_of_measure_known_uri
       implied_unit.uri
     end
@@ -175,7 +183,6 @@ class DataPointUri < ActiveRecord::Base
     data_point_uris.each_slice(1000){ |d| assign_metadata(d, language) }
   end
 
-  # NOTE - this was a sloppy attempt at getting multiple data_point_uris from a single query. It's probably silly.
   def self.assign_metadata(data_point_uris, language)
     data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
     uris_to_lookup = data_point_uris.select{ |d| d.metadata.nil? }.collect(&:uri)
@@ -315,16 +322,6 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def apply_unit_conversion
-    conversions = [
-      { starting_unit: :milligrams, ending_unit: :grams, function: lambda { |v| v / 1000 }, required_minimum: 1.0 },
-      { starting_unit: :grams, ending_unit: :kilograms, function: lambda { |v| v / 1000 }, required_minimum: 1.0 },
-      { starting_unit: :millimeters, ending_unit: :centimeters, function: lambda { |v| v / 10 }, required_minimum: 1.0 },
-      { starting_unit: :centimeters, ending_unit: :meters, function: lambda { |v| v / 100 }, required_minimum: 1.0 },
-      { starting_unit: :kelvin, ending_unit: :celsius, function: lambda { |v| v - 273.15 } },
-      { starting_unit: :days, ending_unit: :years, function: lambda { |v| v / 365 }, required_minimum: 1.0 },
-      { starting_unit: "0.1°C", ending_unit: :celsius, function: lambda { |v| v / 10 } },
-      { starting_unit: "log10 grams", ending_unit: :grams, function: lambda { |v| 10 ** v } }
-    ]
     # we can use either the unit in the medata, or the one implied by the predicate
     if self.unit_of_measure_known_uri
       unit_known_uri = self.unit_of_measure_known_uri
@@ -334,16 +331,35 @@ class DataPointUri < ActiveRecord::Base
       # if we have no unit then there is no conversion to be done
       return false
     end
-    conversions.select{ |c| c[:starting_unit].to_s == unit_known_uri.name(:en) }.each do |c|
+    DataPointUri.conversions.select{ |c| c[:starting_units].include?(unit_known_uri.uri) }.each do |c|
       potential_new_value = c[:function].call(self.object.to_f)
       next if c[:required_minimum] && potential_new_value < c[:required_minimum]
+      self.original_unit_of_measure = unit_of_measure
+      self.original_unit_of_measure_known_uri = unit_of_measure_known_uri
       self.object = potential_new_value
-      self.unit_of_measure = KnownUri.send(KnownUri.convert_unit_name_to_class_variable_name(c[:ending_unit])).uri
-      self.unit_of_measure_known_uri = KnownUri.send(KnownUri.convert_unit_name_to_class_variable_name(c[:ending_unit]))
+      self.unit_of_measure = c[:ending_unit].uri
+      self.unit_of_measure_known_uri = c[:ending_unit]
       return true
     end
     false
   end
+
+  def original_unit_of_measure=(val)
+    @original_unit_of_measure = val
+  end
+
+  def original_unit_of_measure
+    @original_unit_of_measure || unit_of_measure
+  end
+
+  def original_unit_of_measure_known_uri=(val)
+    @original_unit_of_measure_known_uri = val
+  end
+
+  def original_unit_of_measure_known_uri
+    @original_unit_of_measure_known_uri || unit_of_measure_known_uri
+  end
+
 
   # NOTE - I was going to change these to an object to represent both the URI and the label, but we're just not at all
   # consistent about calculating those things, and it was going to be too much of an effort.  ...So I'm skipping that.  thus,
@@ -353,43 +369,41 @@ class DataPointUri < ActiveRecord::Base
   # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
   # this model class.
   def to_hash(language = Language.default, options = {})
-    hash = {
+    tc = options[:taxa] && options[:taxa].map(&:id).include?(taxon_concept_id) ?
+      options[:taxa].detect { |tc| tc.id == taxon_concept_id } : # Yay! They cached it for us.
+      taxon_concept # Load it. This will be painful.
+    hash = if tc
+             {
       # Taxon Concept ID:
-      I18n.t(:data_column_tc_id) => taxon_concept.id,
-      # Some classification context (stealing from search for now):
-      I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
+      I18n.t(:data_column_tc_id) => taxon_concept_id,
+      # WAIT - # Some classification context (stealing from search for now):
+      # WAIT - I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
       # Scientific Name:
-      I18n.t(:data_column_sci_name) => taxon_concept.title_canonical,
+      I18n.t(:data_column_sci_name) => tc.nil? ? '' : tc.title_canonical,
       # Common Name:
-      I18n.t(:data_column_common_name) => taxon_concept.preferred_common_name_in_language(language)
-    }
-    if options[:measurement_as_header]
-      # Nice measurement:
-      hash[predicate_uri.label] = value_string(language)
-      # URI measurement / value
-      hash[predicate] = value_uri_or_blank # TODO - just check in: is this "raw source" enough to satisfy WEB-4702 ?
-    else
-      # Measurement Label:
-      hash[I18n.t(:data_column_name)] = predicate_uri.label
-      # Measurement URI:
-      hash[I18n.t(:data_column_name_uri)] = predicate
-      # Value Label:
-      hash[I18n.t(:data_column_val)] = value_string(language)
-      # Value URI:
-      hash[I18n.t(:data_column_val_uri)] = value_uri_or_blank
-    end
+      I18n.t(:data_column_common_name) => tc.nil? ? '' : tc.preferred_common_name_in_language(language)
+             }
+           else
+             {}
+           end
+    # Nice measurement:
+    hash[I18n.t(:data_column_measurement)] = predicate_uri.try(:label) || ''
+    hash[I18n.t(:data_column_value)] = value_string(language)
+    # URI measurement / value
+    hash[I18n.t(:data_column_measurement_uri)] = predicate
+    hash[I18n.t(:data_column_value_uri)] = value_uri_or_blank
     # Units:
-    hash[I18n.t(:data_column_units)] = units_string
+    hash[I18n.t(:data_column_units)] = units_safe(:label)
     # Units URI:
-    hash[I18n.t(:data_column_units_uri)] = unit_of_measure_uri
+    hash[I18n.t(:data_column_units_uri)] = units_uri
     # Raw value:
     hash[I18n.t(:data_column_raw_value)] = DataValue.new(object_uri).label
     # Raw Units:
-    hash[I18n.t(:data_column_raw_units)] = units_string
+    hash[I18n.t(:data_column_raw_units)] = original_units_safe(:label)
     # Raw Units URI:
-    hash[I18n.t(:data_column_raw_units_uri)] = unit_of_measure_uri
+    hash[I18n.t(:data_column_raw_units_uri)] = original_units_uri
     # Source:
-    hash[I18n.t(:data_column_source)] = source.name
+    hash[I18n.t(:data_column_source)] = source.try(:name) || ''
     # Resource:
     if resource
       hash[I18n.t(:data_column_resource)] =
@@ -398,8 +412,8 @@ class DataPointUri < ActiveRecord::Base
                                                                           host: options[:host])
     end
     if metadata = get_metadata(language)
-      metadata.each do |data|
-        hash[EOL::Sparql.uri_components(data.predicate_uri)[:label]] = data.value_string(language)
+      metadata.each do |datum|
+        hash[EOL::Sparql.uri_components(datum.predicate_uri)[:label]] = datum.value_string(language)
       end
     end
     # TODO - references... maybe?
@@ -411,17 +425,31 @@ class DataPointUri < ActiveRecord::Base
     EOL::Sparql.is_uri?(object) ? object : ''
   end
 
+  # TODO - a lot of this stuff should be extracted to a class to handle ... this kind of stuff.  :| (DataValue, perhaps) It's
+  # really very simple, but there's enough of it that it seems quite complex.
   def units_string
-    units && units.has_key?(:label) ? units[:label] : ''
+    units_safe(:label)
   end
 
   def units_uri
-    units && units.has_key?(:uri) ? units[:uri] : ''
+    units_safe(:uri)
+  end
+
+  def original_units_uri
+    original_units_safe(:uri)
+  end
+
+  def units_safe(attr)
+    _units_safe(units, attr)
+  end
+
+  def original_units_safe(attr)
+    _units_safe(original_units, attr)
   end
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
   def value_string(lang = Language.default)
-    if association?
+    if association? && target_taxon_concept
       common = target_taxon_concept.preferred_common_name_in_language(lang)
       return target_taxon_concept.title_canonical if common.blank?
       common
@@ -438,15 +466,115 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
-  private
+  # NOTE - Sadly, when using scopes here, it loads each scope for each instance, separately. (WTF?) So I'm not using scopes, I'm
+  # using selects.
+  def included?
+    taxon_data_exemplars.select(&:included?).any?
+  end
+
+  def excluded?
+    taxon_data_exemplars.select(&:excluded?).any?
+  end
+
+  def <=>(other)
+    if included? && ! other.included?
+      -1
+    elsif other.included? && ! included?
+      1
+    elsif excluded? && ! other.excluded?
+      1
+    elsif other.excluded? && ! excluded?
+      -1
+    else
+      # TODO - really, this should sort on the predicate first, value second. ...We never need that, but it still violates
+      # principle of least surprise:
+      value_uri_or_blank <=> other.value_uri_or_blank
+    end
+  end
+
+private
+
+  def units
+    _units(unit_of_measure_uri)
+  end
+
+  def original_units
+    _units(original_unit_of_measure_uri)
+  end
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there. ...Actually, this belongs on DataValue, I think.
-  def units
-    if unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(unit_of_measure_uri)
+  def _units(which)
+    if which && uri_components = EOL::Sparql.explicit_measurement_uri_components(which)
       uri_components
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(predicate_uri)
       uri_components
     end
+  end
+
+  def _units_safe(which, attr)
+    which && which.has_key?(attr) ? which[attr] : ''
+  end
+
+  def self.conversions
+    # lots of raw URIs in here to convert some common and duplicate URIs
+    # We wouldn't want to, for example, use use create_defaults to have named methods
+    # in KnownURI for all these URIs
+    # TODO: replace this with a new table and an admin interface for setting unit conversions
+    return @@conversions if defined?(@@conversions)
+    @@conversions = [
+      { starting_units:   [ KnownUri.milligrams.uri ],
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v / 1000 },
+        required_minimum: 1.0 },
+      { starting_units:   [ KnownUri.grams.uri, 'http://adw.org/g', 'http://anage.org/g' ],
+        ending_unit:      KnownUri.kilograms.uri,
+        function:         lambda { |v| v / 1000 },
+        required_minimum: 1.0 },
+      { starting_units:   [ KnownUri.millimeters.uri, 'http://adw.org/mm' ],
+        ending_unit:      KnownUri.centimeters.uri,
+        function:         lambda { |v| v / 10 },
+        required_minimum: 1.0 },
+      { starting_units:   [ KnownUri.centimeters.uri ],
+        ending_unit:      KnownUri.meters.uri,
+        function:         lambda { |v| v / 100 },
+        required_minimum: 1.0 } ,
+      { starting_units:   [ KnownUri.kelvin.uri, 'http://anage.org/k' ],
+        ending_unit:      KnownUri.celsius.uri,
+        function:         lambda { |v| v - 273.15 } },
+      { starting_units:   [ KnownUri.days.uri, 'http://anage.org/days', 'http://eol.org/schema/terms/day' ],
+        ending_unit:      KnownUri.years.uri,
+        function:         lambda { |v| v / 365 },
+        required_minimum: 1.0 },
+      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius' ],
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v / 10 } },
+      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'log10gram' ],
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| 10 ** v } },
+      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'squareMicrometer' ],
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000082',                   # square millimeter
+        function:         lambda { |v| v / 1000000 },
+        required_minimum: 1.0 },
+      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000082' ],               # square millimeter
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000081',                   # square centimeter
+        function:         lambda { |v| v / 100 },
+        required_minimum: 1.0 },
+      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000081' ],               # square centimeter
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000080',                   # square meter
+        function:         lambda { |v| v / 10000 },
+        required_minimum: 1.0 },
+      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000080' ],               # square meter
+        ending_unit:      Rails.configuration.schema_terms_prefix + 'squarekilometer',  # square kilometer
+        function:         lambda { |v| v / 1000000 },
+        required_minimum: 1.0 }
+    ]
+    KnownUri.find_all_by_uri(@@conversions.collect{ |c| c[:ending_unit] }).each do |known_uri|
+      @@conversions.select{ |conversion| conversion[:ending_unit] == known_uri.uri }.each do |conversion|
+        conversion[:ending_unit] = known_uri
+      end
+    end
+    @@conversions.delete_if{ |conversion| ! conversion[:ending_unit].is_a?(KnownUri) || ! conversion[:ending_unit].unit_of_measure? }
+    @@conversions
   end
 
 end

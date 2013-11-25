@@ -12,7 +12,7 @@ describe 'taxa/data/index' do
     assign(:data_point_uris, @data)
     assign(:toc_id, nil)
     assign(:selected_data_point_uri_id, nil)
-    assign(:categories, TocItem.for_uris(Language.english).select{ |toc| @taxon_data.categories.include?(toc) })
+    assign(:categories, TocItem.for_uris(Language.english).select{ |toc| @taxon_page.data.categories.include?(toc) })
     assign(:toc_id, nil)
     assign(:supress_disclaimer, true)
   end
@@ -28,8 +28,6 @@ describe 'taxa/data/index' do
   end
 
   before(:each) do
-    view.extend(ApplicationHelper)
-    view.extend(TaxaHelper)
     view.stub(:meta_open_graph_data).and_return([])
     view.stub(:tweet_data).and_return({})
   end
@@ -44,7 +42,7 @@ describe 'taxa/data/index' do
 
     it 'should NOT show the key' do
       render
-      expect(rendered).not_to include(I18n.t(:data_tab_curator_key_exemplar, image: ""))
+      expect(rendered).not_to include(I18n.t(:data_tab_curator_key_exemplar, image: "", link: taxon_overview_path(@taxon_page)))
     end
 
   end
@@ -59,7 +57,7 @@ describe 'taxa/data/index' do
 
     it 'should show the key' do
       render
-      expect(rendered).to include(I18n.t(:data_tab_curator_key_exemplar, image: ""))
+      expect(rendered).to include(I18n.t(:data_tab_curator_key_exemplar, image: "", link: taxon_overview_path(@taxon_page)))
     end
 
   end

@@ -12,7 +12,7 @@
     - if include_other_category
       %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), url_for(params.merge(:toc_id => 'other')), 'data-toc-id' => 'other'
     %li{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(:toc_id => nil)), class: 'all'
-    - unless @glossary_terms.empty?
+    - unless @glossary_terms.blank?
       %li.glossary= link_to I18n.t(:data_subtab_glossary), glossary_taxon_data_path(@taxon_page)
     %li.about= link_to I18n.t(:data_subtab_about), about_taxon_data_path(@taxon_page)
 .main_container#taxon_data

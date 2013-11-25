@@ -7,9 +7,7 @@ describe 'API:hierarchy_entries' do
     @name = Name.create(:canonical_form => @canonical_form, :string => 'Aus bus Linnaeus 1776')
     @hierarchy = Hierarchy.gen(:label => 'Test Hierarchy', :browsable => 1)
     @rank = Rank.gen_if_not_exists(:label => 'species')
-    $FOO = true
     @hierarchy_entry = HierarchyEntry.gen(:identifier => '123abc', :hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
-    $FOO = false
 
     common_name = SynonymRelation.gen_if_not_exists(:label => 'common name')
     @common_name1 = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :synonym_relation => common_name, :language => Language.english)

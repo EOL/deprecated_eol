@@ -75,7 +75,6 @@ describe DataObjectTaxon do
   end
 
   it 'should know any reasons given for hiding' do
-    $FOO = true
     @cdohe_reasons = [UntrustReason.gen, UntrustReason.gen]
     cal = CuratorActivityLog.gen(data_object_guid: @cdohe.guid,
                                  changeable_object_type: ChangeableObjectType.curated_data_objects_hierarchy_entry,

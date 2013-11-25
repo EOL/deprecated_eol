@@ -1,4 +1,3 @@
-
 require 'set'
 require 'uuid'
 require 'erb'
@@ -9,8 +8,8 @@ require 'eol/activity_loggable'
 # of our primary models, and an awful lot of work occurs here.
 class DataObject < ActiveRecord::Base
 
-  @@maximum_rating = 5.0
-  @@minimum_rating = 0.5
+  MAXIMUM_RATING = 5.0
+  MINIMUM_RATING = 0.5
 
   include ModelQueryHelper
   include EOL::ActivityLoggable
@@ -85,11 +84,11 @@ class DataObject < ActiveRecord::Base
     :location, :bibliographic_citation, :agents_for_solr ], :fulltexts => [ :description ]
 
   def self.maximum_rating
-    @@maximum_rating
+    MAXIMUM_RATING
   end
 
   def self.minimum_rating
-    @@minimum_rating
+    MINIMUM_RATING
   end
 
   # this method is not just sorting by rating
@@ -315,15 +314,15 @@ class DataObject < ActiveRecord::Base
   end
 
   def safe_rating
-    return self.data_rating if self.data_rating >= @@minimum_rating && self.data_rating <= @@maximum_rating
+    return self.data_rating if self.data_rating >= MINIMUM_RATING && self.data_rating <= MAXIMUM_RATING
     Rails.logger.warn "!! WARNING: data object #{self.id} had a data_rating of #{self.data_rating}. Attempted fix:"
     rating = recalculate_rating
-    if rating <= @@minimum_rating
+    if rating <= MINIMUM_RATING
       Rails.logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
-      return @@minimum_rating
-    elsif rating > @@maximum_rating
+      return MINIMUM_RATING
+    elsif rating > MAXIMUM_RATING
       Rails.logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
-      return @@maximum_rating
+      return MAXIMUM_RATING
     else
       return rating
     end
@@ -485,6 +484,8 @@ class DataObject < ActiveRecord::Base
   def sound_url
     if !object_cache_url.blank? && !object_url.blank?
       filename_extension = File.extname(object_url).downcase
+      # we store audio as ogg, not oga
+      filename_extension = '.ogg' if filename_extension == '.oga'
       return (ContentServer.cache_path(object_cache_url) + filename_extension) unless filename_extension.blank?
     end
     if mime_type.id == MimeType.mp3.id
@@ -498,7 +499,9 @@ class DataObject < ActiveRecord::Base
 
   def video_url
     if !object_cache_url.blank? && !object_url.blank?
-      filename_extension = File.extname(object_url)
+      filename_extension = File.extname(object_url).downcase
+      # we store video as ogg, not ogv
+      filename_extension = '.ogg' if filename_extension == '.ogv'
       return ContentServer.cache_path(object_cache_url) + filename_extension
     elsif data_type.label('en') == 'Flash'
       return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.flv' : ''

@@ -2686,7 +2686,8 @@ en:
     other: "Belongs to %{count} Communities"
   beta_warning_header: "You are using a beta test feature"
   beta_warning_body: "Most users cannot see or use this feature, which is under active development. Performance and data may be
-  unpredictable but we invite you to explore. We welcome your <a href='%{link}'>feedback</a>."
+  unpredictable but we invite you to explore. Please fill out our <a href='https://www.surveymonkey.com/s/9FDTDQP'>survey</a>
+  after you have reviewed our data capabilities."
   beta_warning_small: "Please note that this is a beta test feature and may be unpredictable."
   beta_warning_note_header: "Note:"
   bhl: "Biodiversity Heritage Library"
@@ -2769,6 +2770,7 @@ en:
   clear_all_non_species_pages: "Clear all non-species pages"
   clear_entire_cache_store: "Clear entire cache store"
   clear_species_page: "Clear species page"
+  cms_editor: "CMS Editor"
   curator_admin_index_help: "Click a username to view the user's detailed profile. You may change the clade level curator permissions on the user profile pages. If credentials are truncated, click to expand and show full credentials."
   curator_level: "Curator level"
   curator_level_with_indefinite_article_master_curator: "a <strong>master curator</strong>"
@@ -3213,6 +3215,10 @@ en:
   data_column_sci_name: "Scientific Name"
   data_column_common_name: "Common Name"
   data_column_classification_summary: "Classification Summary"
+  data_column_measurement: "Measurement"
+  data_column_value: "Value"
+  data_column_measurement_uri: "Measurement URI"
+  data_column_value_uri: "Value URI"
   data_column_resource: "Content Partner Resource URL"
   data_column_name: "Measurement Label"
   data_column_name_uri: "Measurement URI"

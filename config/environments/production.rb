@@ -14,6 +14,10 @@ Eol::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
+  # Allow removal of expired assets:
+  config.assets.handle_expiration = true
+  config.assets.expire_after 2.months
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
@@ -30,10 +34,9 @@ Eol::Application.configure do
 
   config.log_level = :error
 
-  # # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # # the I18n.default_locale when a translation can not be found)
-  # config.i18n.fallbacks = true
-  config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+  unless ENV.has_key?('LOCALE') # They already told us what to load.
+    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+  end
 
   # # Send deprecation notices to registered listeners
   # config.active_support.deprecation = :notify

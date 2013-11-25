@@ -3,12 +3,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe TaxonConceptReindexing do
 
   before(:all) do
+    DataType.create_defaults
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
     @max_descendants = 10
   end
 
   before(:each) do
-    SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+    SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
     TaxonClassificationsLock.delete_all
   end
 

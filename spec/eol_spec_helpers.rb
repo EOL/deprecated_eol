@@ -15,13 +15,18 @@ module EOL
       def login_as(user, options = {})
         if user.is_a? User # let us pass a newly created user (with an entered_password)
           options.reverse_merge!(:username => user.username, :password => user.entered_password)
+        elsif user.class.name == 'User'
+          # This is a weird situation that can arise when using Zeus or guard. Looks like classes don't maintain identity over
+          # time. Sigh.
+          raise "** ERROR: your classes are screwed up. user.is_a?(User) is false. That's bad. Restart your environment."
         elsif user.is_a? Hash
           options = options.merge(user)
         end
         visit logout_path
         visit login_path
+        options[:password] = 'test password' if options[:password].blank?
         fill_in "session_username_or_email", :with => options[:username]
-        fill_in "session_password", :with => options[:password] || 'test password'
+        fill_in "session_password", :with => options[:password]
         check("remember_me") if options[:remember_me] && options[:remember_me].to_i != 0
         click_button I18n.t("helpers.submit.session.create")
         page
@@ -75,12 +80,19 @@ module EOL
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
         Rails.cache.clear if Rails.cache
+        clear_class_variables
       end
 
       def truncate_table(conn, table, skip_if_empty)
         # run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
         # conn.execute "TRUNCATE TABLE `#{table}`" if run_command
         conn.execute "TRUNCATE TABLE `#{table}`"
+      end
+
+      def clear_class_variables
+        ActiveRecord::Base.subclasses.each do |model|
+          model.class_variables.each { |var| model.remove_class_variable(var) }
+        end
       end
 
       def drop_all_virtuoso_graphs
@@ -429,6 +441,28 @@ DataObject.class_eval do
   def add_ref(full_reference, published, visibility)
     self.refs << ref = Ref.gen(:full_reference => full_reference, :published => published, :visibility => visibility)
     ref
+  end
+end
+
+KnownUri.class_eval do
+  def add_value(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    known_uri_relationships_as_subject <<
+      KnownUriRelationship.create(from_known_uri: self, to_known_uri: value_known_uri,
+                                  relationship_uri: KnownUriRelationship::ALLOWED_VALUE_URI)
+    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure')) if self == KnownUri.unit_of_measure
+  end
+
+  def add_unit(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
+      :relationship_uri => KnownUriRelationship::ALLOWED_UNIT_URI)
+  end
+
+  def add_implied_unit(value_known_uri)
+    raise 'cannot add value to KnownUri' unless value_known_uri.is_a?(KnownUri) && value_known_uri != self
+    KnownUriRelationship.gen_if_not_exists(:from_known_uri => self, :to_known_uri => value_known_uri,
+      :relationship_uri => KnownUriRelationship::MEASUREMENT_URI)
   end
 end
 

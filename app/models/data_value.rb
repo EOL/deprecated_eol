@@ -47,7 +47,7 @@ class DataValue
     
 
   def to_s
-    @label # TODO... something better
+    label.blank? ? '' : label
   end
 
 end

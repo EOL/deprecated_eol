@@ -56,7 +56,7 @@ end
 
 describe "Collections" do
   before(:all) do
-    #Paperclip::Attachment.stub!(:save).and_return(true)
+    #Paperclip::Attachment.stub(:save).and_return(true)
 
     unless User.find_by_username('collections_scenario')
       truncate_all_tables

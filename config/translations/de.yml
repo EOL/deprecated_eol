@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: DeeKay
 # Author: Exit91
+# Author: Flow
 # Author: Geitost
 # Author: George Animal
 # Author: Katja
@@ -1226,7 +1227,7 @@ de:
   belongs_in_count_communities: 
     one: Gehört zu einer Gemeinschaft
     other: Gehört zu %{count} Gemeinschaften
-  beta_warning_body: Die meisten Nutzer können diese Funktion nicht sehen oder verwenden, da sie sich unter aktiver Entwicklung befindet. Die Leistung und Daten können unberechenbar sein, aber Sie sind zur Erkundung eingeladen. Wir bitten Sie um Ihre <a href='%{link}'>Rückmeldung</a>.
+  beta_warning_body: Die meisten Nutzer können diese Funktion nicht sehen oder verwenden, da sie sich unter aktiver Entwicklung befindet. Die Leistung und Daten können unberechenbar sein, aber Sie sind zur Erkundung eingeladen. Nachdem Sie unsere Datenfähigkeiten überprüft haben, bitten wir Sie, unsere <a href='https://www.surveymonkey.com/s/9FDTDQP'>Umfrage</a> auszufüllen.
   beta_warning_header: Sie verwenden eine Betatestfunktion
   beta_warning_note_header: "Hinweis:"
   beta_warning_small: Bitte beachten Sie, dass dies eine unberechenbare Betatestfunktion sein kann.
@@ -1319,6 +1320,7 @@ de:
   clicked_time: Anklickzeitpunkt
   close_this_window_to_return_to_edit_window: DIESES FENSTER SCHLIESSEN, UM ZUM BEARBEITUNGSFENSTER ZURÜCKZUKEHREN
   cms_available_in_languages: "Diese Seite ist verfügbar in:"
+  cms_editor: CMS-Editor
   cms_missing_content_message: Diese Seite ist leider nicht in der ausgewählten Sprache (%{selected_language}) vorhanden.
   cms_missing_content_title: Es ist noch keine Übersetzung vorhanden.
   collect_item: Objekt sammeln
@@ -1839,15 +1841,25 @@ de:
   data_beta_search_limit: 
     one: Die Datensuchdownloads sind <i>vorübergehend</i> auf ein Ergebnis beschränkt.
     other: Die Datensuchdownloads sind <i>vorübergehend</i> auf %{count} Ergebnisse beschränkt.
+  data_column_classification_summary: Klassifikationszusammenfassung
   data_column_common_name: Gebräuchlicher Name
+  data_column_measurement: Messung
+  data_column_measurement_uri: Messungs-URI
   data_column_name: Messungsbezeichnung
   data_column_name_uri: Messungs-URI
+  data_column_raw_units: Roheinheiten (direkt von der Quelle)
+  data_column_raw_units_uri: Roheinheiten-URI (normalisiert)
+  data_column_raw_value: Rohwert (direkt von der Quelle)
+  data_column_resource: Inhaltspartner-Quellen-URL
   data_column_sci_name: Wissenschaftlicher Name
   data_column_source: Quelle
   data_column_tc_id: EOL-Seitenkennung
-  data_column_units: Einheiten
-  data_column_val: Wert
+  data_column_units: Einheiten (normalisiert)
+  data_column_units_uri: Einheiten-URI (normalisiert)
+  data_column_val: Wert (normalisiert)
   data_column_val_uri: Wert-URI
+  data_column_value: Wert
+  data_column_value_uri: Wert-URI
   data_database_colon: "Datenbanken (Daten):"
   data_glossary: Datenglossar
   data_logging_active: Datenprotokollierung aktiv

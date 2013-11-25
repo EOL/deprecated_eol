@@ -19,7 +19,7 @@ describe DataGlossaryController do
 
     it 'should grant access to users with data privilege' do
       session[:user_id] = @user.id
-      expect { get :show }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :show }.not_to raise_error
     end
 
     it 'should deny access to normal or non-logged-in users' do
@@ -34,9 +34,9 @@ describe DataGlossaryController do
       opt.value = 'true'
       opt.save
       session[:user_id] = User.gen.id
-      expect { get :show }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :show }.not_to raise_error
       session[:user_id] = nil
-      expect { get :show }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :show }.not_to raise_error
       opt.value = 'false'
       opt.save
     end

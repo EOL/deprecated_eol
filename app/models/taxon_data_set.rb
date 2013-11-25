@@ -96,7 +96,8 @@ class TaxonDataSet
 
   # Returns a HASH where the keys are KnownUris and the values are ARRAYS of DataPointUris.
   def categorized
-    @data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
+    categorized = @data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
+    categorized
   end
 
 end

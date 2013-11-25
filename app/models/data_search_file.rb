@@ -62,15 +62,28 @@ class DataSearchFile < ActiveRecord::Base
     Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
 
+  # TODO - when we get around to upping the LIMIT, we should probably break this up into chunks.
   def get_data(options = {})
+    # NOTE - for testing on staging:
+    # q = '' ; uri = 'http://iobis.org/minphosphate' ; from = nil ; to = nil ; sort = nil ; LIMIT = 12 ; options = {} ; user = User.first
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
     @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
       sort: sort, per_page: LIMIT, :for_download => true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
+    # WAIT - TaxonConcept.preload_for_shared_summary(@results.map(&:taxon_concept), language_id: user.language_id)
     # TODO - handle the case where results are empty.
+
+    # NOTE - this is a total hack. Preloading the associations on @results doesn't work; many of the results are actually "new"
+    # DataPointUris and preloading fails on them.
+    taxa = TaxonConcept.find(@results.map(&:taxon_concept_id).compact.uniq)
+    TaxonConcept.preload_associations(taxa, 
+        hierarchy_entries: [ { name: [ :ranked_canonical_form, :canonical_form ] }, :hierarchy ],
+        preferred_entry: { hierarchy_entry: [ { name: [ :ranked_canonical_form, :canonical_form ] }, :hierarchy ] }
+                                     )
+    TaxonConcept.load_common_names_in_bulk(taxa, user.language_id)
     rows = []
     DataPointUri.assign_bulk_metadata(@results, user.language)
     @results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(user.language, measurement_as_header: true, host: options[:host])
+      rows << data_point_uri.to_hash(user.language, host: options[:host], taxa: taxa)
     end
     rows
   end

@@ -15,6 +15,10 @@ $(function() {
           var media = { mp3: $(this).attr('href') };
           var supplied = "mp3";
           break;
+        case 'application/ogg':
+          var media = { oga: $(this).attr('href') };
+          var supplied = "oga";
+          break;
         default:
           // Mime type unknown so we remove redundant links
           $(this).parent("div").find("a.pause").remove();

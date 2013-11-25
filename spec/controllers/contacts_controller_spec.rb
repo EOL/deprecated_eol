@@ -50,7 +50,7 @@ describe ContactsController do
     end
 
     it 'should not create or deliver email if record is invalid' do
-      controller.instance_eval { flash.stub!(:sweep) }
+      controller.instance_eval { flash.stub(:sweep) }
       Notifier.should_not_receive(:contact_us_auto_response)
       Notifier.should_not_receive(:contact_us_message)
       post :create
@@ -72,14 +72,14 @@ describe ContactsController do
     end
 
     it 'should send auto response email' do
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:contact_us_auto_response).and_return(mailer)
       post :create, @new_contact_params, { :user_id => 1 }
     end
 
     it 'should send feedback email' do
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:contact_us_message).and_return(mailer)
       post :create, @new_contact_params, { :user_id => 1 }

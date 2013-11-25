@@ -23,8 +23,8 @@ describe Forums::CategoriesController do
 
     it "admins can create" do
       session[:user_id] = @admin.id
-      lambda { post :create, :forum_category => { :title => 'New category' }
-        }.should_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { post :create, :forum_category => { :title => 'New category' }
+        }.not_to raise_error
     end
   end
 
@@ -96,7 +96,7 @@ describe Forums::CategoriesController do
     it 'should allow admins to delete posts' do
       c = ForumCategory.gen
       session[:user_id] = @admin.id
-      lambda { post :destroy, :id => c.id }.should_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { post :destroy, :id => c.id }.not_to raise_error
     end
   end
 end

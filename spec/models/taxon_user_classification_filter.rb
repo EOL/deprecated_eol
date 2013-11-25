@@ -137,7 +137,7 @@ describe TaxonUserClassificationFilter do
   # TODO - this is hard to test, so we're probably doing something wrong.
   it '#related_names should call a really nasty query for parents and children' do
     # http://stackoverflow.com/questions/1785382/rspec-expecting-a-message-multiple-times-but-with-differing-parameters
-    mock_connection = mock("connection").as_null_object
+    mock_connection = double("connection").as_null_object
     HierarchyEntry.stub(:connection).and_return(mock_connection) # scary...
     mock_connection.should_receive(:execute).once.with("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id,
@@ -167,7 +167,7 @@ describe TaxonUserClassificationFilter do
   # TODO - this is hard to test, so we're probably doing something wrong.
   it '#related_names should call a really nasty query for parents and children when entry specified' do
     # http://stackoverflow.com/questions/1785382/rspec-expecting-a-message-multiple-times-but-with-differing-parameters
-    mock_connection = mock("connection").as_null_object
+    mock_connection = double("connection").as_null_object
     HierarchyEntry.stub(:connection).and_return(mock_connection) # scary...
     mock_connection.should_receive(:execute).once.with("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id,
@@ -247,8 +247,8 @@ describe TaxonUserClassificationFilter do
   end
 
   it '#common_names should filter out names where the language is unknown' do
-    good_name = mock("good") ; good_name.stub(:known_language?).and_return(true)
-    bad_name = mock("bad") ; bad_name.stub(:known_language?).and_return(false)
+    good_name = double("good") ; good_name.stub(:known_language?).and_return(true)
+    bad_name = double("bad") ; bad_name.stub(:known_language?).and_return(false)
     EOL::CommonNameDisplay.stub(:find_by_taxon_concept_id).and_return([good_name, bad_name])
     @taxon_page.common_names.should == [good_name]
   end

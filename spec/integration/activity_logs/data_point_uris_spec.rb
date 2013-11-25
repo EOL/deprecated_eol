@@ -149,11 +149,11 @@ describe 'DataPointUris' do
       expect_no_data_feed
     end
     it 'should not show activity on the users activity page' do
-      visit(user_activity_path(@user))
+      visit logout_url(return_to: user_activity_path(@user))
       expect_no_data_feed
     end
     it 'should not show activity in the newfeed of a containing collection' do
-      visit(collection_newsfeed_path(@collection))
+      visit logout_url(return_to: collection_newsfeed_path(@collection))
       expect_no_data_feed
     end
   end

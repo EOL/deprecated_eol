@@ -9,9 +9,9 @@ describe DataObjectTaxon do
     DataType.create_defaults
     License.create_defaults
     CuratorLevel.create_enumerated
-    Vetted.create_defaults
-    Visibility.create_defaults
-    Activity.create_defaults
+    Vetted.create_enumerated
+    Visibility.create_enumerated
+    Activity.create_enumerated
     ChangeableObjectType.create_enumerated
 
     @master = gen_curator(curator_level: CuratorLevel.master)

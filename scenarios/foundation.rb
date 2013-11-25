@@ -41,19 +41,19 @@ ContentPage.gen_if_not_exists(page_name: 'terms_of_use', title: 'Terms of Use', 
   ContactSubject.gen_if_not_exists(title: contact_subject_title, recipients: "junk@example.com", active: 1)
 end
 
-Activity.create_defaults
+Activity.create_enumerated
 
 ContactRole.create_enumerated
 ContentPartnerStatus.create_enumerated
 
 # Cannot create users without special collection:
-SpecialCollection.create_defaults
+SpecialCollection.create_enumerated
 CuratorCommunity.build
-SortStyle.create_defaults # Need this to make communities.
-ViewStyle.create_defaults # Used by collections views
+SortStyle.create_enumerated # Need this to make communities.
+ViewStyle.create_enumerated # Used by collections views
 
 CuratorLevel.create_enumerated
-UserIdentity.create_defaults
+UserIdentity.create_enumerated
 
 iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
 iucn_user = User.gen_if_not_exists(:given_name => 'IUCN', :agent => iucn_agent)
@@ -91,7 +91,7 @@ Audience.create_enumerated
 
 DataType.create_defaults
 
-LinkType.create_defaults
+LinkType.create_enumerated
 
 default_hierarchy = Hierarchy.gen_if_not_exists(agent: Agent.catalogue_of_life, label: $DEFAULT_HIERARCHY_NAME, browsable: 1)
 Hierarchy.gen_if_not_exists(agent: Agent.catalogue_of_life, label:  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", browsable: 0)
@@ -226,18 +226,18 @@ UntrustReason.gen_if_not_exists(label: 'incorrect/misleading', class_name: 'inco
 UntrustReason.gen_if_not_exists(label: 'low quality', class_name: 'poor')
 UntrustReason.gen_if_not_exists(label: 'duplicate', class_name: 'duplicate')
 
-Vetted.create_defaults
+Vetted.create_enumerated
 
 SynonymRelation.gen_if_not_exists(label: "synonym")
 SynonymRelation.gen_if_not_exists(label: "common name")
 SynonymRelation.gen_if_not_exists(label: "genbank common name")
 
-Visibility.create_defaults
+Visibility.create_enumerated
 
-UriType.create_defaults
+UriType.create_enumerated
 ContentTable.create_details
-NotificationFrequency.create_defaults
-Permission.create_defaults
+NotificationFrequency.create_enumerated
+Permission.create_enumerated
 
 def create_known_uri(params)
   old_instance = KnownUri.find_by_uri(params[:uri])

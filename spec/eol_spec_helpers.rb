@@ -169,15 +169,15 @@ module EOL
         options.delete :level
         entry ||= FactoryGirl.create(:hierarchy_entry)
         tc = nil # scope
-        if entry.class == TaxonConcept
+        if entry.is_a? TaxonConcept
           tc    = entry
           entry = tc.entry
         end
         tc ||= entry.taxon_concept
         options = {
-          :curator_approved        => true,
-          :curator_scope           => 'scope',
-          :credentials             => 'Curator'
+          curator_approved: true,
+          curator_scope: 'scope',
+          credentials: 'Curator'
         }.merge(options)
 
         # These two do "extra work", so I didn't want to use the merge on these (because they would be calculated even

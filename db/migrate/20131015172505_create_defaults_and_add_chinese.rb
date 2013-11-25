@@ -2,7 +2,7 @@
 class CreateDefaultsAndAddChinese < ActiveRecord::Migration
   def up
     ChangeableObjectType.create_enumerated
-    Activity.create_defaults
+    Activity.create_enumerated
     Language.reset_column_information
     Language.create_english # Ensure that we have our default language before inserting any...
     Language.create(iso_639_1: 'zh-Hant', iso_639_2: 'zh-Hant', iso_639_3: 'zh-Hant', source_form: '繁體中文', sort_order: 1,

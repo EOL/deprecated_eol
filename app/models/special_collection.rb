@@ -5,9 +5,4 @@ class SpecialCollection < ActiveRecord::Base
   include Enumerated
   enumerated :name, %w(Focus Watch)
 
-  def self.create_defaults
-    self.create(:name => 'Focus')
-    self.create(:name => 'Watch')
-  end
-
 end

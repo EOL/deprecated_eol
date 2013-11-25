@@ -4,7 +4,7 @@ describe EOL::Sparql do
 
   before(:all) do
     truncate_all_tables
-    UriType.create_defaults
+    UriType.create_enumerated
   end
 
   before(:each) do

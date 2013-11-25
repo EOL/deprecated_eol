@@ -8,17 +8,7 @@ class Visibility < ActiveRecord::Base
   enumerated :label, %w(Invisible Visible Preview)
 
   def self.create_enumerated
-    enumeration_creator defaults: { phonetic_label: nil }
-  end
-
-  def self.create_defaults
-    %w(Invisible Visible Preview).each do |lbl|
-      vis = Visibility.create
-      trans = TranslatedVisibility.create(visibility_id: vis.id,
-                                          language_id: Language.default.id,
-                                          label: lbl,
-                                          phonetic_label: nil)
-    end
+    enumeration_creator defaults: { phonetic_label: nil } # TODO - try removing this method, it may not be needed.
   end
 
   def self.all_ids

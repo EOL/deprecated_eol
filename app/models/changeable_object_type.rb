@@ -23,13 +23,6 @@ class ChangeableObjectType < ActiveRecord::Base
        user_added_data)
   end
 
-  def self.create_defaults
-    default_values.each do |type|
-      ChangeableObjectType.create(:ch_object_type => type)
-    end
-
-  end
-
   def self.raw_data_object_id
     cot = self.find_by_ch_object_type('data_object')
     return 2 if cot.nil? # THIS IS FOR TESTS.  Since we need this at compile-time, we are "guessing"

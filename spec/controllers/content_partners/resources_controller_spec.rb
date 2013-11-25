@@ -14,7 +14,7 @@ describe ContentPartners::ResourcesController do
       CuratorLevel.create_enumerated
       ContentPartnerStatus.create_enumerated
       License.create_defaults
-      UserIdentity.create_defaults
+      UserIdentity.create_enumerated
       @user = User.gen(:username => 'partner_resources_controller')
     end
     @content_partner = ContentPartner.gen(:user => @user, :full_name => 'Test content partner')

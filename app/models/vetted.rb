@@ -15,16 +15,6 @@ class Vetted < ActiveRecord::Base
     enumeration_creator defaults: { phonetic_label: nil }, autoinc: :view_order
   end
 
-  def self.create_defaults
-    %w(Trusted Unknown Untrusted Inappropriate).each_with_index do |lbl, order|
-      vis = Vetted.create(:view_order => order + 1 )
-      trans = TranslatedVetted.create(vetted_id: vis.id,
-                                      language_id: Language.default.id,
-                                      label: lbl,
-                                      phonetic_label: nil)
-    end
-  end
-
   def self.trusted_ids
     self.trusted.id.to_s
   end

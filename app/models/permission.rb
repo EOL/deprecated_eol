@@ -10,18 +10,6 @@ class Permission < ActiveRecord::Base
 
   KNOWN_PERMISSIONS = [ :edit_permissions, :beta_test, :see_data, :edit_cms ]
 
-  def self.create_defaults
-    KNOWN_PERMISSIONS.each do |sym|
-      name = Permission.stringify_sym(sym)
-      perm = cached_find_translated(:name, name)
-      unless perm
-        perm = Permission.create
-        TranslatedPermission.create(:name => name, :language => Language.default,
-                                    :permission => perm)
-      end
-    end
-  end
-
   def self.method_missing(sym, *args, &block)
     super unless KNOWN_PERMISSIONS.include?(sym)
     cached_find_translated(:name, Permission.stringify_sym(sym)) || super

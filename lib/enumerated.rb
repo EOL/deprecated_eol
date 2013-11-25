@@ -97,7 +97,7 @@ module Enumerated
     # The method name (unless you specified it in a hash) will be underscored (as one should expect).
     def add_enumerated_methods
       enumerations.each do |name, value|
-        puts "** WARNING: named default method #{name} already exists, re-defined." if respond_to?(name)
+        # ANNOYING: puts "** WARNING: named default method #{name} already exists, re-defined." if respond_to?(name)
         classvar = "@@#{name}".to_sym
         if @enum_translated && @enum_translated_class.send(:attribute_names).include?(@enum_field.to_s)
           define_singleton_method(name) do
@@ -152,10 +152,10 @@ module Enumerated
           field_class = attribute_names.include?(@enum_field.to_s) ? self : @enum_translated_class
           unless field_class.send(:exists?,
                                   exist_params.select { |k,v| field_class.send(:attribute_names).include?(k.to_s) } )
-            pp params.select { |k,v| field_class.send(:attribute_names).include?(k.to_s) }
+            #DEBUG: pp params.select { |k,v| field_class.send(:attribute_names).include?(k.to_s) }
             this = create!(params.select { |k,v| attribute_names.include?(k.to_s) } )
             trans_params = params.reverse_merge!(language_id: Language.english.id, @enum_foreign_key => this.id)
-            pp trans_params.select { |k,v| @enum_translated_class.send(:attribute_names).include?(k.to_s) }
+            #DEBUG: pp trans_params.select { |k,v| @enum_translated_class.send(:attribute_names).include?(k.to_s) }
             trans = @enum_translated_class.send(:create!,
               trans_params.select { |k,v| @enum_translated_class.send(:attribute_names).include?(k.to_s) } )
           end

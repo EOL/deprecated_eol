@@ -4,9 +4,9 @@ describe 'taxa/data/index' do
 
   before(:all) do
     Language.create_english
-    UriType.create_defaults
-    Vetted.create_defaults
-    Visibility.create_defaults
+    UriType.create_enumerated
+    Vetted.create_enumerated
+    Visibility.create_enumerated
   end
 
   before(:each) do

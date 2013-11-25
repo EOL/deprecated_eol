@@ -17,7 +17,7 @@ describe CollectionJob do
   before(:all) do
     @old_val = $INDEX_RECORDS_IN_SOLR_ON_SAVE
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = true # Nothing happens otherwise.
-    Visibility.create_defaults
+    Visibility.create_enumerated
     DataType.create_defaults
     License.create_defaults
     entry = HierarchyEntry.gen # Gives the TC a name.

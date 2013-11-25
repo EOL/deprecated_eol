@@ -8,7 +8,7 @@ describe TaxonData do
     drop_all_virtuoso_graphs
     License.create_defaults
     ResourceStatus.create_enumerated
-    SpecialCollection.create_defaults
+    SpecialCollection.create_enumerated
     ContentPartnerStatus.create_enumerated
     @taxon_concept = TaxonConcept.gen
     @user = User.gen

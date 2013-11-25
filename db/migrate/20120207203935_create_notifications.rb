@@ -6,7 +6,7 @@ class CreateNotifications < ActiveRecord::Migration
                                         # much; we'll just reference the string in the code.
     end
 
-    NotificationFrequency.create_defaults
+    NotificationFrequency.create_enumerated
 
     create_table :notifications do |t|
       t.integer :user_id, :null => false, :unique => true

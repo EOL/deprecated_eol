@@ -11,7 +11,7 @@ describe Permission do
   it 'should create defaults' do
     TranslatedPermission.delete_all
     Permission.delete_all
-    Permission.create_defaults
+    Permission.create_enumerated
     Permission.edit_permissions.should_not be_nil
     Permission.edit_permissions.name.should == "edit permissions"
     Permission.beta_test.should_not be_nil

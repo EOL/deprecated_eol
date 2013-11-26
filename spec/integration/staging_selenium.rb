@@ -9,28 +9,18 @@ require 'capybara'
 require 'capybara-webkit'
 include ActionController::Caching::Fragments
 
-ACCEPT_TEST_LANGS =  ['zh-Hans', :ko, :de, :es, :fr, :gl, :nl, :tl, :mk, :sr, :ar]
-
-I18n.load_path += Dir[Rails.root.join('lib', 'translations', "{#{ACCEPT_TEST_LANGS.join(',')}}.{rb,yml}")]
-
 # All kinds of special setup:
 #Capybara.current_driver = :mechanize
 Capybara.javascript_driver = :webkit
 Capybara.app_host = Rails.configuration.acceptance_host[:url]
 Capybara.run_server = false # Don't bother spinning up *our* server!
 
-# NOTE - *Important* ... you should enter a curator username/password for the curator specs to work correctly.
-# Remember to delete the information if/when you save this file for committing! ...We *could* create a fake curator
-# in the staging DB, but assuming we import prod data over to staging every week or two, and given that we DON'T want
-# a hard-coded curator with public password in production (EVER!), I don't think that's worth doing. This is just a
-# super-simple solution:
+# NOTE - *Important* ... you should need some configuration for these specs to work. Edit your
+# config/environments/local.rb file and add something like this:
+# Rails.configuration.acceptance_curator = {username: 'curator', password: 'I love life'}
+# Rails.configuration.acceptance_host = {url: 'http://staging_testss.eol.org', username: 'restricted', password: 'secure!'}
 
-class CuratorLogin
-  USER = Rails.configuration.acceptance_curator[:username]
-  PASS = Rails.configuration.acceptance_curator[:password]
-end
-
-describe 'Home page', js: true do
+describe 'Staging', js: true do
 
   def visit_with_auth(where)
     puts "++ Heading to #{where}"
@@ -46,7 +36,7 @@ describe 'Home page', js: true do
       I18n.locale = :en
     end
 
-   ACCEPT_TEST_LANGS.each do |lang|
+   Language.approved_languages.each do |lang|
       it "should minimally support #{lang}" do
         I18n.locale = lang
         visit_with_auth "/set_language?language=#{lang}"
@@ -122,6 +112,22 @@ describe 'Home page', js: true do
     page.should have_content 'Message can\'t be blank'
   end
 
+  it 'should NOT have a reindex page button' do
+    visit_with_auth "/pages/339201/overview"
+    expect(page).not_to have_tag('a.button', text: I18n.t(:reindex_page_button))
+  end
+
+  # ARGH!  I cannot get a context / describe block to work, so I'm doing it the hard way:
+  it 'full curator should have a reindex page button' do
+    visit_with_auth "/login"
+    fill_in 'session_username_or_email', :with => Rails.configuration.acceptance_curator[:username]
+    fill_in 'session_password', :with => Rails.configuration.acceptance_curator[:password]
+    click_button 'Sign in'
+    visit_with_auth "/pages/339201/overview"
+    expect(page).to have_tag('a.button', text: I18n.t(:reindex_page_button))
+    visit_with_auth "/logout"
+  end
+
   if (false) # TEMP - disabling this because it was causing FB errors. ...we need to get the server config'd to use FB correctly.
     it 'should handle comments correctly' do
       visit_with_auth "/logout"
@@ -132,8 +138,8 @@ describe 'Home page', js: true do
       link_stuff = 'http://whatever.org and one starting with www.google.com and a third marked up using <a href="something.edu">this</a>.'
       fill_in 'comment_body', :with => test_text + link_stuff
       click_button 'Post Comment'
-      fill_in 'session_username_or_email', :with => CuratorLogin::USER 
-      fill_in 'session_password', :with => CuratorLogin::PASS 
+      fill_in 'session_username_or_email', :with => Rails.configuration.acceptance_curator[:username]
+      fill_in 'session_password', :with => Rails.configuration.acceptance_curator[:password]
       click_button 'Sign in'
       page.should have_content test_text # It won't have link_stuff 'cause it's too long...
       page.should have_content I18n.t(:comment_added_notice)

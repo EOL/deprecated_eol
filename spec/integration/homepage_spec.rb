@@ -60,7 +60,7 @@ describe 'Home page' do
     visit('/')
     active.each do |language|
       if language.iso_639_1 == I18n.locale.to_s
-        body.should have_tag('.language p a span', :text => language.source_form)
+        body.should have_tag('.language p a span', text: /#{language.source_form}/)
       else
         body.should have_tag(".language a[href$='#{set_language_path(:language => language.iso_639_1,
                                                                    :return_to => current_url)}']")
@@ -78,7 +78,7 @@ describe 'Home page' do
   it "should links to social media sites" do
     visit('/')
     ['Twitter', 'Facebook', 'Flickr', 'YouTube', 'Pinterest', 'Vimeo', 'Flipboard'].each do |social_site|
-      body.should have_tag("li a.#{social_site.downcase}", :text => social_site)
+      body.should have_tag("li a.#{social_site.downcase}", text: /#{social_site}/)
     end
   end
 

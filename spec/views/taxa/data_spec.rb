@@ -63,13 +63,13 @@ describe 'taxa/data/index' do
 
     it "should NOT show units when undefined" do
       render
-      expect(rendered).to_not have_tag('span', text: 'chucks')
+      expect(rendered).to_not have_tag('span', text: /chucks/)
     end
 
     it "should show units when defined" do
       EOL::Sparql.should_receive(:explicit_measurement_uri_components).with(@chucks).and_return(DataValue.new('chucks'))
       render
-      expect(rendered).to have_tag('span', text: 'chucks')
+      expect(rendered).to have_tag('span', text: /chucks/)
     end
 
   end

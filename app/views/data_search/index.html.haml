@@ -1,7 +1,7 @@
 - if @results.blank?
   .empty
     - if @results
-      %p= @attribute ? I18n.t(:no_results_for_search_term, :search_term => @querystring) : I18n.t(:must_provide_attribute_for_search_error)
+      %p= @attribute ? I18n.t(:no_results_for_search_term, search_term: @querystring) : I18n.t(:must_provide_attribute_for_search_error)
     - else
       %p= I18n.t(:data_server_unavailable)
 - else
@@ -12,14 +12,11 @@
   .header
     - start_number = (@results.current_page - 1) * @results.per_page + 1
     - end_number = [ (start_number + @results.per_page - 1), @results.total_entries ].min
-    - previous_label = (@results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @results.per_page)
-    - next_label = (@results.current_page == @results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @results.per_page)
-    %h3= raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @results.total_entries))
-    = will_paginate @results, |
-      :previous_label => previous_label, |
-      :next_label => next_label, |
-      :page_links=>false
+    - previous_label = (@results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, count: @results.per_page)
+    - next_label = (@results.current_page == @results.total_pages) ? '' : I18n.t(:pagination_next_with_count, count: @results.per_page)
+    %h3= raw(I18n.t(:displaying_numerical_range, start_number: start_number, end_number: end_number, total: @results.total_entries))
+    = will_paginate @results, previous_label: previous_label, next_label: next_label, page_links: false
   #taxon_data
     %table.standard.data.search
       - @results.each do |data_point_uri|
-        = render :partial => 'data_point_uris/display_rows', :locals => { :data_point_uri => data_point_uri, :for_search => true }
+        = render partial: 'data_point_uris/display_rows', locals: { data_point_uri: data_point_uri, for_search: true }

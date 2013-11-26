@@ -3,9 +3,12 @@
   %h2.assistive= I18n.t(:search_the_site)
   %fieldset
     %label.assistive{ :for => :q }= I18n.t(:search_field_label)
-    .text
-      %input#q{ :type => "text", :name => "q", :placeholder => I18n.t(:search_placeholder),
-        :maxlength => "250", :title => I18n.t(:search_input_advisory_information) }
+    .text#data_search
+      = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
+        :placeholder => I18n.t(:search_placeholder),
+        :maxlength => "250", :title => I18n.t(:search_input_advisory_information),
+        :name => 'q', 'min-length' => 3
+
     %input{ :type => "submit", :name => "search", :value => I18n.t(:go), :data_error => I18n.t(:must_provide_search_term_error), :data_unchanged => I18n.t(:search_placeholder) }
 
   - if @logged_search_id

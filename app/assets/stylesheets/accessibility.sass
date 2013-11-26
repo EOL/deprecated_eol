@@ -1898,3 +1898,63 @@ textarea
       margin-left: 0
       li
         list-style-type: none
+ul.object_list, ul.ui-autocomplete
+  + .footer
+    border-top: 1px solid #394651
+    padding-top: 12px
+    margin: 0
+  li
+    padding: 10px
+    overflow: hidden
+    line-height: 160%
+    color: $lighter_text_color
+    & + li
+      border-top: 1px solid #d7dadc
+    .annotation
+      clear: both
+      padding-top: 5px
+      p
+        margin: 0 0 10px 0
+    span.icon
+      width: 68px
+      height: 68px
+      border: 1px solid $grayblue
+      float: left
+      margin: 0 20px 0 0
+    h4
+      margin-top: 15px
+      font-size: 1.2em
+      a
+        color: #28323a
+        text-decoration: none
+        &:hover
+          text-decoration: underline
+    img
+      float: right
+      border: 1px solid #394651
+    &.taxon
+      small
+        font-weight: bold
+        display: block
+        margin-top: 8px
+      h4
+        margin: 0
+      .alternate_name
+        .label
+          font-weight: bold
+
+ul.ui-autocomplete
+  li.taxon.ui-menu-item
+    font-size: .8em
+    img
+      +max_dimensions($logo_size_primary, $logo_size_primary)
+    small
+      margin-top: 4px
+    span.icon
+      margin: 0px 10px 0px 0px
+    h4
+      font-size: 1.4em
+      font-weight: normal
+    img
+      float: left
+      margin: 0px 10px 0px 0px

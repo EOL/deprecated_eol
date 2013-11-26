@@ -414,6 +414,13 @@ Eol::Application.routes.draw do
 
   resource :data_glossary, :only => :show, :controller => 'data_glossary'
 
+  resource :search, :controller => 'search' do
+    collection do
+      get 'autocomplete_taxon'
+      get 'index'
+    end
+  end
+
   # Putting these after the complex resources because they are less common.
   resources :tasks, :task_states, :task_names, :random_images
   resources :recent_activities, :only => [:index]

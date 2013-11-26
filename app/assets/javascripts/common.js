@@ -240,6 +240,46 @@ $(function() {
     });
   });
 
+  // makes sure that as the user types we can enable/disable autocomplete depending
+  // on the search term. This helps get rid of results of the search term is deleted
+  $('input#autocomplete_q[data-autocomplete]').keyup(function(e) {
+    var key = e.keyCode || e.which;
+    // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
+    if (key === 37 || key === 38 || key === 39 || key === 40) return;
+    $(".ui-autocomplete").fadeOut(50);
+    var value = $.trim($(this).val()).replace(/\s+/," ");;
+    // making sure the search term is at least 3 characters and every word has at least 3 characters
+    if (value.length < 3 || value.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)) {
+      $(".ui-autocomplete").hide();
+      $(this).autocomplete('disable');
+      return false;
+    } else {
+      if($(this).autocomplete('option').disabled === true) {
+        $(this).autocomplete('enable');
+        $(this).autocomplete('search', value);
+      }
+    }
+  });
+
+  // this ensures that anytime the autocomplete field loses focus and gains it again,
+  // we will initiate the autocomplete and give the user results
+  $('input#autocomplete_q[data-autocomplete]').bind('focus', function() {
+    // this bit ensures that HTML returned by the autocomplete method is rendered
+    // as HTML and not as plain text
+    $('input#autocomplete_q[data-autocomplete]').data('ui-autocomplete')._renderItem = function( ul, item) {
+      return $( "<li class='taxon'></li>" )
+        .data( "item.autocomplete", item )
+        .append( $( "<a></a>" ).html( item.label ) )
+        .appendTo( ul );
+    };
+    var value = $.trim($(this).val()).replace(/\s+/," ");;
+    if(value == $(this).attr('title')) value = '';
+    if (value.length >= 3 && !value.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)) $(this).autocomplete('search', value);
+    return false;
+  });
+
+
+
   // TODO - generalize this with the other modals...
   $('#collection_items .editable .edit a').modal({
     beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
@@ -402,7 +442,7 @@ $(function() {
 
   // Search should not allow you to search without a term:
   $("#simple_search :submit").click(function() {
-    var $q = $("#simple_search :submit").closest('form').find('#q');
+    var $q = $("#simple_search :submit").closest('form').find('input[type="text"]');
     if ($q.val() == $(this).attr('data_unchanged')) {
       $q.css('color', '#aa0000').val($(this).attr('data_error')).click(function() { $(this).val('').css('color', 'black').unbind('click'); });
       return(false);

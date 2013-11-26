@@ -582,52 +582,6 @@ table.standard
   span.icon
     background: $fieldset_light_blue url(image-path("v2/icon_sound_tabs.png")) 50% 50% no-repeat
 
-ul.object_list
-  + .footer
-    border-top: 1px solid #394651
-    padding-top: 12px
-    margin: 0
-  li
-    padding: 10px
-    overflow: hidden
-    line-height: 160%
-    color: $lighter_text_color
-    & + li
-      border-top: 1px solid #d7dadc
-    .annotation
-      clear: both
-      padding-top: 5px
-      p
-        margin: 0 0 10px 0
-    span.icon
-      width: 68px
-      height: 68px
-      border: 1px solid $grayblue
-      float: left
-      margin: 0 20px 0 0
-    h4
-      margin-top: 15px
-      font-size: 1.2em
-      a
-        color: #28323a
-        text-decoration: none
-        &:hover
-          text-decoration: underline
-    img
-      float: right
-      border: 1px solid #394651
-    &.taxon
-      small
-        font-weight: bold
-        display: block
-        margin-top: 8px
-      h4
-        margin: 0
-      .alternate_name
-        .label
-          font-weight: bold
-
-
 form.select_content_partner
   padding: 5px 0
   text-align: center
@@ -2172,13 +2126,16 @@ ul.content_partner_contacts
     fieldset
       dl
         float: left
-        width: 33%
         dt
           label
             text-transform: uppercase
             color: #667309
         dd
           padding: 0
+#data_search
+  fieldset
+    dl
+      width: 25%
 #worklist
   .filters
     fieldset.actions

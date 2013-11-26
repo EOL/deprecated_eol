@@ -36,7 +36,7 @@ Eol::Application.configure do
 
   config.logger = Logger.new(STDOUT)
 
-  unless ENV.has_kay?('LOCALE') do
+  unless ENV.has_key?('LOCALE')
     config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
   end
 

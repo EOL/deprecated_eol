@@ -43,7 +43,7 @@ Eol::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1
 
-  unless ENV.has_kay?('LOCALE') do
+  unless ENV.has_key?('LOCALE')
     config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
   end
 

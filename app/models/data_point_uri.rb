@@ -516,6 +516,9 @@ private
   end
 
   def self.conversions
+    # lots of raw URIs in here to convert some common and duplicate URIs
+    # We wouldn't want to, for example, use use create_defaults to have named methods
+    # in KnownURI for all these URIs
     # TODO: replace this with a new table and an admin interface for setting unit conversions
     return @@conversions if defined?(@@conversions)
     @@conversions = [
@@ -565,6 +568,14 @@ private
         function:         lambda { |v| v / 1000000 },
         required_minimum: 1.0 }
     ]
+    KnownUri.find_all_by_uri(@@conversions.collect{ |c| c[:ending_unit] }).each do |known_uri|
+      @@conversions.select{ |conversion| conversion[:ending_unit] == known_uri.uri }.each do |conversion|
+        conversion[:ending_unit] = known_uri
+      end
+    end
+    @@conversions.delete_if{ |conversion| ! conversion[:ending_unit].is_a?(KnownUri) ||
+                                          ! conversion[:ending_unit].unit_of_measure? }
+    @@conversions
   end
 
 end

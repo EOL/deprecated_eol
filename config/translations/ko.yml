@@ -1141,7 +1141,7 @@ ko:
   browsing_branch_colon: "지점 탐색:"
   build_communities: 공동체 구축
   by_caps: 사용자
-  by_scientific_name_table_header: 과확적인 이름
+  by_scientific_name_table_header: 학명
   cache_store: 캐시 저장소
   caching_results: 캐싱 결과
   calculate_averages_slow: 평균 계산 (느림)
@@ -1366,7 +1366,7 @@ ko:
     one: 기여 %{count}회
     other: 기여 %{count}회
   community_description_default: 생명의 백과사전 공동체입니다.
-  community_destroyed: 이 공동체를 삭제했습니다. 더 이상 분류 문서 또는 찾기 결과에서 보여지지 않습니다.
+  community_destroyed: 이 공동체를 삭제했습니다. 더 이상 분류 문서 또는 검색 결과에서 보여지지 않습니다.
   community_empty_notice: 이 공동체에 구성원이 없습니다.
   community_focus: 관리한 모음집
   community_focus_items_with_count: 
@@ -1389,7 +1389,7 @@ ko:
   community_removed_by_owner: 이 공동체는 소유자에 의해 제거됐습니다.
   community_tab_collections_header: 모음집
   completed: 완료
-  confirm_delete_community: 정말로 이 커뮤니티를 삭제하겠습니까? 남은 회원들은 내용을 볼 수 있으며 뉴스피드는 관리되지만, 검색 결과와 taxon 페이지에서 나타나지 않을 것이며, 더이상 편집할 수 없습니다.
+  confirm_delete_community: 이 공동체를 삭제하겠습니까? 남은 구성원은 여전히 내용을 볼 수 있으며 뉴스피드는 관리되지만, 검색 결과나 분류 문서에서 나타나지 않으며, 더 이상 편집할 수 없습니다.
   confirm_leave: 이 공동체를 떠나겠습니까?
   confirm_password_colon: "비밀번호 확인:"
   contact: 연락하기
@@ -1853,7 +1853,7 @@ ko:
   edit_news_items: 뉴스 항목 편집
   edit_page_contents: 문서 내용 편집
   edit_permission_header: "권한 편집 중: %{permission}"
-  edit_search_suggestion: 찾기 제안 편집
+  edit_search_suggestion: 검색 제안 편집
   edit_search_suggestions: 검색 제안 편집
   edit_table_of_contents: 목차 편집
   edit_tag_suggestions: 태그 제안 편집
@@ -1874,6 +1874,7 @@ ko:
   endorsed_collections_with_count: 
     one: 알찬 모음집 %{count}개
     other: 알찬 모음집 %{count}개
+  enter_in_a_search_term_users_a: 사용자가 검색하고 있는 검색어를 입력하고 나서 결과 분류/문서 ID는 해당 검색에 대해 제안으로 가리켜야 합니다. 분류/문서 ID는 가리키고 싶은 문서의 URL에서 찾습니다. (예 www.eol.org/pages/5 는 5번째 분류/문서 ID를 가집니다) 문서 이름과 첫 그림은 사용할 수 있으면 모아지고 결과로 저장됩니다.
   eol_accepted_subjects: EOL이 수락한 주제
   eol_administration_console: EOL 관리 콘솔
   eol_api: EOL API
@@ -1885,7 +1886,7 @@ ko:
   eol_api_pages: "EOL API: 문서"
   eol_api_ping: "EOL API: 핑"
   eol_api_provider_hierarchies: "EOL API: 제공자 계층"
-  eol_api_search: "EOL API: 찾기"
+  eol_api_search: "EOL API: 검색"
   eol_api_search_by_provider: "EOL API: 제공자에 의한 검색"
   eol_colon: "EOL:"
   eol_curator_activity_email_message: 생명의 백과사전 큐레이터 <a href='%{profile_url}'>%{curator_full_name}</a> 사용자가 <a href='%{data_object_url}'>EOL 사이트</a>%{comment}에 %{action}
@@ -1945,7 +1946,7 @@ ko:
   error_default_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로 이메일을 보내주세요.
   error_default_page_title: 이런.
   error_exemplar_chosen_with_invalid_action: "죄송하지만 선택한 분류를 바꿀 수 없습니다: 요청의 일부를 잃었습니다. 다시 시도해야 합니다."
-  error_homepage_or_search_option: "<a href=\"/\">대문 문서</a>로 돌아가거나 찾기 도구를 사용할 수 있습니다:"
+  error_homepage_or_search_option: "<a href=\"/\">홈페이지</a>로 돌아가거나 검색 도구를 사용할 수 있습니다:"
   error_log: 오류 기록
   error_log_detail: 오류 기록 자세한 사항
   error_logging_active: 오류 기록 활동
@@ -2031,8 +2032,8 @@ ko:
   filter_newsfeed_option_watchlist: 주시문서 목록
   filtered_information: 필터한 정보
   find_taxa_submit_button: 분류 찾기
-  flash_notice_redirected_from_search_html: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">찾기 페이지로 돌아가려면 여기를 클릭하세요.</a>
-  flash_notice_redirected_from_search_html_more_results: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">다른 찾기 결과를 보려면 여기를 클릭하세요.</a>
+  flash_notice_redirected_from_search_html: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">검색 페이지로 돌아가려면 여기를 클릭하세요.</a>
+  flash_notice_redirected_from_search_html_more_results: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">다른 검색 결과를 보려면 여기를 클릭하세요.</a>
   flash_video: 플래시 동영상
   flickr: Flickr
   flipboard: 플립보드
@@ -2140,7 +2141,7 @@ ko:
   glossary_subhead: 용어집
   glossary_term: 이용 약관
   glossary_terms: 용어 약관
-  go: 찾기
+  go: 검색
   go_back: 돌아가기
   google: Google
   google_analytic_results: Google 웹로그 분석 결과
@@ -2285,7 +2286,7 @@ ko:
         language_id: 언어
         left_content_more: "(선택 사항) 둘러보기 링크의 정렬하지 않은 목록을 추가합니다. 현재 문서 링크를 강조하려면 <code>active</code> 클래스 이름을 사용하세요, 예를 들어 <code>:id</code>인 곳에 <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>는 현재 문서 ID나 고유 이름이고 <code>:title</code>은 문서의 설명 제목입니다. (<strong>참고: EOL CMS 문서의 모든 링크는 슬래시로 시작해야 합니다: <code>/info/:id</code></strong>) 이러한 바뀜을 수행하려면 편집기 도구 모음에서 <em>원본</em>을 선택하여 직접 HTML 원본 코드를 편집해야 합니다."
         main_content_more: "본문 영역에 주요 문서 내용을 입력하세요. 적절한 의미적 텍스트 요소를 선택하려면 <em>형식</em> 드롭다운을 사용하세요, 예를 들어 <em>2단계 문단 제목</em>을 사용하려면 <em>2단계 문단 제목</em>을 선택하세요. 참고: <em>1단계 문단 제목</em>은 문서 제목을 위해 예약되어 있습니다. 본문 영역의 문단 제목은 <em>2단계 문단 제목</em>으로 시작합니다. 수동으로 HTML을 삽입하고 편집하도록 허용하려면 HTML 원본 코드 보기로 전환하기 위해 <em>원본</em>을 선택하세요."
-        meta_description_more: 문서 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인와 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
+        meta_description_more: 문서 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인과 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
         meta_keywords_more: 문서의 내용을 최상으로 반영하기 위해 단어와 짧은 문장의 쉼표로 구분한 목록을 입력하세요. 키워드와 주요 단어가 가끔 검색어에 대한 문서의 관련성을 평가하기 위해 웹 검색 엔진에 의해 사용됩니다.
         title_more: 이 내용의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
       translated_news_item: 
@@ -2432,9 +2433,9 @@ ko:
   hierarchy_node_missing: 죄송합니다, 이 노드에 대한 데이터가 없습니다.
   hierarchy_roots_colon: "계층 뿌리:"
   hierarchy_updated: 계층을 업데이트함
-  home: 대문
-  home_page_cache_last_cleared_on: 대문 문서 캐시는 %{date}에 마지막으로 지웠습니다
-  home_page_link_advisory_information: 이 링크는 생명의 백과사전 웹 사이트의 대문 문서로 이동합니다
+  home: 홈
+  home_page_cache_last_cleared_on: 홈 페이지 캐시는 %{date}에 마지막으로 지웠습니다
+  home_page_link_advisory_information: 이 링크는 생명의 백과사전 웹 사이트의 홈 페이지로 이동합니다
   html_format: (HTML 형식)
   html_format_with_left_col: (HTML 형식, 문서에 왼쪽 열이 있는 것을 원하면 엔터만 치고, 그렇지 않으면 비워두세요)
   id: ID
@@ -2522,8 +2523,8 @@ ko:
     one: 항목 %{count}개;
     other: 항목 %{count}개;
   join_community_button: 이 커뮤니티에 가입하기
-  join_eol_button_html: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr>에 지금 가입하기
-  join_eol_community_html: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr> 공동체의 일원이 되세요!
+  join_eol_button_html: <abbr title="Encyclopedia of Life; 생명의 백과사전">EOL</abbr>에 지금 가입하기
+  join_eol_community_html: <abbr title="Encyclopedia of Life; 생명의 백과사전">EOL</abbr> 공동체의 일원이 되세요!
   joined_mailing_list: 메일링 리스트에 가입한 구성원만.
   joined_time_ago: "%{time_passed} 전에 가입함"
   json_response: JSON 응답
@@ -2659,7 +2660,7 @@ ko:
   location_colon: "위치:"
   logging_database_colon: "기록 중:"
   login: 로그인
-  login_header: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr> 계정에 로그인
+  login_header: <abbr title="Encyclopedia of Life; 생명의 백과사전">EOL</abbr> 계정에 로그인
   login_hidden_user_message: "%{given_name} 계정은 더 이상 활동하지 않습니다"
   login_or_create_account: 로그인 또는 계정 만들기
   login_required_button: 로그인 필요
@@ -2701,7 +2702,7 @@ ko:
   media: 미디어
   media_list_empty: 아직 이 문서에 어떠한 미디어도 기여하지 않았습니다.
   media_list_empty_contribute_instructions: EOL에 미디어를 기여하는 방법을 알아보세요.
-  media_list_empty_search: 찾기 조건과 일치하는 미디어를 사용할 수 없습니다.
+  media_list_empty_search: 검색 조건과 일치하는 미디어를 사용할 수 없습니다.
   media_summary_empty: 아직 이 문서에 어떠한 그림도 기여하지 않았습니다.
   media_summary_empty_contribute_instructions: EOL에 그림을 기여하는 방법을 알아보세요.
   media_with_count: 
@@ -2740,7 +2741,7 @@ ko:
     contents: 
       explore_eol: EOL 탐색
       full_site: 전체 사이트
-      home: 대문
+      home: 홈
       species: 종
       taxa: 분류
     search: 
@@ -2822,7 +2823,7 @@ ko:
   new_collection: 새 모음집
   new_contact_us_topic: 새 주제 문의하기
   new_news_item: 새 뉴스 항목
-  new_search_suggestion: 새 찾기 제안
+  new_search_suggestion: 새 검색 제안
   new_upload: 새로 올리기
   new_user: 새 사용자
   news_and_event_links: 뉴스 및 사건 링크
@@ -2854,7 +2855,7 @@ ko:
   no_news_items_for_month_and_year: "%{month_and_year}에 대한 뉴스 항목이 없습니다"
   no_record_found_matching_your_criteria: 조건과 일치하는 기록을 찾을 수 없습니다.
   no_related_names: 아직 이 분류와 관련된 이름이 없습니다.
-  no_search_suggestions_are_avai: 찾기 조건과 일치하는 찾기 제안을 사용할 수 없습니다.
+  no_search_suggestions_are_avai: 검색 조건과 일치하는 검색 제안을 사용할 수 없습니다.
   no_survey_responses_are_availa: 사용할 수 있는 설문 조사 응답이 없습니다.
   no_tasks_found: 작업을 찾을 수 없음
   no_uploaded_content_is_available: 올린 콘텐츠는 사용할 수 없습니다.
@@ -3058,7 +3059,7 @@ ko:
   please_confirm_your_donation_details: 기부 자세한 정보를 확인하세요
   please_publish_this_resource_notice: "*** <strong>알림:</strong> 여기 이 리소스에 <strong>%{publish_link}</strong>하세요 ***"
   please_refresh: EOL 웹사이트의 최신 버전을 보려면 브라우저를 새로 고치세요
-  please_return_to_eol_homepage: EOL 대문 문서로 돌아가세요
+  please_return_to_eol_homepage: EOL 홈 페이지로 돌아가세요
   please_wait: 기다려 주세요...
   post_comment: 덧글 남기기
   posts_from_year: "%{year}년에서의 게시물"
@@ -3211,32 +3212,36 @@ ko:
   save_curated_association_submit_button: 연관 저장
   save_email_settings: 이메일 설정 저장
   sci_name_avg_table_head: 과학적인 이름 평균
-  scientific_name: 과확적인 이름
-  search: 찾기
-  search_by_term_page_title: "찾기: %{term}"
+  scientific_name: 학명
+  search: 검색
+  search_by_term_page_title: "검색: %{term}"
   search_field_common_name: 공통 이름
-  search_field_label: EOL 찾기
+  search_field_label: EOL 검색
   search_field_preferred_common_name: 선호하는 공통 이름
-  search_field_preferred_scientific: 선호하는 과학적 이름
+  search_field_preferred_scientific: 선호하는 학명
   search_field_surrogate: 서로게이트
   search_field_synonym: 동의어
-  search_for_comments_containing_the_text: "텍스트를 포함하는 덧글 찾기:"
-  search_for_curators_containing: "포함하는 큐레이터 찾기:"
-  search_for_messages_containing: "포함하는 메시지 찾기:"
-  search_for_terms_containing: "포함하는 용어 찾기:"
-  search_for_users_containing_this_in_their_username_name_or_email_address: 사용자 이름, 이름 또는 이메일 주소에 포함하는 사용자를 찾습니다.
+  search_for_comments_containing_the_text: "텍스트를 포함하는 덧글 검색:"
+  search_for_curators_containing: "포함하는 큐레이터 검색:"
+  search_for_messages_containing: "포함하는 메시지 검색:"
+  search_for_terms_containing: "포함하는 용어 검색:"
+  search_for_users_containing_this_in_their_username_name_or_email_address: 사용자 이름, 이름 또는 이메일 주소에 포함하는 사용자를 검색합니다.
+  search_input_advisory_information: 자세히 알아보고 싶은 살아있는 생물의 공통 이름이나 학명을 입력하세요. EOL 구성원, 모음집과 공동체를 검색할 수도 있습니다.
+  search_log_report_intro: 이 영역은 가장 일반적인 사용자 검색어, 해당 검색이 실행된 횟수와 해당 검색어가 반환된 결과의 수에 대한 일부 정보를 보여줍니다. 해당 열을 기준으로 정렬하려면 열을 클릭하세요. 검색하고 나서 (있으면) 사용자가 클릭한 결과에 대한 정보를 보려면 검색어를 클릭하세요.
+  search_method_description: 특정 요소(예 학명=Homo sapiens)에 대한 값을 주면, 검색어를 포함하는 EOL 문서가 매겨진 목록을 반환합니다
   search_next_label: 다음
-  search_placeholder: EOL 찾기 ...
+  search_placeholder: EOL 검색 ...
   search_previous_label: 이전
-  search_results: 찾기 결과
-  search_suggestion_created: 찾기 제안을 성공적으로 만들었습니다.
-  search_suggestion_updated: 찾기 제안을 성공적으로 업데이트했습니다.
-  search_suggestions: 찾기 제안
-  search_term: 용어 찾기
-  search_term_detail_report: 용어 자세한 정보 보고서 찾기
-  search_term_reports: 용어 보고서 찾기
-  search_term_reports_title: 용어 보고서 찾기
-  search_the_site: 사이트 찾기
+  search_results: 검색 결과
+  search_suggestion_admin_intro: 이 영역은 사용자가 검색하는 검색어와 제안으로 가리켜야 할 문서를 지정하여 사용자에게 검색 제안을 생성하는 데 사용됩니다. 제안된 결과는 항상 다른 결과 위에 나타납니다. 주어진 검색어에 대한 여러 제안을 할 수 있습니다.
+  search_suggestion_created: 검색 제안을 성공적으로 만들었습니다.
+  search_suggestion_updated: 검색 제안을 성공적으로 업데이트했습니다.
+  search_suggestions: 검색 제안
+  search_term: 용어 검색
+  search_term_detail_report: 용어 자세한 정보 보고서 검색
+  search_term_reports: 용어 보고서 검색
+  search_term_reports_title: 용어 보고서 검색
+  search_the_site: 사이트 검색
   see_all_activity_combinations: 5분 안의 모든 활동 조합을 봅니다.
   see_all_classifications_with_count_html: 
     one: <span class="assistive">이 분류가 나타나는 승인한 분류 %{count}개</span> 보기
@@ -3539,24 +3544,24 @@ ko:
           meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}와 관련된 지방 이름입니다."
           meta_description_with_common_name: "%{scientific_name}에 대한 지방 이름은 %{preferred_common_name}입니다. %{hierarchy_provider}에 의해 분류한 %{scientific_name}와 관련된 다른 지방 이름을 찾으세요."
           meta_keywords: "%{scientific_name}에 대한 지방 이름"
-          meta_keywords_with_common_name: "%{preferred_common_name} 과학적인 이름, %{scientific_name} 지방 이름"
+          meta_keywords_with_common_name: "%{preferred_common_name} 학명, %{scientific_name} 지방 이름"
           meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 지방 이름"
           meta_title_with_common_name: "%{preferred_common_name}에 대한 지방 이름 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
           tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 공통 이름"
         meta_description: "%{scientific_name}에 대한 공통 이름입니다."
-        meta_description_with_common_name: "%{preferred_common_name}에 대한 과학적인 이름은 %{scientific_name}입니다. %{scientific_name}에 대한 다른 공통 이름을 찾으세요."
+        meta_description_with_common_name: "%{preferred_common_name}에 대한 학명은 %{scientific_name}입니다. %{scientific_name}에 대한 다른 공통 이름을 찾으세요."
         meta_keywords: "%{scientific_name}에 대한 공통 이름"
-        meta_keywords_with_common_name: "%{scientific_name} 공통 이름, %{preferred_common_name} 과학적인 이름"
+        meta_keywords_with_common_name: "%{scientific_name} 공통 이름, %{preferred_common_name} 학명"
         meta_title: "%{scientific_name}에 대한 공통 이름"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 공통 이름"
         tweet_text: "%{scientific_name}에 대한 공통 이름"
       index: 
         hierarchy_entry: 
-          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 분류와 과학적인 이름입니다."
-          meta_description_with_common_name: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 분류와 과학적인 이름입니다."
+          meta_description: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 분류와 학명입니다."
+          meta_description_with_common_name: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 분류와 학명입니다."
           tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}(와)과 관련된 이름"
-        meta_description: "%{scientific_name}에 대한 분류와 과학적인 이름입니다. 생물 분류와 이름은 %{scientific_name}(와)과 관련있습니다."
-        meta_description_with_common_name: "%{scientific_name}라고도 알려진 %{preferred_common_name}에 대한 분류와 과학적인 이름입니다. 생물 분류와 이름은 %{preferred_common_name}(와)과 관련있습니다."
+        meta_description: "%{scientific_name}에 대한 분류와 학명입니다. 생물 분류와 이름은 %{scientific_name}(와)과 관련있습니다."
+        meta_description_with_common_name: "%{scientific_name}라고도 알려진 %{preferred_common_name}에 대한 분류와 학명입니다. 생물 분류와 이름은 %{preferred_common_name}(와)과 관련있습니다."
         meta_title: "%{scientific_name}에 대한 분류 정보 - 생물 분류와 이름"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 분류 정보 - 생물 분류와 이름"
         tweet_text: "%{scientific_name}에 대한 분류 정보"
@@ -3693,7 +3698,7 @@ ko:
   taxon_rating: 분류 평가
   taxon_recognized_by: "%{whom}에 의해 인정한 분류"
   taxon_related_organizations_link: 관련 기관
-  taxon_selected_from_search_res: 찾기 결과에서 선택한 분류
+  taxon_selected_from_search_res: 검색 결과에서 선택한 분류
   taxon_suggested: 제안한 분류
   taxonomic_summary_of_content: 콘텐츠의 분류 요약
   technical_functions: 기술적인 기능
@@ -3726,6 +3731,7 @@ ko:
   the_content_was_updated: 컨텐츠가 업데이트되었습니다.
   the_file_was_uploaded: 파일이 올려졌습니다.
   the_glossary_term_was_successf: 용어집 용어를 성공적으로 업데이트했습니다.
+  the_id_of_provider_hierarchy_you_are_searching: 당신이 검색하고 있는 제공자의 계층 ID입니다. 유효한 ID에 대해서는 %{link}(을)를 확인하세요
   the_image_from_this_source_has_not_been_reviewed: 이 자료에서 그림이 검토되지 않았습니다.
   the_image_from_this_source_is_not_trusted: 이 자료에서 그림은 신뢰할 수 없습니다.
   the_info_highlighted_is_reviewed: 아래에 빨간색으로 강조한 정보는 큐레이터에 의해 검토했고 신뢰할 수 없음으로 표시했습니다.
@@ -3764,7 +3770,7 @@ ko:
   time_ago: "%{time_passed} 전"
   title: 제목
   to_send_email_enter_text: 사용자에게 이메일을 보내려면, 아래에 텍스트를 입력하고 '보내기'를 클릭하세요.
-  to_submit_a_species_photograph_for: "%{taxon} 분류에 대한 종 사진을 제출하려면 %{flickr_link}(으)로 사진을 보내고 해당 그룹의 대문문서에 보이는 지시를 따르세요."
+  to_submit_a_species_photograph_for: "%{taxon} 분류에 대한 종 사진을 제출하려면 %{flickr_link}(으)로 사진을 보내고 해당 그룹의 홈페이지에 보이는 지시를 따르세요."
   toc: 목차
   toc_entry_col_header: 목차 항목
   toc_no_longer_available: 목차 정보를 더 이상 사용할 수 없음
@@ -3778,17 +3784,17 @@ ko:
   total_comments_have_been_submitted: 
     one: 덧글 %{count}개를 %{string}에 제출했습니다
     other: 총 덧글 %{count}개를 %{string}에 제출했습니다
-  total_distinct_searches: "총 고유 찾기:"
+  total_distinct_searches: "전체 고유 검색:"
   total_items_with_count: 
     one: 항목 %{count}개
     other: 총 항목 %{count}개
-  total_searches: "전체 찾기:"
+  total_searches: "전체 검색:"
   translation_deleted: 번역이 삭제됨
   translation_information_header: 번역 정보
   translation_log: 국제화(I18n) 주요 빈도 히스토그램
   translation_saved: 번역이 저장됨
   translations_submit: 번역 보기
-  trigger_search_term_entered_by: 사용자가 입력한 검색어 트리거
+  trigger_search_term_entered_by: 사용자가 입력한 검색어를 트리거
   true_label: 참
   truncated_comment_omission: ... <a href='%{link}'>더 보기</a>
   truncated_comment_omission_linkless: ...

@@ -24,6 +24,7 @@ uk:
   about_eol: Про Енциклопедію життя
   about_resources: Про ресурси
   about_resources_body: Ми раді вітати вас з наданням посиланням на сторонні веб-сайти, які відносяться до цього організму або групи організмів. Приклади включають в себе веб-сайти, що пропонують визначники, новини, блоги, а також освітні і наукові ресурси.
+  about_resources_notice: Примітка — всі посилання підлягають умовам використання ЕЖ і перевірці кураторами.<br>Якщо у вас є питання стосовно ресурсу, який ви хотіли б пов'язати з ЕЖ, будь ласка <a href='%{contact_us_link}'>, зв'яжіться з нами</a>.
   about_resources_title: Посилання на зовнішні ресурси
   account_information: інформація користувача
   account_information_menu: Інформація про профіль
@@ -529,12 +530,16 @@ uk:
         user_associated_it_to_association: <strong>%{user}</strong> додав асоціацію до "%{association}".
       add_common_name: 
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Невідомий користувач додав невідоме загальне ім'я невідомою мовою на невідому сторінку.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Невідомий користувач додав невідому загальну назву невідомою мовою.
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Невідомий користувач додав невідоме загальне ім'я невідомою мовою до "%{taxon}".
         an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Невідомий користувач додав невідоме загальне ім'я мовою %{language} на невідому сторінку.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Невідомий користувач додав невідому загальну назву мовою %{language}.
         an_unknown_user_added_an_unknown_name_in_language_to_taxon: Невідомий користувач додав невідоме загальне ім'я мовою %{language} до "%{taxon}".
         an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Невідомий користувач додав загальне ім'я  "%{name}" невідомою мовою на невідому сторінку.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Невідомий користувач додав загальну назву "%{name}" невідомою мовою.
         an_unknown_user_added_name_in_an_unknown_language_to_taxon: Невідомий користувач додав загальну назву "%{name}" невідомою мовою до "%{taxon}".
         an_unknown_user_added_name_in_language_to_an_unknown_taxon: Невідомий користувач додав загальну назву "%{name}" мовою %{language} до невідомої сторінки.
+        an_unknown_user_added_name_in_language_to_it: Невідомий користувач додав загальну назву "%{name}" мовою %{language}.
         an_unknown_user_added_name_in_language_to_taxon: Невідомий користувач додав загальну назву "%{name}" мовою %{language} до "%{taxon}".
         user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> додав загальну назву невідомою мовою до невідомої сторінки.
         user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> додав загальну назву невідомою мовою.
@@ -544,6 +549,10 @@ uk:
         user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> додав невідому загальну назву на мові %{language} до "%{taxon}".
         user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> додав загальну назву "%{name}"  невідомою мовою до невідомої сторінки.
         user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> додав загальну назву  "%{name}" невідомою мовою.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> додав загальну назву "%{name}"  невідомою мовою до "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> додав загальну назву "%{name}"  мовою %{language} до невідомої сторінки.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> додав загальну назву "%{name}"  мовою %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> додав загальну назву "%{name}"  мовою %{language} до "%{taxon}".
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Невідомий користувач вибрав старішу версію "%{data_object}" для показу у Огляді на невідомій сторінці.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Невідомий користувач вибрав "%{data_object}" для показу у Огляді на "%{taxon}".
@@ -586,6 +595,26 @@ uk:
           user_merged_to_an_unknown_taxon: <strong>%{user}</strong> об'єднав дві невідомі сторінки.
           user_merged_to_it: <strong>%{user}</strong> об'єднав іншу сторінку з цією.
           user_merged_to_taxon: <strong>%{user}</strong> об'єднав іншу сторінку з %{target}.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Невідомий користувач перемістив класифікації від %{classifications} з невідомої сторінки на іншу невідому сторінку.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Невідомий користувач перемістив класифікації від %{classifications} з невідомої сторінки на  %{target}.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: Невідомий користувач перемістив класифікації від %{classifications} на невідому сторінку.
+          an_unknown_user_moved_classifications_from_it_to_taxon: Невідомий користувач перемістив класифікації від %{classifications} на %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: Невідомий користувач перемістив класифікації від %{classifications} з %{taxon} до невідомої сторінки.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: Невідомий користувач перемістив класифікації від %{classifications} з %{taxon} на %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> перемістив класифікації від %{classifications} з невідомої сторінки на невідому сторінку.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> перемістив класифікації від %{classifications} з невідомої сторінки на %{target}.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> перемістив класифікації від %{classifications} на невідому сторінку.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> перемістив класифікації від %{classifications} на %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> перемістив класифікації від %{classifications} з %{taxon} на невідому сторінку.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> перемістив класифікації від %{classifications} з %{taxon} на %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Невідомий користувач відділив класифікації від %{classifications} з невідомої сторінки на <a href='%{to}'>окрему сторінку</a>.
+          an_unknown_user_split_classifications_from_it: Невідомий користувач відділив класифікації від %{classifications} на <a href='%{to}'>окрему сторінку</a>.
+          an_unknown_user_split_classifications_from_taxon: Невідомий користувач відділив класифікації від %{classifications} з %{taxon} на <a href='%{to}'>окрему сторінку</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> відділив класифікації від %{classifications} з невідомої сторінки на <a href='%{to}'>окрему сторінку</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> відділив класифікації від %{classifications} на <a href='%{to}'>окрему сторінку</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> відділив класифікації від %{classifications} з %{taxon} на <a href='%{to}'>окрему сторінку</a>.
       crop: 
         an_unknown_user_cropped_an_older_data_object: Невідомий користувач змінив мініатюру зображення "%{data_object}".
         an_unknown_user_cropped_an_unknown_data_object: Невідомий користувач змінив мініатюру невідомого зображення.
@@ -642,7 +671,18 @@ uk:
         an_unknown_user_curated_data_object: Невідомий користувач курував "%{data_object}".
         user_curated_data_object: <strong>%{user}</strong> курував "%{data_object}".
       preferred_classification: 
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: Невідомий користувач позначив класифікацію від "%{provider}" як пріоритетну для невідомого таксону.
+        an_unknown_user_preferred_classification_on_it: Невідомий користувач позначив класифікацію від "%{provider}" як пріоритетну.
+        an_unknown_user_preferred_classification_on_taxon: Невідомий користувач позначив класифікацію від "%{provider}" як пріоритетну для "%{taxon}".
         an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: Невідомий користувач позначив невідому класифікацію як бажану для невідомого таксона.
+        an_unknown_user_preferred_unknown_classification_on_it: Невідомий користувач позначив невідому класифікацію як пріоритетну.
+        an_unknown_user_preferred_unknown_classification_on_taxon: Невідомий користувач позначив невідому класифікацію як пріоритетну для "%{taxon}".
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> позначив(ла) класифікацію від "%{provider}" як пріоритетну для невідомого таксону.
+        user_preferred_classification_on_it: <strong>%{user}</strong> позначив класифікацію від "%{provider}" як пріоритетну.
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> позначив(ла) класифікацію від "%{provider}" як пріоритетну для "%{taxon}".
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> позначив(ла) невідому класифікацію як пріоритетну для невідомого таксону.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> позначив(ла) невідому класифікацію як пріоритетну.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> позначив(ла) невідому класифікацію як пріоритетну для "%{taxon}".
       reasons_to_hide: "Причини приховання: %{reasons}"
       reasons_to_untrust: "Причини недовіри: %{reasons}"
       remove_association: 
@@ -696,6 +736,7 @@ uk:
         an_unknown_user_split_entry_from_an_unknown_taxon: Невідомий користувач розділив класифікацію"%{provider}"  від невідомого таксону.
         an_unknown_user_split_entry_from_it: Невідомий користувач розділив класифікацію "%{provider}".
         an_unknown_user_split_entry_from_taxon: Невідомий користувач розділив класифікацію"%{provider}"  від  "%{taxon}".
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: Невідомий користувач відділив невідому класифікацію до невідомого таксону.
         an_unknown_user_split_unknown_entry_from_it: Невідомий користувач відокремив невідому класифікацію.
         an_unknown_user_split_unknown_entry_from_taxon: Невідомий користувач розділив невідому класифікацію від  "%{taxon}".
         user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> розділив класифікацію"%{provider}"  від невідомого таксону.
@@ -706,10 +747,29 @@ uk:
         user_split_unknown_entry_from_taxon: <strong>%{user}</strong> розділив невідому класифікацію від "%{taxon}".
       trust_common_name: 
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Невідомий користувач додав невідому загальну назву невідомою мовою на невідому сторінку як надійну.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Невідомий користувач позначив невідому загальну назву невідомою мовою як надійну.
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Невідомий користувач додав невідому загальну назву невідомою мовою з "%{taxon}" як надійну.
         an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Невідомий користувач додав невідому загальну назву мовою %{language} на невідому сторінку як надійну.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Невідомий користувач позначив невідому загальну назву мовою %{language} як надійну.
         an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Невідомий користувач додав невідому загальну назву мовою %{language} з "%{taxon}" як надійну.
         an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою з невідомої сторінки як надійну.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою як надійну.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою від "%{taxon}" як надійну.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} з невідомої сторінки як надійну.
+        an_unknown_user_trusted_name_in_language_on_it: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} надійну.
+        an_unknown_user_trusted_name_in_language_on_taxon: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} від "%{taxon}" надійну.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву невідомою мовою від невідомої сторінки  як надійну.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> позначив невідому загальну назву невідомою мовою як надійну.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> позначив невідому загальну назву невідомою мовою від "%{taxon}" як надійну.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} від невідомої сторінки як надійну.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} як надійну.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} від  "%{taxon}" як надійну.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою від невідомої сторінки як надійну.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою як надійну.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою від "%{taxon}" як надійну.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} від невідомої сторінки як надійну.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} як надійну.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} від "%{taxon}" як надійну.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як надійну у невідомому контексті.
         an_unknown_user_trusted_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як надійну на сторінці "%{association}".
@@ -727,8 +787,33 @@ uk:
         user_trusted_data_object_on_association: <strong>%{user}</strong> позначив "%{data_object}", як надійний на сторінці "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> позначив це, як надійне у невідомому контексті.
         user_trusted_it_on_association: <strong>%{user}</strong> позначив це, як надійне на сторінці "%{association}".
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: Злиття сторінок, яке ви запросили, вже завершено, але сторінку неможливо знайти.
       unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Невідомий користувач додав невідому загальну назву невідомою мовою від невідомої сторінки як неперевірену.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Невідомий користувач позначив невідому загальну назву невідомою мовою як неперевірену.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Невідомий користувач додав невідому загальну назву невідомою мовою з "%{taxon}" як неперевірену.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Невідомий користувач додав невідому загальну назву мовою %{language} на невідому сторінку як неперевірену.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Невідомий користувач позначив невідому загальну назву мовою %{language} як неперевірену.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Невідомий користувач додав невідому загальну назву мовою %{language} від "%{taxon}" як неперевірену.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою з невідомої сторінки як неперевірену.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою як неперевірену.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою від "%{taxon}" як неперевірену.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} з невідомої сторінки як неперевірену.
+        an_unknown_user_unreviewed_name_in_language_on_it: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} як неперевірену.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} від "%{taxon}" неперевірену.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву невідомою мовою від невідомої сторінки  як неперевірену.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> позначив невідому загальну назву невідомою мовою як неперевірену.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> позначив невідому загальну назву невідомою мовою від "%{taxon}" як неперевірену.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} від невідомої сторінки як неперевірену.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} як неперевірену.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} від  "%{taxon}" як неперевірену.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою від невідомої сторінки як неперевірену.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою як неперевірену.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою від "%{taxon}" як неперевірену.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} від невідомої сторінки як неперевірену.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} як неперевірену.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} від "%{taxon}" як неперевірену.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як неперевірену у невідомому контексті.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як неперевірену на сторінці "%{association}".
@@ -746,6 +831,31 @@ uk:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> позначив "%{data_object}", як неперевірений на сторінці "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> позначив це, як неперевірене у невідомому контексті.
         user_unreviewed_it_on_association: <strong>%{user}</strong> позначив це, як неперевірене на сторінці "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Невідомий користувач додав невідому загальну назву невідомою мовою від невідомої сторінки як надійну.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Невідомий користувач позначив невідому загальну назву невідомою мовою як ненадійну.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Невідомий користувач позначив невідому загальну назву від  "%{taxon}" невідомою мовою як надійну.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Невідомий користувач додав невідому загальну назву мовою %{language} на невідому сторінку як ненадійну.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Невідомий користувач позначив невідому загальну назву мовою %{language} як ненадійну.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Невідомий користувач додав невідому загальну назву мовою %{language} від "%{taxon}" як ненадійну.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою з невідомої сторінки як ненадійну.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою як ненадійну.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Невідомий користувач позначив загальну назву "%{name}" невідомою мовою від "%{taxon}" як ненадійну.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} з невідомої сторінки як ненадійну.
+        an_unknown_user_untrusted_name_in_language_on_it: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} ненадійну.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Невідомий користувач позначив загальну назву "%{name}" мовою %{language} від "%{taxon}" ненадійну.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву невідомою мовою від невідомої сторінки  як ненадійну.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> позначив невідому загальну назву невідомою мовою як ненадійну.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> позначив невідому загальну назву невідомою мовою від "%{taxon}" як ненадійну.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} від невідомої сторінки як ненадійну.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} як ненадійну.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> позначив невідому загальну назву на мові %{language} від  "%{taxon}" як ненадійну.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою від невідомої сторінки як надійну.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою як ненадійну.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  невідомою мовою від "%{taxon}" як ненадійну.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} від невідомої сторінки як ненадійну.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} як ненадійну.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> позначив загальну назву "%{name}"  мовою %{language} від "%{taxon}" як ненадійну.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Невідомий користувач позначив стару версію "%{data_object}" як ненадійну у невідомому контексті.
         an_unknown_user_untrusted_an_older_data_object_on_association: Невідомий користувач позначив стару версію "%{data_object}", як ненадійну на сторінці "%{association}".
@@ -892,6 +1002,8 @@ uk:
   admin_translated_news_item_update_successful_notice: "%{language} переклад для <a href=\"#%{anchor}\"><em>%{page_name}</em></a> був оновлений."
   admin_translated_news_item_update_unsuccessful_error: Вибачте, сталася помилка, переклад не може бути оновлено.
   admin_user_delete_successful_notice: Користувач був видалений
+  admin_user_hide_successful_notice: Користувач був прихований
+  admin_user_unhide_successful_notice: Користувач був показаний
   admins: 
     eol_statistics: 
       content_partners: 
@@ -947,6 +1059,7 @@ uk:
   all_title: Усі
   all_videos: Усі відео
   allow_user_logins: Дозволити вхід у систему
+  allowed_html_tags: "Дозволені HTML: %{comma_separated_tags}"
   already_a_member_question: Вже зареєстровані?
   already_member_of_community: Ви вже є членом цієї спільноти.
   alternate_classification: Альтернативна класифікація
@@ -959,6 +1072,9 @@ uk:
   annotation_body_default: додавати питання або коментарі...
   annotation_cabs_colon: "Анотація:"
   annotation_submit: розмістити анотацію
+  annotations_with_count: 
+    one: "%{count} анотація"
+    other: "%{count} анотації"
   anonymous_user_full_name: Анонімний користувач
   anonymous_user_given_name: Анонім
   anonymous_user_tag_line: Не ввійшли в систему
@@ -1096,10 +1212,18 @@ uk:
   click: Клік
   clicked_time: Час кліку
   close_this_window_to_return_to_edit_window: ЗАКРИЙТЕ ВІКНО, ЩОБ ПОВЕРНУТИСЯ У ВІКНО РЕДАГУВАННЯ
+  cms_available_in_languages: "Ця сторінка доступна на:"
+  cms_missing_content_message: На жаль, ця сторінка недоступна для вибраної мови %{selected_language}.
   cms_missing_content_title: Відсутній переклад
   collect_item: Зібрати пункт
   collect_items: Зібрати пункти
   collection_copy_choose_all_items_target_title: "Копіювати всі елементи з \"%{collection}\" на:"
+  collection_copy_choose_target_title_with_count: 
+    one: "Копіювати %{count} елемент із \"%{collection}\" до:"
+    other: "Копіювати %{count} елементи із \"%{collection}\" до:"
+  collection_copy_complete_with_count: 
+    one: Скопійовано %{count} елемент із %{from} до %{to}.
+    other: Скопійовано всього %{count} елементи із %{from} до %{to}.}
   collection_created_notice: Збірка  <em>%{collection_name}</em> успішно створена.
   collection_delete_link: Остаточно видалити цю збірку
   collection_destroyed: Збірка була видалена.
@@ -1113,6 +1237,12 @@ uk:
     other: "%{count} елементи"
     zero: Порожньо
   collection_move_choose_all_items_target_title: "Перемістити всі елементи з \"%{collection}\" на:"
+  collection_move_choose_target_title_with_count: 
+    one: "Перемістити %{count} елемент із \"%{collection}\" до:"
+    other: "Перемістити %{count} елементи із \"%{collection}\" до:"
+  collection_move_complete_with_count: 
+    one: Переміщено %{count} елемент із %{from} до %{to}.
+    other: Переміщено всього %{count} елементи із %{from} до %{to}.
   collection_name_cannot_be_blank: Ім'я колекції не може бути порожнім
   collection_name_label: Назва колекції
   collection_newsfeed: Канал новин збірки
@@ -1122,6 +1252,9 @@ uk:
   collection_not_updated_error: Вибачте, сталася помилка, збірка не може бути оновлена.
   collection_rating: Оцінка збірки
   collection_redindexed: Збірка переіндексована.
+  collection_remove_complete_with_count: 
+    one: Вилучено %{count} елемент із %{from}.
+    other: Вилучено всього %{count} елементи із %{from}.
   collection_updated_notice: Збірка  <em>%{collection_name}</em> успішно оновлена.
   collection_was_added_to_community: "\"%{collection}\" була додана до цієї спільноти."
   collection_was_removed_by_owner: Ця збірка була вилучено її власником.
@@ -1166,6 +1299,7 @@ uk:
   collections_filter: Колекції
   collections_link: Колекції
   collections_page_title: Колекції
+  collections_summary_empty: Ця сторінка ще не є у жодній збірці.
   comment: Коментар
   comment_added_notice: Коментар успішно доданий.
   comment_body_label: Ваш коментар
@@ -1181,6 +1315,11 @@ uk:
   comments_and_tags: Коментарі та Теги
   comments_filter: Коментарі
   comments_moderated: Модерування коментаря
+  common_name: Загальна назва
+  common_name_exists: Загальна назва <em>%{name_string}</em> вже існує
+  common_names_with_count: 
+    one: "%{count} загальна назва"
+    other: "%{count} загальні назви"
   communities: 
     collections: 
       index: 
@@ -1199,9 +1338,19 @@ uk:
   communities_index_header: Активні громади
   communities_link: Громади
   communities_page_title: Громади
+  communities_summary_header_with_count: 
+    one: Належить до %{count} Спільноти
+    other: Належить до %{count} Спільнот
+  communities_that_can_edit_this_collection: Спільноти, які можуть керувати цією колекцією
+  communities_with_count: 
+    one: "%{count} спільнота"
+    other: "%{count} спільноти"
   community: Спільнота
   community_activity: Діяльність співтовариства
   community_can_now_manage_this_collection: "\"%{community}\" зараз має дозвіл на керування цією збіркою."
+  community_contributions_with_count: 
+    one: "%{count} Внесок"
+    other: "%{count} Внески"
   community_description_default: Громада Енциклопедії Життя.
   community_destroyed: Ви видалили цю спільноту. Вона більше не відображатиметься на сторінках таксону або в пошуках.
   community_empty_notice: Це спільнота не має членів.
@@ -1211,7 +1360,13 @@ uk:
     other: "%{count} елементи"
   community_invitation_comment: Я хотів би запросити вас приєднатися до "%{community}".
   community_logo_alt_text: Логотип для спільноти %{community_name}
+  community_managers_with_count: 
+    one: "%{count} менеджер спільноти"
+    other: "%{count} менеджери спільнот"
   community_members: Члени спільноти
+  community_members_with_count: 
+    one: "%{count} член спільноти"
+    other: "%{count} членів спільноти"
   community_name_label: Назва спільноти
   community_newsfeed: Канал новин спільноти
   community_not_destroyed_error: Вибачте, виникла проблема, і спільнота не була видалена.
@@ -1388,6 +1543,7 @@ uk:
   create_a_community_login_advisory: Вам буде запропоновано увійти перед створенням вашої спільноти
   create_a_new_collection: Створити нову збірку
   create_account: створити обліковий запис
+  create_child_page: Створити дочірню сторінку
   create_collection_button: Створити збірку
   create_community: Створити спільноту
   create_community_about_heading: Про створення спільноти
@@ -1408,6 +1564,8 @@ uk:
   curated_association_update_button: Зберегти зміни
   curated_objects_of: куровані об'єкти %{name}
   curated_species_of: куровані види %{name}
+  curation_error_vetted_invalid: Ви не можете курувати %{association} до '%{vetted}'
+  curation_error_visibility_invalid: Ви не можете курувати %{association} до '%{visibility}'
   curation_privileges_page_title: Стати куратором
   curation_reason_placeholder: додаткові деталі (необов'язково)
   curation_scope: Область курування
@@ -1441,6 +1599,7 @@ uk:
     other: Дані пошуку завантажень  <i>тимчасово</i> обмежені %{count} результатами.
   data_column_classification_summary: Підсумок класифікації
   data_column_common_name: Загальна назва
+  data_column_measurement_uri: Вимірювання URI
   data_column_name: Мітка вимірювання
   data_column_name_uri: Вимірювання URI
   data_column_raw_units: Неформатовані одиниці (прямо із джерела)
@@ -1453,6 +1612,8 @@ uk:
   data_column_units_uri: Одиниці URI (нормалізовані)
   data_column_val: Значення (нормалізоване)
   data_column_val_uri: Значення URI
+  data_column_value: Значення
+  data_column_value_uri: Значення URI
   data_database_colon: "Дані:"
   data_measurement_subtable_summary: Додаткові дані про вимірювання цього факту.
   data_metadata_subtable_summary: Додаткові дані про цей факт.
@@ -1498,6 +1659,7 @@ uk:
   data_subtab_about: Про
   data_subtab_glossary: Глосарій
   data_summary_header: Швидкі Факти
+  data_usage_reports: Звіти про використання даних
   date_caps: Дата
   date_uploaded: Дата завантаження
   datepicker: 
@@ -1558,6 +1720,7 @@ uk:
   dato_create_cancel: Скасувати
   dato_create_user_link_error: Вибачте, сталася помилка, посилання не може бути додане.
   dato_create_user_text_error: Вибачте, сталася помилка, стаття не може бути додана.
+  dato_create_user_text_validation_error: Переконайтеся, що ви правильно заповнили форму.
   dato_edit_cancel: Скасувати
   dato_edit_link_button: Редагувати це посилання
   dato_edit_link_title: Редагувати посилання
@@ -1599,6 +1762,7 @@ uk:
   donation_confirmation: Підтвердження пожертви
   donation_error_no_amount: Будь ласка, виберіть суму пожертви.
   donation_error_only_numbers: Будь ласка, введіть суму, використовуючи лише числа.
+  donation_sponsorship_infrastructure_title: Основна інфраструктура
   done_already: Уже зроблено
   download_data: Завантажити дані
   download_wav_file: Завантажити файл WAV
@@ -1685,6 +1849,7 @@ uk:
   error_default_page_title: Йой!
   error_log: Журнал помилок
   error_log_detail: Подробиці журналу помилок
+  error_updating_user: Сталася помилка при оновленні запису даного користувача
   example_colon: "Приклад:"
   exception: Виняток
   exceptions: 
@@ -1692,8 +1857,13 @@ uk:
       admin_or_master_curators_only: Вибачте, доступ обмежений адміністраторами і кураторами ЕЖ з мінімальним рівнем куратора Майстра.
       administrators_only: Вибачте, доступ обмежений EOL Адміністраторами.
       default: Доступ заборонений.
+      hidden_user_login: На жаль, вхід вимкнено для цього профілю.
+      hidden_user_recover_account: На жаль, відновлення облікового запису вимкнено для цього облікового запису.
+      hidden_user_temporary_login: На жаль, відновлення облікового запису та вхід вимкнено для цього облікового запису.
       no_access: На жаль, доступ обмежено.
+  excluded_icon_tip: Рядки, позначені піктограмою виключення %{excluded_icon}, ніколи не будуть показані на сторінках огляду таксону.
   explore: індекс
+  export_curator_csv_link: "[експортувати всіх кураторів як CSV]"
   export_this_list_as_csv: Експортувати цей список як CSV
   external_link_header: Зовнішнє посилання
   external_link_icon_alt_text: Зовнішнє посилання.
@@ -1717,18 +1887,30 @@ uk:
   filter_by_status_untrusted_option: Ненадійний
   filter_by_type: Фільтр за типом
   filter_by_type_all_option: Всі типи
+  filter_by_type_all_option_with_count: 
+    one: Усі типи (%{count})
+    other: Усі типи (%{count})
   filter_by_type_collection_option: Збірки
   filter_by_type_comment_option: Коментарі
   filter_by_type_community_option: Громади
   filter_by_type_content_page_option: Про EOL
   filter_by_type_image_option: Зображення
+  filter_by_type_image_option_with_count: 
+    one: Зображення (%{count})
+    other: Зображень (%{count})
   filter_by_type_link_option: Посилання
   filter_by_type_name_option: Назви
   filter_by_type_sound_option: Звуки
+  filter_by_type_sound_option_with_count: 
+    one: Звук (%{count})
+    other: Звуки (%{count})
   filter_by_type_taxon_concept_option: Таксони
   filter_by_type_text_option: Статті
   filter_by_type_user_option: Люди
   filter_by_type_video_option: Відео
+  filter_by_type_video_option_with_count: 
+    one: Відео (%{count})
+    other: Відео (%{count})
   filter_media: фільтр медіа
   filter_newsfeed_option_all: Усі
   filter_newsfeed_option_collections: Збірки
@@ -1817,6 +1999,7 @@ uk:
   friendly_url: Дружні URL
   from_communities: "від громад: %{communities}"
   from_community: від спільноти  %{community}
+  gbif_map: GBIF карта
   get_more_tasks: отримати більше завдань
   global_navigation: загальне меню
   glossary: Глосарій
@@ -2128,6 +2311,7 @@ uk:
   in_collection: у збірці
   in_community: у спільноті
   in_this_data_type: "у цьому %{data_type}:"
+  indexed: Індексовані
   info_item: Відомості про елемент
   info_items_col_header: Відомості про елементи
   information_for_any_audience: Інформація для будь-якої аудиторії
@@ -2297,6 +2481,7 @@ uk:
   literature_references: Посилання на літературу
   location: Місцезнаходження
   location_colon: "Місце:"
+  login_hidden_user_message: Обліковий запис %{given_name} більше не активний
   logo_header: Логотип
   logout: Вихід
   main_database_colon: "Основне:"
@@ -2321,6 +2506,8 @@ uk:
       meta_title: "%{member_name} член %{community_name}"
       tweet_text: "%{member_name} член %{community_name}"
   message_colon: "Повідомлення:"
+  meta_description_colon: "Мета опис:"
+  meta_keywords_colon: "Ключові слова:"
   meta_title_site_name: Енциклопедія життя
   method: Метод
   methods: Методи
@@ -2329,6 +2516,7 @@ uk:
       full_site: Увесь сайт
       home: Головна
       species: Види
+      taxa: Таксон
     search: 
       no_results_found: Нічого не знайдено
       results: Результати
@@ -2339,9 +2527,14 @@ uk:
       images: Зображення
       literature: Література
       maps: Карти
+      media: Медіа
       nomenclature: Номенклатура
+      overview: Огляд
       resources: Ресурси
       sounds: Звуки
+      taxon_details: Деталі таксону
+      taxon_media: Мультимедіа таксону
+      taxon_overview: Огляд таксонів
       videos: Відео
   moderator_colon: "Модератор:"
   monthly: Щомісячно
@@ -2354,12 +2547,16 @@ uk:
   move_to_top: перемістити вгору
   move_up: Перемістити вгору
   multimedia_links: Мультимедійні Посилання
+  must_be_less_than_128_characters_long: повинні містити менше 128 символів.
+  must_be_logged_in: Ви повинні увійти в систему для виконання цієї дії.
   my_activity: Моя діяльність
   my_info: Моя інформація
   name: Назва
   name_colon: "Назва:"
   names: Назви
   names_children_column_header: Діти
+  names_curation_column_header: Курування
+  names_et_al: "%{names} та інш."
   names_filter: Назви
   names_name_column_header: Назва
   names_parents_column_header: Батьки
@@ -2373,6 +2570,7 @@ uk:
   new_user: Новий користувач
   news_archive_page: сторінка архіву новин
   news_available_in_languages: "Ця сторінка доступна:"
+  news_date: Дата новин
   news_item: елемент новин
   news_item_title: Елемент новин
   news_items: 
@@ -2468,6 +2666,7 @@ uk:
     user_verification: 
       message: "Дякуємо за реєстрацію в Енциклопедії Життя. Перейдіть за наступним посиланням, щоб завершити реєстрацію і активувати Ваш обліковий запис:\n\n%{verification_url}\n\nПісля активації вашого облікового запису, ви отримаєте повідомлення електронної пошти з підтвердженням."
       subject: Будь ласка, підтвердіть ваш запит на реєстрацію в Енциклопедії Життя
+  nucleotide_sequences: Нуклеотидні послідовності
   object: Об'єкт
   object_status_all_option: Усі
   object_type: Тип об'єкту
@@ -2518,6 +2717,7 @@ uk:
   personal_profile_menu: Особистий профіль
   personal_space: Особистий простір
   pinterest: Pinterest
+  please_return_to_eol_homepage: Будь ласка, поверніться на домашню сторінку ЕЖ
   please_wait: Будь ласка, зачекайте…
   post_comment: Опублікувати коментар
   posts_from_year: Дописи за %{year}
@@ -2537,6 +2737,12 @@ uk:
   provider: Постачальник
   providers: Постачальники
   public: Публічний
+  public_domain: суспільне надбання
+  publish: опублікувати
+  publish_after_utc: Опублікувати після (UTC)
+  publish_changes: Опублікувати зміни
+  published: Опубліковано
+  published_parens: (Опубліковано)
   punctuation_comma: ","
   punctuation_semi_colon: ;
   quarterly: Щоквартально
@@ -2616,12 +2822,15 @@ uk:
   request: Запит
   required: Обов'язково
   required_form_element: Обов'язково
+  resource: Ресурс
   resource_hint_dataset_rights: (застосовується для даних <i>в цілому</i>; не застосовується у всіх юрисдикціях)
   resource_hint_dataset_source_url: (URL першоджерела набору даних, таких як стаття або дослідження)
   resource_hint_default_rights: (застосовується типово для елементів <i>у</i> наборі даних)
   resources: Ресурси
   response: Відповідь
   response_formats: Формати відповіді
+  results: Результати
+  results_per_page: "Результатів на сторінці:"
   return: повернути
   revisions: Редакції
   revoke_full_curator_link: Відкликати
@@ -2682,12 +2891,23 @@ uk:
   set_as_exemplar: Встановити як зразок
   share_a_collection: Поділитися збіркою
   show: Показати
+  show_full_tree: показати повне дерево...
+  show_in_overview: показати в огляді
   show_status_message: Показати повідомлення про стан
   show_tasks: показати завдання
+  showing_error_logs_from_date: Показані помилки від <b>%{date}</b>
   sign_in: Увійти
+  sign_in_successful_notice: Вхід - успішний.
+  sign_in_unsuccessful_error: Помилка входу. Невірне ім'я користувача, адреса електронної пошти та пароль.
+  sign_out: Вийти
+  site_cms: Сайт CMS
+  site_information: Інформація про сайт
+  site_language: Мова сайту
+  site_settings_menu: Параметри сайту
   skip_to_content: перейти до розділу
   social_sharing_twitter_follow_eol_button: Підписатися на @eol
   social_sharing_twitter_tweet_button: Твіт
+  sort_by: Сортувати за
   sort_by_alphabetical_option: Алфавітом
   sort_by_button: Сортувати
   sort_by_label: Сортувати за
@@ -2704,11 +2924,19 @@ uk:
   sort_by_value_descending: Значенням по спаданню
   sort_by_year_ascending: Роком по зростанню
   sort_by_year_descending: Роком по спаданню
+  sort_field: "Поле сортування:"
+  sort_order: Порядок сортування
   sound_alt_text: Це %{vetted_status} є запис звуку %{taxon_name}
+  sound_file: Звуковий файл
+  sound_from: звук із
   sound_from_supplier: Звук від %{whom}
   sound_not_associated_with_any_published_entries: Цей звук не пов'язаний із жодними опублікованими таксонами.
+  sound_object: Звуковий об'єкт
   sound_of_taxon: Аудіо %{taxon_name}
   sound_rating: Оцінка звуку
+  source: Джерело
+  source_colon: "Джерело:"
+  special_collection: Спеціальна колекція
   species: Види
   split_cancelled: Скасовано операцію розділення.
   split_into_new_concept: розділити на новій сторінці
@@ -3008,10 +3236,17 @@ uk:
         tweet_text: Оцінка цінності для %{scientific_name}
   taxon: таксон
   taxon_biomedical_terms_link: Біомедичні терміни
+  taxon_education_header: Освітні ресурси
+  taxon_education_link: Освітні ресурси
   taxon_identification_resources_header: Ідентифікаційні ресурси
+  taxon_identification_resources_link: Ідентифікаційні ресурси
+  taxon_multimedia_links_link: Мультимедійні посилання
   taxon_not_found_error: "\"%{taxon}\" не знайдено"
+  taxon_nucleotide_sequences_link: Нуклеотидні послідовності
+  taxon_page_content_disclaimer_header: Відмова від відповідальності
   taxon_rating: Оцінка таксону
   taxon_related_organizations_link: Пов'язані організації
+  taxonomic_summary_of_content: таксономічний огляд вмісту
   technical_functions: Технічні функції
   term_cannot_be_left_blank: Термін не може лишатися порожнім
   term_for_search_admin_ui: Термін
@@ -3025,12 +3260,19 @@ uk:
   thank_you: Дякуємо
   thank_you_for_your_generous_support: Дякуємо вам за щедру підтримку!
   thanks_for_your_time: Спасибі за ваш час
+  the_comment_was_successfully_deleted: Коментар успішно вилучено.
+  the_comment_was_successfully_updated: Коментар успішно оновлено.
+  the_content_could_not_be_displ: Вміст не може бути відображений.
+  the_content_was_updated: Вміст оновлено.
+  the_file_was_uploaded: Файл був завантажений на сервер.
   the_glossary_term_was_successf: Термін у глосарії був успішно оновлений.
   the_image_from_this_source_is_not_trusted: Зображення з цього джерела - ненадійне.
   the_message_was_sent: Повідомлення було відправлено.
   the_new_topic_was_created: Нова тема була створена.
   the_new_user_was_created: Новий користувач був створений.
   the_query_string: рядок запиту
+  the_topic_was_updated: Теми було оновлено.
+  the_user_was_updated: Користувач був оновлений.
   there_are_currently_no_members_in_this_community: Наразі немає жодного члена в цій громаді.
   this_article_cannot_be_curated_because_unpublished: У цій статті немає куратора, тому що вона не опублікована.
   this_article_is_unpublished: Ця стаття не опублікована.
@@ -3051,6 +3293,7 @@ uk:
   total_searches: "Всього запитів:"
   translation_deleted: Переклад був видалений
   translation_information_header: Інформація про переклад
+  translation_log: Гістограма ключових частот i18n
   translation_saved: Переклад був збережений
   translations_submit: Переглянути переклад
   true_label: Істина
@@ -3256,17 +3499,24 @@ uk:
     pending: 
       header: Дякуємо за реєстрацію!
       verify_email_instructions: <strong>Будь ласка, перевірте вашу електронну пошту</strong>. Підтвердження вже відправлено на адресу, яку ви надали. Для завершення процесу реєстрації та набуття прав члена ЕЖ, будь ласка, клацніть по посиланню, вказаному в цьому листі. Спасибі!
+      verify_email_tip: Будь ласка, зверніть увагу, що листи активації облікових записів <em>часто</em> отримують мітку як „Спам“ через фільтри електронної пошти. Будь ласка, перевірте теку зі спамом, якщо не отримали електронну пошту протягом години.
     recover_account: 
       errors: 
+        temporary_login_user_not_found: Вибачте, профіль ЕЖ, який ви намагаєтеся відновити, не вдалося знайти, будь ласка, зробіть запит на нову адресу електронної пошти для відновлення вашого облікового запису.
         token_expired_or_invalid: Вибачте, тимчасове посилання для входу закінчилося або недійсне, будь ласка, зробіть запит на новий лист для відновлення вашого облікового запису.
         unable_to_update_token: Вибачте, сталася помилка, і лист не було надіслано, будь-ласка, спробуйте знову.
         user_not_found_by_email_address: У EOL обліковий запис з такою адресою електронної пошти не можливо знайти.
       form_header: Відновити обліковий запис
+      form_tip: Щоб відновити обліковий запис EOL, введіть електронну адресу, пов'язану з цим обліковим записом. Будь ласка, перевірте папку зі спамом, якщо ви не отримали листа відновлення облікового запису протягом години.
       meta_title: Відновити обліковий запис
+      notices: 
+        recovery_email_sent: Лист для відновлення облікового запису вже відправлений з подальшими інструкціями. Будь ласка, додайте %{from_address} у список надійних відправників і перевірте свої спам-фільтри, якщо ви не отримаєте листа по електронній пошті протягом години.
+        temporarily_logged_in_update_authentication_details: Ви тимчасово увійти в систему, щоб дозволити відновлення профілю. Будь ласка, змініть ваш пароль або оновіть підключені облікові записи, щоб переконатися, що ви можете успішно увійти в систему.
     recover_account_choose_account: 
       errors: 
         user_not_found_choose_again: Вибачте, сталася помилка і лист не було надіслано. Будь ласка, виберіть обліковий запис, до якого ви хотіли б відновити доступ і спробуйте знову.
       form_header: Відновити обліковий запис
+      form_tip: Наявні декілька профілів, зареєстрованих за адресою <em>%{email}</em>, будь ласка, виберіть обліковий запис для  відновлення доступу.
       legend_choose_account: Виберіть обліковий запис
     show: 
       meta_description: Профіль користувача %{user_full_name} на Енциклопедії Життя.
@@ -3300,32 +3550,57 @@ uk:
   video_rating: Оцінка відео
   video_title_not_available_in_language: Заголовок недоступний мовою  %{language}
   view_added_text: переглянути доданий текст
+  view_article_source: Перегляд джерела статті
   view_as_button: Змінити перегляд
   view_as_label: Переглянути як
   view_common_activities: переглянути загальну діяльність
+  view_common_activities_link: Переглянути список найпоширеніших видів діяльності.
   view_contact_us_submissions: переглянути додані відгуки
   view_curators: переглянути кураторів
   view_current_version_link: Перегляд поточної версії
   view_error_log: переглянути журнал помилок
   view_full_size_image: Перегляд повнорозмірного зображення
+  view_image_map_source: Перегляд джерела карти
+  view_image_source: Перегляд джерела зображення
   view_in_classification: переглянути в класифікації
+  view_map_source: Перегляд джерела карти
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Переглянути сторінки із зображенням або фрагментом тексту
+  view_sound_source: Перегляд джерела звуку
+  view_source: Перегляд джерела
   view_this_hierarchy: переглянути ієрархію
   view_translation_source_link: Перегляд джерела перекладу
   view_user_activity: переглянути діяльність користувачів
   view_user_comments: переглянути коментарі користувачів
   view_verb: Перегляд
+  view_video_source: Перегляд джерела відео
   view_your_curator_profile: Перегляд профілю куратора
   vimeo: Vimeo
   visible_title: Видимий
   visitors: Відвідувачі
   vivisimo: Vivisimo
   watch_list: Список спостереження
+  web_users: Веб-користувачі
+  weekly: Щотижня
+  welcome: Ласкаво просимо
+  what_do_these_numbers_mean: Що означають ці числа?
+  what_is_eol: Що таке ЕЖ?
+  what_is_this_question: Що це?
+  who_registered_before: до
   will_paginate: 
     next_label: Наступні &#8594;
     previous_label: "&#8592; Попередній"
+  worklist: Робочий список
   yahoo: Yahoo
+  yahoo_images: Зображення Yahoo
   year: Рік
   yes_answer: Так
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "Ви - адміністратор. Ви можете побачити повідомлення про помилку:"
+  you_are_not_authorized_to_perform_this_action: Ви не маєте прав на виконання цієї дії.
+  you_have_been_logged_out: Ви вже вийшли.
+  you_joined_community: Ви успішно приєдналися до цієї спільноти.
+  you_left_community: Ви успішно вийшли з цієї спільноти.
+  you_removed_the_member_from_the_community: Ви успішно видалили цього члена із спільноти.
+  your_browser_does_not_support: Ваш браузер не підтримує відео HTML5.
   your_current_rating_0_of_5: "Ваш поточний рейтинг: 0 із 5"
   your_current_rating_1_of_5: "Ваш поточний рейтинг: 1 із 5"
   your_current_rating_2_of_5: "Ваш поточний рейтинг: 2 з 5"
@@ -3335,5 +3610,7 @@ uk:
   your_email_address: Ваша адреса електронної пошти
   your_ip_address: Ваша IP-адреса
   your_preferences: ваші уподобання
+  your_rating: Ваш рейтинг
   your_watch_collection: ваш список спостереження
   youtube: YouTube
+  youtube_video: Відео YouTube

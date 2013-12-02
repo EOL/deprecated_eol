@@ -8,6 +8,7 @@
 # Author: Liangent
 # Author: Linforest
 # Author: Liuxinyu970226
+# Author: Luotiancheng
 # Author: Qiyue2001
 # Author: Shandongfx
 # Author: Shirayuki
@@ -163,6 +164,10 @@ zh-CN:
         rich_pages: 高质量页面
         rich_redhotlist_pages: 高质量红色关注页面
         rich_redhotlist_pages_percentage: 高质量红色关注页面百分比
+        total_association_types: 关联模式
+        total_associations: 关联
+        total_measurement_types: 测量模式
+        total_measurements: 测量
         total_occurrences: 记录
         total_taxa_with_data: 带数据页面
         total_triples: 三重
@@ -193,6 +198,7 @@ zh-CN:
         label: 标签
         request_publish: 请求发布
       known_uri: 
+        description: 描述
         name: 名称
         toc_items: 分类
         uri: URI
@@ -243,6 +249,7 @@ zh-CN:
         dataset: 数据集文件
         dataset_license_id: 授权协议
         dataset_rights_holder: 权利持有人
+        dataset_rights_statement: 权利声明
         dataset_source_url: 原始数据源
         description: 资源描述
         dwc_archive_url: 达尔文核心档案URL
@@ -265,6 +272,7 @@ zh-CN:
         title: 标题
       translated_known_uri: 
         comment: 评论
+        definition: 定义
       translated_news_item: 
         active_translation: 已发布
         body: 正文
@@ -341,10 +349,18 @@ zh-CN:
             publish: 
               inclusion: 只允许最近的收获事件，且只当那个事件尚未发布
         inaccessible: 记录无效，无法保存。请检查验证错误并重新提交。
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
         known_uri_relationship: 
           attributes: 
+            relationship_uri: 
+              only_one_measurement: 不允许的 - 只能有一个度量单位
             to_known_uri_id: 
+              must_be_different: 必须是跟主题不同的URI
               must_be_known_uri: 必须是一个已知的URI
+              must_be_measurement: 必须是一个度量单位
         open_authentications: 
           guid_provider_must_be_unique: 该第三方账户已经连接至一个EOL账户
           provider_user_id_must_be_unique: 一个EOL账户只能连接每个第三方提供者的一个账户
@@ -360,6 +376,22 @@ zh-CN:
             dwc_archive_url: 
               inaccessible: 无法访问，该URL必需可以公开访问
               invalid: 无效，它应指向一个TAR.GZIP、TAR.GZ、TGZ或ZIP文件
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              namespace: 使用的是未确认的命名空间
+            subject: 
+              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              namespace: 使用的是未确认的命名空间
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              namespace: 使用的是未确认的命名空间
+            subject: 
+              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              namespace: 使用的是未确认的命名空间
       template: 
         body: 以下字段验证失败：
         header: 
@@ -1785,6 +1817,7 @@ zh-CN:
       create: 发表新的帖子
       create_failed: 抱歉，发生了一个错误，无法添加帖子
       create_successful: 已成功创建帖子
+      delete_successful: 帖子已成功删除
       deleted_subject: （已删除）
       edit: 编辑帖子
       joined_date: 于%{date}加入
@@ -1794,6 +1827,8 @@ zh-CN:
       post_written_by_user: "%{user}写道："
       posts_with_count: "%{count}条帖子"
       replying_to_post: 回复：
+      update_failed: 抱歉，发生了一个错误， 帖子无法更新
+      update_successful: 已成功更新帖子
     posts_heading: 帖子
     replies: 答复
     topics: 
@@ -1938,6 +1973,8 @@ zh-CN:
         request_publish_more: 表明是否有待定的请求，申请将此分类树设置为EOL中的可浏览的基本分类系统。
       news_item: 
         active: 已发布
+        active_more: 已发布的页面将在选定的日期和时间公开可见。如果你想要阻止普通用户查看该页面任何语言的版本，请取消选中<em>已发布</em>。
+        page_name: 独特名称<small>（仅小写ISO基本拉丁文字数字字符和下划线）</small>
       open_authentication: 
         connect: 添加
         connected: 已连接
@@ -2217,6 +2254,7 @@ zh-CN:
   known_uri_created: URI已加入。
   known_uri_name_and_uri: "%{name}（%{uri}）"
   known_uris: 
+    add_a_relationship: 添加关系
     relationships: 关联
   known_uris_page_title: EOL上有关数据的URI
   label: 标签

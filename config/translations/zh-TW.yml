@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Dream
+# Author: Liuxinyu970226
 # Author: Shangkuanlc
 # Author: Taieol
 zh-TW: 
@@ -92,6 +93,9 @@ zh-TW:
         rights_holder: 版權持有者
         rights_statement: 版權聲明
         source_url: 來源網址
+      data_object_link: 
+        description: 說明
+        source_url: 連接URL
       eol_statistic: 
         active_curators: 活躍的管理者
         base_pages: 只含物種名稱的頁面
@@ -150,8 +154,18 @@ zh-TW:
         published_unreviewed_resources: 已發布的未審核資源
         redhotlist_pages: 超熱門頁面
         rich_hotlist_pages: 資料豐富的熱門頁面
+        rich_hotlist_pages_percentage: 富熱門列表頁面%
         rich_pages: 資料豐富的頁面
         rich_redhotlist_pages: 資料豐富的超熱門頁面
+        rich_redhotlist_pages_percentage: 富紅色熱門列表頁面%
+        total_association_types: 關聯類型
+        total_associations: 關係
+        total_measurement_types: 測量模式
+        total_measurements: 測量
+        total_occurrences: 數位
+        total_taxa_with_data: 帶數據頁面
+        total_triples: 三重
+        total_user_added_data: 用戶添加的數據
         udo_published: 使用者提交的文字描述
         udo_published_by_curators: 管理者提交的文字描述
         udo_published_by_non_curators: 非管理者提交的文字描述
@@ -177,6 +191,12 @@ zh-TW:
         descriptive_label: 描述性標籤
         label: 標籤
         request_publish: 要求發布
+      known_uri: 
+        description: 說明
+        name: 名稱
+        toc_items: 分類
+        uri: URI
+        uri_type: URI形式
       name: 
         string: 名稱
       news_item: 

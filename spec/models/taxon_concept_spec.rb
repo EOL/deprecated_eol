@@ -478,6 +478,7 @@ describe TaxonConcept do
   end
 
   it 'should return an exemplar' do
+    # Here
     @testy[:has_one_image].exemplar_or_best_image_from_solr.id.should == @testy[:the_one_image].id
   end
   
@@ -489,23 +490,50 @@ describe TaxonConcept do
     @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
   end
 
-  it 'should not return unpublished images as examplars' do
-    best_image = @testy[:has_one_image].exemplar_or_best_image_from_solr
-    best_image.published?.should == true
-    best_image.update_attribute('published', 0)
-    @testy[:has_one_image].reload
-    # when the best image is unpublished it should not be returned. At this point Solr hasn't been
-    # updated so it still things best_image is the best, but the code will check its published
-    # status, look for a later version, and if none exists then return nil
-    @testy[:has_one_image].exemplar_or_best_image_from_solr.should == nil
+  context '#published_exemplar_image' do
 
-    newer_version = DataObject.gen(:guid => best_image.guid, :language_id => best_image.language_id, :published => true)
-    @testy[:has_one_image].reload
-    # here Solr will return the original object, but then we will find the latest published version of it
-    @testy[:has_one_image].exemplar_or_best_image_from_solr.should == newer_version
-    newer_version.destroy
-    best_image.update_attribute('published', 1)
-    @testy[:has_one_image].reload
+    before(:each) do
+      @taxon_concept.clear_instance_variables
+    end
+
+    # A lot in this spec, but I'm okay with that...
+    it 'should return the latest published, visible data_object (and cache it)' do
+      latest = double(DataObject)
+      dato = double(DataObject, published?: true, visibility_by_taxon_concept: Visibility.visible,
+                                latest_published_version_in_same_language: latest)
+      tcei = double(TaxonConceptExemplarImage, data_object: dato)
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).exactly(1).times.and_return(tcei)
+      expect(@taxon_concept.published_exemplar_image).to eq(latest)
+      expect(@taxon_concept.published_exemplar_image).to eq(latest) # Checking a second time to ensure it's cached.
+    end
+
+    it 'should return nil if taxon_concept_exemplar_image is missing (and cache it)' do
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).exactly(1).times.and_return(nil)
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+    end
+
+    it 'should return nil if the data object is missing' do
+      tcei = double(TaxonConceptExemplarImage, data_object: nil)
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).exactly(1).times.and_return(tcei)
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+    end
+
+    it 'should destroy unpublished exemplars and return nil' do
+      dato = double(DataObject, published?: false)
+      tcei = double(TaxonConceptExemplarImage, data_object: dato)
+      tcei.should_receive(:destroy).and_return(nil)
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).and_return(tcei)
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+    end
+
+    it 'should return nil if image is invisible' do
+      dato = double(DataObject, published?: true, visibility_by_taxon_concept: Visibility.invisible)
+      tcei = double(TaxonConceptExemplarImage, data_object: dato)
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).and_return(tcei)
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+    end
+
   end
 
   it 'should show overview text with no language only to users in the default language' do

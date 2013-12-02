@@ -273,6 +273,8 @@ class DataPointUri < ActiveRecord::Base
     TaxonDataSet.new(occurrence_measurement_rows, preload: false)
   end
 
+  # NOTE - User-added data references aren't added with these URIs and therefore don't get "seen" by this method.
+  # TODO - (low priority) fix that; we should get user-added references.
   def get_references(language)
     options = []
     # TODO - no need to keep rebuilding this, put it in a class variable.
@@ -360,12 +362,6 @@ class DataPointUri < ActiveRecord::Base
     @original_unit_of_measure_known_uri || unit_of_measure_known_uri
   end
 
-
-  # NOTE - I was going to change these to an object to represent both the URI and the label, but we're just not at all
-  # consistent about calculating those things, and it was going to be too much of an effort.  ...So I'm skipping that.  thus,
-  # I'm keeping the separate columns for the label and the URI. I don't think that's especially awful, really... it would be
-  # slightly non-standard to have two header rows (one the URI and the other a human-readable label).
-  # 
   # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
   # this model class.
   def to_hash(language = Language.default, options = {})
@@ -411,12 +407,22 @@ class DataPointUri < ActiveRecord::Base
         Rails.application.routes.url_helpers.content_partner_resource_url(resource.content_partner, resource,
                                                                           host: options[:host])
     end
-    if metadata = get_metadata(language)
+    metadata = get_metadata(language)
+    unless metadata.empty?
       metadata.each do |datum|
-        hash[EOL::Sparql.uri_components(datum.predicate_uri)[:label]] = datum.value_string(language)
+        key = EOL::Sparql.uri_components(datum.predicate_uri)[:label]
+        if hash.has_key?(key) # Uh-oh. Make it original, please:
+          orig_key = key.dup
+          count = 1
+          key = "#{orig_key} #{count += 1}" while hash.has_key?(key)
+        end
+        hash[key] = datum.value_string(language)
       end
     end
-    # TODO - references... maybe?
+    refs = get_references(language)
+    unless refs.empty?
+      hash[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
+    end
     # TODO - other measurements. ...I think.
     hash
   end

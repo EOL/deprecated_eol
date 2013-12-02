@@ -1191,6 +1191,7 @@ oc:
     other: Aparten a %{count} Comunautats
   beta_warning_header: Utilizatz una foncionalitat en bèta-tèst
   beta_warning_note_header: "Nòta :"
+  beta_warning_small: Notatz plan que s’agís d’una foncionalitat en bèta-tèst e que pòt èsser imprevisibla.
   bhl: "''Biodiversity Heritage Library''"
   bhl_partner_footer: Visitatz la Biodiversity Heritage Library
   bhl_publication: Publicacion de ''BHL''
@@ -1279,6 +1280,7 @@ oc:
   clicked_time: Ora de clic
   close_this_window_to_return_to_edit_window: TAMPATZ AQUESTA FENÈSTRA PER TORNAR A LA FENÈSTRA DE MODIFICACION
   cms_available_in_languages: "Aquesta pagina es disponibla en :"
+  cms_editor: Editor CMS
   cms_missing_content_message: O planhèm, aquesta pagina es pas disponibla per la lenga seleccionada %{selected_language}.
   cms_missing_content_title: Traduccion mancanta
   collect_item: element de collècta
@@ -1663,6 +1665,7 @@ oc:
   content_server_full_url: URL completa del servidor de contengut
   content_servers: Servidors de contengut
   content_setting_colon: "Paramètres de contengut :"
+  content_summary_table_caption: Resumit del contengut associat a %{taxon_name} e sos descendents dins %{hierarchy_label}
   content_summary_table_count_column_header: Nombre
   content_summary_table_summary: Aqueste tablèu conten los descomptes dels diferents tipes de contenguts separats segon lor estat.
   content_summary_table_type_descendants_row: Nombre de descendents
@@ -3107,6 +3110,7 @@ oc:
   other_community_items_with_count: 
     one: "%{count} autre element"
     other: "%{count} autres elements"
+  other_measurements_from_this_record: Autras mesuras per aqueste enregistrament
   other_taxa_with_count: 
     one: "%{count} autre taxon"
     other: "%{count} autres taxons"
@@ -3169,6 +3173,8 @@ oc:
   personal_space: Espaci personal
   pinterest: Pinterest
   please_confirm_your_donation_details: Confirmatz los detalhs de vòstre don
+  please_indicate_curation_reason: "Seleccionatz un motiu o daissatz un comentari de conservacion :"
+  please_refresh: Refrescatz vòstre navigador per veire la darrièra version del site Web de l’EdlV
   please_return_to_eol_homepage: Tornatz a la pagina d’acuèlh de l’EdlV
   please_state_one_credential: "Indicatz al mens un certificat especific d'aquesta lista :"
   please_wait: Pacientatz...
@@ -3214,6 +3220,7 @@ oc:
   rating_added_notice: L'evaluacion es estada aponduda amb succès.
   rating_learn_more_link: Ne saber mai sus la notacion
   rating_not_added_error: O planhèm, una error s'es producha, l'evaluacion a pas pogut èsser aponduda.
+  reading_from_ontology: Lectura dempuèi <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
   recaptcha: Picatz los dos mots que vesètz çaijós
   recaptcha_incorrect_error_with_anchor: Los <a href="#%{recaptcha_anchor}">caractèrs del reCaptcha</a> correspondon pas, ensajatz tornarmai.
   recent_activities: 
@@ -3297,6 +3304,9 @@ oc:
   required_form_element: Obligatòri
   reset_password_enter_new_password_notice: S’agís d’una connexion unitària ; picatz un senhal novèl per contunhar.
   resource: Ressorsa
+  resource_hint_dataset_rights: (s’aplica a l’ensemble de donadas <i>coma un tot</i> ; pas aplicable dins totas las juridiccions)
+  resource_hint_dataset_source_url: (URL de la font d’origina de l’ensemble de donadas, coma una publicacion o un estudi)
+  resource_hint_default_rights: (s’aplica per defaut als elements <i>dins</i> l’ensemble de donadas)
   resources: Ressorsas
   response: Responsa
   response_formats: Formats de responsa
@@ -3366,6 +3376,7 @@ oc:
   send: Mandar
   send_contact_email: Mandar un corrièr electronic de contacte
   send_email_colon: "Mandar un corrièr electronic :"
+  sep_emails_with_commas_note: (separatz las adreças de corrièr electronic multiplas per de virgulas)
   server_ip_address: Adreça IP del servidor
   sessions: 
     new: 
@@ -3398,7 +3409,9 @@ oc:
   shown_to_the_user_parens: (afichat a l’utilizaire)
   shown_to_user_as_the_title_of_page: afichat a l’utilizaire coma títol de la pagina
   sign_in: S’identificar
+  sign_in_remember_me_disallowed_for_admins_notice: Per de rasons de seguretat, los administrators pòdon pas utilizar la foncionalitat Rapelatz-me.
   sign_in_successful_notice: Connexion capitada.
+  sign_in_unsuccessful_error: Fracàs de la connexion. Nom d’utilizaire, adreça de corrièr electronic o vòstre senhal es pas valid.
   sign_out: Desconnexion
   site_cms: Site CMS
   site_information: Informacions sul site
@@ -3411,6 +3424,8 @@ oc:
   social_sharing_reddit_button: sometre a reddit
   social_sharing_twitter_follow_eol_button: Seguir @eol
   social_sharing_twitter_tweet_button: Tweet
+  sorry_no_collections_are_available_to_share: O planhèm, i a pas cap de colleccion de partejar amb aquesta comunautat.
+  sorry_no_communities_are_available_to_share: O planhèm, i a pas cap de comunautat amb la quala partejar aquesta colleccion.
   sort_by: Triar per
   sort_by_alphabetical_option: Alfabetic
   sort_by_button: Triar
@@ -3554,6 +3569,7 @@ oc:
           meta_title_with_common_name: Donadas calculablas per %{preferred_common_name} segon la classificacion de %{hierarchy_provider} (%{scientific_name})
           tweet_text: Donadas calculablas per %{scientific_name} segon la classificacion de %{hierarchy_provider}
         meta_description: Imatges, vidèos e fichièrs de sons de %{scientific_name}. Trobar d'imatges, d'imatges, de fòtos, de filmes e de sons de %{scientific_name} dins l’Enciclopèdia de la vida.
+        meta_description_no_data: Cap de donada calculabla es pas disponibla per %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de donadas per %{scientific_name}.
         meta_keywords: donadas calculablas de %{scientific_name}, informacions sus %{scientific_name}
         meta_keywords_with_common_name: donadas calculablas sus %{preferred_common_name}
         meta_title: Donadas calculablas per %{scientific_name}
@@ -3775,13 +3791,16 @@ oc:
   taxon_citizen_science_header: Ligams Scientifics Personals
   taxon_citizen_science_link: Ligams scientifics personals
   taxon_concept_stats: Estatisticas del concèpte de taxon
+  taxon_data_empty: Degun a pas encara contribuit a cap de fach sus aquesta pagina.
   taxon_data_header: Donadas a prepaus de %{taxon}
   taxon_details_empty: Degun a pas encara contribuit a cap de detalh sus aquesta pagina.
   taxon_details_empty_in_this_language: Degun a pas encara contribuit sus cap de detalh sus aquesta pagina dins aquesta lenga.
+  taxon_education_empty: Degun a pas encara contribuit a cap de ressorsa d'educacion sus aquesta pagina.
   taxon_education_header: Ressorsas pedagogicas
   taxon_education_link: Ressorsas pedagogicas
   taxon_group: Grop de taxon
   taxon_id: ID del taxon
+  taxon_identification_resources_empty: Degun a pas encara contribuit a cap de ressorsa d’identificacion sus aquesta pagina.
   taxon_identification_resources_header: Ressorsas d’identificacion
   taxon_identification_resources_link: Ressorsas d’identificacion
   taxon_multimedia_links_link: Ligams multimèdia

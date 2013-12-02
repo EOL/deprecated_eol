@@ -894,6 +894,7 @@ sv:
         user_create_data_on_taxon: <strong>%{user}</strong> lade till data i "%{taxon}".
         user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> uppdaterade data på en okänd sida.
         user_update_data_on_taxon: <strong>%{user}</strong> uppdaterade data i "%{taxon}".
+  activity_user_created_data: <strong>%{user}</strong> lade till data om "%{object_name}" till "%{taxon_concept}".
   activity_user_created_link: <strong>%{user}</strong> lade till en länk till "%{object_name}" på "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> lade till text till "%{object_name}" på "%{taxon_concept}".
   activity_user_updated_link: <strong>%{user}</strong> uppdaterade länken "%{object_name}" på "%{taxon_concept}".
@@ -939,6 +940,7 @@ sv:
   admin_content_page_delete_confirmation: Är du säker på att du vill ta bort "%{page_name}" och alla översättningar? Raderade sidor kan inte återställas.
   admin_content_page_delete_successful_notice: Sidan %{page_name} och associerade översättningar har tagits bort.
   admin_content_page_edit_header: Uppdatera bassidinformation för <em>%{page_name}</em>
+  admin_content_page_edit_tip: Det rekommenderas att du inte redigerar det unika namnet för denna sida om du inte är fullt medveten om konsekvenserna, inklusive hur länkar till denna sida påverkas, eller till namngivna rutter. Unikt namn %{required_icon} krävs.
   admin_content_page_new_header: Skapa en ny innehållssida
   admin_content_page_new_link: Skapa ny sida
   admin_content_page_new_tip: Ange grundläggande information om denna sida. Unikt namn som är %{required_icon} krävs.
@@ -1188,8 +1190,10 @@ sv:
   belongs_in_count_communities: 
     one: Tillhör %{count} gemenskap
     other: Tillhör %{count} gemenskaper
+  beta_warning_body: De flesta användarna kan inte se eller använda denna funktion, som är under aktiv utveckling. Prestanda och data kan vara oförutsägbar men vi erbjuder dig att utforska den. Var god fyll i vår <a href='https://www.surveymonkey.com/s/9FDTDQP'>undersökning</a> efter du har granskat vår datakapacitet.
   beta_warning_header: Du använder en testfunktion i betastadiet
   beta_warning_note_header: "OBS:"
+  beta_warning_small: Observera att detta är en testfunktion i betastadiet och kan vara oförutsägbar.
   bhl_partner_footer: Besök Biodiversity Heritage Library
   bhl_publication: BHL-publikation
   bi_monthly: Varannan månad
@@ -1218,6 +1222,7 @@ sv:
   cannot_expand_children: kan inte expandera underordnade objekt
   cannot_find_member: Kan inte hitta en medlem med detta ID.
   cannot_index_collection_item_type_error: Jag kan inte indexera ett samlingsobjekt från en %{type}
+  categories_title: "Välj en kategori, sedan en attribut:"
   change: Ändra
   change_rating_to_1_of_5: Ändra betyg till 1 av 5
   change_rating_to_2_of_5: Ändra betyg till 2 av 5
@@ -1736,6 +1741,7 @@ sv:
   data: Data
   data_about_subtab_header: Om data på EOL
   data_about_this_record: Data om denna post
+  data_column_classification_summary: Klassifikationssammanfattning
   data_column_common_name: Vanligt namn
   data_column_name: Mätningsetikett
   data_column_sci_name: Vetenskapligt namn
@@ -1743,6 +1749,7 @@ sv:
   data_column_tc_id: EOL sid-ID
   data_column_units: Enheter (normaliserat)
   data_column_val: Värde (normaliserat)
+  data_column_value: Värde
   data_database_colon: "Data:"
   data_glossary: Dataordlista
   data_logging_active: Dataloggning aktiv
@@ -1772,16 +1779,22 @@ sv:
       meta_supplier_default: en bidragsgivare
       meta_title: "%{dato_title} från %{supplier}"
       tweet_text: "%{dato_title} från %{supplier}"
+  data_overview_table_caption: Snabbfakta
+  data_point_uri_source_missing: källa saknas
   data_point_uri_summary_name: data om %{taxon}
   data_provided_by_content_partner: "Källa: %{whom}"
   data_provided_by_user: tillhandahållen av %{whom}
   data_reference_subtable_summary: Ytterligare referenser om denna fakta.
   data_row_add_exemplar_button: lägg till i snabbfakta
+  data_row_excluded_from_overview_notice: "OBS: Denna rad har uteslutits från snabbfakta."
   data_row_exemplar_added: Snabbfakta lades till.
   data_row_exemplar_removed: Snabbfakta togs bort.
   data_row_hide_button: Dölj rad
   data_row_remove_exemplar_button: ta bort från snabbfakta
   data_row_unhide_button: Visa rad
+  data_search_destroyed: Detta jobb kommer inte längre bearbetas.
+  data_search_files: 
+    file_ready_for_download: Sökningen du nyligen begärde för "%{known_uri_label}" kan nu laddas ned på <a href='%{download_url}'>%{download_url}</a>.
   data_search_link: Sök vetenskaplig data på EOL
   data_show_n_more_rows: Visa NNN fler...
   data_subtab_about: Om
@@ -2225,13 +2238,16 @@ sv:
         active: Publicerad
         active_more: Publicerade sidor kommer att visas offentligt. Avmarkera <em>publicerad</em> om du vill förhindra att vanliga användare från att se versioner av denna sida på alla språk.
         page_name: Unikt namn<small>(endast gemena ISO-baserade latinska bokstäver och understreck)</small>
+        page_name_more: Ange ett unik, självbeskrivande, meningsfull och beständig identifierare för den här sidan. Namnet du anger här kommer användas för att generera webbadressen för denna sida; t.ex. det unika namnet <em>terms_of_use</em> omvandlas till webbadressen <em>http://eol.org/info/terms_of_use</em>.
         parent_content_page_id: Överordnad
+        parent_content_page_id_more: Välj alternativt en överordnad som denna sida ska grupperas under.
       content_partner: 
         created_at: Registrerad
         current_agreement: Nuvarande avtal
         description_of_data: Beskrivning av data <small>(privat)</small>
         description_of_data_more: Var god ge oss med en beskrivning av vilken typ av information du har, hur många objekt som finns tillgängliga, vilka organismer som de relaterar till, och om de har satts samman eller kontrollerats av kvalificerade experter eller av en kunnig gemenskap.
         display_name: Visningsnamn <small>(valfritt)</small>
+        display_name_more: Ange ett alternativt offentligt namn som ska användas istället för ditt <em>projektnamn</em>.
         last_action: Senaste åtgärd
         latest_published_harvest_event: Senast publicerad
         logo_current: "Nuvarande logotyp:"
@@ -2915,6 +2931,7 @@ sv:
       subject: EOL-användaren %{user_full_name} lade till den nya resursen %{resource_title} till innehållspartnern %{partner_full_name}
     content_partner_resource_hierarchy_publish_request: 
       message: "Detta är ett automatisk systemmeddelande för artsidegruppen från EOL. Användaren %{user_full_name} har begär om att en hierarki associerad med resursen %{resource_title} som tillhör innehållspartnern %{partner_full_name} ska bli befrämjad (publicerad) till att bli en bläddringsbar hierarki på EOL, detaljer nedan:\n\nAnvändare: %{user_full_name}\nE-post: %{user_email}\nURL till profil: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL till partnerressurs: %{partner_resources_url}\n\nResurs: %{resource_title}\nURL till resurs: %{resource_url}\nRedigera hierarkin URL: %{hierarchy_edit_url}"
+      subject: EOL-användaren %{user_full_name} begärde en hierarkipromotion för resursen %{resource_title} som tillhör innehållspartnern %{partner_full_name}
     content_partner_statistics_reminder: 
       message: Detta är en automatisk e-postpåminnelse från Encyclopedia of Life. Webbanvändningsstatistiker för data som levereras till EOL av %{partner_full_name} för %{month} %{year} finns nu tillgänglig på %{partner_statistics_url}.
       subject: Påminnelse om användningsstatistik för Encyclopedia of Life för %{partner_full_name}, %{month} %{year}
@@ -3424,6 +3441,7 @@ sv:
     data: 
       index: 
         hierarchy_entry: 
+          meta_description: Bilder, video och ljud om %{scientific_name} som klassificeras av %{hierarchy_provider}. Hitta bilder, foton, filmer och ljud om %{scientific_name} på Encyclopedia of Life.
           meta_title: Beräkningsbar data för %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Beräkningsbar data för %{preferred_common_name} som är klassificerad av %{hierarchy_provider} (%{scientific_name})
           tweet_text: Beräkningsbar data för %{scientific_name} som är klassificerad av %{hierarchy_provider}

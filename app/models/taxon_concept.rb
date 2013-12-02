@@ -321,6 +321,13 @@ class TaxonConcept < ActiveRecord::Base
     super
   end
 
+  def clear_instance_variables
+    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
+    (instance_variables - @@ar_instance_vars).each do |ivar|
+      remove_instance_variable(ivar)
+    end
+  end
+
   def clear_for_data_object(data_object)
     TaxonConceptCacheClearing.clear_for_data_object(self, data_object)
   end
@@ -618,21 +625,22 @@ class TaxonConcept < ActiveRecord::Base
 
   # returns a DataObject, not a TaxonConceptExemplarImage
   def published_exemplar_image
-    return @published_exemplar_image if @published_exemplar_image_calculated # NOTE - weird, but ...
-    @published_exemplar_image_calculated = true # NOTE ...since @published_exemplar_image can be nil, we need this.
+    return @published_exemplar_image if defined?(@published_exemplar_image)
+    @published_exemplar_image = nil
     if concept_exemplar_image = taxon_concept_exemplar_image
       if the_best_image = concept_exemplar_image.data_object
-        if the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
-          unless the_best_image.published?
-            # best_image may end up being NIL, which means there is no published version
-            # of it anymore - the example is no longer available. We don't want to show
-            # unpublished exemplar images
-            the_best_image = the_best_image.latest_published_version_in_same_language
-          end
-          return @published_exemplar_image = the_best_image
+        # NOTE - using if-not rather than unless because I think that's clearer with the elsif
+        if ! the_best_image.published?
+          # Someone has selected an exemplar image which is now unpublished. Remove it.
+          concept_exemplar_image.destroy
+        # TODO - we should have a DataObject#visible_for_taxon_concept?(tc) method.
+        elsif the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
+          the_best_image = the_best_image.latest_published_version_in_same_language
+          @published_exemplar_image = the_best_image
         end
       end
     end
+    @published_exemplar_image
   end
 
   # returns a DataObject, not a TaxonConceptExemplarArticle
@@ -962,13 +970,6 @@ class TaxonConcept < ActiveRecord::Base
   end
 
 private
-
-  def clear_instance_variables
-    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
-    (instance_variables - @@ar_instance_vars).each do |ivar|
-      remove_instance_variable(ivar)
-    end
-  end
 
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user

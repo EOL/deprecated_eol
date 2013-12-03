@@ -6,7 +6,7 @@ describe ContactsController do
     unless @user = User.find_by_username('contacts_controller_spec')
       truncate_all_tables
       Language.create_english
-      CuratorLevel.create_defaults
+      CuratorLevel.create_enumerated
       @user = User.gen(:username => 'contacts_controller_spec')
       unless @contact_subject = ContactSubject.first
         @contact_subject = ContactSubject.gen_if_not_exists(:title => "Fake contact subject")

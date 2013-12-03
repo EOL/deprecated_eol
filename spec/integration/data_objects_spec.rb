@@ -495,7 +495,7 @@ describe 'Data Object Page' do
   end
 
   it 'should preserve data rating when editing' do
-    user_submitted_text = @tc.add_user_submitted_text(:user => @user)
+    user_submitted_text = @tc.add_user_submitted_text(user: @user, license: License.cc)
     login_as @user
     # Visit page and add a rating
     visit("/data_objects/#{user_submitted_text.id}")

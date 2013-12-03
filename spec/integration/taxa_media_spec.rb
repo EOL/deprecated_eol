@@ -9,7 +9,7 @@ describe 'Taxa media' do
     @data = EOL::TestInfo.load('media_heavy')
     @taxon_page = TaxonPage.new(@data[:taxon_concept], EOL::AnonymousUser.new(Language.default))
     Capybara.reset_sessions!
-    CuratorLevel.create_defaults
+    CuratorLevel.create_enumerated
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 

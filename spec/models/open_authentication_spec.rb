@@ -9,7 +9,7 @@ describe OpenAuthentication do
     unless (@open_authentication = OpenAuthentication.find_by_guid(@open_authentication_params[:guid])) &&
            (@user = User.find_by_username('open_authentication_model_spec'))
       truncate_all_tables
-      CuratorLevel.create_defaults
+      CuratorLevel.create_enumerated
       @user = User.gen(:username => 'open_authentication_model_spec')
       @open_authentication = OpenAuthentication.new(@open_authentication_params.merge(:user_id => @user.id))
       @open_authentication.save

@@ -579,7 +579,8 @@ private
         conversion[:ending_unit] = known_uri
       end
     end
-    @@conversions.delete_if{ |conversion| ! conversion[:ending_unit].is_a?(KnownUri) || ! conversion[:ending_unit].unit_of_measure? }
+    @@conversions.delete_if{ |conversion| ! conversion[:ending_unit].is_a?(KnownUri) ||
+                                          ! conversion[:ending_unit].unit_of_measure? }
     @@conversions
   end
 

@@ -4,32 +4,17 @@ class Visibility < ActiveRecord::Base
   has_many :curated_data_objects_hierarchy_entry
   has_many :users_data_objects
 
-  def self.create_defaults
-    %w(Invisible Visible Preview).each do |lbl|
-      vis = Visibility.create
-      trans = TranslatedVisibility.create(visibility_id: vis.id,
-                                          language_id: Language.default.id,
-                                          label: lbl,
-                                          phonetic_label: nil)
-    end
+  include Enumerated
+  enumerated :label, %w(Invisible Visible Preview)
+
+  def self.create_enumerated
+    enumeration_creator defaults: { phonetic_label: nil } # TODO - try removing this method, it may not be needed.
   end
 
   def self.all_ids
     cached('all_ids') do
       Visibility.all.collect {|v| v.id}
     end
-  end
-
-  def self.visible
-    @@visible ||= cached_find_translated(:label, 'Visible')
-  end
-
-  def self.preview
-    @@preview ||= cached_find_translated(:label, 'Preview')
-  end
-  
-  def self.invisible
-    @@invisible ||= cached_find_translated(:label, 'Invisible')
   end
 
   def self.for_curating_selects

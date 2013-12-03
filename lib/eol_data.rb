@@ -42,16 +42,18 @@ module EOL
     def self.recreate
       EOL::DB.drop
       EOL::DB.create
+      Rake::Task['scenarios:clear_tmp'].invoke
       Rake::Task['db:migrate'].invoke
     end
 
     def self.rebuild
-      Rake::Task['solr:stop'].invoke
+      Rake::Task['solr:start'].invoke
       EOL::DB.recreate
       EOL::DB.clear_temp
       # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:
       Rake::Task['solr:start'].invoke
       ENV['NAME'] = 'bootstrap'
+      Rake::Task['scenarios:clear_tmp'].invoke
       Rake::Task['scenarios:load'].invoke
       Rake::Task['solr:rebuild_all'].invoke
     end
@@ -60,6 +62,7 @@ module EOL
       Rake::Task['solr:start'].invoke
       Rake::Task['truncate'].invoke
       ENV['NAME'] = 'bootstrap'
+      Rake::Task['scenarios:clear_tmp'].invoke
       Rake::Task['scenarios:load'].invoke
       Rake::Task['solr:rebuild_all'].invoke
     end

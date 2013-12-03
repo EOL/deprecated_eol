@@ -6,6 +6,7 @@ describe TaxonConceptReindexing do
     DataType.create_defaults
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
     @max_descendants = 10
+    DataType.create_enumerated
   end
 
   before(:each) do

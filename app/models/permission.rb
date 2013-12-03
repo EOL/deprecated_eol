@@ -5,19 +5,10 @@ class Permission < ActiveRecord::Base
   has_many :permissions_users
   has_many :users, through: :permissions_users
 
-  KNOWN_PERMISSIONS = [ :edit_permissions, :beta_test, :see_data, :edit_cms ]
+  include Enumerated
+  enumerated :name, ['edit permissions', 'beta test', 'see data', 'edit cms']
 
-  def self.create_defaults
-    KNOWN_PERMISSIONS.each do |sym|
-      name = Permission.stringify_sym(sym)
-      perm = cached_find_translated(:name, name)
-      unless perm
-        perm = Permission.create
-        TranslatedPermission.create(:name => name, :language => Language.default,
-                                    :permission => perm)
-      end
-    end
-  end
+  KNOWN_PERMISSIONS = [ :edit_permissions, :beta_test, :see_data, :edit_cms ]
 
   def self.method_missing(sym, *args, &block)
     super unless KNOWN_PERMISSIONS.include?(sym)
@@ -45,4 +36,5 @@ class Permission < ActiveRecord::Base
   def <=>(other)
     self.name <=> other.name
   end
+
 end

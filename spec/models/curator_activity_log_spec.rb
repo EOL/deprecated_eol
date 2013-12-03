@@ -5,12 +5,14 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CuratorActivityLog do
   before(:all) do
-    ChangeableObjectType.create_defaults
+    ChangeableObjectType.create_enumerated
+    ContentPartnerStatus.create_enumerated
+    License.create_enumerated
   end
 
   it 'should is_for_type?' do
-    ChangeableObjectType.default_values.length.should >= 15 # just making sure the test has defaults to work with
-    ChangeableObjectType.default_values.each do |v|
+    ChangeableObjectType.enumerations.keys.length.should >= 15 # just making sure the test has defaults to work with
+    ChangeableObjectType.enumerations.keys.each do |v|
       c = CuratorActivityLog.create(:changeable_object_type_id => ChangeableObjectType.send(v).id)
       c.is_for_type?(v).should == true
     end

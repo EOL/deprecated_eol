@@ -7,7 +7,7 @@ describe 'Taxa worklist' do
     @data = EOL::TestInfo.load('media_heavy')
     @taxon_concept = @data[:taxon_concept]
     Capybara.reset_sessions!
-    CuratorLevel.create_defaults
+    CuratorLevel.create_enumerated
     @curator = build_curator(@taxon_concept) # build_curator generates a full curator by default.
     @user = User.gen()
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild

@@ -4,10 +4,10 @@ describe 'taxa/details/index' do
 
   before(:all) do
     Language.create_english
-    Vetted.create_defaults
-    Visibility.create_defaults
-    DataType.create_defaults
-    License.create_defaults
+    Vetted.create_enumerated
+    Visibility.create_enumerated
+    DataType.create_enumerated
+    License.create_enumerated
     @article = DataObject.gen(description: 'article copy unlinked',
                               description_linked: 'article copy linked',
                               data_type: DataType.text,

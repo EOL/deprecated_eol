@@ -127,7 +127,7 @@ class CuratorActivityLog < LoggingModel
         data_object.get_taxon_concepts.first.entry.name.string
       when ChangeableObjectType.comment.id
         if comment_object.parent_type == 'TaxonConcept'
-          comment_parent.scientific_name
+          comment_parent.title
         elsif comment_object.parent_type == 'DataObject'
           if comment_parent.user.nil?
             comment_parent.get_taxon_concepts.first.entry.name.string

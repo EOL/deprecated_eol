@@ -101,9 +101,10 @@ class Collection < ActiveRecord::Base
 
   def add(what, opts = {})
     return if what.nil?
+    # TODO - we aren't really using this ATM, *plus* I think we can duck-type it to #summary_name if we *do* start using it...
     name = case what
       when TaxonConcept
-        what.scientific_name
+        what.title
       when User
         what.full_name
       when DataObject

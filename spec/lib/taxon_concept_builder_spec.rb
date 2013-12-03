@@ -48,12 +48,12 @@ describe 'build_taxon_concept (spec helper method)' do
   end
 
   it 'should create a scientific name' do
-    @taxon_concept_naked.scientific_name.should_not be_nil
-    @taxon_concept_naked.scientific_name.should_not == ''
+    @taxon_concept_naked.title.should_not be_nil
+    @taxon_concept_naked.title.should_not == ''
   end
 
   it 'should create a scientific name when specified' do
-    @taxon_concept_with_args.scientific_name.should == @scientific_name
+    @taxon_concept_with_args.title.should == @scientific_name
   end
 
 end

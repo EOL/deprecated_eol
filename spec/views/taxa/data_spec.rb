@@ -13,8 +13,8 @@ describe 'taxa/data/index' do
 
   before(:each) do
     # TODO - generalize these extends for the other view specs.
-    taxon_concept = double(TaxonConcept)
-    taxon_concept.stub(:id) { 1 }
+    taxon_concept = double(TaxonConcept, id: 1)
+    taxon_concept.stub(:latest_version) { taxon_concept }
     taxon_data = double(TaxonData)
     taxon_data.stub(:taxon_concept) { taxon_concept }
     taxon_data.stub(:bad_connection?) { false }
@@ -42,10 +42,6 @@ describe 'taxa/data/index' do
     view.stub(:logged_in?) { false }
   end
 
-  context 'when the data is empty' do
-
-  end
-
   context 'with data' do
 
     # TODO - this is too much setup, and indicates that the view is doing too much work. I agree. Fix it.
@@ -53,8 +49,11 @@ describe 'taxa/data/index' do
       # TODO - all this FG nonsense could be condensed to a single FG factory. It's too much.
       @chucks = FactoryGirl.build(:known_uri_unit)
       tku = FactoryGirl.build(:translated_known_uri, name: 'chucks', known_uri: @chucks)
+      taxon_concept = double(TaxonConcept, id: 1)
+      taxon_concept.stub(:latest_version) { taxon_concept }
       dpu = DataPointUri.gen(unit_of_measure_known_uri: @chucks,
                              object: "2.354",
+                             taxon_concept: taxon_concept,
                              taxon_concept_id: 1, # Doesn't matter, but this matches above
                              vetted: Vetted.trusted,
                              visibility: Visibility.visible)

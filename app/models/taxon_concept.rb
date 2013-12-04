@@ -243,13 +243,6 @@ class TaxonConcept < ActiveRecord::Base
     User.find_all_by_id(curators)
   end
 
-  # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
-  # TODO - this is much slower than #title and should be removed.
-  def scientific_name(hierarchy = nil, italicize = true)
-    hierarchy ||= Hierarchy.default
-    quick_scientific_name(italicize && species_or_below? ? :italicized : :normal, hierarchy)
-  end
-
   # TODO - this should move to TaxonUserClassificationFilter or TaxonDetails or TaxonResources or something...
   # Returns nucleotide sequences HE
   def nucleotide_sequences_hierarchy_entry_for_taxon
@@ -321,6 +314,13 @@ class TaxonConcept < ActiveRecord::Base
     super
   end
 
+  def clear_instance_variables
+    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
+    (instance_variables - @@ar_instance_vars).each do |ivar|
+      remove_instance_variable(ivar)
+    end
+  end
+
   def clear_for_data_object(data_object)
     TaxonConceptCacheClearing.clear_for_data_object(self, data_object)
   end
@@ -368,27 +368,6 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # TODO - #title is much (!) faster.  Can we get rid of this entirely?
-  def quick_scientific_name(type = :normal, hierarchy = nil)
-    hierarchy_entry = entry(hierarchy)
-    # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
-    return nil if hierarchy_entry.nil?
-
-    search_type = case type
-      when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
-      when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id = cf.id)'}
-      else                   {:name_field => 'n.string',     :also_join => ''}
-    end
-
-    scientific_name_results = connection.execute(
-      "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
-       FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
-       WHERE he.id=#{hierarchy_entry.id}")
-
-    final_name = scientific_name_results.first.first.firstcap
-    return final_name
-  end
-
   def superceded_the_requested_id?
     @superceded_the_requested_id
   end
@@ -420,6 +399,27 @@ class TaxonConcept < ActiveRecord::Base
 
   # NOTE - the following name methods *attempt* to get what you're asking for. If such a thing isn't available, you
   # may get something different (ie: no attribution, no italics, etc).
+
+  # TODO - #title is much (!) faster.  Can we get rid of this entirely?
+  def quick_scientific_name(type = :normal, hierarchy = nil)
+    hierarchy_entry = entry(hierarchy)
+    # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
+    return nil if hierarchy_entry.nil?
+
+    search_type = case type
+      when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
+      when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id = cf.id)'}
+      else                   {:name_field => 'n.string',     :also_join => ''}
+    end
+
+    scientific_name_results = connection.execute(
+      "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
+       FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
+       WHERE he.id=#{hierarchy_entry.id}")
+
+    final_name = scientific_name_results.first.first.firstcap
+    return final_name
+  end
 
   # TODO - these should be renamed to scientific_name, and #title should be an alias to this method on TaxonPage.
   # (There shouldn't be a "title" for a taxon_concept.)
@@ -618,21 +618,22 @@ class TaxonConcept < ActiveRecord::Base
 
   # returns a DataObject, not a TaxonConceptExemplarImage
   def published_exemplar_image
-    return @published_exemplar_image if @published_exemplar_image_calculated # NOTE - weird, but ...
-    @published_exemplar_image_calculated = true # NOTE ...since @published_exemplar_image can be nil, we need this.
+    return @published_exemplar_image if defined?(@published_exemplar_image)
+    @published_exemplar_image = nil
     if concept_exemplar_image = taxon_concept_exemplar_image
       if the_best_image = concept_exemplar_image.data_object
-        if the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
-          unless the_best_image.published?
-            # best_image may end up being NIL, which means there is no published version
-            # of it anymore - the example is no longer available. We don't want to show
-            # unpublished exemplar images
-            the_best_image = the_best_image.latest_published_version_in_same_language
-          end
-          return @published_exemplar_image = the_best_image
+        # NOTE - using if-not rather than unless because I think that's clearer with the elsif
+        if ! the_best_image.published?
+          # Someone has selected an exemplar image which is now unpublished. Remove it.
+          concept_exemplar_image.destroy
+        # TODO - we should have a DataObject#visible_for_taxon_concept?(tc) method.
+        elsif the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
+          the_best_image = the_best_image.latest_published_version_in_same_language
+          @published_exemplar_image = the_best_image
         end
       end
     end
+    @published_exemplar_image
   end
 
   # returns a DataObject, not a TaxonConceptExemplarArticle
@@ -967,13 +968,6 @@ class TaxonConcept < ActiveRecord::Base
   end
 
 private
-
-  def clear_instance_variables
-    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
-    (instance_variables - @@ar_instance_vars).each do |ivar|
-      remove_instance_variable(ivar)
-    end
-  end
 
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user

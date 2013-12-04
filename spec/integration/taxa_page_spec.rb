@@ -41,7 +41,7 @@ describe 'Taxa page' do
     @hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries[0]
     @user = @testy[:user]
     Capybara.reset_sessions!
-    Activity.create_defaults
+    Activity.create_enumerated
   end
 
   shared_examples_for 'taxon details tab' do

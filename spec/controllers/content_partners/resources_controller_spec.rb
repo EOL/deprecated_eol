@@ -11,8 +11,10 @@ describe ContentPartners::ResourcesController do
     unless @user = User.find_by_username('partner_resources_controller')
       truncate_all_tables
       Language.create_english
-      CuratorLevel.create_defaults
-      UserIdentity.create_defaults
+      CuratorLevel.create_enumerated
+      ContentPartnerStatus.create_enumerated
+      License.create_enumerated
+      UserIdentity.create_enumerated
       @user = User.gen(:username => 'partner_resources_controller')
     end
     @content_partner = ContentPartner.gen(:user => @user, :full_name => 'Test content partner')
@@ -51,6 +53,8 @@ describe ContentPartners::ResourcesController do
       get :new, { :content_partner_id => @content_partner.id }
       response.should_not render_template('content_partners/resources/new')
       expect(response).to redirect_to(login_url)
+      # Really need to have at least one license to show:
+      License.last.update_attributes(show_to_content_partners: 1)
       get :new, { :content_partner_id => @content_partner.id }, { :user => @user, :user_id => @user.id }
       response.should render_template('content_partners/resources/new')
       response.status.should == 200

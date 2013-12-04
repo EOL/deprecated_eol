@@ -43,7 +43,7 @@ class DataSearchController < ApplicationController
       end
       format.js do   # Background download...
         df = create_data_search_file
-        @message = if df.file_exists?
+        @message = if df.hosted_file_exists?
                      I18n.t(:file_download_ready, file: df.download_path, query: @querystring)
                    else
                      I18n.t(:file_download_pending, link: data_search_files_path)

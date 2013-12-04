@@ -7,7 +7,7 @@ describe SessionsController do
            (@connected_user = User.find_by_username('oauth_session_controller_spec'))
       truncate_all_tables
       Language.create_english
-      CuratorLevel.create_defaults
+      CuratorLevel.create_enumerated
       @user = User.gen(:username => 'session_controller_spec', :password => 'password')
       @connected_user = User.gen(:username => 'oauth_session_controller_spec')
       @connected_user.open_authentications_attributes = [{ :provider => 'facebook',

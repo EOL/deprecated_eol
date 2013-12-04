@@ -117,7 +117,7 @@ end
   data[:comments] << {:user_id => user.id, :target_class => 'TaxonConcept', :target_id => taxon.id, :body => body}
 end
 
-CuratorLevel.create_defaults
+CuratorLevel.create_enumerated
 
 # TODO - make a curator.  Have him comment on his taxa and on NOT his taxa.
 # TODO - have the curator curate some stuff: hide/show, hide, trust, untrust, unreview.

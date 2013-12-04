@@ -6,7 +6,10 @@ describe TaxonData do
   before(:all) do
     truncate_all_tables
     drop_all_virtuoso_graphs
-    SpecialCollection.create_defaults
+    License.create_enumerated
+    ResourceStatus.create_enumerated
+    SpecialCollection.create_enumerated
+    ContentPartnerStatus.create_enumerated
     @taxon_concept = TaxonConcept.gen
     @user = User.gen
     @prep_string = TaxonData.prepare_search_query(querystring: 'foo')

@@ -14,6 +14,29 @@ class KnownUri < ActiveRecord::Base
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   include EOL::CuratableAssociation
 
+  include Enumerated
+  enumerated :uri, [
+    { measure:     Rails.configuration.uri_measurement_unit },
+    { sex:         Rails.configuration.uri_dwc + 'sex' },
+    { male:        Rails.configuration.uri_term_prefix + 'male'},
+    { female:      Rails.configuration.uri_term_prefix + 'female'},
+    { source:      Rails.configuration.uri_dc + 'source' },
+    { license:     Rails.configuration.uri_dc + 'license' },
+    { reference:   Rails.configuration.uri_dc + 'bibliographicCitation' },
+    { milligrams:  Rails.configuration.uri_obo + 'UO_0000022'},
+    { grams:       Rails.configuration.uri_obo + 'UO_0000021'},
+    { kilograms:   Rails.configuration.uri_obo + 'UO_0000009'},
+    { millimeters: Rails.configuration.uri_obo + 'UO_0000016'},
+    { centimeters: Rails.configuration.uri_obo + 'UO_0000015'}, # Is 15 correct?  Or 81?
+    { meters:      Rails.configuration.uri_obo + 'UO_0000008'},
+    { kelvin:      Rails.configuration.uri_obo + 'UO_0000012'},
+    { celsius:     Rails.configuration.uri_obo + 'UO_0000027'},
+    { days:        Rails.configuration.uri_obo + 'UO_0000033'},
+    { years:       Rails.configuration.uri_obo + 'UO_0000036'},
+    { tenth_c:     Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius'},
+    { log10_grams: Rails.configuration.schema_terms_prefix + 'log10gram'}
+  ]
+
   acts_as_list
 
   uses_translations
@@ -53,6 +76,7 @@ class KnownUri < ActiveRecord::Base
   scope :values, -> { where(uri_type_id: UriType.value.id) }
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
+  scope :visible, -> { where(visibility_id: Visibility.visible.id) }
 
   COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
@@ -73,21 +97,11 @@ class KnownUri < ActiveRecord::Base
     converted.sub(/^([0-9])/, "_\\1")
   end
 
-  COMMON_URIS.each do |info|
-    eigenclass = class << self; self; end
-    eigenclass.class_eval do
-      variable_name = KnownUri.convert_unit_name_to_class_variable_name(info[:name])
-      define_method(variable_name) do
-        return class_variable_get("@@#{variable_name}".to_sym) if class_variable_defined?("@@#{variable_name}".to_sym)
-        class_variable_set("@@#{variable_name}".to_sym, cached_find(:uri, info[:uri]))
-      end
-    end
-  end
-
+  # This gets called a LOT.  ...Like... a *lot* a lot. But...
+  # DO NOT make a class variable for this because we will need to flush the cache frequently as we
+  # add/remove accepted values for UnitOfMeasure. We need to keep it in a central cache, rather than
+  # in a class variable on each app server
   def self.unit_of_measure
-    # DO NOT make a class variable for this because we will need to flush the cache frequently as we
-    # add/remove accepted values for UnitOfMeasure. We need to keep it in a central cache, rather than
-    # in a class variable on each app server
     cached('unit_of_measure') do
       KnownUri.where(:uri => Rails.configuration.uri_measurement_unit).includes({ :known_uri_relationships_as_subject => :to_known_uri } ).first
     end
@@ -99,10 +113,6 @@ class KnownUri < ActiveRecord::Base
       trans = TranslatedKnownUri.create(options.merge(known_uri: uri))
     end
     uri
-  end
-
-  def self.license
-    cached_find_translated(:name, 'License')
   end
 
   def self.custom(name, language)

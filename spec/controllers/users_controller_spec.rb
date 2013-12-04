@@ -8,9 +8,9 @@ describe UsersController do
       truncate_all_tables
       Language.create_english
       SpecialCollection.gen(:name => 'Watch')
-      CuratorLevel.create_defaults
-      UserIdentity.create_defaults
-      Activity.create_defaults
+      CuratorLevel.create_enumerated
+      UserIdentity.create_enumerated
+      Activity.create_enumerated
       @user = User.gen(:username => 'users_controller_spec')
       cot = ChangeableObjectType.gen(:ch_object_type => 'synonym')
     end

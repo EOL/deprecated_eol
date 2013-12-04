@@ -4,11 +4,11 @@ num_keys = 100
 
 puts "++ Turning off logging for this test."
 
-keys = []
-num_keys.times do |i|
-  keys << "some/strange/path/to_#{i}"
-  Rails.cache.mute { Rails.cache.delete(keys.last) }
-end
+  keys = []
+  num_keys.times do |i|
+    keys << "some/strange/path/to_#{i}"
+    Rails.cache.mute { Rails.cache.delete(keys.last) }
+  end
 
 Benchmark.bm do |x|
 
@@ -25,10 +25,3 @@ Benchmark.bm do |x|
   end
 
 end
-
-# Cleanup:
-keys = []
-keys.each do |key|
-  Rails.cache.mute { Rails.cache.delete(key) }
-end
-

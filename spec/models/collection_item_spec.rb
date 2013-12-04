@@ -10,7 +10,7 @@ describe CollectionItem do
     end
     @collection = Collection.gen
     @taxon_concept = TaxonConcept.last
-    SortStyle.create_defaults
+    SortStyle.create_enumerated
   end
 
   it 'should add/modify/remove an annotation' do

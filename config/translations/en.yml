@@ -497,7 +497,7 @@ en:
         known_uri:
           attributes:
             uri:
-              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
         open_authentications:
           guid_provider_must_be_unique: "the third-party account is already connected with an EOL account"
           provider_user_id_must_be_unique: "only one account from each third-party provider can be connected to an EOL account"
@@ -516,18 +516,18 @@ en:
         user_added_data:
           attributes:
             predicate:
-              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
             subject:
-              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
         user_added_data_metadata:
           attributes:
             predicate:
-              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
             subject:
-              must_be_uri: "must be a well-formed <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+              must_be_uri: "must be a well-formed <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
               namespace: "used a namespace that was not recognized"
         known_uri_relationship:
           attributes:
@@ -710,7 +710,7 @@ en:
         username: "Username <small>(4 - 32 characters)</small>"
         username_or_email: "Username or email address"
       wikipedia_queue:
-        revision_url: "Revision URL <small>(e.g. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>"
+        revision_url: "Revision URL <small>(e.g. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>"
         revision_url_more: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
     select:
       prompt: "Please select"
@@ -4796,13 +4796,13 @@ en:
   who_registered_before: "to"
   who_registered_from: "who registered from"
   wikipedia_queue_create_successful_notice: "Wikipedia article %{article} revision %{rev} has been queued for import."
-  wikipedia_queue_create_unsuccessful_error: "Sorry an error occurred, the Wikipedia article was not queued for import.<br />Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+  wikipedia_queue_create_unsuccessful_error: "Sorry an error occurred, the Wikipedia article was not queued for import.<br />Revision URL must match https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
   wikipedia_queue_new_intro: "Submit a revision of a Wikipedia article to be ingested into EOL as a vetted text object."
   wikipedia_queue_new_instructions_intro: "To find the revision URL of a Wikipedia article:"
-  wikipedia_queue_new_instructions_step_one: "Go to the article page on Wikipedia, e.g. <a rel=\"nofollow\" href=\"http://en.wikipedia.org/w/index.php?title=Giraffe\">http://en.wikipedia.org/w/index.php?title=Giraffe</a>"
+  wikipedia_queue_new_instructions_step_one: "Go to the article page on Wikipedia, e.g. <a rel=\"nofollow\" href=\"https://en.wikipedia.org/w/index.php?title=Giraffe\">https://en.wikipedia.org/w/index.php?title=Giraffe</a>"
   wikipedia_queue_new_instructions_step_two: "Expand the 'Toolbox' menu listed in the navigation column, and nested inside you should see the 'Permanent link' menu item."
   wikipedia_queue_new_instructions_step_three: "Follow the 'Permanent link' menu item. This is the current revision URL and will take you to the current version of the article from which you can navigate to previous versions."
-  wikipedia_queue_new_instructions_step_four: "Copy the revision URL from your browser and paste it into the Wikipedia import request form displayed here, the revision URL should look something like <a rel=\"nofollow\" href=\"http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>"
+  wikipedia_queue_new_instructions_step_four: "Copy the revision URL from your browser and paste it into the Wikipedia import request form displayed here, the revision URL should look something like <a rel=\"nofollow\" href=\"https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>"
   wikipedia_queue_new_page_title: "Request an import of a Wikipedia article"
   will_find_taxon_pages_matching_the_search_term: "will find taxon pages if the preferred name or any synonym or common name exactly matches the search term"
   would_you_like_to_become_a_curator_notice: "Would you like to become a curator? You can request access on <a href='%{url}'>your profile page</a>."

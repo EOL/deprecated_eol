@@ -6,13 +6,13 @@ describe DataObjectTaxon do
 
   before(:all) do
     # Mini-foundation. Perhaps we should extract this as a method in the spec helper:
-    DataType.create_defaults
-    License.create_defaults
-    CuratorLevel.create_defaults
-    Vetted.create_defaults
-    Visibility.create_defaults
-    Activity.create_defaults
-    ChangeableObjectType.create_defaults
+    DataType.create_enumerated
+    License.create_enumerated
+    CuratorLevel.create_enumerated
+    Vetted.create_enumerated
+    Visibility.create_enumerated
+    Activity.create_enumerated
+    ChangeableObjectType.create_enumerated
 
     @master = gen_curator(curator_level: CuratorLevel.master)
     @curator = gen_curator(curator_level: CuratorLevel.full)

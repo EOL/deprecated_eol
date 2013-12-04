@@ -76,12 +76,12 @@ describe TaxonUserClassificationFilter do
   # or a virus name" ...which we don't want to do here, but we should do elsewhere...
   it 'should get title from entry when availble' do
     @entry.should_receive(:title_canonical_italicized).and_return "mush"
-    @taxon_page_with_entry.scientific_name.should == "mush"
+    @taxon_page_with_entry.title.should == "mush"
   end
 
   it 'should get title from taxon_concept when no entry availble' do
     @taxon_concept.should_receive(:title_canonical_italicized).and_return "goober"
-    @taxon_page.scientific_name.should == "goober"
+    @taxon_page.title.should == "goober"
   end
 
   # NOTE - we count using two different algorithms.  :\

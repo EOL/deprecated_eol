@@ -200,6 +200,8 @@ class DataObjectsController < ApplicationController
 
   # GET /data_objects/:id
   def show
+    # TODO - nononono, this isn't how DataObjectCaching is meant to be used! Call @data_object.best_title and let that class handle
+    # the caching.
     @page_title = DataObjectCaching.title(@data_object, current_language)
     get_attribution
     @slim_container = true

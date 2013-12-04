@@ -96,6 +96,8 @@ class DataSearchFile < ActiveRecord::Base
     col_heads
   end
 
+  # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file for users of Excel. q.v.:
+  # http://stackoverflow.com/questions/9886705/how-to-write-bom-marker-to-a-file-in-ruby
   def write_file(rows)
     col_heads = get_headers(rows)
     CSV.open(local_file_path, 'wb') do |csv|

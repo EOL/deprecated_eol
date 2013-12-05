@@ -43,7 +43,7 @@
           - row_class = cycle('odd','even')
           - if udo.taxon_concept_id
             - concept = TaxonConcept.find(udo.taxon_concept_id)
-            - name = concept.quick_scientific_name(:italicized)
+            - name = concept.title
           - else
             - name = ""
           %tr{ :valign => "top" }

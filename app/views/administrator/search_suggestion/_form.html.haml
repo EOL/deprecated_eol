@@ -19,7 +19,7 @@
         %br
         =I18n.t("the_suggested_page_to_direct_users_to_link")
       %td
-        = link_to @search_suggestion.taxon_concept.quick_scientific_name, taxon_url(:id=>@search_suggestion.taxon_id), :target=>'_blank'
+        = link_to @search_suggestion.taxon_concept.summary_name, taxon_url(:id=>@search_suggestion.taxon_id), :target=>'_blank'
   %tr
     %td
       %strong

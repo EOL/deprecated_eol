@@ -400,27 +400,6 @@ class TaxonConcept < ActiveRecord::Base
   # NOTE - the following name methods *attempt* to get what you're asking for. If such a thing isn't available, you
   # may get something different (ie: no attribution, no italics, etc).
 
-  # TODO - #title is much (!) faster.  Can we get rid of this entirely?
-  def quick_scientific_name(type = :normal, hierarchy = nil)
-    hierarchy_entry = entry(hierarchy)
-    # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
-    return nil if hierarchy_entry.nil?
-
-    search_type = case type
-      when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
-      when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id = cf.id)'}
-      else                   {:name_field => 'n.string',     :also_join => ''}
-    end
-
-    scientific_name_results = connection.execute(
-      "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
-       FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
-       WHERE he.id=#{hierarchy_entry.id}")
-
-    final_name = scientific_name_results.first.first.firstcap
-    return final_name
-  end
-
   # TODO - these should be renamed to scientific_name, and #title should be an alias to this method on TaxonPage.
   # (There shouldn't be a "title" for a taxon_concept.)
 

@@ -7,7 +7,7 @@
       %h3= I18n.t(:biomedical_terms)
       %p
         = raw(I18n.t(:biomedical_terms_introduction, :pubmed_url => 'http://pubmed.gov',
-          :scientific_name => @taxon_concept.quick_scientific_name,
+          :scientific_name => @taxon_concept.summary_name,
           :ligercat_url => 'http://ligercat.ubio.org',
           :mesh_url => 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=mesh'))
     = render :partial => '/shared/embed_external_page', :locals  => {:height => '200', :width => '100%', :url => "http://ligercat.ubio.org/eol/#{@taxon_concept.id}.cloud"}

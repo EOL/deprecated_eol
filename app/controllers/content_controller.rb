@@ -51,7 +51,8 @@ class ContentController < ApplicationController
     @items = []
 
     if !taxon_concept.nil?
-      @title = "for "+ taxon_concept.quick_scientific_name(:normal)
+      # TODO - ummmn... no.  This needs I18n, or an explanation as to why it doesn't:
+      @title = "for "+ taxon_concept.summary_name
 
       do_ids = TopConceptImage.find(:all,
         :select => 'data_object_id',

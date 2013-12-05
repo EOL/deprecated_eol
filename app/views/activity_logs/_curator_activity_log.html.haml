@@ -52,13 +52,13 @@
     - taxon_link = link_to_item(item.data_point_uri)
   - elsif item.is_for_type?(:user_added_data)
     - taxon_link = link_to_item(item.user_added_data.data_point_uri)
-  - translation_vars[:taxon] = link_to(raw(item.taxon_concept.quick_scientific_name), taxon_link, :style => link_style)
+  - translation_vars[:taxon] = link_to(raw(item.taxon_concept.summary_name), taxon_link, :style => link_style)
 -# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):
 -# THE MERGE/SPLIT ACTIVITIES ARE LEGACY...
 - if item.activity_id == Activity.merge_classifications.id && item.is_for_type?(:taxon_concept)
   - tc = TaxonConcept.find(item.target_id) rescue nil
   - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
-  - translation_vars[:taxon] = link_to(tc.quick_scientific_name, taxon_url(tc), :style => link_style)
+  - translation_vars[:taxon] = link_to(tc.summary_name, taxon_url(tc), :style => link_style)
 - if (item.activity_id == Activity.split_classifications.id || item.activity_id == Activity.merge_classifications.id || item.activity_id == Activity.preferred_classification.id) && item.hierarchy_entry
   - provider = hierarchy_entry_display_attribution(HierarchyEntry.find(item.hierarchy_entry), :show_rank => false, :show_link => true)
   - if item.hierarchy_entry.has_source_database?
@@ -114,7 +114,7 @@
     - if item.classification_curation
       - translation_vars[:classifications] = item.classification_curation.hierarchy_entries.map {|he| he.hierarchy.display_title }.to_sentence
       - target_type = item.classification_curation.moved_to ? 'taxon' : 'an_unknown_taxon'
-      - translation_vars[:target] = item.classification_curation.moved_to ? link_to(item.classification_curation.moved_to.quick_scientific_name, taxon_url(item.classification_curation.moved_to), :style => link_style) : nil
+      - translation_vars[:target] = item.classification_curation.moved_to ? link_to(item.classification_curation.moved_to.summary_name, taxon_url(item.classification_curation.moved_to), :style => link_style) : nil
       - if item.classification_curation.split?
         - translation_vars[:to] = taxon_url(item.classification_curation.split_to)
         = raw I18n.t("classification_curation.split.#{user_type}_split_classifications_from_#{taxon_type}", translation_vars)
@@ -127,7 +127,7 @@
         - if source_tc.nil? || ! source_tc.is_a?(TaxonConcept)
           - taxon_type = 'an_unknown_taxon'
         - else
-          - translation_vars[:taxon] = link_to(source_tc.quick_scientific_name, taxon_url(source_tc), :style => link_style)
+          - translation_vars[:taxon] = link_to(source_tc.summary_name, taxon_url(source_tc), :style => link_style)
         = raw I18n.t("classification_curation.move.#{user_type}_moved_classifications_from_#{taxon_type}_to_#{target_type}", translation_vars)
     - else
       = raw I18n.t("classification_curation.#{user_type}_curated_unkown_classification_from_#{taxon_type}", translation_vars)

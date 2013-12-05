@@ -415,15 +415,15 @@ $(function() {
   });
 
   // uncheck media list filter All when other options are selected
-  $("#media_list #sidebar input[type=checkbox][value!='all']").on('click', function() {
-    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
+  $("#sidebar input[type=checkbox][value!='all']").on('click', function() {
+    $("#sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
   });
   // uncheck all other media list filter options when All is selected
-  $("#media_list #sidebar input[type=checkbox][value='all']").on('click', function() {
-    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
+  $("#sidebar input[type=checkbox][value='all']").on('click', function() {
+    $("#sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
   });
   // disable the checkboxes for filter categories with no results
-  $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
+  $("#sidebar li.no_results input[type=checkbox]").attr("disabled", true);
 
   $('.button.confirm').on('click', function() {
     if(confirm($(this).attr('data_confirm'))) { return true; } else { return false; }

@@ -314,7 +314,7 @@ formValidatorController = {
                 /*@cc_on@*/
                 /*@if(@_win32)
                 e.cancelBubble = true;
-                e.returnValue = false;
+                e.preventDefault()
                 /*@end@*/
 
                 return false;

@@ -6,7 +6,7 @@ class Administrator::HierarchyController < AdminController
   # Check views; if unused elsewhere, delete.
   # Delete this controller.
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   helper :resources
 

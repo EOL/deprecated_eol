@@ -54,7 +54,7 @@ private
   def choose_layout
     @page_title ||= $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'
-    'left_menu'
+    'deprecated/left_menu'
   end
   
   def get_google_stat_year_list

@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   before_filter :check_authentication
   before_filter :set_no_cache

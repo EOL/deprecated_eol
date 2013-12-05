@@ -1,6 +1,6 @@
 class Administrator::GlossaryController < AdminController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   helper :resources
 

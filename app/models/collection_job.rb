@@ -120,7 +120,7 @@ private
   end
 
   def move
-    ids_before_move = collections.map { |c| c.collection_items.select('id').map(&:id) }.flatten # Possibly expensive on super-large collections, but we need it.
+    ids_before_move = collections.flat_map { |c| c.collection_items.select('id').map(&:id) } # Possibly expensive on super-large collections, but we need it.
     transaction do
       delete_duplicates if overwrite? # Since we're overwriting, we need to get rid of conflicts
       collections.each do |target_collection|
@@ -134,7 +134,7 @@ private
       end
     end
     if ids_before_move.empty?
-      collections.map { |c| c.reload.collection_items }.flatten
+      collections.flat_map { |c| c.reload.collection_items }
     else
       CollectionItem.where(["collection_id IN (?) AND NOT id IN (?)", collections.map(&:id), ids_before_move])
     end

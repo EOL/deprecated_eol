@@ -1087,7 +1087,7 @@ class DataObject < ActiveRecord::Base
 
   # Used for notifications only. Expensive.
   def watch_collections_for_associated_taxa
-    data_object_taxa(published: true).map(&:taxon_concept).map { |tc| tc.containing_collections.watch }.flatten
+    data_object_taxa(published: true).map(&:taxon_concept).flat_map { |tc| tc.containing_collections.watch }
   end
 
   def title_same_as_toc_label(toc_item, options = {})

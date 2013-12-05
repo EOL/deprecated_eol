@@ -113,7 +113,7 @@ private
 
   def get_toc_text(which)
     # A little messier, since it can get arrays back:
-    types = Array(which).map { |t| TocItem.send(t) }.flatten.map(&:id)
+    types = Array(which).flat_map { |t| TocItem.send(t) }.map(&:id)
     @taxon_page.text(
       :language_ids => [ current_language.id ],
       :toc_ids => types,

@@ -9,7 +9,7 @@ module ActiveRecord
           if options && options[:select]
             new_options[:select] = options[:select].dup
           end
-          Preloader.new(records.map { |record| record.send(parent) }.flatten, child, new_options).run
+          Preloader.new(records.flat_map { |record| record.send(parent) }, child, new_options).run
         end
       end
       

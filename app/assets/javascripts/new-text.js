@@ -46,8 +46,8 @@ if (!EOL.Text.already_loaded) {
         });
       });
       // Give the user another reference field
-      $('div#add_user_text_references input#add_more_user_text_reference').unbind('click');
-      $('div#add_user_text_references input#add_more_user_text_reference').on('click', function(e) {
+      $('input#add_more_user_text_reference').unbind('click');
+      $('input#add_more_user_text_reference').on('click', function(e) {
         $('#add_user_text_references_input').append('<textarea rows="3" name="references[]" id="references[]" cols="33"/>');
         return false;
       });

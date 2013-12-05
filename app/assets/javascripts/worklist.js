@@ -8,9 +8,9 @@ EOL.init_worklist_behaviors = function() {
   init_comments();
   init_curation();
   $("#tasks li").unbind('click');
-  $('#worklist #tasks li').on('click', function() {
-    if($('#worklist #tasks li.active span.indicator').html() != '') {
-      $('#worklist #tasks li.active span.indicator').removeClass('invisible');
+  $('#tasks li').on('click', function() {
+    if($('#tasks li.active span.indicator').html() != '') {
+      $('#tasks li.active span.indicator').removeClass('invisible');
     }
 
     $(this).closest('ul').find("li").removeClass("active");
@@ -33,8 +33,8 @@ EOL.init_worklist_behaviors = function() {
     return(false);
   });
 
-  $('#worklist #tasks p.more a').unbind('click');
-  $('#worklist #tasks p.more a').on('click', function() {
+  $('#tasks p.more a').unbind('click');
+  $('#tasks p.more a').on('click', function() {
     var $update = $(this).closest('#worklist');
     var current_link = $(this).attr('href');
     $(this).attr('href', current_link + (current_link.indexOf('?') != -1 ? "&ajax=1" : "?ajax=1"));
@@ -86,22 +86,22 @@ function resize_task_panel() {
 }
 function update_active_indicator(message) {
   if(message == 'Saved') {
-    $('#worklist #tasks li.active').removeClass('ignored');
-    $('#worklist #tasks li.active').addClass('saved');
-    $('#worklist #tasks li.active span.indicator').html(message);
+    $('#tasks li.active').removeClass('ignored');
+    $('#tasks li.active').addClass('saved');
+    $('#tasks li.active span.indicator').html(message);
   }else if(message == 'Ignored') {
-    $('#worklist #tasks li.active').removeClass('saved');
-    if($('#worklist #tasks li.active').hasClass('ignored')) {
-      $('#worklist #tasks li.active').removeClass('ignored');
-      $('#worklist #tasks li.active span.indicator').html('');
+    $('#tasks li.active').removeClass('saved');
+    if($('#tasks li.active').hasClass('ignored')) {
+      $('#tasks li.active').removeClass('ignored');
+      $('#tasks li.active span.indicator').html('');
     }else
     {
-      $('#worklist #tasks li.active').addClass('ignored');
-      $('#worklist #tasks li.active span.indicator').html(message);
+      $('#tasks li.active').addClass('ignored');
+      $('#tasks li.active span.indicator').html(message);
     }
   }else
   {
-    $('#worklist #tasks li.active span.indicator').html(message);
+    $('#tasks li.active span.indicator').html(message);
   }
   init_comments();
 }

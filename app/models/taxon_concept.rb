@@ -433,9 +433,8 @@ class TaxonConcept < ActiveRecord::Base
     "TaxonConcept ##{id}: #{title}"
   end
 
-  # TODO - make a Commentable mixin
-  def comment user, body
-    comment = comments.create :user => user, :body => body
+  def comment(user, body)
+    comment = comments.create user: user, body: body
     user.comments.reload # be friendly - update the user's comments automatically
     comment
   end

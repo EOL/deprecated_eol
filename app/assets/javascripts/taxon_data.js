@@ -30,7 +30,7 @@ EOL.enable_info_dialogs = function(tip) {
         $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
         $info.show('fast',
           function() {
-            $('.site_column').click(function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
+            $('.site_column').on('click', function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
           }
         ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false) } );
       }
@@ -383,12 +383,12 @@ $(function() {
     }
   }).disableSelection();
 
-  $('#sortable a.to_top').click(function() {
+  $('#sortable a.to_top').on('click', function() {
     $.post("/known_uris/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') })
     return(false);
   });
 
-  $('#sortable a.to_bottom').click(function() {
+  $('#sortable a.to_bottom').on('click', function() {
     $.post("/known_uris/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') })
     return(false);
   });
@@ -413,7 +413,7 @@ $(function() {
 
   EOL.enable_hover_list_items();
 
-  $('.page_actions .data_download a').click(function() {
+  $('.page_actions .data_download a').on('click', function() {
     window.alert($(this).parent().attr('data-alert').replace(/<\/?[^>]+>/g, ''));
   });
 

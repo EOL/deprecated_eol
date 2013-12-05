@@ -60,7 +60,7 @@ EOL.Curation.post_curate_text = function(args, page_type) {
 };
 
 $(document).ready(function() {
-  $('form.curation_form input[type="submit"]').click(function() {
+  $('form.curation_form input[type="submit"]').on('click', function() {
     var form = $(this).closest('form');
     var page_type = form.attr('data-page_type');
     form.find('div.processing').show();
@@ -105,35 +105,35 @@ $(document).ready(function() {
     return false;
   });
   // Show untrust reasons when it's ... uhhh.... untrusted. 
-  $('div.vetted .untrust input[type="radio"]').click(function() {
+  $('div.vetted .untrust input[type="radio"]').on('click', function() {
     $(this).parent().find('.untrust_reason').parent().parent().find('b').show().css("color","black");
     $(this).parent().find('div.reason').slideDown();
   });
   // Hide untrust reasons when it's trusted:
-  $('div.vetted .trust input[type="radio"]').click(function() {
+  $('div.vetted .trust input[type="radio"]').on('click', function() {
     $(this).parent().parent().find('div.reason').slideUp();
   });
   // Hide untrust reasons when it's unreviewed:
-  $('div.vetted .unreviewed input[type="radio"]').click(function() {
+  $('div.vetted .unreviewed input[type="radio"]').on('click', function() {
     $(this).parent().parent().find('div.reason').slideUp();
   });
   // Cancel button just clicks the closest close-link:
-  $('form.curation .cancel-button').click(function() {
+  $('form.curation .cancel-button').on('click', function() {
     $(this).closest('div.overlay, div.text-slidebox-container').find('a.close, a.close-button').click();
   });
   // Text curation isn't an overlay, so we need to manually make the close link work:
-  $('div.text_curation_close a.close-button').click(function() {
+  $('div.text_curation_close a.close-button').on('click', function() {
     $(this).parent().parent().parent().slideUp();
   });
   // Curation of classifications: show all classifications if they start splitting / moving:
-  $('td.show_all input').click(function(e) {
+  $('td.show_all input').on('click', function(e) {
     var $show_all_link = $('#show_other_classifications');
     window.location = $show_all_link.attr('href') + "&split_hierarchy_entry_id[]=" + $(e.target).val();
     $('div.main_container').children().fadeOut(function() {$('#please_wait').fadeIn();});
   });
   // Check all checkboxes when you check the header:
   $('th.check_all').append('<input class="chek_all_from_header" type="checkbox"/>');
-  $('input.chek_all_from_header').click(function(e) {
+  $('input.chek_all_from_header').on('click', function(e) {
     $(e.target).closest('table').find('td input[type=checkbox]').attr('checked', $(e.target).is(':checked'));
   });
 });

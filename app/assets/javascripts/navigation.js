@@ -12,7 +12,7 @@ if (!EOL.expand_clade_behavior) {
     if(EOL.clade_behavior_needs_load == 'yes') {
       EOL.clade_behavior_needs_load = 'nope';
       if (!EOL.expanding_clade_spinner) { EOL.expanding_clade_spinner = $('#orig-clade-spinner').html(); }
-      $('a.expand-clade').click(function() {
+      $('a.expand-clade').on('click', function() {
         $(this).append(EOL.expanding_clade_spinner);
         $('value_' + $(this).attr('clade_id')).html(EOL.indicator_arrows_html);
         // TODO - This is EXTREMELY inefficient in that it re-loads the current page with a given node expanded and then grabs
@@ -57,7 +57,7 @@ function update_browser_stats(hierarchy_entry_id, expand) {
 
 // Expand the mini-tree on the taxon overview:
 $(document).ready(function() {
-  $('.browsable.classifications a.show_tree').unbind('click').click(function() {
+  $('.browsable.classifications a.show_tree').unbind('click').on('click', function() {
     var $update = $(this).closest('.browsable.classifications');
     var data = "lang=" + $('html').attr('lang');
     EOL.ajax_submit($(this), {update: $update, type: 'GET', data: data});

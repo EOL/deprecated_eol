@@ -1,9 +1,9 @@
 dragged_div = null;
 $(document).ready(function() {
-  $("#tc1 + input").click(function() { lookup_concept('#tc1');});
-  $("#he1 + input").click(function() { lookup_entry('#he1');});
-  $("#tc2 + input").click(function() { lookup_concept('#tc2');});
-  $("#he2 + input").click(function() { lookup_entry('#he2');});
+  $("#tc1 + input").on('click', function() { lookup_concept('#tc1');});
+  $("#he1 + input").on('click', function() { lookup_entry('#he1');});
+  $("#tc2 + input").on('click', function() { lookup_concept('#tc2');});
+  $("#he2 + input").on('click', function() { lookup_entry('#he2');});
   
   $("#merge_concepts")
     .hover(
@@ -14,7 +14,7 @@ $(document).ready(function() {
         $(this).removeClass('entry_hover');
       }
     )
-    .click(function() {
+    .on('click', function() {
       var num_left_entries = $("#left_panel .entry_details").length;
       var num_right_entries = $("#right_panel .entry_details").length;
       if(num_left_entries == 0 || num_right_entries == 0) {

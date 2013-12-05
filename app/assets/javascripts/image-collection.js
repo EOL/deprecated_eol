@@ -36,7 +36,7 @@ if (!EOL.replace_dato_id || !EOL.click_selected_image || !EOL.toggle_main_img_ic
 
   EOL.init_image_collection_behaviors = function() {
     // Image pagination:
-    $('.mc-navigation a').click(function() {
+    $('.mc-navigation a').on('click', function() {
       $.ajax({
         url: $(this).attr('href'),
         beforeSend: function() {EOL.close_open_overlays(); $('#media-images').fadeTo(300, 0.3);},
@@ -56,11 +56,11 @@ if (!EOL.replace_dato_id || !EOL.click_selected_image || !EOL.toggle_main_img_ic
     // Show warnings for unvetted thumbnails:
     $("#image-collection img[title]").tooltip();
     // clicking the large image shows its attribution
-    $('img.main-image').click(function() {
+    $('img.main-image').on('click', function() {
       $('#large-image-attribution-button-popup-link').click(); // "click" the PopupLink
     });
     // Clicking on a thumbnail does... a lot:
-    $("#thumbnails a").click(function() {
+    $("#thumbnails a").on('click', function() {
       EOL.close_open_overlays();
       var id = $(this).attr('href').replace(/^.*\/(\d+)/, '$1');
       $('.overlay').fadeOut(200);
@@ -85,7 +85,7 @@ if (!EOL.replace_dato_id || !EOL.click_selected_image || !EOL.toggle_main_img_ic
       $("#photosynth-message").unbind('click');
     } else { //photosynth image
       $("#photosynth-message").html("<img src='http://mslabs-999.vo.llnwd.net/e1/inc/images/master/logo.png' height='27' alt='Photosynth' title='Image is part of a Photosynth'/>");
-      $("#photosynth-message").click(function() {
+      $("#photosynth-message").on('click', function() {
         $("#large-image #image-"+id+" td").html("<iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe>");
       });
     }

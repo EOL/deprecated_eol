@@ -4,7 +4,7 @@ if (!EOL.init_common_name_behaviors) {
   EOL.init_common_name_behaviors = function() {
     // Just clicking on a preferred name submits the form (and reloads the page):
     $('td.preferred_name_selector input[type="radio"]').unbind('click');
-    $('td.preferred_name_selector input[type="radio"]').click(function() {
+    $('td.preferred_name_selector input[type="radio"]').on('click', function() {
       var form = $(this).closest('form');
       form.submit();
     });
@@ -20,7 +20,7 @@ if (!EOL.init_common_name_behaviors) {
     });
     // Confirm adding a common name:
     $("#add_common_name_button").unbind('click');
-    $("#add_common_name_button").click(function() {
+    $("#add_common_name_button").on('click', function() {
       var name = $.trim($("#name_name_string").val());
       var language = $("#name_language").val();
       if (name != '') {

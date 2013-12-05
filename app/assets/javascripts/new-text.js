@@ -19,20 +19,20 @@ if (!EOL.Text.already_loaded) {
       });
       // Preview:
       $('input#preview_text').unbind('click');
-      $('input#preview_text').click(function() {
+      $('input#preview_text').on('click', function() {
         EOL.Text.preview_text(this);
         return false;
       });
       // Close the add-text window:
       $('#insert_text_popup a.close-button').unbind('click');
-      $('#insert_text_popup a.close-button').click(function() {
+      $('#insert_text_popup a.close-button').on('click', function() {
         $('#insert_text_popup').slideUp();
         EOL.Text.remove_preview();
         return false;
       });
       // Cancel adding text:
       $('input#cancel_edit_text').unbind('click');
-      $('input#cancel_edit_text').click(function() {
+      $('input#cancel_edit_text').on('click', function() {
         EOL.Text.cancel_edit();
         return false;
       });
@@ -47,7 +47,7 @@ if (!EOL.Text.already_loaded) {
       });
       // Give the user another reference field
       $('div#add_user_text_references input#add_more_user_text_reference').unbind('click');
-      $('div#add_user_text_references input#add_more_user_text_reference').click(function(e) {
+      $('div#add_user_text_references input#add_more_user_text_reference').on('click', function(e) {
         $('#add_user_text_references_input').append('<textarea rows="3" name="references[]" id="references[]" cols="33"/>');
         return false;
       });

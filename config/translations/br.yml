@@ -170,8 +170,10 @@ br:
         label: Tikedenn
         request_publish: Goulenn un embann
       known_uri: 
+        description: Deskrivadur
         name: Anv
         toc_items: Rummadoù
+        uri_type: Seurt URI
       name: 
         string: Anv
       news_item: 
@@ -229,6 +231,8 @@ br:
         meta_description: Deskrivadur ar metaroadennoù
         meta_keywords: gerioù alc'hwez ar metaroadennoù
         title: Titl
+      translated_known_uri: 
+        definition: Termenadur
       translated_news_item: 
         active_translation: "\nEmbannet"
         body: Korf
@@ -256,6 +260,10 @@ br:
         username: Anv implijer
       user_added_data: 
         object: Talvoudenn
+        user: Ouzhpennet gant
+      user_added_data_metadata: 
+        object: Talvoud
+        predicate: Perzh
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -299,6 +307,10 @@ br:
             publish: 
               inclusion: n'eo aotreet nemet evit an darvoud dastum diwezhañ ha nemet n'eo ket embannet an darvoud-se
         inaccessible: N'eus ket bet gallet saveteiñ an enrolladenn rak ne oa ket mat. Kontrollit ar fazioù kadarnaat hag adkasit anezho.
+        known_uri_relationship: 
+          attributes: 
+            to_known_uri_id: 
+              must_be_measurement: a rank bezañ un unanenn vuzuliañ
         open_authentications: 
           guid_provider_must_be_unique: Ar gont trede zo kevreet gant ur gont KAB dija
           provider_user_id_must_be_unique: ur gont hepken evit pep pourchaser a challer kevreañ ouzh ur gont KAB
@@ -1210,6 +1222,8 @@ br:
       page_header: "\nStategoù ar virourien"
       page_title: Stadegoù
     data: 
+      menu_link: Roadennoù
+      page_header: Stadegoù roadennoù
       page_title: Stadegoù
     data_objects: 
       menu_link: Traezoù roadennoù
@@ -1346,6 +1360,7 @@ br:
       delete_successful: Dilmaet eo bet ar gemennadenn
       deleted_subject: (dilamet)
       edit: Aozañ ar gemennadenn
+      joined_date: Enskrivet d'an %{date}
       no_subject: (danvez ebet)
       post_has_been_deleted: Dilamet eo bet ar gemennadenn-mañ
       post_written_by_user: "%{user} en deus skrivet :"
@@ -1537,7 +1552,7 @@ br:
         username: Anv implijet <small>(4 - 32 arouezenn)</small>
         username_or_email: Anv implijer pe chomlec'h postel
       wikipedia_queue: 
-        revision_url: URL doare pajenn  <small>(da skouer, http://fr.wikipedia.org/w/index.php?title=Girafe&oldid=73335161)</small>
+        revision_url: URL doare pajenn  <small>(da skouer, https://fr.wikipedia.org/w/index.php?title=Girafe&oldid=73335161)</small>
     select: 
       prompt: Diuzañ, mar plij
     submit: 
@@ -1693,6 +1708,11 @@ br:
   key: Alc'hwez
   known_uri_category_header: Rummadoù
   known_uri_name_and_uri: "%{name} (%{uri})"
+  known_uri_relationships: 
+    deleted: Dilamet eo bet an darempred
+  known_uris: 
+    relationships: Darempredoù
+    select_a_category_to_view_stats: "Diuzañ ur rummad evit gwelet ar stadegoù :"
   label: Label
   language: "Yezh :"
   language_with_count: "%{language} (%{count})"
@@ -2264,6 +2284,7 @@ br:
         meta_keywords_with_common_name: Anvioù boutin %{hierarchy_provider, anv skiantel %{preferred_common_name}
       synonyms: 
         hierarchy_entry: 
+          meta_keywords: Heñvelsterioù %{scientific_name}
           tweet_text: Heñvelsterioù da  %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
         meta_description: Heñvelsterioù da %{scientific_name}.
         meta_description_with_common_name: Heñvelsterioù da %{preferred_common_name}, zo %{scientific_name} e anv skiantel.

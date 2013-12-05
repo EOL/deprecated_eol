@@ -2369,7 +2369,7 @@ gl:
         username: Nome de usuario <small>(entre 4 e 32 caracteres)</small>
         username_or_email: Nome de usuario ou enderezo de correo electrónico
       wikipedia_queue: 
-        revision_url: "URL da revisión <small>(por exemplo: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>"
+        revision_url: "URL da revisión <small>(por exemplo: https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>"
         revision_url_more: Se insires o enderezo URL dunha revisión dalgunha páxina da Wikipedia, pídeslle á EOL que acepte esa revisión como aprobada. Substituirá a versión actual do artigo na EOL se existise o devandito artigo.
     select: 
       prompt: Por favor, selecciona
@@ -4292,10 +4292,10 @@ gl:
   who_registered_before: ao
   who_registered_from: rexistrado do
   wikipedia_queue_create_successful_notice: A revisión %{rev} do artigo "%{article}" da Wikipedia xa está na cola de importacións.
-  wikipedia_queue_create_unsuccessful_error: Sentímolo, houbo un erro. O artigo da Wikipedia non se engadiu á cola de importacións.<br/>O URL da revisión debe coincidir con http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: Sentímolo, houbo un erro. O artigo da Wikipedia non se engadiu á cola de importacións.<br />O URL da revisión debe coincidir con https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "Para atopar o enderezo URL da revisión dun artigo da Wikipedia:"
-  wikipedia_queue_new_instructions_step_four: Copia o enderezo URL da revisión desde o teu navegador e pégao no formulario de solicitude de importación da Wikipedia que se mostra aquí. O URL da revisión debe ser algo como <a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
-  wikipedia_queue_new_instructions_step_one: Vai á páxina do artigo na Wikipedia. Por exemplo, <a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: Copia o enderezo URL da revisión desde o teu navegador e pégao no formulario de solicitude de importación da Wikipedia que se mostra aquí. O URL da revisión debe ser algo como <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_instructions_step_one: Vai á páxina do artigo na Wikipedia. Por exemplo, <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: Sigue o elemento "Ligazón permanente". Este é o enderezo URL da revisión actual e levarate á versión actual do artigo desde o que poderás navegar ás versións anteriores.
   wikipedia_queue_new_instructions_step_two: Expande o menú da caixa de ferramentas presente na columna de navegación e, no seu interior, atoparás o elemento "Ligazón permanente".
   wikipedia_queue_new_intro: Envía unha revisión dun artigo da Wikipedia para integralo na EOL como un obxecto de texto aprobado.

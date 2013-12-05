@@ -344,7 +344,7 @@ sv:
         known_uri: 
           attributes: 
             uri: 
-              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              must_be_uri: måste vara en välformad <a href='https://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -371,18 +371,18 @@ sv:
         user_added_data: 
           attributes: 
             predicate: 
-              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              must_be_uri: måste vara en välformad <a href='https://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
               namespace: använde en namnrymd som inte kändes igen
             subject: 
-              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              must_be_uri: måste vara en välformad <a href='https://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
               namespace: använde en namnrymd som inte kändes igen
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              must_be_uri: måste vara en välformad <a href='https://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
               namespace: använde en namnrymd som inte kändes igen
             subject: 
-              must_be_uri: måste vara en välformad <a href='http://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
+              must_be_uri: måste vara en välformad <a href='https://sv.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a>
               namespace: använde en namnrymd som inte kändes igen
       template: 
         body: "Följande fält kunde inte valideras:"
@@ -2368,7 +2368,7 @@ sv:
         username: Användarnamn <small>(4 - 32 tecken)</small>
         username_or_email: Användarnamn eller e-postadress
       wikipedia_queue: 
-        revision_url: Versions-URL <small>(t.ex. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: Versions-URL <small>(t.ex. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
     select: 
       prompt: Var god välj
     submit: 
@@ -4147,8 +4147,8 @@ sv:
   who_registered_before: till
   who_registered_from: som registrerade från
   wikipedia_queue_create_successful_notice: Wikipedia-artikeln %{article}, version %{rev} har placerats i kö för importering.
-  wikipedia_queue_create_unsuccessful_error: Tyvärr, ett fel uppstod. Wikipedia-artikeln lades inte i kö för importering. br/>Revisionsadressen måste matcha http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
-  wikipedia_queue_new_instructions_step_one: Gå till artikelsidan på Wikipedia, t.ex. <a href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_create_unsuccessful_error: Tyvärr, ett fel uppstod. Wikipedia-artikeln lades inte i kö för importering. br/>Revisionsadressen måste matcha https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_new_instructions_step_one: Gå till artikelsidan på Wikipedia, t.ex. <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_page_title: Begär ett importtillstånd för en Wikipedia-artikel
   will_paginate: 
     next_label: Nästa &#8594;

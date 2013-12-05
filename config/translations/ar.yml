@@ -2259,7 +2259,7 @@ ar:
         username: أسم المستخدم <small>(4-32 حرف)</small>
         username_or_email: اسم المستخدم أو عنوان البريد الإلكتروني
       wikipedia_queue: 
-        revision_url: رابط النسخة المراجعة  <small>(e.g. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: رابط النسخة المراجعة  <small>(e.g. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: عند إضافة عنوان إلكتروني لنسخة مراجعة من إحدى مقالات موقع ويكيبيديا، فإنك تطلب أن تضيف موسوعة الحياة تلك النسخة المراجعة بالتحديد باعتبارها مقيمة. وسوف تستبدل النسخة الحالية من المقالة في موسوعة الحياة إذا كانت لدينا مسبقًا.
     select: 
       prompt: يرجى الاختيار
@@ -4062,10 +4062,10 @@ ar:
   who_registered_before: إلى
   who_registered_from: الذي قام بالتسجيل من
   wikipedia_queue_create_successful_notice: تمت إضافة النسخة المراجعة %{rev} من مقال ويكيبيديا %{article} لقائمة النقل إلى موسوعة الحياة.
-  wikipedia_queue_create_unsuccessful_error: عفوًا، حدث خطأ، لم تتم إضافة مقال ويكيبيديا لقائمة النقل إلى موسوعة الحياة. <br/> رابط النسخة المراجعة يجب أن يطابق  http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: عفوًا، حدث خطأ، لم تتم إضافة مقال ويكيبيديا لقائمة النقل إلى موسوعة الحياة. <br/> رابط النسخة المراجعة يجب أن يطابق  https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "لإيجاد رابط النسخة المراجعة لإحدى مقالات ويكيبيديا:"
-  wikipedia_queue_new_instructions_step_four: قم بنسخ رابط المراجعة من المتصفح والصقه في نموذج طلب النقل بموقع ويكيبيديا المعروض هنا، يجب أن يبدوا رابط النسخة المراجعة مثل  <a href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
-  wikipedia_queue_new_instructions_step_one: انتقل إلى صفحة المقال بموقع ويكيبيديا، مثل  <a href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: قم بنسخ رابط المراجعة من المتصفح والصقه في نموذج طلب النقل بموقع ويكيبيديا المعروض هنا، يجب أن يبدوا رابط النسخة المراجعة مثل  <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_instructions_step_one: انتقل إلى صفحة المقال بموقع ويكيبيديا، مثل  <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: اتبع بند "الرابط الدائم" بالقائمة، ذلك هو العنوان الإلكتروني الحالي للنسخة المراجعة وسوف ينقلك إلى النسخة الحالية من المقال والتي يمكنك من خلالها الانتقال إلى النسخ السابقة.
   wikipedia_queue_new_instructions_step_two: قم بتمديد قائمة "صندوق الأدوات" المدرجة في خانة التنقل، ويجب أن ترى بند "الرابط الدائم" متضمن في داخلها.
   wikipedia_queue_new_intro: اضف نسخة مراجعة من أحد مقالات ويكيبيديا ليتم ضمها إلى موسوعة الحياة كعنصر بيانات مقيم.

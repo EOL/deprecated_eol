@@ -1106,7 +1106,7 @@ ru:
         username: Имя пользователя <small>(4-32 символов)</small>
         username_or_email: Имя пользователя или адрес электронной почты
       wikipedia_queue: 
-        revision_url: URL ревизии <small>(например, http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: URL ревизии <small>(например, https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Введя URL ревизии на Википедии вы запросите импортирование этой конкретной ревизии, в качестве проверенного контента. Это заменит текущую версию этой статьи на EOL, если она уже есть.
     select: 
       prompt: Пожалуйста, выберите

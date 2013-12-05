@@ -2109,7 +2109,7 @@ tl:
         username: Bansag <small>(4 - 32 mga panitik)</small>
         username_or_email: Pangalan ng tagagamit o tirahan ng e-liham
       wikipedia_queue: 
-        revision_url: URL ng rebisyon <small>(halimbawa na ang http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: URL ng rebisyon <small>(halimbawa na ang https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Sa pamamagitan ng pagpapasok ng isang URL ng rebisyon ng Wikipedia ikaw ay humihiling sa EOL na lunukin ang isang partikular na rebisyon bilang nabistay na. Papalitan nito ang pangkasalukuyang rebisyon ng artikulong iyan sa EOL kung mayroon na kami niyan.
     select: 
       prompt: Pumili po lamang
@@ -3915,10 +3915,10 @@ tl:
   who_registered_before: hanggang sa
   who_registered_from: na nagparehistor mula
   wikipedia_queue_create_successful_notice: Ang artikulong %{article} ng Wikipedia na may rebisyong %{rev}  ay ipinila para sa pagaangkat.
-  wikipedia_queue_create_unsuccessful_error: Paumanhin, naganap ang isang kamalian, ang artikulo ng Wikipedia ay hindi naipila para sa pag-aangkat.<br/>Ang URL ng rebisyon ay dapat na tumugma sa http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: Paumanhin, naganap ang isang kamalian, ang artikulo ng Wikipedia ay hindi naipila para sa pag-aangkat.<br/>Ang URL ng rebisyon ay dapat na tumugma sa https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "Upang matagpuan ang URL ng pagbabago ng isang artikulo ng Wikipedia:"
-  wikipedia_queue_new_instructions_step_four: Kopyahin ang URL ng rebisyon magmula sa iyong pantingin-tingin at idikit ito sa loob ng pormularyo ng Wikipedia na panghiling sa pag-aangkat na ipinapakita rito, ang URL ng rebisyon ay dapat na magmukhang katulad ng <a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
-  wikipedia_queue_new_instructions_step_one: Pumunta sa pahina ng artikulo sa Wikipedia, halimbawa na ang <a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: Kopyahin ang URL ng rebisyon magmula sa iyong pantingin-tingin at idikit ito sa loob ng pormularyo ng Wikipedia na panghiling sa pag-aangkat na ipinapakita rito, ang URL ng rebisyon ay dapat na magmukhang katulad ng <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_instructions_step_one: Pumunta sa pahina ng artikulo sa Wikipedia, halimbawa na ang <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: Sundan ang bagay na pangmenu na 'Pamalagiang kawing'. Ito ang pangkasalukuyang URL ng rebisyon at ang magdadala sa iyo papunta sa pangkasalukuyang bersiyon ng artikulo na maipanglilibot mo papunta sa dating mga bersiyon.
   wikipedia_queue_new_instructions_step_two: Palakihin ang menu ng 'Kahon ng kasangkapan' na nakalista sa haligi ng panglibot, at makikita mo sa loob ang nakapugad na bagay na pangmenu ng 'Pamalagiang kawing'.
   wikipedia_queue_new_intro: Magpasa ng isang pagbabago ng isang artikulo ng Wikipedia na lulunukin papaloob sa EOL bilang isang nabistay nang bagay ng teksto.

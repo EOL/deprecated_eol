@@ -2336,7 +2336,7 @@ ko:
         username: 사용자 이름 <small>(4 - 32 글자)</small>
         username_or_email: 사용자 이름이나 이메일 주소
       wikipedia_queue: 
-        revision_url: 판 URL <small>(예를 들어 http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: 판 URL <small>(예를 들어 https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: 요청하는 위키백과 판 URL을 입력하면 조사됨으로 EOL은 특정 판을 수집합니다. 이미 판이 있다면 해당 문서의 현재 판으로 바뀝니다.
     select: 
       prompt: 선택하세요

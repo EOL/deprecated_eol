@@ -375,7 +375,7 @@ es:
         known_uri: 
           attributes: 
             uri: 
-              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              must_be_uri: debe ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -402,18 +402,18 @@ es:
         user_added_data: 
           attributes: 
             predicate: 
-              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              must_be_uri: debe ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
               namespace: utilizó un espacio de nombres que no fue reconocido
             subject: 
-              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              must_be_uri: debe ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
               namespace: utilizó un espacio de nombres que no fue reconocido
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              must_be_uri: debe ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
               namespace: utilizó un espacio de nombres que no fue reconocido
             subject: 
-              must_be_uri: debe ser una <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
+              must_be_uri: debe ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formada
               namespace: utilizó un espacio de nombres que no fue reconocido
       template: 
         body: "Se encontraron problemas con los siguientes campos:"
@@ -2585,7 +2585,7 @@ es:
         username: Nombre de usuario <small>(4-32 caracteres)</small>
         username_or_email: Nombre de usuario o dirección de correo electrónico
       wikipedia_queue: 
-        revision_url: URL de la revisión <small>(e.g. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: URL de la revisión <small>(e.g. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Cuando usted indica una revisión de URL de Wikipedia, está pidiendo que EOL ingiera esa revisión particular como de confianza. El sistema reemplazará la versión actual de ese artículo en EOL si ya EOL la tiene.
     select: 
       prompt: Por favor seleccione
@@ -4619,10 +4619,10 @@ es:
   who_registered_before: a
   who_registered_from: quien se registró de
   wikipedia_queue_create_successful_notice: El artículo de Wikipedia %{article} revisión %{rev} ha sido puesto en cola para importar.
-  wikipedia_queue_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, el artículo de Wikipedia no fue puesto en cola para importación.<br/>El URL de revisión debe coincidir con http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, el artículo de Wikipedia no fue puesto en cola para importación.<br/>El URL de revisión debe coincidir con https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "Para encontrar el URL de revisión de un artículo de Wikipedia:"
-  wikipedia_queue_new_instructions_step_four: Copie el URL de revisión desde su navegador y e insértelo en el formulario de solicitud de importación de Wikipedia mostrado aquí, el URL de revisión URL debería asemejarse a <a href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
-  wikipedia_queue_new_instructions_step_one: Vaya a la página del artículo en Wikipedia, e.g., <a href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: Copie el URL de revisión desde su navegador y e insértelo en el formulario de solicitud de importación de Wikipedia mostrado aquí, el URL de revisión URL debería asemejarse a <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_instructions_step_one: Vaya a la página del artículo en Wikipedia, e.g., <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: Siga el ítem de menú 'Permanent link', este es el el URL de revisión actual, que lo va a llevar a la versión actual del artículo, desde el cual puede navegar a versiones previas.
   wikipedia_queue_new_instructions_step_two: Expanda el menú 'Toolbox' presentado en la columna de navegación, usted podrá ver, anidado, el ítem de menú 'Permanent link'.
   wikipedia_queue_new_intro: Envíe una revisión de un artículo de Wikipedia para ser ingerido por EOL como objeto de texto de confianza.

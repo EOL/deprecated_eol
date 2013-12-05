@@ -1196,7 +1196,7 @@ ia:
         username: Nomine de usator <small>(4 - 32 characteres)</small>
         username_or_email: Nomine de usator o adresse de e-mail
       wikipedia_queue: 
-        revision_url: URL del version <small>(p.ex. http://ia.wikipedia.org/w/index.php?title=Elephante&oldid=321041)</small>
+        revision_url: URL del version <small>(p.ex. https://ia.wikipedia.org/w/index.php?title=Elephante&oldid=321041)</small>
         revision_url_more: Per specificar le URL de un version specific de un articulo de Wikipedia, tu requesta que EOL accepta iste particular version como verificate. Illo reimplaciara le version actual de iste articulo in EOL, si existe.
     select: 
       prompt: Per favor selige

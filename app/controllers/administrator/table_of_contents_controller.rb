@@ -49,6 +49,8 @@ class Administrator::TableOfContentsController < AdminController
 
 private
 
+  # TODO - this isn't really seeting the layout appropriately.  Ajax should set its layout as needed, and the variables here
+  # should be set in a before_filter
   def admin_unless_ajax
     @page_title = $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'

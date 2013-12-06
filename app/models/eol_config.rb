@@ -1,6 +1,6 @@
 class EolConfig < ActiveRecord::Base
 
-  set_table_name 'site_configuration_options'
+  self.table_name = 'site_configuration_options'
 
   after_create :clear_caches
   after_update :clear_caches

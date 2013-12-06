@@ -185,13 +185,13 @@ class ContentController < ApplicationController
 
   def test_timeout
     restrict_to_admins
-    sco = SiteConfigurationOption.find_by_parameter('test_timeout')
+    sco = EolConfig.find_by_parameter('test_timeout')
     if sco
       render :text => "Already testing a timeout elsewhere. Please be patient."
     else
-      SiteConfigurationOption.create(:parameter => 'test_timeout', :value => params[:time])
+      EolConfig.create(:parameter => 'test_timeout', :value => params[:time])
       sleep(params[:time].to_i)
-      SiteConfigurationOption.delete_all(:parameter => 'test_timeout')
+      EolConfig.delete_all(:parameter => 'test_timeout')
       render :text => "Done."
     end
   end

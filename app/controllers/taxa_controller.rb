@@ -35,21 +35,21 @@ class TaxaController < ApplicationController
     if defined? $REFERENCE_PARSING_ENABLED
       raise 'Reference parsing disabled' if !$REFERENCE_PARSING_ENABLED
     else
-      parameter = SiteConfigurationOption.reference_parsing_enabled
+      parameter = EolConfig.reference_parsing_enabled
       raise 'Reference parsing disabled' unless parameter && parameter.value == 'true'
     end
 
     if defined? $REFERENCE_PARSER_ENDPOINT
       endpoint = $REFERENCE_PARSER_ENDPOINT
     else
-      endpoint_param = SiteConfigurationOption.reference_parser_endpoint
+      endpoint_param = EolConfig.reference_parser_endpoint
       endpoint = endpoint_param.value
     end
 
     if defined? $REFERENCE_PARSER_PID
       pid = $REFERENCE_PARSER_PID
     else
-      pid_param = SiteConfigurationOption.reference_parser_pid
+      pid_param = EolConfig.reference_parser_pid
       pid = pid_param.value
     end
 

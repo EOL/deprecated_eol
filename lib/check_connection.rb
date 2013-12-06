@@ -777,13 +777,13 @@ class CheckConnection
     i = ServiceType.first
     i.id if i
     a << 'ServiceType' if i
-    i = SiteConfigurationOption.first
+    i = EolConfig.first
     i.id if i
     i.parameter if i
     i.value if i
     i.created_at if i
     i.updated_at if i
-    a << 'SiteConfigurationOption' if i
+    a << 'EolConfig' if i
     i = SortStyle.first
     i.id if i
     a << 'SortStyle' if i

@@ -113,7 +113,7 @@
       %br
       Enter New Maintenance message:
       = form_tag({ :action=>'index' }, :method=>'get') do
-        - global_site_warning = SiteConfigurationOption.global_site_warning
+        - global_site_warning = EolConfig.global_site_warning
         -# TODO - why is this field labeled 'taxon_id'?!? Does this form even work?  How?!
         = text_area_tag :taxon_id, global_site_warning, { :rows => 80, :cols => 3 }
         %br

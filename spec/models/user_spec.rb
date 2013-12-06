@@ -296,7 +296,7 @@ describe User do
   end
 
   it 'should can_see_data? when they have permission' do
-    SiteConfigurationOption.destroy_all
+    EolConfig.destroy_all
     u = User.gen
     u.can_see_data?.should == false
     u.grant_permission(:see_data)
@@ -304,10 +304,10 @@ describe User do
   end
 
   it 'should can_see_data? when the site configuration option is set' do
-    SiteConfigurationOption.destroy_all
+    EolConfig.destroy_all
     u = User.gen
     u.can_see_data?.should == false
-    SiteConfigurationOption.gen(:parameter => 'all_users_can_see_data', :value => true)
+    EolConfig.gen(:parameter => 'all_users_can_see_data', :value => true)
     u.can_see_data?.should == true
     u = User.gen
   end

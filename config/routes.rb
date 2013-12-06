@@ -558,7 +558,7 @@ Eol::Application.routes.draw do
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end
 
-  resources :site_configuration_options, only: :update do
+  resources :eol_configs, only: :update do
     collection do
       get 'change'
     end

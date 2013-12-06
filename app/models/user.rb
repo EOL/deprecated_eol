@@ -342,7 +342,7 @@ class User < ActiveRecord::Base
 
   def can_see_data?
     return true if can?(:see_data)
-    return true if (SiteConfigurationOption.all_users_can_see_data rescue false)
+    return true if (EolConfig.all_users_can_see_data rescue false)
     false
   end
 

@@ -4386,6 +4386,7 @@ en:
   subject: "subject"
   submit: "Submit"
   submit_term: "Submit Term"
+  submitting: "Please wait…"
   suggested_attributes: "Suggested attributes:"
   suggested_result_page_id: "Suggested Result Page ID:"
   suggested_results_avg: "Suggested Results avg"

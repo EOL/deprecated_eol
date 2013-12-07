@@ -178,6 +178,8 @@ pt-BR:
         descriptive_label: Rótulo descritivo
         label: Rótulo
         request_publish: Solicitar a publicação
+      known_uri: 
+        name: Nome
       name: 
         string: Nome
       news_item: 

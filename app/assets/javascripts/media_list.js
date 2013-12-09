@@ -10,7 +10,7 @@ $(function() {
 
   (function($media_list) {
     $media_list.find("a.play").each(function() {
-      switch($(this).attr('data-mime_type')) {
+      switch($(this).attr('data-mime-type')) {
         case 'audio/mpeg':
           var media = { mp3: $(this).attr('href') };
           var supplied = "mp3";

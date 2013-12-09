@@ -15,7 +15,7 @@
             = raw(@page_title)
         - if @page_description.blank?
           %h2<
-            = render :partial => 'data_objects/owner', :locals => { :data_object => @data_object }
+            = @data_object.owner || "&nbsp;"
         - else
           %p= raw(@page_description)
         = yield :social_sharing

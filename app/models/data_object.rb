@@ -361,13 +361,21 @@ class DataObject < ActiveRecord::Base
   # 'owner' chooses someone responsible for this data object in order of preference
   # this method returns [OwnerName, OwnerUser || nil]
   def owner
-    # rights holder is preferred
-    return rights_holder_for_display, nil unless rights_holder_for_display.blank?
-    unless agents_data_objects.empty?
-      AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
-      if first_agent = agents_data_objects.first.agent
-        return first_agent.full_name, first_agent.user
+    return translated_from.owner if data_object_translation # Use the original owner when translated. TODO - image only?
+    if rights_holder_for_display.blank?
+      unless agents_data_objects.empty?
+        AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
+        if first_agent = agents_data_objects.first.agent
+          return first_agent.full_name
+        end
       end
+      return nil
+    else # rights holder is preferred
+      owner = "#{rights_holder_for_display}"
+      unless license && license.is_public_domain?
+        return "&copy; #{owner}"
+      end
+      return owner
     end
   end
 

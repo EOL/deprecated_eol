@@ -346,7 +346,7 @@ pt:
         known_uri: 
           attributes: 
             uri: 
-              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              must_be_uri: deve ser um <a href='https://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -373,18 +373,18 @@ pt:
         user_added_data: 
           attributes: 
             predicate: 
-              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              must_be_uri: deve ser um <a href='https://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
               namespace: usou um domínio que não foi reconhecido
             subject: 
-              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              must_be_uri: deve ser um <a href='https://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
               namespace: usou um domínio que não foi reconhecido
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              must_be_uri: deve ser um <a href='https://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
               namespace: usou um domínio que não foi reconhecido
             subject: 
-              must_be_uri: deve ser um <a href='http://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
+              must_be_uri: deve ser um <a href='https://pt.wikipedia.org/wiki/URI'>URI</a> bem formado
               namespace: usou um domínio que não foi reconhecido
       template: 
         body: "Os campos seguintes não foram validados corretamente:"
@@ -1417,7 +1417,7 @@ pt:
         username: Nome de usuário <small>(4 - 32 caracteres)</small>
         username_or_email: Nome de usuário ou endereço de e-mail
       wikipedia_queue: 
-        revision_url: Revisão URL <small>(por exemplo, http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: Revisão URL <small>(por exemplo, https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Ao inserir um URL de revisão da Wikipédia você está a pedir que a EOL ingira essa revisão em especial como controlada. Ela irá substituir a versão atual do mesmo artigo na EOL se já o tivermos.
     select: 
       prompt: Por favor selecione

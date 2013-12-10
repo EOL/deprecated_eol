@@ -8,7 +8,7 @@ Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn i
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 
-SiteConfigurationOption.create_defaults
+EolConfig.create_defaults
 
 # Translated tables will not work without this:
 Language.create_english

@@ -1,7 +1,7 @@
 require 'csv'
 class Administrator::ContactController < AdminController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   before_filter :set_layout_variables
 

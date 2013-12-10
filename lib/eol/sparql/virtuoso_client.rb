@@ -37,7 +37,6 @@ module EOL
           end
         end
       end
-
     end
   end
 end

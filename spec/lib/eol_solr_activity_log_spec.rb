@@ -37,7 +37,7 @@ describe EOL::Solr::ActivityLog do
       # it 'should query the SOLR_SERVER SOLR_ACTIVITY_LOGS_CORE'
       # it 'should get fields: activity_log_type,activity_log_id,user_id,date_created'
       load_foundation_cache
-      SiteConfigurationOption.destroy_all
+      EolConfig.destroy_all
       @request_head = "#{$SOLR_SERVER}#{$SOLR_ACTIVITY_LOGS_CORE}/select/?wt=json&q=%7B%21lucene%7D"
       @default_user_added_data_exclusion = "+NOT+action_keyword%3ADataPointUri+NOT+action_keyword%3AUserAddedData+NOT+activity_log_type%3AUserAddedData"
       @default_sort = "&sort=date_created+desc"

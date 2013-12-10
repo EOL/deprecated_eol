@@ -352,7 +352,7 @@ zh-CN:
         known_uri: 
           attributes: 
             uri: 
-              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -379,18 +379,18 @@ zh-CN:
         user_added_data: 
           attributes: 
             predicate: 
-              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
               namespace: 使用的是未确认的命名空间
             subject: 
-              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
               namespace: 使用的是未确认的命名空间
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
               namespace: 使用的是未确认的命名空间
             subject: 
-              must_be_uri: 必须是正确格式的<a href='http://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
               namespace: 使用的是未确认的命名空间
       template: 
         body: 以下字段验证失败：
@@ -1635,6 +1635,7 @@ zh-CN:
   eol_news: EOL新闻
   eol_pages: 页面
   eol_statistics: 
+    comparing_dates: <span class="assistive">比较</span> <span class="date_one">%{date_one}</span> <span class="assistive">和</span> <span class="date_two">%{date_two}</span>
     content_partners: 
       menu_link: 内容合作伙伴
       page_header: 内容合作伙伴统计
@@ -1671,6 +1672,8 @@ zh-CN:
       menu_link: 用户提交的文本
       page_header: 用户提交的文本统计
       page_title: 统计
+    warnings: 
+      stats_unavailable_for_date: 对不起，%{date} 没有数据。请选择其他日期。
   error_401_description: 抱歉，您没有权限访问这个URL。
   error_401_page_title: 未授权
   error_403_description: 抱歉，您没有权限访问这个URL。
@@ -1804,6 +1807,7 @@ zh-CN:
     create: 创建一个论坛
     create_failed: 抱歉，发生了一个错误，无法添加论坛
     create_successful: 已成功创建论坛
+    delete_failed_not_empty: 分类无法删除，因为它不是空的
     delete_successful: 论坛已成功删除
     edit: 编辑论坛
     forums_heading: 生物百科论坛
@@ -1817,6 +1821,7 @@ zh-CN:
       create: 发表新的帖子
       create_failed: 抱歉，发生了一个错误，无法添加帖子
       create_successful: 已成功创建帖子
+      delete_failed_topic_not_empty: 文章不能被删除因为它不是空的
       delete_successful: 帖子已成功删除
       deleted_subject: （已删除）
       edit: 编辑帖子
@@ -1827,12 +1832,17 @@ zh-CN:
       post_written_by_user: "%{user}写道："
       posts_with_count: "%{count}条帖子"
       replying_to_post: 回复：
+      topic_and_post_delete_successful: 网页和帖子已成功删除
       update_failed: 抱歉，发生了一个错误， 帖子无法更新
       update_successful: 已成功更新帖子
     posts_heading: 帖子
     replies: 答复
     topics: 
       create: 开启一个新话题
+      create_failed: 抱歉，发生了一个错误，无法添加帖子
+      create_successful: 已成功创建帖子
+      delete_failed_not_empty: 帖子无法删除，因为它不是空的
+      delete_successful: 帖子已成功删除
       no_posts: 此话题中木有帖子
     topics_heading: 帖子
     update_failed: 抱歉，发生了一个错误，论坛无法更新
@@ -2012,6 +2022,7 @@ zh-CN:
         title_more: 内容的标题会显示在页面的标题区域。标题应该包括一些与内容最相关的关键词。
       translated_news_item: 
         active_translation: 已出版
+        active_translation_more: 已发布的网页将公开可见，除非网页自身是不公开的。如果要防止一般用户查看此页的本版本，取消选中<em>已发布</em>。
         language_id: 语言
       user: 
         agreed_with_terms: "\"我同意<a href=\"\"%{terms_url}\"\">使用条款</a>\""
@@ -2051,7 +2062,7 @@ zh-CN:
         username: 用户名<small>（4-32 个字符）</small>
         username_or_email: 用户名或电子邮件地址
       wikipedia_queue: 
-        revision_url: 修订版本的 URL <small>（例如 http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069）</small>
+        revision_url: 修订版本的 URL <small>（例如 https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069）</small>
         revision_url_more: 通过输入维基百科修订内容的URL，您正在请求网络生命大百科吸收此专门的修订内容作为已审核的内容。如果EOL已有该内容，该修订版将替代EOL中的当前版本。
     select: 
       prompt: 请选择
@@ -3777,10 +3788,10 @@ zh-CN:
   who_registered_before: 截止
   who_registered_from: 注册于
   wikipedia_queue_create_successful_notice: 维基百科文章%{article}的修订版%{rev}已经被列入导入队列。
-  wikipedia_queue_create_unsuccessful_error: 抱歉，发生了一个错误，维基百科文章未加入导入队列。<br/>修订内容的URL必须匹配http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: 抱歉，发生了一个错误，维基百科文章未加入导入队列。<br/>修订内容的URL必须匹配https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: 查找维基百科文章的修订URL：
-  wikipedia_queue_new_instructions_step_four: "从您的浏览器中拷贝修订内容的URL，然后将其粘贴到这里的维基百科输入请求表单中。修订内容的URL应该类似下面的地址：<a rel=\nofollow href=http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069>http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>"
-  wikipedia_queue_new_instructions_step_one: "\"转到Wikipedia文章页面, 如<a rel=\nofollow href=http://en.wikipedia.org/w/index.php?title=Giraffe>http://en.wikipedia.org/w/index.php?title=Giraffe</a>\""
+  wikipedia_queue_new_instructions_step_four: "从您的浏览器中拷贝修订内容的URL，然后将其粘贴到这里的维基百科输入请求表单中。修订内容的URL应该类似下面的地址：<a rel=\nofollow href=https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069>https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>"
+  wikipedia_queue_new_instructions_step_one: "\"转到Wikipedia文章页面, 如<a rel=\nofollow href=https://en.wikipedia.org/w/index.php?title=Giraffe>https://en.wikipedia.org/w/index.php?title=Giraffe</a>\""
   wikipedia_queue_new_instructions_step_three: 点击“永久链接”，到文章的当前版本，从该文章您能回溯到以前的版本。
   wikipedia_queue_new_instructions_step_two: 展开导航列的工具箱菜单，在嵌套菜单里您将发现“永久链接”菜单项。
   wikipedia_queue_new_intro: 提交维基百科文章的修订版，生命大百科将作为审核过的文本对象对待。

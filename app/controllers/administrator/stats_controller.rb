@@ -51,10 +51,12 @@ class Administrator::StatsController < AdminController
 private
 
   # Note this runs AFTER the action... so we may already have a @page_title by the time we get here.
+  # TODO - this isn't really choosing the layout. Change this to a before_filter and just set the layout to the one value it can
+  # be.
   def choose_layout
     @page_title ||= $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'
-    'left_menu'
+    'deprecated/left_menu'
   end
   
   def get_google_stat_year_list

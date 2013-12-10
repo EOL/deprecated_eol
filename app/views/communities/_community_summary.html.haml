@@ -3,5 +3,5 @@
   = link_to image_tag(community.logo_url(:small), :alt => ''), community
   %h4= link_to community.name, community
   = "#{I18n.t(:members_with_count, :count => community.members.count)}#{delimiter}"
-  - count = community.collections ? community.collections.map {|c| c.collection_items}.flatten.compact.count : 0
+  - count = community.collections ? community.collections.flat_map { |c| c.collection_items }.compact.count : 0
   = I18n.t(:community_focus_items_with_count, :count => count)

@@ -722,5 +722,40 @@ describe DataObject do
     end
   end
 
+  context '#owner' do
+
+    it 'should use original object for translations' do
+      orig = double(DataObject)
+      orig.should_receive(:owner).and_return("me")
+      @dato.should_receive(:translated_from).and_return(orig)
+      @dato.should_receive(:data_object_translation).and_return(true)
+      expect(@dato.owner).to eq("me")
+    end
+
+    it 'should prefer the (copyrighted) rights holder' do
+      @dato.should_receive(:rights_holder_for_display).at_least(1).times.and_return("Bobby")
+      expect(@dato.owner).to eq("&copy; Bobby")
+    end
+
+    it 'should not copyright public domain rights holder' do
+      @dato.should_receive(:rights_holder_for_display).at_least(1).times.and_return("Bobby")
+      @dato.should_receive(:license).at_least(1).times.and_return(License.public_domain)
+      expect(@dato.owner).to eq("Bobby")
+    end
+
+    # TODO - this is not the best test in the world...
+    it 'should use sort_buy_role t ograb first agent' do
+      @dato.should_receive(:rights_holder_for_display).and_return("")
+      agent = Agent.gen
+      agent.should_receive(:full_name).and_return("Someone important")
+      ado = double(AgentsDataObject)
+      ado.should_receive(:agent).and_return(agent)
+      @dato.should_receive(:agents_data_objects).at_least(1).times.and_return([ado])
+      AgentsDataObject.should_receive(:sort_by_role_for_owner).and_return([ado])
+      expect(@dato.owner).to eq("Someone important")
+    end
+
+  end
+
 end
 

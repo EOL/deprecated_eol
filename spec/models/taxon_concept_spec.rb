@@ -768,7 +768,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
+      EolConfig.stub(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do
@@ -808,7 +808,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
+      EolConfig.stub(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do

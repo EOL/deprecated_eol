@@ -1,6 +1,6 @@
 class Administrator::HarvestingLogController < AdminController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
   before_filter :set_layout_variables
   before_filter :restrict_to_admins
 

@@ -1,6 +1,0 @@
-- menu_items.each do |menu_item|
-  = link_to menu_item.title[menu_item.key], (menu_item.url.blank? ? "/content/page/" + menu_item.page_url : menu_item.url), :title=>menu_item.title[menu_item.key], :target=>(menu_item.open_in_new_window ? "_blank" : "_self")
-  &#124;
-- if params[:controller] == 'api/docs'
-  = link_to 'API Terms of Use', :controller => '/content', :action => 'page', :id => 'api_terms'
-  &#124;

@@ -329,7 +329,7 @@ oc:
         known_uri: 
           attributes: 
             uri: 
-              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              must_be_uri: deu èsser un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -356,18 +356,18 @@ oc:
         user_added_data: 
           attributes: 
             predicate: 
-              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              must_be_uri: deu èsser un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
               namespace: espaci de noms utilizat pas reconegut
             subject: 
-              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              must_be_uri: deu èsser un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
               namespace: espaci de noms utilizat pas reconegut
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              must_be_uri: deu èsser un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
               namespace: espaci de noms utilizat pas reconegut
             subject: 
-              must_be_uri: deu èsser un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
+              must_be_uri: deu èsser un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> plan format
               namespace: espaci de noms utilizat pas reconegut
       template: 
         body: "Los camps seguents son pas estats validats :"
@@ -2429,7 +2429,7 @@ oc:
         username: Nom d'utilizaire <small>(4 a 32 caractèrs)</small>
         username_or_email: Nom d’utilizaire o adreça de corrièr electronic
       wikipedia_queue: 
-        revision_url: URL de version de pagina <small>(per exemple, http://oc.wikipedia.org/w/index.php?title=Girafa&oldid=1719951)</small>
+        revision_url: URL de version de pagina <small>(per exemple, https://oc.wikipedia.org/w/index.php?title=Girafa&oldid=1719951)</small>
         revision_url_more: En entrant una URL de version de pagina Wikipèdia, demandatz a l’EdlV qu'absòrbe aquesta version particulara coma aprovada. Aquesta version remplaçarà la version actuala de l’article dins l’EdlV se n'a ja una.
     select: 
       prompt: Causissètz

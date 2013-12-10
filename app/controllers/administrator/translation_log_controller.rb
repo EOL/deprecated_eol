@@ -1,6 +1,6 @@
 class Administrator::TranslationLogController < AdminController
   
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   helper :resources
   

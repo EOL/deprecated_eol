@@ -2,7 +2,7 @@
 class RecreatePermissions < ActiveRecord::Migration
   def up
     Permission.create_enumerated
-    SiteConfigurationOption.create_defaults
+    EolConfig.create_defaults
   end
 
   def down

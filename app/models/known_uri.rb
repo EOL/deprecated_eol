@@ -59,7 +59,8 @@ class KnownUri < ActiveRecord::Base
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
     :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :uri_type, :uri_type_id,
     :translations, :exclude_from_exemplars, :name, :known_uri_relationships_as_subject, :attribution,
-    :ontology_information_url, :ontology_source_url, :position, :group_by_clade, :clade_exemplar
+    :ontology_information_url, :ontology_source_url, :position, :group_by_clade, :clade_exemplar,
+    :exemplar_for_same_as
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -91,12 +92,6 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
                   { uri: Rails.configuration.schema_terms_prefix + 'log10gram', name: 'log10 grams' } ]
 
-  def self.convert_unit_name_to_class_variable_name(unit_name)
-    return unit_name if unit_name.is_a?(Symbol)
-    converted = unit_name.tr('.° ', '_')
-    converted.sub(/^([0-9])/, "_\\1")
-  end
-
   # This gets called a LOT.  ...Like... a *lot* a lot. But...
   # DO NOT make a class variable for this because we will need to flush the cache frequently as we
   # add/remove accepted values for UnitOfMeasure. We need to keep it in a central cache, rather than
@@ -105,14 +100,6 @@ class KnownUri < ActiveRecord::Base
     cached('unit_of_measure') do
       KnownUri.where(:uri => Rails.configuration.uri_measurement_unit).includes({ :known_uri_relationships_as_subject => :to_known_uri } ).first
     end
-  end
-
-  def self.create_for_language(options = {})
-    uri = KnownUri.create(uri: options.delete(:uri))
-    if uri.valid?
-      trans = TranslatedKnownUri.create(options.merge(known_uri: uri))
-    end
-    uri
   end
 
   def self.custom(name, language)
@@ -132,122 +119,8 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
-  def self.unknown_uris_from_array(uris_with_counts)
-    unknown_uris_with_counts = uris_with_counts
-    known_uris = KnownUri.find_all_by_uri(unknown_uris_with_counts.collect{ |uri,count| uri })
-    known_uris.each do |known_uri|
-      unknown_uris_with_counts.delete_if{ |uri, count| known_uri.matches(uri) }
-    end
-    unknown_uris_with_counts
-  end
-
-  def self.group_counts_by_uri(result)
-    uris_with_counts = {}
-    result.each do |r|
-      uri = r[:uri].to_s
-      next if uri.blank?
-      uris_with_counts[uri] = r[:count].to_i
-    end
-    uris_with_counts
-  end
-
-  # TODO - move this to Virtuoso lib.
-  def self.counts_of_all_measurement_unit_uris
-    if_connection_fails_return({}) do
-      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
-        WHERE {
-          ?measurement dwc:measurementUnit ?uri .
-          FILTER (isURI(?uri))
-        }
-        GROUP BY ?uri
-        ORDER BY DESC(?count)
-      ")
-      group_counts_by_uri(result)
-    end
-  end
-
-  # TODO - move this to Virtuoso lib.
-  def self.counts_of_all_measurement_type_uris
-    if_connection_fails_return({}) do
-      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
-        WHERE {
-          ?measurement a <#{DataMeasurement::CLASS_URI}> .
-          ?measurement dwc:measurementType ?uri .
-          ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
-          FILTER ( ?measurementOfTaxon = 'true' ) .
-          FILTER (CONTAINS(str(?uri), '://'))
-        }
-        GROUP BY ?uri
-        ORDER BY DESC(?count)
-      ")
-      group_counts_by_uri(result)
-    end
-  end
-
-  def self.all_measurement_type_uris
-    Rails.cache.fetch("known_uri/all_measurement_type_uris", :expires_in => 1.day) do
-      counts_of_all_measurement_type_uris.collect{ |k,v| k }
-    end
-  end
-
-  def self.all_measurement_type_known_uris
-    Rails.cache.fetch("known_uri/all_measurement_type_known_uris", :expires_in => 1.day) do
-      all_uris = all_measurement_type_uris
-      all_known_uris = KnownUri.find_all_by_uri(all_uris)
-      all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } || uri }
-    end
-  end
-
-  # TODO - move this to Virtuoso lib.
-  def self.counts_of_all_measurement_value_uris
-    if_connection_fails_return({}) do
-      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
-        WHERE {
-          ?measurement a <#{DataMeasurement::CLASS_URI}> .
-          ?measurement dwc:measurementValue ?uri .
-          FILTER (CONTAINS(str(?uri), '://'))
-        }
-        GROUP BY ?uri
-        ORDER BY DESC(?count)
-      ")
-      group_counts_by_uri(result)
-    end
-  end
-
-  # TODO - move this to Virtuoso lib.
-  def self.counts_of_all_association_type_uris
-    if_connection_fails_return({}) do
-      result = EOL::Sparql.connection.query("SELECT ?uri, COUNT(DISTINCT ?association) as ?count
-        WHERE {
-          ?association a <#{DataAssociation::CLASS_URI}> .
-          ?association <#{Rails.configuration.uri_association_type}> ?uri .
-          FILTER (CONTAINS(str(?uri), '://'))
-        }
-        GROUP BY ?uri
-        ORDER BY DESC(?count)
-      ")
-      group_counts_by_uri(result)
-    end
-  end
-
-  def self.unknown_measurement_unit_uris
-    unknown_uris_from_array(counts_of_all_measurement_unit_uris)
-  end
-
-  def self.unknown_measurement_type_uris
-    unknown_uris_from_array(counts_of_all_measurement_type_uris)
-  end
-
-  def self.unknown_measurement_value_uris
-    unknown_uris_from_array(counts_of_all_measurement_value_uris)
-  end
-
-  def self.unknown_association_type_uris
-    unknown_uris_from_array(counts_of_all_association_type_uris)
-  end
-
   def self.add_to_data(rows)
-    known_uris = where(["uri in (?)", uris_in_data(rows)])
+    known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
     preload_associations(known_uris, [ :uri_type, { :known_uri_relationships_as_subject => :to_known_uri },
       { :known_uri_relationships_as_target => :from_known_uri } ])
     rows.each do |row|
@@ -258,18 +131,6 @@ class KnownUri < ActiveRecord::Base
         row[:target_taxon_concept_id] = taxon_id
       end
     end
-  end
-
-  def self.uris_in_data(rows)
-    uris  = rows.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
-    uris += rows.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
-    uris += rows.map { |row| row[:unit_of_measure_uri] }.select { |attr| attr.is_a?(RDF::URI) }
-    uris.map(&:to_s).uniq
-  end
-
-  def self.replace_with_uri(hash, key, known_uris)
-    uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
-    hash[key] = uri if uri
   end
 
   def self.uris_for_clade_aggregation
@@ -363,6 +224,82 @@ class KnownUri < ActiveRecord::Base
     uri.to_s.gsub(/[^A-Za-z0-9]/, '_')
   end
 
+  def non_equivalence_as_subject
+    known_uri_relationships_as_subject.dup.delete_if(&:same_as?)
+  end
+
+  def non_equivalence_as_target
+    known_uri_relationships_as_target.dup.delete_if(&:same_as?)
+  end
+
+  def equivalence_relationships
+    @equivalence_relationships ||= KnownUriRelationship.find_all_equivalence_relations_for_known_uri(id)
+  end
+
+  def indirectly_equivalent_known_uris
+    # get the direct equivalence relationships
+    all_equivalence_relations = equivalence_relationships
+    return [] if all_equivalence_relations.empty?
+    number_confirmed = 0
+    confirmed_relation_ids = []
+    # check each equivalent URI for things equivalent to them, until there is nothing new
+    while number_confirmed < all_equivalence_relations.length
+      number_confirmed = all_equivalence_relations.length
+      # get the URIs from the relationship, unless they are THIS instance, or have already been looked up
+      known_uri_ids_to_lookup = ( all_equivalence_relations.collect(&:from_known_uri_id) +
+                                  all_equivalence_relations.collect(&:to_known_uri_id)).
+                                uniq.delete_if{ |k| k == self.id || confirmed_relation_ids.include?(k) }
+      unless known_uri_ids_to_lookup.empty?
+        chained_equivalence_relations = KnownUriRelationship.find_all_equivalence_relations_for_known_uris(known_uri_ids_to_lookup)
+        # pipe | here is for taking the union of the two arrays
+        all_equivalence_relations = all_equivalence_relations | chained_equivalence_relations
+        confirmed_relation_ids = confirmed_relation_ids | known_uri_ids_to_lookup
+      end
+    end
+    ( all_equivalence_relations.collect(&:to_known_uri) +
+      all_equivalence_relations.collect(&:from_known_uri)).flatten.uniq.
+      delete_if{ |k| k == self || directly_equivalent_known_uris.include?(k)  }
+  end
+
+  def directly_equivalent_known_uris
+    @directly_equivalent_known_uris ||=
+      ( equivalence_relationships.collect(&:to_known_uri) +
+        equivalence_relationships.collect(&:from_known_uri)).flatten.uniq.delete_if{ |k| k == self }
+  end
+
+  def equivalent_known_uris
+    directly_equivalent_known_uris | indirectly_equivalent_known_uris
+  end
+
+  # same as the above, this just includes itself too
+  def equivalence_group
+    equivalent_known_uris << self
+  end
+
+  # without checking anything - blindly set this as preferred
+  def set_as_exemplar_for_same_as_group
+    equivalent_known_uris.each do |k|
+      k.update_column(:exemplar_for_same_as, false)
+    end
+    update_column(:exemplar_for_same_as, true)
+  end
+
+  # use some smarts to pick a defult group representative
+  def set_default_preferred_for_same_as_group
+    if equivalence_group == [ self ]
+      update_column(:exemplar_for_same_as, false)
+    else
+      count_of_preferred = equivalence_group.select(&:exemplar_for_same_as).length
+      if count_of_preferred == 0
+        # nothing is preferred, so just make this one preferred
+        set_as_exemplar_for_same_as_group
+      elsif count_of_preferred > 1
+        # make the first one preferred, which will unset any other preferreds
+        equivalence_group.detect(&:exemplar_for_same_as).set_as_exemplar_for_same_as_group
+      end
+    end
+  end
+
   private
 
   def default_values
@@ -372,6 +309,11 @@ class KnownUri < ActiveRecord::Base
 
   def uri_must_be_uri
     errors.add('uri', :must_be_uri) unless EOL::Sparql.is_uri?(self.uri)
+  end
+
+  def self.replace_with_uri(hash, key, known_uris)
+    uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
+    hash[key] = uri if uri
   end
 
 end

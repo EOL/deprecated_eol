@@ -199,11 +199,11 @@ nl:
         name: Naam
         toc_items: Categorieën
         uri: URI
-        uri_type: Soort URI
+        uri_type: Type URI
       known_uri_relationship: 
-        from_known_uri_id: Onderwerp URI
-        to_known_uri: Doel URI
-        to_known_uri_id: Doel URI
+        from_known_uri_id: Onderwerp-URI
+        to_known_uri: Doel-URI
+        to_known_uri_id: Doel-URI
       name: 
         string: Naam
       news_item: 
@@ -243,11 +243,11 @@ nl:
         auto_publish: Automatisch publiceren
         bibliographic_citation: Bibliografische bronvermelding
         dataset: Datasetbestand
-        dataset_hosted_url: Bron Dataset (lokale kopie)
+        dataset_hosted_url: Brondataset (lokale kopie)
         dataset_license_id: Licentie
         dataset_rights_holder: Rechthebbende
         dataset_rights_statement: Rechtenverklaring
-        dataset_source_url: Oorspronkelijke Gegevensbron
+        dataset_source_url: Oorspronkelijke gegevensbron
         description: Bronbeschrijving
         dwc_archive_url: URL Darwin Core Archive
         harvest_events: Imports
@@ -353,11 +353,11 @@ nl:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: niet toegestaan - er kan slechts één meeteenheid zijn
+              only_one_measurement: niet toegestaan - er kan slechts één maateenheid zijn
             to_known_uri_id: 
-              must_be_different: moet anders zijn dan het Onderwerp URI
-              must_be_known_uri: moet een Bekende URI zijn
-              must_be_measurement: moet een meeteenheid zijn
+              must_be_different: moet anders zijn dan de onderwerp-URI
+              must_be_known_uri: moet een bekende URI zijn
+              must_be_measurement: moet een maateenheid zijn
         open_authentications: 
           guid_provider_must_be_unique: de externe gebruiker is al gekoppeld met een EOL-gebruiker
           provider_user_id_must_be_unique: er kan slechts één externe gebruiker gekoppeld zijn aan een EOL-gebruiker
@@ -376,15 +376,15 @@ nl:
         user_added_data: 
           attributes: 
             predicate: 
-              namespace: gebruikt een naamruimte die werd niet herkend
+              namespace: gebruikt een naamruimte die niet is herkend
             subject: 
-              namespace: gebruikt een naamruimte die werd niet herkend
+              namespace: gebruikt een naamruimte die niet is herkend
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              namespace: gebruikt een naamruimte die werd niet herkend
+              namespace: gebruikt een naamruimte die niet is herkend
             subject: 
-              namespace: gebruikt een naamruimte die werd niet herkend
+              namespace: gebruikt een naamruimte die niet is herkend
       template: 
         body: "Voor de volgende velden is de validatie mislukt:"
         header: 
@@ -1769,7 +1769,7 @@ nl:
   data: Gegevens
   data_column_measurement: Meting
   data_column_value: Waarde
-  data_column_value_uri: Waarde URI
+  data_column_value_uri: Waarde-URI
   data_database_colon: "Gegevens:"
   data_logging_active: Er worden gegevens verzameld
   data_master_database_colon: "Gegevensmaster:"
@@ -2432,7 +2432,7 @@ nl:
         username: Gebruikersnaam <small>(4-32 tekens)</small>
         username_or_email: Gebruikersnaam of e-mailadres
       wikipedia_queue: 
-        revision_url: Versie-URL <small>(bijvoorbeeld http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: Versie-URL <small>(bijvoorbeeld https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Door een permalink naar Wikipedia toe te voegen, vraagt u EOL die versie op te nemen als doorgelicht. Als het artikel al aanwezig is in EOL, wordt het door de nieuwe versie vervangen.
     select: 
       prompt: Maak een keuze
@@ -2641,7 +2641,7 @@ nl:
   keep_split_entry_from_this_entry: Gescheiden houden van deze term
   key: Sleutel
   known_uris: 
-    please_select_from_the_menu: Selecteer aub uit het menu hierboven
+    please_select_from_the_menu: Selecteer uit het menu hierboven
     relationships: Relaties
   label: Label
   language: "Taal:"
@@ -4360,10 +4360,10 @@ nl:
   who_registered_before: aan
   who_registered_from: geregistreerd van
   wikipedia_queue_create_successful_notice: Wikipedia-artikel %{article} verzie %{rev} wordt binnenkort geïmporteerd.
-  wikipedia_queue_create_unsuccessful_error: Er is een fout opgetreden. De Wikipediapagina is niet in de wachtrij van te importeren pagina's opgenomen.<br />. De versie-URL moet overeenkomen met het patroon "http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*".
+  wikipedia_queue_create_unsuccessful_error: Er is een fout opgetreden. De Wikipediapagina is niet in de wachtrij van te importeren pagina's opgenomen.<br />. De versie-URL moet overeenkomen met het patroon "https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*".
   wikipedia_queue_new_instructions_intro: "Om de versie-URL van een artikel in Wikipedia te vinden:"
-  wikipedia_queue_new_instructions_step_four: "Kopieer de URL van de versie uit de adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel=\"nofollow\" href=\"http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
-  wikipedia_queue_new_instructions_step_one: Ga naar de pagina op Wikipedia, bijvoorbeeld <a rel="nofollow" href="http://en.wikipedia.org/wiki/Giraffe">http://en.wikipedia.org/wiki/Giraffe</a>.
+  wikipedia_queue_new_instructions_step_four: "Kopieer de URL van de versie uit de adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel=\"nofollow\" href=\"https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
+  wikipedia_queue_new_instructions_step_one: Ga naar de pagina op Wikipedia, bijvoorbeeld <a rel="nofollow" href="https://en.wikipedia.org/wiki/Giraffe">https://en.wikipedia.org/wiki/Giraffe</a>.
   wikipedia_queue_new_instructions_step_three: In de adresbalk van uw browser kunt u nu de URL van de huidige versie van de pagina zien. Bovenaan de pagina kunt u navigeren naar eerdere versie van de pagina.
   wikipedia_queue_new_instructions_step_two: Klik in de zijbalk in het menu "Hulpmiddelen" op "Permanente koppeling".
   wikipedia_queue_new_intro: Geef een versie van een artikel in Wikipedia op dat opgenomen kan worden in EOL als een gecontroleerd tekstobject.

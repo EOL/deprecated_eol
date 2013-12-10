@@ -191,7 +191,7 @@ mr:
   translated_synonym_relations-label-synonym_relation_id-24: त्यक्त नामे
   translated_synonym_relations-label-synonym_relation_id-3: संक्षिप्त रूप
   translated_synonym_relations-label-synonym_relation_id-30: अनुपलब्ध, कोष सत्याभास(डाटाबेस आर्टीफॅक्ट)
-  translated_synonym_relations-label-synonym_relation_id-31: अनावश्यक प्रतिस्थापन
+  translated_synonym_relations-label-synonym_relation_id-31: अनावश्यक पुनर्स्थापन
   translated_synonym_relations-label-synonym_relation_id-40: अनुपलब्ध, इतर
   translated_synonym_relations-label-synonym_relation_id-43: अवैधरित्या प्रकाशित, ईतर
   translated_synonym_relations-label-synonym_relation_id-48: अनुपलब्ध नाव
@@ -204,7 +204,7 @@ mr:
   translated_synonym_relations-label-synonym_relation_id-55: चुकिची आधिकारीक माहिती
   translated_synonym_relations-label-synonym_relation_id-56: चुकिचे स्पेलिंग
   translated_synonym_relations-label-synonym_relation_id-57: स्पेलिंग पर्याय
-  translated_synonym_relations-label-synonym_relation_id-6: अनुरूप नाव
+  translated_synonym_relations-label-synonym_relation_id-6: समकक्ष नाव
   translated_synonym_relations-label-synonym_relation_id-63: अस्वीकृत
   translated_synonym_relations-label-synonym_relation_id-64: अवैध
   translated_synonym_relations-label-synonym_relation_id-66: पर्यायी प्रतिनिधित्व
@@ -212,7 +212,7 @@ mr:
   translated_table_of_contents-label-table_of_contents_id-1: आढावा
   translated_table_of_contents-label-table_of_contents_id-13: प्रचलित नावे
   translated_table_of_contents-label-table_of_contents_id-17: साहित्यिक संदर्भ
-  translated_table_of_contents-label-table_of_contents_id-194: विस्तार
+  translated_table_of_contents-label-table_of_contents_id-194: आकार
   translated_table_of_contents-label-table_of_contents_id-2: संक्षिप्त सारांश
   translated_table_of_contents-label-table_of_contents_id-218: पांगणे
   translated_table_of_contents-label-table_of_contents_id-221: धोके

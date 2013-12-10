@@ -10,7 +10,7 @@ describe TaxonConceptReindexing do
   end
 
   before(:each) do
-    SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
+    EolConfig.stub(:max_curatable_descendants).and_return(@max_descendants)
     TaxonClassificationsLock.delete_all
   end
 

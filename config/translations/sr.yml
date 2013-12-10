@@ -1337,7 +1337,7 @@ sr:
         username: Корисничко име <small>(4-32 знака)</small>
         username_or_email: Корисничко име или е-адреса
       wikipedia_queue: 
-        revision_url: Адреса измене <small>(нпр. http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931)</small>
+        revision_url: Адреса измене <small>(нпр. https://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931)</small>
         revision_url_more: Ако унесете адресу измене с Википедије, захтевате од EOL-а да преузме дату измену као проверену. Ово ће заменити текуће издање чланка на EOL-у, ако он постоји.
     select: 
       prompt: Изаберите
@@ -2624,10 +2624,10 @@ sr:
   who_registered_before: до
   who_registered_from: ко се уписао из
   wikipedia_queue_create_successful_notice: Чланак %{article} измена %{rev} из Википедије је стављена у ред за увоз.
-  wikipedia_queue_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ставим Википедијин чланак у ред за увоз.<br/>Адреса измене се мора поклапати са http://en.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
+  wikipedia_queue_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ставим Википедијин чланак у ред за увоз.<br/>Адреса измене се мора поклапати са https://en.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
   wikipedia_queue_new_instructions_intro: "Да бисте добили адресу измене Википедијиног чланка:"
-  wikipedia_queue_new_instructions_step_four: "Копирајте адресу измене из прегледача у приказани образац за увоз из Википедије. Адреса измене треба да буде у следећем облику: <a href=\"http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931\">http://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931</a>"
-  wikipedia_queue_new_instructions_step_one: Идите на страницу Википедије, нпр. <a href="http://sr.wikipedia.org/w/index.php?title=Пингвин">http://sr.wikipedia.org/w/index.php?title=Пингвин</a>
+  wikipedia_queue_new_instructions_step_four: "Копирајте адресу измене из прегледача у приказани образац за увоз из Википедије. Адреса измене треба да буде у следећем облику: <a href=\"https://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931\">https://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931</a>"
+  wikipedia_queue_new_instructions_step_one: Идите на страницу Википедије, нпр. <a href="https://sr.wikipedia.org/w/index.php?title=Пингвин">https://sr.wikipedia.org/w/index.php?title=Пингвин</a>
   wikipedia_queue_new_instructions_step_three: Кликните на ставку „Трајна веза“. Ово је адреса текуће измене чланка, где можете прегледати и претходна издања.
   wikipedia_queue_new_instructions_step_two: Отворите мени „Алатке“ и тамо ћете видети ставку „Трајна веза“.
   wikipedia_queue_new_intro: Пошаљите измену чланка на Википедији да би њу преузео EOL као проверен текстуални објекат.

@@ -328,12 +328,10 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  # TODO - make a Commentable mixin
-  # Add a comment to this data object
   def comment(user, body)
-    comment = comments.create :user_id => user.id, :body => body
+    comment = comments.create user: user, body: body
     user.comments.reload # be friendly - update the user's comments automatically
-    return comment
+    comment
   end
 
   # Find the Agent (only one) that supplied this data object to EOL.
@@ -363,13 +361,21 @@ class DataObject < ActiveRecord::Base
   # 'owner' chooses someone responsible for this data object in order of preference
   # this method returns [OwnerName, OwnerUser || nil]
   def owner
-    # rights holder is preferred
-    return rights_holder_for_display, nil unless rights_holder_for_display.blank?
-    unless agents_data_objects.empty?
-      AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
-      if first_agent = agents_data_objects.first.agent
-        return first_agent.full_name, first_agent.user
+    return translated_from.owner if data_object_translation # Use the original owner when translated. TODO - image only?
+    if rights_holder_for_display.blank?
+      unless agents_data_objects.empty?
+        AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
+        if first_agent = agents_data_objects.first.agent
+          return first_agent.full_name
+        end
       end
+      return nil
+    else # rights holder is preferred
+      owner = "#{rights_holder_for_display}"
+      unless license && license.is_public_domain?
+        return "&copy; #{owner}"
+      end
+      return owner
     end
   end
 
@@ -1087,7 +1093,7 @@ class DataObject < ActiveRecord::Base
 
   # Used for notifications only. Expensive.
   def watch_collections_for_associated_taxa
-    data_object_taxa(published: true).map(&:taxon_concept).map { |tc| tc.containing_collections.watch }.flatten
+    data_object_taxa(published: true).map(&:taxon_concept).flat_map { |tc| tc.containing_collections.watch }
   end
 
   def title_same_as_toc_label(toc_item, options = {})

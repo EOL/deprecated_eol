@@ -13,18 +13,13 @@ class Community < ActiveRecord::Base
   has_many :comments, :as => :parent
 
   scope :published, :conditions => 'published = 1'
-  
+
   scope :in_group, lambda{ |group| {
       :select=>"`photos`.*",
       :joins=>"INNER JOIN `users` on `users`.id = `photos`.user_id INNER
   JOIN `groups_users` ON `users`.id = `groups_users`.user_id",
       :conditions=>["`groups_users`.group_id = ?", group.id]
     }}
-  
-
-  # These are for will_paginate:
-  cattr_reader :per_page
-  @@per_page = 30
 
   validates_presence_of :name, :message => I18n.t(:cannot_be_empty)
   validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long)

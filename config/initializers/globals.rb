@@ -13,7 +13,6 @@ Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
 
 Rails.configuration.uri_prefix = 'http://eol.org/schema/'
 Rails.configuration.schema_terms_prefix = 'http://eol.org/schema/terms/'
-Rails.configuration.uri_inverse = 'http://www.w3.org/2002/07/owl#inverseOf'
 Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources"
 Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"
 Rails.configuration.uri_allowed_val = "#{Rails.configuration.uri_prefix}allowedValue"
@@ -38,6 +37,11 @@ Rails.configuration.uri_dc = "http://purl.org/dc/terms/"
 Rails.configuration.uri_license = "#{Rails.configuration.uri_dc}license"
 Rails.configuration.uri_source = "#{Rails.configuration.uri_dc}source"
 Rails.configuration.uri_citation = "#{Rails.configuration.uri_dc}bibliographicCitation"
+# OWL
+Rails.configuration.uri_owl = 'http://www.w3.org/2002/07/owl#'
+Rails.configuration.uri_equivalent_property = "#{Rails.configuration.uri_owl}equivalentProperty"
+Rails.configuration.uri_inverse = "#{Rails.configuration.uri_owl}inverseOf"
+
 
 Rails.configuration.uri_prefix_user_added_data = "http://eol.org/pages/" # TODO - this should be a polymorphic hash, ie:
                                 # { taxon_concept: "http://eol.org/pages/", data_object: "http://eol.org/data_objects/" } ...etc...

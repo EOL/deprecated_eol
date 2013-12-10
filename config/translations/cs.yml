@@ -1178,7 +1178,7 @@ cs:
         username: Uživatelské jméno <small>(4 - 32 znaků)</small>
         username_or_email: Uživatelské jméno nebo email
       wikipedia_queue: 
-        revision_url: Revize URL <small>(např. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: Revize URL <small>(např. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Zadáním adresy URL revize na Wikipedii požadujete, aby EOL přijal tuto konkrétní revizi jako prověřenou. Pokud už ji máme, nahradí aktuální verzi tohoto článku v EOL.
     select: 
       prompt: Vyberte prosím

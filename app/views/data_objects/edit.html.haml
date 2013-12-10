@@ -7,5 +7,5 @@
         :builder => ApplicationHelper::EolFormBuilder do |f|
         = render :partial => 'text_fieldset', :locals => { :f => f, :link_object => @edit_link }
         %fieldset.actions
-          = f.submit I18n.t("helpers.submit.data_object#{'_link' if @edit_link}.update"), :name => "commit#{'_link' if @edit_link}"
+          = f.submit I18n.t("helpers.submit.data_object#{'_link' if @edit_link}.update"), :name => "commit#{'_link' if @edit_link}", data: { disable_with: I18n.t(:submitting) }
           = link_to I18n.t(:dato_edit_cancel), data_object_path(params[:id])

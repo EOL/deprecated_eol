@@ -354,7 +354,7 @@ fr:
         known_uri: 
           attributes: 
             uri: 
-              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -381,18 +381,18 @@ fr:
         user_added_data: 
           attributes: 
             predicate: 
-              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
               namespace: espace de noms utilisé non reconnu
             subject: 
-              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
               namespace: espace de noms utilisé non reconnu
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
               namespace: espace de noms utilisé non reconnu
             subject: 
-              must_be_uri: doit être un <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
+              must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bien formé
               namespace: espace de noms utilisé non reconnu
       template: 
         body: "Les champs suivants n’ont pas été validés :"
@@ -2524,7 +2524,7 @@ fr:
         username: Nom d’utilisateur <small>(4 à 32 caractères)</small>
         username_or_email: Nom d’utilisateur ou adresse courriel
       wikipedia_queue: 
-        revision_url: URL de version de page <small>(par exemple, http://fr.wikipedia.org/w/index.php?title=Girafe&oldid=73335161)</small>
+        revision_url: URL de version de page <small>(par exemple, https://fr.wikipedia.org/w/index.php?title=Girafe&oldid=73335161)</small>
         revision_url_more: En entrant une URL de version de page Wikipédia, vous demandez à ce que l’EdlV absorbe cette version particulière comme approuvée. Cette version remplacera la version actuelle de l’article dans l’EdlV s’il y en a déjà une.
     select: 
       prompt: Veuillez sélectionner
@@ -4558,10 +4558,10 @@ fr:
   who_registered_before: vers
   who_registered_from: qui s’est inscrit depuis
   wikipedia_queue_create_successful_notice: La modification %{rev} de l’article %{article} de Wikipédia a été mise en attente pour l’importation.
-  wikipedia_queue_create_unsuccessful_error: Désolé, une erreur s’est produite, l’article de Wikipédia n’a pas été mis en file d’attente pour l’importation.<br>L’URL de la modification doit correspondre à http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: Désolé, une erreur s’est produite, l’article de Wikipédia n’a pas été mis en file d’attente pour l’importation.<br>L’URL de la modification doit correspondre à https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "Pour trouver l’URL de la révision d’un article de Wikipédia :"
-  wikipedia_queue_new_instructions_step_four: Copiez l’URL de la révision depuis votre navigateur et collez-la dans le formulaire de demande d’importation Wikipedia affiché ici; l’URL de la révision doit resssembler à <a href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
-  wikipedia_queue_new_instructions_step_one: Aller à la page de l’article sur Wikipédia, par exemple <a href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: Copiez l’URL de la révision depuis votre navigateur et collez-la dans le formulaire de demande d’importation Wikipedia affiché ici; l’URL de la révision doit resssembler à <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_instructions_step_one: Aller à la page de l’article sur Wikipédia, par exemple <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: Suivre l'élément de menu 'Lien Permanent'. C’est l’URL de la révision actuelle et elle vous amènera à la version actuelle de l’article, depuis laquelle vous pourrez accéder aux versions précédentes.
   wikipedia_queue_new_instructions_step_two: Développer le menu 'boîte à outils' figurant dans la colonne de navigation, et à l’intérieur, vous devriez y voir l'élément de menu 'Lien Permanent'.
   wikipedia_queue_new_intro: Soumettre la révision d’un article de Wikipédia pour être intégrée dans l’EdlV comme un objet textuel approuvé.

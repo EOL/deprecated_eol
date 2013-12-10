@@ -51,7 +51,8 @@ class ContentController < ApplicationController
     @items = []
 
     if !taxon_concept.nil?
-      @title = "for "+ taxon_concept.quick_scientific_name(:normal)
+      # TODO - ummmn... no.  This needs I18n, or an explanation as to why it doesn't:
+      @title = "for "+ taxon_concept.summary_name
 
       do_ids = TopConceptImage.find(:all,
         :select => 'data_object_id',
@@ -184,24 +185,19 @@ class ContentController < ApplicationController
 
   def test_timeout
     restrict_to_admins
-    sco = SiteConfigurationOption.find_by_parameter('test_timeout')
+    sco = EolConfig.find_by_parameter('test_timeout')
     if sco
       render :text => "Already testing a timeout elsewhere. Please be patient."
     else
-      SiteConfigurationOption.create(:parameter => 'test_timeout', :value => params[:time])
+      EolConfig.create(:parameter => 'test_timeout', :value => params[:time])
       sleep(params[:time].to_i)
-      SiteConfigurationOption.delete_all(:parameter => 'test_timeout')
+      EolConfig.delete_all(:parameter => 'test_timeout')
       render :text => "Done."
     end
   end
 
   def boom
     raise "This is an exception." # I18n not req'd
-  end
-
-  def check_connection
-    require 'lib/check_connection'
-    render :text => CheckConnection.all_instantiable_models.join("<br/>")
   end
 
   def language

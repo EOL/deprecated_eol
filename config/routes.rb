@@ -362,6 +362,7 @@ Eol::Application.routes.draw do
     member do
       put 'unhide'
       put 'hide'
+      put 'set_as_exemplar_for_same_as'
     end
   end
 
@@ -446,7 +447,6 @@ Eol::Application.routes.draw do
   match '/loggertest' => 'content#loggertest' # This is used for configuring logs and log levels.
   match '/version' => 'content#version'
   match '/boom' => 'content#boom'
-  match '/check_connection' => 'content#check_connection'
   match '/test_timeout/:time' => 'content#test_timeout'
 
   # Named application routes:
@@ -567,7 +567,7 @@ Eol::Application.routes.draw do
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end
 
-  resources :site_configuration_options, only: :update do
+  resources :eol_configs, only: :update do
     collection do
       get 'change'
     end

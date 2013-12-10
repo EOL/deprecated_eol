@@ -7,7 +7,7 @@
   %tbody
     - taxon_concept_ids.each do |id|
       - if id then
-        - name = TaxonConcept.find(id).quick_scientific_name(:italicized)
+        - name = TaxonConcept.find(id).title
       - else
         - name = ""
       %tr

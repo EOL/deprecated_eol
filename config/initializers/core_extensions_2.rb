@@ -264,7 +264,14 @@ class String
         gsub(/^([\(\["]*)(doi:10\.[a-z0-9\/\.-]*)/i, '\1<a href="http://dx.doi.org/\2">\2</a>')
     end.join(' ')
   end
-  
+
+  def pretty_url(max_length = nil)
+    max_length = 20 unless max_length.nil? || max_length > 20
+    trimmed_url = self.sub('http://', '')
+    return trimmed_url if max_length.nil? || trimmed_url.length <= max_length
+    trimmed_url[0...10] + '...' + trimmed_url[(trimmed_url.length - max_length + 10)..-1]
+  end
+
   def contains_chinese?
     # sort of from http://stackoverflow.com/questions/2727804/how-to-determine-if-a-character-is-a-chinese-character
     list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")

@@ -25,7 +25,7 @@
                   %label= I18n.t('activerecord.attributes.user_added_data.predicate')
                 %dd
                   - select_options = { "-- " + I18n.t('activerecord.attributes.user_added_data.predicate') + " --" => nil }.
-                  -   merge(Hash[[nil, nil] + KnownUri.all_measurement_type_known_uris.collect do |uri|
+                  -   merge(Hash[[nil, nil] + EOL::Sparql.connection.all_measurement_type_known_uris.collect do |uri|
                   -     label = uri.is_a?(KnownUri) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
                   -     [ truncate(label.firstcap, :length => 35), uri.is_a?(KnownUri) ? uri.uri : uri ]
                   -   end.sort_by{ |k,v| k.nil? ? '' : k } ] )

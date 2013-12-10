@@ -184,6 +184,12 @@ class KnownUrisController < ApplicationController
     redirect_to known_uris_path
   end
 
+  def set_as_exemplar_for_same_as
+    @known_uri = KnownUri.find(params[:id])
+    @known_uri.set_as_exemplar_for_same_as_group
+    redirect_to request.referer
+  end
+
   # search for any URI by name or URI
   def autocomplete_known_uri_search
     @known_uris = search_known_uris_by_name_or_uri(params[:term])
@@ -277,13 +283,13 @@ class KnownUrisController < ApplicationController
     @stats_filter_selected_option = params[:stats_filter]
     case @stats_filter_selected_option
     when 'measurement_types'
-      @uri_stats = KnownUri.unknown_measurement_type_uris
+      @uri_stats = EOL::Sparql.connection.unknown_measurement_type_uris
     when 'measurement_values'
-      @uri_stats = KnownUri.unknown_measurement_value_uris
+      @uri_stats = EOL::Sparql.connection.unknown_measurement_value_uris
     when 'measurement_units'
-      @uri_stats = KnownUri.unknown_measurement_unit_uris
+      @uri_stats = EOL::Sparql.connection.unknown_measurement_unit_uris
     when 'association_types'
-      @uri_stats = KnownUri.unknown_association_type_uris
+      @uri_stats = EOL::Sparql.connection.unknown_association_type_uris
     else
       @stats_filter_selected_option = nil
       @uri_stats = nil
@@ -330,8 +336,8 @@ class KnownUrisController < ApplicationController
   end
 
   def clear_cache
-    Rails.cache.delete("known_uri/all_measurement_type_uris")
-    Rails.cache.delete("known_uri/all_measurement_type_known_uris")
+    Rails.cache.delete("eol/sparql/client/all_measurement_type_uris")
+    Rails.cache.delete("eol/sparql/client/all_measurement_type_known_uris")
     Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
   end
 

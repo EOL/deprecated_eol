@@ -11,7 +11,7 @@ class DataSearchController < ApplicationController
     @attribute = params[:attribute]
     @sort = params[:sort]
     @page = params[:page] || 1
-    @attribute = nil unless KnownUri.all_measurement_type_uris.include?(@attribute)
+    @attribute = nil unless EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
     @attribute_known_uri = KnownUri.find_by_uri(@attribute)
     @from, @to = nil, nil
     # we must at least have an attribute to perform a Virtuoso query, otherwise it would be too slow

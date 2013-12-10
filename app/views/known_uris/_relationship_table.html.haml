@@ -1,0 +1,43 @@
+- relationships = [] unless defined?(relationships)
+- relationship_type = '' unless defined?(relationship_type)
+- label = '' unless defined?(label)
+- if defined?(known_uri) && ! relationships.empty?
+  %label= label
+  %table.relations
+    - relationships.each do |relationship|
+      - from_uri = relationship.from_known_uri
+      - to_uri = relationship.to_known_uri
+      %tr
+        %td.label= from_uri.label
+        %td.uri= link_to from_uri.uri.pretty_url(30), edit_known_uri_path(from_uri)
+        %td.relation= relationship.relationship_label
+        %td.label= to_uri.label
+        %td.uri= link_to to_uri.uri.pretty_url(30), edit_known_uri_path(to_uri)
+        %td.actions
+          - unless relationship.same_as? && known_uri != from_uri && known_uri != to_uri
+            = button_to raw(I18n.t(:delete)), relationship, :method => :delete, :data => { :confirm => I18n.t(:are_you_sure) }
+    - if relationship_type == :equivalence && known_uri.indirectly_equivalent_known_uris
+      - known_uri.indirectly_equivalent_known_uris.each do |equivalent_known_uri|
+        %tr
+          %td.label= equivalent_known_uri.label
+          %td.uri= link_to equivalent_known_uri.uri.pretty_url(30), edit_known_uri_path(equivalent_known_uri)
+          %td.relation= I18n.t(:known_uri_label_indirectly_equivalent)
+          %td.label= known_uri.label
+          %td.uri= link_to known_uri.uri.pretty_url(30), edit_known_uri_path(known_uri)
+          %td.actions
+  - if relationship_type == :equivalence
+    %label= I18n.t('known_uris.select_a_preferred_uri_for_this_group')
+    %table.relations
+      - known_uri.equivalence_group.each do |equivalent_uri|
+        %tr
+          %td.label= equivalent_uri.label
+          %td.uri= link_to equivalent_uri.uri.pretty_url(30), edit_known_uri_path(equivalent_uri)
+          %td.actions
+            - if equivalent_uri.exemplar_for_same_as?
+              = I18n.t('known_uris.preferred_for_equivalence_group')
+            - else
+              = button_to I18n.t('known_uris.select'), set_as_exemplar_for_same_as_known_uri_path(equivalent_uri), :method => :put, :data => { :confirm => I18n.t(:are_you_sure) }
+          %td.relation
+          %td.label
+          %td.uri
+    

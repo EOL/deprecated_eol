@@ -3,6 +3,7 @@ module EOL
     class Client
 
       attr_accessor :endpoint_uri, :namespaces, :username, :password, :sparql_client
+      extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
 
       def initialize(options={})
         @endpoint_uri = options[:endpoint_uri]
@@ -59,6 +60,36 @@ module EOL
         results
       end
 
+      def unknown_measurement_unit_uris
+        unknown_uris_from_array(counts_of_all_measurement_unit_uris)
+      end
+
+      def unknown_measurement_type_uris
+        unknown_uris_from_array(counts_of_all_measurement_type_uris)
+      end
+
+      def unknown_measurement_value_uris
+        unknown_uris_from_array(counts_of_all_measurement_value_uris)
+      end
+
+      def unknown_association_type_uris
+        unknown_uris_from_array(counts_of_all_association_type_uris)
+      end
+
+      def all_measurement_type_uris
+        Rails.cache.fetch("eol/sparql/client/all_measurement_type_uris", :expires_in => 1.day) do
+          counts_of_all_measurement_type_uris.collect{ |k,v| k }
+        end
+      end
+
+      def all_measurement_type_known_uris
+        Rails.cache.fetch("eol/sparql/client/all_measurement_type_known_uris", :expires_in => 1.day) do
+          all_uris = all_measurement_type_uris
+          all_known_uris = KnownUri.find_all_by_uri(all_uris)
+          all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } || uri }
+        end
+      end
+
     private
 
       def delete_graph_via_sparql_update(graph_name)
@@ -69,6 +100,86 @@ module EOL
 
       def namespaces_prefixes
         namespaces.collect{ |key,value| "PREFIX #{key}: <#{value}>"}.join(" ")
+      end
+
+      def unknown_uris_from_array(uris_with_counts)
+        unknown_uris_with_counts = uris_with_counts
+        known_uris = KnownUri.find_all_by_uri(unknown_uris_with_counts.collect{ |uri,count| uri })
+        known_uris.each do |known_uri|
+          unknown_uris_with_counts.delete_if{ |uri, count| known_uri.matches(uri) }
+        end
+        unknown_uris_with_counts
+      end
+
+      def group_counts_by_uri(result)
+        uris_with_counts = {}
+        result.each do |r|
+          uri = r[:uri].to_s
+          next if uri.blank?
+          uris_with_counts[uri] = r[:count].to_i
+        end
+        uris_with_counts
+      end
+
+      def counts_of_all_measurement_value_uris
+        EOL::Sparql::Client.if_connection_fails_return({}) do
+          result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
+            WHERE {
+              ?measurement a <#{DataMeasurement::CLASS_URI}> .
+              ?measurement dwc:measurementValue ?uri .
+              FILTER (CONTAINS(str(?uri), '://'))
+            }
+            GROUP BY ?uri
+            ORDER BY DESC(?count)
+          ")
+          group_counts_by_uri(result)
+        end
+      end
+
+      def counts_of_all_association_type_uris
+        EOL::Sparql::Client.if_connection_fails_return({}) do
+          result = query("SELECT ?uri, COUNT(DISTINCT ?association) as ?count
+            WHERE {
+              ?association a <#{DataAssociation::CLASS_URI}> .
+              ?association <#{Rails.configuration.uri_association_type}> ?uri .
+              FILTER (CONTAINS(str(?uri), '://'))
+            }
+            GROUP BY ?uri
+            ORDER BY DESC(?count)
+          ")
+          group_counts_by_uri(result)
+        end
+      end
+
+      def counts_of_all_measurement_unit_uris
+        EOL::Sparql::Client.if_connection_fails_return({}) do
+          result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
+            WHERE {
+              ?measurement dwc:measurementUnit ?uri .
+              FILTER (isURI(?uri))
+            }
+            GROUP BY ?uri
+            ORDER BY DESC(?count)
+          ")
+          group_counts_by_uri(result)
+        end
+      end
+
+      def counts_of_all_measurement_type_uris
+        EOL::Sparql::Client.if_connection_fails_return({}) do
+          result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
+            WHERE {
+              ?measurement a <#{DataMeasurement::CLASS_URI}> .
+              ?measurement dwc:measurementType ?uri .
+              ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+              FILTER ( ?measurementOfTaxon = 'true' ) .
+              FILTER (CONTAINS(str(?uri), '://'))
+            }
+            GROUP BY ?uri
+            ORDER BY DESC(?count)
+          ")
+          group_counts_by_uri(result)
+        end
       end
 
     end

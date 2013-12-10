@@ -360,6 +360,7 @@ Eol::Application.routes.draw do
     member do
       put 'unhide'
       put 'hide'
+      put 'set_as_exemplar_for_same_as'
     end
   end
 

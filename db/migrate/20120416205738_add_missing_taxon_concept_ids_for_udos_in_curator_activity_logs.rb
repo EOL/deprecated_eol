@@ -1,9 +1,9 @@
 class AddMissingTaxonConceptIdsForUdosInCuratorActivityLogs < ActiveRecord::Migration
   def self.up
     db_populated = begin
-                     Activity.trusted
-                     Activity.inappropriate
-                     ChangeableObjectType.users_data_object.id
+                     Activity.trusted &&
+                     Activity.inappropriate &&
+                     ChangeableObjectType.users_data_object
                    rescue
                      false
                    end

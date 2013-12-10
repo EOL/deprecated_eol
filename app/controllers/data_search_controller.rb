@@ -68,7 +68,7 @@ class DataSearchController < ApplicationController
     if @taxon_concept
       measurment_uris = TaxonData.new(@taxon_concept, current_user).ranges_of_values.collect{ |r| r[:attribute] }
     else
-      measurment_uris = KnownUri.all_measurement_type_known_uris
+      measurment_uris = EOL::Sparql.connection.all_measurement_type_known_uris
     end
     @select_options = @select_options.merge(Hash[ measurment_uris.collect do |uri|
       label = uri.is_a?(KnownUri) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)

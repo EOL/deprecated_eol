@@ -35,6 +35,15 @@ EOL.enable_info_dialogs = function(tip) {
         ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false) } );
       }
     });
+  // making sure the info icons show when anywhere on the row is moused over
+  $('table.data tr.data, table.meta tr').hover(
+    function() {
+      $(this).find('.info_icon').addClass('active');
+    },
+    function() {
+      $(this).find('.info_icon').removeClass('active');
+    }
+  );
 };
 
 EOL.enable_button = function($button) {

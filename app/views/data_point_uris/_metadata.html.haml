@@ -22,7 +22,8 @@
   - if other_measurements = data_point_uri.get_other_occurrence_measurements(current_language)
     %table.meta{ summary: I18n.t(:data_measurement_subtable_summary) }
       %caption.title= I18n.t(:other_measurements_from_this_record)
-      - other_measurements.each do |d|
+      - other_measurements.each_with_index do |d, i|
+        - row_id = "#{data_point_uri.anchor}_measure_#{i}"
         %tr
-          = display_uri(d.predicate_uri, :th, define: true)
-          %td= raw display_text_for_data_point_uri(d)
+          %th{id: "#{row_id}_h"}= display_uri(d.predicate_uri, :span, define: true)
+          %td{id: "#{row_id}_d"}= raw display_text_for_data_point_uri(d, define: :after)

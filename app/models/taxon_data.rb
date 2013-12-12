@@ -60,7 +60,6 @@ class TaxonData < TaxonUserClassificationFilter
     end
     query += " WHERE {
       GRAPH ?graph {
-        ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
         ?data_point_uri dwc:measurementType ?attribute .
         ?data_point_uri dwc:measurementValue ?value .
         ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
@@ -68,15 +67,23 @@ class TaxonData < TaxonUserClassificationFilter
         OPTIONAL {
           ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri .
         } . "
+    # numerical range search term
     if options[:from] && options[:to]
       query += "FILTER(xsd:float(?value) >= xsd:float(#{options[:from]}) AND xsd:float(?value) <= xsd:float(#{options[:to]})) . "
+    # exact numerical search term
     elsif options[:querystring] && options[:querystring].is_numeric?
       query += "FILTER(xsd:float(?value) = xsd:float(#{options[:querystring]})) . "
+    # string search term
     elsif options[:querystring] && ! options[:querystring].strip.empty?
-      query += "FILTER(REGEX(?value, '#{options[:querystring]}', 'i')) . "
+      matching_known_uris = KnownUri.search(options[:querystring])
+      query += "FILTER(( !isURI(?value) && REGEX(?value, '#{options[:querystring]}', 'i'))"
+      unless matching_known_uris.empty?
+        query << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
+      end
+      query += ") . "
     end
     if options[:attribute]
-      query += "?data_point_uri dwc:measurementType <#{options[:attribute]}> . "
+      query += "FILTER(?attribute = <#{options[:attribute]}>) . "
     end
     query += "} .
       {
@@ -147,7 +154,6 @@ class TaxonData < TaxonUserClassificationFilter
       SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?graph {
-          ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value .
           OPTIONAL {
@@ -155,8 +161,8 @@ class TaxonData < TaxonUserClassificationFilter
           }
         } .
         {
-          ?data_point_uri dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-          ?data_point_uri dwc:taxonConceptID ?taxon_concept_id
+          ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
+          FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
         }
         UNION {
           ?data_point_uri dwc:occurrenceID ?occurrence .
@@ -164,8 +170,8 @@ class TaxonData < TaxonUserClassificationFilter
           ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
           FILTER ( ?measurementOfTaxon = 'true' ) .
           GRAPH ?resource_mappings_graph {
-            ?taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-            ?taxon dwc:taxonConceptID ?taxon_concept_id
+            ?taxon dwc:taxonConceptID ?taxon_concept_id .
+            FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
           }
         }
       }
@@ -179,13 +185,13 @@ class TaxonData < TaxonUserClassificationFilter
       SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?resource_mappings_graph {
-          ?taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?taxon dwc:taxonConceptID ?source_taxon_concept_id .
+          FILTER(?source_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>) .
           ?value dwc:taxonConceptID ?target_taxon_concept_id
         } .
         GRAPH ?graph {
           ?occurrence dwc:taxonID ?taxon .
           ?target_occurrence dwc:taxonID ?value .
-          ?data_point_uri a <#{DataAssociation::CLASS_URI}> .
           {
             ?data_point_uri dwc:occurrenceID ?occurrence .
             ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?target_occurrence .

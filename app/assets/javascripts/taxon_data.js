@@ -17,7 +17,7 @@ EOL.create_info_dialog = function(match) {
 };
 
 EOL.enable_info_dialogs = function(tip) {
-  tip
+  tip.unbind('click')
     .on('click', function() {
       $('.site_column').unbind('click');
       var $link = $(this);
@@ -352,7 +352,7 @@ $(function() {
       EOL.show_data_tables($('table.data'));
     } else {
       EOL.hide_data_tables($('table.data'));
-      EOL.show_data_tables($('table.data[data-toc_id="' + $(this).attr('data-toc-id') + '"]'));
+      EOL.show_data_tables($('table.data[data-toc-id="' + $(this).attr('data-toc-id') + '"]'));
     }
     $(this).parent().parent().find('li').removeClass('active');
     $(this).parent().addClass('active');

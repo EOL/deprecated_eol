@@ -47,7 +47,6 @@ describe TaxonData do
 
   it 'should select where some default stuff is expected' do
     [
-      "?data_point_uri a <#{DataMeasurement::CLASS_URI}> .",
       "?data_point_uri dwc:occurrenceID ?occurrence_id .",
       "?occurrence_id dwc:taxonID ?taxon_id .",
       "?taxon_id dwc:taxonConceptID ?taxon_concept_id",

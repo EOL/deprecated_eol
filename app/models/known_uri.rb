@@ -287,6 +287,13 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def self.search(term, options = {})
+    options[:language] ||= Language.default
+    return [] if term.length < 3
+    TranslatedKnownUri.where(language_id: options[:language].id).
+      where("name REGEXP '(^| )#{term}( |$)'").includes(:known_uri).collect(&:known_uri).compact.uniq
+  end
+
   private
 
   def default_values

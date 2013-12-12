@@ -21,5 +21,6 @@
       :page_links=>false
   #taxon_data
     %table.standard.data.search
-      - @results.each do |data_point_uri|
-        = render :partial => 'data_point_uris/display_rows', :locals => { :data_point_uri => data_point_uri, :for_search => true }
+      - @results.each_with_index do |data_point_uri, index|
+        = render :partial => 'data_point_uris/display_rows', :locals => { :data_point_uri => data_point_uri, :for_search => true,
+          header_id: "result_#{index}" }

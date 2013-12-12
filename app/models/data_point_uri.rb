@@ -197,14 +197,12 @@ class DataPointUri < ActiveRecord::Base
             ?parent_uri dwc:occurrenceID ?occurrence .
             ?occurrence ?attribute ?value .
           } UNION {
-            ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement <#{Rails.configuration.uri_parent_measurement_id}> ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
           } UNION {
             ?parent_uri dwc:occurrenceID ?occurrence .
-            ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
@@ -212,7 +210,6 @@ class DataPointUri < ActiveRecord::Base
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
-            ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement <#{Rails.configuration.uri_association_id}> ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
@@ -253,7 +250,6 @@ class DataPointUri < ActiveRecord::Base
         GRAPH ?graph {
           {
             <#{uri}> dwc:occurrenceID ?occurrence .
-            ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
             ?data_point_uri dwc:occurrenceID ?occurrence .
             ?data_point_uri dwc:measurementType ?attribute .
             ?data_point_uri dwc:measurementValue ?value .

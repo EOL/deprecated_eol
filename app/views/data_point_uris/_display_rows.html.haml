@@ -57,7 +57,7 @@
 %tr{ class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
   %td{ colspan: colspan }
     - if row_is_selected
-      = render partial: 'data_point_uris/metadata', locals: { data_point_uri: data_point_uri }
+      = render partial: 'data_point_uris/metadata', locals: { data_point_uri: data_point_uri, header_id: header_id }
     .actions
       %ul
         %li
@@ -77,12 +77,6 @@
             %li
               &bull;&ensp;
               = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
-        / - unless comments.empty?
-        /   - annotations_link = data_point_uri_comments_path(data_point_uri)
-        /   - if annotations_link
-        /     %li.annotations
-        /       &bull;&ensp;
-        /       = link_to I18n.t(:annotations_with_count, count: comments.count), annotations_link
       = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: data_point_uri }
       -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
       - if current_user.min_curator_level?(:full)

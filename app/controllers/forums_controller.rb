@@ -2,13 +2,13 @@ class ForumsController < ApplicationController
 
   layout 'v2/forum'
   before_filter :must_be_allowed_to_view_forum
-  before_filter :allow_login_then_submit, :only => [ :create ]
-  before_filter :restrict_to_admins, :only => [ :create, :destroy, :move_up, :move_down ]
+  before_filter :allow_login_then_submit, only: [ :create ]
+  before_filter :restrict_to_admins, only: [ :create, :destroy, :move_up, :move_down ]
 
   # GET /forums
   def index
-    @forum_categories = ForumCategory.order(:view_order).includes(:forums => :last_post)
-    ForumCategory.preload_associations(@forum_categories, { :forums => { :last_post => [ :user, { :forum_topic => :forum } ] } })
+    @forum_categories = ForumCategory.order(:view_order).includes(forums: :last_post)
+    ForumCategory.preload_associations(@forum_categories, { forums: { last_post: [ :user, { forum_topic: :forum } ] } })
   end
 
   # GET /forums/:id
@@ -16,8 +16,8 @@ class ForumsController < ApplicationController
     params[:page] ||= 1
     params[:page] = 1 if params[:page].to_i < 1
     @forum = Forum.find(params[:id])
-    @forum_topics = @forum.forum_topics.visible.order('last_post_id desc').paginate(:page => params[:page], :per_page => Forum::TOPICS_PER_PAGE)
-    ForumTopic.preload_associations(@forum_topics, { :last_post => [ :user, { :forum_topic => :forum } ] })
+    @forum_topics = @forum.forum_topics.visible.order('last_post_id desc').paginate(page: params[:page], per_page: Forum::TOPICS_PER_PAGE)
+    ForumTopic.preload_associations(@forum_topics, { last_post: [ :user, { forum_topic: :forum } ] })
   end
 
   # GET /forums/new
@@ -82,8 +82,8 @@ class ForumsController < ApplicationController
     @forum = Forum.find(params[:id])
     if @next_lowest = Forum.where("forum_category_id = #{@forum.forum_category_id} AND view_order < #{@forum.view_order}").order("view_order desc").limit(1).first
       new_view_order = @next_lowest.view_order
-      @next_lowest.update_attributes(:view_order => @forum.view_order)
-      @forum.update_attributes(:view_order => new_view_order)
+      @next_lowest.update_attributes(view_order: @forum.view_order)
+      @forum.update_attributes(view_order: new_view_order)
       flash[:notice] = I18n.t('forums.move_successful')
     else
       flash[:error] = I18n.t('forums.move_failed')
@@ -96,8 +96,8 @@ class ForumsController < ApplicationController
     @forum = Forum.find(params[:id])
     if @next_highest = Forum.where("forum_category_id = #{@forum.forum_category_id} AND view_order > #{@forum.view_order}").order("view_order asc").limit(1).first
       new_view_order = @next_highest.view_order
-      @next_highest.update_attributes(:view_order => @forum.view_order)
-      @forum.update_attributes(:view_order => new_view_order)
+      @next_highest.update_attributes(view_order: @forum.view_order)
+      @forum.update_attributes(view_order: new_view_order)
       flash[:notice] = I18n.t('forums.move_successful')
     else
       flash[:error] = I18n.t('forums.move_failed')

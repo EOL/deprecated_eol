@@ -6,7 +6,7 @@ class CuratorActivityLogsController < ApplicationController
 
   def last_ten_minutes
     respond_to do |format|
-      format.json { render :json => {count: CuratorActivityLog.where(["created_at >= ?", 10.minutes.ago.utc]).count} }
+      format.json { render json: { count: CuratorActivityLog.where(["created_at >= ?", 10.minutes.ago.utc]).count } }
     end
   end
 

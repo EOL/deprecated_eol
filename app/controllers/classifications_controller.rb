@@ -5,7 +5,7 @@ class ClassificationsController < ApplicationController
     @debug = false
     debug '#create'
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    @target_params = {:all => 1} # Show all classifications after any operation that comes here.
+    @target_params = {all: 1} # Show all classifications after any operation that comes here.
     master = current_user.min_curator_level?(:master)
     if master && params[:split]
       split
@@ -85,15 +85,15 @@ private
     debug "#remove(#{type}, #{which})"
     catch_classification_errors do
       if type == 'split'
-        @taxon_concept.split_classifications(session[:split_hierarchy_entry_id], :exemplar_id => which,
-                                             :user => current_user)
+        @taxon_concept.split_classifications(session[:split_hierarchy_entry_id], exemplar_id: which,
+                                             user: current_user)
         complete_exemplar_request('split')
       elsif type == 'merge'
         target_taxon_concept = taxon_concept_from_session
-        @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept,
-                                             :forced => !params[:additional_confirm].nil?, :exemplar_id => which,
-                                             :user => current_user)
-        complete_exemplar_request('merge', :taxon_concept => target_taxon_concept)
+        @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], with: target_taxon_concept,
+                                             forced: !params[:additional_confirm].nil?, exemplar_id: which,
+                                             user: current_user)
+        complete_exemplar_request('merge', taxon_concept: target_taxon_concept)
       else
         flash[:warning] = I18n.t(:error_exemplar_chosen_with_invalid_action)
       end
@@ -103,13 +103,13 @@ private
   def prefer
     debug '#prefer'
     preferred_entry =
-      CuratedTaxonConceptPreferredEntry.best_classification(:taxon_concept_id => @taxon_concept.id,
-                                                            :hierarchy_entry_id => params[:hierarchy_entry_id],
-                                                            :user_id => current_user.id)
+      CuratedTaxonConceptPreferredEntry.best_classification(taxon_concept_id: @taxon_concept.id,
+                                                            hierarchy_entry_id: params[:hierarchy_entry_id],
+                                                            user_id: current_user.id)
     # This at least clears out the caches for the titles of all images that might use the scientific name:
     @taxon_concept.images_from_solr.each { |img| DataObjectCaching.clear(img) }
     auto_collect(@taxon_concept) # SPG asks for all curation to add the item to their watchlist.
-    CuratorActivityLog.log_preferred_classification(preferred_entry, :user => current_user)
+    CuratorActivityLog.log_preferred_classification(preferred_entry, user: current_user)
     if $STATSD
       $STATSD.increment 'all_curations'
       $STATSD.increment "curations.preferred_classification"
@@ -195,7 +195,7 @@ private
       @target_params[:providers_match] = e.message # NOTE - a little wonky to pass the ID in the message.  :|
       @target_params[:exemplar] = which
     rescue EOL::Exceptions::TooManyDescendantsToCurate => e
-      flash[:error] = I18n.t(:too_many_descendants_to_curate_with_count, :count => e.message) # Also wonky
+      flash[:error] = I18n.t(:too_many_descendants_to_curate_with_count, count: e.message) # Also wonky
     end
   end
 

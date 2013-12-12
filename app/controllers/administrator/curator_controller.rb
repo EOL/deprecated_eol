@@ -24,8 +24,8 @@ class Administrator::CuratorController < AdminController
     conditions = [condition, search_string_parameter, search_string_parameter, search_string_parameter,
       search_string_parameter, search_string_parameter, search_string_parameter]
 
-    @users = User.paginate(:conditions => conditions, :include => :curator_level, :order => 'requested_curator_at DESC, curator_approved ASC',:page => params[:page])
-    @user_count = User.count(:conditions => conditions)
+    @users = User.paginate(conditions: conditions, include: :curator_level, order: 'requested_curator_at DESC, curator_approved ASC',page: params[:page])
+    @user_count = User.count(conditions: conditions)
   end
 
   def export
@@ -46,9 +46,9 @@ class Administrator::CuratorController < AdminController
     user_common_names_curated = Curator.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], nil, [ChangeableObjectType.synonym.id])
     user_comments_added = User.count_comments_added
     
-    @users = User.find(:all, :include => :curator_level, :conditions => ['curator_level_id > 0'])
+    @users = User.find(:all, include: :curator_level, conditions: ['curator_level_id > 0'])
     report = StringIO.new
-    csv = CSV.generate(:col_sep => "\t") do |line|
+    csv = CSV.generate(col_sep: "\t") do |line|
         line << ['Id', 'Username', 'Name', 'Email', 'Credentials', 'Scope', 'Approved', 'Curator Level', 'Registered Date', 'Objects Curated',
                   'Comments Moderated', 'Species Curated', 'Objects Shown', 'Objects Hidden',
                   'Text Data Objects Submitted', 'Associations Added', 'Wikipedia Articles Nominated', 'Objects Rated', 'Exemplar Images Set',
@@ -68,10 +68,10 @@ class Administrator::CuratorController < AdminController
      end
      
      send_data csv,
-       :type => 'text/tab-separated-values; charset=utf-8; header=present',
-       :filename => 'EOL_curators_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.txt',
-       :encoding => 'utf8',
-       :disposition => "attachment"
+       type: 'text/tab-separated-values; charset=utf-8; header=present',
+       filename: 'EOL_curators_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.txt',
+       encoding: 'utf8',
+       disposition: "attachment"
   end
 
 private

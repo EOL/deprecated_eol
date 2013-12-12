@@ -6,10 +6,10 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
 
   # GET /content_partners/:content_partner_id/agreements/new
   def new
-    @partner = ContentPartner.find(params[:content_partner_id], :include => :content_partner_agreements)
+    @partner = ContentPartner.find(params[:content_partner_id], include: :content_partner_agreements)
     access_denied unless current_user.can_update?(@partner)
     @current_agreement = @partner.agreement
-    new_agreement_params = { :created_at => 0.seconds.from_now }
+    new_agreement_params = { created_at: 0.seconds.from_now }
     # Content of new agreement is copied from the current agreement, if it exists, otherwise the template is used
     new_agreement_params[:body] = @current_agreement.body unless @current_agreement.blank?
     @agreement = @partner.content_partner_agreements.build(new_agreement_params)
@@ -28,7 +28,7 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
       else
         flash[:notice] = I18n.t(:content_partner_agreement_create_successful_notice)
       end
-      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
+      redirect_to content_partner_resources_path(@partner), status: :moved_permanently
     else
       if params[:commit_agree_to_terms]
         flash.now[:error] = I18n.t(:content_partner_agreement_signed_unsuccessful_error)
@@ -40,7 +40,7 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
 
   # GET /content_partners/:content_partner_id/agreements/:id/edit
   def edit
-    @partner = ContentPartner.find(params[:content_partner_id], :include => :content_partner_agreements)
+    @partner = ContentPartner.find(params[:content_partner_id], include: :content_partner_agreements)
     @agreement = @partner.content_partner_agreements.find(params[:id])
     access_denied unless current_user.can_update?(@agreement)
     @page_subheader = I18n.t(:content_partner_agreement_subheader)
@@ -58,7 +58,7 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
       else
         flash[:notice] = I18n.t(:content_partner_agreement_update_successful_notice)
       end
-      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
+      redirect_to content_partner_resources_path(@partner), status: :moved_permanently
     else
       if params[:commit_agree_to_terms]
         flash.now[:error] = I18n.t(:content_partner_agreement_signed_unsuccessful_error)
@@ -70,7 +70,7 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
 
   # GET /content_partners/:content_partner_id/agreements/:id
   def show
-    @partner = ContentPartner.find(params[:content_partner_id], :include => :content_partner_agreements)
+    @partner = ContentPartner.find(params[:content_partner_id], include: :content_partner_agreements)
     @agreement = @partner.content_partner_agreements.find(params[:id])
     access_denied unless current_user.can_read?(@agreement)
     @page_subheader = I18n.t(:content_partner_agreement_subheader)

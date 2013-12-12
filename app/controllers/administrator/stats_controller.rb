@@ -37,7 +37,7 @@ class Administrator::StatsController < AdminController
 
   def toc_breakdown
     @page_title = I18n.t("table_of_contents_breakdown_title")
-    @all_toc_items = TocItem.find(:all, :include => [ :parent, :info_items ], :order => 'view_order')
+    @all_toc_items = TocItem.find(:all, include: [ :parent, :info_items ], order: 'view_order')
   end
 
   def content_taxonomic

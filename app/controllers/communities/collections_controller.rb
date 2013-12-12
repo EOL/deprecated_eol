@@ -1,7 +1,7 @@
 class Communities::CollectionsController < CommunitiesController
 
   # These are required because the declaration in CommunitiesController excludes index (for a good reason):
-  before_filter :load_community_and_dependent_vars, :only => [:index]
+  before_filter :load_community_and_dependent_vars, only: [:index]
   # TODO - when the commands are added, the login should be required and the restrictions should be placed.  See
   # CommunitiesController.
 

@@ -15,10 +15,10 @@ class Users::NotificationsController < UsersController
     convert_notification_frequencies_ids_to_objects
     return access_denied unless current_user.can_update?(@user)
     if @user.update_attributes(params[:user])
-      flash[:notice] = I18n.t(:notification_settings_successfully_updated, :scope => [:users, :notifications, :update])
+      flash[:notice] = I18n.t(:notification_settings_successfully_updated, scope: [:users, :notifications, :update])
       redirect_back_or_default edit_user_path(@user)
     else
-      flash[:error] = I18n.t(:sorry_notification_settings_could_not_be_updated, :scope => [:users, :notifications, :update])
+      flash[:error] = I18n.t(:sorry_notification_settings_could_not_be_updated, scope: [:users, :notifications, :update])
       instantiate_variables_for_notifications_settings
       render :edit
     end
@@ -26,9 +26,9 @@ class Users::NotificationsController < UsersController
 
   private
   def instantiate_variables_for_notifications_settings
-    @notification_frequencies = NotificationFrequency.all(:order => 'id DESC')
-    @page_title = I18n.t(:page_title, :scope => [:users, :notifications, :edit])
-    @page_description = I18n.t(:page_description, :scope => [:users, :notifications, :edit], :user_newsfeed_link => user_newsfeed_path(@user))
+    @notification_frequencies = NotificationFrequency.all(order: 'id DESC')
+    @page_title = I18n.t(:page_title, scope: [:users, :notifications, :edit])
+    @page_description = I18n.t(:page_description, scope: [:users, :notifications, :edit], user_newsfeed_link: user_newsfeed_path(@user))
   end
 
   def convert_notification_frequencies_ids_to_objects

@@ -2,7 +2,7 @@ class DataPointUrisController < ApplicationController
 
   before_filter :restrict_to_data_viewers
   before_filter :load_uri
-  skip_before_filter :original_request_params, :global_warning, :check_user_agreed_with_terms, :keep_home_page_fresh, :only => :show_metadata
+  skip_before_filter :original_request_params, :global_warning, :check_user_agreed_with_terms, :keep_home_page_fresh, only: :show_metadata
 
   layout 'v2/basic'
 
@@ -33,7 +33,7 @@ class DataPointUrisController < ApplicationController
   end
 
   def show_metadata
-    render(:partial => 'metadata')
+    render(partial: 'metadata')
   end
 
 private
@@ -44,11 +44,11 @@ private
 
   def log_action(method)
     CuratorActivityLog.create(
-      :user_id => current_user.id,
-      :changeable_object_type => ChangeableObjectType.data_point_uri,
-      :target_id => @data_point_uri.id,
-      :activity => Activity.send(method),
-      :taxon_concept_id => @data_point_uri.taxon_concept_id
+      user_id: current_user.id,
+      changeable_object_type: ChangeableObjectType.data_point_uri,
+      target_id: @data_point_uri.id,
+      activity: Activity.send(method),
+      taxon_concept_id: @data_point_uri.taxon_concept_id
     )
   end
 

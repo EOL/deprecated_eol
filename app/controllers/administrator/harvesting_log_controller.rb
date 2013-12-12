@@ -16,7 +16,7 @@ class Administrator::HarvestingLogController < AdminController
       @date = 'all'
     end
     conditions = "began_at BETWEEN '#{@date.strftime("%Y-%m-%d")}' AND '#{(@date+1.day).strftime("%Y-%m-%d")}'" if @date != 'all'
-    @logs = HarvestProcessLog.paginate(:order => 'id desc', :page => params[:page], :conditions => conditions)
+    @logs = HarvestProcessLog.paginate(order: 'id desc', page: params[:page], conditions: conditions)
 
     @distinct_dates = []
     last_date = Time.now

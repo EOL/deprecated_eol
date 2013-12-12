@@ -12,10 +12,10 @@ class Administrator::UserDataObjectController < AdminController
     @user_list = User.users_with_submitted_text
 
     conditions = (@user_id == 'All') ? nil : ['user_id = ?',@user_id]
-    @users_data_objects = UsersDataObject.paginate(:conditions => conditions,
-      :order => 'id desc',
-      :include => [ :user, { :data_object => [:toc_items] }, :vetted, :visibility],
-      :page => params[:page])
+    @users_data_objects = UsersDataObject.paginate(conditions: conditions,
+      order: 'id desc',
+      include: [ :user, { data_object: [:toc_items] }, :vetted, :visibility],
+      page: params[:page])
   end
 
 private

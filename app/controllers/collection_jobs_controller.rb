@@ -40,15 +40,15 @@ class CollectionJobsController < ApplicationController
     # TODO - Either remove the "other scopes" (and reduce the complexity of the controller/view) from collections,
     # or handle them here. ie: "All Images", "All Taxa" ... doesn't seem to work ATM, so I say remove it.
     # And add the user as we create the new Job:
-    @collection_job = CollectionJob.new(params[:collection_job].reverse_merge(:user => current_user))
+    @collection_job = CollectionJob.new(params[:collection_job].reverse_merge(user: current_user))
   end
 
   def complete_notice
     # NOTE - values for command can be found in CollectionJob::VALID_COMMANDS
     I18n.t("collection_#{@collection_job.command}_complete_with_count",
-           :count => @collection_job.item_count,
-           :from => link_to_name(@collection_job.collection),
-           :to => @collection_job.collections.map { |col| link_to_name(col) }.to_sentence )
+           count: @collection_job.item_count,
+           from: link_to_name(@collection_job.collection),
+           to: @collection_job.collections.map { |col| link_to_name(col) }.to_sentence )
   end
 
   def link_to_name(collection)

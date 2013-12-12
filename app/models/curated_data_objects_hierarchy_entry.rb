@@ -9,8 +9,8 @@ class CuratedDataObjectsHierarchyEntry < ActiveRecord::Base
   belongs_to :vetted
   belongs_to :visibility
 
-  belongs_to :data_objects_hierarchy_entry, :class_name => 'DataObjectsHierarchyEntry',
-    :foreign_key => [:data_object_id, :hierarchy_entry_id]
+  belongs_to :data_objects_hierarchy_entry, class_name: 'DataObjectsHierarchyEntry',
+    foreign_key: [:data_object_id, :hierarchy_entry_id]
 
   def replicate(new_vetted_id)
     self.vetted_id = new_vetted_id

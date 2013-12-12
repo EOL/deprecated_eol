@@ -2,13 +2,13 @@ class NewsItem < ActiveRecord::Base
 
   uses_translations
 
-  belongs_to :user, :foreign_key => 'last_update_user_id'
+  belongs_to :user, foreign_key: 'last_update_user_id'
 
   validates_presence_of :page_name
-  validates_length_of :page_name, :maximum => 255
-  validates_uniqueness_of :page_name, :scope => :id
+  validates_length_of :page_name, maximum: 255
+  validates_uniqueness_of :page_name, scope: :id
 
-  before_destroy :destroy_translations # TODO: can we have :dependent => :destroy on translations rather than this custom callback?
+  before_destroy :destroy_translations # TODO: can we have dependent: :destroy on translations rather than this custom callback?
 
   def can_be_read_by?(user_wanting_access)
     user_wanting_access.is_admin? || visible?
@@ -60,10 +60,10 @@ class NewsItem < ActiveRecord::Base
   
   def self.homepage_news_for_user(current_user, current_language)
     if current_user.news_in_preferred_language
-      translated_news_items = TranslatedNewsItem.find(:all, :conditions=>['translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?', Language.from_iso(current_language.iso_639_1), DateTime.now.utc], :joins => "inner join news_items on news_items.id = translated_news_items.news_item_id", :order=>'news_items.display_date desc', :limit => $NEWS_ON_HOME_PAGE)
+      translated_news_items = TranslatedNewsItem.find(:all, conditions: ['translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?', Language.from_iso(current_language.iso_639_1), DateTime.now.utc], joins: "inner join news_items on news_items.id = translated_news_items.news_item_id", order: 'news_items.display_date desc', limit: $NEWS_ON_HOME_PAGE)
     else
-      news_items = NewsItem.find(:all, :conditions=>['news_items.active=1 and news_items.activated_on<=?', DateTime.now.utc],
-        :order=>'news_items.display_date desc', :include => :translations, :limit => $NEWS_ON_HOME_PAGE)
+      news_items = NewsItem.find(:all, conditions: ['news_items.active=1 and news_items.activated_on<=?', DateTime.now.utc],
+        order: 'news_items.display_date desc', include: :translations, limit: $NEWS_ON_HOME_PAGE)
       translated_news_items = []
       news_items.each do |news_item|
         translations = news_item.translations

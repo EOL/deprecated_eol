@@ -32,8 +32,8 @@ class Resource < ActiveRecord::Base
   has_many :harvest_events
 
   has_attached_file :dataset,
-    :path => $DATASET_UPLOAD_DIRECTORY,
-    :url => $DATASET_URL_PATH
+    path: $DATASET_UPLOAD_DIRECTORY,
+    url: $DATASET_URL_PATH
 
   attr_accessor :latest_published_harvest_event
   attr_protected :latest_published_harvest_event
@@ -46,21 +46,21 @@ class Resource < ActiveRecord::Base
                                   'application/zip']
   validate :validate_dataset_mime_type
   validates_presence_of :title, :license_id
-  validates_presence_of :refresh_period_hours, :if => :accesspoint_url_provided?
-  validates_presence_of :accesspoint_url, :unless => :dataset_file_provided?
-  validates_format_of :accesspoint_url, :allow_blank => true, :allow_nil => true,
-                      :with => /(\.xml(\.gz|\.gzip)|\.tgz|\.zip|\.xls|\.xlsx|\.tar\.(gz|gzip))?/
-  validates_format_of :dwc_archive_url, :allow_blank => true, :allow_nil => true,
-                      :with => /(\.tar\.(gz|gzip)|\.tgz|\.zip)/
-  validates_length_of :title, :maximum => 255
-  validates_length_of :accesspoint_url, :allow_blank => true, :allow_nil => true, :maximum => 255
-  validates_length_of :dwc_archive_url, :allow_blank => true, :allow_nil => true, :maximum => 255
-  validates_length_of :description, :allow_blank => true, :allow_nil => true, :maximum => 255
-  validates_length_of :rights_holder, :allow_blank => true, :allow_nil => true, :maximum => 255
-  validates_length_of :rights_statement, :allow_blank => true, :allow_nil => true, :maximum => 400
-  validates_length_of :bibliographic_citation, :allow_blank => true, :allow_nil => true, :maximum => 400
+  validates_presence_of :refresh_period_hours, if: :accesspoint_url_provided?
+  validates_presence_of :accesspoint_url, unless: :dataset_file_provided?
+  validates_format_of :accesspoint_url, allow_blank: true, allow_nil: true,
+                      with: /(\.xml(\.gz|\.gzip)|\.tgz|\.zip|\.xls|\.xlsx|\.tar\.(gz|gzip))?/
+  validates_format_of :dwc_archive_url, allow_blank: true, allow_nil: true,
+                      with: /(\.tar\.(gz|gzip)|\.tgz|\.zip)/
+  validates_length_of :title, maximum: 255
+  validates_length_of :accesspoint_url, allow_blank: true, allow_nil: true, maximum: 255
+  validates_length_of :dwc_archive_url, allow_blank: true, allow_nil: true, maximum: 255
+  validates_length_of :description, allow_blank: true, allow_nil: true, maximum: 255
+  validates_length_of :rights_holder, allow_blank: true, allow_nil: true, maximum: 255
+  validates_length_of :rights_statement, allow_blank: true, allow_nil: true, maximum: 400
+  validates_length_of :bibliographic_citation, allow_blank: true, allow_nil: true, maximum: 400
   validates_each :accesspoint_url, :dwc_archive_url do |record, attr, value|
-    record.errors.add attr, I18n.t(:inaccessible, :scope => [:activerecord, :errors, :messages, :models]) unless value.blank? || EOLWebService.url_accepted?(value)
+    record.errors.add attr, I18n.t(:inaccessible, scope: [:activerecord, :errors, :messages, :models]) unless value.blank? || EOLWebService.url_accepted?(value)
   end
   validate :url_or_dataset_not_both
 
@@ -133,11 +133,11 @@ class Resource < ActiveRecord::Base
     # not using fetch as only want to set expiry when there is no harvest event
     if @oldest_published_harvest.nil? #cache miss
       @oldest_published_harvest = HarvestEvent.find(:first,
-        :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-        :limit => 1, :order => 'published_at')
+        conditions: ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
+        limit: 1, order: 'published_at')
       if @oldest_published_harvest.nil?
         # resource not yet published store 0 in cache with expiry so we don't try to find it again for a while
-        Rails.cache.write(Resource.cached_name_for(cache_key), 0, :expires_in => 6.hours)
+        Rails.cache.write(Resource.cached_name_for(cache_key), 0, expires_in: 6.hours)
       else
         Rails.cache.write(Resource.cached_name_for(cache_key), @oldest_published_harvest)
       end
@@ -151,7 +151,7 @@ class Resource < ActiveRecord::Base
     return @latest_published_harvest if defined? @latest_published_harvest
     HarvestEvent
     cache_key = "latest_published_harvest_event_for_resource_#{id}"
-    @latest_published_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
+    @latest_published_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
       # Uses 0 instead of nil when setting for cache because cache treats nil as a miss
       HarvestEvent.where(["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id]). \
         order('published_at desc').first || 0
@@ -164,7 +164,7 @@ class Resource < ActiveRecord::Base
     return @latest_harvest if defined? @latest_harvest
     HarvestEvent
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
-    @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
+    @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
       # Use 0 instead of nil when setting for cache because cache treats nil as a miss
       HarvestEvent.where(resource_id: id).last || 0
     end

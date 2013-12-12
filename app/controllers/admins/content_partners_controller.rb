@@ -23,7 +23,7 @@ class Admins::ContentPartnersController < AdminsController
     else
       'content_partners.full_name'
     end
-    include = [ { :resources => [ :resource_status, :hierarchy, :dwc_hierarchy ] },
+    include = [ { resources: [ :resource_status, :hierarchy, :dwc_hierarchy ] },
                 :content_partner_status, :content_partner_contacts, :content_partner_agreements ]
     conditions = []
     conditions_replacements = {}
@@ -46,9 +46,9 @@ class Admins::ContentPartnersController < AdminsController
     end
     resource_ids = case @published
     when 0 # never been harvested
-      HarvestEvent.all(:select => 'resource_id').collect{|e| e.resource_id}.uniq
+      HarvestEvent.all(select: 'resource_id').collect{|e| e.resource_id}.uniq
     when 1 # never been published
-      HarvestEvent.all(:select => 'resource_id', :conditions => 'published_at IS NOT null').collect{|e| e.resource_id}.uniq
+      HarvestEvent.all(select: 'resource_id', conditions: 'published_at IS NOT null').collect{|e| e.resource_id}.uniq
     when 2 # latest harvest not published
       HarvestEvent.find(HarvestEvent.latest_ids).collect{|e| e.resource_id if e.published_at.nil?}.compact
     when 3 # latest harvest pending publish
@@ -71,13 +71,13 @@ class Admins::ContentPartnersController < AdminsController
       conditions << "resources.id IS NULL"
     end
     @partners = ContentPartner.paginate(
-                  :page => params[:page],
-                  :per_page => 40,
-                  :include => include,
-                  :conditions => [ conditions.join(' AND '), conditions_replacements],
-                  :group => "content_partners.id",
-                  :order => order,
-                  :joins => "LEFT JOIN resources r ON (content_partners.id=r.content_partner_id)
+                  page: params[:page],
+                  per_page: 40,
+                  include: include,
+                  conditions: [ conditions.join(' AND '), conditions_replacements],
+                  group: "content_partners.id",
+                  order: order,
+                  joins: "LEFT JOIN resources r ON (content_partners.id=r.content_partner_id)
                     LEFT JOIN hierarchies h ON (r.hierarchy_id=h.id)")
     set_filter_options
     set_sort_options
@@ -92,13 +92,13 @@ class Admins::ContentPartnersController < AdminsController
       last_month = Date.today - 1.month
       # TODO: The following select is ignored. This appears to occur if conditions are added. Find a solution.
       @content_partners = ContentPartner.find(:all,
-                            :include => [ :content_partner_contacts, { :user => :google_analytics_partner_summaries } ],
-                            :select => 'content_partners.id, content_partners.full_name, content_partners.user_id,
+                            include: [ :content_partner_contacts, { user: :google_analytics_partner_summaries } ],
+                            select: 'content_partners.id, content_partners.full_name, content_partners.user_id,
                                         content_partner_contacts.full_name, content_partner_contacts.email',
-                            :conditions => [ 'google_analytics_partner_summaries.year = :year
+                            conditions: [ 'google_analytics_partner_summaries.year = :year
                                               AND google_analytics_partner_summaries.month = :month
                                               AND content_partner_contacts.email IS NOT NULL',
-                                             { :year => last_month.year, :month => last_month.month } ] )
+                                             { year: last_month.year, month: last_month.month } ] )
       @content_partners.each do |content_partner|
         content_partner.content_partner_contacts.each do |contact|
           Notifier.content_partner_statistics_reminder(content_partner, contact,
@@ -121,15 +121,15 @@ class Admins::ContentPartnersController < AdminsController
     @date_from = from.blank? ? Time.now.beginning_of_month - 1.month : from > to ? to : from
     @date_to = to.blank? ? Time.now.beginning_of_month - 1.second : from > to ? from : to
 
-    @harvest_events = HarvestEvent.find(:all, :include => :resource,
-                        :select => { :harvest_events => [ :id, :resource_id, :published_at ], :resources => [ :id, :content_partner_id, :title ] },
-                        :order => :published_at,
-                        :conditions => ['published_at BETWEEN :from AND :to AND completed_at IS NOT NULL',
-                                           { :from => @date_from.mysql_timestamp,
-                                             :to => @date_to.mysql_timestamp}])
+    @harvest_events = HarvestEvent.find(:all, include: :resource,
+                        select: { harvest_events: [ :id, :resource_id, :published_at ], resources: [ :id, :content_partner_id, :title ] },
+                        order: :published_at,
+                        conditions: ['published_at BETWEEN :from AND :to AND completed_at IS NOT NULL',
+                                           { from: @date_from.mysql_timestamp,
+                                             to: @date_to.mysql_timestamp}])
     @harvest_events.delete_if{|he| he != he.resource.oldest_published_harvest_event }
-    HarvestEvent.preload_associations(@harvest_events, { :resource => :content_partner },
-                        :select => { :content_partners => [:id, :full_name, :created_at ] })
+    HarvestEvent.preload_associations(@harvest_events, { resource: :content_partner },
+                        select: { content_partners: [:id, :full_name, :created_at ] })
 
     if params[:commit_download_csv_first_published]
       report = StringIO.new
@@ -155,9 +155,9 @@ class Admins::ContentPartnersController < AdminsController
         end
       end
       report.rewind
-      send_data(report.read, :type => 'text/csv; charset=iso-8859-1; header=present',
-                :filename => "EOLContentPartnersFirstPublished_#{@date_from.strftime('%Y-%m-%d')}_#{@date_to.strftime('%Y-%m-%d')}.csv",
-                :disposition => 'attachment', :encoding => 'utf8')
+      send_data(report.read, type: 'text/csv; charset=iso-8859-1; header=present',
+                filename: "EOLContentPartnersFirstPublished_#{@date_from.strftime('%Y-%m-%d')}_#{@date_to.strftime('%Y-%m-%d')}.csv",
+                disposition: 'attachment', encoding: 'utf8')
       return false
     end
   end

@@ -1,22 +1,22 @@
 class ContentPartners::Resources::HierarchiesController < ContentPartners::ResourcesController
 
   before_filter :check_authentication
-  before_filter :restrict_to_admins, :except => [:request_publish]
+  before_filter :restrict_to_admins, except: [:request_publish]
 
   # GET /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id/edit
   def edit
-    @hierarchy = Hierarchy.find(params[:id], :include => { :resource => :content_partner } )
+    @hierarchy = Hierarchy.find(params[:id], include: { resource: :content_partner } )
     @resource = @hierarchy.resource || @hierarchy.dwc_resource
     @partner = @resource.content_partner
     access_denied unless current_user.is_admin? && @resource.id == params[:resource_id].to_i &&
                          @partner.id == params[:content_partner_id].to_i
-    @page_subheader = I18n.t(:content_partner_resource_hierarchy_edit_subheader, :resource_title => @resource.title)
+    @page_subheader = I18n.t(:content_partner_resource_hierarchy_edit_subheader, resource_title: @resource.title)
     params[:return_to] ||= content_partner_resource_path(@partner, @resource)
   end
 
   # PUT /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id
   def update
-    @hierarchy = Hierarchy.find(params[:id], :include => { :resource => :content_partner } )
+    @hierarchy = Hierarchy.find(params[:id], include: { resource: :content_partner } )
     @resource = @hierarchy.resource || @hierarchy.dwc_resource
     @partner = @resource.content_partner
     access_denied unless current_user.is_admin? && @resource.id == params[:resource_id].to_i &&
@@ -28,7 +28,7 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else
       flash.now[:error] = I18n.t(:content_partner_resource_hierarchy_update_unsuccessful_error)
-      @page_subheader = I18n.t(:content_partner_resource_hierarchy_edit_subheader, :resource_title => @resource.title)
+      @page_subheader = I18n.t(:content_partner_resource_hierarchy_edit_subheader, resource_title: @resource.title)
       render :edit
     end
 
@@ -36,12 +36,12 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
 
   # POST /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id/request_publish
   def request_publish
-    @hierarchy = Hierarchy.find(params[:id], :include => { :resource => :content_partner } )
+    @hierarchy = Hierarchy.find(params[:id], include: { resource: :content_partner } )
     @resource = @hierarchy.resource || @hierarchy.dwc_resource
     @partner = @resource.content_partner
     access_denied unless @resource.id == params[:resource_id].to_i && current_user.can_update?(@resource) &&
                          @partner.id == params[:content_partner_id].to_i && request.post?
-    if @hierarchy.request_to_publish_can_be_made? && @hierarchy.update_attributes(:request_publish => true)
+    if @hierarchy.request_to_publish_can_be_made? && @hierarchy.update_attributes(request_publish: true)
       flash[:notice] = I18n.t(:content_partner_resource_hierarchy_update_successful_notice)
       Notifier.content_partner_resource_hierarchy_publish_request(@partner, @resource, @hierarchy, current_user).deliver
     else

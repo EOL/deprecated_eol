@@ -10,7 +10,7 @@
 class Name < ActiveRecord::Base
 
   belongs_to :canonical_form
-  belongs_to :ranked_canonical_form, :class_name => CanonicalForm.to_s, :foreign_key => :ranked_canonical_form_id
+  belongs_to :ranked_canonical_form, class_name: CanonicalForm.to_s, foreign_key: :ranked_canonical_form_id
 
   has_many :taxon_concept_names
   has_many :hierarchy_entries
@@ -24,10 +24,10 @@ class Name < ActiveRecord::Base
   validates_presence_of   :canonical_form
 
   validate :clean_name_must_be_unique
-  before_validation :set_default_values, :on => :create
-  before_validation :create_clean_name, :on => :create
-  before_validation :create_canonical_form, :on => :create
-  before_validation :create_italicized, :on => :create
+  before_validation :set_default_values, on: :create
+  before_validation :create_clean_name, on: :create
+  before_validation :create_canonical_form, on: :create
+  before_validation :create_italicized, on: :create
 
   attr_accessor :is_common_name
 
@@ -76,9 +76,9 @@ class Name < ActiveRecord::Base
     return nil if name_string.blank?
 
     Name.with_master do
-      common_name = Name.find_by_string(name_string, :is_common_name => true)
+      common_name = Name.find_by_string(name_string, is_common_name: true)
       if common_name
-        common_name.update_attributes(:string => name_string) unless name_string == common_name.string
+        common_name.update_attributes(string: name_string) unless name_string == common_name.string
         return common_name
       end
       attributes = {string: name_string, namebank_id: 0, is_common_name: true}
@@ -94,7 +94,7 @@ class Name < ActiveRecord::Base
     if n = Name.find_by_string(string)
       return n
     end
-    return Name.create(:string => string)
+    return Name.create(string: string)
   end
 
   def self.find_by_string(string, options={})
@@ -137,7 +137,7 @@ class Name < ActiveRecord::Base
 private
 
   def clean_name_must_be_unique
-    found_name = Name.find_by_string(self.string, :is_common_name => self.is_common_name)
+    found_name = Name.find_by_string(self.string, is_common_name: self.is_common_name)
     errors[:base] << "Name string must be unique" unless found_name.nil?
   end
 
@@ -148,7 +148,7 @@ private
   def create_clean_name
     self.namebank_id = 0
     if self.clean_name.nil? || self.clean_name.blank?
-      self.clean_name = Name.prepare_clean_name(self.string, :is_common_name => is_common_name)
+      self.clean_name = Name.prepare_clean_name(self.string, is_common_name: is_common_name)
     end
   end
 

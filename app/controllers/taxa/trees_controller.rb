@@ -11,7 +11,7 @@ class Taxa::TreesController < TaxaController
     @link_to_taxa = params[:link_to_taxa]
     @show_siblings = params[:show_siblings]
     @show_hierarchy_label = params[:show_hierarchy_label]
-    render :layout => false
+    render layout: false
   end
 
 end

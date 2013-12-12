@@ -2,21 +2,21 @@ class DataObjectsController < ApplicationController
 
   layout :data_objects_layout
   @@results_per_page = 20
-  before_filter :check_authentication, :only => [:new, :create, :edit, :update, :ignore, :crop] # checks login only
-  before_filter :load_data_object, :except => [:index, :new, :create ]
-  before_filter :authentication_own_user_added_text_objects_only, :only => [:edit] # update handled separately
-  before_filter :allow_login_then_submit, :only => [:rate]
-  before_filter :curators_and_owners_only, :only => [:add_association, :remove_association]
-  before_filter :restrict_to_admins_and_curators, :only => :crop
+  before_filter :check_authentication, only: [:new, :create, :edit, :update, :ignore, :crop] # checks login only
+  before_filter :load_data_object, except: [:index, :new, :create ]
+  before_filter :authentication_own_user_added_text_objects_only, only: [:edit] # update handled separately
+  before_filter :allow_login_then_submit, only: [:rate]
+  before_filter :curators_and_owners_only, only: [:add_association, :remove_association]
+  before_filter :restrict_to_admins_and_curators, only: :crop
 
   # GET /pages/:taxon_id/data_objects/new
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
   def new
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
     set_text_data_object_options
-    @data_object ||= DataObject.new(:data_type => DataType.text,
-                                  :license_id => License.cc.id,
-                                  :language_id => current_language.id)
+    @data_object ||= DataObject.new(data_type: DataType.text,
+                                  license_id: License.cc.id,
+                                  language_id: current_language.id)
     unless params[:data_object]
       # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
       selected_toc_item = @toc_items.select { |ti| ti.id == params[:toc].to_i }.first ||
@@ -26,13 +26,13 @@ class DataObjectsController < ApplicationController
     end
     if params[:link] || params[:commit_link]
       @add_link = true
-      @page_title = I18n.t(:dato_new_text_link_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+      @page_title = I18n.t(:dato_new_text_link_for_taxon_page_title, taxon: Sanitize.clean(@taxon_concept.title_canonical))
     else
       @add_article = true
-      @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+      @page_title = I18n.t(:dato_new_text_for_taxon_page_title, taxon: Sanitize.clean(@taxon_concept.title_canonical))
     end
     @page_description = I18n.t(:dato_new_text_page_description)
-    current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
+    current_user.log_activity(:creating_new_data_object, taxon_concept_id: @taxon_concept.id)
     render :new
   end
 
@@ -48,9 +48,9 @@ class DataObjectsController < ApplicationController
     @references = params[:references] # we'll need these if validation fails and we re-render new
     raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
-    @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
-                                               :taxon_concept => @taxon_concept, :toc_id => toc_id,
-                                               :link_type_id => link_type_id, :link_object => params[:commit_link])
+    @data_object = DataObject.create_user_text(params[:data_object], user: current_user,
+                                               taxon_concept: @taxon_concept, toc_id: toc_id,
+                                               link_type_id: link_type_id, link_object: params[:commit_link])
 
     if @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_id
@@ -58,34 +58,34 @@ class DataObjectsController < ApplicationController
     else
       @taxon_concept.reload # Clears caches, too!
       add_references(@data_object)
-      current_user.log_activity(:created_data_object_id, :value => @data_object.id,
-                                :taxon_concept_id => @taxon_concept.id)
+      current_user.log_activity(:created_data_object_id, value: @data_object.id,
+                                taxon_concept_id: @taxon_concept.id)
       # add this new object to the user's watch collection
       collection_item = CollectionItem.create(
-        :collected_item => @data_object,
-        :collection => current_user.watch_collection
+        collected_item: @data_object,
+        collection: current_user.watch_collection
       )
-      CollectionActivityLog.create(:collection => current_user.watch_collection, :user_id => current_user.id,
-                                   :activity => Activity.collect, :collection_item => collection_item)
-      @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)
+      CollectionActivityLog.create(collection: current_user.watch_collection, user_id: current_user.id,
+                                   activity: Activity.collect, collection_item: collection_item)
+      @data_object.log_activity_in_solr(keyword: 'create', user: current_user, taxon_concept: @taxon_concept)
 
       # redirect to appropriate tab/sub-tab after creating the users_data_object/link_object
       if @data_object.is_link?
         case @data_object.link_type.id
         when LinkType.blog.id
-          redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+          redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, anchor: "data_object_#{@data_object.id}")
         when LinkType.news.id
-          redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+          redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, anchor: "data_object_#{@data_object.id}")
         when LinkType.organization.id
-          redirect_path = related_organizations_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+          redirect_path = related_organizations_taxon_resources_url(@taxon_concept, anchor: "data_object_#{@data_object.id}")
         when LinkType.paper.id
-          redirect_path = literature_links_taxon_literature_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+          redirect_path = literature_links_taxon_literature_url(@taxon_concept, anchor: "data_object_#{@data_object.id}")
         when LinkType.multimedia.id
-          redirect_path = multimedia_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+          redirect_path = multimedia_links_taxon_resources_url(@taxon_concept, anchor: "data_object_#{@data_object.id}")
         else
-          redirect_path = taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+          redirect_path = taxon_details_path(@taxon_concept, anchor: "data_object_#{@data_object.id}")
         end
-        return redirect_to redirect_path, :status => :moved_permanently
+        return redirect_to redirect_path, status: :moved_permanently
       end
 
       # Will try to redirect to the appropriate tab/section after adding text
@@ -96,26 +96,26 @@ class DataObjectsController < ApplicationController
         "biomedical_terms", "citizen_science_links"] # to Resources tab
       if temp.include?(subchapter)
         return redirect_to education_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+                             anchor: "data_object_#{@data_object.id}"), status: :moved_permanently if
           ['education', 'education_resources'].include?(subchapter)
         return redirect_to identification_resources_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+                             anchor: "data_object_#{@data_object.id}"), status: :moved_permanently if
           subchapter == 'identification_resources'
         return redirect_to nucleotide_sequences_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+                             anchor: "data_object_#{@data_object.id}"), status: :moved_permanently if
           subchapter == 'nucleotide_sequences'
         return redirect_to biomedical_terms_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+                             anchor: "data_object_#{@data_object.id}"), status: :moved_permanently if
           subchapter == 'biomedical_terms'
         return redirect_to citizen_science_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+                             anchor: "data_object_#{@data_object.id}"), status: :moved_permanently if
           subchapter == 'citizen_science_links'
       elsif ["literature"].include?(subchapter)
         return redirect_to literature_taxon_literature_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+                             anchor: "data_object_#{@data_object.id}"), status: :moved_permanently if
           subchapter == 'literature'
       end
-      return redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently
+      return redirect_to taxon_details_path(@taxon_concept, anchor: "data_object_#{@data_object.id}"), status: :moved_permanently
     end
   end
 
@@ -147,8 +147,8 @@ class DataObjectsController < ApplicationController
       update_failed(I18n.t(:dato_update_users_text_not_owner_exception)) and return
     end
     # Note: replicate doesn't actually update, it creates a new data_object
-    new_data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_id,
-                                             :link_type_id => link_type_id, :link_object => params[:commit_link])
+    new_data_object = @data_object.replicate(params[:data_object], user: current_user, toc_id: toc_id,
+                                             link_type_id: link_type_id, link_object: params[:commit_link])
     if new_data_object.nil?
       update_failed(I18n.t(:dato_update_user_text_error)) and return
     elsif new_data_object.errors.any?
@@ -156,9 +156,9 @@ class DataObjectsController < ApplicationController
       update_failed(I18n.t(:dato_update_user_text_error)) and return
     else
       add_references(new_data_object)
-      current_user.log_activity(:updated_data_object_id, :value => new_data_object.id,
-                                :taxon_concept_id => new_data_object.taxon_concept_for_users_text.id)
-      redirect_to data_object_path(new_data_object), :status => :moved_permanently
+      current_user.log_activity(:updated_data_object_id, value: new_data_object.id,
+                                taxon_concept_id: new_data_object.taxon_concept_for_users_text.id)
+      redirect_to data_object_path(new_data_object), status: :moved_permanently
     end
   end
 
@@ -177,7 +177,7 @@ class DataObjectsController < ApplicationController
 
     if stars.to_i > 0
       rated_successfully = @data_object.rate(current_user, stars.to_i)
-      current_user.log_activity(:rated_data_object_id, :value => @data_object.id)
+      current_user.log_activity(:rated_data_object_id, value: @data_object.id)
     end
 
     respond_to do |format|
@@ -191,8 +191,8 @@ class DataObjectsController < ApplicationController
       format.html { redirect_back_or_default }
       format.js do
         @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
-        render :partial => 'rating', :locals => { :data_object => @data_object, :reload_ajax_rating => true,
-          :minimal => params[:minimal] == 'true' ? true : false }
+        render partial: 'rating', locals: { data_object: @data_object, reload_ajax_rating: true,
+          minimal: params[:minimal] == 'true' ? true : false }
       end
     end
 
@@ -206,11 +206,11 @@ class DataObjectsController < ApplicationController
     get_attribution
     @slim_container = true
     DataObject.preload_associations(@data_object,
-      [ { :data_object_translation => { :original_data_object => :language } },
-        { :translations => { :data_object => :language } },
-        { :agents_data_objects => [ :agent, :agent_role ] },
-        { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
-        { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
+      [ { data_object_translation: { original_data_object: :language } },
+        { translations: { data_object: :language } },
+        { agents_data_objects: [ :agent, :agent_role ] },
+        { data_objects_hierarchy_entries: { hierarchy_entry: [ :name, :taxon_concept, :vetted, :visibility ] } },
+        { curated_data_objects_hierarchy_entries: { hierarchy_entry: [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
     @revisions = @data_object.revisions_by_date
     @latest_published_revision = @data_object.latest_published_version_in_same_language
     @translations = @data_object.available_translations_data_objects(current_user, nil)
@@ -218,14 +218,14 @@ class DataObjectsController < ApplicationController
     @image_source = get_image_source if @data_object.is_image?
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
     @page = params[:page]
-    @activity_log = @data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil, :user => current_user)
-    set_canonical_urls(:for => @data_object, :paginated => @activity_log, :url_method => :data_object_url)
+    @activity_log = @data_object.activity_log(ids: @revisions.collect{ |r| r.id }, page: @page || nil, user: current_user)
+    set_canonical_urls(for: @data_object, paginated: @activity_log, url_method: :data_object_url)
   end
 
   # GET /data_objects/1/attribution
   def attribution
     get_attribution
-    render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
+    render partial: 'attribution', locals: { data_object: @data_object }, layout: @layout
   end
 
   # GET /data_objects/1/curation
@@ -245,7 +245,7 @@ class DataObjectsController < ApplicationController
     @data_object.update_solr_index
     clear_cached_media_count_and_exemplar(he)
     log_action(cdohe, :remove_association)
-    redirect_to data_object_path(@data_object), :status => :moved_permanently
+    redirect_to data_object_path(@data_object), status: :moved_permanently
   end
 
   def save_association
@@ -254,7 +254,7 @@ class DataObjectsController < ApplicationController
     clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
     log_action(cdohe, :add_association)
-    redirect_to data_object_path(@data_object), :status => :moved_permanently
+    redirect_to data_object_path(@data_object), status: :moved_permanently
   end
 
   def add_association
@@ -262,7 +262,7 @@ class DataObjectsController < ApplicationController
     if @querystring.blank?
       @all_results = empty_paginated_set
     else
-      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :type => ['taxon_concept'], :per_page => @@results_per_page }))
+      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ type: ['taxon_concept'], per_page: @@results_per_page }))
       @all_results = search_response[:results]
       unless @all_results.blank?
         @all_results.each do |result|
@@ -287,13 +287,13 @@ class DataObjectsController < ApplicationController
     curations = []
     @data_object.data_object_taxa.each do |association|
       curations << Curation.new(
-        :association => association,
-        :user => current_user,
-        :vetted => Vetted.find(params["vetted_id_#{association.id}"]),
-        :visibility => visibility_from_params(association),
-        :comment => curation_comment(params["curation_comment_#{association.id}"]), # Note, this gets saved regardless!
-        :untrust_reason_ids => params["untrust_reasons_#{association.id}"],
-        :hide_reason_ids => params["hide_reasons_#{association.id}"] )
+        association: association,
+        user: current_user,
+        vetted: Vetted.find(params["vetted_id_#{association.id}"]),
+        visibility: visibility_from_params(association),
+        comment: curation_comment(params["curation_comment_#{association.id}"]), # Note, this gets saved regardless!
+        untrust_reason_ids: params["untrust_reasons_#{association.id}"],
+        hide_reason_ids: params["hide_reasons_#{association.id}"] )
     end
     if any_errors_in_curations?(curations)
       flash[:error] = all_curation_errors_to_sentence(curations)
@@ -313,7 +313,7 @@ class DataObjectsController < ApplicationController
     if params[:undo]
       WorklistIgnoredDataObject.destroy_all("user_id = #{current_user.id} AND data_object_id = #{@data_object.id}")
     else
-      @data_object.worklist_ignored_data_objects << WorklistIgnoredDataObject.create(:user => current_user, :data_object => @data_object)
+      @data_object.worklist_ignored_data_objects << WorklistIgnoredDataObject.create(user: current_user, data_object: @data_object)
     end
     @data_object.update_solr_index
     redirect_back_or_default
@@ -330,13 +330,13 @@ class DataObjectsController < ApplicationController
       # x and y can be 0
       if x >= 0 && y >= 0 && w > 0
         if new_object_cache_url = ContentServer.update_data_object_crop(@data_object.id, x, y, w)
-          ImageCrop.create(:data_object_id => @data_object.id, :user_id => current_user.id,
-            :original_object_cache_url => @data_object.object_cache_url, :new_object_cache_url => new_object_cache_url)
+          ImageCrop.create(data_object_id: @data_object.id, user_id: current_user.id,
+            original_object_cache_url: @data_object.object_cache_url, new_object_cache_url: new_object_cache_url)
           # NOTE: using update_attribute here instead of update_attribute*S* as there can be harvest objects
           # which would fail Rails validations, yet we still want to update their object_cache_url
           @data_object.update_attribute('object_cache_url', new_object_cache_url)
-          log_action(@data_object, :crop, :notice => false, :collect => false)
-          current_user.log_activity(:cropped_data_object_id, :value => @data_object.id)
+          log_action(@data_object, :crop, notice: false, collect: false)
+          current_user.log_activity(:cropped_data_object_id, value: @data_object.id)
           flash[:notice] = I18n.t(:image_cropped_notice)
         else
           flash[:error] = I18n.t(:image_crop_failed_error)
@@ -358,9 +358,9 @@ protected
       supplier = I18n.t('data_objects.show.meta_supplier_default')
     end
     @scoped_variables_for_translations = super.dup.merge({
-      :dato_title => @data_object ? @data_object.best_title.presence : nil,
-      :dato_description => @data_object ? @data_object.description.presence : nil,
-      :supplier => supplier,
+      dato_title: @data_object ? @data_object.best_title.presence : nil,
+      dato_description: @data_object ? @data_object.description.presence : nil,
+      supplier: supplier,
     }).freeze
   end
 
@@ -379,7 +379,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @data_object && @data_object.has_thumbnail? ?
-      @data_object.thumb_or_object('260_190', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
+      @data_object.thumb_or_object('260_190', specified_content_host: $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 
 private
@@ -415,7 +415,7 @@ private
       return nil
     else
       auto_collect(@data_object) # SPG asks for all curation comments to add the item to their watchlist.
-      return Comment.create(:parent => @data_object, :body => comment, :user => current_user)
+      return Comment.create(parent: @data_object, body: comment, user: current_user)
     end
   end
 
@@ -424,13 +424,13 @@ private
   end
 
   def get_attribution
-    current_user.log_activity(:showed_attributions_for_data_object_id, :value => @data_object.id)
+    current_user.log_activity(:showed_attributions_for_data_object_id, value: @data_object.id)
   end
 
   def set_text_data_object_options
     @toc_items = TocItem.selectable_toc
     @link_types = LinkType.all
-    @languages = Language.all(:conditions => "iso_639_1 != '' && source_form != ''", :order => "source_form asc")
+    @languages = Language.all(conditions: "iso_639_1 != '' && source_form != ''", order: "source_form asc")
     @licenses = License.find_all_by_show_to_content_partners(1)
   end
 
@@ -454,7 +454,7 @@ private
       @page_description = I18n.t(:dato_edit_text_page_description)
       # Be kind, rewind:
       @data_object.attributes = params[:data_object] # Sets them, doesn't save them.
-      render :action => 'edit', :layout => 'v2/basic'
+      render action: 'edit', layout: 'v2/basic'
     else
       # Someone PUT directly to /data_objects/NNN with no params.  (Which is... weird.  But hey.)
       redirect_to edit_data_object_path(@data_object)
@@ -483,10 +483,10 @@ private
       end
     end
     CuratorActivityLog.factory(
-      :action => action,
-      :association => object,
-      :data_object => @data_object,
-      :user => current_user
+      action: action,
+      association: object,
+      data_object: @data_object,
+      user: current_user
     )
     unless options[:notice] === false
       flash[:notice] ||= ''
@@ -496,7 +496,7 @@ private
   end
 
   def empty_paginated_set
-    [].paginate(:page => 1, :per_page => @@results_per_page, :total_entries => 0)
+    [].paginate(page: 1, per_page: @@results_per_page, total_entries: 0)
   end
 
   def clear_cached_media_count_and_exemplar(he)
@@ -510,8 +510,8 @@ private
     unless references.blank?
       references.each do |reference|
         if reference.strip != ''
-          dato.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1,
-                                       :visibility => Visibility.visible)
+          dato.refs << Ref.new(full_reference: reference, user_submitted: true, published: 1,
+                                       visibility: Visibility.visible)
         end
       end
     end
@@ -540,8 +540,8 @@ private
   def all_curation_errors_to_sentence(curations)
     curations.map do |curation|
       curation.errors.map { |error| I18n.t("curation_error_#{error.downcase.gsub(/\s+/, '_') }",
-                                           :association => curation.association.name, :vetted => curation.vetted.label,
-                                           :visibility => curation.visibility.label ) } 
+                                           association: curation.association.name, vetted: curation.vetted.label,
+                                           visibility: curation.visibility.label ) } 
     end.flatten.to_sentence
   end
 

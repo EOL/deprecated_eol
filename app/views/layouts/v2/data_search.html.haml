@@ -5,7 +5,7 @@
         %h1= @results ? I18n.t(:search_results) : I18n.t(:search)
         - search_term_to_show = [ @attribute, @querystring ].delete_if{ |t| t.blank? }.join(' : ')
         %h2
-          = @results ? raw(I18n.t(:count_results_for_search_term, :count => @results.total_entries, :search_term => h(search_term_to_show))) : ''
+          = @results ? raw(I18n.t(:count_results_for_search_term, count: @results.total_entries, search_term: h(search_term_to_show))) : ''
           - if @taxon_concept
             = " within "
             = link_to raw("#{@taxon_concept.title_canonical_italicized}"), taxon_overview_url(@taxon_concept)
@@ -13,16 +13,16 @@
         %ul
           - if @results && !@results.blank?
             %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
-              = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), :class => 'button'
+              = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), class: 'button'
             %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
               -# NOTE - not translating "background" because we do NOT want to keep that when we go live!!
-              = link_to I18n.t(:download_data) + " (background)", url_for(params: params.merge(format: "js")), :class => 'button', remote: true
+              = link_to I18n.t(:download_data) + " (background)", url_for(params: params.merge(format: "js")), class: 'button', remote: true
   #content
     .site_column
       #data_search
         = render partial: 'shared/beta_warning', locals: { note: I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) }
         .filters
-          = form_tag data_search_path, :method => 'get' do
+          = form_tag data_search_path, method: 'get' do
             = hidden_field_tag :taxon_concept_id, (@taxon_concept ? @taxon_concept.id : nil)
             %fieldset
               %dl
@@ -34,14 +34,14 @@
                 %dt
                   %label= I18n.t(:data_search_refine_field_label)
                 %dd
-                  = search_field_tag(:q, @querystring, :size => 27, :placeholder => 'e.g. 10 to 50')
+                  = search_field_tag(:q, @querystring, size: 27, placeholder: 'e.g. 10 to 50')
               %dl
                 %dt
                   %label= "Clade"
                 %dd
                   = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
-                    :name => 'taxon_name', 'min-length' => 3, :size => 27, :type => 'search',
-                    :update_elements => { :id => '#taxon_concept_id' }, :value => (@taxon_concept ? @taxon_concept.title_canonical : nil)
+                    name: 'taxon_name', 'min-length' => 3, size: 27, type: 'search',
+                    update_elements: { id: '#taxon_concept_id' }, value: (@taxon_concept ? @taxon_concept.title_canonical : nil)
               %dl
                 %dt
                   %label= I18n.t(:sort_by)
@@ -53,4 +53,4 @@
           #main
             = yield
 
-= render :file => 'layouts/v2/application'
+= render file: 'layouts/v2/application'

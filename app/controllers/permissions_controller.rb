@@ -20,7 +20,7 @@ class PermissionsController < ApplicationController
   # GET /permissions/1.json
   def show
     @permission = Permission.find(params[:id])
-    @page_title = I18n.t(:edit_permission_header, :permission => @permission.name)
+    @page_title = I18n.t(:edit_permission_header, permission: @permission.name)
 
 
     respond_to do |format|

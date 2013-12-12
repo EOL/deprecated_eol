@@ -1,6 +1,6 @@
 class Language < ActiveRecord::Base
-  uses_translations(:foreign_key => 'original_language_id')
-  belongs_to :language_group, :foreign_key => :language_group_id
+  uses_translations(foreign_key: 'original_language_id')
+  belongs_to :language_group, foreign_key: :language_group_id
   has_many :data_objects
   has_many :users
   has_many :taxon_concept_names
@@ -21,7 +21,7 @@ class Language < ActiveRecord::Base
     approved_language_iso_codes = Rails.configuration.active_languages rescue ['en', 'es', 'ar']
     @@approved_languages ||= cached("approved_languages") do
       self.find_all_by_iso_639_1(approved_language_iso_codes,
-                                 :order => 'sort_order ASC, source_form ASC')
+                                 order: 'sort_order ASC, source_form ASC')
     end
   end
 
@@ -31,7 +31,7 @@ class Language < ActiveRecord::Base
 
   def self.with_iso_639_1
     cached("all_languages_with_iso_639_1") do
-      Language.find(:all, :conditions => "iso_639_1 != '' AND iso_639_1 IS NOT NULL")
+      Language.find(:all, conditions: "iso_639_1 != '' AND iso_639_1 IS NOT NULL")
     end
   end
 
@@ -65,7 +65,7 @@ class Language < ActiveRecord::Base
                                  source_form: 'English', sort_order: 1, activated_on: 2.days.ago)
     end
     unless TranslatedLanguage.exists?(label: 'English', original_language_id: eng_lang.id)
-      TranslatedLanguage.create(:label => 'English', :original_language_id => eng_lang.id, :language_id => eng_lang.id)
+      TranslatedLanguage.create(label: 'English', original_language_id: eng_lang.id, language_id: eng_lang.id)
     end
     eng_lang
   end

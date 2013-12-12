@@ -5,7 +5,7 @@ describe TaxonConceptName do
 
   before :all do
     load_foundation_cache
-    @preferred = TaxonConceptName.gen(:preferred => 1)
+    @preferred = TaxonConceptName.gen(preferred: 1)
   end
 
   it 'should remove preferred flag after untrusting a name' do

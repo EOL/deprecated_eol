@@ -125,9 +125,8 @@ module EOL
         EOL::Sparql::Client.if_connection_fails_return({}) do
           result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
             WHERE {
-              ?measurement a <#{DataMeasurement::CLASS_URI}> .
               ?measurement dwc:measurementValue ?uri .
-              FILTER (CONTAINS(str(?uri), '://'))
+              FILTER (isURI(?uri))
             }
             GROUP BY ?uri
             ORDER BY DESC(?count)
@@ -140,9 +139,8 @@ module EOL
         EOL::Sparql::Client.if_connection_fails_return({}) do
           result = query("SELECT ?uri, COUNT(DISTINCT ?association) as ?count
             WHERE {
-              ?association a <#{DataAssociation::CLASS_URI}> .
               ?association <#{Rails.configuration.uri_association_type}> ?uri .
-              FILTER (CONTAINS(str(?uri), '://'))
+              FILTER (isURI(?uri))
             }
             GROUP BY ?uri
             ORDER BY DESC(?count)
@@ -169,11 +167,10 @@ module EOL
         EOL::Sparql::Client.if_connection_fails_return({}) do
           result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
             WHERE {
-              ?measurement a <#{DataMeasurement::CLASS_URI}> .
               ?measurement dwc:measurementType ?uri .
               ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
               FILTER ( ?measurementOfTaxon = 'true' ) .
-              FILTER (CONTAINS(str(?uri), '://'))
+              FILTER (isURI(?uri))
             }
             GROUP BY ?uri
             ORDER BY DESC(?count)

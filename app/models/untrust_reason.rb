@@ -6,7 +6,7 @@
 class UntrustReason < ActiveRecord::Base
 
   uses_translations
-  has_and_belongs_to_many :curator_activity_logs, :join_table => CuratorActivityLogsUntrustReason.full_table_name
+  has_and_belongs_to_many :curator_activity_logs, join_table: CuratorActivityLogsUntrustReason.full_table_name
 
   include Enumerated
   enumerated :class_name, %w(misidentified incorrect poor duplicate other)

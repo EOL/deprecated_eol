@@ -5,9 +5,9 @@ class DataObjectCaching
   DEFAULT_EXPIRATION = 12.hours
   PRELOAD_ARRAYS = {
     CuratedDataObjectsHierarchyEntry =>
-      [:vetted, :visibility, :data_object, :user, {:hierarchy_entry => [:name, :taxon_concept]}],
+      [:vetted, :visibility, :data_object, :user, { hierarchy_entry: [:name, :taxon_concept] }],
     DataObjectsHierarchyEntry =>
-      [:vetted, :visibility, :data_object, {:hierarchy_entry => [:name, :taxon_concept]}],
+      [:vetted, :visibility, :data_object, { hierarchy_entry: [:name, :taxon_concept] }],
     UsersDataObject =>
       [:vetted, :visibility, :data_object, :user, :taxon_concept]
   }

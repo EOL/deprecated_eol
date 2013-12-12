@@ -6,14 +6,14 @@ class ContentPartnerContact < ActiveRecord::Base
   belongs_to :contact_role
 
   validates_presence_of :given_name, :family_name, :email
-  validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-  validates_length_of :full_name, :maximum => 255
-  validates_length_of :title, :maximum => 20, :allow_nil => true
-  validates_length_of :given_name, :maximum => 255
-  validates_length_of :family_name, :maximum => 255
-  validates_length_of :homepage, :maximum => 255, :allow_nil => true
-  validates_length_of :email, :maximum => 75
-  validates_length_of :telephone, :maximum => 30
+  validates_format_of :email, with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  validates_length_of :full_name, maximum: 255
+  validates_length_of :title, maximum: 20, allow_nil: true
+  validates_length_of :given_name, maximum: 255
+  validates_length_of :family_name, maximum: 255
+  validates_length_of :homepage, maximum: 255, allow_nil: true
+  validates_length_of :email, maximum: 75
+  validates_length_of :telephone, maximum: 30
 
   before_save :blank_not_null_fields
   before_save :save_full_name

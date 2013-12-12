@@ -2,10 +2,10 @@ class ContentPartnerAgreement < ActiveRecord::Base
 
   belongs_to :content_partner
 
-  before_save :set_all_other_agreements_to_not_current, :if => :is_current
+  before_save :set_all_other_agreements_to_not_current, if: :is_current
 
-  validates_presence_of :body, :if => :mou_url_blank?
-  validates_presence_of :mou_url, :if => :body_blank?
+  validates_presence_of :body, if: :mou_url_blank?
+  validates_presence_of :mou_url, if: :body_blank?
   validates_presence_of :content_partner_id
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
@@ -33,8 +33,8 @@ class ContentPartnerAgreement < ActiveRecord::Base
       av.view_paths = ActionController::Base.view_paths
       av.extend ApplicationHelper
       return av.render(
-        :partial => "content_partners/content_partner_agreements/template",
-        :locals => { :partner => self.content_partner, :agreement => self })
+        partial: "content_partners/content_partner_agreements/template",
+        locals: { partner: self.content_partner, agreement: self })
     end
     read_attribute(:body)
   end

@@ -11,8 +11,8 @@ class Administrator::CommentController  < AdminController
     @page_title = I18n.t("user_comments")
     @term_search_string=params[:term_search_string] || ''
     search_string_parameter='%' + @term_search_string + '%'
-    @comments=Comment.paginate(:conditions=>['body like ?',search_string_parameter],:order=>'created_at desc',:include=>:user,:page => params[:page])
-    @comment_count=Comment.count(:conditions=>['body like ?',search_string_parameter])
+    @comments = Comment.paginate(conditions: ['body like ?',search_string_parameter], order: 'created_at desc', include: :user,page: params[:page])
+    @comment_count = Comment.count(conditions: ['body like ?',search_string_parameter])
 
   end
 
@@ -30,9 +30,9 @@ class Administrator::CommentController  < AdminController
 
     if @comment.update_attributes(params[:comment])
       flash[:notice] = I18n.t("the_comment_was_successfully_updated")
-      redirect_back_or_default(url_for(:action=>'index'))
+      redirect_back_or_default(url_for(action: 'index'))
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
 
   end
@@ -40,12 +40,12 @@ class Administrator::CommentController  < AdminController
 
   def destroy
 
-    (redirect_to referred_url, :status => :moved_permanently;return) unless request.delete?
+    (redirect_to referred_url, status: :moved_permanently;return) unless request.delete?
 
     @comment = Comment.find(params[:id])
-    @comment.update_attributes(:deleted => 1)
+    @comment.update_attributes(deleted: 1)
 
-    redirect_to referred_url, :status => :moved_permanently
+    redirect_to referred_url, status: :moved_permanently
 
   end
 
@@ -53,14 +53,14 @@ class Administrator::CommentController  < AdminController
     @comment = Comment.find(params[:id])
     @comment.hide(current_user)
     clear_cached_homepage_activity_logs
-    redirect_to referred_url, :status => :moved_permanently
+    redirect_to referred_url, status: :moved_permanently
   end
 
   def show
     @comment = Comment.find(params[:id])
     @comment.show(current_user)
     clear_cached_homepage_activity_logs
-    redirect_to referred_url, :status => :moved_permanently
+    redirect_to referred_url, status: :moved_permanently
   end
 
 private

@@ -44,7 +44,7 @@ describe 'Home page' do
 
   it 'should include a login link and join link, when not logged in' do
     @homepage_with_foundation.should have_tag('#header') do
-      with_tag("a[href*='#{login_path(:return_to => current_url)}']")
+      with_tag("a[href*='#{login_path(return_to: current_url)}']")
       with_tag("a[href*='#{new_user_path}']")
     end
   end
@@ -54,16 +54,16 @@ describe 'Home page' do
   it 'should have a language picker with all approved languages' do
     en = Language.english
     # Let's add a new language to be sure it shows up:
-    Language.gen_if_not_exists(:iso_639_1 => 'es', :label => 'Spanish')
-    Language.gen_if_not_exists(:iso_639_1 => 'ar', :label => 'Arabic')
+    Language.gen_if_not_exists(iso_639_1: 'es', label: 'Spanish')
+    Language.gen_if_not_exists(iso_639_1: 'ar', label: 'Arabic')
     active = Language.approved_languages
     visit('/')
     active.each do |language|
       if language.iso_639_1 == I18n.locale.to_s
         body.should have_tag('.language p a span', text: /#{language.source_form}/)
       else
-        body.should have_tag(".language a[href$='#{set_language_path(:language => language.iso_639_1,
-                                                                   :return_to => current_url)}']")
+        body.should have_tag(".language a[href$='#{set_language_path(language: language.iso_639_1,
+                                                                   return_to: current_url)}']")
       end
     end
   end
@@ -85,23 +85,23 @@ describe 'Home page' do
   it 'should link to translated forms of gateway articles, not just English versions' do
     visit('/')
     body.should include(cms_page_path('animals'))
-    body.should_not include(cms_page_path('animals', :language => 'en'))
+    body.should_not include(cms_page_path('animals', language: 'en'))
     body.should include(cms_page_path('about_biodiversity'))
-    body.should_not include(cms_page_path('about_biodiversity', :language => 'en'))
+    body.should_not include(cms_page_path('about_biodiversity', language: 'en'))
 
-    Language.gen_if_not_exists(:iso_639_1 => 'ar', :label => 'Arabic')
+    Language.gen_if_not_exists(iso_639_1: 'ar', label: 'Arabic')
     visit('/set_language?language=ar')
     body.should include(cms_page_path('animals'))
-    body.should_not include(cms_page_path('animals', :language => 'en'))
-    body.should_not include(cms_page_path('animals', :language => 'ar'))
+    body.should_not include(cms_page_path('animals', language: 'en'))
+    body.should_not include(cms_page_path('animals', language: 'ar'))
     body.should include(cms_page_path('about_biodiversity'))
-    body.should_not include(cms_page_path('about_biodiversity', :language => 'en'))
-    body.should_not include(cms_page_path('about_biodiversity', :language => 'ar'))
+    body.should_not include(cms_page_path('about_biodiversity', language: 'en'))
+    body.should_not include(cms_page_path('about_biodiversity', language: 'ar'))
   end
 
   it 'should not show deleted comments in community activity' do
     user = User.gen
-    comment = Comment.gen(:user => user, :body => 'test comment body')
+    comment = Comment.gen(user: user, body: 'test comment body')
     # the comment should show up when published
     visit('/')
     body.should include(comment.body)

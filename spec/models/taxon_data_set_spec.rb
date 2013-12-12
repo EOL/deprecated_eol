@@ -15,7 +15,7 @@ describe TaxonDataSet do
   end
 
   it 'should populate DataPointUri instances by taxon concept and uri' do
-    dpuri = DataPointUri.gen(taxon_concept: @taxon_concept, :uri => "http://something/new/")
+    dpuri = DataPointUri.gen(taxon_concept: @taxon_concept, uri: "http://something/new/")
     @row_1[:data_point_uri] = dpuri.uri
     set = TaxonDataSet.new(@rows, taxon_concept_id: @taxon_concept.id)
     set.first.should == dpuri

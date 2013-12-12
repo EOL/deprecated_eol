@@ -54,7 +54,7 @@ class EolConfig < ActiveRecord::Base
   def self.method_missing(name, *args, &block)
     # The regex here keeps us from going into a wild loop, because cached_find called find_by_[param], which is found
     # via method_missing in the rails code!
-    if name !~ /^find/ && EolConfig.exists?(:parameter => name)
+    if name !~ /^find/ && EolConfig.exists?(parameter: name)
       eigenclass = class << self; self; end
       eigenclass.class_eval do
         define_method(name) do # Keeps us from using method_missing next time...

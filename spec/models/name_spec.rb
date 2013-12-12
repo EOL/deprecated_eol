@@ -5,8 +5,8 @@ require 'csv'
 describe Name do
 
   before(:each) do
-    @canonical_form = CanonicalForm.gen(:string => "Some name")
-    @name = Name.gen(:string => "Some name Auth, 1923", :canonical_form => @canonical_form)
+    @canonical_form = CanonicalForm.gen(string: "Some name")
+    @name = Name.gen(string: "Some name Auth, 1923", canonical_form: @canonical_form)
   end
 
   after(:each) do
@@ -18,8 +18,8 @@ describe Name do
   # it { should belong_to(:canonical_form) }
 
   it "should require a valid #string" do
-    Name.create( :string => 'Tiger' ).class.should == Name
-    Name.create( :string => 'Tiger' ).should_not be_valid # because there's already a Tiger
+    Name.create( string: 'Tiger' ).class.should == Name
+    Name.create( string: 'Tiger' ).should_not be_valid # because there's already a Tiger
   end
 
   it "should have italicized version of a name" do
@@ -32,7 +32,7 @@ describe Name do
   end
   
   it 'should identify surrogate names' do
-    name = Name.create( :string => 'something', :ranked_canonical_form_id => 1)
+    name = Name.create( string: 'something', ranked_canonical_form_id: 1)
     [ 'Deferribacters incertae sedis',
       'Amanita sp. 1 HKAS 38419',
       'Amanita cf. muscaria MFC-14',
@@ -92,7 +92,7 @@ describe Name do
   end
 
   it 'should identify subgenus' do
-    name = Name.create( :string => 'something', :ranked_canonical_form_id => 1)
+    name = Name.create( string: 'something', ranked_canonical_form_id: 1)
     [ 'Papilio (Heraclides) Hübner, 1819',
       'Papilio (Papilio) Linnaeus 1758',
       'Papilio (Papilio)'].each do |str|
@@ -123,7 +123,7 @@ describe Name do
     sci_name.clean_name.should == 'tom & jerry'
 
     Name.find_by_string('Tom and Jerry').should == sci_name  # and gets converted to & before find
-    Name.find_by_string('Tom and Jerry', :is_common_name => true).should == common_name
+    Name.find_by_string('Tom and Jerry', is_common_name: true).should == common_name
   end
 
   describe "::prepare_clean_name" do
@@ -168,13 +168,13 @@ describe Name do
     end
 
     it 'should run prepare_clean_name on its input' do
-      Name.should_receive(:prepare_clean_name).with('Care bear', :is_common_name => true).at_least(1).times.and_return('care bear')
+      Name.should_receive(:prepare_clean_name).with('Care bear', is_common_name: true).at_least(1).times.and_return('care bear')
       Name.create_common_name('Care bear')
     end
 
     it 'should not create a CanonicalForm, and should return an existing clean name, if passed a string that, when cleaned, already exists.' do
       CanonicalForm.should_not_receive(:create)
-      clean_name = Name.gen(:clean_name => 'clean ferret')
+      clean_name = Name.gen(clean_name: 'clean ferret')
       count = Name.count
       name = Name.create_common_name('clean ferret')
       name.id.should == clean_name.id

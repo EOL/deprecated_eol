@@ -49,9 +49,9 @@ class KnownUri < ActiveRecord::Base
 
   has_many :translated_known_uris
   has_many :user_added_data
-  has_many :known_uri_relationships_as_subject, :class_name => KnownUriRelationship.name, :foreign_key => :from_known_uri_id,
+  has_many :known_uri_relationships_as_subject, class_name: KnownUriRelationship.name, foreign_key: :from_known_uri_id,
     dependent: :destroy
-  has_many :known_uri_relationships_as_target, :class_name => KnownUriRelationship.name, :foreign_key => :to_known_uri_id,
+  has_many :known_uri_relationships_as_target, class_name: KnownUriRelationship.name, foreign_key: :to_known_uri_id,
     dependent: :destroy
 
   has_and_belongs_to_many :toc_items
@@ -98,7 +98,7 @@ class KnownUri < ActiveRecord::Base
   # in a class variable on each app server
   def self.unit_of_measure
     cached('unit_of_measure') do
-      KnownUri.where(:uri => Rails.configuration.uri_measurement_unit).includes({ :known_uri_relationships_as_subject => :to_known_uri } ).first
+      KnownUri.where(uri: Rails.configuration.uri_measurement_unit).includes({ known_uri_relationships_as_subject: :to_known_uri } ).first
     end
   end
 
@@ -121,8 +121,8 @@ class KnownUri < ActiveRecord::Base
 
   def self.add_to_data(rows)
     known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
-    preload_associations(known_uris, [ :uri_type, { :known_uri_relationships_as_subject => :to_known_uri },
-      { :known_uri_relationships_as_target => :from_known_uri } ])
+    preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
+      { known_uri_relationships_as_target: :from_known_uri } ])
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
@@ -298,6 +298,13 @@ class KnownUri < ActiveRecord::Base
         equivalence_group.detect(&:exemplar_for_same_as).set_as_exemplar_for_same_as_group
       end
     end
+  end
+
+  def self.search(term, options = {})
+    options[:language] ||= Language.default
+    return [] if term.length < 3
+    TranslatedKnownUri.where(language_id: options[:language].id).
+      where("name REGEXP '(^| )#{term}( |$)'").includes(:known_uri).collect(&:known_uri).compact.uniq
   end
 
   private

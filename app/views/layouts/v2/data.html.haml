@@ -15,7 +15,7 @@
             = raw(@page_title)
         - if @page_description.blank?
           %h2<
-            = @data_object.owner || "&nbsp;"
+            = (@data_object.owner && !@data_object.owner.blank?) ? @data_object.owner.html_safe : "&nbsp;"
         - else
           %p= raw(@page_description)
         = yield :social_sharing

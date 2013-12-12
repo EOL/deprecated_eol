@@ -6,7 +6,7 @@ describe Hierarchy do
   end
 
   it 'should be able to find the Encyclopedia of Life Curators hierarchy with #eol_curators' do
-    contributors_hierarchy = Hierarchy.find_by_label('Encyclopedia of Life Contributors') || Hierarchy.gen(:label => 'Encyclopedia of Life Contributors')
+    contributors_hierarchy = Hierarchy.find_by_label('Encyclopedia of Life Contributors') || Hierarchy.gen(label: 'Encyclopedia of Life Contributors')
     Hierarchy.eol_contributors.should == contributors_hierarchy
   end
 
@@ -54,8 +54,8 @@ describe Hierarchy do
   end
 
   it "should return descriptive label, if exists, the label otherwise" do
-    no_desc_label = Hierarchy.gen(:label => "H1")
-    desc_label = Hierarchy.gen(:label => "H2", :descriptive_label => "Decscriptive label")
+    no_desc_label = Hierarchy.gen(label: "H1")
+    desc_label = Hierarchy.gen(label: "H2", descriptive_label: "Decscriptive label")
     no_desc_label.form_label.should == "H1"
     desc_label.form_label.should ==  "Decscriptive label"
   end

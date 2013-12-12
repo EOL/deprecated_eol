@@ -4,11 +4,11 @@ class SessionsController < ApplicationController
 
   layout 'v2/sessions'
 
-  before_filter :redirect_if_already_logged_in, :only => [:new, :create]
-  before_filter :check_user_agreed_with_terms, :except => [:destroy]
-  before_filter :extend_for_open_authentication, :only => [:new, :create]
+  before_filter :redirect_if_already_logged_in, only: [:new, :create]
+  before_filter :check_user_agreed_with_terms, except: [:destroy]
+  before_filter :extend_for_open_authentication, only: [:new, :create]
 
-  rescue_from EOL::Exceptions::OpenAuthUnauthorized, :with => :oauth_unauthorized_rescue
+  rescue_from EOL::Exceptions::OpenAuthUnauthorized, with: :oauth_unauthorized_rescue
 
   # GET /sessions/new or named route /login
   def new
@@ -64,7 +64,7 @@ private
   def oauth_unauthorized_rescue
     error_scope = [:users, :open_authentications, :errors]
     error_scope << @open_auth.provider if !@open_auth.nil? && !@open_auth.provider.nil?
-    flash[:error] = I18n.t(:not_authorized_to_login, :scope => error_scope)
+    flash[:error] = I18n.t(:not_authorized_to_login, scope: error_scope)
     redirect_back_or_default login_url
   end
 

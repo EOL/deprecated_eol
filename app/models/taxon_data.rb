@@ -15,7 +15,7 @@ class TaxonData < TaxonUserClassificationFilter
       return [].paginate if options[:attribute].blank? # TODO - remove this when we allow other searches!
       options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
       options[:language] ||= Language.default
-      total_results = EOL::Sparql.connection.query(prepare_search_query(options.merge(:only_count => true))).first[:count].to_i
+      total_results = EOL::Sparql.connection.query(prepare_search_query(options.merge(only_count: true))).first[:count].to_i
       results = EOL::Sparql.connection.query(prepare_search_query(options))
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
@@ -26,20 +26,20 @@ class TaxonData < TaxonUserClassificationFilter
           data_point_uri.convert_units
           data_point_uri
         end
-        DataPointUri.preload_associations(data_point_uris, { :taxon_concept =>
-            [ { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ],
-            :resource => :content_partner },
-          :select => {
-            :taxon_concepts => [ :id ],
-            :hierarchy_entries => [ :id, :taxon_concept_id, :name_id ],
-            :names => [ :id, :string, :ranked_canonical_form_id ],
-            :canonical_forms => [ :id, :string ] }
+        DataPointUri.preload_associations(data_point_uris, { taxon_concept:
+            [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ],
+            resource: :content_partner },
+          select: {
+            taxon_concepts: [ :id ],
+            hierarchy_entries: [ :id, :taxon_concept_id, :name_id ],
+            names: [ :id, :string, :ranked_canonical_form_id ],
+            canonical_forms: [ :id, :string ] }
           )
       else
         taxon_data_set = TaxonDataSet.new(results)
         data_point_uris = taxon_data_set.data_point_uris
         DataPointUri.preload_associations(data_point_uris, :taxon_concept)
-        TaxonConcept.preload_for_shared_summary(data_point_uris.collect(&:taxon_concept), :language_id => options[:language].id)
+        TaxonConcept.preload_for_shared_summary(data_point_uris.collect(&:taxon_concept), language_id: options[:language].id)
       end
       TaxonConcept.load_common_names_in_bulk(data_point_uris.collect(&:taxon_concept), options[:language].id)
       WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
@@ -62,7 +62,6 @@ class TaxonData < TaxonUserClassificationFilter
     end
     query += " WHERE {
       GRAPH ?graph {
-        ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
         ?data_point_uri dwc:measurementType ?attribute .
         ?data_point_uri dwc:measurementValue ?value .
         ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
@@ -70,15 +69,23 @@ class TaxonData < TaxonUserClassificationFilter
         OPTIONAL {
           ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri .
         } . "
+    # numerical range search term
     if options[:from] && options[:to]
       query += "FILTER(xsd:float(?value) >= xsd:float(#{options[:from]}) AND xsd:float(?value) <= xsd:float(#{options[:to]})) . "
+    # exact numerical search term
     elsif options[:querystring] && options[:querystring].is_numeric?
       query += "FILTER(xsd:float(?value) = xsd:float(#{options[:querystring]})) . "
+    # string search term
     elsif options[:querystring] && ! options[:querystring].strip.empty?
-      query += "FILTER(REGEX(?value, '#{options[:querystring]}', 'i')) . "
+      matching_known_uris = KnownUri.search(options[:querystring])
+      query += "FILTER(( !isURI(?value) && REGEX(?value, '#{options[:querystring]}', 'i'))"
+      unless matching_known_uris.empty?
+        query << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
+      end
+      query += ") . "
     end
     if options[:attribute]
-      query += "?data_point_uri dwc:measurementType <#{options[:attribute]}> . "
+      query += "FILTER(?attribute = <#{options[:attribute]}>) . "
     end
     query += "} .
       {
@@ -134,9 +141,9 @@ class TaxonData < TaxonUserClassificationFilter
       taxon_data_set.sort
       known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
       KnownUri.preload_associations(known_uris,
-                                    [ { :toc_items => :translations },
-                                      { :known_uri_relationships_as_subject => :to_known_uri },
-                                      { :known_uri_relationships_as_target => :from_known_uri } ] )
+                                    [ { toc_items: :translations },
+                                      { known_uri_relationships_as_subject: :to_known_uri },
+                                      { known_uri_relationships_as_target: :from_known_uri } ] )
       @categories = known_uris.flat_map(&:toc_items).uniq.compact
       @taxon_data_set = taxon_data_set
     end
@@ -159,7 +166,6 @@ class TaxonData < TaxonUserClassificationFilter
       SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?graph {
-          ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value .
           OPTIONAL {
@@ -167,8 +173,8 @@ class TaxonData < TaxonUserClassificationFilter
           }
         } .
         {
-          ?data_point_uri dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-          ?data_point_uri dwc:taxonConceptID ?taxon_concept_id
+          ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
+          FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
         }
         UNION {
           ?data_point_uri dwc:occurrenceID ?occurrence .
@@ -176,8 +182,8 @@ class TaxonData < TaxonUserClassificationFilter
           ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
           FILTER ( ?measurementOfTaxon = 'true' ) .
           GRAPH ?resource_mappings_graph {
-            ?taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-            ?taxon dwc:taxonConceptID ?taxon_concept_id
+            ?taxon dwc:taxonConceptID ?taxon_concept_id .
+            FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
           }
         }
       }
@@ -191,13 +197,13 @@ class TaxonData < TaxonUserClassificationFilter
       SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?resource_mappings_graph {
-          ?taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?taxon dwc:taxonConceptID ?source_taxon_concept_id .
+          FILTER(?source_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>) .
           ?value dwc:taxonConceptID ?target_taxon_concept_id
         } .
         GRAPH ?graph {
           ?occurrence dwc:taxonID ?taxon .
           ?target_occurrence dwc:taxonID ?value .
-          ?data_point_uri a <#{DataAssociation::CLASS_URI}> .
           {
             ?data_point_uri dwc:occurrenceID ?occurrence .
             ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?target_occurrence .

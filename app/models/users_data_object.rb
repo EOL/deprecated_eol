@@ -14,7 +14,7 @@ class UsersDataObject < ActiveRecord::Base
   belongs_to :vetted
   belongs_to :visibility
 
-  delegate :created_at, :summary_name, :description_teaser, :to => :data_object
+  delegate :created_at, :summary_name, :description_teaser, to: :data_object
 
   before_create :auto_vet
 
@@ -42,13 +42,13 @@ class UsersDataObject < ActiveRecord::Base
   # Used when a user-submitted text is replicated. Note that before_create makes vet/vis moot until afterwards.
   def replicate(new_dato)
     udo = UsersDataObject.create(
-      :user_id => user_id,
-      :data_object => new_dato,
-      :taxon_concept_id => taxon_concept_id,
+      user_id: user_id,
+      data_object: new_dato,
+      taxon_concept_id: taxon_concept_id,
     )
     udo.update_attributes(
-      :visibility_id => visibility_id,
-      :vetted_id => vetted_id
+      visibility_id: visibility_id,
+      vetted_id: vetted_id
     )
     udo
   end

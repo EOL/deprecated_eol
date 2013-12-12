@@ -2,9 +2,9 @@
 #tabs_sidebar.data
   %ul.tabs.with_icons{ class: ajax ? 'subtabs' : nil }
     - @categories.each do |cat|
-      %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, taxon_data_path(@taxon_data, :toc_id => cat.id), 'data-toc-id' => cat.id
+      %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, taxon_data_path(@taxon_data, toc_id: cat.id), 'data-toc-id' => cat.id
     - if @include_other_category
-      %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), taxon_data_path(@taxon_data, :toc_id => 'other'), 'data-toc-id' => 'other'
+      %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), taxon_data_path(@taxon_data, toc_id: 'other'), 'data-toc-id' => 'other'
     %li.all.end_section{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_data)
     - unless @range_data.empty?
       %li.ranges{ class: (@toc_id == 'ranges') ? 'active' : nil }= link_to I18n.t(:data_ranges), ranges_taxon_data_path(@taxon_page)

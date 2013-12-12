@@ -17,15 +17,15 @@ class DataPointUri < ActiveRecord::Base
   belongs_to :visibility
   belongs_to :resource
   belongs_to :user_added_data
-  belongs_to :predicate_known_uri, :class_name => KnownUri.to_s, :foreign_key => :predicate_known_uri_id
-  belongs_to :object_known_uri, :class_name => KnownUri.to_s, :foreign_key => :object_known_uri_id
-  belongs_to :unit_of_measure_known_uri, :class_name => KnownUri.to_s, :foreign_key => :unit_of_measure_known_uri_id
+  belongs_to :predicate_known_uri, class_name: KnownUri.to_s, foreign_key: :predicate_known_uri_id
+  belongs_to :object_known_uri, class_name: KnownUri.to_s, foreign_key: :object_known_uri_id
+  belongs_to :unit_of_measure_known_uri, class_name: KnownUri.to_s, foreign_key: :unit_of_measure_known_uri_id
   # this only applies to Associations, but is written as belongs_to to take advantage of preloading
-  belongs_to :target_taxon_concept, :class_name => TaxonConcept.to_s, :foreign_key => :object
+  belongs_to :target_taxon_concept, class_name: TaxonConcept.to_s, foreign_key: :object
 
-  has_many :comments, :as => :parent
-  has_many :all_versions, :class_name => DataPointUri.to_s, :foreign_key => :uri, :primary_key => :uri
-  has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :primary_key => :uri, :source => :comments
+  has_many :comments, as: :parent
+  has_many :all_versions, class_name: DataPointUri.to_s, foreign_key: :uri, primary_key: :uri
+  has_many :all_comments, class_name: Comment.to_s, through: :all_versions, primary_key: :uri, source: :comments
   has_many :taxon_data_exemplars
 
   attr_accessor :metadata
@@ -53,8 +53,8 @@ class DataPointUri < ActiveRecord::Base
   def self.replace_licenses_with_mock_known_uris(metadata_rows, language)
     metadata_rows.each do |row|
       if row[:attribute] == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(row[:value].to_s)
-        row[:value] = KnownUri.new(:uri => row[:value],
-          :translations => [ TranslatedKnownUri.new(:name => license.title, :language => language) ])
+        row[:value] = KnownUri.new(uri: row[:value],
+          translations: [ TranslatedKnownUri.new(name: license.title, language: language) ])
       end
     end
     metadata_rows
@@ -81,9 +81,9 @@ class DataPointUri < ActiveRecord::Base
       end
     end
     virtuoso_to_data_point_mapping = {
-      :attribute => :predicate,
-      :unit_of_measure_uri => :unit_of_measure,
-      :value => :object }
+      attribute: :predicate,
+      unit_of_measure_uri: :unit_of_measure,
+      value: :object }
     virtuoso_to_data_point_mapping.each do |virtuoso_response_key, data_point_uri_key|
       next if row[virtuoso_response_key].blank?
       # this requires that
@@ -122,7 +122,7 @@ class DataPointUri < ActiveRecord::Base
   # `hierarchy_entries`.`id` = 12 LIMIT 1
   # Name Load (0.5ms)  SELECT `names`.* FROM `names` WHERE `names`.`id` = 25 LIMIT 1
   def summary_name
-    I18n.t(:data_point_uri_summary_name, :taxon => taxon_concept.summary_name)
+    I18n.t(:data_point_uri_summary_name, taxon: taxon_concept.summary_name)
   end
 
   def header_anchor
@@ -197,14 +197,12 @@ class DataPointUri < ActiveRecord::Base
             ?parent_uri dwc:occurrenceID ?occurrence .
             ?occurrence ?attribute ?value .
           } UNION {
-            ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement <#{Rails.configuration.uri_parent_measurement_id}> ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
           } UNION {
             ?parent_uri dwc:occurrenceID ?occurrence .
-            ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
@@ -212,7 +210,6 @@ class DataPointUri < ActiveRecord::Base
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
-            ?measurement a <#{DataMeasurement::CLASS_URI}> .
             ?measurement <#{Rails.configuration.uri_association_id}> ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
@@ -253,7 +250,6 @@ class DataPointUri < ActiveRecord::Base
         GRAPH ?graph {
           {
             <#{uri}> dwc:occurrenceID ?occurrence .
-            ?data_point_uri a <#{DataMeasurement::CLASS_URI}> .
             ?data_point_uri dwc:occurrenceID ?occurrence .
             ?data_point_uri dwc:measurementType ?attribute .
             ?data_point_uri dwc:measurementValue ?value .

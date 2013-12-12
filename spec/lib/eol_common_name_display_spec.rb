@@ -4,18 +4,18 @@ describe EOL::CommonNameDisplay do
 
   before(:all) do
     load_foundation_cache
-    Language.gen_if_not_exists(:iso_639_1 => 'en')
-    Language.gen_if_not_exists(:label => 'Unknown')
-    Hierarchy.gen_if_not_exists(:label => "Encyclopedia of Life Contributors")
-    Visibility.gen_if_not_exists(:label => 'visible')
+    Language.gen_if_not_exists(iso_639_1: 'en')
+    Language.gen_if_not_exists(label: 'Unknown')
+    Hierarchy.gen_if_not_exists(label: "Encyclopedia of Life Contributors")
+    Visibility.gen_if_not_exists(label: 'visible')
     @fake_name = fake_name
     @cnd = EOL::CommonNameDisplay.new(@fake_name)
   end
 
   it 'should build a last of CNDs by taxon concept id, ignoring duplicate names' do
-    TaxonConceptName.gen(:taxon_concept_id => 1, :vern => 1, :language => Language.english)
-    TaxonConceptName.gen(:taxon_concept_id => 1, :vern => 1, :language => Language.english)
-    TaxonConceptName.gen(:taxon_concept_id => 1, :vern => 1, :language => Language.english)
+    TaxonConceptName.gen(taxon_concept_id: 1, vern: 1, language: Language.english)
+    TaxonConceptName.gen(taxon_concept_id: 1, vern: 1, language: Language.english)
+    TaxonConceptName.gen(taxon_concept_id: 1, vern: 1, language: Language.english)
     EOL::CommonNameDisplay.find_by_taxon_concept_id(1).length.should == 3
   end
 
@@ -23,8 +23,8 @@ describe EOL::CommonNameDisplay do
   end
   
   it 'should sort based on name_string' do
-    a = EOL::CommonNameDisplay.new(fake_name(:name_string => 'Aaa'))
-    b = EOL::CommonNameDisplay.new(fake_name(:name_string => 'Bbb'))
+    a = EOL::CommonNameDisplay.new(fake_name(name_string: 'Aaa'))
+    b = EOL::CommonNameDisplay.new(fake_name(name_string: 'Bbb'))
     [b,a].sort.should == [a,b]
   end
   
@@ -46,10 +46,10 @@ def fake_name(options = {})
   options[:name_string] ||= 'animals'
   options[:language_id] ||= 152
   name = Name.find_or_create_by_string(options[:name_string])
-  syn = Synonym.gen(:name => name,
-    :language_id => options[:language_id], :preferred => 1, :hierarchy => Hierarchy.eol_contributors)
-  TaxonConceptName.gen(:synonym => syn, :name => name, :language_id => options[:language_id], :preferred => 1, 
-    :vern => 1)
+  syn = Synonym.gen(name: name,
+    language_id: options[:language_id], preferred: 1, hierarchy: Hierarchy.eol_contributors)
+  TaxonConceptName.gen(synonym: syn, name: name, language_id: options[:language_id], preferred: 1, 
+    vern: 1)
 #   options[:name_string] ||= 'animals'
 #   options[:language_id] ||= 152
 #   options[:language_label] ||= 'English'

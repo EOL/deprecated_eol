@@ -25,7 +25,7 @@ describe CollectionJob do
     @user = User.gen
     @has_source_but_not_target = User.gen
     @has_target_but_not_source = User.gen
-    @dato = DataObject.gen(:object_title => 'Image of your mom')
+    @dato = DataObject.gen(object_title: 'Image of your mom')
     @person = User.gen
     @source = Collection.gen
     @target = Collection.gen

@@ -188,8 +188,10 @@ module TaxaHelper
 
   # TODO - this has too much business logic; extract
   def display_text_for_data_point_uri(data_point_uri, options = {})
-    # metadata rows do not have DataPointUris that are saved in the DB - they are new records
-    text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{data_point_uri.anchor}'>"
+    # Metadata rows do not have DataPointUris that are saved in the DB - they are new records.
+    # Otherwise generate an ID or use the given one (measurements can be shown multiple times on a page
+    # and each one needs a different ID if we want them all to have tooltips)
+    text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{options[:id] || data_point_uri.anchor}'>"
     if data_point_uri.association?
       taxon_link = options[:link_to_overview] ?
         taxon_overview_path(data_point_uri.target_taxon_concept) :

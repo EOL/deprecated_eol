@@ -11,10 +11,10 @@ describe 'build_taxon_concept (spec helper method)' do
     @taxon_concept_with_args = build_taxon_concept(
       :hierarchy       => @hierarchy,
       :event           => @event,
-      :scientific_name => @scientific_name
+      scientific_name: @scientific_name
     )
     @taxon_concept_naked = build_taxon_concept(
-      :images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => []
+      images: [], toc: [], flash: [], youtube: [], comments: [], bhl: []
     )
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end

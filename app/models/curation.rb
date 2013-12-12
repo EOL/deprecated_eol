@@ -132,10 +132,10 @@ private
 
   def log_action(action)
     CuratorActivityLog.factory(
-      :action => action,
-      :association => @association.source,
-      :data_object => @association.data_object,
-      :user => @user
+      action: action,
+      association: @association.source,
+      data_object: @association.data_object,
+      user: @user
     )
   end
 

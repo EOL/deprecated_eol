@@ -65,15 +65,15 @@ describe 'Search' do
 
   it 'should show a list of possible results (linking to /found) if more than 1 match is found  (also for pages/searchterm)' do
     visit("/search?q=#{@tiger_name}")
-    page.should have_selector('li', :text => @tiger_name)
+    page.should have_selector('li', text: @tiger_name)
     page.should have_selector("a[href*='/pages/#{@tiger.id}']")
-    page.should have_selector('li', :text => @tiger_lilly_name.capitalize_all_words)
+    page.should have_selector('li', text: @tiger_lilly_name.capitalize_all_words)
     page.should have_selector("a[href*='/pages/#{@tiger_lilly.id}']")
   end
 
   it 'should be able to return suggested results for "bacteria"' do
     visit("/search?q=#{@tricky_search_suggestion}&search_type=text")
-    page.should have_selector("#main li", :text => @suggested_taxon_name.capitalize_all_words)
+    page.should have_selector("#main li", text: @suggested_taxon_name.capitalize_all_words)
   end
 
   it 'should treat empty string search gracefully when javascript is switched off' do
@@ -92,12 +92,12 @@ describe 'Search' do
   it 'should return a helpful message if no results' do
     # TaxonConcept.should_receive(:search_with_pagination).at_least(1).times.and_return([])
     visit("/search?q=bozo")
-    page.should have_selector('h2', :text => "0 results for bozo")
+    page.should have_selector('h2', text: "0 results for bozo")
   end
 
   it 'should place suggested search results at the top of the list' do
     visit("/search?q=#{@tricky_search_suggestion}&search_type=text")
-    page.should have_selector("#search_results li", :text => @suggested_taxon_name.capitalize_all_words)
+    page.should have_selector("#search_results li", text: @suggested_taxon_name.capitalize_all_words)
   end
 
   it 'should sort by score by default' do
@@ -181,57 +181,57 @@ describe 'Search' do
   it 'should return all results when not filtering' do
     visit("/search?q=#{@name_for_all_types}")
     current_path.should match /^\/search/
-    body.should have_selector('h2', :text => "8 results for #{@name_for_all_types}")
+    body.should have_selector('h2', text: "8 results for #{@name_for_all_types}")
 
-    visit search_path(:q => @name_for_all_types, :type => ['all'])
+    visit search_path(q: @name_for_all_types, type: ['all'])
     current_path.should match /^\/search/
-    body.should have_selector('h2', :text => "8 results for #{@name_for_all_types}")
+    body.should have_selector('h2', text: "8 results for #{@name_for_all_types}")
   end
 
   it 'should filter by collection' do
-    visit search_path(:q => @name_for_all_types, :type => ['collection'])
+    visit search_path(q: @name_for_all_types, type: ['collection'])
     current_path.should match /^\/collections\/#{@collection.id}/
   end
 
   it 'should filter by community' do
-    visit search_path(:q => @name_for_all_types, :type => ['community'])
+    visit search_path(q: @name_for_all_types, type: ['community'])
     current_path.should match /^\/communities\/#{@community.id}/
   end
 
   it 'should filter by image' do
-    visit search_path(:q => @name_for_all_types, :type => ['image'])
+    visit search_path(q: @name_for_all_types, type: ['image'])
     current_path.should match /^\/data_objects\//
   end
 
   it 'should filter by sound' do
-    visit search_path(:q => @name_for_all_types, :type => ['sound'])
+    visit search_path(q: @name_for_all_types, type: ['sound'])
     current_path.should match /^\/data_objects\//
   end
 
   it 'should filter by video' do
-    visit search_path(:q => @name_for_all_types, :type => ['video'])
+    visit search_path(q: @name_for_all_types, type: ['video'])
     current_path.should match /^\/data_objects\//
   end
 
   it 'should filter by text' do
-    visit search_path(:q => @name_for_all_types, :type => ['text'])
+    visit search_path(q: @name_for_all_types, type: ['text'])
     current_path.should match /^\/data_objects\//
   end
 
   it 'should filter by taxon concept' do
-    visit search_path(:q => @name_for_all_types, :type => ['taxon_concept'])
+    visit search_path(q: @name_for_all_types, type: ['taxon_concept'])
     current_path.should match /^\/pages\/#{@panda.id}/
   end
 
   it 'should filter by user' do
-    visit search_path(:q => @name_for_all_types, :type => ['user'])
+    visit search_path(q: @name_for_all_types, type: ['user'])
     current_path.should match /^\/users\/#{@user2.id}/
   end
 
   it 'should only show next and previous links when necessary' do
     # make enough so paging kicks in
     26.times do |i|
-      User.gen(:username => "testingsearchpaging #{i}")
+      User.gen(username: "testingsearchpaging #{i}")
     end
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
     visit("/search?q=testingsearchpaging&page=1")
@@ -244,27 +244,27 @@ describe 'Search' do
   end
 
   it 'should properly list matches found on names which are not the preferred names' do
-    h = Hierarchy.gen(:browsable => 1)
-    other_preferred_name = Name.gen(:canonical_form => CanonicalForm.gen(:string => 'Ailuropoda melanoleuca'),
-      :string => 'Ailuropoda melanoleuca',
-      :italicized => '<i>Ailuropoda melanoleuca</i>')
-    entry = build_hierarchy_entry(0, @panda, other_preferred_name, :hierarchy => h )
-    synonym = Synonym.gen(:hierarchy => h, :hierarchy_entry => entry, :synonym_relation => SynonymRelation.synonym,
-      :name => Name.gen(:canonical_form => CanonicalForm.gen(:string => 'Itsapanda'),
-        :string => 'Itsapanda',
-        :italicized => '<i>Itsapanda</i>'))
+    h = Hierarchy.gen(browsable: 1)
+    other_preferred_name = Name.gen(canonical_form: CanonicalForm.gen(string: 'Ailuropoda melanoleuca'),
+      string: 'Ailuropoda melanoleuca',
+      italicized: '<i>Ailuropoda melanoleuca</i>')
+    entry = build_hierarchy_entry(0, @panda, other_preferred_name, hierarchy: h )
+    synonym = Synonym.gen(hierarchy: h, hierarchy_entry: entry, synonym_relation: SynonymRelation.synonym,
+      name: Name.gen(canonical_form: CanonicalForm.gen(string: 'Itsapanda'),
+        string: 'Itsapanda',
+        italicized: '<i>Itsapanda</i>'))
 
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
     visit("/search?q=Ailuropoda%20melanoleuca&show_all=1")
-    body.should have_selector('.alternate_name', :text => 'Alternative name:')
-    body.should have_selector('.alternate_name', :text => 'Ailuropoda melanoleuca')
+    body.should have_selector('.alternate_name', text: 'Alternative name:')
+    body.should have_selector('.alternate_name', text: 'Ailuropoda melanoleuca')
 
     visit("/search?q=Itsapanda&show_all=1")
-    body.should have_selector('.alternate_name', :text => 'Alternative name:')
-    body.should have_selector('.alternate_name', :text => 'Itsapanda')
+    body.should have_selector('.alternate_name', text: 'Alternative name:')
+    body.should have_selector('.alternate_name', text: 'Itsapanda')
 
     visit("/search?q=trigger&show_all=1")
-    body.should have_selector('.alternate_name', :text => 'Alternative common name:')
-    body.should have_selector('.alternate_name', :text => 'Trigger')
+    body.should have_selector('.alternate_name', text: 'Alternative common name:')
+    body.should have_selector('.alternate_name', text: 'Trigger')
   end
 end

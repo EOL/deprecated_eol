@@ -8,7 +8,6 @@ class SchemaTermParser
   def self.parse_terms_from(url)
     return unless url
     xml = Nokogiri.XML(http_get(url))
-    pp xml
     schema_type = type_of_schema(xml)
     case schema_type
     when :rdfs_owl

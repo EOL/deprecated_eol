@@ -9,21 +9,21 @@ class Administrator::TableOfContentsController < AdminController
   end
 
   def show_tree
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
   def move_up
     if toc = TocItem.find(params[:id])
       toc.move_up(params[:top] == "true")
     end
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
   def move_down
     if toc = TocItem.find(params[:id])
       toc.move_down(params[:bottom] == "true")
     end
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
   def create
@@ -34,7 +34,7 @@ class Administrator::TableOfContentsController < AdminController
         parent.add_child(params[:label])
       end
     end
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
   def update
@@ -44,7 +44,7 @@ class Administrator::TableOfContentsController < AdminController
         translated_toc_item.save
       end
     end
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
 private

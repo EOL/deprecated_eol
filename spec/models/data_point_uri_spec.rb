@@ -53,29 +53,29 @@ describe DataPointUri do
     user_added_data.data_point_uri.source.should == user_added_data.user
 
     r = Resource.gen
-    d = DataPointUri.gen(:user_added_data => nil, :resource => r)
+    d = DataPointUri.gen(user_added_data: nil, resource: r)
     d.source.should == r.content_partner
   end
 
   it 'should predicate_uri' do
-    d = DataPointUri.gen(:predicate_known_uri => nil, :predicate => 'mass')
+    d = DataPointUri.gen(predicate_known_uri: nil, predicate: 'mass')
     d.predicate_uri.should == 'mass'
     known_uri = KnownUri.gen
-    d = DataPointUri.gen(:predicate_known_uri => known_uri, :predicate => 'mass')
+    d = DataPointUri.gen(predicate_known_uri: known_uri, predicate: 'mass')
     d.predicate_uri.should == known_uri
   end
 
   it 'should object_uri' do
-    d = DataPointUri.gen(:object_known_uri => nil, :object => 'North America')
+    d = DataPointUri.gen(object_known_uri: nil, object: 'North America')
     d.object_uri.should == 'North America'
     known_uri = KnownUri.gen
-    d = DataPointUri.gen(:object_known_uri => known_uri, :object => 'North America')
+    d = DataPointUri.gen(object_known_uri: known_uri, object: 'North America')
     d.object_uri.should == known_uri
   end
 
   context 'with grams as unit of measure' do
 
-    let(:with_grams) { DataPointUri.gen(:unit_of_measure_known_uri => nil, :unit_of_measure => 'grams') }
+    let(:with_grams) { DataPointUri.gen(unit_of_measure_known_uri: nil, unit_of_measure: 'grams') }
 
     it 'should have "grams" as the unit of measure uri' do
       with_grams.unit_of_measure_uri.should == 'grams'

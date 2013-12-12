@@ -6,7 +6,7 @@ describe 'Switching Languages' do
   end
   
   before(:each) do
-    @user_fr = User.gen(:language_id => Language.find_by_iso_639_1('fr').id)
+    @user_fr = User.gen(language_id: Language.find_by_iso_639_1('fr').id)
   end
   
   it 'should use the default language' do

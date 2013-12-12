@@ -25,8 +25,8 @@ describe 'Taxa page' do
     
     # add a Citizen Science article and index it
     citizen_science_article = build_data_object('Text', 'This is a Citizen Science links article',
-      :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible,
-      :hierarchy_entry => @taxon_concept.entry)
+      published: 1, vetted: Vetted.trusted, visibility: Visibility.visible,
+      hierarchy_entry: @taxon_concept.entry)
     cit_sci_toc_items = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
     cit_sci_toc_items.should_not be_nil
     citizen_science_article.toc_items << cit_sci_toc_items

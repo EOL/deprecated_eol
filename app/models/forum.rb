@@ -1,7 +1,7 @@
 class Forum < ActiveRecord::Base
 
   belongs_to :forum_category
-  belongs_to :last_post, :class_name => 'ForumPost', :foreign_key => :last_post_id
+  belongs_to :last_post, class_name: 'ForumPost', foreign_key: :last_post_id
   belongs_to :user
 
   has_many :forum_topics
@@ -21,8 +21,8 @@ class Forum < ActiveRecord::Base
   end
 
   def update_last_post_and_count
-    update_attributes(:last_post_id => open_topics.maximum('forum_posts.id'))
-    update_attributes(:number_of_posts => open_topics.count)
+    update_attributes(last_post_id: open_topics.maximum('forum_posts.id'))
+    update_attributes(number_of_posts: open_topics.count)
   end
 
   def open_topics
@@ -36,7 +36,7 @@ class Forum < ActiveRecord::Base
   end
 
   def set_view_order
-    self.view_order = (Forum.where(:forum_category_id => self.forum_category_id).maximum(:view_order) || 0) + 1
+    self.view_order = (Forum.where(forum_category_id: self.forum_category_id).maximum(:view_order) || 0) + 1
   end
 
 end

@@ -1,2 +1,0 @@
-module Administrator::ContactSubjectHelper
-end

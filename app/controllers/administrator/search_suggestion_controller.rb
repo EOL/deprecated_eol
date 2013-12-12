@@ -15,10 +15,10 @@ class Administrator::SearchSuggestionController < AdminController
     # let us go back to a page where we were
     page = params[:page] || "1"
     @search_suggestions = SearchSuggestion.paginate(
-      :conditions => ['term like ?', search_string_parameter],
-      :order => 'term asc', :page => page)
-    SearchSuggestion.preload_associations(@search_suggestions, { :taxon_concept => { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } })
-    @search_suggestions_count = SearchSuggestion.count(:conditions => ['term like ?', search_string_parameter])
+      conditions: ['term like ?', search_string_parameter],
+      order: 'term asc', page: page)
+    SearchSuggestion.preload_associations(@search_suggestions, { taxon_concept: { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } })
+    @search_suggestions_count = SearchSuggestion.count(conditions: ['term like ?', search_string_parameter])
   end
 
   def new
@@ -37,9 +37,9 @@ class Administrator::SearchSuggestionController < AdminController
     @search_suggestion = SearchSuggestion.new(params[:search_suggestion])
     if @search_suggestion.save
       flash[:notice] = I18n.t(:search_suggestion_created)
-      redirect_back_or_default(url_for(:action => 'index'))
+      redirect_back_or_default(url_for(action: 'index'))
     else
-      render :action => "new"
+      render action: "new"
     end
   end
 
@@ -47,17 +47,17 @@ class Administrator::SearchSuggestionController < AdminController
     @search_suggestion = SearchSuggestion.find(params[:id])
     if @search_suggestion.update_attributes(params[:search_suggestion])
       flash[:notice] = I18n.t(:search_suggestion_updated)
-      redirect_back_or_default(url_for(:action => 'index'))
+      redirect_back_or_default(url_for(action: 'index'))
     else
-      render :action => "edit"
+      render action: "edit"
     end
   end
 
   def destroy
-    (redirect_to referred_url, :status => :moved_permanently;return) unless request.delete?
+    (redirect_to referred_url, status: :moved_permanently;return) unless request.delete?
     @search_suggestion = SearchSuggestion.find(params[:id])
     @search_suggestion.destroy
-    redirect_to referred_url, :status => :moved_permanently
+    redirect_to referred_url, status: :moved_permanently
   end
 
   def set_layout_variables

@@ -2,39 +2,39 @@
 class Notification < ActiveRecord::Base
   belongs_to :user
   has_many :pending_notifications
-  belongs_to :reply_to_comment, :foreign_key => :reply_to_comment,
-    :class_name => 'NotificationFrequency'
-  belongs_to :comment_on_my_profile, :foreign_key => :comment_on_my_profile,
-    :class_name => 'NotificationFrequency'
-  belongs_to :comment_on_my_contribution, :foreign_key => :comment_on_my_contribution,
-    :class_name => 'NotificationFrequency'
-  belongs_to :comment_on_my_collection, :foreign_key => :comment_on_my_collection,
-    :class_name => 'NotificationFrequency'
-  belongs_to :comment_on_my_community, :foreign_key => :comment_on_my_community,
-    :class_name => 'NotificationFrequency'
-  belongs_to :made_me_a_manager, :foreign_key => :made_me_a_manager,
-    :class_name => 'NotificationFrequency'
-  belongs_to :member_joined_my_community, :foreign_key => :member_joined_my_community,
-    :class_name => 'NotificationFrequency'
-  belongs_to :comment_on_my_watched_item, :foreign_key => :comment_on_my_watched_item,
-    :class_name => 'NotificationFrequency'
-  belongs_to :curation_on_my_watched_item, :foreign_key => :curation_on_my_watched_item,
-    :class_name => 'NotificationFrequency'
-  belongs_to :new_data_on_my_watched_item, :foreign_key => :new_data_on_my_watched_item,
-    :class_name => 'NotificationFrequency'
-  belongs_to :changes_to_my_watched_collection, :foreign_key => :changes_to_my_watched_collection,
-    :class_name => 'NotificationFrequency'
-  belongs_to :changes_to_my_watched_community, :foreign_key => :changes_to_my_watched_community,
-    :class_name => 'NotificationFrequency'
+  belongs_to :reply_to_comment, foreign_key: :reply_to_comment,
+    class_name: 'NotificationFrequency'
+  belongs_to :comment_on_my_profile, foreign_key: :comment_on_my_profile,
+    class_name: 'NotificationFrequency'
+  belongs_to :comment_on_my_contribution, foreign_key: :comment_on_my_contribution,
+    class_name: 'NotificationFrequency'
+  belongs_to :comment_on_my_collection, foreign_key: :comment_on_my_collection,
+    class_name: 'NotificationFrequency'
+  belongs_to :comment_on_my_community, foreign_key: :comment_on_my_community,
+    class_name: 'NotificationFrequency'
+  belongs_to :made_me_a_manager, foreign_key: :made_me_a_manager,
+    class_name: 'NotificationFrequency'
+  belongs_to :member_joined_my_community, foreign_key: :member_joined_my_community,
+    class_name: 'NotificationFrequency'
+  belongs_to :comment_on_my_watched_item, foreign_key: :comment_on_my_watched_item,
+    class_name: 'NotificationFrequency'
+  belongs_to :curation_on_my_watched_item, foreign_key: :curation_on_my_watched_item,
+    class_name: 'NotificationFrequency'
+  belongs_to :new_data_on_my_watched_item, foreign_key: :new_data_on_my_watched_item,
+    class_name: 'NotificationFrequency'
+  belongs_to :changes_to_my_watched_collection, foreign_key: :changes_to_my_watched_collection,
+    class_name: 'NotificationFrequency'
+  belongs_to :changes_to_my_watched_community, foreign_key: :changes_to_my_watched_community,
+    class_name: 'NotificationFrequency'
   # This one is a misnomer.  It should be "member joined a community where I am a member." Sorry.
-  belongs_to :member_joined_my_watched_community, :foreign_key => :member_joined_my_watched_community,
-    :class_name => 'NotificationFrequency'
-  belongs_to :member_left_my_community, :foreign_key => :member_left_my_community,
-    :class_name => 'NotificationFrequency'
-  belongs_to :new_manager_in_my_community, :foreign_key => :new_manager_in_my_community,
-    :class_name => 'NotificationFrequency'
-  belongs_to :i_am_being_watched, :foreign_key => :i_am_being_watched,
-    :class_name => 'NotificationFrequency'
+  belongs_to :member_joined_my_watched_community, foreign_key: :member_joined_my_watched_community,
+    class_name: 'NotificationFrequency'
+  belongs_to :member_left_my_community, foreign_key: :member_left_my_community,
+    class_name: 'NotificationFrequency'
+  belongs_to :new_manager_in_my_community, foreign_key: :new_manager_in_my_community,
+    class_name: 'NotificationFrequency'
+  belongs_to :i_am_being_watched, foreign_key: :i_am_being_watched,
+    class_name: 'NotificationFrequency'
 
   validates_presence_of :user
 
@@ -49,8 +49,8 @@ class Notification < ActiveRecord::Base
   def self.queue_notifications(notification_recipient_objects, target)
     notification_queue = notification_recipient_objects.select {|o| self.acceptable_notifications(o, target) }
     notification_queue.each do |h|
-      PendingNotification.create(:user => h[:user], :notification_frequency => h[:frequency], :target => target,
-                                 :reason => h[:notification_type].to_s)
+      PendingNotification.create(user: h[:user], notification_frequency: h[:frequency], target: target,
+                                 reason: h[:notification_type].to_s)
     end
     begin
       Resque.enqueue(PrepareAndSendNotifications) unless notification_queue.empty?

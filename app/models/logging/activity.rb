@@ -31,7 +31,7 @@ class Activity < LazyLoggingModel
       act = Activity.new()
       act.save! # NOTE: #create wasn't working; the ID wasn't being set correctly.
       if transact = TranslatedActivity.find_by_language_id_and_name(Language.english.id, key)
-        transact.update_attributes(:activity_id => act.id)
+        transact.update_attributes(activity_id: act.id)
       else
         # Doing this with raw sql to override the LoggingModel's default of using INSERT DELAYED
         TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(

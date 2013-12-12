@@ -11,18 +11,18 @@ describe 'Structured Data Factories' do
 
   describe 'Measurements' do
     before(:all) do
-      @default_options = { :resource => @resource, :subject => @taxon_concept }
+      @default_options = { resource: @resource, subject: @taxon_concept }
     end
 
     it 'should create the instance' do
-      s = DataMeasurement.new(@default_options.merge(:predicate => "eol:weight", :object => "14"))
+      s = DataMeasurement.new(@default_options.merge(predicate: "eol:weight", object: "14"))
       s.subject.should == @taxon_concept
       s.predicate.should == "eol:weight"
       s.object.should == "14"
     end
 
     it 'should create a turle form' do
-      s = DataMeasurement.new(@default_options.merge(:predicate => "eol:weight", :object => "14"))
+      s = DataMeasurement.new(@default_options.merge(predicate: "eol:weight", object: "14"))
       s.turtle.should include("a <#{DataMeasurement::CLASS_URI}>")
       s.turtle.should include('dwc:taxonID ')
       s.turtle.should include('dwc:measurementType ' + EOL::Sparql.enclose_value('eol:weight'))
@@ -30,7 +30,7 @@ describe 'Structured Data Factories' do
     end
 
     it 'should be able to interact with the triplestore' do
-      s = DataMeasurement.new(@default_options.merge(:predicate => "eol:weight", :object => "14"))
+      s = DataMeasurement.new(@default_options.merge(predicate: "eol:weight", object: "14"))
       EOL::Sparql.count_triples_in_graph(s.graph_name).should == 0
       EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 0
       s.add_to_triplestore
@@ -52,7 +52,7 @@ describe 'Structured Data Factories' do
   describe 'Associations' do
     before(:all) do
       @target_taxon_concept = TaxonConcept.gen
-      @default_options = { :resource => @resource, :subject => @taxon_concept, :object => @target_taxon_concept }
+      @default_options = { resource: @resource, subject: @taxon_concept, object: @target_taxon_concept }
     end
 
     it 'should create the instance' do

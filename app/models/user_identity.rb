@@ -3,7 +3,7 @@ class UserIdentity < ActiveRecord::Base
   uses_translations
 
   has_many :users_user_identities
-  has_many :users, :through => :users_user_identities
+  has_many :users, through: :users_user_identities
 
   include Enumerated
   enumerated :label, [

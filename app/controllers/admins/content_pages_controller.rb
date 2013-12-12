@@ -13,8 +13,8 @@ class Admins::ContentPagesController < AdminsController
   # GET /admin/content_pages/:content_page_id/children/new
   def new
     parent_content_page = ContentPage.find(params[:content_page_id]) if params[:content_page_id]
-    @content_page = ContentPage.new(:parent => parent_content_page, :active => true)
-    @translated_content_page = @content_page.translations.build(:language_id => current_language.id, :active_translation => true)
+    @content_page = ContentPage.new(parent: parent_content_page, active: true)
+    @translated_content_page = @content_page.translations.build(language_id: current_language.id, active_translation: true)
     set_content_page_new_options
   end
 
@@ -25,9 +25,9 @@ class Admins::ContentPagesController < AdminsController
     @content_page.last_update_user_id = current_user.id unless @content_page.blank?
     if @content_page.save
       flash[:notice] = I18n.t(:admin_content_page_create_successful_notice,
-                              :page_name => @content_page.page_name,
-                              :anchor => @content_page.page_name.gsub(' ', '_').downcase)
-      redirect_to admin_content_pages_path(:anchor => @content_page.page_name.gsub(' ', '_').downcase)
+                              page_name: @content_page.page_name,
+                              anchor: @content_page.page_name.gsub(' ', '_').downcase)
+      redirect_to admin_content_pages_path(anchor: @content_page.page_name.gsub(' ', '_').downcase)
     else
       flash.now[:error] = I18n.t(:admin_content_page_create_unsuccessful_error)
       set_content_page_new_options
@@ -46,9 +46,9 @@ class Admins::ContentPagesController < AdminsController
     @content_page = ContentPage.find(params[:id])
     if @content_page.update_attributes(params[:content_page])
       flash[:notice] = I18n.t(:admin_content_page_update_successful_notice,
-                              :page_name => @content_page.page_name,
-                              :anchor => @content_page.page_name.gsub(' ', '_').downcase)
-      redirect_to admin_content_pages_path(:anchor => @content_page.page_name.gsub(' ', '_').downcase)
+                              page_name: @content_page.page_name,
+                              anchor: @content_page.page_name.gsub(' ', '_').downcase)
+      redirect_to admin_content_pages_path(anchor: @content_page.page_name.gsub(' ', '_').downcase)
     else
       flash.now[:error] = I18n.t(:admin_content_page_update_unsuccessful_error)
       set_content_page_edit_options
@@ -58,16 +58,16 @@ class Admins::ContentPagesController < AdminsController
 
   # DELETE /admin/content_pages/:id
   def destroy
-    return redirect_to :action => 'index', :status => :moved_permanently unless request.delete?
-    content_page = ContentPage.find(params[:id], :include => [:translations, :children])
+    return redirect_to action: 'index', status: :moved_permanently unless request.delete?
+    content_page = ContentPage.find(params[:id], include: [:translations, :children])
     page_name = content_page.page_name
     content_page.last_update_user_id = current_user.id
     parent_content_page_id = content_page.parent_content_page_id
     sort_order = content_page.sort_order
     content_page.destroy
     ContentPage.update_sort_order_based_on_deleting_page(parent_content_page_id, sort_order)
-    flash[:notice] = I18n.t(:admin_content_page_delete_successful_notice, :page_name => page_name)
-    redirect_to :action => 'index', :status => :moved_permanently
+    flash[:notice] = I18n.t(:admin_content_page_delete_successful_notice, page_name: page_name)
+    redirect_to action: 'index', status: :moved_permanently
   end
 
   # POST /admin/content_pages/:id/move_up
@@ -81,7 +81,7 @@ class Admins::ContentPagesController < AdminsController
     end
     content_page.update_column(:sort_order, new_sort_order)
     flash[:notice] = I18n.t(:admin_content_page_sort_order_updated)
-    redirect_to :action => :index, :status => :moved_permanently
+    redirect_to action: :index, status: :moved_permanently
   end
 
   # POST /admin/content_pages/:id/move_down
@@ -95,7 +95,7 @@ class Admins::ContentPagesController < AdminsController
     end
     content_page.update_column(:sort_order, new_sort_order)
     flash[:notice] = I18n.t(:admin_content_page_sort_order_updated)
-    redirect_to :action => :index, :status => :moved_permanently
+    redirect_to action: :index, status: :moved_permanently
   end
 
 private
@@ -108,7 +108,7 @@ private
     set_content_pages_options
     set_translated_content_page_new_options
     @page_subheader = I18n.t(:admin_content_page_new_header)
-    @parent_content_pages = ContentPage.unscoped.all( :select => 'id, page_name' ).delete_if{|p| p == @content_page}.compact
+    @parent_content_pages = ContentPage.unscoped.all( select: 'id, page_name' ).delete_if{|p| p == @content_page}.compact
   end
 
   def set_translated_content_page_new_options
@@ -117,8 +117,8 @@ private
 
   def set_content_page_edit_options
     set_content_pages_options
-    @page_subheader = I18n.t(:admin_content_page_edit_header, :page_name => @content_page.page_name)
-    @parent_content_pages = ContentPage.unscoped.all( :select => 'id, page_name' ).delete_if{|p| p == @content_page}.compact
+    @page_subheader = I18n.t(:admin_content_page_edit_header, page_name: @content_page.page_name)
+    @parent_content_pages = ContentPage.unscoped.all( select: 'id, page_name' ).delete_if{|p| p == @content_page}.compact
     @navigation_tree = ContentPage.get_navigation_tree(@content_page.parent_content_page_id)
   end
 end

@@ -5,7 +5,7 @@ class CollectionActivityLog < LoggingModel
 
   include EOL::ActivityLogItem
 
-  belongs_to :collection, :touch => true
+  belongs_to :collection, touch: true
   belongs_to :collection_item # ONLY if it affected one
   belongs_to :user # Who took the action
   belongs_to :activity # What happened
@@ -54,8 +54,8 @@ private
 
   def add_recipient_collector(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
-    recipients << { :user => user, :notification_type => :i_collected_something,
-                    :frequency => NotificationFrequency.never }
+    recipients << { user: user, notification_type: :i_collected_something,
+                    frequency: NotificationFrequency.never }
   end
 
   def add_recipient_communities(recipients)

@@ -8,10 +8,10 @@ describe TaxonOverview do
 
   before(:each) do # NOTE - we want these 'pristine' for each test, because values get cached.
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
-    @native_entry = HierarchyEntry.gen(:taxon_concept => @taxon_concept)
+    @native_entry = HierarchyEntry.gen(taxon_concept: @taxon_concept)
     @entry = HierarchyEntry.gen
-    @language = Language.gen(:iso_639_1 => 'aa')
-    @user = User.gen(:language => @language)
+    @language = Language.gen(iso_639_1: 'aa')
+    @user = User.gen(language: @language)
     @overview = TaxonOverview.new(@taxon_concept, @user)
     @overview_with_entry = TaxonOverview.new(@taxon_concept, @user, @entry)
   end
@@ -72,11 +72,11 @@ describe TaxonOverview do
   it '#details? should check if details exist with only one detail (and not preload)' do
     @taxon_concept.should_receive(:text_for_user).with(
       @user, 
-      :language_ids => [ @user.language_id ],
-      :filter_by_subtype => true,
-      :allow_nil_languages => @user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => 1
+      language_ids: [ @user.language_id ],
+      filter_by_subtype: true,
+      allow_nil_languages: @user.default_language?,
+      toc_ids_to_ignore: TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
+      per_page: 1
     ).and_return(true)
     DataObject.should_not_receive(:preload_associations)
     @overview.details?.should be_true
@@ -89,7 +89,7 @@ describe TaxonOverview do
 
   it 'should know who chose its classification' do
     user = User.gen
-    chosen = CuratedTaxonConceptPreferredEntry.gen(:user => user)
+    chosen = CuratedTaxonConceptPreferredEntry.gen(user: user)
     @overview.should_receive(:curator_chosen_classification).and_return(chosen)
     @overview.classification_chosen_by.should == user
   end
@@ -104,7 +104,7 @@ describe TaxonOverview do
 
   it 'should know how many classifications it has available' do
     hiers = []
-    4.times { hiers << HierarchyEntry.gen(:taxon_concept => @taxon_concept) }
+    4.times { hiers << HierarchyEntry.gen(taxon_concept: @taxon_concept) }
     @taxon_concept.should_receive(:published_browsable_hierarchy_entries).and_return(hiers)
     @overview.classifications_count.should == 4
   end
@@ -142,7 +142,7 @@ describe TaxonOverview do
       collection = Collection.gen
       collection.add @taxon_concept
       communities.last.collections << collection
-      count.times { Member.gen(:community_id => communities.last.id) }
+      count.times { Member.gen(community_id: communities.last.id) }
     end
     @overview.communities.map(&:id).sort.should == [communities[1], communities[2], communities[3]].map(&:id).sort
   end
@@ -163,7 +163,7 @@ describe TaxonOverview do
   end
 
   it 'should know the last five activities from the activity_log' do
-    @taxon_concept.should_receive(:activity_log).with(:per_page => 5, :user => @user).and_return('hi from activity')
+    @taxon_concept.should_receive(:activity_log).with(per_page: 5, user: @user).and_return('hi from activity')
     @overview.activity_log.should == 'hi from activity'
   end
 
@@ -173,7 +173,7 @@ describe TaxonOverview do
   end
 
   it 'should know iucn status' do
-    iucn = DataObject.gen(:description => 'wunderbar')
+    iucn = DataObject.gen(description: 'wunderbar')
     @taxon_concept.stub_chain(:data_objects, :where, :order, :first).and_return(iucn)
     @overview.iucn_status.should == 'wunderbar'
   end
@@ -183,7 +183,7 @@ describe TaxonOverview do
   end
 
   it 'should know iucn url' do
-    iucn = DataObject.gen(:source_url => 'faked')
+    iucn = DataObject.gen(source_url: 'faked')
     @taxon_concept.stub_chain(:data_objects, :where, :order, :first).and_return(iucn)
     @overview.iucn_url.should == 'faked'
   end

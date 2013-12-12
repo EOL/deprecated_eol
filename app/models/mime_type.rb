@@ -6,16 +6,16 @@ class MimeType < ActiveRecord::Base
 
   include Enumerated
   enumerated :label, [
-    {jpg: 'image/jpeg'},
-    {html: 'text/html'},
-    {txt: 'text/plain'},
-    {mp4: 'video/mp4'},
-    {wmv: 'video/x-ms-wmv'},
-    {mpeg: 'video/mpeg'},
-    {mov: 'video/quicktime'},
-    {flv: 'video/x-flv'},
-    {mp3: 'audio/mpeg'},
-    {wav: 'audio/x-wav'}
+    { jpg: 'image/jpeg' },
+    { html: 'text/html' },
+    { txt: 'text/plain' },
+    { mp4: 'video/mp4' },
+    { wmv: 'video/x-ms-wmv' },
+    { mpeg: 'video/mpeg' },
+    { mov: 'video/quicktime' },
+    { flv: 'video/x-flv' },
+    { mp3: 'audio/mpeg' },
+    { wav: 'audio/x-wav' }
   ]
 
   def self.mp4

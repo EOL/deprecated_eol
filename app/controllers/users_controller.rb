@@ -4,13 +4,13 @@ class UsersController < ApplicationController
 
   layout :users_layout
 
-  before_filter :redirect_if_already_logged_in, :only => [:new, :create, :verify, :pending, :activated,
+  before_filter :redirect_if_already_logged_in, only: [:new, :create, :verify, :pending, :activated,
                                                           :recover_account, :temporary_login]
-  before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :temporary_login, :usernames]
-  before_filter :extend_for_open_authentication, :only => [:new, :create]
+  before_filter :check_user_agreed_with_terms, except: [:terms_agreement, :temporary_login, :usernames]
+  before_filter :extend_for_open_authentication, only: [:new, :create]
 
-  rescue_from OAuth::Unauthorized, :with => :oauth_unauthorized_rescue
-  rescue_from EOL::Exceptions::OpenAuthUnauthorized, :with => :oauth_unauthorized_rescue
+  rescue_from OAuth::Unauthorized, with: :oauth_unauthorized_rescue
+  rescue_from EOL::Exceptions::OpenAuthUnauthorized, with: :oauth_unauthorized_rescue
 
   @@objects_per_page = 20
 
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   # GET /users/:id/edit
   def edit
-    @user = User.find(params[:id], :include => :open_authentications)
+    @user = User.find(params[:id], include: :open_authentications)
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
     redirect_if_user_is_inactive
@@ -57,8 +57,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
-    redirect_to curation_privileges_user_path(@user), :status => :moved_permanently and return if params[:commit_curation_privileges_get]
-    redirect_to edit_user_notification_path(@user), :status => :moved_permanently and return if params[:commit_notification_settings_get]
+    redirect_to curation_privileges_user_path(@user), status: :moved_permanently and return if params[:commit_curation_privileges_get]
+    redirect_to edit_user_notification_path(@user), status: :moved_permanently and return if params[:commit_notification_settings_get]
     generate_api_key and return if params[:commit_generate_api_key]
     unset_auto_managed_password if params[:user][:entered_password]
     if (requested_curator_level_id = params[:user][:requested_curator_level_id]) && requested_curator_level_id.to_i != @user.requested_curator_level_id && requested_curator_level_id.to_i != @user.curator_level_id
@@ -90,21 +90,21 @@ class UsersController < ApplicationController
         # NOTE this is dangerous!  If I go and add EVERYONE to my
         # collection as an editor, I'm essentially spamming them:
         @user.watch_collection.add(collection)
-        CollectionActivityLog.create(:collection => collection, :user => @user,
-                                     :activity => Activity.add_editor)
+        CollectionActivityLog.create(collection: collection, user: @user,
+                                     activity: Activity.add_editor)
         @notices << I18n.t(:user_was_added_as_editor_of_collection,
-                           :collection => self.class.helpers.link_to(collection.name, collection_path(collection)))
+                           collection: self.class.helpers.link_to(collection.name, collection_path(collection)))
       else
-        @errors << I18n.t(:error_couldnt_find_collection_by_id, :id => id)
+        @errors << I18n.t(:error_couldnt_find_collection_by_id, id: id)
       end
     end
     flash.now[:errors] = @errors.to_sentence unless @errors.empty?
     flash[:notice] = @notices.to_sentence unless @notices.empty?
     respond_to do |format|
-      format.html { redirect_to @user, :status => :moved_permanently }
+      format.html { redirect_to @user, status: :moved_permanently }
       format.js do
         convert_flash_messages_for_ajax
-        render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
+        render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
       end
     end
   end
@@ -115,13 +115,13 @@ class UsersController < ApplicationController
     raise EOL::Exceptions::ObjectNotFound unless collection
     raise EOL::Exceptions::SecurityViolation if collection.watch_collection?
     @user.collections.delete(collection)
-    flash[:notice] = I18n.t(:user_no_longer_has_manager_access_to_collection, :user => @user.username,
-                            :collection => collection.name)
+    flash[:notice] = I18n.t(:user_no_longer_has_manager_access_to_collection, user: @user.username,
+                            collection: collection.name)
     respond_to do |format|
-      format.html { redirect_to @user, :status => :moved_permanently }
+      format.html { redirect_to @user, status: :moved_permanently }
       format.js do
         convert_flash_messages_for_ajax
-        render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
+        render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
       end
     end
   end
@@ -137,7 +137,7 @@ class UsersController < ApplicationController
   # POST /users
   # Extended by EOL::OpenAuth::ExtendUsersController
   def create
-    @user = User.new(params[:user].reverse_merge(:language => current_language))
+    @user = User.new(params[:user].reverse_merge(language: current_language))
     failed_to_create_user and return unless @user.valid? && verify_recaptcha
     @user.validation_code = User.generate_key
     while(User.find_by_validation_code(@user.validation_code))
@@ -149,7 +149,7 @@ class UsersController < ApplicationController
       @user.clear_entered_password
       send_verification_email
       EOL::GlobalStatistics.increment('users')
-      redirect_to pending_user_path(@user), :status => :moved_permanently
+      redirect_to pending_user_path(@user), status: :moved_permanently
     else
       failed_to_create_user and return
     end
@@ -171,18 +171,18 @@ class UsersController < ApplicationController
     end
     if @user && @user.active
       flash[:notice] = I18n.t(:user_already_active_notice)
-      redirect_to login_path, :status => :moved_permanently
+      redirect_to login_path, status: :moved_permanently
     elsif @user && @user.validation_code == params[:validation_code] && !params[:validation_code].blank?
       @user.activate
       Notifier.user_activated(@user).deliver
-      flash[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
+      flash[:notice] = I18n.t(:user_activation_successful_notice, username: @user.username)
       session[:conversion_code] = User.generate_key
-      redirect_to activated_user_path(@user, :success => session[:conversion_code]), :status => :moved_permanently
+      redirect_to activated_user_path(@user, success: session[:conversion_code]), status: :moved_permanently
     elsif @user
       @user.validation_code = User.generate_key if @user.validation_code.blank?
       send_verification_email
       flash[:error] = I18n.t(:user_activation_failed_resent_validation_email_error)
-      redirect_to pending_user_path(@user), :status => :moved_permanently
+      redirect_to pending_user_path(@user), status: :moved_permanently
     else
       flash[:error] = I18n.t(:user_activation_failed_user_not_found_error)
       redirect_to new_user_path
@@ -200,7 +200,7 @@ class UsersController < ApplicationController
     if (params[:success] == conversion_code) && (conversion_code =~ /^[0-9a-f]{40}$/)
       @conversion = EOL::GoogleAdWords.create_signup_conversion
     end
-    @user = User.find(params[:id], :include => :open_authentications)
+    @user = User.find(params[:id], include: :open_authentications)
   end
 
   # GET and POST for member /users/:id/terms_agreement
@@ -225,10 +225,10 @@ class UsersController < ApplicationController
 
   # NOTE - this is slightly silly, but the JS plugin we're using really does want all usernames in one call.
   def usernames
-    usernames = Rails.cache.fetch('users/usernames', :expires_in => 55.minutes) do
-      User.all(:select => 'username', :conditions => 'active = 1').map {|u| u.username }
+    usernames = Rails.cache.fetch('users/usernames', expires_in: 55.minutes) do
+      User.all(select: 'username', conditions: 'active = 1').map {|u| u.username }
     end
-    render :text => usernames.to_json
+    render text: usernames.to_json
   end
 
   def pending_notifications
@@ -250,13 +250,13 @@ class UsersController < ApplicationController
             end
           end
           if already_unsubscribed
-            flash[:notice] = I18n.t(:already_unsubscribed, :scope => [:users, :unsubscribe_notifications])
+            flash[:notice] = I18n.t(:already_unsubscribed, scope: [:users, :unsubscribe_notifications])
           else
             send_unsubscribed_to_notifications_email
-            flash[:notice] = I18n.t(:unsubscribed_notifications_successfully, :scope => [:users, :unsubscribe_notifications])
+            flash[:notice] = I18n.t(:unsubscribed_notifications_successfully, scope: [:users, :unsubscribe_notifications])
           end
         rescue
-          flash[:error] = I18n.t(:unsubscribe_notifications_failed, :scope => [:users, :unsubscribe_notifications])
+          flash[:error] = I18n.t(:unsubscribe_notifications_failed, scope: [:users, :unsubscribe_notifications])
         end
         return redirect_back_or_default
       else
@@ -275,7 +275,7 @@ class UsersController < ApplicationController
       "but we don't have a current user account to add it to, as no one is logged in." unless logged_in?
     params.delete(:controller)
     params.delete(:action)
-    redirect_to new_user_open_authentication_url(params.merge({:user_id => current_user.id}))
+    redirect_to new_user_open_authentication_url(params.merge({user_id: current_user.id}))
   end
 
   # GET and POST for :collection route /users/recover_account
@@ -286,7 +286,7 @@ class UsersController < ApplicationController
         if user.nil?
           @users = User.find_all_by_email(params[:user][:email].strip)
           flash.now[:error] = I18n.t('users.recover_account_choose_account.errors.user_not_found_choose_again')
-          render :action => 'recover_account_choose_account' and return
+          render action: 'recover_account_choose_account' and return
         end
       else
         @users = User.find_all_by_email(params[:user][:email].strip)
@@ -294,7 +294,7 @@ class UsersController < ApplicationController
           flash.now[:error] = I18n.t('users.recover_account.errors.user_not_found_by_email_address')
           return
         elsif @users.size > 1
-          render :action => 'recover_account_choose_account' and return
+          render action: 'recover_account_choose_account' and return
         end
         user = @users.first
       end
@@ -311,7 +311,7 @@ class UsersController < ApplicationController
       user.reload # Just to ensure everything is dandy in the database (TODO: will slave cause problems?)
       if user.recover_account_token =~ /^[a-f0-9]{40}$/ && !user.recover_account_token_expired?
         Notifier.user_recover_account(user, temporary_login_user_url(user, user.recover_account_token)).deliver
-        flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent', :from_address => $NO_REPLY_EMAIL_ADDRESS)
+        flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent', from_address: $NO_REPLY_EMAIL_ADDRESS)
         redirect_to login_path and return
       else
         flash.now[:error] = I18n.t('users.recover_account.errors.unable_to_update_token')
@@ -341,7 +341,7 @@ class UsersController < ApplicationController
         end
         log_in(user)
         flash[:notice] = I18n.t('users.recover_account.notices.temporarily_logged_in_update_authentication_details')
-        redirect_to edit_user_path(user), :status => :moved_permanently and return
+        redirect_to edit_user_path(user), status: :moved_permanently and return
       else
         if user.recover_account_token_expired?
           user.update_column(:recover_account_token, nil)
@@ -362,7 +362,7 @@ class UsersController < ApplicationController
     user.grant_permission(@permission)
     respond_to do |format|
       format.html do
-        redirect_to user, :status => :moved_permanently
+        redirect_to user, status: :moved_permanently
         flash[:notice] = I18n.t(:permission_granted)
       end
       format.js { }
@@ -377,7 +377,7 @@ class UsersController < ApplicationController
     @user.revoke_permission(@permission)
     respond_to do |format|
       format.html do
-        redirect_to @user, :status => :moved_permanently
+        redirect_to @user, status: :moved_permanently
         flash[:notice] = I18n.t(:permission_revoked)
       end
       format.js { }
@@ -388,8 +388,8 @@ protected
 
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :user_full_name => @user ? @user.full_name.presence : nil,
-      :curator_level => @user && @user.curator_level ? @user.curator_level.translated_label : nil
+      user_full_name: @user ? @user.full_name.presence : nil,
+      curator_level: @user && @user.curator_level ? @user.curator_level.translated_label : nil
     }).freeze
   end
 
@@ -398,7 +398,7 @@ protected
     translation_vars = scoped_variables_for_translations.dup
     @meta_description = translation_vars[:curator_level].blank? ?
       t(".meta_description", translation_vars) :
-      t(".meta_description_curator", translation_vars.merge({:default => t(".meta_description", translation_vars)}))
+      t(".meta_description_curator", translation_vars.merge({default: t(".meta_description", translation_vars)}))
   end
 
   def meta_open_graph_image_url
@@ -424,10 +424,10 @@ private
     error_scope = [:users, :open_authentications, :errors]
     error_scope << @open_auth.provider if !@open_auth.nil? && !@open_auth.provider.nil?
     if logged_in?
-      flash[:error] = I18n.t(:not_authorized_to_add_authentication, :scope => error_scope)
+      flash[:error] = I18n.t(:not_authorized_to_add_authentication, scope: error_scope)
       redirect_to user_open_authentications_url(current_user)
     else
-      flash[:error] = I18n.t(:not_authorized_to_signup, :scope => error_scope)
+      flash[:error] = I18n.t(:not_authorized_to_signup, scope: error_scope)
       redirect_to new_user_url
     end
   end
@@ -446,8 +446,8 @@ private
   def failed_to_create_user
     @user.clear_entered_password if @user
     flash.now[:error] = I18n.t(:create_user_unsuccessful_error)
-    flash.now[:error] << I18n.t(:recaptcha_incorrect_error_with_anchor, :recaptcha_anchor => 'recaptcha_widget_div') unless verify_recaptcha
-    render :action => :new, :layout => 'v2/sessions'
+    flash.now[:error] << I18n.t(:recaptcha_incorrect_error_with_anchor, recaptcha_anchor: 'recaptcha_widget_div') unless verify_recaptcha
+    render action: :new, layout: 'v2/sessions'
   end
 
   def failed_to_update_user
@@ -455,7 +455,7 @@ private
     flash.now[:error] = I18n.t(:update_user_unsuccessful_error)
     if params[:commit_curation_privileges_put]
       instantiate_variables_for_curation_privileges
-      render :curation_privileges, :layout => 'v2/basic'
+      render :curation_privileges, layout: 'v2/basic'
     else
       instantiate_variables_for_edit
       render :edit
@@ -484,26 +484,26 @@ private
 
   def generate_api_key
     @user.clear_entered_password
-    @user.update_attributes({:api_key => User.generate_key})
+    @user.update_attributes({api_key: User.generate_key})
     instantiate_variables_for_edit
     render :edit
   end
 
   def instantiate_variables_for_edit
-    @user_identities = UserIdentity.find(:all, :order => "sort_order ASC")
+    @user_identities = UserIdentity.find(:all, order: "sort_order ASC")
   end
 
   def instantiate_variables_for_curation_privileges
-    @curator_levels = CuratorLevel.find(:all, :order => "label ASC")
+    @curator_levels = CuratorLevel.find(:all, order: "label ASC")
     @page_title = I18n.t(:curation_privileges_page_title)
-    @page_description = I18n.t(:curation_privileges_page_description, :curators_url => curators_path)
+    @page_description = I18n.t(:curation_privileges_page_description, curators_url: curators_path)
   end
 
   def provide_feedback
     if params[:commit_curation_privileges_put]
       case params[:user][:requested_curator_level_id].to_i
       when CuratorLevel.assistant.id
-        flash[:notice] = I18n.t(:curator_level_assistant_approved_notice, :more_url => curators_path)
+        flash[:notice] = I18n.t(:curator_level_assistant_approved_notice, more_url: curators_path)
       when CuratorLevel.full.id
         flash[:notice] = I18n.t(:curator_level_full_pending_notice)
       when CuratorLevel.master.id
@@ -539,7 +539,7 @@ private
 
   def preload_user_associations
     # used to count the collections and communities in the menu
-    User.preload_associations(@user, [ :collections_including_unpublished, { :members => { :community => :collections } } ] )
+    User.preload_associations(@user, [ :collections_including_unpublished, { members: { community: :collections } } ] )
   end
 
   def redirect_if_user_is_inactive

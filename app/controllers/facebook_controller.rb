@@ -16,7 +16,7 @@ class FacebookController < ApplicationController
         response.headers["Pragma"] = "public"
         response.headers["Cache-Control"] = "max-age=#{cache_expire}"
         response.headers["Expires"] = Time.at(Time.now.to_i + cache_expire).strftime("%a, %d %b %Y %T %Z")
-        render :text => '<script src="//connect.facebook.net/en_US/all.js"></script>'
+        render text: '<script src="//connect.facebook.net/en_US/all.js"></script>'
       end
     end
   end

@@ -91,20 +91,20 @@ class TaxonUserClassificationFilter
   # nice, mangageable interface to all of the information we might want about a TaxonConcept.
   def method_missing(method, *args, &block)
     super unless taxon_concept.respond_to?(method)
-    class_eval { delegate method, :to => :taxon_concept } # Won't use method_missing next time!
+    class_eval { delegate method, to: :taxon_concept } # Won't use method_missing next time!
     taxon_concept.send(method, *args, &block)
   end
 
   # NOTE - these are only *browsable* hierarchies!
   def hierarchy_entries
     return @hierarchy_entries if @hierarchy_entries
-    TaxonConcept.preload_associations(taxon_concept, { :published_hierarchy_entries => :hierarchy })
+    TaxonConcept.preload_associations(taxon_concept, { published_hierarchy_entries: :hierarchy })
     @hierarchy_entries = taxon_concept.published_browsable_hierarchy_entries
     @hierarchy_entries = [_hierarchy_entry] if _hierarchy_entry && @hierarchy_entries.empty?
     HierarchyEntry.preload_associations(
       @hierarchy_entries,
-      [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ],
-      :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]}
+      [ { agents_hierarchy_entries: :agent }, :rank, { hierarchy: :agent } ],
+      select: {hierarchy_entries: [:id, :parent_id, :taxon_concept_id]}
     )
     @hierarchy_entries
   end
@@ -171,7 +171,7 @@ class TaxonUserClassificationFilter
   # NOTE - _hierarchy_entry can be nil
   def facets
     @facets ||= EOL::Solr::DataObjects.get_aggregated_media_facet_counts(
-      taxon_concept.id, :user => user
+      taxon_concept.id, user: user
     )
   end
 
@@ -203,16 +203,16 @@ class TaxonUserClassificationFilter
   def self.preload_details(data_objects, user = nil)
     DataObject.replace_with_latest_versions!(data_objects, language_id: user ? user.language_id : nil, check_only_published: true)
     includes = [ {
-      :data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ { :name => :ranked_canonical_form }, { :hierarchy => { :resource => :content_partner } }, { :taxon_concept => :flattened_ancestors } ]
+      data_objects_hierarchy_entries: [ {
+        hierarchy_entry: [ { name: :ranked_canonical_form }, { hierarchy: { resource: :content_partner } }, { taxon_concept: :flattened_ancestors } ]
       }, :vetted, :visibility ]
     } ]
     includes << {
-      :all_curated_data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
+      all_curated_data_objects_hierarchy_entries: [ {
+        hierarchy_entry: [ :name, :hierarchy, { taxon_concept: :flattened_ancestors } ]
       }, :vetted, :visibility, :user ]
     }
-    DataObject.preload_associations(data_objects, includes, :select => { :content_partners => [ :id, :user_id, :full_name, :display_name, :homepage,
+    DataObject.preload_associations(data_objects, includes, select: { content_partners: [ :id, :user_id, :full_name, :display_name, :homepage,
       :public ]})
     DataObject.preload_associations(data_objects, :users_data_object)
     DataObject.preload_associations(data_objects, :license)
@@ -220,7 +220,7 @@ class TaxonUserClassificationFilter
     DataObject.preload_associations(data_objects, :mime_type)
     DataObject.preload_associations(data_objects, :data_type)
     DataObject.preload_associations(data_objects, :translations,
-                                    :conditions => "data_object_translations.language_id = #{user.language_id}") if user
+                                    conditions: "data_object_translations.language_id = #{user.language_id}") if user
     data_objects
   end
 

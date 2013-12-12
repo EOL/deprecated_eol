@@ -29,7 +29,7 @@ class Vetted < ActiveRecord::Base
     @@for_curating_selects ||= {}
     @@for_curating_selects[I18n.locale] =
       [Vetted.trusted, Vetted.unknown, Vetted.untrusted].map do |v|
-        [v.curation_label, v.id, { :class => v.to_action }]
+        [v.curation_label, v.id, { class: v.to_action }]
       end.compact.sort
   end
 
@@ -78,9 +78,9 @@ private
 
   # TODO - this should be in the DB.
   def vetted_weight
-    @@vetted_weight = {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4} if
+    @@vetted_weight = { Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4 } if
       Rails.env.test?
-    @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4}
+    @@vetted_weight ||= { Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4 }
   end
 
 end

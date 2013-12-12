@@ -88,5 +88,14 @@ describe KnownUri do
     expect(implied_unit_kn.unit_of_measure?).to eq(true)
   end
 
+  it 'should generate an anchor string'
+
+  it 'should add_to_triplestore'
+
+  it 'should remove_from_triplestore'
+
+  it 'should update_triplestore'
+
+  it 'should generate a proper RDF Turtle'
 
 end

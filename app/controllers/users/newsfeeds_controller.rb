@@ -18,7 +18,7 @@ class Users::NewsfeedsController < UsersController
         end
         @page = params[:page] || 1
         @parent = @user # for new comment form
-        @user_activity_log = @user.activity_log(:news => true, :page => @page, :filter => @filter, :user => current_user)
+        @user_activity_log = @user.activity_log(news: true, page: @page, filter: @filter, user: current_user)
         # reset last-seen dates:
         # QUESTION: if they see this all newsfeed, doesn't that mean they also see their new messages i.e. last_message_at should be updated too?
         # QUESTION: what if they only see page 1 of their latest notifications?
@@ -27,10 +27,10 @@ class Users::NewsfeedsController < UsersController
           @user.expire_primary_index
         end
         # Uses log results to calculate page numbering for rel link tags
-        set_canonical_urls(:for => @user, :paginated => @user_activity_log, :url_method => :user_newsfeed_url)
+        set_canonical_urls(for: @user, paginated: @user_activity_log, url_method: :user_newsfeed_url)
       }
       format.js do # link is called with AJAX to get pending count for session summary
-        render :text => I18n.t(:user_pending_notifications_with_count_assitive, :count => @user.message_count)
+        render text: I18n.t(:user_pending_notifications_with_count_assitive, count: @user.message_count)
       end
     end
   end
@@ -40,16 +40,16 @@ class Users::NewsfeedsController < UsersController
     respond_to do |format|
       format.html {
         @parent = @user # for new comment form
-        @user_activity_log = @user.activity_log(:news => true, :filter => 'messages', :page => params[:page] || 1, :user => current_user)
+        @user_activity_log = @user.activity_log(news: true, filter: 'messages', page: params[:page] || 1, user: current_user)
         # reset last-seen dates:
         if @user.id == current_user.id
           @user.update_column(:last_message_at, Time.now)
           @user.expire_primary_index
         end
-        set_canonical_urls(:for => @user, :paginated => @user_activity_log, :url_method => :comments_user_newsfeed_url)
+        set_canonical_urls(for: @user, paginated: @user_activity_log, url_method: :comments_user_newsfeed_url)
       }
       format.js do # link is called with AJAX to get pending count for session summary
-        render :text => I18n.t(:user_pending_notifications_comments_with_count_assistive, :count => @user.message_count)
+        render text: I18n.t(:user_pending_notifications_comments_with_count_assistive, count: @user.message_count)
       end
     end
   end

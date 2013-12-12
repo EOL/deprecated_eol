@@ -23,7 +23,7 @@ class Visibility < ActiveRecord::Base
     @@for_curating_selects ||= {}
     @@for_curating_selects[I18n.locale] =
       [Visibility.visible, Visibility.invisible].map do |v|
-        [v.curation_label, v.id, {:class => v.to_action}]
+        [v.curation_label, v.id, {class: v.to_action}]
       end.compact.sort
   end
 

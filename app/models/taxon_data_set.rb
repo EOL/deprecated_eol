@@ -11,9 +11,9 @@ class TaxonDataSet
     DataPointUri.preload_data_point_uris!(@virtuoso_results, @taxon_concept_id)
     @data_point_uris = @virtuoso_results.collect{ |r| r[:data_point_instance] }
     unless options[:preload] == false
-      DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { :resource => :content_partner } ])
-      DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, :target_taxon_concept =>
-        [ { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ])
+      DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
+      DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
+        [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ])
       TaxonConcept.load_common_names_in_bulk(@data_point_uris.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)
     end
     convert_units

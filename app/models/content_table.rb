@@ -1,7 +1,7 @@
 class ContentTable < ActiveRecord::Base
   uses_translations
   CACHE_ALL_ROWS = true
-  has_and_belongs_to_many :toc_items, :join_table => 'content_table_items', :association_foreign_key => 'toc_id'
+  has_and_belongs_to_many :toc_items, join_table: 'content_table_items', association_foreign_key: 'toc_id'
 
   def self.create_details
     categories = [ 'Associations', 'Barcode', 'Behavior', 'Benefits', 'Brief Summary', 'Cell Biology', 'Citizen Science',
@@ -19,7 +19,7 @@ class ContentTable < ActiveRecord::Base
     english = Language.english
     if english
       content_table = ContentTable.create
-      TranslatedContentTable.create(:content_table_id => content_table.id, :label => 'Details', :language_id => english.id, :phonetic_label => '')
+      TranslatedContentTable.create(content_table_id: content_table.id, label: 'Details', language_id: english.id, phonetic_label: '')
       categories.each do |cat|
         toc_item = TocItem.find_by_en_label(cat)
         if toc_item
@@ -30,6 +30,6 @@ class ContentTable < ActiveRecord::Base
   end
 
   def self.details
-    cached_find_translated(:label, 'Details', :include => { :toc_items => :info_items })
+    cached_find_translated(:label, 'Details', include: { toc_items: :info_items })
   end
 end

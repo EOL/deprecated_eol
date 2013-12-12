@@ -15,15 +15,15 @@ class License < ActiveRecord::Base
 
   include Enumerated
   enumerated :title, [
-    {public_domain: 'public domain'},
-    {all_right_reserved: 'all rights reserved'},
-    {cc: 'cc-by 3.0'},
-    {by_sa: 'cc-by-sa 3.0'},
-    {by_nc: 'cc-by-nc 3.0'},
-    {by_nc_sa: 'cc-by-nc-sa 3.0'},
-    {cc_zero: 'cc-zero 1.0'},
-    {no_known_restrictions: 'no known copyright restrictions'},
-    {na: 'not applicable'},
+    { public_domain: 'public domain' },
+    { all_right_reserved: 'all rights reserved' },
+    { cc: 'cc-by 3.0' },
+    { by_sa: 'cc-by-sa 3.0' },
+    { by_nc: 'cc-by-nc 3.0' },
+    { by_nc_sa: 'cc-by-nc-sa 3.0' },
+    { cc_zero: 'cc-zero 1.0' },
+    { no_known_restrictions: 'no known copyright restrictions' },
+    { na: 'not applicable' },
   ]
 
   class << self
@@ -33,54 +33,54 @@ class License < ActiveRecord::Base
   def self.create_enumerated
     enumeration_creator(
       defaults:
-        {show_to_content_partners: 1, version: 1},
+        { show_to_content_partners: 1, version: 1 },
       public_domain:
-        {:title => 'public domain',
-        :description => 'No rights reserved',
-        :source_url => 'http://creativecommons.org/licenses/publicdomain/',
-        :logo_url => ''},
+        { title: 'public domain',
+          description: 'No rights reserved',
+          source_url: 'http://creativecommons.org/licenses/publicdomain/',
+          logo_url: '' },
       all_right_reserved:
-        {:title => 'all rights reserved',
-        :description => '&#169; All rights reserved',
-        :source_url => '',
-        :logo_url => '',
-        :show_to_content_partners => 0, },
+        { title: 'all rights reserved',
+          description: '&#169; All rights reserved',
+          source_url: '',
+          logo_url: '',
+          show_to_content_partners: 0 },
       by_nc:
-        {:title => 'cc-by-nc 3.0',
-        :description => 'Some rights reserved',
-        :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',
-        :logo_url => 'cc_by_nc_small.png'},
+        { title: 'cc-by-nc 3.0',
+          description: 'Some rights reserved',
+          source_url: 'http://creativecommons.org/licenses/by-nc/3.0/',
+          logo_url: 'cc_by_nc_small.png' },
       cc:
-        {:title => 'cc-by 3.0',
-        :description => 'Some rights reserved',
-        :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-        :logo_url => 'cc_by_small.png'},
+        { title: 'cc-by 3.0',
+          description: 'Some rights reserved',
+          source_url: 'http://creativecommons.org/licenses/by/3.0/',
+          logo_url: 'cc_by_small.png' },
       by_sa:
-        {:title => 'cc-by-sa 3.0',
-        :description => 'Some rights reserved',
-        :source_url => 'http://creativecommons.org/licenses/by-sa/3.0/',
-        :logo_url => 'cc_by_sa_small.png'},
+        { title: 'cc-by-sa 3.0',
+          description: 'Some rights reserved',
+          source_url: 'http://creativecommons.org/licenses/by-sa/3.0/',
+          logo_url: 'cc_by_sa_small.png' },
       by_nc_sa:
-        {:title => 'cc-by-nc-sa 3.0',
-        :description => 'Some rights reserved',
-        :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/',
-        :logo_url => 'cc_by_nc_sa_small.png'},
+        { title: 'cc-by-nc-sa 3.0',
+          description: 'Some rights reserved',
+          source_url: 'http://creativecommons.org/licenses/by-nc-sa/3.0/',
+          logo_url: 'cc_by_nc_sa_small.png' },
       cc_zero:
-        {:title => 'cc-zero 1.0',
-        :description => 'Public Domain',
-        :source_url => 'http://creativecommons.org/publicdomain/zero/1.0/',
-        :logo_url => 'cc_zero_small.png'},
+        { title: 'cc-zero 1.0',
+          description: 'Public Domain',
+          source_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
+          logo_url: 'cc_zero_small.png' },
       no_known_restrictions:
-        {:title => 'no known copyright restrictions',
-        :description => 'No known copyright restrictions',
-        :source_url => 'http://www.flickr.com/commons/usage/',
-        :logo_url => '',},
+        { title: 'no known copyright restrictions',
+          description: 'No known copyright restrictions',
+          source_url: 'http://www.flickr.com/commons/usage/',
+          logo_url: '' },
       na:
-        {:title => 'not applicable',
-        :description => 'License not applicable',
-        :source_url => '',
-        :logo_url => '',
-        :show_to_content_partners => 0}
+        { title: 'not applicable',
+          description: 'License not applicable',
+          source_url: '',
+          logo_url: '',
+          show_to_content_partners: 0 }
     )
   end
 

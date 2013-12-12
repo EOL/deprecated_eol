@@ -17,12 +17,12 @@ class CollectionJob < ActiveRecord::Base
   has_and_belongs_to_many :collections # NOTE - these are 'target' collections.
 
   validates_presence_of :user
-  validates_presence_of :collections, :if => :target_needed?
+  validates_presence_of :collections, if: :target_needed?
   # Simple enumeration; NOTE these must be defined as methods:
-  validates :command, :inclusion => { :in => VALID_COMMANDS }
-  validates_presence_of :collection_items, :unless => :all_items?
-  validate :user_can_edit_source, :unless => :copy?
-  validate :user_can_edit_targets, :unless => :remove?
+  validates :command, inclusion: { in: VALID_COMMANDS }
+  validates_presence_of :collection_items, unless: :all_items?
+  validate :user_can_edit_source, unless: :copy?
+  validate :user_can_edit_targets, unless: :remove?
 
   def run
     raise EOL::Exceptions::SecurityViolation unless valid?

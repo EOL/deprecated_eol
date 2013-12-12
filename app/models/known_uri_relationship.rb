@@ -6,12 +6,12 @@ class KnownUriRelationship < ActiveRecord::Base
   ALLOWED_UNIT_URI = Rails.configuration.uri_allowed_unit
   EQUIVALENT_PROPERTY_URI = Rails.configuration.uri_equivalent_property
 
-  belongs_to :from_known_uri, :class_name => KnownUri.name, :foreign_key => :from_known_uri_id
-  belongs_to :to_known_uri, :class_name => KnownUri.name, :foreign_key => :to_known_uri_id
+  belongs_to :from_known_uri, class_name: KnownUri.name, foreign_key: :from_known_uri_id
+  belongs_to :to_known_uri, class_name: KnownUri.name, foreign_key: :to_known_uri_id
 
   attr_accessible :from_known_uri, :from_known_uri_id, :to_known_uri, :to_known_uri_id, :relationship_uri
 
-  validates_uniqueness_of :to_known_uri_id, :scope => [ :from_known_uri_id, :relationship_uri ]
+  validates_uniqueness_of :to_known_uri_id, scope: [ :from_known_uri_id, :relationship_uri ]
   validate :known_uris_should_be_known
   validate :target_should_be_measurement
   validate :subject_and_target_are_different
@@ -28,11 +28,11 @@ class KnownUriRelationship < ActiveRecord::Base
 
   # NOTE - The keys here are I18n keys and need translations.
   @relationship_types =
-    { :known_uri_label_inverse => KnownUriRelationship::INVERSE_URI,
-      :known_uri_label_allowed_val => KnownUriRelationship::ALLOWED_VALUE_URI,
-      :known_uri_label_allowed_unit => KnownUriRelationship::ALLOWED_UNIT_URI,
-      :known_uri_label_unit => KnownUriRelationship::MEASUREMENT_URI,
-      :known_uri_label_equivalent => KnownUriRelationship::EQUIVALENT_PROPERTY_URI }
+    { known_uri_label_inverse: KnownUriRelationship::INVERSE_URI,
+      known_uri_label_allowed_val: KnownUriRelationship::ALLOWED_VALUE_URI,
+      known_uri_label_allowed_unit: KnownUriRelationship::ALLOWED_UNIT_URI,
+      known_uri_label_unit: KnownUriRelationship::MEASUREMENT_URI,
+      known_uri_label_equivalent: KnownUriRelationship::EQUIVALENT_PROPERTY_URI }
 
   def self.relationship_types
     @relationship_types
@@ -97,7 +97,7 @@ class KnownUriRelationship < ActiveRecord::Base
 
   def only_one_measurement_allowed
     if relationship_uri == KnownUriRelationship::MEASUREMENT_URI
-      if from_known_uri.known_uri_relationships_as_subject.where(:relationship_uri => KnownUriRelationship::MEASUREMENT_URI).count > 0
+      if from_known_uri.known_uri_relationships_as_subject.where(relationship_uri: KnownUriRelationship::MEASUREMENT_URI).count > 0
         errors.add('relationship_uri', :only_one_measurement)
       end
     end

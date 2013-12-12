@@ -6,16 +6,16 @@ class ContentUpload < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :link_name
   validates_presence_of :description
-  validates_format_of :link_name, :with => /^[A-Za-z\d_]+$/, :message => I18n.t(:only_alphanum_with_no_spaces)
+  validates_format_of :link_name, with: /^[A-Za-z\d_]+$/, message: I18n.t(:only_alphanum_with_no_spaces)
   validates_uniqueness_of :link_name
   
   has_attached_file :attachment,
-    :path => $CONTENT_UPLOAD_DIRECTORY,
-    :url => $CONTENT_UPLOAD_PATH,
-    :default_url => "/assets/blank.gif"
+    path: $CONTENT_UPLOAD_DIRECTORY,
+    url: $CONTENT_UPLOAD_PATH,
+    default_url: "/assets/blank.gif"
 
   validates_attachment_presence :attachment  
-  validates_attachment_size :attachment, :in => 0..10.0.megabyte
+  validates_attachment_size :attachment, in: 0..10.0.megabyte
 
   def attachment_url # friendly_url, uses the content controller, file method
     "/content/file/#{self.link_name}"    

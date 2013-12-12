@@ -6,16 +6,16 @@ class UserAddedData < ActiveRecord::Base
 
   include EOL::CuratableAssociation
 
-  belongs_to :subject, :polymorphic => true
+  belongs_to :subject, polymorphic: true
   belongs_to :user
   belongs_to :vetted
   belongs_to :visibility
 
   has_one :data_point_uri
 
-  has_many :comments, :as => :parent
-  has_many :all_comments, :as => :parent, :class_name => 'Comment'
-  has_many :user_added_data_metadata, :class_name => "UserAddedDataMetadata"
+  has_many :comments, as: :parent
+  has_many :all_comments, as: :parent, class_name: 'Comment'
+  has_many :user_added_data_metadata, class_name: "UserAddedDataMetadata"
   has_many :taxon_data_exemplars, as: :parent
 
   validates_presence_of :user_id, :subject, :predicate, :object
@@ -36,7 +36,7 @@ class UserAddedData < ActiveRecord::Base
   attr_accessor :object_known_uri_id
   attr_accessor :has_values
 
-  accepts_nested_attributes_for :user_added_data_metadata, :allow_destroy => true
+  accepts_nested_attributes_for :user_added_data_metadata, allow_destroy: true
 
   def self.from_value(value)
     if value && matches = value.to_s.match(URI_REGEX)
@@ -203,15 +203,15 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def add_recipient_user(recipients)
-    recipients << { :user => user, :notification_type => :i_created_something,
-                    :frequency => NotificationFrequency.never }
+    recipients << { user: user, notification_type: :i_created_something,
+                    frequency: NotificationFrequency.never }
     recipients << user.watch_collection if user.watch_collection
   end
 
   def add_recipient_pages_affected(recipients)
     if taxon_concept
       recipients << taxon_concept
-      recipients << { :ancestor_ids => taxon_concept.flattened_ancestor_ids }
+      recipients << { ancestor_ids: taxon_concept.flattened_ancestor_ids }
     end
   end
 

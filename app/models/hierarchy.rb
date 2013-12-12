@@ -16,17 +16,17 @@ class Hierarchy < ActiveRecord::Base
   belongs_to :agent           # This is the attribution.
   has_and_belongs_to_many :collection_types
   has_one :resource
-  has_one :dwc_resource, :class_name => Resource.to_s, :foreign_key => :dwc_hierarchy_id
+  has_one :dwc_resource, class_name: Resource.to_s, foreign_key: :dwc_hierarchy_id
   has_many :hierarchy_entries
-  has_many :kingdoms, :class_name => HierarchyEntry.to_s, :foreign_key => [ :hierarchy_id ], :primary_key => [ :id ],
-    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
+  has_many :kingdoms, class_name: HierarchyEntry.to_s, foreign_key: [ :hierarchy_id ], primary_key: [ :id ],
+    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
 
   validates_presence_of :label
-  validates_length_of :label, :maximum => 255
+  validates_length_of :label, maximum: 255
 
-  before_save :reset_request_publish, :if => Proc.new { |hierarchy| hierarchy.browsable == 1 }
+  before_save :reset_request_publish, if: Proc.new { |hierarchy| hierarchy.browsable == 1 }
 
-  scope :browsable, :conditions => {:browsable => 1}
+  scope :browsable, conditions: { browsable: 1 }
 
   alias entries hierarchy_entries
 
@@ -46,7 +46,7 @@ class Hierarchy < ActiveRecord::Base
 
   def self.taxonomy_providers
     cached('taxonomy_providers') do
-      ['Integrated Taxonomic Information System (ITIS)', 'CU*STAR Classification', 'NCBI Taxonomy', 'Index Fungorum', $DEFAULT_HIERARCHY_NAME].collect{|label| Hierarchy.find_by_label(label, :order => "hierarchy_group_version desc")}
+      ['Integrated Taxonomic Information System (ITIS)', 'CU*STAR Classification', 'NCBI Taxonomy', 'Index Fungorum', $DEFAULT_HIERARCHY_NAME].collect{|label| Hierarchy.find_by_label(label, order: "hierarchy_group_version desc")}
     end
   end
 
@@ -77,7 +77,7 @@ class Hierarchy < ActiveRecord::Base
 
   def self.eol_contributors
     @@eol_contributors ||= cached('eol_contributors') do
-      Hierarchy.find_by_label("Encyclopedia of Life Contributors", :include => :agent)
+      Hierarchy.find_by_label("Encyclopedia of Life Contributors", include: :agent)
     end
   end
 
@@ -87,13 +87,13 @@ class Hierarchy < ActiveRecord::Base
 
   def self.ncbi
     @@ncbi ||= cached('ncbi') do
-      Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
+      Hierarchy.find_by_label("NCBI Taxonomy", order: "hierarchy_group_version desc")
     end
   end
   
   def self.itis
     @@itis ||= cached('itis') do
-      Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', :order => 'id desc')
+      Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', order: 'id desc')
     end
   end
 

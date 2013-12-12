@@ -14,7 +14,7 @@ class TaxonData < TaxonUserClassificationFilter
       return [].paginate if options[:attribute].blank? # TODO - remove this when we allow other searches!
       options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
       options[:language] ||= Language.default
-      total_results = EOL::Sparql.connection.query(prepare_search_query(options.merge(:only_count => true))).first[:count].to_i
+      total_results = EOL::Sparql.connection.query(prepare_search_query(options.merge(only_count: true))).first[:count].to_i
       results = EOL::Sparql.connection.query(prepare_search_query(options))
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
@@ -25,20 +25,20 @@ class TaxonData < TaxonUserClassificationFilter
           data_point_uri.convert_units
           data_point_uri
         end
-        DataPointUri.preload_associations(data_point_uris, { :taxon_concept =>
-            [ { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } ],
-            :resource => :content_partner },
-          :select => {
-            :taxon_concepts => [ :id ],
-            :hierarchy_entries => [ :id, :taxon_concept_id, :name_id ],
-            :names => [ :id, :string, :ranked_canonical_form_id ],
-            :canonical_forms => [ :id, :string ] }
+        DataPointUri.preload_associations(data_point_uris, { taxon_concept:
+            [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ],
+            resource: :content_partner },
+          select: {
+            taxon_concepts: [ :id ],
+            hierarchy_entries: [ :id, :taxon_concept_id, :name_id ],
+            names: [ :id, :string, :ranked_canonical_form_id ],
+            canonical_forms: [ :id, :string ] }
           )
       else
         taxon_data_set = TaxonDataSet.new(results)
         data_point_uris = taxon_data_set.data_point_uris
         DataPointUri.preload_associations(data_point_uris, :taxon_concept)
-        TaxonConcept.preload_for_shared_summary(data_point_uris.collect(&:taxon_concept), :language_id => options[:language].id)
+        TaxonConcept.preload_for_shared_summary(data_point_uris.collect(&:taxon_concept), language_id: options[:language].id)
       end
       TaxonConcept.load_common_names_in_bulk(data_point_uris.collect(&:taxon_concept), options[:language].id)
       WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
@@ -129,9 +129,9 @@ class TaxonData < TaxonUserClassificationFilter
       taxon_data_set.sort
       known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
       KnownUri.preload_associations(known_uris,
-                                    [ { :toc_items => :translations },
-                                      { :known_uri_relationships_as_subject => :to_known_uri },
-                                      { :known_uri_relationships_as_target => :from_known_uri } ] )
+                                    [ { toc_items: :translations },
+                                      { known_uri_relationships_as_subject: :to_known_uri },
+                                      { known_uri_relationships_as_target: :from_known_uri } ] )
       @categories = known_uris.flat_map(&:toc_items).uniq.compact
       @taxon_data_set = taxon_data_set
     end

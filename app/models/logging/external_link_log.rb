@@ -23,10 +23,10 @@ class ExternalLinkLog < LazyLoggingModel
     return nil if external_url.blank? or request.nil? or user.nil?
 
     opts = {
-      :ip_address_raw => IpAddress.ip2int(request.remote_ip),
-      :user_agent => request.user_agent,
-      :path => request.referer,
-      :external_url => external_url
+      ip_address_raw: IpAddress.ip2int(request.remote_ip),
+      user_agent: request.user_agent,
+      path: request.referer,
+      external_url: external_url
     }
     opts[:user_id] = user.id unless user.nil?
     ExternalLinkLog.create(opts)

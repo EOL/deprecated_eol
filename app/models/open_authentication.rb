@@ -8,18 +8,18 @@ class OpenAuthentication < ActiveRecord::Base
   # This is fixed in Rails 3.0 with use if inverse_of, but this does not work for Rails 2.3.8
   # see http://stackoverflow.com/questions/935650/accepts-nested-attributes-for-child-association-validation-failing
   # TODO: Find a way to validate presence of user id on create with nested attributes.
-  validates_presence_of :user_id, :on => :update
+  validates_presence_of :user_id, on: :update
   validates_presence_of :provider
   validates_presence_of :guid
 
-  validates_uniqueness_of :user_id, :scope => [:provider],
-    :message => I18n.t(:provider_user_id_must_be_unique,
-                       :scope => [:activerecord, :errors, :models, :open_authentications])
+  validates_uniqueness_of :user_id, scope: [:provider],
+    message: I18n.t(:provider_user_id_must_be_unique,
+                       scope: [:activerecord, :errors, :models, :open_authentications])
 
 
-  validates_uniqueness_of :guid, :scope => [:provider],
-    :message => I18n.t(:guid_provider_must_be_unique,
-                       :scope => [:activerecord, :errors, :models, :open_authentications])
+  validates_uniqueness_of :guid, scope: [:provider],
+    message: I18n.t(:guid_provider_must_be_unique,
+                       scope: [:activerecord, :errors, :models, :open_authentications])
 
   def can_be_deleted_by?(user_wanting_access)
     user_wanting_access.id == user_id

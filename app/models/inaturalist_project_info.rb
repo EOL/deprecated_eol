@@ -30,7 +30,7 @@ module InaturalistProjectInfo
 
     def cache_all
       # by default expire iNat cache every day. We should work with them to come up with a more precise mechanism
-      Rails.cache.fetch(InaturalistProjectInfo.cache_key, :expires_in => 1.day) do
+      Rails.cache.fetch(InaturalistProjectInfo.cache_key, expires_in: 1.day) do
         InaturalistProjectInfo.lock_caching
         InaturalistProjectInfo.get_all
       end

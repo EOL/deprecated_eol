@@ -2,21 +2,21 @@ class HarvestEvent < ActiveRecord::Base
 
   belongs_to :resource
   has_many :data_objects_harvest_events
-  has_many :data_objects, :through => :data_objects_harvest_events
+  has_many :data_objects, through: :data_objects_harvest_events
   has_many :harvest_events_hierarchy_entries
   has_and_belongs_to_many :hierarchy_entries
 
   before_destroy :remove_related_data_objects
 
-  validates_inclusion_of :publish, :in => [false], :unless => :publish_is_allowed?
+  validates_inclusion_of :publish, in: [false], unless: :publish_is_allowed?
 
   # harvest event ids for the last harvest event of every resource
   def self.latest_ids
-    @latest_ids ||= HarvestEvent.maximum('id', :group => :resource_id).values
+    @latest_ids ||= HarvestEvent.maximum('id', group: :resource_id).values
   end
 
   def self.last_published
-    last_published=HarvestEvent.find(:all,:conditions=>"published_at != 'null'",:limit=>1,:order=>'published_at desc')
+    last_published=HarvestEvent.find(:all, conditions: "published_at != 'null'", limit: 1, order: 'published_at desc')
     return (last_published.blank? ? nil : last_published[0])
   end
 
@@ -63,21 +63,21 @@ class HarvestEvent < ActiveRecord::Base
     end
 
     curator_activity_logs = CuratorActivityLog.find(:all,
-      :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (curator_activity_logs.data_object_guid=dohe.guid)",
-      :conditions => "curator_activity_logs.activity_id IN (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.hide.id}, #{Activity.show.id}) AND curator_activity_logs.changeable_object_type_id IN (#{ChangeableObjectType.data_object_scope.join(',')}) AND dohe.harvest_event_id = #{id} #{date_condition}",
-      :select => 'id')
+      joins: "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (curator_activity_logs.data_object_guid=dohe.guid)",
+      conditions: "curator_activity_logs.activity_id IN (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.hide.id}, #{Activity.show.id}) AND curator_activity_logs.changeable_object_type_id IN (#{ChangeableObjectType.data_object_scope.join(',')}) AND dohe.harvest_event_id = #{id} #{date_condition}",
+      select: 'id')
 
     curator_activity_logs = CuratorActivityLog.find_all_by_id(curator_activity_logs.collect{ |ah| ah.id },
-      :include => [ :user, :comment, :activity, :changeable_object_type, :data_object  ],
-      :select => {
-        :users => [ :id, :given_name, :family_name ],
-        :comments => [ :id, :user_id, :body ],
-        :data_objects => [ :id, :object_cache_url, :source_url, :data_type_id, :published, :created_at ] })
+      include: [ :user, :comment, :activity, :changeable_object_type, :data_object  ],
+      select: {
+        users: [ :id, :given_name, :family_name ],
+        comments: [ :id, :user_id, :body ],
+        data_objects: [ :id, :object_cache_url, :source_url, :data_type_id, :published, :created_at ] })
 
     data_objects = curator_activity_logs.collect(&:data_object)
     DataObject.replace_with_latest_versions!(data_objects, check_only_published: true, language_id: Language.english.id)
-    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility ] } ]
-    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
+    includes = [ { data_objects_hierarchy_entries: [ { hierarchy_entry: [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility ] } ]
+    includes << { all_curated_data_objects_hierarchy_entries: [ { hierarchy_entry: [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
     DataObject.preload_associations(data_objects, includes)
     DataObject.preload_associations(data_objects, :users_data_object)
     curator_activity_logs.each do |cal|

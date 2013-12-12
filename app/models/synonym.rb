@@ -10,7 +10,7 @@ class Synonym < ActiveRecord::Base
 
   has_one  :taxon_concept_name
   has_many :agents_synonyms
-  has_many :agents, :through => :agents_synonyms
+  has_many :agents, through: :agents_synonyms
   has_many :agents_synonyms
 
   before_save :set_preferred
@@ -18,7 +18,7 @@ class Synonym < ActiveRecord::Base
   after_create :create_taxon_concept_name
   before_destroy :set_preferred_true_for_last_synonym
 
-  validates_uniqueness_of :name_id, :scope => [:synonym_relation_id, :language_id, :hierarchy_entry_id, :hierarchy_id]
+  validates_uniqueness_of :name_id, scope: [:synonym_relation_id, :language_id, :hierarchy_entry_id, :hierarchy_id]
 
   def self.sort_by_language_and_name(synonyms)
     synonyms.sort_by do |syn|
@@ -29,7 +29,7 @@ class Synonym < ActiveRecord::Base
   end
 
   def self.by_taxon(taxon_id)
-    return Synonym.find_all_by_hierarchy_entry_id(taxon_id, :include => [:synonym_relation, :name])
+    return Synonym.find_all_by_hierarchy_entry_id(taxon_id, include: [:synonym_relation, :name])
   end
 
   def self.generate_from_name(name_obj, options = {})
@@ -51,19 +51,19 @@ class Synonym < ActiveRecord::Base
       synonym.preferred = preferred
       synonym.save!
     else
-      synonym = Synonym.create(:name_id             => name_obj.id,
-                               :hierarchy_id        => hierarchy.id,
-                               :hierarchy_entry_id  => entry.id,
-                               :language_id         => language.id,
-                               :synonym_relation_id => relation.id,
-                               :vetted              => vetted,
-                               :preferred           => preferred,
-                               :published           => 1)
+      synonym = Synonym.create(name_id: name_obj.id,
+                               hierarchy_id: hierarchy.id,
+                               hierarchy_entry_id: entry.id,
+                               language_id: language.id,
+                               synonym_relation_id: relation.id,
+                               vetted: vetted,
+                               preferred: preferred,
+                               published: 1)
       if synonym && synonym.errors.blank?
-        AgentsSynonym.create(:agent_id         => agent.id,
-                           :agent_role_id    => AgentRole.contributor.id,
-                           :synonym_id       => synonym.id,
-                           :view_order       => 1)
+        AgentsSynonym.create(agent_id: agent.id,
+                             agent_role_id: AgentRole.contributor.id,
+                             synonym_id: synonym.id,
+                             view_order: 1)
       end
     end
     synonym
@@ -76,14 +76,14 @@ class Synonym < ActiveRecord::Base
     if h_agent = hierarchy.agent
       h_agent.full_name = hierarchy.label # To change the name from just "Catalogue of Life"
       role = AgentRole.find_by_translated(:label, 'Source')
-      agents_roles << AgentsSynonym.new(:synonym => self, :agent => h_agent, :agent_role => role, :view_order => 0)
+      agents_roles << AgentsSynonym.new(synonym: self, agent: h_agent, agent_role: role, view_order: 0)
     end
     agents_roles += agents_synonyms
   end
 
   # TODO - is this being used?
   def vet(vet_obj, by_whom)
-    update_attributes!(:vetted => vet_obj)
+    update_attributes!(vetted: vet_obj)
   end
 
 private
@@ -112,33 +112,33 @@ private
 
   def create_taxon_concept_name
     vern = (language_id == 0 or language_id == Language.scientific.id) ? false : true
-    if tcn = TaxonConceptName.find(:first, :conditions => {
-      :taxon_concept_id => hierarchy_entry.taxon_concept_id,
-      :name_id => name_id,
-      :source_hierarchy_entry_id => hierarchy_entry_id,
-      :synonym_id => self.id,
-      :language_id => language_id})
+    if tcn = TaxonConceptName.find(:first, conditions: {
+      taxon_concept_id: hierarchy_entry.taxon_concept_id,
+      name_id: name_id,
+      source_hierarchy_entry_id: hierarchy_entry_id,
+      synonym_id: self.id,
+      language_id: language_id })
       tcn.preferred = self.preferred
       tcn.vetted_id = vetted_id
       tcn.vern = vern
       tcn.save
     else
-      TaxonConceptName.create(:synonym_id => id,
-        :language_id => language_id,
-        :name_id => name_id,
-        :preferred => self.preferred,
-        :source_hierarchy_entry_id => hierarchy_entry_id,
-        :synonym_id => self.id,
-        :taxon_concept_id => hierarchy_entry.taxon_concept_id,
-        :vetted_id => vetted_id,
-        :vern => vern)
+      TaxonConceptName.create(synonym_id: id,
+        language_id: language_id,
+        name_id: name_id,
+        preferred: self.preferred,
+        source_hierarchy_entry_id: hierarchy_entry_id,
+        synonym_id: self.id,
+        taxon_concept_id: hierarchy_entry.taxon_concept_id,
+        vetted_id: vetted_id,
+        vern: vern)
     end
   end
 
   def set_preferred_true_for_last_synonym
     tc_id = hierarchy_entry.taxon_concept_id
-    TaxonConceptName.delete_all(:synonym_id => self.id)
-    AgentsSynonym.delete_all(:synonym_id => self.id)
+    TaxonConceptName.delete_all(synonym_id: self.id)
+    AgentsSynonym.delete_all(synonym_id: self.id)
     count = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(tc_id, language_id).length
     if count == 1 and language_id != Language.unknown.id  # this is the first name in this language for the concept and lang is known
       TaxonConceptName.connection.execute("UPDATE taxon_concept_names set preferred = 1 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")

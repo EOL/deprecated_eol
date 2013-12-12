@@ -13,16 +13,16 @@ class CuratorActivityLog < LoggingModel
   belongs_to :hierarchy_entry
 
   has_many :curator_activity_logs_untrust_reasons
-  has_many :untrust_reasons, :through => :curator_activity_logs_untrust_reasons
+  has_many :untrust_reasons, through: :curator_activity_logs_untrust_reasons
 
   # use these associations carefully. They don't check the changeable object type, so you might try to grab a comment
   # when you should have grabbed a target and it won't fail.
-  belongs_to :data_object, :foreign_key => :target_id
-  belongs_to :synonym, :foreign_key => :target_id
-  belongs_to :classification_curation, :foreign_key => :target_id
-  belongs_to :affected_comment, :foreign_key => :target_id, :class_name => Comment.to_s
-  belongs_to :data_point_uri, :foreign_key => :target_id
-  belongs_to :user_added_data, :foreign_key => :target_id
+  belongs_to :data_object, foreign_key: :target_id
+  belongs_to :synonym, foreign_key: :target_id
+  belongs_to :classification_curation, foreign_key: :target_id
+  belongs_to :affected_comment, foreign_key: :target_id, class_name: Comment.to_s
+  belongs_to :data_point_uri, foreign_key: :target_id
+  belongs_to :user_added_data, foreign_key: :target_id
 
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id
 
@@ -36,12 +36,12 @@ class CuratorActivityLog < LoggingModel
 
   def self.log_preferred_classification(classification, options = {})
     CuratorActivityLog.create(
-      :user => options[:user],
-      :changeable_object_type => ChangeableObjectType.curated_taxon_concept_preferred_entry,
-      :target_id => classification.id,
-      :hierarchy_entry_id => classification.hierarchy_entry_id,
-      :taxon_concept_id => classification.taxon_concept_id,
-      :activity => Activity.preferred_classification
+      user: options[:user],
+      changeable_object_type: ChangeableObjectType.curated_taxon_concept_preferred_entry,
+      target_id: classification.id,
+      hierarchy_entry_id: classification.hierarchy_entry_id,
+      taxon_concept_id: classification.taxon_concept_id,
+      activity: Activity.preferred_classification
     )
   end
 
@@ -73,15 +73,15 @@ class CuratorActivityLog < LoggingModel
     end
 
     create_options = {
-      :user_id => options[:user].id,
-      :changeable_object_type => changeable_object_type,
-      :target_id => target_id,
-      :activity => Activity.send(options[:action]),
-      :data_object_guid => options[:data_object].guid,
-      :hierarchy_entry => he
+      user_id: options[:user].id,
+      changeable_object_type: changeable_object_type,
+      target_id: target_id,
+      activity: Activity.send(options[:action]),
+      data_object_guid: options[:data_object].guid,
+      hierarchy_entry: he
     }
     if options[:association].is_a?(UsersDataObject)
-      create_options.merge!(:taxon_concept_id => options[:association].taxon_concept_id)
+      create_options.merge!(taxon_concept_id: options[:association].taxon_concept_id)
     end
     CuratorActivityLog.create(create_options)
   end
@@ -282,8 +282,8 @@ private
 
   def add_recipient_user_taking_action(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
-    recipients << { :user => self.user, :notification_type => :i_curated_something,
-                    :frequency => NotificationFrequency.never }
+    recipients << { user: self.user, notification_type: :i_curated_something,
+                    frequency: NotificationFrequency.never }
   end
 
   # There are a few types of CuratorActivityLogs that only notify their taxon concepts:
@@ -310,7 +310,7 @@ private
   def add_taxon_concept_recipients(taxon_concept, recipients)
     unless taxon_concept.blank?
       recipients << taxon_concept
-      recipients << { :ancestor_ids => taxon_concept.flattened_ancestor_ids }
+      recipients << { ancestor_ids: taxon_concept.flattened_ancestor_ids }
       Collection.which_contain(taxon_concept).each do |c|
         recipients << c
       end
@@ -322,7 +322,7 @@ private
       recipients << self.data_object
       self.data_object.data_object_taxa(published: true).each do |assoc|
         recipients << assoc.taxon_concept
-        recipients << { :ancestor_ids => assoc.taxon_concept.flattened_ancestor_ids }
+        recipients << { ancestor_ids: assoc.taxon_concept.flattened_ancestor_ids }
       end
       Collection.which_contain(self.data_object).each do |c|
         recipients << c

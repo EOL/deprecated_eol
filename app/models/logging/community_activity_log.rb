@@ -47,8 +47,8 @@ private
 
   def add_recipient_user_making_edit(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
-    recipients << { :user => user, :notification_type => :i_modified_a_community,
-                    :frequency => NotificationFrequency.never }
+    recipients << { user: user, notification_type: :i_modified_a_community,
+                    frequency: NotificationFrequency.never }
   end
 
   def add_recipient_community(recipients)
@@ -59,8 +59,8 @@ private
     # add users who want to be notified about becoming a manager
     if activity.id == Activity.add_manager.id && member && frequency = member.user.listening_to?(:made_me_a_manager)
       new_manager = member.user
-      recipients << { :user => member.user, :notification_type => :made_me_a_manager,
-                      :frequency => frequency }
+      recipients << { user: member.user, notification_type: :made_me_a_manager,
+                      frequency: frequency }
     end
     community.managers_as_users.each do |manager|
       next if activity.id == Activity.add_manager.id && (new_manager && manager.id == new_manager.id)  # the new manager was notified above...

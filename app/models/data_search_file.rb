@@ -68,7 +68,7 @@ class DataSearchFile < ActiveRecord::Base
     # q = '' ; uri = 'http://iobis.org/minphosphate' ; from = nil ; to = nil ; sort = nil ; LIMIT = 12 ; options = {} ; user = User.first
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
     @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
-      sort: sort, per_page: LIMIT, :for_download => true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
+      sort: sort, per_page: LIMIT, for_download: true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
     # WAIT - TaxonConcept.preload_for_shared_summary(@results.map(&:taxon_concept), language_id: user.language_id)
     # TODO - handle the case where results are empty.
 
@@ -140,10 +140,10 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def force_immediate_notification_of(comment)
-    PendingNotification.create!(:user_id => user_id,
-                                :notification_frequency_id => NotificationFrequency.immediately.id,
-                                :target => comment,
-                                :reason => 'auto_email_after_curation')
+    PendingNotification.create!(user_id: user_id,
+                                notification_frequency_id: NotificationFrequency.immediately.id,
+                                target: comment,
+                                reason: 'auto_email_after_curation')
     Resque.enqueue(PrepareAndSendNotifications)
   rescue => e
     # Do nothing (for now)...

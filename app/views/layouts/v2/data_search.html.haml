@@ -9,10 +9,10 @@
         %ul
           - if @results && !@results.blank?
             %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
-              - if false # set this to true if you wanna test background downloads.
-                = link_to I18n.t(:download_data), url_for(params: params.merge(format: "js")), :class => 'button', remote: true
-              - else
-                = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), :class => 'button'
+              = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), :class => 'button'
+            %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
+              -# NOTE - not translating "background" because we do NOT want to keep that when we go live!!
+              = link_to I18n.t(:download_data) + " (background)", url_for(params: params.merge(format: "js")), :class => 'button', remote: true
   #content
     .site_column
       #data_search
@@ -25,7 +25,7 @@
                   %label= I18n.t('activerecord.attributes.user_added_data.predicate')
                 %dd
                   - select_options = { "-- " + I18n.t('activerecord.attributes.user_added_data.predicate') + " --" => nil }.
-                  -   merge(Hash[[nil, nil] + KnownUri.all_measurement_type_known_uris.collect do |uri|
+                  -   merge(Hash[[nil, nil] + EOL::Sparql.connection.all_measurement_type_known_uris.collect do |uri|
                   -     label = uri.is_a?(KnownUri) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
                   -     [ truncate(label.firstcap, :length => 35), uri.is_a?(KnownUri) ? uri.uri : uri ]
                   -   end.sort_by{ |k,v| k.nil? ? '' : k } ] )

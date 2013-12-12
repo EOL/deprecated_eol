@@ -1,4 +1,6 @@
-class SiteConfigurationOption < ActiveRecord::Base
+class EolConfig < ActiveRecord::Base
+
+  self.table_name = 'site_configuration_options'
 
   after_create :clear_caches
   after_update :clear_caches
@@ -19,7 +21,7 @@ class SiteConfigurationOption < ActiveRecord::Base
       reference_parser_pid: '',
       reference_parser_endpoint: '',
       notification_error_user_id: admin_id }.each do |key, val|
-        SiteConfigurationOption.create(parameter: key, value: val) unless SiteConfigurationOption.exists?(parameter: key)
+        EolConfig.create(parameter: key, value: val) unless EolConfig.exists?(parameter: key)
       end
   end
   
@@ -31,8 +33,8 @@ class SiteConfigurationOption < ActiveRecord::Base
       return nil if warning == EMPTY_WARNING or warning.blank?
       warning
     else
-      if SiteConfigurationOption.exists?(parameter: 'global_site_warning')
-        warning = SiteConfigurationOption.find_by_parameter('global_site_warning').value
+      if EolConfig.exists?(parameter: 'global_site_warning')
+        warning = EolConfig.find_by_parameter('global_site_warning').value
         warning = EMPTY_WARNING if warning.blank?
         Rails.cache.write(cache_name, warning, expires_in: REFRESH_TIME)
         return nil if warning == EMPTY_WARNING
@@ -45,14 +47,14 @@ class SiteConfigurationOption < ActiveRecord::Base
   end
 
   def self.clear_global_site_warning
-    SiteConfigurationOption.delete_all(parameter: 'global_site_warning')
+    EolConfig.delete_all(parameter: 'global_site_warning')
     Rails.cache.delete(cached_name_for('global_site_warning_clean'))
   end
 
   def self.method_missing(name, *args, &block)
     # The regex here keeps us from going into a wild loop, because cached_find called find_by_[param], which is found
     # via method_missing in the rails code!
-    if name !~ /^find/ && SiteConfigurationOption.exists?(:parameter => name)
+    if name !~ /^find/ && EolConfig.exists?(parameter: name)
       eigenclass = class << self; self; end
       eigenclass.class_eval do
         define_method(name) do # Keeps us from using method_missing next time...
@@ -71,7 +73,7 @@ class SiteConfigurationOption < ActiveRecord::Base
 private
 
   def clear_caches
-    Rails.cache.delete(SiteConfigurationOption.cached_name_for("parameter/#{self.parameter}"))
+    Rails.cache.delete(EolConfig.cached_name_for("parameter/#{self.parameter}"))
   end
 
 end

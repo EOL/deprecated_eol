@@ -2,7 +2,7 @@ class UserAddedDataController < ApplicationController
 
   layout 'v2/basic'
 
-  before_filter :check_authentication, :only => [ :create, :edit, :update, :destroy ]
+  before_filter :check_authentication, only: [ :create, :edit, :update, :destroy ]
   before_filter :restrict_to_admins_and_master_curators # NOTE - this restriction should be removed when we release this feature, of course.
   before_filter :restrict_to_data_viewers
 
@@ -63,7 +63,7 @@ class UserAddedDataController < ApplicationController
     user_added_data = UserAddedData.find(params[:id])
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}" unless current_user.can_delete?(user_added_data)
-    user_added_data.update_attributes({ :deleted_at => Time.now })
+    user_added_data.update_attributes({ deleted_at: Time.now })
     flash[:notice] = I18n.t('user_added_data.delete_successful')
     redirect_to taxon_data_path(user_added_data.taxon_concept_id)
   end
@@ -135,11 +135,11 @@ class UserAddedDataController < ApplicationController
 
   def log_action(method)
     CuratorActivityLog.create(
-      :user_id => current_user.id,
-      :changeable_object_type => ChangeableObjectType.user_added_data,
-      :target_id => @user_added_data.id,
-      :activity => Activity.send(method),
-      :taxon_concept_id => @user_added_data.taxon_concept_id
+      user_id: current_user.id,
+      changeable_object_type: ChangeableObjectType.user_added_data,
+      target_id: @user_added_data.id,
+      activity: Activity.send(method),
+      taxon_concept_id: @user_added_data.taxon_concept_id
     )
   end
 

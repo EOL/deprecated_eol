@@ -60,7 +60,8 @@ describe Admins::ContentPartnersController do
     end
     it 'should filter by partners that have no resources' do
       get :index, {:published => '5'}, { :user => @admin, :user_id => @admin.id }
-      assigns[:partners].should == [@cp_no_resources]
+      expect(assigns[:partners]).to include(@cp_no_resources)
+      expect(assigns[:partners]).not_to include(@cp_latest_published)
     end
   end
 

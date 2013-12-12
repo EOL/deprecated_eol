@@ -1,2 +1,0 @@
-module Administrator::UserDataObjectHelper
-end

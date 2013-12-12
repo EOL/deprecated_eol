@@ -232,11 +232,11 @@ module EOL
 
         def self.process_license_options!(options)
           if options[:licenses]
-            options[:licenses] = options[:licenses].split("|").map do |l|
+            options[:licenses] = options[:licenses].split("|").flat_map do |l|
               l = 'public domain' if l == 'pd'
               l = 'not applicable' if l == 'na'
               License.find(:all, :conditions => "title REGEXP '^#{l}([^-]|$)'")
-            end.flatten.compact
+            end.compact
           end
         end
 
@@ -247,8 +247,8 @@ module EOL
           if options[:subjects].blank? || options[:text_subjects].include?('overview') || options[:text_subjects].include?('all')
             options[:text_subjects] = nil
           else
-            options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact
-            options[:toc_items] = options[:text_subjects].map{ |ii| ii.toc_item }.flatten.compact
+            options[:text_subjects] = options[:text_subjects].flat_map { |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.compact
+            options[:toc_items] = options[:text_subjects].flat_map { |ii| ii.toc_item }.compact
           end
         end
 

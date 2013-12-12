@@ -27,11 +27,11 @@ class TaxonDataExemplarsController < ApplicationController
 
   def log_action(taxon_concept_id, data_point_uri, method)
     CuratorActivityLog.create(
-      :user_id => current_user.id,
-      :changeable_object_type => ChangeableObjectType.data_point_uri,
-      :target_id => data_point_uri.id,
-      :activity => Activity.send(method),
-      :taxon_concept_id => taxon_concept_id
+      user_id: current_user.id,
+      changeable_object_type: ChangeableObjectType.data_point_uri,
+      target_id: data_point_uri.id,
+      activity: Activity.send(method),
+      taxon_concept_id: taxon_concept_id
     )
   end
 

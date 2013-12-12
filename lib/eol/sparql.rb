@@ -110,5 +110,12 @@ module EOL
       EOL::Sparql.connection.query("SELECT COUNT DISTINCT ?s ?p ?o FROM <" + graph_name + "> WHERE { ?s ?p ?o }").first.values.first.to_i
     end
 
+    def self.uris_in_data(rows)
+      uris  = rows.map { |row| row[:attribute] }.select { |attr| attr.is_a?(RDF::URI) }
+      uris += rows.map { |row| row[:value] }.select { |attr| attr.is_a?(RDF::URI) }
+      uris += rows.map { |row| row[:unit_of_measure_uri] }.select { |attr| attr.is_a?(RDF::URI) }
+      uris.map(&:to_s).uniq
+    end
+
   end
 end

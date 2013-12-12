@@ -12,8 +12,8 @@ def add_data(options = {})
   login_as @user
   visit(taxon_data_path(@taxon_concept))
   within(:xpath, '//form[@id="new_user_added_data"]') do
-    fill_in 'user_added_data_predicate', :with => options[:attribute]
-    fill_in 'user_added_data_object', :with => options[:value]
+    fill_in 'user_added_data_predicate', with: options[:attribute]
+    fill_in 'user_added_data_object', with: options[:value]
     click_button "submit data value"
   end
   sleep(1)
@@ -55,7 +55,7 @@ end
 def comment(text)
   visit(taxon_data_path(@taxon_concept))
   within(:xpath, "//tr[@id='data_point_#{@user_added_data.id}']/following::tr") do
-    fill_in 'comment_body', :with => text
+    fill_in 'comment_body', with: text
     click_button "post annotation"
   end
 end
@@ -63,11 +63,11 @@ end
 describe 'DataPointUris' do
   before :all do
     load_foundation_cache
-    SiteConfigurationOption.delete_all
-    SiteConfigurationOption.create(parameter: 'all_users_can_see_data', value: '') 
+    EolConfig.delete_all
+    EolConfig.create(parameter: 'all_users_can_see_data', value: '') 
     @parent_taxon_concept = build_taxon_concept
-    @taxon_concept = build_taxon_concept(:parent_hierarchy_entry_id => @parent_taxon_concept.entry.id)
-    @user = build_curator(@taxon_concept, :level => :master)
+    @taxon_concept = build_taxon_concept(parent_hierarchy_entry_id: @parent_taxon_concept.entry.id)
+    @user = build_curator(@taxon_concept, level: :master)
     @user.grant_permission(:see_data)
     @collection = @user.watch_collection
     @collection.add(@taxon_concept)

@@ -8,7 +8,7 @@ Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn i
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 
-SiteConfigurationOption.create_defaults
+EolConfig.create_defaults
 
 # Translated tables will not work without this:
 Language.create_english
@@ -41,35 +41,36 @@ ContentPage.gen_if_not_exists(page_name: 'terms_of_use', title: 'Terms of Use', 
   ContactSubject.gen_if_not_exists(title: contact_subject_title, recipients: "junk@example.com", active: 1)
 end
 
-Activity.create_defaults
+Activity.create_enumerated
 
-# create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
-# them.  create_if_not_exists Once we do, they should get added here.
-ContactRole.gen_if_not_exists(label: 'Primary Contact')
-ContactRole.gen_if_not_exists(label: 'Administrative Contact')
-ContactRole.gen_if_not_exists(label: 'Technical Contact')
+ContactRole.create_enumerated
+ContentPartnerStatus.create_enumerated
 
 # Cannot create users without special collection:
-SpecialCollection.create_defaults
+SpecialCollection.create_enumerated
 CuratorCommunity.build
-SortStyle.create_defaults # Need this to make communities.
-ViewStyle.create_defaults # Used by collections views
+SortStyle.create_enumerated # Need this to make communities.
+ViewStyle.create_enumerated # Used by collections views
 
-CuratorLevel.create_defaults
-UserIdentity.create_defaults
+CuratorLevel.create_enumerated
+UserIdentity.create_enumerated
 
-iucn_agent = Agent.gen_if_not_exists(full_name: 'IUCN')
-iucn_user = User.gen_if_not_exists(given_name: 'IUCN', agent: iucn_agent)
-iucn_content_parter = ContentPartner.gen_if_not_exists(user: iucn_user, full_name: 'IUCN' )
-ContentPartnerContact.gen_if_not_exists(content_partner: iucn_content_parter, contact_role: ContactRole.primary)
+iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
+iucn_user = User.gen_if_not_exists(:given_name => 'IUCN', :agent => iucn_agent)
+iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user, :full_name => 'IUCN' )
+ContentPartnerContact.gen_if_not_exists(:content_partner => iucn_content_parter, :contact_role => ContactRole.primary)
 
-col_agent = Agent.gen_if_not_exists(full_name: 'Catalogue of Life', logo_cache_url: '219000', homepage: 'http://www.catalogueoflife.org/')
-col_user = User.gen_if_not_exists(display_name: 'Catalogue of Life', agent: col_agent)
-col_content_partner = ContentPartner.gen_if_not_exists(user: col_user, full_name: 'Catalogue of Life')
-ContentPartnerContact.gen_if_not_exists(content_partner: col_content_partner, contact_role: ContactRole.primary)
+col_agent = Agent.gen_if_not_exists(:full_name => 'Catalogue of Life', :logo_cache_url => '219000', :homepage => 'http://www.catalogueoflife.org/')
+col_user = User.gen_if_not_exists(:display_name => 'Catalogue of Life', :agent => col_agent)
+col_content_partner = ContentPartner.gen_if_not_exists(:user => col_user, :full_name => 'Catalogue of Life')
+ContentPartnerContact.gen_if_not_exists(:content_partner => col_content_partner, :contact_role => ContactRole.primary)
 
-Agent.gen_if_not_exists(full_name: 'National Center for Biotechnology Information', acronym: 'NCBI', logo_cache_url: '921800', homepage: 'http://www.ncbi.nlm.nih.gov/')
+Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/')
 
+# Must have this before creating any resources:
+License.create_enumerated
+
+License.create_enumerated
 
 boa_agent = Agent.gen_if_not_exists(full_name: 'Biology of Aging', logo_cache_url: '318700')
 boa_user = User.gen_if_not_exists(display_name: 'Biology of Aging', logo_cache_url: '318700', agent: boa_agent)
@@ -85,23 +86,17 @@ lit   = CollectionType.gen_if_not_exists(label: "Literature")
 CollectionTypesHierarchy.gen(hierarchy: boa_hierarchy, collection_type: links)
 CollectionTypesHierarchy.gen(hierarchy: boa_hierarchy, collection_type: lit)
 
-AgentRole.gen_if_not_exists(label: 'Author')
-AgentRole.gen_if_not_exists(label: 'Photographer')
-AgentRole.gen_if_not_exists(label: 'Contributor')
-AgentRole.gen_if_not_exists(label: 'Source')
-AgentRole.gen_if_not_exists(label: 'Source Database')
+# This might need to show up a few paragraphs earlier in this file, sorry. If you're reading this note, it didn't need to move;
+# delete this message, please.
+AgentRole.create_enumerated
 
-ContentPartnerStatus.gen_if_not_exists(label: 'Active')
-ContentPartnerStatus.gen_if_not_exists(label: 'Archived')
-ContentPartnerStatus.gen_if_not_exists(label: 'Pending')
+AgentRole.create_enumerated
 
-Audience.gen_if_not_exists(label: 'Children')
-Audience.gen_if_not_exists(label: 'Expert users')
-Audience.gen_if_not_exists(label: 'General public')
+Audience.create_enumerated
 
-DataType.create_defaults
+DataType.create_enumerated
 
-LinkType.create_defaults
+LinkType.create_enumerated
 
 default_hierarchy = Hierarchy.gen_if_not_exists(agent: Agent.catalogue_of_life, label: $DEFAULT_HIERARCHY_NAME, browsable: 1)
 Hierarchy.gen_if_not_exists(agent: Agent.catalogue_of_life, label:  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", browsable: 0)
@@ -126,8 +121,6 @@ unknown  = Language.gen_if_not_exists(label: 'Unknown', iso_639_1: '', source_fo
 sci_name.update_attributes(activated_on: nil)
 unknown.update_attributes(activated_on: nil)
 
-License.create_defaults
-
 MimeType.gen_if_not_exists(label: 'image/jpeg')
 MimeType.gen_if_not_exists(label: 'audio/mpeg')
 MimeType.gen_if_not_exists(label: 'text/html')
@@ -147,7 +140,7 @@ MimeType.gen_if_not_exists(label: 'audio/x-wav')
   Rank.gen_if_not_exists(label: rank)
 end
 
-ChangeableObjectType.create_defaults
+ChangeableObjectType.create_enumerated
 
 RefIdentifierType.gen_if_not_exists(label: 'url')
 RefIdentifierType.gen_if_not_exists(label: 'doi')
@@ -238,18 +231,18 @@ UntrustReason.gen_if_not_exists(label: 'incorrect/misleading', class_name: 'inco
 UntrustReason.gen_if_not_exists(label: 'low quality', class_name: 'poor')
 UntrustReason.gen_if_not_exists(label: 'duplicate', class_name: 'duplicate')
 
-Vetted.create_defaults
+Vetted.create_enumerated
 
 SynonymRelation.gen_if_not_exists(label: "synonym")
 SynonymRelation.gen_if_not_exists(label: "common name")
 SynonymRelation.gen_if_not_exists(label: "genbank common name")
 
-Visibility.create_defaults
+Visibility.create_enumerated
 
-UriType.create_defaults
+UriType.create_enumerated
 ContentTable.create_details
-NotificationFrequency.create_defaults
-Permission.create_defaults
+NotificationFrequency.create_enumerated
+Permission.create_enumerated
 
 def create_known_uri(params)
   old_instance = KnownUri.find_by_uri(params[:uri])

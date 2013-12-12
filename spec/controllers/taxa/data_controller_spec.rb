@@ -31,8 +31,8 @@ describe Taxa::DataController do
       expect { get :index, :taxon_id => @taxon_concept.id }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
 
-    it 'should allow access if the SiteConfigurationOption is set' do
-      opt = SiteConfigurationOption.find_or_create_by_parameter('all_users_can_see_data')
+    it 'should allow access if the EolConfig is set' do
+      opt = EolConfig.find_or_create_by_parameter('all_users_can_see_data')
       opt.value = 'true'
       opt.save
       session[:user_id] = User.gen.id

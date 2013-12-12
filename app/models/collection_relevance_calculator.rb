@@ -28,11 +28,11 @@ class CollectionRelevanceCalculator
     score = (calculate_feature_relevance * 0.4) + (calculate_taxa_relevance * 0.4) + (calculate_item_relevance * 0.2)
     return 0 if score <= 0
     return 100 if score >= 100
-    collection.update_attributes(:relevance => score.to_i)
+    collection.update_attributes(relevance: score.to_i)
   end
 
   def calculate_feature_relevance
-    features = count_containing_collections(:is_featured => true)
+    features = count_containing_collections(is_featured: true)
     times_featured_score = case features
                            when 0
                              0
@@ -41,7 +41,7 @@ class CollectionRelevanceCalculator
                            else
                              50
                            end
-    collected = count_containing_collections(:is_featured => false)
+    collected = count_containing_collections(is_featured: false)
     times_collected_score = case collected
                             when 0
                               0

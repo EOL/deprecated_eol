@@ -3,13 +3,13 @@ class KnownUrisController < ApplicationController
   AUTOCOMPLETE_ACTIONS = [ :autocomplete_known_uri_search, :autocomplete_known_uri_units, :autocomplete_known_uri_metadata,
                            :autocomplete_known_uri_predicates, :autocomplete_known_uri_values ]
 
-  before_filter :set_page_title, :except => AUTOCOMPLETE_ACTIONS
-  before_filter :restrict_to_admins_and_master_curators, :except => AUTOCOMPLETE_ACTIONS
+  before_filter :set_page_title, except: AUTOCOMPLETE_ACTIONS
+  before_filter :restrict_to_admins_and_master_curators, except: AUTOCOMPLETE_ACTIONS
   before_filter :restrict_to_data_viewers
-  before_filter :set_stats_filter_options, :only => [ :index, :show_stats ]
+  before_filter :set_stats_filter_options, only: [ :index, :show_stats ]
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
-    :only => AUTOCOMPLETE_ACTIONS
-  after_filter :clear_cache, :only => [ :create, :update, :destroy, :import_ontology ]
+    only: AUTOCOMPLETE_ACTIONS
+  after_filter :clear_cache, only: [ :create, :update, :destroy, :import_ontology ]
 
   layout 'v2/basic'
 
@@ -22,7 +22,7 @@ class KnownUrisController < ApplicationController
       wheres[:uri_type_id] = @uri_type.id
     end
     @known_uris = KnownUri.includes([:uri_type, :toc_items, :translated_known_uris]).where(wheres).
-      paginate(page: params[:page], order: 'position', :per_page => 500)
+      paginate(page: params[:page], order: 'position', per_page: 500)
     respond_to do |format|
       format.html do
       end
@@ -37,7 +37,7 @@ class KnownUrisController < ApplicationController
       redirect_to known_uris_path(stats_filter: params[:stats_filter])
     else
       params.delete(:ajax)
-      render(:partial => 'stats_report')
+      render(partial: 'stats_report')
       return
     end
   end
@@ -49,7 +49,7 @@ class KnownUrisController < ApplicationController
     else
       @terms = SchemaTermParser.parse_terms_from(@ontology_uri)
       @ingested_terms = []
-      @existing_known_uris = KnownUri.where(uri: @terms.collect{ |uri, metadata| uri }).includes({ :translations => :language })
+      @existing_known_uris = KnownUri.where(uri: @terms.collect{ |uri, metadata| uri }).includes({ translations: :language })
       if params[:importing]
         attribute_types_selected = {}
         attribute_mappings = { 'rdfs:label' => 'name' }
@@ -59,7 +59,7 @@ class KnownUrisController < ApplicationController
             if params[uri.to_s].blank?
               error = flash[:error] = I18n.t('known_uris.please_select_field_types')
             elsif attribute_types_selected[params[uri.to_s]]
-              error = flash[:error] = I18n.t('known_uris.more_than_one_field_mapped_to_type', :type => params[uri.to_s])
+              error = flash[:error] = I18n.t('known_uris.more_than_one_field_mapped_to_type', type: params[uri.to_s])
             elsif params[uri.to_s] != 'none'
               attribute_types_selected[params[uri.to_s]] = uri
               attribute_mappings[uri] = params[uri.to_s]
@@ -114,7 +114,7 @@ class KnownUrisController < ApplicationController
   end
 
   def edit
-    @known_uri = KnownUri.find(params[:id], :include => [ :toc_items, :known_uri_relationships_as_subject ] )
+    @known_uri = KnownUri.find(params[:id], include: [ :toc_items, :known_uri_relationships_as_subject ] )
     @translated_known_uri = @known_uri.translations.detect{ |t| t.language == current_language } || @known_uri.translated_known_uris.build(language: current_language)
   end
 
@@ -174,7 +174,7 @@ class KnownUrisController < ApplicationController
       flash[:notice] = I18n.t(:known_uri_updated)
       redirect_back_or_default(known_uris_path(uri_type_id: @known_uri.uri_type_id))
     else
-      render :action => "edit"
+      render action: "edit"
     end
   end
 
@@ -182,6 +182,12 @@ class KnownUrisController < ApplicationController
     @known_uri = KnownUri.find(params[:id])
     @known_uri.destroy
     redirect_to known_uris_path
+  end
+
+  def set_as_exemplar_for_same_as
+    @known_uri = KnownUri.find(params[:id])
+    @known_uri.set_as_exemplar_for_same_as_group
+    redirect_to request.referer
   end
 
   # search for any URI by name or URI
@@ -256,12 +262,12 @@ class KnownUrisController < ApplicationController
 
   def render_autocomplete_results
     @known_uris ||= []
-    KnownUri.preload_associations(@known_uris, [ :uri_type, { :known_uri_relationships_as_subject => :to_known_uri } ])
+    KnownUri.preload_associations(@known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri } ])
     @known_uris.uniq!
     @known_uris.sort_by!(&:position)
-    render :json => @known_uris.compact.uniq.collect{ |k| { :id => k.id, :value => k.name,
-      :label => "#{k.name} (#{k.uri})", :uri_type => k.has_units? ? 'measurement' : nil,
-      :has_values => k.has_values? ? '1' : nil }}.to_json
+    render json: @known_uris.compact.uniq.collect{ |k| { id: k.id, value: k.name,
+      label: "#{k.name} (#{k.uri})", uri_type: k.has_units? ? 'measurement' : nil,
+      has_values: k.has_values? ? '1' : nil }}.to_json
   end
 
   def set_page_title
@@ -277,13 +283,13 @@ class KnownUrisController < ApplicationController
     @stats_filter_selected_option = params[:stats_filter]
     case @stats_filter_selected_option
     when 'measurement_types'
-      @uri_stats = KnownUri.unknown_measurement_type_uris
+      @uri_stats = EOL::Sparql.connection.unknown_measurement_type_uris
     when 'measurement_values'
-      @uri_stats = KnownUri.unknown_measurement_value_uris
+      @uri_stats = EOL::Sparql.connection.unknown_measurement_value_uris
     when 'measurement_units'
-      @uri_stats = KnownUri.unknown_measurement_unit_uris
+      @uri_stats = EOL::Sparql.connection.unknown_measurement_unit_uris
     when 'association_types'
-      @uri_stats = KnownUri.unknown_association_type_uris
+      @uri_stats = EOL::Sparql.connection.unknown_association_type_uris
     else
       @stats_filter_selected_option = nil
       @uri_stats = nil
@@ -312,7 +318,7 @@ class KnownUrisController < ApplicationController
           known_uri.translations.destroy_all
           # add in the definitions for each defined language
           attributes_by_language.each do |language, translation_fields|
-            TranslatedKnownUri.create(translation_fields.merge(:known_uri => known_uri, :language => language))
+            TranslatedKnownUri.create(translation_fields.merge(known_uri: known_uri, language: language))
           end
         end
       end
@@ -326,12 +332,12 @@ class KnownUrisController < ApplicationController
 
   def lookup_predicate
     @predicate = !params[:predicate_known_uri_id].blank? ? KnownUri.find_by_id(params[:predicate_known_uri_id]) : nil
-    KnownUri.preload_associations(@predicate, { :known_uri_relationships_as_subject => :to_known_uri })
+    KnownUri.preload_associations(@predicate, { known_uri_relationships_as_subject: :to_known_uri })
   end
 
   def clear_cache
-    Rails.cache.delete("known_uri/all_measurement_type_uris")
-    Rails.cache.delete("known_uri/all_measurement_type_known_uris")
+    Rails.cache.delete("eol/sparql/client/all_measurement_type_uris")
+    Rails.cache.delete("eol/sparql/client/all_measurement_type_known_uris")
     Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
   end
 

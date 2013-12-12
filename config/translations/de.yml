@@ -361,7 +361,7 @@ de:
         known_uri: 
           attributes: 
             uri: 
-              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              must_be_uri: muss eine gültige <a href='https://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -388,18 +388,18 @@ de:
         user_added_data: 
           attributes: 
             predicate: 
-              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              must_be_uri: muss eine gültige <a href='https://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
               namespace: einen Namensraum verwendet, der nicht erkannt wurde
             subject: 
-              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              must_be_uri: muss eine gültige <a href='https://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
               namespace: einen Namensraum verwendet, der nicht erkannt wurde
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              must_be_uri: muss eine gültige <a href='https://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
               namespace: einen Namensraum verwendet, der nicht erkannt wurde
             subject: 
-              must_be_uri: muss eine gültige <a href='http://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
+              must_be_uri: muss eine gültige <a href='https://de.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> sein
               namespace: einen Namensraum verwendet, der nicht erkannt wurde
       template: 
         body: "Die folgenden Felder konnten nicht geprüft werden:"
@@ -2568,7 +2568,7 @@ de:
         username: Nutzername <small>(4 bis 32 Zeichen)</small>
         username_or_email: Nutzername oder E-Mail-Adresse
       wikipedia_queue: 
-        revision_url: Versions-URL <small>(z. B. http://de.wikipedia.org/w/index.php?title=Giraffe&oldid=93448116)</small>
+        revision_url: Versions-URL <small>(z. B. https://de.wikipedia.org/w/index.php?title=Giraffe&oldid=93448116)</small>
         revision_url_more: Mit der Eingabe einer Versions-URL der Wikipedia beantragen Sie die Aufnahme des Artikels, in dieser Version, als geprüfte Version. Diese wird die aktuelle Version des Artikels in der Enzyklopädie des Lebens (EOL) ersetzen.
     select: 
       prompt: Bitte wählen Sie
@@ -4604,10 +4604,10 @@ de:
   who_registered_before: bis
   who_registered_from: wer ist registriert seit dem
   wikipedia_queue_create_successful_notice: Der Wikipedia-Artikel %{article} in der Version %{rev} wurde der Auftragsliste der Importe hinzugefügt.
-  wikipedia_queue_create_unsuccessful_error: "Es ist leider ein Fehler aufgetreten, so dass der Wikipedia-Artikel nicht der Auftragsliste der Importe hinzugefügt wurde.<br />Versions-URLs müssen folgendem Schema entsprechen: http://de.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+  wikipedia_queue_create_unsuccessful_error: "Es ist leider ein Fehler aufgetreten, so dass der Wikipedia-Artikel nicht der Auftragsliste der Importe hinzugefügt wurde.<br />Versions-URLs müssen folgendem Schema entsprechen: https://de.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
   wikipedia_queue_new_instructions_intro: "Zum Ermitteln der Versions-URL eines Wikipedia-Artikels:"
-  wikipedia_queue_new_instructions_step_four: "Kopieren Sie die Versions-URL aus dem Adressfeld des Browsers in das hier angezeigte Formular des Importantrags. Die Versions-URL sollte in etwa wie folgt aussehen: <a href=\"http://de.wikipedia.org/w/index.php?title=Giraffe&oldid=94027029\">http://de.wikipedia.org/w/index.php?title=Giraffe&oldid=94027029</a>"
-  wikipedia_queue_new_instructions_step_one: Gehen Sie zur Artikelseite in der Wikipedia, z. B. <a href="http://de.wikipedia.org/w/index.php?title=Giraffe">http://de.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: "Kopieren Sie die Versions-URL aus dem Adressfeld des Browsers in das hier angezeigte Formular des Importantrags. Die Versions-URL sollte in etwa wie folgt aussehen: <a href=\"https://de.wikipedia.org/w/index.php?title=Giraffe&oldid=94027029\">https://de.wikipedia.org/w/index.php?title=Giraffe&oldid=94027029</a>"
+  wikipedia_queue_new_instructions_step_one: Gehen Sie zur Artikelseite in der Wikipedia, z. B. <a href="https://de.wikipedia.org/w/index.php?title=Giraffe">https://de.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: Klicken Sie auf den Menüpunkt „Permanentlink“, welcher der aktuellen Version der URL entspricht und auf die entsprechende Seite führt. Von dort aus können Sie zu den vorhergehenden Versionen des Artikels navigieren.
   wikipedia_queue_new_instructions_step_two: Klappen Sie das Menü „Werkzeuge“ aus, das sich in der Navigationsspalte befindet. Dort sollten Sie den Menüpunkt „Permantenlink“ finden.
   wikipedia_queue_new_intro: Speichern Sie eine Version eines Wikipedia-Artikels, die als überprüftes Textobjekt bei EOL aufgenommen werden soll.

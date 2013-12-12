@@ -5,7 +5,7 @@ class TaxonConceptName < ActiveRecord::Base
   belongs_to :language
   belongs_to :name
   belongs_to :synonym
-  belongs_to :source_hierarchy_entry, :class_name => HierarchyEntry.to_s
+  belongs_to :source_hierarchy_entry, class_name: HierarchyEntry.to_s
   belongs_to :taxon_concept
   belongs_to :vetted
 
@@ -24,7 +24,7 @@ class TaxonConceptName < ActiveRecord::Base
   def vet(vet_obj, by_whom)
     raw_update_attribute(:vetted_id, vet_obj.id)
     raw_update_attribute(:preferred, 0) if vet_obj == Vetted.untrusted # We don't want untrusted names to be preferred.
-    synonym.update_attributes!(:vetted => vet_obj) if synonym # There *are* TCNs in prod w/o synonyms (from CoL, I think)
+    synonym.update_attributes!(vetted: vet_obj) if synonym # There *are* TCNs in prod w/o synonyms (from CoL, I think)
   end
 
   # Our composite primary keys gem is too stupid to handle this change correctly, so we're bypassing it here:

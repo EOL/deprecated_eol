@@ -26,7 +26,7 @@
 - if item.taxon_concept.nil? || ! item.taxon_concept.is_a?(TaxonConcept)
   - taxon_type = 'an_unknown_taxon'
 - else
-  - translation_vars[:taxon] = link_to(item.taxon_concept.quick_scientific_name, taxon_url(item.taxon_concept),
+  - translation_vars[:taxon] = link_to(item.taxon_concept.summary_name, taxon_url(item.taxon_concept),
     :style => 'color: #195184')
 %p
   - case item.activity_id

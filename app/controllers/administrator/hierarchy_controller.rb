@@ -6,7 +6,7 @@ class Administrator::HierarchyController < AdminController
   # Check views; if unused elsewhere, delete.
   # Delete this controller.
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   helper :resources
 
@@ -18,7 +18,7 @@ class Administrator::HierarchyController < AdminController
     order = params[:order_by] || 'agent'
 
     @page_title = I18n.t("hierarchies_title")
-    hierarchies = Hierarchy.find(:all, :include => [ :agent, { :resource => { :content_partner => :user } } ])
+    hierarchies = Hierarchy.find(:all, include: [ :agent, { resource: { content_partner: :user } } ])
     case order
       when 'label'
         hierarchies = hierarchies.sort_by{ |h| h.form_label }
@@ -27,13 +27,13 @@ class Administrator::HierarchyController < AdminController
       else
         hierarchies = hierarchies.sort_by{ |h| h.user_or_agent_or_label_name }
       end
-    @hierarchies = hierarchies.paginate(:page => page)
+    @hierarchies = hierarchies.paginate(page: page)
   end
 
   def browse
     @hierarchy = Hierarchy.find_by_id(params[:id])
     if @hierarchy.blank?
-      redirect_to :action=>'index', :status => :moved_permanently
+      redirect_to action: 'index', status: :moved_permanently
       return
     end
   end
@@ -41,7 +41,7 @@ class Administrator::HierarchyController < AdminController
   def edit
     @hierarchy = Hierarchy.find_by_id(params[:id])
     if @hierarchy.blank?
-      redirect_to :action=>'index', :status => :moved_permanently
+      redirect_to action: 'index', status: :moved_permanently
       return
     end
     if request.post?
@@ -52,7 +52,7 @@ class Administrator::HierarchyController < AdminController
         # if there were changes to what was browsable we want those changes immediately visible
         Rails.cache.delete('hierarchies/browsable_by_label')
         flash[:notice] = I18n.t("hierarchy_updated")
-        redirect_to :action => 'index', :id => @hierarchy.id, :status => :moved_permanently
+        redirect_to action: 'index', id: @hierarchy.id, status: :moved_permanently
       end
     end
   end

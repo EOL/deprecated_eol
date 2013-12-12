@@ -13,9 +13,9 @@ describe Language do
   end
 
   it "should recognize language groups" do
-    l1 = Language.gen(:language_group_id => 1)
-    l2 = Language.gen(:language_group_id => 1)
-    g = LanguageGroup.gen(:representative_language => l1)
+    l1 = Language.gen(language_group_id: 1)
+    l2 = Language.gen(language_group_id: 1)
+    g = LanguageGroup.gen(representative_language: l1)
     
     l1.representative_language.should == l1
     l2.representative_language.should == l1

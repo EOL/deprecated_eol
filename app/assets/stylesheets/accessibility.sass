@@ -1339,6 +1339,8 @@ table.classifications
     color: #8b0000
   table.standard
     margin: 0px 0px 5px 0px
+  .pagination
+    float: right
 
 .ui-menu
   list-style: none
@@ -1479,10 +1481,14 @@ ul.tabs
 
 @mixin hover_info_icon($size)
   .info_icon
-    background: url(image-path("v2/icon_info_tabs.png")) ($size - 11.5px) ($size - 10.5px) no-repeat
-    background-size: $size + px $size + px
+    @include info_item_with_background($size)
+
+@mixin info_item_with_background($size)
+  background: url(image-path("v2/icon_info_tabs.png")) ($size - 12.5px) ($size - 13px) no-repeat
+  background-size: $size + px $size + px
 
 #taxon_data, #data_comments
+  position: relative
   p.about
     height: 12em
     display: none
@@ -1509,10 +1515,10 @@ ul.tabs
           width: 203px
           vertical-align: top
           padding-top: 4pt
-          padding-right: 18px
+          padding-right: 20px
           .info_icon
             position: absolute
-            left: 183px
+            left: 181px
         .info
           .close
             float: right
@@ -1538,10 +1544,17 @@ ul.tabs
         th.predicate
           .info_icon
             float: right
+            &.active
+              @include info_item_with_background(15)
           &:hover
-            @include hover_info_icon(14)
-        td.val:hover
-          @include hover_info_icon(14)
+            @include hover_info_icon(15)
+        td.val
+          .info_icon
+            &.active
+              @include info_item_with_background(14)
+          &:hover
+            .info_icon
+              @include hover_info_icon(14)
         span.excluded
           padding-left: 10px
           background: url(image-path("v2/icon_excluded.png")) 0px 4px no-repeat
@@ -1656,12 +1669,12 @@ ul.tabs
         th
           .info_icon
             position: absolute
-            left: 475px
+            left: 412px
       table.meta
         tr th
           .info_icon
             position: absolute
-            left: 449px
+            left: 384px
     th
       width: 150px
     span.source
@@ -1700,14 +1713,19 @@ ul.tabs
       width: 60%
       .info_icon
         float: none
+        display: inline-block
+        &.active
+          @include info_item_with_background(13)
       &:hover
-        @include hover_info_icon(12)
+        @include hover_info_icon(13)
     th
       padding: 0 13px 0 0 !important
       .info_icon
         left: 303px
+        &.active
+          @include info_item_with_background(13)
       &:hover
-        @include hover_info_icon(12)
+        @include hover_info_icon(13)
     caption
       text-align: center !important
       font-weight: bold

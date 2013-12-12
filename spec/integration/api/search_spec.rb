@@ -8,18 +8,18 @@ describe 'API:search' do
     @dog_sci_name = 'Canis lupus familiaris'
     @wolf_name = 'Wolf'
     @wolf_sci_name = 'Canis lupus'
-    @wolf = build_taxon_concept(:scientific_name => @wolf_sci_name, :common_names => [ @wolf_name ])
-    @dog = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [ @domestic_name ], :parent_hierarchy_entry_id => @wolf.hierarchy_entries.first.id)
-    @dog2 = build_taxon_concept(:scientific_name => "Canis dog", :common_names => [ "doggy" ])
-    SearchSuggestion.gen(:taxon_id => @dog.id, :term => @dog_name)
-    SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name)
+    @wolf = build_taxon_concept(scientific_name: @wolf_sci_name, common_names: [ @wolf_name ])
+    @dog = build_taxon_concept(scientific_name: @dog_sci_name, common_names: [ @domestic_name ], parent_hierarchy_entry_id: @wolf.hierarchy_entries.first.id)
+    @dog2 = build_taxon_concept(scientific_name: "Canis dog", common_names: [ "doggy" ])
+    SearchSuggestion.gen(taxon_id: @dog.id, term: @dog_name)
+    SearchSuggestion.gen(taxon_id: @wolf.id, term: @dog_name)
     make_all_nested_sets
     flatten_hierarchies
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
   end
 
   it 'should create an API log including API key' do
-    user = User.gen(:api_key => User.generate_key)
+    user = User.gen(api_key: User.generate_key)
     check_api_key("/api/search/Canis%20lupus.json?key=#{user.api_key}", user)
   end
 

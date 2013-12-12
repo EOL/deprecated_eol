@@ -13,8 +13,8 @@ describe DataObject do
     @curator         = @testy[:curator]
     @another_curator = create_curator
 
-    @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
-    DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @dato.id)
+    @dato = DataObject.gen(description: 'That <b>description has unclosed <i>html tags')
+    DataObjectsTaxonConcept.gen(taxon_concept_id: @taxon_concept.id, data_object_id: @dato.id)
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
 
     @hierarchy_entry = HierarchyEntry.gen
@@ -25,23 +25,23 @@ describe DataObject do
     content_server_match = $CONTENT_SERVERS[0] + $CONTENT_SERVER_CONTENT_PATH
     content_server_match.gsub!(/\d+/, '\\d+') # Because we don't care *which* server it hits...
     @content_server_match = %r/#{content_server_match}/
-    @flash_dato = DataObject.gen(:data_type => DataType.find_by_translated(:label, 'flash'), :object_cache_url => @big_int)
+    @flash_dato = DataObject.gen(data_type: DataType.find_by_translated(:label, 'flash'), object_cache_url: @big_int)
 
     # add user submitted text
     @user = User.gen
-    @user_submitted_text = @taxon_concept.add_user_submitted_text(:user => @user)
+    @user_submitted_text = @taxon_concept.add_user_submitted_text(user: @user)
   end
 
   it 'should be able to replace wikipedia articles' do
-    TocItem.gen_if_not_exists(:label => 'wikipedia')
+    TocItem.gen_if_not_exists(label: 'wikipedia')
 
-    published_do = build_data_object('Text', 'This is a test wikipedia article content', :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
-    DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => published_do.id)
+    published_do = build_data_object('Text', 'This is a test wikipedia article content', published: 1, vetted: Vetted.trusted, visibility: Visibility.visible)
+    DataObjectsTaxonConcept.gen(taxon_concept_id: @taxon_concept.id, data_object_id: published_do.id)
     published_do.toc_items << TocItem.wikipedia
 
-    preview_do = build_data_object('Text', 'This is a test wikipedia article content', :guid => published_do.guid,
-                                   :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
-    DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => preview_do.id)
+    preview_do = build_data_object('Text', 'This is a test wikipedia article content', guid: published_do.guid,
+                                   published: 1, vetted: Vetted.unknown, visibility: Visibility.preview)
+    DataObjectsTaxonConcept.gen(taxon_concept_id: @taxon_concept.id, data_object_id: preview_do.id)
     preview_do.toc_items << TocItem.wikipedia
 
     published_do.published.should be_true
@@ -108,7 +108,7 @@ describe DataObject do
  end
 
  it 'ratings should show rating for old and new version of re-harvested dato' do
-   text_dato  = build_data_object('Text', 'some description', :toc_item => TocItem.wikipedia)
+   text_dato  = build_data_object('Text', 'some description', toc_item: TocItem.wikipedia)
    image_dato = build_data_object('Image', 'whatever the description may be')
    text_dato.rate(@another_curator, 4)
    image_dato.rate(@another_curator, 4)
@@ -152,9 +152,9 @@ describe DataObject do
   end
 
   it 'should know if it is an image map and not a map map' do
-    map_dato = DataObject.gen(:data_type => DataType.map)
-    image_dato = DataObject.gen(:data_type => DataType.image)
-    image_map_dato = DataObject.gen(:data_type => DataType.image, :data_subtype => DataType.map)
+    map_dato = DataObject.gen(data_type: DataType.map)
+    image_dato = DataObject.gen(data_type: DataType.image)
+    image_map_dato = DataObject.gen(data_type: DataType.image, data_subtype: DataType.map)
     map_dato.map?.should be_true
     map_dato.image_map?.should be_false
     image_dato.image_map?.should be_false
@@ -165,22 +165,22 @@ describe DataObject do
   end
 
   it 'should return true if this is an image' do
-    dato = DataObject.gen(:data_type_id => DataType.image_type_ids.first)
+    dato = DataObject.gen(data_type_id: DataType.image_type_ids.first)
     dato.image?.should be_true
   end
 
   it 'should return false if this is NOT an image' do
-    dato = DataObject.gen(:data_type_id => DataType.image_type_ids.sort.last + 1) # Clever girl...
+    dato = DataObject.gen(data_type_id: DataType.image_type_ids.sort.last + 1) # Clever girl...
     dato.image?.should_not be_true
   end
 
   it 'should return true if this is a link' do
-    dato = DataObject.gen(:data_type_id => DataType.text_type_ids.first, :data_subtype_id => DataType.link_type_ids.first, :source_url => "http://eol.org")
+    dato = DataObject.gen(data_type_id: DataType.text_type_ids.first, data_subtype_id: DataType.link_type_ids.first, source_url: "http://eol.org")
     dato.link?.should be_true
   end
 
   it 'should return false if this is NOT a link' do
-    dato = DataObject.gen(:data_type_id => DataType.text_type_ids.first, :data_subtype_id => DataType.link_type_ids.sort.last + 1, :source_url => "http://eol.org")
+    dato = DataObject.gen(data_type_id: DataType.text_type_ids.first, data_subtype_id: DataType.link_type_ids.sort.last + 1, source_url: "http://eol.org")
     dato.link?.should_not be_true
   end
 
@@ -224,7 +224,7 @@ describe DataObject do
   end
 
   it 'should use object_url if non-flash' do
-    @dato.data_type = DataType.gen_if_not_exists(:label => 'AnythingButFlash')
+    @dato.data_type = DataType.gen_if_not_exists(label: 'AnythingButFlash')
     @dato.video_url.should == @dato.object_url
   end
 
@@ -282,7 +282,7 @@ describe DataObject do
     full_ref         = 'a <b>b</div></HTML><i'
     repaired_ref     = '<div>a <b>b</div></HTML><i</b>'
 
-    @dato.refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
+    @dato.refs << ref = Ref.gen(full_reference: full_ref, published: 1, visibility: Visibility.visible)
     ref_after = @dato.visible_references[0].full_reference.balance_tags
     ref_after.should == repaired_ref
   end
@@ -293,17 +293,17 @@ describe DataObject do
   end
 
   it 'should default to the object_title' do
-    dato = DataObject.gen(:object_title => 'Something obvious')
+    dato = DataObject.gen(object_title: 'Something obvious')
     dato.short_title.should == 'Something obvious'
   end
 
   it 'should resort to the first line of the description if the object_title is empty' do
-    dato = DataObject.gen(:object_title => '', :description => "A long description\nwith multiple lines of stuff")
+    dato = DataObject.gen(object_title: '', description: "A long description\nwith multiple lines of stuff")
     dato.short_title.should == "A long description"
   end
 
   it 'should resort to the first 32 characters (plus three dots) if the decsription is too long and one-line' do
-    dato = DataObject.gen(:object_title => '', :description => "The quick brown fox jumps over the lazy dog, and now is the time for all good men to come to the aid of their country")
+    dato = DataObject.gen(object_title: '', description: "The quick brown fox jumps over the lazy dog, and now is the time for all good men to come to the aid of their country")
     dato.short_title.length.should <= 34
     dato.short_title.should =~ /\.\.\.$/
   end
@@ -311,7 +311,7 @@ describe DataObject do
   # TODO - ideally, this should be something like "Image of Procyon lotor", but that would be a LOT of work to extract
   # froom the data_objects/show view (mainly because it builds links).
   it 'should resort to the data type, if there is no description' do
-    dato = DataObject.gen(:object_title => '', :description => '', :data_type => DataType.image)
+    dato = DataObject.gen(object_title: '', description: '', data_type: DataType.image)
     dato.short_title.should == "Image"
   end
 
@@ -319,7 +319,7 @@ describe DataObject do
     solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
     solr_connection.delete_all_documents
     solr_connection.get_results("data_type_id:#{DataType.text.id}")['numFound'].should == 0
-    @user_submitted_text = @taxon_concept.add_user_submitted_text(:user => @user)
+    @user_submitted_text = @taxon_concept.add_user_submitted_text(user: @user)
     solr_connection.get_results("data_type_id:#{DataType.text.id}")['numFound'].should > 0
     solr_connection.get_results("data_object_id:#{@user_submitted_text.id}")['numFound'] == 1
   end
@@ -364,9 +364,9 @@ describe DataObject do
   it '#remove_curated_association should remove the entry in curated_data_objects_hierarchy_entries when a user/curator removes their association' do
     CuratedDataObjectsHierarchyEntry.delete_all
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
-    cdohe_count = CuratedDataObjectsHierarchyEntry.count(:conditions => "hierarchy_entry_id = #{@hierarchy_entry.id}")
+    cdohe_count = CuratedDataObjectsHierarchyEntry.count(conditions: "hierarchy_entry_id = #{@hierarchy_entry.id}")
     @image_dato.remove_curated_association(@curator, @hierarchy_entry)
-    CuratedDataObjectsHierarchyEntry.count(:conditions => "hierarchy_entry_id = #{@hierarchy_entry.id}").should ==
+    CuratedDataObjectsHierarchyEntry.count(conditions: "hierarchy_entry_id = #{@hierarchy_entry.id}").should ==
         cdohe_count - 1
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)
@@ -381,8 +381,8 @@ describe DataObject do
     data_object_taxa_count_for_udo = @user_submitted_text.data_object_taxa.count
     @user_submitted_text.reload
     CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
-        @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted,
-        :visibility => Visibility.visible, :user => @curator)
+        @user_submitted_text.id, data_object_guid: @user_submitted_text.guid, vetted: Vetted.trusted,
+        visibility: Visibility.visible, user: @curator)
     DataObject.find(@user_submitted_text).data_object_taxa.count.should == data_object_taxa_count_for_udo + 1
   end
 
@@ -419,63 +419,63 @@ describe DataObject do
   end
 
   it '#safe_rating should NOT re-calculate ratings that are in the normal range.' do
-    dato = DataObject.gen(:data_rating => 1.2)
+    dato = DataObject.gen(data_rating: 1.2)
     dato.safe_rating.should == 1.2
   end
 
   it '#safe_rating should re-calculate really low ratings' do
-    dato = DataObject.gen(:data_rating => 0.2)
+    dato = DataObject.gen(data_rating: 0.2)
     dato.should_receive(:recalculate_rating).and_return(1.2)
     dato.safe_rating.should == 1.2
   end
 
   it '#safe_rating should return the minimum rating if the rating is calculated as lower than the minimum rating' do
-    dato = DataObject.gen(:data_rating => 0.2)
+    dato = DataObject.gen(data_rating: 0.2)
     dato.should_receive(:recalculate_rating).and_return(0.2)
     dato.safe_rating.should == DataObject.minimum_rating
   end
 
   it '#safe_rating should re-calculate really high ratings' do
-    dato = DataObject.gen(:data_rating => 5.2)
+    dato = DataObject.gen(data_rating: 5.2)
     dato.should_receive(:recalculate_rating).and_return(1.2)
     dato.safe_rating.should == 1.2
   end
 
   it '#safe_rating should return the maximum rating if the rating is calculated as higher than the maximum' do
-    dato = DataObject.gen(:data_rating => 5.2)
+    dato = DataObject.gen(data_rating: 5.2)
     dato.should_receive(:recalculate_rating).and_return(5.2)
     dato.safe_rating.should == DataObject.maximum_rating
   end
 
   it 'should get remote image if object is pre-defined to be hosted remotely' do
-    cp = ContentPartner.gen(:full_name => "Discover Life")
-    resource = Resource.gen(:content_partner_id => cp.id)
-    harvest = HarvestEvent.gen(:resource_id => resource.id)
-    dato = DataObject.gen(:object_title => 'xxx Discover Life: Point Map of Gadus morhua yyy', 
-                          :data_type_id => DataType.image.id,
-                          :object_cache_url => '200810061224383',
-                          :object_url => 'http://my.object.url',
-                          :data_subtype_id => DataType.map.id)
-    dohe = DataObjectsHarvestEvent.gen(:data_object_id => dato.id, :harvest_event_id => harvest.id)
+    cp = ContentPartner.gen(full_name: "Discover Life")
+    resource = Resource.gen(content_partner_id: cp.id)
+    harvest = HarvestEvent.gen(resource_id: resource.id)
+    dato = DataObject.gen(object_title: 'xxx Discover Life: Point Map of Gadus morhua yyy', 
+                          data_type_id: DataType.image.id,
+                          object_cache_url: '200810061224383',
+                          object_url: 'http://my.object.url',
+                          data_subtype_id: DataType.map.id)
+    dohe = DataObjectsHarvestEvent.gen(data_object_id: dato.id, harvest_event_id: harvest.id)
     dato.access_image_from_remote_server?('580_360').should be_true
     dato.access_image_from_remote_server?('260_190').should_not be_true
     dato.access_image_from_remote_server?(:orig).should be_true
   end
 
   it '#create_user_text should add rights holder only if rights holder not provided, license is not public domain and if it is not a link object' do
-    params = { :data_type_id => DataType.text.id.to_s,
-               :license_id => License.public_domain.id.to_s,
-               :object_title => "",
-               :bibliographic_citation => "",
-               :source_url => "",
-               :rights_statement => "",
-               :description => "",
-               :language_id => Language.english.id.to_s,
-               :rights_holder => ""}
-    options = { :taxon_concept => TaxonConcept.first,
-                :user => User.first,
-                :toc_id => [TocItem.first.id.to_s],
-                :link_object => false }
+    params = { data_type_id: DataType.text.id.to_s,
+               license_id: License.public_domain.id.to_s,
+               object_title: "",
+               bibliographic_citation: "",
+               source_url: "",
+               rights_statement: "",
+               description: "",
+               language_id: Language.english.id.to_s,
+               rights_holder: ""}
+    options = { taxon_concept: TaxonConcept.first,
+                user: User.first,
+                toc_id: [TocItem.first.id.to_s],
+                link_object: false }
     dato = DataObject.create_user_text(params, options)
     dato.rights_holder.should be_blank
     dato.errors.count.should == 1
@@ -512,22 +512,22 @@ describe DataObject do
   end
 
   it '#create_user_text should add proper vetted and visibility statuses to the created link object' do
-    assistant_curator = build_curator(@taxon_concept, :level=>:assistant)
-    full_curator = build_curator(@taxon_concept, :level=>:full)
-    master_curator = build_curator(@taxon_concept, :level=>:master)
-    admin = User.gen(:admin=>1)
-    params = { :data_type_id => DataType.text.id.to_s,
-               :license_id => nil,
-               :object_title => "",
-               :bibliographic_citation => "",
-               :source_url => "http://eol.org",
-               :rights_statement => "",
-               :description => "This is link description",
-               :language_id => Language.english.id.to_s,
-               :rights_holder => ""}
-    options = { :taxon_concept => TaxonConcept.first,
-                :toc_id => [TocItem.first.id.to_s],
-                :link_object => true }
+    assistant_curator = build_curator(@taxon_concept, level: :assistant)
+    full_curator = build_curator(@taxon_concept, level: :full)
+    master_curator = build_curator(@taxon_concept, level: :master)
+    admin = User.gen(admin: 1)
+    params = { data_type_id: DataType.text.id.to_s,
+               license_id: nil,
+               object_title: "",
+               bibliographic_citation: "",
+               source_url: "http://eol.org",
+               rights_statement: "",
+               description: "This is link description",
+               language_id: Language.english.id.to_s,
+               rights_holder: ""}
+    options = { taxon_concept: TaxonConcept.first,
+                toc_id: [TocItem.first.id.to_s],
+                link_object: true }
     options[:user] = @user
     dato = DataObject.create_user_text(params, options)
     dato.link?.should be_true
@@ -557,32 +557,32 @@ describe DataObject do
 
   it '#create_user_text should call reload on TaxonConcept, even when fails' do
     new_text_params = {
-      :data_type_id => DataType.text.id.to_s,
-      :license_id => nil,
-      :license_id => License.cc.id.to_s,
-      :object_title => "",
-      :bibliographic_citation => "",
-      :source_url => "http://eol.org",
-      :rights_statement => "",
-      :description => "This is link description",
-      :language_id => Language.english.id.to_s,
-      :rights_holder => ""
+      data_type_id: DataType.text.id.to_s,
+      license_id: nil,
+      license_id: License.cc.id.to_s,
+      object_title: "",
+      bibliographic_citation: "",
+      source_url: "http://eol.org",
+      rights_statement: "",
+      description: "This is link description",
+      language_id: Language.english.id.to_s,
+      rights_holder: ""
     }
     lambda {
       @taxon_concept.should_receive(:reload).and_return(true)
-      DataObject.create_user_text(new_text_params, :user => @user, :taxon_concept => @taxon_concept)
+      DataObject.create_user_text(new_text_params, user: @user, taxon_concept: @taxon_concept)
     }.should raise_error
   end
 
   it '#latest_published_version_in_same_language should not return itself if the object is unpublished' do
-    d = DataObject.gen(:published => 1)
+    d = DataObject.gen(published: 1)
     d.latest_published_version_in_same_language.should == d
-    d = DataObject.gen(:published => 0)
+    d = DataObject.gen(published: 0)
     d.latest_published_version_in_same_language.should == nil
   end
 
   it 'should know when the rights holder s/b displayed' do
-    d = DataObject.gen(:license => License.public_domain, :rights_holder => '')
+    d = DataObject.gen(license: License.public_domain, rights_holder: '')
     d.show_rights_holder?.should_not be_true
     d.license = License.cc
     d.show_rights_holder?.should be_true
@@ -591,10 +591,10 @@ describe DataObject do
   end
 
   it 'should use the resource rights holder if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
     data_object.update_column(:rights_holder, '')
     resource.update_column(:rights_holder, nil)
     data_object.rights_holder_for_display.should == nil
@@ -607,10 +607,10 @@ describe DataObject do
   end
 
   it 'should use the resource rights statement if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
     data_object.update_column(:rights_statement, '')
     resource.update_column(:rights_statement, nil)
     data_object.rights_statement_for_display.should == nil
@@ -623,10 +623,10 @@ describe DataObject do
   end
 
   it 'should use the resource bibliographic citation if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", :published => 1, :vetted => Vetted.trusted, :license => License.cc, :rights_holder => 'Initial Rights Holder')
+    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(:hierarchy_id => data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
     data_object.update_column(:bibliographic_citation, '')
     resource.update_column(:bibliographic_citation, nil)
     data_object.bibliographic_citation_for_display.should == nil
@@ -654,17 +654,17 @@ describe DataObject do
     TaxonConceptExemplarArticle.destroy_all
     @taxon_concept.reload
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true  # checking base state
-    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.preview.id)
+    text.data_objects_hierarchy_entries.first.update_attributes(visibility_id: Visibility.preview.id)
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # preview
-    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.invisible.id)
+    text.data_objects_hierarchy_entries.first.update_attributes(visibility_id: Visibility.invisible.id)
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == false  # invisible
-    text.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.visible.id)
+    text.data_objects_hierarchy_entries.first.update_attributes(visibility_id: Visibility.visible.id)
     text.reload.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
   end
 
   it 'should replace objects with their latest versions with replace_with_latest_versions!' do
     @image_dato = DataObject.find(@image_dato)
-    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    new_image_dato = DataObject.gen(guid: @image_dato.guid, created_at: Time.now)
     test_array = [ @image_dato ]
     DataObject.replace_with_latest_versions!(test_array)
     test_array.should_not == [ @image_dato ]
@@ -673,7 +673,7 @@ describe DataObject do
 
   it 'should replace objects with their latest versions with replace_with_latest_versions_no_preload' do
     @image_dato = DataObject.find(@image_dato)
-    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    new_image_dato = DataObject.gen(guid: @image_dato.guid, created_at: Time.now)
     test_array = [ @image_dato ]
     DataObject.replace_with_latest_versions_no_preload(test_array)
     test_array.should_not == [ @image_dato ]
@@ -681,29 +681,29 @@ describe DataObject do
   end
 
   it 'should create the right sound_url for MP3s with no extension in its object_url' do
-    mp3 = DataObject.gen(:data_type => DataType.sound, :mime_type => MimeType.mp3, :object_cache_url => @big_int,
-      :object_url => "http://api.soundcloud.com/tracks/72574158/download?client_id=ac6cdf58548a238e00b7892c031378ce")
+    mp3 = DataObject.gen(data_type: DataType.sound, mime_type: MimeType.mp3, object_cache_url: @big_int,
+      object_url: "http://api.soundcloud.com/tracks/72574158/download?client_id=ac6cdf58548a238e00b7892c031378ce")
     mp3.sound_url.should =~ /#{ContentServer.cache_path(@big_int)}.mp3/
   end
 
   it 'should create the right sound_url for WAVs with no extension in its object_url' do
-    wav = DataObject.gen(:data_type => DataType.sound, :mime_type => MimeType.wav, :object_cache_url => @big_int,
-      :object_url => "http://api.soundcloud.com/tracks/50714448/download?client_id=ac6cdf58548a238e00b7892c031378ce")
+    wav = DataObject.gen(data_type: DataType.sound, mime_type: MimeType.wav, object_cache_url: @big_int,
+      object_url: "http://api.soundcloud.com/tracks/50714448/download?client_id=ac6cdf58548a238e00b7892c031378ce")
     wav.sound_url.should =~ /#{ContentServer.cache_path(@big_int)}.wav/
   end
 
   it 'should recognize when the title is the same as a toc label' do
-    d = DataObject.gen(:object_title => 'Some test title')
-    toc = TocItem.gen_if_not_exists(:label => d.object_title)
-    TranslatedTocItem.gen(:table_of_contents_id => toc.id, :language_id => Language.from_iso('ar').id, :label => "Arabic TOC label")
+    d = DataObject.gen(object_title: 'Some test title')
+    toc = TocItem.gen_if_not_exists(label: d.object_title)
+    TranslatedTocItem.gen(table_of_contents_id: toc.id, language_id: Language.from_iso('ar').id, label: "Arabic TOC label")
     toc.reload
 
     toc.label.should == d.object_title
     toc.label("ar").should == 'Arabic TOC label'
     d.title_same_as_toc_label(toc).should == true
-    d.title_same_as_toc_label(toc, :language => Language.english).should == true
+    d.title_same_as_toc_label(toc, language: Language.english).should == true
     # doesnt matter if the user is using a different language
-    d.title_same_as_toc_label(toc, :language => Language.from_iso('ar')).should == true
+    d.title_same_as_toc_label(toc, language: Language.from_iso('ar')).should == true
   end
 
   it 'should add rights, citation and location information to SiteSearch Solr core' do
@@ -720,6 +720,41 @@ describe DataObject do
     fields_for_searching.each do |att|
       solr_api.get_results("resource_type:DataObject AND keyword_type:#{att} AND keyword:#{att.to_s.delete('_')}x")['numFound'].should == 1
     end
+  end
+
+  context '#owner' do
+
+    it 'should use original object for translations' do
+      orig = double(DataObject)
+      orig.should_receive(:owner).and_return("me")
+      @dato.should_receive(:translated_from).and_return(orig)
+      @dato.should_receive(:data_object_translation).and_return(true)
+      expect(@dato.owner).to eq("me")
+    end
+
+    it 'should prefer the (copyrighted) rights holder' do
+      @dato.should_receive(:rights_holder_for_display).at_least(1).times.and_return("Bobby")
+      expect(@dato.owner).to eq("&copy; Bobby")
+    end
+
+    it 'should not copyright public domain rights holder' do
+      @dato.should_receive(:rights_holder_for_display).at_least(1).times.and_return("Bobby")
+      @dato.should_receive(:license).at_least(1).times.and_return(License.public_domain)
+      expect(@dato.owner).to eq("Bobby")
+    end
+
+    # TODO - this is not the best test in the world...
+    it 'should use sort_buy_role t ograb first agent' do
+      @dato.should_receive(:rights_holder_for_display).and_return("")
+      agent = Agent.gen
+      agent.should_receive(:full_name).and_return("Someone important")
+      ado = double(AgentsDataObject)
+      ado.should_receive(:agent).and_return(agent)
+      @dato.should_receive(:agents_data_objects).at_least(1).times.and_return([ado])
+      AgentsDataObject.should_receive(:sort_by_role_for_owner).and_return([ado])
+      expect(@dato.owner).to eq("Someone important")
+    end
+
   end
 
 end

@@ -8,18 +8,18 @@ class Taxa::MapsController < TaxaController
     @assistive_section_header = I18n.t(:assistive_maps_header)
     
     @maps = @taxon_concept.data_objects_from_solr({
-      :page => 1,
-      :per_page => 100,
-      :data_type_ids => DataType.image_type_ids,
-      :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => current_user.vetted_types,
-      :visibility_types => current_user.visibility_types,
-      :ignore_translations => true
+      page: 1,
+      per_page: 100,
+      data_type_ids: DataType.image_type_ids,
+      data_subtype_ids: DataType.map_type_ids,
+      vetted_types: current_user.vetted_types,
+      visibility_types: current_user.visibility_types,
+      ignore_translations: true
     })
-    DataObject.preload_associations(@maps, [ :users_data_objects_ratings, { :data_objects_hierarchy_entries =>
+    DataObject.preload_associations(@maps, [ :users_data_objects_ratings, { data_objects_hierarchy_entries:
       [ :hierarchy_entry, :vetted, :visibility ] } ] )
     @rel_canonical_href = taxon_maps_url(@taxon_page)
-    current_user.log_activity(:viewed_taxon_concept_maps, :taxon_concept_id => @taxon_concept.id)
+    current_user.log_activity(:viewed_taxon_concept_maps, taxon_concept_id: @taxon_concept.id)
   end
 
 protected

@@ -49,9 +49,9 @@ describe Collection do
     end
 
     it 'should be valid when the same name is used by another user' do
-      c = Collection.gen(:name => 'Another name')
+      c = Collection.gen(name: 'Another name')
       c.users = [@another_user]
-      c = Collection.new(:name => 'Another name')
+      c = Collection.new(name: 'Another name')
       c.users = [@test_data[:user]]
       c.valid?.should be_true
     end
@@ -104,9 +104,9 @@ describe Collection do
       @community.initialize_as_created_by(@owner)
       @community.add_member(@someone_else)
       @community_collection = Collection.create(
-        :name => 'Nothing Else Matters',
-        :published => false,
-        :special_collection_id => nil)
+        name: 'Nothing Else Matters',
+        published: false,
+        special_collection_id: nil)
       @community.collections = [@community_collection]
     end
 
@@ -142,7 +142,7 @@ describe Collection do
 
   it 'should be able to add/modify/remove description' do
     description = "Valid description"
-    collection = Collection.gen(:name => 'A name', :description => description)
+    collection = Collection.gen(name: 'A name', description: description)
     collection.users = [@test_data[:user]]
     collection.description.should == description
     collection.description = "modified #{description}"
@@ -159,9 +159,9 @@ describe Collection do
   end
 
   it 'should get taxon counts for multiple collections' do
-    collection_1 = CollectionBuilder.gen(:taxa => 1, :users => 1)
-    collection_2 = CollectionBuilder.gen(:taxa => 2, :users => 1)
-    collection_3 = CollectionBuilder.gen(:taxa => 3, :users => 1)
+    collection_1 = CollectionBuilder.gen(taxa: 1, users: 1)
+    collection_2 = CollectionBuilder.gen(taxa: 2, users: 1)
+    collection_3 = CollectionBuilder.gen(taxa: 3, users: 1)
     collections = [collection_1, collection_2, collection_3]
     taxa_counts = Collection.get_taxa_counts(collections)
     taxa_counts[collections[0].id].should == 1
@@ -178,7 +178,7 @@ describe Collection do
   it 'should know what its default view style is' do
     collection = Collection.gen
     collection.view_style_or_default.should == ViewStyle.annotated
-    collection.update_attributes(:view_style => ViewStyle.gallery)
+    collection.update_attributes(view_style: ViewStyle.gallery)
     collection.reload
     collection.view_style_or_default.should == ViewStyle.gallery
   end

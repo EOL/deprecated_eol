@@ -6,68 +6,68 @@ describe 'API:synonyms' do
     load_foundation_cache
     # DataObjects
     @overview_text   = 'This is a test Overview, in all its glory'
-    @distribution      = TocItem.gen_if_not_exists(:label => 'Ecology and Distribution')
+    @distribution      = TocItem.gen_if_not_exists(label: 'Ecology and Distribution')
     @distribution_text = 'This is a test Distribution'
-    @description       = TocItem.gen_if_not_exists(:label => 'Description')
+    @description       = TocItem.gen_if_not_exists(label: 'Description')
     @description_text  = 'This is a test Description, in all its glory'
-    @toc_item_2      = TocItem.gen(:view_order => 2)
-    @toc_item_3      = TocItem.gen(:view_order => 3)
+    @toc_item_2      = TocItem.gen(view_order: 2)
+    @toc_item_3      = TocItem.gen(view_order: 3)
 
     @taxon_concept   = build_taxon_concept(
-       :flash           => [{:description => 'First Test Video'}, {:description => 'Second Test Video'}],
-       :youtube         => [{:description => 'YouTube Test Video'}],
-       :images          => [{:object_cache_url => FactoryGirl.generate(:image)}, {:object_cache_url => FactoryGirl.generate(:image)},
-                            {:object_cache_url => FactoryGirl.generate(:image)}],
-       :toc             => [{:toc_item => TocItem.overview, :description => @overview_text, :license => License.by_nc, :rights_holder => "Someone"},
-                            {:toc_item => @distribution, :description => @distribution_text, :license => License.cc, :rights_holder => "Someone"},
-                            {:toc_item => @description, :description => @description_text, :license => License.public_domain, :rights_holder => ""},
-                            {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown, :license => License.by_nc, :rights_holder => "Someone"},
-                            {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted, :license => License.cc, :rights_holder => "Someone"}])
-    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
-    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
+       flash:           [{description: 'First Test Video'}, {description: 'Second Test Video'}],
+       youtube:         [{description: 'YouTube Test Video'}],
+       images:          [{object_cache_url: FactoryGirl.generate(:image)}, {object_cache_url: FactoryGirl.generate(:image)},
+                          {object_cache_url: FactoryGirl.generate(:image)}],
+       toc:             [{toc_item: TocItem.overview, description: @overview_text, license: License.by_nc, rights_holder: "Someone"},
+                          {toc_item: @distribution, description: @distribution_text, license: License.cc, rights_holder: "Someone"},
+                          {toc_item: @description, description: @description_text, license: License.public_domain, rights_holder: ""},
+                          {toc_item: @description, description: 'test uknown', vetted: Vetted.unknown, license: License.by_nc, rights_holder: "Someone"},
+                          {toc_item: @description, description: 'test untrusted', vetted: Vetted.untrusted, license: License.cc, rights_holder: "Someone"}])
+    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, agent: Agent.last, language: Language.english)
+    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, agent: Agent.last, language: Language.english)
 
     d = DataObject.last
     d.license = License.by_nc
     d.save!
     @object = DataObject.create(
-      :guid                   => '803e5930803396d4f00e9205b6b2bf21',
-      :identifier             => 'doid',
-      :data_type              => DataType.text,
-      :mime_type              => MimeType.gen_if_not_exists(:label => 'text/html'),
-      :object_title           => 'default title',
-      :language               => Language.find_or_create_by_iso_639_1('en'),
-      :license                => License.by_nc,
-      :rights_statement       => 'default rights © statement',
-      :rights_holder          => 'default rights holder',
-      :bibliographic_citation => 'default citation',
-      :source_url             => 'http://example.com/12345',
-      :description            => 'default description <a href="http://www.eol.org">with some html</a>',
-      :object_url             => '',
-      :thumbnail_url          => '',
-      :location               => 'default location',
-      :latitude               => 1.234,
-      :longitude              => 12.34,
-      :altitude               => 123.4,
-      :published              => 1,
-      :curated                => 0)
-    @object.info_items << InfoItem.gen_if_not_exists(:label => 'Distribution')
+      guid:                   '803e5930803396d4f00e9205b6b2bf21',
+      identifier:             'doid',
+      data_type:              DataType.text,
+      mime_type:              MimeType.gen_if_not_exists(label: 'text/html'),
+      object_title:           'default title',
+      language:               Language.find_or_create_by_iso_639_1('en'),
+      license:                License.by_nc,
+      rights_statement:       'default rights © statement',
+      rights_holder:          'default rights holder',
+      bibliographic_citation: 'default citation',
+      source_url:             'http://example.com/12345',
+      description:            'default description <a href="http://www.eol.org">with some html</a>',
+      object_url:             '',
+      thumbnail_url:          '',
+      location:               'default location',
+      latitude:               1.234,
+      longitude:              12.34,
+      altitude:               123.4,
+      published:              1,
+      curated:                0)
+    @object.info_items << InfoItem.gen_if_not_exists(label: 'Distribution')
     @object.save!
 
-    AgentsDataObject.create(:data_object_id => @object.id,
-                            :agent_id => Agent.gen(:full_name => 'agent one', :homepage => 'http://homepage.com/?agent=one&profile=1').id,
-                            :agent_role => AgentRole.gen_if_not_exists(:label => 'writer'),
-                            :view_order => 1)
-    AgentsDataObject.create(:data_object_id => @object.id,
-                            :agent => Agent.gen(:full_name => 'agent two'),
-                            :agent_role => AgentRole.gen_if_not_exists(:label => 'editor'),
-                            :view_order => 2)
-    @object.refs << Ref.gen(:full_reference => 'first reference')
-    @object.refs << Ref.gen(:full_reference => 'second reference')
+    AgentsDataObject.create(data_object_id: @object.id,
+                            agent_id: Agent.gen(full_name: 'agent one', homepage: 'http://homepage.com/?agent=one&profile=1').id,
+                            agent_role: AgentRole.writer,
+                            view_order: 1)
+    AgentsDataObject.create(data_object_id: @object.id,
+                            agent: Agent.gen(full_name: 'agent two'),
+                            agent_role: AgentRole.editor,
+                            view_order: 2)
+    @object.refs << Ref.gen(full_reference: 'first reference')
+    @object.refs << Ref.gen(full_reference: 'second reference')
     @taxon_concept.add_data_object(@object)
   end
 
   it 'should create an API log including API key' do
-    user = User.gen(:api_key => User.generate_key)
+    user = User.gen(api_key: User.generate_key)
     check_api_key("/api/data_objects/#{@object.guid}?key=#{user.api_key}", user)
   end
 
@@ -82,7 +82,7 @@ describe 'API:synonyms' do
   it "data objects should show a taxon element for the data object request" do
     response = get_as_xml("/api/data_objects/#{@object.guid}")
     response.xpath('/').inner_html.should_not == ""
-    response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.get_taxon_concepts(:published => :strict)[0].id.to_s
+    response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.get_taxon_concepts(published: :strict)[0].id.to_s
   end
 
   it "data objects should show all information for text objects" do
@@ -151,7 +151,7 @@ describe 'API:synonyms' do
     images = tc.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
     image = images.last
     image.data_type = DataType.image
-    image.mime_type = MimeType.gen_if_not_exists(:label => 'image/jpeg')
+    image.mime_type = MimeType.gen_if_not_exists(label: 'image/jpeg')
     image.object_url = 'http://images.marinespecies.org/resized/23745_electra-crustulenta-pallas-1766.jpg'
     image.object_cache_url = 200911302039366
     image.save!
@@ -177,7 +177,7 @@ describe 'API:synonyms' do
   end
 
   it 'should ' do
-    curator = build_curator(@taxon_concept, :level => :full)
+    curator = build_curator(@taxon_concept, level: :full)
     second_taxon_concept = build_taxon_concept
     d = DataObject.gen
     d.add_curated_association(curator, @taxon_concept.entry)

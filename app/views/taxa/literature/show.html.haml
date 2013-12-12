@@ -1,7 +1,7 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render partial: 'shared/social_sharing'
 #taxon_literature
-  = render :partial => 'literature_menu'
+  = render partial: 'literature_menu'
   .main_container
     .copy
       - unless @references.blank?
@@ -13,4 +13,4 @@
       - else
         %ul.ref_list
           - @references.each do |ref|
-            = render :partial => "refs/show_as_list_item", :locals => { :ref => ref }
+            = render partial: "refs/show_as_list_item", locals: { ref: ref }

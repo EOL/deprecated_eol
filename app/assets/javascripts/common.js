@@ -113,7 +113,7 @@ $(function() {
   })($(".gallery"));
 
   (function($media_list) {
-    $media_list.find("li .overlay").click(function() {
+    $media_list.find("li .overlay").on('click', function() {
       window.location = $(this).parent().find("a").attr("href");
       return false;
     });
@@ -128,7 +128,7 @@ $(function() {
         return false;
       }
       $ul.show();
-      $(document).click(function(e) {
+      $(document).on('click', function(e) {
         if (!$(e.target).closest($language.selector).length) {
           $language.find("ul").hide();
           $(this).unbind(e);
@@ -244,7 +244,7 @@ $(function() {
   $('#collection_items .editable .edit a').modal({
     beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
     beforeShow: function() {
-      $('form.edit_collection_item :submit').click(function() {
+      $('form.edit_collection_item :submit').on('click', function() {
         EOL.ajax_submit($(this), { update: $('li#collection_item_'+$(this).attr('data-id')+' div.editable') });
         $('#collection_items_edit a.close').click();
         return(false);
@@ -260,7 +260,7 @@ $(function() {
   $('a.collect').modal({
     beforeSend: function() { $('a.collect').fadeTo(225, 0.3); },
     beforeShow: function() {
-      $('form#new_collection :submit').click(function() {
+      $('form#new_collection :submit').on('click', function() {
         if($('#collection_name').val() == ""){
           $('.collection_name_error').show();
           return(false);
@@ -270,13 +270,13 @@ $(function() {
         $('#choose_collections a.close').click();
         return(false);
       });
-      $('form#new_collection_item :submit').click(function() {
+      $('form#new_collection_item :submit').on('click', function() {
         EOL.prep_flashes();
         EOL.ajax_submit($(this), { update: $('#flashes') });
         $('#choose_collections a.close').click();
         return(false);
       });
-      $('#choose_collections a.close_and_go').click(function() { $('#choose_collections a.close').click(); });
+      $('#choose_collections a.close_and_go').on('click', function() { $('#choose_collections a.close').click(); });
     },
     afterClose: function() {
       $('a.collect').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });
@@ -284,7 +284,7 @@ $(function() {
     duration: 200
   });
 
-  $('a.reindex').click(function() {
+  $('a.reindex').on('click', function() {
     var $reindex = $('a.reindex')
     $reindex.fadeTo(225, 0.3);
     EOL.prep_flashes();
@@ -390,21 +390,21 @@ $(function() {
   enable_mouseover_alt_text_for_march_of_life();
 
   // uncheck search filter All when other options are selected
-  $("#main_search_type_filter input[type=checkbox][value!='all']").click(function() {
+  $("#main_search_type_filter input[type=checkbox][value!='all']").on('click', function() {
     $("#main_search_type_filter input[type=checkbox][value='all']").prop("checked", false);
   });
   // uncheck all other search filter options when All is selected
-  $("#main_search_type_filter input[type=checkbox][value='all']").click(function() {
+  $("#main_search_type_filter input[type=checkbox][value='all']").on('click', function() {
     $("#main_search_type_filter input[type=checkbox][value!='all']").prop("checked", false);
   });
   // disable the checkboxes for filter categories with no results
   $("#main_search_type_filter li.no_results input[type=checkbox]").attr("disabled", true);
 
   // Search should not allow you to search without a term:
-  $("#simple_search :submit").click(function() {
+  $("#simple_search :submit").on('click', function() {
     var $q = $("#simple_search :submit").closest('form').find('#q');
     if ($q.val() == $(this).attr('data_unchanged')) {
-      $q.css('color', '#aa0000').val($(this).attr('data_error')).click(function() { $(this).val('').css('color', 'black').unbind('click'); });
+      $q.css('color', '#aa0000').val($(this).attr('data_error')).on('click', function() { $(this).val('').css('color', 'black').unbind('click'); });
       return(false);
     } else if ($q.val() == $(this).attr('data_error')) {
       var blinkIn = 20;
@@ -415,17 +415,17 @@ $(function() {
   });
 
   // uncheck media list filter All when other options are selected
-  $("#media_list #sidebar input[type=checkbox][value!='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
+  $("#sidebar input[type=checkbox][value!='all']").on('click', function() {
+    $("#sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
   });
   // uncheck all other media list filter options when All is selected
-  $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
-    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
+  $("#sidebar input[type=checkbox][value='all']").on('click', function() {
+    $("#sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);
   });
   // disable the checkboxes for filter categories with no results
-  $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
+  $("#sidebar li.no_results input[type=checkbox]").attr("disabled", true);
 
-  $('.button.confirm').click(function() {
+  $('.button.confirm').on('click', function() {
     if(confirm($(this).attr('data_confirm'))) { return true; } else { return false; }
   });
 
@@ -470,7 +470,7 @@ $(function() {
   })($("#content_partner_resources"));
 
   // This may warrant its own JS, but it's tiny, so it was easy enough to stick here:
-  $('td.preferred_entry_selector input[type="radio"]:not(:checked)').click(function() {
+  $('td.preferred_entry_selector input[type="radio"]:not(:checked)').on('click', function() {
     var form = $(this).closest('form');
     form.submit();
   });
@@ -543,7 +543,7 @@ $(function() {
     else if (typeof key_codes === "function") { cb = key_codes; }
     else { return this; }
     return this.each(function() {
-      $(this).click(function(e) {
+      $(this).on('click', function(e) {
         if ((!e.keyCode && e.layerY > 0) || e.layerY === undefined) { return cb.apply(this); }
         else { return false; }
       }).keyup(function(e) {
@@ -631,7 +631,7 @@ EOL.ajax_get = function(el, args) {
 
 EOL.enableRatings = function() {
   // Wouldn't it be nice if ratings were Ajaxified?
-  $('.media .ratings .rating ul > li > a').unbind('click').click(function() {
+  $('.media .ratings .rating ul > li > a').unbind('click').on('click', function() {
     var $update = $(this).closest('div.ratings');
     EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET'});
     return(false);

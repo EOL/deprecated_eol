@@ -23,9 +23,9 @@ describe "Members controller (within a community)" do
   end
 
   it 'nonmembers should list members of a community' do
-    @community_nonmembers_page.should have_tag('#community', :text => /#{@manager.user.short_name}/)
-    @community_nonmembers_page.should have_tag('#community', :text => /#{@member.user.short_name}/)
-    @community_nonmembers_page.should_not have_tag('#community', :text => /#{@nonmember.short_name}/)
+    @community_nonmembers_page.should have_tag('#community', text: /#{@manager.user.short_name}/)
+    @community_nonmembers_page.should have_tag('#community', text: /#{@member.user.short_name}/)
+    @community_nonmembers_page.should_not have_tag('#community', text: /#{@nonmember.short_name}/)
   end
 
   #TODO

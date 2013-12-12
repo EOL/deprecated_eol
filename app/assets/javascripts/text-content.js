@@ -33,7 +33,7 @@ $.extend(EOL.Text, {
   // Allow users to edit their own text.  This needs to be init'd several times, so it's extracted to a method.
   init_edit_links: function() {
     $('div.edit_text a').unbind('click');
-    $('div.edit_text a').click(function() {
+    $('div.edit_text a').on('click', function() {
       EOL.Text.open_new_text_dialog($(this).attr('href'));
       return false;
     });
@@ -74,7 +74,7 @@ $.extend(EOL.Text, {
     $('a.gloss-tooltip').tooltip();
     // Allow the user to show extra attribution information for text
     $('.expand-text-attribution').unbind('click');
-    $('.expand-text-attribution').click(function(e) {
+    $('.expand-text-attribution').on('click', function(e) {
       // TODO - I don't think we need the each() here... I think it will work withgout it, but cannot test now
       $('div.' + $(this).attr('id').substring(4) +' div.credit').each(function(){ $(this).fadeIn(); });
       $(this).fadeOut();
@@ -82,7 +82,7 @@ $.extend(EOL.Text, {
     });
     // slide in text comments
     $('div.text_buttons div.comment_button a').unbind('click');
-    $('div.text_buttons div.comment_button a').click(function(e) {
+    $('div.text_buttons div.comment_button a').on('click', function(e) {
       data_object_id = $(this).attr('data-data_object_id');
       textCommentsDiv = "text-comments-wrapper-" + data_object_id;
       textCommentsWrapper = "#" + textCommentsDiv;
@@ -97,7 +97,7 @@ $.extend(EOL.Text, {
     });
     // Curate text:
     $('div.text_buttons div.curate_button a').unbind('click');
-    $('div.text_buttons div.curate_button a').click(function(e) {
+    $('div.text_buttons div.curate_button a').on('click', function(e) {
       data_object_id = $(this).attr('data-data_object_id');
       textCuration = "text-curation-" + data_object_id;
       textCurationWrapper = "#text-curation-wrapper-" + data_object_id;
@@ -112,7 +112,7 @@ $.extend(EOL.Text, {
     });
     // Open the add-text user interface
     $('li.add_text>a, div.add_text_button a').unbind('click');
-    $('li.add_text>a, div.add_text_button a').click(function() {
+    $('li.add_text>a, div.add_text_button a').on('click', function() {
       EOL.Text.open_new_text_dialog($(this).attr('href'));
       return false;
     });

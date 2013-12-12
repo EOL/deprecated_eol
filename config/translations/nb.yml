@@ -1934,7 +1934,7 @@ nb:
         username: Brukernavn <small>(4 - 32 tegn)</small>
         username_or_email: Brukernavn eller e-postadresse
       wikipedia_queue: 
-        revision_url: Versions-URL <small>(f.eks. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: Versions-URL <small>(f.eks. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Ved å oppgi en URL til en Wikipedia-revisjon forespør du at EOL tar inn den bestemte revisjonen som gransket. Den vil erstatte den nåværende versjonen av artikkelen i EOL hvis vi allerede har den.
     select: 
       prompt: Velg

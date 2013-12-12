@@ -5,28 +5,28 @@ class ContentPage < ActiveRecord::Base
   establish_connection(Rails.env)
   uses_translations
 
-  belongs_to :parent, :class_name => ContentPage.to_s, :foreign_key => 'parent_content_page_id'
-  has_many :children, :class_name => ContentPage.to_s, :foreign_key => 'parent_content_page_id', :order => 'sort_order'
+  belongs_to :parent, class_name: ContentPage.to_s, foreign_key: 'parent_content_page_id'
+  has_many :children, class_name: ContentPage.to_s, foreign_key: 'parent_content_page_id', order: 'sort_order'
 
-  #has_many :content_page_archives, :order => 'created_at DESC', :limit => 15
-  belongs_to :user, :foreign_key => 'last_update_user_id'
+  #has_many :content_page_archives, order: 'created_at DESC', limit: 15
+  belongs_to :user, foreign_key: 'last_update_user_id'
 
   accepts_nested_attributes_for :children
-  accepts_nested_attributes_for :translations, :allow_destroy => true
+  accepts_nested_attributes_for :translations, allow_destroy: true
 
   before_destroy :give_children_new_parent
   before_destroy :archive_self
-  before_destroy :destroy_translations # TODO: can we have :dependent => :destroy on translations rather than this custom callback?
+  before_destroy :destroy_translations # TODO: can we have dependent: :destroy on translations rather than this custom callback?
 
   alias_attribute :collected_name, :title # Used in search results because of shared partial--we should really normalize and rename this.
 
   validates_presence_of :page_name
-  validates_length_of :page_name, :maximum => 255
-  validates_uniqueness_of :page_name, :scope => :id
+  validates_length_of :page_name, maximum: 255
+  validates_uniqueness_of :page_name, scope: :id
   # TODO: add unique index of page_name in db ?
   # TODO: Validate format of page name alphanumeric and underscores only - when we move to machine names
 
-  index_with_solr :keywords => [ :content_pages_for_solr ], :fulltexts => [ :content_pages_for_solr ]
+  index_with_solr keywords: [ :content_pages_for_solr ], fulltexts: [ :content_pages_for_solr ]
 
   def can_be_read_by?(user_wanting_access)
     user_wanting_access.is_admin? || active?
@@ -69,17 +69,17 @@ class ContentPage < ActiveRecord::Base
 
   def self.find_top_level
     # get pages where parent is null
-    ContentPage.find_all_by_parent_content_page_id(nil, :order => 'sort_order',
-    :select => {
-      :content_pages => '*',
-      :translated_content_pages => [ :id, :content_page_id, :language_id, :title, :created_at, :updated_at, :active_translation ],
-      :languages => '*'
+    ContentPage.find_all_by_parent_content_page_id(nil, order: 'sort_order',
+    select: {
+      content_pages: '*',
+      translated_content_pages: [ :id, :content_page_id, :language_id, :title, :created_at, :updated_at, :active_translation ],
+      languages: '*'
     },
-    :include => [ { :translations => :language },
-      { :children => [ { :translations => :language },
-        { :children => [ { :translations => :language },
-          { :children => [ { :translations => :language },
-            { :children => { :translations => :language } }
+    include: [ { translations: :language },
+      { children: [ { translations: :language },
+        { children: [ { translations: :language },
+          { children: [ { translations: :language },
+            { children: { translations: :language } }
           ] }
         ] }
       ] } ] )
@@ -129,7 +129,7 @@ class ContentPage < ActiveRecord::Base
 
   def main_content_teaser
     unless main_content.nil?
-      full_teaser = Sanitize.clean(main_content[0..300], :elements => %w[b i], :remove_contents => %w[table script]).strip
+      full_teaser = Sanitize.clean(main_content[0..300], elements: %w[b i], remove_contents: %w[table script]).strip
       return nil if full_teaser.blank?
       truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags
       truncated_teaser << '...' if full_teaser.length > truncated_teaser.length
@@ -148,16 +148,16 @@ class ContentPage < ActiveRecord::Base
       language = (t.language_id != 0 && t.language && !t.language.iso_code.blank?) ? t.language.iso_code : 'unknown'
       next if language == 'unknown' # we dont index content pages in unknown languages to cut down on noise
       translated_content_pages_for_solr[t.id] = {
-        :language => language,
-        :keywords => [ page_name, t.title, t.meta_keywords ].uniq,
-        :fulltexts => [ t.main_content, t.left_content, t.meta_description ]
+        language: language,
+        keywords: [ page_name, t.title, t.meta_keywords ].uniq,
+        fulltexts: [ t.main_content, t.left_content, t.meta_description ]
       }
     end
 
     keywords = []
     translated_content_pages_for_solr.each do |translated_page_id, translated_content_page|
       if translated_page_id
-        keywords <<  { :keyword_type => 'ContentPage', :translated_page_id => translated_page_id, :keywords => translated_content_page[:keywords], :fulltexts => translated_content_page[:fulltexts], :language => translated_content_page[:language] }
+        keywords <<  { keyword_type: 'ContentPage', translated_page_id: translated_page_id, keywords: translated_content_page[:keywords], fulltexts: translated_content_page[:fulltexts], language: translated_content_page[:language] }
       end
     end
     return keywords

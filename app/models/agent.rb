@@ -11,7 +11,7 @@ class Agent < ActiveRecord::Base
 
   # Because of the tables pluralization these may trip you up sometimes
   has_many :agents_synonyms
-  has_many :synonyms, :through => :agents_synonyms
+  has_many :synonyms, through: :agents_synonyms
 
   has_and_belongs_to_many :data_objects
 

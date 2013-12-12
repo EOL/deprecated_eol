@@ -6,14 +6,14 @@ describe Resource do
     load_foundation_cache
     iucn_user = User.find_by_given_name('IUCN')
     iucn_content_partner = ContentPartner.find_by_user_id(iucn_user.id)
-    @iucn_resource1 = Resource.gen(:content_partner => iucn_content_partner)
-    @iucn_resource2 = Resource.gen(:content_partner => iucn_content_partner)
-    content_partner = ContentPartner.gen(:user => User.gen)
-    @resource = Resource.gen(:content_partner => content_partner)
+    @iucn_resource1 = Resource.gen(content_partner: iucn_content_partner)
+    @iucn_resource2 = Resource.gen(content_partner: iucn_content_partner)
+    content_partner = ContentPartner.gen(user: User.gen)
+    @resource = Resource.gen(content_partner: content_partner)
     HarvestEvent.delete_all
-    @oldest_published_harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => 3.hours.ago)
-    @latest_published_harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => 2.hours.ago)
-    @latest_unpublished_harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => nil)
+    @oldest_published_harvest_event = HarvestEvent.gen(resource: @resource, published_at: 3.hours.ago)
+    @latest_published_harvest_event = HarvestEvent.gen(resource: @resource, published_at: 2.hours.ago)
+    @latest_unpublished_harvest_event = HarvestEvent.gen(resource: @resource, published_at: nil)
   end
 
   before(:each) { Rails.cache.clear ; @resource.reload }

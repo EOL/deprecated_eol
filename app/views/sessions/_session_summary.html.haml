@@ -21,4 +21,4 @@
           %li= link_to I18n.t(:cms_editor), admin_content_pages_path
         - if current_user.is_curator?
           %li= link_to I18n.t(:pages_curator_section_link), curators_path
-        %li= link_to I18n.t(:sign_out), logout_url
+        %li= link_to I18n.t(:sign_out), logout_url(return_to: current_url)

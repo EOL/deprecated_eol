@@ -3,13 +3,14 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe TaxonConceptReindexing do
 
   before(:all) do
-    DataType.create_defaults
+    DataType.create_enumerated
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
     @max_descendants = 10
+    DataType.create_enumerated
   end
 
   before(:each) do
-    SiteConfigurationOption.stub(:max_curatable_descendants).and_return(@max_descendants)
+    EolConfig.stub(:max_curatable_descendants).and_return(@max_descendants)
     TaxonClassificationsLock.delete_all
   end
 
@@ -33,7 +34,7 @@ describe TaxonConceptReindexing do
   it 'should NOT raise an error if too large but large trees are allowed' do
     @too_many_descendants = (0..@max_descendants).to_a
     CodeBridge.should_receive(:reindex_taxon_concept).and_return(nil)
-    TaxonConceptReindexing.new(@taxon_concept, :allow_large_tree => true).reindex
+    TaxonConceptReindexing.new(@taxon_concept, allow_large_tree: true).reindex
   end
 
   it 'should call CodeBridge for the reindexing and lock classifications (also checking flatten option)' do

@@ -12,7 +12,7 @@ $(document).ready(function() {
     }
   }
   // Click to show/hide the clade browser:
-  $('input#curator_request').click(function() {
+  $('input#curator_request').on('click', function() {
     if($(this).attr('checked')) {
       $("#curator_request_options").slideDown();
     } else {

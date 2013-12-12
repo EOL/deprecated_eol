@@ -1,6 +1,6 @@
 class Administrator::UserController  < AdminController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   before_filter :set_layout_variables
 
@@ -33,8 +33,8 @@ class Administrator::UserController  < AdminController
 
     if export
       @users = User.find(:all,
-        :include => :notification,
-        :conditions => [condition,
+        include: :notification,
+        conditions: [condition,
         @start_date_db,
         @end_date_db,
         @user_search_string,
@@ -44,7 +44,7 @@ class Administrator::UserController  < AdminController
          search_string_parameter,
          search_string_parameter,
          search_string_parameter],
-        :order => 'created_at desc')
+        order: 'created_at desc')
       csv = CSV.generate do |line|
         line << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Disable Email?', 'Receive Newsletter?']
         @users.each do |u|
@@ -55,14 +55,14 @@ class Administrator::UserController  < AdminController
        end
        
        send_data csv,
-         :type => 'text/csv; charset=iso-8859-1; header=present',
-         :filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv',
-         :encoding => 'utf8',
-         :disposition => "attachment"
+         type: 'text/csv; charset=iso-8859-1; header=present',
+         filename: 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv',
+         encoding: 'utf8',
+         disposition: "attachment"
     end
 
     @users = User.paginate(
-      :conditions => [condition,
+      conditions: [condition,
       @start_date_db,
       @end_date_db,
       @user_search_string,
@@ -72,11 +72,11 @@ class Administrator::UserController  < AdminController
        search_string_parameter,
        search_string_parameter,
        search_string_parameter],
-      :order => 'created_at desc', :page => params[:page])
+      order: 'created_at desc', page: params[:page])
 
 
     @user_count = User.count(
-      :conditions => [condition,
+      conditions: [condition,
         @start_date_db,
         @end_date_db,
       @user_search_string,
@@ -93,13 +93,13 @@ class Administrator::UserController  < AdminController
   def edit
     store_location(referred_url) if request.get?
     @user = User.find(params[:id])
-    @page_title = I18n.t("edit_username", :username => @user.username)
+    @page_title = I18n.t("edit_username", username: @user.username)
   end
 
   def new
     @page_title = I18n.t("new_user")
     store_location(referred_url) if request.get?
-    @user = User.new(:language_id => current_language.id)
+    @user = User.new(language_id: current_language.id)
   end
 
   def create
@@ -113,12 +113,12 @@ class Administrator::UserController  < AdminController
 
     if @user.save
       if EOLConvert.to_boolean(params[:user][:curator_approved])
-        @user.grant_curator(:full, :by => current_user)
+        @user.grant_curator(:full, by: current_user)
       end
       flash[:notice] = I18n.t("the_new_user_was_created")
-      redirect_back_or_default(url_for(:action => 'index'))
+      redirect_back_or_default(url_for(action: 'index'))
     else
-      render :action => 'new'
+      render action: 'new'
     end
 
   end
@@ -129,7 +129,7 @@ class Administrator::UserController  < AdminController
     @message = params[:message]
     if @user.blank?
       flash[:error] = I18n.t(:error_updating_user)
-      render :action => 'edit'
+      render action: 'edit'
       return
     end
 
@@ -141,7 +141,7 @@ class Administrator::UserController  < AdminController
     unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
       if user_params[:entered_password].length < 4 || user_params[:entered_password].length > 16
         @user.errors[:base] << I18n.t(:password_must_be_4to16_characters)
-        render :action => 'edit'
+        render action: 'edit'
         return
       end
       @user.password = user_params[:entered_password]
@@ -152,26 +152,26 @@ class Administrator::UserController  < AdminController
         @user.revoke_curator
       else
         if params[:user][:curator_level_id] != past_curator_level_id
-          @user.update_attributes(:curator_verdict_by => current_user,
-                                  :curator_verdict_at => Time.now,
-                                  :curator_approved => 1)
+          @user.update_attributes(curator_verdict_by: current_user,
+                                  curator_verdict_at: Time.now,
+                                  curator_approved: 1)
           @user.join_curator_community_if_curator
         end
       end
       @user.add_to_index
       flash[:notice] = I18n.t("the_user_was_updated")
-      redirect_back_or_default(url_for(:action => 'index'))
+      redirect_back_or_default(url_for(action: 'index'))
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
   def destroy
-    (redirect_to referred_url, :status => :moved_permanently ;return) unless request.delete?
+    (redirect_to referred_url, status: :moved_permanently ;return) unless request.delete?
     user = User.find(params[:id])
     user.destroy
     flash[:notice] = I18n.t("admin_user_delete_successful_notice")
-    redirect_to referred_url, :status => :moved_permanently
+    redirect_to referred_url, status: :moved_permanently
   end
 
   def hide
@@ -183,7 +183,7 @@ class Administrator::UserController  < AdminController
     # clear home page cached comments
     clear_cached_homepage_activity_logs
     flash[:notice] = I18n.t("admin_user_hide_successful_notice")
-    redirect_to referred_url, :status => :moved_permanently
+    redirect_to referred_url, status: :moved_permanently
   end
 
   def unhide
@@ -195,20 +195,20 @@ class Administrator::UserController  < AdminController
     # clear home page cached comments
     clear_cached_homepage_activity_logs
     flash[:notice] = I18n.t("admin_user_unhide_successful_notice")
-    redirect_to referred_url, :status => :moved_permanently
+    redirect_to referred_url, status: :moved_permanently
   end
 
   # NOTE - these are here for convenience; when an admin is looking at the users view, they want to quickly be able to
   # grant or remove curatorship.  The curator controller is more detailed.
   def grant_curator
     @user = User.find(params[:id])
-    @user.grant_curator(:full, :by => current_user)
+    @user.grant_curator(:full, by: current_user)
     respond_to do |format|
       format.html {
-        redirect_to '/administrator/curator', :status => :moved_permanently
+        redirect_to '/administrator/curator', status: :moved_permanently
       }
       format.js {
-        render :partial => 'administrator/curator/user_row', :locals => {:column_class => params[:class] || 'odd', :user => @user}
+        render partial: 'administrator/curator/user_row', locals: {column_class: params[:class] || 'odd', user: @user}
       }
     end
   end
@@ -217,10 +217,10 @@ class Administrator::UserController  < AdminController
     @user.revoke_curator
     respond_to do |format|
       format.html {
-        redirect_to '/administrator/curator', :status => :moved_permanently
+        redirect_to '/administrator/curator', status: :moved_permanently
       }
       format.js {
-        render :partial => 'administrator/curator/user_row', :locals => {:column_class => params[:class] || 'even', :user => @user}
+        render partial: 'administrator/curator/user_row', locals: {column_class: params[:class] || 'even', user: @user}
       }
     end
   end
@@ -236,8 +236,8 @@ class Administrator::UserController  < AdminController
       if !user.blank?
         reset_session
         session[:user_id] = user.id
-        flash[:notice] = I18n.t("you_have_been_logged_in_as_username", :username => user.username)
-        redirect_to root_url, :status => :moved_permanently
+        flash[:notice] = I18n.t("you_have_been_logged_in_as_username", username: user.username)
+        redirect_to root_url, status: :moved_permanently
       end
       return
   end

@@ -6,8 +6,8 @@ def it_should_collect_item(collectable_item_path, collectable_item)
   visit collectable_item_path
   click_link 'Add to a collection'
   if current_url.match /#{login_url}/
-    page.fill_in 'session_username_or_email', :with => @anon_user.username
-    page.fill_in 'session_password', :with => 'password'
+    page.fill_in 'session_username_or_email', with: @anon_user.username
+    page.fill_in 'session_password', with: 'password'
     click_button 'Sign in'
     continue_collect(@anon_user, collectable_item_path)
     visit logout_url
@@ -35,8 +35,8 @@ def it_should_create_and_collect_item(collectable_item_path, collectable_item)
   visit collectable_item_path
   click_link 'Add to a collection'
   if current_url.match /#{login_url}/
-    page.fill_in 'session_username_or_email', :with => @anon_user.username
-    page.fill_in 'session_password', :with => 'password'
+    page.fill_in 'session_username_or_email', with: @anon_user.username
+    page.fill_in 'session_password', with: 'password'
     click_button 'Sign in'
     continue_create_and_collect(@anon_user, collectable_item_path)
     visit logout_url
@@ -48,10 +48,10 @@ end
 def continue_create_and_collect(user, url)
   current_url.should match /#{choose_collect_target_collections_path}/
   click_button 'Create collection'
-  body.should have_tag(".collection_name_error", :text => "Collection name can't be blank")
-  fill_in 'collection_name', :with => "#{user.username}'s new collection"
+  body.should have_tag(".collection_name_error", text: "Collection name can't be blank")
+  fill_in 'collection_name', with: "#{user.username}'s new collection"
   click_button 'Create collection'
-  body.should_not have_tag(".collection_name_error", :text => "Collection name can't be blank")
+  body.should_not have_tag(".collection_name_error", text: "Collection name can't be blank")
 end
 
 describe "Collections" do
@@ -70,7 +70,7 @@ describe "Collections" do
     @collection_name = @collection.name
     @user = nil
     @under_privileged_user = User.gen
-    @anon_user = User.gen(:password => 'password')
+    @anon_user = User.gen(password: 'password')
     @taxon = @test_data[:taxon_concept_1]
     @taxon_to_collect = @test_data[:taxon_concept_2]
     @collection.add(@taxon)
@@ -121,20 +121,20 @@ describe "Collections" do
       @collection.reload
       visit logout_path
       lambda { visit collection_path(@collection) }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
-      user = User.gen(:admin => false)
+      user = User.gen(admin: false)
       login_as user
       referrer = current_path
       lambda { visit collection_path(@collection) }.should raise_error(EOL::Exceptions::SecurityViolation)
 
-      admin = User.gen(:admin => true)
+      admin = User.gen(admin: true)
       login_as admin
       visit collection_path(@collection)
-      body.should have_tag('h1', :text => @collection.name)
+      body.should have_tag('h1', text: @collection.name)
       body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.collected_item)}']")
 
       login_as @collection.users.first
       visit collection_path(@collection)
-      body.should have_tag('h1', :text => @collection.name)
+      body.should have_tag('h1', text: @collection.name)
       body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.collected_item)}']")
     end
 
@@ -145,8 +145,8 @@ describe "Collections" do
     shared_examples_for 'collections all users' do
       it 'should be able to view a collection and its items' do
         visit collection_path(@collection)
-        body.should have_tag('h1', :text => @collection.name)
-        body.should have_tag('ul.object_list li', :text => @collection.collection_items.first.collected_item.best_title)
+        body.should have_tag('h1', text: @collection.name)
+        body.should have_tag('ul.object_list li', text: @collection.collection_items.first.collected_item.best_title)
       end
 
       it "should be able to sort a collection's items" do
@@ -225,12 +225,12 @@ describe "Collections" do
       it 'should be able to select all collection items on the page' do
         visit collection_path(@collection)
         body.should_not have_tag("input[id=collection_item_#{@collection.collection_items.first.id}][checked]")
-        visit collection_path(@collection, :commit_select_all => true) # FAKE the button click, since it's JS otherwise
+        visit collection_path(@collection, commit_select_all: true) # FAKE the button click, since it's JS otherwise
         body.should have_tag("input[id=collection_item_#{@collection.collection_items.first.id}][checked]")
       end
 
       it 'should be able to copy collection items to one of their existing collections' do
-        visit collection_path(@collection, :commit_select_all => true) # Select all button is JS, fake it.
+        visit collection_path(@collection, commit_select_all: true) # Select all button is JS, fake it.
         click_button 'Copy selected'
         body.should have_tag('#collection') do
           with_tag('input[value=?]', @user.watch_collection.name)
@@ -238,7 +238,7 @@ describe "Collections" do
       end
 
       it 'should be able to copy collection items to a new collection' do
-        visit collection_path(@collection, :commit_select_all => true) # Select all button is JS, fake it.
+        visit collection_path(@collection, commit_select_all: true) # Select all button is JS, fake it.
         click_button 'Copy selected'
         body.should have_tag('#collection') do
           with_tag('form.new_collection')
@@ -308,9 +308,9 @@ describe "Collections" do
       it 'should be able to remove collection items'
       it 'should be able to edit ordinary collection' do
         visit edit_collection_path(@collection)
-        page.fill_in 'collection_name', :with => 'Edited collection name'
+        page.fill_in 'collection_name', with: 'Edited collection name'
         click_button 'Update collection details'
-        body.should have_tag('h1', :text => 'Edited collection name')
+        body.should have_tag('h1', text: 'Edited collection name')
       end
       it 'should be able to edit ordinary collection item attributes (with JS off, need Cucumber tests for JS on)'
       it 'should be able to delete ordinary collections'
@@ -318,8 +318,8 @@ describe "Collections" do
       it 'should not be able to edit watch collection name' do
         visit edit_collection_path(@user.watch_collection)
         body.should have_tag('#collections_edit') do
-          without_tag('#collection_name', :val => "#{@collection.name}")
-          with_tag('label', :text => "#{@user.watch_collection.name}")
+          without_tag('#collection_name', val: "#{@collection.name}")
+          with_tag('label', text: "#{@user.watch_collection.name}")
         end
       end
     end
@@ -352,8 +352,8 @@ describe "Collections" do
       # body.should have_tag("ul.object_list li a[href='#{data_object_path(collectable_data_object)}']")
 
       # the image is still unpublished, but there's a newer version. We should see the new version in the collection
-      newer_version_collected_data_object = DataObject.gen(:guid => new_dato.guid,
-        :object_title => "Latest published version", :published => true, :created_at => Time.now )
+      newer_version_collected_data_object = DataObject.gen(guid: new_dato.guid,
+        object_title: "Latest published version", published: true, created_at: Time.now )
       visit collection_path(@anon_user.watch_collection)
       body.should have_tag("ul.object_list li a[href='#{data_object_path(newer_version_collected_data_object)}']")
       body.should_not have_tag("ul.object_list li a[href='#{data_object_path(collectable_data_object)}']")
@@ -363,14 +363,14 @@ describe "Collections" do
       visit data_object_path(newer_version_collected_data_object)
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
-      body.should have_tag("li a", :text => I18n.t(:in_collection))
+      body.should have_tag("li a", text: I18n.t(:in_collection))
 
       # and deleting the first version from the collection will allow the new one to be added
       @anon_user.watch_collection.collection_items[0].destroy
       visit data_object_path(newer_version_collected_data_object)
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
-      body.should_not have_tag("li a", :text => I18n.t(:in_collection))
+      body.should_not have_tag("li a", text: I18n.t(:in_collection))
 
       newer_version_collected_data_object.destroy
       $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value
@@ -380,7 +380,7 @@ describe "Collections" do
       @original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
       $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
 
-      collection_owner = User.gen(:password => 'somenewpassword')
+      collection_owner = User.gen(password: 'somenewpassword')
       collection = collection_owner.watch_collection
       collection.view_style = ViewStyle.first
       collection.save
@@ -406,16 +406,16 @@ describe "Collections" do
       # on page 1 rel canonical should not include page number;  rel prev should not exist; rel next is page 2; title should not include page
       body.should have_tag("link[rel=canonical][href$='#{collection_path(collection)}']")
       body.should_not have_tag('link[rel=prev]')
-      body.should have_tag("link[rel=next][href$='#{collection_path(collection, :page => 2)}']")
+      body.should have_tag("link[rel=next][href$='#{collection_path(collection, page: 2)}']")
       # on page 2 rel canonical should include page 2; rel prev should be page 1; rel next should be page 3; title should include page
-      visit collection_path(collection, :page => 2)
-      body.should have_tag("link[rel=canonical][href$='#{collection_path(collection_owner.watch_collection, :page => 2)}']")
-      body.should have_tag("link[rel=prev][href$='#{collection_path(collection, :page => 1)}']")
-      body.should have_tag("link[rel=next][href$='#{collection_path(collection, :page => 3)}']")
+      visit collection_path(collection, page: 2)
+      body.should have_tag("link[rel=canonical][href$='#{collection_path(collection_owner.watch_collection, page: 2)}']")
+      body.should have_tag("link[rel=prev][href$='#{collection_path(collection, page: 1)}']")
+      body.should have_tag("link[rel=next][href$='#{collection_path(collection, page: 3)}']")
       # on last page there should be no rel next
-      visit collection_path(collection, :page => 4)
-      body.should have_tag("link[rel=canonical][href$='#{collection_path(collection_owner.watch_collection, :page => 4)}']")
-      body.should have_tag("link[rel=prev][href$='#{collection_path(collection, :page => 3)}']")
+      visit collection_path(collection, page: 4)
+      body.should have_tag("link[rel=canonical][href$='#{collection_path(collection_owner.watch_collection, page: 4)}']")
+      body.should have_tag("link[rel=prev][href$='#{collection_path(collection, page: 3)}']")
       body.should_not have_tag('link[rel=next]')
 
       v = ViewStyle.first
@@ -430,7 +430,7 @@ describe "Collections" do
       body.should_not include "Previous"
       body.should include "Next"
 
-      visit collection_path(collection_owner.watch_collection, :page => 2)
+      visit collection_path(collection_owner.watch_collection, page: 2)
       body.should include "Previous"
       body.should_not include "Next"
 

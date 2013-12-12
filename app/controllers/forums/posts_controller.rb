@@ -1,8 +1,8 @@
 class Forums::PostsController < ForumsController
 
   skip_before_filter :restrict_to_admins
-  before_filter :allow_login_then_submit, :only => [ :create ]
-  before_filter :check_authentication, :except => [ :show, :new, :reply ]
+  before_filter :allow_login_then_submit, only: [ :create ]
+  before_filter :check_authentication, except: [ :show, :new, :reply ]
 
   # GET /forums/:forum_id/topics/:topic_id/posts/:id
   def show
@@ -10,9 +10,9 @@ class Forums::PostsController < ForumsController
     page = post.page_in_topic
     @topic = post.forum_topic
     @topic.increment_view_count
-    @posts = @topic.forum_posts.paginate(:page => page, :per_page => ForumTopic::POSTS_PER_PAGE)
+    @posts = @topic.forum_posts.paginate(page: page, per_page: ForumTopic::POSTS_PER_PAGE)
     ForumPost.preload_associations(@posts, [ :user, :forum_topic ])
-    render :template => 'forums/topics/show'
+    render template: 'forums/topics/show'
   end
 
   # GET /forums/:forum_id/topics/:topic_id/posts/new
@@ -86,17 +86,17 @@ class Forums::PostsController < ForumsController
       return
     else
       if @post.forum_topic.forum_posts.visible.count == 1
-        @post.forum_topic.update_attributes({ :deleted_at => Time.now, :deleted_by_user_id => current_user.id })
-        @post.update_attributes({ :deleted_at => Time.now, :deleted_by_user_id => current_user.id })
+        @post.forum_topic.update_attributes({ deleted_at: Time.now, deleted_by_user_id: current_user.id })
+        @post.update_attributes({ deleted_at: Time.now, deleted_by_user_id: current_user.id })
         flash[:notice] = I18n.t('forums.posts.topic_and_post_delete_successful')
         redirect_to forum_path(@post.forum_topic.forum)
         return
       else
-        @post.update_attributes({ :deleted_at => Time.now, :deleted_by_user_id => current_user.id })
+        @post.update_attributes({ deleted_at: Time.now, deleted_by_user_id: current_user.id })
         flash[:notice] = I18n.t('forums.posts.delete_successful')
       end
     end
-    redirect_to forum_topic_path(@post.forum_topic.forum, @post.forum_topic, :page => @post.page_in_topic, :anchor => "post_#{@post.id}")
+    redirect_to forum_topic_path(@post.forum_topic.forum, @post.forum_topic, page: @post.page_in_topic, anchor: "post_#{@post.id}")
   end
 
 end

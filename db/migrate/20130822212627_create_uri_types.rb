@@ -9,7 +9,7 @@ class CreateUriTypes < ActiveRecord::Migration
       t.integer :uri_type_id, null: false
       t.integer :language_id, null: false
     end
-    UriType.create_defaults
+    UriType.create_enumerated
     add_column :known_uris, :uri_type_id, :integer, null: false, default: UriType.measurement.id
     KnownUri.where(:is_unit_of_measure => true).each do |uri|
       uri.update_attributes(:uri_type => UriType.value)

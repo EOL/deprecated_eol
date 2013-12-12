@@ -44,7 +44,7 @@
           - column_class=cycle('odd','even')
           - if (activity.taxon_concept_id) then
             - concept = TaxonConcept.find(activity.taxon_concept_id)
-            - name = concept.quick_scientific_name(:italicized)
+            - name = concept.title
           - else
             - name=""
 
@@ -103,7 +103,7 @@
                   - he = HierarchyEntry.find(activity.value)
                   - taxon_concept_id = he.taxon_concept_id
                   - concept = TaxonConcept.find(taxon_concept_id)
-                  - taxon_name = concept.quick_scientific_name(:italicized)
+                  - taxon_name = concept.title
                   = link_to taxon_name,{:controller=>'/taxa', :action=>:show, :id => taxon_concept_id}
 
               - if(value_as_viewed_page_of_images.include? activity.activity_id)

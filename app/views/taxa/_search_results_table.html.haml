@@ -1,14 +1,14 @@
 - # TODO: OBSOLETE, REMOVE?
 - unless results.blank?
-  .search_results{ :id => title.downcase.gsub(" ", "_")}
+  .search_results{ id: title.downcase.gsub(" ", "_")}
     %h3.search_result_subtitle= "#{title}"
     %p
-      =I18n.t(:results_offset, :from => results.offset + 1, :to => results.offset + [results.per_page, results.total_entries].min, :total => results.total_entries, :for => @querystring)
-    %table.results_table{ :cellspacing => "0", :summary => title, :style => "width:100%;" }
+      =I18n.t(:results_offset, from: results.offset + 1, to: results.offset + [results.per_page, results.total_entries].min, total: results.total_entries, for: @querystring)
+    %table.results_table{ cellspacing: "0", summary: title, style: "width:100%;" }
       %tr
-        %th{ :style => "width:152px;" }= I18n.t(:image)
-        %th{ :style => "width:50%;" }= I18n.t(:common_name)
-        %th{ :style => "width:50%;" }= I18n.t(:scientific_name)
+        %th{ style: "width:152px;" }= I18n.t(:image)
+        %th{ style: "width:50%;" }= I18n.t(:common_name)
+        %th{ style: "width:50%;" }= I18n.t(:scientific_name)
       - results.each do |result|
         - vetted_value = ''
         - vetted_value = '_unvetted'  if result['unknown']
@@ -17,21 +17,21 @@
         - best_scientific_name = result['best_matched_scientific_name']
         - best_scientific_name = best_scientific_name[0] if best_scientific_name.is_a?(Array)
         %tr
-          %td{ :class => column_class }
+          %td{ class: column_class }
             - unless result['top_image'].nil?
-              %a{ :href => found_url(:id => result['id']) }
-                %img{ :title => strip_tags(best_scientific_name), :src => result['top_image'].smart_medium_thumb, :alt => strip_tags(result['best_matched_scientific_name']) }
-          %td{ :class => column_class }
-            %div{:class => "result"}
-              = link_to hh(result['best_matched_common_name']), found_url(:id => result['id']), :method=>:post
+              %a{ href: found_url(id: result['id']) }
+                %img{ title: strip_tags(best_scientific_name), src: result['top_image'].smart_medium_thumb, alt: strip_tags(result['best_matched_scientific_name']) }
+          %td{ class: column_class }
+            %div{class: "result"}
+              = link_to hh(result['best_matched_common_name']), found_url(id: result['id']), method: :post
             = result['common_shown_as']
-          %td{ :class => column_class }
+          %td{ class: column_class }
             .ancestor= result['ancestor_scientific']
             .parent= result['parent_scientific']
-            %div{:class => (result['parent_scientific'].blank? && result['ancestor_scientific'].blank?) ? '' : "result duplicate"}
-              = link_to hh(best_scientific_name), found_url(:id => result['id']), :method=>:post
+            %div{class: (result['parent_scientific'].blank? && result['ancestor_scientific'].blank?) ? '' : "result duplicate"}
+              = link_to hh(best_scientific_name), found_url(id: result['id']), method: :post
             = result['scientific_shown_as']
             - unless result['recognized_by'].blank?
-              %span.recognized_by= I18n.t(:taxon_recognized_by, :whom => result["recognized_by"])
+              %span.recognized_by= I18n.t(:taxon_recognized_by, whom: result["recognized_by"])
     = will_paginate(results)
   %br

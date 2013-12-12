@@ -7,43 +7,43 @@ class Rank < ActiveRecord::Base
   belongs_to :rank_group, class_name: 'Rank', foreign_key: 'rank_group_id'
   
   def self.kingdom
-    cached_find_translated(:label, 'kingdom', :include => :group_members)
+    cached_find_translated(:label, 'kingdom', include: :group_members)
   end
   
   def self.phylum
-    cached_find_translated(:label, 'phylum', :include => :group_members)
+    cached_find_translated(:label, 'phylum', include: :group_members)
   end
   
   def self.class_rank
-    cached_find_translated(:label, 'class', :include => :group_members)
+    cached_find_translated(:label, 'class', include: :group_members)
   end
   
   def self.order
-    cached_find_translated(:label, 'order', :include => :group_members)
+    cached_find_translated(:label, 'order', include: :group_members)
   end
   
   def self.family
-    cached_find_translated(:label, 'family', :include => :group_members)
+    cached_find_translated(:label, 'family', include: :group_members)
   end
   
   def self.genus
-    @@genus ||= cached_find_translated(:label, 'genus', :include => :group_members)
+    @@genus ||= cached_find_translated(:label, 'genus', include: :group_members)
   end
   
   def self.species
-    @@species ||= cached_find_translated(:label, 'species', :include => :group_members)
+    @@species ||= cached_find_translated(:label, 'species', include: :group_members)
   end
   
   def self.subspecies
-    @@subspecies ||= cached_find_translated(:label, 'subspecies', :include => :group_members)
+    @@subspecies ||= cached_find_translated(:label, 'subspecies', include: :group_members)
   end
   
   def self.variety
-    @@variety ||= cached_find_translated(:label, 'variety', :include => :group_members)
+    @@variety ||= cached_find_translated(:label, 'variety', include: :group_members)
   end
   
   def self.infraspecies
-    @@infraspecies ||= cached_find_translated(:label, 'infraspecies', :include => :group_members)
+    @@infraspecies ||= cached_find_translated(:label, 'infraspecies', include: :group_members)
   end
   
   

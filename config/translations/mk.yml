@@ -351,7 +351,7 @@ mk:
         known_uri: 
           attributes: 
             uri: 
-              must_be_uri: мора да биде добро срочен <a href='http://mk.wikipedia.org/wiki/URI'>URI</a>
+              must_be_uri: мора да биде добро срочен <a href='https://mk.wikipedia.org/wiki/URI'>URI</a>
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -378,18 +378,18 @@ mk:
         user_added_data: 
           attributes: 
             predicate: 
-              must_be_uri: мора да биде добро срочен <a href='http://mk.wikipedia.org/wiki/URI'>URI</a>
+              must_be_uri: мора да биде добро срочен <a href='https://mk.wikipedia.org/wiki/URI'>URI</a>
               namespace: употребен непрепознаен именски простор
             subject: 
-              must_be_uri: мора да биде добро срочен <a href='http://mk.wikipedia.org/wiki/URI'>URI</a>
+              must_be_uri: мора да биде добро срочен <a href='https://mk.wikipedia.org/wiki/URI'>URI</a>
               namespace: употребен непрепознаен именски простор
         user_added_data_metadata: 
           attributes: 
             predicate: 
-              must_be_uri: мора да биде добро срочен <a href='http://mk.wikipedia.org/wiki/URI'>URI</a>
+              must_be_uri: мора да биде добро срочен <a href='https://mk.wikipedia.org/wiki/URI'>URI</a>
               namespace: употребен непрепознаен именски простор
             subject: 
-              must_be_uri: мора да биде добро срочен <a href='http://mk.wikipedia.org/wiki/URI'>URI</a>
+              must_be_uri: мора да биде добро срочен <a href='https://mk.wikipedia.org/wiki/URI'>URI</a>
               namespace: употребен непрепознаен именски простор
       template: 
         body: "Заверката не успеа во следниве полиња:"
@@ -2559,7 +2559,7 @@ mk:
         username: Корисничко име <small>(4 - 32 знаци)</small>
         username_or_email: Корисничко име или е-пошта
       wikipedia_queue: 
-        revision_url: URL-адреса на ревизијата <small>(на пр. http://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424)</small>
+        revision_url: URL-адреса на ревизијата <small>(на пр. https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424)</small>
         revision_url_more: Внесувајќи ја URL-адресата на ревизијата од Википедија, барате од EOL да ја преземе таа верзија како проверена. Со ова ќе ја замените тековната верзија на таа статија на EOL, ако има таква.
     select: 
       prompt: Одберете
@@ -4595,10 +4595,10 @@ mk:
   who_registered_before: до
   who_registered_from: кој се регистрираше од
   wikipedia_queue_create_successful_notice: Статијата %{article} ревизија %{rev} од Википедија е ставена во редицата за увоз.
-  wikipedia_queue_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја ставам статијата од Википедија во редицата на чекање за увоз.<br/>URL-адресата на ревизијата мора да се совпаѓа со http://mk.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
+  wikipedia_queue_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја ставам статијата од Википедија во редицата на чекање за увоз.<br/>URL-адресата на ревизијата мора да се совпаѓа со https://mk.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
   wikipedia_queue_new_instructions_intro: "За да ја добиете URL-адресата на ревизија на некоја статија на Википедија:"
-  wikipedia_queue_new_instructions_step_four: "Ископирајте ја URL-адресата на ревизијата од прелистувачот и вметнете ја во прикажаниот образец за увоз од Википедија. URL-адресата треба да биде од следниов облик: <a href=\"http://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424\">http://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424</a>"
-  wikipedia_queue_new_instructions_step_one: Одете на страницата на Википедија, на пр. <a href="http://mk.wikipedia.org/w/index.php?title=Тигар">http://mk.wikipedia.org/w/index.php?title=Тигар</a>
+  wikipedia_queue_new_instructions_step_four: "Ископирајте ја URL-адресата на ревизијата од прелистувачот и вметнете ја во прикажаниот образец за увоз од Википедија. URL-адресата треба да биде од следниов облик: <a href=\"https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424\">https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424</a>"
+  wikipedia_queue_new_instructions_step_one: Одете на страницата на Википедија, на пр. <a href="https://mk.wikipedia.org/w/index.php?title=Тигар">https://mk.wikipedia.org/w/index.php?title=Тигар</a>
   wikipedia_queue_new_instructions_step_three: Стиснете на ставката „Постојана врска“ во менито. Ова е URL-адреса на тековната ревизија на статијата, каде ќе можете да ги добиете и претходните верзии.
   wikipedia_queue_new_instructions_step_two: Отворете го менито „Алатник“ и во него ќе најдете ставка „Постојана врска“.
   wikipedia_queue_new_intro: Поднесете ревизија на статија од Википедија за вметнување (преземање) во EOL како проверен текстуален објект.

@@ -1,10 +1,10 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render partial: 'shared/social_sharing'
 #taxon_resources
-  = render :partial => 'menu'
+  = render partial: 'menu'
   #taxon_detail
     #main.main_container
       %h3= I18n.t(:news_and_event_links)
       .section
         - unless @news_and_event_links_contents.blank?
-          = render :partial => 'link_objects', :locals => { :content => @news_and_event_links_contents }
+          = render partial: 'link_objects', locals: { content: @news_and_event_links_contents }

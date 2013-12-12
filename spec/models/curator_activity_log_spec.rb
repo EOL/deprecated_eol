@@ -5,22 +5,24 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CuratorActivityLog do
   before(:all) do
-    ChangeableObjectType.create_defaults
+    ChangeableObjectType.create_enumerated
+    ContentPartnerStatus.create_enumerated
+    License.create_enumerated
   end
 
   it 'should is_for_type?' do
-    ChangeableObjectType.default_values.length.should >= 15 # just making sure the test has defaults to work with
-    ChangeableObjectType.default_values.each do |v|
-      c = CuratorActivityLog.create(:changeable_object_type_id => ChangeableObjectType.send(v).id)
+    ChangeableObjectType.enumerations.keys.length.should >= 15 # just making sure the test has defaults to work with
+    ChangeableObjectType.enumerations.keys.each do |v|
+      c = CuratorActivityLog.create(changeable_object_type_id: ChangeableObjectType.send(v).id)
       c.is_for_type?(v).should == true
     end
   end
 
   it 'should return data_point_uris' do
     d = DataPointUri.gen
-    c = CuratorActivityLog.create(:changeable_object_type_id => ChangeableObjectType.data_point_uri.id, :target_id => d.id)
+    c = CuratorActivityLog.create(changeable_object_type_id: ChangeableObjectType.data_point_uri.id, target_id: d.id)
     c.data_point_uri.should == d
-    c = CuratorActivityLog.create(:changeable_object_type_id => ChangeableObjectType.comment.id, :target_id => d.id)
+    c = CuratorActivityLog.create(changeable_object_type_id: ChangeableObjectType.comment.id, target_id: d.id)
     c.data_point_uri.should_not == d
   end
 

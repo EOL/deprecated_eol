@@ -45,14 +45,14 @@ describe "Core Extensions" do
 
     it 'should wrap the text in a paragraph tag if requested' do
       "This is\ntext".fix_old_user_added_text_linebreaks.should == 'This is<br/>text'
-      "This is\ntext".fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true).should == '<p>This is<br/>text</p>'
+      "This is\ntext".fix_old_user_added_text_linebreaks(wrap_in_paragraph: true).should == '<p>This is<br/>text</p>'
     end
 
     it 'should not convert if there are already breaks in the text' do
       "This is\n<br>text".fix_old_user_added_text_linebreaks.should == "This is\n<br>text"
-      "This is\n<br>text".fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true).should == "This is\n<br>text"
+      "This is\n<br>text".fix_old_user_added_text_linebreaks(wrap_in_paragraph: true).should == "This is\n<br>text"
       "This is\n<p>text".fix_old_user_added_text_linebreaks.should == "This is\n<p>text"
-      "This is\n<p>text".fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true).should == "This is\n<p>text"
+      "This is\n<p>text".fix_old_user_added_text_linebreaks(wrap_in_paragraph: true).should == "This is\n<p>text"
     end
   end
 

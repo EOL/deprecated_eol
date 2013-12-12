@@ -25,14 +25,14 @@ describe "Communities" do
       it 'should have rel prev and next link tags when appropriate'
 
       it 'should show the community name and description' do
-        should have_tag('h1', :text => @test_data[:community].name)
-        should have_tag('#page_heading', :text => @test_data[:community].description)
+        should have_tag('h1', text: @test_data[:community].name)
+        should have_tag('#page_heading', text: @test_data[:community].description)
       end
 
       it 'should show the collections the community is focused upon' do
         body.should have_tag('#sidebar') do
           @test_data[:community].collections.each do |focus|
-            with_tag("a[href='#{collection_path(focus.id)}']", :text => /#{focus.name}/)
+            with_tag("a[href='#{collection_path(focus.id)}']", text: /#{focus.name}/)
           end
         end
       end
@@ -53,7 +53,7 @@ describe "Communities" do
     # Make sure you are logged in prior to calling this shared example group
     it_should_behave_like 'communities all users'
     context 'visiting create community' do
-      before(:each) { visit new_community_path(:collection_id => @collection.id) }
+      before(:each) { visit new_community_path(collection_id: @collection.id) }
       it 'should ask for the new community name and description' do
         body.should have_tag("input#community_name")
         body.should have_tag("textarea#community_description")
@@ -61,8 +61,8 @@ describe "Communities" do
       it 'should create a community, add the user, and redirect to community default view' do
         new_name = FactoryGirl.generate(:string)
         new_col_name = FactoryGirl.generate(:string)
-        fill_in('community_name', :with => new_name)
-        fill_in('community_description', :with => 'This is a long description.')
+        fill_in('community_name', with: new_name)
+        fill_in('community_description', with: 'This is a long description.')
         click_button('Create community')
         new_comm = Community.last
         new_comm.name.should == new_name
@@ -92,7 +92,7 @@ describe "Communities" do
     it_should_behave_like 'communities all users'
     context 'visiting create community' do
       it 'should require login' do
-        lambda { get new_community_path(:collection_id => @collection.id) }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
+        lambda { get new_community_path(collection_id: @collection.id) }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
       end
     end
     context 'visiting show community' do
@@ -115,7 +115,7 @@ describe "Communities" do
         should_not have_tag("a[href='#{edit_community_path(@test_data[:community])}']")
       end
       it 'should not show delete community links' do
-        should_not have_tag("a[href='#{community_path(@test_data[:community])}']", :text => I18n.t(:delete_community))
+        should_not have_tag("a[href='#{community_path(@test_data[:community])}']", text: I18n.t(:delete_community))
       end
       it 'should allow user to join community' do
         @test_data[:user_non_member].is_member_of?(@test_data[:community]).should_not be_true
@@ -129,8 +129,8 @@ describe "Communities" do
         @test_data[:user_non_member].is_member_of?(@test_data[:community]).should_not be_true
       end
       it "should not have a share collection button" do
-        body.should_not have_tag("a[href='#{choose_editor_target_collections_path(:community_id => @test_data[:community].id)}']",
-          :text => 'Share a collection')
+        body.should_not have_tag("a[href='#{choose_editor_target_collections_path(community_id: @test_data[:community].id)}']",
+          text: 'Share a collection')
       end
     end
     context 'visiting edit community' do
@@ -152,13 +152,13 @@ describe "Communities" do
         should_not have_tag("a[href='#{edit_community_path(@test_data[:community])}']")
       end
       it 'should not show a delete community link' do
-        should_not have_tag("a[href='#{community_path(@test_data[:community])}']", :text => I18n.t(:delete_community))
+        should_not have_tag("a[href='#{community_path(@test_data[:community])}']", text: I18n.t(:delete_community))
       end
       it 'should not show edit membership links' do
-        should_not have_tag("a[href='#{community_member_path(@test_data[:community], @test_data[:community_member])}']", :text => /edit/i)
+        should_not have_tag("a[href='#{community_member_path(@test_data[:community], @test_data[:community_member])}']", text: /edit/i)
       end
       it 'should not show remove membership links' do
-        should_not have_tag("a[href='#{community_member_path(@test_data[:community], @test_data[:community_member])}']", :text => /remove/i)
+        should_not have_tag("a[href='#{community_member_path(@test_data[:community], @test_data[:community_member])}']", text: /remove/i)
       end
       it 'should allow member to leave community and return to show community' do
         @test_data[:user_community_member].is_member_of?(@test_data[:community]).should be_true
@@ -170,8 +170,8 @@ describe "Communities" do
         @test_data[:user_community_member].is_member_of?(@test_data[:community]).should be_true
       end
       it "should not have a share collection button" do
-        body.should_not have_tag("a[href='#{choose_editor_target_collections_path(:community_id => @test_data[:community].id)}']",
-          :text => 'Share a collection')
+        body.should_not have_tag("a[href='#{choose_editor_target_collections_path(community_id: @test_data[:community].id)}']",
+          text: 'Share a collection')
       end
     end
   end
@@ -185,8 +185,8 @@ describe "Communities" do
       subject { body }
       # TODO - we could test a few things here.
       it "should have a share collection button" do
-        body.should have_tag("a[href='#{choose_editor_target_collections_path(:community_id => @test_data[:community].id)}']",
-          :text => 'Share a collection')
+        body.should have_tag("a[href='#{choose_editor_target_collections_path(community_id: @test_data[:community].id)}']",
+          text: 'Share a collection')
       end
       it "should do allow sharing" do
         # Give the user a new collection to share:
@@ -208,9 +208,9 @@ describe "Communities" do
       it 'should allow inviting non-members to join community' do
         non_member = @test_data[:user_non_member]
         should have_tag(".edit_community fieldset") do
-          with_tag("dt label", :text => "Invite Members")
+          with_tag("dt label", text: "Invite Members")
           with_tag("input#invitations")
-          fill_in 'invitations', :with => non_member.username
+          fill_in 'invitations', with: non_member.username
           click_button "save"
           should include("Community was successfully updated. An invitation was sent to")
         end
@@ -221,7 +221,7 @@ describe "Communities" do
   # Disabling these in order to be green... can't figure out what causes the login to fail:
 
   it 'should flash a link to become a curator, when a non-curator joins the curator community' # do
-#    user = User.gen(:curator_level_id => nil)
+#    user = User.gen(curator_level_id: nil)
 #    # TODO - for some odd reason, though the login works, the visit throws a "must be logged in" error. ...Perhaps
 #    # the session is clearing?
 #    login_as user
@@ -230,7 +230,7 @@ describe "Communities" do
 #  end
 
   it 'should not allow editing the name of the curator community' # do
-#    manager = Member.create(:user => User.gen, :community => CuratorCommunity.get, :manager => true)
+#    manager = Member.create(user: User.gen, community: CuratorCommunity.get, manager: true)
 #    # TODO - for some odd reason, though the login works, the visit throws a "must be logged in" error. ...Perhaps
 #    # the session is clearing?
 #    login_as manager.user

@@ -19,7 +19,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
     access_denied unless current_user.can_create?(@contact)
     if @contact.save
       flash[:notice] = I18n.t(:content_partner_contact_create_successful_notice)
-      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
+      redirect_to content_partner_resources_path(@partner), status: :moved_permanently
     else
       set_new_contact_options
       flash.now[:error] = I18n.t(:content_partner_contact_create_unsuccessful_error)
@@ -42,7 +42,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
     access_denied unless current_user.can_update?(@contact)
     if @contact.update_attributes(params[:content_partner_contact])
       flash[:notice] = I18n.t(:content_partner_contact_update_successful_notice)
-      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
+      redirect_to content_partner_resources_path(@partner), status: :moved_permanently
     else
       flash.now[:error] = I18n.t(:content_partner_contact_update_unsuccessful_error)
       render :edit
@@ -56,10 +56,10 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
     access_denied unless current_user.can_delete?(@contact)
     if @partner.content_partner_contacts.delete(@contact)
       flash[:notice] = I18n.t(:content_partner_contact_delete_successful_notice)
-      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
+      redirect_to content_partner_resources_path(@partner), status: :moved_permanently
     else
       flash[:notice] = I18n.t(:content_partner_contact_delete_unsuccessful_error)
-      redirect_to edit_content_partner_contact_path(@partner, @contact), :status => :moved_permanently
+      redirect_to edit_content_partner_contact_path(@partner, @contact), status: :moved_permanently
     end
   end
 

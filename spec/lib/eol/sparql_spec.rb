@@ -4,7 +4,7 @@ describe EOL::Sparql do
 
   before(:all) do
     truncate_all_tables
-    UriType.create_defaults
+    UriType.create_enumerated
   end
 
   before(:each) do
@@ -40,7 +40,7 @@ describe EOL::Sparql do
     # when there is a unit in the metadata, there must be a matching KnownURI
     EOL::Sparql.explicit_measurement_uri_components({ Rails.configuration.uri_measurement_unit =>
       'http://example.com/grams' }).should == nil
-    grams = KnownUri.gen_if_not_exists(:uri => 'http://example.com/grams', :name => 'grams')
+    grams = KnownUri.gen_if_not_exists(uri: 'http://example.com/grams', name: 'grams')
     KnownUri.unit_of_measure.add_value(grams)
     data_value = EOL::Sparql.explicit_measurement_uri_components(grams)
     expect(data_value.uri).to eq("http://example.com/grams")
@@ -49,9 +49,9 @@ describe EOL::Sparql do
   end
 
   it 'should implicit_measurement_uri_components' do
-    length = KnownUri.gen_if_not_exists(:uri => 'http://example.com/length', :name => 'length')
+    length = KnownUri.gen_if_not_exists(uri: 'http://example.com/length', name: 'length')
     EOL::Sparql.implicit_measurement_uri_components(length).should == nil
-    meters = KnownUri.gen_if_not_exists(:uri => 'http://example.com/meters', :name => 'meters', :uri_type => UriType.value)
+    meters = KnownUri.gen_if_not_exists(uri: 'http://example.com/meters', name: 'meters', uri_type: UriType.value)
     EOL::Sparql.implicit_measurement_uri_components(length).should == nil
     KnownUri.unit_of_measure.add_value(meters)
     length.add_implied_unit(meters)
@@ -64,20 +64,20 @@ describe EOL::Sparql do
 
   it 'should implied_unit_of_measure_for_uri' do
     KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_measurement_unit, name: 'unit_of_measure')
-    height = KnownUri.gen_if_not_exists(:uri => 'http://example.com/height', :name => 'length')
+    height = KnownUri.gen_if_not_exists(uri: 'http://example.com/height', name: 'length')
     EOL::Sparql.implied_unit_of_measure_for_uri(height).should == nil
-    meters = KnownUri.gen_if_not_exists(:uri => 'http://example.com/meters', :name => 'meters', :uri_type => UriType.value)
+    meters = KnownUri.gen_if_not_exists(uri: 'http://example.com/meters', name: 'meters', uri_type: UriType.value)
     KnownUri.unit_of_measure.add_value(meters)
     height.add_implied_unit(meters)
     height.reload
     EOL::Sparql.implied_unit_of_measure_for_uri(height).should == meters
-    random_known_uri = KnownUri.gen_if_not_exists(:uri => 'http://example.com/width', :name => 'width')
+    random_known_uri = KnownUri.gen_if_not_exists(uri: 'http://example.com/width', name: 'width')
     EOL::Sparql.implied_unit_of_measure_for_uri(random_known_uri).should == nil
   end
 
   it 'should is_known_unit_of_measure_uri?' do
     EOL::Sparql.is_known_unit_of_measure_uri?('http://example.com/gallons').should == nil
-    gallons = KnownUri.gen_if_not_exists(:uri => 'http://example.com/gallons', :name => 'gallons', :uri_type => UriType.value)
+    gallons = KnownUri.gen_if_not_exists(uri: 'http://example.com/gallons', name: 'gallons', uri_type: UriType.value)
     KnownUri.unit_of_measure.add_value(gallons)
     EOL::Sparql.is_known_unit_of_measure_uri?(gallons).should == true
   end
@@ -86,7 +86,7 @@ describe EOL::Sparql do
     data_value = EOL::Sparql.uri_components('http://example.com/potatoes')
     expect(data_value.uri).to eq("http://example.com/potatoes")
     expect(data_value.label).to eq("Potatoes")
-    known = KnownUri.gen_if_not_exists(:uri => 'http://example.com/potatoes', :name => 'Potatoes')
+    known = KnownUri.gen_if_not_exists(uri: 'http://example.com/potatoes', name: 'Potatoes')
     data_value = EOL::Sparql.uri_components(known)
     expect(data_value.uri).to eq("http://example.com/potatoes")
     expect(data_value.label).to eq("Potatoes")

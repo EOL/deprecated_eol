@@ -1577,7 +1577,7 @@ it:
         username: Nome utente <small>(4-32 caratteri)</small>
         username_or_email: Nome utente o indirizzo email
       wikipedia_queue: 
-        revision_url: URL versione <small>(ad esempio http://it.wikipedia.org/w/index.php?title=Giraffa_camelopardalis&oldid=48980577)</small>
+        revision_url: URL versione <small>(ad esempio https://it.wikipedia.org/w/index.php?title=Giraffa_camelopardalis&oldid=48980577)</small>
     select: 
       prompt: Seleziona
     submit: 

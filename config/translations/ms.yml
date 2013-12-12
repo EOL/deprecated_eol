@@ -1480,7 +1480,7 @@ ms:
         username: Nama pengguna <small>(4 – 32 aksara)</small>
         username_or_email: Nama pengguna atau alamat e-mel
       wikipedia_queue: 
-        revision_url: URL Semakan <small>(cth. http://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971)</small>
+        revision_url: URL Semakan <small>(cth. https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971)</small>
         revision_url_more: Dengan menaipkan URL semakan Wikipedia, anda meminta supaya EOL menginges semakan itu sebagai disemak. Ia akan menggantikan versi semasa rencana itu dalam EOL jika kami sudah adanya.
     select: 
       prompt: Sila pilih
@@ -2880,10 +2880,10 @@ ms:
   what_is_this_question: Apakah ini?
   who_registered_from: yang berdaftar dari
   wikipedia_queue_create_successful_notice: Semakan rencana %{article} dalam Wikipedia. %{rev} telah dibaris gilir untuk diimport.
-  wikipedia_queue_create_unsuccessful_error: Maaf, berlakunya ralat, rencana Wikipedia itu tidak dibaris gilir untuk diimport.<br/>URL semakan sepadan dengan http://ms.wikipedia.org/w/index.php?title=*TAJUK*&oldid=*IDLAMA*
+  wikipedia_queue_create_unsuccessful_error: Maaf, berlakunya ralat, rencana Wikipedia itu tidak dibaris gilir untuk diimport.<br/>URL semakan sepadan dengan https://ms.wikipedia.org/w/index.php?title=*TAJUK*&oldid=*IDLAMA*
   wikipedia_queue_new_instructions_intro: "Untuk mencari URL semakan rencana Wikipedia:"
-  wikipedia_queue_new_instructions_step_four: "Salin URL semakan daripada pelayar anda dan tampalkannya pada borang permintaan import Wikipedia yang dipaparkan di sini. Contoh URL semakan: <a href=\"http://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971\">http://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971</a>"
-  wikipedia_queue_new_instructions_step_one: Pergi ke halaman rencana di Wikipedia, cth. <a href="http://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971">http://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971</a>
+  wikipedia_queue_new_instructions_step_four: "Salin URL semakan daripada pelayar anda dan tampalkannya pada borang permintaan import Wikipedia yang dipaparkan di sini. Contoh URL semakan: <a href=\"https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971\">https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971</a>"
+  wikipedia_queue_new_instructions_step_one: Pergi ke halaman rencana di Wikipedia, cth. <a href="https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971">https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971</a>
   wikipedia_queue_new_instructions_step_three: Ikuti butiran menu 'Pautan kekal'. Inilah URL semakan semasa yang akan membawa anda kepada versi semasa rencana dari mana anda boleh berpandu arah kepada versi-versi yang terdahulu.
   wikipedia_queue_new_instructions_step_two: Kembangkan menu 'Alatan' pada lajur pandu arah, dan butiran menu 'Pautan kekal' sepatutnya kelihatan di dalamnya.
   wikipedia_queue_new_intro: Serahkan semakan rencana Wikipedia untuk diinges ke dalam EOL sebagai objek teks yang disemak.

@@ -5,10 +5,8 @@
 #   This description block can be viewed (as well as other information
 #   about this scenario) by running:
 #     $ rake scenarios:show NAME=bootstrap
-#
 #---
-#dependencies: [ :foundation ]
-#arbitrary_variable: arbitrary value
+load_foundation_cache
 
 $LOADING_BOOTSTRAP = true
 
@@ -224,6 +222,7 @@ def load_old_foundation_data
   SynonymRelation.gen_if_not_exists(label: "homotypic synonym")
   SynonymRelation.gen_if_not_exists(label: "unavailable name")
   SynonymRelation.gen_if_not_exists(label: "valid name")
+
 end
 
 

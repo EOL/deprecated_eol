@@ -1,4 +1,5 @@
 class Vetted < ActiveRecord::Base
+
   self.table_name = "vetted"
   uses_translations
   has_many :taxon_concepts
@@ -7,30 +8,11 @@ class Vetted < ActiveRecord::Base
   has_many :curated_data_objects_hierarchy_entries
   has_many :users_data_objects
 
-  def self.create_defaults
-    %w(Trusted Unknown Untrusted Inappropriate).each_with_index do |lbl, order|
-      vis = Vetted.create(:view_order => order + 1 )
-      trans = TranslatedVetted.create(vetted_id: vis.id,
-                                      language_id: Language.default.id,
-                                      label: lbl,
-                                      phonetic_label: nil)
-    end
-  end
+  include Enumerated
+  enumerated :label, %w(Trusted Unknown Untrusted Inappropriate)
 
-  def self.inappropriate
-    @@inappropriate ||= cached_find_translated(:label, 'Inappropriate')
-  end
-
-  def self.untrusted
-    @@untrusted ||= cached_find_translated(:label, 'Untrusted')
-  end
-
-  def self.trusted
-    @@trusted ||= cached_find_translated(:label, 'Trusted')
-  end
-
-  def self.unknown
-    @@unknown ||= cached_find_translated(:label, 'Unknown')
+  def self.create_enumerated
+    enumeration_creator defaults: { phonetic_label: nil }, autoinc: :view_order
   end
 
   def self.trusted_ids
@@ -47,7 +29,7 @@ class Vetted < ActiveRecord::Base
     @@for_curating_selects ||= {}
     @@for_curating_selects[I18n.locale] =
       [Vetted.trusted, Vetted.unknown, Vetted.untrusted].map do |v|
-        [v.curation_label, v.id, { :class => v.to_action }]
+        [v.curation_label, v.id, { class: v.to_action }]
       end.compact.sort
   end
 
@@ -96,9 +78,9 @@ private
 
   # TODO - this should be in the DB.
   def vetted_weight
-    @@vetted_weight = {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4} if
+    @@vetted_weight = { Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4 } if
       Rails.env.test?
-    @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4}
+    @@vetted_weight ||= { Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4 }
   end
 
 end

@@ -1,7 +1,7 @@
 class CollectionItemsController < ApplicationController
 
-  before_filter :allow_login_then_submit, :only => [:create]
-  before_filter :find_collection_item, :only => [:show, :update, :edit]
+  before_filter :allow_login_then_submit, only: [:create]
+  before_filter :find_collection_item, only: [:show, :update, :edit]
 
   layout 'v2/collections'
 
@@ -15,9 +15,9 @@ class CollectionItemsController < ApplicationController
     end
     respond_to do |format|
       format.html do
-        @page_title = I18n.t(:collection_item_edit_page_title, :collection_name => @collection.name)
+        @page_title = I18n.t(:collection_item_edit_page_title, collection_name: @collection.name)
       end
-      format.js { render :partial => 'edit' }
+      format.js { render partial: 'edit' }
     end
   end
 
@@ -35,10 +35,10 @@ class CollectionItemsController < ApplicationController
     elsif params[:collection_id] # They are collecting to MULTIPLE collections (potentially):
       if params[:collection_id].is_a? Array
         params[:collection_id].each do |collection_id|
-          create_collection_item(params[:collection_item].merge(:collection_id => collection_id))
+          create_collection_item(params[:collection_item].merge(collection_id: collection_id))
         end
       else
-        create_collection_item(params[:collection_item].merge(:collection_id => params[:collection_id]))
+        create_collection_item(params[:collection_item].merge(collection_id: params[:collection_id]))
       end
     else # ...or this is just a simple single collect:
       create_collection_item(params[:collection_item])
@@ -63,13 +63,13 @@ class CollectionItemsController < ApplicationController
         if params[:render_overview_summary] && @collection_item.collected_item.is_a?(TaxonConcept)
           if @errors.blank?
             @taxon_concept = TaxonConcept.find(@collection_item.collected_item_id)
-            render :partial => 'taxa/collections_summary', :layout => false
+            render partial: 'taxa/collections_summary', layout: false
           else
-            render :text => @errors.to_sentence
+            render text: @errors.to_sentence
           end
         else
           convert_flash_messages_for_ajax
-          render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
+          render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
         end
       end
     end
@@ -93,7 +93,7 @@ class CollectionItemsController < ApplicationController
               if (ref)
                 @collection_item.refs << ref
               else
-                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+                @collection_item.refs << Ref.new(full_reference: reference, user_submitted: true, published: 1, visibility: Visibility.visible)
               end
             end
           end
@@ -101,7 +101,7 @@ class CollectionItemsController < ApplicationController
       end
       respond_to do |format|
         format.html do
-          flash[:notice] = I18n.t(:item_updated_in_collection_notice, :collection_name => @collection_item.collection.name)
+          flash[:notice] = I18n.t(:item_updated_in_collection_notice, collection_name: @collection_item.collection.name)
           redirect_to(@collection_item.collection)
         end
         format.js do
@@ -131,9 +131,9 @@ class CollectionItemsController < ApplicationController
             @references = @references + "\n" unless @references==''
             @references = @references + ref.full_reference
           end
-          render :partial => 'collections/edit_collection_item', :locals => { :collection_item => @collection_item }
+          render partial: 'collections/edit_collection_item', locals: { collection_item: @collection_item }
         else
-          render :text => I18n.t(:collection_item_edit_by_javascript_not_authorized_error)
+          render text: I18n.t(:collection_item_edit_by_javascript_not_authorized_error)
         end
       end
     end
@@ -142,7 +142,7 @@ class CollectionItemsController < ApplicationController
 private
 
   def find_collection_item
-    @collection_item = CollectionItem.find(params[:id], :include => [:collection])
+    @collection_item = CollectionItem.find(params[:id], include: [:collection])
     @selected_collection_items = [] # To avoid errors.  If you edit something, it becomes unchecked.  That's okay.
   end
 
@@ -151,14 +151,14 @@ private
     @collection_item.collection ||= current_user.watch_collection unless current_user.blank?
     if @collection_item.collected_item_type == 'Collection' && @collection_item.collected_item_id == @collection_item.collection.id
       @notices << I18n.t(:item_not_added_to_itself_notice,
-                               :collection_name => @collection_item.collection.name)
+                               collection_name: @collection_item.collection.name)
     elsif @collection_item.save
-      CollectionActivityLog.create(:collection => @collection_item.collection, :user => current_user,
-                                   :activity => Activity.collect, :collection_item => @collection_item)
+      CollectionActivityLog.create(collection: @collection_item.collection, user: current_user,
+                                   activity: Activity.collect, collection_item: @collection_item)
       @collection_item.collection.updated_at = Time.now.to_s
       @collection_item.collection.save
       @notices << I18n.t(:item_added_to_collection_notice,
-                               :collection_name => self.class.helpers.link_to(@collection_item.collection.name,
+                               collection_name: self.class.helpers.link_to(@collection_item.collection.name,
                                                    collection_path(@collection_item.collection)))
     else
       # TODO: Ideally examine validation error and provide more informative error message, e.g. item is

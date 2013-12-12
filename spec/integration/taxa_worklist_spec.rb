@@ -7,14 +7,14 @@ describe 'Taxa worklist' do
     @data = EOL::TestInfo.load('media_heavy')
     @taxon_concept = @data[:taxon_concept]
     Capybara.reset_sessions!
-    CuratorLevel.create_defaults
+    CuratorLevel.create_enumerated
     @curator = build_curator(@taxon_concept) # build_curator generates a full curator by default.
     @user = User.gen()
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-    @taxon_concept.images_from_solr(100).last.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.invisible.id)
-    @test_partner = ContentPartner.gen(:display_name => 'Media Light Partner')
-    @test_resource = Resource.gen(:content_partner => @test_partner, :title => 'Media Light Resource')
-    hevt = HarvestEvent.gen(:resource => @test_resource)
+    @taxon_concept.images_from_solr(100).last.data_objects_hierarchy_entries.first.update_attributes(visibility_id: Visibility.invisible.id)
+    @test_partner = ContentPartner.gen(display_name: 'Media Light Partner')
+    @test_resource = Resource.gen(content_partner: @test_partner, title: 'Media Light Resource')
+    hevt = HarvestEvent.gen(resource: @test_resource)
     image = @taxon_concept.images_from_solr.first
     DataObjectsHarvestEvent.connection.execute("UPDATE data_objects_harvest_events SET harvest_event_id=#{hevt.id} WHERE data_object_id=#{image.id}")
     DataObjectsHarvestEvent.connection.execute("COMMIT")
@@ -44,7 +44,7 @@ describe 'Taxa worklist' do
     login_as(@user)
     expect { visit taxon_worklist_path(@taxon_concept) }.to raise_error(EOL::Exceptions::SecurityViolation)
     
-    assistant_curator = build_curator(@taxon_concept, :level=>:assistant)
+    assistant_curator = build_curator(@taxon_concept, level: :assistant)
     login_as(assistant_curator)
     expect { visit taxon_worklist_path(@taxon_concept) }.to raise_error(EOL::Exceptions::SecurityViolation)
   end
@@ -67,91 +67,91 @@ describe 'Taxa worklist' do
   it 'should show ratings, description, associations, revisions, source information sections selected task' do
     visit taxon_worklist_path(@taxon_concept)
     page.should have_selector('#worklist #task')
-    body.should have_selector("#worklist #task .ratings dt", :text => "average rating")
-    page.should have_selector('#worklist #task .article.source h3', :text => 'Source information')
+    body.should have_selector("#worklist #task .ratings dt", text: "average rating")
+    page.should have_selector('#worklist #task .article.source h3', text: 'Source information')
     page.should have_selector('#worklist #task .article form.review_status')
     page.should have_selector('#worklist #task .article.list ul')
   end
   
   it 'should filter by data type' do
     visit taxon_worklist_path(@taxon_concept)
-    page.select("All", :from => "object_type")
-    page.select("All", :from => "object_status")
-    page.select("All", :from => "object_visibility")
-    page.select("Active", :from => "task_status")
-    page.select("Newest", :from => "sort_by")
-    page.select("All", :from => "resource_id")
+    page.select("All", from: "object_type")
+    page.select("All", from: "object_status")
+    page.select("All", from: "object_visibility")
+    page.select("Active", from: "task_status")
+    page.select("Newest", from: "sort_by")
+    page.select("All", from: "resource_id")
     click_button "show tasks"
     page.should have_content('50 tasks found')
     
-    page.select("Text", :from => "object_type")
+    page.select("Text", from: "object_type")
     click_button "show tasks"
     page.should have_content('6 tasks found')
     
-    page.select("Video", :from => "object_type")
+    page.select("Video", from: "object_type")
     click_button "show tasks"
     page.should have_content('8 tasks found')
     
-    page.select("Sound", :from => "object_type")
+    page.select("Sound", from: "object_type")
     click_button "show tasks"
     page.should have_content('6 tasks found')
     
-    page.select("Image", :from => "object_type")
+    page.select("Image", from: "object_type")
     click_button "show tasks"
     page.should have_content('30 tasks found')
   end
   
   it 'should filter by vetted status' do
     visit taxon_worklist_path(@taxon_concept)
-    page.select("All", :from => "object_type")
-    page.select("Trusted", :from => "object_status")
-    page.select("All", :from => "object_visibility")
-    page.select("Active", :from => "task_status")
-    page.select("Newest", :from => "sort_by")
-    page.select("All", :from => "resource_id")
+    page.select("All", from: "object_type")
+    page.select("Trusted", from: "object_status")
+    page.select("All", from: "object_visibility")
+    page.select("Active", from: "task_status")
+    page.select("Newest", from: "sort_by")
+    page.select("All", from: "resource_id")
     click_button "show tasks"
     page.should have_content('16 tasks found')
     
-    page.select("Unreviewed", :from => "object_status")
+    page.select("Unreviewed", from: "object_status")
     click_button "show tasks"
     page.should have_content('18 tasks found')
     
-    page.select("Untrusted", :from => "object_status")
+    page.select("Untrusted", from: "object_status")
     click_button "show tasks"
     page.should have_content('16 tasks found')
   end
   
   it 'should filter by visibility' do
     visit taxon_worklist_path(@taxon_concept)
-    page.select("All", :from => "object_type")
-    page.select("All", :from => "object_status")
-    page.select("Visible", :from => "object_visibility")
-    page.select("Active", :from => "task_status")
-    page.select("Newest", :from => "sort_by")
-    page.select("All", :from => "resource_id")
+    page.select("All", from: "object_type")
+    page.select("All", from: "object_status")
+    page.select("Visible", from: "object_visibility")
+    page.select("Active", from: "task_status")
+    page.select("Newest", from: "sort_by")
+    page.select("All", from: "resource_id")
     click_button "show tasks"
     page.should have_content('49 tasks found')
     
-    page.select("Hidden", :from => "object_visibility")
+    page.select("Hidden", from: "object_visibility")
     click_button "show tasks"
     page.should have_content('1 task found')
   end
   
   it 'should filter by resource' do
     visit taxon_worklist_path(@taxon_concept)
-    page.select("All", :from => "object_type")
-    page.select("All", :from => "object_status")
-    page.select("All", :from => "object_visibility")
-    page.select("Active", :from => "task_status")
-    page.select("Newest", :from => "sort_by")
-    page.select("All", :from => "resource_id")
+    page.select("All", from: "object_type")
+    page.select("All", from: "object_status")
+    page.select("All", from: "object_visibility")
+    page.select("Active", from: "task_status")
+    page.select("Newest", from: "sort_by")
+    page.select("All", from: "resource_id")
     click_button "show tasks"
     page.should have_content('50 tasks found')
     
-    page.select("Test Framework Import (49)", :from => "resource_id")
+    page.select("Test Framework Import (49)", from: "resource_id")
     click_button "show tasks"
     page.should have_content('49 tasks found')
-    page.select("Media Light Resource (1)", :from => "resource_id")
+    page.select("Media Light Resource (1)", from: "resource_id")
     click_button "show tasks"
     page.should have_content('1 task found')
   end
@@ -159,17 +159,17 @@ describe 'Taxa worklist' do
   it 'should be able to rate active task' do
     visit taxon_worklist_path(@taxon_concept)
     page.should have_selector('.ratings')
-    body.should have_selector(".ratings dt", :text => "average rating")
-    page.should have_selector('.ratings .average_rating .rating', :text => 'Average rating: 2.5 of 5')
-    body.should have_selector(".ratings dt", :text => "Your rating")
-    page.should have_selector('.rating ul li.current_rating_0', :text => 'Your current rating: 0 of 5')
+    body.should have_selector(".ratings dt", text: "average rating")
+    page.should have_selector('.ratings .average_rating .rating', text: 'Average rating: 2.5 of 5')
+    body.should have_selector(".ratings dt", text: "Your rating")
+    page.should have_selector('.rating ul li.current_rating_0', text: 'Your current rating: 0 of 5')
     
     click_link 'Change rating to 5 of 5'
     page.should have_selector('.ratings')
-    body.should have_selector(".ratings dt", :text => "average rating")
-    page.should have_selector('.ratings .average_rating .rating', :text => 'Average rating: 5.0 of 5')
-    body.should have_selector(".ratings dt", :text => "Your rating")
-    page.should have_selector('.rating ul li.current_rating_5', :text => 'Your current rating: 5 of 5')
+    body.should have_selector(".ratings dt", text: "average rating")
+    page.should have_selector('.ratings .average_rating .rating', text: 'Average rating: 5.0 of 5')
+    body.should have_selector(".ratings dt", text: "Your rating")
+    page.should have_selector('.rating ul li.current_rating_5', text: 'Your current rating: 5 of 5')
   end
   
   # it 'should be able to curate an association for the active task'

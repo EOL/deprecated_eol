@@ -38,8 +38,15 @@ class SchemaTermParser
     terms = {}
     term_types.each do |term_type|
       xml.xpath(term_type, namespaces).each do |description|
+        uri = nil
         if about = description.attribute('about')
           uri = about.value.strip
+        elsif description.attribute('value') && defined_by = description.xpath('//rdfs:isDefinedBy')
+          if resource = defined_by.attribute('resource')
+            uri = resource.value.strip
+          end
+        end
+        if uri
           terms[uri] ||= {}
           attribute_uris.each do |att|
             description.xpath(att, namespaces).each do |l|

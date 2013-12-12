@@ -17,15 +17,15 @@ describe CollectionJob do
   before(:all) do
     @old_val = $INDEX_RECORDS_IN_SOLR_ON_SAVE
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = true # Nothing happens otherwise.
-    Visibility.create_defaults
-    DataType.create_defaults
-    License.create_defaults
+    Visibility.create_enumerated
+    DataType.create_enumerated
+    License.create_enumerated
     entry = HierarchyEntry.gen # Gives the TC a name.
     @tc = entry.taxon_concept
     @user = User.gen
     @has_source_but_not_target = User.gen
     @has_target_but_not_source = User.gen
-    @dato = DataObject.gen(:object_title => 'Image of your mom')
+    @dato = DataObject.gen(object_title: 'Image of your mom')
     @person = User.gen
     @source = Collection.gen
     @target = Collection.gen

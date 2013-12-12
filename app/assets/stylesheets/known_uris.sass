@@ -1,20 +1,36 @@
 @import "common"
 
+#known_uris
+  ul.nav
+    clear: none
+  .pagination + ul
+    border-top: none
+
 div.fieldset_form
+  clear: both
   padding: 20px 20px 10px 20px
-  margin-top: 20px
   background: $fieldset_light_blue
   border: 1px solid $grayblue
   label
     font-size: 1.08em
     font-weight: bold
-  ul
+  p
+    line-height: 25px
+    padding: 10px 14px
+  table
+    width: 100%
     padding: 10px
-    li
-      line-height: 25px
-      div.actions
-        float: right
+    word-break: break-all
+    tr
+      height: 23px
+    td
+      &.label
         width: 100px
+      &.uri
+        width: 220px
+        overflow: hidden
+      &.actions
+        width: 50px
         margin: 0px 0px 0px 20px
         form
           margin: 0px
@@ -32,7 +48,6 @@ div.fieldset_form
         font-weight: bold
   div.actions
     clear: right
-
   fieldset
     dt
       font-size: 1.08em
@@ -74,3 +89,17 @@ table.ontology
   span.language
     font-size: .7em
     color: #777777
+div#known_uris
+  form
+    fieldset
+      margin: 0px 40px 10px 0px
+      &.left_column
+        float: left
+      &.primary
+        font-size: 1.6em
+        clear: both
+        dt
+          width: 150px
+          float: left
+        input
+          width: 500px

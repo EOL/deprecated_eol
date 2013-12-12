@@ -360,6 +360,7 @@ Eol::Application.routes.draw do
     member do
       put 'unhide'
       put 'hide'
+      put 'set_as_exemplar_for_same_as'
     end
   end
 
@@ -437,7 +438,6 @@ Eol::Application.routes.draw do
   match '/loggertest' => 'content#loggertest' # This is used for configuring logs and log levels.
   match '/version' => 'content#version'
   match '/boom' => 'content#boom'
-  match '/check_connection' => 'content#check_connection'
   match '/test_timeout/:time' => 'content#test_timeout'
 
   # Named application routes:
@@ -492,6 +492,7 @@ Eol::Application.routes.draw do
   match '/citing' => 'content#show', :defaults => {:id => 'citing'}, :as => 'citing'
   match '/privacy' => 'content#show', :defaults => {:id => 'privacy'}, :as => 'privacy'
   match '/curators' => 'content#show', :defaults => {:id => 'curators'}, :as => 'curators'
+  match '/traitbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank'
   match '/curators/*ignore' => 'content#show', :defaults => {:id => 'curators'}
   match '/info/:id' => 'content#show', :as => 'cms_page'
   match '/info/*crumbs' => 'content#show', :as => 'cms_crumbs'
@@ -557,7 +558,7 @@ Eol::Application.routes.draw do
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end
 
-  resources :site_configuration_options, only: :update do
+  resources :eol_configs, only: :update do
     collection do
       get 'change'
     end

@@ -9,7 +9,7 @@ class TaxaController < ApplicationController
       do_the_search
       return
     end
-    return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
+    return redirect_to taxon_overview_path(params[:id]), status: :moved_permanently
   end
 
   ################
@@ -24,7 +24,7 @@ class TaxaController < ApplicationController
     category_id = params[:category_id].to_i
     redirect_url = "/pages/#{tc.id}"
     redirect_url += "?category_id=#{category_id}" unless category_id.blank? || category_id == 0
-    current_user.log_activity(:published_wikipedia_article, :taxon_concept_id => tc.id)
+    current_user.log_activity(:published_wikipedia_article, taxon_concept_id: tc.id)
     redirect_to redirect_url
   end
 
@@ -35,28 +35,28 @@ class TaxaController < ApplicationController
     if defined? $REFERENCE_PARSING_ENABLED
       raise 'Reference parsing disabled' if !$REFERENCE_PARSING_ENABLED
     else
-      parameter = SiteConfigurationOption.reference_parsing_enabled
+      parameter = EolConfig.reference_parsing_enabled
       raise 'Reference parsing disabled' unless parameter && parameter.value == 'true'
     end
 
     if defined? $REFERENCE_PARSER_ENDPOINT
       endpoint = $REFERENCE_PARSER_ENDPOINT
     else
-      endpoint_param = SiteConfigurationOption.reference_parser_endpoint
+      endpoint_param = EolConfig.reference_parser_endpoint
       endpoint = endpoint_param.value
     end
 
     if defined? $REFERENCE_PARSER_PID
       pid = $REFERENCE_PARSER_PID
     else
-      pid_param = SiteConfigurationOption.reference_parser_pid
+      pid_param = EolConfig.reference_parser_pid
       pid = pid_param.value
     end
 
     raise 'Invalid configuration' unless pid && endpoint
 
     url = endpoint + "?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
-    render :text => Net::HTTP.get(URI.parse(url))
+    render text: Net::HTTP.get(URI.parse(url))
   end
 
 protected
@@ -71,9 +71,9 @@ protected
   # ApplicationController for #super)
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :preferred_common_name => @preferred_common_name.presence,
-      :scientific_name => @scientific_name.presence,
-      :hierarchy_provider => @taxon_page.hierarchy_provider,
+      preferred_common_name: @preferred_common_name.presence,
+      scientific_name: @scientific_name.presence,
+      hierarchy_provider: @taxon_page.hierarchy_provider,
     }).freeze
   end
 
@@ -108,7 +108,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= (@taxon_concept && dato = @taxon_concept.exemplar_or_best_image_from_solr) ?
-       dato.thumb_or_object('260_190', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
+       dato.thumb_or_object('260_190', specified_content_host: $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 
 private
@@ -147,13 +147,13 @@ private
 
   def redirect_if_superceded
     if @taxon_concept.superceded_the_requested_id?
-      redirect_to url_for(:controller => params[:controller], :action => params[:action], :taxon_id => @taxon_concept.id), :status => :moved_permanently
+      redirect_to url_for(controller: params[:controller], action: params[:action], taxon_id: @taxon_concept.id), status: :moved_permanently
       return false
     end
   end
 
   def add_page_view_log_entry
-    PageViewLog.create(:user => current_user, :agent => current_user.agent, :taxon_concept => @taxon_concept)
+    PageViewLog.create(user: current_user, agent: current_user.agent, taxon_concept: @taxon_concept)
   end
 
   def get_new_text_tocitem_id(category_id)
@@ -170,7 +170,7 @@ private
   end
 
   def do_the_search
-    redirect_to search_path(:q => params[:id])
+    redirect_to search_path(q: params[:id])
   end
 
   def is_common_names?(category_id)
@@ -180,9 +180,9 @@ private
   def build_language_list
     current_user_copy = current_user.dup || nil
     @languages = Language.with_iso_639_1.map do |lang|
-      { :label    => lang.label,
-        :id       => lang.id,
-        :selected => lang.id == (current_user_copy && current_user_copy.language.id) ? "selected" : nil
+      { label: lang.label,
+        id: lang.id,
+        selected: lang.id == (current_user_copy && current_user_copy.language.id) ? "selected" : nil
       }
     end
   end
@@ -191,11 +191,11 @@ private
     auto_collect(tc) # SPG asks for all curation (including names) to add the item to their watchlist.
     # NOTE - Don't pass :data_object into this; it will overwrite the value of :target_id.
     CuratorActivityLog.create(
-      :user_id => current_user.id,
-      :changeable_object_type => ChangeableObjectType.send(target.class.name.underscore.to_sym),
-      :target_id => target.id,
-      :activity => Activity.send(method),
-      :taxon_concept_id => tc.id
+      user_id: current_user.id,
+      changeable_object_type: ChangeableObjectType.send(target.class.name.underscore.to_sym),
+      target_id: target.id,
+      activity: Activity.send(method),
+      taxon_concept_id: tc.id
     )
     if $STATSD
       $STATSD.increment 'all_curations'

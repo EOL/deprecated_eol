@@ -8,7 +8,7 @@
       - status_indicator = 'Saved' if @task_status == 'curated'
       - li_class = status_indicator ? status_indicator.downcase : nil
       - # FIXME: Why is en_type css class name listed twice, in both #{task_class} and in #{en_type}?
-      %li{:class => "#{task_class} #{li_class} #{en_type}"}
+      %li{class: "#{task_class} #{li_class} #{en_type}"}
         %span.icon
         - if status_indicator.blank?
           %span.indicator.invisible
@@ -16,9 +16,9 @@
           - # TODO: should status_indicator be I18nized?
           %span.indicator= status_indicator
         - if ['image_map', 'image', 'video', 'sound'].include?(en_type)
-          = render :partial => "media_data_object", :locals => { :item => data_object, :en_type => en_type }
+          = render partial: "media_data_object", locals: { item: data_object, en_type: en_type }
         - elsif ['text', 'link'].include?(en_type)
-          = render :partial => "article_data_object", :locals => { :item => data_object }
+          = render partial: "article_data_object", locals: { item: data_object }
         - else
-          = render :partial => "#{en_type}_data_object", :locals => { :item => data_object }
-  %p.more= link_to I18n.t(:get_more_tasks), current_url(false), {:class => "button"}
+          = render partial: "#{en_type}_data_object", locals: { item: data_object }
+  %p.more= link_to I18n.t(:get_more_tasks), current_url(false), {class: "button"}

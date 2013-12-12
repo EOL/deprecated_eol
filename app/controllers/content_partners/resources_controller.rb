@@ -7,7 +7,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
   # GET /content_partners/:content_partner_id/resources
   def index
     @partner = ContentPartner.find(params[:content_partner_id],
-                 :include => [ { :resources => :resource_status }, :content_partner_agreements, :content_partner_contacts])
+                 include: [ { resources: :resource_status }, :content_partner_agreements, :content_partner_contacts])
     return access_denied unless current_user.can_update?(@partner)
     return if !current_user.is_admin? && redirect_if_terms_not_accepted
     @resources = @partner.resources
@@ -19,9 +19,9 @@ class ContentPartners::ResourcesController < ContentPartnersController
   def new
     @partner = ContentPartner.find(params[:content_partner_id])
     set_new_resource_options
-    @resource = @partner.resources.build(:license_id => @licenses.first.id,
-                                         :language_id => current_language.id,
-                                         :refresh_period_hours => @import_frequencies.first.second )
+    @resource = @partner.resources.build(license_id: @licenses.first.id,
+                                         language_id: current_language.id,
+                                         refresh_period_hours: @import_frequencies.first.second )
     access_denied unless current_user.can_create?(@resource)
   end
 
@@ -36,13 +36,13 @@ class ContentPartners::ResourcesController < ContentPartnersController
         if @resource.resource_status_id = ResourceStatus.validation_failed.id
           flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
         else
-          flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
+          flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, resource_status: @resource.status_label)
         end
       end
       Notifier.content_partner_resource_created(@partner, @resource, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
-                              :resource_status => @resource.status_label) unless flash[:error]
-      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
+                              resource_status: @resource.status_label) unless flash[:error]
+      redirect_to content_partner_resources_path(@partner), status: :moved_permanently
     else
       set_new_resource_options
       flash.now[:error] = I18n.t(:content_partner_resource_create_unsuccessful_error)
@@ -52,7 +52,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
   # GET /content_partners/:content_partner_id/resources/:id/edit
   def edit
-    @partner = ContentPartner.find(params[:content_partner_id], :include => [:resources])
+    @partner = ContentPartner.find(params[:content_partner_id], include: [:resources])
     set_resource_options
     @resource = @partner.resources.find(params[:id])
     @page_subheader = I18n.t(:content_partner_resource_edit_subheader)
@@ -61,7 +61,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
   # PUT /content_partners/:content_partner_id/resources/:id
   def update
     ContentPartner.with_master do
-      @partner = ContentPartner.find(params[:content_partner_id], :include => {:resources => :resource_status })
+      @partner = ContentPartner.find(params[:content_partner_id], include: {resources: :resource_status })
       @resource = @partner.resources.find(params[:id])
     end
     access_denied unless current_user.can_update?(@resource)
@@ -80,12 +80,12 @@ class ContentPartners::ResourcesController < ContentPartnersController
           if @resource.resource_status_id = ResourceStatus.validation_failed.id
             flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
           else
-            flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
+            flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, resource_status: @resource.status_label)
           end
         end
       end
       flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
-                              :resource_status => @resource.status_label) unless flash[:error]
+                              resource_status: @resource.status_label) unless flash[:error]
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else
@@ -98,33 +98,33 @@ class ContentPartners::ResourcesController < ContentPartnersController
   # GET /content_partners/:content_partner_id/resources/:id
   def show
     ContentPartner.with_master do
-      @partner = ContentPartner.find(params[:content_partner_id], :include => {
-                   :resources => [ :resource_status, :collection, :preview_collection, :license, :language, :harvest_events, :hierarchy, :dwc_hierarchy ]})
+      @partner = ContentPartner.find(params[:content_partner_id], include: {
+                   resources: [ :resource_status, :collection, :preview_collection, :license, :language, :harvest_events, :hierarchy, :dwc_hierarchy ]})
       @resource = @partner.resources.find(params[:id])
     end
-    @page_subheader = I18n.t(:content_partner_resource_show_subheader, :resource_title => Sanitize.clean(@resource.title))
+    @page_subheader = I18n.t(:content_partner_resource_show_subheader, resource_title: Sanitize.clean(@resource.title))
   end
 
   # GET /content_partners/:content_partner_id/resources/:id/force_harvest
   # POST /content_partners/:content_partner_id/resources/:id/force_harvest
   def force_harvest
     ContentPartner.with_master do
-      @partner = ContentPartner.find(params[:content_partner_id], :include => {:resources => :resource_status })
+      @partner = ContentPartner.find(params[:content_partner_id], include: {resources: :resource_status })
       @resource = @partner.resources.find(params[:id])
     end
     access_denied unless current_user.can_update?(@resource)
     if @resource.resource_status.blank? || @resource.resource_status == ResourceStatus.being_processed
       flash[:error] = I18n.t(:content_partner_resource_status_update_illegal_transition_error,
-                             :resource_title => @resource.title, :current_resource_status => @resource.status_label,
-                             :requested_resource_status => Resource.force_harvest.label)
+                             resource_title: @resource.title, current_resource_status: @resource.status_label,
+                             requested_resource_status: Resource.force_harvest.label)
     else
       @resource.resource_status = ResourceStatus.force_harvest
       if @resource.save
         flash[:notice] = I18n.t(:content_partner_resource_status_update_successful_notice,
-                                :resource_status => @resource.status_label, :resource_title => @resource.title)
+                                resource_status: @resource.status_label, resource_title: @resource.title)
       else
         flash.now[:error] = I18n.t(:content_partner_resource_status_update_unsuccessful_error,
-                                   :resource_status => @resource.status_label, :resource_title => @resource.title)
+                                   resource_status: @resource.status_label, resource_title: @resource.title)
       end
     end
     store_location request.referer unless request.referer.blank?
@@ -136,9 +136,9 @@ private
   def redirect_if_terms_not_accepted
     @current_agreement = @partner.agreement
     if @current_agreement.blank?
-      redirect_to new_content_partner_agreement_path(@partner), :status => :moved_permanently
+      redirect_to new_content_partner_agreement_path(@partner), status: :moved_permanently
     elsif !@current_agreement.is_accepted?
-      redirect_to edit_content_partner_agreement_path(@partner, @current_agreement), :status => :moved_permanently
+      redirect_to edit_content_partner_agreement_path(@partner, @current_agreement), status: :moved_permanently
     end
   end
 

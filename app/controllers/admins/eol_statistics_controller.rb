@@ -47,10 +47,10 @@ class Admins::EolStatisticsController < AdminsController
                  EolStatistic.send(report).latest
                else
                  # FIXME: WEB-3879 pagination broken on namedscopes.
-                 # This should be EolStatistic.send(report).latest.paginate(:page => params[:page] ||= 1, :per_page => 30)
+                 # This should be EolStatistic.send(report).latest.paginate(page: params[:page] ||= 1, per_page: 30)
                  # but we can't chain paginate on named scope at the moment, so we throw in a dup to break
                  # the chain, loading all stats and then paginating.
-                 EolStatistic.send(report).latest.dup.paginate(:page => params[:page] ||= 1, :per_page => 30)
+                 EolStatistic.send(report).latest.dup.paginate(page: params[:page] ||= 1, per_page: 30)
                end
   end
 
@@ -79,7 +79,7 @@ class Admins::EolStatisticsController < AdminsController
         end
       end
       data.rewind
-      send_data(data.read, :type => 'text/csv; charset=iso-8859-1; header=present', :filename => params[:action] + "_#{Date.today.strftime('%Y-%m-%d')}.csv", :disposition => 'attachment', :encoding => 'utf8')
+      send_data(data.read, type: 'text/csv; charset=iso-8859-1; header=present', filename: params[:action] + "_#{Date.today.strftime('%Y-%m-%d')}.csv", disposition: 'attachment', encoding: 'utf8')
       return false
     end
   end

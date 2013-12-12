@@ -178,6 +178,8 @@ pt-BR:
         descriptive_label: Rótulo descritivo
         label: Rótulo
         request_publish: Solicitar a publicação
+      known_uri: 
+        name: Nome
       name: 
         string: Nome
       news_item: 
@@ -2248,7 +2250,7 @@ pt-BR:
         username: Nome de usuário <small>(4 - 32 caracteres)</small>
         username_or_email: Nome de usuário ou endereço de e-mail
       wikipedia_queue: 
-        revision_url: URL de revisão <small>(e.g. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: URL de revisão <small>(e.g. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Ao inserir um URL de revisão da Wikipédia você está a pedir que a EOL ingira essa revisão em especial como controlada. Ela irá substituir a versão atual do mesmo artigo na EOL se já o tivermos.
     select: 
       prompt: Por favor selecione
@@ -3853,10 +3855,10 @@ pt-BR:
   who_registered_before: a
   who_registered_from: que se registrou de
   wikipedia_queue_create_successful_notice: Artigo da Wikipédia %{article} revisão %{rev} foi colocado na fila para importação.
-  wikipedia_queue_create_unsuccessful_error: Ocorreu um erro, o artigo da Wikipédia não estava na fila de importação.<br />URL de revisão terá de coincidir com http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: Ocorreu um erro, o artigo da Wikipédia não estava na fila de importação.<br />URL de revisão terá de coincidir com https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "Para encontrar o URL de revisão de um artigo da Wikipédia:"
-  wikipedia_queue_new_instructions_step_four: Copie e cole-o na Wikipédia o formulário de solicitação de importação exibida aqui a URL de revisão de seu navegador, a URL de revisão deve ser algo como <a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
-  wikipedia_queue_new_instructions_step_one: Vá para a página do artigo na Wikipédia, por exemplo, <a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: Copie e cole-o na Wikipédia o formulário de solicitação de importação exibida aqui a URL de revisão de seu navegador, a URL de revisão deve ser algo como <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_instructions_step_one: Vá para a página do artigo na Wikipédia, por exemplo, <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: Seguir o item de menu 'Link permanente'. Esta avaliação representa a URL atual e irá levá-lo para a versão atual do artigo do qual você pode navegar para as versões anteriores.
   wikipedia_queue_new_instructions_step_two: Expanda o menu 'Ferramentas' listado na coluna de navegação, e aninhada dentro Você deve ver o item de menu 'Link permanente'.
   wikipedia_queue_new_intro: Enviar uma revisão de um artigo da Wikipédia a ser ingerido a EOL como objeto de texto confiável.

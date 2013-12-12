@@ -1,5 +1,5 @@
 $(function() {
-  $(".rating ul a").click(function() {
+  $(".rating ul a").on('click', function() {
     var $e = $(this),
         idx = $e.closest("ul").find("a").index($e);
     idx++;

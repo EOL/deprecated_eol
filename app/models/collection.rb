@@ -11,21 +11,21 @@ class Collection < ActiveRecord::Base
   belongs_to :view_style
 
   has_many :collection_items
-  has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :collected_item
-  has_many :containing_collections, :through => :others_collection_items, :source => :collection
+  has_many :others_collection_items, class_name: CollectionItem.to_s, as: :collected_item
+  has_many :containing_collections, through: :others_collection_items, source: :collection
 
-  has_many :comments, :as => :parent
+  has_many :comments, as: :parent
 
   has_one :resource
-  has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
+  has_one :resource_preview, class_name: Resource.to_s, foreign_key: :preview_collection_id
 
-  has_and_belongs_to_many :communities, :uniq => true
+  has_and_belongs_to_many :communities, uniq: true
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collection_jobs
 
-  scope :published, :conditions => {:published => 1}
+  scope :published, conditions: {published: 1}
   # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...
-  scope :watch, lambda { { :conditions => {:special_collection_id => SpecialCollection.watch.id} } }
+  scope :watch, lambda { { conditions: {special_collection_id: SpecialCollection.watch.id} } }
 
   validates_presence_of :name
   # JRice removed the requirement for the uniqueness of the name. Why? Imagine user#1 creates a collection named "foo".
@@ -39,26 +39,26 @@ class Collection < ActiveRecord::Base
   before_update :set_relevance_if_collection_items_changed
 
   has_attached_file :logo,
-    :path => $LOGO_UPLOAD_DIRECTORY,
-    :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/assets/blank.gif"
+    path: $LOGO_UPLOAD_DIRECTORY,
+    url: $LOGO_UPLOAD_PATH,
+    default_url: "/assets/blank.gif"
   
   validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    content_type: ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+  validates_attachment_size :logo, in: 0..$LOGO_UPLOAD_MAX_SIZE,
+    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
 
 
-  index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
+  index_with_solr keywords: [ :name ], fulltexts: [ :description ]
 
   alias :items :collection_items
   alias_attribute :summary_name, :name
   alias_attribute :collected_name, :name
 
   def self.which_contain(what)
-    Collection.joins(:collection_items).where(:collection_items => { :collected_item_type => what.class.name,
-                                              :collected_item_id => what.id}).uniq
+    Collection.joins(:collection_items).where(collection_items: { collected_item_type: what.class.name,
+                                              collected_item_id: what.id}).uniq
   end
 
   def self.get_taxa_counts(collections)
@@ -101,9 +101,10 @@ class Collection < ActiveRecord::Base
 
   def add(what, opts = {})
     return if what.nil?
+    # TODO - we aren't really using this ATM, *plus* I think we can duck-type it to #summary_name if we *do* start using it...
     name = case what
       when TaxonConcept
-        what.scientific_name
+        what.title
       when User
         what.full_name
       when DataObject
@@ -114,9 +115,9 @@ class Collection < ActiveRecord::Base
         what.name
       else
         raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
-                                                                    :klass => what.class.name))
+                                                                    klass: what.class.name))
       end
-    collection_items << item = CollectionItem.create(:collected_item => what, :name => name, :collection => self, :added_by_user => opts[:user])
+    collection_items << item = CollectionItem.create(collected_item: what, name: name, collection: self, added_by_user: opts[:user])
     set_relevance
     item # Convenience.  Allows us to know the collection_item created and possibly chain it.
   end
@@ -125,9 +126,9 @@ class Collection < ActiveRecord::Base
     if logo_cache_url.blank?
       return "v2/logos/collection_default.png"
     elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', :specified_content_host => specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host: specified_content_host)
     else
-      DataObject.image_cache_path(logo_cache_url, '130_130', :specified_content_host => specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host: specified_content_host)
     end
   end
 
@@ -148,13 +149,13 @@ class Collection < ActiveRecord::Base
     return false unless item
     # find the first collected_item in their collection matching the given item
     found = CollectionItem.find(:first,
-      :conditions => "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and collected_item_id = #{item.id}")
+      conditions: "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and collected_item_id = #{item.id}")
     return found if found
     if item.class == DataObject
       # for data objects we can further check for any item in the collection with the same guid
       found = CollectionItem.find(:first,
-        :conditions => "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and do_guid.id = #{item.id}",
-        :joins => 'JOIN data_objects do ON (collection_items.collected_item_id=do.id) JOIN data_objects do_guid ON (do.guid=do_guid.guid)')
+        conditions: "collection_id = #{self.id} and collected_item_type = '#{item.class.name}' and do_guid.id = #{item.id}",
+        joins: 'JOIN data_objects do ON (collection_items.collected_item_id=do.id) JOIN data_objects do_guid ON (do.guid=do_guid.guid)')
       return found if found
     end
     nil
@@ -176,11 +177,11 @@ class Collection < ActiveRecord::Base
   def items_from_solr(options={})
     sort_by_style = options[:sort_by].blank? ? sort_style_or_default : SortStyle.find(options[:sort_by])
     items = begin
-              EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
+              EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(sort_by: sort_by_style))
             rescue ActiveRecord::RecordNotFound
               logger.error "** ERROR: Collection #{id} failed to find all items... reindexing."
               EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(self)
-              EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
+              EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(sort_by: sort_by_style))
             end
   end
 
@@ -193,7 +194,7 @@ class Collection < ActiveRecord::Base
   end
 
   def cached_count
-    Rails.cache.fetch("collections/cached_count/#{self.id}", :expires_in => 10.minutes) do
+    Rails.cache.fetch("collections/cached_count/#{self.id}", expires_in: 10.minutes) do
       collection_items.count
     end
   end
@@ -220,13 +221,13 @@ class Collection < ActiveRecord::Base
   end
   
   def featuring_communities
-    others_collection_items.includes({ :collection => :communities }).collect do |ci|
+    others_collection_items.includes({ collection: :communities }).collect do |ci|
       ci.collection ? ci.collection.communities.select{ |com| com.published? } : nil
     end.flatten.compact.uniq
   end
 
   def unpublish
-    if update_attributes(:published => false)
+    if update_attributes(published: false)
       EOL::GlobalStatistics.decrement('collections')
       true
     else 

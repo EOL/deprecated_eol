@@ -58,15 +58,15 @@ class TaxonMedia < TaxonUserClassificationFilter
   def get_media
     set_statuses
     @media ||= taxon_concept.data_objects_from_solr(
-      :ignore_translations => true,
-      :return_hierarchically_aggregated_objects => true,
-      :page             => @page,
-      :per_page         => @per_page,
-      :sort_by          => @sort_by,
-      :data_type_ids    => data_type_ids,
-      :vetted_types     => @search_statuses,
-      :visibility_types => @visibility_statuses,
-      :preload_select   => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
+      ignore_translations: true,
+      return_hierarchically_aggregated_objects: true,
+      page: @page,
+      per_page: @per_page,
+      sort_by: @sort_by,
+      data_type_ids: data_type_ids,
+      vetted_types: @search_statuses,
+      visibility_types: @visibility_statuses,
+      preload_select: { data_objects: [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
                                               :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
                                               :published ] }
     )

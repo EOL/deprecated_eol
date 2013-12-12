@@ -18,6 +18,6 @@ class GoogleAnalyticsPageStat < ActiveRecord::Base
               gapt.`year`,
               gapt.`month`
               ORDER BY SUM(gaps.page_views) DESC "
-    self.paginate_by_sql [query, user_id, year, month], :page => page, :per_page => 50 , :order => 'SUM(gaps.page_views)'
+    self.paginate_by_sql [query, user_id, year, month], page: page, per_page: 50 , order: 'SUM(gaps.page_views)'
   end
 end

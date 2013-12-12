@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: B4bol4t
 # Author: Breghtje
+# Author: Carsrac
 # Author: GerardM
 # Author: HanV
 # Author: Inholland
@@ -166,6 +167,8 @@ nl:
         rich_pages: Rijke pagina's
         rich_redhotlist_pages: Rijke, rode, populaire pagina's
         rich_redhotlist_pages_percentage: "% rijke, rode, populaire pagina's"
+        total_measurements: Metingen
+        total_occurrences: Gebeurtenissen
         udo_published: Door gebruikers toegevoegde tekst
         udo_published_by_curators: Door conservator toegevoegde tekst
         udo_published_by_non_curators: Door niet-conservator toegevoegde tekst
@@ -191,6 +194,16 @@ nl:
         descriptive_label: Beschrijvend label
         label: Label
         request_publish: Verzoek publicatie
+      known_uri: 
+        description: Beschrijving
+        name: Naam
+        toc_items: Categorieën
+        uri: URI
+        uri_type: Type URI
+      known_uri_relationship: 
+        from_known_uri_id: Onderwerp-URI
+        to_known_uri: Doel-URI
+        to_known_uri_id: Doel-URI
       name: 
         string: Naam
       news_item: 
@@ -230,6 +243,11 @@ nl:
         auto_publish: Automatisch publiceren
         bibliographic_citation: Bibliografische bronvermelding
         dataset: Datasetbestand
+        dataset_hosted_url: Brondataset (lokale kopie)
+        dataset_license_id: Licentie
+        dataset_rights_holder: Rechthebbende
+        dataset_rights_statement: Rechtenverklaring
+        dataset_source_url: Oorspronkelijke gegevensbron
         description: Bronbeschrijving
         dwc_archive_url: URL Darwin Core Archive
         harvest_events: Imports
@@ -249,6 +267,9 @@ nl:
         meta_description: Metadatabeschrijving
         meta_keywords: Metagegevenstrefwoorden
         title: Naam
+      translated_known_uri: 
+        comment: Opmerking
+        definition: Definitie
       translated_news_item: 
         active_translation: Gepubliceerd
         body: Bericht
@@ -275,6 +296,13 @@ nl:
         requested_curator_level_id: Gewenst conservatieniveau
         tag_line: Motto
         username: Gebruikersnaam
+      user_added_data: 
+        object: Waarde
+        predicate: Eigenschap
+        user: Toegevoegd door
+      user_added_data_metadata: 
+        object: Waarde
+        predicate: Eigenschap
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -322,6 +350,14 @@ nl:
             publish: 
               inclusion: is alleen toegestaan voor de laatste oogst en alleen als die gebeurtenis niet al is gepubliceerd.
         inaccessible: Het record kon niet worden opgeslagen omdat het ongeldig was. Controleer de validatiefouten en sla het opnieuw op.
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: niet toegestaan - er kan slechts één maateenheid zijn
+            to_known_uri_id: 
+              must_be_different: moet anders zijn dan de onderwerp-URI
+              must_be_known_uri: moet een bekende URI zijn
+              must_be_measurement: moet een maateenheid zijn
         open_authentications: 
           guid_provider_must_be_unique: de externe gebruiker is al gekoppeld met een EOL-gebruiker
           provider_user_id_must_be_unique: er kan slechts één externe gebruiker gekoppeld zijn aan een EOL-gebruiker
@@ -337,6 +373,18 @@ nl:
             dwc_archive_url: 
               inaccessible: is ontoegankelijk; de URL moet publiek toegankelijk zijn
               invalid: is ongeldig; dit moet naar een TAR.GZIP-, TAR.GZ, TGZ- of ZIP-bestand wijzen
+        user_added_data: 
+          attributes: 
+            predicate: 
+              namespace: gebruikt een naamruimte die niet is herkend
+            subject: 
+              namespace: gebruikt een naamruimte die niet is herkend
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              namespace: gebruikt een naamruimte die niet is herkend
+            subject: 
+              namespace: gebruikt een naamruimte die niet is herkend
       template: 
         body: "Voor de volgende velden is de validatie mislukt:"
         header: 
@@ -1721,7 +1769,7 @@ nl:
   data: Gegevens
   data_column_measurement: Meting
   data_column_value: Waarde
-  data_column_value_uri: Waarde URI
+  data_column_value_uri: Waarde-URI
   data_database_colon: "Gegevens:"
   data_logging_active: Er worden gegevens verzameld
   data_master_database_colon: "Gegevensmaster:"
@@ -1879,7 +1927,7 @@ nl:
   duplicate_comment_warning: "De reactie is niet opgeslagen: het lijkt erop dat u al hebt gereageerd op dit bericht. Hebt u wellicht per ongeluk uw reactie twee keer opgeslagen?"
   duplicate_items_were_ignored: Dubbele items zijn genegeerd.
   each_method_documentation_page_has_formatted_responses: De documentatiepagina van iedere methode heeft een voorbeeld van antwoorden in de vorm van XML en JSON.
-  edit: Bewerken
+  edit: bewerken
   edit_collection_details: Collectiegegevens bewerken
   edit_collection_details_header: Collectiegegevens bewerken
   edit_comment: Reactie bewerken
@@ -1946,6 +1994,8 @@ nl:
     curators: 
       menu_link: Conservatorstatistieken
       page_header: Conservatorstatistieken
+      page_title: Statistieken
+    data: 
       page_title: Statistieken
     data_objects: 
       menu_link: Gegevensobjecten
@@ -2382,7 +2432,7 @@ nl:
         username: Gebruikersnaam <small>(4-32 tekens)</small>
         username_or_email: Gebruikersnaam of e-mailadres
       wikipedia_queue: 
-        revision_url: Versie-URL <small>(bijvoorbeeld http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url: Versie-URL <small>(bijvoorbeeld https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Door een permalink naar Wikipedia toe te voegen, vraagt u EOL die versie op te nemen als doorgelicht. Als het artikel al aanwezig is in EOL, wordt het door de nieuwe versie vervangen.
     select: 
       prompt: Maak een keuze
@@ -2590,6 +2640,9 @@ nl:
   just_pages_with_pictures_and_text: Alleen de pagina's met afbeeldingen en tekst
   keep_split_entry_from_this_entry: Gescheiden houden van deze term
   key: Sleutel
+  known_uris: 
+    please_select_from_the_menu: Selecteer uit het menu hierboven
+    relationships: Relaties
   label: Label
   language: "Taal:"
   language_selector_advisory_information: Hieronder staat een lijst met talen waarvan de inhoud van de website beschikbaar is. Selecteer een taal uit de lijst om de inhoud in die taal te bekijken.
@@ -3938,6 +3991,7 @@ nl:
     one: De uitnodiging kon niet verzonden worden naar %{list}.
     other: De uitnodigingen konden niet verzonden worden naar %{list}.
   unique_page_views_th: Unieke bekeken pagina's
+  unit_of_measure: Maateenheid
   unknown: Onbekend
   unknown_data_object_title: Onbekend dataobject
   unknown_hierarchy: Onbekende hiërarchie
@@ -4306,10 +4360,10 @@ nl:
   who_registered_before: aan
   who_registered_from: geregistreerd van
   wikipedia_queue_create_successful_notice: Wikipedia-artikel %{article} verzie %{rev} wordt binnenkort geïmporteerd.
-  wikipedia_queue_create_unsuccessful_error: Er is een fout opgetreden. De Wikipediapagina is niet in de wachtrij van te importeren pagina's opgenomen.<br />. De versie-URL moet overeenkomen met het patroon "http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*".
+  wikipedia_queue_create_unsuccessful_error: Er is een fout opgetreden. De Wikipediapagina is niet in de wachtrij van te importeren pagina's opgenomen.<br />. De versie-URL moet overeenkomen met het patroon "https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*".
   wikipedia_queue_new_instructions_intro: "Om de versie-URL van een artikel in Wikipedia te vinden:"
-  wikipedia_queue_new_instructions_step_four: "Kopieer de URL van de versie uit de adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel=\"nofollow\" href=\"http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
-  wikipedia_queue_new_instructions_step_one: Ga naar de pagina op Wikipedia, bijvoorbeeld <a rel="nofollow" href="http://en.wikipedia.org/wiki/Giraffe">http://en.wikipedia.org/wiki/Giraffe</a>.
+  wikipedia_queue_new_instructions_step_four: "Kopieer de URL van de versie uit de adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel=\"nofollow\" href=\"https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
+  wikipedia_queue_new_instructions_step_one: Ga naar de pagina op Wikipedia, bijvoorbeeld <a rel="nofollow" href="https://en.wikipedia.org/wiki/Giraffe">https://en.wikipedia.org/wiki/Giraffe</a>.
   wikipedia_queue_new_instructions_step_three: In de adresbalk van uw browser kunt u nu de URL van de huidige versie van de pagina zien. Bovenaan de pagina kunt u navigeren naar eerdere versie van de pagina.
   wikipedia_queue_new_instructions_step_two: Klik in de zijbalk in het menu "Hulpmiddelen" op "Permanente koppeling".
   wikipedia_queue_new_intro: Geef een versie van een artikel in Wikipedia op dat opgenomen kan worden in EOL als een gecontroleerd tekstobject.

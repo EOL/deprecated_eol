@@ -4,6 +4,8 @@
 #content
   #known_uris.site_column
     = render 'shared/beta_warning'
+    - unless @known_uris.empty?
+      = will_paginate @known_uris
     - if @uri_type
       %ul.nav
         - UriType.all.each do |type|
@@ -13,8 +15,7 @@
       .empty.about
         %p= I18n.t(:known_uris_none)
     - else
-      %p.tip= raw(I18n.t(:excluded_icon_tip, :excluded_icon => image_tag('v2/icon_excluded.png', :alt => '')))
-      = will_paginate @known_uris
+      %p.tip= raw(I18n.t(:excluded_icon_tip, excluded_icon: image_tag('v2/icon_excluded.png', alt: '')))
       %table#sortable.standard
         %tr.headers
           %th= I18n.t('activerecord.attributes.known_uri.uri')
@@ -55,9 +56,9 @@
                   = link_to I18n.t(:suggested_vocab_add).i18n_downcase, unhide_known_uri_path(known_uri), method: :put
               -# TODO - TECHNICALLY, curators have to have JS, so we don't need a "real" route here, but it's not THAT hard, so:
               %td.move
-                = link_to(image_tag('arrow_way_up.gif', :alt => I18n.t(:move_to_top), :title => I18n.t(:move_to_top)), '#',
+                = link_to(image_tag('arrow_way_up.gif', alt: I18n.t(:move_to_top), title: I18n.t(:move_to_top)), '#',
                   class: 'to_top')
-                = link_to(image_tag('arrow_way_down.gif', :alt => I18n.t(:move_to_bottom), :title => I18n.t(:move_to_bottom)),
+                = link_to(image_tag('arrow_way_down.gif', alt: I18n.t(:move_to_bottom), title: I18n.t(:move_to_bottom)),
                   '#', class: 'to_bottom')
       = will_paginate @known_uris
     - if current_user.is_admin?
@@ -65,7 +66,7 @@
       %br
       %hr
       #import_ontology
-        = form_for KnownUri.new, :url => import_ontology_known_uris_path do |f|
+        = form_for KnownUri.new, url: import_ontology_known_uris_path do |f|
           %dl
             %dt= I18n.t(:submit)
             %dd= submit_tag I18n.t(:import_ontology), class: 'button'
@@ -79,4 +80,4 @@
         .actions
           = submit_tag I18n.t(:filter_button)
       #stats_report
-        = render :partial => 'stats_report'
+        = render partial: 'stats_report'

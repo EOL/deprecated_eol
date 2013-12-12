@@ -8,15 +8,15 @@ class ContentController < ApplicationController
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
 
-  before_filter :login_with_open_authentication, :only => :index
-  before_filter :check_user_agreed_with_terms, :except => [:show, :random_homepage_images]
+  before_filter :login_with_open_authentication, only: :index
+  before_filter :check_user_agreed_with_terms, except: [:show, :random_homepage_images]
 
-  skip_before_filter :original_request_params, :only => :random_homepage_images
-  skip_before_filter :global_warning, :only => :random_homepage_images
-  skip_before_filter :redirect_to_http_if_https, :only => :random_homepage_images
-  skip_before_filter :clear_any_logged_in_session, :only => :random_homepage_images
-  skip_before_filter :check_user_agreed_with_terms, :only => :random_homepage_images
-  skip_before_filter :set_locale, :only => :random_homepage_images
+  skip_before_filter :original_request_params, only: :random_homepage_images
+  skip_before_filter :global_warning, only: :random_homepage_images
+  skip_before_filter :redirect_to_http_if_https, only: :random_homepage_images
+  skip_before_filter :clear_any_logged_in_session, only: :random_homepage_images
+  skip_before_filter :check_user_agreed_with_terms, only: :random_homepage_images
+  skip_before_filter :set_locale, only: :random_homepage_images
 
   def index
     @rel_canonical_href = root_url.sub!(/\/+$/,'')
@@ -31,18 +31,18 @@ class ContentController < ApplicationController
     number_of_images = (params[:count] && params[:count].is_numeric?) ? params[:count].to_i : 1
     number_of_images = 1 if number_of_images < 1 || number_of_images > 10
     random_images = RandomHierarchyImage.random_set(number_of_images).map do |random_image|
-      { :image_url => random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130'),
-        :taxon_scientific_name => random_image.taxon_concept.title_canonical,
-        :taxon_common_name => random_image.taxon_concept.preferred_common_name_in_language(current_language),
-        :taxon_page_path => taxon_overview_path(random_image.taxon_concept_id) }
+      { image_url: random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130'),
+        taxon_scientific_name: random_image.taxon_concept.title_canonical,
+        taxon_common_name: random_image.taxon_concept.preferred_common_name_in_language(current_language),
+        taxon_page_path: taxon_overview_path(random_image.taxon_concept_id) }
     end
-    render :json => random_images, :callback => params[:callback]
+    render json: random_images, callback: params[:callback]
   rescue
-    render :json => { :error => "Error retrieving random images" }
+    render json: { error: "Error retrieving random images" }
   end
 
   def replace_single_explore_taxa
-    render :text => I18n.t(:please_refresh)
+    render text: I18n.t(:please_refresh)
   end
 
   def mediarss
@@ -51,17 +51,18 @@ class ContentController < ApplicationController
     @items = []
 
     if !taxon_concept.nil?
-      @title = "for "+ taxon_concept.quick_scientific_name(:normal)
+      # TODO - ummmn... no.  This needs I18n, or an explanation as to why it doesn't:
+      @title = "for "+ taxon_concept.summary_name
 
       do_ids = TopConceptImage.find(:all,
-        :select => 'data_object_id',
-        :conditions => "taxon_concept_id = #{taxon_concept.id} AND view_order<400").collect{|tci| tci.data_object_id}
+        select: 'data_object_id',
+        conditions: "taxon_concept_id = #{taxon_concept.id} AND view_order<400").collect{|tci| tci.data_object_id}
 
       data_objects = DataObject.find_all_by_id(do_ids,
-        :select => {
-          :data_objects => [ :guid, :object_cache_url ],
-          :names => :string },
-        :include => { :taxon_concepts => [ {:preferred_names => :name}, {:preferred_common_names => :name} ]})
+        select: {
+          data_objects: [ :guid, :object_cache_url ],
+          names: :string },
+        include: { taxon_concepts: [ {preferred_names: :name}, {preferred_common_names: :name} ]})
 
       data_objects.each do |data_object|
         taxon_concept = data_object.taxon_concepts[0]
@@ -70,19 +71,19 @@ class ContentController < ApplicationController
           title += ": #{taxon_concept.preferred_common_names[0].name.string}"
         end
         @items << {
-          :title => title,
-          :link => data_object_url(data_object.id),
-          :permalink => data_object_url(data_object.id),
-          :guid => data_object.guid,
-          :thumbnail => DataObject.image_cache_path(data_object.object_cache_url, '98_68'),
-          :image => DataObject.image_cache_path(data_object.object_cache_url, :orig),
+          title: title,
+          link: data_object_url(data_object.id),
+          permalink: data_object_url(data_object.id),
+          guid: data_object.guid,
+          thumbnail: DataObject.image_cache_path(data_object.object_cache_url, '98_68'),
+          image: DataObject.image_cache_path(data_object.object_cache_url, :orig),
         }
       end
       @items
     end
 
     respond_to do |format|
-      format.rss { render :layout => false }
+      format.rss { render layout: false }
     end
 
   end
@@ -99,10 +100,10 @@ class ContentController < ApplicationController
     end
 
     if @page_id.is_int?
-      @content = ContentPage.find(@page_id, :include => [:parent, :translations])
+      @content = ContentPage.find(@page_id, include: [:parent, :translations])
     else # assume it's a page name
-      @content = ContentPage.find_by_page_name(@page_id, :include => [:parent, :translations])
-      @content ||= ContentPage.find_by_page_name(@page_id.gsub('_', ' '), :include => [:parent, :translations]) # will become obsolete once validation on page_name is in place
+      @content = ContentPage.find_by_page_name(@page_id, include: [:parent, :translations])
+      @content ||= ContentPage.find_by_page_name(@page_id.gsub('_', ' '), include: [:parent, :translations]) # will become obsolete once validation on page_name is in place
       raise ActiveRecord::RecordNotFound, "Couldn't find ContentPage with page_name=#{@page_id}" if @content.nil?
     end
 
@@ -133,7 +134,7 @@ class ContentController < ApplicationController
           end
           @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title
           @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
-          current_user.log_activity(:viewed_content_page_id, :value => @page_id)
+          current_user.log_activity(:viewed_content_page_id, value: @page_id)
           @rel_canonical_href = cms_page_url(@content)
         end
       end
@@ -157,7 +158,7 @@ class ContentController < ApplicationController
     raise "content upload not found" if content_upload.blank?
 
     # send them to the file on the content server
-    redirect_to(content_upload.content_server_url, :status => :moved_permanently)
+    redirect_to(content_upload.content_server_url, status: :moved_permanently)
 
   end
 
@@ -174,34 +175,29 @@ class ContentController < ApplicationController
     Rails.logger.warn  "!! WARN #{time}"
     Rails.logger.info  "++ INFO #{time}"
     Rails.logger.debug ".. DEBUG #{time}"
-    render :text => "Logs written at #{time}."
+    render text: "Logs written at #{time}."
   end
 
   def version
     full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
-    render :text => full_version
+    render text: full_version
   end
 
   def test_timeout
     restrict_to_admins
-    sco = SiteConfigurationOption.find_by_parameter('test_timeout')
+    sco = EolConfig.find_by_parameter('test_timeout')
     if sco
-      render :text => "Already testing a timeout elsewhere. Please be patient."
+      render text: "Already testing a timeout elsewhere. Please be patient."
     else
-      SiteConfigurationOption.create(:parameter => 'test_timeout', :value => params[:time])
+      EolConfig.create(parameter: 'test_timeout', value: params[:time])
       sleep(params[:time].to_i)
-      SiteConfigurationOption.delete_all(:parameter => 'test_timeout')
-      render :text => "Done."
+      EolConfig.delete_all(parameter: 'test_timeout')
+      render text: "Done."
     end
   end
 
   def boom
     raise "This is an exception." # I18n not req'd
-  end
-
-  def check_connection
-    require 'lib/check_connection'
-    render :text => CheckConnection.all_instantiable_models.join("<br/>")
   end
 
   def language
@@ -210,7 +206,7 @@ class ContentController < ApplicationController
       store_location(request.referer)
     else
       selected_language = params[:site_language][:language]
-      redirect_to set_language_url(:language => selected_language)+"&return_to=#{session[:return_to]}"
+      redirect_to set_language_url(language: selected_language)+"&return_to=#{session[:return_to]}"
     end
   end
 
@@ -249,7 +245,7 @@ class ContentController < ApplicationController
     # CyberSource::InsertSignature3 ) to handle the creation of the input elements.  Yeesh.
     # http://www.cybersource.com/developers/develop/integration_methods/simple_order_and_soap_toolkit_api/
     parameters = 'function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=sale&currency=usd'
-    @form_elements = EOLWebService.call(:parameters => parameters)
+    @form_elements = EOLWebService.call(parameters: parameters)
 
   end
   
@@ -257,19 +253,19 @@ class ContentController < ApplicationController
   end
 
   def maintenance
-    render :layout => false
+    render layout: false
   end
 
   # conveninece page to expire everything immediately (call with http://www.eol.org/clear_caches)
   def clear_caches
     if allowed_request
       if clear_all_caches
-        render :text => "All caches expired.", :layout => false
+        render text: "All caches expired.", layout: false
       else
-        render :text => 'Clearing all caches not supported for this cache store.', :layout => false
+        render text: 'Clearing all caches not supported for this cache store.', layout: false
       end
     else
-      redirect_to root_url, :status => :moved_permanently
+      redirect_to root_url, status: :moved_permanently
     end
   end
 
@@ -277,9 +273,9 @@ class ContentController < ApplicationController
   def expire_all
     if allowed_request
       expire_non_species_caches
-      render :text => "Non-species page caches expired.", :layout => false
+      render text: "Non-species page caches expired.", layout: false
     else
-      redirect_to root_url, :status => :moved_permanently
+      redirect_to root_url, status: :moved_permanently
     end
   end
 
@@ -287,9 +283,9 @@ class ContentController < ApplicationController
   def expire_single
     if allowed_request
       expire_cache(params[:id])
-      render :text => "Non-species page '#{params[:id]}' cache expired.", :layout => false
+      render text: "Non-species page '#{params[:id]}' cache expired.", layout: false
     else
-      redirect_to root_url, :status => :moved_permanently
+      redirect_to root_url, status: :moved_permanently
     end
   end
 
@@ -298,12 +294,12 @@ class ContentController < ApplicationController
     if allowed_request && !params[:id].nil?
       begin
         expire_taxa([params[:id]])
-        render :text => "Taxon ID #{params[:id]} and its ancestors expired.", :layout => false
+        render text: "Taxon ID #{params[:id]} and its ancestors expired.", layout: false
       rescue => e
-        render :text => "Could not expire Taxon Concept: #{e.message}", :layout => false
+        render text: "Could not expire Taxon Concept: #{e.message}", layout: false
       end
     else
-      redirect_to root_url, :status => :moved_permanently
+      redirect_to root_url, status: :moved_permanently
     end
   end
 
@@ -313,9 +309,9 @@ class ContentController < ApplicationController
     taxa_ids = params[:taxa_ids]
     if allowed_request && !params[:taxa_ids].nil?
       expire_taxa(taxa_ids.split(','))
-      render :text => "Taxa IDs #{taxa_ids} and their ancestors expired.", :layout => false
+      render text: "Taxa IDs #{taxa_ids} and their ancestors expired.", layout: false
     else
-      redirect_to root_url, :status => :moved_permanently
+      redirect_to root_url, status: :moved_permanently
     end
   end
 
@@ -327,23 +323,23 @@ protected
 
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :meta_keywords => (@translated_content && !@translated_content.meta_keywords.blank?) ? @translated_content.meta_keywords : nil,
-      :meta_description => (@translated_content && !@translated_content.meta_description.blank?) ? @translated_content.meta_description : nil
+      meta_keywords: (@translated_content && !@translated_content.meta_keywords.blank?) ? @translated_content.meta_keywords : nil,
+      meta_description: (@translated_content && !@translated_content.meta_description.blank?) ? @translated_content.meta_description : nil
     }).freeze
   end
 
 private
 
   def periodically_recalculate_homepage_parts
-    Rails.cache.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1 + '/data-' + current_user.can_see_data?.to_s, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}_data-#{current_user.can_see_data?.to_s}")
+    Rails.cache.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1 + '/data-' + current_user.can_see_data?.to_s, expires_in: $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+      expire_fragment(action: 'index', action_suffix: "activity_#{current_language.iso_639_1}_data-#{current_user.can_see_data?.to_s}")
     end
-    Rails.cache.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, :expires_in => 120.seconds) do
-      expire_fragment(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}")
+    Rails.cache.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, expires_in: 120.seconds) do
+      expire_fragment(action: 'index', action_suffix: "march_of_life_#{current_language.iso_639_1}")
     end
     NewsItem
-    Rails.cache.fetch('homepage/news_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      expire_fragment(:action => 'index', :action_suffix => "news_#{current_language.iso_639_1}")
+    Rails.cache.fetch('homepage/news_expiration/' + current_language.iso_639_1, expires_in: $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+      expire_fragment(action: 'index', action_suffix: "news_#{current_language.iso_639_1}")
     end
   end
 

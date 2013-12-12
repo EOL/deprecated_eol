@@ -1,6 +1,6 @@
 class Administrator::ErrorLogController < AdminController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   before_filter :set_layout_variables
 
@@ -18,7 +18,7 @@ class Administrator::ErrorLogController < AdminController
       @date = Time.now
     end
     conditions = "created_at BETWEEN '#{@date.strftime("%Y-%m-%d")}' AND '#{(@date+1.day).strftime("%Y-%m-%d")}'" if @date != 'all'
-    @errors = ErrorLog.paginate(:order => 'id desc', :page => params[:page], :conditions => conditions)
+    @errors = ErrorLog.paginate(order: 'id desc', page: params[:page], conditions: conditions)
 
     @distinct_dates = []
     last_date = Time.now

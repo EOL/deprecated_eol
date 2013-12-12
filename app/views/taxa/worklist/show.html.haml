@@ -2,6 +2,6 @@
   = javascript_include_tag 'worklist'
   -# NOTE - this is non-optimal. We really want to be loading this merged/compressed, but I am leaving it as-is
   -# because I *assume* that loading stylesheets from other directories like this doesn't work:
-  %link{:href=>"/assets/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
+  %link{href: "/assets/jplayer/skin/jplayer.blue.monday.css", rel: "stylesheet", type: "text/css"}
 #worklist
-  = render :partial => "main_content"
+  = render partial: "main_content"

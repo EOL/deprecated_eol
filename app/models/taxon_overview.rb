@@ -51,11 +51,11 @@ class TaxonOverview < TaxonUserClassificationFilter
 
   def details?
     @has_details ||= taxon_concept.text_for_user(user,
-      :language_ids => [ user.language_id ],
-      :filter_by_subtype => true,
-      :allow_nil_languages => user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => 1
+      language_ids: [ user.language_id ],
+      filter_by_subtype: true,
+      allow_nil_languages: user.default_language?,
+      toc_ids_to_ignore: TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
+      per_page: 1
     )
   end
 
@@ -87,7 +87,7 @@ class TaxonOverview < TaxonUserClassificationFilter
       communities_sorted_by_member_count = member_counts.keys.map { |collection_id| taxon_concept.communities.detect { |c| c.id == collection_id } }
       communities_sorted_by_member_count[0..COMMUNITIES_TO_SHOW-1]
                  end
-    Community.preload_associations(best_three, :collections, :select => { :collections => :id })
+    Community.preload_associations(best_three, :collections, select: { collections: :id })
     return best_three
   end
 
@@ -104,7 +104,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   end
 
   def activity_log
-    @log ||= taxon_concept.activity_log(:per_page => 5, :user => user)
+    @log ||= taxon_concept.activity_log(per_page: 5, user: user)
   end
 
   def map
@@ -141,7 +141,7 @@ private
   def after_initialize
     loadables = load_media.push(load_summary)
     TaxonUserClassificationFilter.preload_details(loadables, user)
-    DataObject.preload_associations(loadables, { :agents_data_objects => [ { :agent => :user }, :agent_role ] })
+    DataObject.preload_associations(loadables, { agents_data_objects: [ { agent: :user }, :agent_role ] })
     @summary = loadables.pop
     @media = loadables
     correct_bogus_exemplar_image
@@ -151,7 +151,7 @@ private
     media ||= promote_exemplar_image(
       taxon_concept.images_from_solr(
         map? ? MEDIA_TO_SHOW-1 : MEDIA_TO_SHOW,
-        :ignore_translations => true
+        ignore_translations: true
       )
     ).compact
     media = media[0...MEDIA_TO_SHOW] if media.length > MEDIA_TO_SHOW

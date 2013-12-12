@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Dream
+# Author: Liuxinyu970226
 # Author: Shangkuanlc
 # Author: Taieol
 zh-TW: 
@@ -92,6 +93,9 @@ zh-TW:
         rights_holder: 版權持有者
         rights_statement: 版權聲明
         source_url: 來源網址
+      data_object_link: 
+        description: 說明
+        source_url: 連接URL
       eol_statistic: 
         active_curators: 活躍的管理者
         base_pages: 只含物種名稱的頁面
@@ -150,8 +154,18 @@ zh-TW:
         published_unreviewed_resources: 已發布的未審核資源
         redhotlist_pages: 超熱門頁面
         rich_hotlist_pages: 資料豐富的熱門頁面
+        rich_hotlist_pages_percentage: 富熱門列表頁面%
         rich_pages: 資料豐富的頁面
         rich_redhotlist_pages: 資料豐富的超熱門頁面
+        rich_redhotlist_pages_percentage: 富紅色熱門列表頁面%
+        total_association_types: 關聯類型
+        total_associations: 關係
+        total_measurement_types: 測量模式
+        total_measurements: 測量
+        total_occurrences: 數位
+        total_taxa_with_data: 帶數據頁面
+        total_triples: 三重
+        total_user_added_data: 用戶添加的數據
         udo_published: 使用者提交的文字描述
         udo_published_by_curators: 管理者提交的文字描述
         udo_published_by_non_curators: 非管理者提交的文字描述
@@ -177,6 +191,12 @@ zh-TW:
         descriptive_label: 描述性標籤
         label: 標籤
         request_publish: 要求發布
+      known_uri: 
+        description: 說明
+        name: 名稱
+        toc_items: 分類
+        uri: URI
+        uri_type: URI形式
       name: 
         string: 名稱
       news_item: 
@@ -2354,7 +2374,7 @@ zh-TW:
         username: 使用者名稱<small>（4-32 個字元）</small>
         username_or_email: 使用者名稱或email地址
       wikipedia_queue: 
-        revision_url: 修訂版的網址 <small>（例如：http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069）</small>
+        revision_url: 修訂版的網址 <small>（例如：https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069）</small>
         revision_url_more: 若您輸入一個維基百科修訂版的網址，表示您要求EOL視此份修訂版本為已通過審核。如果EOL目前已有該份文章，將被修訂版取代。
     select: 
       prompt: 請選擇
@@ -4256,10 +4276,10 @@ zh-TW:
   who_registered_before: 至
   who_registered_from: 註冊於
   wikipedia_queue_create_successful_notice: 維基百科文章 %{article} 的修訂版 %{rev} 已被依序等待輸入。
-  wikipedia_queue_create_unsuccessful_error: 抱歉，出現了錯誤，維基百科文章未被依序等待輸入。<br/>修訂內容的網址必須符合http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: 抱歉，出現了錯誤，維基百科文章未被依序等待輸入。<br/>修訂內容的網址必須符合https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: 尋找維基百科文章的修訂版本網址：
-  wikipedia_queue_new_instructions_step_four: 從您的瀏覽器中複製修訂版本網址，然後將其貼到此處顯示的維基百科輸入申請單中。修訂版本網址看起來應該像：<a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
-  wikipedia_queue_new_instructions_step_one: 請至維基百科的文章頁面，例如：<a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: 從您的瀏覽器中複製修訂版本網址，然後將其貼到此處顯示的維基百科輸入申請單中。修訂版本網址看起來應該像：<a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_instructions_step_one: 請至維基百科的文章頁面，例如：<a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: 點擊'永久連結'選單項目，這是目前的修訂版本網址，它將帶您到此文章的目前版本，再從其回溯至以前的版本。
   wikipedia_queue_new_instructions_step_two: 展開導覽列的'工具箱'選單，您可見到嵌入在內的選單項目'永久連結'。
   wikipedia_queue_new_intro: 提交維基百科文章的修訂版，EOL將把它當成一個已審核的文字物件對待。

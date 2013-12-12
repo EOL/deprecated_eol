@@ -5,7 +5,7 @@ while($next.hasClass('child')) {
   $next = $next.next();
   $that.remove();
 }
-$("#category_<%= @category.id %>").after('<%= escape_javascript render(:partial => 'index') %>');
+$("#category_<%= @category.id %>").after('<%= escape_javascript render(partial: 'index') %>');
 var $next = $("#category_<%= @category.id %>").next();
 while($next.hasClass('child')) {
   $next.show();

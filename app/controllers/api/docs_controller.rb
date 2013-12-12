@@ -47,11 +47,11 @@ class Api::DocsController < ApiController
   private
 
   def default_render
-    render :template => 'api/docs/method_documentation'
+    render template: 'api/docs/method_documentation'
   end
 
   def set_navigation_menu
-    api_overview = ContentPage.find_by_page_name('api_overview', :include => :translations)
+    api_overview = ContentPage.find_by_page_name('api_overview', include: :translations)
     unless api_overview.blank?
       translation = api_overview.translations.select{|t| t.language_id == current_language.id}.compact
       translation = api_overview.translations.select{|t| t.language_id == Language.english.id}.compact if translation.blank?

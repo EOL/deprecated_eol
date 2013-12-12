@@ -10,5 +10,5 @@
   = render :partial => 'data_objects/license', :locals => { :data_object => data_object }  unless en_type == 'link'
   .copy
     %p.owner
-      = render :partial => 'data_objects/owner', :locals => { :data_object => data_object, :linked => true }
+      = data_object.owner.html_safe || "&nbsp;"
     = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object, :minimal => true }

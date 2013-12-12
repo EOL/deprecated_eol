@@ -7,7 +7,7 @@ class Users::OpenAuthenticationsController < UsersController
 
   # GET /users/:user_id/open_authentications
   def index
-    @user = User.find(params[:user_id], :include => :open_authentications)
+    @user = User.find(params[:user_id], include: :open_authentications)
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have permission to view open authentications"\
       " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
@@ -29,10 +29,10 @@ class Users::OpenAuthenticationsController < UsersController
       " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
 
     @open_auth = EOL::OpenAuth.init(oauth_provider,
-                      verify_open_authentication_users_url(:oauth_provider => oauth_provider),
-                      params.merge({:stored_state => session.delete("#{oauth_provider}_state"),
-                          :request_token_token => session.delete("#{oauth_provider}_request_token_token"),
-                          :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
+                      verify_open_authentication_users_url(oauth_provider: oauth_provider),
+                      params.merge({stored_state: session.delete("#{oauth_provider}_state"),
+                          request_token_token: session.delete("#{oauth_provider}_request_token_token"),
+                          request_token_secret: session.delete("#{oauth_provider}_request_token_secret")}))
 
     # TODO: Bit risky here? Potential for a redirect loop if something breaks
     if @open_auth.access_denied?
@@ -46,14 +46,14 @@ class Users::OpenAuthenticationsController < UsersController
             @open_auth.open_authentication.connection_established
           else
             flash[:error] = I18n.t(:add_connection_failed_account_already_connected,
-                                   :existing_eol_account_url => user_url(@open_auth.open_authentication.user_id),
-                                   :scope => [:users, :open_authentications, :errors, @open_auth.provider])
+                                   existing_eol_account_url: user_url(@open_auth.open_authentication.user_id),
+                                   scope: [:users, :open_authentications, :errors, @open_auth.provider])
           end
         else
           create and return
         end
       else
-        flash[:error] = I18n.t(:missing_attributes, :scope => [:users, :open_authentications,
+        flash[:error] = I18n.t(:missing_attributes, scope: [:users, :open_authentications,
                                                                :errors, @open_auth.provider])
       end
     else
@@ -67,13 +67,13 @@ class Users::OpenAuthenticationsController < UsersController
   # No route at the moment since we're calling it directly from the new action.
   def create
     if request.get? && params[:action] == 'new'
-      open_authentication = @user.open_authentications.build(@open_auth.authentication_attributes.merge(:verified_at => Time.now))
+      open_authentication = @user.open_authentications.build(@open_auth.authentication_attributes.merge(verified_at: Time.now))
       if open_authentication.save
         flash[:notice] = I18n.t(:new_authentication_added,
-                                :scope => [:users, :open_authentications, :notices, @open_auth.provider.to_sym])
+                                scope: [:users, :open_authentications, :notices, @open_auth.provider.to_sym])
       else
         flash[:error] = I18n.t(:new_authentication_not_added,
-                               :scope => [:users, :open_authentications, :errors, @open_auth.provider.to_sym])
+                               scope: [:users, :open_authentications, :errors, @open_auth.provider.to_sym])
       end
     end
     redirect_to user_open_authentications_url(@user)
@@ -84,7 +84,7 @@ class Users::OpenAuthenticationsController < UsersController
   end
 
   def destroy
-    @user = User.find(params[:user_id], :include => :open_authentications)
+    @user = User.find(params[:user_id], include: :open_authentications)
     open_authentication = OpenAuthentication.find(params[:id])
     raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have"\
       " permission to remove OpenAuthentication with ID=#{open_authentication.id} connected to"\
@@ -92,14 +92,14 @@ class Users::OpenAuthenticationsController < UsersController
     if @user.open_authentications.delete(open_authentication)
       if @user.open_authentications.blank? && @user.hashed_password.blank?
         flash.now[:warning] = I18n.t(:no_way_to_login,
-                                     :scope => [:users, :open_authentications, :warnings])
+                                     scope: [:users, :open_authentications, :warnings])
       end
       flash.now[:notice] = I18n.t(:removed_connection,
-                                  :scope => [:users, :open_authentications, :notices,
+                                  scope: [:users, :open_authentications, :notices,
                                              open_authentication.provider.to_sym])
     else
       flash.now[:error] = I18n.t(:remove_connection_failed,
-                                 :scope => [:users, :open_authentications, :errors])
+                                 scope: [:users, :open_authentications, :errors])
     end
     page_title([:users, :open_authentications, :index])
     page_description([:users, :open_authentications, :index])

@@ -7,8 +7,8 @@ describe ContentPartners::ContentPartnerContactsController do
   before(:all) do
     truncate_all_tables
     Language.create_english
-    CuratorLevel.create_defaults
-    UserIdentity.create_defaults
+    CuratorLevel.create_enumerated
+    UserIdentity.create_enumerated
     @user = User.gen
     @content_partner = ContentPartner.gen(:user => @user, :full_name => 'Test content partner')
   end

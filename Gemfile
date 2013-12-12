@@ -68,7 +68,7 @@ gem 'rails', '3.2.15'
 
 gem 'acts_as_list', '0.3.0' # Used for drag-and-drop reordering of KnownUri instances. ...We could be making wider use of this.
 gem 'acts_as_tree_rails3', '0.1.0' # We use this for a few of our tree-like models, such as TocItem and CollectionType.
-gem 'biodiversity19', '1.1.3' # TODO - I don't think we use this. ...even if we do, it's deprecated, replace it.
+gem 'biodiversity', '3.1.2' # "used for generation of scientific names with ranks on the species page"
 gem 'cityhash', '0.8.1' # Used by identity_cache to speed up the creation of hash keys.
 gem 'ckeditor', '3.7.3' # We use this in many places, such as creating data objects, to allow rich text editing.
 gem 'coffee-rails', '3.2.2' # TODO - do we actually use this? If so, it helps make simplified JS, for Ajax responses.

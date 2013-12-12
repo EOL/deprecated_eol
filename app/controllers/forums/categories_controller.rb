@@ -2,7 +2,7 @@ class Forums::CategoriesController < ForumsController
 
   layout 'v2/forum'
   before_filter :restrict_to_admins
-  before_filter :allow_login_then_submit, :only => [:create]
+  before_filter :allow_login_then_submit, only: [:create]
 
   # GET /forum_categories/new
   def new
@@ -64,8 +64,8 @@ class Forums::CategoriesController < ForumsController
     @category = ForumCategory.find(params[:id])
     if @next_lowest = ForumCategory.where("view_order < #{@category.view_order}").order("view_order desc").limit(1).first
       new_view_order = @next_lowest.view_order
-      @next_lowest.update_attributes(:view_order => @category.view_order)
-      @category.update_attributes(:view_order => new_view_order)
+      @next_lowest.update_attributes(view_order: @category.view_order)
+      @category.update_attributes(view_order: new_view_order)
       flash[:notice] = I18n.t('forums.categories.move_successful')
     else
       flash[:error] = I18n.t('forums.categories.move_failed')
@@ -78,8 +78,8 @@ class Forums::CategoriesController < ForumsController
     @category = ForumCategory.find(params[:id])
     if @next_highest = ForumCategory.where("view_order > #{@category.view_order}").order("view_order asc").limit(1).first
       new_view_order = @next_highest.view_order
-      @next_highest.update_attributes(:view_order => @category.view_order)
-      @category.update_attributes(:view_order => new_view_order)
+      @next_highest.update_attributes(view_order: @category.view_order)
+      @category.update_attributes(view_order: new_view_order)
       flash[:notice] = I18n.t('forums.categories.move_successful')
     else
       flash[:error] = I18n.t('forums.categories.move_failed')

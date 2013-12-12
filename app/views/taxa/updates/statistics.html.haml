@@ -1,7 +1,7 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render partial: 'shared/social_sharing'
 #taxon_updates
-  = render :partial => 'menu'
+  = render partial: 'menu'
   .main_container.page_statistics
     .header
       %h3= I18n.t(:page_statistics)
@@ -12,16 +12,16 @@
       %dt= I18n.t(:richness_score)
       %dd= @metrics.blank? ? 0.to_s : @metrics.richness_for_display
       %dt= I18n.t(:trusted_images)
-      %dd= number_with_delimiter(@media_facets['ancestor_trusted_image'] || 0, :delimiter => ",")
+      %dd= number_with_delimiter(@media_facets['ancestor_trusted_image'] || 0, delimiter: ",")
       %dt= I18n.t(:unreviewed_images)
-      %dd= number_with_delimiter(@media_facets['ancestor_unreviewed_image'] || 0, :delimiter => ",")
+      %dd= number_with_delimiter(@media_facets['ancestor_unreviewed_image'] || 0, delimiter: ",")
       %dt= I18n.t(:trusted_text_objects)
-      %dd= number_with_delimiter(@media_facets['trusted_text'] || 0, :delimiter => ",")
+      %dd= number_with_delimiter(@media_facets['trusted_text'] || 0, delimiter: ",")
       %dt= I18n.t(:unreviewed_text_objects)
-      %dd= number_with_delimiter(@media_facets['unreviewed_text'] || 0, :delimiter => ",")
+      %dd= number_with_delimiter(@media_facets['unreviewed_text'] || 0, delimiter: ",")
       %dt= I18n.t(:trusted_maps)
       - number_of_trusted_maps = @media_facets['trusted_map'] || 0
       - number_of_trusted_maps += 1 if @taxon_concept.has_map?
-      %dd= number_with_delimiter(number_of_trusted_maps, :delimiter => ",")
+      %dd= number_with_delimiter(number_of_trusted_maps, delimiter: ",")
       %dt= I18n.t(:unreviewed_maps)
-      %dd= number_with_delimiter(@media_facets['unreviewed_map'] || 0, :delimiter => ",")
+      %dd= number_with_delimiter(@media_facets['unreviewed_map'] || 0, delimiter: ",")

@@ -3,7 +3,7 @@ class ForumPost < ActiveRecord::Base
   belongs_to :forum_topic
   belongs_to :user
 
-  scope :visible, where(:deleted_at => nil)
+  scope :visible, where(deleted_at: nil)
 
   validates_presence_of :text
   validate :text_should_be_more_than_whitespace
@@ -77,7 +77,7 @@ class ForumPost < ActiveRecord::Base
 
   def update_topic_title
     if topic_starter?
-      forum_topic.update_attributes(:title => subject)
+      forum_topic.update_attributes(title: subject)
     end
   end
 

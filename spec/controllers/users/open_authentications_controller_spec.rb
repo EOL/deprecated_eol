@@ -9,7 +9,7 @@ describe Users::OpenAuthenticationsController do
   before(:all) do
     truncate_all_tables
     Language.create_english
-    CuratorLevel.create_defaults
+    CuratorLevel.create_enumerated
     @user = User.gen
     @other_user = User.gen
     @admin = User.gen(:admin => true)

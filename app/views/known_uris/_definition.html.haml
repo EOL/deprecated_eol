@@ -6,7 +6,7 @@
 %li{ id: known_uri.anchor }
   %dt
     = known_uri.name.firstcap
-    - if search_link && KnownUri.all_measurement_type_uris.include?(known_uri.uri)
+    - if search_link && EOL::Sparql.connection.all_measurement_type_uris.include?(known_uri.uri)
       = link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: known_uri.uri, sort: 'desc')
   - unless known_uri.definition.blank?
     %dd
@@ -19,6 +19,6 @@
     - if top_link
       %li= link_to(I18n.t(:top), '#')
     - elsif glossary_link
-      %li= link_to(I18n.t(:see_in_data_glossary), data_glossary_url(:anchor => known_uri.anchor))
+      %li= link_to(I18n.t(:see_in_data_glossary), data_glossary_url(anchor: known_uri.anchor))
     - if current_user.is_admin?
       %li.hover= link_to(I18n.t(:edit), edit_known_uri_path(known_uri))

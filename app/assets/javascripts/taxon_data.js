@@ -17,7 +17,7 @@ EOL.create_info_dialog = function(match) {
 };
 
 EOL.enable_info_dialogs = function(tip) {
-  tip
+  tip.unbind('click')
     .on('click', function() {
       $('.site_column').unbind('click');
       var $link = $(this);
@@ -30,11 +30,20 @@ EOL.enable_info_dialogs = function(tip) {
         $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
         $info.show('fast',
           function() {
-            $('.site_column').click(function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
+            $('.site_column').on('click', function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
           }
         ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false) } );
       }
     });
+  // making sure the info icons show when anywhere on the row is moused over
+  $('table.data tr.data, table.meta tr').hover(
+    function() {
+      $(this).find('.info_icon').addClass('active');
+    },
+    function() {
+      $(this).find('.info_icon').removeClass('active');
+    }
+  );
 };
 
 EOL.enable_button = function($button) {
@@ -343,7 +352,7 @@ $(function() {
       EOL.show_data_tables($('table.data'));
     } else {
       EOL.hide_data_tables($('table.data'));
-      EOL.show_data_tables($('table.data[data-toc_id="' + $(this).attr('data-toc-id') + '"]'));
+      EOL.show_data_tables($('table.data[data-toc-id="' + $(this).attr('data-toc-id') + '"]'));
     }
     $(this).parent().parent().find('li').removeClass('active');
     $(this).parent().addClass('active');
@@ -383,12 +392,12 @@ $(function() {
     }
   }).disableSelection();
 
-  $('#sortable a.to_top').click(function() {
+  $('#sortable a.to_top').on('click', function() {
     $.post("/known_uris/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') })
     return(false);
   });
 
-  $('#sortable a.to_bottom').click(function() {
+  $('#sortable a.to_bottom').on('click', function() {
     $.post("/known_uris/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') })
     return(false);
   });
@@ -413,7 +422,7 @@ $(function() {
 
   EOL.enable_hover_list_items();
 
-  $('.page_actions .data_download a').click(function() {
+  $('.page_actions .data_download a').on('click', function() {
     window.alert($(this).parent().attr('data-alert').replace(/<\/?[^>]+>/g, ''));
   });
 

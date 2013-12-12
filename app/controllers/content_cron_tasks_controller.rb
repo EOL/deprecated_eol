@@ -42,7 +42,7 @@ class ContentCronTasksController < ApplicationController
     curator_activity_logs = RecentContentCollector::flickr_curator_actions(params[:hours])
     all_text = ""
     curator_activity_logs.each do |ah|
-      text = render_to_string(template: "/content_cron_tasks/flickr_curator_action", :locals =>
+      text = render_to_string(template: "/content_cron_tasks/flickr_curator_action", locals:
                               {curator_activity_log: ah})
       if text
         all_text += "#{ah.created_at} #{ah.data_object.flickr_photo_id}: #{text}\n\n<br\><br\>"

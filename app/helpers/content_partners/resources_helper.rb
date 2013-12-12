@@ -10,7 +10,7 @@ module ContentPartners::ResourcesHelper
     end
 
     def time_or_empty(time)
-      format_date_time(time, :format => :medium) || I18n.t(:value_empty)
+      format_date_time(time, format: :medium) || I18n.t(:value_empty)
     end
 
     def link_to_url_or_empty(url)

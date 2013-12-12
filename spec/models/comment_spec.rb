@@ -12,7 +12,7 @@ describe Comment do
     # If this next line fails, something went wrong with Solr building data... Perhaps we should reindex, here?
     @image = @tc.data_objects.select { |d| d.is_image? && !d.comments.blank? }.first
     @image_comment = @image.comments.first
-    @invisible_comment = Comment.gen(:parent => DataObject.last, :visible_at => 4.days.from_now)
+    @invisible_comment = Comment.gen(parent: DataObject.last, visible_at: 4.days.from_now)
     @curator = User.find(@tc.curators[0])
     @non_curator = User.gen
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
@@ -57,7 +57,7 @@ describe Comment do
   end
 
   it "should return parent type if comment is for object that is not TaxonConcept or DataObject" do
-    comment = Comment.gen(:parent => @image)
+    comment = Comment.gen(parent: @image)
     comment.parent_type = 'Language'
     comment.save
     comment.reload.parent_name.should == 'Language'
@@ -132,7 +132,7 @@ describe Comment do
 
   # hide
   it "should add curator who vetted object and make comment visible" do
-    tc_comment = Comment.gen(:parent => DataObject.last)
+    tc_comment = Comment.gen(parent: DataObject.last)
     tc_comment.visible_at = 1.day.ago
     tc_comment.vetted_by.should_not == @curator
     tc_comment.save

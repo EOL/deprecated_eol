@@ -12,16 +12,16 @@ class NewKindOfThing ; end
 describe EOL::ActivityLog do
 
   before(:all) do
-    @default_options = {:per_page=>20, :page=>1}
+    @default_options = { per_page: 20, page: 1 }
   end
 
   it '#global should delegate to #find with nil source' do
-    EOL::ActivityLog.should_receive(:find).with(nil, {:per_page => 3}).and_return(nil)
+    EOL::ActivityLog.should_receive(:find).with(nil, {per_page: 3}).and_return(nil)
     EOL::ActivityLog.global(3)
   end
 
   it '#global should deafult to $ACTIVITIES_ON_HOME_PAGE per_page' do
-    EOL::ActivityLog.should_receive(:find).with(nil, {:per_page => $ACTIVITIES_ON_HOME_PAGE}).and_return(nil)
+    EOL::ActivityLog.should_receive(:find).with(nil, {per_page: $ACTIVITIES_ON_HOME_PAGE}).and_return(nil)
     EOL::ActivityLog.global
   end
 
@@ -84,7 +84,7 @@ describe EOL::ActivityLog do
     ids_array = []
     ids_array.stub(:blank?).and_return(false)
     ids_array.should_receive(:[]).with(0...500).and_return([])
-    EOL::ActivityLog.find(DataObject.new, :ids => ids_array)
+    EOL::ActivityLog.find(DataObject.new, ids: ids_array)
   end
 
   it '#find should at least look at the focuses for communities (we trust it is searching on them as well)' do

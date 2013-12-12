@@ -17,10 +17,10 @@ describe EOL::OpenAuth do
       @oauth1_consumer = OAuth::Consumer.new(
         "key",
         "secret",
-        { :site => "http://fake.oauth1.provider",
-          :request_token_path => "/example/request_token",
-          :access_token_path => "/example/access_token",
-          :authorize_path => "/example/authorize" })
+        { site: "http://fake.oauth1.provider",
+          request_token_path: "/example/request_token",
+          access_token_path: "/example/access_token",
+          authorize_path: "/example/authorize" })
     end
 
     it 'should create instance of EOL::OpenAuth::Facebook' do

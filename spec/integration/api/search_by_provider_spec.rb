@@ -3,15 +3,15 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe 'API:search_by_provider' do
   before(:all) do
     load_foundation_cache
-    @test_hierarchy = Hierarchy.gen(:label => 'Some test hierarchy', :browsable => 1)
-    @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia',
-      :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
-    @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae',
-      :parent_id => 0, :published => 0, :visibility_id => Visibility.invisible.id, :rank => Rank.kingdom)
+    @test_hierarchy = Hierarchy.gen(label: 'Some test hierarchy', browsable: 1)
+    @test_hierarchy_entry_published = HierarchyEntry.gen(hierarchy: @test_hierarchy, identifier: 'Animalia',
+      parent_id: 0, published: 1, visibility_id: Visibility.visible.id, rank: Rank.kingdom)
+    @test_hierarchy_entry_unpublished = HierarchyEntry.gen(hierarchy: @test_hierarchy, identifier: 'Plantae',
+      parent_id: 0, published: 0, visibility_id: Visibility.invisible.id, rank: Rank.kingdom)
   end
 
   it 'should create an API log including API key' do
-    user = User.gen(:api_key => User.generate_key)
+    user = User.gen(api_key: User.generate_key)
     check_api_key("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}&key=#{user.api_key}", user)
   end
 

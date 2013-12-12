@@ -24,7 +24,7 @@ describe TaxonDetails do
   before(:all) do
     load_foundation_cache
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
-    @native_entry = HierarchyEntry.gen(:taxon_concept => @taxon_concept)
+    @native_entry = HierarchyEntry.gen(taxon_concept: @taxon_concept)
     @entry = HierarchyEntry.gen
     @user = User.gen
   end
@@ -40,15 +40,15 @@ describe TaxonDetails do
   end
 
   it 'should know when it has articles in other languages' do
-    @details.should_receive(:count_by_language).and_return({:whatever => 1})
+    @details.should_receive(:count_by_language).and_return({whatever: 1})
     @details.articles_in_other_languages?.should be_true
   end
 
   # This looks more complicated than it is. It's actually pretty simple, if you read through it.
   it 'should have a count by language of approved languages (only)' do
-    english_article = DataObject.gen(:language => Language.first)
+    english_article = DataObject.gen(language: Language.first)
     english_article.stub(:approved_language?).and_return(true)
-    bad_article = DataObject.gen(:language => Language.last)
+    bad_article = DataObject.gen(language: Language.last)
     bad_article.stub(:approved_language?).and_return(false)
     articles = [english_article, bad_article]
     @taxon_concept.should_receive(:text_for_user).and_return([english_article])
@@ -133,13 +133,13 @@ describe TaxonDetails do
 
   # This is pretty ugly, but it's hard to test block code, yeah?
   it '#each_toc_item should iterate through the nested toc items with its content' do
-    first_toc_item = TocItem.gen(:parent_id => 0)
+    first_toc_item = TocItem.gen(parent_id: 0)
     first_content  = DataObject.gen
     first_content.should_receive(:toc_items).at_least(1).times.and_return([first_toc_item])
-    child_toc_item = TocItem.gen(:parent_id => first_toc_item.id)
+    child_toc_item = TocItem.gen(parent_id: first_toc_item.id)
     child_content  = DataObject.gen
     child_content.should_receive(:toc_items).at_least(1).times.and_return([child_toc_item])
-    second_child_toc_item = TocItem.gen(:parent_id => first_toc_item.id)
+    second_child_toc_item = TocItem.gen(parent_id: first_toc_item.id)
     second_child_content  = DataObject.gen
     second_child_content.should_receive(:toc_items).at_least(1).times.and_return([second_child_toc_item])
     root_toc_item = TocItem.gen

@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe 'API:collections' do
   before(:all) do
     load_foundation_cache
-    @collection = Collection.gen(:name => "TESTING COLLECTIONS API", :description => "SOME DESCRIPTION")
+    @collection = Collection.gen(name: "TESTING COLLECTIONS API", description: "SOME DESCRIPTION")
   end
 
   before(:each) do
@@ -13,7 +13,7 @@ describe 'API:collections' do
   end
 
   it 'should create an API log including API key' do
-    user = User.gen(:api_key => User.generate_key)
+    user = User.gen(api_key: User.generate_key)
     check_api_key("/api/collections/#{@collection.id}?key=#{user.api_key}", user)
   end
 
@@ -37,8 +37,8 @@ describe 'API:collections' do
   end
 
   it 'should be able to filter by sort_field in XML' do
-    ci1 = CollectionItem.gen(:collection => @collection, :collected_item => User.gen)
-    ci2 = CollectionItem.gen(:collection => @collection, :collected_item => User.gen, :sort_field => "populated")
+    ci1 = CollectionItem.gen(collection: @collection, collected_item: User.gen)
+    ci2 = CollectionItem.gen(collection: @collection, collected_item: User.gen, sort_field: "populated")
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
     response = get_as_xml("/api/collections/#{@collection.id}")
     response.xpath("//item").length.should == 2
@@ -49,8 +49,8 @@ describe 'API:collections' do
   end
 
   it 'should be able to filter by sort_field in XML' do
-    ci1 = CollectionItem.gen(:collection => @collection, :collected_item => User.gen)
-    ci2 = CollectionItem.gen(:collection => @collection, :collected_item => User.gen, :sort_field => "populated")
+    ci1 = CollectionItem.gen(collection: @collection, collected_item: User.gen)
+    ci2 = CollectionItem.gen(collection: @collection, collected_item: User.gen, sort_field: "populated")
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
     response = get_as_json("/api/collections/#{@collection.id}.json")
     response['collection_items'].length.should == 2

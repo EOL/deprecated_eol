@@ -68,8 +68,8 @@ describe TaxonData do
   end
 
   it 'should populate sources from resources' do
-    resource_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, :resource_id => @resource.id,
-      :uri => 'http://resource_data/', :user_added_data_id => nil)
+    resource_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, resource_id: @resource.id,
+      uri: 'http://resource_data/', user_added_data_id: nil)
     @mock_row[:data_point_uri] = resource_data_point_uri.uri
     @mock_row[:graph] = "http://eol.org/resources/#{@resource.id}"
     @taxon_data.should_receive(:data).and_return([@mock_row])
@@ -78,8 +78,8 @@ describe TaxonData do
   end
 
   it 'should populate sources from user_added_data' do
-    user_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, :user_added_data_id => @user_added_data.id,
-      :uri => @user_added_data.uri, :resource_id => nil)
+    user_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, user_added_data_id: @user_added_data.id,
+      uri: @user_added_data.uri, resource_id: nil)
     @mock_row[:data_point_uri] = user_data_point_uri.uri
     @taxon_data.should_receive(:data).and_return([@mock_row])
     taxon_data_set = @taxon_data.get_data

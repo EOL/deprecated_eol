@@ -22,10 +22,10 @@
         - if image = taxon_concept.exemplar_or_best_image_from_solr
           - if thumb = image.thumb_or_object('88_88')
             = link_to image_tag(thumb), taxon_link
-        = link_to content_tag(:span, '', { :title => I18n.t(:item_type_taxon_assistive) } ), taxon_link
+        = link_to content_tag(:span, '', { title: I18n.t(:item_type_taxon_assistive) } ), taxon_link
       .names
         %h4
-          = link_to raw(truncate(taxon_concept.collected_name, :length => 64)), taxon_link
+          = link_to raw(truncate(taxon_concept.collected_name, length: 64)), taxon_link
         - subtitle = taxon_concept.preferred_common_name_in_language(current_language)
         - unless subtitle.blank?
           = link_to subtitle.firstcap, taxon_link
@@ -40,7 +40,7 @@
   %td.val{ headers: header_id, id: "#{header_id}_d" }
     %span.fold
       - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
-      = link_to(image_tag(arrow_file_name, alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(data_point_uri.taxon_concept, :data_point_uri_id => data_point_uri.id, :anchor => data_point_uri.anchor))
+      = link_to(image_tag(arrow_file_name, alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(data_point_uri.taxon_concept, data_point_uri_id: data_point_uri.id, anchor: data_point_uri.anchor))
     = raw display_text_for_data_point_uri(data_point_uri, define: :after)
   %td.source
     %span.source
@@ -68,15 +68,15 @@
         - if current_user.is_admin?
           %li
             &bull;&ensp;
-            = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), :target => 'data'
+            = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), target: 'data'
         - if data_point_uri.user_added_data
           - if current_user.can_update?(data_point_uri.user_added_data)
             %li
               &bull;&ensp;
-              = link_to I18n.t(:edit), edit_user_added_datum_path(data_point_uri.user_added_data), :method => :get
+              = link_to I18n.t(:edit), edit_user_added_datum_path(data_point_uri.user_added_data), method: :get
             %li
               &bull;&ensp;
-              = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), :method => :delete, :confirm => I18n.t('this_cannot_be_undone_are_you_sure')
+              = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), method: :delete, confirm: I18n.t('this_cannot_be_undone_are_you_sure')
       = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: data_point_uri }
       -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
       - if current_user.min_curator_level?(:full)

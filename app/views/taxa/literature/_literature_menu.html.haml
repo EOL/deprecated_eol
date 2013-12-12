@@ -1,9 +1,9 @@
 #tabs_sidebar
   %ul.tabs
-    %li{:class => resource_is_active('show')}
+    %li{class: resource_is_active('show')}
       = link_to I18n.t(:literature_references), taxon_literature_path(@taxon_page)
-    %li{:class => resource_is_active('bhl')}
+    %li{class: resource_is_active('bhl')}
       = link_to I18n.t(:biodiversity_heritage_library), bhl_taxon_literature_path(@taxon_page)
     - unless @literature_links_contents.blank?
-      %li{:class => resource_is_active('literature_links')}
+      %li{class: resource_is_active('literature_links')}
         = link_to I18n.t(:literature_links_link), literature_links_taxon_literature_path(@taxon_page)

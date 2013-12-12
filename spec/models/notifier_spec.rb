@@ -5,8 +5,8 @@ describe Notifier do
   before(:all) do
     unless @user = User.find_by_username('notifier_model')
       load_foundation_cache
-      @user = User.gen(:username => "notifier_model", :email => "johndoe@example.com",
-                       :given_name => "John", :family_name => "Doe")
+      @user = User.gen(username: "notifier_model", email: "johndoe@example.com",
+                       given_name: "John", family_name: "Doe")
     end
   end
 
@@ -28,8 +28,8 @@ describe Notifier do
   describe 'curator_approved' do
     before(:all) do
       @curator_level = CuratorLevel.full
-      @user.update_attributes(:curator_level_id => @curator_level.id, :credentials => 'I am awesome.',
-                              :curator_scope => 'I study awesomeness.')
+      @user.update_attributes(curator_level_id: @curator_level.id, credentials: 'I am awesome.',
+                              curator_scope: 'I study awesomeness.')
       @email = Notifier.curator_approved(@user)
     end
 
@@ -51,13 +51,13 @@ describe Notifier do
 
   describe 'content_partner_statistics_reminder' do
     before(:all) do
-      @content_partner = ContentPartner.gen(:user => @user)
-      @content_partner.content_partner_contacts.build(:email => 'test@test.tes', :full_name => 'Test Tester')
+      @content_partner = ContentPartner.gen(user: @user)
+      @content_partner.content_partner_contacts.build(email: 'test@test.tes', full_name: 'Test Tester')
       @content_partner.save
       @content_partner_contact = @content_partner.content_partner_contacts.first
       @year = 1.month.ago.year
       @month = 1.month.ago.month
-      @partner_summary = GoogleAnalyticsPartnerSummary.gen(:year => @year, :month => @month, :user => @user)
+      @partner_summary = GoogleAnalyticsPartnerSummary.gen(year: @year, month: @month, user: @user)
       @email = Notifier.content_partner_statistics_reminder(@content_partner, @content_partner_contact, @month, @year)
     end
 
@@ -86,33 +86,33 @@ describe Notifier do
 
   describe 'activity_on_content_partner_content' do
     before(:all) do
-      @curator = User.gen(:curator_level => CuratorLevel.full_curator, :credentials => 'Blah', :curator_scope => 'More blah')
+      @curator = User.gen(curator_level: CuratorLevel.full_curator, credentials: 'Blah', curator_scope: 'More blah')
       if @user.content_partners.blank?
-        @content_partner = ContentPartner.gen(:user => @user)
+        @content_partner = ContentPartner.gen(user: @user)
       else
         @content_partner = @user.content_partners.first
       end
       if @content_partner.content_partner_contacts.blank?
-        @content_partner_contact = ContentPartnerContact.gen(:content_partner => @content_partner)
+        @content_partner_contact = ContentPartnerContact.gen(content_partner: @content_partner)
       else
         @content_partner_contact = @content_partner.content_partner_contacts.first
       end
       @hierarchy = Hierarchy.gen
       @taxon_concept = TaxonConcept.gen
-      @hierarchy_entry = HierarchyEntry.gen(:taxon_concept => @taxon_concept, :hierarchy => @hierarchy)
-      @resource = Resource.gen(:content_partner => @content_partner, :hierarchy => @hierarchy)
-      @harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => nil)
-      @data_object = DataObject.gen(:object_title => 'Content partner provided text object')
-      DataObjectsHierarchyEntry.gen(:hierarchy_entry => @hierarchy_entry, :data_object => @data_object)
+      @hierarchy_entry = HierarchyEntry.gen(taxon_concept: @taxon_concept, hierarchy: @hierarchy)
+      @resource = Resource.gen(content_partner: @content_partner, hierarchy: @hierarchy)
+      @harvest_event = HarvestEvent.gen(resource: @resource, published_at: nil)
+      @data_object = DataObject.gen(object_title: 'Content partner provided text object')
+      DataObjectsHierarchyEntry.gen(hierarchy_entry: @hierarchy_entry, data_object: @data_object)
       # Using ChangeableObjectType.data_objects_hierarchy_entry and target_id is DataObject.id because thats
       # what the log_action method in DataObject controller is doing... but its a little weird
-      @trusted_action = CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id,
-                                               :activity_id => Activity.trusted.id, :user => @curator, :target_id => @data_object.id,
-                                               :hierarchy_entry_id => @hierarchy_entry.id, :created_at => Time.now)
-      @comment_on_dato = Comment.gen(:user => @curator, :body => 'Comment on dato.', :parent_type => 'DataObject',
-                                     :parent_id => @data_object.id, :created_at => Time.now)
-      @comment_on_page = Comment.gen(:user => @curator, :body => 'Comment on page.', :parent_type => 'TaxonConcept',
-                                     :parent_id => @taxon_concept.id, :created_at => Time.now)
+      @trusted_action = CuratorActivityLog.gen(changeable_object_type_id: ChangeableObjectType.data_objects_hierarchy_entry.id,
+                                               activity_id: Activity.trusted.id, user: @curator, target_id: @data_object.id,
+                                               hierarchy_entry_id: @hierarchy_entry.id, created_at: Time.now)
+      @comment_on_dato = Comment.gen(user: @curator, body: 'Comment on dato.', parent_type: 'DataObject',
+                                     parent_id: @data_object.id, created_at: Time.now)
+      @comment_on_page = Comment.gen(user: @curator, body: 'Comment on page.', parent_type: 'TaxonConcept',
+                                     parent_id: @taxon_concept.id, created_at: Time.now)
       all_activity = PartnerUpdatesEmailer.all_activity_since_hour(1)
       @activity = all_activity[:partner_activity][@content_partner.id]
       @email = Notifier.activity_on_content_partner_content(@content_partner, @content_partner_contact, @activity)

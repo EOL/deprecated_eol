@@ -212,25 +212,25 @@ describe TaxonUserClassificationFilter do
   it '#details should delegate to taxon_concept#text_for_user with some default options and preload' do
     @taxon_concept.should_receive(:text_for_user).with(
       @user, 
-      :language_ids => [ @user.language_id ],
-      :filter_by_subtype => true,
-      :allow_nil_languages => @user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => 600
+      language_ids: [ @user.language_id ],
+      filter_by_subtype: true,
+      allow_nil_languages: @user.default_language?,
+      toc_ids_to_ignore: TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
+      per_page: 600
     ).and_return("gee wiz")
     DataObject.should_receive(:preload_associations).and_return(nil)
     @taxon_page.details.should == "gee wiz"
   end
 
   it '#details should filter by toc item' do
-    d_first = DataObject.gen(:data_type => DataType.text)
+    d_first = DataObject.gen(data_type: DataType.text)
     d_first.toc_items << TocItem.first
-    d_last = DataObject.gen(:data_type => DataType.text)
+    d_last = DataObject.gen(data_type: DataType.text)
     d_last.toc_items << TocItem.last
     @taxon_concept.should_receive(:text_for_user).and_return([d_first, d_last])
     @taxon_page.details().should == [ d_first, d_last ]
-    @taxon_page.details(:include_toc_item => TocItem.first).should == [ d_first ]
-    @taxon_page.details(:include_toc_item => TocItem.last).should == [ d_last ]
+    @taxon_page.details(include_toc_item: TocItem.first).should == [ d_first ]
+    @taxon_page.details(include_toc_item: TocItem.last).should == [ d_last ]
   end
 
   # Hard to test.  :\  ...Though the "spirit" of this may be captured in other specs...
@@ -255,16 +255,16 @@ describe TaxonUserClassificationFilter do
 
   it '#facets should ignore entry if none provided' do
     EOL::Solr::DataObjects.should_receive(:get_aggregated_media_facet_counts).with(
-      @taxon_concept.id, :user => @user
+      @taxon_concept.id, user: @user
     )
     @taxon_page.facets
   end
 
   it '#media should delegate to taxon_concept#data_objects_from_solr with defaults' do
     @taxon_concept.should_receive(:data_objects_from_solr).with(
-      :ignore_translations => true,
-      :return_hierarchically_aggregated_objects => true,
-      :preload_select => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_cache_url, :object_url, :data_rating ] }
+      ignore_translations: true,
+      return_hierarchically_aggregated_objects: true,
+      preload_select: { data_objects: [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_cache_url, :object_url, :data_rating ] }
     ).and_return("badda bing")
     @taxon_page.media.should == "badda bing"
   end

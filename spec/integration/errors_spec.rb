@@ -7,7 +7,7 @@ describe 'Errors' do
   before(:all) do
     unless @admin = User.find_by_username('errors_integration_testing')
       load_foundation_cache
-      @admin = User.gen(:username => 'errors_integration_testing', :admin => true)
+      @admin = User.gen(username: 'errors_integration_testing', admin: true)
     end
   end
 

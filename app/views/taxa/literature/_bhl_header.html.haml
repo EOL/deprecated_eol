@@ -1,4 +1,4 @@
 .bhl_description
-  = image_tag 'v2/logo_bhl.png', :alt => I18n.t(:biodiversity_heritage_library)
+  = image_tag 'v2/logo_bhl.png', alt: I18n.t(:biodiversity_heritage_library)
   %p= I18n.t(:literature_bhl_information)
-  %p= link_to I18n.t(:literature_bhl_link), "http://www.biodiversitylibrary.org/name/#{@taxon_concept.entry.title_canonical}", :rel => :nofollow
+  %p= link_to I18n.t(:literature_bhl_link), "http://www.biodiversitylibrary.org/name/#{@taxon_concept.entry.title_canonical}", rel: :nofollow

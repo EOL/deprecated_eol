@@ -5,9 +5,9 @@ describe User do
   def rebuild_convenience_method_data
     @user = User.gen
     @descriptions = ['these', 'do not really', 'matter much'].sort
-    @datos = @descriptions.map {|d| DataObject.gen(:description => d) }
+    @datos = @descriptions.map {|d| DataObject.gen(description: d) }
     @dato_ids = @datos.map{|d| d.id}.sort
-    @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id, :vetted => Vetted.trusted) }
+    @datos.each {|dato| UsersDataObject.create(user_id: @user.id, data_object_id: dato.id, vetted: Vetted.trusted) }
   end
 
   def expect_permission_count_to_be(perm, count)
@@ -18,9 +18,9 @@ describe User do
     I18n.locale = 'en'
     @password = 'dragonmaster'
     load_foundation_cache
-    @user = User.gen :username => 'KungFuPanda', :password => @password
+    @user = User.gen username: 'KungFuPanda', password: @password
     @user.should_not be_a_new_record
-    @admin = User.gen(:username => 'MisterAdminToYouBuddy')
+    @admin = User.gen(username: 'MisterAdminToYouBuddy')
     @admin.grant_admin
   end
 
@@ -122,13 +122,13 @@ describe User do
   it 'should require email for a user with eol authentication'
 
   it 'should not require username or password for open authenticated user' do
-    user = User.new(:given_name => "Oauth", :email => 'email@example.com',
-                    :open_authentications_attributes => [ { :guid => 1234, :provider => 'facebook' }])
+    user = User.new(given_name: "Oauth", email: 'email@example.com',
+                    open_authentications_attributes: [ { guid: 1234, provider: 'facebook' }])
     user.valid?.should be_true
   end
 
   it 'should require given name for open authenticated user' do
-    user = User.new(:open_authentications_attributes => [ { :guid => 1234, :provider => 'facebook' }])
+    user = User.new(open_authentications_attributes: [ { guid: 1234, provider: 'facebook' }])
     user.valid?.should be_false
     user.errors[:given_name].to_s.should =~ /can't be blank/
     user.given_name = "Oauth"
@@ -137,7 +137,7 @@ describe User do
   end
 
   it 'should fail validation if the email is in the wrong format' do
-    user = User.new(:email => 'wrong(at)format(dot)com')
+    user = User.new(email: 'wrong(at)format(dot)com')
     user.valid?.should be_false
     user.errors[:email].to_s.should =~ /is invalid/
   end
@@ -145,14 +145,14 @@ describe User do
   it '#full_name should resort to username if a given name is all they provided' do
     given = 'bubba'
     username = 'carryoncarryon'
-    user = User.new(:username => username, :given_name => given, :family_name => '')
+    user = User.new(username: username, given_name: given, family_name: '')
     user.full_name.should == username
   end
 
   it '#full_name should build a full name out of a given and family names' do
     given = 'santa'
     family = 'klaws'
-    user = User.new(:given_name => given, :family_name => family)
+    user = User.new(given_name: given, family_name: family)
     user.full_name.should == "#{given} #{family}"
   end
 
@@ -164,7 +164,7 @@ describe User do
   end
 
   it 'should not allow you to add a user that already exists' do
-    user = User.new(:username => @user.username)
+    user = User.new(username: @user.username)
     user.save.should be_false
     user.errors[:username].to_s.should =~ /taken/
   end
@@ -181,8 +181,8 @@ describe User do
 
   it 'convenience methods should be able to mark all data objects invisible and unvetted' do
     rebuild_convenience_method_data
-    Vetted.gen_if_not_exists(:label => 'Untrusted') unless Vetted.find_by_translated(:label, 'Untrusted')
-    Visibility.gen_if_not_exists(:label => 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
+    Vetted.gen_if_not_exists(label: 'Untrusted') unless Vetted.find_by_translated(:label, 'Untrusted')
+    Visibility.gen_if_not_exists(label: 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
     @user.hide_all_submitted_datos
     @datos.each do |stored_dato|
       new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them.
@@ -192,14 +192,14 @@ describe User do
   end
 
   it 'should set the active boolean' do
-    inactive_user = User.gen(:active => false)
+    inactive_user = User.gen(active: false)
     inactive_user.active?.should_not be_true
     inactive_user.activate
     inactive_user.active?.should be_true
   end
 
   it 'should create a "watch" collection' do
-    inactive_user = User.gen(:active => false)
+    inactive_user = User.gen(active: false)
     inactive_user.activate
     inactive_user.watch_collection.should_not be_nil
     inactive_user.watch_collection.name.should == "#{inactive_user.full_name.titleize}'s Watch List"
@@ -307,7 +307,7 @@ describe User do
     EolConfig.destroy_all
     u = User.gen
     u.can_see_data?.should == false
-    EolConfig.gen(:parameter => 'all_users_can_see_data', :value => true)
+    EolConfig.gen(parameter: 'all_users_can_see_data', value: true)
     u.can_see_data?.should == true
     u = User.gen
   end

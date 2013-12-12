@@ -34,7 +34,7 @@ describe 'Taxa page' do
     unless User.find_by_username('testy_taxa_page_spec')
       truncate_all_tables
       load_scenario_with_caching(:testy)
-      User.gen(:username => 'testy_taxa_page_spec')
+      User.gen(username: 'testy_taxa_page_spec')
     end
     @testy = EOL::TestInfo.load('testy')
     @taxon_concept = @testy[:taxon_concept]
@@ -74,9 +74,9 @@ describe 'Taxa page' do
     end
 
     it 'should show "Add an article or link to this page" button to the logged in users' do
-      expect(page).to have_css("#page_heading .page_actions li a", :text => "Add an article")
-      expect(page).to have_css("#page_heading .page_actions li a", :text => "Add a link")
-      expect(page).to have_css("#page_heading .page_actions li a", :text => "Add to a collection")
+      expect(page).to have_css("#page_heading .page_actions li a", text: "Add an article")
+      expect(page).to have_css("#page_heading .page_actions li a", text: "Add a link")
+      expect(page).to have_css("#page_heading .page_actions li a", text: "Add to a collection")
     end
   end
 
@@ -103,11 +103,11 @@ describe 'Taxa page' do
 
     it 'should show summary text' do
       # TODO: Test the summary text selection logic - as model spec rather than here (?)
-      expect(page).to have_css('div#text_summary', :text => @testy[:brief_summary_text])
+      expect(page).to have_css('div#text_summary', text: @testy[:brief_summary_text])
     end
 
     it 'should show table of contents label when text object title does not exist' do
-      expect(page).to have_css('h3', :text => @testy[:brief_summary].label)
+      expect(page).to have_css('h3', text: @testy[:brief_summary].label)
     end
 
     it 'should show classifications'
@@ -144,7 +144,7 @@ describe 'Taxa page' do
       visit taxon_names_path(@taxon_concept)
       within('table.standard.classifications') do
         expect(page).to have_css("a[href='#{taxon_entry_overview_path(@taxon_concept, @taxon_concept.entry)}']")
-        expect(page).to have_tag('td', :text => 'Catalogue of Life')
+        expect(page).to have_tag('td', text: 'Catalogue of Life')
       end
     end
 
@@ -165,7 +165,7 @@ describe 'Taxa page' do
       # TODO: Test that common names from other languages are present and that current language names appear
       # first after language is switched.
       # English by default
-      expect(page).to have_css('h4', :text => "English")
+      expect(page).to have_css('h4', text: "English")
       expect(page).to have_content(@common_names.first.name_string.capitalize_all_words)
       expect(page).to have_content(@common_names.first.agents.first.full_name)
       expect(page).to have_content(Vetted.find_by_id(@common_names.first.vetted.id).label)
@@ -179,9 +179,9 @@ describe 'Taxa page' do
       visit common_names_taxon_names_path(@taxon_concept)
       expect(page).to have_css('form#new_name')
       new_name = FactoryGirl.generate(:string)
-      fill_in 'Name', :with => new_name
+      fill_in 'Name', with: new_name
       click_button 'Add name'
-      expect(page).to have_css('td', :text => new_name.capitalize_all_words)
+      expect(page).to have_css('td', text: new_name.capitalize_all_words)
     end
 
     it 'should allow curators to choose a preferred common name for each language'
@@ -249,7 +249,7 @@ describe 'Taxa page' do
       comment = "Test comment by a logged in user. #{FactoryGirl.generate(:string)}"
       expect(page).to have_css(".updates .comment #comment_body")
       expect(page).to have_css(".updates .comment .actions input[value='Post Comment']")
-      fill_in 'comment_body', :with => comment
+      fill_in 'comment_body', with: comment
       click_button "Post Comment"
       current_url.should have_content(taxon_overview_path(@taxon_concept))
       expect(page).to have_content('Comment successfully added')
@@ -373,15 +373,15 @@ describe 'Taxa page' do
     end
     it "should render communities - curators page" do
       visit(taxon_communities_path(@taxon_concept))
-      expect(page).to have_css("h3", :text => "Communities")
+      expect(page).to have_css("h3", text: "Communities")
     end
     it "should render communities - collections page" do
       visit(collections_taxon_communities_path(@taxon_concept))
-      expect(page).to have_css("h3", :text => "Collections")
+      expect(page).to have_css("h3", text: "Collections")
     end
     it "should render communities - curators page" do
       visit(curators_taxon_communities_path(@taxon_concept))
-      expect(page).to have_css("h3", :text => "Curators")
+      expect(page).to have_css("h3", text: "Curators")
     end
   end
 
@@ -400,7 +400,7 @@ describe 'Taxa page' do
 
   context 'when taxon does not have any data' do
     it 'details should show empty text' do
-      t = TaxonConcept.gen(:published => 1)
+      t = TaxonConcept.gen(published: 1)
       visit taxon_details_path t
       expect(page).to have_css('#taxon_detail #main .empty')
       expect(page).to have_content("No one has contributed any details to this page yet")
@@ -458,7 +458,7 @@ describe 'Taxa page' do
       visit taxon_updates_path(@taxon_concept)
       comment = "Test comment by a logged in user. #{FactoryGirl.generate(:string)}"
       expect(page).to have_css("#main .comment #comment_body")
-      fill_in 'comment_body', :with => comment
+      fill_in 'comment_body', with: comment
       expect(page).to have_css("#main .comment .actions input[value='Post Comment']")
       click_button "Post Comment"
       current_url.should match /#{taxon_updates_path(@taxon_concept)}/
@@ -478,7 +478,7 @@ describe 'Taxa page' do
       visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)
       comment = "Test comment by a logged in user #{FactoryGirl.generate(:string)}."
       expect(page).to have_css("#main .comment #comment_body")
-      fill_in 'comment_body', :with => comment
+      fill_in 'comment_body', with: comment
       expect(page).to have_css("#main .comment .actions input[value='Post Comment']")
       click_button "Post Comment"
       current_url.should match /#{taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)}/

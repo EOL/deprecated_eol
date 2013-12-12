@@ -80,7 +80,7 @@ describe EOL::Solr::ActivityLog do
       stub_empty_response
       EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{@default_user_added_data_exclusion +
         @default_fields + @recent_days + @default_group + @default_rows + @default_sort + @default_start}").and_return(@result)
-      EOL::Solr::ActivityLog.search_with_pagination('foo', :recent_days => 7)
+      EOL::Solr::ActivityLog.search_with_pagination('foo', recent_days: 7)
     end
 
     it 'should set start offset'

@@ -9,14 +9,14 @@ describe 'Taxa data tab basic tests' do
     @resource = Resource.gen
     @user = User.gen
     @user.grant_permission(:see_data)
-    @default_data_options = { :subject => @taxon_concept, :resource => @resource }
-    @measurement = DataMeasurement.new(@default_data_options.merge(:predicate => 'http://eol.org/weight',
-      :object => '12345.0', :unit => 'http://eol.org/g'))
-    @association = DataAssociation.new(@default_data_options.merge(:object => @target_taxon_concept,
-      :type => 'http://eol.org/preys_on'))
-    @user_added_data = UserAddedData.gen(:user => @user, :subject => @taxon_concept, :predicate => 'http://eol.org/length',
-      :object => '9999.0')
-    @master_curator = build_curator(@taxon_concept, :level => :master)
+    @default_data_options = { subject: @taxon_concept, resource: @resource }
+    @measurement = DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/weight',
+      object: '12345.0', unit: 'http://eol.org/g'))
+    @association = DataAssociation.new(@default_data_options.merge(object: @target_taxon_concept,
+      type: 'http://eol.org/preys_on'))
+    @user_added_data = UserAddedData.gen(user: @user, subject: @taxon_concept, predicate: 'http://eol.org/length',
+      object: '9999.0')
+    @master_curator = build_curator(@taxon_concept, level: :master)
     @master_curator.grant_permission(:see_data)
   end
 
@@ -34,70 +34,70 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th span", :text => 'Weight')
-    body.should have_selector("table.data td", :text => '12,345.0')
+    body.should have_selector("table.data th span", text: 'Weight')
+    body.should have_selector("table.data td", text: '12,345.0')
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
-    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@measurement.uri)}']", :text => "see this record in Virtuoso")
+    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@measurement.uri)}']", text: "see this record in Virtuoso")
   end
 
   it 'should display harvested associations' do
     @association.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th span", :text => 'Preys On')
-    body.should have_selector("table.data td a[href='/pages/#{@target_taxon_concept.id}/data']", :text => @target_taxon_concept.title_canonical)
+    body.should have_selector("table.data th span", text: 'Preys On')
+    body.should have_selector("table.data td a[href='/pages/#{@target_taxon_concept.id}/data']", text: @target_taxon_concept.title_canonical)
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
-    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@association.uri)}']", :text => "see this record in Virtuoso")
+    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@association.uri)}']", text: "see this record in Virtuoso")
   end
 
   it 'should display user added data' do
     @user_added_data.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th span", :text => 'Length')
-    body.should have_selector("table.data td", :text => '9,999.0')
+    body.should have_selector("table.data th span", text: 'Length')
+    body.should have_selector("table.data td", text: '9,999.0')
     body.should include("provided by <a href=\"/users/#{@user.id}\">#{@user.full_name}</a>")
-    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@user_added_data.uri)}']", :text => "see this record in Virtuoso")
+    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@user_added_data.uri)}']", text: "see this record in Virtuoso")
   end
 
   it 'should display known uri labels when available' do
-    @measurement = DataMeasurement.new(@default_data_options.merge(:predicate => 'http://eol.org/mass', :object => 'http://eol.org/massive'))
+    @measurement = DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/mass', object: 'http://eol.org/massive'))
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # readable label will be derived
-    body.should have_selector("table.data td span", :text => 'Massive')
+    body.should have_selector("table.data td span", text: 'Massive')
     # URI should not be used
-    body.should_not have_selector("table.data td span", :text => 'http://eol.org/massive')
-    body.should_not have_selector("table.data td span", :text => 'Really Really Heavy')
-    KnownUri.gen_if_not_exists(:uri => 'http://eol.org/massive', :name => 'Really Really Heavy')
+    body.should_not have_selector("table.data td span", text: 'http://eol.org/massive')
+    body.should_not have_selector("table.data td span", text: 'Really Really Heavy')
+    KnownUri.gen_if_not_exists(uri: 'http://eol.org/massive', name: 'Really Really Heavy')
     visit taxon_data_path(@taxon_concept.id)
-    body.should_not have_selector("table.data td span", :text => 'Massive')
+    body.should_not have_selector("table.data td span", text: 'Massive')
     # the label for the new KnownURI should get used
-    body.should have_selector("table.data td span", :text => 'Really Really Heavy')
+    body.should have_selector("table.data td span", text: 'Really Really Heavy')
   end
 
   it 'should display units of measure when explicitly declared' do
-    @measurement = DataMeasurement.new(@default_data_options.merge(:predicate => 'http://eol.org/mass',
-      :object => '50', :unit => 'http://eol.org/lbs'))
+    @measurement = DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/mass',
+      object: '50', unit: 'http://eol.org/lbs'))
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the unit is a KnownURI
     body.should_not have_selector('span.term', text: '50 pounds')
-    pounds = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/lbs', :name => 'pounds', uri_type: UriType.measurement)
+    pounds = KnownUri.gen_if_not_exists(uri: 'http://eol.org/lbs', name: 'pounds', uri_type: UriType.measurement)
     KnownUri.unit_of_measure.add_value(pounds)
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector('span.term', text: 'pounds')
   end
 
   it 'should display units of measure when implied by measurement type' do
-    @measurement = DataMeasurement.new(@default_data_options.merge(:predicate => 'http://eol.org/time', :object => '50'))
+    @measurement = DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/time', object: '50'))
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     # unit should not display until the predicate is associated with a unit, and that unit is a KnownURI
-    body.should have_selector("table.data td[headers='predicate_http___eol_org_time'] span", :text => '50')
+    body.should have_selector("table.data td[headers='predicate_http___eol_org_time'] span", text: '50')
     body.should_not have_selector('span.term', text: 'hours')
-    time = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/time', :name => 'time')
-    hours = KnownUri.gen_if_not_exists(:uri => 'http://eol.org/hours', :name => 'hours', uri_type: UriType.measurement)
+    time = KnownUri.gen_if_not_exists(uri: 'http://eol.org/time', name: 'time')
+    hours = KnownUri.gen_if_not_exists(uri: 'http://eol.org/hours', name: 'hours', uri_type: UriType.measurement)
     KnownUri.unit_of_measure.add_value(hours)
     time.add_implied_unit(hours);
     visit taxon_data_path(@taxon_concept.id)
@@ -109,10 +109,10 @@ describe 'Taxa data tab basic tests' do
     visit(taxon_data_path(@taxon_concept))
     body.should_not have_tag("table.data")
     body.should have_tag("form#new_user_added_data")
-    body.should have_tag("form#new_user_added_data input[@type='submit']", :value => "submit data value")
+    body.should have_tag("form#new_user_added_data input[@type='submit']", value: "submit data value")
     within(:xpath, '//form[@id="new_user_added_data"]') do
-      fill_in 'user_added_data_predicate', :with => Rails.configuration.schema_terms_prefix + 'testingadddata'
-      fill_in 'user_added_data_object', :with => 'testingadddata_value'
+      fill_in 'user_added_data_predicate', with: Rails.configuration.schema_terms_prefix + 'testingadddata'
+      fill_in 'user_added_data_object', with: 'testingadddata_value'
       click_button "submit data value"
     end
     visit(taxon_data_path(@taxon_concept))

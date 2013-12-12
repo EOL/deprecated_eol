@@ -120,8 +120,8 @@ describe 'Staging', js: true do
   # ARGH!  I cannot get a context / describe block to work, so I'm doing it the hard way:
   it 'full curator should have a reindex page button' do
     visit_with_auth "/login"
-    fill_in 'session_username_or_email', :with => Rails.configuration.acceptance_curator[:username]
-    fill_in 'session_password', :with => Rails.configuration.acceptance_curator[:password]
+    fill_in 'session_username_or_email', with: Rails.configuration.acceptance_curator[:username]
+    fill_in 'session_password', with: Rails.configuration.acceptance_curator[:password]
     click_button 'Sign in'
     visit_with_auth "/pages/339201/overview"
     expect(page).to have_tag('a.button', text: I18n.t(:reindex_page_button))
@@ -136,10 +136,10 @@ describe 'Staging', js: true do
       bad_text = 'QWERQWERQWER'
       more_text = 'Yay!'
       link_stuff = 'http://whatever.org and one starting with www.google.com and a third marked up using <a href="something.edu">this</a>.'
-      fill_in 'comment_body', :with => test_text + link_stuff
+      fill_in 'comment_body', with: test_text + link_stuff
       click_button 'Post Comment'
-      fill_in 'session_username_or_email', :with => Rails.configuration.acceptance_curator[:username]
-      fill_in 'session_password', :with => Rails.configuration.acceptance_curator[:password]
+      fill_in 'session_username_or_email', with: Rails.configuration.acceptance_curator[:username]
+      fill_in 'session_password', with: Rails.configuration.acceptance_curator[:password]
       click_button 'Sign in'
       page.should have_content test_text # It won't have link_stuff 'cause it's too long...
       page.should have_content I18n.t(:comment_added_notice)
@@ -147,13 +147,13 @@ describe 'Staging', js: true do
       within("ul.feed") do
         page.should have_selector 'a[href="http://whatever.org"]'
         page.should have_selector 'a[href="http://www.google.com"]'
-        page.should have_selector 'a[href="something.edu"]', :text => 'this'
+        page.should have_selector 'a[href="something.edu"]', text: 'this'
         click_link 'Edit' # There should only be one...
-        fill_in 'comment_body', :with => bad_text
+        fill_in 'comment_body', with: bad_text
         click_link 'Cancel'
         page.should_not have_content bad_text
         click_link 'Edit'
-        fill_in 'comment_body', :with => more_text
+        fill_in 'comment_body', with: more_text
         click_button 'save comment'
         page.should have_content more_text
         click_link 'Edit'

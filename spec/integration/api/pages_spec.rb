@@ -7,7 +7,7 @@ describe 'API:pages' do
   before(:all) do
     load_foundation_cache # TODO -try removing this. I think we can go faster with just create_defaults as needed.
     Capybara.reset_sessions!
-    @user = User.gen(:api_key => User.generate_key)
+    @user = User.gen(api_key: User.generate_key)
 
     # DataObjects
     @overview      = TocItem.overview
@@ -30,55 +30,55 @@ describe 'API:pages' do
     @toc_item_3.info_items << TranslatedInfoItem.gen(label: @toc_label_3).info_item unless @toc_item_3.info_items.map(&:label).include?(@toc_label_3)
 
     @taxon_concept   = build_taxon_concept(
-       :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
-       :youtube         => [{:description => @video_3_text}],
-       :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
-                            {:object_cache_url => @image_3}],
-       :toc             => [{:toc_item => @overview, :description => @overview_text, :license => License.by_nc, :rights_holder => "Someone"},
-                            {:toc_item => @toc_item_2, :description => @desc_2, :license => License.cc, :rights_holder => "Someone"},
-                            {:toc_item => @toc_item_3, :description => @desc_3, :license => License.public_domain, :rights_holder => ""},
-                            {:toc_item => @toc_item_3, :description => 'test uknown', :vetted => Vetted.unknown, :license => License.by_nc, :rights_holder => "Someone"},
-                            {:toc_item => @toc_item_3, :description => 'test untrusted', :vetted => Vetted.untrusted, :license => License.cc, :rights_holder => "Someone"}])
-    @preferred_common_name_synonym = @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
-    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
+       flash:           [{description: @video_1_text}, {description: @video_2_text}],
+       youtube:         [{description: @video_3_text}],
+       images:          [{object_cache_url: @image_1}, {object_cache_url: @image_2},
+                          {object_cache_url: @image_3}],
+       toc:             [{toc_item: @overview, description: @overview_text, license: License.by_nc, rights_holder: "Someone"},
+                          {toc_item: @toc_item_2, description: @desc_2, license: License.cc, rights_holder: "Someone"},
+                          {toc_item: @toc_item_3, description: @desc_3, license: License.public_domain, rights_holder: ""},
+                          {toc_item: @toc_item_3, description: 'test uknown', vetted: Vetted.unknown, license: License.by_nc, rights_holder: "Someone"},
+                          {toc_item: @toc_item_3, description: 'test untrusted', vetted: Vetted.untrusted, license: License.cc, rights_holder: "Someone"}])
+    @preferred_common_name_synonym = @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, agent: Agent.last, language: Language.english)
+    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, agent: Agent.last, language: Language.english)
 
     d = DataObject.last
     d.license = License.by_nc
     d.save!
     @object = DataObject.create(
-      :guid                   => '803e5930803396d4f00e9205b6b2bf21',
-      :identifier             => 'doid',
-      :data_type              => DataType.text,
-      :mime_type              => MimeType.gen_if_not_exists(:label => 'text/html'),
-      :object_title           => 'default title',
-      :language               => Language.find_or_create_by_iso_639_1('en'),
-      :license                => License.by_nc,
-      :rights_statement       => 'default rights © statement',
-      :rights_holder          => 'default rights holder',
-      :bibliographic_citation => 'default citation',
-      :source_url             => 'http://example.com/12345',
-      :description            => 'default description <a href="http://www.eol.org">with some html</a>',
-      :object_url             => '',
-      :thumbnail_url          => '',
-      :location               => 'default location',
-      :latitude               => 1.234,
-      :longitude              => 12.34,
-      :altitude               => 123.4,
-      :published              => 1,
-      :curated                => 0)
+      guid:                   '803e5930803396d4f00e9205b6b2bf21',
+      identifier:             'doid',
+      data_type:              DataType.text,
+      mime_type:              MimeType.gen_if_not_exists(label: 'text/html'),
+      object_title:           'default title',
+      language:               Language.find_or_create_by_iso_639_1('en'),
+      license:                License.by_nc,
+      rights_statement:       'default rights © statement',
+      rights_holder:          'default rights holder',
+      bibliographic_citation: 'default citation',
+      source_url:             'http://example.com/12345',
+      description:            'default description <a href="http://www.eol.org">with some html</a>',
+      object_url:             '',
+      thumbnail_url:          '',
+      location:               'default location',
+      latitude:               1.234,
+      longitude:              12.34,
+      altitude:               123.4,
+      published:              1,
+      curated:                0)
     @object.toc_items << @toc_item_2
     @object.save!
 
-    AgentsDataObject.create(:data_object_id => @object.id,
-                            :agent_id => Agent.gen(:full_name => 'agent one', :homepage => 'http://homepage.com/?agent=one&profile=1').id,
-                            :agent_role => AgentRole.writer,
-                            :view_order => 1)
-    AgentsDataObject.create(:data_object_id => @object.id,
-                            :agent => Agent.gen(:full_name => 'agent two'),
-                            :agent_role => AgentRole.editor,
-                            :view_order => 2)
-    @object.refs << Ref.gen(:full_reference => 'first reference')
-    @object.refs << Ref.gen(:full_reference => 'second reference')
+    AgentsDataObject.create(data_object_id: @object.id,
+                            agent_id: Agent.gen(full_name: 'agent one', homepage: 'http://homepage.com/?agent=one&profile=1').id,
+                            agent_role: AgentRole.writer,
+                            view_order: 1)
+    AgentsDataObject.create(data_object_id: @object.id,
+                            agent: Agent.gen(full_name: 'agent two'),
+                            agent_role: AgentRole.editor,
+                            view_order: 2)
+    @object.refs << Ref.gen(full_reference: 'first reference')
+    @object.refs << Ref.gen(full_reference: 'second reference')
     @taxon_concept.add_data_object(@object)
 
     make_all_nested_sets
@@ -192,7 +192,7 @@ describe 'API:pages' do
     vetted_stasuses = []
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1")
     response['dataObjects'].each do |data_object|
-      data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
+      data_object = DataObject.find_by_guid(data_object['identifier'], order: 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
     end
     vetted_stasuses.uniq!
@@ -205,7 +205,7 @@ describe 'API:pages' do
     vetted_stasuses = []
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=1")
     response['dataObjects'].each do |data_object|
-      data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
+      data_object = DataObject.find_by_guid(data_object['identifier'], order: 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
     end
     vetted_stasuses.uniq!
@@ -218,7 +218,7 @@ describe 'API:pages' do
     vetted_stasuses = []
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=2")
     response['dataObjects'].each do |data_object|
-      data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
+      data_object = DataObject.find_by_guid(data_object['identifier'], order: 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
     end
     vetted_stasuses.uniq!
@@ -257,12 +257,12 @@ describe 'API:pages' do
   end
 
   it 'pages should be able to toggle synonyms' do
-    taxon = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
-    hierarchy = Hierarchy.gen(:label => 'my hierarchy', :browsable => 1)
-    hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => taxon, :rank => Rank.gen_if_not_exists(:label => 'species'))
-    name = Name.gen(:string => 'my synonym')
-    relation = SynonymRelation.gen_if_not_exists(:label => 'not common name')
-    synonym = Synonym.gen(:hierarchy_entry => hierarchy_entry, :name => name, :synonym_relation => relation)
+    taxon = TaxonConcept.gen(published: 1, supercedure_id: 0)
+    hierarchy = Hierarchy.gen(label: 'my hierarchy', browsable: 1)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy, taxon_concept: taxon, rank: Rank.gen_if_not_exists(label: 'species'))
+    name = Name.gen(string: 'my synonym')
+    relation = SynonymRelation.gen_if_not_exists(label: 'not common name')
+    synonym = Synonym.gen(hierarchy_entry: hierarchy_entry, name: name, synonym_relation: relation)
 
     visit("/api/pages/1.0/#{taxon.id}")
     source.should_not include '<synonym'
@@ -320,7 +320,7 @@ describe 'API:pages' do
   end
 
   it 'pages should return preferred common names, no matter their order in the DB' do
-    new_synonym = @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.gen, :language => Language.english, :preferred => 1)
+    new_synonym = @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, agent: Agent.gen, language: Language.english, preferred: 1)
     last_tcn = TaxonConceptName.last
     last_tcn.name_id = @preferred_common_name_synonym.name_id
     last_tcn.save

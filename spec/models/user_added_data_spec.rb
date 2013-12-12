@@ -89,7 +89,7 @@ describe UserAddedData do
     drop_all_virtuoso_graphs
     user_added_data = UserAddedData.gen
     EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-    user_added_data.update_attributes({ :deleted_at => Time.now })
+    user_added_data.update_attributes({ deleted_at: Time.now })
     EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
   end
 
@@ -139,7 +139,7 @@ describe UserAddedData do
   end
 
   it 'should update its DataPointURI' do
-    d = UserAddedData.gen(:object => 'hello')
+    d = UserAddedData.gen(object: 'hello')
     d.data_point_uri.class.should == DataPointUri
     d.data_point_uri.object.should == 'hello'
     d.object = 'goodbye'

@@ -11,7 +11,7 @@
       %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, url_for(params.merge(toc_id: cat.id)), 'data-toc-id' => cat.id
     - if include_other_category
       %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), url_for(params.merge(toc_id: 'other')), 'data-toc-id' => 'other'
-    %li{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(toc_id: nil)), class: 'all'
+    %li.end_section{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), url_for(params.merge(toc_id: nil)), class: 'all'
     - unless @glossary_terms.blank?
       %li.glossary= link_to I18n.t(:data_subtab_glossary), glossary_taxon_data_path(@taxon_page)
     %li.about= link_to I18n.t(:data_subtab_about), about_taxon_data_path(@taxon_page)
@@ -64,12 +64,13 @@
           - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded?).any?
           = render partial: 'data_point_uris/display_rows', locals: {    |
             data_point_uri: data_point_uri, type_index: type_index,      |
-            classes: classes, exemplar: exemplar, excluded: excluded, |
-            row_is_selected: row_is_selected, header_id: header_id }     |
+            classes: classes, exemplar: exemplar, excluded: excluded,    |
+            row_is_selected: row_is_selected, header_id: header_id,      |
+            for_data_tab: true }                                         |
   = render partial: 'glossary', locals: { hidden: true }
   - if ! @data_point_uris.blank? && current_user.min_curator_level?(:full)
     .copy
-      .help_text
+      #curation_legend.help_text
         %h3= I18n.t(:legend)
         .key= raw I18n.t(:data_tab_curator_key_exemplar, image: image_tag("v2/icon_required.png"), link: taxon_overview_path(@taxon_page))
         .key= raw I18n.t(:data_tab_curator_key_excluded, image: image_tag("v2/icon_excluded.png"), link: taxon_overview_path(@taxon_page))

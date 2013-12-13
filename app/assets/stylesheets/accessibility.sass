@@ -1556,12 +1556,6 @@ ul.tabs
           &:hover
             .info_icon
               @include hover_info_icon(14)
-        span.excluded
-          padding-left: 10px
-          background: url(image-path("v2/icon_excluded.png")) 0px 4px no-repeat
-        span.exemplar
-          padding-left: 10px
-          background: url(image-path("v2/icon_required.png")) 0px 4px no-repeat
         td
           padding: 5px 7px 5px 0
           font-weight: 500
@@ -1819,13 +1813,20 @@ span.info
     h3
       color: $darker_blue
       float: left
-      margin-left: 10px
       padding: 20px 0px 0px
       font-size: 3em
+    h2
+      color: $darker_blue
+      float: left
+      margin-left: 0px
+      padding: 0px
+      font-size: 1.5em
+      font-weight: normal
   ul.helpers
     float: right
     font-size: .9em
     width: 100%
+    margin-top: 8px
     a
       color: $darker_gray
       text-decoration: none
@@ -1842,12 +1843,10 @@ span.info
       border-right: 1px solid $darker_gray
       margin-right: 10px
       padding-right: 10px
-  li
-    margin-bottom: 16px
-.glossary li+li
+ul.glossary li+li
   border-top: 1px dotted $light_blue
   padding-top: 8px
-.glossary li, .info.tip
+ul.glossary li, .info.tip
   dt
     color: $darker_blue
     font-weight: normal
@@ -1872,6 +1871,16 @@ span.info
   .hint
     font-size: 0.8em
     line-height: 0.3em
+#known_uris.glossary ul.chapters
+  li
+    line-height: 22px
+    margin-left: 10px
+    margin-bottom: 0px
+    &.selected
+      font-size: 1.2em
+      font-weight: bold
+      a
+        text-decoration: none
 
 // Since the data search is full-width, the normal search needed this:
 .filtered_search

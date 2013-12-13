@@ -1,11 +1,16 @@
-- cache('glossary_in_lang_' + current_language.iso_code, :expires_in => 10.minutes) do
+- cache('glossary_in_lang_' + current_language.iso_code, expires_in: 10.minutes) do
   #content
     #known_uris.site_column.glossary
       = render 'shared/beta_warning'
       - a_to_z = ('A'..'Z').to_a
       - a_to_zero = a_to_z + [ '0' ]
       %h3
-        = raw a_to_zero.collect{ |letter| link_to(letter == '0' ? '#' : letter, '#' + letter) }.join("&nbsp;&nbsp;")
+        = raw a_to_zero.collect{ |letter| link_to(letter == '0' ? '#' : letter, data_glossary_url(anchor: letter)) }.join("&nbsp;&nbsp;")
+      .chapter_marker
+        %h2= I18n.t(:chapters)
+      %ul.chapters
+        - TocItem.used_by_known_uris.each do |toc_item|
+          %li{ 'data-toc-id' => toc_item.id }= link_to toc_item.label, data_glossary_url(toc_id: toc_item.id)
       - a_to_zero.each do |letter|
         %a{ name: letter }
         .chapter_marker

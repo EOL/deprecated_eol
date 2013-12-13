@@ -114,7 +114,7 @@
   - if current_user.can_see_data?
     #data_summary.article
       .header
-        %h3= I18n.t(:data_summary_header)
+        %h3= I18n.t(:data_summary_header_with_count, count: @data_point_uris.count)
         - unless @data_point_uris.blank?
           = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @data_point_uris.count)), taxon_data_path)
       .small_site_warning= I18n.t(:beta_warning_small)

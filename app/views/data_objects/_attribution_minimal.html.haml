@@ -7,8 +7,8 @@
 - # TODO: Refactor attribution partials to make better use of model and/or helper methods as they have all gone a little wild.
 - en_type ||= en_type(data_object)
 - cache "#{en_type}/attribution/#{I18n.locale}/#{data_object.id}" do
-  = render :partial => 'data_objects/license', :locals => { :data_object => data_object }  unless en_type == 'link'
+  = render partial: 'data_objects/license', locals: { data_object: data_object }  unless en_type == 'link'
   .copy
     %p.owner
       = raw data_object.owner || "&nbsp;"
-    = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object, :minimal => true }
+    = render partial: 'data_objects/supplier', locals: { data_object: data_object, minimal: true }

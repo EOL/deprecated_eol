@@ -32,15 +32,16 @@
   %th.predicate{ id: header_id }
     - span_class = nil
     - if current_user.min_curator_level?(:full)
-      - span_class = exemplar ? 'exemplar' : (excluded ? 'excluded' : nil)
+      - if exemplar
+        = image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar))
+      - elsif excluded
+        = image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
     - if first_of_type
-      = display_uri(data_point_uri.predicate_uri, :span, class: span_class, define: true, capitalize: true, search_link: (! for_search))
-    - elsif exemplar || excluded
-      %span{ class: span_class }
+      = display_uri(data_point_uri.predicate_uri, :span, define: true, capitalize: true, search_link: (! for_search))
   %td.val{ headers: header_id, id: "#{header_id}_d" }
     %span.fold
       - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
-      = link_to(image_tag(arrow_file_name, alt: I18n.t(:data_row_arrow_alt)), taxon_data_path(data_point_uri.taxon_concept, data_point_uri_id: data_point_uri.id, anchor: data_point_uri.anchor))
+      = link_to(image_tag(arrow_file_name, title: I18n.t(:data_row_arrow_alt)), taxon_data_path(data_point_uri.taxon_concept, data_point_uri_id: data_point_uri.id, anchor: data_point_uri.anchor))
     = raw display_text_for_data_point_uri(data_point_uri, define: :after)
   %td.source
     %span.source

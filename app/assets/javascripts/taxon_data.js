@@ -13,8 +13,27 @@ EOL.create_info_dialog = function(match) {
     .addClass('tip')
     .prepend('<a href="#" class="close">&nbsp;</a>');
   EOL.enable_info_dialogs($('#tip_'+nearest));
+  EOL.enable_data_tab_glossary_links($(match));
   $(match).appendTo(document.body);
 };
+
+EOL.enable_data_tab_glossary_links = function(info) {
+  // want to enable this on the data tab, so check for some element that only exists there
+  if(info.closest('#taxon_data.main_container').length > 0) {
+    info.find('a.glossary').each(function() {
+      $(this).text($(this).data('tab_link_message'));
+    });
+    info.find('a.glossary').on('click', function(e) {
+      e.preventDefault();
+      var link_clicked = $(this);
+      link_clicked.closest('.info').hide();
+      $('#tabs_sidebar li.glossary a').trigger('click');
+      setTimeout(function() {
+        $('html,body').animate({ scrollTop: $("#" + link_clicked.data('anchor')).offset().top }, 500);
+      }, 100);
+    });
+  }
+}
 
 EOL.enable_info_dialogs = function(tip) {
   tip.unbind('click')
@@ -89,7 +108,7 @@ EOL.show_data_tables = function(tables) {
   tables.prev('div.header_underlined').show();
   tables.find('tr.data').show();
   tables.find('tr.actions').hide();
-  $('.help_text').show();
+  $('#curation_legend.help_text').show();
 };
 
 EOL.toggle_actions_row = function(data_row) {
@@ -113,7 +132,7 @@ EOL.toggle_actions_row = function(data_row) {
         success: function(response) {
           var $pasted = $next_row_data.prepend(response);
           $pasted.find('.info').each(function() {
-            var html = $(this).find('ul.glossary > li').html();
+            var html = $(this).find('ul.glossary > li')[0].outerHTML;
             var uri = $(this).find('.uri').text();
             EOL.create_info_dialog(this);
             // only add the term if it is not already in the glossary
@@ -339,13 +358,13 @@ $(function() {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.glossary_subtab').hide();
-      $('.help_text').hide();
+      $('#curation_legend.help_text').hide();
       $('.about_subtab').show()
     } else if ($(this).parent().hasClass('glossary')) {
       EOL.hide_data_tables($('table.data'));
       $('#taxon_data .empty').hide();
       $('.about_subtab').hide();
-      $('.help_text').hide();
+      $('#curation_legend.help_text').hide();
       $('.glossary_subtab').show()
     } else if ($(this).hasClass('all')) { // Acts as a reset button/link
       $('#taxon_data .empty').show();
@@ -424,6 +443,24 @@ $(function() {
 
   $('.page_actions .data_download a').on('click', function() {
     window.alert($(this).parent().attr('data-alert').replace(/<\/?[^>]+>/g, ''));
+  });
+
+  $('#known_uris.glossary ul.chapters li a').on('click', function() {
+    var li = $(this).parent();
+    var chapters = $('#known_uris.glossary ul.chapters');
+    if(li.hasClass('selected')) {
+      li.removeClass('selected');
+      if(chapters.find('li.selected').length == 0) $('ul.glossary > li').show();
+      else {
+        $('ul.glossary li[data-toc-id="' + li.attr('data-toc-id') + '"]').hide();
+      }
+    } else
+    {
+      if(chapters.find('li.selected').length == 0) $('ul.glossary > li').hide();
+      li.addClass('selected')
+      $('ul.glossary li[data-toc-id="' + li.attr('data-toc-id') + '"]').show();
+    }
+    return false;
   });
 
 });

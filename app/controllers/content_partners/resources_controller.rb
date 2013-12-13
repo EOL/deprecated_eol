@@ -152,7 +152,9 @@ private
   end
 
   def set_resource_options
-    @licenses = License.find_all_by_show_to_content_partners(true)
+    # the .sort_by(&:source_url).reverse makes for a better display, and default license since
+    # we the first in the list will show first in the drop-down menu
+    @licenses = License.find_all_by_show_to_content_partners(true).sort_by(&:source_url).reverse
     @languages = Language.find_active
     @import_frequencies = [ [ I18n.t(:import_once), 0 ],
                             [ I18n.t(:weekly), 7 * 24 ],

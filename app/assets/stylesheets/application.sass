@@ -381,7 +381,7 @@ table.standard
           float: left
           margin: 15px 10px 0 15px
           border: 1px solid #394651
-          +max_dimensions($logo_size_secondary, $logo_size_secondary)
+          +set_dimensions($logo_size_secondary, $logo_size_secondary)
         .details
           margin: 15px 15px 0 0
           padding: 0
@@ -1130,7 +1130,7 @@ body
         position: absolute
         left: 0
         top: 0
-        +max_dimensions($logo_size_standout, $logo_size_standout)
+        +set_dimensions($logo_size_standout, $logo_size_standout)
         z-index: 2
       h4
         +screenreader_accessible

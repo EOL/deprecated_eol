@@ -58,15 +58,6 @@ class Agent < ActiveRecord::Base
     cached_find(:full_name, 'Biology of Aging')
   end
 
-  # override the logo_url column in the database to contruct the path on the content server
-  def logo_url(size = 'large')
-    ContentServer.logo_path(self.attributes['logo_cache_url'], size)
-  end
-
-  def self.logo_url_from_cache_url(logo_cache_url, size = 'large')
-    ContentServer.logo_path(logo_cache_url, size)
-  end
-
   def shortened_full_name
     return self.full_name.strip[0..50]
   end

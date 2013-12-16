@@ -2,7 +2,7 @@
 - view_style ||= 'default'
 - unless view_style == 'list'
   - if thumb = item.thumb_or_object('88_88')
-    = link_to image_tag(thumb), data_object_path(item)
+    = link_to image_tag(thumb, width: 68, height: 68), data_object_path(item)
   = link_to content_tag(:span, '', {:class => 'icon', :title => en_type.blank? ? nil : I18n.t("item_type_#{en_type}_assistive")}), data_object_path(item)
 %h4
   = link_to item.collected_name.truncate_html(:length => 64), data_object_path(item)

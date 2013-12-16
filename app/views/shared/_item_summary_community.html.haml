@@ -1,6 +1,7 @@
 - view_style ||= 'default'
 - unless view_style == 'list'
-  = link_to image_tag(item.logo_url(:small), :alt => I18n.t(:community_logo_alt_text, :community_name => item.collected_name)), community_path(item)
+  = link_to image_tag(item.logo_url(:small), :alt => I18n.t(:community_logo_alt_text, :community_name => item.collected_name),
+    width: 68, height: 68), community_path(item)
 - unless ['gallery','list'].include?(view_style)
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_community_assistive)}), community_path(item)
 %h4

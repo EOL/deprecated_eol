@@ -3,39 +3,12 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe ContentServer do
 
   before(:all) do
-    @old_val = $CONTENT_SERVERS 
-    $CONTENT_SERVERS = ['http://c1.org', 'http://c2.org', 'http://c3.org', 'http://c4.org', 'http://c5.org',
-      'http://c6.org'].sort
+    @old_val = $CONTENT_SERVER
+    $CONTENT_SERVER = 'http://c1.org'
   end
 
   after(:all) do
-    $CONTENT_SERVERS = @old_val
-  end
-
-  it 'should cycle through the content servers' do
-    results = []
-    $CONTENT_SERVERS.length.times do
-      results << ContentServer.next
-    end
-    results.sort.should == $CONTENT_SERVERS
-  end
-
-  describe '#logo_path' do
-
-    it 'should build a path (default small png)' do
-      url = 'something'
-      ContentServer.logo_path(url).should =~ /http.*#{url}_small.png/
-    end
-
-    it 'should allow large paths' do
-      url = 'something'
-      ContentServer.logo_path(url, 'large').should =~ /http.*#{url}_large.png/
-    end
-
-    it 'should return blank url if logo url is empty' do
-      ContentServer.logo_path('').should == ContentServer.blank
-    end
-
+    $CONTENT_SERVER = @old_val
   end
 
   describe '#cache_path' do
@@ -79,7 +52,7 @@ describe ContentServer do
       ContentServer.uploaded_content_url('whatever', '.ext')
     end
 
-    it 'should start with the next server' do
+    it 'should start with the content server' do
       ContentServer.uploaded_content_url('whatever', '.ext').should =~ /^#{$SINGLE_DOMAIN_CONTENT_SERVER}/
     end
 

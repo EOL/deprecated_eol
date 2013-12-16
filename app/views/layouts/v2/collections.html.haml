@@ -2,7 +2,7 @@
   - if @collection
     #page_heading.with_image
       .site_column
-        = image_tag @collection.logo_url, :alt => I18n.t(:collection_image)
+        = image_tag @collection.logo_url, :alt => I18n.t(:collection_image), width: 88, height: 88
         .hgroup
           %h1= h @collection.name
           %p= I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(@collection.updated_at))

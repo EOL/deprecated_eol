@@ -97,10 +97,18 @@ module EOL
       def self.add_taxon_concept!(docs, options)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
-        instances = TaxonConcept.find_all_by_id(ids)
-        TaxonConcept.preload_for_shared_summary(instances, :language_id => options[:language_id], :skip_ancestry => options[:skip_ancestry])
+        # We want to find as many summaries as we can... but if we don't find any, those need to be populated.
+        instances = TaxonSummary.find_all_by_taxon_concept_id(ids, include: :image)
+        # Detect which of those ids failed, and load the TCs...
+        missed = ids - instances.map(&:taxon_concept_id)
+        unless missed.empty?
+          tcs = TaxonConcept.find_all_by_id(missed)
+          TaxonConcept.preload_for_shared_summary(tcs, :language_id => options[:language_id], :skip_ancestry => options[:skip_ancestry])
+          tcs.each { |tc| instances << TaxonSummary.populate(tc) }
+        end
+        # TODO - if order matters (and I think it does), we should sort instances based on ids... Yes? YES.
         docs.each do |d|
-          d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
+          d['instance'] = instances.detect{ |i| i.taxon_concept_id == d['resource_id'].to_i }
         end
       end
 

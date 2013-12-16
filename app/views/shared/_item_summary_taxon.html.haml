@@ -7,8 +7,8 @@
       = link_to image_tag(thumb), path
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), path
 - unless ['gallery','list'].include?(view_style)
-  - if item.entry and item.entry.respond_to?(:preferred_classification_summary)
-    %small= link_to item.entry.preferred_classification_summary, path
+  - if item.preferred_classification_summary?
+    %small= link_to item.preferred_classification_summary, path
 %h4
   = link_to raw(truncate(item.collected_name, :length => 64)), path
   - if view_style == 'list' && @filter.nil?

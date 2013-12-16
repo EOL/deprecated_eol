@@ -119,7 +119,7 @@ module ApplicationHelper
       'community'
     elsif object.class == Collection
       'collection'
-    elsif object.class == TaxonConcept
+    elsif object.class == TaxonConcept || object.class == TaxonSummary
       'taxon'
     elsif object.class == User
       'person'
@@ -127,6 +127,7 @@ module ApplicationHelper
       'cms_page'
     end
   end
+  # TODO - please explain why this is a CLASS method?!
   def en_type(object)
     return ApplicationHelper.en_type(object)
   end

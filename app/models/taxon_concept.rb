@@ -326,6 +326,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   # Singleton method to fetch the "best available" Hierarchy Entry and store that value.
+  # TODO - this should be re-written to say "grab an entry if there is one, otherwise create one." (more or less)
   def entry(hierarchy = nil)
     @cached_entry ||= {}
     return @cached_entry[hierarchy] if @cached_entry[hierarchy]
@@ -938,6 +939,15 @@ class TaxonConcept < ActiveRecord::Base
       common_name: preferred_common_name_in_language(Language.default),
       thumbnail: thumb
     )
+  end
+
+  def preferred_classification_summary?
+    entry
+  end
+
+  # This could be done with delegate, but I want to be more explicit...
+  def preferred_classification_summary
+    entry.preferred_classification_summary
   end
 
 private

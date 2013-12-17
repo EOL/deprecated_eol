@@ -97,7 +97,7 @@ es:
         display_name: Nombre mostrado
         full_name: Nombre del proyecto
         homepage: URL del proyecto
-        id: ID
+        id: Id.
         notes: Notas del proyecto
         public: Público
         resources: Recursos
@@ -348,6 +348,8 @@ es:
           one: debe ser menor que %{count}
           other: deben ser menores que %{count}
         less_than_or_equal_to: necesita ser menor que o igual a % {count}
+        models: 
+          inaccessible: es inaccesible
         not_a_number: no es un número
         not_an_integer: necesita ser un numero entero.
         odd: necesita ser impar
@@ -379,7 +381,7 @@ es:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: No se permite - sólo puede haber una unidad de medida
+              only_one_measurement: No se permite - sólo puede haber una unidad por defecto
             to_known_uri_id: 
               must_be_different: debe ser diferente que el Tema URI
               must_be_known_uri: debe ser un URI conocido
@@ -1285,6 +1287,7 @@ es:
   change_rating_to_3_of_5: Cambiar a clasificación a 3 de 5
   change_rating_to_4_of_5: Cambia la calificación a 4 de 5
   change_rating_to_5_of_5: Cambia la calificación a 2 de 5
+  chapters: Capítulos
   check_this_to_browse_eol_by_the_hierarchy: (Si esta casilla está activada la clasificación se mostrará en la pestaña de nombres sin necesidad de "Mostrar todas las clasificaciones".)
   choose_collection_header: Elija colección
   citation: Citación
@@ -1938,6 +1941,11 @@ es:
   data_subtab_about: Acerca de
   data_subtab_glossary: Glosario
   data_summary_header: Hechos Rápidos
+  data_summary_header_with_count: 
+    other: =EOL tuvo 1 rasgo de registro
+    zero: EOL no tenía ningún rasgo de registros
+  data_tab_curator_excluded: eliminado de Hechos Rápidos
+  data_tab_curator_exemplar: añadido a Hechos Rápidos
   data_tab_curator_key_excluded: "%{image} eliminada de <a href='%{link}'>Hechos Rápidos</a>"
   data_tab_curator_key_exemplar: "%{image} agregada a <a href='%{link}'>Hechos Rápidos</a>"
   data_table_summary: "Datos computables para %{taxon}. Cada fila de datos es un hecho separado, proporcionado por un socio de contenidos o usuario. Cada valor puede incluir una tabla anidada resumiendo metadatos acerca del hecho: dónde se recolectó, cuáles son los derechos de los datos y similares. Haga clic en la fila para mostrar estos metadatos. Haga clic de nuevo para ocultarlo. Mostrar metadatos también muestra las anotaciones y permite a los usuarios agregar sus propias anotaciones según sea necesario. Los curadores tienen funciones adicionales al mostrar metadatos."
@@ -2388,6 +2396,7 @@ es:
   glossary: Glosario
   glossary_is_empty: (El glosario está vacío)
   glossary_subhead: Glosario
+  glossary_subtab_help_text: "**en curso**. Aquí es donde irá el texto de ayuda del glosario. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   glossary_term: término
   glossary_terms: Términos del Glosario
   go: Ir
@@ -2691,7 +2700,7 @@ es:
   home_page_link_advisory_information: Este enlace te llevará a la página principal de Encyclopedia Of Life
   html_format: (Formato HTML)
   html_format_with_left_col: (FORMATO HTML, escriba sólo si desea tener una columna a la izquierda de la página, de lo contrario déjela en blanco)
-  id: ID
+  id: Id.
   if_checked_and_user_is_saved: Si se marca y el usuario se guarda, a continuación, los credenciales, alcance, aprobación y clade seleccionados se borran y el usuario ya no aparece como curador.  Usted debería agregar una nota a continuación para indicar la razón.  No se envía información al usuario.
   if_multiple_media_objects_are_returned: "Si múltiples objetos multimedia son devueltos, la lista se ordenara por tipo de objeto. Dentro de cada tipo, elementos son ordenados por su estado de investigación ('Confiado' &gt; 'No revisado' &gt; 'No es de confianza'), y después por clasificación de datos. Sin embargo, dentro de ciertos tipos de datos, les dan a elementos específicos la prioridad máxima: si uno de estos elementos es devuelto, estará listado primero. Para imágenes, imágenes ejemplares tienen la máxima prioridad. Con tipos de texto, el texto de introducción tiene la prioridad máxima."
   if_the_details_parameter_is_not_set: Si el parámetro de 'detalles' no es establecido entonces solamente el identificador de objeto de datos, tipo de datos, y, en el caso de artículos, el tema será retornado. El tipo de datos será un valor del %{linka} vocabulario de tipo de recurso. El tema del texto será uno do los %{linkb}.
@@ -2796,10 +2805,12 @@ es:
   key: Clave
   known_uri_category_header: Categorías
   known_uri_created: URI añadido.
-  known_uri_label_allowed_unit: tiene una unidad de medida
+  known_uri_label_allowed_unit: permite una unidad de
   known_uri_label_allowed_val: permite a un valor de
-  known_uri_label_inverse: es el inverso de
-  known_uri_label_unit: tiene una unidad de medida
+  known_uri_label_equivalent: es equivalente a
+  known_uri_label_indirectly_equivalent: equivale indirectamente a
+  known_uri_label_inverse: es un inverso de
+  known_uri_label_unit: tiene una unidad por defecto de
   known_uri_missing_translation: Sin traducir, por favor, edite
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
@@ -2809,18 +2820,30 @@ es:
   known_uri_updated: URI actualizado.
   known_uris: 
     add_a_relationship: Agregar una Relación
+    attribution_placeholder_text: por ejemplo, de Dublin Core; ver http://dublincore.org/usage/terms/history/#contributorT-001.
+    comment_placeholder_text: por ejemplo, Ejemplos de un Contribuyente incluye una persona, una organización o un servicio.
+    definition_placeholder_text: por ejemplo, Una entidad responsable de hacer contribuciones a los recursos.
+    equivalent_to: Relaciones de equivalencia
     import_successful: Términos de ontología importados con éxito
     more_than_one_field_mapped_to_type: Más de un atributo está asignado a "%{type}"
+    name_placeholder_text: por ejemplo, Colaborador
     no_results: No hay resultados para la estadística seleccionada
+    ontology_information_url_placeholder_text: por ejemplo http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: por ejemplo http://dublincore.org/2012/06/14/dcterms.rdf
     please_select_field_types: Por favor, seleccione una asignación para cada atributo
     please_select_from_the_menu: Por favor, seleccione del menú de arriba
     please_select_uris_to_import: Por favor seleccione la importación de URI
-    relationships: Relaciones
+    preferred_for_equivalence_group: Preferido
+    relationships_from_this_uri: Relaciones de este URI
+    relationships_to_this_uri: Relaciones a este URI
+    select: seleccionar
     select_a_category_to_view_stats: "Seleccione una categoría para ver las estadísticas:"
+    select_a_preferred_uri_for_this_group: Seleccione un URI preferido
     unrecognized_association_types: No se reconoce el tipo de asociación de URIs
     unrecognized_measurement_types: No se reconoce el tipo de medición de URIs
     unrecognized_measurement_units: No se reconoce la unidad de medida de URIs
     unrecognized_measurement_values: No se reconoce el valor de medición de URIs
+    uri_placeholder_text: por ejemplo http://purl.org/dc/terms/contributor
   known_uris_empty_sorry: Lo sentimos, no hay URIs sugerias para esta categoría todavía.
   known_uris_none: Nadie ha agregado URIs de este tipo.
   known_uris_page_title: URIs para datos en EOL
@@ -2917,6 +2940,7 @@ es:
   license_cc_by_sa_2_5: Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)
   license_cc_zero: Creative Commons - CCO 1.0 Universal
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: Licencia de documentación libre de GNU (GBU FDL)
   license_gnu_gpl: Licencia Pública General de GNU (GNU GPL)
   license_no_known_copyright_restrictions: Sin restricciones de derechos de autor
@@ -3390,7 +3414,7 @@ es:
   please_refresh: Actualice su navegador para ver la versión más reciente del sitio web EOL
   please_return_to_eol_homepage: Por favor volver a la página principal (home) de EOL
   please_state_one_credential: "Por favor, indique al menos una credencial específica de esta lista:"
-  please_wait: Espere por favor...
+  please_wait: Espere un momento…
   post_comment: Publicar comentario
   posts_from_year: Mensajes del año %{year}
   preferred_common_name_advisory_information: Nombre común preferido para este taxón.
@@ -3622,6 +3646,7 @@ es:
     one: Ver la <span class="assistive">%{count} actualización para esta página.</span>
     other: Ver todas <span class="assistive">las %{count} actualizaciones para esta página.</span>
   see_in_data_glossary: ver en el glosario de datos
+  see_in_glossary_tab: ver en la pestaña del glosario
   see_more_on_the_data_tab: ver más en la ficha de datos
   see_notes: ver notas
   see_this_record_in_virtuoso: ver este registro en Virtuoso
@@ -3753,6 +3778,7 @@ es:
   subject: subject
   submit: Enviar
   submit_term: Enviar término
+  submitting: Espere un momento…
   suggested_attributes: "Atributos sugeridos:"
   suggested_result_page_id: "Identificador de la página de resultados sugeridos:"
   suggested_results_avg: Media de los resultados sugeridos

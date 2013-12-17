@@ -2789,7 +2789,6 @@ mk:
     please_select_field_types: Задајте му значење на секој атрибут
     please_select_from_the_menu: Изберете од менито погоре
     please_select_uris_to_import: Изберете URI-ја за увоз
-    relationships: Односи
     select_a_category_to_view_stats: Изберете категорија за да ги видите статистиките:с
     unrecognized_association_types: Непрепознаени URI-ја на типови мерења
     unrecognized_measurement_types: Непрепознаени URI-ја на типови на мерења

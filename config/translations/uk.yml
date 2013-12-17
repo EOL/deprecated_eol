@@ -329,6 +329,8 @@ uk:
           one: має бути менше ніж %{count}
           other: має бути менше ніж %{count}
         less_than_or_equal_to: має бути не більше ніж %{count}
+        models: 
+          inaccessible: недоступний
         not_a_number: не є числом
         not_an_integer: має бути ціле число
         odd: має бути непарним
@@ -360,7 +362,7 @@ uk:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: заборонено – може бути тільки одна одиниця вимірювання
+              only_one_measurement: заборонено – може бути тільки одна типова одиниця
             to_known_uri_id: 
               must_be_different: має відрізнятися від теми URI
               must_be_known_uri: повинен бути відомий URI
@@ -1126,6 +1128,7 @@ uk:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Натисніть тут</a>, щоб отримати доступ до бета-тестування нових форумів EOL. Ваші зауваження вітаються.
+  api_cache_time_to_live_parameter: число секунд, за які ви бажаєте мати кешовану відповідь
   api_docs_collections_description: Якщо ви вкажете ідентифікатор для збірки, API поверне всі метадані про збірку та елементи, які вона містить. Список елементів можна фільтрувати за типом елемента і сортувати по перерахованих атрибутах. Деякі елементи будуть містити необов'язковий атрибут „sort_field“ („поле сортування“). Поле сортування - це користувацький рядок, який є спеціальною анотацією до елемента збірки. Це може бути будь-який рядок символів, але якщо це дата, то вона повинна відповідати формату РРРР-ММ-ДД. Елементи таксонів будуть містити „richness_score“ („бали повноти“). Повнота являє собою показник, представлений як ціле число між 0 і 100, де більшим числом позначають сторінку з повнішим змістом і з великим розмаїттям джерел. Докладніше про  повноту таксону дивіться на вкладці оновлення сторінки таксонів, наприклад %{richness_url}.
   application_version_advisory_information: Версія програми
   are_you_sure: Ви впевнені?
@@ -1172,14 +1175,18 @@ uk:
   associated_with_sound_header: У останньому аудіо
   associated_with_video_header: У останньому відео
   association_hidden_for_taxa: 
+    few: "Приховані для:"
+    many: "Прихованих для:"
     one: "Прихований для:"
-    other: "Приховані для:"
+    other: "Прихованого для:"
   association_trusted_for_taxa: 
     one: "Довірено для:"
     other: "Довірено для:"
   association_unreviewed_for_taxa: 
+    few: "Неперевірені для:"
+    many: "Неперевірених для:"
     one: "Неперевірена для:"
-    other: "Неперевірені для:"
+    other: "Неперевіреного для:"
   association_untrusted_for_taxa: 
     one: "Недовірено для:"
     other: "Недовірено для:"
@@ -1256,6 +1263,7 @@ uk:
   change_rating_to_3_of_5: Змінити рейтинг на 3 з 5
   change_rating_to_4_of_5: Змінити рейтинг на 4 з 5
   change_rating_to_5_of_5: Змінити рейтинг до 5 з 5
+  chapters: Розділи
   choose_collection_header: Обрати колекцію
   citation: Цитата
   citing_link: Цитуючи
@@ -1280,6 +1288,8 @@ uk:
   classifications_recognized_by_column_header: Визнана
   classifications_split_column_header: Розділити / переміщення
   classifications_with_count: 
+    few: "%{count} класифікації"
+    many: "%{count} класифікацій"
     one: "%{count} класифікація"
     other: "%{count} класифікації"
   clear_entire_cache_store: Очистити усе сховище кешу
@@ -1380,15 +1390,14 @@ uk:
   collections_link: Колекції
   collections_page_title: Колекції
   collections_summary_empty: Ця сторінка ще не є у жодній збірці.
-  collections_with_count: 
-    one: "%{count} збірка"
-    other: "%{count} збірки"
   comment: Коментар
   comment_added_notice: Коментар успішно доданий.
   comment_body_label: Ваш коментар
   comment_created_at: Створено в
   comment_delete_confirm: Ви дійсно бажаєте вилучити цей коментар?
   comment_edit_by_javascript_not_authorized_error: На жаль, ви не маєте дозволу для редагування цього коментаря. Якщо ви є власником коментаря, будь ласка, перевантажте сторінку і перевірте, чи ви увійшли.
+  comment_new_posters_image_advisory_info: Ваш аватар і ім'я з'являться поруч з вашим коментарем у списках.
+  comment_new_posters_image_alt: Ваше зображення профілю, якщо ви вже надали одне.
   comment_new_title: Додати новий коментар
   comment_not_added_error: Вибачте, сталася помилка, коментар не може бути доданий
   comment_not_deleted_error: Вибачте, виникла помилка, коментар не вдалося видалити.
@@ -1399,9 +1408,12 @@ uk:
   comments_and_tags: Коментарі та Теги
   comments_filter: Коментарі
   comments_moderated: Модерування коментаря
+  comments_page_title: Коментарі на %{parent}
   comments_with_count: 
+    few: "%{count} коментарі"
+    many: "%{count} коментарів"
     one: "%{count} коментар"
-    other: "%{count} коментарі"
+    other: "%{count} коментаря"
   common_name: Загальна назва
   common_name_exists: Загальна назва <em>%{name_string}</em> вже існує
   common_names_with_count: 
@@ -1480,6 +1492,7 @@ uk:
       page_title: Будь ласка, залиште Ваш відгук
     notices: 
       message_sent: Дякуємо за ваш відгук, ваше повідомлення вже надіслано до відповідної групи.
+  containing_value: містять %{value}.
   content: 
     index: 
       header_news: EOL Новини
@@ -1489,6 +1502,8 @@ uk:
       see_all_eol_news: див. докладніше <span class="assistive">EOL Новини</span>
       see_all_recent_activites: див. докладніше <span class="assistive">діяльність за останній тиждень</span>
       see_all_statistics: див. докладніше <span class="assistive">EOL статистика</span>
+  content_has_been_updated: Зміст було оновлено.
+  content_notes_not_shown_to_us: "Примітки (не показані для користувача):"
   content_partner: Контент-партнер
   content_partner_about_header: Про %{partner_name}
   content_partner_admin_index_link_back_to: повернутися до керування партнерами
@@ -1498,6 +1513,7 @@ uk:
   content_partner_agreement_cancel_edit_agreement_link: Скасувати
   content_partner_agreement_cancel_new_agreement_link: Скасувати
   content_partner_agreement_cancel_sign_agreement_link: Скасувати
+  content_partner_agreement_create_successful_notice: Умови договору контент-партнера успішно створені.
   content_partner_agreement_signed_successful_notice: Ви успішно погодилися з умовами партнера вмісту, тепер ви можете додати дані.
   content_partner_column_header_partner: Партнер
   content_partner_contact_create_successful_notice: Додано контакт.
@@ -2431,6 +2447,8 @@ uk:
   images_in_red_are_not_trusted: Зображення у червоному кольорі - ненадійні.
   images_in_yellow_are_not_reviewed: Зображення у жовтому кольорі - неперевірені.
   images_with_count: 
+    few: "%{count} зображення"
+    many: "%{count} зображень"
     one: "%{count} зображення"
     other: "%{count} зображення"
   in_collection: у збірці
@@ -2502,18 +2520,28 @@ uk:
   known_uri_updated: URI оновлено.
   known_uris: 
     add_a_relationship: Додати зв'язок
+    attribution_placeholder_text: Наприклад, з Dublin Core; див. http://dublincore.org/usage/terms/history/#contributorT-001.
+    equivalent_to: Зв'язки рівносильності
     import_successful: Онтологічні терміни успішно імпортовано
     more_than_one_field_mapped_to_type: Більше одного атрибута зіставлено "%{type}"
+    name_placeholder_text: Наприклад, учасник
     no_results: Немає результатів для вибраної статистики
+    ontology_information_url_placeholder_text: Наприклад, http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: Наприклад, http://dublincore.org/2012/06/14/dcterms.rdf
     please_select_field_types: Будь ласка, виберіть відображення для кожного атрибута
     please_select_from_the_menu: Будь ласка, виберіть з меню вище
     please_select_uris_to_import: Будь ласка, виберіть імпорт URI
-    relationships: Зв'язки
+    preferred_for_equivalence_group: Бажаний
+    relationships_from_this_uri: Зв'язки з цього URI
+    relationships_to_this_uri: Зв'язки до цього URI
+    select: вибрати
     select_a_category_to_view_stats: "Виберіть категорію, щоб переглянути статистику:"
+    select_a_preferred_uri_for_this_group: Виберіть бажаний URI
     unrecognized_association_types: Нерозпізнаний тип асоціації URIs
     unrecognized_measurement_types: Нерозпізаний тип вимірювання URIs
     unrecognized_measurement_units: Нерозпізана одиниця вимірювання URIs
     unrecognized_measurement_values: Нерозпізнане значення вимірювання URIs
+    uri_placeholder_text: Наприклад, http://purl.org/dc/terms/contributor
   known_uris_sorted: Оновлено порядок.
   label: Позначка
   language: "Мова:"
@@ -2827,15 +2855,21 @@ uk:
   original_object: Оригінальний об'єкт
   other_category: Інший
   other_collection_items_with_count: 
+    few: "%{count} інші елементи"
+    many: "%{count} інших елементів"
     one: "%{count} інший елемент"
-    other: "%{count} інші елементи"
+    other: "%{count} іншого елемента"
   other_community_items_with_count: 
+    few: "%{count} інші елементи"
+    many: "%{count} інших елементів"
     one: "%{count} інший елемент"
-    other: "%{count} інші елементи"
+    other: "%{count} іншого елемента"
   other_measurements_from_this_record: Інші вимірювання з цього запису
   other_taxa_with_count: 
+    few: "%{count} інші таксони"
+    many: "%{count} інших таксонів"
     one: "%{count} інший таксон"
-    other: "%{count} інші таксони"
+    other: "%{count} іншого таксона"
   other_version_links: "Інші версії: %{version_links}"
   overview: Огляд
   page: Сторінка
@@ -3546,12 +3580,18 @@ uk:
   user_pending_notifications_assitive: <span class="assistive">сповіщення</span>
   user_pending_notifications_comments_assistive: <span class="assistive">коментарі</span>
   user_pending_notifications_comments_with_count: 
+    few: "%{count} коментарі"
+    many: "%{count} коментарів"
     one: "%{count} коментар"
-    other: "%{count} коментарі"
+    other: "%{count} коментаря"
   user_pending_notifications_with_count: 
+    few: "%{count} сповіщення"
+    many: "%{count} сповіщень"
     one: "%{count} сповіщення"
     other: "%{count} сповіщення"
   user_pending_notifications_with_count_assitive: 
+    few: "%{count}<span class=\"assistive\"> сповіщення</span>"
+    many: "%{count}<span class=\"assistive\"> сповіщень</span>"
     one: "%{count}<span class=\"assistive\"> сповіщення</span>"
     other: "%{count}<span class=\"assistive\"> сповіщення</span>"
   user_response: Відповідь користувача

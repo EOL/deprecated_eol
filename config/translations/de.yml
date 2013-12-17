@@ -334,6 +334,8 @@ de:
           one: muss kleiner als %{count} sein
           other: müssen kleiner als %{count} sein
         less_than_or_equal_to: muss kleiner als oder gleich %{count} sein
+        models: 
+          inaccessible: ist unzugänglich
         not_a_number: ist keine Zahl
         not_an_integer: muss eine Ganzzahl sein
         odd: muss ungerade sein
@@ -365,7 +367,7 @@ de:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: Nicht möglich. Es kann nur eine Maßeinheit geben.
+              only_one_measurement: Nicht möglich. Es kann nur eine Standardeinheit geben.
             to_known_uri_id: 
               must_be_different: muss sich von der Themen-URI unterscheiden
               must_be_known_uri: muss eine bekannte URI sein
@@ -1270,6 +1272,7 @@ de:
   change_rating_to_3_of_5: Bewertung auf 3 von 5 ändern
   change_rating_to_4_of_5: Bewertung auf 4 von 5 ändern
   change_rating_to_5_of_5: Bewertung auf 5 von 5 ändern
+  chapters: Kapitel
   check_this_to_browse_eol_by_the_hierarchy: (Sofern dieses Kontrollkästchen aktiviert ist, wird die Klassifizierung unter dem Reiter Namen angezeigt ohne das „Zeigen alle Klassifizierungen“ angeklickt werden muss.)
   choose_collection_header: Sammlung auswählen
   citation: Zitierung
@@ -1923,6 +1926,12 @@ de:
   data_subtab_about: Über
   data_subtab_glossary: Glossar
   data_summary_header: Schnelle Tatsachen
+  data_summary_header_with_count: 
+    one: EOL hat einen Eigenschaftseintrag
+    other: EOL hat %{count} Eigenschaftseinträge
+    zero: EOL hat keine Eigenschaftseinträge
+  data_tab_curator_excluded: von den Schnellen Tatsachen entfernt
+  data_tab_curator_exemplar: zu den Schnellen Tatsachen hinzugefügt
   data_tab_curator_key_excluded: "%{image} von den <a href='%{link}'>Schnellen Tatsachen</a> entfernt"
   data_tab_curator_key_exemplar: "%{image} zu den <a href='%{link}'>Schnellen Tatsachen</a> hinzugefügt"
   data_table_summary: "Kalkulierbare Daten für %{taxon}. Jede Datenzeile ist eine separate Tatsache, zur Verfügung gestellt durch einen Inhaltspartner oder Nutzer. Jeder Wert könnte eine verschachtelte Tabelle enthalten, die Metadaten über die Tatsache zusammenfasst: wo sie gesammelt wurden, was die Rechte für die Daten sind und ähnliches. Klicken Sie auf die Zeile, um diese Metadaten anzuzeigen. Zum Ausblenden erneut klicken. Angezeigte Metadaten zeigen auch Anmerkungen und ermöglichen es Nutzern, nach Bedarf ihre eigenen Anmerkungen hinzuzufügen. Kuratoren haben bei angezeigten Metadaten zusätzliche Funktionen."
@@ -2371,6 +2380,7 @@ de:
   glossary: Glossar
   glossary_is_empty: (Glossar ist leer)
   glossary_subhead: Glossar
+  glossary_subtab_help_text: "**in Vorbereitung**. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   glossary_term: Begriff
   glossary_terms: Glossarbegriffe
   go: Los
@@ -2779,10 +2789,12 @@ de:
   key: Schlüssel
   known_uri_category_header: Kategorien
   known_uri_created: URI hinzugefügt.
-  known_uri_label_allowed_unit: hat eine Maßeinheit
+  known_uri_label_allowed_unit: erlaubt eine Einheit von
   known_uri_label_allowed_val: erlaubt einen Wert von
-  known_uri_label_inverse: ist der Kehrwert von
-  known_uri_label_unit: hat eine Maßeinheit
+  known_uri_label_equivalent: ist äquivalent zu
+  known_uri_label_indirectly_equivalent: ist indirekt äquivalent zu
+  known_uri_label_inverse: ist ein Kehrwert von
+  known_uri_label_unit: hat eine Standardeinheit von
   known_uri_missing_translation: Nicht übersetzt, bitte bearbeiten.
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
@@ -2792,18 +2804,30 @@ de:
   known_uri_updated: URI aktualisiert.
   known_uris: 
     add_a_relationship: Eine Beziehung hinzufügen
+    attribution_placeholder_text: z.&nbsp;B. von Dublin Core; siehe http://dublincore.org/usage/terms/history/#contributorT-001.
+    comment_placeholder_text: z.&nbsp;B. Beispiele eines Mitwirkenden, einschließlich einer Person, Organisation oder eines Dienstes.
+    definition_placeholder_text: z.&nbsp;B. ein Unternehmen, das für das Erstellen von Beiträgen bei der Quelle verantwortlich ist.
+    equivalent_to: Äquivalenz-Beziehungen
     import_successful: Ontologiebegriffe erfolgreich importiert
     more_than_one_field_mapped_to_type: Es ist mehr als ein Attribut dem Typ „%{type}“ zugeordnet.
+    name_placeholder_text: z.&nbsp;B. Mitwirkender
     no_results: Für die ausgewählten Statistiken gibt es keine Ergebnisse
+    ontology_information_url_placeholder_text: z.&nbsp;B. http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: z.&nbsp;B. http://dublincore.org/2012/06/14/dcterms.rdf
     please_select_field_types: Bitte wählen Sie für jedes Attribut eine Zuordnung
     please_select_from_the_menu: Bitte vom Menü oben auswählen
     please_select_uris_to_import: Bitte den Import mit den URIs auswählen
-    relationships: Beziehungen
+    preferred_for_equivalence_group: Bevorzugt
+    relationships_from_this_uri: Beziehungen von dieser URI
+    relationships_to_this_uri: Beziehungen zu dieser URI
+    select: auswählen
     select_a_category_to_view_stats: "Zum Ansehen von Statistiken eine Kategorie auswählen:"
+    select_a_preferred_uri_for_this_group: Eine bevorzugte URI auswählen
     unrecognized_association_types: Nicht erkannte Verbindungstyp-URIs
     unrecognized_measurement_types: Nicht erkannte Messungstyp-URIs
     unrecognized_measurement_units: Nicht erkannte Messeinheit-URIs
     unrecognized_measurement_values: Nicht erkannte Messungswert-URIs
+    uri_placeholder_text: z.&nbsp;B. http://purl.org/dc/terms/contributor
   known_uris_empty_sorry: Leider gibt es für diese Kategorie noch keine vorgeschlagenen URIs.
   known_uris_none: Niemand hat URIs dieses Typs hinzugefügt.
   known_uris_page_title: URIs für Daten auf EOL
@@ -2900,6 +2924,7 @@ de:
   license_cc_by_sa_2_5: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 3.0 (CC BY-SA 3.0)
   license_cc_zero: Creative Commons – CC0 1.0 Universell
+  license_cc_zero_1_0: Creative Commons – CC0 1.0 Universal
   license_gnu_fdl: GNU Lizenz für freie Dokumentation (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_no_known_copyright_restrictions: Keine bekannten Urheberrechtsbeschränkungen
@@ -3606,6 +3631,7 @@ de:
     one: Die <span class="assistive">Aktualisierung dieser Seite</span> ansehen.
     other: Alle <span class="assistive">%{count} Aktualisierungen dieser Seite</span> ansehen.
   see_in_data_glossary: siehe Datenglossar
+  see_in_glossary_tab: siehe Glossar-Reiter
   see_more_on_the_data_tab: siehe mehr auf dem Datenreiter
   see_notes: Anmerkungen ansehen
   see_this_record_in_virtuoso: diese Aufzeichnung in Virtuoso ansehen
@@ -3737,6 +3763,7 @@ de:
   subject: Betreff
   submit: Speichern
   submit_term: Begriff speichern
+  submitting: Bitte warten …
   suggested_attributes: "Vorgeschlagene Attribute:"
   suggested_result_page_id: "Kennung der Seite mit den vorgeschlagenen Ergebnissen:"
   suggested_results_avg: Durchschnittlich vorgeschlagene Ergebnisse

@@ -1203,7 +1203,6 @@ ru:
     deleted: Связь была успешно удалена
   known_uris: 
     please_select_from_the_menu: Пожалуйста, выберите из меню выше
-    relationships: Связи
     select_a_category_to_view_stats: "Выберите категорию, чтобы посмотреть статистику:"
   language: "Язык:"
   languages: Языки

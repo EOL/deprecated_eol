@@ -3349,6 +3349,7 @@ en:
   donation_amount_other_label: "Other"
   donation_confirmation: "Donation Confirmation"
   donation_error_only_numbers: "Please enter an amount using only numbers."
+  donation_error_minimum: "Due to processing costs, the minimum donation amount is %{min}."
   donation_error_no_amount: "Please select a donation amount."
   donation_introduction_paragraph_one: "EOL is growing every day. We encourage you to explore EOL and take advantage of all it has to offer. We ask that you help keep the initiative growing through your contributions of content, expertise, and financial support."
   donation_introduction_paragraph_two: "Your generous gift to the Encyclopedia of Life supports our work to provide global access to knowledge about life on Earth."

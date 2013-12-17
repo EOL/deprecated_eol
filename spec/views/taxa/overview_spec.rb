@@ -70,7 +70,7 @@ describe 'taxa/overview/show' do
 
     it "should show quick facts" do
       render
-      expect(rendered).to match /#{I18n.t(:data_summary_header)}/
+      expect(rendered).to match /EOL has no trait records/
     end
 
   end

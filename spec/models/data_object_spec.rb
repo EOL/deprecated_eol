@@ -22,7 +22,7 @@ describe DataObject do
 
     @big_int = 20081014234567
     @image_cache_path = %r/2008\/10\/14\/23\/4567/
-    content_server_match = $CONTENT_SERVERS[0] + $CONTENT_SERVER_CONTENT_PATH
+    content_server_match = $CONTENT_SERVER + $CONTENT_SERVER_CONTENT_PATH
     content_server_match.gsub!(/\d+/, '\\d+') # Because we don't care *which* server it hits...
     @content_server_match = %r/#{content_server_match}/
     @flash_dato = DataObject.gen(data_type: DataType.find_by_translated(:label, 'flash'), object_cache_url: @big_int)

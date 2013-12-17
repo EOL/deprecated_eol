@@ -15,7 +15,7 @@
       .empty.about
         %p= I18n.t(:known_uris_none)
     - else
-      %p.tip= raw(I18n.t(:excluded_icon_tip, excluded_icon: image_tag('v2/icon_excluded.png', alt: '')))
+      %p.tip= raw(I18n.t(:excluded_icon_tip, excluded_icon: image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))))
       %table#sortable.standard
         %tr.headers
           %th= I18n.t('activerecord.attributes.known_uri.uri')

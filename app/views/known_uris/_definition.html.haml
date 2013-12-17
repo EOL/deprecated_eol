@@ -21,5 +21,5 @@
         'data-anchor' => known_uri.anchor, 'data-tab_link_message' => I18n.t(:see_in_glossary_tab)
     - if search_link && EOL::Sparql.connection.all_measurement_type_uris.include?(known_uri.uri)
       %li= link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: known_uri.uri, sort: 'desc')
-    - if current_user.is_admin?
+    - if current_user.is_admin? && ! known_uri.new_record?
       %li.hover= link_to I18n.t(:edit), edit_known_uri_path(known_uri)

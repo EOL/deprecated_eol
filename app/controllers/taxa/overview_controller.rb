@@ -9,7 +9,8 @@ class Taxa::OverviewController < TaxaController
 
   def show
     @overview = @taxon_page.overview
-    @data_point_uris = @taxon_page.data.get_data_for_overview
+    @all_data_point_uris_count = @taxon_page.data.get_data.count
+    @overview_data_point_uris = @taxon_page.data.get_data_for_overview
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = taxon_overview_url(@overview)
     current_user.log_activity(:viewed_taxon_concept_overview, taxon_concept_id: @taxon_concept.id)

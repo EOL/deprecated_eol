@@ -1481,6 +1481,7 @@ ul.tabs
 @mixin info_item_with_background($size)
   background: image-url("v2/icon_info_tabs.png") ($size - 12.5px) ($size - 13px) no-repeat
   background-size: $size + px $size + px
+  display: inline-block
 
 #taxon_data, #data_comments
   position: relative
@@ -1510,7 +1511,7 @@ ul.tabs
           width: 203px
           vertical-align: top
           padding-top: 4pt
-          padding-right: 20px
+          padding-right: 22px
           .info_icon
             position: absolute
             left: 181px
@@ -1539,17 +1540,13 @@ ul.tabs
         th.predicate
           .info_icon
             float: right
+        th.predicate, td.val
+          .info_icon
             &.active
               @include info_item_with_background(15)
           &:hover
-            @include hover_info_icon(15)
-        td.val
-          .info_icon
-            &.active
-              @include info_item_with_background(14)
-          &:hover
             .info_icon
-              @include hover_info_icon(14)
+              @include hover_info_icon(15)
         td
           padding: 5px 7px 5px 0
           font-weight: 500
@@ -1663,7 +1660,7 @@ ul.tabs
         tr th
           .info_icon
             position: absolute
-            left: 384px
+            left: 289px
     th
       width: 150px
     span.source
@@ -1693,6 +1690,7 @@ ul.tabs
         margin-left: 10px
         line-height: 120%
   table.data table.meta
+    position: relative
     line-height: 90%
     width: 80%
     margin: 0px auto
@@ -1710,7 +1708,7 @@ ul.tabs
     th
       padding: 0 13px 0 0 !important
       .info_icon
-        left: 303px
+        left: 213px
         &.active
           @include info_item_with_background(13)
       &:hover
@@ -1804,6 +1802,7 @@ span.info
     overflow: hidden
     border-bottom: 1px solid $darker_blue
     margin-bottom: 10px
+    clear: both
     h3
       color: $darker_blue
       float: left
@@ -1867,14 +1866,11 @@ ul.glossary li, .info.tip
     line-height: 0.3em
 #known_uris.glossary ul.chapters
   li
-    line-height: 22px
+    line-height: 20px
     margin-left: 10px
     margin-bottom: 0px
     &.selected
-      font-size: 1.2em
       font-weight: bold
-      a
-        text-decoration: none
 
 // Since the data search is full-width, the normal search needed this:
 .filtered_search

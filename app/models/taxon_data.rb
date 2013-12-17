@@ -76,7 +76,7 @@ class TaxonData < TaxonUserClassificationFilter
     # string search term
     elsif options[:querystring] && ! options[:querystring].strip.empty?
       matching_known_uris = KnownUri.search(options[:querystring])
-      query += "FILTER(( !isURI(?value) && REGEX(?value, '#{options[:querystring]}', 'i'))"
+      query += "FILTER(( REGEX(?value, '(^| )#{options[:querystring]}( |$)', 'i'))"
       unless matching_known_uris.empty?
         query << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
       end
@@ -124,8 +124,8 @@ class TaxonData < TaxonUserClassificationFilter
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
     if_connection_fails_return(nil) do
-      return @taxon_data_set if @taxon_data_set
-      taxon_data_set = TaxonDataSet.new(data, taxon_concept_id: taxon_concept.id, language: user.language)
+      return @taxon_data_set.dup if @taxon_data_set
+      taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept_id: taxon_concept.id, language: user.language)
       taxon_data_set.sort
       known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
       KnownUri.preload_associations(known_uris,
@@ -144,7 +144,9 @@ class TaxonData < TaxonUserClassificationFilter
     picker.pick(get_data)
   end
 
-  def data
+  private
+
+  def raw_data
     (measurement_data + association_data).delete_if { |k,v| k[:attribute].blank? }
   end
 

@@ -445,11 +445,15 @@ $(function() {
     window.alert($(this).parent().attr('data-alert').replace(/<\/?[^>]+>/g, ''));
   });
 
-  $('#known_uris.glossary ul.chapters li a').on('click', function() {
-    var li = $(this).parent();
+  $('#known_uris.glossary ul.chapters li').find('a, input').on('click', function(e) {
+    e.preventDefault();
+    var li = $(this).closest('li');
+    var checkbox = li.find('input');
     var chapters = $('#known_uris.glossary ul.chapters');
     if(li.hasClass('selected')) {
       li.removeClass('selected');
+      // for some reason the setTimeout is needed when the checkbox is the one clicked
+      setTimeout(function() { checkbox.prop('checked', false) }, 5);
       if(chapters.find('li.selected').length == 0) $('ul.glossary > li').show();
       else {
         $('ul.glossary li[data-toc-id="' + li.attr('data-toc-id') + '"]').hide();
@@ -458,6 +462,7 @@ $(function() {
     {
       if(chapters.find('li.selected').length == 0) $('ul.glossary > li').hide();
       li.addClass('selected')
+      setTimeout(function() { checkbox.prop('checked', true) }, 5);
       $('ul.glossary li[data-toc-id="' + li.attr('data-toc-id') + '"]').show();
     }
     return false;

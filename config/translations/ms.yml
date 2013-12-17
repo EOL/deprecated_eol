@@ -82,11 +82,14 @@ ms:
         email_reports_frequency_hours: Kekerapan laporan e-mel
       data_object: 
         bibliographic_citation: Petikan bibliografi
-        description: Keterangan
+        description: Teks
         object_title: Tajuk
         rights_holder: Pemegang hak
         rights_statement: Pernyataan hak-hak
         source_url: URL sumber
+      data_object_link: 
+        description: Keterangan
+        source_url: URL pautan
       eol_statistic: 
         active_curators: Kurator aktif
         base_pages: Halaman asas
@@ -149,6 +152,7 @@ ms:
         rich_pages: Halaman kaya
         rich_redhotlist_pages: Halaman Red Hotlist kaya
         rich_redhotlist_pages_percentage: "& halaman Red Hotlist yang kaya"
+        total_taxa_with_data: Halaman berdata
         udo_published: Teks serahan pengguna
         udo_published_by_curators: Teks serahan kurator
         udo_published_by_non_curators: Teks serahan bukan kurator
@@ -1077,7 +1081,7 @@ ms:
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Perkara bertindih diabaikan.
   each_method_documentation_page_has_formatted_responses: Halaman pendokumenan setiap kaedah mempunyai contoh kedua-dua balasan berformat XML dan JSON.
-  edit: Sunting
+  edit: sunting
   edit_collection_details: Sunting butiran koleksi
   edit_collection_details_header: Sunting butiran koleksi
   edit_comment: Sunting Komen
@@ -1573,7 +1577,7 @@ ms:
   hidden_comment: komen tersorok
   hide: sorokkan
   hierarchies_description: Encyclopedia of Life tidak mempunyai hierarki taksonomi yang tunggal untuk mencipta halaman-halamannya. Sebaliknya, EOL mengindekskan banyak hierarki dan membandingkan sesama halaman itu. API ini menyenaraikan metadata tentang hierarki seperti nama pembekal dan URL sumber, di samping menyenaraikan semua takson yang merupakan takson akar dalam pepohon taksonomi.
-  hierarchies_entries_description: Encyclopedia of Life tidak mempunyai hierarki taksonomi yang tunggal untuk mencipta halaman-halamannya. Sebaliknya, EOL mengindekskan berbilang hierarki dan membandingkan sesama hierarki itu. Hasilnya, sebarang halaman EOL boleh dikaitkan dengan beberapa nodus dari pelbagai hierarki. API ini memberikan akses kepada suatu hierarki dan hubungan dalamannya. Rujuk dokumentasi di  API halaman untuk maklumat tentang mengakses hierarki lain yang berpadan dengan suatu halaman EOL. Ruangan taxonConceptID mengandungi pengenal pasti halaman EOL yang boleh digunakan dalam API halaman.
+  hierarchies_entries_description: Encyclopedia of Life tidak mempunyai hierarki taksonomi yang tunggal untuk mencipta halaman-halamannya. Sebaliknya, EOL mengindekskan berbilang hierarki dan membandingkan sesama hierarki itu. Hasilnya, sebarang halaman EOL boleh dikaitkan dengan beberapa nodus dari pelbagai hierarki. API ini memberikan akses kepada suatu hierarki dan hubungan dalamannya. Rujuk dokumentasi di  API halaman untuk maklumat tentang mengakses hierarki lain yang berpadan dengan suatu halaman EOL. Ruangan 'taxonConceptID' mengandungi pengenal pasti halaman EOL yang boleh digunakan dalam API halaman.
   hierarchies_title: Hierarki
   hierarchy: Hierarki
   hierarchy_entry_switch_missing_id_error: Maaf, halaman entri hierarki yang anda pilih itu tidak dapat dijumpai kerana tiadanya pengenal pasti.
@@ -2569,8 +2573,8 @@ ms:
   thank_you: Terima Kasih
   thank_you_for_your_generous_support: Terima kasih atas sokongan ikhlas anda!
   thanks_for_donation: Terima kasih kerana menyokong Encyclopedia of Life. Maklumat anda telah diterima dan akan diproses.
-  the_amount_entered_was: "Jumlah yang diberikan ialah : AS %{number}"
-  the_darwin_core_taxon_elements: Unsur-unsur Darwin Core Taxon (dwct:Taxon) di bawah additionalInformation termasuk pengenal pasti untuk nod-nod dalam hierarki yang diindekskan oleh EOL. Ia mengandungi satu dc:identifier iaitu ID yang unik untuk takson itu <i>dalam pangkalan data pembekal.</i>
+  the_amount_entered_was: "Jumlah yang dimasukkan ialah : %{number} USD"
+  the_darwin_core_taxon_elements: Unsur-unsur Darwin Core Taxon (dwct:Taxon) di bawah 'additionalInformation' termasuk pengenal pasti untuk nod-nod dalam hierarki yang diindekskan oleh EOL. Ia mengandungi satu dc:identifier iaitu ID yang unik untuk takson itu <i>dalam pangkalan data pembekal</i>.
   the_following_bibliography: Bibliografi berikut telah dijana dengan mengumpulkan semua rujukan yang diberikan oleh rakan-rakan kongsi kandungan kami, tetapi mungkin ada pertindihan.
   the_id_of_provider_hierarchy_you_are_searching: ID hierarki pembekal yang anda menggelintar di dalam. Semak %{link} untuk ID-ID yang sah
   the_json_response_for_this_method: Respons JSON untuk kaedah ini memulangkan lebih hanyak maklumat daripada respons XML. Respons JSON merangkumi beberapa statistik tentang nod ini dan keturunan taksonominya. Misalnya, dipulangkannya medan "total_descendants" yang menyenaraikan bilangan nod yang merupakan keturunan nod yang diberikan mengikut hierarki ini; "total_trusted_text" merangkumi jumlah objek data teks unik yang berpaut dengan halaman ini atau mana-mana keturunannya.

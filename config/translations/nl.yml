@@ -75,7 +75,7 @@ nl:
         sort_order: Sorteervolgorde
       content_partner: 
         acronym: Projectafkorting
-        admin_notes: Administratieve notities
+        admin_notes: Administratieve opmerkingen
         auto_publish: Automatisch publiceren
         content_partner_status: Projectstatus
         created_at: Aangemaakt
@@ -167,8 +167,14 @@ nl:
         rich_pages: Rijke pagina's
         rich_redhotlist_pages: Rijke, rode, populaire pagina's
         rich_redhotlist_pages_percentage: "% rijke, rode, populaire pagina's"
+        total_association_types: Gekoppelde typen
+        total_associations: Koppelingen
+        total_measurement_types: Meettypen
         total_measurements: Metingen
         total_occurrences: Gebeurtenissen
+        total_taxa_with_data: Pagina's met gegevens
+        total_triples: Triples
+        total_user_added_data: Door gebruikers toegevoegde gegevens
         udo_published: Door gebruikers toegevoegde tekst
         udo_published_by_curators: Door conservator toegevoegde tekst
         udo_published_by_non_curators: Door niet-conservator toegevoegde tekst
@@ -196,12 +202,14 @@ nl:
         request_publish: Verzoek publicatie
       known_uri: 
         description: Beschrijving
+        exclude_from_exemplars: Uitsluiten van "Snelle feiten"
         name: Naam
         toc_items: Categorieën
         uri: URI
         uri_type: Type URI
       known_uri_relationship: 
         from_known_uri_id: Onderwerp-URI
+        relationship_uri: URI voor relatie
         to_known_uri: Doel-URI
         to_known_uri_id: Doel-URI
       name: 
@@ -254,7 +262,7 @@ nl:
         hierarchy: Hiërarchie
         language_id: Standaard taal
         license_id: Standaard licentie
-        notes: Bezig met het verwerken van notities
+        notes: Bezig met het verwerken van opmerkingen
         resource_status_id: Bronstatus
         rights_holder: Standaard rechthebbende
         rights_statement: Standaard verklaring van de rechten
@@ -350,6 +358,10 @@ nl:
             publish: 
               inclusion: is alleen toegestaan voor de laatste oogst en alleen als die gebeurtenis niet al is gepubliceerd.
         inaccessible: Het record kon niet worden opgeslagen omdat het ongeldig was. Controleer de validatiefouten en sla het opnieuw op.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: moet een correct opgemaakte <a href='https://nl.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> zijn
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
@@ -376,14 +388,18 @@ nl:
         user_added_data: 
           attributes: 
             predicate: 
+              must_be_uri: moet een correct opgemaakte <a href='https://nl.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> zijn
               namespace: gebruikt een naamruimte die niet is herkend
             subject: 
+              must_be_uri: moet een correct opgemaakte <a href='https://nl.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> zijn
               namespace: gebruikt een naamruimte die niet is herkend
         user_added_data_metadata: 
           attributes: 
             predicate: 
+              must_be_uri: moet een correct opgemaakte <a href='https://nl.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> zijn
               namespace: gebruikt een naamruimte die niet is herkend
             subject: 
+              must_be_uri: moet een correct opgemaakte <a href='https://nl.wikipedia.org/wiki/Uniform_Resource_Identifier'>URI</a> zijn
               namespace: gebruikt een naamruimte die niet is herkend
       template: 
         body: "Voor de volgende velden is de validatie mislukt:"
@@ -617,6 +633,19 @@ nl:
         user_cropped_an_unknown_data_object: <strong>%{user}</strong> heeft de miniatuurafbeelding gewijzigd van een onbekende afbeelding.
         user_cropped_data_object: <strong>%{user}</strong> heeft de miniatuurafbeelding gewijzigd van "%{data_object}".
         user_cropped_it: <strong>%{user}</strong> heeft de miniatuurafbeelding gewijzigd van een onbekende afbeelding.
+      data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: Een onbekende gebruiker heeft gegevens verborgen op een onbekende pagina.
+        an_unknown_user_hide_data_on_taxon: Een onbekende gebruiker heeft gegevens verborgen op "%{taxon}"
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Een onbekende gebruiker heeft gegevens als exemplarisch gemarkeerd op een onbekende pagina.
+        an_unknown_user_set_exemplar_data_on_taxon: Een onbekende gebruiker heeft gegevens als exemplarisch gemarkeerd voor "%{taxon}"
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Een onbekende gebruiker heeft gegevens zichtbaar gemaakt op een onbekende pagina.
+        an_unknown_user_unhide_data_on_taxon: Een onbekende gebruiker heeft gegevens zichtbaar gemaakt op "%{taxon}"
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> heeft gegevens verborgen op een onbekende pagina.
+        user_hide_data_on_taxon: <strong>%{user}</strong> heeft gegevens verborgen op "%{taxon}".
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> heeft gegevens als exemplarisch gemarkeerd op een onbekende pagina.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> heeft gegevens als exemplarisch gemarkeerd voor "%{taxon}".
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> heeft gegevens zichtbaar gemaakt op een onbekende pagina.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> heeft gegevens zichtbaar gemaakt op "%{taxon}".
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd in een onbekende context.
         an_unknown_user_hid_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
@@ -877,6 +906,16 @@ nl:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als niet-vertrouwd gemarkeerd in een onbekende context.
         user_untrusted_it_on_association: <strong>%{user}</strong> heeft het als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: Een onbekende gebruiker heeft gegevens zichtbaar gemaakt op een onbekende pagina.
+        an_unknown_user_create_data_on_taxon: Een onbekende gebruiker heeft gegevens toegevoegd aan "%{taxon}"
+        an_unknown_user_update_data_on_an_unknown_taxon: Een onbekende gebruiker heeft gegevens toegevoegd aan een onbekende pagina.
+        an_unknown_user_update_data_on_taxon: Een onbekende gebruiker heeft gegevens bijgewerkt op "%{taxon}"
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> heeft een gegevens toegevoegd aan een onbekend object.
+        user_create_data_on_taxon: <strong>%{user}</strong> heeft gegevens toegevoegd aan "%{taxon}".
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> heeft gegevens bijgewerkt op een onbekende pagina.
+        user_update_data_on_taxon: <strong>%{user}</strong> heeft gegevens bijgewerkt op "%{taxon}".
+  activity_user_created_data: <strong>%{user}</strong> heeft gegevens toegevoegd aan "%{object_name}" in "%{taxon_concept}".
   activity_user_created_link: <strong>%{user}</strong> heeft een koppeling toegevoegd aan "%{object_name}" in "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
   activity_user_updated_link: <strong>%{user}</strong> heeft een koppeling gewijzigd van "%{object_name}" in "%{taxon_concept}".
@@ -885,7 +924,7 @@ nl:
   add_a_collection_to_a_community: "\"%{collection}\" toevoegen aan een gemeenschap"
   add_a_comment: Een reactie toevoegen.
   add_a_comment_colon: "Reactie toevoegen:"
-  add_a_new_common_name: Nieuwe gemeenschappelijke naam toevoegen
+  add_a_new_common_name: Nieuwe algemene naam toevoegen
   add_a_new_file_brackets: "[nieuw bestand toevoegen]"
   add_a_new_role: Nieuwe rol toevoegen
   add_a_new_search_suggestion: Nieuwe zoeksuggestie toevoegen
@@ -908,6 +947,7 @@ nl:
   add_link_instead: voeg in plaats daarvan een koppeling toe
   add_link_to_page_button: Koppeling toevoegen
   add_new_association_link: Nieuwe associatie toevoegen
+  add_new_known_uri_link: Nieuwe URI toevoegen
   add_new_tag_suggestion: Nieuwe labelsuggestie toevoegen
   add_page: Pagina toevoegen
   add_sub_chapter: Onderdeel toevoegen
@@ -1046,6 +1086,7 @@ nl:
   all: alle
   all_apis_return_by_default_an_xml_response: "Alle API's antwoorden standaard in XML. De API-methoden kunnen aangeroepen worden met een opmaakextensie om het XML-antwoord te krijgen en door een XML-uitbreiding toe te voegen, geeft het een identiek antwoord:"
   all_articles: Alle artikelen
+  all_categories: Alle
   all_changes: Alle wijzigingen
   all_collections: Alle verzamelingen
   all_comments_entered_by_users: Alle opmerkingen die door gebruikers op de website zijn toegevoegd, worden hieronder weergegeven, van nieuw naar oud.
@@ -1074,7 +1115,9 @@ nl:
   an_unknown_user: Een onbekende gebruiker
   and: en
   and_between_form_items: en
+  annotation_body_default: vraag of reactie toevoegen...
   annotation_cabs_colon: "Annotatie:"
+  annotation_submit: annotatie plaatsen
   anonymous_user_full_name: Anonieme gebruiker
   anonymous_user_given_name: Anoniem
   anonymous_user_tag_line: Niet aangemeld
@@ -1112,6 +1155,7 @@ nl:
   as_of_time_there_were_unique_visitors: 
     one: Per %{time} was er één unieke bezoeker
     other: Per %{time} waren er %{count} unieke bezoekers
+  assistive_data_header: Feiten & informatie
   assistive_details_header: Details
   assistive_literature_header: Literatuur
   assistive_maps_header: Kaarten
@@ -1163,10 +1207,24 @@ nl:
   average_rating_value_of_total: "Gemiddelde waardering: %{rating} van %{total}"
   back: Terug
   back_to_profile: Terug naar het profiel
+  background_processes_actions_head: Handelingen
+  background_processes_attribute_head: Eigenschap
+  background_processes_complete_head: Compleet?
+  background_processes_created_head: Aangemaakt
+  background_processes_download: downloaden
+  background_processes_is_complete: Ja
+  background_processes_is_not_complete: Nee
+  background_processes_page_title: Achtergrondprocessen
+  background_processes_query_empty: (geen zoektekst)
+  background_processes_query_head: Zoekopdracht
   began: Begon
   belongs_in_count_communities: 
     one: Hoort bij één gemeenschap
     other: Hoort bij %{count} gemeenschappen
+  beta_warning_body: De meeste gebruikers kunnen deze functie, die actief wordt ontwikkeld, niet zien of gebruiken. Prestaties en gegevens zijn wellicht onvoorspelbaar, maar wij nodigen u uit om de functie te verkennen. Vul alstublieft onze <a href='https://www.surveymonkey.com/s/9FDTDQP'>vragenlijst</a> in nadat u onze datamogelijkheden hebt verkend.
+  beta_warning_header: U gebruikt een bètatestfunctie
+  beta_warning_note_header: "Opmerking:"
+  beta_warning_small: Houd er rekening mee dat dit een bètatestfunctie is en dat het gedrag onvoorspelbaar kan zijn.
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Bezoek de Biodiversity Heritage Library
   bhl_publication: BHL-publicatie
@@ -1198,6 +1256,8 @@ nl:
   cannot_expand_children: het is niet mogelijk de kinderen uit te klappen
   cannot_find_member: Er is geen lid met dit nummer aangetroffen.
   cannot_index_collection_item_type_error: Het is niet mogelijk een verzamelingsitem van het type %{type} te indexeren
+  categories_title: "Selecteer een categorie en vervolgens een eigenschap:"
+  category_suggestions: "Als u niet zeker weet welke URI's te gebruiken voor kenmerken en waarden, dan bieden de volgende koppelingen een aantal URI's die door EOL-conservatoren zijn gekozen:"
   change: Wijzigen
   change_rating_to_1_of_5: Waardering naar 1 van 5 wijzigen
   change_rating_to_2_of_5: Waardering wijzigen naar 2 van 5
@@ -1254,6 +1314,7 @@ nl:
   clicked_time: Tijd waarop is geklikt
   close_this_window_to_return_to_edit_window: Sluit dit venster om terug te keren naar het bewerkingsvenster
   cms_available_in_languages: "Deze pagina is beschikbaar in:"
+  cms_editor: Tekst bewerken in CMS
   cms_missing_content_message: Deze pagina is niet beschikbaar in de geselecteerde taal %{selected_language}.
   cms_missing_content_title: Vertaling ontbreekt
   collect_item: Item in verzameling opnemen
@@ -1372,13 +1433,14 @@ nl:
   comments_filter: Opmerkingen
   comments_moderated: Opmerkingen gemodereerd
   comments_on: Opmerkingen bij
+  comments_page_title: Reacties op %{parent}
   comments_with_count: 
     one: Eén opmerking
     other: "%{count} opmerkingen"
   common_activities_by_logged_in: Reguliere handelingen door aangemelde gebruikers.
-  common_name: Gemeenschappelijke naam
-  common_name_avg: Gemiddelde Gemeenschappelijke Naam
-  common_name_exists: De gemeenschappelijke naam <em>%{name_string}</em> bestaat al
+  common_name: Algemene naam
+  common_name_avg: Gemiddelde algemene naam
+  common_name_exists: De algemene naam <em>%{name_string}</em> bestaat al
   common_names_with_count: 
     one: één triviale naam
     other: "%{count} triviale namen"
@@ -1475,8 +1537,8 @@ nl:
   content_partner: Contentpartner
   content_partner_about_header: Over %{partner_name}
   content_partner_admin_index_link_back_to: terug naar partners beheren
-  content_partner_administration_notes_empty: Er zijn geen administratieve notities.
-  content_partner_administration_notes_header: Administratieve notities
+  content_partner_administration_notes_empty: Er zijn geen administratieve opmerkingen.
+  content_partner_administration_notes_header: Administratieve opmerkingen
   content_partner_administration_settings_header: Beheerinstellingen.
   content_partner_administration_settings_introduction: De volgende administratieve velden zijn alleen zichtbaar voor en te bewerken door beheerders van EOL.
   content_partner_agreement_cancel_edit_agreement_link: Annuleren
@@ -1535,7 +1597,7 @@ nl:
   content_partner_new_edit_form_tip: Sommige van de gegevens die u hier invoert zijn openbaar. Projectnaam en beschrijving zijn %{required_icon} vereist.
   content_partner_new_link: Nieuwe contentpartner toevoegen
   content_partner_new_page_subheader: Nieuwe contentpartner toevoegen
-  content_partner_notes_empty: Er zijn geen extra notities voor dit project.
+  content_partner_notes_empty: Er zijn geen aanvullende opmerkingen voor dit project.
   content_partner_notes_header: Projectnotities
   content_partner_oldest_published_harvest_event_time_ago: "Voor het eerst op EOL gepubliceerd: %{time_passed} geleden"
   content_partner_overview_agreement_header: Partnerovereenkomst
@@ -1767,12 +1829,33 @@ nl:
   darwin_core: Darwin Core
   dashboard: Dashboard
   data: Gegevens
+  data_about_subtab_header: Over gegevens op EOL
+  data_about_this_record: Gegevens over dit record
+  data_column_classification_summary: Classificatiesamenvatting
+  data_column_common_name: Algemene naam
   data_column_measurement: Meting
+  data_column_measurement_uri: URI van meting
+  data_column_name: Metinglabel
+  data_column_name_uri: URI van meting
+  data_column_raw_units: Ruwe eenheden (direct van bron)
+  data_column_raw_units_uri: URI voor ruwe eenheden (genormaliseerd)
+  data_column_raw_value: Ruwe waarde (direct van bron)
+  data_column_resource: Bron-URL van de contentpartner
+  data_column_sci_name: Wetenschappelijke naam
+  data_column_source: Bron
+  data_column_tc_id: EOL pagina-ID
+  data_column_units: Eenheden (genormaliseerd)
+  data_column_units_uri: URI van eenheden (genormaliseerd)
+  data_column_val: Waarde (genormaliseerd)
+  data_column_val_uri: URI voor waarde
   data_column_value: Waarde
   data_column_value_uri: Waarde-URI
   data_database_colon: "Gegevens:"
+  data_glossary: Woordenlijst voor gegevens
   data_logging_active: Er worden gegevens verzameld
   data_master_database_colon: "Gegevensmaster:"
+  data_measurement_subtable_summary: Aanvullende gegevens over de meting van dit feit.
+  data_metadata_subtable_summary: Aanvullende gegevens over dit feit.
   data_object: Gegevensobject
   data_object_api_description: Als er een aanduiding voor een gegevensobject wordt opgegeven, geeft deze API alle metadata over het object terug zoals opgegeven aan EOL voor de bijdragende contentpartner. De contentpartner wordt opgegeven in het eerste agentelement en heeft de rol van "partner".
   data_object_ignore: dit item negeren
@@ -1800,6 +1883,32 @@ nl:
       meta_supplier_default: een bijdrager
       meta_title: "%{dato_title} van %{supplier}"
       tweet_text: "%{dato_title} van %{supplier}"
+  data_overview_table_caption: Snelle feiten
+  data_point_uri_source_missing: bron ontbreekt
+  data_point_uri_summary_name: gegevens over %{taxon}
+  data_provided_by_content_partner: "Bron: %{whom}"
+  data_provided_by_user: geleverd door %{whom}
+  data_reference_subtable_summary: Aanvullende referenties over dit feit.
+  data_row_add_exemplar_button: Toevoegen aan snelle feiten
+  data_row_arrow_alt: Schakelen tussen het weergeven en verbergen van de aanvullende informatie van dit feit (vereist JavaScript).
+  data_row_excluded_from_overview_notice: "Opmerking: deze rij is uitgesloten van snelle feiten."
+  data_row_exemplar_added: Snel feit toegevoegd.
+  data_row_exemplar_removed: Snel feit verwijderd.
+  data_row_hide_button: Rij verbergen
+  data_row_remove_exemplar_button: Verwijderen uit snelle feiten
+  data_row_unhide_button: Rij zichtbaar maken
+  data_search_destroyed: Deze taak wordt niet langer verwerkt.
+  data_search_files: 
+    file_ready_for_download: Uw recente zoekopdracht voor "%{known_uri_label}" kan nu gedownload worden op <a href='%{download_url}'>%{download_url}</a>.
+  data_search_link: Wetenschappelijke gegevens zoeken op EOL
+  data_search_refine_field_label: Zoekopdracht voor gegevens verfijnen
+  data_server_unavailable: Gegevens op EOL zijn tijdelijk helaas niet beschikbaar. Controleer het later nog eens.
+  data_show_n_more_rows: NNN meer weergeven...
+  data_subtab_about: Over
+  data_subtab_glossary: Woordenlijst
+  data_summary_header: Snelle feiten
+  data_tab_curator_key_excluded: "%{image} verwijderd uit <a href='%{link}'>Snelle feiten</a>"
+  data_tab_curator_key_exemplar: "%{image} toegevoegd aan <a href='%{link}'>Snelle feiten</a>"
   data_usage_reports: Gegevensgebruikrapportages
   date_caps: Datum
   date_uploaded: Uploaddatum
@@ -1922,6 +2031,7 @@ nl:
   donation_sponsorship_preamble: "Als u meer wilt weten over specifieke programma's voor sponsoring, of als u een terugkerende gift wilt maken, neem dan per <a href=\"mailto:%{email_address}\">e-mail</a> contact op het met secretariaat van Encyclopedia of Life. U kunt ook bellen: +1 (202) 633-8730 (in de Verenigde Staten)."
   done_already: Al gedaan
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Onbekende registratiedatums niet weergeven (V1-gebruikers, allemaal voor 5 januari 2009)
+  download_data: Gegevens downloaden
   download_wav_file: WAV-bestand downloaden
   dublin_core: Dublin Core
   duplicate_comment_warning: "De reactie is niet opgeslagen: het lijkt erop dat u al hebt gereageerd op dit bericht. Hebt u wellicht per ongeluk uw reactie twee keer opgeslagen?"
@@ -1996,6 +2106,8 @@ nl:
       page_header: Conservatorstatistieken
       page_title: Statistieken
     data: 
+      menu_link: Gegevens
+      page_header: Gegevensstatistieken
       page_title: Statistieken
     data_objects: 
       menu_link: Gegevensobjecten
@@ -2058,6 +2170,7 @@ nl:
       min_assistant_curators_only: Toegang is beperkt tot EOL-conservatoren met een minimaal conservatorniveau van assistent.
       min_full_curators_only: Toegang is beperkt tot conservatoren van EOL met een minimum conversatorniveau van "Volledig".
       min_master_curators_only: Toegang is alleen beschikbaar voor EOL-conservatoren met een minimaal conservatorniveau van Meester.
+      no_access: Toegang is helaas beperkt.
   expand_all_children: alle kinderen uitvouwen
   explore: Verkennen
   explore_what_we_know_about_taxon: Ontdek wat EOL weet over %{taxon}.
@@ -2230,11 +2343,13 @@ nl:
   get_help_choosing_a_subject: Hulp bij het kiezen van een onderwerp
   get_more_tasks: meer taken vinden
   given_name_colon: "Voornaam:"
-  given_the_vast_number: Gezien het grote aantal wetenschappelijke en gemeenschappelijke namen (in totaal bijna 20 miljoen) is het een moeilijke taak om een gebruiker te voorzien van precies de soorten die ze zoeken. Er zijn bijvoorbeeld verschillende vogelsoorten met de naam Robin in het Engels ("lijster" in het Nederland) (roodborstlijster, zanglijster, beflijster, ...), en de vissoort "ponen" (ook Robin in het Engels), en een taxonoom met de naam Robin die tientallen soorten benoemd heeft. We hebben een "exacte" parameter nodig om alleen zoekresultaten te geven die geheel overeenkomen met de zoekterm, maar we kunnen niet garanderen dat de gevonden taxa de taxa zijn die u hoopt te vinden. Wij proberen de relevantie van onze zoekresultaten voortdurend te verbeteren, dus in de nabije toekomst kunt betere zoekresultaten verwachten.
+  given_the_vast_number: Gezien het grote aantal wetenschappelijke en algemene namen (in totaal bijna 20 miljoen) is het een moeilijke taak om een gebruiker te voorzien van precies de soorten die ze zoeken. Er zijn bijvoorbeeld verschillende vogelsoorten met de naam Robin in het Engels ("lijster" in het Nederland) (roodborstlijster, zanglijster, beflijster, ...), en de vissoort "ponen" (ook Robin in het Engels), en een taxonoom met de naam Robin die tientallen soorten benoemd heeft. We hebben een "exacte" parameter nodig om alleen zoekresultaten te geven die geheel overeenkomen met de zoekterm, maar we kunnen niet garanderen dat de gevonden taxa de taxa zijn die u hoopt te vinden. Wij proberen de relevantie van onze zoekresultaten voortdurend te verbeteren, dus in de nabije toekomst kunt betere zoekresultaten verwachten.
   gives_access_to_a_single_hierarchy_indexed_by_eol: geeft toegang tot een enkele hiërarchie en de interne relaties als geïndexeerd door EOL
   global_access_tagline: Wereldwijde toegang tot kennis over het leven op aarde.
   global_navigation: Globale navigatie
+  glossary: Woordenlijst
   glossary_is_empty: (de woordenlijst leeg is)
+  glossary_subhead: Woordenlijst
   glossary_term: term
   glossary_terms: Termen uit de woordenlijst
   go: OK
@@ -2572,6 +2687,7 @@ nl:
     one: "%{count} afbeelding"
     other: "%{count} afbeeldingen"
   import_once: Eenmalig importeren
+  import_ontology: Ontologie importeren
   in_collection: in verzameling
   in_community: in gemeenschap
   in_providing_its_content_to_eo: Door inhoud bij te dragen aan EOL,
@@ -2585,7 +2701,7 @@ nl:
   information_for_any_audience: Informatie voor elk publiek
   information_intended_for_beginners: Informatie voor beginners
   information_intended_for_experts: Informatie voor deskundigen
-  insufficient_privileges_to_add_common_names: U hebt niet voldoende bevoegdheden om gemeenschappelijke namen te kunnen toevoegen.
+  insufficient_privileges_to_add_common_names: U hebt niet voldoende bevoegdheden om algemene namen te kunnen toevoegen.
   insufficient_privileges_to_curate_names: U hebt niet voldoende bevoegdheden om namen te kunnen wijzigen.
   internal_ip_address: intern IP-adres
   inverse_sort: Omgekeerde sortering
@@ -2640,9 +2756,35 @@ nl:
   just_pages_with_pictures_and_text: Alleen de pagina's met afbeeldingen en tekst
   keep_split_entry_from_this_entry: Gescheiden houden van deze term
   key: Sleutel
+  known_uri_category_header: Categorieën
+  known_uri_created: URI toegevoegd.
+  known_uri_label_allowed_unit: heeft een eenheid van
+  known_uri_label_allowed_val: laat een waarde toe van
+  known_uri_label_inverse: is de inverse van
+  known_uri_label_unit: heeft een eenheid van
+  known_uri_missing_translation: Onvertaald, bewerk alstublieft
+  known_uri_name_and_uri: "%{name} (%{uri})"
+  known_uri_relationships: 
+    create_failed: Er is een fout opgetreden. De relatie is niet toegevoegd.
+    created: De relatie is aangemaakt
+    deleted: De relatie is verwijderd
+  known_uri_updated: URI bijgewerkt.
   known_uris: 
+    add_a_relationship: Relatie toevoegen
+    import_successful: De ontologietermen zijn geïmporteerd
+    more_than_one_field_mapped_to_type: Er is meer dan één kenmerk toegewezen aan "%{type}"
+    no_results: Er zijn geen resultaten voor de geselecteerde statistiek
+    please_select_field_types: Selecteer een toewijzing voor elke eigenschap
     please_select_from_the_menu: Selecteer uit het menu hierboven
-    relationships: Relaties
+    select_a_category_to_view_stats: "Selecteer een categorie om de statistieken van te bekijken:"
+    unrecognized_association_types: Koppelingstype URI's niet herkend
+    unrecognized_measurement_types: Metingtype URI's niet herkend
+    unrecognized_measurement_units: Metingeenheid URI's niet herkend
+    unrecognized_measurement_values: Metingwaarde URI's niet herkend
+  known_uris_empty_sorry: Er zijn helaas nog geen voorgestelde URI's voor deze categorie.
+  known_uris_none: Niemand heeft nog URI's van dit type toegevoegd.
+  known_uris_page_title: URI's voor gegevens op EOL
+  known_uris_sorted: Volgorde bijgewerkt.
   label: Label
   language: "Taal:"
   language_selector_advisory_information: Hieronder staat een lijst met talen waarvan de inhoud van de website beschikbaar is. Selecteer een taal uit de lijst om de inhoud in die taal te bekijken.
@@ -2738,6 +2880,7 @@ nl:
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_no_known_copyright_restrictions: Geen bekende auteursrechtelijke beperkingen
+  license_none: Geen
   license_not_applicable: Licentie niet van toepassing
   license_public_domain: Publiek domein
   licensing: Licentie
@@ -2806,6 +2949,7 @@ nl:
     one: "%{count} kaart"
     other: "%{count} kaarten"
   march_of_life_thumbnail_title: "Mars van het leven:"
+  master_curators_may_add_data: "Meesterconservatoren kunnen gegevens toevoegen:"
   matching_users_found_with_count: 
     one: Er is één gebruiker gevonden die aan uw zoekopdracht voldoet.
     other: Er zijn %{count} gebruikers gevonden die aan uw zoekopdracht voldoen.
@@ -2879,12 +3023,14 @@ nl:
       videos: Video's
   moderator_colon: "Moderator:"
   monthly: Maandelijks
+  more: meer
   more_children_with_count: 
     one: nog één...
     other: "%{count} meer..."
   more_siblings_with_count: 
     one: één andere sibling...
     other: "%{count} andere siblings..."
+  more_taxa_with_attribute: alle taxa met deze eigenschap bekijken
   most_active_members: Meest actieve leden
   move: Verplaatsen
   move_down: Naar onderen verplaatsen
@@ -2909,6 +3055,7 @@ nl:
   must_be_checked_in_to_view: "- moet aangevinkt zijn om te kunnen bekijken"
   must_be_less_than_128_characters_long: moet minder dan 128 tekens lang zijn.
   must_be_logged_in: U moet aangemeld zijn om deze handeling uit te voeren.
+  must_provide_attribute_for_search_error: U moet een eigenschap selecteren om op te zoeken.
   must_provide_search_term_error: U moet een zoekterm invoeren.
   my_activity: Mijn activiteit
   my_info: Mijn gegevens
@@ -2922,7 +3069,7 @@ nl:
   names: Namen
   names_children_column_header: Kinderen
   names_common_empty: Er zijn nog geen gewone namen gekoppeld aan dit taxon
-  names_common_list_by_language_assistive_header: Gemeenschappelijke namen per taal
+  names_common_list_by_language_assistive_header: Algemene namen per taal
   names_curation_column_header: Conservering
   names_et_al: "%{names}, et al."
   names_explanation: Wetenschappers proberen één enkele "levensboom" te beschrijven die de evolutionaire relatie van levende dingen reflecteert. Desalniettemin blijven evolutionaire relaties ontdekt worden en er zijn verschillende meningen over hoe levende dingen gegroepeerd en benoemd moeten worden. EOL biedt ruimte voor deze verschillen door verschillende wetenschappelijke classificaties te ondersteunen. Sommige soorten hebben meerdere namen. Dergelijke duplicaten worden weergegeven als synoniemen. EOL biedt ook de mogelijkheid om gewone namen toe te voegen die aanzienlijk kunnen verschillen tussen regio's en talen.
@@ -2976,6 +3123,7 @@ nl:
   no_news_items_for_month_and_year: Er zijn geen nieuwsberichten voor %{month_and_year}
   no_record_found_matching_your_criteria: Er zijn geen records gevonden die aan uw criteria voldoen.
   no_related_names: Er zijn nog geen namen gekoppeld aan dit taxon.
+  no_results_for_search_term: Geen resultaten voor "%{search_term}"
   no_search_suggestions_are_avai: Er zijn geen zoeksuggesties voor uw zoekcriteria.
   no_survey_responses_are_availa: Er zijn geen vragenlijstrespondenten beschikbaar.
   no_tasks_found: Geen taken gevonden
@@ -2989,13 +3137,13 @@ nl:
   not_recognized_by_available_hierarchies: Niet herkend in enige beschikbare classificatie
   not_shown_on_the_website_note: (niet weergegeven op de website of in de URL van de koppeling; alleen voor archiefdoeleinden)
   not_yet_implemented_error: Die optie is helaas nog niet beschikbaar.
-  note: "Notitie:"
+  note: "Opmerking:"
   note_about_homonym_problems: "Let op: wijzig deze eigenschap alleen als u het zeker weet. Deze optie deselecteren kan grote homoniemproblemen tot gevolg hebben"
   note_all_times_utc: Alle tijden worden weergegeven in UTC (gecoördineerde wereldtijd)
   note_that_it_may_take_a_few_mi: Het kan na uploaden enige minuten duren voordat de URL's werken, omdat uw bestand beschikbaar gesteld moet worden aan de webservers.
   note_that_you_can_reference_im: U kunt afbeeldingen toevoegen met de HTML-tag &lt;img&gt;, maar deze afbeeldingen moeten bestaan op een URL, zoals bij de website waar ze vandaan komen of een site zoals Flickr. U kunt afbeeldingen niet via deze site uploaden en ze daarna in een nieuwsitem gebruiken.
-  notes: Notities
-  notes_not_shown_to_user: "Notities (niet zichtbaar voor de gebruiker):"
+  notes: Opmerkingen
+  notes_not_shown_to_user: "Opmerkingen (niet zichtbaar voor de gebruiker):"
   notification_frequency_daily_digest: Dagelijks overzicht
   notification_frequency_never: Nooit
   notification_frequency_newsfeed_only: Alleen nieuwsoverzicht
@@ -3110,6 +3258,7 @@ nl:
   only_multi_search_suggestions: (alleen als er meerdere suggesties voor dezelfde zoekterm zijn, sorteren van laag naar hoog)
   only_show_authoritative_conten: "Alleen geautoriseerde inhoud weergeven:"
   only_show_unapproved_curators: Alleen nog niet goedgekeurde conservatoren weergeven
+  ontology_uri: URI voor ontologie
   option_please_select: Maak een keuze
   or_add_it_to_an_existing_collection: of voeg deze toe aan een bestaande verzameling
   or_add_it_to_an_existing_community: of voeg het toe aan een bestaande gemeenschap
@@ -3118,12 +3267,14 @@ nl:
   or_move_them_to_existing_collection: of verplaats ze naar een bestaande verzameling
   original: "Origineel:"
   original_object: Oorspronkelijke object
+  other_category: Andere
   other_collection_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
   other_community_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
+  other_measurements_from_this_record: Andere metingen van dit record
   other_taxa_with_count: 
     one: "%{count} ander taxon"
     other: "%{count} andere taxa"
@@ -3299,12 +3450,14 @@ nl:
     someone_commented_on_something: <b>%{who}</b> heeft gereageerd op <b>%{what}</b>.
     unsubscribe: Meld u aan en wijzig uw e-mailinstellingen bij op de <a href='%{email_prefs_url}' style='color:#195184'>pagina met uw voorkeuren voor berichten</a> of <a href='%{unsubscribe_url}' style='color:#195184'>schrijf u uit van ALLE automatische meldingen van EOL zonder aan te melden</a>.
   recent_updates: Recente updates
+  recently_used_link: Recent gebruikt
   recently_visited: Onlangs bezocht
   recipients: Ontvangers
   recognized_by_as_a_rank: "%{recognized_by} als een %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} in %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} in %{source} als een %{taxon_rank}"
   record_not_found: "[record niet gevonden]"
+  reference: Referentie
   references_cabs_colon: "Referenties:"
   reindex_page_button: Pagina opnieuw indexeren
   related_names_with_count: 
@@ -3416,7 +3569,7 @@ nl:
   see_all_updates_with_count_html: 
     one: De <span class="assistive">update voor deze pagina</span> bekijken.
     other: Alle <span class="assistive">%{count} updates voor deze pagina</span> bekijken.
-  see_notes: zie notities
+  see_notes: zie opmerkingen
   select_a_hierarchy_around_whic: "Selecteer een hiërarchie waar u de samenvattingen omheen wilt organiseren:"
   select_an_item_from_the_menu: Selecteer een item uit het menu
   select_colon: "Selecteer:"
@@ -3609,18 +3762,39 @@ nl:
         meta_title: Mensen die geïnteresseerd zijn in %{scientific_name}
         meta_title_with_common_name: Mensen die geïnteresseerd zijn in %{preferred_common_name} (%{scientific_name})
         tweet_text: Mensen die geïnteresseerd zijn in %{scientific_name}
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Afbeeldingen, video's en audio van %{scientific_name} als ingedeeld door %{hierarchy_provider}. Zoek afbeeldingen, foto's, filmpjes en geluiden van %{scientific_name} bij de Encyclopedia of Life.
+          meta_description_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{scientific_name} geclassificeerd door % {hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om gegevens voor %{scientific_name} bij te dragen.
+          meta_description_with_common_name_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit gegevens bij te dragen voor %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Welke gegevens hebben wetenschappers verzameld voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}? Berekenbare gegevens over %{scientific_name}, inclusief informatie over %{topics}.
+          meta_keywords: "%{scientific_name} als ingedeeld door %{hierarchy_provider} berekenbare gegevens, informatie over %{scientific_name}"
+          meta_keywords_with_common_name: "%{preferred_common_name} als ingedeeld door %{hierarchy_provider} berekenbare gegevens"
+          meta_title: Berekenbare gegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
+          meta_title_with_common_name: Berekenbare gegevens voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Berekenbare gegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
+        meta_description: Afbeeldingen en video's van %{scientific_name}. Zoek afbeeldingen, foto's en geluiden van %{scientific_name} bij de Encyclopedia of Life.
+        meta_description_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit gegevens bij te dragen voor %{scientific_name}.
+        meta_description_with_common_name_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit gegevens bij te dragen voor %{preferred_common_name} (%{scientific_name}).
+        meta_description_with_common_name_with_topics: Welke gegevens hebben wetenschappers verzameld voor %{preferred_common_name}? Berekenbare gegevens over %{scientific_name}, inclusief informatie over %{topics}.
+        meta_keywords: "%{scientific_name} berekenbare gegevens, informatie over %{scientific_name}"
+        meta_keywords_with_common_name: "%{preferred_common_name} berekenbare gegevens"
+        meta_title: Berekenbare gegevens voor %{scientific_name}
+        meta_title_with_common_name: Berekenbare gegegevens voor %{preferred_common_name} (%{scientific_name})
+        tweet_text: Berekenbare gegevens voor %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life
+          meta_description: Gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life
           meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{scientific_name} zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
-          meta_description_with_chapter_list: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
-          meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life.
+          meta_description_with_chapter_list: Gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
+          meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life.
           meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{preferred_common_name} (%{scientific_name}) zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
-          meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
-          meta_title: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
-          meta_title_with_common_name: Gegevens over %{preferred_common_name} (%{scientific_name} als geclassificeerd door %{hierarchy_provider})
-          tweet_text: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
+          meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
+          meta_title: Gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider}
+          meta_title_with_common_name: Gegevens over %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
+          tweet_text: Gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider}
         meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life
         meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{scientific_name} zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
         meta_description_with_chapter_list: Gegevens over %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
@@ -3702,9 +3876,9 @@ nl:
         meta_description: Volksnamen voor %{scientific_name}
         meta_description_with_common_name: De wetenschappelijke naam voor %{preferred_common_name} is %{scientific_name}. Ontdek welke andere algemene namen gekoppeld zijn met %{scientific_name}.
         meta_keywords: Volksnamen voor %{scientific_name}
-        meta_keywords_with_common_name: Gemeenschappelijke namen voor %{scientific_name}, de wetenschappelijke naam voor %{preferred_common_name}
+        meta_keywords_with_common_name: Algemene namen voor %{scientific_name}, de wetenschappelijke naam voor %{preferred_common_name}
         meta_title: Volksnamen voor %{scientific_name}
-        meta_title_with_common_name: Gemeenschappelijke namen voor %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Algemene namen voor %{preferred_common_name} (%{scientific_name})
         tweet_text: Volksnamen voor %{scientific_name}
       index: 
         hierarchy_entry: 
@@ -3765,7 +3939,7 @@ nl:
         tweet_text: Educatieve bronnen voor %{scientific_name}
       identification_resources: 
         hierarchy_entry: 
-          tweet_text: Identificatiebronnen voor %{scientific_name} als geclassificeerd %{hierarchy_provider}
+          tweet_text: Identificatiebronnen voor %{scientific_name} als ingedeeld %{hierarchy_provider}
         meta_title: Identificatiebronnen voor %{scientific_name}
         meta_title_with_common_name: Identificatiebronnen voor %{preferred_common_name} (%{scientific_name})
         tweet_text: Identificatiebronnen voor %{scientific_name}
@@ -3782,7 +3956,7 @@ nl:
           meta_keywords: Gegevensleveranciers voor %{scientific_name}, brongegevens voor %{scientific_name}
           meta_keywords_with_common_name: Gegevensleveranciers voor %{preferred_common_name}, brongegevens voor %{preferred_common_name}, gegevensleveranciers voor %{scientific_name}, brongegevens voor %{scientific_name}
           meta_title: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
-          meta_title_with_common_name: Gegevensproviders voor %{preferred_common_name} als geclassificeerd door %{hierarchy_provider}
+          meta_title_with_common_name: Gegevensproviders voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}
           tweet_text: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
         meta_description: Bronnen en partnercitaten voor %{scientific_name}
         meta_description_with_common_name: Bronnen over %{preferred_common_name} en partnercitaten voor %{scientific_name}.
@@ -4081,6 +4255,21 @@ nl:
   user_activity_stats_wikipedia_nominated: 
     one: één Wikipedia-artikel genomineerd
     other: "%{count} Wikipedia-artikelen genomineerd"
+  user_added_data: 
+    add_data_header: Uw eigen gegevens bijdragen
+    add_metadata_header: Extra gegevens
+    additional_fields: Gegevens over dit record
+    create_failed: "Het was niet mogelijk uw gegevens toe te voegen: %{errors}"
+    create_successful: De gegevens zijn toegevoegd
+    delete_successful: De gegevens zijn verwijderd
+    edit_data_header: Uw gegevens bewerken
+    edit_metadata_header: Metadata bewerken
+    new_field: Nieuw veld...
+    new_value: Waarde
+    source_field_helper: Literatuurreferentie of URL naar online gegevensbron toevoegen
+    submit_data: gegevenswaarde opslaan
+    update_failed: "Het was niet mogelijk uw gegevens bij te werken: %{errors}"
+    update_successful: De gegevens zijn bijgewerkt
   user_agent: Gebruikersagent
   user_already_active_notice: Uw gebruiker is al actief. Meld u aan.
   user_comment: Reactie van gebruiker

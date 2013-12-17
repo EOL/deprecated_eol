@@ -21,7 +21,7 @@
 /* Use the ~30K JPG form on the homepage image instead of the ~500K transparent PNG */
 body.home
   > #header
-    background: transparent url(image-path("v2/bg_home_earth.jpg")) 50% 100% no-repeat
+    background: transparent image-url("v2/bg_home_earth.jpg") 50% 100% no-repeat
 
 
 /** Busy indicator for JS submitted forms e.g. exemplar image **/
@@ -100,14 +100,14 @@ form
     &.dataset
       legend.required
         font-weight: bold
-        background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+        background: image-url("v2/icon_required.png") 0 45% no-repeat
         padding-left: 10px
         margin-left: -10px
 /** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
 form
   dt.required
     label
-      background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+      background: image-url("v2/icon_required.png") 0 45% no-repeat
       padding-left: 10px
       margin-left: -10px
 
@@ -211,7 +211,7 @@ form#switch_hierarchy_entry
           padding: 5px 20px
   a
     &.pdf
-      background: url(image-path("v2/icon_pdf.png")) right top no-repeat
+      background: image-url("v2/icon_pdf.png") right top no-repeat
       padding: 0 20px 3px 0
   ul
     &.grid
@@ -441,7 +441,7 @@ form, #content .site_column
               margin: 0 10px
       &.sound
         .figure
-          background: $nearly_black url(image-path("v2/icon_sound_tabs.png")) no-repeat 50% 20%
+          background: $nearly_black image-url("v2/icon_sound_tabs.png") no-repeat 50% 20%
           color: $light_blue
           a
             color: $light_blue
@@ -470,7 +470,7 @@ form, #content .site_column
 
       &.video
         .figure
-          background: url(image-path("v2/icon_videos_tabs.png")) no-repeat 50% 20% transparent
+          background: image-url("v2/icon_videos_tabs.png") no-repeat 50% 20% transparent
           border: 1px solid $grayblue
           width: 158px
           height: 123px
@@ -481,7 +481,7 @@ form, #content .site_column
             width: 158px
             height: 123px
             z-index: 3
-            background: url(image-path("v2/video_play.png")) no-repeat 50% 50% transparent
+            background: image-url("v2/video_play.png") no-repeat 50% 50% transparent
       form
         display: block
         clear: both
@@ -561,7 +561,7 @@ p.flag, span.flag
         text-indent: -8685px
         overflow: hidden
         width: 0
-        background: transparent url(image-path("v2/icon_stars.png")) 0 100% repeat-x
+        background: transparent image-url("v2/icon_stars.png") 0 100% repeat-x
 #worklist
   #task
     .rating, .average_rating
@@ -1066,7 +1066,7 @@ a.other_actions
 
 .cms_page
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_info_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_info_tabs.png") 50% 50% no-repeat
 
 #taxon_maps #media_list
   padding: 0
@@ -1160,7 +1160,7 @@ body#prelaunch #footer ul.social_media
     tr.pending
       background-color: #ffeeee
     td.preferred
-      background: url(image-path("v2/icon_required.png")) 7px 1em no-repeat
+      background: image-url("v2/icon_required.png") 7px 1em no-repeat
     td.preferred_entry_selector
       width: 8%
     td.rank
@@ -1328,7 +1328,7 @@ table.classifications
     a
       color: #979
   td.excluded
-    background: url(image-path("v2/icon_excluded.png")) 7px 13px no-repeat
+    background: image-url("v2/icon_excluded.png") 7px 13px no-repeat
   td.untranslated
     color: #8b0000
   table.standard
@@ -1479,7 +1479,7 @@ ul.tabs
     @include info_item_with_background($size)
 
 @mixin info_item_with_background($size)
-  background: url(image-path("v2/icon_info_tabs.png")) ($size - 12.5px) ($size - 13px) no-repeat
+  background: image-url("v2/icon_info_tabs.png") ($size - 12.5px) ($size - 13px) no-repeat
   background-size: $size + px $size + px
 
 #taxon_data, #data_comments
@@ -1520,10 +1520,10 @@ ul.tabs
             height: 13px
             width: 13px
             text-decoration: none
-            background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+            background: $lightest_blue image-url("v2/icon_remove.png") 2px 2px no-repeat
             border: 1px solid $light_blue
             &:hover
-              background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+              background: #fff image-url("v2/icon_remove.png") 2px 2px no-repeat
           .uri
             font-size: 0.75em
             text-align: right
@@ -1684,7 +1684,7 @@ ul.tabs
         height: 50px
         float: left
         margin-right: 10px
-        background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat
+        background: $fieldset_light_blue image-url("v2/icon_taxa_tabs.png") 50% 50% no-repeat
         border: 1px solid $grayblue
         img
           width: 50px
@@ -1767,19 +1767,19 @@ ul.tabs
       height: 13px
       width: 13px
       text-decoration: none
-      background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+      background: $lightest_blue image-url("v2/icon_remove.png") 2px 2px no-repeat
       border: 1px solid $light_blue
       &:hover
-        background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+        background: #fff image-url("v2/icon_remove.png") 2px 2px no-repeat
 .add_content
   .add_data
     margin-bottom: 1.2em
     a
       padding-left: 11px
-      background: #fff url(image-path("arrow_fold_right.png")) 0px 4px no-repeat
+      background: #fff image-url("arrow_fold_right.png") 0px 4px no-repeat
     a.open
       padding-left: 11px
-      background: #fff url(image-path("arrow_fold_down.png")) 0px 4px no-repeat
+      background: #fff image-url("arrow_fold_down.png") 0px 4px no-repeat
 
 // Sick and tired of the language drop-down being too narrow for some languages:
 #header

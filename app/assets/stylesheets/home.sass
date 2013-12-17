@@ -27,14 +27,14 @@
 
 body
   border-color: #0a0f13
-  background: #0a0f13 url(image-path("v2/bg_stars.png")) repeat
+  background: #0a0f13 image-url("v2/bg_stars.png") repeat
   > #header
     position: relative
     height: 563px
     color: #ffffff
     border-top: 1px solid #202427
     border-bottom: 1px solid #ccd4dd
-    background: transparent url(image-path("v2/bg_home_earth.png")) 50% 100% no-repeat
+    background: transparent image-url("v2/bg_home_earth.png") 50% 100% no-repeat
     .section
       position: relative
       height: 268px
@@ -46,7 +46,7 @@ body
       a
         width: 157px
         height: 99px
-        background-image: url(image-path("v2/logo_index.png"))
+        background-image: image-url("v2/logo_index.png")
     h2
       position: absolute
       left: 0
@@ -69,7 +69,7 @@ body
         height: 28px
         font-size: 1.5em
         line-height: 28px
-        background-image: url(image-path("v2/icon_search_home.png"))
+        background-image: image-url("v2/icon_search_home.png")
         float: left
       input[type="submit"]
         min-width: 40px
@@ -101,14 +101,14 @@ body
                 height: 25px
                 line-height: 25px
                 text-decoration: none
-                background: url(image-path("v2/icon_header_messages.png")) 6px 45% no-repeat #566572
+                background: image-url("v2/icon_header_messages.png") 6px 45% no-repeat #566572
                 padding: 0 5px 0 24px
                 &:hover
                   background-color: #667d91
               + li
                 margin-top: 1px
                 a
-                  background-image: url(image-path("v2/icon_header_notifications.png"))
+                  background-image: image-url("v2/icon_header_notifications.png")
                   background-position: 9px 50%
         img
           float: right
@@ -143,7 +143,7 @@ body
       bottom: 0
       z-index: 1
       width: 100%
-      background: transparent url(image-path("v2/bg_home_thumbnails.png")) repeat
+      background: transparent image-url("v2/bg_home_thumbnails.png") repeat
       background: rgba(255, 255, 255, .5)
       .term
         border-bottom-color: #ffffff
@@ -234,22 +234,22 @@ body
               font-size: 1.16em
           &.taxon
             dl
-              background-image: url(image-path("v2/icon_taxon.png"))
+              background-image: image-url("v2/icon_taxon.png")
           &.users
             dl
-              background-image: url(image-path("v2/icon_user.png"))
+              background-image: image-url("v2/icon_user.png")
           &.collections
             dl
-              background-image: url(image-path("v2/icon_collections.png"))
+              background-image: image-url("v2/icon_collections.png")
           &.images
             dl
-              background-image: url(image-path("v2/icon_images.png"))
+              background-image: image-url("v2/icon_images.png")
           &.partners
             dl
-              background-image: url(image-path("v2/icon_partners.png"))
+              background-image: image-url("v2/icon_partners.png")
           &.communities
             dl
-              background-image: url(image-path("v2/icon_community.png"))
+              background-image: image-url("v2/icon_community.png")
     .community
       float: right
       width: 380px

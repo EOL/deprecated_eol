@@ -17,7 +17,7 @@ $(function() {
           var media = {};
       }
       $("#player").jPlayer({
-        swfPath: "/assets/jplayer/js",
+        swfPath: '<%= asset_path "jplayer/js" %>',
         supplied: supplied,
         cssSelectorAncestor: "#player_interface",
         ready: function () {

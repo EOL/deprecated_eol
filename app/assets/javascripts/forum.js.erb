@@ -47,6 +47,6 @@ function move_to_post(post_id) {
 // forum uses some custom Ckeditor CSS
 if(typeof CKEDITOR != "undefined")
 {
-  CKEDITOR.config.contentsCss = '/assets/forum.css';
+  CKEDITOR.config.contentsCss = '<%= asset_path "forum.css" %>';
   CKEDITOR.config.bodyClass = 'post_text';
 }

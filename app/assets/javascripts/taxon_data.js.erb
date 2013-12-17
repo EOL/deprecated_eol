@@ -89,14 +89,14 @@ EOL.toggle_actions_row = function(data_row) {
   var $next_row_data = $next_row.children('td');
   var $table = data_row.next().find('table.meta');
   if ($next_row.is(":visible")) {
-    $folder.attr('src', "/assets/arrow_fold_right.png");
+    $folder.attr('src', '<%= asset_path "arrow_fold_right.png" %>');
     $next_row.hide();
     $table.hide();
   } else {
     var data_point_id = data_row.attr('id');
     // the metadata table hasn't been loaded yet, so load it dynamically
     if (data_row.data('loading') != true && data_row.data('loaded') != true) {
-      $folder.attr('src', '/assets/indicator_arrows_black.gif');
+      $folder.attr('src', '<%= asset_path "indicator_arrows_black.gif" %>');
       data_row.data('loading', true);
       $.ajax({
         url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
@@ -116,18 +116,18 @@ EOL.toggle_actions_row = function(data_row) {
         },
         error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
         complete: function() {
-          $folder.attr('src', "/assets/arrow_fold_down.png");
+          $folder.attr('src', '<%= asset_path "arrow_fold_down.png" %>');
           $next_row.show();
           EOL.yank_glossary_terms($next_row);
           $table.show();
           data_row.data('loading', false);
           data_row.data('loaded', true);
-          $folder.attr('src', "/assets/arrow_fold_down.png");
+          $folder.attr('src', '<%= asset_path "arrow_fold_down.png" %>');
         }
       });
     } else if(data_row.data('loading') != true)
     {
-      $folder.attr('src', "/assets/arrow_fold_down.png");
+      $folder.attr('src', '<%= asset_path "arrow_fold_down.png" %>');
       $next_row.show();
       $table.show();
     }
@@ -253,7 +253,7 @@ $(function() {
 
   $('table.data .fold a').on('click', function() { $(this).closest('tr').click(); return(false); }); // These links just click the row, with JS.
 
-  $('table.data tr.actions').hide().prev().find('.fold img').attr('src', "/assets/arrow_fold_right.png");
+  $('table.data tr.actions').hide().prev().find('.fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
 
   $('table.data tr.data').on('click',
     function(e) {
@@ -349,7 +349,7 @@ $(function() {
     $(this).parent().addClass('active');
     // Reset other aspects of the table:
     $('table.data tr.open').removeClass('open');
-    $('table.data .fold img').attr('src', "/assets/arrow_fold_right.png");
+    $('table.data .fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
     $('table.meta').hide();
     EOL.limit_data_rows();
     return(false);

@@ -47,7 +47,7 @@ form
       margin: 0 5px 0 0
   label
     &.required
-      background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+      background: image-url("v2/icon_required.png") 0 45% no-repeat
       padding-left: 10px
       margin-left: -10px
     &.checkbox
@@ -206,31 +206,31 @@ ul.tabs
         font-size: 1.14em
     &.taxa
       a
-        background: transparent url(image-path("v2/icon_taxa_tabs.png")) 9px 50% no-repeat
+        background: transparent image-url("v2/icon_taxa_tabs.png") 9px 50% no-repeat
     &.videos
       a
-        background: transparent url(image-path("v2/icon_videos_tabs.png")) 11px 10px no-repeat
+        background: transparent image-url("v2/icon_videos_tabs.png") 11px 10px no-repeat
     &.sounds
       a
-        background: transparent url(image-path("v2/icon_sounds_tabs.png")) 14px 50% no-repeat
+        background: transparent image-url("v2/icon_sounds_tabs.png") 14px 50% no-repeat
     &.images
       a
-        background: transparent url(image-path("v2/icon_images_tabs.png")) 7px 8px no-repeat
+        background: transparent image-url("v2/icon_images_tabs.png") 7px 8px no-repeat
     &.communities
       a
-        background: transparent url(image-path("v2/icon_communities_tabs.png")) 8px 16px no-repeat
+        background: transparent image-url("v2/icon_communities_tabs.png") 8px 16px no-repeat
     &.people
       a
-        background: transparent url(image-path("v2/icon_people_tabs.png")) 9px 10px no-repeat
+        background: transparent image-url("v2/icon_people_tabs.png") 9px 10px no-repeat
     &.collections
       a
-        background: transparent url(image-path("v2/icon_collections_tabs.png")) 6px 8px no-repeat
+        background: transparent image-url("v2/icon_collections_tabs.png") 6px 8px no-repeat
     &.articles
       a
-        background: transparent url(image-path("v2/icon_articles_tabs.png")) 9px 9px no-repeat
+        background: transparent image-url("v2/icon_articles_tabs.png") 9px 9px no-repeat
     &.links
       a
-        background: transparent url(image-path("v2/icon_links_tabs.png")) 6px 9px no-repeat
+        background: transparent image-url("v2/icon_links_tabs.png") 6px 9px no-repeat
   &.with_icons
     li
       font-size: 1.16em
@@ -486,7 +486,7 @@ table.standard
   ul a:hover,
   ul a:active,
   ul a:focus
-    background: transparent url(image-path("v2/icon_stars.png")) 0 100% repeat-x
+    background: transparent image-url("v2/icon_stars.png") 0 100% repeat-x
   ul
     float: left
     position: relative
@@ -501,7 +501,7 @@ table.standard
         &.current_rating_#{$i}
           +star
           width: 20% * $i
-          background: transparent url(image-path("v2/icon_stars.png")) 0 -26px repeat-x
+          background: transparent image-url("v2/icon_stars.png") 0 -26px repeat-x
     a
       +star
       &:hover, &:active, &:focus
@@ -531,13 +531,13 @@ table.standard
     float: left
     width: 76px
     height: 13px
-    background: transparent url(image-path("v2/icon_stars.png")) 0 0 repeat-x
+    background: transparent image-url("v2/icon_stars.png") 0 0 repeat-x
     p
       height: 12px
       font-size: 0
       margin: 0
       text-indent: -8685px
-      background: transparent url(image-path("v2/icon_stars.png")) 0 50% repeat-x
+      background: transparent image-url("v2/icon_stars.png") 0 50% repeat-x
     &.one
       p
         width: 20%
@@ -553,34 +553,34 @@ table.standard
 
 .data
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_collections.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_collections.png") 50% 50% no-repeat
 .taxon
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_taxa_tabs.png") 50% 50% no-repeat
 .video
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_videos_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_videos_tabs.png") 50% 50% no-repeat
 .image
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_images_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_images_tabs.png") 50% 50% no-repeat
 .community
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_communities_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_communities_tabs.png") 50% 50% no-repeat
 .person
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_people_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_people_tabs.png") 50% 50% no-repeat
 .collection
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_collections_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_collections_tabs.png") 50% 50% no-repeat
 .article
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_articles_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_articles_tabs.png") 50% 50% no-repeat
 .link
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_links_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_links_tabs.png") 50% 50% no-repeat
 .sound
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_sound_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_sound_tabs.png") 50% 50% no-repeat
 
 ul.object_list
   + .footer
@@ -711,14 +711,14 @@ body
                   height: 25px
                   line-height: 25px
                   text-decoration: none
-                  background: url(image-path("v2/icon_header_messages.png")) 6px 45% no-repeat #566572
+                  background: image-url("v2/icon_header_messages.png") 6px 45% no-repeat #566572
                   padding: 0 5px 0 24px
                   &:hover
                     background-color: #667d91
                 + li
                   margin-top: 1px
                   a
-                    background-image: url(image-path("v2/icon_header_notifications.png"))
+                    background-image: image-url("v2/icon_header_notifications.png")
                     background-position: 9px 50%
           img
             float: right
@@ -843,7 +843,7 @@ body
     .hgroup
       padding: 20px 0 20px 10px
     .site_column
-      background: transparent url(image-path("v2/bg_discover-header.png")) 112% 50% no-repeat
+      background: transparent image-url("v2/bg_discover-header.png") 112% 50% no-repeat
   .site_column
     overflow: hidden
   h1
@@ -1538,7 +1538,7 @@ ul.content_partner_contacts
           float: left
           padding: 4px 5px
           cursor: pointer
-          background: url(image-path("v2/icon_remove.png")) no-repeat 5px center
+          background: image-url("v2/icon_remove.png") no-repeat 5px center
           padding-left: 17px
           margin: 0 5px 5px 0
           &:hover
@@ -1568,7 +1568,7 @@ ul.content_partner_contacts
         position: relative
         width: 33%
         &.preferred
-          background: url(image-path("v2/icon_required.png")) 7px 1em no-repeat
+          background: image-url("v2/icon_required.png") 7px 1em no-repeat
 #taxon_literature
   .main_container
     .bhl_description
@@ -1959,7 +1959,7 @@ ul.content_partner_contacts
       ul a:hover,
       ul a:active,
       ul a:focus
-        background-image: url(image-path("v2/icon_permalink-stars.png"))
+        background-image: image-url("v2/icon_permalink-stars.png")
       ul
         width: 100px
   .media
@@ -2267,7 +2267,7 @@ ul.content_partner_contacts
             width: 7px
             height: 7px
             content: ""
-            background: transparent url(image-path("v2/bg_wrap-behind-tail.png")) 0 0 no-repeat
+            background: transparent image-url("v2/bg_wrap-behind-tail.png") 0 0 no-repeat
         img
           float: right
           border: 1px solid #394651
@@ -2381,7 +2381,7 @@ ul.content_partner_contacts
           z-index: 2
           padding: 10px
           font-weight: bold
-          background: transparent url(image-path("v2/bg_exemplar.png")) repeat
+          background: transparent image-url("v2/bg_exemplar.png") repeat
         &:hover
           label
             display: block
@@ -2391,7 +2391,7 @@ ul.content_partner_contacts
       &.inappropriate
         .figure
           .overlay
-            background: transparent url(image-path("v2/bg_media-inappropriate.png")) 50% 0 no-repeat
+            background: transparent image-url("v2/bg_media-inappropriate.png") 50% 0 no-repeat
           img
             +opacity(.5)
       &.untrusted
@@ -2487,7 +2487,7 @@ ul.content_partner_contacts
       height: 68px
       margin: 0 20px 0 0
       border: 1px solid $grayblue
-      background: $fieldset_light_blue url(image-path("v2/icon_communities_tabs.png")) 50% 50% no-repeat
+      background: $fieldset_light_blue image-url("v2/icon_communities_tabs.png") 50% 50% no-repeat
     p
       padding: 6px 0 0 0
       font-weight: bold
@@ -2686,7 +2686,7 @@ ul.content_partner_contacts
     min-height: 295px
     margin: 0 auto
     border: 1px solid $grayblue
-    background: #f0f4f7 url(image-path("v2/bg_sign-in.gif")) 0 0 no-repeat
+    background: #f0f4f7 image-url("v2/bg_sign-in.gif") 0 0 no-repeat
     padding-bottom: 40px
     h1
       font-size: 2em
@@ -2739,16 +2739,16 @@ ul.content_partner_contacts
             min-width: 155px
         &#new_user_facebook, &#new_session_facebook
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 0 no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 0 no-repeat
         &#new_user_twitter, &#new_session_twitter
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -34px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -34px no-repeat
         &#new_user_yahoo, &#new_session_yahoo
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -68px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -68px no-repeat
         &#new_user_google, &#new_session_google
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -102px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -102px no-repeat
       & + p
         clear: both
 
@@ -2807,7 +2807,7 @@ ul.content_partner_contacts
           list-style: none
           margin: 0 0 5px 0
           padding: 0 20px 0
-          background: transparent url(image-path("v2/icon_social_plugins.png")) no-repeat 0 0
+          background: transparent image-url("v2/icon_social_plugins.png") no-repeat 0 0
           background: none\9
           background-size: 16px
           line-height: 140%
@@ -2860,7 +2860,7 @@ ul.content_partner_contacts
         h3
           font-size: 1.67em
           line-height: 150%
-          background: transparent url(image-path("v2/icon_social_plugins.png")) no-repeat 0 0
+          background: transparent image-url("v2/icon_social_plugins.png") no-repeat 0 0
           min-height: 31px
         p, h3
           padding-left: 40px

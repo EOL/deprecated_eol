@@ -144,6 +144,10 @@ class TaxonData < TaxonUserClassificationFilter
     picker.pick(get_data)
   end
 
+  def distinct_predicates
+    get_data.collect{ |d| d.predicate }.compact.uniq
+  end
+
   private
 
   def raw_data

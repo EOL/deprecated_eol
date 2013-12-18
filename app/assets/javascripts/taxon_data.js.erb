@@ -456,14 +456,16 @@ $(function() {
       setTimeout(function() { checkbox.prop('checked', false) }, 5);
       if(chapters.find('li.selected').length == 0) $('ul.glossary > li').show();
       else {
-        $('ul.glossary li[data-toc-id="' + li.attr('data-toc-id') + '"]').hide();
+        // using the attributeContainsWord selector ~= here
+        $('ul.glossary li[data-toc-id~="' + li.attr('data-toc-id') + '"]').hide();
       }
     } else
     {
       if(chapters.find('li.selected').length == 0) $('ul.glossary > li').hide();
       li.addClass('selected')
       setTimeout(function() { checkbox.prop('checked', true) }, 5);
-      $('ul.glossary li[data-toc-id="' + li.attr('data-toc-id') + '"]').show();
+      // using the attributeContainsWord selector ~= here
+      $('ul.glossary li[data-toc-id~="' + li.attr('data-toc-id') + '"]').show();
     }
     return false;
   });

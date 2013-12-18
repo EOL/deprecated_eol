@@ -3287,9 +3287,9 @@ en:
   data_subtab_glossary: "Glossary"
   data_summary_header: "Quick Facts"
   data_summary_header_with_count:
-    zero: "EOL has no trait records"
-    one: "EOL has 1 trait record"
-    other: "EOL has %{count} trait records"
+    zero: "EOL has no trait data"
+    one: "EOL has data for 1 trait"
+    other: "EOL has data for %{count} traits"
   data_tab_curator_exemplar: "added to Quick Facts"
   data_tab_curator_excluded: "removed from Quick Facts"
   data_tab_curator_key_exemplar: "%{image} added to <a href='%{link}'>Quick Facts</a>"
@@ -3786,6 +3786,7 @@ en:
   limits_the_number_of_returned_iucn_objects: "include the IUCN Red List status object"
   link_more_about: "Learn more about this link"
   link_name: "Link Name"
+  link_to_this_term: "link to this term"
   links_with_count:
     one: "%{count} link"
     other: "%{count} links"
@@ -4285,8 +4286,8 @@ en:
     other: "See all <span class=\"assistive\">%{count} communities that feature this page.</span>"
   see_all_data_with_count_html:
     zero: "View the data tab<span class=\"assistive\">for this taxon.</span>"
-    one: "View <span class=\"assistive\">the %{count} fact for this taxon.</span>"
-    other: "See all <span class=\"assistive\">%{count} facts for this taxon.</span>"
+    one: "View <span class=\"assistive\">the %{count} trait for this taxon.</span>"
+    other: "See all <span class=\"assistive\">%{count} traits for this taxon.</span>"
   see_all_featured_collections_with_count:
     one: "See the %{count} featured collection."
     other: "See all %{count} featured collections."

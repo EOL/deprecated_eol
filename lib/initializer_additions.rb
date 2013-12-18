@@ -1,6 +1,5 @@
 module InitializerAdditions
   def self.add(name)
-    puts File.join(File.dirname(__FILE__), "../config/#{name}.rb")
     file = File.join(File.dirname(__FILE__), "../config/#{name}.rb")
     if File.exists?(file)
       begin

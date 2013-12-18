@@ -73,6 +73,15 @@ describe 'taxa/data/index' do
       expect(rendered).to have_tag('span', text: /chucks/)
     end
 
+    context 'search' do
+
+      it "should include a drop-down with all attributes" do
+        render
+        expect(rendered).to have_tag('select#attribute')
+      end
+
+    end
+
   end
 
 end

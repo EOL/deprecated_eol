@@ -91,7 +91,7 @@ module Eol
     # Compile localized CSS:
     config.assets.precompile += ['*.css', '*.js']
     
-    config.assets.initialize_on_precompile = true
+    config.assets.initialize_on_precompile = false
     
     if defined?(Sass)
       config.sass.line_comments = false

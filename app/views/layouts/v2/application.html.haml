@@ -121,7 +121,7 @@
         :javascript
           head.ready("ga.js", function() {
             head.js('#{ asset_path('ga_social_tracking.js') }');
-            head.ready("ga_social_tracking.js", function() {
+            head.ready('#{ File.basename(asset_path('ga_social_tracking.js')) }', function() {
               var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
               var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
               if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}",""); }
@@ -134,7 +134,7 @@
       :javascript
         head.ready("ga.js", function() {
           head.js('#{ asset_path('ga_social_tracking.js') }');
-          head.ready("ga_social_tracking.js", function() {
+          head.ready('#{ File.basename(asset_path('ga_social_tracking.js')) }', function() {
             var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
             var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
             if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}",""); }

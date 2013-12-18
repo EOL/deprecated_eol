@@ -3336,6 +3336,7 @@ en:
   discover_link: "Discover"
   displaying_numerical_range: "Displaying %{start_number} &ndash; %{end_number} of %{total}"
   donate: "Donate"
+  donations_temporarily_disabled: "We are deeply sorry, but donations are currently not being accepted. Please try agin later."
   donation_amount_legend: "Choose the amount you would like to donate"
   donation_amount_other_label: "Other"
   donation_confirmation: "Donation Confirmation"

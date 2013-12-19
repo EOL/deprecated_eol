@@ -1,0 +1,62 @@
+- content_for(:head) do
+  = stylesheet_include_i18n_merged :donations
+
+#content.cms_page
+  .site_column
+    #donate.article.copy
+      %h2= t(:donation_intro_span)
+      %p
+        = I18n.t(:donation_introduction_paragraph_one)
+      %p= I18n.t(:donation_introduction_paragraph_two)
+      = render :partial => 'shared/flash_messages'
+      = form_for :donation, url: donations_path, id: 'payment_form', :builder => ApplicationHelper::EolFormBuilder do |f|
+        = hidden_field_tag :access_key, Rails.configuration.secure_acceptance[:access_key]
+        = hidden_field_tag :profile_id, Rails.configuration.secure_acceptance[:profile_id]
+        = hidden_field_tag :transaction_uuid, SecureRandom.hex(16)
+        = hidden_field_tag :signed_field_names, "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,amount,currency" # reference_number,
+        = hidden_field_tag :unsigned_field_names, nil
+        = hidden_field_tag :locale, I18n.locale # This won't always work, but we'll try it out.
+        = hidden_field_tag :currency, 'usd'
+        = hidden_field_tag :transaction_type, 'sale' # TODO - Also update_token ? Not sure yet.
+        %fieldset.radio
+          %legend.amount= I18n.t(:donation_amount_legend)
+          = f.label :preset_amount_35 do
+            = f.radio_button :preset_amount, "35"
+            = I18n.t(:us_dollars_35)
+          = f.label :preset_amount_50 do
+            = f.radio_button :preset_amount, "50"
+            = I18n.t(:us_dollars_50)
+          = f.label :preset_amount_75 do
+            = f.radio_button :preset_amount, "75"
+            = I18n.t(:us_dolars_75)
+          = f.label :preset_amount_100 do
+            = f.radio_button :preset_amount, "100"
+            = I18n.t(:us_dollars_100)
+          = f.label :preset_amount_other do
+            = f.radio_button :preset_amount, "other"
+            %span.assistive= I18n.t(:donation_amount_other_label)
+            = I18n.t(:other_us_dollars_amount)
+            = f.text_field :amount, {:size => 6, :maxlength => 6, :onfocus => "$('#donation_preset_amount_other').attr('checked', 'checked');"}
+
+        %span#donation_amount_warn.error
+        %fieldset.actions
+          = submit_tag I18n.t(:submit)
+
+      %h2= I18n.t(:donations_more_ways_title)
+      %p
+        = raw(I18n.t(:donation_sponsorship_preamble, :email_address => Rails.configuration.secure_acceptance[:email]))
+      %dl
+        %dt
+          = I18n.t(:donation_sponsorship_content_title)
+        %dd
+          = I18n.t(:donation_sponsorship_content_description)
+        %dt
+          = I18n.t(:donation_sponsorship_fellowships_title)
+        %dd
+          = I18n.t(:donation_sponsorship_fellowships_description)
+        %dt
+          = I18n.t(:donation_sponsorship_infrastructure_title)
+        %dd
+          = I18n.t(:donation_sponsorship_infrastructure_description)
+
+      %p.privacy= raw(I18n.t(:donation_privacy_notice))

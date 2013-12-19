@@ -1,0 +1,17 @@
+- content_for(:head) do
+  = stylesheet_include_i18n_merged :donations
+
+#content.cms_page
+  .site_column
+    #donate.article.copy
+      %h2= I18n.t(:donation_confirmation_head)
+      %p= I18n.t(:donation_you_are_about_to)
+      %form{ action: Rails.configuration.secure_acceptance[:endpoint], method: 'POST', class: 'no_fields' }
+        - amount = number_to_currency(params['amount'])
+        - params.each do |pair|
+          = hidden_field_tag pair.first, pair.last
+        %label.big
+          = I18n.t(:donation_amount)
+          = amount
+        %fieldset.actions
+          = submit_tag I18n.t(:donation_agree)

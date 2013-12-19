@@ -31,6 +31,7 @@ class DonationsController < ApplicationController
 
     params['amount'] = @preset_amount.to_f > DONATION_MIN ? @preset_amount.to_f : @other_amount
     params['signed_date_time'] = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ") if params['signed_date_time'].blank?
+    # NOTE this one MUST be done last:
     params['signature'] = SecureAcceptance.generate_signature(params) unless params['access_key'].blank?
   end
 

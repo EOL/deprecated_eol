@@ -13,10 +13,11 @@
         = hidden_field_tag :access_key, Rails.configuration.secure_acceptance[:access_key]
         = hidden_field_tag :profile_id, Rails.configuration.secure_acceptance[:profile_id]
         = hidden_field_tag :transaction_uuid, SecureRandom.hex(16)
-        = hidden_field_tag :signed_field_names, "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,amount,currency" # reference_number,
+        = hidden_field_tag :signed_field_names, "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,reference_number,transaction_type,amount,currency"
+        = hidden_field_tag :reference_number, Time.now.strftime("%Y.%m.%dT%H.%M")
         = hidden_field_tag :unsigned_field_names, nil
         = hidden_field_tag :locale, I18n.locale # This won't always work, but we'll try it out.
-        = hidden_field_tag :currency, 'usd'
+        = hidden_field_tag :currency, 'USD' # TODO - this should probably be configured.
         = hidden_field_tag :transaction_type, 'sale' # TODO - Also update_token ? Not sure yet.
         %fieldset.radio
           %legend.amount= I18n.t(:donation_amount_legend)

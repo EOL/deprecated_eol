@@ -216,6 +216,8 @@ class ContentController < ApplicationController
   # TODO - this is entirely non-portable and should be enabled or disabled based on local configuration. In fact, it
   # would be even better if it were its own application. Yes, really.
   def donate
+    # DONATION TEMP, of course:
+    return redirect_to(root_url, notice: I18n.t(:donations_temporarily_disabled))
     @page_title = I18n.t(:donate)
     if request.post?
       current_user.log_activity(:made_donation)

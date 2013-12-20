@@ -7,8 +7,7 @@
         %h2
           = @results ? raw(I18n.t(:count_results_for_search_term, count: @results.total_entries, search_term: h(search_term_to_show))) : ''
           - if @taxon_concept
-            = " within "
-            = link_to raw("#{@taxon_concept.title_canonical_italicized}"), taxon_overview_url(@taxon_concept)
+            = raw I18n.t(:searching_within_clade, clade_name: link_to("#{@taxon_concept.title_canonical_italicized}", taxon_overview_url(@taxon_concept)))
       .page_actions
         %ul
           - if @results && !@results.blank?
@@ -34,7 +33,7 @@
                   = search_field_tag(:q, @querystring, size: 27, placeholder: 'e.g. 10 to 50')
               %dl
                 %dt
-                  %label= "Clade"
+                  %label= I18n.t(:clade)
                 %dd
                   = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
                     name: 'taxon_name', 'min-length' => 3, size: 27, type: 'search',
@@ -45,7 +44,8 @@
                 %dd
                   - sort_options = { "-- " + I18n.t(:sort_by) + " --" => nil, I18n.t(:sort_by_value_ascending) => 'asc', I18n.t(:sort_by_value_descending) => 'desc' }
                   = select_tag(:sort, options_for_select(sort_options, @sort))
-                  = submit_tag I18n.t(:search) unless @wildcard_search
+            %fieldset.actions
+              = submit_tag I18n.t(:search) unless @wildcard_search
         #search_results
           #main
             = yield

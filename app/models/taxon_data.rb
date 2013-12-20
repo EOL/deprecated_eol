@@ -97,7 +97,7 @@ class TaxonData < TaxonUserClassificationFilter
       }"
     if options[:taxon_concept]
       query += " .
-        ?parent_taxon dwc:taxonConceptID <http://eol.org/pages/#{options[:taxon_concept].id}> .
+        ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{options[:taxon_concept].id}> .
         ?t dwc:parentNameUsageID+ ?parent_taxon .
         ?t dwc:taxonConceptID ?taxon_concept_id . ";
     end

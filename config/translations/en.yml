@@ -2763,6 +2763,7 @@ en:
   change_rating_to_5_of_5: "Change rating to 5 of 5"
   choose_collection_header: "Choose collection"
   citing_link: "Citing"
+  clade: "Clade"
   classification_already_preferred: "Error: This classification has already been marked as preferred."
   classification_curation_pending: "Curation pending. This classification may move to another page in the near future."
   classification_curation_split_comment_with_count:
@@ -4293,6 +4294,7 @@ en:
   search_term_reports_title: "Search Term Reports"
   search_term: "Search Term"
   search_the_site: "Search the site"
+  searching_within_clade: "within %{clade_name}"
   see_all_activity_combinations: "See all activity combinations within 5 minutes."
   see_all_of_your_collections: "See all of your collections"
   see_all_of_your_communities: "See all of your communities"

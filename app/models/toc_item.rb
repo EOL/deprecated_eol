@@ -259,6 +259,10 @@ class TocItem < ActiveRecord::Base
       end.compact
     end
 
+    def used_by_known_uris
+      TocItem.joins(:known_uris).group('table_of_contents.id').order(:view_order)
+    end
+
   end
     
   def object_count

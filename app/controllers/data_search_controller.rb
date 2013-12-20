@@ -1,17 +1,51 @@
 class DataSearchController < ApplicationController
 
   before_filter :restrict_to_data_viewers
+  before_filter :allow_login_then_submit, only: :download
 
   layout 'v2/data_search'
 
   # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL
   def index
+    prepare_search_parameters(params)
+    prepare_attribute_select_options
+    respond_to do |format|
+      format.html do
+        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
+      end
+    end
+  end
+
+  def download
+    if session[:submitted_data]
+      search_params = session.delete(:submitted_data)
+    else
+      search_params = params.dup
+    end
+    prepare_search_parameters(search_params)
+    df = create_data_search_file
+    flash[:notice] = I18n.t(:file_download_pending, link: user_saved_searches_path(current_user.id))
+    Resque.enqueue(DataFileMaker, data_file_id: df.id)
+    redirect_to user_saved_searches_path(current_user.id)
+  end
+
+  private
+
+  def create_data_search_file
+    DataSearchFile.create!(
+      q: @querystring, uri: @attribute, from: @from, to: @to,
+      sort: @sort, known_uri: @attribute_known_uri, language: current_language,
+      user: current_user
+    )
+  end
+
+  def prepare_search_parameters(options)
     @hide_global_search = true
-    @querystring = params[:q]
-    @attribute = params[:attribute]
-    @sort = params[:sort]
-    @page = params[:page] || 1
-    @taxon_concept = TaxonConcept.find_by_id(params[:taxon_concept_id])
+    @querystring = options[:q]
+    @attribute = options[:attribute]
+    @sort = options[:sort]
+    @page = options[:page] || 1
+    @taxon_concept = TaxonConcept.find_by_id(options[:taxon_concept_id])
     @attribute = nil unless EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
     @attribute_known_uri = KnownUri.find_by_uri(@attribute)
     @from, @to = nil, nil
@@ -25,42 +59,8 @@ class DataSearchController < ApplicationController
         end
       end
     end
-    prepare_attribute_select_options
-
-    search_options = { querystring: @querystring, attribute: @attribute, from: @from, to: @to,
+    @search_options = { querystring: @querystring, attribute: @attribute, from: @from, to: @to,
       sort: @sort, language: current_language, taxon_concept: @taxon_concept }
-    respond_to do |format|
-      format.html do
-        @results = TaxonData.search(search_options.merge(page: @page, per_page: 30))
-      end
-      format.csv do    # Direct download... (implies DataSearchFile might be misnamed...)
-        df = create_data_search_file
-        # TODO - handle the case where results are empty. Also, 
-        # http://stackoverflow.com/questions/5844033/rails-3-format-csv-gives-no-template-error-but-format-json-needs-no-template
-        # ...would be a more elegant solution, if we wanna keep doing this.
-        headers["Content-Disposition"] = "attachment; filename=\"#{df.filename}\""
-        render text: df.csv(host: request.host)
-      end
-      format.js do   # Background download...
-        df = create_data_search_file
-        @message = if df.hosted_file_exists?
-                     I18n.t(:file_download_ready, file: df.download_path, query: @querystring)
-                   else
-                     I18n.t(:file_download_pending, link: data_search_files_path)
-                   end
-        Resque.enqueue(DataFileMaker, data_file_id: df.id)
-      end
-    end
-  end
-
-  private
-
-  def create_data_search_file
-    DataSearchFile.create!(
-      q: @querystring, uri: @attribute, from: @from, to: @to,
-      sort: @sort, known_uri: @attribute_known_uri, language: current_language,
-      user: current_user.is_a?(EOL::AnonymousUser) ? nil : current_user
-    )
   end
 
   def prepare_attribute_select_options
@@ -72,8 +72,8 @@ class DataSearchController < ApplicationController
     end
     @select_options = @select_options.merge(Hash[ measurment_uris.collect do |uri|
       label = uri.is_a?(KnownUri) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
-      [ label.firstcap, uri.is_a?(KnownUri) ? uri.uri : uri ]
-    end.sort_by{ |k,v| k.nil? ? '' : k } ] )
+      label.nil? ? nil : [ label.firstcap, uri.is_a?(KnownUri) ? uri.uri : uri ]
+    end.compact.sort_by{ |k,v| k.nil? ? '' : k } ] )
   end
 
 end

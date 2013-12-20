@@ -1,6 +1,9 @@
 class ContentController < ApplicationController
 
+  DONATION_MIN = 1.0
+
   include ActionView::Helpers::SanitizeHelper
+  include ActionView::Helpers::NumberHelper
 
   caches_page :tc_api
 
@@ -213,6 +216,8 @@ class ContentController < ApplicationController
   # TODO - this is entirely non-portable and should be enabled or disabled based on local configuration. In fact, it
   # would be even better if it were its own application. Yes, really.
   def donate
+    # DONATION TEMP, of course:
+    return redirect_to(root_url, notice: I18n.t(:donations_temporarily_disabled))
     @page_title = I18n.t(:donate)
     if request.post?
       current_user.log_activity(:made_donation)
@@ -220,7 +225,7 @@ class ContentController < ApplicationController
       current_user.log_activity(:viewed_donation)
     end
 
-    return if request.post? == false
+    return unless request.post?
 
     donation = params[:donation]
 
@@ -232,14 +237,19 @@ class ContentController < ApplicationController
       return
     end
 
+    if (@preset_amount == "other" && @other_amount < DONATION_MIN)
+      flash.now[:error] =  I18n.t(:donation_error_minimum, min: number_to_currency(DONATION_MIN))
+      return
+    end
+
     if (@preset_amount == "other" && @other_amount == 0)
       flash.now[:error] =  I18n.t(:donation_error_only_numbers)
       return
     end
 
-    @donation_amount = @preset_amount.to_f > 0 ? @preset_amount.to_f : @other_amount
+    @donation_amount = @preset_amount.to_f > DONATION_MIN ? @preset_amount.to_f : @other_amount
 
-    @page_title = I18n.t(:donation_confirmation) if @donation_amount > 0
+    @page_title = I18n.t(:donation_confirmation) if @donation_amount > DONATION_MIN
 
     # This is actually calling the PHP service, because Cybersource gave us a PHP library (
     # CyberSource::InsertSignature3 ) to handle the creation of the input elements.  Yeesh.

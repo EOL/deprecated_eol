@@ -1,0 +1,6 @@
+- content_for :title do
+  = t(".subject")
+%h2= I18n.t(:intro_immediately, :scope => :recent_activity, :name => @user.short_name)
+%h2= raw t('.header')
+= raw t('.message', download_link: user_saved_searches_url(@data_search_file.user))
+%hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}

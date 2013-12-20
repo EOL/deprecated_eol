@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   has_many :open_authentications, dependent: :destroy
   has_many :forum_posts
   has_many :user_added_data, class_name: UserAddedData.to_s
+  has_many :data_search_files
 
   has_many :content_partners
   has_one :user_info

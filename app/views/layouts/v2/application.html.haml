@@ -35,7 +35,7 @@
       %link{ :href => @rel_prev_href, :rel => "prev" }
     - unless @rel_next_href.blank?
       %link{ :href => @rel_next_href, :rel => "next" }
-    %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
+    = favicon_link_tag 'favicon.ico'
     %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
 
 
@@ -45,7 +45,7 @@
       = stylesheet_include_i18n_merged 'application_pack', :media => "all"
     /[if IE 7]
       = stylesheet_include_i18n_merged 'ie7', :media => "all"
-    = javascript_include_tag :application
+    = javascript_include_tag 'application'
 
     = csrf_meta_tags
 
@@ -120,8 +120,8 @@
       - if $ENABLED_SOCIAL_PLUGINS
         :javascript
           head.ready("ga.js", function() {
-            head.js('/assets/ga_social_tracking.js');
-            head.ready("ga_social_tracking.js", function() {
+            head.js('#{ asset_path('ga_social_tracking.js') }');
+            head.ready('#{ File.basename(asset_path('ga_social_tracking.js')) }', function() {
               var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
               var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
               if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}",""); }
@@ -133,8 +133,8 @@
       -# anywhere that I can find, so I'm removing it for now.
       :javascript
         head.ready("ga.js", function() {
-          head.js('/assets/ga_social_tracking.js');
-          head.ready("ga_social_tracking.js", function() {
+          head.js('#{ asset_path('ga_social_tracking.js') }');
+          head.ready('#{ File.basename(asset_path('ga_social_tracking.js')) }', function() {
             var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
             var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
             if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}",""); }

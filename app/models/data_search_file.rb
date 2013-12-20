@@ -1,22 +1,26 @@
 class DataSearchFile < ActiveRecord::Base
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
-    :completed_at, :hosted_file_url
+    :completed_at, :hosted_file_url, :row_count
   attr_accessor :results
 
   belongs_to :user
   belongs_to :language
   belongs_to :known_uri
 
-  LIMIT = 500
+  LIMIT = 5000
 
   def build_file
-    return send_notification if hosted_file_exists?
-    write_file(get_data)
-    upload_file
-    if hosted_file_exists?
-      send_notification
-      update_attributes(completed_at: Time.now.utc)
+    unless hosted_file_exists?
+      write_file
+      upload_file
+      # The user may delete the download before it has finished (if it's hung,
+      # the workers are busy or its just taking a very long time). If so,
+      # we should not email them when the process has finished
+      if hosted_file_exists? && instance_still_exists?
+        send_completion_email
+        update_attributes(completed_at: Time.now.utc)
+      end
     end
   end
 
@@ -34,6 +38,10 @@ class DataSearchFile < ActiveRecord::Base
 
   def complete?
     ! completed_at.nil?
+  end
+
+  def instance_still_exists?
+    !! DataSearchFile.find_by_id(id)
   end
 
   def filename
@@ -69,21 +77,12 @@ class DataSearchFile < ActiveRecord::Base
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
     @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
       sort: sort, per_page: LIMIT, for_download: true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
-    # WAIT - TaxonConcept.preload_for_shared_summary(@results.map(&:taxon_concept), language_id: user.language_id)
     # TODO - handle the case where results are empty.
-
-    # NOTE - this is a total hack. Preloading the associations on @results doesn't work; many of the results are actually "new"
-    # DataPointUris and preloading fails on them.
-    taxa = TaxonConcept.find(@results.map(&:taxon_concept_id).compact.uniq)
-    TaxonConcept.preload_associations(taxa, 
-        hierarchy_entries: [ { name: [ :ranked_canonical_form, :canonical_form ] }, :hierarchy ],
-        preferred_entry: { hierarchy_entry: [ { name: [ :ranked_canonical_form, :canonical_form ] }, :hierarchy ] }
-                                     )
-    TaxonConcept.load_common_names_in_bulk(taxa, user.language_id)
     rows = []
     DataPointUri.assign_bulk_metadata(@results, user.language)
+    DataPointUri.assign_bulk_references(@results, user.language)
     @results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(user.language, host: options[:host], taxa: taxa)
+      rows << data_point_uri.to_hash(user.language)
     end
     rows
   end
@@ -98,16 +97,18 @@ class DataSearchFile < ActiveRecord::Base
 
   # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file for users of Excel. q.v.:
   # http://stackoverflow.com/questions/9886705/how-to-write-bom-marker-to-a-file-in-ruby
-  def write_file(rows)
+  def write_file
+    rows = get_data
     col_heads = get_headers(rows)
     CSV.open(local_file_path, 'wb') do |csv|
       csv_builder(csv, col_heads, rows)
     end
+    update_attributes(row_count: rows.count)
   end
 
   def upload_file
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-      update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + uploaded_file_url)
+      update_attributes(hosted_file_url: (Rails.configuration.local_services ? uploaded_file_url : (Rails.configuration.hosted_dataset_path + uploaded_file_url)))
     end
   end
 
@@ -121,32 +122,8 @@ class DataSearchFile < ActiveRecord::Base
     end
   end
 
-  def send_notification
-    if user
-      old_locale = I18n.locale
-      begin
-        I18n.locale = user.language.iso_639_1
-        comment = Comment.create!(parent: user,
-                                  body: I18n.t('data_search_files.file_ready_for_download', download_url: hosted_file_url, known_uri_label: known_uri.name),
-                                  user: user) # TODO - maybe this should be "from" someone specific?
-        user.comments << comment
-        force_immediate_notification_of(comment)
-      ensure
-        I18n.locale = old_locale
-      end
-    else
-      # TODO - not sure how we're going to do this. Session cookie to look for it each time page loads?  Woof.
-    end
-  end
-
-  def force_immediate_notification_of(comment)
-    PendingNotification.create!(user_id: user_id,
-                                notification_frequency_id: NotificationFrequency.immediately.id,
-                                target: comment,
-                                reason: 'auto_email_after_curation')
-    Resque.enqueue(PrepareAndSendNotifications)
-  rescue => e
-    # Do nothing (for now)...
+  def send_completion_email
+    RecentActivityMailer.data_search_file_download_ready(self).deliver
   end
 
 end

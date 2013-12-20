@@ -369,7 +369,7 @@ class DataObject < ActiveRecord::Base
           return first_agent.full_name
         end
       end
-      return nil
+      return ''
     else # rights holder is preferred
       owner = "#{rights_holder_for_display}"
       unless license && license.is_public_domain?

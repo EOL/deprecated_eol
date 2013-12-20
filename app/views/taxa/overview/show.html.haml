@@ -74,7 +74,7 @@
         - @overview.collections.each do |collection|
           %li
             - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
-            = link_to image_tag(collection.logo_url(:small), alt: ''), collection_path(collection)
+            = link_to image_tag(collection.logo_url(:small), alt: '', width: 48, height: 48), collection_path(collection)
             .details
               %h4= link_to collection.name, collection_path(collection)
               -# NOTE - Sometimes we cache the counts of the collections with fewer queries... (but not always).
@@ -98,7 +98,7 @@
       %ul
         - @overview.communities.each do |community|
           %li
-            = link_to image_tag(community.logo_url(:small), alt: ''), community_url(community)
+            = link_to image_tag(community.logo_url(:small), alt: '', width: 48, height: 48), community_url(community)
             .details
               %h4= link_to community.name, community_url(community)
               %p
@@ -114,15 +114,15 @@
   - if current_user.can_see_data?
     #data_summary.article
       .header
-        %h3= I18n.t(:data_summary_header)
-        - unless @data_point_uris.blank?
-          = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @data_point_uris.count)), taxon_data_path)
+        %h3= I18n.t(:data_summary_header_with_count, count: @all_data_point_uris_count)
+        - unless @overview_data_point_uris.blank?
+          = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @all_data_point_uris_count)), taxon_data_path)
       .small_site_warning= I18n.t(:beta_warning_small)
-      - if @data_point_uris.blank? && @range_data.blank?
+      - if @overview_data_point_uris.blank? && @range_data.blank?
         .empty
-          %p= I18n.t(@data_point_uris ? :taxon_data_empty : :data_server_unavailable)
+          %p= I18n.t(@overview_data_point_uris ? :taxon_data_empty : :data_server_unavailable)
       - else
-        = render(partial: 'taxa/data/overview_summary', locals: { data_point_uris: @data_point_uris, range_data: @range_data })
+        = render(partial: 'taxa/data/overview_summary', locals: { data_point_uris: @overview_data_point_uris, range_data: @range_data })
   -# TODO - It probably shouldn't be THAT different for a selected hierarchy entry view and a regular taxon view.
   -# Figure out why there's so much extra, here.
   - if @overview.classification_filter?
@@ -153,7 +153,7 @@
         %ul
           - @overview.curators.each do |curator|
             %li
-              = link_to image_tag(curator.logo_url(:small), alt: I18n.t(:profile_image_alt_text_curator, user_full_name: h(curator.full_name))), curator
+              = link_to image_tag(curator.logo_url(:small), alt: I18n.t(:profile_image_alt_text_curator, user_full_name: h(curator.full_name)), width: 48, height: 48), curator
               .details
                 %h4= link_to h(curator.full_name), curator
                 %p.meta= h(curator.tag_line)

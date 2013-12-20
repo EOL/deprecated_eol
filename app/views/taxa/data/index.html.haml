@@ -53,13 +53,14 @@
           - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded?).any?
           = render partial: 'data_point_uris/display_rows', locals: {    |
             data_point_uri: data_point_uri, type_index: type_index,      |
-            classes: classes, exemplar: exemplar, excluded: excluded, |
-            row_is_selected: row_is_selected, header_id: header_id }     |
+            classes: classes, exemplar: exemplar, excluded: excluded,    |
+            row_is_selected: row_is_selected, header_id: header_id,      |
+            for_data_tab: true }                                         |
   = render partial: 'glossary', locals: { hidden: true }
   = render partial: 'ranges', locals: { hidden: true }
   - if ! @data_point_uris.blank? && current_user.min_curator_level?(:full)
     .copy
-      .help_text
+      #curation_legend.help_text
         %h3= I18n.t(:legend)
         .key= raw I18n.t(:data_tab_curator_key_exemplar, image: image_tag("v2/icon_required.png"), link: taxon_overview_path(@taxon_page))
         .key= raw I18n.t(:data_tab_curator_key_excluded, image: image_tag("v2/icon_excluded.png"), link: taxon_overview_path(@taxon_page))

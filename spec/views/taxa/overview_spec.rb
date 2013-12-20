@@ -32,7 +32,8 @@ describe 'taxa/overview/show' do
     overview.stub(:activity_log) { [].paginate } # CHEAT!  :D
     assign(:taxon_page, double(TaxonPage))
     assign(:overview, double(TaxonOverview))
-    assign(:data_point_uris, data)
+    assign(:overview_data_point_uris, data)
+    assign(:all_data_point_uris_count, data.count)
     assign(:assistive_section_header, 'assist my overview')
     assign(:rel_canonical_href, 'some canonical stuff')
     assign(:overview, overview)
@@ -70,7 +71,7 @@ describe 'taxa/overview/show' do
 
     it "should show quick facts" do
       render
-      expect(rendered).to match /#{I18n.t(:data_summary_header)}/
+      expect(rendered).to match /EOL has no trait data/
     end
 
   end

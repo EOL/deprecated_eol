@@ -1711,7 +1711,6 @@ br:
   known_uri_relationships: 
     deleted: Dilamet eo bet an darempred
   known_uris: 
-    relationships: Darempredoù
     select_a_category_to_view_stats: "Diuzañ ur rummad evit gwelet ar stadegoù :"
   label: Label
   language: "Yezh :"

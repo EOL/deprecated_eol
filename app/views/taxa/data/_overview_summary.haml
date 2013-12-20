@@ -5,7 +5,7 @@
   %table.standard.data
     %caption.assistive= I18n.t(:data_overview_table_caption)
     - @range_data.each_with_index do |range_data, index|
-      - row_class = ((index == @range_data.length - 1) && @data_point_uris.empty?) ? 'last' : nil
+      - row_class = ((index == @range_data.length - 1) && @overview_data_point_uris.empty?) ? 'last' : nil
       %tr{ class: row_class }
         %th
           = display_uri(range_data[:attribute], :span, capitalize: true)

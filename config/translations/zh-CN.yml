@@ -2263,10 +2263,10 @@ zh-CN:
   just_pages_with_pictures_and_text: 仅包含图片和文本的页面
   known_uri_category_header: 分类
   known_uri_created: URI已加入。
+  known_uri_label_unit: 有计量单位
   known_uri_name_and_uri: "%{name}（%{uri}）"
   known_uris: 
     add_a_relationship: 添加关系
-    relationships: 关联
   known_uris_page_title: EOL上有关数据的URI
   label: 标签
   language: 语言：

@@ -78,7 +78,7 @@ class TaxonData < TaxonUserClassificationFilter
     # string search term
     elsif options[:querystring] && ! options[:querystring].strip.empty?
       matching_known_uris = KnownUri.search(options[:querystring])
-      query += "FILTER(( !isURI(?value) && REGEX(?value, '#{options[:querystring]}', 'i'))"
+      query += "FILTER(( REGEX(?value, '(^|\\\\W)#{options[:querystring]}(\\\\W|$)', 'i'))"
       unless matching_known_uris.empty?
         query << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
       end
@@ -136,8 +136,8 @@ class TaxonData < TaxonUserClassificationFilter
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
     if_connection_fails_return(nil) do
-      return @taxon_data_set if @taxon_data_set
-      taxon_data_set = TaxonDataSet.new(data, taxon_concept_id: taxon_concept.id, language: user.language)
+      return @taxon_data_set.dup if @taxon_data_set
+      taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept_id: taxon_concept.id, language: user.language)
       taxon_data_set.sort
       known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
       KnownUri.preload_associations(known_uris,
@@ -156,7 +156,35 @@ class TaxonData < TaxonUserClassificationFilter
     picker.pick(get_data)
   end
 
-  def data
+  def distinct_predicates
+    get_data.collect{ |d| d.predicate }.compact.uniq
+  end
+
+  def has_range_data
+    ! ranges_of_values.empty?
+  end
+
+  def ranges_of_values
+    return [] unless should_show_clade_range_data
+    results = EOL::Sparql.connection.query(prepare_range_query)
+    KnownUri.add_to_data(results)
+    results.each do |result|
+      [ :min, :max ].each do |m|
+        result[m] = result[m].value.to_f if result[m].is_a?(RDF::Literal)
+        result[m] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(result).merge(object: result[m]))
+        result[m].convert_units
+      end
+    end
+    results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
+  end
+
+  def ranges_for_overview
+    ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
+  end
+
+  private
+
+  def raw_data
     (measurement_data + association_data).delete_if { |k,v| k[:attribute].blank? }
   end
 
@@ -224,28 +252,6 @@ class TaxonData < TaxonUserClassificationFilter
       }
       LIMIT 800"
     EOL::Sparql.connection.query(query)
-  end
-
-  def has_range_data
-    ! ranges_of_values.empty?
-  end
-
-  def ranges_of_values
-    return [] unless should_show_clade_range_data
-    results = EOL::Sparql.connection.query(prepare_range_query)
-    KnownUri.add_to_data(results)
-    results.each do |result|
-      [ :min, :max ].each do |m|
-        result[m] = result[m].value.to_f if result[m].is_a?(RDF::Literal)
-        result[m] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(result).merge(object: result[m]))
-        result[m].convert_units
-      end
-    end
-    results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
-  end
-
-  def ranges_for_overview
-    ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
   end
 
   def prepare_range_query(options = {})

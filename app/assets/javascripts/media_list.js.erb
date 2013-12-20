@@ -26,7 +26,7 @@ $(function() {
           var media = {};
       }
       $(this).parent('div').prev("div").jPlayer({
-        swfPath: "/assets/jplayer/js",
+        swfPath: '<%= asset_path "jplayer/js" %>',
         supplied: supplied,
         cssSelectorAncestor: "#" + $(this).parent('div').attr("id"),
         cssSelector: {

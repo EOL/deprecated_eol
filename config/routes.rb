@@ -259,6 +259,11 @@ Eol::Application.routes.draw do
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index], :controller => 'users/content_partners'
+    resources :saved_searches, :only => [:index, :destroy], :controller => 'users/saved_searches' do
+      member do
+        get 'refresh'
+      end
+    end
     resources :open_authentications, :only => [:index, :new, :update, :destroy], :controller => 'users/open_authentications'
   end
 
@@ -384,6 +389,8 @@ Eol::Application.routes.draw do
   resource :data_search, :only => [:index], :controller => 'data_search' do
     collection do
       get 'index'
+      get 'download'
+      post 'download'
     end
   end
 

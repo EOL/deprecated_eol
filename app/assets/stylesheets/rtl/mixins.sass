@@ -97,6 +97,9 @@ $fieldset_light_blue: #f3f7fa
   max-height: #{$height}px
   width: expression(this.width > #{$width} ? "#{$width}px" : true)
   height: expression(this.height > #{$height} ? "#{$height}px" : true)
+= set_dimensions($width, $height)
+  width: #{$width}px
+  height: #{$height}px
 = screenreader_accessible
   position: absolute
   right: -999em

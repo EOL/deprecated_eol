@@ -62,8 +62,8 @@ describe TaxonData do
   it '#prepare_search_query should handle numeric query strings'
   it '#prepare_search_query should filter by regex by default'
 
-  it '#get_data should get data from #data' do
-    @taxon_data.should_receive(:data).and_return([])
+  it '#get_data should get data from #raw_data' do
+    @taxon_data.should_receive(:raw_data).and_return([])
     @taxon_data.get_data
   end
 
@@ -72,7 +72,7 @@ describe TaxonData do
       uri: 'http://resource_data/', user_added_data_id: nil)
     @mock_row[:data_point_uri] = resource_data_point_uri.uri
     @mock_row[:graph] = "http://eol.org/resources/#{@resource.id}"
-    @taxon_data.should_receive(:data).and_return([@mock_row])
+    @taxon_data.should_receive(:raw_data).and_return([@mock_row])
     taxon_data_set = @taxon_data.get_data
     taxon_data_set.first.source.should == @resource.content_partner
   end
@@ -81,7 +81,7 @@ describe TaxonData do
     user_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, user_added_data_id: @user_added_data.id,
       uri: @user_added_data.uri, resource_id: nil)
     @mock_row[:data_point_uri] = user_data_point_uri.uri
-    @taxon_data.should_receive(:data).and_return([@mock_row])
+    @taxon_data.should_receive(:raw_data).and_return([@mock_row])
     taxon_data_set = @taxon_data.get_data
     taxon_data_set.first.source.should == @user_added_data.user
   end

@@ -471,6 +471,8 @@ Eol::Application.routes.draw do
   match '/donate' => 'content#donate', :as => 'donate'
   match '/language' => 'content#language', :as => 'language'
 
+  resources :donations, except: [:index, :destroy]
+
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
   # having this as :q instead of :id was interfering with WillPaginate. See #WEB-4508

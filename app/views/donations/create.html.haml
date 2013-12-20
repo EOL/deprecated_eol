@@ -1,0 +1,30 @@
+- content_for(:head) do
+  = stylesheet_include_i18n_merged :donations
+
+#content.cms_page
+  .site_column
+    #donate.article.copy
+      - sa = Rails.configuration.secure_acceptance
+      - session_id = "#{sa[:merchant_id]}#{Digest::MD5.hexdigest(params[:signed_date_time])}"
+      %h2= I18n.t(:donation_confirmation_head)
+      %p= I18n.t(:donation_you_are_about_to)
+      %form{ action: sa[:endpoint], method: 'POST', class: 'no_fields' }
+        - amount = number_to_currency(params['amount'])
+        - params.each do |pair|
+          = hidden_field_tag pair.first, pair.last
+        %label.big
+          = I18n.t(:donation_amount)
+          = amount
+        %fieldset.actions
+          = submit_tag I18n.t(:donation_agree)
+    %p{ style: "background:url(https://h.online-metrix.net/fp/clear.png?org_id=#{sa[:org_id]}&session_id=#{session_id}#{params[:signed_date_time]}&m=1);" }
+      -# Using a non-breaking space because <p>s don't render in some browsers if they don't have content:
+      &nbsp;
+    -# NOTE - the example this was taken from had this OUTSIDE of the paragraph above. [shrug]
+    = image_tag "https://h.online-metrix.net/fp/clear.png?org_id=#{sa[:org_id]}&session_id=#{session_id}&m=2", alt: '', size: '1x1'
+    - swf = "https://h.online-metrix.net/fp/fp.swf?org_id=#{sa[:org_id]}&session_id=#{session_id}"
+    %object{ type: "application/x-shockwave-flash", data: swf, width: 1, height: 1, id: "thm_fp"}
+      %param{ name: "movie", value: swf }
+      %div
+        &nbsp;
+

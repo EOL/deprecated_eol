@@ -201,8 +201,10 @@ nl:
         label: Label
         request_publish: Verzoek publicatie
       known_uri: 
+        clade_exemplar: Gebruiken als exemplarisch cladebereik
         description: Beschrijving
         exclude_from_exemplars: Uitsluiten van "Snelle feiten"
+        group_by_clade: Gebruiken voor cladebereiken
         name: Naam
         toc_items: Categorieën
         uri: URI
@@ -334,6 +336,8 @@ nl:
           one: moet kleiner zijn dan %{count}
           other: moet kleiner zijn dan %{count}
         less_than_or_equal_to: moet kleiner of gelijk zijn aan %{count}
+        models: 
+          inaccessible: is niet toegankelijk
         not_a_number: is geen getal
         not_an_integer: moet een geheel getal zijn
         odd: moet oneven getal zijn
@@ -365,7 +369,7 @@ nl:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: niet toegestaan - er kan slechts één maateenheid zijn
+              only_one_measurement: niet toegestaan - er kan slechts één standaard maateenheid zijn
             to_known_uri_id: 
               must_be_different: moet anders zijn dan de onderwerp-URI
               must_be_known_uri: moet een bekende URI zijn
@@ -932,6 +936,7 @@ nl:
   add_a_new_topic_area: Nieuw onderwerpengebied toevoegen
   add_a_new_user: Nieuwe gebruiker toevoegen
   add_a_taxon_association_label: Taxonassociatie toevoegen
+  add_another_metadata_field: Nieuw metadataveld toevoegen
   add_article_instead: voeg in plaats daarvan een artikel toe
   add_article_to_page_button: Artikel toevoegen
   add_association_submit_button: koppeling toevoegen
@@ -1015,6 +1020,9 @@ nl:
   admin_news_items_page_title: "Beheer: Nieuws"
   admin_news_link: Nieuws
   admin_notes_not_visible_to_user: "Opmerkingen voor beheerders (niet zichtbaar voor gebruikers):"
+  admin_option_all_users_can_see_data: Alle gebruiker kunnen gegevens zien, niet alleen gebruikers met rechten
+  admin_option_changed: Waarde gewijzigd.
+  admin_options_warning: Het kan 10 minuten duren voor hier gemaakte wijzigingen zichtbaar zijn.
   admin_page_title: "Beheer: Overzicht"
   admin_spam_delete: Spam verwijderen
   admin_statistics_link: Statistieken
@@ -1118,6 +1126,9 @@ nl:
   annotation_body_default: vraag of reactie toevoegen...
   annotation_cabs_colon: "Annotatie:"
   annotation_submit: annotatie plaatsen
+  annotations_with_count: 
+    one: Eén annotatie
+    other: "%{count} annotaties"
   anonymous_user_full_name: Anonieme gebruiker
   anonymous_user_given_name: Anoniem
   anonymous_user_tag_line: Niet aangemeld
@@ -1207,16 +1218,6 @@ nl:
   average_rating_value_of_total: "Gemiddelde waardering: %{rating} van %{total}"
   back: Terug
   back_to_profile: Terug naar het profiel
-  background_processes_actions_head: Handelingen
-  background_processes_attribute_head: Eigenschap
-  background_processes_complete_head: Compleet?
-  background_processes_created_head: Aangemaakt
-  background_processes_download: downloaden
-  background_processes_is_complete: Ja
-  background_processes_is_not_complete: Nee
-  background_processes_page_title: Achtergrondprocessen
-  background_processes_query_empty: (geen zoektekst)
-  background_processes_query_head: Zoekopdracht
   began: Begon
   belongs_in_count_communities: 
     one: Hoort bij één gemeenschap
@@ -1247,6 +1248,7 @@ nl:
   calculate_averages_slow: Gemiddelden bereken (langzaam)
   call_api: Call-API
   cancel: Annuleren
+  cancel_and_delete: annuleren en verwijderen
   cancel_split: Annuleren
   cannot_be_associated_with_both_a_user_and_a_community: Kan niet gekoppeld zijn aan een gebruiker en een gemeenschap
   cannot_be_empty: mag niet leeg zijn.
@@ -1269,6 +1271,7 @@ nl:
   citation: Referentie
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, available from <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009.
   citing_link: Citeren
+  clade: Clade
   classification_already_preferred: "Fout: deze classificatie als is al gemarkeerd als voorkeursclassificatie."
   classification_button_help: Selecteer de classificatie die het best op de onderstaande pagina van toepassing is en klik op de bijbehorende knop "als exemplarisch gebruiken". Om de handeling helemaal te annuleren, klikt u op de knop "Annuleren".
   classification_curation_pending: In afwachting van conservering. Deze classificatie kan in de nabije toekomst nog veranderen naar een andere pagina.
@@ -2171,6 +2174,7 @@ nl:
       min_full_curators_only: Toegang is beperkt tot conservatoren van EOL met een minimum conversatorniveau van "Volledig".
       min_master_curators_only: Toegang is alleen beschikbaar voor EOL-conservatoren met een minimaal conservatorniveau van Meester.
       no_access: Toegang is helaas beperkt.
+  excluded_icon_tip: Rijen gemarkeerd met het pictogram uitgezonderd %{excluded_icon} worden nooit weergegeven worden op de overzichtspagina's van taxa.
   expand_all_children: alle kinderen uitvouwen
   explore: Verkennen
   explore_what_we_know_about_taxon: Ontdek wat EOL weet over %{taxon}.
@@ -2758,10 +2762,12 @@ nl:
   key: Sleutel
   known_uri_category_header: Categorieën
   known_uri_created: URI toegevoegd.
-  known_uri_label_allowed_unit: heeft een eenheid van
+  known_uri_label_allowed_unit: staat een eenheid toe van
   known_uri_label_allowed_val: laat een waarde toe van
+  known_uri_label_equivalent: is gelijk aan
+  known_uri_label_indirectly_equivalent: is indirect gelijk aan
   known_uri_label_inverse: is de inverse van
-  known_uri_label_unit: heeft een eenheid van
+  known_uri_label_unit: heeft een standaard eenheid van
   known_uri_missing_translation: Onvertaald, bewerk alstublieft
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
@@ -2771,16 +2777,30 @@ nl:
   known_uri_updated: URI bijgewerkt.
   known_uris: 
     add_a_relationship: Relatie toevoegen
+    attribution_placeholder_text: bijvoorbeeld van Dublin Core; zie http://dublincore.org/usage/terms/history/#contributorT-001.
+    comment_placeholder_text: bijvoorbeeld Voorbeelden van een bijdrager zijn een persoon, een organisatie of een dienst.
+    definition_placeholder_text: bijvoorbeeld Een entiteit die verantwoordelijk is voor het maken van bijdragen aan de bron.
+    equivalent_to: Gelijkwaardigheidsrelaties
     import_successful: De ontologietermen zijn geïmporteerd
     more_than_one_field_mapped_to_type: Er is meer dan één kenmerk toegewezen aan "%{type}"
+    name_placeholder_text: bijvoorbeeld Bijdrager
     no_results: Er zijn geen resultaten voor de geselecteerde statistiek
+    ontology_information_url_placeholder_text: bijvoorbeeld http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: bijvoorbeeld http://dublincore.org/2012/06/14/dcterms.rdf
     please_select_field_types: Selecteer een toewijzing voor elke eigenschap
     please_select_from_the_menu: Selecteer uit het menu hierboven
+    please_select_uris_to_import: Selecteer de te importeren URI's
+    preferred_for_equivalence_group: Voorkeur
+    relationships_from_this_uri: Relaties uit deze URI
+    relationships_to_this_uri: Relaties naar deze URI
+    select: selecteren
     select_a_category_to_view_stats: "Selecteer een categorie om de statistieken van te bekijken:"
+    select_a_preferred_uri_for_this_group: Selecteer een voorkeurs-URI
     unrecognized_association_types: Koppelingstype URI's niet herkend
     unrecognized_measurement_types: Metingtype URI's niet herkend
     unrecognized_measurement_units: Metingeenheid URI's niet herkend
     unrecognized_measurement_values: Metingwaarde URI's niet herkend
+    uri_placeholder_text: bijvoorbeeld http://purl.org/dc/terms/contributor
   known_uris_empty_sorry: Er zijn helaas nog geen voorgestelde URI's voor deze categorie.
   known_uris_none: Niemand heeft nog URI's van dit type toegevoegd.
   known_uris_page_title: URI's voor gegevens op EOL
@@ -2877,6 +2897,7 @@ nl:
   license_cc_by_sa_2_5: Creative Commons Naamsvermelding-Gelijk delen 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons Naamsvermelding-Gelijk delen 3.0 (CC-BY-SA 3.0)
   license_cc_zero: Creative Commons — CC0 1.0 Universeel
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universeel
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_no_known_copyright_restrictions: Geen bekende auteursrechtelijke beperkingen
@@ -2894,6 +2915,7 @@ nl:
   link_name: Beschrijving voor koppeling
   link_not_associated_with_any_published_entries: Deze koppeling is niet gekoppeld aan gepubliceerde taxa.
   link_rating: Rang van de koppeling
+  link_to_this_term: koppeling naar deze term
   links_with_count: 
     one: één koppeling
     other: "%{count} koppelingen"
@@ -3087,6 +3109,7 @@ nl:
   new_news_item: Nieuw nieuwsbericht
   new_search_suggestion: Nieuwe zoeksuggestie
   new_upload: Nieuwe upload
+  new_uri_warning: De term die u gaat toevoegen is geen aanbevolen term in EOL.
   new_user: Nieuwe gebruiker
   news_and_event_links: Koppelingen naar nieuws en evenementen
   news_archive_page: nieuwsarchiefpagina
@@ -3346,7 +3369,7 @@ nl:
   please_note_that_some_of_these: Sommige van deze functies zijn nog in ontwikkeling en kunnen nog wijzigen of bevatten mogelijk nog fouten.
   please_note_wiki_etc_are_not_spm: "* Wikipedia, Onderwijs en Barcode zijn interne onderwerpen in EOL, en zij zijn geen onderdeel van het SPM (soortenprofielmodel)."
   please_publish_this_resource_notice: "*** <strong>Let op:</strong> <strong>%{publish_link}</strong> deze bron hier ***"
-  please_refresh: Ververs de pagina in uw browser om de laatste versie van de EOL-website te bekijken
+  please_refresh: Vernieuw de pagina in uw browser om de laatste versie van de EOL-website te bekijken
   please_return_to_eol_homepage: Ga terug naar de introductiepagina van EOL
   please_state_one_credential: "Geef tenminste één specifieke referentie uit deze lijst:"
   please_wait: Een ogenblik geduld...
@@ -3386,6 +3409,7 @@ nl:
   quarterly: Per kwartaal
   rails_databases: Railsdatabases
   rails_environment: Railsomgeving
+  range: Bereik
   rank_recognized_by_agent: "%{rank} herkend door %{agent}"
   rank_recognized_by_agent_colon: "<b>%{rank}</b> herkend door %{agent}:"
   rank_recognized_by_from_source: "%{rank} herkend door %{agent} in %{source}"
@@ -3449,6 +3473,11 @@ nl:
     see_all_activity: U kunt al uw activiteiten bekijken op de <a href='%{activity_url}' style='color:#195184'>pagina met uw nieuwsoverzicht</a>.
     someone_commented_on_something: <b>%{who}</b> heeft gereageerd op <b>%{what}</b>.
     unsubscribe: Meld u aan en wijzig uw e-mailinstellingen bij op de <a href='%{email_prefs_url}' style='color:#195184'>pagina met uw voorkeuren voor berichten</a> of <a href='%{unsubscribe_url}' style='color:#195184'>schrijf u uit van ALLE automatische meldingen van EOL zonder aan te melden</a>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: Uw download staat klaar!
+      message: U kunt deze en andere downloads downloaden door het bezoeken van het <a href='%{download_link}'>tabblad opgeslagen zoekopdrachten in uw profiel</a>.
+      subject: Uw zoekopdracht bij EOL kan gedownload worden
   recent_updates: Recente updates
   recently_used_link: Recent gebruikt
   recently_visited: Onlangs bezocht
@@ -3456,6 +3485,7 @@ nl:
   recognized_by_as_a_rank: "%{recognized_by} als een %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} in %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} in %{source} als een %{taxon_rank}"
+  record_count: Aantal records
   record_not_found: "[record niet gevonden]"
   reference: Referentie
   references_cabs_colon: "Referenties:"
@@ -3664,6 +3694,7 @@ nl:
   sounds_with_count: 
     one: Eén geluid
     other: "%{count} geluiden"
+  source: Bron
   source_and_additional_information: Bron en aanvullende gegevens
   source_colon: "Bron:"
   source_information_header: Brongegevens
@@ -3694,8 +3725,12 @@ nl:
   subject: onderwerp
   submit: Opslaan
   submit_term: Term opslaan
+  submitting: Een ogenblik geduld...
+  suggested_attributes: "Voorgestelde kenmerken:"
   suggested_result_page_id: "Pagina-ID voor suggestie in resultaat:"
   suggested_results_avg: Aangeraden resultaten gem.
+  suggested_vocab_add: aanbevolen term
+  suggested_vocab_remove: aanbeveling verwijderen
   summary_thumbnail_title: "Samenvatting:"
   supplier: Leverancier
   supplier_allcaps: "Leverancier:"
@@ -3766,7 +3801,7 @@ nl:
       index: 
         hierarchy_entry: 
           meta_description: Afbeeldingen, video's en audio van %{scientific_name} als ingedeeld door %{hierarchy_provider}. Zoek afbeeldingen, foto's, filmpjes en geluiden van %{scientific_name} bij de Encyclopedia of Life.
-          meta_description_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{scientific_name} geclassificeerd door % {hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om gegevens voor %{scientific_name} bij te dragen.
+          meta_description_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{scientific_name} geclassificeerd door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om gegevens voor %{scientific_name} bij te dragen.
           meta_description_with_common_name_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit gegevens bij te dragen voor %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Welke gegevens hebben wetenschappers verzameld voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}? Berekenbare gegevens over %{scientific_name}, inclusief informatie over %{topics}.
           meta_keywords: "%{scientific_name} als ingedeeld door %{hierarchy_provider} berekenbare gegevens, informatie over %{scientific_name}"
@@ -3991,6 +4026,7 @@ nl:
         meta_title_with_common_name: Rijkdom van %{preferred_common_name} (%{scientific_name})
         tweet_text: Rijkdomscore voor %{scientific_name}
   taxa_column_header: Taxa
+  taxa_count: Aantal taxa
   taxa_with_count: 
     one: Eén taxon
     other: "%{count} taxa"
@@ -4001,6 +4037,8 @@ nl:
   taxon_citizen_science_resources_empty: Niemand heeft nog burgerwetenschap bijgedragen voor deze pagina.
   taxon_common_names_subtab_explanation: Veel mensen kennen organismen alleen door de gewone namen of volkstaalnamen. In tegenstelling tot de wetenschappelijke namen zijn gewone namen bijna altijd verschillend voor sprekers van verschillende talen. Zij kunnen ook variëren naar regio binnen een taal. In dit tabblad worden alle gewone namen die EOL zijn aangeleverd voor een organisme weergegeven, met inbegrip van namen die zijn ingevoerd door conservatoren van EOL. Momenteel is het alleen mogelijk één voorkeursnaam per taal in te stellen voor een bepaalde pagina in EOL, maar alleen namen zijn via zoeken te vinden.
   taxon_concept_stats: Taxonconceptstatistieken
+  taxon_data_empty: Niemand heeft nog feiten aan deze pagina bijgedragen.
+  taxon_data_header: Gegevens over %{taxon}
   taxon_details_empty: Er heeft nog niemand bijgedragen aan deze pagina.
   taxon_details_empty_in_this_language: Niemand heeft nog bijgedragen aan deze pagina in deze taal.
   taxon_education_empty: Er heeft nog niemand onderwijsbronnen bijgedragen aan deze pagina.
@@ -4130,6 +4168,7 @@ nl:
   too_many_descendants_to_curate_with_count: 
     one: "Fout: uw conservering kan niet verwerkt worden door het automatische systeem. Er is één afstammeling, meer dan het maximale aantal."
     other: "Fout: uw conservering kan niet verwerkt worden door het automatische systeem. Er zijn %{count} afstammelingen, meer dan het maximale aantal."
+  top: naar boven
   topic: Onderwerp
   topic_area: Aandachtsgebied
   topics_avilable_to_contact_us_info: De volgende onderwerpen zijn beschikbaar via de contactpagina. U kunt onderwerpen toevoegen of bewerken en voor ieder onderwerp een e-mailadres instellen. Alle wijzigingen worden onmiddellijk actief.
@@ -4196,6 +4235,7 @@ nl:
   uploaded_by: Geüpload door
   uploaded_content: Toegevoegde inhoud
   uploaded_on: Geüpload op
+  uri: URI
   url: URL
   url_not_accessible: Deze URL is niet toegankelijk
   us_dolars_75: USD 75
@@ -4228,6 +4268,10 @@ nl:
   user_activity_stats_common_names_removed: 
     one: één gewone naam verwijderd
     other: "%{count} gewone naam verwijderd"
+  user_activity_stats_data_added: 
+    one: Eén gegevensrecord toegevoegd
+    other: "%{count} gegevensrecords toegevoegd"
+  user_activity_stats_data_added_dropdown: Gegevens toegevoegd
   user_activity_stats_header: Activiteit
   user_activity_stats_objects_curated: 
     one: één object geconserveerd
@@ -4275,6 +4319,7 @@ nl:
   user_comment: Reactie van gebruiker
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> heeft gereageerd op de pagina van een gebruiker die is verwijderd:"
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> heeft gereageerd op een oudere versie van %{what}:"
+  user_commented_on_removed_data: <strong>%{user}</strong> heeft gereageerd op gegevens die zijn verwijderd.
   user_commented_on_something_colon: "<strong>%{user}</strong> heeft gereageerd op \"%{what}\":"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> heeft gereageerd op het <a href='%{link}'>nieuwsoverzicht van %{username}</a>:"
   user_commented_on_your_image: "<strong>%{user}</strong> heeft gereageerd op jouw afbeelding op de <a href='%{data_object_link}'>site Encyclopedia of Life</a>:\n%{comment_body}"
@@ -4458,6 +4503,25 @@ nl:
       form_header: Wachtwoord vergeten
       form_tip: Er zijn meerdere gebruikers ingeschreven met het e-mailadres <em>%{email}</em>. Selecteer de gebruiker waar u weer toegang toe wilt krijgen.
       legend_choose_account: Kies een gebruiker
+    saved_searches: 
+      actions_head: Handelingen
+      attribute_head: Eigenschap
+      complete_head: Compleet?
+      created_head: Aangemaakt
+      download: downloaden
+      empty: U hebt geen opgeslagen zoekopdrachten. Ga naar de <a href='%{data_search_url}'>pagina gegevens zoeken</a> om zoekopdrachten uit te voeren en op te slaan.
+      index: 
+        meta_description: Opgeslagen zoekopdrachten van %{user_full_name}.
+        meta_title: Opgeslagen zoekopdrachten van %{user_full_name}.
+      is_complete: Ja
+      is_not_complete: Nee
+      page_title: Opgeslagen zoekopdrachten
+      processing: bezig met verwerken
+      query_empty: leeg
+      query_head: Zoekopdracht
+      refresh: vernieuwen
+      row_count: Aantal
+      updated_head: Laatste handeling
     show: 
       meta_description: Gebruikersprofiel voor %{user_full_name} bij Encyclopedia of Life.
       meta_description_curator: Gebruikersprofiel voor %{curator_level} %{user_full_name} bij Encyclopedia of Life.

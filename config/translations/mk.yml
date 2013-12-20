@@ -1204,16 +1204,6 @@ mk:
   average_rating_value_of_total: "Просечна оценка: %{rating} од %{total}"
   back: Назад
   back_to_profile: Назад кон профилот
-  background_processes_actions_head: Дејства
-  background_processes_attribute_head: Атрибут
-  background_processes_complete_head: Завршивте?
-  background_processes_created_head: Создадено
-  background_processes_download: преземи
-  background_processes_is_complete: Да
-  background_processes_is_not_complete: Не
-  background_processes_page_title: Позадински процеси
-  background_processes_query_empty: (нема низа за пребарување)
-  background_processes_query_head: Барање
   began: Отпочна
   belongs_in_count_communities: 
     one: Припаѓа на %{count} заедница

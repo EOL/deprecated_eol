@@ -440,8 +440,6 @@ sr:
   average_rating_value_of_total: "Просечна оцена: %{rating} од %{total}"
   back: Назад
   back_to_profile: Назад на профил
-  background_processes_is_complete: Да
-  background_processes_is_not_complete: Не
   began: Почетак
   belongs_in_count_communities: 
     one: Припада %{count} заједници

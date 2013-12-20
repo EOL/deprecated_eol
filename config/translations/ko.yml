@@ -1116,12 +1116,6 @@ ko:
   average_rating_value_of_total: "평균 평점: %{total} 중 %{rating}"
   back: 뒤로
   back_to_profile: 프로필로 돌아가기
-  background_processes_complete_head: 다 되었습니까?
-  background_processes_created_head: 생성됨
-  background_processes_is_complete: 예
-  background_processes_is_not_complete: 아니오
-  background_processes_page_title: 백그라운드 프로세스
-  background_processes_query_head: 쿼리
   began: 개시
   belongs_in_count_communities: 
     one: 공동체 %{count}개에 속함

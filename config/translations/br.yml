@@ -658,12 +658,6 @@ br:
   average_rating_value_of_total: "Emdroadur keitat :  %{rating} sur %{total}"
   back: Distreiñ
   back_to_profile: Distreiñ d'ar profil
-  background_processes_attribute_head: Perzh
-  background_processes_complete_head: Echuiñ ?
-  background_processes_created_head: Krouet
-  background_processes_download: pellgargañ
-  background_processes_is_not_complete: Ket
-  background_processes_query_head: Reked
   began: en deus kroget
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Gweladennit ar "Biodiversity Heritage Library"

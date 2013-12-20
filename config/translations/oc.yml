@@ -1175,16 +1175,6 @@ oc:
   average_rating_value_of_total: "Evaluacion mejana : %{rating} sus %{total}"
   back: Arrièr
   back_to_profile: Retorn al perfil
-  background_processes_actions_head: Accions
-  background_processes_attribute_head: Atribut
-  background_processes_complete_head: Acabar ?
-  background_processes_created_head: Creat
-  background_processes_download: telecargar
-  background_processes_is_complete: Òc
-  background_processes_is_not_complete: Non
-  background_processes_page_title: Processus en rèire plan
-  background_processes_query_empty: (pas cap de cadena de requèsta)
-  background_processes_query_head: Requèsta
   began: A començat
   belongs_in_count_communities: 
     one: Aparten a %{count} Comunautat

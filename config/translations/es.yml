@@ -1230,16 +1230,6 @@ es:
   average_rating_value_of_total: Promedio de calificacio'n %{rating} of %{total}
   back: Volver
   back_to_profile: Regresar al perfil
-  background_processes_actions_head: Acciones
-  background_processes_attribute_head: Atributo
-  background_processes_complete_head: ¿Completo?
-  background_processes_created_head: Creado
-  background_processes_download: descargar
-  background_processes_is_complete: Sí
-  background_processes_is_not_complete: 'No'
-  background_processes_page_title: Procesos en segundo plano
-  background_processes_query_empty: (no hay cadena de consulta)
-  background_processes_query_head: Consulta
   began: Ha comenzado
   belongs_in_count_communities: 
     one: Pertenece a %{count} Comunidad
@@ -1287,7 +1277,6 @@ es:
   change_rating_to_3_of_5: Cambiar a clasificación a 3 de 5
   change_rating_to_4_of_5: Cambia la calificación a 4 de 5
   change_rating_to_5_of_5: Cambia la calificación a 2 de 5
-  chapters: Capítulos
   check_this_to_browse_eol_by_the_hierarchy: (Si esta casilla está activada la clasificación se mostrará en la pestaña de nombres sin necesidad de "Mostrar todas las clasificaciones".)
   choose_collection_header: Elija colección
   citation: Citación
@@ -1942,7 +1931,8 @@ es:
   data_subtab_glossary: Glosario
   data_summary_header: Hechos Rápidos
   data_summary_header_with_count: 
-    other: =EOL tuvo 1 rasgo de registro
+    one: EOL tuvo 1 rasgo de registro
+    other: EOL tuvo %{count} rasgos de registros
     zero: EOL no tenía ningún rasgo de registros
   data_tab_curator_excluded: eliminado de Hechos Rápidos
   data_tab_curator_exemplar: añadido a Hechos Rápidos
@@ -2939,7 +2929,7 @@ es:
   license_cc_by_sa_2_0: Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)
-  license_cc_zero: Creative Commons - CCO 1.0 Universal
+  license_cc_zero: Creative Commons - CC0
   license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: Licencia de documentación libre de GNU (GBU FDL)
   license_gnu_gpl: Licencia Pública General de GNU (GNU GPL)

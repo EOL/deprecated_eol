@@ -15,6 +15,7 @@
 # Author: Shizhao
 # Author: Wjn99wjn
 # Author: Xiaomingyan
+# Author: Yfdyh000
 # Author: 乌拉跨氪
 # Author: 아라
 zh-CN: 
@@ -895,14 +896,6 @@ zh-CN:
   average_rating_value_of_total: 平均评分： %{rating} (满分%{total})
   back: 返回
   back_to_profile: 返回到信息页
-  background_processes_actions_head: 动作
-  background_processes_complete_head: 完成？
-  background_processes_created_head: 已创建
-  background_processes_download: 下载
-  background_processes_is_complete: 是
-  background_processes_is_not_complete: 否
-  background_processes_page_title: 后台进程
-  background_processes_query_head: 查询
   began: 开始
   belongs_in_count_communities: 
     other: 属于 %{count}个社区
@@ -3060,6 +3053,7 @@ zh-CN:
   subject: 主题
   submit: 提交
   submit_term: 提交期限
+  submitting: 请稍候...
   suggested_result_page_id: "建议结果页面的ID:"
   suggested_results_avg: 建议结果平均数
   supplier: 提供者

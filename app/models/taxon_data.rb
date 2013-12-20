@@ -76,7 +76,7 @@ class TaxonData < TaxonUserClassificationFilter
     # string search term
     elsif options[:querystring] && ! options[:querystring].strip.empty?
       matching_known_uris = KnownUri.search(options[:querystring])
-      query += "FILTER(( REGEX(?value, '(^| )#{options[:querystring]}( |$)', 'i'))"
+      query += "FILTER(( REGEX(?value, '(^|\\\\W)#{options[:querystring]}(\\\\W|$)', 'i'))"
       unless matching_known_uris.empty?
         query << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
       end

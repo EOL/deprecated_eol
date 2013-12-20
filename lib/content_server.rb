@@ -75,9 +75,7 @@ class ContentServer
   def self.upload_data_search_file(file_url, data_search_file_id)
     return nil if file_url.blank?
     return nil if data_search_file_id.blank?
-    env_name = Rails.env.to_s
-    env_name = 'staging' if Rails.env.staging_dev?
-    env_name = 'bocce_demo' if Rails.env.bocce_demo_dev?
+    return file_url if Rails.configuration.local_services
     parameters = "function=upload_dataset&data_search_file_id=#{data_search_file_id}&file_path=#{file_url}"
     call_file_upload_api_with_parameters(parameters, "upload data search file service")
   end

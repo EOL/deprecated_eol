@@ -9,10 +9,7 @@
         %ul
           - if @results && !@results.blank?
             %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
-              = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), :class => 'button'
-            %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
-              -# NOTE - not translating "background" because we do NOT want to keep that when we go live!!
-              = link_to I18n.t(:download_data) + " (background)", url_for(params: params.merge(format: "js")), :class => 'button', remote: true
+              = link_to I18n.t(:download_data), download_data_search_path(params: params), method: :post, :class => 'button'
   #content
     .site_column
       #data_search

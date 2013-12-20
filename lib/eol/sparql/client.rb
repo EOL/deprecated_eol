@@ -4,6 +4,7 @@ module EOL
 
       attr_accessor :endpoint_uri, :namespaces, :username, :password, :sparql_client
       extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
+      extend EOL::LocalCacheable
 
       def initialize(options={})
         @endpoint_uri = options[:endpoint_uri]
@@ -45,6 +46,7 @@ module EOL
       def query(query, options = {})
         results = []
         begin
+          # puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
           sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
         rescue ArgumentError => e
           # NOTE - this catch is caused by going through the demo for setting up the DAV user/directory. You've got to manually delete that
@@ -77,13 +79,13 @@ module EOL
       end
 
       def all_measurement_type_uris
-        Rails.cache.fetch("eol/sparql/client/all_measurement_type_uris", :expires_in => 1.day) do
+        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_uris", :expires_in => 1.day) do
           counts_of_all_measurement_type_uris.collect{ |k,v| k }
         end
       end
 
       def all_measurement_type_known_uris
-        Rails.cache.fetch("eol/sparql/client/all_measurement_type_known_uris", :expires_in => 1.day) do
+        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris", :expires_in => 1.day) do
           all_uris = all_measurement_type_uris
           all_known_uris = KnownUri.find_all_by_uri(all_uris)
           all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } || uri }

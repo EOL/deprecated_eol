@@ -38,6 +38,18 @@ class RecentActivityMailer < ActionMailer::Base
     )
   end
 
+  def data_search_file_download_ready(data_search_file)
+    @user = data_search_file.user
+    @data_search_file = data_search_file
+    @show_activity_links_in_email = false
+    set_locale(@user)
+    mail(
+      subject: I18n.t(:subject, scope: [:recent_activity_mailer, :data_search_file_download_ready]),
+      to: @user.email,
+      from: $NO_REPLY_EMAIL_ADDRESS,
+      content_type: 'text/html')
+  end
+
   def set_locale(user)
     ActionMailer::Base.default_url_options[:host] ||= 'eol.org' # Sorry, this is a fallback. You should really be
                                                                 # specifying this elsewhere.

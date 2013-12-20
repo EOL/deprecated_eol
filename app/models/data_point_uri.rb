@@ -28,7 +28,7 @@ class DataPointUri < ActiveRecord::Base
   has_many :all_comments, class_name: Comment.to_s, through: :all_versions, primary_key: :uri, source: :comments
   has_many :taxon_data_exemplars
 
-  attr_accessor :metadata
+  attr_accessor :metadata, :references
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
     # There are potentially hundreds or thousands of DataPointUri inserts happening here.
@@ -269,27 +269,43 @@ class DataPointUri < ActiveRecord::Base
     TaxonDataSet.new(occurrence_measurement_rows, preload: false)
   end
 
+  def get_references(language)
+    DataPointUri.assign_references(self, language)
+    references
+  end
+
+  def self.assign_bulk_references(data_point_uris, language)
+    data_point_uris.each_slice(1000){ |d| assign_references(d, language) }
+  end
+
   # NOTE - User-added data references aren't added with these URIs and therefore don't get "seen" by this method.
   # TODO - (low priority) fix that; we should get user-added references.
-  def get_references(language)
+  def self.assign_references(data_point_uris, language)
+    data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
+    uris_to_lookup = data_point_uris.select{ |d| d.references.nil? }.collect(&:uri)
+    return if uris_to_lookup.empty?
     options = []
     # TODO - no need to keep rebuilding this, put it in a class variable.
     Rails.configuration.optional_reference_uris.each do |var, url|
       options << "OPTIONAL { ?reference <#{url}> ?#{var} } ."
     end
     query = "
-      SELECT DISTINCT ?identifier ?publicationType ?full_reference ?primaryTitle ?title ?pages ?pageStart ?pageEnd
+      SELECT DISTINCT ?parent_uri ?identifier ?publicationType ?full_reference ?primaryTitle ?title ?pages ?pageStart ?pageEnd
          ?volume ?edition ?publisher ?authorList ?editorList ?created ?language ?uri ?doi ?localityName
       WHERE {
         GRAPH ?graph {
           {
-            <#{uri}> <#{Rails.configuration.uri_reference_id}> ?reference .
+            ?parent_uri <#{Rails.configuration.uri_reference_id}> ?reference .
             ?reference a <#{Rails.configuration.uri_reference}>
             #{options.join("\n")}
+            FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
           }
         }
       }"
-    EOL::Sparql.connection.query(query)
+    reference_rows = EOL::Sparql.connection.query(query)
+    data_point_uris.each do |d|
+      d.references = reference_rows.select{ |row| row[:parent_uri] == d.uri }
+    end
   end
 
   def show(user)
@@ -361,19 +377,16 @@ class DataPointUri < ActiveRecord::Base
   # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
   # this model class.
   def to_hash(language = Language.default, options = {})
-    tc = options[:taxa] && options[:taxa].map(&:id).include?(taxon_concept_id) ?
-      options[:taxa].detect { |tc| tc.id == taxon_concept_id } : # Yay! They cached it for us.
-      taxon_concept # Load it. This will be painful.
-    hash = if tc
+    hash = if taxon_concept
              {
       # Taxon Concept ID:
       I18n.t(:data_column_tc_id) => taxon_concept_id,
       # WAIT - # Some classification context (stealing from search for now):
       # WAIT - I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
       # Scientific Name:
-      I18n.t(:data_column_sci_name) => tc.nil? ? '' : tc.title_canonical,
+      I18n.t(:data_column_sci_name) => taxon_concept.nil? ? '' : taxon_concept.title_canonical,
       # Common Name:
-      I18n.t(:data_column_common_name) => tc.nil? ? '' : tc.preferred_common_name_in_language(language)
+      I18n.t(:data_column_common_name) => taxon_concept.nil? ? '' : taxon_concept.preferred_common_name_in_language(language)
              }
            else
              {}
@@ -401,7 +414,7 @@ class DataPointUri < ActiveRecord::Base
       hash[I18n.t(:data_column_resource)] =
         # Ewww. TODO - as I say at the start of the method, this really belongs in a view:
         Rails.application.routes.url_helpers.content_partner_resource_url(resource.content_partner, resource,
-                                                                          host: options[:host])
+                                                                          host: $SITE_DOMAIN_OR_IP)
     end
     metadata = get_metadata(language)
     unless metadata.empty?

@@ -75,6 +75,9 @@ Rails.configuration.data_search_file_full_path = "#{Rails.public_path}#{Rails.co
 
 Rails.configuration.hosted_dataset_path = 'http://localhost/eol_php_code/applications/content_server/datasets/'
 
+Rails.configuration.local_services = false
+
+
 # -------------------------------------------------------------------------
 # OLD STUFF...          PLEASE DON'T DO THIS ANYMORE.  :|
 

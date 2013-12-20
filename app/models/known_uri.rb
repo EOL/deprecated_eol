@@ -12,6 +12,7 @@ class KnownUri < ActiveRecord::Base
   GRAPH_NAME = Rails.configuration.known_uri_graph
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
+  extend EOL::LocalCacheable
   include EOL::CuratableAssociation
 
   include Enumerated
@@ -92,11 +93,10 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.schema_terms_prefix + 'log10gram', name: 'log10 grams' } ]
 
   # This gets called a LOT.  ...Like... a *lot* a lot. But...
-  # DO NOT make a class variable for this because we will need to flush the cache frequently as we
-  # add/remove accepted values for UnitOfMeasure. We need to keep it in a central cache, rather than
-  # in a class variable on each app server
+  # DO NOT make a class variable and forget about it. We will need to flush the cache frequently as we
+  # add/remove accepted values for UnitOfMeasure. Use the cached_with_local_timeout method
   def self.unit_of_measure
-    cached('unit_of_measure') do
+    cached_with_local_timeout('unit_of_measure') do
       KnownUri.where(uri: Rails.configuration.uri_measurement_unit).includes({ known_uri_relationships_as_subject: :to_known_uri } ).first
     end
   end
@@ -121,7 +121,7 @@ class KnownUri < ActiveRecord::Base
   def self.add_to_data(rows)
     known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
-      { known_uri_relationships_as_target: :from_known_uri } ])
+      { known_uri_relationships_as_target: :from_known_uri }, :toc_items ])
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)

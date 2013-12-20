@@ -1833,9 +1833,10 @@ span.info
         display: none
     li + li
       border: 0px
-      border-right: 1px solid $darker_gray
-      margin-right: 10px
-      padding-right: 10px
+      &:after
+        color: $darker_gray
+        content: "\2022\0000a0"
+        margin: 0 5px 0 9px
 ul.glossary li+li
   border-top: 1px dotted $light_blue
   padding-top: 8px

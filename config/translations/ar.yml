@@ -4062,7 +4062,7 @@ ar:
   who_registered_before: إلى
   who_registered_from: الذي قام بالتسجيل من
   wikipedia_queue_create_successful_notice: تمت إضافة النسخة المراجعة %{rev} من مقال ويكيبيديا %{article} لقائمة النقل إلى موسوعة الحياة.
-  wikipedia_queue_create_unsuccessful_error: عفوًا، حدث خطأ، لم تتم إضافة مقال ويكيبيديا لقائمة النقل إلى موسوعة الحياة. <br/> رابط النسخة المراجعة يجب أن يطابق  https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: عفوًا، حدث خطأ، لم تتم إضافة مقال ويكيبيديا لقائمة النقل إلى موسوعة الحياة. <br /> رابط النسخة المراجعة يجب أن يطابق  https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "لإيجاد رابط النسخة المراجعة لإحدى مقالات ويكيبيديا:"
   wikipedia_queue_new_instructions_step_four: قم بنسخ رابط المراجعة من المتصفح والصقه في نموذج طلب النقل بموقع ويكيبيديا المعروض هنا، يجب أن يبدوا رابط النسخة المراجعة مثل  <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_instructions_step_one: انتقل إلى صفحة المقال بموقع ويكيبيديا، مثل  <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>

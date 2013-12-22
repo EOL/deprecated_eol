@@ -1900,9 +1900,9 @@ de:
   data_row_hide_button: Zeile ausblenden
   data_row_remove_exemplar_button: von den Schnellen Tatsachen entfernen
   data_row_unhide_button: Zeile einblenden
-  data_search_attribute: EOL-Daten nach „%{attribute}“ in Beobachtungen,<br/>Messungen und anderen wissenschaftlichen Behauptungen durchsuchen.
+  data_search_attribute: EOL-Daten nach „%{attribute}“ in Beobachtungen,<br />Messungen und anderen wissenschaftlichen Behauptungen durchsuchen.
   data_search_destroyed: Dieser Auftrag wird nicht mehr verarbeitet.
-  data_search_explanation: Die EOL-Datensuche verwenden zum Auffinden von Objekten mit der Übereinstimmung „%{term}“ in Beobachtungen,<br/>Messungen und anderen wissenschaftlichen Behauptungen.
+  data_search_explanation: Die EOL-Datensuche verwenden zum Auffinden von Objekten mit der Übereinstimmung „%{term}“ in Beobachtungen,<br />Messungen und anderen wissenschaftlichen Behauptungen.
   data_search_files: 
     file_ready_for_download: Die kürzlich angefragte Suche nach „%{known_uri_label}“ kann jetzt unter <a href='%{download_url}'>%{download_url}</a> heruntergeladen werden.
   data_search_link: Wissenschaftliche Daten auf EOL suchen

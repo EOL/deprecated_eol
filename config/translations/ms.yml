@@ -2884,7 +2884,7 @@ ms:
   what_is_this_question: Apakah ini?
   who_registered_from: yang berdaftar dari
   wikipedia_queue_create_successful_notice: Semakan rencana %{article} dalam Wikipedia. %{rev} telah dibaris gilir untuk diimport.
-  wikipedia_queue_create_unsuccessful_error: Maaf, berlakunya ralat, rencana Wikipedia itu tidak dibaris gilir untuk diimport.<br/>URL semakan sepadan dengan https://ms.wikipedia.org/w/index.php?title=*TAJUK*&oldid=*IDLAMA*
+  wikipedia_queue_create_unsuccessful_error: Maaf, berlakunya ralat, rencana Wikipedia itu tidak dibaris gilir untuk diimport.<br />URL semakan sepadan dengan https://ms.wikipedia.org/w/index.php?title=*TAJUK*&oldid=*IDLAMA*
   wikipedia_queue_new_instructions_intro: "Untuk mencari URL semakan rencana Wikipedia:"
   wikipedia_queue_new_instructions_step_four: "Salin URL semakan daripada pelayar anda dan tampalkannya pada borang permintaan import Wikipedia yang dipaparkan di sini. Contoh URL semakan: <a href=\"https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971\">https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971</a>"
   wikipedia_queue_new_instructions_step_one: Pergi ke halaman rencana di Wikipedia, cth. <a href="https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971">https://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971</a>

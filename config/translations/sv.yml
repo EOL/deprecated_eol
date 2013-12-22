@@ -4173,7 +4173,7 @@ sv:
   who_registered_before: till
   who_registered_from: som registrerade från
   wikipedia_queue_create_successful_notice: Wikipedia-artikeln %{article}, version %{rev} har placerats i kö för importering.
-  wikipedia_queue_create_unsuccessful_error: Tyvärr, ett fel uppstod. Wikipedia-artikeln lades inte i kö för importering.<br/>Versionsadressen måste matcha https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: Tyvärr, ett fel uppstod. Wikipedia-artikeln lades inte i kö för importering.<br />Versionsadressen måste matcha https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_step_one: Gå till artikelsidan på Wikipedia, t.ex. <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_page_title: Begär ett importtillstånd för en Wikipedia-artikel
   will_paginate: 

@@ -1888,9 +1888,9 @@ mk:
   data_row_hide_button: Скриј ред
   data_row_remove_exemplar_button: отстрани од „Накратко“
   data_row_unhide_button: Прикажи ред
-  data_search_attribute: Пребарајте ги податоците на EOL што се однесуваат на „%{attribute}“ во набљудувањата,<br/>мерењата и други научни наоди
+  data_search_attribute: Пребарајте ги податоците на EOL што се однесуваат на „%{attribute}“ во набљудувањата,<br />мерењата и други научни наоди
   data_search_destroyed: Оваа задача повеќе нема да се обработува.
-  data_search_explanation: Послужете се со алатката за пребарување на податоци за да добиете ставки за „%{term}“ во набљудувањата,<br/>мерењата и други научни наоди.
+  data_search_explanation: Послужете се со алатката за пребарување на податоци за да добиете ставки за „%{term}“ во набљудувањата,<br />мерењата и други научни наоди.
   data_search_files: 
     file_ready_for_download: Пребарувањето што неодамна го побаравте за „%{known_uri_label}“ сега може да се преземе на <a href='%{download_url}'>%{download_url}</a>.
   data_search_link: Пребарајте научни податоци на EOL
@@ -4584,7 +4584,7 @@ mk:
   who_registered_before: до
   who_registered_from: кој се регистрираше од
   wikipedia_queue_create_successful_notice: Статијата %{article} ревизија %{rev} од Википедија е ставена во редицата за увоз.
-  wikipedia_queue_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја ставам статијата од Википедија во редицата на чекање за увоз.<br/>URL-адресата на ревизијата мора да се совпаѓа со https://mk.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
+  wikipedia_queue_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја ставам статијата од Википедија во редицата на чекање за увоз.<br />URL-адресата на ревизијата мора да се совпаѓа со https://mk.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
   wikipedia_queue_new_instructions_intro: "За да ја добиете URL-адресата на ревизија на некоја статија на Википедија:"
   wikipedia_queue_new_instructions_step_four: "Ископирајте ја URL-адресата на ревизијата од прелистувачот и вметнете ја во прикажаниот образец за увоз од Википедија. URL-адресата треба да биде од следниов облик: <a href=\"https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424\">https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424</a>"
   wikipedia_queue_new_instructions_step_one: Одете на страницата на Википедија, на пр. <a href="https://mk.wikipedia.org/w/index.php?title=Тигар">https://mk.wikipedia.org/w/index.php?title=Тигар</a>

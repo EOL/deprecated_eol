@@ -1914,9 +1914,9 @@ es:
   data_row_hide_button: Ocultar fila
   data_row_remove_exemplar_button: eliminar de Hechos Rápidos
   data_row_unhide_button: Mostrar fila
-  data_search_attribute: Buscar datos de EOL sobre "%{attribute}" en observaciones,<br/>mediciones y otras afirmaciones científicas.
+  data_search_attribute: Buscar datos de EOL sobre "%{attribute}" en observaciones,<br />mediciones y otras afirmaciones científicas.
   data_search_destroyed: Este trabajo ya no será procesado.
-  data_search_explanation: Utilice la búsqueda de datos de EOL para encontrar elementos que coincidan con '%{term}' en observaciones,<br/>mediciones y otras afirmaciones científicas.
+  data_search_explanation: Utilice la búsqueda de datos de EOL para encontrar elementos que coincidan con '%{term}' en observaciones,<br />mediciones y otras afirmaciones científicas.
   data_search_files: 
     file_ready_for_download: La búsqueda que recientemente solicitó para "%{known_uri_label}" ahora puede descargarse en <a href='%{download_url}'>%{download_url}</a>.
   data_search_link: Búsqueda de datos científicos en EOL
@@ -4635,7 +4635,7 @@ es:
   who_registered_before: a
   who_registered_from: quien se registró de
   wikipedia_queue_create_successful_notice: El artículo de Wikipedia %{article} revisión %{rev} ha sido puesto en cola para importar.
-  wikipedia_queue_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, el artículo de Wikipedia no fue puesto en cola para importación.<br/>El URL de revisión debe coincidir con https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, el artículo de Wikipedia no fue puesto en cola para importación.<br />El URL de revisión debe coincidir con https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "Para encontrar el URL de revisión de un artículo de Wikipedia:"
   wikipedia_queue_new_instructions_step_four: Copie el URL de revisión desde su navegador y e insértelo en el formulario de solicitud de importación de Wikipedia mostrado aquí, el URL de revisión URL debería asemejarse a <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_instructions_step_one: Vaya a la página del artículo en Wikipedia, e.g., <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>

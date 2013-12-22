@@ -3299,8 +3299,8 @@ en:
     zero: "There are no jobs pending. If your job is not complete, something went wrong. You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."
     one: "There is still %{count} job waiting to be processed (it may or may not be yours). You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."
     other: "There are still %{count} jobs waiting to be processed (those may or may not be yours). You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."
-  data_search_explanation: "Use EOL's data search to find items matching '%{term}' in observations,<br/>measurements and other scientific assertions."
-  data_search_attribute: "Search EOL's data about \"%{attribute}\" in observations,<br/>measurements and other scientific assertions."
+  data_search_explanation: "Use EOL's data search to find items matching '%{term}' in observations,<br />measurements and other scientific assertions."
+  data_search_attribute: "Search EOL's data about \"%{attribute}\" in observations,<br />measurements and other scientific assertions."
   data_search_destroyed: "This job will no longer be processed."
   data_search_files_with_count:
     one: "%{count} saved search"

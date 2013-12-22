@@ -2339,7 +2339,7 @@ sr-Latn:
   who_registered_before: do
   who_registered_from: ko se upisao iz
   wikipedia_queue_create_successful_notice: Članak %{article} izmena %{rev} iz Vikipedije je stavljena u red za uvoz.
-  wikipedia_queue_create_unsuccessful_error: Nažalost, došlo je do greške. Ne mogu da stavim Vikipedijin članak u red za uvoz.<br/>Adresa izmene se mora poklapati sa https://en.wikipedia.org/w/index.php?title=*NASLOV*&oldid=*STARANAZNAKA*
+  wikipedia_queue_create_unsuccessful_error: Nažalost, došlo je do greške. Ne mogu da stavim Vikipedijin članak u red za uvoz.<br />Adresa izmene se mora poklapati sa https://en.wikipedia.org/w/index.php?title=*NASLOV*&oldid=*STARANAZNAKA*
   wikipedia_queue_new_instructions_intro: "Da biste dobili adresu izmene Vikipedijinog članka:"
   wikipedia_queue_new_instructions_step_four: "Umnožite adresu izmene iz pregledača i ubacite je u obrazac za uvoz na Vikipediji. Adresa izmene treba da bude u sledećem obliku: <a href=\"https://sr.wikipedia.org/w/index.php?title=Pingvin&oldid=4663931\">https://sr.wikipedia.org/w/index.php?title=Pingvin&oldid=4663931</a>"
   wikipedia_queue_new_instructions_step_one: Idite na stranicu Vikipedije, npr. <a href="https://sr.wikipedia.org/w/index.php?title=Pingvin">https://sr.wikipedia.org/w/index.php?title=Pingvin</a>

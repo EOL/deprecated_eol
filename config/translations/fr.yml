@@ -1867,9 +1867,9 @@ fr:
   data_row_hide_button: Masquer la ligne
   data_row_remove_exemplar_button: enlever des Faits en bref
   data_row_unhide_button: Ne plus masquer la ligne
-  data_search_attribute: Rechercher les données de EdlV concernant  « %{attribute} » dans les observations,<br/>les mesures et les autres assertions scientifiques.
+  data_search_attribute: Rechercher les données de EdlV concernant  « %{attribute} » dans les observations,<br />les mesures et les autres assertions scientifiques.
   data_search_destroyed: Cette tâche ne sera plus effectuée.
-  data_search_explanation: Utiliser la recherche de données de EdlV pour trouver des éléments correspondant à '%{term}' dans les observations,<br/>les mesures et les autres assertions scientifiques.
+  data_search_explanation: Utiliser la recherche de données de EdlV pour trouver des éléments correspondant à '%{term}' dans les observations,<br />les mesures et les autres assertions scientifiques.
   data_search_files: 
     file_ready_for_download: La recherche que vous avez récemment demandée pour « %{known_uri_label} » peut maintenant être téléchargée depuis <a href='%{download_url}'>%{download_url}</a>.
   data_search_link: Chercher des données scientifiques dans EdlV

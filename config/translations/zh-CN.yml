@@ -3782,7 +3782,7 @@ zh-CN:
   who_registered_before: 截止
   who_registered_from: 注册于
   wikipedia_queue_create_successful_notice: 维基百科文章%{article}的修订版%{rev}已经被列入导入队列。
-  wikipedia_queue_create_unsuccessful_error: 抱歉，发生了一个错误，维基百科文章未加入导入队列。<br/>修订内容的URL必须匹配https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: 抱歉，发生了一个错误，维基百科文章未加入导入队列。<br />修订内容的URL必须匹配https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: 查找维基百科文章的修订URL：
   wikipedia_queue_new_instructions_step_four: "从您的浏览器中拷贝修订内容的URL，然后将其粘贴到这里的维基百科输入请求表单中。修订内容的URL应该类似下面的地址：<a rel=\nofollow href=https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069>https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>"
   wikipedia_queue_new_instructions_step_one: "\"转到Wikipedia文章页面, 如<a rel=\nofollow href=https://en.wikipedia.org/w/index.php?title=Giraffe>https://en.wikipedia.org/w/index.php?title=Giraffe</a>\""

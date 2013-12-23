@@ -1061,7 +1061,6 @@ ms:
   did_you_mean: "Adakah anda bermaksud: %{suggestions} ?"
   disabled_for_now: DIMATIKAN BUAT MASA INI
   displaying_numerical_range: "%{start_number} &mdash; %{end_number} dipaparkan"
-  donate: Derma
   donation_amount_legend: Pilih jumlah yang ingin anda dermakan
   donation_amount_other_label: Lain-lain
   donation_confirmation: Pengesahan Pendermaan

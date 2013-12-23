@@ -1893,7 +1893,6 @@ sv:
   discover_link: Upptäck
   displaying_numerical_range: Visar %{start_number} &mdash; %{end_number}
   do_you_want_to_be_a_curator: Vill du bli en kurator
-  donate: Donera
   donation_amount_legend: Välj beloppet du vill donera
   donation_amount_other_label: Andra
   donation_confirmation: Doneringsbekräftelse

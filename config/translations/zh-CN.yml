@@ -1550,7 +1550,6 @@ zh-CN:
   discover_link: 探索
   displaying_numerical_range: 显示%{total}中的%{start_number} &mdash; %{end_number}
   do_you_want_to_be_a_curator: 您想成为管理员吗
-  donate: 捐赠
   donation_amount_legend: 请选择您的捐赠金额
   donation_amount_other_label: 其他
   donation_confirmation: 捐赠确认

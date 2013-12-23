@@ -995,7 +995,6 @@ ia:
   detail: Detalio
   development_version_name: V2 VERSION IN DISVELOPPAMENTO - non pro uso public
   displaying_numerical_range: Lista de %{start_number} a %{end_number}
-  donate: Donar
   donation_error_no_amount: Per favor selige un amonta a donar.
   donation_error_only_numbers: Per favor entra un quantitate usante solmente numeros.
   edit_community: Modificar communitate

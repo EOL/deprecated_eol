@@ -1843,7 +1843,6 @@ gl:
   discover_link: Descubrir
   displaying_numerical_range: Mostrando do %{start_number} ao %{end_number}, dun todal de %{total}
   do_you_want_to_be_a_curator: Queres converterte nun conservador
-  donate: Doazóns
   donation_amount_legend: Escolle a cantidade que queres doar
   donation_amount_other_label: Outra
   donation_confirmation: Confirmación da doazón

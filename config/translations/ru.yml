@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Adata80
+# Author: Amire80
 # Author: Antohabio
 # Author: Aygulka
 # Author: CM3X
@@ -304,6 +305,8 @@ ru:
         invalid: недопустимо
         less_than: должно быть меньше %{count}
         less_than_or_equal_to: должно быть меньше или равно %{count}
+        models: 
+          inaccessible: недоступна
         not_a_number: не является числом
         not_an_integer: должно быть целым числом
         odd: должно быть нечетным
@@ -872,7 +875,6 @@ ru:
     previous: Назад
   dato_create_cancel: Отмена
   delete: удалить
-  donate: Внести пожертвование
   edit: редактировать
   encyclopedia_of_life: Энциклопедия жизни
   eol_news: Новости EOL

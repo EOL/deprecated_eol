@@ -855,7 +855,6 @@ sr-Latn:
   discover_link: Otkrijte
   displaying_numerical_range: Prikaz %{start_number} — %{end_number} od %{total}
   do_you_want_to_be_a_curator: Želite li da budete kustos
-  donate: Priloži
   donation_amount_legend: Izaberite iznos koji želite da priložite
   donation_amount_other_label: Drugo
   donation_confirmation: Potvrda za dobrovoljni prilog

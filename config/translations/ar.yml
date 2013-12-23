@@ -1775,7 +1775,6 @@ ar:
   discover_link: استكشف
   displaying_numerical_range: عرض %{start_number} &mdash; %{end_number} من %{total}
   do_you_want_to_be_a_curator: هل تريد أن تصبح مشرفًا
-  donate: تبرع
   donation_amount_legend: أختر القيمة التي تود التبرع بها
   donation_amount_other_label: أخرى
   donation_confirmation: تأكيد التبرع

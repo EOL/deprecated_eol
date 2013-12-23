@@ -216,6 +216,9 @@ module TaxaHelper
   end
 
   def define(tag_type, uri, search_link)
+    haml_tag "a.info_icon" do
+      haml_concat "&emsp;&emsp;&emsp;&emsp;" # Width doesn't seem to work.  :|
+    end
     haml_tag "span.info" do
       haml_tag "ul.glossary" do
         haml_concat render(partial: 'known_uris/definition', locals: { known_uri: uri, search_link: search_link, glossary_link: true })

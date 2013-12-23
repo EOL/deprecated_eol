@@ -22,7 +22,7 @@
         - show_table = category_toc_item.nil? ? (@toc_id == 'other') : (@toc_id == category_toc_item.id.to_s)
       .header_underlined{ style: show_table ? nil : 'display: none;' }
         %h3= category_toc_item.nil? ? I18n.t(:other_category) : category_toc_item.label
-      %table.standard.data{summary: I18n.t(:data_table_summary, taxon: @taxon_page.scientific_name), style: show_table ? nil : 'display:none;',
+      %table.standard.categorized.data{summary: I18n.t(:data_table_summary, taxon: @taxon_page.scientific_name), style: show_table ? nil : 'display:none;',
         data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => category_toc_item.nil? ? 'other' : category_toc_item.id} }
         %caption.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
         - type_index = 0

@@ -1492,6 +1492,9 @@ ul.tabs
     display: none
   table.data
     margin: 0px 0px 30px 0px
+    .info_icon
+      background: none
+      float: right
     tbody
       border-bottom: 1px solid $grayblue
       border-top: 1px solid $grayblue
@@ -1504,8 +1507,7 @@ ul.tabs
           width: 11px
           padding-left: 4px
         .info_icon
-          width: 18px
-          background: none
+          width: 20px
         th
           color: $darker_blue
           font-weight: normal
@@ -1513,10 +1515,6 @@ ul.tabs
           width: 203px
           vertical-align: top
           padding-top: 4pt
-          padding-right: 21px
-          .info_icon
-            position: absolute
-            left: 181px
         .info
           .close
             float: right
@@ -1539,14 +1537,11 @@ ul.tabs
             font-size: 0.75em
             margin: 0.75em 0.5em
             line-height: 1.5em
-        th.predicate
-          .info_icon
-            float: right
         th.predicate, td.val
           .info_icon
-            &.active
+            &.def.active
               @include info_item_with_background(15)
-          &:hover
+          &.def:hover
             .info_icon
               @include hover_info_icon(15)
         td
@@ -1652,17 +1647,6 @@ ul.tabs
       border-bottom: 1px solid $grayblue
       background-color: #f6f8fa
   table.data.search
-    tbody
-      tr
-        th
-          .info_icon
-            position: absolute
-            left: 412px
-      table.meta
-        tr th
-          .info_icon
-            position: absolute
-            left: 289px
     th
       width: 150px
     span.source
@@ -1697,24 +1681,17 @@ ul.tabs
     width: 80%
     margin: 0px auto
     padding: 0px 0px 15px
+    .info_icon
+      width: 15px
+      margin-left: 4px
+      &.active
+        @include info_item_with_background(13)
+    &.def:hover
+      @include hover_info_icon(13)
     td
-      padding: 0px 5px !important
       width: 60%
-      .info_icon
-        float: none
-        display: inline-block
-        &.active
-          @include info_item_with_background(13)
-      &:hover
-        @include hover_info_icon(13)
     th
-      padding: 0 13px 0 0 !important
-      .info_icon
-        left: 213px
-        &.active
-          @include info_item_with_background(13)
-      &:hover
-        @include hover_info_icon(13)
+      padding: 0 !important
     caption
       text-align: center !important
       font-weight: bold
@@ -1769,7 +1746,7 @@ ul.tabs
       text-decoration: none
       background: $lightest_blue image-url("v2/icon_remove.png") 2px 2px no-repeat
       border: 1px solid $light_blue
-      &:hover
+      &.def:hover
         background: #fff image-url("v2/icon_remove.png") 2px 2px no-repeat
 .add_content
   .add_data

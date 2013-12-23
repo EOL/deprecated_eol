@@ -7,9 +7,10 @@ EOL.max_meta_rows = 10;
 EOL.create_info_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
   var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
+  $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
   $(match)
     .attr('id', "info_"+nearest)
-    .before('<a id="tip_'+nearest+'" class="info_icon" data-info="'+nearest+'">&emsp;&emsp;&emsp;&emsp;</a>') // Spaces 'cause width doesn't work. :\
+    .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;&emsp;&emsp;&emsp;</a>') // Spaces 'cause width doesn't work. :\
     .addClass('tip')
     .prepend('<a href="#" class="close">&nbsp;</a>');
   EOL.enable_info_dialogs($('#tip_'+nearest));
@@ -57,7 +58,7 @@ EOL.enable_info_dialogs = function(tip) {
   // making sure the info icons show when anywhere on the row is moused over
   $('table.data tr.data, table.meta tr').hover(
     function() {
-      $(this).find('.info_icon').addClass('active');
+      $(this).find('.info_icon.def').addClass('active');
     },
     function() {
       $(this).find('.info_icon').removeClass('active');

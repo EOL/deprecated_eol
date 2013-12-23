@@ -3265,6 +3265,7 @@ en:
   data_column_source: "Source"
   data_database_colon: "Data:"
   data_glossary: "Data Glossary"
+  data_link_to_record: "Link to this record"
   data_logging_active: "Data Logging Active"
   data_master_database_colon: "Data Master:"
   data_metadata_subtable_summary: "Additional data about this fact."

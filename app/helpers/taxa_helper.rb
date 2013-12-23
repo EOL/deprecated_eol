@@ -147,13 +147,14 @@ module TaxaHelper
     !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(taxon_concept.id)
   end
 
+  # TODO - this has gotten sloppy.  Refactor.
   def display_uri(uri, options = {})
     options[:search_link] = true unless options.has_key?(:search_link)
     display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
-    tag_type = options[:val] ? 'span' : 'div'
+    tag_type = (options[:define] && ! options[:val]) ? 'div' : 'span'
     tag_type << ".#{options[:class]}" if options[:class]
     capture_haml do
-      info_icon unless options[:val]
+      info_icon if options[:define] && ! options[:val]
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
         define(tag_type, uri, options[:search_link])
       end
@@ -171,7 +172,7 @@ module TaxaHelper
           define(tag_type, uri, options[:search_link])
         end
       end
-      info_icon if options[:val]
+      info_icon if options[:val] && options[:define]
     end
   end
 

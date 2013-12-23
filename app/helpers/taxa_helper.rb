@@ -153,12 +153,14 @@ module TaxaHelper
     tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
     capture_haml do
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
+        info_icon
         define(tag_type, uri, options[:search_link])
       end
       label = format_data_value(uri_components[:label].to_s, options)
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat raw(label)
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
+          info_icon
           define(tag_type, uri, options[:search_link])
         end
       end
@@ -215,10 +217,13 @@ module TaxaHelper
     text_for_row_value
   end
 
-  def define(tag_type, uri, search_link)
+  def info_icon
     haml_tag "a.info_icon" do
       haml_concat "&emsp;&emsp;&emsp;&emsp;" # Width doesn't seem to work.  :|
     end
+  end
+
+  def define(tag_type, uri, search_link)
     haml_tag "span.info" do
       haml_tag "ul.glossary" do
         haml_concat render(partial: 'known_uris/definition', locals: { known_uri: uri, search_link: search_link, glossary_link: true })

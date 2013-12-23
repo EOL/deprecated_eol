@@ -56,6 +56,7 @@ class Api::DocsController < ApiController
       translation = api_overview.translations.select{|t| t.language_id == current_language.id}.compact
       translation = api_overview.translations.select{|t| t.language_id == Language.english.id}.compact if translation.blank?
       @navigation_menu = translation.first.left_content rescue nil
+      @navigation_menu.gsub!(/ class=['"]active['"]/, ' ')
       if params[:action] == "index"
         @navigation_menu.gsub!(/<li>\s+(<a href=\"\/api\">)/, "<li class='active'>\\1")
       else

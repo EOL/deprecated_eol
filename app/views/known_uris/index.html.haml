@@ -32,7 +32,7 @@
           - klass = 'unknown' if known_uri.unknown?
           %tr{ id: "known_uri_#{known_uri.id}", class: klass }
             -# NOTE - the <wbr/> tags create optional line breaks. ...it makes this look much better with REALLY long URIs.
-            %td{class: known_uri.exclude_from_exemplars? ? 'excluded' : nil }= known_uri.uri.gsub('/', '/<wbr/>').html_safe
+            %td.uri{class: known_uri.exclude_from_exemplars? ? 'excluded' : nil }= known_uri.uri.gsub('/', '/<wbr/>').html_safe
             - if known_uri.translated_known_uris.map(&:language_id).include?(current_language.id)
               %td= known_uri.name
             - else

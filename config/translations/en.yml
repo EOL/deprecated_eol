@@ -338,6 +338,7 @@ en:
         exclude_from_exemplars: "Exclude from Quick Facts"
         group_by_clade: "Use for Clade Ranges"
         clade_exemplar: "Use as exemplar Clade Range"
+        value_is_text: "Values will not be URIs, only text"
       known_uri_relationship:
         from_known_uri_id: "Subject URI"
         to_known_uri_id: "Target URI"

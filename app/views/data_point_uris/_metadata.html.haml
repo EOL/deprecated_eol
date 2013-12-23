@@ -11,7 +11,7 @@
         - row_id = "#{header_id}_meta_#{i}"
         %tr
           %th{id: "#{row_id}_h"}= display_uri(d.predicate_uri, :span, define: true)
-          %td{id: "#{row_id}_d"}= raw display_text_for_data_point_uri(d, define: :after)
+          %td{id: "#{row_id}_d"}= raw display_text_for_data_point_uri(d, define: :after, value_for_known_uri: d.predicate_uri)
     -# TODO: we need to factor in refereces which use separate fields instead of full_reference
     - unless references.empty?
       - references.each_with_index do |d, i|

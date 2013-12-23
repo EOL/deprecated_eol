@@ -149,14 +149,14 @@ module TaxaHelper
 
   def display_uri(uri, tag_type = :span, options = {})
     options[:search_link] = true unless options.has_key?(:search_link)
-    uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
+    display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
     tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
     capture_haml do
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
         info_icon
         define(tag_type, uri, options[:search_link])
       end
-      label = format_data_value(uri_components[:label].to_s, options)
+      label = format_data_value(display_label, options)
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat raw(label)
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
@@ -167,7 +167,19 @@ module TaxaHelper
     end
   end
 
+  def display_association(data_point_uri, options = {})
+    taxon_link = options[:link_to_overview] ?
+      taxon_overview_path(data_point_uri.target_taxon_concept) :
+      taxon_data_path(data_point_uri.target_taxon_concept)
+    if c = data_point_uri.target_taxon_concept.preferred_common_name_in_language(current_language)
+      link_to c, taxon_link
+    else
+      link_to raw(data_point_uri.target_taxon_concept.title_canonical), taxon_link
+    end
+  end
+
   def format_data_value(value, options={})
+    value = value.is_a?(DataValue) ? value.label.to_s : value.to_s
     if value.is_numeric?
       if value.is_float?
         if value.to_f < 0.1
@@ -195,14 +207,7 @@ module TaxaHelper
     # and each one needs a different ID if we want them all to have tooltips)
     text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{options[:id] || data_point_uri.anchor}'>"
     if data_point_uri.association?
-      taxon_link = options[:link_to_overview] ?
-        taxon_overview_path(data_point_uri.target_taxon_concept) :
-        taxon_data_path(data_point_uri.target_taxon_concept)
-      if c = data_point_uri.target_taxon_concept.preferred_common_name_in_language(current_language)
-        text_for_row_value += link_to c, taxon_link
-      else
-        text_for_row_value += link_to raw(data_point_uri.target_taxon_concept.title_canonical), taxon_link
-      end
+      text_for_row_value += display_association(data_point_uri, options)
     else
       text_for_row_value += display_uri(data_point_uri.object_uri, :span, options).to_s
     end

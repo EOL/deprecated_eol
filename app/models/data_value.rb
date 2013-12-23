@@ -2,11 +2,14 @@ class DataValue
 
   attr_reader :uri, :label, :definition
 
-  def initialize(known_uri_or_string)
+  def initialize(known_uri_or_string, options = {})
     if known_uri_or_string.is_a?(KnownUri)
       @uri = known_uri_or_string.uri
       @label = known_uri_or_string.name
       @definition = known_uri_or_string.definition
+    elsif options[:value_for_known_uri] && options[:value_for_known_uri].is_a?(KnownUri) && options[:value_for_known_uri].value_is_text
+      @uri = known_uri_or_string
+      @label = known_uri_or_string
     elsif label = EOL::Sparql.uri_to_readable_label(known_uri_or_string)
       @uri = known_uri_or_string
       @label = label

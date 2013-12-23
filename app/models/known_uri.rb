@@ -61,7 +61,7 @@ class KnownUri < ActiveRecord::Base
     :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :uri_type, :uri_type_id,
     :translations, :exclude_from_exemplars, :name, :known_uri_relationships_as_subject, :attribution,
     :ontology_information_url, :ontology_source_url, :position, :group_by_clade, :clade_exemplar,
-    :exemplar_for_same_as
+    :exemplar_for_same_as, :value_is_text
 
   accepts_nested_attributes_for :translated_known_uris
 

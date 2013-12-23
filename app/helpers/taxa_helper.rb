@@ -147,20 +147,20 @@ module TaxaHelper
     !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(taxon_concept.id)
   end
 
-  def display_uri(uri, tag_type = :span, options = {})
+  def display_uri(uri, options = {})
     options[:search_link] = true unless options.has_key?(:search_link)
     display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
-    tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
+    tag_type = "span"
+    tag_type << ".#{options[:class]}" if options[:class]
     capture_haml do
+      info_icon
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
-        info_icon
         define(tag_type, uri, options[:search_link])
       end
       label = format_data_value(display_label, options)
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat raw(label)
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
-          info_icon
           define(tag_type, uri, options[:search_link])
         end
       end
@@ -209,7 +209,7 @@ module TaxaHelper
     if data_point_uri.association?
       text_for_row_value += display_association(data_point_uri, options)
     else
-      text_for_row_value += display_uri(data_point_uri.object_uri, :span, options).to_s
+      text_for_row_value += display_uri(data_point_uri.object_uri, options).to_s
     end
     # displaying unit of measure
     if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)

@@ -10,7 +10,7 @@
       - metadata.each_with_index do |d, i|
         - row_id = "#{header_id}_meta_#{i}"
         %tr
-          %th{id: "#{row_id}_h"}= display_uri(d.predicate_uri, :span, define: true)
+          %th{id: "#{row_id}_h"}= display_uri(d.predicate_uri, define: true)
           %td{id: "#{row_id}_d"}= raw display_text_for_data_point_uri(d, define: :after, value_for_known_uri: d.predicate_uri)
     -# TODO: we need to factor in refereces which use separate fields instead of full_reference
     - unless references.empty?
@@ -31,5 +31,5 @@
       - other_measurements.each_with_index do |d, i|
         - row_id = "#{header_id}_measure_#{i}"
         %tr
-          %th{id: "#{row_id}_h"}= display_uri(d.predicate_uri, :span, define: true)
+          %th{id: "#{row_id}_h"}= display_uri(d.predicate_uri, define: true)
           %td{id: "#{row_id}_d"}= raw display_text_for_data_point_uri(d, define: :after, id: "#{row_id}_d_v")

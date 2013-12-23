@@ -468,10 +468,11 @@ Eol::Application.routes.draw do
   match '/expire/:id' => 'content#expire_single', :id => /\w+/, :as => 'expire'
   match '/expire_taxon/:id' => 'content#expire_taxon', :id => /\d+/, :as => 'expire_taxon'
   match '/expire_taxa/:id' => 'content#expire_multiple', :id => /\d+/, :as => 'expire_taxa'
-  match '/donate' => 'content#donate', :as => 'donate'
   match '/language' => 'content#language', :as => 'language'
 
   resources :donations, except: [:index, :destroy]
+  # TODO - remove this:
+  match 'content/donate_complete' => 'content#donate_complete'
 
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
@@ -613,7 +614,6 @@ Eol::Application.routes.draw do
   match 'api/:action/:version/:id' => 'api', :version =>  /\d\.\d/
 
   match 'content/random_homepage_images' => 'content#random_homepage_images'
-  match 'content/donate_complete' => 'content#donate_complete'
   match 'content/file/:id' => 'content#file'
   match '/maintenance' => 'content#maintenance', :as => 'maintenance'
 

@@ -4088,7 +4088,7 @@ en:
   or_move_them_to_existing_collection: "or move them to an existing collection"
   original_object: "Original object"
   original: "ORIGINAL:"
-  other_us_dollars_amount: "Other: US$"
+  other_us_dollars_amount: "Other: US $"
   other_collection_items_with_count:
     one: "%{count} other item"
     other: "%{count} other items"

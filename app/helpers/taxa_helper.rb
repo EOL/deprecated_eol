@@ -170,9 +170,9 @@ module TaxaHelper
         haml_concat raw(label)
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
           define(tag_type, uri, options[:search_link])
+          info_icon if options[:val]
         end
       end
-      info_icon if options[:val] && options[:define]
     end
   end
 
@@ -233,7 +233,7 @@ module TaxaHelper
 
   def info_icon
     haml_tag "a.info_icon" do
-      haml_concat "&emsp;&emsp;&emsp;&emsp;" # Width doesn't seem to work.  :|
+      haml_concat "&emsp;" # Width doesn't seem to work.  :|
     end
   end
 

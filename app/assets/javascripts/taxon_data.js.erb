@@ -10,7 +10,7 @@ EOL.create_info_dialog = function(match) {
   $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
   $(match)
     .attr('id', "info_"+nearest)
-    .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;&emsp;&emsp;&emsp;</a>') // Spaces 'cause width doesn't work. :\
+    .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>') // Spaces 'cause width doesn't work. :\
     .addClass('tip')
     .prepend('<a href="#" class="close">&nbsp;</a>');
   EOL.enable_info_dialogs($('#tip_'+nearest));

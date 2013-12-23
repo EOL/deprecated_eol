@@ -1238,6 +1238,7 @@ uk:
   calculate_averages_slow: Розрахувати середні (повільно)
   call_api: Виклик API
   cancel: Скасувати
+  cancel_and_delete: скасування та видалення
   cancel_split: Скасувати
   cannot_be_associated_with_both_a_user_and_a_community: Не може бути пов'язано з користувачем і спільнотою
   cannot_be_empty: не може бути порожнім.
@@ -1869,8 +1870,7 @@ uk:
   discover_link: Пізнати
   displaying_numerical_range: Відображається %{start_number} &ndash; %{end_number} of %{total}
   do_you_want_to_be_a_curator: Ви хочете бути куратором
-  donate: зробити внесок
-  donation_amount_legend: Виберіть суму, яку ви хотіли б пожертвувати
+  donation_amount_legend: Скільки ви хотіли б пожертвувати сьогодні?
   donation_amount_other_label: Інша
   donation_confirmation: Підтвердження пожертви
   donation_error_no_amount: Будь ласка, виберіть суму пожертви.
@@ -2987,6 +2987,9 @@ uk:
     see_all_activity: Переглянути усю попередню діяльність на <a href='%{activity_url}' style='color:#195184'>стрічці новин у вашій сторінці користувача</a>.
     someone_commented_on_something: <b>%{who}</b> вже прокоментував на <b>%{what}</b>.
     unsubscribe: Увійти в систему і змінити параметри електронної пошти на <a href='%{email_prefs_url}' style='color:#195184'>сторінці налаштування повідомлень</a> або <a href='%{unsubscribe_url}' style='color:#195184'>відмовитися від всіх автоматичних повідомлень EOL без входу в систему</a>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: Завантаження готове!
   recent_updates: Останні оновлення
   recently_used_link: Недавно використані
   recently_visited: Недавно відвідані
@@ -3737,6 +3740,24 @@ uk:
       form_header: Відновити обліковий запис
       form_tip: Наявні декілька профілів, зареєстрованих за адресою <em>%{email}</em>, будь ласка, виберіть обліковий запис для  відновлення доступу.
       legend_choose_account: Виберіть обліковий запис
+    saved_searches: 
+      actions_head: Дії
+      attribute_head: Атрибут
+      complete_head: Завершити?
+      created_head: Створено
+      download: завантажити
+      index: 
+        meta_description: Збережені пошуки %{user_full_name}.
+        meta_title: Збережені пошуки %{user_full_name}
+      is_complete: Так
+      is_not_complete: Ні
+      page_title: Збережені пошуки
+      processing: обробка
+      query_empty: порожній
+      query_head: Запит
+      refresh: оновити
+      row_count: Кількість
+      updated_head: Остання дія
     show: 
       meta_description: Профіль користувача %{user_full_name} на Енциклопедії Життя.
       meta_description_curator: Профіль користувача %{curator_level} %{user_full_name} на Енциклопедії Життя.

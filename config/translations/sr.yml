@@ -986,7 +986,6 @@ sr:
   discover_link: Откријте
   displaying_numerical_range: Приказ %{start_number} — %{end_number} од %{total}
   do_you_want_to_be_a_curator: Желите ли да будете кустос
-  donate: Приложи
   donation_amount_legend: Изаберите износ који желите да приложите
   donation_amount_other_label: Друго
   donation_confirmation: Потврда за добровољни прилог

@@ -1996,7 +1996,6 @@ fr:
   discover_link: Découvrir
   displaying_numerical_range: Affichage de %{start_number} à %{end_number} sur %{total}
   do_you_want_to_be_a_curator: Voulez-vous être un conservateur ?
-  donate: Faire un don
   donation_amount_legend: Choisissez le montant que vous voudriez donner
   donation_amount_other_label: Autre
   donation_confirmation: Confirmation de don

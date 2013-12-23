@@ -202,8 +202,10 @@ de:
         label: Bezeichnung
         request_publish: Veröffentlichung anfragen
       known_uri: 
+        clade_exemplar: Als Muster-Kladenbereich verwenden
         description: Beschreibung
         exclude_from_exemplars: Von den Schnellen Tatsachen ausschließen
+        group_by_clade: Für Kladenbereiche verwenden
         name: Name
         toc_items: Kategorien
         uri: URI
@@ -1246,6 +1248,7 @@ de:
   calculate_averages_slow: Mittelwerte berechnen (langsam)
   call_api: API aufrufen
   cancel: Abbrechen
+  cancel_and_delete: abbrechen und löschen
   cancel_split: Abbrechen
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
   cannot_be_empty: darf nicht leer sein.
@@ -1268,6 +1271,7 @@ de:
   citation: Zitierung
   citation_example: "Fisher, Brian: „Pogonomyrmex anergismus Cole, 1954.“ Enzyklopädie des Lebens, von <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Abgerufen am 15. Jan. 2009."
   citing_link: Zitieren
+  clade: Klade
   classification_already_preferred: Diese Klassifikation wurde bereits als bevorzugt markiert.
   classification_button_help: Bitte wählen Sie die Klassifikation aus, welche die vorhandene Seite unten am besten darstellt. Klicken Sie danach auf die entsprechende Schaltfläche „als beispielhaft verwenden“. Auf „Abbrechen“ klicken, um diese Aktion abzubrechen.
   classification_curation_pending: Kuratierung ausstehend. Diese Klassifikation kann nur zu einer anderen Seite in naher Zukunft verschoben werden.
@@ -1891,6 +1895,8 @@ de:
   data_point_uri_summary_name: Daten über %{taxon}
   data_provided_by_content_partner: "Quelle: %{whom}"
   data_provided_by_user: bereitgestellt von %{whom}
+  data_ranges: Datenbereiche
+  data_ranges_subheader: Bereiche für diese Klade
   data_reference_subtable_summary: Zusätzliche Nachweise über diese Tatsache.
   data_row_add_exemplar_button: zu den Schnellen Tatsachen hinzufügen
   data_row_arrow_alt: Zwischen Anzeigen und Ausblenden von zusätzlichen Einzelheiten über diese Tatsache umschalten, falls JavaScript aktiviert.
@@ -1905,11 +1911,14 @@ de:
   data_search_explanation: Die EOL-Datensuche verwenden zum Auffinden von Objekten mit der Übereinstimmung „%{term}“ in Beobachtungen,<br />Messungen und anderen wissenschaftlichen Behauptungen.
   data_search_files: 
     file_ready_for_download: Die kürzlich angefragte Suche nach „%{known_uri_label}“ kann jetzt unter <a href='%{download_url}'>%{download_url}</a> heruntergeladen werden.
+  data_search_files_with_count: 
+    one: Eine gespeicherte Suche
+    other: "%{count} gespeicherte Suchen"
   data_search_link: Wissenschaftliche Daten auf EOL suchen
   data_search_queue_pending: 
-    one: Ein Auftrag wartet noch auf die Verarbeitung (es kann Ihrer sein oder nicht).
-    other: "%{count} Aufträge warten noch auf die Verarbeitung (es können Ihre sein oder nicht)."
-    zero: Es gibt keine ausstehenden Aufträge. Falls Ihr Auftrag nicht vollständig ist, ist etwas schief gelaufen. Bitte erneut versuchen.
+    one: Es wartet noch ein Auftrag auf seine Verarbeitung (es kann Ihr Auftrag sein oder nicht). Sie können die <a href='%{data_search_url}'>Datensuchseite</a> besuchen, um eine andere Suche durchzuführen.
+    other: Es warten noch %{count} Aufträge auf ihre Verarbeitung (es können Ihre Aufträge sein oder nicht). Sie können die <a href='%{data_search_url}'>Datensuchseite</a> besuchen, um eine andere Suche durchzuführen.
+    zero: Es gibt keine ausstehenden Aufträge. Falls Ihr Auftrag nicht vollständig ist, ist etwas schiefgelaufen. Sie können die <a href='%{data_search_url}'>Datensuchseite</a> besuchen, um eine andere Suche durchzuführen.
   data_search_refine_field_label: Datensuche verfeinern
   data_server_unavailable: Die Daten auf EOL sind vorübergehend nicht verfügbar. Bitte später erneut versuchen. Wir bitten um Verständnis für diese Unannehmlichkeit.
   data_show_n_more_rows: NNN weitere anzeigen …
@@ -2029,14 +2038,18 @@ de:
   discover_link: Entdecken
   displaying_numerical_range: Von %{start_number} bis %{end_number} von %{total} anzeigen
   do_you_want_to_be_a_curator: Möchten Sie ein Kurator werden?
-  donate: Spenden
-  donation_amount_legend: "Wählen Sie den Betrag, den Sie gerne spenden möchten:"
+  donate_link: Spenden
+  donation_agree: zustimmen
+  donation_amount: "Gesamt:"
+  donation_amount_legend: Wie viel möchten Sie heute spenden?
   donation_amount_other_label: Anderer
   donation_confirmation: Spendenbestätigung
+  donation_confirmation_head: Wir begrüßen Ihre Spende!
   donation_error_minimum: Der Mindestspendebetrag beträgt aufgrund der Verarbeitungskosten %{min}.
   donation_error_no_amount: Bitte einen Spendenbetrag auswählen
   donation_error_only_numbers: Bitte geben Sie eine Menge nur mit Hilfe von Ziffern an.
-  donation_introduction_paragraph_one: EOL wächst jeden Tag. Wir möchten Sie dazu ermutigen EOL zu erkunden und alle Angebote zu nutzen. Wir bitten Sie auch, uns dabei zu unterstützen, das diese Initiative mit Hilfe Ihrer Beiträge, Ihres Fachwissens und Ihrer finanziellen Unterstützung weiter wächst.
+  donation_intro_span: EOL wächst jeden Tag
+  donation_introduction_paragraph_one: Wir möchten Sie dazu ermutigen EOL zu erkunden und alle Angebote zu nutzen. Wir bitten Sie auch, uns dabei zu unterstützen, das diese Initiative mit Hilfe Ihrer Beiträge, Ihres Fachwissens und Ihrer finanziellen Unterstützung weiter wächst.
   donation_introduction_paragraph_two: Ihre großzügige Förderung der Enzyklopädie des Lebens (EOL) unterstützt unsere Arbeit einen weltumspannenden Zugang zum Wissen über das Leben auf unserer Erde zu schaffen.
   donation_privacy_notice: <em>Datenschutz- und Sicherheitshinweis:</em> Bitte beachten Sie, dass diese Seite, sowie die folgende Bestätigungsseite, keine persönlichen Informationen oder Kreditkartennummern aufzeichnen und daher nicht verschlüsselt werden. Nach der Bestätigung des Betrags, den Sie spenden möchten, gelangen Sie zu einer gesicheren Seite, auf der Sie Ihre Zahlungsinformationen angeben können. Abbuchungen von Ihrer Kreditkarte werden nicht durchgeführt, bis Sie die Seite mit Ihren persönlichen Informationen gespeichert und diese so an uns übermittelt haben.
   donation_sponsorship_content_description: Spender mit Interesse an bestimmten Zweigen am Baums des Lebens, können die Bemühungen fördern, hierzu neue Inhalte für die EOL zu ermitteln sowie zu erwerben. Spenden können beispielsweise die Schaffung von Sammlungen mit Seiten bestimmter Arten fördern. Dies kann sowohl eine allgemeine Sammlung zu allen Säugetieren Europas, zu allen Vögeln Deutschlands, oder auch eine sehr spezifische Sammlung zu Robben in der Helgoländer Bucht sein.
@@ -2046,6 +2059,10 @@ de:
   donation_sponsorship_infrastructure_description: Um die Stärken der EOL den Menschen auf der ganzen Welt zur Verfügung stellen zu können, sind Spenden jeglichen Umfangs sehr willkommen, welche die Infrastruktur- sowie Betriebsausgaben dieser Initiative absichern.
   donation_sponsorship_infrastructure_title: Infrastruktur
   donation_sponsorship_preamble: Sofern Sie mehr über verfügbare spezifischen Förderprogramme erfahren oder regelmäßig Spenden möchten, bitten wir Sie das Sekretariat der Enzyklopädie des Lebens (EOL) per <a href="mailto:%{email_address}">E-Mail</a> zu kontaktieren.
+  donation_title: An die Enzyklopädie des Lebens spenden
+  donation_transaction_details_amount: "Betrag:"
+  donation_you_are_about_to: Sie sind dabei, an die Enzyklopädie des Lebens zu spenden. Bitte klicken Sie auf „zustimmen“, um auf eine sichere Zahlungsverarbeitungswebsite zu gelangen, wo Sie aufgefordert werden, Ihre Kreditkarteninformationen einzugeben. Um den Vorgang abzubrechen, benutzen Sie die Browserschaltfläche „Zurück“.
+  donations_more_ways_title: Es gibt weitere Wege, wie man der EOL helfen kann, zu wachsen
   donations_temporarily_disabled: Leider werden derzeit keine Onlinespenden akzeptiert. Bitte kontaktieren Sie das EOL-Sekretariat unter secretariat[at]eol.org, um zu spenden.
   done_already: Bereits erledigt
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Unbekannte Registrierungsdaten nicht anzeigen (v1.0-Nutzer, alle vor dem 5. Januar 2009)
@@ -2211,6 +2228,7 @@ de:
   file: Datei
   file_download_pending: Das Erstellen des Downloads erfordert ein wenig mehr Zeit. Wir haben für ihn einen Hintergrundauftrag gestartet. Sie können zu jeder Zeit <a href='%{link}'>den Auftragsstatus überprüfen</a>.
   file_download_ready: EOL hat das Erstellen der Datensuchdatei für Ihre Abfrage „%{query}“ beendet. Sie können <a href='%{file}'>sie jederzeit in den nächsten Tagen herunterladen</a>.
+  file_download_refreshing: Das Aktualisieren eines Downloads erfordert etwas mehr Zeit. Wir haben einen Hintergrundauftrag für den Download gestartet. Sie können zu jeder Zeit <a href='%{link}'>den Status für Ihren Auftrag überprüfen</a>.
   file_id: Dateikennung
   file_size: Dateigröße
   filed_under_label_with_date: Gespeichert unter %{label} am %{date}
@@ -3429,6 +3447,7 @@ de:
   quarterly: Vierteljährlich
   rails_databases: Rails-Datenbanken
   rails_environment: Rails-Umgebung
+  range: Bereich
   rank_recognized_by_agent: "%{rank} wurde von %{agent} anerkannt"
   rank_recognized_by_agent_colon: "<b>%{rank}</b> wurde von %{agent} anerkannt:"
   rank_recognized_by_from_source: "%{rank} wurde von %{agent} auf %{source} anerkannt"
@@ -3496,6 +3515,8 @@ de:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Ihr Download ist fertig!
+      message: Sie können diese und andere Suchen durch den Besuch des <a href='%{download_link}'>Reiters für gespeicherte Suchen in Ihrem Profil</a> herunterladen.
+      subject: Ihre EOL-Suche ist bereit zum Herunterladen
   recent_updates: Letzte Aktualisierungen
   recently_used_link: Kürzlich verwendet
   recently_visited: Kürzlich besucht
@@ -3503,6 +3524,7 @@ de:
   recognized_by_as_a_rank: von %{recognized_by} als %{taxon_rank} anerkannt
   recognized_by_from_source: "%{recognized_by} in %{source}"
   recognized_by_from_source_as_a_rank: von %{recognized_by} auf %{source} als %{taxon_rank} anerkannt
+  record_count: Aufzeichnungsanzahl
   record_not_found: "[Datensatz wurde nicht gefunden]"
   reference: Nachweis
   references_cabs_colon: "Quellennachweise:"
@@ -3594,6 +3616,7 @@ de:
   search_term_reports: Bericht zu den Suchbegriffen
   search_term_reports_title: Berichte zu den Suchbegriffen
   search_the_site: Website durchsuchen
+  searching_within_clade: innerhalb %{clade_name}
   see_all_activity_combinations: Alle Aktivitätskombinationen innerhalb 5 Minuten ansehen.
   see_all_classifications_with_count_html: 
     one: <span class="assistive">Die genehmigte Klassifikation ansehen, in der dieses Taxon vorkommt.</span>
@@ -4061,6 +4084,7 @@ de:
         meta_title_with_common_name: Reichhaltigkeit von %{preferred_common_name} (%{scientific_name})
         tweet_text: Reichhaltigkeitswert für %{scientific_name}
   taxa_column_header: Taxa
+  taxa_count: Taxonanzahl
   taxa_with_count: 
     one: "%{count} Taxon"
     other: "%{count} Taxa"
@@ -4538,7 +4562,24 @@ de:
       form_tip: Es gibt mehrere Konten, die mit der E-Mail-Adresse <em>%{email}</em> registriert sind. Bitte wählen Sie das Konto, das geborgen werden soll.
       legend_choose_account: Ein Nutzerkonto auswählen
     saved_searches: 
+      actions_head: Aktionen
+      attribute_head: Attribut
+      complete_head: Vollständig?
+      created_head: Erstellt
+      download: herunterladen
+      empty: Sie haben keine gespeicherten Suchen. Besuchen Sie die <a href='%{data_search_url}'>Datensuchseite</a>, um Suchen auszuführen und zu speichern.
+      index: 
+        meta_description: Gespeicherte Suchen von %{user_full_name}.
+        meta_title: Gespeicherte Suchen von %{user_full_name}
+      is_complete: Ja
+      is_not_complete: Nein
       page_title: Gespeicherte Suchen
+      processing: verarbeiten
+      query_empty: leer
+      query_head: Abfrage
+      refresh: aktualisieren
+      row_count: Anzahl
+      updated_head: Letzte Aktion
     show: 
       meta_description: Mitgliedsprofil von %{user_full_name} auf der Enzyklopädie des Lebens (EOL).
       meta_description_curator: Mitgliedsprofil von %{curator_level} %{user_full_name} auf der Enzyklopädie des Lebens (EOL).

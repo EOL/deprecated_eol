@@ -1,6 +1,7 @@
 # Messages for Korean (한국어)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Clockoon
 # Author: Csparr
 # Author: Cwt96
 # Author: Hym411
@@ -1141,6 +1142,7 @@ ko:
   calculate_averages_slow: 평균 계산 (느림)
   call_api: API 호출
   cancel: 취소
+  cancel_and_delete: 취소하고 삭제
   cancel_split: 취소
   cannot_be_associated_with_both_a_user_and_a_community: 사용자와 공동체 모두 연결할 수 없습니다
   cannot_be_empty: 비워둘 수 없습니다.
@@ -1818,7 +1820,8 @@ ko:
   discover_link: 발견
   displaying_numerical_range: "%{total}개 중 %{start_number} &ndash; %{end_number} 보기"
   do_you_want_to_be_a_curator: 큐레이터가 되겠습니까
-  donate: 기부
+  donate_link: 기부
+  donation_agree: 동의
   donation_amount_legend: 기부할 금액을 선택하세요
   donation_amount_other_label: 기타
   donation_confirmation: 기부 확인
@@ -3150,6 +3153,9 @@ ko:
     see_all_activity: <a href='%{activity_url}' style='color:#195184'>내 사용자 뉴스 피드 문서</a>에서 이전의 모든 활동을 보세요.
     someone_commented_on_something: <b>%{who}</b> 사용자가 <b>%{what}</b>에 덧글을 남겼습니다.
     unsubscribe: 로그인하고 <a href='%{email_prefs_url}' style='color:#195184'>내 알림 환경 설정 문서</a>에서 당신의 이메일 설정을 바꾸거나 <a href='%{unsubscribe_url}' style='color:#195184'>로그인하지 않고 EOL 알림을 자동으로 모두 구독 취소하세요</a>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: 다운로드가 준비되었습니다!
   recent_updates: 최근 업데이트
   recently_visited: 최근 방문
   recipients: 받는 사람

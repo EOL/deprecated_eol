@@ -150,7 +150,7 @@ module TaxaHelper
   def display_uri(uri, options = {})
     options[:search_link] = true unless options.has_key?(:search_link)
     display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
-    tag_type = "div"
+    tag_type = options[:span] ? 'span' : 'div'
     tag_type << ".#{options[:class]}" if options[:class]
     capture_haml do
       info_icon
@@ -159,6 +159,13 @@ module TaxaHelper
       end
       label = format_data_value(display_label, options)
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
+        if current_user.min_curator_level?(:full)
+          if options[:exemplar]
+            haml_concat image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar))
+          elsif options[:excluded]
+            haml_concat image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
+          end
+        end
         haml_concat raw(label)
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
           define(tag_type, uri, options[:search_link])
@@ -209,13 +216,13 @@ module TaxaHelper
     if data_point_uri.association?
       text_for_row_value += display_association(data_point_uri, options)
     else
-      text_for_row_value += display_uri(data_point_uri.object_uri, options).to_s
+      text_for_row_value += display_uri(data_point_uri.object_uri, options.merge(span: true)).to_s
     end
     # displaying unit of measure
     if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)
-      text_for_row_value += " " + display_uri(uri_components)
+      text_for_row_value += " " + display_uri(uri_components, span: true)
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
-      text_for_row_value += " " + display_uri(uri_components)
+      text_for_row_value += " " + display_uri(uri_components, span: true)
     end
     text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless data_point_uri.new_record?

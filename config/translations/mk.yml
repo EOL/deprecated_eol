@@ -2011,7 +2011,6 @@ mk:
   discover_link: Откријте
   displaying_numerical_range: Приказ на %{start_number} &mdash; %{end_number}
   do_you_want_to_be_a_curator: Дали сакате да бидете кустос
-  donate: Дајте прилог
   donation_amount_legend: Одберете го износот што сакате да го дадете како прилог
   donation_amount_other_label: Друг
   donation_confirmation: Потврда на доброволниот прилог

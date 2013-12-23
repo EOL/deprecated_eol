@@ -215,8 +215,10 @@ es:
         label: Etiqueta
         request_publish: Solicitar la publicación
       known_uri: 
+        clade_exemplar: Utilizar como modelo de rango de clado
         description: Descripción
         exclude_from_exemplars: Excluir de Datos Rápidos
+        group_by_clade: Usar para rangos de clado
         name: Nombre
         toc_items: Categorías
         uri: URI
@@ -1260,6 +1262,7 @@ es:
   calculate_averages_slow: Calcular las medias (lento)
   call_api: Llamada API
   cancel: Cancelar
+  cancel_and_delete: cancelar y eliminar
   cancel_split: Cancelar
   cannot_be_associated_with_both_a_user_and_a_community: No se puede asociar con un usuario y una comunidad
   cannot_be_empty: no puede estar vacío.
@@ -1282,6 +1285,7 @@ es:
   citation: Citación
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, disponible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado 15 Jan 2009.
   citing_link: Citando
+  clade: Clade
   classification_already_preferred: "ERROR: Esta clasificación ya se ha marcado como preferida."
   classification_button_help: Por favor selecciona la clasificación que mejor representa la página existente a continuación y haz clic en el correspondiente "usar como ejemplar". Para cancelar totalmente la operación, haz clic en "Cancelar".
   classification_curation_pending: Pendiente de conservación. Esta clasificación puede moverse a otra página en un futuro próximo.
@@ -1905,6 +1909,8 @@ es:
   data_point_uri_summary_name: datos acerca de %{taxon}
   data_provided_by_content_partner: "Fuente: %{whom}"
   data_provided_by_user: proporcionado por %{whom}
+  data_ranges: Rangos de Datos
+  data_ranges_subheader: Rangos para este Clado
   data_reference_subtable_summary: Referencias adicionales sobre este hecho.
   data_row_add_exemplar_button: Agregar a hechos rápidos
   data_row_arrow_alt: Alternar entre mostrar y ocultar los detalles adicionales sobre este hecho, si tiene javascript activado.
@@ -1919,11 +1925,14 @@ es:
   data_search_explanation: Utilice la búsqueda de datos de EOL para encontrar elementos que coincidan con '%{term}' en observaciones,<br />mediciones y otras afirmaciones científicas.
   data_search_files: 
     file_ready_for_download: La búsqueda que recientemente solicitó para "%{known_uri_label}" ahora puede descargarse en <a href='%{download_url}'>%{download_url}</a>.
+  data_search_files_with_count: 
+    one: "%{count} búsqueda guardada"
+    other: "%{count} búsquedas guardadas"
   data_search_link: Búsqueda de datos científicos en EOL
   data_search_queue_pending: 
-    one: Todavía hay %{count} trabajo pendiente esperando ser procesado (puede ser o no ser suyo).
-    other: Todavía hay %{count} trabajos pendientes esperando ser procesados (pueden ser o no ser suyos).
-    zero: No hay trabajos pendientes. Si su trabajo no está completado, algo salió mal. Por favor inténtelo de nuevo.
+    one: Todavía hay %{count} trabajo esperando a ser procesado (puede o no puede ser el suyo). Puede visitar la <a href='%{data_search_url}'>página de búsqueda de datos</a> para realizar otra búsqueda.
+    other: Aún hay %{count} trabajos esperando a ser procesados (pueden o no pueden ser los suyos). Puede visitar la <a href='%{data_search_url}'>página de búsqueda de datos</a> para realizar otra búsqueda.
+    zero: No hay trabajos pendientes. Si su trabajo no está completo, algo salió mal. Puede visitar la <a href='%{data_search_url}'>página de búsqueda de datos</a> para realizar otra búsqueda.
   data_search_refine_field_label: Refinar búsqueda de datos
   data_server_unavailable: Los datos en EOL no están disponibles. Por favor compruebe después más adelante. Disculpe las molestias.
   data_show_n_more_rows: Mostrar NNN más...
@@ -1931,9 +1940,9 @@ es:
   data_subtab_glossary: Glosario
   data_summary_header: Hechos Rápidos
   data_summary_header_with_count: 
-    one: EOL tuvo 1 rasgo de registro
-    other: EOL tuvo %{count} rasgos de registros
-    zero: EOL no tenía ningún rasgo de registros
+    one: EOL tiene datos para 1 rasgo
+    other: EOL tiene datos para %{count} rasgos
+    zero: EOL no tiene ningún rasgo de datos
   data_tab_curator_excluded: eliminado de Hechos Rápidos
   data_tab_curator_exemplar: añadido a Hechos Rápidos
   data_tab_curator_key_excluded: "%{image} eliminada de <a href='%{link}'>Hechos Rápidos</a>"
@@ -2043,13 +2052,18 @@ es:
   discover_link: Descubrir
   displaying_numerical_range: Viendo %{start_number} &mdash; %{end_number} de %{total}
   do_you_want_to_be_a_curator: ¿Desea ser supervisor?
-  donate: Donar
-  donation_amount_legend: Elija la cantidad que le gustaría donar
+  donate_link: Donar
+  donation_agree: acepto
+  donation_amount: "Total:"
+  donation_amount_legend: ¿Cuánto le gustaría contribuir hoy?
   donation_amount_other_label: Otro
   donation_confirmation: Confirmación de donación
+  donation_confirmation_head: ¡Agradecemos su contribución!
+  donation_error_minimum: Debido a los costos de procesamiento, el monto mínimo de la donación es de %{min}.
   donation_error_no_amount: Por favor, seleccione una cantidad de donación.
   donation_error_only_numbers: Por favor, introduzca una cantidad usando sólo números.
-  donation_introduction_paragraph_one: EOL está creciendo diariamente. Lo invitamos a explorarla y a aprovechar todo lo que ofrece. Ayúdenos a seguir creciendo con sus contribuciones de contenido, expertise y apoyo financiero.
+  donation_intro_span: EOL está creciendo cada día
+  donation_introduction_paragraph_one: Lo invitamos a explorar EOL y aprovechar todo lo que tiene que ofrecer. Le pedimos que ayude a mantener la iniciativa de crecimiento mediante sus contribuciones en contenido, experiencia y apoyo financiero.
   donation_introduction_paragraph_two: A través de su generoso apoyo financiero, la Enciclopedia de la Vida continúa ofreciendo acceso global al conocimiento sobre la vida en la Tierra.
   donation_privacy_notice: Por favor note que en esta página y la página de confirmación siguiente no recogemos ninguna información personal o números de tarjetas de crédito, y por tanto no son codificados. Después de confirmar la cantidad que desea donar, será dirigido a una página segura para entrar en su información de pago. Cargos a su tarjeta de crédito no se aplicará hasta que presente la página que contiene su información personal.
   donation_sponsorship_content_description: Los donantes interesados en ramas particulares de árbol de la vida pueden patrocinar esfuerzos para dar acceso a nuevos contenidos por medio de EOL. Las donaciones pueden cubrir la creación de colecciones de páginas de especies tan amplias como todos los mamíferos de Norte América o las aves de Brasil, o tan específicas  como las focas de la Bahía de San Francisco, o "Comidas del Nuevo Mundo".
@@ -2059,6 +2073,11 @@ es:
   donation_sponsorship_infrastructure_description: Con el fin de poner el poder de EOL en la manos de la gente alrededor de todo el mundo, se aceptan donaciones de toda escala para apoyar la infraestructura fundamental y la de EOL.
   donation_sponsorship_infrastructure_title: Infrastructura fundamental
   donation_sponsorship_preamble: "Si quieres aprender obtener más información sobre los programas de patrocinio que hay disponibles o quieres hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">correo electrónico</a> o por teléfono al 1 (202) 633-8730 (en los Estados Unidos). Entre las oportunidades para donaciones específicas tenemos:"
+  donation_title: Donar a la Enciclopedia de la Vida
+  donation_transaction_details_amount: "Cantidad:"
+  donation_you_are_about_to: Está a punto de donar a la Enciclopedia de la Vida. Por favor, presione el botón "acepto" para continuar a sitio seguro de procesamiento de pagos, donde se le pedirá que introduzca la información de su tarjeta de crédito. Utilice el botón "atrás" de su navegador para cancelar.
+  donations_more_ways_title: Hay muchas maneras de ayudar a crecer EOL
+  donations_temporarily_disabled: Estamos apenados, pero actualmente no se aceptan donaciones en línea. Póngase en contacto con la Secretaría de EOL en 'secretariat arroba eol.org' para hacer una donación.
   done_already: Ya lo ha hecho
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: No mostrar fechas registradas desconocidas (usuario de v1, todo anterior al 5 de enero, 2009)
   download_data: Descargar datos
@@ -2223,6 +2242,7 @@ es:
   file: Archivo
   file_download_pending: La creación de la descarga requiere un poco de tiempo extra, por lo que hemos iniciado un trabajo en segundo plano para él. Puede <a href='%{link}'>comprobar el estado de su trabajo</a> en cualquier momento.
   file_download_ready: EOL ha terminado de crear un archivo de búsqueda de datos para la consulta de "%{query}". Puede <a href='%{file}'>descargarlo en cualquier momento en los próximos días</a>.
+  file_download_refreshing: La actualización de una descarga requiere un poco de tiempo extra, por lo que hemos iniciado un trabajo en segundo plano para él. Puede <a href='%{link}'>comprobar el estado de su trabajo</a> en cualquier momento.
   file_id: Identificador de archivo
   file_size: Tamaño de archivo
   filed_under_label_with_date: Archivado en %{label} el %{date}
@@ -2235,6 +2255,7 @@ es:
   filter_by_status_trusted_option: De confianza
   filter_by_status_unreviewed_option: Sin revisar
   filter_by_status_untrusted_option: No es de confianza
+  filter_by_subject: Filtrar por tema
   filter_by_type: Filtrar por tipo
   filter_by_type_all_option: Todos los tipos
   filter_by_type_all_option_with_count: 
@@ -2948,6 +2969,7 @@ es:
   link_name: Nombre del enlace
   link_not_associated_with_any_published_entries: Este enlace no está asociado con ninguno de los taxones publicados.
   link_rating: Clasificación de enlace
+  link_to_this_term: enlace a este término
   links_with_count: 
     one: "%{count} enlace"
     other: "%{count} enlaces"
@@ -3441,6 +3463,7 @@ es:
   quarterly: Trimestral
   rails_databases: Bases de datos Rails
   rails_environment: Contorno de Rails
+  range: Rango
   rank_recognized_by_agent: "%{rank} reconocidas por %{agent}"
   rank_recognized_by_agent_colon: "<b>%{rank}</b> reconocidas por %{agent}:"
   rank_recognized_by_from_source: "%{rank} reconocidas por %{agent} in %{source}"
@@ -3505,6 +3528,11 @@ es:
     see_all_activity: Ver toda la actividad anterior en <a href='%{activity_url}' style='color:#195184'>su página de noticias de usuario</a>.
     someone_commented_on_something: <b>%{who}</b> ha comentado sobre <b>%{what}</b>.
     unsubscribe: Inicia sesión y cambia tu configuración de correo electrónico en <a href='%{email_prefs_url}' style='color:#195184'>tu página de preferencias de notificaciones</a>. o <a href='%{unsubscribe_url}' style='color:#195184'>cancela la suscripción de todas las notificaciones automatizadas de EOL sin iniciar sesión</a>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: ¡Su descarga está lista!
+      message: Puede descargar esta y otras descargas visitando la <a href='%{download_link}'>pestaña de búsquedas guardadas en su perfil</a>.
+      subject: Su búsqueda EOL está lista para descargar
   recent_updates: Actualizaciones recientes
   recently_used_link: Recientemente usado
   recently_visited: Visitados recientemente
@@ -3512,6 +3540,7 @@ es:
   recognized_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} en %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
+  record_count: Número de Registro
   record_not_found: "[no se encontró el registro]"
   reference: Referencia
   references_cabs_colon: "Referencias:"
@@ -3602,6 +3631,7 @@ es:
   search_term_reports: buscar informes
   search_term_reports_title: Informes de término de búsqueda
   search_the_site: Buscar en el sitio
+  searching_within_clade: dentro de %{clade_name}
   see_all_activity_combinations: vea todas las combinaciones de actividad dentro de 5 minutos.
   see_all_classifications_with_count_html: 
     one: Ver <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
@@ -3619,9 +3649,9 @@ es:
     one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
     other: Ver todas <span class="assistive">las %{count} comunidades que tienen como foco este taxón.</span>
   see_all_data_with_count_html: 
-    one: Ver <span class="assistive">los %{count} hechos para este taxón.</span>
-    other: Ver todos los <span class="assistive">%{count} hechos para este taxón.</span>
-    zero: Ver la ficha de datos <span class="asistencial">para este taxón.</span>
+    one: View <span class="assistive">%{count} rasgo para este taxón.</span>
+    other: Ver todos los <span class="assistive">%{count} rasgos para este taxón.</span>
+    zero: Ver la ficha de datos <span class="assistive">para este taxón.</span>
   see_all_editors_with_count: 
     one: ver al administrador
     other: Ver a todos los %{count}administradores
@@ -4069,6 +4099,7 @@ es:
         meta_title_with_common_name: Riqueza de %{preferred_common_name} (%{scientific_name})
         tweet_text: Resultado de riqueza de %{scientific_name}
   taxa_column_header: Taxones
+  taxa_count: Registro de Taxones
   taxa_with_count: 
     one: "%{count} taxón"
     other: "%{count} taxones"
@@ -4544,6 +4575,25 @@ es:
       form_header: Recuperar cuenta
       form_tip: Hay varias cuentas registradas con la dirección de correo <em>%{email}</em>, por favor, selecciona la cuenta para la que te gustaría recuperar el acceso.
       legend_choose_account: Elige una cuenta
+    saved_searches: 
+      actions_head: Acciones
+      attribute_head: Atributo
+      complete_head: ¿Completar?
+      created_head: Creado
+      download: descargar
+      empty: No tiene búsquedas guardadas. Visite la <a href='%{data_search_url}'>página de datos de búsqueda</a> para realizar y guardar las búsquedas.
+      index: 
+        meta_description: "%{user_full_name} búsquedas guardadas."
+        meta_title: "%{user_full_name} Búsquedas Guardadas"
+      is_complete: Sí
+      is_not_complete: 'No'
+      page_title: Búsquedas Guardadas
+      processing: procesando
+      query_empty: vacío
+      query_head: Consulta
+      refresh: actualizar
+      row_count: conteo
+      updated_head: Última acción
     show: 
       meta_description: Perfil de miembro de %{user_full_name} en la Encyclopedia of Life.
       meta_description_curator: Perfil de miembro del %{curator_level} %{user_full_name} en la Encyclopedia of Life.

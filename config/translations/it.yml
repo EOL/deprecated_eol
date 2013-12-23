@@ -1247,7 +1247,6 @@ it:
   details_title: Dettagli
   development_version_name: EOL V2 Beta
   did_you_mean: "Forse intendevi: %{suggestions} ?"
-  donate: Fai una donazione
   donation_amount_legend: Scegli l'importo che vuoi donare
   donation_amount_other_label: Altro
   donation_confirmation: Conferma donazione

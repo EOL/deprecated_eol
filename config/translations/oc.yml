@@ -1921,7 +1921,6 @@ oc:
   discover_link: Descobrir
   displaying_numerical_range: Afichatge de %{start_number} a %{end_number} sus %{total}
   do_you_want_to_be_a_curator: Volètz èsser un conservator ?
-  donate: Far un don
   donation_amount_legend: Causissètz lo montant que voldriatz donar
   donation_amount_other_label: Autre
   donation_confirmation: Confirmacion de don

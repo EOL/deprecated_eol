@@ -150,10 +150,10 @@ module TaxaHelper
   def display_uri(uri, options = {})
     options[:search_link] = true unless options.has_key?(:search_link)
     display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
-    tag_type = options[:span] ? 'span' : 'div'
+    tag_type = options[:val] ? 'span' : 'div'
     tag_type << ".#{options[:class]}" if options[:class]
     capture_haml do
-      info_icon
+      info_icon unless options[:val]
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
         define(tag_type, uri, options[:search_link])
       end
@@ -171,6 +171,7 @@ module TaxaHelper
           define(tag_type, uri, options[:search_link])
         end
       end
+      info_icon if options[:val]
     end
   end
 
@@ -216,13 +217,13 @@ module TaxaHelper
     if data_point_uri.association?
       text_for_row_value += display_association(data_point_uri, options)
     else
-      text_for_row_value += display_uri(data_point_uri.object_uri, options.merge(span: true)).to_s
+      text_for_row_value += display_uri(data_point_uri.object_uri, options.merge(val: true)).to_s
     end
     # displaying unit of measure
     if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)
-      text_for_row_value += " " + display_uri(uri_components, span: true)
+      text_for_row_value += " " + display_uri(uri_components, val: true)
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
-      text_for_row_value += " " + display_uri(uri_components, span: true)
+      text_for_row_value += " " + display_uri(uri_components, val: true)
     end
     text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless data_point_uri.new_record?

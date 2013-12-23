@@ -45,6 +45,8 @@ form
         +textarea
     input[type="radio"]
       margin: 0 5px 0 0
+  input.standard
+    +input
   label
     &.required
       background: image-url("v2/icon_required.png") 0 45% no-repeat
@@ -79,6 +81,8 @@ form
           +gradient_bg(saturate(#e07f71 + #111111, 10%), saturate(#cd331e + #111111, 10%))
         &:active
           +gradient-bg(#e07f71, #cd331e)
+      &.with_case
+        text-transform: none
   .heading &.filter
     label
       text-transform: uppercase

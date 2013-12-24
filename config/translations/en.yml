@@ -3297,6 +3297,7 @@ en:
   data_row_unhide_button: "Unhide Row"
   data_search_link: "Search scientific data on EOL"
   data_search_refine_field_label: "Refine data search"
+  data_search_refine_placeholder: "e.g. 10 to 50"
   data_search_queue_pending:
     zero: "There are no jobs pending. If your job is not complete, something went wrong. You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."
     one: "There is still %{count} job waiting to be processed (it may or may not be yours). You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."

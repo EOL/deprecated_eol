@@ -1,0 +1,31 @@
+- show_clade = true unless local_assigns.has_key? :show_clade
+.filters
+  = form_tag data_search_path, method: 'get' do
+    = hidden_field_tag :taxon_concept_id, (@taxon_concept ? @taxon_concept.id : nil)
+    %fieldset.opts
+      %dl
+        %dt
+          %label= I18n.t('activerecord.attributes.user_added_data.predicate')
+        %dd
+          = select_tag(:attribute, data_search_attribute_options)
+      %dl
+        %dt
+          %label= I18n.t(:data_search_refine_field_label)
+        %dd
+          = search_field_tag(:q, @querystring, size: 27, placeholder: I18n.t(:data_search_refine_placeholder))
+      - if show_clade
+        %dl
+          %dt
+            %label= I18n.t(:clade)
+          %dd
+            = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
+              name: 'taxon_name', 'min-length' => 3, size: 27, type: 'search',
+              update_elements: { id: '#taxon_concept_id' }, value: (@taxon_concept ? @taxon_concept.title_canonical : nil)
+      %dl
+        %dt
+          %label= I18n.t(:sort_by)
+        %dd
+          - sort_options = { "-- " + I18n.t(:sort_by) + " --" => nil, I18n.t(:sort_by_value_ascending) => 'asc', I18n.t(:sort_by_value_descending) => 'desc' }
+          = select_tag(:sort, options_for_select(sort_options, @sort))
+    %fieldset.actions
+      = submit_tag I18n.t(:search) unless @wildcard_search

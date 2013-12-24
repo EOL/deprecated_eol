@@ -13,11 +13,10 @@ describe 'taxa/data/index' do
 
   before(:each) do
     # TODO - generalize these extends for the other view specs.
-    taxon_concept = double(TaxonConcept, id: 1)
-    taxon_concept.stub(:latest_version) { taxon_concept }
-    taxon_data = double(TaxonData)
-    taxon_data.stub(:taxon_concept) { taxon_concept }
-    taxon_data.stub(:bad_connection?) { false }
+    @taxon_concept = double(TaxonConcept, id: 1)
+    @taxon_concept.stub(:latest_version) { @taxon_concept }
+    taxon_data = double(TaxonData, taxon_concept: @taxon_concept, bad_connection?: false)
+    taxon_data.stub(:get_data) { [] }
     taxon_page = double(TaxonPage)
     taxon_page.stub(:scientific_name) { 'Arspecius viewicaa' }
     assign(:taxon_page, taxon_page)
@@ -75,9 +74,26 @@ describe 'taxa/data/index' do
 
     context 'search' do
 
-      it "should include a drop-down with all attributes" do
+      it "should include attribute drop-down" do
         render
         expect(rendered).to have_tag('select#attribute')
+      end
+
+      # Nasty test, sorry. Method chains.  ...TODO - that's a bad smell; we should make the code clearer.
+      it 'should include all attributes from the TaxonData' do
+        taxon_data = double(TaxonData, taxon_concept: @taxon_concept, bad_connection?: false)
+        kuri1 = double(KnownUri, name: 'Hi')
+        kuri2 = double(KnownUri, name: 'There')
+        kuri3 = double(KnownUri, name: 'Friend')
+        pred1 = double(DataPointUri, predicate_uri: kuri1)
+        pred2 = double(DataPointUri, predicate_uri: kuri2)
+        pred3 = double(DataPointUri, predicate_uri: kuri3)
+        taxon_data.stub(:get_data) { [pred1, pred2, pred3] }
+        assign(:taxon_data, taxon_data)
+        render
+        expect(rendered).to have_tag('option', text: 'Hi')
+        expect(rendered).to have_tag('option', text: 'There')
+        expect(rendered).to have_tag('option', text: 'Friend')
       end
 
     end

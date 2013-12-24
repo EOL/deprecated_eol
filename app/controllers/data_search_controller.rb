@@ -8,7 +8,6 @@ class DataSearchController < ApplicationController
   # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL
   def index
     prepare_search_parameters(params)
-    prepare_attribute_select_options
     respond_to do |format|
       format.html do
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
@@ -61,19 +60,6 @@ class DataSearchController < ApplicationController
     end
     @search_options = { querystring: @querystring, attribute: @attribute, from: @from, to: @to,
       sort: @sort, language: current_language, taxon_concept: @taxon_concept }
-  end
-
-  def prepare_attribute_select_options
-    @select_options = { "-- " + I18n.t('activerecord.attributes.user_added_data.predicate') + " --" => nil }
-    if @taxon_concept
-      measurment_uris = TaxonData.new(@taxon_concept, current_user).ranges_of_values.collect{ |r| r[:attribute] }
-    else
-      measurment_uris = EOL::Sparql.connection.all_measurement_type_known_uris
-    end
-    @select_options = @select_options.merge(Hash[ measurment_uris.collect do |uri|
-      label = uri.is_a?(KnownUri) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
-      label.nil? ? nil : [ label.firstcap, uri.is_a?(KnownUri) ? uri.uri : uri ]
-    end.compact.sort_by{ |k,v| k.nil? ? '' : k } ] )
   end
 
 end

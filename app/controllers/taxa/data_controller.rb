@@ -1,5 +1,7 @@
 class Taxa::DataController < TaxaController
 
+  helper DataSearchHelper # Because we include one of its partials.
+
   before_filter :restrict_to_data_viewers
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :load_data
@@ -13,6 +15,8 @@ class Taxa::DataController < TaxaController
     @selected_data_point_uri_id = params.delete(:data_point_uri_id)
     @toc_id = params[:toc_id]
     @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
+    @querystring = ''
+    @sort = ''
     current_user.log_activity(:viewed_taxon_concept_data, taxon_concept_id: @taxon_concept.id)
     respond_to do |format|
       format.html {}

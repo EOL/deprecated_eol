@@ -17,35 +17,7 @@
     .site_column
       #data_search
         = render partial: 'shared/beta_warning', locals: { note: I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) }
-        .filters
-          = form_tag data_search_path, method: 'get' do
-            = hidden_field_tag :taxon_concept_id, (@taxon_concept ? @taxon_concept.id : nil)
-            %fieldset
-              %dl
-                %dt
-                  %label= I18n.t('activerecord.attributes.user_added_data.predicate')
-                %dd
-                  = select_tag(:attribute, options_for_select(@select_options.collect{ |opt| [ truncate(opt[0], length: 30), opt[1] ]}, @attribute))
-              %dl
-                %dt
-                  %label= I18n.t(:data_search_refine_field_label)
-                %dd
-                  = search_field_tag(:q, @querystring, size: 27, placeholder: 'e.g. 10 to 50')
-              %dl
-                %dt
-                  %label= I18n.t(:clade)
-                %dd
-                  = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
-                    name: 'taxon_name', 'min-length' => 3, size: 27, type: 'search',
-                    update_elements: { id: '#taxon_concept_id' }, value: (@taxon_concept ? @taxon_concept.title_canonical : nil)
-              %dl
-                %dt
-                  %label= I18n.t(:sort_by)
-                %dd
-                  - sort_options = { "-- " + I18n.t(:sort_by) + " --" => nil, I18n.t(:sort_by_value_ascending) => 'asc', I18n.t(:sort_by_value_descending) => 'desc' }
-                  = select_tag(:sort, options_for_select(sort_options, @sort))
-            %fieldset.actions
-              = submit_tag I18n.t(:search) unless @wildcard_search
+        = render 'data_search/filters'
         #search_results
           #main
             = yield

@@ -102,6 +102,11 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  # TODO - this field is not currently indexed. If we keep doing this, it will need to be, to speed things up:
+  def self.by_name(name)
+    TranslatedKnownUri.where(["name LIKE ?", "%#{name}%"]).joins(:known_uri).first.known_uri
+  end
+
   def self.custom(name, language)
     known_uri = KnownUri.find_or_create_by_uri(BASE + EOL::Sparql.to_underscore(name))
     translated_known_uri =

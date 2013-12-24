@@ -10,6 +10,16 @@ describe KnownUri do
     @unit_of_measure = KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_measurement_unit, name: 'Unit of Measure')
   end
 
+  context '#by_name' do
+
+    it 'should find any match' do # NOTE - it doesn't matter which one it finds.
+      uri1 = KnownUri.custom('flubber', Language.default)
+      uri2 = KnownUri.custom('flubbed it', Language.default)
+      expect([uri1, uri2]).to include(KnownUri.by_name('flub'))
+    end
+
+  end
+
   it 'should find UnitOfMeasure' do
     expect(KnownUri.unit_of_measure).to eq(@unit_of_measure)
   end

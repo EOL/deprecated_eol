@@ -7,6 +7,7 @@ class DataSearchController < ApplicationController
 
   # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL
   def index
+    if params[:attribute]
     prepare_search_parameters(params)
     respond_to do |format|
       format.html do
@@ -45,8 +46,14 @@ class DataSearchController < ApplicationController
     @sort = options[:sort]
     @page = options[:page] || 1
     @taxon_concept = TaxonConcept.find_by_id(options[:taxon_concept_id])
-    @attribute = nil unless EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
-    @attribute_known_uri = KnownUri.find_by_uri(@attribute)
+    # Look up attribute based on query
+    unless EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
+      @attribute_known_uri = KnownUri.by_name(options[:q].split.first)
+      @attribute = @attribute_known_uri.uri
+      options[:q] = ''
+    else
+      @attribute_known_uri = KnownUri.find_by_uri(@attribute)
+    end
     @from, @to = nil, nil
     # we must at least have an attribute to perform a Virtuoso query, otherwise it would be too slow
     unless @attribute.blank?

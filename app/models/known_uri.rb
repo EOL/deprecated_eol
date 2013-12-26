@@ -104,7 +104,7 @@ class KnownUri < ActiveRecord::Base
 
   # TODO - this field is not currently indexed. If we keep doing this, it will need to be, to speed things up:
   def self.by_name(name)
-    TranslatedKnownUri.where(["name LIKE ?", "%#{name}%"]).joins(:known_uri).first.known_uri
+    TranslatedKnownUri.where(["name LIKE ?", "%#{name}%"]).joins(:known_uri).first.try(:known_uri)
   end
 
   def self.custom(name, language)

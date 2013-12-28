@@ -223,6 +223,7 @@ es:
         toc_items: Categorías
         uri: URI
         uri_type: Tipo de URI
+        value_is_text: Los valores no serán URIs, solo texto
       known_uri_relationship: 
         from_known_uri_id: Tema URI
         relationship_uri: Relación de URI
@@ -1873,6 +1874,7 @@ es:
   data_column_value_uri: Valor URI
   data_database_colon: "Datos:"
   data_glossary: Glosario de datos
+  data_link_to_record: Enlace a este registro
   data_logging_active: Registro activo de los datos
   data_master_database_colon: "Datos principales:"
   data_measurement_subtable_summary: Datos adicionales sobre la medición de este hecho.
@@ -3540,7 +3542,7 @@ es:
   recognized_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} en %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
-  record_count: Número de Registro
+  record_count: Conteo de registros
   record_not_found: "[no se encontró el registro]"
   reference: Referencia
   references_cabs_colon: "Referencias:"
@@ -4099,7 +4101,7 @@ es:
         meta_title_with_common_name: Riqueza de %{preferred_common_name} (%{scientific_name})
         tweet_text: Resultado de riqueza de %{scientific_name}
   taxa_column_header: Taxones
-  taxa_count: Registro de Taxones
+  taxa_count: Registro de taxones
   taxa_with_count: 
     one: "%{count} taxón"
     other: "%{count} taxones"
@@ -4584,10 +4586,10 @@ es:
       empty: No tiene búsquedas guardadas. Visite la <a href='%{data_search_url}'>página de datos de búsqueda</a> para realizar y guardar las búsquedas.
       index: 
         meta_description: "%{user_full_name} búsquedas guardadas."
-        meta_title: "%{user_full_name} Búsquedas Guardadas"
+        meta_title: Búsquedas guardadas de %{user_full_name}
       is_complete: Sí
       is_not_complete: 'No'
-      page_title: Búsquedas Guardadas
+      page_title: Búsquedas guardadas
       processing: procesando
       query_empty: vacío
       query_head: Consulta

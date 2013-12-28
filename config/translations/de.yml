@@ -210,6 +210,7 @@ de:
         toc_items: Kategorien
         uri: URI
         uri_type: URI-Typ
+        value_is_text: Werte werden keine URIs sein, nur Text
       known_uri_relationship: 
         from_known_uri_id: Themen-URI
         relationship_uri: Beziehungs-URI
@@ -1859,6 +1860,7 @@ de:
   data_column_value_uri: Wert-URI
   data_database_colon: "Datenbanken (Daten):"
   data_glossary: Datenglossar
+  data_link_to_record: Link zu dieser Aufzeichnung
   data_logging_active: Datenprotokollierung aktiv
   data_master_database_colon: "Hauptdatenbanken (Daten):"
   data_measurement_subtable_summary: Zusätzliche Daten über die Messung dieser Tatsache.
@@ -1920,6 +1922,7 @@ de:
     other: Es warten noch %{count} Aufträge auf ihre Verarbeitung (es können Ihre Aufträge sein oder nicht). Sie können die <a href='%{data_search_url}'>Datensuchseite</a> besuchen, um eine andere Suche durchzuführen.
     zero: Es gibt keine ausstehenden Aufträge. Falls Ihr Auftrag nicht vollständig ist, ist etwas schiefgelaufen. Sie können die <a href='%{data_search_url}'>Datensuchseite</a> besuchen, um eine andere Suche durchzuführen.
   data_search_refine_field_label: Datensuche verfeinern
+  data_search_refine_placeholder: z.&nbsp;B. 10 bis 50
   data_server_unavailable: Die Daten auf EOL sind vorübergehend nicht verfügbar. Bitte später erneut versuchen. Wir bitten um Verständnis für diese Unannehmlichkeit.
   data_show_n_more_rows: NNN weitere anzeigen …
   data_subtab_about: Über

@@ -309,6 +309,8 @@ oc:
         invalid: es invalid
         less_than: deu èsser de valor inferiora a %{count}
         less_than_or_equal_to: deu èsser de valor inferiora o egala a %{count}
+        models: 
+          inaccessible: es inaccessible
         not_a_number: es pas un nombre
         not_an_integer: deu èsser un nombre entièr
         odd: deu èsser de valor impara
@@ -333,7 +335,7 @@ oc:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: pas autorizat — i pòt pas aver qu’una unitat de mesura
+              only_one_measurement: pas autorizat — i pòt pas aver qu’una unitat per defaut
             to_known_uri_id: 
               must_be_different: deu èsser diferent de l’URI del subjècte
               must_be_known_uri: deu èsser un URI conegut
@@ -2627,17 +2629,26 @@ oc:
   known_uri_updated: URI mes a jorn.
   known_uris: 
     add_a_relationship: Apondre una relacion
+    definition_placeholder_text: per ex. Una entitat susceptibla d’aportar de contribucions a la ressorsa.
+    equivalent_to: Relacions d’equivaléncia
     import_successful: Tèrmes d’ontologia importats corrèctament
     more_than_one_field_mapped_to_type: Mai d’un atribut correspond a « %{type} »
+    name_placeholder_text: per ex. Contributor
     no_results: I a pas cap de resultat per l'estatistica seleccionada
     please_select_field_types: Seleccionatz una correspondéncia per cada atribut
     please_select_from_the_menu: Seleccionatz dempuèi lo menú çaisús
     please_select_uris_to_import: Seleccionatz los URIs d’impòrt
+    preferred_for_equivalence_group: Preferit
+    relationships_from_this_uri: Relacions dempuèi aquesta URI
+    relationships_to_this_uri: Relacions cap a aquesta URI
+    select: seleccionar
     select_a_category_to_view_stats: "Seleccionar una categoria per afichar sas estats :"
+    select_a_preferred_uri_for_this_group: Seleccionar una URI preferida
     unrecognized_association_types: URIs de tipe d’associacion pas reconeguts
     unrecognized_measurement_types: URIs de tipe de mesura pas reconeguts
     unrecognized_measurement_units: URIs d’unitat de mesura pas reconeguts
     unrecognized_measurement_values: URIs de valor de mesura pas reconeguts
+    uri_placeholder_text: per ex. http://purl.org/dc/terms/contributor
   known_uris_empty_sorry: O planhèm, i a pas encara cap d’URIs de suggerits per aquesta categoria.
   known_uris_none: Degun a pas apondut cap d’URI d'aqueste tipe.
   known_uris_page_title: URIs per las donadas dins EdlV
@@ -4177,6 +4188,19 @@ oc:
       form_header: Recuperar lo compte
       form_tip: I a mantun compte enregistrats amb aquesta adreça de corrièr electronic <em>%{email}</em>, seleccionatz lo que ne volètz recuperar l'accès.
       legend_choose_account: Causir un compte
+    saved_searches: 
+      actions_head: Accions
+      attribute_head: Atribut
+      complete_head: Acabar ?
+      created_head: Creat
+      download: telecargar
+      is_complete: Òc
+      is_not_complete: Non
+      query_empty: void
+      query_head: Requèsta
+      refresh: actualizar
+      row_count: Compte
+      updated_head: Darrièra accion
     show: 
       meta_description: Perfil de membre per %{user_full_name} dins l'Enciclopèdia de la Vida
       meta_description_curator: Perfil de membre per %{curator_level} %{user_full_name} dins l'Enciclopèdia de la Vida

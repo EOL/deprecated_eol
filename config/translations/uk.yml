@@ -15,6 +15,8 @@ uk:
   0_1_or_2: 0, 1 або 2
   0_or_1: 0 або 1
   a_maximum_of_30_results_are_returned: щонайбільше 30 результатів показується на сторінці. Цей параметр дає змогу отримати більше сторінок результатів за наявності понад 30 збігів
+  a_pipe_delimited_list_of_licenses: список ліцензій, розділених вертикальною рискою| або „всі“, щоб отримати елементи під всі дозволи і ліцензії. Ліцензії з міткою cc - це ліцензії типу %{creative_commons_link}. Щоб дізнатися про ці пропоновані ліцензії, відвідайте веб-сайт.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: „overview“ дає вам текст огляду (якщо існує). Це список об'єктів визначених зі списку %{subjects_text} (напр. TaxonBiology, FossilHistory), розділених вертикальною рискою|. Використовуйте „all“, щоб отримати текст на будь-яку тему. Завжди повертає огляд тексту, в якості першого результату (якщо такий існує в даному контексті).
   a_taxon: таксон
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Всього знайдено %{count} коментар, який відповідає вашим умовам.
@@ -196,12 +198,15 @@ uk:
         label: Позначення
         request_publish: Запит на публікацію
       known_uri: 
+        clade_exemplar: Вживати як зразок діапазону клади
         description: Опис
         exclude_from_exemplars: Вилучити з швидких фактів
+        group_by_clade: Вживати для діапазону клад
         name: Ім'я
         toc_items: Категорії
         uri: URI
         uri_type: Тип URI
+        value_is_text: Значення не будуть URI, лише текстом
       known_uri_relationship: 
         from_known_uri_id: Тема URI
         relationship_uri: Зв'язки URI
@@ -993,6 +998,7 @@ uk:
   admin_home: адміністративна панель
   admin_information: Це нова консоль адміністрування для EOL V2. Знаходиться в процесі передачі функцій адміністрування від V1. Якщо розділ адміністрації, який ви шукаєте, відсутній у списку, будь ласка, відвідайте <a href="/administrator">стару консоль адміністрування</a>.
   admin_link: Огляд
+  admin_login_confirmation: Ви впевнені, що хочете увійти в реєстр контент партнерів як %{name}? Якщо ви зробите це, то ви вийдете з веб-сайту в якості адміністратора.
   admin_news_item_active: Опубліковано
   admin_news_item_create_successful_notice: Елемент новин  <a href="#%{anchor}"><em>%{page_name}</em></a> успішно створено.
   admin_news_item_create_unsuccessful_error: Вибачте, виникла помилка, новини не створено.
@@ -1130,6 +1136,7 @@ uk:
       forum_beta_test_text: <a href="%{forums_link}">Натисніть тут</a>, щоб отримати доступ до бета-тестування нових форумів EOL. Ваші зауваження вітаються.
   api_cache_time_to_live_parameter: число секунд, за які ви бажаєте мати кешовану відповідь
   api_docs_collections_description: Якщо ви вкажете ідентифікатор для збірки, API поверне всі метадані про збірку та елементи, які вона містить. Список елементів можна фільтрувати за типом елемента і сортувати по перерахованих атрибутах. Деякі елементи будуть містити необов'язковий атрибут „sort_field“ („поле сортування“). Поле сортування - це користувацький рядок, який є спеціальною анотацією до елемента збірки. Це може бути будь-який рядок символів, але якщо це дата, то вона повинна відповідати формату РРРР-ММ-ДД. Елементи таксонів будуть містити „richness_score“ („бали повноти“). Повнота являє собою показник, представлений як ціле число між 0 і 100, де більшим числом позначають сторінку з повнішим змістом і з великим розмаїттям джерел. Докладніше про  повноту таксону дивіться на вкладці оновлення сторінки таксонів, наприклад %{richness_url}.
+  api_refer_to_the_getting_started_page: Див. сторінку <a href="%{link}">Приступаючи до роботи</a> за прикладами використання API ЕЖ, умовами використання та відомостями про реєстрацію для отримання ключа API.
   application_version_advisory_information: Версія програми
   are_you_sure: Ви впевнені?
   are_you_sure_this_action_cannot_be_undone: Ви впевнені? Цю дію скасувати не можна.
@@ -1257,7 +1264,10 @@ uk:
   choose_collection_header: Обрати колекцію
   citation: Цитата
   citing_link: Цитуючи
+  clade: Клада
   classification_already_preferred: "Помилка: Ця класифікація вже було позначена як краща."
+  classification_button_help: Виберіть класифікацію, котра найкраще відображає наявну сторінку нижче і натисніть відповідну "використовувати в якості зразка". Щоб повністю скасувати операцію, натисніть кнопку "Скасувати".
+  classification_curation_pending: Очікує курирування. Ця класифікації може бути переміщена до іншої сторінки у найближчому майбутньому.
   classification_curation_split_comment_with_count: 
     one: "%{count} класифікацію з цієї сторінки вже <a href='%{url}'>виділено на свою окрему сторінку</a>."
     other: "%{count} класифікації з цієї сторінки вже <a href='%{url}'>виділені на свою окрему сторінку</a>."
@@ -1269,21 +1279,29 @@ uk:
   classification_summary_section_header: Класифікація
   classification_tree_header: Класифікація
   classifications_edit_cancelled_busy: На жаль, ваш запит на редагування класифікацій не можна наразі опрацювати; одна або декілька сторінок таксонів заблоковані. Опрацьовується наявний запит на редагування цих класифікацій.
+  classifications_edit_cancelled_merge_to_self: Ваше джерело і ціль на тій самій сторінці; нічого не потрібно пересувати.
   classifications_exemplar_column_header: Зразок
   classifications_hierarchy_column_header: Класифікація
   classifications_locked: Класифікації на цій сторінці наразі не можна змінити. Ще один запит для редагування цих класифікацій опрацьовується.
   classifications_merge_additional_confirm_required: Для злиття цих класифікацій потрібне додаткове підтвердження.
+  classifications_merge_providers_match_confirm: Я підтверджую, що я бажаю перевизначити заяву партнера вмісту про те, що ці дані повинні бути роздільними.
+  classifications_merge_providers_match_warning: Ви збираєтеся об'єднати дві сторінки, на яких  %{provider} стверджував, що дані повинні бути окремими. Будь ласка, підтвердіть, що ви хочете <i>переписати</i> їх затвердження і поставити ці дані на одній сторінці.
   classifications_preferred_column_header: Переважна
   classifications_rank_column_header: Ранг
   classifications_recognized_by_column_header: Визнана
   classifications_split_column_header: Розділити / переміщення
+  classifications_split_one_classification_only: Будь ласка виберіть тільки одну класифікацію для розділення. Інші класифікації можуть бути переміщені на нову сторінку після її створення
   classifications_with_count: 
     few: "%{count} класифікації"
     many: "%{count} класифікацій"
     one: "%{count} класифікація"
     other: "%{count} класифікації"
+  clear_all_non_species_pages: Очистити усі сторінки, які не для видів
   clear_entire_cache_store: Очистити усе сховище кешу
+  clear_species_page: Очисти сторінку видів
   click: Клік
+  click_on_a_user_to_view_the_users_detailed_profile: Натисніть на користувача, щоб переглянути детальний профіль користувача, натисніть на вид, щоб переглянути сторінку, де існує текст (використовуйте кнопку браузера "назад" для повернення сюди).
+  click_on_a_username_to_view_the_users_detailed_profile: Натисніть на ім'я користувача, щоб побачити подробиці профілю користувача. Виберіть тип даних, щоб дивитися прокоментований об'єкт (тут можна повернутися за допомогою кнопки „назад“ у навігаторі). Натисніть кнопку „змінити“, щоб змінити коментар або „видалити“, щоб видалити назавжди.
   click_on_an_activity_to_see_th: Натисніть на діяльність, щоб побачити інші заходи, що відбулися протягом п'яти хвилин вікна.
   clicked_time: Час кліку
   close_this_window_to_return_to_edit_window: ЗАКРИЙТЕ ВІКНО, ЩОБ ПОВЕРНУТИСЯ У ВІКНО РЕДАГУВАННЯ
@@ -1501,11 +1519,16 @@ uk:
   content_partner_administration_notes_empty: Відсутні нотатки адміністрації.
   content_partner_administration_notes_header: Адміністративні примітки
   content_partner_administration_settings_header: Параметри адміністрування
+  content_partner_administration_settings_introduction: Наступні адміністративні поля видимі й можуть бути змінені адміністраторами ЕЖ.
   content_partner_agreement_cancel_edit_agreement_link: Скасувати
   content_partner_agreement_cancel_new_agreement_link: Скасувати
   content_partner_agreement_cancel_sign_agreement_link: Скасувати
   content_partner_agreement_create_successful_notice: Умови договору контент-партнера успішно створені.
+  content_partner_agreement_create_unsuccessful_error: Вибачте, виникла помилка, умови угоди з партнером вмісту  не створено.
   content_partner_agreement_signed_successful_notice: Ви успішно погодилися з умовами партнера вмісту, тепер ви можете додати дані.
+  content_partner_agreement_subheader: Угода з партнером вмісту
+  content_partner_agreement_update_successful_notice: Умови договору з партнером вмісту успішно оновлені.
+  content_partner_agreement_update_unsuccessful_error: Вибачте, виникла помилка, умови угоди з партнером вмісту  не оновлено.
   content_partner_column_header_partner: Партнер
   content_partner_contact_create_successful_notice: Додано контакт.
   content_partner_contact_create_unsuccessful_error: Вибачте, виникла помилка, контакт не був доданий.
@@ -1513,11 +1536,15 @@ uk:
   content_partner_contact_delete_unsuccessful_error: Вибачте, виникла помилка, контакт не був вилучений.
   content_partner_contact_edit_link: Редагувати контакт
   content_partner_contact_edit_page_subheader: Редагувати контакт
+  content_partner_contact_new_edit_form_header: Контактна інформація партнера вмісту
+  content_partner_contact_new_edit_form_tip: Ім'я, прізвище та адреса ел. пошти - потрібні %{required_icon}.
   content_partner_contact_new_link: Додати новий контакт
   content_partner_contact_new_page_subheader: Додати контакт
   content_partner_contact_update_successful_notice: Контакт успішно оновлено.
   content_partner_contact_update_unsuccessful_error: Вибачте, виникла помилка, контакт не оновлено.
   content_partner_contacts_header: Контакти
+  content_partner_create_successful_notice: Успішно створено партнера вмісту.
+  content_partner_create_unsuccessful_error: Вибачте, сталася помилка, партнера вмісту не створено.
   content_partner_current_agreement_create_link: Створити новий
   content_partner_current_agreement_edit_link: Змінити
   content_partner_current_agreement_empty: Немає згоди
@@ -1527,6 +1554,7 @@ uk:
   content_partner_data_description_empty: Ніхто ще не додав опис наданих даних.
   content_partner_data_description_header: Опис даних
   content_partner_default_description: Контент-партнер Енциклопедії життя.
+  content_partner_edit_link: Редагувати партнера вмісту
   content_partner_filter_option_published_latest_harvest_not_published: Останні неопубліковані
   content_partner_filter_option_published_latest_harvest_pending_publish: Останні в очікуванні публікації
   content_partner_filter_option_published_latest_harvest_published: Останні опубліковані
@@ -1542,6 +1570,8 @@ uk:
   content_partner_latest_published_harvest_event_time_ago: Останнє оновлення %{time_passed} тому;
   content_partner_logo_alt_text: Логотип для партнера за вмістом %{partner_name}
   content_partner_managed_by_header: Керується
+  content_partner_new_edit_form_profile_header: Дані профілю партнера вмісту
+  content_partner_new_edit_form_tip: Деяка введена тут вами інформація буде публічно доступна. Потрібні назва проекту та опис %{required_icon}.
   content_partner_new_link: Додати нового контент-партнера
   content_partner_new_page_subheader: Додати нового контент-партнера
   content_partner_notes_empty: Немає будь-яких додаткових приміток для цього проекту.
@@ -1574,7 +1604,9 @@ uk:
   content_partner_resource_harvest_event_previously_published: Раніше опубліковано
   content_partner_resource_harvest_event_publish_pending: В очікуванні публікації
   content_partner_resource_hierarchy_browsable: Для перегляду
+  content_partner_resource_hierarchy_complete_false: Ця ієрархія не задана як перевірена. Відповідні записи можуть розглядатися як одне поняття.
   content_partner_resource_hierarchy_edit_link: Змінити
+  content_partner_resource_hierarchy_edit_subheader: Змінити ієрархію для ресурсу <em>%{resource_title}</em>
   content_partner_resource_hierarchy_not_browsable: Не для перегляду
   content_partner_resource_hierarchy_request_publish: Очікування запиту
   content_partner_resource_hierarchy_unknown: Невідомий
@@ -1584,12 +1616,15 @@ uk:
   content_partner_resource_new_link: Додати новий ресурс
   content_partner_resource_new_subheader: Додати новий ресурс
   content_partner_resource_preview_collection_header: Попередній перегляд колекції
+  content_partner_resource_preview_collection_show_link: Попередній перегляд колекції
+  content_partner_resource_processing_header: Статус і налаштування обробки
   content_partner_resource_resource_status_new: Створено
   content_partner_resource_show_link_back_to: повернутися до ресурсу
   content_partner_resource_show_subheader: Деталі для ресурсу <em>%{resource_title}</em>
   content_partner_resource_status_update_illegal_transition_error: Вибачте, поточний стану ресурсу %{resource_title} є %{current_resource_status} і не може бути змінений на %{requested_resource_status}.
   content_partner_resource_status_update_successful_notice: Стан ресурсу %{resource_title} успішно оновлено на %{resource_status}.
   content_partner_resource_status_update_unsuccessful_error: Вибачте, виникла помилка, неможливо оновити стан ресурсу %{resource_title} на %{resource_status}.
+  content_partner_resource_update_successful_notice: "Успішно оновлено відомості про ресурс партнера вмісту. Поточний статус даних ресурсу: %{resource_status}."
   content_partner_resource_update_unsuccessful_error: Вибачте, виникла помилка, відомості про ресурс не були оновлені.
   content_partner_resource_upload_unsuccessful_error: "Вибачте, сталася помилка, відомості про ресурси були оновлені, але сам ресурс не був завантажений: %{resource_status}."
   content_partner_resource_validation_unsuccessful_error: На жаль, були оновлені відомості про ресурси, але ресурс не вдалося перевірити. Див. примітки обробки нижче.
@@ -1633,8 +1668,20 @@ uk:
         meta_keywords: Статистика %{partner_name}, веб-використання %{partner_name}
         meta_title: "%{partner_name} Статистика"
         tweet_text: Статистика використання %{partner_name}
+  content_partners_empty: Не знайдено партнерів вмісту.
   content_partners_link: Партнери за змістом
+  content_partners_page_title: Партнери вмісту
+  content_partners_with_count: 
+    few: "%{count} партнери вмісту"
+    many: "%{count} партнерів вмісту"
+    one: "%{count} партнер вмісту"
+    other: "%{count} партнера вмісту"
+  content_server_full_url: Повна URL-адреса сервера вмісту
+  content_servers: Сервери вмісту
+  content_setting_colon: "Параметр вмісту:"
+  content_summary_table_caption: Коротка інформація про вміст, пов'язаний із %{taxon_name} і його нащадками у %{hierarchy_label}
   content_summary_table_count_column_header: Кількість
+  content_summary_table_summary: Ця таблиця містить число різних типів вмісту, відокремлених станом вмісту.
   content_summary_table_type_descendants_row: Число нащадків
   content_summary_table_type_status_column_header: Тип вмісту та статус
   content_summary_table_type_trusted_images_row: Кількість надійних зображень
@@ -1644,12 +1691,37 @@ uk:
   content_type: Тип вмісту
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Внесок
+  copied_all_items_from_collection_with_count: 
+    few: Скопійовано усі %{count} елементи із %{from} до цієї збірки.
+    many: Скопійовано усі %{count} елементів із %{from} до цієї збірки.
+    one: Скопійовано один елемент із %{from} до цієї збірки.
+    other: Скопійовано усі %{count} елемента із %{from} до цієї збірки
+  copied_all_items_to_collections: 
+    few: Скопійовано усі елементи із %{name} до %{count} збірок.
+    many: Скопійовано усі елементи із %{name} до %{count} збірок.
+    one: Скопійовано усі елементи із %{name} до %{count} збірки.
+    other: Скопійовано усі елементи із %{name} до %{count} збірок.
+  copied_items_from_collection_with_count_notice: 
+    few: Скопійовано %{count} елементи із %{name}.
+    many: Скопійовано %{count} елементів із %{name}.
+    one: Скопійовано %{count} елемент із %{name}.
+    other: Скопійовано %{count} елемента із %{name}.
   copy: Копія
+  copy_items_to_a_new_collection_with_count: 
+    few: Копіювати %{count} елементи до нової збірки
+    many: Копіювати %{count} елементів до нової збірки
+    one: Копіювати %{count} елемент до нової збірки
+    other: Копіювати %{count} елемента до нової збірки
   copy_of_name: Копія %{name}
   copyright: "АВТОРСЬКІ ПРАВА:"
   correct_donation_message_with_link: Якщо цю інформацію визначено неправильно, будь ласка, <a href='%{link}'>поверніться назад</a> для внесення змін.
   could_not_find_collection_error: Вибачте, ця збірка не може бути знайдена.
   could_not_find_user: Ви вже не є членом цієї спільноти.
+  count_results_for_search_term: 
+    few: "%{count} результати для <em>%{search_term}</em>"
+    many: "%{count} результатів для <em>%{search_term}</em>"
+    one: "%{count} результат для <em>%{search_term}</em>"
+    other: "%{count} результату для <em>%{search_term}</em>"
   create_a_collection: Створити збірку
   create_a_community: Створити спільноту
   create_a_community_login_advisory: Вам буде запропоновано увійти перед створенням вашої спільноти
@@ -1676,6 +1748,8 @@ uk:
   curated_association_update_button: Зберегти зміни
   curated_objects_of: куровані об'єкти %{name}
   curated_species_of: куровані види %{name}
+  curation_error_hide_reasons_invalid: Причини приховання для %{association} були не дійсними
+  curation_error_untrust_reasons_invalid: Причини ненадійності для %{association} були не дійсними
   curation_error_vetted_invalid: Ви не можете курувати %{association} до '%{vetted}'
   curation_error_visibility_invalid: Ви не можете курувати %{association} до '%{visibility}'
   curation_privileges_page_title: Стати куратором
@@ -1685,6 +1759,7 @@ uk:
   curator_admin_index_help: Виберіть ім'я користувача, щоб переглянути детальний профіль користувача. Ви можете змінити дозволи рівня куратора на сторінках профілю користувача. Якщо облікові дані обрізані, то натисніть кнопку розгорнути і побачите повні облікові дані.
   curator_colon: "Куратор:"
   curator_level: Рівень куратора
+  curator_level_assistant_approved_notice: Вітаємо! Наразі ви - <em>асистент куратора</em>. <a href="%{more_url}">Дізнайтеся більше про роль асистента куратора</a>.
   curator_level_assistant_curator: Помічник куратора
   curator_level_full_curator: Повний куратор
   curator_level_with_indefinite_article_assistant_curator: <strong>помічник куратора</strong>
@@ -1695,12 +1770,15 @@ uk:
   curator_profile_of: профіль куратора %{name}
   curator_question: Куратор?
   curator_scope_colon: Область курування
+  curator_status_changed_by: "%{date} користувачем %{user} змінено статус куратора"
   curators: Куратори
   curators_summary_learn_more_link: Дізнайтеся, як курувати
   curators_with_count: 
     one: "%{count} куратор"
     other: "%{count} куратори"
   current_language: "Мова: %{iso_code}"
+  currently_in_eol: Наразі у Енциклопедії Життя
+  currently_published: щойно опубліковано
   daily: Щодня
   darwin_core: Дарвін Core
   dashboard: Панель інструментів
@@ -1712,6 +1790,7 @@ uk:
     other: Дані пошуку завантажень  <i>тимчасово</i> обмежені %{count} результатами.
   data_column_classification_summary: Підсумок класифікації
   data_column_common_name: Загальна назва
+  data_column_measurement: Вимірювання
   data_column_measurement_uri: Вимірювання URI
   data_column_name: Мітка вимірювання
   data_column_name_uri: Вимірювання URI
@@ -1721,6 +1800,7 @@ uk:
   data_column_resource: URL ресурсів партнера за вмістом
   data_column_sci_name: Наукова назва
   data_column_source: Джерело
+  data_column_tc_id: ІД сторінки ЕЖ
   data_column_units: Одиниці (нормалізовані)
   data_column_units_uri: Одиниці URI (нормалізовані)
   data_column_val: Значення (нормалізоване)
@@ -1729,6 +1809,7 @@ uk:
   data_column_value_uri: Значення URI
   data_database_colon: "Дані:"
   data_glossary: Словник даних
+  data_link_to_record: Посилання на цей запис
   data_measurement_subtable_summary: Додаткові дані про вимірювання цього факту.
   data_metadata_subtable_summary: Додаткові дані про цей факт.
   data_object: Об'єкт даних
@@ -1759,6 +1840,9 @@ uk:
   data_point_uri_summary_name: дані про %{taxon}
   data_provided_by_content_partner: "Джерело: %{whom}"
   data_provided_by_user: надано %{whom}
+  data_ranges: Діапазони даних
+  data_ranges_subheader: Діапазони для цього кладу
+  data_reference_subtable_summary: Додаткові посилання про цей факт.
   data_row_add_exemplar_button: додати до Швидких Фактів
   data_row_excluded_from_overview_notice: "Примітка: цей рядок було виключено з швидких фактів."
   data_row_exemplar_added: Додано швидкий факт.
@@ -1766,13 +1850,26 @@ uk:
   data_row_hide_button: Приховати рядок
   data_row_remove_exemplar_button: вилучити з швидких фактів
   data_row_unhide_button: Відобразити рядок
+  data_search_destroyed: Ця робота більше не буде оброблятися.
   data_search_files: 
     file_ready_for_download: Пошук, який ви нещодавно запросили за "%{known_uri_label}", можна завантажити за адресою <a href='%{download_url}'>%{download_url}</a>.
+  data_search_files_with_count: 
+    few: "%{count} збережені пошуки"
+    many: "%{count} збережені пошуки"
+    one: "%{count} збережений пошук"
+    other: "%{count} збережені пошуки"
   data_search_link: Пошук наукових даних на ЕЖ
   data_search_refine_field_label: Уточнити дані пошуку
+  data_search_refine_placeholder: наприклад, від 10 до 50
+  data_server_unavailable: Дані про ЕЖ тимчасово недоступні. Будь ласка, завітайте пізніше. Вибачте за завдані незручності.
+  data_show_n_more_rows: Показати понад 10 рядків...
   data_subtab_about: Про
   data_subtab_glossary: Глосарій
   data_summary_header: Швидкі Факти
+  data_tab_curator_excluded: вилучено з швидких фактів
+  data_tab_curator_exemplar: додано до Швидких Фактів
+  data_tab_curator_key_excluded: "%{image} вилучено з <a href='%{link}'>Швидких фактів</a>"
+  data_tab_curator_key_exemplar: "%{image} додано до <a href='%{link}'>Швидких фактів</a>"
   data_usage_reports: Звіти про використання даних
   date_caps: Дата
   date_uploaded: Дата завантаження
@@ -1837,8 +1934,10 @@ uk:
   dato_create_user_text_validation_error: Переконайтеся, що ви правильно заповнили форму.
   dato_edit_cancel: Скасувати
   dato_edit_link_button: Редагувати це посилання
+  dato_edit_link_description: Дякую вам за внесок вашого досвіду у ЕЖ. Перевірене посилання буде додане у ваш список спостереження, тому ви можете відслідковувати будь-які розмови, пов'язані з ним і перевірити його статус куратора.
   dato_edit_link_title: Редагувати посилання
   dato_edit_text_button: Змінити цю статтю
+  dato_edit_text_page_description: Дякую вам за внесок вашого досвіду у ЕЖ. Перевірене посилання буде додане у ваш список спостереження, тому ви можете відслідковувати будь-які розмови, пов'язані з ним і перевірити його статус куратора.
   dato_edit_text_title: Змінити статтю
   dato_location_created: "Місце створення: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Зміст статті
@@ -1848,6 +1947,7 @@ uk:
   dato_new_text_link_for_taxon_page_title: Додати посилання на <i>%{taxon}</i>
   dato_new_text_page_description: Дякую вам за внесок у EOL. Ваша стаття буде додана в ваш список спостереження, тому ви можете прослідковувати будь-які розмови, пов'язані з нею і перевірити її статус куратора.
   dato_update_user_text_error: Вибачте, сталася помилка, стаття не може бути оновлена.
+  dato_update_users_text_not_owner_exception: Тільки автор цього текстового об'єкта може його редагувати.
   default: типово
   default_focus_collection_name_from_community: Фокус %{name}
   default_watch_collection_name: Список спостереження %{username}
@@ -1870,27 +1970,49 @@ uk:
   discover_link: Пізнати
   displaying_numerical_range: Відображається %{start_number} &ndash; %{end_number} of %{total}
   do_you_want_to_be_a_curator: Ви хочете бути куратором
+  donate_link: Пожертвувати
+  donation_agree: згоден
+  donation_amount: "Всього:"
   donation_amount_legend: Скільки ви хотіли б пожертвувати сьогодні?
   donation_amount_other_label: Інша
   donation_confirmation: Підтвердження пожертви
+  donation_confirmation_head: Ми цінуємо ваш внесок!
+  donation_error_minimum: Через витрати на обробку мінімальна сума пожертви становить %{min}.
   donation_error_no_amount: Будь ласка, виберіть суму пожертви.
   donation_error_only_numbers: Будь ласка, введіть суму, використовуючи лише числа.
+  donation_intro_span: ЕЖ зростає з кожним днем
   donation_sponsorship_infrastructure_title: Основна інфраструктура
+  donation_title: Пожертвування для Енциклопедії життя
+  donation_transaction_details_amount: "Сума:"
+  donation_you_are_about_to: Ви збираєтеся пожертвувати "Енциклопедії Життя". Будь ласка, натисніть кнопку "згоден" для продовження на сайті безпечної обробки платежів, де вам буде запропоновано ввести дані вашої кредитної карти. Використовуйте у вашому браузері кнопку "назад" для скасування.
+  donations_more_ways_title: Наявні інші способи, щоб допомогти зростати ЕЖ
+  donations_temporarily_disabled: Ми глибоко шкодуємо, але пожертвування в даний час не приймаються в режимі онлайн. Будь ласка, напишіть секретаріату ЕЖ на 'secretariat at eol.org', щоб зробити пожертвування.
   done_already: Уже зроблено
   download_data: Завантажити дані
   download_wav_file: Завантажити файл WAV
   dublin_core: Dublin Core
+  duplicate_comment_warning: "Коментар не збережено: здається, ви вже опублікували цей коментар. Ви натиснули кнопку 'Надіслати коментар' двічі?"
   duplicate_items_were_ignored: Повторювані елементи було проігноровано.
+  each_method_documentation_page_has_formatted_responses: Сторінка документації кожного методу має взірці відповідей, сформатованих у XML та JSON.
   edit: редагувати
   edit_collection_details: Редагувати дані збірки
   edit_collection_details_header: Редагувати дані збірки
   edit_comment: Редагувати коментар
   edit_comment_lowercase: редагувати коментар
   edit_community: Редагувати спільноту
+  edit_eol_glossary: редагувати глосарій ЕЖ
+  edit_glossary_term: Редагувати термін глосарію
   edit_hierarchy: змінити ієрархію
   edit_my_profile: Редагувати свій профіль
   edit_news_items: змінити елементи новин
   edit_page_contents: змінити вміст сторінки
+  edit_permission_header: "Редагування права: %{permission}"
+  edit_search_suggestion: Редагувати пошукову пропозицію
+  edit_search_suggestions: редагувати пошукові пропозиції
+  edit_table_of_contents: редагувати зміст
+  edit_tag_suggestions: редагувати пропозиції тегів
+  edit_the_user_s_comment_below: Змінити коментар користувача нижче.
+  edit_upload: Змінити завантаження
   edit_username: Редагувати %{username}
   edit_web_users: редагувати веб-користувачів
   edited_colon: "відредаговано:"
@@ -1898,20 +2020,29 @@ uk:
   email: Ел. пошта
   email_colon: "Електронна пошта:"
   email_recipients: Одержувачі електронної пошти
+  email_updates_for_eol_addicts: Оновлення для шанувальників ЕЖ.
   encyclopedia_of_life: Енциклопедія життя
   endorsed_by: Рекомендовано
   endorsed_collections: Рекомендовані збірки
   endorsed_collections_with_count: 
     one: "%{count} Рекомендована збірка"
     other: "%{count} Рекомендовані збірки"
+  eol_accepted_subjects: Прийняті теми ЕЖ
   eol_administration_console: Консоль адміністрування ЕЖ
   eol_api: EOL API
+  eol_api_collections: "API ЕЖ: Збірки"
   eol_api_colon: "EOL API:"
+  eol_api_data_objects: "API ЕЖ: Об'єкти даних"
   eol_api_hierarchies: "EOL API: Ієрархії"
   eol_api_hierarchy_entries: "EOL API: Ієрархія записів"
   eol_api_pages: "EOL API: Сторінки"
   eol_api_ping: "EOL API: Пінг"
+  eol_api_provider_hierarchies: "API ЕЖ: Постачальник ієрархій"
+  eol_api_search: "API ЕЖ: Пошук"
+  eol_api_search_by_provider: "API ЕЖ: Пошук за постачальником"
   eol_colon: "EOL:"
+  eol_curator_activity_email_message: Куратор Енциклопедії Життя <a href='%{profile_url}'>%{curator_full_name}</a> %{action} на <a href='%{data_object_url}'>сайті ЕЖ</a>%{comment}
+  eol_flickr_group: Група ЕЖ у Flickr
   eol_glossary: EOL Глосарій
   eol_news: EOL Новини
   eol_pages: Сторінки
@@ -1961,11 +2092,19 @@ uk:
   error_403_page_title: Заборонено
   error_404_description: Ми шкодуємо, ми не могли знайти сторінку за цією URL-адресою.
   error_404_page_title: Не знайдено
+  error_500_description: Ми шкодуємо, що зіткнулися з проблемою. Якщо проблема не зникне, то, будь ласка, надішліть повідомлення електронної пошти на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Йой!
+  error_classifications_locked_cannot_reindex: На жаль, ця сторінка не може бути переіндексована у цей час. Заблоковано класифікації.
+  error_couldnt_find_collection_by_id: Неможливо знайти збірку, якою можна керувати з ід %{id}.
+  error_couldnt_find_community_by_id: Неможливо знайти спільноту, якою можна керувати з ід %{id}.
+  error_default_description: Ми шкодуємо, що зіткнулися з проблемою. Якщо проблема не зникне, то, будь ласка, надішліть повідомлення електронної пошти на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Йой!
+  error_homepage_or_search_option: "Ви можете повернутися до <a href=\"/\">домашньої сторінки</a> або використовувати наш інструмент для пошуку:"
   error_log: Журнал помилок
   error_log_detail: Подробиці журналу помилок
+  error_no_items_selected: Ви повинні вибрати предмети з колекції або виберіть "Усі файли" з розкривного списку.
   error_updating_user: Сталася помилка при оновленні запису даного користувача
+  every_method_can_also_return_json_response: Кожний метод може також повертати відповідь JSON, додавши розширення .json.
   example_colon: "Приклад:"
   exception: Виняток
   exceptions: 
@@ -1976,6 +2115,9 @@ uk:
       hidden_user_login: На жаль, вхід вимкнено для цього профілю.
       hidden_user_recover_account: На жаль, відновлення облікового запису вимкнено для цього облікового запису.
       hidden_user_temporary_login: На жаль, відновлення облікового запису та вхід вимкнено для цього облікового запису.
+      inactive_user_login: На жаль, цей обліковий запису ще не активний. Якщо ви не отримали перевірочне повідомлення, коли ви зареєструвалися, будь ласка, дотримуйтесь процедури відновлення облікового запису, підтвердіть вашу адресу електронної пошти та активуйте ваш обліковий запис.
+      min_full_curators_only: На жаль, доступу обмежений кураторами ЕЖ з мінімальним  рівнем Повний.
+      min_master_curators_only: На жаль, доступ обмежений кураторами ЕЖ з мінімальним рівнем Майстра.
       no_access: На жаль, доступ обмежено.
   excluded_icon_tip: Рядки, позначені піктограмою виключення %{excluded_icon}, ніколи не будуть показані на сторінках огляду таксону.
   explore: індекс
@@ -2001,6 +2143,7 @@ uk:
   filter_by_status_trusted_option: Надійний
   filter_by_status_unreviewed_option: Непереглянутий
   filter_by_status_untrusted_option: Ненадійний
+  filter_by_subject: Фільтрувати за темою
   filter_by_type: Фільтр за типом
   filter_by_type_all_option: Всі типи
   filter_by_type_all_option_with_count: 
@@ -2020,6 +2163,7 @@ uk:
   filter_by_type_sound_option_with_count: 
     one: Звук (%{count})
     other: Звуки (%{count})
+  filter_by_type_taxa_comment_option: Коментарі таксонів
   filter_by_type_taxon_concept_option: Таксони
   filter_by_type_text_option: Статті
   filter_by_type_user_option: Люди
@@ -2126,9 +2270,12 @@ uk:
   from_community: від спільноти  %{community}
   gbif_map: GBIF карта
   gbif_occurrence_learn_more_link: Доступ до цих даних через портал GBIF.
+  get_help_choosing_a_subchapter: Отримати допомогу при виборі підтеми
+  get_help_choosing_a_subject: Отримати допомогу при виборі теми
   get_more_tasks: отримати більше завдань
   global_navigation: загальне меню
   glossary: Глосарій
+  glossary_is_empty: (словник - порожній)
   glossary_subhead: Глосарій
   glossary_term: термін
   glossary_terms: Глосарій термінів
@@ -2411,6 +2558,7 @@ uk:
   hide: приховати
   hierarchies_title: Ієрархії
   hierarchy: Ієрархія
+  hierarchy_node_missing: На жаль, відсутні дані для цього вузла.
   hierarchy_updated: Ієрархія оновлена
   home: Головна
   html_format: (Формат HTML)
@@ -2422,6 +2570,7 @@ uk:
   image_from_supplier: Зображення від %{whom}
   image_is_no_longer_available: Зображення більше недоступне
   image_map_alt_text: Це %{vetted_status} є мапа %{taxon_name}
+  image_map_from: карта від
   image_map_from_supplier: Мапа від %{whom}
   image_map_not_associated_with_any_published_entries: Ця мапа не пов'язана із жодними опублікованими таксонами.
   image_map_of_taxon: Мапа %{taxon_name}
@@ -2511,6 +2660,8 @@ uk:
   known_uris: 
     add_a_relationship: Додати зв'язок
     attribution_placeholder_text: Наприклад, з Dublin Core; див. http://dublincore.org/usage/terms/history/#contributorT-001.
+    comment_placeholder_text: Наприклад, дані учасника, включаючи особу, організацію або службу.
+    definition_placeholder_text: наприклад. Організація, відповідальна за внесення вкладів у ресурс.
     equivalent_to: Зв'язки рівносильності
     import_successful: Онтологічні терміни успішно імпортовано
     more_than_one_field_mapped_to_type: Більше одного атрибута зіставлено "%{type}"
@@ -2617,6 +2768,12 @@ uk:
   link_name: Назва посилання
   link_not_associated_with_any_published_entries: Це посилання не пов'язане із жодними опублікованими таксонами.
   link_rating: Оцінка посилання
+  link_to_this_term: посилання на цей термін
+  links_with_count: 
+    few: "%{count} посилання"
+    many: "%{count} посилань"
+    one: "%{count} посилання"
+    other: "%{count} посилання"
   list_newsletter_emails: список розсилання листів
   listing_collections: Лістинг колекцій
   literature: Література
@@ -2629,15 +2786,27 @@ uk:
   location_colon: "Місце:"
   login: увійти
   login_hidden_user_message: Обліковий запис %{given_name} більше не активний
+  login_or_create_account: Увійти або створити обліковий запис
+  login_required_button: Потрібний вхід
+  login_to_the_website_as: Увійти на сайт як %{username}
   logo_header: Логотип
   logout: Вихід
   main_database_colon: "Основне:"
   manager_parens: (менеджер)
   map_alt_text: Це %{vetted_status} є мапа %{taxon_name}
+  map_from: карта від
   map_from_supplier: Мапа від %{whom}
   map_not_associated_with_any_published_entries: Ця мапа не пов'язана із жодними опублікованими таксонами.
   map_of_taxon: Мапа %{taxon_name}
   map_rating: Оцінка мапи
+  maps_empty: Ніхто ще не вніс жодних карт на цю сторінку.
+  maps_empty_contribute_instructions: Дізнайтеся, як вносити карти у ЕЖ.
+  maps_with_count: 
+    few: "%{count} карти"
+    many: "%{count} карт"
+    one: "%{count} карта"
+    other: "%{count} карти"
+  master_curators_may_add_data: "Куратори майстри можуть додавати дані:"
   media: Медіа
   media_list_empty_contribute_instructions: Дізнайтеся, як вносити медіадані у ЕЖ.
   member_of: учасник
@@ -2737,6 +2906,9 @@ uk:
   no_errors_are_available: Немає доступних помилок.
   no_survey_responses_are_availa: Немає відповідей на опитування.
   no_tasks_found: Жодне завдання не знайдено
+  no_uploaded_content_is_available: Немає доступного завантаженого вмісту.
+  no_user_submitted_data_objects: Немає надісланих користувачем об'єктів даних, які відповідають вашим критеріям пошуку.
+  no_users_matched_search: Немає користувачів, які відповідають критеріям пошуку.
   not_applicable: не застосовне
   not_evaluated: Не оцінено
   not_published_yet: ще не опубліковано
@@ -2820,6 +2992,8 @@ uk:
   nucleotide_sequences: Нуклеотидні послідовності
   object: Об'єкт
   object_status_all_option: Усі
+  object_status_unreviewed_option: Неперевірені
+  object_status_untrusted_option: Ненадійні
   object_type: Тип об'єкту
   object_type_all_option: Усі
   object_type_collection_option: Збірка
@@ -2860,6 +3034,7 @@ uk:
     many: "%{count} інших таксонів"
     one: "%{count} інший таксон"
     other: "%{count} іншого таксона"
+  other_us_dollars_amount: "Інші: дол. США $"
   other_version_links: "Інші версії: %{version_links}"
   overview: Огляд
   page: Сторінка
@@ -2884,19 +3059,32 @@ uk:
   parameters: Параметри
   partner: Партнер
   partner_information: Інформація для партнерів
+  partner_page: сторінка партнера
+  partner_web_site_colon: "Веб-сайт партнера:"
   password_colon: "Пароль:"
   password_must_be_4to16_characters: Довжина паролю повинна бути від 4 до 16 символів.
   pause: пауза
+  people_with_count: 
+    few: "%{count} людини"
+    many: "%{count} людей"
+    one: "%{count} людина"
+    other: "%{count} людини"
   percentage_of_descendants_with_images: відсоток нащадків із зображеннями
   percentage_of_descendants_with_text: відсоток нащадків із текстом
   permalink: Постійне посилання
   permission_granted: Дозвіл надано.
   permission_revoked: Дозвіл відкликано.
   permissions_list_header: Дозволи на ЕЖ
+  permissions_users_count: 
+    few: "%{count} користувачі"
+    many: "%{count} користувачів"
+    one: "%{count} користувач"
+    other: "%{count} користувача"
   person_rating: Оцінка людини
   personal_profile_menu: Особистий профіль
   personal_space: Особистий простір
   pinterest: Pinterest
+  please_confirm_your_donation_details: Будь ласка, підтвердіть ваші дані пожертвування
   please_indicate_curation_reason: "Будь ласка, виберіть причину і/або за бажання залиште коментар куратора:"
   please_note_that_some_of_these: Зверніть увагу, що деякі з цих інструментів перебувають у бета-версії і можуть змінюватися з часом або містити помилки.
   please_refresh: Будь ласка оновіть сторінку у браузері, щоб побачити останню версію веб-сайту ЕЖ
@@ -2908,6 +3096,7 @@ uk:
   press_room: Пресс-центр
   preview: попередній перегляд
   preview_changes: Попередній перегляд змін
+  preview_version_of_latest_published_data_object_title_link: Перегляд версії %{link}
   previously_published: раніше опубліковані
   proceed_to_checkout_page: Перейти до сторінки контролю
   process_name: Ім'я процесу
@@ -2930,6 +3119,9 @@ uk:
   punctuation_comma: ","
   punctuation_semi_colon: ;
   quarterly: Щоквартально
+  rails_databases: Бази даних Rails
+  rails_environment: Середовище Rails
+  range: Діапазон
   rating_added_notice: Рейтинг був успішно доданий.
   rating_learn_more_link: Що таке рейтинг
   rating_not_added_error: Вибачте, сталася помилка, рейтинг неможливо додати.
@@ -2990,6 +3182,8 @@ uk:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Завантаження готове!
+      message: Ви зможете завантажити це та інше, відвідавши <a href='%{download_link}'>вкладку збережених пошуків у вашому профілі</a>.
+      subject: Ваш пошук ЕЖ - готовий до завантаження
   recent_updates: Останні оновлення
   recently_used_link: Недавно використані
   recently_visited: Недавно відвідані
@@ -3439,6 +3633,7 @@ uk:
   taxon_nucleotide_sequences_link: Нуклеотидні послідовності
   taxon_page_content_disclaimer_header: Відмова від відповідальності
   taxon_rating: Оцінка таксону
+  taxon_recognized_by: "%{whom} визнав таксон"
   taxon_related_organizations_link: Пов'язані організації
   taxonomic_summary_of_content: таксономічний огляд вмісту
   technical_functions: Технічні функції
@@ -3451,10 +3646,14 @@ uk:
   test: Тест.
   text: текст
   text_capital: Текст
+  text_object: Текстовий об'єкт
   text_summary_empty_header: Короткий підсумок
+  text_summary_more_link: Читати повний запис
   thank_you: Дякуємо
   thank_you_for_your_generous_support: Дякуємо вам за щедру підтримку!
+  thanks_for_donation: Дякуємо вам за підтримку Енциклопедії життя. Ваша інформація вже надіслана і буде оброблена.
   thanks_for_your_time: Спасибі за ваш час
+  the_amount_entered_was: "Введена сума: %{number} доларів США"
   the_comment_was_successfully_deleted: Коментар успішно вилучено.
   the_comment_was_successfully_updated: Коментар успішно оновлено.
   the_content_could_not_be_displ: Вміст не може бути відображений.
@@ -3535,6 +3734,7 @@ uk:
   us_dollars_35: 35 доларів США
   us_dollars_50: 50 доларів США
   user: Користувач
+  user_activity_click_on_the_numbers: Натисніть на номери, щоб переглянути відповідні канали активності.
   user_activity_page_title: Діяльність користувача
   user_activity_stats_articles_added_dropdown: Додані статті
   user_activity_stats_data_added_dropdown: Додані дані
@@ -3746,6 +3946,7 @@ uk:
       complete_head: Завершити?
       created_head: Створено
       download: завантажити
+      empty: У вас немає збережених пошуків. Відвідайте <a href='%{data_search_url}'>сторінку даних пошуку</a> для здійснення і збереження пошуку.
       index: 
         meta_description: Збережені пошуки %{user_full_name}.
         meta_title: Збережені пошуки %{user_full_name}
@@ -3765,6 +3966,8 @@ uk:
       already_unsubscribed: Ви вже відписані від сповіщень.
       unsubscribe_notifications_failed: Вибачте, сталася помилка, користувач не може бути без підписки на повідомлення.
       unsubscribed_notifications_successfully: Ви успішно відписалися від повідомлень.
+  users_about_me_header: Про мене
+  users_content_partners_header: Партнери вмісту
   users_curation_header: Кваліфікації куратора
   users_form_account_header: Ваш обліковий запис
   users_form_curation_header: Кваліфікації куратора

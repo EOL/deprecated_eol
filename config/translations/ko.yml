@@ -5,6 +5,7 @@
 # Author: Csparr
 # Author: Cwt96
 # Author: Hym411
+# Author: Priviet
 # Author: 아라
 ko: 
   0_1_or_2: 0, 1 또는 2
@@ -1008,7 +1009,7 @@ ko:
   all_articles: 모든 문서
   all_changes: 모든 바뀜
   all_collections: 모든 모음집
-  all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 덧글은 만들어진 시간 역순으로 정렬되어 아래에 보여집니다.
+  all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 덧글은 만들어진 시간 역순으로 정렬되어 아래에 보입니다.
   all_communities: 모든 공동체
   all_count: 모든 (%{count})
   all_filter: 모두
@@ -1021,7 +1022,7 @@ ko:
   all_sources: 모든 원본
   all_taxa: 모든 분류
   all_title: 모두
-  all_user_submitted_texts_on_the_website: 웹사이트에 모든 사용자가 제출한 텍스트는 만들어진 시간 역순으로 정렬되어 아래에 보여집니다.
+  all_user_submitted_texts_on_the_website: 웹사이트에 모든 사용자가 제출한 텍스트는 만들어진 시간 역순으로 정렬되어 아래에 보입니다.
   all_videos: 모든 동영상
   allow_user_logins: 사용자 로그인 허용
   allowed_html_tags: "허용된 HTML: %{comma_separated_tags}"
@@ -1413,7 +1414,7 @@ ko:
       see_all_eol_news: <span class="assistive">eol 뉴스</span> 더 보기
       see_all_recent_activites: <span class="assistive">지난 주 활동에 대해</span> 더 보기
       see_all_statistics: <span class="assistive">EOL 통계</span> 더 보기
-  content_has_been_updated: 콘텐트를 업데이트했습니다.
+  content_has_been_updated: 콘텐츠를 업데이트했습니다.
   content_notes_not_shown_to_us: "콘텐츠 참고 (사용자에게 보여지지 않음):"
   content_partner: 콘텐츠 파트너
   content_partner_about_header: "%{partner_name} 정보"
@@ -1474,7 +1475,7 @@ ko:
   content_partner_logo_alt_text: "%{partner_name} 콘텐츠 파트너에 대한 로고"
   content_partner_managed_by_header: 관리자
   content_partner_new_edit_form_profile_header: 콘텐츠 파트너 프로필 정보
-  content_partner_new_edit_form_tip: 여기에 입력한 정보의 일부는 공개적으로 보여집니다. 프로젝트 이름과 설명은 필수%{required_icon}입니다.
+  content_partner_new_edit_form_tip: 여기에 입력한 정보의 일부는 공개적으로 보입니다. 프로젝트 이름과 설명은 필수%{required_icon}입니다.
   content_partner_new_link: 새 콘텐츠 파트너 추가
   content_partner_new_page_subheader: 새 콘텐츠 파트너 추가
   content_partner_notes_empty: 이 프로젝트에 대한 추가 참고가 없습니다.
@@ -2178,7 +2179,7 @@ ko:
         name: 이름
       content_page: 
         active: 게시함
-        active_more: 게시한 문서는 공개적으로 보여집니다. 어떤 언어로 이 문서의 버전을 확인하는 일반 사용자를 방지하려면 <em>게시함</em> 확인을 취소하세요.
+        active_more: 게시한 문서는 공개적으로 보입니다. 어떤 언어로 이 문서의 버전을 확인하는 일반 사용자를 방지하려면 <em>게시함</em> 확인을 취소하세요.
         page_name: 고유 이름 <small>(ISO 기본 라틴 영숫자 문자를 소문자만을 밑줄)</small>
         page_name_more: 이 문서에 대한 고유하고 자기를 설명하며 의미있고 지속적인 식별자를 입력하세요. 여기에 입력한 이름은 이 문서에 대한 URL을 만드는 데 사용합니다. 예를 들어 <em>terms_of_use</em> 고유한 이름은 <em>http://eol.org/info/terms_of_use</em> URL로 변환됩니다.
         parent_content_page_id: 부모
@@ -2248,7 +2249,7 @@ ko:
         request_publish_more: EOL의 기본 찾아보는 계층 중 하나가 이 계층을 홍보하기 위해 대기 중인 요청이 있는지 여부를 나타냅니다.
       news_item: 
         active: 게시함
-        active_more: 게시한 뉴스 항목은 선택한 날짜와 시간에 공개적으로 보여집니다. 어떤 언어로 이 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
+        active_more: 게시한 뉴스 항목은 선택한 날짜와 시간에 공개적으로 보입니다. 어떤 언어로 이 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
         page_name: 고유 이름 <small>(ISO 기본 라틴 알파벳 문자를 소문자만을 밑줄)</small>
         page_name_more: 이 뉴스 항목에 대한 고유하고 자기를 설명하며 의미있고 지속적인 식별자를 입력하세요. 여기에 입력한 이름은 이 뉴스 항목에 대한 URL을 만드는 데 사용합니다. 예를 들어 <em>new_version_of_eol</em> 고유한 이름은 <em>http://eol.org/news/new_version_of_eol</em> URL로 변환됩니다.
       open_authentication: 
@@ -2279,7 +2280,7 @@ ko:
         username_or_email: 사용자 이름이나 이메일 주소
       translated_content_page: 
         active_translation: 게시함
-        active_translation_more: 게시한 번역은 문서 자체를 게시하지 않은 경우를 제외하고 공개적으로 보여집니다. 문서의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
+        active_translation_more: 게시한 번역은 문서 자체를 게시하지 않은 경우를 제외하고 공개적으로 보입니다. 문서의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
         language_id: 언어
         left_content_more: "(선택 사항) 둘러보기 링크의 정렬하지 않은 목록을 추가합니다. 현재 문서 링크를 강조하려면 <code>active</code> 클래스 이름을 사용하세요, 예를 들어 <code>:id</code>인 곳에 <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>는 현재 문서 ID나 고유 이름이고 <code>:title</code>은 문서의 설명 제목입니다. (<strong>참고: EOL CMS 문서의 모든 링크는 슬래시로 시작해야 합니다: <code>/info/:id</code></strong>) 이러한 바뀜을 수행하려면 편집기 도구 모음에서 <em>원본</em>을 선택하여 직접 HTML 원본 코드를 편집해야 합니다."
         main_content_more: "본문 영역에 주요 문서 내용을 입력하세요. 적절한 의미적 텍스트 요소를 선택하려면 <em>형식</em> 드롭다운을 사용하세요, 예를 들어 <em>2단계 문단 제목</em>을 사용하려면 <em>2단계 문단 제목</em>을 선택하세요. 참고: <em>1단계 문단 제목</em>은 문서 제목을 위해 예약되어 있습니다. 본문 영역의 문단 제목은 <em>2단계 문단 제목</em>으로 시작합니다. 수동으로 HTML을 삽입하고 편집하도록 허용하려면 HTML 원본 코드 보기로 전환하기 위해 <em>원본</em>을 선택하세요."
@@ -2288,7 +2289,7 @@ ko:
         title_more: 이 내용의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
       translated_news_item: 
         active_translation: 게시함
-        active_translation_more: 게시한 번역은 뉴스 항목 자체가 게시하지 않은 경우를 제외하고 공개적으로 보여집니다. 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
+        active_translation_more: 게시한 번역은 뉴스 항목 자체가 게시하지 않은 경우를 제외하고 공개적으로 보입니다. 뉴스 항목의 버전을 일반 사용자가 보는 것을 막으려면 <em>게시함</em>을 선택 취소하세요.
         body_more: "본문 영역에 뉴스 항목 내용을 입력하세요. 적절한 의미적 텍스트 요소를 선택하려면 <em>형식</em> 드롭다운을 사용하세요, 예를 들어 <em>2단계 문단 제목</em>을 사용하려면 <em>2단계 문단 제목</em>을 선택하세요. 참고: <em>1단계 문단 제목</em>은 뉴스 항목 제목을 위해 예약되어 있습니다. 본문 영역의 문단 제목은 <em>2단계 문단 제목</em>으로 시작합니다. 수동으로 HTML을 삽입하고 편집하도록 허용하려면 HTML 원본 코드 보기로 전환하기 위해 <em>원본</em>을 선택하세요."
         language_id: 언어
         meta_description_more: 뉴스 항목 내용의 핵심 개념을 요약하려면 간단한 설명을 입력하세요. 이 설명은 때때로 관련성 확인와 검색 엔진 결과의 목록을 모두 웹 검색 엔진에 의해 사용합니다.
@@ -3780,7 +3781,7 @@ ko:
   top: 맨 위로
   topic: 주제
   topic_area: 주제 영역
-  total: 전체
+  total: 총계
   total_comments_have_been_submitted: 
     one: 덧글 %{count}개를 %{string}에 제출했습니다
     other: 총 덧글 %{count}개를 %{string}에 제출했습니다
@@ -4086,6 +4087,10 @@ ko:
       form_header: 계정 복구
       form_tip: <em>%{email}</em> 이메일 주소로 등록한 계정 여러 개가 있습니다. 복구하고자 하는 계정을 선택하세요.
       legend_choose_account: 계정 선택
+    saved_searches: 
+      attribute_head: 특성
+      download: 다운로드
+      is_not_complete: 아니오
     show: 
       meta_description: 생명의 백과사전에서 %{user_full_name}에 대한 구성원 프로필
       meta_description_curator: 생명의 백과사전에서 %{curator_level} %{user_full_name}에 대한 구성원 프로필

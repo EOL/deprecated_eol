@@ -1234,6 +1234,7 @@ mk:
   calculate_averages_slow: Пресметај просеци (бавно)
   call_api: Повикај API
   cancel: Откажи
+  cancel_and_delete: откажи и избриши
   cancel_split: Откажи
   cannot_be_associated_with_both_a_user_and_a_community: Не може истовремено да биде поврзано со корисник и заедница
   cannot_be_empty: не може да стои празно.
@@ -1256,6 +1257,7 @@ mk:
   citation: Наведување
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, достапно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. консултирано на 15 јануари 2009.
   citing_link: Наведување
+  clade: Клад
   classification_already_preferred: "ГРЕШКА: Оваа класификација е веќе означена како претпочитана."
   classification_button_help: Подолу изберете класификација што најдобро ја претставува постоечката страница, па стиснете на соодветното копче „користи како пример“. Ако сакате целосно да ја откажете постапката, стиснете на „откажи“.
   classification_curation_pending: Згрижувањето е во исчекување. Класификацијата во блиска иднина може да се премести на друга страница.
@@ -1843,6 +1845,7 @@ mk:
   data_column_value_uri: URI на вредноста
   data_database_colon: "Податочна:"
   data_glossary: Поимник за податоци
+  data_link_to_record: Врска до записов
   data_logging_active: Заведување на податоци е активно
   data_master_database_colon: "Податочна матична:"
   data_measurement_subtable_summary: Дополнителни податоци за мерењето на овој факт.
@@ -1879,6 +1882,8 @@ mk:
   data_point_uri_summary_name: податоци за %{taxon}
   data_provided_by_content_partner: "Извор: %{whom}"
   data_provided_by_user: доставено од %{whom}
+  data_ranges: Податочни опсези
+  data_ranges_subheader: Опсези за кладов
   data_reference_subtable_summary: Дополнителни наводи за овој факт.
   data_row_add_exemplar_button: додај во „Накратко“
   data_row_arrow_alt: Префрлајте приказ или скривање на подробности за овој факт, доколку имате овозможено JavaScript.
@@ -1899,6 +1904,7 @@ mk:
     other: Има уште %{count} незавршени задачи што чекаат на обработка (може да се ваши, а може и да не се).
     zero: Нема незавршени задачи. Ако вашата задача е незавршена, тогаш нешто не е во ред. Обидете се повторно.
   data_search_refine_field_label: Уточнување на пребарувањето
+  data_search_refine_placeholder: на пр. од 10 до 50
   data_server_unavailable: Податоците на EOL се привремено недостапни. Навратата се подоцна. Се извинуваме за непријатноста.
   data_show_n_more_rows: Прикажи уште БББ...
   data_subtab_about: За нас
@@ -4492,6 +4498,15 @@ mk:
       form_header: Повраток на сметка
       form_tip: Адресата <em>%{email}</em> фигурира на повеќе сметки. Одберете која од нив сакате да ја повратите.
       legend_choose_account: Одберете сметка
+    saved_searches: 
+      actions_head: Дејства
+      complete_head: Готово?
+      is_complete: Да
+      is_not_complete: Не
+      query_empty: празно
+      refresh: превчитај
+      row_count: Број
+      updated_head: Последно дејство
     show: 
       meta_description: Членски профил на %{user_full_name} во Енциклопедијата на живиот свет.
       meta_description_curator: Членски профил на %{curator_level} %{user_full_name} во Енциклопедијата на живиот свет.

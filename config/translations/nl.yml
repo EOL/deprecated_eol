@@ -1922,6 +1922,7 @@ nl:
     other: Er wachten nog %{count} taken op afhandeling (dit zijn niet per se taken voor u). U kunt op de <a href='%{data_search_url}'>pagina voor het zoeken naar gegevens</a> nog een zoekopdracht aanmaken.
     zero: Er zijn geen nog af te handelen taken. Als uw taak niet is afgehandeld, dan is er iets misgegaan. U kunt op de <a href='%{data_search_url}'>pagina voor het zoeken naar gegevens</a> nog een zoekopdracht aanmaken.
   data_search_refine_field_label: Zoekopdracht voor gegevens verfijnen
+  data_search_refine_placeholder: bijvoorbeeld 10 tot 50
   data_server_unavailable: Gegevens op EOL zijn tijdelijk helaas niet beschikbaar. Controleer het later nog eens.
   data_show_n_more_rows: NNN meer weergeven...
   data_subtab_about: Over
